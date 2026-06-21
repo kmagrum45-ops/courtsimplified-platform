@@ -19,12 +19,21 @@ export const metadata: Metadata = {
     "CourtSimplified helps people prepare court documents, organize evidence, and understand legal steps more clearly.",
 };
 
-const navLinks = [
+const publicNavLinks = [
   { href: "/", label: "Home" },
   { href: "/family", label: "Family" },
   { href: "/small-claims", label: "Small Claims" },
   { href: "/civil", label: "Civil" },
+  { href: "/legal-principles", label: "Legal Principles" },
+  { href: "/case-law", label: "Case Law" },
+];
+
+const workspaceLinks = [
+  { href: "/dashboard", label: "My Workspace" },
+  { href: "/builder", label: "Start Case" },
+  { href: "/document-workspace", label: "Workspace" },
   { href: "/evidence", label: "Evidence" },
+  { href: "/court-package", label: "Court Package" },
 ];
 
 export default function RootLayout({
@@ -39,17 +48,17 @@ export default function RootLayout({
     >
       <body className="min-h-screen bg-[#F7FAFA] text-[#1F2937]">
         <div className="flex min-h-screen flex-col">
-          <header className="sticky top-0 z-50 border-b border-[#D7E7E5] bg-white/90 backdrop-blur">
-            <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4">
+          <header className="sticky top-0 z-50 border-b border-[#D7E7E5] bg-white/95 backdrop-blur">
+            <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4">
               <Link
                 href="/"
-                className="text-xl font-bold tracking-tight text-[#1F2937]"
+                className="shrink-0 text-xl font-bold tracking-tight text-[#1F2937]"
               >
                 <span className="text-[#2FB8AC]">Court</span>Simplified
               </Link>
 
-              <nav className="hidden items-center gap-6 md:flex">
-                {navLinks.map((link) => (
+              <nav className="hidden items-center gap-4 md:flex">
+                {publicNavLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
@@ -59,6 +68,25 @@ export default function RootLayout({
                   </Link>
                 ))}
               </nav>
+
+              <div className="hidden items-center gap-3 md:flex">
+                {workspaceLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="text-sm font-semibold text-[#374151] transition hover:text-[#2FB8AC]"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+
+                <Link
+                  href="/login"
+                  className="rounded-full bg-[#2FB8AC] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#239B91]"
+                >
+                  Login / Create Account
+                </Link>
+              </div>
             </div>
           </header>
 
@@ -70,27 +98,27 @@ export default function RootLayout({
                 <div className="text-lg font-semibold text-[#1F2937]">
                   CourtSimplified
                 </div>
+
                 <p className="mt-1 max-w-xl text-sm text-[#6B7280]">
-                  Clear legal guidance, document organization, and practical tools
-                  for people handling court matters.
+                  Clear legal guidance, evidence organization, litigation
+                  strategy, chronology building, intelligent drafting, document
+                  workspace management, and court workflow tools.
                 </p>
               </div>
 
               <div className="flex flex-wrap gap-4 text-sm text-[#4B5563]">
-                <Link href="/" className="hover:text-[#2FB8AC]">
-                  Home
-                </Link>
-                <Link href="/family" className="hover:text-[#2FB8AC]">
-                  Family
-                </Link>
-                <Link href="/small-claims" className="hover:text-[#2FB8AC]">
-                  Small Claims
-                </Link>
-                <Link href="/civil" className="hover:text-[#2FB8AC]">
-                  Civil
-                </Link>
-                <Link href="/evidence" className="hover:text-[#2FB8AC]">
-                  Evidence
+                {[...publicNavLinks, ...workspaceLinks].map((link) => (
+                  <Link
+                    key={`footer-${link.href}`}
+                    href={link.href}
+                    className="hover:text-[#2FB8AC]"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+
+                <Link href="/login" className="font-semibold hover:text-[#2FB8AC]">
+                  Login
                 </Link>
               </div>
             </div>

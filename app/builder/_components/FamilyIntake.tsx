@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   AnalysisResult,
   StoredCaseData,
@@ -8,8 +8,6 @@ import {
   cleanList,
   getStageLabel,
   hasMeaningfulText,
-  includesAny,
-  normalize,
 } from "@/app/builder/_components/builderTypes";
 
 type FiledDocument =
@@ -36,8 +34,29 @@ type FamilyIssue =
   | "enforcement"
   | "other";
 
+type EvidenceFile = {
+  id: string;
+  name: string;
+  size: number;
+  type: string;
+  lastModified: number;
+  title: string;
+  description: string;
+  category: string;
+  evidenceDate: string;
+  source: string;
+  relevance: string;
+};
+
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
+};
+
+type TextareaField = {
+  label: string;
+  value: string;
+  setter: React.Dispatch<React.SetStateAction<string>>;
+  placeholder: string;
 };
 
 const filedOptions: { value: FiledDocument; label: string }[] = [
@@ -66,9 +85,24 @@ const issueOptions: { value: FamilyIssue; label: string }[] = [
   { value: "other", label: "Other family issue" },
 ];
 
-function toggleArrayValue<T extends string>(items: T[], value: T) {
-  if (value === "nothing") return items.includes(value) ? [] : ["nothing" as T];
-  if (value === "not-sure") return items.includes(value) ? [] : ["not-sure" as T];
+const evidenceCategoryOptions = [
+  "Parenting / decision-making",
+  "Parenting time / access",
+  "Child support",
+  "Spousal support",
+  "Financial disclosure",
+  "Property / home",
+  "Safety / urgency",
+  "School / child records",
+  "Messages / communication",
+  "Court document",
+  "Agreement / order",
+  "Other",
+];
+
+function toggleArrayValue<T extends string>(items: T[], value: T): T[] {
+  if (value === "nothing") return items.includes(value) ? [] : [value];
+  if (value === "not-sure") return items.includes(value) ? [] : [value];
 
   const cleaned = items.filter((item) => item !== "nothing" && item !== "not-sure");
 
@@ -77,229 +111,25 @@ function toggleArrayValue<T extends string>(items: T[], value: T) {
     : [...cleaned, value];
 }
 
-function analyzeFamilyCase(input: {
-  caseStage: UniversalStage;
-  filedDocuments: FiledDocument[];
-  issues: FamilyIssue[];
-  yourName: string;
-  otherParty: string;
-  childrenInfo: string;
-  currentLivingSituation: string;
-  pastLivingHistory: string;
-  facts: string;
-  timeline: string;
-  evidence: string;
-  missingEvidence: string;
-  goal: string;
-  urgent: string;
-  safetyConcerns: string;
-  propertyHomeDetails: string;
-  upcomingCourtDate: string;
-}): AnalysisResult {
-  const text = normalize(
-    [
-      input.childrenInfo,
-      input.currentLivingSituation,
-      input.pastLivingHistory,
-      input.facts,
-      input.timeline,
-      input.evidence,
-      input.missingEvidence,
-      input.goal,
-      input.urgent,
-      input.safetyConcerns,
-      input.propertyHomeDetails,
-      input.upcomingCourtDate,
-      input.issues.join(" "),
-    ].join(" ")
-  );
+function formatFileSize(size: number): string {
+  if (size < 1024) return `${size} B`;
+  if (size < 1024 * 1024) return `${Math.round(size / 1024)} KB`;
+  return `${(size / (1024 * 1024)).toFixed(1)} MB`;
+}
 
-  const completedForms: string[] = [];
-  const receivedForms: string[] = [];
-  let requiredNextForms: string[] = [];
-  const notNeededNow: string[] = [];
-  const detectedIssues: string[] = [];
-  const inferredFacts: string[] = [];
-  const missingInformation: string[] = [];
-  const risksAndGaps: string[] = [];
-  const guidance: string[] = [];
+function labelForFiledDocument(value: FiledDocument): string {
+  return filedOptions.find((option) => option.value === value)?.label || value;
+}
 
-  const applicationFiled = input.filedDocuments.includes("application");
-  const answerReceived = input.filedDocuments.includes("answer");
-  const financialDone = input.filedDocuments.includes("financial-statement");
-  const affidavitDone = input.filedDocuments.includes("affidavit");
-  const conferenceBriefDone = input.filedDocuments.includes("conference-brief");
-
-  if (applicationFiled) completedForms.push("Form 8 — Application");
-  if (answerReceived) receivedForms.push("Form 10 — Answer");
-  if (financialDone) completedForms.push("Form 13 / 13.1 — Financial Statement");
-  if (affidavitDone) completedForms.push("Form 14A — Affidavit");
-  if (conferenceBriefDone) completedForms.push("Form 17A — Case Conference Brief");
-
-  const parentingIssue =
-    input.issues.includes("decision-making-responsibility") ||
-    input.issues.includes("parenting-time") ||
-    includesAny(text, ["child", "children", "parenting", "custody", "access", "decision-making"]);
-
-  const supportIssue =
-    input.issues.includes("child-support") ||
-    input.issues.includes("spousal-support") ||
-    includesAny(text, ["support", "income", "expenses", "pay stubs", "tax", "financial"]);
-
-  const propertyIssue =
-    input.issues.includes("property-division") ||
-    input.issues.includes("matrimonial-home") ||
-    includesAny(text, ["property", "house", "home", "matrimonial", "equalization", "mortgage"]);
-
-  const safetyIssue =
-    input.issues.includes("safety-concerns") ||
-    includesAny(text, ["abuse", "violence", "fear", "threat", "harass", "police", "urgent", "safety"]);
-
-  const conferenceStage =
-    input.caseStage === "conference" ||
-    input.filedDocuments.includes("conference-brief") ||
-    includesAny(text, ["case conference", "settlement conference", "conference date"]);
-
-  const motionStage =
-    input.caseStage === "motion" ||
-    input.caseStage === "urgent" ||
-    includesAny(text, ["motion", "urgent", "temporary order", "without notice"]);
-
-  if (parentingIssue) {
-    detectedIssues.push("Parenting / decision-making issue");
-    if (!applicationFiled && input.caseStage === "starting-case") {
-      requiredNextForms.push("Form 35.1 — Parenting Affidavit");
-    }
-  }
-
-  if (supportIssue && !financialDone) {
-    detectedIssues.push("Support / financial disclosure issue");
-    requiredNextForms.push("Form 13 or Form 13.1 — Financial Statement");
-  }
-
-  if (propertyIssue && !financialDone) {
-    detectedIssues.push("Property or matrimonial home issue");
-    requiredNextForms.push("Form 13.1 — Financial Statement with property claims");
-  }
-
-  if (safetyIssue) {
-    detectedIssues.push("Safety or urgency issue");
-    risksAndGaps.push("Safety concerns should be organized by date, incident, evidence, and requested order.");
-  }
-
-  if (conferenceStage && !conferenceBriefDone) {
-    requiredNextForms.push("Form 17A — Case Conference Brief");
-  }
-
-  if (motionStage) {
-    requiredNextForms.push("Form 14 — Notice of Motion");
-    if (!affidavitDone) requiredNextForms.push("Form 14A — Affidavit");
-  }
-
-  if (
-    (input.caseStage === "starting-case" ||
-      input.filedDocuments.includes("nothing") ||
-      input.filedDocuments.length === 0) &&
-    !applicationFiled
-  ) {
-    requiredNextForms.push("Form 8 — Application");
-  }
-
-  if (input.caseStage === "responding" && !answerReceived) {
-    requiredNextForms.push("Form 10 — Answer");
-  }
-
-  if (hasMeaningfulText(input.childrenInfo)) {
-    inferredFacts.push("Children or parenting facts were provided.");
-  } else if (parentingIssue) {
-    missingInformation.push("Children’s names, ages, living arrangements, and current parenting schedule.");
-  }
-
-  if (hasMeaningfulText(input.currentLivingSituation)) {
-    inferredFacts.push("Current living situation was provided.");
-  } else {
-    missingInformation.push("Current living arrangements.");
-  }
-
-  if (hasMeaningfulText(input.pastLivingHistory)) {
-    inferredFacts.push("Past caregiving or living history was provided.");
-  }
-
-  if (!hasMeaningfulText(input.facts)) {
-    missingInformation.push("Detailed facts explaining what happened.");
-  }
-
-  if (!hasMeaningfulText(input.timeline)) {
-    missingInformation.push("Timeline with important dates.");
-  }
-
-  if (!hasMeaningfulText(input.evidence)) {
-    risksAndGaps.push("Evidence has not been listed yet.");
-  }
-
-  if (!hasMeaningfulText(input.goal)) {
-    missingInformation.push("What you want the court to order.");
-  }
-
-  if (hasMeaningfulText(input.upcomingCourtDate)) {
-    inferredFacts.push("An upcoming court date or deadline was provided.");
-  }
-
-  guidance.push(
-    "Organize the case by issue: parenting, support, property, safety, disclosure, and deadlines.",
-    "Only prepare the next forms needed for the current stage.",
-    "For parenting issues, include the children’s ages, where they live, who has provided care, and the current schedule.",
-    "For support or property issues, gather income records, expenses, tax documents, bank records, and property information.",
-    "For urgent or safety issues, organize clear dates, messages, photos, police involvement, and witnesses where available."
-  );
-
-  requiredNextForms = cleanList(
-    requiredNextForms.filter((form) => {
-      const doneText = normalize([...completedForms, ...receivedForms, ...notNeededNow].join(" "));
-      const f = normalize(form);
-
-      if (f.includes("application") && doneText.includes("application")) return false;
-      if (f.includes("answer") && doneText.includes("answer")) return false;
-      if (f.includes("financial") && doneText.includes("financial")) return false;
-      if (f.includes("affidavit") && doneText.includes("affidavit")) return false;
-      if (f.includes("conference brief") && doneText.includes("conference brief")) return false;
-
-      return true;
-    })
-  );
-
-  const summary = [
-    "Family Case Summary",
-    "",
-    `Stage: ${getStageLabel(input.caseStage)}`,
-    "",
-    `Next required documents:\n- ${requiredNextForms.join("\n- ") || "No next forms detected yet"}`,
-    "",
-    `Missing information:\n- ${cleanList(missingInformation).join("\n- ") || "No major missing information detected"}`,
-    "",
-    `Risks or gaps:\n- ${cleanList(risksAndGaps).join("\n- ") || "No major risks detected yet"}`,
-  ].join("\n");
-
-  return {
-    courtPath: "family",
-    caseStage: getStageLabel(input.caseStage),
-    completedForms: cleanList(completedForms),
-    receivedForms: cleanList(receivedForms),
-    requiredNextForms,
-    notNeededNow: cleanList(notNeededNow),
-    detectedIssues: cleanList(detectedIssues),
-    inferredFacts: cleanList(inferredFacts),
-    missingInformation: cleanList(missingInformation),
-    risksAndGaps: cleanList(risksAndGaps),
-    guidance,
-    summary,
-  };
+function labelForIssue(value: FamilyIssue): string {
+  return issueOptions.find((option) => option.value === value)?.label || value;
 }
 
 export default function FamilyIntake({ onComplete }: Props) {
   const [caseStage, setCaseStage] = useState<UniversalStage>("not-sure");
   const [filedDocuments, setFiledDocuments] = useState<FiledDocument[]>([]);
   const [issues, setIssues] = useState<FamilyIssue[]>([]);
+
   const [yourName, setYourName] = useState("");
   const [otherParty, setOtherParty] = useState("");
   const [childrenInfo, setChildrenInfo] = useState("");
@@ -315,13 +145,90 @@ export default function FamilyIntake({ onComplete }: Props) {
   const [propertyHomeDetails, setPropertyHomeDetails] = useState("");
   const [upcomingCourtDate, setUpcomingCourtDate] = useState("");
 
-  function handleAnalyze() {
-    const analysis = analyzeFamilyCase({
-      caseStage,
-      filedDocuments,
-      issues,
-      yourName,
-      otherParty,
+  const [uploadedEvidenceFiles, setUploadedEvidenceFiles] =
+    useState<EvidenceFile[]>([]);
+
+  const textareaFields: TextareaField[] = useMemo(
+    () => [
+      {
+        label: "Children / parenting details",
+        value: childrenInfo,
+        setter: setChildrenInfo,
+        placeholder:
+          "Children’s names, ages, school/daycare, health needs, current parenting schedule, decision-making issues, and who has been doing day-to-day care.",
+      },
+      {
+        label: "Current living situation",
+        value: currentLivingSituation,
+        setter: setCurrentLivingSituation,
+        placeholder:
+          "Where everyone lives now, who the children live with, current exchanges, transportation, distance, and any stability concerns.",
+      },
+      {
+        label: "Past caregiving / living history",
+        value: pastLivingHistory,
+        setter: setPastLivingHistory,
+        placeholder:
+          "Who handled school, medical appointments, routines, meals, homework, activities, appointments, finances, and caregiving over time.",
+      },
+      {
+        label: "Full family-law story",
+        value: facts,
+        setter: setFacts,
+        placeholder:
+          "Explain what happened in your own words. Include separation, conflict, missed parenting time, support, property, safety, disclosure, agreements, and what changed.",
+      },
+      {
+        label: "Timeline",
+        value: timeline,
+        setter: setTimeline,
+        placeholder:
+          "Important dates in order: separation, moves, agreements, court dates, incidents, missed visits, support changes, disclosure requests, police involvement.",
+      },
+      {
+        label: "Evidence you have",
+        value: evidence,
+        setter: setEvidence,
+        placeholder:
+          "Messages, emails, photos, parenting calendars, school records, medical records, financial records, bank records, tax documents, agreements, orders, police records.",
+      },
+      {
+        label: "Evidence still missing",
+        value: missingEvidence,
+        setter: setMissingEvidence,
+        placeholder:
+          "Records, witnesses, disclosure, income documents, school records, police records, medical records, messages, or financial documents still needed.",
+      },
+      {
+        label: "Safety or urgent concerns",
+        value: safetyConcerns,
+        setter: setSafetyConcerns,
+        placeholder:
+          "Threats, violence, coercive control, police involvement, child-safety concerns, withheld children, urgent financial issues, risk of relocation, or immediate harm.",
+      },
+      {
+        label: "Property / home / financial disclosure details",
+        value: propertyHomeDetails,
+        setter: setPropertyHomeDetails,
+        placeholder:
+          "Matrimonial home, possession, debts, bank accounts, pensions, vehicles, business interests, hidden assets, missing disclosure, or equalization/property concerns.",
+      },
+      {
+        label: "What do you want the court to order?",
+        value: goal,
+        setter: setGoal,
+        placeholder:
+          "Exact parenting schedule, decision-making terms, support, disclosure, property order, exclusive possession, urgent order, enforcement, costs, or other relief.",
+      },
+      {
+        label: "Anything urgent or deadline-related?",
+        value: urgent,
+        setter: setUrgent,
+        placeholder:
+          "Upcoming court date, deadline, missed service, urgent motion need, safety issue, missed support, withheld child, eviction/home issue, or financial emergency.",
+      },
+    ],
+    [
       childrenInfo,
       currentLivingSituation,
       pastLivingHistory,
@@ -329,12 +236,265 @@ export default function FamilyIntake({ onComplete }: Props) {
       timeline,
       evidence,
       missingEvidence,
-      goal,
-      urgent,
       safetyConcerns,
       propertyHomeDetails,
-      upcomingCourtDate,
+      goal,
+      urgent,
+    ],
+  );
+
+  function handleEvidenceFilesSelected(files: FileList | null) {
+    if (!files) return;
+
+    const nextFiles: EvidenceFile[] = Array.from(files).map((file) => ({
+      id: `${file.name}-${file.size}-${file.lastModified}`,
+      name: file.name,
+      size: file.size,
+      type: file.type || "Unknown file type",
+      lastModified: file.lastModified,
+      title: "",
+      description: "",
+      category: "",
+      evidenceDate: "",
+      source: "",
+      relevance: "",
+    }));
+
+    setUploadedEvidenceFiles((current) => {
+      const existingIds = new Set(current.map((file) => file.id));
+      const uniqueNewFiles = nextFiles.filter((file) => !existingIds.has(file.id));
+      return [...current, ...uniqueNewFiles];
     });
+  }
+
+  function updateEvidenceFile(
+    fileId: string,
+    field: keyof Pick<
+      EvidenceFile,
+      "title" | "description" | "category" | "evidenceDate" | "source" | "relevance"
+    >,
+    value: string,
+  ) {
+    setUploadedEvidenceFiles((current) =>
+      current.map((file) =>
+        file.id === fileId
+          ? {
+              ...file,
+              [field]: value,
+            }
+          : file,
+      ),
+    );
+  }
+
+  function removeEvidenceFile(fileId: string) {
+    setUploadedEvidenceFiles((current) =>
+      current.filter((file) => file.id !== fileId),
+    );
+  }
+
+  function buildNarrative(): string {
+    return cleanList([
+      "Court path: Family",
+      `Stage: ${getStageLabel(caseStage)}`,
+      yourName ? `Your full legal name: ${yourName}` : "",
+      otherParty ? `Other party: ${otherParty}` : "",
+      filedDocuments.length
+        ? `Existing family documents: ${filedDocuments
+            .map(labelForFiledDocument)
+            .join("; ")}`
+        : "",
+      issues.length
+        ? `Family issue signals selected by user: ${issues.map(labelForIssue).join("; ")}`
+        : "",
+      childrenInfo ? `Children and parenting details: ${childrenInfo}` : "",
+      currentLivingSituation
+        ? `Current living situation: ${currentLivingSituation}`
+        : "",
+      pastLivingHistory
+        ? `Past caregiving and living history: ${pastLivingHistory}`
+        : "",
+      facts ? `Full family-law story: ${facts}` : "",
+      timeline ? `Timeline: ${timeline}` : "",
+      evidence ? `Known evidence: ${evidence}` : "",
+      missingEvidence ? `Evidence still missing: ${missingEvidence}` : "",
+      goal ? `Requested court order / outcome: ${goal}` : "",
+      urgent ? `Urgent or deadline-related concerns: ${urgent}` : "",
+      safetyConcerns ? `Safety concerns: ${safetyConcerns}` : "",
+      propertyHomeDetails
+        ? `Property, home, support, or financial disclosure details: ${propertyHomeDetails}`
+        : "",
+      upcomingCourtDate ? `Upcoming court date or deadline: ${upcomingCourtDate}` : "",
+      uploadedEvidenceFiles.length
+        ? `Uploaded evidence metadata: ${uploadedEvidenceFiles
+            .map((file) =>
+              cleanList([
+                `File: ${file.name}`,
+                file.title ? `Title: ${file.title}` : "",
+                file.category ? `Category: ${file.category}` : "",
+                file.evidenceDate ? `Date/Event: ${file.evidenceDate}` : "",
+                file.source ? `Source: ${file.source}` : "",
+                file.description ? `Description: ${file.description}` : "",
+                file.relevance ? `Why it matters: ${file.relevance}` : "",
+              ]).join(" | "),
+            )
+            .join("; ")}`
+        : "",
+    ]).join("\n");
+  }
+
+  function buildIntakeAnalysis(): AnalysisResult {
+    const missingInformation: string[] = [];
+    const risksAndGaps: string[] = [];
+    const inferredFacts: string[] = [];
+    const guidance: string[] = [];
+    const suggestedFocus: string[] = [];
+    const documentUploadRequests: string[] = [];
+
+    if (!hasMeaningfulText(yourName)) missingInformation.push("Your full legal name.");
+    if (!hasMeaningfulText(otherParty)) missingInformation.push("The other party’s full legal name.");
+    if (!hasMeaningfulText(facts)) missingInformation.push("The full family-law story.");
+    if (!hasMeaningfulText(timeline)) missingInformation.push("A timeline with important dates.");
+    if (!hasMeaningfulText(goal)) missingInformation.push("The exact order or outcome requested.");
+
+    if (
+      issues.includes("decision-making-responsibility") ||
+      issues.includes("parenting-time")
+    ) {
+      inferredFacts.push("Parenting or decision-making issues are flagged for unified analysis.");
+      suggestedFocus.push(
+        "Parenting facts should be organized around the child’s best interests, stability, caregiving history, safety, school/daycare, and practical schedule terms.",
+      );
+      if (!hasMeaningfulText(childrenInfo)) {
+        missingInformation.push("Children’s names, ages, schools/daycare, living arrangements, and current parenting schedule.");
+      }
+      documentUploadRequests.push(
+        "Parenting evidence: parenting calendars, messages about exchanges, school/daycare records, medical communication, attendance records, photos, and proof of missed or denied parenting time.",
+      );
+    }
+
+    if (
+      issues.includes("child-support") ||
+      issues.includes("spousal-support") ||
+      issues.includes("disclosure")
+    ) {
+      inferredFacts.push("Support, disclosure, or financial issues are flagged for unified analysis.");
+      suggestedFocus.push(
+        "Financial issues should be organized by income, tax records, support history, expenses, disclosure requested, disclosure received, and what remains missing.",
+      );
+      documentUploadRequests.push(
+        "Financial evidence: pay stubs, tax returns, Notices of Assessment, bank records, benefit records, childcare/special expenses, support payment history, and disclosure requests.",
+      );
+    }
+
+    if (
+      issues.includes("property-division") ||
+      issues.includes("matrimonial-home")
+    ) {
+      inferredFacts.push("Property, equalization, or matrimonial-home issues are flagged for unified analysis.");
+      suggestedFocus.push(
+        "Property issues should identify assets, debts, ownership, date-of-marriage values, separation-date values, home possession issues, and disclosure gaps.",
+      );
+      documentUploadRequests.push(
+        "Property evidence: mortgage records, title/deed documents, bank records, pension information, debt statements, vehicle records, business records, appraisals, and home expense records.",
+      );
+    }
+
+    if (issues.includes("safety-concerns") || hasMeaningfulText(safetyConcerns)) {
+      inferredFacts.push("Safety or urgency concerns are flagged for unified analysis.");
+      risksAndGaps.push(
+        "Safety concerns must be separated from general conflict and supported with dates, incidents, records, witnesses, police involvement, messages, or other proof where available.",
+      );
+      suggestedFocus.push(
+        "Safety facts should be organized by incident date, what happened, who was present, what evidence exists, and what protective or temporary order is requested.",
+      );
+      documentUploadRequests.push(
+        "Safety evidence: police occurrence numbers, threatening messages, photos, medical records, witness names, prior orders, CAS/agency records where applicable, and incident timelines.",
+      );
+    }
+
+    if (issues.includes("relocation")) {
+      inferredFacts.push("Relocation is flagged for unified analysis.");
+      suggestedFocus.push(
+        "Relocation issues need the proposed move details, reason for moving, school plan, housing plan, transportation plan, effect on parenting time, and proposed revised schedule.",
+      );
+    }
+
+    if (uploadedEvidenceFiles.length === 0 && !hasMeaningfulText(evidence)) {
+      risksAndGaps.push("No evidence has been listed or uploaded yet.");
+    }
+
+    if (uploadedEvidenceFiles.length > 0) {
+      inferredFacts.push(
+        `${uploadedEvidenceFiles.length} evidence file${
+          uploadedEvidenceFiles.length === 1 ? "" : "s"
+        } selected for later evidence mapping.`,
+      );
+
+      const incompleteFiles = uploadedEvidenceFiles.filter(
+        (file) =>
+          !hasMeaningfulText(file.title) ||
+          !hasMeaningfulText(file.description) ||
+          !hasMeaningfulText(file.relevance),
+      );
+
+      if (incompleteFiles.length > 0) {
+        risksAndGaps.push(
+          `${incompleteFiles.length} evidence file${
+            incompleteFiles.length === 1 ? "" : "s"
+          } need stronger description, title, or relevance notes before court-package assembly.`,
+        );
+      }
+    }
+
+    guidance.push(
+      "This is a lawyer-grade structured family intake handoff, not a separate family reasoning engine.",
+      "Final issue detection, forms, judge concerns, procedural steps, evidence mapping, risks, and document recommendations must come from courtSimplifiedBrain and the unified assembly layer.",
+      "This component preserves rich family facts, document posture, evidence metadata, support/property/safety signals, and requested relief for centralized reasoning.",
+    );
+
+    return {
+      courtPath: "family",
+      caseStage: getStageLabel(caseStage),
+      completedForms: [],
+      receivedForms: [],
+      requiredNextForms: [],
+      notNeededNow: [],
+      detectedIssues: cleanList(issues.map(labelForIssue)),
+      inferredFacts: cleanList(inferredFacts),
+      missingInformation: cleanList(missingInformation),
+      risksAndGaps: cleanList(risksAndGaps),
+      guidance: cleanList(guidance),
+      summary: [
+        "Family Intake Handoff",
+        "",
+        `Stage: ${getStageLabel(caseStage)}`,
+        "",
+        "Selected issues:",
+        issues.length ? issues.map((issue) => `- ${labelForIssue(issue)}`).join("\n") : "- None selected",
+        "",
+        "Existing documents:",
+        filedDocuments.length
+          ? filedDocuments.map((doc) => `- ${labelForFiledDocument(doc)}`).join("\n")
+          : "- None selected",
+        "",
+        "Missing intake information:",
+        missingInformation.length
+          ? cleanList(missingInformation).map((item) => `- ${item}`).join("\n")
+          : "- No major intake gaps detected",
+      ].join("\n"),
+      proceduralRisks: [],
+      damagesIssues: [],
+      defenceAttacks: [],
+      judgeConcerns: [],
+      suggestedFocus: cleanList(suggestedFocus),
+      documentUploadRequests: cleanList(documentUploadRequests),
+    };
+  }
+
+  function handleAnalyze() {
+    const analysis = buildIntakeAnalysis();
+    const narrative = buildNarrative();
 
     const payload: StoredCaseData = {
       courtPath: "family",
@@ -342,7 +502,7 @@ export default function FamilyIntake({ onComplete }: Props) {
       caseStage,
       yourName,
       otherParty,
-      facts,
+      facts: narrative,
       timeline,
       evidence,
       missingEvidence,
@@ -350,6 +510,8 @@ export default function FamilyIntake({ onComplete }: Props) {
       urgent,
       analysis,
       extra: {
+        architectureMode: "unified-brain-handoff",
+        sourceOfTruth: "courtSimplifiedBrain",
         filedDocuments,
         issues,
         childrenInfo,
@@ -358,10 +520,12 @@ export default function FamilyIntake({ onComplete }: Props) {
         safetyConcerns,
         propertyHomeDetails,
         upcomingCourtDate,
+        uploadedEvidenceFiles,
       },
     };
 
     localStorage.setItem("caseData", JSON.stringify(payload));
+    localStorage.setItem("courtSimplifiedCase", JSON.stringify(payload));
     onComplete(analysis, payload);
   }
 
@@ -370,8 +534,9 @@ export default function FamilyIntake({ onComplete }: Props) {
       <h2 className="text-2xl font-bold text-[#10231f]">Family Intake</h2>
 
       <p className="mt-3 text-[#4d675f]">
-        Tell the full story once. CourtSimplified will organize the facts,
-        detect likely issues, identify missing information, and recommend next documents.
+        Build a complete family-law case record. This intake captures parenting,
+        support, property, disclosure, safety, urgency, evidence, and procedural
+        posture for the unified CourtSimplified legal brain.
       </p>
 
       <div className="mt-6 grid gap-5">
@@ -397,20 +562,45 @@ export default function FamilyIntake({ onComplete }: Props) {
         <div className="grid gap-5 md:grid-cols-2">
           <label className="block">
             <span className="font-semibold text-[#16302b]">Your name</span>
-            <input value={yourName} onChange={(e) => setYourName(e.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="Full name" />
+            <input
+              value={yourName}
+              onChange={(e) => setYourName(e.target.value)}
+              className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
+              placeholder="Full legal name"
+            />
           </label>
 
           <label className="block">
             <span className="font-semibold text-[#16302b]">Other party</span>
-            <input value={otherParty} onChange={(e) => setOtherParty(e.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="Other person’s name" />
+            <input
+              value={otherParty}
+              onChange={(e) => setOtherParty(e.target.value)}
+              className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
+              placeholder="Other party’s full legal name"
+            />
           </label>
         </div>
 
         <div>
-          <h3 className="font-semibold text-[#16302b]">What documents have already been filed or received?</h3>
+          <h3 className="font-semibold text-[#16302b]">
+            What documents already exist?
+          </h3>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
             {filedOptions.map((option) => (
-              <button key={option.value} type="button" onClick={() => setFiledDocuments((current) => toggleArrayValue(current, option.value))} className={`rounded-2xl border px-4 py-3 text-left text-sm ${filedDocuments.includes(option.value) ? "border-[#2f7d67] bg-[#e9f7f2] text-[#16302b]" : "border-[#d8e6df] bg-white text-[#4d675f]"}`}>
+              <button
+                key={option.value}
+                type="button"
+                onClick={() =>
+                  setFiledDocuments((current) =>
+                    toggleArrayValue(current, option.value),
+                  )
+                }
+                className={`rounded-2xl border px-4 py-3 text-left text-sm ${
+                  filedDocuments.includes(option.value)
+                    ? "border-[#2f7d67] bg-[#e9f7f2] text-[#16302b]"
+                    : "border-[#d8e6df] bg-white text-[#4d675f]"
+                }`}
+              >
                 {option.label}
               </button>
             ))}
@@ -418,42 +608,206 @@ export default function FamilyIntake({ onComplete }: Props) {
         </div>
 
         <div>
-          <h3 className="font-semibold text-[#16302b]">What issues are involved?</h3>
+          <h3 className="font-semibold text-[#16302b]">
+            What issues may exist?
+          </h3>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
             {issueOptions.map((option) => (
-              <button key={option.value} type="button" onClick={() => setIssues((current) => toggleArrayValue(current, option.value))} className={`rounded-2xl border px-4 py-3 text-left text-sm ${issues.includes(option.value) ? "border-[#2f7d67] bg-[#e9f7f2] text-[#16302b]" : "border-[#d8e6df] bg-white text-[#4d675f]"}`}>
+              <button
+                key={option.value}
+                type="button"
+                onClick={() =>
+                  setIssues((current) => toggleArrayValue(current, option.value))
+                }
+                className={`rounded-2xl border px-4 py-3 text-left text-sm ${
+                  issues.includes(option.value)
+                    ? "border-[#2f7d67] bg-[#e9f7f2] text-[#16302b]"
+                    : "border-[#d8e6df] bg-white text-[#4d675f]"
+                }`}
+              >
                 {option.label}
               </button>
             ))}
           </div>
         </div>
 
-        {[
-          ["childrenInfo", "Children / parenting details", childrenInfo, setChildrenInfo, "Children’s names/ages, where they live, current schedule, decision-making issues."],
-          ["currentLivingSituation", "Current living situation", currentLivingSituation, setCurrentLivingSituation, "Where everyone lives now and current parenting arrangements."],
-          ["pastLivingHistory", "Past caregiving / living history", pastLivingHistory, setPastLivingHistory, "Who has cared for the children and how arrangements changed over time."],
-          ["facts", "What happened?", facts, setFacts, "Explain the situation in your own words."],
-          ["timeline", "Timeline", timeline, setTimeline, "Important dates: separation, moves, court dates, incidents, missed payments, agreements."],
-          ["evidence", "Evidence you have", evidence, setEvidence, "Messages, emails, photos, school records, financial records, police reports, agreements."],
-          ["missingEvidence", "Evidence still missing", missingEvidence, setMissingEvidence, "Documents or proof you still need to collect."],
-          ["safetyConcerns", "Safety or urgent concerns", safetyConcerns, setSafetyConcerns, "Any urgent issues, safety concerns, threats, police involvement, or immediate risks."],
-          ["propertyHomeDetails", "Property / home details", propertyHomeDetails, setPropertyHomeDetails, "Matrimonial home, property, debts, bank accounts, vehicles, pensions, business interests."],
-          ["goal", "What do you want the court to order?", goal, setGoal, "Parenting time, decision-making, support, disclosure, property order, urgent order, enforcement."],
-          ["urgent", "Anything urgent the system should flag?", urgent, setUrgent, "Upcoming deadline, safety concern, missed court date, service issue, financial emergency."],
-        ].map(([key, label, value, setter, placeholder]) => (
-          <label key={String(key)} className="block">
-            <span className="font-semibold text-[#16302b]">{String(label)}</span>
+        {textareaFields.map((field) => (
+          <label key={field.label} className="block">
+            <span className="font-semibold text-[#16302b]">{field.label}</span>
             <textarea
-              value={String(value)}
-              onChange={(e) => (setter as (value: string) => void)(e.target.value)}
+              value={field.value}
+              onChange={(e) => field.setter(e.target.value)}
               className="mt-2 min-h-24 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder={String(placeholder)}
+              placeholder={field.placeholder}
             />
           </label>
         ))}
 
+        <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
+          <h3 className="text-lg font-bold text-[#10231f]">
+            Upload and describe family-law evidence
+          </h3>
+
+          <p className="mt-2 text-sm leading-6 text-[#4d675f]">
+            Add screenshots, PDFs, photos, parenting calendars, school records,
+            financial disclosure, police records, agreements, orders, or other
+            documents. Each file should explain what it proves.
+          </p>
+
+          <label className="mt-4 flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-[#d8e6df] bg-white px-4 py-6 text-center hover:bg-[#f4fbf8]">
+            <span className="font-semibold text-[#2f7d67]">
+              Choose evidence files
+            </span>
+            <span className="mt-1 text-sm text-[#6b8078]">
+              You can select multiple files
+            </span>
+            <input
+              type="file"
+              multiple
+              className="hidden"
+              onChange={(event) => handleEvidenceFilesSelected(event.target.files)}
+            />
+          </label>
+
+          {uploadedEvidenceFiles.length > 0 && (
+            <div className="mt-5">
+              <h4 className="font-semibold text-[#16302b]">
+                Selected evidence files
+              </h4>
+
+              <div className="mt-3 grid gap-4">
+                {uploadedEvidenceFiles.map((file) => (
+                  <div
+                    key={file.id}
+                    className="rounded-2xl border border-[#d8e6df] bg-white p-4"
+                  >
+                    <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                      <div>
+                        <p className="font-semibold text-[#16302b]">{file.name}</p>
+                        <p className="mt-1 text-sm text-[#6b8078]">
+                          {formatFileSize(file.size)} · {file.type}
+                        </p>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => removeEvidenceFile(file.id)}
+                        className="rounded-xl border border-red-200 px-4 py-2 text-sm font-semibold text-red-700 hover:bg-red-50"
+                      >
+                        Remove
+                      </button>
+                    </div>
+
+                    <div className="mt-4 grid gap-4 md:grid-cols-2">
+                      <label className="block">
+                        <span className="text-sm font-semibold text-[#16302b]">
+                          Evidence title
+                        </span>
+                        <input
+                          value={file.title}
+                          onChange={(event) =>
+                            updateEvidenceFile(file.id, "title", event.target.value)
+                          }
+                          className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3 text-sm"
+                          placeholder="Example: Missed parenting-time messages"
+                        />
+                      </label>
+
+                      <label className="block">
+                        <span className="text-sm font-semibold text-[#16302b]">
+                          Issue this supports
+                        </span>
+                        <select
+                          value={file.category}
+                          onChange={(event) =>
+                            updateEvidenceFile(file.id, "category", event.target.value)
+                          }
+                          className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-white px-4 py-3 text-sm"
+                        >
+                          <option value="">Select issue</option>
+                          {evidenceCategoryOptions.map((category) => (
+                            <option key={category} value={category}>
+                              {category}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+
+                      <label className="block">
+                        <span className="text-sm font-semibold text-[#16302b]">
+                          Date or event this relates to
+                        </span>
+                        <input
+                          value={file.evidenceDate}
+                          onChange={(event) =>
+                            updateEvidenceFile(
+                              file.id,
+                              "evidenceDate",
+                              event.target.value,
+                            )
+                          }
+                          className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3 text-sm"
+                          placeholder="Example: March 12, 2026"
+                        />
+                      </label>
+
+                      <label className="block">
+                        <span className="text-sm font-semibold text-[#16302b]">
+                          Who created or sent it?
+                        </span>
+                        <input
+                          value={file.source}
+                          onChange={(event) =>
+                            updateEvidenceFile(file.id, "source", event.target.value)
+                          }
+                          className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3 text-sm"
+                          placeholder="Example: Other parent, school, bank, police"
+                        />
+                      </label>
+                    </div>
+
+                    <label className="mt-4 block">
+                      <span className="text-sm font-semibold text-[#16302b]">
+                        What does this evidence show?
+                      </span>
+                      <textarea
+                        value={file.description}
+                        onChange={(event) =>
+                          updateEvidenceFile(
+                            file.id,
+                            "description",
+                            event.target.value,
+                          )
+                        }
+                        className="mt-2 min-h-20 w-full rounded-2xl border border-[#d8e6df] px-4 py-3 text-sm"
+                        placeholder="Briefly describe what the file shows."
+                      />
+                    </label>
+
+                    <label className="mt-4 block">
+                      <span className="text-sm font-semibold text-[#16302b]">
+                        Why does it matter to your case?
+                      </span>
+                      <textarea
+                        value={file.relevance}
+                        onChange={(event) =>
+                          updateEvidenceFile(file.id, "relevance", event.target.value)
+                        }
+                        className="mt-2 min-h-20 w-full rounded-2xl border border-[#d8e6df] px-4 py-3 text-sm"
+                        placeholder="Example: Supports parenting time because it shows repeated cancelled visits."
+                      />
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
         <label className="block">
-          <span className="font-semibold text-[#16302b]">Upcoming court date or deadline</span>
+          <span className="font-semibold text-[#16302b]">
+            Upcoming court date or deadline
+          </span>
           <input
             value={upcomingCourtDate}
             onChange={(e) => setUpcomingCourtDate(e.target.value)}
@@ -462,8 +816,12 @@ export default function FamilyIntake({ onComplete }: Props) {
           />
         </label>
 
-        <button type="button" onClick={handleAnalyze} className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white">
-          Generate Summary
+        <button
+          type="button"
+          onClick={handleAnalyze}
+          className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white"
+        >
+          Continue to Unified Analysis
         </button>
       </div>
     </section>

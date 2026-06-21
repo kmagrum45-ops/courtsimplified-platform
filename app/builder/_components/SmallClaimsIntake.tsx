@@ -1,108 +1,72 @@
 "use client";
 
-import { useState } from "react";
-import {
+import { useMemo, useState } from "react";
+
+import type {
   AnalysisResult,
   StoredCaseData,
   UniversalStage,
-  cleanList,
-  getStageLabel,
-  hasMeaningfulText,
-  includesAny,
-  normalize,
-} from "@/app/builder/_components/builderTypes";
+} from "./builderTypes";
 
-type SmallClaimsIssue =
-  | "unpaid-money"
-  | "contract-dispute"
-  | "property-damage"
-  | "loan-or-debt"
-  | "work-or-services"
-  | "deposit-refund"
-  | "consumer-purchase"
-  | "vehicle-dispute"
-  | "defending-claim"
-  | "settlement"
-  | "enforcement"
-  | "other";
-
-type FiledDocument =
-  | "plaintiffs-claim"
-  | "defence"
-  | "affidavit-service"
-  | "offer-settle"
-  | "settlement-conference"
-  | "default-judgment"
-  | "witness-list"
-  | "enforcement-documents"
-  | "nothing"
-  | "not-sure";
-
-type SmallClaimsInput = {
-  caseStage: UniversalStage;
-  issues: SmallClaimsIssue[];
-  filedDocuments: FiledDocument[];
-  yourName: string;
-  otherParty: string;
-  yourRole: string;
-  courtLocation: string;
-  claimNumber: string;
-  amountClaimed: string;
-  defendantAddress: string;
-  agreementDetails: string;
-  paymentHistory: string;
-  damagesBreakdown: string;
-  serviceDetails: string;
-  deadlineDetails: string;
-  facts: string;
-  timeline: string;
-  evidence: string;
-  missingEvidence: string;
-  settlementEfforts: string;
-  defenceResponse: string;
-  goal: string;
-  urgent: string;
-};
+import {
+  analyzeSmallClaimsWithBrain,
+  type SmallClaimsEvidenceFile,
+  type SmallClaimsFiledDocument,
+  type SmallClaimsIntelligenceInput,
+  type SmallClaimsIssue,
+} from "../../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
 };
 
-const issueOptions: { value: SmallClaimsIssue; label: string }[] = [
-  { value: "unpaid-money", label: "Unpaid money / invoice" },
-  { value: "contract-dispute", label: "Contract or agreement dispute" },
-  { value: "property-damage", label: "Property damage" },
-  { value: "loan-or-debt", label: "Loan or debt" },
-  { value: "work-or-services", label: "Work, services, or renovation dispute" },
-  { value: "deposit-refund", label: "Deposit or refund issue" },
-  { value: "consumer-purchase", label: "Consumer purchase issue" },
-  { value: "vehicle-dispute", label: "Vehicle-related dispute" },
-  { value: "defending-claim", label: "I am defending a claim" },
-  { value: "settlement", label: "Settlement / offer to settle" },
-  { value: "enforcement", label: "Enforcement / collecting judgment" },
-  { value: "other", label: "Other Small Claims issue" },
-];
-
-const filedOptions: { value: FiledDocument; label: string }[] = [
+const filedOptions: { value: SmallClaimsFiledDocument; label: string }[] = [
+  { value: "nothing", label: "Nothing filed yet" },
   { value: "plaintiffs-claim", label: "Plaintiff’s Claim already filed / served" },
-  { value: "defence", label: "Defence already filed / served" },
+  { value: "defence", label: "Defence already filed / received" },
   { value: "affidavit-service", label: "Affidavit of Service completed" },
   { value: "offer-settle", label: "Offer to Settle prepared" },
   { value: "settlement-conference", label: "Settlement conference scheduled or completed" },
   { value: "default-judgment", label: "Default judgment step started" },
   { value: "witness-list", label: "Witness list prepared" },
   { value: "enforcement-documents", label: "Enforcement documents started" },
-  { value: "nothing", label: "Nothing filed yet" },
   { value: "not-sure", label: "Not sure" },
 ];
 
-const defaultInput: SmallClaimsInput = {
+const evidenceCategoryOptions = [
+  "Screenshots / messages",
+  "Social media posts",
+  "Emails",
+  "Witness / recipient information",
+  "Reputation / harm proof",
+  "Payment / financial proof",
+  "Contract / agreement, only if relevant",
+  "Photos / physical damage, only if relevant",
+  "Court document",
+  "Service / delivery proof",
+  "Settlement discussion",
+  "Other",
+];
+
+const defaultInput: SmallClaimsIntelligenceInput = {
   caseStage: "not-sure",
   issues: [],
-  filedDocuments: [],
+  filedDocuments: ["nothing"],
+  uploadedEvidenceFiles: [],
+
   yourName: "",
+  yourAddress: "",
+  yourCity: "",
+  yourProvince: "Ontario",
+  yourPostalCode: "",
+  yourPhone: "",
+  yourEmail: "",
+
   otherParty: "",
-  yourRole: "",
+  otherPartyPhone: "",
+  otherPartyEmail: "",
+
+  yourRole: "Plaintiff / claimant",
   courtLocation: "",
   claimNumber: "",
   amountClaimed: "",
@@ -122,504 +86,316 @@ const defaultInput: SmallClaimsInput = {
   urgent: "",
 };
 
-function toggleArrayValue<T extends string>(items: T[], value: T) {
-  if (value === "nothing") return items.includes(value) ? [] : ["nothing" as T];
-  if (value === "not-sure") return items.includes(value) ? [] : ["not-sure" as T];
+function hasText(value: string): boolean {
+  return value.trim().length > 0;
+}
 
-  const cleaned = items.filter((item) => item !== "nothing" && item !== "not-sure");
+function normalizeText(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[’‘]/g, "'")
+    .replace(/[“”]/g, '"')
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function toggleArrayValue<T extends string>(items: T[], value: T): T[] {
+  if (value === "nothing") return items.includes(value) ? [] : [value];
+  if (value === "not-sure") return items.includes(value) ? [] : [value];
+
+  const cleaned = items.filter(
+    (item) => item !== "nothing" && item !== "not-sure",
+  );
 
   return cleaned.includes(value)
     ? cleaned.filter((item) => item !== value)
     : [...cleaned, value];
 }
 
-function removeAlreadyDone(nextForms: string[], completedForms: string[], receivedForms: string[]) {
-  const doneText = normalize([...completedForms, ...receivedForms].join(" "));
+function formatFileSize(size: number): string {
+  if (size < 1024) return `${size} B`;
+  if (size < 1024 * 1024) return `${Math.round(size / 1024)} KB`;
+  return `${(size / (1024 * 1024)).toFixed(1)} MB`;
+}
 
-  return cleanList(
-    nextForms.filter((form) => {
-      const normalizedForm = normalize(form);
-
-      if (doneText.includes(normalizedForm)) return false;
-      if (normalizedForm.includes("defence") && doneText.includes("defence")) return false;
-      if (normalizedForm.includes("offer to settle") && doneText.includes("offer to settle")) return false;
-      if (normalizedForm.includes("plaintiff") && doneText.includes("plaintiff")) return false;
-      if (normalizedForm.includes("affidavit of service") && doneText.includes("affidavit of service")) return false;
-      if (normalizedForm.includes("witness") && doneText.includes("witness")) return false;
-
-      return true;
-    })
+function inferIssuesFromStory(input: SmallClaimsIntelligenceInput): SmallClaimsIssue[] {
+  const text = normalizeText(
+    [
+      input.yourRole,
+      input.facts,
+      input.timeline,
+      input.evidence,
+      input.missingEvidence,
+      input.goal,
+      input.damagesBreakdown,
+      input.urgent,
+    ].join(" "),
   );
+
+  const issues: SmallClaimsIssue[] = [];
+
+  if (
+    text.includes("defamation") ||
+    text.includes("reputation") ||
+    text.includes("false statement") ||
+    text.includes("false statements") ||
+    text.includes("rumor") ||
+    text.includes("rumour") ||
+    text.includes("posted") ||
+    text.includes("called me") ||
+    text.includes("spread")
+  ) {
+    issues.push("defamation-reputation");
+  }
+
+  if (
+    text.includes("harass") ||
+    text.includes("threat") ||
+    text.includes("messages") ||
+    text.includes("texts") ||
+    text.includes("email") ||
+    text.includes("social media")
+  ) {
+    issues.push("harassment-communications");
+  }
+
+  if (
+    text.includes("unpaid") ||
+    text.includes("owed") ||
+    text.includes("invoice") ||
+    text.includes("loan") ||
+    text.includes("debt")
+  ) {
+    issues.push("unpaid-money");
+  }
+
+  if (
+    text.includes("contract") ||
+    text.includes("agreement") ||
+    text.includes("quote") ||
+    text.includes("renovation") ||
+    text.includes("service")
+  ) {
+    issues.push("contract-dispute");
+  }
+
+  if (
+    text.includes("damaged") ||
+    text.includes("repair") ||
+    text.includes("vehicle") ||
+    text.includes("property damage")
+  ) {
+    issues.push("property-damage");
+  }
+
+  if (
+    text.includes("served with a claim") ||
+    text.includes("defending") ||
+    text.includes("defence") ||
+    text.includes("defense") ||
+    text.includes("i am defendant")
+  ) {
+    issues.push("defending-claim");
+  }
+
+  if (text.includes("settle") || text.includes("settlement")) {
+    issues.push("settlement");
+  }
+
+  return Array.from(new Set(issues));
 }
 
-function mapStageForRules(stage: UniversalStage) {
-  if (stage === "conference") return "settlement-conference";
-  if (stage === "starting-case") return "starting-case";
-  return stage;
-}
+function inferStage(input: SmallClaimsIntelligenceInput): UniversalStage {
+  if (input.caseStage !== "not-sure") return input.caseStage;
 
-function getCanonicalSmallClaimsIssues(input: SmallClaimsInput) {
-  const text = normalize(Object.values(input).flat().join(" "));
-  const issues: string[] = [];
+  const text = normalizeText(
+    [input.yourRole, input.facts, input.serviceDetails, input.defenceResponse].join(" "),
+  );
 
-  if (
-    input.issues.includes("unpaid-money") ||
-    input.issues.includes("loan-or-debt") ||
-    includesAny(text, ["owe", "unpaid", "invoice", "loan", "debt", "payment"])
-  ) {
-    issues.push("Unpaid invoice or unpaid money");
-  }
+  if (input.filedDocuments.includes("settlement-conference")) return "conference";
+  if (input.filedDocuments.includes("enforcement-documents")) return "enforcement";
+  if (input.filedDocuments.includes("plaintiffs-claim")) return "already-started";
 
   if (
-    input.issues.includes("contract-dispute") ||
-    input.issues.includes("work-or-services") ||
-    includesAny(text, ["contract", "agreement", "quote", "estimate", "services", "renovation"])
-  ) {
-    issues.push("Breach of contract or agreement");
-  }
-
-  if (
-    input.issues.includes("property-damage") ||
-    includesAny(text, ["damage", "repair", "broke", "destroyed"])
-  ) {
-    issues.push("Property damage");
-  }
-
-  if (
-    input.issues.includes("deposit-refund") ||
-    includesAny(text, ["deposit", "refund", "return my money", "kept my deposit"])
-  ) {
-    issues.push("Deposit or refund dispute");
-  }
-
-  if (
-    input.issues.includes("consumer-purchase") ||
-    includesAny(text, ["consumer", "purchase", "bought", "seller", "store", "defective"])
-  ) {
-    issues.push("Consumer purchase dispute");
-  }
-
-  if (
-    input.issues.includes("vehicle-dispute") ||
-    includesAny(text, ["vehicle", "car", "mechanic", "dealership", "auto repair"])
-  ) {
-    issues.push("Vehicle repair or vehicle defect dispute");
-  }
-
-  if (
-    input.issues.includes("enforcement") ||
-    includesAny(text, ["judgment not paid", "collect judgment", "garnish", "garnishment", "debtor"])
-  ) {
-    issues.push("Enforcement after judgment");
-  }
-
-  if (
-    includesAny(text, ["defamation", "slander", "libel", "false statement", "lied about me", "reputation", "pedophile"])
-  ) {
-    issues.push("Defamation / reputational harm");
-  }
-
-  return cleanList(issues);
-}
-
-function analyzeSmallClaimsCase(input: SmallClaimsInput): AnalysisResult {
-  const text = normalize(Object.values(input).flat().join(" "));
-
-  const completedForms: string[] = [];
-  const receivedForms: string[] = [];
-  let requiredNextForms: string[] = [];
-  const notNeededNow: string[] = [];
-  const detectedIssues: string[] = [];
-  const inferredFacts: string[] = [];
-  const missingInformation: string[] = [];
-  const risksAndGaps: string[] = [];
-  const guidance: string[] = [];
-
-  const defenceAlreadyFiled =
     input.filedDocuments.includes("defence") ||
-    includesAny(text, ["defence already filed", "defense already filed", "filed my defence", "filed a defence"]);
-
-  const plaintiffClaimAlreadyFiled =
-    input.filedDocuments.includes("plaintiffs-claim") ||
-    includesAny(text, ["plaintiff claim already filed", "plaintiff's claim already filed", "claim already filed", "served the claim"]);
-
-  const affidavitServiceDone =
-    input.filedDocuments.includes("affidavit-service") ||
-    includesAny(text, ["affidavit of service completed", "affidavit of service filed", "served and filed proof"]);
-
-  const offerAlreadySent =
-    input.filedDocuments.includes("offer-settle") ||
-    includesAny(text, ["offer to settle sent", "settlement offer sent", "offer already sent", "sent an offer"]);
-
-  const settlementConferenceStage =
-    input.caseStage === "conference" ||
-    input.filedDocuments.includes("settlement-conference") ||
-    includesAny(text, ["settlement conference", "going to settlement conference", "conference scheduled", "upcoming conference"]);
-
-  const trialStage =
-    input.caseStage === "trial" ||
-    includesAny(text, ["trial", "trial date", "trial preparation", "witnesses for trial"]);
-
-  const enforcementStage =
-    input.caseStage === "enforcement" ||
-    input.filedDocuments.includes("enforcement-documents") ||
-    input.issues.includes("enforcement") ||
-    includesAny(text, ["enforce judgment", "garnishment", "collect judgment", "writ"]);
-
-  const isDefending =
-    input.caseStage === "responding" ||
-    input.issues.includes("defending-claim") ||
-    includesAny(text, ["served with a claim", "claim against me", "being sued", "i am defendant"]);
-
-  const isStarting =
-    input.caseStage === "starting-case" ||
-    input.filedDocuments.includes("nothing") ||
-    (!plaintiffClaimAlreadyFiled &&
-      !defenceAlreadyFiled &&
-      !settlementConferenceStage &&
-      !trialStage &&
-      !enforcementStage &&
-      input.filedDocuments.length === 0);
-
-  const moneyIssue =
-    input.issues.includes("unpaid-money") ||
-    input.issues.includes("loan-or-debt") ||
-    includesAny(text, ["owe", "unpaid", "invoice", "loan", "debt", "payment"]);
-
-  const contractIssue =
-    input.issues.includes("contract-dispute") ||
-    input.issues.includes("work-or-services") ||
-    includesAny(text, ["contract", "agreement", "quote", "estimate", "services", "renovation"]);
-
-  const damageIssue =
-    input.issues.includes("property-damage") ||
-    includesAny(text, ["damage", "repair", "broke", "destroyed"]);
-
-  if (plaintiffClaimAlreadyFiled) completedForms.push("Form 7A — Plaintiff’s Claim");
-  if (defenceAlreadyFiled) receivedForms.push("Form 9A — Defence");
-  if (affidavitServiceDone) completedForms.push("Form 8A — Affidavit of Service");
-  if (offerAlreadySent) completedForms.push("Form 14A — Offer to Settle");
-  if (input.filedDocuments.includes("witness-list")) completedForms.push("Form 13B — List of Proposed Witnesses");
-
-  if (moneyIssue) detectedIssues.push("Unpaid money, debt, invoice, or payment dispute");
-  if (contractIssue) detectedIssues.push("Contract, service, quote, renovation, or agreement dispute");
-  if (damageIssue) detectedIssues.push("Property damage issue");
-  if (isDefending) detectedIssues.push("Responding to a Small Claims case");
-  if (settlementConferenceStage) detectedIssues.push("Settlement conference preparation");
-  if (trialStage) detectedIssues.push("Trial or witness preparation");
-  if (enforcementStage) detectedIssues.push("Enforcement or collection after judgment");
-
-  if (isStarting && !isDefending) {
-    requiredNextForms.push("Form 7A — Plaintiff’s Claim");
-    guidance.push("The next focus is preparing the claim, amount breakdown, party names, service address, and evidence.");
+    text.includes("served with a claim") ||
+    text.includes("defendant") ||
+    text.includes("responding") ||
+    text.includes("defending")
+  ) {
+    return "responding";
   }
 
-  if (isDefending && !defenceAlreadyFiled) {
-    requiredNextForms.push("Form 9A — Defence");
-    guidance.push("The next focus is preparing a Defence that responds directly to what is admitted, denied, or disputed.");
+  return "starting-case";
+}
+
+function buildMissingPrompt(input: SmallClaimsIntelligenceInput): string {
+  const missing: string[] = [];
+
+  if (!hasText(input.yourName)) missing.push("your legal name");
+  if (!hasText(input.otherParty)) missing.push("the other party’s name");
+  if (!hasText(input.defendantAddress)) missing.push("the other party’s address for service");
+  if (!hasText(input.facts)) missing.push("the full story");
+  if (!hasText(input.timeline)) missing.push("important dates");
+  if (!hasText(input.evidence)) missing.push("what evidence you have");
+  if (!hasText(input.amountClaimed)) missing.push("the amount claimed, if money is requested");
+  if (!hasText(input.damagesBreakdown)) missing.push("how the amount was calculated");
+
+  if (!missing.length) {
+    return "The intake has enough to run an initial analysis, but the system will still check for proof gaps.";
   }
 
-  if (plaintiffClaimAlreadyFiled && !affidavitServiceDone && !isDefending) {
-    requiredNextForms.push("Form 8A — Affidavit of Service");
-  }
+  return `Still useful to add: ${missing.join(", ")}.`;
+}
 
-  if (settlementConferenceStage) {
-    requiredNextForms.push(
-      "Settlement conference preparation package",
-      "Updated evidence list",
-      "Settlement position summary",
-      "Key document bundle for conference"
-    );
+function buildCaseDirection(input: SmallClaimsIntelligenceInput): string {
+  const issues = inferIssuesFromStory(input);
+  const stage = inferStage(input);
 
-    notNeededNow.push("Form 7A — Plaintiff’s Claim");
-    notNeededNow.push("Form 9A — Defence");
-    notNeededNow.push("Form 14A — Offer to Settle");
-
-    guidance.push(
-      "Because the case is at settlement conference stage, the next step is organizing conference materials, evidence, settlement position, and the issues still in dispute."
-    );
-  }
-
-  if (trialStage) {
-    requiredNextForms.push("Form 13B — List of Proposed Witnesses", "Trial evidence package");
-    notNeededNow.push("Form 7A — Plaintiff’s Claim", "Form 9A — Defence");
-  }
-
-  if (enforcementStage) {
-    requiredNextForms.push("Enforcement information package");
-    notNeededNow.push("Form 7A — Plaintiff’s Claim", "Form 9A — Defence", "Form 14A — Offer to Settle");
-    risksAndGaps.push("Enforcement usually requires details of the judgment/order and the collection method being requested.");
-  }
-
-  requiredNextForms = removeAlreadyDone(requiredNextForms, completedForms, receivedForms);
-
-  const doneAndNotNeeded = normalize([...completedForms, ...receivedForms, ...notNeededNow].join(" "));
-  requiredNextForms = cleanList(
-    requiredNextForms.filter((form) => {
-      const f = normalize(form);
-      if (doneAndNotNeeded.includes(f)) return false;
-      if (f.includes("defence") && doneAndNotNeeded.includes("defence")) return false;
-      if (f.includes("offer to settle") && doneAndNotNeeded.includes("offer to settle")) return false;
-      if (f.includes("plaintiff") && doneAndNotNeeded.includes("plaintiff")) return false;
-      return true;
-    })
-  );
-
-  if (hasMeaningfulText(input.amountClaimed)) {
-    inferredFacts.push("A claim amount or disputed amount was provided.");
-  } else {
-    missingInformation.push("Exact amount being claimed or disputed.");
-  }
-
-  if (hasMeaningfulText(input.defendantAddress)) {
-    inferredFacts.push("The other party’s address was provided for service/location purposes.");
-  } else if (isStarting && !isDefending) {
-    missingInformation.push("Address for the defendant or business being sued.");
-  }
-
-  if (hasMeaningfulText(input.agreementDetails)) {
-    inferredFacts.push("Agreement, contract, quote, invoice, or deal details were provided.");
-  } else if (contractIssue) {
-    missingInformation.push("Details of the agreement, contract, quote, invoice, or promise.");
-  }
-
-  if (hasMeaningfulText(input.settlementEfforts)) {
-    inferredFacts.push("Settlement efforts or discussions were described.");
-  }
-
-  if (hasMeaningfulText(input.deadlineDetails)) {
-    inferredFacts.push("A deadline, court date, or conference date was provided.");
-  }
-
-  if (!hasMeaningfulText(input.damagesBreakdown)) {
-    missingInformation.push("Breakdown of how the amount claimed or disputed was calculated.");
-  }
-
-  if (!hasMeaningfulText(input.facts)) {
-    missingInformation.push("Detailed facts explaining what happened.");
-  }
-
-  if (!hasMeaningfulText(input.timeline)) {
-    missingInformation.push("Timeline with key dates.");
-  }
-
-  if (!hasMeaningfulText(input.evidence)) {
-    risksAndGaps.push("Evidence has not been listed yet.");
-  }
-
-  if (!hasMeaningfulText(input.goal)) {
-    missingInformation.push("What you want the court to order or what result you want.");
-  }
-
-  if (isDefending && !hasMeaningfulText(input.defenceResponse) && !defenceAlreadyFiled) {
-    missingInformation.push("Response to each claim being made against you.");
-  }
-
-  guidance.push(
-    "Small Claims materials should clearly explain who owes what, what happened, what stage the case is at, and what evidence proves it.",
-    "Do not duplicate forms already filed or received. The next package should match the current stage of the case.",
-    "Organize evidence by date, issue, and document type so it can later be connected to the court forms and case package."
-  );
-
-  const summary = [
-    "Small Claims Case Summary",
-    "",
-    `Stage: ${getStageLabel(input.caseStage)}`,
-    "",
-    `Parties:\n- ${input.yourName || "Your name not entered"}\n- ${input.otherParty || "Other party not entered"}`,
-    "",
-    `Role:\n- ${input.yourRole || "Role not entered"}`,
-    "",
-    `Issues detected:\n- ${cleanList(detectedIssues).join("\n- ") || "No specific issue detected yet"}`,
-    "",
-    `Completed forms / steps:\n- ${cleanList(completedForms).join("\n- ") || "None listed"}`,
-    "",
-    `Received forms / documents:\n- ${cleanList(receivedForms).join("\n- ") || "None listed"}`,
-    "",
-    `Next required documents:\n- ${cleanList(requiredNextForms).join("\n- ") || "No next forms detected yet"}`,
-    "",
-    `Not needed right now:\n- ${cleanList(notNeededNow).join("\n- ") || "None identified"}`,
-    "",
-    `Inferred facts:\n- ${cleanList(inferredFacts).join("\n- ") || "No inferred facts yet"}`,
-    "",
-    `Missing information:\n- ${cleanList(missingInformation).join("\n- ") || "No major missing information detected"}`,
-    "",
-    `Risks or gaps:\n- ${cleanList(risksAndGaps).join("\n- ") || "No major risks detected yet"}`,
-  ].join("\n");
-
-  return {
-    courtPath: "small-claims",
-    caseStage: getStageLabel(input.caseStage),
-    completedForms: cleanList(completedForms),
-    receivedForms: cleanList(receivedForms),
-    requiredNextForms: cleanList(requiredNextForms),
-    notNeededNow: cleanList(notNeededNow),
-    detectedIssues: cleanList(detectedIssues),
-    inferredFacts: cleanList(inferredFacts),
-    missingInformation: cleanList(missingInformation),
-    risksAndGaps: cleanList(risksAndGaps),
-    guidance: cleanList(guidance),
-    summary,
+  const labels: Record<SmallClaimsIssue, string> = {
+    "unpaid-money": "unpaid money",
+    "contract-dispute": "contract/agreement dispute",
+    "property-damage": "property damage",
+    "loan-or-debt": "loan/debt",
+    "work-or-services": "work/services",
+    "deposit-refund": "deposit/refund",
+    "consumer-purchase": "consumer purchase",
+    "vehicle-dispute": "vehicle dispute",
+    "defamation-reputation": "defamation/reputational harm",
+    "harassment-communications": "harmful communications/harassment",
+    "defending-claim": "responding/defence",
+    settlement: "settlement",
+    enforcement: "enforcement",
+    other: "other",
   };
+
+  const issueText = issues.length
+    ? issues.map((issue) => labels[issue]).join(", ")
+    : "not yet classified";
+
+  return `Likely direction: ${stage.replace(/-/g, " ")} · ${issueText}`;
 }
 
 export default function SmallClaimsIntake({ onComplete }: Props) {
-  const [input, setInput] = useState<SmallClaimsInput>(defaultInput);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [input, setInput] =
+    useState<SmallClaimsIntelligenceInput>(defaultInput);
 
-  function updateField<K extends keyof SmallClaimsInput>(
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [analysisError, setAnalysisError] = useState("");
+
+  const inferredDirection = useMemo(() => buildCaseDirection(input), [input]);
+  const missingPrompt = useMemo(() => buildMissingPrompt(input), [input]);
+
+  function updateField<K extends keyof SmallClaimsIntelligenceInput>(
     field: K,
-    value: SmallClaimsInput[K]
+    value: SmallClaimsIntelligenceInput[K],
   ) {
     setInput((current) => ({ ...current, [field]: value }));
   }
 
+  function handleEvidenceFilesSelected(files: FileList | null) {
+    if (!files) return;
+
+    const nextFiles: SmallClaimsEvidenceFile[] = Array.from(files).map((file) => ({
+      id: `${file.name}-${file.size}-${file.lastModified}`,
+      name: file.name,
+      size: file.size,
+      type: file.type || "Unknown file type",
+      lastModified: file.lastModified,
+      title: "",
+      description: "",
+      category: "",
+      evidenceDate: "",
+      source: "",
+      relevance: "",
+    }));
+
+    setInput((current) => {
+      const existingIds = new Set(
+        current.uploadedEvidenceFiles.map((file) => file.id),
+      );
+
+      return {
+        ...current,
+        uploadedEvidenceFiles: [
+          ...current.uploadedEvidenceFiles,
+          ...nextFiles.filter((file) => !existingIds.has(file.id)),
+        ],
+      };
+    });
+  }
+
+  function updateEvidenceFile(
+    fileId: string,
+    field: keyof Pick<
+      SmallClaimsEvidenceFile,
+      "title" | "description" | "category" | "evidenceDate" | "source" | "relevance"
+    >,
+    value: string,
+  ) {
+    setInput((current) => ({
+      ...current,
+      uploadedEvidenceFiles: current.uploadedEvidenceFiles.map((file) =>
+        file.id === fileId ? { ...file, [field]: value } : file,
+      ),
+    }));
+  }
+
+  function removeEvidenceFile(fileId: string) {
+    setInput((current) => ({
+      ...current,
+      uploadedEvidenceFiles: current.uploadedEvidenceFiles.filter(
+        (file) => file.id !== fileId,
+      ),
+    }));
+  }
+
   async function handleAnalyze() {
     setIsAnalyzing(true);
-
-    const localAnalysis = analyzeSmallClaimsCase(input);
-    const canonicalIssues = getCanonicalSmallClaimsIssues(input);
-    const mappedStage = mapStageForRules(input.caseStage);
+    setAnalysisError("");
 
     try {
-      const [issueRes, procedureRes, evidenceRes] = await Promise.all([
-        fetch("/api/rules/issues", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            courtPath: "small-claims",
-            issues: canonicalIssues,
-          }),
-        }),
-        fetch("/api/rules/procedures", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            courtPath: "small-claims",
-            stage: mappedStage,
-          }),
-        }),
-        fetch("/api/rules/evidence", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            courtPath: "small-claims",
-            issues: canonicalIssues,
-          }),
-        }),
-      ]);
-
-      const issueMatches = issueRes.ok ? await issueRes.json() : [];
-      const procedureMatches = procedureRes.ok ? await procedureRes.json() : [];
-      const evidenceMatches = evidenceRes.ok ? await evidenceRes.json() : [];
-
-      const issueGuidance = Array.isArray(issueMatches)
-        ? issueMatches.flatMap((rule: any) => [
-            ...(rule.legal_elements || []),
-            ...(rule.missing_info_questions || []),
-            ...(rule.judge_or_court_concerns || []),
-          ])
-        : [];
-
-      const procedureGuidance = Array.isArray(procedureMatches)
-        ? procedureMatches.flatMap((rule: any) => [
-            rule.rule_name,
-            ...(rule.missing_info_questions || []),
-            ...(rule.judge_or_court_concerns || []),
-          ])
-        : [];
-
-      const evidenceGuidance = Array.isArray(evidenceMatches)
-        ? evidenceMatches.flatMap((rule: any) => [
-            ...(rule.upload_prompts || []),
-            ...(rule.court_use_notes || []),
-          ])
-        : [];
-
-      const evidenceRisks = Array.isArray(evidenceMatches)
-        ? evidenceMatches.flatMap((rule: any) => rule.weak_evidence_warnings || [])
-        : [];
-
-      const enhancedAnalysis: AnalysisResult = {
-        ...localAnalysis,
-        detectedIssues: cleanList([
-          ...localAnalysis.detectedIssues,
-          ...canonicalIssues,
-          ...(Array.isArray(issueMatches)
-            ? issueMatches.map((rule: any) => rule.issue_name).filter(Boolean)
-            : []),
-        ]),
-        missingInformation: cleanList([
-          ...localAnalysis.missingInformation,
-          ...(Array.isArray(issueMatches)
-            ? issueMatches.flatMap((rule: any) => rule.missing_info_questions || [])
-            : []),
-          ...(Array.isArray(procedureMatches)
-            ? procedureMatches.flatMap((rule: any) => rule.missing_info_questions || [])
-            : []),
-        ]),
-        risksAndGaps: cleanList([...localAnalysis.risksAndGaps, ...evidenceRisks]),
-        guidance: cleanList([
-          ...localAnalysis.guidance,
-          ...issueGuidance,
-          ...procedureGuidance,
-          ...evidenceGuidance,
-        ]),
+      const preparedInput: SmallClaimsIntelligenceInput = {
+        ...input,
+        caseStage: inferStage(input),
+        issues: inferIssuesFromStory(input),
+        filedDocuments:
+          input.filedDocuments.length > 0 ? input.filedDocuments : ["nothing"],
       };
 
-      const payload: StoredCaseData = {
-        courtPath: "small-claims",
-        pathLabel: "Small Claims",
-        caseStage: input.caseStage,
-        yourName: input.yourName,
-        otherParty: input.otherParty,
-        facts: input.facts,
-        timeline: input.timeline,
-        evidence: input.evidence,
-        missingEvidence: input.missingEvidence,
-        goal: input.goal,
-        urgent: input.urgent,
-        analysis: enhancedAnalysis,
-        extra: {
-          ...input,
-          canonicalIssues,
-          mappedStage,
-          ruleMatches: {
-            issues: issueMatches,
-            procedures: procedureMatches,
-            evidence: evidenceMatches,
-          },
-        },
-      };
+      const result = await analyzeSmallClaimsWithBrain(preparedInput);
 
-      localStorage.setItem("caseData", JSON.stringify(payload));
-      onComplete(enhancedAnalysis, payload);
+      localStorage.setItem("caseData", JSON.stringify(result.payload));
+      localStorage.setItem("courtSimplifiedCase", JSON.stringify(result.payload));
+
+      if (result.masterResultPatch) {
+        localStorage.setItem(
+          "courtSimplifiedMasterResultPatch",
+          JSON.stringify(result.masterResultPatch),
+        );
+      }
+
+      if (result.dashboardPatch) {
+        localStorage.setItem(
+          "courtSimplifiedDashboardPatch",
+          JSON.stringify(result.dashboardPatch),
+        );
+      }
+
+      if (result.recommendedNextRoute) {
+        localStorage.setItem(
+          "courtSimplifiedRecommendedNextRoute",
+          result.recommendedNextRoute,
+        );
+      }
+
+      onComplete(result.analysis, result.payload);
     } catch (error) {
-      console.error("Small Claims rule engine failed. Falling back to local analysis:", error);
+      console.error("Small Claims intelligence analysis failed:", error);
 
-      const payload: StoredCaseData = {
-        courtPath: "small-claims",
-        pathLabel: "Small Claims",
-        caseStage: input.caseStage,
-        yourName: input.yourName,
-        otherParty: input.otherParty,
-        facts: input.facts,
-        timeline: input.timeline,
-        evidence: input.evidence,
-        missingEvidence: input.missingEvidence,
-        goal: input.goal,
-        urgent: input.urgent,
-        analysis: localAnalysis,
-        extra: {
-          ...input,
-          canonicalIssues,
-          mappedStage,
-          ruleEngineError: true,
-        },
-      };
-
-      localStorage.setItem("caseData", JSON.stringify(payload));
-      onComplete(localAnalysis, payload);
+      setAnalysisError(
+        "CourtSimplified could not complete the Small Claims intelligence analysis. Please review the intake and try again.",
+      );
     } finally {
       setIsAnalyzing(false);
     }
@@ -627,49 +403,90 @@ export default function SmallClaimsIntake({ onComplete }: Props) {
 
   return (
     <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
-      <h2 className="text-2xl font-bold text-[#10231f]">Small Claims Intake</h2>
+      <div className="rounded-3xl bg-[#f2fbf7] p-5">
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#2f7d67]">
+          Small Claims · Narrative-first intake
+        </p>
 
-      <p className="mt-3 text-[#4d675f]">
-        Tell the full story once. CourtSimplified will organize the claim or defence,
-        identify what has already been completed, and recommend only the next Small Claims materials for the current stage.
-      </p>
+        <h2 className="mt-2 text-2xl font-bold text-[#10231f]">
+          Tell the story. The system will classify the legal path.
+        </h2>
+
+        <p className="mt-3 text-sm leading-6 text-[#4d675f]">
+          This intake no longer forces the case into old checkbox categories.
+          It uses your story, role, documents, evidence, and goals to determine
+          claim direction, missing proof, likely forms, risks, and next steps.
+        </p>
+
+        <div className="mt-4 rounded-2xl border border-[#cde7dc] bg-white p-4 text-sm text-[#24463d]">
+          <p className="font-semibold">{inferredDirection}</p>
+          <p className="mt-2">{missingPrompt}</p>
+        </div>
+      </div>
+
+      {analysisError && (
+        <div className="mt-5 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+          {analysisError}
+        </div>
+      )}
 
       <div className="mt-6 grid gap-5">
-        <label className="block">
-          <span className="font-semibold text-[#16302b]">Case stage</span>
-          <select
-            value={input.caseStage}
-            onChange={(e) => updateField("caseStage", e.target.value as UniversalStage)}
-            className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-white px-4 py-3"
-          >
-            <option value="not-sure">Not sure</option>
-            <option value="starting-case">Starting a new case</option>
-            <option value="responding">Responding to a case</option>
-            <option value="already-started">Case already started</option>
-            <option value="conference">Settlement conference</option>
-            <option value="motion">Motion stage</option>
-            <option value="trial">Trial preparation</option>
-            <option value="enforcement">Enforcement</option>
-            <option value="urgent">Urgent issue</option>
-          </select>
-        </label>
+        <div className="grid gap-5 md:grid-cols-2">
+          <label className="block">
+            <span className="font-semibold text-[#16302b]">Case stage</span>
+            <select
+              value={input.caseStage}
+              onChange={(event) =>
+                updateField("caseStage", event.target.value as UniversalStage)
+              }
+              className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-white px-4 py-3"
+            >
+              <option value="not-sure">Not sure</option>
+              <option value="starting-case">Starting a new case</option>
+              <option value="responding">Responding to a case</option>
+              <option value="already-started">Case already started</option>
+              <option value="conference">Settlement conference</option>
+              <option value="motion">Motion stage</option>
+              <option value="trial">Trial preparation</option>
+              <option value="enforcement">Enforcement</option>
+              <option value="urgent">Urgent issue</option>
+            </select>
+          </label>
+
+          <label className="block">
+            <span className="font-semibold text-[#16302b]">Your role</span>
+            <select
+              value={input.yourRole}
+              onChange={(event) => updateField("yourRole", event.target.value)}
+              className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-white px-4 py-3"
+            >
+              <option value="Plaintiff / claimant">Plaintiff / claimant</option>
+              <option value="Defendant / responding party">Defendant / responding party</option>
+              <option value="Not sure">Not sure</option>
+            </select>
+          </label>
+        </div>
 
         <div className="grid gap-5 md:grid-cols-2">
           <label className="block">
-            <span className="font-semibold text-[#16302b]">Your name</span>
+            <span className="font-semibold text-[#16302b]">
+              Your full legal name or business name
+            </span>
             <input
               value={input.yourName}
-              onChange={(e) => updateField("yourName", e.target.value)}
+              onChange={(event) => updateField("yourName", event.target.value)}
               className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Full legal name or business name"
             />
           </label>
 
           <label className="block">
-            <span className="font-semibold text-[#16302b]">Other party</span>
+            <span className="font-semibold text-[#16302b]">
+              Other party name
+            </span>
             <input
               value={input.otherParty}
-              onChange={(e) => updateField("otherParty", e.target.value)}
+              onChange={(event) => updateField("otherParty", event.target.value)}
               className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Person or business on the other side"
             />
@@ -677,17 +494,162 @@ export default function SmallClaimsIntake({ onComplete }: Props) {
         </div>
 
         <label className="block">
-          <span className="font-semibold text-[#16302b]">Your role</span>
-          <input
-            value={input.yourRole}
-            onChange={(e) => updateField("yourRole", e.target.value)}
-            className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
-            placeholder="Example: Plaintiff, defendant, business owner, customer, contractor"
+          <span className="font-semibold text-[#16302b]">
+            What happened?
+          </span>
+          <textarea
+            value={input.facts}
+            onChange={(event) => updateField("facts", event.target.value)}
+            className="mt-2 min-h-44 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
+            placeholder="Example: I want to sue because someone posted false statements about me online and sent messages to other people. I have screenshots and want compensation for reputational harm."
           />
         </label>
 
+        <div className="grid gap-5 md:grid-cols-2">
+          <label className="block">
+            <span className="font-semibold text-[#16302b]">
+              Important dates / timeline
+            </span>
+            <textarea
+              value={input.timeline}
+              onChange={(event) => updateField("timeline", event.target.value)}
+              className="mt-2 min-h-28 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
+              placeholder="List dates in order. If you do not know exact dates, estimate."
+            />
+          </label>
+
+          <label className="block">
+            <span className="font-semibold text-[#16302b]">
+              Evidence you have
+            </span>
+            <textarea
+              value={input.evidence}
+              onChange={(event) => updateField("evidence", event.target.value)}
+              className="mt-2 min-h-28 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
+              placeholder="Screenshots, messages, witnesses, receipts, photos, emails, documents."
+            />
+          </label>
+        </div>
+
+        <div className="grid gap-5 md:grid-cols-2">
+          <label className="block">
+            <span className="font-semibold text-[#16302b]">
+              Evidence still missing
+            </span>
+            <textarea
+              value={input.missingEvidence}
+              onChange={(event) =>
+                updateField("missingEvidence", event.target.value)
+              }
+              className="mt-2 min-h-24 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
+              placeholder="Example: exact date, full thread, witness names, proof of who saw the statement."
+            />
+          </label>
+
+          <label className="block">
+            <span className="font-semibold text-[#16302b]">
+              What do you want the court to order?
+            </span>
+            <textarea
+              value={input.goal}
+              onChange={(event) => updateField("goal", event.target.value)}
+              className="mt-2 min-h-24 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
+              placeholder="Money, apology, return of property, dismissal, payment plan, costs."
+            />
+          </label>
+        </div>
+
+        <div className="grid gap-5 md:grid-cols-2">
+          <label className="block">
+            <span className="font-semibold text-[#16302b]">
+              Amount claimed or disputed
+            </span>
+            <input
+              value={input.amountClaimed}
+              onChange={(event) =>
+                updateField("amountClaimed", event.target.value)
+              }
+              className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
+              placeholder="Example: $5,000"
+            />
+          </label>
+
+          <label className="block">
+            <span className="font-semibold text-[#16302b]">
+              Breakdown of amount claimed
+            </span>
+            <input
+              value={input.damagesBreakdown}
+              onChange={(event) =>
+                updateField("damagesBreakdown", event.target.value)
+              }
+              className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
+              placeholder="Explain how you reached the number, if known."
+            />
+          </label>
+        </div>
+
+        <div className="rounded-3xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
+          <h3 className="text-lg font-bold text-[#10231f]">
+            Party and service details
+          </h3>
+
+          <div className="mt-4 grid gap-5 md:grid-cols-2">
+            <input
+              value={input.yourAddress}
+              onChange={(event) => updateField("yourAddress", event.target.value)}
+              className="rounded-2xl border border-[#d8e6df] px-4 py-3"
+              placeholder="Your address"
+            />
+
+            <input
+              value={input.yourCity}
+              onChange={(event) => updateField("yourCity", event.target.value)}
+              className="rounded-2xl border border-[#d8e6df] px-4 py-3"
+              placeholder="Your city"
+            />
+
+            <input
+              value={input.yourPostalCode}
+              onChange={(event) =>
+                updateField("yourPostalCode", event.target.value)
+              }
+              className="rounded-2xl border border-[#d8e6df] px-4 py-3"
+              placeholder="Your postal code"
+            />
+
+            <input
+              value={input.yourEmail}
+              onChange={(event) => updateField("yourEmail", event.target.value)}
+              className="rounded-2xl border border-[#d8e6df] px-4 py-3"
+              placeholder="Your email"
+            />
+
+            <textarea
+              value={input.defendantAddress}
+              onChange={(event) =>
+                updateField("defendantAddress", event.target.value)
+              }
+              className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3 md:col-span-2"
+              placeholder="Other party address for service, if known"
+            />
+
+            <textarea
+              value={input.serviceDetails}
+              onChange={(event) =>
+                updateField("serviceDetails", event.target.value)
+              }
+              className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3 md:col-span-2"
+              placeholder="Service details, only if anything has already been served"
+            />
+          </div>
+        </div>
+
         <div>
-          <h3 className="font-semibold text-[#16302b]">What documents already exist?</h3>
+          <h3 className="font-semibold text-[#16302b]">
+            What documents already exist?
+          </h3>
+
           <div className="mt-3 grid gap-3 md:grid-cols-2">
             {filedOptions.map((option) => (
               <button
@@ -696,7 +658,7 @@ export default function SmallClaimsIntake({ onComplete }: Props) {
                 onClick={() =>
                   updateField(
                     "filedDocuments",
-                    toggleArrayValue(input.filedDocuments, option.value)
+                    toggleArrayValue(input.filedDocuments, option.value),
                   )
                 }
                 className={`rounded-2xl border px-4 py-3 text-left text-sm ${
@@ -711,59 +673,185 @@ export default function SmallClaimsIntake({ onComplete }: Props) {
           </div>
         </div>
 
-        <div>
-          <h3 className="font-semibold text-[#16302b]">What issues are involved?</h3>
-          <div className="mt-3 grid gap-3 md:grid-cols-2">
-            {issueOptions.map((option) => (
-              <button
-                key={option.value}
-                type="button"
-                onClick={() =>
-                  updateField("issues", toggleArrayValue(input.issues, option.value))
-                }
-                className={`rounded-2xl border px-4 py-3 text-left text-sm ${
-                  input.issues.includes(option.value)
-                    ? "border-[#2f7d67] bg-[#e9f7f2] text-[#16302b]"
-                    : "border-[#d8e6df] bg-white text-[#4d675f]"
-                }`}
-              >
-                {option.label}
-              </button>
-            ))}
-          </div>
-        </div>
+        <details className="rounded-3xl border border-[#d8e6df] bg-white p-5">
+          <summary className="cursor-pointer font-bold text-[#16302b]">
+            Optional details for specific case types
+          </summary>
 
-        {[
-          ["courtLocation", "Court location", "Example: Ottawa Small Claims Court"],
-          ["claimNumber", "Claim number, if already started", "Example: SC-25-000000"],
-          ["amountClaimed", "Amount claimed or disputed", "Example: $12,500 plus costs"],
-          ["defendantAddress", "Other party address", "Address for service or business address"],
-          ["agreementDetails", "Agreement / contract / quote details", "What was agreed to, by whom, and when?"],
-          ["paymentHistory", "Payment history", "Payments made, missed, refused, partial payments, deposits."],
-          ["damagesBreakdown", "Breakdown of amount claimed", "Explain how you calculated the amount."],
-          ["serviceDetails", "Service details", "Who was served, when, where, how, and by whom?"],
-          ["deadlineDetails", "Deadlines or court dates", "Defence deadline, settlement conference, trial, service deadline."],
-          ["facts", "What happened?", "Explain the full story in your own words."],
-          ["timeline", "Timeline", "Important dates in order."],
-          ["evidence", "Evidence you have", "Invoices, contracts, texts, photos, receipts, emails, witnesses."],
-          ["missingEvidence", "Evidence still missing", "Documents, photos, statements, or records still needed."],
-          ["settlementEfforts", "Settlement efforts", "Offers, discussions, payment plans, attempts to resolve."],
-          ["defenceResponse", "If defending: your response to the claim", "What do you admit, deny, or dispute?"],
-          ["goal", "What do you want the court to order?", "Money, dismissal, payment plan, return of property, costs."],
-          ["urgent", "Anything urgent?", "Deadlines, limitation concerns, service problems, default, enforcement urgency."],
-        ].map(([field, label, placeholder]) => (
-          <label key={field} className="block">
-            <span className="font-semibold text-[#16302b]">{label}</span>
+          <div className="mt-5 grid gap-5">
             <textarea
-              value={String(input[field as keyof SmallClaimsInput])}
-              onChange={(e) =>
-                updateField(field as keyof SmallClaimsInput, e.target.value as never)
+              value={input.agreementDetails}
+              onChange={(event) =>
+                updateField("agreementDetails", event.target.value)
               }
-              className="mt-2 min-h-24 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder={placeholder}
+              className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
+              placeholder="Agreement/contract details, only if this case involves an agreement"
+            />
+
+            <textarea
+              value={input.paymentHistory}
+              onChange={(event) =>
+                updateField("paymentHistory", event.target.value)
+              }
+              className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
+              placeholder="Payment history, only if money, invoices, loan, debt, or services are involved"
+            />
+
+            <textarea
+              value={input.defenceResponse}
+              onChange={(event) =>
+                updateField("defenceResponse", event.target.value)
+              }
+              className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
+              placeholder="Defence response, only if you are responding to someone else's claim"
+            />
+
+            <textarea
+              value={input.settlementEfforts}
+              onChange={(event) =>
+                updateField("settlementEfforts", event.target.value)
+              }
+              className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
+              placeholder="Settlement efforts or offers"
+            />
+
+            <textarea
+              value={input.deadlineDetails}
+              onChange={(event) =>
+                updateField("deadlineDetails", event.target.value)
+              }
+              className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
+              placeholder="Deadlines, court dates, or urgent timing concerns"
+            />
+
+            <textarea
+              value={input.urgent}
+              onChange={(event) => updateField("urgent", event.target.value)}
+              className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
+              placeholder="Anything urgent"
+            />
+          </div>
+        </details>
+
+        <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
+          <h3 className="text-lg font-bold text-[#10231f]">
+            Upload and describe evidence files
+          </h3>
+
+          <p className="mt-2 text-sm leading-6 text-[#4d675f]">
+            Evidence is optional at this step, but the system will mark proof
+            gaps if important evidence is missing.
+          </p>
+
+          <label className="mt-4 flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-[#d8e6df] bg-white px-4 py-6 text-center hover:bg-[#f4fbf8]">
+            <span className="font-semibold text-[#2f7d67]">
+              Choose evidence files
+            </span>
+            <span className="mt-1 text-sm text-[#6b8078]">
+              You can select multiple files
+            </span>
+            <input
+              type="file"
+              multiple
+              className="hidden"
+              onChange={(event) =>
+                handleEvidenceFilesSelected(event.target.files)
+              }
             />
           </label>
-        ))}
+
+          {input.uploadedEvidenceFiles.length > 0 && (
+            <div className="mt-5 grid gap-4">
+              {input.uploadedEvidenceFiles.map((file) => (
+                <div
+                  key={file.id}
+                  className="rounded-2xl border border-[#d8e6df] bg-white p-4"
+                >
+                  <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                    <div>
+                      <p className="font-semibold text-[#16302b]">
+                        {file.name}
+                      </p>
+                      <p className="mt-1 text-sm text-[#6b8078]">
+                        {formatFileSize(file.size)} · {file.type}
+                      </p>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => removeEvidenceFile(file.id)}
+                      className="rounded-xl border border-red-200 px-4 py-2 text-sm font-semibold text-red-700 hover:bg-red-50"
+                    >
+                      Remove
+                    </button>
+                  </div>
+
+                  <div className="mt-4 grid gap-4 md:grid-cols-2">
+                    <input
+                      value={file.title}
+                      onChange={(event) =>
+                        updateEvidenceFile(file.id, "title", event.target.value)
+                      }
+                      className="rounded-2xl border border-[#d8e6df] px-4 py-3 text-sm"
+                      placeholder="Evidence title"
+                    />
+
+                    <select
+                      value={file.category}
+                      onChange={(event) =>
+                        updateEvidenceFile(file.id, "category", event.target.value)
+                      }
+                      className="rounded-2xl border border-[#d8e6df] bg-white px-4 py-3 text-sm"
+                    >
+                      <option value="">Select issue</option>
+                      {evidenceCategoryOptions.map((category) => (
+                        <option key={category} value={category}>
+                          {category}
+                        </option>
+                      ))}
+                    </select>
+
+                    <input
+                      value={file.evidenceDate}
+                      onChange={(event) =>
+                        updateEvidenceFile(file.id, "evidenceDate", event.target.value)
+                      }
+                      className="rounded-2xl border border-[#d8e6df] px-4 py-3 text-sm"
+                      placeholder="Date or event this relates to"
+                    />
+
+                    <input
+                      value={file.source}
+                      onChange={(event) =>
+                        updateEvidenceFile(file.id, "source", event.target.value)
+                      }
+                      className="rounded-2xl border border-[#d8e6df] px-4 py-3 text-sm"
+                      placeholder="Who created or sent it?"
+                    />
+                  </div>
+
+                  <textarea
+                    value={file.description}
+                    onChange={(event) =>
+                      updateEvidenceFile(file.id, "description", event.target.value)
+                    }
+                    className="mt-4 min-h-20 w-full rounded-2xl border border-[#d8e6df] px-4 py-3 text-sm"
+                    placeholder="What does this evidence show?"
+                  />
+
+                  <textarea
+                    value={file.relevance}
+                    onChange={(event) =>
+                      updateEvidenceFile(file.id, "relevance", event.target.value)
+                    }
+                    className="mt-4 min-h-20 w-full rounded-2xl border border-[#d8e6df] px-4 py-3 text-sm"
+                    placeholder="Why does it matter to your case?"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
 
         <button
           type="button"

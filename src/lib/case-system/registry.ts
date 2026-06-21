@@ -1,5 +1,5 @@
 import { createDefaultCase, type DefaultCaseBundle } from "./defaults";
-import type { FamilyCaseType } from "./types/family-case";
+import type { FamilyCaseType } from "./types/family-case.ts";
 
 export interface CaseDefinition {
   slug: FamilyCaseType;

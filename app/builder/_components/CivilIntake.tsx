@@ -8,9 +8,28 @@ import {
   cleanList,
   getStageLabel,
   hasMeaningfulText,
-  includesAny,
-  normalize,
 } from "./builderTypes";
+
+import {
+  runCivilMasterCaseEngine,
+  type CivilMasterCaseResult,
+} from "../../../src/lib/case-system/civilMasterCaseEngine";
+
+import type { EvidenceItem } from "../../../src/lib/case-system/evidenceEngine";
+
+type EvidenceFile = {
+  id: string;
+  name: string;
+  size: number;
+  type: string;
+  lastModified: number;
+  title: string;
+  description: string;
+  relatedIssue: string;
+  evidenceDate: string;
+  createdBy: string;
+  whyItMatters: string;
+};
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
@@ -19,12 +38,26 @@ type Props = {
 type CivilIssue =
   | "contract"
   | "negligence"
+  | "institutional-negligence"
+  | "professional-negligence"
+  | "human-rights"
+  | "disability-accommodation"
+  | "employment-human-rights"
+  | "housing-human-rights"
+  | "education-human-rights"
+  | "charter"
+  | "government-public-authority"
+  | "police-conduct"
+  | "judicial-review"
+  | "tribunal-overlap"
   | "defamation"
+  | "privacy"
   | "property"
   | "debt"
-  | "injunction"
-  | "charter"
   | "employment"
+  | "fraud-misrepresentation"
+  | "intentional-tort"
+  | "injunction"
   | "estate"
   | "motion"
   | "appeal"
@@ -40,6 +73,10 @@ type CivilDocument =
   | "affidavit"
   | "order"
   | "judgment"
+  | "tribunal-application"
+  | "human-rights-application"
+  | "judicial-review-materials"
+  | "demand-letter"
   | "discovery"
   | "trial-record"
   | "nothing"
@@ -49,6 +86,7 @@ type CivilInput = {
   caseStage: UniversalStage;
   issues: CivilIssue[];
   documents: CivilDocument[];
+  uploadedEvidenceFiles: EvidenceFile[];
   yourName: string;
   otherParty: string;
   yourRole: string;
@@ -65,12 +103,20 @@ type CivilInput = {
   settlementEfforts: string;
   serviceDetails: string;
   urgent: string;
+  humanRightsGrounds: string;
+  discriminationFacts: string;
+  accommodationRequests: string;
+  governmentActor: string;
+  publicDecisionOrConduct: string;
+  institutionalFacts: string;
+  privacyRecordsFacts: string;
 };
 
 const defaultInput: CivilInput = {
   caseStage: "not-sure",
   issues: [],
   documents: [],
+  uploadedEvidenceFiles: [],
   yourName: "",
   otherParty: "",
   yourRole: "",
@@ -87,17 +133,38 @@ const defaultInput: CivilInput = {
   settlementEfforts: "",
   serviceDetails: "",
   urgent: "",
+  humanRightsGrounds: "",
+  discriminationFacts: "",
+  accommodationRequests: "",
+  governmentActor: "",
+  publicDecisionOrConduct: "",
+  institutionalFacts: "",
+  privacyRecordsFacts: "",
 };
 
 const issueOptions: { value: CivilIssue; label: string }[] = [
   { value: "contract", label: "Contract / agreement dispute" },
   { value: "negligence", label: "Negligence / harm / damages" },
+  { value: "institutional-negligence", label: "Institutional negligence / system failure" },
+  { value: "professional-negligence", label: "Professional negligence" },
+  { value: "human-rights", label: "Human Rights / discrimination" },
+  { value: "disability-accommodation", label: "Disability accommodation issue" },
+  { value: "employment-human-rights", label: "Employment discrimination / accommodation" },
+  { value: "housing-human-rights", label: "Housing discrimination" },
+  { value: "education-human-rights", label: "School / education discrimination" },
+  { value: "charter", label: "Charter / constitutional issue" },
+  { value: "government-public-authority", label: "Government / public authority conduct" },
+  { value: "police-conduct", label: "Police / law enforcement conduct" },
+  { value: "judicial-review", label: "Judicial review / review of decision" },
+  { value: "tribunal-overlap", label: "Tribunal and court overlap" },
   { value: "defamation", label: "Defamation / reputational harm" },
+  { value: "privacy", label: "Privacy / records / disclosure issue" },
   { value: "property", label: "Property / land / possession issue" },
   { value: "debt", label: "Debt / money owed" },
-  { value: "injunction", label: "Injunction / urgent court order" },
-  { value: "charter", label: "Charter / government conduct" },
   { value: "employment", label: "Employment-related civil issue" },
+  { value: "fraud-misrepresentation", label: "Fraud / misrepresentation" },
+  { value: "intentional-tort", label: "Intentional harm / harassment / assault-related civil issue" },
+  { value: "injunction", label: "Injunction / urgent court order" },
   { value: "estate", label: "Estate / probate / trust issue" },
   { value: "motion", label: "Motion in an existing case" },
   { value: "appeal", label: "Appeal / leave to appeal" },
@@ -112,6 +179,10 @@ const documentOptions: { value: CivilDocument; label: string }[] = [
   { value: "notice-motion", label: "Notice of Motion already filed / received" },
   { value: "affidavit-service", label: "Affidavit of Service completed" },
   { value: "affidavit", label: "Affidavit already prepared" },
+  { value: "tribunal-application", label: "Tribunal application already started" },
+  { value: "human-rights-application", label: "Human Rights application already started" },
+  { value: "judicial-review-materials", label: "Judicial review materials started" },
+  { value: "demand-letter", label: "Demand letter / warning letter sent" },
   { value: "order", label: "Order already made" },
   { value: "judgment", label: "Judgment already obtained" },
   { value: "discovery", label: "Discovery / Affidavit of Documents started" },
@@ -120,9 +191,9 @@ const documentOptions: { value: CivilDocument; label: string }[] = [
   { value: "not-sure", label: "Not sure" },
 ];
 
-function toggleArrayValue<T extends string>(items: T[], value: T) {
-  if (value === "nothing") return items.includes(value) ? [] : ["nothing" as T];
-  if (value === "not-sure") return items.includes(value) ? [] : ["not-sure" as T];
+function toggleArrayValue<T extends string>(items: T[], value: T): T[] {
+  if (value === "nothing") return items.includes(value) ? [] : [value];
+  if (value === "not-sure") return items.includes(value) ? [] : [value];
 
   const cleaned = items.filter((item) => item !== "nothing" && item !== "not-sure");
 
@@ -131,181 +202,294 @@ function toggleArrayValue<T extends string>(items: T[], value: T) {
     : [...cleaned, value];
 }
 
-function analyzeCivilCase(input: CivilInput): AnalysisResult {
-  const text = normalize(Object.values(input).flat().join(" "));
+function formatFileSize(size: number): string {
+  if (size < 1024) return `${size} B`;
+  if (size < 1024 * 1024) return `${Math.round(size / 1024)} KB`;
+  return `${(size / (1024 * 1024)).toFixed(1)} MB`;
+}
 
-  const completedForms: string[] = [];
-  const receivedForms: string[] = [];
-  let requiredNextForms: string[] = [];
-  const notNeededNow: string[] = [];
-  const detectedIssues: string[] = [];
-  const inferredFacts: string[] = [];
-  const missingInformation: string[] = [];
-  const risksAndGaps: string[] = [];
-  const guidance: string[] = [];
+function labelsFromValues<T extends string>(
+  selected: T[],
+  options: { value: T; label: string }[],
+): string[] {
+  return cleanList(
+    selected.map((value) => options.find((option) => option.value === value)?.label || value),
+  );
+}
 
-  const claimStarted =
-    input.documents.includes("statement-claim") ||
-    includesAny(text, ["statement of claim filed", "claim already filed"]);
+function buildCivilNarrative(input: CivilInput): string {
+  return cleanList([
+    `Court path: Civil`,
+    `Stage: ${getStageLabel(input.caseStage)}`,
+    input.yourName ? `User / party name: ${input.yourName}` : "",
+    input.otherParty ? `Other party: ${input.otherParty}` : "",
+    input.yourRole ? `User role: ${input.yourRole}` : "",
+    input.courtLocation ? `Court or tribunal location: ${input.courtLocation}` : "",
+    input.courtFileNumber ? `File number: ${input.courtFileNumber}` : "",
+    input.amountClaimed ? `Amount claimed or disputed: ${input.amountClaimed}` : "",
+    input.limitationDeadline ? `Limitation or deadline concern: ${input.limitationDeadline}` : "",
+    input.issues.length ? `Selected issue signals: ${labelsFromValues(input.issues, issueOptions).join("; ")}` : "",
+    input.documents.length ? `Existing document signals: ${labelsFromValues(input.documents, documentOptions).join("; ")}` : "",
+    input.facts ? `Main story: ${input.facts}` : "",
+    input.timeline ? `Timeline: ${input.timeline}` : "",
+    input.evidence ? `Known evidence: ${input.evidence}` : "",
+    input.missingEvidence ? `Missing evidence: ${input.missingEvidence}` : "",
+    input.damagesBreakdown ? `Damages / impact: ${input.damagesBreakdown}` : "",
+    input.legalRemedy ? `Requested remedy: ${input.legalRemedy}` : "",
+    input.settlementEfforts ? `Settlement efforts: ${input.settlementEfforts}` : "",
+    input.serviceDetails ? `Service details: ${input.serviceDetails}` : "",
+    input.urgent ? `Urgent concerns: ${input.urgent}` : "",
+    input.humanRightsGrounds ? `Human Rights ground: ${input.humanRightsGrounds}` : "",
+    input.discriminationFacts ? `Discrimination facts: ${input.discriminationFacts}` : "",
+    input.accommodationRequests ? `Accommodation requests: ${input.accommodationRequests}` : "",
+    input.governmentActor ? `Government / public actor: ${input.governmentActor}` : "",
+    input.publicDecisionOrConduct ? `Public decision or conduct: ${input.publicDecisionOrConduct}` : "",
+    input.institutionalFacts ? `Institutional / professional facts: ${input.institutionalFacts}` : "",
+    input.privacyRecordsFacts ? `Privacy / records facts: ${input.privacyRecordsFacts}` : "",
+    input.uploadedEvidenceFiles.length
+      ? `Uploaded evidence files: ${input.uploadedEvidenceFiles
+          .map((file) =>
+            cleanList([
+              file.name,
+              file.title,
+              file.description,
+              file.relatedIssue,
+              file.evidenceDate,
+              file.createdBy,
+              file.whyItMatters,
+            ]).join(" | "),
+          )
+          .join("; ")}`
+      : "",
+  ]).join("\n");
+}
 
-  const defenceFiled =
-    input.documents.includes("statement-defence") ||
-    includesAny(text, ["statement of defence filed", "defence already filed"]);
+function buildCivilFacts(input: CivilInput): string[] {
+  return cleanList([
+    input.facts,
+    input.timeline ? `Timeline: ${input.timeline}` : "",
+    input.evidence ? `Known evidence: ${input.evidence}` : "",
+    input.missingEvidence ? `Missing evidence: ${input.missingEvidence}` : "",
+    input.damagesBreakdown ? `Damages / impact: ${input.damagesBreakdown}` : "",
+    input.settlementEfforts ? `Settlement efforts: ${input.settlementEfforts}` : "",
+    input.serviceDetails ? `Service details: ${input.serviceDetails}` : "",
+    input.urgent ? `Urgency: ${input.urgent}` : "",
+    input.humanRightsGrounds ? `Human Rights ground: ${input.humanRightsGrounds}` : "",
+    input.discriminationFacts ? `Discrimination facts: ${input.discriminationFacts}` : "",
+    input.accommodationRequests ? `Accommodation requests: ${input.accommodationRequests}` : "",
+    input.governmentActor ? `Government/public actor: ${input.governmentActor}` : "",
+    input.publicDecisionOrConduct ? `Public decision/conduct: ${input.publicDecisionOrConduct}` : "",
+    input.institutionalFacts ? `Institutional/professional facts: ${input.institutionalFacts}` : "",
+    input.privacyRecordsFacts ? `Privacy/records facts: ${input.privacyRecordsFacts}` : "",
+  ]);
+}
 
-  const applicationStarted = input.documents.includes("notice-application");
-  const motionStarted = input.documents.includes("notice-motion");
-  const serviceDone = input.documents.includes("affidavit-service");
-  const judgmentDone = input.documents.includes("judgment");
-  const discoveryStarted = input.documents.includes("discovery");
-  const trialStarted = input.documents.includes("trial-record");
+function buildCivilEvidenceItems(input: CivilInput): EvidenceItem[] {
+  const uploadedItems = input.uploadedEvidenceFiles.map((file, index) => ({
+    id: file.id || `civil_uploaded_${index + 1}`,
+    title: file.title || file.name,
+    description: cleanList([
+      file.description,
+      file.whyItMatters ? `Why it matters: ${file.whyItMatters}` : "",
+      file.createdBy ? `Created/provided by: ${file.createdBy}` : "",
+      file.type ? `File type: ${file.type}` : "",
+      file.size ? `File size: ${formatFileSize(file.size)}` : "",
+    ]).join(" "),
+    category: "uploaded-civil-evidence",
+    relevance: file.whyItMatters,
+    relatedIssue: file.relatedIssue,
+    relatedLegalElement: file.relatedIssue,
+    source: file.createdBy || file.name,
+    date: file.evidenceDate,
+    content: file.description || file.whyItMatters || file.name,
+    label: file.title || file.name,
+    fileName: file.name,
+    fileType: file.type,
+  }));
 
-  if (claimStarted) completedForms.push("Form 14A — Statement of Claim");
-  if (defenceFiled) receivedForms.push("Form 18A — Statement of Defence");
-  if (applicationStarted) completedForms.push("Form 14E — Notice of Application");
-  if (motionStarted) completedForms.push("Form 37A — Notice of Motion");
-  if (serviceDone) completedForms.push("Form 16B — Affidavit of Service");
-  if (judgmentDone) completedForms.push("Judgment / order already exists");
-  if (discoveryStarted) completedForms.push("Discovery materials started");
-  if (trialStarted) completedForms.push("Trial materials started");
+  const describedEvidence = hasMeaningfulText(input.evidence)
+    ? [
+        {
+          id: "civil_described_evidence",
+          title: "Described civil evidence",
+          description: input.evidence,
+          category: "described-evidence",
+          relevance: "User described this as known evidence.",
+          relatedIssue: labelsFromValues(input.issues, issueOptions).join(", "),
+          relatedLegalElement: "general proof",
+          source: "intake",
+          date: "",
+          content: input.evidence,
+          label: "Described civil evidence",
+          fileName: "",
+          fileType: "text",
+        },
+      ]
+    : [];
 
-  const isStarting =
-    input.caseStage === "starting-case" ||
-    input.documents.includes("nothing") ||
-    input.documents.length === 0;
+  return [...uploadedItems, ...describedEvidence] as EvidenceItem[];
+}
 
-  const isResponding = input.caseStage === "responding";
-  const isMotion = input.caseStage === "motion" || input.issues.includes("motion");
-  const isEnforcement =
-    input.caseStage === "enforcement" || input.issues.includes("enforcement");
-  const isTrial = input.caseStage === "trial";
-  const isUrgent = input.caseStage === "urgent" || input.issues.includes("injunction");
+function buildCivilMasterResult(input: CivilInput): CivilMasterCaseResult {
+  const issueLabels = labelsFromValues(input.issues, issueOptions);
+  const documentLabels = labelsFromValues(input.documents, documentOptions);
 
-  if (input.issues.includes("contract")) detectedIssues.push("Contract / agreement issue");
-  if (input.issues.includes("negligence")) detectedIssues.push("Negligence / damages issue");
-  if (input.issues.includes("defamation")) detectedIssues.push("Defamation / reputational harm issue");
-  if (input.issues.includes("charter")) detectedIssues.push("Charter / public authority issue");
-  if (input.issues.includes("estate")) detectedIssues.push("Estate / probate / trust issue");
-  if (isMotion) detectedIssues.push("Motion or procedural request");
-  if (isEnforcement) detectedIssues.push("Enforcement after judgment");
-  if (isTrial) detectedIssues.push("Trial preparation");
+  return runCivilMasterCaseEngine({
+    title: cleanList([input.yourName, input.otherParty, "Civil Case"]).join(" v. "),
+    summary: buildCivilNarrative(input),
+    stage: getStageLabel(input.caseStage),
+    selectedIssues: issueLabels,
+    requestedRemedies: cleanList([input.legalRemedy, input.amountClaimed]),
+    facts: buildCivilFacts(input),
+    evidenceItems: buildCivilEvidenceItems(input),
+    timeline: [] as never,
+    liabilityTheories: [],
+    existingRisks: [],
+    existingForms: [],
+  });
+}
 
-  if (isStarting && !claimStarted && !applicationStarted) {
-    requiredNextForms.push("Form 14A — Statement of Claim");
-    requiredNextForms.push("Form 4A — General Heading");
-    requiredNextForms.push("Form 4C — Backsheet");
-  }
+function buildCivilAnalysisFromMaster(
+  input: CivilInput,
+  masterResult: CivilMasterCaseResult,
+): AnalysisResult {
+  const masterCase = masterResult.masterCase;
 
-  if (isResponding && !defenceFiled) {
-    requiredNextForms.push("Form 18A — Statement of Defence");
-  }
-
-  if (claimStarted && !serviceDone && !isResponding) {
-    requiredNextForms.push("Form 16B — Affidavit of Service");
-  }
-
-  if (isMotion) {
-    requiredNextForms.push("Form 37A — Notice of Motion");
-    requiredNextForms.push("Affidavit in support of motion");
-  }
-
-  if (isUrgent) {
-    requiredNextForms.push("Urgent motion materials");
-    risksAndGaps.push("Urgent relief usually needs clear evidence, dates, harm, and the exact order requested.");
-  }
-
-  if (discoveryStarted || input.caseStage === "already-started") {
-    requiredNextForms.push("Affidavit of Documents / discovery organization package");
-  }
-
-  if (isTrial) {
-    requiredNextForms.push("Trial record / evidence package");
-    requiredNextForms.push("Witness list and key document index");
-  }
-
-  if (isEnforcement) {
-    requiredNextForms.push("Enforcement information package");
-    requiredNextForms.push("Writ / garnishment / examination materials depending on enforcement method");
-  }
-
-  if (applicationStarted) {
-    requiredNextForms.push("Application record / affidavit evidence package");
-    notNeededNow.push("Form 14A — Statement of Claim");
-  }
-
-  if (claimStarted) notNeededNow.push("Form 14A — Statement of Claim");
-  if (defenceFiled) notNeededNow.push("Form 18A — Statement of Defence");
-  if (serviceDone) notNeededNow.push("Form 16B — Affidavit of Service");
-
-  if (!hasMeaningfulText(input.yourName)) missingInformation.push("Your full legal name or business name.");
-  if (!hasMeaningfulText(input.otherParty)) missingInformation.push("Other party’s full legal name or business name.");
-  if (!hasMeaningfulText(input.courtLocation)) missingInformation.push("Court location.");
-  if (!hasMeaningfulText(input.facts)) missingInformation.push("Detailed facts explaining what happened.");
-  if (!hasMeaningfulText(input.timeline)) missingInformation.push("Timeline with key dates.");
-  if (!hasMeaningfulText(input.evidence)) risksAndGaps.push("Evidence has not been listed yet.");
-  if (!hasMeaningfulText(input.legalRemedy)) missingInformation.push("Exact order or remedy wanted from the court.");
-
-  if (input.issues.includes("defamation")) {
-    if (!hasMeaningfulText(input.evidence)) {
-      risksAndGaps.push("Defamation claims usually need proof of the exact words, who received them, when they were published, and harm caused.");
-    }
-    if (!hasMeaningfulText(input.damagesBreakdown)) {
-      missingInformation.push("Explanation of reputational, financial, or other harm caused by the statements.");
-    }
-  }
-
-  if (input.issues.includes("negligence") && !hasMeaningfulText(input.damagesBreakdown)) {
-    missingInformation.push("Breakdown of damages and losses caused by the alleged negligence.");
-  }
-
-  if (hasMeaningfulText(input.amountClaimed)) inferredFacts.push("A claim amount was provided.");
-  if (hasMeaningfulText(input.limitationDeadline)) inferredFacts.push("A limitation or deadline concern was provided.");
-  if (hasMeaningfulText(input.settlementEfforts)) inferredFacts.push("Settlement efforts were described.");
-  if (hasMeaningfulText(input.serviceDetails)) inferredFacts.push("Service details were provided.");
-
-  guidance.push(
-    "Civil cases should be organized by parties, legal issue, facts, timeline, evidence, requested remedy, and procedural stage.",
-    "Do not restart the case with forms already filed. Prepare only the next documents required for the current stage.",
-    "For a Statement of Claim, the system will need party names, court location, material facts, legal basis, remedy requested, and damages breakdown.",
-    "For motions, the system will need the order requested, evidence supporting urgency or need, and the procedural history.",
-    "Evidence should be organized by date, source, issue, and what each document proves."
+  const completedForms = labelsFromValues(
+    input.documents.filter((doc) => doc !== "nothing" && doc !== "not-sure"),
+    documentOptions,
   );
 
-  const doneText = normalize([...completedForms, ...receivedForms, ...notNeededNow].join(" "));
-  requiredNextForms = cleanList(
-    requiredNextForms.filter((form) => {
-      const f = normalize(form);
-      if (f.includes("statement of claim") && doneText.includes("statement of claim")) return false;
-      if (f.includes("statement of defence") && doneText.includes("statement of defence")) return false;
-      if (f.includes("affidavit of service") && doneText.includes("affidavit of service")) return false;
-      return true;
-    })
-  );
+  const receivedForms = completedForms;
+
+  const requiredNextForms = cleanList([
+    ...masterCase.formNeeds.map((form) => form.title),
+    ...masterResult.formRouting.requiredNow.map((form) => form.title),
+    ...masterResult.formRouting.recommendedNow.map((form) => form.title),
+  ]);
+
+  const risksAndGaps = cleanList([
+    ...masterCase.risks.map((risk) => `${risk.title}: ${risk.description}`),
+    ...masterCase.missingInformation,
+    ...masterResult.strategy.weakestAreas,
+  ]);
+
+  const proceduralRisks = cleanList([
+    ...masterCase.risks
+      .filter((risk) => risk.source === "procedure")
+      .map((risk) => `${risk.title}: ${risk.description}`),
+    ...masterCase.procedureProfile.limitationConcerns,
+    ...masterCase.procedureProfile.jurisdictionConcerns,
+    ...masterCase.procedureProfile.readinessWarnings,
+  ]);
+
+  const damagesIssues = cleanList([
+    ...masterCase.damagesProfile.financialLosses,
+    ...masterCase.damagesProfile.emotionalHarms,
+    ...masterCase.damagesProfile.reputationalHarms,
+    ...masterCase.damagesProfile.physicalHarms,
+    ...masterCase.damagesProfile.causationConcerns,
+    ...masterCase.damagesProfile.damagesProofMissing,
+  ]);
+
+  const defenceAttacks = cleanList([
+    ...masterResult.strategy.likelyDefenceArguments,
+    ...masterCase.narrativeProfile.defenceVulnerabilities,
+  ]);
+
+  const judgeConcerns = cleanList([
+    ...masterResult.strategy.likelyJudgeConcerns,
+    ...masterCase.narrativeProfile.judicialConcerns,
+    ...masterCase.readiness.blockers,
+  ]);
+
+  const suggestedFocus = cleanList([
+    ...masterResult.dashboardSummary.immediateNextSteps,
+    ...masterResult.strategy.tacticalNextMoves,
+    ...masterResult.strategy.readinessStrategy,
+  ]);
+
+  const documentUploadRequests = cleanList([
+    ...masterCase.caseFileCatalog.missingCriticalDocuments,
+    ...masterCase.evidenceProfile.missingEvidence,
+    ...masterCase.caseFileCatalog.nextDocumentActions,
+  ]);
+
+  const inferredFacts = cleanList([
+    `Readiness level: ${masterCase.readiness.level} (${masterCase.readiness.score}/100).`,
+    `Procedural track: ${masterCase.procedureProfile.proceduralTrack}.`,
+    masterCase.civilCaseTypes.length
+      ? `Detected civil path: ${masterCase.civilCaseTypes.join(", ")}.`
+      : "",
+    masterResult.strategy.strongestTheories.length
+      ? `Strongest theories: ${masterResult.strategy.strongestTheories.join(", ")}.`
+      : "",
+    input.amountClaimed ? `Amount claimed or disputed: ${input.amountClaimed}.` : "",
+    input.limitationDeadline ? `Limitation/deadline issue: ${input.limitationDeadline}.` : "",
+    input.uploadedEvidenceFiles.length
+      ? `${input.uploadedEvidenceFiles.length} uploaded evidence file(s) captured.`
+      : "",
+  ]);
+
+  const guidance = cleanList([
+    ...masterCase.nextSteps,
+    ...masterResult.strategy.readinessStrategy,
+    ...masterResult.strategy.draftingWarnings,
+  ]);
 
   const summary = [
-    "Civil Case Summary",
+    "Civil Litigation Analysis",
     "",
-    `Stage: ${getStageLabel(input.caseStage)}`,
+    `Readiness: ${masterCase.readiness.level} (${masterCase.readiness.score}/100)`,
+    `Procedural track: ${masterCase.procedureProfile.proceduralTrack}`,
     "",
-    `Next required documents:\n- ${requiredNextForms.join("\n- ") || "No next forms detected yet"}`,
+    "Strongest theories:",
+    masterResult.strategy.strongestTheories.map((item) => `- ${item}`).join("\n") ||
+      "- No strongest theory identified yet",
     "",
-    `Missing information:\n- ${cleanList(missingInformation).join("\n- ") || "No major missing information detected"}`,
+    "Immediate risks:",
+    risksAndGaps.slice(0, 10).map((item) => `- ${item}`).join("\n") ||
+      "- No major risks detected",
     "",
-    `Risks or gaps:\n- ${cleanList(risksAndGaps).join("\n- ") || "No major risks detected yet"}`,
+    "Likely defence attacks:",
+    defenceAttacks.slice(0, 10).map((item) => `- ${item}`).join("\n") ||
+      "- No defence attacks generated",
+    "",
+    "Judge concerns:",
+    judgeConcerns.slice(0, 10).map((item) => `- ${item}`).join("\n") ||
+      "- No judge concerns generated",
+    "",
+    "Recommended next documents / packages:",
+    requiredNextForms.slice(0, 10).map((item) => `- ${item}`).join("\n") ||
+      "- No form recommendations generated",
+    "",
+    "Next focus:",
+    suggestedFocus.slice(0, 10).map((item) => `- ${item}`).join("\n") ||
+      "- No next focus generated",
   ].join("\n");
 
   return {
     courtPath: "civil",
     caseStage: getStageLabel(input.caseStage),
-    completedForms: cleanList(completedForms),
-    receivedForms: cleanList(receivedForms),
+    completedForms,
+    receivedForms,
     requiredNextForms,
-    notNeededNow: cleanList(notNeededNow),
-    detectedIssues: cleanList(detectedIssues),
-    inferredFacts: cleanList(inferredFacts),
-    missingInformation: cleanList(missingInformation),
-    risksAndGaps: cleanList(risksAndGaps),
+    notNeededNow: masterResult.formRouting.notNeededNow.map((form) => form.title),
+    detectedIssues: cleanList([
+      ...labelsFromValues(input.issues, issueOptions),
+      ...masterCase.civilCaseTypes,
+    ]),
+    inferredFacts,
+    missingInformation: masterCase.missingInformation,
+    risksAndGaps,
     guidance,
     summary,
+    proceduralRisks,
+    damagesIssues,
+    defenceAttacks,
+    judgeConcerns,
+    suggestedFocus,
+    documentUploadRequests,
   };
 }
 
@@ -316,8 +500,54 @@ export default function CivilIntake({ onComplete }: Props) {
     setInput((current) => ({ ...current, [field]: value }));
   }
 
+  function updateEvidenceFile(fileId: string, field: keyof EvidenceFile, value: string) {
+    setInput((current) => ({
+      ...current,
+      uploadedEvidenceFiles: current.uploadedEvidenceFiles.map((file) =>
+        file.id === fileId ? { ...file, [field]: value } : file,
+      ),
+    }));
+  }
+
+  function handleEvidenceFilesSelected(files: FileList | null) {
+    if (!files) return;
+
+    const nextFiles: EvidenceFile[] = Array.from(files).map((file) => ({
+      id: `${file.name}-${file.size}-${file.lastModified}`,
+      name: file.name,
+      size: file.size,
+      type: file.type || "Unknown file type",
+      lastModified: file.lastModified,
+      title: "",
+      description: "",
+      relatedIssue: "",
+      evidenceDate: "",
+      createdBy: "",
+      whyItMatters: "",
+    }));
+
+    setInput((current) => {
+      const existingIds = new Set(current.uploadedEvidenceFiles.map((file) => file.id));
+      const newUniqueFiles = nextFiles.filter((file) => !existingIds.has(file.id));
+
+      return {
+        ...current,
+        uploadedEvidenceFiles: [...current.uploadedEvidenceFiles, ...newUniqueFiles],
+      };
+    });
+  }
+
+  function removeEvidenceFile(fileId: string) {
+    setInput((current) => ({
+      ...current,
+      uploadedEvidenceFiles: current.uploadedEvidenceFiles.filter((file) => file.id !== fileId),
+    }));
+  }
+
   function handleAnalyze() {
-    const analysis = analyzeCivilCase(input);
+    const masterResult = buildCivilMasterResult(input);
+    const analysis = buildCivilAnalysisFromMaster(input, masterResult);
+    const narrative = buildCivilNarrative(input);
 
     const payload: StoredCaseData = {
       courtPath: "civil",
@@ -325,7 +555,7 @@ export default function CivilIntake({ onComplete }: Props) {
       caseStage: input.caseStage,
       yourName: input.yourName,
       otherParty: input.otherParty,
-      facts: input.facts,
+      facts: narrative,
       timeline: input.timeline,
       evidence: input.evidence,
       missingEvidence: input.missingEvidence,
@@ -333,8 +563,20 @@ export default function CivilIntake({ onComplete }: Props) {
       urgent: input.urgent,
       analysis,
       extra: {
+        architectureMode: "civil-master-engine-connected",
+        sourceOfTruth: "civilMasterCaseEngine",
+        civilInput: input,
+        civilMasterResult: masterResult,
+        civilMasterCase: masterResult.masterCase,
+        civilDashboardSummary: masterResult.dashboardSummary,
+        civilStrategy: masterResult.strategy,
+        civilWorkflow: masterResult.workflow,
+        civilEvidence: masterResult.evidence,
+        civilNarrative: masterResult.narrative,
+        civilFormRouting: masterResult.formRouting,
         issues: input.issues,
         documents: input.documents,
+        uploadedEvidenceFiles: input.uploadedEvidenceFiles,
         yourRole: input.yourRole,
         courtLocation: input.courtLocation,
         courtFileNumber: input.courtFileNumber,
@@ -344,10 +586,18 @@ export default function CivilIntake({ onComplete }: Props) {
         legalRemedy: input.legalRemedy,
         settlementEfforts: input.settlementEfforts,
         serviceDetails: input.serviceDetails,
+        humanRightsGrounds: input.humanRightsGrounds,
+        discriminationFacts: input.discriminationFacts,
+        accommodationRequests: input.accommodationRequests,
+        governmentActor: input.governmentActor,
+        publicDecisionOrConduct: input.publicDecisionOrConduct,
+        institutionalFacts: input.institutionalFacts,
+        privacyRecordsFacts: input.privacyRecordsFacts,
       },
     };
 
     localStorage.setItem("caseData", JSON.stringify(payload));
+    localStorage.setItem("courtSimplifiedCase", JSON.stringify(payload));
     onComplete(analysis, payload);
   }
 
@@ -356,8 +606,10 @@ export default function CivilIntake({ onComplete }: Props) {
       <h2 className="text-2xl font-bold text-[#10231f]">Civil Intake</h2>
 
       <p className="mt-3 text-[#4d675f]">
-        Tell the full civil case story once. CourtSimplified will identify the
-        current stage, missing information, next documents, and case-building steps.
+        Tell the full civil case story once. CourtSimplified will preserve the
+        facts for the unified legal brain so the system can analyze issues,
+        evidence, procedure, documents, risks, and next steps from one source of
+        truth.
       </p>
 
       <div className="mt-6 grid gap-5">
@@ -397,7 +649,7 @@ export default function CivilIntake({ onComplete }: Props) {
               value={input.otherParty}
               onChange={(e) => updateField("otherParty", e.target.value)}
               className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder="Person, business, institution, or government body"
+              placeholder="Person, business, institution, employer, landlord, school, police, government body"
             />
           </label>
         </div>
@@ -408,7 +660,7 @@ export default function CivilIntake({ onComplete }: Props) {
             value={input.yourRole}
             onChange={(e) => updateField("yourRole", e.target.value)}
             className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
-            placeholder="Example: plaintiff, defendant, applicant, moving party"
+            placeholder="Example: plaintiff, defendant, applicant, respondent, moving party"
           />
         </label>
 
@@ -435,7 +687,7 @@ export default function CivilIntake({ onComplete }: Props) {
         </div>
 
         <div>
-          <h3 className="font-semibold text-[#16302b]">What issues are involved?</h3>
+          <h3 className="font-semibold text-[#16302b]">What issues may be involved?</h3>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
             {issueOptions.map((option) => (
               <button
@@ -457,19 +709,26 @@ export default function CivilIntake({ onComplete }: Props) {
         </div>
 
         {[
-          ["courtLocation", "Court location", "Example: Ottawa Superior Court of Justice"],
-          ["courtFileNumber", "Court file number, if already started", "Example: CV-25-00000000"],
+          ["courtLocation", "Court or tribunal location", "Example: Ottawa Superior Court, HRTO, Divisional Court, tribunal location"],
+          ["courtFileNumber", "Court / tribunal file number, if already started", "Example: CV-25-00000000 or tribunal file number"],
           ["amountClaimed", "Amount claimed or disputed", "Example: $75,000 plus costs"],
           ["limitationDeadline", "Limitation/deadline concerns", "When did the issue happen? Any filing deadline?"],
+          ["humanRightsGrounds", "Human Rights ground, if any", "Example: disability, race, sex, family status, age, creed, reprisal, accommodation"],
+          ["discriminationFacts", "Discrimination / Human Rights facts", "What unequal treatment, denial, harassment, reprisal, or failure to accommodate happened?"],
+          ["accommodationRequests", "Accommodation requests or responses", "What was requested, when, from whom, and what response was received?"],
+          ["governmentActor", "Government / public authority involved", "Police, Crown, ministry, school board, hospital, tribunal, municipality, public institution"],
+          ["publicDecisionOrConduct", "Government decision, policy, omission, or conduct", "What decision, process, omission, failure, or action is being challenged?"],
+          ["institutionalFacts", "Institutional / professional failure facts", "What did the organization or professional know, fail to do, fail to record, or fail to communicate?"],
+          ["privacyRecordsFacts", "Privacy / records facts", "What record was accessed, disclosed, withheld, misused, altered, or requested?"],
           ["facts", "What happened?", "Explain the full story in your own words."],
           ["timeline", "Timeline", "Important dates in order."],
-          ["evidence", "Evidence you have", "Contracts, texts, emails, photos, records, receipts, witnesses."],
-          ["missingEvidence", "Evidence still missing", "Documents, records, witnesses, or proof still needed."],
-          ["damagesBreakdown", "Damages / loss breakdown", "Explain money loss, harm, expenses, reputational harm, or other damages."],
-          ["legalRemedy", "What do you want the court to order?", "Money, declaration, injunction, dismissal, order, costs."],
-          ["settlementEfforts", "Settlement efforts", "Offers, letters, discussions, refusals, payment proposals."],
+          ["evidence", "Evidence you have", "Contracts, texts, emails, photos, records, receipts, witnesses, policies, reports, decisions."],
+          ["missingEvidence", "Evidence still missing", "Documents, records, witnesses, disclosure, policies, recordings, or proof still needed."],
+          ["damagesBreakdown", "Damages / loss / impact breakdown", "Money loss, harm, expenses, discrimination impacts, reputational harm, emotional impact, lost opportunity, records harm."],
+          ["legalRemedy", "What do you want ordered?", "Money, declaration, injunction, accommodation, correction of records, dismissal, order, costs, tribunal remedy."],
+          ["settlementEfforts", "Settlement efforts", "Offers, letters, discussions, refusals, payment proposals, accommodation discussions."],
           ["serviceDetails", "Service details", "Who was served, when, where, how, and by whom?"],
-          ["urgent", "Anything urgent?", "Deadlines, injunction, ongoing harm, limitation issue, enforcement urgency."],
+          ["urgent", "Anything urgent?", "Deadlines, injunction, ongoing harm, limitation issue, enforcement urgency, accommodation urgency."],
         ].map(([field, label, placeholder]) => (
           <label key={field} className="block">
             <span className="font-semibold text-[#16302b]">{label}</span>
@@ -484,12 +743,150 @@ export default function CivilIntake({ onComplete }: Props) {
           </label>
         ))}
 
+        <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
+          <h3 className="text-lg font-bold text-[#10231f]">
+            Upload civil evidence files
+          </h3>
+
+          <p className="mt-2 text-sm leading-6 text-[#4d675f]">
+            Add contracts, screenshots, emails, PDFs, court documents, invoices,
+            receipts, photos, government records, accommodation records, policies,
+            medical records, police records, school records, tribunal documents,
+            or other civil evidence.
+          </p>
+
+          <label className="mt-4 flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-[#d8e6df] bg-white px-4 py-6 text-center hover:bg-[#f4fbf8]">
+            <span className="font-semibold text-[#2f7d67]">
+              Choose civil evidence files
+            </span>
+            <span className="mt-1 text-sm text-[#6b8078]">
+              You can select multiple files
+            </span>
+            <input
+              type="file"
+              multiple
+              className="hidden"
+              onChange={(event) => handleEvidenceFilesSelected(event.target.files)}
+            />
+          </label>
+
+          {input.uploadedEvidenceFiles.length > 0 && (
+            <div className="mt-5">
+              <h4 className="font-semibold text-[#16302b]">
+                Selected evidence files
+              </h4>
+
+              <div className="mt-3 grid gap-4">
+                {input.uploadedEvidenceFiles.map((file) => (
+                  <div
+                    key={file.id}
+                    className="rounded-2xl border border-[#d8e6df] bg-white p-4"
+                  >
+                    <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                      <div>
+                        <p className="font-semibold text-[#16302b]">{file.name}</p>
+                        <p className="mt-1 text-sm text-[#6b8078]">
+                          {formatFileSize(file.size)} · {file.type}
+                        </p>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => removeEvidenceFile(file.id)}
+                        className="rounded-xl border border-red-200 px-4 py-2 text-sm font-semibold text-red-700 hover:bg-red-50"
+                      >
+                        Remove
+                      </button>
+                    </div>
+
+                    <div className="mt-4 grid gap-4">
+                      <label className="block">
+                        <span className="text-sm font-semibold text-[#16302b]">
+                          Evidence title
+                        </span>
+                        <input
+                          value={file.title}
+                          onChange={(e) => updateEvidenceFile(file.id, "title", e.target.value)}
+                          className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
+                          placeholder="Example: Accommodation denial email"
+                        />
+                      </label>
+
+                      <label className="block">
+                        <span className="text-sm font-semibold text-[#16302b]">
+                          Description
+                        </span>
+                        <textarea
+                          value={file.description}
+                          onChange={(e) => updateEvidenceFile(file.id, "description", e.target.value)}
+                          className="mt-2 min-h-20 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
+                          placeholder="What is this file? What does it show?"
+                        />
+                      </label>
+
+                      <div className="grid gap-4 md:grid-cols-2">
+                        <label className="block">
+                          <span className="text-sm font-semibold text-[#16302b]">
+                            Related issue
+                          </span>
+                          <input
+                            value={file.relatedIssue}
+                            onChange={(e) => updateEvidenceFile(file.id, "relatedIssue", e.target.value)}
+                            className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
+                            placeholder="Example: Human Rights, contract, negligence, damages, privacy"
+                          />
+                        </label>
+
+                        <label className="block">
+                          <span className="text-sm font-semibold text-[#16302b]">
+                            Date or event connected to this file
+                          </span>
+                          <input
+                            value={file.evidenceDate}
+                            onChange={(e) => updateEvidenceFile(file.id, "evidenceDate", e.target.value)}
+                            className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
+                            placeholder="Example: March 12, 2026"
+                          />
+                        </label>
+                      </div>
+
+                      <label className="block">
+                        <span className="text-sm font-semibold text-[#16302b]">
+                          Who created, sent, or provided it?
+                        </span>
+                        <input
+                          value={file.createdBy}
+                          onChange={(e) => updateEvidenceFile(file.id, "createdBy", e.target.value)}
+                          className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
+                          placeholder="Example: defendant, plaintiff, employer, school, tribunal, police, doctor"
+                        />
+                      </label>
+
+                      <label className="block">
+                        <span className="text-sm font-semibold text-[#16302b]">
+                          Why does it matter?
+                        </span>
+                        <textarea
+                          value={file.whyItMatters}
+                          onChange={(e) => updateEvidenceFile(file.id, "whyItMatters", e.target.value)}
+                          className="mt-2 min-h-20 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
+                          placeholder="Explain what this helps prove or why the court/tribunal may need to see it."
+                        />
+                      </label>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
         <button
           type="button"
           onClick={handleAnalyze}
           className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white"
         >
-          Generate Analysis
+          Continue to Unified Analysis
         </button>
       </div>
     </section>

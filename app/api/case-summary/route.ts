@@ -1,23 +1,60 @@
 import { NextResponse } from "next/server";
 
+import { runCourtSimplifiedBrain } from "../../../src/lib/case-system/intelligence/courtSimplifiedBrain";
+
+import type {
+  CourtSimplifiedBrainInput,
+  CourtSimplifiedBrainOutput,
+  IntelligenceCourtPath,
+  IntelligenceProvince,
+  IntelligenceStage,
+  LegalIntelligenceResult,
+} from "../../../src/lib/case-system/intelligence/intelligenceTypes";
+
+type LegacyCourtPath = "family" | "small-claims" | "civil" | "not-sure";
+
+type EmotionalTone = "standard" | "supportive" | "urgent" | "simplified";
+
+type ComplexityLevel =
+  | "simple"
+  | "moderate"
+  | "complex"
+  | "high-risk"
+  | "not-sure";
+
 type CourtSimplifiedAnalysis = {
   summary: string;
+  plainLanguageSummary: string;
+  nextStepMessage: string;
+
+  courtPath: LegacyCourtPath;
+  province: string;
   caseType: string;
   currentStage: string;
+  userRole: string;
+
+  detectedLegalPaths: string[];
+  factualThemes: string[];
+  complexityLevel: ComplexityLevel;
 
   completedForms: string[];
   receivedForms: string[];
   requiredNextForms: string[];
+  laterForms: string[];
   notNeededNow: string[];
 
   missingInformation: string[];
   evidenceMentioned: string[];
+  evidenceNeeded: string[];
 
   legalIssues: string[];
   timelineAnalysis: string[];
   proceduralStageReasoning: string[];
 
   risks: string[];
+  urgencyFlags: string[];
+  emotionalTone: EmotionalTone;
+
   contradictions: string[];
 
   evidenceStrengths: string[];
@@ -38,206 +75,352 @@ type CourtSimplifiedAnalysis = {
   nextSteps: string[];
 };
 
-export async function POST(req: Request) {
-  try {
-    const data = await req.json();
-
-    if (!process.env.OPENAI_API_KEY) {
-      return NextResponse.json(
-        { summary: "OpenAI API key is missing." },
-        { status: 500 }
-      );
-    }
-
-    const prompt = `
-You are CourtSimplified — an advanced legal reasoning engine.
-
-You DO NOT behave like a chatbot.
-You behave like a legal professional reviewing a full case file.
-
-----------------------------------------
-MANDATORY THINKING PROCESS
-----------------------------------------
-
-1. Reconstruct a timeline from facts
-2. Identify current legal stage
-3. Identify legal issues (substantive + procedural)
-4. Detect contradictions
-5. Identify risks (deadlines, evidence, process)
-6. Analyze evidence strength
-7. Consider opposing arguments
-8. Consider what a judge will focus on
-9. Determine ONLY next procedural steps
-
-----------------------------------------
-CRITICAL RULES
-----------------------------------------
-
-- NEVER recommend steps already completed
-- NEVER restart a case already in progress
-- DO NOT guess — use missingInformation instead
-- DO NOT give legal advice
-- THINK before answering
-
-----------------------------------------
-WHAT YOU MUST DETECT
-
-LEGAL ISSUES:
-- breach of contract
-- unpaid debt
-- negligence
-- procedural defects
-- jurisdiction issues
-
-RISKS:
-- missed deadlines
-- weak evidence
-- no proof of service
-- incorrect process
-- limitation periods
-
-CONTRADICTIONS:
-- user says something is done but also asks how to do it
-- timeline inconsistencies
-
-EVIDENCE ANALYSIS:
-- what supports the claim
-- what is missing
-- what is weak
-
-----------------------------------------
-OUTPUT STRICT JSON
-
-{
-  "summary": "",
-  "caseType": "",
-  "currentStage": "",
-
-  "completedForms": [],
-  "receivedForms": [],
-  "requiredNextForms": [],
-  "notNeededNow": [],
-
-  "missingInformation": [],
-  "evidenceMentioned": [],
-
-  "legalIssues": [],
-  "timelineAnalysis": [],
-  "proceduralStageReasoning": [],
-
-  "risks": [],
-  "contradictions": [],
-
-  "evidenceStrengths": [],
-  "evidenceWeaknesses": [],
-  "missingEvidence": [],
-
-  "deadlineRisks": [],
-  "serviceRisks": [],
-  "limitationRisks": [],
-
-  "opposingArguments": [],
-  "courtConcerns": [],
-
-  "recommendedQuestions": [],
-  "caseStrategy": [],
-  "casePackageItems": [],
-
-  "nextSteps": []
+function clean(value: unknown): string {
+  return String(value || "").trim();
 }
 
-----------------------------------------
-INTAKE DATA
-----------------------------------------
+function cleanList(items: unknown[]): string[] {
+  return Array.from(new Set(items.map(clean).filter(Boolean)));
+}
 
-${JSON.stringify(data, null, 2)}
-`;
+function normalizeBrainCourtPath(value: unknown): IntelligenceCourtPath {
+  if (
+    value === "family" ||
+    value === "small-claims" ||
+    value === "civil" ||
+    value === "tribunal" ||
+    value === "ltb" ||
+    value === "immigration" ||
+    value === "criminal-related" ||
+    value === "unknown"
+  ) {
+    return value;
+  }
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "gpt-4o",
-        messages: [{ role: "user", content: prompt }],
-        temperature: 0.2,
-        response_format: { type: "json_object" },
-      }),
-    });
+  if (value === "not-sure") return "unknown";
 
-    const result = await response.json();
+  return "unknown";
+}
 
-    if (!response.ok) {
-      return NextResponse.json(
-        {
-          summary:
-            "OpenAI error: " +
-            (result?.error?.message || "Unknown error"),
-        },
-        { status: response.status }
-      );
-    }
+function normalizeLegacyCourtPath(value: unknown): LegacyCourtPath {
+  if (value === "family" || value === "small-claims" || value === "civil") {
+    return value;
+  }
 
-    const rawContent = result?.choices?.[0]?.message?.content;
+  return "not-sure";
+}
 
-    if (!rawContent) {
-      return NextResponse.json({
-        summary: "No analysis generated.",
-      });
-    }
+function normalizeProvince(value: unknown): IntelligenceProvince {
+  if (
+    value === "Ontario" ||
+    value === "Alberta" ||
+    value === "British Columbia" ||
+    value === "Manitoba" ||
+    value === "New Brunswick" ||
+    value === "Newfoundland and Labrador" ||
+    value === "Northwest Territories" ||
+    value === "Nova Scotia" ||
+    value === "Nunavut" ||
+    value === "Prince Edward Island" ||
+    value === "Quebec" ||
+    value === "Saskatchewan" ||
+    value === "Yukon" ||
+    value === "Federal" ||
+    value === "Unknown"
+  ) {
+    return value;
+  }
 
-    let parsed: CourtSimplifiedAnalysis;
+  return "Ontario";
+}
 
-    try {
-      parsed = JSON.parse(rawContent);
-    } catch {
-      return NextResponse.json({
-        summary: rawContent,
-      });
-    }
+function normalizeStage(value: unknown): IntelligenceStage {
+  if (
+    value === "starting-case" ||
+    value === "responding" ||
+    value === "already-started" ||
+    value === "conference" ||
+    value === "motion" ||
+    value === "trial" ||
+    value === "enforcement" ||
+    value === "appeal" ||
+    value === "urgent" ||
+    value === "settlement" ||
+    value === "not-sure"
+  ) {
+    return value;
+  }
 
-    return NextResponse.json({
-      summary: parsed.summary || "",
-      analysis: parsed,
-      caseType: parsed.caseType || "Unknown",
-      currentStage: parsed.currentStage || "Unknown",
-      completedForms: parsed.completedForms || [],
-      receivedForms: parsed.receivedForms || [],
-      requiredNextForms: parsed.requiredNextForms || [],
-      notNeededNow: parsed.notNeededNow || [],
-      missingInformation: parsed.missingInformation || [],
-      evidenceMentioned: parsed.evidenceMentioned || [],
+  return "not-sure";
+}
 
-      legalIssues: parsed.legalIssues || [],
-      timelineAnalysis: parsed.timelineAnalysis || [],
-      proceduralStageReasoning: parsed.proceduralStageReasoning || [],
+function extractRawUserText(data: Record<string, unknown>): string {
+  const possibleFields = [
+    data.rawUserText,
+    data.facts,
+    data.story,
+    data.message,
+    data.summary,
+    data.description,
+    data.caseSummary,
+    data.intakeNarrative,
+    data.currentSituation,
+    data.details,
+  ];
 
-      risks: parsed.risks || [],
-      contradictions: parsed.contradictions || [],
+  const directText = possibleFields.map(clean).find(Boolean);
 
-      evidenceStrengths: parsed.evidenceStrengths || [],
-      evidenceWeaknesses: parsed.evidenceWeaknesses || [],
-      missingEvidence: parsed.missingEvidence || [],
+  if (directText) return directText;
 
-      deadlineRisks: parsed.deadlineRisks || [],
-      serviceRisks: parsed.serviceRisks || [],
-      limitationRisks: parsed.limitationRisks || [],
+  return JSON.stringify(data, null, 2);
+}
 
-      opposingArguments: parsed.opposingArguments || [],
-      courtConcerns: parsed.courtConcerns || [],
+function fallbackAnalysis(message: string): CourtSimplifiedAnalysis {
+  return {
+    summary: message,
+    plainLanguageSummary: message,
+    nextStepMessage: "That’s okay — we’ll guide you through this step by step.",
 
-      recommendedQuestions: parsed.recommendedQuestions || [],
-      caseStrategy: parsed.caseStrategy || [],
-      casePackageItems: parsed.casePackageItems || [],
+    courtPath: "not-sure",
+    province: "Ontario",
+    caseType: "Unknown",
+    currentStage: "Unknown",
+    userRole: "not-sure",
 
-      nextSteps: parsed.nextSteps || [],
-    });
-  } catch (err) {
+    detectedLegalPaths: [],
+    factualThemes: [],
+    complexityLevel: "not-sure",
+
+    completedForms: [],
+    receivedForms: [],
+    requiredNextForms: [],
+    laterForms: [],
+    notNeededNow: [],
+
+    missingInformation: [],
+    evidenceMentioned: [],
+    evidenceNeeded: [],
+
+    legalIssues: [],
+    timelineAnalysis: [],
+    proceduralStageReasoning: [],
+
+    risks: [],
+    urgencyFlags: [],
+    emotionalTone: "supportive",
+
+    contradictions: [],
+
+    evidenceStrengths: [],
+    evidenceWeaknesses: [],
+    missingEvidence: [],
+
+    deadlineRisks: [],
+    serviceRisks: [],
+    limitationRisks: [],
+
+    opposingArguments: [],
+    courtConcerns: [],
+
+    recommendedQuestions: [],
+    caseStrategy: [],
+    casePackageItems: [],
+
+    nextSteps: [],
+  };
+}
+
+function buildFormLabel(form: LegalIntelligenceResult["formRecommendations"][number]) {
+  return cleanList([form.formNumber ? `Form ${form.formNumber}` : "", form.title]).join(
+    " - ",
+  );
+}
+
+function mapIntelligenceToAnalysis(
+  intelligence: LegalIntelligenceResult,
+): CourtSimplifiedAnalysis {
+  const proof = intelligence.elementProofAnalysis;
+
+  const missingEvidence = cleanList([
+    ...intelligence.evidenceIssueLinks.flatMap((item) => item.missingEvidence),
+    ...(proof?.claimProofMaps.flatMap((map) => map.missingEvidence) || []),
+  ]);
+
+  const evidenceWeaknesses = cleanList([
+    ...(proof?.globalWeaknesses || []),
+    ...intelligence.evidenceIssueLinks
+      .filter((item) => item.strength === "low" || item.strength === "very-low")
+      .map((item) => item.explanation),
+  ]);
+
+  const evidenceStrengths = cleanList([
+    ...(proof?.globalStrengths || []),
+    ...intelligence.evidenceIssueLinks
+      .filter((item) => item.strength === "high" || item.strength === "very-high")
+      .map((item) => item.explanation),
+  ]);
+
+  const limitationRisks = cleanList([
+    ...intelligence.limitationAssessments
+      .filter(
+        (item) => item.status === "possible-risk" || item.status === "likely-risk",
+      )
+      .flatMap((item) => item.reasons),
+    ...intelligence.litigationRisks
+      .filter((risk) => risk.source === "limitations")
+      .map((risk) => risk.explanation),
+  ]);
+
+  const serviceRisks = cleanList(
+    intelligence.litigationRisks
+      .filter((risk) => /service/i.test(`${risk.title} ${risk.explanation}`))
+      .map((risk) => risk.explanation),
+  );
+
+  const deadlineRisks = cleanList([
+    ...limitationRisks,
+    ...intelligence.proceduralPosture.missingProcedureInfo.filter((item) =>
+      /deadline|date|served|court date/i.test(item),
+    ),
+  ]);
+
+  return {
+    summary: intelligence.structuredCaseSummary || intelligence.plainLanguageSummary,
+    plainLanguageSummary: intelligence.plainLanguageSummary,
+    nextStepMessage:
+      intelligence.nextBestActions[0] ||
+      "Continue through the guided CourtSimplified workflow.",
+
+    courtPath: normalizeLegacyCourtPath(intelligence.proceduralPosture.courtPath),
+    province: intelligence.proceduralPosture.province,
+    caseType: intelligence.primaryClaimTypes.join(", ") || "Unknown",
+    currentStage: intelligence.proceduralPosture.stage,
+    userRole: "not-sure",
+
+    detectedLegalPaths: intelligence.primaryClaimTypes,
+    factualThemes: intelligence.normalizedIntake.events.map((event) => event.title),
+    complexityLevel:
+      intelligence.litigationRisks.some((risk) => risk.severity === "critical")
+        ? "high-risk"
+        : intelligence.litigationRisks.some((risk) => risk.severity === "high")
+          ? "complex"
+          : "moderate",
+
+    completedForms: [],
+    receivedForms: [],
+    requiredNextForms: cleanList(
+      intelligence.formRecommendations.map(buildFormLabel),
+    ),
+    laterForms: [],
+    notNeededNow: cleanList(
+      intelligence.formRecommendations.flatMap((form) => form.notRecommendedForms),
+    ),
+
+    missingInformation: intelligence.missingInformation.map((item) => item.question),
+    evidenceMentioned: intelligence.normalizedIntake.evidence.map((item) => item.title),
+    evidenceNeeded: missingEvidence,
+
+    legalIssues: intelligence.claimClassifications.map((claim) => claim.explanation),
+    timelineAnalysis: intelligence.normalizedIntake.events.map(
+      (event) => event.description,
+    ),
+    proceduralStageReasoning: [
+      ...intelligence.proceduralPosture.reasons,
+      ...intelligence.proceduralPosture.missingProcedureInfo,
+    ],
+
+    risks: intelligence.litigationRisks.map((risk) => risk.explanation),
+    urgencyFlags: intelligence.litigationRisks
+      .filter((risk) => risk.severity === "critical" || risk.severity === "high")
+      .map((risk) => risk.title),
+    emotionalTone: intelligence.proceduralPosture.stage === "urgent" ? "urgent" : "supportive",
+
+    contradictions: intelligence.contradictions.map(
+      (item) => `${item.title}: ${item.description}`,
+    ),
+
+    evidenceStrengths,
+    evidenceWeaknesses,
+    missingEvidence,
+
+    deadlineRisks,
+    serviceRisks,
+    limitationRisks,
+
+    opposingArguments: intelligence.opposingArguments.map((item) => item.argument),
+    courtConcerns: intelligence.judgeConcerns.map((item) => item.concern),
+
+    recommendedQuestions: [
+      ...intelligence.missingInformation.map((item) => item.question),
+      ...intelligence.proceduralPosture.nextProceduralQuestions,
+    ],
+    caseStrategy: [
+      ...intelligence.opposingArguments.map((item) => item.responseStrategy),
+      ...intelligence.judgeConcerns.map((item) => item.howToAddress),
+    ],
+    casePackageItems: cleanList([
+      "Timeline",
+      "Evidence summary",
+      "Proof map",
+      "Form review",
+      "Risk review",
+      "Court package review",
+    ]),
+
+    nextSteps: intelligence.nextBestActions,
+  };
+}
+
+function buildBrainInput(data: Record<string, unknown>): CourtSimplifiedBrainInput {
+  return {
+    caseId: clean(data.caseId) || undefined,
+    courtPath: normalizeBrainCourtPath(data.courtPath || data.path),
+    province: normalizeProvince(data.province),
+    stage: normalizeStage(data.stage || data.caseStage || data.currentStage),
+    rawUserText: extractRawUserText(data),
+    existingMasterResult: data.existingMasterResult,
+    sourceType: "user-intake",
+  };
+}
+
+export async function POST(req: Request) {
+  try {
+    const data = (await req.json()) as Record<string, unknown>;
+
+    const brainInput = buildBrainInput(data);
+    const brainOutput: CourtSimplifiedBrainOutput =
+      await runCourtSimplifiedBrain(brainInput);
+
+    const analysis = mapIntelligenceToAnalysis(brainOutput.intelligence);
+
     return NextResponse.json(
-      { summary: "Server error." },
-      { status: 500 }
+      {
+        ...analysis,
+        analysis,
+
+        intelligence: brainOutput.intelligence,
+        masterResultPatch: brainOutput.masterResultPatch,
+        dashboardPatch: brainOutput.dashboardPatch,
+        recommendedNextRoute: brainOutput.recommendedNextRoute,
+
+        sourceRoute: "case-summary",
+        sourceEngine: "courtSimplifiedBrain",
+        architectureMode: "master-case-source-of-truth",
+        sanitized: true,
+      },
+      { status: 200 },
+    );
+  } catch (error) {
+    console.error("CourtSimplified case-summary route error:", error);
+
+    return NextResponse.json(
+      {
+        ...fallbackAnalysis("Server error during CourtSimplified Brain analysis."),
+        sourceRoute: "case-summary",
+        sourceEngine: "fallback",
+        sanitized: true,
+      },
+      { status: 500 },
     );
   }
 }
