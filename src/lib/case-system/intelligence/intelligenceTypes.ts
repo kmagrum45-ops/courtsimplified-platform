@@ -1,3 +1,6 @@
+import { FactPatternAnalysisResult } from "../facts/factPatternTypes";
+import { EvidenceIntelligenceResult } from "../evidence/evidenceIntelligenceTypes";
+
 export type CourtSimplifiedIntelligenceVersion =
   | "1.0.0"
   | "2.0.0";
@@ -685,6 +688,8 @@ export type LegalIntelligenceResult = {
   formRecommendations: FormRecommendation[];
   legalKnowledge: LegalKnowledgePacket;
 
+  factPatternAnalysis?: FactPatternAnalysisResult;
+  evidenceIntelligenceAnalysis?: EvidenceIntelligenceResult;
   elementProofAnalysis?: ElementProofEngineResult;
 
   plainLanguageSummary: string;
