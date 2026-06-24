@@ -24,12 +24,12 @@ import {
   JudgeConcern,
   ProceduralPostureAssessment,
   RemedyFitAssessment,
-  RemedyType,
 } from "./intelligenceTypes";
 
 import { normalizeIntake } from "./intakeNormalizationEngine";
 import { buildElementProofAnalysis } from "./elementProofEngine";
 import { buildBrainMigrationLayer } from "../orchestration/brainMigrationLayer";
+import { buildEvidenceIntelligenceAnalysis } from "../evidence/evidenceIntelligenceEngine";
 
 import {
   buildKnowledgeRetrievalContext,
@@ -311,6 +311,383 @@ function confidenceFromScore(score: number): IntelligenceConfidence {
   return "very-low";
 }
 
+type BrainFactPatternCategory =
+  | "admission"
+  | "denial"
+  | "contradiction"
+  | "timeline"
+  | "motive"
+  | "intent"
+  | "knowledge"
+  | "notice"
+  | "credibility"
+  | "conduct"
+  | "causation"
+  | "damages"
+  | "procedure"
+  | "unknown";
+
+type BrainFactPatternFinding = {
+  id: string;
+  category: BrainFactPatternCategory;
+  title: string;
+  description: string;
+  supportingFactIds: string[];
+  supportingEvidenceIds: string[];
+  confidence: IntelligenceConfidence;
+  severity: IntelligenceSeverity;
+  significance: string;
+  litigationImpact: string;
+};
+
+type BrainFactPatternAnalysisResult = {
+  version: "1.0.0";
+  findings: BrainFactPatternFinding[];
+  admissions: BrainFactPatternFinding[];
+  contradictions: BrainFactPatternFinding[];
+  credibilityIssues: BrainFactPatternFinding[];
+  knowledgeIndicators: BrainFactPatternFinding[];
+  timelineIssues: BrainFactPatternFinding[];
+  causationIssues: BrainFactPatternFinding[];
+  damagesIndicators: BrainFactPatternFinding[];
+  strongestPatterns: string[];
+  weakestPatterns: string[];
+  nextActions: string[];
+  summary: string;
+};
+
+function factPatternConfidenceFromCount(count: number): IntelligenceConfidence {
+  if (count >= 6) return "high";
+  if (count >= 3) return "medium";
+  if (count >= 1) return "low";
+  return "very-low";
+}
+
+function severityForFactPatternCategory(
+  category: BrainFactPatternCategory,
+): IntelligenceSeverity {
+  if (
+    category === "contradiction" ||
+    category === "credibility" ||
+    category === "causation"
+  ) {
+    return "high";
+  }
+
+  if (
+    category === "admission" ||
+    category === "denial" ||
+    category === "timeline" ||
+    category === "knowledge" ||
+    category === "notice"
+  ) {
+    return "medium";
+  }
+
+  return "low";
+}
+
+function buildFactPatternFinding(args: {
+  category: BrainFactPatternCategory;
+  title: string;
+  description: string;
+  supportingFactIds?: string[];
+  supportingEvidenceIds?: string[];
+  confidence?: IntelligenceConfidence;
+  significance: string;
+  litigationImpact: string;
+}): BrainFactPatternFinding {
+  return {
+    id: createId("fact_pattern"),
+    category: args.category,
+    title: args.title,
+    description: args.description,
+    supportingFactIds: args.supportingFactIds || [],
+    supportingEvidenceIds: args.supportingEvidenceIds || [],
+    confidence: args.confidence || "medium",
+    severity: severityForFactPatternCategory(args.category),
+    significance: args.significance,
+    litigationImpact: args.litigationImpact,
+  };
+}
+
+function buildFactPatternAnalysis(
+  intake: NormalizedIntake,
+): BrainFactPatternAnalysisResult {
+  const raw = normalizeText(intake.rawUserText);
+  const findings: BrainFactPatternFinding[] = [];
+
+  if (
+    includesAny(raw, [
+      "admitted",
+      "admits",
+      "said they did",
+      "confirmed",
+      "acknowledged",
+    ])
+  ) {
+    findings.push(
+      buildFactPatternFinding({
+        category: "admission",
+        title: "Possible admission detected",
+        description:
+          "The intake contains language suggesting that someone may have admitted or acknowledged an important fact.",
+        confidence: "medium",
+        significance:
+          "Admissions can be important because they may reduce what needs to be proven through other evidence.",
+        litigationImpact:
+          "The system should preserve the exact words, speaker, date, context, and supporting document before relying on this as an admission.",
+      }),
+    );
+  }
+
+  if (
+    includesAny(raw, [
+      "denied",
+      "denies",
+      "never",
+      "refused",
+      "said it never happened",
+    ])
+  ) {
+    findings.push(
+      buildFactPatternFinding({
+        category: "denial",
+        title: "Possible denial detected",
+        description:
+          "The intake contains language suggesting that a party denied an important fact.",
+        confidence: "medium",
+        significance:
+          "A denial can create a dispute that must be supported or challenged with records, dates, messages, or witness evidence.",
+        litigationImpact:
+          "The system should compare the denial against documents, payment records, messages, admissions, and timeline evidence.",
+      }),
+    );
+  }
+
+  if (
+    includesAny(raw, [
+      "but",
+      "however",
+      "contradict",
+      "doesn't match",
+      "does not match",
+      "different story",
+    ])
+  ) {
+    findings.push(
+      buildFactPatternFinding({
+        category: "contradiction",
+        title: "Possible factual contradiction detected",
+        description:
+          "The intake contains signals that two facts, statements, or records may not match.",
+        supportingEvidenceIds: intake.evidence.map((item) => item.id),
+        confidence: "medium",
+        significance:
+          "Contradictions can affect credibility, proof strength, settlement pressure, and court readiness.",
+        litigationImpact:
+          "The system should compare each conflicting statement against the timeline, documents, evidence, and prior admissions.",
+      }),
+    );
+  }
+
+  if (
+    intake.dates.length > 0 ||
+    includesAny(raw, ["before", "after", "then", "later", "deadline", "late"])
+  ) {
+    findings.push(
+      buildFactPatternFinding({
+        category: "timeline",
+        title: "Timeline significance detected",
+        description:
+          "The intake contains date, sequence, delay, or deadline signals.",
+        supportingFactIds: intake.events.map((event) => event.id),
+        supportingEvidenceIds: intake.evidence.map((item) => item.id),
+        confidence: factPatternConfidenceFromCount(
+          intake.dates.length + intake.events.length,
+        ),
+        significance:
+          "Timeline order can affect limitation periods, procedural steps, credibility, causation, and proof.",
+        litigationImpact:
+          "The system should build a date-by-date chronology before generating final court materials.",
+      }),
+    );
+  }
+
+  if (
+    includesAny(raw, [
+      "knew",
+      "known",
+      "notice",
+      "warned",
+      "told",
+      "aware",
+    ])
+  ) {
+    findings.push(
+      buildFactPatternFinding({
+        category:
+          raw.includes("notice") || raw.includes("warned") ? "notice" : "knowledge",
+        title: "Knowledge or notice signal detected",
+        description:
+          "The intake contains language suggesting that a party may have known about, been warned about, or received notice of an important fact.",
+        confidence: "medium",
+        significance:
+          "Knowledge and notice can matter to responsibility, foreseeability, credibility, procedural fairness, and causation.",
+        litigationImpact:
+          "The system should identify who knew what, when they knew it, how they knew it, and what record proves it.",
+      }),
+    );
+  }
+
+  if (
+    includesAny(raw, [
+      "because",
+      "caused",
+      "led to",
+      "resulted in",
+      "due to",
+    ])
+  ) {
+    findings.push(
+      buildFactPatternFinding({
+        category: "causation",
+        title: "Causation signal detected",
+        description:
+          "The intake contains language connecting one event, act, omission, or decision to a harm or result.",
+        confidence: "medium",
+        significance:
+          "Causation is often one of the hardest parts of a case and usually needs a clear chain of proof.",
+        litigationImpact:
+          "The system should test whether the evidence proves more than timing or suspicion and actually supports the causal link.",
+      }),
+    );
+  }
+
+  if (intake.moneyAmounts.length > 0 || intake.harms.length > 0) {
+    findings.push(
+      buildFactPatternFinding({
+        category: "damages",
+        title: "Damages or harm signal detected",
+        description:
+          "The intake contains money amounts, losses, expenses, harm, or requested outcomes.",
+        supportingFactIds: intake.harms.map((harm) => harm.id),
+        supportingEvidenceIds: intake.evidence.map((item) => item.id),
+        confidence: factPatternConfidenceFromCount(
+          intake.moneyAmounts.length + intake.harms.length,
+        ),
+        significance:
+          "Damages must usually be proven with records, calculations, receipts, testimony, or other reliable evidence.",
+        litigationImpact:
+          "The system should separate claimed losses from proven losses and identify missing damages evidence.",
+      }),
+    );
+  }
+
+  const evidenceLinkedEvents = intake.events.filter(
+    (event) => event.evidenceIds.length > 0,
+  );
+
+  if (evidenceLinkedEvents.length > 0) {
+    findings.push(
+      buildFactPatternFinding({
+        category: "conduct",
+        title: "Evidence-linked fact pattern detected",
+        description:
+          "Some extracted facts or events are already connected to evidence.",
+        supportingFactIds: evidenceLinkedEvents.map((event) => event.id),
+        supportingEvidenceIds: cleanList(
+          evidenceLinkedEvents.flatMap((event) => event.evidenceIds),
+        ),
+        confidence: factPatternConfidenceFromCount(evidenceLinkedEvents.length),
+        significance:
+          "Facts connected to evidence are more useful for proof mapping than unsupported narrative statements.",
+        litigationImpact:
+          "The system should prioritize evidence-linked facts when building proof maps and court materials.",
+      }),
+    );
+  }
+
+  const admissions = findings.filter((finding) => finding.category === "admission");
+  const contradictions = findings.filter(
+    (finding) => finding.category === "contradiction",
+  );
+  const credibilityIssues = findings.filter(
+    (finding) =>
+      finding.category === "credibility" ||
+      finding.category === "contradiction" ||
+      finding.category === "denial",
+  );
+  const knowledgeIndicators = findings.filter(
+    (finding) => finding.category === "knowledge" || finding.category === "notice",
+  );
+  const timelineIssues = findings.filter(
+    (finding) => finding.category === "timeline",
+  );
+  const causationIssues = findings.filter(
+    (finding) => finding.category === "causation",
+  );
+  const damagesIndicators = findings.filter(
+    (finding) => finding.category === "damages",
+  );
+
+  const strongestPatterns = findings
+    .filter(
+      (finding) =>
+        finding.confidence === "high" || finding.confidence === "very-high",
+    )
+    .map((finding) => finding.title);
+
+  const weakestPatterns = findings
+    .filter(
+      (finding) =>
+        finding.confidence === "low" || finding.confidence === "very-low",
+    )
+    .map((finding) => finding.title);
+
+  const nextActions = cleanList([
+    findings.length > 0
+      ? "Review detected fact patterns and connect each one to specific evidence."
+      : "Collect more facts before relying on fact pattern analysis.",
+    admissions.length > 0
+      ? "Preserve exact words, dates, speaker, recipient, and context for each possible admission."
+      : "",
+    contradictions.length > 0
+      ? "Compare contradictions against messages, documents, timeline entries, and prior statements."
+      : "",
+    credibilityIssues.length > 0
+      ? "Resolve credibility issues before generating final court materials."
+      : "",
+    timelineIssues.length > 0
+      ? "Build a date-by-date litigation chronology."
+      : "",
+    causationIssues.length > 0
+      ? "Test whether the evidence proves causation, not just timing."
+      : "",
+    damagesIndicators.length > 0
+      ? "Separate claimed damages from proven damages and collect supporting records."
+      : "",
+  ]);
+
+  return {
+    version: "1.0.0",
+    findings,
+    admissions,
+    contradictions,
+    credibilityIssues,
+    knowledgeIndicators,
+    timelineIssues,
+    causationIssues,
+    damagesIndicators,
+    strongestPatterns,
+    weakestPatterns,
+    nextActions,
+    summary:
+      findings.length > 0
+        ? `Fact pattern analysis detected ${findings.length} litigation pattern(s).`
+        : "No major fact patterns were detected from the current intake.",
+  };
+}
 function buildLegalKnowledge(args: {
   courtPath: IntelligenceCourtPath;
   province: IntelligenceProvince;
@@ -477,7 +854,7 @@ function buildClaimElements(args: {
         supportingFactIds: factIds,
         supportingEvidenceIds: evidenceIds,
         missingFacts: cleanList(element.missingFacts || []),
-                risks: cleanList(element.risks || []),
+        risks: cleanList(element.risks || []),
         confidence: asConfidence(args.claim.confidence),
       };
     });
@@ -978,7 +1355,7 @@ function buildProofDrivenOpposingArguments(args: {
     proofMap.elementFindings.map((finding) => ({
       id: createId("opposing"),
       claimType: finding.claimType,
-           argument:
+      argument:
         finding.opposingArgument ||
         `The other side may argue the user has not proven ${finding.elementLabel}.`,
       whyItMatters:
@@ -1245,6 +1622,9 @@ function calculateReadiness(intelligence: LegalIntelligenceResult): number {
   if (intelligence.formRecommendations.length > 0) score += 10;
   if (intelligence.missingInformation.length === 0) score += 15;
 
+  if (intelligence.factPatternAnalysis?.findings.length) score += 5;
+  if (intelligence.evidenceIntelligenceAnalysis?.findings.length) score += 5;
+
   if (proofMaps.length > 0) {
     score += 10;
   }
@@ -1260,6 +1640,9 @@ function calculateReadiness(intelligence: LegalIntelligenceResult): number {
       map.overallProofStrength === "low" ||
       map.overallProofStrength === "very-low",
   ).length * 8;
+
+  score -= (intelligence.evidenceIntelligenceAnalysis?.gaps.length || 0) * 2;
+  score -= (intelligence.factPatternAnalysis?.contradictions.length || 0) * 5;
 
   return Math.max(0, Math.min(100, score));
 }
@@ -1287,9 +1670,11 @@ function buildMasterResultPatch(args: {
       stage: args.intelligence.proceduralPosture.stage,
       summary: args.intelligence.plainLanguageSummary,
       facts: args.intelligence.normalizedIntake.events,
+      factPatternAnalysis: args.intelligence.factPatternAnalysis,
       issues: args.intelligence.claimClassifications,
       timeline: args.intelligence.normalizedIntake.dates,
       evidence: args.intelligence.normalizedIntake.evidence,
+      evidenceIntelligenceAnalysis: args.intelligence.evidenceIntelligenceAnalysis,
       proofMap: args.intelligence.evidenceIssueLinks,
       elementProofAnalysis: args.intelligence.elementProofAnalysis,
       claimProofMaps: args.intelligence.elementProofAnalysis?.claimProofMaps || [],
@@ -1302,10 +1687,15 @@ function buildMasterResultPatch(args: {
       strategy: {
         strengths: [
           ...args.intelligence.claimClassifications.map((claim) => claim.explanation),
+          ...(args.intelligence.factPatternAnalysis?.strongestPatterns || []),
+          ...(args.intelligence.evidenceIntelligenceAnalysis?.strongestEvidence || []),
           ...(args.intelligence.elementProofAnalysis?.globalStrengths || []),
         ],
         weaknesses: [
           ...args.intelligence.litigationRisks.map((risk) => risk.explanation),
+          ...(args.intelligence.factPatternAnalysis?.weakestPatterns || []),
+          ...(args.intelligence.evidenceIntelligenceAnalysis?.weakestEvidence || []),
+          ...(args.intelligence.evidenceIntelligenceAnalysis?.gaps.map((gap) => gap.explanation) || []),
           ...(args.intelligence.elementProofAnalysis?.globalWeaknesses || []),
         ],
         likelyOtherSideArguments: args.intelligence.opposingArguments.map(
@@ -1334,6 +1724,14 @@ function buildMasterResultPatch(args: {
         importantFacts: args.intelligence.normalizedIntake.events.map(
           (event) => event.description,
         ),
+        detectedFactPatterns:
+          args.intelligence.factPatternAnalysis?.findings.map(
+            (finding) => finding.title,
+          ) || [],
+        evidenceGaps:
+          args.intelligence.evidenceIntelligenceAnalysis?.gaps.map(
+            (gap) => gap.title,
+          ) || [],
         unresolvedQuestions: args.intelligence.missingInformation.map(
           (item) => item.question,
         ),
@@ -1344,6 +1742,8 @@ function buildMasterResultPatch(args: {
           "Do not use old issue buckets as final legal classification.",
           "Do not recommend Defence forms unless the user is responding.",
           "Do not treat defamation as property damage or contract unless facts support it.",
+          "Use factPatternAnalysis as litigation fact-pattern intelligence only; do not treat it as verified evidence.",
+          "Use evidenceIntelligenceAnalysis as evidence triage only; verify admissibility and authenticity before court use.",
           "Use elementProofAnalysis as proof intelligence only; do not treat it as a separate claim classifier.",
           ...args.intelligence.systemWarnings,
         ],
@@ -1359,8 +1759,8 @@ function buildDashboardPatch(
 ): Record<string, unknown> {
   return {
     courtPath: intelligence.proceduralPosture.courtPath,
-    stage: intelligence.proceduralPosture.stage, 
-        summary: intelligence.plainLanguageSummary,
+    stage: intelligence.proceduralPosture.stage,
+    summary: intelligence.plainLanguageSummary,
     readinessScore: calculateReadiness(intelligence),
     primaryClaimTypes: intelligence.primaryClaimTypes,
     rejectedFalsePositives: intelligence.rejectedFalsePositives.map(
@@ -1370,6 +1770,24 @@ function buildDashboardPatch(
     warnings: intelligence.systemWarnings,
     contradictions: intelligence.contradictions,
     limitationAssessments: intelligence.limitationAssessments,
+    factPatternAnalysis: {
+      summary: intelligence.factPatternAnalysis?.summary || "",
+      findings: intelligence.factPatternAnalysis?.findings || [],
+      admissions: intelligence.factPatternAnalysis?.admissions || [],
+      contradictions: intelligence.factPatternAnalysis?.contradictions || [],
+      credibilityIssues: intelligence.factPatternAnalysis?.credibilityIssues || [],
+      nextActions: intelligence.factPatternAnalysis?.nextActions || [],
+    },
+    evidenceIntelligenceAnalysis: {
+      summary: intelligence.evidenceIntelligenceAnalysis?.summary || "",
+      findings: intelligence.evidenceIntelligenceAnalysis?.findings || [],
+      gaps: intelligence.evidenceIntelligenceAnalysis?.gaps || [],
+      contradictions: intelligence.evidenceIntelligenceAnalysis?.contradictions || [],
+      strongestEvidence: intelligence.evidenceIntelligenceAnalysis?.strongestEvidence || [],
+      weakestEvidence: intelligence.evidenceIntelligenceAnalysis?.weakestEvidence || [],
+      recommendedEvidenceCollection:
+        intelligence.evidenceIntelligenceAnalysis?.recommendedEvidenceCollection || [],
+    },
     proofAnalysis: {
       summary: intelligence.elementProofAnalysis?.summary || "",
       claimProofMaps: intelligence.elementProofAnalysis?.claimProofMaps || [],
@@ -1392,6 +1810,10 @@ function chooseRoute(intelligence: LegalIntelligenceResult): string {
 
   if (intelligence.contradictions.length > 0) return "/builder";
 
+  if (intelligence.factPatternAnalysis?.contradictions.length) {
+    return "/builder";
+  }
+
   if (
     intelligence.limitationAssessments.some(
       (item) => item.status === "possible-risk" || item.status === "likely-risk",
@@ -1401,6 +1823,14 @@ function chooseRoute(intelligence: LegalIntelligenceResult): string {
   }
 
   if (intelligence.missingInformation.length > 0) return "/builder";
+
+  if (
+    intelligence.evidenceIntelligenceAnalysis?.gaps.some(
+      (gap) => gap.severity === "high" || gap.severity === "critical",
+    )
+  ) {
+    return "/evidence";
+  }
 
   if (
     proofMaps.some((map) =>
@@ -1804,6 +2234,13 @@ export async function runCourtSimplifiedBrain(
 ): Promise<CourtSimplifiedBrainOutput> {
   const normalizedIntake = await normalizeIntake(input);
 
+  const factPatternAnalysis = buildFactPatternAnalysis(normalizedIntake);
+
+  const evidenceIntelligenceAnalysis = buildEvidenceIntelligenceAnalysis({
+    intake: normalizedIntake,
+    factPatternAnalysis,
+  });
+
   const gptCognition =
     (await runStructuredGptCognition(input, normalizedIntake)) ||
     buildFallbackCognition(normalizedIntake);
@@ -1894,7 +2331,11 @@ export async function runCourtSimplifiedBrain(
   });
 
   const nextBestActions = buildSupplementalNextActions({
-    existingActions: cleanList(gptCognition.nextBestActions || []),
+    existingActions: cleanList([
+      ...(gptCognition.nextBestActions || []),
+      ...factPatternAnalysis.nextActions,
+      ...evidenceIntelligenceAnalysis.recommendedEvidenceCollection,
+    ]),
     contradictions,
     limitationAssessments,
     normalizedIntake,
@@ -1940,6 +2381,8 @@ export async function runCourtSimplifiedBrain(
     judgeConcerns,
     formRecommendations,
     legalKnowledge,
+    factPatternAnalysis,
+    evidenceIntelligenceAnalysis,
     elementProofAnalysis,
 
     plainLanguageSummary:
@@ -1956,9 +2399,19 @@ export async function runCourtSimplifiedBrain(
       ...safeArray(gptCognition.systemWarnings),
       ...proceduralPosture.warnings,
       ...contradictions.map((item) => item.title),
+      ...factPatternAnalysis.contradictions.map(
+        (item: BrainFactPatternFinding) =>
+          `Fact pattern contradiction requires review: ${item.title}.`,
+      ),
+      ...evidenceIntelligenceAnalysis.contradictions.map(
+        (item) => `Evidence contradiction or context issue requires review: ${item.title}.`,
+      ),
+      ...evidenceIntelligenceAnalysis.gaps.map(
+        (gap) => `Evidence gap requires review: ${gap.title}.`,
+      ),
       ...limitationAssessments
         .filter((item) => item.status === "possible-risk" || item.status === "likely-risk")
-        .map((item) => "Limitation or deadline risk requires review."),
+        .map(() => "Limitation or deadline risk requires review."),
       ...elementProofAnalysis.globalWeaknesses.map(
         (weakness) => `Proof weakness requires review: ${weakness}.`,
       ),
