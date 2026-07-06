@@ -28,10 +28,7 @@ function buildWorkflowHref(
 ) {
   const params = new URLSearchParams();
 
-  if (caseId) {
-    params.set("caseId", caseId);
-  }
-
+  if (caseId) params.set("caseId", caseId);
   params.set("path", path);
 
   return `${route}?${params.toString()}`;
@@ -273,15 +270,12 @@ function BuilderPageContent() {
     if (!caseData) return;
 
     saveCurrentCaseData();
-
     router.push(buildWorkflowHref(route, getActiveCaseId(), courtPath));
   }
 
   function goToDashboardCase() {
     const targetCaseId = getActiveCaseId();
-
     if (!targetCaseId) return;
-
     router.push(`/dashboard/cases/${targetCaseId}`);
   }
 
@@ -359,18 +353,18 @@ function BuilderPageContent() {
           <div className="flex flex-wrap items-start justify-between gap-5">
             <div>
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-[#2f7d67]">
-                {pathLabel} Intake
+                {pathLabel} Case Partner
               </p>
 
               <h1 className="text-4xl font-bold tracking-tight text-[#10231f]">
-                Tell your story once
+                Start by telling CourtSimplified what happened
               </h1>
 
               <p className="mt-4 max-w-3xl text-lg leading-8 text-[#4d675f]">
-                CourtSimplified reviews your intake, identifies missing
-                information, analyzes procedural and evidentiary risks, organizes
-                litigation strategy, and routes the case into the connected
-                litigation workflow.
+                Talk naturally first. CourtSimplified will remember the case,
+                identify missing information, investigate proof issues, and help
+                route your matter into the connected intake, evidence, forms,
+                and court package workflow.
               </p>
             </div>
 
@@ -425,8 +419,52 @@ function BuilderPageContent() {
           </div>
         </section>
 
+        <section className="mb-8">
+          <CourtAssistantChat
+            caseId={getActiveCaseId() || undefined}
+            path={courtPath}
+            proceduralStage={
+              analysis?.intelligence?.proceduralPosture?.stage ||
+              caseData?.caseStage
+            }
+            caseData={{
+              courtPath,
+              pathLabel,
+              analysis,
+              intake: caseData,
+            }}
+            masterResult={caseData?.masterResultPatch}
+            evidenceData={analysis?.intelligenceEvidenceIssues}
+            strategyData={{
+              risks: analysis?.intelligence?.litigationRisks,
+              judgeConcerns: analysis?.intelligence?.judgeConcerns,
+              opposingArguments: analysis?.intelligence?.opposingArguments,
+              nextBestActions: analysis?.nextBestActions,
+            }}
+            onMasterResultUpdate={handleChatMasterResultUpdate}
+            onDashboardUpdate={handleChatDashboardUpdate}
+            onRecommendedRoute={handleRecommendedRoute}
+          />
+        </section>
+
         {!analysis && (
-          <>
+          <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
+            <div className="mb-6">
+              <p className="mb-2 text-sm font-semibold uppercase tracking-[0.24em] text-[#2f7d67]">
+                Structured intake
+              </p>
+
+              <h2 className="text-2xl font-bold text-[#10231f]">
+                Add details when you are ready
+              </h2>
+
+              <p className="mt-3 text-sm leading-6 text-[#4d675f]">
+                The conversation helps you organize the case first. Use the
+                structured intake below when you are ready to convert the story
+                into the formal case workflow.
+              </p>
+            </div>
+
             {courtPath === "family" && (
               <FamilyIntake onComplete={handleComplete} />
             )}
@@ -436,7 +474,7 @@ function BuilderPageContent() {
             )}
 
             {courtPath === "civil" && <CivilIntake onComplete={handleComplete} />}
-          </>
+          </section>
         )}
 
         {analysis && (
@@ -602,32 +640,6 @@ function BuilderPageContent() {
                 </div>
               </div>
             </section>
-
-            <CourtAssistantChat
-              caseId={getActiveCaseId() || undefined}
-              path={courtPath}
-              proceduralStage={
-                analysis.intelligence?.proceduralPosture?.stage ||
-                caseData?.caseStage
-              }
-              caseData={{
-                courtPath,
-                pathLabel,
-                analysis,
-                intake: caseData,
-              }}
-              masterResult={caseData?.masterResultPatch}
-              evidenceData={analysis.intelligenceEvidenceIssues}
-              strategyData={{
-                risks: analysis.intelligence?.litigationRisks,
-                judgeConcerns: analysis.intelligence?.judgeConcerns,
-                opposingArguments: analysis.intelligence?.opposingArguments,
-                nextBestActions: analysis.nextBestActions,
-              }}
-              onMasterResultUpdate={handleChatMasterResultUpdate}
-              onDashboardUpdate={handleChatDashboardUpdate}
-              onRecommendedRoute={handleRecommendedRoute}
-            />
           </div>
         )}
       </div>

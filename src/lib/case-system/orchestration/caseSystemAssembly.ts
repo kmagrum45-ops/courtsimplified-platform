@@ -5,6 +5,8 @@ import {
   CaseCourtPath,
   CaseCredibilityAnalysis,
   CaseCredibilityRiskLevel,
+  CaseEvidenceIntelligence,
+  CaseFactPatternAnalysis,
   CaseLegalDomain,
   CaseProvince,
   CaseStage,
@@ -17,6 +19,18 @@ import { buildClaimTheoryModel } from "../claims/claimTheoryEngine";
 import { buildDamagesRemedyModel } from "../damages/damagesRemedyEngine";
 import { buildCredibilityRiskModel } from "../credibility/credibilityRiskEngine";
 import { buildWorkflowOrchestration } from "../workflow/workflowOrchestrationEngine";
+
+import {
+  buildLitigationReasoning,
+  LitigationReasoningResult,
+} from "../litigation-intelligence/litigationReasoningEngine";
+
+import {
+  buildLegalReasoningCoordinator,
+  CoordinatedReasoningPackage,
+} from "../knowledge/legalReasoningCoordinator";
+
+import { DOCTRINE_SEED_LIBRARY } from "../knowledge/doctrineSeedLibrary";
 
 import {
   LitigationTimelineModel,
@@ -49,12 +63,13 @@ import {
   WorkflowAuthorityInput,
   WorkflowContradictionInput,
   WorkflowCredibilityInput,
+  WorkflowLegalReasoningInput,
   WorkflowOrchestrationModel,
   WorkflowProceduralInput,
   WorkflowProofInput,
 } from "../workflow/workflowOrchestrationArchitecture";
 
-export type CaseSystemAssemblyVersion = "1.3.0";
+export type CaseSystemAssemblyVersion = "1.6.0";
 
 export type FormReadinessModel = {
   requiredLabels: string[];
@@ -63,6 +78,56 @@ export type FormReadinessModel = {
   missingFormInformation: string[];
   formWarnings: string[];
   source: "courtSimplifiedBrain" | "fallback-assembly";
+};
+
+export type AssemblyLegalReasoningReadinessModel = {
+  hasLegalReasoning: boolean;
+  legalReasoningReadiness: CaseConfidence;
+  primaryDomains: CaseLegalDomain[];
+  profileCount: number;
+  authorityCount: number;
+  knowledgeObjectCount: number;
+  investigationPriorities: string[];
+  evidencePriorities: string[];
+  burdenPriorities: string[];
+  proceduralWatchPoints: string[];
+  judicialConcerns: string[];
+  opposingArguments: string[];
+  firstQuestions: string[];
+  warnings: string[];
+  blockedObjects: string[];
+  summary: string;
+};
+
+export type AssemblyFactPatternReadinessModel = {
+  hasFactPatternAnalysis: boolean;
+  factPatternReadiness: CaseConfidence;
+  findingCount: number;
+  admissionCount: number;
+  contradictionCount: number;
+  credibilityIssueCount: number;
+  knowledgeIndicatorCount: number;
+  timelineIssueCount: number;
+  causationIssueCount: number;
+  damagesIndicatorCount: number;
+  strongestPatterns: string[];
+  weakestPatterns: string[];
+  nextActions: string[];
+  warnings: string[];
+  summary: string;
+};
+
+export type AssemblyEvidenceIntelligenceReadinessModel = {
+  hasEvidenceIntelligence: boolean;
+  evidenceIntelligenceReadiness: CaseConfidence;
+  findingCount: number;
+  gapCount: number;
+  contradictionCount: number;
+  strongestEvidence: string[];
+  weakestEvidence: string[];
+  recommendedEvidenceCollection: string[];
+  warnings: string[];
+  summary: string;
 };
 
 export type AssemblyProofReadinessModel = {
@@ -152,6 +217,8 @@ export type CaseSystemAssemblyInput = {
     formWarnings?: string[];
   };
 
+  factPatternAnalysis?: CaseFactPatternAnalysis;
+  evidenceIntelligence?: CaseEvidenceIntelligence;
   proof?: WorkflowProofInput;
 
   authorityAnalysis?: CaseAuthorityAnalysis;
@@ -182,8 +249,13 @@ export type CaseSystemAssemblyModel = {
   damagesRemedy: DamagesRemedyModel;
   credibilityRisk: CredibilityRiskModel;
   workflow: WorkflowOrchestrationModel;
+  litigationReasoning: LitigationReasoningResult;
+  legalReasoning: CoordinatedReasoningPackage;
 
   formReadiness: FormReadinessModel;
+  legalReasoningReadiness: AssemblyLegalReasoningReadinessModel;
+  factPatternReadiness: AssemblyFactPatternReadinessModel;
+  evidenceIntelligenceReadiness: AssemblyEvidenceIntelligenceReadinessModel;
   proofReadiness: AssemblyProofReadinessModel;
   authorityReadiness: AssemblyAuthorityReadinessModel;
   contradictionReadiness: AssemblyContradictionReadinessModel;
@@ -234,6 +306,11 @@ function hasDamagesModel(model: DamagesRemedyModel): boolean {
     (model?.amounts || []).length > 0 ||
     (model?.remedyAssessments || []).length > 0
   );
+}
+
+function safeLegalDomains(domains: CaseLegalDomain[]): CaseLegalDomain[] {
+  const cleaned = uniqueStrings(domains) as CaseLegalDomain[];
+  return cleaned.length > 0 ? cleaned : ["unknown"];
 }
 
 function buildFallbackFormReadiness(input: CaseSystemAssemblyInput): FormReadinessModel {
@@ -291,6 +368,205 @@ function buildFallbackFormReadiness(input: CaseSystemAssemblyInput): FormReadine
     ]),
     formWarnings: uniqueStrings([...(input.forms?.formWarnings || []), ...formWarnings]),
     source: input.forms ? "courtSimplifiedBrain" : "fallback-assembly",
+  };
+}
+
+function buildLegalReasoningReadiness(
+  legalReasoning: CoordinatedReasoningPackage,
+): AssemblyLegalReasoningReadinessModel {
+  const warnings = uniqueStrings(legalReasoning.knowledge.warnings || []);
+  const blockedObjects = uniqueStrings(
+    (legalReasoning.knowledge.blockedObjects || []).map(
+      (object) => `${object.objectId}: ${object.reason}`,
+    ),
+  );
+
+  const profileCount = legalReasoning.profiles.length;
+  const authorityCount = legalReasoning.authorities.length;
+  const knowledgeObjectCount = legalReasoning.knowledge.objects.length;
+
+  const hasLegalReasoning =
+    profileCount > 0 ||
+    authorityCount > 0 ||
+    knowledgeObjectCount > 0 ||
+    legalReasoning.reasoningSummary.primaryDomains.length > 0;
+
+  const legalReasoningReadiness: CaseConfidence =
+    blockedObjects.length > 0
+      ? "low"
+      : warnings.length > 0
+        ? "medium"
+        : profileCount > 0 &&
+            legalReasoning.reasoningSummary.evidencePriorities.length > 0 &&
+            legalReasoning.reasoningSummary.burdenPriorities.length > 0
+          ? "high"
+          : hasLegalReasoning
+            ? "medium"
+            : "low";
+
+  return {
+    hasLegalReasoning,
+    legalReasoningReadiness,
+    primaryDomains: legalReasoning.reasoningSummary.primaryDomains,
+    profileCount,
+    authorityCount,
+    knowledgeObjectCount,
+    investigationPriorities: uniqueStrings(
+      legalReasoning.reasoningSummary.investigationPriorities,
+    ),
+    evidencePriorities: uniqueStrings(
+      legalReasoning.reasoningSummary.evidencePriorities,
+    ),
+    burdenPriorities: uniqueStrings(
+      legalReasoning.reasoningSummary.burdenPriorities,
+    ),
+    proceduralWatchPoints: uniqueStrings(
+      legalReasoning.reasoningSummary.proceduralWatchPoints,
+    ),
+    judicialConcerns: uniqueStrings(
+      legalReasoning.reasoningSummary.judicialConcerns,
+    ),
+    opposingArguments: uniqueStrings(
+      legalReasoning.reasoningSummary.opposingArguments,
+    ),
+    firstQuestions: uniqueStrings(legalReasoning.reasoningSummary.firstQuestions),
+    warnings,
+    blockedObjects,
+    summary: hasLegalReasoning
+      ? `Legal reasoning assembled with ${profileCount} profile(s), ${knowledgeObjectCount} knowledge object(s), and ${authorityCount} authority entrie(s).`
+      : "Legal reasoning was assembled but no matching reasoning profile, authority, or knowledge object was found.",
+  };
+}
+
+function buildFactPatternReadiness(
+  factPatternAnalysis?: CaseFactPatternAnalysis,
+): AssemblyFactPatternReadinessModel {
+  if (!factPatternAnalysis) {
+    return {
+      hasFactPatternAnalysis: false,
+      factPatternReadiness: "low",
+      findingCount: 0,
+      admissionCount: 0,
+      contradictionCount: 0,
+      credibilityIssueCount: 0,
+      knowledgeIndicatorCount: 0,
+      timelineIssueCount: 0,
+      causationIssueCount: 0,
+      damagesIndicatorCount: 0,
+      strongestPatterns: [],
+      weakestPatterns: [],
+      nextActions: [],
+      warnings: ["Fact pattern analysis has not been supplied to the assembly layer."],
+      summary: "No fact pattern analysis was supplied to assembly.",
+    };
+  }
+
+  const contradictionCount = factPatternAnalysis.contradictions.length;
+  const credibilityIssueCount = factPatternAnalysis.credibilityIssues.length;
+  const causationIssueCount = factPatternAnalysis.causationIssues.length;
+  const damagesIndicatorCount = factPatternAnalysis.damagesIndicators.length;
+
+  const factPatternReadiness: CaseConfidence =
+    credibilityIssueCount > 0 || contradictionCount > 0
+      ? "low"
+      : causationIssueCount > 0 || damagesIndicatorCount > 0
+        ? "medium"
+        : factPatternAnalysis.findings.length > 0
+          ? "high"
+          : "medium";
+
+  return {
+    hasFactPatternAnalysis: true,
+    factPatternReadiness,
+    findingCount: factPatternAnalysis.findings.length,
+    admissionCount: factPatternAnalysis.admissions.length,
+    contradictionCount,
+    credibilityIssueCount,
+    knowledgeIndicatorCount: factPatternAnalysis.knowledgeIndicators.length,
+    timelineIssueCount: factPatternAnalysis.timelineIssues.length,
+    causationIssueCount,
+    damagesIndicatorCount,
+    strongestPatterns: uniqueStrings(factPatternAnalysis.strongestPatterns),
+    weakestPatterns: uniqueStrings(factPatternAnalysis.weakestPatterns),
+    nextActions: uniqueStrings(factPatternAnalysis.nextActions),
+    warnings: uniqueStrings([
+      ...factPatternAnalysis.warnings,
+      contradictionCount > 0
+        ? `${contradictionCount} fact pattern contradiction(s) require review.`
+        : "",
+      credibilityIssueCount > 0
+        ? `${credibilityIssueCount} fact pattern credibility issue(s) require review.`
+        : "",
+      factPatternAnalysis.timelineIssues.length > 0
+        ? `${factPatternAnalysis.timelineIssues.length} timeline issue(s) should be organized into chronology.`
+        : "",
+      causationIssueCount > 0
+        ? `${causationIssueCount} causation issue(s) should be proof-tested.`
+        : "",
+      damagesIndicatorCount > 0
+        ? `${damagesIndicatorCount} damages signal(s) should be linked to records or calculations.`
+        : "",
+    ]),
+    summary: factPatternAnalysis.summary,
+  };
+}
+
+function buildEvidenceIntelligenceReadiness(
+  evidenceIntelligence?: CaseEvidenceIntelligence,
+): AssemblyEvidenceIntelligenceReadinessModel {
+  if (!evidenceIntelligence) {
+    return {
+      hasEvidenceIntelligence: false,
+      evidenceIntelligenceReadiness: "low",
+      findingCount: 0,
+      gapCount: 0,
+      contradictionCount: 0,
+      strongestEvidence: [],
+      weakestEvidence: [],
+      recommendedEvidenceCollection: [],
+      warnings: ["Evidence intelligence has not been supplied to the assembly layer."],
+      summary: "No evidence intelligence was supplied to assembly.",
+    };
+  }
+
+  const gapCount = evidenceIntelligence.gaps.length;
+  const contradictionCount = evidenceIntelligence.contradictions.length;
+
+  const hasCriticalGap = evidenceIntelligence.gaps.some(
+    (gap) => gap.severity === "critical" || gap.severity === "high",
+  );
+
+  const evidenceIntelligenceReadiness: CaseConfidence =
+    hasCriticalGap || contradictionCount > 0
+      ? "low"
+      : gapCount > 0
+        ? "medium"
+        : evidenceIntelligence.findings.length > 0
+          ? "high"
+          : "low";
+
+  return {
+    hasEvidenceIntelligence: true,
+    evidenceIntelligenceReadiness,
+    findingCount: evidenceIntelligence.findings.length,
+    gapCount,
+    contradictionCount,
+    strongestEvidence: uniqueStrings(evidenceIntelligence.strongestEvidence),
+    weakestEvidence: uniqueStrings(evidenceIntelligence.weakestEvidence),
+    recommendedEvidenceCollection: uniqueStrings(
+      evidenceIntelligence.recommendedEvidenceCollection,
+    ),
+    warnings: uniqueStrings([
+      ...evidenceIntelligence.warnings,
+      gapCount > 0 ? `${gapCount} evidence gap(s) require review.` : "",
+      contradictionCount > 0
+        ? `${contradictionCount} evidence contradiction/context issue(s) require review.`
+        : "",
+      evidenceIntelligence.weakestEvidence.length > 0
+        ? `${evidenceIntelligence.weakestEvidence.length} weak evidence item(s) should be strengthened or explained.`
+        : "",
+    ]),
+    summary: evidenceIntelligence.summary,
   };
 }
 
@@ -556,10 +832,33 @@ function toWorkflowProceduralInput(
   };
 }
 
+function toWorkflowLegalReasoningInput(
+  legalReasoning: AssemblyLegalReasoningReadinessModel,
+): WorkflowLegalReasoningInput {
+  return {
+    hasLegalReasoning: legalReasoning.hasLegalReasoning,
+    primaryDomains: legalReasoning.primaryDomains,
+    profileCount: legalReasoning.profileCount,
+    authorityCount: legalReasoning.authorityCount,
+    knowledgeObjectCount: legalReasoning.knowledgeObjectCount,
+    investigationPriorities: legalReasoning.investigationPriorities,
+    evidencePriorities: legalReasoning.evidencePriorities,
+    burdenPriorities: legalReasoning.burdenPriorities,
+    proceduralWatchPoints: legalReasoning.proceduralWatchPoints,
+    judicialConcerns: legalReasoning.judicialConcerns,
+    opposingArguments: legalReasoning.opposingArguments,
+    firstQuestions: legalReasoning.firstQuestions,
+    warnings: legalReasoning.warnings,
+    blockedObjects: legalReasoning.blockedObjects,
+  };
+}
+
 export function buildCaseSystemAssembly(
   input: CaseSystemAssemblyInput,
 ): CaseSystemAssemblyOutput {
   const timestamp = nowIso();
+
+  const legalDomains = safeLegalDomains(input.legalDomains);
 
   const timelineOutput = buildTimelineCognition({
     caseId: input.caseId,
@@ -598,13 +897,30 @@ export function buildCaseSystemAssembly(
   const damagesOutput = buildDamagesRemedyModel({
     caseId: input.caseId,
     stage: input.stage,
-    legalDomains: input.legalDomains,
+    legalDomains,
     requestedAmounts: input.damages?.requestedAmounts || [],
     requestedRemedies: input.damages?.requestedRemedies || [],
     linkedTimelineEventIds: input.damages?.linkedTimelineEventIds || [],
     linkedEvidenceIds: input.damages?.linkedEvidenceIds || [],
   });
 
+  const legalReasoning = buildLegalReasoningCoordinator({
+    courtPath: input.courtPath,
+    jurisdiction: input.province,
+    stage: input.stage,
+    legalDomains,
+    knowledgeObjects: DOCTRINE_SEED_LIBRARY,
+    mode: "operational",
+  });
+
+  const legalReasoningReadiness = buildLegalReasoningReadiness(legalReasoning);
+
+  const factPatternReadiness = buildFactPatternReadiness(
+    input.factPatternAnalysis,
+  );
+  const evidenceIntelligenceReadiness = buildEvidenceIntelligenceReadiness(
+    input.evidenceIntelligence,
+  );
   const proofReadiness = buildProofReadiness(input);
   const authorityReadiness = buildAuthorityReadiness(input.authorityAnalysis);
   const contradictionReadiness = buildContradictionReadiness(
@@ -617,14 +933,46 @@ export function buildCaseSystemAssembly(
   const credibilityOutput = buildCredibilityRiskModel({
     caseId: input.caseId,
     stage: input.stage,
-    legalDomains: input.legalDomains,
+    legalDomains,
     narrativeSummary: input.rawNarrative,
 
-    timelineWarnings: timelineOutput.warnings,
-    evidenceWarnings: [...evidenceOutput.warnings, ...proofReadiness.warnings],
-    procedureWarnings: proceduralOutput.warnings,
-    damagesWarnings: damagesOutput.warnings,
-    claimWarnings: claimOutput.warnings,
+    timelineWarnings: [
+      ...timelineOutput.warnings,
+      ...factPatternReadiness.warnings.filter((warning) =>
+        warning.toLowerCase().includes("timeline"),
+      ),
+    ],
+    evidenceWarnings: [
+      ...evidenceOutput.warnings,
+      ...evidenceIntelligenceReadiness.warnings,
+      ...proofReadiness.warnings,
+      ...legalReasoningReadiness.evidencePriorities.map(
+        (priority) => `Legal reasoning evidence priority: ${priority}`,
+      ),
+      ...legalReasoningReadiness.burdenPriorities.map(
+        (priority) => `Legal reasoning burden priority: ${priority}`,
+      ),
+    ],
+    procedureWarnings: [
+      ...proceduralOutput.warnings,
+      ...legalReasoningReadiness.proceduralWatchPoints,
+    ],
+    damagesWarnings: [
+      ...damagesOutput.warnings,
+      ...factPatternReadiness.warnings.filter((warning) =>
+        warning.toLowerCase().includes("damages"),
+      ),
+    ],
+    claimWarnings: [
+      ...claimOutput.warnings,
+      ...factPatternReadiness.warnings,
+      ...legalReasoningReadiness.judicialConcerns.map(
+        (concern) => `Legal reasoning judicial concern: ${concern}`,
+      ),
+      ...legalReasoningReadiness.opposingArguments.map(
+        (argument) => `Likely opposing argument: ${argument}`,
+      ),
+    ],
 
     linkedEvidenceIds: evidenceOutput.graph.nodes.map((node) => node.id),
     linkedTimelineEventIds: timelineOutput.timeline.events.map((event) => event.id),
@@ -642,22 +990,52 @@ export function buildCaseSystemAssembly(
     stage: input.stage,
 
     hasDominantClaim: hasDominantClaim(claimOutput.model),
-    hasEvidence: hasEvidence(evidenceOutput.graph),
-    hasTimeline: hasTimeline(timelineOutput.timeline),
-    hasDamagesModel: hasDamagesModel(damagesOutput.model),
+    hasEvidence:
+      hasEvidence(evidenceOutput.graph) ||
+      evidenceIntelligenceReadiness.findingCount > 0,
+    hasTimeline:
+      hasTimeline(timelineOutput.timeline) ||
+      factPatternReadiness.timelineIssueCount > 0,
+    hasDamagesModel:
+      hasDamagesModel(damagesOutput.model) ||
+      factPatternReadiness.damagesIndicatorCount > 0,
     hasLegalKnowledgeWarnings:
       (input.knowledgeWarnings || []).length > 0 ||
-      authorityReadiness.warnings.length > 0,
+      authorityReadiness.warnings.length > 0 ||
+      legalReasoningReadiness.warnings.length > 0 ||
+      legalReasoningReadiness.blockedObjects.length > 0,
+
+    legalReasoning: toWorkflowLegalReasoningInput(legalReasoningReadiness),
 
     proof: {
       hasProofAnalysis: proofReadiness.hasProofAnalysis,
-      proofWeaknesses: proofReadiness.proofWeaknesses,
+      proofWeaknesses: uniqueStrings([
+        ...proofReadiness.proofWeaknesses,
+        ...legalReasoningReadiness.burdenPriorities.map(
+          (priority) => `Legal reasoning burden priority needs proof review: ${priority}`,
+        ),
+      ]),
       proofStrengths: proofReadiness.proofStrengths,
-      proofNextActions: proofReadiness.proofNextActions,
+      proofNextActions: uniqueStrings([
+        ...proofReadiness.proofNextActions,
+        ...factPatternReadiness.nextActions,
+        ...evidenceIntelligenceReadiness.recommendedEvidenceCollection,
+        ...legalReasoningReadiness.firstQuestions,
+        ...legalReasoningReadiness.investigationPriorities.map(
+          (priority) => `Investigate legal reasoning priority: ${priority}`,
+        ),
+        ...legalReasoningReadiness.evidencePriorities.map(
+          (priority) => `Collect evidence for legal reasoning priority: ${priority}`,
+        ),
+      ]),
       weakClaimProofCount: proofReadiness.weakClaimProofCount,
-      missingElementProofCount: proofReadiness.missingElementProofCount,
+      missingElementProofCount:
+        proofReadiness.missingElementProofCount +
+        evidenceIntelligenceReadiness.gapCount,
       contradictedElementProofCount:
-        proofReadiness.contradictedElementProofCount,
+        proofReadiness.contradictedElementProofCount +
+        factPatternReadiness.contradictionCount +
+        evidenceIntelligenceReadiness.contradictionCount,
     },
 
     authority: toWorkflowAuthorityInput(authorityReadiness),
@@ -665,18 +1043,191 @@ export function buildCaseSystemAssembly(
     credibility: toWorkflowCredibilityInput(credibilityIntelligence),
     procedural: workflowProceduralInput,
 
-    claimWarnings: claimOutput.warnings,
-    proceduralWarnings: proceduralOutput.warnings,
-    evidenceWarnings: [...evidenceOutput.warnings, ...proofReadiness.warnings],
-    timelineWarnings: timelineOutput.warnings,
-    damagesWarnings: damagesOutput.warnings,
+    claimWarnings: [
+      ...claimOutput.warnings,
+      ...factPatternReadiness.warnings,
+      ...legalReasoningReadiness.judicialConcerns.map(
+        (concern) => `Legal reasoning judicial concern: ${concern}`,
+      ),
+      ...legalReasoningReadiness.opposingArguments.map(
+        (argument) => `Likely opposing argument: ${argument}`,
+      ),
+    ],
+    legalReasoningWarnings: [
+      ...legalReasoningReadiness.warnings,
+      ...legalReasoningReadiness.blockedObjects,
+    ],
+    proceduralWarnings: [
+      ...proceduralOutput.warnings,
+      ...legalReasoningReadiness.proceduralWatchPoints,
+    ],
+    evidenceWarnings: [
+      ...evidenceOutput.warnings,
+      ...evidenceIntelligenceReadiness.warnings,
+      ...proofReadiness.warnings,
+      ...legalReasoningReadiness.evidencePriorities.map(
+        (priority) => `Legal reasoning evidence priority: ${priority}`,
+      ),
+    ],
+    timelineWarnings: [
+      ...timelineOutput.warnings,
+      ...factPatternReadiness.warnings.filter((warning) =>
+        warning.toLowerCase().includes("timeline"),
+      ),
+    ],
+    damagesWarnings: [
+      ...damagesOutput.warnings,
+      ...factPatternReadiness.warnings.filter((warning) =>
+        warning.toLowerCase().includes("damages"),
+      ),
+    ],
     credibilityWarnings: [
       ...credibilityOutput.warnings,
       ...credibilityIntelligence.warnings,
+      ...factPatternReadiness.warnings,
+      ...legalReasoningReadiness.judicialConcerns,
     ],
-    authorityWarnings: authorityReadiness.warnings,
-    contradictionWarnings: contradictionReadiness.warnings,
-    knowledgeWarnings: input.knowledgeWarnings || [],
+    authorityWarnings: [
+      ...authorityReadiness.warnings,
+      ...legalReasoningReadiness.warnings,
+    ],
+    contradictionWarnings: [
+      ...contradictionReadiness.warnings,
+      ...factPatternReadiness.warnings.filter((warning) =>
+        warning.toLowerCase().includes("contradiction"),
+      ),
+      ...evidenceIntelligenceReadiness.warnings.filter((warning) =>
+        warning.toLowerCase().includes("contradiction"),
+      ),
+    ],
+    knowledgeWarnings: [
+      ...(input.knowledgeWarnings || []),
+      ...legalReasoningReadiness.warnings,
+      ...legalReasoningReadiness.blockedObjects,
+    ],
+  });
+
+  const litigationReasoning = buildLitigationReasoning({
+    caseId: input.caseId,
+
+    claimTheoryModel: {
+      theories: claimOutput.model.theories.map((theory) => ({
+        id: theory.id,
+        title: theory.title,
+        status: theory.status,
+        confidence: theory.confidence,
+        linkedEvidenceIds: theory.linkedEvidenceIds,
+        risks: theory.risks.map((risk) => ({
+          title: risk.title,
+          severity: risk.severity,
+          explanation: risk.explanation,
+        })),
+      })),
+      warnings: uniqueStrings([
+        ...claimOutput.warnings,
+        ...legalReasoningReadiness.judicialConcerns.map(
+          (concern) => `Legal reasoning judicial concern: ${concern}`,
+        ),
+        ...legalReasoningReadiness.opposingArguments.map(
+          (argument) => `Likely opposing argument: ${argument}`,
+        ),
+      ]),
+    },
+
+    proofAnalysis: {
+      globalWeaknesses: uniqueStrings([
+        ...proofReadiness.proofWeaknesses,
+        ...legalReasoningReadiness.burdenPriorities.map(
+          (priority) => `Burden priority needs proof review: ${priority}`,
+        ),
+      ]),
+      globalStrengths: proofReadiness.proofStrengths,
+      globalNextActions: uniqueStrings([
+        ...proofReadiness.proofNextActions,
+        ...legalReasoningReadiness.firstQuestions,
+        ...legalReasoningReadiness.investigationPriorities,
+        ...legalReasoningReadiness.evidencePriorities.map(
+          (priority) => `Collect evidence for: ${priority}`,
+        ),
+      ]),
+      summary: proofReadiness.hasProofAnalysis
+        ? "Proof readiness was supplied through the assembly layer and enriched with legal reasoning priorities."
+        : "No detailed proof map was supplied to the assembly layer; legal reasoning priorities should guide proof development.",
+    },
+
+    evidenceAnalysis: {
+      proofGaps: uniqueStrings([
+        ...evidenceIntelligenceReadiness.warnings,
+        ...proofReadiness.warnings,
+        ...legalReasoningReadiness.evidencePriorities.map(
+          (priority) => `Legal reasoning evidence priority: ${priority}`,
+        ),
+        ...legalReasoningReadiness.burdenPriorities.map(
+          (priority) => `Legal reasoning burden priority: ${priority}`,
+        ),
+      ]),
+      contradictionNotes: uniqueStrings([
+        ...factPatternReadiness.warnings.filter((warning) =>
+          warning.toLowerCase().includes("contradiction"),
+        ),
+        ...evidenceIntelligenceReadiness.warnings.filter((warning) =>
+          warning.toLowerCase().includes("contradiction"),
+        ),
+      ]),
+      credibilityConcerns: uniqueStrings([
+        ...factPatternReadiness.warnings.filter((warning) =>
+          warning.toLowerCase().includes("credibility"),
+        ),
+        ...credibilityIntelligence.warnings,
+        ...legalReasoningReadiness.judicialConcerns,
+      ]),
+      chronologyConcerns: uniqueStrings([
+        ...timelineOutput.warnings,
+        ...factPatternReadiness.warnings.filter((warning) =>
+          warning.toLowerCase().includes("timeline"),
+        ),
+      ]),
+      bundleWarnings: uniqueStrings([
+        ...evidenceOutput.warnings,
+        ...evidenceIntelligenceReadiness.warnings,
+        ...legalReasoningReadiness.evidencePriorities,
+      ]),
+      corroborationNotes: uniqueStrings([
+        ...evidenceIntelligenceReadiness.strongestEvidence,
+        ...legalReasoningReadiness.investigationPriorities,
+      ]),
+    },
+
+    authorityAnalysis: {
+      verifiedAuthorityIds: input.authorityAnalysis?.verifiedAuthorityIds || [],
+      strongestAuthorityIds: input.authorityAnalysis?.strongestAuthorityIds || [],
+      unsafeAuthorityIds: input.authorityAnalysis?.unsafeAuthorityIds || [],
+      warnings: uniqueStrings([
+        ...authorityReadiness.warnings,
+        ...legalReasoningReadiness.warnings,
+        ...legalReasoningReadiness.blockedObjects,
+      ]),
+    },
+
+    contradictionAnalysis: {
+      warnings: contradictionReadiness.warnings,
+    },
+
+    credibilityAnalysis: {
+      overallLevel: credibilityIntelligence.overallLevel,
+      overallScore: credibilityIntelligence.overallScore,
+      warnings: uniqueStrings([
+        ...credibilityIntelligence.warnings,
+        ...legalReasoningReadiness.judicialConcerns,
+        ...legalReasoningReadiness.opposingArguments,
+      ]),
+    },
+
+    procedureWarnings: uniqueStrings([
+      ...proceduralOutput.warnings,
+      ...legalReasoningReadiness.proceduralWatchPoints,
+    ]),
+    workflowWarnings: workflowOutput.warnings,
   });
 
   const warnings = uniqueStrings([
@@ -687,7 +1238,15 @@ export function buildCaseSystemAssembly(
     ...damagesOutput.warnings,
     ...credibilityOutput.warnings,
     ...workflowOutput.warnings,
+    ...litigationReasoning.warnings,
     ...formReadiness.formWarnings,
+    ...legalReasoningReadiness.warnings,
+    ...legalReasoningReadiness.blockedObjects,
+    ...legalReasoningReadiness.proceduralWatchPoints,
+    ...legalReasoningReadiness.judicialConcerns,
+    ...legalReasoningReadiness.opposingArguments,
+    ...factPatternReadiness.warnings,
+    ...evidenceIntelligenceReadiness.warnings,
     ...proofReadiness.warnings,
     ...authorityReadiness.warnings,
     ...contradictionReadiness.warnings,
@@ -697,7 +1256,7 @@ export function buildCaseSystemAssembly(
 
   const assembly: CaseSystemAssemblyModel = {
     id: createId("case_system_assembly"),
-    version: "1.3.0",
+    version: "1.6.0",
     createdAt: timestamp,
     updatedAt: timestamp,
 
@@ -707,7 +1266,7 @@ export function buildCaseSystemAssembly(
     province: input.province,
     stage: input.stage,
 
-    legalDomains: input.legalDomains,
+    legalDomains,
 
     timeline: timelineOutput.timeline,
     evidenceGraph: evidenceOutput.graph,
@@ -716,8 +1275,13 @@ export function buildCaseSystemAssembly(
     damagesRemedy: damagesOutput.model,
     credibilityRisk: credibilityOutput.model,
     workflow: workflowOutput.model,
+    litigationReasoning,
+    legalReasoning,
 
     formReadiness,
+    legalReasoningReadiness,
+    factPatternReadiness,
+    evidenceIntelligenceReadiness,
     proofReadiness,
     authorityReadiness,
     contradictionReadiness,

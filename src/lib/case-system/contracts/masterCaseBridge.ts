@@ -14,7 +14,13 @@ import {
   CaseCredibilityAnalysis,
   CaseCredibilityRiskFinding,
   CaseElementProofFinding,
+  CaseEvidenceContradiction,
+  CaseEvidenceGap,
+  CaseEvidenceIntelligence,
+  CaseEvidenceIntelligenceFinding,
   CaseEvidenceItem,
+  CaseFactPatternAnalysis,
+  CaseFactPatternFinding,
   CaseJudicialConcern,
   CaseJurisdictionAuthorityFinding,
   CaseKnowledgeAuthorityLevel,
@@ -46,6 +52,9 @@ import {
   LegalIntelligenceResult,
 } from "../intelligence/intelligenceTypes";
 
+import { FactPatternAnalysisResult } from "../facts/factPatternTypes";
+import { EvidenceIntelligenceResult } from "../evidence/evidenceIntelligenceTypes";
+
 import {
   AuthorityBindingLevel,
   AuthorityCourtLevel,
@@ -64,8 +73,17 @@ import { evaluateCitationSafety } from "../authority/citationSafetyEngine";
 import { detectContradictions } from "../contradictions/contradictionDetectionEngine";
 import { assessCredibilityRisk } from "../contradictions/credibilityRiskEngine";
 
+type IntelligenceWithIntegratedAnalysis = LegalIntelligenceResult & {
+  factPatternAnalysis?: FactPatternAnalysisResult;
+  evidenceIntelligence?: EvidenceIntelligenceResult;
+};
+
 function createId(prefix: string): string {
-  return `${prefix}_${crypto.randomUUID()}`;
+  if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
+    return `${prefix}_${crypto.randomUUID()}`;
+  }
+
+  return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2)}`;
 }
 
 function nowIso(): string {
@@ -86,7 +104,9 @@ function asCaseConfidence(value: string | undefined): CaseConfidence {
   return "low";
 }
 
-function asCaseSeverity(value: IntelligenceSeverity | undefined): CaseSeverity {
+function asCaseSeverity(
+  value: IntelligenceSeverity | CaseSeverity | undefined,
+): CaseSeverity {
   if (
     value === "info" ||
     value === "low" ||
@@ -366,6 +386,152 @@ function mapLegalKnowledge(
   }));
 }
 
+function emptyFactPatternAnalysis(): CaseFactPatternAnalysis {
+  return {
+    version: "1.0.0",
+    generatedAt: nowIso(),
+    findings: [],
+    admissions: [],
+    contradictions: [],
+    credibilityIssues: [],
+    knowledgeIndicators: [],
+    timelineIssues: [],
+    causationIssues: [],
+    damagesIndicators: [],
+    strongestPatterns: [],
+    weakestPatterns: [],
+    nextActions: [],
+    warnings: ["Fact pattern analysis was not supplied to the master case bridge."],
+    summary: "No fact pattern analysis was available for this case state.",
+  };
+}
+
+function emptyEvidenceIntelligence(): CaseEvidenceIntelligence {
+  return {
+    version: "1.0.0",
+    generatedAt: nowIso(),
+    findings: [],
+    contradictions: [],
+    gaps: [],
+    strongestEvidence: [],
+    weakestEvidence: [],
+    recommendedEvidenceCollection: [],
+    warnings: ["Evidence intelligence was not supplied to the master case bridge."],
+    summary: "No evidence intelligence was available for this case state.",
+  };
+}
+
+function mapFactPatternFinding(
+  finding: FactPatternAnalysisResult["findings"][number],
+): CaseFactPatternFinding {
+  return {
+    id: finding.id,
+    category: finding.category,
+    title: finding.title,
+    description: finding.description,
+    supportingFactIds: finding.supportingFactIds,
+    supportingEvidenceIds: finding.supportingEvidenceIds,
+    confidence: asCaseConfidence(finding.confidence),
+    severity: asCaseSeverity(finding.severity),
+    significance: finding.significance,
+    litigationImpact: finding.litigationImpact,
+  };
+}
+
+function mapFactPatternAnalysis(
+  intelligence: IntelligenceWithIntegratedAnalysis,
+): CaseFactPatternAnalysis {
+  const analysis = intelligence.factPatternAnalysis;
+
+  if (!analysis) {
+    return emptyFactPatternAnalysis();
+  }
+
+  return {
+    version: analysis.version,
+    generatedAt: nowIso(),
+    findings: analysis.findings.map(mapFactPatternFinding),
+    admissions: analysis.admissions.map(mapFactPatternFinding),
+    contradictions: analysis.contradictions.map(mapFactPatternFinding),
+    credibilityIssues: analysis.credibilityIssues.map(mapFactPatternFinding),
+    knowledgeIndicators: analysis.knowledgeIndicators.map(mapFactPatternFinding),
+    timelineIssues: analysis.timelineIssues.map(mapFactPatternFinding),
+    causationIssues: analysis.causationIssues.map(mapFactPatternFinding),
+    damagesIndicators: analysis.damagesIndicators.map(mapFactPatternFinding),
+    strongestPatterns: analysis.strongestPatterns,
+    weakestPatterns: analysis.weakestPatterns,
+    nextActions: analysis.nextActions,
+    warnings: [],
+    summary: analysis.summary,
+  };
+}
+
+function mapEvidenceIntelligenceFinding(
+  finding: EvidenceIntelligenceResult["findings"][number],
+): CaseEvidenceIntelligenceFinding {
+  return {
+    id: finding.id,
+    title: finding.title,
+    explanation: finding.explanation,
+    confidence: asCaseConfidence(finding.confidence),
+    strength: finding.strength,
+    supportingEvidenceIds: finding.supportingEvidenceIds,
+    litigationImpact: finding.litigationImpact,
+  };
+}
+
+function mapEvidenceGap(gap: EvidenceIntelligenceResult["gaps"][number]): CaseEvidenceGap {
+  return {
+    id: gap.id,
+    title: gap.title,
+    explanation: gap.explanation,
+    severity: asCaseSeverity(gap.severity),
+    recommendedEvidence: gap.recommendedEvidence,
+  };
+}
+
+function mapEvidenceContradiction(
+  contradiction: EvidenceIntelligenceResult["contradictions"][number],
+): CaseEvidenceContradiction {
+  return {
+    id: contradiction.id,
+    title: contradiction.title,
+    explanation: contradiction.explanation,
+    evidenceIds: contradiction.evidenceIds,
+    severity: asCaseSeverity(contradiction.severity),
+  };
+}
+
+function mapEvidenceIntelligence(
+  intelligence: IntelligenceWithIntegratedAnalysis,
+): CaseEvidenceIntelligence {
+  const analysis = intelligence.evidenceIntelligence;
+
+  if (!analysis) {
+    return emptyEvidenceIntelligence();
+  }
+
+  return {
+    version: analysis.version,
+    generatedAt: nowIso(),
+    findings: analysis.findings.map(mapEvidenceIntelligenceFinding),
+    contradictions: analysis.contradictions.map(mapEvidenceContradiction),
+    gaps: analysis.gaps.map(mapEvidenceGap),
+    strongestEvidence: analysis.strongestEvidence,
+    weakestEvidence: analysis.weakestEvidence,
+    recommendedEvidenceCollection: analysis.recommendedEvidenceCollection,
+    warnings: uniqueStrings([
+      analysis.gaps.length > 0
+        ? `${analysis.gaps.length} evidence gap(s) require review.`
+        : "",
+      analysis.contradictions.length > 0
+        ? `${analysis.contradictions.length} evidence contradiction/context issue(s) require review.`
+        : "",
+    ]),
+    summary: analysis.summary,
+  };
+}
+
 function emptyProofAnalysis(): CaseProofAnalysis {
   return {
     version: "1.0.0",
@@ -492,6 +658,7 @@ function authoritySourceTypeFromLevel(
   if (authorityLevel === "practice-direction") return "practice-direction";
   if (authorityLevel === "official-form") return "official-form";
   if (authorityLevel === "official-guide") return "official-guide";
+
   if (
     authorityLevel === "scc-binding" ||
     authorityLevel === "court-of-appeal-binding" ||
@@ -524,6 +691,7 @@ function authorityBindingLevelFromCaseLevel(
   authorityLevel: CaseKnowledgeAuthorityLevel,
 ): AuthorityBindingLevel {
   if (authorityLevel === "constitutional") return "constitutional";
+
   if (
     authorityLevel === "statute" ||
     authorityLevel === "regulation" ||
@@ -566,6 +734,7 @@ function authorityJurisdictionFromCaseJurisdiction(
 ): AuthorityJurisdiction {
   if (jurisdiction === "Canada") return "Canada";
   if (jurisdiction === "Federal") return "Federal";
+
   if (
     jurisdiction === "Ontario" ||
     jurisdiction === "Alberta" ||
@@ -953,8 +1122,10 @@ function buildCredibilityAnalysis(
 }
 
 function buildWorkflowState(
-  intelligence: LegalIntelligenceResult,
+  intelligence: IntelligenceWithIntegratedAnalysis,
   recommendedNextRoute: string | undefined,
+  factPatternAnalysis: CaseFactPatternAnalysis,
+  evidenceIntelligence: CaseEvidenceIntelligence,
   authorityAnalysis: CaseAuthorityAnalysis,
   contradictionAnalysis: CaseContradictionAnalysis,
   credibilityAnalysis: CaseCredibilityAnalysis,
@@ -970,6 +1141,8 @@ function buildWorkflowState(
     blockers: uniqueStrings([
       ...intelligence.systemWarnings,
       ...intelligence.legalKnowledge.sourceWarnings,
+      ...factPatternAnalysis.warnings,
+      ...evidenceIntelligence.warnings,
       ...(intelligence.elementProofAnalysis?.globalWeaknesses || []),
       ...authorityAnalysis.warnings,
       ...contradictionAnalysis.warnings,
@@ -977,11 +1150,15 @@ function buildWorkflowState(
     ]),
     nextActions: uniqueStrings([
       ...intelligence.nextBestActions,
+      ...factPatternAnalysis.nextActions,
+      ...evidenceIntelligence.recommendedEvidenceCollection,
       ...proofActions,
       ...credibilityAnalysis.nextActions,
     ]),
     dependencyWarnings: uniqueStrings([
       ...intelligence.proceduralPosture.warnings,
+      ...factPatternAnalysis.warnings,
+      ...evidenceIntelligence.warnings,
       ...authorityAnalysis.warnings,
       ...contradictionAnalysis.warnings,
     ]),
@@ -990,7 +1167,9 @@ function buildWorkflowState(
 }
 
 function buildReadinessState(
-  intelligence: LegalIntelligenceResult,
+  intelligence: IntelligenceWithIntegratedAnalysis,
+  factPatternAnalysis: CaseFactPatternAnalysis,
+  evidenceIntelligence: CaseEvidenceIntelligence,
   authorityAnalysis: CaseAuthorityAnalysis,
   contradictionAnalysis: CaseContradictionAnalysis,
   credibilityAnalysis: CaseCredibilityAnalysis,
@@ -1006,6 +1185,10 @@ function buildReadinessState(
   const blockerCount =
     intelligence.systemWarnings.length +
     intelligence.missingInformation.length +
+    factPatternAnalysis.credibilityIssues.length +
+    factPatternAnalysis.contradictions.length +
+    evidenceIntelligence.gaps.length +
+    evidenceIntelligence.contradictions.length +
     intelligence.litigationRisks.filter(
       (risk) => risk.severity === "high" || risk.severity === "critical",
     ).length +
@@ -1048,30 +1231,39 @@ function buildReadinessState(
               : "not-ready",
     pleadingReadiness: asCaseConfidence(intelligence.confidence),
     evidenceReadiness:
-      proofMaps.length > 0
-        ? proofMaps.some(
-            (map) =>
-              map.overallProofStrength === "low" ||
-              map.overallProofStrength === "very-low",
-          )
-          ? "low"
-          : "medium"
-        : intelligence.evidenceIssueLinks.length > 0
-          ? "medium"
-          : "low",
+      evidenceIntelligence.gaps.length > 0 ||
+      evidenceIntelligence.contradictions.length > 0
+        ? "low"
+        : proofMaps.length > 0
+          ? proofMaps.some(
+              (map) =>
+                map.overallProofStrength === "low" ||
+                map.overallProofStrength === "very-low",
+            )
+            ? "low"
+            : "medium"
+          : intelligence.evidenceIssueLinks.length > 0
+            ? "medium"
+            : "low",
     proceduralReadiness: asCaseConfidence(intelligence.proceduralPosture.confidence),
     courtroomReadiness:
       credibilityAnalysis.overallLevel === "critical" ||
-      credibilityAnalysis.overallLevel === "serious"
+      credibilityAnalysis.overallLevel === "serious" ||
+      factPatternAnalysis.credibilityIssues.length > 0
         ? "low"
         : proofMaps.length > 0
           ? "medium"
           : "low",
     settlementReadiness:
-      credibilityAnalysis.settlementPressureScore >= 60 ? "low" : "medium",
+      credibilityAnalysis.settlementPressureScore >= 60 ||
+      evidenceIntelligence.gaps.length > 0
+        ? "low"
+        : "medium",
     blockers: uniqueStrings([
       ...intelligence.systemWarnings,
       ...intelligence.missingInformation.map((item) => item.question),
+      ...factPatternAnalysis.warnings,
+      ...evidenceIntelligence.warnings,
       ...(intelligence.elementProofAnalysis?.globalWeaknesses || []),
       ...authorityAnalysis.warnings,
       ...contradictionAnalysis.warnings,
@@ -1079,6 +1271,8 @@ function buildReadinessState(
     ]),
     reasons: uniqueStrings([
       ...intelligence.nextBestActions,
+      ...factPatternAnalysis.nextActions,
+      ...evidenceIntelligence.recommendedEvidenceCollection,
       ...(intelligence.elementProofAnalysis?.globalNextActions || []),
       ...credibilityAnalysis.nextActions,
     ]),
@@ -1092,7 +1286,7 @@ function buildAuditEvent(intelligence: LegalIntelligenceResult): CaseAuditEvent 
     authorityLayer: "court-simplified-brain",
     action: "Mapped LegalIntelligenceResult into MasterCaseSchema",
     explanation:
-      "The bridge converted intelligence into the persistent case-state schema while preserving claims, warnings, evidence mapping, procedural posture, proof analysis, authority analysis, contradiction analysis, and credibility analysis.",
+      "The bridge converted intelligence into the persistent case-state schema while preserving claims, warnings, evidence mapping, procedural posture, fact pattern analysis, evidence intelligence, proof analysis, authority analysis, contradiction analysis, and credibility analysis.",
     affectedIds: [intelligence.id],
   };
 }
@@ -1116,6 +1310,8 @@ function buildMemorySnapshot(masterCase: MasterCaseSchema): CaseMemorySnapshot {
     stage: masterCase.stage,
     courtPath: masterCase.courtPath,
     warnings: masterCase.systemWarnings,
+    factPatternFindingCount: masterCase.factPatternAnalysis.findings.length,
+    evidenceGapCount: masterCase.evidenceIntelligence.gaps.length,
     proofWeaknessCount: masterCase.proofAnalysis.globalWeaknesses.length,
     proofStrengthCount: masterCase.proofAnalysis.globalStrengths.length,
     authorityWarningCount: masterCase.authorityAnalysis.warnings.length,
@@ -1129,8 +1325,12 @@ export function buildMasterCaseFromIntelligence(args: {
   existingCase?: MasterCaseSchema;
   recommendedNextRoute?: string;
 }): MasterCaseSchema {
-  const { intelligence, existingCase } = args;
+  const intelligence = args.intelligence as IntelligenceWithIntegratedAnalysis;
+  const { existingCase } = args;
   const now = nowIso();
+
+  const factPatternAnalysis = mapFactPatternAnalysis(intelligence);
+  const evidenceIntelligence = mapEvidenceIntelligence(intelligence);
   const proofAnalysis = mapProofAnalysis(intelligence);
   const legalKnowledge = mapLegalKnowledge(intelligence);
 
@@ -1143,7 +1343,7 @@ export function buildMasterCaseFromIntelligence(args: {
       existingCase?.id ||
       intelligence.normalizedIntake.caseId ||
       createId("master_case"),
-    version: "1.0.0",
+    version: "1.1.0",
     createdAt: existingCase?.createdAt || now,
     updatedAt: now,
 
@@ -1169,6 +1369,8 @@ export function buildMasterCaseFromIntelligence(args: {
     judicialConcerns: mapJudicialConcerns(intelligence),
     opposingArguments: mapOpposingArguments(intelligence),
 
+    factPatternAnalysis,
+    evidenceIntelligence,
     proofAnalysis,
     authorityAnalysis: emptyAuthority,
     contradictionAnalysis: emptyContradiction,
@@ -1177,6 +1379,8 @@ export function buildMasterCaseFromIntelligence(args: {
     workflow: buildWorkflowState(
       intelligence,
       args.recommendedNextRoute,
+      factPatternAnalysis,
+      evidenceIntelligence,
       emptyAuthority,
       emptyContradiction,
       emptyCredibility,
@@ -1199,7 +1403,11 @@ export function buildMasterCaseFromIntelligence(args: {
       buildAuditEvent(intelligence),
     ],
 
-    systemWarnings: intelligence.systemWarnings,
+    systemWarnings: uniqueStrings([
+      ...intelligence.systemWarnings,
+      ...factPatternAnalysis.warnings,
+      ...evidenceIntelligence.warnings,
+    ]),
     confidence: asCaseConfidence(intelligence.confidence),
   };
 
@@ -1228,12 +1436,16 @@ export function buildMasterCaseFromIntelligence(args: {
     workflow: buildWorkflowState(
       intelligence,
       args.recommendedNextRoute,
+      factPatternAnalysis,
+      evidenceIntelligence,
       authorityAnalysis,
       contradictionAnalysis,
       credibilityAnalysis,
     ),
     readiness: buildReadinessState(
       intelligence,
+      factPatternAnalysis,
+      evidenceIntelligence,
       authorityAnalysis,
       contradictionAnalysis,
       credibilityAnalysis,

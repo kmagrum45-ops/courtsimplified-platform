@@ -1,9 +1,11 @@
-export type CourtSimplifiedSchemaVersion = "1.0.0";
+export type CourtSimplifiedSchemaVersion = "1.1.0";
 
 export type CaseSystemAuthorityLayer =
   | "user-fact"
   | "uploaded-evidence"
   | "normalized-intake"
+  | "fact-pattern-analysis"
+  | "evidence-intelligence"
   | "claim-arbitration"
   | "procedural-posture"
   | "claim-reasoning"
@@ -267,6 +269,29 @@ export type CaseCredibilityRiskLevel =
   | "serious"
   | "critical";
 
+export type CaseFactPatternCategory =
+  | "admission"
+  | "denial"
+  | "contradiction"
+  | "timeline"
+  | "motive"
+  | "intent"
+  | "knowledge"
+  | "notice"
+  | "credibility"
+  | "conduct"
+  | "causation"
+  | "damages"
+  | "procedure"
+  | "unknown";
+
+export type CaseEvidenceStrength =
+  | "very-weak"
+  | "weak"
+  | "moderate"
+  | "strong"
+  | "very-strong";
+
 export type CaseAuditEvent = {
   id: string;
   createdAt: string;
@@ -419,6 +444,76 @@ export type CaseOpposingArgument = {
   responseStrategy: string;
   evidenceNeeded: string[];
   linkedClaimIds: string[];
+};
+
+export type CaseFactPatternFinding = {
+  id: string;
+  category: CaseFactPatternCategory;
+  title: string;
+  description: string;
+  supportingFactIds: string[];
+  supportingEvidenceIds: string[];
+  confidence: CaseConfidence;
+  severity: CaseSeverity;
+  significance: string;
+  litigationImpact: string;
+};
+
+export type CaseFactPatternAnalysis = {
+  version: "1.0.0";
+  generatedAt?: string;
+  findings: CaseFactPatternFinding[];
+  admissions: CaseFactPatternFinding[];
+  contradictions: CaseFactPatternFinding[];
+  credibilityIssues: CaseFactPatternFinding[];
+  knowledgeIndicators: CaseFactPatternFinding[];
+  timelineIssues: CaseFactPatternFinding[];
+  causationIssues: CaseFactPatternFinding[];
+  damagesIndicators: CaseFactPatternFinding[];
+  strongestPatterns: string[];
+  weakestPatterns: string[];
+  nextActions: string[];
+  warnings: string[];
+  summary: string;
+};
+
+export type CaseEvidenceIntelligenceFinding = {
+  id: string;
+  title: string;
+  explanation: string;
+  confidence: CaseConfidence;
+  strength: CaseEvidenceStrength;
+  supportingEvidenceIds: string[];
+  litigationImpact: string;
+};
+
+export type CaseEvidenceGap = {
+  id: string;
+  title: string;
+  explanation: string;
+  severity: CaseSeverity;
+  recommendedEvidence: string[];
+};
+
+export type CaseEvidenceContradiction = {
+  id: string;
+  title: string;
+  explanation: string;
+  evidenceIds: string[];
+  severity: CaseSeverity;
+};
+
+export type CaseEvidenceIntelligence = {
+  version: "1.0.0";
+  generatedAt?: string;
+  findings: CaseEvidenceIntelligenceFinding[];
+  contradictions: CaseEvidenceContradiction[];
+  gaps: CaseEvidenceGap[];
+  strongestEvidence: string[];
+  weakestEvidence: string[];
+  recommendedEvidenceCollection: string[];
+  warnings: string[];
+  summary: string;
 };
 
 export type CaseElementProofFinding = {
@@ -637,6 +732,8 @@ export type CaseMemorySnapshot = {
   stage: CaseStage;
   courtPath: CaseCourtPath;
   warnings: string[];
+  factPatternFindingCount: number;
+  evidenceGapCount: number;
   proofWeaknessCount: number;
   proofStrengthCount: number;
   authorityWarningCount: number;
@@ -672,6 +769,8 @@ export type MasterCaseSchema = {
   judicialConcerns: CaseJudicialConcern[];
   opposingArguments: CaseOpposingArgument[];
 
+  factPatternAnalysis: CaseFactPatternAnalysis;
+  evidenceIntelligence: CaseEvidenceIntelligence;
   proofAnalysis: CaseProofAnalysis;
   authorityAnalysis: CaseAuthorityAnalysis;
   contradictionAnalysis: CaseContradictionAnalysis;

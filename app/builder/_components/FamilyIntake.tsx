@@ -7,7 +7,6 @@ import {
   UniversalStage,
   cleanList,
   getStageLabel,
-  hasMeaningfulText,
 } from "@/app/builder/_components/builderTypes";
 
 type FiledDocument =
@@ -277,12 +276,7 @@ export default function FamilyIntake({ onComplete }: Props) {
   ) {
     setUploadedEvidenceFiles((current) =>
       current.map((file) =>
-        file.id === fileId
-          ? {
-              ...file,
-              [field]: value,
-            }
-          : file,
+        file.id === fileId ? { ...file, [field]: value } : file,
       ),
     );
   }
@@ -305,7 +299,9 @@ export default function FamilyIntake({ onComplete }: Props) {
             .join("; ")}`
         : "",
       issues.length
-        ? `Family issue signals selected by user: ${issues.map(labelForIssue).join("; ")}`
+        ? `Family issue signals selected by user: ${issues
+            .map(labelForIssue)
+            .join("; ")}`
         : "",
       childrenInfo ? `Children and parenting details: ${childrenInfo}` : "",
       currentLivingSituation
@@ -343,116 +339,7 @@ export default function FamilyIntake({ onComplete }: Props) {
     ]).join("\n");
   }
 
-  function buildIntakeAnalysis(): AnalysisResult {
-    const missingInformation: string[] = [];
-    const risksAndGaps: string[] = [];
-    const inferredFacts: string[] = [];
-    const guidance: string[] = [];
-    const suggestedFocus: string[] = [];
-    const documentUploadRequests: string[] = [];
-
-    if (!hasMeaningfulText(yourName)) missingInformation.push("Your full legal name.");
-    if (!hasMeaningfulText(otherParty)) missingInformation.push("The other party’s full legal name.");
-    if (!hasMeaningfulText(facts)) missingInformation.push("The full family-law story.");
-    if (!hasMeaningfulText(timeline)) missingInformation.push("A timeline with important dates.");
-    if (!hasMeaningfulText(goal)) missingInformation.push("The exact order or outcome requested.");
-
-    if (
-      issues.includes("decision-making-responsibility") ||
-      issues.includes("parenting-time")
-    ) {
-      inferredFacts.push("Parenting or decision-making issues are flagged for unified analysis.");
-      suggestedFocus.push(
-        "Parenting facts should be organized around the child’s best interests, stability, caregiving history, safety, school/daycare, and practical schedule terms.",
-      );
-      if (!hasMeaningfulText(childrenInfo)) {
-        missingInformation.push("Children’s names, ages, schools/daycare, living arrangements, and current parenting schedule.");
-      }
-      documentUploadRequests.push(
-        "Parenting evidence: parenting calendars, messages about exchanges, school/daycare records, medical communication, attendance records, photos, and proof of missed or denied parenting time.",
-      );
-    }
-
-    if (
-      issues.includes("child-support") ||
-      issues.includes("spousal-support") ||
-      issues.includes("disclosure")
-    ) {
-      inferredFacts.push("Support, disclosure, or financial issues are flagged for unified analysis.");
-      suggestedFocus.push(
-        "Financial issues should be organized by income, tax records, support history, expenses, disclosure requested, disclosure received, and what remains missing.",
-      );
-      documentUploadRequests.push(
-        "Financial evidence: pay stubs, tax returns, Notices of Assessment, bank records, benefit records, childcare/special expenses, support payment history, and disclosure requests.",
-      );
-    }
-
-    if (
-      issues.includes("property-division") ||
-      issues.includes("matrimonial-home")
-    ) {
-      inferredFacts.push("Property, equalization, or matrimonial-home issues are flagged for unified analysis.");
-      suggestedFocus.push(
-        "Property issues should identify assets, debts, ownership, date-of-marriage values, separation-date values, home possession issues, and disclosure gaps.",
-      );
-      documentUploadRequests.push(
-        "Property evidence: mortgage records, title/deed documents, bank records, pension information, debt statements, vehicle records, business records, appraisals, and home expense records.",
-      );
-    }
-
-    if (issues.includes("safety-concerns") || hasMeaningfulText(safetyConcerns)) {
-      inferredFacts.push("Safety or urgency concerns are flagged for unified analysis.");
-      risksAndGaps.push(
-        "Safety concerns must be separated from general conflict and supported with dates, incidents, records, witnesses, police involvement, messages, or other proof where available.",
-      );
-      suggestedFocus.push(
-        "Safety facts should be organized by incident date, what happened, who was present, what evidence exists, and what protective or temporary order is requested.",
-      );
-      documentUploadRequests.push(
-        "Safety evidence: police occurrence numbers, threatening messages, photos, medical records, witness names, prior orders, CAS/agency records where applicable, and incident timelines.",
-      );
-    }
-
-    if (issues.includes("relocation")) {
-      inferredFacts.push("Relocation is flagged for unified analysis.");
-      suggestedFocus.push(
-        "Relocation issues need the proposed move details, reason for moving, school plan, housing plan, transportation plan, effect on parenting time, and proposed revised schedule.",
-      );
-    }
-
-    if (uploadedEvidenceFiles.length === 0 && !hasMeaningfulText(evidence)) {
-      risksAndGaps.push("No evidence has been listed or uploaded yet.");
-    }
-
-    if (uploadedEvidenceFiles.length > 0) {
-      inferredFacts.push(
-        `${uploadedEvidenceFiles.length} evidence file${
-          uploadedEvidenceFiles.length === 1 ? "" : "s"
-        } selected for later evidence mapping.`,
-      );
-
-      const incompleteFiles = uploadedEvidenceFiles.filter(
-        (file) =>
-          !hasMeaningfulText(file.title) ||
-          !hasMeaningfulText(file.description) ||
-          !hasMeaningfulText(file.relevance),
-      );
-
-      if (incompleteFiles.length > 0) {
-        risksAndGaps.push(
-          `${incompleteFiles.length} evidence file${
-            incompleteFiles.length === 1 ? "" : "s"
-          } need stronger description, title, or relevance notes before court-package assembly.`,
-        );
-      }
-    }
-
-    guidance.push(
-      "This is a lawyer-grade structured family intake handoff, not a separate family reasoning engine.",
-      "Final issue detection, forms, judge concerns, procedural steps, evidence mapping, risks, and document recommendations must come from courtSimplifiedBrain and the unified assembly layer.",
-      "This component preserves rich family facts, document posture, evidence metadata, support/property/safety signals, and requested relief for centralized reasoning.",
-    );
-
+  function buildNeutralHandoffAnalysis(narrative: string): AnalysisResult {
     return {
       courtPath: "family",
       caseStage: getStageLabel(caseStage),
@@ -460,41 +347,27 @@ export default function FamilyIntake({ onComplete }: Props) {
       receivedForms: [],
       requiredNextForms: [],
       notNeededNow: [],
-      detectedIssues: cleanList(issues.map(labelForIssue)),
-      inferredFacts: cleanList(inferredFacts),
-      missingInformation: cleanList(missingInformation),
-      risksAndGaps: cleanList(risksAndGaps),
-      guidance: cleanList(guidance),
-      summary: [
-        "Family Intake Handoff",
-        "",
-        `Stage: ${getStageLabel(caseStage)}`,
-        "",
-        "Selected issues:",
-        issues.length ? issues.map((issue) => `- ${labelForIssue(issue)}`).join("\n") : "- None selected",
-        "",
-        "Existing documents:",
-        filedDocuments.length
-          ? filedDocuments.map((doc) => `- ${labelForFiledDocument(doc)}`).join("\n")
-          : "- None selected",
-        "",
-        "Missing intake information:",
-        missingInformation.length
-          ? cleanList(missingInformation).map((item) => `- ${item}`).join("\n")
-          : "- No major intake gaps detected",
-      ].join("\n"),
+      detectedIssues: [],
+      inferredFacts: [],
+      missingInformation: [],
+      risksAndGaps: [],
+      guidance: [],
+      summary: narrative,
       proceduralRisks: [],
       damagesIssues: [],
       defenceAttacks: [],
       judgeConcerns: [],
-      suggestedFocus: cleanList(suggestedFocus),
-      documentUploadRequests: cleanList(documentUploadRequests),
+      suggestedFocus: [],
+      documentUploadRequests: [],
+      detectedFamilyIssues: [],
+      recommendedEvidence: [],
+      recommendedFamilyNextSteps: [],
     };
   }
 
   function handleAnalyze() {
-    const analysis = buildIntakeAnalysis();
     const narrative = buildNarrative();
+    const analysis = buildNeutralHandoffAnalysis(narrative);
 
     const payload: StoredCaseData = {
       courtPath: "family",
@@ -510,10 +383,13 @@ export default function FamilyIntake({ onComplete }: Props) {
       urgent,
       analysis,
       extra: {
-        architectureMode: "unified-brain-handoff",
+        architectureMode: "pure-intake-ui",
         sourceOfTruth: "courtSimplifiedBrain",
+        componentRole: "intake-collection-only",
         filedDocuments,
+        filedDocumentLabels: filedDocuments.map(labelForFiledDocument),
         issues,
+        issueLabels: issues.map(labelForIssue),
         childrenInfo,
         currentLivingSituation,
         pastLivingHistory,

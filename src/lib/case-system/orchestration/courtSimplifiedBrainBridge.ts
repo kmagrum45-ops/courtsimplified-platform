@@ -15,7 +15,7 @@ import {
   CaseSystemAssemblyModel,
 } from "./caseSystemAssembly";
 
-export type CourtSimplifiedBrainBridgeVersion = "1.1.1";
+export type CourtSimplifiedBrainBridgeVersion = "1.2.0";
 
 export type CourtSimplifiedBrainBridgeOutput = {
   version: CourtSimplifiedBrainBridgeVersion;
@@ -109,35 +109,71 @@ function clean(value: unknown): string {
   return String(value || "").trim();
 }
 
+function normalizeKey(value: unknown): string {
+  return clean(value)
+    .toLowerCase()
+    .replace(/_/g, "-")
+    .replace(/\s+/g, "-")
+    .trim();
+}
+
 function uniqueStrings(items: unknown[]): string[] {
   return Array.from(new Set(items.map(clean).filter(Boolean)));
 }
 
 function asCourtPath(value: unknown): CaseCourtPath {
-  const cleaned = clean(value);
-  return COURT_PATHS.includes(cleaned as CaseCourtPath)
-    ? (cleaned as CaseCourtPath)
+  const normalized = normalizeKey(value);
+
+  if (normalized === "smallclaims" || normalized === "small-claim") {
+    return "small-claims";
+  }
+
+  if (normalized === "criminal") return "criminal-related";
+  if (normalized === "landlord-tenant") return "ltb";
+
+  return COURT_PATHS.includes(normalized as CaseCourtPath)
+    ? (normalized as CaseCourtPath)
     : "unknown";
 }
 
 function asProvince(value: unknown): CaseProvince {
   const cleaned = clean(value);
-  return PROVINCES.includes(cleaned as CaseProvince)
-    ? (cleaned as CaseProvince)
-    : "Unknown";
+
+  const match = PROVINCES.find(
+    (province) => province.toLowerCase() === cleaned.toLowerCase(),
+  );
+
+  return match || "Unknown";
 }
 
 function asStage(value: unknown): CaseStage {
-  const cleaned = clean(value);
-  return STAGES.includes(cleaned as CaseStage)
-    ? (cleaned as CaseStage)
+  const normalized = normalizeKey(value);
+
+  if (normalized === "not-started") return "pre-litigation";
+  if (normalized === "already-filed") return "already-started";
+  if (normalized === "trial-preparation") return "trial";
+  if (normalized === "appeal-or-review") return "appeal";
+
+  return STAGES.includes(normalized as CaseStage)
+    ? (normalized as CaseStage)
     : "not-sure";
 }
 
 function asDomain(value: unknown): CaseLegalDomain {
-  const cleaned = clean(value);
-  return DOMAINS.includes(cleaned as CaseLegalDomain)
-    ? (cleaned as CaseLegalDomain)
+  const normalized = normalizeKey(value);
+
+  if (normalized === "contracts") return "contract";
+  if (normalized === "property") return "property-damage";
+  if (normalized === "support") return "family-support";
+  if (normalized === "parenting") return "family-parenting";
+  if (normalized === "charter") return "civil-charter";
+  if (normalized === "human-rights") return "civil-human-rights";
+  if (normalized === "institutional-liability") {
+    return "civil-institutional-liability";
+  }
+
+  return DOMAINS.includes(normalized as CaseLegalDomain)
+    ? (normalized as CaseLegalDomain)
     : "unknown";
 }
 
@@ -150,7 +186,8 @@ function getLegalDomains(intelligence: LegalIntelligenceResult): CaseLegalDomain
     .filter(
       (claim) =>
         claim.status === "detected" ||
-        claim.status === "possible",
+        claim.status === "possible" ||
+        claim.status === "insufficient-facts",
     )
     .map((claim) => asDomain(claim.claimType))
     .filter((domain) => domain !== "unknown");
@@ -171,26 +208,40 @@ function getClaimStatus(
   return "unknown";
 }
 
+function getClaimSuppressionReason(
+  claim: LegalIntelligenceResult["claimClassifications"][number],
+): string | undefined {
+  if (
+    claim.status === "rejected-false-positive" ||
+    claim.status === "conflicting-signals"
+  ) {
+    return claim.rejectedBecause[0];
+  }
+
+  return undefined;
+}
+
 function getFormLabels(intelligence: LegalIntelligenceResult): string[] {
-  return intelligence.formRecommendations.map((form) => {
-    if (form.formNumber && form.title) {
-      return `Form ${form.formNumber} — ${form.title}`;
-    }
+  return uniqueStrings(
+    intelligence.formRecommendations.map((form) => {
+      if (form.formNumber && form.title) {
+        return `Form ${form.formNumber} — ${form.title}`;
+      }
 
-    if (form.formNumber) {
-      return `Form ${form.formNumber}`;
-    }
+      if (form.formNumber) return `Form ${form.formNumber}`;
 
-    return form.title;
-  });
+      return form.title;
+    }),
+  );
 }
 
 function mapRemedyCategory(value: unknown): AssemblyRemedyCategory {
-  const type = clean(value);
+  const type = normalizeKey(value);
 
   if (type === "money") return "money";
   if (type === "costs") return "money";
   if (type === "interest") return "money";
+  if (type === "damages") return "money";
   if (type === "apology") return "apology";
   if (type === "retraction") return "retraction";
   if (type === "injunction") return "injunction";
@@ -201,6 +252,18 @@ function mapRemedyCategory(value: unknown): AssemblyRemedyCategory {
   if (type === "settlement") return "settlement";
 
   return "unknown";
+}
+
+function getEvidenceLinkedTimelineEventIds(args: {
+  evidenceId: string;
+  linkedFactIds: string[];
+  events: LegalIntelligenceResult["normalizedIntake"]["events"];
+}): string[] {
+  const fromEvents = args.events
+    .filter((event) => event.evidenceIds.includes(args.evidenceId))
+    .map((event) => event.id);
+
+  return uniqueStrings([...fromEvents, ...args.linkedFactIds]);
 }
 
 function getRecommendedRoute(args: {
@@ -214,9 +277,55 @@ function getRecommendedRoute(args: {
 
   if (args.existingRoute) return args.existingRoute;
 
+  const stage = asStage(args.intelligence.proceduralPosture.stage);
+
+  if (stage === "urgent") return "/dashboard";
+  if (args.intelligence.missingInformation.length > 0) return "/builder";
+  if (args.intelligence.normalizedIntake.evidence.length === 0) return "/evidence";
   if (args.intelligence.formRecommendations.length > 0) return "/forms";
 
-  return undefined;
+  return "/dashboard";
+}
+
+function buildBridgeWarnings(args: {
+  intelligence: LegalIntelligenceResult;
+  assemblyWarnings: string[];
+  masterCase: MasterCaseSchema;
+  courtPath: CaseCourtPath;
+  province: CaseProvince;
+  stage: CaseStage;
+  legalDomains: CaseLegalDomain[];
+}): string[] {
+  return uniqueStrings([
+    ...args.assemblyWarnings,
+    ...args.masterCase.systemWarnings,
+    ...args.intelligence.systemWarnings,
+    ...args.intelligence.legalKnowledge.sourceWarnings,
+
+    args.courtPath === "unknown"
+      ? "Court path could not be confidently normalized."
+      : "",
+
+    args.province === "Unknown"
+      ? "Province could not be confidently normalized."
+      : "",
+
+    args.stage === "not-sure"
+      ? "Procedural stage could not be confidently normalized."
+      : "",
+
+    args.legalDomains.includes("unknown")
+      ? "Legal domain could not be confidently normalized."
+      : "",
+
+    args.intelligence.claimClassifications.length === 0
+      ? "No claim classifications were available for bridge mapping."
+      : "",
+
+    args.intelligence.normalizedIntake.evidence.length === 0
+      ? "No evidence items were available for bridge mapping."
+      : "",
+  ]);
 }
 
 export function buildCourtSimplifiedBrainBridge(args: {
@@ -262,8 +371,15 @@ export function buildCourtSimplifiedBrainBridge(args: {
         description: item.description,
         sourceText: item.sourceText,
         linkedClaimDomains: legalDomains,
-        linkedTimelineEventIds: item.linkedFactIds,
-        tags: item.gaps,
+        linkedTimelineEventIds: getEvidenceLinkedTimelineEventIds({
+          evidenceId: item.id,
+          linkedFactIds: item.linkedFactIds,
+          events: intelligence.normalizedIntake.events,
+        }),
+        tags: uniqueStrings([
+          ...item.gaps,
+          ...item.admissibilityConcerns.map((concern) => concern.concern),
+        ]),
       })),
     },
 
@@ -297,7 +413,7 @@ export function buildCourtSimplifiedBrainBridge(args: {
         risks: uniqueStrings(
           claim.requiredElements.flatMap((element) => element.risks),
         ),
-        suppressionReason: claim.rejectedBecause[0],
+        suppressionReason: getClaimSuppressionReason(claim),
       })),
     },
 
@@ -316,7 +432,9 @@ export function buildCourtSimplifiedBrainBridge(args: {
           label: outcome.description,
         }),
       ),
-      linkedEvidenceIds: intelligence.normalizedIntake.evidence.map((item) => item.id),
+      linkedEvidenceIds: intelligence.normalizedIntake.evidence.map(
+        (item) => item.id,
+      ),
       linkedTimelineEventIds: intelligence.normalizedIntake.events.map(
         (event) => event.id,
       ),
@@ -350,15 +468,18 @@ export function buildCourtSimplifiedBrainBridge(args: {
   });
 
   return {
-    version: "1.1.1",
+    version: "1.2.0",
     masterCase,
     assembly: assemblyOutput.assembly,
     recommendedNextRoute,
-    warnings: uniqueStrings([
-      ...assemblyOutput.warnings,
-      ...masterCase.systemWarnings,
-      ...intelligence.systemWarnings,
-      ...intelligence.legalKnowledge.sourceWarnings,
-    ]),
+    warnings: buildBridgeWarnings({
+      intelligence,
+      assemblyWarnings: assemblyOutput.warnings,
+      masterCase,
+      courtPath,
+      province,
+      stage,
+      legalDomains,
+    }),
   };
 }

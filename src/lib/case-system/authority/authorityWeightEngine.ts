@@ -25,12 +25,12 @@ export type AuthorityWeightResult = {
   bindingLevel: AuthorityBindingLevel;
   jurisdictionFit: "exact" | "federal" | "related" | "mismatch" | "unknown";
   courtLevelFit:
-    | "highest"
-    | "appeal"
-    | "trial"
-    | "tribunal"
-    | "non-court"
-    | "unknown";
+  | "highest"
+  | "appeal"
+  | "trial"
+  | "tribunal"
+  | "non-court"
+  | "unknown";
   citationSafe: boolean;
   verified: boolean;
   requiresManualReview: boolean;
@@ -222,9 +222,9 @@ function weightSingleAuthority(args: {
 
   const baseScore = Math.round(
     scoreBindingLevel(args.verification.bindingLevel) * 0.35 +
-      scoreSourceType(args.authority.sourceType) * 0.2 +
-      scoreCourtLevel(args.authority.courtLevel) * 0.25 +
-      scoreJurisdictionFit(fit) * 0.2,
+    scoreSourceType(args.authority.sourceType) * 0.2 +
+    scoreCourtLevel(args.authority.courtLevel) * 0.25 +
+    scoreJurisdictionFit(fit) * 0.2,
   );
 
   const finalScore = applyVerificationPenalty({

@@ -9,47 +9,40 @@ type ChatMessage = {
 
 type CourtAssistantChatProps = {
   caseData?: any;
-
   caseId?: string;
   path?: string;
-
   masterResult?: any;
-
   evidenceData?: any;
   strategyData?: any;
   workspaceDocument?: any;
-
   proceduralStage?: string;
-
   onMasterResultUpdate?: (patch: any) => void;
   onDashboardUpdate?: (patch: any) => void;
   onRecommendedRoute?: (route: string) => void;
 };
 
-type AssistantApiResponse = {
-  success: boolean;
-
+type AiCasePartnerResponse = {
+  ok: boolean;
   answer?: string;
-
-  intelligence?: any;
-
-  masterResultPatch?: any;
-  dashboardPatch?: any;
-
-  recommendedNextRoute?: string;
-
+  userFacingAnswer?: string;
+  caseMemory?: any;
+  conversationIntelligence?: any;
+  conversationMemory?: any;
+  caseInvestigation?: any;
+  gateway?: any;
+  result?: any;
   error?: string;
 };
 
 const quickActions = [
-  "Explain my next required forms",
+  "What is the most important thing I should clarify next?",
   "What evidence am I missing?",
-  "What deadlines or service risks should I check?",
-  "Help me prepare for the next court step",
-  "What should I fix before generating forms?",
+  "What legal issues should be reviewed?",
+  "What would a judge likely be concerned about?",
+  "What should I fix before generating documents?",
 ];
 
-const STORAGE_KEY = "courtsimplified-chat-memory";
+const STORAGE_KEY = "courtsimplified-ai-case-partner-chat";
 
 function safeJsonParse(value: string | null) {
   try {
@@ -71,26 +64,49 @@ function normalizeMessages(input: unknown): ChatMessage[] {
         (item as any).content,
     )
     .map((item) => ({
-      role:
-        (item as any).role === "assistant" ? "assistant" : "user",
+      role: (item as any).role === "assistant" ? "assistant" : "user",
       content: String((item as any).content || ""),
     }));
 }
 
+function buildWarnings(data: AiCasePartnerResponse): string[] {
+  return [
+    ...(data.caseInvestigation?.validation?.warnings || []),
+    ...(data.conversationIntelligence?.validation?.needsLegalVerification || []),
+    ...(data.conversationMemory?.memory?.warnings || []),
+  ]
+    .filter(Boolean)
+    .slice(0, 8);
+}
+
+function buildRecommendedRoute(data: AiCasePartnerResponse): string | null {
+  const investigation = data.caseInvestigation;
+
+  if (!investigation) return null;
+
+  if (investigation.evidenceNeeded?.length > 0) return "/evidence";
+
+  if (
+    investigation.validation?.safeToUseForWorkflow ||
+    investigation.proceduralStage !== "unknown"
+  ) {
+    return "/case-dashboard";
+  }
+
+  if (investigation.issues?.length > 0) return "/litigation-strategy";
+
+  return null;
+}
+
 export default function CourtAssistantChat({
   caseData,
-
   caseId,
   path,
-
   masterResult,
-
   evidenceData,
   strategyData,
   workspaceDocument,
-
   proceduralStage,
-
   onMasterResultUpdate,
   onDashboardUpdate,
   onRecommendedRoute,
@@ -99,7 +115,7 @@ export default function CourtAssistantChat({
     () => ({
       role: "assistant",
       content:
-        "CourtSimplified is now analyzing your facts, evidence, procedural stage, and litigation risks together. Ask what you should do next, what proof is missing, what forms may apply, or what weaknesses should be fixed before court.",
+        "Tell me what happened in normal words. I’ll help organize the case, identify missing facts, track evidence, spot legal issues to review, and ask the next most useful question.",
     }),
     [],
   );
@@ -107,45 +123,27 @@ export default function CourtAssistantChat({
   const [messages, setMessages] = useState<ChatMessage[]>([
     initialAssistantMessage,
   ]);
-
   const [input, setInput] = useState("");
-
   const [loading, setLoading] = useState(false);
-
+  const [caseMemory, setCaseMemory] = useState<any>(null);
   const [latestIntelligence, setLatestIntelligence] = useState<any>(null);
-
-  const [recommendedRoute, setRecommendedRoute] = useState<string | null>(
-    null,
-  );
-
+  const [latestInvestigation, setLatestInvestigation] = useState<any>(null);
+  const [recommendedRoute, setRecommendedRoute] = useState<string | null>(null);
   const [systemWarnings, setSystemWarnings] = useState<string[]>([]);
 
   useEffect(() => {
-    const saved = safeJsonParse(
-      localStorage.getItem(STORAGE_KEY),
-    );
+    const saved = safeJsonParse(localStorage.getItem(STORAGE_KEY));
 
     if (!saved) return;
 
-    if (Array.isArray(saved.messages)) {
-      const normalized = normalizeMessages(saved.messages);
+    const normalized = normalizeMessages(saved.messages);
 
-      if (normalized.length > 0) {
-        setMessages(normalized);
-      }
-    }
-
-    if (saved.latestIntelligence) {
-      setLatestIntelligence(saved.latestIntelligence);
-    }
-
-    if (Array.isArray(saved.systemWarnings)) {
-      setSystemWarnings(saved.systemWarnings);
-    }
-
-    if (saved.recommendedRoute) {
-      setRecommendedRoute(saved.recommendedRoute);
-    }
+    if (normalized.length > 0) setMessages(normalized);
+    if (saved.caseMemory) setCaseMemory(saved.caseMemory);
+    if (saved.latestIntelligence) setLatestIntelligence(saved.latestIntelligence);
+    if (saved.latestInvestigation) setLatestInvestigation(saved.latestInvestigation);
+    if (Array.isArray(saved.systemWarnings)) setSystemWarnings(saved.systemWarnings);
+    if (saved.recommendedRoute) setRecommendedRoute(saved.recommendedRoute);
   }, []);
 
   useEffect(() => {
@@ -153,14 +151,18 @@ export default function CourtAssistantChat({
       STORAGE_KEY,
       JSON.stringify({
         messages,
+        caseMemory,
         latestIntelligence,
+        latestInvestigation,
         recommendedRoute,
         systemWarnings,
       }),
     );
   }, [
     messages,
+    caseMemory,
     latestIntelligence,
+    latestInvestigation,
     recommendedRoute,
     systemWarnings,
   ]);
@@ -178,72 +180,65 @@ export default function CourtAssistantChat({
     const nextMessages = [...messages, userMessage];
 
     setMessages(nextMessages);
-
     setInput("");
-
     setLoading(true);
 
     try {
-      const response = await fetch("/api/assistant-chat", {
+      const response = await fetch("/api/ai-case-partner", {
         method: "POST",
-
         headers: {
           "Content-Type": "application/json",
         },
-
         body: JSON.stringify({
           message: trimmed,
-
           caseId,
-          path,
-
-          caseData,
-
-          master_result: masterResult,
-
-          evidenceData,
-          strategyData,
-          workspaceDocument,
-
-          proceduralStage,
-
+          mode: "builder-chat",
+          caseMemory: caseMemory || {
+            caseData,
+            masterResult,
+            evidenceData,
+            strategyData,
+            workspaceDocument,
+            proceduralStage,
+            path,
+          },
           conversation: nextMessages,
         }),
       });
 
-      const data: AssistantApiResponse =
-        await response.json();
+      const data: AiCasePartnerResponse = await response.json();
 
-      if (!response.ok || !data.success) {
-        throw new Error(
-          data?.error ||
-            "CourtSimplified assistant error.",
-        );
+      if (!response.ok || !data.ok) {
+        throw new Error(data?.error || "CourtSimplified AI Case Partner error.");
       }
 
-      if (data.masterResultPatch) {
-        onMasterResultUpdate?.(data.masterResultPatch);
+      if (data.caseMemory) {
+        setCaseMemory(data.caseMemory);
+        onMasterResultUpdate?.({
+          aiCasePartnerMemory: data.caseMemory,
+        });
       }
 
-      if (data.dashboardPatch) {
-        onDashboardUpdate?.(data.dashboardPatch);
+      if (data.conversationIntelligence) {
+        setLatestIntelligence(data.conversationIntelligence);
       }
 
-      if (data.recommendedNextRoute) {
-        setRecommendedRoute(data.recommendedNextRoute);
+      if (data.caseInvestigation) {
+        setLatestInvestigation(data.caseInvestigation);
 
-        onRecommendedRoute?.(
-          data.recommendedNextRoute,
-        );
+        onDashboardUpdate?.({
+          aiCasePartnerInvestigation: data.caseInvestigation,
+        });
       }
 
-      if (data.intelligence) {
-        setLatestIntelligence(data.intelligence);
+      const route = buildRecommendedRoute(data);
 
-        setSystemWarnings(
-          data.intelligence.systemWarnings || [],
-        );
+      if (route) {
+        setRecommendedRoute(route);
+        onRecommendedRoute?.(route);
       }
+
+      setSystemWarnings(buildWarnings(data));
 
       setMessages((current) => [
         ...current,
@@ -251,14 +246,12 @@ export default function CourtAssistantChat({
           role: "assistant",
           content:
             data.answer ||
+            data.userFacingAnswer ||
             "CourtSimplified could not generate a response right now.",
         },
       ]);
     } catch (error) {
-      console.error(
-        "CourtSimplified assistant error:",
-        error,
-      );
+      console.error("CourtSimplified AI Case Partner error:", error);
 
       setMessages((current) => [
         ...current,
@@ -273,12 +266,9 @@ export default function CourtAssistantChat({
     }
   }
 
-  function handleKeyDown(
-    event: React.KeyboardEvent<HTMLTextAreaElement>,
-  ) {
+  function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
-
       sendMessage();
     }
   }
@@ -287,18 +277,17 @@ export default function CourtAssistantChat({
     <section className="rounded-3xl border border-[#d8e6df] bg-white shadow-sm">
       <div className="border-b border-[#d8e6df] p-5">
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#2f7d67]">
-          Litigation Intelligence
+          AI Case Partner
         </p>
 
         <h2 className="text-xl font-bold text-[#10231f]">
-          CourtSimplified Assistant
+          CourtSimplified Case Companion
         </h2>
 
         <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-          CourtSimplified is analyzing:
-          claims, evidence, procedure, risks,
-          proof gaps, and litigation workflow
-          together.
+          CourtSimplified now uses the AI Case Partner pipeline to understand
+          your story, remember the case, investigate legal issues, identify
+          missing proof, and ask the next useful question.
         </p>
 
         {recommendedRoute && (
@@ -309,26 +298,21 @@ export default function CourtAssistantChat({
 
             <p className="mt-1 text-sm text-[#16302b]">
               Recommended next page:
-              <span className="ml-2 font-semibold">
-                {recommendedRoute}
-              </span>
+              <span className="ml-2 font-semibold">{recommendedRoute}</span>
             </p>
           </div>
         )}
 
-        {latestIntelligence?.primaryClaimTypes
-          ?.length > 0 && (
+        {latestInvestigation?.issues?.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">
-            {latestIntelligence.primaryClaimTypes.map(
-              (claim: string) => (
-                <div
-                  key={claim}
-                  className="rounded-full bg-[#e7f5ef] px-3 py-1 text-xs font-semibold text-[#2f7d67]"
-                >
-                  {claim}
-                </div>
-              ),
-            )}
+            {latestInvestigation.issues.slice(0, 5).map((issue: any) => (
+              <div
+                key={issue.id || issue.label}
+                className="rounded-full bg-[#e7f5ef] px-3 py-1 text-xs font-semibold text-[#2f7d67]"
+              >
+                {issue.label}
+              </div>
+            ))}
           </div>
         )}
       </div>
@@ -336,20 +320,18 @@ export default function CourtAssistantChat({
       {systemWarnings.length > 0 && (
         <div className="border-b border-[#f0d7d7] bg-[#fff8f8] p-4">
           <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#a63b3b]">
-            Intelligence warnings
+            Case partner warnings
           </p>
 
           <div className="space-y-2">
-            {systemWarnings
-              .slice(0, 4)
-              .map((warning, index) => (
-                <div
-                  key={`${warning}-${index}`}
-                  className="rounded-xl border border-[#f0d7d7] bg-white px-3 py-2 text-sm text-[#7a2d2d]"
-                >
-                  {warning}
-                </div>
-              ))}
+            {systemWarnings.slice(0, 4).map((warning, index) => (
+              <div
+                key={`${warning}-${index}`}
+                className="rounded-xl border border-[#f0d7d7] bg-white px-3 py-2 text-sm text-[#7a2d2d]"
+              >
+                {warning}
+              </div>
+            ))}
           </div>
         </div>
       )}
@@ -392,9 +374,9 @@ export default function CourtAssistantChat({
 
         {loading && (
           <div className="mr-auto max-w-[88%] rounded-2xl bg-[#f1f5f3] px-4 py-3 text-sm text-[#4d675f]">
-            CourtSimplified is analyzing
-            litigation structure, evidence,
-            procedure, and next-step risks...
+            CourtSimplified is using the AI Case Partner to update memory,
+            investigate issues, check missing proof, and choose the next useful
+            question...
           </div>
         )}
       </div>
@@ -402,18 +384,17 @@ export default function CourtAssistantChat({
       <div className="border-t border-[#d8e6df] p-4">
         <textarea
           value={input}
-          onChange={(event) =>
-            setInput(event.target.value)
-          }
+          onChange={(event) => setInput(event.target.value)}
           onKeyDown={handleKeyDown}
           rows={4}
           className="w-full resize-none rounded-2xl border border-[#c9d9d2] p-3 text-sm text-[#16302b] outline-none focus:border-[#2f7d67] focus:ring-2 focus:ring-[#d8eee7]"
-          placeholder="Explain your situation, ask what evidence is missing, ask about forms, deadlines, service, motions, conferences, trial preparation, or what weaknesses should be fixed before court."
+          placeholder="Tell CourtSimplified what happened. You can use normal words. The system will help identify facts, parties, evidence, legal issues, missing proof, and the next question."
         />
 
         <div className="mt-3 flex items-center justify-between gap-3">
           <p className="text-xs text-[#6b8078]">
-            CourtSimplified provides structured litigation guidance and workflow intelligence. Verify final court requirements before filing.
+            CourtSimplified helps organize litigation information. Verify final
+            court requirements before filing.
           </p>
 
           <button
@@ -422,9 +403,7 @@ export default function CourtAssistantChat({
             disabled={loading || !input.trim()}
             className="rounded-2xl bg-[#2f7d67] px-5 py-2 text-sm font-semibold text-white hover:bg-[#276b58] disabled:cursor-not-allowed disabled:bg-slate-300"
           >
-            {loading
-              ? "Analyzing..."
-              : "Ask CourtSimplified"}
+            {loading ? "Investigating..." : "Ask Case Partner"}
           </button>
         </div>
       </div>

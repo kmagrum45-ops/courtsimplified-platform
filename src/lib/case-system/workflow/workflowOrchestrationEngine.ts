@@ -291,6 +291,67 @@ function hasHighProceduralRisk(input: WorkflowOrchestrationBuildInput): boolean 
     isLowReadiness(input.procedural?.filingReadiness)
   );
 }
+
+function hasLegalReasoning(input: WorkflowOrchestrationBuildInput): boolean {
+  return Boolean(input.legalReasoning?.hasLegalReasoning);
+}
+
+function legalReasoningWarnings(input: WorkflowOrchestrationBuildInput): string[] {
+  return uniqueStrings([
+    ...(input.legalReasoningWarnings || []),
+    ...(input.legalReasoning?.warnings || []),
+  ]);
+}
+
+function legalReasoningReadiness(
+  input: WorkflowOrchestrationBuildInput,
+): CaseConfidence {
+  const reasoning = input.legalReasoning;
+
+  if (!reasoning?.hasLegalReasoning) return "low";
+  if ((reasoning.blockedObjects || []).length > 0) return "low";
+  if (legalReasoningWarnings(input).length > 0) return "medium";
+  if (
+    (reasoning.profileCount || 0) > 0 &&
+    (reasoning.evidencePriorities || []).length > 0 &&
+    (reasoning.burdenPriorities || []).length > 0
+  ) {
+    return "high";
+  }
+
+  return "medium";
+}
+
+function hasLegalReasoningRisk(input: WorkflowOrchestrationBuildInput): boolean {
+  const reasoning = input.legalReasoning;
+
+  return (
+    !reasoning?.hasLegalReasoning ||
+    legalReasoningWarnings(input).length > 0 ||
+    (reasoning?.blockedObjects || []).length > 0 ||
+    (reasoning?.proceduralWatchPoints || []).length > 0
+  );
+}
+
+function legalReasoningSeverity(
+  input: WorkflowOrchestrationBuildInput,
+): CaseSeverity {
+  const warnings = legalReasoningWarnings(input);
+  const blocked = input.legalReasoning?.blockedObjects || [];
+  const proceduralWatchPoints = input.legalReasoning?.proceduralWatchPoints || [];
+
+  if (blocked.length > 0) return "high";
+  if (warnings.some((warning) => severityFromWarning(warning) === "critical")) {
+    return "critical";
+  }
+  if (warnings.some((warning) => severityFromWarning(warning) === "high")) {
+    return "high";
+  }
+  if (proceduralWatchPoints.length > 0 || warnings.length > 0) return "medium";
+
+  return "info";
+}
+
 function buildGate(args: {
   gateType: WorkflowGate["gateType"];
   title: string;
@@ -380,6 +441,33 @@ function buildGates(input: WorkflowOrchestrationBuildInput): WorkflowGate[] {
       requiredBeforeRoutes: ["/forms", "/documents", "/court-package"],
       suggestedFix:
         "Confirm what has already been filed, served, scheduled, or ordered.",
+    }),
+  );
+
+  gates.push(
+    buildGate({
+      gateType: "legal-reasoning",
+      title: "Legal reasoning package reviewed",
+      explanation:
+        "Workflow routing should consider the shared Legal Reasoning Coordinator package before sending the user to forms, documents, court packages, settlement materials, or trial preparation.",
+      status: !hasLegalReasoning(input)
+        ? "open"
+        : (input.legalReasoning?.blockedObjects || []).length > 0
+          ? "blocked"
+          : legalReasoningWarnings(input).length > 0 ||
+              (input.legalReasoning?.proceduralWatchPoints || []).length > 0
+            ? "open"
+            : "satisfied",
+      severity: legalReasoningSeverity(input),
+      requiredBeforeRoutes: [
+        "/documents",
+        "/forms",
+        "/court-package",
+        "/settlement-conference",
+        "/trial-package",
+      ],
+      suggestedFix:
+        "Review legal reasoning priorities, proof priorities, procedural watch points, authority warnings, and first questions before moving to final workflow outputs.",
     }),
   );
 
@@ -621,6 +709,7 @@ function blockerTypeForGate(gate: WorkflowGate): WorkflowBlocker["blockerType"] 
   if (gate.gateType === "stage") return "missing-stage";
   if (gate.gateType === "claims") return "missing-claim-theory";
   if (gate.gateType === "procedure") return "procedural-risk";
+  if (gate.gateType === "legal-reasoning") return "legal-reasoning-risk";
   if (gate.gateType === "evidence") return "missing-evidence";
   if (gate.gateType === "proof") return "proof-risk";
   if (gate.gateType === "timeline") return "missing-timeline";
@@ -742,6 +831,64 @@ function buildProofBlockers(input: WorkflowOrchestrationBuildInput): WorkflowBlo
 
   return blockers;
 }
+
+function buildLegalReasoningBlockers(
+  input: WorkflowOrchestrationBuildInput,
+): WorkflowBlocker[] {
+  const blockers: WorkflowBlocker[] = [];
+  const reasoning = input.legalReasoning;
+
+  if (!reasoning?.hasLegalReasoning) {
+    return blockers;
+  }
+
+  for (const blockedObject of reasoning.blockedObjects || []) {
+    blockers.push(
+      buildBlocker({
+        blockerType: "legal-reasoning-risk",
+        severity: "high",
+        title: `Blocked legal knowledge object: ${blockedObject}`,
+        explanation:
+          "The Legal Reasoning Coordinator blocked a knowledge object from use. Workflow should not treat legal reasoning as document-ready until this is reviewed.",
+        suggestedFix:
+          "Review the blocked knowledge object, verification status, jurisdiction fit, and source warnings before relying on it.",
+        affectedRoutes: ["/legal-principles", "/documents", "/court-package"],
+      }),
+    );
+  }
+
+  for (const warning of legalReasoningWarnings(input)) {
+    blockers.push(
+      buildBlocker({
+        blockerType: "legal-reasoning-risk",
+        severity: severityFromWarning(warning),
+        title: warning,
+        explanation: warning,
+        suggestedFix:
+          "Review the coordinated legal reasoning warning before relying on downstream workflow outputs.",
+        affectedRoutes: ["/legal-principles", "/documents", "/court-package"],
+      }),
+    );
+  }
+
+  for (const watchPoint of reasoning.proceduralWatchPoints || []) {
+    blockers.push(
+      buildBlocker({
+        blockerType: "legal-reasoning-risk",
+        severity: severityFromWarning(watchPoint),
+        title: `Legal reasoning procedural watch point: ${watchPoint}`,
+        explanation:
+          "The Legal Reasoning Coordinator identified a procedural watch point that may affect routing, document readiness, or court-package preparation.",
+        suggestedFix:
+          "Review this procedural watch point with the procedural state before moving to final forms, documents, or court packages.",
+        affectedRoutes: ["/forms", "/documents", "/court-package"],
+      }),
+    );
+  }
+
+  return blockers;
+}
+
 function buildProceduralBlockers(
   input: WorkflowOrchestrationBuildInput,
 ): WorkflowBlocker[] {
@@ -1131,6 +1278,7 @@ function buildCredibilityBlockers(
 
   return blockers;
 }
+
 function severityFromWarning(warning: string): CaseSeverity {
   const text = warning.toLowerCase();
 
@@ -1138,7 +1286,8 @@ function severityFromWarning(warning: string): CaseSeverity {
     text.includes("critical") ||
     text.includes("contradicted") ||
     text.includes("defeat") ||
-    text.includes("unsafe")
+    text.includes("unsafe") ||
+    text.includes("blocked")
   ) {
     return "critical";
   }
@@ -1150,7 +1299,8 @@ function severityFromWarning(warning: string): CaseSeverity {
     text.includes("limitation") ||
     text.includes("wrong jurisdiction") ||
     text.includes("service") ||
-    text.includes("filing")
+    text.includes("filing") ||
+    text.includes("procedural")
   ) {
     return "high";
   }
@@ -1159,7 +1309,8 @@ function severityFromWarning(warning: string): CaseSeverity {
     text.includes("weak") ||
     text.includes("risk") ||
     text.includes("warning") ||
-    text.includes("review")
+    text.includes("review") ||
+    text.includes("watch point")
   ) {
     return "medium";
   }
@@ -1188,6 +1339,7 @@ function buildBlockers(
     }
   }
 
+  blockers.push(...buildLegalReasoningBlockers(input));
   blockers.push(...buildProceduralBlockers(input));
   blockers.push(...buildProofBlockers(input));
   blockers.push(...buildAuthorityBlockers(input));
@@ -1199,6 +1351,11 @@ function buildBlockers(
     warnings?: string[];
     affectedRoutes: WorkflowRoute[];
   }> = [
+    {
+      type: "legal-reasoning-risk",
+      warnings: legalReasoningWarnings(input),
+      affectedRoutes: ["/legal-principles", "/documents", "/court-package"],
+    },
     {
       type: "procedural-risk",
       warnings: proceduralWarnings(input),
@@ -1288,6 +1445,14 @@ function chooseRecommendedRoute(
     return "/builder";
   }
 
+  if (
+    hasLegalReasoningRisk(input) &&
+    ((input.legalReasoning?.blockedObjects || []).length > 0 ||
+      legalReasoningWarnings(input).length > 0)
+  ) {
+    return "/legal-principles";
+  }
+
   if (!hasProofAnalysis(input)) return "/builder";
 
   if (hasHighProceduralRisk(input)) {
@@ -1335,7 +1500,9 @@ function chooseRecommendedRoute(
   if (
     weakClaimProofCount(input) > 0 ||
     hasProofWeakness(input) ||
-    (input.claimWarnings || []).length > 0
+    (input.claimWarnings || []).length > 0 ||
+    (input.legalReasoning?.judicialConcerns || []).length > 0 ||
+    (input.legalReasoning?.opposingArguments || []).length > 0
   ) {
     return "/litigation-strategy";
   }
@@ -1380,7 +1547,7 @@ function buildRouteAssessments(
       recommended: route === recommendedRoute,
       reason:
         route === recommendedRoute
-          ? "Recommended based on workflow gates, procedural readiness, proof readiness, authority safety, contradiction risk, credibility risk, evidence, stage, and next best action."
+          ? "Recommended based on workflow gates, legal reasoning readiness, procedural readiness, proof readiness, authority safety, contradiction risk, credibility risk, evidence, stage, and next best action."
           : blocked
             ? "Route has unresolved blockers."
             : "Route is available but not the best next step.",
@@ -1391,6 +1558,7 @@ function buildRouteAssessments(
     };
   });
 }
+
 function proofPriority(
   input: WorkflowOrchestrationBuildInput,
 ): WorkflowNextAction["priority"] {
@@ -1398,6 +1566,92 @@ function proofPriority(
   if (missingElementProofCount(input) > 0) return "high";
   if (weakClaimProofCount(input) > 0 || hasProofWeakness(input)) return "high";
   return "medium";
+}
+
+function buildLegalReasoningActions(
+  input: WorkflowOrchestrationBuildInput,
+): WorkflowNextAction[] {
+  const actions: WorkflowNextAction[] = [];
+  const reasoning = input.legalReasoning;
+
+  if (!reasoning?.hasLegalReasoning) {
+    return actions;
+  }
+
+  if (
+    legalReasoningWarnings(input).length > 0 ||
+    (reasoning.blockedObjects || []).length > 0
+  ) {
+    actions.push(
+      buildAction({
+        kind: "review-legal-reasoning",
+        title: "Review legal reasoning warnings",
+        explanation:
+          "The Legal Reasoning Coordinator identified warnings or blocked knowledge objects that should be reviewed before relying on final documents or court packages.",
+        priority: (reasoning.blockedObjects || []).length > 0 ? "high" : "medium",
+        route: "/legal-principles",
+        unlocks: ["/documents", "/court-package"],
+      }),
+    );
+  }
+
+  for (const question of reasoning.firstQuestions || []) {
+    actions.push(
+      buildAction({
+        kind: "review-legal-reasoning",
+        title: question,
+        explanation:
+          "This question comes from the coordinated legal reasoning profile and should be answered before treating the case as workflow-ready.",
+        priority: "high",
+        route: "/builder",
+        unlocks: ["/evidence", "/litigation-strategy"],
+      }),
+    );
+  }
+
+  for (const evidencePriority of reasoning.evidencePriorities || []) {
+    actions.push(
+      buildAction({
+        kind: "add-evidence",
+        title: `Collect legal reasoning evidence priority: ${evidencePriority}`,
+        explanation:
+          "This evidence priority comes from the Legal Reasoning Coordinator and should be connected to the proof map.",
+        priority: "high",
+        route: "/evidence",
+        unlocks: ["/documents", "/court-package"],
+      }),
+    );
+  }
+
+  for (const burdenPriority of reasoning.burdenPriorities || []) {
+    actions.push(
+      buildAction({
+        kind: "strengthen-proof",
+        title: `Address burden priority: ${burdenPriority}`,
+        explanation:
+          "This burden priority comes from the Legal Reasoning Coordinator and should be reviewed before finalizing documents.",
+        priority: "high",
+        route: "/evidence",
+        unlocks: ["/documents", "/court-package"],
+      }),
+    );
+  }
+
+  for (const watchPoint of reasoning.proceduralWatchPoints || []) {
+    actions.push(
+      buildAction({
+        kind: "review-procedure",
+        title: `Review legal reasoning procedural watch point: ${watchPoint}`,
+        explanation:
+          "This procedural watch point comes from the Legal Reasoning Coordinator and should be checked before routing to forms, documents, or court packages.",
+        priority: "high",
+        route: "/case-dashboard",
+        unlocks: ["/forms", "/documents", "/court-package"],
+      }),
+    );
+  }
+
+  return actions.slice(0, 20);
 }
 
 function buildProofActions(input: WorkflowOrchestrationBuildInput): WorkflowNextAction[] {
@@ -1657,6 +1911,7 @@ function buildAuthorityActions(
 
   return actions;
 }
+
 function buildContradictionActions(
   input: WorkflowOrchestrationBuildInput,
 ): WorkflowNextAction[] {
@@ -1769,6 +2024,7 @@ function buildNextActions(
     );
   }
 
+  actions.push(...buildLegalReasoningActions(input));
   actions.push(...buildProceduralActions(input));
   actions.push(...buildProofActions(input));
   actions.push(...buildAuthorityActions(input));
@@ -1781,7 +2037,7 @@ function buildNextActions(
         kind: "add-evidence",
         title: "Add or organize evidence",
         explanation:
-          "Evidence should be connected to facts, claims, timeline, proof requirements, and burden issues.",
+          "Evidence should be connected to facts, claims, timeline, proof requirements, burden issues, and reasoning-profile priorities.",
         priority: "high",
         route: "/evidence",
         unlocks: ["/court-package", "/trial-package", "/settlement-conference"],
@@ -1837,7 +2093,7 @@ function buildNextActions(
         kind: "prepare-forms",
         title: "Prepare next court forms",
         explanation:
-          "Core workflow gates, procedural readiness, and proof-readiness checks are satisfied enough to review recommended forms.",
+          "Core workflow gates, legal reasoning readiness, procedural readiness, and proof-readiness checks are satisfied enough to review recommended forms.",
         priority: "medium",
         route: recommendedRoute,
         unlocks: ["/documents", "/court-package"],
@@ -1858,6 +2114,7 @@ function buildReadiness(
 
   const claimReadiness: CaseConfidence = input.hasDominantClaim ? "medium" : "low";
   const procedureReadiness: CaseConfidence = proceduralOverallReadiness(input);
+  const legalReasoningReady = legalReasoningReadiness(input);
 
   const evidenceReadiness: CaseConfidence =
     input.hasEvidence &&
@@ -1892,6 +2149,7 @@ function buildReadiness(
     )
       ? "low"
       : "medium",
+    legalReasoningReady,
     procedureReadiness,
     proofReady,
     authorityReady,
@@ -1906,6 +2164,7 @@ function buildReadiness(
     overallReadiness: averageConfidence([
       intakeReadiness,
       claimReadiness,
+      legalReasoningReady,
       procedureReadiness,
       input.procedural?.deadlineReadiness || "low",
       input.procedural?.serviceReadiness || "low",
@@ -1942,6 +2201,7 @@ function buildReadiness(
     proceduralCostsReadiness: input.procedural?.costsReadiness,
     proceduralAssessmentReadiness: input.procedural?.assessmentReadiness,
 
+    legalReasoningReadiness: legalReasoningReady,
     evidenceReadiness,
     proofReadiness: proofReady,
     timelineReadiness,
@@ -1972,6 +2232,10 @@ export function buildWorkflowOrchestration(
   const warnings = uniqueStrings([
     ...blockers.map((blocker) => blocker.title),
     ...(input.claimWarnings || []),
+    ...legalReasoningWarnings(input),
+    ...(input.legalReasoning?.blockedObjects || []),
+    ...(input.legalReasoning?.proceduralWatchPoints || []),
+    ...(input.legalReasoning?.judicialConcerns || []),
     ...proceduralWarnings(input),
     ...(input.evidenceWarnings || []),
     ...(input.timelineWarnings || []),
@@ -1991,6 +2255,7 @@ export function buildWorkflowOrchestration(
   const confidence = averageConfidence([
     readiness.intakeReadiness,
     readiness.claimReadiness,
+    readiness.legalReasoningReadiness || "low",
     readiness.procedureReadiness,
     readiness.proceduralDeadlineReadiness || "low",
     readiness.proceduralComplianceReadiness || "low",
@@ -2014,7 +2279,7 @@ export function buildWorkflowOrchestration(
 
   const model: WorkflowOrchestrationModel = {
     id: createId("workflow_orchestration"),
-    version: "1.1.0",
+    version: "1.2.0",
     createdAt: timestamp,
     updatedAt: timestamp,
 

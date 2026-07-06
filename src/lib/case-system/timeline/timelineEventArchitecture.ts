@@ -72,13 +72,13 @@ export type TimelineValidationIssueType =
 
 export type TimelineEventSource = {
   sourceType:
-    | "user-intake"
-    | "uploaded-evidence"
-    | "document"
-    | "court-record"
-    | "system-inference"
-    | "manual-review"
-    | "unknown";
+  | "user-intake"
+  | "uploaded-evidence"
+  | "document"
+  | "court-record"
+  | "system-inference"
+  | "manual-review"
+  | "unknown";
   sourceId?: string;
   sourceText?: string;
   confidence: CaseConfidence;

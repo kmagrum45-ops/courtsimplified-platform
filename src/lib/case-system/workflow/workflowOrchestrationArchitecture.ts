@@ -2,12 +2,13 @@ import {
   CaseConfidence,
   CaseCourtPath,
   CaseCredibilityRiskLevel,
+  CaseLegalDomain,
   CaseProvince,
   CaseSeverity,
   CaseStage,
 } from "../architecture/masterCaseSchema";
 
-export type WorkflowOrchestrationVersion = "1.1.0";
+export type WorkflowOrchestrationVersion = "1.1.0" | "1.2.0";
 
 export type WorkflowRoute =
   | "/builder"
@@ -36,6 +37,7 @@ export type WorkflowGateType =
   | "authority"
   | "contradictions"
   | "knowledge"
+  | "legal-reasoning"
   | "forms"
   | "documents"
   | "human-review"
@@ -62,6 +64,7 @@ export type WorkflowBlockerType =
   | "citation-safety-risk"
   | "wrong-jurisdiction-authority"
   | "contradiction-risk"
+  | "legal-reasoning-risk"
   | "form-risk"
   | "document-risk"
   | "unknown";
@@ -80,6 +83,7 @@ export type WorkflowActionKind =
   | "review-damages"
   | "review-credibility"
   | "review-legal-knowledge"
+  | "review-legal-reasoning"
   | "review-authorities"
   | "review-citation-safety"
   | "review-jurisdiction-fit"
@@ -156,6 +160,7 @@ export type WorkflowReadinessState = {
   proceduralCostsReadiness?: CaseConfidence;
   proceduralAssessmentReadiness?: CaseConfidence;
 
+  legalReasoningReadiness?: CaseConfidence;
   evidenceReadiness: CaseConfidence;
   proofReadiness?: CaseConfidence;
   timelineReadiness: CaseConfidence;
@@ -244,6 +249,25 @@ export type WorkflowProceduralInput = {
   nextActions?: string[];
 };
 
+export type WorkflowLegalReasoningInput = {
+  hasLegalReasoning?: boolean;
+  primaryDomains?: CaseLegalDomain[];
+  profileCount?: number;
+  authorityCount?: number;
+  knowledgeObjectCount?: number;
+
+  investigationPriorities?: string[];
+  evidencePriorities?: string[];
+  burdenPriorities?: string[];
+  proceduralWatchPoints?: string[];
+  judicialConcerns?: string[];
+  opposingArguments?: string[];
+  firstQuestions?: string[];
+
+  warnings?: string[];
+  blockedObjects?: string[];
+};
+
 export type WorkflowOrchestrationModel = {
   id: string;
   version: WorkflowOrchestrationVersion;
@@ -284,6 +308,7 @@ export type WorkflowOrchestrationBuildInput = {
   contradictions?: WorkflowContradictionInput;
   credibility?: WorkflowCredibilityInput;
   procedural?: WorkflowProceduralInput;
+  legalReasoning?: WorkflowLegalReasoningInput;
 
   claimWarnings?: string[];
   proceduralWarnings?: string[];
@@ -294,6 +319,7 @@ export type WorkflowOrchestrationBuildInput = {
   authorityWarnings?: string[];
   contradictionWarnings?: string[];
   knowledgeWarnings?: string[];
+  legalReasoningWarnings?: string[];
 };
 
 export type WorkflowOrchestrationBuildOutput = {
