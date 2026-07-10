@@ -83,11 +83,42 @@ const workflowSteps = [
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-[#f8faf8] text-[#16302b]">
+      {/* DEVELOPMENT NOTICE */}
+      <section
+        className="border-b border-[#d8c26a] bg-[#fff8d9]"
+        aria-label="CourtSimplified development notice"
+      >
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-5 lg:flex-row lg:items-center lg:justify-between">
+          <div className="max-w-5xl">
+            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#745b00]">
+              CourtSimplified is currently in active development
+            </p>
+
+            <p className="mt-2 text-sm leading-6 text-[#5f511d] md:text-base">
+              We are preparing for a public Ontario beta release.
+              CourtSimplified&apos;s features, procedures, and legal guidance
+              are still being reviewed and tested. Information provided during
+              this development stage should not be relied upon as legal advice
+              or as a substitute for advice from a qualified legal
+              professional.
+            </p>
+          </div>
+
+          <div className="shrink-0 rounded-2xl border border-[#d8c26a] bg-white px-5 py-3 text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#806800]">
+              Current status
+            </p>
+
+            <p className="mt-1 text-sm font-bold text-[#4f4317]">
+              Ontario beta in development
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* HERO */}
       <section className="border-b border-[#d9e6df] bg-white">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-
           <div>
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-[#2f7d67]">
               CourtSimplified Platform
@@ -98,13 +129,13 @@ export default function HomePage() {
             </h1>
 
             <p className="mt-6 max-w-3xl text-lg leading-8 text-[#4f685f]">
-              CourtSimplified combines intelligent intake, evidence organization,
-              drafting assistance, litigation strategy, timelines, forms,
-              and court workflow tools into one connected platform.
+              CourtSimplified combines intelligent intake, evidence
+              organization, drafting assistance, litigation strategy,
+              timelines, forms, and court workflow tools into one connected
+              platform.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
-
               <Link
                 href="/builder"
                 className="rounded-2xl bg-[#2FB8AC] px-7 py-4 font-semibold text-white shadow-sm transition hover:bg-[#239B91]"
@@ -118,7 +149,6 @@ export default function HomePage() {
               >
                 Open Workspace
               </Link>
-
             </div>
           </div>
 
@@ -129,13 +159,11 @@ export default function HomePage() {
               className="h-[420px] w-full object-cover"
             />
           </div>
-
         </div>
       </section>
 
       {/* COURT PATHS */}
       <section className="mx-auto max-w-7xl px-6 py-14">
-
         <div className="mb-10">
           <h2 className="text-3xl font-bold tracking-tight text-[#10231f]">
             Choose your court path
@@ -148,14 +176,12 @@ export default function HomePage() {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-3">
-
           {casePaths.map((item) => (
             <Link
               key={item.title}
               href={item.href}
               className="group overflow-hidden rounded-3xl border border-[#d8e6df] bg-white shadow-sm transition hover:-translate-y-1 hover:border-[#2FB8AC] hover:shadow-md"
             >
-
               <img
                 src={item.image}
                 alt={item.title}
@@ -163,7 +189,6 @@ export default function HomePage() {
               />
 
               <div className="p-6">
-
                 <h3 className="text-2xl font-bold text-[#10231f]">
                   {item.title}
                 </h3>
@@ -186,19 +211,15 @@ export default function HomePage() {
                 <div className="mt-6 inline-flex items-center text-sm font-semibold text-[#2f7d67]">
                   Open {item.title} →
                 </div>
-
               </div>
-
             </Link>
           ))}
-
         </div>
       </section>
 
       {/* PLATFORM FEATURES */}
       <section className="border-t border-[#d9e6df] bg-white">
         <div className="mx-auto max-w-7xl px-6 py-14">
-
           <div className="mb-10">
             <h2 className="text-3xl font-bold tracking-tight text-[#10231f]">
               Built for serious case preparation
@@ -211,7 +232,6 @@ export default function HomePage() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2">
-
             {platformFeatures.map((feature) => (
               <div
                 key={feature.title}
@@ -226,25 +246,20 @@ export default function HomePage() {
                 </p>
               </div>
             ))}
-
           </div>
-
         </div>
       </section>
 
       {/* WORKFLOW */}
       <section className="border-t border-[#d9e6df] bg-[#f8faf8]">
         <div className="mx-auto max-w-7xl px-6 py-14">
-
           <h2 className="mb-10 text-3xl font-bold tracking-tight text-[#10231f]">
             How the platform works
           </h2>
 
           <div className="space-y-10">
-
             {workflowSteps.map((item, index) => (
               <div key={item.title}>
-
                 <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#2f7d67]">
                   Step {index + 1}
                 </p>
@@ -256,15 +271,11 @@ export default function HomePage() {
                 <p className="mt-3 max-w-4xl text-base leading-8 text-[#557168]">
                   {item.text}
                 </p>
-
               </div>
             ))}
-
           </div>
-
         </div>
       </section>
-
     </main>
   );
 }
