@@ -144,8 +144,8 @@ export default function HomePage() {
 
           <div className="overflow-hidden rounded-3xl border border-[#d8e6df] bg-white shadow-sm">
             <img
-              src="https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?auto=format&fit=crop&w=1400&q=80"
-              alt="Court and legal preparation"
+              src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1400&q=80"
+              alt="Courthouse and legal preparation"
               className="h-[420px] w-full object-cover"
             />
           </div>
