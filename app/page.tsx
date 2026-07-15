@@ -107,47 +107,60 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* HERO */}
-      <section className="border-b border-[#d9e6df] bg-white">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-          <div>
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-[#2f7d67]">
+      {/* FULL-WIDTH LEGAL HERO */}
+      <section
+        className="relative isolate min-h-[620px] overflow-hidden border-b border-[#193e3a] bg-[#071f22] bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=2000&q=90')",
+        }}
+      >
+        {/* Dark overlay */}
+        <div className="absolute inset-0 -z-10 bg-[#041e22]/72" />
+
+        {/* Gradient keeps the text side darker */}
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#031d21] via-[#06282b]/90 to-[#06282b]/25" />
+
+        {/* Soft bottom fade */}
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-[#071f22]/85 to-transparent" />
+
+        <div className="mx-auto flex min-h-[620px] max-w-7xl items-center px-6 py-20">
+          <div className="max-w-3xl">
+            <p className="mb-4 text-sm font-bold uppercase tracking-[0.28em] text-[#39d4c7]">
               CourtSimplified Platform
             </p>
 
-            <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-[#10231f] md:text-6xl">
+            <h1 className="text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
               Organize your legal case with structure, clarity, and strategy.
             </h1>
 
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-[#4f685f]">
+            <p className="mt-7 max-w-2xl text-lg leading-8 text-[#d4e8e4] md:text-xl">
               CourtSimplified combines intelligent intake, evidence organization,
               drafting assistance, litigation strategy, timelines, forms, and
               court workflow tools into one connected platform.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-9 flex flex-wrap gap-4">
               <Link
                 href="/builder"
-                className="rounded-2xl bg-[#2FB8AC] px-7 py-4 font-semibold text-white shadow-sm transition hover:bg-[#239B91]"
+                className="rounded-2xl bg-[#2FB8AC] px-7 py-4 font-semibold text-white shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:bg-[#239B91]"
               >
                 Start Your Case
               </Link>
 
               <Link
                 href="/dashboard"
-                className="rounded-2xl border border-[#d7e7e5] bg-white px-7 py-4 font-semibold text-[#16302b] transition hover:border-[#2FB8AC]"
+                className="rounded-2xl border border-white/55 bg-black/15 px-7 py-4 font-semibold text-white backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-white hover:bg-white/10"
               >
                 Open Workspace
               </Link>
             </div>
-          </div>
 
-          <div className="overflow-hidden rounded-3xl border border-[#d8e6df] bg-white shadow-sm">
-            <img
-              src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1400&q=80"
-              alt="Courthouse and legal preparation"
-              className="h-[420px] w-full object-cover"
-            />
+            <div className="mt-9 flex flex-wrap gap-x-8 gap-y-3 text-sm font-medium text-[#b8d7d2]">
+              <span>Intelligent legal intake</span>
+              <span>Evidence organization</span>
+              <span>Court-ready workflows</span>
+            </div>
           </div>
         </div>
       </section>
