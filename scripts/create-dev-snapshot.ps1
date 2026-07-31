@@ -520,6 +520,89 @@ else {
         -Message "Generator not found: $workflowIntegrationGenerator"
 }
 
+Write-Host "Generating circular dependency, dead-code, and registry audits..."
+
+$architectureAnalyzer = Join-Path $root "scripts\snapshot\architectureAnalyzer.mjs"
+$architectureAuditModelOutput = Join-Path $generatedDocs "ARCHITECTURE_AUDIT_MODEL.json"
+$circularDependencyOutput = Join-Path $generatedDocs "CIRCULAR_DEPENDENCY_REPORT.md"
+$deadCodeOutput = Join-Path $generatedDocs "DEAD_CODE_REPORT.md"
+$registryValidationOutput = Join-Path $generatedDocs "REGISTRY_VALIDATION_REPORT.md"
+$architectureAuditSummary = $null
+
+if (Test-Path $architectureAnalyzer) {
+    try {
+        if (-not (Test-Path $architectureModelOutput)) {
+            throw "Architecture audit requires: $architectureModelOutput"
+        }
+
+        if (-not (Test-Path $workflowIntegrationModelOutput)) {
+            throw "Architecture audit requires: $workflowIntegrationModelOutput"
+        }
+
+        if (-not (Test-Path $engineRegistryOutput)) {
+            throw "Architecture audit requires: $engineRegistryOutput"
+        }
+
+        $architectureAuditLog = & node `
+            $architectureAnalyzer `
+            "--snapshot-audit" `
+            "--root" $root `
+            "--output-dir" $generatedDocs `
+            "--architecture-model" $architectureModelOutput `
+            "--workflow-model" $workflowIntegrationModelOutput `
+            "--engine-registry" $engineRegistryOutput `
+            2>&1
+        $architectureAuditExitCode = $LASTEXITCODE
+
+        if ($architectureAuditLog) {
+            $architectureAuditLog |
+                ForEach-Object {
+                    Write-Host $_
+                }
+        }
+
+        if ($architectureAuditExitCode -ne 0) {
+            throw "Architecture analyzer exited with code $architectureAuditExitCode."
+        }
+
+        if (-not (Test-Path $architectureAuditModelOutput)) {
+            throw "Architecture analyzer completed without creating: $architectureAuditModelOutput"
+        }
+
+        if (-not (Test-Path $circularDependencyOutput)) {
+            throw "Architecture analyzer completed without creating: $circularDependencyOutput"
+        }
+
+        if (-not (Test-Path $deadCodeOutput)) {
+            throw "Architecture analyzer completed without creating: $deadCodeOutput"
+        }
+
+        if (-not (Test-Path $registryValidationOutput)) {
+            throw "Architecture analyzer completed without creating: $registryValidationOutput"
+        }
+
+        $architectureAuditModel = Get-Content `
+            -LiteralPath $architectureAuditModelOutput `
+            -Raw |
+            ConvertFrom-Json
+        $architectureAuditSummary = $architectureAuditModel.Statistics
+
+        if ($null -eq $architectureAuditSummary) {
+            throw "Architecture audit model does not contain statistics."
+        }
+    }
+    catch {
+        Write-Report `
+            -Name "ArchitectureAuditError.txt" `
+            -Message "Architecture audit generation failed:`r`n$($_.Exception.Message)"
+    }
+}
+else {
+    Write-Report `
+        -Name "ArchitectureAuditError.txt" `
+        -Message "Analyzer not found: $architectureAnalyzer"
+}
+
 Write-Host "Generating project inventory..."
 
 $projectInventoryGenerator = Join-Path $root "scripts\snapshot\Generate-ProjectInventory.ps1"
@@ -640,6 +723,12 @@ $workflowRecordCount = 0
 $integrationTraceCount = 0
 $runtimeApiCallCount = 0
 $unresolvedRuntimeApiCallCount = 0
+$circularDependencyGroupCount = 0
+$circularDependencyFileCount = 0
+$deadCodeCandidateCount = 0
+$highConfidenceDeadCodeCandidateCount = 0
+$registryValidationCheckCount = 0
+$registryValidationFailureCount = 0
 
 if ($null -ne $architectureModelSummary) {
     $architectureNodeCount = [int]$architectureModelSummary.TotalNodes
@@ -654,6 +743,15 @@ if ($null -ne $workflowIntegrationSummary) {
     $integrationTraceCount = [int]$workflowIntegrationSummary.EntryTraces
     $runtimeApiCallCount = [int]$workflowIntegrationSummary.RuntimeApiCalls
     $unresolvedRuntimeApiCallCount = [int]$workflowIntegrationSummary.UnresolvedRuntimeApiCalls
+}
+
+if ($null -ne $architectureAuditSummary) {
+    $circularDependencyGroupCount = [int]$architectureAuditSummary.CircularDependencyGroups
+    $circularDependencyFileCount = [int]$architectureAuditSummary.CircularDependencyFiles
+    $deadCodeCandidateCount = [int]$architectureAuditSummary.DeadCodeCandidates
+    $highConfidenceDeadCodeCandidateCount = [int]$architectureAuditSummary.HighConfidenceDeadCodeCandidates
+    $registryValidationCheckCount = [int]$architectureAuditSummary.RegistryValidationChecks
+    $registryValidationFailureCount = [int]$architectureAuditSummary.RegistryValidationFailures
 }
 
 $projectStatistics = [PSCustomObject]@{
@@ -675,6 +773,12 @@ $projectStatistics = [PSCustomObject]@{
     integrationTraces = $integrationTraceCount
     runtimeApiCalls = $runtimeApiCallCount
     unresolvedRuntimeApiCalls = $unresolvedRuntimeApiCallCount
+    circularDependencyGroups = $circularDependencyGroupCount
+    circularDependencyFiles = $circularDependencyFileCount
+    deadCodeCandidates = $deadCodeCandidateCount
+    highConfidenceDeadCodeCandidates = $highConfidenceDeadCodeCandidateCount
+    registryValidationChecks = $registryValidationCheckCount
+    registryValidationFailures = $registryValidationFailureCount
     largeTypeScriptFilesOver800Lines = $largeFiles
     gitBranch = $gitBranch
     gitCommit = $gitCommit
@@ -699,7 +803,9 @@ Purpose:
 This snapshot records the current CourtSimplified architecture, files,
 TypeScript imports and exports, pages, APIs, engines, litigation modules,
 resolved architecture relationships, workflow and integration traces,
-dependencies, Git state, project documentation, build state, and statistics.
+dependencies, circular dependency groups, dead-code candidates, registry
+validation, consolidated system health, Git state, project documentation,
+build state, and statistics.
 
 CURRENT DOCTRINE:
 
@@ -796,14 +902,125 @@ $buildStateContent |
         -Path (Join-Path $generatedDocs "CURRENT_BUILD_STATE.md") `
         -Encoding UTF8
 
+Write-Host "Generating consolidated system health..."
+
+$systemHealthModelOutput = Join-Path $generatedDocs "SYSTEM_HEALTH_MODEL.json"
+$systemHealthReportOutput = Join-Path $generatedDocs "SYSTEM_HEALTH_REPORT.md"
+$systemHealthStatus = "Unavailable"
+$systemHealthScore = 0
+$systemHealthMaximumScore = 100
+
+if (Test-Path $architectureAnalyzer) {
+    try {
+        if (-not (Test-Path $architectureModelOutput)) {
+            throw "System health requires: $architectureModelOutput"
+        }
+
+        if (-not (Test-Path $workflowIntegrationModelOutput)) {
+            throw "System health requires: $workflowIntegrationModelOutput"
+        }
+
+        if (-not (Test-Path $architectureAuditModelOutput)) {
+            throw "System health requires: $architectureAuditModelOutput"
+        }
+
+        $projectStatisticsPath = Join-Path $registry "ProjectStatistics.json"
+
+        if (-not (Test-Path $projectStatisticsPath)) {
+            throw "System health requires: $projectStatisticsPath"
+        }
+
+        $systemHealthLog = & node `
+            $architectureAnalyzer `
+            "--system-health" `
+            "--root" $root `
+            "--output-dir" $generatedDocs `
+            "--architecture-model" $architectureModelOutput `
+            "--workflow-model" $workflowIntegrationModelOutput `
+            "--audit-model" $architectureAuditModelOutput `
+            "--project-statistics" $projectStatisticsPath `
+            "--snapshot-version" "2.4.0" `
+            "--build-result" $buildResult `
+            "--build-exit-code" $buildExitCode `
+            2>&1
+        $systemHealthExitCode = $LASTEXITCODE
+
+        if ($systemHealthLog) {
+            $systemHealthLog |
+                ForEach-Object {
+                    Write-Host $_
+                }
+        }
+
+        if ($systemHealthExitCode -ne 0) {
+            throw "System health analyzer exited with code $systemHealthExitCode."
+        }
+
+        if (-not (Test-Path $systemHealthModelOutput)) {
+            throw "System health analyzer completed without creating: $systemHealthModelOutput"
+        }
+
+        if (-not (Test-Path $systemHealthReportOutput)) {
+            throw "System health analyzer completed without creating: $systemHealthReportOutput"
+        }
+
+        $systemHealthModel = Get-Content `
+            -LiteralPath $systemHealthModelOutput `
+            -Raw |
+            ConvertFrom-Json
+        $systemHealthStatus = $systemHealthModel.Status
+        $systemHealthScore = [int]$systemHealthModel.OverallScore
+        $systemHealthMaximumScore = [int]$systemHealthModel.MaximumScore
+
+        if ([string]::IsNullOrWhiteSpace($systemHealthStatus)) {
+            throw "System health model does not contain a status."
+        }
+    }
+    catch {
+        Write-Report `
+            -Name "SystemHealthError.txt" `
+            -Message "System health generation failed:`r`n$($_.Exception.Message)"
+    }
+}
+else {
+    Write-Report `
+        -Name "SystemHealthError.txt" `
+        -Message "Analyzer not found: $architectureAnalyzer"
+}
+
+$projectStatistics |
+    Add-Member `
+        -NotePropertyName "systemHealthStatus" `
+        -NotePropertyValue $systemHealthStatus `
+        -Force
+$projectStatistics |
+    Add-Member `
+        -NotePropertyName "systemHealthScore" `
+        -NotePropertyValue $systemHealthScore `
+        -Force
+$projectStatistics |
+    Add-Member `
+        -NotePropertyName "systemHealthMaximumScore" `
+        -NotePropertyValue $systemHealthMaximumScore `
+        -Force
+
+$projectStatistics |
+    ConvertTo-Json -Depth 12 |
+    Set-Content `
+        -Path (Join-Path $registry "ProjectStatistics.json") `
+        -Encoding UTF8
+
 $snapshotManifest = [PSCustomObject]@{
-    snapshotVersion = "2.2.1"
+    snapshotVersion = "2.4.0"
     generatedAt = $generatedAt
     projectRoot = $root
     gitBranch = $gitBranch
     gitCommit = $gitCommit
     buildResult = $buildResult
     buildExitCode = $buildExitCode
+    systemHealthStatus = $systemHealthStatus
+    systemHealthScore = $systemHealthScore
+    systemHealthMaximumScore = $systemHealthMaximumScore
     totalFiles = $allFiles.Count
     typeScriptFiles = $tsFiles.Count
     generatedDocuments = @(
@@ -853,6 +1070,9 @@ Write-Host "============================================================"
 Write-Host ""
 Write-Host "Build result:"
 Write-Host $buildResult
+Write-Host ""
+Write-Host "System health:"
+Write-Host "$systemHealthStatus ($systemHealthScore/$systemHealthMaximumScore)"
 Write-Host ""
 Write-Host "Snapshot created:"
 Write-Host $zipPath
