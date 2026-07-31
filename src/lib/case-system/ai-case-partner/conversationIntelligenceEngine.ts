@@ -232,6 +232,73 @@ function countSignals(text: string, terms: string[]): number {
   return terms.filter((term) => normalized.includes(term.toLowerCase())).length;
 }
 
+function countFamilyLawSignals(text: string): number {
+  const normalized = normalizeText(text);
+
+  const explicitFamilyLawSignals = countSignals(normalized, [
+    "child support",
+    "spousal support",
+    "family court",
+    "family law",
+    "custody",
+    "parenting time",
+    "parenting schedule",
+    "decision-making responsibility",
+    "decision making responsibility",
+    "co-parenting",
+    "co-parent",
+    "visitation",
+    "divorce",
+    "separation agreement",
+    "child protection",
+    "children's aid",
+    "childrens aid",
+  ]);
+
+  const childRelationshipPattern =
+    /\b(?:my|our)\s+(?:child|children|daughter|daugheter|daugther|son|kid|kids)\b/;
+
+  const otherParentPattern =
+    /\b(?:other parent|child'?s mother|child'?s father|children'?s mother|children'?s father)\b/;
+
+  const parentingDisputeSignals = countSignals(normalized, [
+    "wont let me see",
+    "won't let me see",
+    "will not let me see",
+    "not letting me see",
+    "cannot see my child",
+    "can't see my child",
+    "cant see my child",
+    "denied parenting time",
+    "denying parenting time",
+    "missed parenting time",
+    "change the parenting schedule",
+    "change custody",
+    "sole custody",
+    "shared custody",
+    "primary residence",
+    "where the child lives",
+    "where my child lives",
+    "where our child lives",
+    "decision about our child",
+    "decision about my child",
+    "support payments",
+    "support arrears",
+    "not paying support",
+  ]);
+
+  const hasFamilyRelationship =
+    childRelationshipPattern.test(normalized) ||
+    otherParentPattern.test(normalized);
+
+  const contextualFamilySignals =
+    hasFamilyRelationship && parentingDisputeSignals > 0
+      ? Math.max(2, parentingDisputeSignals + 1)
+      : 0;
+
+  return explicitFamilyLawSignals + contextualFamilySignals;
+}
+
 function confidenceFromSignals(count: number): CasePartnerConfidence {
   if (count >= 5) return "high";
   if (count >= 2) return "medium";
@@ -383,17 +450,7 @@ function extractDateSignals(message: string): string[] {
 }
 
 function inferCourtArea(message: string): CasePartnerCourtArea {
-  const family = countSignals(message, [
-    "custody",
-    "parenting",
-    "child support",
-    "spousal support",
-    "family court",
-    "case conference",
-    "access",
-    "decision-making",
-    "divorce",
-  ]);
+  const family = countFamilyLawSignals(message);
 
   const ltb = countSignals(message, [
     "landlord",
@@ -720,22 +777,7 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
     );
   }
 
-  const familySignals = countSignals(message, [
-    "custody",
-    "parenting",
-    "decision-making",
-    "child support",
-    "spousal support",
-    "access",
-    "case conference",
-    "family court",
-    "parenting time",
-    "decision making responsibility",
-    "decision-making responsibility",
-    "co-parent",
-    "co-parenting",
-    "divorce",
-  ]);
+  const familySignals = countFamilyLawSignals(message);
 
   if (familySignals > 0) {
     frameworks.push(
@@ -1562,8 +1604,23 @@ export function buildConversationIntelligence(
   const combinedText = `${conversationText} ${message}`;
 
   const frameworks = detectIssueFrameworks(combinedText);
-  const courtArea =
-    frameworks[0]?.courtArea && frameworks[0].courtArea !== "unknown"
+  const frameworkAreas = new Set(
+    frameworks
+      .map((framework) => framework.courtArea)
+      .filter((area) => area !== "unknown"),
+  );
+
+  const hasFamilyFramework = frameworkAreas.has("family");
+  const hasCivilFramework =
+    frameworkAreas.has("civil") ||
+    frameworkAreas.has("small-claims");
+  const hasCourtAreaConflict =
+    hasFamilyFramework && hasCivilFramework;
+
+  const courtArea = hasCourtAreaConflict
+    ? "mixed"
+    : frameworks[0]?.courtArea &&
+        frameworks[0].courtArea !== "unknown"
       ? frameworks[0].courtArea
       : inferCourtArea(combinedText);
 
@@ -1580,13 +1637,28 @@ export function buildConversationIntelligence(
     stage,
   });
 
-  const questions = buildQuestions({
+  const baseQuestions = buildQuestions({
     missing: missingInformation,
     frameworks,
     signals: legalSignals,
     actors: inferredActors,
     conversationText,
   });
+
+  const questions: CasePartnerQuestion[] = hasCourtAreaConflict
+    ? [
+        {
+          id: createId("question"),
+          priority: "critical",
+          question:
+            "Is the main issue about parenting, support, or a family order, or are you seeking compensation for a separate civil wrong?",
+          reason:
+            "The facts contain both family-law and civil-dispute signals. CourtSimplified must clarify the main legal problem before selecting a court intake.",
+          relatedTo: "jurisdiction",
+        },
+        ...baseQuestions,
+      ]
+    : baseQuestions;
 
   const selectedNextQuestion = selectNextQuestion(questions);
 
