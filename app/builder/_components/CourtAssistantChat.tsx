@@ -49,7 +49,7 @@ type StoredChatState = {
 type CourtPathGuidance = {
   title: string;
   message: string;
-  routingMode: "civil-choice" | "family";
+  routingMode: "civil-choice" | "direct-civil" | "family";
 };
 
 const quickActions = [
@@ -77,6 +77,74 @@ function clean(value: unknown): string {
 
 function normalize(value: unknown): string {
   return clean(value).toLowerCase().replace(/\s+/g, " ").trim();
+}
+
+function extractClaimAmount(message: string): number | null {
+  const normalized = normalize(message);
+
+  if (
+    ![
+      "claim",
+      "claimed",
+      "compensation",
+      "damage",
+      "damages",
+      "money owed",
+      "owed me",
+      "sue",
+      "suing",
+      "seeking",
+      "want",
+    ].some((term) => normalized.includes(term))
+  ) {
+    return null;
+  }
+
+  const amountPattern =
+    /\$?\s*(\d{1,3}(?:[,\s]\d{3})+|\d+(?:\.\d+)?)\s*(k|thousand)?\b/gi;
+  const amounts: number[] = [];
+
+  for (const match of normalized.matchAll(amountPattern)) {
+    const matchIndex = match.index ?? 0;
+    const beforeAmount = normalized.slice(
+      Math.max(0, matchIndex - 32),
+      matchIndex,
+    );
+    const afterAmount = normalized.slice(
+      matchIndex + match[0].length,
+      matchIndex + match[0].length + 16,
+    );
+
+    const hasCurrencyContext =
+      match[0].includes("$") ||
+      Boolean(match[2]) ||
+      /^\s*(?:dollars?|cad)\b/.test(afterAmount) ||
+      /(?:claim(?:ed)?|amount|seeking|sue for)\s+(?:of\s+)?$/.test(
+        beforeAmount,
+      );
+
+    if (!hasCurrencyContext) {
+      continue;
+    }
+
+    const baseAmount = Number(match[1].replace(/[,\s]/g, ""));
+    const multiplier = match[2] ? 1000 : 1;
+    const amount = baseAmount * multiplier;
+
+    if (Number.isFinite(amount) && amount >= 0) {
+      amounts.push(amount);
+    }
+  }
+
+  return amounts.length > 0 ? Math.max(...amounts) : null;
+}
+
+function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat("en-CA", {
+    style: "currency",
+    currency: "CAD",
+    maximumFractionDigits: 0,
+  }).format(amount);
 }
 
 function uniqueStrings(values: unknown[]): string[] {
@@ -146,6 +214,7 @@ function buildCourtPathGuidance(
   selectedPath: string | undefined,
   intelligence: any,
   routingConfirmed: boolean,
+  detectedClaimAmount: number | null,
 ): CourtPathGuidance | null {
   const currentPath = clean(selectedPath);
   const detectedArea = clean(
@@ -176,6 +245,20 @@ function buildCourtPathGuidance(
   }
 
   if (detectedArea === "civil" || detectedArea === "small-claims") {
+    if (
+      currentPath === "small-claims" &&
+      detectedClaimAmount !== null &&
+      detectedClaimAmount > 50000
+    ) {
+      return {
+        title: "Small Claims Court limit exceeded",
+        message: `You indicated a claim of ${formatCurrency(
+          detectedClaimAmount,
+        )}. This exceeds Ontario Small Claims Court's $50,000 monetary limit. Based on the amount stated, proceed through a Superior Court of Justice civil action.`,
+        routingMode: "direct-civil",
+      };
+    }
+
     const title =
       currentPath === "family"
         ? "This may be the wrong court path"
@@ -301,14 +384,30 @@ export default function CourtAssistantChat({
   const [routingError, setRoutingError] = useState("");
   const [routingConfirmed, setRoutingConfirmed] = useState(false);
 
+  const detectedClaimAmount = useMemo(() => {
+    const latestUserMessage = [...messages]
+      .reverse()
+      .find((message) => message.role === "user");
+
+    return latestUserMessage
+      ? extractClaimAmount(latestUserMessage.content)
+      : null;
+  }, [messages]);
+
   const courtPathGuidance = useMemo(
     () =>
       buildCourtPathGuidance(
         path,
         latestIntelligence,
         routingConfirmed,
+        detectedClaimAmount,
       ),
-    [latestIntelligence, path, routingConfirmed],
+    [
+      detectedClaimAmount,
+      latestIntelligence,
+      path,
+      routingConfirmed,
+    ],
   );
 
   useEffect(() => {
@@ -502,6 +601,7 @@ export default function CourtAssistantChat({
         path,
         data.conversationIntelligence,
         routingConfirmed,
+        extractClaimAmount(trimmed),
       );
 
       const detectedArea = clean(
@@ -731,6 +831,14 @@ export default function CourtAssistantChat({
               className="mt-4 rounded-full bg-[#725514] px-5 py-2 text-sm font-semibold text-white hover:bg-[#5f4715]"
             >
               Continue in the Family Court intake
+            </button>
+          ) : courtPathGuidance.routingMode === "direct-civil" ? (
+            <button
+              type="button"
+              onClick={() => transferToCourtPath("civil")}
+              className="mt-4 rounded-full bg-[#725514] px-5 py-2 text-sm font-semibold text-white hover:bg-[#5f4715]"
+            >
+              Proceed to Superior Court Civil Intake
             </button>
           ) : (
           <form
