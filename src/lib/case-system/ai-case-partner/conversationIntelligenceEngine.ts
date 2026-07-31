@@ -299,6 +299,27 @@ function countFamilyLawSignals(text: string): number {
   return explicitFamilyLawSignals + contextualFamilySignals;
 }
 
+function needsFamilyRelationshipClarification(text: string): boolean {
+  const normalized = normalizeText(text);
+
+  const thirdPartyChildPattern =
+    /\b(?:her|his|their)\s+(?:child|children|daughter|daugheter|daugther|son|kid|kids)\b/;
+
+  const contactDispute = includesAny(normalized, [
+    "wont let me see",
+    "won't let me see",
+    "will not let me see",
+    "not letting me see",
+    "cannot see",
+    "can't see",
+    "cant see",
+    "denied contact",
+    "refusing contact",
+  ]);
+
+  return thirdPartyChildPattern.test(normalized) && contactDispute;
+}
+
 function confidenceFromSignals(count: number): CasePartnerConfidence {
   if (count >= 5) return "high";
   if (count >= 2) return "medium";
@@ -307,6 +328,7 @@ function confidenceFromSignals(count: number): CasePartnerConfidence {
 
 function getConversationText(conversation: CasePartnerConversationMessage[] = []): string {
   return conversation
+    .filter((item) => item.role === "user")
     .slice(-12)
     .map((item) => item.content)
     .join(" ");
@@ -1604,6 +1626,8 @@ export function buildConversationIntelligence(
   const combinedText = `${conversationText} ${message}`;
 
   const frameworks = detectIssueFrameworks(combinedText);
+  const requiresFamilyRelationshipClarification =
+    needsFamilyRelationshipClarification(combinedText);
   const frameworkAreas = new Set(
     frameworks
       .map((framework) => framework.courtArea)
@@ -1617,12 +1641,14 @@ export function buildConversationIntelligence(
   const hasCourtAreaConflict =
     hasFamilyFramework && hasCivilFramework;
 
-  const courtArea = hasCourtAreaConflict
-    ? "mixed"
-    : frameworks[0]?.courtArea &&
-        frameworks[0].courtArea !== "unknown"
-      ? frameworks[0].courtArea
-      : inferCourtArea(combinedText);
+  const courtArea = requiresFamilyRelationshipClarification
+    ? "unknown"
+    : hasCourtAreaConflict
+      ? "mixed"
+      : frameworks[0]?.courtArea &&
+          frameworks[0].courtArea !== "unknown"
+        ? frameworks[0].courtArea
+        : inferCourtArea(combinedText);
 
   const stage = inferProceduralStage(combinedText);
   const inferredActors = inferActors(combinedText);
@@ -1645,7 +1671,21 @@ export function buildConversationIntelligence(
     conversationText,
   });
 
-  const questions: CasePartnerQuestion[] = hasCourtAreaConflict
+  const questions: CasePartnerQuestion[] =
+    requiresFamilyRelationshipClarification
+      ? [
+          {
+            id: createId("question"),
+            priority: "critical",
+            question:
+              "Are you the child's legal parent or guardian, or do you have an existing court order or legally recognized parenting role?",
+            reason:
+              "The phrase describing someone else's child does not establish whether this is a Family Court parenting matter. CourtSimplified must confirm the user's legal relationship to the child before selecting an intake.",
+            relatedTo: "parties",
+          },
+          ...baseQuestions,
+        ]
+      : hasCourtAreaConflict
     ? [
         {
           id: createId("question"),
