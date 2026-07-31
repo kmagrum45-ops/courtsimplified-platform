@@ -107,6 +107,7 @@ function BuilderPageContent() {
   const [savingMaster, setSavingMaster] = useState(false);
   const [saveError, setSaveError] = useState("");
   const [lastSavedAt, setLastSavedAt] = useState("");
+  const [routingReady, setRoutingReady] = useState(false);
 
   const pathLabel = getPathLabel(courtPath);
 
@@ -165,6 +166,7 @@ function BuilderPageContent() {
     setMasterCaseId(null);
     setSaveError("");
     setLastSavedAt("");
+    setRoutingReady(false);
     setChatSessionId(createChatSessionId(initialPath));
   }, [initialPath, queryCaseId]);
 
@@ -624,10 +626,25 @@ function BuilderPageContent() {
             onMasterResultUpdate={handleChatMasterResultUpdate}
             onDashboardUpdate={handleChatDashboardUpdate}
             onRecommendedRoute={handleRecommendedRoute}
+            onRoutingStatusChange={setRoutingReady}
           />
         </section>
 
-        {!analysis && (
+        {!analysis && !routingReady && (
+          <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 text-center shadow-sm">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#2f7d67]">
+              Court path check required
+            </p>
+
+            <p className="mt-3 text-sm leading-6 text-[#4d675f]">
+              Tell the Case Partner what happened first. The structured
+              intake will open after CourtSimplified confirms that this
+              is the correct court path.
+            </p>
+          </section>
+        )}
+
+        {!analysis && routingReady && (
           <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
             <div className="mb-6">
               <p className="mb-2 text-sm font-semibold uppercase tracking-[0.24em] text-[#2f7d67]">

@@ -20,6 +20,7 @@ type CourtAssistantChatProps = {
   onMasterResultUpdate?: (patch: any) => void;
   onDashboardUpdate?: (patch: any) => void;
   onRecommendedRoute?: (route: string) => void;
+  onRoutingStatusChange?: (ready: boolean) => void;
 };
 
 type AiCasePartnerResponse = {
@@ -42,15 +43,13 @@ type StoredChatState = {
   latestInvestigation?: any;
   recommendedRoute?: string | null;
   systemWarnings?: unknown;
+  routingConfirmed?: boolean;
 };
 
 type CourtPathGuidance = {
   title: string;
   message: string;
-  choices: Array<{
-    label: string;
-    href: string;
-  }>;
+  routingMode: "civil-choice" | "family";
 };
 
 const quickActions = [
@@ -62,6 +61,7 @@ const quickActions = [
 ];
 
 const STORAGE_PREFIX = "courtsimplified-ai-case-partner-chat";
+const ROUTE_TRANSFER_KEY = `${STORAGE_PREFIX}:route-transfer`;
 
 function safeJsonParse(value: string | null): StoredChatState | null {
   try {
@@ -145,6 +145,7 @@ function buildWarnings(data: AiCasePartnerResponse): string[] {
 function buildCourtPathGuidance(
   selectedPath: string | undefined,
   intelligence: any,
+  routingConfirmed: boolean,
 ): CourtPathGuidance | null {
   const currentPath = clean(selectedPath);
   const detectedArea = clean(
@@ -152,61 +153,45 @@ function buildCourtPathGuidance(
   );
 
   if (
+    routingConfirmed ||
     !currentPath ||
     !detectedArea ||
     detectedArea === "unknown" ||
-    detectedArea === "mixed" ||
-    detectedArea === currentPath
+    detectedArea === "mixed"
   ) {
     return null;
   }
 
-  if (
-    currentPath === "family" &&
-    (detectedArea === "civil" || detectedArea === "small-claims")
-  ) {
-    return {
-      title: "This may be the wrong court path",
-      message:
-        "The facts currently describe a civil dispute rather than a Family Court matter. Small Claims Court or Civil Court may be appropriate. The correct choice depends on the remedy requested, the amount claimed, and other jurisdiction rules.",
-      choices: [
-        {
-          label: "Continue in Small Claims",
-          href: "/builder?path=small-claims",
-        },
-        {
-          label: "Continue in Civil",
-          href: "/builder?path=civil",
-        },
-      ],
-    };
-  }
-
   if (detectedArea === "family") {
+    if (currentPath === "family") {
+      return null;
+    }
+
     return {
       title: "This may be the wrong court path",
       message:
         "The facts currently appear connected to a Family Court matter rather than the selected court path.",
-      choices: [
-        {
-          label: "Continue in Family",
-          href: "/builder?path=family",
-        },
-      ],
+      routingMode: "family",
     };
   }
 
-  if (detectedArea === "small-claims" && currentPath === "civil") {
+  if (detectedArea === "civil" || detectedArea === "small-claims") {
+    const title =
+      currentPath === "family"
+        ? "This may be the wrong court path"
+        : currentPath === "small-claims"
+          ? "Confirm Small Claims Court eligibility"
+          : "Confirm Civil Court eligibility";
+
+    const message =
+      currentPath === "family"
+        ? "The facts currently describe a civil dispute rather than a Family Court matter. CourtSimplified must confirm the province, amount claimed, and requested remedy before continuing in the correct intake."
+        : "CourtSimplified must confirm the province, total amount claimed, and requested remedy before opening the structured intake.";
+
     return {
-      title: "Small Claims may be the better starting path",
-      message:
-        "The facts currently resemble a Small Claims dispute. The amount claimed, requested remedy, and jurisdiction still need confirmation.",
-      choices: [
-        {
-          label: "Continue in Small Claims",
-          href: "/builder?path=small-claims",
-        },
-      ],
+      title,
+      message,
+      routingMode: "civil-choice",
     };
   }
 
@@ -273,6 +258,7 @@ export default function CourtAssistantChat({
   onMasterResultUpdate,
   onDashboardUpdate,
   onRecommendedRoute,
+  onRoutingStatusChange,
 }: CourtAssistantChatProps) {
   const initialAssistantMessage = useMemo<ChatMessage>(
     () => ({
@@ -307,15 +293,54 @@ export default function CourtAssistantChat({
   const [recommendedRoute, setRecommendedRoute] =
     useState<string | null>(null);
   const [systemWarnings, setSystemWarnings] = useState<string[]>([]);
+  const [routingProvince, setRoutingProvince] = useState("Ontario");
+  const [routingAmount, setRoutingAmount] = useState("");
+  const [routingRelief, setRoutingRelief] = useState<
+    "money-or-property" | "other-relief"
+  >("money-or-property");
+  const [routingError, setRoutingError] = useState("");
+  const [routingConfirmed, setRoutingConfirmed] = useState(false);
 
   const courtPathGuidance = useMemo(
-    () => buildCourtPathGuidance(path, latestIntelligence),
-    [latestIntelligence, path],
+    () =>
+      buildCourtPathGuidance(
+        path,
+        latestIntelligence,
+        routingConfirmed,
+      ),
+    [latestIntelligence, path, routingConfirmed],
   );
 
   useEffect(() => {
     const saved = safeJsonParse(localStorage.getItem(storageKey));
-    const normalizedMessages = normalizeMessages(saved?.messages);
+    let transferredMessages: ChatMessage[] = [];
+
+    try {
+      const rawTransfer = sessionStorage.getItem(ROUTE_TRANSFER_KEY);
+      const transfer = rawTransfer ? JSON.parse(rawTransfer) : null;
+
+      if (transfer?.targetPath === path) {
+        transferredMessages = normalizeMessages(transfer.messages);
+        setRoutingConfirmed(true);
+        onRoutingStatusChange?.(true);
+        sessionStorage.removeItem(ROUTE_TRANSFER_KEY);
+      } else {
+        const savedRoutingConfirmed =
+          saved?.routingConfirmed === true;
+
+        setRoutingConfirmed(savedRoutingConfirmed);
+        onRoutingStatusChange?.(savedRoutingConfirmed);
+      }
+    } catch {
+      sessionStorage.removeItem(ROUTE_TRANSFER_KEY);
+      setRoutingConfirmed(false);
+      onRoutingStatusChange?.(false);
+    }
+
+    const normalizedMessages =
+      transferredMessages.length > 0
+        ? transferredMessages
+        : normalizeMessages(saved?.messages);
 
     setMessages(
       normalizedMessages.length > 0
@@ -323,9 +348,19 @@ export default function CourtAssistantChat({
         : [initialAssistantMessage],
     );
 
-    setCaseMemory(saved?.caseMemory || null);
-    setLatestIntelligence(saved?.latestIntelligence || null);
-    setLatestInvestigation(saved?.latestInvestigation || null);
+    setCaseMemory(
+      transferredMessages.length > 0 ? null : saved?.caseMemory || null,
+    );
+    setLatestIntelligence(
+      transferredMessages.length > 0
+        ? null
+        : saved?.latestIntelligence || null,
+    );
+    setLatestInvestigation(
+      transferredMessages.length > 0
+        ? null
+        : saved?.latestInvestigation || null,
+    );
 
     setSystemWarnings(
       uniqueStrings(
@@ -343,8 +378,12 @@ export default function CourtAssistantChat({
 
     setInput("");
     setLoading(false);
+    setRoutingProvince("Ontario");
+    setRoutingAmount("");
+    setRoutingRelief("money-or-property");
+    setRoutingError("");
     setHydratedStorageKey(storageKey);
-  }, [initialAssistantMessage, storageKey]);
+  }, [initialAssistantMessage, onRoutingStatusChange, path, storageKey]);
 
   useEffect(() => {
     if (hydratedStorageKey !== storageKey) {
@@ -360,6 +399,7 @@ export default function CourtAssistantChat({
         latestInvestigation,
         recommendedRoute,
         systemWarnings,
+        routingConfirmed,
       }),
     );
   }, [
@@ -371,6 +411,7 @@ export default function CourtAssistantChat({
     latestInvestigation,
     recommendedRoute,
     systemWarnings,
+    routingConfirmed,
   ]);
 
   async function sendMessage(customMessage?: string) {
@@ -460,10 +501,24 @@ export default function CourtAssistantChat({
       const pathGuidance = buildCourtPathGuidance(
         path,
         data.conversationIntelligence,
+        routingConfirmed,
       );
 
+      const detectedArea = clean(
+        data.conversationIntelligence?.conversationFocus?.courtArea,
+      );
+
+      if (
+        !pathGuidance &&
+        detectedArea === "family" &&
+        path === "family"
+      ) {
+        setRoutingConfirmed(true);
+        onRoutingStatusChange?.(true);
+      }
+
       const answer = pathGuidance
-        ? `${pathGuidance.message}\n\n${coreAnswer}`
+        ? `${pathGuidance.message}\n\nBefore CourtSimplified continues, confirm the routing information shown below.`
         : coreAnswer;
 
       setMessages((current) => [
@@ -511,6 +566,86 @@ export default function CourtAssistantChat({
     setLatestInvestigation(null);
     setRecommendedRoute(null);
     setSystemWarnings([]);
+    setRoutingAmount("");
+    setRoutingError("");
+    setRoutingConfirmed(false);
+    onRoutingStatusChange?.(false);
+  }
+
+  function continueInCorrectCourt(
+    event: React.FormEvent<HTMLFormElement>,
+  ) {
+    event.preventDefault();
+
+    if (courtPathGuidance?.routingMode === "family") {
+      transferToCourtPath("family");
+      return;
+    }
+
+    if (!routingAmount.trim()) {
+      setRoutingError(
+        "Enter the total amount being claimed using numbers, for example 10000.",
+      );
+      return;
+    }
+
+    const numericAmount = Number(
+      routingAmount.replace(/[$,\s]/g, ""),
+    );
+
+    if (routingProvince !== "Ontario") {
+      setRoutingError(
+        "CourtSimplified currently needs Ontario selected before it can apply the Ontario court limits.",
+      );
+      return;
+    }
+
+    if (!Number.isFinite(numericAmount) || numericAmount < 0) {
+      setRoutingError(
+        "Enter the total amount being claimed using numbers, for example 10000.",
+      );
+      return;
+    }
+
+    const targetPath =
+      numericAmount <= 50000 &&
+      routingRelief === "money-or-property"
+        ? "small-claims"
+        : "civil";
+
+    if (targetPath === path) {
+      setRoutingConfirmed(true);
+      onRoutingStatusChange?.(true);
+      setRoutingError("");
+      setMessages((current) => [
+        ...current,
+        {
+          role: "assistant",
+          content:
+            targetPath === "small-claims"
+              ? "The court-path check is complete. This claim can continue in the Ontario Small Claims intake based on the information provided."
+              : "The court-path check is complete. This claim can continue in the Ontario Civil Court intake based on the information provided.",
+        },
+      ]);
+      return;
+    }
+
+    transferToCourtPath(targetPath);
+  }
+
+  function transferToCourtPath(targetPath: string) {
+
+    sessionStorage.setItem(
+      ROUTE_TRANSFER_KEY,
+      JSON.stringify({
+        targetPath,
+        messages,
+        routingConfirmed: true,
+        transferredAt: new Date().toISOString(),
+      }),
+    );
+
+    window.location.assign(`/builder?path=${targetPath}`);
   }
 
   return (
@@ -589,17 +724,91 @@ export default function CourtAssistantChat({
             {courtPathGuidance.message}
           </p>
 
-          <div className="mt-3 flex flex-wrap gap-2">
-            {courtPathGuidance.choices.map((choice) => (
-              <a
-                key={choice.href}
-                href={choice.href}
-                className="rounded-full border border-[#d9bd72] bg-white px-4 py-2 text-sm font-semibold text-[#725514] hover:bg-[#fff4d6]"
+          {courtPathGuidance.routingMode === "family" ? (
+            <button
+              type="button"
+              onClick={() => transferToCourtPath("family")}
+              className="mt-4 rounded-full bg-[#725514] px-5 py-2 text-sm font-semibold text-white hover:bg-[#5f4715]"
+            >
+              Continue in the Family Court intake
+            </button>
+          ) : (
+          <form
+              onSubmit={continueInCorrectCourt}
+              className="mt-4 grid gap-4 rounded-2xl border border-[#ead9a7] bg-white p-4 md:grid-cols-3"
+            >
+            <label className="text-sm font-semibold text-[#5f4715]">
+              Province
+              <select
+                value={routingProvince}
+                onChange={(event) =>
+                  setRoutingProvince(event.target.value)
+                }
+                className="mt-2 w-full rounded-xl border border-[#d9bd72] bg-white px-3 py-2 font-normal text-[#16302b]"
               >
-                {choice.label}
-              </a>
-            ))}
-          </div>
+                <option value="Ontario">Ontario</option>
+              </select>
+            </label>
+
+            <label className="text-sm font-semibold text-[#5f4715]">
+              Total amount claimed
+              <input
+                value={routingAmount}
+                onChange={(event) => {
+                  setRoutingAmount(event.target.value);
+                  setRoutingError("");
+                }}
+                inputMode="decimal"
+                placeholder="Example: 10000"
+                className="mt-2 w-full rounded-xl border border-[#d9bd72] bg-white px-3 py-2 font-normal text-[#16302b]"
+              />
+            </label>
+
+            <label className="text-sm font-semibold text-[#5f4715]">
+              Remedy requested
+              <select
+                value={routingRelief}
+                onChange={(event) =>
+                  setRoutingRelief(
+                    event.target.value as
+                      | "money-or-property"
+                      | "other-relief",
+                  )
+                }
+                className="mt-2 w-full rounded-xl border border-[#d9bd72] bg-white px-3 py-2 font-normal text-[#16302b]"
+              >
+                <option value="money-or-property">
+                  Money or return of property
+                </option>
+                <option value="other-relief">
+                  Another type of court order
+                </option>
+              </select>
+            </label>
+
+            <div className="md:col-span-3">
+              {routingError && (
+                <p className="mb-3 text-sm font-semibold text-[#a63b3b]">
+                  {routingError}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                className="rounded-full bg-[#725514] px-5 py-2 text-sm font-semibold text-white hover:bg-[#5f4715]"
+              >
+                Continue in the correct court intake
+              </button>
+
+              <p className="mt-3 text-xs leading-5 text-[#7a673a]">
+                In Ontario, Small Claims Court generally handles claims
+                for money or return of personal property up to $50,000,
+                excluding interest and costs. Other remedies or larger
+                claims may require Civil Court review.
+              </p>
+            </div>
+            </form>
+          )}
         </div>
       )}
 
@@ -622,6 +831,7 @@ export default function CourtAssistantChat({
         </div>
       )}
 
+      {!courtPathGuidance && (
       <div className="border-b border-[#d8e6df] p-4">
         <p className="mb-3 text-sm font-semibold text-[#16302b]">
           Suggested questions
@@ -641,6 +851,7 @@ export default function CourtAssistantChat({
           ))}
         </div>
       </div>
+      )}
 
       <div className="max-h-[500px] space-y-4 overflow-y-auto p-4">
         {messages.map((message, index) => (
@@ -669,6 +880,7 @@ export default function CourtAssistantChat({
         )}
       </div>
 
+      {!courtPathGuidance && (
       <div className="border-t border-[#d8e6df] p-4">
         <textarea
           value={input}
@@ -695,6 +907,7 @@ export default function CourtAssistantChat({
           </button>
         </div>
       </div>
+      )}
     </section>
   );
 }
