@@ -16,7 +16,7 @@ import { DOCTRINE_SEED_LIBRARY } from "../knowledge/doctrineSeedLibrary";
 
 import { CaseLegalDomain } from "../architecture/masterCaseSchema";
 
-export type AiCasePartnerOrchestratorVersion = "1.2.0";
+export type AiCasePartnerOrchestratorVersion = "1.4.0";
 
 export type AiCasePartnerOrchestratorInput = {
   caseId?: string;
@@ -24,6 +24,34 @@ export type AiCasePartnerOrchestratorInput = {
   conversation?: CasePartnerConversationMessage[];
   caseMemory?: unknown;
   mode?: string;
+  diagnosticId?: string;
+};
+
+export type AiCasePartnerDiagnosticStage =
+  | "conversation-intelligence"
+  | "legal-domain-detection"
+  | "legal-reasoning"
+  | "conversation-memory"
+  | "case-investigation"
+  | "response-construction";
+
+export type AiCasePartnerStageDiagnostic = {
+  stage: AiCasePartnerDiagnosticStage;
+  ok: true;
+  durationMs: number;
+  outputBytes: number;
+};
+
+export type AiCasePartnerOrchestratorDiagnostics = {
+  diagnosticId: string;
+  totalDurationMs: number;
+  inputMetrics: {
+    messageCharacters: number;
+    conversationMessages: number;
+    conversationCharacters: number;
+    caseMemoryBytes: number;
+  };
+  stages: AiCasePartnerStageDiagnostic[];
 };
 
 export type AiCasePartnerOrchestratorResult = {
@@ -41,6 +69,8 @@ export type AiCasePartnerOrchestratorResult = {
 
   caseMemory: ReturnType<typeof buildConversationMemory>["memory"];
 
+  diagnostics: AiCasePartnerOrchestratorDiagnostics;
+
   result: {
     conversationIntelligence: ReturnType<typeof buildConversationIntelligence>;
     legalReasoning: CoordinatedReasoningPackage;
@@ -48,6 +78,94 @@ export type AiCasePartnerOrchestratorResult = {
     caseInvestigation: ReturnType<typeof buildCaseInvestigation>;
   };
 };
+
+type ResponseIntent =
+  | "evidence"
+  | "legal-issues"
+  | "judge-concerns"
+  | "document-readiness"
+  | "next-clarification"
+  | "general";
+
+
+type OrchestratorStageError = Error & {
+  stage?: AiCasePartnerDiagnosticStage;
+  diagnosticId?: string;
+  cause?: unknown;
+};
+
+function createDiagnosticId(): string {
+  return `orchestrator_${Date.now()}_${Math.random()
+    .toString(36)
+    .slice(2, 10)}`;
+}
+
+function estimateJsonSize(value: unknown): number {
+  try {
+    return JSON.stringify(value).length;
+  } catch {
+    return -1;
+  }
+}
+
+function buildStageError(args: {
+  error: unknown;
+  stage: AiCasePartnerDiagnosticStage;
+  diagnosticId: string;
+}): OrchestratorStageError {
+  const original =
+    args.error instanceof Error
+      ? args.error
+      : new Error(String(args.error));
+
+  const stageError = new Error(
+    original.message ||
+      `AI Case Partner failed during ${args.stage}.`,
+  ) as OrchestratorStageError;
+
+  stageError.name = "AiCasePartnerOrchestratorStageError";
+  stageError.stage = args.stage;
+  stageError.diagnosticId = args.diagnosticId;
+  stageError.cause = original;
+  stageError.stack = original.stack || stageError.stack;
+
+  return stageError;
+}
+
+function runDiagnosticStage<T>(args: {
+  stage: AiCasePartnerDiagnosticStage;
+  diagnosticId: string;
+  diagnostics: AiCasePartnerStageDiagnostic[];
+  operation: () => T;
+}): T {
+  const startedAt = Date.now();
+
+  try {
+    const output = args.operation();
+
+    args.diagnostics.push({
+      stage: args.stage,
+      ok: true,
+      durationMs: Date.now() - startedAt,
+      outputBytes: estimateJsonSize(output),
+    });
+
+    return output;
+  } catch (error) {
+    console.error("AI Case Partner orchestrator stage failed", {
+      diagnosticId: args.diagnosticId,
+      stage: args.stage,
+      durationMs: Date.now() - startedAt,
+      error,
+    });
+
+    throw buildStageError({
+      error,
+      stage: args.stage,
+      diagnosticId: args.diagnosticId,
+    });
+  }
+}
 
 function nowIso(): string {
   return new Date().toISOString();
@@ -57,12 +175,37 @@ function clean(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function normalize(value: unknown): string {
+  return clean(value).toLowerCase().replace(/\s+/g, " ").trim();
+}
+
 function firstItem(items: unknown): string {
-  return Array.isArray(items) && typeof items[0] === "string" ? items[0] : "";
+  return Array.isArray(items) && typeof items[0] === "string"
+    ? clean(items[0])
+    : "";
 }
 
 function hasText(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;
+}
+
+function uniqueStrings(values: unknown[]): string[] {
+  const seen = new Set<string>();
+  const result: string[] = [];
+
+  for (const value of values) {
+    const text = clean(value);
+    const key = normalize(text);
+
+    if (!text || !key || seen.has(key)) {
+      continue;
+    }
+
+    seen.add(key);
+    result.push(text);
+  }
+
+  return result;
 }
 
 function uniqueDomains(values: CaseLegalDomain[]): CaseLegalDomain[] {
@@ -93,11 +236,18 @@ function detectLegalDomains(
     domains.push("contract");
   }
 
-  if (text.includes("payment") || text.includes("debt") || text.includes("owed")) {
+  if (
+    text.includes("payment") ||
+    text.includes("debt") ||
+    text.includes("owed")
+  ) {
     domains.push("debt");
   }
 
-  if (text.includes("property damage") || text.includes("damaged")) {
+  if (
+    text.includes("property damage") ||
+    text.includes("damaged")
+  ) {
     domains.push("property-damage");
   }
 
@@ -105,7 +255,11 @@ function detectLegalDomains(
     domains.push("negligence");
   }
 
-  if (text.includes("family") || text.includes("parenting") || text.includes("custody")) {
+  if (
+    text.includes("family") ||
+    text.includes("parenting") ||
+    text.includes("custody")
+  ) {
     domains.push("family-parenting");
   }
 
@@ -127,44 +281,199 @@ function detectLegalDomains(
     domains.push("civil-charter");
   }
 
-  if (text.includes("procedure") || text.includes("court") || text.includes("form")) {
+  if (
+    text.includes("procedure") ||
+    text.includes("court") ||
+    text.includes("form")
+  ) {
     domains.push("procedural");
   }
 
-  return uniqueDomains(domains.length > 0 ? domains : ["unknown"]);
+  return uniqueDomains(
+    domains.length > 0 ? domains : ["unknown"],
+  );
 }
 
-function buildWarmOpening(intelligence: ReturnType<typeof buildConversationIntelligence>): string {
+function detectResponseIntent(message: string): ResponseIntent {
+  const text = normalize(message);
+
+  if (
+    text.includes("what evidence am i missing") ||
+    text.includes("missing evidence") ||
+    text.includes("what proof") ||
+    text.includes("evidence do i need")
+  ) {
+    return "evidence";
+  }
+
+  if (
+    text.includes("what legal issues") ||
+    text.includes("legal issues should be reviewed") ||
+    text.includes("what claims") ||
+    text.includes("what issue applies")
+  ) {
+    return "legal-issues";
+  }
+
+  if (
+    text.includes("what would a judge") ||
+    text.includes("judge likely") ||
+    text.includes("judge concerned") ||
+    text.includes("court concerned")
+  ) {
+    return "judge-concerns";
+  }
+
+  if (
+    text.includes("before generating documents") ||
+    text.includes("document ready") ||
+    text.includes("ready for documents") ||
+    text.includes("what should i fix")
+  ) {
+    return "document-readiness";
+  }
+
+  if (
+    text.includes("most important thing") ||
+    text.includes("clarify next") ||
+    text.includes("what should i clarify") ||
+    text.includes("next question")
+  ) {
+    return "next-clarification";
+  }
+
+  return "general";
+}
+
+function countUserMessages(
+  conversation: CasePartnerConversationMessage[],
+): number {
+  return conversation.filter(
+    (message) =>
+      (message as any)?.role === "user" &&
+      hasText((message as any)?.content),
+  ).length;
+}
+
+function isFirstMeaningfulTurn(
+  conversation: CasePartnerConversationMessage[],
+): boolean {
+  return countUserMessages(conversation) <= 1;
+}
+
+function getPreviousAssistantText(
+  conversation: CasePartnerConversationMessage[],
+): string {
+  return conversation
+    .filter(
+      (message) =>
+        (message as any)?.role === "assistant" &&
+        hasText((message as any)?.content),
+    )
+    .map((message) => clean((message as any).content))
+    .join("\n\n");
+}
+
+function paragraphAlreadyUsed(
+  paragraph: string,
+  previousAssistantText: string,
+): boolean {
+  const paragraphKey = normalize(paragraph);
+  const previousKey = normalize(previousAssistantText);
+
+  if (!paragraphKey || !previousKey) {
+    return false;
+  }
+
+  return previousKey.includes(paragraphKey);
+}
+
+function deduplicateParagraphs(
+  paragraphs: string[],
+  previousAssistantText: string,
+): string[] {
+  const seen = new Set<string>();
+  const result: string[] = [];
+
+  for (const paragraph of paragraphs) {
+    const text = clean(paragraph);
+    const key = normalize(text);
+
+    if (!text || !key || seen.has(key)) {
+      continue;
+    }
+
+    if (paragraphAlreadyUsed(text, previousAssistantText)) {
+      continue;
+    }
+
+    seen.add(key);
+    result.push(text);
+  }
+
+  return result;
+}
+
+function formatList(
+  heading: string,
+  values: string[],
+  maximum = 4,
+): string {
+  const items = uniqueStrings(values).slice(0, maximum);
+
+  if (items.length === 0) {
+    return "";
+  }
+
+  return [
+    heading,
+    ...items.map((item, index) => `${index + 1}. ${item}`),
+  ].join("\n");
+}
+
+function buildWarmOpening(
+  intelligence: ReturnType<typeof buildConversationIntelligence>,
+): string {
   const issue =
     intelligence.hypotheses?.[0]?.label ||
     intelligence.legalSignals?.[0]?.label ||
     "";
 
-  if (issue.toLowerCase().includes("defamation")) {
-    return "I’m sorry you’re dealing with that. Statements being shared about you can become stressful quickly, especially when they affect your reputation or relationships. Let’s organize this carefully so we can separate what was said, who received it, what proof exists, and what legal issues may need review.";
-  }
+  const normalizedIssue = normalize(issue);
 
-  if (issue.toLowerCase().includes("family")) {
-    return "I know family court issues can feel overwhelming, especially when children, support, or existing orders are involved. Let’s slow it down and organize the facts in a way that can actually help your case.";
-  }
-
-  if (issue.toLowerCase().includes("contract") || issue.toLowerCase().includes("payment")) {
-    return "I can help you organize this into a clear claim story. The main thing is to connect the agreement, what went wrong, the proof, and the money or remedy you’re asking for.";
-  }
-
-  if (issue.toLowerCase().includes("property damage")) {
-    return "I can help you turn this into a structured property damage claim. The important part is proving what was damaged, who caused it, what it cost, and what evidence supports that.";
+  if (normalizedIssue.includes("defamation")) {
+    return "I’m sorry you’re dealing with that. Let’s organize the exact words, who received them, what proof exists, and what harm followed.";
   }
 
   if (
-    issue.toLowerCase().includes("public") ||
-    issue.toLowerCase().includes("crown") ||
-    issue.toLowerCase().includes("police")
+    normalizedIssue.includes("family") ||
+    normalizedIssue.includes("parenting") ||
+    normalizedIssue.includes("support")
   ) {
-    return "This kind of issue needs to be handled carefully because public authority cases can depend heavily on the exact actor, the record, the legal power being used, and what proof exists. Let’s organize it step by step instead of jumping to conclusions.";
+    return "Family matters can become overwhelming quickly. Let’s organize the current arrangements, any existing orders, the important dates, and the records that support what you are saying.";
   }
 
-  return "I can help you organize this. Let’s turn what happened into a clear case record by identifying the people involved, the key facts, the evidence, the legal issues, and the next best step.";
+  if (
+    normalizedIssue.includes("contract") ||
+    normalizedIssue.includes("payment") ||
+    normalizedIssue.includes("debt")
+  ) {
+    return "Let’s organize the agreement, what each side was expected to do, what went wrong, the proof, and the outcome you are seeking.";
+  }
+
+  if (normalizedIssue.includes("property damage")) {
+    return "Let’s organize what was damaged, how it happened, who may be responsible, and the records showing the repair cost or loss.";
+  }
+
+  if (
+    normalizedIssue.includes("public") ||
+    normalizedIssue.includes("crown") ||
+    normalizedIssue.includes("police")
+  ) {
+    return "This needs careful fact organization because the specific actor, decision, record, legal authority, and resulting harm may all matter.";
+  }
+
+  return "I’ll help organize what happened into a clear case record, identify missing information, and focus on the next useful question.";
 }
 
 function buildLegalExplanation(args: {
@@ -174,80 +483,178 @@ function buildLegalExplanation(args: {
   const hypothesis = args.intelligence.hypotheses?.[0];
   const signal = args.intelligence.legalSignals?.[0];
 
-  const burden = firstItem(args.legalReasoning.reasoningSummary.burdenPriorities);
+  const burden = firstItem(
+    args.legalReasoning.reasoningSummary.burdenPriorities,
+  );
+
   const judicialConcern = firstItem(
     args.legalReasoning.reasoningSummary.judicialConcerns,
   );
 
   if (hasText(burden) && hasText(judicialConcern)) {
-    return `The legal reasoning package is focusing first on this point: ${burden}. A likely court concern to keep in mind is: ${judicialConcern}`;
+    return `The main proof issue currently identified is: ${burden}. A related court concern is: ${judicialConcern}`;
   }
 
   if (!hypothesis && !signal) {
-    return "The first job is not to guess the answer. The first job is to understand the facts well enough to know what legal issue, court path, evidence, and remedy fit.";
+    return "There is not enough information yet to identify the legal issue confidently. The next step is to confirm the court path, important facts, proof, and requested outcome.";
   }
 
-  const label = hypothesis?.label || signal?.label || "possible legal issue";
+  const label =
+    hypothesis?.label ||
+    signal?.label ||
+    "possible legal issue";
 
-  if (label.toLowerCase().includes("defamation")) {
-    return "For a possible defamation issue, the legal focus is usually on the exact words, whether they were about you, whether they were communicated to someone else, whether they could harm your reputation, and whether any defence might apply. The exact wording and context matter a lot.";
-  }
+  const normalizedLabel = normalize(label);
 
-  if (label.toLowerCase().includes("contract") || label.toLowerCase().includes("payment")) {
-    return "For a contract or payment dispute, the legal focus is usually on what agreement existed, what each side was supposed to do, what proof shows the agreement, what was breached, and what loss resulted.";
-  }
-
-  if (label.toLowerCase().includes("property damage")) {
-    return "For property damage, the legal focus is usually on causation and proof: what was damaged, who caused it, how it happened, and what records prove the repair cost or loss.";
-  }
-
-  if (label.toLowerCase().includes("family")) {
-    return "For family matters, the court usually needs child-focused facts, current orders or arrangements, the status quo, support/payment records if relevant, and evidence showing why the requested outcome is appropriate.";
+  if (normalizedLabel.includes("defamation")) {
+    return "A possible defamation issue usually turns on the exact words, whether they referred to you, whether they were communicated to another person, the context, any resulting reputational harm, and any defence that may apply.";
   }
 
   if (
-    label.toLowerCase().includes("public") ||
-    label.toLowerCase().includes("crown") ||
-    label.toLowerCase().includes("police")
+    normalizedLabel.includes("contract") ||
+    normalizedLabel.includes("payment") ||
+    normalizedLabel.includes("debt")
   ) {
-    return "For public authority issues, the legal focus is usually on who did what, what legal power or duty was involved, whether there is a court or tribunal record, whether any immunity or special rule applies, and what harm can be proven.";
+    return "A contract or payment dispute usually turns on the agreement, each side’s obligations, the alleged breach, supporting records, and the resulting loss.";
   }
 
-  return `The issue I’m seeing is ${label}. I’ll use that as a working theory only, then keep asking questions to confirm whether it actually fits.`;
+  if (normalizedLabel.includes("property damage")) {
+    return "A property-damage issue usually turns on causation, responsibility, photographs or records, repair estimates, invoices, and proof of the amount claimed.";
+  }
+
+  if (
+    normalizedLabel.includes("family") ||
+    normalizedLabel.includes("parenting") ||
+    normalizedLabel.includes("support")
+  ) {
+    return "A family matter usually requires child-focused facts where applicable, current arrangements, existing orders, payment or disclosure records, and evidence supporting the requested outcome.";
+  }
+
+  if (
+    normalizedLabel.includes("public") ||
+    normalizedLabel.includes("crown") ||
+    normalizedLabel.includes("police")
+  ) {
+    return "A public-authority issue usually requires the exact actor, conduct, decision, governing power or duty, available record, procedural requirements, and provable harm.";
+  }
+
+  return `The current working issue is: ${label}. This remains a preliminary classification until the missing facts and proof are confirmed.`;
 }
 
-function buildProofGuidance(args: {
+function buildEvidenceAnswer(args: {
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
+  investigation: ReturnType<typeof buildCaseInvestigation>;
 }): string {
-  const profileEvidence = firstItem(
-    args.legalReasoning.reasoningSummary.evidencePriorities,
+  const evidenceNeeds = uniqueStrings([
+    ...(args.investigation.evidenceNeeded || []).map(
+      (item: any) => item?.label,
+    ),
+    ...(args.legalReasoning.reasoningSummary.evidencePriorities || []),
+    ...(args.intelligence.caseMemoryPatch.evidenceToRequest || []),
+  ]);
+
+  if (evidenceNeeds.length === 0) {
+    return "No case-specific evidence gap has been identified yet. Start by listing the documents, messages, photographs, recordings, receipts, witnesses, and court records you already have.";
+  }
+
+  return formatList(
+    "The most important evidence gaps currently identified are:",
+    evidenceNeeds,
+    5,
   );
+}
 
-  if (hasText(profileEvidence)) {
-    return `For court preparation, we should start preserving proof early. Based on the reasoning profile, one priority is: ${profileEvidence}`;
+function buildLegalIssuesAnswer(args: {
+  intelligence: ReturnType<typeof buildConversationIntelligence>;
+  investigation: ReturnType<typeof buildCaseInvestigation>;
+  legalReasoning: CoordinatedReasoningPackage;
+}): string {
+  const issues = uniqueStrings([
+    ...(args.investigation.issues || []).map(
+      (issue: any) => issue?.label,
+    ),
+    ...(args.intelligence.legalSignals || []).map(
+      (signal) => signal.label,
+    ),
+    ...(args.intelligence.hypotheses || []).map(
+      (hypothesis) => hypothesis.label,
+    ),
+    ...(args.legalReasoning.reasoningSummary.primaryDomains || []),
+  ]);
+
+  if (issues.length === 0) {
+    return "The legal issues cannot be classified confidently yet. More information is needed about what happened, where it happened, who was involved, and the outcome being requested.";
   }
 
-  const evidenceQuestions = args.intelligence.questions
-    ?.filter((question) => question.relatedTo === "evidence")
-    .map((question) => question.question)
-    .slice(0, 2);
+  return formatList(
+    "These are the main issues currently flagged for review:",
+    issues,
+    5,
+  );
+}
 
-  if (evidenceQuestions?.length > 0) {
-    return `For court preparation, we should start preserving proof early. The most useful evidence question right now is: ${evidenceQuestions[0]}`;
+function buildJudgeConcernsAnswer(args: {
+  investigation: ReturnType<typeof buildCaseInvestigation>;
+  legalReasoning: CoordinatedReasoningPackage;
+}): string {
+  const concerns = uniqueStrings([
+    ...(args.legalReasoning.reasoningSummary.judicialConcerns || []),
+    ...(args.investigation.judgeConcerns || []),
+  ]);
+
+  if (concerns.length === 0) {
+    return "No specific judicial concern has been identified yet. A court will usually want a clear timeline, reliable evidence, a defined legal basis, and a precise explanation of the requested remedy.";
   }
 
-  return "For court preparation, we should start preserving proof early: messages, emails, screenshots, documents, dates, witness names, photos, records, and anything showing what happened or what harm followed.";
+  return formatList(
+    "A court may focus on these concerns:",
+    concerns,
+    5,
+  );
+}
+
+function buildDocumentReadinessAnswer(args: {
+  intelligence: ReturnType<typeof buildConversationIntelligence>;
+  investigation: ReturnType<typeof buildCaseInvestigation>;
+  legalReasoning: CoordinatedReasoningPackage;
+}): string {
+  const readinessIssues = uniqueStrings([
+    ...(args.investigation.missingInformation || []).map(
+      (item) => `Confirm: ${item}`,
+    ),
+    ...(args.investigation.evidenceNeeded || []).map(
+      (item: any) => `Identify or collect: ${item?.label}`,
+    ),
+    ...(args.legalReasoning.reasoningSummary.proceduralWatchPoints || []).map(
+      (item) => `Check procedure: ${item}`,
+    ),
+  ]);
+
+  if (readinessIssues.length === 0) {
+    return "No specific blocker has been identified, but all names, dates, allegations, requested remedies, exhibits, court information, and filing requirements should still be verified before generating final documents.";
+  }
+
+  return formatList(
+    "Before generating documents, address these items:",
+    readinessIssues,
+    6,
+  );
 }
 
 function buildBestQuestion(args: {
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
 }): string {
-  const question = args.intelligence.selectedNextQuestion;
+  const selectedQuestion =
+    args.intelligence.selectedNextQuestion;
 
-  if (question) {
-    return `My next question is: ${question.question}\n\nI’m asking because ${question.reason}`;
+  if (selectedQuestion?.question) {
+    const reason = clean(selectedQuestion.reason);
+
+    return reason
+      ? `${selectedQuestion.question}\n\nWhy this matters: ${reason}`
+      : selectedQuestion.question;
   }
 
   const reasoningQuestion = firstItem(
@@ -255,101 +662,291 @@ function buildBestQuestion(args: {
   );
 
   if (hasText(reasoningQuestion)) {
-    return `My next question is: ${reasoningQuestion}\n\nI’m asking because this is the first question in the legal reasoning profile for this type of issue.`;
+    return reasoningQuestion;
   }
 
-  return "Start by telling me the main dates, what proof you have, and what outcome you want.";
+  return "What are the main dates, what proof do you currently have, and what outcome are you seeking?";
 }
 
 function buildCaution(
   investigation: ReturnType<typeof buildCaseInvestigation>,
 ): string {
-  const warning = firstItem(investigation.validation?.warnings);
+  const warnings = uniqueStrings(
+    investigation.validation?.warnings || [],
+  );
 
-  if (!hasText(warning)) return "";
+  const jurisdictionWarning = warnings.find((warning) =>
+    normalize(warning).includes("jurisdiction"),
+  );
 
-  if (warning.toLowerCase().includes("jurisdiction")) {
-    return "I’m going to avoid deadline or form advice until the province is confirmed, because court rules and limitation periods can change depending on where this happened.";
+  if (jurisdictionWarning) {
+    return "The province or jurisdiction must be confirmed before relying on any deadline, form, filing, or court-procedure information.";
   }
 
-  return `One thing I’ll be careful about: ${warning}`;
+  const firstWarning = firstItem(warnings);
+
+  if (!hasText(firstWarning)) {
+    return "";
+  }
+
+  return `Important limitation: ${firstWarning}`;
 }
 
-function buildAnswer(args: {
+function buildDirectAnswer(args: {
+  intent: ResponseIntent;
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
   investigation: ReturnType<typeof buildCaseInvestigation>;
 }): string {
-  const opening = buildWarmOpening(args.intelligence);
-  const explanation = buildLegalExplanation({
-    intelligence: args.intelligence,
-    legalReasoning: args.legalReasoning,
-  });
-  const proof = buildProofGuidance({
-    intelligence: args.intelligence,
-    legalReasoning: args.legalReasoning,
-  });
-  const caution = buildCaution(args.investigation);
-  const question = buildBestQuestion({
-    intelligence: args.intelligence,
-    legalReasoning: args.legalReasoning,
-  });
+  switch (args.intent) {
+    case "evidence":
+      return buildEvidenceAnswer(args);
 
-  return [opening, explanation, proof, caution, question]
-    .filter(hasText)
+    case "legal-issues":
+      return buildLegalIssuesAnswer(args);
+
+    case "judge-concerns":
+      return buildJudgeConcernsAnswer(args);
+
+    case "document-readiness":
+      return buildDocumentReadinessAnswer(args);
+
+    case "next-clarification":
+      return buildBestQuestion(args);
+
+    default:
+      return "";
+  }
+}
+
+function buildGeneralAnswer(args: {
+  firstTurn: boolean;
+  intelligence: ReturnType<typeof buildConversationIntelligence>;
+  legalReasoning: CoordinatedReasoningPackage;
+  investigation: ReturnType<typeof buildCaseInvestigation>;
+  previousAssistantText: string;
+}): string {
+  const paragraphs: string[] = [];
+
+  if (args.firstTurn) {
+    paragraphs.push(buildWarmOpening(args.intelligence));
+    paragraphs.push(
+      buildLegalExplanation({
+        intelligence: args.intelligence,
+        legalReasoning: args.legalReasoning,
+      }),
+    );
+  } else {
+    const newlyAddedFacts =
+      args.intelligence.caseMemoryPatch.factsToAdd || [];
+
+    const newlyIdentifiedIssues =
+      args.intelligence.caseMemoryPatch.legalIssuesToReview || [];
+
+    if (newlyAddedFacts.length > 0) {
+      paragraphs.push(
+        `I’ve added the new information to the case record: ${uniqueStrings(
+          newlyAddedFacts,
+        )
+          .slice(0, 3)
+          .join("; ")}`,
+      );
+    }
+
+    if (newlyIdentifiedIssues.length > 0) {
+      paragraphs.push(
+        `The new information may affect these issues: ${uniqueStrings(
+          newlyIdentifiedIssues,
+        )
+          .slice(0, 3)
+          .join("; ")}`,
+      );
+    }
+
+    if (
+      newlyAddedFacts.length === 0 &&
+      newlyIdentifiedIssues.length === 0
+    ) {
+      paragraphs.push(
+        "I’ve added that response to the case record.",
+      );
+    }
+  }
+
+  const caution = buildCaution(args.investigation);
+
+  if (args.firstTurn && hasText(caution)) {
+    paragraphs.push(caution);
+  }
+
+  paragraphs.push(
+    buildBestQuestion({
+      intelligence: args.intelligence,
+      legalReasoning: args.legalReasoning,
+    }),
+  );
+
+  return deduplicateParagraphs(
+    paragraphs,
+    args.previousAssistantText,
+  )
     .join("\n\n")
     .trim();
+}
+
+function buildAnswer(args: {
+  message: string;
+  conversation: CasePartnerConversationMessage[];
+  intelligence: ReturnType<typeof buildConversationIntelligence>;
+  legalReasoning: CoordinatedReasoningPackage;
+  investigation: ReturnType<typeof buildCaseInvestigation>;
+}): string {
+  const intent = detectResponseIntent(args.message);
+  const firstTurn = isFirstMeaningfulTurn(args.conversation);
+  const previousAssistantText = getPreviousAssistantText(
+    args.conversation,
+  );
+
+  if (intent !== "general") {
+    const directAnswer = buildDirectAnswer({
+      intent,
+      intelligence: args.intelligence,
+      legalReasoning: args.legalReasoning,
+      investigation: args.investigation,
+    });
+
+    return (
+      deduplicateParagraphs(
+        [directAnswer],
+        previousAssistantText,
+      ).join("\n\n") ||
+      directAnswer ||
+      "More case information is needed before this can be answered reliably."
+    );
+  }
+
+  return buildGeneralAnswer({
+    firstTurn,
+    intelligence: args.intelligence,
+    legalReasoning: args.legalReasoning,
+    investigation: args.investigation,
+    previousAssistantText,
+  });
 }
 
 export function runAiCasePartnerOrchestrator(
   input: AiCasePartnerOrchestratorInput,
 ): AiCasePartnerOrchestratorResult {
+  const diagnosticId =
+    clean(input.diagnosticId) || createDiagnosticId();
+
+  const totalStartedAt = Date.now();
+  const stageDiagnostics: AiCasePartnerStageDiagnostic[] = [];
+
   const message = clean(input.message);
+  const conversation = input.conversation || [];
 
-  const conversationIntelligence = buildConversationIntelligence({
-    message,
-    conversation: input.conversation || [],
-    caseMemory: input.caseMemory,
-    mode: input.mode,
+  const inputMetrics = {
+    messageCharacters: message.length,
+    conversationMessages: conversation.length,
+    conversationCharacters: conversation.reduce(
+      (total, item) => total + clean((item as any)?.content).length,
+      0,
+    ),
+    caseMemoryBytes: estimateJsonSize(input.caseMemory),
+  };
+
+  const conversationIntelligence = runDiagnosticStage({
+    stage: "conversation-intelligence",
+    diagnosticId,
+    diagnostics: stageDiagnostics,
+    operation: () =>
+      buildConversationIntelligence({
+        message,
+        conversation,
+        caseMemory: input.caseMemory,
+        mode: input.mode,
+      }),
   });
 
-  const legalDomains = detectLegalDomains(conversationIntelligence);
-
-  const legalReasoning = buildLegalReasoningCoordinator({
-    courtPath:
-      conversationIntelligence.conversationFocus.courtArea === "mixed"
-        ? "unknown"
-        : conversationIntelligence.conversationFocus.courtArea,
-    jurisdiction: "Unknown",
-    stage: "not-sure",
-    legalDomains,
-    knowledgeObjects: DOCTRINE_SEED_LIBRARY,
-    mode: "operational",
+  const legalDomains = runDiagnosticStage({
+    stage: "legal-domain-detection",
+    diagnosticId,
+    diagnostics: stageDiagnostics,
+    operation: () => detectLegalDomains(conversationIntelligence),
   });
 
-  const conversationMemory = buildConversationMemory({
-    caseId: input.caseId,
-    existingMemory: input.caseMemory,
-    message,
-    conversation: input.conversation || [],
-    intelligence: conversationIntelligence,
+  const legalReasoning = runDiagnosticStage({
+    stage: "legal-reasoning",
+    diagnosticId,
+    diagnostics: stageDiagnostics,
+    operation: () =>
+      buildLegalReasoningCoordinator({
+        courtPath:
+          conversationIntelligence.conversationFocus.courtArea === "mixed"
+            ? "unknown"
+            : conversationIntelligence.conversationFocus.courtArea,
+        jurisdiction: "Unknown",
+        stage: "not-sure",
+        legalDomains,
+        knowledgeObjects: DOCTRINE_SEED_LIBRARY,
+        mode: "operational",
+      }),
   });
 
-  const caseInvestigation = buildCaseInvestigation({
-    caseId: input.caseId,
-    message,
-    intelligence: conversationIntelligence,
-    memory: conversationMemory,
+  const conversationMemory = runDiagnosticStage({
+    stage: "conversation-memory",
+    diagnosticId,
+    diagnostics: stageDiagnostics,
+    operation: () =>
+      buildConversationMemory({
+        caseId: input.caseId,
+        existingMemory: input.caseMemory,
+        message,
+        conversation,
+        intelligence: conversationIntelligence,
+      }),
   });
 
-  const userFacingAnswer = buildAnswer({
-    intelligence: conversationIntelligence,
-    legalReasoning,
-    investigation: caseInvestigation,
+  const caseInvestigation = runDiagnosticStage({
+    stage: "case-investigation",
+    diagnosticId,
+    diagnostics: stageDiagnostics,
+    operation: () =>
+      buildCaseInvestigation({
+        caseId: input.caseId,
+        message,
+        intelligence: conversationIntelligence,
+        memory: conversationMemory,
+        legalReasoning,
+      }),
   });
+
+  const userFacingAnswer = runDiagnosticStage({
+    stage: "response-construction",
+    diagnosticId,
+    diagnostics: stageDiagnostics,
+    operation: () =>
+      buildAnswer({
+        message,
+        conversation,
+        intelligence: conversationIntelligence,
+        legalReasoning,
+        investigation: caseInvestigation,
+      }),
+  });
+
+  const diagnostics: AiCasePartnerOrchestratorDiagnostics = {
+    diagnosticId,
+    totalDurationMs: Date.now() - totalStartedAt,
+    inputMetrics,
+    stages: stageDiagnostics,
+  };
+
+  console.info("AI Case Partner orchestrator completed", diagnostics);
 
   return {
-    version: "1.2.0",
+    version: "1.4.0",
     generatedAt: nowIso(),
     ok: true,
 
@@ -362,6 +959,8 @@ export function runAiCasePartnerOrchestrator(
     caseInvestigation,
 
     caseMemory: conversationMemory.memory,
+
+    diagnostics,
 
     result: {
       conversationIntelligence,

@@ -349,6 +349,78 @@ function buildCivilMasterResult(input: CivilInput): CivilMasterCaseResult {
   });
 }
 
+function isQuotaExceededError(error: unknown): boolean {
+  if (!(error instanceof DOMException)) return false;
+
+  return (
+    error.name === "QuotaExceededError" ||
+    error.name === "NS_ERROR_DOM_QUOTA_REACHED" ||
+    error.code === 22 ||
+    error.code === 1014
+  );
+}
+
+function safelyStoreJson(key: string, value: unknown): boolean {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  } catch (error) {
+    if (isQuotaExceededError(error)) {
+      console.warn(
+        `CourtSimplified browser storage is full. The key "${key}" was not saved.`,
+      );
+      return false;
+    }
+
+    throw error;
+  }
+}
+
+function buildCompactCivilPayload(
+  payload: StoredCaseData,
+  input: CivilInput,
+): Record<string, unknown> {
+  return {
+    courtPath: payload.courtPath,
+    pathLabel: payload.pathLabel,
+    caseStage: payload.caseStage,
+    yourName: payload.yourName,
+    otherParty: payload.otherParty,
+    facts: payload.facts,
+    timeline: payload.timeline,
+    evidence: payload.evidence,
+    missingEvidence: payload.missingEvidence,
+    goal: payload.goal,
+    urgent: payload.urgent,
+    extra: {
+      architectureMode: "civil-master-engine-connected",
+      sourceOfTruth: "civilMasterCaseEngine",
+      issues: input.issues,
+      documents: input.documents,
+      yourRole: input.yourRole,
+      courtLocation: input.courtLocation,
+      courtFileNumber: input.courtFileNumber,
+      amountClaimed: input.amountClaimed,
+      limitationDeadline: input.limitationDeadline,
+      damagesBreakdown: input.damagesBreakdown,
+      legalRemedy: input.legalRemedy,
+      settlementEfforts: input.settlementEfforts,
+      serviceDetails: input.serviceDetails,
+      humanRightsGrounds: input.humanRightsGrounds,
+      discriminationFacts: input.discriminationFacts,
+      accommodationRequests: input.accommodationRequests,
+      governmentActor: input.governmentActor,
+      publicDecisionOrConduct: input.publicDecisionOrConduct,
+      institutionalFacts: input.institutionalFacts,
+      privacyRecordsFacts: input.privacyRecordsFacts,
+      uploadedEvidenceFileCount: input.uploadedEvidenceFiles.length,
+      uploadedEvidenceFileNames: input.uploadedEvidenceFiles.map(
+        (file) => file.name,
+      ),
+    },
+  };
+}
+
 function buildCivilAnalysisFromMaster(
   input: CivilInput,
   masterResult: CivilMasterCaseResult,
@@ -495,6 +567,7 @@ function buildCivilAnalysisFromMaster(
 
 export default function CivilIntake({ onComplete }: Props) {
   const [input, setInput] = useState<CivilInput>(defaultInput);
+  const [storageWarning, setStorageWarning] = useState("");
 
   function updateField<K extends keyof CivilInput>(field: K, value: CivilInput[K]) {
     setInput((current) => ({ ...current, [field]: value }));
@@ -545,6 +618,8 @@ export default function CivilIntake({ onComplete }: Props) {
   }
 
   function handleAnalyze() {
+    setStorageWarning("");
+
     const masterResult = buildCivilMasterResult(input);
     const analysis = buildCivilAnalysisFromMaster(input, masterResult);
     const narrative = buildCivilNarrative(input);
@@ -596,8 +671,27 @@ export default function CivilIntake({ onComplete }: Props) {
       },
     };
 
-    localStorage.setItem("caseData", JSON.stringify(payload));
-    localStorage.setItem("courtSimplifiedCase", JSON.stringify(payload));
+    /*
+     * The complete Civil master result remains available to the active
+     * application through onComplete(). Browser localStorage receives only a
+     * compact continuity snapshot. This prevents the Civil master engine,
+     * strategy package, workflow, evidence analysis, and form-routing objects
+     * from being duplicated into the browser's limited localStorage quota.
+     */
+    const compactPayload = buildCompactCivilPayload(payload, input);
+
+    const savedCaseData = safelyStoreJson("caseData", compactPayload);
+    const savedCourtSimplifiedCase = safelyStoreJson(
+      "courtSimplifiedCase",
+      compactPayload,
+    );
+
+    if (!savedCaseData || !savedCourtSimplifiedCase) {
+      setStorageWarning(
+        "The Civil analysis completed, but this browser could not save every temporary workspace item because its site storage is full. The complete result remains available on this page.",
+      );
+    }
+
     onComplete(analysis, payload);
   }
 
@@ -611,6 +705,13 @@ export default function CivilIntake({ onComplete }: Props) {
         evidence, procedure, documents, risks, and next steps from one source of
         truth.
       </p>
+
+
+      {storageWarning && (
+        <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+          {storageWarning}
+        </div>
+      )}
 
       <div className="mt-6 grid gap-5">
         <label className="block">

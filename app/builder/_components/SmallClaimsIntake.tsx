@@ -276,12 +276,59 @@ function buildCaseDirection(input: SmallClaimsIntelligenceInput): string {
   return `Likely direction: ${stage.replace(/-/g, " ")} · ${issueText}`;
 }
 
+
+function isQuotaExceededError(error: unknown): boolean {
+  if (!(error instanceof DOMException)) return false;
+
+  return (
+    error.name === "QuotaExceededError" ||
+    error.name === "NS_ERROR_DOM_QUOTA_REACHED" ||
+    error.code === 22 ||
+    error.code === 1014
+  );
+}
+
+function buildCompactLocalPayload(
+  payload: StoredCaseData,
+): Record<string, unknown> {
+  const source = payload as StoredCaseData & Record<string, unknown>;
+
+  const {
+    masterResultPatch: _masterResultPatch,
+    dashboardPatch: _dashboardPatch,
+    ...compactPayload
+  } = source;
+
+  return compactPayload;
+}
+
+function safelyStoreText(key: string, value: string): boolean {
+  try {
+    localStorage.setItem(key, value);
+    return true;
+  } catch (error) {
+    if (isQuotaExceededError(error)) {
+      console.warn(
+        `CourtSimplified browser storage is full. The key "${key}" was not saved.`,
+      );
+      return false;
+    }
+
+    throw error;
+  }
+}
+
+function safelyStoreJson(key: string, value: unknown): boolean {
+  return safelyStoreText(key, JSON.stringify(value));
+}
+
 export default function SmallClaimsIntake({ onComplete }: Props) {
   const [input, setInput] =
     useState<SmallClaimsIntelligenceInput>(defaultInput);
 
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisError, setAnalysisError] = useState("");
+  const [storageWarning, setStorageWarning] = useState("");
 
   const inferredDirection = useMemo(() => buildCaseDirection(input), [input]);
   const missingPrompt = useMemo(() => buildMissingPrompt(input), [input]);
@@ -353,6 +400,7 @@ export default function SmallClaimsIntake({ onComplete }: Props) {
   async function handleAnalyze() {
     setIsAnalyzing(true);
     setAnalysisError("");
+    setStorageWarning("");
 
     try {
       const preparedInput: SmallClaimsIntelligenceInput = {
@@ -365,27 +413,43 @@ export default function SmallClaimsIntake({ onComplete }: Props) {
 
       const result = await analyzeSmallClaimsWithBrain(preparedInput);
 
-      localStorage.setItem("caseData", JSON.stringify(result.payload));
-      localStorage.setItem("courtSimplifiedCase", JSON.stringify(result.payload));
+      /*
+       * Keep the full intelligence result in application state through
+       * onComplete(). Save only a compact intake snapshot in localStorage.
+       * Large reasoning packages must not be duplicated in localStorage.
+       */
+      localStorage.removeItem("courtSimplifiedMasterResultPatch");
 
-      if (result.masterResultPatch) {
-        localStorage.setItem(
-          "courtSimplifiedMasterResultPatch",
-          JSON.stringify(result.masterResultPatch),
-        );
-      }
+      const compactPayload = buildCompactLocalPayload(result.payload);
 
-      if (result.dashboardPatch) {
-        localStorage.setItem(
-          "courtSimplifiedDashboardPatch",
-          JSON.stringify(result.dashboardPatch),
-        );
-      }
+      const savedCaseData = safelyStoreJson("caseData", compactPayload);
+      const savedCourtSimplifiedCase = safelyStoreJson(
+        "courtSimplifiedCase",
+        compactPayload,
+      );
 
-      if (result.recommendedNextRoute) {
-        localStorage.setItem(
-          "courtSimplifiedRecommendedNextRoute",
-          result.recommendedNextRoute,
+      const savedDashboardPatch = result.dashboardPatch
+        ? safelyStoreJson(
+            "courtSimplifiedDashboardPatch",
+            result.dashboardPatch,
+          )
+        : true;
+
+      const savedRecommendedRoute = result.recommendedNextRoute
+        ? safelyStoreText(
+            "courtSimplifiedRecommendedNextRoute",
+            result.recommendedNextRoute,
+          )
+        : true;
+
+      if (
+        !savedCaseData ||
+        !savedCourtSimplifiedCase ||
+        !savedDashboardPatch ||
+        !savedRecommendedRoute
+      ) {
+        setStorageWarning(
+          "The analysis completed, but this browser could not save every temporary workspace item because its site storage is full. Your result remains available on this page.",
         );
       }
 
@@ -427,6 +491,12 @@ export default function SmallClaimsIntake({ onComplete }: Props) {
       {analysisError && (
         <div className="mt-5 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
           {analysisError}
+        </div>
+      )}
+
+      {storageWarning && (
+        <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+          {storageWarning}
         </div>
       )}
 

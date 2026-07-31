@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CourtSimplified",
+  title: "CourtSimplified | Tools for Self-Represented Litigants",
   description:
-    "CourtSimplified helps people prepare court documents, organize evidence, and understand legal steps more clearly.",
+    "CourtSimplified helps self-represented litigants understand court procedures, organize evidence, prepare case materials, and manage their legal matters in one connected platform.",
 };
 
 const publicNavLinks = [
@@ -93,33 +93,58 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
 
           <footer className="border-t border-[#D7E7E5] bg-white">
-            <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-6 py-8 md:flex-row md:items-center md:justify-between">
-              <div>
+            <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-6 py-10 md:flex-row md:items-start md:justify-between">
+              <div className="max-w-2xl">
                 <div className="text-lg font-semibold text-[#1F2937]">
                   CourtSimplified
                 </div>
 
-                <p className="mt-1 max-w-xl text-sm text-[#6B7280]">
-                  Clear legal guidance, evidence organization, litigation
-                  strategy, chronology building, intelligent drafting, document
-                  workspace management, and court workflow tools.
+                <p className="mt-2 text-sm leading-6 text-[#6B7280]">
+                  Built for self-represented litigants. CourtSimplified helps
+                  people understand court procedures, organize evidence,
+                  prepare case materials, and manage their legal matter through
+                  one connected platform.
+                </p>
+
+                <p className="mt-3 text-xs leading-5 text-[#7B8491]">
+                  CourtSimplified provides legal information and case-management
+                  tools. It does not provide legal representation, guarantee an
+                  outcome, or replace advice from a qualified legal professional
+                  when one is needed.
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-4 text-sm text-[#4B5563]">
+              <div className="flex max-w-xl flex-wrap gap-x-4 gap-y-3 text-sm text-[#4B5563]">
                 {[...publicNavLinks, ...workspaceLinks].map((link) => (
                   <Link
                     key={`footer-${link.href}`}
                     href={link.href}
-                    className="hover:text-[#2FB8AC]"
+                    className="transition hover:text-[#2FB8AC]"
                   >
                     {link.label}
                   </Link>
                 ))}
 
-                <Link href="/login" className="font-semibold hover:text-[#2FB8AC]">
+                <Link
+                  href="/login"
+                  className="font-semibold transition hover:text-[#2FB8AC]"
+                >
                   Login
                 </Link>
+              </div>
+            </div>
+
+            <div className="border-t border-[#E5ECEA]">
+              <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-6 py-5 text-xs text-[#7B8491] sm:flex-row sm:items-center sm:justify-between">
+                <p>
+                  © {new Date().getFullYear()} CourtSimplified. All rights
+                  reserved.
+                </p>
+
+                <p>
+                  Making court procedures more understandable, organized, and
+                  manageable.
+                </p>
               </div>
             </div>
           </footer>

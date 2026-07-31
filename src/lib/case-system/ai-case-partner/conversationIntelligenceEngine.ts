@@ -725,11 +725,16 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
     "parenting",
     "decision-making",
     "child support",
+    "spousal support",
     "access",
     "case conference",
     "family court",
-    "mother",
-    "father",
+    "parenting time",
+    "decision making responsibility",
+    "decision-making responsibility",
+    "co-parent",
+    "co-parenting",
+    "divorce",
   ]);
 
   if (familySignals > 0) {
@@ -954,7 +959,25 @@ function inferActors(message: string): CasePartnerInferredActor[] {
     addActor("Tenant", "tenant", "high", "The user mentioned a tenant.", false);
   }
 
-  if (includesAny(message, ["ex", "mother", "father", "spouse", "child support", "custody", "parenting"])) {
+  if (
+    includesAny(message, [
+      "former spouse",
+      "ex-spouse",
+      "ex husband",
+      "ex-husband",
+      "ex wife",
+      "ex-wife",
+      "co-parent",
+      "child support",
+      "spousal support",
+      "custody",
+      "parenting time",
+      "decision-making responsibility",
+      "decision making responsibility",
+      "family court",
+      "divorce",
+    ])
+  ) {
     addActor(
       "Family party",
       "family-party",

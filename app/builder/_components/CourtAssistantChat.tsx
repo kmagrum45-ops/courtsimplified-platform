@@ -11,6 +11,7 @@ type CourtAssistantChatProps = {
   caseData?: any;
   caseId?: string;
   path?: string;
+  chatSessionId?: string;
   masterResult?: any;
   evidenceData?: any;
   strategyData?: any;
@@ -34,6 +35,15 @@ type AiCasePartnerResponse = {
   error?: string;
 };
 
+type StoredChatState = {
+  messages?: unknown;
+  caseMemory?: any;
+  latestIntelligence?: any;
+  latestInvestigation?: any;
+  recommendedRoute?: string | null;
+  systemWarnings?: unknown;
+};
+
 const quickActions = [
   "What is the most important thing I should clarify next?",
   "What evidence am I missing?",
@@ -42,49 +52,90 @@ const quickActions = [
   "What should I fix before generating documents?",
 ];
 
-const STORAGE_KEY = "courtsimplified-ai-case-partner-chat";
+const STORAGE_PREFIX = "courtsimplified-ai-case-partner-chat";
 
-function safeJsonParse(value: string | null) {
+function safeJsonParse(value: string | null): StoredChatState | null {
   try {
-    return value ? JSON.parse(value) : null;
+    return value ? (JSON.parse(value) as StoredChatState) : null;
   } catch {
     return null;
   }
 }
 
+function clean(value: unknown): string {
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function normalize(value: unknown): string {
+  return clean(value).toLowerCase().replace(/\s+/g, " ").trim();
+}
+
+function uniqueStrings(values: unknown[]): string[] {
+  const seen = new Set<string>();
+  const result: string[] = [];
+
+  for (const value of values) {
+    const text = clean(value);
+    const key = normalize(text);
+
+    if (!text || !key || seen.has(key)) {
+      continue;
+    }
+
+    seen.add(key);
+    result.push(text);
+  }
+
+  return result;
+}
+
 function normalizeMessages(input: unknown): ChatMessage[] {
-  if (!Array.isArray(input)) return [];
+  if (!Array.isArray(input)) {
+    return [];
+  }
 
   return input
     .filter(
       (item) =>
         item &&
         typeof item === "object" &&
-        (item as any).role &&
-        (item as any).content,
+        ((item as any).role === "assistant" ||
+          (item as any).role === "user") &&
+        typeof (item as any).content === "string",
     )
-    .map((item) => ({
-      role: (item as any).role === "assistant" ? "assistant" : "user",
-      content: String((item as any).content || ""),
-    }));
+    .map(
+      (item): ChatMessage => ({
+        role:
+          (item as any).role === "assistant"
+            ? "assistant"
+            : "user",
+        content: clean((item as any).content),
+      }),
+    )
+    .filter((item) => item.content.length > 0);
 }
 
 function buildWarnings(data: AiCasePartnerResponse): string[] {
-  return [
+  return uniqueStrings([
     ...(data.caseInvestigation?.validation?.warnings || []),
-    ...(data.conversationIntelligence?.validation?.needsLegalVerification || []),
+    ...(data.conversationIntelligence?.validation?.needsLegalVerification ||
+      []),
     ...(data.conversationMemory?.memory?.warnings || []),
-  ]
-    .filter(Boolean)
-    .slice(0, 8);
+  ]).slice(0, 8);
 }
 
-function buildRecommendedRoute(data: AiCasePartnerResponse): string | null {
+function buildRecommendedRoute(
+  data: AiCasePartnerResponse,
+): string | null {
   const investigation = data.caseInvestigation;
 
-  if (!investigation) return null;
+  if (!investigation) {
+    return null;
+  }
 
-  if (investigation.evidenceNeeded?.length > 0) return "/evidence";
+  if (investigation.evidenceNeeded?.length > 0) {
+    return "/evidence";
+  }
 
   if (
     investigation.validation?.safeToUseForWorkflow ||
@@ -93,15 +144,38 @@ function buildRecommendedRoute(data: AiCasePartnerResponse): string | null {
     return "/case-dashboard";
   }
 
-  if (investigation.issues?.length > 0) return "/litigation-strategy";
+  if (investigation.issues?.length > 0) {
+    return "/litigation-strategy";
+  }
 
   return null;
+}
+
+function buildStorageKey(args: {
+  caseId?: string;
+  path?: string;
+  chatSessionId?: string;
+}): string {
+  const caseId = clean(args.caseId);
+  const sessionId = clean(args.chatSessionId);
+  const path = clean(args.path) || "unknown";
+
+  if (caseId) {
+    return `${STORAGE_PREFIX}:case:${caseId}`;
+  }
+
+  if (sessionId) {
+    return `${STORAGE_PREFIX}:session:${sessionId}`;
+  }
+
+  return `${STORAGE_PREFIX}:draft:${path}`;
 }
 
 export default function CourtAssistantChat({
   caseData,
   caseId,
   path,
+  chatSessionId,
   masterResult,
   evidenceData,
   strategyData,
@@ -120,35 +194,71 @@ export default function CourtAssistantChat({
     [],
   );
 
+  const storageKey = useMemo(
+    () =>
+      buildStorageKey({
+        caseId,
+        path,
+        chatSessionId,
+      }),
+    [caseId, path, chatSessionId],
+  );
+
   const [messages, setMessages] = useState<ChatMessage[]>([
     initialAssistantMessage,
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [hydratedStorageKey, setHydratedStorageKey] = useState("");
   const [caseMemory, setCaseMemory] = useState<any>(null);
-  const [latestIntelligence, setLatestIntelligence] = useState<any>(null);
-  const [latestInvestigation, setLatestInvestigation] = useState<any>(null);
-  const [recommendedRoute, setRecommendedRoute] = useState<string | null>(null);
+  const [latestIntelligence, setLatestIntelligence] =
+    useState<any>(null);
+  const [latestInvestigation, setLatestInvestigation] =
+    useState<any>(null);
+  const [recommendedRoute, setRecommendedRoute] =
+    useState<string | null>(null);
   const [systemWarnings, setSystemWarnings] = useState<string[]>([]);
 
   useEffect(() => {
-    const saved = safeJsonParse(localStorage.getItem(STORAGE_KEY));
+    const saved = safeJsonParse(localStorage.getItem(storageKey));
+    const normalizedMessages = normalizeMessages(saved?.messages);
 
-    if (!saved) return;
+    setMessages(
+      normalizedMessages.length > 0
+        ? normalizedMessages
+        : [initialAssistantMessage],
+    );
 
-    const normalized = normalizeMessages(saved.messages);
+    setCaseMemory(saved?.caseMemory || null);
+    setLatestIntelligence(saved?.latestIntelligence || null);
+    setLatestInvestigation(saved?.latestInvestigation || null);
 
-    if (normalized.length > 0) setMessages(normalized);
-    if (saved.caseMemory) setCaseMemory(saved.caseMemory);
-    if (saved.latestIntelligence) setLatestIntelligence(saved.latestIntelligence);
-    if (saved.latestInvestigation) setLatestInvestigation(saved.latestInvestigation);
-    if (Array.isArray(saved.systemWarnings)) setSystemWarnings(saved.systemWarnings);
-    if (saved.recommendedRoute) setRecommendedRoute(saved.recommendedRoute);
-  }, []);
+    setSystemWarnings(
+      uniqueStrings(
+        Array.isArray(saved?.systemWarnings)
+          ? saved.systemWarnings
+          : [],
+      ),
+    );
+
+    setRecommendedRoute(
+      typeof saved?.recommendedRoute === "string"
+        ? saved.recommendedRoute
+        : null,
+    );
+
+    setInput("");
+    setLoading(false);
+    setHydratedStorageKey(storageKey);
+  }, [initialAssistantMessage, storageKey]);
 
   useEffect(() => {
+    if (hydratedStorageKey !== storageKey) {
+      return;
+    }
+
     localStorage.setItem(
-      STORAGE_KEY,
+      storageKey,
       JSON.stringify({
         messages,
         caseMemory,
@@ -159,6 +269,8 @@ export default function CourtAssistantChat({
       }),
     );
   }, [
+    storageKey,
+    hydratedStorageKey,
     messages,
     caseMemory,
     latestIntelligence,
@@ -168,9 +280,11 @@ export default function CourtAssistantChat({
   ]);
 
   async function sendMessage(customMessage?: string) {
-    const trimmed = (customMessage ?? input).trim();
+    const trimmed = clean(customMessage ?? input);
 
-    if (!trimmed || loading) return;
+    if (!trimmed || loading) {
+      return;
+    }
 
     const userMessage: ChatMessage = {
       role: "user",
@@ -209,11 +323,15 @@ export default function CourtAssistantChat({
       const data: AiCasePartnerResponse = await response.json();
 
       if (!response.ok || !data.ok) {
-        throw new Error(data?.error || "CourtSimplified AI Case Partner error.");
+        throw new Error(
+          data?.error ||
+            "CourtSimplified AI Case Partner error.",
+        );
       }
 
       if (data.caseMemory) {
         setCaseMemory(data.caseMemory);
+
         onMasterResultUpdate?.({
           aiCasePartnerMemory: data.caseMemory,
         });
@@ -240,18 +358,23 @@ export default function CourtAssistantChat({
 
       setSystemWarnings(buildWarnings(data));
 
+      const answer =
+        clean(data.answer) ||
+        clean(data.userFacingAnswer) ||
+        "CourtSimplified could not generate a response right now.";
+
       setMessages((current) => [
         ...current,
         {
           role: "assistant",
-          content:
-            data.answer ||
-            data.userFacingAnswer ||
-            "CourtSimplified could not generate a response right now.",
+          content: answer,
         },
       ]);
     } catch (error) {
-      console.error("CourtSimplified AI Case Partner error:", error);
+      console.error(
+        "CourtSimplified AI Case Partner error:",
+        error,
+      );
 
       setMessages((current) => [
         ...current,
@@ -266,28 +389,56 @@ export default function CourtAssistantChat({
     }
   }
 
-  function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
+  function handleKeyDown(
+    event: React.KeyboardEvent<HTMLTextAreaElement>,
+  ) {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       sendMessage();
     }
   }
 
+  function clearCurrentChat() {
+    localStorage.removeItem(storageKey);
+
+    setMessages([initialAssistantMessage]);
+    setInput("");
+    setCaseMemory(null);
+    setLatestIntelligence(null);
+    setLatestInvestigation(null);
+    setRecommendedRoute(null);
+    setSystemWarnings([]);
+  }
+
   return (
     <section className="rounded-3xl border border-[#d8e6df] bg-white shadow-sm">
       <div className="border-b border-[#d8e6df] p-5">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#2f7d67]">
-          AI Case Partner
-        </p>
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#2f7d67]">
+              AI Case Partner
+            </p>
 
-        <h2 className="text-xl font-bold text-[#10231f]">
-          CourtSimplified Case Companion
-        </h2>
+            <h2 className="text-xl font-bold text-[#10231f]">
+              CourtSimplified Case Companion
+            </h2>
+          </div>
+
+          <button
+            type="button"
+            onClick={clearCurrentChat}
+            disabled={loading}
+            className="rounded-xl border border-[#c9d9d2] bg-white px-4 py-2 text-xs font-semibold text-[#4d675f] hover:bg-[#f4fbf8] disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Clear this conversation
+          </button>
+        </div>
 
         <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-          CourtSimplified now uses the AI Case Partner pipeline to understand
-          your story, remember the case, investigate legal issues, identify
-          missing proof, and ask the next useful question.
+          CourtSimplified uses the AI Case Partner pipeline to
+          organize your story, remember this case, identify missing
+          information, review proof gaps, and ask focused follow-up
+          questions.
         </p>
 
         {recommendedRoute && (
@@ -298,21 +449,25 @@ export default function CourtAssistantChat({
 
             <p className="mt-1 text-sm text-[#16302b]">
               Recommended next page:
-              <span className="ml-2 font-semibold">{recommendedRoute}</span>
+              <span className="ml-2 font-semibold">
+                {recommendedRoute}
+              </span>
             </p>
           </div>
         )}
 
         {latestInvestigation?.issues?.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">
-            {latestInvestigation.issues.slice(0, 5).map((issue: any) => (
-              <div
-                key={issue.id || issue.label}
-                className="rounded-full bg-[#e7f5ef] px-3 py-1 text-xs font-semibold text-[#2f7d67]"
-              >
-                {issue.label}
-              </div>
-            ))}
+            {latestInvestigation.issues
+              .slice(0, 5)
+              .map((issue: any) => (
+                <div
+                  key={issue.id || issue.label}
+                  className="rounded-full bg-[#e7f5ef] px-3 py-1 text-xs font-semibold text-[#2f7d67]"
+                >
+                  {issue.label}
+                </div>
+              ))}
           </div>
         )}
       </div>
@@ -324,9 +479,9 @@ export default function CourtAssistantChat({
           </p>
 
           <div className="space-y-2">
-            {systemWarnings.slice(0, 4).map((warning, index) => (
+            {systemWarnings.slice(0, 4).map((warning) => (
               <div
-                key={`${warning}-${index}`}
+                key={normalize(warning)}
                 className="rounded-xl border border-[#f0d7d7] bg-white px-3 py-2 text-sm text-[#7a2d2d]"
               >
                 {warning}
@@ -359,7 +514,10 @@ export default function CourtAssistantChat({
       <div className="max-h-[500px] space-y-4 overflow-y-auto p-4">
         {messages.map((message, index) => (
           <div
-            key={`${message.role}-${index}`}
+            key={`${message.role}-${index}-${message.content.slice(
+              0,
+              30,
+            )}`}
             className={
               message.role === "user"
                 ? "ml-auto max-w-[88%] rounded-2xl bg-[#2f7d67] px-4 py-3 text-sm text-white"
@@ -374,9 +532,8 @@ export default function CourtAssistantChat({
 
         {loading && (
           <div className="mr-auto max-w-[88%] rounded-2xl bg-[#f1f5f3] px-4 py-3 text-sm text-[#4d675f]">
-            CourtSimplified is using the AI Case Partner to update memory,
-            investigate issues, check missing proof, and choose the next useful
-            question...
+            CourtSimplified is reviewing this case and choosing the
+            next focused response...
           </div>
         )}
       </div>
@@ -388,13 +545,13 @@ export default function CourtAssistantChat({
           onKeyDown={handleKeyDown}
           rows={4}
           className="w-full resize-none rounded-2xl border border-[#c9d9d2] p-3 text-sm text-[#16302b] outline-none focus:border-[#2f7d67] focus:ring-2 focus:ring-[#d8eee7]"
-          placeholder="Tell CourtSimplified what happened. You can use normal words. The system will help identify facts, parties, evidence, legal issues, missing proof, and the next question."
+          placeholder="Tell CourtSimplified what happened in normal words."
         />
 
         <div className="mt-3 flex items-center justify-between gap-3">
           <p className="text-xs text-[#6b8078]">
-            CourtSimplified helps organize litigation information. Verify final
-            court requirements before filing.
+            CourtSimplified helps organize litigation information.
+            Verify final court requirements before filing.
           </p>
 
           <button
@@ -403,7 +560,7 @@ export default function CourtAssistantChat({
             disabled={loading || !input.trim()}
             className="rounded-2xl bg-[#2f7d67] px-5 py-2 text-sm font-semibold text-white hover:bg-[#276b58] disabled:cursor-not-allowed disabled:bg-slate-300"
           >
-            {loading ? "Investigating..." : "Ask Case Partner"}
+            {loading ? "Reviewing..." : "Ask Case Partner"}
           </button>
         </div>
       </div>

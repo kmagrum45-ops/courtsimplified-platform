@@ -124,6 +124,61 @@ function labelForIssue(value: FamilyIssue): string {
   return issueOptions.find((option) => option.value === value)?.label || value;
 }
 
+
+function isQuotaExceededError(error: unknown): boolean {
+  if (!(error instanceof DOMException)) return false;
+
+  return (
+    error.name === "QuotaExceededError" ||
+    error.name === "NS_ERROR_DOM_QUOTA_REACHED" ||
+    error.code === 22 ||
+    error.code === 1014
+  );
+}
+
+function safelyStoreJson(key: string, value: unknown): boolean {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  } catch (error) {
+    if (isQuotaExceededError(error)) {
+      console.warn(
+        `CourtSimplified browser storage is full. The key "${key}" was not saved.`,
+      );
+      return false;
+    }
+
+    throw error;
+  }
+}
+
+function buildCompactFamilyPayload(
+  payload: StoredCaseData,
+): Record<string, unknown> {
+  const source = payload as StoredCaseData & Record<string, unknown>;
+  const extra =
+    source.extra && typeof source.extra === "object"
+      ? { ...(source.extra as Record<string, unknown>) }
+      : {};
+
+  delete extra.uploadedEvidenceFiles;
+
+  return {
+    courtPath: source.courtPath,
+    pathLabel: source.pathLabel,
+    caseStage: source.caseStage,
+    yourName: source.yourName,
+    otherParty: source.otherParty,
+    facts: source.facts,
+    timeline: source.timeline,
+    evidence: source.evidence,
+    missingEvidence: source.missingEvidence,
+    goal: source.goal,
+    urgent: source.urgent,
+    extra,
+  };
+}
+
 export default function FamilyIntake({ onComplete }: Props) {
   const [caseStage, setCaseStage] = useState<UniversalStage>("not-sure");
   const [filedDocuments, setFiledDocuments] = useState<FiledDocument[]>([]);
@@ -146,6 +201,7 @@ export default function FamilyIntake({ onComplete }: Props) {
 
   const [uploadedEvidenceFiles, setUploadedEvidenceFiles] =
     useState<EvidenceFile[]>([]);
+  const [storageWarning, setStorageWarning] = useState("");
 
   const textareaFields: TextareaField[] = useMemo(
     () => [
@@ -366,6 +422,8 @@ export default function FamilyIntake({ onComplete }: Props) {
   }
 
   function handleAnalyze() {
+    setStorageWarning("");
+
     const narrative = buildNarrative();
     const analysis = buildNeutralHandoffAnalysis(narrative);
 
@@ -400,8 +458,26 @@ export default function FamilyIntake({ onComplete }: Props) {
       },
     };
 
-    localStorage.setItem("caseData", JSON.stringify(payload));
-    localStorage.setItem("courtSimplifiedCase", JSON.stringify(payload));
+    /*
+     * Keep the complete Family payload in application state through
+     * onComplete(). Save only a compact temporary snapshot in localStorage.
+     * Large evidence metadata and analysis objects must not be duplicated
+     * into browser localStorage.
+     */
+    const compactPayload = buildCompactFamilyPayload(payload);
+
+    const savedCaseData = safelyStoreJson("caseData", compactPayload);
+    const savedCourtSimplifiedCase = safelyStoreJson(
+      "courtSimplifiedCase",
+      compactPayload,
+    );
+
+    if (!savedCaseData || !savedCourtSimplifiedCase) {
+      setStorageWarning(
+        "The Family intake was completed, but this browser could not save every temporary workspace item because its site storage is full. Your result remains available on this page.",
+      );
+    }
+
     onComplete(analysis, payload);
   }
 
@@ -414,6 +490,13 @@ export default function FamilyIntake({ onComplete }: Props) {
         support, property, disclosure, safety, urgency, evidence, and procedural
         posture for the unified CourtSimplified legal brain.
       </p>
+
+
+      {storageWarning && (
+        <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+          {storageWarning}
+        </div>
+      )}
 
       <div className="mt-6 grid gap-5">
         <label className="block">

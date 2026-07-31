@@ -44,8 +44,8 @@ const casePaths = [
 
 const platformFeatures = [
   {
-    title: "AI Legal Intake",
-    text: "Tell your story once. CourtSimplified analyzes legal issues, risks, missing information, evidence concerns, and next procedural steps.",
+    title: "Intelligent Case Intake",
+    text: "Tell your story in your own words. CourtSimplified helps organize facts, identify missing information, connect evidence, and structure the next questions for your case.",
   },
   {
     title: "Evidence Organization",
@@ -56,8 +56,8 @@ const platformFeatures = [
     text: "Search official forms, generate filled PDFs, organize supporting documents, and prepare filing packages.",
   },
   {
-    title: "Drafting & Strategy",
-    text: "Develop affidavits, claims, conference briefs, litigation strategy, and structured legal arguments inside one workspace.",
+    title: "Drafting & Case Preparation",
+    text: "Prepare organized drafts, affidavits, claims, conference materials, timelines, and other case documents inside one connected workspace.",
   },
 ];
 
@@ -68,15 +68,15 @@ const workflowSteps = [
   },
   {
     title: "Complete intelligent intake",
-    text: "The platform analyzes facts, evidence, legal issues, damages, procedural concerns, and possible next steps.",
+    text: "The platform helps organize facts, evidence, possible legal issues to review, procedural concerns, and the information still needed for the case.",
   },
   {
     title: "Build your case workspace",
     text: "Keep forms, evidence, drafting, timelines, and strategy connected to one organized case file.",
   },
   {
-    title: "Prepare court-ready materials",
-    text: "Generate organized documents, evidence packages, drafting material, and litigation preparation workflows.",
+    title: "Prepare organized case materials",
+    text: "Build structured documents, evidence packages, drafting material, and preparation workflows for review before filing or use in court.",
   },
 ];
 
@@ -127,17 +127,18 @@ export default function HomePage() {
         <div className="mx-auto flex min-h-[620px] max-w-7xl items-center px-6 py-20">
           <div className="max-w-3xl">
             <p className="mb-4 text-sm font-bold uppercase tracking-[0.28em] text-[#39d4c7]">
-              CourtSimplified Platform
+              Built for self-represented litigants
             </p>
 
             <h1 className="text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-              Organize your legal case with structure, clarity, and strategy.
+              Making court more understandable for people representing themselves.
             </h1>
 
             <p className="mt-7 max-w-2xl text-lg leading-8 text-[#d4e8e4] md:text-xl">
-              CourtSimplified combines intelligent intake, evidence organization,
-              drafting assistance, litigation strategy, timelines, forms, and
-              court workflow tools into one connected platform.
+              CourtSimplified brings case organization, evidence management,
+              document preparation, timelines, forms, and court workflow tools
+              together in one connected platform designed around the needs of
+              self-represented litigants.
             </p>
 
             <div className="mt-9 flex flex-wrap gap-4">
@@ -157,10 +158,57 @@ export default function HomePage() {
             </div>
 
             <div className="mt-9 flex flex-wrap gap-x-8 gap-y-3 text-sm font-medium text-[#b8d7d2]">
-              <span>Intelligent legal intake</span>
-              <span>Evidence organization</span>
-              <span>Court-ready workflows</span>
+              <span>Built for self-represented litigants</span>
+              <span>Affordable case-based access</span>
+              <span>Connected case organization</span>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ACCESS TO JUSTICE MISSION */}
+      <section className="border-b border-[#d9e6df] bg-white">
+        <div className="mx-auto grid max-w-7xl gap-8 px-6 py-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#2f7d67]">
+              Why CourtSimplified exists
+            </p>
+
+            <h2 className="mt-3 max-w-4xl text-3xl font-bold tracking-tight text-[#10231f] md:text-4xl">
+              Access to justice should not depend on how much money you have.
+            </h2>
+
+            <p className="mt-5 max-w-4xl text-base leading-8 text-[#557168] md:text-lg">
+              Many people must represent themselves because full legal
+              representation can cost thousands of dollars. CourtSimplified is
+              being built to give self-represented litigants a more affordable
+              way to understand court procedures, organize evidence, prepare
+              documents, and manage their case from beginning to end.
+            </p>
+
+            <p className="mt-4 max-w-4xl text-base leading-8 text-[#557168]">
+              Our goal is to provide practical, structured tools at a cost
+              ordinary people can manage, while clearly recognizing when court
+              requirements should be verified or professional legal assistance
+              may be needed.
+            </p>
+          </div>
+
+          <div className="rounded-3xl border border-[#cfe2db] bg-[#f3faf7] p-7 shadow-sm">
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#2f7d67]">
+              A different pricing approach
+            </p>
+
+            <h3 className="mt-3 text-2xl font-bold text-[#10231f]">
+              Pay for your case, not an endless subscription.
+            </h3>
+
+            <p className="mt-4 leading-8 text-[#557168]">
+              Court matters can continue for months or years. CourtSimplified is
+              being designed around affordable case-based access so people are
+              not required to keep paying a monthly fee simply because their
+              matter is still before the court.
+            </p>
           </div>
         </div>
       </section>
@@ -225,12 +273,13 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-6 py-14">
           <div className="mb-10">
             <h2 className="text-3xl font-bold tracking-tight text-[#10231f]">
-              Built for serious case preparation
+              Built around the needs of people representing themselves
             </h2>
 
             <p className="mt-3 max-w-3xl text-base leading-7 text-[#557168]">
-              CourtSimplified is designed to help users build organized,
-              evidence-focused, court-ready case files.
+              Most legal technology has traditionally been designed for legal
+              professionals and law firms. CourtSimplified is being built
+              specifically for people managing their own court matters.
             </p>
           </div>
 
@@ -277,6 +326,27 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+      {/* CLOSING MISSION */}
+      <section className="border-t border-[#193e3a] bg-[#0b2c2d] text-white">
+        <div className="mx-auto max-w-7xl px-6 py-16">
+          <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#55d7cb]">
+            Our mission
+          </p>
+
+          <h2 className="mt-3 max-w-4xl text-3xl font-bold tracking-tight md:text-4xl">
+            Affordable, practical technology for people navigating court on
+            their own.
+          </h2>
+
+          <p className="mt-5 max-w-4xl text-base leading-8 text-[#c7dfdb] md:text-lg">
+            CourtSimplified is being built to help self-represented litigants
+            understand procedures, organize evidence, prepare case materials,
+            and keep their legal matter connected in one place. It does not
+            replace a lawyer or guarantee an outcome, but it can help make the
+            court process more understandable, organized, and manageable.
+          </p>
         </div>
       </section>
     </main>

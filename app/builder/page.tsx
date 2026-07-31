@@ -28,7 +28,10 @@ function buildWorkflowHref(
 ) {
   const params = new URLSearchParams();
 
-  if (caseId) params.set("caseId", caseId);
+  if (caseId) {
+    params.set("caseId", caseId);
+  }
+
   params.set("path", path);
 
   return `${route}?${params.toString()}`;
@@ -46,9 +49,34 @@ function getStageForPersistence(
   );
 }
 
-function getStoredActiveCaseId() {
-  if (typeof window === "undefined") return null;
-  return localStorage.getItem("courtSimplifiedActiveCaseId");
+function createChatSessionId(path: CourtPath): string {
+  if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
+    return `${path}-${crypto.randomUUID()}`;
+  }
+
+  return `${path}-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
+function clearTransientCaseContext() {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const transientKeys = [
+    "courtSimplifiedActiveCaseId",
+    "courtSimplifiedMasterCase",
+    "courtSimplifiedCaseContext",
+    "courtSimplifiedLoadedCaseContext",
+    "courtSimplifiedMasterResult",
+    "courtSimplifiedDashboardPatch",
+    "courtSimplifiedRecommendedNextRoute",
+    "caseData",
+    "courtSimplifiedCase",
+  ];
+
+  for (const key of transientKeys) {
+    localStorage.removeItem(key);
+  }
 }
 
 function BuilderPageContent() {
@@ -67,7 +95,12 @@ function BuilderPageContent() {
     return "family";
   }, [searchParams]);
 
-  const [courtPath] = useState<CourtPath>(initialPath);
+  const courtPath = initialPath;
+
+  const [chatSessionId, setChatSessionId] = useState(() =>
+    createChatSessionId(initialPath),
+  );
+
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [caseData, setCaseData] = useState<StoredCaseData | null>(null);
   const [masterCaseId, setMasterCaseId] = useState<string | null>(queryCaseId);
@@ -77,28 +110,69 @@ function BuilderPageContent() {
 
   const pathLabel = getPathLabel(courtPath);
 
-  const activeCaseId = masterCaseId || queryCaseId || getStoredActiveCaseId();
+  /*
+   * Important:
+   * A case is active here only when:
+   * 1. the URL supplied a real caseId; or
+   * 2. this builder session created a new case.
+   *
+   * We intentionally do not fall back to the last active case stored in
+   * localStorage. That fallback caused unrelated court paths to share cases.
+   */
+  const activeCaseId = masterCaseId || queryCaseId || null;
 
   const workspaceHref = activeCaseId
     ? `/dashboard/cases/${activeCaseId}`
     : "/dashboard";
 
-  const evidenceHref = buildWorkflowHref("/evidence", activeCaseId, courtPath);
-  const formsHref = buildWorkflowHref("/forms", activeCaseId, courtPath);
+  const evidenceHref = buildWorkflowHref(
+    "/evidence",
+    activeCaseId,
+    courtPath,
+  );
+
+  const formsHref = buildWorkflowHref(
+    "/forms",
+    activeCaseId,
+    courtPath,
+  );
+
   const documentWorkspaceHref = buildWorkflowHref(
     "/document-workspace",
     activeCaseId,
     courtPath,
   );
+
   const courtPackageHref = buildWorkflowHref(
     "/court-package",
     activeCaseId,
     courtPath,
   );
 
+  /*
+   * Opening the builder without a caseId means the user intentionally started
+   * a new matter. Remove only temporary shared context from the previous case.
+   * Existing Supabase cases and case-specific chat records remain untouched.
+   */
+  useEffect(() => {
+    if (queryCaseId) {
+      return;
+    }
+
+    clearTransientCaseContext();
+    setAnalysis(null);
+    setCaseData(null);
+    setMasterCaseId(null);
+    setSaveError("");
+    setLastSavedAt("");
+    setChatSessionId(createChatSessionId(initialPath));
+  }, [initialPath, queryCaseId]);
+
   useEffect(() => {
     async function saveMasterCase() {
-      if (!analysis || !caseData) return;
+      if (!analysis || !caseData) {
+        return;
+      }
 
       setSavingMaster(true);
       setSaveError("");
@@ -205,7 +279,10 @@ function BuilderPageContent() {
       const activeId = finalCaseId || record.id;
 
       localStorage.setItem("courtSimplifiedActiveCaseId", activeId);
-      localStorage.setItem("courtSimplifiedMasterCase", JSON.stringify(record));
+      localStorage.setItem(
+        "courtSimplifiedMasterCase",
+        JSON.stringify(record),
+      );
       localStorage.setItem(
         "courtSimplifiedCaseContext",
         JSON.stringify(contextPayload),
@@ -219,7 +296,10 @@ function BuilderPageContent() {
         JSON.stringify(masterPayload),
       );
       localStorage.setItem("caseData", JSON.stringify(caseData));
-      localStorage.setItem("courtSimplifiedCase", JSON.stringify(caseData));
+      localStorage.setItem(
+        "courtSimplifiedCase",
+        JSON.stringify(caseData),
+      );
 
       setMasterCaseId(activeId);
 
@@ -248,59 +328,101 @@ function BuilderPageContent() {
     }
 
     saveMasterCase();
-  }, [analysis, caseData, courtPath, masterCaseId, queryCaseId]);
+  }, [
+    analysis,
+    caseData,
+    courtPath,
+    masterCaseId,
+    queryCaseId,
+  ]);
 
-  function handleComplete(result: AnalysisResult, payload: StoredCaseData) {
+  function handleComplete(
+    result: AnalysisResult,
+    payload: StoredCaseData,
+  ) {
     setAnalysis(result);
     setCaseData(payload);
   }
 
   function saveCurrentCaseData() {
-    if (!caseData) return;
+    if (!caseData) {
+      return;
+    }
 
     localStorage.setItem("caseData", JSON.stringify(caseData));
-    localStorage.setItem("courtSimplifiedCase", JSON.stringify(caseData));
+    localStorage.setItem(
+      "courtSimplifiedCase",
+      JSON.stringify(caseData),
+    );
   }
 
   function getActiveCaseId() {
-    return masterCaseId || queryCaseId || getStoredActiveCaseId();
+    return masterCaseId || queryCaseId || null;
   }
 
   function pushWorkflow(route: string) {
-    if (!caseData) return;
+    if (!caseData) {
+      return;
+    }
 
     saveCurrentCaseData();
-    router.push(buildWorkflowHref(route, getActiveCaseId(), courtPath));
+
+    router.push(
+      buildWorkflowHref(
+        route,
+        getActiveCaseId(),
+        courtPath,
+      ),
+    );
   }
 
   function goToDashboardCase() {
     const targetCaseId = getActiveCaseId();
-    if (!targetCaseId) return;
+
+    if (!targetCaseId) {
+      return;
+    }
+
     router.push(`/dashboard/cases/${targetCaseId}`);
   }
 
   function goToSettlementConference() {
-    if (!caseData) return;
+    if (!caseData) {
+      return;
+    }
 
     saveCurrentCaseData();
 
     router.push(
-      buildWorkflowHref("/settlement-conference", getActiveCaseId(), courtPath),
+      buildWorkflowHref(
+        "/settlement-conference",
+        getActiveCaseId(),
+        courtPath,
+      ),
     );
   }
 
   function goToDraftingAssistant() {
-    if (!caseData) return;
+    if (!caseData) {
+      return;
+    }
 
     saveCurrentCaseData();
 
     router.push(
-      buildWorkflowHref("/ai-drafting-assistant", getActiveCaseId(), courtPath),
+      buildWorkflowHref(
+        "/ai-drafting-assistant",
+        getActiveCaseId(),
+        courtPath,
+      ),
     );
   }
 
   function handleChatMasterResultUpdate(patch: any) {
-    localStorage.setItem("courtSimplifiedMasterResult", JSON.stringify(patch));
+    localStorage.setItem(
+      "courtSimplifiedMasterResult",
+      JSON.stringify(patch),
+    );
 
     setCaseData((current) =>
       current
@@ -313,7 +435,10 @@ function BuilderPageContent() {
   }
 
   function handleChatDashboardUpdate(patch: any) {
-    localStorage.setItem("courtSimplifiedDashboardPatch", JSON.stringify(patch));
+    localStorage.setItem(
+      "courtSimplifiedDashboardPatch",
+      JSON.stringify(patch),
+    );
 
     setCaseData((current) =>
       current
@@ -326,7 +451,10 @@ function BuilderPageContent() {
   }
 
   function handleRecommendedRoute(route: string) {
-    localStorage.setItem("courtSimplifiedRecommendedNextRoute", route);
+    localStorage.setItem(
+      "courtSimplifiedRecommendedNextRoute",
+      route,
+    );
 
     setCaseData((current) =>
       current
@@ -338,12 +466,32 @@ function BuilderPageContent() {
     );
   }
 
-  function startOver() {
+  /*
+   * Edit Intake keeps the current case and chat because the user is editing
+   * the same matter, not creating a new one.
+   */
+  function editCurrentIntake() {
     setAnalysis(null);
     setCaseData(null);
     setSaveError("");
     setLastSavedAt("");
-    setMasterCaseId(queryCaseId);
+  }
+
+  /*
+   * Start New Case removes only temporary active-case context and creates a
+   * completely new chat session. It does not delete any saved case.
+   */
+  function startNewCase() {
+    clearTransientCaseContext();
+
+    setAnalysis(null);
+    setCaseData(null);
+    setMasterCaseId(null);
+    setSaveError("");
+    setLastSavedAt("");
+    setChatSessionId(createChatSessionId(courtPath));
+
+    router.replace(`/builder?path=${courtPath}`);
   }
 
   return (
@@ -361,22 +509,33 @@ function BuilderPageContent() {
               </h1>
 
               <p className="mt-4 max-w-3xl text-lg leading-8 text-[#4d675f]">
-                Talk naturally first. CourtSimplified will remember the case,
-                identify missing information, investigate proof issues, and help
-                route your matter into the connected intake, evidence, forms,
-                and court package workflow.
+                Talk naturally first. CourtSimplified will remember this
+                case, identify missing information, investigate proof
+                issues, and help route the matter into the connected
+                intake, evidence, forms, and court-package workflow.
               </p>
             </div>
 
             <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm">
-              <p className="font-semibold text-[#10231f]">Workflow status</p>
+              <p className="font-semibold text-[#10231f]">
+                Workflow status
+              </p>
+
               <p className="mt-2 text-[#4d675f]">
                 Case ID: {activeCaseId || "not created yet"}
               </p>
-              <p className="mt-1 text-[#4d675f]">Path: {pathLabel}</p>
+
+              <p className="mt-1 text-[#4d675f]">
+                Path: {pathLabel}
+              </p>
+
               <p className="mt-1 text-[#4d675f]">
                 Save:{" "}
-                {savingMaster ? "Saving..." : lastSavedAt ? "Saved" : "Waiting"}
+                {savingMaster
+                  ? "Saving..."
+                  : lastSavedAt
+                    ? "Saved"
+                    : "Waiting"}
               </p>
             </div>
           </div>
@@ -416,12 +575,30 @@ function BuilderPageContent() {
             >
               Court Package
             </Link>
+
+            {!queryCaseId && (
+              <button
+                type="button"
+                onClick={startNewCase}
+                className="rounded-full border border-[#b8d8cc] bg-[#f4fbf8] px-5 py-2 text-sm font-semibold text-[#2f7d67]"
+              >
+                Start Fresh Case
+              </button>
+            )}
           </div>
         </section>
 
         <section className="mb-8">
           <CourtAssistantChat
-            caseId={getActiveCaseId() || undefined}
+            /*
+             * Existing dashboard cases use their real case ID.
+             * New builder matters use the isolated chatSessionId and do not
+             * inherit the last active case stored by another court path.
+             */
+            caseId={queryCaseId || undefined}
+            chatSessionId={
+              queryCaseId ? undefined : chatSessionId
+            }
             path={courtPath}
             proceduralStage={
               analysis?.intelligence?.proceduralPosture?.stage ||
@@ -432,13 +609,16 @@ function BuilderPageContent() {
               pathLabel,
               analysis,
               intake: caseData,
+              createdMasterCaseId: masterCaseId,
             }}
             masterResult={caseData?.masterResultPatch}
             evidenceData={analysis?.intelligenceEvidenceIssues}
             strategyData={{
               risks: analysis?.intelligence?.litigationRisks,
-              judgeConcerns: analysis?.intelligence?.judgeConcerns,
-              opposingArguments: analysis?.intelligence?.opposingArguments,
+              judgeConcerns:
+                analysis?.intelligence?.judgeConcerns,
+              opposingArguments:
+                analysis?.intelligence?.opposingArguments,
               nextBestActions: analysis?.nextBestActions,
             }}
             onMasterResultUpdate={handleChatMasterResultUpdate}
@@ -459,9 +639,9 @@ function BuilderPageContent() {
               </h2>
 
               <p className="mt-3 text-sm leading-6 text-[#4d675f]">
-                The conversation helps you organize the case first. Use the
-                structured intake below when you are ready to convert the story
-                into the formal case workflow.
+                The conversation helps organize the case first. Use
+                the structured intake below when you are ready to
+                convert the story into the formal case workflow.
               </p>
             </div>
 
@@ -473,7 +653,9 @@ function BuilderPageContent() {
               <SmallClaimsIntake onComplete={handleComplete} />
             )}
 
-            {courtPath === "civil" && <CivilIntake onComplete={handleComplete} />}
+            {courtPath === "civil" && (
+              <CivilIntake onComplete={handleComplete} />
+            )}
           </section>
         )}
 
@@ -491,9 +673,10 @@ function BuilderPageContent() {
                   </h2>
 
                   <p className="mt-3 max-w-3xl text-[#4d675f]">
-                    The intake has been converted into structured litigation
-                    intelligence: claim direction, procedure, proof gaps, risks,
-                    judge concerns, recommended forms, and next workflow steps.
+                    The intake has been converted into structured
+                    litigation intelligence: claim direction,
+                    procedure, proof gaps, risks, judge concerns,
+                    recommended forms, and next workflow steps.
                   </p>
                 </div>
 
@@ -515,7 +698,8 @@ function BuilderPageContent() {
                     <p className="mt-1 break-all text-sm font-medium text-[#16302b]">
                       {savingMaster
                         ? "Saving..."
-                        : masterCaseId || "Preparing case record..."}
+                        : masterCaseId ||
+                          "Preparing case record..."}
                     </p>
                   </div>
                 </div>
@@ -543,16 +727,19 @@ function BuilderPageContent() {
                 </h3>
 
                 <p className="mt-3 text-sm leading-6 text-[#4d675f]">
-                  The intake result now feeds the master case system. Continue
-                  into evidence, forms, drafting, strategy, package assembly,
-                  trial preparation, or export without losing the case ID.
+                  The intake result now feeds the master case system.
+                  Continue into evidence, forms, drafting, strategy,
+                  package assembly, trial preparation, or export
+                  without losing the case ID.
                 </p>
 
                 <div className="mt-5 flex flex-wrap gap-3">
                   <button
                     type="button"
                     onClick={goToDashboardCase}
-                    disabled={savingMaster || !getActiveCaseId()}
+                    disabled={
+                      savingMaster || !getActiveCaseId()
+                    }
                     className="rounded-2xl bg-[#16302b] px-6 py-3 font-semibold text-white disabled:opacity-50"
                   >
                     Open Master Case →
@@ -576,7 +763,9 @@ function BuilderPageContent() {
 
                   <button
                     type="button"
-                    onClick={() => pushWorkflow("/document-workspace")}
+                    onClick={() =>
+                      pushWorkflow("/document-workspace")
+                    }
                     className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white"
                   >
                     Document Workspace →
@@ -584,7 +773,9 @@ function BuilderPageContent() {
 
                   <button
                     type="button"
-                    onClick={() => pushWorkflow("/litigation-strategy")}
+                    onClick={() =>
+                      pushWorkflow("/litigation-strategy")
+                    }
                     className="rounded-2xl border border-[#2f7d67] bg-[#f8fcfa] px-6 py-3 font-semibold text-[#2f7d67]"
                   >
                     Strategy →
@@ -592,7 +783,9 @@ function BuilderPageContent() {
 
                   <button
                     type="button"
-                    onClick={() => pushWorkflow("/court-package")}
+                    onClick={() =>
+                      pushWorkflow("/court-package")
+                    }
                     className="rounded-2xl border border-[#2f7d67] bg-[#f8fcfa] px-6 py-3 font-semibold text-[#2f7d67]"
                   >
                     Court Package →
@@ -600,7 +793,9 @@ function BuilderPageContent() {
 
                   <button
                     type="button"
-                    onClick={() => pushWorkflow("/trial-package")}
+                    onClick={() =>
+                      pushWorkflow("/trial-package")
+                    }
                     className="rounded-2xl border border-[#2f7d67] bg-[#f8fcfa] px-6 py-3 font-semibold text-[#2f7d67]"
                   >
                     Trial Preparation →
@@ -608,7 +803,9 @@ function BuilderPageContent() {
 
                   <button
                     type="button"
-                    onClick={() => pushWorkflow("/document-export")}
+                    onClick={() =>
+                      pushWorkflow("/document-export")
+                    }
                     className="rounded-2xl border border-[#2f7d67] bg-[#f8fcfa] px-6 py-3 font-semibold text-[#2f7d67]"
                   >
                     Export →
@@ -632,10 +829,18 @@ function BuilderPageContent() {
 
                   <button
                     type="button"
-                    onClick={startOver}
+                    onClick={editCurrentIntake}
                     className="rounded-2xl border border-[#2f7d67] bg-white px-6 py-3 font-semibold text-[#2f7d67]"
                   >
                     Edit Intake
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={startNewCase}
+                    className="rounded-2xl border border-[#9a4f13] bg-[#fff4e5] px-6 py-3 font-semibold text-[#9a4f13]"
+                  >
+                    Start New Case
                   </button>
                 </div>
               </div>
