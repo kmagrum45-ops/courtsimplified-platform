@@ -44,6 +44,15 @@ type StoredChatState = {
   systemWarnings?: unknown;
 };
 
+type CourtPathGuidance = {
+  title: string;
+  message: string;
+  choices: Array<{
+    label: string;
+    href: string;
+  }>;
+};
+
 const quickActions = [
   "What is the most important thing I should clarify next?",
   "What evidence am I missing?",
@@ -121,7 +130,87 @@ function buildWarnings(data: AiCasePartnerResponse): string[] {
     ...(data.conversationIntelligence?.validation?.needsLegalVerification ||
       []),
     ...(data.conversationMemory?.memory?.warnings || []),
-  ]).slice(0, 8);
+  ])
+    .filter((warning) => {
+      const normalized = normalize(warning);
+
+      return (
+        !normalized.startsWith("possible ") &&
+        !normalized.includes("reasoning profile")
+      );
+    })
+    .slice(0, 8);
+}
+
+function buildCourtPathGuidance(
+  selectedPath: string | undefined,
+  intelligence: any,
+): CourtPathGuidance | null {
+  const currentPath = clean(selectedPath);
+  const detectedArea = clean(
+    intelligence?.conversationFocus?.courtArea,
+  );
+
+  if (
+    !currentPath ||
+    !detectedArea ||
+    detectedArea === "unknown" ||
+    detectedArea === "mixed" ||
+    detectedArea === currentPath
+  ) {
+    return null;
+  }
+
+  if (
+    currentPath === "family" &&
+    (detectedArea === "civil" || detectedArea === "small-claims")
+  ) {
+    return {
+      title: "This may be the wrong court path",
+      message:
+        "The facts currently describe a civil dispute rather than a Family Court matter. Small Claims Court or Civil Court may be appropriate. The correct choice depends on the remedy requested, the amount claimed, and other jurisdiction rules.",
+      choices: [
+        {
+          label: "Continue in Small Claims",
+          href: "/builder?path=small-claims",
+        },
+        {
+          label: "Continue in Civil",
+          href: "/builder?path=civil",
+        },
+      ],
+    };
+  }
+
+  if (detectedArea === "family") {
+    return {
+      title: "This may be the wrong court path",
+      message:
+        "The facts currently appear connected to a Family Court matter rather than the selected court path.",
+      choices: [
+        {
+          label: "Continue in Family",
+          href: "/builder?path=family",
+        },
+      ],
+    };
+  }
+
+  if (detectedArea === "small-claims" && currentPath === "civil") {
+    return {
+      title: "Small Claims may be the better starting path",
+      message:
+        "The facts currently resemble a Small Claims dispute. The amount claimed, requested remedy, and jurisdiction still need confirmation.",
+      choices: [
+        {
+          label: "Continue in Small Claims",
+          href: "/builder?path=small-claims",
+        },
+      ],
+    };
+  }
+
+  return null;
 }
 
 function buildRecommendedRoute(
@@ -218,6 +307,11 @@ export default function CourtAssistantChat({
   const [recommendedRoute, setRecommendedRoute] =
     useState<string | null>(null);
   const [systemWarnings, setSystemWarnings] = useState<string[]>([]);
+
+  const courtPathGuidance = useMemo(
+    () => buildCourtPathGuidance(path, latestIntelligence),
+    [latestIntelligence, path],
+  );
 
   useEffect(() => {
     const saved = safeJsonParse(localStorage.getItem(storageKey));
@@ -358,10 +452,19 @@ export default function CourtAssistantChat({
 
       setSystemWarnings(buildWarnings(data));
 
-      const answer =
+      const coreAnswer =
         clean(data.answer) ||
         clean(data.userFacingAnswer) ||
         "CourtSimplified could not generate a response right now.";
+
+      const pathGuidance = buildCourtPathGuidance(
+        path,
+        data.conversationIntelligence,
+      );
+
+      const answer = pathGuidance
+        ? `${pathGuidance.message}\n\n${coreAnswer}`
+        : coreAnswer;
 
       setMessages((current) => [
         ...current,
@@ -472,17 +575,45 @@ export default function CourtAssistantChat({
         )}
       </div>
 
+      {courtPathGuidance && (
+        <div className="border-b border-[#ead9a7] bg-[#fffaf0] p-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-[#8a6517]">
+            Court path review
+          </p>
+
+          <h3 className="mt-2 text-base font-bold text-[#5f4715]">
+            {courtPathGuidance.title}
+          </h3>
+
+          <p className="mt-2 text-sm leading-6 text-[#6e5726]">
+            {courtPathGuidance.message}
+          </p>
+
+          <div className="mt-3 flex flex-wrap gap-2">
+            {courtPathGuidance.choices.map((choice) => (
+              <a
+                key={choice.href}
+                href={choice.href}
+                className="rounded-full border border-[#d9bd72] bg-white px-4 py-2 text-sm font-semibold text-[#725514] hover:bg-[#fff4d6]"
+              >
+                {choice.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
       {systemWarnings.length > 0 && (
-        <div className="border-b border-[#f0d7d7] bg-[#fff8f8] p-4">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#a63b3b]">
-            Case partner warnings
+        <div className="border-b border-[#ead9a7] bg-[#fffaf0] p-4">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#8a6517]">
+            Information still to confirm
           </p>
 
           <div className="space-y-2">
             {systemWarnings.slice(0, 4).map((warning) => (
               <div
                 key={normalize(warning)}
-                className="rounded-xl border border-[#f0d7d7] bg-white px-3 py-2 text-sm text-[#7a2d2d]"
+                className="rounded-xl border border-[#ead9a7] bg-white px-3 py-2 text-sm text-[#6e5726]"
               >
                 {warning}
               </div>
