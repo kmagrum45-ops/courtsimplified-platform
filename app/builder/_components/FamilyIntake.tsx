@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import {
   AnalysisResult,
   StoredCaseData,
@@ -8,6 +8,9 @@ import {
   cleanList,
   getStageLabel,
 } from "@/app/builder/_components/builderTypes";
+import type { FamilyMasterCaseInput } from "@/src/lib/case-system/familyMasterCaseEngine";
+import type { FamilyCanonicalIntakeResult } from "@/src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
+import { supabase } from "@/src/lib/supabase/client";
 
 type FiledDocument =
   | "application"
@@ -202,6 +205,9 @@ export default function FamilyIntake({ onComplete }: Props) {
   const [uploadedEvidenceFiles, setUploadedEvidenceFiles] =
     useState<EvidenceFile[]>([]);
   const [storageWarning, setStorageWarning] = useState("");
+  const [analysisError, setAnalysisError] = useState("");
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const submissionInFlight = useRef(false);
 
   const textareaFields: TextareaField[] = useMemo(
     () => [
@@ -395,39 +401,116 @@ export default function FamilyIntake({ onComplete }: Props) {
     ]).join("\n");
   }
 
-  function buildNeutralHandoffAnalysis(narrative: string): AnalysisResult {
+  function buildFamilyAnalysis(
+    narrative: string,
+    result: FamilyCanonicalIntakeResult,
+  ): AnalysisResult {
+    const family = result.familyMasterResult;
+
     return {
       courtPath: "family",
-      caseStage: getStageLabel(caseStage),
-      completedForms: [],
-      receivedForms: [],
-      requiredNextForms: [],
-      notNeededNow: [],
-      detectedIssues: [],
+      caseStage: getStageLabel(result.stage),
+      completedForms: family.documentsPage.completedFormLabels,
+      receivedForms: family.documentsPage.receivedFormLabels,
+      requiredNextForms: cleanList([
+        ...family.documentsPage.requiredFormLabels,
+        ...family.documentsPage.recommendedFormLabels,
+      ]),
+      notNeededNow: family.documentsPage.notNeededNowLabels,
+      detectedIssues: family.chatContext.detectedIssues,
       inferredFacts: [],
-      missingInformation: [],
-      risksAndGaps: [],
-      guidance: [],
-      summary: narrative,
-      proceduralRisks: [],
+      missingInformation: family.normalized.missingInformation,
+      risksAndGaps: family.builderSummary.blockers,
+      guidance: family.builderSummary.nextBestActions,
+      summary: family.builderSummary.judgeReadySummary || narrative,
+      proceduralRisks: family.builderSummary.warnings,
       damagesIssues: [],
       defenceAttacks: [],
       judgeConcerns: [],
-      suggestedFocus: [],
-      documentUploadRequests: [],
-      detectedFamilyIssues: [],
-      recommendedEvidence: [],
-      recommendedFamilyNextSteps: [],
+      suggestedFocus: family.builderSummary.nextBestActions,
+      documentUploadRequests: family.evidencePage.uploadRequests,
+      detectedFamilyIssues: family.chatContext.detectedIssues,
+      recommendedEvidence: cleanList([
+        ...family.evidencePage.strongestEvidenceTitles,
+        ...family.evidencePage.uploadRequests,
+      ]),
+      recommendedFamilyNextSteps: family.builderSummary.nextBestActions,
+      intelligence: result.brain.intelligence,
+      intelligenceSummary: result.brain.intelligence.plainLanguageSummary,
+      structuredIntelligenceSummary:
+        result.brain.intelligence.structuredCaseSummary,
+      intelligenceWarnings: result.brain.intelligence.systemWarnings,
+      intelligenceNextActions: result.brain.intelligence.nextBestActions,
     };
   }
 
-  function handleAnalyze() {
+  async function handleAnalyze() {
+    if (submissionInFlight.current) return;
+    submissionInFlight.current = true;
     setStorageWarning("");
+    setAnalysisError("");
+    setIsAnalyzing(true);
 
-    const narrative = buildNarrative();
-    const analysis = buildNeutralHandoffAnalysis(narrative);
+    try {
+      const narrative = buildNarrative();
+      const familyInput: FamilyMasterCaseInput = {
+        caseStage,
+        issues: issues.map(labelForIssue),
+        filedDocuments: filedDocuments.map(labelForFiledDocument),
+        yourName,
+        otherParty,
+        childrenInfo,
+        currentLivingSituation,
+        pastLivingHistory,
+        facts,
+        timeline,
+        evidence,
+        missingEvidence,
+        goal,
+        urgent,
+        safetyConcerns,
+        propertyHomeDetails,
+        upcomingCourtDate,
+        uploadedFiles: uploadedEvidenceFiles.map((file) => ({
+          id: file.id,
+          fileName: file.name,
+          originalName: file.name,
+          mimeType: file.type,
+          sizeBytes: file.size,
+          title: file.title,
+          description: file.description,
+          category: file.category,
+          source: file.source,
+          notes: cleanList([file.evidenceDate, file.relevance]).join("; "),
+        })),
+      };
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      const response = await fetch("/api/family/analyze", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(session?.access_token
+            ? { Authorization: `Bearer ${session.access_token}` }
+            : {}),
+        },
+        body: JSON.stringify({ input: familyInput }),
+      });
+      const body = (await response.json()) as {
+        ok?: boolean;
+        result?: FamilyCanonicalIntakeResult;
+        error?: string;
+      };
 
-    const payload: StoredCaseData = {
+      if (!response.ok || !body.ok || !body.result) {
+        throw new Error(body.error || "Family analysis could not be completed.");
+      }
+
+      const result = body.result;
+      const analysis = buildFamilyAnalysis(narrative, result);
+
+      const payload: StoredCaseData = {
       courtPath: "family",
       pathLabel: "Family",
       caseStage,
@@ -440,10 +523,14 @@ export default function FamilyIntake({ onComplete }: Props) {
       goal,
       urgent,
       analysis,
+      intelligence: result.brain.intelligence,
+      masterResultPatch: result.masterResultPatch,
+      dashboardPatch: result.dashboardPatch,
+      recommendedNextRoute: result.recommendedNextRoute,
       extra: {
-        architectureMode: "pure-intake-ui",
-        sourceOfTruth: "courtSimplifiedBrain",
-        componentRole: "intake-collection-only",
+        architectureMode: "family-canonical-integration",
+        sourceOfTruth: "MasterCaseSchema",
+        specializedSource: "familyMasterCaseEngine",
         filedDocuments,
         filedDocumentLabels: filedDocuments.map(labelForFiledDocument),
         issues,
@@ -464,21 +551,31 @@ export default function FamilyIntake({ onComplete }: Props) {
      * Large evidence metadata and analysis objects must not be duplicated
      * into browser localStorage.
      */
-    const compactPayload = buildCompactFamilyPayload(payload);
+      const compactPayload = buildCompactFamilyPayload(payload);
 
-    const savedCaseData = safelyStoreJson("caseData", compactPayload);
-    const savedCourtSimplifiedCase = safelyStoreJson(
+      const savedCaseData = safelyStoreJson("caseData", compactPayload);
+      const savedCourtSimplifiedCase = safelyStoreJson(
       "courtSimplifiedCase",
       compactPayload,
     );
 
-    if (!savedCaseData || !savedCourtSimplifiedCase) {
-      setStorageWarning(
+      if (!savedCaseData || !savedCourtSimplifiedCase) {
+        setStorageWarning(
         "The Family intake was completed, but this browser could not save every temporary workspace item because its site storage is full. Your result remains available on this page.",
       );
-    }
+      }
 
-    onComplete(analysis, payload);
+      onComplete(analysis, payload);
+    } catch (error) {
+      setAnalysisError(
+        error instanceof Error
+          ? error.message
+          : "Family analysis could not be completed.",
+      );
+    } finally {
+      submissionInFlight.current = false;
+      setIsAnalyzing(false);
+    }
   }
 
   return (
@@ -495,6 +592,12 @@ export default function FamilyIntake({ onComplete }: Props) {
       {storageWarning && (
         <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
           {storageWarning}
+        </div>
+      )}
+
+      {analysisError && (
+        <div className="mt-5 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+          {analysisError}
         </div>
       )}
 
@@ -778,9 +881,10 @@ export default function FamilyIntake({ onComplete }: Props) {
         <button
           type="button"
           onClick={handleAnalyze}
-          className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white"
+          disabled={isAnalyzing}
+          className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Continue to Unified Analysis
+          {isAnalyzing ? "Running Unified Analysis..." : "Continue to Unified Analysis"}
         </button>
       </div>
     </section>
