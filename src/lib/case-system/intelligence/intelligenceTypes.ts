@@ -709,6 +709,7 @@ export type CourtSimplifiedBrainInput = {
   existingMasterResult?: unknown;
   existingNormalizedIntake?: NormalizedIntake;
   sourceType?: IntelligenceSourceType;
+  allowExternalCognition?: boolean;
 };
 
 export type CourtSimplifiedBrainOutput = {

@@ -65,7 +65,7 @@ export default function OntarioCivilPage() {
             </Link>
 
             <Link
-              href="/documents?path=civil"
+              href="/document-workspace?path=civil"
               className="rounded-full border border-[#bdd4ca] bg-white px-6 py-3 text-sm font-semibold text-[#1c473d] transition hover:border-[#2f7d67] hover:text-[#2f7d67]"
             >
               Go to Documents

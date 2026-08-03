@@ -294,7 +294,7 @@ export default function CivilPage() {
             </Link>
 
             <Link
-              href="/documents?path=civil"
+              href="/document-workspace?path=civil"
               className="rounded-full border border-[#2f7d67] bg-white px-6 py-3 text-sm font-semibold text-[#2f7d67] transition hover:bg-[#eef8f5]"
             >
               Go to Civil Documents →

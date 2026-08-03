@@ -5,6 +5,8 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 
+import { resolveWorkflowCaseData } from "../../src/lib/case-system/workflowCaseLoader";
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -30,8 +32,8 @@ type OverlaySupportRow = {
 
 type CaseRecord = {
   id: string;
-  case_type?: CourtPath | string | null;
-  path?: CourtPath | string | null;
+  court_path?: CourtPath | string | null;
+  current_stage?: string | null;
   master_result?: unknown;
 };
 
@@ -431,7 +433,7 @@ function FormsPageContent() {
 
       const { data, error } = await supabase
         .from("cases")
-        .select("id, case_type, path, master_result")
+        .select("id, court_path, current_stage, master_result")
         .eq("id", caseId)
         .maybeSingle();
 
@@ -449,16 +451,15 @@ function FormsPageContent() {
         setMasterResult(loaded);
         setPath(
           getCourtPath(
-            loaded.path ||
+              loaded.path ||
               loaded.courtPath ||
-              record?.case_type ||
-              record?.path ||
+              record?.court_path ||
               initialPath,
           ),
         );
       } else {
         setMasterResult(parseStoredMasterResult());
-        setPath(getCourtPath(record?.case_type || record?.path || initialPath));
+        setPath(getCourtPath(record?.court_path || initialPath));
       }
 
       setCaseLoading(false);
@@ -596,20 +597,24 @@ function FormsPageContent() {
         return;
       }
 
-      const stored =
-        localStorage.getItem("courtSimplifiedCase") ||
-        localStorage.getItem("caseData") ||
-        localStorage.getItem("courtSimplifiedMasterResult") ||
-        "{}";
-
       setGeneratingKey(getFormKey(form));
 
       let caseData: Record<string, unknown> = {};
 
-      try {
-        caseData = JSON.parse(stored);
-      } catch {
-        caseData = {};
+      if (caseId) {
+        caseData = resolveWorkflowCaseData(masterResult) || {};
+      } else {
+        const stored =
+          localStorage.getItem("courtSimplifiedCase") ||
+          localStorage.getItem("caseData") ||
+          localStorage.getItem("courtSimplifiedMasterResult") ||
+          "{}";
+
+        try {
+          caseData = JSON.parse(stored);
+        } catch {
+          caseData = {};
+        }
       }
 
       const response = await fetch("/api/generate-form", {
@@ -623,8 +628,8 @@ function FormsPageContent() {
           formType: form.form_number,
           courtPath: form.court_type,
           caseId: caseId || null,
-          master_result: masterResult,
           ...caseData,
+          master_result: masterResult,
         }),
       });
 

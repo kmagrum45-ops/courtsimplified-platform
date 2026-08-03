@@ -107,6 +107,7 @@ export function runAiCasePartnerGateway(
       message,
       conversation,
       caseMemory: input.caseMemory,
+      courtContext: input.courtContext,
       mode: input.mode,
       diagnosticId,
     });

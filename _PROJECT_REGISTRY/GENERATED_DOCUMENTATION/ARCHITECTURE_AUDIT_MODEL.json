@@ -1,0 +1,1377 @@
+{
+  "ModelVersion": "1.0.0",
+  "GeneratedAt": "2026-07-31T19:11:06.892Z",
+  "ProjectRoot": "C:\\Users\\kmagr\\courtsimplified",
+  "ArchitectureModelVersion": "1.0.0",
+  "WorkflowModelVersion": "1.0.1",
+  "Statistics": {
+    "ArchitectureNodes": 196,
+    "CombinedGraphEdges": 347,
+    "CircularDependencyGroups": 3,
+    "CircularDependencyFiles": 7,
+    "HighRiskCircularDependencyGroups": 2,
+    "ReachableArchitectureNodes": 134,
+    "DeadCodeCandidates": 61,
+    "HighConfidenceDeadCodeCandidates": 15,
+    "RegistryValidationChecks": 21,
+    "RegistryValidationFailures": 0,
+    "MissingSourceFiles": 0
+  },
+  "CircularDependencies": [
+    {
+      "Group": 1,
+      "RiskLevel": "High",
+      "FileCount": 2,
+      "Files": [
+        "src\\lib\\case-system\\civilMasterCaseEngine.ts",
+        "src\\lib\\case-system\\civilStrategyEngine.ts"
+      ],
+      "Roles": [
+        "Architecture System"
+      ],
+      "Layers": [
+        "Case System"
+      ],
+      "Edges": [
+        {
+          "Source": "src\\lib\\case-system\\civilMasterCaseEngine.ts",
+          "Target": "src\\lib\\case-system\\civilStrategyEngine.ts",
+          "Kind": "InternalImport"
+        },
+        {
+          "Source": "src\\lib\\case-system\\civilStrategyEngine.ts",
+          "Target": "src\\lib\\case-system\\civilMasterCaseEngine.ts",
+          "Kind": "InternalImport"
+        }
+      ],
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "Group": 2,
+      "RiskLevel": "High",
+      "FileCount": 2,
+      "Files": [
+        "src\\lib\\case-system\\dashboardEngine.ts",
+        "src\\lib\\case-system\\dashboard\\dashboardAdapter.ts"
+      ],
+      "Roles": [
+        "Architecture System",
+        "Integration Service"
+      ],
+      "Layers": [
+        "Case System"
+      ],
+      "Edges": [
+        {
+          "Source": "src\\lib\\case-system\\dashboard\\dashboardAdapter.ts",
+          "Target": "src\\lib\\case-system\\dashboardEngine.ts",
+          "Kind": "InternalImport"
+        },
+        {
+          "Source": "src\\lib\\case-system\\dashboardEngine.ts",
+          "Target": "src\\lib\\case-system\\dashboard\\dashboardAdapter.ts",
+          "Kind": "InternalImport"
+        }
+      ],
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "Group": 3,
+      "RiskLevel": "Medium",
+      "FileCount": 3,
+      "Files": [
+        "src\\lib\\case-system\\evidence\\evidenceIntelligenceTypes.ts",
+        "src\\lib\\case-system\\facts\\factPatternTypes.ts",
+        "src\\lib\\case-system\\intelligence\\intelligenceTypes.ts"
+      ],
+      "Roles": [
+        "Contract or Schema"
+      ],
+      "Layers": [
+        "Case System"
+      ],
+      "Edges": [
+        {
+          "Source": "src\\lib\\case-system\\evidence\\evidenceIntelligenceTypes.ts",
+          "Target": "src\\lib\\case-system\\intelligence\\intelligenceTypes.ts",
+          "Kind": "InternalImport"
+        },
+        {
+          "Source": "src\\lib\\case-system\\facts\\factPatternTypes.ts",
+          "Target": "src\\lib\\case-system\\intelligence\\intelligenceTypes.ts",
+          "Kind": "InternalImport"
+        },
+        {
+          "Source": "src\\lib\\case-system\\intelligence\\intelligenceTypes.ts",
+          "Target": "src\\lib\\case-system\\evidence\\evidenceIntelligenceTypes.ts",
+          "Kind": "InternalImport"
+        },
+        {
+          "Source": "src\\lib\\case-system\\intelligence\\intelligenceTypes.ts",
+          "Target": "src\\lib\\case-system\\facts\\factPatternTypes.ts",
+          "Kind": "InternalImport"
+        }
+      ],
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    }
+  ],
+  "DeadCodeCandidates": [
+    {
+      "File": "src\\lib\\case-system\\authority-intelligence\\authorityCaseSystemBridge.ts",
+      "Name": "authorityCaseSystemBridge",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 1109,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\architecture\\masterCaseSchema.ts",
+        "src\\lib\\case-system\\authority-intelligence\\authorityBrainBridge.ts",
+        "src\\lib\\case-system\\authority-intelligence\\authorityIntegrationHub.ts",
+        "src\\lib\\case-system\\authority-intelligence\\authorityNavigator.ts",
+        "src\\lib\\case-system\\authority-intelligence\\authorityWorkflowBridge.ts",
+        "src\\lib\\case-system\\intelligence\\intelligenceTypes.ts"
+      ],
+      "Confidence": "High",
+      "Reason": "Not reachable from any detected application/API entry point and has no detected consumers.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\authority-intelligence\\authorityDisplayEngine.ts",
+      "Name": "authorityDisplayEngine",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 220,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\authority-intelligence\\authorityRegistryArchitecture.ts",
+        "src\\lib\\case-system\\authority-intelligence\\authorityRetrievalEngine.ts"
+      ],
+      "Confidence": "High",
+      "Reason": "Not reachable from any detected application/API entry point and has no detected consumers.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\authority\\jurisdictionAuthorityEngine.ts",
+      "Name": "jurisdictionAuthorityEngine",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 216,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\authority\\authoritySourceSchema.ts",
+        "src\\lib\\case-system\\authority\\authorityWeightEngine.ts",
+        "src\\lib\\case-system\\authority\\citationSafetyEngine.ts"
+      ],
+      "Confidence": "High",
+      "Reason": "Not reachable from any detected application/API entry point and has no detected consumers.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\claimDraftEngine.ts",
+      "Name": "claimDraftEngine",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 246,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [],
+      "Confidence": "High",
+      "Reason": "Not reachable from any detected application/API entry point and has no detected consumers.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\contracts\\engineGovernance.ts",
+      "Name": "engineGovernance",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 532,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [],
+      "Confidence": "High",
+      "Reason": "Not reachable from any detected application/API entry point and has no detected consumers.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\documentExportEngine.ts",
+      "Name": "documentExportEngine",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 782,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\documentWorkspaceEngine.ts"
+      ],
+      "Confidence": "High",
+      "Reason": "Not reachable from any detected application/API entry point and has no detected consumers.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\documentsStatusEngine.ts",
+      "Name": "documentsStatusEngine",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 220,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\utils.ts"
+      ],
+      "Confidence": "High",
+      "Reason": "Not reachable from any detected application/API entry point and has no detected consumers.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\evidence-packaging\\evidencePackagingEngine.ts",
+      "Name": "evidencePackagingEngine",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 373,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\architecture\\masterCaseSchema.ts",
+        "src\\lib\\case-system\\evidence-packaging\\evidencePackagingArchitecture.ts"
+      ],
+      "Confidence": "High",
+      "Reason": "Not reachable from any detected application/API entry point and has no detected consumers.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\facts\\factPatternAnaysisEngine.ts",
+      "Name": "factPatternAnaysisEngine",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 409,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\facts\\factPatternTypes.ts",
+        "src\\lib\\case-system\\intelligence\\intelligenceTypes.ts"
+      ],
+      "Confidence": "High",
+      "Reason": "Not reachable from any detected application/API entry point and has no detected consumers.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\facts\\factPatternEngine.ts",
+      "Name": "factPatternEngine",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 340,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\architecture\\masterCaseSchema.ts",
+        "src\\lib\\case-system\\facts\\factPatternArchitecture.ts"
+      ],
+      "Confidence": "High",
+      "Reason": "Not reachable from any detected application/API entry point and has no detected consumers.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\familyMasterCaseEngine.ts",
+      "Name": "familyMasterCaseEngine",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 562,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\familyAffidavitNarrativeEngine.ts",
+        "src\\lib\\case-system\\familyAiIntakeNormalizer.ts",
+        "src\\lib\\case-system\\familyCaseFileCatalogEngine.ts",
+        "src\\lib\\case-system\\familyEvidenceEngine.ts",
+        "src\\lib\\case-system\\familyFormRoutingEngine.ts",
+        "src\\lib\\case-system\\familyStrategyEngine.ts",
+        "src\\lib\\case-system\\familyWorkflowEngine.ts",
+        "src\\lib\\case-system\\types\\family-case.ts"
+      ],
+      "Confidence": "High",
+      "Reason": "Not reachable from any detected application/API entry point and has no detected consumers.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\litigation-intelligence\\caseInvestigator.ts",
+      "Name": "caseInvestigator",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 812,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\litigation-intelligence\\modules\\authorityInvestigator.ts",
+        "src\\lib\\case-system\\litigation-intelligence\\modules\\burdenInvestigator.ts",
+        "src\\lib\\case-system\\litigation-intelligence\\modules\\contradictionInvestigator.ts",
+        "src\\lib\\case-system\\litigation-intelligence\\modules\\credibilityInvestigator.ts",
+        "src\\lib\\case-system\\litigation-intelligence\\modules\\evidenceInvestigator.ts",
+        "src\\lib\\case-system\\litigation-intelligence\\modules\\judgePerspectiveInvestigator.ts",
+        "src\\lib\\case-system\\litigation-intelligence\\modules\\narrativeInvestigator.ts",
+        "src\\lib\\case-system\\litigation-intelligence\\modules\\opponentStrategyInvestigator.ts",
+        "src\\lib\\case-system\\litigation-intelligence\\modules\\proceduralInvestigator.ts",
+        "src\\lib\\case-system\\litigation-intelligence\\modules\\settlementInvestigator.ts",
+        "src\\lib\\case-system\\litigation-intelligence\\modules\\trialReadinessInvestigator.ts"
+      ],
+      "Confidence": "High",
+      "Reason": "Not reachable from any detected application/API entry point and has no detected consumers.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\legal-intelligence\\engines\\interpretationEngine.ts",
+      "Name": "interpretationEngine",
+      "Role": "Architecture System",
+      "Layer": "Legal Intelligence",
+      "Lines": 457,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\legal-intelligence\\core\\aiOrchestratorTypes.ts",
+        "src\\lib\\legal-intelligence\\core\\caseModel.ts"
+      ],
+      "Confidence": "High",
+      "Reason": "Not reachable from any detected application/API entry point and has no detected consumers.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\supabase\\forms\\formRules.ts",
+      "Name": "formRules",
+      "Role": "Persistence",
+      "Layer": "Persistence",
+      "Lines": 86,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [],
+      "Confidence": "High",
+      "Reason": "Not reachable from any detected application/API entry point and has no detected consumers.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\supabase\\forms\\prefillEngine.ts",
+      "Name": "prefillEngine",
+      "Role": "Architecture System",
+      "Layer": "Persistence",
+      "Lines": 411,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [],
+      "Confidence": "High",
+      "Reason": "Not reachable from any detected application/API entry point and has no detected consumers.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "app\\builder\\_components\\formsRegistry.ts",
+      "Name": "formsRegistry",
+      "Role": "Registry",
+      "Layer": "User Interface",
+      "Lines": 304,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "app\\builder\\_components\\builderTypes.ts"
+      ],
+      "Confidence": "Medium",
+      "Reason": "Not reachable from any detected entry point and has no detected consumers; dynamic or registry-based use must be checked manually.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\authority\\ontarioCivilAuthorityCollection.ts",
+      "Name": "ontarioCivilAuthorityCollection",
+      "Role": "Library Module",
+      "Layer": "Case System",
+      "Lines": 270,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\authority\\authoritySourceSchema.ts"
+      ],
+      "Confidence": "Medium",
+      "Reason": "Not reachable from any detected entry point and has no detected consumers; dynamic or registry-based use must be checked manually.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\form-registry.legacy.ts",
+      "Name": "form-registry.legacy",
+      "Role": "Registry",
+      "Layer": "Case System",
+      "Lines": 150,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\form8.ts",
+        "src\\lib\\case-system\\types\\family-case.ts"
+      ],
+      "Confidence": "Medium",
+      "Reason": "Not reachable from any detected entry point and has no detected consumers; dynamic or registry-based use must be checked manually.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\litigation-strategy\\litigationStrategyArchitecture.ts",
+      "Name": "litigationStrategyArchitecture",
+      "Role": "Contract or Schema",
+      "Layer": "Case System",
+      "Lines": 1256,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\architecture\\masterCaseSchema.ts"
+      ],
+      "Confidence": "Medium",
+      "Reason": "Not reachable from any detected entry point and has no detected consumers; dynamic or registry-based use must be checked manually.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\litigation-strategy\\litigationStrategyScoring.ts",
+      "Name": "litigationStrategyScoring",
+      "Role": "Library Module",
+      "Layer": "Case System",
+      "Lines": 1,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [],
+      "Confidence": "Medium",
+      "Reason": "Not reachable from any detected entry point and has no detected consumers; dynamic or registry-based use must be checked manually.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\registry.ts",
+      "Name": "registry",
+      "Role": "Registry",
+      "Layer": "Case System",
+      "Lines": 74,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\defaults.ts",
+        "src\\lib\\case-system\\types\\family-case.ts"
+      ],
+      "Confidence": "Medium",
+      "Reason": "Not reachable from any detected entry point and has no detected consumers; dynamic or registry-based use must be checked manually.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\types\\document-generation.ts",
+      "Name": "document-generation",
+      "Role": "Contract or Schema",
+      "Layer": "Case System",
+      "Lines": 182,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\types\\case.ts",
+        "src\\lib\\case-system\\types\\document-workspace.ts"
+      ],
+      "Confidence": "Medium",
+      "Reason": "Not reachable from any detected entry point and has no detected consumers; dynamic or registry-based use must be checked manually.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\types\\evidence.ts",
+      "Name": "evidence",
+      "Role": "Contract or Schema",
+      "Layer": "Case System",
+      "Lines": 311,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\types\\case.ts"
+      ],
+      "Confidence": "Medium",
+      "Reason": "Not reachable from any detected entry point and has no detected consumers; dynamic or registry-based use must be checked manually.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\types\\procedure.ts",
+      "Name": "procedure",
+      "Role": "Contract or Schema",
+      "Layer": "Case System",
+      "Lines": 258,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\types\\case.ts"
+      ],
+      "Confidence": "Medium",
+      "Reason": "Not reachable from any detected entry point and has no detected consumers; dynamic or registry-based use must be checked manually.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\types\\proof-map.ts",
+      "Name": "proof-map",
+      "Role": "Contract or Schema",
+      "Layer": "Case System",
+      "Lines": 143,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\types\\case.ts"
+      ],
+      "Confidence": "Medium",
+      "Reason": "Not reachable from any detected entry point and has no detected consumers; dynamic or registry-based use must be checked manually.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\types\\strategy.ts",
+      "Name": "strategy",
+      "Role": "Contract or Schema",
+      "Layer": "Case System",
+      "Lines": 222,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\types\\case.ts"
+      ],
+      "Confidence": "Medium",
+      "Reason": "Not reachable from any detected entry point and has no detected consumers; dynamic or registry-based use must be checked manually.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\types\\timeline.ts",
+      "Name": "timeline",
+      "Role": "Contract or Schema",
+      "Layer": "Case System",
+      "Lines": 160,
+      "ConsumerCount": 0,
+      "Consumers": [],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\types\\case.ts"
+      ],
+      "Confidence": "Medium",
+      "Reason": "Not reachable from any detected entry point and has no detected consumers; dynamic or registry-based use must be checked manually.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\authority-intelligence\\authorityBrainBridge.ts",
+      "Name": "authorityBrainBridge",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 1120,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\authority-intelligence\\authorityCaseSystemBridge.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\authority-intelligence\\authorityIntegrationHub.ts",
+        "src\\lib\\case-system\\authority-intelligence\\authorityNavigator.ts",
+        "src\\lib\\case-system\\intelligence\\intelligenceTypes.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\authority-intelligence\\authorityIntegrationHub.ts",
+      "Name": "authorityIntegrationHub",
+      "Role": "Library Module",
+      "Layer": "Case System",
+      "Lines": 704,
+      "ConsumerCount": 3,
+      "Consumers": [
+        "src\\lib\\case-system\\authority-intelligence\\authorityBrainBridge.ts",
+        "src\\lib\\case-system\\authority-intelligence\\authorityCaseSystemBridge.ts",
+        "src\\lib\\case-system\\authority-intelligence\\authorityWorkflowBridge.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\authority-intelligence\\authorityNavigator.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\authority-intelligence\\authorityNavigator.ts",
+      "Name": "authorityNavigator",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 847,
+      "ConsumerCount": 4,
+      "Consumers": [
+        "src\\lib\\case-system\\authority-intelligence\\authorityBrainBridge.ts",
+        "src\\lib\\case-system\\authority-intelligence\\authorityCaseSystemBridge.ts",
+        "src\\lib\\case-system\\authority-intelligence\\authorityIntegrationHub.ts",
+        "src\\lib\\case-system\\authority-intelligence\\authorityWorkflowBridge.ts"
+      ],
+      "InternalDependencies": [],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\authority-intelligence\\authorityRegistryArchitecture.ts",
+      "Name": "authorityRegistryArchitecture",
+      "Role": "Registry",
+      "Layer": "Case System",
+      "Lines": 250,
+      "ConsumerCount": 3,
+      "Consumers": [
+        "src\\lib\\case-system\\authority-intelligence\\authorityDisplayEngine.ts",
+        "src\\lib\\case-system\\authority-intelligence\\authorityRetrievalEngine.ts",
+        "src\\lib\\case-system\\authority-intelligence\\verifiedAuthoritySeedRegistry.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\architecture\\masterCaseSchema.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\authority-intelligence\\authorityRetrievalEngine.ts",
+      "Name": "authorityRetrievalEngine",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 334,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\authority-intelligence\\authorityDisplayEngine.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\authority-intelligence\\authorityRegistryArchitecture.ts",
+        "src\\lib\\case-system\\authority-intelligence\\verifiedAuthoritySeedRegistry.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\authority-intelligence\\authorityWorkflowBridge.ts",
+      "Name": "authorityWorkflowBridge",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 941,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\authority-intelligence\\authorityCaseSystemBridge.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\authority-intelligence\\authorityIntegrationHub.ts",
+        "src\\lib\\case-system\\authority-intelligence\\authorityNavigator.ts",
+        "src\\lib\\case-system\\litigation-intelligence\\litigationReasoningEngine.ts",
+        "src\\lib\\case-system\\workflow\\workflowOrchestrationArchitecture.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\authority-intelligence\\verifiedAuthoritySeedRegistry.ts",
+      "Name": "verifiedAuthoritySeedRegistry",
+      "Role": "Registry",
+      "Layer": "Case System",
+      "Lines": 798,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\authority-intelligence\\authorityRetrievalEngine.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\authority-intelligence\\authorityRegistryArchitecture.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\defaults.ts",
+      "Name": "defaults",
+      "Role": "Library Module",
+      "Layer": "Case System",
+      "Lines": 16,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\registry.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\types\\family-case.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\evidence-packaging\\evidencePackagingArchitecture.ts",
+      "Name": "evidencePackagingArchitecture",
+      "Role": "Contract or Schema",
+      "Layer": "Case System",
+      "Lines": 201,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\evidence-packaging\\evidencePackagingEngine.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\architecture\\masterCaseSchema.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\facts\\factPatternArchitecture.ts",
+      "Name": "factPatternArchitecture",
+      "Role": "Contract or Schema",
+      "Layer": "Case System",
+      "Lines": 153,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\facts\\factPatternEngine.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\architecture\\masterCaseSchema.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\familyAffidavitNarrativeEngine.ts",
+      "Name": "familyAffidavitNarrativeEngine",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 766,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\familyMasterCaseEngine.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\familyAiIntakeNormalizer.ts",
+        "src\\lib\\case-system\\familyEvidenceEngine.ts",
+        "src\\lib\\case-system\\familyFormRoutingEngine.ts",
+        "src\\lib\\case-system\\familyStrategyEngine.ts",
+        "src\\lib\\case-system\\familyWorkflowEngine.ts",
+        "src\\lib\\case-system\\types\\family-case.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\familyCaseFileCatalogEngine.ts",
+      "Name": "familyCaseFileCatalogEngine",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 630,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\familyMasterCaseEngine.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\familyAiIntakeNormalizer.ts",
+        "src\\lib\\case-system\\familyEvidenceEngine.ts",
+        "src\\lib\\case-system\\familyFormRoutingEngine.ts",
+        "src\\lib\\case-system\\familyWorkflowEngine.ts",
+        "src\\lib\\case-system\\types\\family-case.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\familyEvidenceEngine.ts",
+      "Name": "familyEvidenceEngine",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 588,
+      "ConsumerCount": 3,
+      "Consumers": [
+        "src\\lib\\case-system\\familyAffidavitNarrativeEngine.ts",
+        "src\\lib\\case-system\\familyCaseFileCatalogEngine.ts",
+        "src\\lib\\case-system\\familyMasterCaseEngine.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\familyAiIntakeNormalizer.ts",
+        "src\\lib\\case-system\\familyFormRoutingEngine.ts",
+        "src\\lib\\case-system\\familyStrategyEngine.ts",
+        "src\\lib\\case-system\\familyWorkflowEngine.ts",
+        "src\\lib\\case-system\\types\\family-case.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\familyFormRoutingEngine.ts",
+      "Name": "familyFormRoutingEngine",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 527,
+      "ConsumerCount": 4,
+      "Consumers": [
+        "src\\lib\\case-system\\familyAffidavitNarrativeEngine.ts",
+        "src\\lib\\case-system\\familyCaseFileCatalogEngine.ts",
+        "src\\lib\\case-system\\familyEvidenceEngine.ts",
+        "src\\lib\\case-system\\familyMasterCaseEngine.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\familyAiIntakeNormalizer.ts",
+        "src\\lib\\case-system\\familyStrategyEngine.ts",
+        "src\\lib\\case-system\\familyWorkflowEngine.ts",
+        "src\\lib\\case-system\\types\\family-case.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\familyWorkflowEngine.ts",
+      "Name": "familyWorkflowEngine",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 619,
+      "ConsumerCount": 5,
+      "Consumers": [
+        "src\\lib\\case-system\\familyAffidavitNarrativeEngine.ts",
+        "src\\lib\\case-system\\familyCaseFileCatalogEngine.ts",
+        "src\\lib\\case-system\\familyEvidenceEngine.ts",
+        "src\\lib\\case-system\\familyFormRoutingEngine.ts",
+        "src\\lib\\case-system\\familyMasterCaseEngine.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\familyAiIntakeNormalizer.ts",
+        "src\\lib\\case-system\\familyStrategyEngine.ts",
+        "src\\lib\\case-system\\types\\family-case.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\form8.ts",
+      "Name": "form8",
+      "Role": "Library Module",
+      "Layer": "Case System",
+      "Lines": 65,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\form-registry.legacy.ts"
+      ],
+      "InternalDependencies": [],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\litigation-intelligence\\modules\\authorityInvestigator.ts",
+      "Name": "authorityInvestigator",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 1129,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\litigation-intelligence\\caseInvestigator.ts"
+      ],
+      "InternalDependencies": [],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\litigation-intelligence\\modules\\burdenInvestigator.ts",
+      "Name": "burdenInvestigator",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 677,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\litigation-intelligence\\caseInvestigator.ts"
+      ],
+      "InternalDependencies": [],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\litigation-intelligence\\modules\\contradictionInvestigator.ts",
+      "Name": "contradictionInvestigator",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 830,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\litigation-intelligence\\caseInvestigator.ts"
+      ],
+      "InternalDependencies": [],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\litigation-intelligence\\modules\\credibilityInvestigator.ts",
+      "Name": "credibilityInvestigator",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 827,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\litigation-intelligence\\caseInvestigator.ts"
+      ],
+      "InternalDependencies": [],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\litigation-intelligence\\modules\\evidenceInvestigator.ts",
+      "Name": "evidenceInvestigator",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 620,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\litigation-intelligence\\caseInvestigator.ts"
+      ],
+      "InternalDependencies": [],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\litigation-intelligence\\modules\\judgePerspectiveInvestigator.ts",
+      "Name": "judgePerspectiveInvestigator",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 722,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\litigation-intelligence\\caseInvestigator.ts"
+      ],
+      "InternalDependencies": [],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\litigation-intelligence\\modules\\narrativeInvestigator.ts",
+      "Name": "narrativeInvestigator",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 568,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\litigation-intelligence\\caseInvestigator.ts"
+      ],
+      "InternalDependencies": [],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\litigation-intelligence\\modules\\opponentStrategyInvestigator.ts",
+      "Name": "opponentStrategyInvestigator",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 800,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\litigation-intelligence\\caseInvestigator.ts"
+      ],
+      "InternalDependencies": [],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\litigation-intelligence\\modules\\proceduralInvestigator.ts",
+      "Name": "proceduralInvestigator",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 1218,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\litigation-intelligence\\caseInvestigator.ts"
+      ],
+      "InternalDependencies": [],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\litigation-intelligence\\modules\\settlementInvestigator.ts",
+      "Name": "settlementInvestigator",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 901,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\litigation-intelligence\\caseInvestigator.ts"
+      ],
+      "InternalDependencies": [],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\litigation-intelligence\\modules\\trialReadinessInvestigator.ts",
+      "Name": "trialReadinessInvestigator",
+      "Role": "Architecture System",
+      "Layer": "Case System",
+      "Lines": 1308,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\litigation-intelligence\\caseInvestigator.ts"
+      ],
+      "InternalDependencies": [],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\case-system\\types\\document-workspace.ts",
+      "Name": "document-workspace",
+      "Role": "Contract or Schema",
+      "Layer": "Case System",
+      "Lines": 271,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\case-system\\types\\document-generation.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\case-system\\types\\case.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\legal-intelligence\\core\\aiOrchestratorTypes.ts",
+      "Name": "aiOrchestratorTypes",
+      "Role": "Architecture System",
+      "Layer": "Legal Intelligence",
+      "Lines": 213,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\legal-intelligence\\engines\\interpretationEngine.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\legal-intelligence\\core\\caseModel.ts",
+        "src\\lib\\legal-intelligence\\core\\legalKnowledgeTypes.ts",
+        "src\\lib\\legal-intelligence\\core\\precedentTypes.ts",
+        "src\\lib\\legal-intelligence\\core\\validationTypes.ts",
+        "src\\lib\\legal-intelligence\\core\\workflowTypes.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\legal-intelligence\\core\\caseModel.ts",
+      "Name": "caseModel",
+      "Role": "Library Module",
+      "Layer": "Legal Intelligence",
+      "Lines": 300,
+      "ConsumerCount": 6,
+      "Consumers": [
+        "src\\lib\\legal-intelligence\\core\\aiOrchestratorTypes.ts",
+        "src\\lib\\legal-intelligence\\core\\legalKnowledgeTypes.ts",
+        "src\\lib\\legal-intelligence\\core\\precedentTypes.ts",
+        "src\\lib\\legal-intelligence\\core\\validationTypes.ts",
+        "src\\lib\\legal-intelligence\\core\\workflowTypes.ts",
+        "src\\lib\\legal-intelligence\\engines\\interpretationEngine.ts"
+      ],
+      "InternalDependencies": [],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\legal-intelligence\\core\\legalKnowledgeTypes.ts",
+      "Name": "legalKnowledgeTypes",
+      "Role": "Contract or Schema",
+      "Layer": "Legal Intelligence",
+      "Lines": 170,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\legal-intelligence\\core\\aiOrchestratorTypes.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\legal-intelligence\\core\\caseModel.ts",
+        "src\\lib\\legal-intelligence\\core\\precedentTypes.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\legal-intelligence\\core\\precedentTypes.ts",
+      "Name": "precedentTypes",
+      "Role": "Contract or Schema",
+      "Layer": "Legal Intelligence",
+      "Lines": 291,
+      "ConsumerCount": 2,
+      "Consumers": [
+        "src\\lib\\legal-intelligence\\core\\aiOrchestratorTypes.ts",
+        "src\\lib\\legal-intelligence\\core\\legalKnowledgeTypes.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\legal-intelligence\\core\\caseModel.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\legal-intelligence\\core\\validationTypes.ts",
+      "Name": "validationTypes",
+      "Role": "Contract or Schema",
+      "Layer": "Legal Intelligence",
+      "Lines": 130,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\legal-intelligence\\core\\aiOrchestratorTypes.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\legal-intelligence\\core\\caseModel.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    },
+    {
+      "File": "src\\lib\\legal-intelligence\\core\\workflowTypes.ts",
+      "Name": "workflowTypes",
+      "Role": "Workflow",
+      "Layer": "Legal Intelligence",
+      "Lines": 153,
+      "ConsumerCount": 1,
+      "Consumers": [
+        "src\\lib\\legal-intelligence\\core\\aiOrchestratorTypes.ts"
+      ],
+      "InternalDependencies": [
+        "src\\lib\\legal-intelligence\\core\\caseModel.ts"
+      ],
+      "Confidence": "Review",
+      "Reason": "Belongs to an internally connected subsystem that is not reachable from a detected application/API entry point.",
+      "ReviewRequired": true,
+      "AutomaticRemovalAllowed": false
+    }
+  ],
+  "DeadCodeExemptions": [
+    {
+      "File": "next-env.d.ts",
+      "Role": "Library Module",
+      "Reason": "TypeScript declaration file"
+    }
+  ],
+  "RegistryValidation": {
+    "Checks": [
+      {
+        "Name": "Architecture node total",
+        "Status": "Passed",
+        "Expected": 196,
+        "Actual": 196,
+        "Details": "Architecture statistics must equal the actual node array."
+      },
+      {
+        "Name": "Architecture edge total",
+        "Status": "Passed",
+        "Expected": 432,
+        "Actual": 432,
+        "Details": "Architecture statistics must equal the actual edge array."
+      },
+      {
+        "Name": "Unique architecture files",
+        "Status": "Passed",
+        "Expected": 196,
+        "Actual": 196,
+        "Details": "Every architecture node must map to one unique source file."
+      },
+      {
+        "Name": "Unique architecture node IDs",
+        "Status": "Passed",
+        "Expected": 196,
+        "Actual": 196,
+        "Details": "Every architecture node ID must be unique."
+      },
+      {
+        "Name": "Internal edge references",
+        "Status": "Passed",
+        "Expected": 0,
+        "Actual": 0,
+        "Details": "Every internal import edge must reference two architecture nodes."
+      },
+      {
+        "Name": "Unresolved internal imports",
+        "Status": "Passed",
+        "Expected": 0,
+        "Actual": 0,
+        "Details": "Internal imports should resolve to known source files."
+      },
+      {
+        "Name": "Architecture source files exist",
+        "Status": "Passed",
+        "Expected": 0,
+        "Actual": 0,
+        "Details": "Every architecture node must exist in the current project tree."
+      },
+      {
+        "Name": "Architecture entry-point total",
+        "Status": "Passed",
+        "Expected": 41,
+        "Actual": 41,
+        "Details": "Entry-point statistics must match entry-point nodes."
+      },
+      {
+        "Name": "Workflow architecture model version",
+        "Status": "Passed",
+        "Expected": "1.0.0",
+        "Actual": "1.0.0",
+        "Details": "Workflow analysis must reference the current architecture model version."
+      },
+      {
+        "Name": "Workflow record total",
+        "Status": "Passed",
+        "Expected": 15,
+        "Actual": 15,
+        "Details": "Workflow statistics must equal the workflow record array."
+      },
+      {
+        "Name": "Unique workflow records",
+        "Status": "Passed",
+        "Expected": 15,
+        "Actual": 15,
+        "Details": "Every workflow file must have one workflow record."
+      },
+      {
+        "Name": "Workflow files in architecture model",
+        "Status": "Passed",
+        "Expected": 0,
+        "Actual": 0,
+        "Details": "Every workflow record must reference an architecture node."
+      },
+      {
+        "Name": "Unique entry traces",
+        "Status": "Passed",
+        "Expected": 41,
+        "Actual": 41,
+        "Details": "Every entry file must have one trace."
+      },
+      {
+        "Name": "Entry-trace total",
+        "Status": "Passed",
+        "Expected": 41,
+        "Actual": 41,
+        "Details": "Every architecture entry point must have one integration trace."
+      },
+      {
+        "Name": "Entry traces in architecture model",
+        "Status": "Passed",
+        "Expected": 0,
+        "Actual": 0,
+        "Details": "Every entry trace must reference an architecture node."
+      },
+      {
+        "Name": "Runtime API call total",
+        "Status": "Passed",
+        "Expected": 7,
+        "Actual": 7,
+        "Details": "Workflow statistics must equal the runtime API call array."
+      },
+      {
+        "Name": "Unresolved runtime API calls",
+        "Status": "Passed",
+        "Expected": 0,
+        "Actual": 0,
+        "Details": "Every detected runtime API call should resolve to an API route."
+      },
+      {
+        "Name": "Runtime API graph references",
+        "Status": "Passed",
+        "Expected": 0,
+        "Actual": 0,
+        "Details": "Resolved runtime calls must reference known source and target nodes."
+      },
+      {
+        "Name": "Engine registry exists",
+        "Status": "Passed",
+        "Expected": "Present and non-empty",
+        "Actual": "Present",
+        "Details": "The architecture audit requires the generated engine registry."
+      },
+      {
+        "Name": "Engine registry record total",
+        "Status": "Passed",
+        "Expected": 95,
+        "Actual": 95,
+        "Details": "The engine-record table must match its architecture-system summary count."
+      },
+      {
+        "Name": "Engine registry required fields",
+        "Status": "Passed",
+        "Expected": "All required architecture fields",
+        "Actual": "All present",
+        "Details": "Purpose, inputs, outputs, dependencies, consumers, workflow/AI positions, risk, duplicate detection, and integration points are required."
+      }
+    ],
+    "Failures": [],
+    "MissingSourceFiles": [],
+    "InvalidInternalEdges": [],
+    "UnknownWorkflowFiles": [],
+    "UnknownTraceFiles": [],
+    "UnresolvedRuntimeCalls": [],
+    "InvalidRuntimeTargets": []
+  }
+}

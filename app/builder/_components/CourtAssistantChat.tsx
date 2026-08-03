@@ -541,6 +541,11 @@ export default function CourtAssistantChat({
           message: trimmed,
           caseId,
           mode: "builder-chat",
+          courtContext: {
+            courtPath: path,
+            jurisdiction: routingProvince,
+            stage: proceduralStage,
+          },
           caseMemory: caseMemory || {
             caseData,
             masterResult,

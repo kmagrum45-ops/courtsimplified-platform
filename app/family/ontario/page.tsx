@@ -239,7 +239,7 @@ export default function OntarioFamilyPage() {
               </Link>
 
               <Link
-                href="/documents?path=family"
+                href="/document-workspace?path=family"
                 className="rounded-2xl border border-[#D6E4E3] bg-white px-8 py-4 font-semibold text-[#16302b]"
               >
                 View Family Forms & Documents

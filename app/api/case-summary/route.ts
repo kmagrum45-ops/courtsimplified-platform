@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { runCourtSimplifiedBrain } from "../../../src/lib/case-system/intelligence/courtSimplifiedBrain";
+import { getAuthenticatedUser } from "../../../src/lib/supabase/serverAuth";
 
 import type {
   CourtSimplifiedBrainInput,
@@ -385,9 +386,13 @@ function buildBrainInput(data: Record<string, unknown>): CourtSimplifiedBrainInp
 
 export async function POST(req: Request) {
   try {
+    const authenticated = Boolean(await getAuthenticatedUser(req));
     const data = (await req.json()) as Record<string, unknown>;
 
-    const brainInput = buildBrainInput(data);
+    const brainInput = {
+      ...buildBrainInput(data),
+      allowExternalCognition: authenticated,
+    };
     const brainOutput: CourtSimplifiedBrainOutput =
       await runCourtSimplifiedBrain(brainInput);
 

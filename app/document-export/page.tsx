@@ -4,6 +4,11 @@ import Link from "next/link";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
+import {
+  loadDraftWorkflowBundle,
+  loadWorkflowCaseBundle,
+} from "../../src/lib/case-system/workflowCaseLoader";
+
 type ExportDocument = {
   title: string;
   category: string;
@@ -115,36 +120,6 @@ function ExportSection({
   );
 }
 
-function loadCaseData(): StoredCaseData | null {
-  if (typeof window === "undefined") return null;
-
-  const raw =
-    localStorage.getItem("caseData") ||
-    localStorage.getItem("courtSimplifiedCase");
-
-  if (!raw) return null;
-
-  try {
-    return JSON.parse(raw);
-  } catch {
-    return null;
-  }
-}
-
-function loadEvidencePackage(): EvidencePackage | null {
-  if (typeof window === "undefined") return null;
-
-  const raw = localStorage.getItem("courtSimplifiedEvidencePackage");
-
-  if (!raw) return null;
-
-  try {
-    return JSON.parse(raw);
-  } catch {
-    return null;
-  }
-}
-
 function getExportTone(score: number) {
   if (score >= 80) return "border-emerald-200 bg-emerald-50 text-emerald-800";
   if (score >= 50) return "border-amber-200 bg-amber-50 text-amber-900";
@@ -164,16 +139,59 @@ function DocumentExportPageContent() {
   const path = searchParams.get("path") || "unknown";
 
   const [caseData, setCaseData] = useState<StoredCaseData | null>(null);
+  const [masterResult, setMasterResult] = useState<Record<string, unknown>>({});
   const [evidencePackage, setEvidencePackage] =
     useState<EvidencePackage | null>(null);
+  const [workspaceDocument, setWorkspaceDocument] = useState<unknown>(null);
+  const [loadingContext, setLoadingContext] = useState(true);
+  const [contextError, setContextError] = useState("");
   const [isExporting, setIsExporting] = useState(false);
   const [exportResult, setExportResult] = useState<ExportResult | null>(null);
   const [exportError, setExportError] = useState<string | null>(null);
 
   useEffect(() => {
-    setCaseData(loadCaseData());
-    setEvidencePackage(loadEvidencePackage());
-  }, []);
+    let active = true;
+
+    async function loadContext() {
+      setLoadingContext(true);
+      setContextError("");
+
+      try {
+        const bundle = caseId
+          ? await loadWorkflowCaseBundle(caseId)
+          : loadDraftWorkflowBundle();
+
+        if (!active) return;
+
+        setCaseData(bundle.caseData as StoredCaseData | null);
+        setMasterResult(bundle.masterResult);
+        setEvidencePackage(
+          bundle.evidencePackage as EvidencePackage | null,
+        );
+        setWorkspaceDocument(bundle.workspaceDocument);
+      } catch (error) {
+        if (!active) return;
+
+        setCaseData(null);
+        setMasterResult({});
+        setEvidencePackage(null);
+        setWorkspaceDocument(null);
+        setContextError(
+          error instanceof Error
+            ? error.message
+            : "The requested case could not be loaded.",
+        );
+      } finally {
+        if (active) setLoadingContext(false);
+      }
+    }
+
+    loadContext();
+
+    return () => {
+      active = false;
+    };
+  }, [caseId]);
 
   const workspaceHref = caseId ? `/dashboard/cases/${caseId}` : "/dashboard";
   const evidenceHref = buildWorkflowHref("/evidence", caseId, path);
@@ -311,20 +329,6 @@ function DocumentExportPageContent() {
       setExportError(null);
       setExportResult(null);
 
-      const workspaceDocumentRaw = localStorage.getItem(
-        "courtSimplifiedWorkspaceDocument",
-      );
-
-      let workspaceDocument = null;
-
-      try {
-        workspaceDocument = workspaceDocumentRaw
-          ? JSON.parse(workspaceDocumentRaw)
-          : null;
-      } catch {
-        workspaceDocument = null;
-      }
-
       const response = await fetch("/api/document-export", {
         method: "POST",
         headers: {
@@ -334,7 +338,7 @@ function DocumentExportPageContent() {
           caseId,
           path,
           caseData,
-          master_result: caseData,
+          master_result: masterResult,
           workspaceDocument,
           evidencePackage,
           exportFormat: "plain-text",
@@ -351,9 +355,9 @@ function DocumentExportPageContent() {
       }
 
       setExportResult(result.exportPackage);
-    } catch (error: any) {
+    } catch (error: unknown) {
       setExportError(
-        error?.message ||
+        (error instanceof Error ? error.message : "") ||
           "CourtSimplified could not generate the export package.",
       );
     } finally {
@@ -364,6 +368,18 @@ function DocumentExportPageContent() {
   return (
     <main className="min-h-screen bg-[#f6faf8] p-6 text-[#16302b]">
       <div className="mx-auto max-w-6xl space-y-8">
+        {loadingContext ? (
+          <div className="rounded-2xl border border-[#d8e6df] bg-white p-4 text-sm text-[#4d675f]">
+            Loading the selected case package...
+          </div>
+        ) : null}
+
+        {contextError ? (
+          <div className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-800">
+            {contextError} No data from another case was substituted.
+          </div>
+        ) : null}
+
         <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
           <div className="flex flex-wrap items-start justify-between gap-5">
             <div>

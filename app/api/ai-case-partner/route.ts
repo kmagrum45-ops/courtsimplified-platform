@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { runAiCasePartnerGateway } from "@/src/lib/case-system/ai-case-partner/aiCasePartnerGateway";
+import type { AiCasePartnerCourtContextInput } from "@/src/lib/case-system/ai-case-partner/aiCasePartnerOrchestrator";
 import { CasePartnerConversationMessage } from "@/src/lib/case-system/ai-case-partner/conversationIntelligenceEngine";
 
 export const runtime = "nodejs";
@@ -10,6 +11,7 @@ type RequestBody = {
   message?: string;
   conversation?: CasePartnerConversationMessage[];
   caseMemory?: unknown;
+  courtContext?: AiCasePartnerCourtContextInput;
   mode?: string;
 };
 
@@ -126,6 +128,7 @@ export async function POST(request: NextRequest) {
         0,
       ),
       caseMemoryBytes: estimateJsonSize(body.caseMemory),
+      courtContextPresent: Boolean(body.courtContext),
       mode: mode || "unspecified",
       caseIdPresent: Boolean(caseId),
     };
@@ -137,6 +140,7 @@ export async function POST(request: NextRequest) {
       message,
       conversation,
       caseMemory: body.caseMemory,
+      courtContext: body.courtContext,
       mode: mode || undefined,
       diagnosticId,
     });
@@ -154,6 +158,7 @@ export async function POST(request: NextRequest) {
       userFacingAnswer: result.userFacingAnswer,
       answer: result.answer,
 
+      courtContext: result.courtContext,
       caseMemory: result.caseMemory,
 
       conversationIntelligence: result.conversationIntelligence,

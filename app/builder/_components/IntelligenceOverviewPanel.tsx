@@ -14,34 +14,8 @@ function safeList(items?: string[]): string[] {
   return Array.isArray(items) ? items.filter(Boolean) : [];
 }
 
-function normalizeText(value: string): string {
-  return value
-    .toLowerCase()
-    .replace(/[’‘]/g, "'")
-    .replace(/[“”]/g, '"')
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function isContaminated(value: string): boolean {
-  const text = normalizeText(value);
-
-  return (
-    text.includes("agreement existed") ||
-    text.includes("agreement or obligation") ||
-    text.includes("invoices") ||
-    text.includes("payment records") ||
-    text.includes("property damage") ||
-    text.includes("repair value") ||
-    text.includes("repair cost") ||
-    text.includes("form 9a") ||
-    text.includes("defence") ||
-    text.includes("responding")
-  );
-}
-
 function cleanDisplayList(items?: string[]): string[] {
-  return safeList(items).filter((item) => !isContaminated(item));
+  return safeList(items);
 }
 
 function itemText(item: BuilderIntelligenceItem): string {
@@ -59,7 +33,7 @@ function itemText(item: BuilderIntelligenceItem): string {
 }
 
 function cleanItems(items?: BuilderIntelligenceItem[]): BuilderIntelligenceItem[] {
-  return (items || []).filter((item) => !isContaminated(itemText(item)));
+  return (items || []).filter(Boolean);
 }
 
 function confidenceLabel(value?: string): string {
@@ -191,18 +165,7 @@ function IntelligenceItems({
 }
 
 function EvidenceIssues({ issues }: { issues?: BuilderEvidenceIssue[] }) {
-  const cleaned = (issues || []).filter((issue) => {
-    return !isContaminated(
-      [
-        issue.issueLabel,
-        issue.requiredProof,
-        issue.explanation,
-        ...(issue.missingEvidence || []),
-      ]
-        .filter(Boolean)
-        .join(" "),
-    );
-  });
+  const cleaned = (issues || []).filter(Boolean);
 
   if (!cleaned.length) {
     return <Empty text="No evidence-to-issue mapping has been generated yet." />;
@@ -237,9 +200,7 @@ function EvidenceIssues({ issues }: { issues?: BuilderEvidenceIssue[] }) {
             <div className="mt-3 rounded-xl bg-white p-3">
               <p className="font-semibold text-[#16302b]">Missing proof</p>
               <ul className="mt-2 list-disc space-y-1 pl-5 text-[#24463d]">
-                {issue.missingEvidence
-                  .filter((missing) => !isContaminated(missing))
-                  .map((missing) => (
+                {issue.missingEvidence.map((missing) => (
                     <li key={missing}>{missing}</li>
                   ))}
               </ul>
@@ -256,13 +217,7 @@ function FormRecommendations({
 }: {
   forms?: BuilderFormRecommendation[];
 }) {
-  const cleaned = (forms || []).filter((form) => {
-    return !isContaminated(
-      [form.formNumber, form.title, form.reason, ...(form.warnings || [])]
-        .filter(Boolean)
-        .join(" "),
-    );
-  });
+  const cleaned = (forms || []).filter(Boolean);
 
   if (!cleaned.length) {
     return <Empty text="No form recommendations have been generated yet." />;
@@ -284,9 +239,7 @@ function FormRecommendations({
 
           {form.warnings?.length ? (
             <ul className="mt-3 list-disc space-y-1 pl-5 text-[#7a4b00]">
-              {form.warnings
-                .filter((warning) => !isContaminated(warning))
-                .map((warning) => (
+              {form.warnings.map((warning) => (
                   <li key={warning}>{warning}</li>
                 ))}
             </ul>
@@ -414,9 +367,10 @@ export default function IntelligenceOverviewPanel({ analysis }: Props) {
         </h2>
 
         <p className="mt-3 max-w-4xl text-sm leading-6 text-[#4d675f]">
-          This panel displays the cleaned case analysis, not raw legacy
-          recommendations. Forms, risks, proof gaps, and judge concerns are
-          filtered through the current workflow state.
+          This panel displays the current case analysis produced by the
+          connected intake and CourtSimplified intelligence workflow. It does
+          not remove case facts or recommendations with display-layer keyword
+          filters.
         </p>
       </div>
 

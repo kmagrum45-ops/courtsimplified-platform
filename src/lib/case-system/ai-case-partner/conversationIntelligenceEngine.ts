@@ -3,6 +3,8 @@ import {
   LegalReasoningProfile,
 } from "../knowledge/legalReasoningProfiles";
 
+import type { CaseProvince } from "../architecture/masterCaseSchema";
+
 export type CasePartnerRole = "user" | "assistant" | "system";
 
 export type CasePartnerConfidence = "low" | "medium" | "high";
@@ -34,6 +36,14 @@ export type CasePartnerProceduralStage =
   | "not-sure"
   | "unknown";
 
+export type CasePartnerJurisdiction = CaseProvince | "Canada";
+
+export type CasePartnerCourtContext = {
+  courtPath?: CasePartnerCourtArea;
+  jurisdiction?: CasePartnerJurisdiction;
+  proceduralStage?: CasePartnerProceduralStage;
+};
+
 export type CasePartnerQuestionPriority = "critical" | "high" | "medium" | "low";
 
 export type CasePartnerConversationMessage = {
@@ -45,6 +55,7 @@ export type CasePartnerInput = {
   message: string;
   conversation?: CasePartnerConversationMessage[];
   caseMemory?: unknown;
+  courtContext?: CasePartnerCourtContext;
   mode?: string;
 };
 
@@ -121,13 +132,15 @@ export type CasePartnerHypothesis = {
 };
 
 export type ConversationIntelligenceResult = {
-  version: "1.3.0";
+  version: "1.4.0";
   generatedAt: string;
   userFacingAnswer: string;
   conversationFocus: {
     primaryGoal: string;
     userRole: string;
     courtArea: CasePartnerCourtArea;
+    selectedCourtArea: CasePartnerCourtArea;
+    jurisdiction: CasePartnerJurisdiction;
     proceduralStage: CasePartnerProceduralStage;
     confidence: CasePartnerConfidence;
   };
@@ -216,6 +229,75 @@ function clean(value: unknown): string {
 
 function normalizeText(value: unknown): string {
   return clean(value).toLowerCase().replace(/\s+/g, " ").trim();
+}
+
+function normalizeCourtArea(value: unknown): CasePartnerCourtArea {
+  const normalized = normalizeText(value).replace(/_/g, "-");
+
+  if (
+    normalized === "small-claims" ||
+    normalized === "family" ||
+    normalized === "civil" ||
+    normalized === "ltb" ||
+    normalized === "immigration" ||
+    normalized === "criminal-related" ||
+    normalized === "mixed"
+  ) {
+    return normalized;
+  }
+
+  return "unknown";
+}
+
+function normalizeProceduralStage(
+  value: unknown,
+): CasePartnerProceduralStage {
+  const normalized = normalizeText(value).replace(/_/g, "-");
+
+  if (
+    normalized === "not-started" ||
+    normalized === "starting-case" ||
+    normalized === "responding" ||
+    normalized === "already-filed" ||
+    normalized === "conference" ||
+    normalized === "motion" ||
+    normalized === "settlement" ||
+    normalized === "disclosure" ||
+    normalized === "trial-preparation" ||
+    normalized === "trial" ||
+    normalized === "enforcement" ||
+    normalized === "appeal-or-review" ||
+    normalized === "urgent" ||
+    normalized === "not-sure"
+  ) {
+    return normalized;
+  }
+
+  return "unknown";
+}
+
+function normalizeJurisdiction(value: unknown): CasePartnerJurisdiction {
+  const normalized = normalizeText(value);
+
+  const jurisdictions: Record<string, CasePartnerJurisdiction> = {
+    ontario: "Ontario",
+    alberta: "Alberta",
+    "british columbia": "British Columbia",
+    manitoba: "Manitoba",
+    "new brunswick": "New Brunswick",
+    "newfoundland and labrador": "Newfoundland and Labrador",
+    "northwest territories": "Northwest Territories",
+    "nova scotia": "Nova Scotia",
+    nunavut: "Nunavut",
+    "prince edward island": "Prince Edward Island",
+    quebec: "Quebec",
+    saskatchewan: "Saskatchewan",
+    yukon: "Yukon",
+    federal: "Federal",
+    canada: "Canada",
+  };
+
+  return jurisdictions[normalized] || "Unknown";
 }
 
 function unique(items: string[]): string[] {
@@ -1262,21 +1344,24 @@ function buildMissingInformation(args: {
   message: string;
   frameworks: IssueFramework[];
   stage: CasePartnerProceduralStage;
+  jurisdiction: CasePartnerJurisdiction;
 }): string[] {
   const missing: string[] = [];
 
-  const hasProvince = includesAny(args.message, [
-    "ontario",
-    "alberta",
-    "british columbia",
-    "quebec",
-    "manitoba",
-    "saskatchewan",
-    "nova scotia",
-    "new brunswick",
-    "province",
-    "canada",
-  ]);
+  const hasProvince =
+    args.jurisdiction !== "Unknown" ||
+    includesAny(args.message, [
+      "ontario",
+      "alberta",
+      "british columbia",
+      "quebec",
+      "manitoba",
+      "saskatchewan",
+      "nova scotia",
+      "new brunswick",
+      "province",
+      "canada",
+    ]);
 
   if (!hasProvince) missing.push("province or jurisdiction");
 
@@ -1284,21 +1369,7 @@ function buildMissingInformation(args: {
     missing.push("important dates or timeline");
   }
 
-  if (
-    !includesAny(args.message, [
-      "filed",
-      "served",
-      "not filed",
-      "court",
-      "order",
-      "conference",
-      "motion",
-      "trial",
-      "hearing",
-      "no court yet",
-      "not in court",
-    ])
-  ) {
+  if (args.stage === "unknown" || args.stage === "not-sure") {
     missing.push("current court/procedural stage");
   }
 
@@ -1624,6 +1695,15 @@ export function buildConversationIntelligence(
   const message = clean(input.message);
   const conversationText = getConversationText(input.conversation);
   const combinedText = `${conversationText} ${message}`;
+  const selectedCourtArea = normalizeCourtArea(
+    input.courtContext?.courtPath,
+  );
+  const jurisdiction = normalizeJurisdiction(
+    input.courtContext?.jurisdiction,
+  );
+  const providedStage = normalizeProceduralStage(
+    input.courtContext?.proceduralStage,
+  );
 
   const frameworks = detectIssueFrameworks(combinedText);
   const requiresFamilyRelationshipClarification =
@@ -1650,7 +1730,11 @@ export function buildConversationIntelligence(
         ? frameworks[0].courtArea
         : inferCourtArea(combinedText);
 
-  const stage = inferProceduralStage(combinedText);
+  const inferredStage = inferProceduralStage(combinedText);
+  const stage =
+    providedStage !== "unknown" && providedStage !== "not-sure"
+      ? providedStage
+      : inferredStage;
   const inferredActors = inferActors(combinedText);
   const extractedFacts = extractFacts(message, inferredActors, frameworks);
   const legalSignals = detectLegalSignals(combinedText, frameworks);
@@ -1661,6 +1745,7 @@ export function buildConversationIntelligence(
     message: combinedText,
     frameworks,
     stage,
+    jurisdiction,
   });
 
   const baseQuestions = buildQuestions({
@@ -1720,7 +1805,7 @@ export function buildConversationIntelligence(
   });
 
   return {
-    version: "1.3.0",
+    version: "1.4.0",
     generatedAt: nowIso(),
     userFacingAnswer: answer,
     conversationFocus: {
@@ -1731,6 +1816,8 @@ export function buildConversationIntelligence(
       }),
       userRole: buildUserRole(combinedText),
       courtArea,
+      selectedCourtArea,
+      jurisdiction,
       proceduralStage: stage,
       confidence,
     },

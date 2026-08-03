@@ -1,0 +1,3492 @@
+﻿[
+    {
+        "file":  "next-env.d.ts",
+        "lines":  7,
+        "imports":  [
+                        "./.next/types/routes.d.ts"
+                    ],
+        "exports":  [
+
+                    ]
+    },
+    {
+        "file":  "next.config.ts",
+        "lines":  8,
+        "imports":  [
+                        "next"
+                    ],
+        "exports":  [
+
+                    ]
+    },
+    {
+        "file":  "app\\layout.tsx",
+        "lines":  155,
+        "imports":  [
+                        "./globals.css",
+                        "next",
+                        "next/font/google",
+                        "next/link"
+                    ],
+        "exports":  [
+                        "metadata",
+                        "RootLayout"
+                    ]
+    },
+    {
+        "file":  "app\\page.tsx",
+        "lines":  354,
+        "imports":  [
+                        "next/link"
+                    ],
+        "exports":  [
+                        "HomePage"
+                    ]
+    },
+    {
+        "file":  "app\\admin\\pdf-field-mapper\\page.tsx",
+        "lines":  558,
+        "imports":  [
+                        "@supabase/supabase-js",
+                        "react"
+                    ],
+        "exports":  [
+                        "PdfFieldMapperPage"
+                    ]
+    },
+    {
+        "file":  "app\\ai-drafting-assistant\\page.tsx",
+        "lines":  796,
+        "imports":  [
+                        "../../src/lib/case-system/aiDraftingAssistantEngine",
+                        "../../src/lib/case-system/documentWorkspaceEngine",
+                        "next/link",
+                        "next/navigation",
+                        "react"
+                    ],
+        "exports":  [
+                        "AiDraftingAssistantPage"
+                    ]
+    },
+    {
+        "file":  "app\\ai-test\\page.tsx",
+        "lines":  311,
+        "imports":  [
+                        "react"
+                    ],
+        "exports":  [
+                        "AITestPage"
+                    ]
+    },
+    {
+        "file":  "app\\api\\admin\\scan-pdf-fields\\route.ts",
+        "lines":  264,
+        "imports":  [
+                        "@supabase/supabase-js",
+                        "next/server",
+                        "pdf-lib"
+                    ],
+        "exports":  [
+                        "GET"
+                    ]
+    },
+    {
+        "file":  "app\\api\\ai-case-partner\\route.ts",
+        "lines":  213,
+        "imports":  [
+                        "@/src/lib/case-system/ai-case-partner/aiCasePartnerGateway",
+                        "@/src/lib/case-system/ai-case-partner/conversationIntelligenceEngine",
+                        "next/server"
+                    ],
+        "exports":  [
+                        "POST",
+                        "runtime"
+                    ]
+    },
+    {
+        "file":  "app\\api\\assistant-chat\\route.ts",
+        "lines":  547,
+        "imports":  [
+                        "../../../src/lib/case-system/intelligence/courtSimplifiedBrain",
+                        "../../../src/lib/case-system/intelligence/intelligenceTypes",
+                        "next/server",
+                        "openai"
+                    ],
+        "exports":  [
+                        "POST",
+                        "runtime"
+                    ]
+    },
+    {
+        "file":  "app\\api\\case-summary\\route.ts",
+        "lines":  426,
+        "imports":  [
+                        "../../../src/lib/case-system/intelligence/courtSimplifiedBrain",
+                        "../../../src/lib/case-system/intelligence/intelligenceTypes",
+                        "next/server"
+                    ],
+        "exports":  [
+                        "POST"
+                    ]
+    },
+    {
+        "file":  "app\\api\\cases\\route.ts",
+        "lines":  338,
+        "imports":  [
+                        "@supabase/supabase-js",
+                        "next/server"
+                    ],
+        "exports":  [
+                        "DELETE",
+                        "GET",
+                        "POST",
+                        "runtime"
+                    ]
+    },
+    {
+        "file":  "app\\api\\document-export\\route.ts",
+        "lines":  339,
+        "imports":  [
+                        "next/server"
+                    ],
+        "exports":  [
+                        "POST",
+                        "runtime"
+                    ]
+    },
+    {
+        "file":  "app\\api\\evidence-praser\\route.ts",
+        "lines":  130,
+        "imports":  [
+                        "next/server"
+                    ],
+        "exports":  [
+                        "POST"
+                    ]
+    },
+    {
+        "file":  "app\\api\\form-rules\\route.ts",
+        "lines":  189,
+        "imports":  [
+                        "@supabase/supabase-js",
+                        "next/server"
+                    ],
+        "exports":  [
+                        "POST"
+                    ]
+    },
+    {
+        "file":  "app\\api\\generate-form\\route.ts",
+        "lines":  1296,
+        "imports":  [
+                        "@supabase/supabase-js",
+                        "next/server",
+                        "pdf-lib"
+                    ],
+        "exports":  [
+                        "POST"
+                    ]
+    },
+    {
+        "file":  "app\\api\\rule-engine\\route.ts",
+        "lines":  51,
+        "imports":  [
+                        "../../../src/lib/case-system/rulesEngine",
+                        "next/server"
+                    ],
+        "exports":  [
+                        "POST"
+                    ]
+    },
+    {
+        "file":  "app\\api\\rules\\evidence\\route.ts",
+        "lines":  60,
+        "imports":  [
+                        "@supabase/supabase-js",
+                        "next/server"
+                    ],
+        "exports":  [
+                        "POST"
+                    ]
+    },
+    {
+        "file":  "app\\api\\rules\\issues\\route.ts",
+        "lines":  60,
+        "imports":  [
+                        "@supabase/supabase-js",
+                        "next/server"
+                    ],
+        "exports":  [
+                        "POST"
+                    ]
+    },
+    {
+        "file":  "app\\api\\rules\\procedures\\route.ts",
+        "lines":  52,
+        "imports":  [
+                        "@supabase/supabase-js",
+                        "next/server"
+                    ],
+        "exports":  [
+                        "POST"
+                    ]
+    },
+    {
+        "file":  "app\\api\\scan-form-fields\\route.ts",
+        "lines":  367,
+        "imports":  [
+                        "@supabase/supabase-js",
+                        "next/server",
+                        "pdf-lib"
+                    ],
+        "exports":  [
+                        "dynamic",
+                        "GET"
+                    ]
+    },
+    {
+        "file":  "app\\builder\\page.tsx",
+        "lines":  885,
+        "imports":  [
+                        "../../src/lib/case-system/caseContextEngine",
+                        "../../src/lib/case-system/masterCaseOrchestrator",
+                        "../../src/lib/supabase/client",
+                        "./_components/builderTypes",
+                        "./_components/CivilIntake",
+                        "./_components/CourtAssistantChat",
+                        "./_components/FamilyIntake",
+                        "./_components/IntelligenceOverviewPanel",
+                        "./_components/SmallClaimsIntake",
+                        "next/link",
+                        "next/navigation",
+                        "react"
+                    ],
+        "exports":  [
+                        "BuilderPage"
+                    ]
+    },
+    {
+        "file":  "app\\builder\\_components\\builderTypes.ts",
+        "lines":  412,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "AnalysisResult",
+                        "BuilderClaimClassification",
+                        "BuilderConfidence",
+                        "BuilderEvidenceIssue",
+                        "BuilderFormRecommendation",
+                        "BuilderIntelligenceItem",
+                        "BuilderLegalIntelligenceSnapshot",
+                        "BuilderProceduralPosture",
+                        "BuilderSeverity",
+                        "cleanList",
+                        "CourtPath",
+                        "getPathLabel",
+                        "getStageLabel",
+                        "hasMeaningfulText",
+                        "includesAny",
+                        "mapIntelligenceToAnalysisPatch",
+                        "normalize",
+                        "normalizeBuilderStage",
+                        "StoredCaseData",
+                        "UniversalStage"
+                    ]
+    },
+    {
+        "file":  "app\\builder\\_components\\CivilIntake.tsx",
+        "lines":  995,
+        "imports":  [
+                        "../../../src/lib/case-system/civilMasterCaseEngine",
+                        "../../../src/lib/case-system/evidenceEngine",
+                        "./builderTypes",
+                        "react"
+                    ],
+        "exports":  [
+                        "CivilIntake"
+                    ]
+    },
+    {
+        "file":  "app\\builder\\_components\\CourtAssistantChat.tsx",
+        "lines":  1022,
+        "imports":  [
+                        "react"
+                    ],
+        "exports":  [
+                        "CourtAssistantChat"
+                    ]
+    },
+    {
+        "file":  "app\\builder\\_components\\FamilyIntake.tsx",
+        "lines":  788,
+        "imports":  [
+                        "@/app/builder/_components/builderTypes",
+                        "react"
+                    ],
+        "exports":  [
+                        "FamilyIntake"
+                    ]
+    },
+    {
+        "file":  "app\\builder\\_components\\formsRegistry.ts",
+        "lines":  304,
+        "imports":  [
+                        "./builderTypes"
+                    ],
+        "exports":  [
+                        "findFormByLabel",
+                        "FormFileType",
+                        "FormItem",
+                        "formRegistry",
+                        "GenerationStrategy",
+                        "getBlankFormUrl",
+                        "getBlankFormUrlByLabel",
+                        "getFormsByCourtPath",
+                        "getFormsForCase"
+                    ]
+    },
+    {
+        "file":  "app\\builder\\_components\\IntelligenceOverviewPanel.tsx",
+        "lines":  516,
+        "imports":  [
+                        "./builderTypes"
+                    ],
+        "exports":  [
+                        "IntelligenceOverviewPanel"
+                    ]
+    },
+    {
+        "file":  "app\\builder\\_components\\SmallClaimsIntake.tsx",
+        "lines":  937,
+        "imports":  [
+                        "../../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine",
+                        "./builderTypes",
+                        "react"
+                    ],
+        "exports":  [
+                        "SmallClaimsIntake"
+                    ]
+    },
+    {
+        "file":  "app\\case-dashboard\\page.tsx",
+        "lines":  410,
+        "imports":  [
+                        "../../src/lib/case-system/caseContextStorage",
+                        "../../src/lib/case-system/timelineEngine",
+                        "react"
+                    ],
+        "exports":  [
+                        "CaseDashboardPage"
+                    ]
+    },
+    {
+        "file":  "app\\case-law\\page.tsx",
+        "lines":  487,
+        "imports":  [
+                        "next/link",
+                        "next/navigation",
+                        "react"
+                    ],
+        "exports":  [
+                        "CaseLawPage"
+                    ]
+    },
+    {
+        "file":  "app\\civil\\page.tsx",
+        "lines":  321,
+        "imports":  [
+                        "next/link"
+                    ],
+        "exports":  [
+                        "CivilPage"
+                    ]
+    },
+    {
+        "file":  "app\\court-package\\page.tsx",
+        "lines":  586,
+        "imports":  [
+                        "../../src/lib/case-system/caseContextStorage",
+                        "../../src/lib/case-system/courtPackageAssemblyEngine",
+                        "next/link",
+                        "next/navigation",
+                        "react"
+                    ],
+        "exports":  [
+                        "CourtPackagePage"
+                    ]
+    },
+    {
+        "file":  "app\\dashboard\\page.tsx",
+        "lines":  666,
+        "imports":  [
+                        "../../src/lib/case-system/dashboardEngine",
+                        "../../src/lib/supabase/client",
+                        "next/navigation",
+                        "react"
+                    ],
+        "exports":  [
+                        "DashboardPage"
+                    ]
+    },
+    {
+        "file":  "app\\dashboard\\cases\\[id]\\page.tsx",
+        "lines":  737,
+        "imports":  [
+                        "../../../../src/lib/case-system/dashboardEngine",
+                        "../../../../src/lib/supabase/client",
+                        "next/link",
+                        "next/navigation",
+                        "react"
+                    ],
+        "exports":  [
+                        "CaseWorkspacePage"
+                    ]
+    },
+    {
+        "file":  "app\\document-export\\page.tsx",
+        "lines":  827,
+        "imports":  [
+                        "next/link",
+                        "next/navigation",
+                        "react"
+                    ],
+        "exports":  [
+                        "DocumentExportPage"
+                    ]
+    },
+    {
+        "file":  "app\\document-workspace\\page.tsx",
+        "lines":  1179,
+        "imports":  [
+                        "../../src/lib/case-system/caseContextStorage",
+                        "../../src/lib/case-system/documentGenerationEngine",
+                        "../../src/lib/case-system/documentWorkspaceEngine",
+                        "../../src/lib/supabase/client",
+                        "next/link",
+                        "next/navigation",
+                        "react"
+                    ],
+        "exports":  [
+                        "DocumentWorkspacePage"
+                    ]
+    },
+    {
+        "file":  "app\\evidence\\page.tsx",
+        "lines":  1051,
+        "imports":  [
+                        "../../src/lib/case-system/caseContextStorage",
+                        "../../src/lib/case-system/evidenceAssemblyEngine",
+                        "../../src/lib/case-system/evidenceEngine",
+                        "../../src/lib/case-system/evidenceStorage",
+                        "../../src/lib/case-system/rawEvidenceStorage",
+                        "../../src/lib/supabase/client",
+                        "next/link",
+                        "next/navigation",
+                        "react"
+                    ],
+        "exports":  [
+                        "EvidencePage"
+                    ]
+    },
+    {
+        "file":  "app\\family\\page.tsx",
+        "lines":  215,
+        "imports":  [
+                        "next/link"
+                    ],
+        "exports":  [
+                        "FamilyPage"
+                    ]
+    },
+    {
+        "file":  "app\\family\\ontario\\page.tsx",
+        "lines":  260,
+        "imports":  [
+                        "next/link"
+                    ],
+        "exports":  [
+                        "OntarioFamilyPage"
+                    ]
+    },
+    {
+        "file":  "app\\forms\\page.tsx",
+        "lines":  1119,
+        "imports":  [
+                        "@supabase/supabase-js",
+                        "next/link",
+                        "next/navigation",
+                        "react"
+                    ],
+        "exports":  [
+                        "FormsPage"
+                    ]
+    },
+    {
+        "file":  "app\\legal-principles\\page.tsx",
+        "lines":  582,
+        "imports":  [
+                        "next/link",
+                        "next/navigation",
+                        "react"
+                    ],
+        "exports":  [
+                        "LegalPrinciplesPage"
+                    ]
+    },
+    {
+        "file":  "app\\litigation-strategy\\page.tsx",
+        "lines":  684,
+        "imports":  [
+                        "../../src/lib/case-system/caseContextStorage",
+                        "../../src/lib/case-system/litigationStrategyEngine",
+                        "next/link",
+                        "next/navigation",
+                        "react"
+                    ],
+        "exports":  [
+                        "LitigationStrategyPage"
+                    ]
+    },
+    {
+        "file":  "app\\login\\page.tsx",
+        "lines":  153,
+        "imports":  [
+                        "../../src/lib/supabase/client",
+                        "next/navigation",
+                        "react"
+                    ],
+        "exports":  [
+                        "LoginPage"
+                    ]
+    },
+    {
+        "file":  "app\\ontario-civil\\page.tsx",
+        "lines":  237,
+        "imports":  [
+                        "next/link"
+                    ],
+        "exports":  [
+                        "OntarioCivilPage"
+                    ]
+    },
+    {
+        "file":  "app\\ontario-smallclaims\\page.tsx",
+        "lines":  226,
+        "imports":  [
+                        "next/link"
+                    ],
+        "exports":  [
+                        "OntarioSmallClaimsPage"
+                    ]
+    },
+    {
+        "file":  "app\\settlement-conference\\page.tsx",
+        "lines":  588,
+        "imports":  [
+                        "next/link",
+                        "next/navigation",
+                        "react"
+                    ],
+        "exports":  [
+                        "SettlementConferencePage"
+                    ]
+    },
+    {
+        "file":  "app\\small-claims\\page.tsx",
+        "lines":  215,
+        "imports":  [
+                        "next/link"
+                    ],
+        "exports":  [
+                        "SmallClaimsPage"
+                    ]
+    },
+    {
+        "file":  "app\\trial-package\\page.tsx",
+        "lines":  608,
+        "imports":  [
+                        "next/link",
+                        "next/navigation",
+                        "react"
+                    ],
+        "exports":  [
+                        "TrialPackagePage"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\aiDraftingAssistantEngine.ts",
+        "lines":  445,
+        "imports":  [
+                        "./documentWorkspaceEngine"
+                    ],
+        "exports":  [
+                        "DraftingAssistantAction",
+                        "DraftingAssistantInput",
+                        "DraftingAssistantResult",
+                        "DraftingAssistantSuggestion",
+                        "runDraftingAssistant"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\aiIntakeNormalizer.ts",
+        "lines":  1345,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "AiIntakeNormalizerInput",
+                        "ClaimFamily",
+                        "ClaimFamilyScore",
+                        "CourtSimplifiedCasePath",
+                        "DamageCategory",
+                        "EvidenceCategory",
+                        "IntakeQualityIssue",
+                        "IntakeStage",
+                        "LegalElementStatus",
+                        "normalizeAiIntake",
+                        "NormalizedCaseData",
+                        "NormalizedEvidenceItem",
+                        "NormalizedLegalElement",
+                        "NormalizedTimelineEvent",
+                        "SuppressionDecision"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\caseContextEngine.ts",
+        "lines":  1908,
+        "imports":  [
+                        "./evidenceEngine",
+                        "./legalTheoryEngine",
+                        "./types"
+                    ],
+        "exports":  [
+                        "addCaseFact",
+                        "addCaseFormNeed",
+                        "buildCaseContext",
+                        "BuildCaseContextInput",
+                        "buildCaseContextStoragePayload",
+                        "CaseContext",
+                        "CaseFormNeed",
+                        "CaseIssue",
+                        "CasePartyRole",
+                        "CasePath",
+                        "CaseProceduralIntelligence",
+                        "CaseReadiness",
+                        "CaseReadinessLevel",
+                        "CaseRisk",
+                        "CaseStage",
+                        "CaseTimelineEvent",
+                        "restoreCaseContextFromPayload",
+                        "updateCaseContextEvidence"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\caseContextStorage.ts",
+        "lines":  192,
+        "imports":  [
+                        "./caseContextEngine"
+                    ],
+        "exports":  [
+                        "buildCaseContextSupabasePayload",
+                        "clearCaseContextsLocal",
+                        "deleteCaseContextLocal",
+                        "getActiveCaseContextLocal",
+                        "getCaseContextByIdLocal",
+                        "getCaseContextsLocal",
+                        "restoreCaseContextSupabasePayload",
+                        "saveCaseContextLocal",
+                        "setActiveCaseContextLocal",
+                        "updateCaseContextLocal"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\casePersistenceEngine.ts",
+        "lines":  991,
+        "imports":  [
+                        "./caseContextEngine",
+                        "./documentWorkspaceEngine",
+                        "./evidenceStorage"
+                    ],
+        "exports":  [
+                        "autosaveCaseRecordLocal",
+                        "buildCaseRecordLocal",
+                        "buildCaseRecordSupabasePayload",
+                        "CasePersistenceDiagnostic",
+                        "CasePersistenceDiagnosticLevel",
+                        "CasePersistenceStatus",
+                        "CaseSyncQueueItem",
+                        "CaseSyncQueueStatus",
+                        "clearAllCaseRecordsLocal",
+                        "clearCompletedCaseSyncQueueLocal",
+                        "collectCurrentLocalCaseRecord",
+                        "deleteCaseRecordLocal",
+                        "getActiveCaseRecordLocal",
+                        "getCasePersistenceHealthLocal",
+                        "getCaseRecordByIdLocal",
+                        "getCaseRecordsLocal",
+                        "getCaseSyncQueueLocal",
+                        "markCaseRecordSyncedLocal",
+                        "markCaseRecordSyncErrorLocal",
+                        "PersistedCaseRecord",
+                        "restoreCaseRecordFromSupabasePayload",
+                        "SaveCaseRecordInput",
+                        "saveCaseRecordLocal",
+                        "setActiveCaseRecordLocal",
+                        "updateCaseRecordLocal"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\civilCaseFileCatalogEngine.ts",
+        "lines":  251,
+        "imports":  [
+                        "./evidenceEngine",
+                        "./types/civil-case"
+                    ],
+        "exports":  [
+                        "CivilCaseFileCatalogInput",
+                        "CivilCaseFileCatalogResult",
+                        "CivilCatalogDocument",
+                        "runCivilCaseFileCatalogEngine"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\civilEvidenceEngine.ts",
+        "lines":  319,
+        "imports":  [
+                        "./caseContextEngine",
+                        "./evidenceEngine",
+                        "./types/civil-case"
+                    ],
+        "exports":  [
+                        "CivilEvidenceConcern",
+                        "CivilEvidenceGap",
+                        "CivilEvidenceInput",
+                        "CivilEvidenceIssue",
+                        "CivilEvidenceLink",
+                        "CivilEvidenceResult",
+                        "CivilEvidenceStrength",
+                        "runCivilEvidenceEngine"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\civilFormRoutingEngine.ts",
+        "lines":  456,
+        "imports":  [
+                        "./caseContextEngine",
+                        "./civilWorkflowEngine",
+                        "./types/civil-case"
+                    ],
+        "exports":  [
+                        "CivilFormPriority",
+                        "CivilFormReason",
+                        "CivilFormRecommendation",
+                        "CivilFormRoutingInput",
+                        "CivilFormRoutingResult",
+                        "runCivilFormRoutingEngine"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\civilMasterCaseEngine.ts",
+        "lines":  779,
+        "imports":  [
+                        "./caseContextEngine",
+                        "./civilCaseFileCatalogEngine",
+                        "./civilEvidenceEngine",
+                        "./civilFormRoutingEngine",
+                        "./civilNarrativeEngine",
+                        "./civilStrategyEngine",
+                        "./civilWorkflowEngine",
+                        "./evidenceEngine",
+                        "./types/civil-case"
+                    ],
+        "exports":  [
+                        "CivilMasterCaseInput",
+                        "CivilMasterCaseResult",
+                        "runCivilMasterCaseEngine"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\civilNarrativeEngine.ts",
+        "lines":  403,
+        "imports":  [
+                        "./civilEvidenceEngine",
+                        "./civilWorkflowEngine",
+                        "./types/civil-case"
+                    ],
+        "exports":  [
+                        "CivilNarrativeInput",
+                        "CivilNarrativeResult",
+                        "CivilNarrativeSection",
+                        "runCivilNarrativeEngine"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\civilStrategyEngine.ts",
+        "lines":  411,
+        "imports":  [
+                        "./caseContextEngine",
+                        "./civilMasterCaseEngine",
+                        "./types/civil-case"
+                    ],
+        "exports":  [
+                        "CivilStrategyInput",
+                        "CivilStrategyResult",
+                        "CivilTheoryAssessment",
+                        "runCivilStrategyEngine"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\civilWorkflowEngine.ts",
+        "lines":  1272,
+        "imports":  [
+                        "./caseContextEngine",
+                        "./evidenceEngine",
+                        "./types/civil-case"
+                    ],
+        "exports":  [
+                        "CivilWorkflowInput",
+                        "CivilWorkflowPriority",
+                        "CivilWorkflowResult",
+                        "CivilWorkflowStep",
+                        "runCivilWorkflowEngine"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\claimDraftEngine.ts",
+        "lines":  246,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "ClaimDraftInput",
+                        "ClaimDraftResult",
+                        "draftSmallClaimsPlaintiffClaim"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\courtPackageAssemblyEngine.ts",
+        "lines":  592,
+        "imports":  [
+                        "./caseContextEngine",
+                        "./evidenceEngine",
+                        "./timelineEngine"
+                    ],
+        "exports":  [
+                        "assembleCourtPackage",
+                        "CourtPackageAssemblyResult",
+                        "CourtPackageReadiness",
+                        "CourtPackageSection",
+                        "CourtPackageType"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\dashboardEngine.ts",
+        "lines":  815,
+        "imports":  [
+                        "./dashboard/dashboardAdapter",
+                        "./types/case"
+                    ],
+        "exports":  [
+                        "buildDashboardNextAction",
+                        "buildDashboardOperationalWarnings",
+                        "buildDashboardSummary",
+                        "buildDashboardWorkflowCards",
+                        "buildDashboardWorkflowHref",
+                        "calculateDashboardSystemScore",
+                        "DashboardAuthorityReadiness",
+                        "DashboardCaseShell",
+                        "DashboardContradictionReadiness",
+                        "DashboardCourtPath",
+                        "DashboardCredibilityIntelligence",
+                        "DashboardMasterView",
+                        "DashboardNextAction",
+                        "DashboardRisk",
+                        "DashboardSummary",
+                        "DashboardWorkflowStep",
+                        "extractDashboardMaster",
+                        "extractDashboardMasterFromCaseFile",
+                        "hasDashboardMasterData",
+                        "labelDashboardPath"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\defaults.ts",
+        "lines":  16,
+        "imports":  [
+                        "./types/family-case"
+                    ],
+        "exports":  [
+                        "createDefaultCase",
+                        "DefaultCaseBundle"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\documentExportEngine.ts",
+        "lines":  782,
+        "imports":  [
+                        "./documentWorkspaceEngine"
+                    ],
+        "exports":  [
+                        "buildDownloadableTextBlob",
+                        "buildExportFileLabel",
+                        "DocumentExportResult",
+                        "ExportCategory",
+                        "ExportDiagnostic",
+                        "ExportDiagnosticLevel",
+                        "ExportFormat",
+                        "exportLitigationPackage",
+                        "ExportReadiness",
+                        "ExportSection",
+                        "exportWorkspaceDocument",
+                        "LitigationExportPackageInput"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\documentGenerationEngine.ts",
+        "lines":  533,
+        "imports":  [
+                        "./caseContextEngine",
+                        "./courtPackageAssemblyEngine",
+                        "./evidenceEngine",
+                        "./timelineEngine"
+                    ],
+        "exports":  [
+                        "generateCaseDocument",
+                        "GeneratedDocument",
+                        "GeneratedDocumentSection",
+                        "GeneratedDocumentType"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\documentsStatusEngine.ts",
+        "lines":  220,
+        "imports":  [
+                        "./utils"
+                    ],
+        "exports":  [
+                        "DocumentStatus",
+                        "DocumentStatusInput",
+                        "DocumentStatusItem",
+                        "DocumentStatusResult",
+                        "runDocumentStatusEngine"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\documentWorkspaceEngine.ts",
+        "lines":  462,
+        "imports":  [
+                        "./documentGenerationEngine"
+                    ],
+        "exports":  [
+                        "addWorkspaceSection",
+                        "buildPlainTextFromWorkspaceDocument",
+                        "buildWorkspaceDocument",
+                        "getWorkspaceDocumentNextSteps",
+                        "getWorkspaceDocumentWarnings",
+                        "removeWorkspaceSection",
+                        "reorderWorkspaceSections",
+                        "updateWorkspaceSection",
+                        "updateWorkspaceStatus",
+                        "updateWorkspaceTitle",
+                        "WorkspaceBuildInput",
+                        "WorkspaceDocument",
+                        "WorkspaceDocumentStatus",
+                        "WorkspaceEditSource",
+                        "WorkspaceRevision",
+                        "WorkspaceSection"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\evidenceAssemblyEngine.ts",
+        "lines":  450,
+        "imports":  [
+                        "./evidenceEngine"
+                    ],
+        "exports":  [
+                        "AssembledExhibit",
+                        "assembleEvidencePackage",
+                        "EvidenceAssemblyResult",
+                        "RawEvidenceInput"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\evidenceEngine.ts",
+        "lines":  1205,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "analyzeEvidenceBundle",
+                        "analyzeEvidenceItem",
+                        "EvidenceAnalysis",
+                        "EvidenceBundleAnalysis",
+                        "EvidenceItem",
+                        "EvidenceRelationship",
+                        "EvidenceRelationshipType",
+                        "EvidenceStrength",
+                        "EvidenceStrengthLevel",
+                        "ExhibitGroup"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\evidenceStorage.ts",
+        "lines":  229,
+        "imports":  [
+                        "./evidenceEngine"
+                    ],
+        "exports":  [
+                        "buildEvidencePackage",
+                        "buildEvidenceStoragePayload",
+                        "deleteEvidencePackageLocal",
+                        "EvidenceStorageInput",
+                        "getEvidencePackageByIdLocal",
+                        "getEvidencePackagesLocal",
+                        "restoreEvidencePackageFromPayload",
+                        "saveEvidencePackageLocal",
+                        "StoredEvidencePackage",
+                        "updateEvidencePackageLocal"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\familyAffidavitNarrativeEngine.ts",
+        "lines":  766,
+        "imports":  [
+                        "./familyAiIntakeNormalizer",
+                        "./familyEvidenceEngine",
+                        "./familyFormRoutingEngine",
+                        "./familyStrategyEngine",
+                        "./familyWorkflowEngine",
+                        "./types/family-case.ts"
+                    ],
+        "exports":  [
+                        "FamilyNarrativeInput",
+                        "FamilyNarrativeIssueLink",
+                        "FamilyNarrativeParagraph",
+                        "FamilyNarrativeResult",
+                        "FamilyNarrativeRisk",
+                        "FamilyNarrativeSection",
+                        "FamilyNarrativeSectionType",
+                        "FamilyNarrativeSource",
+                        "FamilyNarrativeTone",
+                        "runFamilyAffidavitNarrativeEngine"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\familyAiIntakeNormalizer.ts",
+        "lines":  635,
+        "imports":  [
+                        "./types/family-case.ts"
+                    ],
+        "exports":  [
+                        "FamilyAiIntakeInput",
+                        "FamilyNormalizedIntake",
+                        "FamilyNormalizedIssueScore",
+                        "normalizeFamilyAiIntake"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\familyCaseFileCatalogEngine.ts",
+        "lines":  630,
+        "imports":  [
+                        "./familyAiIntakeNormalizer",
+                        "./familyEvidenceEngine",
+                        "./familyFormRoutingEngine",
+                        "./familyWorkflowEngine",
+                        "./types/family-case.ts"
+                    ],
+        "exports":  [
+                        "FamilyCaseFileCatalogInput",
+                        "FamilyCaseFileCatalogItem",
+                        "FamilyCaseFileCatalogResult",
+                        "FamilyCaseFileDirection",
+                        "FamilyCaseFileDocumentKind",
+                        "FamilyCaseFileImportance",
+                        "FamilyCaseFileStatus",
+                        "FamilyCaseFileUpload",
+                        "runFamilyCaseFileCatalogEngine"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\familyEvidenceEngine.ts",
+        "lines":  588,
+        "imports":  [
+                        "./familyAiIntakeNormalizer",
+                        "./familyFormRoutingEngine",
+                        "./familyStrategyEngine",
+                        "./familyWorkflowEngine",
+                        "./types/family-case.ts"
+                    ],
+        "exports":  [
+                        "FamilyEvidenceAnalysisItem",
+                        "FamilyEvidenceEngineInput",
+                        "FamilyEvidenceEngineResult",
+                        "FamilyEvidenceGap",
+                        "FamilyEvidenceIssueLink",
+                        "FamilyEvidencePackage",
+                        "FamilyEvidenceRawItem",
+                        "FamilyEvidenceStrength",
+                        "runFamilyEvidenceEngine"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\familyFormRoutingEngine.ts",
+        "lines":  527,
+        "imports":  [
+                        "./familyAiIntakeNormalizer",
+                        "./familyStrategyEngine",
+                        "./familyWorkflowEngine",
+                        "./types/family-case.ts"
+                    ],
+        "exports":  [
+                        "FamilyFormPriority",
+                        "FamilyFormReason",
+                        "FamilyFormRecommendation",
+                        "FamilyFormRoutingInput",
+                        "FamilyFormRoutingResult",
+                        "runFamilyFormRoutingEngine"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\familyMasterCaseEngine.ts",
+        "lines":  562,
+        "imports":  [
+                        "./familyAffidavitNarrativeEngine",
+                        "./familyAiIntakeNormalizer",
+                        "./familyCaseFileCatalogEngine",
+                        "./familyEvidenceEngine",
+                        "./familyFormRoutingEngine",
+                        "./familyStrategyEngine",
+                        "./familyWorkflowEngine",
+                        "./types/family-case.ts"
+                    ],
+        "exports":  [
+                        "FamilyMasterCaseConfidence",
+                        "FamilyMasterCaseInput",
+                        "FamilyMasterCaseResult",
+                        "FamilyMasterCaseStatus",
+                        "runFamilyMasterCaseEngine"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\familyStrategyEngine.ts",
+        "lines":  481,
+        "imports":  [
+                        "./types/family-case.ts"
+                    ],
+        "exports":  [
+                        "analyzeFamilyStrategy",
+                        "FamilyStrategyInput",
+                        "FamilyStrategyResult"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\familyWorkflowEngine.ts",
+        "lines":  619,
+        "imports":  [
+                        "./familyAiIntakeNormalizer",
+                        "./familyStrategyEngine",
+                        "./types/family-case.ts"
+                    ],
+        "exports":  [
+                        "FamilyWorkflowInput",
+                        "FamilyWorkflowPriority",
+                        "FamilyWorkflowResult",
+                        "FamilyWorkflowStep",
+                        "runFamilyWorkflowEngine"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\form-registry.legacy.ts",
+        "lines":  150,
+        "imports":  [
+                        "./form8",
+                        "./types/family-case.ts"
+                    ],
+        "exports":  [
+                        "ALL_FORMS",
+                        "analyzeFamilyFormNeeds",
+                        "FormDefinition",
+                        "FormRecommendation",
+                        "getFormsForFamilyCase"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\form8.ts",
+        "lines":  65,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "form8Definition",
+                        "Form8Field"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\formKnowledgeBase.ts",
+        "lines":  699,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "CaseStage",
+                        "CourtPath",
+                        "findKnowledgeForForm",
+                        "FORM_KNOWLEDGE_BASE",
+                        "FormKnowledgeRule",
+                        "FormPriority"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\formTriggerEngine.ts",
+        "lines":  390,
+        "imports":  [
+                        "./formKnowledgeBase",
+                        "./utils"
+                    ],
+        "exports":  [
+                        "FormTriggerInput",
+                        "FormTriggerResult",
+                        "runFormTriggerEngine",
+                        "TriggeredFormRecommendation"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\legalTheoryEngine.ts",
+        "lines":  1449,
+        "imports":  [
+                        "./utils"
+                    ],
+        "exports":  [
+                        "CourtPath",
+                        "LegalTheoryInput",
+                        "LegalTheoryMatch",
+                        "LegalTheoryResult",
+                        "LegalTheoryRule",
+                        "runLegalTheoryEngine"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\litigationStrategyEngine.ts",
+        "lines":  703,
+        "imports":  [
+                        "./caseContextEngine",
+                        "./evidenceEngine",
+                        "./legalTheoryEngine"
+                    ],
+        "exports":  [
+                        "buildLitigationStrategyReport",
+                        "JudicialConcern",
+                        "LitigationIssueCategory",
+                        "LitigationRiskLevel",
+                        "LitigationStrategyReport",
+                        "LitigationStrength",
+                        "LitigationWeakness",
+                        "OpposingArgument"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\masterCaseOrchestrator.ts",
+        "lines":  631,
+        "imports":  [
+                        "./caseContextEngine",
+                        "./casePersistenceEngine",
+                        "./documentWorkspaceEngine",
+                        "./evidenceEngine",
+                        "./evidenceStorage"
+                    ],
+        "exports":  [
+                        "addFactToMasterCase",
+                        "attachEvidenceToMasterCase",
+                        "attachFormsToMasterCase",
+                        "attachWorkspaceDocumentsToMasterCase",
+                        "buildMasterCaseFromIntake",
+                        "getActiveMasterCaseRecord",
+                        "getMasterCaseRecordById",
+                        "rebuildMasterCaseContext",
+                        "saveMasterCaseFromIntake"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\proceduralRules.ts",
+        "lines":  101,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "cleanList",
+                        "CourtPath",
+                        "extractFormNumber",
+                        "normalizeText",
+                        "ProceduralFormValidation",
+                        "validateProceduralForms"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\rawEvidenceStorage.ts",
+        "lines":  256,
+        "imports":  [
+                        "./evidenceAssemblyEngine"
+                    ],
+        "exports":  [
+                        "buildRawEvidenceSupabasePayload",
+                        "clearRawEvidenceForCaseLocal",
+                        "deleteRawEvidenceLocal",
+                        "getRawEvidenceLocal",
+                        "getRawEvidenceReadyForAssemblyLocal",
+                        "markRawEvidenceAsAssembledLocal",
+                        "RawEvidenceStatus",
+                        "restoreRawEvidenceFromSupabasePayload",
+                        "saveManyRawEvidenceLocal",
+                        "SaveRawEvidenceInput",
+                        "saveRawEvidenceLocal",
+                        "StoredRawEvidence",
+                        "updateRawEvidenceLocal",
+                        "updateRawEvidenceStatusLocal"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\registry.ts",
+        "lines":  74,
+        "imports":  [
+                        "./defaults",
+                        "./types/family-case.ts"
+                    ],
+        "exports":  [
+                        "CaseDefinition",
+                        "createCaseFromType",
+                        "FAMILY_CASE_DEFINITIONS",
+                        "getCaseDefinition",
+                        "getCaseDefinitions"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\rulesEngine.ts",
+        "lines":  692,
+        "imports":  [
+                        "./familyAiIntakeNormalizer",
+                        "./familyStrategyEngine",
+                        "./formKnowledgeBase",
+                        "./formTriggerEngine",
+                        "./legalTheoryEngine",
+                        "./proceduralRules",
+                        "./scenarioConfidenceEngine",
+                        "./scenarioEngine",
+                        "./smallClaimsEngine"
+                    ],
+        "exports":  [
+                        "IntakeData",
+                        "RuleMatch",
+                        "runRuleEngine"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\scenarioConfidenceEngine.ts",
+        "lines":  240,
+        "imports":  [
+                        "./scenarioEngine",
+                        "./utils"
+                    ],
+        "exports":  [
+                        "ConfidenceLevel",
+                        "filterTheoryListByConfidence",
+                        "runScenarioConfidenceEngine",
+                        "ScenarioConfidenceDecision",
+                        "ScenarioConfidenceResult",
+                        "shouldSuppressTheory"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\scenarioEngine.ts",
+        "lines":  473,
+        "imports":  [
+                        "./utils"
+                    ],
+        "exports":  [
+                        "CourtPath",
+                        "runScenarioEngine",
+                        "ScenarioInput",
+                        "ScenarioIssue",
+                        "ScenarioResult",
+                        "ScenarioRole",
+                        "ScenarioStage"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\smallClaimsEngine.ts",
+        "lines":  737,
+        "imports":  [
+                        "./aiIntakeNormalizer",
+                        "./utils",
+                        "@/app/builder/_components/builderTypes"
+                    ],
+        "exports":  [
+                        "ONTARIO_SMALL_CLAIMS_LIMIT",
+                        "runSmallClaimsEngine",
+                        "SmallClaimsEngineInput"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\timelineEngine.ts",
+        "lines":  535,
+        "imports":  [
+                        "./evidenceEngine"
+                    ],
+        "exports":  [
+                        "buildTimelineFromEvidence",
+                        "TimelineAnalysis",
+                        "TimelineConfidence",
+                        "TimelineEvent",
+                        "TimelineEventType"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\utils.ts",
+        "lines":  89,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "cleanList",
+                        "detectLimitationRisk",
+                        "detectUrgency",
+                        "extractDollarAmounts",
+                        "hasLimitationRisk",
+                        "hasText",
+                        "includesAny",
+                        "normalize"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerGateway.ts",
+        "lines":  140,
+        "imports":  [
+                        "./aiCasePartnerOrchestrator"
+                    ],
+        "exports":  [
+                        "AiCasePartnerGatewayInput",
+                        "AiCasePartnerGatewayResult",
+                        "AiCasePartnerGatewayVersion",
+                        "runAiCasePartnerGateway"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerOrchestrator.ts",
+        "lines":  972,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "../knowledge/doctrineSeedLibrary",
+                        "../knowledge/legalReasoningCoordinator",
+                        "./caseInvestigationEngine",
+                        "./conversationIntelligenceEngine",
+                        "./conversationMemoryEngine"
+                    ],
+        "exports":  [
+                        "AiCasePartnerDiagnosticStage",
+                        "AiCasePartnerOrchestratorDiagnostics",
+                        "AiCasePartnerOrchestratorInput",
+                        "AiCasePartnerOrchestratorResult",
+                        "AiCasePartnerOrchestratorVersion",
+                        "AiCasePartnerStageDiagnostic",
+                        "runAiCasePartnerOrchestrator"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\ai-case-partner\\caseInvestigationEngine.ts",
+        "lines":  791,
+        "imports":  [
+                        "../knowledge/legalReasoningCoordinator",
+                        "./conversationIntelligenceEngine",
+                        "./conversationMemoryEngine"
+                    ],
+        "exports":  [
+                        "buildCaseInvestigation",
+                        "CaseInvestigationInput",
+                        "CaseInvestigationResult",
+                        "CaseInvestigationVersion",
+                        "InvestigatedIssue",
+                        "InvestigationCategory",
+                        "InvestigationConfidence",
+                        "InvestigationEvidenceNeed",
+                        "InvestigationFinding",
+                        "InvestigationParty",
+                        "InvestigationPriority",
+                        "InvestigationSeverity",
+                        "InvestigationTimelineItem"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\ai-case-partner\\conversationIntelligenceEngine.ts",
+        "lines":  1799,
+        "imports":  [
+                        "../knowledge/legalReasoningProfiles"
+                    ],
+        "exports":  [
+                        "buildConversationIntelligence",
+                        "CasePartnerConfidence",
+                        "CasePartnerConversationMessage",
+                        "CasePartnerCourtArea",
+                        "CasePartnerFact",
+                        "CasePartnerHypothesis",
+                        "CasePartnerInferredActor",
+                        "CasePartnerInput",
+                        "CasePartnerLegalSignal",
+                        "CasePartnerProceduralStage",
+                        "CasePartnerQuestion",
+                        "CasePartnerQuestionPriority",
+                        "CasePartnerRole",
+                        "ConversationIntelligenceResult"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\ai-case-partner\\conversationMemoryEngine.ts",
+        "lines":  581,
+        "imports":  [
+                        "./conversationIntelligenceEngine"
+                    ],
+        "exports":  [
+                        "buildConversationMemory",
+                        "ConversationMemoryInput",
+                        "ConversationMemoryResult",
+                        "ConversationMemoryState",
+                        "ConversationMemoryVersion",
+                        "MemoryConfidence",
+                        "MemorySource",
+                        "RememberedItem"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\architecture\\masterCaseSchema.ts",
+        "lines":  787,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "CaseAuditEvent",
+                        "CaseAuthorityAnalysis",
+                        "CaseAuthorityVerificationFinding",
+                        "CaseAuthorityWeightFinding",
+                        "CaseAuthorityWeightGrade",
+                        "CaseCitationSafetyFinding",
+                        "CaseCitationSafetyLevel",
+                        "CaseClaim",
+                        "CaseClaimProofMap",
+                        "CaseClaimStatus",
+                        "CaseConfidence",
+                        "CaseContradictionAnalysis",
+                        "CaseContradictionCategory",
+                        "CaseContradictionFinding",
+                        "CaseContradictionNode",
+                        "CaseContradictionSeverity",
+                        "CaseCourtPath",
+                        "CaseCredibilityAnalysis",
+                        "CaseCredibilityRiskFinding",
+                        "CaseCredibilityRiskLevel",
+                        "CaseDocument",
+                        "CaseDocumentStatus",
+                        "CaseDocumentType",
+                        "CaseElementProofFinding",
+                        "CaseElementProofStatus",
+                        "CaseEvidenceContradiction",
+                        "CaseEvidenceGap",
+                        "CaseEvidenceIntelligence",
+                        "CaseEvidenceIntelligenceFinding",
+                        "CaseEvidenceItem",
+                        "CaseEvidenceLifecycleStatus",
+                        "CaseEvidenceStrength",
+                        "CaseEvidenceType",
+                        "CaseFactPatternAnalysis",
+                        "CaseFactPatternCategory",
+                        "CaseFactPatternFinding",
+                        "CaseJudicialConcern",
+                        "CaseJurisdictionAuthorityFinding",
+                        "CaseJurisdictionAuthorityFit",
+                        "CaseKnowledgeAuthorityLevel",
+                        "CaseKnowledgeVerificationStatus",
+                        "CaseLegalDomain",
+                        "CaseLegalKnowledgeReference",
+                        "CaseMemorySnapshot",
+                        "CaseOpposingArgument",
+                        "CaseParty",
+                        "CasePartyRole",
+                        "CaseProofAnalysis",
+                        "CaseProvince",
+                        "CaseReadinessState",
+                        "CaseRisk",
+                        "CaseSeverity",
+                        "CaseStage",
+                        "CaseSystemAuthorityLayer",
+                        "CaseTimelineEvent",
+                        "CaseWorkflowState",
+                        "CourtSimplifiedSchemaVersion",
+                        "MasterCaseSchema"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\authority\\authoritySourceSchema.ts",
+        "lines":  177,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "AuthorityBindingLevel",
+                        "AuthorityCitation",
+                        "AuthorityCollection",
+                        "AuthorityCourtLevel",
+                        "AuthorityDomain",
+                        "AuthorityJurisdiction",
+                        "AuthorityMetadata",
+                        "AuthorityRelationship",
+                        "AuthoritySchemaVersion",
+                        "AuthoritySourceType",
+                        "AuthorityStatus",
+                        "AuthorityVerificationStatus"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\authority\\authorityVerificationEngine.ts",
+        "lines":  232,
+        "imports":  [
+                        "./authoritySourceSchema",
+                        "./verifiedAuthorityRegistry"
+                    ],
+        "exports":  [
+                        "AuthorityVerificationEngineOutput",
+                        "AuthorityVerificationResult",
+                        "verifyAuthorities"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\authority\\authorityWeightEngine.ts",
+        "lines":  320,
+        "imports":  [
+                        "./authoritySourceSchema",
+                        "./authorityVerificationEngine"
+                    ],
+        "exports":  [
+                        "AuthorityWeightEngineInput",
+                        "AuthorityWeightEngineOutput",
+                        "AuthorityWeightGrade",
+                        "AuthorityWeightResult",
+                        "weighAuthorities"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\authority\\citationSafetyEngine.ts",
+        "lines":  285,
+        "imports":  [
+                        "./authoritySourceSchema",
+                        "./authorityVerificationEngine",
+                        "./authorityWeightEngine"
+                    ],
+        "exports":  [
+                        "CitationSafetyEngineInput",
+                        "CitationSafetyEngineOutput",
+                        "CitationSafetyLevel",
+                        "CitationSafetyResult",
+                        "CitationUseContext",
+                        "evaluateCitationSafety"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\authority\\jurisdictionAuthorityEngine.ts",
+        "lines":  216,
+        "imports":  [
+                        "./authoritySourceSchema",
+                        "./authorityWeightEngine",
+                        "./citationSafetyEngine"
+                    ],
+        "exports":  [
+                        "evaluateJurisdictionAuthority",
+                        "JurisdictionAuthorityEngineInput",
+                        "JurisdictionAuthorityEngineOutput",
+                        "JurisdictionAuthorityFit",
+                        "JurisdictionAuthorityResult"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\authority\\ontarioCivilAuthorityCollection.ts",
+        "lines":  270,
+        "imports":  [
+                        "./authoritySourceSchema"
+                    ],
+        "exports":  [
+                        "getOntarioCivilAuthorities",
+                        "getOntarioCivilAuthorityCollection",
+                        "ONTARIO_CIVIL_AUTHORITY_COLLECTION"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\authority\\verifiedAuthorityRegistry.ts",
+        "lines":  367,
+        "imports":  [
+                        "./authoritySourceSchema"
+                    ],
+        "exports":  [
+                        "findVerifiedAuthorityRule",
+                        "VERIFIED_AUTHORITY_REGISTRY",
+                        "VerifiedAuthorityRule"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\authority-intelligence\\authorityBrainBridge.ts",
+        "lines":  1120,
+        "imports":  [
+                        "../intelligence/intelligenceTypes",
+                        "./authorityIntegrationHub",
+                        "./authorityNavigator"
+                    ],
+        "exports":  [
+                        "authorityBrainBridge",
+                        "AuthorityBrainBridgeDiagnostic",
+                        "AuthorityBrainBridgeInput",
+                        "AuthorityBrainBridgeResult",
+                        "AuthorityBrainBridgeSeverity",
+                        "AuthorityBrainBridgeStatus",
+                        "AuthorityBrainBridgeVersion",
+                        "AuthorityBrainSignal",
+                        "AuthorityBrainSignalType",
+                        "buildAuthorityBrainBridge",
+                        "getAuthorityBrainSignalsForRoute",
+                        "getBlockingAuthorityBrainSignals",
+                        "isBrainAuthorityReady"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\authority-intelligence\\authorityCaseSystemBridge.ts",
+        "lines":  1109,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "../intelligence/intelligenceTypes",
+                        "./authorityBrainBridge",
+                        "./authorityIntegrationHub",
+                        "./authorityNavigator",
+                        "./authorityWorkflowBridge"
+                    ],
+        "exports":  [
+                        "authorityCaseSystemBridge",
+                        "AuthorityCaseSystemBridgeDiagnostic",
+                        "AuthorityCaseSystemBridgeInput",
+                        "AuthorityCaseSystemBridgeResult",
+                        "AuthorityCaseSystemBridgeSeverity",
+                        "AuthorityCaseSystemBridgeStatus",
+                        "AuthorityCaseSystemBridgeVersion",
+                        "AuthorityCaseSystemSignal",
+                        "AuthorityCaseSystemSignalType",
+                        "buildAuthorityCaseSystemBridge",
+                        "getAuthorityCaseSystemSignalsForRoute",
+                        "getBlockingAuthorityCaseSystemSignals",
+                        "isCaseSystemAuthorityReady"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\authority-intelligence\\authorityDisplayEngine.ts",
+        "lines":  220,
+        "imports":  [
+                        "./authorityRegistryArchitecture",
+                        "./authorityRetrievalEngine"
+                    ],
+        "exports":  [
+                        "AuthorityDisplayCard",
+                        "AuthorityDisplayEngineVersion",
+                        "AuthorityDisplayGroup",
+                        "AuthorityDisplayResult",
+                        "buildAuthorityCardsForTopic",
+                        "buildAuthorityDisplayResult",
+                        "buildTopAuthorityDisplayResult"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\authority-intelligence\\authorityIntegrationHub.ts",
+        "lines":  704,
+        "imports":  [
+                        "./authorityNavigator"
+                    ],
+        "exports":  [
+                        "AuthorityIntegrationConsumer",
+                        "AuthorityIntegrationConsumerProfile",
+                        "AuthorityIntegrationDiagnostic",
+                        "authorityIntegrationHub",
+                        "AuthorityIntegrationHubInput",
+                        "AuthorityIntegrationHubResult",
+                        "AuthorityIntegrationHubVersion",
+                        "AuthorityIntegrationSeverity",
+                        "AuthorityIntegrationStatus",
+                        "createAuthorityIntegrationHub",
+                        "getAuthorityIntegrationConsumerProfile",
+                        "getAuthorityIntegrationWarnings",
+                        "isAuthorityIntegrationCourtReady",
+                        "resolveAuthorityIntegration"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\authority-intelligence\\authorityNavigator.ts",
+        "lines":  847,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "AuthorityNavigationCourtPath",
+                        "AuthorityNavigationDomain",
+                        "AuthorityNavigationPurpose",
+                        "AuthorityNavigationSeverity",
+                        "AuthorityNavigationSource",
+                        "AuthorityNavigationStage",
+                        "authorityNavigator",
+                        "AuthorityNavigatorAdapterResult",
+                        "AuthorityNavigatorAdapters",
+                        "AuthorityNavigatorAnnualPracticeHook",
+                        "AuthorityNavigatorAuthority",
+                        "AuthorityNavigatorCanliiHook",
+                        "AuthorityNavigatorCaseContext",
+                        "AuthorityNavigatorCitationHook",
+                        "AuthorityNavigatorDiagnostic",
+                        "AuthorityNavigatorDisplayGroup",
+                        "AuthorityNavigatorExplanation",
+                        "AuthorityNavigatorExtensionEvent",
+                        "AuthorityNavigatorRequest",
+                        "AuthorityNavigatorResult",
+                        "AuthorityNavigatorRoute",
+                        "AuthorityNavigatorVersion",
+                        "buildAuthorityNavigationRequestFromCaseContext",
+                        "createAuthorityNavigator",
+                        "getAuthorityNavigatorDiagnostics",
+                        "getRequiredAnnualPracticeHooks",
+                        "getRequiredCanliiHooks",
+                        "getSafeCitationHooks",
+                        "navigateAuthorities"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\authority-intelligence\\authorityRegistryArchitecture.ts",
+        "lines":  250,
+        "imports":  [
+                        "../architecture/masterCaseSchema"
+                    ],
+        "exports":  [
+                        "AUTHORITY_REGISTRY_ARCHITECTURE_VERSION",
+                        "AuthorityBindingWeight",
+                        "AuthorityCourtLevel",
+                        "AuthorityDisplayMode",
+                        "AuthorityRegistryArchitectureVersion",
+                        "AuthorityRegistryEvidenceImplication",
+                        "AuthorityRegistryLegalTestElement",
+                        "AuthorityRegistryModel",
+                        "AuthorityRegistryRankingResult",
+                        "AuthorityRegistrySearchContext",
+                        "AuthorityRegistrySearchResult",
+                        "AuthorityRegistrySourceReference",
+                        "AuthorityRegistryTopicGroup",
+                        "AuthorityRegistryWorkflowLink",
+                        "AuthorityUserRiskLevel",
+                        "AuthorityVerificationStatus",
+                        "VerifiedAuthorityEntry",
+                        "VerifiedAuthorityKind"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\authority-intelligence\\authorityRetrievalEngine.ts",
+        "lines":  334,
+        "imports":  [
+                        "./authorityRegistryArchitecture",
+                        "./verifiedAuthoritySeedRegistry"
+                    ],
+        "exports":  [
+                        "getAuthorityById",
+                        "getAuthorityTopicGroups",
+                        "retrieveTopVerifiedAuthorities",
+                        "retrieveVerifiedAuthorities"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\authority-intelligence\\authorityWorkflowBridge.ts",
+        "lines":  941,
+        "imports":  [
+                        "../litigation-intelligence/litigationReasoningEngine",
+                        "../workflow/workflowOrchestrationArchitecture",
+                        "./authorityIntegrationHub",
+                        "./authorityNavigator"
+                    ],
+        "exports":  [
+                        "AuthorityWorkflowAuthorityNeed",
+                        "authorityWorkflowBridge",
+                        "AuthorityWorkflowBridgeDiagnostic",
+                        "AuthorityWorkflowBridgeInput",
+                        "AuthorityWorkflowBridgeResult",
+                        "AuthorityWorkflowBridgeSeverity",
+                        "AuthorityWorkflowBridgeStatus",
+                        "AuthorityWorkflowBridgeVersion",
+                        "AuthorityWorkflowTrigger",
+                        "buildAuthorityWorkflowBridge",
+                        "getAuthorityNeedsForRoute",
+                        "getBlockingAuthorityWorkflowNeeds",
+                        "isWorkflowAuthorityReady"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\authority-intelligence\\verifiedAuthoritySeedRegistry.ts",
+        "lines":  798,
+        "imports":  [
+                        "./authorityRegistryArchitecture"
+                    ],
+        "exports":  [
+                        "getVerifiedAuthoritySeedEntries",
+                        "getVerifiedAuthoritySeedRegistry",
+                        "VERIFIED_AUTHORITY_SEED_ENTRIES",
+                        "VERIFIED_AUTHORITY_SEED_REGISTRY",
+                        "VERIFIED_AUTHORITY_TOPIC_GROUPS"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\claims\\claimTheoryArchitecture.ts",
+        "lines":  242,
+        "imports":  [
+                        "../architecture/masterCaseSchema"
+                    ],
+        "exports":  [
+                        "ClaimCompatibilityStatus",
+                        "ClaimElementStatus",
+                        "ClaimTheory",
+                        "ClaimTheoryArbitrationResult",
+                        "ClaimTheoryBuildInput",
+                        "ClaimTheoryBuildOutput",
+                        "ClaimTheoryBurden",
+                        "ClaimTheoryCompatibility",
+                        "ClaimTheoryElement",
+                        "ClaimTheoryModel",
+                        "ClaimTheoryRemedy",
+                        "ClaimTheoryRisk",
+                        "ClaimTheoryRiskType",
+                        "ClaimTheorySource",
+                        "ClaimTheoryStatus",
+                        "ClaimTheorySuppression",
+                        "ClaimTheoryVersion"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\claims\\claimTheoryEngine.ts",
+        "lines":  415,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "./claimTheoryArchitecture"
+                    ],
+        "exports":  [
+                        "buildClaimTheoryModel"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\contracts\\engineGovernance.ts",
+        "lines":  532,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "ENGINE_GOVERNANCE",
+                        "EngineAuthority",
+                        "EngineGovernanceProfile",
+                        "EngineGovernanceRule",
+                        "EngineLayer",
+                        "EngineName",
+                        "getEngineGovernance",
+                        "mayEngineReadFrom",
+                        "mayEngineWriteTo"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\contracts\\masterCaseBridge.ts",
+        "lines":  1462,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "../authority/authoritySourceSchema",
+                        "../authority/authorityVerificationEngine",
+                        "../authority/authorityWeightEngine",
+                        "../authority/citationSafetyEngine",
+                        "../contradictions/contradictionDetectionEngine",
+                        "../contradictions/credibilityRiskEngine",
+                        "../evidence/evidenceIntelligenceTypes",
+                        "../facts/factPatternTypes",
+                        "../intelligence/intelligenceTypes"
+                    ],
+        "exports":  [
+                        "buildMasterCaseFromIntelligence"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\contradictions\\contradictionDetectionEngine.ts",
+        "lines":  613,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "./contradictionSchema"
+                    ],
+        "exports":  [
+                        "ContradictionDetectionInput",
+                        "ContradictionDetectionOutput",
+                        "detectContradictions"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\contradictions\\contradictionSchema.ts",
+        "lines":  111,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "ContradictionCategory",
+                        "ContradictionConfidence",
+                        "ContradictionEngineResult",
+                        "ContradictionFinding",
+                        "ContradictionNode",
+                        "ContradictionSchemaVersion",
+                        "ContradictionSeverity",
+                        "ContradictionSourceType",
+                        "ContradictionSummary"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\contradictions\\credibilityRiskEngine.ts",
+        "lines":  374,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "./contradictionDetectionEngine",
+                        "./contradictionSchema"
+                    ],
+        "exports":  [
+                        "assessCredibilityRisk",
+                        "CredibilityRiskCategory",
+                        "CredibilityRiskEngineInput",
+                        "CredibilityRiskFinding",
+                        "CredibilityRiskLevel",
+                        "CredibilityRiskResult"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\credibility\\credibilityRiskArchitecture.ts",
+        "lines":  128,
+        "imports":  [
+                        "../architecture/masterCaseSchema"
+                    ],
+        "exports":  [
+                        "CredibilityConcernType",
+                        "CredibilityCorrectionAction",
+                        "CredibilityReadinessState",
+                        "CredibilityRiskBuildInput",
+                        "CredibilityRiskBuildOutput",
+                        "CredibilityRiskModel",
+                        "CredibilityRiskVersion",
+                        "CredibilitySignal",
+                        "JudicialRiskCategory",
+                        "JudicialRiskFinding"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\credibility\\credibilityRiskEngine.ts",
+        "lines":  344,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "./credibilityRiskArchitecture"
+                    ],
+        "exports":  [
+                        "buildCredibilityRiskModel"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\damages\\damagesRemedyArchitecture.ts",
+        "lines":  188,
+        "imports":  [
+                        "../architecture/masterCaseSchema"
+                    ],
+        "exports":  [
+                        "DamagesAmount",
+                        "DamagesCategory",
+                        "DamagesCausationLink",
+                        "DamagesProofRequirement",
+                        "DamagesProofStatus",
+                        "DamagesReadinessState",
+                        "DamagesRemedyBuildInput",
+                        "DamagesRemedyBuildOutput",
+                        "DamagesRemedyModel",
+                        "DamagesRemedyVersion",
+                        "DamagesRisk",
+                        "DamagesRiskType",
+                        "RemedyAssessment",
+                        "RemedyCategory",
+                        "RemedyFitStatus"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\damages\\damagesRemedyEngine.ts",
+        "lines":  434,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "./damagesRemedyArchitecture"
+                    ],
+        "exports":  [
+                        "buildDamagesRemedyModel"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\dashboard\\dashboardAdapter.ts",
+        "lines":  529,
+        "imports":  [
+                        "../dashboardEngine"
+                    ],
+        "exports":  [
+                        "buildDashboardMasterFromAssembly",
+                        "buildDashboardWorkflowCardsFromAssembly"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\evidence\\evidenceIntelligenceEngine.ts",
+        "lines":  281,
+        "imports":  [
+                        "../facts/factPatternTypes",
+                        "../intelligence/intelligenceTypes",
+                        "./evidenceIntelligenceTypes"
+                    ],
+        "exports":  [
+                        "buildEvidenceIntelligenceAnalysis"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\evidence\\evidenceIntelligenceTypes.ts",
+        "lines":  69,
+        "imports":  [
+                        "../intelligence/intelligenceTypes"
+                    ],
+        "exports":  [
+                        "EvidenceContradiction",
+                        "EvidenceGap",
+                        "EvidenceIntelligenceFinding",
+                        "EvidenceIntelligenceResult",
+                        "EvidenceStrength"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\evidence\\evidenceRelationshipArchitecture.ts",
+        "lines":  235,
+        "imports":  [
+                        "../architecture/masterCaseSchema"
+                    ],
+        "exports":  [
+                        "EvidenceBurdenLink",
+                        "EvidenceConcern",
+                        "EvidenceConcernType",
+                        "EvidenceDocumentReference",
+                        "EvidenceExhibitReference",
+                        "EvidenceGraphBuildInput",
+                        "EvidenceGraphBuildOutput",
+                        "EvidenceGraphIssue",
+                        "EvidenceGraphReadiness",
+                        "EvidenceGroup",
+                        "EvidenceLifecycleHistoryItem",
+                        "EvidenceNode",
+                        "EvidenceReadinessLevel",
+                        "EvidenceRelationship",
+                        "EvidenceRelationshipGraph",
+                        "EvidenceRelationshipType",
+                        "EvidenceRelationshipVersion"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\evidence\\evidenceRelationshipEngine.ts",
+        "lines":  395,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "./evidenceRelationshipArchitecture"
+                    ],
+        "exports":  [
+                        "buildEvidenceRelationshipGraph"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\evidence-packaging\\evidencePackagingArchitecture.ts",
+        "lines":  201,
+        "imports":  [
+                        "../architecture/masterCaseSchema"
+                    ],
+        "exports":  [
+                        "EvidenceCollection",
+                        "EvidenceCollectionItem",
+                        "EvidenceCollectionType",
+                        "EvidencePackagingBuildInput",
+                        "EvidencePackagingBuildOutput",
+                        "EvidencePackagingIssue",
+                        "EvidencePackagingIssueType",
+                        "EvidencePackagingModel",
+                        "EvidencePackagingReadiness",
+                        "EvidencePackagingVersion",
+                        "ExhibitPackage",
+                        "ExhibitReadiness",
+                        "ExhibitReference",
+                        "ExhibitReferenceTarget"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\evidence-packaging\\evidencePackagingEngine.ts",
+        "lines":  373,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "./evidencePackagingArchitecture"
+                    ],
+        "exports":  [
+                        "buildEvidencePackaging"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\facts\\factPatternAnaysisEngine.ts",
+        "lines":  409,
+        "imports":  [
+                        "../intelligence/intelligenceTypes",
+                        "./factPatternTypes"
+                    ],
+        "exports":  [
+                        "buildFactPatternAnalysis"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\facts\\factPatternArchitecture.ts",
+        "lines":  153,
+        "imports":  [
+                        "../architecture/masterCaseSchema"
+                    ],
+        "exports":  [
+                        "ExtractedFactEntity",
+                        "FactPatternCategory",
+                        "FactPatternEngineInput",
+                        "FactPatternEngineOutput",
+                        "FactPatternEngineVersion",
+                        "FactPatternEvidenceCandidate",
+                        "FactPatternFinding",
+                        "FactPatternReport",
+                        "FactPatternSignal",
+                        "FactPatternStatus",
+                        "FactSignalType"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\facts\\factPatternEngine.ts",
+        "lines":  340,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "./factPatternArchitecture"
+                    ],
+        "exports":  [
+                        "buildFactPatternEngine"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\facts\\factPatternTypes.ts",
+        "lines":  70,
+        "imports":  [
+                        "../intelligence/intelligenceTypes"
+                    ],
+        "exports":  [
+                        "FactPatternAnalysisResult",
+                        "FactPatternCategory",
+                        "FactPatternFinding"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\intelligence\\courtSimplifiedBrain.ts",
+        "lines":  2447,
+        "imports":  [
+                        "../evidence/evidenceIntelligenceEngine",
+                        "../knowledge/doctrineSeedLibrary",
+                        "../knowledge/knowledgeRetrievalEngine",
+                        "../orchestration/brainMigrationLayer",
+                        "./elementProofEngine",
+                        "./intakeNormalizationEngine",
+                        "./intelligenceTypes"
+                    ],
+        "exports":  [
+                        "runCourtSimplifiedBrain"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\intelligence\\elementProofEngine.ts",
+        "lines":  406,
+        "imports":  [
+                        "./intelligenceTypes"
+                    ],
+        "exports":  [
+                        "buildElementProofAnalysis",
+                        "ClaimProofMap",
+                        "ElementProofEngineResult",
+                        "ElementProofFinding",
+                        "ElementProofStatus"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\intelligence\\intakeNormalizationEngine.ts",
+        "lines":  1008,
+        "imports":  [
+                        "./intelligenceTypes"
+                    ],
+        "exports":  [
+                        "normalizeIntake"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\intelligence\\intelligenceTypes.ts",
+        "lines":  733,
+        "imports":  [
+                        "../evidence/evidenceIntelligenceTypes",
+                        "../facts/factPatternTypes"
+                    ],
+        "exports":  [
+                        "BurdenOfProofAssessment",
+                        "BurdenOfProofStandard",
+                        "ClaimClassification",
+                        "ClaimClassificationStatus",
+                        "ClaimElementAssessment",
+                        "ClaimElementStatus",
+                        "ClaimProofMap",
+                        "ContradictionFinding",
+                        "CourtSimplifiedBrainInput",
+                        "CourtSimplifiedBrainOutput",
+                        "CourtSimplifiedIntelligenceVersion",
+                        "DesiredOutcome",
+                        "DesiredOutcomeType",
+                        "ElementProofEngineResult",
+                        "ElementProofFinding",
+                        "ElementProofStatus",
+                        "EvidenceAdmissibilityConcern",
+                        "EvidenceIssueLink",
+                        "ExtractedDate",
+                        "ExtractedEvent",
+                        "ExtractedEvidence",
+                        "ExtractedEvidenceType",
+                        "ExtractedHarm",
+                        "ExtractedHarmType",
+                        "ExtractedMoneyAmount",
+                        "ExtractedParty",
+                        "ExtractedPartyRole",
+                        "FormRecommendation",
+                        "IntelligenceConfidence",
+                        "IntelligenceCourtPath",
+                        "IntelligenceProvince",
+                        "IntelligenceSeverity",
+                        "IntelligenceSourceType",
+                        "IntelligenceStage",
+                        "IntelligenceTestScenario",
+                        "JudgeConcern",
+                        "LegalAuthorityLevel",
+                        "LegalDomain",
+                        "LegalIntelligenceResult",
+                        "LegalKnowledgePacket",
+                        "LegalSignal",
+                        "LegalSignalPolarity",
+                        "LegalSourceReference",
+                        "LegalSourceVerificationStatus",
+                        "LimitationPeriodAssessment",
+                        "LitigationRisk",
+                        "MissingInformationFinding",
+                        "NormalizedIntake",
+                        "OpposingArgument",
+                        "PrecedentMatchAssessment",
+                        "PrecedentReference",
+                        "ProceduralPostureAssessment",
+                        "ProceduralRuleReference",
+                        "RemedyFitAssessment",
+                        "RemedyType",
+                        "StatutoryReference"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\intelligence\\smallClaimsIntelligenceEngine.ts",
+        "lines":  611,
+        "imports":  [
+                        "../../../../app/builder/_components/builderTypes",
+                        "./courtSimplifiedBrain"
+                    ],
+        "exports":  [
+                        "analyzeSmallClaimsWithBrain",
+                        "SmallClaimsEvidenceFile",
+                        "SmallClaimsFiledDocument",
+                        "SmallClaimsIntelligenceInput",
+                        "SmallClaimsIssue"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\knowledge\\doctrineSeedLibrary.ts",
+        "lines":  978,
+        "imports":  [
+                        "./legalKnowledgeObjects"
+                    ],
+        "exports":  [
+                        "DOCTRINE_SEED_LIBRARY",
+                        "getDoctrineSeedLibrary"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\knowledge\\knowledgeRetrievalEngine.ts",
+        "lines":  291,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "./legalAuthorityRegistry",
+                        "./legalKnowledgeObjects"
+                    ],
+        "exports":  [
+                        "buildKnowledgeRetrievalContext",
+                        "KnowledgeRetrievalDecision",
+                        "KnowledgeRetrievalMode",
+                        "retrieveKnowledgeObjects"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\knowledge\\legalAuthorityRegistry.ts",
+        "lines":  483,
+        "imports":  [
+                        "../architecture/masterCaseSchema"
+                    ],
+        "exports":  [
+                        "authorityRequiresWarning",
+                        "buildAuthorityWarning",
+                        "getAuthorityEntriesForContext",
+                        "getAuthorityRegistry",
+                        "LEGAL_AUTHORITY_REGISTRY",
+                        "LegalAuthorityRegistryEntry",
+                        "LegalAuthorityReliabilityTier",
+                        "LegalAuthoritySourceKind",
+                        "LegalAuthorityUsePermission",
+                        "mayUseAuthorityForCitation"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\knowledge\\legalKnowledgeObjects.ts",
+        "lines":  420,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "./legalAuthorityRegistry"
+                    ],
+        "exports":  [
+                        "BaseKnowledgeObject",
+                        "CredibilityPrincipleKnowledgeObject",
+                        "DamagesPrincipleKnowledgeObject",
+                        "DoctrineKnowledgeObject",
+                        "EvidencePrincipleKnowledgeObject",
+                        "FormGuidanceKnowledgeObject",
+                        "JudicialConcernKnowledgeObject",
+                        "KnowledgeApplicability",
+                        "KnowledgeAuditMetadata",
+                        "KnowledgeExtractionStatus",
+                        "KnowledgeObjectKind",
+                        "knowledgeObjectMatchesContext",
+                        "KnowledgeObjectVersion",
+                        "KnowledgeRetrievalContext",
+                        "KnowledgeRetrievalResult",
+                        "KnowledgeRiskLevel",
+                        "KnowledgeSourceMetadata",
+                        "KnowledgeUseRules",
+                        "LegalKnowledgeObject",
+                        "LitigationPatternKnowledgeObject",
+                        "ProceduralOperationKnowledgeObject",
+                        "ProceduralRuleKnowledgeObject",
+                        "RawSourceKnowledgeObject",
+                        "SettlementPrincipleKnowledgeObject"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\knowledge\\legalReasoningCoordinator.ts",
+        "lines":  120,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "./knowledgeRetrievalEngine",
+                        "./legalAuthorityRegistry",
+                        "./legalKnowledgeObjects",
+                        "./legalReasoningProfiles"
+                    ],
+        "exports":  [
+                        "buildLegalReasoningCoordinator",
+                        "CoordinatedReasoningPackage",
+                        "LegalReasoningCoordinatorInput",
+                        "LegalReasoningCoordinatorVersion"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\knowledge\\legalReasoningProfiles.ts",
+        "lines":  400,
+        "imports":  [
+                        "../architecture/masterCaseSchema"
+                    ],
+        "exports":  [
+                        "getLegalReasoningProfiles",
+                        "getReasoningProfilesForDomain",
+                        "LEGAL_REASONING_PROFILES",
+                        "LegalReasoningProfile",
+                        "LegalReasoningProfileKey",
+                        "LegalReasoningProfileVersion"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\litigation-intelligence\\caseInvestigator.ts",
+        "lines":  812,
+        "imports":  [
+                        "./modules/authorityInvestigator",
+                        "./modules/burdenInvestigator",
+                        "./modules/contradictionInvestigator",
+                        "./modules/credibilityInvestigator",
+                        "./modules/evidenceInvestigator",
+                        "./modules/judgePerspectiveInvestigator",
+                        "./modules/narrativeInvestigator",
+                        "./modules/opponentStrategyInvestigator",
+                        "./modules/proceduralInvestigator",
+                        "./modules/settlementInvestigator",
+                        "./modules/trialReadinessInvestigator"
+                    ],
+        "exports":  [
+                        "buildLitigationInvestigation",
+                        "InvestigationQuestion",
+                        "InvestigationQuestionCategory",
+                        "InvestigationQuestionPriority",
+                        "LitigationInvestigationInput",
+                        "LitigationInvestigationResult",
+                        "LitigationInvestigationVersion"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\litigation-intelligence\\litigationReasoningEngine.ts",
+        "lines":  631,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "buildLitigationReasoning",
+                        "LitigationReadinessLevel",
+                        "LitigationReasoningFinding",
+                        "LitigationReasoningInput",
+                        "LitigationReasoningResult",
+                        "LitigationReasoningSeverity",
+                        "LitigationReasoningVersion"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\litigation-intelligence\\modules\\authorityInvestigator.ts",
+        "lines":  1129,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "AuthorityConfidence",
+                        "AuthorityFindingCategory",
+                        "AuthorityInvestigationFinding",
+                        "AuthorityInvestigationInput",
+                        "AuthorityInvestigationResult",
+                        "AuthorityInvestigatorIntelligence",
+                        "AuthorityInvestigatorVersion",
+                        "AuthorityRiskLevel",
+                        "AuthoritySeverity",
+                        "AuthoritySignal",
+                        "AuthorityType",
+                        "buildAuthorityInvestigation"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\litigation-intelligence\\modules\\burdenInvestigator.ts",
+        "lines":  677,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "buildBurdenInvestigation",
+                        "BurdenInvestigationCategory",
+                        "BurdenInvestigationFinding",
+                        "BurdenInvestigationInput",
+                        "BurdenInvestigationResult",
+                        "BurdenInvestigationSeverity",
+                        "BurdenInvestigatorVersion"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\litigation-intelligence\\modules\\contradictionInvestigator.ts",
+        "lines":  830,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "buildContradictionInvestigation",
+                        "ContradictionCategory",
+                        "ContradictionConfidence",
+                        "ContradictionInvestigationFinding",
+                        "ContradictionInvestigationInput",
+                        "ContradictionInvestigationResult",
+                        "ContradictionInvestigatorIntelligence",
+                        "ContradictionInvestigatorVersion",
+                        "ContradictionRiskLevel",
+                        "ContradictionSeverity",
+                        "ContradictionSignal",
+                        "ImportedContradictionFindingSignal"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\litigation-intelligence\\modules\\credibilityInvestigator.ts",
+        "lines":  827,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "buildCredibilityInvestigation",
+                        "CredibilityConfidence",
+                        "CredibilityFindingCategory",
+                        "CredibilityInvestigationFinding",
+                        "CredibilityInvestigationInput",
+                        "CredibilityInvestigationResult",
+                        "CredibilityInvestigatorIntelligence",
+                        "CredibilityInvestigatorVersion",
+                        "CredibilityRiskLevel",
+                        "CredibilitySeverity"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\litigation-intelligence\\modules\\evidenceInvestigator.ts",
+        "lines":  620,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "buildEvidenceInvestigation",
+                        "EvidenceInvestigationCategory",
+                        "EvidenceInvestigationFinding",
+                        "EvidenceInvestigationInput",
+                        "EvidenceInvestigationResult",
+                        "EvidenceInvestigationSeverity",
+                        "EvidenceInvestigatorVersion"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\litigation-intelligence\\modules\\judgePerspectiveInvestigator.ts",
+        "lines":  722,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "buildJudgePerspectiveInvestigation",
+                        "JudgeConcernCategory",
+                        "JudgePerspectiveConfidence",
+                        "JudgePerspectiveFinding",
+                        "JudgePerspectiveInput",
+                        "JudgePerspectiveIntelligence",
+                        "JudgePerspectiveInvestigatorVersion",
+                        "JudgePerspectiveResult",
+                        "JudgePerspectiveSeverity"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\litigation-intelligence\\modules\\narrativeInvestigator.ts",
+        "lines":  568,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "buildNarrativeInvestigation",
+                        "NarrativeInvestigationCategory",
+                        "NarrativeInvestigationFinding",
+                        "NarrativeInvestigationInput",
+                        "NarrativeInvestigationResult",
+                        "NarrativeInvestigationSeverity",
+                        "NarrativeInvestigatorVersion"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\litigation-intelligence\\modules\\opponentStrategyInvestigator.ts",
+        "lines":  800,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "buildOpponentStrategyInvestigation",
+                        "OpponentAttackCategory",
+                        "OpponentStrategyConfidence",
+                        "OpponentStrategyFinding",
+                        "OpponentStrategyInput",
+                        "OpponentStrategyIntelligence",
+                        "OpponentStrategyInvestigatorVersion",
+                        "OpponentStrategyResult",
+                        "OpponentStrategySeverity"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\litigation-intelligence\\modules\\proceduralInvestigator.ts",
+        "lines":  1218,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "buildProceduralInvestigation",
+                        "ProceduralCaseStage",
+                        "ProceduralConfidence",
+                        "ProceduralCourtPath",
+                        "ProceduralFindingCategory",
+                        "ProceduralInvestigationFinding",
+                        "ProceduralInvestigationInput",
+                        "ProceduralInvestigationResult",
+                        "ProceduralInvestigatorVersion",
+                        "ProceduralKnownDeadline",
+                        "ProceduralKnownEvent",
+                        "ProceduralRequirement",
+                        "ProceduralRuleReference",
+                        "ProceduralSeverity",
+                        "ProceduralSimulationState"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\litigation-intelligence\\modules\\settlementInvestigator.ts",
+        "lines":  901,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "buildSettlementInvestigation",
+                        "SettlementConfidence",
+                        "SettlementFindingCategory",
+                        "SettlementInvestigationFinding",
+                        "SettlementInvestigationInput",
+                        "SettlementInvestigationResult",
+                        "SettlementInvestigatorIntelligence",
+                        "SettlementInvestigatorVersion",
+                        "SettlementLeverageLevel",
+                        "SettlementSeverity"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\litigation-intelligence\\modules\\trialReadinessInvestigator.ts",
+        "lines":  1308,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "buildTrialReadinessInvestigation",
+                        "TrialReadinessCategory",
+                        "TrialReadinessConfidence",
+                        "TrialReadinessFinding",
+                        "TrialReadinessInput",
+                        "TrialReadinessIntelligence",
+                        "TrialReadinessInvestigatorVersion",
+                        "TrialReadinessLevel",
+                        "TrialReadinessResult",
+                        "TrialReadinessSeverity"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\litigation-strategy\\litigationStrategyArchitecture.ts",
+        "lines":  1256,
+        "imports":  [
+                        "../architecture/masterCaseSchema"
+                    ],
+        "exports":  [
+                        "createEmptyLitigationStrategyModel",
+                        "EMPTY_LITIGATION_STRATEGY_DASHBOARD_SUMMARY",
+                        "EMPTY_LITIGATION_STRATEGY_DEPENDENCY_GRAPH",
+                        "EMPTY_LITIGATION_STRATEGY_INTEGRATION_SNAPSHOT",
+                        "EMPTY_LITIGATION_STRATEGY_INTERNAL_NOTES",
+                        "EMPTY_LITIGATION_STRATEGY_NARRATIVE_ASSESSMENT",
+                        "EMPTY_LITIGATION_STRATEGY_USER_EXPLANATION",
+                        "EMPTY_LITIGATION_STRATEGY_VALIDATION",
+                        "LITIGATION_STRATEGY_ARCHITECTURE_VERSION",
+                        "LitigationStrategyAbuseOfProcessIssue",
+                        "LitigationStrategyAppealIssue",
+                        "LitigationStrategyArchitectureVersion",
+                        "LitigationStrategyBurdenIssue",
+                        "LitigationStrategyBurdenStandard",
+                        "LitigationStrategyCharterIssue",
+                        "LitigationStrategyCompetingNarrative",
+                        "LitigationStrategyConsistencyCheck",
+                        "LitigationStrategyCourtReadinessSimulation",
+                        "LitigationStrategyCriticalPathItem",
+                        "LitigationStrategyCrossExaminationRisk",
+                        "LitigationStrategyDamageLeverage",
+                        "LitigationStrategyDashboardSummary",
+                        "LitigationStrategyDecisionBranch",
+                        "LitigationStrategyDependencyGraph",
+                        "LitigationStrategyDependencyGraphEdge",
+                        "LitigationStrategyDependencyGraphNode",
+                        "LitigationStrategyDynamicStrategyBranch",
+                        "LitigationStrategyElementMatrixRow",
+                        "LitigationStrategyEngineInput",
+                        "LitigationStrategyEngineOutput",
+                        "LitigationStrategyEvidencePriority",
+                        "LitigationStrategyEvidenceWeight",
+                        "LitigationStrategyExhibitPlanItem",
+                        "LitigationStrategyFinding",
+                        "LitigationStrategyFindingCategory",
+                        "LitigationStrategyHumanReviewTrigger",
+                        "LitigationStrategyIntegrationSnapshot",
+                        "LitigationStrategyInternalNotes",
+                        "LitigationStrategyInvestigationPlan",
+                        "LitigationStrategyInvestigationTarget",
+                        "LitigationStrategyIssueTreeNode",
+                        "LitigationStrategyJudicialConcern",
+                        "LitigationStrategyJudicialReasoningQuestion",
+                        "LitigationStrategyLinkedItem",
+                        "LitigationStrategyMilestone",
+                        "LitigationStrategyModel",
+                        "LitigationStrategyNarrativeAssessment",
+                        "LitigationStrategyOpportunity",
+                        "LitigationStrategyOpposingArgument",
+                        "LitigationStrategyPriority",
+                        "LitigationStrategyProceduralOpportunity",
+                        "LitigationStrategyProofDependency",
+                        "LitigationStrategyPublicAuthorityIssue",
+                        "LitigationStrategyReadinessLevel",
+                        "LitigationStrategyRecordPreservationItem",
+                        "LitigationStrategyReference",
+                        "LitigationStrategyRemedyLeverage",
+                        "LitigationStrategyRisk",
+                        "LitigationStrategyRiskCategory",
+                        "LitigationStrategyRiskSimulation",
+                        "LitigationStrategyRoute",
+                        "LitigationStrategySettlementScenario",
+                        "LitigationStrategySource",
+                        "LitigationStrategyTheory",
+                        "LitigationStrategyTrialIssue",
+                        "LitigationStrategyUserFacingExplanation",
+                        "LitigationStrategyValidationResult",
+                        "LitigationStrategyWitnessPriority"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\litigation-strategy\\litigationStrategyScoring.ts",
+        "lines":  1,
+        "imports":  [
+
+                    ],
+        "exports":  [
+
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\orchestration\\brainMigrationLayer.ts",
+        "lines":  245,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "../intelligence/intelligenceTypes",
+                        "./courtSimplifiedBrainBridge"
+                    ],
+        "exports":  [
+                        "BrainMigrationLayerVersion",
+                        "BrainMigrationResult",
+                        "buildBrainMigrationLayer"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\orchestration\\caseSystemAssembly.ts",
+        "lines":  1297,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "../claims/claimTheoryArchitecture",
+                        "../claims/claimTheoryEngine",
+                        "../credibility/credibilityRiskArchitecture",
+                        "../credibility/credibilityRiskEngine",
+                        "../damages/damagesRemedyArchitecture",
+                        "../damages/damagesRemedyEngine",
+                        "../evidence/evidenceRelationshipArchitecture",
+                        "../evidence/evidenceRelationshipEngine",
+                        "../knowledge/doctrineSeedLibrary",
+                        "../knowledge/legalReasoningCoordinator",
+                        "../litigation-intelligence/litigationReasoningEngine",
+                        "../procedure/proceduralStateArchitecture",
+                        "../procedure/proceduralStateEngine",
+                        "../timeline/timelineCognitionEngine",
+                        "../timeline/timelineEventArchitecture",
+                        "../workflow/workflowOrchestrationArchitecture",
+                        "../workflow/workflowOrchestrationEngine"
+                    ],
+        "exports":  [
+                        "AssemblyAuthorityReadinessModel",
+                        "AssemblyContradictionReadinessModel",
+                        "AssemblyCredibilityIntelligenceModel",
+                        "AssemblyEvidenceIntelligenceReadinessModel",
+                        "AssemblyFactPatternReadinessModel",
+                        "AssemblyLegalReasoningReadinessModel",
+                        "AssemblyProofReadinessModel",
+                        "buildCaseSystemAssembly",
+                        "CaseSystemAssemblyInput",
+                        "CaseSystemAssemblyModel",
+                        "CaseSystemAssemblyOutput",
+                        "CaseSystemAssemblyVersion",
+                        "FormReadinessModel"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\orchestration\\courtSimplifiedBrainBridge.ts",
+        "lines":  485,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "../contracts/masterCaseBridge",
+                        "../intelligence/intelligenceTypes",
+                        "./caseSystemAssembly"
+                    ],
+        "exports":  [
+                        "buildCourtSimplifiedBrainBridge",
+                        "CourtSimplifiedBrainBridgeOutput",
+                        "CourtSimplifiedBrainBridgeVersion"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\procedure\\proceduralStateArchitecture.ts",
+        "lines":  424,
+        "imports":  [
+                        "../architecture/masterCaseSchema"
+                    ],
+        "exports":  [
+                        "ProceduralActionKind",
+                        "ProceduralArea",
+                        "ProceduralAreaReadinessState",
+                        "ProceduralAuthorityLevel",
+                        "ProceduralAuthorityReference",
+                        "ProceduralCourtPower",
+                        "ProceduralDeadline",
+                        "ProceduralDependency",
+                        "ProceduralDependencyType",
+                        "ProceduralEvent",
+                        "ProceduralEventType",
+                        "ProceduralNextAction",
+                        "ProceduralReadinessState",
+                        "ProceduralRequirement",
+                        "ProceduralRisk",
+                        "ProceduralRiskType",
+                        "ProceduralStateBuildInput",
+                        "ProceduralStateBuildOutput",
+                        "ProceduralStateModel",
+                        "ProceduralStateVersion",
+                        "ProceduralVerificationStatus"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\procedure\\proceduralStateEngine.ts",
+        "lines":  831,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "./proceduralStateArchitecture"
+                    ],
+        "exports":  [
+                        "buildProceduralState"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\timeline\\timelineCognitionEngine.ts",
+        "lines":  438,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "./timelineEventArchitecture"
+                    ],
+        "exports":  [
+                        "buildTimelineCognition"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\timeline\\timelineEventArchitecture.ts",
+        "lines":  245,
+        "imports":  [
+                        "../architecture/masterCaseSchema"
+                    ],
+        "exports":  [
+                        "LitigationTimelineEvent",
+                        "LitigationTimelineModel",
+                        "TimelineArchitectureVersion",
+                        "TimelineBuildInput",
+                        "TimelineBuildOutput",
+                        "TimelineCausationChain",
+                        "TimelineClaimLink",
+                        "TimelineDateCertainty",
+                        "TimelineDateValue",
+                        "TimelineEventImportance",
+                        "TimelineEventKind",
+                        "TimelineEventRelationship",
+                        "TimelineEventSource",
+                        "TimelineEvidenceLink",
+                        "TimelineProceduralContext",
+                        "TimelineProceduralSequence",
+                        "TimelineReadinessState",
+                        "TimelineRelationshipType",
+                        "TimelineValidationIssue",
+                        "TimelineValidationIssueType"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\types\\case.ts",
+        "lines":  360,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "CaseAiMemory",
+                        "CaseEvidenceItem",
+                        "CaseFile",
+                        "CaseFormNeed",
+                        "CaseIssue",
+                        "CasePerson",
+                        "CaseReadiness",
+                        "CaseReadinessLevel",
+                        "CaseRisk",
+                        "CaseTimelineEvent",
+                        "CourtPackagePlan",
+                        "CourtSimplifiedCasePath",
+                        "createEmptyCaseFile",
+                        "EvidenceStrength",
+                        "LitigationStage",
+                        "PartyRole",
+                        "ProceduralIntelligence",
+                        "ProofMapItem",
+                        "RiskSeverity",
+                        "StrategyProfile",
+                        "updateCaseFileTimestamp"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\types\\civil-case.ts",
+        "lines":  278,
+        "imports":  [
+                        "../caseContextEngine",
+                        "../evidenceEngine"
+                    ],
+        "exports":  [
+                        "CivilAnalysisResult",
+                        "CivilCaseData",
+                        "CivilCaseFileCatalog",
+                        "CivilCaseType",
+                        "CivilDamagesProfile",
+                        "CivilEvidenceProfile",
+                        "CivilLiabilityTheory",
+                        "CivilNarrativeProfile",
+                        "CivilProceduralTrack",
+                        "CivilProcedureProfile",
+                        "CivilRemedyType",
+                        "CivilStrategicProfile"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\types\\document-generation.ts",
+        "lines":  182,
+        "imports":  [
+                        "./case",
+                        "./document-workspace"
+                    ],
+        "exports":  [
+                        "createEmptyGeneratedLitigationSection",
+                        "createEmptyGenerationConcern",
+                        "createEmptyLitigationDocumentGeneration",
+                        "GeneratedEvidenceReference",
+                        "GeneratedLitigationSection",
+                        "GenerationConcern",
+                        "GenerationConcernType",
+                        "GenerationReadiness",
+                        "LitigationDocumentGeneration"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\types\\document-workspace.ts",
+        "lines":  271,
+        "imports":  [
+                        "./case"
+                    ],
+        "exports":  [
+                        "createEmptyDraftingConcern",
+                        "createEmptyDraftingRevision",
+                        "createEmptyDraftingSection",
+                        "createEmptyLitigationDraftingWorkspace",
+                        "DraftingConcern",
+                        "DraftingConcernType",
+                        "DraftingDocumentType",
+                        "DraftingEvidenceReference",
+                        "DraftingRevision",
+                        "DraftingRevisionAction",
+                        "DraftingSection",
+                        "DraftingSectionPurpose",
+                        "DraftingSource",
+                        "DraftingStatus",
+                        "LitigationDraftingWorkspace"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\types\\evidence.ts",
+        "lines":  311,
+        "imports":  [
+                        "./case"
+                    ],
+        "exports":  [
+                        "createEmptyEvidenceBundleSummary",
+                        "createEmptyLitigationEvidenceItem",
+                        "EvidenceAdmissibilityConcern",
+                        "EvidenceAiNotes",
+                        "EvidenceAuthenticationStatus",
+                        "EvidenceBundleSummary",
+                        "EvidenceCourtPackageInfo",
+                        "EvidenceFileMetadata",
+                        "EvidenceIssueLink",
+                        "EvidenceProofTarget",
+                        "EvidencePurpose",
+                        "EvidenceRelationship",
+                        "EvidenceRelationshipKind",
+                        "EvidenceRisk",
+                        "EvidenceTimelineLink",
+                        "EvidenceType",
+                        "EvidenceUseStage",
+                        "LitigationEvidenceItem"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\types\\family-case.ts",
+        "lines":  503,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "AddressInfo",
+                        "ChildInfo",
+                        "ContactInfo",
+                        "createEmptyChild",
+                        "createEmptyFamilyCaseDocument",
+                        "createEmptyFamilyEvidenceItem",
+                        "createEmptyOntarioFamilyCase",
+                        "EvidenceReadiness",
+                        "FamilyAnalysisResult",
+                        "FamilyCaseDocument",
+                        "FamilyCaseFacts",
+                        "FamilyCaseType",
+                        "FamilyDocumentStatus",
+                        "FamilyEvidenceCategory",
+                        "FamilyEvidenceItem",
+                        "FamilyFinancialSnapshot",
+                        "FamilyLitigationStage",
+                        "FamilyParentingSnapshot",
+                        "FamilyProceduralHistory",
+                        "FamilyPropertySnapshot",
+                        "FamilyRelationshipStatus",
+                        "FamilySafetySnapshot",
+                        "FamilyUserRole",
+                        "OntarioFamilyCaseData",
+                        "OntarioFamilyCourtLevel",
+                        "ParentingIssueType",
+                        "PartyInfo",
+                        "PersonName",
+                        "PropertyIssueType",
+                        "SafetyConcernType",
+                        "SupportIssueType"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\types\\index.ts",
+        "lines":  9,
+        "imports":  [
+
+                    ],
+        "exports":  [
+
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\types\\procedure.ts",
+        "lines":  258,
+        "imports":  [
+                        "./case"
+                    ],
+        "exports":  [
+                        "createEmptyForumPathwayWarning",
+                        "createEmptyProceduralDeadline",
+                        "createEmptyProceduralForum",
+                        "createEmptyProceduralIntelligenceProfile",
+                        "createEmptyProceduralStep",
+                        "createEmptyServiceRecord",
+                        "DeadlineUrgency",
+                        "ForumPathwayWarning",
+                        "ForumType",
+                        "ProceduralDeadline",
+                        "ProceduralForum",
+                        "ProceduralIntelligenceProfile",
+                        "ProceduralStatus",
+                        "ProceduralStep",
+                        "ProceduralStepType",
+                        "ServiceMethod",
+                        "ServiceRecord"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\types\\proof-map.ts",
+        "lines":  143,
+        "imports":  [
+                        "./case"
+                    ],
+        "exports":  [
+                        "CaseProofMap",
+                        "createEmptyCaseProofMap",
+                        "createEmptyIssueProofMap",
+                        "createEmptyProofElement",
+                        "IssueProofMap",
+                        "ProofBurden",
+                        "ProofElement",
+                        "ProofRiskSource",
+                        "ProofStatus"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\types\\strategy.ts",
+        "lines":  222,
+        "imports":  [
+                        "./case"
+                    ],
+        "exports":  [
+                        "ArgumentSide",
+                        "createEmptyDefenceOrResponseAttack",
+                        "createEmptyJudgeConcern",
+                        "createEmptyLitigationStrategyProfile",
+                        "createEmptySettlementStrategy",
+                        "createEmptyStrategyPoint",
+                        "createEmptyWordingImprovement",
+                        "DefenceOrResponseAttack",
+                        "JudgeConcern",
+                        "LitigationStrategyProfile",
+                        "SettlementStrategy",
+                        "StrategicPosition",
+                        "StrategyCategory",
+                        "StrategyPoint",
+                        "WordingImprovement"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\types\\timeline.ts",
+        "lines":  160,
+        "imports":  [
+                        "./case"
+                    ],
+        "exports":  [
+                        "createEmptyTimelineEvent",
+                        "createEmptyTimelineSummary",
+                        "LitigationTimelineEvent",
+                        "LitigationTimelineSummary",
+                        "TimelineConfidence",
+                        "TimelineEventImportance",
+                        "TimelineEventType",
+                        "TimelineEvidenceLink",
+                        "TimelineIssue"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\workflow\\workflowOrchestrationArchitecture.ts",
+        "lines":  328,
+        "imports":  [
+                        "../architecture/masterCaseSchema"
+                    ],
+        "exports":  [
+                        "WorkflowActionKind",
+                        "WorkflowAuthorityInput",
+                        "WorkflowBlocker",
+                        "WorkflowBlockerType",
+                        "WorkflowContradictionInput",
+                        "WorkflowCredibilityInput",
+                        "WorkflowDocumentReadinessImpact",
+                        "WorkflowGate",
+                        "WorkflowGateType",
+                        "WorkflowLegalReasoningInput",
+                        "WorkflowNextAction",
+                        "WorkflowOrchestrationBuildInput",
+                        "WorkflowOrchestrationBuildOutput",
+                        "WorkflowOrchestrationModel",
+                        "WorkflowOrchestrationVersion",
+                        "WorkflowProceduralInput",
+                        "WorkflowProofInput",
+                        "WorkflowReadinessState",
+                        "WorkflowRoute",
+                        "WorkflowRouteAssessment"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\case-system\\workflow\\workflowOrchestrationEngine.ts",
+        "lines":  2307,
+        "imports":  [
+                        "../architecture/masterCaseSchema",
+                        "./workflowOrchestrationArchitecture"
+                    ],
+        "exports":  [
+                        "buildWorkflowOrchestration"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\legal-intelligence\\core\\aiOrchestratorTypes.ts",
+        "lines":  213,
+        "imports":  [
+                        "./caseModel",
+                        "./legalKnowledgeTypes",
+                        "./precedentTypes",
+                        "./validationTypes",
+                        "./workflowTypes"
+                    ],
+        "exports":  [
+                        "AIConversationMessage",
+                        "AIInteractionMode",
+                        "AIInterpretationResult",
+                        "AILegalKnowledgeContext",
+                        "AIOrchestratorInput",
+                        "AIOrchestratorOutput",
+                        "AIReasoningResult",
+                        "AIUserFacingResponse",
+                        "AIUserIntent",
+                        "canAIMentionPrecedent",
+                        "canAIRecommendDocuments",
+                        "DEFAULT_AI_USER_FACING_RESPONSE",
+                        "DEFAULT_LEGAL_KNOWLEDGE_CONTEXT",
+                        "shouldLimitAIAnswer"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\legal-intelligence\\core\\caseModel.ts",
+        "lines":  300,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "CaseDocumentNeed",
+                        "CaseDocumentStatus",
+                        "CaseEvidenceItem",
+                        "CaseInternalNotes",
+                        "CaseLegalIssue",
+                        "CaseParty",
+                        "CaseRemedy",
+                        "CaseRiskFlag",
+                        "CaseTimelineEvent",
+                        "ConfidenceLevel",
+                        "CourtSimplifiedArea",
+                        "createEmptyCaseModel",
+                        "EMPTY_CASE_MODEL",
+                        "EMPTY_INTERNAL_NOTES",
+                        "EvidenceStrength",
+                        "isKnownCourtArea",
+                        "LegalIssueStatus",
+                        "PartyRole",
+                        "ProceduralStage",
+                        "shouldAvoidDocumentRecommendation",
+                        "UniversalCaseModel"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\legal-intelligence\\core\\legalKnowledgeTypes.ts",
+        "lines":  170,
+        "imports":  [
+                        "./caseModel",
+                        "./precedentTypes"
+                    ],
+        "exports":  [
+                        "blocksDeadlineAdvice",
+                        "blocksFormRecommendation",
+                        "canUseForGeneralGuidance",
+                        "EMPTY_LEGAL_KNOWLEDGE_ITEM",
+                        "isKnowledgeVerified",
+                        "KnowledgeMatchResult",
+                        "LegalKnowledgeItem",
+                        "LegalKnowledgeKind",
+                        "LegalKnowledgeSource",
+                        "LegalKnowledgeStatus",
+                        "requiresSourceCheck",
+                        "VerificationRequirement"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\legal-intelligence\\core\\precedentTypes.ts",
+        "lines":  291,
+        "imports":  [
+                        "./caseModel"
+                    ],
+        "exports":  [
+                        "AuthorityLevel",
+                        "CourtLevel",
+                        "EMPTY_PRECEDENT",
+                        "isBindingAuthority",
+                        "LegalCitation",
+                        "LegalPrecedent",
+                        "LegalPrincipleType",
+                        "PrecedentHolding",
+                        "PrecedentIssueTag",
+                        "PrecedentRelationship",
+                        "PrecedentSearchResult",
+                        "PrecedentSource",
+                        "PrecedentStatus",
+                        "PrecedentUsageGuidance",
+                        "requiresVerificationBeforeUse",
+                        "shouldAvoidUsingPrecedent"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\legal-intelligence\\core\\validationTypes.ts",
+        "lines":  130,
+        "imports":  [
+                        "./caseModel"
+                    ],
+        "exports":  [
+                        "AIAnswerValidationResult",
+                        "AIOutputDecision",
+                        "canSafelyRecommendForms",
+                        "canSafelyUsePrecedent",
+                        "DEFAULT_VALIDATION_RESULT",
+                        "hasBlockingValidationFlag",
+                        "shouldAskFollowUpBeforeGuidance",
+                        "ValidationCategory",
+                        "ValidationCheckResult",
+                        "ValidationFlag",
+                        "ValidationSeverity"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\legal-intelligence\\core\\workflowTypes.ts",
+        "lines":  153,
+        "imports":  [
+                        "./caseModel"
+                    ],
+        "exports":  [
+                        "canAutomateWorkflowStep",
+                        "DEFAULT_WORKFLOW_PLAN",
+                        "DEFAULT_WORKFLOW_STEP",
+                        "isWorkflowStepReady",
+                        "requiresHumanReview",
+                        "shouldPauseForVerification",
+                        "WorkflowActionType",
+                        "WorkflowPlan",
+                        "WorkflowPriority",
+                        "WorkflowReadiness",
+                        "WorkflowStep"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\legal-intelligence\\engines\\interpretationEngine.ts",
+        "lines":  457,
+        "imports":  [
+                        "../core/aiOrchestratorTypes",
+                        "../core/caseModel"
+                    ],
+        "exports":  [
+                        "InterpretationInput",
+                        "InterpretationSignal",
+                        "interpretUserMessage"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\supabase\\client.ts",
+        "lines":  16,
+        "imports":  [
+                        "@supabase/supabase-js"
+                    ],
+        "exports":  [
+                        "supabase"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\supabase\\forms\\formRules.ts",
+        "lines":  86,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "FormRecommendation",
+                        "getFormRecommendations"
+                    ]
+    },
+    {
+        "file":  "src\\lib\\supabase\\forms\\prefillEngine.ts",
+        "lines":  411,
+        "imports":  [
+
+                    ],
+        "exports":  [
+                        "generatePrefillData"
+                    ]
+    }
+]

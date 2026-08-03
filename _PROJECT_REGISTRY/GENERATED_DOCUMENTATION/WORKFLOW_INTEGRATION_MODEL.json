@@ -1,0 +1,1594 @@
+﻿{
+    "ModelVersion":  "1.0.1",
+    "GeneratedAt":  "2026-07-31 15:11:03",
+    "ProjectRoot":  "C:\\Users\\kmagr\\courtsimplified",
+    "ArchitectureModelVersion":  "1.0.0",
+    "Statistics":  {
+                       "WorkflowRecords":  15,
+                       "EntryTraces":  41,
+                       "RuntimeApiCalls":  7,
+                       "ResolvedRuntimeApiCalls":  7,
+                       "UnresolvedRuntimeApiCalls":  0,
+                       "IsolatedEntryTraces":  24,
+                       "UnconsumedWorkflowRecords":  0
+                   },
+    "Workflows":  [
+                      {
+                          "Name":  "aiCasePartnerGateway",
+                          "Kind":  "Gateway",
+                          "File":  "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerGateway.ts",
+                          "Layer":  "Case System",
+                          "Status":  "Entry-connected",
+                          "DirectDependencies":  [
+                                                     "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerOrchestrator.ts"
+                                                 ],
+                          "DirectConsumers":  [
+                                                  "app\\api\\ai-case-partner\\route.ts"
+                                              ],
+                          "UpstreamEntryPoints":  [
+                                                      "app\\ai-test\\page.tsx",
+                                                      "app\\api\\ai-case-partner\\route.ts",
+                                                      "app\\builder\\page.tsx"
+                                                  ],
+                          "DownstreamArchitectureSystems":  [
+                                                                "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerOrchestrator.ts",
+                                                                "src\\lib\\case-system\\ai-case-partner\\caseInvestigationEngine.ts",
+                                                                "src\\lib\\case-system\\ai-case-partner\\conversationIntelligenceEngine.ts",
+                                                                "src\\lib\\case-system\\ai-case-partner\\conversationMemoryEngine.ts",
+                                                                "src\\lib\\case-system\\knowledge\\knowledgeRetrievalEngine.ts",
+                                                                "src\\lib\\case-system\\knowledge\\legalReasoningCoordinator.ts",
+                                                                "src\\lib\\case-system\\knowledge\\legalReasoningProfiles.ts"
+                                                            ],
+                          "MaximumDownstreamDepth":  3
+                      },
+                      {
+                          "Name":  "aiCasePartnerOrchestrator",
+                          "Kind":  "Orchestrator",
+                          "File":  "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerOrchestrator.ts",
+                          "Layer":  "Case System",
+                          "Status":  "Entry-connected",
+                          "DirectDependencies":  [
+                                                     "src\\lib\\case-system\\ai-case-partner\\caseInvestigationEngine.ts",
+                                                     "src\\lib\\case-system\\ai-case-partner\\conversationIntelligenceEngine.ts",
+                                                     "src\\lib\\case-system\\ai-case-partner\\conversationMemoryEngine.ts",
+                                                     "src\\lib\\case-system\\architecture\\masterCaseSchema.ts",
+                                                     "src\\lib\\case-system\\knowledge\\doctrineSeedLibrary.ts",
+                                                     "src\\lib\\case-system\\knowledge\\legalReasoningCoordinator.ts"
+                                                 ],
+                          "DirectConsumers":  [
+                                                  "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerGateway.ts"
+                                              ],
+                          "UpstreamEntryPoints":  [
+                                                      "app\\ai-test\\page.tsx",
+                                                      "app\\api\\ai-case-partner\\route.ts",
+                                                      "app\\builder\\page.tsx"
+                                                  ],
+                          "DownstreamArchitectureSystems":  [
+                                                                "src\\lib\\case-system\\ai-case-partner\\caseInvestigationEngine.ts",
+                                                                "src\\lib\\case-system\\ai-case-partner\\conversationIntelligenceEngine.ts",
+                                                                "src\\lib\\case-system\\ai-case-partner\\conversationMemoryEngine.ts",
+                                                                "src\\lib\\case-system\\knowledge\\knowledgeRetrievalEngine.ts",
+                                                                "src\\lib\\case-system\\knowledge\\legalReasoningCoordinator.ts",
+                                                                "src\\lib\\case-system\\knowledge\\legalReasoningProfiles.ts"
+                                                            ],
+                          "MaximumDownstreamDepth":  2
+                      },
+                      {
+                          "Name":  "authorityWorkflowBridge",
+                          "Kind":  "Workflow",
+                          "File":  "src\\lib\\case-system\\authority-intelligence\\authorityWorkflowBridge.ts",
+                          "Layer":  "Case System",
+                          "Status":  "Internally connected",
+                          "DirectDependencies":  [
+                                                     "src\\lib\\case-system\\authority-intelligence\\authorityIntegrationHub.ts",
+                                                     "src\\lib\\case-system\\authority-intelligence\\authorityNavigator.ts",
+                                                     "src\\lib\\case-system\\litigation-intelligence\\litigationReasoningEngine.ts",
+                                                     "src\\lib\\case-system\\workflow\\workflowOrchestrationArchitecture.ts"
+                                                 ],
+                          "DirectConsumers":  [
+                                                  "src\\lib\\case-system\\authority-intelligence\\authorityCaseSystemBridge.ts"
+                                              ],
+                          "UpstreamEntryPoints":  [
+
+                                                  ],
+                          "DownstreamArchitectureSystems":  [
+                                                                "src\\lib\\case-system\\authority-intelligence\\authorityNavigator.ts",
+                                                                "src\\lib\\case-system\\litigation-intelligence\\litigationReasoningEngine.ts"
+                                                            ],
+                          "MaximumDownstreamDepth":  2
+                      },
+                      {
+                          "Name":  "civilWorkflowEngine",
+                          "Kind":  "Workflow",
+                          "File":  "src\\lib\\case-system\\civilWorkflowEngine.ts",
+                          "Layer":  "Case System",
+                          "Status":  "Entry-connected",
+                          "DirectDependencies":  [
+                                                     "src\\lib\\case-system\\caseContextEngine.ts",
+                                                     "src\\lib\\case-system\\evidenceEngine.ts",
+                                                     "src\\lib\\case-system\\types\\civil-case.ts"
+                                                 ],
+                          "DirectConsumers":  [
+                                                  "src\\lib\\case-system\\civilFormRoutingEngine.ts",
+                                                  "src\\lib\\case-system\\civilMasterCaseEngine.ts",
+                                                  "src\\lib\\case-system\\civilNarrativeEngine.ts"
+                                              ],
+                          "UpstreamEntryPoints":  [
+                                                      "app\\builder\\page.tsx"
+                                                  ],
+                          "DownstreamArchitectureSystems":  [
+                                                                "src\\lib\\case-system\\caseContextEngine.ts",
+                                                                "src\\lib\\case-system\\evidenceEngine.ts",
+                                                                "src\\lib\\case-system\\legalTheoryEngine.ts"
+                                                            ],
+                          "MaximumDownstreamDepth":  3
+                      },
+                      {
+                          "Name":  "courtPackageAssemblyEngine",
+                          "Kind":  "Assembly",
+                          "File":  "src\\lib\\case-system\\courtPackageAssemblyEngine.ts",
+                          "Layer":  "Case System",
+                          "Status":  "Entry-connected",
+                          "DirectDependencies":  [
+                                                     "src\\lib\\case-system\\caseContextEngine.ts",
+                                                     "src\\lib\\case-system\\evidenceEngine.ts",
+                                                     "src\\lib\\case-system\\timelineEngine.ts"
+                                                 ],
+                          "DirectConsumers":  [
+                                                  "app\\court-package\\page.tsx",
+                                                  "src\\lib\\case-system\\documentGenerationEngine.ts"
+                                              ],
+                          "UpstreamEntryPoints":  [
+                                                      "app\\ai-drafting-assistant\\page.tsx",
+                                                      "app\\builder\\page.tsx",
+                                                      "app\\court-package\\page.tsx",
+                                                      "app\\document-workspace\\page.tsx"
+                                                  ],
+                          "DownstreamArchitectureSystems":  [
+                                                                "src\\lib\\case-system\\caseContextEngine.ts",
+                                                                "src\\lib\\case-system\\evidenceEngine.ts",
+                                                                "src\\lib\\case-system\\legalTheoryEngine.ts",
+                                                                "src\\lib\\case-system\\timelineEngine.ts"
+                                                            ],
+                          "MaximumDownstreamDepth":  3
+                      },
+                      {
+                          "Name":  "evidenceAssemblyEngine",
+                          "Kind":  "Assembly",
+                          "File":  "src\\lib\\case-system\\evidenceAssemblyEngine.ts",
+                          "Layer":  "Case System",
+                          "Status":  "Entry-connected",
+                          "DirectDependencies":  [
+                                                     "src\\lib\\case-system\\evidenceEngine.ts"
+                                                 ],
+                          "DirectConsumers":  [
+                                                  "app\\evidence\\page.tsx",
+                                                  "src\\lib\\case-system\\rawEvidenceStorage.ts"
+                                              ],
+                          "UpstreamEntryPoints":  [
+                                                      "app\\evidence\\page.tsx"
+                                                  ],
+                          "DownstreamArchitectureSystems":  [
+                                                                "src\\lib\\case-system\\evidenceEngine.ts"
+                                                            ],
+                          "MaximumDownstreamDepth":  1
+                      },
+                      {
+                          "Name":  "familyWorkflowEngine",
+                          "Kind":  "Workflow",
+                          "File":  "src\\lib\\case-system\\familyWorkflowEngine.ts",
+                          "Layer":  "Case System",
+                          "Status":  "Internally connected",
+                          "DirectDependencies":  [
+                                                     "src\\lib\\case-system\\familyAiIntakeNormalizer.ts",
+                                                     "src\\lib\\case-system\\familyStrategyEngine.ts",
+                                                     "src\\lib\\case-system\\types\\family-case.ts"
+                                                 ],
+                          "DirectConsumers":  [
+                                                  "src\\lib\\case-system\\familyAffidavitNarrativeEngine.ts",
+                                                  "src\\lib\\case-system\\familyCaseFileCatalogEngine.ts",
+                                                  "src\\lib\\case-system\\familyEvidenceEngine.ts",
+                                                  "src\\lib\\case-system\\familyFormRoutingEngine.ts",
+                                                  "src\\lib\\case-system\\familyMasterCaseEngine.ts"
+                                              ],
+                          "UpstreamEntryPoints":  [
+
+                                                  ],
+                          "DownstreamArchitectureSystems":  [
+                                                                "src\\lib\\case-system\\familyStrategyEngine.ts"
+                                                            ],
+                          "MaximumDownstreamDepth":  1
+                      },
+                      {
+                          "Name":  "legalReasoningCoordinator",
+                          "Kind":  "Coordinator",
+                          "File":  "src\\lib\\case-system\\knowledge\\legalReasoningCoordinator.ts",
+                          "Layer":  "Case System",
+                          "Status":  "Entry-connected",
+                          "DirectDependencies":  [
+                                                     "src\\lib\\case-system\\architecture\\masterCaseSchema.ts",
+                                                     "src\\lib\\case-system\\knowledge\\knowledgeRetrievalEngine.ts",
+                                                     "src\\lib\\case-system\\knowledge\\legalAuthorityRegistry.ts",
+                                                     "src\\lib\\case-system\\knowledge\\legalKnowledgeObjects.ts",
+                                                     "src\\lib\\case-system\\knowledge\\legalReasoningProfiles.ts"
+                                                 ],
+                          "DirectConsumers":  [
+                                                  "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerOrchestrator.ts",
+                                                  "src\\lib\\case-system\\ai-case-partner\\caseInvestigationEngine.ts",
+                                                  "src\\lib\\case-system\\orchestration\\caseSystemAssembly.ts"
+                                              ],
+                          "UpstreamEntryPoints":  [
+                                                      "app\\ai-test\\page.tsx",
+                                                      "app\\api\\ai-case-partner\\route.ts",
+                                                      "app\\api\\assistant-chat\\route.ts",
+                                                      "app\\api\\case-summary\\route.ts",
+                                                      "app\\builder\\page.tsx"
+                                                  ],
+                          "DownstreamArchitectureSystems":  [
+                                                                "src\\lib\\case-system\\knowledge\\knowledgeRetrievalEngine.ts",
+                                                                "src\\lib\\case-system\\knowledge\\legalReasoningProfiles.ts"
+                                                            ],
+                          "MaximumDownstreamDepth":  1
+                      },
+                      {
+                          "Name":  "masterCaseOrchestrator",
+                          "Kind":  "Orchestrator",
+                          "File":  "src\\lib\\case-system\\masterCaseOrchestrator.ts",
+                          "Layer":  "Case System",
+                          "Status":  "Entry-connected",
+                          "DirectDependencies":  [
+                                                     "src\\lib\\case-system\\caseContextEngine.ts",
+                                                     "src\\lib\\case-system\\casePersistenceEngine.ts",
+                                                     "src\\lib\\case-system\\documentWorkspaceEngine.ts",
+                                                     "src\\lib\\case-system\\evidenceEngine.ts",
+                                                     "src\\lib\\case-system\\evidenceStorage.ts"
+                                                 ],
+                          "DirectConsumers":  [
+                                                  "app\\builder\\page.tsx"
+                                              ],
+                          "UpstreamEntryPoints":  [
+                                                      "app\\builder\\page.tsx"
+                                                  ],
+                          "DownstreamArchitectureSystems":  [
+                                                                "src\\lib\\case-system\\caseContextEngine.ts",
+                                                                "src\\lib\\case-system\\casePersistenceEngine.ts",
+                                                                "src\\lib\\case-system\\courtPackageAssemblyEngine.ts",
+                                                                "src\\lib\\case-system\\documentGenerationEngine.ts",
+                                                                "src\\lib\\case-system\\documentWorkspaceEngine.ts",
+                                                                "src\\lib\\case-system\\evidenceEngine.ts",
+                                                                "src\\lib\\case-system\\legalTheoryEngine.ts",
+                                                                "src\\lib\\case-system\\timelineEngine.ts"
+                                                            ],
+                          "MaximumDownstreamDepth":  3
+                      },
+                      {
+                          "Name":  "brainMigrationLayer",
+                          "Kind":  "Migration Layer",
+                          "File":  "src\\lib\\case-system\\orchestration\\brainMigrationLayer.ts",
+                          "Layer":  "Case System",
+                          "Status":  "Entry-connected",
+                          "DirectDependencies":  [
+                                                     "src\\lib\\case-system\\architecture\\masterCaseSchema.ts",
+                                                     "src\\lib\\case-system\\intelligence\\intelligenceTypes.ts",
+                                                     "src\\lib\\case-system\\orchestration\\courtSimplifiedBrainBridge.ts"
+                                                 ],
+                          "DirectConsumers":  [
+                                                  "src\\lib\\case-system\\intelligence\\courtSimplifiedBrain.ts"
+                                              ],
+                          "UpstreamEntryPoints":  [
+                                                      "app\\api\\assistant-chat\\route.ts",
+                                                      "app\\api\\case-summary\\route.ts",
+                                                      "app\\builder\\page.tsx"
+                                                  ],
+                          "DownstreamArchitectureSystems":  [
+                                                                "src\\lib\\case-system\\authority\\authorityVerificationEngine.ts",
+                                                                "src\\lib\\case-system\\authority\\authorityWeightEngine.ts",
+                                                                "src\\lib\\case-system\\authority\\citationSafetyEngine.ts",
+                                                                "src\\lib\\case-system\\claims\\claimTheoryEngine.ts",
+                                                                "src\\lib\\case-system\\contracts\\masterCaseBridge.ts",
+                                                                "src\\lib\\case-system\\contradictions\\contradictionDetectionEngine.ts",
+                                                                "src\\lib\\case-system\\contradictions\\credibilityRiskEngine.ts",
+                                                                "src\\lib\\case-system\\credibility\\credibilityRiskEngine.ts",
+                                                                "src\\lib\\case-system\\damages\\damagesRemedyEngine.ts",
+                                                                "src\\lib\\case-system\\evidence\\evidenceRelationshipEngine.ts",
+                                                                "src\\lib\\case-system\\knowledge\\knowledgeRetrievalEngine.ts",
+                                                                "src\\lib\\case-system\\knowledge\\legalReasoningCoordinator.ts",
+                                                                "src\\lib\\case-system\\knowledge\\legalReasoningProfiles.ts",
+                                                                "src\\lib\\case-system\\litigation-intelligence\\litigationReasoningEngine.ts",
+                                                                "src\\lib\\case-system\\orchestration\\courtSimplifiedBrainBridge.ts",
+                                                                "src\\lib\\case-system\\procedure\\proceduralStateEngine.ts",
+                                                                "src\\lib\\case-system\\timeline\\timelineCognitionEngine.ts",
+                                                                "src\\lib\\case-system\\workflow\\workflowOrchestrationEngine.ts"
+                                                            ],
+                          "MaximumDownstreamDepth":  4
+                      },
+                      {
+                          "Name":  "caseSystemAssembly",
+                          "Kind":  "Assembly",
+                          "File":  "src\\lib\\case-system\\orchestration\\caseSystemAssembly.ts",
+                          "Layer":  "Case System",
+                          "Status":  "Entry-connected",
+                          "DirectDependencies":  [
+                                                     "src\\lib\\case-system\\architecture\\masterCaseSchema.ts",
+                                                     "src\\lib\\case-system\\claims\\claimTheoryArchitecture.ts",
+                                                     "src\\lib\\case-system\\claims\\claimTheoryEngine.ts",
+                                                     "src\\lib\\case-system\\credibility\\credibilityRiskArchitecture.ts",
+                                                     "src\\lib\\case-system\\credibility\\credibilityRiskEngine.ts",
+                                                     "src\\lib\\case-system\\damages\\damagesRemedyArchitecture.ts",
+                                                     "src\\lib\\case-system\\damages\\damagesRemedyEngine.ts",
+                                                     "src\\lib\\case-system\\evidence\\evidenceRelationshipArchitecture.ts",
+                                                     "src\\lib\\case-system\\evidence\\evidenceRelationshipEngine.ts",
+                                                     "src\\lib\\case-system\\knowledge\\doctrineSeedLibrary.ts",
+                                                     "src\\lib\\case-system\\knowledge\\legalReasoningCoordinator.ts",
+                                                     "src\\lib\\case-system\\litigation-intelligence\\litigationReasoningEngine.ts",
+                                                     "src\\lib\\case-system\\procedure\\proceduralStateArchitecture.ts",
+                                                     "src\\lib\\case-system\\procedure\\proceduralStateEngine.ts",
+                                                     "src\\lib\\case-system\\timeline\\timelineCognitionEngine.ts",
+                                                     "src\\lib\\case-system\\timeline\\timelineEventArchitecture.ts",
+                                                     "src\\lib\\case-system\\workflow\\workflowOrchestrationArchitecture.ts",
+                                                     "src\\lib\\case-system\\workflow\\workflowOrchestrationEngine.ts"
+                                                 ],
+                          "DirectConsumers":  [
+                                                  "src\\lib\\case-system\\orchestration\\courtSimplifiedBrainBridge.ts"
+                                              ],
+                          "UpstreamEntryPoints":  [
+                                                      "app\\api\\assistant-chat\\route.ts",
+                                                      "app\\api\\case-summary\\route.ts",
+                                                      "app\\builder\\page.tsx"
+                                                  ],
+                          "DownstreamArchitectureSystems":  [
+                                                                "src\\lib\\case-system\\claims\\claimTheoryEngine.ts",
+                                                                "src\\lib\\case-system\\credibility\\credibilityRiskEngine.ts",
+                                                                "src\\lib\\case-system\\damages\\damagesRemedyEngine.ts",
+                                                                "src\\lib\\case-system\\evidence\\evidenceRelationshipEngine.ts",
+                                                                "src\\lib\\case-system\\knowledge\\knowledgeRetrievalEngine.ts",
+                                                                "src\\lib\\case-system\\knowledge\\legalReasoningCoordinator.ts",
+                                                                "src\\lib\\case-system\\knowledge\\legalReasoningProfiles.ts",
+                                                                "src\\lib\\case-system\\litigation-intelligence\\litigationReasoningEngine.ts",
+                                                                "src\\lib\\case-system\\procedure\\proceduralStateEngine.ts",
+                                                                "src\\lib\\case-system\\timeline\\timelineCognitionEngine.ts",
+                                                                "src\\lib\\case-system\\workflow\\workflowOrchestrationEngine.ts"
+                                                            ],
+                          "MaximumDownstreamDepth":  2
+                      },
+                      {
+                          "Name":  "workflowOrchestrationArchitecture",
+                          "Kind":  "Workflow Contract",
+                          "File":  "src\\lib\\case-system\\workflow\\workflowOrchestrationArchitecture.ts",
+                          "Layer":  "Case System",
+                          "Status":  "Entry-connected",
+                          "DirectDependencies":  [
+                                                     "src\\lib\\case-system\\architecture\\masterCaseSchema.ts"
+                                                 ],
+                          "DirectConsumers":  [
+                                                  "src\\lib\\case-system\\authority-intelligence\\authorityWorkflowBridge.ts",
+                                                  "src\\lib\\case-system\\orchestration\\caseSystemAssembly.ts",
+                                                  "src\\lib\\case-system\\workflow\\workflowOrchestrationEngine.ts"
+                                              ],
+                          "UpstreamEntryPoints":  [
+                                                      "app\\api\\assistant-chat\\route.ts",
+                                                      "app\\api\\case-summary\\route.ts",
+                                                      "app\\builder\\page.tsx"
+                                                  ],
+                          "DownstreamArchitectureSystems":  [
+
+                                                            ],
+                          "MaximumDownstreamDepth":  1
+                      },
+                      {
+                          "Name":  "workflowOrchestrationEngine",
+                          "Kind":  "Workflow",
+                          "File":  "src\\lib\\case-system\\workflow\\workflowOrchestrationEngine.ts",
+                          "Layer":  "Case System",
+                          "Status":  "Entry-connected",
+                          "DirectDependencies":  [
+                                                     "src\\lib\\case-system\\architecture\\masterCaseSchema.ts",
+                                                     "src\\lib\\case-system\\workflow\\workflowOrchestrationArchitecture.ts"
+                                                 ],
+                          "DirectConsumers":  [
+                                                  "src\\lib\\case-system\\orchestration\\caseSystemAssembly.ts"
+                                              ],
+                          "UpstreamEntryPoints":  [
+                                                      "app\\api\\assistant-chat\\route.ts",
+                                                      "app\\api\\case-summary\\route.ts",
+                                                      "app\\builder\\page.tsx"
+                                                  ],
+                          "DownstreamArchitectureSystems":  [
+
+                                                            ],
+                          "MaximumDownstreamDepth":  1
+                      },
+                      {
+                          "Name":  "aiOrchestratorTypes",
+                          "Kind":  "Workflow Contract",
+                          "File":  "src\\lib\\legal-intelligence\\core\\aiOrchestratorTypes.ts",
+                          "Layer":  "Legal Intelligence",
+                          "Status":  "Internally connected",
+                          "DirectDependencies":  [
+                                                     "src\\lib\\legal-intelligence\\core\\caseModel.ts",
+                                                     "src\\lib\\legal-intelligence\\core\\legalKnowledgeTypes.ts",
+                                                     "src\\lib\\legal-intelligence\\core\\precedentTypes.ts",
+                                                     "src\\lib\\legal-intelligence\\core\\validationTypes.ts",
+                                                     "src\\lib\\legal-intelligence\\core\\workflowTypes.ts"
+                                                 ],
+                          "DirectConsumers":  [
+                                                  "src\\lib\\legal-intelligence\\engines\\interpretationEngine.ts"
+                                              ],
+                          "UpstreamEntryPoints":  [
+
+                                                  ],
+                          "DownstreamArchitectureSystems":  [
+
+                                                            ],
+                          "MaximumDownstreamDepth":  1
+                      },
+                      {
+                          "Name":  "workflowTypes",
+                          "Kind":  "Workflow Contract",
+                          "File":  "src\\lib\\legal-intelligence\\core\\workflowTypes.ts",
+                          "Layer":  "Legal Intelligence",
+                          "Status":  "Internally connected",
+                          "DirectDependencies":  [
+                                                     "src\\lib\\legal-intelligence\\core\\caseModel.ts"
+                                                 ],
+                          "DirectConsumers":  [
+                                                  "src\\lib\\legal-intelligence\\core\\aiOrchestratorTypes.ts"
+                                              ],
+                          "UpstreamEntryPoints":  [
+
+                                                  ],
+                          "DownstreamArchitectureSystems":  [
+
+                                                            ],
+                          "MaximumDownstreamDepth":  1
+                      }
+                  ],
+    "EntryTraces":  [
+                        {
+                            "Entry":  "app\\admin\\pdf-field-mapper\\page.tsx",
+                            "Route":  "/admin/pdf-field-mapper",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\ai-drafting-assistant\\page.tsx",
+                            "Route":  "/ai-drafting-assistant",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Connected",
+                            "ReachableNodeCount":  10,
+                            "ReachableArchitectureSystemCount":  8,
+                            "ReachableWorkflowCount":  1,
+                            "MaximumDepth":  5,
+                            "ContainsAiPipeline":  true,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+                                                    "Case System"
+                                                ],
+                            "ReachableArchitectureSystems":  [
+                                                                 "src\\lib\\case-system\\aiDraftingAssistantEngine.ts",
+                                                                 "src\\lib\\case-system\\caseContextEngine.ts",
+                                                                 "src\\lib\\case-system\\courtPackageAssemblyEngine.ts",
+                                                                 "src\\lib\\case-system\\documentGenerationEngine.ts",
+                                                                 "src\\lib\\case-system\\documentWorkspaceEngine.ts",
+                                                                 "src\\lib\\case-system\\evidenceEngine.ts",
+                                                                 "src\\lib\\case-system\\legalTheoryEngine.ts",
+                                                                 "src\\lib\\case-system\\timelineEngine.ts"
+                                                             ],
+                            "ReachableWorkflows":  [
+                                                       "src\\lib\\case-system\\courtPackageAssemblyEngine.ts"
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\ai-test\\page.tsx",
+                            "Route":  "/ai-test",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Connected",
+                            "ReachableNodeCount":  13,
+                            "ReachableArchitectureSystemCount":  8,
+                            "ReachableWorkflowCount":  3,
+                            "MaximumDepth":  5,
+                            "ContainsAiPipeline":  true,
+                            "RuntimeApiRoutes":  [
+                                                     "/api/ai-case-partner"
+                                                 ],
+                            "ReachableLayers":  [
+                                                    "API",
+                                                    "Case System"
+                                                ],
+                            "ReachableArchitectureSystems":  [
+                                                                 "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerGateway.ts",
+                                                                 "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerOrchestrator.ts",
+                                                                 "src\\lib\\case-system\\ai-case-partner\\caseInvestigationEngine.ts",
+                                                                 "src\\lib\\case-system\\ai-case-partner\\conversationIntelligenceEngine.ts",
+                                                                 "src\\lib\\case-system\\ai-case-partner\\conversationMemoryEngine.ts",
+                                                                 "src\\lib\\case-system\\knowledge\\knowledgeRetrievalEngine.ts",
+                                                                 "src\\lib\\case-system\\knowledge\\legalReasoningCoordinator.ts",
+                                                                 "src\\lib\\case-system\\knowledge\\legalReasoningProfiles.ts"
+                                                             ],
+                            "ReachableWorkflows":  [
+                                                       "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerGateway.ts",
+                                                       "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerOrchestrator.ts",
+                                                       "src\\lib\\case-system\\knowledge\\legalReasoningCoordinator.ts"
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\api\\admin\\scan-pdf-fields\\route.ts",
+                            "Route":  "/api/admin/scan-pdf-fields",
+                            "EntryType":  "API Route",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\api\\ai-case-partner\\route.ts",
+                            "Route":  "/api/ai-case-partner",
+                            "EntryType":  "API Route",
+                            "Status":  "Connected",
+                            "ReachableNodeCount":  12,
+                            "ReachableArchitectureSystemCount":  8,
+                            "ReachableWorkflowCount":  3,
+                            "MaximumDepth":  4,
+                            "ContainsAiPipeline":  true,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+                                                    "Case System"
+                                                ],
+                            "ReachableArchitectureSystems":  [
+                                                                 "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerGateway.ts",
+                                                                 "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerOrchestrator.ts",
+                                                                 "src\\lib\\case-system\\ai-case-partner\\caseInvestigationEngine.ts",
+                                                                 "src\\lib\\case-system\\ai-case-partner\\conversationIntelligenceEngine.ts",
+                                                                 "src\\lib\\case-system\\ai-case-partner\\conversationMemoryEngine.ts",
+                                                                 "src\\lib\\case-system\\knowledge\\knowledgeRetrievalEngine.ts",
+                                                                 "src\\lib\\case-system\\knowledge\\legalReasoningCoordinator.ts",
+                                                                 "src\\lib\\case-system\\knowledge\\legalReasoningProfiles.ts"
+                                                             ],
+                            "ReachableWorkflows":  [
+                                                       "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerGateway.ts",
+                                                       "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerOrchestrator.ts",
+                                                       "src\\lib\\case-system\\knowledge\\legalReasoningCoordinator.ts"
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\api\\assistant-chat\\route.ts",
+                            "Route":  "/api/assistant-chat",
+                            "EntryType":  "API Route",
+                            "Status":  "Connected",
+                            "ReachableNodeCount":  41,
+                            "ReachableArchitectureSystemCount":  21,
+                            "ReachableWorkflowCount":  5,
+                            "MaximumDepth":  6,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+                                                    "Case System"
+                                                ],
+                            "ReachableArchitectureSystems":  [
+                                                                 "src\\lib\\case-system\\authority\\authorityVerificationEngine.ts",
+                                                                 "src\\lib\\case-system\\authority\\authorityWeightEngine.ts",
+                                                                 "src\\lib\\case-system\\authority\\citationSafetyEngine.ts",
+                                                                 "src\\lib\\case-system\\claims\\claimTheoryEngine.ts",
+                                                                 "src\\lib\\case-system\\contracts\\masterCaseBridge.ts",
+                                                                 "src\\lib\\case-system\\contradictions\\contradictionDetectionEngine.ts",
+                                                                 "src\\lib\\case-system\\contradictions\\credibilityRiskEngine.ts",
+                                                                 "src\\lib\\case-system\\credibility\\credibilityRiskEngine.ts",
+                                                                 "src\\lib\\case-system\\damages\\damagesRemedyEngine.ts",
+                                                                 "src\\lib\\case-system\\evidence\\evidenceIntelligenceEngine.ts",
+                                                                 "src\\lib\\case-system\\evidence\\evidenceRelationshipEngine.ts",
+                                                                 "src\\lib\\case-system\\intelligence\\elementProofEngine.ts",
+                                                                 "src\\lib\\case-system\\intelligence\\intakeNormalizationEngine.ts",
+                                                                 "src\\lib\\case-system\\knowledge\\knowledgeRetrievalEngine.ts",
+                                                                 "src\\lib\\case-system\\knowledge\\legalReasoningCoordinator.ts",
+                                                                 "src\\lib\\case-system\\knowledge\\legalReasoningProfiles.ts",
+                                                                 "src\\lib\\case-system\\litigation-intelligence\\litigationReasoningEngine.ts",
+                                                                 "src\\lib\\case-system\\orchestration\\courtSimplifiedBrainBridge.ts",
+                                                                 "src\\lib\\case-system\\procedure\\proceduralStateEngine.ts",
+                                                                 "src\\lib\\case-system\\timeline\\timelineCognitionEngine.ts",
+                                                                 "src\\lib\\case-system\\workflow\\workflowOrchestrationEngine.ts"
+                                                             ],
+                            "ReachableWorkflows":  [
+                                                       "src\\lib\\case-system\\knowledge\\legalReasoningCoordinator.ts",
+                                                       "src\\lib\\case-system\\orchestration\\brainMigrationLayer.ts",
+                                                       "src\\lib\\case-system\\orchestration\\caseSystemAssembly.ts",
+                                                       "src\\lib\\case-system\\workflow\\workflowOrchestrationArchitecture.ts",
+                                                       "src\\lib\\case-system\\workflow\\workflowOrchestrationEngine.ts"
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\api\\cases\\route.ts",
+                            "Route":  "/api/cases",
+                            "EntryType":  "API Route",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\api\\case-summary\\route.ts",
+                            "Route":  "/api/case-summary",
+                            "EntryType":  "API Route",
+                            "Status":  "Connected",
+                            "ReachableNodeCount":  41,
+                            "ReachableArchitectureSystemCount":  21,
+                            "ReachableWorkflowCount":  5,
+                            "MaximumDepth":  6,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+                                                    "Case System"
+                                                ],
+                            "ReachableArchitectureSystems":  [
+                                                                 "src\\lib\\case-system\\authority\\authorityVerificationEngine.ts",
+                                                                 "src\\lib\\case-system\\authority\\authorityWeightEngine.ts",
+                                                                 "src\\lib\\case-system\\authority\\citationSafetyEngine.ts",
+                                                                 "src\\lib\\case-system\\claims\\claimTheoryEngine.ts",
+                                                                 "src\\lib\\case-system\\contracts\\masterCaseBridge.ts",
+                                                                 "src\\lib\\case-system\\contradictions\\contradictionDetectionEngine.ts",
+                                                                 "src\\lib\\case-system\\contradictions\\credibilityRiskEngine.ts",
+                                                                 "src\\lib\\case-system\\credibility\\credibilityRiskEngine.ts",
+                                                                 "src\\lib\\case-system\\damages\\damagesRemedyEngine.ts",
+                                                                 "src\\lib\\case-system\\evidence\\evidenceIntelligenceEngine.ts",
+                                                                 "src\\lib\\case-system\\evidence\\evidenceRelationshipEngine.ts",
+                                                                 "src\\lib\\case-system\\intelligence\\elementProofEngine.ts",
+                                                                 "src\\lib\\case-system\\intelligence\\intakeNormalizationEngine.ts",
+                                                                 "src\\lib\\case-system\\knowledge\\knowledgeRetrievalEngine.ts",
+                                                                 "src\\lib\\case-system\\knowledge\\legalReasoningCoordinator.ts",
+                                                                 "src\\lib\\case-system\\knowledge\\legalReasoningProfiles.ts",
+                                                                 "src\\lib\\case-system\\litigation-intelligence\\litigationReasoningEngine.ts",
+                                                                 "src\\lib\\case-system\\orchestration\\courtSimplifiedBrainBridge.ts",
+                                                                 "src\\lib\\case-system\\procedure\\proceduralStateEngine.ts",
+                                                                 "src\\lib\\case-system\\timeline\\timelineCognitionEngine.ts",
+                                                                 "src\\lib\\case-system\\workflow\\workflowOrchestrationEngine.ts"
+                                                             ],
+                            "ReachableWorkflows":  [
+                                                       "src\\lib\\case-system\\knowledge\\legalReasoningCoordinator.ts",
+                                                       "src\\lib\\case-system\\orchestration\\brainMigrationLayer.ts",
+                                                       "src\\lib\\case-system\\orchestration\\caseSystemAssembly.ts",
+                                                       "src\\lib\\case-system\\workflow\\workflowOrchestrationArchitecture.ts",
+                                                       "src\\lib\\case-system\\workflow\\workflowOrchestrationEngine.ts"
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\api\\document-export\\route.ts",
+                            "Route":  "/api/document-export",
+                            "EntryType":  "API Route",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\api\\evidence-praser\\route.ts",
+                            "Route":  "/api/evidence-praser",
+                            "EntryType":  "API Route",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\api\\form-rules\\route.ts",
+                            "Route":  "/api/form-rules",
+                            "EntryType":  "API Route",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\api\\generate-form\\route.ts",
+                            "Route":  "/api/generate-form",
+                            "EntryType":  "API Route",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\api\\rule-engine\\route.ts",
+                            "Route":  "/api/rule-engine",
+                            "EntryType":  "API Route",
+                            "Status":  "Connected",
+                            "ReachableNodeCount":  17,
+                            "ReachableArchitectureSystemCount":  7,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  3,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+                                                    "API",
+                                                    "Case System",
+                                                    "User Interface"
+                                                ],
+                            "ReachableArchitectureSystems":  [
+                                                                 "src\\lib\\case-system\\familyStrategyEngine.ts",
+                                                                 "src\\lib\\case-system\\formTriggerEngine.ts",
+                                                                 "src\\lib\\case-system\\legalTheoryEngine.ts",
+                                                                 "src\\lib\\case-system\\rulesEngine.ts",
+                                                                 "src\\lib\\case-system\\scenarioConfidenceEngine.ts",
+                                                                 "src\\lib\\case-system\\scenarioEngine.ts",
+                                                                 "src\\lib\\case-system\\smallClaimsEngine.ts"
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\api\\rules\\evidence\\route.ts",
+                            "Route":  "/api/rules/evidence",
+                            "EntryType":  "API Route",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\api\\rules\\issues\\route.ts",
+                            "Route":  "/api/rules/issues",
+                            "EntryType":  "API Route",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\api\\rules\\procedures\\route.ts",
+                            "Route":  "/api/rules/procedures",
+                            "EntryType":  "API Route",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\api\\scan-form-fields\\route.ts",
+                            "Route":  "/api/scan-form-fields",
+                            "EntryType":  "API Route",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\builder\\page.tsx",
+                            "Route":  "/builder",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Connected",
+                            "ReachableNodeCount":  75,
+                            "ReachableArchitectureSystemCount":  43,
+                            "ReachableWorkflowCount":  10,
+                            "MaximumDepth":  8,
+                            "ContainsAiPipeline":  true,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+                                                    "API",
+                                                    "Case System",
+                                                    "Persistence",
+                                                    "User Interface"
+                                                ],
+                            "ReachableArchitectureSystems":  [
+                                                                 "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerGateway.ts",
+                                                                 "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerOrchestrator.ts",
+                                                                 "src\\lib\\case-system\\ai-case-partner\\caseInvestigationEngine.ts",
+                                                                 "src\\lib\\case-system\\ai-case-partner\\conversationIntelligenceEngine.ts",
+                                                                 "src\\lib\\case-system\\ai-case-partner\\conversationMemoryEngine.ts",
+                                                                 "src\\lib\\case-system\\authority\\authorityVerificationEngine.ts",
+                                                                 "src\\lib\\case-system\\authority\\authorityWeightEngine.ts",
+                                                                 "src\\lib\\case-system\\authority\\citationSafetyEngine.ts",
+                                                                 "src\\lib\\case-system\\caseContextEngine.ts",
+                                                                 "src\\lib\\case-system\\casePersistenceEngine.ts",
+                                                                 "src\\lib\\case-system\\civilCaseFileCatalogEngine.ts",
+                                                                 "src\\lib\\case-system\\civilEvidenceEngine.ts",
+                                                                 "src\\lib\\case-system\\civilFormRoutingEngine.ts",
+                                                                 "src\\lib\\case-system\\civilMasterCaseEngine.ts",
+                                                                 "src\\lib\\case-system\\civilNarrativeEngine.ts",
+                                                                 "src\\lib\\case-system\\civilStrategyEngine.ts",
+                                                                 "src\\lib\\case-system\\civilWorkflowEngine.ts",
+                                                                 "src\\lib\\case-system\\claims\\claimTheoryEngine.ts",
+                                                                 "src\\lib\\case-system\\contracts\\masterCaseBridge.ts",
+                                                                 "src\\lib\\case-system\\contradictions\\contradictionDetectionEngine.ts",
+                                                                 "src\\lib\\case-system\\contradictions\\credibilityRiskEngine.ts",
+                                                                 "src\\lib\\case-system\\courtPackageAssemblyEngine.ts",
+                                                                 "src\\lib\\case-system\\credibility\\credibilityRiskEngine.ts",
+                                                                 "src\\lib\\case-system\\damages\\damagesRemedyEngine.ts",
+                                                                 "src\\lib\\case-system\\documentGenerationEngine.ts",
+                                                                 "src\\lib\\case-system\\documentWorkspaceEngine.ts",
+                                                                 "src\\lib\\case-system\\evidence\\evidenceIntelligenceEngine.ts",
+                                                                 "src\\lib\\case-system\\evidence\\evidenceRelationshipEngine.ts",
+                                                                 "src\\lib\\case-system\\evidenceEngine.ts",
+                                                                 "src\\lib\\case-system\\intelligence\\elementProofEngine.ts",
+                                                                 "src\\lib\\case-system\\intelligence\\intakeNormalizationEngine.ts",
+                                                                 "src\\lib\\case-system\\intelligence\\smallClaimsIntelligenceEngine.ts",
+                                                                 "src\\lib\\case-system\\knowledge\\knowledgeRetrievalEngine.ts",
+                                                                 "src\\lib\\case-system\\knowledge\\legalReasoningCoordinator.ts",
+                                                                 "src\\lib\\case-system\\knowledge\\legalReasoningProfiles.ts",
+                                                                 "src\\lib\\case-system\\legalTheoryEngine.ts",
+                                                                 "src\\lib\\case-system\\litigation-intelligence\\litigationReasoningEngine.ts",
+                                                                 "src\\lib\\case-system\\masterCaseOrchestrator.ts",
+                                                                 "src\\lib\\case-system\\orchestration\\courtSimplifiedBrainBridge.ts",
+                                                                 "src\\lib\\case-system\\procedure\\proceduralStateEngine.ts",
+                                                                 "src\\lib\\case-system\\timeline\\timelineCognitionEngine.ts",
+                                                                 "src\\lib\\case-system\\timelineEngine.ts",
+                                                                 "src\\lib\\case-system\\workflow\\workflowOrchestrationEngine.ts"
+                                                             ],
+                            "ReachableWorkflows":  [
+                                                       "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerGateway.ts",
+                                                       "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerOrchestrator.ts",
+                                                       "src\\lib\\case-system\\civilWorkflowEngine.ts",
+                                                       "src\\lib\\case-system\\courtPackageAssemblyEngine.ts",
+                                                       "src\\lib\\case-system\\knowledge\\legalReasoningCoordinator.ts",
+                                                       "src\\lib\\case-system\\masterCaseOrchestrator.ts",
+                                                       "src\\lib\\case-system\\orchestration\\brainMigrationLayer.ts",
+                                                       "src\\lib\\case-system\\orchestration\\caseSystemAssembly.ts",
+                                                       "src\\lib\\case-system\\workflow\\workflowOrchestrationArchitecture.ts",
+                                                       "src\\lib\\case-system\\workflow\\workflowOrchestrationEngine.ts"
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\case-dashboard\\page.tsx",
+                            "Route":  "/case-dashboard",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Connected",
+                            "ReachableNodeCount":  7,
+                            "ReachableArchitectureSystemCount":  4,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  4,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+                                                    "Case System"
+                                                ],
+                            "ReachableArchitectureSystems":  [
+                                                                 "src\\lib\\case-system\\caseContextEngine.ts",
+                                                                 "src\\lib\\case-system\\evidenceEngine.ts",
+                                                                 "src\\lib\\case-system\\legalTheoryEngine.ts",
+                                                                 "src\\lib\\case-system\\timelineEngine.ts"
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\case-law\\page.tsx",
+                            "Route":  "/case-law",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\civil\\page.tsx",
+                            "Route":  "/civil",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\court-package\\page.tsx",
+                            "Route":  "/court-package",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Connected",
+                            "ReachableNodeCount":  8,
+                            "ReachableArchitectureSystemCount":  5,
+                            "ReachableWorkflowCount":  1,
+                            "MaximumDepth":  4,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+                                                    "Case System"
+                                                ],
+                            "ReachableArchitectureSystems":  [
+                                                                 "src\\lib\\case-system\\caseContextEngine.ts",
+                                                                 "src\\lib\\case-system\\courtPackageAssemblyEngine.ts",
+                                                                 "src\\lib\\case-system\\evidenceEngine.ts",
+                                                                 "src\\lib\\case-system\\legalTheoryEngine.ts",
+                                                                 "src\\lib\\case-system\\timelineEngine.ts"
+                                                             ],
+                            "ReachableWorkflows":  [
+                                                       "src\\lib\\case-system\\courtPackageAssemblyEngine.ts"
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\dashboard\\cases\\[id]\\page.tsx",
+                            "Route":  "/dashboard/cases/[id]",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Connected",
+                            "ReachableNodeCount":  4,
+                            "ReachableArchitectureSystemCount":  1,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  2,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+                                                    "Case System",
+                                                    "Persistence"
+                                                ],
+                            "ReachableArchitectureSystems":  [
+                                                                 "src\\lib\\case-system\\dashboardEngine.ts"
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\dashboard\\page.tsx",
+                            "Route":  "/dashboard",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Connected",
+                            "ReachableNodeCount":  4,
+                            "ReachableArchitectureSystemCount":  1,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  2,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+                                                    "Case System",
+                                                    "Persistence"
+                                                ],
+                            "ReachableArchitectureSystems":  [
+                                                                 "src\\lib\\case-system\\dashboardEngine.ts"
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\document-export\\page.tsx",
+                            "Route":  "/document-export",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Connected",
+                            "ReachableNodeCount":  1,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  1,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+                                                     "/api/document-export"
+                                                 ],
+                            "ReachableLayers":  [
+                                                    "API"
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\document-workspace\\page.tsx",
+                            "Route":  "/document-workspace",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Connected",
+                            "ReachableNodeCount":  11,
+                            "ReachableArchitectureSystemCount":  7,
+                            "ReachableWorkflowCount":  1,
+                            "MaximumDepth":  4,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+                                                    "Case System",
+                                                    "Persistence"
+                                                ],
+                            "ReachableArchitectureSystems":  [
+                                                                 "src\\lib\\case-system\\caseContextEngine.ts",
+                                                                 "src\\lib\\case-system\\courtPackageAssemblyEngine.ts",
+                                                                 "src\\lib\\case-system\\documentGenerationEngine.ts",
+                                                                 "src\\lib\\case-system\\documentWorkspaceEngine.ts",
+                                                                 "src\\lib\\case-system\\evidenceEngine.ts",
+                                                                 "src\\lib\\case-system\\legalTheoryEngine.ts",
+                                                                 "src\\lib\\case-system\\timelineEngine.ts"
+                                                             ],
+                            "ReachableWorkflows":  [
+                                                       "src\\lib\\case-system\\courtPackageAssemblyEngine.ts"
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\evidence\\page.tsx",
+                            "Route":  "/evidence",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Connected",
+                            "ReachableNodeCount":  10,
+                            "ReachableArchitectureSystemCount":  4,
+                            "ReachableWorkflowCount":  1,
+                            "MaximumDepth":  4,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+                                                    "Case System",
+                                                    "Persistence"
+                                                ],
+                            "ReachableArchitectureSystems":  [
+                                                                 "src\\lib\\case-system\\caseContextEngine.ts",
+                                                                 "src\\lib\\case-system\\evidenceAssemblyEngine.ts",
+                                                                 "src\\lib\\case-system\\evidenceEngine.ts",
+                                                                 "src\\lib\\case-system\\legalTheoryEngine.ts"
+                                                             ],
+                            "ReachableWorkflows":  [
+                                                       "src\\lib\\case-system\\evidenceAssemblyEngine.ts"
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\family\\ontario\\page.tsx",
+                            "Route":  "/family/ontario",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\family\\page.tsx",
+                            "Route":  "/family",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\forms\\page.tsx",
+                            "Route":  "/forms",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Connected",
+                            "ReachableNodeCount":  1,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  1,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+                                                     "/api/generate-form"
+                                                 ],
+                            "ReachableLayers":  [
+                                                    "API"
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\layout.tsx",
+                            "Route":  "/",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\legal-principles\\page.tsx",
+                            "Route":  "/legal-principles",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\litigation-strategy\\page.tsx",
+                            "Route":  "/litigation-strategy",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Connected",
+                            "ReachableNodeCount":  7,
+                            "ReachableArchitectureSystemCount":  4,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  3,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+                                                    "Case System"
+                                                ],
+                            "ReachableArchitectureSystems":  [
+                                                                 "src\\lib\\case-system\\caseContextEngine.ts",
+                                                                 "src\\lib\\case-system\\evidenceEngine.ts",
+                                                                 "src\\lib\\case-system\\legalTheoryEngine.ts",
+                                                                 "src\\lib\\case-system\\litigationStrategyEngine.ts"
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\login\\page.tsx",
+                            "Route":  "/login",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Connected",
+                            "ReachableNodeCount":  1,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  1,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+                                                    "Persistence"
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\ontario-civil\\page.tsx",
+                            "Route":  "/ontario-civil",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\ontario-smallclaims\\page.tsx",
+                            "Route":  "/ontario-smallclaims",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\page.tsx",
+                            "Route":  "/",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\settlement-conference\\page.tsx",
+                            "Route":  "/settlement-conference",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\small-claims\\page.tsx",
+                            "Route":  "/small-claims",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "app\\trial-package\\page.tsx",
+                            "Route":  "/trial-package",
+                            "EntryType":  "Application Entry",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        },
+                        {
+                            "Entry":  "next.config.ts",
+                            "Route":  "next.config.ts",
+                            "EntryType":  "Configuration",
+                            "Status":  "Isolated",
+                            "ReachableNodeCount":  0,
+                            "ReachableArchitectureSystemCount":  0,
+                            "ReachableWorkflowCount":  0,
+                            "MaximumDepth":  0,
+                            "ContainsAiPipeline":  false,
+                            "RuntimeApiRoutes":  [
+
+                                                 ],
+                            "ReachableLayers":  [
+
+                                                ],
+                            "ReachableArchitectureSystems":  [
+
+                                                             ],
+                            "ReachableWorkflows":  [
+
+                                                   ]
+                        }
+                    ],
+    "RuntimeApiCalls":  [
+                            {
+                                "Source":  "app\\ai-test\\page.tsx",
+                                "Route":  "/api/ai-case-partner",
+                                "Target":  "app\\api\\ai-case-partner\\route.ts",
+                                "Status":  "Resolved"
+                            },
+                            {
+                                "Source":  "app\\builder\\_components\\CourtAssistantChat.tsx",
+                                "Route":  "/api/ai-case-partner",
+                                "Target":  "app\\api\\ai-case-partner\\route.ts",
+                                "Status":  "Resolved"
+                            },
+                            {
+                                "Source":  "app\\document-export\\page.tsx",
+                                "Route":  "/api/document-export",
+                                "Target":  "app\\api\\document-export\\route.ts",
+                                "Status":  "Resolved"
+                            },
+                            {
+                                "Source":  "app\\forms\\page.tsx",
+                                "Route":  "/api/generate-form",
+                                "Target":  "app\\api\\generate-form\\route.ts",
+                                "Status":  "Resolved"
+                            },
+                            {
+                                "Source":  "src\\lib\\case-system\\rulesEngine.ts",
+                                "Route":  "/api/rules/evidence",
+                                "Target":  "app\\api\\rules\\evidence\\route.ts",
+                                "Status":  "Resolved"
+                            },
+                            {
+                                "Source":  "src\\lib\\case-system\\rulesEngine.ts",
+                                "Route":  "/api/rules/issues",
+                                "Target":  "app\\api\\rules\\issues\\route.ts",
+                                "Status":  "Resolved"
+                            },
+                            {
+                                "Source":  "src\\lib\\case-system\\rulesEngine.ts",
+                                "Route":  "/api/rules/procedures",
+                                "Target":  "app\\api\\rules\\procedures\\route.ts",
+                                "Status":  "Resolved"
+                            }
+                        ]
+}

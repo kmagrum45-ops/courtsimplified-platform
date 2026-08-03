@@ -7,6 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test:ai-context": "node scripts/verification/verifyAiCasePartnerContext.mjs",
+    "test:case-isolation": "node --import tsx scripts/verification/verifyWorkflowIsolation.mjs",
+    "test:small-claims": "node --import tsx scripts/verification/verifySmallClaimsEngine.ts",
     "snapshot": "node scripts/snapshot/createDeveloperSnapshot.mjs"
   },
   "dependencies": {
@@ -30,6 +33,7 @@
     "madge": "^8.0.0",
     "tailwindcss": "^4",
     "ts-prune": "^0.10.3",
+    "tsx": "^4.23.5",
     "typescript": "^5"
   }
 }

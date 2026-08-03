@@ -2064,6 +2064,7 @@ async function runStructuredGptCognition(
   input: CourtSimplifiedBrainInput,
   normalizedIntake: NormalizedIntake,
 ): Promise<GptCognitionOutput | null> {
+  if (input.allowExternalCognition === false) return null;
   if (!process.env.OPENAI_API_KEY) return null;
 
   try {

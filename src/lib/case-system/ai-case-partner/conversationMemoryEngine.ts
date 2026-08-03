@@ -2,12 +2,13 @@ import {
   CasePartnerConversationMessage,
   CasePartnerCourtArea,
   CasePartnerFact,
+  CasePartnerJurisdiction,
   CasePartnerLegalSignal,
   CasePartnerProceduralStage,
   ConversationIntelligenceResult,
 } from "./conversationIntelligenceEngine";
 
-export type ConversationMemoryVersion = "1.0.0";
+export type ConversationMemoryVersion = "1.1.0";
 
 export type MemoryConfidence = "low" | "medium" | "high";
 
@@ -36,6 +37,8 @@ export type ConversationMemoryState = {
 
   summary: string;
   courtArea: CasePartnerCourtArea;
+  selectedCourtArea: CasePartnerCourtArea;
+  jurisdiction: CasePartnerJurisdiction;
   proceduralStage: CasePartnerProceduralStage;
   userRole: string;
   userGoal: string;
@@ -125,6 +128,31 @@ function normalizeCourtArea(value: unknown): CasePartnerCourtArea {
   return allowed.includes(value as CasePartnerCourtArea)
     ? (value as CasePartnerCourtArea)
     : "unknown";
+}
+
+function normalizeJurisdiction(value: unknown): CasePartnerJurisdiction {
+  const allowed: CasePartnerJurisdiction[] = [
+    "Ontario",
+    "Alberta",
+    "British Columbia",
+    "Manitoba",
+    "New Brunswick",
+    "Newfoundland and Labrador",
+    "Northwest Territories",
+    "Nova Scotia",
+    "Nunavut",
+    "Prince Edward Island",
+    "Quebec",
+    "Saskatchewan",
+    "Yukon",
+    "Federal",
+    "Canada",
+    "Unknown",
+  ];
+
+  return allowed.includes(value as CasePartnerJurisdiction)
+    ? (value as CasePartnerJurisdiction)
+    : "Unknown";
 }
 
 function normalizeProceduralStage(value: unknown): CasePartnerProceduralStage {
@@ -217,13 +245,15 @@ function createEmptyMemory(caseId?: string): ConversationMemoryState {
   const time = nowIso();
 
   return {
-    version: "1.0.0",
+    version: "1.1.0",
     caseId,
     createdAt: time,
     updatedAt: time,
 
     summary: "",
     courtArea: "unknown",
+    selectedCourtArea: "unknown",
+    jurisdiction: "Unknown",
     proceduralStage: "unknown",
     userRole: "unknown",
     userGoal: "",
@@ -256,13 +286,17 @@ function normalizeExistingMemory(
   }
 
   return {
-    version: "1.0.0",
+    version: "1.1.0",
     caseId: clean(record.caseId) || caseId,
     createdAt: clean(record.createdAt) || empty.createdAt,
     updatedAt: clean(record.updatedAt) || empty.updatedAt,
 
     summary: clean(record.summary),
     courtArea: normalizeCourtArea(record.courtArea),
+    selectedCourtArea: normalizeCourtArea(
+      record.selectedCourtArea || record.courtArea,
+    ),
+    jurisdiction: normalizeJurisdiction(record.jurisdiction),
     proceduralStage: normalizeProceduralStage(record.proceduralStage),
     userRole: clean(record.userRole) || "unknown",
     userGoal: clean(record.userGoal),
@@ -531,6 +565,14 @@ export function buildConversationMemory(
       intelligence.conversationFocus.courtArea !== "unknown"
         ? intelligence.conversationFocus.courtArea
         : existing.courtArea,
+    selectedCourtArea:
+      intelligence.conversationFocus.selectedCourtArea !== "unknown"
+        ? intelligence.conversationFocus.selectedCourtArea
+        : existing.selectedCourtArea,
+    jurisdiction:
+      intelligence.conversationFocus.jurisdiction !== "Unknown"
+        ? intelligence.conversationFocus.jurisdiction
+        : existing.jurisdiction,
     proceduralStage:
       intelligence.conversationFocus.proceduralStage !== "unknown"
         ? intelligence.conversationFocus.proceduralStage
@@ -563,7 +605,7 @@ export function buildConversationMemory(
   };
 
   return {
-    version: "1.0.0",
+    version: "1.1.0",
     generatedAt: nowIso(),
     memory: updatedMemory,
     memoryPatch: {

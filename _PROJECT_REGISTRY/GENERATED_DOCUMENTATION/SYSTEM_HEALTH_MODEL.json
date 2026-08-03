@@ -1,0 +1,95 @@
+{
+  "ModelVersion": "1.0.0",
+  "SnapshotVersion": "2.4.0",
+  "GeneratedAt": "2026-07-31T19:11:39.126Z",
+  "ProjectRoot": "C:\\Users\\kmagr\\courtsimplified",
+  "Status": "Needs Review",
+  "OverallScore": 86,
+  "MaximumScore": 100,
+  "Build": {
+    "Result": "Passed",
+    "ExitCode": 0
+  },
+  "ModelVersions": {
+    "Architecture": "1.0.0",
+    "Workflow": "1.0.1",
+    "ArchitectureAudit": "1.0.0"
+  },
+  "HealthAreas": [
+    {
+      "Name": "Production Build",
+      "Status": "Healthy",
+      "Score": 30,
+      "MaximumScore": 30,
+      "Evidence": "Passed; exit code 0"
+    },
+    {
+      "Name": "Registry Integrity",
+      "Status": "Healthy",
+      "Score": 25,
+      "MaximumScore": 25,
+      "Evidence": "21/21 checks passed; 0 missing source files"
+    },
+    {
+      "Name": "Internal Import Resolution",
+      "Status": "Healthy",
+      "Score": 15,
+      "MaximumScore": 15,
+      "Evidence": "0 unresolved internal imports"
+    },
+    {
+      "Name": "Runtime API Resolution",
+      "Status": "Healthy",
+      "Score": 10,
+      "MaximumScore": 10,
+      "Evidence": "7/7 runtime API calls resolved"
+    },
+    {
+      "Name": "Circular Dependency Safety",
+      "Status": "Review",
+      "Score": 1,
+      "MaximumScore": 10,
+      "Evidence": "2 high-risk and 1 medium-risk circular groups"
+    },
+    {
+      "Name": "Entry-Point Reachability",
+      "Status": "Review",
+      "Score": 5,
+      "MaximumScore": 10,
+      "Evidence": "15 high-confidence candidates; 61 total review candidates"
+    }
+  ],
+  "Metrics": {
+    "BuildResult": "Passed",
+    "BuildExitCode": 0,
+    "TotalFiles": 288,
+    "TypeScriptFiles": 196,
+    "ArchitectureNodes": 196,
+    "ArchitectureEdges": 432,
+    "UnresolvedInternalEdges": 0,
+    "WorkflowRecords": 15,
+    "EntryTraces": 41,
+    "RuntimeApiCalls": 7,
+    "UnresolvedRuntimeApiCalls": 0,
+    "CircularDependencyGroups": 3,
+    "HighRiskCircularDependencyGroups": 2,
+    "MediumRiskCircularDependencyGroups": 1,
+    "DeadCodeCandidates": 61,
+    "HighConfidenceDeadCodeCandidates": 15,
+    "RegistryValidationChecks": 21,
+    "RegistryValidationFailures": 0,
+    "MissingSourceFiles": 0
+  },
+  "BlockingIssues": [],
+  "ReviewFindings": [
+    "2 high-risk circular dependency group(s) require architectural review.",
+    "1 medium-risk circular dependency group(s) require review.",
+    "15 high-confidence dead-code candidate(s) require manual confirmation.",
+    "46 additional reachability candidate(s) require staged or dynamic-use review."
+  ],
+  "Interpretation": {
+    "Scope": "Static architecture, registry, dependency, integration, reachability, and production-build health.",
+    "Limitation": "This health model does not prove runtime branch coverage, legal accuracy, security, privacy compliance, or that a dead-code candidate is safe to remove.",
+    "RemovalDoctrine": "No candidate may be deleted without source inspection, dependency confirmation, and deliberate approval."
+  }
+}

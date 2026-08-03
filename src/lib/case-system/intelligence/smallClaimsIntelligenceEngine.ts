@@ -89,12 +89,16 @@ export type SmallClaimsIntelligenceInput = {
   urgent: string;
 };
 
-type SmallClaimsIntelligenceOutput = {
+export type SmallClaimsIntelligenceOutput = {
   analysis: AnalysisResult;
   payload: StoredCaseData;
   masterResultPatch: Record<string, unknown>;
   dashboardPatch: Record<string, unknown>;
   recommendedNextRoute?: string;
+};
+
+export type SmallClaimsAnalysisOptions = {
+  allowExternalCognition?: boolean;
 };
 
 function hasText(value: string): boolean {
@@ -455,23 +459,9 @@ function buildSummary(args: {
   ].join("\n");
 }
 
-function filterContaminatedGuidance(items: string[]): string[] {
-  return cleanList(
-    items.filter((item) => {
-      const text = normalizeText(item);
-
-      if (text.includes("property damage")) return false;
-      if (text.includes("repair cost")) return false;
-      if (text.includes("contract") && text.includes("agreement") && text.includes("not")) return false;
-      if (text.includes("defence") && text.includes("served") && text.includes("claim")) return false;
-
-      return true;
-    }),
-  );
-}
-
 export async function analyzeSmallClaimsWithBrain(
   input: SmallClaimsIntelligenceInput,
+  options: SmallClaimsAnalysisOptions = {},
 ): Promise<SmallClaimsIntelligenceOutput> {
   const stage = determineProceduralStage(input);
   const rawUserText = buildRawUserText(input);
@@ -483,6 +473,7 @@ export async function analyzeSmallClaimsWithBrain(
     rawUserText,
     existingMasterResult: {},
     sourceType: "user-intake",
+    allowExternalCognition: options.allowExternalCognition,
   });
 
   const intelligence = brain.intelligence;
@@ -531,9 +522,9 @@ export async function analyzeSmallClaimsWithBrain(
       ...(intelligencePatch.missingInformation || []),
     ]),
 
-    risksAndGaps: filterContaminatedGuidance(intelligencePatch.risksAndGaps || []),
+    risksAndGaps: cleanList(intelligencePatch.risksAndGaps || []),
 
-    guidance: filterContaminatedGuidance([
+    guidance: cleanList([
       ...(intelligence.nextBestActions || []),
       "Use the evidence step to connect each fact to proof before generating final documents.",
       "Verify current court filing and service requirements before filing anything.",
@@ -548,10 +539,10 @@ export async function analyzeSmallClaimsWithBrain(
     defenceAttacks: cleanList(intelligencePatch.defenceAttacks || []),
     judgeConcerns: cleanList(intelligencePatch.judgeConcerns || []),
     courtConcerns: cleanList(intelligencePatch.courtConcerns || []),
-    nextBestActions: filterContaminatedGuidance(intelligence.nextBestActions || []),
-    userWarnings: filterContaminatedGuidance(intelligence.systemWarnings || []),
-    proceduralRisks: filterContaminatedGuidance(intelligence.proceduralPosture.warnings || []),
-    suggestedFocus: filterContaminatedGuidance(intelligence.nextBestActions || []),
+    nextBestActions: cleanList(intelligence.nextBestActions || []),
+    userWarnings: cleanList(intelligence.systemWarnings || []),
+    proceduralRisks: cleanList(intelligence.proceduralPosture.warnings || []),
+    suggestedFocus: cleanList(intelligence.nextBestActions || []),
 
     damagesIssues: hasText(input.amountClaimed)
       ? ["Amount was captured. The next step is explaining the calculation and connecting it to proof."]
@@ -560,8 +551,8 @@ export async function analyzeSmallClaimsWithBrain(
     intelligence: intelligencePatch.intelligence,
     intelligenceSummary: intelligence.plainLanguageSummary,
     structuredIntelligenceSummary: intelligence.structuredCaseSummary,
-    intelligenceWarnings: filterContaminatedGuidance(intelligence.systemWarnings),
-    intelligenceNextActions: filterContaminatedGuidance(intelligence.nextBestActions),
+    intelligenceWarnings: cleanList(intelligence.systemWarnings),
+    intelligenceNextActions: cleanList(intelligence.nextBestActions),
     intelligenceEvidenceIssues: intelligence.evidenceIssueLinks,
     intelligenceFormRecommendations: intelligence.formRecommendations,
   };

@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { createClient } from "@supabase/supabase-js";
+import { randomUUID } from "node:crypto";
+
+import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 
 export const runtime = "nodejs";
 
@@ -13,16 +16,17 @@ type SaveCaseRequestBody = {
   path?: string;
   stage?: string;
   status?: string;
-  master_result?: any;
-  caseContext?: any;
-  evidencePackages?: any[];
-  workspaceDocuments?: any[];
+  master_result?: unknown;
+  caseContext?: unknown;
+  evidencePackages?: unknown[];
+  workspaceDocuments?: unknown[];
   syncNotes?: string[];
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 };
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const MAX_CASE_REQUEST_BYTES = 1_000_000;
 
 function getSupabaseAdmin() {
   if (!supabaseUrl || !serviceRoleKey) {
@@ -43,8 +47,24 @@ function clean(value: unknown) {
   return String(value || "").trim();
 }
 
+function asRecord(value: unknown): Record<string, unknown> {
+  return value && typeof value === "object" && !Array.isArray(value)
+    ? (value as Record<string, unknown>)
+    : {};
+}
+
 function createCaseId() {
-  return `case_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+  return randomUUID();
+}
+
+function unauthorizedResponse() {
+  return NextResponse.json(
+    {
+      success: false,
+      error: "Authentication is required.",
+    },
+    { status: 401 },
+  );
 }
 
 function normalizeStringArray(value: unknown): string[] {
@@ -61,8 +81,12 @@ function normalizeStringArray(value: unknown): string[] {
   return [];
 }
 
-function buildMasterResult(body: SaveCaseRequestBody) {
-  const existing = body.master_result || {};
+function buildMasterResult(
+  body: SaveCaseRequestBody,
+): Record<string, unknown> {
+  const existing = asRecord(body.master_result);
+  const persistedRecord = asRecord(existing.persistedRecord);
+  const persistedMetadata = asRecord(persistedRecord.metadata);
 
   return {
     ...existing,
@@ -70,41 +94,41 @@ function buildMasterResult(body: SaveCaseRequestBody) {
     caseContext: body.caseContext || existing.caseContext || null,
 
     persistedRecord: {
-      id: body.id || body.caseId || existing?.persistedRecord?.id || null,
+      id: body.id || body.caseId || persistedRecord.id || null,
       title:
         body.title ||
-        existing?.persistedRecord?.title ||
-        existing?.title ||
+        persistedRecord.title ||
+        existing.title ||
         "Untitled CourtSimplified case",
       casePath:
         body.casePath ||
         body.path ||
-        existing?.persistedRecord?.casePath ||
-        existing?.casePath ||
+        persistedRecord.casePath ||
+        existing.casePath ||
         "unknown",
       stage:
         body.stage ||
-        existing?.persistedRecord?.stage ||
-        existing?.stage ||
+        persistedRecord.stage ||
+        existing.stage ||
         "not-sure",
       status:
         body.status ||
-        existing?.persistedRecord?.status ||
-        existing?.status ||
+        persistedRecord.status ||
+        existing.status ||
         "ready-for-sync",
       evidencePackages:
         body.evidencePackages ||
-        existing?.persistedRecord?.evidencePackages ||
+        persistedRecord.evidencePackages ||
         [],
       workspaceDocuments:
         body.workspaceDocuments ||
-        existing?.persistedRecord?.workspaceDocuments ||
+        persistedRecord.workspaceDocuments ||
         [],
       syncNotes: normalizeStringArray(
-        body.syncNotes || existing?.persistedRecord?.syncNotes,
+        body.syncNotes || persistedRecord.syncNotes,
       ),
       metadata: {
-        ...(existing?.persistedRecord?.metadata || {}),
+        ...persistedMetadata,
         ...(body.metadata || {}),
         lastSavedBy: "app/api/cases/route.ts",
         lastSavedAt: new Date().toISOString(),
@@ -115,42 +139,43 @@ function buildMasterResult(body: SaveCaseRequestBody) {
   };
 }
 
-function buildCaseRow(body: SaveCaseRequestBody) {
+function buildCaseRow(body: SaveCaseRequestBody, authenticatedUserId: string) {
   const id = body.id || body.caseId || createCaseId();
 
   const masterResult = buildMasterResult({
     ...body,
     id,
   });
+  const persistedRecord = asRecord(masterResult.persistedRecord);
 
   return {
     id,
 
-    user_id: body.userId || null,
+    user_id: authenticatedUserId,
 
     title:
       body.title ||
-      masterResult?.persistedRecord?.title ||
-      masterResult?.title ||
+      persistedRecord.title ||
+      masterResult.title ||
       "Untitled CourtSimplified case",
 
-    case_path:
+    court_path:
       body.casePath ||
       body.path ||
-      masterResult?.persistedRecord?.casePath ||
-      masterResult?.casePath ||
+      persistedRecord.casePath ||
+      masterResult.casePath ||
       "unknown",
 
-    stage:
+    current_stage:
       body.stage ||
-      masterResult?.persistedRecord?.stage ||
-      masterResult?.stage ||
+      persistedRecord.stage ||
+      masterResult.stage ||
       "not-sure",
 
     status:
       body.status ||
-      masterResult?.persistedRecord?.status ||
-      masterResult?.status ||
+      persistedRecord.status ||
+      masterResult.status ||
       "ready-for-sync",
 
     master_result: masterResult,
@@ -161,22 +186,32 @@ function buildCaseRow(body: SaveCaseRequestBody) {
 
 export async function GET(req: NextRequest) {
   try {
+    const user = await getAuthenticatedUser(req);
+
+    if (!user) {
+      return unauthorizedResponse();
+    }
+
     const supabase = getSupabaseAdmin();
 
     const { searchParams } = new URL(req.url);
 
     const id = searchParams.get("id") || searchParams.get("caseId");
-    const userId = searchParams.get("userId");
     const limitRaw = searchParams.get("limit");
 
-    const limit = limitRaw ? Number(limitRaw) : 25;
+    const requestedLimit = limitRaw ? Number(limitRaw) : 25;
+    const limit =
+      Number.isFinite(requestedLimit) && requestedLimit > 0
+        ? Math.min(Math.floor(requestedLimit), 100)
+        : 25;
 
     if (id) {
       const { data, error } = await supabase
         .from("cases")
         .select("*")
         .eq("id", id)
-        .single();
+        .eq("user_id", user.id)
+        .maybeSingle();
 
       if (error) {
         return NextResponse.json(
@@ -188,21 +223,28 @@ export async function GET(req: NextRequest) {
         );
       }
 
+      if (!data) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Case not found.",
+          },
+          { status: 404 },
+        );
+      }
+
       return NextResponse.json({
         success: true,
         case: data,
       });
     }
 
-    let query = supabase
+    const query = supabase
       .from("cases")
       .select("*")
+      .eq("user_id", user.id)
       .order("updated_at", { ascending: false })
-      .limit(Number.isFinite(limit) && limit > 0 ? limit : 25);
-
-    if (userId) {
-      query = query.eq("user_id", userId);
-    }
+      .limit(limit);
 
     const { data, error } = await query;
 
@@ -238,11 +280,65 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
+    const user = await getAuthenticatedUser(req);
+
+    if (!user) {
+      return unauthorizedResponse();
+    }
+
+    const contentLength = Number(req.headers.get("content-length") || 0);
+
+    if (contentLength > MAX_CASE_REQUEST_BYTES) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "The case payload is too large.",
+        },
+        { status: 413 },
+      );
+    }
+
     const supabase = getSupabaseAdmin();
 
     const body: SaveCaseRequestBody = await req.json();
 
-    const row = buildCaseRow(body);
+    if (JSON.stringify(body).length > MAX_CASE_REQUEST_BYTES) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "The case payload is too large.",
+        },
+        { status: 413 },
+      );
+    }
+
+    const row = buildCaseRow(body, user.id);
+
+    const { data: existingCase, error: ownershipError } = await supabase
+      .from("cases")
+      .select("id,user_id")
+      .eq("id", row.id)
+      .maybeSingle();
+
+    if (ownershipError) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: ownershipError.message,
+        },
+        { status: 500 },
+      );
+    }
+
+    if (existingCase && existingCase.user_id !== user.id) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Case not found.",
+        },
+        { status: 404 },
+      );
+    }
 
     const { data, error } = await supabase
       .from("cases")
@@ -289,6 +385,12 @@ export async function POST(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
+    const user = await getAuthenticatedUser(req);
+
+    if (!user) {
+      return unauthorizedResponse();
+    }
+
     const supabase = getSupabaseAdmin();
 
     const { searchParams } = new URL(req.url);
@@ -305,7 +407,13 @@ export async function DELETE(req: NextRequest) {
       );
     }
 
-    const { error } = await supabase.from("cases").delete().eq("id", id);
+    const { data, error } = await supabase
+      .from("cases")
+      .delete()
+      .eq("id", id)
+      .eq("user_id", user.id)
+      .select("id")
+      .maybeSingle();
 
     if (error) {
       return NextResponse.json(
@@ -314,6 +422,16 @@ export async function DELETE(req: NextRequest) {
           error: error.message,
         },
         { status: 500 },
+      );
+    }
+
+    if (!data) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Case not found.",
+        },
+        { status: 404 },
       );
     }
 

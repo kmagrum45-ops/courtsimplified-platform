@@ -68,6 +68,7 @@ function clearTransientCaseContext() {
     "courtSimplifiedCaseContext",
     "courtSimplifiedLoadedCaseContext",
     "courtSimplifiedMasterResult",
+    "courtSimplifiedMasterResultPatch",
     "courtSimplifiedDashboardPatch",
     "courtSimplifiedRecommendedNextRoute",
     "caseData",
@@ -77,6 +78,43 @@ function clearTransientCaseContext() {
   for (const key of transientKeys) {
     localStorage.removeItem(key);
   }
+}
+
+function asRecord(value: unknown): Record<string, unknown> {
+  return value && typeof value === "object" && !Array.isArray(value)
+    ? (value as Record<string, unknown>)
+    : {};
+}
+
+function readStoredRecord(key: string): Record<string, unknown> {
+  if (typeof window === "undefined") {
+    return {};
+  }
+
+  try {
+    return asRecord(JSON.parse(localStorage.getItem(key) || "null"));
+  } catch {
+    return {};
+  }
+}
+
+function mergeMasterResult(
+  current: unknown,
+  patch: unknown,
+): Record<string, unknown> {
+  const currentRecord = asRecord(current);
+  const patchRecord = asRecord(patch);
+  const canonicalMasterCase =
+    patchRecord.masterCase || currentRecord.masterCase;
+
+  return {
+    ...currentRecord,
+    ...patchRecord,
+    ...(canonicalMasterCase
+      ? { masterCase: canonicalMasterCase }
+      : {}),
+    updatedAt: new Date().toISOString(),
+  };
 }
 
 function BuilderPageContent() {
@@ -104,12 +142,27 @@ function BuilderPageContent() {
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [caseData, setCaseData] = useState<StoredCaseData | null>(null);
   const [masterCaseId, setMasterCaseId] = useState<string | null>(queryCaseId);
+  const [existingMasterResult, setExistingMasterResult] = useState<
+    Record<string, unknown>
+  >({});
+  const [existingCaseStage, setExistingCaseStage] = useState("");
+  const [caseLoadError, setCaseLoadError] = useState("");
+  const [loadingExistingCase, setLoadingExistingCase] = useState(
+    Boolean(queryCaseId),
+  );
   const [savingMaster, setSavingMaster] = useState(false);
   const [saveError, setSaveError] = useState("");
   const [lastSavedAt, setLastSavedAt] = useState("");
   const [routingReady, setRoutingReady] = useState(false);
 
   const pathLabel = getPathLabel(courtPath);
+  const analysisExecution = asRecord(
+    asRecord(caseData?.extra).analysisExecution,
+  );
+  const reasoningMode =
+    typeof analysisExecution.reasoningMode === "string"
+      ? analysisExecution.reasoningMode
+      : "";
 
   /*
    * Important:
@@ -164,11 +217,65 @@ function BuilderPageContent() {
     setAnalysis(null);
     setCaseData(null);
     setMasterCaseId(null);
+    setExistingMasterResult({});
+    setExistingCaseStage("");
+    setCaseLoadError("");
+    setLoadingExistingCase(false);
     setSaveError("");
     setLastSavedAt("");
     setRoutingReady(false);
     setChatSessionId(createChatSessionId(initialPath));
   }, [initialPath, queryCaseId]);
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadExistingCase() {
+      if (!queryCaseId) return;
+
+      setCaseLoadError("");
+      setLoadingExistingCase(true);
+
+      const { data, error } = await supabase
+        .from("cases")
+        .select("id,current_stage,master_result")
+        .eq("id", queryCaseId)
+        .maybeSingle();
+
+      if (!active) return;
+
+      if (error || !data) {
+        setExistingMasterResult({});
+        setExistingCaseStage("");
+        setCaseLoadError(
+          error?.message || "The selected case could not be loaded.",
+        );
+        setLoadingExistingCase(false);
+        return;
+      }
+
+      const loadedMasterResult = asRecord(data.master_result);
+
+      setMasterCaseId(data.id);
+      setExistingMasterResult(loadedMasterResult);
+      setExistingCaseStage(
+        typeof data.current_stage === "string" ? data.current_stage : "",
+      );
+
+      localStorage.setItem("courtSimplifiedActiveCaseId", data.id);
+      localStorage.setItem(
+        "courtSimplifiedMasterResult",
+        JSON.stringify(loadedMasterResult),
+      );
+      setLoadingExistingCase(false);
+    }
+
+    loadExistingCase();
+
+    return () => {
+      active = false;
+    };
+  }, [queryCaseId]);
 
   useEffect(() => {
     async function saveMasterCase() {
@@ -342,8 +449,18 @@ function BuilderPageContent() {
     result: AnalysisResult,
     payload: StoredCaseData,
   ) {
+    const masterResultPatch = mergeMasterResult(
+      queryCaseId
+        ? existingMasterResult
+        : readStoredRecord("courtSimplifiedMasterResult"),
+      payload.masterResultPatch,
+    );
+
     setAnalysis(result);
-    setCaseData(payload);
+    setCaseData({
+      ...payload,
+      masterResultPatch,
+    });
   }
 
   function saveCurrentCaseData() {
@@ -421,19 +538,28 @@ function BuilderPageContent() {
   }
 
   function handleChatMasterResultUpdate(patch: any) {
-    localStorage.setItem(
-      "courtSimplifiedMasterResult",
-      JSON.stringify(patch),
-    );
+    setCaseData((current) => {
+      const currentMasterResult = current?.masterResultPatch;
+      const storedMasterResult = queryCaseId
+        ? existingMasterResult
+        : readStoredRecord("courtSimplifiedMasterResult");
+      const mergedMasterResult = mergeMasterResult(
+        currentMasterResult || storedMasterResult,
+        patch,
+      );
 
-    setCaseData((current) =>
-      current
+      localStorage.setItem(
+        "courtSimplifiedMasterResult",
+        JSON.stringify(mergedMasterResult),
+      );
+
+      return current
         ? {
             ...current,
-            masterResultPatch: patch,
+            masterResultPatch: mergedMasterResult,
           }
-        : current,
-    );
+        : current;
+    });
   }
 
   function handleChatDashboardUpdate(patch: any) {
@@ -484,13 +610,22 @@ function BuilderPageContent() {
    * completely new chat session. It does not delete any saved case.
    */
   function startNewCase() {
+    if (savingMaster) {
+      return;
+    }
+
     clearTransientCaseContext();
 
     setAnalysis(null);
     setCaseData(null);
     setMasterCaseId(null);
+    setExistingMasterResult({});
+    setExistingCaseStage("");
+    setCaseLoadError("");
+    setLoadingExistingCase(false);
     setSaveError("");
     setLastSavedAt("");
+    setRoutingReady(false);
     setChatSessionId(createChatSessionId(courtPath));
 
     router.replace(`/builder?path=${courtPath}`);
@@ -582,7 +717,8 @@ function BuilderPageContent() {
               <button
                 type="button"
                 onClick={startNewCase}
-                className="rounded-full border border-[#b8d8cc] bg-[#f4fbf8] px-5 py-2 text-sm font-semibold text-[#2f7d67]"
+                disabled={savingMaster}
+                className="rounded-full border border-[#b8d8cc] bg-[#f4fbf8] px-5 py-2 text-sm font-semibold text-[#2f7d67] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Start Fresh Case
               </button>
@@ -590,6 +726,19 @@ function BuilderPageContent() {
           </div>
         </section>
 
+        {loadingExistingCase ? (
+          <div className="mb-8 rounded-2xl border border-[#d8e6df] bg-white p-4 text-sm text-[#4d675f]">
+            Loading the selected case before enabling analysis...
+          </div>
+        ) : null}
+
+        {caseLoadError ? (
+          <div className="mb-8 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-800">
+            {caseLoadError} No data from another case was substituted.
+          </div>
+        ) : null}
+
+        {!loadingExistingCase && !caseLoadError ? (
         <section className="mb-8">
           <CourtAssistantChat
             /*
@@ -604,7 +753,8 @@ function BuilderPageContent() {
             path={courtPath}
             proceduralStage={
               analysis?.intelligence?.proceduralPosture?.stage ||
-              caseData?.caseStage
+              caseData?.caseStage ||
+              existingCaseStage
             }
             caseData={{
               courtPath,
@@ -613,7 +763,9 @@ function BuilderPageContent() {
               intake: caseData,
               createdMasterCaseId: masterCaseId,
             }}
-            masterResult={caseData?.masterResultPatch}
+            masterResult={
+              caseData?.masterResultPatch || existingMasterResult
+            }
             evidenceData={analysis?.intelligenceEvidenceIssues}
             strategyData={{
               risks: analysis?.intelligence?.litigationRisks,
@@ -629,8 +781,9 @@ function BuilderPageContent() {
             onRoutingStatusChange={setRoutingReady}
           />
         </section>
+        ) : null}
 
-        {!analysis && !routingReady && (
+        {!loadingExistingCase && !caseLoadError && !analysis && !routingReady && (
           <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 text-center shadow-sm">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#2f7d67]">
               Court path check required
@@ -644,7 +797,7 @@ function BuilderPageContent() {
           </section>
         )}
 
-        {!analysis && routingReady && (
+        {!loadingExistingCase && !caseLoadError && !analysis && routingReady && (
           <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
             <div className="mb-6">
               <p className="mb-2 text-sm font-semibold uppercase tracking-[0.24em] text-[#2f7d67]">
@@ -731,6 +884,22 @@ function BuilderPageContent() {
               {lastSavedAt ? (
                 <div className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
                   Intake analysis saved into the master case system.
+                </div>
+              ) : null}
+
+              {reasoningMode ? (
+                <div
+                  className={`mt-4 rounded-2xl border p-4 text-sm ${
+                    reasoningMode === "structured-ai"
+                      ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+                      : "border-amber-200 bg-amber-50 text-amber-900"
+                  }`}
+                >
+                  {reasoningMode === "structured-ai"
+                    ? "Server-side AI cognition completed and is attached to this canonical case analysis."
+                    : analysisExecution.authenticated === true
+                      ? "The AI service was unavailable, so CourtSimplified preserved the intake and completed its deterministic fallback analysis."
+                      : "This was a privacy-preserving preview analysis without an external AI model. Sign in and analyze again to use the configured server-side AI cognition."}
                 </div>
               ) : null}
 
@@ -855,7 +1024,8 @@ function BuilderPageContent() {
                   <button
                     type="button"
                     onClick={startNewCase}
-                    className="rounded-2xl border border-[#9a4f13] bg-[#fff4e5] px-6 py-3 font-semibold text-[#9a4f13]"
+                    disabled={savingMaster}
+                    className="rounded-2xl border border-[#9a4f13] bg-[#fff4e5] px-6 py-3 font-semibold text-[#9a4f13] disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     Start New Case
                   </button>

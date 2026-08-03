@@ -44,5 +44,14 @@ jobs:
       - name: TypeScript check
         run: npx tsc --noEmit --pretty false
 
+      - name: Small Claims engine verification
+        run: npm run test:small-claims
+
+      - name: Case isolation verification
+        run: npm run test:case-isolation
+
       - name: Production build
         run: npm run build
+
+      - name: AI Case Partner context verification
+        run: npm run test:ai-context

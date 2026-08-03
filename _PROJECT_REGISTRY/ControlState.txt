@@ -1,0 +1,48 @@
+﻿COURTSIMPLIFIED ENGINEERING SNAPSHOT V2
+
+GeneratedAt:
+2026-07-31 15:10:42
+
+ProjectRoot:
+C:\Users\kmagr\courtsimplified
+
+Purpose:
+This snapshot records the current CourtSimplified architecture, files,
+TypeScript imports and exports, pages, APIs, engines, litigation modules,
+resolved architecture relationships, workflow and integration traces,
+dependencies, circular dependency groups, dead-code candidates, registry
+validation, consolidated system health, Git state, project documentation,
+build state, and statistics.
+
+CURRENT DOCTRINE:
+
+- CourtSimplified is a Litigation Operating System.
+- Memory is never the source of truth.
+- Current code and engineering documentation control.
+- Do not create duplicate engines.
+- Do not create parallel workflows.
+- Inspect existing architecture before adding new systems.
+- Do not replace stable architecture without checking dependencies.
+- Use full-file replacements when modifying CourtSimplified source files.
+- Preserve verified larger files unless a deliberate replacement is approved.
+- Review this snapshot before major architectural changes.
+
+SOURCE OF TRUTH ORDER:
+
+1. Current source code
+2. Project engineering documentation
+3. Architecture documentation
+4. Architecture Decision Records
+5. Conversation history only when required
+
+SNAPSHOT CONTENTS:
+
+- ArchitectureRegistry.txt
+- FileRegistry.csv
+- ImportExportRegistry.json
+- ProjectStatistics.json
+- GENERATED_DOCUMENTATION
+- PROJECT_DOCUMENTATION
+- REPORTS
+- BuildStatus.txt
+- SnapshotManifest.json

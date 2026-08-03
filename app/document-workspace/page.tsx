@@ -5,6 +5,10 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { supabase } from "../../src/lib/supabase/client";
+import {
+  readWorkspaceDocument,
+  writeWorkspaceDocument,
+} from "../../src/lib/case-system/workflowCaseLoader";
 
 import {
   getActiveCaseContextLocal,
@@ -43,7 +47,11 @@ type WorkspaceDiagnostic = {
   detail: string;
 };
 
-const WORKSPACE_STORAGE_KEY = "courtSimplifiedWorkspaceDocument";
+function asRecord(value: unknown): Record<string, unknown> {
+  return value && typeof value === "object" && !Array.isArray(value)
+    ? (value as Record<string, unknown>)
+    : {};
+}
 
 const DOCUMENT_MODE_OPTIONS: DocumentModeOption[] = [
   {
@@ -314,14 +322,10 @@ function DocumentWorkspacePageContent() {
       setLoadError("");
 
       try {
-        const existingWorkspace = localStorage.getItem(WORKSPACE_STORAGE_KEY);
+        const existingWorkspace = readWorkspaceDocument(caseId);
 
         if (existingWorkspace) {
-          try {
-            setWorkspaceDocument(JSON.parse(existingWorkspace));
-          } catch {
-            localStorage.removeItem(WORKSPACE_STORAGE_KEY);
-          }
+          setWorkspaceDocument(existingWorkspace as WorkspaceDocument);
         }
 
         if (caseId) {
@@ -329,29 +333,39 @@ function DocumentWorkspacePageContent() {
             .from("cases")
             .select("master_result")
             .eq("id", caseId)
-            .single();
+            .maybeSingle();
 
-          if (!error && data?.master_result) {
-            const result = data.master_result as any;
-
-            const caseContext =
-              result?.caseContext ||
-              result?.persistedRecord?.caseContext ||
-              result?.masterCaseFile ||
-              null;
-
-            if (caseContext) {
-              localStorage.setItem("courtSimplifiedActiveCaseId", caseId);
-              localStorage.setItem(
-                "courtSimplifiedLoadedCaseContext",
-                JSON.stringify(caseContext),
-              );
-
-              setContext(caseContext);
-              setLoading(false);
-              return;
-            }
+          if (error) {
+            throw new Error(error.message);
           }
+
+          if (!data?.master_result) {
+            throw new Error("The selected case has no saved master result.");
+          }
+
+          const result = asRecord(data.master_result);
+          const persistedRecord = asRecord(result.persistedRecord);
+          const caseContext =
+            result.caseContext ||
+            persistedRecord.caseContext ||
+            result.masterCaseFile ||
+            null;
+
+          if (!caseContext) {
+            throw new Error(
+              "The selected case has no document-workspace context yet.",
+            );
+          }
+
+          localStorage.setItem("courtSimplifiedActiveCaseId", caseId);
+          localStorage.setItem(
+            "courtSimplifiedLoadedCaseContext",
+            JSON.stringify(caseContext),
+          );
+
+          setContext(caseContext as CaseContext);
+          setLoading(false);
+          return;
         }
 
         const loadedContext = getActiveCaseContextLocal();
@@ -455,7 +469,7 @@ function DocumentWorkspacePageContent() {
       setSaveStatus("saving");
       setWorkspaceDocument(updated);
 
-      localStorage.setItem(WORKSPACE_STORAGE_KEY, JSON.stringify(updated));
+      writeWorkspaceDocument(caseId || undefined, updated);
 
       const savedTime = new Date().toLocaleString();
       setLastSavedAt(savedTime);

@@ -8,16 +8,26 @@ import type {
   UniversalStage,
 } from "./builderTypes";
 
-import {
-  analyzeSmallClaimsWithBrain,
-  type SmallClaimsEvidenceFile,
-  type SmallClaimsFiledDocument,
-  type SmallClaimsIntelligenceInput,
-  type SmallClaimsIssue,
+import type {
+  SmallClaimsEvidenceFile,
+  SmallClaimsFiledDocument,
+  SmallClaimsIntelligenceInput,
+  SmallClaimsIntelligenceOutput,
+  SmallClaimsIssue,
 } from "../../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
+
+import { supabase } from "../../../src/lib/supabase/client";
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
+};
+
+type SmallClaimsAnalysisResponse = {
+  ok: boolean;
+  result?: SmallClaimsIntelligenceOutput;
+  reasoningMode?: "structured-ai" | "deterministic-fallback";
+  authenticated?: boolean;
+  error?: string;
 };
 
 const filedOptions: { value: SmallClaimsFiledDocument; label: string }[] = [
@@ -322,6 +332,35 @@ function safelyStoreJson(key: string, value: unknown): boolean {
   return safelyStoreText(key, JSON.stringify(value));
 }
 
+async function requestSmallClaimsAnalysis(
+  input: SmallClaimsIntelligenceInput,
+): Promise<SmallClaimsAnalysisResponse> {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  const response = await fetch("/api/small-claims/analyze", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...(session?.access_token
+        ? { Authorization: `Bearer ${session.access_token}` }
+        : {}),
+    },
+    body: JSON.stringify({ input }),
+  });
+
+  const data = (await response.json()) as SmallClaimsAnalysisResponse;
+
+  if (!response.ok || !data.ok || !data.result) {
+    throw new Error(
+      data.error || "CourtSimplified could not analyze this intake.",
+    );
+  }
+
+  return data;
+}
+
 export default function SmallClaimsIntake({ onComplete }: Props) {
   const [input, setInput] =
     useState<SmallClaimsIntelligenceInput>(defaultInput);
@@ -411,7 +450,19 @@ export default function SmallClaimsIntake({ onComplete }: Props) {
           input.filedDocuments.length > 0 ? input.filedDocuments : ["nothing"],
       };
 
-      const result = await analyzeSmallClaimsWithBrain(preparedInput);
+      const response = await requestSmallClaimsAnalysis(preparedInput);
+      const result = response.result!;
+      const payload: StoredCaseData = {
+        ...result.payload,
+        extra: {
+          ...(result.payload.extra || {}),
+          analysisExecution: {
+            reasoningMode: response.reasoningMode,
+            authenticated: response.authenticated === true,
+            completedAt: new Date().toISOString(),
+          },
+        },
+      };
 
       /*
        * Keep the full intelligence result in application state through
@@ -420,7 +471,7 @@ export default function SmallClaimsIntake({ onComplete }: Props) {
        */
       localStorage.removeItem("courtSimplifiedMasterResultPatch");
 
-      const compactPayload = buildCompactLocalPayload(result.payload);
+      const compactPayload = buildCompactLocalPayload(payload);
 
       const savedCaseData = safelyStoreJson("caseData", compactPayload);
       const savedCourtSimplifiedCase = safelyStoreJson(
@@ -453,12 +504,14 @@ export default function SmallClaimsIntake({ onComplete }: Props) {
         );
       }
 
-      onComplete(result.analysis, result.payload);
+      onComplete(result.analysis, payload);
     } catch (error) {
       console.error("Small Claims intelligence analysis failed:", error);
 
       setAnalysisError(
-        "CourtSimplified could not complete the Small Claims intelligence analysis. Please review the intake and try again.",
+        error instanceof Error
+          ? error.message
+          : "CourtSimplified could not complete the Small Claims intelligence analysis. Please review the intake and try again.",
       );
     } finally {
       setIsAnalyzing(false);

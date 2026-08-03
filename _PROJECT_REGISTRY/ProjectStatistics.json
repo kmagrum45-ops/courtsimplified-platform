@@ -1,0 +1,185 @@
+﻿{
+    "generatedAt":  "2026-07-31 15:10:42",
+    "root":  "C:\\Users\\kmagr\\courtsimplified",
+    "totalFiles":  288,
+    "typeScriptFiles":  196,
+    "pagesAndLayouts":  26,
+    "apiRoutes":  14,
+    "enginesAndRelatedSystems":  95,
+    "litigationIntelligenceModules":  11,
+    "dependencyRecords":  432,
+    "architectureNodes":  196,
+    "architectureEdges":  432,
+    "architectureAssetEdges":  1,
+    "architectureGeneratedFrameworkEdges":  1,
+    "unresolvedInternalEdges":  0,
+    "workflowRecords":  15,
+    "integrationTraces":  41,
+    "runtimeApiCalls":  7,
+    "unresolvedRuntimeApiCalls":  0,
+    "circularDependencyGroups":  3,
+    "circularDependencyFiles":  7,
+    "deadCodeCandidates":  61,
+    "highConfidenceDeadCodeCandidates":  15,
+    "registryValidationChecks":  21,
+    "registryValidationFailures":  0,
+    "largeTypeScriptFilesOver800Lines":  [
+                                             {
+                                                 "File":  "src\\lib\\case-system\\intelligence\\courtSimplifiedBrain.ts",
+                                                 "Lines":  2447
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\workflow\\workflowOrchestrationEngine.ts",
+                                                 "Lines":  2307
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\caseContextEngine.ts",
+                                                 "Lines":  1908
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\ai-case-partner\\conversationIntelligenceEngine.ts",
+                                                 "Lines":  1799
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\contracts\\masterCaseBridge.ts",
+                                                 "Lines":  1462
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\legalTheoryEngine.ts",
+                                                 "Lines":  1449
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\aiIntakeNormalizer.ts",
+                                                 "Lines":  1345
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\litigation-intelligence\\modules\\trialReadinessInvestigator.ts",
+                                                 "Lines":  1308
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\orchestration\\caseSystemAssembly.ts",
+                                                 "Lines":  1297
+                                             },
+                                             {
+                                                 "File":  "app\\api\\generate-form\\route.ts",
+                                                 "Lines":  1296
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\civilWorkflowEngine.ts",
+                                                 "Lines":  1272
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\litigation-strategy\\litigationStrategyArchitecture.ts",
+                                                 "Lines":  1256
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\litigation-intelligence\\modules\\proceduralInvestigator.ts",
+                                                 "Lines":  1218
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\evidenceEngine.ts",
+                                                 "Lines":  1205
+                                             },
+                                             {
+                                                 "File":  "app\\document-workspace\\page.tsx",
+                                                 "Lines":  1179
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\litigation-intelligence\\modules\\authorityInvestigator.ts",
+                                                 "Lines":  1129
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\authority-intelligence\\authorityBrainBridge.ts",
+                                                 "Lines":  1120
+                                             },
+                                             {
+                                                 "File":  "app\\forms\\page.tsx",
+                                                 "Lines":  1119
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\authority-intelligence\\authorityCaseSystemBridge.ts",
+                                                 "Lines":  1109
+                                             },
+                                             {
+                                                 "File":  "app\\evidence\\page.tsx",
+                                                 "Lines":  1051
+                                             },
+                                             {
+                                                 "File":  "app\\builder\\_components\\CourtAssistantChat.tsx",
+                                                 "Lines":  1022
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\intelligence\\intakeNormalizationEngine.ts",
+                                                 "Lines":  1008
+                                             },
+                                             {
+                                                 "File":  "app\\builder\\_components\\CivilIntake.tsx",
+                                                 "Lines":  995
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\casePersistenceEngine.ts",
+                                                 "Lines":  991
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\knowledge\\doctrineSeedLibrary.ts",
+                                                 "Lines":  978
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\ai-case-partner\\aiCasePartnerOrchestrator.ts",
+                                                 "Lines":  972
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\authority-intelligence\\authorityWorkflowBridge.ts",
+                                                 "Lines":  941
+                                             },
+                                             {
+                                                 "File":  "app\\builder\\_components\\SmallClaimsIntake.tsx",
+                                                 "Lines":  937
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\litigation-intelligence\\modules\\settlementInvestigator.ts",
+                                                 "Lines":  901
+                                             },
+                                             {
+                                                 "File":  "app\\builder\\page.tsx",
+                                                 "Lines":  885
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\authority-intelligence\\authorityNavigator.ts",
+                                                 "Lines":  847
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\procedure\\proceduralStateEngine.ts",
+                                                 "Lines":  831
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\litigation-intelligence\\modules\\contradictionInvestigator.ts",
+                                                 "Lines":  830
+                                             },
+                                             {
+                                                 "File":  "app\\document-export\\page.tsx",
+                                                 "Lines":  827
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\litigation-intelligence\\modules\\credibilityInvestigator.ts",
+                                                 "Lines":  827
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\dashboardEngine.ts",
+                                                 "Lines":  815
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\litigation-intelligence\\caseInvestigator.ts",
+                                                 "Lines":  812
+                                             },
+                                             {
+                                                 "File":  "src\\lib\\case-system\\litigation-intelligence\\modules\\opponentStrategyInvestigator.ts",
+                                                 "Lines":  800
+                                             }
+                                         ],
+    "gitBranch":  "main",
+    "gitCommit":  "e0dee4e3a6b9007abeade09429d63e20bbcfe782",
+    "systemHealthStatus":  "Needs Review",
+    "systemHealthScore":  86,
+    "systemHealthMaximumScore":  100
+}

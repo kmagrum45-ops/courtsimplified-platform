@@ -109,29 +109,36 @@ function EvidencePageContent() {
   const casePath = normalizeCourtPath(caseSnapshot?.court_path || pathFromUrl);
 
   useEffect(() => {
-    const rawMessages = localStorage.getItem("courtsimplified_parsed_messages");
+    const messageStorageKey = `courtsimplified_parsed_messages:case:${activeCaseId}`;
+    const activeStoredCaseId =
+      localStorage.getItem("courtSimplifiedActiveCaseId") || "";
+    const mayUseLegacyMessages =
+      activeCaseId === "draft-case" || activeStoredCaseId === activeCaseId;
+    const rawMessages =
+      localStorage.getItem(messageStorageKey) ||
+      (mayUseLegacyMessages
+        ? localStorage.getItem("courtsimplified_parsed_messages")
+        : null);
 
     if (rawMessages) {
       try {
         const parsed = JSON.parse(rawMessages);
         setParsedMessages(Array.isArray(parsed) ? parsed : []);
+        localStorage.setItem(messageStorageKey, rawMessages);
       } catch {
         setParsedMessages([]);
       }
+    } else {
+      setParsedMessages([]);
     }
 
-    const rawEvidence = getRawEvidenceReadyForAssemblyLocal(activeCaseId);
-    const fallbackRawEvidence =
-      activeCaseId !== "draft-case"
-        ? getRawEvidenceReadyForAssemblyLocal("draft-case")
-        : [];
-
-    const evidenceSource =
-      rawEvidence.length > 0 ? rawEvidence : fallbackRawEvidence;
+    const evidenceSource = getRawEvidenceReadyForAssemblyLocal(activeCaseId);
 
     if (evidenceSource.length > 0) {
       const assembled = assembleEvidencePackage(evidenceSource);
       setAssembledExhibits(assembled.exhibits);
+    } else {
+      setAssembledExhibits([]);
     }
   }, [activeCaseId]);
 
