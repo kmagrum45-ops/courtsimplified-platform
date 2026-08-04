@@ -38,3 +38,34 @@ export async function getAuthenticatedUser(
     return null;
   }
 }
+
+/** Loads a selected case only when it belongs to the bearer-authenticated user. */
+export async function getAuthenticatedOwnedCaseMasterResult(
+  request: Request,
+  user: User,
+  caseId: string,
+): Promise<unknown | null> {
+  const accessToken = readBearerToken(request);
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const publicKey =
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+  if (!accessToken || !supabaseUrl || !publicKey || !caseId) return null;
+
+  try {
+    const supabase = createClient(supabaseUrl, publicKey, {
+      global: { headers: { Authorization: `Bearer ${accessToken}` } },
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
+    const { data, error } = await supabase
+      .from("cases")
+      .select("id,master_result")
+      .eq("id", caseId)
+      .eq("user_id", user.id)
+      .maybeSingle();
+    return !error && data?.id === caseId ? data.master_result || {} : null;
+  } catch {
+    return null;
+  }
+}

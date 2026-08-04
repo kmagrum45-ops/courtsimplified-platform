@@ -824,7 +824,10 @@ function BuilderPageContent() {
             )}
 
             {courtPath === "civil" && (
-              <CivilIntake onComplete={handleComplete} />
+              <CivilIntake
+                onComplete={handleComplete}
+                caseId={queryCaseId || masterCaseId}
+              />
             )}
           </section>
         )}

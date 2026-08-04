@@ -1,21 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   AnalysisResult,
   StoredCaseData,
   UniversalStage,
   cleanList,
   getStageLabel,
-  hasMeaningfulText,
 } from "./builderTypes";
 
 import {
-  runCivilMasterCaseEngine,
   type CivilMasterCaseResult,
 } from "../../../src/lib/case-system/civilMasterCaseEngine";
-
-import type { EvidenceItem } from "../../../src/lib/case-system/evidenceEngine";
+import type {
+  CivilCanonicalIntakeInput,
+  CivilCanonicalIntakeResult,
+} from "../../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
+import { supabase } from "../../../src/lib/supabase/client";
 
 type EvidenceFile = {
   id: string;
@@ -33,6 +34,7 @@ type EvidenceFile = {
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
+  caseId?: string | null;
 };
 
 type CivilIssue =
@@ -82,7 +84,10 @@ type CivilDocument =
   | "nothing"
   | "not-sure";
 
-type CivilInput = {
+type CivilInput = Omit<
+  CivilCanonicalIntakeInput,
+  "caseId" | "caseStage" | "issues" | "documents" | "uploadedEvidenceFiles"
+> & {
   caseStage: UniversalStage;
   issues: CivilIssue[];
   documents: CivilDocument[];
@@ -264,91 +269,6 @@ function buildCivilNarrative(input: CivilInput): string {
   ]).join("\n");
 }
 
-function buildCivilFacts(input: CivilInput): string[] {
-  return cleanList([
-    input.facts,
-    input.timeline ? `Timeline: ${input.timeline}` : "",
-    input.evidence ? `Known evidence: ${input.evidence}` : "",
-    input.missingEvidence ? `Missing evidence: ${input.missingEvidence}` : "",
-    input.damagesBreakdown ? `Damages / impact: ${input.damagesBreakdown}` : "",
-    input.settlementEfforts ? `Settlement efforts: ${input.settlementEfforts}` : "",
-    input.serviceDetails ? `Service details: ${input.serviceDetails}` : "",
-    input.urgent ? `Urgency: ${input.urgent}` : "",
-    input.humanRightsGrounds ? `Human Rights ground: ${input.humanRightsGrounds}` : "",
-    input.discriminationFacts ? `Discrimination facts: ${input.discriminationFacts}` : "",
-    input.accommodationRequests ? `Accommodation requests: ${input.accommodationRequests}` : "",
-    input.governmentActor ? `Government/public actor: ${input.governmentActor}` : "",
-    input.publicDecisionOrConduct ? `Public decision/conduct: ${input.publicDecisionOrConduct}` : "",
-    input.institutionalFacts ? `Institutional/professional facts: ${input.institutionalFacts}` : "",
-    input.privacyRecordsFacts ? `Privacy/records facts: ${input.privacyRecordsFacts}` : "",
-  ]);
-}
-
-function buildCivilEvidenceItems(input: CivilInput): EvidenceItem[] {
-  const uploadedItems = input.uploadedEvidenceFiles.map((file, index) => ({
-    id: file.id || `civil_uploaded_${index + 1}`,
-    title: file.title || file.name,
-    description: cleanList([
-      file.description,
-      file.whyItMatters ? `Why it matters: ${file.whyItMatters}` : "",
-      file.createdBy ? `Created/provided by: ${file.createdBy}` : "",
-      file.type ? `File type: ${file.type}` : "",
-      file.size ? `File size: ${formatFileSize(file.size)}` : "",
-    ]).join(" "),
-    category: "uploaded-civil-evidence",
-    relevance: file.whyItMatters,
-    relatedIssue: file.relatedIssue,
-    relatedLegalElement: file.relatedIssue,
-    source: file.createdBy || file.name,
-    date: file.evidenceDate,
-    content: file.description || file.whyItMatters || file.name,
-    label: file.title || file.name,
-    fileName: file.name,
-    fileType: file.type,
-  }));
-
-  const describedEvidence = hasMeaningfulText(input.evidence)
-    ? [
-        {
-          id: "civil_described_evidence",
-          title: "Described civil evidence",
-          description: input.evidence,
-          category: "described-evidence",
-          relevance: "User described this as known evidence.",
-          relatedIssue: labelsFromValues(input.issues, issueOptions).join(", "),
-          relatedLegalElement: "general proof",
-          source: "intake",
-          date: "",
-          content: input.evidence,
-          label: "Described civil evidence",
-          fileName: "",
-          fileType: "text",
-        },
-      ]
-    : [];
-
-  return [...uploadedItems, ...describedEvidence] as EvidenceItem[];
-}
-
-function buildCivilMasterResult(input: CivilInput): CivilMasterCaseResult {
-  const issueLabels = labelsFromValues(input.issues, issueOptions);
-  const documentLabels = labelsFromValues(input.documents, documentOptions);
-
-  return runCivilMasterCaseEngine({
-    title: cleanList([input.yourName, input.otherParty, "Civil Case"]).join(" v. "),
-    summary: buildCivilNarrative(input),
-    stage: getStageLabel(input.caseStage),
-    selectedIssues: issueLabels,
-    requestedRemedies: cleanList([input.legalRemedy, input.amountClaimed]),
-    facts: buildCivilFacts(input),
-    evidenceItems: buildCivilEvidenceItems(input),
-    timeline: [] as never,
-    liabilityTheories: [],
-    existingRisks: [],
-    existingForms: [],
-  });
-}
-
 function isQuotaExceededError(error: unknown): boolean {
   if (!(error instanceof DOMException)) return false;
 
@@ -393,8 +313,8 @@ function buildCompactCivilPayload(
     goal: payload.goal,
     urgent: payload.urgent,
     extra: {
-      architectureMode: "civil-master-engine-connected",
-      sourceOfTruth: "civilMasterCaseEngine",
+      architectureMode: "civil-canonical-integration",
+      sourceOfTruth: "MasterCaseSchema",
       issues: input.issues,
       documents: input.documents,
       yourRole: input.yourRole,
@@ -565,9 +485,12 @@ function buildCivilAnalysisFromMaster(
   };
 }
 
-export default function CivilIntake({ onComplete }: Props) {
+export default function CivilIntake({ onComplete, caseId }: Props) {
   const [input, setInput] = useState<CivilInput>(defaultInput);
   const [storageWarning, setStorageWarning] = useState("");
+  const [analysisError, setAnalysisError] = useState("");
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const submissionInFlight = useRef(false);
 
   function updateField<K extends keyof CivilInput>(field: K, value: CivilInput[K]) {
     setInput((current) => ({ ...current, [field]: value }));
@@ -617,12 +540,42 @@ export default function CivilIntake({ onComplete }: Props) {
     }));
   }
 
-  function handleAnalyze() {
+  async function handleAnalyze() {
+    if (submissionInFlight.current) return;
+    submissionInFlight.current = true;
     setStorageWarning("");
+    setAnalysisError("");
+    setIsAnalyzing(true);
 
-    const masterResult = buildCivilMasterResult(input);
-    const analysis = buildCivilAnalysisFromMaster(input, masterResult);
-    const narrative = buildCivilNarrative(input);
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      const response = await fetch("/api/civil/analyze", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(session?.access_token
+            ? { Authorization: `Bearer ${session.access_token}` }
+            : {}),
+        },
+        body: JSON.stringify({ input: { ...input, caseId: caseId || undefined } }),
+      });
+      const body = (await response.json()) as {
+        ok?: boolean;
+        result?: CivilCanonicalIntakeResult;
+        authenticated?: boolean;
+        reasoningMode?: "structured-ai" | "deterministic-fallback";
+        error?: string;
+      };
+      if (!response.ok || !body.ok || !body.result) {
+        throw new Error(body.error || "Civil analysis could not be completed.");
+      }
+
+      const result = body.result;
+      const masterResult = result.civilMasterResult;
+      const analysis = buildCivilAnalysisFromMaster(input, masterResult);
+      const narrative = buildCivilNarrative(input);
 
     const payload: StoredCaseData = {
       courtPath: "civil",
@@ -637,18 +590,20 @@ export default function CivilIntake({ onComplete }: Props) {
       goal: input.legalRemedy,
       urgent: input.urgent,
       analysis,
+      intelligence: result.brain.intelligence,
+      masterResultPatch: result.masterResultPatch,
+      dashboardPatch: result.dashboardPatch,
+      recommendedNextRoute: result.recommendedNextRoute,
       extra: {
-        architectureMode: "civil-master-engine-connected",
-        sourceOfTruth: "civilMasterCaseEngine",
+        architectureMode: "civil-canonical-integration",
+        sourceOfTruth: "MasterCaseSchema",
+        specializedSource: "civilMasterCaseEngine",
+        analysisExecution: {
+          reasoningMode: body.reasoningMode,
+          authenticated: body.authenticated === true,
+          completedAt: new Date().toISOString(),
+        },
         civilInput: input,
-        civilMasterResult: masterResult,
-        civilMasterCase: masterResult.masterCase,
-        civilDashboardSummary: masterResult.dashboardSummary,
-        civilStrategy: masterResult.strategy,
-        civilWorkflow: masterResult.workflow,
-        civilEvidence: masterResult.evidence,
-        civilNarrative: masterResult.narrative,
-        civilFormRouting: masterResult.formRouting,
         issues: input.issues,
         documents: input.documents,
         uploadedEvidenceFiles: input.uploadedEvidenceFiles,
@@ -692,7 +647,15 @@ export default function CivilIntake({ onComplete }: Props) {
       );
     }
 
-    onComplete(analysis, payload);
+      onComplete(analysis, payload);
+    } catch (error) {
+      setAnalysisError(
+        error instanceof Error ? error.message : "Civil analysis could not be completed.",
+      );
+    } finally {
+      submissionInFlight.current = false;
+      setIsAnalyzing(false);
+    }
   }
 
   return (
@@ -710,6 +673,12 @@ export default function CivilIntake({ onComplete }: Props) {
       {storageWarning && (
         <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
           {storageWarning}
+        </div>
+      )}
+
+      {analysisError && (
+        <div className="mt-5 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+          {analysisError}
         </div>
       )}
 
@@ -757,12 +726,21 @@ export default function CivilIntake({ onComplete }: Props) {
 
         <label className="block">
           <span className="font-semibold text-[#16302b]">Your role</span>
-          <input
+          <select
             value={input.yourRole}
             onChange={(e) => updateField("yourRole", e.target.value)}
-            className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
-            placeholder="Example: plaintiff, defendant, applicant, respondent, moving party"
-          />
+            className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-white px-4 py-3"
+          >
+            <option value="">Select your role</option>
+            <option value="plaintiff">Plaintiff</option>
+            <option value="defendant">Defendant</option>
+            <option value="applicant">Applicant</option>
+            <option value="respondent">Respondent</option>
+            <option value="moving-party">Moving party</option>
+            <option value="responding-party">Responding party</option>
+            <option value="other">Other</option>
+            <option value="not-sure">Not sure</option>
+          </select>
         </label>
 
         <div>
@@ -985,9 +963,10 @@ export default function CivilIntake({ onComplete }: Props) {
         <button
           type="button"
           onClick={handleAnalyze}
-          className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white"
+          disabled={isAnalyzing}
+          className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Continue to Unified Analysis
+          {isAnalyzing ? "Analyzing Civil intake..." : "Continue to Unified Analysis"}
         </button>
       </div>
     </section>
