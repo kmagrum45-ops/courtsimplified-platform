@@ -314,6 +314,93 @@ function countSignals(text: string, terms: string[]): number {
   return terms.filter((term) => normalized.includes(term.toLowerCase())).length;
 }
 
+function currentDomainText(
+  text: string,
+  domainTerms: string[],
+  domainNonCurrentTerms: string[],
+): string {
+  return text
+    .split(/(?<=[.!?])\s+|\s*;\s*|\s+but\s+/i)
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .filter((item) => {
+      if (!includesAny(item, domainTerms)) return true;
+
+      return !includesAny(item, [
+        "background only",
+        "only as background",
+        "mentioned only as background",
+        "background motive",
+        "not alleged",
+        "hypothetically",
+        "what if",
+        "wondered whether",
+        "previously sought",
+        "years ago",
+        "the other person wrote",
+        "a letter says",
+        ...domainNonCurrentTerms,
+      ]);
+    })
+    .join(" ");
+}
+
+const familyReliefTerms = [
+  "custody",
+  "custady",
+  "parenting",
+  "child support",
+  "spousal support",
+  "family court",
+  "family order",
+  "parenting relief",
+];
+
+const reputationReliefTerms = [
+  "defamation",
+  "defamatory",
+  "false message",
+  "false mesage",
+  "false statement",
+  "false publication",
+  "false post",
+  "false email",
+  "published lies",
+  "spread lies",
+  "reputation",
+  "slander",
+  "libel",
+  "compensation",
+  "compansation",
+  "damages",
+];
+
+const nonCurrentFamilyReliefTerms = [
+  "do not want custody",
+  "don't want custody",
+  "do not want a parenting",
+  "do not want parenting",
+  "not seeking custody",
+  "not seeking child support",
+  "not seeking spousal support",
+  "not asking for custody",
+  "not a parenting",
+  "not child support",
+  "no request",
+  "no parenting order",
+  "discussed custody",
+];
+
+const nonCurrentReputationReliefTerms = [
+  "do not want compensation",
+  "don't want compensation",
+  "not seeking compensation",
+  "not seeking damages",
+  "no compensation requested",
+  "no compensation is requested",
+  "no damages requested",
+];
+
 function hasRequestedFamilyRelief(text: string): boolean {
   const normalized = normalizeText(text);
 
@@ -325,6 +412,7 @@ function hasRequestedFamilyRelief(text: string): boolean {
     "change custody",
     "custody order",
     "parenting order",
+    "parenting relief",
     "parenting time order",
     "change the parenting schedule",
     "decision-making responsibility",
@@ -375,7 +463,9 @@ function isFamilyProceedingBackgroundOnly(text: string): boolean {
 }
 
 function countFamilyLawSignals(text: string): number {
-  const normalized = normalizeText(text);
+  const normalized = normalizeText(
+    currentDomainText(text, familyReliefTerms, nonCurrentFamilyReliefTerms),
+  );
 
   if (isFamilyProceedingBackgroundOnly(normalized)) {
     return 0;
@@ -387,6 +477,9 @@ function countFamilyLawSignals(text: string): number {
     "family court",
     "family law",
     "custody",
+    "custady",
+    "parenting order",
+    "parenting relief",
     "parenting time",
     "parenting schedule",
     "decision-making responsibility",
@@ -733,12 +826,25 @@ function inferProceduralStage(message: string): CasePartnerProceduralStage {
 
 function detectIssueFrameworks(message: string): IssueFramework[] {
   const frameworks: IssueFramework[] = [];
+  const reputationText = currentDomainText(
+    message,
+    reputationReliefTerms,
+    nonCurrentReputationReliefTerms,
+  );
 
-  let defamationSignals = countSignals(message, [
+  let defamationSignals = countSignals(reputationText, [
     "defamation",
     "defamatory",
+    "false message",
+    "false messages",
+    "false mesage",
+    "false mesages",
+    "false post",
+    "false email",
+    "published lies",
     "false statement",
     "false statements",
+    "false publication",
     "said about me",
     "lied about me",
     "third party",
@@ -751,21 +857,23 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
     "spread lies",
   ]);
 
-  const hasFalseStatementContext = includesAny(message, [
+  const hasFalseStatementContext = includesAny(reputationText, [
     "false",
     "not true",
     "untrue",
     "lied",
+    "lies",
     "lying",
     "accused me",
     "called me",
     "saying i was",
     "said i was",
   ]);
-  const hasCommunicationContext = includesAny(message, [
+  const hasCommunicationContext = includesAny(reputationText, [
     "sent messages",
     "sent false messages",
     "sent a message",
+    "messages sent",
     "texted",
     "emailed",
     "posted",
@@ -775,7 +883,7 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
     "saying",
     "wrote",
   ]);
-  const hasRecipientContext = includesAny(message, [
+  const hasRecipientContext = includesAny(reputationText, [
     "sent to",
     "messages to",
     "message to",
@@ -787,6 +895,7 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
     "someone else",
     "other people",
     "to other people",
+    "sent to others",
   ]);
 
   if (
