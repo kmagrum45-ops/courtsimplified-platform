@@ -63,6 +63,30 @@ function sentenceSplit(text: string): string[] {
   ).filter((item) => item.length > 12);
 }
 
+function currentClassificationText(text: string): string {
+  return text
+    .split(/\n+|(?<=[.!?])\s+/)
+    .map((item) => normalizeWhitespace(item))
+    .filter(Boolean)
+    .filter(
+      (item) =>
+        !includesAny(item, [
+          "background only",
+          "only as background",
+          "background context only",
+        ]),
+    )
+    .flatMap((item) => item.split(/\s*;\s*|\s+but\s+/i))
+    .map((item) => normalizeWhitespace(item))
+    .filter(
+      (item) =>
+        !/\bno\b.+\b(?:is|are)\s+(?:alleged|claimed|involved)\b/i.test(
+          item,
+        ),
+    )
+    .join(" ");
+}
+
 function detectProvince(text: string, fallback?: IntelligenceProvince): IntelligenceProvince {
   if (fallback && fallback !== "Unknown") return fallback;
 
@@ -190,7 +214,80 @@ function addSignal(args: {
 
 function detectLightweightSignals(text: string): LegalSignal[] {
   const signals: LegalSignal[] = [];
-  const contextualDomains = new Set(detectContextualLegalDomains(text));
+  const classificationText = currentClassificationText(text);
+  const contextualDomains = new Set(
+    detectContextualLegalDomains(classificationText),
+  );
+  const hasAgreementFacts = includesAny(classificationText, [
+    "written agreement",
+    "written contract",
+    "oral contract",
+    "writen agreement",
+    "agreed to",
+    "promised to",
+    "made a deal",
+    "quote",
+    "invoice",
+    "deposit",
+  ]);
+  const hasObligationFacts = includesAny(classificationText, [
+    "required delivery",
+    "required return",
+    "required repayment",
+    "required to",
+    "supposed to",
+    "suposed to",
+    "promised to",
+    "agreed to",
+    "deliver",
+    "ship",
+    "return of the deposit",
+    "return the deposit",
+    "repay",
+    "refund",
+  ]);
+  const hasNonPerformanceFacts = includesAny(classificationText, [
+    "breach",
+    "did not",
+    "didn't",
+    "didnt",
+    "failed",
+    "not completed",
+    "not returned",
+    "never delivered",
+    "never arrived",
+    "never occurred",
+    "remains outstanding",
+  ]);
+  const hasCompletedPerformanceFacts = includesAny(classificationText, [
+    "not breached",
+    "did not fail",
+    "fully performed",
+    "completed as agreed",
+    "delivered everything",
+    "returned in full",
+  ]);
+  const hasSupportedContractFacts =
+    hasAgreementFacts &&
+    hasObligationFacts &&
+    hasNonPerformanceFacts &&
+    !hasCompletedPerformanceFacts;
+  const hasSupportedConsumerFacts =
+    includesAny(classificationText, [
+      "consumer purchase",
+      "consumer paid",
+      "purchased",
+      "bought",
+    ]) &&
+    includesAny(classificationText, ["paid", "purchase", "bought"]) &&
+    includesAny(classificationText, [
+      "never delivered",
+      "not delivered",
+      "defective",
+      "broken",
+      "refund",
+      "not returned",
+    ]);
 
   if (contextualDomains.has("defamation")) {
     addSignal({
@@ -203,7 +300,12 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (contextualDomains.has("contract")) {
+  if (
+    hasSupportedContractFacts ||
+    (contextualDomains.has("contract") &&
+      !hasSupportedConsumerFacts &&
+      !hasCompletedPerformanceFacts)
+  ) {
     addSignal({
       signals,
       label: "possible-agreement-dispute",
@@ -214,7 +316,19 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (includesAny(text, ["owed me", "unpaid", "loan", "borrowed money", "did not pay me back"])) {
+  if (hasSupportedConsumerFacts) {
+    addSignal({
+      signals,
+      label: "possible-consumer-transaction",
+      domain: "consumer",
+      weight: 7,
+      confidence: "medium",
+      explanation:
+        "The narrative contains consumer purchase, payment, and non-performance language.",
+    });
+  }
+
+  if (includesAny(classificationText, ["owed me", "unpaid", "loan", "borrowed money", "did not pay me back"])) {
     addSignal({
       signals,
       label: "possible-debt-or-payment-dispute",
@@ -226,13 +340,16 @@ function detectLightweightSignals(text: string): LegalSignal[] {
   }
 
   if (
-    includesAny(text, [
+    includesAny(classificationText, [
       "property damage",
       "damaged my car",
       "car damage",
       "broken window",
       "damaged my property",
       "vehicle damage",
+      "damaged a vehicle",
+      "vehicle was damaged",
+      "collision damage",
       "repair cost",
     ])
   ) {
@@ -246,7 +363,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (includesAny(text, ["injured", "hurt", "medical", "hospital", "pain", "fracture", "concussion", "assault"])) {
+  if (includesAny(classificationText, ["injured", "hurt", "medical", "hospital", "pain", "fracture", "concussion", "assault"])) {
     addSignal({
       signals,
       label: "possible-personal-injury-or-harm",
@@ -257,7 +374,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (includesAny(text, ["harassing", "harassment", "keeps messaging", "threatening messages", "won't stop contacting"])) {
+  if (includesAny(classificationText, ["harassing", "harassment", "keeps messaging", "threatening messages", "won't stop contacting"])) {
     addSignal({
       signals,
       label: "possible-harassment-pattern",
@@ -281,7 +398,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
 
   if (
     contextualDomains.has("family-parenting") &&
-    includesAny(text, ["child support", "spousal support", "support arrears"])
+    includesAny(classificationText, ["child support", "spousal support", "support arrears"])
   ) {
     addSignal({
       signals,
@@ -294,7 +411,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
   }
 
   if (
-    includesAny(text, [
+    includesAny(classificationText, [
       "charter",
       "section 7",
       "section 15",
@@ -318,7 +435,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
   }
 
   if (
-    includesAny(text, [
+    includesAny(classificationText, [
       "institutional failure",
       "system failure",
       "hospital",
@@ -341,7 +458,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (includesAny(text, ["human rights", "discrimination", "accommodation", "reprisal"])) {
+  if (includesAny(classificationText, ["human rights", "discrimination", "accommodation", "reprisal"])) {
     addSignal({
       signals,
       label: "possible-human-rights",
@@ -352,7 +469,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (includesAny(text, ["negligence", "failed to", "duty of care", "causation", "foreseeable"])) {
+  if (includesAny(classificationText, ["negligence", "duty of care", "causation", "foreseeable"])) {
     addSignal({
       signals,
       label: "possible-negligence",
