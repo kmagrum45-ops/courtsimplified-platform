@@ -288,6 +288,43 @@ function detectLightweightSignals(text: string): LegalSignal[] {
       "refund",
       "not returned",
     ]);
+  const factualClassificationText = classificationText
+    .split("\n")
+    .filter((line) => !lowerText(line).startsWith("selected issues:"))
+    .join(" ");
+  const hasExpressCharterNegation =
+    includesAny(factualClassificationText, [
+      "no charter issue",
+      "no constitutional issue",
+      "not a charter issue",
+      "not a constitutional issue",
+      "charter is not alleged",
+      "constitutional claim is not alleged",
+    ]) ||
+    /\b(?:unreasonable search|arbitrary detention|freedom of expression|equality rights|constitutional rights?)\s+(?:is|are|was|were)\s+not\s+(?:alleged|claimed)\b/i.test(
+      factualClassificationText,
+    );
+  const hasAffirmativeCharterFacts =
+    !hasExpressCharterNegation &&
+    includesAny(factualClassificationText, [
+      "charter breach",
+      "charter right",
+      "charter rights",
+      "charter violation",
+      "charter infringement",
+      "charter facts",
+      "constitutional right",
+      "constitutional rights",
+      "constitutional freedom",
+      "section 7",
+      "section 15",
+      "unreasonable search",
+      "arbitrary detention",
+      "freedom of expression",
+      "equality rights",
+      "rights were infringed",
+      "rights were violated",
+    ]);
 
   if (contextualDomains.has("defamation")) {
     addSignal({
@@ -410,20 +447,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (
-    includesAny(classificationText, [
-      "charter",
-      "section 7",
-      "section 15",
-      "state actor",
-      "government failed",
-      "public authority",
-      "crown",
-      "police",
-      "ministry",
-      "bail",
-    ])
-  ) {
+  if (hasAffirmativeCharterFacts) {
     addSignal({
       signals,
       label: "possible-charter-public-law",
@@ -435,11 +459,13 @@ function detectLightweightSignals(text: string): LegalSignal[] {
   }
 
   if (
-    includesAny(classificationText, [
+    includesAny(factualClassificationText, [
       "institutional failure",
       "system failure",
       "hospital",
       "school board",
+      "government",
+      "municipal agency",
       "police",
       "crown",
       "ministry",
@@ -458,7 +484,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (includesAny(classificationText, ["human rights", "discrimination", "accommodation", "reprisal"])) {
+  if (includesAny(factualClassificationText, ["human rights", "discrimination", "discriminated", "accommodation", "reprisal"])) {
     addSignal({
       signals,
       label: "possible-human-rights",
