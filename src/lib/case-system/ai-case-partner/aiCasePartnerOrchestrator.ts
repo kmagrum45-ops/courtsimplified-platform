@@ -512,76 +512,79 @@ function uniqueDomains(values: CaseLegalDomain[]): CaseLegalDomain[] {
 function detectLegalDomains(
   intelligence: ReturnType<typeof buildConversationIntelligence>,
 ): CaseLegalDomain[] {
-  const text = [
-    intelligence.conversationFocus.primaryGoal,
-    ...intelligence.hypotheses.map((item) => item.label),
-    ...intelligence.hypotheses.map((item) => item.explanation),
+  const hypothesisText = intelligence.hypotheses
+    .map((item) => item.label)
+    .join(" ")
+    .toLowerCase();
+  const signalText = [
     ...intelligence.legalSignals.map((item) => item.label),
     ...intelligence.legalSignals.map((item) => item.explanation),
-    ...intelligence.caseMemoryPatch.legalIssuesToReview,
   ]
     .join(" ")
     .toLowerCase();
 
   const domains: CaseLegalDomain[] = [];
 
-  if (text.includes("defamation") || text.includes("reputation")) {
+  if (
+    hypothesisText.includes("defamation") ||
+    hypothesisText.includes("reputation")
+  ) {
     domains.push("defamation");
   }
 
-  if (text.includes("contract") || text.includes("agreement")) {
+  if (hypothesisText.includes("contract / payment dispute")) {
     domains.push("contract");
   }
 
   if (
-    text.includes("payment") ||
-    text.includes("debt") ||
-    text.includes("owed")
+    hypothesisText.includes("payment") ||
+    hypothesisText.includes("debt") ||
+    hypothesisText.includes("owed")
   ) {
     domains.push("debt");
   }
 
   if (
-    text.includes("property damage") ||
-    text.includes("damaged")
+    hypothesisText.includes("property damage") ||
+    hypothesisText.includes("damaged")
   ) {
     domains.push("property-damage");
   }
 
-  if (text.includes("negligence")) {
+  if (hypothesisText.includes("negligence")) {
     domains.push("negligence");
   }
 
   if (
-    text.includes("family") ||
-    text.includes("parenting") ||
-    text.includes("custody")
+    hypothesisText.includes("family") ||
+    hypothesisText.includes("parenting") ||
+    hypothesisText.includes("custody")
   ) {
     domains.push("family-parenting");
   }
 
-  if (text.includes("support")) {
+  if (hypothesisText.includes("support")) {
     domains.push("family-support");
   }
 
   if (
-    text.includes("public") ||
-    text.includes("crown") ||
-    text.includes("police") ||
-    text.includes("government") ||
-    text.includes("institutional")
+    hypothesisText.includes("public") ||
+    hypothesisText.includes("crown") ||
+    hypothesisText.includes("police") ||
+    hypothesisText.includes("government") ||
+    hypothesisText.includes("institutional")
   ) {
     domains.push("civil-institutional-liability");
   }
 
-  if (text.includes("charter")) {
+  if (hypothesisText.includes("charter")) {
     domains.push("civil-charter");
   }
 
   if (
-    text.includes("procedure") ||
-    text.includes("court") ||
-    text.includes("form")
+    signalText.includes("procedure") ||
+    signalText.includes("court") ||
+    signalText.includes("form")
   ) {
     domains.push("procedural");
   }

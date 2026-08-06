@@ -314,8 +314,72 @@ function countSignals(text: string, terms: string[]): number {
   return terms.filter((term) => normalized.includes(term.toLowerCase())).length;
 }
 
+function hasRequestedFamilyRelief(text: string): boolean {
+  const normalized = normalizeText(text);
+
+  return includesAny(normalized, [
+    "i want custody",
+    "i need custody",
+    "seeking custody",
+    "get custody",
+    "change custody",
+    "custody order",
+    "parenting order",
+    "parenting time order",
+    "change the parenting schedule",
+    "decision-making responsibility",
+    "decision making responsibility",
+    "i want child support",
+    "i need child support",
+    "seeking child support",
+    "child support order",
+    "spousal support order",
+    "support payments",
+    "support arrears",
+    "not paying support",
+    "family court relief",
+    "family court order",
+  ]);
+}
+
+function isFamilyProceedingBackgroundOnly(text: string): boolean {
+  const normalized = normalizeText(text);
+  const mentionsFamilyProceeding = includesAny(normalized, [
+    "custody case",
+    "custody proceeding",
+    "family court case",
+    "family court proceeding",
+    "parenting case",
+    "parenting proceeding",
+    "support case",
+    "support proceeding",
+  ]);
+  const backgroundContext = includesAny(normalized, [
+    "witness for",
+    "witness in",
+    "because of",
+    "related to",
+    "in connection with",
+    "during",
+    "mentioned in",
+    "evidence in",
+    "background",
+    "motive",
+  ]);
+
+  return (
+    mentionsFamilyProceeding &&
+    backgroundContext &&
+    !hasRequestedFamilyRelief(normalized)
+  );
+}
+
 function countFamilyLawSignals(text: string): number {
   const normalized = normalizeText(text);
+
+  if (isFamilyProceedingBackgroundOnly(normalized)) {
+    return 0;
+  }
 
   const explicitFamilyLawSignals = countSignals(normalized, [
     "child support",
@@ -670,7 +734,7 @@ function inferProceduralStage(message: string): CasePartnerProceduralStage {
 function detectIssueFrameworks(message: string): IssueFramework[] {
   const frameworks: IssueFramework[] = [];
 
-  const defamationSignals = countSignals(message, [
+  let defamationSignals = countSignals(message, [
     "defamation",
     "defamatory",
     "false statement",
@@ -686,6 +750,53 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
     "accused me",
     "spread lies",
   ]);
+
+  const hasFalseStatementContext = includesAny(message, [
+    "false",
+    "not true",
+    "untrue",
+    "lied",
+    "lying",
+    "accused me",
+    "called me",
+    "saying i was",
+    "said i was",
+  ]);
+  const hasCommunicationContext = includesAny(message, [
+    "sent messages",
+    "sent false messages",
+    "sent a message",
+    "texted",
+    "emailed",
+    "posted",
+    "published",
+    "told",
+    "said",
+    "saying",
+    "wrote",
+  ]);
+  const hasRecipientContext = includesAny(message, [
+    "sent to",
+    "messages to",
+    "message to",
+    "told my",
+    "told his",
+    "told her",
+    "told their",
+    "third party",
+    "someone else",
+    "other people",
+    "to other people",
+  ]);
+
+  if (
+    defamationSignals === 0 &&
+    hasFalseStatementContext &&
+    hasCommunicationContext &&
+    hasRecipientContext
+  ) {
+    defamationSignals = 3;
+  }
 
   if (defamationSignals > 0) {
     frameworks.push(
@@ -763,8 +874,45 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
     "invoice",
     "services",
   ]);
+  const hasAgreementFacts = includesAny(message, [
+    "contract",
+    "agreement",
+    "agreed",
+    "promised",
+    "quote",
+    "invoice",
+    "paid for",
+  ]);
+  const hasObligationFacts = includesAny(message, [
+    "required to",
+    "supposed to",
+    "promised to",
+    "agreed to",
+    "work",
+    "repairs",
+    "services",
+    "deliver",
+    "pay",
+    "owed",
+  ]);
+  const hasBreachFacts = includesAny(message, [
+    "breach",
+    "did not",
+    "didn't",
+    "failed to",
+    "not completed",
+    "unfinished",
+    "not pay",
+    "never paid",
+    "owed me",
+  ]);
 
-  if (contractSignals > 0) {
+  if (
+    contractSignals > 0 &&
+    hasAgreementFacts &&
+    hasObligationFacts &&
+    hasBreachFacts
+  ) {
     frameworks.push(
       enrichFrameworkWithProfile(
         {

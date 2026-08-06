@@ -38,7 +38,7 @@ const server = spawn(
   process.execPath,
   [
     nextCommand,
-    "start",
+    "dev",
     "--hostname",
     "127.0.0.1",
     "-p",
@@ -161,6 +161,85 @@ async function assertUnauthenticatedAssistantUsesFallback() {
   assert.equal(data.mode, "brain-only-fallback");
   assert.equal(data.metadata?.usedOpenAIForBrain, false);
   assert.equal(data.metadata?.usedOpenAIForAssistant, false);
+}
+
+function resultText(result) {
+  return JSON.stringify(result).toLowerCase();
+}
+
+async function assertCourtPathRoutingBoundaries() {
+  const exactNarrative =
+    "someone i know sent messages to my uncle and my dad saying i was a prostitute just because i was going to be a witness for my uncle in child custody case and its not true";
+  const exactResult = await postCasePartner({
+    caseId: "routing-exact-reputation-background",
+    message: exactNarrative,
+    conversation: [{ role: "user", content: exactNarrative }],
+    courtContext: {
+      courtPath: "small-claims",
+      jurisdiction: "Ontario",
+      stage: "starting-case",
+    },
+    mode: "verification",
+  });
+  const exactText = resultText(exactResult);
+
+  assert.notEqual(exactResult.conversationIntelligence?.conversationFocus?.courtArea, "family");
+  assert.equal(exactText.includes("possible family parenting/support issue"), false);
+  assert.equal(exactText.includes("family parenting / support reasoning profile"), false);
+  assert.equal(exactText.includes("reasoning domain: contract"), false);
+  assert.equal(exactText.includes("reasoning domain: family-parenting"), false);
+  assert.ok(exactText.includes("defamation") || exactText.includes("reputation"));
+
+  const genuineFamily =
+    "I need a parenting order changing custody and I need child support because the other parent is not paying support.";
+  const familyResult = await postCasePartner({
+    caseId: "routing-genuine-family-relief",
+    message: genuineFamily,
+    conversation: [{ role: "user", content: genuineFamily }],
+    courtContext: {
+      courtPath: "small-claims",
+      jurisdiction: "Ontario",
+      stage: "starting-case",
+    },
+    mode: "verification",
+  });
+  assert.equal(familyResult.conversationIntelligence?.conversationFocus?.courtArea, "family");
+  assert.ok(resultText(familyResult).includes("family parenting / support"));
+
+  const backgroundMoney =
+    "I paid $3,000 under an agreement for repair work, the contractor did not complete it, and the payment was merely mentioned as background in my sister's custody case.";
+  const moneyResult = await postCasePartner({
+    caseId: "routing-money-family-background",
+    message: backgroundMoney,
+    conversation: [{ role: "user", content: backgroundMoney }],
+    courtContext: {
+      courtPath: "small-claims",
+      jurisdiction: "Ontario",
+      stage: "starting-case",
+    },
+    mode: "verification",
+  });
+  assert.equal(moneyResult.conversationIntelligence?.conversationFocus?.courtArea, "small-claims");
+  assert.equal(resultText(moneyResult).includes("reasoning domain: family-parenting"), false);
+
+  const mixedRelief =
+    "Someone sent false messages about me to other people and I want compensation, but I also need a custody order changing parenting time.";
+  const mixedResult = await postCasePartner({
+    caseId: "routing-ambiguous-mixed-relief",
+    message: mixedRelief,
+    conversation: [{ role: "user", content: mixedRelief }],
+    courtContext: {
+      courtPath: "small-claims",
+      jurisdiction: "Ontario",
+      stage: "starting-case",
+    },
+    mode: "verification",
+  });
+  assert.equal(mixedResult.conversationIntelligence?.conversationFocus?.courtArea, "mixed");
+  assert.match(
+    mixedResult.conversationIntelligence?.selectedNextQuestion?.question || "",
+    /main issue.*parenting.*support.*family order.*compensation.*civil wrong/i,
+  );
 }
 
 function buildSmallClaimsIntake() {
@@ -369,6 +448,7 @@ async function run() {
 
   await assertProtectedCaseStorage();
   await assertUnauthenticatedAssistantUsesFallback();
+  await assertCourtPathRoutingBoundaries();
 
   console.log(
     "Production API verification passed: court context, conversation memory, canonical MasterCaseSchema, protected case storage, and safe AI fallback boundaries.",
