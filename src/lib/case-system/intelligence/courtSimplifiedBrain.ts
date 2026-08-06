@@ -712,13 +712,9 @@ function buildLegalKnowledge(args: {
     mode: "operational",
   });
 
-  const retrievedObjectWarnings = retrieval.objects.map((object) => {
-    return `${object.title}: ${object.plainLanguageExplanation}`;
-  });
-
-  const blockedWarnings = retrieval.blockedObjects.map((blocked) => {
-    return `Knowledge object blocked: ${blocked.objectId} — ${blocked.reason}`;
-  });
+  const contextWarnings = retrieval.warnings.filter((warning) =>
+    warning.startsWith("Knowledge retrieval warning:"),
+  );
 
   return {
     statutes: [],
@@ -730,9 +726,7 @@ function buildLegalKnowledge(args: {
       "Retrieved knowledge objects are operational guidance only unless separately verified.",
       "Do not cite operational guidance as law.",
       "Do not cite cases, statutes, court rules, deadlines, or official form requirements until verified against official sources.",
-      ...retrieval.warnings,
-      ...retrievedObjectWarnings,
-      ...blockedWarnings,
+      ...contextWarnings,
     ]),
   };
 }
@@ -2173,7 +2167,8 @@ function buildFallbackCognition(normalizedIntake: NormalizedIntake): GptCognitio
           "The structured reasoning model did not run, so outputs should be treated as draft intake preservation only.",
         severity: "medium",
         source: "strategy",
-        suggestedFix: "Confirm OPENAI_API_KEY and rerun analysis.",
+        suggestedFix:
+          "Continue with deterministic intake preservation or retry structured analysis when it is available.",
       },
       {
         title: "Legal theory requires review",

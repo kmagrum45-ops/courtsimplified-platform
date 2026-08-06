@@ -16,6 +16,7 @@ import {
   LegalSignal,
   NormalizedIntake,
 } from "./intelligenceTypes";
+import { detectContextualLegalDomains } from "../ai-case-partner/conversationIntelligenceEngine";
 
 function createId(prefix: string): string {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
@@ -189,24 +190,9 @@ function addSignal(args: {
 
 function detectLightweightSignals(text: string): LegalSignal[] {
   const signals: LegalSignal[] = [];
+  const contextualDomains = new Set(detectContextualLegalDomains(text));
 
-  if (
-    includesAny(text, [
-      "defamation",
-      "slander",
-      "libel",
-      "false statement",
-      "false accusation",
-      "lied about me",
-      "spread rumours",
-      "spread rumors",
-      "ruined my reputation",
-      "reputation",
-      "posted about me",
-      "messaged people",
-      "told people",
-    ])
-  ) {
+  if (contextualDomains.has("defamation")) {
     addSignal({
       signals,
       label: "possible-reputational-publication",
@@ -217,17 +203,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (
-    includesAny(text, [
-      "contract",
-      "agreement",
-      "breach",
-      "terms",
-      "service agreement",
-      "invoice",
-      "deposit",
-    ])
-  ) {
+  if (contextualDomains.has("contract")) {
     addSignal({
       signals,
       label: "possible-agreement-dispute",
@@ -292,7 +268,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (includesAny(text, ["custody", "parenting", "decision-making", "parenting time", "access to my child"])) {
+  if (contextualDomains.has("family-parenting")) {
     addSignal({
       signals,
       label: "possible-family-parenting",
@@ -303,7 +279,10 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (includesAny(text, ["child support", "spousal support", "support arrears"])) {
+  if (
+    contextualDomains.has("family-parenting") &&
+    includesAny(text, ["child support", "spousal support", "support arrears"])
+  ) {
     addSignal({
       signals,
       label: "possible-family-support",

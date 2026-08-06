@@ -1178,6 +1178,10 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
   });
 }
 
+export function detectContextualLegalDomains(message: string): string[] {
+  return unique(detectIssueFrameworks(message).map((framework) => framework.key));
+}
+
 function inferActors(message: string): CasePartnerInferredActor[] {
   const actors: CasePartnerInferredActor[] = [];
 

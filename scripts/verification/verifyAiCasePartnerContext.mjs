@@ -3,7 +3,8 @@ import { spawn } from "node:child_process";
 import { resolve as resolvePath } from "node:path";
 
 const port = Number(process.env.COURTSIMPLIFIED_TEST_PORT || 4317);
-const baseUrl = `http://127.0.0.1:${port}`;
+const externalBaseUrl = process.env.COURTSIMPLIFIED_TEST_BASE_URL?.replace(/\/$/, "");
+const baseUrl = externalBaseUrl || `http://127.0.0.1:${port}`;
 const nextCommand = resolvePath(
   process.cwd(),
   "node_modules",
@@ -34,35 +35,30 @@ const serverEnvironment = {
 
 let serverOutput = "";
 
-const server = spawn(
-  process.execPath,
-  [
-    nextCommand,
-    "dev",
-    "--hostname",
-    "127.0.0.1",
-    "-p",
-    String(port),
-  ],
-  {
-    cwd: process.cwd(),
-    env: serverEnvironment,
-    stdio: ["ignore", "pipe", "pipe"],
-  },
-);
+const server = externalBaseUrl
+  ? null
+  : spawn(
+      process.execPath,
+      [nextCommand, "dev", "--hostname", "127.0.0.1", "-p", String(port)],
+      {
+        cwd: process.cwd(),
+        env: serverEnvironment,
+        stdio: ["ignore", "pipe", "pipe"],
+      },
+    );
 
 function recordServerOutput(chunk) {
   serverOutput = `${serverOutput}${chunk.toString()}`.slice(-8000);
 }
 
-server.stdout.on("data", recordServerOutput);
-server.stderr.on("data", recordServerOutput);
+server?.stdout.on("data", recordServerOutput);
+server?.stderr.on("data", recordServerOutput);
 
 async function waitForServer() {
   const deadline = Date.now() + 30_000;
 
   while (Date.now() < deadline) {
-    if (server.exitCode !== null) {
+    if (server && server.exitCode !== null) {
       throw new Error(
         `CourtSimplified stopped before verification began.\n${serverOutput}`,
       );
@@ -297,6 +293,92 @@ function buildSmallClaimsIntake() {
   };
 }
 
+async function assertCanonicalSmallClaimsRelevance() {
+  const exactNarrative =
+    "someone i know sent messages to my uncle and my dad saying i was a prostitute just because i was going to be a witness for my uncle in child custody case and its not true";
+  const exactResult = await postSmallClaimsAnalysis({
+    ...buildSmallClaimsIntake(),
+    issues: ["defamation-reputation"],
+    uploadedEvidenceFiles: [],
+    amountClaimed: "",
+    agreementDetails: "",
+    paymentHistory: "",
+    damagesBreakdown: "",
+    serviceDetails: "",
+    deadlineDetails: "",
+    facts: exactNarrative,
+    timeline: "",
+    evidence: "Messages sent to my uncle and dad.",
+    missingEvidence: "",
+    settlementEfforts: "",
+    defenceResponse: "",
+    goal: "Address the false statements and resulting reputation harm.",
+    urgent: "",
+  });
+  const exactAnalysis = exactResult.result.analysis;
+  const exactIntelligence = exactAnalysis.intelligence;
+  const exactWarnings = exactIntelligence.systemWarnings || [];
+  const exactKnowledgeWarnings = exactIntelligence.legalKnowledge?.sourceWarnings || [];
+
+  assert.deepEqual(exactAnalysis.detectedClaimTypes, ["defamation"]);
+  assert.deepEqual(exactIntelligence.primaryClaimTypes, ["defamation"]);
+  assert.equal(exactIntelligence.proceduralPosture?.stage, "starting-case");
+  assert.equal(
+    exactWarnings.some((warning) => warning.includes("Stage conflict:")),
+    false,
+  );
+  assert.ok(exactWarnings.length <= 20, `Expected bounded warnings, received ${exactWarnings.length}`);
+  assert.equal(
+    exactKnowledgeWarnings.some((warning) =>
+      /family parenting|public-authority|crown|police issue/i.test(warning),
+    ),
+    false,
+  );
+  assert.equal(resultText(exactIntelligence).includes("openai_api_key"), false);
+  assert.equal(exactResult.reasoningMode, "deterministic-fallback");
+  assert.equal(exactResult.authenticated, false);
+  assert.equal(exactResult.result.masterResultPatch?.masterCase?.courtPath, "small-claims");
+  assert.ok(exactResult.result.masterResultPatch?.caseSystemAssembly);
+
+  const genuineFamily = await postSmallClaimsAnalysis({
+    ...buildSmallClaimsIntake(),
+    issues: ["other"],
+    agreementDetails: "",
+    paymentHistory: "",
+    facts: "I need a custody and parenting order, and I need child support because the other parent is not paying support.",
+    goal: "Obtain parenting and child support orders.",
+  });
+  assert.ok(
+    genuineFamily.result.analysis.detectedClaimTypes.includes("family-parenting"),
+  );
+
+  const genuinePublic = await postSmallClaimsAnalysis({
+    ...buildSmallClaimsIntake(),
+    issues: ["other"],
+    agreementDetails: "",
+    paymentHistory: "",
+    facts: "Police and a public authority failed to investigate my complaint.",
+    goal: "Understand the available remedy.",
+  });
+  assert.ok(
+    genuinePublic.result.analysis.detectedClaimTypes.some((claim) =>
+      ["civil-charter", "civil-institutional-liability"].includes(claim),
+    ),
+  );
+
+  const genuineHarassment = await postSmallClaimsAnalysis({
+    ...buildSmallClaimsIntake(),
+    issues: ["harassment-communications"],
+    agreementDetails: "",
+    paymentHistory: "",
+    facts: "They keep messaging and harassing me after I repeatedly asked them to stop contacting me.",
+    goal: "Address the repeated unwanted communications.",
+  });
+  assert.ok(
+    genuineHarassment.result.analysis.detectedClaimTypes.includes("harassment"),
+  );
+}
+
 function collectWarnings(result) {
   return [
     ...(result.caseInvestigation?.validation?.warnings || []),
@@ -449,6 +531,7 @@ async function run() {
   await assertProtectedCaseStorage();
   await assertUnauthenticatedAssistantUsesFallback();
   await assertCourtPathRoutingBoundaries();
+  await assertCanonicalSmallClaimsRelevance();
 
   console.log(
     "Production API verification passed: court context, conversation memory, canonical MasterCaseSchema, protected case storage, and safe AI fallback boundaries.",
@@ -456,7 +539,7 @@ async function run() {
 }
 
 async function stopServer() {
-  if (server.exitCode !== null) {
+  if (!server || server.exitCode !== null) {
     return;
   }
 
