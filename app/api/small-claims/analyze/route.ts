@@ -9,6 +9,8 @@ import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 export const runtime = "nodejs";
 
 const MAX_REQUEST_BYTES = 200_000;
+const MAX_TEXT_LENGTH = 20_000;
+const MAX_SHORT_TEXT_LENGTH = 1_000;
 
 const allowedStages = new Set([
   "starting-case",
@@ -98,6 +100,29 @@ const requiredStringFields: Array<keyof SmallClaimsIntelligenceInput> = [
   "urgent",
 ];
 
+const longTextFields = new Set<keyof SmallClaimsIntelligenceInput>([
+  "agreementDetails",
+  "paymentHistory",
+  "damagesBreakdown",
+  "serviceDetails",
+  "deadlineDetails",
+  "facts",
+  "timeline",
+  "evidence",
+  "missingEvidence",
+  "settlementEfforts",
+  "defenceResponse",
+  "goal",
+  "urgent",
+]);
+
+const allowedInputFields = new Set<keyof SmallClaimsIntelligenceInput>([
+  "issues",
+  "filedDocuments",
+  "uploadedEvidenceFiles",
+  ...requiredStringFields,
+]);
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value && typeof value === "object" && !Array.isArray(value));
 }
@@ -106,15 +131,33 @@ function isStringArray(value: unknown, limit: number): value is string[] {
   return (
     Array.isArray(value) &&
     value.length <= limit &&
-    value.every((item) => typeof item === "string")
+    value.every(
+      (item) =>
+        typeof item === "string" && item.length <= MAX_SHORT_TEXT_LENGTH,
+    )
   );
+}
+
+function isBoundedString(value: unknown, maximum: number): value is string {
+  return typeof value === "string" && value.length <= maximum;
 }
 
 function isEvidenceFile(value: unknown): boolean {
   if (!isRecord(value)) return false;
+  if (Object.keys(value).some((field) => !evidenceStringFields.includes(field as never) && field !== "size" && field !== "lastModified")) {
+    return false;
+  }
 
   return (
-    evidenceStringFields.every((field) => typeof value[field] === "string") &&
+    Object.keys(value).length === evidenceStringFields.length + 2 &&
+    evidenceStringFields.every((field) =>
+      isBoundedString(
+        value[field],
+        field === "description" || field === "relevance"
+          ? MAX_TEXT_LENGTH
+          : MAX_SHORT_TEXT_LENGTH,
+      ),
+    ) &&
     typeof value.size === "number" &&
     Number.isFinite(value.size) &&
     value.size >= 0 &&
@@ -127,6 +170,13 @@ function isSmallClaimsInput(
   value: unknown,
 ): value is SmallClaimsIntelligenceInput {
   if (!isRecord(value)) return false;
+  if (
+    Object.keys(value).some(
+      (field) => !allowedInputFields.has(field as keyof SmallClaimsIntelligenceInput),
+    )
+  ) {
+    return false;
+  }
 
   if (!isStringArray(value.issues, 20)) return false;
   if (!isStringArray(value.filedDocuments, 20)) return false;
@@ -148,47 +198,49 @@ function isSmallClaimsInput(
     return false;
   }
 
-  return requiredStringFields.every(
-    (field) => typeof value[field] === "string",
+  return requiredStringFields.every((field) =>
+    isBoundedString(
+      value[field],
+      longTextFields.has(field) ? MAX_TEXT_LENGTH : MAX_SHORT_TEXT_LENGTH,
+    ),
   );
 }
 
+function errorResponse(error: string, status: number) {
+  return NextResponse.json({ ok: false, error }, { status });
+}
+
 export async function POST(request: NextRequest) {
+  const contentLength = Number(request.headers.get("content-length") || 0);
+
+  if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) {
+    return errorResponse("The Small Claims intake is too large to analyze.", 413);
+  }
+
+  let body: unknown;
   try {
-    const contentLength = Number(request.headers.get("content-length") || 0);
+    body = await request.json();
+  } catch {
+    return errorResponse("A valid Small Claims intake payload is required.", 400);
+  }
 
-    if (contentLength > MAX_REQUEST_BYTES) {
-      return NextResponse.json(
-        {
-          ok: false,
-          error: "The Small Claims intake is too large to analyze.",
-        },
-        { status: 413 },
-      );
-    }
+  if (!isRecord(body) || Object.keys(body).some((key) => key !== "input")) {
+    return errorResponse("A valid Small Claims intake payload is required.", 400);
+  }
 
-    const body = (await request.json()) as { input?: unknown };
+  const serializedInput = JSON.stringify(body.input);
+  if (!serializedInput) {
+    return errorResponse("A complete Small Claims intake is required.", 400);
+  }
+  if (serializedInput.length > MAX_REQUEST_BYTES) {
+    return errorResponse("The Small Claims intake is too large to analyze.", 413);
+  }
 
-    if (!isSmallClaimsInput(body.input)) {
-      return NextResponse.json(
-        {
-          ok: false,
-          error: "A complete Small Claims intake is required.",
-        },
-        { status: 400 },
-      );
-    }
+  if (!isSmallClaimsInput(body.input)) {
+    return errorResponse("A complete Small Claims intake is required.", 400);
+  }
 
-    if (JSON.stringify(body.input).length > MAX_REQUEST_BYTES) {
-      return NextResponse.json(
-        {
-          ok: false,
-          error: "The Small Claims intake is too large to analyze.",
-        },
-        { status: 413 },
-      );
-    }
-
+  try {
     const authenticated = Boolean(await getAuthenticatedUser(request));
     const allowExternalCognition =
       authenticated && Boolean(process.env.OPENAI_API_KEY);
@@ -211,15 +263,11 @@ export async function POST(request: NextRequest) {
           : "deterministic-fallback",
       authenticated,
     });
-  } catch (error) {
-    console.error("Small Claims analysis route failed:", error);
-
-    return NextResponse.json(
-      {
-        ok: false,
-        error: "CourtSimplified could not analyze this intake right now.",
-      },
-      { status: 500 },
+  } catch {
+    console.error("Small Claims analysis route failed.");
+    return errorResponse(
+      "CourtSimplified could not analyze this intake right now.",
+      500,
     );
   }
 }
