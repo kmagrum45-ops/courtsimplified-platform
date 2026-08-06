@@ -9,6 +9,7 @@
     "lint": "eslint",
     "test:ai-context": "node scripts/verification/verifyAiCasePartnerContext.mjs",
     "test:case-isolation": "node --import tsx scripts/verification/verifyWorkflowIsolation.mjs",
+    "test:case-outcomes": "node --import tsx scripts/verification/verifyCaseOutcomeMatrix.ts",
     "test:small-claims": "node --import tsx scripts/verification/verifySmallClaimsEngine.ts",
     "test:three-area": "node --import tsx scripts/verification/verifyThreeAreaContract.ts",
     "snapshot": "node scripts/snapshot/createDeveloperSnapshot.mjs"
