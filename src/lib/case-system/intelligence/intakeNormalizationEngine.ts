@@ -230,28 +230,33 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     "invoice",
     "deposit",
   ]);
-  const hasObligationFacts = includesAny(classificationText, [
-    "required delivery",
-    "required return",
-    "required repayment",
-    "required to",
-    "supposed to",
-    "suposed to",
-    "promised to",
-    "agreed to",
-    "deliver",
-    "ship",
-    "return of the deposit",
-    "return the deposit",
-    "repay",
-    "refund",
-  ]);
+  const hasObligationFacts =
+    includesAny(classificationText, [
+      "required delivery",
+      "required return",
+      "required repayment",
+      "required to",
+      "supposed to",
+      "suposed to",
+      "promised to",
+      "agreed to",
+      "deliver",
+      "ship",
+      "return of the deposit",
+      "return the deposit",
+      "repay",
+      "refund",
+    ]) ||
+    /\brequired [^.]{1,50}\b(?:work|services|repairs|performance|delivery|payment|return|repayment)\b/i.test(
+      classificationText,
+    );
   const hasNonPerformanceFacts = includesAny(classificationText, [
     "breach",
     "did not",
     "didn't",
     "didnt",
     "failed",
+    "incomplete",
     "not completed",
     "not returned",
     "never delivered",
@@ -324,6 +329,50 @@ function detectLightweightSignals(text: string): LegalSignal[] {
       "equality rights",
       "rights were infringed",
       "rights were violated",
+    ]);
+  const injuryFactText = currentClassificationText(
+    text
+      .split(/\n+/)
+      .filter(
+        (line) =>
+          !/^(?:selected issue hints|title|category|damages breakdown|evidence described|missing evidence):/i.test(
+            line.trim(),
+          ),
+      )
+      .join("\n"),
+  );
+  const hasExpressInjuryNegation =
+    /\b(?:not injured|uninjured|nobody was injured|no one was injured|no (?:physical |bodily )?injur(?:y|ies)|without (?:physical |bodily )?injur(?:y|ies))\b/i.test(
+      injuryFactText,
+    ) ||
+    /\b(?:injur(?:y|ies)|medical harm|physical harm)\s+(?:is|are|was|were)\s+not\s+(?:alleged|claimed|reported)\b/i.test(
+      injuryFactText,
+    );
+  const hasAffirmativeInjuryFacts =
+    !hasExpressInjuryNegation &&
+    /\b(?:(?:was|were|am|became|got) injur(?:ed|d)|left [^.]{1,40} injur(?:ed|d)|(?:physical|bodily) injur(?:y|ies)|(?:suffered|sustained|caused|reported) (?:an? )?(?:injur(?:y|ies)|fracture|concussion|whiplash)|fracture|concussion|whiplash|med(?:ical|cal) treatment|medical care|treated at (?:a |the )?hospital|went to (?:a |the )?hospital|hospitali[sz]ed|physical assault|was assaulted|were assaulted|was hurt|were hurt|got hurt|physically hurt|physical pain|back pain|neck pain|pain in (?:my|the)\b)/i.test(
+      injuryFactText,
+    );
+  const hasInstitutionalActorFacts =
+    includesAny(factualClassificationText, [
+      "institutional failure",
+      "system failure",
+      "school board",
+      "government",
+      "municipal agency",
+      "police",
+      "crown",
+      "ministry",
+      "public authority",
+      "failed to investigate",
+      "failed to communicate",
+    ]) ||
+    includesAny(factualClassificationText, [
+      "hospital failed",
+      "hospital negligence",
+      "hospital denied",
+      "hospital staff",
+      "hospital administration",
     ]);
 
   if (contextualDomains.has("defamation")) {
@@ -400,7 +449,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (includesAny(classificationText, ["injured", "hurt", "medical", "hospital", "pain", "fracture", "concussion", "assault"])) {
+  if (hasAffirmativeInjuryFacts) {
     addSignal({
       signals,
       label: "possible-personal-injury-or-harm",
@@ -458,22 +507,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (
-    includesAny(factualClassificationText, [
-      "institutional failure",
-      "system failure",
-      "hospital",
-      "school board",
-      "government",
-      "municipal agency",
-      "police",
-      "crown",
-      "ministry",
-      "public authority",
-      "failed to investigate",
-      "failed to communicate",
-    ])
-  ) {
+  if (hasInstitutionalActorFacts) {
     addSignal({
       signals,
       label: "possible-institutional-liability",
