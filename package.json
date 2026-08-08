@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test:ai-context": "node scripts/verification/verifyAiCasePartnerContext.mjs",
+    "test:authority-bridge": "node --import tsx scripts/verification/verifyAuthorityKnowledgeBridge.ts",
     "test:case-isolation": "node --import tsx scripts/verification/verifyWorkflowIsolation.mjs",
     "test:case-outcomes": "node --import tsx scripts/verification/verifyCaseOutcomeMatrix.ts",
     "test:small-claims": "node --import tsx scripts/verification/verifySmallClaimsEngine.ts",

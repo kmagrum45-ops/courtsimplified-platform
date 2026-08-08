@@ -37,6 +37,7 @@ import {
 } from "../knowledge/knowledgeRetrievalEngine";
 
 import { getDoctrineSeedLibrary } from "../knowledge/doctrineSeedLibrary";
+import { buildProductionReadyLegalKnowledge } from "../authority-intelligence/authorityRetrievalEngine";
 
 type GptCognitionClaim = {
   claimType?: string;
@@ -694,6 +695,16 @@ function buildLegalKnowledge(args: {
   stage: IntelligenceStage;
   primaryClaimTypes: LegalDomain[];
 }): LegalKnowledgePacket {
+  const verifiedAuthorities = buildProductionReadyLegalKnowledge({
+    context: {
+      courtPath: args.courtPath,
+      jurisdiction: args.province,
+      stage: args.stage,
+      legalDomains: args.primaryClaimTypes.length
+        ? args.primaryClaimTypes
+        : ["unknown"],
+    },
+  });
   const context = buildKnowledgeRetrievalContext({
     courtPath: args.courtPath,
     jurisdiction: args.province,
@@ -717,12 +728,12 @@ function buildLegalKnowledge(args: {
   );
 
   return {
-    statutes: [],
-    proceduralRules: [],
-    precedents: [],
-    precedentMatches: [],
+    statutes: verifiedAuthorities.statutes,
+    proceduralRules: verifiedAuthorities.proceduralRules,
+    precedents: verifiedAuthorities.precedents,
+    precedentMatches: verifiedAuthorities.precedentMatches,
     sourceWarnings: cleanList([
-      "Verified legal authority layer is connected in safe-guidance mode, but verified statutes, rules, deadlines, official forms, and precedents are not yet populated.",
+      ...verifiedAuthorities.sourceWarnings,
       "Retrieved knowledge objects are operational guidance only unless separately verified.",
       "Do not cite operational guidance as law.",
       "Do not cite cases, statutes, court rules, deadlines, or official form requirements until verified against official sources.",
