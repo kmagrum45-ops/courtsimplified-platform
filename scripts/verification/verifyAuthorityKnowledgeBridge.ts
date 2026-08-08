@@ -297,6 +297,103 @@ async function main() {
     assert.equal(excludedCanonical.includes(procedureGuide.id), false, `real official guide must not reach ${courtPath} canonical assembly`);
   }
 
+  const familyAuthorityContext = {
+    courtPath: "family" as const,
+    jurisdiction: "Ontario" as const,
+    stage: "starting-case" as const,
+    legalDomains: ["procedural"] as const,
+  };
+  const familyLawRules = VERIFIED_AUTHORITY_SEED_ENTRIES.find((entry) => entry.id === "authority_ontario_family_law_rules_oreg_114_99");
+  const familyProcedureGuide = VERIFIED_AUTHORITY_SEED_ENTRIES.find((entry) => entry.id === "authority_ontario_family_procedure_guide");
+  assert.ok(familyLawRules, "Ontario Family Law Rules seed must exist");
+  assert.ok(familyProcedureGuide, "Ontario Family procedure guide seed must exist");
+  assert.equal(familyLawRules.appliesAcrossIssueDomains, true, "Family Law Rules must explicitly apply across Ontario Family issue domains after court-path and stage matching");
+  assert.equal(familyProcedureGuide.appliesAcrossIssueDomains, true, "Family procedure guide must explicitly apply across Ontario Family issue domains after court-path and stage matching");
+  assert.equal(familyLawRules.bindingWeight, "binding", "Family Law Rules must retain binding status");
+  assert.equal(familyLawRules.sourceReferences[0]?.sourceUrl, "https://www.ontario.ca/laws/regulation/990114");
+  assert.equal(familyLawRules.sourceReferences[0]?.pinpoint, "Family Law Rules; applicable procedure depends on the current stage");
+
+  const realFamilyPacket = buildProductionReadyLegalKnowledge({
+    context: { ...familyAuthorityContext, legalDomains: [...familyAuthorityContext.legalDomains] },
+    candidateEntries: [familyLawRules, familyProcedureGuide],
+    asOf: NOW,
+  });
+  assert.equal(realFamilyPacket.proceduralRules.length, 1, "binding Family Law Rules must reach canonical procedural-rule output");
+  assert.equal(realFamilyPacket.officialGuidance.length, 1, "Family procedure guide must reach canonical official-guidance output");
+  assert.equal(realFamilyPacket.statutes.length + realFamilyPacket.precedents.length, 0, "Family pilot sources must not be reclassified as statutes or precedents");
+  const familyRule = realFamilyPacket.proceduralRules[0];
+  assert.equal(familyRule.id, familyLawRules.id);
+  assert.equal(familyRule.sourceUrl, "https://www.ontario.ca/laws/regulation/990114");
+  assert.equal(familyRule.citation?.includes("current stage"), true);
+  assert.equal(familyRule.useLimits.includes("Do not decide a parenting arrangement, support amount, property result, remedy, or outcome from this record alone."), true);
+  const realFamilyGuide = realFamilyPacket.officialGuidance[0];
+  assert.equal(realFamilyGuide.id, familyProcedureGuide.id);
+  assert.equal(realFamilyGuide.guidanceClassification, "official-guidance");
+  assert.equal(realFamilyGuide.isBinding, false);
+  assert.equal(familyProcedureGuide.bindingWeight, "procedural-guidance", "Family guide must retain non-binding guidance status");
+  assert.equal(realFamilyGuide.sourceUrl, "https://www.ontario.ca/document/guide-procedures-family-court");
+  assert.equal(realFamilyGuide.citation?.includes("guide overview / starting-family-case procedure guidance"), true);
+  assert.equal(realFamilyGuide.useLimits.includes("It does not replace the Family Law Rules or legal advice."), true);
+  assert.equal(realFamilyGuide.doNotUseFor.includes("Do not treat this guidance as a statute, court rule, or precedent."), true);
+
+  for (const courtPath of ["small-claims", "civil"] as const) {
+    const excluded = retrieveProductionReadyAuthorities({
+      context: { ...familyAuthorityContext, courtPath, legalDomains: [...familyAuthorityContext.legalDomains] },
+      candidateEntries: [familyLawRules, familyProcedureGuide],
+      asOf: NOW,
+    });
+    assert.equal(excluded.authorities.length, 0, `Ontario Family authorities must be excluded from ${courtPath}`);
+  }
+
+  for (const [label, caseId, rawUserText] of [
+    ["parenting", "authority-real-family-parenting", "I need to start an Ontario Family Court case about parenting time and need to understand the procedure and court resources."],
+    ["child support", "authority-real-family-support", "I need to start an Ontario Family Court case about child support and need to understand the procedure and court resources."],
+    ["property division", "authority-real-family-property", "I need to start an Ontario Family Court case about property division and need to understand the procedure and court resources."],
+  ] as const) {
+    const realFamilyOutput = await runCourtSimplifiedBrain({ caseId, courtPath: "family", province: "Ontario", stage: "starting-case", rawUserText, allowExternalCognition: false });
+    assert.equal(realFamilyOutput.intelligence.legalKnowledge.proceduralRules.some((item) => item.id === familyLawRules.id), true, `${label}: real Family Law Rules must reach CourtSimplifiedBrain legal knowledge`);
+    assert.equal(realFamilyOutput.intelligence.legalKnowledge.officialGuidance.some((item) => item.id === familyProcedureGuide.id && item.isBinding === false), true, `${label}: real Family guide must reach CourtSimplifiedBrain official guidance as non-binding`);
+    const realFamilyCanonical = JSON.stringify(realFamilyOutput.masterResultPatch);
+    assert.equal(realFamilyCanonical.includes(familyLawRules.id), true, `${label}: real Family Law Rules must reach canonical master-case assembly`);
+    assert.equal(realFamilyCanonical.includes(familyProcedureGuide.id), true, `${label}: real Family guide must reach canonical master-case assembly`);
+  }
+
+  for (const pilotAuthority of [familyLawRules, familyProcedureGuide]) {
+    const safetyGatePatches: Array<[string, Partial<ProductionAuthorityCandidate>]> = [
+      ["wrong stage", { proceduralStages: ["trial"] }],
+      ["wrong jurisdiction", { jurisdiction: "Alberta" }],
+      ["future currentness", { lastVerifiedAt: "2026-08-07T00:00:00.000Z" }],
+      ["missing HTTPS source URL", { sourceReferences: pilotAuthority.sourceReferences.map((source) => ({ ...source, sourceUrl: undefined })) }],
+      ["missing pinpoint", { sourceReferences: pilotAuthority.sourceReferences.map((source) => ({ ...source, pinpoint: undefined })) }],
+      ["reasoning permission denied", { aiUseRules: { ...pilotAuthority.aiUseRules, canUseForReasoning: false } }],
+    ];
+    for (const [label, patch] of safetyGatePatches) {
+      const excluded = retrieveProductionReadyAuthorities({
+        context: { courtPath: "family", jurisdiction: "Ontario", stage: "starting-case", legalDomains: ["family-parenting"] },
+        candidateEntries: [{ ...pilotAuthority, ...patch }],
+        asOf: NOW,
+      });
+      assert.equal(excluded.authorities.length, 0, `${pilotAuthority.shortTitle}: court-wide applicability must not bypass ${label}`);
+    }
+  }
+
+  for (const courtPath of ["small-claims", "civil"] as const) {
+    const excludedOutput = await runCourtSimplifiedBrain({
+      caseId: `authority-real-family-${courtPath}`,
+      courtPath,
+      province: "Ontario",
+      stage: "starting-case",
+      rawUserText: "I need to start an Ontario Family Court case about parenting time and need to understand the procedure and court resources.",
+      allowExternalCognition: false,
+    });
+    const excludedKnowledge = excludedOutput.intelligence.legalKnowledge;
+    assert.equal(excludedKnowledge.proceduralRules.some((item) => item.id === familyLawRules.id), false, `real Family Law Rules must be excluded from ${courtPath}`);
+    assert.equal(excludedKnowledge.officialGuidance.some((item) => item.id === familyProcedureGuide.id), false, `real Family guide must be excluded from ${courtPath}`);
+    const excludedCanonical = JSON.stringify(excludedOutput.masterResultPatch);
+    assert.equal(excludedCanonical.includes(familyLawRules.id), false, `real Family Law Rules must not reach ${courtPath} canonical assembly`);
+    assert.equal(excludedCanonical.includes(familyProcedureGuide.id), false, `real Family guide must not reach ${courtPath} canonical assembly`);
+  }
+
   VERIFIED_AUTHORITY_SEED_ENTRIES.push(officialGuide);
   try {
     const output = await runCourtSimplifiedBrain({ caseId: "authority-official-guide", courtPath: "small-claims", province: "Ontario", stage: "starting-case", rawUserText: "A synthetic unpaid invoice dispute.", allowExternalCognition: false });
@@ -322,17 +419,19 @@ async function main() {
     const authorityIds = [...knowledge.statutes, ...knowledge.proceduralRules, ...knowledge.precedents, ...knowledge.officialGuidance].map((item) => item.id).sort();
     if (courtPath === "small-claims") {
       assert.deepEqual(authorityIds, [jurisdictionRegulation.id, procedureGuide.id].sort(), "Small Claims court-wide procedural sources must be available without a substantive issue-domain match");
+    } else if (courtPath === "family") {
+      assert.deepEqual(authorityIds, [familyLawRules.id, familyProcedureGuide.id].sort(), "Ontario Family court-wide procedural sources must be available without a substantive issue-domain match");
     } else {
       assert.equal(authorityIds.length, 0, `${courtPath}: Ontario Small Claims sources must remain excluded`);
       assert.ok(knowledge.sourceWarnings.some((warning) => warning.includes("No production-ready verified authority")));
     }
-    const canonical = JSON.stringify(output.masterResultPatch);
+    const canonical: string = JSON.stringify(output.masterResultPatch);
     assert.equal(canonical.includes("authority_test_"), false, `${courtPath}: synthetic authority leaked across area boundary`);
     const assembly = output.masterResultPatch.caseSystemAssembly as { legalReasoningReadiness?: { authorityCount?: number } } | undefined;
     assert.equal(assembly?.legalReasoningReadiness?.authorityCount, 0, `${courtPath}: generic authority categories must not be counted as sources`);
   }
 
-  console.log("Authority knowledge bridge verification passed: production readiness, Ontario Small Claims regulation and official-guidance propagation, provenance, existing safety gates, deduplication, canonical exclusion, and three-area isolation.");
+  console.log("Authority knowledge bridge verification passed: production readiness, Ontario Small Claims and Family procedural-rule and official-guidance propagation, provenance, existing safety gates, deduplication, canonical exclusion, and three-area isolation.");
 }
 
 const isDirectExecution = process.argv[1]
