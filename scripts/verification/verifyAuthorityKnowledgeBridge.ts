@@ -185,6 +185,86 @@ async function main() {
   assert.equal(retrieveProductionReadyAuthorities({ context: { ...officialGuideContext, courtPath: "family", legalDomains: [...officialGuideContext.legalDomains] }, candidateEntries: [officialGuide], asOf: NOW }).authorities.length, 0, "Small Claims-only official guidance must be excluded from Family");
   assert.equal(retrieveProductionReadyAuthorities({ context: { ...officialGuideContext, courtPath: "civil", legalDomains: [...officialGuideContext.legalDomains] }, candidateEntries: [officialGuide], asOf: NOW }).authorities.length, 0, "Small Claims-only official guidance must be excluded from Civil");
 
+  const smallClaimsAuthorityContext = {
+    courtPath: "small-claims" as const,
+    jurisdiction: "Ontario" as const,
+    stage: "starting-case" as const,
+    legalDomains: ["procedural"] as const,
+  };
+  const jurisdictionRegulation = VERIFIED_AUTHORITY_SEED_ENTRIES.find((entry) => entry.id === "authority_ontario_small_claims_jurisdiction_oreg_626_00_s1");
+  const procedureGuide = VERIFIED_AUTHORITY_SEED_ENTRIES.find((entry) => entry.id === "authority_ontario_small_claims_procedure_guide");
+  assert.ok(jurisdictionRegulation, "Ontario Small Claims jurisdiction regulation seed must exist");
+  assert.ok(procedureGuide, "Ontario Small Claims procedure guide seed must exist");
+  assert.equal(jurisdictionRegulation.bindingWeight, "binding", "regulation must retain binding status");
+  assert.equal(jurisdictionRegulation.sourceReferences[1]?.sourceUrl, "https://www.ontario.ca/laws/regulation/r25042");
+  assert.equal(jurisdictionRegulation.sourceReferences[1]?.pinpoint, "s. 1; commencement s. 3");
+
+  const realSmallClaimsPacket = buildProductionReadyLegalKnowledge({
+    context: { ...smallClaimsAuthorityContext, legalDomains: [...smallClaimsAuthorityContext.legalDomains] },
+    candidateEntries: [jurisdictionRegulation, procedureGuide],
+    asOf: NOW,
+  });
+  assert.equal(realSmallClaimsPacket.statutes.length, 1, "binding regulation must reach canonical statutory output");
+  assert.equal(realSmallClaimsPacket.officialGuidance.length, 1, "official guide must reach canonical official-guidance output");
+  assert.equal(realSmallClaimsPacket.proceduralRules.length + realSmallClaimsPacket.precedents.length, 0, "guide must not become a court rule or precedent");
+  const regulation = realSmallClaimsPacket.statutes[0];
+  assert.equal(regulation.id, jurisdictionRegulation.id);
+  assert.equal(regulation.sourceUrl, "https://www.ontario.ca/laws/regulation/000626");
+  assert.equal(regulation.citation?.includes("s. 1"), true);
+  assert.equal(regulation.useLimits.includes("Verify the applicable amount, remedy, parties, timing, interest, costs, and facts."), true);
+  assert.equal(regulation.doNotUseFor.includes("Do not state that a user is eligible for Ontario Small Claims Court."), true);
+  assert.equal(regulation.summary.includes("Confirm monetary jurisdiction"), true);
+  assert.equal(regulation.summary.includes("eligible"), false, "regulation must not produce a legal eligibility conclusion");
+  const realGuide = realSmallClaimsPacket.officialGuidance[0];
+  assert.equal(realGuide.id, procedureGuide.id);
+  assert.equal(realGuide.guidanceClassification, "official-guidance");
+  assert.equal(realGuide.isBinding, false);
+  assert.equal(procedureGuide.bindingWeight, "procedural-guidance", "guide must retain non-binding guidance status");
+  assert.equal(realGuide.sourceUrl, "https://www.ontario.ca/document/guide-procedures-small-claims-court");
+  assert.equal(realGuide.citation?.includes("overview / forms-and-procedure guidance section"), true);
+  assert.equal(realGuide.useLimits.includes("It does not replace the Rules of the Small Claims Court or legal advice."), true);
+  assert.equal(realGuide.doNotUseFor.includes("Do not treat this guidance as a statute, court rule, or precedent."), true);
+
+  for (const courtPath of ["family", "civil"] as const) {
+    const excluded = retrieveProductionReadyAuthorities({
+      context: { ...smallClaimsAuthorityContext, courtPath, legalDomains: [...smallClaimsAuthorityContext.legalDomains] },
+      candidateEntries: [jurisdictionRegulation, procedureGuide],
+      asOf: NOW,
+    });
+    assert.equal(excluded.authorities.length, 0, `Ontario Small Claims authorities must be excluded from ${courtPath}`);
+  }
+
+  const realSmallClaimsOutput = await runCourtSimplifiedBrain({
+    caseId: "authority-real-small-claims",
+    courtPath: "small-claims",
+    province: "Ontario",
+    stage: "starting-case",
+    rawUserText: "I need to start an Ontario Small Claims Court claim for an unpaid invoice and need the procedure and official forms.",
+    allowExternalCognition: false,
+  });
+  assert.equal(realSmallClaimsOutput.intelligence.legalKnowledge.statutes.some((item) => item.id === jurisdictionRegulation.id), true, "real binding regulation must reach CourtSimplifiedBrain legal knowledge");
+  assert.equal(realSmallClaimsOutput.intelligence.legalKnowledge.officialGuidance.some((item) => item.id === procedureGuide.id && item.isBinding === false), true, "real official guide must reach CourtSimplifiedBrain official guidance as non-binding");
+  const realSmallClaimsCanonical = JSON.stringify(realSmallClaimsOutput.masterResultPatch);
+  assert.equal(realSmallClaimsCanonical.includes(jurisdictionRegulation.id), true, "real binding regulation must reach canonical master-case assembly");
+  assert.equal(realSmallClaimsCanonical.includes(procedureGuide.id), true, "real official guide must reach canonical master-case assembly");
+
+  for (const courtPath of ["family", "civil"] as const) {
+    const excludedOutput = await runCourtSimplifiedBrain({
+      caseId: `authority-real-${courtPath}`,
+      courtPath,
+      province: "Ontario",
+      stage: "starting-case",
+      rawUserText: "I need to start an Ontario Small Claims Court claim for an unpaid invoice and need the procedure and official forms.",
+      allowExternalCognition: false,
+    });
+    const excludedKnowledge = excludedOutput.intelligence.legalKnowledge;
+    assert.equal(excludedKnowledge.statutes.some((item) => item.id === jurisdictionRegulation.id), false, `real binding regulation must be excluded from ${courtPath}`);
+    assert.equal(excludedKnowledge.officialGuidance.some((item) => item.id === procedureGuide.id), false, `real official guide must be excluded from ${courtPath}`);
+    const excludedCanonical = JSON.stringify(excludedOutput.masterResultPatch);
+    assert.equal(excludedCanonical.includes(jurisdictionRegulation.id), false, `real binding regulation must not reach ${courtPath} canonical assembly`);
+    assert.equal(excludedCanonical.includes(procedureGuide.id), false, `real official guide must not reach ${courtPath} canonical assembly`);
+  }
+
   VERIFIED_AUTHORITY_SEED_ENTRIES.push(officialGuide);
   try {
     const output = await runCourtSimplifiedBrain({ caseId: "authority-official-guide", courtPath: "small-claims", province: "Ontario", stage: "starting-case", rawUserText: "A synthetic unpaid invoice dispute.", allowExternalCognition: false });
@@ -201,7 +281,7 @@ async function main() {
   assert.ok(excludedPacket.sourceWarnings.some((warning) => warning.includes("No production-ready verified authority")));
 
   for (const [courtPath, text] of [
-    ["small-claims", "A synthetic unpaid invoice dispute."],
+    ["small-claims", "A synthetic unclassified dispute."],
     ["family", "A synthetic request about parenting time."],
     ["civil", "A synthetic negligence dispute."],
   ] as const) {
@@ -215,7 +295,7 @@ async function main() {
     assert.equal(assembly?.legalReasoningReadiness?.authorityCount, 0, `${courtPath}: generic authority categories must not be counted as sources`);
   }
 
-  console.log("Authority knowledge bridge verification passed: production readiness, official-guidance classification and propagation, provenance, existing safety gates, deduplication, all-domain retrieval, canonical exclusion, and three-area isolation.");
+  console.log("Authority knowledge bridge verification passed: production readiness, Ontario Small Claims regulation and official-guidance propagation, provenance, existing safety gates, deduplication, canonical exclusion, and three-area isolation.");
 }
 
 const isDirectExecution = process.argv[1]
