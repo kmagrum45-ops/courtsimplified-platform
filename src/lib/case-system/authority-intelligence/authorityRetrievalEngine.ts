@@ -166,7 +166,7 @@ function matchesContext(
     return false;
   }
 
-  if (!includesAny(entry.legalDomains, context.legalDomains)) {
+  if (!entry.appliesAcrossIssueDomains && !includesAny(entry.legalDomains, context.legalDomains)) {
     return false;
   }
 

@@ -132,6 +132,17 @@ async function main() {
     "known application limits must be preserved without being treated as negative authority status",
   );
 
+  const courtWideProcedural = syntheticAuthority({
+    id: "authority_test_court_wide_procedural",
+    legalDomains: ["procedural"],
+    appliesAcrossIssueDomains: true,
+  });
+  assert.deepEqual(
+    ready([courtWideProcedural]).authorities.map((item) => item.id),
+    [courtWideProcedural.id],
+    "explicit court-wide applicability may bypass only issue-domain overlap",
+  );
+
   const duplicate = syntheticAuthority({ id: "authority_test_duplicate" });
   assert.equal(ready([complete, duplicate]).authorities.length, 1, "duplicate propositions must be deduplicated");
 
@@ -195,6 +206,8 @@ async function main() {
   const procedureGuide = VERIFIED_AUTHORITY_SEED_ENTRIES.find((entry) => entry.id === "authority_ontario_small_claims_procedure_guide");
   assert.ok(jurisdictionRegulation, "Ontario Small Claims jurisdiction regulation seed must exist");
   assert.ok(procedureGuide, "Ontario Small Claims procedure guide seed must exist");
+  assert.equal(jurisdictionRegulation.appliesAcrossIssueDomains, true, "jurisdiction regulation must explicitly apply across Small Claims issue domains");
+  assert.equal(procedureGuide.appliesAcrossIssueDomains, true, "procedure guide must explicitly apply across Small Claims issue domains");
   assert.equal(jurisdictionRegulation.bindingWeight, "binding", "regulation must retain binding status");
   assert.equal(jurisdictionRegulation.sourceReferences[1]?.sourceUrl, "https://www.ontario.ca/laws/regulation/r25042");
   assert.equal(jurisdictionRegulation.sourceReferences[1]?.pinpoint, "s. 1; commencement s. 3");
@@ -234,19 +247,38 @@ async function main() {
     assert.equal(excluded.authorities.length, 0, `Ontario Small Claims authorities must be excluded from ${courtPath}`);
   }
 
-  const realSmallClaimsOutput = await runCourtSimplifiedBrain({
-    caseId: "authority-real-small-claims",
-    courtPath: "small-claims",
-    province: "Ontario",
-    stage: "starting-case",
-    rawUserText: "I need to start an Ontario Small Claims Court claim for an unpaid invoice and need the procedure and official forms.",
-    allowExternalCognition: false,
-  });
-  assert.equal(realSmallClaimsOutput.intelligence.legalKnowledge.statutes.some((item) => item.id === jurisdictionRegulation.id), true, "real binding regulation must reach CourtSimplifiedBrain legal knowledge");
-  assert.equal(realSmallClaimsOutput.intelligence.legalKnowledge.officialGuidance.some((item) => item.id === procedureGuide.id && item.isBinding === false), true, "real official guide must reach CourtSimplifiedBrain official guidance as non-binding");
-  const realSmallClaimsCanonical = JSON.stringify(realSmallClaimsOutput.masterResultPatch);
-  assert.equal(realSmallClaimsCanonical.includes(jurisdictionRegulation.id), true, "real binding regulation must reach canonical master-case assembly");
-  assert.equal(realSmallClaimsCanonical.includes(procedureGuide.id), true, "real official guide must reach canonical master-case assembly");
+  for (const [label, expectedDomain, caseId, rawUserText] of [
+    ["unpaid invoice/debt", "debt", "authority-real-small-claims-debt", "I need to start an Ontario Small Claims Court claim for an unpaid invoice and need the procedure and official forms."],
+    ["property damage", "property-damage", "authority-real-small-claims-property-damage", "I need to start an Ontario Small Claims Court claim for compensation because my vehicle was damaged and I need the procedure and official forms."],
+    ["defamation/reputation compensation", "defamation", "authority-real-small-claims-defamation", "I need to start an Ontario Small Claims Court claim for compensation because false statements damaged my reputation and I need the procedure and official forms."],
+  ] as const) {
+    const realSmallClaimsOutput = await runCourtSimplifiedBrain({ caseId, courtPath: "small-claims", province: "Ontario", stage: "starting-case", rawUserText, allowExternalCognition: false });
+    assert.equal(realSmallClaimsOutput.intelligence.primaryClaimTypes.includes(expectedDomain), true, `${label}: CourtSimplifiedBrain must retain the substantive issue domain`);
+    assert.equal(realSmallClaimsOutput.intelligence.legalKnowledge.statutes.some((item) => item.id === jurisdictionRegulation.id), true, `${label}: real binding regulation must reach CourtSimplifiedBrain legal knowledge`);
+    assert.equal(realSmallClaimsOutput.intelligence.legalKnowledge.officialGuidance.some((item) => item.id === procedureGuide.id && item.isBinding === false), true, `${label}: real official guide must reach CourtSimplifiedBrain official guidance as non-binding`);
+    const realSmallClaimsCanonical = JSON.stringify(realSmallClaimsOutput.masterResultPatch);
+    assert.equal(realSmallClaimsCanonical.includes(jurisdictionRegulation.id), true, `${label}: real binding regulation must reach canonical master-case assembly`);
+    assert.equal(realSmallClaimsCanonical.includes(procedureGuide.id), true, `${label}: real official guide must reach canonical master-case assembly`);
+  }
+
+  for (const pilotAuthority of [jurisdictionRegulation, procedureGuide]) {
+    const safetyGatePatches: Array<[string, Partial<ProductionAuthorityCandidate>]> = [
+      ["wrong stage", { proceduralStages: ["trial"] }],
+      ["wrong jurisdiction", { jurisdiction: "Alberta" }],
+      ["future currentness", { lastVerifiedAt: "2026-08-07T00:00:00.000Z" }],
+      ["missing HTTPS source URL", { sourceReferences: pilotAuthority.sourceReferences.map((source) => ({ ...source, sourceUrl: undefined })) }],
+      ["missing pinpoint", { sourceReferences: pilotAuthority.sourceReferences.map((source) => ({ ...source, pinpoint: undefined })) }],
+      ["reasoning permission denied", { aiUseRules: { ...pilotAuthority.aiUseRules, canUseForReasoning: false } }],
+    ];
+    for (const [label, patch] of safetyGatePatches) {
+      const excluded = retrieveProductionReadyAuthorities({
+        context: { courtPath: "small-claims", jurisdiction: "Ontario", stage: "starting-case", legalDomains: ["property-damage"] },
+        candidateEntries: [{ ...pilotAuthority, ...patch }],
+        asOf: NOW,
+      });
+      assert.equal(excluded.authorities.length, 0, `${pilotAuthority.shortTitle}: court-wide applicability must not bypass ${label}`);
+    }
+  }
 
   for (const courtPath of ["family", "civil"] as const) {
     const excludedOutput = await runCourtSimplifiedBrain({
@@ -287,8 +319,13 @@ async function main() {
   ] as const) {
     const output = await runCourtSimplifiedBrain({ caseId: `authority-${courtPath}`, courtPath, province: "Ontario", stage: "starting-case", rawUserText: text, allowExternalCognition: false });
     const knowledge = output.intelligence.legalKnowledge;
-    assert.equal(knowledge.statutes.length + knowledge.proceduralRules.length + knowledge.precedents.length + knowledge.officialGuidance.length, 0, `${courtPath}: current seeds must remain excluded`);
-    assert.ok(knowledge.sourceWarnings.some((warning) => warning.includes("No production-ready verified authority")));
+    const authorityIds = [...knowledge.statutes, ...knowledge.proceduralRules, ...knowledge.precedents, ...knowledge.officialGuidance].map((item) => item.id).sort();
+    if (courtPath === "small-claims") {
+      assert.deepEqual(authorityIds, [jurisdictionRegulation.id, procedureGuide.id].sort(), "Small Claims court-wide procedural sources must be available without a substantive issue-domain match");
+    } else {
+      assert.equal(authorityIds.length, 0, `${courtPath}: Ontario Small Claims sources must remain excluded`);
+      assert.ok(knowledge.sourceWarnings.some((warning) => warning.includes("No production-ready verified authority")));
+    }
     const canonical = JSON.stringify(output.masterResultPatch);
     assert.equal(canonical.includes("authority_test_"), false, `${courtPath}: synthetic authority leaked across area boundary`);
     const assembly = output.masterResultPatch.caseSystemAssembly as { legalReasoningReadiness?: { authorityCount?: number } } | undefined;

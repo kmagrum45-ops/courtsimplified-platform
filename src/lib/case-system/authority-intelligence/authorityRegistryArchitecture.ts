@@ -143,6 +143,7 @@ export type VerifiedAuthorityEntry = {
 
   courtPaths: CaseCourtPath[];
   legalDomains: CaseLegalDomain[];
+  appliesAcrossIssueDomains?: boolean;
   proceduralStages: CaseStage[];
 
   topicTags: string[];
