@@ -401,6 +401,17 @@ const nonCurrentReputationReliefTerms = [
   "no damages requested",
 ];
 
+const nonCurrentContractTerms = [
+  "unrelated agreement",
+  "unrelated people discussed",
+  "historical conversation",
+  "not part of this dispute",
+  "quoted agreement",
+  "hypothetical agreement",
+  "no agreement was reached",
+  "did not reach an agreement",
+];
+
 function hasRequestedFamilyRelief(text: string): boolean {
   const normalized = normalizeText(text);
 
@@ -837,6 +848,8 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
     "defamatory",
     "false message",
     "false messages",
+    "false msg",
+    "false msgs",
     "false mesage",
     "false mesages",
     "false post",
@@ -872,6 +885,8 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
   const hasCommunicationContext = includesAny(reputationText, [
     "sent messages",
     "sent false messages",
+    "sent msgs",
+    "sent false msgs",
     "sent a message",
     "messages sent",
     "texted",
@@ -886,6 +901,7 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
   const hasRecipientContext = includesAny(reputationText, [
     "sent to",
     "messages to",
+    "msgs to",
     "message to",
     "told my",
     "told his",
@@ -972,7 +988,12 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
     );
   }
 
-  const contractSignals = countSignals(message, [
+  const contractText = currentDomainText(
+    message,
+    ["contract", "agreement", "breach", "promised", "paid", "owed", "invoice", "services"],
+    nonCurrentContractTerms,
+  );
+  const contractSignals = countSignals(contractText, [
     "contract",
     "agreement",
     "breach",
@@ -983,7 +1004,7 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
     "invoice",
     "services",
   ]);
-  const hasAgreementFacts = includesAny(message, [
+  const hasAgreementFacts = includesAny(contractText, [
     "contract",
     "agreement",
     "agreed",
@@ -992,7 +1013,7 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
     "invoice",
     "paid for",
   ]);
-  const hasObligationFacts = includesAny(message, [
+  const hasObligationFacts = includesAny(contractText, [
     "required to",
     "supposed to",
     "promised to",
@@ -1004,7 +1025,7 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
     "pay",
     "owed",
   ]);
-  const hasBreachFacts = includesAny(message, [
+  const hasBreachFacts = includesAny(contractText, [
     "breach",
     "did not",
     "didn't",

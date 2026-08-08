@@ -202,6 +202,25 @@ async function assertCourtPathRoutingBoundaries() {
   assert.equal(familyResult.conversationIntelligence?.conversationFocus?.courtArea, "family");
   assert.ok(resultText(familyResult).includes("family parenting / support"));
 
+  const historicalAgreementFamily =
+    "I need a parenting order and child support because the other parent is not paying support. Years ago, unrelated people discussed an agreement; that historical conversation is not part of this dispute.";
+  const historicalAgreementFamilyResult = await postCasePartner({
+    caseId: "routing-historical-agreement-family-only",
+    message: historicalAgreementFamily,
+    conversation: [{ role: "user", content: historicalAgreementFamily }],
+    courtContext: {
+      courtPath: "small-claims",
+      jurisdiction: "Ontario",
+      stage: "starting-case",
+    },
+    mode: "verification",
+  });
+  const historicalAgreementFamilyText = resultText(historicalAgreementFamilyResult);
+  assert.equal(historicalAgreementFamilyResult.conversationIntelligence?.conversationFocus?.courtArea, "family");
+  assert.ok(historicalAgreementFamilyText.includes("family parenting / support"));
+  assert.equal(historicalAgreementFamilyText.includes("possible contract / payment dispute"), false);
+  assert.equal(historicalAgreementFamilyText.includes("reasoning domain: contract"), false);
+
   const backgroundMoney =
     "I paid $3,000 under an agreement for repair work, the contractor did not complete it, and the payment was merely mentioned as background in my sister's custody case.";
   const moneyResult = await postCasePartner({
@@ -234,6 +253,28 @@ async function assertCourtPathRoutingBoundaries() {
   assert.equal(mixedResult.conversationIntelligence?.conversationFocus?.courtArea, "mixed");
   assert.match(
     mixedResult.conversationIntelligence?.selectedNextQuestion?.question || "",
+    /main issue.*parenting.*support.*family order.*compensation.*civil wrong/i,
+  );
+
+  const abbreviatedMixedRelief =
+    "Someone sent false msgs about me and I want compensation, but I also need a custody order changing parenting time.";
+  const abbreviatedMixedResult = await postCasePartner({
+    caseId: "routing-mixed-relief-abbreviated-messages",
+    message: abbreviatedMixedRelief,
+    conversation: [{ role: "user", content: abbreviatedMixedRelief }],
+    courtContext: {
+      courtPath: "small-claims",
+      jurisdiction: "Ontario",
+      stage: "starting-case",
+    },
+    mode: "verification",
+  });
+  const abbreviatedMixedText = resultText(abbreviatedMixedResult);
+  assert.equal(abbreviatedMixedResult.conversationIntelligence?.conversationFocus?.courtArea, "mixed");
+  assert.ok(abbreviatedMixedText.includes("defamation") || abbreviatedMixedText.includes("reputation"));
+  assert.ok(abbreviatedMixedText.includes("family parenting / support"));
+  assert.match(
+    abbreviatedMixedResult.conversationIntelligence?.selectedNextQuestion?.question || "",
     /main issue.*parenting.*support.*family order.*compensation.*civil wrong/i,
   );
 }
