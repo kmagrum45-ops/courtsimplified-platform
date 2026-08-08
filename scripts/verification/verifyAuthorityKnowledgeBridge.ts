@@ -394,6 +394,87 @@ async function main() {
     assert.equal(excludedCanonical.includes(familyProcedureGuide.id), false, `real Family guide must not reach ${courtPath} canonical assembly`);
   }
 
+  const civilAuthorityContext = {
+    courtPath: "civil" as const,
+    jurisdiction: "Ontario" as const,
+    stage: "starting-case" as const,
+    legalDomains: ["procedural"] as const,
+  };
+  const civilProcedureRules = VERIFIED_AUTHORITY_SEED_ENTRIES.find((entry) => entry.id === "authority_ontario_rules_civil_procedure_rro_1990_reg_194_r_1_02");
+  const civilClaimsGuide = VERIFIED_AUTHORITY_SEED_ENTRIES.find((entry) => entry.id === "authority_ontario_civil_claims_suing_and_being_sued_guide");
+  assert.ok(civilProcedureRules, "Ontario Civil Rules of Civil Procedure seed must exist");
+  assert.ok(civilClaimsGuide, "Ontario Civil claims guide seed must exist");
+  assert.equal(civilProcedureRules.appliesAcrossIssueDomains, true, "Rules of Civil Procedure must explicitly apply across Ontario Civil issue domains only after court-path and stage matching");
+  assert.equal(civilClaimsGuide.appliesAcrossIssueDomains, true, "Civil claims guide must explicitly apply across Ontario Civil issue domains only after court-path and stage matching");
+  assert.equal(civilProcedureRules.bindingWeight, "binding", "Rules of Civil Procedure must retain binding status");
+  assert.equal(civilClaimsGuide.bindingWeight, "procedural-guidance", "Civil claims guide must retain non-binding guidance status");
+  assert.equal(civilProcedureRules.sourceReferences[0]?.sourceUrl, "https://www.ontario.ca/laws/regulation/900194");
+  assert.equal(civilProcedureRules.sourceReferences[0]?.pinpoint, "r. 1.02");
+  assert.equal(civilClaimsGuide.sourceReferences[0]?.sourceUrl, "https://www.ontario.ca/page/civil-claims-suing-and-being-sued");
+  assert.equal(civilClaimsGuide.sourceReferences[0]?.pinpoint, "general steps for civil cases started by statement of claim");
+
+  const realCivilPacket = buildProductionReadyLegalKnowledge({
+    context: { ...civilAuthorityContext, legalDomains: [...civilAuthorityContext.legalDomains] },
+    candidateEntries: [civilProcedureRules, civilClaimsGuide],
+    asOf: NOW,
+  });
+  assert.equal(realCivilPacket.proceduralRules.length, 1, "binding Rules of Civil Procedure must reach canonical procedural-rule output");
+  assert.equal(realCivilPacket.officialGuidance.length, 1, "Civil claims guide must reach canonical official-guidance output");
+  assert.equal(realCivilPacket.statutes.length + realCivilPacket.precedents.length, 0, "Civil pilot sources must not be reclassified as statutes or precedents");
+  const civilRule = realCivilPacket.proceduralRules[0];
+  assert.equal(civilRule.id, civilProcedureRules.id);
+  assert.equal(civilRule.sourceUrl, "https://www.ontario.ca/laws/regulation/900194");
+  assert.equal(civilRule.citation?.includes("r. 1.02"), true);
+  assert.equal(civilRule.useLimits.includes("Rule 1.02 states that the Rules do not govern proceedings in the Small Claims Court or proceedings to which the Family Law Rules apply, except as the Rules provide."), true);
+  const civilGuide = realCivilPacket.officialGuidance[0];
+  assert.equal(civilGuide.id, civilClaimsGuide.id);
+  assert.equal(civilGuide.guidanceClassification, "official-guidance");
+  assert.equal(civilGuide.isBinding, false);
+  assert.equal(civilGuide.sourceUrl, "https://www.ontario.ca/page/civil-claims-suing-and-being-sued");
+  assert.equal(civilGuide.citation?.includes("general steps for civil cases started by statement of claim"), true);
+  assert.equal(civilGuide.useLimits.includes("It does not replace the Rules of Civil Procedure or legal advice."), true);
+  assert.equal(civilGuide.doNotUseFor.includes("Do not treat this guidance as a statute, court rule, or precedent."), true);
+
+  for (const courtPath of ["small-claims", "family"] as const) {
+    const excluded = retrieveProductionReadyAuthorities({
+      context: { ...civilAuthorityContext, courtPath, legalDomains: [...civilAuthorityContext.legalDomains] },
+      candidateEntries: [civilProcedureRules, civilClaimsGuide],
+      asOf: NOW,
+    });
+    assert.equal(excluded.authorities.length, 0, `Ontario Civil authorities must be excluded from ${courtPath}`);
+  }
+
+  for (const [label, expectedDomain, caseId, rawUserText] of [
+    ["negligence", "negligence", "authority-real-civil-negligence", "I need to start an Ontario Superior Court civil claim about an injury caused by negligence and need general procedure information."],
+    ["human rights", "civil-human-rights", "authority-real-civil-human-rights", "I need to start an Ontario Superior Court civil claim about discrimination on a human-rights ground and need general procedure information."],
+    ["defamation", "defamation", "authority-real-civil-defamation", "I need to start an Ontario Superior Court civil claim about false statements that harmed my reputation and need general procedure information."],
+  ] as const) {
+    const realCivilOutput = await runCourtSimplifiedBrain({ caseId, courtPath: "civil", province: "Ontario", stage: "starting-case", rawUserText, allowExternalCognition: false });
+    assert.equal(realCivilOutput.intelligence.primaryClaimTypes.includes(expectedDomain), true, `${label}: CourtSimplifiedBrain must retain the substantive issue domain`);
+    assert.equal(realCivilOutput.intelligence.legalKnowledge.proceduralRules.some((item) => item.id === civilProcedureRules.id), true, `${label}: binding Rules of Civil Procedure must reach CourtSimplifiedBrain legal knowledge`);
+    assert.equal(realCivilOutput.intelligence.legalKnowledge.officialGuidance.some((item) => item.id === civilClaimsGuide.id && item.isBinding === false), true, `${label}: Civil claims guide must reach CourtSimplifiedBrain official guidance as non-binding`);
+    const realCivilCanonical = JSON.stringify(realCivilOutput.masterResultPatch);
+    assert.equal(realCivilCanonical.includes(civilProcedureRules.id), true, `${label}: binding Rules of Civil Procedure must reach canonical master-case assembly`);
+    assert.equal(realCivilCanonical.includes(civilClaimsGuide.id), true, `${label}: Civil claims guide must reach canonical master-case assembly`);
+  }
+
+  for (const courtPath of ["small-claims", "family"] as const) {
+    const excludedOutput = await runCourtSimplifiedBrain({
+      caseId: `authority-real-civil-${courtPath}`,
+      courtPath,
+      province: "Ontario",
+      stage: "starting-case",
+      rawUserText: "I need to start an Ontario Superior Court civil claim about an injury caused by negligence and need general procedure information.",
+      allowExternalCognition: false,
+    });
+    const excludedKnowledge = excludedOutput.intelligence.legalKnowledge;
+    assert.equal(excludedKnowledge.proceduralRules.some((item) => item.id === civilProcedureRules.id), false, `Rules of Civil Procedure must be excluded from ${courtPath}`);
+    assert.equal(excludedKnowledge.officialGuidance.some((item) => item.id === civilClaimsGuide.id), false, `Civil claims guide must be excluded from ${courtPath}`);
+    const excludedCanonical = JSON.stringify(excludedOutput.masterResultPatch);
+    assert.equal(excludedCanonical.includes(civilProcedureRules.id), false, `Rules of Civil Procedure must not reach ${courtPath} canonical assembly`);
+    assert.equal(excludedCanonical.includes(civilClaimsGuide.id), false, `Civil claims guide must not reach ${courtPath} canonical assembly`);
+  }
+
   VERIFIED_AUTHORITY_SEED_ENTRIES.push(officialGuide);
   try {
     const output = await runCourtSimplifiedBrain({ caseId: "authority-official-guide", courtPath: "small-claims", province: "Ontario", stage: "starting-case", rawUserText: "A synthetic unpaid invoice dispute.", allowExternalCognition: false });
@@ -422,16 +503,22 @@ async function main() {
     } else if (courtPath === "family") {
       assert.deepEqual(authorityIds, [familyLawRules.id, familyProcedureGuide.id].sort(), "Ontario Family court-wide procedural sources must be available without a substantive issue-domain match");
     } else {
-      assert.equal(authorityIds.length, 0, `${courtPath}: Ontario Small Claims sources must remain excluded`);
-      assert.ok(knowledge.sourceWarnings.some((warning) => warning.includes("No production-ready verified authority")));
+      assert.deepEqual(authorityIds, [civilProcedureRules.id, civilClaimsGuide.id].sort(), "Ontario Civil court-wide procedural sources must be available without a substantive issue-domain match");
     }
     const canonical: string = JSON.stringify(output.masterResultPatch);
     assert.equal(canonical.includes("authority_test_"), false, `${courtPath}: synthetic authority leaked across area boundary`);
-    const assembly = output.masterResultPatch.caseSystemAssembly as { legalReasoningReadiness?: { authorityCount?: number } } | undefined;
-    assert.equal(assembly?.legalReasoningReadiness?.authorityCount, 0, `${courtPath}: generic authority categories must not be counted as sources`);
+    const assembly = output.masterResultPatch.caseSystemAssembly as {
+      legalReasoningReadiness?: { authorityCount?: number };
+      authorityReadiness?: { verifiedAuthorityCount?: number };
+    } | undefined;
+    if (courtPath === "civil") {
+      assert.equal(assembly?.authorityReadiness?.verifiedAuthorityCount, 2, `${courtPath}: canonical authority count must reflect only scoped procedural sources`);
+    } else {
+      assert.equal(assembly?.legalReasoningReadiness?.authorityCount, 0, `${courtPath}: generic authority categories must not be counted as sources`);
+    }
   }
 
-  console.log("Authority knowledge bridge verification passed: production readiness, Ontario Small Claims and Family procedural-rule and official-guidance propagation, provenance, existing safety gates, deduplication, canonical exclusion, and three-area isolation.");
+  console.log("Authority knowledge bridge verification passed: production readiness, Ontario Small Claims, Family, and Civil procedural-rule and official-guidance propagation, provenance, existing safety gates, deduplication, canonical exclusion, and three-area isolation.");
 }
 
 const isDirectExecution = process.argv[1]
