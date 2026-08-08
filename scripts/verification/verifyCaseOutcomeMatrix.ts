@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+import { pathToFileURL } from "node:url";
 
 import { POST as smallClaimsPost } from "../../app/api/small-claims/analyze/route";
 import { POST as familyPost } from "../../app/api/family/analyze/route";
@@ -9,7 +10,7 @@ import {
 import { POST as aiPartnerPost } from "../../app/api/ai-case-partner/route";
 import { runCivilIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 
-type CourtPath = "small-claims" | "family" | "civil" | "ai-case-partner";
+export type CourtPath = "small-claims" | "family" | "civil" | "ai-case-partner";
 type ExpectedRoute = {
   status: number;
   ok: boolean;
@@ -26,7 +27,7 @@ type AuthenticationExpectation = {
   externalAiAllowed: boolean;
   ownership?: "anonymous" | "owned" | "denied" | "isolated-users";
 };
-type Fixture = {
+export type Fixture = {
   id: string;
   selectedCourtPath: CourtPath;
   province: "Ontario";
@@ -51,13 +52,13 @@ type Fixture = {
   regression: string;
   mode?: "route" | "civil-owned" | "civil-denied" | "civil-two-users";
 };
-type FixtureRun = {
+export type FixtureRun = {
   fixture: Fixture;
   status: number;
   body: Record<string, any>;
   externalAiObserved?: boolean;
 };
-type FixtureReport = {
+export type FixtureReport = {
   id: string;
   area: CourtPath;
   status: "PASS" | "FAIL" | "REVIEW";
@@ -67,9 +68,7 @@ type FixtureReport = {
 };
 type FailureCategory = "confirmed-production-defect" | "legitimate-secondary-overlap" | "evaluator-defect" | "product-or-legal-review-required";
 
-delete process.env.OPENAI_API_KEY;
-
-const smallClaimsIssues = [
+export const smallClaimsIssues = [
   ["unpaid-money", "debt", "A client has not paid a $900 invoice despite written requests."],
   ["contract-dispute", "contract", "The parties agreed in writing to repairs, the work was not completed, and payment was retained."],
   ["property-damage", "property-damage", "A delivery vehicle damaged a fence and photographs show the physical damage."],
@@ -86,7 +85,7 @@ const smallClaimsIssues = [
   ["other", "unknown", "A private dispute requires clarification because the relevant issue is not yet known."],
 ] as const;
 
-const familyIssues = [
+export const familyIssues = [
   ["decision-making-responsibility", "family-parenting", "The applicant requests a decision-making responsibility order for a synthetic child."],
   ["parenting-time", "family-parenting", "The applicant requests a defined parenting-time schedule."],
   ["child-support", "family-support", "The applicant requests child support and identifies missing income disclosure."],
@@ -100,7 +99,7 @@ const familyIssues = [
   ["other", "unknown", "The applicant has an unclear family concern and needs a focused clarification question."],
 ] as const;
 
-const civilIssues = [
+export const civilIssues = [
   ["contract", "contract"], ["negligence", "negligence"],
   ["institutional-negligence", "civil-institutional-liability"],
   ["professional-negligence", "negligence"], ["human-rights", "civil-human-rights"],
@@ -115,16 +114,16 @@ const civilIssues = [
   ["appeal", "procedural"], ["enforcement", "procedural"], ["other", "unknown"],
 ] as const;
 
-const smallStages = ["starting-case", "responding", "already-started", "conference", "motion", "trial", "enforcement", "appeal", "urgent", "settlement", "not-sure"];
-const familyStages = ["starting-case", "responding", "already-started", "conference", "motion", "trial", "enforcement", "urgent", "not-sure"];
-const civilStages = ["starting-case", "responding", "already-started", "conference", "motion", "trial", "enforcement", "urgent", "not-sure"];
-const familyRoles = ["applicant", "respondent", "joint-applicant", "third-party-caregiver", "not-sure"];
-const civilRoles = ["plaintiff", "defendant", "applicant", "respondent", "moving-party", "responding-party", "other", "not-sure"];
-const smallDocuments = ["plaintiffs-claim", "defence", "affidavit-service", "offer-settle", "settlement-conference", "default-judgment", "witness-list", "enforcement-documents", "nothing", "not-sure"];
-const familyDocuments = ["Application already filed / served", "Answer / response already filed", "Financial statement already completed", "Affidavit already prepared", "Motion materials already filed", "Conference brief already filed", "Existing court order or agreement", "Nothing filed yet", "Not sure"];
-const civilDocuments = ["statement-claim", "statement-defence", "notice-application", "notice-motion", "affidavit-service", "affidavit", "order", "judgment", "tribunal-application", "human-rights-application", "judicial-review-materials", "demand-letter", "discovery", "trial-record", "nothing", "not-sure"];
-const smallEvidence = ["Screenshots / messages", "Social media posts", "Emails", "Witness / recipient information", "Reputation / harm proof", "Payment / financial proof", "Contract / agreement, only if relevant", "Photos / physical damage, only if relevant", "Court document", "Service / delivery proof", "Settlement discussion", "Other"];
-const familyEvidence = ["Parenting / decision-making", "Parenting time / access", "Child support", "Spousal support", "Financial disclosure", "Property / home", "Safety / urgency", "School / child records", "Messages / communication", "Court document", "Agreement / order", "Other"];
+export const smallStages = ["starting-case", "responding", "already-started", "conference", "motion", "trial", "enforcement", "appeal", "urgent", "settlement", "not-sure"];
+export const familyStages = ["starting-case", "responding", "already-started", "conference", "motion", "trial", "enforcement", "urgent", "not-sure"];
+export const civilStages = ["starting-case", "responding", "already-started", "conference", "motion", "trial", "enforcement", "urgent", "not-sure"];
+export const familyRoles = ["applicant", "respondent", "joint-applicant", "third-party-caregiver", "not-sure"];
+export const civilRoles = ["plaintiff", "defendant", "applicant", "respondent", "moving-party", "responding-party", "other", "not-sure"];
+export const smallDocuments = ["plaintiffs-claim", "defence", "affidavit-service", "offer-settle", "settlement-conference", "default-judgment", "witness-list", "enforcement-documents", "nothing", "not-sure"];
+export const familyDocuments = ["Application already filed / served", "Answer / response already filed", "Financial statement already completed", "Affidavit already prepared", "Motion materials already filed", "Conference brief already filed", "Existing court order or agreement", "Nothing filed yet", "Not sure"];
+export const civilDocuments = ["statement-claim", "statement-defence", "notice-application", "notice-motion", "affidavit-service", "affidavit", "order", "judgment", "tribunal-application", "human-rights-application", "judicial-review-materials", "demand-letter", "discovery", "trial-record", "nothing", "not-sure"];
+export const smallEvidence = ["Screenshots / messages", "Social media posts", "Emails", "Witness / recipient information", "Reputation / harm proof", "Payment / financial proof", "Contract / agreement, only if relevant", "Photos / physical damage, only if relevant", "Court document", "Service / delivery proof", "Settlement discussion", "Other"];
+export const familyEvidence = ["Parenting / decision-making", "Parenting time / access", "Child support", "Spousal support", "Financial disclosure", "Property / home", "Safety / urgency", "School / child records", "Messages / communication", "Court document", "Agreement / order", "Other"];
 
 function smallInput(patch: Record<string, unknown> = {}) {
   return {
@@ -175,7 +174,7 @@ function completeFixture(partial: Partial<Fixture> & Pick<Fixture, "id" | "selec
   };
 }
 
-const fixtures: Fixture[] = [];
+export const fixtures: Fixture[] = [];
 
 smallClaimsIssues.forEach(([issue, domain, narrative], index) => {
   const stage = smallStages[index % smallStages.length];
@@ -293,7 +292,7 @@ function request(url: string, input: Record<string, unknown>) {
   return new NextRequest(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ input }) });
 }
 
-async function runRouteFixture(fixture: Fixture): Promise<FixtureRun> {
+export async function runRouteFixture(fixture: Fixture): Promise<FixtureRun> {
   if (fixture.mode === "civil-owned") {
     const baseline = await runCivilIntakeCanonicalIntegration(fixture.structuredIntake as any, { allowExternalCognition: false });
     const existingMasterCase = { ...(baseline.masterResultPatch.masterCase as object), ...fixture.canonical.preserveFields };
@@ -381,9 +380,21 @@ function canonicalFor(run: FixtureRun): { masterCase?: any; migration?: any; ass
   return { masterCase: patch.masterCase, migration: patch.courtSimplifiedArchitecture, assembly: patch.caseSystemAssembly };
 }
 
+export function compactOutcomeForFixtureRun(run: FixtureRun) {
+  return {
+    routedCourt: run.body.conversationIntelligence?.conversationFocus?.courtArea
+      || run.fixture.selectedCourtPath,
+    classifications: classificationsFor(run),
+    questions: questionsFor(run),
+    warnings: warningsFor(run),
+    httpStatus: run.status,
+    ok: Boolean(run.body.ok),
+  };
+}
+
 function containsEvery(haystack: string, needles: string[]) { return needles.filter((needle) => !haystack.toLowerCase().includes(needle.toLowerCase())); }
 
-function evaluate(run: FixtureRun): FixtureReport {
+export function evaluateFixtureRun(run: FixtureRun): FixtureReport {
   const { fixture, body } = run;
   const mismatches: FixtureReport["mismatches"] = [];
   const reviewNotes = fixture.reviewRequiredClassifications.map((classification) =>
@@ -432,7 +443,7 @@ function evaluate(run: FixtureRun): FixtureReport {
 async function main() {
   const reports: FixtureReport[] = [];
   for (const fixture of fixtures) {
-    try { reports.push(evaluate(await runRouteFixture(fixture))); }
+    try { reports.push(evaluateFixtureRun(await runRouteFixture(fixture))); }
     catch (error) { reports.push({ id: fixture.id, area: fixture.selectedCourtPath, status: "FAIL", classifications: "(route error)", mismatches: [{ category: "evaluator-defect", message: `route execution error: ${error instanceof Error ? error.message : String(error)}` }], reviewNotes: [] }); }
   }
   console.table(reports.map(({ id, area, status, classifications }) => ({ ID: id, Area: area, Result: status, Classifications: classifications })));
@@ -459,4 +470,10 @@ async function main() {
   if (failures.length) process.exitCode = 1;
 }
 
-main().catch((error) => { console.error(error); process.exitCode = 1; });
+const isDirectExecution = process.argv[1]
+  ? import.meta.url === pathToFileURL(process.argv[1]).href
+  : false;
+
+if (isDirectExecution) {
+  main().catch((error) => { console.error(error); process.exitCode = 1; });
+}

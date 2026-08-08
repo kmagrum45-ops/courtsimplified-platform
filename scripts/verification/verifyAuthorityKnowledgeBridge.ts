@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { pathToFileURL } from "node:url";
 
 import {
   buildProductionReadyLegalKnowledge,
@@ -9,7 +10,7 @@ import { runCourtSimplifiedBrain } from "../../src/lib/case-system/intelligence/
 
 const NOW = new Date("2026-08-06T00:00:00.000Z");
 
-function syntheticAuthority(
+export function syntheticAuthority(
   patch: Partial<ProductionAuthorityCandidate> = {},
 ): ProductionAuthorityCandidate {
   return {
@@ -157,7 +158,13 @@ async function main() {
   console.log("Authority knowledge bridge verification passed: production readiness, provenance, existing safety gates, deduplication, all-domain retrieval, canonical exclusion, and three-area isolation.");
 }
 
-main().catch((error) => {
-  console.error(error instanceof Error ? error.message : "Authority bridge verification failed.");
-  process.exitCode = 1;
-});
+const isDirectExecution = process.argv[1]
+  ? import.meta.url === pathToFileURL(process.argv[1]).href
+  : false;
+
+if (isDirectExecution) {
+  main().catch((error) => {
+    console.error(error instanceof Error ? error.message : "Authority bridge verification failed.");
+    process.exitCode = 1;
+  });
+}
