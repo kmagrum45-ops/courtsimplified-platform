@@ -27,6 +27,7 @@ import type {
   LegalKnowledgePacket,
   LegalSourceReference,
   IntelligenceStage,
+  OfficialGuidanceReference,
   PrecedentReference,
   ProceduralRuleReference,
   StatutoryReference,
@@ -363,6 +364,7 @@ function sourceTypeFor(entry: VerifiedAuthorityEntry): AuthoritySourceType | und
   if (entry.kind === "regulation") return "regulation";
   if (entry.kind === "rule") return "rule-of-court";
   if (entry.kind === "practice-direction") return "practice-direction";
+  if (entry.kind === "official-guide") return "official-guide";
   return undefined;
 }
 
@@ -538,6 +540,7 @@ function authorityLevel(entry: VerifiedAuthorityEntry): LegalSourceReference["au
   if (entry.kind === "regulation") return "regulation";
   if (entry.kind === "rule") return "rule-of-court";
   if (entry.kind === "practice-direction") return "rule-of-court";
+  if (entry.kind === "official-guide") return "official-guide";
   if (entry.courtLevel === "supreme-court-of-canada") return "scc-binding";
   if (entry.courtLevel === "ontario-court-of-appeal") return "court-of-appeal-binding";
   if (entry.courtLevel === "tribunal") return "tribunal-persuasive";
@@ -582,6 +585,7 @@ export function buildProductionReadyLegalKnowledge(args: {
   const statutes: StatutoryReference[] = [];
   const proceduralRules: ProceduralRuleReference[] = [];
   const precedents: PrecedentReference[] = [];
+  const officialGuidance: OfficialGuidanceReference[] = [];
 
   for (const entry of ready.authorities) {
     const common = commonReference(entry);
@@ -591,10 +595,12 @@ export function buildProductionReadyLegalKnowledge(args: {
       statutes.push({ ...common, statuteName: entry.title, section: entry.sourceReferences[0]?.pinpoint, provisionTextSummary: entry.corePrinciple, requiredConditions: entry.legalTestElements.map((item) => item.label), proceduralEffect: entry.workflowLinks.map((item) => item.reason), remediesAffected: [] });
     } else if (entry.kind === "rule" || entry.kind === "practice-direction") {
       proceduralRules.push({ ...common, ruleSetName: entry.title, ruleNumber: entry.sourceReferences[0]?.pinpoint, appliesToStages: intelligenceStages(entry), deadlineRelated: entry.topicTags.some((tag) => tag.toLowerCase().includes("deadline")), serviceRelated: entry.topicTags.some((tag) => tag.toLowerCase().includes("service")), filingRelated: entry.topicTags.some((tag) => tag.toLowerCase().includes("filing")), evidenceRelated: entry.legalDomains.includes("procedural"), practicalEffect: entry.workflowLinks.map((item) => item.reason) });
+    } else if (entry.kind === "official-guide") {
+      officialGuidance.push({ ...common, guidanceClassification: "official-guidance", isBinding: false, canShowToUser: entry.aiUseRules.canShowToUser, canUseForReasoning: entry.aiUseRules.canUseForReasoning, appliesToStages: intelligenceStages(entry), practicalEffect: entry.workflowLinks.map((item) => item.reason) });
     }
   }
 
-  return { statutes, proceduralRules, precedents, precedentMatches: [], sourceWarnings: ready.warnings };
+  return { statutes, proceduralRules, precedents, officialGuidance, precedentMatches: [], sourceWarnings: ready.warnings };
 }
 
 export function retrieveTopVerifiedAuthorities(

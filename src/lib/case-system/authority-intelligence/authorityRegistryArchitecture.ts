@@ -78,6 +78,7 @@ export type AuthorityRegistrySourceReference = {
     | "unknown";
   title: string;
   citationOrUrlLabel: string;
+  sourceUrl?: string;
   pinpoint?: string;
   verifiedAt?: string;
   notes: string[];

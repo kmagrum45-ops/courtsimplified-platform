@@ -6,6 +6,7 @@ import {
   type ProductionAuthorityCandidate,
   retrieveProductionReadyAuthorities,
 } from "../../src/lib/case-system/authority-intelligence/authorityRetrievalEngine";
+import { VERIFIED_AUTHORITY_SEED_ENTRIES } from "../../src/lib/case-system/authority-intelligence/verifiedAuthoritySeedRegistry";
 import { runCourtSimplifiedBrain } from "../../src/lib/case-system/intelligence/courtSimplifiedBrain";
 
 const NOW = new Date("2026-08-06T00:00:00.000Z");
@@ -69,6 +70,13 @@ const context = {
   jurisdiction: "Ontario" as const,
   stage: "starting-case" as const,
   legalDomains: ["defamation", "negligence"] as const,
+};
+
+const officialGuideContext = {
+  courtPath: "small-claims" as const,
+  jurisdiction: "Ontario" as const,
+  stage: "starting-case" as const,
+  legalDomains: ["debt"] as const,
 };
 
 function ready(entries: ProductionAuthorityCandidate[]) {
@@ -135,6 +143,58 @@ async function main() {
   assert.equal(packet.precedents[0].sourceUrl?.startsWith("https://"), true);
   assert.equal(packet.precedents.every((item) => item.citation?.includes("para.")), true);
 
+  const officialGuide = syntheticAuthority({
+    id: "authority_test_official_guide",
+    kind: "official-guide",
+    title: "Synthetic Official Court Guidance",
+    shortTitle: "Synthetic Guide",
+    citation: "Synthetic Official Court Guidance",
+    neutralCitation: undefined,
+    courtLevel: "small-claims-court",
+    jurisdiction: "Ontario",
+    bindingWeight: "procedural-guidance",
+    courtPaths: ["small-claims"],
+    legalDomains: ["debt"],
+    proceduralStages: ["starting-case"],
+    corePrinciple: "Synthetic official guidance for software contract testing only.",
+    limitsAndWarnings: ["Synthetic guidance is non-binding and not legal advice."],
+    aiUseRules: { ...complete.aiUseRules, canUseForDrafting: false, prohibitedUses: ["Do not treat this guidance as a statute, rule, or precedent."] },
+    sourceReferences: [{ ...complete.sourceReferences[0], id: "synthetic-official-guide-source", title: "Synthetic Official Court Guidance", sourceUrl: "https://example.test/guidance/small-claims", pinpoint: "synthetic overview" }],
+  });
+  const officialGuidePacket = buildProductionReadyLegalKnowledge({ context: { ...officialGuideContext, legalDomains: [...officialGuideContext.legalDomains] }, candidateEntries: [officialGuide], asOf: NOW });
+  assert.equal(officialGuidePacket.officialGuidance.length, 1, "eligible official guidance must enter the canonical packet");
+  assert.equal(officialGuidePacket.statutes.length + officialGuidePacket.proceduralRules.length + officialGuidePacket.precedents.length, 0, "official guidance must not be reclassified as law, a rule, or precedent");
+  const guidance = officialGuidePacket.officialGuidance[0];
+  assert.equal(guidance.guidanceClassification, "official-guidance");
+  assert.equal(guidance.isBinding, false);
+  assert.equal(guidance.sourceUrl, officialGuide.sourceReferences[0].sourceUrl);
+  assert.equal(guidance.citation?.includes("synthetic overview"), true);
+  assert.deepEqual(guidance.useLimits, officialGuide.limitsAndWarnings);
+  assert.equal(guidance.canShowToUser, true);
+  assert.equal(guidance.canUseForReasoning, true);
+
+  const officialGuideReady = retrieveProductionReadyAuthorities({ context: { ...officialGuideContext, legalDomains: [...officialGuideContext.legalDomains] }, candidateEntries: [officialGuide], asOf: NOW });
+  assert.deepEqual(officialGuideReady.authorities.map((item) => item.id), [officialGuide.id]);
+  for (const [label, entry] of [
+    ["official guide missing URL", syntheticAuthority({ ...officialGuide, sourceReferences: [{ ...officialGuide.sourceReferences[0], sourceUrl: undefined }] })],
+    ["official guide missing pinpoint", syntheticAuthority({ ...officialGuide, sourceReferences: [{ ...officialGuide.sourceReferences[0], pinpoint: undefined }] })],
+    ["official guide unsafe permissions", syntheticAuthority({ ...officialGuide, aiUseRules: { ...officialGuide.aiUseRules, canUseForReasoning: false } })],
+  ] as const) {
+    assert.equal(retrieveProductionReadyAuthorities({ context: { ...officialGuideContext, legalDomains: [...officialGuideContext.legalDomains] }, candidateEntries: [entry], asOf: NOW }).authorities.length, 0, `${label} must be excluded`);
+  }
+  assert.equal(retrieveProductionReadyAuthorities({ context: { ...officialGuideContext, courtPath: "family", legalDomains: [...officialGuideContext.legalDomains] }, candidateEntries: [officialGuide], asOf: NOW }).authorities.length, 0, "Small Claims-only official guidance must be excluded from Family");
+  assert.equal(retrieveProductionReadyAuthorities({ context: { ...officialGuideContext, courtPath: "civil", legalDomains: [...officialGuideContext.legalDomains] }, candidateEntries: [officialGuide], asOf: NOW }).authorities.length, 0, "Small Claims-only official guidance must be excluded from Civil");
+
+  VERIFIED_AUTHORITY_SEED_ENTRIES.push(officialGuide);
+  try {
+    const output = await runCourtSimplifiedBrain({ caseId: "authority-official-guide", courtPath: "small-claims", province: "Ontario", stage: "starting-case", rawUserText: "A synthetic unpaid invoice dispute.", allowExternalCognition: false });
+    assert.equal(output.intelligence.legalKnowledge.officialGuidance.some((item) => item.id === officialGuide.id), true, "official guidance must reach CourtSimplifiedBrain");
+    assert.equal(JSON.stringify(output.masterResultPatch).includes(officialGuide.id), true, "official guidance must reach the canonical master-case assembly path");
+  } finally {
+    const index = VERIFIED_AUTHORITY_SEED_ENTRIES.findIndex((entry) => entry.id === officialGuide.id);
+    if (index >= 0) VERIFIED_AUTHORITY_SEED_ENTRIES.splice(index, 1);
+  }
+
   const excludedPacket = buildProductionReadyLegalKnowledge({ context: { ...context, legalDomains: [...context.legalDomains] }, candidateEntries: [syntheticAuthority({ sourceReferences: [{ ...complete.sourceReferences[0], sourceUrl: undefined }] })], asOf: NOW });
   assert.equal(excludedPacket.precedents.length, 0);
   assert.equal(JSON.stringify(excludedPacket).includes("Synthetic proposition"), false, "excluded authority must not affect packet output");
@@ -147,7 +207,7 @@ async function main() {
   ] as const) {
     const output = await runCourtSimplifiedBrain({ caseId: `authority-${courtPath}`, courtPath, province: "Ontario", stage: "starting-case", rawUserText: text, allowExternalCognition: false });
     const knowledge = output.intelligence.legalKnowledge;
-    assert.equal(knowledge.statutes.length + knowledge.proceduralRules.length + knowledge.precedents.length, 0, `${courtPath}: current seeds must remain excluded`);
+    assert.equal(knowledge.statutes.length + knowledge.proceduralRules.length + knowledge.precedents.length + knowledge.officialGuidance.length, 0, `${courtPath}: current seeds must remain excluded`);
     assert.ok(knowledge.sourceWarnings.some((warning) => warning.includes("No production-ready verified authority")));
     const canonical = JSON.stringify(output.masterResultPatch);
     assert.equal(canonical.includes("authority_test_"), false, `${courtPath}: synthetic authority leaked across area boundary`);
@@ -155,7 +215,7 @@ async function main() {
     assert.equal(assembly?.legalReasoningReadiness?.authorityCount, 0, `${courtPath}: generic authority categories must not be counted as sources`);
   }
 
-  console.log("Authority knowledge bridge verification passed: production readiness, provenance, existing safety gates, deduplication, all-domain retrieval, canonical exclusion, and three-area isolation.");
+  console.log("Authority knowledge bridge verification passed: production readiness, official-guidance classification and propagation, provenance, existing safety gates, deduplication, all-domain retrieval, canonical exclusion, and three-area isolation.");
 }
 
 const isDirectExecution = process.argv[1]

@@ -731,6 +731,7 @@ function buildLegalKnowledge(args: {
     statutes: verifiedAuthorities.statutes,
     proceduralRules: verifiedAuthorities.proceduralRules,
     precedents: verifiedAuthorities.precedents,
+    officialGuidance: verifiedAuthorities.officialGuidance,
     precedentMatches: verifiedAuthorities.precedentMatches,
     sourceWarnings: cleanList([
       ...verifiedAuthorities.sourceWarnings,

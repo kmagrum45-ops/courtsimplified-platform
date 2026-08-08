@@ -176,6 +176,15 @@ export type ProceduralRuleReference = LegalSourceReference & {
   practicalEffect: string[];
 };
 
+export type OfficialGuidanceReference = LegalSourceReference & {
+  guidanceClassification: "official-guidance";
+  isBinding: false;
+  canShowToUser: boolean;
+  canUseForReasoning: boolean;
+  appliesToStages: IntelligenceStage[];
+  practicalEffect: string[];
+};
+
 export type RemedyType =
   | "money-damages"
   | "general-damages"
@@ -609,6 +618,7 @@ export type LegalKnowledgePacket = {
   statutes: StatutoryReference[];
   proceduralRules: ProceduralRuleReference[];
   precedents: PrecedentReference[];
+  officialGuidance: OfficialGuidanceReference[];
   precedentMatches: PrecedentMatchAssessment[];
   sourceWarnings: string[];
 };
