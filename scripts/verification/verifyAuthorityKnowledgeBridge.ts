@@ -478,6 +478,131 @@ async function main() {
     assert.equal(excludedCanonical.includes(civilClaimsGuide.id), false, `Civil claims guide must not reach ${courtPath} canonical assembly`);
   }
 
+  const selectedCaseAuthorityScenarios = [
+    {
+      courtPath: "small-claims" as const,
+      caseId: "authority-selected-small-claims",
+      rawUserText: "A synthetic unpaid invoice dispute requires Ontario Small Claims procedure information.",
+      requiredIds: [jurisdictionRegulation.id, procedureGuide.id],
+    },
+    {
+      courtPath: "family" as const,
+      caseId: "authority-selected-family",
+      rawUserText: "A synthetic parenting-time dispute requires Ontario Family procedure information.",
+      requiredIds: [familyLawRules.id, familyProcedureGuide.id],
+    },
+    {
+      courtPath: "civil" as const,
+      caseId: "authority-selected-civil",
+      rawUserText: "A synthetic negligence dispute requires Ontario Civil procedure information.",
+      requiredIds: [civilProcedureRules.id, civilClaimsGuide.id],
+    },
+  ];
+  const selectedCaseRecords = new Map<string, Record<string, unknown>>();
+  const selectedCaseAuthorityFingerprints = new Map<string, string>();
+  const selectedCaseAuthorityWarnings = new Map<string, string>();
+
+  const authorityFingerprint = (masterCase: Record<string, any>) =>
+    JSON.stringify(
+      (masterCase.legalKnowledge || [])
+        .map((reference: Record<string, unknown>) => ({
+          id: reference.id,
+          authorityLevel: reference.authorityLevel,
+          verificationStatus: reference.verificationStatus,
+          useLimits: reference.useLimits,
+          doNotUseFor: reference.doNotUseFor,
+        }))
+        .sort((left: { id: string }, right: { id: string }) => left.id.localeCompare(right.id)),
+    );
+
+  for (const scenario of selectedCaseAuthorityScenarios) {
+    const initialOutput = await runCourtSimplifiedBrain({
+      caseId: scenario.caseId,
+      courtPath: scenario.courtPath,
+      province: "Ontario",
+      stage: "starting-case",
+      rawUserText: scenario.rawUserText,
+      allowExternalCognition: false,
+    });
+    const initialMasterCase = initialOutput.masterResultPatch.masterCase as Record<string, any>;
+    selectedCaseRecords.set(scenario.caseId, {
+      ...initialMasterCase,
+      userId: "authority-shared-synthetic-user",
+      title: `Persisted ${scenario.courtPath} selected case`,
+      status: "paused",
+    });
+    selectedCaseAuthorityFingerprints.set(scenario.caseId, authorityFingerprint(initialMasterCase));
+    selectedCaseAuthorityWarnings.set(
+      scenario.caseId,
+      JSON.stringify(initialMasterCase.authorityAnalysis?.warnings || []),
+    );
+  }
+
+  for (const scenario of [
+    ...selectedCaseAuthorityScenarios,
+    selectedCaseAuthorityScenarios[0],
+  ]) {
+    const persistedCase = selectedCaseRecords.get(scenario.caseId);
+    assert.ok(persistedCase, `${scenario.caseId}: selected case record must exist`);
+    const reloadedOutput = await runCourtSimplifiedBrain({
+      caseId: scenario.caseId,
+      courtPath: scenario.courtPath,
+      province: "Ontario",
+      stage: "starting-case",
+      rawUserText: scenario.rawUserText,
+      existingMasterResult: { masterCase: persistedCase },
+      allowExternalCognition: false,
+    });
+    const reloadedMasterCase = reloadedOutput.masterResultPatch.masterCase as Record<string, any>;
+    const reloadedAuthorityIds = (reloadedMasterCase.legalKnowledge || []).map(
+      (reference: { id: string }) => reference.id,
+    );
+    const foreignPilotIds = selectedCaseAuthorityScenarios
+      .filter((candidate) => candidate.courtPath !== scenario.courtPath)
+      .flatMap((candidate) => candidate.requiredIds);
+
+    assert.equal(reloadedMasterCase.id, scenario.caseId, `${scenario.courtPath}: selected case ID was substituted`);
+    assert.equal(reloadedMasterCase.userId, "authority-shared-synthetic-user", `${scenario.courtPath}: selected case ownership changed`);
+    assert.equal(reloadedMasterCase.title, persistedCase.title, `${scenario.courtPath}: unrelated selected-case title was not preserved`);
+    assert.equal(reloadedMasterCase.status, "paused", `${scenario.courtPath}: unrelated selected-case status was not preserved`);
+    assert.equal(reloadedMasterCase.courtPath, scenario.courtPath, `${scenario.courtPath}: canonical court area changed`);
+    assert.ok(reloadedOutput.masterResultPatch.courtSimplifiedArchitecture, `${scenario.courtPath}: BrainMigrationLayer output missing`);
+    assert.equal(
+      (reloadedOutput.masterResultPatch.courtSimplifiedArchitecture as { migrationLayer?: string }).migrationLayer,
+      "BrainMigrationLayer",
+      `${scenario.courtPath}: BrainMigrationLayer marker missing`,
+    );
+    assert.ok(reloadedOutput.masterResultPatch.caseSystemAssembly, `${scenario.courtPath}: CaseSystemAssembly output missing`);
+    for (const requiredId of scenario.requiredIds) {
+      assert.equal(reloadedAuthorityIds.includes(requiredId), true, `${scenario.courtPath}: selected authority was lost on reload: ${requiredId}`);
+    }
+    for (const foreignId of foreignPilotIds) {
+      assert.equal(reloadedAuthorityIds.includes(foreignId), false, `${scenario.courtPath}: foreign pilot authority leaked into selected case: ${foreignId}`);
+      assert.equal(JSON.stringify(reloadedOutput.masterResultPatch).includes(foreignId), false, `${scenario.courtPath}: foreign pilot authority reached canonical output: ${foreignId}`);
+    }
+    assert.equal(
+      authorityFingerprint(reloadedMasterCase),
+      selectedCaseAuthorityFingerprints.get(scenario.caseId),
+      `${scenario.courtPath}: authority limits, warnings, binding metadata, or guidance metadata changed on reload`,
+    );
+    assert.equal(
+      JSON.stringify(reloadedMasterCase.authorityAnalysis?.warnings || []),
+      selectedCaseAuthorityWarnings.get(scenario.caseId),
+      `${scenario.courtPath}: authority warnings changed on reload`,
+    );
+    const selectedGuide = reloadedMasterCase.legalKnowledge.find(
+      (reference: { id: string }) => reference.id === scenario.requiredIds[1],
+    );
+    assert.equal(selectedGuide?.authorityLevel, "official-guide", `${scenario.courtPath}: official guidance classification changed`);
+    assert.equal(selectedGuide?.verificationStatus, "verified", `${scenario.courtPath}: official guidance verification status changed`);
+    assert.ok(selectedGuide?.useLimits?.length, `${scenario.courtPath}: official guidance limits were lost`);
+    const selectedBinding = reloadedMasterCase.legalKnowledge.find(
+      (reference: { id: string }) => reference.id === scenario.requiredIds[0],
+    );
+    assert.notEqual(selectedBinding?.authorityLevel, "official-guide", `${scenario.courtPath}: binding source was reclassified as guidance`);
+    assert.equal(selectedBinding?.verificationStatus, "verified", `${scenario.courtPath}: binding source verification status changed`);
+  }
+
   VERIFIED_AUTHORITY_SEED_ENTRIES.push(officialGuide);
   try {
     const output = await runCourtSimplifiedBrain({ caseId: "authority-official-guide", courtPath: "small-claims", province: "Ontario", stage: "starting-case", rawUserText: "A synthetic unpaid invoice dispute.", allowExternalCognition: false });
