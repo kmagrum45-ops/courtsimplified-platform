@@ -341,6 +341,12 @@ export function buildCourtSimplifiedBrainBridge(args: {
   const legalDomains = getLegalDomains(intelligence);
   const formLabels = getFormLabels(intelligence);
 
+  let masterCase = buildMasterCaseFromIntelligence({
+    intelligence,
+    existingCase: args.existingCase,
+    recommendedNextRoute: args.recommendedNextRoute,
+  });
+
   const assemblyOutput = buildCaseSystemAssembly({
     caseId: intelligence.normalizedIntake.caseId,
     courtPath,
@@ -453,6 +459,7 @@ export function buildCourtSimplifiedBrainBridge(args: {
     },
 
     knowledgeWarnings: intelligence.legalKnowledge.sourceWarnings,
+    authorityAnalysis: masterCase.authorityAnalysis,
   });
 
   const recommendedNextRoute = getRecommendedRoute({
@@ -461,11 +468,13 @@ export function buildCourtSimplifiedBrainBridge(args: {
     existingRoute: args.recommendedNextRoute,
   });
 
-  const masterCase = buildMasterCaseFromIntelligence({
-    intelligence,
-    existingCase: args.existingCase,
-    recommendedNextRoute,
-  });
+  masterCase = {
+    ...masterCase,
+    workflow: {
+      ...masterCase.workflow,
+      recommendedNextRoute,
+    },
+  };
 
   return {
     version: "1.2.0",
