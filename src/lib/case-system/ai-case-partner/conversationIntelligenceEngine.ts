@@ -2003,14 +2003,17 @@ export function buildConversationIntelligence(
   const hasCourtAreaConflict =
     hasFamilyFramework && hasCivilFramework;
 
-  const courtArea = requiresFamilyRelationshipClarification
-    ? "unknown"
-    : hasCourtAreaConflict
-      ? "mixed"
-      : frameworks[0]?.courtArea &&
-          frameworks[0].courtArea !== "unknown"
-        ? frameworks[0].courtArea
-        : inferCourtArea(combinedText);
+  const courtArea =
+    selectedCourtArea !== "unknown"
+      ? selectedCourtArea
+      : requiresFamilyRelationshipClarification
+        ? "unknown"
+        : hasCourtAreaConflict
+          ? "mixed"
+          : frameworks[0]?.courtArea &&
+              frameworks[0].courtArea !== "unknown"
+            ? frameworks[0].courtArea
+            : inferCourtArea(combinedText);
 
   const inferredStage = inferProceduralStage(combinedText);
   const stage =

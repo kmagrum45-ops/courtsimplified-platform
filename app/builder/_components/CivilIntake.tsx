@@ -17,6 +17,12 @@ import type {
   CivilCanonicalIntakeResult,
 } from "../../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 import { supabase } from "../../../src/lib/supabase/client";
+import {
+  consumeNarrativePrefill,
+  directPrefillValues,
+  type NarrativePrefillFact,
+  type NarrativePrefill,
+} from "../../../src/lib/case-system/intelligence/narrativePrefill";
 
 type EvidenceFile = {
   id: string;
@@ -35,6 +41,8 @@ type EvidenceFile = {
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
   caseId?: string | null;
+  location: { province: "Ontario"; city: string };
+  initialStory: string;
 };
 
 type CivilIssue =
@@ -88,6 +96,8 @@ type CivilInput = Omit<
   CivilCanonicalIntakeInput,
   "caseId" | "caseStage" | "issues" | "documents" | "uploadedEvidenceFiles"
 > & {
+  province: string;
+  city: string;
   caseStage: UniversalStage;
   issues: CivilIssue[];
   documents: CivilDocument[];
@@ -118,6 +128,8 @@ type CivilInput = Omit<
 };
 
 const defaultInput: CivilInput = {
+  province: "",
+  city: "",
   caseStage: "not-sure",
   issues: [],
   documents: [],
@@ -485,14 +497,48 @@ function buildCivilAnalysisFromMaster(
   };
 }
 
-export default function CivilIntake({ onComplete, caseId }: Props) {
-  const [input, setInput] = useState<CivilInput>(defaultInput);
+export default function CivilIntake({ onComplete, caseId, location, initialStory }: Props) {
+  const [editingStory, setEditingStory] = useState(false);
+  const [initialPrefill] = useState<NarrativePrefill | null>(() =>
+    consumeNarrativePrefill({ courtPath: "civil", caseId }),
+  );
+  const [input, setInput] = useState<CivilInput>(() => {
+    const values = initialPrefill
+      ? directPrefillValues(initialPrefill)
+      : {};
+    return {
+      ...defaultInput,
+      province: location.province,
+      city: location.city,
+      facts: String(values.facts || initialStory || ""),
+      yourName: String(values.yourName || ""),
+      otherParty: String(values.otherParty || ""),
+      yourRole: String(values.yourRole || ""),
+      caseStage: values.caseStage ? values.caseStage as UniversalStage : defaultInput.caseStage,
+      amountClaimed: String(values.amountClaimed || ""),
+      damagesBreakdown: String(values.damagesBreakdown || ""),
+      legalRemedy: String(values.legalRemedy || ""),
+      timeline: String(values.timeline || ""),
+      serviceDetails: String(values.serviceDetails || ""),
+      settlementEfforts: String(values.settlementEfforts || ""),
+      urgent: String(values.urgent || ""),
+      evidence: String(values.evidence || values.existingOrderDetails || values.enforcementDetails || ""),
+      documents: Array.isArray(values.documentStatus)
+        ? values.documentStatus as CivilInput["documents"]
+        : defaultInput.documents,
+    };
+  });
+
   const [storageWarning, setStorageWarning] = useState("");
   const [analysisError, setAnalysisError] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [extractedFacts, setExtractedFacts] = useState<NarrativePrefillFact[]>(
+    () => initialPrefill?.facts.filter((fact) => fact.state === "direct") || [],
+  );
   const submissionInFlight = useRef(false);
 
   function updateField<K extends keyof CivilInput>(field: K, value: CivilInput[K]) {
+    setExtractedFacts((current) => current.filter((fact) => fact.field !== field));
     setInput((current) => ({ ...current, [field]: value }));
   }
 
@@ -542,6 +588,10 @@ export default function CivilIntake({ onComplete, caseId }: Props) {
 
   async function handleAnalyze() {
     if (submissionInFlight.current) return;
+    if (!input.facts.trim()) {
+      setAnalysisError("Add a short description of what happened before continuing the core intake.");
+      return;
+    }
     submissionInFlight.current = true;
     setStorageWarning("");
     setAnalysisError("");
@@ -551,6 +601,7 @@ export default function CivilIntake({ onComplete, caseId }: Props) {
       const {
         data: { session },
       } = await supabase.auth.getSession();
+      const { province: _province, city: _city, ...civilAnalysisInput } = input;
       const response = await fetch("/api/civil/analyze", {
         method: "POST",
         headers: {
@@ -559,13 +610,14 @@ export default function CivilIntake({ onComplete, caseId }: Props) {
             ? { Authorization: `Bearer ${session.access_token}` }
             : {}),
         },
-        body: JSON.stringify({ input: { ...input, caseId: caseId || undefined } }),
+        body: JSON.stringify({ input: { ...civilAnalysisInput, caseId: caseId || undefined } }),
       });
       const body = (await response.json()) as {
         ok?: boolean;
         result?: CivilCanonicalIntakeResult;
         authenticated?: boolean;
         reasoningMode?: "structured-ai" | "deterministic-fallback";
+        analysisAvailable?: boolean;
         error?: string;
       };
       if (!response.ok || !body.ok || !body.result) {
@@ -600,10 +652,13 @@ export default function CivilIntake({ onComplete, caseId }: Props) {
         specializedSource: "civilMasterCaseEngine",
         analysisExecution: {
           reasoningMode: body.reasoningMode,
+          analysisAvailable: body.analysisAvailable === true,
           authenticated: body.authenticated === true,
           completedAt: new Date().toISOString(),
         },
         civilInput: input,
+        province: input.province,
+        city: input.city,
         issues: input.issues,
         documents: input.documents,
         uploadedEvidenceFiles: input.uploadedEvidenceFiles,
@@ -626,27 +681,6 @@ export default function CivilIntake({ onComplete, caseId }: Props) {
       },
     };
 
-    /*
-     * The complete Civil master result remains available to the active
-     * application through onComplete(). Browser localStorage receives only a
-     * compact continuity snapshot. This prevents the Civil master engine,
-     * strategy package, workflow, evidence analysis, and form-routing objects
-     * from being duplicated into the browser's limited localStorage quota.
-     */
-    const compactPayload = buildCompactCivilPayload(payload, input);
-
-    const savedCaseData = safelyStoreJson("caseData", compactPayload);
-    const savedCourtSimplifiedCase = safelyStoreJson(
-      "courtSimplifiedCase",
-      compactPayload,
-    );
-
-    if (!savedCaseData || !savedCourtSimplifiedCase) {
-      setStorageWarning(
-        "The Civil analysis completed, but this browser could not save every temporary workspace item because its site storage is full. The complete result remains available on this page.",
-      );
-    }
-
       onComplete(analysis, payload);
     } catch (error) {
       setAnalysisError(
@@ -663,10 +697,8 @@ export default function CivilIntake({ onComplete, caseId }: Props) {
       <h2 className="text-2xl font-bold text-[#10231f]">Civil Intake</h2>
 
       <p className="mt-3 text-[#4d675f]">
-        Tell the full civil case story once. CourtSimplified will preserve the
-        facts for the unified legal brain so the system can analyze issues,
-        evidence, procedure, documents, risks, and next steps from one source of
-        truth.
+        Confirm the civil details needed next, including the amount, important
+        dates, parties, and available documents.
       </p>
 
 
@@ -682,7 +714,24 @@ export default function CivilIntake({ onComplete, caseId }: Props) {
         </div>
       )}
 
+      {extractedFacts.length > 0 && (
+        <div className="mt-5 rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm text-[#24463d]">
+          <p className="font-semibold">Found in your description — review/edit</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5">
+            {extractedFacts.map((fact) => (
+              <li key={fact.field}>
+                {fact.field}: {Array.isArray(fact.value) ? fact.value.join(", ") : fact.value}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <div className="mt-6 grid gap-5">
+        <div className="rounded-3xl border border-[#cde7dc] bg-[#f8fcfa] p-5">
+          <h3 className="text-lg font-bold text-[#10231f]">Location confirmed on Home</h3>
+          <p className="mt-2 text-sm text-[#4d675f]">Canonical intake context: {input.province}, {input.city}.</p>
+        </div>
         <label className="block">
           <span className="font-semibold text-[#16302b]">Case stage</span>
           <select
@@ -799,7 +848,6 @@ export default function CivilIntake({ onComplete, caseId }: Props) {
           ["publicDecisionOrConduct", "Government decision, policy, omission, or conduct", "What decision, process, omission, failure, or action is being challenged?"],
           ["institutionalFacts", "Institutional / professional failure facts", "What did the organization or professional know, fail to do, fail to record, or fail to communicate?"],
           ["privacyRecordsFacts", "Privacy / records facts", "What record was accessed, disclosed, withheld, misused, altered, or requested?"],
-          ["facts", "What happened?", "Explain the full story in your own words."],
           ["timeline", "Timeline", "Important dates in order."],
           ["evidence", "Evidence you have", "Contracts, texts, emails, photos, records, receipts, witnesses, policies, reports, decisions."],
           ["missingEvidence", "Evidence still missing", "Documents, records, witnesses, disclosure, policies, recordings, or proof still needed."],
@@ -821,6 +869,8 @@ export default function CivilIntake({ onComplete, caseId }: Props) {
             />
           </label>
         ))}
+
+        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p><button type="button" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" value={input.facts} onChange={(event) => updateField("facts", event.target.value)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
 
         <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">

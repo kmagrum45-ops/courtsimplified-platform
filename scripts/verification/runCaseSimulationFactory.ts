@@ -2,6 +2,7 @@ import { appendFileSync, mkdirSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { pathToFileURL } from "node:url";
 
 import {
   civilIssues,
@@ -48,6 +49,20 @@ type CompactResult = {
   expected?: ExpectedCompactContract;
   actual?: ActualCompactOutcome;
   findingClassification?: "confirmed-production-defect" | "evaluator-or-transformation-defect" | "product-or-legal-review-required";
+};
+
+export type ScenarioMatrixArea = "small-claims" | "family" | "civil";
+export type ScenarioMatrixContext = "anonymous-draft" | "selected-owned" | "unauthorized" | "wrong-area";
+export type ScenarioMatrixFormState = "canonical-matching" | "missing-id" | "wrong-area-id";
+export type ScenarioMatrixScenario = {
+  id: string;
+  area: ScenarioMatrixArea;
+  stage: string;
+  context: ScenarioMatrixContext;
+  formState: ScenarioMatrixFormState;
+  structuredConflict: boolean;
+  caseId: string;
+  fixture: Fixture;
 };
 
 const VALID_AREAS = new Set<Area>(["small-claims", "family", "civil"]);
@@ -157,11 +172,6 @@ function expectedContract(fixture: Fixture): ExpectedCompactContract {
   };
 }
 
-function canonicalScenarioId(options: Options, index: number): string {
-  const key = `${options.suite}-${options.area || "all"}-${options.count}-${options.seed}`;
-  return `sim-${options.seed}-${index.toString().padStart(6, "0")}-${hash32(`${key}:${index}`).toString(16).padStart(8, "0")}`;
-}
-
 function reproductionCommand(options: Options, id: string): string {
   return `npm.cmd run test:case-simulations -- --suite ${options.suite} --count ${options.count} --seed ${options.seed}${options.area ? ` --area ${options.area}` : ""} --reproduce ${id}`;
 }
@@ -238,6 +248,86 @@ function variantOf(base: Fixture, transformation: Transformation, id: string, su
   }
   fixture.regression = `${base.regression} Simulation transformation: ${transformation}.`;
   return fixture;
+}
+
+const MATRIX_STAGES = ["not-sure", "starting-case", "responding", "already-started", "conference", "motion", "trial", "enforcement"] as const;
+
+const MATRIX_PROFILES: Array<{
+  documents: "none" | "starting" | "responding" | "conflicting";
+  evidence: "none" | "one" | "multiple";
+  context: ScenarioMatrixContext;
+  formState: ScenarioMatrixFormState;
+  structuredConflict: boolean;
+}> = [
+  { documents: "none", evidence: "none", context: "anonymous-draft", formState: "canonical-matching", structuredConflict: false },
+  { documents: "starting", evidence: "one", context: "selected-owned", formState: "missing-id", structuredConflict: false },
+  { documents: "responding", evidence: "multiple", context: "unauthorized", formState: "wrong-area-id", structuredConflict: false },
+  { documents: "conflicting", evidence: "none", context: "wrong-area", formState: "canonical-matching", structuredConflict: true },
+  { documents: "none", evidence: "one", context: "anonymous-draft", formState: "missing-id", structuredConflict: false },
+];
+
+function matrixBaseFixture(area: ScenarioMatrixArea): Fixture {
+  const id = area === "small-claims"
+    ? "sc-issue-defamation-reputation"
+    : area === "family"
+      ? "family-issue-parenting-time"
+      : "civil-issue-contract";
+  const fixture = fixtures.find((item) => item.id === id);
+  if (!fixture) throw new Error(`Scenario matrix base fixture is missing: ${id}`);
+  return fixture;
+}
+
+function matrixDocuments(area: ScenarioMatrixArea, state: "none" | "starting" | "responding" | "conflicting") {
+  const values = area === "small-claims"
+    ? { none: "nothing", starting: "plaintiffs-claim", responding: "defence" }
+    : area === "family"
+      ? { none: "Nothing filed yet", starting: "Application already filed / served", responding: "Answer / response already filed" }
+      : { none: "nothing", starting: "statement-claim", responding: "statement-defence" };
+  if (state === "conflicting") return [values.starting, values.responding];
+  return [values[state]];
+}
+
+function matrixRole(area: ScenarioMatrixArea, stage: string) {
+  if (area === "family") return stage === "responding" ? "respondent" : "applicant";
+  if (area === "small-claims") return stage === "responding" ? "Defendant / responding party" : "Plaintiff / claimant";
+  return stage === "responding" ? "defendant" : "plaintiff";
+}
+
+/** Test-only deterministic matrix. Each profile deliberately covers the state combinations
+ * that the focused verifiers protect without adding a second simulation system. */
+export function buildScenarioMatrixFixtures(): ScenarioMatrixScenario[] {
+  const scenarios: ScenarioMatrixScenario[] = [];
+  for (const area of ["small-claims", "family", "civil"] as const) {
+    for (const stage of MATRIX_STAGES) {
+      for (const [profileIndex, profile] of MATRIX_PROFILES.entries()) {
+        const caseId = `matrix-${area}-${stage}-${profileIndex}`;
+        const fixture = structuredClone(matrixBaseFixture(area));
+        fixture.id = caseId;
+        fixture.stage = stage;
+        fixture.role = matrixRole(area, stage);
+        fixture.structuredIntake.caseStage = stage;
+        fixture.structuredIntake.role = area === "family" ? fixture.role : fixture.structuredIntake.role;
+        fixture.structuredIntake.yourRole = area === "family" ? fixture.structuredIntake.yourRole : fixture.role;
+        const documentKey = area === "civil" ? "documents" : "filedDocuments";
+        fixture.structuredIntake[documentKey] = matrixDocuments(area, profile.documents);
+        const evidenceKey = area === "family" ? "uploadedFiles" : "uploadedEvidenceFiles";
+        const originalEvidence = Array.isArray(fixture.structuredIntake[evidenceKey]) ? fixture.structuredIntake[evidenceKey] as Array<Record<string, unknown>> : [];
+        fixture.structuredIntake[evidenceKey] = profile.evidence === "none"
+          ? []
+          : profile.evidence === "one"
+            ? originalEvidence.slice(0, 1)
+            : [...originalEvidence.slice(0, 1), { ...originalEvidence[0], id: `${caseId}-evidence-2` }];
+        const narrative = `${fixture.narrative} Selected stage: ${stage}. Workspace labels may mention starting and responding but are not structured stage facts.`;
+        fixture.narrative = profile.structuredConflict
+          ? `${narrative} Stage status: ${stage === "responding" ? "starting-case" : "responding"}.`
+          : narrative;
+        fixture.structuredIntake.facts = fixture.narrative;
+        if (area === "civil") fixture.structuredIntake.caseId = caseId;
+        scenarios.push({ id: caseId, area, stage, context: profile.context, formState: profile.formState, structuredConflict: profile.structuredConflict && (stage === "starting-case" || stage === "responding"), caseId, fixture });
+      }
+    }
+  }
+  return scenarios;
 }
 
 function semanticCoverage(baseId: string): string[] {
@@ -364,7 +454,7 @@ async function main() {
   const expectedContracts = new Set<string>();
   const failureGroups = new Map<string, { count: number; reproductionIds: string[] }>();
   const requestHashes = new Map<string, string>();
-  let duplicateNormalizedRequests = 0;
+  const duplicateNormalizedRequests = 0;
   let executed = 0;
   let reproducedResult: CompactResult | undefined;
 
@@ -513,7 +603,13 @@ async function main() {
   else if (totals.FAIL) process.exitCode = 1;
 }
 
-main().catch((error) => {
-  console.error(`Simulation infrastructure error: ${error instanceof Error ? error.message : String(error)}`);
-  process.exitCode = 2;
-});
+const isDirectExecution = process.argv[1]
+  ? import.meta.url === pathToFileURL(process.argv[1]).href
+  : false;
+
+if (isDirectExecution) {
+  main().catch((error) => {
+    console.error(`Simulation infrastructure error: ${error instanceof Error ? error.message : String(error)}`);
+    process.exitCode = 2;
+  });
+}

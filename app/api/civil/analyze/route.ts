@@ -8,6 +8,7 @@ import {
   getAuthenticatedOwnedCaseMasterResult,
   getAuthenticatedUser,
 } from "@/src/lib/supabase/serverAuth";
+import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
 
 export const runtime = "nodejs";
 
@@ -70,7 +71,7 @@ export function createCivilAnalyzePost(
     authenticate: getAuthenticatedUser,
     loadOwnedMasterResult: getAuthenticatedOwnedCaseMasterResult,
     analyze: runCivilIntakeCanonicalIntegration,
-    hasExternalAiKey: () => Boolean(process.env.OPENAI_API_KEY),
+    hasExternalAiKey: hasConfiguredServerAi,
     ...overrides,
   };
 
@@ -107,7 +108,8 @@ export function createCivilAnalyzePost(
       existingMasterResult,
     });
     const fallbackUsed = result.brain.intelligence.systemWarnings.some((warning) => warning.toLowerCase().includes("structured gpt cognition was unavailable"));
-    return NextResponse.json({ ok: true, result, authenticated, reasoningMode: allowExternalCognition && !fallbackUsed ? "structured-ai" : "deterministic-fallback" });
+    const analysisAvailable = allowExternalCognition && !fallbackUsed;
+    return NextResponse.json({ ok: true, result, authenticated, reasoningMode: analysisAvailable ? "structured-ai" : "deterministic-fallback", analysisAvailable });
   } catch {
     console.error("Civil canonical intake analysis failed.");
     return errorResponse("Civil intake analysis could not be completed.", 500);

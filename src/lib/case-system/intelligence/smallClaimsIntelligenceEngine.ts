@@ -198,15 +198,9 @@ function userIsPlaintiffStarting(input: SmallClaimsIntelligenceInput): boolean {
 }
 
 function determineProceduralStage(input: SmallClaimsIntelligenceInput): UniversalStage {
-  if (input.caseStage !== "not-sure") return input.caseStage;
-
-  if (input.filedDocuments.includes("enforcement-documents")) return "enforcement";
-  if (input.issues.includes("enforcement")) return "enforcement";
-  if (input.filedDocuments.includes("settlement-conference")) return "conference";
-  if (userIsResponding(input)) return "responding";
-  if (input.filedDocuments.includes("plaintiffs-claim")) return "already-started";
-
-  return "starting-case";
+  // Procedural stage is an explicit intake field. Documents, role, and issue
+  // signals can inform review guidance but cannot manufacture a confirmed stage.
+  return input.caseStage || "not-sure";
 }
 
 function buildRawUserText(input: SmallClaimsIntelligenceInput): string {
@@ -431,28 +425,27 @@ function buildSummary(args: {
   const { input, stage, analysis } = args;
 
   return [
-    "Small Claims Intelligence Summary",
-    "",
-    `Stage: ${getStageLabel(stage)}`,
-    `Primary claim types: ${analysis.detectedClaimTypes?.join(", ") || "not confirmed"}`,
-    `Amount claimed/disputed: ${input.amountClaimed || "not entered"}`,
-    "",
-    "Parties",
-    `- User: ${input.yourName || "not entered"}`,
-    `- Other party: ${input.otherParty || "not entered"}`,
-    "",
-    "Core facts",
+    input.filedDocuments.includes("plaintiffs-claim") && input.filedDocuments.includes("affidavit-service")
+      ? "Case status: Claim already filed and served."
+      : `Current case status: ${getStageLabel(stage)}.`,
+    input.filedDocuments.includes("plaintiffs-claim") && input.filedDocuments.includes("affidavit-service")
+      ? "Service was completed and an Affidavit of Service was filed with the court."
+      : "",
+    input.filedDocuments.includes("plaintiffs-claim") && input.filedDocuments.includes("affidavit-service") && !input.filedDocuments.includes("defence")
+      ? "The case needs default-stage review based on the facts entered."
+      : "",
+    "Case story",
     input.facts || "No detailed facts entered yet.",
     "",
-    "Timeline",
+    "Important dates",
     input.timeline || "No timeline entered yet.",
     "",
-    "Evidence",
+    "Evidence to gather",
     analysis.missingEvidence?.length
       ? `Missing proof: ${analysis.missingEvidence.join("; ")}`
       : input.evidence || "No evidence details entered yet.",
     "",
-    "Next actions",
+    "What to do next",
     analysis.nextBestActions?.length
       ? analysis.nextBestActions.map((item) => `- ${item}`).join("\n")
       : "- Continue organizing the case record.",
@@ -468,10 +461,14 @@ export async function analyzeSmallClaimsWithBrain(
 
   const brain = await runCourtSimplifiedBrain({
     courtPath: "small-claims",
-    province: "Ontario",
+    province: input.yourProvince === "Ontario" ? "Ontario" : "Unknown",
     stage,
     rawUserText,
-    existingMasterResult: {},
+    existingMasterResult: {
+      courtPath: "small-claims",
+      province: input.yourProvince || "Unknown",
+      city: input.yourCity || undefined,
+    },
     sourceType: "user-intake",
     allowExternalCognition: options.allowExternalCognition,
   });
@@ -504,6 +501,14 @@ export async function analyzeSmallClaimsWithBrain(
   const receivedForms = buildReceivedForms(input);
   const notNeededNow = buildNotNeededNow(input, stage);
   const requiredNextForms = buildAuthoritativeRequiredForms(input, stage);
+  const defaultStageReview = input.filedDocuments.includes("plaintiffs-claim") && input.filedDocuments.includes("affidavit-service") && !input.filedDocuments.includes("defence");
+  const defaultStageGuidance = defaultStageReview
+    ? [
+        "Service was completed and an Affidavit of Service was filed with the court.",
+        "The case needs default-stage review based on the facts entered.",
+        "Has the defendant filed a Defence?",
+      ]
+    : [];
 
   const analysis: AnalysisResult = {
     courtPath: "small-claims",
@@ -520,11 +525,13 @@ export async function analyzeSmallClaimsWithBrain(
     missingInformation: cleanList([
       ...buildContactMissingInfo(input, stage),
       ...(intelligencePatch.missingInformation || []),
+      ...(defaultStageReview ? ["Has the defendant filed a Defence?"] : []),
     ]),
 
     risksAndGaps: cleanList(intelligencePatch.risksAndGaps || []),
 
     guidance: cleanList([
+      ...defaultStageGuidance,
       ...(intelligence.nextBestActions || []),
       "Use the evidence step to connect each fact to proof before generating final documents.",
       "Verify current court filing and service requirements before filing anything.",
@@ -539,7 +546,7 @@ export async function analyzeSmallClaimsWithBrain(
     defenceAttacks: cleanList(intelligencePatch.defenceAttacks || []),
     judgeConcerns: cleanList(intelligencePatch.judgeConcerns || []),
     courtConcerns: cleanList(intelligencePatch.courtConcerns || []),
-    nextBestActions: cleanList(intelligence.nextBestActions || []),
+    nextBestActions: cleanList([...defaultStageGuidance, ...(intelligence.nextBestActions || [])]),
     userWarnings: cleanList(intelligence.systemWarnings || []),
     proceduralRisks: cleanList(intelligence.proceduralPosture.warnings || []),
     suggestedFocus: cleanList(intelligence.nextBestActions || []),

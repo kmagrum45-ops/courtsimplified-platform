@@ -786,10 +786,7 @@ function buildProceduralPosture(args: {
     args.normalizedIntake.province,
   );
 
-  const stage = asStage(
-    args.cognition?.stage,
-    args.normalizedIntake.stage,
-  );
+  const stage = args.normalizedIntake.stage;
 
   const rawText = args.normalizedIntake.rawUserText;
 
@@ -1095,24 +1092,17 @@ function buildContradictions(args: {
   const rawText = normalizeText(args.normalizedIntake.rawUserText);
   const contradictions: ContradictionFinding[] = [];
 
-  const userSeemsResponding = includesAny(rawText, [
-    "served with a claim",
-    "i was served",
-    "defendant",
-    "defence",
-    "defense",
-    "responding",
-  ]);
+  const structuredStages = Array.from(
+    rawText.matchAll(
+      /(?:stage selected|stage status|procedural stage)\s*:\s*(starting-case|responding)\b/gi,
+    ),
+    (match) => match[1].toLowerCase() as "starting-case" | "responding",
+  );
+  const hasStructuredStageConflict =
+    structuredStages.includes("starting-case") &&
+    structuredStages.includes("responding");
 
-  const userSeemsStarting = includesAny(rawText, [
-    "i want to sue",
-    "start a claim",
-    "file a claim",
-    "plaintiff",
-    "claimant",
-  ]);
-
-  if (userSeemsResponding && userSeemsStarting) {
+  if (hasStructuredStageConflict) {
     contradictions.push({
       id: createId("contradiction"),
       severity: "high",
@@ -2102,7 +2092,9 @@ async function runStructuredGptCognition(
 
     return JSON.parse(content) as GptCognitionOutput;
   } catch (error) {
-    console.error("CourtSimplified GPT cognition failed:", error);
+    console.error("CourtSimplified GPT cognition failed.", {
+      errorName: error instanceof Error ? error.name : "UnknownError",
+    });
     return null;
   }
 }

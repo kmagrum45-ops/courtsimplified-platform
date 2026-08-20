@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { runFamilyIntakeCanonicalIntegration } from "@/src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
 import type { FamilyMasterCaseInput } from "@/src/lib/case-system/familyMasterCaseEngine";
 import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
+import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
 
 export const runtime = "nodejs";
 
@@ -54,6 +55,7 @@ const allowedInputFields = new Set([
   "safetyConcerns",
   "propertyHomeDetails",
   "upcomingCourtDate",
+  "adoptionDetails",
   "financialDisclosure",
   "parentingSchedule",
   "communicationHistory",
@@ -64,6 +66,7 @@ const allowedInputFields = new Set([
   "relocationDetails",
   "existingOrders",
   "settlementHistory",
+  "adoptionDetails",
   "uploadedFiles",
 ]);
 
@@ -232,7 +235,7 @@ export async function POST(request: NextRequest) {
   try {
     const authenticated = Boolean(await getAuthenticatedUser(request));
     const allowExternalCognition =
-      authenticated && Boolean(process.env.OPENAI_API_KEY);
+      authenticated && hasConfiguredServerAi();
     const result = await runFamilyIntakeCanonicalIntegration(body.input, {
       allowExternalCognition,
     });
@@ -251,6 +254,7 @@ export async function POST(request: NextRequest) {
         allowExternalCognition && !fallbackUsed
           ? "structured-ai"
           : "deterministic-fallback",
+      analysisAvailable: allowExternalCognition && !fallbackUsed,
     });
   } catch {
     console.error("Family canonical intake analysis failed.");

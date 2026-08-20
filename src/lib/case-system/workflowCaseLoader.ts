@@ -1,5 +1,6 @@
 import { supabase } from "../supabase/client";
 import { getEvidencePackagesLocal } from "./evidenceStorage";
+export { resolveWorkflowGate, type WorkflowGate } from "./workflowGate";
 
 export type WorkflowCaseRecord = {
   id: string;
@@ -30,6 +31,7 @@ export type WorkflowCaseBundle = {
   evidencePackage: WorkflowEvidencePackage | null;
   workspaceDocument: unknown;
 };
+
 
 const DRAFT_WORKSPACE_KEY = "courtSimplifiedWorkspaceDocument:draft";
 

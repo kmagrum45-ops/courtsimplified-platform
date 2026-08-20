@@ -241,7 +241,7 @@ export default function AITestPage() {
                       void sendMessage();
                     }
                   }}
-                  placeholder="Paste or type a full case story here. Include facts, timeline, evidence, what stage you are at, and what you want to prepare."
+                  placeholder="Ask a focused question about the saved case information."
                   className="min-h-36 w-full resize-y rounded-2xl border border-slate-300 bg-white p-4 text-sm leading-6 outline-none ring-cyan-600 focus:ring-2"
                 />
 

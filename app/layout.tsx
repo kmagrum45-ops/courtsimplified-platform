@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import ScrollToTopOnNavigation from "./_components/ScrollToTopOnNavigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,6 +48,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-screen bg-[#F7FAFA] text-[#1F2937]">
+        <ScrollToTopOnNavigation />
         <div className="flex min-h-screen flex-col">
           <header className="sticky top-0 z-50 border-b border-[#D7E7E5] bg-white/95 backdrop-blur">
             <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4">

@@ -2,26 +2,25 @@ import { NextResponse } from "next/server";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { createClient } from "@supabase/supabase-js";
 
+import { getCanonicalFormLookup } from "../../../src/lib/case-system/formsSelectedCase";
+import {
+  getAuthenticatedOwnedCase,
+  getAuthenticatedUser,
+  type AuthenticatedOwnedCase,
+} from "../../../src/lib/supabase/serverAuth";
+
 type CourtPath = "family" | "small-claims" | "civil";
 
 type IncomingData = {
-  formType?: string;
-  formId?: string;
-  formPath?: string;
-  courtPath?: CourtPath;
+  canonicalFormId?: string;
+  courtType?: CourtPath;
   caseId?: string | null;
   master_result?: unknown;
-  yourName?: string;
-  otherParty?: string;
-  facts?: string;
-  timeline?: string;
-  evidence?: string;
-  goal?: string;
-  extra?: Record<string, unknown>;
   [key: string]: unknown;
 };
 
 type CleanCourtForm = {
+  canonical_form_id: string;
   court_type: CourtPath;
   form_number: string | null;
   official_title: string | null;
@@ -87,6 +86,97 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 );
+
+const MAX_GENERATE_FORM_REQUEST_BYTES = 8_000;
+const GENERATE_FORM_REQUEST_FIELDS = new Set([
+  "canonicalFormId",
+  "courtType",
+  "caseId",
+]);
+const CASE_ID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+type GenerateFormRequest = {
+  canonicalFormId: string;
+  courtType: CourtPath;
+  caseId?: string;
+};
+
+type GenerateFormAuthorization =
+  | { request: GenerateFormRequest; ownedCase: AuthenticatedOwnedCase | null }
+  | { error: string; status: number };
+
+type GenerateFormDependencies = {
+  authenticate: typeof getAuthenticatedUser;
+  loadOwnedCase: typeof getAuthenticatedOwnedCase;
+};
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value && typeof value === "object" && !Array.isArray(value));
+}
+
+function parseGenerateFormRequest(value: unknown): GenerateFormRequest | null {
+  if (
+    !isRecord(value) ||
+    Object.keys(value).some((key) => !GENERATE_FORM_REQUEST_FIELDS.has(key))
+  ) {
+    return null;
+  }
+
+  const lookup = getCanonicalFormLookup({
+    canonicalFormId: value.canonicalFormId,
+    courtType: value.courtType,
+  });
+  const rawCaseId = value.caseId;
+
+  if (
+    !lookup ||
+    (rawCaseId !== undefined &&
+      (typeof rawCaseId !== "string" || !CASE_ID_PATTERN.test(rawCaseId)))
+  ) {
+    return null;
+  }
+
+  return {
+    canonicalFormId: lookup.canonicalFormId,
+    courtType: lookup.courtType,
+    ...(typeof rawCaseId === "string" ? { caseId: rawCaseId } : {}),
+  };
+}
+
+export async function resolveGenerateFormAuthorization(
+  request: Request,
+  body: unknown,
+  dependencies: GenerateFormDependencies = {
+    authenticate: getAuthenticatedUser,
+    loadOwnedCase: getAuthenticatedOwnedCase,
+  },
+): Promise<GenerateFormAuthorization> {
+  const parsed = parseGenerateFormRequest(body);
+
+  if (!parsed) {
+    return { error: "A valid form generation request is required.", status: 400 };
+  }
+
+  if (!parsed.caseId) {
+    return { request: parsed, ownedCase: null };
+  }
+
+  const user = await dependencies.authenticate(request);
+  if (!user) {
+    return { error: "Sign in to generate a form for a saved case.", status: 401 };
+  }
+
+  const ownedCase = await dependencies.loadOwnedCase(request, user, parsed.caseId);
+  if (!ownedCase || ownedCase.court_path !== parsed.courtType) {
+    return {
+      error: "The selected case could not be used for this form.",
+      status: 404,
+    };
+  }
+
+  return { request: parsed, ownedCase };
+}
 
 const FIELD_ALIASES: Record<keyof CaseValues, string[]> = {
   plaintiffName: [
@@ -260,17 +350,13 @@ function cleanText(value: unknown) {
     .trim();
 }
 
-function normalizeFormNumber(value: string) {
-  return normalize(value.replace(/^form\s*/i, ""));
-}
-
 function extractFormNumber(label: string) {
   const cleaned = String(label || "").replace(/[–—]/g, "-");
   const match = cleaned.match(
     /\b(?:form\s*)?([0-9]+[a-z]?(?:\.[0-9]+)?[a-z]?)\b/i,
   );
 
-  return match ? normalizeFormNumber(match[1]) : "";
+  return match ? normalize(match[1].replace(/^form\s*/i, "")) : "";
 }
 
 function titleCaseFromSlug(value: string) {
@@ -443,74 +529,36 @@ function arrayText(source: unknown, keys: string[]) {
   return found.filter(Boolean).slice(0, 8).join("; ");
 }
 
-async function findFormFromCleanView(data: IncomingData) {
-  const requestedLabel = safe(data.formType || data.formId);
-  const requestedPath = safe(data.formPath);
-
-  let query = supabase
-    .from("court_form_clean_view")
-    .select(
-      "court_type, form_number, official_title, pdf_path, word_path, form_group, procedure_stage, purpose",
-    );
-
-  if (data.courtPath) {
-    query = query.eq("court_type", data.courtPath);
-  }
-
-  const { data: forms, error } = await query;
-
-  if (error) {
-    throw new Error(`Could not read court_form_clean_view: ${error.message}`);
-  }
-
-  const cleanForms = (forms || []) as CleanCourtForm[];
-
-  if (requestedPath) {
-    const pathMatch = cleanForms.find(
-      (form) => form.pdf_path === requestedPath || form.word_path === requestedPath,
-    );
-
-    if (pathMatch) return pathMatch;
-  }
-
-  if (!requestedLabel) return null;
-
-  const wantedText = normalize(requestedLabel);
-  const wantedNumber = extractFormNumber(requestedLabel);
-
-  if (wantedNumber) {
-    const exactNumberMatch = cleanForms.find((form) =>
-      isExactFormNumberMatch(form, wantedNumber),
-    );
-
-    if (exactNumberMatch) return exactNumberMatch;
-  }
-
-  const exactTitleMatch = cleanForms.find((form) => {
-    const title = normalize(displayFormTitle(form));
-    const number = normalize(displayFormNumber(form));
-    const combined = normalize(
-      `${displayFormNumber(form)} ${displayFormTitle(form)}`,
-    );
-
-    return title === wantedText || number === wantedText || combined === wantedText;
+async function findFormFromCleanView(data: GenerateFormRequest) {
+  const lookup = getCanonicalFormLookup({
+    canonicalFormId: data.canonicalFormId,
+    courtType: data.courtType,
   });
 
-  if (exactTitleMatch) return exactTitleMatch;
+  if (!lookup) return null;
 
-  return (
-    cleanForms.find((form) => {
-      const combined = formSearchText(form);
+  const { data: form, error } = await supabase
+    .from("court_form_clean_view")
+    .select(
+      "canonical_form_id, court_type, form_number, official_title, pdf_path, word_path, form_group, procedure_stage, purpose",
+    )
+    .eq("canonical_form_id", lookup.canonicalFormId)
+    .eq("court_type", lookup.courtType)
+    .maybeSingle();
 
-      if (!wantedText) return false;
+  if (error) {
+    throw new Error("Could not resolve the requested catalog form.");
+  }
 
-      return combined.includes(wantedText) || wantedText.includes(combined);
-    }) || null
-  );
+  return (form as CleanCourtForm | null) || null;
 }
 
-function getCaseValues(data: IncomingData, extra: Record<string, unknown>): CaseValues {
-  const masterResult = data.master_result || extra.master_result || {};
+function getCaseValues(masterResult: unknown, courtType: CourtPath): CaseValues {
+  const data: IncomingData = { courtType, master_result: masterResult || {} };
+  const extra =
+    masterResult && typeof masterResult === "object"
+      ? (masterResult as Record<string, unknown>)
+      : {};
   const allSources = {
     ...extra,
     ...data,
@@ -670,7 +718,7 @@ function getCaseValues(data: IncomingData, extra: Record<string, unknown>): Case
         deepPick(allSources, ["proceduralStage", "currentStage", "stage"]),
     ),
     caseType: safe(
-      data.courtPath ||
+      data.courtType ||
         extra.courtPath ||
         deepPick(allSources, ["courtPath", "casePath", "path", "caseType"]),
     ),
@@ -990,6 +1038,17 @@ async function applyOverlayFields(
   };
 }
 
+function supportsTextFilling(field: unknown): field is {
+  setText(value: string): void;
+} {
+  return (
+    Boolean(field) &&
+    typeof field === "object" &&
+    "setText" in field &&
+    typeof (field as { setText?: unknown }).setText === "function"
+  );
+}
+
 async function fillAcroFieldsOnly(pdfDoc: PDFDocument, values: CaseValues) {
   const form = pdfDoc.getForm();
   const fields = form.getFields();
@@ -1014,8 +1073,8 @@ async function fillAcroFieldsOnly(pdfDoc: PDFDocument, values: CaseValues) {
     }
 
     try {
-      if ("setText" in field && typeof (field as any).setText === "function") {
-        (field as any).setText(valueMatch.value);
+      if (supportsTextFilling(field)) {
+        field.setText(valueMatch.value);
         filledCount++;
 
         diagnostics.push({
@@ -1115,29 +1174,50 @@ function buildFailureMessage(
 
 export async function POST(req: Request) {
   try {
-    const data = (await req.json()) as IncomingData;
-    const extra =
-      data.extra && typeof data.extra === "object"
-        ? (data.extra as Record<string, unknown>)
-        : {};
-
-    if (!data.formType && !data.formId && !data.formPath) {
+    const contentLength = Number(req.headers.get("content-length") || 0);
+    if (
+      Number.isFinite(contentLength) &&
+      contentLength > MAX_GENERATE_FORM_REQUEST_BYTES
+    ) {
       return NextResponse.json(
-        {
-          error: "Form type, form ID, or form path missing.",
-        },
+        { error: "The form generation request is too large." },
+        { status: 413 },
+      );
+    }
+
+    let body: unknown;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json(
+        { error: "A valid form generation request is required." },
         { status: 400 },
       );
     }
+
+    if (JSON.stringify(body).length > MAX_GENERATE_FORM_REQUEST_BYTES) {
+      return NextResponse.json(
+        { error: "The form generation request is too large." },
+        { status: 413 },
+      );
+    }
+
+    const authorization = await resolveGenerateFormAuthorization(req, body);
+    if ("error" in authorization) {
+      return NextResponse.json(
+        { error: authorization.error },
+        { status: authorization.status },
+      );
+    }
+
+    const { request: data, ownedCase } = authorization;
 
     const form = await findFormFromCleanView(data);
 
     if (!form) {
       return NextResponse.json(
         {
-          error: `Form not found in court_form_clean_view: ${
-            data.formType || data.formId || data.formPath
-          }`,
+          error: "The requested form could not be resolved.",
         },
         { status: 404 },
       );
@@ -1200,7 +1280,7 @@ export async function POST(req: Request) {
     }
 
     const inspection = inspectPdf(pdfDoc);
-    const values = getCaseValues(data, extra);
+    const values = getCaseValues(ownedCase?.master_result || {}, data.courtType);
     const missingCoreValues = summarizeMissingValues(values);
     const overlayFields = await loadOverlayFields(pdfPath);
 
@@ -1274,7 +1354,9 @@ export async function POST(req: Request) {
       headers: {
         "Content-Type": "application/pdf",
         "Content-Disposition": `attachment; filename="${cleanFileName}.pdf"`,
-        "X-CourtSimplified-Case-Id": safe(data.caseId || ""),
+        ...(ownedCase
+          ? { "X-CourtSimplified-Case-Id": ownedCase.id }
+          : {}),
         "X-CourtSimplified-Source-View": "court_form_clean_view",
         "X-CourtSimplified-Strategy": inspection.strategy,
         "X-CourtSimplified-Acro-Filled-Fields": String(acroFilledCount),

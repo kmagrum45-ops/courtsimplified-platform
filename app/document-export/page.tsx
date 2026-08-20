@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import {
   loadDraftWorkflowBundle,
   loadWorkflowCaseBundle,
+  resolveWorkflowGate,
 } from "../../src/lib/case-system/workflowCaseLoader";
 
 type ExportDocument = {
@@ -193,22 +194,20 @@ function DocumentExportPageContent() {
     };
   }, [caseId]);
 
-  const workspaceHref = caseId ? `/dashboard/cases/${caseId}` : "/dashboard";
-  const evidenceHref = buildWorkflowHref("/evidence", caseId, path);
-  const formsHref = buildWorkflowHref("/forms", caseId, path);
-  const strategyHref = buildWorkflowHref("/litigation-strategy", caseId, path);
-  const documentWorkspaceHref = buildWorkflowHref(
-    "/document-workspace",
-    caseId,
-    path,
-  );
-  const courtPackageHref = buildWorkflowHref("/court-package", caseId, path);
-  const trialPackageHref = buildWorkflowHref("/trial-package", caseId, path);
-  const settlementHref = buildWorkflowHref(
-    "/settlement-conference",
-    caseId,
-    path,
-  );
+  const workflowRoutes = useMemo(() => ({
+    workspace: caseId ? `/dashboard/cases/${caseId}` : "/dashboard",
+    evidence: buildWorkflowHref("/evidence", caseId, path),
+    forms: buildWorkflowHref("/forms", caseId, path),
+    strategy: buildWorkflowHref("/litigation-strategy", caseId, path),
+    workspaceDocument: buildWorkflowHref("/document-workspace", caseId, path),
+    courtPackage: buildWorkflowHref("/court-package", caseId, path),
+    trialPackage: buildWorkflowHref("/trial-package", caseId, path),
+    settlement: buildWorkflowHref("/settlement-conference", caseId, path),
+  }), [caseId, path]);
+  const workflowGate = resolveWorkflowGate({
+    caseData: caseData as Record<string, unknown> | null,
+    evidencePackage,
+  });
 
   const confirmedExhibits = useMemo(() => {
     return (evidencePackage?.exhibits || []).filter((item) => item.confirmed)
@@ -224,7 +223,7 @@ function DocumentExportPageContent() {
         reason: caseData?.analysis?.summary
           ? "Case summary exists."
           : "No generated case summary found.",
-        route: documentWorkspaceHref,
+        route: workflowRoutes.workspaceDocument,
       },
       {
         title: "Evidence Package",
@@ -233,7 +232,7 @@ function DocumentExportPageContent() {
         reason: evidencePackage
           ? "Evidence package is connected."
           : "No evidence package found.",
-        route: evidenceHref,
+        route: workflowRoutes.evidence,
       },
       {
         title: "Confirmed Exhibits",
@@ -246,7 +245,7 @@ function DocumentExportPageContent() {
           confirmedExhibits === evidencePackage.exhibitCount
             ? "All exhibits are confirmed."
             : "Some exhibits still need review or confirmation.",
-        route: evidenceHref,
+        route: workflowRoutes.evidence,
       },
       {
         title: "Chronology",
@@ -255,7 +254,7 @@ function DocumentExportPageContent() {
         reason: caseData?.timeline
           ? "Timeline content exists."
           : "No timeline found in the saved case data.",
-        route: trialPackageHref,
+        route: workflowRoutes.trialPackage,
       },
       {
         title: "Litigation Strategy",
@@ -264,7 +263,7 @@ function DocumentExportPageContent() {
         reason: caseData?.analysis?.caseStrategy?.length
           ? "Strategy points are recorded."
           : "No strategy points found.",
-        route: strategyHref,
+        route: workflowRoutes.strategy,
       },
       {
         title: "Issue-Proof Analysis",
@@ -273,7 +272,7 @@ function DocumentExportPageContent() {
         reason: caseData?.analysis?.detectedIssues?.length
           ? "Issues are identified."
           : "No issue-proof analysis found.",
-        route: strategyHref,
+        route: workflowRoutes.strategy,
       },
       {
         title: "Trial Preparation Package",
@@ -282,7 +281,7 @@ function DocumentExportPageContent() {
         reason: evidencePackage?.exhibitCount
           ? "Trial package has exhibit material."
           : "Trial package needs evidence material.",
-        route: trialPackageHref,
+        route: workflowRoutes.trialPackage,
       },
       {
         title: "Court Filing Package",
@@ -291,18 +290,14 @@ function DocumentExportPageContent() {
         reason: caseData
           ? "Case data exists for package assembly."
           : "No saved case data found.",
-        route: courtPackageHref,
+        route: workflowRoutes.courtPackage,
       },
     ];
   }, [
     caseData,
     evidencePackage,
     confirmedExhibits,
-    documentWorkspaceHref,
-    evidenceHref,
-    strategyHref,
-    trialPackageHref,
-    courtPackageHref,
+    workflowRoutes,
   ]);
 
   const readyCount = exportDocuments.filter((item) => item.ready).length;
@@ -363,6 +358,21 @@ function DocumentExportPageContent() {
     } finally {
       setIsExporting(false);
     }
+  }
+
+  if (!loadingContext && !workflowGate.ready) {
+    const nextHref = workflowGate.nextActionRoute
+      ? buildWorkflowHref(workflowGate.nextActionRoute, caseId, path)
+      : workflowRoutes.workspace;
+    return (
+      <main className="min-h-screen bg-[#f6faf8] p-6 text-[#16302b]">
+        <section className="mx-auto max-w-3xl rounded-3xl border border-amber-200 bg-amber-50 p-6 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-wide text-amber-800">Export is not ready yet</p>
+          <p className="mt-3 text-[#4d675f]">{workflowGate.unavailable ? "The selected case is unavailable. No other case or draft was substituted." : "Complete the next workflow step before exporting case materials."}</p>
+          <a className="mt-5 inline-block rounded-xl bg-[#16302b] px-4 py-2 font-semibold text-white" href={nextHref}>{workflowGate.nextActionLabel || "Return to case workspace"}</a>
+        </section>
+      </main>
+    );
   }
 
   return (
@@ -446,49 +456,49 @@ function DocumentExportPageContent() {
 
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
-              href={workspaceHref}
+              href={workflowRoutes.workspace}
               className="rounded-full border border-[#2f7d67] bg-white px-5 py-2 text-sm font-semibold text-[#2f7d67]"
             >
               Case Workspace
             </Link>
 
             <Link
-              href={evidenceHref}
+              href={workflowRoutes.evidence}
               className="rounded-full border border-[#d8e6df] bg-[#f8fcfa] px-5 py-2 text-sm font-semibold text-[#24463d]"
             >
               Evidence
             </Link>
 
             <Link
-              href={formsHref}
+              href={workflowRoutes.forms}
               className="rounded-full border border-[#d8e6df] bg-[#f8fcfa] px-5 py-2 text-sm font-semibold text-[#24463d]"
             >
               Forms
             </Link>
 
             <Link
-              href={strategyHref}
+              href={workflowRoutes.strategy}
               className="rounded-full border border-[#d8e6df] bg-[#f8fcfa] px-5 py-2 text-sm font-semibold text-[#24463d]"
             >
               Strategy
             </Link>
 
             <Link
-              href={documentWorkspaceHref}
+              href={workflowRoutes.workspaceDocument}
               className="rounded-full border border-[#d8e6df] bg-[#f8fcfa] px-5 py-2 text-sm font-semibold text-[#24463d]"
             >
               Document Workspace
             </Link>
 
             <Link
-              href={courtPackageHref}
+              href={workflowRoutes.courtPackage}
               className="rounded-full border border-[#d8e6df] bg-[#f8fcfa] px-5 py-2 text-sm font-semibold text-[#24463d]"
             >
               Court Package
             </Link>
 
             <Link
-              href={trialPackageHref}
+              href={workflowRoutes.trialPackage}
               className="rounded-full border border-[#d8e6df] bg-[#f8fcfa] px-5 py-2 text-sm font-semibold text-[#24463d]"
             >
               Trial Package
@@ -608,21 +618,21 @@ function DocumentExportPageContent() {
 
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
-              href={courtPackageHref}
+              href={workflowRoutes.courtPackage}
               className="rounded-full border border-[#d8e6df] bg-white px-6 py-3 text-sm font-semibold text-[#24463d]"
             >
               Review Court Package
             </Link>
 
             <Link
-              href={trialPackageHref}
+              href={workflowRoutes.trialPackage}
               className="rounded-full border border-[#d8e6df] bg-white px-6 py-3 text-sm font-semibold text-[#24463d]"
             >
               Review Trial Package
             </Link>
 
             <Link
-              href={settlementHref}
+              href={workflowRoutes.settlement}
               className="rounded-full border border-[#d8e6df] bg-white px-6 py-3 text-sm font-semibold text-[#24463d]"
             >
               Review Settlement Package

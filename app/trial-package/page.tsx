@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import {
   loadDraftWorkflowBundle,
   loadWorkflowCaseBundle,
+  resolveWorkflowGate,
 } from "../../src/lib/case-system/workflowCaseLoader";
 
 type EvidencePackage = {
@@ -260,6 +261,25 @@ function TrialPackagePageContent() {
   );
   const courtPackageHref = buildWorkflowHref("/court-package", caseId, path);
   const exportHref = buildWorkflowHref("/document-export", caseId, path);
+  const workflowGate = resolveWorkflowGate({
+    caseData: caseData as Record<string, unknown> | null,
+    evidencePackage,
+  });
+
+  if (!loadingContext && !workflowGate.ready) {
+    const nextHref = workflowGate.nextActionRoute
+      ? buildWorkflowHref(workflowGate.nextActionRoute, caseId, path)
+      : workspaceHref;
+    return (
+      <main className="min-h-screen bg-[#f6faf8] p-6 text-[#16302b]">
+        <section className="mx-auto max-w-3xl rounded-3xl border border-amber-200 bg-amber-50 p-6 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-wide text-amber-800">Trial Preparation is not ready yet</p>
+          <p className="mt-3 text-[#4d675f]">{workflowGate.unavailable ? "The selected case is unavailable. No other case or draft was substituted." : "Complete the next workflow step before using trial-preparation materials."}</p>
+          <a className="mt-5 inline-block rounded-xl bg-[#16302b] px-4 py-2 font-semibold text-white" href={nextHref}>{workflowGate.nextActionLabel || "Return to case workspace"}</a>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-[#f6faf8] p-6 text-[#16302b]">

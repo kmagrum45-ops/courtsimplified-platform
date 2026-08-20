@@ -2,9 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 import {
   analyzeSmallClaimsWithBrain,
+  type SmallClaimsIntelligenceOutput,
   type SmallClaimsIntelligenceInput,
 } from "@/src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
+import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
 
 export const runtime = "nodejs";
 
@@ -166,7 +168,7 @@ function isEvidenceFile(value: unknown): boolean {
   );
 }
 
-function isSmallClaimsInput(
+export function isSmallClaimsInput(
   value: unknown,
 ): value is SmallClaimsIntelligenceInput {
   if (!isRecord(value)) return false;
@@ -210,7 +212,23 @@ function errorResponse(error: string, status: number) {
   return NextResponse.json({ ok: false, error }, { status });
 }
 
-export async function POST(request: NextRequest) {
+type SmallClaimsRouteDependencies = {
+  authenticate: typeof getAuthenticatedUser;
+  analyze: typeof analyzeSmallClaimsWithBrain;
+  hasExternalAiKey: () => boolean;
+};
+
+export function createSmallClaimsAnalyzePost(
+  overrides: Partial<SmallClaimsRouteDependencies> = {},
+) {
+  const dependencies: SmallClaimsRouteDependencies = {
+    authenticate: getAuthenticatedUser,
+    analyze: analyzeSmallClaimsWithBrain,
+    hasExternalAiKey: hasConfiguredServerAi,
+    ...overrides,
+  };
+
+  return async function smallClaimsAnalyzePost(request: NextRequest) {
   const contentLength = Number(request.headers.get("content-length") || 0);
 
   if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) {
@@ -241,26 +259,25 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const authenticated = Boolean(await getAuthenticatedUser(request));
+    const authenticated = Boolean(await dependencies.authenticate(request));
     const allowExternalCognition =
-      authenticated && Boolean(process.env.OPENAI_API_KEY);
+      authenticated && dependencies.hasExternalAiKey();
 
-    const result = await analyzeSmallClaimsWithBrain(body.input, {
+    const internalResult = await dependencies.analyze(body.input, {
       allowExternalCognition,
     });
 
-    const fallbackUsed = (result.analysis.intelligenceWarnings || []).some(
+    const fallbackUsed = (internalResult.analysis.intelligenceWarnings || []).some(
       (warning) =>
         warning.toLowerCase().includes("structured gpt cognition was unavailable"),
     );
 
+    const result = internalResult;
+
     return NextResponse.json({
       ok: true,
       result,
-      reasoningMode:
-        allowExternalCognition && !fallbackUsed
-          ? "structured-ai"
-          : "deterministic-fallback",
+      analysisAvailable: allowExternalCognition && !fallbackUsed,
       authenticated,
     });
   } catch {
@@ -270,4 +287,7 @@ export async function POST(request: NextRequest) {
       500,
     );
   }
+  };
 }
+
+export const POST = createSmallClaimsAnalyzePost();

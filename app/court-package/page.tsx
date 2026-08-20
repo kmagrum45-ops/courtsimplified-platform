@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import {
@@ -14,6 +14,7 @@ import {
   type CourtPackageAssemblyResult,
   type CourtPackageType,
 } from "../../src/lib/case-system/courtPackageAssemblyEngine";
+import { resolveWorkflowGate } from "../../src/lib/case-system/workflowCaseLoader";
 
 type PackageModeOption = {
   value: CourtPackageType;
@@ -196,12 +197,8 @@ function CourtPackagePageContent() {
   const caseId = searchParams.get("caseId") || "";
   const path = searchParams.get("path") || "unknown";
 
-  const [context, setContext] = useState<CaseContext | null>(null);
+  const [context] = useState<CaseContext | null>(() => getActiveCaseContextLocal());
   const [packageType, setPackageType] = useState<CourtPackageType>("general");
-
-  useEffect(() => {
-    setContext(getActiveCaseContextLocal());
-  }, []);
 
   const courtPackage: CourtPackageAssemblyResult | null = useMemo(() => {
     if (!context) return null;
@@ -236,6 +233,28 @@ function CourtPackagePageContent() {
         evidenceHref={evidenceHref}
         formsHref={formsHref}
       />
+    );
+  }
+
+  const workflowGate = resolveWorkflowGate({
+    caseData: {
+      facts: context.summary || context.facts.join(" "),
+      analysis: { summary: context.summary, caseStrategy: context.strategyNotes },
+    },
+    evidencePackage: context.evidenceItems.length
+      ? { createdAt: "", exhibitCount: context.evidenceItems.length, exhibits: [], evidenceReview: {} }
+      : null,
+  });
+  if (!workflowGate.ready) {
+    const nextHref = buildWorkflowHref(workflowGate.nextActionRoute || "/builder", caseId || context.caseId, path !== "unknown" ? path : context.casePath);
+    return (
+      <main className="min-h-screen bg-[#f8faf8] p-6 text-[#16302b]">
+        <section className="mx-auto max-w-3xl rounded-3xl border border-amber-200 bg-amber-50 p-6 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-wide text-amber-800">Court Package is not ready yet</p>
+          <p className="mt-3 text-[#4d675f]">Complete the next workflow step before assembling a court package.</p>
+          <Link className="mt-5 inline-block rounded-xl bg-[#16302b] px-4 py-2 font-semibold text-white" href={nextHref}>{workflowGate.nextActionLabel || "Complete case details"}</Link>
+        </section>
+      </main>
     );
   }
 

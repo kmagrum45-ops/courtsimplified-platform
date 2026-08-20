@@ -130,7 +130,7 @@ export function runAiCasePartnerGateway(
       diagnosticId,
       durationMs: Date.now() - startedAt,
       inputMetrics,
-      error,
+      errorName: error instanceof Error ? error.name : "UnknownError",
     });
 
     throw buildGatewayError({

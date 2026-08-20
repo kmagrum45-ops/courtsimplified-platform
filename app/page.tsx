@@ -1,4 +1,6 @@
 import Link from "next/link";
+import HomeLocationGate from "./_components/HomeLocationGate";
+import NotSureCourtGuide from "./_components/NotSureCourtGuide";
 
 const casePaths = [
   {
@@ -53,7 +55,7 @@ const platformFeatures = [
   },
   {
     title: "Smart Forms System",
-    text: "Search official forms, generate filled PDFs, organize supporting documents, and prepare filing packages.",
+    text: "Find official forms, show verified source information when available, organize supporting documents, and prepare materials for review.",
   },
   {
     title: "Drafting & Case Preparation",
@@ -141,22 +143,6 @@ export default function HomePage() {
               self-represented litigants.
             </p>
 
-            <div className="mt-9 flex flex-wrap gap-4">
-              <Link
-                href="/builder"
-                className="rounded-2xl bg-[#2FB8AC] px-7 py-4 font-semibold text-white shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:bg-[#239B91]"
-              >
-                Start Your Case
-              </Link>
-
-              <Link
-                href="/dashboard"
-                className="rounded-2xl border border-white/55 bg-black/15 px-7 py-4 font-semibold text-white backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-white hover:bg-white/10"
-              >
-                Open Workspace
-              </Link>
-            </div>
-
             <div className="mt-9 flex flex-wrap gap-x-8 gap-y-3 text-sm font-medium text-[#b8d7d2]">
               <span>Built for self-represented litigants</span>
               <span>Affordable case-based access</span>
@@ -194,24 +180,11 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="rounded-3xl border border-[#cfe2db] bg-[#f3faf7] p-7 shadow-sm">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#2f7d67]">
-              A different pricing approach
-            </p>
-
-            <h3 className="mt-3 text-2xl font-bold text-[#10231f]">
-              Pay for your case, not an endless subscription.
-            </h3>
-
-            <p className="mt-4 leading-8 text-[#557168]">
-              Court matters can continue for months or years. CourtSimplified is
-              being designed around affordable case-based access so people are
-              not required to keep paying a monthly fee simply because their
-              matter is still before the court.
-            </p>
-          </div>
         </div>
       </section>
+
+      <HomeLocationGate />
+      <NotSureCourtGuide />
 
       {/* COURT PATHS */}
       <section className="mx-auto max-w-7xl px-6 py-14">
@@ -228,10 +201,9 @@ export default function HomePage() {
 
         <div className="grid gap-6 lg:grid-cols-3">
           {casePaths.map((item) => (
-            <Link
+            <div
               key={item.title}
-              href={item.href}
-              className="group overflow-hidden rounded-3xl border border-[#d8e6df] bg-white shadow-sm transition hover:-translate-y-1 hover:border-[#2FB8AC] hover:shadow-md"
+              className="overflow-hidden rounded-3xl border border-[#d8e6df] bg-white shadow-sm"
             >
               <img
                 src={item.image}
@@ -259,11 +231,14 @@ export default function HomePage() {
                   ))}
                 </ul>
 
-                <div className="mt-6 inline-flex items-center text-sm font-semibold text-[#2f7d67]">
-                  Open {item.title} →
-                </div>
+                <Link
+                  href={`/builder?path=${item.href.slice(1)}`}
+                  className="mt-6 inline-flex rounded-xl bg-[#2f7d67] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#276a57]"
+                >
+                  Start case
+                </Link>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </section>

@@ -27,12 +27,14 @@ export type AiCasePartnerOrchestratorVersion = "1.5.0";
 export type AiCasePartnerCourtContextInput = {
   courtPath?: string;
   jurisdiction?: string;
+  city?: string;
   stage?: string;
 };
 
 export type AiCasePartnerResolvedCourtContext = {
   courtPath: CaseCourtPath;
   jurisdiction: CaseProvince | "Canada";
+  city?: string;
   stage: CaseStage;
 };
 
@@ -177,7 +179,7 @@ function runDiagnosticStage<T>(args: {
       diagnosticId: args.diagnosticId,
       stage: args.stage,
       durationMs: Date.now() - startedAt,
-      error,
+      errorName: error instanceof Error ? error.name : "UnknownError",
     });
 
     throw buildStageError({
@@ -426,6 +428,11 @@ function resolveStructuredCourtContext(
       ]),
       getNestedValue(memory, ["jurisdiction"]),
     ]),
+    city:
+      clean(input.courtContext?.city) ||
+      clean(getNestedValue(memory, ["caseData", "intake", "extra", "yourCity"])) ||
+      clean(getNestedValue(memory, ["caseData", "intake", "yourCity"])) ||
+      undefined,
     stage: firstCaseStage([
       input.courtContext?.stage,
       getNestedValue(memory, ["masterResult", "masterCase", "stage"]),
@@ -468,6 +475,7 @@ function resolveFinalCourtContext(args: {
       args.intelligence.conversationFocus.jurisdiction,
       getNestedValue(args.input.caseMemory, ["jurisdiction"]),
     ]),
+    city: args.structured.city,
     stage: firstCaseStage([
       args.structured.stage,
       args.intelligence.conversationFocus.proceduralStage,
@@ -1131,7 +1139,7 @@ function buildAnswer(args: {
     legalReasoning: args.legalReasoning,
     investigation: args.investigation,
     previousAssistantText,
-  });
+  }) || "I recorded that update. What happened next, and what document or message supports it?";
 }
 
 export function runAiCasePartnerOrchestrator(

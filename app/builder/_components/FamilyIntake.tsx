@@ -11,6 +11,12 @@ import {
 import type { FamilyMasterCaseInput } from "@/src/lib/case-system/familyMasterCaseEngine";
 import type { FamilyCanonicalIntakeResult } from "@/src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
 import { supabase } from "@/src/lib/supabase/client";
+import {
+  consumeNarrativePrefill,
+  directPrefillValues,
+  type NarrativePrefillFact,
+  type NarrativePrefill,
+} from "@/src/lib/case-system/intelligence/narrativePrefill";
 
 type FiledDocument =
   | "application"
@@ -34,6 +40,7 @@ type FamilyIssue =
   | "relocation"
   | "disclosure"
   | "enforcement"
+  | "adoption"
   | "other";
 
 type EvidenceFile = {
@@ -52,6 +59,8 @@ type EvidenceFile = {
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
+  location: { province: "Ontario"; city: string };
+  initialStory: string;
 };
 
 type TextareaField = {
@@ -84,6 +93,7 @@ const issueOptions: { value: FamilyIssue; label: string }[] = [
   { value: "relocation", label: "Relocation / moving with child" },
   { value: "disclosure", label: "Disclosure problems" },
   { value: "enforcement", label: "Enforcement / arrears" },
+  { value: "adoption", label: "Adoption — step-parent, relative, or adult adoption" },
   { value: "other", label: "Other family issue" },
 ];
 
@@ -182,31 +192,51 @@ function buildCompactFamilyPayload(
   };
 }
 
-export default function FamilyIntake({ onComplete }: Props) {
-  const [caseStage, setCaseStage] = useState<UniversalStage>("not-sure");
-  const [filedDocuments, setFiledDocuments] = useState<FiledDocument[]>([]);
+export default function FamilyIntake({ onComplete, location, initialStory }: Props) {
+  const [editingStory, setEditingStory] = useState(false);
+  const [initialPrefill] = useState<NarrativePrefill | null>(() =>
+    consumeNarrativePrefill({
+      courtPath: "family",
+      caseId: new URLSearchParams(window.location.search).get("caseId"),
+    }),
+  );
+  const initialValues = initialPrefill
+    ? directPrefillValues(initialPrefill)
+    : {};
+  const [caseStage, setCaseStage] = useState<UniversalStage>(
+    () => initialValues.caseStage ? initialValues.caseStage as UniversalStage : "not-sure",
+  );
+  const [filedDocuments, setFiledDocuments] = useState<FiledDocument[]>(
+    () => Array.isArray(initialValues.documentStatus) ? ["application"] : [],
+  );
   const [issues, setIssues] = useState<FamilyIssue[]>([]);
 
-  const [yourName, setYourName] = useState("");
-  const [otherParty, setOtherParty] = useState("");
+  const [yourName, setYourName] = useState(() => String(initialValues.yourName || ""));
+  const province = location.province;
+  const city = location.city;
+  const [otherParty, setOtherParty] = useState(() => String(initialValues.otherParty || ""));
   const [childrenInfo, setChildrenInfo] = useState("");
   const [currentLivingSituation, setCurrentLivingSituation] = useState("");
   const [pastLivingHistory, setPastLivingHistory] = useState("");
-  const [facts, setFacts] = useState("");
-  const [timeline, setTimeline] = useState("");
-  const [evidence, setEvidence] = useState("");
+  const [facts, setFacts] = useState(() => String(initialValues.facts || initialStory || ""));
+  const [timeline, setTimeline] = useState(() => String(initialValues.timeline || initialValues.enforcementDetails || ""));
+  const [evidence, setEvidence] = useState(() => String(initialValues.evidence || ""));
   const [missingEvidence, setMissingEvidence] = useState("");
-  const [goal, setGoal] = useState("");
-  const [urgent, setUrgent] = useState("");
+  const [goal, setGoal] = useState(() => String(initialValues.goal || ""));
+  const [urgent, setUrgent] = useState(() => String(initialValues.urgent || ""));
   const [safetyConcerns, setSafetyConcerns] = useState("");
-  const [propertyHomeDetails, setPropertyHomeDetails] = useState("");
+  const [propertyHomeDetails, setPropertyHomeDetails] = useState(() => String(initialValues.addressDetails || initialValues.existingOrderDetails || ""));
   const [upcomingCourtDate, setUpcomingCourtDate] = useState("");
+  const [adoptionDetails, setAdoptionDetails] = useState("");
 
   const [uploadedEvidenceFiles, setUploadedEvidenceFiles] =
     useState<EvidenceFile[]>([]);
   const [storageWarning, setStorageWarning] = useState("");
   const [analysisError, setAnalysisError] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [extractedFacts] = useState<NarrativePrefillFact[]>(
+    () => initialPrefill?.facts.filter((fact) => fact.state === "direct") || [],
+  );
   const submissionInFlight = useRef(false);
 
   const textareaFields: TextareaField[] = useMemo(
@@ -231,13 +261,6 @@ export default function FamilyIntake({ onComplete }: Props) {
         setter: setPastLivingHistory,
         placeholder:
           "Who handled school, medical appointments, routines, meals, homework, activities, appointments, finances, and caregiving over time.",
-      },
-      {
-        label: "Full family-law story",
-        value: facts,
-        setter: setFacts,
-        placeholder:
-          "Explain what happened in your own words. Include separation, conflict, missed parenting time, support, property, safety, disclosure, agreements, and what changed.",
       },
       {
         label: "Timeline",
@@ -372,7 +395,7 @@ export default function FamilyIntake({ onComplete }: Props) {
       pastLivingHistory
         ? `Past caregiving and living history: ${pastLivingHistory}`
         : "",
-      facts ? `Full family-law story: ${facts}` : "",
+      facts ? `Case story: ${facts}` : "",
       timeline ? `Timeline: ${timeline}` : "",
       evidence ? `Known evidence: ${evidence}` : "",
       missingEvidence ? `Evidence still missing: ${missingEvidence}` : "",
@@ -383,6 +406,7 @@ export default function FamilyIntake({ onComplete }: Props) {
         ? `Property, home, support, or financial disclosure details: ${propertyHomeDetails}`
         : "",
       upcomingCourtDate ? `Upcoming court date or deadline: ${upcomingCourtDate}` : "",
+      adoptionDetails ? `Adoption details: ${adoptionDetails}` : "",
       uploadedEvidenceFiles.length
         ? `Uploaded evidence metadata: ${uploadedEvidenceFiles
             .map((file) =>
@@ -446,6 +470,10 @@ export default function FamilyIntake({ onComplete }: Props) {
 
   async function handleAnalyze() {
     if (submissionInFlight.current) return;
+    if (!facts.trim()) {
+      setAnalysisError("Add a short description of what happened before continuing the core intake.");
+      return;
+    }
     submissionInFlight.current = true;
     setStorageWarning("");
     setAnalysisError("");
@@ -471,6 +499,7 @@ export default function FamilyIntake({ onComplete }: Props) {
         safetyConcerns,
         propertyHomeDetails,
         upcomingCourtDate,
+        adoptionDetails,
         uploadedFiles: uploadedEvidenceFiles.map((file) => ({
           id: file.id,
           fileName: file.name,
@@ -500,6 +529,9 @@ export default function FamilyIntake({ onComplete }: Props) {
       const body = (await response.json()) as {
         ok?: boolean;
         result?: FamilyCanonicalIntakeResult;
+        authenticated?: boolean;
+        reasoningMode?: "structured-ai" | "deterministic-fallback";
+        analysisAvailable?: boolean;
         error?: string;
       };
 
@@ -531,6 +563,12 @@ export default function FamilyIntake({ onComplete }: Props) {
         architectureMode: "family-canonical-integration",
         sourceOfTruth: "MasterCaseSchema",
         specializedSource: "familyMasterCaseEngine",
+        analysisExecution: {
+          reasoningMode: body.reasoningMode,
+          analysisAvailable: body.analysisAvailable === true,
+          authenticated: body.authenticated === true,
+          completedAt: new Date().toISOString(),
+        },
         filedDocuments,
         filedDocumentLabels: filedDocuments.map(labelForFiledDocument),
         issues,
@@ -541,29 +579,12 @@ export default function FamilyIntake({ onComplete }: Props) {
         safetyConcerns,
         propertyHomeDetails,
         upcomingCourtDate,
+        adoptionDetails,
         uploadedEvidenceFiles,
+        province,
+        city,
       },
     };
-
-    /*
-     * Keep the complete Family payload in application state through
-     * onComplete(). Save only a compact temporary snapshot in localStorage.
-     * Large evidence metadata and analysis objects must not be duplicated
-     * into browser localStorage.
-     */
-      const compactPayload = buildCompactFamilyPayload(payload);
-
-      const savedCaseData = safelyStoreJson("caseData", compactPayload);
-      const savedCourtSimplifiedCase = safelyStoreJson(
-      "courtSimplifiedCase",
-      compactPayload,
-    );
-
-      if (!savedCaseData || !savedCourtSimplifiedCase) {
-        setStorageWarning(
-        "The Family intake was completed, but this browser could not save every temporary workspace item because its site storage is full. Your result remains available on this page.",
-      );
-      }
 
       onComplete(analysis, payload);
     } catch (error) {
@@ -601,7 +622,22 @@ export default function FamilyIntake({ onComplete }: Props) {
         </div>
       )}
 
+      {extractedFacts.length > 0 && (
+        <div className="mt-5 rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm text-[#24463d]">
+          <p className="font-semibold">Found in your description — review/edit</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5">
+            {extractedFacts.map((fact) => (
+              <li key={fact.field}>{fact.field}: {Array.isArray(fact.value) ? fact.value.join(", ") : fact.value}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <div className="mt-6 grid gap-5">
+        <div className="rounded-3xl border border-[#cde7dc] bg-[#f8fcfa] p-5">
+          <h3 className="text-lg font-bold text-[#10231f]">Location confirmed on Home</h3>
+          <p className="mt-2 text-sm text-[#4d675f]">Canonical intake context: {province}, {city}.</p>
+        </div>
         <label className="block">
           <span className="font-semibold text-[#16302b]">Case stage</span>
           <select
@@ -693,6 +729,8 @@ export default function FamilyIntake({ onComplete }: Props) {
           </div>
         </div>
 
+        {issues.includes("adoption") && <section className="rounded-2xl border border-[#cde7dc] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Adoption details to organize</h3><p className="mt-2 text-sm text-[#4d675f]">Answer only what you know. These questions do not confirm legal requirements.</p><textarea aria-label="Adoption details" value={adoptionDetails} onChange={(event) => setAdoptionDetails(event.target.value)} className="mt-4 min-h-48 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" placeholder="Is the person to be adopted 18 or older? Does the adult person want to be adopted? Is the applicant a step-parent, relative, or another person? Does the adult live in Ontario? Is the biological parent known/contactable, unknown, or location currently unknown? What steps have been taken to locate or contact that parent? Is there an existing adoption, family, child-protection, or court file?" /></section>}
+
         {textareaFields.map((field) => (
           <label key={field.label} className="block">
             <span className="font-semibold text-[#16302b]">{field.label}</span>
@@ -704,6 +742,8 @@ export default function FamilyIntake({ onComplete }: Props) {
             />
           </label>
         ))}
+
+        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{facts}</p><button type="button" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" value={facts} onChange={(event) => setFacts(event.target.value)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
 
         <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">

@@ -1,5 +1,11 @@
 import { createClient, type User } from "@supabase/supabase-js";
 
+export type AuthenticatedOwnedCase = {
+  id: string;
+  court_path: string | null;
+  master_result: unknown;
+};
+
 function readBearerToken(request: Request): string {
   const authorization = request.headers.get("authorization") || "";
   const match = authorization.match(/^Bearer\s+(.+)$/i);
@@ -40,11 +46,11 @@ export async function getAuthenticatedUser(
 }
 
 /** Loads a selected case only when it belongs to the bearer-authenticated user. */
-export async function getAuthenticatedOwnedCaseMasterResult(
+export async function getAuthenticatedOwnedCase(
   request: Request,
   user: User,
   caseId: string,
-): Promise<unknown | null> {
+): Promise<AuthenticatedOwnedCase | null> {
   const accessToken = readBearerToken(request);
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const publicKey =
@@ -60,12 +66,27 @@ export async function getAuthenticatedOwnedCaseMasterResult(
     });
     const { data, error } = await supabase
       .from("cases")
-      .select("id,master_result")
+      .select("id,court_path,master_result")
       .eq("id", caseId)
       .eq("user_id", user.id)
       .maybeSingle();
-    return !error && data?.id === caseId ? data.master_result || {} : null;
+    return !error && data?.id === caseId
+      ? {
+          id: data.id,
+          court_path: data.court_path || null,
+          master_result: data.master_result || {},
+        }
+      : null;
   } catch {
     return null;
   }
+}
+
+export async function getAuthenticatedOwnedCaseMasterResult(
+  request: Request,
+  user: User,
+  caseId: string,
+): Promise<unknown | null> {
+  const ownedCase = await getAuthenticatedOwnedCase(request, user, caseId);
+  return ownedCase?.master_result ?? null;
 }

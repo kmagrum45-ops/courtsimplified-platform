@@ -110,18 +110,8 @@ function detectProvince(text: string, fallback?: IntelligenceProvince): Intellig
 }
 
 function detectStage(text: string, fallback?: IntelligenceStage): IntelligenceStage {
-  if (fallback && fallback !== "not-sure") return fallback;
-
-  if (includesAny(text, ["appeal", "appealing", "leave to appeal"])) return "appeal";
-  if (includesAny(text, ["enforce", "garnish", "writ", "collection", "judgment debtor"])) return "enforcement";
-  if (includesAny(text, ["trial", "trial date", "trial record"])) return "trial";
-  if (includesAny(text, ["urgent motion", "bring a motion", "notice of motion", "motion for leave"])) return "motion";
-  if (includesAny(text, ["settlement conference", "case conference", "conference"])) return "conference";
-  if (includesAny(text, ["offer to settle", "settlement offer", "settlement"])) return "settlement";
-  if (includesAny(text, ["urgent", "emergency", "immediate danger", "restraining"])) return "urgent";
-  if (includesAny(text, ["responding", "defending", "file a defence", "file a defense", "served me", "i was served"])) return "responding";
-  if (includesAny(text, ["already filed", "defence filed", "response filed", "court date", "claim number"])) return "already-started";
-
+  // Stage is a structured input. Narrative, role, route, and workflow labels
+  // may describe a case but must not manufacture a procedural posture.
   return fallback || "not-sure";
 }
 
