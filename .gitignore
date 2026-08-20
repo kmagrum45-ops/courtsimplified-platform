@@ -135,6 +135,35 @@ field-maps/
 pdf-debug/
 
 # =========================================================
+# SUPABASE CLI LOCAL STATE
+# =========================================================
+# Machine-local link cache (project ref, pooler URL, service versions).
+# Migrations under supabase/migrations/ are NOT ignored.
+
+supabase/.temp/
+
+# =========================================================
+# ENGINEERING SNAPSHOTS / GENERATED REGISTRIES
+# =========================================================
+# Output of `npm run snapshot` and the analysis tooling. The generators
+# are committed; their output is not.
+
+_PROJECT_REGISTRY/
+*.zip
+buildlog.txt
+create-dev-snapshot-current.txt
+MADGE_CIRCULAR.json
+UNUSED_EXPORTS.txt
+DatabaseSchema.sql
+
+# =========================================================
+# REPOMIX
+# =========================================================
+
+.repomix/
+repomix-output.xml
+
+# =========================================================
 # DO NOT IGNORE PUBLIC ASSETS
 # =========================================================
 
