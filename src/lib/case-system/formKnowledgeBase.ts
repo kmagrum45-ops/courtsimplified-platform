@@ -1,3 +1,5 @@
+import { isSameFormNumber, normalize, parseFormLabel } from "./utils";
+
 export type CourtPath = "family" | "small-claims" | "civil";
 
 export type CaseStage =
@@ -683,17 +685,17 @@ export const FORM_KNOWLEDGE_BASE: FormKnowledgeRule[] = [
 ];
 
 export function findKnowledgeForForm(formLabel: string, courtPath?: CourtPath) {
-  const normalized = formLabel.toLowerCase();
+  // Exact number/title comparison, not substring: "Form 17A" contains "7A",
+  // and "Statement of Defence" contains the small-claims title "Defence".
+  // Pass courtPath whenever it is known — 14A exists in all three paths.
+  const { number, title } = parseFormLabel(formLabel);
 
   return FORM_KNOWLEDGE_BASE.find((form) => {
-    const numberMatch =
-      normalized.includes(`form ${form.formNumber.toLowerCase()}`) ||
-      normalized.includes(form.formNumber.toLowerCase());
+    if (courtPath && form.courtPath !== courtPath) return false;
 
-    const titleMatch = normalized.includes(form.title.toLowerCase());
+    const numberMatch = isSameFormNumber(number, form.formNumber);
+    const titleMatch = title.length > 0 && title === normalize(form.title);
 
-    const courtMatch = courtPath ? form.courtPath === courtPath : true;
-
-    return courtMatch && (numberMatch || titleMatch);
+    return numberMatch || titleMatch;
   });
 }

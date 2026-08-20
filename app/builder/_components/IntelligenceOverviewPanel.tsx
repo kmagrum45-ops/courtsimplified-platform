@@ -6,6 +6,8 @@ import type {
   BuilderLegalIntelligenceSnapshot,
 } from "./builderTypes";
 
+import { parseFormLabel } from "@/src/lib/case-system/utils";
+
 type Props = {
   analysis: AnalysisResult;
 };
@@ -300,8 +302,15 @@ function FormRecommendations({
 function buildAnalysisFormRecommendations(
   analysis: AnalysisResult,
 ): BuilderFormRecommendation[] {
+  // Small Claims labels only. Without this guard, and with exact number
+  // matching below, civil Form 18A and family Form 17A get relabelled as
+  // Small Claims 8A/7A.
+  const isSmallClaims = analysis.courtPath === "small-claims";
+
   return safeList(analysis.requiredNextForms).map((form) => {
-    if (form.includes("7A")) {
+    const formNumber = parseFormLabel(form).number;
+
+    if (isSmallClaims && formNumber === "7a") {
       return {
         id: "analysis-form-7a",
         formNumber: "7A",
@@ -315,7 +324,7 @@ function buildAnalysisFormRecommendations(
       };
     }
 
-    if (form.includes("8A")) {
+    if (isSmallClaims && formNumber === "8a") {
       return {
         id: "analysis-form-8a",
         formNumber: "8A",

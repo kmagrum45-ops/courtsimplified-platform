@@ -5,7 +5,14 @@ import {
   FormKnowledgeRule,
 } from "./formKnowledgeBase";
 
-import { cleanList, normalize, includesAny } from "./utils";
+import {
+  cleanList,
+  extractLabelledFormNumbers,
+  includesAny,
+  normalize,
+  normalizeFormNumber,
+  parseFormLabel,
+} from "./utils";
 
 export type FormTriggerInput = {
   courtPath: CourtPath;
@@ -59,19 +66,32 @@ function normalizeBundle(input: FormTriggerInput) {
 }
 
 function formAlreadyExists(form: FormKnowledgeRule, input: FormTriggerInput) {
-  const combined = normalize(
-    [
-      ...input.completedForms,
-      ...input.receivedForms,
-      ...input.filedDocuments,
-    ].join(" ")
-  );
+  // Checked per entry rather than against one joined blob, and numbers are
+  // matched exactly. Family form numbers are bare digits, so the old
+  // substring check treated any stray digit ("sworn 8 March 2018") as proof
+  // that Form 8 had already been filed, silently dropping it from the
+  // recommendations.
+  const entries = [
+    ...input.completedForms,
+    ...input.receivedForms,
+    ...input.filedDocuments,
+  ];
 
-  return (
-    combined.includes(normalize(form.formNumber)) ||
-    combined.includes(normalize(`Form ${form.formNumber}`)) ||
-    combined.includes(normalize(form.title))
-  );
+  const wantedNumber = normalizeFormNumber(form.formNumber);
+  const wantedTitle = normalize(form.title);
+
+  return entries.some((entry) => {
+    if (wantedNumber) {
+      // "Form 8", "form 8a (application)" — explicitly labelled.
+      if (extractLabelledFormNumbers(entry).includes(wantedNumber)) return true;
+
+      // A bare "8A" on its own, but not "8 March 2020".
+      const parsed = parseFormLabel(entry);
+      if (parsed.number === wantedNumber && parsed.title.length === 0) return true;
+    }
+
+    return wantedTitle.length > 0 && normalize(entry).includes(wantedTitle);
+  });
 }
 
 function hasUserData(field: string, userData: Record<string, unknown>) {

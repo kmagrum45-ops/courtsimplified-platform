@@ -86,3 +86,79 @@ export function detectUrgency(text: string | null | undefined): boolean {
     "trial tomorrow",
   ]);
 }
+
+// =========================================================
+// COURT FORM NUMBERS
+// =========================================================
+// Form numbers must never be compared with substring matching. The same
+// number means different things across court paths (14A is Offer to Settle
+// in Small Claims, Statement of Claim in Civil, Affidavit in Family), and
+// short numbers nest inside longer ones ("7A" inside "17A", "8A" inside
+// "18A", "8" inside "2018"). Always parse the number, then compare exactly.
+
+const FORM_NUMBER = "[0-9]+(?:\\.[0-9]+)?[a-z]?";
+
+/** "Form 18A" / "18-A" / " 18a " -> "18a" */
+export function normalizeFormNumber(value: string | null | undefined): string {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/^\s*form\s*/, "")
+    .replace(/[^a-z0-9.]/g, "");
+}
+
+/**
+ * Form numbers written explicitly as "Form N" somewhere in free text.
+ * Requires the "form" keyword, so a stray digit in a sentence
+ * ("sworn 8 March 2018") is not mistaken for Form 8.
+ */
+export function extractLabelledFormNumbers(
+  text: string | null | undefined,
+): string[] {
+  const matches = Array.from(
+    String(text || "").matchAll(new RegExp(`\\bform\\s*(${FORM_NUMBER})\\b`, "gi")),
+  );
+
+  return Array.from(new Set(matches.map((match) => normalizeFormNumber(match[1]))));
+}
+
+/**
+ * Split a form label into its number and title:
+ * "Form 18A — Statement of Defence" -> { number: "18a", title: "statement of defence" }
+ * "Statement of Defence"            -> { number: "",    title: "statement of defence" }
+ */
+export function parseFormLabel(label: string | null | undefined): {
+  number: string;
+  title: string;
+} {
+  const raw = normalize(label);
+
+  const match = raw.match(
+    new RegExp(`^(?:form\\s*)?(${FORM_NUMBER})\\b\\s*[-–—:.]?\\s*(.*)$`),
+  );
+
+  if (!match) return { number: "", title: raw };
+
+  return { number: normalizeFormNumber(match[1]), title: match[2].trim() };
+}
+
+/** Exact form-number equality, ignoring "Form " prefixes and punctuation. */
+export function isSameFormNumber(
+  a: string | null | undefined,
+  b: string | null | undefined,
+): boolean {
+  const left = normalizeFormNumber(a);
+  return left.length > 0 && left === normalizeFormNumber(b);
+}
+
+/** True when a label's parsed form number is exactly the one wanted. */
+export function labelHasFormNumber(
+  label: string | null | undefined,
+  formNumber: string | null | undefined,
+): boolean {
+  const wanted = normalizeFormNumber(formNumber);
+  if (!wanted) return false;
+
+  if (parseFormLabel(label).number === wanted) return true;
+
+  return extractLabelledFormNumbers(label).includes(wanted);
+}
