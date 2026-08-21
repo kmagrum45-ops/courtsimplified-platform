@@ -91,6 +91,25 @@ export default function SmallClaimsPage() {
         </div>
       </section>
 
+      <section className="border-b border-[#d9e6df] bg-[#edf7f3]">
+        <div className="mx-auto max-w-7xl px-6 py-10">
+          <div className="max-w-4xl rounded-3xl border border-[#9fcbb9] bg-white p-7 shadow-sm">
+            <h2 className="text-2xl font-bold tracking-tight text-[#10231f]">
+              Ontario Small Claims Court limit
+            </h2>
+            <p className="mt-3 text-base leading-7 text-[#33584d]">
+              Ontario Small Claims Court can decide claims for money or the
+              return of personal property up to $50,000, excluding interest and
+              costs.
+            </p>
+            <p className="mt-3 text-sm leading-6 text-[#557168]">
+              If the amount is higher, review the official court information
+              before deciding where to proceed.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="mx-auto max-w-7xl px-6 py-14">
         <div className="mb-8">
           <h2 className="text-3xl font-bold tracking-tight text-[#10231f]">
@@ -171,13 +190,45 @@ export default function SmallClaimsPage() {
               </Link>
 
               <Link
-                href="/documents?path=small-claims"
+                href="/document-workspace?path=small-claims"
                 className="inline-block rounded-full border border-[#bdd4ca] bg-white px-6 py-3 text-sm font-semibold text-[#1c473d] transition hover:border-[#2f7d67] hover:text-[#2f7d67]"
               >
                 Go to Small Claims Documents →
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="border-t border-[#d9e6df] bg-[#edf7f3]">
+        <div className="mx-auto max-w-7xl px-6 py-14">
+          <h2 className="text-3xl font-bold tracking-tight text-[#10231f]">
+            Official Ontario resources
+          </h2>
+          <p className="mt-3 max-w-3xl text-base leading-7 text-[#557168]">
+            These links provide official Ontario information. Verify final court
+            requirements directly with the court and official sources.
+          </p>
+          <ul className="mt-7 grid gap-3 md:grid-cols-2" aria-label="Official Ontario Small Claims Court resources">
+            {[
+              ["Suing someone in Small Claims Court", "https://www.ontario.ca/page/suing-someone-small-claims-court"],
+              ["Being sued in Small Claims Court", "https://www.ontario.ca/page/being-sued-small-claims-court"],
+              ["Guide to procedures in Small Claims Court", "https://www.ontario.ca/document/guide-procedures-small-claims-court"],
+              ["Official Small Claims Court forms", "https://ontariocourtforms.on.ca/en/rules-of-the-small-claims-court-forms/"],
+              ["Rules of the Small Claims Court", "https://www.ontario.ca/laws/regulation/980258"],
+            ].map(([label, href]) => (
+              <li key={href}>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block rounded-2xl border border-[#bdd4ca] bg-white px-5 py-4 text-sm font-semibold text-[#1c473d] transition hover:border-[#2f7d67] hover:text-[#2f7d67]"
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

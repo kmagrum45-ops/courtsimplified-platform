@@ -16,6 +16,7 @@ import {
   LegalSignal,
   NormalizedIntake,
 } from "./intelligenceTypes";
+import { detectContextualLegalDomains } from "../ai-case-partner/conversationIntelligenceEngine";
 
 function createId(prefix: string): string {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
@@ -62,6 +63,30 @@ function sentenceSplit(text: string): string[] {
   ).filter((item) => item.length > 12);
 }
 
+function currentClassificationText(text: string): string {
+  return text
+    .split(/\n+|(?<=[.!?])\s+/)
+    .map((item) => normalizeWhitespace(item))
+    .filter(Boolean)
+    .filter(
+      (item) =>
+        !includesAny(item, [
+          "background only",
+          "only as background",
+          "background context only",
+        ]),
+    )
+    .flatMap((item) => item.split(/\s*;\s*|\s+but\s+/i))
+    .map((item) => normalizeWhitespace(item))
+    .filter(
+      (item) =>
+        !/\bno\b.+\b(?:is|are)\s+(?:alleged|claimed|involved)\b/i.test(
+          item,
+        ),
+    )
+    .join(" ");
+}
+
 function detectProvince(text: string, fallback?: IntelligenceProvince): IntelligenceProvince {
   if (fallback && fallback !== "Unknown") return fallback;
 
@@ -85,18 +110,8 @@ function detectProvince(text: string, fallback?: IntelligenceProvince): Intellig
 }
 
 function detectStage(text: string, fallback?: IntelligenceStage): IntelligenceStage {
-  if (fallback && fallback !== "not-sure") return fallback;
-
-  if (includesAny(text, ["appeal", "appealing", "leave to appeal"])) return "appeal";
-  if (includesAny(text, ["enforce", "garnish", "writ", "collection", "judgment debtor"])) return "enforcement";
-  if (includesAny(text, ["trial", "trial date", "trial record"])) return "trial";
-  if (includesAny(text, ["urgent motion", "bring a motion", "notice of motion", "motion for leave"])) return "motion";
-  if (includesAny(text, ["settlement conference", "case conference", "conference"])) return "conference";
-  if (includesAny(text, ["offer to settle", "settlement offer", "settlement"])) return "settlement";
-  if (includesAny(text, ["urgent", "emergency", "immediate danger", "restraining"])) return "urgent";
-  if (includesAny(text, ["responding", "defending", "file a defence", "file a defense", "served me", "i was served"])) return "responding";
-  if (includesAny(text, ["already filed", "defence filed", "response filed", "court date", "claim number"])) return "already-started";
-
+  // Stage is a structured input. Narrative, role, route, and workflow labels
+  // may describe a case but must not manufacture a procedural posture.
   return fallback || "not-sure";
 }
 
@@ -189,24 +204,168 @@ function addSignal(args: {
 
 function detectLightweightSignals(text: string): LegalSignal[] {
   const signals: LegalSignal[] = [];
+  const classificationText = currentClassificationText(text);
+  const contextualDomains = new Set(
+    detectContextualLegalDomains(classificationText),
+  );
+  const hasAgreementFacts = includesAny(classificationText, [
+    "written agreement",
+    "written contract",
+    "oral contract",
+    "writen agreement",
+    "agreed to",
+    "promised to",
+    "made a deal",
+    "quote",
+    "invoice",
+    "deposit",
+  ]);
+  const hasObligationFacts =
+    includesAny(classificationText, [
+      "required delivery",
+      "required return",
+      "required repayment",
+      "required to",
+      "supposed to",
+      "suposed to",
+      "promised to",
+      "agreed to",
+      "deliver",
+      "ship",
+      "return of the deposit",
+      "return the deposit",
+      "repay",
+      "refund",
+    ]) ||
+    /\brequired [^.]{1,50}\b(?:work|services|repairs|performance|delivery|payment|return|repayment)\b/i.test(
+      classificationText,
+    );
+  const hasNonPerformanceFacts = includesAny(classificationText, [
+    "breach",
+    "did not",
+    "didn't",
+    "didnt",
+    "failed",
+    "incomplete",
+    "not completed",
+    "not returned",
+    "never delivered",
+    "never arrived",
+    "never occurred",
+    "remains outstanding",
+  ]);
+  const hasCompletedPerformanceFacts = includesAny(classificationText, [
+    "not breached",
+    "did not fail",
+    "fully performed",
+    "completed as agreed",
+    "delivered everything",
+    "returned in full",
+  ]);
+  const hasSupportedContractFacts =
+    hasAgreementFacts &&
+    hasObligationFacts &&
+    hasNonPerformanceFacts &&
+    !hasCompletedPerformanceFacts;
+  const hasSupportedConsumerFacts =
+    includesAny(classificationText, [
+      "consumer purchase",
+      "consumer paid",
+      "purchased",
+      "bought",
+    ]) &&
+    includesAny(classificationText, ["paid", "purchase", "bought"]) &&
+    includesAny(classificationText, [
+      "never delivered",
+      "not delivered",
+      "defective",
+      "broken",
+      "refund",
+      "not returned",
+    ]);
+  const factualClassificationText = classificationText
+    .split("\n")
+    .filter((line) => !lowerText(line).startsWith("selected issues:"))
+    .join(" ");
+  const hasExpressCharterNegation =
+    includesAny(factualClassificationText, [
+      "no charter issue",
+      "no constitutional issue",
+      "not a charter issue",
+      "not a constitutional issue",
+      "charter is not alleged",
+      "constitutional claim is not alleged",
+    ]) ||
+    /\b(?:unreasonable search|arbitrary detention|freedom of expression|equality rights|constitutional rights?)\s+(?:is|are|was|were)\s+not\s+(?:alleged|claimed)\b/i.test(
+      factualClassificationText,
+    );
+  const hasAffirmativeCharterFacts =
+    !hasExpressCharterNegation &&
+    includesAny(factualClassificationText, [
+      "charter breach",
+      "charter right",
+      "charter rights",
+      "charter violation",
+      "charter infringement",
+      "charter facts",
+      "constitutional right",
+      "constitutional rights",
+      "constitutional freedom",
+      "section 7",
+      "section 15",
+      "unreasonable search",
+      "arbitrary detention",
+      "freedom of expression",
+      "equality rights",
+      "rights were infringed",
+      "rights were violated",
+    ]);
+  const injuryFactText = currentClassificationText(
+    text
+      .split(/\n+/)
+      .filter(
+        (line) =>
+          !/^(?:selected issue hints|title|category|damages breakdown|evidence described|missing evidence):/i.test(
+            line.trim(),
+          ),
+      )
+      .join("\n"),
+  );
+  const hasExpressInjuryNegation =
+    /\b(?:not injured|uninjured|nobody was injured|no one was injured|no (?:physical |bodily )?injur(?:y|ies)|without (?:physical |bodily )?injur(?:y|ies))\b/i.test(
+      injuryFactText,
+    ) ||
+    /\b(?:injur(?:y|ies)|medical harm|physical harm)\s+(?:is|are|was|were)\s+not\s+(?:alleged|claimed|reported)\b/i.test(
+      injuryFactText,
+    );
+  const hasAffirmativeInjuryFacts =
+    !hasExpressInjuryNegation &&
+    /\b(?:(?:was|were|am|became|got) injur(?:ed|d)|left [^.]{1,40} injur(?:ed|d)|(?:physical|bodily) injur(?:y|ies)|(?:suffered|sustained|caused|reported) (?:an? )?(?:injur(?:y|ies)|fracture|concussion|whiplash)|fracture|concussion|whiplash|med(?:ical|cal) treatment|medical care|treated at (?:a |the )?hospital|went to (?:a |the )?hospital|hospitali[sz]ed|physical assault|was assaulted|were assaulted|was hurt|were hurt|got hurt|physically hurt|physical pain|back pain|neck pain|pain in (?:my|the)\b)/i.test(
+      injuryFactText,
+    );
+  const hasInstitutionalActorFacts =
+    includesAny(factualClassificationText, [
+      "institutional failure",
+      "system failure",
+      "school board",
+      "government",
+      "municipal agency",
+      "police",
+      "crown",
+      "ministry",
+      "public authority",
+      "failed to investigate",
+      "failed to communicate",
+    ]) ||
+    includesAny(factualClassificationText, [
+      "hospital failed",
+      "hospital negligence",
+      "hospital denied",
+      "hospital staff",
+      "hospital administration",
+    ]);
 
-  if (
-    includesAny(text, [
-      "defamation",
-      "slander",
-      "libel",
-      "false statement",
-      "false accusation",
-      "lied about me",
-      "spread rumours",
-      "spread rumors",
-      "ruined my reputation",
-      "reputation",
-      "posted about me",
-      "messaged people",
-      "told people",
-    ])
-  ) {
+  if (contextualDomains.has("defamation")) {
     addSignal({
       signals,
       label: "possible-reputational-publication",
@@ -218,15 +377,10 @@ function detectLightweightSignals(text: string): LegalSignal[] {
   }
 
   if (
-    includesAny(text, [
-      "contract",
-      "agreement",
-      "breach",
-      "terms",
-      "service agreement",
-      "invoice",
-      "deposit",
-    ])
+    hasSupportedContractFacts ||
+    (contextualDomains.has("contract") &&
+      !hasSupportedConsumerFacts &&
+      !hasCompletedPerformanceFacts)
   ) {
     addSignal({
       signals,
@@ -238,7 +392,19 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (includesAny(text, ["owed me", "unpaid", "loan", "borrowed money", "did not pay me back"])) {
+  if (hasSupportedConsumerFacts) {
+    addSignal({
+      signals,
+      label: "possible-consumer-transaction",
+      domain: "consumer",
+      weight: 7,
+      confidence: "medium",
+      explanation:
+        "The narrative contains consumer purchase, payment, and non-performance language.",
+    });
+  }
+
+  if (includesAny(classificationText, ["owed me", "unpaid", "loan", "borrowed money", "did not pay me back"])) {
     addSignal({
       signals,
       label: "possible-debt-or-payment-dispute",
@@ -250,13 +416,16 @@ function detectLightweightSignals(text: string): LegalSignal[] {
   }
 
   if (
-    includesAny(text, [
+    includesAny(classificationText, [
       "property damage",
       "damaged my car",
       "car damage",
       "broken window",
       "damaged my property",
       "vehicle damage",
+      "damaged a vehicle",
+      "vehicle was damaged",
+      "collision damage",
       "repair cost",
     ])
   ) {
@@ -270,7 +439,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (includesAny(text, ["injured", "hurt", "medical", "hospital", "pain", "fracture", "concussion", "assault"])) {
+  if (hasAffirmativeInjuryFacts) {
     addSignal({
       signals,
       label: "possible-personal-injury-or-harm",
@@ -281,7 +450,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (includesAny(text, ["harassing", "harassment", "keeps messaging", "threatening messages", "won't stop contacting"])) {
+  if (includesAny(classificationText, ["harassing", "harassment", "keeps messaging", "threatening messages", "won't stop contacting"])) {
     addSignal({
       signals,
       label: "possible-harassment-pattern",
@@ -292,7 +461,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (includesAny(text, ["custody", "parenting", "decision-making", "parenting time", "access to my child"])) {
+  if (contextualDomains.has("family-parenting")) {
     addSignal({
       signals,
       label: "possible-family-parenting",
@@ -303,7 +472,10 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (includesAny(text, ["child support", "spousal support", "support arrears"])) {
+  if (
+    contextualDomains.has("family-parenting") &&
+    includesAny(classificationText, ["child support", "spousal support", "support arrears"])
+  ) {
     addSignal({
       signals,
       label: "possible-family-support",
@@ -314,20 +486,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (
-    includesAny(text, [
-      "charter",
-      "section 7",
-      "section 15",
-      "state actor",
-      "government failed",
-      "public authority",
-      "crown",
-      "police",
-      "ministry",
-      "bail",
-    ])
-  ) {
+  if (hasAffirmativeCharterFacts) {
     addSignal({
       signals,
       label: "possible-charter-public-law",
@@ -338,20 +497,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (
-    includesAny(text, [
-      "institutional failure",
-      "system failure",
-      "hospital",
-      "school board",
-      "police",
-      "crown",
-      "ministry",
-      "public authority",
-      "failed to investigate",
-      "failed to communicate",
-    ])
-  ) {
+  if (hasInstitutionalActorFacts) {
     addSignal({
       signals,
       label: "possible-institutional-liability",
@@ -362,7 +508,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (includesAny(text, ["human rights", "discrimination", "accommodation", "reprisal"])) {
+  if (includesAny(factualClassificationText, ["human rights", "discrimination", "discriminated", "accommodation", "reprisal"])) {
     addSignal({
       signals,
       label: "possible-human-rights",
@@ -373,7 +519,7 @@ function detectLightweightSignals(text: string): LegalSignal[] {
     });
   }
 
-  if (includesAny(text, ["negligence", "failed to", "duty of care", "causation", "foreseeable"])) {
+  if (includesAny(classificationText, ["negligence", "duty of care", "causation", "foreseeable"])) {
     addSignal({
       signals,
       label: "possible-negligence",

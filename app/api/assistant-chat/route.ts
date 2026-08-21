@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
 import { runCourtSimplifiedBrain } from "../../../src/lib/case-system/intelligence/courtSimplifiedBrain";
+import { getAuthenticatedUser } from "../../../src/lib/supabase/serverAuth";
 
 import type {
   CourtSimplifiedBrainOutput,
@@ -420,6 +421,7 @@ ${safeJson(body.workspaceDocument, 3500)}
 
 export async function POST(req: NextRequest) {
   try {
+    const authenticated = Boolean(await getAuthenticatedUser(req));
     const body: AssistantRequestBody = await req.json();
     const message = clean(body.message);
 
@@ -445,9 +447,10 @@ export async function POST(req: NextRequest) {
       rawUserText,
       existingMasterResult: body.master_result || body.caseData || {},
       sourceType: "chat-message",
+      allowExternalCognition: authenticated,
     });
 
-    if (!openai) {
+    if (!openai || !authenticated) {
       return NextResponse.json({
         success: true,
         mode: "brain-only-fallback" satisfies AssistantResponseMode,
@@ -463,7 +466,9 @@ export async function POST(req: NextRequest) {
           usedBrain: true,
           usedOpenAIForBrain: false,
           usedOpenAIForAssistant: false,
-          reason: "OPENAI_API_KEY is not configured.",
+          reason: authenticated
+            ? "OPENAI_API_KEY is not configured."
+            : "Sign in to use external AI assistance.",
         },
       });
     }

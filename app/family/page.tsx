@@ -22,6 +22,13 @@ const familyTopics = [
     image:
       "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80",
   },
+  {
+    title: "Adoption — review required",
+    description:
+      "A Family-law pathway that requires review of the current Ontario forms and court requirements. CourtSimplified does not automate or recommend an adoption filing here.",
+    image:
+      "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80",
+  },
 ];
 
 const familySteps = [
@@ -92,6 +99,47 @@ export default function FamilyPage() {
         </div>
       </section>
 
+      <section className="border-b border-[#d9e6df] bg-[#edf7f3]">
+        <div className="mx-auto max-w-7xl px-6 py-10">
+          <div className="rounded-3xl border border-[#9fcbb9] bg-white p-7 shadow-sm">
+            <h2 className="text-3xl font-bold tracking-tight text-[#10231f]">
+              Safety, violence and support
+            </h2>
+            <p className="mt-3 max-w-4xl text-base leading-7 text-[#33584d]">
+              If you or a child may be unsafe, your immediate safety comes first.
+              If you are in immediate danger, call 911. These official Ontario
+              resources can help women and anyone experiencing family or
+              gender-based violence.
+            </p>
+            <ul className="mt-7 grid gap-3 md:grid-cols-2" aria-label="Official Ontario safety and family support resources">
+              {[
+                ["Connect with supports for survivors of violence", "https://www.ontario.ca/page/connect-supports-survivors-violence"],
+                ["Family Court Support Workers", "https://www.ontario.ca/page/family-court-support-workers"],
+                ["Ontario family law services", "https://www.ontario.ca/page/family-law-services"],
+                ["Guide to procedures in Family Court", "https://www.ontario.ca/document/guide-procedures-family-court"],
+                ["Official Family Law Rules forms", "https://ontariocourtforms.on.ca/en/family-law-rules-forms/"],
+                ["Family Law Rules", "https://www.ontario.ca/laws/regulation/990114"],
+              ].map(([label, href]) => (
+                <li key={href}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="block rounded-2xl border border-[#bdd4ca] bg-white px-5 py-4 text-sm font-semibold text-[#1c473d] transition hover:border-[#2f7d67] hover:text-[#2f7d67]"
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 max-w-4xl text-sm leading-6 text-[#557168]">
+              These resources are official information, not legal advice. They
+              do not determine a legal remedy or recommend a form.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="mx-auto max-w-7xl px-6 py-14">
         <div className="mb-8">
           <h2 className="text-3xl font-bold tracking-tight text-[#10231f]">
@@ -104,7 +152,7 @@ export default function FamilyPage() {
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {familyTopics.map((topic) => (
             <article
               key={topic.title}
@@ -171,7 +219,7 @@ export default function FamilyPage() {
               </Link>
 
               <Link
-                href="/documents?path=family"
+                href="/document-workspace?path=family"
                 className="inline-block rounded-full border border-[#bdd4ca] bg-white px-6 py-3 text-sm font-semibold text-[#1c473d] transition hover:border-[#2f7d67] hover:text-[#2f7d67]"
               >
                 Go to Family Documents →

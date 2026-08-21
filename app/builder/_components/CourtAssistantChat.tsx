@@ -1,6 +1,17 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
+import {
+  extractNarrativePrefill,
+  persistNarrativePrefill,
+} from "../../../src/lib/case-system/intelligence/narrativePrefill";
 
 type ChatMessage = {
   role: "user" | "assistant";
@@ -8,42 +19,125 @@ type ChatMessage = {
 };
 
 type CourtAssistantChatProps = {
-  caseData?: any;
+  caseData?: unknown;
   caseId?: string;
   path?: string;
   chatSessionId?: string;
-  masterResult?: any;
-  evidenceData?: any;
-  strategyData?: any;
-  workspaceDocument?: any;
+  masterResult?: unknown;
+  evidenceData?: unknown;
+  strategyData?: unknown;
+  workspaceDocument?: unknown;
   proceduralStage?: string;
-  onMasterResultUpdate?: (patch: any) => void;
-  onDashboardUpdate?: (patch: any) => void;
+  onMasterResultUpdate?: (patch: unknown) => void;
+  onDashboardUpdate?: (patch: unknown) => void;
   onRecommendedRoute?: (route: string) => void;
   onRoutingStatusChange?: (ready: boolean) => void;
+};
+
+function knownLocation(value: unknown): { province: string; city: string } {
+  const record = value && typeof value === "object" && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : {};
+  const intake = record.intake && typeof record.intake === "object"
+    ? record.intake as Record<string, unknown>
+    : record;
+  const extra = intake.extra && typeof intake.extra === "object"
+    ? intake.extra as Record<string, unknown>
+    : {};
+  const civilInput = extra.civilInput && typeof extra.civilInput === "object"
+    ? extra.civilInput as Record<string, unknown>
+    : {};
+  return {
+    province: clean(extra.province || civilInput.province || extra.yourProvince),
+    city: clean(extra.city || civilInput.city || extra.yourCity),
+  };
+}
+
+type ValidationState = {
+  warnings?: unknown;
+  needsLegalVerification?: unknown;
+  safeToUseForWorkflow?: boolean;
+};
+
+type ConversationIntelligence = {
+  validation?: ValidationState;
+  conversationFocus?: {
+    courtArea?: unknown;
+  };
+};
+
+type ConversationMemory = {
+  memory?: {
+    warnings?: unknown;
+  };
+};
+
+type InvestigationIssue = {
+  id?: unknown;
+  label?: unknown;
+};
+
+type CaseInvestigation = {
+  validation?: ValidationState;
+  evidenceNeeded?: unknown;
+  proceduralStage?: unknown;
+  issues?: unknown;
 };
 
 type AiCasePartnerResponse = {
   ok: boolean;
   answer?: string;
   userFacingAnswer?: string;
-  caseMemory?: any;
-  conversationIntelligence?: any;
-  conversationMemory?: any;
-  caseInvestigation?: any;
-  gateway?: any;
-  result?: any;
+  caseMemory?: unknown;
+  conversationIntelligence?: ConversationIntelligence;
+  conversationMemory?: ConversationMemory;
+  caseInvestigation?: CaseInvestigation;
+  gateway?: unknown;
+  result?: unknown;
   error?: string;
 };
 
 type StoredChatState = {
   messages?: unknown;
-  caseMemory?: any;
-  latestIntelligence?: any;
-  latestInvestigation?: any;
+  caseMemory?: unknown;
+  latestIntelligence?: unknown;
+  latestInvestigation?: unknown;
   recommendedRoute?: string | null;
   systemWarnings?: unknown;
   routingConfirmed?: boolean;
+};
+
+type ResolvedChatState = {
+  messages: ChatMessage[];
+  caseMemory: unknown;
+  latestIntelligence: unknown;
+  latestInvestigation: unknown;
+  recommendedRoute: string | null;
+  systemWarnings: string[];
+  routingConfirmed: boolean;
+};
+
+export type ChatHydrationSnapshot = {
+  phase: "server" | "browser";
+  state: ResolvedChatState;
+  persistedSerializedState: string | null;
+};
+
+export type ChatStorageLike = Pick<
+  Storage,
+  "getItem" | "setItem" | "removeItem"
+>;
+
+type BrowserStoragePair = {
+  localStorage: ChatStorageLike;
+  sessionStorage: ChatStorageLike;
+};
+
+type ChatExternalStore = {
+  getServerSnapshot: () => ChatHydrationSnapshot;
+  getSnapshot: () => ChatHydrationSnapshot;
+  subscribe: (listener: () => void) => () => void;
+  persist: (state: ResolvedChatState, serializedState: string) => void;
 };
 
 type CourtPathGuidance = {
@@ -60,8 +154,40 @@ const quickActions = [
   "What should I fix before generating documents?",
 ];
 
+const INITIAL_ASSISTANT_MESSAGE: ChatMessage = Object.freeze({
+  role: "assistant",
+  content:
+    "I have your saved case story and structured intake. What important date, document, or case detail should we clarify next?",
+});
+const EMPTY_CHAT_STATE: ResolvedChatState = Object.freeze({
+  messages: Object.freeze([INITIAL_ASSISTANT_MESSAGE]) as ChatMessage[],
+  caseMemory: null,
+  latestIntelligence: null,
+  latestInvestigation: null,
+  recommendedRoute: null,
+  systemWarnings: [],
+  routingConfirmed: false,
+});
 const STORAGE_PREFIX = "courtsimplified-ai-case-partner-chat";
 const ROUTE_TRANSFER_KEY = `${STORAGE_PREFIX}:route-transfer`;
+
+function serializeChatState(state: ResolvedChatState): string {
+  return JSON.stringify({
+    messages: state.messages,
+    caseMemory: state.caseMemory,
+    latestIntelligence: state.latestIntelligence,
+    latestInvestigation: state.latestInvestigation,
+    recommendedRoute: state.recommendedRoute,
+    systemWarnings: state.systemWarnings,
+    routingConfirmed: state.routingConfirmed,
+  });
+}
+
+const EMPTY_CHAT_SNAPSHOT: ChatHydrationSnapshot = Object.freeze({
+  phase: "server",
+  state: EMPTY_CHAT_STATE,
+  persistedSerializedState: serializeChatState(EMPTY_CHAT_STATE),
+});
 
 function safeJsonParse(value: string | null): StoredChatState | null {
   try {
@@ -77,6 +203,10 @@ function clean(value: unknown): string {
 
 function normalize(value: unknown): string {
   return clean(value).toLowerCase().replace(/\s+/g, " ").trim();
+}
+
+function unknownArray(value: unknown): unknown[] {
+  return Array.isArray(value) ? value : [];
 }
 
 function extractClaimAmount(message: string): number | null {
@@ -176,28 +306,49 @@ function normalizeMessages(input: unknown): ChatMessage[] {
       (item) =>
         item &&
         typeof item === "object" &&
-        ((item as any).role === "assistant" ||
-          (item as any).role === "user") &&
-        typeof (item as any).content === "string",
+        ((item as { role?: string }).role === "assistant" ||
+          (item as { role?: string }).role === "user") &&
+        typeof (item as { content?: unknown }).content === "string",
     )
     .map(
       (item): ChatMessage => ({
         role:
-          (item as any).role === "assistant"
+          (item as { role?: string }).role === "assistant"
             ? "assistant"
             : "user",
-        content: clean((item as any).content),
+        content: clean((item as { content?: unknown }).content),
       }),
     )
     .filter((item) => item.content.length > 0);
 }
 
+function normalizeIssues(input: unknown): Array<{ id: string; label: string }> {
+  return unknownArray(input)
+    .map((issue): { id: string; label: string } | null => {
+      if (!issue || typeof issue !== "object") {
+        return null;
+      }
+
+      const candidate = issue as InvestigationIssue;
+      const label = clean(candidate.label);
+
+      return label
+        ? {
+            id: clean(candidate.id) || label,
+            label,
+          }
+        : null;
+    })
+    .filter((issue): issue is { id: string; label: string } => issue !== null);
+}
+
 function buildWarnings(data: AiCasePartnerResponse): string[] {
   return uniqueStrings([
-    ...(data.caseInvestigation?.validation?.warnings || []),
-    ...(data.conversationIntelligence?.validation?.needsLegalVerification ||
-      []),
-    ...(data.conversationMemory?.memory?.warnings || []),
+    ...unknownArray(data.caseInvestigation?.validation?.warnings),
+    ...unknownArray(
+      data.conversationIntelligence?.validation?.needsLegalVerification,
+    ),
+    ...unknownArray(data.conversationMemory?.memory?.warnings),
   ])
     .filter((warning) => {
       const normalized = normalize(warning);
@@ -212,14 +363,18 @@ function buildWarnings(data: AiCasePartnerResponse): string[] {
 
 function buildCourtPathGuidance(
   selectedPath: string | undefined,
-  intelligence: any,
+  intelligence: unknown,
   routingConfirmed: boolean,
   detectedClaimAmount: number | null,
 ): CourtPathGuidance | null {
   const currentPath = clean(selectedPath);
-  const detectedArea = clean(
-    intelligence?.conversationFocus?.courtArea,
-  );
+  const detectedArea =
+    intelligence && typeof intelligence === "object"
+      ? clean(
+          (intelligence as ConversationIntelligence).conversationFocus
+            ?.courtArea,
+        )
+      : "";
 
   if (
     routingConfirmed ||
@@ -290,18 +445,18 @@ function buildRecommendedRoute(
     return null;
   }
 
-  if (investigation.evidenceNeeded?.length > 0) {
+  if (unknownArray(investigation.evidenceNeeded).length > 0) {
     return "/evidence";
   }
 
   if (
     investigation.validation?.safeToUseForWorkflow ||
-    investigation.proceduralStage !== "unknown"
+    clean(investigation.proceduralStage) !== "unknown"
   ) {
     return "/case-dashboard";
   }
 
-  if (investigation.issues?.length > 0) {
+  if (unknownArray(investigation.issues).length > 0) {
     return "/litigation-strategy";
   }
 
@@ -328,11 +483,215 @@ function buildStorageKey(args: {
   return `${STORAGE_PREFIX}:draft:${path}`;
 }
 
-export default function CourtAssistantChat({
+function resolveBrowserSnapshot(
+  storage: BrowserStoragePair,
+  storageKey: string,
+  path: string | undefined,
+): {
+  snapshot: ChatHydrationSnapshot;
+  removeRouteTransfer: boolean;
+} {
+  let saved: StoredChatState | null = null;
+
+  try {
+    saved = safeJsonParse(storage.localStorage.getItem(storageKey));
+  } catch {
+    saved = null;
+  }
+
+  let transferredMessages: ChatMessage[] = [];
+  let initialRoutingConfirmed = false;
+  let routeTransferMatched = false;
+  let removeRouteTransfer = false;
+
+  try {
+    const rawTransfer = storage.sessionStorage.getItem(ROUTE_TRANSFER_KEY);
+    const transfer = rawTransfer
+      ? (JSON.parse(rawTransfer) as {
+          targetPath?: unknown;
+          messages?: unknown;
+        })
+      : null;
+
+    if (transfer && transfer.targetPath === path) {
+      transferredMessages = normalizeMessages(transfer.messages);
+      initialRoutingConfirmed = true;
+      routeTransferMatched = true;
+      removeRouteTransfer = true;
+    } else {
+      initialRoutingConfirmed = saved?.routingConfirmed === true;
+    }
+  } catch {
+    removeRouteTransfer = true;
+  }
+
+  const restoredMessages =
+    transferredMessages.length > 0
+      ? transferredMessages
+      : normalizeMessages(saved?.messages);
+  const fromTransfer = transferredMessages.length > 0;
+  const state: ResolvedChatState = {
+    messages:
+      restoredMessages.length > 0
+        ? restoredMessages
+        : [INITIAL_ASSISTANT_MESSAGE],
+    caseMemory: fromTransfer ? null : (saved?.caseMemory ?? null),
+    latestIntelligence: fromTransfer
+      ? null
+      : (saved?.latestIntelligence ?? null),
+    latestInvestigation: fromTransfer
+      ? null
+      : (saved?.latestInvestigation ?? null),
+    recommendedRoute:
+      typeof saved?.recommendedRoute === "string"
+        ? saved.recommendedRoute
+        : null,
+    systemWarnings: uniqueStrings(
+      Array.isArray(saved?.systemWarnings) ? saved.systemWarnings : [],
+    ),
+    routingConfirmed: initialRoutingConfirmed,
+  };
+
+  return {
+    snapshot: {
+      phase: "browser",
+      state,
+      persistedSerializedState: routeTransferMatched
+        ? null
+        : serializeChatState(state),
+    },
+    removeRouteTransfer,
+  };
+}
+
+export function createChatExternalStore(args: {
+  storageKey: string;
+  path?: string;
+  isBrowser?: () => boolean;
+  getBrowserStorage?: () => BrowserStoragePair;
+  subscribeToBrowserStorage?: (
+    listener: (changedKey: string | null) => void,
+  ) => () => void;
+}): ChatExternalStore {
+  const isBrowser =
+    args.isBrowser ?? (() => typeof window !== "undefined");
+  const getBrowserStorage =
+    args.getBrowserStorage ??
+    (() => ({
+      localStorage: window.localStorage,
+      sessionStorage: window.sessionStorage,
+    }));
+  const subscribeToBrowserStorage =
+    args.subscribeToBrowserStorage ??
+    ((listener: (changedKey: string | null) => void) => {
+      const handleStorage = (event: StorageEvent) => listener(event.key);
+      window.addEventListener("storage", handleStorage);
+      return () => window.removeEventListener("storage", handleStorage);
+    });
+  const listeners = new Set<() => void>();
+  let browserSnapshot: ChatHydrationSnapshot | null = null;
+  let removeRouteTransfer = false;
+
+  function notify() {
+    for (const listener of listeners) {
+      listener();
+    }
+  }
+
+  function getServerSnapshot() {
+    return EMPTY_CHAT_SNAPSHOT;
+  }
+
+  function getSnapshot() {
+    if (!isBrowser()) {
+      return EMPTY_CHAT_SNAPSHOT;
+    }
+
+    if (!browserSnapshot) {
+      const resolved = resolveBrowserSnapshot(
+        getBrowserStorage(),
+        args.storageKey,
+        args.path,
+      );
+      browserSnapshot = resolved.snapshot;
+      removeRouteTransfer = resolved.removeRouteTransfer;
+    }
+
+    return browserSnapshot;
+  }
+
+  function subscribe(listener: () => void) {
+    listeners.add(listener);
+
+    if (isBrowser() && removeRouteTransfer) {
+      try {
+        getBrowserStorage().sessionStorage.removeItem(ROUTE_TRANSFER_KEY);
+      } catch {
+        // Storage cleanup is best-effort; the cached snapshot remains stable.
+      }
+      removeRouteTransfer = false;
+    }
+
+    const unsubscribeStorage = isBrowser()
+      ? subscribeToBrowserStorage((changedKey) => {
+          if (
+            changedKey !== args.storageKey &&
+            changedKey !== ROUTE_TRANSFER_KEY
+          ) {
+            return;
+          }
+
+          browserSnapshot = null;
+          notify();
+        })
+      : () => undefined;
+
+    return () => {
+      listeners.delete(listener);
+      unsubscribeStorage();
+    };
+  }
+
+  function persist(state: ResolvedChatState, serializedState: string) {
+    if (!isBrowser()) {
+      return;
+    }
+
+    try {
+      getBrowserStorage().localStorage.setItem(
+        args.storageKey,
+        serializedState,
+      );
+    } catch {
+      return;
+    }
+
+    browserSnapshot = {
+      phase: "browser",
+      state,
+      persistedSerializedState: serializedState,
+    };
+    notify();
+  }
+
+  return {
+    getServerSnapshot,
+    getSnapshot,
+    subscribe,
+    persist,
+  };
+}
+
+type CourtAssistantChatInnerProps = CourtAssistantChatProps & {
+  initialSnapshot: ChatHydrationSnapshot;
+  storageKey: string;
+  chatStore: ChatExternalStore;
+};
+
+function CourtAssistantChatInner({
   caseData,
   caseId,
   path,
-  chatSessionId,
   masterResult,
   evidenceData,
   strategyData,
@@ -342,47 +701,46 @@ export default function CourtAssistantChat({
   onDashboardUpdate,
   onRecommendedRoute,
   onRoutingStatusChange,
-}: CourtAssistantChatProps) {
-  const initialAssistantMessage = useMemo<ChatMessage>(
-    () => ({
-      role: "assistant",
-      content:
-        "Tell me what happened in normal words. I’ll help organize the case, identify missing facts, track evidence, spot legal issues to review, and ask the next most useful question.",
-    }),
-    [],
+  initialSnapshot,
+  storageKey,
+  chatStore,
+}: CourtAssistantChatInnerProps) {
+  const initialChatState = initialSnapshot.state;
+  const [messages, setMessages] = useState<ChatMessage[]>(
+    initialChatState.messages,
   );
-
-  const storageKey = useMemo(
-    () =>
-      buildStorageKey({
-        caseId,
-        path,
-        chatSessionId,
-      }),
-    [caseId, path, chatSessionId],
-  );
-
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    initialAssistantMessage,
-  ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [hydratedStorageKey, setHydratedStorageKey] = useState("");
-  const [caseMemory, setCaseMemory] = useState<any>(null);
-  const [latestIntelligence, setLatestIntelligence] =
-    useState<any>(null);
-  const [latestInvestigation, setLatestInvestigation] =
-    useState<any>(null);
-  const [recommendedRoute, setRecommendedRoute] =
-    useState<string | null>(null);
-  const [systemWarnings, setSystemWarnings] = useState<string[]>([]);
+  const [caseMemory, setCaseMemory] = useState<unknown>(
+    initialChatState.caseMemory,
+  );
+  const [latestIntelligence, setLatestIntelligence] = useState<unknown>(
+    initialChatState.latestIntelligence,
+  );
+  const [latestInvestigation, setLatestInvestigation] = useState<unknown>(
+    initialChatState.latestInvestigation,
+  );
+  const [recommendedRoute, setRecommendedRoute] = useState<string | null>(
+    initialChatState.recommendedRoute,
+  );
+  const [systemWarnings, setSystemWarnings] = useState<string[]>(
+    initialChatState.systemWarnings,
+  );
   const [routingProvince, setRoutingProvince] = useState("Ontario");
   const [routingAmount, setRoutingAmount] = useState("");
   const [routingRelief, setRoutingRelief] = useState<
     "money-or-property" | "other-relief"
   >("money-or-property");
   const [routingError, setRoutingError] = useState("");
-  const [routingConfirmed, setRoutingConfirmed] = useState(false);
+  const [routingConfirmed, setRoutingConfirmed] = useState(
+    initialChatState.routingConfirmed,
+  );
+  const lastPersistedSerializedState = useRef(
+    initialSnapshot.persistedSerializedState,
+  );
+  const transcriptRef = useRef<HTMLDivElement | null>(null);
+  const shouldAutoScrollRef = useRef(true);
+  const location = useMemo(() => knownLocation(caseData), [caseData]);
 
   const detectedClaimAmount = useMemo(() => {
     const latestUserMessage = [...messages]
@@ -402,115 +760,63 @@ export default function CourtAssistantChat({
         routingConfirmed,
         detectedClaimAmount,
       ),
-    [
-      detectedClaimAmount,
-      latestIntelligence,
-      path,
-      routingConfirmed,
-    ],
+    [detectedClaimAmount, latestIntelligence, path, routingConfirmed],
+  );
+
+  const investigationIssues = useMemo(
+    () =>
+      latestInvestigation && typeof latestInvestigation === "object"
+        ? normalizeIssues(
+            (latestInvestigation as CaseInvestigation).issues,
+          )
+        : [],
+    [latestInvestigation],
   );
 
   useEffect(() => {
-    const saved = safeJsonParse(localStorage.getItem(storageKey));
-    let transferredMessages: ChatMessage[] = [];
-
-    try {
-      const rawTransfer = sessionStorage.getItem(ROUTE_TRANSFER_KEY);
-      const transfer = rawTransfer ? JSON.parse(rawTransfer) : null;
-
-      if (transfer?.targetPath === path) {
-        transferredMessages = normalizeMessages(transfer.messages);
-        setRoutingConfirmed(true);
-        onRoutingStatusChange?.(true);
-        sessionStorage.removeItem(ROUTE_TRANSFER_KEY);
-      } else {
-        const savedRoutingConfirmed =
-          saved?.routingConfirmed === true;
-
-        setRoutingConfirmed(savedRoutingConfirmed);
-        onRoutingStatusChange?.(savedRoutingConfirmed);
-      }
-    } catch {
-      sessionStorage.removeItem(ROUTE_TRANSFER_KEY);
-      setRoutingConfirmed(false);
-      onRoutingStatusChange?.(false);
-    }
-
-    const normalizedMessages =
-      transferredMessages.length > 0
-        ? transferredMessages
-        : normalizeMessages(saved?.messages);
-
-    setMessages(
-      normalizedMessages.length > 0
-        ? normalizedMessages
-        : [initialAssistantMessage],
-    );
-
-    setCaseMemory(
-      transferredMessages.length > 0 ? null : saved?.caseMemory || null,
-    );
-    setLatestIntelligence(
-      transferredMessages.length > 0
-        ? null
-        : saved?.latestIntelligence || null,
-    );
-    setLatestInvestigation(
-      transferredMessages.length > 0
-        ? null
-        : saved?.latestInvestigation || null,
-    );
-
-    setSystemWarnings(
-      uniqueStrings(
-        Array.isArray(saved?.systemWarnings)
-          ? saved.systemWarnings
-          : [],
-      ),
-    );
-
-    setRecommendedRoute(
-      typeof saved?.recommendedRoute === "string"
-        ? saved.recommendedRoute
-        : null,
-    );
-
-    setInput("");
-    setLoading(false);
-    setRoutingProvince("Ontario");
-    setRoutingAmount("");
-    setRoutingRelief("money-or-property");
-    setRoutingError("");
-    setHydratedStorageKey(storageKey);
-  }, [initialAssistantMessage, onRoutingStatusChange, path, storageKey]);
+    const transcript = transcriptRef.current;
+    if (!transcript || !shouldAutoScrollRef.current) return;
+    transcript.scrollTop = transcript.scrollHeight;
+  }, [messages, loading, systemWarnings, investigationIssues]);
 
   useEffect(() => {
-    if (hydratedStorageKey !== storageKey) {
+    if (initialSnapshot.phase === "browser") {
+      onRoutingStatusChange?.(initialChatState.routingConfirmed);
+    }
+  }, [
+    initialChatState.routingConfirmed,
+    initialSnapshot.phase,
+    onRoutingStatusChange,
+  ]);
+
+  useEffect(() => {
+    const state: ResolvedChatState = {
+      messages,
+      caseMemory,
+      latestIntelligence,
+      latestInvestigation,
+      recommendedRoute,
+      systemWarnings,
+      routingConfirmed,
+    };
+    const serializedState = serializeChatState(state);
+
+    if (serializedState === lastPersistedSerializedState.current) {
       return;
     }
 
-    localStorage.setItem(
-      storageKey,
-      JSON.stringify({
-        messages,
-        caseMemory,
-        latestIntelligence,
-        latestInvestigation,
-        recommendedRoute,
-        systemWarnings,
-        routingConfirmed,
-      }),
-    );
+    lastPersistedSerializedState.current = serializedState;
+    chatStore.persist(state, serializedState);
   }, [
-    storageKey,
-    hydratedStorageKey,
-    messages,
     caseMemory,
+    chatStore,
     latestIntelligence,
     latestInvestigation,
+    messages,
     recommendedRoute,
-    systemWarnings,
     routingConfirmed,
+    storageKey,
+    systemWarnings,
   ]);
 
   async function sendMessage(customMessage?: string) {
@@ -527,6 +833,19 @@ export default function CourtAssistantChat({
 
     const nextMessages = [...messages, userMessage];
 
+    if (
+      !messages.some((message) => message.role === "user") &&
+      (path === "small-claims" || path === "family" || path === "civil")
+    ) {
+      persistNarrativePrefill(
+        extractNarrativePrefill({
+          narrative: trimmed,
+          courtPath: path,
+          caseId,
+        }),
+      );
+    }
+
     setMessages(nextMessages);
     setInput("");
     setLoading(true);
@@ -541,6 +860,12 @@ export default function CourtAssistantChat({
           message: trimmed,
           caseId,
           mode: "builder-chat",
+          courtContext: {
+            courtPath: path,
+            jurisdiction: location.province || routingProvince,
+            city: location.city || undefined,
+            stage: proceduralStage,
+          },
           caseMemory: caseMemory || {
             caseData,
             masterResult,
@@ -558,8 +883,7 @@ export default function CourtAssistantChat({
 
       if (!response.ok || !data.ok) {
         throw new Error(
-          data?.error ||
-            "CourtSimplified AI Case Partner error.",
+          data?.error || "CourtSimplified AI Case Partner error.",
         );
       }
 
@@ -595,7 +919,7 @@ export default function CourtAssistantChat({
       const coreAnswer =
         clean(data.answer) ||
         clean(data.userFacingAnswer) ||
-        "CourtSimplified could not generate a response right now.";
+        "CourtSimplified recorded that update. Please add the next missing fact, document, or question you want to organize.";
 
       const pathGuidance = buildCourtPathGuidance(
         path,
@@ -608,11 +932,7 @@ export default function CourtAssistantChat({
         data.conversationIntelligence?.conversationFocus?.courtArea,
       );
 
-      if (
-        !pathGuidance &&
-        detectedArea === "family" &&
-        path === "family"
-      ) {
+      if (!pathGuidance && detectedArea === "family" && path === "family") {
         setRoutingConfirmed(true);
         onRoutingStatusChange?.(true);
       }
@@ -630,8 +950,8 @@ export default function CourtAssistantChat({
       ]);
     } catch (error) {
       console.error(
-        "CourtSimplified AI Case Partner error:",
-        error,
+        "CourtSimplified AI Case Partner request failed.",
+        error instanceof Error ? { message: error.message } : { message: "unknown" },
       );
 
       setMessages((current) => [
@@ -657,9 +977,7 @@ export default function CourtAssistantChat({
   }
 
   function clearCurrentChat() {
-    localStorage.removeItem(storageKey);
-
-    setMessages([initialAssistantMessage]);
+    setMessages([INITIAL_ASSISTANT_MESSAGE]);
     setInput("");
     setCaseMemory(null);
     setLatestIntelligence(null);
@@ -689,9 +1007,7 @@ export default function CourtAssistantChat({
       return;
     }
 
-    const numericAmount = Number(
-      routingAmount.replace(/[$,\s]/g, ""),
-    );
+    const numericAmount = Number(routingAmount.replace(/[$,\s]/g, ""));
 
     if (routingProvince !== "Ontario") {
       setRoutingError(
@@ -708,8 +1024,7 @@ export default function CourtAssistantChat({
     }
 
     const targetPath =
-      numericAmount <= 50000 &&
-      routingRelief === "money-or-property"
+      numericAmount <= 50000 && routingRelief === "money-or-property"
         ? "small-claims"
         : "civil";
 
@@ -734,7 +1049,6 @@ export default function CourtAssistantChat({
   }
 
   function transferToCourtPath(targetPath: string) {
-
     sessionStorage.setItem(
       ROUTE_TRANSFER_KEY,
       JSON.stringify({
@@ -773,10 +1087,8 @@ export default function CourtAssistantChat({
         </div>
 
         <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-          CourtSimplified uses the AI Case Partner pipeline to
-          organize your story, remember this case, identify missing
-          information, review proof gaps, and ask focused follow-up
-          questions.
+          Your saved case information is available here. Ask about the next
+          detail you need to confirm, a document, or an important date.
         </p>
 
         {recommendedRoute && (
@@ -787,25 +1099,21 @@ export default function CourtAssistantChat({
 
             <p className="mt-1 text-sm text-[#16302b]">
               Recommended next page:
-              <span className="ml-2 font-semibold">
-                {recommendedRoute}
-              </span>
+              <span className="ml-2 font-semibold">{recommendedRoute}</span>
             </p>
           </div>
         )}
 
-        {latestInvestigation?.issues?.length > 0 && (
+        {investigationIssues.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">
-            {latestInvestigation.issues
-              .slice(0, 5)
-              .map((issue: any) => (
-                <div
-                  key={issue.id || issue.label}
-                  className="rounded-full bg-[#e7f5ef] px-3 py-1 text-xs font-semibold text-[#2f7d67]"
-                >
-                  {issue.label}
-                </div>
-              ))}
+            {investigationIssues.slice(0, 5).map((issue) => (
+              <div
+                key={issue.id}
+                className="rounded-full bg-[#e7f5ef] px-3 py-1 text-xs font-semibold text-[#2f7d67]"
+              >
+                {issue.label}
+              </div>
+            ))}
           </div>
         )}
       </div>
@@ -841,133 +1149,120 @@ export default function CourtAssistantChat({
               Proceed to Superior Court Civil Intake
             </button>
           ) : (
-          <form
+            <form
               onSubmit={continueInCorrectCourt}
               className="mt-4 grid gap-4 rounded-2xl border border-[#ead9a7] bg-white p-4 md:grid-cols-3"
             >
-            <label className="text-sm font-semibold text-[#5f4715]">
-              Province
-              <select
-                value={routingProvince}
-                onChange={(event) =>
-                  setRoutingProvince(event.target.value)
-                }
-                className="mt-2 w-full rounded-xl border border-[#d9bd72] bg-white px-3 py-2 font-normal text-[#16302b]"
-              >
-                <option value="Ontario">Ontario</option>
-              </select>
-            </label>
+              <label className="text-sm font-semibold text-[#5f4715]">
+                Province
+                <select
+                  value={routingProvince}
+                  onChange={(event) =>
+                    setRoutingProvince(event.target.value)
+                  }
+                  className="mt-2 w-full rounded-xl border border-[#d9bd72] bg-white px-3 py-2 font-normal text-[#16302b]"
+                >
+                  <option value="Ontario">Ontario</option>
+                </select>
+              </label>
 
-            <label className="text-sm font-semibold text-[#5f4715]">
-              Total amount claimed
-              <input
-                value={routingAmount}
-                onChange={(event) => {
-                  setRoutingAmount(event.target.value);
-                  setRoutingError("");
-                }}
-                inputMode="decimal"
-                placeholder="Example: 10000"
-                className="mt-2 w-full rounded-xl border border-[#d9bd72] bg-white px-3 py-2 font-normal text-[#16302b]"
-              />
-            </label>
+              <label className="text-sm font-semibold text-[#5f4715]">
+                Total amount claimed
+                <input
+                  value={routingAmount}
+                  onChange={(event) => {
+                    setRoutingAmount(event.target.value);
+                    setRoutingError("");
+                  }}
+                  inputMode="decimal"
+                  placeholder="Example: 10000"
+                  className="mt-2 w-full rounded-xl border border-[#d9bd72] bg-white px-3 py-2 font-normal text-[#16302b]"
+                />
+              </label>
 
-            <label className="text-sm font-semibold text-[#5f4715]">
-              Remedy requested
-              <select
-                value={routingRelief}
-                onChange={(event) =>
-                  setRoutingRelief(
-                    event.target.value as
-                      | "money-or-property"
-                      | "other-relief",
-                  )
-                }
-                className="mt-2 w-full rounded-xl border border-[#d9bd72] bg-white px-3 py-2 font-normal text-[#16302b]"
-              >
-                <option value="money-or-property">
-                  Money or return of property
-                </option>
-                <option value="other-relief">
-                  Another type of court order
-                </option>
-              </select>
-            </label>
+              <label className="text-sm font-semibold text-[#5f4715]">
+                Remedy requested
+                <select
+                  value={routingRelief}
+                  onChange={(event) =>
+                    setRoutingRelief(
+                      event.target.value as
+                        | "money-or-property"
+                        | "other-relief",
+                    )
+                  }
+                  className="mt-2 w-full rounded-xl border border-[#d9bd72] bg-white px-3 py-2 font-normal text-[#16302b]"
+                >
+                  <option value="money-or-property">
+                    Money or return of property
+                  </option>
+                  <option value="other-relief">
+                    Another type of court order
+                  </option>
+                </select>
+              </label>
 
-            <div className="md:col-span-3">
-              {routingError && (
-                <p className="mb-3 text-sm font-semibold text-[#a63b3b]">
-                  {routingError}
+              <div className="md:col-span-3">
+                {routingError && (
+                  <p className="mb-3 text-sm font-semibold text-[#a63b3b]">
+                    {routingError}
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  className="rounded-full bg-[#725514] px-5 py-2 text-sm font-semibold text-white hover:bg-[#5f4715]"
+                >
+                  Continue in the correct court intake
+                </button>
+
+                <p className="mt-3 text-xs leading-5 text-[#7a673a]">
+                  In Ontario, Small Claims Court generally handles claims for
+                  money or return of personal property up to $50,000, excluding
+                  interest and costs. Other remedies or larger claims may
+                  require Civil Court review.
                 </p>
-              )}
-
-              <button
-                type="submit"
-                className="rounded-full bg-[#725514] px-5 py-2 text-sm font-semibold text-white hover:bg-[#5f4715]"
-              >
-                Continue in the correct court intake
-              </button>
-
-              <p className="mt-3 text-xs leading-5 text-[#7a673a]">
-                In Ontario, Small Claims Court generally handles claims
-                for money or return of personal property up to $50,000,
-                excluding interest and costs. Other remedies or larger
-                claims may require Civil Court review.
-              </p>
-            </div>
+              </div>
             </form>
           )}
         </div>
       )}
 
-      {systemWarnings.length > 0 && (
-        <div className="border-b border-[#ead9a7] bg-[#fffaf0] p-4">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#8a6517]">
-            Information still to confirm
+      {!courtPathGuidance && (
+        <div className="border-b border-[#d8e6df] p-4">
+          <p className="mb-3 text-sm font-semibold text-[#16302b]">
+            Suggested questions
           </p>
 
-          <div className="space-y-2">
-            {systemWarnings.slice(0, 4).map((warning) => (
-              <div
-                key={normalize(warning)}
-                className="rounded-xl border border-[#ead9a7] bg-white px-3 py-2 text-sm text-[#6e5726]"
+          <div className="flex flex-wrap gap-2">
+            {quickActions.map((action) => (
+              <button
+                key={action}
+                type="button"
+                onClick={() => sendMessage(action)}
+                disabled={loading}
+                className="rounded-full border border-[#b8d8cc] bg-[#f4fbf8] px-4 py-2 text-sm font-medium text-[#2f7d67] hover:bg-[#e8f6f1] disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {warning}
-              </div>
+                {action}
+              </button>
             ))}
           </div>
         </div>
       )}
 
-      {!courtPathGuidance && (
-      <div className="border-b border-[#d8e6df] p-4">
-        <p className="mb-3 text-sm font-semibold text-[#16302b]">
-          Suggested questions
-        </p>
-
-        <div className="flex flex-wrap gap-2">
-          {quickActions.map((action) => (
-            <button
-              key={action}
-              type="button"
-              onClick={() => sendMessage(action)}
-              disabled={loading}
-              className="rounded-full border border-[#b8d8cc] bg-[#f4fbf8] px-4 py-2 text-sm font-medium text-[#2f7d67] hover:bg-[#e8f6f1] disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {action}
-            </button>
-          ))}
-        </div>
-      </div>
-      )}
-
-      <div className="max-h-[500px] space-y-4 overflow-y-auto p-4">
+      <div
+        ref={transcriptRef}
+        data-testid="case-partner-transcript"
+        onScroll={(event) => {
+          const element = event.currentTarget;
+          shouldAutoScrollRef.current =
+            element.scrollHeight - element.scrollTop - element.clientHeight < 72;
+        }}
+        className="max-h-[500px] space-y-4 overflow-y-auto p-4"
+      >
         {messages.map((message, index) => (
           <div
-            key={`${message.role}-${index}-${message.content.slice(
-              0,
-              30,
-            )}`}
+            key={`${message.role}-${index}-${message.content.slice(0, 30)}`}
             className={
               message.role === "user"
                 ? "ml-auto max-w-[88%] rounded-2xl bg-[#2f7d67] px-4 py-3 text-sm text-white"
@@ -982,40 +1277,99 @@ export default function CourtAssistantChat({
 
         {loading && (
           <div className="mr-auto max-w-[88%] rounded-2xl bg-[#f1f5f3] px-4 py-3 text-sm text-[#4d675f]">
-            CourtSimplified is reviewing this case and choosing the
-            next focused response...
+            CourtSimplified is reviewing this case and choosing the next focused
+            response...
+          </div>
+        )}
+
+        {systemWarnings.length > 0 && (
+          <div className="border border-[#ead9a7] bg-[#fffaf0] p-4">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#8a6517]">
+              Information still to confirm
+            </p>
+
+            <div className="space-y-2">
+              {systemWarnings.slice(0, 4).map((warning) => (
+                <div
+                  key={normalize(warning)}
+                  className="rounded-xl border border-[#ead9a7] bg-white px-3 py-2 text-sm text-[#6e5726]"
+                >
+                  {warning}
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>
 
       {!courtPathGuidance && (
-      <div className="border-t border-[#d8e6df] p-4">
-        <textarea
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-          onKeyDown={handleKeyDown}
-          rows={4}
-          className="w-full resize-none rounded-2xl border border-[#c9d9d2] p-3 text-sm text-[#16302b] outline-none focus:border-[#2f7d67] focus:ring-2 focus:ring-[#d8eee7]"
-          placeholder="Tell CourtSimplified what happened in normal words."
-        />
+        <div className="border-t border-[#d8e6df] p-4">
+          <textarea
+            disabled={initialSnapshot.phase !== "browser"}
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+            onKeyDown={handleKeyDown}
+            rows={4}
+            className="w-full resize-none rounded-2xl border border-[#c9d9d2] p-3 text-sm text-[#16302b] outline-none focus:border-[#2f7d67] focus:ring-2 focus:ring-[#d8eee7]"
+            placeholder="Ask about an important date, document, or case detail."
+          />
 
-        <div className="mt-3 flex items-center justify-between gap-3">
-          <p className="text-xs text-[#6b8078]">
-            CourtSimplified helps organize litigation information.
-            Verify final court requirements before filing.
-          </p>
+          <div className="mt-3 flex items-center justify-between gap-3">
+            <p className="text-xs text-[#6b8078]">
+              CourtSimplified helps organize litigation information. Verify
+              final court requirements before filing.
+            </p>
 
-          <button
-            type="button"
-            onClick={() => sendMessage()}
-            disabled={loading || !input.trim()}
-            className="rounded-2xl bg-[#2f7d67] px-5 py-2 text-sm font-semibold text-white hover:bg-[#276b58] disabled:cursor-not-allowed disabled:bg-slate-300"
-          >
-            {loading ? "Reviewing..." : "Ask Case Partner"}
-          </button>
+            <button
+              type="button"
+              onClick={() => sendMessage()}
+              disabled={loading || !input.trim()}
+              className="rounded-2xl bg-[#2f7d67] px-5 py-2 text-sm font-semibold text-white hover:bg-[#276b58] disabled:cursor-not-allowed disabled:bg-slate-300"
+            >
+              {loading ? "Reviewing..." : "Ask Case Partner"}
+            </button>
+          </div>
         </div>
-      </div>
       )}
     </section>
+  );
+}
+
+export default function CourtAssistantChat(props: CourtAssistantChatProps) {
+  const storageKey = useMemo(
+    () =>
+      buildStorageKey({
+        caseId: props.caseId,
+        path: props.path,
+        chatSessionId: props.chatSessionId,
+      }),
+    [props.caseId, props.chatSessionId, props.path],
+  );
+  const chatStore = useMemo(
+    () =>
+      createChatExternalStore({
+        storageKey,
+        path: props.path,
+      }),
+    [props.path, storageKey],
+  );
+  const subscribe = useCallback(
+    (listener: () => void) => chatStore.subscribe(listener),
+    [chatStore],
+  );
+  const snapshot = useSyncExternalStore(
+    subscribe,
+    chatStore.getSnapshot,
+    chatStore.getServerSnapshot,
+  );
+
+  return (
+    <CourtAssistantChatInner
+      key={`${storageKey}:${snapshot.phase}`}
+      {...props}
+      initialSnapshot={snapshot}
+      storageKey={storageKey}
+      chatStore={chatStore}
+    />
   );
 }

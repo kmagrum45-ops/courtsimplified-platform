@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CourtSimplified Completed Intake Reasoning Contract",
+  "type": "object",
+  "required": ["factualSnapshot", "possibleIssuesToReview", "evidenceRecorded", "evidenceToOrganizeOrConfirm", "contradictionsOrUncertainty", "proceduralStatus", "nextConfirmationQuestion", "courtClarificationPoints", "verifiedFormsAndProcedure", "reviewBoundary", "nextWorkflowAction"],
+  "properties": {
+    "factualSnapshot": { "type": "object" },
+    "possibleIssuesToReview": { "type": "array" },
+    "evidenceRecorded": { "type": "array" },
+    "evidenceToOrganizeOrConfirm": { "type": "array" },
+    "contradictionsOrUncertainty": { "type": "array" },
+    "proceduralStatus": { "type": "array" },
+    "nextConfirmationQuestion": { "type": "string", "minLength": 1 },
+    "courtClarificationPoints": { "type": "array" },
+    "verifiedFormsAndProcedure": { "type": "array" },
+    "reviewBoundary": { "type": "string", "minLength": 1 },
+    "nextWorkflowAction": { "enum": ["organize-evidence", "review-intake-details", "check-official-forms-and-procedure"] }
+  },
+  "additionalProperties": false
+}

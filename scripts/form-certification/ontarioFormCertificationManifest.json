@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "generatedBundle": {
+    "migration": "supabase/migrations/20260810000012_add_ontario_civil_counterclaim_new_party_mapping.sql",
+    "checkedAt": "2026-08-12",
+    "authorityBundleVersion": "ontario-beta-form-mapping-v1",
+    "authority": {
+      "url": "https://www.ontario.ca/laws/regulation/900194",
+      "citation": "R.R.O. 1990, Reg. 194, Rules of Civil Procedure",
+      "issuingBody": "Ontario e-Laws"
+    },
+    "question": {
+      "fieldPath": "formApplicability.civil.pleadingPosture",
+      "question": "Which Civil Rules pleading are you preparing?",
+      "valueType": "string",
+      "choices": [
+        { "value": "counterclaim-existing-parties", "label": "Counterclaim against parties already in the main action (Form 27A)" },
+        { "value": "counterclaim-new-party", "label": "Counterclaim against the plaintiff and a person not already a party to the main action (Form 27B)" },
+        { "value": "defence-to-counterclaim", "label": "Defence to Counterclaim (Form 27C)" },
+        { "value": "reply-to-defence-to-counterclaim", "label": "Reply to Defence to Counterclaim (Form 27D)" },
+        { "value": "crossclaim", "label": "Crossclaim (Form 28A)" },
+        { "value": "reply-to-defence-to-crossclaim", "label": "Reply to Defence to Crossclaim (Form 28C)" },
+        { "value": "reply-to-third-party-defence", "label": "Reply to Third Party Defence (Form 29C)" }
+      ],
+      "explanation": "This does not assess deadlines, service, filing readiness, evidence, remedies, or merits."
+    },
+    "items": [
+      {
+        "canonicalFormId": "a4c3343d-1ed5-4da3-b247-8460b5d27b3c",
+        "courtType": "civil",
+        "priorStage": "starting-case",
+        "allowedStage": "responding",
+        "officialFormUrl": "https://ontariocourtforms.on.ca/en/rules-of-civil-procedure-forms/27b/",
+        "sourceId": "on-court-forms-civil-27b",
+        "officialTitle": "Counterclaim (Against Plaintiff and Person not Already Party to Main Action)",
+        "formRevisionOrEffectiveAt": "Version: July 1, 2007; effective: July 1, 2008",
+        "governingRulePinpoint": "rr. 27.02-27.03",
+        "mappingSourceId": "on-civil-counterclaim-new-party-r27-02-03",
+        "requiredFact": { "path": "formApplicability.civil.pleadingPosture", "equals": "counterclaim-new-party" },
+        "displayDescription": "Use this form when making a counterclaim against the plaintiff and a person not already a party to the main action.",
+        "exclusions": "All other pleading postures, deadlines, service, filing readiness, evidence, remedies, and merits remain review-required."
+      },
+      {
+        "canonicalFormId": "92121753-d5a5-45e5-9cb6-21b837de7c13",
+        "courtType": "civil",
+        "priorStage": "starting-case",
+        "allowedStage": "responding",
+        "officialFormUrl": "https://ontariocourtforms.on.ca/en/rules-of-civil-procedure-forms/27a/",
+        "sourceId": "on-court-forms-civil-27a",
+        "officialTitle": "Counterclaim (Against Parties to Main Action Only)",
+        "formRevisionOrEffectiveAt": "Version: July 1, 2007; effective: July 1, 2008",
+        "governingRulePinpoint": "rr. 27.01-27.02",
+        "mappingSourceId": "on-civil-counterclaim-r27-01-02",
+        "requiredFact": { "path": "formApplicability.civil.pleadingPosture", "equals": "counterclaim-existing-parties" },
+        "displayDescription": "Use this form when making a counterclaim against parties already in the main action.",
+        "exclusions": "All other pleading postures, deadlines, service, filing readiness, evidence, remedies, and merits remain review-required."
+      },
+      {
+        "canonicalFormId": "8135da24-53f9-4360-a7c4-81d66fe8530a",
+        "courtType": "civil",
+        "priorStage": "starting-case",
+        "allowedStage": "responding",
+        "officialFormUrl": "https://ontariocourtforms.on.ca/en/rules-of-civil-procedure-forms/27c/",
+        "sourceId": "on-court-forms-civil-27c",
+        "officialTitle": "Defence to Counterclaim",
+        "formRevisionOrEffectiveAt": "Version: July 1, 2007; effective: July 1, 2008",
+        "governingRulePinpoint": "r. 27.05",
+        "mappingSourceId": "on-civil-defence-counterclaim-r27-05",
+        "requiredFact": { "path": "formApplicability.civil.pleadingPosture", "equals": "defence-to-counterclaim" },
+        "displayDescription": "Use this form when preparing a defence to a counterclaim.",
+        "exclusions": "All other pleading postures, deadlines, service, filing readiness, evidence, remedies, and merits remain review-required."
+      },
+      {
+        "canonicalFormId": "a73f2f4c-8dc7-4bb6-a10b-a50e17a7d185",
+        "courtType": "civil",
+        "priorStage": "starting-case",
+        "allowedStage": "already-started",
+        "officialFormUrl": "https://ontariocourtforms.on.ca/en/rules-of-civil-procedure-forms/27d/",
+        "sourceId": "on-court-forms-civil-27d",
+        "officialTitle": "Reply to Defence to Counterclaim",
+        "formRevisionOrEffectiveAt": "Version: July 1, 2007; effective: July 1, 2008",
+        "governingRulePinpoint": "r. 27.06",
+        "mappingSourceId": "on-civil-reply-defence-counterclaim-r27-06",
+        "requiredFact": { "path": "formApplicability.civil.pleadingPosture", "equals": "reply-to-defence-to-counterclaim" },
+        "displayDescription": "Use this form when preparing a reply to a defence to counterclaim.",
+        "exclusions": "All other pleading postures, deadlines, service, filing readiness, evidence, remedies, and merits remain review-required."
+      },
+      {
+        "canonicalFormId": "ce2bebe1-9c12-469f-bcca-ebb4d7968216",
+        "courtType": "civil",
+        "priorStage": "starting-case",
+        "allowedStage": "responding",
+        "officialFormUrl": "https://ontariocourtforms.on.ca/en/rules-of-civil-procedure-forms/28a/",
+        "sourceId": "on-court-forms-civil-28a",
+        "officialTitle": "Crossclaim",
+        "formRevisionOrEffectiveAt": "Version: July 1, 2007; effective: July 1, 2008",
+        "governingRulePinpoint": "rr. 28.01-28.02",
+        "mappingSourceId": "on-civil-crossclaim-r28-01-02",
+        "requiredFact": { "path": "formApplicability.civil.pleadingPosture", "equals": "crossclaim" },
+        "displayDescription": "Use this form when making a crossclaim.",
+        "exclusions": "All other pleading postures, deadlines, service, filing readiness, evidence, remedies, and merits remain review-required."
+      },
+      {
+        "canonicalFormId": "b2cc9170-cb22-4087-843e-1b4ca4eb2620",
+        "courtType": "civil",
+        "priorStage": "starting-case",
+        "allowedStage": "already-started",
+        "officialFormUrl": "https://ontariocourtforms.on.ca/en/rules-of-civil-procedure-forms/28c/",
+        "sourceId": "on-court-forms-civil-28c",
+        "officialTitle": "Reply to Defence to Crossclaim",
+        "formRevisionOrEffectiveAt": "Version: July 1, 2007; effective: July 1, 2008",
+        "governingRulePinpoint": "r. 28.08",
+        "mappingSourceId": "on-civil-reply-defence-crossclaim-r28-08",
+        "requiredFact": { "path": "formApplicability.civil.pleadingPosture", "equals": "reply-to-defence-to-crossclaim" },
+        "displayDescription": "Use this form when preparing a reply to a defence to crossclaim.",
+        "exclusions": "All other pleading postures, deadlines, service, filing readiness, evidence, remedies, and merits remain review-required."
+      },
+      {
+        "canonicalFormId": "79f07cdf-6f02-4857-8402-1b77addfa7f6",
+        "courtType": "civil",
+        "priorStage": "responding",
+        "allowedStage": "responding",
+        "officialFormUrl": "https://ontariocourtforms.on.ca/en/rules-of-civil-procedure-forms/29c/",
+        "sourceId": "on-court-forms-civil-29c",
+        "officialTitle": "Reply to Third Party Defence",
+        "formRevisionOrEffectiveAt": "Version: July 1, 2007; effective: July 1, 2008",
+        "governingRulePinpoint": "r. 29.04",
+        "mappingSourceId": "on-civil-reply-third-party-defence-r29-04",
+        "requiredFact": { "path": "formApplicability.civil.pleadingPosture", "equals": "reply-to-third-party-defence" },
+        "displayDescription": "Use this form when preparing a reply to a third party defence.",
+        "exclusions": "All other pleading postures, deadlines, service, filing readiness, evidence, remedies, and merits remain review-required."
+      }
+    ]
+  }
+}

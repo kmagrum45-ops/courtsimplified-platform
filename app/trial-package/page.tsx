@@ -4,6 +4,12 @@ import Link from "next/link";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
+import {
+  loadDraftWorkflowBundle,
+  loadWorkflowCaseBundle,
+  resolveWorkflowGate,
+} from "../../src/lib/case-system/workflowCaseLoader";
+
 type EvidencePackage = {
   createdAt: string;
   exhibitCount: number;
@@ -87,32 +93,6 @@ function BulletList({ items }: { items?: string[] }) {
   );
 }
 
-function readStoredCase(): StoredCaseData | null {
-  const storedCase =
-    localStorage.getItem("caseData") ||
-    localStorage.getItem("courtSimplifiedCase");
-
-  if (!storedCase) return null;
-
-  try {
-    return JSON.parse(storedCase);
-  } catch {
-    return null;
-  }
-}
-
-function readEvidencePackage(): EvidencePackage | null {
-  const storedEvidence = localStorage.getItem("courtSimplifiedEvidencePackage");
-
-  if (!storedEvidence) return null;
-
-  try {
-    return JSON.parse(storedEvidence);
-  } catch {
-    return null;
-  }
-}
-
 function buildWorkflowHref(route: string, caseId?: string, path?: string) {
   const params = new URLSearchParams();
 
@@ -144,11 +124,48 @@ function TrialPackagePageContent() {
   const [caseData, setCaseData] = useState<StoredCaseData | null>(null);
   const [evidencePackage, setEvidencePackage] =
     useState<EvidencePackage | null>(null);
+  const [loadingContext, setLoadingContext] = useState(true);
+  const [contextError, setContextError] = useState("");
 
   useEffect(() => {
-    setCaseData(readStoredCase());
-    setEvidencePackage(readEvidencePackage());
-  }, []);
+    let active = true;
+
+    async function loadContext() {
+      setLoadingContext(true);
+      setContextError("");
+
+      try {
+        const bundle = caseId
+          ? await loadWorkflowCaseBundle(caseId)
+          : loadDraftWorkflowBundle();
+
+        if (!active) return;
+
+        setCaseData(bundle.caseData as StoredCaseData | null);
+        setEvidencePackage(
+          bundle.evidencePackage as EvidencePackage | null,
+        );
+      } catch (error) {
+        if (!active) return;
+
+        setCaseData(null);
+        setEvidencePackage(null);
+        setContextError(
+          error instanceof Error
+            ? error.message
+            : "The requested case could not be loaded.",
+        );
+      } finally {
+        if (active) setLoadingContext(false);
+      }
+    }
+
+    loadContext();
+
+    return () => {
+      active = false;
+    };
+  }, [caseId]);
 
   const confirmedExhibits = useMemo(() => {
     if (!evidencePackage) return 0;
@@ -244,10 +261,41 @@ function TrialPackagePageContent() {
   );
   const courtPackageHref = buildWorkflowHref("/court-package", caseId, path);
   const exportHref = buildWorkflowHref("/document-export", caseId, path);
+  const workflowGate = resolveWorkflowGate({
+    caseData: caseData as Record<string, unknown> | null,
+    evidencePackage,
+  });
+
+  if (!loadingContext && !workflowGate.ready) {
+    const nextHref = workflowGate.nextActionRoute
+      ? buildWorkflowHref(workflowGate.nextActionRoute, caseId, path)
+      : workspaceHref;
+    return (
+      <main className="min-h-screen bg-[#f6faf8] p-6 text-[#16302b]">
+        <section className="mx-auto max-w-3xl rounded-3xl border border-amber-200 bg-amber-50 p-6 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-wide text-amber-800">Trial Preparation is not ready yet</p>
+          <p className="mt-3 text-[#4d675f]">{workflowGate.unavailable ? "The selected case is unavailable. No other case or draft was substituted." : "Complete the next workflow step before using trial-preparation materials."}</p>
+          <a className="mt-5 inline-block rounded-xl bg-[#16302b] px-4 py-2 font-semibold text-white" href={nextHref}>{workflowGate.nextActionLabel || "Return to case workspace"}</a>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-[#f6faf8] p-6 text-[#16302b]">
       <div className="mx-auto max-w-6xl space-y-8">
+        {loadingContext ? (
+          <div className="rounded-2xl border border-[#d8e6df] bg-white p-4 text-sm text-[#4d675f]">
+            Loading the selected case package...
+          </div>
+        ) : null}
+
+        {contextError ? (
+          <div className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-800">
+            {contextError} No data from another case was substituted.
+          </div>
+        ) : null}
+
         <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
           <div className="flex flex-wrap items-start justify-between gap-5">
             <div>

@@ -1,5 +1,6 @@
 import {
   buildConversationIntelligence,
+  CasePartnerCourtContext,
   CasePartnerConversationMessage,
 } from "./conversationIntelligenceEngine";
 
@@ -14,15 +15,35 @@ import {
 
 import { DOCTRINE_SEED_LIBRARY } from "../knowledge/doctrineSeedLibrary";
 
-import { CaseLegalDomain } from "../architecture/masterCaseSchema";
+import {
+  CaseCourtPath,
+  CaseLegalDomain,
+  CaseProvince,
+  CaseStage,
+} from "../architecture/masterCaseSchema";
 
-export type AiCasePartnerOrchestratorVersion = "1.4.0";
+export type AiCasePartnerOrchestratorVersion = "1.5.0";
+
+export type AiCasePartnerCourtContextInput = {
+  courtPath?: string;
+  jurisdiction?: string;
+  city?: string;
+  stage?: string;
+};
+
+export type AiCasePartnerResolvedCourtContext = {
+  courtPath: CaseCourtPath;
+  jurisdiction: CaseProvince | "Canada";
+  city?: string;
+  stage: CaseStage;
+};
 
 export type AiCasePartnerOrchestratorInput = {
   caseId?: string;
   message: string;
   conversation?: CasePartnerConversationMessage[];
   caseMemory?: unknown;
+  courtContext?: AiCasePartnerCourtContextInput;
   mode?: string;
   diagnosticId?: string;
 };
@@ -61,6 +82,8 @@ export type AiCasePartnerOrchestratorResult = {
 
   userFacingAnswer: string;
   answer: string;
+
+  courtContext: AiCasePartnerResolvedCourtContext;
 
   conversationIntelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
@@ -156,7 +179,7 @@ function runDiagnosticStage<T>(args: {
       diagnosticId: args.diagnosticId,
       stage: args.stage,
       durationMs: Date.now() - startedAt,
-      error,
+      errorName: error instanceof Error ? error.name : "UnknownError",
     });
 
     throw buildStageError({
@@ -177,6 +200,288 @@ function clean(value: unknown): string {
 
 function normalize(value: unknown): string {
   return clean(value).toLowerCase().replace(/\s+/g, " ").trim();
+}
+
+function normalizeKey(value: unknown): string {
+  return normalize(value).replace(/_/g, "-");
+}
+
+function asRecord(value: unknown): Record<string, unknown> {
+  return value && typeof value === "object" && !Array.isArray(value)
+    ? (value as Record<string, unknown>)
+    : {};
+}
+
+function getNestedValue(value: unknown, path: string[]): unknown {
+  let current: unknown = value;
+
+  for (const key of path) {
+    const record = asRecord(current);
+
+    if (!(key in record)) {
+      return undefined;
+    }
+
+    current = record[key];
+  }
+
+  return current;
+}
+
+function asCourtPath(value: unknown): CaseCourtPath {
+  const normalized = normalizeKey(value);
+
+  if (normalized === "smallclaims" || normalized === "small-claim") {
+    return "small-claims";
+  }
+
+  if (normalized === "criminal") {
+    return "criminal-related";
+  }
+
+  if (normalized === "landlord-tenant") {
+    return "ltb";
+  }
+
+  if (
+    normalized === "family" ||
+    normalized === "small-claims" ||
+    normalized === "civil" ||
+    normalized === "tribunal" ||
+    normalized === "ltb" ||
+    normalized === "immigration" ||
+    normalized === "criminal-related"
+  ) {
+    return normalized;
+  }
+
+  return "unknown";
+}
+
+function firstCourtPath(values: unknown[]): CaseCourtPath {
+  for (const value of values) {
+    const courtPath = asCourtPath(value);
+
+    if (courtPath !== "unknown") {
+      return courtPath;
+    }
+  }
+
+  return "unknown";
+}
+
+function asJurisdiction(value: unknown): CaseProvince | "Canada" {
+  const jurisdictions: Record<string, CaseProvince | "Canada"> = {
+    ontario: "Ontario",
+    alberta: "Alberta",
+    "british columbia": "British Columbia",
+    manitoba: "Manitoba",
+    "new brunswick": "New Brunswick",
+    "newfoundland and labrador": "Newfoundland and Labrador",
+    "northwest territories": "Northwest Territories",
+    "nova scotia": "Nova Scotia",
+    nunavut: "Nunavut",
+    "prince edward island": "Prince Edward Island",
+    quebec: "Quebec",
+    saskatchewan: "Saskatchewan",
+    yukon: "Yukon",
+    federal: "Federal",
+    canada: "Canada",
+  };
+
+  return jurisdictions[normalize(value)] || "Unknown";
+}
+
+function firstJurisdiction(
+  values: unknown[],
+): CaseProvince | "Canada" {
+  for (const value of values) {
+    const jurisdiction = asJurisdiction(value);
+
+    if (jurisdiction !== "Unknown") {
+      return jurisdiction;
+    }
+  }
+
+  return "Unknown";
+}
+
+function asCaseStage(value: unknown): CaseStage {
+  const normalized = normalizeKey(value);
+
+  if (normalized === "not-started") return "pre-litigation";
+  if (normalized === "already-filed") return "already-started";
+  if (normalized === "trial-preparation") return "trial";
+  if (normalized === "appeal-or-review") return "appeal";
+  if (normalized === "disclosure") return "already-started";
+
+  if (
+    normalized === "pre-litigation" ||
+    normalized === "starting-case" ||
+    normalized === "responding" ||
+    normalized === "already-started" ||
+    normalized === "conference" ||
+    normalized === "motion" ||
+    normalized === "trial" ||
+    normalized === "settlement" ||
+    normalized === "enforcement" ||
+    normalized === "appeal" ||
+    normalized === "urgent" ||
+    normalized === "closed"
+  ) {
+    return normalized;
+  }
+
+  return "not-sure";
+}
+
+function firstCaseStage(values: unknown[]): CaseStage {
+  for (const value of values) {
+    const stage = asCaseStage(value);
+
+    if (stage !== "not-sure") {
+      return stage;
+    }
+  }
+
+  return "not-sure";
+}
+
+function toConversationCourtPath(
+  courtPath: CaseCourtPath,
+): CasePartnerCourtContext["courtPath"] {
+  return courtPath === "tribunal" ? "unknown" : courtPath;
+}
+
+function toConversationStage(
+  stage: CaseStage,
+): CasePartnerCourtContext["proceduralStage"] {
+  if (stage === "pre-litigation") return "not-started";
+  if (stage === "already-started") return "already-filed";
+  if (stage === "appeal") return "appeal-or-review";
+  if (stage === "closed") return "unknown";
+
+  return stage;
+}
+
+function resolveStructuredCourtContext(
+  input: AiCasePartnerOrchestratorInput,
+): AiCasePartnerResolvedCourtContext {
+  const memory = input.caseMemory;
+
+  return {
+    courtPath: firstCourtPath([
+      input.courtContext?.courtPath,
+      getNestedValue(memory, ["masterResult", "masterCase", "courtPath"]),
+      getNestedValue(memory, ["masterCase", "courtPath"]),
+      getNestedValue(memory, [
+        "caseData",
+        "intake",
+        "masterResultPatch",
+        "masterCase",
+        "courtPath",
+      ]),
+      getNestedValue(memory, ["caseData", "courtPath"]),
+      getNestedValue(memory, [
+        "caseData",
+        "analysis",
+        "intelligence",
+        "proceduralPosture",
+        "courtPath",
+      ]),
+      getNestedValue(memory, ["caseData", "intake", "courtPath"]),
+      getNestedValue(memory, ["path"]),
+      getNestedValue(memory, ["selectedCourtArea"]),
+      getNestedValue(memory, ["courtArea"]),
+    ]),
+    jurisdiction: firstJurisdiction([
+      input.courtContext?.jurisdiction,
+      getNestedValue(memory, ["masterResult", "masterCase", "province"]),
+      getNestedValue(memory, ["masterCase", "province"]),
+      getNestedValue(memory, [
+        "caseData",
+        "intake",
+        "masterResultPatch",
+        "masterCase",
+        "province",
+      ]),
+      getNestedValue(memory, [
+        "caseData",
+        "analysis",
+        "intelligence",
+        "proceduralPosture",
+        "province",
+      ]),
+      getNestedValue(memory, [
+        "caseData",
+        "intake",
+        "intelligence",
+        "proceduralPosture",
+        "province",
+      ]),
+      getNestedValue(memory, [
+        "caseData",
+        "intake",
+        "extra",
+        "input",
+        "yourProvince",
+      ]),
+      getNestedValue(memory, ["jurisdiction"]),
+    ]),
+    city:
+      clean(input.courtContext?.city) ||
+      clean(getNestedValue(memory, ["caseData", "intake", "extra", "yourCity"])) ||
+      clean(getNestedValue(memory, ["caseData", "intake", "yourCity"])) ||
+      undefined,
+    stage: firstCaseStage([
+      input.courtContext?.stage,
+      getNestedValue(memory, ["masterResult", "masterCase", "stage"]),
+      getNestedValue(memory, ["masterCase", "stage"]),
+      getNestedValue(memory, [
+        "caseData",
+        "intake",
+        "masterResultPatch",
+        "masterCase",
+        "stage",
+      ]),
+      getNestedValue(memory, [
+        "caseData",
+        "analysis",
+        "intelligence",
+        "proceduralPosture",
+        "stage",
+      ]),
+      getNestedValue(memory, ["caseData", "intake", "caseStage"]),
+      getNestedValue(memory, ["proceduralStage"]),
+    ]),
+  };
+}
+
+function resolveFinalCourtContext(args: {
+  input: AiCasePartnerOrchestratorInput;
+  structured: AiCasePartnerResolvedCourtContext;
+  intelligence: ReturnType<typeof buildConversationIntelligence>;
+}): AiCasePartnerResolvedCourtContext {
+  return {
+    courtPath: firstCourtPath([
+      args.structured.courtPath,
+      args.intelligence.conversationFocus.selectedCourtArea,
+      args.intelligence.conversationFocus.courtArea,
+      getNestedValue(args.input.caseMemory, ["selectedCourtArea"]),
+      getNestedValue(args.input.caseMemory, ["courtArea"]),
+    ]),
+    jurisdiction: firstJurisdiction([
+      args.structured.jurisdiction,
+      args.intelligence.conversationFocus.jurisdiction,
+      getNestedValue(args.input.caseMemory, ["jurisdiction"]),
+    ]),
+    city: args.structured.city,
+    stage: firstCaseStage([
+      args.structured.stage,
+      args.intelligence.conversationFocus.proceduralStage,
+      getNestedValue(args.input.caseMemory, ["proceduralStage"]),
+    ]),
+  };
 }
 
 function firstItem(items: unknown): string {
@@ -215,76 +520,79 @@ function uniqueDomains(values: CaseLegalDomain[]): CaseLegalDomain[] {
 function detectLegalDomains(
   intelligence: ReturnType<typeof buildConversationIntelligence>,
 ): CaseLegalDomain[] {
-  const text = [
-    intelligence.conversationFocus.primaryGoal,
-    ...intelligence.hypotheses.map((item) => item.label),
-    ...intelligence.hypotheses.map((item) => item.explanation),
+  const hypothesisText = intelligence.hypotheses
+    .map((item) => item.label)
+    .join(" ")
+    .toLowerCase();
+  const signalText = [
     ...intelligence.legalSignals.map((item) => item.label),
     ...intelligence.legalSignals.map((item) => item.explanation),
-    ...intelligence.caseMemoryPatch.legalIssuesToReview,
   ]
     .join(" ")
     .toLowerCase();
 
   const domains: CaseLegalDomain[] = [];
 
-  if (text.includes("defamation") || text.includes("reputation")) {
+  if (
+    hypothesisText.includes("defamation") ||
+    hypothesisText.includes("reputation")
+  ) {
     domains.push("defamation");
   }
 
-  if (text.includes("contract") || text.includes("agreement")) {
+  if (hypothesisText.includes("contract / payment dispute")) {
     domains.push("contract");
   }
 
   if (
-    text.includes("payment") ||
-    text.includes("debt") ||
-    text.includes("owed")
+    hypothesisText.includes("payment") ||
+    hypothesisText.includes("debt") ||
+    hypothesisText.includes("owed")
   ) {
     domains.push("debt");
   }
 
   if (
-    text.includes("property damage") ||
-    text.includes("damaged")
+    hypothesisText.includes("property damage") ||
+    hypothesisText.includes("damaged")
   ) {
     domains.push("property-damage");
   }
 
-  if (text.includes("negligence")) {
+  if (hypothesisText.includes("negligence")) {
     domains.push("negligence");
   }
 
   if (
-    text.includes("family") ||
-    text.includes("parenting") ||
-    text.includes("custody")
+    hypothesisText.includes("family") ||
+    hypothesisText.includes("parenting") ||
+    hypothesisText.includes("custody")
   ) {
     domains.push("family-parenting");
   }
 
-  if (text.includes("support")) {
+  if (hypothesisText.includes("support")) {
     domains.push("family-support");
   }
 
   if (
-    text.includes("public") ||
-    text.includes("crown") ||
-    text.includes("police") ||
-    text.includes("government") ||
-    text.includes("institutional")
+    hypothesisText.includes("public") ||
+    hypothesisText.includes("crown") ||
+    hypothesisText.includes("police") ||
+    hypothesisText.includes("government") ||
+    hypothesisText.includes("institutional")
   ) {
     domains.push("civil-institutional-liability");
   }
 
-  if (text.includes("charter")) {
+  if (hypothesisText.includes("charter")) {
     domains.push("civil-charter");
   }
 
   if (
-    text.includes("procedure") ||
-    text.includes("court") ||
-    text.includes("form")
+    signalText.includes("procedure") ||
+    signalText.includes("court") ||
+    signalText.includes("form")
   ) {
     domains.push("procedural");
   }
@@ -831,7 +1139,7 @@ function buildAnswer(args: {
     legalReasoning: args.legalReasoning,
     investigation: args.investigation,
     previousAssistantText,
-  });
+  }) || "I recorded that update. What happened next, and what document or message supports it?";
 }
 
 export function runAiCasePartnerOrchestrator(
@@ -845,6 +1153,7 @@ export function runAiCasePartnerOrchestrator(
 
   const message = clean(input.message);
   const conversation = input.conversation || [];
+  const structuredCourtContext = resolveStructuredCourtContext(input);
 
   const inputMetrics = {
     messageCharacters: message.length,
@@ -865,8 +1174,23 @@ export function runAiCasePartnerOrchestrator(
         message,
         conversation,
         caseMemory: input.caseMemory,
+        courtContext: {
+          courtPath: toConversationCourtPath(
+            structuredCourtContext.courtPath,
+          ),
+          jurisdiction: structuredCourtContext.jurisdiction,
+          proceduralStage: toConversationStage(
+            structuredCourtContext.stage,
+          ),
+        },
         mode: input.mode,
       }),
+  });
+
+  const courtContext = resolveFinalCourtContext({
+    input,
+    structured: structuredCourtContext,
+    intelligence: conversationIntelligence,
   });
 
   const legalDomains = runDiagnosticStage({
@@ -882,12 +1206,9 @@ export function runAiCasePartnerOrchestrator(
     diagnostics: stageDiagnostics,
     operation: () =>
       buildLegalReasoningCoordinator({
-        courtPath:
-          conversationIntelligence.conversationFocus.courtArea === "mixed"
-            ? "unknown"
-            : conversationIntelligence.conversationFocus.courtArea,
-        jurisdiction: "Unknown",
-        stage: "not-sure",
+        courtPath: courtContext.courtPath,
+        jurisdiction: courtContext.jurisdiction,
+        stage: courtContext.stage,
         legalDomains,
         knowledgeObjects: DOCTRINE_SEED_LIBRARY,
         mode: "operational",
@@ -946,12 +1267,14 @@ export function runAiCasePartnerOrchestrator(
   console.info("AI Case Partner orchestrator completed", diagnostics);
 
   return {
-    version: "1.4.0",
+    version: "1.5.0",
     generatedAt: nowIso(),
     ok: true,
 
     userFacingAnswer,
     answer: userFacingAnswer,
+
+    courtContext,
 
     conversationIntelligence,
     legalReasoning,

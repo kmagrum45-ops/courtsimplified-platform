@@ -362,6 +362,7 @@ function mapLegalKnowledge(
     ...intelligence.legalKnowledge.statutes,
     ...intelligence.legalKnowledge.proceduralRules,
     ...intelligence.legalKnowledge.precedents,
+    ...intelligence.legalKnowledge.officialGuidance,
   ].map((source) => ({
     id: source.id,
     title: source.title,

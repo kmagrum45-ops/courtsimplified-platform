@@ -3,6 +3,8 @@ import {
   LegalReasoningProfile,
 } from "../knowledge/legalReasoningProfiles";
 
+import type { CaseProvince } from "../architecture/masterCaseSchema";
+
 export type CasePartnerRole = "user" | "assistant" | "system";
 
 export type CasePartnerConfidence = "low" | "medium" | "high";
@@ -34,6 +36,14 @@ export type CasePartnerProceduralStage =
   | "not-sure"
   | "unknown";
 
+export type CasePartnerJurisdiction = CaseProvince | "Canada";
+
+export type CasePartnerCourtContext = {
+  courtPath?: CasePartnerCourtArea;
+  jurisdiction?: CasePartnerJurisdiction;
+  proceduralStage?: CasePartnerProceduralStage;
+};
+
 export type CasePartnerQuestionPriority = "critical" | "high" | "medium" | "low";
 
 export type CasePartnerConversationMessage = {
@@ -45,6 +55,7 @@ export type CasePartnerInput = {
   message: string;
   conversation?: CasePartnerConversationMessage[];
   caseMemory?: unknown;
+  courtContext?: CasePartnerCourtContext;
   mode?: string;
 };
 
@@ -121,13 +132,15 @@ export type CasePartnerHypothesis = {
 };
 
 export type ConversationIntelligenceResult = {
-  version: "1.3.0";
+  version: "1.4.0";
   generatedAt: string;
   userFacingAnswer: string;
   conversationFocus: {
     primaryGoal: string;
     userRole: string;
     courtArea: CasePartnerCourtArea;
+    selectedCourtArea: CasePartnerCourtArea;
+    jurisdiction: CasePartnerJurisdiction;
     proceduralStage: CasePartnerProceduralStage;
     confidence: CasePartnerConfidence;
   };
@@ -218,6 +231,75 @@ function normalizeText(value: unknown): string {
   return clean(value).toLowerCase().replace(/\s+/g, " ").trim();
 }
 
+function normalizeCourtArea(value: unknown): CasePartnerCourtArea {
+  const normalized = normalizeText(value).replace(/_/g, "-");
+
+  if (
+    normalized === "small-claims" ||
+    normalized === "family" ||
+    normalized === "civil" ||
+    normalized === "ltb" ||
+    normalized === "immigration" ||
+    normalized === "criminal-related" ||
+    normalized === "mixed"
+  ) {
+    return normalized;
+  }
+
+  return "unknown";
+}
+
+function normalizeProceduralStage(
+  value: unknown,
+): CasePartnerProceduralStage {
+  const normalized = normalizeText(value).replace(/_/g, "-");
+
+  if (
+    normalized === "not-started" ||
+    normalized === "starting-case" ||
+    normalized === "responding" ||
+    normalized === "already-filed" ||
+    normalized === "conference" ||
+    normalized === "motion" ||
+    normalized === "settlement" ||
+    normalized === "disclosure" ||
+    normalized === "trial-preparation" ||
+    normalized === "trial" ||
+    normalized === "enforcement" ||
+    normalized === "appeal-or-review" ||
+    normalized === "urgent" ||
+    normalized === "not-sure"
+  ) {
+    return normalized;
+  }
+
+  return "unknown";
+}
+
+function normalizeJurisdiction(value: unknown): CasePartnerJurisdiction {
+  const normalized = normalizeText(value);
+
+  const jurisdictions: Record<string, CasePartnerJurisdiction> = {
+    ontario: "Ontario",
+    alberta: "Alberta",
+    "british columbia": "British Columbia",
+    manitoba: "Manitoba",
+    "new brunswick": "New Brunswick",
+    "newfoundland and labrador": "Newfoundland and Labrador",
+    "northwest territories": "Northwest Territories",
+    "nova scotia": "Nova Scotia",
+    nunavut: "Nunavut",
+    "prince edward island": "Prince Edward Island",
+    quebec: "Quebec",
+    saskatchewan: "Saskatchewan",
+    yukon: "Yukon",
+    federal: "Federal",
+    canada: "Canada",
+  };
+
+  return jurisdictions[normalized] || "Unknown";
+}
+
 function unique(items: string[]): string[] {
   return Array.from(new Set(items.map((item) => item.trim()).filter(Boolean)));
 }
@@ -232,8 +314,173 @@ function countSignals(text: string, terms: string[]): number {
   return terms.filter((term) => normalized.includes(term.toLowerCase())).length;
 }
 
-function countFamilyLawSignals(text: string): number {
+function currentDomainText(
+  text: string,
+  domainTerms: string[],
+  domainNonCurrentTerms: string[],
+): string {
+  return text
+    .split(/(?<=[.!?])\s+|\s*;\s*|\s+but\s+/i)
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .filter((item) => {
+      if (!includesAny(item, domainTerms)) return true;
+
+      return !includesAny(item, [
+        "background only",
+        "only as background",
+        "mentioned only as background",
+        "background motive",
+        "not alleged",
+        "hypothetically",
+        "what if",
+        "wondered whether",
+        "previously sought",
+        "years ago",
+        "the other person wrote",
+        "a letter says",
+        ...domainNonCurrentTerms,
+      ]);
+    })
+    .join(" ");
+}
+
+const familyReliefTerms = [
+  "custody",
+  "custady",
+  "parenting",
+  "child support",
+  "spousal support",
+  "family court",
+  "family order",
+  "parenting relief",
+];
+
+const reputationReliefTerms = [
+  "defamation",
+  "defamatory",
+  "false message",
+  "false mesage",
+  "false statement",
+  "false publication",
+  "false post",
+  "false email",
+  "published lies",
+  "spread lies",
+  "reputation",
+  "slander",
+  "libel",
+  "compensation",
+  "compansation",
+  "damages",
+];
+
+const nonCurrentFamilyReliefTerms = [
+  "do not want custody",
+  "don't want custody",
+  "do not want a parenting",
+  "do not want parenting",
+  "not seeking custody",
+  "not seeking child support",
+  "not seeking spousal support",
+  "not asking for custody",
+  "not a parenting",
+  "not child support",
+  "no request",
+  "no parenting order",
+  "discussed custody",
+];
+
+const nonCurrentReputationReliefTerms = [
+  "do not want compensation",
+  "don't want compensation",
+  "not seeking compensation",
+  "not seeking damages",
+  "no compensation requested",
+  "no compensation is requested",
+  "no damages requested",
+];
+
+const nonCurrentContractTerms = [
+  "unrelated agreement",
+  "unrelated people discussed",
+  "historical conversation",
+  "not part of this dispute",
+  "quoted agreement",
+  "hypothetical agreement",
+  "no agreement was reached",
+  "did not reach an agreement",
+];
+
+function hasRequestedFamilyRelief(text: string): boolean {
   const normalized = normalizeText(text);
+
+  return includesAny(normalized, [
+    "i want custody",
+    "i need custody",
+    "seeking custody",
+    "get custody",
+    "change custody",
+    "custody order",
+    "parenting order",
+    "parenting relief",
+    "parenting time order",
+    "change the parenting schedule",
+    "decision-making responsibility",
+    "decision making responsibility",
+    "i want child support",
+    "i need child support",
+    "seeking child support",
+    "child support order",
+    "spousal support order",
+    "support payments",
+    "support arrears",
+    "not paying support",
+    "family court relief",
+    "family court order",
+  ]);
+}
+
+function isFamilyProceedingBackgroundOnly(text: string): boolean {
+  const normalized = normalizeText(text);
+  const mentionsFamilyProceeding = includesAny(normalized, [
+    "custody case",
+    "custody proceeding",
+    "family court case",
+    "family court proceeding",
+    "parenting case",
+    "parenting proceeding",
+    "support case",
+    "support proceeding",
+  ]);
+  const backgroundContext = includesAny(normalized, [
+    "witness for",
+    "witness in",
+    "because of",
+    "related to",
+    "in connection with",
+    "during",
+    "mentioned in",
+    "evidence in",
+    "background",
+    "motive",
+  ]);
+
+  return (
+    mentionsFamilyProceeding &&
+    backgroundContext &&
+    !hasRequestedFamilyRelief(normalized)
+  );
+}
+
+function countFamilyLawSignals(text: string): number {
+  const normalized = normalizeText(
+    currentDomainText(text, familyReliefTerms, nonCurrentFamilyReliefTerms),
+  );
+
+  if (isFamilyProceedingBackgroundOnly(normalized)) {
+    return 0;
+  }
 
   const explicitFamilyLawSignals = countSignals(normalized, [
     "child support",
@@ -241,6 +488,9 @@ function countFamilyLawSignals(text: string): number {
     "family court",
     "family law",
     "custody",
+    "custady",
+    "parenting order",
+    "parenting relief",
     "parenting time",
     "parenting schedule",
     "decision-making responsibility",
@@ -587,12 +837,27 @@ function inferProceduralStage(message: string): CasePartnerProceduralStage {
 
 function detectIssueFrameworks(message: string): IssueFramework[] {
   const frameworks: IssueFramework[] = [];
+  const reputationText = currentDomainText(
+    message,
+    reputationReliefTerms,
+    nonCurrentReputationReliefTerms,
+  );
 
-  const defamationSignals = countSignals(message, [
+  let defamationSignals = countSignals(reputationText, [
     "defamation",
     "defamatory",
+    "false message",
+    "false messages",
+    "false msg",
+    "false msgs",
+    "false mesage",
+    "false mesages",
+    "false post",
+    "false email",
+    "published lies",
     "false statement",
     "false statements",
+    "false publication",
     "said about me",
     "lied about me",
     "third party",
@@ -604,6 +869,59 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
     "accused me",
     "spread lies",
   ]);
+
+  const hasFalseStatementContext = includesAny(reputationText, [
+    "false",
+    "not true",
+    "untrue",
+    "lied",
+    "lies",
+    "lying",
+    "accused me",
+    "called me",
+    "saying i was",
+    "said i was",
+  ]);
+  const hasCommunicationContext = includesAny(reputationText, [
+    "sent messages",
+    "sent false messages",
+    "sent msgs",
+    "sent false msgs",
+    "sent a message",
+    "messages sent",
+    "texted",
+    "emailed",
+    "posted",
+    "published",
+    "told",
+    "said",
+    "saying",
+    "wrote",
+  ]);
+  const hasRecipientContext = includesAny(reputationText, [
+    "sent to",
+    "messages to",
+    "msgs to",
+    "message to",
+    "told my",
+    "told his",
+    "told her",
+    "told their",
+    "third party",
+    "someone else",
+    "other people",
+    "to other people",
+    "sent to others",
+  ]);
+
+  if (
+    defamationSignals === 0 &&
+    hasFalseStatementContext &&
+    hasCommunicationContext &&
+    hasRecipientContext
+  ) {
+    defamationSignals = 3;
+  }
 
   if (defamationSignals > 0) {
     frameworks.push(
@@ -670,7 +988,12 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
     );
   }
 
-  const contractSignals = countSignals(message, [
+  const contractText = currentDomainText(
+    message,
+    ["contract", "agreement", "breach", "promised", "paid", "owed", "invoice", "services"],
+    nonCurrentContractTerms,
+  );
+  const contractSignals = countSignals(contractText, [
     "contract",
     "agreement",
     "breach",
@@ -681,8 +1004,45 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
     "invoice",
     "services",
   ]);
+  const hasAgreementFacts = includesAny(contractText, [
+    "contract",
+    "agreement",
+    "agreed",
+    "promised",
+    "quote",
+    "invoice",
+    "paid for",
+  ]);
+  const hasObligationFacts = includesAny(contractText, [
+    "required to",
+    "supposed to",
+    "promised to",
+    "agreed to",
+    "work",
+    "repairs",
+    "services",
+    "deliver",
+    "pay",
+    "owed",
+  ]);
+  const hasBreachFacts = includesAny(contractText, [
+    "breach",
+    "did not",
+    "didn't",
+    "failed to",
+    "not completed",
+    "unfinished",
+    "not pay",
+    "never paid",
+    "owed me",
+  ]);
 
-  if (contractSignals > 0) {
+  if (
+    contractSignals > 0 &&
+    hasAgreementFacts &&
+    hasObligationFacts &&
+    hasBreachFacts
+  ) {
     frameworks.push(
       enrichFrameworkWithProfile(
         {
@@ -946,6 +1306,10 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
 
     return priorityScore[b.priority] - priorityScore[a.priority];
   });
+}
+
+export function detectContextualLegalDomains(message: string): string[] {
+  return unique(detectIssueFrameworks(message).map((framework) => framework.key));
 }
 
 function inferActors(message: string): CasePartnerInferredActor[] {
@@ -1262,21 +1626,24 @@ function buildMissingInformation(args: {
   message: string;
   frameworks: IssueFramework[];
   stage: CasePartnerProceduralStage;
+  jurisdiction: CasePartnerJurisdiction;
 }): string[] {
   const missing: string[] = [];
 
-  const hasProvince = includesAny(args.message, [
-    "ontario",
-    "alberta",
-    "british columbia",
-    "quebec",
-    "manitoba",
-    "saskatchewan",
-    "nova scotia",
-    "new brunswick",
-    "province",
-    "canada",
-  ]);
+  const hasProvince =
+    args.jurisdiction !== "Unknown" ||
+    includesAny(args.message, [
+      "ontario",
+      "alberta",
+      "british columbia",
+      "quebec",
+      "manitoba",
+      "saskatchewan",
+      "nova scotia",
+      "new brunswick",
+      "province",
+      "canada",
+    ]);
 
   if (!hasProvince) missing.push("province or jurisdiction");
 
@@ -1284,21 +1651,7 @@ function buildMissingInformation(args: {
     missing.push("important dates or timeline");
   }
 
-  if (
-    !includesAny(args.message, [
-      "filed",
-      "served",
-      "not filed",
-      "court",
-      "order",
-      "conference",
-      "motion",
-      "trial",
-      "hearing",
-      "no court yet",
-      "not in court",
-    ])
-  ) {
+  if (args.stage === "unknown" || args.stage === "not-sure") {
     missing.push("current court/procedural stage");
   }
 
@@ -1624,6 +1977,15 @@ export function buildConversationIntelligence(
   const message = clean(input.message);
   const conversationText = getConversationText(input.conversation);
   const combinedText = `${conversationText} ${message}`;
+  const selectedCourtArea = normalizeCourtArea(
+    input.courtContext?.courtPath,
+  );
+  const jurisdiction = normalizeJurisdiction(
+    input.courtContext?.jurisdiction,
+  );
+  const providedStage = normalizeProceduralStage(
+    input.courtContext?.proceduralStage,
+  );
 
   const frameworks = detectIssueFrameworks(combinedText);
   const requiresFamilyRelationshipClarification =
@@ -1641,16 +2003,23 @@ export function buildConversationIntelligence(
   const hasCourtAreaConflict =
     hasFamilyFramework && hasCivilFramework;
 
-  const courtArea = requiresFamilyRelationshipClarification
-    ? "unknown"
-    : hasCourtAreaConflict
-      ? "mixed"
-      : frameworks[0]?.courtArea &&
-          frameworks[0].courtArea !== "unknown"
-        ? frameworks[0].courtArea
-        : inferCourtArea(combinedText);
+  const courtArea =
+    selectedCourtArea !== "unknown"
+      ? selectedCourtArea
+      : requiresFamilyRelationshipClarification
+        ? "unknown"
+        : hasCourtAreaConflict
+          ? "mixed"
+          : frameworks[0]?.courtArea &&
+              frameworks[0].courtArea !== "unknown"
+            ? frameworks[0].courtArea
+            : inferCourtArea(combinedText);
 
-  const stage = inferProceduralStage(combinedText);
+  const inferredStage = inferProceduralStage(combinedText);
+  const stage =
+    providedStage !== "unknown" && providedStage !== "not-sure"
+      ? providedStage
+      : inferredStage;
   const inferredActors = inferActors(combinedText);
   const extractedFacts = extractFacts(message, inferredActors, frameworks);
   const legalSignals = detectLegalSignals(combinedText, frameworks);
@@ -1661,6 +2030,7 @@ export function buildConversationIntelligence(
     message: combinedText,
     frameworks,
     stage,
+    jurisdiction,
   });
 
   const baseQuestions = buildQuestions({
@@ -1720,7 +2090,7 @@ export function buildConversationIntelligence(
   });
 
   return {
-    version: "1.3.0",
+    version: "1.4.0",
     generatedAt: nowIso(),
     userFacingAnswer: answer,
     conversationFocus: {
@@ -1731,6 +2101,8 @@ export function buildConversationIntelligence(
       }),
       userRole: buildUserRole(combinedText),
       courtArea,
+      selectedCourtArea,
+      jurisdiction,
       proceduralStage: stage,
       confidence,
     },

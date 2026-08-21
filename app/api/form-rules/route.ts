@@ -1,10 +1,14 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
-type CourtPath = "family" | "small-claims" | "civil";
+import {
+  getCanonicalFormLookup,
+  type FormsCourtPath,
+} from "../../../src/lib/case-system/formsSelectedCase";
 
 type CleanCourtForm = {
-  court_type: CourtPath;
+  canonical_form_id: string | null;
+  court_type: FormsCourtPath;
   form_number: string | null;
   official_title: string | null;
   pdf_path: string | null;
@@ -15,161 +19,93 @@ type CleanCourtForm = {
 };
 
 type FormRuleRequest = {
-  courtPath?: CourtPath;
-  text?: string;
-  requiredNextForms?: string[];
+  courtPath?: unknown;
+  canonicalFormIds?: unknown;
 };
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 );
 
-function normalize(value: string) {
-  return String(value || "")
-    .toLowerCase()
-    .replace(/[’‘]/g, "'")
-    .replace(/[“”]/g, '"')
-    .replace(/[^a-z0-9.]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+function courtPath(value: unknown): FormsCourtPath | null {
+  return value === "family" || value === "small-claims" || value === "civil"
+    ? value
+    : null;
 }
 
-function compact(value: string) {
-  return normalize(value).replace(/[^a-z0-9.]/g, "");
-}
+export function resolveCanonicalFormIds(
+  courtType: FormsCourtPath,
+  values: unknown,
+): string[] | null {
+  if (!Array.isArray(values) || values.length === 0) return null;
 
-function extractFormNumber(value: string) {
-  const match = String(value || "").match(
-    /\b(?:form\s*)?([0-9]+[a-z]?(?:\.[0-9]+)?[a-z]?)\b/i
+  const ids = values.map((canonicalFormId) =>
+    getCanonicalFormLookup({ canonicalFormId, courtType }),
   );
 
-  return match ? compact(match[1].replace(/^form/i, "")) : "";
-}
+  if (ids.some((item) => item === null)) return null;
 
-function displayFormNumber(form: CleanCourtForm) {
-  const raw = String(form.form_number || "").trim();
-
-  if (!raw) return "";
-
-  return raw.toLowerCase().startsWith("form ") ? raw : `Form ${raw}`;
-}
-
-function displayTitle(form: CleanCourtForm) {
-  return String(form.official_title || "").trim();
-}
-
-function formSearchText(form: CleanCourtForm) {
-  return normalize(
-    [
-      displayFormNumber(form),
-      displayTitle(form),
-      form.form_group || "",
-      form.procedure_stage || "",
-      form.purpose || "",
-      form.pdf_path || "",
-      form.word_path || "",
-    ].join(" ")
-  );
-}
-
-function isExactFormNumberMatch(form: CleanCourtForm, requested: string) {
-  const wantedNumber = extractFormNumber(requested);
-  if (!wantedNumber) return false;
-
-  const actualNumber = compact(String(form.form_number || "").replace(/^form/i, ""));
-  return actualNumber === wantedNumber;
-}
-
-function matchesRequestedLabel(form: CleanCourtForm, requested: string) {
-  const wanted = normalize(requested);
-  const wantedCompact = compact(requested);
-
-  if (!wanted && !wantedCompact) return false;
-
-  if (isExactFormNumberMatch(form, requested)) return true;
-
-  const number = normalize(displayFormNumber(form));
-  const title = normalize(displayTitle(form));
-  const combined = formSearchText(form);
-
-  return (
-    number === wanted ||
-    title === wanted ||
-    combined === wanted ||
-    combined.includes(wanted) ||
-    wanted.includes(title)
-  );
-}
-
-function uniqueForms(forms: CleanCourtForm[]) {
-  const seen = new Set<string>();
-
-  return forms.filter((form) => {
-    const key = [
-      form.court_type,
-      compact(form.form_number || ""),
-      normalize(form.official_title || ""),
-      form.pdf_path || "",
-      form.word_path || "",
-    ].join("|");
-
-    if (seen.has(key)) return false;
-
-    seen.add(key);
-    return true;
-  });
+  return Array.from(new Set(ids.map((item) => item!.canonicalFormId)));
 }
 
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as FormRuleRequest;
+    const courtType = courtPath(body.courtPath);
 
-    const courtPath = body.courtPath;
-    const requestedLabels = Array.isArray(body.requiredNextForms)
-      ? body.requiredNextForms.filter(Boolean)
-      : [];
-
-    if (!courtPath) {
+    if (!courtType) {
       return NextResponse.json(
-        { error: "courtPath is required." },
-        { status: 400 }
+        { error: "A supported courtPath is required." },
+        { status: 400 },
       );
     }
 
-    let query = supabase
+    const canonicalFormIds = resolveCanonicalFormIds(
+      courtType,
+      body.canonicalFormIds,
+    );
+
+    if (!canonicalFormIds) {
+      return NextResponse.json(
+        { error: "One or more canonicalFormIds are required." },
+        { status: 400 },
+      );
+    }
+
+    const { data, error } = await supabase
       .from("court_form_clean_view")
       .select(
-        "court_type, form_number, official_title, pdf_path, word_path, form_group, procedure_stage, purpose"
+        "canonical_form_id, court_type, form_number, official_title, pdf_path, word_path, form_group, procedure_stage, purpose",
       )
-      .eq("court_type", courtPath);
-
-    const { data, error } = await query;
+      .eq("court_type", courtType)
+      .in("canonical_form_id", canonicalFormIds);
 
     if (error) {
-      console.error("form-rules clean view error:", error);
+      console.error("form-rules clean view error:", error.message);
       return NextResponse.json(
         { error: "Could not read court_form_clean_view." },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
-    const cleanForms = (data || []) as CleanCourtForm[];
-
-    const matchedForms =
-      requestedLabels.length > 0
-        ? uniqueForms(
-            requestedLabels.flatMap((label) =>
-              cleanForms.filter((form) => matchesRequestedLabel(form, label))
-            )
-          )
-        : [];
+    const forms = (data || []) as CleanCourtForm[];
+    const returnedIds = new Set(
+      forms
+        .map((form) => form.canonical_form_id)
+        .filter((id): id is string => Boolean(id)),
+    );
+    const unresolvedCanonicalFormIds = canonicalFormIds.filter(
+      (id) => !returnedIds.has(id),
+    );
 
     return NextResponse.json({
       sourceView: "court_form_clean_view",
-      courtPath,
-      requestedLabels,
-      forms: matchedForms.map((form) => ({
+      courtPath: courtType,
+      canonicalFormIds,
+      unresolvedCanonicalFormIds,
+      forms: forms.map((form) => ({
+        canonical_form_id: form.canonical_form_id,
         court_type: form.court_type,
         form_number: form.form_number,
         official_title: form.official_title,
@@ -182,8 +118,7 @@ export async function POST(req: Request) {
         has_word: Boolean(form.word_path),
       })),
     });
-  } catch (err) {
-    console.error("form-rules route error:", err);
+  } catch {
     return NextResponse.json({ error: "Server error." }, { status: 500 });
   }
 }

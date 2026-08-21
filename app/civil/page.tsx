@@ -287,14 +287,14 @@ export default function CivilPage() {
 
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
-              href="/builder?path=civil"
+                href="/builder?path=civil"
               className="rounded-full bg-[#2f7d67] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#256b58]"
             >
               Start Civil Intake →
             </Link>
 
             <Link
-              href="/documents?path=civil"
+              href="/document-workspace?path=civil"
               className="rounded-full border border-[#2f7d67] bg-white px-6 py-3 text-sm font-semibold text-[#2f7d67] transition hover:bg-[#eef8f5]"
             >
               Go to Civil Documents →

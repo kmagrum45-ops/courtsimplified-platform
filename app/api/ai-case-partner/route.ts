@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { runAiCasePartnerGateway } from "@/src/lib/case-system/ai-case-partner/aiCasePartnerGateway";
+import type { AiCasePartnerCourtContextInput } from "@/src/lib/case-system/ai-case-partner/aiCasePartnerOrchestrator";
 import { CasePartnerConversationMessage } from "@/src/lib/case-system/ai-case-partner/conversationIntelligenceEngine";
 
 export const runtime = "nodejs";
@@ -10,6 +11,7 @@ type RequestBody = {
   message?: string;
   conversation?: CasePartnerConversationMessage[];
   caseMemory?: unknown;
+  courtContext?: AiCasePartnerCourtContextInput;
   mode?: string;
 };
 
@@ -70,29 +72,6 @@ function sanitizeConversation(
     }));
 }
 
-function buildDevelopmentError(error: unknown) {
-  if (process.env.NODE_ENV !== "development") {
-    return undefined;
-  }
-
-  if (error instanceof Error) {
-    const detailedError = error as ErrorWithDetails;
-
-    return {
-      name: error.name,
-      message: error.message,
-      stack: error.stack,
-      code: detailedError.code,
-      stage: detailedError.stage,
-    };
-  }
-
-  return {
-    name: "UnknownError",
-    message: String(error),
-  };
-}
-
 export async function POST(request: NextRequest) {
   const diagnosticId = createDiagnosticId();
   const requestStartedAt = Date.now();
@@ -126,6 +105,7 @@ export async function POST(request: NextRequest) {
         0,
       ),
       caseMemoryBytes: estimateJsonSize(body.caseMemory),
+      courtContextPresent: Boolean(body.courtContext),
       mode: mode || "unspecified",
       caseIdPresent: Boolean(caseId),
     };
@@ -137,6 +117,7 @@ export async function POST(request: NextRequest) {
       message,
       conversation,
       caseMemory: body.caseMemory,
+      courtContext: body.courtContext,
       mode: mode || undefined,
       diagnosticId,
     });
@@ -154,6 +135,7 @@ export async function POST(request: NextRequest) {
       userFacingAnswer: result.userFacingAnswer,
       answer: result.answer,
 
+      courtContext: result.courtContext,
       caseMemory: result.caseMemory,
 
       conversationIntelligence: result.conversationIntelligence,
@@ -191,21 +173,14 @@ export async function POST(request: NextRequest) {
       diagnosticId,
       stage: detailedError?.stage || "route-or-gateway",
       durationMs: Date.now() - requestStartedAt,
-      error,
+      errorName: error instanceof Error ? error.name : "UnknownError",
+      errorCode: detailedError?.code || "unknown",
     });
 
     return jsonResponse(
       {
         ok: false,
-        error:
-          process.env.NODE_ENV === "development"
-            ? detailedError?.message ||
-              "Unexpected AI Case Partner error."
-            : "CourtSimplified could not complete this request.",
-        diagnosticId,
-        failedStage:
-          detailedError?.stage || "route-or-gateway",
-        developmentDetails: buildDevelopmentError(error),
+        error: "Your case details were saved. Continue with the next review step while analysis is unavailable.",
       },
       500,
     );

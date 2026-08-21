@@ -89,12 +89,16 @@ export type SmallClaimsIntelligenceInput = {
   urgent: string;
 };
 
-type SmallClaimsIntelligenceOutput = {
+export type SmallClaimsIntelligenceOutput = {
   analysis: AnalysisResult;
   payload: StoredCaseData;
   masterResultPatch: Record<string, unknown>;
   dashboardPatch: Record<string, unknown>;
   recommendedNextRoute?: string;
+};
+
+export type SmallClaimsAnalysisOptions = {
+  allowExternalCognition?: boolean;
 };
 
 function hasText(value: string): boolean {
@@ -194,15 +198,9 @@ function userIsPlaintiffStarting(input: SmallClaimsIntelligenceInput): boolean {
 }
 
 function determineProceduralStage(input: SmallClaimsIntelligenceInput): UniversalStage {
-  if (input.caseStage !== "not-sure") return input.caseStage;
-
-  if (input.filedDocuments.includes("enforcement-documents")) return "enforcement";
-  if (input.issues.includes("enforcement")) return "enforcement";
-  if (input.filedDocuments.includes("settlement-conference")) return "conference";
-  if (userIsResponding(input)) return "responding";
-  if (input.filedDocuments.includes("plaintiffs-claim")) return "already-started";
-
-  return "starting-case";
+  // Procedural stage is an explicit intake field. Documents, role, and issue
+  // signals can inform review guidance but cannot manufacture a confirmed stage.
+  return input.caseStage || "not-sure";
 }
 
 function buildRawUserText(input: SmallClaimsIntelligenceInput): string {
@@ -234,8 +232,8 @@ function buildRawUserText(input: SmallClaimsIntelligenceInput): string {
     `Claim number: ${input.claimNumber}`,
     `Amount claimed or disputed: ${input.amountClaimed}`,
     `Damages breakdown: ${input.damagesBreakdown}`,
-    `Agreement details, only if relevant: ${input.agreementDetails}`,
-    `Payment history, only if relevant: ${input.paymentHistory}`,
+    input.agreementDetails ? `Agreement details: ${input.agreementDetails}` : "",
+    input.paymentHistory ? `Payment history: ${input.paymentHistory}` : "",
     `Service details: ${input.serviceDetails}`,
     `Deadline details: ${input.deadlineDetails}`,
     `Facts: ${input.facts}`,
@@ -243,7 +241,7 @@ function buildRawUserText(input: SmallClaimsIntelligenceInput): string {
     `Evidence described: ${input.evidence}`,
     `Missing evidence: ${input.missingEvidence}`,
     `Settlement efforts: ${input.settlementEfforts}`,
-    `Defence response, only if this is a responding/defence case: ${input.defenceResponse}`,
+    input.defenceResponse ? `Defence response: ${input.defenceResponse}` : "",
     `Goal / requested outcome: ${input.goal}`,
     `Urgent concerns: ${input.urgent}`,
     ...evidenceFiles,
@@ -427,62 +425,52 @@ function buildSummary(args: {
   const { input, stage, analysis } = args;
 
   return [
-    "Small Claims Intelligence Summary",
-    "",
-    `Stage: ${getStageLabel(stage)}`,
-    `Primary claim types: ${analysis.detectedClaimTypes?.join(", ") || "not confirmed"}`,
-    `Amount claimed/disputed: ${input.amountClaimed || "not entered"}`,
-    "",
-    "Parties",
-    `- User: ${input.yourName || "not entered"}`,
-    `- Other party: ${input.otherParty || "not entered"}`,
-    "",
-    "Core facts",
+    input.filedDocuments.includes("plaintiffs-claim") && input.filedDocuments.includes("affidavit-service")
+      ? "Case status: Claim already filed and served."
+      : `Current case status: ${getStageLabel(stage)}.`,
+    input.filedDocuments.includes("plaintiffs-claim") && input.filedDocuments.includes("affidavit-service")
+      ? "Service was completed and an Affidavit of Service was filed with the court."
+      : "",
+    input.filedDocuments.includes("plaintiffs-claim") && input.filedDocuments.includes("affidavit-service") && !input.filedDocuments.includes("defence")
+      ? "The case needs default-stage review based on the facts entered."
+      : "",
+    "Case story",
     input.facts || "No detailed facts entered yet.",
     "",
-    "Timeline",
+    "Important dates",
     input.timeline || "No timeline entered yet.",
     "",
-    "Evidence",
+    "Evidence to gather",
     analysis.missingEvidence?.length
       ? `Missing proof: ${analysis.missingEvidence.join("; ")}`
       : input.evidence || "No evidence details entered yet.",
     "",
-    "Next actions",
+    "What to do next",
     analysis.nextBestActions?.length
       ? analysis.nextBestActions.map((item) => `- ${item}`).join("\n")
       : "- Continue organizing the case record.",
   ].join("\n");
 }
 
-function filterContaminatedGuidance(items: string[]): string[] {
-  return cleanList(
-    items.filter((item) => {
-      const text = normalizeText(item);
-
-      if (text.includes("property damage")) return false;
-      if (text.includes("repair cost")) return false;
-      if (text.includes("contract") && text.includes("agreement") && text.includes("not")) return false;
-      if (text.includes("defence") && text.includes("served") && text.includes("claim")) return false;
-
-      return true;
-    }),
-  );
-}
-
 export async function analyzeSmallClaimsWithBrain(
   input: SmallClaimsIntelligenceInput,
+  options: SmallClaimsAnalysisOptions = {},
 ): Promise<SmallClaimsIntelligenceOutput> {
   const stage = determineProceduralStage(input);
   const rawUserText = buildRawUserText(input);
 
   const brain = await runCourtSimplifiedBrain({
     courtPath: "small-claims",
-    province: "Ontario",
+    province: input.yourProvince === "Ontario" ? "Ontario" : "Unknown",
     stage,
     rawUserText,
-    existingMasterResult: {},
+    existingMasterResult: {
+      courtPath: "small-claims",
+      province: input.yourProvince || "Unknown",
+      city: input.yourCity || undefined,
+    },
     sourceType: "user-intake",
+    allowExternalCognition: options.allowExternalCognition,
   });
 
   const intelligence = brain.intelligence;
@@ -513,6 +501,14 @@ export async function analyzeSmallClaimsWithBrain(
   const receivedForms = buildReceivedForms(input);
   const notNeededNow = buildNotNeededNow(input, stage);
   const requiredNextForms = buildAuthoritativeRequiredForms(input, stage);
+  const defaultStageReview = input.filedDocuments.includes("plaintiffs-claim") && input.filedDocuments.includes("affidavit-service") && !input.filedDocuments.includes("defence");
+  const defaultStageGuidance = defaultStageReview
+    ? [
+        "Service was completed and an Affidavit of Service was filed with the court.",
+        "The case needs default-stage review based on the facts entered.",
+        "Has the defendant filed a Defence?",
+      ]
+    : [];
 
   const analysis: AnalysisResult = {
     courtPath: "small-claims",
@@ -529,11 +525,13 @@ export async function analyzeSmallClaimsWithBrain(
     missingInformation: cleanList([
       ...buildContactMissingInfo(input, stage),
       ...(intelligencePatch.missingInformation || []),
+      ...(defaultStageReview ? ["Has the defendant filed a Defence?"] : []),
     ]),
 
-    risksAndGaps: filterContaminatedGuidance(intelligencePatch.risksAndGaps || []),
+    risksAndGaps: cleanList(intelligencePatch.risksAndGaps || []),
 
-    guidance: filterContaminatedGuidance([
+    guidance: cleanList([
+      ...defaultStageGuidance,
       ...(intelligence.nextBestActions || []),
       "Use the evidence step to connect each fact to proof before generating final documents.",
       "Verify current court filing and service requirements before filing anything.",
@@ -548,10 +546,10 @@ export async function analyzeSmallClaimsWithBrain(
     defenceAttacks: cleanList(intelligencePatch.defenceAttacks || []),
     judgeConcerns: cleanList(intelligencePatch.judgeConcerns || []),
     courtConcerns: cleanList(intelligencePatch.courtConcerns || []),
-    nextBestActions: filterContaminatedGuidance(intelligence.nextBestActions || []),
-    userWarnings: filterContaminatedGuidance(intelligence.systemWarnings || []),
-    proceduralRisks: filterContaminatedGuidance(intelligence.proceduralPosture.warnings || []),
-    suggestedFocus: filterContaminatedGuidance(intelligence.nextBestActions || []),
+    nextBestActions: cleanList([...defaultStageGuidance, ...(intelligence.nextBestActions || [])]),
+    userWarnings: cleanList(intelligence.systemWarnings || []),
+    proceduralRisks: cleanList(intelligence.proceduralPosture.warnings || []),
+    suggestedFocus: cleanList(intelligence.nextBestActions || []),
 
     damagesIssues: hasText(input.amountClaimed)
       ? ["Amount was captured. The next step is explaining the calculation and connecting it to proof."]
@@ -560,8 +558,8 @@ export async function analyzeSmallClaimsWithBrain(
     intelligence: intelligencePatch.intelligence,
     intelligenceSummary: intelligence.plainLanguageSummary,
     structuredIntelligenceSummary: intelligence.structuredCaseSummary,
-    intelligenceWarnings: filterContaminatedGuidance(intelligence.systemWarnings),
-    intelligenceNextActions: filterContaminatedGuidance(intelligence.nextBestActions),
+    intelligenceWarnings: cleanList(intelligence.systemWarnings),
+    intelligenceNextActions: cleanList(intelligence.nextBestActions),
     intelligenceEvidenceIssues: intelligence.evidenceIssueLinks,
     intelligenceFormRecommendations: intelligence.formRecommendations,
   };

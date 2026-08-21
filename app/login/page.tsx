@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabase } from "../../src/lib/supabase/client";
 
@@ -33,7 +34,7 @@ export default function LoginPage() {
         });
 
         if (error) {
-          setError(error.message);
+          setError("We could not create that account. Please check your details and try again.");
           return;
         }
 
@@ -47,14 +48,38 @@ export default function LoginPage() {
       });
 
       if (error) {
-        setError(error.message);
+        setError("We could not sign you in with those details. Please try again.");
         return;
       }
 
       router.push("/dashboard");
-    } catch (err) {
-      console.error(err);
+    } catch {
       setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleMagicLink() {
+    if (!email.trim()) {
+      setError("Enter your email address to continue.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setError("");
+      setSuccess("");
+      await supabase.auth.signInWithOtp({
+        email: email.trim(),
+        options: {
+          shouldCreateUser: false,
+          emailRedirectTo: `${window.location.origin}/dashboard`,
+        },
+      });
+      setSuccess("If that email can sign in, we sent a sign-in link. Check your email.");
+    } catch {
+      setSuccess("If that email can sign in, we sent a sign-in link. Check your email.");
     } finally {
       setLoading(false);
     }
@@ -69,6 +94,7 @@ export default function LoginPage() {
             Secure legal workspace for managing your case, evidence, forms, and
             generated court documents.
           </p>
+          <p className="mt-3 text-sm text-cyan-200">Your email is your sign-in ID.</p>
         </div>
 
         <div className="mb-6 flex rounded-2xl bg-slate-800 p-1">
@@ -91,7 +117,24 @@ export default function LoginPage() {
           >
             Create Account
           </button>
+
         </div>
+
+        {mode === "login" ? (
+          <div className="mb-6 flex items-center justify-between gap-4 text-sm">
+            <Link href="/forgot-password" className="text-cyan-300 hover:text-cyan-200">
+              Forgot password?
+            </Link>
+            <button
+              type="button"
+              onClick={handleMagicLink}
+              disabled={loading}
+              className="text-cyan-300 hover:text-cyan-200 disabled:opacity-50"
+            >
+              Email me a sign-in link
+            </button>
+          </div>
+        ) : null}
 
         <div className="space-y-5">
           <div>

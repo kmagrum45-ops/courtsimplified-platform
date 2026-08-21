@@ -15,6 +15,10 @@ import {
   updateWorkspaceStatus,
   type WorkspaceDocument,
 } from "../../src/lib/case-system/documentWorkspaceEngine";
+import {
+  readWorkspaceDocument,
+  writeWorkspaceDocument,
+} from "../../src/lib/case-system/workflowCaseLoader";
 
 type AssistantModeOption = {
   value: DraftingAssistantAction;
@@ -158,25 +162,21 @@ function AiDraftingAssistantPageContent() {
   const [statusMessage, setStatusMessage] = useState("");
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("courtSimplifiedWorkspaceDocument");
+    const stored = readWorkspaceDocument(caseId || undefined);
 
-      if (!raw) {
-        setWorkspaceDocument(null);
-        return;
-      }
-
-      const parsed = JSON.parse(raw) as WorkspaceDocument;
-
-      setWorkspaceDocument(parsed);
-
-      if (parsed.sections.length > 0) {
-        setSelectedSectionId(parsed.sections[0].id);
-      }
-    } catch {
+    if (!stored) {
       setWorkspaceDocument(null);
+      setSelectedSectionId("");
+      return;
     }
-  }, []);
+
+    const parsed = stored as WorkspaceDocument;
+    setWorkspaceDocument(parsed);
+
+    if (parsed.sections.length > 0) {
+      setSelectedSectionId(parsed.sections[0].id);
+    }
+  }, [caseId]);
 
   const selectedMode = useMemo(() => {
     return (
@@ -213,11 +213,7 @@ function AiDraftingAssistantPageContent() {
 
   function persistWorkspace(updated: WorkspaceDocument) {
     setWorkspaceDocument(updated);
-
-    localStorage.setItem(
-      "courtSimplifiedWorkspaceDocument",
-      JSON.stringify(updated),
-    );
+    writeWorkspaceDocument(caseId || undefined, updated);
   }
 
   function runAssistant() {

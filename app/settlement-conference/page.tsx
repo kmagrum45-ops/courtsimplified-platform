@@ -9,6 +9,11 @@ import {
 } from "react";
 import { useSearchParams } from "next/navigation";
 
+import {
+  loadDraftWorkflowBundle,
+  loadWorkflowCaseBundle,
+} from "../../src/lib/case-system/workflowCaseLoader";
+
 type EvidencePackage = {
   createdAt: string;
   exhibitCount: number;
@@ -100,34 +105,6 @@ function buildWorkflowHref(route: string, caseId?: string, path?: string) {
   return query ? `${route}?${query}` : route;
 }
 
-function readStoredCase(): StoredCaseData | null {
-  const storedCase =
-    localStorage.getItem("caseData") ||
-    localStorage.getItem("courtSimplifiedCase");
-
-  if (!storedCase) return null;
-
-  try {
-    return JSON.parse(storedCase);
-  } catch {
-    return null;
-  }
-}
-
-function readEvidencePackage(): EvidencePackage | null {
-  const storedEvidence = localStorage.getItem(
-    "courtSimplifiedEvidencePackage",
-  );
-
-  if (!storedEvidence) return null;
-
-  try {
-    return JSON.parse(storedEvidence);
-  } catch {
-    return null;
-  }
-}
-
 function getConferenceTone(score: number) {
   if (score >= 80) {
     return "border-emerald-200 bg-emerald-50 text-emerald-800";
@@ -156,11 +133,48 @@ function SettlementConferencePageContent() {
 
   const [evidencePackage, setEvidencePackage] =
     useState<EvidencePackage | null>(null);
+  const [loadingContext, setLoadingContext] = useState(true);
+  const [contextError, setContextError] = useState("");
 
   useEffect(() => {
-    setCaseData(readStoredCase());
-    setEvidencePackage(readEvidencePackage());
-  }, []);
+    let active = true;
+
+    async function loadContext() {
+      setLoadingContext(true);
+      setContextError("");
+
+      try {
+        const bundle = caseId
+          ? await loadWorkflowCaseBundle(caseId)
+          : loadDraftWorkflowBundle();
+
+        if (!active) return;
+
+        setCaseData(bundle.caseData as StoredCaseData | null);
+        setEvidencePackage(
+          bundle.evidencePackage as EvidencePackage | null,
+        );
+      } catch (error) {
+        if (!active) return;
+
+        setCaseData(null);
+        setEvidencePackage(null);
+        setContextError(
+          error instanceof Error
+            ? error.message
+            : "The requested case could not be loaded.",
+        );
+      } finally {
+        if (active) setLoadingContext(false);
+      }
+    }
+
+    loadContext();
+
+    return () => {
+      active = false;
+    };
+  }, [caseId]);
 
   const exhibitTitles = useMemo(() => {
     if (!evidencePackage) return [];
@@ -284,6 +298,18 @@ function SettlementConferencePageContent() {
   return (
     <main className="min-h-screen bg-[#f6faf8] p-6 text-[#16302b]">
       <div className="mx-auto max-w-6xl space-y-8">
+        {loadingContext ? (
+          <div className="rounded-2xl border border-[#d8e6df] bg-white p-4 text-sm text-[#4d675f]">
+            Loading the selected case package...
+          </div>
+        ) : null}
+
+        {contextError ? (
+          <div className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-800">
+            {contextError} No data from another case was substituted.
+          </div>
+        ) : null}
+
         <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
           <div className="flex flex-wrap items-start justify-between gap-5">
             <div>

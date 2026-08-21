@@ -37,6 +37,7 @@ import {
 } from "../knowledge/knowledgeRetrievalEngine";
 
 import { getDoctrineSeedLibrary } from "../knowledge/doctrineSeedLibrary";
+import { buildProductionReadyLegalKnowledge } from "../authority-intelligence/authorityRetrievalEngine";
 
 type GptCognitionClaim = {
   claimType?: string;
@@ -694,6 +695,16 @@ function buildLegalKnowledge(args: {
   stage: IntelligenceStage;
   primaryClaimTypes: LegalDomain[];
 }): LegalKnowledgePacket {
+  const verifiedAuthorities = buildProductionReadyLegalKnowledge({
+    context: {
+      courtPath: args.courtPath,
+      jurisdiction: args.province,
+      stage: args.stage,
+      legalDomains: args.primaryClaimTypes.length
+        ? args.primaryClaimTypes
+        : ["unknown"],
+    },
+  });
   const context = buildKnowledgeRetrievalContext({
     courtPath: args.courtPath,
     jurisdiction: args.province,
@@ -712,27 +723,22 @@ function buildLegalKnowledge(args: {
     mode: "operational",
   });
 
-  const retrievedObjectWarnings = retrieval.objects.map((object) => {
-    return `${object.title}: ${object.plainLanguageExplanation}`;
-  });
-
-  const blockedWarnings = retrieval.blockedObjects.map((blocked) => {
-    return `Knowledge object blocked: ${blocked.objectId} — ${blocked.reason}`;
-  });
+  const contextWarnings = retrieval.warnings.filter((warning) =>
+    warning.startsWith("Knowledge retrieval warning:"),
+  );
 
   return {
-    statutes: [],
-    proceduralRules: [],
-    precedents: [],
-    precedentMatches: [],
+    statutes: verifiedAuthorities.statutes,
+    proceduralRules: verifiedAuthorities.proceduralRules,
+    precedents: verifiedAuthorities.precedents,
+    officialGuidance: verifiedAuthorities.officialGuidance,
+    precedentMatches: verifiedAuthorities.precedentMatches,
     sourceWarnings: cleanList([
-      "Verified legal authority layer is connected in safe-guidance mode, but verified statutes, rules, deadlines, official forms, and precedents are not yet populated.",
+      ...verifiedAuthorities.sourceWarnings,
       "Retrieved knowledge objects are operational guidance only unless separately verified.",
       "Do not cite operational guidance as law.",
       "Do not cite cases, statutes, court rules, deadlines, or official form requirements until verified against official sources.",
-      ...retrieval.warnings,
-      ...retrievedObjectWarnings,
-      ...blockedWarnings,
+      ...contextWarnings,
     ]),
   };
 }
@@ -780,10 +786,7 @@ function buildProceduralPosture(args: {
     args.normalizedIntake.province,
   );
 
-  const stage = asStage(
-    args.cognition?.stage,
-    args.normalizedIntake.stage,
-  );
+  const stage = args.normalizedIntake.stage;
 
   const rawText = args.normalizedIntake.rawUserText;
 
@@ -1089,24 +1092,17 @@ function buildContradictions(args: {
   const rawText = normalizeText(args.normalizedIntake.rawUserText);
   const contradictions: ContradictionFinding[] = [];
 
-  const userSeemsResponding = includesAny(rawText, [
-    "served with a claim",
-    "i was served",
-    "defendant",
-    "defence",
-    "defense",
-    "responding",
-  ]);
+  const structuredStages = Array.from(
+    rawText.matchAll(
+      /(?:stage selected|stage status|procedural stage)\s*:\s*(starting-case|responding)\b/gi,
+    ),
+    (match) => match[1].toLowerCase() as "starting-case" | "responding",
+  );
+  const hasStructuredStageConflict =
+    structuredStages.includes("starting-case") &&
+    structuredStages.includes("responding");
 
-  const userSeemsStarting = includesAny(rawText, [
-    "i want to sue",
-    "start a claim",
-    "file a claim",
-    "plaintiff",
-    "claimant",
-  ]);
-
-  if (userSeemsResponding && userSeemsStarting) {
+  if (hasStructuredStageConflict) {
     contradictions.push({
       id: createId("contradiction"),
       severity: "high",
@@ -2064,6 +2060,7 @@ async function runStructuredGptCognition(
   input: CourtSimplifiedBrainInput,
   normalizedIntake: NormalizedIntake,
 ): Promise<GptCognitionOutput | null> {
+  if (input.allowExternalCognition === false) return null;
   if (!process.env.OPENAI_API_KEY) return null;
 
   try {
@@ -2095,7 +2092,9 @@ async function runStructuredGptCognition(
 
     return JSON.parse(content) as GptCognitionOutput;
   } catch (error) {
-    console.error("CourtSimplified GPT cognition failed:", error);
+    console.error("CourtSimplified GPT cognition failed.", {
+      errorName: error instanceof Error ? error.name : "UnknownError",
+    });
     return null;
   }
 }
@@ -2172,7 +2171,8 @@ function buildFallbackCognition(normalizedIntake: NormalizedIntake): GptCognitio
           "The structured reasoning model did not run, so outputs should be treated as draft intake preservation only.",
         severity: "medium",
         source: "strategy",
-        suggestedFix: "Confirm OPENAI_API_KEY and rerun analysis.",
+        suggestedFix:
+          "Continue with deterministic intake preservation or retry structured analysis when it is available.",
       },
       {
         title: "Legal theory requires review",

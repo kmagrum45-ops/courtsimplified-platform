@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { supabase } from "../../src/lib/supabase/client";
+import { clearCompactBuilderDraft } from "../../src/lib/case-system/builderDraftStorage";
 
 import {
   buildDashboardSummary,
@@ -158,7 +159,7 @@ function createStarterMasterResult(
         userGoals: [],
         importantFacts: [],
         unresolvedQuestions: [
-          "What happened?",
+          "Case story",
           "Who is involved?",
           "What dates matter?",
           "What documents or screenshots exist?",
@@ -294,6 +295,11 @@ export default function DashboardPage() {
   }
 
   async function logout() {
+    const { data } = await supabase.auth.getUser();
+    if (data.user) clearCompactBuilderDraft(localStorage, data.user.id);
+    for (const key of ["courtSimplifiedActiveCaseId", "courtSimplifiedMasterCase", "courtSimplifiedCaseContext", "courtSimplifiedLoadedCaseContext", "courtSimplifiedMasterResult", "courtSimplifiedMasterResultPatch", "courtSimplifiedDashboardPatch", "courtSimplifiedRecommendedNextRoute", "caseData", "courtSimplifiedCase"]) {
+      localStorage.removeItem(key);
+    }
     await supabase.auth.signOut();
     router.push("/login");
   }

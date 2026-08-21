@@ -8,23 +8,42 @@ import type {
   UniversalStage,
 } from "./builderTypes";
 
-import {
-  analyzeSmallClaimsWithBrain,
-  type SmallClaimsEvidenceFile,
-  type SmallClaimsFiledDocument,
-  type SmallClaimsIntelligenceInput,
-  type SmallClaimsIssue,
+import type {
+  SmallClaimsEvidenceFile,
+  SmallClaimsFiledDocument,
+  SmallClaimsIntelligenceInput,
+  SmallClaimsIntelligenceOutput,
+  SmallClaimsIssue,
 } from "../../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
+
+import { supabase } from "../../../src/lib/supabase/client";
+import {
+  consumeNarrativePrefill,
+  directPrefillValues,
+  type NarrativePrefillFact,
+  type NarrativePrefill,
+} from "../../../src/lib/case-system/intelligence/narrativePrefill";
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
+  location: { province: "Ontario"; city: string };
+  initialStory: string;
+};
+
+type SmallClaimsAnalysisResponse = {
+  ok: boolean;
+  result?: SmallClaimsIntelligenceOutput;
+  reasoningMode?: "structured-ai" | "deterministic-fallback";
+  analysisAvailable?: boolean;
+  authenticated?: boolean;
+  error?: string;
 };
 
 const filedOptions: { value: SmallClaimsFiledDocument; label: string }[] = [
   { value: "nothing", label: "Nothing filed yet" },
   { value: "plaintiffs-claim", label: "Plaintiff’s Claim already filed / served" },
   { value: "defence", label: "Defence already filed / received" },
-  { value: "affidavit-service", label: "Affidavit of Service completed" },
+  { value: "affidavit-service", label: "Affidavit of Service filed with the court" },
   { value: "offer-settle", label: "Offer to Settle prepared" },
   { value: "settlement-conference", label: "Settlement conference scheduled or completed" },
   { value: "default-judgment", label: "Default judgment step started" },
@@ -57,7 +76,7 @@ const defaultInput: SmallClaimsIntelligenceInput = {
   yourName: "",
   yourAddress: "",
   yourCity: "",
-  yourProvince: "Ontario",
+  yourProvince: "",
   yourPostalCode: "",
   yourPhone: "",
   yourEmail: "",
@@ -235,7 +254,7 @@ function buildMissingPrompt(input: SmallClaimsIntelligenceInput): string {
   if (!hasText(input.yourName)) missing.push("your legal name");
   if (!hasText(input.otherParty)) missing.push("the other party’s name");
   if (!hasText(input.defendantAddress)) missing.push("the other party’s address for service");
-  if (!hasText(input.facts)) missing.push("the full story");
+  if (!hasText(input.facts)) missing.push("the case story");
   if (!hasText(input.timeline)) missing.push("important dates");
   if (!hasText(input.evidence)) missing.push("what evidence you have");
   if (!hasText(input.amountClaimed)) missing.push("the amount claimed, if money is requested");
@@ -322,13 +341,79 @@ function safelyStoreJson(key: string, value: unknown): boolean {
   return safelyStoreText(key, JSON.stringify(value));
 }
 
-export default function SmallClaimsIntake({ onComplete }: Props) {
-  const [input, setInput] =
-    useState<SmallClaimsIntelligenceInput>(defaultInput);
+async function requestSmallClaimsAnalysis(
+  input: SmallClaimsIntelligenceInput,
+): Promise<SmallClaimsAnalysisResponse> {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  const response = await fetch("/api/small-claims/analyze", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...(session?.access_token
+        ? { Authorization: `Bearer ${session.access_token}` }
+        : {}),
+    },
+    body: JSON.stringify({ input }),
+  });
+
+  const data = (await response.json()) as SmallClaimsAnalysisResponse;
+
+  if (!response.ok || !data.ok || !data.result) {
+    throw new Error(
+      data.error || "CourtSimplified could not analyze this intake.",
+    );
+  }
+
+  return data;
+}
+
+export default function SmallClaimsIntake({ onComplete, location, initialStory }: Props) {
+  const [editingStory, setEditingStory] = useState(false);
+  const [initialPrefill] = useState<NarrativePrefill | null>(() =>
+    consumeNarrativePrefill({
+      courtPath: "small-claims",
+      caseId: new URLSearchParams(window.location.search).get("caseId"),
+    }),
+  );
+  const [input, setInput] = useState<SmallClaimsIntelligenceInput>(() => {
+    const values = initialPrefill
+      ? directPrefillValues(initialPrefill)
+      : {};
+    return {
+      ...defaultInput,
+      yourProvince: location.province,
+      yourCity: location.city,
+      facts: String(values.facts || initialStory || ""),
+      yourName: String(values.yourName || ""),
+      otherParty: String(values.otherParty || ""),
+      yourRole: String(values.yourRole || ""),
+      caseStage: values.caseStage ? values.caseStage as UniversalStage : defaultInput.caseStage,
+      amountClaimed: String(values.amountClaimed || ""),
+      damagesBreakdown: String(values.damagesBreakdown || ""),
+      goal: String(values.goal || ""),
+      timeline: String(values.timeline || ""),
+      evidence: String(values.evidence || ""),
+      serviceDetails: String(values.serviceDetails || ""),
+      yourAddress: String(values.addressDetails || ""),
+      yourEmail: String(values.yourEmail || ""),
+      settlementEfforts: String(values.settlementEfforts || ""),
+      urgent: String(values.urgent || ""),
+      defenceResponse: String(values.enforcementDetails || values.existingOrderDetails || ""),
+      filedDocuments: Array.isArray(values.documentStatus)
+        ? values.documentStatus as SmallClaimsIntelligenceInput["filedDocuments"]
+        : defaultInput.filedDocuments,
+    };
+  });
 
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisError, setAnalysisError] = useState("");
   const [storageWarning, setStorageWarning] = useState("");
+  const [extractedFacts, setExtractedFacts] = useState<NarrativePrefillFact[]>(
+    () => initialPrefill?.facts.filter((fact) => fact.state === "direct") || [],
+  );
 
   const inferredDirection = useMemo(() => buildCaseDirection(input), [input]);
   const missingPrompt = useMemo(() => buildMissingPrompt(input), [input]);
@@ -337,6 +422,7 @@ export default function SmallClaimsIntake({ onComplete }: Props) {
     field: K,
     value: SmallClaimsIntelligenceInput[K],
   ) {
+    setExtractedFacts((current) => current.filter((fact) => fact.field !== field));
     setInput((current) => ({ ...current, [field]: value }));
   }
 
@@ -398,6 +484,11 @@ export default function SmallClaimsIntake({ onComplete }: Props) {
   }
 
   async function handleAnalyze() {
+    if (!hasText(input.facts)) {
+      setAnalysisError("Add a short description of what happened before continuing the core intake.");
+      return;
+    }
+
     setIsAnalyzing(true);
     setAnalysisError("");
     setStorageWarning("");
@@ -411,54 +502,29 @@ export default function SmallClaimsIntake({ onComplete }: Props) {
           input.filedDocuments.length > 0 ? input.filedDocuments : ["nothing"],
       };
 
-      const result = await analyzeSmallClaimsWithBrain(preparedInput);
+      const response = await requestSmallClaimsAnalysis(preparedInput);
+      const result = response.result!;
+      const payload: StoredCaseData = {
+        ...result.payload,
+        extra: {
+          ...(result.payload.extra || {}),
+          analysisExecution: {
+            reasoningMode: response.reasoningMode,
+            analysisAvailable: response.analysisAvailable === true,
+            authenticated: response.authenticated === true,
+            completedAt: new Date().toISOString(),
+          },
+        },
+      };
 
-      /*
-       * Keep the full intelligence result in application state through
-       * onComplete(). Save only a compact intake snapshot in localStorage.
-       * Large reasoning packages must not be duplicated in localStorage.
-       */
-      localStorage.removeItem("courtSimplifiedMasterResultPatch");
-
-      const compactPayload = buildCompactLocalPayload(result.payload);
-
-      const savedCaseData = safelyStoreJson("caseData", compactPayload);
-      const savedCourtSimplifiedCase = safelyStoreJson(
-        "courtSimplifiedCase",
-        compactPayload,
-      );
-
-      const savedDashboardPatch = result.dashboardPatch
-        ? safelyStoreJson(
-            "courtSimplifiedDashboardPatch",
-            result.dashboardPatch,
-          )
-        : true;
-
-      const savedRecommendedRoute = result.recommendedNextRoute
-        ? safelyStoreText(
-            "courtSimplifiedRecommendedNextRoute",
-            result.recommendedNextRoute,
-          )
-        : true;
-
-      if (
-        !savedCaseData ||
-        !savedCourtSimplifiedCase ||
-        !savedDashboardPatch ||
-        !savedRecommendedRoute
-      ) {
-        setStorageWarning(
-          "The analysis completed, but this browser could not save every temporary workspace item because its site storage is full. Your result remains available on this page.",
-        );
-      }
-
-      onComplete(result.analysis, result.payload);
+      onComplete(result.analysis, payload);
     } catch (error) {
       console.error("Small Claims intelligence analysis failed:", error);
 
       setAnalysisError(
-        "CourtSimplified could not complete the Small Claims intelligence analysis. Please review the intake and try again.",
+        error instanceof Error
+          ? error.message
+          : "CourtSimplified could not complete the Small Claims intelligence analysis. Please review the intake and try again.",
       );
     } finally {
       setIsAnalyzing(false);
@@ -469,17 +535,15 @@ export default function SmallClaimsIntake({ onComplete }: Props) {
     <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
       <div className="rounded-3xl bg-[#f2fbf7] p-5">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#2f7d67]">
-          Small Claims · Narrative-first intake
+          Small Claims intake
         </p>
 
         <h2 className="mt-2 text-2xl font-bold text-[#10231f]">
-          Tell the story. The system will classify the legal path.
+          Confirm the details needed for your Small Claims matter.
         </h2>
 
         <p className="mt-3 text-sm leading-6 text-[#4d675f]">
-          This intake no longer forces the case into old checkbox categories.
-          It uses your story, role, documents, evidence, and goals to determine
-          claim direction, missing proof, likely forms, risks, and next steps.
+          Start with the parties, amount, important dates, and available documents.
         </p>
 
         <div className="mt-4 rounded-2xl border border-[#cde7dc] bg-white p-4 text-sm text-[#24463d]">
@@ -500,7 +564,29 @@ export default function SmallClaimsIntake({ onComplete }: Props) {
         </div>
       )}
 
+      {extractedFacts.length > 0 && (
+        <div className="mt-5 rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm text-[#24463d]">
+          <p className="font-semibold">Found in your description — review/edit</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5">
+            {extractedFacts.map((fact) => (
+              <li key={fact.field}>
+                {fact.field}: {Array.isArray(fact.value) ? fact.value.join(", ") : fact.value}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <div className="mt-6 grid gap-5">
+        <div className="rounded-3xl border border-[#cde7dc] bg-[#f8fcfa] p-5">
+          <h3 className="text-lg font-bold text-[#10231f]">
+            Location confirmed on Home
+          </h3>
+          <p className="mt-2 text-sm leading-6 text-[#4d675f]">
+            Canonical intake context: {location.province}, {location.city}.
+          </p>
+        </div>
+
         <div className="grid gap-5 md:grid-cols-2">
           <label className="block">
             <span className="font-semibold text-[#16302b]">Case stage</span>
@@ -563,17 +649,7 @@ export default function SmallClaimsIntake({ onComplete }: Props) {
           </label>
         </div>
 
-        <label className="block">
-          <span className="font-semibold text-[#16302b]">
-            What happened?
-          </span>
-          <textarea
-            value={input.facts}
-            onChange={(event) => updateField("facts", event.target.value)}
-            className="mt-2 min-h-44 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
-            placeholder="Example: I want to sue because someone posted false statements about me online and sent messages to other people. I have screenshots and want compensation for reputational harm."
-          />
-        </label>
+        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p><button type="button" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" value={input.facts} onChange={(event) => updateField("facts", event.target.value)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
 
         <div className="grid gap-5 md:grid-cols-2">
           <label className="block">
@@ -670,13 +746,6 @@ export default function SmallClaimsIntake({ onComplete }: Props) {
               onChange={(event) => updateField("yourAddress", event.target.value)}
               className="rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Your address"
-            />
-
-            <input
-              value={input.yourCity}
-              onChange={(event) => updateField("yourCity", event.target.value)}
-              className="rounded-2xl border border-[#d8e6df] px-4 py-3"
-              placeholder="Your city"
             />
 
             <input

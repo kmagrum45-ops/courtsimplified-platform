@@ -382,7 +382,9 @@ function buildLegalReasoningReadiness(
   );
 
   const profileCount = legalReasoning.profiles.length;
-  const authorityCount = legalReasoning.authorities.length;
+  // These are generic authority-category safety policies, not actual sources.
+  // Actual verified-source counts live in authorityReadiness.
+  const authorityCount = 0;
   const knowledgeObjectCount = legalReasoning.knowledge.objects.length;
 
   const hasLegalReasoning =
