@@ -13,7 +13,11 @@ import type {
   CivilCanonicalIntakeResult,
 } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 import { runCivilIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
-import { analyzeSmallClaimsWithBrain } from "../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
+import {
+  analyzeSmallClaimsWithBrain,
+  type SmallClaimsIntelligenceInput,
+} from "../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
+import { POST as analyzeSmallClaimsRoute } from "../../app/api/small-claims/analyze/route";
 
 function canonicalMaster(result: { masterResultPatch: Record<string, unknown> }) {
   return result.masterResultPatch.masterCase as
@@ -21,8 +25,8 @@ function canonicalMaster(result: { masterResultPatch: Record<string, unknown> })
     | undefined;
 }
 
-async function verifySmallClaims() {
-  const result = await analyzeSmallClaimsWithBrain({
+function smallClaimsInput(): SmallClaimsIntelligenceInput {
+  return {
     caseStage: "responding",
     issues: ["defending-claim"],
     filedDocuments: ["plaintiffs-claim"],
@@ -55,7 +59,11 @@ async function verifySmallClaims() {
     defenceResponse: "The amount was not authorized.",
     goal: "Respond to the claim.",
     urgent: "No urgent issue.",
-  });
+  };
+}
+
+async function verifySmallClaims() {
+  const result = await analyzeSmallClaimsWithBrain(smallClaimsInput());
 
   const masterCase = canonicalMaster(result);
   assert.equal(result.analysis.courtPath, "small-claims");
@@ -66,6 +74,30 @@ async function verifySmallClaims() {
   assert.equal(masterCase?.stage, "responding");
   assert.ok(result.masterResultPatch.caseSystemAssembly);
   assert.equal("familyMasterResult" in result.masterResultPatch, false);
+}
+
+// Route-level counterpart to the Family and Civil production-route checks.
+// Small Claims previously had engine coverage only, so when the route stopped
+// returning reasoningMode the contract suite still passed.
+async function verifySmallClaimsCanonicalProductionRoute() {
+  const response = await analyzeSmallClaimsRoute(
+    new NextRequest("http://localhost/api/small-claims/analyze", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ input: smallClaimsInput() }),
+    }),
+  );
+  const body = (await response.json()) as {
+    ok: boolean;
+    authenticated: boolean;
+    reasoningMode: string;
+    analysisAvailable: boolean;
+  };
+  assert.equal(response.status, 200);
+  assert.equal(body.ok, true);
+  assert.equal(body.authenticated, false);
+  assert.equal(body.reasoningMode, "deterministic-fallback");
+  assert.equal(body.analysisAvailable, false);
 }
 
 async function verifyFamily() {
@@ -398,6 +430,7 @@ async function main() {
   delete process.env.OPENAI_API_KEY;
 
   await verifySmallClaims();
+  await verifySmallClaimsCanonicalProductionRoute();
   await verifyFamily();
   await verifyFamilyRouteRejections();
   verifyCivilUiChoicesMatchRoute();

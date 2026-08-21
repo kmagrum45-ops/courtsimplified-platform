@@ -274,10 +274,15 @@ export function createSmallClaimsAnalyzePost(
 
     const result = internalResult;
 
+    const structuredReasoningUsed = allowExternalCognition && !fallbackUsed;
+
     return NextResponse.json({
       ok: true,
       result,
-      analysisAvailable: allowExternalCognition && !fallbackUsed,
+      reasoningMode: structuredReasoningUsed
+        ? "structured-ai"
+        : "deterministic-fallback",
+      analysisAvailable: structuredReasoningUsed,
       authenticated,
     });
   } catch {
