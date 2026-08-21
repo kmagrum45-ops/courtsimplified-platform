@@ -660,10 +660,27 @@ const civilPleadingPostureMigration = readFileSync(
   "supabase/migrations/20260810000012_add_ontario_civil_counterclaim_new_party_mapping.sql",
   "utf8",
 );
+// bundle11Contract is an untyped .mjs module, so the manifest arrives as any.
+// Naming both shapes here keeps every value derived from it typed.
+type CivilPleadingManifestItem = {
+  allowedStage: string;
+  canonicalFormId: string;
+  mappingSourceId: string;
+  governingRulePinpoint: string;
+  requiredFact: { equals: string };
+};
+
+type CivilPleadingPostureMapping = {
+  item: CivilPleadingManifestItem;
+  stage: string;
+  canonicalFormId: string;
+  sourceId: string;
+  pinpoint: string;
+  posture: string;
+};
+
 const civilPleadingManifest = civilPleadingContract();
-const civilPleadingPostureMappings = civilPleadingManifest.items.map((item: {
-  allowedStage: string; canonicalFormId: string; mappingSourceId: string; governingRulePinpoint: string; requiredFact: { equals: string };
-}) => ({ item, stage: item.allowedStage, canonicalFormId: item.canonicalFormId, sourceId: item.mappingSourceId, pinpoint: item.governingRulePinpoint, posture: item.requiredFact.equals }));
+const civilPleadingPostureMappings: CivilPleadingPostureMapping[] = civilPleadingManifest.items.map((item: CivilPleadingManifestItem) => ({ item, stage: item.allowedStage, canonicalFormId: item.canonicalFormId, sourceId: item.mappingSourceId, pinpoint: item.governingRulePinpoint, posture: item.requiredFact.equals }));
 const civilPleadingPostureValues = civilPleadingPostureMappings.map((mapping) => mapping.posture);
 const declaredCivilPleadingPostures = [
   ...civilPleadingPostureMigration.matchAll(

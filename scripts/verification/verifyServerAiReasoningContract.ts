@@ -50,7 +50,10 @@ async function main() {
   });
   mockedAiResult.analysis.intelligenceWarnings = [];
   mockedAiResult.analysis.userWarnings = [];
-  mockedAiResult.payload.intelligence.systemWarnings = [];
+
+  const mockedIntelligence = mockedAiResult.payload.intelligence;
+  assert.ok(mockedIntelligence, "payload.intelligence must be present");
+  mockedIntelligence.systemWarnings = [];
 
   let receivedInput: SmallClaimsIntelligenceInput | undefined;
   let externalReasoningEnabled = false;
@@ -59,7 +62,7 @@ async function main() {
     hasExternalAiKey: () => true,
     analyze: async (input, options) => {
       receivedInput = input;
-      externalReasoningEnabled = options.allowExternalCognition === true;
+      externalReasoningEnabled = options?.allowExternalCognition === true;
       return mockedAiResult;
     },
   });
@@ -107,7 +110,7 @@ async function main() {
     hasExternalAiKey: () => true,
     analyze: async (_input, options) => {
       unauthenticatedExternalReasoningEnabled =
-        options.allowExternalCognition === true;
+        options?.allowExternalCognition === true;
       return mockedAiResult;
     },
   });

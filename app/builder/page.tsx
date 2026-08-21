@@ -22,6 +22,12 @@ import { buildMasterCaseFromIntake } from "../../src/lib/case-system/masterCaseO
 import { buildCaseContextStoragePayload } from "../../src/lib/case-system/caseContextEngine";
 import { consumeGuestIntakeSession, loadCompactBuilderDraft, saveCompactBuilderDraft } from "../../src/lib/case-system/builderDraftStorage";
 
+// Pre-rewrite intelligence UI, parked rather than deleted. Declared as
+// boolean instead of the literal false: a literal makes TypeScript treat the
+// guarded blocks as unreachable and skip narrowing, so `analysis` reads as
+// possibly null inside them even though `analysis &&` already guards it.
+const SHOW_LEGACY_INTELLIGENCE_UI: boolean = false;
+
 function buildWorkflowHref(
   route: string,
   caseId: string | null,
@@ -629,7 +635,7 @@ function BuilderPageContent() {
   return (
     <main className="min-h-screen bg-[#f8faf8] px-6 py-10 text-[#16302b]">
       <div className="mx-auto max-w-6xl">
-        {!analysis && false && <section className="mb-8 rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
+        {!analysis && SHOW_LEGACY_INTELLIGENCE_UI && <section className="mb-8 rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
           <div className="flex flex-wrap items-start justify-between gap-5">
             <div>
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-[#2f7d67]">
@@ -818,7 +824,7 @@ function BuilderPageContent() {
           </section>
         )}
 
-        {analysis && false && (
+        {analysis && SHOW_LEGACY_INTELLIGENCE_UI && (
           <div className="mt-8 space-y-6">
             <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm md:p-8">
               <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
@@ -992,7 +998,7 @@ function BuilderPageContent() {
           </div>
         )}
 
-        {analysis && false && !loadingExistingCase && !caseLoadError && canonicalIntakeSaved && (
+        {analysis && SHOW_LEGACY_INTELLIGENCE_UI && !loadingExistingCase && !caseLoadError && canonicalIntakeSaved && (
           <section className="mt-8">
             {!analysisAvailable && (
               <p className="mb-5 rounded-2xl border border-[#d8e6df] bg-white p-4 text-sm text-[#24463d]" data-testid="case-follow-up-unavailable-message">

@@ -24,7 +24,13 @@ async function main() {
     agreementDetails: "", paymentHistory: "", damagesBreakdown: "", serviceDetails: "The defendant was served.", deadlineDetails: "", facts: "Synthetic messages were sent on September 19, 2025.", timeline: "September 19, 2025: service completed; affidavit filed.", evidence: "Message threads.", missingEvidence: "", settlementEfforts: "", defenceResponse: "", goal: "Compensation", urgent: "",
   }, { allowExternalCognition: true });
 
-  assert.ok(!result.brain.intelligence.systemWarnings.some((warning) => /structured gpt cognition was unavailable/i.test(warning)));
+  const intelligence = result.payload.intelligence;
+  assert.ok(intelligence, "payload.intelligence must be present");
+  assert.ok(
+    !(intelligence.systemWarnings || []).some((warning) =>
+      /structured gpt cognition was unavailable/i.test(warning),
+    ),
+  );
   assert.ok(result.analysis.nextBestActions?.includes("Has the defendant filed a Defence?"));
   console.log("Configured server AI integration check passed.");
 }

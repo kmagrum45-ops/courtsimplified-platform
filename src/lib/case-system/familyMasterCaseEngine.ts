@@ -74,6 +74,7 @@ export type FamilyMasterCaseInput = {
   relocationDetails?: string;
   existingOrders?: string;
   settlementHistory?: string;
+  adoptionDetails?: string;
 
   uploadedFiles?: FamilyCaseFileUpload[];
   existingDocuments?: FamilyCaseDocument[];
@@ -193,6 +194,7 @@ function mergeUserData(input: FamilyMasterCaseInput): Record<string, unknown> {
     relocationDetails: input.relocationDetails || input.userData?.relocationDetails,
     existingOrders: input.existingOrders || input.userData?.existingOrders,
     settlementHistory: input.settlementHistory || input.userData?.settlementHistory,
+    adoptionDetails: input.adoptionDetails || input.userData?.adoptionDetails,
   };
 }
 

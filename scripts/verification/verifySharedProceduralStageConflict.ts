@@ -61,10 +61,17 @@ for (const caseStage of ["not-sure", undefined] as const) {
     smallClaimsInput(caseStage),
     { allowExternalCognition: false },
   );
+  const intelligence = output.analysis.intelligence;
+  assert.ok(intelligence, "analysis.intelligence must be present");
+  assert.ok(
+    intelligence.proceduralPosture,
+    "intelligence.proceduralPosture must be present",
+  );
+
   assert.equal(output.payload.caseStage, "not-sure");
   assert.equal(output.analysis.caseStage, "Stage unclear");
-  assert.equal(output.analysis.intelligence.normalizedIntake.stage, "not-sure");
-  assert.equal(output.analysis.intelligence.proceduralPosture.stage, "not-sure");
+  assert.equal(intelligence.normalizedIntake.stage, "not-sure");
+  assert.equal(intelligence.proceduralPosture.stage, "not-sure");
 }
 
 for (const caseStage of [
@@ -80,8 +87,15 @@ for (const caseStage of [
     smallClaimsInput(caseStage),
     { allowExternalCognition: false },
   );
+  const intelligence = output.analysis.intelligence;
+  assert.ok(intelligence, "analysis.intelligence must be present");
+  assert.ok(
+    intelligence.proceduralPosture,
+    "intelligence.proceduralPosture must be present",
+  );
+
   assert.equal(output.payload.caseStage, caseStage);
-  assert.equal(output.analysis.intelligence.proceduralPosture.stage, caseStage);
+  assert.equal(intelligence.proceduralPosture.stage, caseStage);
 }
 
 for (const courtPath of courtPaths) {

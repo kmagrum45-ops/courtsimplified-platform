@@ -3,6 +3,7 @@ import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { createClient } from "@supabase/supabase-js";
 
 import { getCanonicalFormLookup } from "../../../src/lib/case-system/formsSelectedCase";
+import { normalizeFormNumber } from "@/src/lib/case-system/utils";
 import {
   getAuthenticatedOwnedCase,
   getAuthenticatedUser,
@@ -1042,8 +1043,8 @@ function supportsTextFilling(field: unknown): field is {
   setText(value: string): void;
 } {
   return (
-    Boolean(field) &&
     typeof field === "object" &&
+    field !== null &&
     "setText" in field &&
     typeof (field as { setText?: unknown }).setText === "function"
   );
