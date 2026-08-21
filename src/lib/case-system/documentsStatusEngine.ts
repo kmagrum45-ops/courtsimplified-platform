@@ -1,4 +1,4 @@
-import { cleanList, normalize } from "./utils";
+import { cleanList, labelHasFormNumber, normalize } from "./utils";
 
 export type DocumentStatus =
   | "completed"
@@ -90,7 +90,14 @@ function shouldBlockGenericBadMatch(label: string) {
 
   if (!text) return true;
 
-  if (text.includes("13b") || text === "consent" || text.includes("form13bconsent")) {
+  // Exact number match: a substring test for "13b" also caught "113B" and any
+  // longer number ending in 13B. The concatenated form is kept because
+  // normalize() strips the separators the parser needs to see.
+  if (
+    labelHasFormNumber(label, "13B") ||
+    text === "consent" ||
+    text.includes("form13bconsent")
+  ) {
     return true;
   }
 

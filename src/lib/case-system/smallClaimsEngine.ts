@@ -16,6 +16,7 @@ import {
   detectLimitationRisk,
   extractDollarAmounts,
   hasText,
+  labelHasFormNumber,
 } from "./utils";
 
 export const ONTARIO_SMALL_CLAIMS_LIMIT = 50000;
@@ -472,11 +473,16 @@ function buildRecommendedForms(input: SmallClaimsEngineInput): string[] {
   const stage = input.caseStage;
   const completed = input.completedForms ?? [];
   const received = input.receivedForms ?? [];
-  const filed = [...completed, ...received, ...input.filedDocuments].join(" ").toLowerCase();
+  // Checked per entry with exact form-number matching. Joining into one blob
+  // and substring-testing "7a" also matched "17A" and any stray "7a", which
+  // suppressed a genuinely required form from the recommendations.
+  const filed = [...completed, ...received, ...input.filedDocuments];
+  const alreadyFiled = (formNumber: string) =>
+    filed.some((entry) => labelHasFormNumber(entry, formNumber));
   const forms: string[] = [];
 
-  if (stage === "starting-case" && !filed.includes("7a")) forms.push("Form 7A - Plaintiff's Claim");
-  if (stage === "responding" && !filed.includes("9a")) forms.push("Form 9A - Defence");
+  if (stage === "starting-case" && !alreadyFiled("7A")) forms.push("Form 7A - Plaintiff's Claim");
+  if (stage === "responding" && !alreadyFiled("9A")) forms.push("Form 9A - Defence");
   if (stage === "conference") forms.push("Settlement Conference Brief", "List of Proposed Witnesses");
   if (stage === "motion") forms.push("Notice of Motion and Supporting Affidavit");
   if (stage === "trial") forms.push("Trial preparation checklist", "Witness list", "Document brief / evidence package");
