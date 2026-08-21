@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -48,7 +49,12 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-screen bg-[#F7FAFA] text-[#1F2937]">
-        <ScrollToTopOnNavigation />
+        {/* useSearchParams() bails out of static prerendering unless it sits
+            inside a Suspense boundary, which would fail the build for every
+            statically rendered route. It renders null, so no fallback needed. */}
+        <Suspense fallback={null}>
+          <ScrollToTopOnNavigation />
+        </Suspense>
         <div className="flex min-h-screen flex-col">
           <header className="sticky top-0 z-50 border-b border-[#D7E7E5] bg-white/95 backdrop-blur">
             <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4">

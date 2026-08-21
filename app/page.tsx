@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import HomeLocationGate from "./_components/HomeLocationGate";
 import NotSureCourtGuide from "./_components/NotSureCourtGuide";
@@ -183,7 +184,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <HomeLocationGate />
+      {/* HomeLocationGate reads ?path= via useSearchParams(), which bails out
+          of static prerendering unless wrapped. It renders null without that
+          param — the default home state — so null is the matching fallback. */}
+      <Suspense fallback={null}>
+        <HomeLocationGate />
+      </Suspense>
       <NotSureCourtGuide />
 
       {/* COURT PATHS */}
