@@ -71,9 +71,14 @@ for (const courtArea of ["small-claims", "family", "civil"] as const) {
     [reviewedProcedure(courtArea, "starting-case")],
     { courtArea, procedureStage: "starting-case", asOf: AS_OF },
   );
+  // The full-procedure state carries real workflow text only when that field
+  // is separately verified. reviewedProcedure sets no workflow guidance, so the
+  // list is empty and the citation line stands alone. It no longer restates
+  // that the record is verified, which told the reader nothing. The real Small
+  // Claims starting-case row behaves the same way: workflow_guidance is null.
   assert.deepEqual(fullProcedureDisplay, [{
     state: "verified-full-procedure",
-    guidance: ["This procedure is verified for the selected court area and stage."],
+    guidance: [],
     officialSourceUrl: "https://www.ontario.ca/laws/regulation/example",
     citation: "Ontario procedural rule",
     pinpoint: "r. 1",

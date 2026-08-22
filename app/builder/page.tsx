@@ -877,13 +877,6 @@ function BuilderPageContent() {
                 <IntelligenceOverviewPanel analysis={analysis} intake={caseData} />
               </div>
 
-              <div className="mt-8">
-                <ProcedureAuthorityDisplay
-                  courtArea={courtPath}
-                  procedureStage={getStageForPersistence(analysis, caseData)}
-                />
-              </div>
-
               <div className="mt-8 rounded-3xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
                 <h3 className="text-lg font-bold text-[#16302b]">
                   Continue with your case

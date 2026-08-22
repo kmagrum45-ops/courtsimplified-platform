@@ -40,9 +40,19 @@ export function getProcedureAuthorityDisplayItems(
     );
 
     if (resolved.displayState !== "review-required") {
+      // Only real procedural text is carried across. The resolution verifies the
+      // rule reference, not any wording, so it supplies no guidance of its own.
+      // Where the workflow-guidance field is separately verified its text is
+      // used; otherwise this stays empty and the citation line stands alone,
+      // rather than restating that the record is verified.
+      const verifiedWorkflowText =
+        resolved.permittedWorkflowGuidance.displayState === "verified-source-linked-workflow"
+          ? resolved.permittedWorkflowGuidance.guidance
+          : [];
+
       return {
         state: "verified-full-procedure",
-        guidance: ["This procedure is verified for the selected court area and stage."],
+        guidance: verifiedWorkflowText,
         officialSourceUrl: resolved.officialSourceUrl,
         citation: resolved.citation,
         pinpoint: resolved.pinpoint,
@@ -95,22 +105,38 @@ export default function ProcedureAuthorityDisplay({
     return () => { active = false; };
   }, [courtArea, procedureStage]);
 
+  // Nothing verified means nothing worth showing. The panel used to render a
+  // lone amber box announcing its own absence, in data-model wording, directly
+  // above the next-step buttons. Rendering nothing is the honest result; a
+  // stage with no verified rule reference is common rather than exceptional.
+  if (!items.some((item) => item.state !== "review-required")) return null;
+
   return (
-    <section className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm leading-6 text-[#24463d]">
-      <h3 className="font-bold text-[#16302b]">Ontario procedure authority</h3>
+    <section className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5 text-sm leading-6 text-[#24463d]">
+      <h2 className="text-lg font-bold text-[#16302b]">Ontario procedure authority</h2>
       <div className="mt-3 space-y-3">
         {items.map((item, index) => item.state === "review-required" ? (
           <p key={`review-${index}`} className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-amber-900">
-            Review required — this procedure has no verified source-linked workflow guidance for the selected court area and stage.
+            We don’t yet have a verified Ontario rule reference for this item — check the official source before filing.
           </p>
         ) : (
           <div key={`${item.citation}-${item.pinpoint}-${index}`} className="rounded-xl border border-[#d8e6df] bg-white p-3">
+            {/* The full-procedure state verifies the rule reference itself, so it
+                is the broader of the two. The field-guidance state verifies only
+                the workflow-guidance field while the procedure record stays under
+                review, which "only" makes explicit. */}
             <p className="font-semibold text-[#16302b]">
-              {item.state === "verified-full-procedure" ? "Verified procedure guidance" : "Verified workflow guidance"}
+              {item.state === "verified-full-procedure"
+                ? item.guidance.length > 0
+                  ? "Verified procedure guidance"
+                  : "Verified procedure reference"
+                : "Verified workflow guidance only"}
             </p>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
-              {item.guidance.map((guidance) => <li key={guidance}>{guidance}</li>)}
-            </ul>
+            {item.guidance.length > 0 ? (
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                {item.guidance.map((guidance) => <li key={guidance}>{guidance}</li>)}
+              </ul>
+            ) : null}
             {item.officialSourceUrl && item.citation && item.pinpoint ? (
               <p className="mt-3">
                 <a className="font-semibold text-[#2f7d67] underline" href={item.officialSourceUrl} rel="noreferrer" target="_blank">Official source</a>
