@@ -38,38 +38,45 @@ export type DocumentStatusResult = {
 function normalizeDocumentKey(label: string) {
   const text = normalize(label);
 
-  const formMatch = text.match(/form([0-9]+[a-z]?)/i);
+  // normalize() keeps spaces, hyphens and apostrophes, so every run-together
+  // literal below — and the form-number pattern — has to be matched against
+  // the compacted text. Comparing against `text` meant "Form 7A",
+  // "Plaintiff's Claim" and "plaintiffs-claim" each produced a different key
+  // and survived deduplication as separate entries.
+  const compact = text.replace(/[^a-z0-9]/g, "");
+
+  const formMatch = compact.match(/form([0-9]+[a-z]?)/i);
   if (formMatch) return `form-${formMatch[1].toLowerCase()}`;
 
-  if (text.includes("plaintiffsclaim") || text.includes("plaintiffclaim")) {
+  if (compact.includes("plaintiffsclaim") || compact.includes("plaintiffclaim")) {
     return "form-7a";
   }
 
-  if (text.includes("affidavitofservice")) {
+  if (compact.includes("affidavitofservice")) {
     return "form-8a";
   }
 
-  if (text.includes("defence") || text.includes("defense")) {
+  if (compact.includes("defence") || compact.includes("defense")) {
     return "form-9a";
   }
 
-  if (text.includes("witness")) {
+  if (compact.includes("witness")) {
     return "witness-list";
   }
 
-  if (text.includes("settlementconference")) {
+  if (compact.includes("settlementconference")) {
     return "settlement-conference";
   }
 
-  if (text.includes("settlementposition")) {
+  if (compact.includes("settlementposition")) {
     return "settlement-position-summary";
   }
 
-  if (text.includes("evidencelist")) {
+  if (compact.includes("evidencelist")) {
     return "evidence-list";
   }
 
-  if (text.includes("documentbundle") || text.includes("keydocument")) {
+  if (compact.includes("documentbundle") || compact.includes("keydocument")) {
     return "document-bundle";
   }
 
