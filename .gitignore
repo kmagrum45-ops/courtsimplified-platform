@@ -71,6 +71,10 @@ database-backups/
 form-compatibility-report.json
 project-file-map.txt
 
+# Per-run output of the browser scenario quality harness. Timings and full
+# page captures differ every run; the harness itself is committed.
+scenario-quality-report.json
+
 # =========================================================
 # DOWNLOADS / GENERATED PDFS
 # =========================================================
