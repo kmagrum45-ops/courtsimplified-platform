@@ -18,7 +18,9 @@ for (const courtPath of ["small-claims", "family", "civil"] as const) {
   assert.match(String(courtPath === "civil" ? values.legalRemedy : values.goal), /unpaid invoice/i);
   assert.equal(values.caseStage, "already-started");
   assert.equal(values.plaintiffName, "Alex Example");
-  assert.equal(values.defendantName, "Rebecca");
+  // Alex serves, Jordan is served: the plaintiff assertion above and the
+  // serviceDetails assertion below both fix this direction.
+  assert.equal(values.defendantName, "Jordan Example");
   assert.match(String(values.serviceDetails), /Alex Example served Jordan Example/i);
   assert.match(String(values.timeline), /March 4, 2026/i);
   assert.match(String(values.evidence), /emails/i);
