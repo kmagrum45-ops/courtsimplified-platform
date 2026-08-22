@@ -1,4 +1,9 @@
 import {
+  extractDollarAmounts,
+  ONTARIO_SMALL_CLAIMS_LIMIT,
+} from "../utils";
+
+import {
   getReasoningProfilesForDomain,
   LegalReasoningProfile,
 } from "../knowledge/legalReasoningProfiles";
@@ -1987,6 +1992,15 @@ export function buildConversationIntelligence(
     input.courtContext?.proceduralStage,
   );
 
+  // This path never reaches courtSimplifiedBrain, so it carries its own check.
+  // Guarded to money-relief areas the same way the client-side check in
+  // CourtAssistantChat is: a figure mentioned in a purely family conversation
+  // is far more likely a home value or income than a claim amount.
+  const highestAmount = (() => {
+    const amounts = extractDollarAmounts(combinedText);
+    return amounts.length > 0 ? Math.max(...amounts) : null;
+  })();
+
   const frameworks = detectIssueFrameworks(combinedText);
   const requiresFamilyRelationshipClarification =
     needsFamilyRelationshipClarification(combinedText);
@@ -2139,6 +2153,15 @@ export function buildConversationIntelligence(
       proceduralItemsToReview:
         stage !== "unknown" ? [`Possible procedural stage: ${stage}`] : [],
       riskFlags: unique([
+        ...(highestAmount !== null &&
+        highestAmount > ONTARIO_SMALL_CLAIMS_LIMIT &&
+        (courtArea === "small-claims" ||
+          courtArea === "civil" ||
+          courtArea === "mixed")
+          ? [
+              `Claim amount $${highestAmount.toLocaleString()} exceeds the Ontario Small Claims Court limit of $${ONTARIO_SMALL_CLAIMS_LIMIT.toLocaleString()}; Small Claims Court may not have jurisdiction and the Superior Court of Justice should be considered.`,
+            ]
+          : []),
         ...legalSignals
           .filter((signal) => signal.needsVerification)
           .map((signal) => `${signal.label} needs legal verification.`),

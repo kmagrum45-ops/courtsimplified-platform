@@ -1,4 +1,9 @@
 import {
+  extractDollarAmounts,
+  ONTARIO_SMALL_CLAIMS_LIMIT,
+} from "../utils";
+
+import {
   ClaimClassification,
   ClaimElementAssessment,
   ClaimClassificationStatus,
@@ -2229,9 +2234,43 @@ function buildFallbackCognition(normalizedIntake: NormalizedIntake): GptCognitio
   };
 }
 
+/**
+ * Reads ONLY the labelled claim-amount field out of rawUserText.
+ *
+ * Small Claims (smallClaimsIntelligenceEngine) and Civil
+ * (civilIntakeCanonicalAdapter) both write "Amount claimed or disputed: <value>"
+ * into the narrative, so the figure arrives already identified as a claim
+ * amount. Family collects no claim-amount field at all, so its narrative is
+ * deliberately not scanned: a matrimonial home value, an income figure or a
+ * support number would otherwise be read as a claim and tell a Family user
+ * their case belongs in Superior Court.
+ *
+ * Returns the amount only when it exceeds the Small Claims limit.
+ */
+function detectOverLimitClaimAmount(rawUserText: string): number | null {
+  const label = "amount claimed or disputed:";
+
+  const line = String(rawUserText || "")
+    .split(/\r?\n/)
+    .find((entry) => entry.toLowerCase().includes(label));
+
+  if (!line) return null;
+
+  const value = line.slice(line.toLowerCase().indexOf(label) + label.length);
+  const amounts = extractDollarAmounts(value);
+
+  if (amounts.length === 0) return null;
+
+  const highest = Math.max(...amounts);
+
+  return highest > ONTARIO_SMALL_CLAIMS_LIMIT ? highest : null;
+}
+
 export async function runCourtSimplifiedBrain(
   input: CourtSimplifiedBrainInput,
 ): Promise<CourtSimplifiedBrainOutput> {
+  const overLimitClaimAmount = detectOverLimitClaimAmount(input.rawUserText);
+
   const normalizedIntake = await normalizeIntake(input);
 
   const factPatternAnalysis = buildFactPatternAnalysis(normalizedIntake);
@@ -2416,6 +2455,11 @@ export async function runCourtSimplifiedBrain(
         (weakness) => `Proof weakness requires review: ${weakness}.`,
       ),
       ...legalKnowledge.sourceWarnings,
+      ...(overLimitClaimAmount !== null
+        ? [
+            `Claim amount $${overLimitClaimAmount.toLocaleString()} exceeds the Ontario Small Claims Court limit of $${ONTARIO_SMALL_CLAIMS_LIMIT.toLocaleString()}; Small Claims Court may not have jurisdiction and the Superior Court of Justice should be considered.`,
+          ]
+        : []),
     ]),
 
     confidence: asConfidence(gptCognition.confidence),
