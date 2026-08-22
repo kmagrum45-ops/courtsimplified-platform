@@ -9,6 +9,7 @@ import SmallClaimsIntake from "./_components/SmallClaimsIntake";
 import CivilIntake from "./_components/CivilIntake";
 import CourtAssistantChat from "./_components/CourtAssistantChat";
 import IntelligenceOverviewPanel from "./_components/IntelligenceOverviewPanel";
+import ProcedureAuthorityDisplay from "./_components/ProcedureAuthorityDisplay";
 
 import {
   AnalysisResult,
@@ -799,6 +800,10 @@ function BuilderPageContent() {
         {analysis && canonicalIntakeSaved && (
           <section ref={completedOverviewRef} className="mt-8 space-y-6" data-testid="completed-case-overview" tabIndex={-1}>
             <IntelligenceOverviewPanel analysis={analysis} intake={caseData} />
+            <ProcedureAuthorityDisplay
+              courtArea={courtPath}
+              procedureStage={getStageForPersistence(analysis, caseData)}
+            />
             <section className="rounded-2xl border border-[#d8e6df] bg-white p-5">
               <h2 className="text-lg font-bold text-[#16302b]">What CourtSimplified can help with next</h2>
               <div className="mt-4 flex flex-wrap gap-3">
@@ -870,6 +875,13 @@ function BuilderPageContent() {
 
               <div className="mt-8">
                 <IntelligenceOverviewPanel analysis={analysis} intake={caseData} />
+              </div>
+
+              <div className="mt-8">
+                <ProcedureAuthorityDisplay
+                  courtArea={courtPath}
+                  procedureStage={getStageForPersistence(analysis, caseData)}
+                />
               </div>
 
               <div className="mt-8 rounded-3xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
