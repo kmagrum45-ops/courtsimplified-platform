@@ -50,6 +50,36 @@ jobs:
       - name: Case isolation verification
         run: npm run test:case-isolation
 
+      - name: Court path classifier and scenario registry verification
+        run: npm run test:scenario-registry
+
+      - name: Reasoning contract verification
+        run: npm run test:reasoning-contract
+
+      - name: Case RLS policy contract verification
+        run: npm run test:case-rls-contract
+
+      - name: Server AI reasoning route contract verification
+        run: npm run test:ai-route-contract
+
+      - name: Authority knowledge bridge verification
+        run: npm run test:authority-bridge
+
+      - name: User-facing scenario library verification
+        run: npm run test:user-facing-scenarios
+
+      - name: Three-area production contract verification
+        run: npm run test:three-area
+
+      - name: Case outcome matrix verification
+        run: npm run test:case-outcomes
+
+      - name: Case simulation factory verification
+        run: npm run test:case-simulations
+
+      - name: Scenario matrix verification
+        run: npm run test:scenario-matrix
+
       - name: Production build
         run: npm run build
 
