@@ -4,6 +4,11 @@ import {
 } from "../utils";
 
 import {
+  filingFactsFromNarrative,
+  withoutAnsweredQuestions,
+} from "./answeredQuestions";
+
+import {
   ClaimClassification,
   ClaimElementAssessment,
   ClaimClassificationStatus,
@@ -814,14 +819,19 @@ function buildProceduralPosture(args: {
         ? "Confirm exact deadlines, service dates, filed documents, and court dates before final filing guidance."
         : "Confirm deadlines, filed documents, served documents, court dates, and limitation concerns before final filing guidance.",
     ]),
-    nextProceduralQuestions: cleanList([
-      "Has anything already been filed?",
-      "Has anything already been served?",
-      "Are there court dates, limitation dates, or urgent deadlines?",
-      includesAny(rawText, ["crown", "police", "government", "public authority"])
-        ? "Does this claim require leave, notice, or a public-authority screening step?"
-        : "",
-    ]),
+    // Questions the recorded documents already answer are dropped here rather
+    // than in each court path, so all three inherit the same behaviour.
+    nextProceduralQuestions: withoutAnsweredQuestions(
+      cleanList([
+        "Has anything already been filed?",
+        "Has anything already been served?",
+        "Are there court dates, limitation dates, or urgent deadlines?",
+        includesAny(rawText, ["crown", "police", "government", "public authority"])
+          ? "Does this claim require leave, notice, or a public-authority screening step?"
+          : "",
+      ]),
+      filingFactsFromNarrative(rawText),
+    ),
     warnings: cleanList([
       courtPath === "unknown" ? "Court path requires confirmation." : "",
       stage === "not-sure" ? "Procedural stage requires confirmation." : "",

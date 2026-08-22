@@ -241,6 +241,39 @@ fixtures.push(
     structuredIntake: { courtContext: { courtPath: "small-claims", jurisdiction: "Ontario", stage: "starting-case" } }, requiredPrimaryClassifications: ["family-parenting"], expectedRouteResult: { status: 200, ok: true, routedCourt: "small-claims" },
     requiredWarnings: ["may be a family law matter", "worth confirming you're in the right place"],
     requiredQuestions: ["order"], canonical: { required: false }, regression: "Genuine parenting and support relief under a declared Small Claims path must warn rather than silently reroute." }),
+  // Regression: the next-question logic must not ask what the intake already
+  // recorded. Found in live Small Claims testing, where a case with a default
+  // judgment on record was still asked whether the defendant filed a Defence --
+  // a default judgment only exists because one was not.
+  completeFixture({ id: "answered-small-claims-default-judgment", selectedCourtPath: "small-claims", role: "Plaintiff / claimant", stage: "already-started",
+    narrative: "The claim was filed and served, the defendant never defended, and default judgment was obtained.",
+    structuredIntake: smallInput({ caseStage: "already-started", issues: ["unpaid-money"], filedDocuments: ["plaintiffs-claim", "affidavit-service", "default-judgment"],
+      serviceDetails: "Served personally; Affidavit of Service filed with the court.", amountClaimed: "$2,500",
+      facts: "The claim was filed and served, the defendant never defended, and default judgment was obtained.", goal: "Collect the judgment." }),
+    requiredPrimaryClassifications: ["debt"],
+    forbiddenQuestions: ["Has the defendant filed a Defence?", "Has anything already been filed?", "Has anything already been served?"],
+    canonical: { required: false }, regression: "A default judgment on record answers the Defence question; it must not be asked again." }),
+  // Positive control for the same filter: without a judgment or a Defence on
+  // record the question is still the right thing to ask, so the filter cannot
+  // be over-broad.
+  completeFixture({ id: "answered-small-claims-defence-still-open", selectedCourtPath: "small-claims", role: "Plaintiff / claimant", stage: "already-started",
+    narrative: "The claim was filed and served and the deadline to defend has not passed.",
+    structuredIntake: smallInput({ caseStage: "already-started", issues: ["unpaid-money"], filedDocuments: ["plaintiffs-claim", "affidavit-service"],
+      serviceDetails: "Served personally; Affidavit of Service filed with the court.", amountClaimed: "$2,500",
+      facts: "The claim was filed and served and the deadline to defend has not passed.", goal: "Obtain judgment." }),
+    requiredPrimaryClassifications: ["debt"],
+    requiredQuestions: ["Has the defendant filed a Defence?"],
+    canonical: { required: false }, regression: "With nothing answering it, the Defence question must still be asked." }),
+  // Regression: same bug class on the Family path, via the shared procedural
+  // posture questions. An Application and Answer on record answer both.
+  completeFixture({ id: "answered-family-documents-on-record", selectedCourtPath: "family", role: "applicant", stage: "already-started",
+    narrative: "An Application was filed and served, and the other parent has already served and filed an Answer.",
+    structuredIntake: familyInput({ caseStage: "already-started", issues: ["parenting-time"], filedDocuments: ["application", "answer", "financial-statement"],
+      childrenInfo: "One child, age seven.", facts: "An Application was filed and served, and the other parent has already served and filed an Answer.",
+      financialDisclosure: "Both parties exchanged financial statements.", goal: "A parenting order." }),
+    requiredPrimaryClassifications: ["family-parenting"],
+    forbiddenQuestions: ["Has anything already been filed?", "Has anything already been served?", "Has the defendant filed a Defence?"],
+    canonical: { required: false }, regression: "Documents on record answer the filed and served questions; they must not be asked again." }),
   completeFixture({ id: "collision-actual-contract", selectedCourtPath: "small-claims", role: "Plaintiff / claimant", stage: "starting-case", narrative: "A written agreement required delivery after payment, but delivery never occurred.",
     structuredIntake: smallInput({ issues: ["contract-dispute"], agreementDetails: "Written delivery agreement.", paymentHistory: "Paid in full.", facts: "A written agreement required delivery after payment, but delivery never occurred." }), requiredPrimaryClassifications: ["contract"], regression: "Preserves contract classification when agreement, obligation, and breach facts exist." }),
   completeFixture({ id: "collision-conversational-agreement", selectedCourtPath: "small-claims", role: "Plaintiff / claimant", stage: "starting-case", narrative: "I agree this conversation happened, but the dispute is a false message sent to a third party.",
@@ -381,6 +414,17 @@ function questionsFor(run: FixtureRun): string[] {
     ...(intelligence.missingInformation || []).map((item: any) =>
       typeof item === "string" ? item : item.question,
     ),
+    // Procedural posture questions feed the builder's "What to confirm next"
+    // card. They were invisible to this matrix, which is why a Family case with
+    // documents on record could be asked "Has anything already been filed?"
+    // without any fixture catching it.
+    ...(intelligence.proceduralPosture?.nextProceduralQuestions || []),
+    // The builder reads AnalysisResult.missingInformation, which is where the
+    // Small Claims engine puts its questions. Without this the matrix could not
+    // see them, so a forbiddenQuestions assertion about them would pass
+    // vacuously.
+    ...(run.body.result?.analysis?.missingInformation || []),
+    ...(run.body.result?.analysis?.nextBestActions || []),
   ].filter(Boolean).map(String);
 }
 

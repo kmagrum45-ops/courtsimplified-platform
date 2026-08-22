@@ -7,6 +7,10 @@ import {
   mapIntelligenceToAnalysisPatch,
 } from "../../../../app/builder/_components/builderTypes";
 
+import {
+  filingFactsFromDocuments,
+  isQuestionAlreadyAnswered,
+} from "./answeredQuestions";
 import { runCourtSimplifiedBrain } from "./courtSimplifiedBrain";
 
 export type SmallClaimsIssue =
@@ -504,7 +508,14 @@ export async function analyzeSmallClaimsWithBrain(
   const receivedForms = buildReceivedForms(input);
   const notNeededNow = buildNotNeededNow(input, stage);
   const requiredNextForms = buildAuthoritativeRequiredForms(input, stage);
-  const defaultStageReview = input.filedDocuments.includes("plaintiffs-claim") && input.filedDocuments.includes("affidavit-service") && !input.filedDocuments.includes("defence");
+  // A Defence on record answered this already; so does a default judgment,
+  // which only exists because no Defence was filed. Both decisions come from
+  // the shared filing-facts table rather than a local document check.
+  const smallClaimsFilingFacts = filingFactsFromDocuments(input.filedDocuments);
+  const defaultStageReview =
+    input.filedDocuments.includes("plaintiffs-claim") &&
+    input.filedDocuments.includes("affidavit-service") &&
+    !isQuestionAlreadyAnswered("Has the defendant filed a Defence?", smallClaimsFilingFacts);
   const defaultStageGuidance = defaultStageReview
     ? [
         "Service was completed and an Affidavit of Service was filed with the court.",

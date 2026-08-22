@@ -1,3 +1,9 @@
+import {
+  filingFactsFromDocuments,
+  isQuestionAlreadyAnswered,
+  withoutAnsweredQuestions,
+} from "@/src/lib/case-system/intelligence/answeredQuestions";
+
 import type { AnalysisResult, StoredCaseData } from "./builderTypes";
 
 type Props = { analysis: AnalysisResult; intake: StoredCaseData | null };
@@ -44,7 +50,26 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
     ...(intake?.evidence.trim() ? [intake.evidence] : []),
     ...((intake?.extra?.uploadedEvidenceFiles as Array<{ name?: unknown }> | undefined) || []).flatMap((file) => typeof file?.name === "string" && file.name.trim() ? [file.name.trim()] : []),
   ]));
-  const confirmQuestion = hasClaimAndService ? "Has the defendant filed a Defence?" : analysis.missingInformation.find((item) => /\?$/.test(item)) || analysis.nextBestActions?.find((item) => /\?$/.test(item)) || "What important fact should be confirmed next?";
+  // The card used to hardcode the Defence question whenever a claim and an
+  // affidavit of service were recorded, so it asked it even when the same
+  // intake recorded a default judgment or a Defence. Both the override and the
+  // fallback list now go through the shared filter, so nothing the intake has
+  // already answered can surface here.
+  const filingFacts = filingFactsFromDocuments(documents);
+  const defenceQuestion = "Has the defendant filed a Defence?";
+  const askDefenceQuestion =
+    hasClaimAndService && !isQuestionAlreadyAnswered(defenceQuestion, filingFacts);
+  const isQuestionText = (value: string) => value.trim().endsWith("?");
+  const candidateQuestions = withoutAnsweredQuestions(
+    [
+      ...analysis.missingInformation.filter(isQuestionText),
+      ...(analysis.nextBestActions || []).filter(isQuestionText),
+    ],
+    filingFacts,
+  );
+  const confirmQuestion = askDefenceQuestion
+    ? defenceQuestion
+    : candidateQuestions[0] || "What important fact should be confirmed next?";
   const evidenceToOrganize = hasDefamationSignal
     ? ["Complete unedited message threads or screenshots", "Who sent each message", "Uncle and father: what each received and when", "Full context before and after the statement", "Evidence the statement was false, if available", "Evidence of harm or impact, if available"]
     : hasAdoptionSignal ? ["Full legal names and dates of birth", "Proof of Ontario residence, if available", "Family relationship and living-history information", "Adult person’s written wishes or consent information for review", "Known information about the biological father", "A dated record of reasonable efforts already made to locate or contact him", "Any existing court, adoption, or child-protection documents"]
