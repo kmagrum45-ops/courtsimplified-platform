@@ -1,0 +1,46 @@
+name: CourtSimplified Nightly Real-AI Integration
+
+# Kept off push and pull_request deliberately. test:ai-real-integration makes
+# real, billed OpenAI calls and its output is not deterministic, so it must not
+# gate ordinary commits. It runs on a schedule and on demand instead.
+#
+# The script self-skips unless RUN_REAL_AI_INTEGRATION=1, so without that flag
+# this job is a no-op rather than a silent pass.
+
+on:
+  schedule:
+    # 07:00 UTC daily (about 03:00 America/Toronto).
+    - cron: "0 7 * * *"
+  workflow_dispatch:
+
+jobs:
+  real-ai-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+      NEXT_TELEMETRY_DISABLED: 1
+      RUN_REAL_AI_INTEGRATION: "1"
+
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Configured server AI integration check
+        run: npm run test:ai-real-integration

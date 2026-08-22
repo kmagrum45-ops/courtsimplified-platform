@@ -80,6 +80,42 @@ jobs:
       - name: Scenario matrix verification
         run: npm run test:scenario-matrix
 
+      - name: Narrative prefill verification
+        run: npm run test:narrative-prefill
+
+      - name: Court path classifier verification
+        run: npm run test:court-path-classifier
+
+      - name: Forms selected-case isolation verification
+        run: npm run test:forms-case-isolation
+
+      - name: Generate-form authorization verification
+        run: npm run test:generate-form-authorization
+
+      - name: Ontario beta procedure bundle verification
+        run: npm run test:ontario-beta-bundle
+
+      - name: Cohort 2 catalogue normalization verification
+        run: npm run test:cohort2-normalization
+
+      - name: Cohort 2 split canonical identity verification
+        run: npm run test:cohort2-split-identities
+
+      - name: Account recovery UX verification
+        run: npm run test:account-recovery-ux
+
+      - name: Builder persistence reliability verification
+        run: npm run test:builder-persistence
+
+      - name: Court assistant chat hydration verification
+        run: npm run test:chat-hydration
+
+      - name: Shared procedural-stage conflict verification
+        run: npm run test:procedural-stage-conflict
+
+      - name: Workflow gating verification
+        run: npm run test:workflow-gating
+
       - name: Production build
         run: npm run build
 
