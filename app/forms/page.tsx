@@ -259,7 +259,7 @@ function getFormStatus(form: CleanFormItem, verified: Map<string, VerifiedFormRe
 function getStatusLabel(status: FormMatchStatus) {
   if (status === "verified") return "Verified for this case";
   if (status === "review") return "May require review";
-  return "Official catalogue record â€” routing not yet verified";
+  return "Official catalogue record — routing not yet verified";
 }
 
 function getStatusClass(status: FormMatchStatus) {
