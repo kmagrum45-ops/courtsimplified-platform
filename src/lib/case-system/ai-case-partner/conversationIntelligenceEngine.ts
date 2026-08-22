@@ -154,6 +154,11 @@ export type ConversationIntelligenceResult = {
   hypotheses: CasePartnerHypothesis[];
   legalSignals: CasePartnerLegalSignal[];
   missingInformation: string[];
+  /**
+   * Non-blocking advisories. Mirrors the field courtSimplifiedBrain populates on
+   * the builder routes, so both paths surface warnings through one channel.
+   */
+  systemWarnings: string[];
   questions: CasePartnerQuestion[];
   selectedNextQuestion: CasePartnerQuestion | null;
   caseMemoryPatch: {
@@ -1976,6 +1981,22 @@ function buildUserRole(message: string): string {
   return "unknown";
 }
 
+/**
+ * Plain-language name for a court area, for user-facing advisories.
+ */
+function courtAreaLabel(area: CasePartnerCourtArea): string {
+  switch (area) {
+    case "family":
+      return "family law";
+    case "small-claims":
+      return "small claims";
+    case "civil":
+      return "civil";
+    default:
+      return String(area).replace("-", " ");
+  }
+}
+
 export function buildConversationIntelligence(
   input: CasePartnerInput,
 ): ConversationIntelligenceResult {
@@ -2032,6 +2053,27 @@ export function buildConversationIntelligence(
             frameworks[0].courtArea !== "unknown"
           ? frameworks[0].courtArea
           : inferCourtArea(combinedText);
+
+  // A declared path that disagrees with an unambiguous single-area detection is
+  // reported, not acted on. Rerouting silently would move someone into another
+  // court's engine, forms and workflow without their say; keeping the declared
+  // path but saying nothing is how a family matter was accepted as Small Claims.
+  // A genuine cross-area conflict is already answered above by "mixed", and the
+  // family-relationship case by "unknown", so neither reaches this check.
+  const detectedSingleArea =
+    frameworkAreas.size === 1 ? [...frameworkAreas][0] : null;
+  const declaredPathDisagreesWithDetection =
+    !requiresFamilyRelationshipClarification &&
+    !hasCourtAreaConflict &&
+    selectedCourtArea !== "unknown" &&
+    detectedSingleArea !== null &&
+    detectedSingleArea !== selectedCourtArea;
+
+  const systemWarnings = declaredPathDisagreesWithDetection
+    ? [
+        `Based on what you've described, this may be a ${courtAreaLabel(detectedSingleArea)} matter, but ${courtAreaLabel(selectedCourtArea)} is selected. It's worth confirming you're in the right place before continuing.`,
+      ]
+    : [];
 
   const inferredStage = inferProceduralStage(combinedText);
   const stage =
@@ -2129,6 +2171,7 @@ export function buildConversationIntelligence(
     hypotheses,
     legalSignals,
     missingInformation,
+    systemWarnings,
     questions,
     selectedNextQuestion,
     caseMemoryPatch: {

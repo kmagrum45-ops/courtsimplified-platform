@@ -199,7 +199,22 @@ async function assertCourtPathRoutingBoundaries() {
     },
     mode: "verification",
   });
-  assert.equal(familyResult.conversationIntelligence?.conversationFocus?.courtArea, "family");
+  // A declared path is not overridden by detection. Small Claims was declared,
+  // so it stands; the family reading is surfaced as a warning instead of a
+  // silent reroute into another court's engine, forms and workflow.
+  assert.equal(
+    familyResult.conversationIntelligence?.conversationFocus?.courtArea,
+    "small-claims",
+  );
+  const familyWarnings = familyResult.conversationIntelligence?.systemWarnings || [];
+  const misroutedWarning = familyWarnings.find((warning) =>
+    /may be a family law matter/i.test(warning),
+  );
+  assert.ok(
+    misroutedWarning,
+    `Expected a warning that the matter may be family law, received ${JSON.stringify(familyWarnings)}`,
+  );
+  assert.match(String(misroutedWarning), /worth confirming you're in the right place/i);
   assert.ok(resultText(familyResult).includes("family parenting / support"));
 
   const historicalAgreementFamily =
@@ -216,7 +231,16 @@ async function assertCourtPathRoutingBoundaries() {
     mode: "verification",
   });
   const historicalAgreementFamilyText = resultText(historicalAgreementFamilyResult);
-  assert.equal(historicalAgreementFamilyResult.conversationIntelligence?.conversationFocus?.courtArea, "family");
+  // Same rule as above: the declared Small Claims path stands and the family
+  // reading is surfaced as a warning. The historical agreement must still not
+  // become a contract classification, which the assertions below cover.
+  assert.equal(historicalAgreementFamilyResult.conversationIntelligence?.conversationFocus?.courtArea, "small-claims");
+  assert.ok(
+    (historicalAgreementFamilyResult.conversationIntelligence?.systemWarnings || []).some((warning) =>
+      /may be a family law matter/i.test(warning),
+    ),
+    "Expected a warning that the matter may be family law.",
+  );
   assert.ok(historicalAgreementFamilyText.includes("family parenting / support"));
   assert.equal(historicalAgreementFamilyText.includes("possible contract / payment dispute"), false);
   assert.equal(historicalAgreementFamilyText.includes("reasoning domain: contract"), false);

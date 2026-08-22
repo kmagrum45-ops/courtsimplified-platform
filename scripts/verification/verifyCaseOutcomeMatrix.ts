@@ -233,9 +233,14 @@ fixtures.push(
   completeFixture({ id: "collision-reputation-custody-background", selectedCourtPath: "small-claims", role: "Plaintiff / claimant", stage: "starting-case", narrative: exactReputation,
     structuredIntake: smallInput({ issues: ["defamation-reputation"], facts: exactReputation, evidence: "Synthetic screenshots and recipients.", goal: "Address false statements and reputation harm." }),
     requiredPrimaryClassifications: ["defamation"], forbiddenClassifications: ["contract", "family-parenting", "harassment"], regression: "Prevents a custody proceeding mentioned as motive or witness context from overriding a reputation dispute." }),
+  // The declared path is structural: it selects the engine, forms and workflow.
+  // Detection disagreeing with it is not authority to move someone silently, so
+  // the declared path stands and the disagreement is surfaced as a warning. The
+  // genuinely cross-area case is separate and still resolves to "mixed".
   completeFixture({ id: "collision-genuine-family-relief", selectedCourtPath: "ai-case-partner", role: "applicant", stage: "starting-case", narrative: "I need a parenting order and child support because the other parent is not paying support.",
-    structuredIntake: { courtContext: { courtPath: "small-claims", jurisdiction: "Ontario", stage: "starting-case" } }, requiredPrimaryClassifications: ["family-parenting"], expectedRouteResult: { status: 200, ok: true, routedCourt: "family" },
-    requiredQuestions: ["order"], canonical: { required: false }, regression: "Keeps genuine parenting and support relief routed to Family." }),
+    structuredIntake: { courtContext: { courtPath: "small-claims", jurisdiction: "Ontario", stage: "starting-case" } }, requiredPrimaryClassifications: ["family-parenting"], expectedRouteResult: { status: 200, ok: true, routedCourt: "small-claims" },
+    requiredWarnings: ["may be a family law matter", "worth confirming you're in the right place"],
+    requiredQuestions: ["order"], canonical: { required: false }, regression: "Genuine parenting and support relief under a declared Small Claims path must warn rather than silently reroute." }),
   completeFixture({ id: "collision-actual-contract", selectedCourtPath: "small-claims", role: "Plaintiff / claimant", stage: "starting-case", narrative: "A written agreement required delivery after payment, but delivery never occurred.",
     structuredIntake: smallInput({ issues: ["contract-dispute"], agreementDetails: "Written delivery agreement.", paymentHistory: "Paid in full.", facts: "A written agreement required delivery after payment, but delivery never occurred." }), requiredPrimaryClassifications: ["contract"], regression: "Preserves contract classification when agreement, obligation, and breach facts exist." }),
   completeFixture({ id: "collision-conversational-agreement", selectedCourtPath: "small-claims", role: "Plaintiff / claimant", stage: "starting-case", narrative: "I agree this conversation happened, but the dispute is a false message sent to a third party.",
