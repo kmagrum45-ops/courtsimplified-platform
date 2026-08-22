@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { ONTARIO_SMALL_CLAIMS_LIMIT } from "@/src/lib/case-system/utils";
+
 const processSteps = [
   {
     title: "1. Understand the dispute",
@@ -88,7 +90,7 @@ export default function OntarioSmallClaimsPage() {
                 Claim limit
               </p>
               <p className="mt-2 text-2xl font-bold text-[#10231f]">
-                Up to $50,000
+                Up to ${ONTARIO_SMALL_CLAIMS_LIMIT.toLocaleString()}
               </p>
             </div>
 

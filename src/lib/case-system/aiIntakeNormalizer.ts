@@ -1,3 +1,8 @@
+import {
+  extractDollarAmounts,
+  ONTARIO_SMALL_CLAIMS_LIMIT,
+} from "./utils";
+
 export type CourtSimplifiedCasePath =
   | "small-claims"
   | "family"
@@ -261,7 +266,8 @@ export type AiIntakeNormalizerInput = {
   conversationText?: string;
 };
 
-const ONTARIO_SMALL_CLAIMS_LIMIT = 50000;
+// Constant and dollar parsing now come from ./utils, which is the single
+// definition for both.
 
 function nowId(prefix: string) {
   return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
@@ -432,15 +438,6 @@ function normalizeStage(value: unknown, fullText: string): IntakeStage {
   return "not-sure";
 }
 
-function extractDollarAmounts(text: string) {
-  const matches = normalize(text).match(/\$?\s?\d{1,3}(?:,\d{3})*(?:\.\d{2})?|\$?\s?\d+(?:\.\d{2})?/g);
-
-  if (!matches) return [];
-
-  return matches
-    .map((match) => Number(match.replace(/[$,\s]/g, "")))
-    .filter((value) => Number.isFinite(value) && value > 0);
-}
 
 function scoreFamily(params: {
   family: ClaimFamily;

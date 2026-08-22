@@ -27,16 +27,31 @@ export function hasText(value: string | null | undefined): boolean {
   return normalize(value).length > 3;
 }
 
+/**
+ * Ontario Small Claims Court monetary limit. Single source of truth: this file
+ * is a leaf module, so every engine, route and client component can import it
+ * without creating a cycle. smallClaimsEngine re-exports it for callers that
+ * already depend on that module's public API.
+ */
+export const ONTARIO_SMALL_CLAIMS_LIMIT = 50000;
+
 export function extractDollarAmounts(text: string | null | undefined): number[] {
+  // The comma group is "+" rather than "*" on purpose. With "*" the first
+  // alternative matched only the leading 1-3 digits of an un-comma'd number and
+  // the plain-digits alternative was never reached, so "85000" parsed as 850
+  // and an over-limit claim looked like a small one. Requiring at least one
+  // comma group lets un-comma'd numbers fall through to the second branch.
   const matches = String(text || "").match(
-    /\$?\s?([0-9]{1,3}(?:,[0-9]{3})*(?:\.[0-9]{2})?|[0-9]+(?:\.[0-9]{2})?)/g,
+    /\$?\s?[0-9]{1,3}(?:,[0-9]{3})+(?:\.[0-9]{2})?|\$?\s?[0-9]+(?:\.[0-9]{2})?/g,
   );
 
   if (!matches) return [];
 
   return matches
     .map((match) => Number(match.replace(/[^0-9.]/g, "")))
-    .filter((value) => Number.isFinite(value));
+    // A zero or negative claim amount carries no meaning, and dropping it keeps
+    // stray "0" tokens out of Math.max comparisons.
+    .filter((value) => Number.isFinite(value) && value > 0);
 }
 
 export function detectLimitationRisk(text: string | null | undefined): string | null {

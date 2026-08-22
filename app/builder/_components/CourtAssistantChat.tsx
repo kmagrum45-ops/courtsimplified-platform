@@ -1,5 +1,9 @@
 "use client";
 
+// Imported from utils rather than smallClaimsEngine: utils is a leaf module,
+// so a client component gets the constant without pulling an engine into the
+// browser bundle.
+import { ONTARIO_SMALL_CLAIMS_LIMIT } from "@/src/lib/case-system/utils";
 import {
   useCallback,
   useEffect,
@@ -403,13 +407,13 @@ function buildCourtPathGuidance(
     if (
       currentPath === "small-claims" &&
       detectedClaimAmount !== null &&
-      detectedClaimAmount > 50000
+      detectedClaimAmount > ONTARIO_SMALL_CLAIMS_LIMIT
     ) {
       return {
         title: "Small Claims Court limit exceeded",
         message: `You indicated a claim of ${formatCurrency(
           detectedClaimAmount,
-        )}. This exceeds Ontario Small Claims Court's $50,000 monetary limit. Based on the amount stated, proceed through a Superior Court of Justice civil action.`,
+        )}. This exceeds Ontario Small Claims Court's ${ONTARIO_SMALL_CLAIMS_LIMIT.toLocaleString()} monetary limit. Based on the amount stated, proceed through a Superior Court of Justice civil action.`,
         routingMode: "direct-civil",
       };
     }
@@ -1024,7 +1028,8 @@ function CourtAssistantChatInner({
     }
 
     const targetPath =
-      numericAmount <= 50000 && routingRelief === "money-or-property"
+      numericAmount <= ONTARIO_SMALL_CLAIMS_LIMIT &&
+      routingRelief === "money-or-property"
         ? "small-claims"
         : "civil";
 
@@ -1218,7 +1223,8 @@ function CourtAssistantChatInner({
 
                 <p className="mt-3 text-xs leading-5 text-[#7a673a]">
                   In Ontario, Small Claims Court generally handles claims for
-                  money or return of personal property up to $50,000, excluding
+                  money or return of personal property up to $
+                  {ONTARIO_SMALL_CLAIMS_LIMIT.toLocaleString()}, excluding
                   interest and costs. Other remedies or larger claims may
                   require Civil Court review.
                 </p>

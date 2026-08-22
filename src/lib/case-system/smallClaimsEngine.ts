@@ -17,9 +17,12 @@ import {
   extractDollarAmounts,
   hasText,
   labelHasFormNumber,
+  ONTARIO_SMALL_CLAIMS_LIMIT,
 } from "./utils";
 
-export const ONTARIO_SMALL_CLAIMS_LIMIT = 50000;
+// Re-exported so existing importers of this module keep working; the value
+// itself now lives in ./utils.
+export { ONTARIO_SMALL_CLAIMS_LIMIT };
 
 export type SmallClaimsEngineInput = {
   caseStage: UniversalStage;

@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { ONTARIO_SMALL_CLAIMS_LIMIT } from "@/src/lib/case-system/utils";
+
 const smallClaimsTopics = [
   {
     title: "Money owed",
@@ -99,7 +101,8 @@ export default function SmallClaimsPage() {
             </h2>
             <p className="mt-3 text-base leading-7 text-[#33584d]">
               Ontario Small Claims Court can decide claims for money or the
-              return of personal property up to $50,000, excluding interest and
+              return of personal property up to $
+              {ONTARIO_SMALL_CLAIMS_LIMIT.toLocaleString()}, excluding interest and
               costs.
             </p>
             <p className="mt-3 text-sm leading-6 text-[#557168]">
