@@ -116,6 +116,9 @@ jobs:
       - name: Workflow gating verification
         run: npm run test:workflow-gating
 
+      - name: Overview issue and document label verification
+        run: npm run test:overview-labels
+
       - name: Production build
         run: npm run build
 

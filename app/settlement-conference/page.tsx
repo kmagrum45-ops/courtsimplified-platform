@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { meaningfulIssueSignals } from "@/src/lib/case-system/intelligence/issueSignals";
 import {
   Suspense,
   useEffect,
@@ -447,7 +448,9 @@ function SettlementConferencePageContent() {
           title="Issues in Dispute"
           description="These are the major points the parties may disagree about."
         >
-          <BulletList items={caseData?.analysis?.detectedIssues} />
+          {/* Same leak as the case overview: "unknown" is the engines'
+              unclassified domain and would list as an issue in dispute. */}
+          <BulletList items={meaningfulIssueSignals(caseData?.analysis?.detectedIssues || [])} />
         </Section>
 
         <Section

@@ -70,6 +70,21 @@ function normalizeToken(value: unknown): string {
 }
 
 /**
+ * The document selections that record an actual filing, with the "nothing" and
+ * "not sure" sentinels removed.
+ *
+ * Renderers need this as well as the filing facts below. The Small Claims
+ * intake defaults filedDocuments to ["nothing"] while Civil defaults documents
+ * to [], so a plain length check treated Small Claims as having a document on
+ * record and printed the sentinel as though it were one.
+ */
+export function recordedDocuments(documents: unknown): string[] {
+  return (Array.isArray(documents) ? documents : [])
+    .map((document) => String(document || "").trim())
+    .filter((document) => document && !isNonFiling(document));
+}
+
+/**
  * Build filing facts from structured intake document tokens, as held by the
  * builder (filedDocuments for Small Claims and Family, documents for Civil).
  */

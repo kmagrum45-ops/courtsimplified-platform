@@ -1,8 +1,10 @@
 import {
   filingFactsFromDocuments,
   isQuestionAlreadyAnswered,
+  recordedDocuments,
   withoutAnsweredQuestions,
 } from "@/src/lib/case-system/intelligence/answeredQuestions";
+import { meaningfulIssueSignals } from "@/src/lib/case-system/intelligence/issueSignals";
 
 import type { AnalysisResult, StoredCaseData } from "./builderTypes";
 
@@ -37,13 +39,23 @@ function Card({ title, children }: { title: string; children: React.ReactNode })
 
 export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
   const role = textField(intake, "yourRole");
-  const documents = listField(intake, analysis.courtPath === "civil" ? "documents" : "filedDocuments");
+  // Only selections that record an actual filing. The Small Claims intake
+  // defaults filedDocuments to ["nothing"], which used to satisfy the length
+  // check below and render as a bullet reading "nothing".
+  const documents = recordedDocuments(
+    listField(intake, analysis.courtPath === "civil" ? "documents" : "filedDocuments"),
+  );
   const hasClaimAndService = analysis.courtPath === "small-claims" && documents.includes("plaintiffs-claim") && documents.includes("affidavit-service");
   const facts = intake?.facts.trim() || "";
   const amount = textField(intake, "amountClaimed");
   const outcome = intake?.goal.trim() || textField(intake, "legalRemedy");
   const parties = [intake?.yourName.trim(), intake?.otherParty.trim()].filter(Boolean).join(" and ");
-  const issueSignals = Array.from(new Set([...(analysis.detectedIssues || []), ...(analysis.legalIssues || []), ...(analysis.detectedClaimTypes || []), ...listField(intake, "issueLabels")].filter(Boolean)));
+  const rawIssueSignals = Array.from(new Set([...(analysis.detectedIssues || []), ...(analysis.legalIssues || []), ...(analysis.detectedClaimTypes || []), ...listField(intake, "issueLabels")].filter(Boolean)));
+  // "unknown" is the engines' unclassified domain, not an issue. Dropping it
+  // here keeps it out of the list; when it was the only signal the card falls
+  // back to plain language below rather than naming an internal token.
+  const issueSignals = meaningfulIssueSignals(rawIssueSignals);
+  const issueTypeUndetermined = rawIssueSignals.length > 0 && issueSignals.length === 0;
   const hasDefamationSignal = issueSignals.some((item) => /defamation|reputation/i.test(item));
   const hasAdoptionSignal = issueSignals.some((item) => /adoption/i.test(item));
   const recordedEvidence = Array.from(new Set([
@@ -92,7 +104,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
     <p className="mt-3 max-w-3xl text-sm leading-7 text-[#4d675f]">A clear view of the information saved from your intake and the next item to review.</p>
     <div className="mt-7 grid gap-5 lg:grid-cols-2">
       <Card title="Case snapshot"><p>{snapshot.join(" ")}</p></Card>
-      {issueSignals.length > 0 && <Card title="Issues to review">{hasDefamationSignal ? <><p className="font-semibold">Possible defamation or reputational-harm issue to review</p><p className="mt-2">The saved story describes an allegation said to have been communicated to other people and described as false. The court will need the full facts, context, evidence, and procedure reviewed.</p></> : hasAdoptionSignal ? <><p className="font-semibold">Possible adult step-parent adoption process to review</p><p className="mt-2">The saved facts describe an adult who may wish to be adopted by a long-term step-parent. Ontario has an adoption application process, but the required documents, notice/consent issues, and court requirements must be confirmed for the specific circumstances.</p></> : <ul className="list-disc space-y-1 pl-5">{issueSignals.map((issue) => <li key={issue}>Possible issue to review: {issue}. The saved facts and supporting information should be reviewed.</li>)}</ul>}</Card>}
+      {(issueSignals.length > 0 || issueTypeUndetermined) && <Card title="Issues to review">{hasDefamationSignal ? <><p className="font-semibold">Possible defamation or reputational-harm issue to review</p><p className="mt-2">The saved story describes an allegation said to have been communicated to other people and described as false. The court will need the full facts, context, evidence, and procedure reviewed.</p></> : hasAdoptionSignal ? <><p className="font-semibold">Possible adult step-parent adoption process to review</p><p className="mt-2">The saved facts describe an adult who may wish to be adopted by a long-term step-parent. Ontario has an adoption application process, but the required documents, notice/consent issues, and court requirements must be confirmed for the specific circumstances.</p></> : issueTypeUndetermined ? <p>We couldn’t determine a specific issue type from what you’ve described yet. Adding more detail about what happened, and what you want the court to do, will help narrow it.</p> : <ul className="list-disc space-y-1 pl-5">{issueSignals.map((issue) => <li key={issue}>Possible issue to review: {issue}. The saved facts and supporting information should be reviewed.</li>)}</ul>}</Card>}
       <Card title="Where your case is now"><p>{hasClaimAndService ? "Claim already filed and served." : `Recorded stage: ${displayStage(analysis.caseStage)}.`}</p></Card>
       <Card title="What to confirm next"><p className="font-semibold">{hasAdoptionSignal ? "Does the adult person freely agree to the proposed adoption?" : confirmQuestion}</p><p className="mt-2">{hasClaimAndService ? "This helps identify the next Small Claims step. Confirm it from the court record or documents you received." : hasAdoptionSignal ? "This helps organize the saved facts for review of the proposed adoption process." : "This helps keep the next review based on the facts already entered."}</p></Card>
       <Card title="Documents already recorded">{documents.length ? <ul className="list-disc space-y-1 pl-5">{documents.map((document) => <li key={document}>{documentLabel(document)}</li>)}</ul> : <p>No filed or served documents were selected in this intake.</p>}</Card>
