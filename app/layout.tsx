@@ -149,10 +149,19 @@ export default function RootLayout({
                   reserved.
                 </p>
 
-                <p>
-                  Making court procedures more understandable, organized, and
-                  manageable.
-                </p>
+                <div className="flex items-center gap-4">
+                  <Link
+                    href="/privacy"
+                    className="font-semibold transition hover:text-[#2FB8AC]"
+                  >
+                    Privacy &amp; Terms
+                  </Link>
+
+                  <p>
+                    Making court procedures more understandable, organized, and
+                    manageable.
+                  </p>
+                </div>
               </div>
             </div>
           </footer>
