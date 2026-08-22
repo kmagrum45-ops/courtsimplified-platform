@@ -12,6 +12,7 @@ import {
 import {
   type CivilMasterCaseResult,
 } from "../../../src/lib/case-system/civilMasterCaseEngine";
+import { buildCivilGeneratedQuestions } from "./civilAnalysis";
 import type {
   CivilCanonicalIntakeInput,
   CivilCanonicalIntakeResult,
@@ -356,8 +357,17 @@ function buildCompactCivilPayload(
 function buildCivilAnalysisFromMaster(
   input: CivilInput,
   masterResult: CivilMasterCaseResult,
+  result: CivilCanonicalIntakeResult,
 ): AnalysisResult {
   const masterCase = masterResult.masterCase;
+
+  // Real questions the engine generated for this case. Without these the
+  // overview has nothing ending in "?" to show and falls back to its generic
+  // placeholder, which is what every Civil case used to display.
+  const generatedQuestions = buildCivilGeneratedQuestions(
+    result.brain.intelligence,
+    input.documents,
+  );
 
   const completedForms = labelsFromValues(
     input.documents.filter((doc) => doc !== "nothing" && doc !== "not-sure"),
@@ -484,7 +494,10 @@ function buildCivilAnalysisFromMaster(
       ...masterCase.civilCaseTypes,
     ]),
     inferredFacts,
-    missingInformation: masterCase.missingInformation,
+    missingInformation: cleanList([
+      ...generatedQuestions,
+      ...masterCase.missingInformation,
+    ]),
     risksAndGaps,
     guidance,
     summary,
@@ -494,6 +507,7 @@ function buildCivilAnalysisFromMaster(
     judgeConcerns,
     suggestedFocus,
     documentUploadRequests,
+    nextBestActions: generatedQuestions,
   };
 }
 
@@ -626,7 +640,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
 
       const result = body.result;
       const masterResult = result.civilMasterResult;
-      const analysis = buildCivilAnalysisFromMaster(input, masterResult);
+      const analysis = buildCivilAnalysisFromMaster(input, masterResult, result);
       const narrative = buildCivilNarrative(input);
 
     const payload: StoredCaseData = {

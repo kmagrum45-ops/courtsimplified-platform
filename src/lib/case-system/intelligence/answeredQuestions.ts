@@ -97,6 +97,21 @@ const DOCUMENT_LINE_LABELS = [
   "existing document signals:",
 ];
 
+/**
+ * The final word of the next "Label: value" field. The Civil adapter joins its
+ * whole narrative onto one line, so reading to end-of-line would swallow Facts,
+ * Timeline and everything after, and any stray "served" or "judgment" in the
+ * story would read as a recorded filing.
+ *
+ * Only the last word before the colon is treated as the label. Trying to match
+ * a whole multi-word label is ambiguous here: document values are themselves
+ * label-shaped, so "Judgment already obtained Facts:" would be read as one long
+ * label and the document dropped entirely. Cutting back a single word keeps the
+ * document value intact, and if the next label happens to be multi-word its
+ * leading words stay behind harmlessly -- none of them match a filing pattern.
+ */
+const NEXT_FIELD_LABEL = /\s[A-Za-z][A-Za-z-]*:\s/;
+
 function documentLines(rawUserText: string): string[] {
   const lines = String(rawUserText || "").split(/\r?\n/);
 
@@ -108,12 +123,21 @@ function documentLines(rawUserText: string): string[] {
     .map((line) => {
       const lower = line.toLowerCase();
       const label = DOCUMENT_LINE_LABELS.find((entry) => lower.includes(entry)) || "";
-      return line.slice(lower.indexOf(label) + label.length).trim();
+      const afterLabel = line.slice(lower.indexOf(label) + label.length);
+      const next = NEXT_FIELD_LABEL.exec(afterLabel);
+      return (next ? afterLabel.slice(0, next.index) : afterLabel).trim();
     });
 }
 
-/** One table for both readers, so the two entry points cannot drift apart. */
-const EMPTY_DOCUMENT_PHRASES = NON_FILING_PATTERN;
+/**
+ * Non-filing phrases matched as a prefix rather than as the whole value.
+ * Cutting a single-line narrative at the next label can leave a stray leading
+ * word of the following label behind ("Nothing filed yet Known"), and an exact
+ * match would then read that as a recorded filing. These selections are
+ * exclusive in the intake, so a value that starts this way records no filing.
+ */
+const NON_FILING_PREFIX =
+  /^(nothing( filed yet)?|none( selected)?|not[-\s]?sure( what has been filed)?|n\/a|-)\b/i;
 
 /**
  * Build filing facts from the canonical narrative. This is what
@@ -130,7 +154,7 @@ export function filingFactsFromNarrative(rawUserText: string): RecordedFilingFac
     segment
       .split(/[;,]/)
       .map((entry) => entry.trim())
-      .some((entry) => entry && !EMPTY_DOCUMENT_PHRASES.test(entry)),
+      .some((entry) => entry && !NON_FILING_PREFIX.test(entry)),
   );
 
   if (!meaningful) return EMPTY_FILING_FACTS;

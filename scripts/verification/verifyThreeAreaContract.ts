@@ -19,6 +19,7 @@ import {
 } from "../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 import { POST as analyzeSmallClaimsRoute } from "../../app/api/small-claims/analyze/route";
 import { buildFamilyAnalysis } from "../../app/builder/_components/familyAnalysis";
+import { buildCivilGeneratedQuestions } from "../../app/builder/_components/civilAnalysis";
 
 function canonicalMaster(result: { masterResultPatch: Record<string, unknown> }) {
   return result.masterResultPatch.masterCase as
@@ -291,6 +292,72 @@ async function callCivil(input: unknown, headers: Record<string, string> = {}) {
     headers: { "Content-Type": "application/json", ...headers },
     body: typeof input === "string" ? input : JSON.stringify({ input }),
   }));
+}
+
+/**
+ * The same defect as verifyFamilyOverviewQuestionsReachAnalysis above, on the
+ * Civil path, found by the browser scenario harness: every Civil scenario in a
+ * 25-scenario sweep showed the placeholder.
+ *
+ * buildCivilAnalysisFromMaster received only civilMasterResult, whose
+ * missingInformation holds evidence-gap statements ("Timeline evidence is
+ * weak") and never a question, and it never set nextBestActions. The brain had
+ * generated real questions for Civil all along; the mapping discarded them.
+ *
+ * This drives the real /api/civil/analyze route and then the real mapping, and
+ * also covers the second half of the ask: once Civil starts asking questions it
+ * must not ask what the recorded documents already answer.
+ */
+async function verifyCivilOverviewQuestionsReachAnalysis() {
+  const documents = ["nothing"];
+  const response = await callCivil({ ...civilInput("civil-overview-questions"), documents });
+  const body = (await response.json()) as { ok: boolean; result: CivilCanonicalIntakeResult };
+
+  assert.equal(response.status, 200);
+  assert.equal(body.ok, true);
+
+  const questions = buildCivilGeneratedQuestions(body.result.brain.intelligence, documents);
+
+  // Reproduces the panel's own selection logic.
+  const selected = questions.find((item) => item.trim().endsWith("?")) || OVERVIEW_PLACEHOLDER;
+
+  assert.notEqual(
+    selected,
+    OVERVIEW_PLACEHOLDER,
+    "Civil overview fell back to the placeholder question instead of a generated one.",
+  );
+  assert.ok(
+    selected.trim().endsWith("?"),
+    `Civil overview question must be a question, received ${JSON.stringify(selected)}`,
+  );
+
+  // With a claim and a defence on record, the filed and served questions are
+  // already answered and must not be asked.
+  const onRecord = ["statement-claim", "statement-defence"];
+  const answeredResponse = await callCivil({
+    ...civilInput("civil-overview-answered"),
+    documents: onRecord,
+  });
+  const answeredBody = (await answeredResponse.json()) as { ok: boolean; result: CivilCanonicalIntakeResult };
+  assert.equal(answeredResponse.status, 200);
+
+  const answeredQuestions = buildCivilGeneratedQuestions(
+    answeredBody.result.brain.intelligence,
+    onRecord,
+  );
+
+  for (const alreadyAnswered of ["Has anything already been filed?", "Has anything already been served?"]) {
+    assert.equal(
+      answeredQuestions.includes(alreadyAnswered),
+      false,
+      `Civil asked ${JSON.stringify(alreadyAnswered)} with ${onRecord.join(", ")} on record.`,
+    );
+  }
+
+  assert.ok(
+    answeredQuestions.length > 0,
+    "Filtering answered questions must not leave Civil with nothing to ask.",
+  );
 }
 
 async function verifyCivilCanonicalProductionRoute() {
@@ -645,6 +712,7 @@ async function main() {
   await verifyFamilyCrossCourtAreaConflictWarning();
   await verifyFamilyOverviewQuestionsReachAnalysis();
   verifyCivilUiChoicesMatchRoute();
+  await verifyCivilOverviewQuestionsReachAnalysis();
   await verifyCivilCanonicalProductionRoute();
   await verifyCivilRouteRejections();
   await verifyCivilAuthenticationAndPreservation();
