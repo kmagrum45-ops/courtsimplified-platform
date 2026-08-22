@@ -90,6 +90,13 @@ assert.match(
   "The settlement conference issues list must filter through the shared helper.",
 );
 
+const trialPackage = readFileSync("app/trial-package/page.tsx", "utf8");
+assert.match(
+  trialPackage,
+  /meaningfulIssueSignals\(caseData\?\.analysis\?\.detectedIssues/,
+  "The trial package issues list must filter through the shared helper. Missed on the first pass -- this file was only checked for its scoring uses, not its render.",
+);
+
 console.log(
   "Overview issue and document label verification passed: unclassified issue types and non-filing document sentinels are filtered, and both renderers route through the shared helpers.",
 );

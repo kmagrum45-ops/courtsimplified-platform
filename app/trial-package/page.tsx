@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { meaningfulIssueSignals } from "@/src/lib/case-system/intelligence/issueSignals";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -433,7 +434,11 @@ function TrialPackagePageContent() {
           title="Legal issues and proof targets"
           description="These are the issues the user must be ready to prove, answer, or explain."
         >
-          <BulletList items={caseData?.analysis?.detectedIssues} />
+          {/* Same leak fixed in the overview panel and settlement-conference in
+              271ba77: "unknown" is the engines' unclassified domain and would
+              list here as an issue the user must prove or explain. Missed at the
+              time because this file was only checked for its scoring uses. */}
+          <BulletList items={meaningfulIssueSignals(caseData?.analysis?.detectedIssues || [])} />
         </Section>
 
         <Section
