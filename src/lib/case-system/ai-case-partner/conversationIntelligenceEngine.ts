@@ -2003,17 +2003,21 @@ export function buildConversationIntelligence(
   const hasCourtAreaConflict =
     hasFamilyFramework && hasCivilFramework;
 
-  const courtArea =
-    selectedCourtArea !== "unknown"
-      ? selectedCourtArea
-      : requiresFamilyRelationshipClarification
-        ? "unknown"
-        : hasCourtAreaConflict
-          ? "mixed"
-          : frameworks[0]?.courtArea &&
-              frameworks[0].courtArea !== "unknown"
-            ? frameworks[0].courtArea
-            : inferCourtArea(combinedText);
+  // A declared courtPath wins by default, but the two detection checks below
+  // run first so they are reachable even when a path was declared. Without
+  // that, anyone arriving from a court-specific intake could never reach
+  // "mixed" or the family-relationship clarification, and genuinely
+  // cross-area relief was silently kept in the declared court.
+  const courtArea = requiresFamilyRelationshipClarification
+    ? "unknown"
+    : hasCourtAreaConflict
+      ? "mixed"
+      : selectedCourtArea !== "unknown"
+        ? selectedCourtArea
+        : frameworks[0]?.courtArea &&
+            frameworks[0].courtArea !== "unknown"
+          ? frameworks[0].courtArea
+          : inferCourtArea(combinedText);
 
   const inferredStage = inferProceduralStage(combinedText);
   const stage =

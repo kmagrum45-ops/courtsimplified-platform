@@ -253,6 +253,16 @@ fixtures.push(
     structuredIntake: smallInput({ issues: ["defamation-reputation"], facts: "A false statement was sent to a third party because the claimant was a witness in another proceeding." }), requiredPrimaryClassifications: ["defamation"], forbiddenClassifications: ["procedural"], regression: "Keeps a witness role in another proceeding separate from the selected case role." }),
   completeFixture({ id: "collision-mixed-relief", selectedCourtPath: "ai-case-partner", role: "not-sure", stage: "starting-case", narrative: "Someone sent false messages about me and I want compensation, but I also need a custody order changing parenting time.",
     structuredIntake: { courtContext: { courtPath: "small-claims", jurisdiction: "Ontario", stage: "starting-case" } }, requiredPrimaryClassifications: ["defamation", "family-parenting"], expectedRouteResult: { status: 200, ok: true, routedCourt: "mixed" }, requiredQuestions: ["main issue"], canonical: { required: false }, regression: "Requires clarification when requested relief genuinely spans court areas." }),
+  // Real user story reported 2026-08-21. Tester selected Family in the builder;
+  // the defamation relief was silently accepted as a Family matter. Detection
+  // already returned ["defamation","family-parenting"], but a declared courtPath
+  // short-circuited the cross-area conflict check. Locks in that a declared path
+  // can no longer suppress "mixed".
+  completeFixture({ id: "collision-defamation-in-family-context", selectedCourtPath: "ai-case-partner", role: "not-sure", stage: "starting-case",
+    narrative: "my uncles ex girlfriend sent text messages to my uncle and my dad saying I was a prostitute which is not true and she did this because I was going to testify in my uncle's custody case",
+    structuredIntake: { courtContext: { courtPath: "family", jurisdiction: "Ontario", stage: "starting-case" } },
+    requiredPrimaryClassifications: ["defamation", "family-parenting"], expectedRouteResult: { status: 200, ok: true, routedCourt: "mixed" },
+    canonical: { required: false }, regression: "Defamation relief inside a family context must surface as mixed even when Family is the declared path." }),
 );
 
 for (const [id, deadline, expectedWarning] of [
