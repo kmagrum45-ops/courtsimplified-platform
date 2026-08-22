@@ -156,6 +156,8 @@ create-dev-snapshot-current.txt
 MADGE_CIRCULAR.json
 UNUSED_EXPORTS.txt
 DatabaseSchema.sql
+PROJECT_HANDOFF_INFO.txt
+PROJECT_FILE_LIST.txt
 
 # =========================================================
 # REPOMIX
