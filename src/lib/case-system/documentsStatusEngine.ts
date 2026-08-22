@@ -91,8 +91,9 @@ function shouldBlockGenericBadMatch(label: string) {
   if (!text) return true;
 
   // Exact number match: a substring test for "13b" also caught "113B" and any
-  // longer number ending in 13B. The concatenated form is kept because
-  // normalize() strips the separators the parser needs to see.
+  // longer number ending in 13B. labelHasFormNumber covers the normal spaced
+  // labels; the concatenated literal below only fires on a label that already
+  // has its separators removed, which normalize() does not do.
   if (
     labelHasFormNumber(label, "13B") ||
     text === "consent" ||
@@ -107,10 +108,17 @@ function shouldBlockGenericBadMatch(label: string) {
 function isOfficialFormLike(label: string) {
   const text = normalize(label);
 
+  // normalize() lowercases and collapses whitespace but keeps spaces, hyphens
+  // and apostrophes, so the two run-together literals below never matched and
+  // "Plaintiff's Claim" / "Affidavit of Service" were wrongly blocked. Compare
+  // the compacted form as well: "Plaintiff's Claim", "plaintiffs claim" and
+  // "plaintiffs-claim" all reduce to "plaintiffsclaim".
+  const compact = text.replace(/[^a-z0-9]/g, "");
+
   return (
     text.includes("form") ||
-    text.includes("plaintiffsclaim") ||
-    text.includes("affidavitofservice") ||
+    compact.includes("plaintiffsclaim") ||
+    compact.includes("affidavitofservice") ||
     text.includes("defence") ||
     text.includes("defense")
   );
