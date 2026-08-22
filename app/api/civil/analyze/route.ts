@@ -107,7 +107,7 @@ export function createCivilAnalyzePost(
       allowExternalCognition,
       existingMasterResult,
     });
-    const fallbackUsed = result.brain.intelligence.systemWarnings.some((warning) => warning.toLowerCase().includes("structured gpt cognition was unavailable"));
+    const fallbackUsed = result.brain.intelligence.cognitionMode === "fallback";
     const analysisAvailable = allowExternalCognition && !fallbackUsed;
     return NextResponse.json({ ok: true, result, authenticated, reasoningMode: analysisAvailable ? "structured-ai" : "deterministic-fallback", analysisAvailable });
   } catch {

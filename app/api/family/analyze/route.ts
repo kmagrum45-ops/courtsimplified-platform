@@ -239,12 +239,7 @@ export async function POST(request: NextRequest) {
     const result = await runFamilyIntakeCanonicalIntegration(body.input, {
       allowExternalCognition,
     });
-    const fallbackUsed = result.brain.intelligence.systemWarnings.some(
-      (warning) =>
-        warning
-          .toLowerCase()
-          .includes("structured gpt cognition was unavailable"),
-    );
+    const fallbackUsed = result.brain.intelligence.cognitionMode === "fallback";
 
     return NextResponse.json({
       ok: true,

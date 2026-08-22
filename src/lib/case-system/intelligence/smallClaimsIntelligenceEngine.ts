@@ -477,6 +477,9 @@ export async function analyzeSmallClaimsWithBrain(
 
   const intelligencePatch = mapIntelligenceToAnalysisPatch({
     id: intelligence.id,
+    // Carried through so the route can detect fallback mode from a field rather
+    // than by pattern-matching warning prose.
+    cognitionMode: intelligence.cognitionMode,
     confidence: intelligence.confidence,
     primaryClaimTypes: intelligence.primaryClaimTypes,
     rejectedFalsePositives: intelligence.rejectedFalsePositives,

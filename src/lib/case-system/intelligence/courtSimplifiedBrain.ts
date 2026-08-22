@@ -2122,14 +2122,14 @@ function buildFallbackCognition(normalizedIntake: NormalizedIntake): GptCognitio
         score: firstDomain === "unknown" ? 25 : 45,
         confidence: "low",
         explanation:
-          "Structured GPT cognition was unavailable, so CourtSimplified used deterministic intake signals and marked the legal theory for review.",
+          "Detailed legal analysis is not available right now, so this classification is based on the intake information alone and needs review.",
         elements: [
           {
             elementKey: "fallback-proof-map",
-            label: "Fallback proof map",
+            label: "Preliminary proof map",
             status: normalizedIntake.evidence.length > 0 ? "partially-satisfied" : "missing",
             explanation:
-              "Fallback mode can preserve and triage the case but cannot fully analyze legal elements without structured cognition.",
+              "This preliminary review can organize the case but cannot confirm each legal element.",
             missingFacts: [
               "Exact legal theory",
               "Chronology",
@@ -2137,25 +2137,17 @@ function buildFallbackCognition(normalizedIntake: NormalizedIntake): GptCognitio
               "Requested remedy",
               "Procedural posture",
             ],
-            risks: ["Fallback cognition is not court-ready."],
+            risks: ["This preliminary review is not ready to rely on in court."],
           },
         ],
       },
     ],
     missingInformation: [
       {
-        field: "legal-analysis",
-        question: "Review the story with the AI reasoning layer connected.",
-        reason:
-          "Structured GPT cognition was unavailable, so final issue spotting could not run.",
-        requiredFor: "evidence",
-        severity: "medium",
-      },
-      {
         field: "evidence-map",
         question: "What evidence proves each major fact?",
         reason:
-          "The fallback engine can preserve the intake but cannot fully map proof without structured cognition.",
+          "Detailed analysis has not run, so proof cannot be fully mapped from the intake alone.",
         requiredFor: "evidence",
         severity: "medium",
       },
@@ -2167,27 +2159,27 @@ function buildFallbackCognition(normalizedIntake: NormalizedIntake): GptCognitio
       missingEvidence: item.gaps,
       strength: item.strength,
       explanation:
-        "Fallback evidence mapping created from normalized intake evidence.",
+        "Preliminary evidence mapping based on the information entered.",
     })),
     litigationRisks: [
       {
-        title: "Structured AI cognition unavailable",
+        title: "Detailed analysis not available",
         explanation:
-          "The structured reasoning model did not run, so outputs should be treated as draft intake preservation only.",
+          "Detailed analysis did not run, so these results should be treated as a saved intake and preliminary review only.",
         severity: "medium",
         source: "strategy",
         suggestedFix:
-          "Continue with deterministic intake preservation or retry structured analysis when it is available.",
+          "Continue organizing the case, and confirm these results once detailed review is available.",
       },
       {
         title: "Legal theory requires review",
         explanation:
-          "Fallback classification is based on intake signals only, not full legal cognition.",
+          "This classification is based on the intake information alone, not a full legal analysis.",
         severity: "medium",
         source: "law",
         claimType: firstDomain,
         suggestedFix:
-          "Rerun with structured cognition and verify the legal theory against evidence and procedure.",
+          "Verify the legal theory against the evidence and the procedural rules before filing.",
       },
     ],
     opposingArguments: [
@@ -2196,7 +2188,7 @@ function buildFallbackCognition(normalizedIntake: NormalizedIntake): GptCognitio
         argument:
           "The other side may argue the facts are incomplete, unsupported, out of context, procedurally improper, or legally insufficient.",
         whyItMatters:
-          "Fallback mode cannot fully test the opposing side’s strongest arguments.",
+          "A preliminary review cannot fully test the other side’s strongest arguments.",
         responseStrategy:
           "Organize facts, dates, documents, witnesses, procedure, damages, and evidence before final drafting.",
         evidenceNeeded: [
@@ -2221,16 +2213,17 @@ function buildFallbackCognition(normalizedIntake: NormalizedIntake): GptCognitio
     ],
     formRecommendations: [],
     plainLanguageSummary:
-      "CourtSimplified preserved the intake and ran fallback legal triage, but structured AI cognition was unavailable.",
-    structuredCaseSummary: `Fallback analysis based on normalized intake. Raw issue signals: ${domains.join(", ")}. Raw text length: ${rawText.length}.`,
+      "Your intake has been saved and given a preliminary review. Detailed analysis is not available right now, so these results need confirmation.",
+    structuredCaseSummary: `Preliminary review based on the saved intake. Issue signals: ${domains.join(", ")}.`,
     nextBestActions: [
-      "Confirm OpenAI configuration and rerun the analysis.",
       "Build a timeline.",
       "Link each major fact to evidence.",
       "Identify missing proof and deadlines.",
       "Confirm procedure and forum before generating final documents.",
     ],
-    systemWarnings: ["Structured GPT cognition was unavailable."],
+    systemWarnings: [
+      "Detailed analysis is not available right now, so these results are preliminary and need review.",
+    ],
   };
 }
 
@@ -2363,9 +2356,14 @@ export async function runCourtSimplifiedBrain(
     factPatternAnalysis,
   });
 
-  const gptCognition =
-    (await runStructuredGptCognition(input, normalizedIntake)) ||
-    buildFallbackCognition(normalizedIntake);
+  const structuredCognition = await runStructuredGptCognition(
+    input,
+    normalizedIntake,
+  );
+  const gptCognition = structuredCognition || buildFallbackCognition(normalizedIntake);
+  const cognitionMode: "structured" | "fallback" = structuredCognition
+    ? "structured"
+    : "fallback";
 
   const proceduralPosture = buildProceduralPosture({
     cognition: gptCognition,
@@ -2552,6 +2550,7 @@ export async function runCourtSimplifiedBrain(
         : []),
     ]),
 
+    cognitionMode,
     confidence: asConfidence(gptCognition.confidence),
   };
 

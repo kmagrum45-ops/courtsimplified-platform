@@ -104,6 +104,8 @@ export type BuilderFormRecommendation = {
 export type BuilderLegalIntelligenceSnapshot = {
   id?: string;
   confidence?: BuilderConfidence;
+  /** Mirrors LegalIntelligenceResult.cognitionMode. */
+  cognitionMode?: "structured" | "fallback";
 
   primaryClaimTypes?: string[];
   rejectedFalsePositives?: BuilderClaimClassification[];

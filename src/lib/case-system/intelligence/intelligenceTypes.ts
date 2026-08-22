@@ -675,6 +675,12 @@ export type ElementProofEngineResult = {
 
 export type LegalIntelligenceResult = {
   id: string;
+  /**
+   * Whether the structured reasoning model actually ran. Machine-readable so
+   * callers never have to pattern-match user-facing warning prose to detect
+   * fallback mode, which previously coupled display text to route behaviour.
+   */
+  cognitionMode?: "structured" | "fallback";
   version: CourtSimplifiedIntelligenceVersion;
   createdAt: string;
   updatedAt: string;

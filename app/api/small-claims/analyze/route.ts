@@ -267,10 +267,8 @@ export function createSmallClaimsAnalyzePost(
       allowExternalCognition,
     });
 
-    const fallbackUsed = (internalResult.analysis.intelligenceWarnings || []).some(
-      (warning) =>
-        warning.toLowerCase().includes("structured gpt cognition was unavailable"),
-    );
+    const fallbackUsed =
+      internalResult.analysis.intelligence?.cognitionMode === "fallback";
 
     const result = internalResult;
 

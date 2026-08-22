@@ -48,12 +48,22 @@ async function main() {
   const mockedAiResult = await analyzeSmallClaimsWithBrain(defaultStageInput, {
     allowExternalCognition: false,
   });
+  // The mock is produced with allowExternalCognition:false, then edited to
+  // stand in for a successful structured run. Fallback is now detected from
+  // intelligence.cognitionMode rather than from warning prose, so the mock has
+  // to set that field too — clearing the warning arrays alone no longer
+  // represents a structured run, which is the point of the change.
   mockedAiResult.analysis.intelligenceWarnings = [];
   mockedAiResult.analysis.userWarnings = [];
+
+  if (mockedAiResult.analysis.intelligence) {
+    mockedAiResult.analysis.intelligence.cognitionMode = "structured";
+  }
 
   const mockedIntelligence = mockedAiResult.payload.intelligence;
   assert.ok(mockedIntelligence, "payload.intelligence must be present");
   mockedIntelligence.systemWarnings = [];
+  mockedIntelligence.cognitionMode = "structured";
 
   let receivedInput: SmallClaimsIntelligenceInput | undefined;
   let externalReasoningEnabled = false;
