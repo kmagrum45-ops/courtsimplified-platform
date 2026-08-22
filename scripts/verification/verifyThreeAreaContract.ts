@@ -18,6 +18,7 @@ import {
   type SmallClaimsIntelligenceInput,
 } from "../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 import { POST as analyzeSmallClaimsRoute } from "../../app/api/small-claims/analyze/route";
+import { buildFamilyAnalysis } from "../../app/builder/_components/familyAnalysis";
 
 function canonicalMaster(result: { masterResultPatch: Record<string, unknown> }) {
   return result.masterResultPatch.masterCase as
@@ -527,6 +528,113 @@ async function verifyFamilyCrossCourtAreaConflictWarning() {
   );
 }
 
+/**
+ * Second half of the bug reported from production testing on 2026-08-21: the
+ * case overview showed the literal placeholder "What important fact should be
+ * confirmed next?" as if it were generated content.
+ *
+ * The panel picks that question by scanning analysis.missingInformation and
+ * analysis.nextBestActions for a string ending in "?", falling back to the
+ * placeholder when neither has one. buildFamilyAnalysis supplied only
+ * familyMasterResult.normalized statements and never set nextBestActions, so
+ * the fallback always won even though the engine had generated real questions.
+ *
+ * This drives the real /api/family/analyze route and then the real
+ * buildFamilyAnalysis mapping, so it covers the whole path the tester hit.
+ */
+const OVERVIEW_PLACEHOLDER = "What important fact should be confirmed next?";
+
+async function verifyFamilyOverviewQuestionsReachAnalysis() {
+  const testerStory =
+    "my uncles ex girlfriend sent text messages to my uncle and my dad saying I was a prostitute which is not true and she did this because I was going to testify in my uncle's custody case";
+
+  const response = await analyzeFamilyRoute(
+    new NextRequest("http://localhost/api/family/analyze", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        input: {
+          caseStage: "not-sure",
+          role: "applicant",
+          relationshipStatus: "",
+          issues: [],
+          filedDocuments: [],
+          completedForms: [],
+          receivedForms: [],
+          yourName: "Overview Test",
+          otherParty: "Other Party",
+          childrenInfo: "",
+          currentLivingSituation: "",
+          pastLivingHistory: "",
+          facts: testerStory,
+          timeline: "",
+          evidence: "Text messages.",
+          missingEvidence: "",
+          goal: "Address the situation.",
+          urgent: "",
+        },
+      }),
+    }),
+  );
+
+  const body = (await response.json()) as {
+    ok: boolean;
+    result: FamilyCanonicalIntakeResult;
+  };
+
+  assert.equal(response.status, 200);
+  assert.equal(body.ok, true);
+
+  const analysis = buildFamilyAnalysis(testerStory, body.result);
+
+  // Reproduces the panel's own selection logic.
+  const selected =
+    (analysis.missingInformation || []).find((item) => item.trim().endsWith("?")) ||
+    (analysis.nextBestActions || []).find((item) => item.trim().endsWith("?")) ||
+    OVERVIEW_PLACEHOLDER;
+
+  assert.notEqual(
+    selected,
+    OVERVIEW_PLACEHOLDER,
+    "Family overview fell back to the placeholder question instead of a generated one.",
+  );
+  assert.ok(
+    selected.trim().endsWith("?"),
+    `Selected overview question must be a question, got ${JSON.stringify(selected)}`,
+  );
+
+  // nextBestActions was never populated for Family before this.
+  assert.ok(
+    (analysis.nextBestActions || []).length > 0,
+    "Family analysis must populate nextBestActions.",
+  );
+  assert.ok(
+    (analysis.nextBestActions || []).every((item) => item.trim().endsWith("?")),
+    "Family nextBestActions must contain only generated questions.",
+  );
+
+  // Internal fallback language must never reach these user-facing arrays.
+  // intelligence.nextBestActions begins with "Confirm OpenAI configuration and
+  // rerun the analysis.", which is why it is not used as a source.
+  const userFacing = [
+    ...(analysis.missingInformation || []),
+    ...(analysis.nextBestActions || []),
+  ].join(" ");
+
+  for (const phrase of [
+    "Confirm OpenAI configuration",
+    "AI reasoning layer",
+    "structured GPT cognition",
+    "OPENAI_API_KEY",
+  ]) {
+    assert.equal(
+      userFacing.toLowerCase().includes(phrase.toLowerCase()),
+      false,
+      `Family overview content must not contain internal language: ${phrase}`,
+    );
+  }
+}
+
 async function main() {
   delete process.env.OPENAI_API_KEY;
 
@@ -535,6 +643,7 @@ async function main() {
   await verifyFamily();
   await verifyFamilyRouteRejections();
   await verifyFamilyCrossCourtAreaConflictWarning();
+  await verifyFamilyOverviewQuestionsReachAnalysis();
   verifyCivilUiChoicesMatchRoute();
   await verifyCivilCanonicalProductionRoute();
   await verifyCivilRouteRejections();

@@ -1,5 +1,7 @@
 "use client";
 
+import { buildFamilyAnalysis } from "./familyAnalysis";
+
 import React, { useMemo, useRef, useState } from "react";
 import {
   AnalysisResult,
@@ -191,6 +193,7 @@ function buildCompactFamilyPayload(
     extra,
   };
 }
+
 
 export default function FamilyIntake({ onComplete, location, initialStory }: Props) {
   const [editingStory, setEditingStory] = useState(false);
@@ -425,48 +428,6 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
     ]).join("\n");
   }
 
-  function buildFamilyAnalysis(
-    narrative: string,
-    result: FamilyCanonicalIntakeResult,
-  ): AnalysisResult {
-    const family = result.familyMasterResult;
-
-    return {
-      courtPath: "family",
-      caseStage: getStageLabel(result.stage),
-      completedForms: family.documentsPage.completedFormLabels,
-      receivedForms: family.documentsPage.receivedFormLabels,
-      requiredNextForms: cleanList([
-        ...family.documentsPage.requiredFormLabels,
-        ...family.documentsPage.recommendedFormLabels,
-      ]),
-      notNeededNow: family.documentsPage.notNeededNowLabels,
-      detectedIssues: family.chatContext.detectedIssues,
-      inferredFacts: [],
-      missingInformation: family.normalized.missingInformation,
-      risksAndGaps: family.builderSummary.blockers,
-      guidance: family.builderSummary.nextBestActions,
-      summary: family.builderSummary.judgeReadySummary || narrative,
-      proceduralRisks: family.builderSummary.warnings,
-      damagesIssues: [],
-      defenceAttacks: [],
-      judgeConcerns: [],
-      suggestedFocus: family.builderSummary.nextBestActions,
-      documentUploadRequests: family.evidencePage.uploadRequests,
-      detectedFamilyIssues: family.chatContext.detectedIssues,
-      recommendedEvidence: cleanList([
-        ...family.evidencePage.strongestEvidenceTitles,
-        ...family.evidencePage.uploadRequests,
-      ]),
-      recommendedFamilyNextSteps: family.builderSummary.nextBestActions,
-      intelligence: result.brain.intelligence,
-      intelligenceSummary: result.brain.intelligence.plainLanguageSummary,
-      structuredIntelligenceSummary:
-        result.brain.intelligence.structuredCaseSummary,
-      intelligenceWarnings: result.brain.intelligence.systemWarnings,
-      intelligenceNextActions: result.brain.intelligence.nextBestActions,
-    };
-  }
 
   async function handleAnalyze() {
     if (submissionInFlight.current) return;
