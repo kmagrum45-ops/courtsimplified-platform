@@ -2247,6 +2247,89 @@ function buildFallbackCognition(normalizedIntake: NormalizedIntake): GptCognitio
  *
  * Returns the amount only when it exceeds the Small Claims limit.
  */
+/**
+ * Legal domains that belong to the Family court path.
+ */
+const FAMILY_LEGAL_DOMAINS: ReadonlySet<LegalDomain> = new Set<LegalDomain>([
+  "family-parenting",
+  "family-support",
+  "family-property",
+  "family-safety",
+]);
+
+/**
+ * Legal domains that belong to Small Claims or Civil. "landlord-tenant",
+ * "immigration", "procedural" and "unknown" are deliberately in neither set:
+ * they belong to another forum or are non-substantive, and treating them as a
+ * conflicting claim would fire this warning on ordinary Family intakes.
+ */
+const NON_FAMILY_CLAIM_DOMAINS: ReadonlySet<LegalDomain> = new Set<LegalDomain>([
+  "defamation",
+  "contract",
+  "property-damage",
+  "negligence",
+  "personal-injury",
+  "harassment",
+  "employment",
+  "debt",
+  "consumer",
+  "civil-charter",
+  "civil-human-rights",
+  "civil-institutional-liability",
+]);
+
+const DOMAIN_LABELS: Partial<Record<LegalDomain, string>> = {
+  "family-parenting": "parenting or custody",
+  "family-support": "support",
+  "family-property": "family property",
+  "family-safety": "family safety",
+  defamation: "defamation",
+  contract: "contract",
+  "property-damage": "property damage",
+  negligence: "negligence",
+  "personal-injury": "personal injury",
+  harassment: "harassment",
+  employment: "employment",
+  debt: "debt",
+  consumer: "consumer",
+  "civil-charter": "Charter",
+  "civil-human-rights": "human rights",
+  "civil-institutional-liability": "institutional liability",
+};
+
+function domainLabels(domains: LegalDomain[]): string {
+  return domains.map((domain) => DOMAIN_LABELS[domain] || String(domain)).join(", ");
+}
+
+/**
+ * Cross-court-area conflict detection for the builder analyze routes.
+ *
+ * conversationIntelligenceEngine has had this for the AI Case Partner path,
+ * where it resolves a conflict by reporting courtArea "mixed". None of the
+ * Family, Civil or Small Claims routes ever had an equivalent, so a story whose
+ * relief spans two court paths was silently accepted into whichever path the
+ * user clicked.
+ *
+ * This reports rather than reroutes. courtPath is structural on these routes —
+ * it selects the engine, the form registry and the workflow, and both result
+ * types declare it as a literal — so the declared path still decides, and the
+ * conflict is surfaced for the user to act on.
+ */
+function detectCrossCourtAreaConflict(
+  primaryClaimTypes: LegalDomain[],
+): { familyDomains: LegalDomain[]; otherDomains: LegalDomain[] } | null {
+  const familyDomains = primaryClaimTypes.filter((domain) =>
+    FAMILY_LEGAL_DOMAINS.has(domain),
+  );
+  const otherDomains = primaryClaimTypes.filter((domain) =>
+    NON_FAMILY_CLAIM_DOMAINS.has(domain),
+  );
+
+  if (familyDomains.length === 0 || otherDomains.length === 0) return null;
+
+  return { familyDomains, otherDomains };
+}
+
 function detectOverLimitClaimAmount(rawUserText: string): number | null {
   const label = "amount claimed or disputed:";
 
@@ -2383,6 +2466,8 @@ export async function runCourtSimplifiedBrain(
 
   const timestamp = nowIso();
 
+  const crossCourtAreaConflict = detectCrossCourtAreaConflict(primaryClaimTypes);
+
   const intelligence: LegalIntelligenceResult = {
     id: createId("intelligence"),
     version: "2.0.0",
@@ -2458,6 +2543,11 @@ export async function runCourtSimplifiedBrain(
       ...(overLimitClaimAmount !== null
         ? [
             `Claim amount $${overLimitClaimAmount.toLocaleString()} exceeds the Ontario Small Claims Court limit of $${ONTARIO_SMALL_CLAIMS_LIMIT.toLocaleString()}; Small Claims Court may not have jurisdiction and the Superior Court of Justice should be considered.`,
+          ]
+        : []),
+      ...(crossCourtAreaConflict
+        ? [
+            `Detected issues span more than one court path: family (${domainLabels(crossCourtAreaConflict.familyDomains)}) and non-family (${domainLabels(crossCourtAreaConflict.otherDomains)}). Confirm whether this case belongs in the selected court path, or whether separate matters need to be started in different courts.`,
           ]
         : []),
     ]),

@@ -426,6 +426,107 @@ async function verifyCivilRouteRejections() {
   assert.equal((await callCivil({ ...civilInput(), userId: "another-user" })).status, 400);
 }
 
+/**
+ * Real bug found on the deployed site (reported 2026-08-21).
+ *
+ * A tester selected the Family path in the builder and entered a story whose
+ * operative claim is defamation. The system accepted it as a Family matter with
+ * no indication that the false-statement part belongs to a different court.
+ * The engine had already detected both domains — primaryClaimTypes came back
+ * ["defamation","family-parenting"] — but nothing acted on the split.
+ *
+ * This drives the ACTUAL /api/family/analyze route, not the AI Case Partner
+ * path, because that is where the bug was found. courtPath deliberately stays
+ * "family": the declared path still selects the engine, forms and workflow, and
+ * the conflict is surfaced as a warning instead of a silent reroute.
+ */
+async function verifyFamilyCrossCourtAreaConflictWarning() {
+  const testerStory =
+    "my uncles ex girlfriend sent text messages to my uncle and my dad saying I was a prostitute which is not true and she did this because I was going to testify in my uncle's custody case";
+
+  const familyIntake = (facts: string) => ({
+    caseStage: "not-sure",
+    role: "applicant",
+    relationshipStatus: "",
+    issues: [],
+    filedDocuments: [],
+    completedForms: [],
+    receivedForms: [],
+    yourName: "Conflict Test",
+    otherParty: "Other Party",
+    childrenInfo: "",
+    currentLivingSituation: "",
+    pastLivingHistory: "",
+    facts,
+    timeline: "",
+    evidence: "Text messages.",
+    missingEvidence: "",
+    goal: "Address the situation.",
+    urgent: "",
+  });
+
+  const post = async (facts: string) =>
+    analyzeFamilyRoute(
+      new NextRequest("http://localhost/api/family/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ input: familyIntake(facts) }),
+      }),
+    );
+
+  const conflictResponse = await post(testerStory);
+  const conflictBody = (await conflictResponse.json()) as {
+    ok: boolean;
+    result: FamilyCanonicalIntakeResult;
+  };
+
+  assert.equal(conflictResponse.status, 200);
+  assert.equal(conflictBody.ok, true);
+
+  // The declared path still decides the engine; only the warning is added.
+  assert.equal(conflictBody.result.courtPath, "family");
+
+  const claimTypes = conflictBody.result.brain.intelligence.primaryClaimTypes;
+  assert.ok(
+    claimTypes.includes("defamation"),
+    `Expected defamation to be detected, got ${JSON.stringify(claimTypes)}`,
+  );
+  assert.ok(
+    claimTypes.includes("family-parenting"),
+    `Expected family-parenting to be detected, got ${JSON.stringify(claimTypes)}`,
+  );
+
+  const warnings = conflictBody.result.brain.intelligence.systemWarnings;
+  const conflictWarning = warnings.find((warning) =>
+    /span more than one court path/i.test(warning),
+  );
+
+  assert.ok(
+    conflictWarning,
+    "Family route must warn when detected issues span more than one court path.",
+  );
+  assert.match(String(conflictWarning), /defamation/i);
+  assert.match(String(conflictWarning), /parenting or custody/i);
+
+  // A single-area Family story must stay quiet, or the warning is noise.
+  const plainResponse = await post(
+    "I need a parenting order setting out custody and parenting time for my two children, and a support order.",
+  );
+  const plainBody = (await plainResponse.json()) as {
+    ok: boolean;
+    result: FamilyCanonicalIntakeResult;
+  };
+
+  assert.equal(plainResponse.status, 200);
+  assert.equal(
+    plainBody.result.brain.intelligence.systemWarnings.some((warning) =>
+      /span more than one court path/i.test(warning),
+    ),
+    false,
+    "A single-area Family intake must not raise a cross-court-area warning.",
+  );
+}
+
 async function main() {
   delete process.env.OPENAI_API_KEY;
 
@@ -433,6 +534,7 @@ async function main() {
   await verifySmallClaimsCanonicalProductionRoute();
   await verifyFamily();
   await verifyFamilyRouteRejections();
+  await verifyFamilyCrossCourtAreaConflictWarning();
   verifyCivilUiChoicesMatchRoute();
   await verifyCivilCanonicalProductionRoute();
   await verifyCivilRouteRejections();
