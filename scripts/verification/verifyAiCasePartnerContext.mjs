@@ -17,11 +17,14 @@ const nextCommand = resolvePath(
 // The site-wide password gate in middleware.ts intercepts every request this
 // script makes, including to routes that have their own, separate concept of
 // "authenticated". This value only satisfies that outer gate; it is passed
-// to the spawned server's env below and reused to build the Basic Auth
-// header every fetch() in this file sends.
+// to the spawned server's env below and reused to build the gate cookie
+// every fetch() in this file sends. The gate checks a cookie (cs_site_access)
+// rather than the Authorization header -- see middleware.ts for why -- so
+// this constructs that cookie's value directly rather than going through the
+// /api/site-access login round trip on every request.
 const testSiteAccessPassword =
   process.env.SITE_ACCESS_PASSWORD || "context-verification-access-password";
-const siteAccessAuthHeader = `Basic ${Buffer.from(`:${testSiteAccessPassword}`).toString("base64")}`;
+const siteAccessCookieHeader = `cs_site_access=${testSiteAccessPassword}`;
 
 const serverEnvironment = {
   ...process.env,
@@ -76,7 +79,7 @@ async function waitForServer() {
 
     try {
       const response = await fetch(`${baseUrl}/api/ai-case-partner`, {
-        headers: { Authorization: siteAccessAuthHeader },
+        headers: { Cookie: siteAccessCookieHeader },
       });
 
       if (response.status > 0) {
@@ -99,7 +102,7 @@ async function postCasePartner(payload) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: siteAccessAuthHeader,
+      Cookie: siteAccessCookieHeader,
     },
     body: JSON.stringify(payload),
   });
@@ -121,7 +124,7 @@ async function postSmallClaimsAnalysis(input) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: siteAccessAuthHeader,
+      Cookie: siteAccessCookieHeader,
     },
     body: JSON.stringify({ input }),
   });
@@ -140,7 +143,7 @@ async function postSmallClaimsAnalysis(input) {
 
 async function assertProtectedCaseStorage() {
   const response = await fetch(`${baseUrl}/api/cases`, {
-    headers: { Authorization: siteAccessAuthHeader },
+    headers: { Cookie: siteAccessCookieHeader },
   });
   const data = await response.json();
 
@@ -157,7 +160,7 @@ async function assertUnauthenticatedAssistantUsesFallback() {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: siteAccessAuthHeader,
+      Cookie: siteAccessCookieHeader,
     },
     body: JSON.stringify({
       message: "What should I organize next?",
