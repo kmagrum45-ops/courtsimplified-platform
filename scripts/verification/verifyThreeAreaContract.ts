@@ -828,6 +828,89 @@ async function verifyInjunctionJurisdictionWarning() {
   );
 }
 
+/** Drives the real Small Claims route with a given amountClaimed and returns
+ *  the over-limit-related warnings it produced. Facts are fixed and unrelated
+ *  to injunctions, so only the amount varies between calls. */
+async function overLimitWarningsForAmount(amountClaimed: string): Promise<string[]> {
+  const response = await analyzeSmallClaimsRoute(
+    new NextRequest("http://localhost/api/small-claims/analyze", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        input: {
+          ...smallClaimsInput(),
+          caseStage: "starting-case",
+          issues: ["unpaid-money"],
+          filedDocuments: ["nothing"],
+          yourRole: "Plaintiff / claimant",
+          facts: "A contract dispute over unpaid work.",
+          amountClaimed,
+          goal: "Payment owed.",
+        },
+      }),
+    }),
+  );
+  const body = (await response.json()) as {
+    ok: boolean;
+    result: { analysis: { intelligence?: { systemWarnings?: string[] } } };
+  };
+  assert.equal(response.status, 200, `Route must accept amountClaimed=${JSON.stringify(amountClaimed)}`);
+  assert.equal(body.ok, true);
+  return (body.result.analysis.intelligence?.systemWarnings || []).filter((warning) =>
+    /exceeds the Ontario Small Claims Court limit/i.test(warning),
+  );
+}
+
+/**
+ * Guards the $50,000 boundary in detectOverLimitClaimAmount directly, across
+ * the real /api/small-claims/analyze route. The scenario fixtures never assert
+ * this: CIV-EMPLOYMENT-WRONGFUL-DISMISSAL-001 sits far above the limit
+ * ($850,000) and CIV-PROPERTY-INJUNCTION-NEIGHBOR-001 and
+ * SC-CONTRACTOR-INCOMPLETE-RENOVATION-001 sit comfortably below it ($3,000 and
+ * $48,500) -- none of the three exercises the exact boundary values where an
+ * off-by-one would hide.
+ *
+ * This is the same class of bug as the historical dollar-parsing regex fix
+ * (064fd55, from a prior session): that bug truncated un-comma'd five- and
+ * six-digit amounts ("85000" read as 850), which would have silently defeated
+ * this exact check by making an over-limit claim parse as a small one. Both
+ * comma-formatted and un-comma'd forms are asserted here so a regression in
+ * either parsing path is caught, not just a regression in the comparison
+ * itself.
+ *
+ * The comparison in courtSimplifiedBrain.ts is strict (`>`), so $50,000
+ * exactly must stay silent -- it is at the limit, not over it.
+ */
+async function verifyOverLimitAmountBoundary() {
+  for (const amountClaimed of ["$49,999", "49999"]) {
+    const warnings = await overLimitWarningsForAmount(amountClaimed);
+    assert.equal(
+      warnings.length,
+      0,
+      `amountClaimed=${JSON.stringify(amountClaimed)} is $1 under the limit and must stay silent. Received: ${JSON.stringify(warnings)}`,
+    );
+  }
+
+  for (const amountClaimed of ["$50,000", "50000"]) {
+    const warnings = await overLimitWarningsForAmount(amountClaimed);
+    assert.equal(
+      warnings.length,
+      0,
+      `amountClaimed=${JSON.stringify(amountClaimed)} is exactly at the limit and must stay silent -- the comparison is strictly greater-than. Received: ${JSON.stringify(warnings)}`,
+    );
+  }
+
+  for (const amountClaimed of ["$50,001", "50001"]) {
+    const warnings = await overLimitWarningsForAmount(amountClaimed);
+    assert.equal(
+      warnings.length,
+      1,
+      `amountClaimed=${JSON.stringify(amountClaimed)} is $1 over the limit and must fire exactly one over-limit warning. Received: ${JSON.stringify(warnings)}`,
+    );
+    assert.match(warnings[0], /\$50,001/, `The warning must report the actual claimed amount, not a truncated or rounded figure. Received: ${warnings[0]}`);
+  }
+}
+
 async function main() {
   delete process.env.OPENAI_API_KEY;
 
@@ -840,6 +923,7 @@ async function main() {
   verifyCivilUiChoicesMatchRoute();
   await verifyCivilOverviewQuestionsReachAnalysis();
   await verifyInjunctionJurisdictionWarning();
+  await verifyOverLimitAmountBoundary();
   await verifyCivilCanonicalProductionRoute();
   await verifyCivilRouteRejections();
   await verifyCivilAuthenticationAndPreservation();
