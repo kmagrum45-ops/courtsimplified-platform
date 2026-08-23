@@ -104,7 +104,33 @@ function baseScenario(area: CourtPath, index: number): RegistryScenario {
   //   summary) before being treated as settled, since the first source found
   //   overstated it as a direct holding.
   const neighborInjunction = area === "civil" && index === 1;
-  const id = defaultReview ? "SC-DEFAMATION-FILED-SERVED-DEFAULT-001" : adultAdoption ? "FAM-ADOPTION-ADULT-001" : minorAdoption ? "FAM-ADOPTION-MINOR-CHILD-PROTECTION-001" : wrongfulDismissal ? "CIV-EMPLOYMENT-WRONGFUL-DISMISSAL-001" : neighborInjunction ? "CIV-PROPERTY-INJUNCTION-NEIGHBOR-001" : `${idPrefix(area)}-${String(index + 1).padStart(3, "0")}`;
+  // A realistic-but-close-to-the-boundary Small Claims contract case: a $15,000
+  // deposit plus $33,500 to complete and fix substandard work, $48,500 total --
+  // near but under the $50,000 limit, the amount a real kitchen renovation gone
+  // wrong actually produces, not a round test number. Boundary behaviour was
+  // probed directly before this was written, not assumed from reading the
+  // comparison in courtSimplifiedBrain.ts: $50,000 exactly and $49,999 both stay
+  // silent, $50,001 fires, and the same holds for un-comma'd amounts ("50000",
+  // "49999", "50001"), confirming the historical truncation bug (a prior
+  // session's 064fd55, which read "85000" as 850) has not resurfaced. $48,500
+  // itself was confirmed silent.
+  //
+  // Classification required a real fix to this scenario's own first draft, not
+  // just to the engine: contract detection in intakeNormalizationEngine.ts
+  // requires hasAgreementFacts AND hasObligationFacts AND hasNonPerformanceFacts
+  // together, and a narrative that only implies the contractor's obligation
+  // contextually -- "the contractor performed substandard work" -- left
+  // hasObligationFacts false and classified as "unknown". Stating the
+  // obligation explicitly ("the contractor was required to complete the
+  // renovation") is what a complete, honest narrative would include anyway, and
+  // fixed it: detectedClaimTypes reaches ["contract"], confirmed live, not
+  // "unknown". "Negligent workmanship" as a distinct LegalDomain was
+  // investigated and deliberately not chased: it requires literal words like
+  // "duty of care" or "foreseeable" that no real homeowner would use, so
+  // forcing them in would fabricate a signal rather than describe the case;
+  // breach of contract is the real, natural theory this fact pattern supports.
+  const contractorRenovation = area === "small-claims" && index === 1;
+  const id = defaultReview ? "SC-DEFAMATION-FILED-SERVED-DEFAULT-001" : adultAdoption ? "FAM-ADOPTION-ADULT-001" : minorAdoption ? "FAM-ADOPTION-MINOR-CHILD-PROTECTION-001" : wrongfulDismissal ? "CIV-EMPLOYMENT-WRONGFUL-DISMISSAL-001" : neighborInjunction ? "CIV-PROPERTY-INJUNCTION-NEIGHBOR-001" : contractorRenovation ? "SC-CONTRACTOR-INCOMPLETE-RENOVATION-001" : `${idPrefix(area)}-${String(index + 1).padStart(3, "0")}`;
   const facts = defaultReview
     ? "Synthetic alleged false text messages were communicated to an uncle and father."
     : adultAdoption
@@ -115,37 +141,41 @@ function baseScenario(area: CourtPath, index: number): RegistryScenario {
           ? "A Vice President with over 20 years of service and age 58 was dismissed without cause by Northbridge Analytics Canada ULC, the Canadian subsidiary that was her direct employer of record. The US parent company, Northbridge Analytics Holdings Inc., was never her employer and is not the correct party to name. Annual base salary was $500,000. The employment contract contains no enforceable termination clause limiting notice below the common law standard, so Bardal-factor reasonable notice applies given age, length of service, character of employment, and availability of similar employment. At a 17-24 month notice period, this represents a claim in the range of roughly $700,000-$1,000,000, dramatically over the Ontario Small Claims Court limit. The employer's initial severance offer reflects only a fraction of what that notice period would support."
           : neighborInjunction
             ? "A homeowner's neighbor built a shed that encroaches significantly onto the homeowner's property, crossing the boundary line by several feet. Separately, the neighbor has a large tree whose roots are causing ongoing property damage to the homeowner's foundation and continuing to grow. The homeowner is not primarily seeking money for the damage already caused; the homeowner wants a court order requiring the encroaching shed to be removed and requiring the tree to be removed or the roots addressed so the ongoing damage stops. Total out-of-pocket costs so far are a few thousand dollars for a foundation inspection."
-            : `Synthetic ${area} matter ${index + 1}; saved facts require a focused review.`;
+            : contractorRenovation
+              ? "A homeowner paid a $15,000 deposit to a contractor for a kitchen renovation under a signed contract. Under the contract, the contractor was required to complete the renovation by an agreed date. The contractor performed substandard and incomplete work and then stopped responding to calls and messages. The homeowner hired a second contractor to complete the renovation and fix the substandard work, at a cost of $33,500. The claim is for the original deposit plus the cost of completion and remediation by the second contractor."
+              : `Synthetic ${area} matter ${index + 1}; saved facts require a focused review.`;
   const filedServiceFacts = defaultReview ? ["Plaintiff’s Claim filed and served", "Affidavit of Service filed with the court"] : [];
-  const expectedIssue = defaultReview ? "Possible defamation or reputational-harm issue to review" : adultAdoption ? "Possible adult step-parent adoption process to review" : minorAdoption ? "Review required: minor adoption and child-protection circumstances" : wrongfulDismissal ? "Possible wrongful dismissal / employment issue to review: dismissal without cause, common law reasonable notice, and adequacy of the severance offer" : neighborInjunction ? "Possible property issue to review: encroaching structure and root damage, with removal (not money) as the primary remedy sought" : `Possible issue to review: synthetic ${area} issue ${index + 1}`;
+  const expectedIssue = defaultReview ? "Possible defamation or reputational-harm issue to review" : adultAdoption ? "Possible adult step-parent adoption process to review" : minorAdoption ? "Review required: minor adoption and child-protection circumstances" : wrongfulDismissal ? "Possible wrongful dismissal / employment issue to review: dismissal without cause, common law reasonable notice, and adequacy of the severance offer" : neighborInjunction ? "Possible property issue to review: encroaching structure and root damage, with removal (not money) as the primary remedy sought" : contractorRenovation ? "Possible contract issue to review: breach of the renovation contract through substandard and incomplete work" : `Possible issue to review: synthetic ${area} issue ${index + 1}`;
   return {
     id,
     courtPath: area,
     intakeFacts: {
       province: index === 28 ? "not-sure" : "Ontario",
-      city: wrongfulDismissal ? "Toronto" : neighborInjunction ? "Hamilton" : "Ottawa",
+      city: wrongfulDismissal ? "Toronto" : neighborInjunction ? "Hamilton" : contractorRenovation ? "London" : "Ottawa",
       facts,
-      amountClaimed: area === "small-claims" ? "$10,000" : wrongfulDismissal ? "$850,000" : neighborInjunction ? "$3,000" : undefined,
+      amountClaimed: contractorRenovation ? "$48,500" : area === "small-claims" ? "$10,000" : wrongfulDismissal ? "$850,000" : neighborInjunction ? "$3,000" : undefined,
       issueLabels: adultAdoption || minorAdoption ? ["Adoption — step-parent, relative, or adult adoption"] : wrongfulDismissal ? ["Employment-related civil issue"] : neighborInjunction ? ["Property / land / possession issue", "Injunction / urgent court order"] : undefined,
     },
-    stage: defaultReview ? "already-started" : wrongfulDismissal || neighborInjunction ? "starting-case" : stage,
-    role: adultAdoption ? "step-parent applicant" : wrongfulDismissal || neighborInjunction ? "plaintiff" : role,
+    stage: defaultReview ? "already-started" : wrongfulDismissal || neighborInjunction || contractorRenovation ? "starting-case" : stage,
+    role: adultAdoption ? "step-parent applicant" : wrongfulDismissal || neighborInjunction ? "plaintiff" : contractorRenovation ? "Plaintiff / claimant" : role,
     filedServiceFacts,
-    evidenceFacts: defaultReview ? ["screenshots/message threads"] : adultAdoption ? ["family relationship and living-history information"] : wrongfulDismissal ? ["employment contract", "offer letter", "termination letter", "severance offer and calculation", "pay records establishing salary"] : neighborInjunction ? ["property survey", "photos of the encroaching structure and roots", "foundation inspection report"] : [],
-    intentionalGaps: defaultReview ? ["Defence status"] : adultAdoption ? ["Adult person’s agreement"] : minorAdoption ? ["Child-protection circumstances"] : wrongfulDismissal ? ["Mitigation efforts (job search / re-employment status) since dismissal", "Exact corporate name and registered status of the Canadian employer of record"] : neighborInjunction ? ["Whether the neighbor disputes the boundary/survey", "Whether the tree and roots are entirely on the neighbor's property or crossing the line"] : ["important date"],
-    contradictions: wrongfulDismissal || neighborInjunction ? [] : index % 10 === 0 ? ["Synthetic conflicting date requires review"] : [],
+    evidenceFacts: defaultReview ? ["screenshots/message threads"] : adultAdoption ? ["family relationship and living-history information"] : wrongfulDismissal ? ["employment contract", "offer letter", "termination letter", "severance offer and calculation", "pay records establishing salary"] : neighborInjunction ? ["property survey", "photos of the encroaching structure and roots", "foundation inspection report"] : contractorRenovation ? ["signed renovation contract", "deposit payment record", "photos of the substandard and incomplete work", "second contractor's quote and invoice"] : [],
+    intentionalGaps: defaultReview ? ["Defence status"] : adultAdoption ? ["Adult person’s agreement"] : minorAdoption ? ["Child-protection circumstances"] : wrongfulDismissal ? ["Mitigation efforts (job search / re-employment status) since dismissal", "Exact corporate name and registered status of the Canadian employer of record"] : neighborInjunction ? ["Whether the neighbor disputes the boundary/survey", "Whether the tree and roots are entirely on the neighbor's property or crossing the line"] : contractorRenovation ? ["Exact agreed completion date and whether it passed before the contractor stopped responding", "Whether any written notice was given to the original contractor before hiring the second one"] : ["important date"],
+    contradictions: wrongfulDismissal || neighborInjunction || contractorRenovation ? [] : index % 10 === 0 ? ["Synthetic conflicting date requires review"] : [],
     expectedPossibleIssues: [expectedIssue],
-    expectedNextQuestion: defaultReview ? "Has the defendant filed a Defence?" : adultAdoption ? "Does the adult person freely agree to the proposed adoption?" : wrongfulDismissal || neighborInjunction ? "Has anything already been filed?" : "What important fact should be confirmed next?",
-    expectedEvidenceGuidance: defaultReview ? ["full message threads", "sender", "recipients", "dates/context", "falsity", "harm"] : adultAdoption ? ["full legal names", "Ontario residence", "living-history", "written wishes", "biological father", "reasonable efforts", "child-protection documents"] : wrongfulDismissal ? ["employment contract and any termination clause", "compensation records (salary, bonus, benefits)", "termination and severance offer letters", "length of service and position history", "mitigation efforts since dismissal"] : neighborInjunction ? ["property survey showing the boundary and the encroachment", "photographs of the shed and the tree roots", "foundation inspection report", "correspondence with the neighbor about the encroachment and the roots"] : ["supporting records"],
+    expectedNextQuestion: defaultReview ? "Has the defendant filed a Defence?" : adultAdoption ? "Does the adult person freely agree to the proposed adoption?" : wrongfulDismissal || neighborInjunction ? "Has anything already been filed?" : contractorRenovation ? "What evidence proves each major fact?" : "What important fact should be confirmed next?",
+    expectedEvidenceGuidance: defaultReview ? ["full message threads", "sender", "recipients", "dates/context", "falsity", "harm"] : adultAdoption ? ["full legal names", "Ontario residence", "living-history", "written wishes", "biological father", "reasonable efforts", "child-protection documents"] : wrongfulDismissal ? ["employment contract and any termination clause", "compensation records (salary, bonus, benefits)", "termination and severance offer letters", "length of service and position history", "mitigation efforts since dismissal"] : neighborInjunction ? ["property survey showing the boundary and the encroachment", "photographs of the shed and the tree roots", "foundation inspection report", "correspondence with the neighbor about the encroachment and the roots"] : contractorRenovation ? ["the signed renovation contract", "proof of the deposit payment", "dated photographs of the substandard and incomplete work", "the second contractor's quote and final invoice", "any messages or emails to the original contractor after work stopped"] : ["supporting records"],
     expectedProceduralStatus: defaultReview ? ["Claim already filed and served", "Affidavit of Service recorded as filed with the court"] : filedServiceFacts,
     reviewRequiredBoundaries: wrongfulDismissal
       ? ["No legal outcome is decided.", "Procedure and forms require verified official-source support.", "The correct defendant is the Canadian employer of record, not the foreign parent company; confirm the exact corporate name and registered/operating status before filing."]
       : neighborInjunction
         ? ["No legal outcome is decided.", "Procedure and forms require verified official-source support.", "This case belongs in Civil because of the injunctive remedy sought (removal of the structure and the tree/roots), not because of the dollar amount, which is well under the Small Claims limit. Small Claims Court generally cannot grant injunctions regardless of amount."]
-        : ["No legal outcome is decided.", "Procedure and forms require verified official-source support."],
-    prohibitedOutputWording: defaultReview ? [...prohibited, "recreate the Affidavit of Service", "upload the Affidavit of Service", "photocopy the Affidavit of Service", "re-file the Affidavit of Service"] : wrongfulDismissal ? [...prohibited, "guaranteed notice period", "will be awarded", "name the US parent company"] : neighborInjunction ? [...prohibited, "guaranteed removal", "the court will order"] : prohibited,
-    expectedWorkflowAction: wrongfulDismissal || neighborInjunction ? "organize-evidence" : index % 3 === 0 ? "organize-evidence" : index % 3 === 1 ? "review-intake-details" : "check-official-forms-and-procedure",
-    expectedPrivacySessionBehavior: wrongfulDismissal || neighborInjunction ? "saved drafts remain scoped to the authenticated owner and selected case" : index % 2 ? "logged-out intake remains tab-scoped and is not a shared draft" : "saved drafts remain scoped to the authenticated owner and selected case",
+        : contractorRenovation
+          ? ["No legal outcome is decided.", "Procedure and forms require verified official-source support.", "This claim ($48,500) is close to but under the $50,000 Small Claims limit; confirm the final total of the deposit plus completion and remediation costs stays under the limit before filing, since additional costs could push it over."]
+          : ["No legal outcome is decided.", "Procedure and forms require verified official-source support."],
+    prohibitedOutputWording: defaultReview ? [...prohibited, "recreate the Affidavit of Service", "upload the Affidavit of Service", "photocopy the Affidavit of Service", "re-file the Affidavit of Service"] : wrongfulDismissal ? [...prohibited, "guaranteed notice period", "will be awarded", "name the US parent company"] : neighborInjunction ? [...prohibited, "guaranteed removal", "the court will order"] : contractorRenovation ? [...prohibited, "guaranteed refund", "will be reimbursed"] : prohibited,
+    expectedWorkflowAction: wrongfulDismissal || neighborInjunction || contractorRenovation ? "organize-evidence" : index % 3 === 0 ? "organize-evidence" : index % 3 === 1 ? "review-intake-details" : "check-official-forms-and-procedure",
+    expectedPrivacySessionBehavior: wrongfulDismissal || neighborInjunction || contractorRenovation ? "saved drafts remain scoped to the authenticated owner and selected case" : index % 2 ? "logged-out intake remains tab-scoped and is not a shared draft" : "saved drafts remain scoped to the authenticated owner and selected case",
   };
 }
 
