@@ -46,4 +46,46 @@ were deliberately left unchanged pending this decision.
 
 ---
 
-Last Updated: 2026-08-22
+## Injunction-jurisdiction warning only matches four trigger phrases
+
+**Found:** 2026-08-23, while building and verifying the warning itself
+(commits `4e2a177`, `dd436a5`).
+
+**What's happening:** The Small-Claims-cannot-grant-injunctions warning in
+`courtSimplifiedBrain.ts` (`seeksInjunctiveRelief`) reuses the injunction-outcome
+detection already computed by `normalizeIntake()` --
+`extractDesiredOutcomes()` in `intakeNormalizationEngine.ts:940` -- which fires
+only on four literal phrases: `"injunction"`, `"restraining"`, `"stop them"`,
+`"court order"`. Someone describing the same relief in other natural phrasing
+-- "I want them to remove it permanently", "make them take it down", "force
+them to stop" -- won't match any of the four, so the warning stays silent and
+the user gets no signal that Small Claims can't grant what they're asking for.
+
+This was found empirically, not by inspection: the first draft of the
+neighbor-dispute scenario's narrative said "we want the shed removed", which
+detected nothing, before it was rewritten to "a court order requiring the shed
+to be removed" specifically to hit the real trigger phrase. That the fix's own
+verification scenario needed deliberately-chosen wording to exercise the
+detection is direct evidence of how narrow the match is.
+
+**Why this is not a quick patch:** Widening the phrase list is easy to write
+and easy to get wrong. The four current phrases are fairly unambiguous
+signals of wanting a court order; broader everyday words like "remove",
+"stop", or "make them" are frequent enough in ordinary complaints (property
+damage, harassment, contract disputes) that adding them without care risks
+false positives -- firing an injunction warning on cases that are really just
+asking for money and describing their frustration. Getting this right needs a
+deliberate pass over real phrasing patterns and negative-control testing
+against ordinary money claims, not a one-line keyword addition.
+
+**Related, already fixed:** The warning itself (`courtSimplifiedBrain.ts`,
+`seeksInjunctiveRelief`) is real and verified for its four covered phrases --
+see `verifyInjunctionJurisdictionWarning` in `verifyThreeAreaContract.ts`
+(`npm run test:three-area`) and the `CIV-PROPERTY-INJUNCTION-NEIGHBOR-001`
+scenario in `scenarioRegistry.ts`. This entry is only about the detection's
+phrase coverage, which was deliberately left as-is (reused, not widened) per
+the instruction that built it.
+
+---
+
+Last Updated: 2026-08-23
