@@ -44,6 +44,26 @@ function baseScenario(area: CourtPath, index: number): RegistryScenario {
   // itself states which entity is the correct defendant, since no engine logic
   // resolves parent-versus-subsidiary -- that has to live in the facts a user
   // records, so reviewRequiredBoundaries and intentionalGaps say so explicitly.
+  //
+  // Citations verified by independent web search, 2026-08-23, not assumed:
+  //   Bardal v. Globe & Mail Ltd., 1960 CanLII 294 (ON SC), p. 145 -- "the
+  //   reasonableness of the notice must be decided with reference to each
+  //   particular case, having regard to the character of the employment, the
+  //   length of service of the servant, the age of the servant and the
+  //   availability of similar employment, having regard to the experience,
+  //   training and qualifications of the servant." Confirmed word-for-word
+  //   against the original judgment text via CanLII Connects.
+  //   Adelman v. IBM Canada Limited, 2026 ONSC 420 -- a long-service executive
+  //   (Executive Director, Strategic Partnerships, 59, ~18.5 years' service, no
+  //   termination provisions in his employment agreement) was awarded 24
+  //   months' notice and $682,151.18 in total damages. Cross-confirmed via two
+  //   independent sources (BLG's case summary and an HR Reporter court-document
+  //   PDF). This scenario's facts (20+ years, age 58) are longer-tenured than
+  //   Adelman's real 18.5 years, so citing it as support for the high end of a
+  //   17-24 month range is, if anything, conservative -- Adelman got the full
+  //   24 months at fewer years of service. The stated $700,000-$1,000,000 claim
+  //   range is arithmetically consistent with the $500,000 stated salary over
+  //   17-24 months (17mo ~$708k, 24mo ~$1,000,000), not a rounded guess.
   const wrongfulDismissal = area === "civil" && index === 0;
   // The deliberately opposite trigger from wrongfulDismissal: modest damages
   // (a few thousand dollars, nowhere near the $50,000 Small Claims limit), but
@@ -60,6 +80,29 @@ function baseScenario(area: CourtPath, index: number): RegistryScenario {
   // verifyThreeAreaContract.ts (verifyInjunctionJurisdictionWarning), which
   // pulls this scenario's intakeFacts by id and drives the real routes rather
   // than asserting against fields nothing executes.
+  //
+  // Statutory basis for the warning's "Small Claims Court generally cannot
+  // grant injunctions" claim, verified by independent web search, 2026-08-23,
+  // not assumed:
+  //   Courts of Justice Act, R.S.O. 1990, c. C.43, s. 23(1) -- limits Small
+  //   Claims Court's jurisdiction to (a) actions for payment of money up to the
+  //   prescribed amount and (b) actions for recovery of possession of personal
+  //   property up to the prescribed amount. It is an exhaustive grant, not a
+  //   list of examples.
+  //   Courts of Justice Act, s. 96(3) -- only the Court of Appeal and the
+  //   Superior Court of Justice may grant equitable relief "unless otherwise
+  //   provided"; s. 23(1) only otherwise provides for money and personal
+  //   property, not injunctions.
+  //   Grover v. Hodgins, 2011 ONCA 72 -- Court of Appeal for Ontario authority
+  //   (Epstein J.A.) confining Small Claims Court's equitable jurisdiction
+  //   under s. 96(3) to payment of money and return of personal property within
+  //   its monetary limit. The judgment establishes that scope-of-jurisdiction
+  //   principle rather than using the word "injunction" itself; the "generally
+  //   cannot grant injunctions" framing is the standard practitioner-commentary
+  //   corollary of that holding plus s. 23(1), not a direct quotation from the
+  //   case -- confirmed via a second, independent source (WeirFoulds LLP's case
+  //   summary) before being treated as settled, since the first source found
+  //   overstated it as a direct holding.
   const neighborInjunction = area === "civil" && index === 1;
   const id = defaultReview ? "SC-DEFAMATION-FILED-SERVED-DEFAULT-001" : adultAdoption ? "FAM-ADOPTION-ADULT-001" : minorAdoption ? "FAM-ADOPTION-MINOR-CHILD-PROTECTION-001" : wrongfulDismissal ? "CIV-EMPLOYMENT-WRONGFUL-DISMISSAL-001" : neighborInjunction ? "CIV-PROPERTY-INJUNCTION-NEIGHBOR-001" : `${idPrefix(area)}-${String(index + 1).padStart(3, "0")}`;
   const facts = defaultReview
