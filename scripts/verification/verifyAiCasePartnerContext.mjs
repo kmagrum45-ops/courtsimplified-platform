@@ -14,9 +14,19 @@ const nextCommand = resolvePath(
   "next",
 );
 
+// The site-wide password gate in middleware.ts intercepts every request this
+// script makes, including to routes that have their own, separate concept of
+// "authenticated". This value only satisfies that outer gate; it is passed
+// to the spawned server's env below and reused to build the Basic Auth
+// header every fetch() in this file sends.
+const testSiteAccessPassword =
+  process.env.SITE_ACCESS_PASSWORD || "context-verification-access-password";
+const siteAccessAuthHeader = `Basic ${Buffer.from(`:${testSiteAccessPassword}`).toString("base64")}`;
+
 const serverEnvironment = {
   ...process.env,
   NEXT_TELEMETRY_DISABLED: "1",
+  SITE_ACCESS_PASSWORD: testSiteAccessPassword,
   NEXT_PUBLIC_SUPABASE_URL:
     process.env.NEXT_PUBLIC_SUPABASE_URL ||
     "https://example.supabase.co",
@@ -65,7 +75,9 @@ async function waitForServer() {
     }
 
     try {
-      const response = await fetch(`${baseUrl}/api/ai-case-partner`);
+      const response = await fetch(`${baseUrl}/api/ai-case-partner`, {
+        headers: { Authorization: siteAccessAuthHeader },
+      });
 
       if (response.status > 0) {
         return;
@@ -87,6 +99,7 @@ async function postCasePartner(payload) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: siteAccessAuthHeader,
     },
     body: JSON.stringify(payload),
   });
@@ -108,6 +121,7 @@ async function postSmallClaimsAnalysis(input) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: siteAccessAuthHeader,
     },
     body: JSON.stringify({ input }),
   });
@@ -125,7 +139,9 @@ async function postSmallClaimsAnalysis(input) {
 }
 
 async function assertProtectedCaseStorage() {
-  const response = await fetch(`${baseUrl}/api/cases`);
+  const response = await fetch(`${baseUrl}/api/cases`, {
+    headers: { Authorization: siteAccessAuthHeader },
+  });
   const data = await response.json();
 
   assert.equal(
@@ -141,6 +157,7 @@ async function assertUnauthenticatedAssistantUsesFallback() {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: siteAccessAuthHeader,
     },
     body: JSON.stringify({
       message: "What should I organize next?",
