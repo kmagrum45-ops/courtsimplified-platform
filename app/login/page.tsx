@@ -3,7 +3,32 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import type { AuthError } from "@supabase/supabase-js";
 import { supabase } from "../../src/lib/supabase/client";
+
+/**
+ * Supabase Auth returns a specific error code for most signup failures, but
+ * the UI was previously discarding it and always showing the same generic
+ * message -- so a real user hitting a config issue (e.g. the project's email
+ * send rate limit) saw the same text as someone who typed a bad password,
+ * with no way to tell which was actually wrong. Codes not covered here fall
+ * back to the original generic message.
+ */
+function signUpErrorMessage(error: AuthError): string {
+  switch (error.code) {
+    case "weak_password":
+      return "Password must be at least 6 characters.";
+    case "over_email_send_rate_limit":
+      return "We're temporarily unable to send confirmation emails — please try again in a few minutes.";
+    case "email_exists":
+    case "user_already_exists":
+      return "An account with that email already exists — try signing in instead.";
+    case "email_address_invalid":
+      return "That email address isn't valid. Please check it and try again.";
+    default:
+      return "We could not create that account. Please check your details and try again.";
+  }
+}
 
 export default function LoginPage() {
   const router = useRouter();
@@ -34,7 +59,7 @@ export default function LoginPage() {
         });
 
         if (error) {
-          setError("We could not create that account. Please check your details and try again.");
+          setError(signUpErrorMessage(error));
           return;
         }
 
