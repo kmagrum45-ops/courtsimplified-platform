@@ -20,6 +20,7 @@ import {
 import { POST as analyzeSmallClaimsRoute } from "../../app/api/small-claims/analyze/route";
 import { buildFamilyAnalysis } from "../../app/builder/_components/familyAnalysis";
 import { buildCivilGeneratedQuestions } from "../../app/builder/_components/civilAnalysis";
+import { baseScenarios } from "./scenarioRegistry";
 
 function canonicalMaster(result: { masterResultPatch: Record<string, unknown> }) {
   return result.masterResultPatch.masterCase as
@@ -702,6 +703,131 @@ async function verifyFamilyOverviewQuestionsReachAnalysis() {
   }
 }
 
+/**
+ * Regression for the injunction-jurisdiction warning built alongside the
+ * CIV-PROPERTY-INJUNCTION-NEIGHBOR-001 scenario. That scenario is the
+ * deliberate opposite of CIV-EMPLOYMENT-WRONGFUL-DISMISSAL-001's trigger:
+ * modest damages ($3,000, nowhere near the $50,000 Small Claims limit), but a
+ * remedy -- a court order requiring an encroaching shed and tree roots to be
+ * removed -- that Small Claims Court cannot grant regardless of amount.
+ * detectOverLimitClaimAmount would stay correctly silent here; nothing else
+ * existed to catch the case belonging in Civil for a reason unrelated to
+ * dollar amount, until courtSimplifiedBrain's seeksInjunctiveRelief check was
+ * added.
+ *
+ * Pulls the scenario's own facts and amount by id from scenarioRegistry
+ * rather than duplicating them, so the fixture and this regression cannot
+ * drift apart. Drives the real /api/civil/analyze and /api/small-claims/analyze
+ * routes -- not the bare engine functions -- so this covers the same
+ * request/response boundary a real intake crosses.
+ */
+async function verifyInjunctionJurisdictionWarning() {
+  const scenario = baseScenarios.find(
+    (item) => item.id === "CIV-PROPERTY-INJUNCTION-NEIGHBOR-001",
+  );
+  assert.ok(scenario, "CIV-PROPERTY-INJUNCTION-NEIGHBOR-001 must exist in the registry");
+  const facts = String(scenario!.intakeFacts.facts);
+  const amountClaimed = String(scenario!.intakeFacts.amountClaimed);
+
+  const civilResponse = await callCivil({
+    ...civilInput("injunction-jurisdiction-civil"),
+    issues: ["property", "injunction"],
+    documents: ["nothing"],
+    yourRole: "plaintiff",
+    facts,
+    amountClaimed,
+    legalRemedy:
+      "A court order requiring removal of the encroaching structure and removal of the tree or remediation of the roots; ongoing relief, not primarily a money judgment.",
+  });
+  const civilBody = (await civilResponse.json()) as { ok: boolean; result: CivilCanonicalIntakeResult };
+  assert.equal(civilResponse.status, 200);
+  assert.equal(civilBody.ok, true);
+  assert.ok(
+    civilBody.result.civilMasterResult.masterCase.civilCaseTypes.includes("property-damage"),
+    "Civil classification must reach property-damage, not stay unclassified.",
+  );
+  const civilWarnings = civilBody.result.brain.intelligence.systemWarnings;
+  assert.ok(
+    civilWarnings.some((warning) => /injunction/i.test(warning) && /Superior Court/i.test(warning)),
+    `Civil must surface a confirming note that injunctive relief belongs in Superior Court, not Small Claims. Received: ${JSON.stringify(civilWarnings)}`,
+  );
+  assert.equal(
+    civilWarnings.some((warning) => /exceeds the Ontario Small Claims Court limit/i.test(warning)),
+    false,
+    "The over-limit warning must not fire on a $3,000 claim; this scenario tests the injunction trigger, not the amount trigger.",
+  );
+
+  const smallClaimsResponse = await analyzeSmallClaimsRoute(
+    new NextRequest("http://localhost/api/small-claims/analyze", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        input: {
+          ...smallClaimsInput(),
+          caseStage: "starting-case",
+          issues: ["property-damage"],
+          filedDocuments: ["nothing"],
+          yourRole: "Plaintiff / claimant",
+          facts,
+          amountClaimed,
+          goal: "A court order requiring removal of the encroaching structure and the tree, or remediation of the roots.",
+        },
+      }),
+    }),
+  );
+  const smallClaimsBody = (await smallClaimsResponse.json()) as {
+    ok: boolean;
+    result: { analysis: { intelligence?: { systemWarnings?: string[] } } };
+  };
+  assert.equal(smallClaimsResponse.status, 200);
+  assert.equal(smallClaimsBody.ok, true);
+  const smallClaimsWarnings = smallClaimsBody.result.analysis.intelligence?.systemWarnings || [];
+  assert.ok(
+    smallClaimsWarnings.some(
+      (warning) => /injunction/i.test(warning) && /cannot grant/i.test(warning) && /Superior Court/i.test(warning),
+    ),
+    `Small Claims must warn that it cannot grant injunctions regardless of amount when this fact pattern is misfiled there. Received: ${JSON.stringify(smallClaimsWarnings)}`,
+  );
+  assert.equal(
+    smallClaimsWarnings.some((warning) => /exceeds the Ontario Small Claims Court limit/i.test(warning)),
+    false,
+    "The $3,000 amount is well under the limit; the over-limit warning must stay silent so this is clearly the injunction trigger, not the amount trigger.",
+  );
+
+  // Negative control: an ordinary money-only property-damage claim, same court
+  // path, no injunction language. The warning must not fire on every
+  // property-damage case -- only when injunctive relief is actually sought.
+  const moneyOnlyResponse = await analyzeSmallClaimsRoute(
+    new NextRequest("http://localhost/api/small-claims/analyze", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        input: {
+          ...smallClaimsInput(),
+          caseStage: "starting-case",
+          issues: ["property-damage"],
+          filedDocuments: ["nothing"],
+          yourRole: "Plaintiff / claimant",
+          facts: "The neighbor's tree fell during a storm and damaged our fence. We are seeking payment for the cost of repairing the fence.",
+          amountClaimed: "$2,800",
+          goal: "Reimbursement for fence repair.",
+        },
+      }),
+    }),
+  );
+  const moneyOnlyBody = (await moneyOnlyResponse.json()) as {
+    ok: boolean;
+    result: { analysis: { intelligence?: { systemWarnings?: string[] } } };
+  };
+  assert.equal(moneyOnlyResponse.status, 200);
+  const moneyOnlyWarnings = moneyOnlyBody.result.analysis.intelligence?.systemWarnings || [];
+  assert.equal(
+    moneyOnlyWarnings.some((warning) => /injunction/i.test(warning)),
+    false,
+    `An ordinary money-only property claim must not trigger the injunction warning. Received: ${JSON.stringify(moneyOnlyWarnings)}`,
+  );
+}
+
 async function main() {
   delete process.env.OPENAI_API_KEY;
 
@@ -713,6 +839,7 @@ async function main() {
   await verifyFamilyOverviewQuestionsReachAnalysis();
   verifyCivilUiChoicesMatchRoute();
   await verifyCivilOverviewQuestionsReachAnalysis();
+  await verifyInjunctionJurisdictionWarning();
   await verifyCivilCanonicalProductionRoute();
   await verifyCivilRouteRejections();
   await verifyCivilAuthenticationAndPreservation();

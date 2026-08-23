@@ -15,6 +15,7 @@ import {
   ContradictionFinding,
   CourtSimplifiedBrainInput,
   CourtSimplifiedBrainOutput,
+  DesiredOutcome,
   ElementProofEngineResult,
   EvidenceIssueLink,
   FormRecommendation,
@@ -2352,6 +2353,23 @@ function detectOverLimitClaimAmount(rawUserText: string): number | null {
   return highest > ONTARIO_SMALL_CLAIMS_LIMIT ? highest : null;
 }
 
+/**
+ * True when the intake's desired outcomes include an injunction -- an order
+ * requiring someone to do, or stop doing, something.
+ *
+ * Reuses the shared injunction-outcome detection already computed by
+ * normalizeIntake() (extractDesiredOutcomes in intakeNormalizationEngine.ts,
+ * triggered by "injunction", "restraining", "stop them", "court order")
+ * instead of re-deriving it from raw text a second time. That detection is
+ * shared across all three court paths; civilWorkflowEngine.ts has its own,
+ * separate injunction-remedy detection, but it runs only on the Civil path's
+ * specialized engine and never reaches this shared brain, so it is not what
+ * this reuses.
+ */
+function seeksInjunctiveRelief(desiredOutcomes: DesiredOutcome[]): boolean {
+  return desiredOutcomes.some((outcome) => outcome.type === "injunction");
+}
+
 export async function runCourtSimplifiedBrain(
   input: CourtSimplifiedBrainInput,
 ): Promise<CourtSimplifiedBrainOutput> {
@@ -2476,6 +2494,16 @@ export async function runCourtSimplifiedBrain(
 
   const crossCourtAreaConflict = detectCrossCourtAreaConflict(primaryClaimTypes);
 
+  // Distinct from overLimitClaimAmount: that check catches a claim too large in
+  // dollar terms for Small Claims. This one catches a remedy Small Claims
+  // cannot grant at all, regardless of dollar amount -- the neighbor-dispute
+  // case that motivated it sought removal of an encroaching structure and tree
+  // roots, with damages of only a few thousand dollars, so the amount check
+  // alone would stay silent while the user filed in the wrong court.
+  const seeksInjunction = seeksInjunctiveRelief(normalizedIntake.desiredOutcomes);
+  const injunctionInSmallClaims = seeksInjunction && courtPath === "small-claims";
+  const injunctionInCivil = seeksInjunction && courtPath === "civil";
+
   const intelligence: LegalIntelligenceResult = {
     id: createId("intelligence"),
     version: "2.0.0",
@@ -2556,6 +2584,16 @@ export async function runCourtSimplifiedBrain(
       ...(crossCourtAreaConflict
         ? [
             `Detected issues span more than one court path: family (${domainLabels(crossCourtAreaConflict.familyDomains)}) and non-family (${domainLabels(crossCourtAreaConflict.otherDomains)}). Confirm whether this case belongs in the selected court path, or whether separate matters need to be started in different courts.`,
+          ]
+        : []),
+      ...(injunctionInSmallClaims
+        ? [
+            "This case asks the court to order someone to do something or stop doing something (an injunction). Small Claims Court generally cannot grant injunctions, regardless of the dollar amount involved; the Superior Court of Justice should be considered.",
+          ]
+        : []),
+      ...(injunctionInCivil
+        ? [
+            "This case asks for an injunction (an order requiring someone to do something or stop doing something). That kind of order is generally available in Superior Court but not in Small Claims Court.",
           ]
         : []),
     ]),
