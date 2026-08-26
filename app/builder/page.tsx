@@ -166,9 +166,25 @@ function BuilderPageContent() {
   const [intakeProvince, setIntakeProvince] = useState("");
   const [intakeCity, setIntakeCity] = useState("");
   const [intakeStory, setIntakeStory] = useState("");
+  const [hydrated, setHydrated] = useState(false);
 
   const pathLabel = getPathLabel(courtPath);
   const analysisAvailable = isAnalysisAvailable(caseData);
+
+  /*
+   * The cold-load intake gate below (no confirmedLocation yet) renders the
+   * same server-rendered markup on the client's first paint, before React
+   * has attached its event handlers. A selection made in that window is a
+   * native DOM mutation React doesn't know about -- hydration then
+   * reconciles the controlled inputs back to their still-blank React state
+   * and silently discards it. Gating the gate's render on a mount effect
+   * guarantees hydration has already committed by the time the form (and
+   * its event handlers) exist at all, the same defense HomeLocationGate
+   * already uses for this exact class of race.
+   */
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   useEffect(() => {
     if (queryCaseId) return;
@@ -742,12 +758,18 @@ function BuilderPageContent() {
           <section className="mx-auto max-w-3xl rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#2f7d67]">{pathLabel} intake</p>
             <h1 className="mt-2 text-3xl font-bold text-[#10231f]">{pathLabel} structured intake</h1>
-            <div className="mt-6 grid gap-5 md:grid-cols-2">
-              <label><span className="font-semibold">Province or territory</span><select aria-label="Province or territory" value={intakeProvince} onChange={(event) => setIntakeProvince(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"><option value="">Select province or territory</option><option value="Ontario">Ontario</option></select></label>
-              <label><span className="font-semibold">City or municipality</span><input aria-label="City or municipality" value={intakeCity} onChange={(event) => setIntakeCity(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" /></label>
-            </div>
-            <label className="mt-5 block"><span className="font-semibold">Tell us what happened in your own words</span><textarea aria-label="Tell us what happened in your own words" value={intakeStory} onChange={(event) => setIntakeStory(event.target.value)} className="mt-2 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" /></label>
-            <button type="button" disabled={intakeProvince !== "Ontario" || !intakeCity.trim() || !intakeStory.trim()} onClick={() => { setConfirmedLocation({ province: "Ontario", city: intakeCity.trim() }); setHomeStory(intakeStory.trim()); }} className="mt-6 rounded-xl bg-[#2f7d67] px-5 py-3 font-semibold text-white disabled:bg-slate-300">Continue with {pathLabel} questions</button>
+            {!hydrated ? (
+              <p className="mt-6 text-sm font-semibold text-[#4d675f]" aria-live="polite">Preparing a private case start…</p>
+            ) : (
+              <>
+                <div className="mt-6 grid gap-5 md:grid-cols-2">
+                  <label><span className="font-semibold">Province or territory</span><select aria-label="Province or territory" value={intakeProvince} onChange={(event) => setIntakeProvince(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"><option value="">Select province or territory</option><option value="Ontario">Ontario</option></select></label>
+                  <label><span className="font-semibold">City or municipality</span><input aria-label="City or municipality" value={intakeCity} onChange={(event) => setIntakeCity(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" /></label>
+                </div>
+                <label className="mt-5 block"><span className="font-semibold">Tell us what happened in your own words</span><textarea aria-label="Tell us what happened in your own words" value={intakeStory} onChange={(event) => setIntakeStory(event.target.value)} className="mt-2 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" /></label>
+                <button type="button" disabled={intakeProvince !== "Ontario" || !intakeCity.trim() || !intakeStory.trim()} onClick={() => { setConfirmedLocation({ province: "Ontario", city: intakeCity.trim() }); setHomeStory(intakeStory.trim()); }} className="mt-6 rounded-xl bg-[#2f7d67] px-5 py-3 font-semibold text-white disabled:bg-slate-300">Continue with {pathLabel} questions</button>
+              </>
+            )}
           </section>
         )}
 
