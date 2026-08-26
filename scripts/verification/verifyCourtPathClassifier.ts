@@ -5,10 +5,15 @@ import {
   classifyCourtPath,
   type CourtPathClassification,
 } from "../../src/lib/case-system/intelligence/courtPathClassifier";
+import { classificationScenarios } from "./scenarioRegistry";
 
 /**
- * Standalone check for the court-path classifier. The module is not wired into
- * any route yet, so this is the only thing exercising it.
+ * Check for the court-path classifier. classifyCourtPath is wired into
+ * app/api/classify-court-path/route.ts, called from HomeLocationGate.tsx on
+ * every intake -- this is not the only thing exercising it, but it is the
+ * only place that proves the classification contract itself (shape,
+ * escalation cost control, out-of-scope forum handling) independent of the
+ * browser and the route.
  *
  * Runs offline by default: without RUN_COURT_PATH_CLASSIFIER_AI=1 the OpenAI
  * key is cleared, so escalated cases resolve through the keyword fallback and
@@ -309,6 +314,125 @@ async function main() {
     console.log(
       `   ${String(result.primaryPath).padEnd(14)}source=${result.source.padEnd(16)}${observation.note}`,
     );
+  }
+  console.log("");
+
+  // ---- Out-of-scope forum proof (August 2026 audit fix) -------------------
+  // Before this fix, a correctly-detected "ltb" keyword area was discarded
+  // back to "unknown" by asRoutablePath(), and the AI escalation schema had
+  // no out-of-scope option at all -- both funnelled a real tenancy dispute
+  // into a false "civil" suggestion. These assert the fix on both the free
+  // keyword-only path and the AI-escalated path, using the registry's
+  // canonical scenarios rather than ad hoc strings, so the same scenarios a
+  // future forum addition tests against are the ones proving this one.
+  console.log("Out-of-scope forum scenarios:");
+  for (const scenario of classificationScenarios) {
+    const result = await classifyCourtPath({
+      story: scenario.story,
+      declaredCourtPath: scenario.declaredCourtPath,
+    });
+
+    if (result.aiCalled) aiCallCount += 1;
+
+    console.log(`   [${scenario.id}] ${describe(result)}`);
+    console.log(`      reasoning: ${result.reasoning}`);
+
+    if (scenario.expected.kind === "out-of-scope") {
+      const isEscalationScenario = scenario.story.length > 320;
+
+      // A keyword-only scenario (<=320 chars) must resolve correctly on its
+      // own, offline or live -- that's the whole point of that half of each
+      // forum's pair. An escalation scenario is deliberately written to need
+      // the model's understanding, so offline (no key, no model call) it
+      // falls back through keywordOnlyResult with no guarantee the keyword
+      // stage alone can land on the specific forum -- that's expected, not a
+      // bug, and it's asserted for real only when the model actually ran.
+      if (!isEscalationScenario || LIVE_AI) {
+        assert.equal(
+          result.primaryPath,
+          "out-of-scope",
+          `${scenario.id}: expected out-of-scope, got ${result.primaryPath}`,
+        );
+        assert.equal(
+          result.outOfScopeForum?.id,
+          scenario.expected.forum,
+          `${scenario.id}: expected forum "${scenario.expected.forum}", got ${result.outOfScopeForum?.id}`,
+        );
+        assert.ok(
+          result.outOfScopeForum?.name && result.outOfScopeForum.name !== result.outOfScopeForum.id,
+          `${scenario.id}: forum must carry its full name, not just its id -- no generic "tribunal" bucket`,
+        );
+        checks += 3;
+      }
+
+      if (LIVE_AI && isEscalationScenario) {
+        assert.equal(
+          result.source,
+          "ai",
+          `${scenario.id}: this story is long enough that it must have escalated to the model`,
+        );
+        checks += 1;
+      }
+    }
+
+    if (scenario.expected.kind === "insufficient-info") {
+      // A vague/generic/uninformative story is not evidence of belonging to
+      // any specific out-of-scope forum -- it must never resolve to
+      // "out-of-scope" regardless of which forum, and confidence must stay
+      // low enough that HomeLocationGate's SUGGESTION_CONFIDENCE_FLOOR (0.6)
+      // never surfaces a suggestion the story gives no real basis for.
+      assert.notEqual(
+        result.primaryPath,
+        "out-of-scope",
+        `${scenario.id}: a vague story must never resolve to out-of-scope (got forum ` +
+          `${result.outOfScopeForum?.id}) -- reasoning was: ${result.reasoning}`,
+      );
+      assert.ok(
+        result.confidence < 0.6,
+        `${scenario.id}: expected low confidence for a genuinely uninformative story, got ${result.confidence}`,
+      );
+      checks += 2;
+    }
+  }
+  console.log("");
+
+  // ---- Consistency: identical facts must produce identical routing --------
+  // Repeats each out-of-scope scenario CONSISTENCY_RUNS times and flags any
+  // run whose primaryPath or forum differs from the first. The keyword-only
+  // scenario is trivially deterministic (no network call, so this mostly
+  // guards against a future regression), but the AI-escalated one is the
+  // real test: temperature is already 0 in the classifier, but that had never
+  // been verified empirically against the live model until this check.
+  const CONSISTENCY_RUNS = 5;
+  console.log(`Consistency check (${CONSISTENCY_RUNS} runs per scenario):`);
+  for (const scenario of classificationScenarios) {
+    const runs: CourtPathClassification[] = [];
+    for (let i = 0; i < CONSISTENCY_RUNS; i += 1) {
+      const result = await classifyCourtPath({
+        story: scenario.story,
+        declaredCourtPath: scenario.declaredCourtPath,
+      });
+      if (result.aiCalled) aiCallCount += 1;
+      runs.push(result);
+    }
+
+    const [first, ...rest] = runs;
+    const varying = rest.filter(
+      (run) => run.primaryPath !== first.primaryPath || run.outOfScopeForum?.id !== first.outOfScopeForum?.id,
+    );
+
+    console.log(
+      `   [${scenario.id}] ${runs.map((run) => run.outOfScopeForum?.id || run.primaryPath).join(", ")}` +
+        (varying.length > 0 ? "  <-- VARIED" : "  (stable)"),
+    );
+
+    assert.equal(
+      varying.length,
+      0,
+      `${scenario.id}: routing varied across ${CONSISTENCY_RUNS} identical runs -- ` +
+        `saw ${JSON.stringify(runs.map((run) => run.outOfScopeForum?.id || run.primaryPath))}`,
+    );
+    checks += 1;
   }
   console.log("");
 

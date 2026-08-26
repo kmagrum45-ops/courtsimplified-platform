@@ -1,5 +1,7 @@
 import { expect, test } from "@playwright/test";
 
+import { grantSiteAccess } from "./harness/siteAccess";
+
 const casePartnerPlaceholder =
   "Ask about an important date, document, or case detail.";
 
@@ -11,7 +13,45 @@ async function waitForCourtPathLocationGate(page: import("@playwright/test").Pag
   await expect(page.getByTestId("court-path-location-gate-ready")).toBeVisible();
 }
 
+/**
+ * Clicks the gate's continue button, then keeps the declared path if
+ * classify-court-path suggests a different one. This is expected, correct
+ * behavior, not a bug to work around: a defamation-flavored story declared
+ * as Small Claims can legitimately read as more Civil-shaped to the
+ * classifier (confirmed directly against the live classifier, both before
+ * and independent of the August 2026 out-of-scope work), and the gate is
+ * built to surface that as a dismissible suggestion, never to force it. A
+ * synthetic test story choosing to stick with its declared path is exactly
+ * the "keep" half of that contract.
+ */
+async function continueKeepingDeclaredPath(page: import("@playwright/test").Page, pathLabel: string) {
+  await page.getByRole("button", { name: new RegExp(`Continue to ${pathLabel} intake`) }).click();
+
+  const suggestion = page.getByTestId("court-path-suggestion");
+  const outOfScope = page.getByTestId("court-path-out-of-scope");
+
+  // Neither interstitial is guaranteed to appear -- most stories agree with
+  // their declared path and navigate straight through. A short bounded wait
+  // for either, swallowed on timeout, is the only way to tell "no
+  // interstitial is coming" apart from "it just hasn't rendered yet".
+  await Promise.race([
+    suggestion.waitFor({ state: "visible", timeout: 8_000 }).catch(() => undefined),
+    outOfScope.waitFor({ state: "visible", timeout: 8_000 }).catch(() => undefined),
+  ]);
+
+  if (await suggestion.isVisible()) {
+    await page.getByTestId("court-path-suggestion-keep").click();
+  } else if (await outOfScope.isVisible()) {
+    await page.getByTestId("court-path-out-of-scope-continue").click();
+  }
+}
+
 test.beforeEach(async ({ page }) => {
+  // middleware.ts's site-wide password gate (added 2026-08-23, after this file
+  // was last touched) 401s/redirects every navigation, including this one,
+  // until the gate cookie is set -- without this, every test in this file
+  // times out waiting for a testid on a page it never actually reaches.
+  await grantSiteAccess(page);
   await page.addInitScript(() => {
     const nativeGetItem = Storage.prototype.getItem;
     Storage.prototype.getItem = function getItem(key: string) {
@@ -64,7 +104,7 @@ test("warm Small Claims builder", async ({ page, request, baseURL }) => {
       await page.getByLabel("Province or territory").selectOption("Ontario");
       await page.getByLabel("City or municipality").fill("Toronto");
       await page.getByLabel("Tell us what happened in your own words").fill("A payment was missed.");
-      await page.getByRole("button", { name: /Continue to Small Claims intake/ }).click();
+      await continueKeepingDeclaredPath(page, "Small Claims");
       await expect(page.getByLabel("Amount claimed or disputed")).toBeVisible({
         timeout: 35_000,
       });
@@ -90,7 +130,7 @@ test("Small Claims: one story reaches reviewable intake", async ({ page }) => {
     await page.getByLabel("Province or territory").selectOption("Ontario");
     await page.getByLabel("City or municipality").fill("Toronto");
     await page.getByLabel("Tell us what happened in your own words").fill(narrative);
-    await page.getByRole("button", { name: /Continue to Small Claims intake/ }).click();
+    await continueKeepingDeclaredPath(page, "Small Claims");
   });
 
   await test.step("confirm the visible Small Claims structured intake", async () => {
@@ -225,7 +265,7 @@ test("Case Partner carries confirmed Small Claims location and displays a date f
   await page.getByLabel("Province or territory").selectOption("Ontario");
   await page.getByLabel("City or municipality").fill("Ottawa");
   await page.getByLabel("Tell us what happened in your own words").fill("Synthetic alleged false text messages were communicated to two third parties.");
-  await page.getByRole("button", { name: /Continue to Small Claims intake/ }).click();
+  await continueKeepingDeclaredPath(page, "Small Claims");
   await page.getByLabel("Your role").selectOption("Plaintiff / claimant");
   await page.getByRole("button", { name: "Plaintiff’s Claim already filed / served" }).click();
   await page.getByRole("button", { name: "Affidavit of Service filed with the court" }).click();

@@ -163,6 +163,15 @@ function baseScenario(area: CourtPath, index: number): RegistryScenario {
     intentionalGaps: defaultReview ? ["Defence status"] : adultAdoption ? ["Adult person’s agreement"] : minorAdoption ? ["Child-protection circumstances"] : wrongfulDismissal ? ["Mitigation efforts (job search / re-employment status) since dismissal", "Exact corporate name and registered status of the Canadian employer of record"] : neighborInjunction ? ["Whether the neighbor disputes the boundary/survey", "Whether the tree and roots are entirely on the neighbor's property or crossing the line"] : contractorRenovation ? ["Exact agreed completion date and whether it passed before the contractor stopped responding", "Whether any written notice was given to the original contractor before hiring the second one"] : ["important date"],
     contradictions: wrongfulDismissal || neighborInjunction || contractorRenovation ? [] : index % 10 === 0 ? ["Synthetic conflicting date requires review"] : [],
     expectedPossibleIssues: [expectedIssue],
+    // FOLLOW-UP (logged, not fixed, in the August 2026 audit): wrongfulDismissal's
+    // "Has anything already been filed?" is a generic procedural fallback, not
+    // tailored to this scenario -- it shares wording with neighborInjunction only
+    // because both reused the same default rather than being written for the
+    // specific case. It should instead be rewritten to match wrongfulDismissal's own
+    // intentionalGaps above (mitigation efforts; the correct corporate defendant),
+    // which are exactly what a lawyer would ask first for a $700k+ claim and what
+    // the rendered overview currently asks neither of (see the qualityChecks.ts
+    // positive-check finding this scenario now produces).
     expectedNextQuestion: defaultReview ? "Has the defendant filed a Defence?" : adultAdoption ? "Does the adult person freely agree to the proposed adoption?" : wrongfulDismissal || neighborInjunction ? "Has anything already been filed?" : contractorRenovation ? "What evidence proves each major fact?" : "What important fact should be confirmed next?",
     expectedEvidenceGuidance: defaultReview ? ["full message threads", "sender", "recipients", "dates/context", "falsity", "harm"] : adultAdoption ? ["full legal names", "Ontario residence", "living-history", "written wishes", "biological father", "reasonable efforts", "child-protection documents"] : wrongfulDismissal ? ["employment contract and any termination clause", "compensation records (salary, bonus, benefits)", "termination and severance offer letters", "length of service and position history", "mitigation efforts since dismissal"] : neighborInjunction ? ["property survey showing the boundary and the encroachment", "photographs of the shed and the tree roots", "foundation inspection report", "correspondence with the neighbor about the encroachment and the roots"] : contractorRenovation ? ["the signed renovation contract", "proof of the deposit payment", "dated photographs of the substandard and incomplete work", "the second contractor's quote and final invoice", "any messages or emails to the original contractor after work stopped"] : ["supporting records"],
     expectedProceduralStatus: defaultReview ? ["Claim already filed and served", "Affidavit of Service recorded as filed with the court"] : filedServiceFacts,
@@ -190,3 +199,248 @@ export function generatedVariations(count = 3000) {
     return { id: `${base.id}-V${String(index + 1).padStart(4, "0")}`, baseId: base.id, seed: REGISTRY_SEED, variation, courtPath: base.courtPath, expectedWorkflowAction: base.expectedWorkflowAction, prohibitedOutputWording: base.prohibitedOutputWording };
   });
 }
+
+// ---------------------------------------------------------------------------
+// Classification scenarios: what courtPathClassifier.ts should decide before
+// an intake ever starts, not what the completed intake should say. These are
+// structurally different from RegistryScenario above (no stage, no forms, no
+// evidence) because an out-of-scope story never reaches the builder at all --
+// it's rejected at the home-page location gate. Kept in this file per the
+// August 2026 audit's requirement to register out-of-scope/mixed/insufficient
+// scenarios here, but as their own list rather than forced into
+// RegistryScenario's shape.
+//
+// All nine out-of-scope forums from the audit are now covered, each with a
+// keyword-only scenario (resolves free, no model call) and an AI-escalated
+// scenario (deliberately long enough to force the model path), per that
+// audit's priority order: LTB was built and proven first, on its own, to
+// validate the out-of-scope mechanism end to end before repeating the same
+// pattern eight more times. Genuine mixed in-scope/out-of-scope matters
+// (one story naming both an in-scope and an out-of-scope claim) remain a
+// deliberate follow-up, not an oversight -- courtPathClassifier's schema has
+// no representation for that combination yet.
+export type ClassificationExpectedOutcome =
+  | { kind: "in-scope"; courtPath: CourtPath }
+  | { kind: "mixed"; primary: CourtPath; secondary: CourtPath }
+  | { kind: "out-of-scope"; forum: string }
+  | { kind: "insufficient-info" };
+
+export type ClassificationScenario = {
+  id: string;
+  story: string;
+  declaredCourtPath: CourtPath | null;
+  expected: ClassificationExpectedOutcome;
+};
+
+export const classificationScenarios: ClassificationScenario[] = [
+  {
+    // Short enough (well under the classifier's 320-character escalation
+    // threshold) to resolve at the free keyword stage alone -- this is the
+    // path that used to silently discard a correct "ltb" detection back to
+    // "unknown" before the fix.
+    id: "CLASSIFY-OUT-OF-SCOPE-LTB-KEYWORD-001",
+    story:
+      "My landlord is trying to evict me without giving proper notice and will not fix the broken heater in my " +
+      "apartment. I want to stop the eviction and get the repairs done.",
+    declaredCourtPath: "civil",
+    expected: { kind: "out-of-scope", forum: "ltb" },
+  },
+  {
+    // Deliberately long enough to force AI escalation, so this proves the
+    // model-facing half of the fix (the schema's new out-of-scope option),
+    // not just the keyword stage.
+    id: "CLASSIFY-OUT-OF-SCOPE-LTB-ESCALATED-001",
+    story:
+      "I have lived in my rental unit for six years and always paid rent on time until this year, when I fell " +
+      "behind by two months after a medical leave from work. My landlord served me with a notice of termination " +
+      "and has now told me I have to move out by the end of the month, but I do not think the notice followed " +
+      "the proper form or gave the amount of notice the law requires, and nobody has explained what my options " +
+      "are for catching up on the rent I owe instead of losing my home. I want to know what I can do to challenge " +
+      "the eviction and stay in my apartment while I get caught up.",
+    declaredCourtPath: "civil",
+    expected: { kind: "out-of-scope", forum: "ltb" },
+  },
+  {
+    id: "CLASSIFY-OUT-OF-SCOPE-HRTO-KEYWORD-001",
+    story:
+      "My employer discriminated against me because of my disability and refused their duty to accommodate my " +
+      "medical needs at work.",
+    declaredCourtPath: "civil",
+    expected: { kind: "out-of-scope", forum: "hrto" },
+  },
+  {
+    id: "CLASSIFY-OUT-OF-SCOPE-HRTO-ESCALATED-001",
+    story:
+      "I have a documented medical disability and asked my employer for a modified schedule and an accessible " +
+      "workstation, supported by a note from my doctor. My manager refused the request, said the accommodation " +
+      "was too inconvenient for the team, and shortly afterward started giving me worse shifts and excluding me " +
+      "from meetings I used to attend. I believe I am being treated differently because of my disability and " +
+      "because I asked to be accommodated, not for any performance reason, and HR has not responded to two " +
+      "emails I sent describing what has been happening. I want to understand what my options are for raising " +
+      "this formally.",
+    declaredCourtPath: "civil",
+    expected: { kind: "out-of-scope", forum: "hrto" },
+  },
+  {
+    id: "CLASSIFY-OUT-OF-SCOPE-WSIAT-KEYWORD-001",
+    story:
+      "I was injured at work and filed a WSIB claim, but they denied my workplace injury claim and I want to " +
+      "appeal to WSIAT.",
+    declaredCourtPath: "civil",
+    expected: { kind: "out-of-scope", forum: "wsiat" },
+  },
+  {
+    id: "CLASSIFY-OUT-OF-SCOPE-WSIAT-ESCALATED-001",
+    story:
+      "I hurt my back lifting equipment at work eight months ago and reported it to my supervisor the same day. " +
+      "I filed a claim with WSIB and received benefits for the first two months, but my doctor says I am still " +
+      "not able to return to my regular duties. WSIB recently sent a decision saying my ongoing pain is not " +
+      "related to the workplace injury and cut off my benefits, even though my own doctor disagrees and has " +
+      "written a letter explaining why. I do not know how the return to work plan is supposed to account for " +
+      "restrictions my doctor has documented, and I want to challenge WSIB's decision before I run out of time " +
+      "to appeal it.",
+    declaredCourtPath: "civil",
+    expected: { kind: "out-of-scope", forum: "wsiat" },
+  },
+  {
+    id: "CLASSIFY-OUT-OF-SCOPE-CAT-KEYWORD-001",
+    story:
+      "My condominium corporation is refusing to give me copies of records I am entitled to, and I want to file " +
+      "a complaint with the Condominium Authority Tribunal.",
+    declaredCourtPath: "civil",
+    expected: { kind: "out-of-scope", forum: "cat" },
+  },
+  {
+    id: "CLASSIFY-OUT-OF-SCOPE-CAT-ESCALATED-001",
+    story:
+      "I own a unit in a condominium corporation and have asked the property manager three times over the last " +
+      "two months for copies of the reserve fund study and the minutes from the last two board meetings, which " +
+      "I understand I am entitled to as an owner. Each time I have been told the records will be sent and then " +
+      "never received anything. I am also concerned the board changed a rule about short-term rentals without " +
+      "following the proper notice and voting process required by the condominium's declaration and by-laws. I " +
+      "want to know what I can do to get the records I am owed and to challenge how the rule was changed.",
+    declaredCourtPath: "civil",
+    expected: { kind: "out-of-scope", forum: "cat" },
+  },
+  {
+    id: "CLASSIFY-OUT-OF-SCOPE-SOCIAL-BENEFITS-TRIBUNAL-KEYWORD-001",
+    story:
+      "My Ontario Disability Support Program benefits were cut off and I want to file an ODSP appeal with the " +
+      "Social Benefits Tribunal.",
+    declaredCourtPath: "civil",
+    expected: { kind: "out-of-scope", forum: "social-benefits-tribunal" },
+  },
+  {
+    id: "CLASSIFY-OUT-OF-SCOPE-SOCIAL-BENEFITS-TRIBUNAL-ESCALATED-001",
+    story:
+      "I have been receiving Ontario Disability Support Program payments for three years because of a chronic " +
+      "medical condition documented by my specialist. Last month I received a letter saying my file was reviewed " +
+      "and my benefits are being terminated because the caseworker decided my condition no longer meets the " +
+      "program's disability definition, even though nothing about my diagnosis or treatment has changed and my " +
+      "doctor's most recent report says the opposite. I rely on this support to pay for my medication and rent, " +
+      "and I do not understand how they reached this decision or what evidence they actually considered. I want " +
+      "to challenge the termination before my current payments run out.",
+    declaredCourtPath: "civil",
+    expected: { kind: "out-of-scope", forum: "social-benefits-tribunal" },
+  },
+  {
+    id: "CLASSIFY-OUT-OF-SCOPE-LAT-KEYWORD-001",
+    story:
+      "I was in a car accident and my insurer denied my accident benefits claim, so I want to file with the " +
+      "Licence Appeal Tribunal for my statutory accident benefits.",
+    declaredCourtPath: "civil",
+    expected: { kind: "out-of-scope", forum: "lat" },
+  },
+  {
+    id: "CLASSIFY-OUT-OF-SCOPE-LAT-ESCALATED-001",
+    story:
+      "I was a passenger in a car accident six months ago and have been receiving physiotherapy for a neck " +
+      "injury under my statutory accident benefits since then. My insurer recently sent an examination report " +
+      "from a doctor they arranged, concluding my treatment is no longer medically necessary, and stopped paying " +
+      "for further physiotherapy even though my own treating physiotherapist says I still need several more " +
+      "sessions to recover properly. I do not understand how one examination can override my treating provider's " +
+      "opinion, and the insurer has not explained what other benefits I might still be entitled to under my " +
+      "policy. I want to dispute the denial before my recovery is set back further.",
+    declaredCourtPath: "civil",
+    expected: { kind: "out-of-scope", forum: "lat" },
+  },
+  {
+    id: "CLASSIFY-OUT-OF-SCOPE-DIVISIONAL-COURT-KEYWORD-001",
+    story:
+      "I want to apply for judicial review of a decision made by a government tribunal, and I understand this " +
+      "goes to the Divisional Court.",
+    declaredCourtPath: "civil",
+    expected: { kind: "out-of-scope", forum: "divisional-court" },
+  },
+  {
+    id: "CLASSIFY-OUT-OF-SCOPE-DIVISIONAL-COURT-ESCALATED-001",
+    story:
+      "A municipal committee of adjustment refused my property's permit application, and I believe the " +
+      "committee breached the rules of procedural fairness before reaching its decision -- I was never given " +
+      "proper notice of the hearing date, and the written reasons contradict what was actually discussed at the " +
+      "meeting I did attend. I am not asking a court to decide whether the permit itself should be approved, or " +
+      "to substitute its own judgment for the committee's; I only want the committee's decision quashed and sent " +
+      "back because of how unfairly it was reached. I understand that reviewing a government decision-maker's " +
+      "process, rather than the merits of its decision, is a different kind of proceeding from an ordinary " +
+      "lawsuit against another person or company.",
+    declaredCourtPath: "civil",
+    expected: { kind: "out-of-scope", forum: "divisional-court" },
+  },
+  {
+    id: "CLASSIFY-OUT-OF-SCOPE-IMMIGRATION-KEYWORD-001",
+    story:
+      "I am dealing with an immigration matter and need to file a refugee claim with the Immigration and " +
+      "Refugee Board.",
+    declaredCourtPath: "civil",
+    expected: { kind: "out-of-scope", forum: "immigration" },
+  },
+  {
+    id: "CLASSIFY-OUT-OF-SCOPE-IMMIGRATION-ESCALATED-001",
+    story:
+      "I came to Canada two years ago and submitted a refugee claim based on events in my home country that I " +
+      "do not believe I can safely return to. My hearing before the Immigration and Refugee Board is scheduled " +
+      "for next month, and I have been gathering documents, country condition reports, and witness statements " +
+      "to support my claim, but I am still missing an official document from my home country that has been " +
+      "difficult to obtain from here. I also received a letter from IRCC asking for additional information " +
+      "about my travel history that I need to respond to before the hearing. I want to understand what I still " +
+      "need to prepare and how the timing works given how close the hearing date is.",
+    declaredCourtPath: "civil",
+    expected: { kind: "out-of-scope", forum: "immigration" },
+  },
+  {
+    id: "CLASSIFY-OUT-OF-SCOPE-CRIMINAL-KEYWORD-001",
+    story:
+      "I am facing criminal charges and have a bail hearing scheduled; I need help understanding the criminal " +
+      "court process.",
+    declaredCourtPath: "civil",
+    expected: { kind: "out-of-scope", forum: "criminal-related" },
+  },
+  {
+    id: "CLASSIFY-OUT-OF-SCOPE-CRIMINAL-ESCALATED-001",
+    story:
+      "I was arrested last week and have been charged with an offence I do not believe I am guilty of. I was " +
+      "released on conditions with a surety and now have a court date coming up where I understand the Crown " +
+      "attorney will present the case against me. I have never been through the criminal court process before " +
+      "and do not understand what disclosure I am supposed to receive from the prosecutor, what my conditions " +
+      "actually restrict me from doing in the meantime, or whether I should be looking for a criminal defence " +
+      "lawyer or duty counsel before my next appearance. I want to understand what happens between now and the " +
+      "court date and what I need to prepare.",
+    declaredCourtPath: "civil",
+    expected: { kind: "out-of-scope", forum: "criminal-related" },
+  },
+  {
+    // Regression guard for a real bug caught while proving the LTB fix: a
+    // totally generic, content-free story got classified "out-of-scope: ltb"
+    // at confidence 0.9 because the model treated "doesn't clearly fit
+    // family/small-claims/civil" as evidence FOR landlord-tenant, rather than
+    // as genuine uncertainty. Its own stated reasoning was "The story does
+    // not indicate a specific claim... suggesting it may pertain to
+    // landlord-tenant issues" -- confirmed live, not assumed, then fixed by
+    // requiring the prompt to cite affirmative words, not absence of fit.
+    // This must never again resolve to out-of-scope, with any forum.
+    id: "CLASSIFY-INSUFFICIENT-INFO-GENERIC-001",
+    story: "Synthetic saved facts for a focused review.",
+    declaredCourtPath: "civil",
+    expected: { kind: "insufficient-info" },
+  },
+];

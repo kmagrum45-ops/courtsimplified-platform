@@ -19,6 +19,12 @@ export type CasePartnerCourtArea =
   | "family"
   | "civil"
   | "ltb"
+  | "hrto"
+  | "wsiat"
+  | "cat"
+  | "social-benefits-tribunal"
+  | "lat"
+  | "divisional-court"
   | "immigration"
   | "criminal-related"
   | "mixed"
@@ -731,18 +737,88 @@ function extractDateSignals(message: string): string[] {
   return unique(dates);
 }
 
-function inferCourtArea(message: string): CasePartnerCourtArea {
+/**
+ * Exported for courtPathClassifier.ts, which needs this raw signal
+ * independent of buildConversationIntelligence's blended result -- see that
+ * classifier's detectFromKeywords() for why. Purely additive: no existing
+ * caller's behavior changes, this function's own logic is untouched.
+ */
+export function inferCourtArea(message: string): CasePartnerCourtArea {
   const family = countFamilyLawSignals(message);
 
+  // "rent" and "lease" were bare substrings here until this fix -- countSignals
+  // does plain .includes(), so "rent" matched inside "parent"/"different"/
+  // "currently" and "lease" matched inside "please". Confirmed live: a
+  // step-parent adoption story was classified "ltb" purely because it said
+  // "step-parent" twice. "tribunal" is dropped too -- it's not LTB-specific
+  // and would collide with every other tribunal's own keyword list added
+  // below. Every remaining term is either a whole word unlikely to appear as
+  // a substring of something unrelated, or a multi-word phrase.
   const ltb = countSignals(message, [
     "landlord",
     "tenant",
-    "rent",
     "eviction",
-    "lease",
+    "unpaid rent",
+    "rent increase",
+    "rent arrears",
+    "residential lease",
+    "rental unit",
     "locked me out",
     "ltb",
-    "tribunal",
+    "landlord and tenant board",
+  ]);
+
+  const hrto = countSignals(message, [
+    "human rights tribunal",
+    "hrto",
+    "human rights complaint",
+    "human rights code",
+    "discriminated against",
+    "discrimination based on",
+    "duty to accommodate",
+  ]);
+
+  const wsiat = countSignals(message, [
+    "wsib",
+    "wsiat",
+    "workplace safety and insurance",
+    "workplace injury claim",
+    "workers compensation",
+    "workers' compensation",
+    "injured at work",
+    "return to work plan",
+  ]);
+
+  const cat = countSignals(message, [
+    "condominium authority tribunal",
+    "condo board dispute",
+    "condominium corporation",
+    "condo corporation",
+    "condominium by-law",
+    "condo by-law",
+  ]);
+
+  const socialBenefitsTribunal = countSignals(message, [
+    "social benefits tribunal",
+    "ontario works appeal",
+    "odsp appeal",
+    "disability support appeal",
+    "social assistance appeal",
+  ]);
+
+  const lat = countSignals(message, [
+    "licence appeal tribunal",
+    "license appeal tribunal",
+    "statutory accident benefits",
+    "accident benefits claim",
+    "denied my accident benefits",
+    "auto insurance dispute",
+  ]);
+
+  const divisionalCourt = countSignals(message, [
+    "divisional court",
+    "judicial review",
+    "application for judicial review",
   ]);
 
   const smallClaims = countSignals(message, [
@@ -756,17 +832,22 @@ function inferCourtArea(message: string): CasePartnerCourtArea {
     "repair cost",
   ]);
 
+  // Bare "police"/"charges"/"criminal" were here until this fix -- all three
+  // appear constantly in ordinary family and civil stories with no criminal
+  // matter at all ("the police were called," "additional charges on my
+  // card," "not a criminal issue"). Every remaining term is a phrase
+  // specific enough that it shouldn't appear incidentally.
   const criminalRelated = countSignals(message, [
-    "crown",
-    "police",
-    "bail",
-    "arrested",
-    "charges",
-    "criminal",
+    "crown attorney",
+    "criminal charges",
+    "criminal court",
+    "bail hearing",
+    "was arrested",
+    "being detained",
     "surety",
     "release order",
-    "detained",
     "prosecutor",
+    "criminal record",
   ]);
 
   const civil = countSignals(message, [
@@ -783,16 +864,26 @@ function inferCourtArea(message: string): CasePartnerCourtArea {
     "reputation",
   ]);
 
+  // Bare "removal" was here until this fix -- it appears in ordinary civil
+  // property stories ("removal of the fence," "removal of debris") with no
+  // immigration matter at all.
   const immigration = countSignals(message, [
     "immigration",
     "refugee",
     "ircc",
-    "removal",
+    "removal order",
+    "deportation",
   ]);
 
   const scores: Array<[CasePartnerCourtArea, number]> = [
     ["family", family],
     ["ltb", ltb],
+    ["hrto", hrto],
+    ["wsiat", wsiat],
+    ["cat", cat],
+    ["social-benefits-tribunal", socialBenefitsTribunal],
+    ["lat", lat],
+    ["divisional-court", divisionalCourt],
     ["small-claims", smallClaims],
     ["criminal-related", criminalRelated],
     ["civil", civil],

@@ -1,8 +1,12 @@
 /**
- * Standalone Ontario court-path classifier.
+ * Ontario court-path classifier.
  *
- * Not wired into any route, component or engine. It is built and proved in
- * isolation first; callers are added in a later change.
+ * Wired in: app/api/classify-court-path/route.ts calls this directly, and
+ * HomeLocationGate.tsx (the home-page location gate) calls that route before
+ * every intake. The result is always shown as a dismissible suggestion --
+ * the caller decides whether to switch paths, keep their own selection, or
+ * (for an out-of-scope result) continue anyway. This module never routes or
+ * persists anything itself.
  *
  * Two-stage design, cheapest first:
  *
@@ -18,12 +22,39 @@
  *   2. An OpenAI call, only when stage 1 is genuinely ambiguous. A short story
  *      with one confident court area that does not contradict the declared
  *      path never reaches the network.
+ *
+ * Out-of-scope forums (2026-08-25 audit): before this fix, conversationIntelligenceEngine's
+ * keyword-detected out-of-scope areas were silently discarded back to
+ * "unknown" by asRoutablePath(), and the AI escalation prompt had no way to
+ * say "out of scope" at all -- both funnelled a real tenancy dispute into a
+ * false "civil" suggestion. All nine forums from the audit are now wired:
+ * ltb, hrto, wsiat, cat, social-benefits-tribunal, lat, divisional-court,
+ * immigration, criminal-related (see outOfScopeForums.ts for the redirect
+ * message each carries). LTB was built and proven first, deliberately, to
+ * validate the mechanism on one forum before repeating it eight more times --
+ * that sequencing also caught two real bugs the other eight inherit the
+ * fixes for:
+ *   1. A keyword-list precision bug: countSignals does plain substring
+ *      matching, so bare "rent" matched inside "parent"/"different" and bare
+ *      "lease" matched inside "please" -- an adult step-parent adoption story
+ *      was classified out-of-scope "ltb" purely because it said "step-parent"
+ *      twice. Every keyword list here uses whole words or multi-word phrases
+ *      specific enough not to collide with unrelated words.
+ *   2. A prompt-calibration bug: the model treated "doesn't clearly fit
+ *      family/small-claims/civil" as evidence FOR an out-of-scope forum,
+ *      rather than as genuine uncertainty -- a totally generic, content-free
+ *      story was classified out-of-scope "ltb" at 0.9 confidence, reasoning
+ *      "The story does not indicate a specific claim... suggesting it may
+ *      pertain to landlord-tenant issues." SYSTEM_PROMPT now explicitly
+ *      requires affirmative words, not absence of fit.
  */
 
 import {
   buildConversationIntelligence,
+  inferCourtArea,
   type CasePartnerCourtArea,
 } from "../ai-case-partner/conversationIntelligenceEngine";
+import { getOutOfScopeForum, type OutOfScopeForum } from "./outOfScopeForums";
 
 // The three paths CourtSimplified actually routes to. The keyword pass can
 // return other areas (ltb, immigration, criminal-related); those are reported
@@ -31,10 +62,12 @@ import {
 export type CourtPathValue = "family" | "small-claims" | "civil";
 
 export type CourtPathClassification = {
-  /** Best single court path, or "mixed"/"unknown" when no single path fits. */
-  primaryPath: CourtPathValue | "mixed" | "unknown";
+  /** Best single court path, "mixed"/"unknown", or "out-of-scope" for a different forum entirely. */
+  primaryPath: CourtPathValue | "mixed" | "unknown" | "out-of-scope";
   /** Second path when the story genuinely spans two, otherwise null. */
   secondaryPath: CourtPathValue | null;
+  /** Set only when primaryPath is "out-of-scope"; names the specific forum. */
+  outOfScopeForum: OutOfScopeForum | null;
   /** 0-1. Keyword-only results are capped; see KEYWORD_CONFIDENCE. */
   confidence: number;
   /** One short sentence. Never legal advice. */
@@ -90,6 +123,14 @@ function asRoutablePath(value: unknown): CourtPathValue | null {
   return ROUTABLE_PATHS.has(text) ? (text as CourtPathValue) : null;
 }
 
+/**
+ * A keyword area (e.g. "ltb") or a model's raw outOfScopeForum string both
+ * use the same id space, so one lookup serves both callers.
+ */
+function asOutOfScopeForum(value: unknown): OutOfScopeForum | null {
+  return getOutOfScopeForum(clean(value).toLowerCase());
+}
+
 function clampConfidence(value: unknown): number {
   const num = typeof value === "number" ? value : Number(value);
   if (!Number.isFinite(num)) return 0;
@@ -100,14 +141,36 @@ function clampConfidence(value: unknown): number {
  * Stage 1. Pure, synchronous, no network. Deliberately called WITHOUT a
  * courtContext so the returned area reflects the story alone — passing the
  * declared path in would let it colour its own verification.
+ *
+ * buildConversationIntelligence's own courtArea gives an issue framework
+ * (contract, property-damage, etc. -- all family/small-claims/civil only,
+ * with no concept of an out-of-scope forum) priority over inferCourtArea's
+ * raw result. That's the right call for the chat interface this engine also
+ * serves, where the more specific issue match should win. But it let a
+ * confident "ltb" detection get silently overridden here: a landlord/eviction
+ * story that also said "the broken heater" and "get the repairs done" hit
+ * the property-damage framework's "repair"/"broken" signals and came back
+ * "small-claims" instead (confirmed against the live engine, not assumed).
+ *
+ * Falling back to the raw keyword area is safe specifically when the blended
+ * result is one of the three in-scope paths: buildConversationIntelligence
+ * decides a genuine cross-area conflict ("mixed") or a family-relationship
+ * clarification ("unknown") before frameworks are even consulted, so those
+ * cases can never reach this branch with an in-scope blended result to begin
+ * with -- this can only fire in exactly the case that was actually broken.
  */
 function detectFromKeywords(story: string): CasePartnerCourtArea {
-  const result = buildConversationIntelligence({
+  const blended = buildConversationIntelligence({
     message: story,
     conversation: [],
-  });
+  }).conversationFocus.courtArea;
 
-  return result.conversationFocus.courtArea;
+  if (blended === "family" || blended === "small-claims" || blended === "civil") {
+    const rawArea = inferCourtArea(story);
+    if (asOutOfScopeForum(rawArea)) return rawArea;
+  }
+
+  return blended;
 }
 
 type EscalationDecision = {
@@ -163,18 +226,43 @@ function decideEscalation(args: {
 }
 
 const SYSTEM_PROMPT =
-  "You classify which Ontario court path a self-represented litigant's story belongs to. " +
+  "You classify which Ontario forum a self-represented litigant's story belongs to. " +
   "Reply with JSON only: " +
-  '{"primaryPath":"family|small-claims|civil|mixed","secondaryPath":"family|small-claims|civil|null",' +
+  '{"primaryPath":"family|small-claims|civil|mixed|out-of-scope",' +
+  '"secondaryPath":"family|small-claims|civil|null",' +
+  '"outOfScopeForum":"ltb|hrto|wsiat|cat|social-benefits-tribunal|lat|divisional-court|immigration|criminal-related|null",' +
   '"confidence":0-1,"reasoning":"one short sentence"}. ' +
-  "Decide by the relief actually being sought, not by the most prominent topic mentioned. " +
-  "A story can name one court's subject matter as background, context or motive while the " +
-  "relief the person actually wants belongs to a different court. Identify the operative claim. " +
-  "For example, a story about false statements made because of an ongoing custody case is a " +
-  "defamation claim; the custody case is only the motive, not the relief sought. " +
-  "Use mixed only when the person genuinely wants relief from more than one court path. " +
-  "State the operative claim in the reasoning. " +
-  "Do not give legal advice, cite law, or add fields.";
+  "CourtSimplified only handles Family, Small Claims, and Civil matters in the Ontario court system. The other " +
+  "nine ids are different forums entirely: ltb (Landlord and Tenant Board -- residential tenancy), hrto (Human " +
+  "Rights Tribunal of Ontario -- discrimination, protected grounds, accommodation), wsiat (workplace injury or " +
+  "workers' compensation), cat (Condominium Authority Tribunal -- condo corporation/board disputes), " +
+  "social-benefits-tribunal (Ontario Works or ODSP appeals), lat (Licence Appeal Tribunal -- statutory accident " +
+  "benefits, licensing appeals), divisional-court (judicial review of a government or tribunal decision), " +
+  "immigration (Immigration and Refugee Board, federal immigration/refugee matters), criminal-related (a " +
+  "criminal charge or criminal court process). " +
+  'Set primaryPath to "out-of-scope" and outOfScopeForum to the matching id ONLY when the story affirmatively ' +
+  "describes that forum's specific subject matter -- an explicit landlord/tenant/eviction relationship for ltb, " +
+  "an explicit discrimination/accommodation issue for hrto, an explicit workplace injury for wsiat, and so on for " +
+  "each id -- never inferred from the story's absence of an in-scope fit. Out-of-scope is never a default for an " +
+  "unclear or uninformative story. A story that is vague, generic, or simply too short to identify any specific " +
+  "claim is NOT evidence of being out-of-scope -- the mere fact that a story doesn't clearly fit family, " +
+  "small-claims, or civil does not make it landlord-tenant, or discrimination, or anything else. In that case, " +
+  "prefer whatever in-scope signal exists even if weak, and set confidence low; only use out-of-scope when you " +
+  "can point to the specific words that put it there. " +
+  "Only set outOfScopeForum when you can name a specific forum id; never as a vague catch-all, and never invent " +
+  "an id outside the list given. " +
+  "When the story is in scope, decide by the relief actually being sought, not by the most prominent topic " +
+  "mentioned. A story can name one court's subject matter as background, context or motive while the relief the " +
+  "person actually wants belongs to a different court. Identify the operative claim. For example, a story about " +
+  "false statements made because of an ongoing custody case is a defamation claim; the custody case is only the " +
+  "motive, not the relief sought. Use mixed only when the person genuinely wants relief from more than one of " +
+  "family, small-claims, or civil. " +
+  "Whether in scope or out of scope, name only the forum and the general topic -- never state that the person's " +
+  "facts satisfy any court or tribunal's legal test. State the operative claim (or the specific out-of-scope " +
+  "words that justify it) in the reasoning. " +
+  "Decide reasoning first, then set primaryPath and outOfScopeForum to exactly match what reasoning concludes -- " +
+  "if reasoning names a specific out-of-scope forum, primaryPath MUST be \"out-of-scope\" and outOfScopeForum " +
+  "MUST be that same forum's id; the two must never disagree. Do not give legal advice, cite law, or add fields.";
 
 function buildUserPrompt(args: {
   story: string;
@@ -190,6 +278,7 @@ function buildUserPrompt(args: {
 type ModelPayload = {
   primaryPath?: unknown;
   secondaryPath?: unknown;
+  outOfScopeForum?: unknown;
   confidence?: unknown;
   reasoning?: unknown;
 };
@@ -199,6 +288,24 @@ function coerceModelPayload(
   fallbackArea: CasePartnerCourtArea,
 ): Omit<CourtPathClassification, "source" | "aiCalled"> {
   const rawPrimary = clean(payload.primaryPath).toLowerCase();
+
+  if (rawPrimary === "out-of-scope") {
+    const forum = asOutOfScopeForum(payload.outOfScopeForum);
+    if (forum) {
+      return {
+        primaryPath: "out-of-scope",
+        secondaryPath: null,
+        outOfScopeForum: forum,
+        confidence: clampConfidence(payload.confidence),
+        reasoning: clean(payload.reasoning) || "No reasoning returned.",
+      };
+    }
+    // The model said out-of-scope but didn't name a forum this platform
+    // recognizes -- fall through to the ordinary in-scope handling rather
+    // than surface an out-of-scope suggestion with nothing to point the
+    // user to.
+  }
+
   const primaryPath =
     rawPrimary === "mixed"
       ? "mixed"
@@ -211,6 +318,7 @@ function coerceModelPayload(
     primaryPath,
     // A secondary equal to the primary carries no information.
     secondaryPath: secondaryPath === primaryPath ? null : secondaryPath,
+    outOfScopeForum: null,
     confidence: clampConfidence(payload.confidence),
     reasoning: clean(payload.reasoning) || "No reasoning returned.",
   };
@@ -221,6 +329,24 @@ function keywordOnlyResult(args: {
   reason: string;
   source: CourtPathClassification["source"];
 }): CourtPathClassification {
+  // A recognized out-of-scope area is a confident, final answer -- it must
+  // not fall through to "unknown" the way it did before this fix. That
+  // silent downgrade was the actual bug: a correctly-detected LTB story
+  // used to lose its answer here, then get forced into "civil" (or worse,
+  // "unknown") by callers with no other option.
+  const outOfScope = asOutOfScopeForum(args.keywordArea);
+  if (outOfScope) {
+    return {
+      primaryPath: "out-of-scope",
+      secondaryPath: null,
+      outOfScopeForum: outOfScope,
+      confidence: KEYWORD_CONFIDENCE,
+      reasoning: args.reason,
+      source: args.source,
+      aiCalled: false,
+    };
+  }
+
   const routable = asRoutablePath(args.keywordArea);
 
   const isConfident = Boolean(routable) || args.keywordArea === "mixed";
@@ -228,6 +354,7 @@ function keywordOnlyResult(args: {
   return {
     primaryPath: args.keywordArea === "mixed" ? "mixed" : (routable ?? "unknown"),
     secondaryPath: null,
+    outOfScopeForum: null,
     confidence: isConfident ? KEYWORD_CONFIDENCE : 0.3,
     reasoning: args.reason,
     source: args.source,
@@ -251,6 +378,7 @@ export async function classifyCourtPath(
     return {
       primaryPath: "unknown",
       secondaryPath: null,
+      outOfScopeForum: null,
       confidence: 0,
       reasoning: "No story text was provided.",
       source: "keyword",
