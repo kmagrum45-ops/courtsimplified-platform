@@ -1,7 +1,12 @@
 import { expect, test } from "@playwright/test";
 
+import { grantSiteAccess } from "./harness/siteAccess";
+
 test("FAM-ADOPTION-ADULT-001 shows a safe adult step-parent adoption overview", async ({ page }) => {
   test.setTimeout(30_000);
+  // middleware.ts's site-wide password gate (added 2026-08-23) 401s/redirects
+  // every navigation until this cookie is set.
+  await grantSiteAccess(page);
   await page.goto("/?path=family", { waitUntil: "domcontentloaded" });
   await page.getByTestId("court-path-location-gate-ready").waitFor({ state: "visible" });
   await page.getByLabel("Province or territory").selectOption("Ontario");

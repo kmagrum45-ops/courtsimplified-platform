@@ -1,5 +1,7 @@
 import { expect, test } from "@playwright/test";
 
+import { grantSiteAccess } from "./harness/siteAccess";
+
 const paths = [
   { path: "family", label: "Family", area: "Family Intake" },
   { path: "small-claims", label: "Small Claims", area: "Your role" },
@@ -7,6 +9,9 @@ const paths = [
 ] as const;
 
 async function begin(page: import("@playwright/test").Page, journey: typeof paths[number]) {
+  // middleware.ts's site-wide password gate (added 2026-08-23) 401s/redirects
+  // every navigation until this cookie is set.
+  await grantSiteAccess(page);
   await page.goto(`/builder?path=${journey.path}`, { waitUntil: "domcontentloaded" });
   await expect(page.getByTestId("court-path-location-gate")).toHaveCount(0);
   await page.getByLabel("Province or territory").selectOption("Ontario");
