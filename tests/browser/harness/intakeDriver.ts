@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Drives one scenario through a real intake in the browser and captures what
  * the completed case overview actually renders.
  *
@@ -8,43 +8,42 @@
  * Procedure Authority panel sat unrendered while its logic stayed green.
  */
 
+import { expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
+
+import { grantSiteAccess } from "./siteAccess";
+import { authStorageKey, mintRealTestSession } from "./realTestSession";
 
 import type { SelectedScenario } from "./scenarioSelection";
 
-/** Signed-in state and case persistence, stubbed so intakes reach the overview. */
-export async function stubAuthenticatedCase(page: Page): Promise<void> {
-  await page.addInitScript(() => {
-    const nativeGetItem = Storage.prototype.getItem;
-    Storage.prototype.getItem = function getItem(key: string) {
-      if (key.startsWith("sb-") && key.endsWith("-auth-token")) {
-        return JSON.stringify({
-          access_token: "harness-token",
-          refresh_token: "harness-refresh",
-          token_type: "bearer",
-          expires_at: 4_102_444_800,
-          user: {
-            id: "00000000-0000-4000-8000-000000000001",
-            aud: "authenticated",
-            role: "authenticated",
-            email: "harness@example.test",
-          },
-        });
-      }
-      return nativeGetItem.call(this, key);
-    };
-  });
+/**
+ * Signed-in state so intakes reach the overview on the structured-ai path,
+ * not just the fallback engine.
+ *
+ * The analyze routes call getAuthenticatedUser(request), which validates the
+ * Authorization: Bearer token directly against Supabase from the Next.js
+ * server -- a server-to-server call Playwright cannot intercept. A stub that
+ * only fakes what the browser sees (localStorage, the Supabase auth/v1/user
+ * route) leaves that server-side check with no valid token, so it was always
+ * false. This
+ * mints a real session for a dedicated harness test user instead, so the
+ * token the server validates is one Supabase itself issued.
+ *
+ * Case persistence (the cases table) is still faked: the harness runs
+ * repeatedly, including in CI, and should not write rows into the real
+ * project on every run.
+ */
+export async function authenticateRealTestUser(page: Page): Promise<void> {
+  await grantSiteAccess(page);
 
-  await page.route("**/auth/v1/user", (route) =>
-    route.fulfill({
-      status: 200,
-      json: {
-        id: "00000000-0000-4000-8000-000000000001",
-        aud: "authenticated",
-        role: "authenticated",
-        email: "harness@example.test",
-      },
-    }),
+  const { session, supabaseUrl } = await mintRealTestSession();
+  const storageKey = authStorageKey(supabaseUrl);
+
+  await page.addInitScript(
+    ({ key, value }) => {
+      window.localStorage.setItem(key, value);
+    },
+    { key: storageKey, value: JSON.stringify(session) },
   );
 
   await page.route("**/rest/v1/cases**", (route) => {
@@ -77,6 +76,9 @@ export type CapturedOverview = {
   siblingHeadingClass: string | null;
   fullOverviewText: string;
   consoleErrors: string[];
+  /** Server-reported reasoning mode from the analyze route, if observed. */
+  reasoningMode: string | null;
+  serverAuthenticated: boolean | null;
 };
 
 const SUBMIT_LABEL: Record<string, RegExp> = {
@@ -121,7 +123,7 @@ async function selectRoleIfPresent(page: Page, role: string): Promise<void> {
  */
 function looksLikeSameDocument(registryFact: string, checkboxLabel: string): boolean {
   const normalize = (value: string) =>
-    value.toLowerCase().replace(/[’']/g, "'").replace(/[^a-z' ]+/g, " ").replace(/\s+/g, " ").trim();
+    value.toLowerCase().replace(/[â€™']/g, "'").replace(/[^a-z' ]+/g, " ").replace(/\s+/g, " ").trim();
 
   const factWords = new Set(normalize(registryFact).split(" ").filter((word) => word.length > 3));
   const labelWords = new Set(normalize(checkboxLabel).split(" ").filter((word) => word.length > 3));
@@ -203,7 +205,24 @@ export async function runScenario(
     siblingHeadingClass: null,
     fullOverviewText: "",
     consoleErrors,
+    reasoningMode: null,
+    serverAuthenticated: null,
   };
+
+  // The analyze routes gate the AI on authenticated && hasConfiguredServerAi()
+  // and report the outcome as reasoningMode. Without capturing it, a run that
+  // never invoked the AI is indistinguishable from one that did.
+  page.on("response", async (response) => {
+    if (!/\/api\/(small-claims|civil|family)\/analyze/.test(response.url())) return;
+    try {
+      const body = await response.json();
+      if (typeof body?.reasoningMode === "string") captured.reasoningMode = body.reasoningMode;
+      if (typeof body?.authenticated === "boolean") captured.serverAuthenticated = body.authenticated;
+    } catch {
+      // Body unreadable: leave null so the report says unobserved rather than
+      // asserting a mode that was never actually read.
+    }
+  });
 
   try {
     const facts = String(scenario.intakeFacts.facts || "A synthetic matter requires review.");
@@ -213,7 +232,13 @@ export async function runScenario(
     await page.getByLabel("Province or territory").selectOption("Ontario");
     await page.getByLabel("City or municipality").fill(city);
     await page.getByLabel("Tell us what happened in your own words").fill(facts);
-    await page.getByRole("button", { name: /Continue with .* questions/ }).click();
+    // The gate button is disabled until React has processed the province, city
+    // and story changes (app/builder/page.tsx line ~750). Clicking without
+    // waiting races the re-render, which is why one path passed and two failed.
+    const continueButton = page.getByRole("button", { name: /Continue with .* questions/ });
+    await continueButton.waitFor({ state: "visible", timeout: 30_000 });
+    await expect(continueButton).toBeEnabled({ timeout: 30_000 });
+    await continueButton.click();
 
     // Case stage exists on all three intakes and is the main axis under test.
     const stageSelect = page.getByLabel("Case stage");
@@ -263,7 +288,7 @@ export async function runScenario(
       captured.siblingHeadingClass = await sibling.getAttribute("class");
     }
   } catch (error) {
-    captured.failureReason = error instanceof Error ? error.message.split("\n")[0].slice(0, 220) : String(error);
+    captured.failureReason = error instanceof Error ? error.message.replace(/\s+/g, " ").slice(0, 900) : String(error);
   }
 
   return captured;

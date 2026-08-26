@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Scenario quality harness.
  *
  * Drives real intakes through the browser for scenarios taken from
@@ -14,7 +14,7 @@ import { writeFileSync } from "node:fs";
 
 import { test } from "@playwright/test";
 
-import { runScenario, stubAuthenticatedCase, type CapturedOverview } from "./harness/intakeDriver";
+import { runScenario, authenticateRealTestUser, type CapturedOverview } from "./harness/intakeDriver";
 import { evaluateCapture, type Finding } from "./harness/qualityChecks";
 import { selectScenarios } from "./harness/scenarioSelection";
 
@@ -31,13 +31,15 @@ type Row = {
   findings: Finding[];
   confirmNextQuestion: string;
   authorityPanelRendered: boolean;
+  reasoningMode: string | null;
+  serverAuthenticated: boolean | null;
 };
 
 test("scenario quality sweep", async ({ page }) => {
   const selected = selectScenarios(BATCH);
   test.setTimeout(120_000 * Math.max(1, selected.length));
 
-  await stubAuthenticatedCase(page);
+  await authenticateRealTestUser(page);
 
   const rows: Row[] = [];
   const captures: CapturedOverview[] = [];
@@ -57,6 +59,8 @@ test("scenario quality sweep", async ({ page }) => {
       findings,
       confirmNextQuestion: capture.confirmNextQuestion.replace(/\s+/g, " ").trim().slice(0, 200),
       authorityPanelRendered: capture.authorityPanelRendered,
+      reasoningMode: capture.reasoningMode,
+      serverAuthenticated: capture.serverAuthenticated,
     });
     const status = !capture.reachedOverview ? "ERROR" : findings.length === 0 ? "CLEAN" : `${findings.length} finding(s)`;
     console.log(`[${rows.length}/${selected.length}] ${capture.scenarioId} (${capture.courtPath}/${capture.stage}) -> ${status}`);
@@ -79,6 +83,26 @@ test("scenario quality sweep", async ({ page }) => {
 
   const totalMs = rows.reduce((sum, row) => sum + row.durationMs, 0);
   console.log("\n================ SCENARIO QUALITY REPORT ================");
+
+  // A run where the AI never executed cannot support a quality verdict. The
+  // analyze routes gate cognition on `authenticated && hasConfiguredServerAi()`
+  // and report the result as reasoningMode, so a sweep can complete, render, and
+  // read CLEAN while grading the deterministic fallback engine. That is a void
+  // run, not a passing one, and it must say so before any counts are shown.
+  const reached = rows.filter((row) => row.reachedOverview);
+  const structured = reached.filter((row) => row.reasoningMode === "structured-ai");
+  const fallback = reached.filter((row) => row.reasoningMode === "deterministic-fallback");
+  if (reached.length > 0 && structured.length === 0) {
+    console.log("\n!!!!!!!!!!!!!!!! VOID RUN - NOT A QUALITY RESULT !!!!!!!!!!!!!!!!");
+    console.log(`All ${reached.length} completed scenario(s) ran on the deterministic fallback engine.`);
+    console.log("The AI never executed, so these results say nothing about AI output quality.");
+    console.log("They remain valid as a fallback-path regression check only.");
+    console.log("Cause: the analyze routes require a server-verified session; the harness stub is client-side only.");
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+  } else if (fallback.length > 0) {
+    console.log(`\n[MIXED ENGINE] ${structured.length} scenario(s) on structured-ai, ${fallback.length} on deterministic-fallback.`);
+    console.log("Compare only within an engine mode; the two are not the same system.");
+  }
   console.log(`scenarios=${rows.length}  clean=${clean.length}  withFindings=${withFindings.length}  errored=${errored.length}`);
   console.log(`total=${Math.round(totalMs / 1000)}s  mean=${Math.round(totalMs / Math.max(1, rows.length) / 100) / 10}s per scenario`);
 
@@ -97,6 +121,7 @@ test("scenario quality sweep", async ({ page }) => {
     const flag = !row.reachedOverview ? "ERROR" : row.findings.length === 0 ? "CLEAN" : "ISSUES";
     console.log(`\n[${flag}] ${row.scenarioId}  ${row.courtPath}/${row.stage}${row.stageSubstitutedFrom ? ` (registry stage "${row.stageSubstitutedFrom}" not selectable)` : ""}  ${Math.round(row.durationMs / 100) / 10}s`);
     if (row.reachedOverview) console.log(`        next question: ${row.confirmNextQuestion || "(none)"}`);
+    if (row.reachedOverview) console.log(`        engine: ${row.reasoningMode || "unobserved"}  serverAuthenticated=${row.serverAuthenticated === null ? "unobserved" : row.serverAuthenticated}`);
     for (const finding of row.findings) {
       console.log(`        - [${finding.severity}] ${finding.check}: ${finding.detail}`);
       console.log(`          family: ${finding.family}`);
