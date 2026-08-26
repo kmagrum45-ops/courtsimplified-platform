@@ -8,6 +8,7 @@ import {
 } from "../../src/lib/case-system/caseContextStorage";
 
 import { buildTimelineFromEvidence } from "../../src/lib/case-system/timelineEngine";
+import LegalInformationNotice from "../_components/LegalInformationNotice";
 
 function DashboardBox({
   title,
@@ -120,14 +121,18 @@ export default function CaseDashboardPage() {
           </div>
         </div>
 
+        <div className="mt-5">
+          <LegalInformationNotice />
+        </div>
+
         <section className="mt-8 grid gap-5 md:grid-cols-2">
           <DashboardBox
-            title="Strengths"
+            title="Points Supported by Evidence"
             items={context.strengths}
           />
 
           <DashboardBox
-            title="Weaknesses"
+            title="Gaps to Address"
             items={context.weaknesses}
           />
 

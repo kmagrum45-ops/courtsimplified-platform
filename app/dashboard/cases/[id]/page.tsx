@@ -12,6 +12,7 @@ import {
   labelDashboardPath,
   type DashboardCaseShell,
 } from "../../../../src/lib/case-system/dashboardEngine";
+import LegalInformationNotice from "../../../_components/LegalInformationNotice";
 
 type CourtPath = "family" | "small-claims" | "civil" | "unknown";
 
@@ -37,23 +38,6 @@ function completionTone(complete: boolean, warning: boolean) {
   if (complete) return "border-emerald-200 bg-emerald-50 text-emerald-800";
   if (warning) return "border-amber-200 bg-amber-50 text-amber-900";
   return "border-red-200 bg-red-50 text-red-800";
-}
-
-function intelligenceTone(level?: string) {
-  if (!level) return "border-slate-200 bg-slate-50 text-slate-700";
-  if (["very-high", "high", "ready", "manageable"].includes(level)) {
-    return "border-emerald-200 bg-emerald-50 text-emerald-800";
-  }
-  if (["medium", "elevated", "developing", "near-ready"].includes(level)) {
-    return "border-amber-200 bg-amber-50 text-amber-900";
-  }
-  return "border-red-200 bg-red-50 text-red-800";
-}
-
-function riskTone(value: number) {
-  if (value <= 0) return "text-emerald-700 bg-emerald-50 border-emerald-200";
-  if (value < 3) return "text-amber-700 bg-amber-50 border-amber-200";
-  return "text-red-700 bg-red-50 border-red-200";
 }
 
 export default function CaseWorkspacePage() {
@@ -207,6 +191,10 @@ export default function CaseWorkspacePage() {
             </div>
           </div>
         </section>
+
+        <div className="mt-6">
+          <LegalInformationNotice />
+        </div>
 
         <section className="mt-8 rounded-3xl border border-[#d7e7e5] bg-white p-7 shadow-sm">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
@@ -387,160 +375,63 @@ export default function CaseWorkspacePage() {
         <section className="mt-8 rounded-3xl border border-[#d7e7e5] bg-white p-7 shadow-sm">
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-[#2FB8AC]">
-              Intelligence Layer
+              Case Organization
             </p>
             <h2 className="mt-2 text-2xl font-bold">
-              Litigation Intelligence Matrix
+              Sources and consistency
             </h2>
             <p className="mt-2 max-w-4xl text-sm leading-6 text-[#4B5563]">
-              These panels expose the authority, contradiction, credibility, and
-              risk intelligence produced by the core CourtSimplified pipeline.
+              This shows which cited sources and which recorded facts may need
+              a closer look before the case materials are finalized.
             </p>
           </div>
 
-          <div className="mt-6 grid gap-5 lg:grid-cols-3">
-            <div
-              className={`rounded-3xl border p-6 shadow-sm ${intelligenceTone(
-                authority?.authorityReadiness,
-              )}`}
-            >
-              <p className="text-sm font-semibold uppercase tracking-wide">
-                Authority Intelligence
+          <div className="mt-6 grid gap-5 lg:grid-cols-2">
+            <div className="rounded-3xl border border-[#d7e7e5] bg-[#f8fcfb] p-6 shadow-sm">
+              <p className="text-sm font-semibold uppercase tracking-wide text-[#16302b]">
+                Sources cited
               </p>
-              <h3 className="mt-2 text-2xl font-bold">
-                {authority?.authorityReadiness || "not available"}
-              </h3>
 
               <div className="mt-5 grid gap-3 text-sm">
-                <div className="flex justify-between rounded-2xl bg-white/60 p-3">
-                  <span>Strong authorities</span>
+                <div className="flex justify-between rounded-2xl bg-white p-3">
+                  <span>Cited</span>
                   <span className="font-bold">
                     {authority?.strongestAuthorityCount ?? 0}
                   </span>
                 </div>
-                <div className="flex justify-between rounded-2xl bg-white/60 p-3">
-                  <span>Unsafe citations</span>
+                <div className="flex justify-between rounded-2xl bg-white p-3">
+                  <span>To review</span>
                   <span className="font-bold">
-                    {authority?.unsafeAuthorityCount ?? 0}
-                  </span>
-                </div>
-                <div className="flex justify-between rounded-2xl bg-white/60 p-3">
-                  <span>Wrong jurisdiction</span>
-                  <span className="font-bold">
-                    {authority?.wrongJurisdictionAuthorityCount ?? 0}
+                    {(authority?.unsafeAuthorityCount ?? 0) +
+                      (authority?.wrongJurisdictionAuthorityCount ?? 0)}
                   </span>
                 </div>
               </div>
 
-              <p className="mt-4 text-sm leading-6">
-                {authority?.summary || "No authority analysis is available yet."}
+              <p className="mt-4 text-sm leading-6 text-[#4B5563]">
+                {authority?.summary || "No sources recorded yet."}
               </p>
             </div>
 
-            <div
-              className={`rounded-3xl border p-6 shadow-sm ${intelligenceTone(
-                contradictions?.contradictionReadiness,
-              )}`}
-            >
-              <p className="text-sm font-semibold uppercase tracking-wide">
-                Contradiction Intelligence
+            <div className="rounded-3xl border border-[#d7e7e5] bg-[#f8fcfb] p-6 shadow-sm">
+              <p className="text-sm font-semibold uppercase tracking-wide text-[#16302b]">
+                Possible inconsistencies
               </p>
-              <h3 className="mt-2 text-2xl font-bold">
-                {contradictions?.contradictionReadiness || "not available"}
-              </h3>
 
               <div className="mt-5 grid gap-3 text-sm">
-                <div className="flex justify-between rounded-2xl bg-white/60 p-3">
-                  <span>Critical findings</span>
+                <div className="flex justify-between rounded-2xl bg-white p-3">
+                  <span>Flagged for review</span>
                   <span className="font-bold">
-                    {contradictions?.criticalFindings ?? 0}
-                  </span>
-                </div>
-                <div className="flex justify-between rounded-2xl bg-white/60 p-3">
-                  <span>High findings</span>
-                  <span className="font-bold">
-                    {contradictions?.highFindings ?? 0}
+                    {(contradictions?.criticalFindings ?? 0) +
+                      (contradictions?.highFindings ?? 0)}
                   </span>
                 </div>
               </div>
 
-              <p className="mt-4 text-sm leading-6">
-                {contradictions?.summary ||
-                  "No contradiction analysis is available yet."}
+              <p className="mt-4 text-sm leading-6 text-[#4B5563]">
+                {contradictions?.summary || "No inconsistencies flagged yet."}
               </p>
             </div>
-
-            <div
-              className={`rounded-3xl border p-6 shadow-sm ${intelligenceTone(
-                credibility?.credibilityReadiness,
-              )}`}
-            >
-              <p className="text-sm font-semibold uppercase tracking-wide">
-                Credibility Intelligence
-              </p>
-              <h3 className="mt-2 text-2xl font-bold">
-                {credibility?.overallLevel || "not available"}
-              </h3>
-
-              <div className="mt-5 grid gap-3 text-sm">
-                <div className="flex justify-between rounded-2xl bg-white/60 p-3">
-                  <span>Judge concern</span>
-                  <span className="font-bold">
-                    {credibility?.judgeConcernScore ?? 0}
-                  </span>
-                </div>
-                <div className="flex justify-between rounded-2xl bg-white/60 p-3">
-                  <span>Cross-exam risk</span>
-                  <span className="font-bold">
-                    {credibility?.crossExaminationRiskScore ?? 0}
-                  </span>
-                </div>
-                <div className="flex justify-between rounded-2xl bg-white/60 p-3">
-                  <span>Settlement pressure</span>
-                  <span className="font-bold">
-                    {credibility?.settlementPressureScore ?? 0}
-                  </span>
-                </div>
-              </div>
-
-              <p className="mt-4 text-sm leading-6">
-                {credibility?.summary ||
-                  "No credibility analysis is available yet."}
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {[
-              {
-                label: "Unsafe Citations",
-                value: authority?.unsafeAuthorityCount ?? 0,
-              },
-              {
-                label: "Wrong Jurisdiction",
-                value: authority?.wrongJurisdictionAuthorityCount ?? 0,
-              },
-              {
-                label: "Critical Contradictions",
-                value: contradictions?.criticalFindings ?? 0,
-              },
-              {
-                label: "High Contradictions",
-                value: contradictions?.highFindings ?? 0,
-              },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className={`rounded-3xl border p-5 shadow-sm ${riskTone(
-                  item.value,
-                )}`}
-              >
-                <p className="text-sm font-semibold uppercase tracking-wide">
-                  {item.label}
-                </p>
-                <p className="mt-3 text-4xl font-bold">{item.value}</p>
-              </div>
-            ))}
           </div>
         </section>
 
@@ -628,7 +519,7 @@ export default function CaseWorkspacePage() {
           </div>
 
           <div className="rounded-3xl border border-[#d7e7e5] bg-white p-7 shadow-sm">
-            <h2 className="text-xl font-bold">Likely Other Side Arguments</h2>
+            <h2 className="text-xl font-bold">Points the Other Side May Raise</h2>
 
             <ul className="mt-4 space-y-2 text-sm text-[#4B5563]">
               {master.strategy.likelyOtherSideArguments
@@ -639,14 +530,15 @@ export default function CaseWorkspacePage() {
 
               {master.strategy.likelyOtherSideArguments.length === 0 ? (
                 <li>
-                  • Add more facts and evidence to generate attack analysis.
+                  • Add more facts and evidence so this section can list
+                  points to prepare for.
                 </li>
               ) : null}
             </ul>
           </div>
 
           <div className="rounded-3xl border border-[#d7e7e5] bg-white p-7 shadow-sm">
-            <h2 className="text-xl font-bold">Judge-Facing Concerns</h2>
+            <h2 className="text-xl font-bold">Questions to Be Ready to Answer</h2>
 
             <ul className="mt-4 space-y-2 text-sm text-[#4B5563]">
               {master.strategy.likelyJudgeConcerns.slice(0, 6).map((item) => (
@@ -655,8 +547,8 @@ export default function CaseWorkspacePage() {
 
               {master.strategy.likelyJudgeConcerns.length === 0 ? (
                 <li>
-                  • Continue strategy review so the system can flag what a
-                  judge may focus on.
+                  • Continue adding case details so this section can list
+                  questions to prepare for.
                 </li>
               ) : null}
             </ul>

@@ -18,6 +18,7 @@ import {
 import { getRawEvidenceReadyForAssemblyLocal } from "../../src/lib/case-system/rawEvidenceStorage";
 import { saveEvidencePackageLocal } from "../../src/lib/case-system/evidenceStorage";
 import { saveCaseContextLocal } from "../../src/lib/case-system/caseContextStorage";
+import LegalInformationNotice from "../_components/LegalInformationNotice";
 import { supabase } from "../../src/lib/supabase/client";
 
 type CourtPath = "family" | "small-claims" | "civil" | "unknown";
@@ -481,6 +482,10 @@ function EvidencePageContent() {
             </div>
           </div>
 
+          <div className="mt-5">
+            <LegalInformationNotice />
+          </div>
+
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href={workspaceHref}
@@ -717,7 +722,7 @@ function EvidencePageContent() {
                   items={analysis.relatedIssues}
                 />
 
-                <AnalysisBox title="Strengths" items={analysis.strengths} />
+                <AnalysisBox title="What This Supports" items={analysis.strengths} />
 
                 <AnalysisBox
                   title="Missing information"
@@ -740,7 +745,7 @@ function EvidencePageContent() {
                 />
 
                 <AnalysisBox
-                  title="Suggested fixes"
+                  title="What to Gather"
                   items={analysis.suggestedFixes}
                 />
 
@@ -828,12 +833,12 @@ function EvidencePageContent() {
 
             <div className="mt-5 grid gap-4 md:grid-cols-2">
               <AnalysisBox
-                title="Bundle strengths"
+                title="Points Supported by Evidence"
                 items={bundleAnalysis.strengths}
               />
 
               <AnalysisBox
-                title="Bundle weaknesses"
+                title="Gaps to Address"
                 items={bundleAnalysis.weaknesses}
               />
 
@@ -873,10 +878,6 @@ function EvidencePageContent() {
                     <span className="rounded-full bg-[#e6f3ee] px-3 py-1 text-xs font-semibold uppercase text-[#2f7d67]">
                       {relationship.type.replaceAll("_", " ")}
                     </span>
-
-                    <span className="rounded-full bg-[#f0f4f2] px-3 py-1 text-xs font-semibold text-[#49635c]">
-                      Severity: {relationship.severity}
-                    </span>
                   </div>
 
                   <p className="mt-3 text-sm text-[#24463d]">
@@ -886,7 +887,7 @@ function EvidencePageContent() {
                   {relationship.suggestedFix && (
                     <div className="mt-3 rounded-2xl border border-[#d8e6df] bg-white p-3">
                       <p className="text-sm font-semibold text-[#10231f]">
-                        Suggested fix
+                        What Would Help
                       </p>
 
                       <p className="mt-1 text-sm text-[#49635c]">

@@ -10,6 +10,7 @@ import {
   loadWorkflowCaseBundle,
   resolveWorkflowGate,
 } from "../../src/lib/case-system/workflowCaseLoader";
+import LegalInformationNotice from "../_components/LegalInformationNotice";
 
 type EvidencePackage = {
   createdAt: string;
@@ -104,18 +105,6 @@ function buildWorkflowHref(route: string, caseId?: string, path?: string) {
   return query ? `${route}?${query}` : route;
 }
 
-function getReadinessTone(score: number) {
-  if (score >= 80) return "border-emerald-200 bg-emerald-50 text-emerald-800";
-  if (score >= 50) return "border-amber-200 bg-amber-50 text-amber-900";
-  return "border-red-200 bg-red-50 text-red-800";
-}
-
-function getReadinessLabel(score: number) {
-  if (score >= 80) return "Courtroom organized";
-  if (score >= 50) return "Needs review";
-  return "Needs repair";
-}
-
 function TrialPackagePageContent() {
   const searchParams = useSearchParams();
 
@@ -193,33 +182,50 @@ function TrialPackagePageContent() {
     }));
   }, [evidencePackage]);
 
-  const readinessScore = useMemo(() => {
-    let score = 30;
-
-    if (caseData?.analysis?.summary || caseData?.facts) score += 10;
-    if ((caseData?.analysis?.detectedIssues || []).length > 0) score += 10;
-    if ((caseData?.analysis?.caseStrategy || []).length > 0) score += 10;
-    if ((caseData?.analysis?.opposingArguments || []).length > 0) score += 10;
-    if ((caseData?.analysis?.courtConcerns || []).length > 0) score += 5;
-
-    if (evidencePackage?.exhibitCount) score += 10;
-    if (evidencePackage?.exhibitCount && confirmedExhibits > 0) score += 10;
-    if (
-      evidencePackage?.exhibitCount &&
-      confirmedExhibits === evidencePackage.exhibitCount
-    ) {
-      score += 5;
-    }
-
-    const riskCount =
-      (evidencePackage?.evidenceReview?.risks || []).length +
-      (evidencePackage?.evidenceReview?.weaknesses || []).length +
-      (caseData?.analysis?.missingEvidence || []).length;
-
-    score -= Math.min(riskCount * 5, 25);
-
-    return Math.max(0, Math.min(100, score));
+  // Plain completion tracking, not a merit score: each item is either
+  // present or it isn't, and nothing here is weighted by risk or graded by
+  // strength. The previous version subtracted points per flagged risk,
+  // which turned "have you organized this yet" into a judgment about how
+  // good the case is.
+  const preparationChecklist = useMemo(() => {
+    return [
+      {
+        label: "Case summary recorded",
+        done: Boolean(caseData?.analysis?.summary || caseData?.facts),
+      },
+      {
+        label: "Issues identified",
+        done: (caseData?.analysis?.detectedIssues || []).length > 0,
+      },
+      {
+        label: "Strategy notes recorded",
+        done: (caseData?.analysis?.caseStrategy || []).length > 0,
+      },
+      {
+        label: "Opposing arguments considered",
+        done: (caseData?.analysis?.opposingArguments || []).length > 0,
+      },
+      {
+        label: "Court concerns considered",
+        done: (caseData?.analysis?.courtConcerns || []).length > 0,
+      },
+      {
+        label: "Exhibits added",
+        done: Boolean(evidencePackage?.exhibitCount),
+      },
+      {
+        label: "All exhibits confirmed",
+        done: Boolean(
+          evidencePackage?.exhibitCount &&
+            confirmedExhibits === evidencePackage.exhibitCount,
+        ),
+      },
+    ];
   }, [caseData, evidencePackage, confirmedExhibits]);
+
+  const completedChecklistCount = preparationChecklist.filter(
+    (item) => item.done,
+  ).length;
 
   const readinessWarnings = useMemo(() => {
     const warnings: string[] = [];
@@ -315,19 +321,19 @@ function TrialPackagePageContent() {
               </p>
             </div>
 
-            <div
-              className={`rounded-2xl border p-4 text-sm ${getReadinessTone(
-                readinessScore,
-              )}`}
-            >
-              <p className="font-semibold">Trial Readiness</p>
+            <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm">
+              <p className="font-semibold">Preparation Checklist</p>
 
-              <p className="mt-2 text-2xl font-bold">{readinessScore}%</p>
-
-              <p className="mt-1 font-semibold">
-                {getReadinessLabel(readinessScore)}
+              <p className="mt-2 text-2xl font-bold">
+                {completedChecklistCount} of {preparationChecklist.length}
               </p>
+
+              <p className="mt-1 text-[#4d675f]">items completed</p>
             </div>
+          </div>
+
+          <div className="mt-4">
+            <LegalInformationNotice />
           </div>
 
           <div className="mt-6 grid gap-3 md:grid-cols-4">
@@ -502,15 +508,15 @@ function TrialPackagePageContent() {
         </Section>
 
         <Section
-          title="Evidence strengths"
-          description="These points should be emphasized if they are supported by reliable proof."
+          title="Evidence Connected to Your Case"
+          description="These points are supported by the evidence recorded so far."
         >
           <BulletList items={evidencePackage?.evidenceReview?.strengths} />
         </Section>
 
         <Section
-          title="Evidence weaknesses and repair items"
-          description="These are areas the other side may attack or the court may question."
+          title="Evidence Gaps to Address"
+          description="These are areas the other side may question, or where more proof would help."
         >
           <BulletList
             items={[
@@ -523,14 +529,14 @@ function TrialPackagePageContent() {
         </Section>
 
         <Section
-          title="Possible opposing attacks"
+          title="Points the Other Side May Raise"
           description="Prepare short, factual responses to the arguments the other side may make."
         >
           <BulletList items={caseData?.analysis?.opposingArguments} />
         </Section>
 
         <Section
-          title="Possible judge concerns"
+          title="Questions to Be Ready to Answer"
           description="This helps the user prepare for the questions or concerns a judge may raise."
         >
           <BulletList items={caseData?.analysis?.courtConcerns} />
@@ -584,7 +590,7 @@ function TrialPackagePageContent() {
               "All important evidence printed or saved in an accessible format.",
               "Damages calculations prepared where damages are claimed.",
               "Timeline reviewed and verified.",
-              "Weaknesses reviewed before court.",
+              "Evidence gaps reviewed before court.",
               "Opposing arguments anticipated.",
               "Important messages, contracts, records, and documents prepared.",
               "Witnesses identified if applicable.",

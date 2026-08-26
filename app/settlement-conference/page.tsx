@@ -14,6 +14,7 @@ import {
   loadDraftWorkflowBundle,
   loadWorkflowCaseBundle,
 } from "../../src/lib/case-system/workflowCaseLoader";
+import LegalInformationNotice from "../_components/LegalInformationNotice";
 
 type EvidencePackage = {
   createdAt: string;
@@ -106,24 +107,6 @@ function buildWorkflowHref(route: string, caseId?: string, path?: string) {
   return query ? `${route}?${query}` : route;
 }
 
-function getConferenceTone(score: number) {
-  if (score >= 80) {
-    return "border-emerald-200 bg-emerald-50 text-emerald-800";
-  }
-
-  if (score >= 50) {
-    return "border-amber-200 bg-amber-50 text-amber-900";
-  }
-
-  return "border-red-200 bg-red-50 text-red-800";
-}
-
-function getConferenceLabel(score: number) {
-  if (score >= 80) return "Conference prepared";
-  if (score >= 50) return "Needs conference review";
-  return "Needs major preparation";
-}
-
 function SettlementConferencePageContent() {
   const searchParams = useSearchParams();
 
@@ -195,32 +178,47 @@ function SettlementConferencePageContent() {
     ).length;
   }, [evidencePackage]);
 
-  const conferenceScore = useMemo(() => {
-    let score = 35;
-
-    if (caseData?.analysis?.summary || caseData?.facts) score += 10;
-    if ((caseData?.analysis?.detectedIssues || []).length > 0) score += 10;
-    if ((caseData?.analysis?.caseStrategy || []).length > 0) score += 10;
-    if ((caseData?.analysis?.opposingArguments || []).length > 0) score += 10;
-    if ((caseData?.analysis?.courtConcerns || []).length > 0) score += 5;
-
-    if (evidencePackage?.exhibitCount) score += 10;
-
-    if (
-      evidencePackage?.exhibitCount &&
-      confirmedExhibits === evidencePackage.exhibitCount
-    ) {
-      score += 10;
-    }
-
-    const penalties =
-      (caseData?.analysis?.missingEvidence || []).length +
-      (evidencePackage?.evidenceReview?.weaknesses || []).length;
-
-    score -= Math.min(penalties * 5, 30);
-
-    return Math.max(0, Math.min(100, score));
+  // Plain completion tracking, not a merit score -- see the identical note
+  // in trial-package/page.tsx. Nothing here is weighted by risk.
+  const preparationChecklist = useMemo(() => {
+    return [
+      {
+        label: "Case summary recorded",
+        done: Boolean(caseData?.analysis?.summary || caseData?.facts),
+      },
+      {
+        label: "Issues identified",
+        done: (caseData?.analysis?.detectedIssues || []).length > 0,
+      },
+      {
+        label: "Strategy notes recorded",
+        done: (caseData?.analysis?.caseStrategy || []).length > 0,
+      },
+      {
+        label: "Opposing arguments considered",
+        done: (caseData?.analysis?.opposingArguments || []).length > 0,
+      },
+      {
+        label: "Court concerns considered",
+        done: (caseData?.analysis?.courtConcerns || []).length > 0,
+      },
+      {
+        label: "Exhibits added",
+        done: Boolean(evidencePackage?.exhibitCount),
+      },
+      {
+        label: "All exhibits confirmed",
+        done: Boolean(
+          evidencePackage?.exhibitCount &&
+            confirmedExhibits === evidencePackage.exhibitCount,
+        ),
+      },
+    ];
   }, [caseData, evidencePackage, confirmedExhibits]);
+
+  const completedChecklistCount = preparationChecklist.filter(
+    (item) => item.done,
+  ).length;
 
   const settlementStrengths = [
     ...(evidencePackage?.evidenceReview?.strengths || []),
@@ -329,21 +327,19 @@ function SettlementConferencePageContent() {
               </p>
             </div>
 
-            <div
-              className={`rounded-2xl border p-4 text-sm ${getConferenceTone(
-                conferenceScore,
-              )}`}
-            >
-              <p className="font-semibold">Conference Readiness</p>
+            <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm">
+              <p className="font-semibold">Preparation Checklist</p>
 
               <p className="mt-2 text-2xl font-bold">
-                {conferenceScore}%
+                {completedChecklistCount} of {preparationChecklist.length}
               </p>
 
-              <p className="mt-1 font-semibold">
-                {getConferenceLabel(conferenceScore)}
-              </p>
+              <p className="mt-1 text-[#4d675f]">items completed</p>
             </div>
+          </div>
+
+          <div className="mt-4">
+            <LegalInformationNotice />
           </div>
 
           <div className="mt-6 grid gap-3 md:grid-cols-4">
@@ -475,36 +471,36 @@ function SettlementConferencePageContent() {
         </Section>
 
         <Section
-          title="Settlement Strengths"
-          description="These are likely the strongest points supporting the user’s position."
+          title="Points Supported by Evidence"
+          description="These points are supported by the evidence and strategy notes recorded so far."
         >
           <BulletList items={settlementStrengths} />
         </Section>
 
         <Section
-          title="Settlement Risks and Weaknesses"
-          description="These are the areas the defence or judge may focus on during settlement discussions."
+          title="Gaps to Address"
+          description="These are areas the other side may raise, or where more proof would help."
         >
           <BulletList items={settlementWeaknesses} />
         </Section>
 
         <Section
-          title="Negotiation Pressure Points"
-          description="These are the realistic pressure points likely to arise during conference discussions."
+          title="Points to Prepare For"
+          description="Points that may come up during the conference discussion, organized by where they come from."
         >
           <BulletList items={negotiationPressurePoints} />
         </Section>
 
         <Section
-          title="Possible Defence Arguments"
+          title="Points the Other Side May Raise"
           description="Prepare short, fact-based responses to the likely arguments the other side may raise."
         >
           <BulletList items={caseData?.analysis?.opposingArguments} />
         </Section>
 
         <Section
-          title="Possible Judge Concerns"
-          description="Judges at conferences often focus on weak proof, missing evidence, practicality, and settlement realism."
+          title="Questions to Be Ready to Answer"
+          description="This helps you prepare for questions a judge may ask at the conference."
         >
           <BulletList items={caseData?.analysis?.courtConcerns} />
         </Section>

@@ -13,6 +13,7 @@ import {
   buildLitigationStrategyReport,
   type LitigationStrategyReport,
 } from "../../src/lib/case-system/litigationStrategyEngine";
+import LegalInformationNotice from "../_components/LegalInformationNotice";
 
 function StrategyBox({
   title,
@@ -53,66 +54,6 @@ function getPathLabel(path: string | undefined) {
   if (path === "small-claims") return "Small Claims";
   if (path === "civil") return "Civil";
   return "Unknown";
-}
-
-function riskTone(risk: string) {
-  const value = risk.toLowerCase();
-
-  if (
-    value.includes("high") ||
-    value.includes("critical") ||
-    value.includes("serious")
-  ) {
-    return "border-red-200 bg-red-50 text-red-800";
-  }
-
-  if (
-    value.includes("medium") ||
-    value.includes("moderate") ||
-    value.includes("mixed")
-  ) {
-    return "border-amber-200 bg-amber-50 text-amber-900";
-  }
-
-  return "border-emerald-200 bg-emerald-50 text-emerald-800";
-}
-
-function buildStrategyReadiness(report: LitigationStrategyReport) {
-  const highRiskWeaknesses = report.weaknesses.filter((weakness) =>
-    weakness.riskLevel.toLowerCase().includes("high"),
-  );
-
-  const totalConcerns =
-    report.weaknesses.length +
-    report.missingEvidence.length +
-    report.timelineConcerns.length +
-    report.proceduralConcerns.length +
-    report.judicialConcerns.length;
-
-  if (highRiskWeaknesses.length > 0 || totalConcerns >= 8) {
-    return {
-      label: "Needs repair before final filing",
-      detail:
-        "The case has important proof, timeline, procedure, or judge-facing issues that should be repaired before final documents are exported.",
-      tone: "border-red-200 bg-red-50 text-red-800",
-    };
-  }
-
-  if (totalConcerns >= 3) {
-    return {
-      label: "Review before finalizing",
-      detail:
-        "The case has some strategic issues. Review the weak points and suggested fixes before moving to trial package or export.",
-      tone: "border-amber-200 bg-amber-50 text-amber-900",
-    };
-  }
-
-  return {
-    label: "Strategically organized",
-    detail:
-      "No major strategy problems are currently detected, but final review is still required before filing or court use.",
-    tone: "border-emerald-200 bg-emerald-50 text-emerald-800",
-  };
 }
 
 function LitigationStrategyPageContent() {
@@ -204,8 +145,6 @@ function LitigationStrategyPageContent() {
     );
   }
 
-  const readiness = buildStrategyReadiness(report);
-
   const totalStrategyItems =
     report.strengths.length +
     report.weaknesses.length +
@@ -235,13 +174,13 @@ function LitigationStrategyPageContent() {
               </p>
 
               <h1 className="mt-2 text-3xl font-bold">
-                Strategy Review and Attack Map
+                Strategy Review
               </h1>
 
               <p className="mt-3 max-w-3xl text-[#4d675f]">
-                CourtSimplified reviews the active case context for strengths,
-                weaknesses, missing proof, likely opposing attacks, judge-facing
-                concerns, procedural risk, and next strategic steps.
+                CourtSimplified organizes the active case context into what's
+                supported by evidence, what's missing, points the other side
+                may raise, and questions to be ready to answer.
               </p>
             </div>
 
@@ -265,22 +204,10 @@ function LitigationStrategyPageContent() {
             </div>
           </div>
 
-          <div className="mt-6 grid gap-3 md:grid-cols-4">
-            <div className={`rounded-2xl border p-4 ${riskTone(report.overallRisk)}`}>
-              <p className="text-xs font-semibold uppercase">Overall risk</p>
-              <p className="mt-1 font-semibold">{report.overallRisk}</p>
-            </div>
-
-            <div className={`rounded-2xl border p-4 ${readiness.tone}`}>
-              <p className="text-xs font-semibold uppercase">
-                Strategy readiness
-              </p>
-              <p className="mt-1 font-semibold">{readiness.label}</p>
-            </div>
-
+          <div className="mt-6 grid gap-3 md:grid-cols-2">
             <div className="rounded-2xl bg-[#f8fcfa] p-4">
               <p className="text-xs font-semibold uppercase text-[#6b8078]">
-                Weaknesses
+                Gaps identified
               </p>
               <p className="mt-1 font-semibold">{report.weaknesses.length}</p>
             </div>
@@ -293,9 +220,9 @@ function LitigationStrategyPageContent() {
             </div>
           </div>
 
-          <p className="mt-5 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm leading-6 text-[#4d675f]">
-            {readiness.detail}
-          </p>
+          <div className="mt-5">
+            <LegalInformationNotice />
+          </div>
 
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
@@ -349,19 +276,19 @@ function LitigationStrategyPageContent() {
         </section>
 
         <section className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-semibold">Strategic operating rule</h2>
+          <h2 className="text-xl font-semibold">How this page organizes your case</h2>
 
           <p className="mt-3 max-w-4xl text-[#4d675f]">
-            A strong case should not only describe what happened. It should
-            connect facts to proof, identify what is missing, anticipate the
-            other side&apos;s attack, answer judge-facing concerns, and prepare the
-            user to improve weak points before documents are finalized.
+            This page connects your facts to your evidence, shows what&apos;s
+            missing, lists points the other side may raise, and lists
+            questions you may need to answer — so you can review and prepare
+            before documents are finalized.
           </p>
 
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
               <p className="font-semibold text-[#10231f]">
-                1. Prove the elements
+                1. Connect facts to evidence
               </p>
               <p className="mt-2 text-sm leading-6 text-[#4d675f]">
                 Every claim or response needs facts and evidence tied to what
@@ -371,21 +298,21 @@ function LitigationStrategyPageContent() {
 
             <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
               <p className="font-semibold text-[#10231f]">
-                2. Answer the attack
+                2. Prepare for the other side&apos;s points
               </p>
               <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-                The system should prepare for what the other side will likely
-                deny, minimize, explain away, or use against the user.
+                This section lists points the other side may raise, so you
+                can prepare your response.
               </p>
             </div>
 
             <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
               <p className="font-semibold text-[#10231f]">
-                3. Fix before filing
+                3. Review before filing
               </p>
               <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-                Weak points should be repaired before the final package is
-                exported or used in court.
+                Review any gaps before the final package is exported or used
+                in court.
               </p>
             </div>
           </div>
@@ -422,7 +349,7 @@ function LitigationStrategyPageContent() {
         ) : null}
 
         <section className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-semibold">Strengths</h2>
+          <h2 className="text-xl font-semibold">Points Supported by Evidence</h2>
 
           {report.strengths.length > 0 ? (
             <div className="mt-5 space-y-4">
@@ -454,14 +381,14 @@ function LitigationStrategyPageContent() {
             </div>
           ) : (
             <p className="mt-3 text-sm text-[#6b8078]">
-              No major strengths detected yet. Add evidence, timeline entries,
-              and issue links so the system can identify stronger points.
+              No points connected to evidence yet. Add evidence, timeline
+              entries, and issue links so this section can list them.
             </p>
           )}
         </section>
 
         <section className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-semibold">Weaknesses and fixes</h2>
+          <h2 className="text-xl font-semibold">Gaps to Address</h2>
 
           {report.weaknesses.length > 0 ? (
             <div className="mt-5 space-y-4">
@@ -474,14 +401,6 @@ function LitigationStrategyPageContent() {
                     <span className="rounded-full bg-[#e6f3ee] px-3 py-1 text-xs font-semibold uppercase text-[#2f7d67]">
                       {weakness.category}
                     </span>
-
-                    <span
-                      className={`rounded-full border px-3 py-1 text-xs font-semibold ${riskTone(
-                        weakness.riskLevel,
-                      )}`}
-                    >
-                      Risk: {weakness.riskLevel}
-                    </span>
                   </div>
 
                   <h3 className="mt-3 font-bold">{weakness.title}</h3>
@@ -493,7 +412,7 @@ function LitigationStrategyPageContent() {
                   {weakness.suggestedFixes.length > 0 && (
                     <div className="mt-4 rounded-2xl border border-[#d8e6df] bg-white p-4">
                       <h4 className="font-semibold text-[#10231f]">
-                        Suggested fixes
+                        Ways to Address This
                       </h4>
 
                       <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-[#24463d]">
@@ -521,14 +440,14 @@ function LitigationStrategyPageContent() {
             </div>
           ) : (
             <p className="mt-3 text-sm text-[#6b8078]">
-              No major weaknesses detected yet. Continue adding proof and
-              timeline details so weaknesses can be identified before court.
+              No gaps identified yet. Continue adding proof and timeline
+              details so this section can list them before court.
             </p>
           )}
         </section>
 
         <section className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-semibold">Likely opposing arguments</h2>
+          <h2 className="text-xl font-semibold">Points the Other Side May Raise</h2>
 
           {report.opposingArguments.length > 0 ? (
             <div className="mt-5 space-y-4">
@@ -556,7 +475,7 @@ function LitigationStrategyPageContent() {
 
                     <div className="rounded-2xl border border-[#d8e6df] bg-white p-4">
                       <p className="text-sm font-semibold text-[#10231f]">
-                        Possible response
+                        Ways to Prepare a Response
                       </p>
 
                       <p className="mt-1 text-sm leading-6 text-[#49635c]">
@@ -569,13 +488,13 @@ function LitigationStrategyPageContent() {
             </div>
           ) : (
             <p className="mt-3 text-sm text-[#6b8078]">
-              No likely opposing arguments detected yet.
+              No points from the other side identified yet.
             </p>
           )}
         </section>
 
         <section className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-semibold">Judge-facing concerns</h2>
+          <h2 className="text-xl font-semibold">Questions to Be Ready to Answer</h2>
 
           {report.judicialConcerns.length > 0 ? (
             <div className="mt-5 space-y-4">
@@ -592,7 +511,7 @@ function LitigationStrategyPageContent() {
 
                   <div className="mt-4 rounded-2xl border border-[#d8e6df] bg-white p-4">
                     <p className="text-sm font-semibold text-[#10231f]">
-                      Possible solution
+                      Ways to Prepare
                     </p>
 
                     <p className="mt-1 text-sm leading-6 text-[#49635c]">
@@ -604,7 +523,7 @@ function LitigationStrategyPageContent() {
             </div>
           ) : (
             <p className="mt-3 text-sm text-[#6b8078]">
-              No judge-facing concerns detected yet.
+              No questions identified yet.
             </p>
           )}
         </section>
