@@ -4,210 +4,468 @@ import Link from "next/link";
 import { Suspense, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 
+type PrincipleCitation = {
+  sourceName: string;
+  officialUrl: string;
+  verifiedAt: string;
+  pinpoint?: string;
+};
+
 type PrincipleCard = {
-  area: string;
+  courtPath: "Small Claims Court" | "Superior Court (Civil)" | "Family Court";
   title: string;
-  plainMeaning: string;
-  courtFocus: string[];
-  proofNeeded: string[];
+  summary: string;
+  keyFacts: string[];
   workflowUse: string[];
   commonRisks: string[];
+  citations: [PrincipleCitation, ...PrincipleCitation[]];
+};
+
+const ONTARIO_COURTS_SMALL_CLAIMS_STEPS: PrincipleCitation = {
+  sourceName: "Ontario Superior Court of Justice — Steps in a Case (Small Claims Court)",
+  officialUrl:
+    "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/steps-in-a-case/",
+  verifiedAt: "2026-08-25",
+};
+
+const ONTARIO_COURTS_SMALL_CLAIMS_RESPOND: PrincipleCitation = {
+  sourceName: "Ontario Superior Court of Justice — How to Respond to a Case (Small Claims Court)",
+  officialUrl:
+    "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+  verifiedAt: "2026-08-25",
+};
+
+const ONTARIO_COURTS_SMALL_CLAIMS_DEFAULT: PrincipleCitation = {
+  sourceName: "Ontario Superior Court of Justice — Default Proceedings (Small Claims Court)",
+  officialUrl:
+    "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/default-proceedings/",
+  verifiedAt: "2026-08-25",
+};
+
+const ONTARIO_SUING_SOMEONE_SMALL_CLAIMS: PrincipleCitation = {
+  sourceName: "Ontario.ca — Suing Someone in Small Claims Court",
+  officialUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+  verifiedAt: "2026-08-25",
+  pinpoint: "monetary limit updated effective October 1, 2025",
+};
+
+const ONTARIO_GUIDE_MAKING_CLAIM: PrincipleCitation = {
+  sourceName: "Ontario.ca — Guide to Procedures in Small Claims Court: Making a Claim",
+  officialUrl:
+    "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+  verifiedAt: "2026-08-25",
+};
+
+const ONTARIO_GUIDE_SERVING_DOCUMENTS: PrincipleCitation = {
+  sourceName: "Ontario.ca — Guide to Procedures in Small Claims Court: Serving Documents",
+  officialUrl:
+    "https://www.ontario.ca/document/guide-procedures-small-claims-court/serving-documents",
+  verifiedAt: "2026-08-25",
+};
+
+const ONTARIO_GUIDE_GETTING_READY: PrincipleCitation = {
+  sourceName: "Ontario.ca — Guide to Procedures in Small Claims Court: Getting Ready for Court",
+  officialUrl:
+    "https://www.ontario.ca/document/guide-procedures-small-claims-court/getting-ready-court",
+  verifiedAt: "2026-08-25",
+};
+
+const ONTARIO_COURT_FORMS_SMALL_CLAIMS: PrincipleCitation = {
+  sourceName: "Ontario Court Services — Rules of the Small Claims Court Forms",
+  officialUrl: "https://ontariocourtforms.on.ca/en/rules-of-the-small-claims-court-forms/",
+  verifiedAt: "2026-08-25",
+};
+
+const ONTARIO_COURTS_CIVIL_STEPS: PrincipleCitation = {
+  sourceName: "Ontario Superior Court of Justice — Steps to a Civil Case",
+  officialUrl:
+    "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+  verifiedAt: "2026-08-25",
+};
+
+const ONTARIO_CIVIL_CLAIMS_GUIDE: PrincipleCitation = {
+  sourceName: "Ontario.ca — Civil Claims: Suing and Being Sued",
+  officialUrl: "https://www.ontario.ca/page/civil-claims-suing-and-being-sued",
+  verifiedAt: "2026-08-25",
+};
+
+const ONTARIO_COURT_FORMS_CIVIL: PrincipleCitation = {
+  sourceName: "Ontario Court Services — Rules of Civil Procedure Forms",
+  officialUrl: "https://ontariocourtforms.on.ca/en/rules-of-civil-procedure-forms/",
+  verifiedAt: "2026-08-25",
+};
+
+const ONTARIO_COURTS_FAMILY_STEPS: PrincipleCitation = {
+  sourceName: "Ontario Superior Court of Justice — The Steps in a Family Case",
+  officialUrl:
+    "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/family-resources-to-help-self-represented-litigants/steps/",
+  verifiedAt: "2026-08-25",
+};
+
+const ONTARIO_COURT_FORMS_FAMILY: PrincipleCitation = {
+  sourceName: "Ontario Court Services — Family Law Rules Forms",
+  officialUrl: "https://ontariocourtforms.on.ca/en/family-law-rules-forms/",
+  verifiedAt: "2026-08-25",
 };
 
 const PRINCIPLES: PrincipleCard[] = [
+  // ---- Small Claims Court ----
   {
-    area: "Civil Proof",
-    title: "Balance of Probabilities",
-    plainMeaning:
-      "In most civil cases, the court decides whether something is more likely than not.",
-    courtFocus: [
-      "Whether the story is internally consistent.",
-      "Whether documents support the facts.",
-      "Whether the explanation is more believable than the other side’s version.",
-    ],
-    proofNeeded: [
-      "Clear timeline.",
-      "Documents, messages, contracts, photos, receipts, or records.",
-      "Consistent explanation of what happened.",
+    courtPath: "Small Claims Court",
+    title: "Monetary Jurisdiction",
+    summary:
+      "Small Claims Court can only hear claims up to a set dollar limit. Claims for more than that must go to the Superior Court of Justice, unless the excess is waived.",
+    keyFacts: [
+      "The claim limit is $50,000, excluding interest and costs.",
+      "This limit increased from $35,000 effective October 1, 2025.",
+      "The minimum amount that can be appealed also rose, from $3,500 to $5,000.",
+      "A claim must generally be started within two years of the incident.",
     ],
     workflowUse: [
-      "Use Evidence to organize exhibits.",
-      "Use Strategy to identify weak proof.",
-      "Use Trial Package to prepare how the evidence will be presented.",
+      "Confirm the claim amount fits Small Claims Court before starting a case.",
+      "Use Evidence to support the dollar amount claimed.",
     ],
     commonRisks: [
-      "Assuming the court will believe facts without records.",
-      "Contradictory dates or unclear timelines.",
-      "Too much emotion and not enough proof.",
+      "Filing in the wrong court for the amount claimed.",
+      "Missing the two-year limitation period.",
     ],
+    citations: [ONTARIO_SUING_SOMEONE_SMALL_CLAIMS],
   },
   {
-    area: "Negligence",
-    title: "Duty, Breach, Causation, and Damages",
-    plainMeaning:
-      "A negligence claim usually needs responsibility, a failure of that responsibility, a connection to harm, and a real loss.",
-    courtFocus: [
-      "Whether the other party owed a legal responsibility.",
-      "What standard of conduct was expected.",
-      "Whether the failure caused the claimed loss.",
-      "Whether the harm can be proven.",
-    ],
-    proofNeeded: [
-      "Facts showing responsibility.",
-      "Evidence showing what went wrong.",
-      "Evidence connecting the conduct to the loss.",
-      "Receipts, repair records, medical records, photos, estimates, or other proof of harm.",
+    courtPath: "Small Claims Court",
+    title: "Filing a Claim",
+    summary: "Starting a Small Claims Court case requires the correct form, served on the defendant within a fixed window.",
+    keyFacts: [
+      "A claim is started with the Plaintiff's Claim (Form 7A).",
+      "Counter-claims use the Defendant's Claim (Form 10A); additional parties use Form 1A.",
+      "The claim must be served on the defendant within six months of being issued.",
     ],
     workflowUse: [
-      "Use Legal Strategy to test causation.",
-      "Use Evidence to connect each exhibit to an issue.",
-      "Use Document Workspace to draft facts in a structured way.",
+      "Use Forms to locate and complete Form 7A.",
+      "Use Evidence to organize proof of the amount and basis of the claim before filing.",
     ],
     commonRisks: [
-      "Focusing only on the bad outcome.",
-      "Weak connection between conduct and loss.",
-      "No documents proving damages.",
+      "Letting the six-month service window lapse.",
+      "Using the wrong form for the type of claim.",
     ],
+    citations: [ONTARIO_GUIDE_MAKING_CLAIM, ONTARIO_COURT_FORMS_SMALL_CLAIMS],
   },
   {
-    area: "Contracts",
-    title: "Agreement, Breach, and Loss",
-    plainMeaning:
-      "Contract disputes usually turn on what was agreed, what was not followed, and what loss resulted.",
-    courtFocus: [
-      "The wording of the agreement.",
-      "The surrounding context.",
-      "What each side did after the agreement.",
-      "Whether the claimed loss flows from the breach.",
-    ],
-    proofNeeded: [
-      "Contract or written agreement.",
-      "Emails, texts, invoices, payments, receipts, or work records.",
-      "Proof of what was promised.",
-      "Proof of what was not delivered or paid.",
+    courtPath: "Small Claims Court",
+    title: "Responding to a Claim",
+    summary: "A defendant has a short, fixed window to file a defence, with a specific form required.",
+    keyFacts: [
+      "A defendant must serve and file a Defence (Form 9A) within 20 calendar days of being served with the claim.",
+      "An Affidavit of Service (Form 8A) must be filed to show all parties were properly served.",
+      "The Defence can be filed through the Small Claims Court Submissions Online Portal or in person.",
     ],
     workflowUse: [
-      "Use Evidence to group contract records.",
-      "Use Timeline to show sequence.",
-      "Use Strategy to prepare for opposing explanations.",
+      "Use Forms to complete Form 9A before the deadline.",
+      "Use Dashboard to track the 20-day response deadline.",
     ],
     commonRisks: [
-      "No clear agreement.",
-      "Unclear payment records.",
-      "Missing proof of loss.",
+      "Missing the 20-day deadline.",
+      "Filing the Defence without an Affidavit of Service.",
     ],
+    citations: [ONTARIO_COURTS_SMALL_CLAIMS_RESPOND],
   },
   {
-    area: "Charter / Government Action",
-    title: "State Conduct and Rights Impact",
-    plainMeaning:
-      "Charter issues usually involve government conduct affecting rights, fairness, liberty, security, equality, or legal process.",
-    courtFocus: [
-      "Whether the actor was government or state-connected.",
-      "What right or legal interest was affected.",
-      "Whether the process or outcome was arbitrary, unfair, overbroad, or disproportionate.",
-      "Whether the harm is connected to the state conduct.",
-    ],
-    proofNeeded: [
-      "Government records, court documents, policies, decisions, orders, or correspondence.",
-      "Timeline of government action.",
-      "Evidence of real impact.",
-      "Clear link between state conduct and harm.",
+    courtPath: "Small Claims Court",
+    title: "If a Defence Is Not Filed",
+    summary: "Missing the defence deadline has a specific, serious procedural consequence.",
+    keyFacts: [
+      "If no defence is filed in time, the plaintiff may ask the court to note the defendant in default.",
+      "A defendant noted in default cannot file a defence or take further steps without the plaintiff's consent or the court's permission.",
+      "The plaintiff may be entitled to a judgment without the defendant's participation.",
+      "A defendant can bring a motion to set aside a default notation or judgment.",
     ],
     workflowUse: [
-      "Use Case Law for reasoning principles.",
-      "Use Legal Strategy to identify state-action weaknesses.",
-      "Use Document Workspace to avoid vague rights language.",
+      "Use Dashboard to flag cases at risk of default.",
+      "Use Legal Strategy if a default has already been noted, to assess a motion to set it aside.",
     ],
     commonRisks: [
-      "Using broad Charter language without facts.",
-      "Not identifying the government action clearly.",
-      "Not proving practical impact.",
+      "Assuming a late defence will still be accepted without consequence.",
+      "Not knowing that a motion is required to reverse a default.",
     ],
+    citations: [ONTARIO_COURTS_SMALL_CLAIMS_DEFAULT],
   },
   {
-    area: "Evidence",
-    title: "Relevance, Reliability, and Organization",
-    plainMeaning:
-      "Evidence matters when it helps prove a fact the court actually needs to decide.",
-    courtFocus: [
-      "Whether the evidence is relevant.",
-      "Whether it is reliable.",
-      "Whether it supports a disputed fact.",
-      "Whether it is organized clearly.",
-    ],
-    proofNeeded: [
-      "Exhibit labels.",
-      "Short description of what each exhibit proves.",
-      "Dates and source of each record.",
-      "Connection between evidence and legal issue.",
+    courtPath: "Small Claims Court",
+    title: "Serving Documents",
+    summary: "Different documents in a Small Claims case require different service methods and notice periods.",
+    keyFacts: [
+      "Documents can be served personally, by mail, by courier, or by email where the Rules permit.",
+      "A claim must be served within six months of issuance.",
+      "Motions require at least 7 days' notice before the hearing.",
+      "Examinations require at least 30 days' notice; witness summonses require at least 10 days' notice.",
+      "Proof of service is filed using an Affidavit of Service (Form 8A), or a Certificate of Service (Form 8B) for licensees.",
     ],
     workflowUse: [
-      "Use Evidence page to label exhibits.",
-      "Use Trial Package to sequence exhibits.",
-      "Use Court Package to assemble final materials.",
+      "Use Dashboard to track service deadlines for each document type.",
+      "Use Evidence to preserve proof of how and when service occurred.",
     ],
     commonRisks: [
-      "Uploading documents without explaining relevance.",
-      "Duplicate or disorganized exhibits.",
-      "Evidence that does not prove the issue claimed.",
+      "Using a service method the Rules do not permit for a given document.",
+      "Missing the notice period for a motion or examination.",
     ],
+    citations: [ONTARIO_GUIDE_SERVING_DOCUMENTS],
   },
   {
-    area: "Procedure",
-    title: "Forms, Deadlines, Service, and Filing",
-    plainMeaning:
-      "Even strong facts can be harmed if procedure is not followed.",
-    courtFocus: [
-      "Whether the correct forms were used.",
-      "Whether documents were served properly.",
-      "Whether deadlines were met.",
-      "Whether the court has the information it needs.",
-    ],
-    proofNeeded: [
-      "Correct court forms.",
-      "Proof of service.",
-      "Filed copies.",
-      "Deadline tracking.",
+    courtPath: "Small Claims Court",
+    title: "Evidence and Witnesses for Trial",
+    summary: "The court expects specific document deadlines and preparation before a settlement conference or trial.",
+    keyFacts: [
+      "Admissible evidence includes oral testimony, documents such as business records, expert reports, and photographs where properly identified.",
+      "Documents not already attached to the claim or defence must be served and filed at least 14 days before a settlement conference.",
+      "For trial, that deadline extends to at least 30 days before the trial date.",
+      "A List of Proposed Witnesses (Form 13A) must be served at least 14 days before the settlement conference.",
+      "Parties should bring original documents plus at least three copies to trial.",
     ],
     workflowUse: [
-      "Use Forms page for required documents.",
-      "Use Dashboard for case stage.",
-      "Use Export to review final package readiness.",
+      "Use Evidence to label and organize exhibits ahead of these deadlines.",
+      "Use Trial Package to prepare document copies and the witness list.",
     ],
     commonRisks: [
-      "Wrong form for the stage.",
-      "Missing proof of service.",
-      "Late or incomplete materials.",
+      "Serving documents or the witness list too close to the settlement conference or trial.",
+      "Bringing only one copy of a document to trial.",
     ],
+    citations: [ONTARIO_GUIDE_GETTING_READY],
   },
   {
-    area: "Damages / Remedy",
-    title: "What the Court Can Order",
-    plainMeaning:
-      "A case should clearly explain what result is being asked for and why it is supported.",
-    courtFocus: [
-      "What remedy is requested.",
-      "Whether the remedy is legally available.",
-      "Whether the amount or order is supported by evidence.",
-      "Whether the request is proportionate and clear.",
-    ],
-    proofNeeded: [
-      "Damages calculation.",
-      "Receipts, estimates, invoices, records, or other support.",
-      "Explanation of how the number was reached.",
-      "Evidence connecting the loss to the legal claim.",
+    courtPath: "Small Claims Court",
+    title: "Case Timeline",
+    summary: "A Small Claims case moves through a defined sequence of stages, each with its own deadlines.",
+    keyFacts: [
+      "The stages run: Claim, Default Proceedings (if applicable), Settlement Conference, Motions (if needed), Trial, and Enforcement.",
+      "A Request to Clerk for a trial date must generally be filed within 30 days after the settlement conference.",
+      "Motions must be served at least 7 days before the hearing and filed at least 3 days before it.",
     ],
     workflowUse: [
-      "Use Document Workspace to draft remedy request.",
-      "Use Strategy to test weakness in damages.",
-      "Use Export to verify final support.",
+      "Use Dashboard to see which stage a case is currently in.",
+      "Use Court Package to prepare stage-appropriate materials.",
     ],
     commonRisks: [
-      "Asking for an amount without calculation.",
-      "No documents supporting loss.",
-      "Remedy does not match the legal issue.",
+      "Skipping the settlement conference step by mistake.",
+      "Missing the window to request a trial date.",
     ],
+    citations: [ONTARIO_COURTS_SMALL_CLAIMS_STEPS],
+  },
+  {
+    courtPath: "Small Claims Court",
+    title: "Filing Fees",
+    summary: "Filing a claim or taking further steps has fixed government fees, which vary by how often a party files.",
+    keyFacts: [
+      "An infrequent filer pays $108 to file a claim.",
+      "A frequent filer (10 or more claims per year) pays $228 to file a claim.",
+      "Additional fees apply for judgments, trials, and motions.",
+    ],
+    workflowUse: [
+      "Use Dashboard to budget for filing and later-stage fees.",
+    ],
+    commonRisks: [
+      "Assuming filing is free.",
+      "Not budgeting for motion or trial fees later in the case.",
+    ],
+    citations: [ONTARIO_SUING_SOMEONE_SMALL_CLAIMS],
+  },
+
+  // ---- Superior Court (Civil) ----
+  {
+    courtPath: "Superior Court (Civil)",
+    title: "Starting a Claim",
+    summary: "A civil claim above the Small Claims limit is started in the Superior Court of Justice with its own form, service window, and limitation period.",
+    keyFacts: [
+      "A claim is started with a Statement of Claim (Form 14A or 14B), or a Notice of Action (Form 14C) for extra time to prepare it.",
+      "The claim must generally be served on each defendant within six months of being issued.",
+      "A claim generally cannot be started more than two years after it was discovered.",
+      "An Affidavit of Service (Form 16B) must be filed after serving defendants.",
+    ],
+    workflowUse: [
+      "Use Forms to locate the Statement of Claim form.",
+      "Use Dashboard to track the limitation period and service deadline.",
+    ],
+    commonRisks: [
+      "Missing the two-year limitation period.",
+      "Letting the six-month service window lapse.",
+    ],
+    citations: [ONTARIO_COURTS_CIVIL_STEPS, ONTARIO_CIVIL_CLAIMS_GUIDE],
+  },
+  {
+    courtPath: "Superior Court (Civil)",
+    title: "Defending a Claim",
+    summary: "A defendant in a civil claim has a form-specific deadline that can be extended once, briefly.",
+    keyFacts: [
+      "A Statement of Defence (Form 18A) must be served within the timeframe set out in Rule 18 of the Rules of Civil Procedure, which varies by where the defendant was served.",
+      "A Notice of Intent to Defend (Form 18B) gives an additional 10 days to serve and file the Statement of Defence.",
+      "An Affidavit of Service (Form 16B) must be filed with proof of service of the defence.",
+    ],
+    workflowUse: [
+      "Use Forms to complete Form 18A or the Form 18B extension.",
+      "Use Dashboard to track the Rule 18 deadline once it is confirmed for the specific case.",
+    ],
+    commonRisks: [
+      "Assuming the deadline is the same as Small Claims Court's 20 days — Rule 18 deadlines vary by how and where service occurred.",
+      "Not filing a Notice of Intent to Defend when more time is needed.",
+    ],
+    citations: [ONTARIO_COURTS_CIVIL_STEPS],
+  },
+  {
+    courtPath: "Superior Court (Civil)",
+    title: "Discovery",
+    summary: "After pleadings close, both sides must exchange documents and may examine each other under oath, on a schedule.",
+    keyFacts: [
+      "Parties must agree on a Discovery Plan within 60 days of the close of pleadings.",
+      "Each side exchanges an Affidavit of Documents (Form 30A or 30B).",
+      "Examinations for discovery are typically limited to about 7 hours per examination.",
+    ],
+    workflowUse: [
+      "Use Evidence to prepare the Affidavit of Documents.",
+      "Use Legal Strategy to plan for examinations for discovery.",
+    ],
+    commonRisks: [
+      "Missing the 60-day Discovery Plan deadline.",
+      "Incomplete document disclosure in the Affidavit of Documents.",
+    ],
+    citations: [ONTARIO_COURTS_CIVIL_STEPS],
+  },
+  {
+    courtPath: "Superior Court (Civil)",
+    title: "Mandatory Mediation",
+    summary: "In some regions, mediation is a required step before trial, on a fixed timeline.",
+    keyFacts: [
+      "Mandatory mediation applies in Toronto, Ottawa, and Windsor.",
+      "Mediation must occur within 180 days after the first defence is filed.",
+    ],
+    workflowUse: [
+      "Use Settlement Conference preparation tools if the case is in a mandatory mediation region.",
+    ],
+    commonRisks: [
+      "Not scheduling mediation within the 180-day window in a mandatory region.",
+    ],
+    citations: [ONTARIO_COURTS_CIVIL_STEPS],
+  },
+  {
+    courtPath: "Superior Court (Civil)",
+    title: "Setting Down for Trial",
+    summary: "A civil case must be actively moved toward trial or it can be dismissed for delay.",
+    keyFacts: [
+      "A pre-trial conference must be scheduled within 180 days of the case being set down for trial.",
+      "An action can be dismissed if it is not set down for trial or settled within five years of being started.",
+    ],
+    workflowUse: [
+      "Use Dashboard to track the five-year dismissal risk on older cases.",
+      "Use Trial Package once the case is set down for trial.",
+    ],
+    commonRisks: [
+      "Letting a case sit without being set down for trial or settled.",
+      "Missing the 180-day pre-trial conference window.",
+    ],
+    citations: [ONTARIO_COURTS_CIVIL_STEPS, ONTARIO_CIVIL_CLAIMS_GUIDE],
+  },
+  {
+    courtPath: "Superior Court (Civil)",
+    title: "Forms",
+    summary: "Superior Court civil cases use a distinct set of forms from Small Claims Court, organized under the Rules of Civil Procedure.",
+    keyFacts: [
+      "Forms are catalogued under Ontario Regulation 194 (Rules of Civil Procedure) and include pleadings, motion forms, and enforcement writs.",
+      "Documents can be filed in hardcopy at the court counter, and in some cases by mail, email, or through online filing portals.",
+    ],
+    workflowUse: [
+      "Use Forms to locate the correct Rules of Civil Procedure form for each stage.",
+    ],
+    commonRisks: [
+      "Using a Small Claims Court form in a Superior Court civil case, or vice versa.",
+    ],
+    citations: [ONTARIO_COURT_FORMS_CIVIL],
+  },
+
+  // ---- Family Court ----
+  {
+    courtPath: "Family Court",
+    title: "Starting a Case",
+    summary: "Most family law cases begin with a required education session before the case proceeds.",
+    keyFacts: [
+      "Attendance at a Mandatory Information Program (MIP) is required for most family law cases.",
+      "The party starting the case is the applicant; the party who receives it is the respondent.",
+    ],
+    workflowUse: [
+      "Use Dashboard to confirm MIP attendance has been arranged before other steps proceed.",
+    ],
+    commonRisks: [
+      "Proceeding with other steps before completing the required MIP session.",
+    ],
+    citations: [ONTARIO_COURTS_FAMILY_STEPS],
+  },
+  {
+    courtPath: "Family Court",
+    title: "Responding to an Application",
+    summary: "A respondent has a fixed window to answer, and the applicant then has a further, shorter window to reply.",
+    keyFacts: [
+      "An Answer (Form 10) must be served and filed within 30 days of being served with the application (60 days if the respondent lives outside Canada or the United States).",
+      "The Answer can agree or disagree with the applicant's claims, state supporting facts, and make the respondent's own requests for court orders.",
+      "If the Answer raises new claims or issues, the applicant has 10 days to serve and file a Reply (Form 10A).",
+    ],
+    workflowUse: [
+      "Use Forms to complete Form 10 or Form 10A.",
+      "Use Dashboard to track the 30-day or 10-day response window.",
+    ],
+    commonRisks: [
+      "Missing the 30-day deadline to answer.",
+      "Not replying within 10 days to new claims raised in an Answer.",
+    ],
+    citations: [ONTARIO_COURTS_FAMILY_STEPS],
+  },
+  {
+    courtPath: "Family Court",
+    title: "Conferences",
+    summary: "A family case moves through a sequence of court conferences before any trial.",
+    keyFacts: [
+      "The sequence generally runs: First Appearance, Case Conference, Settlement Conference, and (if unresolved) a Trial Scheduling and Management Conference, then Trial.",
+      "At First Appearance, the court clerk checks that documents are complete and properly served.",
+      "The Case Conference and Settlement Conference are opportunities to narrow or resolve disputed issues before trial.",
+    ],
+    workflowUse: [
+      "Use Settlement Conference preparation tools ahead of each conference stage.",
+      "Use Dashboard to see which conference stage the case has reached.",
+    ],
+    commonRisks: [
+      "Arriving at a conference without documents properly served or filed.",
+      "Treating a Case Conference as optional.",
+    ],
+    citations: [ONTARIO_COURTS_FAMILY_STEPS],
+  },
+  {
+    courtPath: "Family Court",
+    title: "Motions",
+    summary: "Bringing a family court motion has its own notice rules, including an emergency exception.",
+    keyFacts: [
+      "Motions generally require at least 1 day's notice, unless emergency circumstances apply.",
+      "An emergency motion may be brought without notice, but the case must return to court within 14 days.",
+    ],
+    workflowUse: [
+      "Use Legal Strategy to assess whether a motion, including an emergency motion, is appropriate.",
+    ],
+    commonRisks: [
+      "Bringing an emergency motion without a genuine emergency.",
+      "Missing the 14-day return date after an emergency motion.",
+    ],
+    citations: [ONTARIO_COURTS_FAMILY_STEPS],
+  },
+  {
+    courtPath: "Family Court",
+    title: "Forms",
+    summary: "Family Court uses its own set of forms under the Family Law Rules, distinct from civil or Small Claims forms.",
+    keyFacts: [
+      "Forms are catalogued under the Family Law Rules, O. Reg. 114/99, including Application (Form 8), Answer (Form 10), and Financial Statement (Form 13 or 13.1).",
+      "Most family court forms can be filed online through the Ministry of the Attorney General's Justice Services Online.",
+    ],
+    workflowUse: [
+      "Use Forms to locate the correct Family Law Rules form for each stage.",
+    ],
+    commonRisks: [
+      "Using a civil or Small Claims form instead of the matching Family Law Rules form.",
+    ],
+    citations: [ONTARIO_COURT_FORMS_FAMILY],
   },
 ];
 
@@ -255,6 +513,27 @@ function BulletList({ items }: { items: string[] }) {
   );
 }
 
+function CitationList({ citations }: { citations: PrincipleCitation[] }) {
+  return (
+    <ul className="space-y-2 text-xs leading-5 text-[#49635c]">
+      {citations.map((citation, index) => (
+        <li key={`${citation.officialUrl}-${index}`}>
+          <a
+            href={citation.officialUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="font-semibold text-[#2f7d67] underline"
+          >
+            {citation.sourceName}
+          </a>
+          {citation.pinpoint ? <> — {citation.pinpoint}</> : null}
+          <span className="text-[#6b8078]"> · verified {citation.verifiedAt}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function LegalPrinciplesPageContent() {
   const searchParams = useSearchParams();
 
@@ -263,8 +542,8 @@ function LegalPrinciplesPageContent() {
 
   const groupedPrinciples = useMemo(() => {
     return PRINCIPLES.reduce<Record<string, PrincipleCard[]>>((acc, item) => {
-      if (!acc[item.area]) acc[item.area] = [];
-      acc[item.area].push(item);
+      if (!acc[item.courtPath]) acc[item.courtPath] = [];
+      acc[item.courtPath].push(item);
       return acc;
     }, {});
   }, []);
@@ -273,7 +552,6 @@ function LegalPrinciplesPageContent() {
   const evidenceHref = buildWorkflowHref("/evidence", caseId, path);
   const formsHref = buildWorkflowHref("/forms", caseId, path);
   const strategyHref = buildWorkflowHref("/litigation-strategy", caseId, path);
-  const caseLawHref = buildWorkflowHref("/case-law", caseId, path);
   const documentWorkspaceHref = buildWorkflowHref(
     "/document-workspace",
     caseId,
@@ -290,28 +568,27 @@ function LegalPrinciplesPageContent() {
           <div className="flex flex-wrap items-start justify-between gap-5">
             <div>
               <p className="text-sm font-semibold uppercase tracking-wide text-[#2f7d67]">
-                Legal Reasoning Layer
+                Procedure Reference
               </p>
 
               <h1 className="mt-2 text-4xl font-bold">
-                Legal Principles and Court Analysis
+                Legal Principles and Court Procedure
               </h1>
 
               <p className="mt-4 max-w-4xl text-lg leading-8 text-[#4d675f]">
-                This page explains the legal structures courts commonly use
-                when reviewing facts, evidence, procedure, remedies, and
-                responsibility. It supports the rest of the CourtSimplified
-                workflow by helping users understand what their documents and
-                evidence must prove.
+                This page covers procedure, forms, monetary limits, and
+                deadlines for Ontario Small Claims Court, Superior Court civil
+                claims, and Family Court — the facts a self-represented
+                litigant needs to move a case forward correctly. Every
+                statement here is sourced and dated below it.
               </p>
             </div>
 
             <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm">
-              <p className="font-semibold text-[#10231f]">System Role</p>
-              <p className="mt-2 text-[#4d675f]">Doctrine</p>
-              <p className="mt-1 text-[#4d675f]">Proof Structure</p>
-              <p className="mt-1 text-[#4d675f]">Strategy Support</p>
-              <p className="mt-1 text-[#4d675f]">Drafting Guidance</p>
+              <p className="font-semibold text-[#10231f]">Sourced From</p>
+              <p className="mt-2 text-[#4d675f]">ontario.ca</p>
+              <p className="mt-1 text-[#4d675f]">ontariocourts.ca</p>
+              <p className="mt-1 text-[#4d675f]">ontariocourtforms.on.ca</p>
             </div>
           </div>
 
@@ -321,13 +598,6 @@ function LegalPrinciplesPageContent() {
               className="rounded-full border border-[#2f7d67] bg-white px-5 py-2 text-sm font-semibold text-[#2f7d67]"
             >
               Case Workspace
-            </Link>
-
-            <Link
-              href={caseLawHref}
-              className="rounded-full border border-[#d8e6df] bg-white px-5 py-2 text-sm font-semibold text-[#24463d]"
-            >
-              Case Law
             </Link>
 
             <Link
@@ -355,44 +625,40 @@ function LegalPrinciplesPageContent() {
 
         <Section
           title="How to use this page"
-          description="This is not a substitute for legal advice. It is a structured reasoning layer that helps users organize facts, proof, and documents around the issues courts usually care about."
+          description="This is not a substitute for legal advice. It is a sourced procedural reference — what form to file, what deadline applies, and what a missed step costs. Every fact below links to the official source it was checked against, and the date it was checked."
         >
-          <div className="grid gap-4 md:grid-cols-4">
+          <div className="grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
               <h3 className="font-semibold text-[#10231f]">Identify</h3>
               <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-                Find the legal structure that matches the case problem.
+                Find the court path — Small Claims, Civil, or Family — that
+                matches the case.
               </p>
             </div>
 
             <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
-              <h3 className="font-semibold text-[#10231f]">Prove</h3>
+              <h3 className="font-semibold text-[#10231f]">Track</h3>
               <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-                Match each issue to evidence, records, dates, and exhibits.
+                Match each stage of the case to its deadline, form, and
+                service rule.
               </p>
             </div>
 
             <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
-              <h3 className="font-semibold text-[#10231f]">Test</h3>
+              <h3 className="font-semibold text-[#10231f]">Verify</h3>
               <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-                Look for missing proof, weak causation, or unclear remedies.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
-              <h3 className="font-semibold text-[#10231f]">Apply</h3>
-              <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-                Use the structure in drafting, strategy, trial prep, and export.
+                Facts like dollar limits change — check the verified date on
+                each card, and the official source if it looks old.
               </p>
             </div>
           </div>
         </Section>
 
-        {Object.entries(groupedPrinciples).map(([area, principles]) => (
+        {Object.entries(groupedPrinciples).map(([courtPath, principles]) => (
           <Section
-            key={area}
-            title={area}
-            description={`Core court-analysis structure for ${area.toLowerCase()} issues.`}
+            key={courtPath}
+            title={courtPath}
+            description={`Sourced procedure, forms, and deadlines for ${courtPath}.`}
           >
             <div className="space-y-6">
               {principles.map((principle) => (
@@ -401,7 +667,7 @@ function LegalPrinciplesPageContent() {
                   className="rounded-3xl border border-[#d8e6df] bg-[#f8fcfa] p-6"
                 >
                   <p className="text-xs font-semibold uppercase tracking-wide text-[#2f7d67]">
-                    {principle.area}
+                    {principle.courtPath}
                   </p>
 
                   <h3 className="mt-1 text-2xl font-bold">
@@ -409,25 +675,16 @@ function LegalPrinciplesPageContent() {
                   </h3>
 
                   <p className="mt-3 text-sm leading-7 text-[#4d675f]">
-                    {principle.plainMeaning}
+                    {principle.summary}
                   </p>
 
                   <div className="mt-5 grid gap-5 md:grid-cols-4">
                     <div className="rounded-2xl border border-[#d8e6df] bg-white p-5">
                       <h4 className="font-semibold text-[#10231f]">
-                        Court Focus
+                        Key Facts
                       </h4>
                       <div className="mt-3">
-                        <BulletList items={principle.courtFocus} />
-                      </div>
-                    </div>
-
-                    <div className="rounded-2xl border border-[#d8e6df] bg-white p-5">
-                      <h4 className="font-semibold text-[#10231f]">
-                        Proof Needed
-                      </h4>
-                      <div className="mt-3">
-                        <BulletList items={principle.proofNeeded} />
+                        <BulletList items={principle.keyFacts} />
                       </div>
                     </div>
 
@@ -452,6 +709,15 @@ function LegalPrinciplesPageContent() {
                         ))}
                       </ul>
                     </div>
+
+                    <div className="rounded-2xl border border-[#d8e6df] bg-white p-5">
+                      <h4 className="font-semibold text-[#10231f]">
+                        Source
+                      </h4>
+                      <div className="mt-3">
+                        <CitationList citations={principle.citations} />
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -459,63 +725,15 @@ function LegalPrinciplesPageContent() {
           </Section>
         ))}
 
-        <Section
-          title="System-wide legal reasoning rules"
-          description="These rules should guide every CourtSimplified workflow page."
-        >
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
-              <h3 className="font-semibold text-[#10231f]">
-                A fact is not proof by itself
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-                The user must connect facts to exhibits, records, witnesses,
-                admissions, or other reliable support.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
-              <h3 className="font-semibold text-[#10231f]">
-                A bad outcome is not automatically liability
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-                The system should test legal responsibility, causation, and
-                available remedies before drafting conclusions.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
-              <h3 className="font-semibold text-[#10231f]">
-                Procedure controls what the court can consider
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-                Forms, service, deadlines, filing requirements, and evidence
-                rules must be integrated into the workflow.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5">
-              <h3 className="font-semibold text-[#10231f]">
-                Strong drafting follows strong proof
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-                Documents should be drafted from organized issues, evidence,
-                timeline, strategy, and remedy analysis.
-              </p>
-            </div>
-          </div>
-        </Section>
-
         <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
           <h2 className="text-2xl font-bold text-[#16302b]">
             Connected litigation workflow
           </h2>
 
           <p className="mt-4 max-w-3xl text-[#4d675f]">
-            Legal principles should strengthen evidence organization, strategy,
-            drafting, form selection, trial preparation, court packages, and
-            final export. This page is the doctrine layer that supports the
-            full litigation operating system.
+            Use this procedure reference alongside evidence organization,
+            strategy, drafting, form selection, trial preparation, and court
+            packages.
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3">

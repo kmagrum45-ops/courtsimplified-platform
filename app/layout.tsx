@@ -27,7 +27,6 @@ const publicNavLinks = [
   { href: "/small-claims", label: "Small Claims" },
   { href: "/civil", label: "Civil" },
   { href: "/legal-principles", label: "Legal Principles" },
-  { href: "/case-law", label: "Case Law" },
 ];
 
 const workspaceLinks = [

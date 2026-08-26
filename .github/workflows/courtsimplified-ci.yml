@@ -65,6 +65,9 @@ jobs:
       - name: Authority knowledge bridge verification
         run: npm run test:authority-bridge
 
+      - name: Authority seed registry integrity verification
+        run: npm run test:authority-seed-integrity
+
       - name: User-facing scenario library verification
         run: npm run test:user-facing-scenarios
 
