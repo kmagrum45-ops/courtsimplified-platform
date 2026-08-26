@@ -60,6 +60,179 @@ function hasRecordedDocuments(documentsCard: string): boolean {
   return !/^(nothing|none|not sure)\.?$/i.test(body);
 }
 
+/*
+ * Positive checks: does the rendered overview actually say what the
+ * registry expects, not just avoid saying something forbidden? The registry
+ * (scriptRegistry.ts) and the UI copy (IntelligenceOverviewPanel.tsx,
+ * ProcedureAuthorityDisplay) were written independently, so this compares by
+ * shared vocabulary rather than exact string equality -- a scenario asking
+ * about "mitigation efforts since dismissal" should still match rendered
+ * text that says "job search efforts after the dismissal."
+ */
+
+const OVERLAP_STOPWORDS = new Set([
+  "about", "after", "again", "against", "because", "before", "being", "between",
+  "could", "during", "either", "from", "have", "having", "into", "just", "must",
+  "next", "onto", "over", "person", "please", "should", "since", "some", "still",
+  "that", "their", "them", "then", "there", "these", "they", "this", "those",
+  "through", "under", "until", "were", "what", "when", "where", "which", "while",
+  "will", "with", "would", "your", "already", "review", "confirm", "recorded",
+]);
+
+function significantWords(text: string): string[] {
+  return Array.from(
+    new Set(
+      text
+        .toLowerCase()
+        .replace(/[’]/g, "'")
+        .replace(/[^a-z0-9' ]+/g, " ")
+        .split(/\s+/)
+        .filter((word) => word.length > 3 && !OVERLAP_STOPWORDS.has(word)),
+    ),
+  );
+}
+
+function normalizeForOverlap(text: string): string {
+  return ` ${text.toLowerCase().replace(/[’]/g, "'").replace(/[^a-z0-9' ]+/g, " ")} `;
+}
+
+/**
+ * Fraction (0-1) of `expected`'s significant words that appear (as
+ * substrings, so "mitigation"/"mitigate" and "dismissed"/"dismissal" still
+ * count) somewhere in `actual`. 1 when `expected` has no significant words
+ * to check.
+ */
+function overlapRatio(expected: string, actual: string): number {
+  const words = significantWords(expected);
+  if (words.length === 0) return 1;
+  const normalizedActual = normalizeForOverlap(actual);
+  const matched = words.filter((word) => normalizedActual.includes(word));
+  return matched.length / words.length;
+}
+
+const ISSUE_MATCH_RATIO = 0.35;
+const NEXT_QUESTION_MATCH_RATIO = 0.4;
+const LIST_COVERAGE_RATIO = 0.4;
+
+/**
+ * "Case snapshot" echoes the intake's raw facts verbatim (IntelligenceOverviewPanel.tsx,
+ * the `snapshot` array includes `facts` directly). A check run against
+ * capture.fullOverviewText unmodified would then trivially "find" whatever the
+ * scenario's own input narrative already said, regardless of whether the app
+ * actually produced it -- the registry's synthetic facts were often written using
+ * similar vocabulary to the registry's own expectations, so this is a real risk,
+ * not a theoretical one. Removing the exact raw-facts string (rather than dropping
+ * whole cards) keeps everything else -- the closing disclaimer, the authority
+ * panel, the workflow section -- available to match against.
+ */
+function overviewTextExcludingRawFacts(selected: SelectedScenario, capture: CapturedOverview): string {
+  const rawFacts = String(selected.scenario.intakeFacts.facts || "").trim();
+  if (!rawFacts) return capture.fullOverviewText;
+  return capture.fullOverviewText.split(rawFacts).join(" ");
+}
+
+/** 8. Expected issue(s) from the registry should be identifiable in the overview. */
+function checkExpectedIssues(selected: SelectedScenario, capture: CapturedOverview): Finding[] {
+  const expected = selected.scenario.expectedPossibleIssues || [];
+  const haystack = capture.issuesCard;
+  const missing = expected.filter((issue) => overlapRatio(issue, haystack) < ISSUE_MATCH_RATIO);
+
+  if (missing.length === 0) return [];
+
+  return [{
+    check: "expected-issue-missing",
+    severity: "high",
+    family: "NEW: expected content missing (issue)",
+    detail: `Registry expects issue(s) ${JSON.stringify(missing)} to be identifiable in the overview; ` +
+      `Issues to review shows: ${oneLine(capture.issuesCard) || "(empty)"}`,
+  }];
+}
+
+/** 9. The rendered next-question should resemble the registry's expected one. */
+function checkExpectedNextQuestion(selected: SelectedScenario, capture: CapturedOverview): Finding[] {
+  const expected = (selected.scenario.expectedNextQuestion || "").trim();
+  if (!expected) return [];
+
+  const ratio = overlapRatio(expected, capture.confirmNextQuestion);
+  if (ratio >= NEXT_QUESTION_MATCH_RATIO) return [];
+
+  return [{
+    check: "expected-next-question-mismatch",
+    severity: "medium",
+    family: "NEW: expected content missing (next question)",
+    detail: `Registry expects a next question resembling ${JSON.stringify(expected)}; ` +
+      `overview shows: ${JSON.stringify(oneLine(capture.confirmNextQuestion))} (word overlap ${Math.round(ratio * 100)}%).`,
+  }];
+}
+
+/** 10. Evidence guidance the registry expects should be reflected somewhere in the evidence card. */
+function checkExpectedEvidenceGuidance(selected: SelectedScenario, capture: CapturedOverview): Finding[] {
+  const expected = selected.scenario.expectedEvidenceGuidance || [];
+  if (expected.length === 0) return [];
+
+  const haystack = capture.cards["Evidence and proof to organize"] || "";
+  const missing = expected.filter((item) => overlapRatio(item, haystack) < ISSUE_MATCH_RATIO);
+  const coverage = (expected.length - missing.length) / expected.length;
+
+  if (coverage >= LIST_COVERAGE_RATIO) return [];
+
+  return [{
+    check: "expected-evidence-guidance-missing",
+    severity: "medium",
+    family: "NEW: expected content missing (evidence guidance)",
+    detail: `Only ${Math.round(coverage * 100)}% of the registry's expected evidence guidance appears in the ` +
+      `evidence card; missing: ${JSON.stringify(missing)}.`,
+  }];
+}
+
+/** 11. Procedural status the registry expects (what's already filed/served) should be reflected. */
+function checkExpectedProceduralStatus(selected: SelectedScenario, capture: CapturedOverview): Finding[] {
+  const expected = selected.scenario.expectedProceduralStatus || [];
+  if (expected.length === 0) return [];
+
+  const statusCard = capture.cards["Where your case is now"] || "";
+  const haystack = `${statusCard}\n${capture.documentsCard}`;
+  const missing = expected.filter((item) => overlapRatio(item, haystack) < ISSUE_MATCH_RATIO);
+  const coverage = (expected.length - missing.length) / expected.length;
+
+  if (coverage >= LIST_COVERAGE_RATIO) return [];
+
+  return [{
+    check: "expected-procedural-status-missing",
+    severity: "medium",
+    family: "NEW: expected content missing (procedural status)",
+    detail: `Only ${Math.round(coverage * 100)}% of the registry's expected procedural status appears in ` +
+      `"Where your case is now" / documents; missing: ${JSON.stringify(missing)}.`,
+  }];
+}
+
+/** 12. The scenario's review-required boundaries (the legal-safety caveats) should be present. */
+function checkExpectedReviewBoundaries(selected: SelectedScenario, capture: CapturedOverview): Finding[] {
+  const expected = selected.scenario.reviewRequiredBoundaries || [];
+  if (expected.length === 0) return [];
+
+  const haystack = overviewTextExcludingRawFacts(selected, capture);
+  const missing = expected.filter((item) => overlapRatio(item, haystack) < ISSUE_MATCH_RATIO);
+
+  if (missing.length === 0) return [];
+
+  // Unlike evidence guidance and procedural status, this list mixes two
+  // boilerplate entries every scenario shares ("No legal outcome is
+  // decided.", the official-source line) with scenario-specific caveats
+  // (wrong-defendant risk, injunction jurisdiction, near-the-limit amount).
+  // Averaging coverage across both would let the boilerplate's near-certain
+  // presence hide a missing scenario-specific caveat -- exactly the boundary
+  // content a reviewing lawyer/paralegal would most need flagged. So this
+  // reports every missing item, not just a below-threshold aggregate.
+  return [{
+    check: "expected-review-boundary-missing",
+    severity: "high",
+    family: "NEW: expected content missing (review-required boundary)",
+    detail: `${missing.length}/${expected.length} registry-expected review-required boundaries do not appear ` +
+      `anywhere in the overview: ${JSON.stringify(missing)}.`,
+  }];
+}
+
 export function evaluateCapture(
   selected: SelectedScenario,
   capture: CapturedOverview,
@@ -214,6 +387,16 @@ export function evaluateCapture(
       detail: `${capture.consoleErrors.length} console error(s); first: ${oneLine(capture.consoleErrors[0])}`,
     });
   }
+
+  // 8-12. Positive checks: the registry's expectations should actually show
+  // up in the rendered overview, not just avoid forbidden wording.
+  findings.push(
+    ...checkExpectedIssues(selected, capture),
+    ...checkExpectedNextQuestion(selected, capture),
+    ...checkExpectedEvidenceGuidance(selected, capture),
+    ...checkExpectedProceduralStatus(selected, capture),
+    ...checkExpectedReviewBoundaries(selected, capture),
+  );
 
   return findings;
 }

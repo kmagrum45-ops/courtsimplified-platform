@@ -56,6 +56,16 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
   // back to plain language below rather than naming an internal token.
   const issueSignals = meaningfulIssueSignals(rawIssueSignals);
   const issueTypeUndetermined = rawIssueSignals.length > 0 && issueSignals.length === 0;
+  // FOLLOW-UP (logged, not fixed, in the August 2026 audit): defamation and
+  // adoption are the only two issue types with bespoke content below --
+  // hand-written evidenceToOrganize/courtPoints/confirmQuestion overrides.
+  // Every other issue type (wrongful dismissal, property, contract, etc.)
+  // falls through to the generic paths: evidenceToOrganize from
+  // analysis.missingEvidence, and confirmQuestion from candidateQuestions[0].
+  // That's why a rich, high-value scenario like a $700k+ wrongful dismissal
+  // claim can render a completely empty evidence card and a generic
+  // procedural next-question -- confirmed via the scenario-quality harness's
+  // new positive checks (qualityChecks.ts), not assumed.
   const hasDefamationSignal = issueSignals.some((item) => /defamation|reputation/i.test(item));
   const hasAdoptionSignal = issueSignals.some((item) => /adoption/i.test(item));
   const recordedEvidence = Array.from(new Set([
