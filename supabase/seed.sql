@@ -1,12 +1,14 @@
 -- Seed preamble for `supabase db reset`.
 --
--- KNOWN LIMITATION (upstream of this file)
--- `db reset` from scratch currently fails at migration 20260810000010 due to
--- one-shot repair migrations with pre-repair guards that can't be satisfied on
--- replay. This is a structural issue in the historical migration chain, not the
--- seed mechanism. The fix requires either `supabase migration squash` or making
--- the three repair migrations idempotent -- both deferred as a deliberate
--- decision, not urgent since this does not affect production or CI.
+-- RESOLVED 2026-08-27: `db reset` from scratch used to fail at migration
+-- 20260810000010 (and seven other one-shot repair/validation migrations with
+-- the same shape) because their pre-repair guards asserted row states no
+-- earlier migration in the chain created. Fixed via `supabase migration
+-- squash --linked` -- the 26 original migrations are now a single squashed
+-- file. The squashed output correctly drops those guards' RAISE EXCEPTION
+-- blocks: squash omits DML and validation-only DO blocks from its schema-only
+-- output, and none of the eight affected migrations contained any DDL, so
+-- their removal has no effect on the resulting schema.
 --
 -- The seed mechanism itself is verified against real data: loaded into a live
 -- local Postgres, all 17 tables match the remote row-for-row (1371 rows) and
