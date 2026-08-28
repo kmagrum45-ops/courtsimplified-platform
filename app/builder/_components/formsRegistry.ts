@@ -1,7 +1,6 @@
 import type { CourtPath, UniversalStage } from "./builderTypes";
 
-const SUPABASE_FORMS_BASE =
-  "https://ffymjxjcnwakgdmldpne.supabase.co/storage/v1/object/public/court-forms";
+const SUPABASE_FORMS_BASE = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/court-forms`;
 
 export type FormFileType = "pdf" | "docx";
 

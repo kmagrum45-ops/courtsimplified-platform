@@ -513,3 +513,30 @@ that, both of which get harder to unwind the longer they're left as-is:
 This section intentionally stops at documenting the risk and the options.
 No code changes were made to any of the files listed above as part of
 writing this section.
+
+### Follow-up: move production to `ca-central-1` once the dev project proves out
+
+**Status: documented 2026-08-27, not yet done.** Option 2 above (a second
+Supabase project as dev/staging) is now underway: `courtsimplified-dev`
+(project ref `fddlpnibovkkkgboabqb`) was created on the free tier in
+**Canada (Central), `ca-central-1`** — deliberately not matched to
+production's region.
+
+Production (`courtsimplified`, ref `ffymjxjcnwakgdmldpne`) runs in
+`us-west-2` (Oregon). That was never a deliberate data-residency choice; it
+was whatever the default was when the project was first created. This
+platform holds Canadian litigants' legal case files — family law,
+financial, and other sensitive narratives — and where that data physically
+lives is a real consideration for those users, not just an infrastructure
+preference.
+
+**The plan:** prove out the migration/CI/harness procedure end-to-end
+against `courtsimplified-dev` first (this is what the current dev-project
+setup work is doing). Once that procedure is verified working, apply the
+same procedure to move production itself to `ca-central-1` — either via a
+new Canadian-region production project with a cutover, or whatever path
+Supabase supports for changing a project's region at that time (this may
+require checking Supabase's current offering, since in-place project
+region migration has not historically been a standard supported
+operation — a project recreation with a data migration is more likely).
+Not started; no target date set as of this writing.

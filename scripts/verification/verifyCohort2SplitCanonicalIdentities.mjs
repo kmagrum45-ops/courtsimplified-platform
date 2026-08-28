@@ -1,8 +1,26 @@
+// This used to read the one-time repair migration's SQL text directly.
+// `supabase migration squash` (2026-08-27) produces a schema-only dump, so
+// that DML -- and the file it lived in -- no longer exists. Checked here
+// instead: each duplicate physical asset now resolves to its NEW canonical
+// identity (the repoint's actual, current effect), not that the migration's
+// own SQL only ever contained one bounded UPDATE -- a delta property of one
+// historical statement with no stable live-data equivalent post-squash.
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { createClient } from "@supabase/supabase-js";
+import dotenv from "dotenv";
 
-const migration = readFileSync("supabase/migrations/20260810000014_repair_ontario_cohort_2_split_canonical_identities.sql", "utf8");
-const executable = migration.replace(/^--.*$/gm, "");
+dotenv.config({ path: ".env.local", quiet: true });
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error(
+    "NEXT_PUBLIC_SUPABASE_URL and an anon/publishable key are required (environment or .env.local).",
+  );
+}
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 const repairs = [
   ["6cdaec7b-5e8b-4f31-a360-580fc85660d3", "c64b6ee4-f865-4da7-a8e9-6d26762d7098", "small-claims", "ontario/small-claims/scr-15a-aug22-en-fil.pdf", "pdf"],
   ["2f3b3dbb-0799-4d81-bcc3-03c2116dfe4d", "1a170388-b11c-4642-a61a-bb95cb6da8ac", "small-claims", "ontario/small-claims/scr-20b-jan21-en-fil.pdf", "pdf"],
@@ -10,12 +28,19 @@ const repairs = [
   ["d2a6b784-5ac5-491e-860c-8b02645d4957", "5310b079-0ede-4b63-8fbc-dbb04319fc66", "family", "family/form_17b_2018.pdf", "pdf"],
 ];
 
-assert.match(executable, /UPDATE public\.court_form_library AS form\s+SET canonical_form_id = source\.canonical_form_id/, "must repoint only catalogue identity");
-assert.doesNotMatch(executable, /legal_form_mapping_rules|INSERT\s+INTO|DELETE\s+FROM|SET\s+(?:file_path|file_type|court_type)\s*=/i, "must not alter mappings, assets, or court type");
+const { data, error } = await supabase
+  .from("court_form_library")
+  .select("canonical_form_id, court_type, file_path, file_type")
+  .in("file_path", repairs.map(([, , , filePath]) => filePath));
+if (error) throw new Error(`court_form_library query failed: ${error.message}`);
+
 for (const [oldId, newId, court, filePath, fileType] of repairs) {
-  assert.match(executable, new RegExp(`'${oldId}'::uuid, '${court}'::text, '${filePath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}'::text, '${fileType}'::text, '${newId}'::uuid`), `${oldId} must repoint only its exact duplicate physical asset`);
+  const row = (data || []).find((candidate) => candidate.file_path === filePath);
+  assert.ok(row, `${filePath} must be present in court_form_library`);
+  assert.equal(row.court_type, court, `${filePath} must retain its exact court type`);
+  assert.equal(row.file_type, fileType, `${filePath} must retain its exact file type`);
+  assert.equal(row.canonical_form_id, newId, `${filePath} must have repointed to its new canonical identity`);
+  assert.notEqual(row.canonical_form_id, oldId, `${filePath} must no longer carry the old duplicate identity ${oldId}`);
 }
-assert.doesNotMatch(executable, /4300c97c-a430-45b4-b7cb-da90f0d9be20|f7ba6b3f-ad58-49f2-8c1d-affc12835d2f|78946826-4c9a-4a4d-907-3cda465d7869|49b1171a-5a50-4067-9035-59c8626fade8|ebb42456-5262-487b-aa9e-a3e4d766e332/, "must leave non-split Cohort 2 records untouched");
-assert.equal((executable.match(/SET canonical_form_id =/g) || []).length, 1, "only one bounded canonical-ID repoint operation is allowed");
 
 console.log("Cohort 2 split canonical identity repair structural verification passed.");

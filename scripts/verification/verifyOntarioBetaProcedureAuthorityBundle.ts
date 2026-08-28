@@ -1,11 +1,48 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
+import { createClient } from "@supabase/supabase-js";
+import dotenv from "dotenv";
+
 import {
   resolveBetaProcedureAuthority,
   type BetaProcedureAuthorityMetadata,
 } from "../../src/lib/case-system/authority-intelligence/betaProcedureAuthority";
 import { getProcedureAuthorityDisplayItems } from "../../app/builder/_components/ProcedureAuthorityDisplay";
+
+/**
+ * The four bundle-identity checks below (originally lines 243-317) used to
+ * read specific historical migration files and regex-match their SQL text.
+ * `supabase migration squash` (2026-08-27) produces a schema-only dump, so
+ * that DML -- and the files it lived in -- no longer exist. Checked here
+ * instead: the live legal_procedure_rules rows at each bundle's approved,
+ * stable numeric IDs carry their expected source identity. Text-level
+ * process checks with no live-data equivalent (no ILIKE/information_schema
+ * in the migration's own SQL, "exactly one bounded UPDATE SET clause") are
+ * dropped rather than asserted against something that no longer exists.
+ */
+dotenv.config({ path: ".env.local", quiet: true });
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error(
+    "NEXT_PUBLIC_SUPABASE_URL and an anon/publishable key are required (environment or .env.local).",
+  );
+}
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+async function fetchProcedureRulesById(ids: readonly number[]) {
+  const { data, error } = await supabase
+    .from("legal_procedure_rules")
+    .select(
+      "id, court_area, authority_source_id, workflow_guidance_source_id, workflow_guidance_court_area, workflow_guidance_review_status, official_source_url, workflow_guidance_official_source_url",
+    )
+    .in("id", ids);
+  if (error) throw new Error(`legal_procedure_rules query failed: ${error.message}`);
+  return data || [];
+}
 
 const AS_OF = new Date("2026-08-09T00:00:00.000Z");
 
@@ -54,6 +91,8 @@ function reviewedWorkflowGuidance(
     workflow_guidance_stage_applicability: [procedureStage],
   };
 }
+
+async function main() {
 
 for (const courtArea of ["small-claims", "family", "civil"] as const) {
   for (const procedureStage of ["starting-case", "responding", "service"]) {
@@ -240,11 +279,8 @@ assert.deepEqual(
   "A canonical form ID must not create a verified form recommendation or display state",
 );
 
-const bundleOneMigration = readFileSync(
-  "supabase/migrations/20260809000000_add_ontario_beta_procedure_authority_bundle.sql",
-  "utf8",
-);
-for (const [id, sourceId] of [
+// ---- Bundle 1: procedure authority (10 records, authority_source_id) -----
+const bundleOneApproved = [
   [1, "on-scc-start-r7-01"],
   [2, "on-scc-respond-r9-01"],
   [11, "on-scc-service-r8"],
@@ -255,33 +291,20 @@ for (const [id, sourceId] of [
   [8, "on-civil-application-boundary-r14"],
   [9, "on-civil-respond-r18"],
   [38, "on-civil-service-rr16-17"],
-] as const) {
-  assert.match(bundleOneMigration, new RegExp(`\\(${id}::bigint, [^\\n]+${sourceId}`));
+] as const;
+
+const bundleOneRows = await fetchProcedureRulesById(bundleOneApproved.map(([id]) => id));
+for (const [id, sourceId] of bundleOneApproved) {
+  const row = bundleOneRows.find((candidate) => candidate.id === id);
+  assert.ok(row, `Procedure rule ${id} must exist`);
+  assert.equal(row!.authority_source_id, sourceId, `Procedure rule ${id} must retain its exact source identity`);
+  if (row!.official_source_url) {
+    assert.match(row!.official_source_url, /^https:\/\/[^\s]+$/i, `Procedure rule ${id}'s source URL must be bare HTTPS, not Markdown`);
+  }
 }
 
-const urlRepairMigration = readFileSync(
-  "supabase/migrations/20260809000001_repair_ontario_beta_authority_urls.sql",
-  "utf8",
-);
-assert.doesNotMatch(urlRepairMigration, /\[[^\]]+\]\(https?:\/\//);
-assert.doesNotMatch(urlRepairMigration, /\b(?:ALTER|INSERT|DELETE)\b/i);
-assert.match(urlRepairMigration, /SET official_source_url = source\.official_source_url/);
-
-const bundleTwoMigration = readFileSync(
-  "supabase/migrations/20260809000002_add_ontario_beta_procedure_workflow_guidance_bundle_2a.sql",
-  "utf8",
-);
-assert.doesNotMatch(bundleTwoMigration, /\[[^\]]+\]\(https?:\/\//);
-assert.doesNotMatch(bundleTwoMigration, /ILIKE|to_jsonb\(|information_schema|legal_form_mapping_rules/);
-const bundleTwoSetClause = bundleTwoMigration.match(
-  /UPDATE public\.legal_procedure_rules AS rule\s+SET([\s\S]*?)\s+FROM \(/,
-);
-assert.ok(bundleTwoSetClause, "Bundle 2A must have one bounded UPDATE SET clause");
-assert.doesNotMatch(bundleTwoSetClause[1], /authority_review_status\s*=/);
-assert.match(bundleTwoMigration, /rule\.authority_review_status = 'review-required'/);
-assert.match(bundleTwoMigration, /workflow_guidance_restricted_fields/);
-assert.match(bundleTwoMigration, /No form, deadline, filing-readiness, service, evidence, merits, enforcement,/);
-for (const [id, courtArea, sourceId] of [
+// ---- Bundle 2A: settlement/trial-management workflow guidance (8 records) ----
+const bundleTwoApproved = [
   [3, "small-claims", "on-scc-settlement-conference-r13-01"],
   [17, "small-claims", "on-scc-trial-management-r16-1-02"],
   [6, "family", "on-family-case-conference-r17-04"],
@@ -290,30 +313,27 @@ for (const [id, courtArea, sourceId] of [
   [26, "family", "on-family-trial-management-r17-06"],
   [49, "civil", "on-civil-pretrial-conference-r50-01"],
   [50, "civil", "on-civil-trial-rr52-53"],
-] as const) {
-  assert.match(
-    bundleTwoMigration,
-    new RegExp(`\\(${id}::bigint, '${courtArea}'::text, '${sourceId}'::text`),
-  );
-}
+] as const;
 
-const bundleTwoBMigraton = readFileSync(
-  "supabase/migrations/20260809000003_add_ontario_beta_procedure_workflow_guidance_bundle_2b_motions.sql",
-  "utf8",
-);
-assert.doesNotMatch(bundleTwoBMigraton, /\[[^\]]+\]\(https?:\/\//);
-assert.doesNotMatch(bundleTwoBMigraton, /ILIKE|to_jsonb\(|information_schema|legal_form_mapping_rules/);
-assert.match(bundleTwoBMigraton, /rule\.authority_review_status = 'review-required'/);
-assert.match(bundleTwoBMigraton, /service_and_filing_deadlines/);
-for (const [id, courtArea, sourceId] of [
+// ---- Bundle 2B: motion workflow guidance (3 records) ----
+const bundleTwoBApproved = [
   [10, "civil", "on-civil-motion-r37"],
   [27, "family", "on-family-motion-r14"],
   [15, "small-claims", "on-scc-motion-r15"],
-] as const) {
-  assert.match(
-    bundleTwoBMigraton,
-    new RegExp(`\\(${id}::bigint, '${courtArea}'::text, '${sourceId}'::text`),
-  );
+] as const;
+
+const workflowGuidanceRows = await fetchProcedureRulesById(
+  [...bundleTwoApproved, ...bundleTwoBApproved].map(([id]) => id),
+);
+for (const [id, courtArea, sourceId] of [...bundleTwoApproved, ...bundleTwoBApproved]) {
+  const row = workflowGuidanceRows.find((candidate) => candidate.id === id);
+  assert.ok(row, `Procedure rule ${id} must exist`);
+  assert.equal(row!.workflow_guidance_court_area, courtArea, `Procedure rule ${id} must retain its exact workflow guidance court area`);
+  assert.equal(row!.workflow_guidance_source_id, sourceId, `Procedure rule ${id} must retain its exact workflow guidance source identity`);
+  assert.equal(row!.workflow_guidance_review_status, "verified-for-workflow", `Procedure rule ${id} must carry verified-for-workflow`);
+  if (row!.workflow_guidance_official_source_url) {
+    assert.match(row!.workflow_guidance_official_source_url, /^https:\/\/[^\s]+$/i, `Procedure rule ${id}'s workflow guidance URL must be bare HTTPS, not Markdown`);
+  }
 }
 
 const formRulesRoute = readFileSync("app/api/form-rules/route.ts", "utf8");
@@ -326,3 +346,10 @@ assert.doesNotMatch(formRulesRoute, /matchesRequestedLabel|formSearchText|extrac
 console.log(
   "Ontario beta Bundle 2A verification passed: raw rows remain review-required, only complete source-linked workflow guidance is verified, restricted raw fields and forms remain unverified, and court areas remain isolated.",
 );
+
+}
+
+main().catch((error) => {
+  console.error(error instanceof Error ? error.message : String(error));
+  process.exitCode = 1;
+});

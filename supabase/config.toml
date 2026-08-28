@@ -4,13 +4,20 @@
 # working directory name when running `supabase init`.
 project_id = "courtsimplified"
 
-# Linked hosted project: ffymjxjcnwakgdmldpne
+# Two hosted projects exist as of 2026-08-27:
+#   courtsimplified      ffymjxjcnwakgdmldpne   PRODUCTION, us-west-2
+#   courtsimplified-dev   fddlpnibovkkkgboabqb   dev/test, ca-central-1 (see docs/ARCHITECTURE.md §10)
 #
 # The link itself lives in supabase/.temp/, which is git-ignored and machine
-# local, so a clean clone is not linked to anything. Re-establish it with:
+# local, so a clean clone is not linked to anything, and which project is
+# linked can differ per machine. Local development, the browser test harness,
+# and CI should all link/target courtsimplified-dev, not production:
 #
 #   supabase login
-#   supabase link --project-ref ffymjxjcnwakgdmldpne
+#   supabase link --project-ref fddlpnibovkkkgboabqb
+#
+# Only link --project-ref ffymjxjcnwakgdmldpne for deliberate, reviewed
+# production work.
 #
 # The project ref is not a secret: it is the subdomain in
 # NEXT_PUBLIC_SUPABASE_URL and ships to the browser. Access tokens and the

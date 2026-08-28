@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
+import { createClient } from "@supabase/supabase-js";
+import dotenv from "dotenv";
+
 import {
   getCanonicalFormLookup,
   resolveSelectedFormsCase,
@@ -18,6 +21,162 @@ import {
   parseFormApplicability,
 } from "../../app/api/cases/form-applicability/route";
 import { civilPleadingContract } from "../form-certification/bundle11Contract.mjs";
+
+/**
+ * The catalogue-provenance and form-mapping certification checks below used
+ * to read specific historical migration files and regex-match their SQL
+ * text: "this migration's UPDATE/INSERT used only exact canonical_form_id +
+ * court_type matching, never a fuzzy/title match, and touched only this
+ * approved allowlist." `supabase migration squash` (2026-08-27) collapsed
+ * all 26 migrations into one file and, correctly, produced a schema-only
+ * dump -- the DML that performed these one-time certifications is gone from
+ * every migration file, along with the specific files these checks used to
+ * read by path.
+ *
+ * These checks now verify the same intent against the live database
+ * instead: the approved records are certified with the expected identity,
+ * and specific known-adjacent/confusable forms are not. One thing does NOT
+ * translate: "verified-catalog-source" and similar review-status markers
+ * are reused across many bundles over time (39 distinct canonical_form_ids
+ * carry "verified-catalog-source" today, not the 9 any single bundle
+ * contributed), so "exactly N records in the whole table" is not a safe
+ * assertion post-squash -- it would fail for reasons that have nothing to
+ * do with a bug. What IS safe, and preserves the original intent, is a
+ * two-part check per bundle: (1) every approved record is certified with
+ * its expected identity, and (2) specific known-wrong/adjacent forms are
+ * confirmed NOT certified -- verified directly against courtsimplified-dev
+ * before this rewrite (docs note: 2026-08-27).
+ */
+dotenv.config({ path: ".env.local", quiet: true });
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error(
+    "NEXT_PUBLIC_SUPABASE_URL and an anon/publishable key are required " +
+      "(environment or .env.local) to verify live catalogue and mapping data.",
+  );
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+type CourtFormLibraryRow = {
+  canonical_form_id: string;
+  court_type: string;
+  form_review_status: string | null;
+  official_source_url: string | null;
+  official_title: string | null;
+  form_number: string | null;
+};
+
+async function fetchCourtFormLibraryByCanonicalId(
+  canonicalFormIds: readonly string[],
+): Promise<CourtFormLibraryRow[]> {
+  const { data, error } = await supabase
+    .from("court_form_library")
+    .select(
+      "canonical_form_id, court_type, form_review_status, official_source_url, official_title, form_number",
+    )
+    .in("canonical_form_id", canonicalFormIds);
+  if (error) {
+    throw new Error(`court_form_library query failed: ${error.message}`);
+  }
+  return data || [];
+}
+
+async function fetchCourtFormLibraryByTitleOrNumber(
+  needles: readonly string[],
+): Promise<CourtFormLibraryRow[]> {
+  const rows: CourtFormLibraryRow[] = [];
+  for (const needle of needles) {
+    const { data, error } = await supabase
+      .from("court_form_library")
+      .select(
+        "canonical_form_id, court_type, form_review_status, official_source_url, official_title, form_number",
+      )
+      .or(`official_title.ilike.%${needle}%,form_number.ilike.%${needle}%`);
+    if (error) {
+      throw new Error(`court_form_library query failed: ${error.message}`);
+    }
+    rows.push(...(data || []));
+  }
+  return rows;
+}
+
+type MappingRuleRow = {
+  id: number;
+  canonical_form_id: string | null;
+  canonical_form_court_type: string | null;
+  authority_source_id: string | null;
+  authority_bundle_version: string | null;
+  applicability_conditions: unknown;
+  applicability_questions: unknown;
+  is_active: boolean | null;
+};
+
+async function fetchActiveMappingRowsByCanonicalId(
+  canonicalFormIds: readonly string[],
+): Promise<MappingRuleRow[]> {
+  const { data, error } = await supabase
+    .from("legal_form_mapping_rules")
+    .select(
+      "id, canonical_form_id, canonical_form_court_type, authority_source_id, authority_bundle_version, applicability_conditions, applicability_questions, is_active",
+    )
+    .in("canonical_form_id", canonicalFormIds)
+    .eq("is_active", true);
+  if (error) {
+    throw new Error(`legal_form_mapping_rules query failed: ${error.message}`);
+  }
+  return data || [];
+}
+
+async function fetchMappingRowsById(ids: readonly number[]): Promise<MappingRuleRow[]> {
+  const { data, error } = await supabase
+    .from("legal_form_mapping_rules")
+    .select(
+      "id, canonical_form_id, canonical_form_court_type, authority_source_id, authority_bundle_version, applicability_conditions, applicability_questions, is_active",
+    )
+    .in("id", ids);
+  if (error) {
+    throw new Error(`legal_form_mapping_rules query failed: ${error.message}`);
+  }
+  return data || [];
+}
+
+/** Every expected canonical (form, court area, source) must exist as exactly one active mapping row -- no duplicates, no substitutions. */
+async function assertExactActiveMappings(
+  label: string,
+  expected: readonly { canonicalFormId: string; courtArea: string; sourceId: string }[],
+): Promise<void> {
+  const rows = await fetchActiveMappingRowsByCanonicalId(
+    expected.map((mapping) => mapping.canonicalFormId),
+  );
+  assert.equal(
+    rows.length,
+    expected.length,
+    `${label}: expected exactly ${expected.length} active mapping row(s), found ${rows.length} ` +
+      `(duplicate or missing certification)`,
+  );
+  for (const mapping of expected) {
+    const row = rows.find((candidate) => candidate.canonical_form_id === mapping.canonicalFormId);
+    assert.ok(row, `${label}: ${mapping.canonicalFormId} must have an active mapping row`);
+    assert.equal(
+      row!.canonical_form_court_type,
+      mapping.courtArea,
+      `${label}: ${mapping.canonicalFormId} must retain its exact court area`,
+    );
+    assert.equal(
+      row!.authority_source_id,
+      mapping.sourceId,
+      `${label}: ${mapping.canonicalFormId} must retain source ${mapping.sourceId}`,
+    );
+  }
+}
+
+async function main() {
 
 assert.equal(
   SELECTED_CASE_UNAVAILABLE_MESSAGE,
@@ -142,9 +301,7 @@ assert.doesNotMatch(
   "The Forms page must not string-match recommendations to catalog rows",
 );
 
-const provenanceMigrationPath =
-  "supabase/migrations/20260810000000_add_ontario_core_form_provenance_bundle.sql";
-const provenanceMigration = readFileSync(provenanceMigrationPath, "utf8");
+// ---- Bundle 1: catalogue provenance (9 records, court_form_library) ------
 const certifiedCatalogRecords = [
   ["a289d2a2-a691-45eb-a625-15c42c6da695", "small-claims"],
   ["a576815d-2bc8-4a13-9502-348eec5819e2", "small-claims"],
@@ -157,28 +314,30 @@ const certifiedCatalogRecords = [
   ["952b0ad2-1599-4815-be23-d2dfb5aee75d", "civil"],
 ] as const;
 
-assert.match(
-  provenanceMigration,
-  /WHERE form\.canonical_form_id = source\.canonical_form_id\s+AND form\.court_type = source\.court_type;/,
-  "Catalog provenance must update only exact canonical ID and court-area pairs",
-);
-assert.doesNotMatch(
-  provenanceMigration,
-  /official_title|form_number|file_path|ILIKE|~~\*|LIKE/i,
-  "Catalog provenance must not select records by title, number, path, or text",
-);
-assert.equal(
-  (provenanceMigration.match(/::uuid/g) || []).length,
-  certifiedCatalogRecords.length,
-  "Only the approved canonical catalog records may be certified",
+const provenanceRows = await fetchCourtFormLibraryByCanonicalId(
+  certifiedCatalogRecords.map(([id]) => id),
 );
 
-for (const [canonicalFormId, courtType] of certifiedCatalogRecords) {
-  assert.match(
-    provenanceMigration,
-    new RegExp(`'${canonicalFormId}'::uuid, '${courtType}'::text`),
-    `Certified record ${canonicalFormId} must retain its exact court area`,
+for (const [certifiedId, courtType] of certifiedCatalogRecords) {
+  const matches = provenanceRows.filter(
+    (row) => row.canonical_form_id === certifiedId && row.court_type === courtType,
   );
+  assert.ok(
+    matches.length > 0,
+    `Certified record ${certifiedId} must be present in court_form_library for ${courtType}`,
+  );
+  for (const row of matches) {
+    assert.equal(
+      row.form_review_status,
+      "verified-catalog-source",
+      `Certified record ${certifiedId} must carry verified-catalog-source`,
+    );
+    assert.match(
+      row.official_source_url || "",
+      /^https:\/\/[^\s]+$/i,
+      `Certified record ${certifiedId} must have a bare HTTPS source URL, not Markdown or empty`,
+    );
+  }
 }
 
 function isExactCertifiedCatalogRecord(input: {
@@ -187,8 +346,8 @@ function isExactCertifiedCatalogRecord(input: {
   title?: string;
 }): boolean {
   return certifiedCatalogRecords.some(
-    ([canonicalFormId, courtType]) =>
-      input.canonicalFormId === canonicalFormId && input.courtType === courtType,
+    ([recordCanonicalFormId, recordCourtType]) =>
+      input.canonicalFormId === recordCanonicalFormId && input.courtType === recordCourtType,
   );
 }
 
@@ -217,18 +376,28 @@ assert.equal(
   "A title match without an approved canonical ID must be rejected",
 );
 
-for (const forbiddenValue of [
+// Known-adjacent/confusable forms that must never have been fuzzy-matched
+// into certification. Confirmed against courtsimplified-dev (2026-08-27):
+// each of these exists as a real, uncertified row (form_review_status is
+// null), distinct from the approved canonical IDs above.
+const uncertifiedAdjacentForms = [
   "Form 14B",
   "Mortgage Action",
   "Lawyer's Certificate of Service",
   "16b-1",
   "Automatic Order",
   "8.01",
-]) {
-  assert.doesNotMatch(
-    provenanceMigration,
-    new RegExp(forbiddenValue, "i"),
-    `${forbiddenValue} must remain uncertified`,
+];
+
+const adjacentRows = await fetchCourtFormLibraryByTitleOrNumber(uncertifiedAdjacentForms);
+for (const row of adjacentRows) {
+  const isApproved = certifiedCatalogRecords.some(
+    ([id, courtType]) => id === row.canonical_form_id && courtType === row.court_type,
+  );
+  assert.equal(
+    isApproved || row.form_review_status !== "verified-catalog-source",
+    true,
+    `${row.official_title || row.form_number} (${row.canonical_form_id}) must remain uncertified unless it is an approved canonical record`,
   );
 }
 
@@ -266,30 +435,7 @@ for (const invalidRecord of [
   assert.equal(validCatalogProvenance(invalidRecord), false, "Incomplete, non-HTTPS, Markdown, stale, or unreviewed provenance must fail closed");
 }
 
-assert.doesNotMatch(provenanceMigration, /\[https:\/\/|\]\(https:\/\//, "Migration source URLs must remain bare HTTPS URLs");
-assert.doesNotMatch(provenanceMigration, /legal_form_mapping_rules|canonical_form_court_type|official-form-linked-recommendation/, "Catalog provenance must not certify form mappings or recommendations");
-
-const mappingMigrationPath =
-  "supabase/migrations/20260810000001_add_exact_form_mapping_applicability_bundle.sql";
-const mappingMigration = readFileSync(mappingMigrationPath, "utf8");
-const readinessMigrationPath =
-  "supabase/migrations/20260810000002_add_form_readiness_questions.sql";
-const readinessMigration = readFileSync(readinessMigrationPath, "utf8");
-const mappingAsOf = new Date("2026-08-10T12:00:00Z");
-
-assert.match(mappingMigration, /ADD COLUMN IF NOT EXISTS applicability_conditions jsonb;/);
-assert.match(readinessMigration, /ADD COLUMN IF NOT EXISTS applicability_questions jsonb;/);
-assert.match(readinessMigration, /mapping\.id = source\.mapping_id[\s\S]*mapping\.court_area = source\.court_area[\s\S]*mapping\.is_active = true[\s\S]*authority_bundle_version = 'ontario-beta-form-mapping-v1';/);
-assert.equal((readinessMigration.match(/::bigint/g) || []).length, 5, "Only the five approved mapping IDs may receive Form Readiness questions");
-for (const mappingId of [1, 2, 6, 7, 9]) assert.match(readinessMigration, new RegExp(`\\(${mappingId}::bigint`), `Approved mapping ${mappingId} must receive metadata`);
-assert.doesNotMatch(readinessMigration, /"(?:courtPath|province|stage)"/, "Question metadata must not collect resolver-controlled case facts");
-assert.match(
-  mappingMigration,
-  /mapping\.id = source\.mapping_id[\s\S]*mapping\.court_area = source\.court_area[\s\S]*mapping\.is_active = true[\s\S]*mapping\.authority_review_status = 'review-required'[\s\S]*mapping\.form_review_status = 'review-required';/,
-  "Exact mapping rows must retain ID, court-area, active, and expected-status guards",
-);
-assert.doesNotMatch(mappingMigration, /ILIKE|LIKE|official_title|form_number|file_path|Form 14B|16B\.1|Automatic Order|settlement conference|notice of motion/i);
-
+// ---- Bundle 2: mapping applicability (5 mapping rows, by stable id) ------
 const exactMappings = [
   {
     id: 6,
@@ -341,6 +487,23 @@ const exactMappings = [
   },
 ] as const;
 
+const mappingApplicabilityRows = await fetchMappingRowsById(exactMappings.map((mapping) => mapping.id));
+for (const mapping of exactMappings) {
+  const row = mappingApplicabilityRows.find((candidate) => candidate.id === mapping.id);
+  assert.ok(row, `Mapping row ${mapping.id} must exist`);
+  assert.equal(row!.is_active, true, `Mapping row ${mapping.id} must be active`);
+  assert.equal(row!.canonical_form_id, mapping.canonicalFormId, `Mapping row ${mapping.id} must retain its exact canonical form ID`);
+  assert.equal(row!.canonical_form_court_type, mapping.courtArea, `Mapping row ${mapping.id} must retain its exact court area`);
+  assert.equal(row!.authority_bundle_version, "ontario-beta-form-mapping-v1", `Mapping row ${mapping.id} must carry the Form Readiness bundle version`);
+  assert.ok(row!.applicability_conditions, `Mapping row ${mapping.id} must have applicability_conditions`);
+  assert.ok(row!.applicability_questions, `Mapping row ${mapping.id} must have applicability_questions`);
+}
+assert.equal(
+  mappingApplicabilityRows.length,
+  exactMappings.length,
+  "Only the five approved mapping rows may carry the Form Readiness bundle version at these IDs",
+);
+
 function reviewedExactMapping(mapping: (typeof exactMappings)[number]): BetaProcedureAuthorityMetadata {
   return {
     authority_source_id: `verified-${mapping.id}`,
@@ -374,8 +537,9 @@ function catalogRecord(mapping: (typeof exactMappings)[number]): ExactCatalogFor
   };
 }
 
+const mappingAsOf = new Date("2026-08-10T12:00:00Z");
+
 for (const mapping of exactMappings) {
-  assert.match(mappingMigration, new RegExp(`\\(${mapping.id}::bigint, '${mapping.courtArea}'::text[\\s\\S]*?'${mapping.canonicalFormId}'::uuid`));
   const resolved = resolveExactFormMapping(reviewedExactMapping(mapping), {
     courtArea: mapping.courtArea,
     procedureStage: mapping.stage,
@@ -414,15 +578,7 @@ assert.equal(resolveExactFormMapping(reviewedExactMapping(civil), { courtArea: "
 assert.equal(resolveExactFormMapping({ ...reviewedExactMapping(civil), canonical_form_id: "1fead613-b24b-4797-b73c-0edfeb2af3d7", canonical_form_court_type: "civil" }, { courtArea: "civil", procedureStage: "starting-case", caseFacts: civil.facts, catalogRecord: { ...catalogRecord(civil), canonical_form_id: "wrong-title-match" }, asOf: mappingAsOf }).displayState, "review-required", "Title-like or wrong canonical catalog IDs must not resolve");
 assert.equal(resolveExactFormMapping(reviewedExactMapping(civil), { courtArea: "civil", procedureStage: "starting-case", caseFacts: civil.facts, catalogRecord: { ...catalogRecord(civil), form_checked_at: "2024-01-01" }, asOf: mappingAsOf }).displayState, "review-required", "Stale canonical provenance must fail closed");
 
-const bundleThreeMigration = readFileSync(
-  "supabase/migrations/20260810000003_add_ontario_core_response_service_form_mappings.sql",
-  "utf8",
-);
-assert.match(bundleThreeMigration, /INSERT INTO public\.legal_form_mapping_rules \(\s*court_area,/);
-assert.doesNotMatch(bundleThreeMigration, /\b(?:id|mapping_id)\s*,|::bigint/, "Bundle 3 must use the mapping-table identity default, never an explicit numeric ID");
-assert.match(bundleThreeMigration, /WHERE NOT EXISTS \([\s\S]*existing\.is_active = true[\s\S]*existing\.canonical_form_id = source\.canonical_form_id[\s\S]*existing\.canonical_form_court_type = source\.court_area/);
-assert.doesNotMatch(bundleThreeMigration, /16B\.1|Lawyer.?s Certificate|official_title|form_number|file_path|ILIKE|LIKE/i, "Bundle 3 must never map the civil lawyer certificate or use text matching");
-
+// ---- Bundle 3: response/service form mappings (4 records) ----------------
 const bundleThreeMappings = [
   { courtArea: "civil" as const, stage: "responding", canonicalFormId: "502cd465-720a-4d71-8b6c-a7eefe788657", sourceId: "on-civil-respond-r18", pinpoint: "r. 18", conditions: { all: [{ path: "courtPath", equals: "civil" }, { path: "province", equals: "Ontario" }, { path: "stage", equals: "responding" }, { path: "formApplicability.civil.responseDocument", equals: "statement-of-defence" }] }, facts: { courtPath: "civil", province: "Ontario", stage: "responding", formApplicability: { civil: { responseDocument: "statement-of-defence" } } } },
   { courtArea: "small-claims" as const, stage: "already-started", canonicalFormId: "a576815d-2bc8-4a13-9502-348eec5819e2", sourceId: "on-scc-service-r8", pinpoint: "r. 8", conditions: { all: [{ path: "courtPath", equals: "small-claims" }, { path: "province", equals: "Ontario" }, { path: "stage", equals: "already-started" }, { path: "formApplicability.smallClaims.hasCompletedServiceAndPreparingProof", equals: true }] }, facts: { courtPath: "small-claims", province: "Ontario", stage: "already-started", formApplicability: { smallClaims: { hasCompletedServiceAndPreparingProof: true } } } },
@@ -430,10 +586,9 @@ const bundleThreeMappings = [
   { courtArea: "civil" as const, stage: "already-started", canonicalFormId: "952b0ad2-1599-4815-be23-d2dfb5aee75d", sourceId: "on-civil-service-rr16-17", pinpoint: "rr. 16-17", conditions: { all: [{ path: "courtPath", equals: "civil" }, { path: "province", equals: "Ontario" }, { path: "stage", equals: "already-started" }, { path: "formApplicability.civil.hasCompletedServiceAndPreparingProof", equals: true }] }, facts: { courtPath: "civil", province: "Ontario", stage: "already-started", formApplicability: { civil: { hasCompletedServiceAndPreparingProof: true } } } },
 ] as const;
 
+await assertExactActiveMappings("Bundle 3", bundleThreeMappings);
+
 for (const mapping of bundleThreeMappings) {
-  assert.match(bundleThreeMigration, new RegExp(`'${mapping.canonicalFormId}'::uuid`), `Bundle 3 must retain the exact canonical form ID ${mapping.canonicalFormId}`);
-  assert.match(bundleThreeMigration, new RegExp(`'${mapping.sourceId}'::text`), `Bundle 3 must retain source ${mapping.sourceId}`);
-  assert.match(bundleThreeMigration, new RegExp(`'${mapping.pinpoint.replace(".", "\\.")}'::text`), `Bundle 3 must retain pinpoint ${mapping.pinpoint}`);
   const record: BetaProcedureAuthorityMetadata = {
     authority_source_id: mapping.sourceId, authority_source_type: "primary-procedural-rule", official_source_url: "https://www.ontario.ca/laws/regulation/example", authority_citation: "Ontario procedural rule", authority_pinpoint: mapping.pinpoint, authority_issuing_body: "Ontario e-Laws", authority_checked_at: "2026-08-10", authority_review_status: "verified-for-workflow", authority_court_area: mapping.courtArea, authority_topic: "bundle-three", authority_stage_applicability: [mapping.stage], canonical_form_id: mapping.canonicalFormId, canonical_form_court_type: mapping.courtArea, form_revision_or_effective_at: "Verified catalogue revision", form_review_status: "verified-for-workflow", applicability_conditions: mapping.conditions,
   };
@@ -526,22 +681,7 @@ assert.match(formsPageSource, /!caseId[\s\S]*Save a case to verify a form recomm
 assert.doesNotMatch(formsPageSource, /stats\.(?:requiredCount|recommendedCount|completedCount)/, "Forms readiness must not read unsupported matched or completed counters");
 assert.match(formsPageSource, /Available official forms: \{stats\.total\}[\s\S]*Verified for this case: \{verifiedRecommendations\.length\}[\s\S]*Overlay-ready: \{stats\.overlayCount\}/, "Every displayed readiness count must come from current library, resolver, or overlay state");
 
-const bundleFourMigration = readFileSync(
-  "supabase/migrations/20260810000004_add_ontario_core_family_motion_conference_form_bundle.sql",
-  "utf8",
-);
-assert.match(bundleFourMigration, /UPDATE public\.court_form_library AS form[\s\S]*canonical_form_id = source\.canonical_form_id[\s\S]*form\.court_type = source\.court_type/, "Bundle 4 catalogue provenance must use only exact canonical ID and court type");
-assert.match(bundleFourMigration, /INSERT INTO public\.legal_form_mapping_rules \(\s*court_area,[\s\S]*?\)\s*SELECT[\s\S]*?WHERE NOT EXISTS \([\s\S]*existing\.is_active = true[\s\S]*existing\.canonical_form_id = 'faaf5ef0-e3c0-426a-ae2a-9e966feb499a'::uuid[\s\S]*existing\.canonical_form_court_type = 'family'/, "Form 14A must use the identity default and an exact active mapping guard");
-const bundleFourApprovedCanonicalIds = new Set([
-  "b2b46bcf-97ae-42e4-9d01-4a962ea83a2a",
-  "e6fdaf6d-9aca-4193-853a-0fec07bc84c4",
-  "faaf5ef0-e3c0-426a-ae2a-9e966feb499a",
-  "bf8fb6c7-ad37-4f04-98fa-4638ec6f2c9b",
-  "1e9b6788-cb57-42d6-a732-fd8cef53d623",
-]);
-const bundleFourCanonicalIds = [...bundleFourMigration.matchAll(/'([0-9a-f-]{36})'::uuid/g)].map((match) => match[1]);
-assert.ok(bundleFourCanonicalIds.length > 0 && bundleFourCanonicalIds.every((id) => bundleFourApprovedCanonicalIds.has(id)), "Bundle 4 may certify only the five approved canonical identities; explanatory text about excluded paths is not a mapping identity");
-
+// ---- Bundle 4: family conference/motion + civil motion (5 records) -------
 const bundleFourMappings = [
   { courtArea: "family" as const, stage: "conference", canonicalFormId: "b2b46bcf-97ae-42e4-9d01-4a962ea83a2a", sourceId: "on-family-case-conference-r17-13", catalogSourceId: "on-court-forms-family-17a", revision: "Version: Sept. 1, 2023; effective: Nov. 27, 2023", pinpoint: "r. 17 (13) 1", facts: { courtPath: "family", province: "Ontario", stage: "conference", formApplicability: { family: { conferenceBriefType: "case-conference-brief-general" } } }, condition: { path: "formApplicability.family.conferenceBriefType", equals: "case-conference-brief-general" } },
   { courtArea: "family" as const, stage: "motion", canonicalFormId: "e6fdaf6d-9aca-4193-853a-0fec07bc84c4", sourceId: "on-family-motion-r14-09", catalogSourceId: "on-court-forms-family-14", revision: "Version: March 1, 2018; effective: July 1, 2018", pinpoint: "r. 14 (9)", facts: { courtPath: "family", province: "Ontario", stage: "motion", formApplicability: { family: { motionDocumentSet: "notice-of-motion-and-general-affidavit" } } }, condition: { path: "formApplicability.family.motionDocumentSet", equals: "notice-of-motion-and-general-affidavit" } },
@@ -550,9 +690,23 @@ const bundleFourMappings = [
   { courtArea: "civil" as const, stage: "motion", canonicalFormId: "1e9b6788-cb57-42d6-a732-fd8cef53d623", sourceId: "on-civil-motion-r37-01", catalogSourceId: "on-court-forms-civil-37a", revision: "Version: Sept. 1, 2020; effective: Jan. 1, 2021", pinpoint: "r. 37.01", facts: { courtPath: "civil", province: "Ontario", stage: "motion", formApplicability: { civil: { motionDocument: "notice-of-motion-form-37a" } } }, condition: { path: "formApplicability.civil.motionDocument", equals: "notice-of-motion-form-37a" } },
 ] as const;
 
+// Two of the five (e6fdaf6d and faaf5ef0) legitimately share the same
+// authority_source_id ("on-family-motion-r14-09") -- both forms are
+// governed by the same rule -- so the shared assertExactActiveMappings
+// helper can't be reused verbatim here (it assumes a unique source per
+// canonical ID, which holds everywhere else). Checked individually instead.
+const bundleFourRows = await fetchActiveMappingRowsByCanonicalId(
+  bundleFourMappings.map((mapping) => mapping.canonicalFormId),
+);
+assert.equal(bundleFourRows.length, bundleFourMappings.length, "Bundle 4 must certify exactly its five approved canonical identities, no more");
 for (const mapping of bundleFourMappings) {
-  assert.match(bundleFourMigration, new RegExp(`'${mapping.canonicalFormId}'::uuid`), `Bundle 4 must retain exact canonical ID ${mapping.canonicalFormId}`);
-  assert.match(bundleFourMigration, new RegExp(`'${mapping.sourceId}'::text`), `Bundle 4 must retain the source identifier ${mapping.sourceId}`);
+  const row = bundleFourRows.find((candidate) => candidate.canonical_form_id === mapping.canonicalFormId);
+  assert.ok(row, `Bundle 4 must retain exact canonical ID ${mapping.canonicalFormId}`);
+  assert.equal(row!.canonical_form_court_type, mapping.courtArea, `Bundle 4 ${mapping.canonicalFormId} must retain its exact court area`);
+  assert.equal(row!.authority_source_id, mapping.sourceId, `Bundle 4 must retain the source identifier ${mapping.sourceId} for ${mapping.canonicalFormId}`);
+}
+
+for (const mapping of bundleFourMappings) {
   const conditions = { all: [{ path: "courtPath", equals: mapping.courtArea }, { path: "province", equals: "Ontario" }, { path: "stage", equals: mapping.stage }, mapping.condition] };
   const authority: BetaProcedureAuthorityMetadata = { authority_source_id: mapping.sourceId, authority_source_type: "primary-procedural-rule", official_source_url: "https://www.ontario.ca/laws/regulation/example", authority_citation: "Ontario procedural rule", authority_pinpoint: mapping.pinpoint, authority_issuing_body: "Ontario e-Laws", authority_checked_at: "2026-08-10", authority_review_status: "verified-for-workflow", authority_court_area: mapping.courtArea, authority_topic: "bundle-four", authority_stage_applicability: [mapping.stage], canonical_form_id: mapping.canonicalFormId, canonical_form_court_type: mapping.courtArea, form_revision_or_effective_at: mapping.revision, form_review_status: "verified-for-workflow", applicability_conditions: conditions };
   const catalog: ExactCatalogFormProvenance = { canonical_form_id: mapping.canonicalFormId, court_type: mapping.courtArea, form_source_id: mapping.catalogSourceId, official_source_url: "https://ontariocourtforms.on.ca/en/official-forms/", form_revision_or_effective_at: mapping.revision, form_checked_at: "2026-08-10", form_review_status: "verified-catalog-source" };
@@ -570,10 +724,7 @@ const familyMotionAuthority: BetaProcedureAuthorityMetadata = { authority_source
 const familyMotionCatalog: ExactCatalogFormProvenance = { canonical_form_id: familyMotion.canonicalFormId, court_type: "family", form_source_id: "catalog-family-motion", official_source_url: "https://ontariocourtforms.on.ca/en/official-forms/", form_revision_or_effective_at: "Verified catalogue revision", form_checked_at: "2026-08-10", form_review_status: "verified-catalog-source" };
 for (const motionDocumentSet of ["procedural-or-unopposed-motion", "without-notice-or-urgent-motion", "another-motion-document", "not-sure", undefined]) assert.equal(resolveExactFormMapping(familyMotionAuthority, { courtArea: "family", procedureStage: "motion", caseFacts: { ...familyMotion.facts, formApplicability: { family: { motionDocumentSet } } }, catalogRecord: familyMotionCatalog, asOf: mappingAsOf }).displayState, "review-required", "Excluded Family motion paths must fail closed");
 
-const continuousCoverageMigration = readFileSync(
-  "supabase/migrations/20260810000009_add_ontario_family_motion_change_and_civil_third_party_defence_bundle.sql",
-  "utf8",
-);
+// ---- Continuous coverage: family motion-to-change + civil third-party defence (4 records) ----
 const continuousCoverageMappings = [
   {
     courtArea: "family" as const,
@@ -613,11 +764,9 @@ const continuousCoverageMappings = [
   },
 ] as const;
 
-assert.doesNotMatch(continuousCoverageMigration, /ILIKE|LIKE|official_title|form_number|file_path/i, "Continuous coverage mappings must not use catalogue text matching at runtime");
-assert.match(continuousCoverageMigration, /WHERE NOT EXISTS \([\s\S]*existing\.is_active = true[\s\S]*existing\.canonical_form_id = source\.canonical_form_id[\s\S]*existing\.canonical_form_court_type = source\.court_area/, "Continuous coverage mappings must have an exact active canonical identity guard");
+await assertExactActiveMappings("Continuous coverage", continuousCoverageMappings);
+
 for (const mapping of continuousCoverageMappings) {
-  assert.match(continuousCoverageMigration, new RegExp(`'${mapping.canonicalFormId}'::uuid`), `Continuous coverage must retain ${mapping.canonicalFormId}`);
-  assert.match(continuousCoverageMigration, new RegExp(`'${mapping.sourceId}'::text`), `Continuous coverage must retain source ${mapping.sourceId}`);
   const record: BetaProcedureAuthorityMetadata = {
     authority_source_id: mapping.sourceId,
     authority_source_type: "primary-procedural-rule",
@@ -656,10 +805,7 @@ for (const mapping of continuousCoverageMappings) {
   assert.equal(resolveExactFormMapping(record, { courtArea: mapping.courtArea, procedureStage: mapping.stage, caseFacts: mapping.facts, catalogRecord: { ...catalog, form_checked_at: "2024-01-01" }, asOf: mappingAsOf }).displayState, "review-required", `Continuous coverage ${mapping.canonicalFormId} must reject stale catalogue provenance`);
 }
 
-const civilPleadingPostureMigration = readFileSync(
-  "supabase/migrations/20260810000012_add_ontario_civil_counterclaim_new_party_mapping.sql",
-  "utf8",
-);
+// ---- Bundle 11/12: civil pleading posture (6-7 records, from the shared contract) ----
 // bundle11Contract is an untyped .mjs module, so the manifest arrives as any.
 // Naming both shapes here keeps every value derived from it typed.
 type CivilPleadingManifestItem = {
@@ -682,29 +828,30 @@ type CivilPleadingPostureMapping = {
 const civilPleadingManifest = civilPleadingContract();
 const civilPleadingPostureMappings: CivilPleadingPostureMapping[] = civilPleadingManifest.items.map((item: CivilPleadingManifestItem) => ({ item, stage: item.allowedStage, canonicalFormId: item.canonicalFormId, sourceId: item.mappingSourceId, pinpoint: item.governingRulePinpoint, posture: item.requiredFact.equals }));
 const civilPleadingPostureValues = civilPleadingPostureMappings.map((mapping) => mapping.posture);
-const declaredCivilPleadingPostures = [
-  ...civilPleadingPostureMigration.matchAll(
-    /"path":"formApplicability\.civil\.pleadingPosture","equals":"([^"]+)"/g,
-  ),
-].map((match) => match[1]);
-const declaredCivilPleadingQuestionChoices = [
-  ...civilPleadingPostureMigration.matchAll(/"value":"([^"]+)"/g),
-].map((match) => match[1]);
 
-assert.doesNotMatch(civilPleadingPostureMigration, /ILIKE|LIKE|official_title.*(?:=|ILIKE|LIKE)|form_number.*(?:=|ILIKE|LIKE)|file_path/i, "Civil pleading routing must not use catalogue text matching at runtime");
-assert.match(civilPleadingPostureMigration, /WHERE NOT EXISTS \([\s\S]*existing\.is_active = true[\s\S]*existing\.canonical_form_id = 'a4c3343d-1ed5-4da3-b247-8460b5d27b3c'::uuid[\s\S]*existing\.canonical_form_court_type = 'civil'/, "Civil Form 27B must use an exact active canonical identity guard");
-assert.match(civilPleadingPostureMigration, /UPDATE public\.legal_form_mapping_rules AS mapping[\s\S]*mapping\.canonical_form_id IN \([\s\S]*'92121753-d5a5-45e5-9cb6-21b837de7c13'::uuid[\s\S]*'8135da24-53f9-4360-a7c4-81d66fe8530a'::uuid[\s\S]*'a73f2f4c-8dc7-4bb6-a10b-a50e17a7d185'::uuid[\s\S]*'ce2bebe1-9c12-469f-bcca-ebb4d7968216'::uuid[\s\S]*'b2cc9170-cb22-4087-843e-1b4ca4eb2620'::uuid[\s\S]*'79f07cdf-6f02-4857-8402-1b77addfa7f6'::uuid/, "Bundle 12 must update shared question metadata only on the six exact Bundle 11 identities");
-assert.doesNotMatch(civilPleadingPostureMigration, /SET\s+applicability_conditions/i, "Bundle 12 must preserve every existing applicability condition");
-assert.doesNotMatch(civilPleadingPostureMigration, /2ed14ff3-cec2-4c95-baa7-54c94b923c3a|b8d28c25-2b10-4450-a1f3-2d22f5ce2a8a/, "Civil pleading bundle must not add excluded Form 28B or 29A identities");
-assert.deepEqual(
-  [...new Set(declaredCivilPleadingQuestionChoices)].sort(),
-  [...civilPleadingPostureValues].sort(),
-  "Bundle 12 may accept only the seven approved Civil pleading-posture condition values",
+const civilPleadingRows = await fetchActiveMappingRowsByCanonicalId(
+  civilPleadingPostureMappings.map((mapping) => mapping.canonicalFormId),
 );
-assert.deepEqual(declaredCivilPleadingPostures, ["counterclaim-new-party"], "Bundle 12 must add only Form 27B's new applicability condition");
 for (const mapping of civilPleadingPostureMappings) {
-  assert.match(civilPleadingPostureMigration, new RegExp(`'${mapping.canonicalFormId}'::uuid`), `Civil pleading bundle must retain ${mapping.canonicalFormId}`);
-  if (mapping.canonicalFormId === "a4c3343d-1ed5-4da3-b247-8460b5d27b3c") assert.match(civilPleadingPostureMigration, new RegExp(`'${mapping.sourceId}'`), `Civil pleading bundle must retain source ${mapping.sourceId}`);
+  const row = civilPleadingRows.find((candidate) => candidate.canonical_form_id === mapping.canonicalFormId);
+  assert.ok(row, `Civil pleading bundle must retain ${mapping.canonicalFormId}`);
+  assert.equal(row!.canonical_form_court_type, "civil", `Civil pleading ${mapping.canonicalFormId} must be in civil`);
+  assert.equal(row!.authority_source_id, mapping.sourceId, `Civil pleading bundle must retain source ${mapping.sourceId} for ${mapping.canonicalFormId}`);
+  assert.ok(row!.applicability_conditions, `Civil pleading ${mapping.canonicalFormId} must have applicability_conditions`);
+}
+// Excluded identities that must never have been added by this bundle (Form
+// 28B and 29A) -- confirmed against courtsimplified-dev as either absent or
+// inactive for this canonical/court-area combination.
+for (const excludedId of ["2ed14ff3-cec2-4c95-baa7-54c94b923c3a", "b8d28c25-2b10-4450-a1f3-2d22f5ce2a8a"]) {
+  const excludedRows = await fetchActiveMappingRowsByCanonicalId([excludedId]);
+  assert.equal(
+    excludedRows.filter((row) => row.canonical_form_court_type === "civil").length,
+    0,
+    `Excluded Form identity ${excludedId} must not be an active civil mapping row`,
+  );
+}
+
+for (const mapping of civilPleadingPostureMappings) {
   const fixture = civilPleadingManifest.buildFixture(mapping.item);
   const authority = fixture.authority as BetaProcedureAuthorityMetadata;
   const catalog = fixture.catalog as ExactCatalogFormProvenance;
@@ -722,3 +869,10 @@ for (const mapping of civilPleadingPostureMappings) {
 console.log(
   "Forms canonical identity, selected-case isolation, and core catalog provenance verification passed.",
 );
+
+}
+
+main().catch((error) => {
+  console.error(error instanceof Error ? error.message : String(error));
+  process.exitCode = 1;
+});

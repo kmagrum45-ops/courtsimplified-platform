@@ -1,15 +1,20 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
+import path from "node:path";
 
 const builder = readFileSync("app/builder/page.tsx", "utf8");
 const client = readFileSync("src/lib/supabase/client.ts", "utf8");
-// The committed baseline is the schema of record for the remote database. This
-// previously read supabase/remote_schema.sql, a 0-byte artifact, so the policy
-// check below reported "unavailable" and could never fail.
-const baselineSchema = readFileSync(
-  "supabase/migrations/20260707023159_baseline_remote_schema.sql",
-  "utf8",
-);
+// RLS/policy DDL survives `supabase migration squash` (it's schema, not
+// DML), so this only ever needed to stop pointing at one specific migration
+// filename -- reading every current migration file, whatever they're named
+// or however many there are, is what actually keeps this check correct
+// after any future squash. (Previously read the single, now-deleted
+// baseline file by its exact 2026-07-07 name.)
+const migrationsDir = "supabase/migrations";
+const baselineSchema = readdirSync(migrationsDir)
+  .filter((file) => file.endsWith(".sql"))
+  .map((file) => readFileSync(path.join(migrationsDir, file), "utf8"))
+  .join("\n");
 
 assert.match(builder, /user_id:\s*user\.id/, "Case creation must use the authenticated user's ID.");
 assert.match(builder, /\.update\([\s\S]*?master_result:\s*masterPayload,[\s\S]*?\)\s*\.eq\("id", activeId\)/, "Selected-case updates must stay scoped to the selected case ID.");
