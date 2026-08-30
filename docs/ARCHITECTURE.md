@@ -540,3 +540,49 @@ require checking Supabase's current offering, since in-place project
 region migration has not historically been a standard supported
 operation — a project recreation with a data migration is more likely).
 Not started; no target date set as of this writing.
+
+### Dashboard-only Auth settings that must be reconfigured on any new project
+
+**Status: documented 2026-08-30, confirmed live on production.** The
+squashed migration plus seed reproduces the full catalogue schema and data
+(1371 rows across 17 tables, verified against production directly), and
+Storage holds nothing of substance (2 empty folder placeholders, no real
+files). But four Auth settings exist only as live Supabase Dashboard
+configuration — set through the Management API or Studio UI, never
+written to any migration, and invisible to a `git grep` of this repo.
+Confirmed by reading production's Auth config directly
+(`GET https://api.supabase.com/v1/projects/{ref}/config/auth`, a
+read-only Management API call — this is not discoverable from the CLI's
+local `config.toml`/`supabase config push`, which only pushes local
+config outward and was never used to read this back). Any project
+recreation (the Oregon-to-Canada move, or any future one) must set these
+by hand:
+
+- **SMTP**: host `smtp.resend.com`, port `587`, user `resend`, sender
+  name `CourtSimplified`, admin email `noreply@courtsimplified.com`. The
+  password is a Resend API key — **not recoverable from Supabase**, which
+  never returns secret values back once set. Must be regenerated from
+  Resend's own dashboard and re-entered.
+- **`site_url`**: `https://www.courtsimplified.com`
+- **`uri_allow_list`** (the redirect/OAuth allow-list): `https://courtsimplified.vercel.app`,
+  `http://localhost:3000`, `https://www.courtsimplified.com`
+- **`mailer_autoconfirm`**: `true` — a deliberate, non-default setting.
+  New signups skip email confirmation. Supabase's own default is `false`;
+  leaving this unset on a new project silently changes signup behavior.
+
+Everything else in Auth is stock default and needs no action: no OAuth
+providers enabled, no custom email templates (every `mailer_templates_*`
+and `mailer_subjects_*` value is Supabase's default text), no Auth hooks,
+no SAML/SSO, no network restrictions, no SSL enforcement, no custom
+Postgres config, zero Edge Functions.
+
+One thing this audit could not verify: production's installed Postgres
+extensions (`pg_extension`) — no direct database connection was available
+(production's DB password wasn't provided for this check, and the shared
+connection pooler doesn't recognize this project as a registered tenant).
+The squashed migration already creates `pg_net`, `pg_graphql`,
+`pg_stat_statements`, `pgcrypto`, `supabase_vault`, and `uuid-ossp`, which
+were originally captured from production, so this is very likely complete
+— but it is inferred, not confirmed the way everything else above was.
+`SELECT extname FROM pg_extension;` in the Studio SQL editor would close
+that gap.
