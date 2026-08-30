@@ -28,6 +28,12 @@
  * --reveal` for the given ref (requires the Supabase CLI to be authenticated
  * against that project's organization) and used only in-process -- it is
  * never printed, logged, or written to disk.
+ *
+ * The `supabase` binary is called directly below, not via `npx`: it's a
+ * global install in this project (not a package.json devDependency), and
+ * `npx supabase ...` tries to resolve/install it from the registry instead
+ * of using the one already on PATH -- confirmed to hang indefinitely rather
+ * than error, while running `supabase` directly resolves immediately.
  */
 
 import { execSync } from "node:child_process";
@@ -55,7 +61,7 @@ function parseArgs(argv) {
 
 function fetchSecretKey(projectRef) {
   const raw = execSync(
-    `npx supabase projects api-keys --project-ref ${projectRef} --reveal --output json`,
+    `supabase projects api-keys --project-ref ${projectRef} --reveal --output json`,
     { encoding: "utf8" },
   );
   const keys = JSON.parse(raw);

@@ -541,13 +541,52 @@ region migration has not historically been a standard supported
 operation — a project recreation with a data migration is more likely).
 Not started; no target date set as of this writing.
 
+### Storage — corrects an earlier, wrong claim on this page
+
+**Status: corrected 2026-08-30.** This page previously stated that
+production's `court-forms` bucket held "nothing of substance — 2 empty
+folder placeholders, no real files" and, separately, that `forms`/
+`court_form_library` file references were dead links. Both were wrong.
+Production's `court-forms` bucket holds **730 real files, 177 MB**,
+uploaded 2026-04-24. `court_form_library.file_path` links to a real
+Storage object for all 723 of its rows (723/723); `forms.file_url` links
+correctly for 103 of its 104 rows (one pre-existing gap, not something
+introduced by this correction).
+
+**Root cause of the earlier error**: Supabase's Storage `list` API
+(`POST /storage/v1/object/list/<bucket>`) with `prefix: ""` only returns
+entries at the root of the bucket — subfolders come back as placeholder
+rows (`{id: null, metadata: null}`) and are **not** recursed into. The
+bucket's real contents live under `family/` and `ontario/` subfolders, so
+a root-only `list` call looks exactly like an empty bucket. The fix is to
+either pass an explicit `prefix` per subfolder, or — far more reliably —
+query `storage.objects` directly via SQL, which has no such blind spot.
+Anyone auditing a Storage bucket's contents in this project should query
+`storage.objects`, not the list API, or must explicitly recurse into
+every folder placeholder the list API returns.
+
+`courtsimplified-dev` did not have these files (`ensureStorageBuckets.mjs`
+only creates empty buckets). They were downloaded from production,
+verified byte-for-byte, and uploaded to dev — see
+[`scripts/restoreCourtFormsStorage.mjs`](../scripts/restoreCourtFormsStorage.mjs)
+for the repeatable version of that procedure.
+
+Separately, production's `case-files` bucket (excluded from
+`ensureStorageBuckets.mjs`'s `REQUIRED_BUCKETS`, see that file's
+docstring) is confirmed genuinely dead, not just unreferenced: 0 objects
+in it, and its 4 `storage.objects` RLS policies (`Users can
+delete/update/upload/view own case files`) only ever gate access to rows
+where `bucket_id = 'case-files'` — with zero rows there, they have no
+effect on anything. Deliberately not propagated to dev. A production
+cleanup (`DROP POLICY` ×4, then drop the bucket) is a reasonable follow-up
+whenever someone wants to do it; nothing depends on either surviving.
+
 ### Dashboard-only Auth settings that must be reconfigured on any new project
 
 **Status: documented 2026-08-30, confirmed live on production.** The
 squashed migration plus seed reproduces the full catalogue schema and data
-(1371 rows across 17 tables, verified against production directly), and
-Storage holds nothing of substance (2 empty folder placeholders, no real
-files). But four Auth settings exist only as live Supabase Dashboard
+(1371 rows across 24 tables in `public`, verified against production
+directly). But four Auth settings exist only as live Supabase Dashboard
 configuration — set through the Management API or Studio UI, never
 written to any migration, and invisible to a `git grep` of this repo.
 Confirmed by reading production's Auth config directly
@@ -576,13 +615,21 @@ and `mailer_subjects_*` value is Supabase's default text), no Auth hooks,
 no SAML/SSO, no network restrictions, no SSL enforcement, no custom
 Postgres config, zero Edge Functions.
 
-One thing this audit could not verify: production's installed Postgres
-extensions (`pg_extension`) — no direct database connection was available
-(production's DB password wasn't provided for this check, and the shared
-connection pooler doesn't recognize this project as a registered tenant).
-The squashed migration already creates `pg_net`, `pg_graphql`,
-`pg_stat_statements`, `pgcrypto`, `supabase_vault`, and `uuid-ossp`, which
-were originally captured from production, so this is very likely complete
-— but it is inferred, not confirmed the way everything else above was.
-`SELECT extname FROM pg_extension;` in the Studio SQL editor would close
-that gap.
+**Production's installed Postgres extensions — resolved 2026-08-30.**
+Earlier text here noted this couldn't be verified without a direct
+database connection. That connection still isn't available (no DB
+password, and the shared connection pooler doesn't recognize this
+project as a registered tenant), but the Supabase Management API's SQL
+endpoint (`POST /v1/projects/{ref}/database/query`, authenticated with
+the CLI's access token) executes arbitrary SQL over HTTPS and closes the
+gap directly. `SELECT extname FROM pg_extension;` on production returns
+exactly: `pg_stat_statements, pgcrypto, plpgsql, supabase_vault,
+uuid-ossp` — five extensions. The squashed migration also creates
+`pg_net` and `pg_graphql`; **production does not have either installed**,
+despite the migration asking for them. `courtsimplified-dev`, built
+fresh from that same migration, does have all seven (the migration's
+`CREATE EXTENSION IF NOT EXISTS` succeeded there). This is a real,
+confirmed difference between the two projects' actual extension sets —
+not a data-loss risk (neither `pg_net` nor `pg_graphql` is used anywhere
+in this codebase), but worth knowing if a future migration ever assumes
+either is present on production.
