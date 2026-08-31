@@ -122,6 +122,9 @@ jobs:
       - name: Overview issue and document label verification
         run: npm run test:overview-labels
 
+      - name: Intake question selector verification
+        run: npm run test:select-questions
+
       - name: Production build
         run: npm run build
 
