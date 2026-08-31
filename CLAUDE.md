@@ -25,6 +25,13 @@ CanLII (canlii.org, canlii.ca) and the Supreme Court site (decisions.scc-csc.ca)
 
 Every card, claim, or assertion must carry its source URL and the date it was verified.
 
+**The "who does the applying" test** — the standing rule for telling legal information apart from legal advice, everywhere in this codebase, not just intake:
+
+Legal INFORMATION = the system explains law generally; the USER applies it to their facts.
+Legal ADVICE = the SYSTEM applies law to the user's facts.
+
+Wording is not the shield — "in your situation, negligence applies" is advice no matter how it's phrased. The safe pattern is topic surfacing: "situations like this often involve a concept called X — here's what it means and what someone bringing this kind of claim generally must show; worth reading to see if it fits your circumstances." The system may surface topics based on facts (navigation, like the court classifier). It may never state that the user's facts satisfy a legal test, never assess strength, never draft what to say. When a user asks "do I have a case?", the standing answer: the platform organizes and informs but cannot assess — a licensed paralegal or lawyer can, and here's what to bring to that conversation. Full design context: `docs/AI_INTAKE_DESIGN.md`.
+
 ## 3. Never assess case strength
 
 The platform organizes facts and identifies gaps. It does not judge how a case will go.
