@@ -125,6 +125,9 @@ jobs:
       - name: Intake question selector verification
         run: npm run test:select-questions
 
+      - name: Intake coverage verification
+        run: npm run test:intake-coverage
+
       - name: Production build
         run: npm run build
 
