@@ -41,6 +41,16 @@ export const KNOWN_FACT_FIELDS = [
 
 export type KnownFactField = (typeof KNOWN_FACT_FIELDS)[number];
 
+/**
+ * Session 16. Widened from a literal "small-claims" so the engine
+ * (selectQuestions.ts, orchestrateIntakeTurn.ts, claimTypes.ts) can accept
+ * a Family or Civil question/claim-type bank later without a type change
+ * here -- adding real Family/Civil content is separate, future, sourcing
+ * work, not done this session. Every entry in QUESTION_BANK below still
+ * has courtArea: "small-claims" -- this only widens what the TYPE allows.
+ */
+export type CourtArea = "small-claims" | "family" | "civil";
+
 export type FactCondition =
   | { field: KnownFactField; op: "exists" }
   | { field: KnownFactField; op: "notExists" }
@@ -55,7 +65,7 @@ export type AnswerType = "date" | "amount" | "yes-no" | "short-text" | "choice";
 
 export type IntakeQuestion = {
   id: string;
-  courtArea: "small-claims";
+  courtArea: CourtArea;
   /** Omitted means the question always applies. */
   appliesWhen?: FactCondition;
   /** Exact words shown to the user -- this is legal information, not marketing copy. */

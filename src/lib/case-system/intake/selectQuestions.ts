@@ -21,6 +21,7 @@
 
 import {
   QUESTION_BANK,
+  type CourtArea,
   type FactCondition,
   type IntakeQuestion,
   type KnownFactField,
@@ -72,16 +73,24 @@ function questionApplies(question: IntakeQuestion, facts: IntakeFacts): boolean 
  * gathered so far and the questions already answered. Same input always
  * produces the same output -- no Date/Math.random/network access anywhere
  * in this module.
+ *
+ * Session 16: `courtArea` was a hardcoded "small-claims" literal here --
+ * the one real engine-level Small-Claims hardcoding found this session.
+ * Now a parameter (defaulting to "small-claims" for every existing
+ * caller), so a bank mixing multiple court areas' questions (or a future
+ * Family/Civil-only bank) is filtered correctly instead of always being
+ * checked against a fixed literal.
  */
 export function selectQuestions(
   facts: IntakeFacts,
   answeredIds: readonly string[],
   bank: readonly IntakeQuestion[] = QUESTION_BANK,
+  courtArea: CourtArea = "small-claims",
 ): string[] {
   const answered = new Set(answeredIds);
 
   return bank
-    .filter((question) => question.courtArea === "small-claims")
+    .filter((question) => question.courtArea === courtArea)
     .filter((question) => question.status === "reviewed")
     .filter((question) => !answered.has(question.id))
     .filter((question) => questionApplies(question, facts))

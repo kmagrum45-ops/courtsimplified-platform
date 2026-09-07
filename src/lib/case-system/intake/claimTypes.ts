@@ -54,6 +54,7 @@
  */
 
 import type { EducationCitation } from "./educationTopics";
+import type { CourtArea } from "./questionBank";
 
 export type EvidenceCategory = {
   name: string;
@@ -175,7 +176,7 @@ export const DEFENCE_CONCEPTS: DefenceConcept[] = [
 export type ClaimType = {
   id: string;
   name: string;
-  courtArea: "small-claims";
+  courtArea: CourtArea;
   plaintiffElements: PlaintiffElement[];
   defendantConsiderations: DefendantConsideration[];
   /** DefenceConcept ids from DEFENCE_CONCEPTS above -- referenced, not duplicated. */

@@ -4,7 +4,8 @@ import {
   orchestrateIntakeTurn,
   type OrchestrateIntakeTurnResult,
 } from "@/src/lib/case-system/intake/orchestrateIntakeTurn";
-import { KNOWN_FACT_FIELDS, type IntakeQuestion } from "@/src/lib/case-system/intake/questionBank";
+import { KNOWN_FACT_FIELDS, QUESTION_BANK, type IntakeQuestion } from "@/src/lib/case-system/intake/questionBank";
+import { CLAIM_TYPES, type ClaimType } from "@/src/lib/case-system/intake/claimTypes";
 import type { IntakeFacts } from "@/src/lib/case-system/intake/selectQuestions";
 import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
@@ -15,9 +16,13 @@ import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/server
  * this file only validates the request, checks auth, and calls straight
  * through. No UI calls this yet.
  *
- * Uses the REAL QUESTION_BANK (orchestrateIntakeTurn()'s default) -- every
- * entry is status: "reviewed" (see questionBank.ts), so selectQuestions()
- * returns real questions for a live conversation.
+ * Uses the REAL QUESTION_BANK for small-claims (the only court area with
+ * reviewed content today -- every entry is status: "reviewed", see
+ * questionBank.ts), so selectQuestions() returns real questions for a live
+ * conversation. Session 16 added an optional `courtArea` request field
+ * (validated against SUPPORTED_COURT_AREAS, currently just "small-claims")
+ * so a future Family/Civil bank can be added to COURT_AREA_CONTENT without
+ * touching this route's validation or dispatch logic again.
  *
  * Auth pattern matches app/api/small-claims/analyze/route.ts exactly, not
  * a new approach: getAuthenticatedUser() from serverAuth, real
@@ -72,15 +77,35 @@ function isAnsweredIds(value: unknown): value is string[] {
   );
 }
 
+// Session 16: the only court area with a real reviewed question bank and
+// claim-type registry today. A future Family/Civil session adds its own
+// entry to COURT_AREA_CONTENT below and to this list -- this route's
+// validation and dispatch logic doesn't change either time.
+const SUPPORTED_COURT_AREAS = ["small-claims"] as const;
+type SupportedCourtArea = (typeof SUPPORTED_COURT_AREAS)[number];
+
+function isSupportedCourtArea(value: unknown): value is SupportedCourtArea {
+  return typeof value === "string" && (SUPPORTED_COURT_AREAS as readonly string[]).includes(value);
+}
+
+const COURT_AREA_CONTENT: Record<
+  SupportedCourtArea,
+  { questionBank: readonly IntakeQuestion[]; claimTypes: readonly ClaimType[] }
+> = {
+  "small-claims": { questionBank: QUESTION_BANK, claimTypes: CLAIM_TYPES },
+};
+
 type GuidedTurnRequestBody = {
   facts: IntakeFacts;
   answeredIds: string[];
   newStoryText?: string;
+  /** Defaults to "small-claims" when omitted -- every caller today omits it. */
+  courtArea?: SupportedCourtArea;
 };
 
 function isGuidedTurnRequestBody(value: unknown): value is GuidedTurnRequestBody {
   if (!isRecord(value)) return false;
-  const allowedKeys = new Set(["facts", "answeredIds", "newStoryText"]);
+  const allowedKeys = new Set(["facts", "answeredIds", "newStoryText", "courtArea"]);
   if (Object.keys(value).some((key) => !allowedKeys.has(key))) return false;
 
   if (!isIntakeFacts(value.facts)) return false;
@@ -89,6 +114,9 @@ function isGuidedTurnRequestBody(value: unknown): value is GuidedTurnRequestBody
     value.newStoryText !== undefined &&
     !(typeof value.newStoryText === "string" && value.newStoryText.length <= MAX_STORY_TEXT_LENGTH)
   ) {
+    return false;
+  }
+  if (value.courtArea !== undefined && !isSupportedCourtArea(value.courtArea)) {
     return false;
   }
 
@@ -168,15 +196,18 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
         return errorResponse("Guided intake is not available right now.", 503);
       }
 
+      const courtArea = body.courtArea ?? "small-claims";
+      const { claimTypes } = COURT_AREA_CONTENT[courtArea];
+      let { questionBank } = COURT_AREA_CONTENT[courtArea];
+
       // See isDevPreviewAllowed() above -- false for every request in
       // production, unconditionally. The dynamic import only ever executes
       // inside this already-gated branch, never at module load time.
-      let devPreviewBank: readonly IntakeQuestion[] | undefined;
       if (isDevPreviewAllowed(request)) {
         const { DEV_ONLY_TEST_REVIEWED_BANK } = await import(
           "@/src/lib/case-system/intake/DEV_ONLY_testReviewedBank"
         );
-        devPreviewBank = DEV_ONLY_TEST_REVIEWED_BANK;
+        questionBank = DEV_ONLY_TEST_REVIEWED_BANK;
       }
 
       const result: OrchestrateIntakeTurnResult = await dependencies.orchestrate(
@@ -184,7 +215,9 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
         body.answeredIds,
         body.newStoryText,
         apiKey,
-        devPreviewBank,
+        questionBank,
+        claimTypes,
+        courtArea,
       );
 
       return NextResponse.json({ ok: true, result, authenticated });

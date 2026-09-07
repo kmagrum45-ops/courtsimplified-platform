@@ -42,9 +42,9 @@
 import { runSafetyPass, type SafetyClassification } from "./safetyPass";
 import { extractIntakeFactsWithConfidence } from "./extractIntakeFacts";
 import { matchClaimType, type ClaimTypeMatch } from "./claimTypeMatcher";
-import { CLAIM_TYPES } from "./claimTypes";
+import { CLAIM_TYPES, type ClaimType } from "./claimTypes";
 import { selectQuestions, type IntakeFacts } from "./selectQuestions";
-import { QUESTION_BANK, type IntakeQuestion, type KnownFactField } from "./questionBank";
+import { QUESTION_BANK, type CourtArea, type IntakeQuestion, type KnownFactField } from "./questionBank";
 import { composeVoiceTurn, type VoiceTurn } from "./voiceLayer";
 
 export type OrchestrateIntakeTurnResult = {
@@ -143,6 +143,14 @@ function mergeFacts(
  *      caller-supplied, e.g. a "reviewed" fixture) question bank.
  *   6. If there's a next question, composeVoiceTurn() wraps it. If not,
  *      the turn reports intake as complete.
+ *
+ * Session 16: `claimTypes` and `courtArea` are new optional parameters,
+ * same backward-compatible pattern as `questionBank` above -- every
+ * existing caller (the guided-turn route, the Session 9 proof script)
+ * passes at most 5 positional arguments, so both default in unchanged.
+ * This is infrastructure only: CLAIM_TYPES/QUESTION_BANK still hold only
+ * Small Claims content. A future Family/Civil session supplies its own
+ * bank/claim-types/courtArea here without touching this function again.
  */
 export async function orchestrateIntakeTurn(
   currentFacts: IntakeFacts,
@@ -150,6 +158,8 @@ export async function orchestrateIntakeTurn(
   newStoryText: string | undefined,
   apiKey: string,
   questionBank: readonly IntakeQuestion[] = QUESTION_BANK,
+  claimTypes: readonly ClaimType[] = CLAIM_TYPES,
+  courtArea: CourtArea = "small-claims",
 ): Promise<OrchestrateIntakeTurnResult> {
   let facts = currentFacts;
   let safetyClassification: SafetyClassification | undefined;
@@ -183,11 +193,11 @@ export async function orchestrateIntakeTurn(
     facts = merged.facts;
     possibleCorrections = merged.possibleCorrections;
 
-    const match = matchClaimType(newStoryText, CLAIM_TYPES);
+    const match = matchClaimType(newStoryText, claimTypes);
     matchedClaimTypes = match ? [match] : [];
   }
 
-  const remainingIds = selectQuestions(facts, answeredIds, questionBank);
+  const remainingIds = selectQuestions(facts, answeredIds, questionBank, courtArea);
   const nextQuestion = remainingIds.length > 0 ? questionBank.find((q) => q.id === remainingIds[0]) : undefined;
 
   if (!nextQuestion) {
