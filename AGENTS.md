@@ -1,5 +1,32 @@
 # CourtSimplified Repository Instructions
 
+## Standing rules — read CLAUDE.md first
+
+`CLAUDE.md` at the repo root is the authoritative standing-rules file for
+this repo, for every AI tool working in it — not just Claude. Read it
+before making changes here; everything below is additional, not a
+replacement. Two AI tools now touch this codebase, and both need to
+operate under the same rules:
+
+- **Secrets — never expose.** The full list: database passwords, API keys
+  (OpenAI, Supabase, Resend, any other), service role keys, access tokens,
+  and the site access password — not just `.env.local`. Never display,
+  echo, print, log, or commit any of these, anywhere: commands, commit
+  messages, code comments, error output.
+- **Legal content — never unsourced.** Never state a legal fact without a
+  verified source from ontario.ca, ontariocourts.ca, or
+  ontariocourtforms.on.ca. CanLII and the Supreme Court site block
+  automated access and must not be scraped, mirrored, or recalled from
+  memory — if a fact can only come from those, cut it.
+- **The "who does the applying" test.** Legal INFORMATION is the system
+  explaining law generally, for the user to apply to their own facts.
+  Legal ADVICE is the system applying law to the user's facts. Wording
+  doesn't change which one something is. See CLAUDE.md's legal-content
+  section for the full test and examples.
+- CLAUDE.md also covers case-strength grading (never allowed), the
+  suggest-never-decide pattern for AI output, and this repo's Supabase
+  project boundaries — all binding here too.
+
 ## Control protocol
 
 - Begin every completion report with `CONTROL STATE CHECKPOINT`.
