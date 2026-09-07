@@ -492,6 +492,73 @@ function buildCaseDirection(input: SmallClaimsIntelligenceInput): string {
 }
 
 
+type SafetyCheckResponse = {
+  ok: boolean;
+  classification?: "immediate-danger" | "distress" | "clear";
+  userMessage?: string | null;
+};
+
+type SafetyCheckOutcome = {
+  halted: boolean;
+  haltMessage?: string;
+  distressAcknowledgment?: string;
+};
+
+/**
+ * Session 17 -- the form's own path to the identical safety pass guided
+ * mode already runs on every free-text turn: same runSafetyPass()
+ * function, called server-side via /api/intake/safety-check, not
+ * reimplemented here. `userMessage` in the response is always one of
+ * safetyPass.ts's fixed constants (IMMEDIATE_DANGER_MESSAGE /
+ * DISTRESS_ACKNOWLEDGMENT), never model-generated text.
+ *
+ * No fallback exists for a real safety classification (same reason
+ * guided mode requires authentication unconditionally), so an
+ * unauthenticated submission skips this check entirely -- the same gap
+ * that already exists for a guest today, not a new one this session
+ * introduces. Any other technical failure (network error, non-ok
+ * response, malformed body) also fails open: a legitimate submission is
+ * never blocked by a technical hiccup, same philosophy as every other
+ * AI feature in this codebase.
+ */
+async function runFormSafetyCheck(storyText: string): Promise<SafetyCheckOutcome> {
+  try {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!session?.access_token) {
+      return { halted: false };
+    }
+
+    const response = await fetch("/api/intake/safety-check", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.access_token}`,
+      },
+      body: JSON.stringify({ storyText }),
+    });
+
+    const json: SafetyCheckResponse | null = await response.json().catch(() => null);
+    if (!response.ok || !json?.ok) {
+      return { halted: false };
+    }
+
+    const userMessage = typeof json.userMessage === "string" ? json.userMessage : undefined;
+
+    if (json.classification === "immediate-danger") {
+      return { halted: true, haltMessage: userMessage };
+    }
+    if (json.classification === "distress") {
+      return { halted: false, distressAcknowledgment: userMessage };
+    }
+    return { halted: false };
+  } catch {
+    return { halted: false };
+  }
+}
+
 async function requestSmallClaimsAnalysis(
   input: SmallClaimsIntelligenceInput,
 ): Promise<SmallClaimsAnalysisResponse> {
@@ -567,6 +634,9 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisError, setAnalysisError] = useState("");
   const [storageWarning, setStorageWarning] = useState("");
+  const [safetyHalted, setSafetyHalted] = useState(false);
+  const [safetyHaltMessage, setSafetyHaltMessage] = useState("");
+  const [distressAcknowledgment, setDistressAcknowledgment] = useState("");
   const [guidedAnswers, setGuidedAnswers] = useState<Record<string, string>>({});
   const [extractedFacts, setExtractedFacts] = useState<NarrativePrefillFact[]>(
     () => initialPrefill?.facts.filter((fact) => fact.state === "direct") || [],
@@ -598,6 +668,14 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
     value: SmallClaimsIntelligenceInput[K],
   ) {
     setExtractedFacts((current) => current.filter((fact) => fact.field !== field));
+    // Editing the fields the safety check reads clears a prior halt/
+    // acknowledgment -- revising the story is exactly how a user tries
+    // again, not a dead end.
+    if (field === "facts" || field === "urgent") {
+      setSafetyHalted(false);
+      setSafetyHaltMessage("");
+      setDistressAcknowledgment("");
+    }
     setInput((current) => ({ ...current, [field]: value }));
   }
 
@@ -685,6 +763,30 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
     setIsAnalyzing(true);
     setAnalysisError("");
     setStorageWarning("");
+    setSafetyHalted(false);
+    setSafetyHaltMessage("");
+    setDistressAcknowledgment("");
+
+    // Same safety pass guided mode runs on every free-text turn, before
+    // anything else -- here it runs on the case story plus the "anything
+    // urgent" field (the two free-text fields most likely to carry real
+    // distress/danger signal), combined into one call rather than one
+    // per field.
+    const safetyCheckText = [input.facts, input.urgent]
+      .filter((text) => hasText(text))
+      .join("\n\n");
+    const safety = await runFormSafetyCheck(safetyCheckText);
+
+    if (safety.halted) {
+      setSafetyHalted(true);
+      setSafetyHaltMessage(safety.haltMessage || "");
+      setIsAnalyzing(false);
+      return;
+    }
+
+    if (safety.distressAcknowledgment) {
+      setDistressAcknowledgment(safety.distressAcknowledgment);
+    }
 
     try {
       const preparedInput: SmallClaimsIntelligenceInput = {
@@ -757,6 +859,18 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
         answeredIds={[...new Set([...automaticallyAnsweredQuestionIds, ...Object.keys(guidedAnswers)])]}
         onAnswer={handleGuidedAnswer}
       />
+
+      {safetyHalted && safetyHaltMessage && (
+        <div className="mt-5 whitespace-pre-wrap rounded-2xl border border-red-200 bg-red-50 p-4 text-sm leading-6 text-red-800">
+          {safetyHaltMessage}
+        </div>
+      )}
+
+      {distressAcknowledgment && (
+        <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
+          {distressAcknowledgment}
+        </div>
+      )}
 
       {analysisError && (
         <div className="mt-5 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
@@ -1218,7 +1332,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
         <button
           type="button"
           onClick={handleAnalyze}
-          disabled={isAnalyzing}
+          disabled={isAnalyzing || safetyHalted}
           className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isAnalyzing ? "Analyzing..." : "Generate Summary"}
