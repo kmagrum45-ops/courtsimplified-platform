@@ -462,7 +462,6 @@ async function requestSmallClaimsAnalysis(
 }
 
 export default function SmallClaimsIntake({ onComplete, location, initialStory }: Props) {
-  const [editingStory, setEditingStory] = useState(false);
   const [initialPrefill] = useState<NarrativePrefill | null>(() =>
     consumeNarrativePrefill({
       courtPath: "small-claims",
@@ -498,6 +497,12 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
         : defaultInput.filedDocuments,
     };
   });
+
+  // Starts open when there's no story yet to display (e.g. the pre-builder
+  // gate no longer collects it for Small Claims) -- otherwise the user would
+  // land on an empty "Case story" summary with no visible way to type into it
+  // until they notice the "Edit case story" toggle.
+  const [editingStory, setEditingStory] = useState(() => !input.facts.trim());
 
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisError, setAnalysisError] = useState("");

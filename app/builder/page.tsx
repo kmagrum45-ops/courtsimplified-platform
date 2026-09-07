@@ -839,8 +839,20 @@ function BuilderPageContent() {
                   <label><span className="font-semibold">Province or territory</span><select aria-label="Province or territory" value={intakeProvince} onChange={(event) => setIntakeProvince(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"><option value="">Select province or territory</option><option value="Ontario">Ontario</option></select></label>
                   <label><span className="font-semibold">City or municipality</span><input aria-label="City or municipality" value={intakeCity} onChange={(event) => setIntakeCity(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" /></label>
                 </div>
-                <label className="mt-5 block"><span className="font-semibold">Tell us what happened in your own words</span><textarea aria-label="Tell us what happened in your own words" value={intakeStory} onChange={(event) => setIntakeStory(event.target.value)} className="mt-2 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" /></label>
-                <button type="button" disabled={intakeProvince !== "Ontario" || !intakeCity.trim() || !intakeStory.trim()} onClick={() => { setConfirmedLocation({ province: "Ontario", city: intakeCity.trim() }); setHomeStory(intakeStory.trim()); }} className="mt-6 rounded-xl bg-[#2f7d67] px-5 py-3 font-semibold text-white disabled:bg-slate-300">Continue with {pathLabel} questions</button>
+                {courtPath !== "small-claims" && (
+                  <label className="mt-5 block"><span className="font-semibold">Tell us what happened in your own words</span><textarea aria-label="Tell us what happened in your own words" value={intakeStory} onChange={(event) => setIntakeStory(event.target.value)} className="mt-2 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" /></label>
+                )}
+                <button
+                  type="button"
+                  disabled={intakeProvince !== "Ontario" || !intakeCity.trim() || (courtPath !== "small-claims" && !intakeStory.trim())}
+                  onClick={() => {
+                    setConfirmedLocation({ province: "Ontario", city: intakeCity.trim() });
+                    setHomeStory(courtPath === "small-claims" ? "" : intakeStory.trim());
+                  }}
+                  className="mt-6 rounded-xl bg-[#2f7d67] px-5 py-3 font-semibold text-white disabled:bg-slate-300"
+                >
+                  {courtPath === "small-claims" ? "Continue" : `Continue with ${pathLabel} questions`}
+                </button>
               </>
             )}
           </section>
