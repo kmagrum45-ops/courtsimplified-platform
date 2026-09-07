@@ -117,6 +117,54 @@ function hasText(value: string): boolean {
   return value.trim().length > 0;
 }
 
+// Session 15, Tier 1 -- looked up once from the real, reviewed
+// QUESTION_BANK, never new content, never edited here. Only the 4 form
+// fields with a clean, unambiguous correspondence to a why-bearing entry
+// get the affordance; see the session report for the fields that don't
+// (either no questionBank entry at all, or a real mismatch not worth
+// misattributing sourced text to the wrong control).
+const AMOUNT_CLAIMED_QUESTION = QUESTION_BANK.find((question) => question.id === "sc-amount-claimed");
+const CLAIM_FILED_QUESTION = QUESTION_BANK.find((question) => question.id === "sc-claim-filed");
+const DEFENDANT_SERVED_QUESTION = QUESTION_BANK.find((question) => question.id === "sc-defendant-served");
+const DEFENCE_FILED_QUESTION = QUESTION_BANK.find((question) => question.id === "sc-defence-filed");
+
+/**
+ * Tier 1 field help: shows a question's already-sourced `why`/sourceUrl
+ * on click. No AI, no network -- just existing, already-reviewed content.
+ * Renders nothing when the matched question has no `why` to show.
+ */
+function FieldHelp({ question }: { question?: IntakeQuestion }) {
+  const [showWhy, setShowWhy] = useState(false);
+
+  if (!question?.why) return null;
+
+  return (
+    <div className="mt-1 text-xs leading-5">
+      <button
+        type="button"
+        onClick={() => setShowWhy((current) => !current)}
+        className="font-semibold text-[#2f7d67] underline"
+      >
+        Why does this matter?
+      </button>
+
+      {showWhy ? (
+        <p className="mt-1 text-[#4d675f]">
+          {question.why}
+          {question.sourceUrl ? (
+            <>
+              {" "}
+              <a href={question.sourceUrl} target="_blank" rel="noreferrer" className="font-semibold underline">
+                Source
+              </a>
+            </>
+          ) : null}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
 function GuidedIntakeQuestion({
   facts,
   answeredIds,
@@ -386,51 +434,6 @@ function buildCaseDirection(input: SmallClaimsIntelligenceInput): string {
   return `Likely direction: ${stage.replace(/-/g, " ")} · ${issueText}`;
 }
 
-
-function isQuotaExceededError(error: unknown): boolean {
-  if (!(error instanceof DOMException)) return false;
-
-  return (
-    error.name === "QuotaExceededError" ||
-    error.name === "NS_ERROR_DOM_QUOTA_REACHED" ||
-    error.code === 22 ||
-    error.code === 1014
-  );
-}
-
-function buildCompactLocalPayload(
-  payload: StoredCaseData,
-): Record<string, unknown> {
-  const source = payload as StoredCaseData & Record<string, unknown>;
-
-  const {
-    masterResultPatch: _masterResultPatch,
-    dashboardPatch: _dashboardPatch,
-    ...compactPayload
-  } = source;
-
-  return compactPayload;
-}
-
-function safelyStoreText(key: string, value: string): boolean {
-  try {
-    localStorage.setItem(key, value);
-    return true;
-  } catch (error) {
-    if (isQuotaExceededError(error)) {
-      console.warn(
-        `CourtSimplified browser storage is full. The key "${key}" was not saved.`,
-      );
-      return false;
-    }
-
-    throw error;
-  }
-}
-
-function safelyStoreJson(key: string, value: unknown): boolean {
-  return safelyStoreText(key, JSON.stringify(value));
-}
 
 async function requestSmallClaimsAnalysis(
   input: SmallClaimsIntelligenceInput,
@@ -864,6 +867,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
               className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Example: $5,000"
             />
+            <FieldHelp question={AMOUNT_CLAIMED_QUESTION} />
           </label>
 
           <label className="block">
@@ -936,25 +940,38 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
           </h3>
 
           <div className="mt-3 grid gap-3 md:grid-cols-2">
-            {filedOptions.map((option) => (
-              <button
-                key={option.value}
-                type="button"
-                onClick={() =>
-                  updateField(
-                    "filedDocuments",
-                    toggleArrayValue(input.filedDocuments, option.value),
-                  )
-                }
-                className={`rounded-2xl border px-4 py-3 text-left text-sm ${
-                  input.filedDocuments.includes(option.value)
-                    ? "border-[#2f7d67] bg-[#e9f7f2] text-[#16302b]"
-                    : "border-[#d8e6df] bg-white text-[#4d675f]"
-                }`}
-              >
-                {option.label}
-              </button>
-            ))}
+            {filedOptions.map((option) => {
+              const matchedQuestion =
+                option.value === "plaintiffs-claim"
+                  ? CLAIM_FILED_QUESTION
+                  : option.value === "affidavit-service"
+                    ? DEFENDANT_SERVED_QUESTION
+                    : option.value === "defence"
+                      ? DEFENCE_FILED_QUESTION
+                      : undefined;
+
+              return (
+                <div key={option.value}>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      updateField(
+                        "filedDocuments",
+                        toggleArrayValue(input.filedDocuments, option.value),
+                      )
+                    }
+                    className={`w-full rounded-2xl border px-4 py-3 text-left text-sm ${
+                      input.filedDocuments.includes(option.value)
+                        ? "border-[#2f7d67] bg-[#e9f7f2] text-[#16302b]"
+                        : "border-[#d8e6df] bg-white text-[#4d675f]"
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                  <FieldHelp question={matchedQuestion} />
+                </div>
+              );
+            })}
           </div>
         </div>
 
