@@ -25,10 +25,22 @@
  * function to remember matches itself would mean tracking accumulated
  * story text as state, which its signature deliberately doesn't carry;
  * left as a documented decision for a future session, not solved here.
+ *
+ * Session 10 adds `possibleCorrections`: the Session 9 proof surfaced a
+ * real gap in mergeFacts()'s never-overwrite protection -- it correctly
+ * blocks an accidental conflict, but had no way to let a genuine
+ * correction through either. This still doesn't let one through (the old
+ * confirmed value remains the active fact this turn, unconditionally) --
+ * it distinguishes a direct, confident restatement ("I filed it last
+ * week") from an incidental or hedged one ("I was going to file but
+ * haven't decided") via `extractIntakeFactsWithConfidence()`'s
+ * `directFields`, and only the former gets flagged as a possible
+ * correction for a caller to eventually re-ask about. No re-asking flow
+ * exists yet -- that's UI/conversation-design work for later.
  */
 
 import { runSafetyPass, type SafetyClassification } from "./safetyPass";
-import { extractIntakeFacts } from "./extractIntakeFacts";
+import { extractIntakeFactsWithConfidence } from "./extractIntakeFacts";
 import { matchClaimType, type ClaimTypeMatch } from "./claimTypeMatcher";
 import { CLAIM_TYPES } from "./claimTypes";
 import { selectQuestions, type IntakeFacts } from "./selectQuestions";
@@ -56,28 +68,63 @@ export type OrchestrateIntakeTurnResult = {
   voiceTurn?: VoiceTurn;
   /** True once selectQuestions() has nothing left to ask. */
   intakeComplete: boolean;
+  /**
+   * Session 10. Facts where new extraction directly, confidently
+   * contradicted an already-confirmed value this turn. The OLD value is
+   * still what's active in `facts` above -- this is visibility only, not
+   * an automatic correction. Always empty when no newStoryText was given.
+   * Re-asking the user to confirm which value is right is future UI/
+   * conversation-design work, not built this session.
+   */
+  possibleCorrections: PossibleCorrection[];
+};
+
+export type PossibleCorrection = {
+  field: KnownFactField;
+  oldValue: string | number | boolean;
+  newValue: string | number | boolean;
 };
 
 /**
- * Never silently overwrites a fact already present in `current` -- new
- * extraction only fills fields that are currently missing. This is what
- * makes suggest-then-confirm durable: once a fact is confirmed (by
- * extraction or by the user directly answering its dedicated question),
- * later free text in the same conversation cannot silently change it.
- * Correcting a previously-confirmed fact needs an explicit mechanism,
- * which doesn't exist yet -- this function's job is only to make sure
- * ordinary free text can't do it by accident.
+ * The merge rule, with correction detection layered on top -- still never
+ * silently overwrites a fact already present in `current`; that core
+ * protection from Session 9 is unchanged. New behavior: when the new
+ * extraction disagrees with an already-confirmed value AND that field was
+ * flagged as a direct, confident assertion (not an incidental or hedged
+ * mention), it's recorded as a possible correction instead of being
+ * silently discarded. The old value still wins as the active fact this
+ * turn either way -- distinguishing "the user is telling us something
+ * changed" from "this happened to come up in passing" only changes
+ * whether it's flagged for a future confirmation step, not whether it's
+ * applied now.
  */
-function mergeFacts(current: IntakeFacts, extracted: IntakeFacts): IntakeFacts {
+function mergeFacts(
+  current: IntakeFacts,
+  extracted: IntakeFacts,
+  directFields: readonly KnownFactField[],
+): { facts: IntakeFacts; possibleCorrections: PossibleCorrection[] } {
   const merged: IntakeFacts = { ...current };
+  const possibleCorrections: PossibleCorrection[] = [];
+  const directSet = new Set(directFields);
+
   for (const key of Object.keys(extracted) as KnownFactField[]) {
-    if (merged[key] === undefined) {
-      merged[key] = extracted[key];
+    const newValue = extracted[key];
+    if (newValue === undefined) continue;
+    const oldValue = merged[key];
+
+    if (oldValue === undefined) {
+      merged[key] = newValue;
+      continue;
     }
-    // else: already present. Deliberately left untouched, even if the new
-    // extraction disagrees with it.
+
+    if (oldValue !== newValue && directSet.has(key)) {
+      possibleCorrections.push({ field: key, oldValue, newValue });
+    }
+    // else: already present, either agrees or wasn't asserted directly --
+    // left untouched either way.
   }
-  return merged;
+
+  return { facts: merged, possibleCorrections };
 }
 
 /**
@@ -86,8 +133,10 @@ function mergeFacts(current: IntakeFacts, extracted: IntakeFacts): IntakeFacts {
  *      here -- nothing else below runs this turn.
  *   2. distress doesn't halt -- its fixed acknowledgment is carried in the
  *      result, and the turn continues.
- *   3. Extraction runs on newStoryText (when given), merged into facts via
- *      mergeFacts() -- never overwrites an already-known fact.
+ *   3. Extraction (with confidence) runs on newStoryText (when given),
+ *      merged into facts via mergeFacts() -- never overwrites an
+ *      already-known fact; a direct, confident contradiction is recorded
+ *      in possibleCorrections instead of silently applied or discarded.
  *   4. claimTypeMatcher runs against newStoryText (when given) -- plain
  *      keyword data, no AI, doesn't affect question selection.
  *   5. selectQuestions() picks the next question from the (possibly
@@ -106,6 +155,7 @@ export async function orchestrateIntakeTurn(
   let safetyClassification: SafetyClassification | undefined;
   let distressAcknowledgment: string | undefined;
   let matchedClaimTypes: ClaimTypeMatch[] = [];
+  let possibleCorrections: PossibleCorrection[] = [];
 
   if (newStoryText) {
     const safety = await runSafetyPass(newStoryText, apiKey);
@@ -120,6 +170,7 @@ export async function orchestrateIntakeTurn(
         answeredIds,
         matchedClaimTypes: [],
         intakeComplete: false,
+        possibleCorrections: [],
       };
     }
 
@@ -127,8 +178,10 @@ export async function orchestrateIntakeTurn(
       distressAcknowledgment = safety.userMessage;
     }
 
-    const extracted = await extractIntakeFacts(newStoryText, apiKey);
-    facts = mergeFacts(facts, extracted);
+    const { facts: extracted, directFields } = await extractIntakeFactsWithConfidence(newStoryText, apiKey);
+    const merged = mergeFacts(facts, extracted, directFields);
+    facts = merged.facts;
+    possibleCorrections = merged.possibleCorrections;
 
     const match = matchClaimType(newStoryText, CLAIM_TYPES);
     matchedClaimTypes = match ? [match] : [];
@@ -146,6 +199,7 @@ export async function orchestrateIntakeTurn(
       answeredIds,
       matchedClaimTypes,
       intakeComplete: true,
+      possibleCorrections,
     };
   }
 
@@ -161,5 +215,6 @@ export async function orchestrateIntakeTurn(
     nextQuestion,
     voiceTurn,
     intakeComplete: false,
+    possibleCorrections,
   };
 }
