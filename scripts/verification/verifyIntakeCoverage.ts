@@ -6,7 +6,15 @@ import {
   QUESTION_BANK,
   type FactCondition,
 } from "../../src/lib/case-system/intake/questionBank";
-import { EDUCATION_TOPICS } from "../../src/lib/case-system/intake/educationTopics";
+import { EDUCATION_TOPICS, type EducationTopic } from "../../src/lib/case-system/intake/educationTopics";
+import { REMEDY_TYPES, type RemedyTopic } from "../../src/lib/case-system/intake/remedyTypes";
+
+// EducationTopic and RemedyTopic share the same fields these checks care
+// about (id, surfacedWhen, citations, status) -- checked structurally
+// rather than importing one as the other's type, since they're separate
+// registries by design (educationTopics.ts vs remedyTypes.ts) that happen
+// to follow the same shape, not the same type.
+type TopicLike = Pick<EducationTopic | RemedyTopic, "id" | "surfacedWhen" | "citations" | "status">;
 
 const ALLOWED_SOURCE_DOMAINS = [
   "https://www.ontario.ca/",
@@ -79,7 +87,8 @@ function main() {
       }
     }
   }
-  for (const topic of EDUCATION_TOPICS) {
+  const allTopics: TopicLike[] = [...EDUCATION_TOPICS, ...REMEDY_TYPES];
+  for (const topic of allTopics) {
     if (!topic.surfacedWhen) continue;
     const fields = new Set<string>();
     collectFactFields(topic.surfacedWhen, fields);
@@ -109,7 +118,7 @@ function main() {
       );
     }
   }
-  for (const topic of EDUCATION_TOPICS) {
+  for (const topic of allTopics) {
     if (topic.status === "draft") continue;
     const hasResolvableCitation = topic.citations.some((citation) => isResolvableSourceUrl(citation.officialUrl));
     if (!hasResolvableCitation) {
@@ -127,15 +136,15 @@ function main() {
   );
 
   // ---- Bonus: every topic's citations tuple is genuinely non-empty (belt & suspenders on the type) ----
-  for (const topic of EDUCATION_TOPICS) {
+  for (const topic of allTopics) {
     assert.ok(topic.citations.length > 0, `topic "${topic.id}" has an empty citations array`);
   }
 
   console.log(
     `Intake coverage verified: ${smallClaimsScenarios.length} small-claims scenario(s), ` +
       `${QUESTION_BANK.length} question(s) (0 uncovered intentionalGaps), ` +
-      `${EDUCATION_TOPICS.length} education topic(s), 0 unknown appliesWhen/surfacedWhen fields, ` +
-      `0 non-draft entries missing a resolvable source.`,
+      `${EDUCATION_TOPICS.length} education topic(s), ${REMEDY_TYPES.length} remedy topic(s), ` +
+      `0 unknown appliesWhen/surfacedWhen fields, 0 non-draft entries missing a resolvable source.`,
   );
 }
 
