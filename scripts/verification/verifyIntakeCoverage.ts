@@ -8,6 +8,7 @@ import {
 } from "../../src/lib/case-system/intake/questionBank";
 import { EDUCATION_TOPICS, type EducationTopic } from "../../src/lib/case-system/intake/educationTopics";
 import { REMEDY_TYPES, type RemedyTopic } from "../../src/lib/case-system/intake/remedyTypes";
+import { CLAIM_TYPES, DEFENCE_CONCEPTS } from "../../src/lib/case-system/intake/claimTypes";
 
 // EducationTopic and RemedyTopic share the same fields these checks care
 // about (id, surfacedWhen, citations, status) -- checked structurally
@@ -87,7 +88,12 @@ function main() {
       }
     }
   }
-  const allTopics: TopicLike[] = [...EDUCATION_TOPICS, ...REMEDY_TYPES];
+  // ClaimType structurally satisfies TopicLike (id/citations/status present,
+  // surfacedWhen simply absent -- fine for an optional property), so it
+  // reuses checks 2, 3, and the bonus check below for free. DEFENCE_CONCEPTS
+  // has a different shape (a bare sourceUrl, not a citations tuple) and gets
+  // its own small check further down instead of being forced in here.
+  const allTopics: TopicLike[] = [...EDUCATION_TOPICS, ...REMEDY_TYPES, ...CLAIM_TYPES];
   for (const topic of allTopics) {
     if (!topic.surfacedWhen) continue;
     const fields = new Set<string>();
@@ -135,6 +141,78 @@ function main() {
       `(mark them "draft" until sourced, or add the citation):\n` + missingSources.join("\n"),
   );
 
+  // ---- DEFENCE_CONCEPTS: same non-draft-needs-source rule, different shape
+  // (a bare sourceUrl rather than a citations tuple, so it can't join
+  // allTopics above) ----
+  for (const concept of DEFENCE_CONCEPTS) {
+    if (concept.status === "draft") continue;
+    if (!isResolvableSourceUrl(concept.sourceUrl)) {
+      missingSources.push(
+        `defence concept "${concept.id}" is status "${concept.status}" but has no resolvable ` +
+          `sourceUrl from ontario.ca, ontariocourts.ca, or ontariocourtforms.on.ca`,
+      );
+    }
+  }
+  assert.equal(
+    missingSources.length,
+    0,
+    `non-draft entries stating a legal fact without a resolvable source ` +
+      `(mark them "draft" until sourced, or add the citation):\n` + missingSources.join("\n"),
+  );
+
+  // ---- 4. Every ClaimType sub-entry's sourceUrl is mandatory by type (not
+  // gated behind a `why` the way questionBank.ts's is) -- verified for every
+  // claim type regardless of draft status, since a bad or missing value in a
+  // required field is a content bug on its own terms. ----
+  const badSubEntrySources: string[] = [];
+  for (const claimType of CLAIM_TYPES) {
+    for (const element of claimType.plaintiffElements) {
+      if (!isResolvableSourceUrl(element.sourceUrl)) {
+        badSubEntrySources.push(`claim type "${claimType.id}" plaintiffElement "${element.id}" has no resolvable sourceUrl`);
+      }
+    }
+    for (const consideration of claimType.defendantConsiderations) {
+      if (!isResolvableSourceUrl(consideration.sourceUrl)) {
+        badSubEntrySources.push(`claim type "${claimType.id}" defendantConsideration "${consideration.id}" has no resolvable sourceUrl`);
+      }
+    }
+    for (const note of claimType.proceduralNotes) {
+      if (!isResolvableSourceUrl(note.sourceUrl)) {
+        badSubEntrySources.push(`claim type "${claimType.id}" proceduralNote "${note.note.slice(0, 40)}..." has no resolvable sourceUrl`);
+      }
+    }
+  }
+  assert.equal(
+    badSubEntrySources.length,
+    0,
+    `ClaimType sub-entries with an unresolvable sourceUrl (this field is mandatory, not conditional):\n` +
+      badSubEntrySources.join("\n"),
+  );
+
+  // ---- 5. Referential integrity: ClaimType.remedies and
+  // .applicableDefenceConceptIds must point at real entries, not typos ----
+  const remedyIds = new Set(REMEDY_TYPES.map((remedy) => remedy.id));
+  const defenceConceptIds = new Set(DEFENCE_CONCEPTS.map((concept) => concept.id));
+  const danglingReferences: string[] = [];
+  for (const claimType of CLAIM_TYPES) {
+    for (const remedyId of claimType.remedies) {
+      if (!remedyIds.has(remedyId)) {
+        danglingReferences.push(`claim type "${claimType.id}" references unknown remedy id "${remedyId}"`);
+      }
+    }
+    for (const conceptId of claimType.applicableDefenceConceptIds) {
+      if (!defenceConceptIds.has(conceptId)) {
+        danglingReferences.push(`claim type "${claimType.id}" references unknown defence concept id "${conceptId}"`);
+      }
+    }
+  }
+  assert.equal(
+    danglingReferences.length,
+    0,
+    `ClaimType entries referencing a remedy or defence concept id that doesn't exist:\n` +
+      danglingReferences.join("\n"),
+  );
+
   // ---- Bonus: every topic's citations tuple is genuinely non-empty (belt & suspenders on the type) ----
   for (const topic of allTopics) {
     assert.ok(topic.citations.length > 0, `topic "${topic.id}" has an empty citations array`);
@@ -144,7 +222,9 @@ function main() {
     `Intake coverage verified: ${smallClaimsScenarios.length} small-claims scenario(s), ` +
       `${QUESTION_BANK.length} question(s) (0 uncovered intentionalGaps), ` +
       `${EDUCATION_TOPICS.length} education topic(s), ${REMEDY_TYPES.length} remedy topic(s), ` +
-      `0 unknown appliesWhen/surfacedWhen fields, 0 non-draft entries missing a resolvable source.`,
+      `${CLAIM_TYPES.length} claim type(s), ${DEFENCE_CONCEPTS.length} defence concept(s), ` +
+      `0 unknown appliesWhen/surfacedWhen fields, 0 non-draft entries missing a resolvable source, ` +
+      `0 dangling remedy/defence-concept references.`,
   );
 }
 
