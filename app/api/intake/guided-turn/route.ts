@@ -4,7 +4,7 @@ import {
   orchestrateIntakeTurn,
   type OrchestrateIntakeTurnResult,
 } from "@/src/lib/case-system/intake/orchestrateIntakeTurn";
-import { KNOWN_FACT_FIELDS } from "@/src/lib/case-system/intake/questionBank";
+import { KNOWN_FACT_FIELDS, type IntakeQuestion } from "@/src/lib/case-system/intake/questionBank";
 import type { IntakeFacts } from "@/src/lib/case-system/intake/selectQuestions";
 import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
@@ -31,6 +31,19 @@ import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/server
  * to serve an unauthenticated request with -- orchestrateIntakeTurn()
  * always calls real AI when newStoryText is given, so this route requires
  * authentication unconditionally rather than degrading gracefully.
+ *
+ * Session 12 adds a narrow, hard-gated dev-only escape hatch: see
+ * isDevPreviewAllowed() below. It exists solely so app/intake-preview
+ * (also Session 12, a new, clearly-named, unwired preview route) can
+ * click through a full conversation locally using
+ * DEV_ONLY_testReviewedBank.ts's 8 questions instead of the real
+ * QUESTION_BANK, whose entries are all still status: "draft". The gate is
+ * `process.env.NODE_ENV !== "production" && ?devPreview=true` -- both
+ * required, and the NODE_ENV half is a server environment value Next.js
+ * sets automatically for a production build/start, not something any
+ * request can influence. See isDevPreviewAllowed()'s own comment for the
+ * full reasoning; this is the one thing about this route worth reading
+ * carefully before trusting it.
  */
 
 export const runtime = "nodejs";
@@ -91,6 +104,30 @@ function errorResponse(error: string, status: number) {
   return NextResponse.json({ ok: false, error }, { status });
 }
 
+/**
+ * DEV-ONLY PREVIEW GATE -- the entire mechanism keeping
+ * DEV_ONLY_testReviewedBank.ts's un-reviewed content out of production.
+ * Requires BOTH:
+ *   (a) the request explicitly opts in with the query string
+ *       ?devPreview=true (absent, misspelled, or any other value ->
+ *       false), AND
+ *   (b) process.env.NODE_ENV !== "production".
+ *
+ * (b) is not client input. It's a server-side environment value Next.js
+ * itself sets to "production" for `next build`/`next start`, and nothing
+ * in an incoming HTTP request -- a query param, a header, a cookie -- can
+ * change what value this process was started with. That means (b) alone
+ * makes this function return false for every request in a real production
+ * deployment, regardless of (a), regardless of a bug elsewhere in this
+ * file, regardless of who's calling it or why. Exported specifically so
+ * this exact claim is directly testable/inspectable, not just asserted in
+ * a comment.
+ */
+export function isDevPreviewAllowed(request: NextRequest): boolean {
+  if (process.env.NODE_ENV === "production") return false;
+  return request.nextUrl.searchParams.get("devPreview") === "true";
+}
+
 type GuidedTurnRouteDependencies = {
   authenticate: typeof getAuthenticatedUser;
   orchestrate: typeof orchestrateIntakeTurn;
@@ -136,11 +173,23 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
         return errorResponse("Guided intake is not available right now.", 503);
       }
 
+      // See isDevPreviewAllowed() above -- false for every request in
+      // production, unconditionally. The dynamic import only ever executes
+      // inside this already-gated branch, never at module load time.
+      let devPreviewBank: readonly IntakeQuestion[] | undefined;
+      if (isDevPreviewAllowed(request)) {
+        const { DEV_ONLY_TEST_REVIEWED_BANK } = await import(
+          "@/src/lib/case-system/intake/DEV_ONLY_testReviewedBank"
+        );
+        devPreviewBank = DEV_ONLY_TEST_REVIEWED_BANK;
+      }
+
       const result: OrchestrateIntakeTurnResult = await dependencies.orchestrate(
         body.facts,
         body.answeredIds,
         body.newStoryText,
         apiKey,
+        devPreviewBank,
       );
 
       return NextResponse.json({ ok: true, result, authenticated });
