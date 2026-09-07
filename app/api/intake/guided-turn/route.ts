@@ -15,14 +15,9 @@ import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/server
  * this file only validates the request, checks auth, and calls straight
  * through. No UI calls this yet.
  *
- * Uses the REAL QUESTION_BANK (orchestrateIntakeTurn()'s default), not a
- * "reviewed" fixture -- every question is still status: "draft" (see
- * questionBank.ts), so selectQuestions() legitimately returns nothing
- * right now, and this route's response will legitimately show
- * intakeComplete: true / no nextQuestion for every request until
- * something in the bank is marked reviewed. That's correct, not a bug in
- * this route -- see the manual test below for what that actually looks
- * like today.
+ * Uses the REAL QUESTION_BANK (orchestrateIntakeTurn()'s default) -- every
+ * entry is status: "reviewed" (see questionBank.ts), so selectQuestions()
+ * returns real questions for a live conversation.
  *
  * Auth pattern matches app/api/small-claims/analyze/route.ts exactly, not
  * a new approach: getAuthenticatedUser() from serverAuth, real

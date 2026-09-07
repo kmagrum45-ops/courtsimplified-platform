@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import FamilyIntake from "./_components/FamilyIntake";
 import SmallClaimsIntake from "./_components/SmallClaimsIntake";
+import GuidedSmallClaimsIntake from "./_components/GuidedSmallClaimsIntake";
 import CivilIntake from "./_components/CivilIntake";
 import CourtAssistantChat from "./_components/CourtAssistantChat";
 import IntelligenceOverviewPanel from "./_components/IntelligenceOverviewPanel";
@@ -171,6 +172,7 @@ function BuilderPageContent() {
   const [intakeCity, setIntakeCity] = useState("");
   const [intakeStory, setIntakeStory] = useState("");
   const [hydrated, setHydrated] = useState(false);
+  const [smallClaimsMode, setSmallClaimsMode] = useState<"choose" | "form" | "guided">("choose");
 
   const pathLabel = getPathLabel(courtPath);
   const analysisAvailable = isAnalysisAvailable(caseData);
@@ -865,8 +867,38 @@ function BuilderPageContent() {
               <FamilyIntake onComplete={handleComplete} location={confirmedLocation} initialStory={homeStory} />
             )}
 
-            {courtPath === "small-claims" && (
+            {courtPath === "small-claims" && smallClaimsMode === "choose" && (
+              <div className="grid gap-4 md:grid-cols-2">
+                <button
+                  type="button"
+                  onClick={() => setSmallClaimsMode("form")}
+                  className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-6 text-left transition hover:border-[#2f7d67]"
+                >
+                  <h3 className="text-lg font-bold text-[#10231f]">Fill in the form yourself</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#4d675f]">
+                    Work through the structured intake form at your own pace, filling in each section directly.
+                  </p>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setSmallClaimsMode("guided")}
+                  className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-6 text-left transition hover:border-[#2f7d67]"
+                >
+                  <h3 className="text-lg font-bold text-[#10231f]">Answer questions one at a time with AI help</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#4d675f]">
+                    Describe what happened in your own words and answer follow-up questions one at a time.
+                  </p>
+                </button>
+              </div>
+            )}
+
+            {courtPath === "small-claims" && smallClaimsMode === "form" && (
               <SmallClaimsIntake onComplete={handleComplete} location={confirmedLocation} initialStory={homeStory} />
+            )}
+
+            {courtPath === "small-claims" && smallClaimsMode === "guided" && (
+              <GuidedSmallClaimsIntake location={confirmedLocation} initialStory={homeStory} />
             )}
 
             {courtPath === "civil" && (

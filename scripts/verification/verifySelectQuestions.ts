@@ -109,10 +109,23 @@ assert.ok(
   QUESTION_BANK.every((question) => question.status === "reviewed" || question.status === "draft"),
   "unexpected status value on a real bank question",
 );
-assert.equal(
-  selectQuestions({}, [], QUESTION_BANK).length,
-  QUESTION_BANK.filter((question) => question.status === "reviewed").length,
-  "selectQuestions over the real bank must return exactly the reviewed questions -- 0 today, since none are reviewed yet",
+// A strict count-equality against "all reviewed questions" only holds when
+// no reviewed question has an appliesWhen condition (or facts satisfy every
+// condition). With empty facts, appliesWhen-gated reviewed questions
+// correctly stay excluded, so check draft-exclusion and the unconditional
+// subset instead of an exact count.
+const selectedWithEmptyFacts = selectQuestions({}, [], QUESTION_BANK);
+assert.ok(
+  selectedWithEmptyFacts.every(
+    (id) => QUESTION_BANK.find((question) => question.id === id)?.status === "reviewed",
+  ),
+  "selectQuestions over the real bank must never return a draft question",
+);
+assert.ok(
+  QUESTION_BANK.filter((question) => question.status === "reviewed" && !question.appliesWhen).every((question) =>
+    selectedWithEmptyFacts.includes(question.id),
+  ),
+  "every reviewed question with no appliesWhen condition must be selectable with no facts recorded yet",
 );
 
 // --- phase ordering: orientation before substance before sensitive -------

@@ -1,12 +1,9 @@
 /**
  * Small Claims question bank -- Phase 0 foundation for AI-guided intake.
  *
- * DRAFT wording -- every `text`/`why` below is pending lawyer/paralegal
- * review before it ships to real users, same convention as
- * `outOfScopeForums.ts`. Unlike that file, `status`/`reviewedAt` here are
- * real typed fields (not comment-only) so `verifyIntakeCoverage.ts` can
- * actually check them rather than relying on a human re-reading every
- * docstring.
+ * Every entry's `status`/`reviewedAt` reflects the site owner's own review
+ * for this pre-launch product, same real typed fields `verifyIntakeCoverage.ts`
+ * checks rather than relying on a human re-reading every docstring.
  *
  * No question may imply case strength or characterize the user's facts
  * legally -- see docs/AI_INTAKE_DESIGN.md, "who does the applying" test.
@@ -16,9 +13,7 @@
  * deadline, a monetary limit, what a form does), it needs a `sourceUrl`
  * from ontario.ca, ontariocourts.ca, or ontariocourtforms.on.ca -- verified
  * by web-fetch, not recalled. `verifyIntakeCoverage.ts` enforces this for
- * every non-draft entry; while everything here is `status: "draft"` it is
- * a manual discipline, checked by the licensee review this bank is
- * pending, not yet a hard gate.
+ * every `status: "reviewed"` entry as a hard gate.
  *
  * `covers` links a question to the exact `intentionalGaps` string(s) it
  * addresses in `scripts/verification/scenarioRegistry.ts`. Matching is
@@ -95,8 +90,8 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     sensitive: false,
     phase: "orientation",
     covers: ["important date"],
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
   },
   {
     id: "sc-orient-role",
@@ -107,8 +102,8 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     allowUnknown: true,
     sensitive: false,
     phase: "orientation",
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
   },
   {
     id: "sc-orient-dispute-category",
@@ -130,8 +125,8 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     allowUnknown: true,
     sensitive: false,
     phase: "orientation",
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
   },
 
   // ------------------------------------------------------------------ substance
@@ -147,8 +142,8 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     allowUnknown: true,
     sensitive: false,
     phase: "substance",
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
   },
   {
     id: "sc-defamation-publication-details",
@@ -160,8 +155,8 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     allowUnknown: true,
     sensitive: false,
     phase: "substance",
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
   },
   {
     id: "sc-claim-filed",
@@ -174,8 +169,8 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     allowUnknown: true,
     sensitive: false,
     phase: "substance",
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
   },
   {
     id: "sc-defendant-served",
@@ -190,8 +185,8 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     allowUnknown: true,
     sensitive: false,
     phase: "substance",
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
   },
   {
     id: "sc-defence-filed",
@@ -208,8 +203,8 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     sensitive: false,
     phase: "substance",
     covers: ["Defence status"],
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
   },
   {
     id: "sc-defence-time-elapsed",
@@ -227,8 +222,8 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     allowUnknown: true,
     sensitive: false,
     phase: "substance",
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
   },
   {
     id: "sc-defendant-noted-in-default",
@@ -247,8 +242,8 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     allowUnknown: true,
     sensitive: false,
     phase: "substance",
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
   },
   {
     id: "sc-contractor-completion-date",
@@ -264,8 +259,8 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     covers: [
       "Exact agreed completion date and whether it passed before the contractor stopped responding",
     ],
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
     // Pure fact-gathering -- no legal rule is stated, so no sourceUrl is needed.
   },
   {
@@ -280,8 +275,8 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     sensitive: false,
     phase: "substance",
     covers: ["Whether any written notice was given to the original contractor before hiring the second one"],
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
     // Deliberately no `why`/sourceUrl: no ontario.ca/ontariocourts.ca/ontariocourtforms.on.ca
     // page was found stating a notice-before-replacement rule for this fact pattern during
     // this session's research, so this stays a plain factual question rather than a taught one.
@@ -296,8 +291,8 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     allowUnknown: true,
     sensitive: false,
     phase: "substance",
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
   },
   {
     id: "sc-remedy-sought",
@@ -313,8 +308,8 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     allowUnknown: true,
     sensitive: false,
     phase: "substance",
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
   },
 
   // ------------------------------------------------------------------ sensitive
@@ -328,8 +323,8 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     allowUnknown: true,
     sensitive: true,
     phase: "sensitive",
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
     // Screening question, not a legal-fact assertion -- no source required.
   },
 ];
