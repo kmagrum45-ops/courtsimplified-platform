@@ -41,6 +41,7 @@ export const KNOWN_FACT_FIELDS = [
   "claimFiled",
   "claimServed",
   "defenceFiled",
+  "twentyDaysElapsed",
 ] as const;
 
 export type KnownFactField = (typeof KNOWN_FACT_FIELDS)[number];
@@ -71,6 +72,8 @@ export type IntakeQuestion = {
   answerType: AnswerType;
   /** Required when answerType === "choice". */
   choices?: string[];
+  /** Neutral examples that help a user understand the kind of factual answer requested. */
+  examples?: string[];
   /** Every question must have an I-don't-know path that doesn't dead-end. */
   allowUnknown: boolean;
   sensitive: boolean;
@@ -148,6 +151,19 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     status: "draft",
   },
   {
+    id: "sc-defamation-publication-details",
+    courtArea: "small-claims",
+    appliesWhen: { field: "disputeCategory", op: "equals", value: "defamation" },
+    text:
+      "What exact words were said or written, who received or saw them, and when did that happen?",
+    answerType: "short-text",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: null,
+    status: "draft",
+  },
+  {
     id: "sc-claim-filed",
     courtArea: "small-claims",
     appliesWhen: { field: "role", op: "equals", value: "plaintiff" },
@@ -192,6 +208,45 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     sensitive: false,
     phase: "substance",
     covers: ["Defence status"],
+    reviewedAt: null,
+    status: "draft",
+  },
+  {
+    id: "sc-defence-time-elapsed",
+    courtArea: "small-claims",
+    appliesWhen: {
+      all: [
+        { field: "claimServed", op: "equals", value: true },
+        { field: "defenceFiled", op: "equals", value: false },
+      ],
+    },
+    text: "Has it been 20 calendar days since the defendant was served with the claim?",
+    why: "This helps identify the procedural stage after service when no Defence has been recorded.",
+    sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/default-proceedings/",
+    answerType: "yes-no",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: null,
+    status: "draft",
+  },
+  {
+    id: "sc-defendant-noted-in-default",
+    courtArea: "small-claims",
+    appliesWhen: {
+      all: [
+        { field: "claimServed", op: "equals", value: true },
+        { field: "defenceFiled", op: "equals", value: false },
+        { field: "twentyDaysElapsed", op: "equals", value: true },
+      ],
+    },
+    text: "Have you asked the court to note the defendant in default?",
+    why: "This tells us whether a default step has already been started.",
+    sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/default-proceedings/",
+    answerType: "yes-no",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
     reviewedAt: null,
     status: "draft",
   },
@@ -248,6 +303,12 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     id: "sc-remedy-sought",
     courtArea: "small-claims",
     text: "What outcome are you asking the court to order?",
+    examples: [
+      "Payment of a specific amount of money",
+      "Return of property or its value",
+      "Payment for repair costs or other documented losses",
+      "Another outcome — describe it in your own words",
+    ],
     answerType: "short-text",
     allowUnknown: true,
     sensitive: false,

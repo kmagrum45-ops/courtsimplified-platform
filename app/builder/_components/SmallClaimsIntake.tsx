@@ -23,6 +23,14 @@ import {
   type NarrativePrefillFact,
   type NarrativePrefill,
 } from "../../../src/lib/case-system/intelligence/narrativePrefill";
+import {
+  QUESTION_BANK,
+  type IntakeQuestion,
+} from "../../../src/lib/case-system/intake/questionBank";
+import {
+  selectQuestions,
+  type IntakeFacts,
+} from "../../../src/lib/case-system/intake/selectQuestions";
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
@@ -107,6 +115,89 @@ const defaultInput: SmallClaimsIntelligenceInput = {
 
 function hasText(value: string): boolean {
   return value.trim().length > 0;
+}
+
+function GuidedIntakeQuestion({
+  facts,
+  answeredIds,
+  onAnswer,
+}: {
+  facts: IntakeFacts;
+  answeredIds: readonly string[];
+  onAnswer: (question: IntakeQuestion, answer: string) => void;
+}) {
+  const [draftAnswer, setDraftAnswer] = useState("");
+  const remainingIds = selectQuestions(facts, answeredIds);
+  const question = QUESTION_BANK.find((item) => item.id === remainingIds[0]);
+
+  if (!question) {
+    // selectQuestions structurally never returns a status: "draft" question
+    // (see selectQuestions.ts) -- every entry in QUESTION_BANK is currently
+    // draft, pending licensee review, so this is reached before any guided
+    // question has ever been asked, not just after the last one is
+    // answered. Render nothing rather than claim "complete": the fields
+    // below (already always rendered) are the real fallback for anything
+    // still draft, not a message implying a guided flow ran and finished.
+    if (answeredIds.length === 0) return null;
+
+    return (
+      <div className="mt-6 rounded-3xl border border-emerald-200 bg-emerald-50 p-5 text-sm text-emerald-950">
+        <p className="font-semibold">Guided questions complete</p>
+        <p className="mt-2">Review the details below, then continue when they are accurate.</p>
+      </div>
+    );
+  }
+
+  const submit = (answer: string) => {
+    if (!answer.trim()) return;
+    onAnswer(question, answer.trim());
+    setDraftAnswer("");
+  };
+
+  const isChoice = question.answerType === "choice";
+  const isYesNo = question.answerType === "yes-no";
+
+  return (
+    <section className="mt-6 rounded-3xl border border-cyan-200 bg-cyan-50 p-5">
+      <div className="flex items-center justify-between gap-3 text-xs font-semibold uppercase tracking-wide text-cyan-800">
+        <span>Guided intake preview</span>
+        <span>{answeredIds.length + 1} of {QUESTION_BANK.length}</span>
+      </div>
+      <h3 className="mt-3 text-lg font-bold text-[#10231f]">{question.text}</h3>
+      {question.why ? <p className="mt-2 text-sm leading-6 text-[#24463d]">{question.why}</p> : null}
+      {question.sourceUrl ? <a className="mt-2 inline-block text-sm font-semibold text-[#2f7d67] underline" href={question.sourceUrl} target="_blank" rel="noreferrer">View official source</a> : null}
+      {question.examples?.length ? (
+        <div className="mt-3 rounded-2xl border border-cyan-200 bg-white p-4 text-sm leading-6 text-[#24463d]">
+          <p className="font-semibold">Examples — choose or describe what fits your situation:</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5">
+            {question.examples.map((example) => <li key={example}>{example}</li>)}
+          </ul>
+        </div>
+      ) : null}
+      <div className="mt-4">
+        {isChoice || isYesNo ? (
+          <div className="grid gap-2 md:grid-cols-2">
+            {(isChoice ? question.choices || [] : ["Yes", "No"]).map((choice) => <button key={choice} type="button" onClick={() => submit(choice)} className="rounded-2xl border border-cyan-200 bg-white px-4 py-3 text-left text-sm font-semibold text-[#16302b] hover:border-[#2f7d67]">{choice}</button>)}
+          </div>
+        ) : (
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <input
+              value={draftAnswer}
+              onChange={(event) => setDraftAnswer(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") submit(draftAnswer);
+              }}
+              type={question.answerType === "amount" ? "number" : "text"}
+              className="min-w-0 flex-1 rounded-2xl border border-cyan-200 bg-white px-4 py-3"
+              placeholder={question.answerType === "date" ? "For example: March 2024 or March 12, 2024" : "Your answer"}
+            />
+            <button type="button" onClick={() => submit(draftAnswer)} className="rounded-2xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white">Continue</button>
+          </div>
+        )}
+        {question.allowUnknown ? <button type="button" onClick={() => submit("I don't know") } className="mt-3 text-sm font-semibold text-[#2f7d67] underline">I don&apos;t know</button> : null}
+      </div>
+    </section>
+  );
 }
 
 function normalizeText(value: string): string {
@@ -411,12 +502,31 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisError, setAnalysisError] = useState("");
   const [storageWarning, setStorageWarning] = useState("");
+  const [guidedAnswers, setGuidedAnswers] = useState<Record<string, string>>({});
   const [extractedFacts, setExtractedFacts] = useState<NarrativePrefillFact[]>(
     () => initialPrefill?.facts.filter((fact) => fact.state === "direct") || [],
   );
 
   const inferredDirection = useMemo(() => buildCaseDirection(input), [input]);
   const missingPrompt = useMemo(() => buildMissingPrompt(input), [input]);
+  const inferredIssues = useMemo(() => inferIssuesFromStory(input), [input]);
+  const inferredDisputeCategory = useMemo(() => {
+    if (inferredIssues.includes("defamation-reputation")) return "defamation";
+    if (inferredIssues.includes("work-or-services")) return "work-or-services";
+    return undefined;
+  }, [inferredIssues]);
+  const automaticallyAnsweredQuestionIds = useMemo(
+    () => (inferredDisputeCategory ? ["sc-orient-dispute-category"] : []),
+    [inferredDisputeCategory],
+  );
+  const guidedFacts = useMemo<IntakeFacts>(() => ({
+    role: input.yourRole.includes("Plaintiff") ? "plaintiff" : input.yourRole.includes("Defendant") ? "defendant" : undefined,
+    disputeCategory: inferredDisputeCategory || (guidedAnswers["sc-orient-dispute-category"]?.includes("Work done") ? "work-or-services" : undefined),
+    claimFiled: input.filedDocuments.includes("plaintiffs-claim"),
+    claimServed: guidedAnswers["sc-defendant-served"] === "Yes",
+    defenceFiled: guidedAnswers["sc-defence-filed"] === "Yes" ? true : guidedAnswers["sc-defence-filed"] === "No" ? false : input.filedDocuments.includes("defence") ? true : undefined,
+    twentyDaysElapsed: guidedAnswers["sc-defence-time-elapsed"] === "Yes" ? true : guidedAnswers["sc-defence-time-elapsed"] === "No" ? false : undefined,
+  }), [guidedAnswers, inferredDisputeCategory, input.filedDocuments, input.yourRole]);
 
   function updateField<K extends keyof SmallClaimsIntelligenceInput>(
     field: K,
@@ -424,6 +534,24 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
   ) {
     setExtractedFacts((current) => current.filter((fact) => fact.field !== field));
     setInput((current) => ({ ...current, [field]: value }));
+  }
+
+  function handleGuidedAnswer(question: IntakeQuestion, answer: string) {
+    setGuidedAnswers((current) => ({ ...current, [question.id]: answer }));
+    setInput((current) => {
+      const fill = (value: string) => value.trim() ? value : answer;
+      if (question.id === "sc-orient-role") return { ...current, yourRole: answer.startsWith("Bringing") ? "Plaintiff / claimant" : answer.startsWith("Responding") ? "Defendant / responding party" : "Not sure" };
+      if (question.id === "sc-amount-claimed") return { ...current, amountClaimed: fill(current.amountClaimed) };
+      if (question.id === "sc-orient-when-happened") return { ...current, timeline: fill(current.timeline) };
+      if (question.id === "sc-evidence-available" || question.id === "sc-defamation-publication-details") return { ...current, evidence: fill(current.evidence) };
+      if (question.id === "sc-remedy-sought") return { ...current, goal: fill(current.goal) };
+      if (question.id === "sc-defendant-served") return { ...current, serviceDetails: fill(current.serviceDetails) };
+      if (question.id === "sc-defence-time-elapsed" || question.id === "sc-defendant-noted-in-default") return { ...current, defenceResponse: fill(current.defenceResponse) };
+      if (question.id === "sc-claim-filed" && answer === "Yes") return { ...current, filedDocuments: current.filedDocuments.includes("plaintiffs-claim") ? current.filedDocuments : [...current.filedDocuments.filter((item) => item !== "nothing"), "plaintiffs-claim"] };
+      if (question.id === "sc-defence-filed" && answer === "Yes") return { ...current, filedDocuments: current.filedDocuments.includes("defence") ? current.filedDocuments : [...current.filedDocuments.filter((item) => item !== "nothing"), "defence"] };
+      if (question.id.startsWith("sc-contractor-")) return { ...current, agreementDetails: fill(current.agreementDetails) };
+      return current;
+    });
   }
 
   function handleEvidenceFilesSelected(files: FileList | null) {
@@ -551,6 +679,19 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
           <p className="mt-2">{missingPrompt}</p>
         </div>
       </div>
+
+      {inferredDisputeCategory === "defamation" ? (
+        <div className="mt-6 rounded-3xl border border-cyan-200 bg-cyan-50 p-5 text-sm leading-6 text-[#24463d]">
+          <p className="font-semibold">I found a possible false-statement or reputation concern in your story.</p>
+          <p className="mt-2">I&apos;ll use that context and ask for the factual details that are still missing. You can correct or add to anything below.</p>
+        </div>
+      ) : null}
+
+      <GuidedIntakeQuestion
+        facts={guidedFacts}
+        answeredIds={[...new Set([...automaticallyAnsweredQuestionIds, ...Object.keys(guidedAnswers)])]}
+        onAnswer={handleGuidedAnswer}
+      />
 
       {analysisError && (
         <div className="mt-5 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">

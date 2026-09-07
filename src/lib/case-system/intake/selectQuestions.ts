@@ -8,6 +8,15 @@
  * a later AI version of the same job. Ordering (orientation before
  * substance before sensitive) comes from each question's `phase` field,
  * not from array position -- see questionBank.ts.
+ *
+ * Structurally never returns a `status: "draft"` question -- every entry in
+ * questionBank.ts starts draft, pending licensee review, and this is the
+ * one chokepoint every consumer calls through. A UI that wants to show
+ * guided questions gets nothing back until a question is actually marked
+ * "reviewed"; it cannot bypass that by reaching into QUESTION_BANK
+ * directly and skipping this filter, since QUESTION_BANK's own entries
+ * carry no other gate. Enforced here, not by a comment, specifically so it
+ * can't be silently dropped the way sc-safety-check was.
  */
 
 import {
@@ -73,6 +82,7 @@ export function selectQuestions(
 
   return bank
     .filter((question) => question.courtArea === "small-claims")
+    .filter((question) => question.status === "reviewed")
     .filter((question) => !answered.has(question.id))
     .filter((question) => questionApplies(question, facts))
     .sort((a, b) => PHASE_ORDER[a.phase] - PHASE_ORDER[b.phase]) // stable: preserves bank order within a phase
