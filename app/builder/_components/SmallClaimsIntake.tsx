@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import type {
@@ -513,13 +514,15 @@ type SafetyCheckOutcome = {
  * DISTRESS_ACKNOWLEDGMENT), never model-generated text.
  *
  * No fallback exists for a real safety classification (same reason
- * guided mode requires authentication unconditionally), so an
- * unauthenticated submission skips this check entirely -- the same gap
- * that already exists for a guest today, not a new one this session
- * introduces. Any other technical failure (network error, non-ok
- * response, malformed body) also fails open: a legitimate submission is
- * never blocked by a technical hiccup, same philosophy as every other
- * AI feature in this codebase.
+ * guided mode requires authentication unconditionally), so this function
+ * still checks for a session itself and fails open if one is somehow
+ * missing -- but as of Session 19, handleAnalyze() already blocks an
+ * unauthenticated submission before this is ever called, so that branch
+ * below is a defensive backstop, not the live guest path it used to be.
+ * Any other technical failure (network error, non-ok response, malformed
+ * body) also fails open: a legitimate submission is never blocked by a
+ * technical hiccup, same philosophy as every other AI feature in this
+ * codebase.
  */
 async function runFormSafetyCheck(storyText: string): Promise<SafetyCheckOutcome> {
   try {
@@ -637,6 +640,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
   const [safetyHalted, setSafetyHalted] = useState(false);
   const [safetyHaltMessage, setSafetyHaltMessage] = useState("");
   const [distressAcknowledgment, setDistressAcknowledgment] = useState("");
+  const [authRequired, setAuthRequired] = useState(false);
   const [guidedAnswers, setGuidedAnswers] = useState<Record<string, string>>({});
   const [extractedFacts, setExtractedFacts] = useState<NarrativePrefillFact[]>(
     () => initialPrefill?.facts.filter((fact) => fact.state === "direct") || [],
@@ -766,6 +770,22 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
     setSafetyHalted(false);
     setSafetyHaltMessage("");
     setDistressAcknowledgment("");
+    setAuthRequired(false);
+
+    // Session 19 -- the safety check has no deterministic fallback (same
+    // reason guided mode requires authentication unconditionally), so a
+    // guest submission used to skip it silently. Require a signed-in
+    // session before anything else here, same as guided mode, rather than
+    // letting an unauthenticated story reach analysis unchecked.
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!session?.access_token) {
+      setAuthRequired(true);
+      setIsAnalyzing(false);
+      return;
+    }
 
     // Same safety pass guided mode runs on every free-text turn, before
     // anything else -- here it runs on the case story plus the "anything
@@ -859,6 +879,16 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
         answeredIds={[...new Set([...automaticallyAnsweredQuestionIds, ...Object.keys(guidedAnswers)])]}
         onAnswer={handleGuidedAnswer}
       />
+
+      {authRequired && (
+        <div className="mt-5 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm leading-6 text-blue-900">
+          Please sign in to continue. Small Claims intake now requires a signed-in account so
+          CourtSimplified can run its safety check before analyzing your case.{" "}
+          <Link href="/login" className="font-semibold underline">
+            Sign in
+          </Link>
+        </div>
+      )}
 
       {safetyHalted && safetyHaltMessage && (
         <div className="mt-5 whitespace-pre-wrap rounded-2xl border border-red-200 bg-red-50 p-4 text-sm leading-6 text-red-800">
