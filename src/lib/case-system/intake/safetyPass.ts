@@ -25,17 +25,27 @@
  * there on their own terms; the two misses were danger-detection
  * over-triggering, not a distress/clear boundary problem).
  *
- * *** NEEDS REAL REVIEW BEFORE THIS EVER SHIPS ***
- * IMMEDIATE_DANGER_MESSAGE below is NOT sourced or clinically/legally
- * reviewed. CLAUDE.md's three-domain sourcing rule governs legal facts;
- * crisis-resource content (which specific helpline, which phone number,
- * regional availability, hours of operation) is a different, equally
- * serious category this session has no verified source for and no
- * mandate to invent one. Per this session's own instructions: a
- * clearly-marked placeholder, not a guessed phone number, is what belongs
- * here until someone with the right expertise reviews and confirms it.
- * "911" is kept as the one specific fact in this message because it's
- * Canada's universal emergency number, not a specialized resource lookup.
+ * *** STILL NEEDS REAL CLINICAL/LEGAL REVIEW BEFORE THIS EVER SHIPS ***
+ * IMMEDIATE_DANGER_MESSAGE's specific phone numbers were resolved in
+ * Session 8 -- each one directly fetched and quoted from an ontario.ca
+ * page (see the comment immediately above the constant for exact
+ * sourcing). That closes the "don't guess a number" gap, but it does NOT
+ * mean this message is reviewed: nobody with crisis-response, clinical,
+ * or legal expertise has confirmed this is the right SET of resources,
+ * the right framing, or safe/appropriate wording for someone who may be
+ * in real danger while reading it. Numbers being real and cited is a
+ * floor, not the review this needs before it ever reaches a real user.
+ * "911" remains the one number that needed no lookup at all -- Canada's
+ * universal emergency number, not a specialized resource.
+ *
+ * One category from the original placeholder is still genuinely
+ * unresolved, not just unreviewed: a general/national crisis line (e.g.
+ * a Talk Suicide Canada- or 988-style service). Checked directly this
+ * session -- ontario.ca/page/find-mental-health-support does not mention
+ * 988 or a national crisis line anywhere in its fetched content. What
+ * that page does list (ConnexOntario) is included below since it's real
+ * and directly confirmed, but it is not a substitute for whatever that
+ * missing category was meant to cover -- flagged, not guessed.
  */
 
 import OpenAI from "openai";
@@ -50,18 +60,37 @@ export type SafetyPassResult = {
   userMessage?: string;
 };
 
-// *** PLACEHOLDER -- NOT REVIEWED. See file header. ***
-// Needs: a verified, current Canada/Ontario-specific crisis line (and
-// possibly a domestic-violence-specific and/or child-protection-specific
-// line), confirmed correct by someone qualified to confirm it, before any
-// version of this text reaches a real user.
+// *** Numbers below are real and directly sourced (Session 8) -- the
+// MESSAGE AS A WHOLE STILL NEEDS REAL REVIEW. See file header. ***
+//
+// Sources, each directly fetched and quoted, not taken from a search
+// summary or recalled from training data:
+// - Assaulted Women's Helpline (1-866-863-0511, 416-863-0511) and
+//   Fem'aide (1-877-336-2433): ontario.ca/page/connect-supports-survivors-violence,
+//   quoted verbatim as "Toll-free: 1-866-863-0511" / "416-863-0511" /
+//   "Toll-free: 1-877-336-2433".
+// - ConnexOntario (1-866-531-2600): ontario.ca/page/find-mental-health-support,
+//   quoted verbatim as "Toll-free: 1-866-531-2600".
+// - Child protection: no single province-wide number exists on any page
+//   checked. ontario.ca/page/report-child-abuse-and-neglect says, quoted
+//   verbatim: "Report it to a children's aid society or, if someone is in
+//   immediate danger, call the police" -- directing people to their LOCAL
+//   society, not a central number. Stated that way below rather than
+//   inventing a number that doesn't exist.
+// - A general/national crisis line (988-style) remains unresolved -- see
+//   file header. Not included below because it was not found, not because
+//   it was overlooked.
 export const IMMEDIATE_DANGER_MESSAGE =
   "If you are in immediate danger, please call 911.\n\n" +
   "CourtSimplified is a legal information platform. It is not equipped to respond to emergencies " +
   "or provide crisis support, and this intake cannot continue right now.\n\n" +
-  "[PLACEHOLDER -- NEEDS REAL REVIEW: verified Canada/Ontario crisis resources belong here -- for " +
-  "example a national crisis line, a domestic violence helpline, and/or a child protection " +
-  "reporting line, each confirmed current and correct before this ships.]";
+  "Other support that may help:\n" +
+  "- Assaulted Women's Helpline: 1-866-863-0511 (toll-free), or 416-863-0511\n" +
+  "- Fem'aide (French-language support): 1-877-336-2433 (toll-free)\n" +
+  "- ConnexOntario mental health, addictions, and problem gambling helpline: 1-866-531-2600 (toll-free)\n" +
+  "- To report a child who may be in need of protection: contact your local Children's Aid Society, " +
+  "or call police if a child is in immediate danger. There is no single province-wide number for " +
+  "this -- Ontario's own guidance directs people to their local society.";
 
 // Fixed, short, warm -- not generated by the model. Doesn't characterize
 // the legal situation or give advice; just acknowledges and signals the

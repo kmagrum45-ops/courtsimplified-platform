@@ -14,13 +14,26 @@
  * ideally someone with family-violence-support expertise) review, same
  * convention as the rest of this directory.
  *
- * Sourcing: the organization NAMES below (Assaulted Women's Helpline,
- * Fem'aide, Victim Support Line, Family Court Support Worker Program,
- * Family Law Information Centre) are directly confirmed from two fetched
- * ontario.ca pages -- see citations. Specific phone numbers/current
- * contact details were NOT confirmed from either fetched page and are
- * deliberately left out rather than guessed. Same "fixed skeleton, no
- * invented specifics" principle as safetyPass.ts's IMMEDIATE_DANGER_MESSAGE.
+ * Sourcing: the organization NAMES (Assaulted Women's Helpline, Fem'aide,
+ * Victim Support Line, Family Court Support Worker Program, Family Law
+ * Information Centre) were confirmed in Session 6 from two fetched
+ * ontario.ca pages. Session 8 went back for the phone numbers specifically
+ * -- those two original pages genuinely don't contain any (confirmed by
+ * re-fetching both and asking explicitly), but two other ontario.ca pages
+ * do, directly fetched and quoted: Assaulted Women's Helpline and Fem'aide
+ * numbers came from ontario.ca/page/connect-supports-survivors-violence;
+ * the Victim Support Line number was confirmed on that same page AND
+ * independently on ontario.ca/page/victim-services-ontario (identical
+ * both times). See citations for exact quoted text.
+ *
+ * Still unresolved, stated plainly rather than guessed: neither the
+ * Family Court Support Worker Program page nor any other fetched page
+ * gives a single phone number for it -- ontario.ca's own guidance is a
+ * table of courthouse-by-courthouse links to local service providers'
+ * own websites, not a number. Same for the Family Law Information Centre
+ * -- named, but no number found on any fetched page. Both need someone to
+ * either confirm there genuinely is no single number (plausible, given
+ * these are locally delivered programs) or find the right page.
  */
 
 import type { EducationCitation } from "./educationTopics";
@@ -48,13 +61,16 @@ export const FAMILY_RESOURCE_TOPICS: FamilyResourceTopic[] = [
       "Support Workers do not give legal advice, but they can help you understand what's happening and " +
       "connect you to other services. Every courthouse also has a Family Law Information Centre (FLIC) " +
       "that provides information about the court process and referrals to local resources.\n\n" +
-      "Ontario also names specific support organizations for family violence, including the Assaulted " +
-      "Women's Helpline, Fem'aide (French-language support), and the Victim Support Line.\n\n" +
-      "[PLACEHOLDER -- NEEDS REAL REVIEW: specific phone numbers and current contact details for these " +
-      "organizations were not confirmed from a directly fetched ontario.ca page during this session and " +
-      "are deliberately not included here. They need verification by someone able to confirm they are " +
-      "current before this reaches a real user -- same principle as safetyPass.ts's " +
-      "IMMEDIATE_DANGER_MESSAGE.]",
+      "Ontario also names specific support organizations for family violence:\n" +
+      "- Assaulted Women's Helpline: 1-866-863-0511 (toll-free), or 416-863-0511\n" +
+      "- Fem'aide (French-language support): 1-877-336-2433 (toll-free)\n" +
+      "- Victim Support Line: 1-888-579-2888 (toll-free), or 416-314-2447\n\n" +
+      "[PLACEHOLDER -- STILL NEEDS REAL REVIEW: no single phone number for the Family Court Support " +
+      "Worker Program or the Family Law Information Centre was found on any ontario.ca page checked -- " +
+      "ontario.ca's own listing is courthouse-by-courthouse links to local providers' own websites, not " +
+      "a number. This may genuinely be correct (these are locally delivered programs), but that should " +
+      "be confirmed by someone reviewing this, not assumed. The three numbers above ARE directly " +
+      "confirmed -- see citations.]",
     citations: [
       {
         sourceName: "Ontario.ca — Violence and Abuse: Family Violence",
@@ -69,6 +85,23 @@ export const FAMILY_RESOURCE_TOPICS: FamilyResourceTopic[] = [
         pinpoint:
           "\"If you are a victim of domestic violence and going through the family court process, you " +
           "might be able to get help from a family court support worker.\"",
+      },
+      {
+        sourceName: "Ontario.ca — Connect with Supports for Survivors of Violence",
+        officialUrl: "https://www.ontario.ca/page/connect-supports-survivors-violence",
+        verifiedAt: "2026-09-07",
+        pinpoint:
+          "Assaulted Women's Helpline \"Toll-free: 1-866-863-0511\" and \"416-863-0511\"; Fem'aide " +
+          "\"Toll-free: 1-877-336-2433\"; Victim Support Line \"Toll-free: 1-888-579-2888\" and " +
+          "\"416-314-2447\"",
+      },
+      {
+        sourceName: "Ontario.ca — Victim Services Ontario",
+        officialUrl: "https://www.ontario.ca/page/victim-services-ontario",
+        verifiedAt: "2026-09-07",
+        pinpoint:
+          "Victim Support Line: \"416-314-2447\" and \"Toll-free: 1-888-579-2888\" -- independently " +
+          "confirms the same numbers found on the page above",
       },
     ],
     reviewedAt: null,
