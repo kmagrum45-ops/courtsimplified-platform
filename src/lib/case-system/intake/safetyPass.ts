@@ -14,6 +14,17 @@
  * wording" principle as questionBank.ts's question text, applied to
  * content where the cost of the model improvising is much higher).
  *
+ * Session 5 adversarially tested this against 8 hard cases (see
+ * scripts/verification/verifySafetyPassRegression.ts, which now holds all
+ * 11 cases from Sessions 4-5 permanently) and found two real problems,
+ * both from the same root cause: "immediate-danger" was triggering on
+ * violent-adjacent CONTENT (a mention of past violence, a disclaimed
+ * hyperbolic phrase) rather than requiring an explicit, current statement
+ * of danger. Session 6 narrows the immediate-danger criteria to fix this
+ * -- distress/clear were left untouched (Session 5 found no failures
+ * there on their own terms; the two misses were danger-detection
+ * over-triggering, not a distress/clear boundary problem).
+ *
  * *** NEEDS REAL REVIEW BEFORE THIS EVER SHIPS ***
  * IMMEDIATE_DANGER_MESSAGE below is NOT sourced or clinically/legally
  * reviewed. CLAUDE.md's three-domain sourcing rule governs legal facts;
@@ -63,9 +74,16 @@ export const DISTRESS_ACKNOWLEDGMENT =
 const SYSTEM_PROMPT = `You are a safety classifier for a legal self-help intake form. Read the free-text story and classify it into exactly one category. You do not give advice, you do not characterize the legal or factual situation, and you do not decide what happens next -- you only classify.
 
 Categories:
-- "immediate-danger": the story describes a threat of violence, fear for physical safety happening now or very recently, or a child at risk of harm.
-- "distress": no immediate danger, but the story contains heavy emotional content (despair, being overwhelmed, crying, hopelessness) well beyond an ordinary factual account of a dispute.
-- "clear": an ordinary factual account, proceed normally.
+
+- "immediate-danger": ONLY when the person explicitly and unambiguously states, in their own words, that they are CURRENTLY unsafe or being threatened -- a threat, act of violence, or fear for physical safety that is happening now, was very recent and remains unresolved, or a child currently at risk. This must be a direct statement, not something inferred from violent word choice, a scary topic, or emotional tone. Do NOT classify as immediate-danger:
+  - Violence described as being in the past, with nothing indicating it's ongoing or unresolved. Example: "he was physically violent with me during our relationship, including choking me once; I moved out months ago and we're no longer in contact" -- this describes something serious, but there is no current threat. Classify this as "distress" instead, given the seriousness of what's being recounted.
+  - Hyperbolic or figurative violent language the person themselves signals isn't a real threat. Example: "I could kill him, not seriously, obviously, I'm just so fed up" -- this is ordinary frustrated speech, not a threat. Classify this as "clear".
+  - A violent or frightening topic mentioned without the person saying THEY are currently unsafe.
+  DO classify as immediate-danger when the person directly describes a real, explicit threat or act of violence that is current or very recent and unresolved -- even if it's mentioned briefly within an otherwise ordinary story. Example: someone recounting an unrelated contract dispute who also mentions the other party showed up recently and threatened them, leaving them scared -- that threat is real, explicit, and unresolved, so this IS immediate-danger, regardless of how much of the story is about something else.
+
+- "distress": no immediate danger (per the strict test above), but the story contains heavy content well beyond an ordinary factual account -- either strong emotional language (despair, being overwhelmed, crying, hopelessness) or serious-but-not-current content like past violence or trauma recounted as background, even when the person's tone is calm or flat.
+
+- "clear": an ordinary factual account, proceed normally. This includes anger or frustration on its own (without despair or hopelessness), and hyperbolic language the speaker themselves disclaims as not serious.
 
 Return a JSON object: {"classification": "immediate-danger" | "distress" | "clear", "reason": "<one short sentence for internal logging only, never shown to any user>"}. Omit "reason" (empty string) when classification is "clear".`;
 

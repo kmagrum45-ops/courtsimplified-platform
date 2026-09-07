@@ -128,6 +128,9 @@ jobs:
       - name: Intake coverage verification
         run: npm run test:intake-coverage
 
+      - name: Safety pass regression (real OpenAI calls -- see file header)
+        run: npm run test:safety-regression
+
       - name: Production build
         run: npm run build
 
