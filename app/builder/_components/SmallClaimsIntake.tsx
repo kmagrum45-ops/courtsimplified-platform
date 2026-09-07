@@ -117,38 +117,93 @@ function hasText(value: string): boolean {
   return value.trim().length > 0;
 }
 
-// Session 15, Tier 1 -- looked up once from the real, reviewed
-// QUESTION_BANK, never new content, never edited here. Only the 4 form
-// fields with a clean, unambiguous correspondence to a why-bearing entry
-// get the affordance; see the session report for the fields that don't
+// Session 15 -- Tier 1/Tier 2 field help. Looked up once from the real,
+// reviewed QUESTION_BANK -- never new content, never edited here. Only
+// fields with a clean, unambiguous correspondence to one of these get the
+// help affordance; see the session report for the fields that don't
 // (either no questionBank entry at all, or a real mismatch not worth
 // misattributing sourced text to the wrong control).
+const ROLE_QUESTION = QUESTION_BANK.find((question) => question.id === "sc-orient-role");
 const AMOUNT_CLAIMED_QUESTION = QUESTION_BANK.find((question) => question.id === "sc-amount-claimed");
+const EVIDENCE_QUESTION = QUESTION_BANK.find((question) => question.id === "sc-evidence-available");
+const REMEDY_QUESTION = QUESTION_BANK.find((question) => question.id === "sc-remedy-sought");
 const CLAIM_FILED_QUESTION = QUESTION_BANK.find((question) => question.id === "sc-claim-filed");
 const DEFENDANT_SERVED_QUESTION = QUESTION_BANK.find((question) => question.id === "sc-defendant-served");
 const DEFENCE_FILED_QUESTION = QUESTION_BANK.find((question) => question.id === "sc-defence-filed");
 
 /**
- * Tier 1 field help: shows a question's already-sourced `why`/sourceUrl
- * on click. No AI, no network -- just existing, already-reviewed content.
- * Renders nothing when the matched question has no `why` to show.
+ * Tier 1 (free): shows the question's already-sourced `why`/sourceUrl on
+ * click, when present -- no AI, no network, just existing content.
+ *
+ * Tier 2 (AI): "explain it" calls /api/intake/explain-question with only
+ * this question's id -- the server looks up the fixed text/why itself
+ * from QUESTION_BANK and never receives any of this form's other field
+ * values, so there is no channel for the user's other answers to reach
+ * that prompt, even by accident. Available on any matched question, not
+ * just why-bearing ones, since it can explain from the question text
+ * alone. On any failure the button just stops loading and shows nothing
+ * else, same fallback philosophy as composeVoiceTurn().
  */
 function FieldHelp({ question }: { question?: IntakeQuestion }) {
   const [showWhy, setShowWhy] = useState(false);
+  const [explanation, setExplanation] = useState<string | null>(null);
+  const [explaining, setExplaining] = useState(false);
 
-  if (!question?.why) return null;
+  if (!question) return null;
+
+  async function handleExplain() {
+    if (explaining || explanation) return;
+    setExplaining(true);
+
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      const response = await fetch("/api/intake/explain-question", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
+        },
+        body: JSON.stringify({ questionId: question!.id }),
+      });
+
+      const json = await response.json().catch(() => null);
+      if (response.ok && json?.ok && typeof json.explanation === "string" && json.explanation.trim()) {
+        setExplanation(json.explanation.trim());
+      }
+      // Any other outcome (error status, malformed body, empty
+      // explanation): silently show nothing extra, never a broken state.
+    } catch {
+      // Network/parsing failure: same silent fallback.
+    } finally {
+      setExplaining(false);
+    }
+  }
 
   return (
     <div className="mt-1 text-xs leading-5">
+      {question.why ? (
+        <button
+          type="button"
+          onClick={() => setShowWhy((current) => !current)}
+          className="mr-3 font-semibold text-[#2f7d67] underline"
+        >
+          Why does this matter?
+        </button>
+      ) : null}
+
       <button
         type="button"
-        onClick={() => setShowWhy((current) => !current)}
-        className="font-semibold text-[#2f7d67] underline"
+        onClick={handleExplain}
+        disabled={explaining}
+        className="font-semibold text-[#2f7d67] underline disabled:cursor-not-allowed disabled:opacity-60"
       >
-        Why does this matter?
+        {explaining ? "Explaining..." : "I don't understand this — explain it"}
       </button>
 
-      {showWhy ? (
+      {showWhy && question.why ? (
         <p className="mt-1 text-[#4d675f]">
           {question.why}
           {question.sourceUrl ? (
@@ -161,6 +216,8 @@ function FieldHelp({ question }: { question?: IntakeQuestion }) {
           ) : null}
         </p>
       ) : null}
+
+      {explanation ? <p className="mt-1 text-[#4d675f]">{explanation}</p> : null}
     </div>
   );
 }
@@ -769,6 +826,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
               <option value="Defendant / responding party">Defendant / responding party</option>
               <option value="Not sure">Not sure</option>
             </select>
+            <FieldHelp question={ROLE_QUESTION} />
           </label>
         </div>
 
@@ -823,6 +881,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
               className="mt-2 min-h-28 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Screenshots, messages, witnesses, receipts, photos, emails, documents."
             />
+            <FieldHelp question={EVIDENCE_QUESTION} />
           </label>
         </div>
 
@@ -851,6 +910,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
               className="mt-2 min-h-24 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Money, apology, return of property, dismissal, payment plan, costs."
             />
+            <FieldHelp question={REMEDY_QUESTION} />
           </label>
         </div>
 
