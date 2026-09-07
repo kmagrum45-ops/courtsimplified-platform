@@ -22,6 +22,10 @@ import { supabase } from "../../src/lib/supabase/client";
 import { buildMasterCaseFromIntake } from "../../src/lib/case-system/masterCaseOrchestrator";
 import { buildCaseContextStoragePayload } from "../../src/lib/case-system/caseContextEngine";
 import { consumeGuestIntakeSession, loadCompactBuilderDraft, saveCompactBuilderDraft } from "../../src/lib/case-system/builderDraftStorage";
+import { draftSmallClaimsPlaintiffClaim } from "../../src/lib/case-system/claimDraftEngine";
+import { buildWorkspaceDocument } from "../../src/lib/case-system/documentWorkspaceEngine";
+import { writeWorkspaceDocument } from "../../src/lib/case-system/workflowCaseLoader";
+import type { GeneratedDocument } from "../../src/lib/case-system/documentGenerationEngine";
 
 // Pre-rewrite intelligence UI, parked rather than deleted. Declared as
 // boolean instead of the literal false: a literal makes TypeScript treat the
@@ -528,6 +532,73 @@ function BuilderPageContent() {
     );
   }
 
+  function createSmallClaimsClaimDraft() {
+    const caseId = getActiveCaseId();
+    if (!caseData || !caseId || courtPath !== "small-claims") {
+      setSaveError("Save the selected Small Claims case before creating a working claim draft.");
+      return;
+    }
+
+    const claim = draftSmallClaimsPlaintiffClaim(caseData);
+    const now = new Date().toISOString();
+    const generatedDocument: GeneratedDocument = {
+      id: `small-claims-form-7a-${Date.now()}`,
+      documentType: "general-litigation-package",
+      title: "Draft Plaintiff’s Claim (Form 7A)",
+      subtitle: "Working draft created from your saved Small Claims intake — review and edit before use.",
+      generatedAt: now,
+      readiness: "needs-review",
+      sections: [
+        { id: "parties", heading: "Parties", purpose: "Record the party details entered during intake.", paragraphs: claim.partySection, bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
+        { id: "claim-overview", heading: "What you are asking for", purpose: "Record the outcome entered during intake.", paragraphs: claim.claimOverview, bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
+        { id: "facts", heading: "Facts", purpose: "Organize the facts entered during intake into numbered paragraphs for review.", paragraphs: claim.numberedClaimFacts, bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
+        { id: "amount-claimed", heading: "Amount claimed", purpose: "Review the amount and calculation entered during intake.", paragraphs: claim.damagesSection, bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
+        { id: "evidence", heading: "Evidence to review", purpose: "List the records identified during intake.", paragraphs: claim.evidenceSection, bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
+      ],
+      warnings: claim.missingInformation,
+      nextSteps: ["Review every fact, amount, and party detail.", "Complete missing information before relying on this draft.", "Compare the draft with the official Form 7A before filing or serving."],
+    };
+
+    writeWorkspaceDocument(caseId, buildWorkspaceDocument({ generatedDocument }));
+    router.push(buildWorkflowHref("/document-workspace", caseId, courtPath));
+  }
+
+  function createCourtAreaWorkingDraft(
+    title: string,
+    subtitle: string,
+    factsHeading: string,
+  ) {
+    const caseId = getActiveCaseId();
+    if (!caseData || !caseId) {
+      setSaveError("Save the selected case before creating a working draft.");
+      return;
+    }
+
+    const extra = asRecord(caseData.extra);
+    const amount = String(extra.amountClaimed || extra.damagesBreakdown || "").trim();
+    const now = new Date().toISOString();
+    const generatedDocument: GeneratedDocument = {
+      id: `originating-draft-${Date.now()}`,
+      documentType: "general-litigation-package",
+      title,
+      subtitle,
+      generatedAt: now,
+      readiness: "needs-review",
+      sections: [
+        { id: "parties", heading: "Parties", purpose: "Review the party details entered during intake.", paragraphs: [`Applicant/Plaintiff: ${caseData.yourName || "Not entered"}`, `Other party: ${caseData.otherParty || "Not entered"}`], bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
+        { id: "facts", heading: factsHeading, purpose: "Review and edit the facts entered during intake.", paragraphs: [caseData.facts || "No facts entered yet."], bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
+        { id: "outcome", heading: "Requested outcome", purpose: "Review the outcome entered during intake.", paragraphs: [caseData.goal || "No requested outcome entered yet."], bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
+        { id: "amount-and-timeline", heading: "Amount and timeline", purpose: "Review amounts and important dates entered during intake.", paragraphs: [amount ? `Amount entered: ${amount}` : "No amount entered.", caseData.timeline || "No timeline entered yet."], bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
+        { id: "evidence", heading: "Evidence to review", purpose: "Review the records identified during intake.", paragraphs: [caseData.evidence || "No evidence description entered yet."], bulletPoints: [], linkedEvidenceIds: [], exhibitLabels: [], warnings: [] },
+      ],
+      warnings: ["This is a working draft created from intake. Review every field and compare it with the official court form before use."],
+      nextSteps: ["Review and edit the draft.", "Complete any missing facts, dates, and party details.", "Compare the draft with the official court form before filing or serving."],
+    };
+
+    writeWorkspaceDocument(caseId, buildWorkspaceDocument({ generatedDocument }));
+    router.push(buildWorkflowHref("/document-workspace", caseId, courtPath));
+  }
+
   function goToDashboardCase() {
     const targetCaseId = getActiveCaseId();
 
@@ -829,6 +900,21 @@ function BuilderPageContent() {
             <section className="rounded-2xl border border-[#d8e6df] bg-white p-5">
               <h2 className="text-lg font-bold text-[#16302b]">What CourtSimplified can help with next</h2>
               <div className="mt-4 flex flex-wrap gap-3">
+                {courtPath === "small-claims" && getActiveCaseId() ? (
+                  <button type="button" onClick={createSmallClaimsClaimDraft} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
+                    Create Plaintiff&apos;s Claim draft (Form 7A)
+                  </button>
+                ) : null}
+                {courtPath === "civil" && getActiveCaseId() ? (
+                  <button type="button" onClick={() => createCourtAreaWorkingDraft("Draft Statement of Claim (Form 14A)", "Working draft created from your saved Ontario Civil intake — review and edit before use.", "Material facts")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
+                    Create Statement of Claim draft (Form 14A)
+                  </button>
+                ) : null}
+                {courtPath === "family" && getActiveCaseId() ? (
+                  <button type="button" onClick={() => createCourtAreaWorkingDraft("Draft Family Application (Form 8)", "Working draft created from your saved Ontario Family intake — review and edit before use.", "Facts for review")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
+                    Create Family Application draft (Form 8)
+                  </button>
+                ) : null}
                 <button type="button" onClick={() => pushWorkflow("/evidence")} className="rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white">Organize evidence</button>
                 <button type="button" onClick={goToDashboardCase} disabled={savingMaster || !getActiveCaseId()} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67] disabled:opacity-50">Review intake details</button>
                 <button type="button" onClick={() => pushWorkflow("/forms")} className="rounded-xl border border-[#2f7d67] bg-white px-5 py-3 text-sm font-semibold text-[#2f7d67]">Check official forms and procedure</button>
