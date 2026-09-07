@@ -42,6 +42,41 @@
  * Determination Rules). Per this session's own stop condition, cut rather
  * than forced. Worth a fresh, narrower attempt in a later session.
  *
+ * Session 18 ("batch 2") added 6 more, marked `status: "reviewed"` directly
+ * (the site owner's own decision for this pre-launch product, same as
+ * Session 13's questionBank.ts status flip -- not a claim that a licensee
+ * has reviewed this wording):
+ *   - Dog bite or attack (Dog Owners' Liability Act -- strict liability,
+ *     avoids needing a general negligence-elements source the way slip-
+ *     and-fall relies on the Occupiers' Liability Act instead)
+ *   - Breach of contract -- services not performed or substandard (the
+ *     reverse direction of the existing unpaid-debt/services entry: the
+ *     customer suing over undone or substandard work, not the provider
+ *     suing for non-payment)
+ *   - Recovery of personal property wrongfully held by another (not a
+ *     goods purchase or a tenancy -- e.g. a roommate or acquaintance
+ *     refusing to return belongings)
+ *   - Cancelled contract, deposit/payment not refunded (Consumer
+ *     Protection Act cooling-off categories: door-to-door sales, gym/
+ *     fitness memberships, new condos, payday loans, time shares)
+ *   - Commercial (non-residential) tenancy dispute -- deliberately scoped
+ *     to commercial leases, governed by the Commercial Tenancies Act, not
+ *     the Residential Tenancies Act. This doesn't resolve
+ *     docs/AI_INTAKE_DESIGN.md's still-open "LTB keyword matching" question
+ *     (that's specifically about a *residential* tenancy that's ended),
+ *     but it's the first content in this file giving the system a
+ *     correctly-sourced way to recognize a tenancy dispute that
+ *     unambiguously belongs in Small Claims rather than at the LTB.
+ *   - Dishonoured (NSF) cheque -- named explicitly as its own example on
+ *     ontario.ca's Small Claims Court overview, not folded into the
+ *     existing unpaid-debt entry, since it's called out as its own
+ *     category on the source itself.
+ * No candidate was cut this session -- every one attempted was confirmed
+ * with a direct fetch within 1-2 tool calls. A commercial-tenancy angle
+ * was chosen specifically because it sidesteps the still-open residential/
+ * LTB question rather than re-attempting the exact sourcing wall that
+ * question already hit.
+ *
  * Sourcing note on statutes whose e-Laws page won't render (Occupiers'
  * Liability Act, Negligence Act, Sale of Goods Act all hit this): ontario.ca's
  * e-Laws statute viewer (ontario.ca/laws/statute/...) is a JS-rendered page
@@ -973,5 +1008,600 @@ export const CLAIM_TYPES: ClaimType[] = [
     ],
     reviewedAt: null,
     status: "draft",
+  },
+  {
+    id: "sc-claim-dog-bite-animal-injury",
+    name: "Dog bite or attack (Dog Owners' Liability Act)",
+    courtArea: "small-claims",
+    plaintiffElements: [
+      {
+        id: "dog-caused-bite-or-attack",
+        name: "The dog bit or attacked the person (or another domestic animal)",
+        plainExplanation:
+          "The owner of a dog is liable for damages resulting from a bite or attack by the dog on " +
+          "another person or domestic animal.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90d16_e.doc",
+        evidenceCategories: [
+          {
+            name: "Medical or veterinary records",
+            why: "Documents the injury and when it was first treated.",
+            examples: ["Emergency room or clinic records", "Veterinary records for an injured pet", "Photos of visible injuries"],
+          },
+          {
+            name: "Witness accounts",
+            why: "Supports that the dog bit or attacked at that time and place.",
+            examples: ["Names/contact info of anyone who saw it happen", "Written witness statements", "Any video or photos from the scene"],
+          },
+        ],
+      },
+      {
+        id: "defendant-is-owner",
+        name: "The defendant is the dog's owner",
+        plainExplanation:
+          "\"Owner\", for this Act, includes a person who possesses or harbours the dog, and, where " +
+          "the owner is a minor, the person responsible for the minor's custody.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90d16_e.doc",
+        evidenceCategories: [
+          {
+            name: "Proof of who owns or keeps the dog",
+            why: "Establishes who the correct defendant is.",
+            examples: ["Municipal dog licence or registration", "Veterinary records naming the owner", "Witness confirmation of who the dog belongs to"],
+          },
+        ],
+      },
+      {
+        id: "loss-amount-dog-bite",
+        name: "The amount claimed reflects the injury or damage",
+        plainExplanation:
+          "Small Claims Court's jurisdiction covers claims for money, up to $50,000, not counting " +
+          "interest and costs.",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        evidenceCategories: [
+          {
+            name: "Cost documentation",
+            why: "Supports the specific dollar amount claimed.",
+            examples: ["Medical or veterinary bills", "Lost income records, if applicable", "Cost of damaged clothing or property"],
+          },
+        ],
+      },
+    ],
+    defendantConsiderations: [
+      {
+        id: "plaintiff-fault-reduces-damages",
+        name: "The injured person's own fault contributed to what happened",
+        plainExplanation:
+          "Liability does not depend on the owner knowing the dog was prone to this or on the owner's " +
+          "own negligence -- but the court reduces the damages awarded in proportion to any degree to " +
+          "which the injured person's own fault or negligence caused or contributed to the damages.",
+        whenThisComesUp: "When the defendant says the injured person provoked the dog or otherwise contributed to the incident.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90d16_e.doc",
+      },
+      {
+        id: "criminal-act-on-premises-exception",
+        name: "The incident happened on the owner's premises during a criminal act by the injured person",
+        plainExplanation:
+          "When a bite or attack happens on the owner's own premises, this Act (not the Occupiers' " +
+          "Liability Act) applies, and the Act sets out a narrow exception where the owner is not " +
+          "liable if the injured person was committing a criminal act there, unless the dog was kept " +
+          "unreasonably for the purpose of protecting persons or property.",
+        whenThisComesUp: "When the incident happened at the owner's home or business and the owner says the injured person was committing a crime there at the time.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90d16_e.doc",
+      },
+    ],
+    applicableDefenceConceptIds: ["defence-contributory-negligence", "defence-limitation-period-expired"],
+    remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
+    proceduralNotes: [
+      {
+        note:
+          "Claims like this are generally subject to Ontario's standard 2-year limitation period, " +
+          "running from when the incident (or the injury) was discovered.",
+        sourceUrl: "https://www.ontario.ca/page/civil-claims-suing-and-being-sued",
+      },
+    ],
+    signals: [
+      "dog bit me",
+      "bitten by a dog",
+      "attacked by a dog",
+      "dog attack injury",
+      "my dog bit someone",
+      "dog attacked my pet",
+    ],
+    typicalDefendantProfile: "individual",
+    citations: [
+      {
+        sourceName: "Dog Owners' Liability Act, R.S.O. 1990, c. D.16",
+        officialUrl: "https://www.ontario.ca/laws/docs/90d16_e.doc",
+        verifiedAt: "2026-09-07",
+        pinpoint: "s.2(1) owner liability; s.2(3) liability not dependent on knowledge/negligence, fault apportionment; s.3 premises rule and criminal-act exception",
+      },
+    ],
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
+  },
+  {
+    id: "sc-claim-breach-of-contract-services",
+    name: "Breach of contract — services not performed or substandard",
+    courtArea: "small-claims",
+    plaintiffElements: [
+      {
+        id: "existed-agreement-services",
+        name: "An agreement existed for the service to be performed",
+        plainExplanation:
+          "The person bringing the claim generally has to show, on a balance of probabilities, what " +
+          "the other party was actually engaged to do.",
+        sourceUrl:
+          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+        evidenceCategories: [
+          {
+            name: "Agreement or scope of work",
+            why: "Shows what was actually agreed to be done.",
+            examples: ["Written estimate or quote", "Contract or booking confirmation", "Messages describing the job"],
+          },
+        ],
+      },
+      {
+        id: "service-not-performed-or-substandard",
+        name: "The service was never performed, was abandoned partway, or did not match what was agreed",
+        plainExplanation:
+          "This is a factual allegation the plaintiff has to establish with evidence, on a balance of " +
+          "probabilities, like any other element of the claim.",
+        sourceUrl:
+          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+        evidenceCategories: [
+          {
+            name: "Records of what was and wasn't done",
+            why: "Documents the gap between what was agreed and what happened.",
+            examples: ["Photos of unfinished or substandard work", "Communication about the missed appointment or abandoned job", "A second opinion or assessment"],
+          },
+        ],
+      },
+      {
+        id: "loss-amount-services",
+        name: "The amount claimed reflects the loss",
+        plainExplanation:
+          "Small Claims Court's jurisdiction covers claims for money, up to $50,000, not counting " +
+          "interest and costs -- the claimed amount should reflect the refund, or the cost to complete " +
+          "or redo the work.",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        evidenceCategories: [
+          {
+            name: "Cost documentation",
+            why: "Supports the specific dollar amount claimed.",
+            examples: ["Amount already paid", "Cost to hire someone else to finish or redo the work", "Refund request correspondence"],
+          },
+        ],
+      },
+    ],
+    defendantConsiderations: [
+      {
+        id: "dispute-service-was-completed",
+        name: "The provider disputes that the service was left unfinished or substandard",
+        plainExplanation:
+          "A defendant can file a Defence disputing that the service was incomplete or below what was " +
+          "agreed -- this becomes a fact the court weighs alongside the plaintiff's evidence.",
+        whenThisComesUp: "When the defendant has filed a Defence (Form 9A) disputing the quality or completion of the service.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+      },
+    ],
+    applicableDefenceConceptIds: [
+      "defence-limitation-period-expired",
+      "defence-no-agreement-existed",
+      "defence-set-off-or-counterclaim",
+    ],
+    remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
+    proceduralNotes: [
+      {
+        note: "This kind of claim is started with a Plaintiff's Claim (Form 7A).",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+      },
+    ],
+    signals: [
+      "never finished the job",
+      "paid for a service that wasn't done",
+      "service provider walked off the job",
+      "no-show for a booked service",
+      "didn't deliver the service",
+      "abandoned the project",
+    ],
+    typicalDefendantProfile: "either",
+    citations: [
+      {
+        sourceName: "Ontario.ca — Guide to Procedures in Small Claims Court: Making a Claim",
+        officialUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-07",
+      },
+    ],
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
+  },
+  {
+    id: "sc-claim-recovery-of-personal-property",
+    name: "Recovery of personal property wrongfully held by another",
+    courtArea: "small-claims",
+    plaintiffElements: [
+      {
+        id: "plaintiff-owns-or-has-right-to-property",
+        name: "The plaintiff owns the property or has a right to its possession",
+        plainExplanation:
+          "The person bringing the claim generally has to show, on a balance of probabilities, that " +
+          "they own the property or otherwise have a right to have it back.",
+        sourceUrl:
+          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+        evidenceCategories: [
+          {
+            name: "Proof of ownership or right to possession",
+            why: "Establishes the plaintiff's claim to the property itself.",
+            examples: ["Purchase receipt", "Photos of the property in the plaintiff's possession before it was taken/lent", "Messages acknowledging whose property it is"],
+          },
+        ],
+      },
+      {
+        id: "defendant-possesses-and-wont-return",
+        name: "The defendant has the property and has not returned it",
+        plainExplanation:
+          "Small Claims Court hears claims for money or the return of personal property -- this " +
+          "element is about showing the other party currently has the property and hasn't given it " +
+          "back.",
+        sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        evidenceCategories: [
+          {
+            name: "Requests for return",
+            why: "Shows the property was asked for and not returned.",
+            examples: ["Messages asking for the property back", "Timeline of when it was lent/taken and requests made since"],
+          },
+        ],
+      },
+      {
+        id: "value-within-jurisdiction-property",
+        name: "The property's value falls within Small Claims Court's jurisdiction",
+        plainExplanation:
+          "Small Claims Court can decide claims for money or the return of personal property up to " +
+          "$50,000, excluding interest and costs.",
+        sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        evidenceCategories: [
+          {
+            name: "Value documentation",
+            why: "Supports the property's value if return isn't possible.",
+            examples: ["Original purchase price", "Replacement cost", "Appraisal, if available"],
+          },
+        ],
+      },
+    ],
+    defendantConsiderations: [
+      {
+        id: "dispute-ownership-or-right",
+        name: "The defendant disputes that the plaintiff owns or has a right to the property",
+        plainExplanation:
+          "A defendant can file a Defence disputing who actually owns the property, or that the " +
+          "plaintiff has any right to its return.",
+        whenThisComesUp: "When the defendant's Defence claims the property is theirs, or that it was a gift rather than something lent.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+      },
+    ],
+    applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
+    remedies: ["sc-remedy-return-of-property", "sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
+    proceduralNotes: [
+      {
+        note: "Small Claims Court can order either the return of the property itself or payment of its value in money.",
+        sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+      },
+    ],
+    signals: [
+      "won't give my property back",
+      "keeping my belongings",
+      "refuses to return my property",
+      "borrowed and never returned",
+      "won't return what I lent them",
+    ],
+    typicalDefendantProfile: "either",
+    citations: [
+      {
+        sourceName: "Ontario.ca — Suing Someone in Small Claims Court",
+        officialUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        verifiedAt: "2026-09-07",
+        pinpoint: "Court hears claims for money or the return of personal property up to $50,000",
+      },
+    ],
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
+  },
+  {
+    id: "sc-claim-consumer-cancellation-refund",
+    name: "Cancelled contract — deposit or payment not refunded (Consumer Protection Act)",
+    courtArea: "small-claims",
+    plaintiffElements: [
+      {
+        id: "contract-covered-by-cooling-off",
+        name: "The agreement falls into a category with a cancellation right",
+        plainExplanation:
+          "Ontario law gives a cooling-off period -- a specific number of days to cancel an agreement " +
+          "without reason or penalty -- for certain contracts: a product or service bought from a " +
+          "door-to-door salesperson, paying in advance to join a fitness club or gym, buying a " +
+          "newly-built condo, getting a payday loan, or purchasing a time share.",
+        sourceUrl: "https://www.ontario.ca/page/your-rights-under-consumer-protection-act",
+        evidenceCategories: [
+          {
+            name: "The original agreement",
+            why: "Shows what kind of contract this is and whether a cancellation right applies.",
+            examples: ["Signed contract or membership agreement", "Sales receipt", "Condo purchase agreement"],
+          },
+        ],
+      },
+      {
+        id: "cancellation-given",
+        name: "Notice of cancellation was given",
+        plainExplanation:
+          "The cooling-off right generally has to be exercised by giving the seller notice of " +
+          "cancellation within the applicable period for that type of contract.",
+        sourceUrl: "https://www.ontario.ca/page/your-rights-under-consumer-protection-act",
+        evidenceCategories: [
+          {
+            name: "Proof of cancellation",
+            why: "Shows the cancellation step was taken and when.",
+            examples: ["Copy of the cancellation notice sent", "Date-stamped email or letter", "Confirmation from the seller"],
+          },
+        ],
+      },
+      {
+        id: "refund-not-received-in-time",
+        name: "The refund was not issued within the required timeframe",
+        plainExplanation:
+          "After a valid cancellation, the company generally has 15 days to return the money paid, or " +
+          "2 days in the specific case of a payday loan.",
+        sourceUrl: "https://www.ontario.ca/page/your-rights-under-consumer-protection-act",
+        evidenceCategories: [
+          {
+            name: "Payment records",
+            why: "Supports the amount paid and the date, to measure against the refund deadline.",
+            examples: ["Receipt or invoice", "Bank or credit card statement", "Any partial refund already received"],
+          },
+        ],
+      },
+    ],
+    defendantConsiderations: [
+      {
+        id: "dispute-cancellation-validity",
+        name: "The business disputes that a valid cancellation right applied, or that proper notice was given",
+        plainExplanation:
+          "A defendant can file a Defence disputing that the contract falls into a category with a " +
+          "cooling-off right, or that cancellation notice was given within the required period.",
+        whenThisComesUp: "When the business's Defence says the contract type isn't covered, or the cancellation was late.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+      },
+    ],
+    applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
+    remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
+    proceduralNotes: [
+      {
+        note:
+          "For most contracts covered by this cancellation right, the business has 15 days to refund " +
+          "what was paid; for a payday loan specifically, the refund must be given within 2 days.",
+        sourceUrl: "https://www.ontario.ca/page/your-rights-under-consumer-protection-act",
+      },
+    ],
+    signals: [
+      "deposit not refunded after cancelling",
+      "cancelled but no refund",
+      "gym membership refund",
+      "cooling off period refund",
+      "cancelled condo purchase deposit",
+      "payday loan refund",
+      "cancelled a time share",
+    ],
+    typicalDefendantProfile: "business",
+    citations: [
+      {
+        sourceName: "Ontario.ca — Your Rights Under the Consumer Protection Act",
+        officialUrl: "https://www.ontario.ca/page/your-rights-under-consumer-protection-act",
+        verifiedAt: "2026-09-07",
+        pinpoint: "Cooling-off/cancellation periods for door-to-door sales, gym memberships, new condos, payday loans, time shares; 15-day (2-day for payday loans) refund requirement after cancellation",
+      },
+    ],
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
+  },
+  {
+    id: "sc-claim-commercial-tenancy-dispute",
+    name: "Commercial (non-residential) tenancy dispute",
+    courtArea: "small-claims",
+    plaintiffElements: [
+      {
+        id: "tenancy-is-commercial-not-residential",
+        name: "The tenancy is a commercial/business tenancy, not a residential one",
+        plainExplanation:
+          "Ontario's Commercial Tenancies Act outlines the relationship, rights, and obligations " +
+          "between commercial landlords and tenants -- a different framework from the Residential " +
+          "Tenancies Act, which covers residential rental units.",
+        sourceUrl: "https://www.ontario.ca/page/renting-commercial-property-ontario",
+        evidenceCategories: [
+          {
+            name: "Proof the space was used for business",
+            why: "Supports that this is a commercial, not residential, tenancy.",
+            examples: ["Commercial lease agreement", "Business registration at that address", "Zoning or use description in the lease"],
+          },
+        ],
+      },
+      {
+        id: "existed-agreement-commercial-lease",
+        name: "A lease or tenancy agreement existed on the terms claimed",
+        plainExplanation:
+          "The person bringing the claim generally has to show, on a balance of probabilities, that " +
+          "an agreement existed on the terms alleged -- and a signed commercial lease's own terms may " +
+          "take precedence over the Commercial Tenancies Act's default rules.",
+        sourceUrl: "https://www.ontario.ca/page/renting-commercial-property-ontario",
+        evidenceCategories: [
+          {
+            name: "The lease itself",
+            why: "Establishes the agreed terms, rent, and obligations.",
+            examples: ["Signed commercial lease", "Amendments or renewal agreements", "Correspondence confirming terms"],
+          },
+        ],
+      },
+      {
+        id: "amount-owing-commercial",
+        name: "The amount owing falls within Small Claims Court's jurisdiction",
+        plainExplanation:
+          "Small Claims Court can hear claims for money -- including unpaid rent -- up to $50,000, " +
+          "excluding interest and costs.",
+        sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        evidenceCategories: [
+          {
+            name: "Rent and account records",
+            why: "Supports the amount claimed as owing.",
+            examples: ["Rent ledger or statement of account", "Lease showing the rent amount", "Records of any partial payments"],
+          },
+        ],
+      },
+    ],
+    defendantConsiderations: [
+      {
+        id: "dispute-commercial-classification",
+        name: "The other party disputes that the tenancy is commercial rather than residential",
+        plainExplanation:
+          "If there's a genuine question about whether a tenancy is residential or commercial, either " +
+          "party can apply to the Landlord and Tenant Board for a determination of whether the " +
+          "Residential Tenancies Act applies.",
+        whenThisComesUp: "When there's a real dispute about whether the space was used mainly for residential or business purposes.",
+        sourceUrl: "https://www.ontario.ca/page/renting-commercial-property-ontario",
+      },
+      {
+        id: "lease-terms-govern",
+        name: "The signed lease's own terms may override the default rules",
+        plainExplanation:
+          "A signed commercial lease agreement between the landlord and tenant may take precedence " +
+          "over the Commercial Tenancies Act's default provisions.",
+        whenThisComesUp: "When the dispute is about which rule applies -- the Act's default rule or a specific term the lease itself sets out.",
+        sourceUrl: "https://www.ontario.ca/page/renting-commercial-property-ontario",
+      },
+    ],
+    applicableDefenceConceptIds: [
+      "defence-limitation-period-expired",
+      "defence-no-agreement-existed",
+      "defence-set-off-or-counterclaim",
+    ],
+    remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
+    proceduralNotes: [
+      {
+        note:
+          "If there's a genuine dispute about whether a tenancy is residential or commercial, either " +
+          "party can ask the Landlord and Tenant Board to determine whether the Residential Tenancies " +
+          "Act applies -- a residential tenancy generally belongs at the LTB, not Small Claims Court.",
+        sourceUrl: "https://www.ontario.ca/page/renting-commercial-property-ontario",
+      },
+    ],
+    signals: [
+      "commercial lease dispute",
+      "business tenant",
+      "unpaid commercial rent",
+      "office lease dispute",
+      "retail lease",
+      "commercial landlord",
+      "business premises lease",
+    ],
+    typicalDefendantProfile: "either",
+    citations: [
+      {
+        sourceName: "Ontario.ca — Renting Commercial Property in Ontario",
+        officialUrl: "https://www.ontario.ca/page/renting-commercial-property-ontario",
+        verifiedAt: "2026-09-07",
+        pinpoint: "Commercial Tenancies Act governs commercial leases, not the Residential Tenancies Act; LTB determines residential-vs-commercial disputes",
+      },
+    ],
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
+  },
+  {
+    id: "sc-claim-dishonoured-nsf-cheque",
+    name: "Dishonoured (NSF) cheque",
+    courtArea: "small-claims",
+    plaintiffElements: [
+      {
+        id: "payment-made-by-cheque",
+        name: "Payment was made (or attempted) by cheque",
+        plainExplanation:
+          "Small Claims Court's overview of what it hears explicitly lists NSF (non-sufficient funds) " +
+          "cheques as an example of a claim it can decide.",
+        sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        evidenceCategories: [
+          {
+            name: "The cheque and related records",
+            why: "Shows the payment attempt and its terms.",
+            examples: ["Copy of the cheque", "Bank statement showing the returned item", "Invoice or agreement the cheque was meant to satisfy"],
+          },
+        ],
+      },
+      {
+        id: "cheque-returned-nsf",
+        name: "The cheque was returned for non-sufficient funds (or otherwise dishonoured)",
+        plainExplanation:
+          "This element is about showing the cheque itself failed to clear -- the bank's own record of " +
+          "the returned item is typically the most direct proof.",
+        sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        evidenceCategories: [
+          {
+            name: "Bank notice of dishonour",
+            why: "Directly documents that the cheque did not clear and why.",
+            examples: ["Bank statement showing the NSF return", "NSF fee notice", "Returned cheque itself, if available"],
+          },
+        ],
+      },
+      {
+        id: "amount-unpaid-nsf",
+        name: "The amount remains unpaid",
+        plainExplanation:
+          "Interest and costs are handled separately from, and in addition to, the amount claimed " +
+          "itself.",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        evidenceCategories: [
+          {
+            name: "Statement of account",
+            why: "Shows the amount still owing after the cheque failed to clear.",
+            examples: ["Invoice or statement of account", "Record of any partial payment since"],
+          },
+        ],
+      },
+    ],
+    defendantConsiderations: [
+      {
+        id: "dispute-nsf-underlying-debt",
+        name: "The defendant disputes owing the underlying amount",
+        plainExplanation:
+          "A defendant can file a Defence disputing the debt the cheque was meant to pay, not just the " +
+          "fact that the cheque itself didn't clear.",
+        whenThisComesUp: "When the defendant's Defence disputes the underlying agreement or amount, not just the payment method.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+      },
+    ],
+    applicableDefenceConceptIds: [
+      "defence-limitation-period-expired",
+      "defence-no-agreement-existed",
+      "defence-set-off-or-counterclaim",
+    ],
+    remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
+    proceduralNotes: [
+      {
+        note: "This kind of claim is started with a Plaintiff's Claim (Form 7A).",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+      },
+    ],
+    signals: [
+      "NSF cheque",
+      "bounced cheque",
+      "cheque bounced",
+      "non-sufficient funds",
+      "cheque returned",
+      "insufficient funds cheque",
+    ],
+    typicalDefendantProfile: "either",
+    citations: [
+      {
+        sourceName: "Ontario.ca — Suing Someone in Small Claims Court",
+        officialUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        verifiedAt: "2026-09-07",
+        pinpoint: "NSF cheques explicitly listed as an example of a Small Claims Court matter",
+      },
+    ],
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
   },
 ];
