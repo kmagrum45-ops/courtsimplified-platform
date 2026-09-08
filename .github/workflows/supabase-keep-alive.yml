@@ -1,0 +1,41 @@
+name: Supabase Keep-Alive
+
+# Free-tier Supabase auto-pauses a project after 7 days of low database
+# activity (see docs/ARCHITECTURE.md's production-outage note). Daily is
+# comfortably under that threshold. This job does a single, real,
+# anon-key, read-only PostgREST query -- see scripts/keepAliveSupabase.mjs
+# for why that specific approach (not just an /auth/v1/health ping) is
+# what actually counts as "activity."
+#
+# workflow_dispatch lets this be dry-run on demand to confirm it actually
+# reaches the project, without waiting for the schedule.
+
+on:
+  schedule:
+    # 12:00 UTC daily (about 08:00 America/Toronto) -- offset from the
+    # nightly AI workflow's 07:00 UTC run so the two don't compete for
+    # runner minutes.
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Ping Supabase to prevent free-tier auto-pause
+        run: npm run keep-alive:supabase
