@@ -105,6 +105,7 @@ test("warm Small Claims builder", async ({ page, request, baseURL }) => {
       await page.getByLabel("City or municipality").fill("Toronto");
       await page.getByLabel("Tell us what happened in your own words").fill("A payment was missed.");
       await continueKeepingDeclaredPath(page, "Small Claims");
+      await page.getByRole("button", { name: "Fill in the form yourself" }).click();
       await expect(page.getByLabel("Amount claimed or disputed")).toBeVisible({
         timeout: 35_000,
       });
@@ -131,6 +132,7 @@ test("Small Claims: one story reaches reviewable intake", async ({ page }) => {
     await page.getByLabel("City or municipality").fill("Toronto");
     await page.getByLabel("Tell us what happened in your own words").fill(narrative);
     await continueKeepingDeclaredPath(page, "Small Claims");
+    await page.getByRole("button", { name: "Fill in the form yourself" }).click();
   });
 
   await test.step("confirm the visible Small Claims structured intake", async () => {
@@ -176,8 +178,13 @@ test("Home court cards lead directly to their selected structured intake", async
     await expect(page.getByTestId("court-path-location-gate")).toHaveCount(0);
     await page.getByLabel("Province or territory").selectOption("Ontario");
     await page.getByLabel("City or municipality").fill("Toronto");
-    await page.getByLabel("Tell us what happened in your own words").fill(`A ${journey.title} case needs review.`);
-    await page.getByRole("button", { name: `Continue with ${journey.title} questions` }).click();
+    // Session 14 removed the story field from this shared gate for Small
+    // Claims specifically -- whichever mode is chosen collects it instead.
+    if (journey.path !== "small-claims") {
+      await page.getByLabel("Tell us what happened in your own words").fill(`A ${journey.title} case needs review.`);
+    }
+    await page.getByRole("button", { name: journey.path === "small-claims" ? "Continue" : `Continue with ${journey.title} questions`, exact: journey.path === "small-claims" }).click();
+    if (journey.path === "small-claims") await page.getByRole("button", { name: "Fill in the form yourself" }).click();
     if (journey.path === "civil") await expect(page.getByLabel("Your role")).toBeVisible();
     else await expect(page.getByText(journey.heading, { exact: true })).toBeVisible();
     await expect(page.getByLabel("Tell us what happened in your own words")).toHaveCount(0);

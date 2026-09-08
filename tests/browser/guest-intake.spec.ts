@@ -16,6 +16,18 @@ async function begin(page: import("@playwright/test").Page, journey: typeof path
   await expect(page.getByTestId("court-path-location-gate")).toHaveCount(0);
   await page.getByLabel("Province or territory").selectOption("Ontario");
   await page.getByLabel("City or municipality").fill("Toronto");
+
+  if (journey.path === "small-claims") {
+    // Session 14 removed the story field from this shared gate for Small
+    // Claims specifically -- whichever mode is chosen collects the story
+    // itself instead, so a logged-out user "starts directly in its intake"
+    // by reaching the mode-selector screen, then choosing a mode, not by
+    // filling a story field that no longer exists at this step.
+    await page.getByRole("button", { name: "Continue", exact: true }).click();
+    await page.getByRole("button", { name: "Fill in the form yourself" }).click();
+    return;
+  }
+
   await page.getByLabel("Tell us what happened in your own words").fill("A private logged-out intake needs review.");
   await page.getByRole("button", { name: `Continue with ${journey.label} questions` }).click();
 }

@@ -174,6 +174,19 @@ function BuilderPageContent() {
   const [hydrated, setHydrated] = useState(false);
   const [smallClaimsMode, setSmallClaimsMode] = useState<"choose" | "form" | "guided">("choose");
 
+  /*
+   * Picking a mode is an internal state change, not a URL change, so
+   * ScrollToTopOnNavigation.tsx's pathname/search-based effect never fires
+   * for it. Without this, the browser is left wherever it scrolled to
+   * click the mode card, not at the top of the destination screen the app
+   * otherwise guarantees on every real navigation.
+   */
+  useEffect(() => {
+    if (smallClaimsMode !== "choose") {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    }
+  }, [smallClaimsMode]);
+
   const pathLabel = getPathLabel(courtPath);
   const analysisAvailable = isAnalysisAvailable(caseData);
 

@@ -17,6 +17,11 @@ for (const journey of [
     await page.getByLabel("City or municipality").fill("Ottawa");
     await page.getByLabel("Tell us what happened in your own words").fill("A test case is being started.");
     await page.getByRole("button", { name: `Continue to ${journey.label} intake` }).click();
+    // Session 14 put a mode-selector screen ("Fill in the form yourself" vs.
+    // guided mode) in front of the Small Claims structured intake -- click
+    // past it the same way a self-serve user would before checking scroll
+    // position on the destination screen.
+    if (journey.path === "small-claims") await page.getByRole("button", { name: "Fill in the form yourself" }).click();
     if (journey.path === "civil") await expect(page.getByLabel("Your role")).toBeVisible();
     else await expect(page.getByText(journey.heading, { exact: true })).toBeVisible();
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
