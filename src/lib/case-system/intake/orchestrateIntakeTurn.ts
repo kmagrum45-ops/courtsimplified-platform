@@ -43,6 +43,7 @@ import { runSafetyPass, type SafetyClassification } from "./safetyPass";
 import { extractIntakeFactsWithConfidence } from "./extractIntakeFacts";
 import { matchClaimType, type ClaimTypeMatch } from "./claimTypeMatcher";
 import { CLAIM_TYPES, type ClaimType } from "./claimTypes";
+import { detectEvidenceGaps, type EvidenceGuidance } from "./evidenceGapDetector";
 import { selectQuestions, type IntakeFacts } from "./selectQuestions";
 import { QUESTION_BANK, type CourtArea, type IntakeQuestion, type KnownFactField } from "./questionBank";
 import { composeVoiceTurn, type VoiceTurn } from "./voiceLayer";
@@ -62,6 +63,18 @@ export type OrchestrateIntakeTurnResult = {
   answeredIds: string[];
   /** See the file header note on why this is turn-scoped, not accumulated. */
   matchedClaimTypes: ClaimTypeMatch[];
+  /**
+   * Session 22. General evidence-category guidance for the claim type
+   * matched THIS turn (see matchedClaimTypes above) -- absent whenever
+   * matchedClaimTypes is empty, same turn-scoping and the same caveat: a
+   * caller wanting this evaluated against a later turn's text (e.g. the
+   * user's actual answer to "what evidence do you have," which often
+   * won't itself contain fresh claim-matching signals) needs to retain
+   * the last matched claim type themselves and call
+   * evidenceGapDetector.ts's detectEvidenceGaps() directly against it --
+   * exactly the pattern already established for matchedClaimTypes.
+   */
+  evidenceGuidance?: EvidenceGuidance;
   /** Absent when intake is complete or the turn halted. */
   nextQuestion?: IntakeQuestion;
   /** Absent when there's no nextQuestion. */
@@ -138,7 +151,11 @@ function mergeFacts(
  *      already-known fact; a direct, confident contradiction is recorded
  *      in possibleCorrections instead of silently applied or discarded.
  *   4. claimTypeMatcher runs against newStoryText (when given) -- plain
- *      keyword data, no AI, doesn't affect question selection.
+ *      keyword data, no AI, doesn't affect question selection. When it
+ *      matches, evidenceGapDetector.ts runs against the same newStoryText
+ *      to produce evidenceGuidance (Session 22) -- also plain keyword
+ *      data, no AI, and equally turn-scoped (see evidenceGuidance's own
+ *      doc comment above).
  *   5. selectQuestions() picks the next question from the (possibly
  *      caller-supplied, e.g. a "reviewed" fixture) question bank.
  *   6. If there's a next question, composeVoiceTurn() wraps it. If not,
@@ -166,6 +183,7 @@ export async function orchestrateIntakeTurn(
   let distressAcknowledgment: string | undefined;
   let matchedClaimTypes: ClaimTypeMatch[] = [];
   let possibleCorrections: PossibleCorrection[] = [];
+  let evidenceGuidance: EvidenceGuidance | undefined;
 
   if (newStoryText) {
     const safety = await runSafetyPass(newStoryText, apiKey);
@@ -195,6 +213,9 @@ export async function orchestrateIntakeTurn(
 
     const match = matchClaimType(newStoryText, claimTypes);
     matchedClaimTypes = match ? [match] : [];
+    if (match) {
+      evidenceGuidance = detectEvidenceGaps(match.claimType, newStoryText);
+    }
   }
 
   const remainingIds = selectQuestions(facts, answeredIds, questionBank, courtArea);
@@ -208,6 +229,7 @@ export async function orchestrateIntakeTurn(
       facts,
       answeredIds,
       matchedClaimTypes,
+      evidenceGuidance,
       intakeComplete: true,
       possibleCorrections,
     };
@@ -222,6 +244,7 @@ export async function orchestrateIntakeTurn(
     facts,
     answeredIds,
     matchedClaimTypes,
+    evidenceGuidance,
     nextQuestion,
     voiceTurn,
     intakeComplete: false,
