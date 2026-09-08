@@ -115,6 +115,37 @@
  * a new one -- logged here instead of spending tool calls confirming it
  * a third time.
  *
+ * Session 26 sourced defamation, previously believed cut (no record of
+ * that earlier attempt was actually found in this repo -- flagged, not
+ * assumed -- but the two underlying questions were open regardless):
+ *   1. Courts of Justice Act, R.S.O. 1990, c. C.43, s.23(1) grants Small
+ *      Claims Court jurisdiction "in any action for the payment of
+ *      money" up to the prescribed amount -- no cause-of-action carve-out
+ *      for defamation. Jurisdiction here is remedy-based (money sought),
+ *      not subject-matter-based, so a defamation claim within the $50,000
+ *      limit is in scope.
+ *   2. The Libel and Slander Act, R.S.O. 1990, c. L.12, ss.5-7 impose a
+ *      6-week pre-action notice and a 3-month limitation period -- but
+ *      only for libel "in a newspaper or in a broadcast" (both narrowly
+ *      defined in s.1). This is NOT a general defamation-elements
+ *      statute and doesn't apply to defamation generally (e.g. spoken
+ *      slander, a private message, an ordinary social media post) --
+ *      that falls back to the ordinary 2-year limitation period, same as
+ *      every other claim type here. Whether any particular modern medium
+ *      (a single social media post, a podcast, a blog) meets this Act's
+ *      "newspaper" (published periodically, 12+ times a year) or
+ *      "broadcast" (wireless/cable/fibre-optic dissemination) definition
+ *      is a real interpretive question this content deliberately does
+ *      NOT resolve -- stating the definitions and letting the reader (or
+ *      a professional) apply them is the "who does the applying" line,
+ *      not something to cross by asserting an answer.
+ * No general defamation-elements framework is sourced or asserted here,
+ * consistent with why "negligence elements"/"breach of contract
+ * elements" were already cut from educationTopics.ts -- this entry's
+ * plaintiffElements are scoped to only the generic proof-burden framing
+ * (reused, as elsewhere) plus these two specifically-sourced procedural
+ * facts, not invented substantive defamation law.
+ *
  * Sourcing note on statutes whose e-Laws page won't render (Occupiers'
  * Liability Act, Negligence Act, Sale of Goods Act all hit this): ontario.ca's
  * e-Laws statute viewer (ontario.ca/laws/statute/...) is a JS-rendered page
@@ -2015,6 +2046,142 @@ export const CLAIM_TYPES: ClaimType[] = [
         officialUrl: "https://www.ontario.ca/laws/docs/98c19_e.doc",
         verifiedAt: "2026-09-07",
         pinpoint: "s.85 lien for unpaid common expenses (principal, interest, collection costs); s.86 lien priority",
+      },
+    ],
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
+  },
+  {
+    id: "sc-claim-defamation-libel-slander",
+    name: "Defamation (libel or slander)",
+    courtArea: "small-claims",
+    plaintiffElements: [
+      {
+        id: "statement-made-and-communicated",
+        name: "A statement was made and communicated to someone other than the plaintiff",
+        plainExplanation:
+          "The person bringing the claim generally has to show, on a balance of probabilities, what " +
+          "was said or written and that it reached someone other than the plaintiff.",
+        sourceUrl:
+          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+        evidenceCategories: [
+          {
+            name: "The statement itself",
+            why: "Documents exactly what was said or written and where.",
+            examples: ["Screenshot or copy of the post, message, or publication", "Recording or transcript of what was said", "Witness names for anything spoken"],
+          },
+          {
+            name: "Proof it was seen or heard by someone else",
+            why: "Shows the statement reached a third party, not just the plaintiff.",
+            examples: ["Comments or reactions from others", "Witness account of who else saw or heard it", "Share/view counts or forwarded copies"],
+          },
+        ],
+      },
+      {
+        id: "amount-within-jurisdiction-defamation",
+        name: "The amount claimed falls within Small Claims Court's jurisdiction",
+        plainExplanation:
+          "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
+          "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
+          "costs) -- this is a monetary jurisdiction, not a subject-matter one, so a claim for money " +
+          "arising from a defamatory statement is within it the same as any other money claim.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        evidenceCategories: [
+          {
+            name: "Cost/harm documentation",
+            why: "Supports the specific dollar amount claimed.",
+            examples: ["Lost income or business records, if claiming financial loss", "Costs incurred responding to the statement", "Any other documented financial impact"],
+          },
+        ],
+      },
+      {
+        id: "notice-if-newspaper-or-broadcast",
+        name: "If this involved a newspaper or broadcast specifically, written notice was given within 6 weeks",
+        plainExplanation:
+          "Under the Libel and Slander Act, no action for libel in a newspaper or in a broadcast may " +
+          "proceed unless the plaintiff gave the defendant written notice, specifying the matter " +
+          "complained of, within 6 weeks after the alleged libel came to the plaintiff's knowledge. " +
+          "\"Newspaper\" means a paper containing public news or advertisements, printed for " +
+          "distribution to the public and published periodically at least 12 times a year. " +
+          "\"Broadcasting\" means dissemination of writing, signs, pictures, or sounds intended for " +
+          "the public by wireless radio communication or by cables, wires, fibre-optic linkages, or " +
+          "laser beams. This notice requirement applies only when the statement fits one of those two " +
+          "specific definitions -- not to defamation generally (for example, something said directly " +
+          "to someone, a private message, or an ordinary social media post).",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90l12_e.doc",
+        evidenceCategories: [
+          {
+            name: "Copy of the written notice sent",
+            why: "Shows the notice step was taken and when, if this Act's notice requirement applies.",
+            examples: ["Copy of the notice letter", "Date-stamped delivery or service record", "Confirmation the defendant received it"],
+          },
+        ],
+      },
+      {
+        id: "limitation-if-newspaper-or-broadcast",
+        name: "If this involved a newspaper or broadcast specifically, the action was started within 3 months",
+        plainExplanation:
+          "Under the Libel and Slander Act, an action for libel in a newspaper or in a broadcast must " +
+          "be commenced within 3 months after the libel came to the knowledge of the person defamed -- " +
+          "shorter than the ordinary 2-year limitation period that applies to defamation generally.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90l12_e.doc",
+        evidenceCategories: [
+          {
+            name: "Records establishing when the statement was discovered",
+            why: "Supports when the 6-week notice and 3-month limitation clocks started, if this Act's provisions apply.",
+            examples: ["Date the post/broadcast was first seen or heard", "Message or email showing when it was brought to your attention"],
+          },
+        ],
+      },
+    ],
+    defendantConsiderations: [
+      {
+        id: "dispute-statement-made-or-false",
+        name: "The defendant disputes making the statement, or disputes that it was false or defamatory",
+        plainExplanation:
+          "A defendant can file a Defence disputing that they made the statement, that it was false, " +
+          "or that it was defamatory at all -- this becomes a fact the court weighs alongside the " +
+          "plaintiff's evidence.",
+        whenThisComesUp: "When the defendant has filed a Defence (Form 9A) disputing the statement itself, not just the amount claimed.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+      },
+    ],
+    applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
+    remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
+    proceduralNotes: [
+      {
+        note:
+          "Defamation not involving a newspaper or broadcast (for example, something said directly, a " +
+          "private message, or an ordinary social media post) is generally subject to Ontario's " +
+          "standard 2-year limitation period instead of the Libel and Slander Act's shortened 3-month " +
+          "one -- which of the two applies depends on how the statement was made, not on the amount " +
+          "claimed or which court hears it.",
+        sourceUrl: "https://www.ontario.ca/page/civil-claims-suing-and-being-sued",
+      },
+    ],
+    signals: [
+      "defamation",
+      "defamed me",
+      "slander",
+      "libel",
+      "spread lies about me",
+      "false statements about me",
+      "posted false things about me",
+      "damaged my reputation",
+    ],
+    typicalDefendantProfile: "either",
+    citations: [
+      {
+        sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
+        officialUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        verifiedAt: "2026-09-07",
+        pinpoint: "s.23(1): Small Claims Court jurisdiction is any action for payment of money up to the prescribed amount, with no cause-of-action exclusion",
+      },
+      {
+        sourceName: "Libel and Slander Act, R.S.O. 1990, c. L.12",
+        officialUrl: "https://www.ontario.ca/laws/docs/90l12_e.doc",
+        verifiedAt: "2026-09-07",
+        pinpoint: "s.1 definitions of newspaper/broadcasting; s.5(1) 6-week pre-action notice; s.6 3-month limitation period; s.7 scope limited to newspaper/broadcast",
       },
     ],
     reviewedAt: "2026-09-07",
