@@ -147,22 +147,17 @@ UI is future work, not part of this phase.
 
 ## Open questions — logged, not fixed
 
-**LTB keyword matching doesn't distinguish an ended tenancy.**
-While verifying whether a landlord can sue a *former* tenant in Small
-Claims Court (couldn't confirm either way from the three approved
-domains — the Residential Tenancies Act's e-laws page won't render
-statutory text for direct fetch, and no plain-language ontario.ca/
-ontariocourts.ca page states the jurisdictional split), a real code-level
-issue turned up independently of that legal question:
-`courtPathClassifier.ts`'s LTB keyword list
-(`conversationIntelligenceEngine.ts:757-769`) fires on bare `"landlord"`
-and `"tenant"`, with no signal distinguishing a current tenancy from one
-that's already ended. A genuine post-tenancy Small Claims story (a
-landlord suing a former tenant for damage, which would naturally use
-both words) risks being misclassified as out-of-scope "go to LTB" by the
-existing keyword stage, the same class of false-positive already fixed
-once for `"rent"`/`"lease"` substring collisions (see
-`docs/ARCHITECTURE.md` §7). Needs its own session: first source the
-actual jurisdictional boundary, then decide whether/how the keyword or AI
-escalation stage should account for tenancy-ended framing. Not touched
-here.
+**See `docs/INTAKE_STATUS.md` for the current, consolidated list.** That
+file (added Session 27) is the audited, kept-up-to-date record of every
+open gap across the whole intake system (safety pass, extraction,
+matching, selection, voice layer, orchestrator, evidence guidance, both
+intake UIs, and the court-path classifier), what's permanently closed vs.
+still re-attemptable, and feature-parity gaps between guided mode and the
+static form. Update that file, not this section, when a gap is found or
+closed — this section is intentionally left short so it doesn't drift out
+of sync with a second list.
+
+The LTB keyword-matching item that used to be the sole entry here got a
+partial, behavioral fix in Session 24 (see `courtPathClassifier.ts`) —
+the underlying jurisdictional question is still unsourced. Full detail
+and status in `docs/INTAKE_STATUS.md` rather than duplicated here.
