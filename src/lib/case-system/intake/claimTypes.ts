@@ -77,6 +77,44 @@
  * LTB question rather than re-attempting the exact sourcing wall that
  * question already hit.
  *
+ * Session 20 ("final batch") added 4 more, same `status: "reviewed"`
+ * site-owner decision:
+ *   - Unpaid overtime or vacation pay (Employment Standards Act) --
+ *     scoped narrowly to overtime and vacation pay specifically, both
+ *     directly confirmed, rather than a broader "unpaid wages" claim
+ *     type whose general wage-payment page 404'd this session.
+ *   - Vehicle repair dispute -- overcharge beyond the required estimate,
+ *     or a repair failing within the minimum warranty (Consumer
+ *     Protection Act's car-repair-shop rules).
+ *   - Used vehicle purchase -- non-disclosure by a dealer (odometer,
+ *     salvage/rebuilt status, prior use as a taxi/rental/police vehicle),
+ *     with its 90-day cancellation right.
+ *   - Unpaid condominium common expenses (Condominium Act, 1998, s.85 --
+ *     fetched via the .doc fallback, same as the Dog Owners' Liability
+ *     Act in the prior session).
+ *
+ * One candidate was cut, not for a failed search but a structural
+ * mismatch: "debt collection agency harassment" has real, directly
+ * confirmed ontario.ca sourcing (ontario.ca/page/stop-collection-agency-calls),
+ * but describes a regulatory complaint against a collector, not an
+ * independent Small Claims Court money claim a plaintiff would bring --
+ * the same category of problem as the towing claim type's separate
+ * regulatory-complaint note, except here there's no underlying monetary
+ * claim to attach it to. A future session could still add it as a
+ * defendant consideration on the existing unpaid-debt claim type, not as
+ * its own ClaimType.
+ *
+ * Vehicle accident property damage was not re-attempted a third time.
+ * Both prior cuts (Session 2's deductible-recovery angle, and the
+ * reasoning above for why a residential-tenancy angle was avoided in
+ * Session 18) trace to the same underlying wall: a car-to-car collision
+ * claim needs general negligence elements to state who's at fault, and
+ * neither ontario.ca nor ontariocourts.ca states those in the way
+ * Occupiers' Liability or Dog Owners' Liability state a specific
+ * statutory duty. Re-attempting would rediscover the identical wall, not
+ * a new one -- logged here instead of spending tool calls confirming it
+ * a third time.
+ *
  * Sourcing note on statutes whose e-Laws page won't render (Occupiers'
  * Liability Act, Negligence Act, Sale of Goods Act all hit this): ontario.ca's
  * e-Laws statute viewer (ontario.ca/laws/statute/...) is a JS-rendered page
@@ -1599,6 +1637,384 @@ export const CLAIM_TYPES: ClaimType[] = [
         officialUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
         verifiedAt: "2026-09-07",
         pinpoint: "NSF cheques explicitly listed as an example of a Small Claims Court matter",
+      },
+    ],
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
+  },
+  {
+    id: "sc-claim-unpaid-overtime-vacation-pay",
+    name: "Unpaid overtime or vacation pay",
+    courtArea: "small-claims",
+    plaintiffElements: [
+      {
+        id: "overtime-not-paid",
+        name: "Overtime pay owed was not paid",
+        plainExplanation:
+          "For most employees, overtime begins after 44 hours worked in a work week, paid at 1½ " +
+          "times the employee's regular rate of pay.",
+        sourceUrl: "https://www.ontario.ca/document/your-guide-employment-standards-act-0/overtime-pay",
+        evidenceCategories: [
+          {
+            name: "Hours and pay records",
+            why: "Shows the hours actually worked and what was paid for them.",
+            examples: ["Timesheets or schedules", "Pay stubs", "Text/email records confirming hours worked"],
+          },
+        ],
+      },
+      {
+        id: "vacation-pay-not-paid",
+        name: "Vacation pay owed was not paid",
+        plainExplanation:
+          "Employees are entitled to vacation pay of at least 4% of gross wages earned in the " +
+          "vacation entitlement year (at least 6% after five years of employment). When employment " +
+          "ends, vacation pay already earned but not yet paid is due within 7 days of the employment " +
+          "ending or on what would have been the employee's next pay day, whichever is later.",
+        sourceUrl: "https://www.ontario.ca/document/your-guide-employment-standards-act-0/vacation",
+        evidenceCategories: [
+          {
+            name: "Pay and employment records",
+            why: "Supports the vacation pay calculation and whether it was paid.",
+            examples: ["Pay stubs", "Final pay statement", "Records of gross wages earned in the vacation year"],
+          },
+        ],
+      },
+      {
+        id: "amount-within-jurisdiction-wages",
+        name: "The amount owing falls within Small Claims Court's jurisdiction",
+        plainExplanation:
+          "Small Claims Court can only hear claims up to $50,000, excluding interest and costs.",
+        sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        evidenceCategories: [
+          {
+            name: "Wage calculation",
+            why: "Supports the specific dollar amount claimed.",
+            examples: ["Pay rate confirmation", "Hours/schedule records", "Calculation showing how the amount owing was reached"],
+          },
+        ],
+      },
+    ],
+    defendantConsiderations: [
+      {
+        id: "dispute-hours-or-entitlement",
+        name: "The employer disputes the hours worked or the vacation pay entitlement calculation",
+        plainExplanation:
+          "A defendant can file a Defence disputing the hours claimed, the employee's length of " +
+          "service, or how the vacation pay entitlement was calculated.",
+        whenThisComesUp: "When the employer's Defence disputes the underlying hours or calculation, not just whether anything is owed at all.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+      },
+    ],
+    applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
+    remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
+    proceduralNotes: [
+      {
+        note:
+          "Small Claims Court can only hear this kind of claim if the amount owing is within its " +
+          "$50,000 monetary jurisdiction.",
+        sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+      },
+    ],
+    signals: [
+      "unpaid overtime",
+      "overtime not paid",
+      "vacation pay not paid",
+      "employer didn't pay vacation pay",
+      "worked over 44 hours no overtime",
+      "final paycheque missing vacation pay",
+    ],
+    typicalDefendantProfile: "business",
+    citations: [
+      {
+        sourceName: "Ontario.ca — Your Guide to the Employment Standards Act: Overtime Pay",
+        officialUrl: "https://www.ontario.ca/document/your-guide-employment-standards-act-0/overtime-pay",
+        verifiedAt: "2026-09-07",
+        pinpoint: "Overtime begins after 44 hours/week, paid at 1.5x regular rate",
+      },
+      {
+        sourceName: "Ontario.ca — Your Guide to the Employment Standards Act: Vacation",
+        officialUrl: "https://www.ontario.ca/document/your-guide-employment-standards-act-0/vacation",
+        verifiedAt: "2026-09-07",
+        pinpoint: "Minimum 4% (6% after five years) vacation pay; owed within 7 days of employment ending or the next pay day, whichever is later",
+      },
+    ],
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
+  },
+  {
+    id: "sc-claim-vehicle-repair-dispute",
+    name: "Vehicle repair dispute (overcharge or warranty)",
+    courtArea: "small-claims",
+    plaintiffElements: [
+      {
+        id: "estimate-or-max-agreed",
+        name: "A written estimate was required, or a maximum amount was agreed instead",
+        plainExplanation:
+          "Before a repair shop can charge you, it generally must have given a written estimate, " +
+          "unless the customer declined one and instead agreed on a maximum amount they were willing " +
+          "to pay for the repair.",
+        sourceUrl: "https://www.ontario.ca/page/car-repair-shops-your-rights",
+        evidenceCategories: [
+          {
+            name: "The estimate or agreement on cost",
+            why: "Establishes what was quoted or agreed before the work started.",
+            examples: ["Written estimate", "Work order", "Text/email agreeing to a maximum amount"],
+          },
+        ],
+      },
+      {
+        id: "charged-over-permitted-limit",
+        name: "The final amount charged exceeded what the law allows",
+        plainExplanation:
+          "The final cost charged cannot be more than 10% above the estimate, or, if an estimate was " +
+          "declined, more than the agreed maximum amount.",
+        sourceUrl: "https://www.ontario.ca/page/car-repair-shops-your-rights",
+        evidenceCategories: [
+          {
+            name: "Final invoice",
+            why: "Shows the amount actually charged, to compare against the estimate or agreed maximum.",
+            examples: ["Final invoice or receipt", "Payment record", "Any communication about additional charges"],
+          },
+        ],
+      },
+      {
+        id: "amount-claimed-repair",
+        name: "The amount claimed reflects the overcharge or repair loss",
+        plainExplanation:
+          "Small Claims Court's jurisdiction covers claims for money, up to $50,000, not counting " +
+          "interest and costs.",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        evidenceCategories: [
+          {
+            name: "Cost documentation",
+            why: "Supports the specific dollar amount claimed.",
+            examples: ["Amount overcharged", "Cost to have the repair redone elsewhere", "Repair invoice"],
+          },
+        ],
+      },
+    ],
+    defendantConsiderations: [
+      {
+        id: "dispute-overcharge",
+        name: "The repair shop disputes that the final charge exceeded the permitted limit",
+        plainExplanation:
+          "A defendant can file a Defence disputing that the charge exceeded the estimate or agreed " +
+          "maximum by more than what's allowed, or pointing to additional work the customer separately " +
+          "authorized.",
+        whenThisComesUp: "When the shop's Defence says the extra charges were separately authorized, or that the original estimate covered the final amount.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+      },
+    ],
+    applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
+    remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
+    proceduralNotes: [
+      {
+        note: "Parts and labour generally carry a minimum warranty of 90 days or 5,000 km, whichever comes first.",
+        sourceUrl: "https://www.ontario.ca/page/car-repair-shops-your-rights",
+      },
+    ],
+    signals: [
+      "repair shop overcharged",
+      "charged more than estimate",
+      "mechanic overcharged",
+      "car repair warranty",
+      "repair not fixed within warranty",
+      "auto repair dispute",
+    ],
+    typicalDefendantProfile: "business",
+    citations: [
+      {
+        sourceName: "Ontario.ca — Car Repair Shops: Your Rights",
+        officialUrl: "https://www.ontario.ca/page/car-repair-shops-your-rights",
+        verifiedAt: "2026-09-07",
+        pinpoint: "Written estimate requirement; final cost cannot exceed the estimate (or agreed maximum) by more than 10%; minimum 90-day/5,000 km warranty on parts and labour",
+      },
+    ],
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
+  },
+  {
+    id: "sc-claim-used-vehicle-nondisclosure",
+    name: "Used vehicle purchase — non-disclosure by a dealer",
+    courtArea: "small-claims",
+    plaintiffElements: [
+      {
+        id: "dealer-failed-to-disclose",
+        name: "The dealer failed to give accurate required information about the vehicle",
+        plainExplanation:
+          "When you buy a vehicle, a dealer must give the most accurate information available about " +
+          "the vehicle's history and key features -- including the odometer reading, make/model/year, " +
+          "salvage or rebuilt status, and past use (such as a taxi, rental, or police vehicle).",
+        sourceUrl: "https://www.ontario.ca/page/buying-new-or-used-vehicle-your-rights",
+        evidenceCategories: [
+          {
+            name: "Purchase and vehicle history records",
+            why: "Shows what the dealer said or provided versus the vehicle's actual history.",
+            examples: ["Bill of sale or contract", "Vehicle history report", "Any written disclosure given at the time of sale"],
+          },
+        ],
+      },
+      {
+        id: "cancelled-within-90-days",
+        name: "The contract was cancelled within the required window after discovering the issue",
+        plainExplanation:
+          "If a dealer fails to provide accurate details about the matters above, the buyer generally " +
+          "has a 90-day window to cancel the contract.",
+        sourceUrl: "https://www.ontario.ca/page/buying-new-or-used-vehicle-your-rights",
+        evidenceCategories: [
+          {
+            name: "Proof of cancellation",
+            why: "Shows the cancellation step was taken and when, relative to discovering the issue.",
+            examples: ["Copy of the cancellation notice sent to the dealer", "Date-stamped email or letter"],
+          },
+        ],
+      },
+      {
+        id: "amount-claimed-vehicle",
+        name: "The amount claimed reflects the loss",
+        plainExplanation:
+          "Small Claims Court's jurisdiction covers claims for money, up to $50,000, not counting " +
+          "interest and costs.",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        evidenceCategories: [
+          {
+            name: "Cost documentation",
+            why: "Supports the specific dollar amount claimed.",
+            examples: ["Purchase price", "Amount paid before cancelling", "Repair or diminished-value estimate, if relevant"],
+          },
+        ],
+      },
+    ],
+    defendantConsiderations: [
+      {
+        id: "dispute-nondisclosure",
+        name: "The dealer disputes that required information was withheld or inaccurate",
+        plainExplanation:
+          "A defendant can file a Defence disputing that any required disclosure was missing or " +
+          "inaccurate at the time of sale.",
+        whenThisComesUp: "When the dealer's Defence says the information provided was accurate and complete.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+      },
+    ],
+    applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
+    remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
+    proceduralNotes: [
+      {
+        note:
+          "For a registered dealer, the Motor Vehicle Dealers Compensation Fund protects deposits and " +
+          "payments up to $45,000 if the dealer fails to deliver on a purchase or warranty obligation; " +
+          "claims must generally be filed within 2 years of the dealer's refusal or inability to " +
+          "return payment. This is a separate path from Small Claims Court, not a substitute step " +
+          "required before suing.",
+        sourceUrl: "https://www.ontario.ca/page/buying-new-or-used-vehicle-your-rights",
+      },
+    ],
+    signals: [
+      "dealer didn't disclose",
+      "used car dealer lied",
+      "odometer rolled back",
+      "salvage title not disclosed",
+      "sold as taxi not disclosed",
+      "vehicle history hidden",
+      "rebuilt vehicle not disclosed",
+    ],
+    typicalDefendantProfile: "business",
+    citations: [
+      {
+        sourceName: "Ontario.ca — Buying a New or Used Vehicle: Your Rights",
+        officialUrl: "https://www.ontario.ca/page/buying-new-or-used-vehicle-your-rights",
+        verifiedAt: "2026-09-07",
+        pinpoint: "Dealer disclosure obligations; 90-day cancellation right for inaccurate disclosure; Motor Vehicle Dealers Compensation Fund",
+      },
+    ],
+    reviewedAt: "2026-09-07",
+    status: "reviewed",
+  },
+  {
+    id: "sc-claim-unpaid-condo-common-expenses",
+    name: "Unpaid condominium common expenses",
+    courtArea: "small-claims",
+    plaintiffElements: [
+      {
+        id: "plaintiff-is-condo-corp",
+        name: "The plaintiff is the condominium corporation and the defendant is a unit owner",
+        plainExplanation:
+          "The Condominium Act, 1998 governs the relationship between a condominium corporation and " +
+          "its unit owners, including the corporation's right to collect common expenses.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/98c19_e.doc",
+        evidenceCategories: [
+          {
+            name: "Condominium records",
+            why: "Establishes the corporation's status and the defendant's ownership of the unit.",
+            examples: ["Status certificate", "Declaration or registration records", "Ownership record for the unit"],
+          },
+        ],
+      },
+      {
+        id: "owner-defaulted-common-expenses",
+        name: "The owner defaulted in paying common expenses owed to the corporation",
+        plainExplanation:
+          "When an owner fails to pay common expenses owed to the corporation, a lien arises against " +
+          "that owner's unit for the unpaid amount, including interest and the corporation's " +
+          "reasonable costs of collecting it.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/98c19_e.doc",
+        evidenceCategories: [
+          {
+            name: "Common-expense records",
+            why: "Shows the amount assessed, billed, and unpaid.",
+            examples: ["Common-expense/maintenance fee statements", "Payment history", "Board or property-management correspondence about the arrears"],
+          },
+        ],
+      },
+      {
+        id: "amount-within-jurisdiction-condo",
+        name: "The amount owing falls within Small Claims Court's jurisdiction",
+        plainExplanation:
+          "Small Claims Court can only hear claims up to $50,000, excluding interest and costs.",
+        sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        evidenceCategories: [
+          {
+            name: "Arrears calculation",
+            why: "Supports the specific dollar amount claimed.",
+            examples: ["Statement of the account in arrears", "Interest calculation", "Records of any partial payments"],
+          },
+        ],
+      },
+    ],
+    defendantConsiderations: [
+      {
+        id: "dispute-amount-assessed",
+        name: "The owner disputes that the common-expense amount was properly assessed or owing",
+        plainExplanation:
+          "A defendant can file a Defence disputing the amount assessed, billed, or claimed as owing.",
+        whenThisComesUp: "When the owner's Defence disputes the calculation or validity of the amount claimed, not just an inability to pay.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+      },
+    ],
+    applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
+    remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
+    proceduralNotes: [
+      {
+        note:
+          "A condominium corporation's lien for unpaid common expenses has priority over most other " +
+          "claims registered against the unit after the condominium was created.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/98c19_e.doc",
+      },
+    ],
+    signals: [
+      "condo fees unpaid",
+      "unpaid common expenses",
+      "condo corporation suing owner",
+      "maintenance fees not paid",
+      "condo arrears",
+    ],
+    typicalDefendantProfile: "individual",
+    citations: [
+      {
+        sourceName: "Condominium Act, 1998, S.O. 1998, c. 19",
+        officialUrl: "https://www.ontario.ca/laws/docs/98c19_e.doc",
+        verifiedAt: "2026-09-07",
+        pinpoint: "s.85 lien for unpaid common expenses (principal, interest, collection costs); s.86 lien priority",
       },
     ],
     reviewedAt: "2026-09-07",
