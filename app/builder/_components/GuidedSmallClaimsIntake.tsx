@@ -24,6 +24,10 @@ type VoiceTurn = {
 type IntakeQuestion = {
   id: string;
   text: string;
+  /** Shown to the user alongside the question. States a legal fact only if sourceUrl is also set. */
+  why?: string;
+  /** Set whenever `why` states a legal/procedural fact. */
+  sourceUrl?: string;
 };
 
 type EvidenceCategory = {
@@ -59,6 +63,46 @@ type GuidedTurnResult = {
 };
 
 type ChatMessage = { from: "user" | "assistant"; text: string };
+
+/**
+ * Session 28 -- Tier 1 field help, same pattern as SmallClaimsIntake.tsx's
+ * FieldHelp (Tier 1 half only: a "Why does this matter?" toggle showing
+ * the question's already-sourced why/sourceUrl). No AI, no network, just
+ * existing content the server was already sending in nextQuestion -- this
+ * component just wasn't rendering it. Renders nothing when the current
+ * question has no `why` to show.
+ */
+function QuestionHelp({ question }: { question: IntakeQuestion | null }) {
+  const [showWhy, setShowWhy] = useState(false);
+
+  if (!question?.why) return null;
+
+  return (
+    <div className="mt-2 text-xs leading-5">
+      <button
+        type="button"
+        onClick={() => setShowWhy((current) => !current)}
+        className="font-semibold text-[#2f7d67] underline"
+      >
+        Why does this matter?
+      </button>
+
+      {showWhy ? (
+        <p className="mt-1 text-[#4d675f]">
+          {question.why}
+          {question.sourceUrl ? (
+            <>
+              {" "}
+              <a href={question.sourceUrl} target="_blank" rel="noreferrer" className="font-semibold underline">
+                Source
+              </a>
+            </>
+          ) : null}
+        </p>
+      ) : null}
+    </div>
+  );
+}
 
 type Props = {
   location: { province: "Ontario"; city: string };
@@ -211,6 +255,10 @@ export default function GuidedSmallClaimsIntake({ initialStory }: Props) {
           ))
         )}
       </div>
+
+      {!halted && currentQuestion ? (
+        <QuestionHelp key={currentQuestion.id} question={currentQuestion} />
+      ) : null}
 
       {!halted && evidenceGuidance ? (
         <div className="mt-4 rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm leading-6 text-[#24463d]">
