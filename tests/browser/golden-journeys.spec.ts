@@ -242,7 +242,16 @@ test("Case Partner carries confirmed Small Claims location and displays a date f
 
   await page.route("**/api/small-claims/analyze", (route) => route.fulfill({
     status: 200,
-    json: { ok: true, reasoningMode: "deterministic-fallback", analysisAvailable: false, authenticated: false, result: { analysis, payload, masterResultPatch: {}, dashboardPatch: {} } },
+    json: { ok: true, reasoningMode: "deterministic-fallback", analysisAvailable: false, authenticated: true, result: { analysis, payload, masterResultPatch: {}, dashboardPatch: {} } },
+  }));
+  // The safety check has no deterministic fallback and always calls real AI
+  // (see app/api/intake/safety-check/route.ts); mocking it "clear" here
+  // keeps this test about Case Partner behavior, not about exercising that
+  // route for real -- verifySafetyPassRegression.ts owns proving the real
+  // classifier, separately.
+  await page.route("**/api/intake/safety-check", (route) => route.fulfill({
+    status: 200,
+    json: { ok: true, classification: "clear", userMessage: null },
   }));
   await page.route("**/api/ai-case-partner", async (route) => {
     partnerRequestCount += 1;
@@ -266,6 +275,7 @@ test("Case Partner carries confirmed Small Claims location and displays a date f
   await page.getByLabel("City or municipality").fill("Ottawa");
   await page.getByLabel("Tell us what happened in your own words").fill("Synthetic alleged false text messages were communicated to two third parties.");
   await continueKeepingDeclaredPath(page, "Small Claims");
+  await page.getByRole("button", { name: "Fill in the form yourself" }).click();
   await page.getByLabel("Your role").selectOption("Plaintiff / claimant");
   await page.getByRole("button", { name: "Plaintiff’s Claim already filed / served" }).click();
   await page.getByRole("button", { name: "Affidavit of Service filed with the court" }).click();
