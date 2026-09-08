@@ -49,6 +49,7 @@ import {
 
 import { getDoctrineSeedLibrary } from "../knowledge/doctrineSeedLibrary";
 import { buildProductionReadyLegalKnowledge } from "../authority-intelligence/authorityRetrievalEngine";
+import { filterJudgeConcerns, filterOpposingArguments } from "./caseStrengthLanguageValidator";
 
 type GptCognitionClaim = {
   claimType?: string;
@@ -1890,6 +1891,7 @@ ABSOLUTE SAFETY AND RELIABILITY RULES:
 - Do not treat old events as automatically out of time. Flag limitation/discoverability risk without stating a deadline unless verified.
 - Do not frame public-authority liability as disagreement with a judge's decision. Separate operational conduct, process failure, knowledge, causation, protected discretion, immunity, notice, leave, limitation, and collateral-attack risk.
 - Do not over-recommend forms. Recommend only workflow-level documents/forms that match courtPath and stage, and add verification warnings.
+- Never predict, characterize, or speculate about what a judge thinks or is concerned about, and never draft or predict what an opposing party or the other side will argue. This platform organizes facts and identifies gaps; it does not grade the merits of a case. Phrases like "the judge may be concerned," "the court may question," "the defendant may argue," or "the other side may argue" are never acceptable in any field, including judgeConcerns and opposingArguments -- reframe both as procedural or evidentiary readiness gaps instead (a missing document, an unconfirmed date, an element without documented proof).
 
 CANONICAL VALUES ONLY:
 Allowed courtPath: family, small-claims, civil, tribunal, ltb, immigration, criminal-related, unknown
@@ -1908,8 +1910,8 @@ REQUIRED DEPTH:
 4. Every element must state status, explanation, missingFacts, and risks.
 5. Build evidenceIssueLinks that explain what proof is needed, not just what evidence exists.
 6. Identify litigation risks the user may not realize: limitation, discoverability, jurisdiction, wrong forum, wrong form, leave/notice, causation, credibility, proportionality, remedy-fit, service, deadline, and stage risks.
-7. Identify opposingArguments as if you are preparing the other side's strongest response.
-8. Identify judgeConcerns as if screening whether the case is clear, admissible, procedurally proper, and legally coherent.
+7. For opposingArguments, identify only PROCEDURAL OR EVIDENTIARY gaps a reviewer would want closed before filing -- e.g. an element with no documented proof, a missing form, an unconfirmed date. Never predict, draft, or characterize what the other side is likely to say; never write "the defendant/other side/opposing side may argue."
+8. For judgeConcerns, identify only PROCEDURAL READINESS gaps -- e.g. missing proof of service, an unconfirmed limitation date, an element without documented support. Never predict, characterize, or speculate about what a judge personally thinks, believes, or is concerned about; never write "the judge/court may be concerned," "the judge/court may question," or "the judge/court may ask."
 9. Give ordered nextBestActions that improve court readiness.
 10. Keep summaries useful: not just repetition of intake. Explain theory, risk, proof gaps, and next step.
 
@@ -1986,7 +1988,7 @@ Return JSON with this exact shape and no extra keys:
           "status": "partially-satisfied",
           "explanation": "Explain what facts support or weaken this element.",
           "missingFacts": ["Identify exactly what each actor did or failed to do."],
-          "risks": ["The opposing side may argue the conduct is not legally actionable."]
+          "risks": ["No documented proof yet connects this conduct to the alleged wrong."]
         },
         {
           "elementKey": "causation",
@@ -1994,7 +1996,7 @@ Return JSON with this exact shape and no extra keys:
           "status": "missing",
           "explanation": "Explain what causal proof is currently missing.",
           "missingFacts": ["Identify how the conduct caused or materially contributed to the harm."],
-          "risks": ["The opposing side may argue no causation."]
+          "risks": ["No documented proof yet connects the conduct to the harm claimed."]
         }
       ]
     }
@@ -2031,17 +2033,17 @@ Return JSON with this exact shape and no extra keys:
   "opposingArguments": [
     {
       "claimType": "civil-institutional-liability",
-      "argument": "State the strongest realistic opposing argument.",
-      "whyItMatters": "Explain how this could defeat, narrow, or delay the claim.",
-      "responseStrategy": "Explain the evidence or pleading response.",
+      "argument": "State a specific procedural or evidentiary gap a reviewer would want closed before filing -- e.g. an element with no documented proof -- never a prediction of what the other side will say.",
+      "whyItMatters": "Explain why closing this gap matters to court readiness.",
+      "responseStrategy": "Explain what evidence or documentation would close the gap.",
       "evidenceNeeded": ["records", "chronology", "proof of knowledge", "proof of causation"]
     }
   ],
   "judgeConcerns": [
     {
       "claimType": "civil-institutional-liability",
-      "concern": "State what a judge may be concerned about.",
-      "whyJudgeMayCare": "Explain why this matters to court readiness.",
+      "concern": "State a specific procedural readiness gap -- e.g. missing proof of service, an unconfirmed date -- never a prediction about what a judge personally thinks or is concerned about.",
+      "whyJudgeMayCare": "Explain why this procedural gap matters to court readiness.",
       "howToAddress": "Explain the fix."
     }
   ],
@@ -2457,19 +2459,28 @@ export async function runCourtSimplifiedBrain(
     elementProofAnalysis,
   });
 
-  const opposingArguments = buildSupplementalOpposingArguments({
-    existingOpposingArguments: baseOpposingArguments,
-    normalizedIntake,
-    elementProofAnalysis,
-  });
+  // filterJudgeConcerns()/filterOpposingArguments() run last, after every
+  // source (the AI cognition call, elementProofAnalysis's per-element
+  // fields, and the deterministic supplemental builders above) has already
+  // been merged in -- see caseStrengthLanguageValidator.ts's file header
+  // for why the enforcement point has to be here, not earlier.
+  const opposingArguments = filterOpposingArguments(
+    buildSupplementalOpposingArguments({
+      existingOpposingArguments: baseOpposingArguments,
+      normalizedIntake,
+      elementProofAnalysis,
+    }),
+  );
 
-  const judgeConcerns = buildSupplementalJudgeConcerns({
-    existingJudgeConcerns: baseJudgeConcerns,
-    contradictions,
-    limitationAssessments,
-    normalizedIntake,
-    elementProofAnalysis,
-  });
+  const judgeConcerns = filterJudgeConcerns(
+    buildSupplementalJudgeConcerns({
+      existingJudgeConcerns: baseJudgeConcerns,
+      contradictions,
+      limitationAssessments,
+      normalizedIntake,
+      elementProofAnalysis,
+    }),
+  );
 
   const legalKnowledge = buildLegalKnowledge({
     courtPath,
