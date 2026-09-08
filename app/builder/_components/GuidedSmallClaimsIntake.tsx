@@ -26,6 +26,19 @@ type IntakeQuestion = {
   text: string;
 };
 
+type EvidenceCategory = {
+  name: string;
+  why: string;
+  examples: string[];
+};
+
+type EvidenceGuidance = {
+  claimTypeId: string;
+  claimTypeName: string;
+  addressedCategories: EvidenceCategory[];
+  unaddressedCategories: EvidenceCategory[];
+};
+
 type GuidedTurnResult = {
   halted: boolean;
   haltMessage?: string;
@@ -34,6 +47,14 @@ type GuidedTurnResult = {
   answeredIds: string[];
   nextQuestion?: IntakeQuestion;
   voiceTurn?: VoiceTurn;
+  /**
+   * Session 23. Turn-scoped on the server (see orchestrateIntakeTurn.ts) --
+   * only present on the turn where a claim type was freshly matched, most
+   * often the opening story. Retained in this component's own state (see
+   * evidenceGuidance below) so it doesn't flicker away on a later turn
+   * whose text doesn't happen to re-match a claim type.
+   */
+  evidenceGuidance?: EvidenceGuidance;
   intakeComplete: boolean;
 };
 
@@ -55,6 +76,11 @@ export default function GuidedSmallClaimsIntake({ initialStory }: Props) {
   const [halted, setHalted] = useState(false);
   const [intakeComplete, setIntakeComplete] = useState(false);
   const [started, setStarted] = useState(false);
+  // Retained across turns rather than replaced with each response -- only
+  // updated when a turn actually carries a new evidenceGuidance, so it
+  // doesn't disappear the moment the user answers a plain multiple-choice
+  // question with no new free text (see GuidedTurnResult.evidenceGuidance).
+  const [evidenceGuidance, setEvidenceGuidance] = useState<EvidenceGuidance | null>(null);
 
   async function sendTurn(newStoryText: string | undefined, newAnsweredIds: string[], nextFacts: IntakeFacts) {
     setLoading(true);
@@ -84,6 +110,9 @@ export default function GuidedSmallClaimsIntake({ initialStory }: Props) {
       const result: GuidedTurnResult = json.result;
       setFacts(result.facts);
       setAnsweredIds(result.answeredIds);
+      if (result.evidenceGuidance) {
+        setEvidenceGuidance(result.evidenceGuidance);
+      }
 
       if (result.halted) {
         setHalted(true);
@@ -182,6 +211,42 @@ export default function GuidedSmallClaimsIntake({ initialStory }: Props) {
           ))
         )}
       </div>
+
+      {!halted && evidenceGuidance ? (
+        <div className="mt-4 rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm leading-6 text-[#24463d]">
+          <p className="font-semibold text-[#10231f]">General evidence guidance for situations like this</p>
+
+          {evidenceGuidance.addressedCategories.length > 0 ? (
+            <p className="mt-2">
+              Already mentioned in what you&apos;ve shared:{" "}
+              {evidenceGuidance.addressedCategories.map((category) => category.name).join(", ")}.
+            </p>
+          ) : null}
+
+          {evidenceGuidance.unaddressedCategories.length > 0 ? (
+            <div className="mt-2">
+              <p>
+                Situations like this often also involve the following, though it hasn&apos;t come up yet in what
+                you&apos;ve shared:
+              </p>
+              <ul className="mt-1 list-disc space-y-1 pl-5">
+                {evidenceGuidance.unaddressedCategories.map((category) => (
+                  <li key={category.name}>
+                    <span className="font-semibold">{category.name}</span>
+                    {category.examples.length > 0 ? (
+                      <span> — for example: {category.examples.join(", ")}.</span>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
+          <p className="mt-2 text-xs text-[#557168]">
+            This is general information about situations like yours, not an assessment of your case.
+          </p>
+        </div>
+      ) : null}
 
       {error ? <p className="mt-3 text-sm font-semibold text-[#a63b3b]">{error}</p> : null}
 
