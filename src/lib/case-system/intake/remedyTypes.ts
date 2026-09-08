@@ -5,9 +5,10 @@
  * phase. Reuses `EducationCitation` and `FactCondition` rather than
  * redefining them.
  *
- * DRAFT wording -- every `plainExplanation` below is pending lawyer/
- * paralegal review before it ships, same convention as `questionBank.ts`
- * and `educationTopics.ts`.
+ * Session 32: every entry's `status`/`reviewedAt` reflects the site owner's
+ * own review for this pre-launch product, same convention as
+ * `questionBank.ts`/`claimTypes.ts` -- not a claim that outside legal
+ * counsel has reviewed the wording.
  *
  * What this covers is what courts in this category of situation typically
  * CAN or CANNOT order -- never "you should ask for X" or "you are entitled
@@ -56,8 +57,8 @@ export const REMEDY_TYPES: RemedyTopic[] = [
         pinpoint: "monetary jurisdiction increased from $35,000 to $50,000, effective October 1, 2025",
       },
     ],
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-08",
+    status: "reviewed",
   },
   {
     id: "sc-remedy-return-of-property",
@@ -78,8 +79,8 @@ export const REMEDY_TYPES: RemedyTopic[] = [
           "of personal property where the amount claimed does not exceed $50,000\"",
       },
     ],
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-08",
+    status: "reviewed",
   },
   {
     id: "sc-remedy-outside-jurisdiction",
@@ -109,8 +110,8 @@ export const REMEDY_TYPES: RemedyTopic[] = [
           "of personal property where the amount claimed does not exceed $50,000\"",
       },
     ],
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-08",
+    status: "reviewed",
   },
   {
     id: "sc-remedy-interest-and-costs",
@@ -130,7 +131,7 @@ export const REMEDY_TYPES: RemedyTopic[] = [
           "\"...where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees\"",
       },
     ],
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-08",
+    status: "reviewed",
   },
 ];

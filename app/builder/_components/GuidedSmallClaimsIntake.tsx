@@ -45,6 +45,33 @@ type EvidenceGuidance = {
 
 type MatchedClaimType = { claimTypeId: string; claimTypeName: string };
 
+type GuidanceCitation = {
+  sourceName: string;
+  officialUrl: string;
+  pinpoint?: string;
+};
+
+type EducationTopicGuidance = {
+  id: string;
+  title: string;
+  plainExplanation: string;
+  citations: GuidanceCitation[];
+};
+
+type RemedyGuidance = {
+  id: string;
+  title: string;
+  plainExplanation: string;
+  citations: GuidanceCitation[];
+};
+
+type ClaimGuidance = {
+  claimTypeId: string;
+  claimTypeName: string;
+  educationTopics: EducationTopicGuidance[];
+  remedies: RemedyGuidance[];
+};
+
 type GuidedTurnResult = {
   halted: boolean;
   haltMessage?: string;
@@ -63,6 +90,12 @@ type GuidedTurnResult = {
    * whose text doesn't happen to re-match a claim type.
    */
   evidenceGuidance?: EvidenceGuidance;
+  /**
+   * Session 32. Turn-scoped on the server (see orchestrateIntakeTurn.ts),
+   * same as evidenceGuidance directly above -- retained in this
+   * component's own state (see claimGuidance below) for the same reason.
+   */
+  claimGuidance?: ClaimGuidance;
   intakeComplete: boolean;
 };
 
@@ -128,6 +161,30 @@ function QuestionHelp({ question }: { question: IntakeQuestion | null }) {
   );
 }
 
+/**
+ * Session 32. Renders one educationTopics.ts/remedyTypes.ts entry --
+ * shared between the education-topic list and the remedy list below,
+ * since both share the same {title, plainExplanation, citations} shape.
+ */
+function GuidanceEntry({ entry }: { entry: EducationTopicGuidance | RemedyGuidance }) {
+  return (
+    <div className="mt-2">
+      <p className="font-semibold">{entry.title}</p>
+      <p className="mt-1">{entry.plainExplanation}</p>
+      <p className="mt-1 text-xs">
+        {entry.citations.map((citation, index) => (
+          <span key={citation.officialUrl}>
+            {index > 0 ? " · " : ""}
+            <a href={citation.officialUrl} target="_blank" rel="noreferrer" className="font-semibold underline">
+              {citation.sourceName}
+            </a>
+          </span>
+        ))}
+      </p>
+    </div>
+  );
+}
+
 type Props = {
   location: { province: "Ontario"; city: string };
   initialStory: string;
@@ -151,6 +208,9 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
   // doesn't disappear the moment the user answers a plain multiple-choice
   // question with no new free text (see GuidedTurnResult.evidenceGuidance).
   const [evidenceGuidance, setEvidenceGuidance] = useState<EvidenceGuidance | null>(null);
+  // Same retain-the-last-value pattern as evidenceGuidance -- claimGuidance
+  // is turn-scoped server-side too (see GuidedTurnResult.claimGuidance).
+  const [claimGuidance, setClaimGuidance] = useState<ClaimGuidance | null>(null);
   // Same retain-the-last-value pattern as evidenceGuidance -- matchedClaimTypes
   // is turn-scoped server-side, so this is what makes a matched claim type
   // survive to the completion callback even when the LAST turn's text
@@ -192,6 +252,9 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
       setAnsweredIds(result.answeredIds);
       if (result.evidenceGuidance) {
         setEvidenceGuidance(result.evidenceGuidance);
+      }
+      if (result.claimGuidance) {
+        setClaimGuidance(result.claimGuidance);
       }
 
       // Compute the value to report now, before any setState -- the
@@ -345,6 +408,34 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
 
           <p className="mt-2 text-xs text-[#557168]">
             This is general information about situations like yours, not an assessment of your case.
+          </p>
+        </div>
+      ) : null}
+
+      {!halted && claimGuidance && (claimGuidance.educationTopics.length > 0 || claimGuidance.remedies.length > 0) ? (
+        <div className="mt-4 rounded-2xl border border-violet-200 bg-violet-50 p-4 text-sm leading-6 text-[#24463d]">
+          <p className="font-semibold text-[#10231f]">General information for situations like this</p>
+
+          {claimGuidance.educationTopics.length > 0 ? (
+            <div className="mt-2">
+              {claimGuidance.educationTopics.map((topic) => (
+                <GuidanceEntry key={topic.id} entry={topic} />
+              ))}
+            </div>
+          ) : null}
+
+          {claimGuidance.remedies.length > 0 ? (
+            <div className="mt-3">
+              <p className="font-semibold">What courts in this category of situation can generally order</p>
+              {claimGuidance.remedies.map((remedy) => (
+                <GuidanceEntry key={remedy.id} entry={remedy} />
+              ))}
+            </div>
+          ) : null}
+
+          <p className="mt-3 text-xs text-[#557168]">
+            This is general information about situations like yours, not an assessment of what your case is
+            entitled to or a substitute for advice from a licensed paralegal or lawyer.
           </p>
         </div>
       ) : null}

@@ -36,12 +36,19 @@ const PHASE_ORDER: Record<QuestionPhase, number> = {
   sensitive: 2,
 };
 
-function evaluateCondition(condition: FactCondition, facts: IntakeFacts): boolean {
+/**
+ * Session 32: exported so other deterministic modules that gate content on
+ * the same FactCondition shape (claimGuidance.ts's education/remedy
+ * surfacing) reuse this evaluator instead of re-implementing it -- the
+ * logic stays owned by one module, same "reinvents none of their logic"
+ * posture as orchestrateIntakeTurn.ts's own file header.
+ */
+export function evaluateFactCondition(condition: FactCondition, facts: IntakeFacts): boolean {
   if ("all" in condition) {
-    return condition.all.every((inner) => evaluateCondition(inner, facts));
+    return condition.all.every((inner) => evaluateFactCondition(inner, facts));
   }
   if ("any" in condition) {
-    return condition.any.some((inner) => evaluateCondition(inner, facts));
+    return condition.any.some((inner) => evaluateFactCondition(inner, facts));
   }
 
   const value = facts[condition.field];
@@ -65,7 +72,7 @@ function evaluateCondition(condition: FactCondition, facts: IntakeFacts): boolea
 
 function questionApplies(question: IntakeQuestion, facts: IntakeFacts): boolean {
   if (!question.appliesWhen) return true;
-  return evaluateCondition(question.appliesWhen, facts);
+  return evaluateFactCondition(question.appliesWhen, facts);
 }
 
 /**

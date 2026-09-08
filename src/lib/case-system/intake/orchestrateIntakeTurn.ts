@@ -44,6 +44,7 @@ import { extractIntakeFactsWithConfidence } from "./extractIntakeFacts";
 import { matchClaimType, type ClaimTypeMatch } from "./claimTypeMatcher";
 import { CLAIM_TYPES, type ClaimType } from "./claimTypes";
 import { detectEvidenceGaps, type EvidenceGuidance } from "./evidenceGapDetector";
+import { buildClaimGuidance, type ClaimGuidance } from "./claimGuidance";
 import { selectQuestions, type IntakeFacts } from "./selectQuestions";
 import { QUESTION_BANK, type CourtArea, type IntakeQuestion, type KnownFactField } from "./questionBank";
 import { composeVoiceTurn, type VoiceTurn } from "./voiceLayer";
@@ -80,6 +81,16 @@ export type OrchestrateIntakeTurnResult = {
    * exactly the pattern already established for matchedClaimTypes.
    */
   evidenceGuidance?: EvidenceGuidance;
+  /**
+   * Session 32. General education-topic and remedy guidance for the claim
+   * type matched THIS turn (see matchedClaimTypes above) -- same
+   * turn-scoping and caveat as evidenceGuidance directly above: a caller
+   * wanting this evaluated against a later turn needs to retain the last
+   * matched claim type (and current facts) itself and call
+   * claimGuidance.ts's buildClaimGuidance() directly, the same pattern
+   * already established for matchedClaimTypes/evidenceGuidance.
+   */
+  claimGuidance?: ClaimGuidance;
   /** Absent when intake is complete or the turn halted. */
   nextQuestion?: IntakeQuestion;
   /** Absent when there's no nextQuestion. */
@@ -160,7 +171,9 @@ function mergeFacts(
  *      matches, evidenceGapDetector.ts runs against the same newStoryText
  *      to produce evidenceGuidance (Session 22) -- also plain keyword
  *      data, no AI, and equally turn-scoped (see evidenceGuidance's own
- *      doc comment above).
+ *      doc comment above) -- and claimGuidance.ts's buildClaimGuidance()
+ *      runs against the matched claim type and the merged facts to
+ *      produce claimGuidance (Session 32), same turn-scoping again.
  *   5. selectQuestions() picks the next question from the (possibly
  *      caller-supplied, e.g. a "reviewed" fixture) question bank.
  *   6. If there's a next question, composeVoiceTurn() wraps it. If not,
@@ -201,6 +214,7 @@ export async function orchestrateIntakeTurn(
   let matchedClaimTypes: ClaimTypeMatch[] = [];
   let possibleCorrections: PossibleCorrection[] = [];
   let evidenceGuidance: EvidenceGuidance | undefined;
+  let claimGuidance: ClaimGuidance | undefined;
 
   if (newStoryText) {
     const safety = await runSafetyPass(newStoryText, apiKey);
@@ -244,6 +258,7 @@ export async function orchestrateIntakeTurn(
     matchedClaimTypes = match ? [match] : [];
     if (match) {
       evidenceGuidance = detectEvidenceGaps(match.claimType, newStoryText);
+      claimGuidance = buildClaimGuidance(match.claimType, facts);
     }
   }
 
@@ -259,6 +274,7 @@ export async function orchestrateIntakeTurn(
       answeredIds,
       matchedClaimTypes,
       evidenceGuidance,
+      claimGuidance,
       intakeComplete: true,
       possibleCorrections,
     };
@@ -274,6 +290,7 @@ export async function orchestrateIntakeTurn(
     answeredIds,
     matchedClaimTypes,
     evidenceGuidance,
+    claimGuidance,
     nextQuestion,
     voiceTurn,
     intakeComplete: false,

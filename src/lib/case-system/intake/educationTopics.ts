@@ -4,9 +4,10 @@
  * see docs/AI_INTAKE_DESIGN.md). No AI reads or surfaces these yet in this
  * phase; this is the sourced content registry that layer will draw from.
  *
- * DRAFT wording -- every `plainExplanation` below is pending lawyer/
- * paralegal review before it ships to real users, same convention as
- * `outOfScopeForums.ts` and `questionBank.ts`.
+ * Session 32: every entry's `status`/`reviewedAt` reflects the site owner's
+ * own review for this pre-launch product, same convention as
+ * `questionBank.ts`/`claimTypes.ts` -- not a claim that outside legal
+ * counsel has reviewed the wording.
  *
  * Every `plainExplanation` is general education only: what the concept is,
  * what someone bringing this kind of claim generally must show, what
@@ -71,8 +72,8 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
         pinpoint: "monetary jurisdiction increased from $35,000 to $50,000, effective October 1, 2025",
       },
     ],
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-08",
+    status: "reviewed",
   },
   {
     id: "sc-topic-limitation-period",
@@ -92,8 +93,8 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
         pinpoint: "\"a claim cannot be started more than two years after the claim was discovered\"",
       },
     ],
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-08",
+    status: "reviewed",
   },
   {
     id: "sc-topic-burden-of-proof",
@@ -117,8 +118,8 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
           "\"the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim\"",
       },
     ],
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-08",
+    status: "reviewed",
   },
   {
     id: "sc-topic-demand-letters",
@@ -138,8 +139,8 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
         pinpoint: "\"you could send a letter or talk to the person who owes you money\"",
       },
     ],
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-08",
+    status: "reviewed",
   },
   {
     id: "sc-topic-filing-form-7a",
@@ -159,8 +160,8 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
         pinpoint: "Plaintiff's Claim [Form 7A] used to commence an action",
       },
     ],
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-08",
+    status: "reviewed",
   },
   {
     id: "sc-topic-collecting-after-judgment",
@@ -181,7 +182,7 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
         pinpoint: "garnishment, writ of seizure and sale, examination hearing",
       },
     ],
-    reviewedAt: null,
-    status: "draft",
+    reviewedAt: "2026-09-08",
+    status: "reviewed",
   },
 ];
