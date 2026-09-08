@@ -31,7 +31,18 @@
  *    that same turn happened to re-match a claim type on its own. This is
  *    the demonstration that actually answers the session's ask -- showing
  *    real addressed/unaddressed categories for real evidence text.
+ *
+ * 3. Session 25 -- negation awareness. EVIDENCE_ANSWER was deliberately
+ *    written (Session 22) to include "I never sent a formal invoice or
+ *    statement of account... so I don't have that document" specifically
+ *    to catch a real bug: the pre-Session-25 detector flagged "Invoice or
+ *    statement of account" as addressed purely because the word "invoice"
+ *    appeared, with no check for the negation right next to it. Asserted
+ *    below, not just printed -- this is the one thing this proof now
+ *    hard-fails on if it regresses.
  */
+
+import assert from "node:assert/strict";
 
 import { orchestrateIntakeTurn } from "../../src/lib/case-system/intake/orchestrateIntakeTurn";
 import { detectEvidenceGaps } from "../../src/lib/case-system/intake/evidenceGapDetector";
@@ -140,9 +151,37 @@ async function main() {
       `${standalone.addressedCategories.length} addressed, ${standalone.unaddressedCategories.length} unaddressed.`,
   );
   console.log(
-    "Expected: the email/agreement and delivered-work categories addressed; " +
-      "the money-changed-hands and invoice/statement-of-account categories unaddressed " +
-      "(the answer explicitly says no invoice was sent and nothing was paid).",
+    "Expected: the email/agreement and delivered-work categories addressed; the money-changed-hands, " +
+      "communication (singular/plural stemming gap, a separate documented limitation), and " +
+      "invoice/statement-of-account categories unaddressed (the answer explicitly says no invoice " +
+      "was sent, no statement of account exists, and nothing was paid).",
+  );
+
+  // ---- Session 25 assertion: negation awareness ----------------------------
+  // Before Session 25, "Invoice or statement of account" was incorrectly
+  // flagged addressed here, purely because the word "invoice" appears in
+  // the text -- with no check for "I never sent... I don't have that
+  // document" negating it right next to the match. This is the regression
+  // guard: fail loudly, not just print a mismatch, if that bug comes back.
+  const invoiceCategoryName = "Invoice or statement of account";
+  const addressedNames = standalone.addressedCategories.map((category) => category.name);
+  const unaddressedNames = standalone.unaddressedCategories.map((category) => category.name);
+
+  assert.ok(
+    !addressedNames.includes(invoiceCategoryName),
+    `Regression: "${invoiceCategoryName}" was flagged addressed despite the explicit negation ` +
+      `("I never sent a formal invoice or statement of account... I don't have that document"). ` +
+      `Addressed categories were: ${addressedNames.join(", ")}`,
+  );
+  assert.ok(
+    unaddressedNames.includes(invoiceCategoryName),
+    `"${invoiceCategoryName}" should be unaddressed (negated, not confirmed absent) but was missing ` +
+      `from unaddressedCategories entirely. Unaddressed categories were: ${unaddressedNames.join(", ")}`,
+  );
+
+  console.log(
+    `\nSession 25 negation assertion PASSED: "${invoiceCategoryName}" correctly stayed unaddressed ` +
+      "despite the literal word \"invoice\" appearing in the text, because it's negated nearby.",
   );
 }
 
