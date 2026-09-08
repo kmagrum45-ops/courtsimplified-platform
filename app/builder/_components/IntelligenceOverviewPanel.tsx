@@ -5,6 +5,10 @@ import {
   withoutAnsweredQuestions,
 } from "@/src/lib/case-system/intelligence/answeredQuestions";
 import { meaningfulIssueSignals } from "@/src/lib/case-system/intelligence/issueSignals";
+import {
+  buildClaimTypeOverviewContent,
+  type SourcedListItem,
+} from "@/src/lib/case-system/intake/claimTypeOverviewContent";
 
 import type { AnalysisResult, StoredCaseData } from "./builderTypes";
 
@@ -56,16 +60,20 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
   // back to plain language below rather than naming an internal token.
   const issueSignals = meaningfulIssueSignals(rawIssueSignals);
   const issueTypeUndetermined = rawIssueSignals.length > 0 && issueSignals.length === 0;
-  // FOLLOW-UP (logged, not fixed, in the August 2026 audit): defamation and
-  // adoption are the only two issue types with bespoke content below --
-  // hand-written evidenceToOrganize/courtPoints/confirmQuestion overrides.
-  // Every other issue type (wrongful dismissal, property, contract, etc.)
-  // falls through to the generic paths: evidenceToOrganize from
-  // analysis.missingEvidence, and confirmQuestion from candidateQuestions[0].
-  // That's why a rich, high-value scenario like a $700k+ wrongful dismissal
-  // claim can render a completely empty evidence card and a generic
-  // procedural next-question -- confirmed via the scenario-quality harness's
-  // new positive checks (qualityChecks.ts), not assumed.
+  // Session 34 closed the gap the August 2026 audit logged here: defamation
+  // and every other Small Claims issue type with a matching CLAIM_TYPES
+  // entry (see claimTypeOverviewContent.ts) now draw evidenceToOrganize/
+  // courtPoints from that real, sourced content instead of a hand-written
+  // duplicate or the AI's own free-form output, which could come back
+  // empty for a real scenario (the $700k+ wrongful dismissal case that
+  // motivated this fix). Adoption keeps its own hand-written override --
+  // it has real, separately-sourced content this fix isn't replacing.
+  // Family/Civil issue types, and any Small Claims story that doesn't
+  // resemble one of the 19 CLAIM_TYPES entries yet, still fall back to the
+  // generic AI-derived paths below -- claimTypeContent is null for those,
+  // never a fabricated stand-in.
+  const claimTypeContent =
+    analysis.courtPath === "small-claims" && facts ? buildClaimTypeOverviewContent(facts) : null;
   const hasDefamationSignal = issueSignals.some((item) => /defamation|reputation/i.test(item));
   const hasAdoptionSignal = issueSignals.some((item) => /adoption/i.test(item));
   const recordedEvidence = Array.from(new Set([
@@ -92,13 +100,16 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
   const confirmQuestion = askDefenceQuestion
     ? defenceQuestion
     : candidateQuestions[0] || "What important fact should be confirmed next?";
-  const evidenceToOrganize = hasDefamationSignal
-    ? ["Complete unedited message threads or screenshots", "Who sent each message", "Uncle and father: what each received and when", "Full context before and after the statement", "Evidence the statement was false, if available", "Evidence of harm or impact, if available"]
-    : hasAdoptionSignal ? ["Full legal names and dates of birth", "Proof of Ontario residence, if available", "Family relationship and living-history information", "Adult person’s written wishes or consent information for review", "Known information about the biological father", "A dated record of reasonable efforts already made to locate or contact him", "Any existing court, adoption, or child-protection documents"]
-    : Array.from(new Set([...(analysis.missingEvidence || []), ...(analysis.intelligenceEvidenceIssues || []).flatMap((issue) => issue.missingEvidence || [])]));
-  const courtPoints = hasDefamationSignal
-    ? ["Exact words used", "Who received them", "Dates and context", "Whether the defendant admits, denies, or explains the statements", "What harm is being claimed and supporting evidence", "Current procedural status, including whether a Defence was filed"]
-    : Array.from(new Set([...(analysis.judgeConcerns || []), ...(analysis.courtConcerns || [])]));
+  const textItems = (values: readonly string[]): SourcedListItem[] =>
+    Array.from(new Set(values)).map((text) => ({ text }));
+  const evidenceToOrganize: SourcedListItem[] = hasAdoptionSignal
+    ? textItems(["Full legal names and dates of birth", "Proof of Ontario residence, if available", "Family relationship and living-history information", "Adult person’s written wishes or consent information for review", "Known information about the biological father", "A dated record of reasonable efforts already made to locate or contact him", "Any existing court, adoption, or child-protection documents"])
+    : claimTypeContent
+      ? claimTypeContent.evidenceToOrganize
+      : textItems([...(analysis.missingEvidence || []), ...(analysis.intelligenceEvidenceIssues || []).flatMap((issue) => issue.missingEvidence || [])]);
+  const courtPoints: SourcedListItem[] = claimTypeContent
+    ? claimTypeContent.courtPoints
+    : textItems([...(analysis.judgeConcerns || []), ...(analysis.courtConcerns || [])]);
   const snapshot = [
     `${analysis.courtPath === "small-claims" ? "Small Claims" : analysis.courtPath === "family" ? "Family" : "Civil"} matter.`,
     parties ? `Parties recorded: ${parties}.` : "",
@@ -118,8 +129,8 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
       <Card title="Where your case is now"><p>{hasClaimAndService ? "Claim already filed and served." : `Recorded stage: ${displayStage(analysis.caseStage)}.`}</p></Card>
       <Card title="What to confirm next"><p className="font-semibold">{hasAdoptionSignal ? "Does the adult person freely agree to the proposed adoption?" : confirmQuestion}</p><p className="mt-2">{hasClaimAndService ? "This helps identify the next Small Claims step. Confirm it from the court record or documents you received." : hasAdoptionSignal ? "This helps organize the saved facts for review of the proposed adoption process." : "This helps keep the next review based on the facts already entered."}</p></Card>
       <Card title="Documents already recorded">{documents.length ? <ul className="list-disc space-y-1 pl-5">{documents.map((document) => <li key={document}>{documentLabel(document)}</li>)}</ul> : <p>No filed or served documents were selected in this intake.</p>}</Card>
-      <Card title="Evidence and proof to organize">{recordedEvidence.length > 0 && <><h3 className="font-semibold">Evidence you have recorded</h3><ul className="mt-2 list-disc space-y-1 pl-5">{recordedEvidence.map((item) => <li key={item}>{item}</li>)}</ul></>}{evidenceToOrganize.length > 0 && <><h3 className={recordedEvidence.length ? "mt-5 font-semibold" : "font-semibold"}>Evidence to organize or confirm</h3><ul className="mt-2 list-disc space-y-1 pl-5">{evidenceToOrganize.map((item) => <li key={item}>{item}</li>)}</ul></>}</Card>
-      {courtPoints.length > 0 && <Card title="Points the court may need clarified"><ul className="list-disc space-y-1 pl-5">{courtPoints.map((item) => <li key={item}>{item}</li>)}</ul></Card>}
+      <Card title="Evidence and proof to organize">{recordedEvidence.length > 0 && <><h3 className="font-semibold">Evidence you have recorded</h3><ul className="mt-2 list-disc space-y-1 pl-5">{recordedEvidence.map((item) => <li key={item}>{item}</li>)}</ul></>}{evidenceToOrganize.length > 0 && <><h3 className={recordedEvidence.length ? "mt-5 font-semibold" : "font-semibold"}>Evidence to organize or confirm</h3><ul className="mt-2 list-disc space-y-1 pl-5">{evidenceToOrganize.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></>}</Card>
+      {courtPoints.length > 0 && <Card title="Points the court may need clarified"><ul className="list-disc space-y-1 pl-5">{courtPoints.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></Card>}
       {hasAdoptionSignal && <Card title="Official Ontario resources to review"><ul className="list-disc space-y-2 pl-5"><li><a className="text-[#2f7d67] underline" href="https://www.ontario.ca/page/adopt-stepchild-or-relative" target="_blank" rel="noreferrer">Ontario: Adopt a stepchild or relative</a></li><li><a className="text-[#2f7d67] underline" href="https://ontariocourtforms.on.ca/en/family-law-rules-forms/8d/" target="_blank" rel="noreferrer">Ontario Court Services: Form 8D, Application (adoption)</a></li><li><a className="text-[#2f7d67] underline" href="https://www.ontario.ca/laws/statute/17c14" target="_blank" rel="noreferrer">Ontario Child, Youth and Family Services Act</a></li></ul><p className="mt-3">Form 8D is an official Ontario adoption application form to review. Court requirements and any consent or notice issues must be confirmed before filing.</p></Card>}
     </div>
     <p className="mt-7 text-sm leading-7 text-[#4d675f]">CourtSimplified organizes your information and identifies items to review; it does not decide your legal claim, outcome, or judgment.</p>

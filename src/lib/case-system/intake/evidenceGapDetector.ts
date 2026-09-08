@@ -156,8 +156,14 @@ function isAddressed(category: EvidenceCategory, textTokens: readonly string[]):
  * Every distinct evidenceCategory across a claim type's plaintiffElements,
  * deduplicated by name (a future claim type could list the same category
  * name under two elements; this shows it once, not twice).
+ *
+ * Session 34: exported so claimTypeOverviewContent.ts reuses the exact same
+ * dedup logic when it needs the same category list (with sourceUrls
+ * attached) for IntelligenceOverviewPanel.tsx -- same "reinvents none of
+ * their logic" posture as selectQuestions.ts's evaluateFactCondition
+ * export in Session 32.
  */
-function collectEvidenceCategories(claimType: ClaimType): EvidenceCategory[] {
+export function collectEvidenceCategories(claimType: ClaimType): EvidenceCategory[] {
   const seen = new Set<string>();
   const categories: EvidenceCategory[] = [];
   for (const element of claimType.plaintiffElements) {
