@@ -37,6 +37,15 @@ export const KNOWN_FACT_FIELDS = [
   "claimServed",
   "defenceFiled",
   "twentyDaysElapsed",
+  // Session 30: verbatim free-text answers, captured directly by
+  // orchestrateIntakeTurn.ts (via a question's capturesField below) rather
+  // than by AI extraction -- the exact question being answered is already
+  // known with certainty, so there is nothing for an extractor to infer.
+  "amountClaimedText",
+  "timelineText",
+  "evidenceText",
+  "remedySoughtText",
+  "serviceDetailsText",
 ] as const;
 
 export type KnownFactField = (typeof KNOWN_FACT_FIELDS)[number];
@@ -79,6 +88,16 @@ export type IntakeQuestion = {
   choices?: string[];
   /** Neutral examples that help a user understand the kind of factual answer requested. */
   examples?: string[];
+  /**
+   * Session 30: when set, the user's raw answer text to this question is
+   * captured verbatim into IntakeFacts[capturesField] by
+   * orchestrateIntakeTurn.ts -- no AI extraction, since the question being
+   * answered is already known with certainty at the moment of answering.
+   * Only meaningful for free-text-style answers; must be one of the
+   * "...Text" fields in KNOWN_FACT_FIELDS above, never one of the 6
+   * AI-extracted structured fields.
+   */
+  capturesField?: KnownFactField;
   /** Every question must have an I-don't-know path that doesn't dead-end. */
   allowUnknown: boolean;
   sensitive: boolean;
@@ -96,6 +115,7 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     courtArea: "small-claims",
     text: "Roughly when did the situation that led to this claim happen?",
     answerType: "date",
+    capturesField: "timelineText",
     allowUnknown: true,
     sensitive: false,
     phase: "orientation",
@@ -149,6 +169,7 @@ export const QUESTION_BANK: IntakeQuestion[] = [
       "excluding interest and costs -- if your amount is higher, this may not be the right court.",
     sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
     answerType: "amount",
+    capturesField: "amountClaimedText",
     allowUnknown: true,
     sensitive: false,
     phase: "substance",
@@ -192,6 +213,7 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     why: "The court needs proof of service before a case can move forward without a response.",
     sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/serving-documents",
     answerType: "yes-no",
+    capturesField: "serviceDetailsText",
     allowUnknown: true,
     sensitive: false,
     phase: "substance",
@@ -298,6 +320,7 @@ export const QUESTION_BANK: IntakeQuestion[] = [
       "What evidence do you have to support your claim (documents, photos, messages, receipts, " +
       "witnesses)?",
     answerType: "short-text",
+    capturesField: "evidenceText",
     allowUnknown: true,
     sensitive: false,
     phase: "substance",
@@ -315,6 +338,7 @@ export const QUESTION_BANK: IntakeQuestion[] = [
       "Another outcome — describe it in your own words",
     ],
     answerType: "short-text",
+    capturesField: "remedySoughtText",
     allowUnknown: true,
     sensitive: false,
     phase: "substance",

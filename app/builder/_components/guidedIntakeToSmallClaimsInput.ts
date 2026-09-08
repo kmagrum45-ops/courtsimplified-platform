@@ -7,16 +7,20 @@
  *
  * The honest limitation this file exists to make visible, not hide:
  * guided mode's question bank (15 questions) is narrower than the form's
- * ~25 fields, and more importantly, orchestrateIntakeTurn's IntakeFacts
- * only ever captures a handful of small STRUCTURED facts (role,
- * disputeCategory, claimFiled, claimServed, defenceFiled,
- * twentyDaysElapsed) -- it does not capture the raw TEXT of a user's
- * answer to a free-text question (what evidence they have, what remedy
- * they want, when things happened). Only the opening story survives as
- * real prose (passed in separately as `initialStory`, unchanged from what
- * the user actually typed). Every SmallClaimsIntelligenceInput field this
- * function cannot honestly populate from real data is left as an empty
- * string or empty array -- never a plausible-looking guess.
+ * ~25 fields, so many SmallClaimsIntelligenceInput fields (name, address,
+ * defendant's address, claim number, and others with no corresponding
+ * guided question at all) are still left empty below.
+ *
+ * Session 30 closed the specific gap this file's header used to describe
+ * here: orchestrateIntakeTurn.ts now captures a direct answer's raw text
+ * verbatim (see questionBank.ts's capturesField, orchestrateIntakeTurn.ts)
+ * into amountClaimedText/timelineText/evidenceText/remedySoughtText/
+ * serviceDetailsText, so amountClaimed/timeline/evidence/goal/
+ * serviceDetails below are now real user text, not fabricated. Only the
+ * opening story remains passed in separately (`initialStory`), unchanged
+ * from what the user actually typed. Every field this function still
+ * cannot honestly populate from real data is left as an empty string or
+ * empty array -- never a plausible-looking guess.
  */
 
 import type {
@@ -74,6 +78,18 @@ function mapFiledDocuments(facts: GuidedIntakeCompletionResult["facts"]): SmallC
   if (facts.claimFiled === true) filed.push("plaintiffs-claim");
   if (facts.defenceFiled === true) filed.push("defence");
   return filed.length > 0 ? filed : ["nothing"];
+}
+
+/**
+ * Session 30: reads one of the new verbatim-captured text facts
+ * (amountClaimedText, timelineText, evidenceText, remedySoughtText,
+ * serviceDetailsText). Guards the type rather than trusting it, since
+ * `facts` here is GuidedSmallClaimsIntake.tsx's loose client-side
+ * Record<string, string | number | boolean>, not the server's
+ * KnownFactField-keyed IntakeFacts.
+ */
+function textField(value: unknown): string {
+  return typeof value === "string" ? value : "";
 }
 
 function mapYourRole(role: unknown): string {
@@ -134,20 +150,20 @@ export function mapGuidedIntakeToSmallClaimsInput(
     yourRole: mapYourRole(result.facts.role),
     courtLocation: "", // not collected
     claimNumber: "", // not collected
-    amountClaimed: "", // sc-amount-claimed is asked, but its free-text answer isn't captured into IntakeFacts today -- see file header
+    amountClaimed: textField(result.facts.amountClaimedText), // real -- verbatim answer to sc-amount-claimed
     defendantAddress: "", // not collected
     agreementDetails: "", // not collected
     paymentHistory: "", // not collected
     damagesBreakdown: "", // not collected
-    serviceDetails: "", // claimServed is a known boolean fact, but has no free-text home in this input shape
+    serviceDetails: textField(result.facts.serviceDetailsText), // real -- verbatim answer to sc-defendant-served
     deadlineDetails: "", // not collected
     facts: initialStory, // real -- the opening story, unchanged from what the user typed
-    timeline: "", // sc-orient-when-happened is asked, its answer text isn't captured into IntakeFacts today
-    evidence: "", // sc-evidence-available is asked, its answer text isn't captured into IntakeFacts today
+    timeline: textField(result.facts.timelineText), // real -- verbatim answer to sc-orient-when-happened
+    evidence: textField(result.facts.evidenceText), // real -- verbatim answer to sc-evidence-available
     missingEvidence: "", // not collected
     settlementEfforts: "", // not collected
     defenceResponse: "", // not collected
-    goal: "", // sc-remedy-sought is asked, its answer text isn't captured into IntakeFacts today
+    goal: textField(result.facts.remedySoughtText), // real -- verbatim answer to sc-remedy-sought
     urgent: "", // not collected
   };
 }

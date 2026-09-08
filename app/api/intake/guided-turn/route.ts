@@ -47,7 +47,11 @@ export const runtime = "nodejs";
 
 const MAX_REQUEST_BYTES = 50_000;
 const MAX_STORY_TEXT_LENGTH = 8_000;
-const MAX_FACT_STRING_LENGTH = 200;
+// Session 30: raised from 200. orchestrateIntakeTurn.ts now stores verbatim
+// free-text answers (up to its own MAX_CAPTURED_ANSWER_LENGTH of 1,000)
+// into facts, and facts round-trips back through this same validation on
+// every subsequent turn -- this cap must comfortably exceed that.
+const MAX_FACT_STRING_LENGTH = 1_200;
 const MAX_ANSWERED_IDS = 50;
 const MAX_ANSWERED_ID_LENGTH = 200;
 
@@ -98,11 +102,18 @@ type GuidedTurnRequestBody = {
   newStoryText?: string;
   /** Defaults to "small-claims" when omitted -- every caller today omits it. */
   courtArea?: SupportedCourtArea;
+  /**
+   * Session 30: the id of the question `newStoryText` directly answers, if
+   * any -- lets orchestrateIntakeTurn.ts capture the raw answer text
+   * verbatim instead of discarding it. Omitted for the opening free-form
+   * story turn, where there is no single question being answered.
+   */
+  answeredQuestionId?: string;
 };
 
 function isGuidedTurnRequestBody(value: unknown): value is GuidedTurnRequestBody {
   if (!isRecord(value)) return false;
-  const allowedKeys = new Set(["facts", "answeredIds", "newStoryText", "courtArea"]);
+  const allowedKeys = new Set(["facts", "answeredIds", "newStoryText", "courtArea", "answeredQuestionId"]);
   if (Object.keys(value).some((key) => !allowedKeys.has(key))) return false;
 
   if (!isIntakeFacts(value.facts)) return false;
@@ -114,6 +125,12 @@ function isGuidedTurnRequestBody(value: unknown): value is GuidedTurnRequestBody
     return false;
   }
   if (value.courtArea !== undefined && !isSupportedCourtArea(value.courtArea)) {
+    return false;
+  }
+  if (
+    value.answeredQuestionId !== undefined &&
+    !(typeof value.answeredQuestionId === "string" && value.answeredQuestionId.length <= MAX_ANSWERED_ID_LENGTH)
+  ) {
     return false;
   }
 
@@ -180,6 +197,7 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
         questionBank,
         claimTypes,
         courtArea,
+        body.answeredQuestionId,
       );
 
       return NextResponse.json({ ok: true, result, authenticated });

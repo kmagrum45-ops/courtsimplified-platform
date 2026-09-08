@@ -157,7 +157,12 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
   // didn't itself re-match one.
   const [matchedClaimType, setMatchedClaimType] = useState<MatchedClaimType | null>(null);
 
-  async function sendTurn(newStoryText: string | undefined, newAnsweredIds: string[], nextFacts: IntakeFacts) {
+  async function sendTurn(
+    newStoryText: string | undefined,
+    newAnsweredIds: string[],
+    nextFacts: IntakeFacts,
+    answeredQuestionId?: string,
+  ) {
     setLoading(true);
     setError("");
 
@@ -172,7 +177,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
           "Content-Type": "application/json",
           ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
         },
-        body: JSON.stringify({ facts: nextFacts, answeredIds: newAnsweredIds, newStoryText }),
+        body: JSON.stringify({ facts: nextFacts, answeredIds: newAnsweredIds, newStoryText, answeredQuestionId }),
       });
 
       const json = await response.json();
@@ -264,7 +269,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
     }
     const nextAnsweredIds = [...answeredIds, currentQuestion.id];
     setInputText("");
-    void sendTurn(answerText || undefined, nextAnsweredIds, facts);
+    void sendTurn(answerText || undefined, nextAnsweredIds, facts, currentQuestion.id);
   }
 
   function handleSend() {

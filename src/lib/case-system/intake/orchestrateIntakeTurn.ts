@@ -48,6 +48,11 @@ import { selectQuestions, type IntakeFacts } from "./selectQuestions";
 import { QUESTION_BANK, type CourtArea, type IntakeQuestion, type KnownFactField } from "./questionBank";
 import { composeVoiceTurn, type VoiceTurn } from "./voiceLayer";
 
+// Session 30: a sane upper bound on a single question's captured raw
+// answer text, independent of MAX_STORY_TEXT_LENGTH (guided-turn/route.ts),
+// which bounds the whole turn's newStoryText, not one stored fact value.
+const MAX_CAPTURED_ANSWER_LENGTH = 1_000;
+
 export type OrchestrateIntakeTurnResult = {
   /** Set only when newStoryText was provided this turn -- undefined otherwise. */
   safetyClassification?: SafetyClassification;
@@ -168,6 +173,17 @@ function mergeFacts(
  * This is infrastructure only: CLAIM_TYPES/QUESTION_BANK still hold only
  * Small Claims content. A future Family/Civil session supplies its own
  * bank/claim-types/courtArea here without touching this function again.
+ *
+ * Session 30: `answeredQuestionId` is a new, final optional parameter --
+ * when the caller knows `newStoryText` is a direct answer to a specific
+ * question (not free-form story text), it passes that question's id here.
+ * If the question bank entry for that id declares a `capturesField`, the
+ * raw `newStoryText` is stored verbatim into that fact field, alongside
+ * (not instead of) the existing AI extraction step above. This is
+ * deliberately NOT run through the AI extractor: which question was asked
+ * and exactly what the user typed are both already known with certainty,
+ * so there is nothing for an extractor to infer, and asking one would only
+ * add cost and a chance of misreading text that's already verbatim.
  */
 export async function orchestrateIntakeTurn(
   currentFacts: IntakeFacts,
@@ -177,6 +193,7 @@ export async function orchestrateIntakeTurn(
   questionBank: readonly IntakeQuestion[] = QUESTION_BANK,
   claimTypes: readonly ClaimType[] = CLAIM_TYPES,
   courtArea: CourtArea = "small-claims",
+  answeredQuestionId?: string,
 ): Promise<OrchestrateIntakeTurnResult> {
   let facts = currentFacts;
   let safetyClassification: SafetyClassification | undefined;
@@ -207,6 +224,18 @@ export async function orchestrateIntakeTurn(
     }
 
     const { facts: extracted, directFields } = await extractIntakeFactsWithConfidence(newStoryText, apiKey);
+
+    const answeredQuestion = answeredQuestionId
+      ? questionBank.find((question) => question.id === answeredQuestionId)
+      : undefined;
+    if (answeredQuestion?.capturesField) {
+      const verbatimAnswer = newStoryText.trim().slice(0, MAX_CAPTURED_ANSWER_LENGTH);
+      if (verbatimAnswer) {
+        extracted[answeredQuestion.capturesField] = verbatimAnswer;
+        directFields.push(answeredQuestion.capturesField);
+      }
+    }
+
     const merged = mergeFacts(facts, extracted, directFields);
     facts = merged.facts;
     possibleCorrections = merged.possibleCorrections;
