@@ -96,6 +96,47 @@ const SHORT_STORY_CHARACTERS = 320;
 const KEYWORD_CONFIDENCE = 0.7;
 
 /**
+ * Session 24. A small, deliberately narrow, LTB-specific secondary signal
+ * list -- same style as claimTypes.ts's `signals`: plain substring
+ * matching, no AI, short enough to review at a glance. Detects language
+ * suggesting the tenancy described has already ended, distinct from the
+ * LTB keyword list in conversationIntelligenceEngine.ts (lines ~757-769),
+ * which fires on bare "landlord"/"tenant" regardless of timing.
+ *
+ * This does NOT resolve the underlying legal question -- confirmed
+ * unsourceable from ontario.ca/ontariocourts.ca/ontariocourtforms.on.ca in
+ * an earlier session (see docs/AI_INTAKE_DESIGN.md's open-questions
+ * section) -- of exactly where the LTB/Small-Claims jurisdictional line
+ * falls for a former tenant. It only stops the classifier from being
+ * confidently wrong about something it was never entitled to be
+ * confident about: a story with both an LTB keyword and one of these
+ * signals gets a lower confidence and a different, honest reasoning
+ * string (see keywordOnlyResult below) instead of the ordinary
+ * high-confidence LTB redirect.
+ */
+const TENANCY_ENDED_SIGNALS = [
+  "moved out",
+  "former tenant",
+  "former landlord",
+  "ex-landlord",
+  "ex-tenant",
+  "no longer living there",
+  "no longer live there",
+  "after i left",
+  "after i moved out",
+  "since moving out",
+  "tenancy ended",
+  "tenancy has ended",
+  "lease ended",
+  "already moved",
+];
+
+function hasTenancyEndedSignal(story: string): boolean {
+  const normalized = story.toLowerCase();
+  return TENANCY_ENDED_SIGNALS.some((signal) => normalized.includes(signal));
+}
+
+/**
  * "mixed" is deliberately absent. When the keyword stage reports a genuine
  * cross-area conflict it has already answered the question, and the model adds
  * cost without adding information — it also tends to collapse such stories back
@@ -325,6 +366,7 @@ function coerceModelPayload(
 }
 
 function keywordOnlyResult(args: {
+  story: string;
   keywordArea: CasePartnerCourtArea;
   reason: string;
   source: CourtPathClassification["source"];
@@ -336,6 +378,31 @@ function keywordOnlyResult(args: {
   // "unknown") by callers with no other option.
   const outOfScope = asOutOfScopeForum(args.keywordArea);
   if (outOfScope) {
+    // Session 24, LTB only (see TENANCY_ENDED_SIGNALS above): a story that
+    // also signals the tenancy has already ended is a genuine boundary
+    // case, not a confident LTB match -- lower confidence and a different,
+    // honest reasoning string instead of the ordinary redirect. This is
+    // the entire fix: HomeLocationGate.tsx already only surfaces an
+    // out-of-scope suggestion at confidence >= SUGGESTION_CONFIDENCE_FLOOR
+    // (0.6), so dropping below that is what actually stops the hard
+    // redirect from firing, with no caller-side change needed. The forum
+    // object itself (name, redirectMessage) is untouched -- reused as-is,
+    // exactly the existing, already-reviewed LTB content, and the ordinary
+    // active-tenancy case below is completely unaffected.
+    if (outOfScope.id === "ltb" && hasTenancyEndedSignal(args.story)) {
+      return {
+        primaryPath: "out-of-scope",
+        secondaryPath: null,
+        outOfScopeForum: outOfScope,
+        confidence: 0.3,
+        reasoning:
+          `This may involve the ${outOfScope.name}, or it may be a Small Claims matter depending on timing -- ` +
+          "this is a boundary CourtSimplified can't resolve. The LTB or a paralegal can confirm which applies.",
+        source: args.source,
+        aiCalled: false,
+      };
+    }
+
     return {
       primaryPath: "out-of-scope",
       secondaryPath: null,
@@ -391,6 +458,7 @@ export async function classifyCourtPath(
 
   if (!escalation.escalate) {
     return keywordOnlyResult({
+      story,
       keywordArea,
       reason: `Keyword classification only (${escalation.reason}).`,
       source: "keyword",
@@ -399,6 +467,7 @@ export async function classifyCourtPath(
 
   if (input.allowExternalCognition === false) {
     return keywordOnlyResult({
+      story,
       keywordArea,
       reason: `External cognition disabled; ${escalation.reason}.`,
       source: "ai-unavailable",
@@ -407,6 +476,7 @@ export async function classifyCourtPath(
 
   if (!process.env.OPENAI_API_KEY) {
     return keywordOnlyResult({
+      story,
       keywordArea,
       reason: `No configured model; ${escalation.reason}.`,
       source: "ai-unavailable",
@@ -435,6 +505,7 @@ export async function classifyCourtPath(
     const content = response.choices[0]?.message?.content;
     if (!content) {
       return keywordOnlyResult({
+        story,
         keywordArea,
         reason: `Model returned no content; ${escalation.reason}.`,
         source: "ai-error",
@@ -453,6 +524,7 @@ export async function classifyCourtPath(
     });
 
     return keywordOnlyResult({
+      story,
       keywordArea,
       reason: `Model call failed; ${escalation.reason}.`,
       source: "ai-error",
