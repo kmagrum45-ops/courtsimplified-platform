@@ -43,6 +43,8 @@ type EvidenceGuidance = {
   unaddressedCategories: EvidenceCategory[];
 };
 
+type MatchedClaimType = { claimTypeId: string; claimTypeName: string };
+
 type GuidedTurnResult = {
   halted: boolean;
   haltMessage?: string;
@@ -51,6 +53,8 @@ type GuidedTurnResult = {
   answeredIds: string[];
   nextQuestion?: IntakeQuestion;
   voiceTurn?: VoiceTurn;
+  /** Turn-scoped, same as evidenceGuidance -- see matchedClaimType state below. */
+  matchedClaimTypes: { claimType: { id: string; name: string } }[];
   /**
    * Session 23. Turn-scoped on the server (see orchestrateIntakeTurn.ts) --
    * only present on the turn where a claim type was freshly matched, most
@@ -63,6 +67,26 @@ type GuidedTurnResult = {
 };
 
 type ChatMessage = { from: "user" | "assistant"; text: string };
+
+/**
+ * Session 28. What onComplete actually hands back -- the real shape of
+ * what guided intake produces, NOT SmallClaimsIntake.tsx's
+ * (AnalysisResult, StoredCaseData) contract. Those types expect a full
+ * structured analysis (detectedIssues, missingInformation, an
+ * intelligence snapshot, a narrative summary) that nothing in the guided
+ * pipeline computes -- orchestrateIntakeTurn() produces small structured
+ * facts, a turn-scoped claim-type match, and evidence-category guidance,
+ * nothing resembling AnalysisResult. Forcing this into that contract
+ * would mean fabricating empty/fake analysis fields just to satisfy the
+ * type, which would be worse than not calling onComplete at all -- see
+ * this session's report for the design question this leaves open.
+ */
+export type GuidedIntakeCompletionResult = {
+  facts: IntakeFacts;
+  answeredIds: string[];
+  /** Retained across turns like evidenceGuidance -- null if no claim type ever matched. */
+  matchedClaimType: MatchedClaimType | null;
+};
 
 /**
  * Session 28 -- Tier 1 field help, same pattern as SmallClaimsIntake.tsx's
@@ -107,9 +131,11 @@ function QuestionHelp({ question }: { question: IntakeQuestion | null }) {
 type Props = {
   location: { province: "Ontario"; city: string };
   initialStory: string;
+  /** Called once, when the conversation reports intakeComplete. See GuidedIntakeCompletionResult's own comment for why this isn't SmallClaimsIntake.tsx's onComplete shape. */
+  onComplete?: (result: GuidedIntakeCompletionResult) => void;
 };
 
-export default function GuidedSmallClaimsIntake({ initialStory }: Props) {
+export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Props) {
   const [facts, setFacts] = useState<IntakeFacts>({});
   const [answeredIds, setAnsweredIds] = useState<string[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState<IntakeQuestion | null>(null);
@@ -125,6 +151,11 @@ export default function GuidedSmallClaimsIntake({ initialStory }: Props) {
   // doesn't disappear the moment the user answers a plain multiple-choice
   // question with no new free text (see GuidedTurnResult.evidenceGuidance).
   const [evidenceGuidance, setEvidenceGuidance] = useState<EvidenceGuidance | null>(null);
+  // Same retain-the-last-value pattern as evidenceGuidance -- matchedClaimTypes
+  // is turn-scoped server-side, so this is what makes a matched claim type
+  // survive to the completion callback even when the LAST turn's text
+  // didn't itself re-match one.
+  const [matchedClaimType, setMatchedClaimType] = useState<MatchedClaimType | null>(null);
 
   async function sendTurn(newStoryText: string | undefined, newAnsweredIds: string[], nextFacts: IntakeFacts) {
     setLoading(true);
@@ -158,6 +189,18 @@ export default function GuidedSmallClaimsIntake({ initialStory }: Props) {
         setEvidenceGuidance(result.evidenceGuidance);
       }
 
+      // Compute the value to report now, before any setState -- the
+      // retained state variable won't reflect this turn's fresh match
+      // until the next render, but onComplete (below) may need to fire
+      // with the up-to-date value in this same pass.
+      const freshMatch = result.matchedClaimTypes[0]?.claimType;
+      const matchedClaimTypeThisTurn: MatchedClaimType | null = freshMatch
+        ? { claimTypeId: freshMatch.id, claimTypeName: freshMatch.name }
+        : matchedClaimType;
+      if (freshMatch) {
+        setMatchedClaimType(matchedClaimTypeThisTurn);
+      }
+
       if (result.halted) {
         setHalted(true);
         setMessages((current) => [
@@ -184,6 +227,11 @@ export default function GuidedSmallClaimsIntake({ initialStory }: Props) {
         ]);
         setCurrentQuestion(null);
         setLoading(false);
+        onComplete?.({
+          facts: result.facts,
+          answeredIds: result.answeredIds,
+          matchedClaimType: matchedClaimTypeThisTurn,
+        });
         return;
       }
 

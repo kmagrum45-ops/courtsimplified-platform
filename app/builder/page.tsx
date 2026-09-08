@@ -6,7 +6,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import FamilyIntake from "./_components/FamilyIntake";
 import SmallClaimsIntake from "./_components/SmallClaimsIntake";
-import GuidedSmallClaimsIntake from "./_components/GuidedSmallClaimsIntake";
+import GuidedSmallClaimsIntake, {
+  type GuidedIntakeCompletionResult,
+} from "./_components/GuidedSmallClaimsIntake";
 import CivilIntake from "./_components/CivilIntake";
 import CourtAssistantChat from "./_components/CourtAssistantChat";
 import IntelligenceOverviewPanel from "./_components/IntelligenceOverviewPanel";
@@ -173,6 +175,15 @@ function BuilderPageContent() {
   const [intakeStory, setIntakeStory] = useState("");
   const [hydrated, setHydrated] = useState(false);
   const [smallClaimsMode, setSmallClaimsMode] = useState<"choose" | "form" | "guided">("choose");
+  // Session 28. Guided mode's completion data has a genuinely different
+  // shape from handleComplete's (AnalysisResult, StoredCaseData) contract
+  // -- see GuidedIntakeCompletionResult's own comment for why forcing it
+  // into that contract isn't done here. This is a deliberately minimal,
+  // honest landing spot: it does not save a case, does not create a
+  // document draft, and does not feed IntelligenceOverviewPanel -- see
+  // this session's report for the design decision that would be needed
+  // before it could.
+  const [guidedCompletion, setGuidedCompletion] = useState<GuidedIntakeCompletionResult | null>(null);
 
   /*
    * Picking a mode is an internal state change, not a URL change, so
@@ -511,6 +522,17 @@ function BuilderPageContent() {
     masterCaseId,
     queryCaseId,
   ]);
+
+  /*
+   * Session 28. Deliberately does not call handleComplete or anything in
+   * its save pipeline -- see guidedCompletion's declaration above. This
+   * only captures the result so the UI has somewhere real to land instead
+   * of the conversation just ending with a printed message and nothing
+   * else happening.
+   */
+  function handleGuidedComplete(result: GuidedIntakeCompletionResult) {
+    setGuidedCompletion(result);
+  }
 
   function handleComplete(
     result: AnalysisResult,
@@ -923,7 +945,39 @@ function BuilderPageContent() {
             )}
 
             {courtPath === "small-claims" && smallClaimsMode === "guided" && (
-              <GuidedSmallClaimsIntake location={confirmedLocation} initialStory={homeStory} />
+              <>
+                <GuidedSmallClaimsIntake
+                  location={confirmedLocation}
+                  initialStory={homeStory}
+                  onComplete={handleGuidedComplete}
+                />
+                {guidedCompletion ? (
+                  <section className="mt-6 rounded-3xl border border-[#d8e6df] bg-[#f8fcfa] p-6">
+                    <h3 className="text-lg font-bold text-[#10231f]">What guided intake collected</h3>
+                    <p className="mt-2 text-sm leading-6 text-[#4d675f]">
+                      This has not been saved as a case yet -- guided intake doesn&apos;t currently feed into case
+                      analysis, document drafts, or the dashboard the way the form path does.
+                    </p>
+                    {guidedCompletion.matchedClaimType ? (
+                      <p className="mt-3 text-sm text-[#16302b]">
+                        <span className="font-semibold">Situation type: </span>
+                        {guidedCompletion.matchedClaimType.claimTypeName}
+                      </p>
+                    ) : null}
+                    {Object.keys(guidedCompletion.facts).length > 0 ? (
+                      <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-[#4d675f]">
+                        {Object.entries(guidedCompletion.facts).map(([field, value]) => (
+                          <li key={field}>
+                            {field}: {String(value)}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="mt-3 text-sm text-[#4d675f]">No structured facts were recorded.</p>
+                    )}
+                  </section>
+                ) : null}
+              </>
             )}
 
             {courtPath === "civil" && (
