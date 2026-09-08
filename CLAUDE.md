@@ -19,18 +19,22 @@ If a task cannot be completed without a secret becoming visible, stop and say so
 
 ## 2. Legal content — never unsourced
 
-Never state a legal fact without a verified source from ontario.ca, ontariocourts.ca, or ontariocourtforms.on.ca. Web-fetch the source; do not write from your own knowledge of the law.
+Every legal statement must cite a specific, real, publicly resolvable source: a statute or regulation section, a court rule, a court form, a reported decision, or an official government/court/law-society publication. Retrieve and read the actual source before writing anything from it — never from your own knowledge of the law.
 
-CanLII (canlii.org, canlii.ca) and the Supreme Court site (decisions.scc-csc.ca) block automated access. Do not scrape them, use mirrors, or fall back on recall. If a statement can only be sourced from those, cut it.
+Acceptable sources: ontario.ca, ontariocourts.ca, ontariocourtforms.on.ca, CanLII (canlii.org), the Courts of Justice Act, the Rules of the Small Claims Court (O. Reg. 258/98), Justice Ontario, and Law Society of Ontario public materials.
 
-Every card, claim, or assertion must carry its source URL and the date it was verified.
+Every citation must be verified to resolve before it ships. A citation that cannot be checked does not go in. Never cite a case, section number, or form number from recall — if it wasn't actually retrieved and read, it doesn't get written down. No invented case names, no approximated citations, no paraphrased holdings attributed to a decision that wasn't read.
+
+CanLII blocks automated scraping. Do not attempt to scrape it. Cite decisions retrieved through legitimate access, and record the neutral citation plus the date verified.
+
+Every card, claim, or assertion must carry its source URL (or, where the source is a neutral citation rather than a URL, the citation) and the date it was verified.
 
 **The "who does the applying" test** — the standing rule for telling legal information apart from legal advice, everywhere in this codebase, not just intake:
 
 Legal INFORMATION = the system explains law generally; the USER applies it to their facts.
 Legal ADVICE = the SYSTEM applies law to the user's facts.
 
-Wording is not the shield — "in your situation, negligence applies" is advice no matter how it's phrased. The safe pattern is topic surfacing: "situations like this often involve a concept called X — here's what it means and what someone bringing this kind of claim generally must show; worth reading to see if it fits your circumstances." The system may surface topics based on facts (navigation, like the court classifier). It may never state that the user's facts satisfy a legal test, never assess strength, never draft what to say. When a user asks "do I have a case?", the standing answer: the platform organizes and informs but cannot assess — a licensed paralegal or lawyer can, and here's what to bring to that conversation. Full design context: `docs/AI_INTAKE_DESIGN.md`.
+Wording is not the shield — "in your situation, negligence applies" is advice no matter how it's phrased. The safe pattern is topic surfacing: "situations like this often involve a concept called X — here's what it means and what someone bringing this kind of claim generally must show; worth reading to see if it fits your circumstances." The system may surface topics based on facts (navigation, like the court classifier). It may never state that the user's facts satisfy a legal test, never assess strength, never draft what to say. When a user asks "do I have a case?", the standing answer: the platform organizes and informs but cannot assess — a licensed paralegal or lawyer can, and here's what to bring to that conversation. The system never tells a user they have a case; it gives them the information they need to decide what kind of matter they have and how to move forward. Full design context: `docs/AI_INTAKE_DESIGN.md`.
 
 ## 3. Never assess case strength
 
