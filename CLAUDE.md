@@ -64,3 +64,16 @@ Every AI-generated output is shown as a suggestion the user confirms or override
 - Production is intended to move to ca-central-1 for Canadian data residency — see ARCHITECTURE.md.
 - The site is behind a password gate (middleware.ts, cookie `cs_site_access`). Test harnesses need `grantSiteAccess`.
 - `.env.local` and `.env.diagnose` are gitignored and must stay that way.
+
+## 7. Intake changes — run the fixture harness
+
+Any new intake feature or content change (question bank, claim types, extraction, the guided or
+static pipeline, the final analysis engine) must be run against
+`scripts/verification/fixtures/` (`npm run test:fixtures`) before it ships. It exercises the real
+pipeline end to end against three fabricated whole-case fixtures with pre-committed expectations —
+see the fixtures directory for what's covered and why.
+
+Any behaviour change it produces must be explained, not absorbed silently: update the relevant
+`*.expected.md` with the reasoning if the new behaviour is correct, or fix the regression if it
+isn't. Never quietly let `.actual.md` drift out of sync with what `*.expected.md` says should
+happen.
