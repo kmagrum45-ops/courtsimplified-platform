@@ -10,7 +10,8 @@
     "test:builder-persistence": "node --import tsx scripts/verification/verifyBuilderPersistenceReliability.ts", "test:chat-hydration": "node --import tsx scripts/verification/verifyCourtAssistantChatHydration.ts", "test:procedural-stage-conflict": "node --import tsx scripts/verification/verifySharedProceduralStageConflict.ts", "test:workflow-gating": "node --import tsx scripts/verification/verifyWorkflowGating.ts", "test:overview-labels": "node --import tsx scripts/verification/verifyOverviewIssueAndDocumentLabels.ts",
     "test:select-questions": "node --import tsx scripts/verification/verifySelectQuestions.ts", "test:intake-coverage": "node --import tsx scripts/verification/verifyIntakeCoverage.ts", "test:safety-regression": "node --import tsx scripts/verification/verifySafetyPassRegression.ts",
     "keep-alive:supabase": "node scripts/keepAliveSupabase.mjs",
-    "test:fixtures": "node --import tsx scripts/verification/runFixtures.ts"
+    "test:fixtures": "node --import tsx scripts/verification/runFixtures.ts",
+    "test:fixtures:generated": "node --import tsx scripts/verification/runGeneratedFixtures.ts"
   },
   "dependencies": { "@adobe/pdfservices-node-sdk": "^4.1.0", "@supabase/supabase-js": "^2.105.4", "dotenv": "^17.4.2", "jspdf": "^4.2.1", "next": "16.2.4", "openai": "^6.34.0", "pdf-lib": "^1.17.1", "react": "19.2.4", "react-dom": "19.2.4" },
   "devDependencies": { "@playwright/test": "^1.62.1", "@tailwindcss/postcss": "^4", "@types/node": "^20", "@types/react": "^19", "@types/react-dom": "^19", "eslint": "^9", "eslint-config-next": "16.2.4", "madge": "^8.0.0", "tailwindcss": "^4", "ts-prune": "^0.10.3", "tsx": "^4.23.5", "typescript": "^5" }
