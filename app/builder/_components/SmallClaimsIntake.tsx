@@ -39,7 +39,7 @@ type Props = {
   initialStory: string;
 };
 
-type SmallClaimsAnalysisResponse = {
+export type SmallClaimsAnalysisResponse = {
   ok: boolean;
   result?: SmallClaimsIntelligenceOutput;
   reasoningMode?: "structured-ai" | "deterministic-fallback";
@@ -562,7 +562,12 @@ async function runFormSafetyCheck(storyText: string): Promise<SafetyCheckOutcome
   }
 }
 
-async function requestSmallClaimsAnalysis(
+/**
+ * Session 29: exported so builder/page.tsx can call the exact same
+ * /api/small-claims/analyze request for guided intake's completion --
+ * no second, parallel implementation of this call.
+ */
+export async function requestSmallClaimsAnalysis(
   input: SmallClaimsIntelligenceInput,
 ): Promise<SmallClaimsAnalysisResponse> {
   const {
