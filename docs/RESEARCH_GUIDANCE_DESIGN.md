@@ -104,11 +104,60 @@ Reuses `EducationCitation` from `educationTopics.ts` and `FactCondition`
 from `questionBank.ts` rather than redefining either — same convention
 every existing registry in this directory follows.
 
+Real use of an earlier prose draft of this schema showed that "how you get
+this document" is not one fuzzy idea — it's four distinct, mutually
+exclusive routes, and which one applies changes what a user should
+actually do next. Burying that in a free-text `typicalAccessRoute: string`
+field meant the distinction lived only in whatever words a content author
+happened to choose, unreadable by the surfacing layer. The four routes,
+in order of how a user would typically encounter them:
+
+1. **`published`** — on the institution's own site or a government site.
+   A board's code of conduct, its policy manual, the Ministry PPMs behind
+   them. No request needed at all.
+2. **`exists-not-published`** — an operational record nobody posts, but
+   which the institution will often provide on a direct, informal request
+   to the relevant office (the school, the board office, the service
+   itself) — a supervision schedule for a specific day and location, an
+   incident report, concussion-protocol documentation for a specific
+   event. **This is the most important route**, not the formal one: for
+   most of what actually mattered in the motivating case, the barrier was
+   never obtaining the document — it was knowing the document existed and
+   what it was called. A user cannot request what they cannot name. This
+   route's whole job is naming it.
+3. **`formal-access-request`** — where an informal ask fails or the
+   institution says it needs one, and the user files under the applicable
+   act (MFIPPA/FIPPA, §5). Carries fees, prescribed response timelines,
+   exemptions, and an appeal route through the IPC.
+4. **`disclosure-in-proceeding`** — available only once a claim has been
+   filed, and structurally different from the first three: it's an
+   obligation on the *other party* to produce relevant documents, not a
+   request to a records office. Gated on case stage — see §4.5.
+
 ```ts
 export type InstitutionCategory =
   | "school-board"
   | "municipality-police"
   | "licensed-business-regulated-trade";
+
+export type RecordAccessRoute =
+  | "published"
+  | "exists-not-published"
+  | "formal-access-request"
+  | "disclosure-in-proceeding";
+
+export type RecordAccessRouteInfo = {
+  route: RecordAccessRoute;
+  /**
+   * General description of how this route typically works for this
+   * specific record -- e.g. "usually posted on the board's own policy
+   * page" or "not usually posted; ask the school or board office
+   * directly and name the record." Never a specific institution's
+   * specific URL -- see 4.3. Never a promise that a specific institution
+   * will actually provide it.
+   */
+  description: string;
+};
 
 export type InstitutionalRecordEntry = {
   /** e.g. "Supervision schedule", "Code of conduct", "Police-notification protocol" */
@@ -116,12 +165,14 @@ export type InstitutionalRecordEntry = {
   /** What it typically is and why it exists -- general, not this user's facts. */
   plainExplanation: string;
   /**
-   * Where this category of document is typically published or how it's
-   * typically obtained -- e.g. "usually posted on the board's own policy
-   * page" or "not usually public; request under MFIPPA." Never a specific
-   * institution's specific URL -- see 4.3.
+   * The typical route BEFORE a claim is filed -- one of "published",
+   * "exists-not-published", or "formal-access-request". A record entry
+   * never carries "disclosure-in-proceeding" as its own typical route:
+   * that route isn't a property of a specific document type, it's a
+   * case-stage-gated fact about every record relevant to a filed claim.
+   * See `DisclosureInProceedingGuidance` below and §4.5.
    */
-  typicalAccessRoute: string;
+  accessRoute: RecordAccessRouteInfo;
   /** What in law/policy requires this kind of document to exist. */
   basisSourceUrl: string;
 };
@@ -140,73 +191,108 @@ export type InstitutionalRecordsTopic = {
   reviewedAt: string | null;
   status: "draft" | "reviewed";
 };
+
+/**
+ * Route 4 as its own top-level structure, not a fourth value content
+ * authors reach for on a per-record basis -- see §4.5 for why, including
+ * why this is deliberately two entries (Small Claims, Civil), never one
+ * merged description.
+ */
+export type DisclosureInProceedingGuidance = {
+  courtArea: "small-claims" | "civil";
+  plainExplanation: string;
+  /** Always `{ field: "claimFiled", op: "equals", value: true }` -- see §4.5. */
+  surfacedWhen: FactCondition;
+  citations: [EducationCitation, ...EducationCitation[]];
+  reviewedAt: string | null;
+  status: "draft" | "reviewed";
+};
 ```
 
 ### 4.2 The three categories, and what each would cover
 
 This section describes the *shape* of content per category — the kinds of
 standards that typically exist and the kinds of records a person might
-request. No specific institution's specific document is named; no
-citation is finalized. Real sourcing is §7.
+request, each marked with its typical route from §4.1 so the grouping is
+visible here, not just in the schema. No specific institution's specific
+document is named; no citation is finalized. Real sourcing is §7. Every
+category also gets `disclosure-in-proceeding` (route 4) once a claim is
+filed — that's a cross-cutting overlay described once in §4.5, not
+repeated per category below.
 
 **1. School boards**
 
-Typical written standards: codes of conduct, supervision/yard-duty
-schedules, safe-arrival and safety protocols, police-notification
-thresholds (often driven by a school board / police service protocol,
-common across Ontario boards), bullying-prevention and intervention
-plans, special-education/IEP-related procedures, incident-reporting and
-head-injury/concussion-management procedures (Ontario has a
-concussion-protocol framework applicable to school boards), transportation
-and field-trip safety policies. These generally exist because the
-Education Act and Ministry of Education Policy/Program Memoranda (PPMs)
-require boards to have them, even though the *content* of a specific
-board's version isn't centrally published by the province — each board
-publishes (or must be asked for) its own. Records a person might request:
-the specific supervision schedule for a given day/location, incident
-reports, the board's concussion-protocol documentation for a specific
-incident, correspondence about a specific student (subject to separate
-student-record access rules, distinct from general FOI), board policy
-manual excerpts.
+*Published* (on the board's own site or a Ministry site; no request
+needed): code of conduct; general safe-arrival and safety protocol
+statements; bullying-prevention and intervention policy; the board's
+general policy manual; Ministry of Education Policy/Program Memoranda
+(PPMs) — on the Ministry's site, not the board's; the board's general
+concussion/head-injury protocol (Ontario's concussion-protocol framework
+is public policy, even though a specific application of it usually isn't
+— see next).
+
+*Exists but not published* (operational records, typically obtained by
+asking the school or board office directly and naming the record): the
+supervision schedule for a specific day and location; incident reports
+for a specific event; concussion-protocol documentation completed for a
+specific incident; records of whether a police-notification threshold was
+actually applied on a given occasion. This tier is the one the motivating
+case actually needed — none of these four are secret, but none are posted
+either.
+
+*Formal access request* (MFIPPA, where an informal ask doesn't produce
+the record): records the school or board office says it can't release
+informally. Note: correspondence or records about a specific student
+generally follow that student's/parent's own-records access route rather
+than a general MFIPPA request — cross-cutting caveat, §4.6.
+
+These generally exist because the Education Act and Ministry PPMs require
+boards to have them, even though the *content* of a specific board's
+version isn't centrally published by the province — each board publishes
+(or must be asked for) its own; see §4.3 for why citations here point at
+the basis, not a specific board's URL.
 
 **2. Municipalities and police services**
 
-Typical written standards: municipal by-laws and policies, police service
-procedures (governed by policing legislation and Ministry-issued
-standards), use-of-force and de-escalation policies, complaint-handling
-procedures. Police services in Ontario are also subject to independent
-oversight bodies (bodies that investigate serious incidents involving
-police, and a separate conduct-complaints body) — distinct from an FOI
-request to the police service itself, and worth teaching as a separate
-avenue. Note for content-drafting: a municipality and its police service
-are legally distinct institutions with separate governance (a police
-services board, not the municipal council, generally governs police
-policy) — the content must not conflate "ask the city" with "ask the
-police service." Records a person might request: incident/occurrence
-reports, a specific policy or procedure in effect on a given date,
-by-law enforcement records, oversight-body complaint/investigation
-outcomes (via that body's own process, which may not be a standard FOI
-request at all).
+*Published*: municipal by-laws; whichever police-service procedures a
+given service chooses to post (varies by service); oversight-body
+mandates and general complaint-process information.
+
+*Exists but not published*: the specific policy or procedure in effect on
+a given date, where not posted; incident/occurrence reports for a
+specific event; by-law enforcement records for a specific address or
+incident.
+
+*Formal access request* (MFIPPA): records not provided informally.
+Oversight-body complaint/investigation outcomes go through that body's
+own process, which may not be a standard MFIPPA request at all — kept as
+its own avenue in the content, not folded into "file an MFIPPA request."
+
+Note for content-drafting, carried over unchanged: a municipality and its
+police service are legally distinct institutions with separate governance
+(a police services board, not the municipal council, generally governs
+police policy) — the content must not conflate "ask the city" with "ask
+the police service."
 
 **3. Licensed businesses and regulated trades**
 
-Typical written standards: the licence or registration itself (often
-publicly searchable through the relevant regulator), the regulator's
-standards of practice or code of conduct that licensees are bound by,
-required disclosures (e.g. consumer-protection disclosure obligations
-already covered by some existing `CLAIM_TYPES` entries), complaint and
-discipline records held by the regulator. This category is structurally
-different from the first two: the relevant "institution" is often the
-*regulator*, not the business itself, and many regulators publish licence
-status, standards, and even discipline decisions directly on their own
-public website — no FOI request needed for a meaningful amount of this.
-Records a person might request: licence status and history, standards of
-practice in effect at the relevant time, prior complaints or discipline
-against the same licensee (where the regulator publishes or discloses
-this), the business's own internal policies where FOI or an equivalent
-disclosure obligation applies (this varies a great deal by trade/sector
-and is the part of this category most in need of real sourcing per
-regulator, not a single unified rule).
+*Published*: licence or registration status (many regulators publish this
+directly and searchably); the regulator's standards of practice or code
+of conduct; discipline decisions the regulator chooses to publish.
+
+*Exists but not published*: the business's own internal policies — this
+varies a great deal by trade/sector and is the part of this category most
+in need of real, per-regulator sourcing (§7), not a single unified rule.
+
+*Formal access request*: complaint or discipline records the regulator
+holds but doesn't proactively publish. Which act applies (MFIPPA or
+FIPPA) depends on the regulator's own status and needs confirming per
+regulator, not assumed — §5.2/§7.
+
+This category is structurally different from the first two: the relevant
+"institution" is often the *regulator*, not the business itself, which is
+why so much of it sits in "published" rather than "exists but not
+published" — a meaningful amount of this needs no request at all.
 
 ### 4.3 Why no fixed URL is cited for the standard itself
 
@@ -221,9 +307,9 @@ this codebase cannot maintain 72+ links for and keep current.
 The design resolves this by citing the *basis* — the statute or PPM that
 requires the standard to exist — rather than any specific board's
 specific document (`basisSourceUrl` in §4.1's schema). The
-`typicalAccessRoute` field then teaches the user how to go find their own
-institution's version (its policy page, or a request if it isn't public).
-This is itself a section-3-compliant design choice, not a shortcut around
+`accessRoute.description` field (§4.1) then teaches the user how to go
+find their own institution's version (its policy page, or who to ask if
+it isn't public). This is itself a section-3-compliant design choice, not a shortcut around
 sourcing: the platform states a verified fact ("boards are required to
 have X") and teaches a method (how to locate this board's X), rather than
 fabricating or guessing at content it cannot verify per-institution.
@@ -240,6 +326,97 @@ designed as `CourtArea[]` so a single topic (e.g. "school board written
 standards") can be marked relevant to both `small-claims` and `civil`
 without duplicating the entry — see §6.2 for the more significant gap this
 creates on the surfacing side.
+
+### 4.5 Route 4: gated on case stage, and never one description for both courts
+
+Routes 1–3 are available to anyone, filed or not. Route 4
+(`disclosure-in-proceeding`) is different in kind, not just in when it
+applies: it's the other party's obligation to produce relevant documents
+once a claim exists, not a request the user makes to a records office.
+Showing it at the wrong time is a real failure in both directions, not a
+cosmetic one:
+
+- Showing it to someone who **hasn't** filed is actively harmful, not
+  just premature: "you'll get it in discovery" answers a question the
+  user isn't asking yet and is useless for the decision actually in front
+  of them (whether and how to find the document *now*, before they've
+  filed anything).
+- Withholding it from someone who **has** filed, or — worse — steering
+  them toward a formal access request when disclosure obligations already
+  reach the record, wastes real money and time on a request they didn't
+  need to make.
+
+The design keys this off `claimFiled`, already a real field in
+`questionBank.ts`'s `KNOWN_FACT_FIELDS` (no new fact needed here, unlike
+Mechanism B in §6.1). `DisclosureInProceedingGuidance.surfacedWhen` is
+always `{ field: "claimFiled", op: "equals", value: true }`: a user who
+hasn't filed sees routes 1–3 only; a user who has also sees route 4,
+additively — route 4 supplements what's shown, it doesn't replace it,
+since routes 1–3 stay just as valid after filing as before.
+
+**Small Claims disclosure and Superior Court discovery are not the same
+procedure**, and this design does not resolve that here — it flags it so
+a future session doesn't collapse them into one description. Small Claims
+disclosure is governed by the Rules of the Small Claims Court (O. Reg.
+258/98); Superior Court discovery is governed by the Rules of Civil
+Procedure. The two have different scope, different mechanics, and
+different formality. `DisclosureInProceedingGuidance` is typed with its
+own `courtArea: "small-claims" | "civil"` (§4.1) specifically so these
+ship as two separately sourced entries, never one merged paragraph
+describing "disclosure/discovery" as though it's a single concept with
+two names. Real sourcing for both is in §7.
+
+### 4.6 Cross-cutting notes on access routes
+
+Four things that apply across categories and, mostly, across routes 2 and
+3 — general enough to belong in the schema and content guidance rather
+than any one category's write-up.
+
+**Why the informal/formal distinction is taught explicitly.** A formal
+access request carries fees and statutory timelines an informal ask does
+not. A user who doesn't know the difference fails in one of two
+directions, and both are real: they never ask at all, because "requesting
+records" sounds like a formal, expensive, lawyer-shaped step reserved for
+route 3 — or they file a formal request for something a phone call to the
+school office would have produced in a day, paying a fee and waiting
+weeks for no reason. Teaching routes 2 and 3 as genuinely distinct, with
+route 2 tried first, is what prevents both failure modes at once — this
+is the concrete reason `accessRoute` is a required, typed field on every
+record entry rather than a general "how to get institutional records"
+paragraph.
+
+**Route 3 has a real time cost.** Formal access requests carry statutory
+response periods measured in weeks, not days. Content built for route 3
+needs to say this plainly — that filing a formal request is not a fast
+path — and, where a limitation period may be running, that waiting on a
+records request outstanding is not itself a reason to delay whatever the
+user otherwise needs to do. Consistent with §2: this stays a general fact
+about how the formal-request process works, never a computed or implied
+deadline for the user's own matter. The content says "a formal request
+can take weeks to answer, and requesting records doesn't pause a
+limitation period" — it never says "your deadline is X" or "you have
+until Y."
+
+**Records don't last forever.** Institutions destroy records on their own
+retention schedules, so a record that exists today may not exist by the
+time someone thinks to ask for it. This is stated as a general fact about
+how institutions operate — a reason route 2 (ask early, ask directly) is
+worth doing sooner rather than later — never as an urgency prompt tied to
+a specific user's specific case ("your evidence may be destroyed" is not
+language this content uses).
+
+**A person's own records — or their child's — may follow a different
+route.** §5.3 also notes this for the FOI process specifically; it's
+stated here as a cross-cutting caveat because it affects routes 2 and 3
+both, not just the formal-request route. A parent asking about their own child's
+IEP, a person asking about their own personnel file, medical file, or
+complaint history held by an institution — these commonly follow a
+distinct access-to-one's-own-information regime (e.g. student records,
+personal-information access rules that sit alongside but aren't identical
+to general MFIPPA/FIPPA access) rather than the general "ask the records
+office" path described in §4.2. Content for any record type that could
+plausibly be about the requester (or their child) themselves needs to
+flag this distinction rather than default to the general route.
 
 ## 5. FOI request guidance
 
@@ -299,10 +476,11 @@ policy, a specific incident or event — not an open-ended "everything you
 have about..."); that there are prescribed fees and response-time rules;
 that some records or portions can be withheld under stated exemptions
 (e.g. ongoing investigations, personal information of third parties) and
-that a refusal can itself be appealed to the IPC; and that requests
-involving a student's own records, or a person's own personal
-information, may follow a related-but-distinct access route from a
-general FOI request. All of this is process information, sourced and
+that a refusal can itself be appealed to the IPC; and that a request
+should flag when it's for the requester's own (or their child's)
+information, since that may follow a different access route entirely —
+see §4.6 for why this is a cross-cutting caveat, not an FOI-only one. All
+of this is process information, sourced and
 general — never a filled-in template naming a user's specific incident or
 allegation. A future content review must confirm each of these points
 directly against ontario.ca/ipc.on.ca before anything ships (§7).
@@ -358,27 +536,77 @@ follow-up — not silently bundled into "just add the content."
 
 ### 6.2 UI surfacing point
 
-Primary surface: extend `claimTypeOverviewContent.ts`'s
-`ClaimTypeOverviewContent` (currently `evidenceToOrganize` +
-`courtPoints`, `claimTypeOverviewContent.ts:58-65`) with a third field,
-e.g. `institutionalRecordsToOrganize: SourcedListItem[]`, built the same
-way `evidenceToOrganize` already is — deduplicated, each item carrying the
-`sourceUrl` (here, `basisSourceUrl`) of the topic that introduced it.
-`IntelligenceOverviewPanel.tsx` would render it as a new card next to the
-existing "Points the court may need clarified" card
-(`IntelligenceOverviewPanel.tsx:131`) — something like "Records this kind
-of institution may hold" — following the identical list-with-source-link
-rendering already used there. This is the most directly useful surface:
-it appears exactly where a user is already reviewing their case, tied to
-the specific institution type their own facts matched.
+The plain `SourcedListItem[]` shape `evidenceToOrganize`/`courtPoints`
+already use (`claimTypeOverviewContent.ts:53-56`) isn't enough for this
+content: it has nowhere to carry the route, and §4.1–§4.6 exist
+specifically so the route is a first-class, visible thing, not text a
+user has to infer from how an item is worded. The surfacing type needs
+its own shape rather than reusing `SourcedListItem` as-is:
+
+```ts
+export type InstitutionalRecordItem = {
+  text: string;
+  sourceUrl?: string;
+  route: RecordAccessRoute; // from institutionalRecordsTopics.ts, §4.1
+};
+
+export type InstitutionalRecordsOverview = {
+  /** Grouped by route so the UI renders one heading per group, not one flat list. */
+  byRoute: Record<Exclude<RecordAccessRoute, "disclosure-in-proceeding">, InstitutionalRecordItem[]>;
+  /**
+   * Present only when claimFiled is true (§4.5) -- absent, not an empty
+   * array, so the caller can tell "not filed yet" apart from "filed, but
+   * nothing matched." Sourced from DisclosureInProceedingGuidance for the
+   * case's own courtArea only -- never both Small Claims and Civil text
+   * shown together (§4.5).
+   */
+  disclosureInProceeding?: InstitutionalRecordItem[];
+};
+```
+
+Extend `claimTypeOverviewContent.ts`'s `ClaimTypeOverviewContent`
+(currently `evidenceToOrganize` + `courtPoints`,
+`claimTypeOverviewContent.ts:58-65`) with a fourth field,
+`institutionalRecords: InstitutionalRecordsOverview`, built the same
+deduplicated way `evidenceToOrganize` already is, grouped by
+`accessRoute.route` (§4.1) as it's collected, and reading `claimFiled`
+from the same `IntakeFacts` the rest of this pipeline already has in
+scope to decide whether `disclosureInProceeding` is populated at all.
+
+`IntelligenceOverviewPanel.tsx` would render up to four labeled groups
+next to the existing "Points the court may need clarified" card
+(`IntelligenceOverviewPanel.tsx:131`), each with its own short framing
+so the route itself is what the user reads, not just the record name:
+
+- **"Already public"** (`published`) — link straight to where it's
+  typically posted.
+- **"Ask for directly"** (`exists-not-published`) — the record name and
+  who to ask, no fee/timeline framing, since none applies.
+- **"Formal request if asking directly doesn't work"**
+  (`formal-access-request`) — includes the fee/timeline note from §4.6.
+- **"Now that you've filed"** (`disclosureInProceeding`, rendered only
+  when present) — kept visually separate from the first three, since
+  it's a different kind of thing (an obligation on the other party, not a
+  request route) and only ever applies to a user who has filed.
+
+Grouping and gating happen once, here, in the data the UI reads — never
+by the component guessing from `route` per-item at render time, and never
+by a single flat list that leaves route 4 sitting next to route 1 with no
+visual distinction between "already public" and "conditional on your
+case's stage."
 
 Secondary, independent surface (not required to ship the first version):
 a dedicated reference page, following `/legal-principles`
 (`app/legal-principles/page.tsx`)'s existing pattern of a standalone page
 listing sourced cards with citations, browsable by institution category
-regardless of whether a case has been started or matched a claim type.
-Worth building once there's enough content to make browsing useful on its
-own, not a blocker for the first version landing inside the builder flow.
+regardless of whether a case has been started or matched a claim type. A
+standalone page has no `claimFiled` fact to key off, so it would show
+routes 1–3 plus a general, unfiled-framed description of route 4 ("once
+you've filed a claim, ...") rather than the gated per-case version —
+worth naming now so a future session doesn't assume the two surfaces can
+share one rendering path unmodified. Worth building once there's enough
+content to make browsing useful on its own, not a blocker for the first
+version landing inside the builder flow.
 
 ### 6.3 `verifyIntakeCoverage.ts` coverage (future, not built this session)
 
@@ -386,12 +614,15 @@ The existing coverage script (`scripts/verification/verifyIntakeCoverage.ts`)
 already checks source-URL resolvability and dangling id references across
 `EDUCATION_TOPICS`, `REMEDY_TYPES`, and `CLAIM_TYPES`
 (`verifyIntakeCoverage.ts:9-10,96`). Landing this feature means extending
-that script the same way: import `INSTITUTIONAL_RECORDS_TOPICS` and
-`FOI_GUIDANCE_TOPICS`, check every `basisSourceUrl`/citation resolves,
-check every `institutionalRecordsTopicIds`/`foiGuidanceTopicIds` reference
-on a `ClaimType` points at a real entry, and report topic/status counts in
-its existing summary line the same way it already reports education and
-remedy topic counts.
+that script the same way: import `INSTITUTIONAL_RECORDS_TOPICS`,
+`FOI_GUIDANCE_TOPICS`, and the two `DisclosureInProceedingGuidance`
+entries; check every `basisSourceUrl`/citation resolves; check every
+`institutionalRecordsTopicIds`/`foiGuidanceTopicIds` reference on a
+`ClaimType` points at a real entry; check that exactly one
+`DisclosureInProceedingGuidance` entry exists per `courtArea` (never
+zero, never two claiming the same court — the failure mode §4.5 exists to
+prevent); and report topic/status counts in its existing summary line the
+same way it already reports education and remedy topic counts.
 
 ## 7. What content needs real sourcing, and from where (not done this session)
 
@@ -422,21 +653,46 @@ verification date; this list is the research plan, not the content.
   is the authoritative source for the request process itself, same as
   Ontario Courts is the authoritative source for court procedure
   elsewhere in this codebase).
+- **Disclosure in an existing proceeding (route 4, two separate entries,
+  §4.5):** Small Claims disclosure obligations from the Rules of the
+  Small Claims Court, O. Reg. 258/98; Superior Court discovery
+  obligations from the Rules of Civil Procedure. These are two different
+  procedures with different scope and must be sourced and written
+  separately — one description covering both would misstate at least one
+  of them. Source: ontario.ca's regulation text for O. Reg. 258/98, and
+  the Rules of Civil Procedure text, both already the kind of primary
+  source this codebase's sourcing rule treats as authoritative (statute/
+  rule text, not case law synthesis).
 
 ## 8. Summary of what this spec decides vs. leaves open
 
-**Decided:** the schema for both content types (§4.1, §5.1); that
-citations point at the statutory/policy basis, never a specific
-institution's specific document (§4.3); that attachment uses both an
-id-reference mechanism (works today) and a fact-gated mechanism (needed
-for Civil and for matters with no matched claim type) rather than picking
-only one (§6.1); that the primary UI surface is the existing
-`IntelligenceOverviewPanel.tsx` card pattern, with a `/legal-principles`-
-style page as an independent secondary option (§6.2).
+**Decided:** the schema for both content types (§4.1, §5.1); the four
+access routes as a typed, closed `RecordAccessRoute` union rather than
+free text, with route 4 kept as its own top-level, case-stage-gated
+structure rather than a value any record entry carries as its "typical"
+route (§4.1, §4.5); that citations point at the statutory/policy basis,
+never a specific institution's specific document (§4.3); that route 4
+gates on the existing `claimFiled` fact, additively (routes 1–3 stay
+visible after filing, route 4 layers on top) rather than replacing what's
+shown (§4.5); that Small Claims disclosure and Superior Court discovery
+ship as two separately sourced entries, never merged (§4.5, §7); the four
+cross-cutting notes — informal/formal rationale, route 3's time cost,
+record retention, and the own-records caveat — as content guidance that
+applies across categories rather than being repeated per category (§4.6);
+that attachment uses both an id-reference mechanism (works today) and a
+fact-gated mechanism (needed for Civil and for matters with no matched
+claim type) rather than picking only one (§6.1); that the surfacing type
+groups by route and gates route 4 on `claimFiled` in the data itself,
+never inferred by the rendering component (§6.2); that the primary UI
+surface is the existing `IntelligenceOverviewPanel.tsx` card pattern,
+rendered as up to four labeled groups, with a `/legal-principles`-style
+page as an independent secondary option that would show route 4
+unfiled-framed rather than gated (§6.2).
 
-**Left open, deliberately:** the actual sourced content (§7); the new
-`otherPartyType` fact field and its question-bank entry that Mechanism B
-depends on (§6.1); which specific regulators to build first for the
-licensed-trades category (§7); whether/when to build the standalone
-reference page (§6.2). None of these block filing this as a planned item —
-they're the concrete next steps for whichever session picks it up.
+**Left open, deliberately:** the actual sourced content, including both
+disclosure rule sets (§7); the new `otherPartyType` fact field and its
+question-bank entry that Mechanism B depends on (§6.1); which specific
+regulators to build first for the licensed-trades category (§7);
+whether/when to build the standalone reference page (§6.2). None of these
+block filing this as a planned item — they're the concrete next steps for
+whichever session picks it up.
