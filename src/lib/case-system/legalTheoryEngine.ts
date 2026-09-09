@@ -11,8 +11,6 @@ export type LegalTheoryRule = {
   requiredElements: string[];
   requiredProof: string[];
   commonWeaknesses: string[];
-  likelyDefenceAttacks: string[];
-  judgeConcerns: string[];
   recommendedQuestions: string[];
   evidenceToRequest: string[];
   draftingWarnings: string[];
@@ -39,8 +37,6 @@ export type LegalTheoryMatch = {
   missingElements: string[];
   requiredProof: string[];
   missingProof: string[];
-  likelyDefenceAttacks: string[];
-  judgeConcerns: string[];
   recommendedQuestions: string[];
   evidenceToRequest: string[];
   draftingWarnings: string[];
@@ -51,8 +47,6 @@ export type LegalTheoryResult = {
   matchedTheories: LegalTheoryMatch[];
   strongestTheory?: LegalTheoryMatch;
   allMissingProof: string[];
-  allDefenceAttacks: string[];
-  allJudgeConcerns: string[];
   allRecommendedQuestions: string[];
   allDraftingWarnings: string[];
   allStrategicNotes: string[];
@@ -99,20 +93,6 @@ const LEGAL_THEORY_RULES: LegalTheoryRule[] = [
       "Only a general total with no calculation.",
       "Payments not tracked clearly.",
       "Possible argument that the money was a gift.",
-    ],
-    likelyDefenceAttacks: [
-      "The money was a gift, not a loan.",
-      "The amount was already paid.",
-      "The amount is calculated incorrectly.",
-      "There was no agreement to pay.",
-      "The plaintiff did not provide what was promised.",
-      "The claim is too old.",
-    ],
-    judgeConcerns: [
-      "What exactly created the obligation to pay?",
-      "How was the amount calculated?",
-      "What payments were made and when?",
-      "Is there reliable proof beyond the plaintiff’s word?",
     ],
     recommendedQuestions: [
       "What document or message proves the other party agreed to pay?",
@@ -184,20 +164,6 @@ const LEGAL_THEORY_RULES: LegalTheoryRule[] = [
       "Scope changed but was not documented.",
       "Damages are not tied to the breach.",
       "User also failed to perform part of the agreement.",
-    ],
-    likelyDefenceAttacks: [
-      "There was no contract.",
-      "The terms were different.",
-      "The plaintiff breached first.",
-      "The work was defective or incomplete.",
-      "The amount claimed is excessive.",
-      "The loss was not caused by the alleged breach.",
-    ],
-    judgeConcerns: [
-      "What exactly did each side agree to?",
-      "What term was breached?",
-      "What evidence proves the breach?",
-      "How did the breach cause the amount claimed?",
     ],
     recommendedQuestions: [
       "Was the agreement written, verbal, or partly both?",
@@ -272,19 +238,6 @@ const LEGAL_THEORY_RULES: LegalTheoryRule[] = [
       "Repair cost seems inflated.",
       "Damage may have pre-existed.",
     ],
-    likelyDefenceAttacks: [
-      "The damage was pre-existing.",
-      "Someone else caused the damage.",
-      "The repair cost is unreasonable.",
-      "The plaintiff failed to mitigate the loss.",
-      "The work was done properly.",
-    ],
-    judgeConcerns: [
-      "What caused the damage?",
-      "What did the property look like before?",
-      "Is the repair cost reasonable?",
-      "Is there objective evidence?",
-    ],
     recommendedQuestions: [
       "Do you have photos before the damage?",
       "Do you have photos after the damage?",
@@ -355,21 +308,6 @@ const LEGAL_THEORY_RULES: LegalTheoryRule[] = [
       "Statement may be true or privileged.",
       "Damages are vague.",
     ],
-    likelyDefenceAttacks: [
-      "Truth.",
-      "Opinion or fair comment.",
-      "Qualified privilege.",
-      "No publication.",
-      "No serious harm.",
-      "The words did not identify the plaintiff.",
-    ],
-    judgeConcerns: [
-      "What exact words were used?",
-      "Who received the statement?",
-      "Why are the words defamatory?",
-      "What harm followed?",
-      "Are there possible defences?",
-    ],
     recommendedQuestions: [
       "What exact words were said or written?",
       "Who saw or received the statement?",
@@ -436,21 +374,6 @@ const LEGAL_THEORY_RULES: LegalTheoryRule[] = [
       "Causation is speculative.",
       "Damages are not documented.",
       "Hindsight reasoning.",
-    ],
-    likelyDefenceAttacks: [
-      "No duty of care.",
-      "No breach.",
-      "No causation.",
-      "The harm was not foreseeable.",
-      "Intervening act.",
-      "Policy immunity or discretionary decision.",
-      "Contributory negligence.",
-    ],
-    judgeConcerns: [
-      "Is there a legally recognized duty?",
-      "What exact conduct breached the standard of care?",
-      "How did that breach cause the harm?",
-      "Is the claim based on hindsight?",
     ],
     recommendedQuestions: [
       "Who owed the duty and why?",
@@ -525,20 +448,6 @@ const LEGAL_THEORY_RULES: LegalTheoryRule[] = [
       "No clear institutional duty or operational step.",
       "No causation link.",
       "Claim sounds like disagreement with policy rather than failure to act.",
-    ],
-    likelyDefenceAttacks: [
-      "No duty owed.",
-      "No notice of risk.",
-      "Reasonable policies were followed.",
-      "The harm was not foreseeable.",
-      "The institution did not cause the harm.",
-      "The claim improperly attacks policy discretion.",
-    ],
-    judgeConcerns: [
-      "What exactly did the institution know?",
-      "What operational step should have been taken?",
-      "What record proves notice or warning?",
-      "How did the failure cause or materially contribute to the harm?",
     ],
     recommendedQuestions: [
       "Who was told about the problem and when?",
@@ -616,21 +525,6 @@ const LEGAL_THEORY_RULES: LegalTheoryRule[] = [
       "Only general workplace, housing, or service conflict.",
       "Wrong forum or limitation issue.",
     ],
-    likelyDefenceAttacks: [
-      "No protected ground.",
-      "No connection between the protected ground and treatment.",
-      "Reasonable accommodation was offered.",
-      "Undue hardship.",
-      "Legitimate non-discriminatory reason for the decision.",
-      "Wrong forum or late filing.",
-    ],
-    judgeConcerns: [
-      "What protected ground is involved?",
-      "What adverse treatment occurred?",
-      "What evidence connects the protected ground to the treatment?",
-      "Was accommodation requested or required?",
-      "Is this a court issue, tribunal issue, or overlap issue?",
-    ],
     recommendedQuestions: [
       "What protected ground is involved?",
       "What exactly happened that was discriminatory?",
@@ -704,20 +598,6 @@ const LEGAL_THEORY_RULES: LegalTheoryRule[] = [
       "Responding party offered alternatives.",
       "No documented impact.",
     ],
-    likelyDefenceAttacks: [
-      "No disability-related need was disclosed.",
-      "Accommodation request was unreasonable or unsupported.",
-      "Reasonable accommodation was offered.",
-      "Undue hardship.",
-      "The user did not participate in the accommodation process.",
-    ],
-    judgeConcerns: [
-      "What limitation required accommodation?",
-      "What was requested and when?",
-      "How did the organization respond?",
-      "Was there a meaningful accommodation process?",
-      "What harm resulted?",
-    ],
     recommendedQuestions: [
       "What accommodation was requested?",
       "What documents show the request?",
@@ -788,21 +668,6 @@ const LEGAL_THEORY_RULES: LegalTheoryRule[] = [
       "Wrong procedure or forum.",
       "Immunity or discretion issue not considered.",
       "No causal link between conduct and harm.",
-    ],
-    likelyDefenceAttacks: [
-      "No private law duty.",
-      "Core policy immunity.",
-      "Lawful discretion.",
-      "Adequate alternative remedy.",
-      "Collateral attack.",
-      "No causation.",
-      "Wrong forum or limitation issue.",
-    ],
-    judgeConcerns: [
-      "Is this a proper civil claim, judicial review, tribunal matter, or Charter issue?",
-      "What exact public conduct is challenged?",
-      "Does the claim improperly attack a protected decision?",
-      "What remedy is legally available?",
     ],
     recommendedQuestions: [
       "Which public body or official was involved?",
@@ -881,20 +746,6 @@ const LEGAL_THEORY_RULES: LegalTheoryRule[] = [
       "No clear principle of fundamental justice.",
       "Attack on judicial decision instead of operational state conduct.",
     ],
-    likelyDefenceAttacks: [
-      "No Charter breach.",
-      "No sufficient state action.",
-      "No causation.",
-      "Claim is an improper collateral attack.",
-      "Core discretion or immunity.",
-      "Adequate alternative remedy.",
-    ],
-    judgeConcerns: [
-      "What exact Charter right is engaged?",
-      "What state conduct caused the deprivation?",
-      "Is this really a constitutional claim or a tort claim?",
-      "Does the claim attack a protected discretionary or judicial decision?",
-    ],
     recommendedQuestions: [
       "Which government actor did what?",
       "What right was affected?",
@@ -968,20 +819,6 @@ const LEGAL_THEORY_RULES: LegalTheoryRule[] = [
       "No decision record.",
       "Trying to relitigate facts instead of identifying reviewable error.",
     ],
-    likelyDefenceAttacks: [
-      "Wrong forum.",
-      "Late filing.",
-      "Adequate alternative remedy.",
-      "Decision was reasonable.",
-      "No procedural unfairness.",
-      "Civil action is barred or premature.",
-    ],
-    judgeConcerns: [
-      "What decision is being reviewed?",
-      "Is the deadline still open?",
-      "Is the remedy available in this forum?",
-      "Is this an appeal, judicial review, tribunal process, or civil claim?",
-    ],
     recommendedQuestions: [
       "What tribunal or decision-maker made the decision?",
       "What is the decision date?",
@@ -1054,21 +891,6 @@ const LEGAL_THEORY_RULES: LegalTheoryRule[] = [
       "Harm is vague.",
       "Wrong forum or complaint process not considered.",
     ],
-    likelyDefenceAttacks: [
-      "Disclosure was authorized.",
-      "Consent was given.",
-      "No damages.",
-      "Wrong forum.",
-      "Record was not private or confidential.",
-      "No proof of access or misuse.",
-    ],
-    judgeConcerns: [
-      "What specific information was involved?",
-      "Who disclosed, accessed, or misused it?",
-      "Was there consent or legal authority?",
-      "What harm followed?",
-      "What is the correct process or remedy?",
-    ],
     recommendedQuestions: [
       "What exact record or information is involved?",
       "Who had access to it?",
@@ -1135,20 +957,6 @@ const LEGAL_THEORY_RULES: LegalTheoryRule[] = [
       "Claim attacks policy or discretion.",
       "Causation is weak.",
       "Public official role is unclear.",
-    ],
-    likelyDefenceAttacks: [
-      "No bad faith or recklessness.",
-      "No knowledge of likely harm.",
-      "Lawful exercise of discretion.",
-      "No causation.",
-      "Claim is negligence in disguise.",
-      "Insufficient particulars.",
-    ],
-    judgeConcerns: [
-      "What public power was misused?",
-      "What facts show knowledge or recklessness?",
-      "What harm was likely and known?",
-      "Is this more than negligence?",
     ],
     recommendedQuestions: [
       "What public authority acted?",
@@ -1217,19 +1025,6 @@ const LEGAL_THEORY_RULES: LegalTheoryRule[] = [
       "No evidence of current arrangement.",
       "Conflict allegations without proof.",
     ],
-    likelyDefenceAttacks: [
-      "The requested schedule is not child-focused.",
-      "The other parent has been more involved.",
-      "The user is exaggerating conflict.",
-      "The proposal disrupts school or routine.",
-      "Safety concerns are unsupported.",
-    ],
-    judgeConcerns: [
-      "What arrangement is in the child’s best interests?",
-      "What has actually been happening?",
-      "Is the proposal practical?",
-      "Are safety concerns supported by evidence?",
-    ],
     recommendedQuestions: [
       "What is the current parenting schedule?",
       "What schedule are you asking for?",
@@ -1291,18 +1086,6 @@ const LEGAL_THEORY_RULES: LegalTheoryRule[] = [
       "Support amount not calculated.",
       "Expenses are claimed without receipts.",
       "Arrears are not documented.",
-    ],
-    likelyDefenceAttacks: [
-      "Income is wrong.",
-      "Expenses are unnecessary or unsupported.",
-      "Arrears are calculated incorrectly.",
-      "Support should be imputed differently.",
-    ],
-    judgeConcerns: [
-      "Is financial disclosure complete?",
-      "What is the correct income?",
-      "Are special expenses reasonable and proven?",
-      "Is the support calculation reliable?",
     ],
     recommendedQuestions: [
       "What income does each party earn?",
@@ -1425,8 +1208,6 @@ export function runLegalTheoryEngine(
         missingElements,
         requiredProof: rule.requiredProof,
         missingProof,
-        likelyDefenceAttacks: rule.likelyDefenceAttacks,
-        judgeConcerns: rule.judgeConcerns,
         recommendedQuestions: rule.recommendedQuestions,
         evidenceToRequest: rule.evidenceToRequest,
         draftingWarnings: rule.draftingWarnings,
@@ -1440,8 +1221,6 @@ export function runLegalTheoryEngine(
     matchedTheories,
     strongestTheory: matchedTheories[0],
     allMissingProof: cleanList(matchedTheories.flatMap((item) => item.missingProof)),
-    allDefenceAttacks: cleanList(matchedTheories.flatMap((item) => item.likelyDefenceAttacks)),
-    allJudgeConcerns: cleanList(matchedTheories.flatMap((item) => item.judgeConcerns)),
     allRecommendedQuestions: cleanList(matchedTheories.flatMap((item) => item.recommendedQuestions)),
     allDraftingWarnings: cleanList(matchedTheories.flatMap((item) => item.draftingWarnings)),
     allStrategicNotes: cleanList(matchedTheories.flatMap((item) => item.strategicNotes)),

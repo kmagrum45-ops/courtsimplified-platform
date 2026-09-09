@@ -763,10 +763,7 @@ function buildIssuesFromEvidence(
           ...existing.unresolvedGaps,
           ...theory.missingElements,
         ]),
-        risks: cleanList([
-          ...existing.risks,
-          ...theory.likelyDefenceAttacks,
-        ]),
+        risks: existing.risks,
       });
     } else {
       issueMap.set(issueId, {
@@ -778,7 +775,7 @@ function buildIssuesFromEvidence(
         linkedEvidenceIds: [],
         linkedFormIds: [],
         unresolvedGaps: theory.missingElements,
-        risks: theory.likelyDefenceAttacks,
+        risks: [],
       });
     }
   }
@@ -1391,12 +1388,6 @@ function buildStrategyNotes(
     );
   }
 
-  if (legalTheoryAnalysis.allDefenceAttacks.length > 0) {
-    notes.push(
-      "Anticipate defence attacks before drafting. The platform should help users answer weaknesses before finalizing documents.",
-    );
-  }
-
   if (proceduralIntelligence.pathwayWarnings.length > 0) {
     notes.push(
       "Procedural pathway must be confirmed before form generation because this case may involve court, tribunal, review, appeal, or mixed jurisdiction.",
@@ -1542,11 +1533,10 @@ function buildMasterCaseFile(context: Omit<CaseContext, "masterCaseFile">): Case
     strategy: {
       strengths: context.strengths,
       weaknesses: context.weaknesses,
-      likelyOtherSideArguments:
-        context.legalTheoryAnalysis.allDefenceAttacks || [],
-      likelyJudgeConcerns: context.risks
-        .filter((risk) => risk.severity === "high")
-        .map((risk) => risk.description),
+      // Never generated: predicting opposing-party arguments or judge
+      // reactions is a CLAUDE.md section 3 violation, not a data gap.
+      likelyOtherSideArguments: [],
+      likelyJudgeConcerns: [],
       suggestedWordingImprovements: cleanList([
         "Use dates, actors, documents, and requested remedies rather than broad conclusions.",
         "Separate facts from assumptions and legal conclusions.",

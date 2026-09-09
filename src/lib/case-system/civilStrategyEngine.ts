@@ -21,7 +21,6 @@ export type CivilTheoryAssessment = {
   supportingFactors: string[];
   weakeningFactors: string[];
   proofPressurePoints: string[];
-  likelyDefenceAttacks: string[];
 };
 
 export type CivilStrategyResult = {
@@ -88,69 +87,6 @@ function theoryName(type: CivilCaseType): string {
   };
 
   return names[type];
-}
-
-function defenceAttacksFor(type: CivilCaseType): string[] {
-  if (type === "defamation") {
-    return [
-      "Truth / justification.",
-      "Opinion or fair comment.",
-      "Privilege.",
-      "No publication to a third party.",
-      "Plaintiff not clearly identified.",
-      "No serious harm or damages.",
-    ];
-  }
-
-  if (type === "negligence" || type === "professional-negligence") {
-    return [
-      "No duty of care.",
-      "Standard of care was met.",
-      "No causation.",
-      "Loss was caused by something else.",
-      "Contributory negligence.",
-      "Damages are not proven.",
-    ];
-  }
-
-  if (type === "breach-of-contract" || type === "debt") {
-    return [
-      "No enforceable agreement.",
-      "Different terms than alleged.",
-      "Performance or partial performance.",
-      "Payment already made.",
-      "Limitation period.",
-      "Damages calculation is unsupported.",
-    ];
-  }
-
-  if (type === "charter" || type === "misfeasance") {
-    return [
-      "Wrong forum or remedy.",
-      "Immunity or statutory authority.",
-      "No actionable state conduct.",
-      "No causation.",
-      "Threshold for public-law damages not met.",
-      "Claim attacks discretion instead of operational conduct.",
-    ];
-  }
-
-  if (type === "human-rights") {
-    return [
-      "Wrong forum.",
-      "No protected ground.",
-      "No connection between ground and adverse treatment.",
-      "Accommodation was reasonable.",
-      "No compensable harm.",
-    ];
-  }
-
-  return [
-    "Insufficient material facts.",
-    "Missing evidence.",
-    "Causation not proven.",
-    "Damages not proven.",
-  ];
 }
 
 function buildTheoryAssessments(input: CivilStrategyInput): CivilTheoryAssessment[] {
@@ -234,7 +170,6 @@ function buildTheoryAssessments(input: CivilStrategyInput): CivilTheoryAssessmen
           ...(master?.damagesProfile.damagesProofMissing || []),
           ...(master?.procedureProfile.pleadingConcerns || []),
         ]),
-        likelyDefenceAttacks: defenceAttacksFor(type),
       };
     })
     .sort((a, b) => b.score - a.score);
@@ -252,19 +187,6 @@ function buildWeakestAreas(input: CivilStrategyInput): string[] {
     ...(master?.procedureProfile.limitationConcerns || []),
     ...(master?.readiness.blockers || []),
     ...risks.filter((risk) => risk.severity === "high").map((risk) => risk.title),
-  ]);
-}
-
-function buildJudgeConcerns(input: CivilStrategyInput): string[] {
-  const master = getCase(input);
-
-  return cleanList([
-    ...(master?.strategicProfile.likelyJudgeConcerns || []),
-    ...(master?.narrativeProfile.judicialConcerns || []),
-    ...(master?.procedureProfile.readinessWarnings || []),
-    ...(master?.procedureProfile.jurisdictionConcerns || []),
-    ...(master?.readiness.blockers || []),
-    "The court will expect facts, legal theory, evidence, causation, damages, remedy, and procedural path to be separated clearly.",
   ]);
 }
 
@@ -363,12 +285,10 @@ export function runCivilStrategyEngine(
 
   const weakestAreas = buildWeakestAreas(input);
 
-  const likelyDefenceArguments = cleanList([
-    ...theoryAssessments.flatMap((item) => item.likelyDefenceAttacks),
-    ...(getCase(input)?.strategicProfile.likelyDefenceArguments || []),
-  ]);
-
-  const likelyJudgeConcerns = buildJudgeConcerns(input);
+  // Never generated: predicting defence arguments or judge reactions is a
+  // CLAUDE.md section 3 violation, not a data gap.
+  const likelyDefenceArguments: string[] = [];
+  const likelyJudgeConcerns: string[] = [];
   const settlementLeverage = buildSettlementLeverage(input);
   const escalationRisks = buildEscalationRisks(input);
   const draftingWarnings = buildDraftingWarnings(input);

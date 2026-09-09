@@ -517,42 +517,6 @@ export default function CaseWorkspacePage() {
               ) : null}
             </ul>
           </div>
-
-          <div className="rounded-3xl border border-[#d7e7e5] bg-white p-7 shadow-sm">
-            <h2 className="text-xl font-bold">Points the Other Side May Raise</h2>
-
-            <ul className="mt-4 space-y-2 text-sm text-[#4B5563]">
-              {master.strategy.likelyOtherSideArguments
-                .slice(0, 6)
-                .map((item) => (
-                  <li key={item}>• {item}</li>
-                ))}
-
-              {master.strategy.likelyOtherSideArguments.length === 0 ? (
-                <li>
-                  • Add more facts and evidence so this section can list
-                  points to prepare for.
-                </li>
-              ) : null}
-            </ul>
-          </div>
-
-          <div className="rounded-3xl border border-[#d7e7e5] bg-white p-7 shadow-sm">
-            <h2 className="text-xl font-bold">Questions to Be Ready to Answer</h2>
-
-            <ul className="mt-4 space-y-2 text-sm text-[#4B5563]">
-              {master.strategy.likelyJudgeConcerns.slice(0, 6).map((item) => (
-                <li key={item}>• {item}</li>
-              ))}
-
-              {master.strategy.likelyJudgeConcerns.length === 0 ? (
-                <li>
-                  • Continue adding case details so this section can list
-                  questions to prepare for.
-                </li>
-              ) : null}
-            </ul>
-          </div>
         </section>
 
         <section className="mt-8 grid gap-6 lg:grid-cols-3">

@@ -86,8 +86,6 @@ function buildFinding(args: {
   explanation: string;
   whyItMatters: string;
   possibleResolutions: string[];
-  judicialConcern: string;
-  litigationRisk: string;
   requiresHumanReview?: boolean;
 }): ContradictionFinding {
   return {
@@ -100,8 +98,6 @@ function buildFinding(args: {
     explanation: args.explanation,
     whyItMatters: args.whyItMatters,
     possibleResolutions: args.possibleResolutions,
-    judicialConcern: args.judicialConcern,
-    litigationRisk: args.litigationRisk,
     requiresHumanReview: args.requiresHumanReview ?? true,
   };
 }
@@ -188,10 +184,6 @@ function detectAmountConflicts(
               "Separate principal, interest, costs, arrears, and other amounts.",
               "Link each claimed amount to receipts, transfers, invoices, or calculations.",
             ],
-            judicialConcern:
-              "A judge may question whether the requested amount is reliable or proven.",
-            litigationRisk:
-              "The opposing side may argue the amount is exaggerated, unsupported, or internally inconsistent.",
           }),
         );
       }
@@ -250,10 +242,6 @@ function detectDateConflicts(
               "Check whether the evidence date is the event date, upload date, message date, filing date, or payment date.",
               "Separate factual dates from procedural dates.",
             ],
-            judicialConcern:
-              "A judge may be concerned that the chronology is unreliable.",
-            litigationRisk:
-              "The opposing side may use date inconsistencies to attack credibility or limitation arguments.",
           }),
         );
       }
@@ -322,10 +310,6 @@ function detectStatementConflicts(
               "Explain why the statements are not truly inconsistent, if applicable.",
               "Correct or remove unsupported wording before document generation.",
             ],
-            judicialConcern:
-              "A judge may question whether the facts are reliable or internally consistent.",
-            litigationRisk:
-              "The opposing side may argue the user's own materials contradict each other.",
           }),
         );
       }
@@ -396,10 +380,6 @@ function detectClaimEvidenceGaps(
             "Link documents, screenshots, receipts, records, photos, or witness information.",
             "Mark unsupported facts as needing proof before final document generation.",
           ],
-          judicialConcern:
-            "A judge may not accept unsupported factual allegations.",
-          litigationRisk:
-            "The opposing side may argue the allegation is bare, speculative, or unproven.",
         }),
       );
     }
@@ -437,10 +417,6 @@ function detectClaimEvidenceGaps(
             "Add missing proof if it exists.",
             "Revise the claim theory if the evidence does not support it.",
           ],
-          judicialConcern:
-            "A judge may ask where the proof is for the specific allegation.",
-          litigationRisk:
-            "The opposing side may argue the evidence does not prove the pleaded claim.",
         }),
       );
     }
@@ -519,10 +495,6 @@ function detectLocationConflicts(timeline: CaseTimelineEvent[]): ContradictionFi
                 "Add exact locations and dates.",
                 "Clarify whether the location difference is expected or inconsistent.",
               ],
-              judicialConcern:
-                "A judge may need clearer location details to understand the chronology.",
-              litigationRisk:
-                "The opposing side may use unclear locations to challenge reliability or jurisdiction.",
             }),
           );
         }

@@ -468,7 +468,6 @@ function buildWeaknesses(context: CaseContext): LitigationWeakness[] {
 function buildOpposingArguments(context: CaseContext): OpposingArgument[] {
   const argumentsList: OpposingArgument[] = [];
   const text = collectContextText(context);
-  const legalTheory = runLegalTheoryEngine(buildLegalTheoryInput(context));
 
   if (context.evidenceItems.length < 3) {
     argumentsList.push({
@@ -493,18 +492,6 @@ function buildOpposingArguments(context: CaseContext): OpposingArgument[] {
         "Create a dated chronology with linked exhibits for each major event.",
     });
   }
-
-  legalTheory.allDefenceAttacks.slice(0, 8).forEach((attack) => {
-    argumentsList.push({
-      id: createId("opposing"),
-      title: attack,
-      explanation:
-        "This is a likely defence attack identified from the legal theory analysis.",
-      likelyTarget: "Legal theory, proof, causation, damages, or procedure",
-      possibleResponse:
-        "Address this directly in the case summary, evidence plan, and drafting before filing or serving materials.",
-    });
-  });
 
   if (includesAny(text, ["human rights", "discrimination", "accommodation"])) {
     argumentsList.push({
@@ -544,7 +531,6 @@ function buildOpposingArguments(context: CaseContext): OpposingArgument[] {
 function buildJudicialConcerns(context: CaseContext): JudicialConcern[] {
   const concerns: JudicialConcern[] = [];
   const text = collectContextText(context);
-  const legalTheory = runLegalTheoryEngine(buildLegalTheoryInput(context));
 
   if (!hasChronologyDates(context)) {
     concerns.push({
@@ -578,17 +564,6 @@ function buildJudicialConcerns(context: CaseContext): JudicialConcern[] {
         "Define the factual disputes, legal issues, remedies, and evidence targets clearly.",
     });
   }
-
-  legalTheory.allJudgeConcerns.slice(0, 8).forEach((concern) => {
-    concerns.push({
-      id: createId("judge"),
-      concern,
-      reason:
-        "This concern was identified from the legal theory engine and should be addressed before final drafting.",
-      possibleSolution:
-        "Add facts, evidence, proof mapping, or legal framing that answers this concern directly.",
-    });
-  });
 
   if (
     safeTheoryCourtPath(context.casePath) === "civil" &&

@@ -1023,8 +1023,6 @@ function buildContradictionAnalysis(
       explanation: finding.explanation,
       whyItMatters: finding.whyItMatters,
       possibleResolutions: finding.possibleResolutions,
-      judicialConcern: finding.judicialConcern,
-      litigationRisk: finding.litigationRisk,
       requiresHumanReview: finding.requiresHumanReview,
     }),
   );
@@ -1064,8 +1062,6 @@ function buildCredibilityAnalysis(
       title: finding.title,
       explanation: finding.explanation,
       linkedContradictionIds: finding.linkedContradictionIds,
-      judgeConcern: finding.judgeConcern,
-      opposingCounselUse: finding.opposingCounselUse,
       recommendedFix: finding.recommendedFix,
     }),
   );

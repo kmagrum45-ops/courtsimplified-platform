@@ -105,7 +105,6 @@ export type AiCasePartnerOrchestratorResult = {
 type ResponseIntent =
   | "evidence"
   | "legal-issues"
-  | "judge-concerns"
   | "document-readiness"
   | "next-clarification"
   | "general";
@@ -624,15 +623,6 @@ function detectResponseIntent(message: string): ResponseIntent {
   }
 
   if (
-    text.includes("what would a judge") ||
-    text.includes("judge likely") ||
-    text.includes("judge concerned") ||
-    text.includes("court concerned")
-  ) {
-    return "judge-concerns";
-  }
-
-  if (
     text.includes("before generating documents") ||
     text.includes("document ready") ||
     text.includes("ready for documents") ||
@@ -795,12 +785,8 @@ function buildLegalExplanation(args: {
     args.legalReasoning.reasoningSummary.burdenPriorities,
   );
 
-  const judicialConcern = firstItem(
-    args.legalReasoning.reasoningSummary.judicialConcerns,
-  );
-
-  if (hasText(burden) && hasText(judicialConcern)) {
-    return `The main proof issue currently identified is: ${burden}. A related court concern is: ${judicialConcern}`;
+  if (hasText(burden)) {
+    return `The main proof issue currently identified is: ${burden}.`;
   }
 
   if (!hypothesis && !signal) {
@@ -902,26 +888,6 @@ function buildLegalIssuesAnswer(args: {
   );
 }
 
-function buildJudgeConcernsAnswer(args: {
-  investigation: ReturnType<typeof buildCaseInvestigation>;
-  legalReasoning: CoordinatedReasoningPackage;
-}): string {
-  const concerns = uniqueStrings([
-    ...(args.legalReasoning.reasoningSummary.judicialConcerns || []),
-    ...(args.investigation.judgeConcerns || []),
-  ]);
-
-  if (concerns.length === 0) {
-    return "No specific judicial concern has been identified yet. A court will usually want a clear timeline, reliable evidence, a defined legal basis, and a precise explanation of the requested remedy.";
-  }
-
-  return formatList(
-    "A court may focus on these concerns:",
-    concerns,
-    5,
-  );
-}
-
 function buildDocumentReadinessAnswer(args: {
   intelligence: ReturnType<typeof buildConversationIntelligence>;
   investigation: ReturnType<typeof buildCaseInvestigation>;
@@ -1012,9 +978,6 @@ function buildDirectAnswer(args: {
 
     case "legal-issues":
       return buildLegalIssuesAnswer(args);
-
-    case "judge-concerns":
-      return buildJudgeConcernsAnswer(args);
 
     case "document-readiness":
       return buildDocumentReadinessAnswer(args);

@@ -461,8 +461,6 @@ export function calculateDashboardSystemScore(master: DashboardMasterView): numb
   if (master.proofMap.length > 0) score += 15;
   if (master.formNeeds.length > 0) score += 10;
   if (master.strategy.weaknesses.length > 0) score += 5;
-  if (master.strategy.likelyOtherSideArguments.length > 0) score += 5;
-  if (master.strategy.likelyJudgeConcerns.length > 0) score += 5;
   if (master.courtPackage.packageSections.length > 0) score += 5;
   if (master.courtPackage.exhibitOrder.length > 0) score += 5;
 
@@ -504,14 +502,6 @@ export function buildDashboardOperationalWarnings(
 
   if (master.formNeeds.length === 0) {
     warnings.push("Form needs have not been reviewed yet.");
-  }
-
-  if (master.strategy.likelyOtherSideArguments.length === 0) {
-    warnings.push("Opposing-side attack analysis has not been generated yet.");
-  }
-
-  if (master.strategy.likelyJudgeConcerns.length === 0) {
-    warnings.push("Judge-facing concern analysis has not been generated yet.");
   }
 
   if (master.authorityReadiness?.unsafeAuthorityCount) {
@@ -625,17 +615,6 @@ export function buildDashboardNextAction(
     };
   }
 
-  if (
-    master.strategy.likelyOtherSideArguments.length === 0 ||
-    master.strategy.likelyJudgeConcerns.length === 0
-  ) {
-    return {
-      title: "Strengthen Litigation Strategy",
-      text: "Review proof gaps, likely defences, opposing arguments, and judge-facing concerns before final package assembly.",
-      href: buildDashboardWorkflowHref("/litigation-strategy", caseFile),
-    };
-  }
-
   if (master.courtPackage.packageSections.length === 0) {
     return {
       title: "Assemble Court Package",
@@ -746,13 +725,11 @@ export function buildDashboardWorkflowCards(
       key: "strategy",
       title: "Litigation Strategy",
       href: buildDashboardWorkflowHref("/litigation-strategy", caseFile),
-      text: "Review weaknesses, opposing arguments, judge concerns, proof gaps, and next strategic steps.",
-      complete:
-        master.strategy.likelyOtherSideArguments.length > 0 ||
-        master.strategy.likelyJudgeConcerns.length > 0,
+      text: "Review weaknesses, proof gaps, and next strategic steps.",
+      complete: master.strategy.nextStrategicSteps.length > 0,
       warning:
         master.issues.length > 0 &&
-        master.strategy.likelyOtherSideArguments.length === 0,
+        master.strategy.nextStrategicSteps.length === 0,
       priority: 8,
     },
     {

@@ -413,9 +413,9 @@ function buildSupplementalRisks(input: CivilMasterCaseInput): CaseRisk[] {
     risks.push(
       makeRisk({
         id: "civil_risk_underlying_third_party_criminal_act",
-        title: "Third-party criminal act causation defence",
+        title: "Third-party criminal act causation risk",
         description:
-          "Defendants may argue the harm was caused by the offender’s independent criminal act rather than by state conduct.",
+          "Causation must be established despite an intervening criminal act by a third party rather than by state conduct.",
         severity: "high",
         source: "strategy",
         suggestedFix:

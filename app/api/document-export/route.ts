@@ -139,16 +139,6 @@ function buildExportSections(body: ExportRequestBody): ExportSection[] {
     body.strategyData?.risks ||
     body.strategyData?.weaknesses;
 
-  const opposing =
-    source?.analysis?.opposingArguments ||
-    body.strategyData?.opposingArguments ||
-    body.strategyData?.likelyOpposition;
-
-  const courtConcerns =
-    source?.analysis?.courtConcerns ||
-    body.strategyData?.courtConcerns ||
-    body.trialPackage?.judgeConcerns;
-
   return [
     {
       id: "case-summary",
@@ -212,28 +202,6 @@ function buildExportSections(body: ExportRequestBody): ExportSection[] {
           ? []
           : ["No risks or proof gaps were available."],
       content: safeArray(risks),
-    },
-    {
-      id: "opposing-arguments",
-      title: "Likely Opposing Arguments",
-      category: "Opposition",
-      ready: safeArray(opposing).length > 0,
-      warnings:
-        safeArray(opposing).length > 0
-          ? []
-          : ["No likely opposing arguments were available."],
-      content: safeArray(opposing),
-    },
-    {
-      id: "court-concerns",
-      title: "Judge-Facing Concerns",
-      category: "Court Readiness",
-      ready: safeArray(courtConcerns).length > 0,
-      warnings:
-        safeArray(courtConcerns).length > 0
-          ? []
-          : ["No judge-facing concerns were available."],
-      content: safeArray(courtConcerns),
     },
   ];
 }

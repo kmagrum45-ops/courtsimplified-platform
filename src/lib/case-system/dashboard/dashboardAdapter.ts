@@ -441,11 +441,12 @@ export function buildDashboardMasterFromAssembly(
         ...assembly.credibilityIntelligence.warnings,
         ...(assembly.proceduralState?.warnings || []),
       ]),
-      likelyOtherSideArguments: assembly.proofReadiness.proofWeaknesses,
-      likelyJudgeConcerns: uniqueStrings([
-        ...assembly.contradictionReadiness.warnings,
-        ...assembly.credibilityIntelligence.warnings,
-      ]),
+      // Never generated: relabeling proof gaps or contradictions as
+      // predicted opposing arguments or judge concerns is a CLAUDE.md
+      // section 3 violation, not a data gap. The same facts are already
+      // captured factually in `weaknesses` above.
+      likelyOtherSideArguments: [],
+      likelyJudgeConcerns: [],
       suggestedWordingImprovements: assembly.credibilityIntelligence.nextActions,
       settlementConsiderations: uniqueStrings([
         assembly.credibilityIntelligence.settlementPressureScore > 0

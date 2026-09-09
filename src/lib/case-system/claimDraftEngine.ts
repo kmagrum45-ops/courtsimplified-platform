@@ -17,8 +17,6 @@ export type ClaimDraftInput = {
     risksAndGaps?: string[];
     damagesIssues?: string[];
     proceduralRisks?: string[];
-    defenceAttacks?: string[];
-    judgeConcerns?: string[];
     suggestedFocus?: string[];
     guidance?: string[];
     summary?: string;
@@ -33,8 +31,6 @@ export type ClaimDraftResult = {
   damagesSection: string[];
   evidenceSection: string[];
   missingInformation: string[];
-  defenceRisks: string[];
-  judgeConcerns: string[];
   suggestedImprovements: string[];
   draftText: string;
 };
@@ -184,9 +180,6 @@ export function draftSmallClaimsPlaintiffClaim(
     !input.timeline ? "Timeline is missing." : "",
   ]);
 
-  const defenceRisks = cleanList(input.analysis?.defenceAttacks || []);
-  const judgeConcerns = cleanList(input.analysis?.judgeConcerns || []);
-
   const suggestedImprovements = cleanList([
     ...(input.analysis?.suggestedFocus || []),
     ...(input.analysis?.guidance || []),
@@ -218,16 +211,6 @@ export function draftSmallClaimsPlaintiffClaim(
     ...(missingInformation.length
       ? missingInformation.map((item) => `- ${item}`)
       : ["- No major missing information detected."]),
-    "",
-    "LIKELY DEFENCE RISKS",
-    ...(defenceRisks.length
-      ? defenceRisks.map((item) => `- ${item}`)
-      : ["- No major defence risks detected yet."]),
-    "",
-    "LIKELY JUDGE CONCERNS",
-    ...(judgeConcerns.length
-      ? judgeConcerns.map((item) => `- ${item}`)
-      : ["- No major judge concerns detected yet."]),
   ].join("\n");
 
   return {
@@ -238,8 +221,6 @@ export function draftSmallClaimsPlaintiffClaim(
     damagesSection,
     evidenceSection,
     missingInformation,
-    defenceRisks,
-    judgeConcerns,
     suggestedImprovements,
     draftText,
   };

@@ -86,8 +86,6 @@ function buildLitigationReadinessSummary(
     readinessLevel: reasoning.readinessLevel,
     strongestCasePointCount: reasoning.strongestCasePoints.length,
     weakestCasePointCount: reasoning.weakestCasePoints.length,
-    judicialConcernCount: reasoning.judicialConcerns.length,
-    opposingArgumentCount: reasoning.opposingArguments.length,
     missingWorkCount: reasoning.missingWork.length,
     findingCount: reasoning.findings.length,
     nextActionCount: reasoning.nextActions.length,
@@ -202,8 +200,6 @@ export function buildBrainMigrationLayer(args: {
 
     strongestCasePoints: bridge.assembly.litigationReasoning.strongestCasePoints,
     weakestCasePoints: bridge.assembly.litigationReasoning.weakestCasePoints,
-    judicialConcerns: bridge.assembly.litigationReasoning.judicialConcerns,
-    opposingArguments: bridge.assembly.litigationReasoning.opposingArguments,
     missingWork: bridge.assembly.litigationReasoning.missingWork,
     litigationNextActions: bridge.assembly.litigationReasoning.nextActions,
     litigationFindings: bridge.assembly.litigationReasoning.findings,

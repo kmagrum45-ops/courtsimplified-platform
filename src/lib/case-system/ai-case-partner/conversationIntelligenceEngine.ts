@@ -688,7 +688,6 @@ function enrichFrameworkWithProfile(
     keyRisks: unique([
       ...framework.keyRisks,
       ...profile.proceduralWatchPoints,
-      ...profile.judicialConcerns,
       ...profile.userMistakesToPrevent,
     ]).slice(0, 14),
     firstQuestion,
@@ -1999,7 +1998,7 @@ function buildUserFacingAnswer(args: {
       .join("\n");
 
     const profileText = primary.reasoningProfile
-      ? `\n\nCourtSimplified is also applying the ${primary.reasoningProfile.label} reasoning profile, which means it will check investigation order, proof priorities, burden points, contradictions, credibility risks, procedural watch points, judicial concerns, and likely opposing arguments.`
+      ? `\n\nCourtSimplified is also applying the ${primary.reasoningProfile.label} reasoning profile, which means it will check investigation order, proof priorities, burden points, contradictions, credibility risks, and procedural watch points.`
       : "";
 
     const riskText = primary.keyRisks.length

@@ -8,6 +8,8 @@ import {
   NormalizedIntake,
 } from "./intelligenceTypes";
 
+import { sanitizeTextArray } from "./caseStrengthLanguageValidator";
+
 export type ElementProofStatus =
   | "proven"
   | "partly-proven"
@@ -153,10 +155,10 @@ function buildElementFinding(args: {
     supportingEvidence.map((item) => item.title),
   );
 
-  const missingEvidence = unique([
-    ...args.element.missingFacts,
-    ...args.element.risks,
-  ]);
+  const missingEvidence = sanitizeTextArray(
+    unique([...args.element.missingFacts, ...args.element.risks]),
+    "elementProofFinding.missingEvidence",
+  );
 
   return {
     id: createId("element_proof"),

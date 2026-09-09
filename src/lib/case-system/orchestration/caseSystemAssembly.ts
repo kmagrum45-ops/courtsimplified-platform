@@ -91,8 +91,6 @@ export type AssemblyLegalReasoningReadinessModel = {
   evidencePriorities: string[];
   burdenPriorities: string[];
   proceduralWatchPoints: string[];
-  judicialConcerns: string[];
-  opposingArguments: string[];
   firstQuestions: string[];
   warnings: string[];
   blockedObjects: string[];
@@ -424,12 +422,6 @@ function buildLegalReasoningReadiness(
     ),
     proceduralWatchPoints: uniqueStrings(
       legalReasoning.reasoningSummary.proceduralWatchPoints,
-    ),
-    judicialConcerns: uniqueStrings(
-      legalReasoning.reasoningSummary.judicialConcerns,
-    ),
-    opposingArguments: uniqueStrings(
-      legalReasoning.reasoningSummary.opposingArguments,
     ),
     firstQuestions: uniqueStrings(legalReasoning.reasoningSummary.firstQuestions),
     warnings,
@@ -847,8 +839,6 @@ function toWorkflowLegalReasoningInput(
     evidencePriorities: legalReasoning.evidencePriorities,
     burdenPriorities: legalReasoning.burdenPriorities,
     proceduralWatchPoints: legalReasoning.proceduralWatchPoints,
-    judicialConcerns: legalReasoning.judicialConcerns,
-    opposingArguments: legalReasoning.opposingArguments,
     firstQuestions: legalReasoning.firstQuestions,
     warnings: legalReasoning.warnings,
     blockedObjects: legalReasoning.blockedObjects,
@@ -968,12 +958,6 @@ export function buildCaseSystemAssembly(
     claimWarnings: [
       ...claimOutput.warnings,
       ...factPatternReadiness.warnings,
-      ...legalReasoningReadiness.judicialConcerns.map(
-        (concern) => `Legal reasoning judicial concern: ${concern}`,
-      ),
-      ...legalReasoningReadiness.opposingArguments.map(
-        (argument) => `Likely opposing argument: ${argument}`,
-      ),
     ],
 
     linkedEvidenceIds: evidenceOutput.graph.nodes.map((node) => node.id),
@@ -1048,12 +1032,6 @@ export function buildCaseSystemAssembly(
     claimWarnings: [
       ...claimOutput.warnings,
       ...factPatternReadiness.warnings,
-      ...legalReasoningReadiness.judicialConcerns.map(
-        (concern) => `Legal reasoning judicial concern: ${concern}`,
-      ),
-      ...legalReasoningReadiness.opposingArguments.map(
-        (argument) => `Likely opposing argument: ${argument}`,
-      ),
     ],
     legalReasoningWarnings: [
       ...legalReasoningReadiness.warnings,
@@ -1087,7 +1065,6 @@ export function buildCaseSystemAssembly(
       ...credibilityOutput.warnings,
       ...credibilityIntelligence.warnings,
       ...factPatternReadiness.warnings,
-      ...legalReasoningReadiness.judicialConcerns,
     ],
     authorityWarnings: [
       ...authorityReadiness.warnings,
@@ -1127,12 +1104,6 @@ export function buildCaseSystemAssembly(
       })),
       warnings: uniqueStrings([
         ...claimOutput.warnings,
-        ...legalReasoningReadiness.judicialConcerns.map(
-          (concern) => `Legal reasoning judicial concern: ${concern}`,
-        ),
-        ...legalReasoningReadiness.opposingArguments.map(
-          (argument) => `Likely opposing argument: ${argument}`,
-        ),
       ]),
     },
 
@@ -1181,7 +1152,6 @@ export function buildCaseSystemAssembly(
           warning.toLowerCase().includes("credibility"),
         ),
         ...credibilityIntelligence.warnings,
-        ...legalReasoningReadiness.judicialConcerns,
       ]),
       chronologyConcerns: uniqueStrings([
         ...timelineOutput.warnings,
@@ -1220,8 +1190,6 @@ export function buildCaseSystemAssembly(
       overallScore: credibilityIntelligence.overallScore,
       warnings: uniqueStrings([
         ...credibilityIntelligence.warnings,
-        ...legalReasoningReadiness.judicialConcerns,
-        ...legalReasoningReadiness.opposingArguments,
       ]),
     },
 
@@ -1245,8 +1213,6 @@ export function buildCaseSystemAssembly(
     ...legalReasoningReadiness.warnings,
     ...legalReasoningReadiness.blockedObjects,
     ...legalReasoningReadiness.proceduralWatchPoints,
-    ...legalReasoningReadiness.judicialConcerns,
-    ...legalReasoningReadiness.opposingArguments,
     ...factPatternReadiness.warnings,
     ...evidenceIntelligenceReadiness.warnings,
     ...proofReadiness.warnings,

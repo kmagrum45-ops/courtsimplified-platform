@@ -268,8 +268,6 @@ function filterLegalTheoryByConfidence(
     matchedTheories,
     strongestTheory: matchedTheories[0],
     allMissingProof: cleanList(matchedTheories.flatMap((item) => safeStringArray(item.missingProof))),
-    allDefenceAttacks: cleanList(matchedTheories.flatMap((item) => safeStringArray(item.likelyDefenceAttacks))),
-    allJudgeConcerns: cleanList(matchedTheories.flatMap((item) => safeStringArray(item.judgeConcerns))),
     allRecommendedQuestions: cleanList(matchedTheories.flatMap((item) => safeStringArray(item.recommendedQuestions))),
     allDraftingWarnings: cleanList(matchedTheories.flatMap((item) => safeStringArray(item.draftingWarnings))),
     allStrategicNotes: cleanList(matchedTheories.flatMap((item) => safeStringArray(item.strategicNotes))),
@@ -646,15 +644,9 @@ export async function runRuleEngine(intake: IntakeData): Promise<RuleMatch> {
       ...safeStringArray(scenario.urgencyFlags),
     ]),
 
-    defenceAttacks: cleanList([
-      ...safeStringArray(pathAnalysis.defenceAttacks),
-      ...safeStringArray(legalTheory.allDefenceAttacks),
-    ]),
+    defenceAttacks: cleanList(safeStringArray(pathAnalysis.defenceAttacks)),
 
-    judgeConcerns: cleanList([
-      ...safeStringArray(pathAnalysis.judgeConcerns),
-      ...safeStringArray(legalTheory.allJudgeConcerns),
-    ]),
+    judgeConcerns: cleanList(safeStringArray(pathAnalysis.judgeConcerns)),
 
     suggestedFocus: cleanList([
       ...safeStringArray(pathAnalysis.suggestedFocus),

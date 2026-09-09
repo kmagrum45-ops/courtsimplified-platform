@@ -39,13 +39,16 @@
 const BLOCKED_TERMS = [
   // judge-prediction
   "judge may",
+  "judge will",
   "court may question",
   "court may ask",
   "court may require",
   "court may care",
+  "court will expect",
   // opposing-argument-prediction
   "may argue",
   "opposing side",
+  "opposing counsel may",
   "other side may",
   "strongest response",
   "strongest argument",
@@ -90,4 +93,54 @@ export function sanitizeSummaryText(text: string, fieldName: string): string {
   if (result.valid) return text;
   console.error(`[caseStrengthLanguageValidator] rejected ${fieldName} (matched term "${result.matchedTerm}"): ${text}`);
   return "A summary of the saved facts is available in the case details below.";
+}
+
+/**
+ * For arrays of short free-text items (risk explanations, warnings, next
+ * actions): drops any item that fails the check rather than replacing it,
+ * since a shorter list still reads as complete in a way a blanked-out
+ * summary field would not. Never throws.
+ */
+export function sanitizeTextArray(items: string[], fieldName: string): string[] {
+  return items.filter((item) => {
+    const result = validateCaseStrengthLanguage(item);
+    if (result.valid) return true;
+    console.error(`[caseStrengthLanguageValidator] dropped ${fieldName} item (matched term "${result.matchedTerm}"): ${item}`);
+    return false;
+  });
+}
+
+/**
+ * The single choke point: recursively walks a raw, untyped AI cognition
+ * object (whatever shape GptCognitionOutput happens to be, including any
+ * nested arrays/objects added later) and blanks any string value that fails
+ * the check, in place of every downstream field having its own ad hoc
+ * sanitizeSummaryText()/sanitizeTextArray() call. Safe by construction: the
+ * codebase's existing pattern is `clean(x) || fallback` for single fields
+ * and `cleanList([...])` for arrays, both of which already treat an empty
+ * string as absent, so blanking here is enough -- no caller needs to change.
+ * Call this once, immediately after JSON.parse() on the raw model response,
+ * before any buildXxx() mapper reads a single field from it.
+ */
+export function sanitizeCognitionOutput<T>(raw: T, path = "cognition"): T {
+  if (typeof raw === "string") {
+    const result = validateCaseStrengthLanguage(raw);
+    if (result.valid) return raw;
+    console.error(`[caseStrengthLanguageValidator] blanked ${path} (matched term "${result.matchedTerm}"): ${raw}`);
+    return "" as unknown as T;
+  }
+
+  if (Array.isArray(raw)) {
+    return raw.map((item, index) => sanitizeCognitionOutput(item, `${path}[${index}]`)) as unknown as T;
+  }
+
+  if (raw && typeof raw === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(raw as Record<string, unknown>)) {
+      out[key] = sanitizeCognitionOutput(value, `${path}.${key}`);
+    }
+    return out as T;
+  }
+
+  return raw;
 }

@@ -22,8 +22,6 @@ export type LegalReasoningProfile = {
   contradictionChecks: string[];
   credibilityChecks: string[];
   proceduralWatchPoints: string[];
-  judicialConcerns: string[];
-  opposingArguments: string[];
   userMistakesToPrevent: string[];
   firstQuestions: string[];
 };
@@ -79,21 +77,6 @@ export const LEGAL_REASONING_PROFILES: LegalReasoningProfile[] = [
       "Screen limitation timing.",
       "Confirm proper court path and remedy.",
       "Check whether the publication setting creates privilege or procedural barriers.",
-    ],
-    judicialConcerns: [
-      "Can the exact statement be proven?",
-      "Was it actually communicated to a third party?",
-      "Was it about the user?",
-      "Is there evidence of harm?",
-      "Are recognized defences likely to be raised?",
-    ],
-    opposingArguments: [
-      "The statement was true.",
-      "The statement was opinion.",
-      "The statement was privileged.",
-      "There was no publication.",
-      "The statement did not identify the user.",
-      "There is no proven harm.",
     ],
     userMistakesToPrevent: [
       "Do not summarize the statement when exact wording is available.",
@@ -154,18 +137,6 @@ export const LEGAL_REASONING_PROFILES: LegalReasoningProfile[] = [
       "Confirm limitation timing.",
       "Confirm whether Small Claims is appropriate.",
     ],
-    judicialConcerns: [
-      "Was there a clear agreement?",
-      "Can the terms be proven?",
-      "Is the amount claimed supported?",
-    ],
-    opposingArguments: [
-      "No agreement existed.",
-      "The terms were different.",
-      "The user did not perform.",
-      "Payment was made.",
-      "The damages are unsupported.",
-    ],
     userMistakesToPrevent: [
       "Do not rely only on memory if messages or invoices exist.",
       "Do not mix unrelated amounts together.",
@@ -220,17 +191,6 @@ export const LEGAL_REASONING_PROFILES: LegalReasoningProfile[] = [
       "Confirm limitation timing.",
       "Confirm defendant identity.",
     ],
-    judicialConcerns: [
-      "Can causation be proven?",
-      "Is the repair cost reasonable?",
-      "Is there objective evidence?",
-    ],
-    opposingArguments: [
-      "They did not cause the damage.",
-      "The damage already existed.",
-      "The repair cost is excessive.",
-      "There is no proof of loss.",
-    ],
     userMistakesToPrevent: [
       "Do not assume causation without proof.",
       "Do not claim repair costs without estimates or invoices.",
@@ -284,17 +244,6 @@ export const LEGAL_REASONING_PROFILES: LegalReasoningProfile[] = [
       "Confirm existing order.",
       "Confirm conference/motion/trial status.",
       "Confirm required disclosure.",
-    ],
-    judicialConcerns: [
-      "How does the request help the child?",
-      "What is the current status quo?",
-      "Is there evidence for safety/support allegations?",
-    ],
-    opposingArguments: [
-      "Status quo should continue.",
-      "No material change.",
-      "Request is not child-focused.",
-      "Evidence is incomplete.",
     ],
     userMistakesToPrevent: [
       "Do not focus only on adult conflict.",
@@ -358,21 +307,6 @@ export const LEGAL_REASONING_PROFILES: LegalReasoningProfile[] = [
       "Jurisdiction",
       "Collateral attack",
       "Proper defendant naming",
-    ],
-    judicialConcerns: [
-      "Is the claim legally actionable?",
-      "Is the procedure correct?",
-      "Is there causation?",
-      "Is the record complete?",
-    ],
-    opposingArguments: [
-      "Immunity.",
-      "Protected discretion.",
-      "No duty of care.",
-      "No causation.",
-      "Wrong forum.",
-      "Collateral attack.",
-      "Limitation or notice failure.",
     ],
     userMistakesToPrevent: [
       "Do not sue everyone without separating roles.",

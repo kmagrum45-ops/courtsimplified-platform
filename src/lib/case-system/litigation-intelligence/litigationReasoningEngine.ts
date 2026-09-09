@@ -49,8 +49,6 @@ export type LitigationReasoningInput = {
       weakestElements?: string[];
       strongestElements?: string[];
       missingEvidence?: string[];
-      judgeConcerns?: string[];
-      opposingArguments?: string[];
       nextActions?: string[];
     }>;
     globalWeaknesses?: string[];
@@ -113,8 +111,6 @@ export type LitigationReasoningResult = {
 
   strongestCasePoints: string[];
   weakestCasePoints: string[];
-  judicialConcerns: string[];
-  opposingArguments: string[];
   missingWork: string[];
 
   findings: LitigationReasoningFinding[];
@@ -570,19 +566,6 @@ export function buildLitigationReasoning(
       .map((finding) => finding.title),
   ]);
 
-  const judicialConcerns = uniqueStrings([
-    ...(input.proofAnalysis?.claimProofMaps || []).flatMap(
-      (map) => map.judgeConcerns || [],
-    ),
-    ...findings.map((finding) => finding.whyItMatters),
-  ]);
-
-  const opposingArguments = uniqueStrings([
-    ...(input.proofAnalysis?.claimProofMaps || []).flatMap(
-      (map) => map.opposingArguments || [],
-    ),
-  ]);
-
   const missingWork = uniqueStrings([
     ...(input.proofAnalysis?.globalWeaknesses || []),
     ...(input.proofAnalysis?.claimProofMaps || []).flatMap(
@@ -615,8 +598,6 @@ export function buildLitigationReasoning(
 
     strongestCasePoints,
     weakestCasePoints,
-    judicialConcerns,
-    opposingArguments,
     missingWork,
 
     findings,

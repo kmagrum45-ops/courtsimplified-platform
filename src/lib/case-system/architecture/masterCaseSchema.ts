@@ -625,8 +625,6 @@ export type CaseContradictionFinding = {
   explanation: string;
   whyItMatters: string;
   possibleResolutions: string[];
-  judicialConcern: string;
-  litigationRisk: string;
   requiresHumanReview: boolean;
 };
 
@@ -653,8 +651,6 @@ export type CaseCredibilityRiskFinding = {
   title: string;
   explanation: string;
   linkedContradictionIds: string[];
-  judgeConcern: string;
-  opposingCounselUse: string;
   recommendedFix: string;
 };
 

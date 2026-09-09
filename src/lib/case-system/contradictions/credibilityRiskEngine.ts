@@ -32,8 +32,6 @@ export type CredibilityRiskFinding = {
   title: string;
   explanation: string;
   linkedContradictionIds: string[];
-  judgeConcern: string;
-  opposingCounselUse: string;
   recommendedFix: string;
 };
 
@@ -194,54 +192,6 @@ function buildCategoryExplanation(
   return `${count} issue(s) may affect courtroom presentation and judicial confidence.`;
 }
 
-function judgeConcernForCategory(category: CredibilityRiskCategory): string {
-  if (category === "internal-inconsistency") {
-    return "A judge may question whether the user's account is internally reliable.";
-  }
-
-  if (category === "timeline-reliability") {
-    return "A judge may question whether the chronology is accurate enough to support the requested relief.";
-  }
-
-  if (category === "evidence-support") {
-    return "A judge may question whether the evidence actually supports the allegations.";
-  }
-
-  if (category === "damages-reliability") {
-    return "A judge may question whether the amount claimed is proven and reasonable.";
-  }
-
-  if (category === "claim-reliability") {
-    return "A judge may question whether the legal claim matches the facts and evidence.";
-  }
-
-  return "A judge may need the record organized more clearly before relying on it.";
-}
-
-function opposingUseForCategory(category: CredibilityRiskCategory): string {
-  if (category === "internal-inconsistency") {
-    return "Opposing counsel may use inconsistent statements to attack credibility.";
-  }
-
-  if (category === "timeline-reliability") {
-    return "Opposing counsel may use date or sequence issues to challenge limitation, causation, or reliability.";
-  }
-
-  if (category === "evidence-support") {
-    return "Opposing counsel may argue the allegations are unsupported or disconnected from the evidence.";
-  }
-
-  if (category === "damages-reliability") {
-    return "Opposing counsel may argue the damages are inflated, inconsistent, or unproven.";
-  }
-
-  if (category === "claim-reliability") {
-    return "Opposing counsel may argue the claim theory is unsupported or legally misframed.";
-  }
-
-  return "Opposing counsel may argue the case presentation is unclear or unreliable.";
-}
-
 function recommendedFixForCategory(category: CredibilityRiskCategory): string {
   if (category === "internal-inconsistency") {
     return "Clarify inconsistent statements, add context, and revise unsupported wording before document generation.";
@@ -283,8 +233,6 @@ function buildFindings(
       title: buildCategoryTitle(category),
       explanation: buildCategoryExplanation(category, groupedFindings),
       linkedContradictionIds: groupedFindings.map((finding) => finding.id),
-      judgeConcern: judgeConcernForCategory(category),
-      opposingCounselUse: opposingUseForCategory(category),
       recommendedFix: recommendedFixForCategory(category),
     });
   }

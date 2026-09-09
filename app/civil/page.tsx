@@ -41,8 +41,8 @@ const civilWorkflow = [
     text: "Every major allegation should be linked to screenshots, photos, contracts, reports, medical records, emails, text messages, official records, or witness information.",
   },
   {
-    title: "Test risk and defence arguments",
-    text: "The system should identify limitation risks, causation weaknesses, damages issues, credibility concerns, missing proof, and the strongest arguments the other side may raise.",
+    title: "Identify litigation risks",
+    text: "The system should identify limitation risks, causation weaknesses, damages issues, credibility concerns, and missing proof.",
   },
   {
     title: "Generate litigation outputs",
@@ -269,7 +269,7 @@ export default function CivilPage() {
             A strong civil workflow separates facts from conclusions, connects
             each issue to evidence, flags weak proof, identifies missing records,
             tests causation, organizes damages, and prepares the user for
-            procedural steps and opposing arguments.
+            the procedural steps ahead.
           </p>
         </div>
       </section>

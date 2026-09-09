@@ -45,8 +45,6 @@ export type CoordinatedReasoningPackage = {
     evidencePriorities: string[];
     burdenPriorities: string[];
     proceduralWatchPoints: string[];
-    judicialConcerns: string[];
-    opposingArguments: string[];
     firstQuestions: string[];
   };
 };
@@ -105,12 +103,6 @@ export function buildLegalReasoningCoordinator(
       ),
       proceduralWatchPoints: unique(
         profiles.flatMap((profile) => profile.proceduralWatchPoints),
-      ),
-      judicialConcerns: unique(
-        profiles.flatMap((profile) => profile.judicialConcerns),
-      ),
-      opposingArguments: unique(
-        profiles.flatMap((profile) => profile.opposingArguments),
       ),
       firstQuestions: unique(
         profiles.flatMap((profile) => profile.firstQuestions),

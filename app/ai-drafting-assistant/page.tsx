@@ -70,11 +70,6 @@ const ASSISTANT_MODE_OPTIONS: AssistantModeOption[] = [
     description: "Find weak wording, missing proof, or unclear claims.",
   },
   {
-    value: "prepare-opposing-arguments",
-    label: "Prepare opposing arguments",
-    description: "Check how the other side may attack this section.",
-  },
-  {
     value: "court-tone-review",
     label: "Court tone review",
     description:

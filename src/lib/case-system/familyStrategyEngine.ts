@@ -261,14 +261,6 @@ export function analyzeFamilyStrategy(
       "Form 8 - Application",
       "Form 35.1 - Parenting Affidavit",
     );
-
-    likelyJudgeConcerns.push(
-      "A judge will want a practical and child-focused parenting schedule.",
-    );
-
-    likelyOtherSideArguments.push(
-      "The other parent may argue the current routine should not change.",
-    );
   }
 
   if (supportIssue) {
@@ -289,10 +281,6 @@ export function analyzeFamilyStrategy(
     );
 
     recommendedForms.push("Form 13 - Financial Statement");
-
-    likelyJudgeConcerns.push(
-      "Incomplete disclosure may damage credibility and delay the case.",
-    );
   }
 
   if (safetyIssue) {
@@ -320,20 +308,12 @@ export function analyzeFamilyStrategy(
       "Form 14 - Notice of Motion",
       "Form 14A - Affidavit",
     );
-
-    likelyJudgeConcerns.push(
-      "Broad accusations without dates, evidence, or incidents may weaken credibility.",
-    );
   }
 
   if (relocationIssue) {
     detectedFamilyIssues.push("Possible relocation issue detected.");
     detectedClaimTypes.push("mobility-relocation");
     detectedParentingIssues.push("mobility-relocation");
-
-    likelyJudgeConcerns.push(
-      "The court will want a detailed relocation plan and revised parenting proposal.",
-    );
 
     recommendedEvidence.push(
       "School information, transportation plans, housing plans, employment reasons, and support network information.",

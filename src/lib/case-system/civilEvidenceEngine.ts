@@ -60,7 +60,6 @@ export type CivilEvidenceResult = {
   contradictionConcerns: CivilEvidenceConcern[];
   credibilityConcerns: CivilEvidenceConcern[];
   authenticationConcerns: CivilEvidenceConcern[];
-  judicialConcerns: CivilEvidenceConcern[];
   strategicAdvantages: string[];
   strategicWeaknesses: string[];
   evidenceProfile: CivilEvidenceProfile;
@@ -242,7 +241,6 @@ export function runCivilEvidenceEngine(
   const contradictionConcerns: CivilEvidenceConcern[] = [];
   const credibilityConcerns: CivilEvidenceConcern[] = [];
   const authenticationConcerns: CivilEvidenceConcern[] = [];
-  const judicialConcerns: CivilEvidenceConcern[] = [];
 
   const text = normalize(
     [
@@ -264,14 +262,6 @@ export function runCivilEvidenceEngine(
       title: "Digital evidence authentication review",
       explanation: "Digital evidence should show dates, sender, recipient, and context.",
       severity: "medium",
-    });
-  }
-
-  if (missingEvidence.length > 0) {
-    judicialConcerns.push({
-      title: "Proof gaps may affect viability",
-      explanation: "The court may question whether the evidence proves all required elements.",
-      severity: "high",
     });
   }
 
@@ -306,7 +296,6 @@ export function runCivilEvidenceEngine(
     contradictionConcerns,
     credibilityConcerns,
     authenticationConcerns,
-    judicialConcerns,
     strategicAdvantages,
     strategicWeaknesses,
     evidenceProfile,

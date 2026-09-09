@@ -47,7 +47,7 @@ import {
 
 import { getDoctrineSeedLibrary } from "../knowledge/doctrineSeedLibrary";
 import { buildProductionReadyLegalKnowledge } from "../authority-intelligence/authorityRetrievalEngine";
-import { sanitizeSummaryText } from "./caseStrengthLanguageValidator";
+import { sanitizeCognitionOutput, sanitizeSummaryText, sanitizeTextArray, validateCaseStrengthLanguage } from "./caseStrengthLanguageValidator";
 
 type GptCognitionClaim = {
   claimType?: string;
@@ -1008,14 +1008,22 @@ function buildEvidenceIssueLinks(args: {
   }));
 }
 
+function buildRiskExplanation(rawExplanation: unknown): string {
+  const explanation = clean(rawExplanation);
+  const fallback = "This risk requires review before relying on final materials.";
+  if (!explanation) return fallback;
+  const result = validateCaseStrengthLanguage(explanation);
+  if (result.valid) return explanation;
+  console.error(`[caseStrengthLanguageValidator] rejected litigationRisk.explanation (matched term "${result.matchedTerm}"): ${explanation}`);
+  return fallback;
+}
+
 function buildRisks(cognition: GptCognitionOutput | null): LitigationRisk[] {
   return safeArray(cognition?.litigationRisks).map((risk) => ({
     id: createId("risk"),
     severity: asSeverity(risk.severity),
     title: clean(risk.title) || "Litigation risk",
-    explanation:
-      clean(risk.explanation) ||
-      "This risk requires review before relying on final materials.",
+    explanation: buildRiskExplanation(risk.explanation),
     claimType: risk.claimType ? asDomain(risk.claimType) : undefined,
     source:
       risk.source === "facts" ||
@@ -1301,7 +1309,7 @@ function buildProofDrivenNextActions(args: {
   return cleanList([
     ...args.elementProofAnalysis.globalNextActions,
     ...args.elementProofAnalysis.globalWeaknesses.map(
-      (weakness) => `Address proof weakness: ${weakness}.`,
+      (item) => `Add proof for: ${item}.`,
     ),
   ]);
 }
@@ -1377,7 +1385,7 @@ function buildSupplementalRisks(args: {
       severity: "high",
       title: "Third-party act causation risk",
       explanation:
-        "Where harm was directly caused by another person’s wrongful act, public-authority or institutional defendants may argue causation is not proven.",
+        "Where harm was directly caused by another person's wrongful act, causation against a public-authority or institutional defendant must still be established.",
       claimType: "negligence",
       source: "strategy",
       suggestedFix:
@@ -1893,7 +1901,7 @@ async function runStructuredGptCognition(
     const content = response.choices[0]?.message?.content;
     if (!content) return null;
 
-    return JSON.parse(content) as GptCognitionOutput;
+    return sanitizeCognitionOutput(JSON.parse(content) as GptCognitionOutput);
   } catch (error) {
     console.error("CourtSimplified GPT cognition failed.", {
       errorName: error instanceof Error ? error.name : "UnknownError",
@@ -2296,9 +2304,9 @@ export async function runCourtSimplifiedBrain(
       "structuredCaseSummary",
     ),
 
-    nextBestActions,
+    nextBestActions: sanitizeTextArray(nextBestActions, "nextBestActions"),
 
-    systemWarnings: cleanList([
+    systemWarnings: sanitizeTextArray(cleanList([
       ...safeArray(gptCognition.systemWarnings),
       ...proceduralPosture.warnings,
       ...contradictions.map((item) => item.title),
@@ -2339,7 +2347,7 @@ export async function runCourtSimplifiedBrain(
             "This case asks for an injunction (an order requiring someone to do something or stop doing something). That kind of order is generally available in Superior Court but not in Small Claims Court.",
           ]
         : []),
-    ]),
+    ]), "systemWarnings"),
 
     cognitionMode,
     confidence: asConfidence(gptCognition.confidence),

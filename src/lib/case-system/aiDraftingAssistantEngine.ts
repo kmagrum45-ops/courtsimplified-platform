@@ -12,7 +12,6 @@ export type DraftingAssistantAction =
   | "organize-chronology"
   | "strengthen-evidence-links"
   | "identify-weaknesses"
-  | "prepare-opposing-arguments"
   | "court-tone-review"
   | "custom";
 
@@ -280,31 +279,6 @@ function identifyWeaknesses(section: WorkspaceSection) {
   };
 }
 
-function prepareOpposingArguments(section: WorkspaceSection) {
-  const points = [
-    "The opposing side may argue that this section is incomplete if dates, sources, or exhibit links are missing.",
-    "The opposing side may challenge reliability if the evidence is a screenshot, message, or second-hand statement without context.",
-    "The opposing side may argue the section is argument rather than evidence if it contains conclusions without supporting facts.",
-  ];
-
-  if (section.exhibitLabels.length === 0) {
-    points.push(
-      "A likely attack is that this section is unsupported because no exhibit is linked."
-    );
-  }
-
-  if (section.warnings.length > 0) {
-    points.push(...section.warnings.map((warning) => `Known warning: ${warning}`));
-  }
-
-  return {
-    proposedParagraphs: [
-      `Possible opposing arguments for "${section.heading}" are listed below so the user can strengthen the draft before final use.`,
-    ],
-    proposedBulletPoints: cleanList(points),
-  };
-}
-
 function courtToneReview(section: WorkspaceSection) {
   const text = sectionText(section);
 
@@ -373,11 +347,9 @@ function buildSuggestionForSection(
                   ? strengthenEvidenceLinks(section)
                   : action === "identify-weaknesses"
                     ? identifyWeaknesses(section)
-                    : action === "prepare-opposing-arguments"
-                      ? prepareOpposingArguments(section)
-                      : action === "court-tone-review"
-                        ? courtToneReview(section)
-                        : customSuggestion(section, customInstruction);
+                    : action === "court-tone-review"
+                      ? courtToneReview(section)
+                      : customSuggestion(section, customInstruction);
 
   const warnings = cleanList([
     ...section.warnings,

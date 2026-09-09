@@ -74,10 +74,6 @@ export type ContradictionFinding = {
 
   possibleResolutions: string[];
 
-  judicialConcern: string;
-
-  litigationRisk: string;
-
   requiresHumanReview: boolean;
 };
 

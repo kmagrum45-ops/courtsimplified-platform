@@ -42,8 +42,6 @@ export type CivilNarrativeResult = {
   remedyDraft: string[];
   toneWarnings: string[];
   unsupportedAssertions: string[];
-  judgeFacingConcerns: string[];
-  defenceVulnerabilities: string[];
   draftingNextSteps: string[];
   summary: string;
 };
@@ -199,41 +197,6 @@ function buildUnsupportedAssertions(input: CivilNarrativeInput): string[] {
   ]);
 }
 
-function buildDefenceVulnerabilities(
-  input: CivilNarrativeInput,
-  types: CivilCaseType[],
-): string[] {
-  return cleanList([
-    ...(input.workflow?.narrativeProfile.defenceVulnerabilities || []),
-    types.includes("defamation")
-      ? "Defence may argue truth, opinion, privilege, no publication, no identification, or no damages."
-      : "",
-    types.includes("negligence")
-      ? "Defence may argue no duty, reasonable care, no causation, contributory fault, mitigation, or no damages."
-      : "",
-    types.includes("breach-of-contract")
-      ? "Defence may argue no contract, different terms, performance, waiver, limitation, or failure to prove loss."
-      : "",
-    types.includes("charter") || types.includes("misfeasance")
-      ? "Public-authority defendants may raise immunity, statutory authority, no causation, no available remedy, or threshold objections."
-      : "",
-  ]);
-}
-
-function buildJudgeConcerns(
-  input: CivilNarrativeInput,
-  unsupported: string[],
-): string[] {
-  return cleanList([
-    ...(input.workflow?.narrativeProfile.judicialConcerns || []),
-    ...(input.evidence?.judicialConcerns.map((concern) => concern.title) || []),
-    unsupported.length > 0
-      ? "The judge may be concerned about allegations that are not linked to evidence."
-      : "",
-    "The judge will look for clear facts, legal theory, causation, damages, remedy, and procedural fit.",
-  ]);
-}
-
 function makeSection(params: CivilNarrativeSection): CivilNarrativeSection {
   return {
     ...params,
@@ -315,8 +278,9 @@ export function runCivilNarrativeEngine(
 
   const toneWarnings = buildToneWarnings(input);
   const unsupportedAssertions = buildUnsupportedAssertions(input);
-  const defenceVulnerabilities = buildDefenceVulnerabilities(input, types);
-  const judgeFacingConcerns = buildJudgeConcerns(input, unsupportedAssertions);
+  // Never generated: predicting defence arguments or judge reactions is a
+  // CLAUDE.md section 3 violation, not a data gap.
+  const defenceVulnerabilities: string[] = [];
 
   const sections = buildSections({
     chronologyDraft,
@@ -362,7 +326,7 @@ export function runCivilNarrativeEngine(
     causationSummary: causationDraft,
     damagesSummary: damagesDraft,
 
-    judicialConcerns: judgeFacingConcerns,
+    judicialConcerns: [],
     defenceVulnerabilities,
 
     toneWarnings,
@@ -381,8 +345,6 @@ export function runCivilNarrativeEngine(
     remedyDraft,
     toneWarnings,
     unsupportedAssertions,
-    judgeFacingConcerns,
-    defenceVulnerabilities,
     draftingNextSteps,
     summary: cleanList([
       "Civil narrative engine completed.",

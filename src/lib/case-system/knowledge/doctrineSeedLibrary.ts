@@ -351,7 +351,7 @@ export const DOCTRINE_SEED_LIBRARY: LegalKnowledgeObject[] = [
     systemWarnings: ["Operational guidance only. Not a prediction about any specific judge."],
     concernCategory: "evidence",
     concern:
-      "The court may struggle to assess the case if facts, evidence, dates, and relief are not clearly organized.",
+      "Facts, evidence, dates, and relief that are not clearly organized are harder to assess.",
     whyCourtMayCare:
       "Courts need concrete facts, proof, and procedural clarity to understand what is being requested and why.",
     howToAddress: [
@@ -431,7 +431,7 @@ export const DOCTRINE_SEED_LIBRARY: LegalKnowledgeObject[] = [
     ],
     concernCategory: "limitation",
     concern:
-      "The court may question whether the claim, motion, appeal, notice, or procedural step is out of time.",
+      "Whether the claim, motion, appeal, notice, or procedural step is within time needs to be confirmed.",
     whyCourtMayCare:
       "Limitation, discoverability, delay, and notice issues can stop or narrow a case before the facts are fully heard.",
     howToAddress: [

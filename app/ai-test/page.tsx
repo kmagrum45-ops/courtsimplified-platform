@@ -270,8 +270,7 @@ export default function AITestPage() {
               <div className="mt-4 space-y-3 text-sm leading-6 text-slate-700">
                 <p>
                   Test whether the AI identifies the user’s goal, procedural
-                  stage, missing proof, likely risks, judge concerns, opposing
-                  arguments, and next best step.
+                  stage, missing proof, likely risks, and next best step.
                 </p>
                 <p>
                   The AI should guide the user without exposing rejected internal

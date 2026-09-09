@@ -43,8 +43,6 @@ export type InvestigationCategory =
   | "contradiction"
   | "damages"
   | "remedy"
-  | "judge-concern"
-  | "opponent-argument"
   | "next-question"
   | "unknown";
 
@@ -128,8 +126,6 @@ export type CaseInvestigationResult = {
   strengths: string[];
   weaknesses: string[];
   missingInformation: string[];
-  judgeConcerns: string[];
-  possibleOpponentArguments: string[];
   nextInvestigativeActions: string[];
 
   masterInvestigationPatch: {
@@ -432,7 +428,7 @@ function buildFindings(args: {
         explanation:
           "The investigation is now using the Legal Reasoning Coordinator instead of relying only on local investigation heuristics.",
         whyItMatters:
-          "This allows issue profiles, knowledge objects, authority warnings, burden priorities, evidence priorities, procedural watch points, judicial concerns, and opposing arguments to influence the investigation in one coordinated flow.",
+          "This allows issue profiles, knowledge objects, authority warnings, burden priorities, evidence priorities, and procedural watch points to influence the investigation in one coordinated flow.",
         suggestedAction:
           "Use the coordinated reasoning priorities to guide the next questions, evidence requests, and court-readiness review.",
         linkedEvidence: args.legalReasoning.reasoningSummary.evidencePriorities,
@@ -601,46 +597,6 @@ function buildWeaknesses(args: {
   ]);
 }
 
-function buildJudgeConcerns(args: {
-  issues: InvestigatedIssue[];
-  timeline: InvestigationTimelineItem[];
-  evidenceNeeded: InvestigationEvidenceNeed[];
-  legalReasoning?: CoordinatedReasoningPackage;
-}): string[] {
-  return uniqueStrings([
-    ...(args.legalReasoning?.reasoningSummary.judicialConcerns || []),
-    ...(args.timeline.length === 0
-      ? ["The judge may ask when the key events happened."]
-      : []),
-    ...(args.evidenceNeeded.length > 0
-      ? ["The judge may ask what evidence supports the user's allegations."]
-      : []),
-    ...args.issues
-      .filter((issue) => issue.needsLegalVerification)
-      .map(
-        (issue) =>
-          `The judge may need a legally verified basis for the issue: ${issue.label}.`,
-      ),
-  ]);
-}
-
-function buildOpponentArguments(args: {
-  issues: InvestigatedIssue[];
-  evidenceNeeded: InvestigationEvidenceNeed[];
-  legalReasoning?: CoordinatedReasoningPackage;
-}): string[] {
-  return uniqueStrings([
-    ...(args.legalReasoning?.reasoningSummary.opposingArguments || []),
-    ...(args.evidenceNeeded.length > 0
-      ? ["The other side may argue the user's allegations are unsupported by reliable evidence."]
-      : []),
-    ...args.issues.map(
-      (issue) =>
-        `The other side may argue that ${issue.label.toLowerCase()} does not apply unless the missing facts and proof are established.`,
-    ),
-  ]).slice(0, 15);
-}
-
 function buildNextActions(args: {
   findings: InvestigationFinding[];
   evidenceNeeded: InvestigationEvidenceNeed[];
@@ -699,19 +655,6 @@ export function buildCaseInvestigation(
     legalReasoning,
   });
 
-  const judgeConcerns = buildJudgeConcerns({
-    issues,
-    timeline,
-    evidenceNeeded,
-    legalReasoning,
-  });
-
-  const possibleOpponentArguments = buildOpponentArguments({
-    issues,
-    evidenceNeeded,
-    legalReasoning,
-  });
-
   const nextInvestigativeActions = buildNextActions({
     findings,
     evidenceNeeded,
@@ -763,8 +706,6 @@ export function buildCaseInvestigation(
     strengths,
     weaknesses,
     missingInformation: intelligence.missingInformation,
-    judgeConcerns,
-    possibleOpponentArguments,
     nextInvestigativeActions,
 
     masterInvestigationPatch: {
