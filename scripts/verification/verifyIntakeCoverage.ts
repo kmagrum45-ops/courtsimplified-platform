@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import { existsSync } from "node:fs";
+import path from "node:path";
 
 import { baseScenarios } from "./scenarioRegistry";
 import {
@@ -17,6 +19,29 @@ import { CLAIM_TYPES, DEFENCE_CONCEPTS } from "../../src/lib/case-system/intake/
 // to follow the same shape, not the same type.
 type TopicLike = Pick<EducationTopic | RemedyTopic, "id" | "surfacedWhen" | "citations" | "status">;
 
+/**
+ * CLAUDE.md section 2's full acceptable-sources list: ontario.ca,
+ * ontariocourts.ca, ontariocourtforms.on.ca, CanLII (canlii.org), the
+ * Courts of Justice Act, the Rules of the Small Claims Court (O. Reg.
+ * 258/98), Justice Ontario, and Law Society of Ontario public materials.
+ *
+ * The Courts of Justice Act and O. Reg. 258/98 are both published on
+ * ontario.ca's e-Laws system (already covered below -- see the
+ * "ontario.ca/laws/..." URLs throughout claimTypes.ts, e.g.
+ * "https://www.ontario.ca/laws/docs/90o02_eV006.doc") -- they don't need
+ * their own domain entry.
+ *
+ * Justice Ontario does NOT get its own domain entry here. Checked before
+ * adding it: the one distinct domain found for it
+ * (attorneygeneral.jus.gov.on.ca/english/justice-ont/) has an EXPIRED TLS
+ * certificate as of this check (2026-09) -- not a currently resolvable
+ * source, so adding it would let something through that doesn't actually
+ * meet the "real, verifiable source" bar. No other live, distinct domain
+ * was found for it; Ontario's public-facing legal-help content has
+ * generally consolidated under ontario.ca, which is already covered. If a
+ * future session finds Justice Ontario live at its own current domain,
+ * add it here with that evidence.
+ */
 const ALLOWED_SOURCE_DOMAINS = [
   "https://www.ontario.ca/",
   "https://ontario.ca/",
@@ -24,10 +49,45 @@ const ALLOWED_SOURCE_DOMAINS = [
   "https://ontariocourts.ca/",
   "https://www.ontariocourtforms.on.ca/",
   "https://ontariocourtforms.on.ca/",
+  "https://www.canlii.org/",
+  "https://canlii.org/",
+  "https://www.lso.ca/",
+  "https://lso.ca/",
 ];
+
+// Shared error-message fragment so the three "no resolvable source" checks
+// below don't each carry their own copy of the domain list to fall out of
+// sync -- update ALLOWED_SOURCE_DOMAINS and this string together.
+const RESOLVABLE_SOURCE_HINT =
+  "ontario.ca, ontariocourts.ca, ontariocourtforms.on.ca, canlii.org, or lso.ca, " +
+  "or a file under docs/sources/ (see that folder's README)";
+
+// CLAUDE.md section 2: a primary source saved locally under docs/sources/
+// is a first-class citation route, for sources (CanLII, the SCC's own
+// site) that block automated fetching -- reading it from disk satisfies
+// "retrieved and read" the same way a live fetch does, provided
+// docs/sources/README.md records where and when it came from. A local
+// file has no URL to check the resolvability of, so "resolvable" for one
+// means something different in kind, not just in degree: the file
+// actually exists on disk, checked here the same deterministic way as
+// everything else in this script -- not a live network fetch (this
+// script has never made one), and not an assumption that a path ending
+// in ".pdf" is good enough. citation.officialUrl carries the repo-
+// relative path (e.g. "docs/sources/mustapha-v-culligan-2008-SCC-27.pdf")
+// exactly as it would appear in docs/sources/README.md's own entry; this
+// check does not separately verify the README entry exists -- that's a
+// content-review step, not something this script can check structurally
+// the way it checks id references elsewhere.
+const LOCAL_SOURCE_PREFIX = "docs/sources/";
+const REPO_ROOT = path.resolve(__dirname, "..", "..");
 
 function isResolvableSourceUrl(value: string | undefined): boolean {
   if (!value) return false;
+
+  if (value.startsWith(LOCAL_SOURCE_PREFIX)) {
+    return existsSync(path.resolve(REPO_ROOT, value));
+  }
+
   try {
     const url = new URL(value);
     if (url.protocol !== "https:") return false;
@@ -120,7 +180,7 @@ function main() {
     if (statesLegalFact && !isResolvableSourceUrl(question.sourceUrl)) {
       missingSources.push(
         `question "${question.id}" is status "${question.status}" with a \`why\` but no resolvable ` +
-          `sourceUrl from ontario.ca, ontariocourts.ca, or ontariocourtforms.on.ca`,
+          `sourceUrl from ${RESOLVABLE_SOURCE_HINT}`,
       );
     }
   }
@@ -130,7 +190,7 @@ function main() {
     if (!hasResolvableCitation) {
       missingSources.push(
         `topic "${topic.id}" is status "${topic.status}" but has no citation with a resolvable ` +
-          `officialUrl from ontario.ca, ontariocourts.ca, or ontariocourtforms.on.ca`,
+          `officialUrl from ${RESOLVABLE_SOURCE_HINT}`,
       );
     }
   }
@@ -149,7 +209,7 @@ function main() {
     if (!isResolvableSourceUrl(concept.sourceUrl)) {
       missingSources.push(
         `defence concept "${concept.id}" is status "${concept.status}" but has no resolvable ` +
-          `sourceUrl from ontario.ca, ontariocourts.ca, or ontariocourtforms.on.ca`,
+          `sourceUrl from ${RESOLVABLE_SOURCE_HINT}`,
       );
     }
   }
