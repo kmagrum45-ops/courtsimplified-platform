@@ -406,17 +406,6 @@ function buildCivilAnalysisFromMaster(
     ...masterCase.damagesProfile.damagesProofMissing,
   ]);
 
-  const defenceAttacks = cleanList([
-    ...masterResult.strategy.likelyDefenceArguments,
-    ...masterCase.narrativeProfile.defenceVulnerabilities,
-  ]);
-
-  const judgeConcerns = cleanList([
-    ...masterResult.strategy.likelyJudgeConcerns,
-    ...masterCase.narrativeProfile.judicialConcerns,
-    ...masterCase.readiness.blockers,
-  ]);
-
   const suggestedFocus = cleanList([
     ...masterResult.dashboardSummary.immediateNextSteps,
     ...masterResult.strategy.tacticalNextMoves,
@@ -465,14 +454,6 @@ function buildCivilAnalysisFromMaster(
     risksAndGaps.slice(0, 10).map((item) => `- ${item}`).join("\n") ||
       "- No major risks detected",
     "",
-    "Likely defence attacks:",
-    defenceAttacks.slice(0, 10).map((item) => `- ${item}`).join("\n") ||
-      "- No defence attacks generated",
-    "",
-    "Judge concerns:",
-    judgeConcerns.slice(0, 10).map((item) => `- ${item}`).join("\n") ||
-      "- No judge concerns generated",
-    "",
     "Recommended next documents / packages:",
     requiredNextForms.slice(0, 10).map((item) => `- ${item}`).join("\n") ||
       "- No form recommendations generated",
@@ -503,8 +484,6 @@ function buildCivilAnalysisFromMaster(
     summary,
     proceduralRisks,
     damagesIssues,
-    defenceAttacks,
-    judgeConcerns,
     suggestedFocus,
     documentUploadRequests,
     nextBestActions: generatedQuestions,

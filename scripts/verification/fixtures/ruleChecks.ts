@@ -47,15 +47,13 @@ function collectOutputTexts(a: AnalysisResult): FieldTextEntry[] {
   addAll("detectedIssues", a.detectedIssues);
   addAll("missingInformation", a.missingInformation);
   addAll("missingEvidence", a.missingEvidence);
-  addAll("evidenceWeaknesses", a.evidenceWeaknesses);
   addAll("risksAndGaps", a.risksAndGaps);
   addAll("userWarnings", a.userWarnings);
   addAll("intelligenceWarnings", a.intelligenceWarnings);
-  addAll("judgeConcerns", a.judgeConcerns);
-  addAll("courtConcerns", a.courtConcerns);
   addAll("proceduralRisks", a.proceduralRisks);
   addAll("nextBestActions", a.nextBestActions);
   if (a.intelligenceSummary) entries.push({ field: "intelligenceSummary", text: a.intelligenceSummary });
+  if (a.structuredIntelligenceSummary) entries.push({ field: "structuredIntelligenceSummary", text: a.structuredIntelligenceSummary });
   return entries;
 }
 
@@ -99,7 +97,7 @@ function overlapCount(a: Set<string>, b: Set<string>): number {
 
 function checkConfirmedEvidenceNotMissing(story: GeneratedStory, entries: FieldTextEntry[]): RuleFailure[] {
   const failures: RuleFailure[] = [];
-  const candidateEntries = entries.filter((e) => e.field === "missingEvidence" || e.field === "evidenceWeaknesses");
+  const candidateEntries = entries.filter((e) => e.field === "missingEvidence");
   for (const confirmed of story.confirmedEvidenceDescriptions) {
     const confirmedKeywords = keywordsOf(confirmed);
     if (confirmedKeywords.size === 0) continue;

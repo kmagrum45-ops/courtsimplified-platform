@@ -573,23 +573,6 @@ export type LitigationRisk = {
   suggestedFix: string;
 };
 
-export type OpposingArgument = {
-  id: string;
-  claimType?: LegalDomain;
-  argument: string;
-  whyItMatters: string;
-  responseStrategy: string;
-  evidenceNeeded: string[];
-};
-
-export type JudgeConcern = {
-  id: string;
-  claimType?: LegalDomain;
-  concern: string;
-  whyJudgeMayCare: string;
-  howToAddress: string;
-};
-
 export type FormRecommendation = {
   id: string;
   formNumber?: string;
@@ -643,8 +626,6 @@ export type ElementProofFinding = {
   supportingEvidenceIds: string[];
   supportingEvidenceTitles: string[];
   missingEvidence: string[];
-  judgeConcern: string;
-  opposingArgument: string;
   nextAction: string;
   explanation: string;
 };
@@ -658,8 +639,6 @@ export type ClaimProofMap = {
   weakestElements: string[];
   strongestElements: string[];
   missingEvidence: string[];
-  judgeConcerns: string[];
-  opposingArguments: string[];
   nextActions: string[];
   elementFindings: ElementProofFinding[];
 };
@@ -699,8 +678,6 @@ export type LegalIntelligenceResult = {
   limitationAssessments: LimitationPeriodAssessment[];
   remedyFitAssessments: RemedyFitAssessment[];
   litigationRisks: LitigationRisk[];
-  opposingArguments: OpposingArgument[];
-  judgeConcerns: JudgeConcern[];
   formRecommendations: FormRecommendation[];
   legalKnowledge: LegalKnowledgePacket;
 

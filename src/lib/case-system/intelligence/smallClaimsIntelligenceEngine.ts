@@ -12,6 +12,7 @@ import {
   isQuestionAlreadyAnswered,
 } from "./answeredQuestions";
 import { runCourtSimplifiedBrain } from "./courtSimplifiedBrain";
+import { sanitizeSummaryText } from "./caseStrengthLanguageValidator";
 
 export type SmallClaimsIssue =
   | "unpaid-money"
@@ -493,8 +494,6 @@ export async function analyzeSmallClaimsWithBrain(
     contradictions: intelligence.contradictions,
     missingInformation: intelligence.missingInformation,
     litigationRisks: intelligence.litigationRisks,
-    opposingArguments: intelligence.opposingArguments,
-    judgeConcerns: intelligence.judgeConcerns,
     formRecommendations: intelligence.formRecommendations,
     plainLanguageSummary: intelligence.plainLanguageSummary,
     structuredCaseSummary: intelligence.structuredCaseSummary,
@@ -555,11 +554,6 @@ export async function analyzeSmallClaimsWithBrain(
 
     detectedClaimTypes: intelligence.primaryClaimTypes,
     missingEvidence: cleanList(intelligencePatch.missingEvidence || []),
-    evidenceWeaknesses: cleanList(intelligencePatch.evidenceWeaknesses || []),
-    opposingArguments: cleanList(intelligencePatch.opposingArguments || []),
-    defenceAttacks: cleanList(intelligencePatch.defenceAttacks || []),
-    judgeConcerns: cleanList(intelligencePatch.judgeConcerns || []),
-    courtConcerns: cleanList(intelligencePatch.courtConcerns || []),
     nextBestActions: cleanList([...defaultStageGuidance, ...(intelligence.nextBestActions || [])]),
     userWarnings: cleanList(intelligence.systemWarnings || []),
     proceduralRisks: cleanList(intelligence.proceduralPosture.warnings || []),
@@ -570,8 +564,8 @@ export async function analyzeSmallClaimsWithBrain(
       : ["Amount claimed or disputed still needs to be entered."],
 
     intelligence: intelligencePatch.intelligence,
-    intelligenceSummary: intelligence.plainLanguageSummary,
-    structuredIntelligenceSummary: intelligence.structuredCaseSummary,
+    intelligenceSummary: sanitizeSummaryText(intelligence.plainLanguageSummary || "", "intelligenceSummary"),
+    structuredIntelligenceSummary: sanitizeSummaryText(intelligence.structuredCaseSummary || "", "structuredIntelligenceSummary"),
     intelligenceWarnings: cleanList(intelligence.systemWarnings),
     intelligenceNextActions: cleanList(intelligence.nextBestActions),
     intelligenceEvidenceIssues: intelligence.evidenceIssueLinks,

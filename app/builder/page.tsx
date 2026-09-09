@@ -1059,7 +1059,7 @@ function BuilderPageContent() {
               caseData={{ courtPath, pathLabel, analysis, intake: caseData, createdMasterCaseId: masterCaseId }}
               masterResult={caseData?.masterResultPatch || existingMasterResult}
               evidenceData={analysis?.intelligenceEvidenceIssues}
-              strategyData={{ risks: analysis?.intelligence?.litigationRisks, judgeConcerns: analysis?.intelligence?.judgeConcerns, opposingArguments: analysis?.intelligence?.opposingArguments, nextBestActions: analysis?.nextBestActions }}
+              strategyData={{ risks: analysis?.intelligence?.litigationRisks, nextBestActions: analysis?.nextBestActions }}
               onMasterResultUpdate={handleChatMasterResultUpdate}
               onDashboardUpdate={handleChatDashboardUpdate}
               onRecommendedRoute={handleRecommendedRoute}
@@ -1256,7 +1256,7 @@ function BuilderPageContent() {
               caseData={{ courtPath, pathLabel, analysis, intake: caseData, createdMasterCaseId: masterCaseId }}
               masterResult={caseData?.masterResultPatch || existingMasterResult}
               evidenceData={analysis?.intelligenceEvidenceIssues}
-              strategyData={{ risks: analysis?.intelligence?.litigationRisks, judgeConcerns: analysis?.intelligence?.judgeConcerns, opposingArguments: analysis?.intelligence?.opposingArguments, nextBestActions: analysis?.nextBestActions }}
+              strategyData={{ risks: analysis?.intelligence?.litigationRisks, nextBestActions: analysis?.nextBestActions }}
               onMasterResultUpdate={handleChatMasterResultUpdate}
               onDashboardUpdate={handleChatDashboardUpdate}
               onRecommendedRoute={handleRecommendedRoute}

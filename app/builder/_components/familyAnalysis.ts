@@ -8,6 +8,7 @@
 import type { FamilyCanonicalIntakeResult } from "@/src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
 
 import { type AnalysisResult, cleanList, getStageLabel } from "./builderTypes";
+import { sanitizeSummaryText } from "@/src/lib/case-system/intelligence/caseStrengthLanguageValidator";
 export function buildFamilyAnalysis(
   narrative: string,
   result: FamilyCanonicalIntakeResult,
@@ -64,8 +65,6 @@ export function buildFamilyAnalysis(
     summary: family.builderSummary.judgeReadySummary || narrative,
     proceduralRisks: family.builderSummary.warnings,
     damagesIssues: [],
-    defenceAttacks: [],
-    judgeConcerns: [],
     suggestedFocus: family.builderSummary.nextBestActions,
     documentUploadRequests: family.evidencePage.uploadRequests,
     detectedFamilyIssues: family.chatContext.detectedIssues,
@@ -75,9 +74,8 @@ export function buildFamilyAnalysis(
     ]),
     recommendedFamilyNextSteps: family.builderSummary.nextBestActions,
     intelligence: result.brain.intelligence,
-    intelligenceSummary: result.brain.intelligence.plainLanguageSummary,
-    structuredIntelligenceSummary:
-      result.brain.intelligence.structuredCaseSummary,
+    intelligenceSummary: sanitizeSummaryText(result.brain.intelligence.plainLanguageSummary || "", "intelligenceSummary"),
+    structuredIntelligenceSummary: sanitizeSummaryText(result.brain.intelligence.structuredCaseSummary || "", "structuredIntelligenceSummary"),
     intelligenceWarnings: result.brain.intelligence.systemWarnings,
     nextBestActions: generatedQuestions,
     intelligenceNextActions: result.brain.intelligence.nextBestActions,

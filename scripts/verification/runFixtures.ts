@@ -91,15 +91,13 @@ function renderActualMarkdown(fixture: Fixture, run: PipelineRun): string {
     push(`detectedClaimTypes: ${JSON.stringify(a.detectedClaimTypes)}`);
     push(`missingInformation: ${JSON.stringify(a.missingInformation)}`);
     push(`missingEvidence: ${JSON.stringify(a.missingEvidence)}`);
-    push(`evidenceWeaknesses: ${JSON.stringify(a.evidenceWeaknesses)}`);
     push(`risksAndGaps: ${JSON.stringify(a.risksAndGaps)}`);
     push(`userWarnings: ${JSON.stringify(a.userWarnings)}`);
     push(`intelligenceWarnings: ${JSON.stringify(a.intelligenceWarnings)}`);
-    push(`judgeConcerns: ${JSON.stringify(a.judgeConcerns)}`);
-    push(`courtConcerns: ${JSON.stringify(a.courtConcerns)}`);
     push(`proceduralRisks: ${JSON.stringify(a.proceduralRisks)}`);
     push(`nextBestActions: ${JSON.stringify(a.nextBestActions)}`);
     push(`intelligenceSummary: ${JSON.stringify(a.intelligenceSummary)}`);
+    push(`structuredIntelligenceSummary: ${JSON.stringify(a.structuredIntelligenceSummary)}`);
   } else {
     push("");
     push(`## Final AnalysisResult`);

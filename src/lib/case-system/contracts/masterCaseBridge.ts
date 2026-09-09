@@ -21,14 +21,12 @@ import {
   CaseEvidenceItem,
   CaseFactPatternAnalysis,
   CaseFactPatternFinding,
-  CaseJudicialConcern,
   CaseJurisdictionAuthorityFinding,
   CaseKnowledgeAuthorityLevel,
   CaseKnowledgeVerificationStatus,
   CaseLegalDomain,
   CaseLegalKnowledgeReference,
   CaseMemorySnapshot,
-  CaseOpposingArgument,
   CaseParty,
   CaseProofAnalysis,
   CaseProvince,
@@ -328,33 +326,6 @@ function mapRisks(intelligence: LegalIntelligenceResult): CaseRisk[] {
   }));
 }
 
-function mapJudicialConcerns(
-  intelligence: LegalIntelligenceResult,
-): CaseJudicialConcern[] {
-  return intelligence.judgeConcerns.map((concern) => ({
-    id: concern.id,
-    concern: concern.concern,
-    whyCourtMayCare: concern.whyJudgeMayCare,
-    howToAddress: concern.howToAddress,
-    linkedClaimIds: [],
-    linkedEvidenceIds: [],
-    severity: "medium",
-  }));
-}
-
-function mapOpposingArguments(
-  intelligence: LegalIntelligenceResult,
-): CaseOpposingArgument[] {
-  return intelligence.opposingArguments.map((argument) => ({
-    id: argument.id,
-    argument: argument.argument,
-    whyItMatters: argument.whyItMatters,
-    responseStrategy: argument.responseStrategy,
-    evidenceNeeded: argument.evidenceNeeded,
-    linkedClaimIds: [],
-  }));
-}
-
 function mapLegalKnowledge(
   intelligence: LegalIntelligenceResult,
 ): CaseLegalKnowledgeReference[] {
@@ -612,8 +583,6 @@ function mapProofFinding(
     supportingEvidenceIds: finding.supportingEvidenceIds,
     supportingEvidenceTitles: finding.supportingEvidenceTitles,
     missingEvidence: finding.missingEvidence,
-    judgeConcern: finding.judgeConcern,
-    opposingArgument: finding.opposingArgument,
     nextAction: finding.nextAction,
     explanation: finding.explanation,
   };
@@ -637,8 +606,6 @@ function mapProofAnalysis(intelligence: LegalIntelligenceResult): CaseProofAnaly
       weakestElements: proofMap.weakestElements,
       strongestElements: proofMap.strongestElements,
       missingEvidence: proofMap.missingEvidence,
-      judgeConcerns: proofMap.judgeConcerns,
-      opposingArguments: proofMap.opposingArguments,
       nextActions: proofMap.nextActions,
       elementFindings: proofMap.elementFindings.map(mapProofFinding),
     })),
@@ -1367,8 +1334,6 @@ export function buildMasterCaseFromIntelligence(args: {
     legalKnowledge,
 
     risks: mapRisks(intelligence),
-    judicialConcerns: mapJudicialConcerns(intelligence),
-    opposingArguments: mapOpposingArguments(intelligence),
 
     factPatternAnalysis,
     evidenceIntelligence,

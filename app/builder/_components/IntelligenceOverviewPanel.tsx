@@ -107,9 +107,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
     : claimTypeContent
       ? claimTypeContent.evidenceToOrganize
       : textItems([...(analysis.missingEvidence || []), ...(analysis.intelligenceEvidenceIssues || []).flatMap((issue) => issue.missingEvidence || [])]);
-  const courtPoints: SourcedListItem[] = claimTypeContent
-    ? claimTypeContent.courtPoints
-    : textItems([...(analysis.judgeConcerns || []), ...(analysis.courtConcerns || [])]);
+  const courtPoints: SourcedListItem[] = claimTypeContent ? claimTypeContent.courtPoints : [];
   const snapshot = [
     `${analysis.courtPath === "small-claims" ? "Small Claims" : analysis.courtPath === "family" ? "Family" : "Civil"} matter.`,
     parties ? `Parties recorded: ${parties}.` : "",

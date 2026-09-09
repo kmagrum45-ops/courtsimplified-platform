@@ -362,22 +362,6 @@ ${
     .join("\n") || "None"
 }
 
-OPPOSING ARGUMENTS:
-${
-  intelligence.opposingArguments
-    .slice(0, 8)
-    .map((item) => `- ${item.argument} Response: ${item.responseStrategy}`)
-    .join("\n") || "None"
-}
-
-JUDGE CONCERNS:
-${
-  intelligence.judgeConcerns
-    .slice(0, 8)
-    .map((item) => `- ${item.concern} Address by: ${item.howToAddress}`)
-    .join("\n") || "None"
-}
-
 FORM RECOMMENDATIONS:
 ${
   intelligence.formRecommendations

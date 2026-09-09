@@ -427,25 +427,6 @@ export type CaseRisk = {
   suggestedFix: string;
 };
 
-export type CaseJudicialConcern = {
-  id: string;
-  concern: string;
-  whyCourtMayCare: string;
-  howToAddress: string;
-  linkedClaimIds: string[];
-  linkedEvidenceIds: string[];
-  severity: CaseSeverity;
-};
-
-export type CaseOpposingArgument = {
-  id: string;
-  argument: string;
-  whyItMatters: string;
-  responseStrategy: string;
-  evidenceNeeded: string[];
-  linkedClaimIds: string[];
-};
-
 export type CaseFactPatternFinding = {
   id: string;
   category: CaseFactPatternCategory;
@@ -529,8 +510,6 @@ export type CaseElementProofFinding = {
   supportingEvidenceIds: string[];
   supportingEvidenceTitles: string[];
   missingEvidence: string[];
-  judgeConcern: string;
-  opposingArgument: string;
   nextAction: string;
   explanation: string;
 };
@@ -544,8 +523,6 @@ export type CaseClaimProofMap = {
   weakestElements: string[];
   strongestElements: string[];
   missingEvidence: string[];
-  judgeConcerns: string[];
-  opposingArguments: string[];
   nextActions: string[];
   elementFindings: CaseElementProofFinding[];
 };
@@ -766,8 +743,6 @@ export type MasterCaseSchema = {
   legalKnowledge: CaseLegalKnowledgeReference[];
 
   risks: CaseRisk[];
-  judicialConcerns: CaseJudicialConcern[];
-  opposingArguments: CaseOpposingArgument[];
 
   factPatternAnalysis: CaseFactPatternAnalysis;
   evidenceIntelligence: CaseEvidenceIntelligence;

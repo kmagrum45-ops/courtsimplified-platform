@@ -31,8 +31,6 @@ import {
   LitigationRisk,
   MissingInformationFinding,
   NormalizedIntake,
-  OpposingArgument,
-  JudgeConcern,
   ProceduralPostureAssessment,
   RemedyFitAssessment,
 } from "./intelligenceTypes";
@@ -49,7 +47,7 @@ import {
 
 import { getDoctrineSeedLibrary } from "../knowledge/doctrineSeedLibrary";
 import { buildProductionReadyLegalKnowledge } from "../authority-intelligence/authorityRetrievalEngine";
-import { filterJudgeConcerns, filterOpposingArguments } from "./caseStrengthLanguageValidator";
+import { sanitizeSummaryText } from "./caseStrengthLanguageValidator";
 
 type GptCognitionClaim = {
   claimType?: string;
@@ -97,19 +95,6 @@ type GptCognitionOutput = {
     source?: string;
     claimType?: string;
     suggestedFix?: string;
-  }[];
-  opposingArguments?: {
-    claimType?: string;
-    argument?: string;
-    whyItMatters?: string;
-    responseStrategy?: string;
-    evidenceNeeded?: string[];
-  }[];
-  judgeConcerns?: {
-    claimType?: string;
-    concern?: string;
-    whyJudgeMayCare?: string;
-    howToAddress?: string;
   }[];
   formRecommendations?: {
     formNumber?: string;
@@ -1049,36 +1034,6 @@ function buildRisks(cognition: GptCognitionOutput | null): LitigationRisk[] {
   }));
 }
 
-function buildOpposingArguments(cognition: GptCognitionOutput | null): OpposingArgument[] {
-  return safeArray(cognition?.opposingArguments).map((item) => ({
-    id: createId("opposing"),
-    claimType: item.claimType ? asDomain(item.claimType) : undefined,
-    argument: clean(item.argument) || "The other side may dispute the facts or legal basis.",
-    whyItMatters:
-      clean(item.whyItMatters) ||
-      "The user should anticipate this before preparing final materials.",
-    responseStrategy:
-      clean(item.responseStrategy) ||
-      "Connect facts, evidence, dates, and proof to the legal issue.",
-    evidenceNeeded: cleanList(item.evidenceNeeded || []),
-  }));
-}
-
-function buildJudgeConcerns(cognition: GptCognitionOutput | null): JudgeConcern[] {
-  return safeArray(cognition?.judgeConcerns).map((item) => ({
-    id: createId("judge"),
-    claimType: item.claimType ? asDomain(item.claimType) : undefined,
-    concern:
-      clean(item.concern) ||
-      "The court may need clearer facts, evidence, or procedural context.",
-    whyJudgeMayCare:
-      clean(item.whyJudgeMayCare) ||
-      "Courts need clear, relevant, admissible, and procedurally proper material.",
-    howToAddress:
-      clean(item.howToAddress) ||
-      "Organize the facts, evidence, dates, and requested remedy clearly.",
-  }));
-}
 
 function buildForms(args: {
   cognition: GptCognitionOutput | null;
@@ -1340,47 +1295,6 @@ function buildProofDrivenRisks(args: {
   });
 }
 
-function buildProofDrivenJudgeConcerns(args: {
-  elementProofAnalysis: ElementProofEngineResult;
-}): JudgeConcern[] {
-  return args.elementProofAnalysis.claimProofMaps.flatMap((proofMap) =>
-    proofMap.elementFindings
-      .filter((finding) => finding.status !== "proven")
-      .map((finding) => ({
-        id: createId("judge"),
-        claimType: finding.claimType,
-        concern:
-          finding.judgeConcern ||
-          `The court may require clearer proof for ${finding.elementLabel}.`,
-        whyJudgeMayCare:
-          "A judge must be able to see how the facts and evidence satisfy each required element, not just that the user has a story or documents.",
-        howToAddress:
-          finding.nextAction ||
-            "Connect the evidence to this element with dates, witnesses, documents, and a clear explanation.",
-      })),
-  );
-}
-
-function buildProofDrivenOpposingArguments(args: {
-  elementProofAnalysis: ElementProofEngineResult;
-}): OpposingArgument[] {
-  return args.elementProofAnalysis.claimProofMaps.flatMap((proofMap) =>
-    proofMap.elementFindings.map((finding) => ({
-      id: createId("opposing"),
-      claimType: finding.claimType,
-      argument:
-        finding.opposingArgument ||
-        `The other side may argue the user has not proven ${finding.elementLabel}.`,
-      whyItMatters:
-        "If the opposing side can break one required element, the claim may be narrowed, delayed, settled for less, or dismissed.",
-      responseStrategy:
-        finding.nextAction ||
-        "Strengthen the proof record and connect the evidence directly to the element.",
-      evidenceNeeded: finding.missingEvidence,
-    })),
-  );
-}
-
 function buildProofDrivenNextActions(args: {
   elementProofAnalysis: ElementProofEngineResult;
 }): string[] {
@@ -1475,118 +1389,6 @@ function buildSupplementalRisks(args: {
     ...args.existingRisks,
     ...risks,
     ...buildProofDrivenRisks({
-      elementProofAnalysis: args.elementProofAnalysis,
-    }),
-  ];
-}
-
-function buildSupplementalJudgeConcerns(args: {
-  existingJudgeConcerns: JudgeConcern[];
-  contradictions: ContradictionFinding[];
-  limitationAssessments: LimitationPeriodAssessment[];
-  normalizedIntake: NormalizedIntake;
-  elementProofAnalysis: ElementProofEngineResult;
-}): JudgeConcern[] {
-  const rawText = normalizeText(args.normalizedIntake.rawUserText);
-  const concerns: JudgeConcern[] = [...args.existingJudgeConcerns];
-
-  if (args.contradictions.length > 0) {
-    concerns.push({
-      id: createId("judge"),
-      concern: "The court may be concerned that the procedural stage or factual theory is unclear.",
-      whyJudgeMayCare:
-        "Unclear stage or contradictory facts can cause wrong forms, wrong deadlines, or unclear relief.",
-      howToAddress:
-        "Clarify party role, filed documents, served documents, and the exact order or remedy requested.",
-    });
-  }
-
-  if (
-    args.limitationAssessments.some(
-      (item) => item.status === "possible-risk" || item.status === "likely-risk",
-    )
-  ) {
-    concerns.push({
-      id: createId("judge"),
-      concern: "The court may question whether the claim is out of time.",
-      whyJudgeMayCare:
-        "Limitation, discoverability, delay, and statutory notice issues can prevent a claim from proceeding.",
-      howToAddress:
-        "Prepare a limitation chronology and explain discoverability, incapacity, notice, and delay with evidence.",
-    });
-  }
-
-  if (includesAny(rawText, ["crown", "police", "bail", "public authority"])) {
-    concerns.push({
-      id: createId("judge"),
-      claimType: "civil-institutional-liability",
-      concern:
-        "The court may ask whether the claim attacks a protected decision rather than operational conduct.",
-      whyJudgeMayCare:
-        "Public-authority claims can fail if framed as disagreement with judicial or core discretionary decisions.",
-      howToAddress:
-        "Frame the theory around operational process failures, record use, risk synthesis, communication, and causation rather than hindsight disagreement with the outcome.",
-    });
-  }
-
-  return [
-    ...concerns,
-    ...buildProofDrivenJudgeConcerns({
-      elementProofAnalysis: args.elementProofAnalysis,
-    }),
-  ];
-}
-
-function buildSupplementalOpposingArguments(args: {
-  existingOpposingArguments: OpposingArgument[];
-  normalizedIntake: NormalizedIntake;
-  elementProofAnalysis: ElementProofEngineResult;
-}): OpposingArgument[] {
-  const rawText = normalizeText(args.normalizedIntake.rawUserText);
-  const argumentsList: OpposingArgument[] = [...args.existingOpposingArguments];
-
-  if (includesAny(rawText, ["crown", "police", "government", "public authority"])) {
-    argumentsList.push({
-      id: createId("opposing"),
-      claimType: "civil-institutional-liability",
-      argument:
-        "The public authority may argue immunity, protected discretion, no duty, no proximity, wrong defendant, statutory authority, collateral attack, or no available remedy.",
-      whyItMatters:
-        "These arguments can stop a claim before trial if the pleadings do not clearly target actionable conduct.",
-      responseStrategy:
-        "Separate each defendant’s role, identify operational conduct, plead causation carefully, and verify any leave or notice requirements.",
-      evidenceNeeded: [
-        "Relevant records",
-        "Decision/process chronology",
-        "Notice or leave materials",
-        "Documents showing what each public actor knew or did",
-      ],
-    });
-  }
-
-  if (includesAny(rawText, ["defamation", "false statement", "reputation", "posted", "messages"])) {
-    argumentsList.push({
-      id: createId("opposing"),
-      claimType: "defamation",
-      argument:
-        "The other side may argue truth, opinion, privilege, no publication, no identification, or no compensable harm.",
-      whyItMatters:
-        "Defamation and reputational claims often turn on exact words, recipient/publication proof, context, and damages.",
-      responseStrategy:
-        "Preserve screenshots, identify recipients, record dates, keep full conversation context, and organize harm evidence.",
-      evidenceNeeded: [
-        "Exact words",
-        "Publication/recipient proof",
-        "Screenshots with dates",
-        "Context",
-        "Harm evidence",
-      ],
-    });
-  }
-
-  return [
-    ...argumentsList,
-    ...buildProofDrivenOpposingArguments({
       elementProofAnalysis: args.elementProofAnalysis,
     }),
   ];
@@ -1711,12 +1513,13 @@ function buildMasterResultPatch(args: {
           ...(args.intelligence.evidenceIntelligenceAnalysis?.gaps.map((gap) => gap.explanation) || []),
           ...(args.intelligence.elementProofAnalysis?.globalWeaknesses || []),
         ],
-        likelyOtherSideArguments: args.intelligence.opposingArguments.map(
-          (item) => item.argument,
-        ),
-        likelyJudgeConcerns: args.intelligence.judgeConcerns.map(
-          (item) => item.concern,
-        ),
+        // Session 38 removed opposingArguments/judgeConcerns as a source
+        // entirely (see caseStrengthLanguageValidator.ts's file header) --
+        // these two arrays no longer have anything to populate them from.
+        // Left empty rather than reconstructing the same forbidden content
+        // from a different angle.
+        likelyOtherSideArguments: [],
+        likelyJudgeConcerns: [],
         suggestedWordingImprovements: args.intelligence.missingInformation.map(
           (item) => item.question,
         ),
@@ -1891,7 +1694,8 @@ ABSOLUTE SAFETY AND RELIABILITY RULES:
 - Do not treat old events as automatically out of time. Flag limitation/discoverability risk without stating a deadline unless verified.
 - Do not frame public-authority liability as disagreement with a judge's decision. Separate operational conduct, process failure, knowledge, causation, protected discretion, immunity, notice, leave, limitation, and collateral-attack risk.
 - Do not over-recommend forms. Recommend only workflow-level documents/forms that match courtPath and stage, and add verification warnings.
-- Never predict, characterize, or speculate about what a judge thinks or is concerned about, and never draft or predict what an opposing party or the other side will argue. This platform organizes facts and identifies gaps; it does not grade the merits of a case. Phrases like "the judge may be concerned," "the court may question," "the defendant may argue," or "the other side may argue" are never acceptable in any field, including judgeConcerns and opposingArguments -- reframe both as procedural or evidentiary readiness gaps instead (a missing document, an unconfirmed date, an element without documented proof).
+- Never predict, characterize, or speculate about what a judge thinks or is concerned about, and never draft or predict what an opposing party or the other side will argue. This platform organizes facts and identifies gaps; it does not grade the merits of a case. Phrases like "the judge may be concerned," "the court may question," "the defendant may argue," or "the other side may argue" are never acceptable in any field -- reframe as procedural or evidentiary readiness gaps instead (a missing document, an unconfirmed date, an element without documented proof).
+- Never state or imply anything about the claim's overall strength, viability, likely outcome, or chances of success, in intelligenceSummary, structuredCaseSummary, or any other field. Describe what facts and evidence are present or absent; do not grade what that means for the case.
 
 CANONICAL VALUES ONLY:
 Allowed courtPath: family, small-claims, civil, tribunal, ltb, immigration, criminal-related, unknown
@@ -1910,10 +1714,8 @@ REQUIRED DEPTH:
 4. Every element must state status, explanation, missingFacts, and risks.
 5. Build evidenceIssueLinks that explain what proof is needed, not just what evidence exists.
 6. Identify litigation risks the user may not realize: limitation, discoverability, jurisdiction, wrong forum, wrong form, leave/notice, causation, credibility, proportionality, remedy-fit, service, deadline, and stage risks.
-7. For opposingArguments, identify only PROCEDURAL OR EVIDENTIARY gaps a reviewer would want closed before filing -- e.g. an element with no documented proof, a missing form, an unconfirmed date. Never predict, draft, or characterize what the other side is likely to say; never write "the defendant/other side/opposing side may argue."
-8. For judgeConcerns, identify only PROCEDURAL READINESS gaps -- e.g. missing proof of service, an unconfirmed limitation date, an element without documented support. Never predict, characterize, or speculate about what a judge personally thinks, believes, or is concerned about; never write "the judge/court may be concerned," "the judge/court may question," or "the judge/court may ask."
-9. Give ordered nextBestActions that improve court readiness.
-10. Keep summaries useful: not just repetition of intake. Explain theory, risk, proof gaps, and next step.
+7. Give ordered nextBestActions that improve court readiness.
+8. Keep summaries useful: not just repetition of intake. Explain theory, risk, proof gaps, and next step. Never state or imply the claim's strength, viability, or likely outcome.
 
 COURT PATH REASONING:
 Family:
@@ -2030,23 +1832,6 @@ Return JSON with this exact shape and no extra keys:
       "suggestedFix": "Explain what the user should gather or clarify."
     }
   ],
-  "opposingArguments": [
-    {
-      "claimType": "civil-institutional-liability",
-      "argument": "State a specific procedural or evidentiary gap a reviewer would want closed before filing -- e.g. an element with no documented proof -- never a prediction of what the other side will say.",
-      "whyItMatters": "Explain why closing this gap matters to court readiness.",
-      "responseStrategy": "Explain what evidence or documentation would close the gap.",
-      "evidenceNeeded": ["records", "chronology", "proof of knowledge", "proof of causation"]
-    }
-  ],
-  "judgeConcerns": [
-    {
-      "claimType": "civil-institutional-liability",
-      "concern": "State a specific procedural readiness gap -- e.g. missing proof of service, an unconfirmed date -- never a prediction about what a judge personally thinks or is concerned about.",
-      "whyJudgeMayCare": "Explain why this procedural gap matters to court readiness.",
-      "howToAddress": "Explain the fix."
-    }
-  ],
   "formRecommendations": [
     {
       "formNumber": "",
@@ -2118,7 +1903,6 @@ async function runStructuredGptCognition(
 }
 
 function buildFallbackCognition(normalizedIntake: NormalizedIntake): GptCognitionOutput {
-  const rawText = normalizedIntake.rawUserText;
   const domains = normalizedIntake.systemDetectedClaimTypes || ["unknown"];
   const firstDomain = domains[0] || "unknown";
 
@@ -2193,35 +1977,6 @@ function buildFallbackCognition(normalizedIntake: NormalizedIntake): GptCognitio
         claimType: firstDomain,
         suggestedFix:
           "Verify the legal theory against the evidence and the procedural rules before filing.",
-      },
-    ],
-    opposingArguments: [
-      {
-        claimType: firstDomain,
-        argument:
-          "The other side may argue the facts are incomplete, unsupported, out of context, procedurally improper, or legally insufficient.",
-        whyItMatters:
-          "A preliminary review cannot fully test the other side’s strongest arguments.",
-        responseStrategy:
-          "Organize facts, dates, documents, witnesses, procedure, damages, and evidence before final drafting.",
-        evidenceNeeded: [
-          "Timeline",
-          "Key documents",
-          "Witness information",
-          "Damages proof",
-          "Procedural history",
-        ],
-      },
-    ],
-    judgeConcerns: [
-      {
-        claimType: firstDomain,
-        concern:
-          "The court may need clearer facts, evidence, procedural posture, and remedy before the case can be assessed.",
-        whyJudgeMayCare:
-          "Courts need clear, relevant, admissible, and procedurally proper material.",
-        howToAddress:
-          "Organize chronology, evidence, damages, procedural status, requested remedy, and missing proof.",
       },
     ],
     formRecommendations: [],
@@ -2429,8 +2184,6 @@ export async function runCourtSimplifiedBrain(
   });
 
   const baseLitigationRisks = buildRisks(gptCognition);
-  const baseOpposingArguments = buildOpposingArguments(gptCognition);
-  const baseJudgeConcerns = buildJudgeConcerns(gptCognition);
 
   const formRecommendations = buildForms({
     cognition: gptCognition,
@@ -2458,29 +2211,6 @@ export async function runCourtSimplifiedBrain(
     limitationAssessments,
     elementProofAnalysis,
   });
-
-  // filterJudgeConcerns()/filterOpposingArguments() run last, after every
-  // source (the AI cognition call, elementProofAnalysis's per-element
-  // fields, and the deterministic supplemental builders above) has already
-  // been merged in -- see caseStrengthLanguageValidator.ts's file header
-  // for why the enforcement point has to be here, not earlier.
-  const opposingArguments = filterOpposingArguments(
-    buildSupplementalOpposingArguments({
-      existingOpposingArguments: baseOpposingArguments,
-      normalizedIntake,
-      elementProofAnalysis,
-    }),
-  );
-
-  const judgeConcerns = filterJudgeConcerns(
-    buildSupplementalJudgeConcerns({
-      existingJudgeConcerns: baseJudgeConcerns,
-      contradictions,
-      limitationAssessments,
-      normalizedIntake,
-      elementProofAnalysis,
-    }),
-  );
 
   const legalKnowledge = buildLegalKnowledge({
     courtPath,
@@ -2548,21 +2278,23 @@ export async function runCourtSimplifiedBrain(
     limitationAssessments,
     remedyFitAssessments: claimClassifications.flatMap((claim) => claim.remedyFit),
     litigationRisks,
-    opposingArguments,
-    judgeConcerns,
     formRecommendations,
     legalKnowledge,
     factPatternAnalysis,
     evidenceIntelligenceAnalysis,
     elementProofAnalysis,
 
-    plainLanguageSummary:
+    plainLanguageSummary: sanitizeSummaryText(
       clean(gptCognition.plainLanguageSummary) ||
-      "CourtSimplified produced a structured litigation analysis from the user’s intake.",
+        "CourtSimplified produced a structured litigation analysis from the user’s intake.",
+      "plainLanguageSummary",
+    ),
 
-    structuredCaseSummary:
+    structuredCaseSummary: sanitizeSummaryText(
       clean(gptCognition.structuredCaseSummary) ||
-      "Structured case summary requires further review.",
+        "Structured case summary requires further review.",
+      "structuredCaseSummary",
+    ),
 
     nextBestActions,
 
@@ -2584,7 +2316,7 @@ export async function runCourtSimplifiedBrain(
         .filter((item) => item.status === "possible-risk" || item.status === "likely-risk")
         .map(() => "Limitation or deadline risk requires review."),
       ...elementProofAnalysis.globalWeaknesses.map(
-        (weakness) => `Proof weakness requires review: ${weakness}.`,
+        (item) => `No documented proof yet: ${item}.`,
       ),
       ...legalKnowledge.sourceWarnings,
       ...(overLimitClaimAmount !== null

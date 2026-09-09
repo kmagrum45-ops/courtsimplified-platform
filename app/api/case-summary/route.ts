@@ -59,18 +59,13 @@ type CourtSimplifiedAnalysis = {
   contradictions: string[];
 
   evidenceStrengths: string[];
-  evidenceWeaknesses: string[];
   missingEvidence: string[];
 
   deadlineRisks: string[];
   serviceRisks: string[];
   limitationRisks: string[];
 
-  opposingArguments: string[];
-  courtConcerns: string[];
-
   recommendedQuestions: string[];
-  caseStrategy: string[];
   casePackageItems: string[];
 
   nextSteps: string[];
@@ -213,18 +208,13 @@ function fallbackAnalysis(message: string): CourtSimplifiedAnalysis {
     contradictions: [],
 
     evidenceStrengths: [],
-    evidenceWeaknesses: [],
     missingEvidence: [],
 
     deadlineRisks: [],
     serviceRisks: [],
     limitationRisks: [],
 
-    opposingArguments: [],
-    courtConcerns: [],
-
     recommendedQuestions: [],
-    caseStrategy: [],
     casePackageItems: [],
 
     nextSteps: [],
@@ -245,13 +235,10 @@ function mapIntelligenceToAnalysis(
   const missingEvidence = cleanList([
     ...intelligence.evidenceIssueLinks.flatMap((item) => item.missingEvidence),
     ...(proof?.claimProofMaps.flatMap((map) => map.missingEvidence) || []),
-  ]);
-
-  const evidenceWeaknesses = cleanList([
     ...(proof?.globalWeaknesses || []),
     ...intelligence.evidenceIssueLinks
       .filter((item) => item.strength === "low" || item.strength === "very-low")
-      .map((item) => item.explanation),
+      .map((item) => item.issueLabel),
   ]);
 
   const evidenceStrengths = cleanList([
@@ -341,23 +328,15 @@ function mapIntelligenceToAnalysis(
     ),
 
     evidenceStrengths,
-    evidenceWeaknesses,
     missingEvidence,
 
     deadlineRisks,
     serviceRisks,
     limitationRisks,
 
-    opposingArguments: intelligence.opposingArguments.map((item) => item.argument),
-    courtConcerns: intelligence.judgeConcerns.map((item) => item.concern),
-
     recommendedQuestions: [
       ...intelligence.missingInformation.map((item) => item.question),
       ...intelligence.proceduralPosture.nextProceduralQuestions,
-    ],
-    caseStrategy: [
-      ...intelligence.opposingArguments.map((item) => item.responseStrategy),
-      ...intelligence.judgeConcerns.map((item) => item.howToAddress),
     ],
     casePackageItems: cleanList([
       "Timeline",

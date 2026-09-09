@@ -40,8 +40,6 @@ type StoredCaseData = {
     nextBestActions?: string[];
     caseStrategy?: string[];
     missingEvidence?: string[];
-    opposingArguments?: string[];
-    courtConcerns?: string[];
   };
 };
 
@@ -575,18 +573,6 @@ function DocumentExportPageContent() {
           title="Exhibit export review"
           description="Final exhibit status should be checked before printing or filing."
           items={exhibitReviewItems}
-        />
-
-        <ExportSection
-          title="Final judge-facing concerns"
-          description="These concerns should be answered in the final materials where relevant."
-          items={caseData?.analysis?.courtConcerns || []}
-        />
-
-        <ExportSection
-          title="Likely opposing arguments"
-          description="Final materials should anticipate the strongest points the other side may raise."
-          items={caseData?.analysis?.opposingArguments || []}
         />
 
         <ExportSection

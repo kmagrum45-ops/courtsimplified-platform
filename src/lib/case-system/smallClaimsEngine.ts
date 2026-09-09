@@ -705,15 +705,12 @@ export function runSmallClaimsEngine(input: SmallClaimsEngineInput): AnalysisRes
     ],
     timelineAnalysis: cleanList(timelineAnalysis),
     evidenceStrengths,
-    evidenceWeaknesses,
-    missingEvidence: missingInformation,
+    missingEvidence: cleanList([...missingInformation, ...evidenceWeaknesses]),
     deadlineRisks: cleanList(deadlineRisks),
     serviceRisks: cleanList(serviceRisks),
     partyRisks: cleanList(partyRisks),
     jurisdictionRisks: cleanList(jurisdictionRisks),
     limitationRisks: cleanList(deadlineRisks),
-    opposingArguments: profile.defenceAttacks,
-    courtConcerns: profile.judgeConcerns,
     recommendedQuestions: cleanList([
       ...normalized.legalElements
         .filter((element) => statusNeedsWork(element.status))
@@ -738,8 +735,6 @@ export function runSmallClaimsEngine(input: SmallClaimsEngineInput): AnalysisRes
       ...profile.damagesGuidance,
     ]),
     proceduralRisks: risksAndGaps,
-    defenceAttacks: profile.defenceAttacks,
-    judgeConcerns: profile.judgeConcerns,
     suggestedFocus: profile.coreProofFocus,
   };
 }

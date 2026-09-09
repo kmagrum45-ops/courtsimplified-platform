@@ -28,8 +28,6 @@ export type ElementProofFinding = {
   supportingEvidenceIds: string[];
   supportingEvidenceTitles: string[];
   missingEvidence: string[];
-  judgeConcern: string;
-  opposingArgument: string;
   nextAction: string;
   explanation: string;
 };
@@ -43,8 +41,6 @@ export type ClaimProofMap = {
   weakestElements: string[];
   strongestElements: string[];
   missingEvidence: string[];
-  judgeConcerns: string[];
-  opposingArguments: string[];
   nextActions: string[];
   elementFindings: ElementProofFinding[];
 };
@@ -64,10 +60,6 @@ function createId(prefix: string): string {
   }
 
   return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2)}`;
-}
-
-function clean(value: unknown): string {
-  return String(value || "").trim();
 }
 
 function unique(items: string[]): string[] {
@@ -122,87 +114,6 @@ function burdenRiskFor(status: ElementProofStatus): IntelligenceSeverity {
   if (status === "partly-proven") return "medium";
   if (status === "proven") return "low";
   return "info";
-}
-
-function buildJudgeConcern(args: {
-  claimType: LegalDomain;
-  element: ClaimElementAssessment;
-  status: ElementProofStatus;
-}): string {
-  if (args.status === "proven") {
-    return `The court may accept this element more easily if the evidence is organized and authenticated.`;
-  }
-
-  if (args.status === "partly-proven") {
-    return `The court may ask whether the evidence actually proves "${args.element.label}" or only suggests it.`;
-  }
-
-  if (args.status === "contradicted") {
-    return `The court may be concerned that the evidence or facts contradict this required element.`;
-  }
-
-  if (args.claimType === "defamation" && args.element.elementKey === "publication") {
-    return "The court may require clear proof that the statement was communicated to someone other than the claimant.";
-  }
-
-  if (args.claimType === "defamation" && args.element.elementKey === "statement") {
-    return "The court may require the exact words, full context, date, platform, and recipient before assessing defamation.";
-  }
-
-  if (
-    args.claimType === "negligence" &&
-    args.element.elementKey === "causation"
-  ) {
-    return "The court may focus on whether the alleged failure actually caused or materially contributed to the harm.";
-  }
-
-  if (
-    args.claimType === "civil-institutional-liability" &&
-    args.element.elementKey === "actionable-conduct"
-  ) {
-    return "The court may ask whether the claim targets actionable operational conduct rather than protected discretion or a protected decision.";
-  }
-
-  return `The court may require clearer proof for "${args.element.label}" before this claim can safely support drafting or filing.`;
-}
-
-function buildOpposingArgument(args: {
-  claimType: LegalDomain;
-  element: ClaimElementAssessment;
-  status: ElementProofStatus;
-}): string {
-  if (args.status === "proven") {
-    return `The other side may still attack the reliability, context, admissibility, or weight of the evidence.`;
-  }
-
-  if (args.status === "partly-proven") {
-    return `The other side may argue the user has some facts, but not enough proof to establish this element.`;
-  }
-
-  if (args.status === "contradicted") {
-    return `The other side may argue this contradiction defeats or seriously weakens the claim.`;
-  }
-
-  if (args.claimType === "defamation") {
-    return "The other side may argue the statement was not made, was not published, was true, was opinion, was privileged, or caused no proven harm.";
-  }
-
-  if (args.claimType === "contract") {
-    return "The other side may argue there was no enforceable agreement, no breach, payment was made, or damages are unsupported.";
-  }
-
-  if (args.claimType === "property-damage") {
-    return "The other side may argue they did not cause the damage or the repair/replacement value is unsupported.";
-  }
-
-  if (
-    args.claimType === "civil-institutional-liability" ||
-    args.claimType === "civil-charter"
-  ) {
-    return "The other side may argue immunity, protected discretion, wrong forum, no causation, no actionable conduct, or no available remedy.";
-  }
-
-  return `The other side may argue the user has not proven "${args.element.label}".`;
 }
 
 function buildNextAction(args: {
@@ -260,16 +171,6 @@ function buildElementFinding(args: {
     supportingEvidenceIds: args.element.supportingEvidenceIds,
     supportingEvidenceTitles,
     missingEvidence,
-    judgeConcern: buildJudgeConcern({
-      claimType: args.claim.claimType,
-      element: args.element,
-      status,
-    }),
-    opposingArgument: buildOpposingArgument({
-      claimType: args.claim.claimType,
-      element: args.element,
-      status,
-    }),
     nextAction: buildNextAction({
       element: args.element,
       status,
@@ -314,16 +215,6 @@ function buildClaimProofMap(args: {
     elementFindings.flatMap((item) => item.missingEvidence),
   );
 
-  const judgeConcerns = unique(
-    elementFindings
-      .filter((item) => item.status !== "proven")
-      .map((item) => item.judgeConcern),
-  );
-
-  const opposingArguments = unique(
-    elementFindings.map((item) => item.opposingArgument),
-  );
-
   const nextActions = unique(
     elementFindings.map((item) => item.nextAction),
   );
@@ -349,8 +240,6 @@ function buildClaimProofMap(args: {
     weakestElements,
     strongestElements,
     missingEvidence,
-    judgeConcerns,
-    opposingArguments,
     nextActions,
     elementFindings,
   };

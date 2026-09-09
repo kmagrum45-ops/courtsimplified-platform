@@ -1,3 +1,5 @@
+import { sanitizeSummaryText } from "@/src/lib/case-system/intelligence/caseStrengthLanguageValidator";
+
 export type CourtPath = "family" | "small-claims" | "civil";
 
 export type UniversalStage =
@@ -118,8 +120,6 @@ export type BuilderLegalIntelligenceSnapshot = {
   contradictions?: BuilderIntelligenceItem[];
   missingInformation?: BuilderIntelligenceItem[];
   litigationRisks?: BuilderIntelligenceItem[];
-  opposingArguments?: BuilderIntelligenceItem[];
-  judgeConcerns?: BuilderIntelligenceItem[];
   formRecommendations?: BuilderFormRecommendation[];
 
   plainLanguageSummary?: string;
@@ -151,15 +151,12 @@ export type AnalysisResult = {
   proceduralStageReasoning?: string[];
   timelineAnalysis?: string[];
   evidenceStrengths?: string[];
-  evidenceWeaknesses?: string[];
   missingEvidence?: string[];
   deadlineRisks?: string[];
   serviceRisks?: string[];
   partyRisks?: string[];
   jurisdictionRisks?: string[];
   limitationRisks?: string[];
-  opposingArguments?: string[];
-  courtConcerns?: string[];
   recommendedQuestions?: string[];
   caseStrategy?: string[];
   casePackageItems?: string[];
@@ -170,8 +167,6 @@ export type AnalysisResult = {
   detectedClaimTypes?: string[];
   damagesIssues?: string[];
   proceduralRisks?: string[];
-  defenceAttacks?: string[];
-  judgeConcerns?: string[];
   suggestedFocus?: string[];
 
   detectedFamilyIssues?: string[];
@@ -311,22 +306,6 @@ function riskToText(item: BuilderIntelligenceItem): string {
   return item.suggestedFix || main;
 }
 
-function opposingArgumentToText(item: BuilderIntelligenceItem): string {
-  if (item.argument && item.responseStrategy) {
-    return `${item.argument} Response strategy: ${item.responseStrategy}`;
-  }
-
-  return itemToText(item);
-}
-
-function judgeConcernToText(item: BuilderIntelligenceItem): string {
-  if (item.concern && item.howToAddress) {
-    return `${item.concern} How to address it: ${item.howToAddress}`;
-  }
-
-  return itemToText(item);
-}
-
 export function mapIntelligenceToAnalysisPatch(
   intelligence?: BuilderLegalIntelligenceSnapshot,
 ): Partial<AnalysisResult> {
@@ -345,14 +324,6 @@ export function mapIntelligenceToAnalysisPatch(
     ],
   );
 
-  const opposingArguments = cleanList(
-    (intelligence.opposingArguments || []).map(opposingArgumentToText),
-  );
-
-  const judgeConcerns = cleanList(
-    (intelligence.judgeConcerns || []).map(judgeConcernToText),
-  );
-
   const requiredNextForms = cleanList(
     (intelligence.formRecommendations || []).map((form) =>
       form.formNumber ? `${form.formNumber} — ${form.title}` : form.title,
@@ -360,19 +331,12 @@ export function mapIntelligenceToAnalysisPatch(
   );
 
   const missingEvidence = cleanList(
-    (intelligence.evidenceIssueLinks || []).flatMap((issue) =>
-      issue.missingEvidence && issue.missingEvidence.length > 0
+    (intelligence.evidenceIssueLinks || []).flatMap((issue) => [
+      ...(issue.missingEvidence && issue.missingEvidence.length > 0
         ? issue.missingEvidence
-        : [],
-    ),
-  );
-
-  const evidenceWeaknesses = cleanList(
-    (intelligence.evidenceIssueLinks || []).map((issue) =>
-      issue.explanation
-        ? `${issue.issueLabel}: ${issue.explanation}`
-        : issue.issueLabel,
-    ),
+        : []),
+      ...(issue.issueLabel ? [issue.issueLabel] : []),
+    ]),
   );
 
   return {
@@ -383,29 +347,22 @@ export function mapIntelligenceToAnalysisPatch(
     missingInformation,
     risksAndGaps,
 
-    opposingArguments,
-    defenceAttacks: opposingArguments,
-
-    judgeConcerns,
-    courtConcerns: judgeConcerns,
-
     requiredNextForms,
 
     missingEvidence,
-    evidenceWeaknesses,
 
-    summary:
-      intelligence.structuredCaseSummary ||
-      intelligence.plainLanguageSummary ||
-      "",
+    summary: sanitizeSummaryText(
+      intelligence.structuredCaseSummary || intelligence.plainLanguageSummary || "",
+      "summary",
+    ),
 
     guidance: intelligence.nextBestActions || [],
     nextBestActions: intelligence.nextBestActions || [],
     userWarnings: intelligence.systemWarnings || [],
 
     intelligence,
-    intelligenceSummary: intelligence.plainLanguageSummary,
-    structuredIntelligenceSummary: intelligence.structuredCaseSummary,
+    intelligenceSummary: sanitizeSummaryText(intelligence.plainLanguageSummary || "", "intelligenceSummary"),
+    structuredIntelligenceSummary: sanitizeSummaryText(intelligence.structuredCaseSummary || "", "structuredIntelligenceSummary"),
     intelligenceWarnings: intelligence.systemWarnings || [],
     intelligenceNextActions: intelligence.nextBestActions || [],
     intelligenceEvidenceIssues: intelligence.evidenceIssueLinks || [],
