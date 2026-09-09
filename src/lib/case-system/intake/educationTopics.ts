@@ -18,18 +18,32 @@
  * applying the law to the user's specific facts.
  *
  * Two topics from the original 8-topic list this registry was scoped to
- * are deliberately NOT here: "breach of contract elements" and "negligence
- * elements." Both were checked this session (web search + fetch against
- * ontario.ca and ontariocourts.ca) and neither has a self-help-guide page
- * stating a general elements framework (duty/breach/causation/damages, or
- * offer/acceptance/consideration/breach) -- what exists on ontariocourts.ca
- * is individual Court of Appeal decisions discussing those concepts
- * case-by-case. Synthesizing a general legal-elements statement from
- * reading appellate opinions is legal analysis from case law, which
- * CLAUDE.md's sourcing rule treats the same as a CanLII-only fact: cut it
- * rather than write it from inference. If a future session finds an actual
- * ontario.ca/ontariocourts.ca/ontariocourtforms.on.ca page stating these
- * plainly, add the topics back with that citation.
+ * were originally cut: "breach of contract elements" and "negligence
+ * elements." Both were checked in an earlier session (web search + fetch
+ * against ontario.ca and ontariocourts.ca) and neither has a self-help-guide
+ * page stating a general elements framework (duty/breach/causation/damages,
+ * or offer/acceptance/consideration/breach) -- what existed on
+ * ontariocourts.ca was individual Court of Appeal decisions discussing
+ * those concepts case-by-case, and synthesizing a general legal-elements
+ * statement from reading appellate opinions is legal analysis from case
+ * law, which CLAUDE.md's sourcing rule treats the same as a CanLII-only
+ * fact: cut rather than written from inference.
+ *
+ * The negligence-elements blocker has since cleared: CLAUDE.md section 2
+ * now treats a primary source saved under `docs/sources/` (see that
+ * folder's README) as a first-class citation route -- CanLII/SCC block
+ * automated fetching, but a manually downloaded, locally read copy
+ * satisfies "retrieved and read" the same way a live fetch does.
+ * `sc-topic-general-negligence-elements` below is sourced this way, from
+ * Mustapha v. Culligan of Canada Ltd., 2008 SCC 27 -- a Supreme Court of
+ * Canada decision restating the settled general test, not case-law
+ * synthesis from an intermediate appellate decision the way the earlier
+ * ontariocourts.ca search kept running into. "Breach of contract elements"
+ * remains cut: no equivalent primary source has been found or read for it
+ * yet. If a future session finds an actual ontario.ca/ontariocourts.ca/
+ * ontariocourtforms.on.ca page stating it plainly, or another SCC/primary
+ * source the same way this one was sourced, add it back with that
+ * citation.
  */
 
 import type { FactCondition } from "./questionBank";
@@ -184,5 +198,114 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
     ],
     reviewedAt: "2026-09-08",
     status: "reviewed",
+  },
+  {
+    id: "sc-topic-general-negligence-elements",
+    courtArea: "small-claims",
+    title: "The elements of a negligence claim",
+    plainExplanation:
+      "A negligence claim generally requires proving four separate elements: (1) that the " +
+      "defendant owed the plaintiff a duty of care; (2) that the defendant's conduct breached the " +
+      "standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was " +
+      "caused, in fact and in law, by the defendant's breach. " +
+      "Duty of care asks whether the relationship between the parties is close enough that one may " +
+      "reasonably be said to owe the other a duty not to cause injury -- a question of " +
+      "foreseeability moderated by policy considerations. Where the relationship falls into a type " +
+      "courts have already recognized as giving rise to a duty of care, precedent settles the " +
+      "question and a full duty-of-care analysis isn't needed -- for example, courts have long " +
+      "recognized that a manufacturer of a consumable good owes a duty of care to the ultimate " +
+      "consumer of that good. " +
+      "Standard of care asks whether the defendant's conduct breached the standard expected of it. " +
+      "Conduct is negligent if it creates an unreasonable risk of harm. " +
+      "Damage for this purpose includes psychological injury, not only physical injury -- but " +
+      "psychological injury that counts as personal injury has to be distinguished from ordinary " +
+      "upset. The law does not recognize upset, disgust, anxiety, agitation, or other mental states " +
+      "that fall short of injury; to count, an injury generally has to be serious and prolonged, " +
+      "rising above the ordinary annoyances, anxieties, and fears that people living in society " +
+      "routinely accept. " +
+      "Causation has two parts: whether the breach caused the harm in fact, and whether it also " +
+      "caused the harm in law -- meaning the harm isn't too remote to fairly hold the defendant " +
+      "liable for it. That remoteness question turns on reasonable foreseeability: whether the " +
+      "harm was a real risk that would occur to a reasonable person in the defendant's position, " +
+      "not one they'd dismiss as far-fetched. For personal-injury claims, and especially mental-" +
+      "injury claims, foreseeability is judged against a person of \"ordinary fortitude,\" not the " +
+      "particular plaintiff's own sensitivities -- unusual or extreme reactions to a negligent act " +
+      "are imaginable but not reasonably foreseeable. That ordinary-fortitude threshold is a " +
+      "separate question from the \"thin skull\" rule: once it's shown that a person of ordinary " +
+      "fortitude would foreseeably suffer the injury, the defendant must then take the plaintiff as " +
+      "found for the purpose of assessing the resulting damages -- ordinary fortitude decides " +
+      "whether the damage is compensable at law at all, not how much compensation follows once it " +
+      "is. Where a defendant is shown to have had actual knowledge of a plaintiff's particular " +
+      "sensitivities, the ordinary-fortitude requirement doesn't have to be applied as strictly.",
+    citations: [
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "para. 3 -- the four elements of a negligence claim",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "paras. 4-5 -- duty of care: the proximity question, and that an established category doesn't need a full Anns analysis",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "para. 6 -- manufacturer/ultimate-consumer as an example of an already-established duty-of-care category",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "para. 7 -- standard of care: conduct is negligent if it creates an unreasonable risk of harm",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "para. 8 -- damage includes psychological injury, not only physical injury",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "para. 9 -- compensable psychological injury must be serious and prolonged, distinct from ordinary upset",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "para. 11 -- causation has both a factual and a legal (remoteness) branch",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "paras. 12-13 -- remoteness turns on reasonable foreseeability, i.e. a \"real risk,\" not mere possibility",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "paras. 14-15 -- foreseeability of personal/mental injury is judged against a person of \"ordinary fortitude\"",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "para. 16 -- ordinary fortitude is a compensability threshold, distinct from the \"thin skull\" rule on quantum",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "para. 17 -- actual knowledge of a plaintiff's particular sensitivities relaxes the ordinary-fortitude requirement",
+      },
+    ],
+    reviewedAt: null,
+    status: "draft",
   },
 ];
