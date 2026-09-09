@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 export const runtime = "nodejs";
 
 const GATE_COOKIE = "cs_site_access";
-const GATE_COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 30; // 30 days
 
 export async function POST(req: NextRequest) {
   try {
@@ -31,7 +30,8 @@ export async function POST(req: NextRequest) {
       secure: true,
       sameSite: "lax",
       path: "/",
-      maxAge: GATE_COOKIE_MAX_AGE_SECONDS,
+      // Session cookie, deliberately: no maxAge/expires, so the browser
+      // drops it when it closes rather than persisting the gate indefinitely.
     });
 
     return response;
