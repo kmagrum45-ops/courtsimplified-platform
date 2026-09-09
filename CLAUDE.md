@@ -27,6 +27,8 @@ Every citation must be verified to resolve before it ships. A citation that cann
 
 CanLII blocks automated scraping. Do not attempt to scrape it. Cite decisions retrieved through legitimate access, and record the neutral citation plus the date verified.
 
+CanLII and the Supreme Court of Canada's own site both block automated fetching, which is why a primary source manually downloaded and saved under `docs/sources/` is a first-class citation route: reading it from disk satisfies the "retrieved and read" requirement the same way a live fetch does, provided `docs/sources/README.md` records what it is, its neutral citation, the URL it came from, and the date it was downloaded.
+
 Every card, claim, or assertion must carry its source URL (or, where the source is a neutral citation rather than a URL, the citation) and the date it was verified.
 
 **The "who does the applying" test** — the standing rule for telling legal information apart from legal advice, everywhere in this codebase, not just intake:
