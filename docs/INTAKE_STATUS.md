@@ -107,6 +107,10 @@ Ordered roughly by how much it affects a real user today.
 **What:** a static, educational feature teaching users how to research case law on CanLII themselves — what a neutral citation is, how to use the "citing documents" view, and how to check whether a decision has since been treated negatively (overturned, distinguished, not followed) — deliberately scoped to teaching the skill, never to generating a case list, running a search, or otherwise applying CanLII results to a user's specific facts (that would cross the "who does the applying" line in `AI_INTAKE_DESIGN.md`/`CLAUDE.md` section 2 from legal information into legal advice). CanLII's no-scraping restriction means any future implementation must link out to CanLII rather than mirror its content.
 **Status:** open, filed as a future item this session; no design work, sourcing, or code started.
 
+### Institutional research guidance (written standards + FOI) — designed, not started
+**What:** teaches users that institutions (school boards, municipalities/police services, licensed businesses/regulated trades) operate under their own written standards — supervision schedules, procedures, licensing conditions — and how to request internal records under MFIPPA/FIPPA. Same "who does the applying" boundary as the CanLII item above: teaches what typically exists and where/how to find or request it, never asserts what a specific institution's specific document says or whether it was followed. Full design — schema, the three institution categories, the FOI component, how it attaches to `ClaimType`, where it surfaces — is in `docs/RESEARCH_GUIDANCE_DESIGN.md`. This is the second of three pieces of the same research-skills layer; CanLII guidance above is the third. Neither is a separate feature from the other.
+**Status:** open. Design spec written this session (`docs/RESEARCH_GUIDANCE_DESIGN.md`); no content sourced, no schema, engine, or UI code written.
+
 ## 3. Feature parity — guided mode vs. the static form
 
 Both call into the same content (`questionBank.ts`, `claimTypes.ts`), but the two paths have meaningfully diverged.
