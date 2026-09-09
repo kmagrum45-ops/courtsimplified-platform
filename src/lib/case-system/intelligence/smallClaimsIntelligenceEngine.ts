@@ -119,6 +119,58 @@ function normalizeText(value: string): string {
     .trim();
 }
 
+// Session 39 -- deterministic backstop for the confirmed-evidence-flagged-
+// as-missing bug: the prompt now asks the model not to re-list evidence the
+// user already described as missing, but that instruction alone isn't
+// guaranteed to hold on every story. Same "narrow now, expand deliberately"
+// posture as caseStrengthLanguageValidator.ts -- no second AI call judging
+// the first one, just a coarse deterministic filter, deliberately using the
+// same >=2-shared-significant-word technique as
+// scripts/verification/fixtures/ruleChecks.ts's own Rule 3 check
+// (independently implemented here, not imported, so the production filter
+// and the test that verifies it stay honestly separate).
+const CONFIRMED_EVIDENCE_STOPWORDS = new Set([
+  "a", "an", "the", "of", "or", "and", "to", "for", "with", "your", "you",
+  "if", "this", "that", "these", "those", "is", "are", "was", "were", "in",
+  "on", "at", "from", "by", "it", "its", "as", "be", "been", "being", "not",
+  "any", "all", "showing", "confirming", "email", "records",
+]);
+
+function confirmedEvidenceKeywords(text: string): Set<string> {
+  return new Set(
+    text
+      .toLowerCase()
+      .split(/[^a-z0-9]+/)
+      .filter((word) => word.length > 2 && !CONFIRMED_EVIDENCE_STOPWORDS.has(word)),
+  );
+}
+
+/**
+ * Drops any missingEvidence item that shares 2+ significant words with the
+ * evidence the user already described having -- whether it's an exact
+ * re-flag ("Condo declaration" when the user said "the condo declaration
+ * excerpt") or an adequacy-framed request for a fuller/original/complete
+ * version of something already provided. Both are the same underlying bug:
+ * missingEvidence should state factual absence, not re-surface or grade
+ * evidence that was already confirmed.
+ */
+function filterConfirmedEvidenceFromMissing(
+  missingEvidence: string[],
+  confirmedEvidenceText: string,
+): string[] {
+  const confirmedKeywords = confirmedEvidenceKeywords(confirmedEvidenceText);
+  if (confirmedKeywords.size === 0) return missingEvidence;
+
+  return missingEvidence.filter((item) => {
+    const itemKeywords = confirmedEvidenceKeywords(item);
+    let overlap = 0;
+    for (const word of itemKeywords) {
+      if (confirmedKeywords.has(word)) overlap += 1;
+    }
+    return overlap < 2;
+  });
+}
+
 function issueLabel(issue: SmallClaimsIssue): string {
   const labels: Record<SmallClaimsIssue, string> = {
     "unpaid-money": "Unpaid money / invoice",
@@ -553,7 +605,10 @@ export async function analyzeSmallClaimsWithBrain(
     summary: "",
 
     detectedClaimTypes: intelligence.primaryClaimTypes,
-    missingEvidence: cleanList(intelligencePatch.missingEvidence || []),
+    missingEvidence: filterConfirmedEvidenceFromMissing(
+      cleanList(intelligencePatch.missingEvidence || []),
+      input.evidence,
+    ),
     nextBestActions: cleanList([...defaultStageGuidance, ...(intelligence.nextBestActions || [])]),
     userWarnings: cleanList(intelligence.systemWarnings || []),
     proceduralRisks: cleanList(intelligence.proceduralPosture.warnings || []),

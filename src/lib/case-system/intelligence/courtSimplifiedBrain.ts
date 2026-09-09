@@ -1720,7 +1720,7 @@ REQUIRED DEPTH:
 2. Identify the strongest primary theory, viable alternatives, weak theories, and false positives.
 3. Each detected/possible claim must include practical claim elements written in plain language.
 4. Every element must state status, explanation, missingFacts, and risks.
-5. Build evidenceIssueLinks that explain what proof is needed, not just what evidence exists.
+5. Build evidenceIssueLinks that explain what proof is needed, not just what evidence exists. Before listing anything in missingEvidence, check the "Evidence described" text in the intake -- if the user already described having that item, a close equivalent, or something that would satisfy the same need, do not list it as missing. missingEvidence is for evidence the user has not indicated having at all, never a request for a more complete, original, or better version of something they already described having.
 6. Identify litigation risks the user may not realize: limitation, discoverability, jurisdiction, wrong forum, wrong form, leave/notice, causation, credibility, proportionality, remedy-fit, service, deadline, and stage risks.
 7. Give ordered nextBestActions that improve court readiness.
 8. Keep summaries useful: not just repetition of intake. Explain theory, risk, proof gaps, and next step. Never state or imply the claim's strength, viability, or likely outcome.
