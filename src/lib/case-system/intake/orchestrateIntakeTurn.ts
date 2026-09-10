@@ -42,6 +42,7 @@
 import { runSafetyPass, type SafetyClassification } from "./safetyPass";
 import { extractIntakeFactsWithConfidence } from "./extractIntakeFacts";
 import { matchClaimType, type ClaimTypeMatch } from "./claimTypeMatcher";
+import { classifyClaimTypeWithAi, type ClaimTypeAiSuggestion } from "./claimTypeAiClassifier";
 import { CLAIM_TYPES, type ClaimType } from "./claimTypes";
 import { detectEvidenceGaps, type EvidenceGuidance } from "./evidenceGapDetector";
 import { buildClaimGuidance, type ClaimGuidance } from "./claimGuidance";
@@ -69,6 +70,19 @@ export type OrchestrateIntakeTurnResult = {
   answeredIds: string[];
   /** See the file header note on why this is turn-scoped, not accumulated. */
   matchedClaimTypes: ClaimTypeMatch[];
+  /**
+   * Session 37 (commit f034748's follow-up). Set only when
+   * matchClaimType() found nothing this turn AND the AI fallback
+   * (claimTypeAiClassifier.ts) found a candidate. This is a SUGGESTION,
+   * not a match -- deliberately excluded from matchedClaimTypes, and
+   * evidenceGuidance/claimGuidance are NOT computed for it. A caller
+   * must run it through an explicit user confirmation step (see
+   * app/api/intake/classify-claim-type/route.ts) before treating it as
+   * the retained claim type anywhere -- same suggest-never-decide
+   * pattern as every other AI-generated suggestion in this codebase.
+   * Turn-scoped, same caveat as matchedClaimTypes above.
+   */
+  suggestedClaimType?: ClaimTypeAiSuggestion;
   /**
    * Session 22. General evidence-category guidance for the claim type
    * matched THIS turn (see matchedClaimTypes above) -- absent whenever
@@ -174,6 +188,13 @@ function mergeFacts(
  *      doc comment above) -- and claimGuidance.ts's buildClaimGuidance()
  *      runs against the matched claim type and the merged facts to
  *      produce claimGuidance (Session 32), same turn-scoping again.
+ *      Session 37: when claimTypeMatcher finds nothing, claimTypeAiClassifier.ts
+ *      gets one AI-assisted attempt against the same newStoryText. Its
+ *      result is surfaced as `suggestedClaimType` only -- unlike an exact
+ *      match, it never populates matchedClaimTypes and never triggers
+ *      evidenceGuidance/claimGuidance in this same call, because it has
+ *      not been confirmed by the user yet (see suggestedClaimType's own
+ *      doc comment above).
  *   5. selectQuestions() picks the next question from the (possibly
  *      caller-supplied, e.g. a "reviewed" fixture) question bank.
  *   6. If there's a next question, composeVoiceTurn() wraps it. If not,
@@ -212,6 +233,7 @@ export async function orchestrateIntakeTurn(
   let safetyClassification: SafetyClassification | undefined;
   let distressAcknowledgment: string | undefined;
   let matchedClaimTypes: ClaimTypeMatch[] = [];
+  let suggestedClaimType: ClaimTypeAiSuggestion | undefined;
   let possibleCorrections: PossibleCorrection[] = [];
   let evidenceGuidance: EvidenceGuidance | undefined;
   let claimGuidance: ClaimGuidance | undefined;
@@ -259,6 +281,8 @@ export async function orchestrateIntakeTurn(
     if (match) {
       evidenceGuidance = detectEvidenceGaps(match.claimType, newStoryText);
       claimGuidance = buildClaimGuidance(match.claimType, facts);
+    } else {
+      suggestedClaimType = (await classifyClaimTypeWithAi(newStoryText, claimTypes, apiKey)) ?? undefined;
     }
   }
 
@@ -273,6 +297,7 @@ export async function orchestrateIntakeTurn(
       facts,
       answeredIds,
       matchedClaimTypes,
+      suggestedClaimType,
       evidenceGuidance,
       claimGuidance,
       intakeComplete: true,
@@ -289,6 +314,7 @@ export async function orchestrateIntakeTurn(
     facts,
     answeredIds,
     matchedClaimTypes,
+    suggestedClaimType,
     evidenceGuidance,
     claimGuidance,
     nextQuestion,

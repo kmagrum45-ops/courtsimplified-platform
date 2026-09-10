@@ -83,6 +83,13 @@ type GuidedTurnResult = {
   /** Turn-scoped, same as evidenceGuidance -- see matchedClaimType state below. */
   matchedClaimTypes: { claimType: { id: string; name: string } }[];
   /**
+   * Session 37. Set only when the exact-match matcher found nothing this
+   * turn AND the AI fallback found a candidate -- a SUGGESTION, not a
+   * confirmed match. Must go through the confirm/reject UI below before
+   * it becomes `matchedClaimType`; see pendingSuggestion state.
+   */
+  suggestedClaimType?: MatchedClaimType;
+  /**
    * Session 23. Turn-scoped on the server (see orchestrateIntakeTurn.ts) --
    * only present on the turn where a claim type was freshly matched, most
    * often the opening story. Retained in this component's own state (see
@@ -216,6 +223,20 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
   // survive to the completion callback even when the LAST turn's text
   // didn't itself re-match one.
   const [matchedClaimType, setMatchedClaimType] = useState<MatchedClaimType | null>(null);
+  // Session 37 -- an AI-suggested claim type awaiting explicit user
+  // confirmation (see suggestedClaimType on GuidedTurnResult). Never fed
+  // into matchedClaimType, evidenceGuidance, or claimGuidance until the
+  // user says yes via handleConfirmSuggestion below.
+  const [pendingSuggestion, setPendingSuggestion] = useState<MatchedClaimType | null>(null);
+  // The exact story text the pending suggestion was classified from --
+  // confirming/rejecting re-uses this same text rather than re-sending
+  // whatever the user has typed since.
+  const [suggestionStoryText, setSuggestionStoryText] = useState("");
+  // Ids already rejected in this suggestion cycle -- capped at one retry,
+  // enforced server-side too (claimTypeSuggestionResolution.ts).
+  const [rejectedSuggestionIds, setRejectedSuggestionIds] = useState<string[]>([]);
+  const [resolvingSuggestion, setResolvingSuggestion] = useState(false);
+  const [noClaimTypeMatch, setNoClaimTypeMatch] = useState(false);
 
   async function sendTurn(
     newStoryText: string | undefined,
@@ -255,6 +276,12 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
       }
       if (result.claimGuidance) {
         setClaimGuidance(result.claimGuidance);
+      }
+      if (result.suggestedClaimType && newStoryText) {
+        setPendingSuggestion(result.suggestedClaimType);
+        setSuggestionStoryText(newStoryText);
+        setRejectedSuggestionIds([]);
+        setNoClaimTypeMatch(false);
       }
 
       // Compute the value to report now, before any setState -- the
@@ -312,6 +339,69 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
+    }
+  }
+
+  // Session 37. Resolves pendingSuggestion via /api/intake/classify-claim-type
+  // -- confirm accepts it as the real matched claim type (computing
+  // evidenceGuidance/claimGuidance for the first time, same as an exact
+  // match already does); reject asks for one AI-assisted retry, excluding
+  // the rejected id, and gives up honestly after that (see
+  // claimTypeSuggestionResolution.ts).
+  async function resolveSuggestion(action: "confirm" | "reject") {
+    if (!pendingSuggestion) return;
+    setResolvingSuggestion(true);
+    setError("");
+
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      const response = await fetch("/api/intake/classify-claim-type", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
+        },
+        body: JSON.stringify({
+          storyText: suggestionStoryText,
+          facts,
+          action,
+          claimTypeId: pendingSuggestion.claimTypeId,
+          priorRejectedIds: rejectedSuggestionIds,
+        }),
+      });
+
+      const json = await response.json();
+      if (!response.ok || !json.ok) {
+        setError(json.error || "That didn't go through. Please try again.");
+        return;
+      }
+
+      const result = json.result as
+        | { outcome: "confirmed"; claimType: MatchedClaimType; evidenceGuidance: EvidenceGuidance; claimGuidance: ClaimGuidance }
+        | { outcome: "revised"; suggestedClaimType: MatchedClaimType }
+        | { outcome: "no-match" };
+
+      if (result.outcome === "confirmed") {
+        setMatchedClaimType(result.claimType);
+        setEvidenceGuidance(result.evidenceGuidance);
+        setClaimGuidance(result.claimGuidance);
+        setPendingSuggestion(null);
+        setRejectedSuggestionIds([]);
+      } else if (result.outcome === "revised") {
+        setRejectedSuggestionIds((current) => [...current, pendingSuggestion.claimTypeId]);
+        setPendingSuggestion(result.suggestedClaimType);
+      } else {
+        setPendingSuggestion(null);
+        setRejectedSuggestionIds([]);
+        setNoClaimTypeMatch(true);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setResolvingSuggestion(false);
     }
   }
 
@@ -374,6 +464,43 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
 
       {!halted && currentQuestion ? (
         <QuestionHelp key={currentQuestion.id} question={currentQuestion} />
+      ) : null}
+
+      {!halted && pendingSuggestion ? (
+        <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-[#4a3b12]">
+          <p className="font-semibold text-[#3a2e0e]">
+            This sounds like it may be about: {pendingSuggestion.claimTypeName} — is that right?
+          </p>
+          <p className="mt-1 text-xs text-[#6b5a26]">
+            This is a suggestion only, not a determination of your case -- nothing is applied until you confirm it.
+          </p>
+          <div className="mt-3 flex gap-2">
+            <button
+              type="button"
+              disabled={resolvingSuggestion}
+              onClick={() => void resolveSuggestion("confirm")}
+              className="rounded-full bg-[#2f7d67] px-4 py-2 text-xs font-bold text-white disabled:opacity-60"
+            >
+              Yes, that&apos;s right
+            </button>
+            <button
+              type="button"
+              disabled={resolvingSuggestion}
+              onClick={() => void resolveSuggestion("reject")}
+              className="rounded-full border border-[#c9b26a] bg-white px-4 py-2 text-xs font-bold text-[#4a3b12] disabled:opacity-60"
+            >
+              {resolvingSuggestion ? "..." : "No, not that one"}
+            </button>
+          </div>
+        </div>
+      ) : null}
+
+      {!halted && !pendingSuggestion && noClaimTypeMatch ? (
+        <div className="mt-4 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm leading-6 text-[#4d675f]">
+          We don&apos;t have a specific match for this kind of situation yet. You can keep going with the
+          questions below -- this only affects the extra claim-type-specific guidance shown here, not the
+          rest of your intake.
+        </div>
       ) : null}
 
       {!halted && evidenceGuidance ? (
