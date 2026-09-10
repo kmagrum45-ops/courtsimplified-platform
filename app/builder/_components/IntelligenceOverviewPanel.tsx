@@ -108,6 +108,13 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
       ? claimTypeContent.evidenceToOrganize
       : textItems([...(analysis.missingEvidence || []), ...(analysis.intelligenceEvidenceIssues || []).flatMap((issue) => issue.missingEvidence || [])]);
   const courtPoints: SourcedListItem[] = claimTypeContent ? claimTypeContent.courtPoints : [];
+  // General information about what defences commonly arise for this TYPE of
+  // claim (sourced, same claimTypeOverviewContent.ts pipeline as courtPoints
+  // above) -- never a prediction about what this case's specific opponent
+  // will argue. Empty, never a fallback, for anything claimTypeContent is
+  // null for (Family/Civil, or a Small Claims story matching none of the 19
+  // CLAIM_TYPES entries yet), same as courtPoints.
+  const commonDefences: SourcedListItem[] = claimTypeContent ? claimTypeContent.commonDefences : [];
   const snapshot = [
     `${analysis.courtPath === "small-claims" ? "Small Claims" : analysis.courtPath === "family" ? "Family" : "Civil"} matter.`,
     parties ? `Parties recorded: ${parties}.` : "",
@@ -129,6 +136,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
       <Card title="Documents already recorded">{documents.length ? <ul className="list-disc space-y-1 pl-5">{documents.map((document) => <li key={document}>{documentLabel(document)}</li>)}</ul> : <p>No filed or served documents were selected in this intake.</p>}</Card>
       <Card title="Evidence and proof to organize">{recordedEvidence.length > 0 && <><h3 className="font-semibold">Evidence you have recorded</h3><ul className="mt-2 list-disc space-y-1 pl-5">{recordedEvidence.map((item) => <li key={item}>{item}</li>)}</ul></>}{evidenceToOrganize.length > 0 && <><h3 className={recordedEvidence.length ? "mt-5 font-semibold" : "font-semibold"}>Evidence to organize or confirm</h3><ul className="mt-2 list-disc space-y-1 pl-5">{evidenceToOrganize.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></>}</Card>
       {courtPoints.length > 0 && <Card title="Points the court may need clarified"><ul className="list-disc space-y-1 pl-5">{courtPoints.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></Card>}
+      {commonDefences.length > 0 && <Card title="Defences that commonly come up"><p className="mb-3 text-sm leading-6 text-[#4d675f]">General information about defences that commonly arise for this type of claim -- not a prediction about what the other side will argue in this case.</p><ul className="list-disc space-y-1 pl-5">{commonDefences.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></Card>}
       {hasAdoptionSignal && <Card title="Official Ontario resources to review"><ul className="list-disc space-y-2 pl-5"><li><a className="text-[#2f7d67] underline" href="https://www.ontario.ca/page/adopt-stepchild-or-relative" target="_blank" rel="noreferrer">Ontario: Adopt a stepchild or relative</a></li><li><a className="text-[#2f7d67] underline" href="https://ontariocourtforms.on.ca/en/family-law-rules-forms/8d/" target="_blank" rel="noreferrer">Ontario Court Services: Form 8D, Application (adoption)</a></li><li><a className="text-[#2f7d67] underline" href="https://www.ontario.ca/laws/statute/17c14" target="_blank" rel="noreferrer">Ontario Child, Youth and Family Services Act</a></li></ul><p className="mt-3">Form 8D is an official Ontario adoption application form to review. Court requirements and any consent or notice issues must be confirmed before filing.</p></Card>}
     </div>
     <p className="mt-7 text-sm leading-7 text-[#4d675f]">CourtSimplified organizes your information and identifies items to review; it does not decide your legal claim, outcome, or judgment.</p>

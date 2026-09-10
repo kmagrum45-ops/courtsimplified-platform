@@ -48,7 +48,7 @@
 
 import { matchClaimType } from "./claimTypeMatcher";
 import { collectEvidenceCategories } from "./evidenceGapDetector";
-import { CLAIM_TYPES, type ClaimType } from "./claimTypes";
+import { CLAIM_TYPES, DEFENCE_CONCEPTS, type ClaimType } from "./claimTypes";
 
 export type SourcedListItem = {
   text: string;
@@ -62,6 +62,23 @@ export type ClaimTypeOverviewContent = {
   evidenceToOrganize: SourcedListItem[];
   /** One per plaintiffElement -- its plainExplanation is the "why the court needs this established" text. */
   courtPoints: SourcedListItem[];
+  /**
+   * From the matched claim type's applicableDefenceConceptIds, resolved
+   * against DEFENCE_CONCEPTS and deduplicated -- see buildCommonDefences().
+   * General information about what defences commonly arise for this TYPE of
+   * claim, sourced the same way courtPoints is -- never a prediction about
+   * what a specific opponent will argue. All 5 DEFENCE_CONCEPTS entries are
+   * currently status: "draft" (checked 2026-09-12) -- unlike a "draft"
+   * ClaimType (see the file-header note above), no session has confirmed
+   * these went through the site owner's final administrative read-through
+   * yet. They are surfaced anyway, on the same no-status-gate basis
+   * claimGuidance.ts and this file already use for ClaimType content,
+   * because each entry's sourceUrl was independently fetched and confirmed
+   * resolving this session -- draft here tracks an editorial sign-off step,
+   * not unverified sourcing. Promoting these to "reviewed" is the site
+   * owner's call, not done here.
+   */
+  commonDefences: SourcedListItem[];
 };
 
 /**
@@ -79,6 +96,35 @@ function buildSourceUrlByCategoryName(claimType: ClaimType): Map<string, string>
     }
   }
   return sourceUrlByCategoryName;
+}
+
+const DEFENCE_CONCEPTS_BY_ID = new Map(
+  DEFENCE_CONCEPTS.map((concept) => [concept.id, concept] as const),
+);
+
+/**
+ * Resolves a claim type's applicableDefenceConceptIds against
+ * DEFENCE_CONCEPTS, deduplicated by id (same defensive posture
+ * buildSourceUrlByCategoryName above uses for evidence categories). Skips
+ * any id that doesn't resolve to a real entry, and any entry without a
+ * sourceUrl -- the same sourcing bar every other list built in this file
+ * already enforces on its own content.
+ */
+function buildCommonDefences(claimType: ClaimType): SourcedListItem[] {
+  const seenIds = new Set<string>();
+  const items: SourcedListItem[] = [];
+
+  for (const id of claimType.applicableDefenceConceptIds) {
+    if (seenIds.has(id)) continue;
+    seenIds.add(id);
+
+    const concept = DEFENCE_CONCEPTS_BY_ID.get(id);
+    if (!concept || !concept.sourceUrl) continue;
+
+    items.push({ text: concept.plainExplanation, sourceUrl: concept.sourceUrl });
+  }
+
+  return items;
 }
 
 /**
@@ -110,10 +156,13 @@ export function buildClaimTypeOverviewContent(
     sourceUrl: element.sourceUrl,
   }));
 
+  const commonDefences = buildCommonDefences(claimType);
+
   return {
     claimTypeId: claimType.id,
     claimTypeName: claimType.name,
     evidenceToOrganize,
     courtPoints,
+    commonDefences,
   };
 }
