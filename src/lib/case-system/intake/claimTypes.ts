@@ -778,11 +778,32 @@ export const CLAIM_TYPES: ClaimType[] = [
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
       },
     ],
+    // Original 4 signals were exact-substring specific enough that a
+    // realistically-phrased real story ("the buyer never paid for the
+    // product... payment for the merchandise") landed zero hits against
+    // any of them -- confirmed directly this session by running such a
+    // story through matchClaimType() (see docs/PROCEDURAL_RULES-adjacent
+    // survey in scripts/verification/fixtures/smallClaimsFullSurvey.md).
+    // The 8 phrasings below are alternate wordings of the exact same
+    // existing, already-sourced claim type -- no new legal content, no new
+    // citation needed, same as the original 4 needed none (signals are
+    // plain keyword data, not a legal assertion -- see claimTypeMatcher.ts's
+    // own header). Kept tied to "goods"/"product"/"merchandise"/"what they
+    // bought" rather than a bare "never paid" fragment, to avoid false-
+    // positive overlap with unpaid-debt-services or other money-claim types.
     signals: [
       "sold goods and wasn't paid",
       "buyer didn't pay for product",
       "unpaid for merchandise",
       "payment never received for goods",
+      "never paid for the goods",
+      "never paid for the product",
+      "never paid me for the goods",
+      "didn't pay me for the goods",
+      "wouldn't pay for the goods",
+      "refused to pay for the goods",
+      "buyer never paid",
+      "customer never paid",
     ],
     typicalDefendantProfile: "either",
     citations: [
