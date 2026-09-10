@@ -599,15 +599,10 @@ function FormsPageContent() {
   }, [enrichedForms, search, statusFilter]);
 
   const stats = useMemo(() => {
-    const overlayCount = forms.filter(
-      (form) => form.pdf_path && overlaySupportedPaths.has(form.pdf_path),
-    ).length;
-
     return {
-      overlayCount,
       total: forms.length,
     };
-  }, [forms, overlaySupportedPaths]);
+  }, [forms]);
 
   const unlinkedRecommendationLabels = useMemo(
     () =>
@@ -796,9 +791,6 @@ function FormsPageContent() {
               <p className="mt-1 text-[#4f685f]">
                 Verified for this case: {verifiedRecommendations.length}
               </p>
-              <p className="mt-1 text-[#4f685f]">
-                Overlay-ready: {stats.overlayCount}
-              </p>
             </div>
           </div>
 
@@ -876,8 +868,62 @@ function FormsPageContent() {
             {verifiedRecommendations.length ? (
               <div className="mt-5 space-y-3">
                 {verifiedRecommendations.map((recommendation) => {
-                  const recommendedForm = forms.find((form) => form.canonical_form_id === recommendation.canonicalFormId && form.court_type === recommendation.courtType);
-                  return <article key={recommendation.canonicalFormId} className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-950"><p className="font-bold">{recommendation.officialTitle || "Official court form"}</p><p className="mt-1 inline-block rounded-full border border-emerald-300 bg-white px-3 py-1 font-semibold">Official source verified</p><p className="mt-2">{recommendation.revisionOrEffectiveAt}</p><a className="mt-2 inline-block font-semibold underline" href={recommendation.officialSourceUrl} target="_blank" rel="noreferrer">Official source</a><p className="mt-2">Review before filing; current court requirements may differ.</p>{recommendedForm ? <button type="button" onClick={() => generateFilledForm(recommendedForm)} disabled={generatingKey === recommendation.canonicalFormId} className="mt-3 rounded-full bg-[#163d35] px-4 py-2 font-bold text-white">Generate this verified form</button> : null}</article>;
+                  const recommendedForm = forms.find(
+                    (form) =>
+                      form.canonical_form_id === recommendation.canonicalFormId &&
+                      form.court_type === recommendation.courtType,
+                  );
+                  const recommendedFormOverlayReady = Boolean(
+                    recommendedForm?.pdf_path &&
+                      overlaySupportedPaths.has(recommendedForm.pdf_path),
+                  );
+
+                  return (
+                    <article
+                      key={recommendation.canonicalFormId}
+                      className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-950"
+                    >
+                      <p className="font-bold">{recommendation.officialTitle || "Official court form"}</p>
+                      <p className="mt-1 inline-block rounded-full border border-emerald-300 bg-white px-3 py-1 font-semibold">
+                        Official source verified
+                      </p>
+                      <p className="mt-2">{recommendation.revisionOrEffectiveAt}</p>
+                      <a
+                        className="mt-2 inline-block font-semibold underline"
+                        href={recommendation.officialSourceUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Official source
+                      </a>
+                      <p className="mt-2">Review before filing; current court requirements may differ.</p>
+
+                      <div className="mt-3 flex flex-wrap gap-3">
+                        {recommendedForm?.pdf_path ? (
+                          <button
+                            type="button"
+                            onClick={() => window.open(getPublicUrl(recommendedForm.pdf_path!), "_blank")}
+                            className="rounded-full bg-[#163d35] px-4 py-2 font-bold text-white"
+                          >
+                            Open PDF
+                          </button>
+                        ) : null}
+
+                        {recommendedForm && recommendedFormOverlayReady ? (
+                          <button
+                            type="button"
+                            onClick={() => generateFilledForm(recommendedForm)}
+                            disabled={generatingKey === recommendation.canonicalFormId}
+                            className="rounded-full border border-[#163d35] bg-white px-4 py-2 font-bold text-[#163d35] disabled:cursor-not-allowed disabled:opacity-70"
+                          >
+                            {generatingKey === recommendation.canonicalFormId
+                              ? "Generating..."
+                              : "Try auto-filled version (available for this form)"}
+                          </button>
+                        ) : null}
+                      </div>
+                    </article>
+                  );
                 })}
               </div>
             ) : mappingStage === "starting-case" || mappingStage === "responding" ? <p className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">Review required — a verified form recommendation is unavailable until every applicable fact is explicitly confirmed and matches the selected case.</p> : <p className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">Review required — this verified mapping bundle applies only to selected starting or responding stages.</p>}
@@ -1103,13 +1149,6 @@ function FormsPageContent() {
                           .filter(Boolean)
                           .join(" + ") || "No file connected"}
                       </p>
-                      <p
-                        className={`mt-2 font-bold ${
-                          overlayReady ? "text-[#0f766e]" : "text-[#8a6d1d]"
-                        }`}
-                      >
-                        {overlayReady ? "Overlay-ready" : "Guided/manual review"}
-                      </p>
                       {!catalogLookup ? (
                         <p className="mt-2 font-bold text-[#8a6d1d]">
                           {UNLINKED_FORM_RECOMMENDATION_MESSAGE}
@@ -1131,48 +1170,49 @@ function FormsPageContent() {
 
                    <div className="mt-5 rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm text-[#4f685f]">
                     {hasPdf
-                      ? overlayReady
-                        ? "CourtSimplified overlay generation is enabled for this form. Review the generated result before filing."
-                        : "Official PDF is available. Automatic generation may require field mapping or guided review before it is filing-ready."
+                      ? "Download the official PDF and fill it in yourself. CourtSimplified does not complete court forms for you — review every field carefully before filing."
                       : "No official PDF is connected in the library. Use the Word version if available, or continue through the document workspace."}
+                    {hasPdf && overlayReady ? (
+                      <span className="mt-2 block font-semibold text-[#0f766e]">
+                        An experimental auto-filled version is also available
+                        for this specific form only — always double-check
+                        every field before filing.
+                      </span>
+                    ) : null}
                   </div>
 
                   <div className="mt-5 flex flex-wrap gap-3">
                     {form.pdf_path ? (
-                      <>
-                        <button
-                          type="button"
-                          onClick={() => window.open(getPublicUrl(form.pdf_path!), "_blank")}
-                          className="rounded-full bg-[#2f7d67] px-5 py-3 text-sm font-bold text-white"
-                        >
-                          Open PDF
-                        </button>
+                      <button
+                        type="button"
+                        onClick={() => window.open(getPublicUrl(form.pdf_path!), "_blank")}
+                        className="rounded-full bg-[#2f7d67] px-5 py-3 text-sm font-bold text-white"
+                      >
+                        Open PDF
+                      </button>
+                    ) : null}
 
-                        <button
-                          type="button"
-                          onClick={() => generateFilledForm(form)}
-                          disabled={
-                            isGenerating ||
-                            !catalogLookup ||
-                            (Boolean(caseId) && (caseLoading || caseUnavailable))
-                          }
-                          className={`rounded-full px-5 py-3 text-sm font-bold text-white ${
-                            overlayReady ? "bg-[#163d35]" : "bg-[#5f6f6a]"
-                          } ${
-                            isGenerating ||
-                            !catalogLookup ||
-                            (caseId && (caseLoading || caseUnavailable))
-                              ? "cursor-not-allowed opacity-70"
-                              : ""
-                          }`}
-                        >
-                          {isGenerating
-                            ? "Generating..."
-                            : overlayReady
-                              ? "Generate Filled PDF"
-                              : "Try Generate PDF"}
-                        </button>
-                      </>
+                    {form.pdf_path && overlayReady ? (
+                      <button
+                        type="button"
+                        onClick={() => generateFilledForm(form)}
+                        disabled={
+                          isGenerating ||
+                          !catalogLookup ||
+                          (Boolean(caseId) && (caseLoading || caseUnavailable))
+                        }
+                        className={`rounded-full border border-[#2f7d67] bg-white px-5 py-3 text-sm font-bold text-[#2f7d67] ${
+                          isGenerating ||
+                          !catalogLookup ||
+                          (caseId && (caseLoading || caseUnavailable))
+                            ? "cursor-not-allowed opacity-70"
+                            : ""
+                        }`}
+                      >
+                        {isGenerating
+                          ? "Generating..."
+                          : "Try auto-filled version (available for this form)"}
+                      </button>
                     ) : null}
 
                     {form.word_path ? (
