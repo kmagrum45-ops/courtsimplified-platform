@@ -3,6 +3,8 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import AuthNavAction from "./_components/AuthNavAction";
+import MobileNav from "./_components/MobileNav";
 import ScrollToTopOnNavigation from "./_components/ScrollToTopOnNavigation";
 
 const geistSans = Geist({
@@ -21,20 +23,18 @@ export const metadata: Metadata = {
     "CourtSimplified helps self-represented litigants understand court procedures, organize evidence, prepare case materials, and manage their legal matters in one connected platform.",
 };
 
-const publicNavLinks = [
+/**
+ * Case-management links (Family/Small Claims/Civil, Start Case, Workspace,
+ * Evidence, Court Package) live on the homepage and inside the case
+ * workflow instead of here -- they only make sense once a court type or
+ * case exists, and the previous 11-item nav wrapped onto two lines. Their
+ * routes and pages are unchanged; only their presence in the global nav is
+ * removed.
+ */
+const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/family", label: "Family" },
-  { href: "/small-claims", label: "Small Claims" },
-  { href: "/civil", label: "Civil" },
-  { href: "/legal-principles", label: "Legal Principles" },
-];
-
-const workspaceLinks = [
-  { href: "/dashboard", label: "My Workspace" },
-  { href: "/builder", label: "Start Case" },
-  { href: "/document-workspace", label: "Workspace" },
-  { href: "/evidence", label: "Evidence" },
-  { href: "/court-package", label: "Court Package" },
+  { href: "/legal-principles", label: "Guides" },
+  { href: "/about", label: "About" },
 ];
 
 export default function RootLayout({
@@ -56,7 +56,7 @@ export default function RootLayout({
         </Suspense>
         <div className="flex min-h-screen flex-col">
           <header className="sticky top-0 z-50 border-b border-[#D7E7E5] bg-white/95 backdrop-blur">
-            <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4">
+            <div className="relative mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-4 py-4 sm:px-6">
               <Link
                 href="/"
                 className="shrink-0 text-xl font-bold tracking-tight text-[#1F2937]"
@@ -64,8 +64,8 @@ export default function RootLayout({
                 <span className="text-[#2FB8AC]">Court</span>Simplified
               </Link>
 
-              <nav className="hidden items-center gap-4 md:flex">
-                {publicNavLinks.map((link) => (
+              <nav aria-label="Primary" className="hidden items-center gap-6 md:flex">
+                {navLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
@@ -74,26 +74,11 @@ export default function RootLayout({
                     {link.label}
                   </Link>
                 ))}
+
+                <AuthNavAction className="rounded-full bg-[#2FB8AC] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#239B91]" />
               </nav>
 
-              <div className="hidden items-center gap-3 md:flex">
-                {workspaceLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="text-sm font-semibold text-[#374151] transition hover:text-[#2FB8AC]"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-
-                <Link
-                  href="/login"
-                  className="rounded-full bg-[#2FB8AC] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#239B91]"
-                >
-                  Login / Create Account
-                </Link>
-              </div>
+              <MobileNav navLinks={navLinks} />
             </div>
           </header>
 
@@ -122,7 +107,7 @@ export default function RootLayout({
               </div>
 
               <div className="flex max-w-xl flex-wrap gap-x-4 gap-y-3 text-sm text-[#4B5563]">
-                {[...publicNavLinks, ...workspaceLinks].map((link) => (
+                {navLinks.map((link) => (
                   <Link
                     key={`footer-${link.href}`}
                     href={link.href}
@@ -132,12 +117,7 @@ export default function RootLayout({
                   </Link>
                 ))}
 
-                <Link
-                  href="/login"
-                  className="font-semibold transition hover:text-[#2FB8AC]"
-                >
-                  Login
-                </Link>
+                <AuthNavAction className="font-semibold transition hover:text-[#2FB8AC]" />
               </div>
             </div>
 
