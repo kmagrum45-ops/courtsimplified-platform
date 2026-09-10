@@ -46,6 +46,10 @@ export const KNOWN_FACT_FIELDS = [
   "evidenceText",
   "remedySoughtText",
   "serviceDetailsText",
+  "claimReceivedText",
+  "defenceFactsText",
+  "defenceEvidenceText",
+  "defendantOutcomeText",
 ] as const;
 
 export type KnownFactField = (typeof KNOWN_FACT_FIELDS)[number];
@@ -163,6 +167,7 @@ export const QUESTION_BANK: IntakeQuestion[] = [
   {
     id: "sc-amount-claimed",
     courtArea: "small-claims",
+    appliesWhen: { field: "role", op: "equals", value: "plaintiff" },
     text: "What is the total dollar amount you are claiming?",
     why:
       "Small Claims Court can only hear claims up to $50,000 (effective October 1, 2025), " +
@@ -278,6 +283,58 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     status: "reviewed",
   },
   {
+    id: "sc-defendant-claim-received",
+    courtArea: "small-claims",
+    appliesWhen: { field: "role", op: "equals", value: "defendant" },
+    text: "When did you receive the Plaintiff's Claim, and what court documents did you receive?",
+    answerType: "short-text",
+    capturesField: "claimReceivedText",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: "2026-09-10",
+    status: "reviewed",
+  },
+  {
+    id: "sc-defendant-response-facts",
+    courtArea: "small-claims",
+    appliesWhen: { field: "role", op: "equals", value: "defendant" },
+    text: "In your own words, which facts in the Plaintiff's Claim do you agree with, and which facts do you disagree with?",
+    answerType: "short-text",
+    capturesField: "defenceFactsText",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: "2026-09-10",
+    status: "reviewed",
+  },
+  {
+    id: "sc-defendant-response-evidence",
+    courtArea: "small-claims",
+    appliesWhen: { field: "role", op: "equals", value: "defendant" },
+    text: "What documents, messages, photos, receipts, or witness information do you have about your response?",
+    answerType: "short-text",
+    capturesField: "defenceEvidenceText",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: "2026-09-10",
+    status: "reviewed",
+  },
+  {
+    id: "sc-defendant-outcome",
+    courtArea: "small-claims",
+    appliesWhen: { field: "role", op: "equals", value: "defendant" },
+    text: "Are you only responding to the Plaintiff's Claim, or are you asking the court for an outcome of your own? Describe it in your own words.",
+    answerType: "short-text",
+    capturesField: "defendantOutcomeText",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: "2026-09-10",
+    status: "reviewed",
+  },
+  {
     id: "sc-contractor-completion-date",
     courtArea: "small-claims",
     appliesWhen: { field: "disputeCategory", op: "equals", value: "work-or-services" },
@@ -316,6 +373,7 @@ export const QUESTION_BANK: IntakeQuestion[] = [
   {
     id: "sc-evidence-available",
     courtArea: "small-claims",
+    appliesWhen: { field: "role", op: "equals", value: "plaintiff" },
     text:
       "What evidence do you have to support your claim (documents, photos, messages, receipts, " +
       "witnesses)?",
@@ -330,6 +388,7 @@ export const QUESTION_BANK: IntakeQuestion[] = [
   {
     id: "sc-remedy-sought",
     courtArea: "small-claims",
+    appliesWhen: { field: "role", op: "equals", value: "plaintiff" },
     text: "What outcome are you asking the court to order?",
     examples: [
       "Payment of a specific amount of money",

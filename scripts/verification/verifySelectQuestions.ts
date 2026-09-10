@@ -173,6 +173,24 @@ assert.ok(
   "fx-substance-gated-chain must appear once both claimFiled and claimServed are true",
 );
 
+// --- defendant path: plaintiff-only questions stay hidden, while the
+// defendant's factual-response questions are selected -------------------
+const defendantQuestions = selectQuestions({ role: "defendant" }, [], QUESTION_BANK);
+assert.ok(
+  defendantQuestions.includes("sc-defendant-claim-received") &&
+    defendantQuestions.includes("sc-defendant-response-facts") &&
+    defendantQuestions.includes("sc-defendant-response-evidence") &&
+    defendantQuestions.includes("sc-defendant-outcome"),
+  "a defendant must receive the claim-received, response-facts, evidence, and requested-outcome questions",
+);
+assert.ok(
+  !defendantQuestions.includes("sc-amount-claimed") &&
+    !defendantQuestions.includes("sc-evidence-available") &&
+    !defendantQuestions.includes("sc-remedy-sought") &&
+    !defendantQuestions.includes("sc-claim-filed"),
+  "a defendant must not receive plaintiff-only claim, amount, evidence, or remedy questions",
+);
+
 // --- answeredIds removes a question regardless of what the answer was ----
 // (an "I don't know" answer is still an answer -- the id lands in answeredIds
 // either way, so this also stands in for "allowUnknown honored": the
