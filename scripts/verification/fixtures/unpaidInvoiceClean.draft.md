@@ -47,14 +47,13 @@ FACTS (in the Plaintiff's own words, as provided during intake)
 5. I run a small graphic design business.
 6. Back in March I signed a services agreement with a local business, Cedar & Co., to design their full brand identity for a fee of $8,400, due within 15 days of delivery.
 7. I delivered all the final files on April 10, 2026, and they confirmed receiving everything by email that same day.
-8. This is an unpaid invoice -- Cedar & Co.
-9. never paid me anything.
-10. I sent two written demand emails, on April 28 and May 15, 2026, asking for payment, and never got a response.
-11. I haven't filed anything with the court yet.
+8. This is an unpaid invoice -- Cedar & Co. never paid me anything.
+9. I sent two written demand emails, on April 28 and May 15, 2026, asking for payment, and never got a response.
+10. I haven't filed anything with the court yet.
 
 AMOUNT CLAIMED
-12. The Plaintiff claims $8,400 from the Defendant.
-13. I want the court to order Cedar & Co. to pay the full $8,400 owed, plus my court costs.
+11. The Plaintiff claims $8,400 from the Defendant.
+12. I want the court to order Cedar & Co. to pay the full $8,400 owed, plus my court costs.
 
 RELIEF SOUGHT
 (a) payment of $8,400;

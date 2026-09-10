@@ -68,9 +68,36 @@ const MISSING_PLAINTIFF_ADDRESS = "[Plaintiff address to be confirmed]";
 const MISSING_DEFENDANT_ADDRESS = "[Defendant address to be confirmed]";
 const MISSING_AMOUNT = "[amount claimed to be confirmed]";
 
+/**
+ * Small, explicit set of abbreviations that end in a period but aren't
+ * sentence boundaries -- titles, common business suffixes, and a couple of
+ * address abbreviations most likely to appear in an intake narrative. Not a
+ * full sentence-boundary detector (out of scope, per the task that added
+ * this constant) -- just enough that the naive [.!?]-followed-by-whitespace
+ * split doesn't cut "Cedar & Co. never paid me" into two fragments at "Co.".
+ */
+const SENTENCE_SPLIT_EXCEPTIONS = [
+  "Mr", "Mrs", "Ms", "Dr", "Prof", "Rev", "Hon", "Jr", "Sr",
+  "St", "Ave", "Blvd", "Rd",
+  "Co", "Inc", "Ltd", "Corp",
+  "vs", "etc", "No",
+];
+
+/**
+ * Same split points as before ([.!?] followed by whitespace, or a newline)
+ * except it never splits right after one of SENTENCE_SPLIT_EXCEPTIONS --
+ * the negative lookbehind checks whether the text ending at the split point
+ * (the whitespace immediately after the [.!?]) matches "<exception>.", and
+ * if so, skips that split point.
+ */
+const SENTENCE_SPLIT_REGEX = new RegExp(
+  `(?<!\\b(?:${SENTENCE_SPLIT_EXCEPTIONS.join("|")})\\.)(?<=[.!?])\\s+|\\n+`,
+  "gi",
+);
+
 function splitIntoSentences(text: string): string[] {
   return text
-    .split(/(?<=[.!?])\s+|\n+/)
+    .split(SENTENCE_SPLIT_REGEX)
     .map((item) => item.trim())
     .filter((item) => item.length > 0);
 }
