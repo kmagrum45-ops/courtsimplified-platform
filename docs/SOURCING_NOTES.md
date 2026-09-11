@@ -189,6 +189,43 @@ produced it. When the rule itself changes (as it did here), re-check closures
 that were closed specifically because of the rule's old boundary, not because
 the underlying fact was unknowable.
 
+### Bailment's reversed onus — real, named authorities exist, but were unreachable this session
+
+While sourcing "property damaged/lost while left in a business's care"
+(Session 39): bailment's defining feature — a reversed onus, where a bailee
+unable to explain a loss may be found liable without the owner having to
+prove exactly what went wrong — is common law, not stated on any approved-
+domain self-help page. Two real, on-point, named authorities were found via
+search: **Punch v. Savoy's Jewellers Ltd.** (Ontario Court of Appeal, 1986)
+and **Ferguson v. Birchmount Boarding Kennels Ltd., 2006 CanLII 2049 (ON
+SCDC)** (the latter literally a pet-boarding Small Claims case on appeal —
+about as on-point as it gets). Neither could actually be retrieved: CanLII
+returned **HTTP 403 on both the `.html` and `.pdf` URL paths** for the
+Ferguson decision (confirmed directly this session, not assumed), and unlike
+Mustapha, **no copy already existed under `docs/sources/`** to read instead.
+
+**The boundary this exposes in the `docs/sources/` technique above:** that
+route only works when a copy of the source already exists locally (as
+Mustapha's did, placed there by some means outside this session's own
+tools) — a session's own tools cannot themselves get past CanLII's block to
+*create* that local copy from scratch. If a future session needs a specific
+CanLII/SCC case that isn't already under `docs/sources/`, getting a copy
+there (asking the user to supply one, or whatever channel actually got
+Mustapha's PDF in) is a precondition, not something to assume will work the
+same way the Mustapha precedent might suggest.
+
+**What was built instead, and why that's an honest outcome, not a
+workaround:** rather than cite either case from secondary case-brief
+summaries (exactly the case-law-synthesis-from-a-secondary-source risk the
+entry above already rules out), the claim type was built narrower —
+ordinary negligence using the already-sourced Mustapha elements, with an
+explicit proceduralNote stating plainly that bailment's reversed onus is
+NOT asserted. See `claimTypes.ts`'s own header (Session 39) for the full
+reasoning. If a future session gets a retrievable copy of either case (or
+finds a different, retrievable leading bailment authority), the reversed-
+onus doctrine could be added as a real enhancement to that same claim type
+rather than built from scratch.
+
 ---
 
 ## Negative findings — confirmed not to exist, don't re-search

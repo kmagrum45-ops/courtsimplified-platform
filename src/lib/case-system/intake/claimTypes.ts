@@ -227,6 +227,32 @@
  * covered by the existing generic `defence-no-agreement-existed` concept
  * and this entry's own `argues-it-was-a-gift` defendantConsideration,
  * neither of which asserts a legal test for telling a gift from a loan.
+ *
+ * Session 39 attempted bailment (Batch 1 item 3) and deliberately built a
+ * NARROWER thing instead. Bailment's defining feature -- a reversed onus,
+ * where a bailee who can't explain how a loss happened may be found
+ * liable without the owner having to prove exactly what went wrong -- is
+ * genuinely common-law, not stated on any approved-domain self-help page.
+ * Two real, on-point, named authorities were found (Punch v. Savoy's
+ * Jewellers Ltd., ONCA 1986, and Ferguson v. Birchmount Boarding Kennels
+ * Ltd., 2006 CanLII 2049 (ON SCDC) -- the latter literally a pet-boarding
+ * Small Claims case on appeal), but neither could be retrieved: CanLII
+ * returned HTTP 403 on both the `.html` and `.pdf` paths (confirmed
+ * directly, not assumed), and unlike Mustapha, no copy already existed
+ * under docs/sources/ to read instead. Citing either from the secondary
+ * case-brief summaries that DID return is exactly the case-law-synthesis-
+ * from-a-secondary-source risk docs/SOURCING_NOTES.md already flags as
+ * excluded -- not done. `sc-claim-property-damaged-lost-in-business-care`
+ * is the honest fallback: the same fact pattern (property left with a
+ * business, comes back damaged or doesn't come back), framed as ORDINARY
+ * negligence using Mustapha's already-sourced general elements (same
+ * citations, same paragraphs, as the vehicle-accident and personal-loan
+ * entries), with NO reversed onus asserted -- a proceduralNote says so
+ * explicitly, naming bailment as a distinct, real, unsourced-here doctrine
+ * a professional could speak to, rather than silently omitting it. This
+ * is deliberately not named "bailment" anywhere in the entry's id or
+ * name, to avoid the wording itself implying a doctrine this content
+ * doesn't actually assert.
  */
 
 import type { EducationCitation } from "./educationTopics";
@@ -2738,6 +2764,183 @@ export const CLAIM_TYPES: ClaimType[] = [
         officialUrl: "https://www.ontario.ca/laws/docs/02l24_eV015.doc",
         verifiedAt: "2026-09-10",
         pinpoint: "s.13(1): a written, signed acknowledgment of a liquidated-sum debt deems the claim to have arisen again on the day of the acknowledgment; s.13(10): the acknowledgment must be in writing and signed; s.13(11): part payment has the same effect as a written acknowledgment",
+      },
+      {
+        sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
+        officialUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        verifiedAt: "2026-09-07",
+        pinpoint: "s.23(1): Small Claims Court jurisdiction is any action for payment of money up to the prescribed amount, with no cause-of-action exclusion",
+      },
+    ],
+    reviewedAt: null,
+    status: "draft",
+  },
+  {
+    id: "sc-claim-property-damaged-lost-in-business-care",
+    name: "Property damaged, lost, or not returned while left in a business's care",
+    courtArea: "small-claims",
+    plaintiffElements: [
+      {
+        id: "duty-of-care-property-in-business-care",
+        name: "The business owed a duty of care while your property was in their possession",
+        plainExplanation:
+          "A negligence claim generally requires showing the defendant owed the plaintiff a duty of " +
+          "care -- whether the relationship between the parties is close enough that one may " +
+          "reasonably be said to owe the other a duty not to cause injury or loss, a question of " +
+          "foreseeability moderated by policy considerations. See \"The elements of a negligence " +
+          "claim\" for the fuller general framework this draws from.",
+        sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        evidenceCategories: [
+          {
+            name: "Proof the business had possession of the property",
+            why: "Establishes the relationship the duty of care is said to arise from.",
+            examples: ["Drop-off receipt, ticket, or work order", "Photos or messages showing the item was left with the business", "Staff correspondence confirming they had it"],
+          },
+        ],
+      },
+      {
+        id: "breach-of-standard-of-care-property-in-care",
+        name: "The business's conduct breached the standard of care",
+        plainExplanation:
+          "Conduct is negligent if it creates an unreasonable risk of harm. What specifically counted " +
+          "as unreasonable handling or safekeeping in a given situation is a further, fact-specific " +
+          "question this general standard doesn't itself resolve.",
+        sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        evidenceCategories: [
+          {
+            name: "Evidence of how the loss or damage happened, if known",
+            why: "Supports what the business did (or failed to do) that created the risk.",
+            examples: ["Any explanation the business gave for what happened", "Photos of the condition of the premises or storage area, if available", "Witness accounts"],
+          },
+        ],
+      },
+      {
+        id: "damage-or-loss-to-property-in-care",
+        name: "The plaintiff sustained damage",
+        plainExplanation: "A negligence claim generally requires that the plaintiff sustained damage -- here, damage to, or loss of, the property left with the business.",
+        sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        evidenceCategories: [
+          {
+            name: "Proof of the property's condition and value",
+            why: "Supports the dollar amount claimed.",
+            examples: ["Photos of the item before it was left with the business, if available", "A receipt or appraisal showing its value", "A repair or replacement estimate"],
+          },
+        ],
+      },
+      {
+        id: "causation-property-in-care",
+        name: "The damage or loss was caused, in fact and in law, by the business's breach",
+        plainExplanation:
+          "Causation has two parts: whether the breach caused the harm in fact, and whether it also " +
+          "caused the harm in law -- meaning the harm isn't too remote to fairly hold the defendant " +
+          "liable for it, judged by whether it was a real, reasonably foreseeable risk.",
+        sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        evidenceCategories: [
+          {
+            name: "Evidence connecting the damage or loss to the time the property was with the business",
+            why: "Shows the property was in the condition claimed when it was dropped off, and not in that condition (or missing) only after being left with the business.",
+            examples: ["Photos or description of the item's condition at drop-off", "The gap in time between drop-off and discovering the damage or loss", "Any admission from the business"],
+          },
+        ],
+      },
+      {
+        id: "amount-within-jurisdiction-property-in-care",
+        name: "The amount claimed falls within Small Claims Court's jurisdiction",
+        plainExplanation:
+          "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
+          "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
+          "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        evidenceCategories: [
+          {
+            name: "Cost documentation",
+            why: "Supports the specific dollar amount claimed.",
+            examples: ["Repair or replacement estimate", "Receipt or appraisal of the item's value"],
+          },
+        ],
+      },
+    ],
+    defendantConsiderations: [
+      {
+        id: "disputes-possession-or-timing",
+        name: "The business disputes having possession of the property, or that anything happened to it while in their care",
+        plainExplanation:
+          "A defendant can file a Defence disputing that the property was ever left with them, or " +
+          "that the damage or loss happened while it was in their possession rather than before drop-" +
+          "off or after pick-up.",
+        whenThisComesUp: "When the defendant's Defence disputes possession or timing, not just the amount claimed.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+      },
+      {
+        id: "dispute-cause-of-damage-property-in-care",
+        name: "The business disputes that its own conduct caused the damage or loss",
+        plainExplanation:
+          "A defendant can argue the damage or loss resulted from something other than their own " +
+          "conduct -- for example, a pre-existing condition of the item, or something the owner " +
+          "themselves did or failed to disclose.",
+        whenThisComesUp: "When the defendant's Defence disputes causation rather than possession or amount.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+      },
+    ],
+    applicableDefenceConceptIds: ["defence-contributory-negligence", "defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
+    remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
+    proceduralNotes: [
+      {
+        note: "Claims like this are generally subject to Ontario's standard 2-year limitation period, running from when the loss or damage was discovered.",
+        sourceUrl: "https://www.ontario.ca/page/civil-claims-suing-and-being-sued",
+      },
+      {
+        note:
+          "This content states an ordinary negligence framework only -- it deliberately does NOT " +
+          "assert anything about bailment, a distinct body of law covering property left in someone " +
+          "else's care that in some circumstances may shift the burden onto the business to explain " +
+          "what happened, rather than requiring the owner to prove exactly how the loss occurred. That " +
+          "doctrine has not been independently sourced for this content (it develops mainly through " +
+          "case law, not a self-help government page), so it is not claimed here one way or the other " +
+          "-- worth asking a paralegal or lawyer specifically about it if the property was left with a " +
+          "business for service, storage, or safekeeping.",
+        sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+      },
+    ],
+    signals: [
+      "dry cleaner ruined",
+      "dry cleaner lost",
+      "repair shop lost my",
+      "repair shop damaged my",
+      "storage unit damaged my belongings",
+      "storage facility lost my",
+      "valet damaged my car",
+      "boarding kennel lost",
+      "kennel lost my dog",
+      "left my car with the valet",
+      "left it with the business",
+      "left my belongings in storage and",
+    ],
+    typicalDefendantProfile: "business",
+    citations: [
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "para. 3 -- the four elements of a negligence claim (duty, breach, damage, causation)",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "paras. 4-5 -- duty of care: the proximity question",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "para. 7 -- standard of care: conduct is negligent if it creates an unreasonable risk of harm",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "paras. 11-13 -- causation has both a factual and a legal (remoteness) branch, judged by reasonable foreseeability",
       },
       {
         sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
