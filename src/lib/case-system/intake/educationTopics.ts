@@ -72,6 +72,27 @@
  * genuine primary sources read this session, in case a future,
  * differently-scoped session (family-law content, a constructive-trust-
  * specific remedy topic) finds a real use for them.
+ *
+ * Session 44 extended `sc-topic-general-negligence-elements`'s existing
+ * causation paragraph with Clements v. Clements, 2012 SCC 32 (paras. 8,
+ * 9, 43, 46(1)-(2)), read directly (this PDF, unlike Red Deer College's,
+ * has a real text layer -- pdftotext worked). Mustapha names causation as
+ * one of the four elements and covers its LEGAL branch (remoteness/
+ * foreseeability, paras. 11-17) but says nothing about how the FACTUAL
+ * branch is actually tested -- Clements is squarely that: the "but for"
+ * test, that it's applied robustly and pragmatically with no scientific
+ * proof required, and the narrow material-contribution-to-risk exception
+ * (multiple possible tortfeasors, plaintiff through no fault of their own
+ * unable to show which one). Extended the EXISTING topic rather than
+ * adding a new one -- causation is already one of the four elements this
+ * topic covers, Clements deepens that same element rather than adding a
+ * new one, and nothing in this codebase surfaces part of a topic
+ * independently of the rest, so a second topic would only fragment "how
+ * causation works" across two places a reader would need to know to
+ * check both. Cited the Court's own numbered summary at para. 46 rather
+ * than reconstructing the material-contribution conditions from the
+ * fuller discussion in paras. 12-45 -- that summary states the test
+ * more precisely than any single passage.
  */
 
 import type { FactCondition } from "./questionBank";
@@ -253,7 +274,19 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
       "routinely accept. " +
       "Causation has two parts: whether the breach caused the harm in fact, and whether it also " +
       "caused the harm in law -- meaning the harm isn't too remote to fairly hold the defendant " +
-      "liable for it. That remoteness question turns on reasonable foreseeability: whether the " +
+      "liable for it. " +
+      "The factual branch is generally tested using the \"but for\" test: the plaintiff must show, " +
+      "on a balance of probabilities, that the injury would not have occurred but for the " +
+      "defendant's negligent act. This is a factual inquiry, applied in a robust, common-sense way " +
+      "-- scientific precision about exactly how the defendant's conduct produced the injury is not " +
+      "required. Exceptionally, a plaintiff may instead succeed by showing the defendant's conduct " +
+      "materially contributed to the risk of the injury, but only where two conditions are both " +
+      "met: the plaintiff has shown that the loss would not have occurred but for the negligence of " +
+      "two or more possible wrongdoers, each possibly responsible for it, and the plaintiff, through " +
+      "no fault of their own, is unable to show which one of them actually caused the injury, " +
+      "because each can point to the others. Outside that narrow situation, the ordinary \"but for\" " +
+      "test still applies even where more than one party was negligent. " +
+      "That remoteness question turns on reasonable foreseeability: whether the " +
       "harm was a real risk that would occur to a reasonable person in the defendant's position, " +
       "not one they'd dismiss as far-fetched. For personal-injury claims, and especially mental-" +
       "injury claims, foreseeability is judged against a person of \"ordinary fortitude,\" not the " +
@@ -301,6 +334,36 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
         officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
         verifiedAt: "2026-09-09",
         pinpoint: "para. 9 -- compensable psychological injury must be serious and prolonged, distinct from ordinary upset",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Clements v. Clements, 2012 SCC 32",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
+        verifiedAt: "2026-09-11",
+        pinpoint: "para. 8 -- the \"but for\" test: the plaintiff must show on a balance of probabilities that the injury would not have occurred but for the defendant's negligent act",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Clements v. Clements, 2012 SCC 32",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
+        verifiedAt: "2026-09-11",
+        pinpoint: "para. 9 -- the \"but for\" test is applied in a robust common-sense fashion; scientific evidence of the precise contribution to the injury is not required",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Clements v. Clements, 2012 SCC 32",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
+        verifiedAt: "2026-09-11",
+        pinpoint: "para. 43 -- in the usual case of multiple negligent actors, the ordinary \"but for\" test still applies; material contribution to risk is reserved for the narrower situation where \"but for\" causation cannot be proven against any of them because each can point to the others",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Clements v. Clements, 2012 SCC 32",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
+        verifiedAt: "2026-09-11",
+        pinpoint: "para. 46(1) -- summary: the general \"but for\" rule, applied robustly and pragmatically, with no scientific proof of causation required",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Clements v. Clements, 2012 SCC 32",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
+        verifiedAt: "2026-09-11",
+        pinpoint: "para. 46(2) -- summary: the material-contribution-to-risk exception applies only where (a) the plaintiff's loss would not have occurred but for the negligence of two or more tortfeasors, each possibly responsible, and (b) the plaintiff, through no fault of their own, cannot show which one actually caused the injury",
       },
       {
         sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
