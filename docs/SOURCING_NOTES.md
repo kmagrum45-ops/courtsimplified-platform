@@ -60,12 +60,40 @@ year><chapter letter><2-digit chapter number>_e.doc`:
 - `90l12_e.doc` — Libel and Slander Act, R.S.O. 1990, c. L.12
 - `98c19_e.doc` — Condominium Act, 1998, S.O. 1998, c. 19
 
-But at least two entries already cited in this codebase don't follow that
+But at least three entries already cited in this codebase don't follow that
 exact pattern — `90o02_eV006.doc` (Occupiers' Liability Act, capital `V` plus
-a version number) and `elaws_statutes_90c43_ev005.doc` (Courts of Justice
-Act, a completely different `elaws_statutes_` prefix). Treat the plain
-pattern as a starting guess to try, not a template to construct blindly and
-cite without confirming the fetch actually returned the right document.
+a version number), `elaws_statutes_90c43_ev005.doc` (Courts of Justice Act, a
+completely different `elaws_statutes_` prefix), and `02l24_eV015.doc`
+(Limitations Act, 2002 — the base id shape holds but it still carries a
+version suffix, not a plain `_e`). Treat the plain pattern as a starting
+guess to try, not a template to construct blindly and cite without
+confirming the fetch actually returned the right document.
+
+### Limitations Act, 2002 — two provisions worth knowing before re-deriving them
+
+Read directly (`ontario.ca/laws/docs/02l24_eV015.doc`, extracted with
+antiword) while sourcing the "personal loan between individuals" claim type
+(commit — see git log for the claim-type addition following this note).
+Both are narrow, precise, and easy to re-find by accident rather than by
+design if a future session doesn't know to look for them:
+
+- **s.5(3)-(4), demand obligations:** for a debt with no fixed repayment
+  date (repayable "on demand" — common for informal personal loans, but not
+  unique to them), the 2-year limitation clock starts on the first day the
+  debtor fails to pay **after a demand is made**, not on the day the debt
+  arose. Only applies to demand obligations created on or after
+  **January 1, 2004**.
+- **s.13(1)/(10)/(11), acknowledgment and part payment:** a **written,
+  signed** acknowledgment of a liquidated-sum debt, or a **partial
+  payment**, is treated as restarting the limitation clock from that date.
+  An oral acknowledgment alone, with no signed writing and no payment, does
+  **not** have this effect.
+
+Both are general Limitations Act rules, not loan-specific — worth checking
+before re-deriving the limitation period from scratch for any other
+debt-shaped claim type (unpaid invoices, NSF cheques, anything where a
+partial payment or an informal "I'll pay you back" is a realistic fact
+pattern).
 
 Regulation-level e-Laws pages (`ontario.ca/laws/regulation/<id>`, e.g. O. Reg.
 258/98's `980258`) have the same JS-shell problem — verified as SOURCED at the

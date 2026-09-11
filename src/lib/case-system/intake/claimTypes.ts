@@ -195,6 +195,38 @@
  * fetch cleanly -- used for every citation to one of these three statutes
  * below. This isn't a workaround -- it's the same statutory text, the same
  * domain, a fetchable format instead of one this tooling can't render.
+ *
+ * Session 38 sourced "personal loan between individuals" (docs/
+ * SMALL_CLAIMS_TAXONOMY_ROADMAP.md's Batch 1 item 2), per docs/
+ * SOURCING_NOTES.md's now-standing instruction to check it first --
+ * nothing there was specific to loans, but the .doc-fallback technique it
+ * records applied directly again here. The generic "agreement existed" /
+ * "amount owed" proof-burden framing already reused across this file
+ * covers enforceability of an informal or oral loan without needing new
+ * sourcing. The two genuinely distinct wrinkles worth sourcing precisely,
+ * both read directly from the Limitations Act, 2002 (fetched
+ * ontario.ca/laws/docs/02l24_eV015.doc, extracted with antiword):
+ *   1. s.5(3)-(4): for a loan with no fixed repayment date (one repayable
+ *      "on demand," the common shape for an informal loan between
+ *      individuals), the 2-year clock starts on the first day the
+ *      borrower fails to repay AFTER a demand is made -- not on the day
+ *      the money was originally lent. Applies only to demand obligations
+ *      created on or after January 1, 2004; not asserted for anything
+ *      older than that.
+ *   2. s.13(1)/(10)/(11): a written, SIGNED acknowledgment of the debt,
+ *      or a partial payment toward it, restarts the limitation clock as
+ *      of that date -- an oral acknowledgment alone does not. Directly
+ *      relevant to informal loans, where a partial repayment years later
+ *      is common and easy to overlook as a limitation-relevant fact.
+ * "Gift vs. loan" (flagged in the taxonomy roadmap as a related, separate
+ * scenario) was deliberately NOT given its own sourced legal test --
+ * that distinction is equity/case-law territory (presumption of
+ * advancement, resulting trust), not stated plainly on any approved
+ * domain. Handled instead, honestly, as exactly what it structurally is:
+ * a dispute about whether a repayment obligation existed at all, already
+ * covered by the existing generic `defence-no-agreement-existed` concept
+ * and this entry's own `argues-it-was-a-gift` defendantConsideration,
+ * neither of which asserts a legal test for telling a gift from a loan.
  */
 
 import type { EducationCitation } from "./educationTopics";
@@ -2551,6 +2583,161 @@ export const CLAIM_TYPES: ClaimType[] = [
         officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
         verifiedAt: "2026-09-09",
         pinpoint: "paras. 11-13 -- causation has both a factual and a legal (remoteness) branch, judged by reasonable foreseeability",
+      },
+      {
+        sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
+        officialUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        verifiedAt: "2026-09-07",
+        pinpoint: "s.23(1): Small Claims Court jurisdiction is any action for payment of money up to the prescribed amount, with no cause-of-action exclusion",
+      },
+    ],
+    reviewedAt: null,
+    status: "draft",
+  },
+  {
+    id: "sc-claim-personal-loan-between-individuals",
+    name: "Personal loan between individuals -- borrower hasn't repaid",
+    courtArea: "small-claims",
+    plaintiffElements: [
+      {
+        id: "loan-agreement-existed",
+        name: "An agreement to lend money existed",
+        plainExplanation:
+          "The person bringing a claim generally has the burden of proving their allegations on a " +
+          "balance of probabilities -- including that an agreement to lend money actually existed, " +
+          "whether written or oral, and what its terms were (the amount lent, and when or how it was " +
+          "to be repaid).",
+        sourceUrl:
+          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+        evidenceCategories: [
+          {
+            name: "Proof the money was actually transferred",
+            why: "Establishes that a loan, not just a conversation about one, actually happened.",
+            examples: ["E-transfer or bank transfer record", "Cheque or deposit record", "Cash withdrawal matched to a message about the loan"],
+          },
+          {
+            name: "Proof of the agreed terms",
+            why: "Supports what was actually agreed to, especially where nothing was signed.",
+            examples: ["A written note or IOU, if one exists", "Text messages or emails discussing the loan and repayment", "Witness account of the agreement being made"],
+          },
+        ],
+      },
+      {
+        id: "amount-remains-unpaid-personal-loan",
+        name: "The amount lent (or part of it) remains unpaid",
+        plainExplanation:
+          "The person bringing the claim generally has to show, on a balance of probabilities, what " +
+          "amount was lent, what -- if anything -- has been repaid, and what remains outstanding.",
+        sourceUrl:
+          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+        evidenceCategories: [
+          {
+            name: "Records of any repayment",
+            why: "Shows what's already been paid back, so the outstanding balance can be calculated.",
+            examples: ["Bank or e-transfer records of partial repayment", "Receipts", "A running record of payments made"],
+          },
+          {
+            name: "Communication acknowledging the balance",
+            why: "Can support both the amount owed and, separately, the limitation period (see the procedural notes below).",
+            examples: ["Messages where the borrower acknowledges owing money", "A repayment plan discussed but not followed through on"],
+          },
+        ],
+      },
+      {
+        id: "amount-within-jurisdiction-personal-loan",
+        name: "The amount claimed falls within Small Claims Court's jurisdiction",
+        plainExplanation:
+          "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
+          "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
+          "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        evidenceCategories: [
+          {
+            name: "Cost documentation",
+            why: "Supports the specific dollar amount claimed.",
+            examples: ["A record of the amount lent", "A running record of repayments and the outstanding balance"],
+          },
+        ],
+      },
+    ],
+    defendantConsiderations: [
+      {
+        id: "argues-it-was-a-gift",
+        name: "The defendant argues the money was a gift, not a loan",
+        plainExplanation:
+          "A defendant can dispute that there was ever an obligation to repay the money at all -- for " +
+          "example, by arguing it was a gift rather than a loan. Since a gift creates no debt to repay, " +
+          "this becomes a fact the plaintiff has to prove on a balance of probabilities, the same as any " +
+          "other disputed element of the claim.",
+        whenThisComesUp: "When the defendant's Defence disputes that the money was ever meant to be repaid, not just the amount or the timing.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+      },
+      {
+        id: "dispute-amount-still-owed-personal-loan",
+        name: "The defendant disputes the amount still owed",
+        plainExplanation:
+          "A defendant can file a Defence disputing how much of the loan remains unpaid -- for example, " +
+          "if they say they already repaid some or all of it.",
+        whenThisComesUp: "When the defendant's Defence disputes the outstanding balance, not whether a loan existed at all.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+      },
+    ],
+    applicableDefenceConceptIds: ["defence-no-agreement-existed", "defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
+    remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
+    proceduralNotes: [
+      {
+        note: "Claims like this are generally subject to Ontario's standard 2-year limitation period, running from when the claim was discovered.",
+        sourceUrl: "https://www.ontario.ca/page/civil-claims-suing-and-being-sued",
+      },
+      {
+        note:
+          "Where the loan has no fixed repayment date -- one repayable \"on demand\" -- the Limitations " +
+          "Act, 2002 treats the claim as discovered on the first day the borrower fails to repay AFTER a " +
+          "demand for repayment is made, not on the day the money was originally lent. This demand-" +
+          "obligation rule applies to demand obligations created on or after January 1, 2004.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/02l24_eV015.doc",
+      },
+      {
+        note:
+          "A written, signed acknowledgment of the debt, or a partial payment toward it, is treated as " +
+          "having restarted the limitation clock as of the date of that acknowledgment or payment -- an " +
+          "oral acknowledgment alone, without a signed writing or a payment, does not have this effect.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/02l24_eV015.doc",
+      },
+    ],
+    signals: [
+      "lent money to a friend",
+      "loaned money to my",
+      "never paid me back",
+      "borrowed money from me and hasn't paid",
+      "money i lent him",
+      "money i lent her",
+      "won't pay back the money i lent",
+      "personal loan between",
+      "never repaid the loan",
+      "friend owes me money he borrowed",
+      "family member borrowed money",
+      "loaned my cousin",
+    ],
+    typicalDefendantProfile: "individual",
+    citations: [
+      {
+        sourceName: "Limitations Act, 2002, S.O. 2002, c. 24, Sched. B",
+        officialUrl: "https://www.ontario.ca/laws/docs/02l24_eV015.doc",
+        verifiedAt: "2026-09-10",
+        pinpoint: "s.4 and s.5(1)-(2): basic 2-year limitation period, running from discovery of the claim",
+      },
+      {
+        sourceName: "Limitations Act, 2002, S.O. 2002, c. 24, Sched. B",
+        officialUrl: "https://www.ontario.ca/laws/docs/02l24_eV015.doc",
+        verifiedAt: "2026-09-10",
+        pinpoint: "s.5(3)-(4): for a demand obligation, the claim is discovered on the first day of a failure to perform after a demand is made -- applies to demand obligations created on or after January 1, 2004",
+      },
+      {
+        sourceName: "Limitations Act, 2002, S.O. 2002, c. 24, Sched. B",
+        officialUrl: "https://www.ontario.ca/laws/docs/02l24_eV015.doc",
+        verifiedAt: "2026-09-10",
+        pinpoint: "s.13(1): a written, signed acknowledgment of a liquidated-sum debt deems the claim to have arisen again on the day of the acknowledgment; s.13(10): the acknowledgment must be in writing and signed; s.13(11): part payment has the same effect as a written acknowledgment",
       },
       {
         sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
