@@ -253,6 +253,29 @@
  * is deliberately not named "bailment" anywhere in the entry's id or
  * name, to avoid the wording itself implying a doctrine this content
  * doesn't actually assert.
+ *
+ * Session 43 closed the `DEFENCE_CONCEPTS` "mitigation" gap this file
+ * used to log as cut (see that array's own doc comment) -- sourced from
+ * Red Deer College v. Michaels, [1976] 2 S.C.R. 324. Wired into 14 of
+ * the 22 claim types' `applicableDefenceConceptIds` -- every one whose
+ * remedy is genuinely DAMAGES for a loss (personal injury, property
+ * damage, cost of substitute performance), where a plaintiff's duty to
+ * take reasonable steps to limit that loss is a real, applicable
+ * concept. Deliberately left off the other 8, all of which seek a fixed,
+ * already-quantified DEBT rather than damages for a loss -- an unpaid
+ * invoice or the agreed price for goods already delivered
+ * (unpaid-debt-services, non-payment-goods-sold), a specific refund or
+ * deposit (consumer-cancellation-refund), the face amount of a bounced
+ * cheque (dishonoured-nsf-cheque), a statutory wage entitlement
+ * (unpaid-overtime-vacation-pay), a lien for a fixed common-expense
+ * arrears amount (unpaid-condo-common-expenses), a loan's outstanding
+ * principal (personal-loan-between-individuals), or the return of a
+ * specific item rather than compensation for its loss (recovery-of-
+ * personal-property) -- mitigation doctrine doesn't attach to a debt
+ * claim the way it attaches to a damages claim; there is no "loss" for
+ * the plaintiff to have mitigated, only a sum already owed. Not a
+ * blanket application -- a genuine, claim-type-by-claim-type judgment
+ * call, recorded here so a future session doesn't have to re-derive it.
  */
 
 import type { EducationCitation } from "./educationTopics";
@@ -291,16 +314,18 @@ export type ProceduralNote = {
  * duplicated per claim type. Same non-duplication principle as
  * remedyTypes.ts.
  *
- * 6 concepts were in scope; 5 are here. "Mitigation" (a plaintiff's duty
- * to take reasonable steps to limit their own losses) is deliberately
- * excluded -- checked this session and in the one that built
- * questionBank.ts's contractor-notice question: no page on ontario.ca,
- * ontariocourts.ca, or ontariocourtforms.on.ca states a mitigation-duty
- * rule in any form. It's a real, well-established common-law concept, but
- * every source for it found this session was either an appellate decision
- * (case-law synthesis, which CLAUDE.md's sourcing rule treats like a
- * CanLII-only fact) or absent entirely. Add it back if a future session
- * finds an actual page on one of the three approved domains stating it.
+ * All 6 originally-scoped concepts are now here. "Mitigation" (`defence-
+ * failure-to-mitigate`) was the last one -- cut early on (no page on
+ * ontario.ca/ontariocourts.ca/ontariocourtforms.on.ca states a mitigation-
+ * duty rule; every source found back then was case-law synthesis, which
+ * CLAUDE.md's sourcing rule excluded under the old 3-domain-only
+ * standard). Closed in Session 43 the same way the negligence-elements
+ * and unjust-enrichment gaps were: a real SCC decision, read directly,
+ * under CLAUDE.md's rewritten verifiability standard -- Red Deer College
+ * v. Michaels, [1976] 2 S.C.R. 324 (docs/sources/, retrieved via the
+ * decisions.scc-csc.ca HTML-fallback route since the PDF has no text
+ * layer). See that entry's own inline comment for the exact holding and
+ * pinpoints.
  */
 export type DefenceConcept = {
   id: string;
@@ -370,6 +395,41 @@ export const DEFENCE_CONCEPTS: DefenceConcept[] = [
       "the parties in proportion to their respective degree of fault, rather than an all-or-nothing " +
       "result.",
     sourceUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+    reviewedAt: null,
+    status: "draft",
+  },
+  {
+    // Session 43. Sourced from Red Deer College v. Michaels, [1976] 2
+    // S.C.R. 324 (docs/sources/red-deer-college-v-michaels-1976-2-SCR-324.pdf,
+    // a scanned PDF with no text layer -- read via the HTML-fallback
+    // route per docs/SOURCING_NOTES.md, at
+    // decisions.scc-csc.ca/scc-csc/scc-csc/en/item/2693/index.do?iframe=true).
+    // The 6-judge majority (Laskin C.J., Martland, Spence, Beetz JJ.)
+    // states the general rule at pp. 330-332: it is for the defendant to
+    // carry the burden of showing the plaintiff could reasonably have
+    // avoided part of the loss, quoting Williston on Contracts with
+    // approval that the defendant must show the plaintiff "either found,
+    // or, by the exercise of proper industry in the search, could have
+    // procured other employment ... reasonably adapted to his abilities"
+    // -- both prongs (failure to act reasonably, AND that acting
+    // reasonably would actually have reduced the loss) are the
+    // defendant's to prove, and that burden "is by no means a light
+    // one." De Grandpré J., concurring in the result, answers the
+    // certified question directly at pp. 346-347: "the onus ... is on
+    // the defaulting employer." This is a wrongful-dismissal case, but
+    // the rule it states -- who bears the burden on an alleged failure
+    // to mitigate -- is the general contract-damages principle, not
+    // limited to employment; stated generally below, not tied to that
+    // one fact pattern.
+    id: "defence-failure-to-mitigate",
+    name: "Failure to mitigate",
+    plainExplanation:
+      "A plaintiff generally cannot recover for a loss they could reasonably have avoided -- but the " +
+      "burden of proving a failure to do so rests on the defendant, not the plaintiff. A defendant " +
+      "who argues the plaintiff should have taken steps to reduce their losses generally has to prove " +
+      "both that the plaintiff failed to take those reasonable steps, and that taking them would " +
+      "actually have reduced the loss.",
+    sourceUrl: "https://www.canlii.org/en/ca/scc/doc/1975/1975canlii15/1975canlii15.html",
     reviewedAt: null,
     status: "draft",
   },
@@ -587,6 +647,7 @@ export const CLAIM_TYPES: ClaimType[] = [
       },
     ],
     applicableDefenceConceptIds: [
+      "defence-failure-to-mitigate",
       "defence-waiver-release-assumption-of-risk",
       "defence-contributory-negligence",
       "defence-limitation-period-expired",
@@ -677,7 +738,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         sourceUrl: "https://www.ontario.ca/page/know-your-rights-when-getting-tow",
       },
     ],
-    applicableDefenceConceptIds: ["defence-set-off-or-counterclaim", "defence-limitation-period-expired"],
+    applicableDefenceConceptIds: ["defence-set-off-or-counterclaim", "defence-limitation-period-expired", "defence-failure-to-mitigate"],
     remedies: ["sc-remedy-monetary-judgment", "sc-remedy-return-of-property", "sc-remedy-interest-and-costs"],
     proceduralNotes: [
       {
@@ -786,6 +847,7 @@ export const CLAIM_TYPES: ClaimType[] = [
       },
     ],
     applicableDefenceConceptIds: [
+      "defence-failure-to-mitigate",
       "defence-limitation-period-expired",
       "defence-no-agreement-existed",
       "defence-set-off-or-counterclaim",
@@ -1003,7 +1065,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
       },
     ],
-    applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
+    applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim", "defence-failure-to-mitigate"],
     remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
     proceduralNotes: [
       {
@@ -1106,6 +1168,7 @@ export const CLAIM_TYPES: ClaimType[] = [
       },
     ],
     applicableDefenceConceptIds: [
+      "defence-failure-to-mitigate",
       "defence-limitation-period-expired",
       "defence-no-agreement-existed",
       "defence-set-off-or-counterclaim",
@@ -1203,7 +1266,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         sourceUrl: "https://www.ontario.ca/document/your-guide-employment-standards-act-0/termination-employment",
       },
     ],
-    applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
+    applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim", "defence-failure-to-mitigate"],
     remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
     proceduralNotes: [
       {
@@ -1318,7 +1381,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         sourceUrl: "https://www.ontario.ca/laws/docs/90d16_e.doc",
       },
     ],
-    applicableDefenceConceptIds: ["defence-contributory-negligence", "defence-limitation-period-expired"],
+    applicableDefenceConceptIds: ["defence-contributory-negligence", "defence-limitation-period-expired", "defence-failure-to-mitigate"],
     remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
     proceduralNotes: [
       {
@@ -1419,6 +1482,7 @@ export const CLAIM_TYPES: ClaimType[] = [
       },
     ],
     applicableDefenceConceptIds: [
+      "defence-failure-to-mitigate",
       "defence-limitation-period-expired",
       "defence-no-agreement-existed",
       "defence-set-off-or-counterclaim",
@@ -1724,6 +1788,7 @@ export const CLAIM_TYPES: ClaimType[] = [
       },
     ],
     applicableDefenceConceptIds: [
+      "defence-failure-to-mitigate",
       "defence-limitation-period-expired",
       "defence-no-agreement-existed",
       "defence-set-off-or-counterclaim",
@@ -2031,7 +2096,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
       },
     ],
-    applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
+    applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim", "defence-failure-to-mitigate"],
     remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
     proceduralNotes: [
       {
@@ -2127,7 +2192,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
       },
     ],
-    applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
+    applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim", "defence-failure-to-mitigate"],
     remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
     proceduralNotes: [
       {
@@ -2356,7 +2421,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
       },
     ],
-    applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
+    applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim", "defence-failure-to-mitigate"],
     remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
     proceduralNotes: [
       {
@@ -2538,7 +2603,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
       },
     ],
-    applicableDefenceConceptIds: ["defence-contributory-negligence", "defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
+    applicableDefenceConceptIds: ["defence-contributory-negligence", "defence-limitation-period-expired", "defence-set-off-or-counterclaim", "defence-failure-to-mitigate"],
     remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
     proceduralNotes: [
       {
@@ -2882,7 +2947,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
       },
     ],
-    applicableDefenceConceptIds: ["defence-contributory-negligence", "defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
+    applicableDefenceConceptIds: ["defence-contributory-negligence", "defence-limitation-period-expired", "defence-set-off-or-counterclaim", "defence-failure-to-mitigate"],
     remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
     proceduralNotes: [
       {

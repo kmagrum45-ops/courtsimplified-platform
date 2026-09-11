@@ -272,11 +272,21 @@ rather than built from scratch.
 
 ## Negative findings — confirmed not to exist, don't re-search
 
-- **`mitigation` defence concept:** no source found across the (then-current)
-  three approved domains after a real attempt. `claimTypes.ts`'s own header
-  logs this. Not marked permanently closed — explicitly left open for a
-  future session using the wider sourcing rule (see the CanLII-reopening
-  lesson above) to re-try.
+- **`mitigation` defence concept — CLOSED (Session 43), no longer a confirmed
+  absence.** Originally: no source found across the (then-current) three
+  approved domains after a real attempt, left open rather than permanently
+  closed for a future session using the wider sourcing rule to re-try (see
+  the CanLII-reopening lesson above) — exactly what happened. Sourced from
+  **Red Deer College v. Michaels, [1976] 2 S.C.R. 324**
+  (`docs/sources/red-deer-college-v-michaels-1976-2-SCR-324.pdf`, retrieved
+  in commit `eb976a6`, read via the HTML-fallback technique above since the
+  PDF has no text layer): the burden of proving a failure to mitigate rests
+  on the DEFENDANT, not the plaintiff, and the defendant must prove both
+  that the plaintiff failed to take reasonable steps AND that those steps
+  would actually have reduced the loss (majority at pp. 330-332; de
+  Grandpré J. concurring at pp. 346-347, answering the certified question
+  directly: "the onus … is on the defaulting employer"). Now
+  `defence-failure-to-mitigate` in `claimTypes.ts`'s `DEFENCE_CONCEPTS`.
 - **No single province-wide phone number for the Family Court Support Worker
   Program or the Family Law Information Centre (FLIC)** — both are delivered
   locally per court location, not centrally (commit `d8232ce`). Confirmed via
