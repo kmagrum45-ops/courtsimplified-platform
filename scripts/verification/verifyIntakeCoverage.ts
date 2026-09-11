@@ -11,6 +11,7 @@ import {
 import { EDUCATION_TOPICS, type EducationTopic } from "../../src/lib/case-system/intake/educationTopics";
 import { REMEDY_TYPES, type RemedyTopic } from "../../src/lib/case-system/intake/remedyTypes";
 import { CLAIM_TYPES, DEFENCE_CONCEPTS } from "../../src/lib/case-system/intake/claimTypes";
+import { JURISDICTION_ROUTES } from "../../src/lib/case-system/intake/jurisdictionRoutes";
 
 // EducationTopic and RemedyTopic share the same fields these checks care
 // about (id, surfacedWhen, citations, status) -- checked structurally
@@ -148,12 +149,13 @@ function main() {
       }
     }
   }
-  // ClaimType structurally satisfies TopicLike (id/citations/status present,
-  // surfacedWhen simply absent -- fine for an optional property), so it
-  // reuses checks 2, 3, and the bonus check below for free. DEFENCE_CONCEPTS
-  // has a different shape (a bare sourceUrl, not a citations tuple) and gets
-  // its own small check further down instead of being forced in here.
-  const allTopics: TopicLike[] = [...EDUCATION_TOPICS, ...REMEDY_TYPES, ...CLAIM_TYPES];
+  // ClaimType and JurisdictionRoute both structurally satisfy TopicLike
+  // (id/citations/status present, surfacedWhen simply absent -- fine for
+  // an optional property), so they reuse checks 2, 3, and the bonus check
+  // below for free. DEFENCE_CONCEPTS has a different shape (a bare
+  // sourceUrl, not a citations tuple) and gets its own small check further
+  // down instead of being forced in here.
+  const allTopics: TopicLike[] = [...EDUCATION_TOPICS, ...REMEDY_TYPES, ...CLAIM_TYPES, ...JURISDICTION_ROUTES];
   for (const topic of allTopics) {
     if (!topic.surfacedWhen) continue;
     const fields = new Set<string>();
@@ -283,6 +285,7 @@ function main() {
       `${QUESTION_BANK.length} question(s) (0 uncovered intentionalGaps), ` +
       `${EDUCATION_TOPICS.length} education topic(s), ${REMEDY_TYPES.length} remedy topic(s), ` +
       `${CLAIM_TYPES.length} claim type(s), ${DEFENCE_CONCEPTS.length} defence concept(s), ` +
+      `${JURISDICTION_ROUTES.length} jurisdiction route(s), ` +
       `0 unknown appliesWhen/surfacedWhen fields, 0 non-draft entries missing a resolvable source, ` +
       `0 dangling remedy/defence-concept references.`,
   );
