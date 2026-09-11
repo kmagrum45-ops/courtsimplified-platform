@@ -115,6 +115,46 @@
  * a new one -- logged here instead of spending tool calls confirming it
  * a third time.
  *
+ * Session 37 re-attempted vehicle accident property damage, the one cut
+ * this file just said would not be re-attempted a third time -- but the
+ * thing that unblocked it wasn't a driving-specific duty-of-care source
+ * (none was found; none exists in the way Occupiers' Liability states
+ * one). It was reading Insurance Act s.263 directly (fetched
+ * ontario.ca/laws/docs/90i08_e.doc, extracted with antiword since the
+ * e-Laws viewer is JS-rendered) and finding the ORIGINAL blocking
+ * question had a different answer than assumed. Session 2 was chasing
+ * "how does a not-at-fault driver recover an uninsured amount (like a
+ * deductible) from the at-fault driver directly" -- s.263(5)(a) says
+ * that route doesn't exist: when BOTH vehicles are insured under a
+ * DCPD-bound policy, an insured has NO right of action against the other
+ * driver for vehicle damage at all, full stop -- the remedy is a
+ * fault-based claim against their OWN insurer instead. The two prior
+ * "wrong-regulation dead ends chasing the Fault Determination Rules"
+ * make sense in hindsight: those rules only govern a dispute with your
+ * own insurer under s.263(4), not a claim against the other driver.
+ * The narrower route that IS real: s.263(1)(c) requires BOTH vehicles
+ * insured for the bar to apply, so when the at-fault driver's vehicle
+ * wasn't insured that way, s.263 never engages and the ordinary
+ * negligence right of action against them survives. Built as
+ * `sc-claim-vehicle-accident-uninsured-driver-property-damage`,
+ * deliberately scoped to that situation, not "any car accident" --
+ * asserting Small Claims as the normal route for vehicle collision
+ * property damage generally would be false; s.263 is what most such
+ * claims actually go through, and that's stated plainly in the entry's
+ * own procedural notes rather than left implied. Also directly confirmed
+ * and cited: since 2021, c. 40, Sched. 14, s. 4 (in force 01/01/2024),
+ * an insured may elect not to claim direct compensation from their own
+ * insurer -- but that election does not restore a right to sue the other
+ * driver when s.263 otherwise applies, a distinction the entry states
+ * explicitly rather than leaving room to misread the 2024 change as
+ * reopening a route to the other driver.
+ * Mustapha v. Culligan (educationTopics.ts's general-negligence-elements
+ * topic, sourced this same session) supplies the general duty/breach/
+ * damage/causation framework this entry's negligence elements reuse --
+ * cited only for the GENERAL elements (paras 3, 4-5, 7, 11-13), never
+ * stretched into a vehicle-specific duty or standard-of-care assertion,
+ * consistent with that topic's own general-only scope limit.
+ *
  * Session 26 sourced defamation, previously believed cut (no record of
  * that earlier attempt was actually found in this repo -- flagged, not
  * assumed -- but the two underlying questions were open regardless):
@@ -2303,5 +2343,223 @@ export const CLAIM_TYPES: ClaimType[] = [
     ],
     reviewedAt: "2026-09-07",
     status: "reviewed",
+  },
+  {
+    id: "sc-claim-vehicle-accident-uninsured-driver-property-damage",
+    name: "Vehicle accident property damage -- direct claim against an uninsured at-fault driver",
+    courtArea: "small-claims",
+    plaintiffElements: [
+      {
+        id: "dcpd-bar-does-not-apply",
+        name: "Ontario's direct-compensation insurance bar does not apply to this claim",
+        plainExplanation:
+          "Under section 263 of the Insurance Act, when a vehicle is damaged by one or more other " +
+          "vehicles and BOTH the damaged vehicle and at least one other vehicle involved are insured " +
+          "under a motor vehicle liability policy from an insurer bound by this section, the owner " +
+          "generally has no right of action against the other driver for damage to their vehicle or " +
+          "its contents -- they must instead claim from their own insurer, with recovery based on " +
+          "fault as determined under the Fault Determination Rules. That bar does not apply, and an " +
+          "ordinary right to sue the at-fault driver directly is preserved, in situations including " +
+          "where the at-fault driver's vehicle was not insured under such a policy -- section 263 " +
+          "never applies in the first place. Since January 1, 2024, an insured may also elect not to " +
+          "claim from their own insurer under this section, but that election on its own does not " +
+          "restore a right to sue the other driver directly if section 263 otherwise applies (both " +
+          "vehicles insured). Confirming which situation applies here is essential and not something " +
+          "this content assumes.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90i08_e.doc",
+        evidenceCategories: [
+          {
+            name: "Proof the other driver's vehicle was not insured",
+            why: "Establishes that section 263's bar doesn't apply, so a direct claim against the driver is available.",
+            examples: ["Police collision report noting no valid insurance", "A denial or confirmation letter from your own insurer explaining why this isn't a direct-compensation claim", "Any correspondence with the other driver about their insurance status"],
+          },
+        ],
+      },
+      {
+        id: "duty-of-care-negligence",
+        name: "The other driver owed a duty of care",
+        plainExplanation:
+          "A negligence claim generally requires showing the defendant owed the plaintiff a duty of " +
+          "care -- whether the relationship between the parties is close enough that one may " +
+          "reasonably be said to owe the other a duty not to cause injury or loss, a question of " +
+          "foreseeability moderated by policy considerations. See \"The elements of a negligence " +
+          "claim\" for the fuller general framework this draws from.",
+        sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        evidenceCategories: [
+          {
+            name: "Records identifying both drivers and vehicles",
+            why: "Establishes who was involved and their relationship as road users.",
+            examples: ["Police collision report", "Exchanged driver's licence and insurance information", "Photos of both vehicles at the scene"],
+          },
+        ],
+      },
+      {
+        id: "breach-of-standard-of-care",
+        name: "The other driver's conduct breached the standard of care",
+        plainExplanation:
+          "Conduct is negligent if it creates an unreasonable risk of harm. What specifically counted " +
+          "as unreasonable driving conduct in a given situation is a further, fact-specific question " +
+          "this general standard doesn't itself resolve -- it isn't a statement of particular traffic " +
+          "rules.",
+        sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        evidenceCategories: [
+          {
+            name: "Evidence of how the accident happened",
+            why: "Supports what the other driver did that created the risk of harm.",
+            examples: ["Police collision report", "Photos or video of the scene", "Dashcam or nearby security camera footage", "Witness accounts"],
+          },
+        ],
+      },
+      {
+        id: "damage-to-vehicle",
+        name: "The plaintiff sustained damage",
+        plainExplanation: "A negligence claim generally requires that the plaintiff sustained damage -- here, damage to the vehicle or its contents.",
+        sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        evidenceCategories: [
+          {
+            name: "Proof of the damage and its cost",
+            why: "Supports the dollar amount claimed.",
+            examples: ["Repair estimate or invoice", "Photos of the damage", "Proof of the vehicle's ownership or value"],
+          },
+        ],
+      },
+      {
+        id: "causation-vehicle-accident",
+        name: "The damage was caused, in fact and in law, by the other driver's breach",
+        plainExplanation:
+          "Causation has two parts: whether the breach caused the harm in fact, and whether it also " +
+          "caused the harm in law -- meaning the harm isn't too remote to fairly hold the defendant " +
+          "liable for it, judged by whether it was a real, reasonably foreseeable risk rather than one " +
+          "a reasonable person would dismiss as far-fetched.",
+        sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        evidenceCategories: [
+          {
+            name: "Evidence connecting the damage to this specific incident",
+            why: "Shows the damage resulted from this collision, not a pre-existing or separate cause.",
+            examples: ["Photos taken at or soon after the scene", "A repair shop assessment tying the damage to this collision", "Police report"],
+          },
+        ],
+      },
+      {
+        id: "amount-within-jurisdiction-vehicle-accident",
+        name: "The amount claimed falls within Small Claims Court's jurisdiction",
+        plainExplanation:
+          "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
+          "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
+          "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        evidenceCategories: [
+          {
+            name: "Cost documentation",
+            why: "Supports the specific dollar amount claimed.",
+            examples: ["Repair estimate or invoice", "Total cost of replacement, if the vehicle was written off"],
+          },
+        ],
+      },
+    ],
+    defendantConsiderations: [
+      {
+        id: "defendant-was-actually-insured",
+        name: "The defendant disputes not being insured, or shows section 263 applies after all",
+        plainExplanation:
+          "If the defendant shows their vehicle was insured under a motor vehicle liability policy " +
+          "bound by section 263 of the Insurance Act at the time of the accident, section 263 may " +
+          "apply after all -- meaning the plaintiff's ordinary remedy is a claim against their own " +
+          "insurer, not a direct action against this defendant.",
+        whenThisComesUp: "When the defendant's Defence disputes the premise that they were uninsured, or that another exclusion to section 263 applied.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90i08_e.doc",
+      },
+      {
+        id: "dispute-fault-or-causation-vehicle-accident",
+        name: "The defendant disputes being at fault, or that their vehicle caused the damage",
+        plainExplanation:
+          "A defendant can file a Defence disputing that they were at fault, or that their vehicle's " +
+          "conduct caused the damage claimed -- this becomes a fact the court weighs alongside the " +
+          "plaintiff's evidence.",
+        whenThisComesUp: "When the defendant has filed a Defence (Form 9A) disputing fault or causation, not just the amount claimed.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+      },
+    ],
+    applicableDefenceConceptIds: ["defence-contributory-negligence", "defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
+    remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
+    proceduralNotes: [
+      {
+        note:
+          "Whether Small Claims Court is the right forum at all for a claim like this depends first on " +
+          "whether section 263 of the Insurance Act applies (see the plaintiff element above) -- if it " +
+          "does, the ordinary route is a claim against your own insurer under that section, generally " +
+          "not a Small Claims action against the other driver.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90i08_e.doc",
+      },
+      {
+        note: "Claims like this are generally subject to Ontario's standard 2-year limitation period, running from when the incident (or the loss) was discovered.",
+        sourceUrl: "https://www.ontario.ca/page/civil-claims-suing-and-being-sued",
+      },
+    ],
+    signals: [
+      "other driver had no insurance",
+      "hit by an uninsured driver",
+      "uninsured driver damaged my car",
+      "car accident with an uninsured driver",
+      "the other driver wasn't insured",
+      "no insurance and hit my car",
+      "collision with someone who had no insurance",
+      "other driver's vehicle wasn't insured",
+      "accident with an uninsured motorist",
+      "driver who hit me had no insurance",
+    ],
+    typicalDefendantProfile: "individual",
+    citations: [
+      {
+        sourceName: "Insurance Act, R.S.O. 1990, c. I.8",
+        officialUrl: "https://www.ontario.ca/laws/docs/90i08_e.doc",
+        verifiedAt: "2026-09-10",
+        pinpoint: "s.263(1): the direct-compensation section applies only when the damaged vehicle AND at least one other vehicle involved are each insured under a motor vehicle liability policy from an insurer bound by the section",
+      },
+      {
+        sourceName: "Insurance Act, R.S.O. 1990, c. I.8",
+        officialUrl: "https://www.ontario.ca/laws/docs/90i08_e.doc",
+        verifiedAt: "2026-09-10",
+        pinpoint: "s.263(5)(a): where the section applies, an insured has no right of action against any other person involved for damage to the insured's automobile, its contents, or loss of use",
+      },
+      {
+        sourceName: "Insurance Act, R.S.O. 1990, c. I.8",
+        officialUrl: "https://www.ontario.ca/laws/docs/90i08_e.doc",
+        verifiedAt: "2026-09-10",
+        pinpoint: "s.263(2)-(2.3): where the section applies, the insured recovers from their own insurer (fault-based); since 2021, c. 40, Sched. 14, s. 4 (in force 01/01/2024), an insured may elect not to make that claim, but the election does not restore a right of action against the other driver",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "para. 3 -- the four elements of a negligence claim (duty, breach, damage, causation)",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "paras. 4-5 -- duty of care: the proximity question",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "para. 7 -- standard of care: conduct is negligent if it creates an unreasonable risk of harm",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-09",
+        pinpoint: "paras. 11-13 -- causation has both a factual and a legal (remoteness) branch, judged by reasonable foreseeability",
+      },
+      {
+        sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
+        officialUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        verifiedAt: "2026-09-07",
+        pinpoint: "s.23(1): Small Claims Court jurisdiction is any action for payment of money up to the prescribed amount, with no cause-of-action exclusion",
+      },
+    ],
+    reviewedAt: null,
+    status: "draft",
   },
 ];
