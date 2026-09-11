@@ -31,6 +31,8 @@ CanLII and the Supreme Court of Canada's own site both block automated fetching,
 
 Every card, claim, or assertion must carry its source URL (or, where the source is a neutral citation rather than a URL, the citation) and the date it was verified.
 
+Before starting any sourcing work, read `docs/SOURCING_NOTES.md` — techniques that already work (e.g. the e-Laws `.doc` fallback), dead ends already ruled out, and things already confirmed not to exist, so they don't get rediscovered at the cost of fresh tool calls. When a sourcing session establishes a new technique, a new dead end, or confirms something doesn't exist, add it there in the same session.
+
 **The "who does the applying" test** — the standing rule for telling legal information apart from legal advice, everywhere in this codebase, not just intake:
 
 Legal INFORMATION = the system explains law generally; the USER applies it to their facts.
