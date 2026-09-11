@@ -31,19 +31,47 @@
  *
  * The negligence-elements blocker has since cleared: CLAUDE.md section 2
  * now treats a primary source saved under `docs/sources/` (see that
- * folder's README) as a first-class citation route -- CanLII/SCC block
- * automated fetching, but a manually downloaded, locally read copy
- * satisfies "retrieved and read" the same way a live fetch does.
- * `sc-topic-general-negligence-elements` below is sourced this way, from
- * Mustapha v. Culligan of Canada Ltd., 2008 SCC 27 -- a Supreme Court of
- * Canada decision restating the settled general test, not case-law
- * synthesis from an intermediate appellate decision the way the earlier
- * ontariocourts.ca search kept running into. "Breach of contract elements"
- * remains cut: no equivalent primary source has been found or read for it
- * yet. If a future session finds an actual ontario.ca/ontariocourts.ca/
- * ontariocourtforms.on.ca page stating it plainly, or another SCC/primary
- * source the same way this one was sourced, add it back with that
- * citation.
+ * folder's README) as a first-class citation route -- CanLII blocks
+ * automated fetching (and so, so far, does canlii.org-hosted access to
+ * Ontario court decisions specifically), but a manually downloaded,
+ * locally read copy satisfies "retrieved and read" the same way a live
+ * fetch does. (The Supreme Court of Canada's own decisions database,
+ * decisions.scc-csc.ca, turned out to be directly fetchable live -- see
+ * docs/SOURCING_NOTES.md -- but that was confirmed after the entries
+ * below were already sourced via docs/sources/; both routes reach the
+ * same real text.) `sc-topic-general-negligence-elements` below is
+ * sourced this way, from Mustapha v. Culligan of Canada Ltd., 2008 SCC 27
+ * -- a Supreme Court of Canada decision restating the settled general
+ * test, not case-law synthesis from an intermediate appellate decision
+ * the way the earlier ontariocourts.ca search kept running into. "Breach
+ * of contract elements" remains cut: no equivalent primary source has
+ * been found or read for it yet. If a future session finds an actual
+ * ontario.ca/ontariocourts.ca/ontariocourtforms.on.ca page stating it
+ * plainly, or another SCC/primary source the same way this one was
+ * sourced, add it back with that citation.
+ *
+ * Session 41 sourced `sc-topic-general-unjust-enrichment-elements` the
+ * same way, from Garland v. Consumers' Gas Co., 2004 SCC 25 (paras. 30,
+ * 44-46, 63-65) -- the leading modern statement of the three-element
+ * test, the two-stage juristic reason analysis, and the change of
+ * position defence (including that it's unavailable to a defendant
+ * enriched through their own wrongdoing). Two other SCC judgments were
+ * read in full and deliberately NOT cited: Kerr v. Baranow, 2011 SCC 10
+ * restates the same general test but its substantive content -- the
+ * "joint family venture" doctrine, quantum meruit vs. proportionate-share
+ * remedies -- is tightly bound to domestic/cohabitation property context,
+ * not general Small Claims content, exactly the kind of stretching this
+ * registry's own "who does the applying" boundary rules out. Moore v.
+ * Sweet, 2018 SCC 52 mostly cross-references and restates Garland's own
+ * paragraphs rather than adding new general doctrine (its paras. 37/57/58
+ * independently confirm the Garland paragraph numbers cited below), and
+ * its substantive holdings are specific to the constructive-trust remedy
+ * and Insurance Act beneficiary-designation provisions -- also left out,
+ * consistent with this topic's own scope limit against asserting anything
+ * about a specific remedy. Both are logged in docs/sources/README.md as
+ * genuine primary sources read this session, in case a future,
+ * differently-scoped session (family-law content, a constructive-trust-
+ * specific remedy topic) finds a real use for them.
  */
 
 import type { FactCondition } from "./questionBank";
@@ -303,6 +331,69 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
         officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
         verifiedAt: "2026-09-09",
         pinpoint: "para. 17 -- actual knowledge of a plaintiff's particular sensitivities relaxes the ordinary-fortitude requirement",
+      },
+    ],
+    reviewedAt: null,
+    status: "draft",
+  },
+  {
+    id: "sc-topic-general-unjust-enrichment-elements",
+    courtArea: "small-claims",
+    title: "The elements of an unjust enrichment claim",
+    plainExplanation:
+      "A claim in unjust enrichment generally requires showing three elements: (1) that the " +
+      "defendant was enriched; (2) that the plaintiff suffered a corresponding deprivation; and (3) " +
+      "that there is no juristic reason for the enrichment -- meaning no justification in law for the " +
+      "defendant keeping the benefit at the plaintiff's expense. " +
+      "The absence-of-juristic-reason element is assessed in two stages. First, the plaintiff must " +
+      "show that none of a fixed list of established categories applies to justify the enrichment -- " +
+      "those established categories are a contract, a disposition of law, a donative intent (a gift), " +
+      "and other valid common law, equitable, or statutory obligations. If none of those established " +
+      "categories applies, the plaintiff has made out a prima facie case. Second, that prima facie " +
+      "case can still be rebutted: the defendant may show some other reason the enrichment should be " +
+      "kept, and at this stage courts consider the reasonable expectations of the parties and public " +
+      "policy considerations. " +
+      "Separately, even where all three elements are made out, a defendant may have a change of " +
+      "position defence available -- where an innocent defendant shows they materially changed their " +
+      "position because of the enrichment, such that requiring them to return it would be inequitable. " +
+      "That defence is not available, however, to a defendant who obtained the enrichment through " +
+      "their own wrongdoing.",
+    citations: [
+      {
+        sourceName: "Supreme Court of Canada — Garland v. Consumers' Gas Co., 2004 SCC 25",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2004/2004scc25/2004scc25.html",
+        verifiedAt: "2026-09-11",
+        pinpoint: "para. 30 -- the three elements of a claim in unjust enrichment: enrichment, corresponding deprivation, absence of juristic reason",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Garland v. Consumers' Gas Co., 2004 SCC 25",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2004/2004scc25/2004scc25.html",
+        verifiedAt: "2026-09-11",
+        pinpoint: "para. 44 -- juristic reason analysis, stage one: the plaintiff must show no juristic reason from an established category (contract, disposition of law, donative intent, other valid common law/equitable/statutory obligations) applies; if none does, a prima facie case is made out",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Garland v. Consumers' Gas Co., 2004 SCC 25",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2004/2004scc25/2004scc25.html",
+        verifiedAt: "2026-09-11",
+        pinpoint: "para. 45 -- the prima facie case is rebuttable; the defendant bears a de facto burden to show another reason the enrichment should be retained",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Garland v. Consumers' Gas Co., 2004 SCC 25",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2004/2004scc25/2004scc25.html",
+        verifiedAt: "2026-09-11",
+        pinpoint: "para. 46 -- juristic reason analysis, stage two: on rebuttal, courts consider the reasonable expectations of the parties and public policy considerations",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Garland v. Consumers' Gas Co., 2004 SCC 25",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2004/2004scc25/2004scc25.html",
+        verifiedAt: "2026-09-11",
+        pinpoint: "para. 63 -- the change of position defence: restitution will be denied where an innocent defendant shows they materially changed their position because of the enrichment, such that returning it would be inequitable",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Garland v. Consumers' Gas Co., 2004 SCC 25",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2004/2004scc25/2004scc25.html",
+        verifiedAt: "2026-09-11",
+        pinpoint: "paras. 64-65 -- the change of position defence is not available to a defendant who is a wrongdoer; a defendant who obtained the enrichment through their own wrongdoing cannot assert that returning it would be unjust",
       },
     ],
     reviewedAt: null,
