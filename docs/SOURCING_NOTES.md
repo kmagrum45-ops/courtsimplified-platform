@@ -102,16 +102,24 @@ regulation-as-a-whole level (`docs/PROCEDURAL_RULES_INVENTORY.md` §5), but a
 been located and used by any citation in this codebase yet — don't assume the
 same `<id>_e.doc` pattern works there without checking.
 
-### CanLII / SCC block automated fetching — the `docs/sources/` manual-download route
+### CanLII (and Ontario court decisions) block automated fetching — the `docs/sources/` manual-download route
 
-CanLII and the Supreme Court of Canada's own site both block automated
-fetching outright — a live `WebFetch` against a `canlii.org` URL will not
-work. This does **not** mean CanLII can't be cited: `canlii.org` is already
-an allowed citation domain (`verifyIntakeCoverage.ts`'s `ALLOWED_SOURCE_DOMAINS`),
-and a case's live CanLII URL is the right thing to put in a citation's
-`officialUrl` for a user to actually visit. What CLAUDE.md section 2's
-`docs/sources/` route solves is a different, narrower problem: satisfying
-"actually retrieved and read," not "cited from a domain this tool can reach."
+**Correction (Session 40):** this section originally said the Supreme Court
+of Canada's own site also blocks automated fetching, the same as CanLII.
+That was wrong — see "The Supreme Court of Canada's own site is directly
+fetchable" below, confirmed directly this session. What's actually true:
+**CanLII** (`canlii.org`) blocks automated fetching outright — a live
+`WebFetch` against a `canlii.org` URL will not work — and so, as far as
+every attempt this codebase has made so far, does `canlii.org`-hosted access
+to **Ontario court decisions** specifically (Ferguson v. Birchmount, below,
+confirmed HTTP 403). This does **not** mean CanLII can't be cited:
+`canlii.org` is already an allowed citation domain
+(`verifyIntakeCoverage.ts`'s `ALLOWED_SOURCE_DOMAINS`), and a case's live
+CanLII URL is the right thing to put in a citation's `officialUrl` for a
+user to actually visit. What CLAUDE.md section 2's `docs/sources/` route
+solves is a different, narrower problem: satisfying "actually retrieved and
+read" for a source this tool can't fetch live, not "cited from a domain
+this tool can reach."
 
 **The actual mechanic** (confirmed by reading how the one real example does
 it, `Mustapha v. Culligan, 2008 SCC 27`, sourced for commit `e77d9c6`):
@@ -132,6 +140,17 @@ it, `Mustapha v. Culligan, 2008 SCC 27`, sourced for commit `e77d9c6`):
    all — that path exists in the verification script but isn't exercised by
    any citation yet, so don't assume it's the normal route; for CanLII, the
    live URL is what actually gets cited.
+
+### The Supreme Court of Canada's own site is directly fetchable — no `docs/sources/` detour needed
+
+Confirmed directly this session (Session 40), not taken on trust: **`decisions.scc-csc.ca`**, the SCC's own official decisions database, is reachable and serves full judgment text. Verified by retrieving **Clements v. Clements, 2012 SCC 32** in full — paragraphs `[1]` through `[63]`, majority and dissent both present, matching the real, known structure of that judgment — and by confirming (via search, resolving to a real `decisions.scc-csc.ca` URL for each) that the same site also holds Garland v. Consumers' Gas, Kerr v. Baranow, C.M. Callow Inc. v. Zollinger, Pecore v. Pecore, and Bhasin v. Hrynew. This means an SCC judgment needs **no manual download and no `docs/sources/` entry at all** — fetch and cite it live, the same as an ontario.ca statute. Only CanLII/Ontario-court-decision access (above) needs the `docs/sources/` workaround.
+
+**Two things worth knowing precisely before relying on this:**
+
+- **This session's own `WebFetch` tool got HTTP 403 from `decisions.scc-csc.ca` on every attempt** (three different URL variations tried). The site itself is NOT blocking automated access, though — a direct HTTP request via `curl` with an ordinary browser User-Agent string returned HTTP 200 and the real document every time. If `WebFetch` alone returns 403 here, that's this tool's own infrastructure, not proof the source is unreachable — try a direct fetch (e.g. `curl -A "Mozilla/5.0 ..." <url>`) before concluding it's blocked.
+- **The URL shape is `/scc-csc/scc-csc/en/item/{id}/index.do` (a case-overview page) and `/scc-csc/scc-csc/en/{id}/1/document.do` (the full judgment).** `{id}` is an internal, non-sequential number (Clements was `9992`; Garland, `1660`; Pecore, `2355`; Kerr v. Baranow, `7922`; Bhasin, `14438`; Callow, `18613`) with **no derivable relationship to the case name, SCC number, or year** — it cannot be guessed or constructed, only found by searching for the case name first and reading off the real URL. Same discipline the e-Laws `.doc`-filename entry above already warns about, for the same underlying reason: don't construct a citation URL from a pattern without confirming the fetch actually returned the right document.
+- **`document.do` serves a PDF, not an HTML page** — `pdftotext` (already used for Mustapha) extracts it cleanly; a tool expecting HTML will mishandle it.
+- **Judgments render bilingually, English and French, both under the same paragraph numbers** — a plain top-to-bottom text extraction produces a full English pass followed by a full French pass of the same paragraph range (consistent with a two-column source layout), not one language throughout. Concretely: searching extracted text for `[3]` returns **two different paragraph 3's**, one in each language. Quote carefully — it's easy to pull a French sentence into an English-language citation, or vice versa, if the extraction isn't checked for which block you're actually reading from.
 
 ### Search the codebase before building on a claimed-existing feature
 
@@ -199,20 +218,31 @@ domain self-help page. Two real, on-point, named authorities were found via
 search: **Punch v. Savoy's Jewellers Ltd.** (Ontario Court of Appeal, 1986)
 and **Ferguson v. Birchmount Boarding Kennels Ltd., 2006 CanLII 2049 (ON
 SCDC)** (the latter literally a pet-boarding Small Claims case on appeal —
-about as on-point as it gets). Neither could actually be retrieved: CanLII
-returned **HTTP 403 on both the `.html` and `.pdf` URL paths** for the
-Ferguson decision (confirmed directly this session, not assumed), and unlike
-Mustapha, **no copy already existed under `docs/sources/`** to read instead.
+about as on-point as it gets). **Both are Ontario court decisions, not SCC
+judgments** — neither could actually be retrieved: CanLII returned **HTTP
+403 on both the `.html` and `.pdf` URL paths** for the Ferguson decision
+(confirmed directly this session, not assumed), and unlike Mustapha, **no
+copy already existed under `docs/sources/`** to read instead.
 
-**The boundary this exposes in the `docs/sources/` technique above:** that
-route only works when a copy of the source already exists locally (as
+**Correction (Session 40): the boundary below is narrower than it was first
+recorded.** This was originally written as a general CanLII/SCC boundary. It
+isn't — see "The Supreme Court of Canada's own site is directly fetchable"
+above. `decisions.scc-csc.ca` is reachable directly and would have needed no
+`docs/sources/` detour at all *if* either Punch or Ferguson had been an SCC
+case. They aren't (Ontario Court of Appeal and Ontario Divisional Court,
+respectively) — Ontario court decisions don't have an equivalent directly-
+fetchable official site the way SCC judgments do, at least none found so
+far, so the boundary below still holds for **CanLII and Ontario court
+decisions specifically**, just not for the Supreme Court of Canada:
+
+That route only works when a copy of the source already exists locally (as
 Mustapha's did, placed there by some means outside this session's own
 tools) — a session's own tools cannot themselves get past CanLII's block to
 *create* that local copy from scratch. If a future session needs a specific
-CanLII/SCC case that isn't already under `docs/sources/`, getting a copy
-there (asking the user to supply one, or whatever channel actually got
-Mustapha's PDF in) is a precondition, not something to assume will work the
-same way the Mustapha precedent might suggest.
+CanLII-only or Ontario-court case that isn't already under `docs/sources/`,
+getting a copy there (asking the user to supply one, or whatever channel
+actually got Mustapha's PDF in) is a precondition. An **SCC** case doesn't
+have this problem at all — try `decisions.scc-csc.ca` directly first.
 
 **What was built instead, and why that's an honest outcome, not a
 workaround:** rather than cite either case from secondary case-brief
