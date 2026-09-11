@@ -2551,10 +2551,18 @@ export const CLAIM_TYPES: ClaimType[] = [
         name: "The damage was caused, in fact and in law, by the other driver's breach",
         plainExplanation:
           "Causation has two parts: whether the breach caused the harm in fact, and whether it also " +
-          "caused the harm in law -- meaning the harm isn't too remote to fairly hold the defendant " +
-          "liable for it, judged by whether it was a real, reasonably foreseeable risk rather than one " +
-          "a reasonable person would dismiss as far-fetched.",
-        sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+          "caused the harm in law. " +
+          "The factual part is generally tested with the \"but for\" test -- the plaintiff must show, " +
+          "on a balance of probabilities, that the injury would not have occurred but for the " +
+          "defendant's negligent act. That is a factual inquiry, applied in a robust, common-sense " +
+          "way: scientific evidence of precisely how much the defendant's negligence contributed is " +
+          "not required. (There is a narrow exception where multiple possible wrongdoers are involved " +
+          "-- see \"The elements of a negligence claim\" for the fuller general framework, including " +
+          "when that exception applies.) " +
+          "The legal part asks whether the harm is too remote to fairly hold the defendant liable for " +
+          "it, judged by whether it was a real, reasonably foreseeable risk rather than one a " +
+          "reasonable person would dismiss as far-fetched.",
+        sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
         evidenceCategories: [
           {
             name: "Evidence connecting the damage to this specific incident",
@@ -2674,6 +2682,18 @@ export const CLAIM_TYPES: ClaimType[] = [
         officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
         verifiedAt: "2026-09-09",
         pinpoint: "paras. 11-13 -- causation has both a factual and a legal (remoteness) branch, judged by reasonable foreseeability",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Clements v. Clements, 2012 SCC 32",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
+        verifiedAt: "2026-09-11",
+        pinpoint: "para. 8 -- the factual branch of causation: the \"but for\" test, which the plaintiff must prove on a balance of probabilities",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Clements v. Clements, 2012 SCC 32",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
+        verifiedAt: "2026-09-11",
+        pinpoint: "para. 9 -- the \"but for\" test is applied in a robust common-sense fashion; no scientific evidence of the precise contribution the negligence made is required",
       },
       {
         sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
@@ -2897,9 +2917,17 @@ export const CLAIM_TYPES: ClaimType[] = [
         name: "The damage or loss was caused, in fact and in law, by the business's breach",
         plainExplanation:
           "Causation has two parts: whether the breach caused the harm in fact, and whether it also " +
-          "caused the harm in law -- meaning the harm isn't too remote to fairly hold the defendant " +
-          "liable for it, judged by whether it was a real, reasonably foreseeable risk.",
-        sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+          "caused the harm in law. " +
+          "The factual part is generally tested with the \"but for\" test -- the plaintiff must show, " +
+          "on a balance of probabilities, that the damage or loss would not have occurred but for the " +
+          "defendant's negligent act. That is a factual inquiry, applied in a robust, common-sense " +
+          "way: scientific evidence of precisely how much the defendant's negligence contributed is " +
+          "not required. (There is a narrow exception where multiple possible wrongdoers are involved " +
+          "-- see \"The elements of a negligence claim\" for the fuller general framework, including " +
+          "when that exception applies.) " +
+          "The legal part asks whether the harm is too remote to fairly hold the defendant liable for " +
+          "it, judged by whether it was a real, reasonably foreseeable risk.",
+        sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
         evidenceCategories: [
           {
             name: "Evidence connecting the damage or loss to the time the property was with the business",
@@ -3006,6 +3034,18 @@ export const CLAIM_TYPES: ClaimType[] = [
         officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
         verifiedAt: "2026-09-09",
         pinpoint: "paras. 11-13 -- causation has both a factual and a legal (remoteness) branch, judged by reasonable foreseeability",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Clements v. Clements, 2012 SCC 32",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
+        verifiedAt: "2026-09-11",
+        pinpoint: "para. 8 -- the factual branch of causation: the \"but for\" test, which the plaintiff must prove on a balance of probabilities",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Clements v. Clements, 2012 SCC 32",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
+        verifiedAt: "2026-09-11",
+        pinpoint: "para. 9 -- the \"but for\" test is applied in a robust common-sense fashion; no scientific evidence of the precise contribution the negligence made is required",
       },
       {
         sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
