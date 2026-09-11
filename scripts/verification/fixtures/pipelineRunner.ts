@@ -38,6 +38,15 @@ export type TurnLog = {
   questionAsked: string | null;
   answerGiven: string | null;
   matchedClaimTypeThisTurn: string | null;
+  /**
+   * Session 37 (42274b3). The AI classifier's fallback suggestion for THIS
+   * turn, if any -- same turn-scoping as matchedClaimTypeThisTurn. Only
+   * ever set when matchedClaimTypeThisTurn is null (orchestrateIntakeTurn.ts
+   * only calls the AI fallback when the exact matcher finds nothing), which
+   * is itself the leak check: a caller can verify a suggestion never
+   * appeared alongside a same-turn exact match or evidenceGuidance.
+   */
+  suggestedClaimTypeThisTurn: string | null;
   evidenceGuidanceThisTurn: { addressed: string[]; unaddressed: string[] } | null;
   factsAfter: IntakeFacts;
   possibleCorrections: string[];
@@ -54,6 +63,19 @@ export type PipelineRun = {
   finalFacts: IntakeFacts;
   finalAnsweredIds: string[];
   retainedMatchedClaimType: RetainedMatch | null;
+  /**
+   * Session 37 (42274b3). Last non-null AI-classifier suggestion seen
+   * across all turns, same retain-the-last-value pattern as
+   * retainedMatchedClaimType. Unlike retainedMatchedClaimType, this is
+   * NEVER written into mappedInput/analysisOutput below -- an AI
+   * suggestion this raw pipeline run produces is exactly what a real user
+   * would see as a pending confirmation card, not yet a match. A caller
+   * that wants to simulate the user confirming or rejecting it calls
+   * claimTypeSuggestionResolution.ts's resolveClaimTypeSuggestion()
+   * directly against input.story, the same real function the confirm/
+   * reject API route calls -- not reimplemented here.
+   */
+  retainedSuggestedClaimType: RetainedMatch | null;
   mappedInput: ReturnType<typeof mapGuidedIntakeToSmallClaimsInput> | null;
   analysisOutput: Awaited<ReturnType<typeof analyzeSmallClaimsWithBrain>> | null;
 };
@@ -62,6 +84,7 @@ export async function runStoryThroughPipeline(input: PipelineStoryInput, apiKey:
   let facts: IntakeFacts = {};
   let answeredIds: string[] = [];
   let retainedMatchedClaimType: RetainedMatch | null = null;
+  let retainedSuggestedClaimType: RetainedMatch | null = null;
   const turns: TurnLog[] = [];
   let halted = false;
   let haltMessage = "";
@@ -104,10 +127,14 @@ export async function runStoryThroughPipeline(input: PipelineStoryInput, apiKey:
     if (r.intakeComplete) intakeComplete = true;
     const freshMatch = r.matchedClaimTypes[0]?.claimType;
     if (freshMatch) retainedMatchedClaimType = { claimTypeId: freshMatch.id, claimTypeName: freshMatch.name };
+    if (r.suggestedClaimType) retainedSuggestedClaimType = r.suggestedClaimType;
     turns.push({
       questionAsked: questionId,
       answerGiven: answerText,
       matchedClaimTypeThisTurn: freshMatch ? `${freshMatch.id} (${freshMatch.name})` : null,
+      suggestedClaimTypeThisTurn: r.suggestedClaimType
+        ? `${r.suggestedClaimType.claimTypeId} (${r.suggestedClaimType.claimTypeName})`
+        : null,
       evidenceGuidanceThisTurn: r.evidenceGuidance
         ? {
             addressed: r.evidenceGuidance.addressedCategories.map((c) => c.name),
@@ -142,6 +169,7 @@ export async function runStoryThroughPipeline(input: PipelineStoryInput, apiKey:
     finalFacts: facts,
     finalAnsweredIds: answeredIds,
     retainedMatchedClaimType,
+    retainedSuggestedClaimType,
     mappedInput,
     analysisOutput,
   };

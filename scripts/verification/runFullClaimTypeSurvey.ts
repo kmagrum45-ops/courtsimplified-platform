@@ -3,8 +3,7 @@
  * -- the same shared runner runFixtures.ts, runGeneratedFixtures.ts, and
  * runFixtureDrafts.ts already use) against one fabricated, clearly-labeled
  * test story per Small Claims claim type in claimTypes.ts -- all 19 -- and
- * writes a single, complete, unabridged report to
- * fixtures/smallClaimsFullSurvey.md.
+ * writes a single, complete, unabridged report.
  *
  * This is a survey, not a pass/fail check: every field of every stage's
  * real output is captured and written out, nothing is graded or fixed.
@@ -15,16 +14,32 @@
  * turn counts from the existing 3 fixtures) and reported separately from
  * this file, not repeated here.
  *
+ * Session 37 (commit 42274b3) update: this run writes to
+ * fixtures/smallClaimsFullSurveyV2.md, a NEW file -- fixtures/smallClaimsFullSurvey.md
+ * (commit ffa722b) is left untouched as the "before" snapshot, since every
+ * story in it was matched by the exact-substring matcher alone, before the
+ * AI-classifier fallback existed. Same 19 stories, same documents, same
+ * per-claim-type structure as before, plus two additions: each section now
+ * reports whether the retained match came from the exact matcher or the AI
+ * fallback (and, if the fallback fired, whether/how it was confirmed and
+ * that the unconfirmed suggestion never leaked into matchedClaimTypes/
+ * evidenceGuidance/claimGuidance beforehand), and a final section
+ * exercises the rejection/retry path end to end, which nothing had
+ * exercised until now.
+ *
  * Run: node --import tsx --env-file=.env.local scripts/verification/runFullClaimTypeSurvey.ts
  */
 
 import { writeFileSync } from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 import { runStoryThroughPipeline, type PipelineRun } from "./fixtures/pipelineRunner";
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { buildClaimTypeOverviewContent } from "../../src/lib/case-system/intake/claimTypeOverviewContent";
 import { draftStatementOfClaimParticulars } from "../../src/lib/case-system/statementOfClaimDraftEngine";
+import { classifyClaimTypeWithAi } from "../../src/lib/case-system/intake/claimTypeAiClassifier";
+import { resolveClaimTypeSuggestion } from "../../src/lib/case-system/intake/claimTypeSuggestionResolution";
 
 type SurveyStory = {
   claimTypeId: string;
@@ -441,7 +456,12 @@ const STORIES: SurveyStory[] = [
   },
 ];
 
-function renderSection(story: SurveyStory, claimType: (typeof CLAIM_TYPES)[number], run: PipelineRun): string {
+async function renderSection(
+  story: SurveyStory,
+  claimType: (typeof CLAIM_TYPES)[number],
+  run: PipelineRun,
+  apiKey: string,
+): Promise<string> {
   const lines: string[] = [];
   const push = (s: string) => lines.push(s);
 
@@ -494,6 +514,68 @@ function renderSection(story: SurveyStory, claimType: (typeof CLAIM_TYPES)[numbe
   push(`### Retained matched claim type at completion: ${matchLabel}`);
   push("");
   push(mismatch ? `**MISMATCH FLAGGED** -- intended \`${claimType.id}\`, pipeline matched ${matchLabel}.` : "Matches the intended claim type.");
+  push("");
+
+  push("### Match source (Session 37, commit 42274b3's AI-classifier fallback)");
+  push("");
+  if (run.retainedMatchedClaimType) {
+    push(
+      "**exact matcher** -- `matchClaimType()`'s substring matching found this claim type directly; the AI " +
+        "fallback never ran for this story (it only runs when the exact matcher finds nothing).",
+    );
+  } else if (run.retainedSuggestedClaimType) {
+    const suggestion = run.retainedSuggestedClaimType;
+    push(
+      `**AI classifier fallback** -- the exact matcher found nothing for this story; ` +
+        `\`classifyClaimTypeWithAi()\` suggested \`${suggestion.claimTypeId}\` (${suggestion.claimTypeName}).`,
+    );
+    push("");
+    push("Required confirmation: **yes** -- this raw pipeline run alone never populates `matchedClaimTypes`, " +
+      "`evidenceGuidance`, or `claimGuidance` from an AI suggestion (see orchestrateIntakeTurn.ts's " +
+      "`suggestedClaimType` doc comment). Leak check against the turn where the suggestion appeared:");
+    const suggestingTurn = run.turns.find((t) => t.suggestedClaimTypeThisTurn);
+    if (suggestingTurn) {
+      push(
+        `- matchedClaimTypeThisTurn on that turn: ${suggestingTurn.matchedClaimTypeThisTurn ?? "null"} ` +
+          `${suggestingTurn.matchedClaimTypeThisTurn ? "-- **LEAK, should be null**" : "-- correct, no leak"}`,
+      );
+      push(
+        `- evidenceGuidanceThisTurn on that turn: ${suggestingTurn.evidenceGuidanceThisTurn ? JSON.stringify(suggestingTurn.evidenceGuidanceThisTurn) : "null"} ` +
+          `${suggestingTurn.evidenceGuidanceThisTurn ? "-- **LEAK, should be null**" : "-- correct, no leak"}`,
+      );
+    } else {
+      push("- (no turn log carried the suggestion -- unexpected, see raw turns table above)");
+    }
+    push("");
+    push("Simulating the user confirming this suggestion (`resolveClaimTypeSuggestion(\"confirm\", ...)`, the exact function the confirm/reject API route calls):");
+    push("");
+    try {
+      const resolution = await resolveClaimTypeSuggestion(
+        "confirm",
+        story.story,
+        CLAIM_TYPES,
+        run.finalFacts,
+        apiKey,
+        suggestion.claimTypeId,
+      );
+      if (resolution.outcome === "confirmed") {
+        push(
+          `- outcome: **confirmed** -- evidenceGuidance now has ${resolution.evidenceGuidance.addressedCategories.length} addressed / ` +
+            `${resolution.evidenceGuidance.unaddressedCategories.length} unaddressed categories; claimGuidance now has ` +
+            `${resolution.claimGuidance.educationTopics.length} education topic(s) and ${resolution.claimGuidance.remedies.length} remedy/remedies.`,
+        );
+      } else {
+        push(`- outcome: ${resolution.outcome} (unexpected for a confirm action on a valid id)`);
+      }
+    } catch (error) {
+      push(`- confirmation simulation ERRORED: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  } else {
+    push(
+      "**none** -- neither the exact matcher nor the AI classifier fallback found anything for this story. " +
+        "This is the genuine \"no match in the system yet\" case; nothing was forced.",
+    );
+  }
   push("");
 
   push("### Final facts (real IntakeFacts, from orchestrateIntakeTurn.ts)");
@@ -627,10 +709,11 @@ async function main() {
         { id: claimType.id, story: story.story, answers: story.answers, location: story.location },
         apiKey,
       );
+      const matchSource = run.retainedMatchedClaimType ? "exact" : run.retainedSuggestedClaimType ? "ai" : "none";
       console.log(
-        `  turns: ${run.turns.length}, halted: ${run.halted}, matched: ${run.retainedMatchedClaimType?.claimTypeId ?? "(none)"}`,
+        `  turns: ${run.turns.length}, halted: ${run.halted}, matched: ${run.retainedMatchedClaimType?.claimTypeId ?? run.retainedSuggestedClaimType?.claimTypeId ?? "(none)"} (source: ${matchSource})`,
       );
-      sections.push(renderSection(story, claimType, run));
+      sections.push(await renderSection(story, claimType, run, apiKey));
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       console.error(`  ERRORED: ${message}`);
@@ -640,9 +723,130 @@ async function main() {
     sections.push("");
   }
 
-  const outPath = path.join(__dirname, "fixtures", "smallClaimsFullSurvey.md");
+  sections.push(await renderRejectionPathTest(apiKey));
+
+  const outPath = path.join(__dirname, "fixtures", "smallClaimsFullSurveyV2.md");
   writeFileSync(outPath, sections.join("\n") + "\n", "utf8");
   console.log(`\nWrote ${outPath}`);
 }
 
-main();
+/**
+ * Session 37 addition. Nothing exercised the reject/retry path end to end
+ * before this -- claimTypeSuggestionResolution.ts's own doc comments and
+ * the earlier round-1/round-2 verification only ever confirmed a
+ * suggestion, never rejected one. Picks a few fresh, realistically-phrased
+ * stories known (from that same earlier verification) to require the AI
+ * fallback -- NOT reused verbatim from the 19 STORIES above, since those
+ * were written to hit the exact matcher and mostly do -- then: gets the
+ * initial AI suggestion, rejects it, confirms the retry excludes the
+ * rejected id and either lands on a different claim type or genuinely
+ * "none," and confirms a SECOND rejection is refused outright (no second
+ * AI call, no loop) rather than trying forever.
+ */
+export async function renderRejectionPathTest(apiKey: string): Promise<string> {
+  const lines: string[] = [];
+  const push = (s: string) => lines.push(s);
+
+  push("## Rejection / retry path -- exercised end to end for the first time");
+  push("");
+  push(
+    "Fabricated test stories, deliberately different from the 19 canonical stories above (those mostly hit " +
+      "the exact matcher and wouldn't exercise this path). Each one: get the AI classifier's first suggestion, " +
+      "simulate the user rejecting it, confirm the retry excludes the rejected id, then simulate rejecting the " +
+      "retry too, to confirm the cap holds (no third AI call, honest no-match instead of a loop).",
+  );
+  push("");
+
+  const rejectionStories: { label: string; story: string }[] = [
+    {
+      label: "slip-and-fall, fresh phrasing",
+      story: "The stairs outside their building were icy and I ended up falling and breaking my wrist.",
+    },
+    {
+      label: "wrongful dismissal, fresh phrasing",
+      story: "After eight years at the company, they let me go in a five-minute meeting with zero severance.",
+    },
+    {
+      label: "defamation, fresh phrasing",
+      story: "A neighbour started a rumor that I was involved in something illegal, which is completely false.",
+    },
+    {
+      label: "boundary case (known from commit 42274b3's round-2 verification to produce a genuine second choice, to exercise the revised-suggestion + cap branches the first three stories above didn't reach)",
+      story: "I delivered the custom order and the client has ignored every request for payment since.",
+    },
+  ];
+
+  for (const { label, story } of rejectionStories) {
+    push(`### ${label}`);
+    push("");
+    push(`> ${story}`);
+    push("");
+
+    const firstSuggestion = await classifyClaimTypeWithAi(story, CLAIM_TYPES, apiKey);
+    if (!firstSuggestion) {
+      push("First AI classification: **none** -- nothing to reject here, moving to the next story.");
+      push("");
+      continue;
+    }
+    push(`First AI suggestion: \`${firstSuggestion.claimTypeId}\` (${firstSuggestion.claimTypeName}).`);
+    push("");
+    push("Simulating the user rejecting it (`resolveClaimTypeSuggestion(\"reject\", ..., priorRejectedIds: [])`):");
+    const firstRejection = await resolveClaimTypeSuggestion(
+      "reject",
+      story,
+      CLAIM_TYPES,
+      {},
+      apiKey,
+      firstSuggestion.claimTypeId,
+      [],
+    );
+    if (firstRejection.outcome === "revised") {
+      const revised = firstRejection.suggestedClaimType;
+      const excludedCorrectly = revised.claimTypeId !== firstSuggestion.claimTypeId;
+      push(
+        `- outcome: **revised** -- retry suggested \`${revised.claimTypeId}\` (${revised.claimTypeName}). ` +
+          `${excludedCorrectly ? "Correctly excludes the rejected id." : "**BUG: retry returned the same id that was just rejected.**"}`,
+      );
+      push("");
+      push("Simulating the user rejecting the retry too (`priorRejectedIds: [firstSuggestion.claimTypeId]`), to confirm the one-retry cap holds:");
+      const secondRejection = await resolveClaimTypeSuggestion(
+        "reject",
+        story,
+        CLAIM_TYPES,
+        {},
+        apiKey,
+        revised.claimTypeId,
+        [firstSuggestion.claimTypeId],
+      );
+      push(
+        `- outcome: **${secondRejection.outcome}** -- ` +
+          (secondRejection.outcome === "no-match"
+            ? "correct: the cap held, no further AI call was made, honest no-match returned instead of looping."
+            : "**BUG: expected \"no-match\" once priorRejectedIds is non-empty -- the cap did not hold.**"),
+      );
+    } else if (firstRejection.outcome === "no-match") {
+      push(
+        "- outcome: **no-match** -- the retry (excluding the first suggestion) found nothing else in the closed " +
+          "list. Correct honest fallback, not an error or a loop.",
+      );
+    } else {
+      push(`- outcome: ${firstRejection.outcome} (unexpected for a reject action)`);
+    }
+    push("");
+  }
+
+  return lines.join("\n");
+}
+
+// Session 37: renderRejectionPathTest is now exported for reuse (see
+// _tmp_patchRejectionSection.ts's real, already-learned-the-hard-way
+// reason this guard exists -- importing this file to reuse one exported
+// piece used to also re-run the entire 19-story survey as an import side
+// effect, silently doubling the real billed API cost). Same guard pattern
+// already used by verifyCaseOutcomeMatrix.ts and others in this
+// directory: only run main() when this file is the actual entrypoint.
+const isDirectExecution = process.argv[1] ? import.meta.url === pathToFileURL(process.argv[1]).href : false;
+
+if (isDirectExecution) {
+  main();
+}
