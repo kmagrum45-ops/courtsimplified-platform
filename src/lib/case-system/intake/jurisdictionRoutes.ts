@@ -149,15 +149,27 @@ export const JURISDICTION_ROUTES: JurisdictionRoute[] = [
     courtArea: "small-claims",
     matterDescription:
       "A dispute between a landlord and tenant arising from a tenancy that is residential (governed " +
-      "by the Residential Tenancies Act), rather than commercial.",
+      "by the Residential Tenancies Act), rather than commercial. " +
+      "This entry answers the residential-vs-commercial classification question only. It does NOT " +
+      "resolve where a landlord's claim against a FORMER tenant belongs once the tenancy has ended -- " +
+      "that timing boundary between the Board and Small Claims Court is a separate question this " +
+      "repository has not been able to source, and nothing here should be read as settling it.",
     whyNotSmallClaims:
       "The Commercial Tenancies Act governs commercial leases. A residential tenancy is governed by " +
-      "the Residential Tenancies Act instead, and generally belongs at the Landlord and Tenant Board " +
-      "rather than Small Claims Court.",
+      "the Residential Tenancies Act, 2006 instead. That Act applies to rental units in residential " +
+      "complexes DESPITE ANY OTHER ACT and despite any agreement or waiver to the contrary, and the " +
+      "Landlord and Tenant Board has exclusive jurisdiction to determine all applications under it " +
+      "and all matters in which the Act confers jurisdiction on the Board.",
     whereItGoes:
       "The Landlord and Tenant Board. Where there's a genuine question about whether a specific " +
       "tenancy is residential or commercial, either party can apply to the LTB for a determination of " +
-      "whether the Residential Tenancies Act applies.",
+      "whether the Residential Tenancies Act applies. " +
+      "The Board's own monetary jurisdiction is capped at the greater of $10,000 and the monetary " +
+      "jurisdiction of the Small Claims Court. Someone entitled to apply under the Act whose claim " +
+      "EXCEEDS that cap may instead start a proceeding in a court of competent jurisdiction, which " +
+      "may then exercise the powers the Board would have had. But claiming an amount at or under the " +
+      "cap in a Board application extinguishes the rest: once the Board issues its order, all of the " +
+      "party's rights above the Board's monetary jurisdiction are gone.",
     destinationForum: "Landlord and Tenant Board",
     signals: [
       "my landlord",
@@ -172,6 +184,20 @@ export const JURISDICTION_ROUTES: JurisdictionRoute[] = [
         officialUrl: "https://www.ontario.ca/page/renting-commercial-property-ontario",
         verifiedAt: "2026-09-07",
         pinpoint: "Commercial Tenancies Act governs commercial leases, not the Residential Tenancies Act; LTB determines residential-vs-commercial disputes",
+      },
+      {
+        sourceName: "Residential Tenancies Act, 2006, S.O. 2006, c. 17",
+        officialUrl: "https://www.ontario.ca/laws/docs/06r17_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "s.3(1): the Act applies with respect to rental units in residential complexes \"despite any other Act and despite any agreement or waiver to the contrary\"; s.168(2): \"The Board has exclusive jurisdiction to determine all applications under this Act and with respect to all matters in which jurisdiction is conferred on it by this Act\"",
+      },
+      {
+        sourceName: "Residential Tenancies Act, 2006, S.O. 2006, c. 17",
+        officialUrl: "https://www.ontario.ca/laws/docs/06r17_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "s.207(1): the Board may order payment up to the greater of $10,000 and the monetary jurisdiction of the Small Claims Court; s.207(2): a person whose claim exceeds that may commence a proceeding in any court of competent jurisdiction, which may exercise the powers the Board could have; s.207(3): once the Board issues its order on a claim at or under its monetary jurisdiction, the party's rights in excess of it are extinguished",
       },
     ],
     reviewedAt: null,

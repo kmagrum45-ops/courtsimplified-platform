@@ -428,7 +428,13 @@ export const DEFENCE_CONCEPTS: DefenceConcept[] = [
       "burden of proving a failure to do so rests on the defendant, not the plaintiff. A defendant " +
       "who argues the plaintiff should have taken steps to reduce their losses generally has to prove " +
       "both that the plaintiff failed to take those reasonable steps, and that taking them would " +
-      "actually have reduced the loss.",
+      "actually have reduced the loss. " +
+      "A note on where this comes from: the case this is sourced to is a wrongful-dismissal case, and " +
+      "the Supreme Court of Canada stated the rule there in employment terms -- whether the dismissed " +
+      "employee could, with proper effort, have found other suitable work. The burden principle it " +
+      "sets out is a general contract-damages one, but how mitigation applies outside employment (to " +
+      "damaged property, for instance, or to reputation) is not something that case decides, and is " +
+      "not stated here.",
     sourceUrl: "https://www.canlii.org/en/ca/scc/doc/1975/1975canlii15/1975canlii15.html",
     reviewedAt: null,
     status: "draft",
@@ -878,9 +884,20 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "goods-not-as-agreed",
         name: "The goods delivered were defective, not as described, or never arrived",
         plainExplanation:
-          "Ontario's Sale of Goods Act implies a condition that goods bought by description are of " +
-          "merchantable quality, and that goods are reasonably fit for a purpose the buyer made known " +
-          "to the seller when relying on the seller's skill or judgment.",
+          "Ontario's Sale of Goods Act addresses each of these three situations separately. " +
+          "NOT AS DESCRIBED: where goods are sold by description, there is an implied condition that " +
+          "the goods will correspond with the description. " +
+          "DEFECTIVE: the Act starts from the position that there is NO implied condition as to " +
+          "quality or fitness, subject to listed exceptions -- two of which are that goods bought by " +
+          "description from a seller who deals in goods of that description carry an implied condition " +
+          "of merchantable quality (though not as to defects an examination the buyer actually made " +
+          "ought to have revealed), and that goods are reasonably fit for a particular purpose the " +
+          "buyer made known to the seller so as to show reliance on the seller's skill or judgment " +
+          "(though not where a specified article is bought under its patent or other trade name). " +
+          "NEVER ARRIVED: separately from any question of quality, it is the duty of the seller to " +
+          "deliver the goods, and of the buyer to accept and pay for them, in accordance with the " +
+          "terms of the contract. " +
+          "Which of these applies depends on what was agreed and what happened.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90s01_e.doc",
         evidenceCategories: [
           {
@@ -966,8 +983,21 @@ export const CLAIM_TYPES: ClaimType[] = [
       {
         sourceName: "Sale of Goods Act, R.S.O. 1990, c. S.1",
         officialUrl: "https://www.ontario.ca/laws/docs/90s01_e.doc",
-        verifiedAt: "2026-09-07",
-        pinpoint: "s.15: implied conditions as to quality or fitness for purpose (merchantable quality)",
+        verifiedAt: "2026-09-11",
+        pinpoint: "s.14 (sale by description): implied condition that the goods will correspond with the description",
+      },
+      {
+        sourceName: "Sale of Goods Act, R.S.O. 1990, c. S.1",
+        officialUrl: "https://www.ontario.ca/laws/docs/90s01_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "s.15: there is NO implied warranty or condition as to quality or fitness except as listed -- para. 1 (fitness for a particular purpose made known, where the buyer relies on the seller's skill or judgment; not for a specified article bought under its patent or trade name), para. 2 (merchantable quality where goods are bought by description from a seller dealing in goods of that description; not as to defects an examination the buyer made ought to have revealed)",
+      },
+      {
+        sourceName: "Sale of Goods Act, R.S.O. 1990, c. S.1",
+        officialUrl: "https://www.ontario.ca/laws/docs/90s01_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint: "s.26: it is the duty of the seller to deliver the goods and of the buyer to accept and pay for them in accordance with the terms of the contract of sale",
       },
     ],
     reviewedAt: null,
@@ -1126,9 +1156,21 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "false-misleading-representation",
         name: "The business made a false, misleading, or deceptive representation",
         plainExplanation:
-          "It's illegal under Ontario's Consumer Protection Act for a business (or individual) to " +
-          "give false information about themselves or the product or service they offer.",
-        sourceUrl: "https://www.ontario.ca/page/your-rights-under-consumer-protection-act",
+          "Under Ontario's Consumer Protection Act, 2002 it is an unfair practice to make a false, " +
+          "MISLEADING or DECEPTIVE representation -- all three, not only outright falsity. The Act " +
+          "gives a non-exhaustive list of 17 examples, which includes representing that goods or " +
+          "services have qualities, benefits, uses or performance characteristics they do not have; " +
+          "that they are of a particular standard, quality, grade, style or model when they are not; " +
+          "that goods are new or unused when they are not; that a repair or replacement is needed when " +
+          "it is not; that a specific price advantage exists when it does not; and -- squarely " +
+          "covering the \"misleading\" and \"deceptive\" prongs -- using exaggeration, innuendo or " +
+          "ambiguity as to a material fact, or failing to state a material fact, where doing so " +
+          "deceives or tends to deceive. " +
+          "No person may engage in an unfair practice, and performing even one of these acts is deemed " +
+          "to be engaging in one. There is an exception for someone who, on another's behalf, prints, " +
+          "publishes, distributes or broadcasts a representation accepted in good faith in the " +
+          "ordinary course of business.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/02c30_e.doc",
         evidenceCategories: [
           {
             name: "The representation itself",
@@ -1141,9 +1183,17 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "withdrawal-notice-timely",
         name: "Notice of withdrawal (if relied on) was given within the required time",
         plainExplanation:
-          "If a business has made a false, misleading, or deceptive representation, a consumer can " +
-          "generally withdraw from the contract by giving notice within 1 year.",
-        sourceUrl: "https://www.ontario.ca/page/your-rights-under-consumer-protection-act",
+          "An agreement entered into by a consumer after or while a person has engaged in an unfair " +
+          "practice may be rescinded by the consumer, who is entitled to any remedy available in law, " +
+          "including damages. Where rescission is no longer possible -- because the goods or services " +
+          "can no longer be returned, or because rescission would deprive a good-faith third party of " +
+          "a right acquired for value -- the consumer may instead recover the amount by which their " +
+          "payment exceeds the value the goods or services have to them, or damages, or both. " +
+          "Either way the consumer must give notice within ONE YEAR after entering into the agreement. " +
+          "The notice may be expressed in any way that indicates the intention to rescind or to seek " +
+          "recovery and the reasons for it, may be delivered by any means, and (except by personal " +
+          "service) is deemed given when sent.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/02c30_e.doc",
         evidenceCategories: [
           {
             name: "Notice of withdrawal",
@@ -1201,8 +1251,12 @@ export const CLAIM_TYPES: ClaimType[] = [
     remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
     proceduralNotes: [
       {
-        note: "Withdrawal notice under the Consumer Protection Act generally must be given within 1 year of entering into the agreement.",
-        sourceUrl: "https://www.ontario.ca/page/your-rights-under-consumer-protection-act",
+        note:
+          "Notice to rescind (or to seek recovery where rescission is not possible) under the " +
+          "Consumer Protection Act, 2002 must be given within 1 year after entering into the " +
+          "agreement. That 1-year notice period is separate from, and shorter than, Ontario's " +
+          "ordinary 2-year limitation period for starting a court action.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/02c30_e.doc",
       },
     ],
     signals: [
@@ -1225,6 +1279,27 @@ export const CLAIM_TYPES: ClaimType[] = [
         officialUrl: "https://www.ontario.ca/page/your-rights-under-consumer-protection-act",
         verifiedAt: "2026-09-07",
         pinpoint: "false/misleading/deceptive representations; 1-year withdrawal notice period",
+      },
+      {
+        sourceName: "Consumer Protection Act, 2002, S.O. 2002, c. 30, Sched. A",
+        officialUrl: "https://www.ontario.ca/laws/docs/02c30_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "s.14(1): \"It is an unfair practice for a person to make a false, misleading or deceptive representation\"; s.14(2): 17 non-exhaustive examples, incl. paras. 1, 3, 4, 10, 11 and 14 (exaggeration, innuendo or ambiguity as to a material fact, or failing to state one, where this deceives or tends to deceive)",
+      },
+      {
+        sourceName: "Consumer Protection Act, 2002, S.O. 2002, c. 30, Sched. A",
+        officialUrl: "https://www.ontario.ca/laws/docs/02c30_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "s.17(1): no person shall engage in an unfair practice; s.17(2): performing one act under s.14, 15 or 16 is deemed to be engaging in an unfair practice; s.17(3): exception for a person who, on another's behalf, prints/publishes/distributes/broadcasts a representation accepted in good faith in the ordinary course of business",
+      },
+      {
+        sourceName: "Consumer Protection Act, 2002, S.O. 2002, c. 30, Sched. A",
+        officialUrl: "https://www.ontario.ca/laws/docs/02c30_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "s.18(1): rescission plus any remedy available in law including damages; s.18(2): where rescission is not possible, recovery of the excess of payment over value, or damages, or both; s.18(3): notice within one year after entering into the agreement; s.18(4)-(6): any wording showing the intention and reasons, delivered by any means, deemed given when sent unless personally served. (Consolidation from 2025-12-11; the Act is repealed on a day to be named by proclamation under 2023, c. 23, Sched. 1, s. 110 -- not yet proclaimed as at the verification date.)",
       },
       {
         sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
@@ -1812,8 +1887,17 @@ export const CLAIM_TYPES: ClaimType[] = [
         plainExplanation:
           "Ontario law gives a cooling-off period -- a specific number of days to cancel an agreement " +
           "without reason or penalty -- for certain contracts: a product or service bought from a " +
-          "door-to-door salesperson, paying in advance to join a fitness club or gym, buying a " +
-          "newly-built condo, getting a payday loan, or purchasing a time share.",
+          "door-to-door salesperson (a direct agreement), paying in advance to join a fitness club or " +
+          "gym (a personal development contract), buying a newly-built condo, getting a payday loan, " +
+          "or purchasing a time share. " +
+          "Two of those five are NOT governed by the Consumer Protection Act at all: the cooling-off " +
+          "right for a newly-built condo comes from the Condominium Act, and the one for a payday " +
+          "loan from the Payday Loans Act. Each of those statutes has its own mechanics, which may " +
+          "differ from the Consumer Protection Act's -- the source relied on here already shows one " +
+          "such difference, in that a payday lender has 2 days to refund where for most contracts a " +
+          "business has 15. This entry is written around the Consumer Protection Act; for a new-build " +
+          "condo or a payday loan, the governing statute is a different one and would need to be " +
+          "checked on its own terms.",
         sourceUrl: "https://www.ontario.ca/page/your-rights-under-consumer-protection-act",
         evidenceCategories: [
           {
@@ -2140,10 +2224,16 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "vacation-pay-not-paid",
         name: "Vacation pay owed was not paid",
         plainExplanation:
-          "Employees are entitled to vacation pay of at least 4% of gross wages earned in the " +
-          "vacation entitlement year (at least 6% after five years of employment). When employment " +
-          "ends, vacation pay already earned but not yet paid is due within 7 days of the employment " +
-          "ending or on what would have been the employee's next pay day, whichever is later.",
+          "For most employees, vacation pay must be at least 4% of the gross wages earned in the " +
+          "12-month vacation entitlement year (at least 6% for employees with five or more years of " +
+          "employment). Some jobs are exempt from the ESA's vacation-with-pay provisions entirely -- " +
+          "Ontario publishes a special rule tool listing the industries and job categories with ESA " +
+          "exemptions or special rules, and whether a particular job is one of them is a fact to " +
+          "confirm, not something this content assumes. An employment contract or collective " +
+          "agreement may also provide a greater right or benefit than the ESA minimum. " +
+          "When employment ends, vacation pay already earned but not yet paid is due within 7 days of " +
+          "the employment ending or on what would have been the employee's next pay day, whichever is " +
+          "later.",
         sourceUrl: "https://www.ontario.ca/document/your-guide-employment-standards-act-0/vacation",
         evidenceCategories: [
           {
@@ -2559,8 +2649,34 @@ export const CLAIM_TYPES: ClaimType[] = [
     proceduralNotes: [
       {
         note:
-          "A condominium corporation's lien for unpaid common expenses has priority over most other " +
-          "claims registered against the unit after the condominium was created.",
+          "A condominium corporation's lien for unpaid common expenses has priority over every " +
+          "registered and unregistered encumbrance EVEN THOUGH the encumbrance existed before the " +
+          "lien arose -- the test is not when the encumbrance was registered. It does not have " +
+          "priority over a Crown claim other than by way of mortgage, over taxes, charges, rates or " +
+          "assessments under the Municipal Act, 2001, the City of Toronto Act, 2006, the Education Act " +
+          "or the Local Roads Boards Act, or over a prescribed lien or claim.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/98c19_e.doc",
+      },
+      {
+        note:
+          "That priority is conditional on notice. The corporation must give written notice of the " +
+          "lien to every encumbrancer whose encumbrance is registered against the unit's title, on or " +
+          "before the day the certificate of lien is registered, by personal service or registered " +
+          "prepaid mail to the encumbrancer's last known address. Without that notice the lien LOSES " +
+          "its priority over that encumbrance. Where notice is given late, the lien keeps priority " +
+          "only to the extent of the common-expense arrears that accrued in the three months before " +
+          "notice was given and continue to accrue after, plus interest and reasonable legal costs " +
+          "and expenses on those arrears.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/98c19_e.doc",
+      },
+      {
+        note:
+          "The lien itself is also time-limited: it expires three months after the default that gave " +
+          "rise to it, unless the corporation registers a certificate of lien within that time. At " +
+          "least 10 days before registering the certificate, the corporation must give written notice " +
+          "of the lien to the affected owner. A registered certificate may be enforced in the same " +
+          "manner as a mortgage -- which is a separate path from a Small Claims Court action for the " +
+          "money, not a step required before suing.",
         sourceUrl: "https://www.ontario.ca/laws/docs/98c19_e.doc",
       },
     ],
@@ -2581,11 +2697,26 @@ export const CLAIM_TYPES: ClaimType[] = [
       {
         sourceName: "Condominium Act, 1998, S.O. 1998, c. 19",
         officialUrl: "https://www.ontario.ca/laws/docs/98c19_e.doc",
-        verifiedAt: "2026-09-07",
-        pinpoint: "s.85 lien for unpaid common expenses (principal, interest, collection costs); s.86 lien priority",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "s.85(1): lien for unpaid common expenses, covering the unpaid amount plus all interest owing and reasonable legal costs and expenses of collection; s.85(2): the lien expires 3 months after the default unless a certificate of lien is registered; s.85(4): at least 10 days' written notice to the owner before registration; s.85(6): a registered lien may be enforced in the same manner as a mortgage",
+      },
+      {
+        sourceName: "Condominium Act, 1998, S.O. 1998, c. 19",
+        officialUrl: "https://www.ontario.ca/laws/docs/98c19_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "s.86(1): the lien \"has priority over every registered and unregistered encumbrance even though the encumbrance existed before the lien arose\", but not over (a) a Crown claim other than by way of mortgage, (b) taxes/charges/rates/assessments under the Municipal Act, 2001, the City of Toronto Act, 2006, the Education Act or the Local Roads Boards Act, or (c) a prescribed lien or claim",
+      },
+      {
+        sourceName: "Condominium Act, 1998, S.O. 1998, c. 19",
+        officialUrl: "https://www.ontario.ca/laws/docs/98c19_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "s.86(3)-(4): written notice of the lien to every registered encumbrancer, on or before the day the certificate is registered, by personal service or registered prepaid mail; s.86(5): without that notice the lien loses its priority over the encumbrance; s.86(6): where notice is late, priority is kept only for arrears accruing in the 3 months before notice and continuing after, plus interest and reasonable legal costs and expenses",
       },
     ],
-    reviewedAt: "2026-09-07",
+    reviewedAt: "2026-09-11",
     status: "reviewed",
   },
   {
