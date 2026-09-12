@@ -251,6 +251,61 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
     status: "reviewed",
   },
   {
+    // Session 48. r. 8.01(2) appeared nowhere in any intake registry, so a
+    // user could issue a claim and never learn this deadline exists -- it is
+    // a hard gate between issuing and everything downstream. Placed here
+    // rather than as a proceduralNote because it is not claim-type specific:
+    // it applies to every claim equally, so 22 proceduralNotes would be 22
+    // copies to maintain and 22 places to drift. Fact-gated to surface once
+    // a claim has actually been filed, pairing with
+    // sc-topic-filing-form-7a above, which surfaces before filing.
+    id: "sc-topic-six-month-service-window",
+    courtArea: "small-claims",
+    title: "Serving a claim after it is issued — the six-month window",
+    surfacedWhen: { field: "claimFiled", op: "equals", value: true },
+    plainExplanation:
+      "Issuing a claim and serving it are two different steps, and the second one has its own " +
+      "deadline. Under the Rules of the Small Claims Court, a claim must be served within SIX " +
+      "MONTHS after the date it is issued. The court may extend the time for service, and it may " +
+      "do so either before or after the six months has run out -- but that is a request to the " +
+      "court, not something that happens automatically. " +
+      "The same six-month window applies to a Defendant's Claim, which the Rules require to be " +
+      "served in accordance with the same provision. " +
+      "A note on counting: the Rules set out a general method for counting a period of time -- " +
+      "exclude the first day, include the last, and if the last day falls on a holiday the period " +
+      "ends on the next day that is not a holiday, with \"holiday\" defined to include any Saturday " +
+      "or Sunday. That method is written in terms of days. The Rules do not state how a period " +
+      "expressed in MONTHS is computed, so this content does not say how the six months is " +
+      "calculated in a particular case -- the date a claim was issued is on the issued claim " +
+      "itself, and anyone unsure how the window applies to their own dates should confirm it with " +
+      "the court or a licensed paralegal or lawyer.",
+    citations: [
+      {
+        sourceName: "Rules of the Small Claims Court, O. Reg. 258/98",
+        officialUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-12",
+        pinpoint:
+          "r. 8.01(2): \"A claim shall be served within six months after the date it is issued, but the court may extend the time for service, before or after the six months has elapsed\"",
+      },
+      {
+        sourceName: "Rules of the Small Claims Court, O. Reg. 258/98",
+        officialUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-12",
+        pinpoint:
+          "r. 10.02: a defendant's claim shall be served on every person against whom it is made in accordance with subrules 8.01(1) and (2), which carries the same six-month window",
+      },
+      {
+        sourceName: "Rules of the Small Claims Court, O. Reg. 258/98",
+        officialUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-12",
+        pinpoint:
+          "r. 3.01 (computation of time: exclude the first day, include the last; last day falling on a holiday moves to the next non-holiday) and r. 1.02 (\"holiday\" includes any Saturday or Sunday). Stated in days; the Rules prescribe no method for computing a period expressed in months",
+      },
+    ],
+    reviewedAt: "2026-09-12",
+    status: "reviewed",
+  },
+  {
     id: "sc-topic-collecting-after-judgment",
     courtArea: "small-claims",
     title: "Collecting money after winning a judgment",

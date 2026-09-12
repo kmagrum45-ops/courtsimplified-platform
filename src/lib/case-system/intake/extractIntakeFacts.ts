@@ -30,7 +30,6 @@ Return a JSON object with ONLY these fields, omitting any you cannot determine f
 - "claimFiled": true or false, only if the story explicitly says whether a court claim/Plaintiff's Claim has been filed. Omit if not mentioned.
 - "claimServed": true or false, only if the story explicitly addresses service on the other party. Omit if not mentioned.
 - "defenceFiled": true or false, only if the story explicitly addresses whether the other side filed a Defence. Omit if not mentioned.
-- "twentyDaysElapsed": true or false, only if the story gives enough detail to know whether 20 days have passed since service. Omit if not mentioned.
 
 Do not guess at fields the story doesn't address -- omit them rather than assume. Return only the JSON object, no other text.`;
 
@@ -112,7 +111,6 @@ Return a JSON object with exactly two top-level fields:
   - "claimFiled": true or false, only if the story explicitly says whether a court claim/Plaintiff's Claim has been filed. Omit if not mentioned.
   - "claimServed": true or false, only if the story explicitly addresses service on the other party. Omit if not mentioned.
   - "defenceFiled": true or false, only if the story explicitly addresses whether the other side filed a Defence. Omit if not mentioned.
-  - "twentyDaysElapsed": true or false, only if the story gives enough detail to know whether 20 days have passed since service. Omit if not mentioned.
   Do not guess at fields the story doesn't address -- omit them rather than assume.
 
 - "directFields": an array of field names, drawn only from the keys actually present in "facts", whose value was stated as a DIRECT, CONFIDENT assertion -- something the person clearly and definitely says happened, is true, or is not true, right now. Do NOT include a field here if the mention was incidental, hedged, uncertain, hypothetical, or about something merely being considered or not yet decided (e.g. "I was going to file but haven't decided," "I might serve them soon," "I think maybe"). A field can be present in "facts" without being in "directFields" if it's stated but not with that level of directness.

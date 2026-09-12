@@ -36,7 +36,16 @@ export const KNOWN_FACT_FIELDS = [
   "claimFiled",
   "claimServed",
   "defenceFiled",
-  "twentyDaysElapsed",
+  // "twentyDaysElapsed" was removed in Session 48. It held an AI-inferred
+  // conclusion that a legal deadline had passed, extracted from free-text
+  // prose, and no extractor can reach that conclusion correctly: it requires
+  // r. 3.01's exclude-first/include-last counting, the weekend/holiday
+  // rollover, and the service-effectiveness rule for the method actually
+  // used -- and the regulation is silent on how the last of those composes
+  // with the first. Its only consumer gated a default-step question on it.
+  // Deleted rather than left unused: an inferred legal conclusion sitting in
+  // the fact model is a standing invitation for the next feature to rely on
+  // it. See docs/SMALL_CLAIMS_RULES_MAP.md Part 1 and Part 3.
   // Session 30: verbatim free-text answers, captured directly by
   // orchestrateIntakeTurn.ts (via a question's capturesField below) rather
   // than by AI extraction -- the exact question being answered is already
@@ -263,19 +272,45 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     status: "reviewed",
   },
   {
+    // Session 48. The `twentyDaysElapsed` condition was removed from this
+    // gate. It was an AI-inferred conclusion that a legal deadline had
+    // passed, and surfacing this question only when the system believed that
+    // amounted to signalling that the default step was available -- a
+    // conclusion the system is not in a position to reach. Three provisions
+    // push the real deadline later than a naive count (r. 3.01 excludes the
+    // day of service; a last day falling on a weekend rolls forward; and
+    // when service is effective depends on the method used), and one
+    // composition question is unanswerable from the regulation at all.
+    // The rule is now stated so the user can apply it to their own dates.
     id: "sc-defendant-noted-in-default",
     courtArea: "small-claims",
     appliesWhen: {
       all: [
         { field: "claimServed", op: "equals", value: true },
         { field: "defenceFiled", op: "equals", value: false },
-        { field: "twentyDaysElapsed", op: "equals", value: true },
       ],
     },
-    text: "Have you asked the court to note the defendant in default?",
-    why: "This tells us whether a default step has already been started.",
-    sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/default-proceedings/",
-    answerType: "yes-no",
+    text:
+      "If the defendant hasn't filed a Defence: what date were they served, and how was the claim " +
+      "served on them? And have you already asked the court to note them in default?",
+    why:
+      "A defendant who wants to dispute a claim has 20 days from being served to serve and file a " +
+      "Defence. How that period is counted is set by the Rules: the first day is excluded and the " +
+      "last day is included, and if the last day falls on a holiday the period ends on the next day " +
+      "that is not a holiday -- and \"holiday\" is defined to include any Saturday or Sunday. So " +
+      "weekends in the middle are counted and extend nothing; only the last day moves. " +
+      "When service counts as effective depends on how it was done. Served in person, it is the day " +
+      "it happened. Where a claim is sent to an individual's home by registered mail or courier and " +
+      "a signature verifying receipt is obtained, the Rules make service effective on the date that " +
+      "signature shows receipt -- not the date of mailing. (The separate five-day rule for documents " +
+      "sent by mail or courier expressly does NOT apply to a claim served that way.) " +
+      "One thing the Rules do not say: how those service-effectiveness provisions interact with the " +
+      "counting rule -- whether the effective day is the excluded first day, for instance. Because " +
+      "the regulation is silent on that, this site does not calculate the date for you. These are " +
+      "the facts to confirm so you can work it out, and the court or a licensed paralegal or lawyer " +
+      "can confirm it.",
+    sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+    answerType: "short-text",
     allowUnknown: true,
     sensitive: false,
     phase: "substance",

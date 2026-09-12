@@ -366,11 +366,22 @@ export const DEFENCE_CONCEPTS: DefenceConcept[] = [
     id: "defence-set-off-or-counterclaim",
     name: "Set-off or counterclaim",
     plainExplanation:
-      "A defendant can file their own claim against the plaintiff (or someone else) as part of the " +
+      "A defendant can bring their own claim against the plaintiff (or someone else) as part of the " +
       "same case, called a Defendant's Claim (Form 10A) -- for example, if the defendant believes " +
-      "the plaintiff owes them money too, or that someone else should be responsible. It must " +
-      "generally be filed within 20 days of filing a Defence, unless the court allows it later.",
-    sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim",
+      "the plaintiff owes them money too, or that someone else should be responsible. " +
+      "The Rules say it may be ISSUED within 20 days after the day the defence is filed. Issuing and " +
+      "filing are different steps: a claim is issued by the court, and the 20 days runs from the day " +
+      "the defence was filed, not from when it was served or received. " +
+      "Missing that window does not end it. After those 20 days a Defendant's Claim may still be " +
+      "issued WITH LEAVE OF THE COURT -- permission the court gives -- at any point before trial or " +
+      "default judgment. After trial or default judgment, that route is no longer available. " +
+      "Once issued, it still has to be served on every person it is made against, and the same " +
+      "six-month service window that applies to a plaintiff's claim applies to it. " +
+      "How the 20 days is counted: the Rules count time by excluding the first day and including the " +
+      "last, and if the last day falls on a holiday the period ends on the next day that is not a " +
+      "holiday. \"Holiday\" is defined to include any Saturday or Sunday, so intervening weekends are " +
+      "counted and do not extend the period -- only the last day moves.",
+    sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
     reviewedAt: null,
     status: "draft",
   },
