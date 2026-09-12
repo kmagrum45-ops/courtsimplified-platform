@@ -48,7 +48,7 @@
  * missing category was meant to cover -- flagged, not guessed.
  */
 
-import OpenAI from "openai";
+import { createOpenAIClient } from "../openaiClient";
 
 export type SafetyClassification = "immediate-danger" | "distress" | "clear";
 
@@ -126,7 +126,7 @@ function isValidClassification(value: unknown): value is SafetyClassification {
  * extractIntakeFacts.ts on any free-text story.
  */
 export async function runSafetyPass(storyText: string, apiKey: string): Promise<SafetyPassResult> {
-  const client = new OpenAI({ apiKey });
+  const client = createOpenAIClient(apiKey);
   const response = await client.chat.completions.create({
     model: "gpt-4o-mini",
     temperature: 0,

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
+import { createOpenAIClient } from "@/src/lib/case-system/openaiClient";
 
 import { runCourtSimplifiedBrain } from "../../../src/lib/case-system/intelligence/courtSimplifiedBrain";
 import { getAuthenticatedUser } from "../../../src/lib/supabase/serverAuth";
@@ -37,9 +37,7 @@ type AssistantResponseMode =
   | "brain-only-fallback"
   | "validation-error";
 
-const openai = process.env.OPENAI_API_KEY
-  ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
-  : null;
+const openai = process.env.OPENAI_API_KEY ? createOpenAIClient() : null;
 
 function clean(value: unknown): string {
   return String(value || "").trim();

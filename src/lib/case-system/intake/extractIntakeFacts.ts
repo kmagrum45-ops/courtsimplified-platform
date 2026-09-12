@@ -18,7 +18,7 @@
  * AI call.
  */
 
-import OpenAI from "openai";
+import { createOpenAIClient } from "../openaiClient";
 import { KNOWN_FACT_FIELDS, type KnownFactField } from "./questionBank";
 import type { IntakeFacts } from "./selectQuestions";
 
@@ -58,7 +58,7 @@ function sanitize(raw: unknown): IntakeFacts {
  * fields anyway, but this keeps the extraction boundary explicit.
  */
 export async function extractIntakeFacts(storyText: string, apiKey: string): Promise<IntakeFacts> {
-  const client = new OpenAI({ apiKey });
+  const client = createOpenAIClient(apiKey);
   const response = await client.chat.completions.create({
     model: "gpt-4o-mini",
     temperature: 0,
@@ -137,7 +137,7 @@ export async function extractIntakeFactsWithConfidence(
   storyText: string,
   apiKey: string,
 ): Promise<ExtractedFactsWithConfidence> {
-  const client = new OpenAI({ apiKey });
+  const client = createOpenAIClient(apiKey);
   const response = await client.chat.completions.create({
     model: "gpt-4o-mini",
     temperature: 0,

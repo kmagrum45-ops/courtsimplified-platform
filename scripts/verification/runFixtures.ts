@@ -26,6 +26,7 @@ import {
   PIPELINE_JOURNEY_TIMEOUT_MS,
   withTimeout,
   describeRunDegradation,
+  abortIfRateLimited,
 } from "./pipelineGuards";
 import type { Fixture } from "./fixtures/fixtureTypes";
 import { unpaidInvoiceCleanFixture } from "./fixtures/unpaidInvoiceClean.fixture";
@@ -137,6 +138,9 @@ async function main() {
         PIPELINE_JOURNEY_TIMEOUT_MS,
       );
     } catch (error) {
+      // A 429 stops everything immediately: it cannot clear within a run, and
+      // each further fixture would spend requests only to fail.
+      abortIfRateLimited(error, `fixture ${fixture.id}`);
       const reason = error instanceof Error ? error.message : String(error);
       failures.push({ id: fixture.id, reason });
       console.error(`  FAILED (not written): ${reason}`);

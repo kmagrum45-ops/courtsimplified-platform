@@ -25,6 +25,7 @@
  */
 
 import OpenAI from "openai";
+import { createOpenAIClient, withAbortableTimeout } from "../openaiClient";
 import type { IntakeQuestion } from "./questionBank";
 import type { IntakeFacts } from "./selectQuestions";
 
@@ -101,20 +102,25 @@ async function generateWithTimeout(
   userPrompt: string,
   timeoutMs: number,
 ): Promise<string | null> {
-  const request = client.chat.completions.create({
-    model: "gpt-4o-mini",
-    temperature: 0,
-    messages: [
-      { role: "system", content: SYSTEM_PROMPT },
-      { role: "user", content: userPrompt },
-    ],
-  });
+  // Previously a Promise.race against a bare setTimeout. That abandoned the
+  // response but not the request: on timeout the call kept running, billed and
+  // unobserved. withAbortableTimeout cancels it. See openaiClient.ts.
+  const response = await withAbortableTimeout(
+    (signal) =>
+      client.chat.completions.create(
+        {
+          model: "gpt-4o-mini",
+          temperature: 0,
+          messages: [
+            { role: "system", content: SYSTEM_PROMPT },
+            { role: "user", content: userPrompt },
+          ],
+        },
+        { signal },
+      ),
+    timeoutMs,
+  );
 
-  const timeout = new Promise<null>((resolve) => {
-    setTimeout(() => resolve(null), timeoutMs);
-  });
-
-  const response = await Promise.race([request, timeout]);
   if (!response) return null;
   return response.choices[0]?.message?.content?.trim() || null;
 }
@@ -148,7 +154,7 @@ export async function composeVoiceTurn(
 ): Promise<VoiceTurn> {
   const { userStatedTone, timeoutMs = 8000 } = options;
   try {
-    const client = new OpenAI({ apiKey });
+    const client = createOpenAIClient(apiKey);
     const generated = await generateWithTimeout(client, buildUserPrompt(facts, question, userStatedTone), timeoutMs);
 
     if (generated) {

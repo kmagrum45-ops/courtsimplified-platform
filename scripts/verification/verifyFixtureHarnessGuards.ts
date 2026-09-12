@@ -19,7 +19,14 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
-import { describeRunDegradation, withTimeout } from "./pipelineGuards";
+import {
+  describeRunDegradation,
+  withTimeout,
+  abortIfRateLimited,
+  isRateLimitError,
+  RateLimitAbort,
+} from "./pipelineGuards";
+import { OPENAI_MAX_RETRIES, withAbortableTimeout } from "../../src/lib/case-system/openaiClient";
 import type { PipelineRun } from "./fixtures/pipelineRunner";
 
 let failures = 0;
@@ -127,6 +134,75 @@ async function main(): Promise<void> {
     "there is exactly one .actual.md write site",
     (source.match(/writeFileSync\(/g) || []).length === 1,
   );
+
+  // ---- 4. Retries are off, and a 429 aborts rather than continuing ----
+
+  check("OPENAI_MAX_RETRIES is 0 (a daily-cap 429 cannot be cleared by retrying)", OPENAI_MAX_RETRIES === 0);
+
+  check(
+    "isRateLimitError recognises an SDK-style status object",
+    isRateLimitError(Object.assign(new Error("Too Many Requests"), { status: 429 })),
+  );
+  check(
+    "isRateLimitError recognises a 429 flattened into a message",
+    isRateLimitError(new Error("429 Rate limit reached for gpt-4o-mini ... requests per day (RPD)")),
+  );
+  check("isRateLimitError ignores unrelated errors", !isRateLimitError(new Error("socket hang up")));
+
+  let aborted = false;
+  try {
+    abortIfRateLimited(Object.assign(new Error("429"), { status: 429 }), "journey X");
+  } catch (error) {
+    aborted = error instanceof RateLimitAbort;
+  }
+  check("abortIfRateLimited throws RateLimitAbort on a 429", aborted);
+
+  let passedThrough = true;
+  try {
+    abortIfRateLimited(new Error("some other failure"), "journey X");
+  } catch {
+    passedThrough = false;
+  }
+  check("abortIfRateLimited does NOT throw on a non-429", passedThrough);
+
+  // Both billed harnesses must abort rather than absorb.
+  for (const name of ["runFixtures.ts", "measureInterceptionRate.ts"]) {
+    const s = readFileSync(path.join(__dirname, name), "utf8");
+    check(`${name} calls abortIfRateLimited inside its catch`, s.includes("abortIfRateLimited("));
+  }
+
+  // ---- 5. The timeout actually cancels the request ----
+
+  let sawAbort = false;
+  const result = await withAbortableTimeout(async (signal) => {
+    await new Promise<void>((resolve) => {
+      signal.addEventListener("abort", () => {
+        sawAbort = true;
+        resolve();
+      });
+    });
+    if (signal.aborted) throw Object.assign(new Error("aborted"), { name: "AbortError" });
+    return "never";
+  }, 50);
+  check("withAbortableTimeout signals abort to the running request", sawAbort);
+  check("withAbortableTimeout resolves null once aborted", result === null);
+
+  // Both former race sites must now go through withAbortableTimeout. Comments
+  // may still mention Promise.race (they explain what was replaced), so this
+  // strips comment lines before looking for live usage.
+  for (const file of ["voiceLayer.ts", "explainQuestion.ts"]) {
+    const src = readFileSync(
+      path.join(__dirname, "..", "..", "src", "lib", "case-system", "intake", file),
+      "utf8",
+    );
+    const code = src
+      .split("\n")
+      .filter((line) => !/^\s*(\/\/|\*|\/\*)/.test(line))
+      .join("\n");
+
+    check(`${file} no longer races a live request with Promise.race`, !code.includes("Promise.race"));
+    check(`${file} passes an abort signal to the request`, /\{\s*signal\s*\}/.test(code));
+  }
 
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
   if (failures) process.exitCode = 1;

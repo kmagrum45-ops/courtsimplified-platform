@@ -20,6 +20,7 @@
  */
 
 import OpenAI from "openai";
+import { createOpenAIClient, withAbortableTimeout } from "../openaiClient";
 import { validateVoiceLayerOutput } from "./voiceLayer";
 import type { IntakeQuestion } from "./questionBank";
 
@@ -50,20 +51,24 @@ async function generateWithTimeout(
   userPrompt: string,
   timeoutMs: number,
 ): Promise<string | null> {
-  const request = client.chat.completions.create({
-    model: "gpt-4o-mini",
-    temperature: 0,
-    messages: [
-      { role: "system", content: SYSTEM_PROMPT },
-      { role: "user", content: userPrompt },
-    ],
-  });
+  // See voiceLayer.ts's twin and openaiClient.ts: the old Promise.race left
+  // the request running after the timeout, billed and unobserved.
+  const response = await withAbortableTimeout(
+    (signal) =>
+      client.chat.completions.create(
+        {
+          model: "gpt-4o-mini",
+          temperature: 0,
+          messages: [
+            { role: "system", content: SYSTEM_PROMPT },
+            { role: "user", content: userPrompt },
+          ],
+        },
+        { signal },
+      ),
+    timeoutMs,
+  );
 
-  const timeout = new Promise<null>((resolve) => {
-    setTimeout(() => resolve(null), timeoutMs);
-  });
-
-  const response = await Promise.race([request, timeout]);
   if (!response) return null;
   return response.choices[0]?.message?.content?.trim() || null;
 }
@@ -79,7 +84,7 @@ export async function explainQuestionForUser(
   timeoutMs = 8000,
 ): Promise<ExplainQuestionResult | null> {
   try {
-    const client = new OpenAI({ apiKey });
+    const client = createOpenAIClient(apiKey);
     const generated = await generateWithTimeout(client, buildUserPrompt(question), timeoutMs);
 
     if (!generated) {

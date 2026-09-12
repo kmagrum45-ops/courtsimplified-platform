@@ -30,6 +30,8 @@ import {
   PIPELINE_JOURNEY_TIMEOUT_MS,
   withTimeout,
   describeRunDegradation,
+  abortIfRateLimited,
+  RateLimitAbort,
 } from "./pipelineGuards";
 import { JOURNEYS } from "./runJourneyBattery";
 import {
@@ -119,6 +121,11 @@ async function main() {
         const degraded = describeRunDegradation(run);
         if (degraded) throw new Error(degraded);
       } catch (error) {
+        // Stop the entire measurement on the first 429 rather than recording
+        // it as one more failed journey. Continuing spends quota on journeys
+        // that cannot succeed, and every one of them would score zero
+        // interceptions — indistinguishable from a clean run.
+        abortIfRateLimited(error, `journey ${j.id}`);
         // A failed journey produces ZERO interceptions, which is
         // indistinguishable from a clean one in the totals. Silently
         // absorbing it biases the measured rate DOWNWARD — exactly the way a
@@ -224,4 +231,14 @@ async function main() {
 // Entrypoint guard — runFullClaimTypeSurvey.ts lacked one and importing it
 // silently re-ran 19 billed journeys. This script bills considerably more.
 const isDirect = process.argv[1] ? import.meta.url === pathToFileURL(process.argv[1]).href : false;
-if (isDirect) void main();
+if (isDirect) {
+  void main().catch((error: unknown) => {
+    if (error instanceof RateLimitAbort) {
+      console.error(`\n${"!".repeat(70)}\n${error.message}\n${"!".repeat(70)}`);
+      console.error("No report was written. The daily quota does not clear within a run.");
+    } else {
+      console.error("Measurement threw:", error instanceof Error ? error.message : error);
+    }
+    process.exitCode = 1;
+  });
+}

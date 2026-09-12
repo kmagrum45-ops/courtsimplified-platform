@@ -1997,11 +1997,9 @@ async function runStructuredGptCognition(
   if (!process.env.OPENAI_API_KEY) return null;
 
   try {
-    const { default: OpenAI } = await import("openai");
+    const { createOpenAIClient } = await import("../openaiClient");
 
-    const client = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
+    const client = createOpenAIClient();
 
     const response = await client.chat.completions.create({
       model: process.env.COURTSIMPLIFIED_REASONING_MODEL || "gpt-4o-mini",

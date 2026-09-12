@@ -35,7 +35,7 @@
  * deadline confirmations).
  */
 
-import OpenAI from "openai";
+import { createOpenAIClient } from "../openaiClient";
 import type { ClaimType } from "./claimTypes";
 
 export type ClaimTypeAiSuggestion = {
@@ -110,7 +110,7 @@ export async function classifyClaimTypeWithAi(
   const candidates = claimTypes.filter((claimType) => !excludeSet.has(claimType.id));
   if (candidates.length === 0) return null;
 
-  const client = new OpenAI({ apiKey });
+  const client = createOpenAIClient(apiKey);
   const response = await client.chat.completions.create({
     model: "gpt-4o-mini",
     temperature: 0,

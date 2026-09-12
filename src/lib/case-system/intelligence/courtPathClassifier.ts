@@ -484,8 +484,8 @@ export async function classifyCourtPath(
   }
 
   try {
-    const { default: OpenAI } = await import("openai");
-    const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    const { createOpenAIClient } = await import("../openaiClient");
+    const client = createOpenAIClient();
 
     const response = await client.chat.completions.create({
       model:

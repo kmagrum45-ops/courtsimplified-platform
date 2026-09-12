@@ -25,6 +25,34 @@
  */
 
 import type { PipelineRun } from "./fixtures/pipelineRunner";
+import { isRateLimitError } from "../../src/lib/case-system/openaiClient";
+
+export { isRateLimitError };
+
+/**
+ * Thrown to stop a harness immediately on the first rate-limit rejection.
+ *
+ * A 429 against a daily cap does not clear within a run, so every journey
+ * attempted after the first one is guaranteed to fail, and each one still
+ * spends requests failing. Continuing also corrupts the measurement: a failed
+ * journey records zero interceptions, which reads as a clean journey.
+ */
+export class RateLimitAbort extends Error {
+  constructor(context: string, cause: string) {
+    super(`rate limited during ${context} — aborting before spending more quota: ${cause}`);
+    this.name = "RateLimitAbort";
+  }
+}
+
+/**
+ * Rethrows as a RateLimitAbort when `error` is a 429, so callers can stop the
+ * whole run rather than recording a per-journey failure and continuing.
+ */
+export function abortIfRateLimited(error: unknown, context: string): void {
+  if (!isRateLimitError(error)) return;
+  const cause = error instanceof Error ? error.message : String(error);
+  throw new RateLimitAbort(context, cause.slice(0, 200));
+}
 
 /**
  * Per-journey ceiling. A journey is ~11 turns of 3-4 API calls; 90s is
