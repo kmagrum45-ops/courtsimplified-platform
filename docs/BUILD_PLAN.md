@@ -32,7 +32,28 @@ Three items outstanding from the interception measurement work. None blocks a us
 - **Cost, corrected:** a journey is ~35 logical calls (~46 unmatched), a battery block ~593, a **`--runs=5` block ~2,965**, a 3-fixture regeneration ~105. The earlier "~680 per run" figure was wrong — it counted one pass of 16 journeys and ignored both the runs multiplier and the SDK's retry amplification. Full detail in `OUTSTANDING_ISSUES.md` §11.
 - **A full five-and-five block is ~5,600 calls against a 10,000/day cap**, so it was never affordable in one day. The old baseline was therefore probably collected across a cap boundary — a second independent reason to discard it.
 - **The gate's instrument only validates fix 1.** `intelligenceSummary` cannot be measured by interception count (its phrasing was never on the wordlist) and `ElementProofStatus` is never model-generated. Do not read a clean measurement as clearing all three.
-- **Sequencing:** STEP 1 item 2 is not closed by the measurement. See §11's sanitizer-blindness audit — the structural grading slots still in the cognition prompt (`claimClassifications[].score`, `evidenceIssueLinks[].strength`) are a §3 question that should be settled before a cache is frozen for the replay design, because changing them changes the brain's output schema.
+- **Sequencing:** STEP 1 item 2 is not closed by the measurement. See §11's sanitizer-blindness audit — the structural grading slots in the cognition prompt are a §3 question that must be settled before a cache is frozen for the replay design, because changing them changes the brain's output schema.
+
+---
+
+### 🔴 THE LAST UNTIED THREAD FROM THE ORIGINAL HANDOFF
+
+**Fixture regeneration for `1bec20f` has never run.** This is now four layers of work deep and must not be lost again. It is the only thing left over from the original handoff that has neither been done nor explicitly closed.
+
+**The evidence, not an inference.** `git log --follow` puts the last content change to all three `.actual.md` files at **`8052231` (2026-09-08)** — four days *before* `1bec20f` (2026-09-12 15:40). Their filesystem mtimes read 15:40:18, but all three fall inside a ~3ms window, which no three sequential pipeline runs could produce; that is a bulk git write, not a harness write. Content, not mtime, is the evidence.
+
+**What that means, stated precisely:** the `structuredCaseSummary` restructuring is **untested at fixture level — not shown to be inert, simply never exercised.** The composer itself is pinned by `verifyCaseFileSummaryComposer.ts` (7/7, deterministic, no API), but that proves the assembled sentence is well-formed, not that the end-to-end pipeline produces what we expect.
+
+**BLOCKED — and the block is now narrower than when first written.** A regeneration must not run against a cognition schema that is about to change.
+
+- ✅ `evidenceIssueLinks[].strength` — **removed** (`5210908`), along with its "explain why the proof is weak" instruction.
+- ⛔ `claimClassifications[].score` — **still present, deliberately held.** It is not a simple deletion: `clampScore(claim.score)` at `courtSimplifiedBrain.ts:1043` also feeds `confidence` as a fallback (`confidenceFromScore(score)`), and `claimTheoryEngine.ts:66-68` maps it to `dominant`/`active`/`possible` — a *routing* decision. Removing it requires `status` to take over that routing, which is a design change, not a cleanup.
+
+**So: regenerate only after `claimClassifications[].score` is resolved.** Anything captured before then is against a schema with a known pending change.
+
+**Cost after removal: ~105 requests**, not the ~315 figure that circulated. 315 was the old *with-retries* number (3 fixtures × ~35 calls × 3 attempts). With `maxRetries: 0` (`d1efdcc`) it is ~105 — roughly 1% of the daily cap, and affordable the same day as other work.
+
+**When it runs, it runs under the guarded path** (`9c941aa`): `withTimeout`, `describeRunDegradation`, and `abortIfRateLimited` all fire before `writeFileSync`, so a degraded or rate-limited run cannot overwrite good fixture output with placeholder text. That protection did not exist when the regeneration was first skipped.
 
 ---
 
@@ -145,3 +166,4 @@ Two routes: your own review pass on the highest-traffic entries, and the license
 - A single run cannot measure interception rate. Five minimum per side, both distributions reported.
 - A harness that drives the real pipeline must bound each run and check `describeRunDegradation()` before recording anything. The pipeline swallows API failures in two places (`voiceLayer.ts:166`, `courtSimplifiedBrain.ts:2027`), so a rate-limited run completes and looks ordinary — and a failure counted as a clean result biases every measurement toward success.
 - Do not push until Step 6.
+- **Do not close STEP 1 while the fixture regeneration for `1bec20f` is still outstanding.** It is flagged in red under STEP 1's gate and has already survived four layers of unrelated work by being easy to defer.
