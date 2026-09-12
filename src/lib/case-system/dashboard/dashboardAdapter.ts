@@ -505,12 +505,27 @@ export function buildDashboardMasterFromAssembly(
       serviceNotes: proceduralBlockers.filter((blocker) =>
         blocker.toLowerCase().includes("service"),
       ),
-      exportNotes: uniqueStrings([
-        `Document readiness impact: ${assembly.credibilityIntelligence.documentReadinessImpact}.`,
-        `Judge concern score: ${assembly.credibilityIntelligence.judgeConcernScore}.`,
-        `Cross-examination risk score: ${assembly.credibilityIntelligence.crossExaminationRiskScore}.`,
-        ...proceduralReadinessLabels(assembly),
-      ]),
+      // Three credibilityIntelligence strings were removed here (Session 48).
+      // All three came from credibilityRiskEngine and graded the user's case:
+      //   `Judge concern score: ${judgeConcernScore}`        -- a prediction
+      //     about a judge, the exact category d1fa87c was written to remove.
+      //   `Cross-examination risk score: ${...RiskScore}`    -- a risk score.
+      //   `Document readiness impact: ${...}`                -- a severity
+      //     grading ("none" | "minor" | "moderate" | "major" | "severe").
+      // The first two were the ones flagged; the third is identical in kind
+      // and came from the same object, so removing only the named two would
+      // have left the same defect behind under a different label.
+      //
+      // They rendered nowhere -- exportNotes is parsed into the dashboard
+      // model (dashboardEngine.ts) and typed (types/case.ts), but the only
+      // .tsx reference sets it to [] -- so this removes latent content, not
+      // anything a user was seeing. Latent is not the same as harmless: it
+      // is one `.map()` away from being displayed.
+      //
+      // exportNotes and its type are KEPT. proceduralReadinessLabels below
+      // states which procedural steps are ready, which is a fact about the
+      // case file rather than a grading of the case.
+      exportNotes: uniqueStrings([...proceduralReadinessLabels(assembly)]),
     },
 
     readiness: {
