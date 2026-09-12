@@ -84,9 +84,13 @@ The reviewer's two literal observations were correct. The severity conclusion wa
 
 ## 3. Safety-boundary violations the §3 cleanup missed
 
-### `app/api/case-summary/route.ts` + dashboard readiness score
-**Found:** Codex review. **Never confirmed or fixed.**
-Reportedly still emits case-specific "evidence strengths," risk severity, complexity, and limitation-risk labels; the dashboard displays a readiness score. Same category as everything removed in commits `6129abd` and `d1fa87c`, in a spot the sweep didn't reach.
+### ✅ `app/api/case-summary/route.ts` + dashboard readiness score — BOTH RESOLVED
+**Found:** Codex review. **Investigated, and the finding was half right.**
+
+The report bundled two things as one. They were **unconnected systems** — no data path ran between them — and that mattered:
+
+- **The dashboard readiness score was the real, live violation.** Displayed as "Readiness score: N/100", and **three** formulas fed it, all subtracting for risk, which CLAUDE.md §3 prohibits by name. Fixed in `dc3934c`: every subtraction deleted, the score replaced with a factual section count ("4 of 9 sections have information recorded"), and `readinessTone()`'s red/amber/green bar removed — a traffic light grades the case whatever the number behind it.
+- **The route did emit that content, but had zero callers**, so nothing reached a user. Codex's claim that this was "a spot the sweep didn't reach" was **wrong**: `6129abd`'s own message calls it "the now-dead ... case-summary API route" and its diff edits the block directly above `evidenceStrengths`. It was seen and deprioritised, not missed. Resolved in `901716e` by deleting the route.
 
 ### The content audit was never seen
 A read-and-report audit of all sourced content — name-vs-text mismatches, citations that don't cover their claim, missing scope limits, entries now citable to better sources — was commissioned. **The results never arrived** (the paste came through empty). It may have run. Worth re-running or locating.
@@ -187,7 +191,7 @@ This is the item that grows with every session of content work, and the only one
 4. ~~Causation gap~~ — ✅ was never open; already fixed in `c5cefe1` (§1).
 5. ~~The leave requirement~~ — ✅ confirmed and stated, `56de7ec`.
 6. ~~Defamation and occupiers' liability from retrieved sources~~ — ✅ done in `d4a6fab` / `b8931e6`.
-7. **Confirm and fix `case-summary` case-strength content.** The dashboard half of this is done (`dc3934c` removed the risk-weighted readiness scores). The route itself is untouched and has **zero callers** — decide whether to delete it outright rather than maintain its compliance (§3).
+7. ~~Confirm and fix `case-summary` case-strength content~~ — ✅ done. Dashboard half in `dc3934c`; the route itself deleted in `901716e`.
 8. **Walk through the site yourself.** Still hasn't happened. Nothing on this list substitutes for it.
 9. `admin/scan-pdf-fields` — assess why an `/admin` route has no auth (§2).
 10. Payload caps on `ai-case-partner`'s `caseMemory` and `evidence-praser`'s upload (§2). Nine routes already define `MAX_*_BYTES`; follow that pattern.
@@ -202,9 +206,25 @@ This is the item that grows with every session of content work, and the only one
 
 ---
 
-## Decisions waiting on the site owner
+## Decisions — ALL RESOLVED (Session 48)
 
-Three items were deliberately **not acted on**. Each is a judgment call, not a defect.
+All four were delegated and acted on. Kept with outcomes rather than deleted, since two of them turned out to be larger than described.
+
+### ✅ 1. `evidenceStrengths` asymmetry — resolved by deleting the route (`901716e`)
+`app/api/case-summary/route.ts` is gone. Reachability re-verified independently: no fetch of the path anywhere, its only export was the Next.js `POST` handler and nothing imported it, and no verification script referenced it — `verifyAiCasePartnerContext.mjs` and `verifyServerAiReasoningContract.ts` both checked by name. The six `"case-summary"` hits prior sessions flagged are confirmed to be an unrelated `documentType` union member. **The asymmetry `6129abd` created dissolves rather than being answered in either direction.** Nothing was orphaned — `runCourtSimplifiedBrain` and `getAuthenticatedUser` both have many other callers. `ARCHITECTURE.md` updated in four places.
+
+### ✅ 2. Latent judge-concern strings — removed (`c5fce59`)
+**Three strings, not the two reported.** `Judge concern score` and `Cross-examination risk score` were flagged; `Document readiness impact` (typed `"none" | "minor" | "moderate" | "major" | "severe"`) sat alongside them, came from the same `credibilityRiskEngine`, and is the same kind of grading — removing only the named two would have left the defect under a less obvious label. `exportNotes` and its type are kept; what remains is `proceduralReadinessLabels()`, which states which procedural steps are ready — a fact about the file, not a grade.
+
+### ✅ 3. Orphan routes — deleted (`a8b11ae`)
+`/family/ontario` and `/ontario-civil`. Verified first: no link, redirect, rewrite, sitemap or test reference anywhere; `next.config.ts` defines no redirects or rewrites at all and the project has no sitemap route, so nothing 404s that previously resolved. Re-confirmed both carried zero sourced legal links (`ontario.ca`, `sourceUrl`, `officialUrl`, `canlii` all 0). Content recoverable from history if the marketing value matters.
+
+### ✅ 4. `PROJECT_DOCUMENTATION/` — now tracked (`51b41ac`)
+Re-scanned rather than trusting the prior session's scan: **0 secret matches, 0 emails, 0 phone numbers, 0 postal codes, 0 SIN-shaped strings, 0 files with real case narrative.** Inventory unchanged (31 files, 689 KB), so nothing had been added in between. **The `.gitignore` change needed care:** the entry was `_PROJECT_REGISTRY/`, which excludes the *directory*, and git cannot re-include a path whose parent directory is excluded — a bare negation would have silently done nothing. Changed to `_PROJECT_REGISTRY/*` plus a negation, and verified with `git check-ignore` that the generated output (`BuildStatus.txt`, `GENERATED_DOCUMENTATION/`) is still ignored.
+
+---
+
+## Superseded — kept for the record
 
 ### 1. The `evidenceStrengths` asymmetry
 Commit `6129abd` deleted `evidenceWeaknesses` while keeping `evidenceStrengths`, having edited the `missingEvidence` block **directly above it** — so this was seen and kept, not missed. Grading evidence upward is the same operation as grading it downward.
