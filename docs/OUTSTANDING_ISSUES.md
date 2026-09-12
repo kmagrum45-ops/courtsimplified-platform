@@ -289,6 +289,55 @@ From the per-journey interception data in `_RATE_before.md` and `_RATE_after.md`
 
 **The lesson for any future pass:** every one of these evaded a field-name or wordlist check. A grade is a *shape* — an ordinal drawn from a fixed ladder, or a bounded number — and that is what has to be detected. See the structural-check proposal filed with this entry.
 
+### ⚠️ Six risk-weighted score formulas have now been found live, not four — and more remain
+
+The handoff records four score formulas removed. **Six have now been found.** The two additional ones were both live, both user-reachable, and both missed by every earlier pass:
+
+**Fifth — `scoreFromConfidence()` / `buildReadinessScore()`** (`dashboardAdapter.ts`), removed in `5210908`. Averaged nine ordinals, reached the user through the dashboard's `readinessScore >= 80` card. Missed because it was spelled `confidence`, not `score`.
+
+**Sixth — `confidenceFromScore(averageScore - penalty)`** (`elementProofEngine.ts`), removed in `5210908`, where:
+
+```
+penalty = (not-recorded elements × 12) + (contradicted elements × 20)
+```
+
+That is a **risk-weighted merits score of exactly the kind §3 names** — it takes the user's own case, scores it, and subtracts points for each gap. It was missed because it had no `score` in its name at all: it surfaced as a field called `overallProofStrength`.
+
+### ⚠️ Three §3 structures remain live and untouched — including three more scoring formulas
+
+Not fixed, deliberately out of scope for `5210908`, and each verified live at the time of writing:
+
+**1. `strategy.{strengths, weaknesses}`** — `courtSimplifiedBrain.ts:1627` and `dashboardAdapter.ts:400`. A whole strengths-and-weaknesses structure over the user's case. `5210908` removed only the proof-analysis inputs to it; it is still fed by `factPatternAnalysis.strongestPatterns`, `evidenceIntelligence.strongestEvidence`, `authorityReadiness.strongestAuthorityCount` and others.
+
+**2. The credibility scores** — and these are worse than a type declaration. `credibilityRiskEngine.ts:290-303` **computes all three**:
+
+```ts
+judgeConcernScore        = round(overallScore * 0.9)
+crossExaminationRiskScore = round(overallScore * 1.05)
+settlementPressureScore   = round(overallScore * 0.85)
+```
+
+§3 names *"predictions about judges"* and *"settlement pressure"* explicitly. Worse, `dashboardAdapter.ts:422` emits `settlementPressureScore` as **literal user-facing text**: `` `Settlement pressure score: ${...}.` `` inside `settlementConsiderations`. Note the irony — the comment eight lines above it, at `:414`, correctly refuses to generate `likelyJudgeConcerns` as a §3 violation, while the same function ships a settlement-pressure number. **These are three further scoring formulas, so the true count of formulas found live in this codebase is nine, not six.**
+
+**3. `systemScore` / `calculateDashboardSystemScore()`** — `dashboardEngine.ts:460`, consumed at `:824`.
+
+### 📌 The handoff's "who does the applying" claim is unverified, and on this session's evidence wrong
+
+The handoff states that the "who does the applying" boundary held consistently across ~70 commits. **That claim was never verified, and this session's evidence contradicts it.** Nine scoring formulas, a colour ramp, a strengths/weaknesses structure, an ordinal badge on the user's own evidence, and a settlement-pressure number in user-facing text were all live while that claim stood.
+
+**The common cause is method, not diligence: every prior removal pass searched by name.** That is why each one produced a clean report on a dirty codebase:
+
+| What was missed | Why the name search failed |
+|---|---|
+| `scoreFromConfidence` | spelled `confidence`, not `score` |
+| `overallProofStrength` | the formula had no name at all — it was an expression |
+| `getReadinessTone` | a colour, not a number or a word |
+| `assemblyConfidence` | the *label* was the violation; the computation was innocent |
+| `event.confidence` | a hardcoded constant, so no formula existed to find |
+| `settlementPressureScore` | correctly named — and still shipped, because nobody searched |
+
+**Standing conclusion for any future pass: a grade is a shape, not a name.** An ordinal drawn from a fixed ladder, a bounded number, or a colour derived from either. Until a check detects grades structurally and is mutation-tested against every instance listed here, **no report that this codebase is §3-clean should be believed — including this one.** The count went four → six → nine within a single session, entirely by looking harder.
+
 ### 📌 The OpenAI cap is **not** a project-level RPD override — hypothesis unconfirmed
 
 An earlier conclusion in this session held that the ~100 requests/day ceiling came from a custom project-level rate limit, inferred from a header mismatch (`x-ratelimit-limit-requests: 10000` alongside `remaining-requests` tracking a ~100 scale). **That inference does not hold.** The project rate-limit page lists **TPM and RPM only — there is no RPD row on any model**, and `gpt-4o-mini` inherits org values exactly. There is no project-level override to raise.
