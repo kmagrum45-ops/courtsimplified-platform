@@ -107,6 +107,12 @@ type GptCognitionOutput = {
     notRecommendedForms?: string[];
     warnings?: string[];
   }[];
+  // Session 48: the model no longer writes either summary as free text. It
+  // supplies these two arrays and composeCaseFileSummary() assembles both.
+  // plainLanguageSummary/structuredCaseSummary remain declared because saved
+  // records and older responses carry them; nothing reads them any more.
+  caseFileRecorded?: string[];
+  caseFileNotRecorded?: string[];
   plainLanguageSummary?: string;
   structuredCaseSummary?: string;
   nextBestActions?: string[];
@@ -867,6 +873,78 @@ function normalizeElementStatus(raw: string): ClaimElementStatus {
   }
 }
 
+/**
+ * FIX 1 and FIX 2 (Session 48). Builds both summary strings from structured
+ * parts, so neither the model nor this code has a free-text slot where a
+ * verdict can go.
+ *
+ * The measurement that forced this: after 24e47c3 removed the element-status
+ * grading, `viability` in structuredCaseSummary went 15 -> 19 across five
+ * runs. It concentrated rather than fell, and REQUIRED DEPTH #8/#9 had
+ * already quoted the exact failing phrase and said "then STOP". Prohibition
+ * was exhausted. What worked for element status was changing what the model
+ * is ASKED FOR, and this is the same move applied to the summaries.
+ *
+ * The model now supplies two arrays -- what is recorded, what is not -- and
+ * this function assembles the sentence. It contributes the claim type and
+ * stage itself, because it already knows them and they are facts rather than
+ * judgments.
+ *
+ * Both summaries are built from the same parts and differ only in shape:
+ * `plain` reads as a sentence, `structured` as labelled lines. That is
+ * deliberate -- two independently-written summaries were two independent
+ * chances to conclude, which is why intelligenceSummary (fed from
+ * plainLanguageSummary) started opening "has a potential case against".
+ *
+ * Falls back to a fixed, neutral string when the model supplies nothing,
+ * rather than to prose.
+ */
+function composeCaseFileSummary(
+  cognition: GptCognitionOutput,
+  context: { primaryClaimTypes: string[]; stage: string },
+  shape: "plain" | "structured",
+): string {
+  // The model returns each item as a complete sentence ("A signed agreement
+  // dated 3 March exists."). The first version of this composer wrapped those
+  // in a sentence frame and produced doubled periods and "It does not yet
+  // record No court documents have been filed yet." Items are normalised to
+  // bare clauses and joined as a list instead.
+  const asItem = (raw: string): string => clean(raw).replace(/\s*\.\s*$/, "");
+  const recorded = cleanList(safeArray(cognition.caseFileRecorded).map(asItem));
+  const notRecorded = cleanList(safeArray(cognition.caseFileNotRecorded).map(asItem));
+  const claimTypes = context.primaryClaimTypes.filter(Boolean);
+
+  if (!recorded.length && !notRecorded.length) {
+    return "No case-file details have been recorded yet.";
+  }
+
+  if (shape === "structured") {
+    const lines: string[] = [];
+    if (claimTypes.length) lines.push(`Claim type recorded: ${claimTypes.join(", ")}.`);
+    if (context.stage) lines.push(`Stage recorded: ${context.stage}.`);
+    lines.push(
+      recorded.length
+        ? `In the file: ${recorded.join("; ")}.`
+        : "Nothing has been recorded in the file yet.",
+    );
+    lines.push(
+      notRecorded.length
+        ? `Still to record: ${notRecorded.join("; ")}.`
+        : "Nothing is outstanding on the items reviewed.",
+    );
+    return lines.join(" ");
+  }
+
+  const parts: string[] = [];
+  if (claimTypes.length) parts.push(`Recorded under ${claimTypes.join(", ")}.`);
+  if (recorded.length) parts.push(`In the file: ${recorded.join("; ")}.`);
+  // "Still to record:" rather than "It does not yet record ..." — the items
+  // are often themselves phrased as absences, and a negative frame around a
+  // negative item reads as a double negative.
+  if (notRecorded.length) parts.push(`Still to record: ${notRecorded.join("; ")}.`);
+  return parts.length ? parts.join(" ") : "No case-file details have been recorded yet.";
+}
+
 function buildClaimElements(args: {
   claim: GptCognitionClaim;
   domain: LegalDomain;
@@ -1293,7 +1371,7 @@ function buildProofDrivenRisks(args: {
       (finding) =>
         finding.burdenRisk === "high" ||
         finding.burdenRisk === "critical" ||
-        finding.status === "missing-proof" ||
+        finding.status === "no-evidence-recorded" ||
         finding.status === "contradicted",
     );
 
@@ -1692,7 +1770,7 @@ function chooseRoute(intelligence: LegalIntelligenceResult): string {
     proofMaps.some((map) =>
       map.elementFindings.some(
         (finding) =>
-          finding.status === "missing-proof" ||
+          finding.status === "no-evidence-recorded" ||
           finding.status === "contradicted" ||
           finding.burdenRisk === "high" ||
           finding.burdenRisk === "critical",
@@ -1756,8 +1834,8 @@ REQUIRED DEPTH:
 5. Build evidenceIssueLinks that explain what proof is needed, not just what evidence exists. Before listing anything in missingEvidence, check the "Evidence described" text in the intake -- if the user already described having that item, a close equivalent, or something that would satisfy the same need, do not list it as missing. missingEvidence is for evidence the user has not indicated having at all, never a request for a more complete, original, or better version of something they already described having.
 6. Identify litigation risks the user may not realize: limitation, discoverability, jurisdiction, wrong forum, wrong form, leave/notice, causation, credibility, proportionality, remedy-fit, service, deadline, and stage risks.
 7. Give ordered nextBestActions that improve court readiness.
-8. Keep summaries useful: not just repetition of intake. State which legal theory the facts describe, which procedural deadlines or steps are in play, WHICH EVIDENCE CATEGORIES HAVE NOTHING RECORDED AGAINST THEM, and the next step. That factual half is the point of the summary -- write it fully.
-9. Then STOP. Do not close a summary by saying what any of it means for the case. Naming a gap is the job; drawing a conclusion from it is not. Concretely: write "no document has been recorded for the date of the agreement" and end the sentence there. Never continue into "which may affect the claim", "which weakens", "which could be a problem", "which may affect the claim's viability", or any other phrase that tells the reader what the gap adds up to. The person reading decides what it means; you only tell them what is and is not in the file.
+8. Do NOT write a narrative summary. There is no summary field to write. Instead fill caseFileRecorded and caseFileNotRecorded: one short item per entry, each a plain statement of what is or is not in the file. "A signed agreement dated 3 March" is an entry. "A signed agreement, which helps" is not -- drop the second half.
+9. Those two arrays are the ONLY place summary content goes, and each entry describes the file, never what the file adds up to. Do not add an entry whose purpose is to tell the reader what any of it means. The person reading decides that; you record what is there and what is not.
 
 COURT PATH REASONING:
 Family:
@@ -1886,8 +1964,8 @@ Return JSON with this exact shape and no extra keys:
       "warnings": ["Verify official forms, rules, deadlines, and procedural requirements before filing."]
     }
   ],
-  "plainLanguageSummary": "Short meaningful summary, not a repetition.",
-  "structuredCaseSummary": "Structured litigation summary covering theory, procedure, risks, proof gaps, and next step.",
+  "caseFileRecorded": ["Each thing the person has described or provided, stated as a fact about the file. No commentary."],
+  "caseFileNotRecorded": ["Each thing that has nothing recorded against it yet, stated as a plain absence. No commentary."],
   "nextBestActions": ["First action", "Second action", "Third action"],
   "systemWarnings": ["Verify legal authorities, forms, deadlines, and filing requirements before relying on this output."]
 }
@@ -2326,15 +2404,31 @@ export async function runCourtSimplifiedBrain(
     evidenceIntelligenceAnalysis,
     elementProofAnalysis,
 
+    // Session 48 — FIX 1 and FIX 2. Both summaries are now COMPOSED from
+    // structured parts rather than written by the model as free text.
+    //
+    // Why, and why the previous approach was exhausted: REQUIRED DEPTH
+    // #8/#9 quoted the exact failing phrase and said "then STOP", and
+    // viability in structuredCaseSummary went 15 -> 19. It concentrated
+    // rather than fell. What DID work for the element status was changing
+    // what the model is ASKED for, not what it is forbidden to write.
+    //
+    // A free-text summary field is an invitation to conclude: the slot
+    // exists, so something fills it. These are built by composeCaseFileSummary()
+    // from arrays the model fills with recorded/not-recorded items, plus the
+    // confirmed claim type and derived stage this code already knows. The
+    // model supplies the substance; it never gets a sentence to finish.
+    //
+    // sanitizeSummaryText still runs over the composed output. It should now
+    // never fire on these two -- if it does, the composition is leaking and
+    // that is worth knowing.
     plainLanguageSummary: sanitizeSummaryText(
-      clean(gptCognition.plainLanguageSummary) ||
-        "CourtSimplified produced a structured litigation analysis from the user’s intake.",
+      composeCaseFileSummary(gptCognition, { primaryClaimTypes, stage }, "plain"),
       "plainLanguageSummary",
     ),
 
     structuredCaseSummary: sanitizeSummaryText(
-      clean(gptCognition.structuredCaseSummary) ||
-        "Structured case summary requires further review.",
+      composeCaseFileSummary(gptCognition, { primaryClaimTypes, stage }, "structured"),
       "structuredCaseSummary",
     ),
 

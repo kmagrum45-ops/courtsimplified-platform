@@ -88,7 +88,7 @@ export type LitigationStrategyFindingCategory =
 
 export type LitigationStrategyRiskCategory =
   | "missing-element"
-  | "missing-proof"
+  | "no-evidence-recorded"
   | "weak-evidence"
   | "contradicted-proof"
   | "credibility-risk"
@@ -254,9 +254,9 @@ export type LitigationStrategyElementMatrixRow = {
   elementLabel: string;
   burdenStandard: LitigationStrategyBurdenStandard;
   proofStatus:
-    | "proven"
+    | "evidence-recorded"
     | "partially-proven"
-    | "missing-proof"
+    | "no-evidence-recorded"
     | "contradicted"
     | "not-assessed";
   supportingFacts: string[];

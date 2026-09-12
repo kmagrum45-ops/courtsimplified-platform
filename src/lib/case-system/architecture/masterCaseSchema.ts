@@ -216,9 +216,9 @@ export type CaseKnowledgeVerificationStatus =
   | "do-not-use";
 
 export type CaseElementProofStatus =
-  | "proven"
-  | "partly-proven"
-  | "missing-proof"
+  | "evidence-recorded"
+  | "some-evidence-recorded"
+  | "no-evidence-recorded"
   | "contradicted"
   | "not-applicable";
 

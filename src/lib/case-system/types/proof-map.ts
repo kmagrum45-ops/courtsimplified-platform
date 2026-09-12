@@ -10,7 +10,7 @@ export type ProofBurden =
 
 export type ProofStatus =
   | "not-started"
-  | "missing-proof"
+  | "no-evidence-recorded"
   | "partially-supported"
   | "well-supported"
   | "contradicted"

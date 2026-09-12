@@ -627,41 +627,68 @@ export type LegalKnowledgePacket = {
   sourceWarnings: string[];
 };
 
-/**
- * SESSION 48 — NOT CHANGED, AND THE REASON IS RECORDED RATHER THAN LEFT
- * IMPLICIT.
+/**
+ * Session 48 — FIX 3. Was:
+ *   "proven" | "partly-proven" | "missing-proof" | "contradicted" | "not-applicable"
  *
- * "proven" / "partly-proven" carry the same defect as ClaimElementStatus
- * above: they assert that the user's evidence establishes a legal element,
- * which is a conclusion for a court. Whether a document has been RECORDED
- * against an element is a fact about the file; whether it PROVES anything
- * is not the system's to say. This was not in the original finding — it
- * surfaced while fixing ClaimElementStatus.
+ * The same violation as ClaimElementStatus above, renamed in the same pass
+ * that renamed it (24e47c3 did the element status; this is the follow-up that
+ * commit scoped). "Proven" asserts that the user's evidence establishes a
+ * legal element. Whether something is proven is a conclusion for a court;
+ * whether a document has been RECORDED against an element is a fact about the
+ * file, and only the second is the system's to state.
  *
- * It was left alone because the blast radius is disproportionate to this
- * session's goal. The same vocabulary is declared independently in FOUR
- * more places — elementProofEngine.ts has its own copy, plus
- * architecture/masterCaseSchema.ts (CaseElementProofStatus),
- * litigation-strategy/litigationStrategyArchitecture.ts, and
- * types/proof-map.ts — and is compared against by string literal in
- * courtSimplifiedBrain.ts and elementProofEngine.ts. Renaming it is a
- * cross-module refactor, not a type edit.
+ * Cross-module, as that note predicted: renamed at all five declaration sites
+ * (here, elementProofEngine.ts, architecture/masterCaseSchema.ts,
+ * litigation-strategy/litigationStrategyArchitecture.ts, types/proof-map.ts)
+ * plus the comparison sites in courtSimplifiedBrain.ts and
+ * elementProofEngine.ts.
  *
- * Crucially it is also NOT what this session measures. The model never
- * sees this type; it sees the prompt. ElementProofStatus is assigned
+ * CANNOT AFFECT GENERATION, which is why it is safe to do alongside a
+ * measured prompt change: the model never sees this type. It is assigned
  * downstream by deterministic code from the element status the model
- * produced, so changing the prompt changes what flows in here without
- * touching these names.
- *
- * Follow-up, scoped: rename across those five declaration sites plus the
- * two comparison sites, in one pass, with test:fixtures either side.
+ * produced. Old values are mapped rather than rejected —
+ * normalizeElementProofStatus() below — because saved case records carry
+ * them, the same reasoning as normalizeElementStatus().
  */
 export type ElementProofStatus =
-  | "proven"
-  | "partly-proven"
-  | "missing-proof"
+  | "evidence-recorded"
+  | "some-evidence-recorded"
+  | "no-evidence-recorded"
   | "contradicted"
   | "not-applicable";
+
+/**
+ * Maps the old vocabulary rather than rejecting it, the same reasoning as
+ * normalizeElementStatus() in courtSimplifiedBrain.ts: saved case records
+ * written before this rename carry "proven"/"partly-proven"/"missing-proof",
+ * and a hard rejection would turn a real recorded status into a defaulted
+ * wrong one.
+ *
+ * Unrecognised input defaults to "some-evidence-recorded" for the same reason
+ * the element status defaults to "partially-documented": the safer error is
+ * to say something may have been recorded and let the user correct it, not to
+ * tell them an element is empty because of an unexpected string.
+ */
+export function normalizeElementProofStatus(raw: string): ElementProofStatus {
+  switch (raw) {
+    case "evidence-recorded":
+    case "some-evidence-recorded":
+    case "no-evidence-recorded":
+    case "contradicted":
+    case "not-applicable":
+      return raw;
+    // Legacy vocabulary, from a saved record.
+    case "proven":
+      return "evidence-recorded";
+    case "partly-proven":
+      return "some-evidence-recorded";
+    case "missing-proof":
+      return "no-evidence-recorded";
+    default:
+      return "some-evidence-recorded";
+  }
+}
 
 export type ElementProofFinding = {
   id: string;

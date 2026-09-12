@@ -11,9 +11,9 @@ import {
 import { sanitizeTextArray } from "./caseStrengthLanguageValidator";
 
 export type ElementProofStatus =
-  | "proven"
-  | "partly-proven"
-  | "missing-proof"
+  | "evidence-recorded"
+  | "some-evidence-recorded"
+  | "no-evidence-recorded"
   | "contradicted"
   | "not-applicable";
 
@@ -92,9 +92,9 @@ function mapElementStatus(
   // an element is legally made out. ElementProofStatus keeps its old
   // vocabulary for now — see the note on its declaration in
   // intelligenceTypes.ts for why renaming it is a separate, wider pass.
-  if (element.status === "documented") return "proven";
-  if (element.status === "partially-documented") return "partly-proven";
-  if (element.status === "not-documented") return "missing-proof";
+  if (element.status === "documented") return "evidence-recorded";
+  if (element.status === "partially-documented") return "some-evidence-recorded";
+  if (element.status === "not-documented") return "no-evidence-recorded";
   if (element.status === "conflicting-information") return "contradicted";
   return "not-applicable";
 }
@@ -117,9 +117,9 @@ function confidenceFromScore(score: number): IntelligenceConfidence {
 
 function burdenRiskFor(status: ElementProofStatus): IntelligenceSeverity {
   if (status === "contradicted") return "critical";
-  if (status === "missing-proof") return "high";
-  if (status === "partly-proven") return "medium";
-  if (status === "proven") return "low";
+  if (status === "no-evidence-recorded") return "high";
+  if (status === "some-evidence-recorded") return "medium";
+  if (status === "evidence-recorded") return "low";
   return "info";
 }
 
@@ -128,7 +128,7 @@ function buildNextAction(args: {
   status: ElementProofStatus;
   supportingEvidenceTitles: string[];
 }): string {
-  if (args.status === "proven") {
+  if (args.status === "evidence-recorded") {
     return `Keep the evidence for "${args.element.label}" organized, dated, and linked to the claim.`;
   }
 
@@ -205,16 +205,16 @@ function buildClaimProofMap(args: {
     elementFindings
       .filter(
         (item) =>
-          item.status === "missing-proof" ||
+          item.status === "no-evidence-recorded" ||
           item.status === "contradicted" ||
-          item.status === "partly-proven",
+          item.status === "some-evidence-recorded",
       )
       .map((item) => item.elementLabel),
   );
 
   const strongestElements = unique(
     elementFindings
-      .filter((item) => item.status === "proven")
+      .filter((item) => item.status === "evidence-recorded")
       .map((item) => item.elementLabel),
   );
 
@@ -235,7 +235,7 @@ function buildClaimProofMap(args: {
       : 0;
 
   const penalty =
-    elementFindings.filter((item) => item.status === "missing-proof").length * 12 +
+    elementFindings.filter((item) => item.status === "no-evidence-recorded").length * 12 +
     elementFindings.filter((item) => item.status === "contradicted").length * 20;
 
   return {
