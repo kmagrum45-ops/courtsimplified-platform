@@ -17,9 +17,43 @@ function shouldIgnore(filePath) {
   return ignored.some((part) => filePath.includes(`${path.sep}${part}${path.sep}`));
 }
 
+// The exact set of files main() rewrites below. Kept beside the writes it
+// mirrors: if you add a writeText/writeJson call, add its name here too.
+const GENERATED_FILES = [
+  "ArchitectureRegistry.txt",
+  "FileRegistry.txt",
+  "FileRegistry.json",
+  "ImportExportRegistry.json",
+  "ProjectStatistics.json",
+  "ArchitectureHealth.json",
+  "ControlState.txt",
+  "BuildStatus.txt",
+];
+
+/**
+ * Clear ONLY this script's own output, then guarantee the directory exists.
+ *
+ * This used to be `fs.rmSync(dir, { recursive: true, force: true })`, which
+ * deleted the whole of `_PROJECT_REGISTRY/` before rebuilding. That was a
+ * data-loss trap: the script writes 8 flat files, but the directory also held
+ * 52 files it does NOT generate and cannot recreate --
+ * `PROJECT_DOCUMENTATION/` (31 files of Ontario form routing, provenance and
+ * certification work) and `GENERATED_DOCUMENTATION/` (21 files, named
+ * "generated" but produced by something else; nothing in scripts/ rebuilds
+ * them). `_PROJECT_REGISTRY/` is gitignored (.gitignore:156) with zero tracked
+ * files, so `git checkout` could not recover any of it. Running `npm run
+ * snapshot` would have destroyed ~1.9 MB of unversioned work, silently.
+ *
+ * Deleting by name keeps the wipe scoped to what this script owns. Unknown
+ * files and every subdirectory survive -- which is also what the
+ * Compress-Archive step at the end of main() expects, since it zips the whole
+ * directory tree, not just these 8 files.
+ */
 function ensureCleanDir(dir) {
-  if (fs.existsSync(dir)) fs.rmSync(dir, { recursive: true, force: true });
   fs.mkdirSync(dir, { recursive: true });
+  for (const name of GENERATED_FILES) {
+    fs.rmSync(path.join(dir, name), { force: true });
+  }
 }
 
 function walk(dir, files = []) {
