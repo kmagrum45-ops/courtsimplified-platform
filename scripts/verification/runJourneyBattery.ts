@@ -32,6 +32,7 @@ import { pathToFileURL } from "node:url";
 
 import { runStoryThroughPipeline, type PipelineRun, type PipelineStoryInput } from "./fixtures/pipelineRunner";
 import { checkJourney, checkI1Static, checkI9, type Violation, INVARIANT_BLIND_SPOTS } from "./journeyInvariants";
+import { setInterceptionContext, getInterceptions, clearInterceptions, type SanitizerInterception } from "../../src/lib/case-system/intelligence/caseStrengthLanguageValidator";
 
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
 const OUT_DIR = path.join(REPO_ROOT, "scripts", "verification", "fixtures", "journeyBattery");
@@ -209,7 +210,7 @@ function estimateCost(n: number): string {
   return `$${(n * perJourney).toFixed(3)} (baseline $0.0042/journey x ${n})`;
 }
 
-function serialise(run: PipelineRun, j: Journey, violations: Violation[]): string {
+function serialise(run: PipelineRun, j: Journey, violations: Violation[], interceptions: SanitizerInterception[] = []): string {
   const lines: string[] = [];
   lines.push(`# Journey ${j.id}`, "", `**Category ${j.category}** — ${j.note}`, "");
   lines.push("## Story", "", "```", run.input.story, "```", "");
@@ -227,6 +228,14 @@ function serialise(run: PipelineRun, j: Journey, violations: Violation[]): strin
   });
   lines.push("## Final facts", "", "```json", JSON.stringify(run.finalFacts, null, 2), "```", "");
   lines.push("## Analysis output (complete)", "", "```json", JSON.stringify(run.analysisOutput ?? null, null, 2), "```", "");
+  lines.push("## Sanitizer interceptions", "", "_Prohibited language the model GENERATED and production caught before output. Invisible to the runtime invariants, which only see post-sanitizer text._", "");
+  if (!interceptions.length) lines.push("_None._", "");
+  for (const i of interceptions) {
+    lines.push(
+      `- **${i.kind}** \`${i.field}\` matched "${i.matchedTerm}"\n  > ${i.text.replace(/\n/g, " ").slice(0, 300)}`,
+    );
+  }
+  lines.push("");
   lines.push("## Invariant violations", "");
   if (!violations.length) lines.push("_None._");
   for (const v of violations) lines.push(`- **${v.invariant}** [\`${v.sourceField}\`] ${v.detail}\n  > ${v.offendingText.replace(/\n/g, " ").slice(0, 300)}`);
@@ -246,7 +255,8 @@ async function main() {
 
   fs.mkdirSync(OUT_DIR, { recursive: true });
 
-  const all: { journey: Journey; run: PipelineRun; violations: Violation[] }[] = [];
+  const all: { journey: Journey; run: PipelineRun; violations: Violation[]; interceptions: SanitizerInterception[] }[] = [];
+  const intercepted: SanitizerInterception[] = [];
 
   // I9 pair runs concurrently — that is the point of the check.
   const i9 = JOURNEYS.filter((j) => j.category === "I9");
@@ -254,25 +264,37 @@ async function main() {
 
   for (const j of rest) {
     process.stdout.write(`  ${j.id} ... `);
+    // Clear and label so every sanitizer catch during this journey is
+    // attributable to it. Without this, a catch and a clean generation are
+    // indistinguishable — the blind spot tranche 1 exposed.
+    clearInterceptions();
+    setInterceptionContext(j.id);
     const run = await runStoryThroughPipeline(j, apiKey);
     const violations = checkJourney(run);
-    all.push({ journey: j, run, violations });
-    console.log(`${run.turns.length} turns, ${violations.length} violation(s)`);
+    const caught = [...getInterceptions()];
+    intercepted.push(...caught);
+    all.push({ journey: j, run, violations, interceptions: caught });
+    console.log(`${run.turns.length} turns, ${violations.length} violation(s), ${caught.length} sanitizer catch(es)`);
   }
 
   let i9Violations: Violation[] = [];
   if (i9.length === 2) {
+    clearInterceptions();
+    setInterceptionContext(`${i9[0].id}+${i9[1].id}`);
     process.stdout.write(`  ${i9[0].id} + ${i9[1].id} (concurrent) ... `);
     const [ra, rb] = await Promise.all([runStoryThroughPipeline(i9[0], apiKey), runStoryThroughPipeline(i9[1], apiKey)]);
     i9Violations = checkI9(ra, I9_MARKERS[i9[0].id], rb, I9_MARKERS[i9[1].id]);
     const va = [...checkJourney(ra), ...i9Violations.filter((v) => v.journeyId === ra.input.id)];
     const vb = [...checkJourney(rb), ...i9Violations.filter((v) => v.journeyId === rb.input.id)];
-    all.push({ journey: i9[0], run: ra, violations: va }, { journey: i9[1], run: rb, violations: vb });
+    const i9Caught = [...getInterceptions()];
+    intercepted.push(...i9Caught);
+    all.push({ journey: i9[0], run: ra, violations: va, interceptions: i9Caught }, { journey: i9[1], run: rb, violations: vb, interceptions: [] });
     console.log(`${i9Violations.length} leakage violation(s)`);
   }
 
-  for (const { journey, run, violations } of all) {
-    fs.writeFileSync(path.join(OUT_DIR, `${journey.id}.md`), serialise(run, journey, violations), "utf8");
+  for (const a of all) {
+    const { journey, run, violations } = a;
+    fs.writeFileSync(path.join(OUT_DIR, `${journey.id}.md`), serialise(run, journey, violations, a.interceptions), "utf8");
   }
 
   const staticViolations = checkI1Static(REPO_ROOT);
@@ -294,10 +316,45 @@ async function main() {
     for (const v of vs) r.push(`- **${v.journeyId}** \`${v.sourceField}\` — ${v.detail}\n  > ${v.offendingText.replace(/\n/g, " ").slice(0, 260)}`);
     r.push("");
   }
+  // The number that matters most, and the one tranche 1 could not produce:
+  // how often the model GENERATES prohibited language, as distinct from how
+  // often any reaches output. Runtime violations measure the second; this
+  // measures the first.
+  r.push("## Sanitizer interceptions — the generation rate", "");
+  r.push(
+    `**${intercepted.length} interception(s) across ${all.length} journeys** ` +
+      `(${(intercepted.length / Math.max(all.length, 1)).toFixed(2)} per journey).`,
+    "",
+    "These are prohibited phrases the model produced and production caught before output.",
+    "The runtime invariants cannot see them — they read post-sanitizer text, where a catch",
+    "and a clean generation are indistinguishable. A rising number here with runtime",
+    "violations still at 0 means the model is degrading and the substring list is absorbing it.",
+    "",
+  );
+  if (intercepted.length) {
+    const byTerm = new Map<string, number>();
+    for (const i of intercepted) byTerm.set(i.matchedTerm, (byTerm.get(i.matchedTerm) || 0) + 1);
+    r.push("| Matched term | Times | Journeys |", "|---|---|---|");
+    for (const [term, count] of [...byTerm.entries()].sort((a, b) => b[1] - a[1])) {
+      const journeys = [...new Set(intercepted.filter((i) => i.matchedTerm === term).map((i) => i.context))].join(", ");
+      r.push(`| \`${term}\` | ${count} | ${journeys} |`);
+    }
+    r.push("");
+    for (const i of intercepted) {
+      r.push(`- **${i.context}** ${i.kind} \`${i.field}\` — matched "${i.matchedTerm}"\n  > ${i.text.replace(/\n/g, " ").slice(0, 260)}`);
+    }
+    r.push("");
+  }
+
   r.push("## Per-journey summary", "");
-  r.push("| Journey | Cat | Turns | Matched | Suggested | Violations |", "|---|---|---|---|---|---|");
-  for (const { journey, run, violations } of all) {
-    r.push(`| ${journey.id} | ${journey.category} | ${run.turns.length} | ${run.retainedMatchedClaimType?.claimTypeId ?? "—"} | ${run.retainedSuggestedClaimType?.claimTypeId ?? "—"} | ${violations.length} |`);
+  // Reports the TURN-1 suggestion, not retainedSuggestedClaimType. The
+  // retained value is last-wins across turns and is driven by later answers,
+  // which made tranche 1's table read as a classifier collapse that had not
+  // happened. Turn 1 sees the story alone and is the honest signal.
+  r.push("| Journey | Cat | Turns | Turn-1 suggestion | Violations | Caught |", "|---|---|---|---|---|---|");
+  for (const a of all) {
+    const t1 = a.run.turns[0]?.suggestedClaimTypeThisTurn ?? "—";
+    r.push(`| ${a.journey.id} | ${a.journey.category} | ${a.run.turns.length} | ${t1} | ${a.violations.length} | ${a.interceptions.length} |`);
   }
   r.push("", "## Known blind spots (design doc §3)", "");
   for (const [k, val] of Object.entries(INVARIANT_BLIND_SPOTS)) r.push(`- **${k}** — ${val}`);

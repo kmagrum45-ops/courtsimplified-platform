@@ -88,10 +88,89 @@ export function validateCaseStrengthLanguage(text: string): { valid: boolean; ma
  * a way an empty array item doesn't, so the fallback is a real (if
  * generic) sentence, not an empty string.
  */
+/* ------------------------------------------------------------------ */
+/* Interception record (Session 48)                                    */
+/* ------------------------------------------------------------------ */
+
+/**
+ * WHY THIS EXISTS. The journey battery established that runtime invariant
+ * violations read 0 while these sanitizers fired four times in 16 journeys
+ * — three of them the identical phrase "may affect the claim's viability",
+ * generated independently across three unrelated stories, plus "The
+ * defendant may argue the truth of the statement", an opposing-argument
+ * prediction the battery's own I3 check never saw.
+ *
+ * The reason it never saw them is that everything downstream reads
+ * POST-sanitizer output. A catch and a clean generation are
+ * indistinguishable there: both look like zero violations. So there was no
+ * way to tell whether the model was improving, degrading, or being saved by
+ * a substring list that happens to contain "viability".
+ *
+ * The console.error calls beside each record below are the existing
+ * convention and are KEPT — they are what a developer sees in a terminal.
+ * This adds an in-memory record of the same events so a test can assert on
+ * them and a human can review them after the run, which a console line
+ * cannot support.
+ *
+ * Deliberately in-memory and bounded, not persisted: these carry user case
+ * text, and `docs/PRIVATE_REAL_WORLD_CASE_REVIEW.md` establishes that real
+ * case narrative stays out of the repo. Nothing here writes to disk. A
+ * harness reads the buffer and decides what to keep.
+ */
+export type SanitizerInterception = {
+  /** Which sanitizer acted, and how. */
+  kind: "rejected" | "dropped" | "blanked";
+  /** The field or cognition path the text came from. */
+  field: string;
+  /** The blocked term that matched. */
+  matchedTerm: string;
+  /** The text that was intercepted, truncated. */
+  text: string;
+  /** Caller-set label — a journey id, a fixture name, or "(unattributed)". */
+  context: string;
+  at: string;
+};
+
+/** Bounded so a long-running server cannot grow this without limit. */
+const MAX_INTERCEPTIONS = 500;
+const interceptions: SanitizerInterception[] = [];
+let interceptionContext = "(unattributed)";
+
+/** Label subsequent interceptions — e.g. with the journey being run. */
+export function setInterceptionContext(context: string): void {
+  interceptionContext = context || "(unattributed)";
+}
+
+export function getInterceptions(): readonly SanitizerInterception[] {
+  return interceptions;
+}
+
+export function clearInterceptions(): void {
+  interceptions.length = 0;
+}
+
+function recordInterception(
+  kind: SanitizerInterception["kind"],
+  field: string,
+  matchedTerm: string | undefined,
+  text: string,
+): void {
+  if (interceptions.length >= MAX_INTERCEPTIONS) return;
+  interceptions.push({
+    kind,
+    field,
+    matchedTerm: matchedTerm || "(unknown)",
+    text: text.slice(0, 400),
+    context: interceptionContext,
+    at: new Date().toISOString(),
+  });
+}
+
 export function sanitizeSummaryText(text: string, fieldName: string): string {
   const result = validateCaseStrengthLanguage(text);
   if (result.valid) return text;
   console.error(`[caseStrengthLanguageValidator] rejected ${fieldName} (matched term "${result.matchedTerm}"): ${text}`);
+  recordInterception("rejected", fieldName, result.matchedTerm, text);
   return "A summary of the saved facts is available in the case details below.";
 }
 
@@ -106,6 +185,7 @@ export function sanitizeTextArray(items: string[], fieldName: string): string[] 
     const result = validateCaseStrengthLanguage(item);
     if (result.valid) return true;
     console.error(`[caseStrengthLanguageValidator] dropped ${fieldName} item (matched term "${result.matchedTerm}"): ${item}`);
+    recordInterception("dropped", fieldName, result.matchedTerm, item);
     return false;
   });
 }
@@ -127,6 +207,7 @@ export function sanitizeCognitionOutput<T>(raw: T, path = "cognition"): T {
     const result = validateCaseStrengthLanguage(raw);
     if (result.valid) return raw;
     console.error(`[caseStrengthLanguageValidator] blanked ${path} (matched term "${result.matchedTerm}"): ${raw}`);
+    recordInterception("blanked", path, result.matchedTerm, raw);
     return "" as unknown as T;
   }
 

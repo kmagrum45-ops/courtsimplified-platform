@@ -225,9 +225,54 @@ const COLOUR_RAMP = /(?:score|readiness|rating|confidence)[^\n]{0,80}\n?[^\n]{0,
 // `score = ... -`, and missed `return clampScore(score - highRiskPenalty * 2)`.
 const RISK_SUBTRACTION = /\b(?:score|readiness|total|average)\b[^;\n]{0,60}-[^;\n]{0,60}\b\w*(?:[Rr]isk|[Pp]enalty|[Cc]ontradiction|[Ww]eakness|[Bb]locker)\w*\b|\b(?:score|readiness|total)\s*-=[^;\n]{0,80}/g;
 
-export function checkI1Static(repoRoot: string): Violation[] {
+/**
+ * Session 48 — blind spot 8 addressed. The curated list above hid real
+ * findings TWICE (masterCaseSchema.ts during the self-test,
+ * document-export/page.tsx during tranche 1), so the arm can now walk the
+ * whole tree instead.
+ *
+ * Measured rather than assumed: a full walk of app/ and src/ is 219 files,
+ * runs in well under a second, and makes no network calls — so it is
+ * feasible, and `scanAll` defaults to true.
+ *
+ * The honest tradeoff, stated because it matters to how the output is read:
+ * the curated list produced 11 hits, the whole tree produces ~101 across 42
+ * files. The extra hits are not all defects. The detector flags a
+ * CONSTRUCT, and no regex can tell whether a given ordinal union grades the
+ * USER'S CASE (prohibited) or something unrelated like a log level or an
+ * internal confidence band (fine). So the wide scan is a TRIAGE QUEUE, not
+ * a defect list, and callers should treat it that way.
+ *
+ * What the wide scan buys that the curated list could not: it confirmed
+ * zero threshold-colour ramps anywhere in app/ or src/ after the two fixed
+ * this session. A curated list can only ever report that the files someone
+ * thought to list are clean.
+ */
+function collectScanFiles(repoRoot: string, scanAll: boolean): string[] {
+  if (!scanAll) return STATIC_SCAN_FILES;
+
+  const out: string[] = [];
+  const walk = (dir: string) => {
+    const full = path.join(repoRoot, dir);
+    if (!fs.existsSync(full)) return;
+    for (const entry of fs.readdirSync(full, { withFileTypes: true })) {
+      const rel = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        if (/node_modules|\.next|\.git/.test(rel)) continue;
+        walk(rel);
+      } else if (/\.tsx?$/.test(entry.name)) {
+        out.push(rel);
+      }
+    }
+  };
+  walk("app");
+  walk("src");
+  return out;
+}
+
+export function checkI1Static(repoRoot: string, scanAll = true): Violation[] {
   const v: Violation[] = [];
-  for (const rel of STATIC_SCAN_FILES) {
+  for (const rel of collectScanFiles(repoRoot, scanAll)) {
     const full = path.join(repoRoot, rel);
     if (!fs.existsSync(full)) continue;
     const src = fs.readFileSync(full, "utf8");
