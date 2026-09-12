@@ -41,7 +41,34 @@ type RunResult = {
   runIndex: number;
   total: number;
   interceptions: SanitizerInterception[];
+  /** Journeys that threw or timed out. See JOURNEY_TIMEOUT_MS. */
+  failures: { id: string; reason: string }[];
 };
+
+/**
+ * Per-journey ceiling. A journey is ~11 turns of 3-4 API calls; a minute and
+ * a half is generous for that and still bounded.
+ *
+ * WHY: a measurement run against an exhausted daily quota stalled for over
+ * two hours. The OpenAI client returned 429s, the voice layer logged "empty
+ * response or timeout", and one call never settled — so `await` never
+ * returned and the harness sat there looking alive. Nothing here bounded it.
+ */
+const JOURNEY_TIMEOUT_MS = 90_000;
+
+async function withTimeout<T>(work: Promise<T>, ms: number): Promise<T> {
+  let timer: NodeJS.Timeout | undefined;
+  try {
+    return await Promise.race([
+      work,
+      new Promise<never>((_resolve, reject) => {
+        timer = setTimeout(() => reject(new Error(`timed out after ${ms}ms`)), ms);
+      }),
+    ]);
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
 
 function arg(name: string, fallback: string): string {
   const hit = process.argv.find((a) => a.startsWith(`--${name}=`));
@@ -92,23 +119,39 @@ async function main() {
   for (let r = 1; r <= runs; r += 1) {
     process.stdout.write(`  run ${r}/${runs} `);
     const caught: SanitizerInterception[] = [];
+    const failures: { id: string; reason: string }[] = [];
 
     for (const j of JOURNEYS) {
       clearInterceptions();
       setInterceptionContext(j.id);
       try {
-        await runStoryThroughPipeline(j, apiKey);
+        await withTimeout(runStoryThroughPipeline(j, apiKey), JOURNEY_TIMEOUT_MS);
       } catch (error) {
-        // A journey that throws still tells us nothing was intercepted in
-        // it; recording the failure beats aborting the whole measurement.
-        console.warn(`\n    journey ${j.id} threw: ${(error as Error).message.slice(0, 120)}`);
+        // A failed journey produces ZERO interceptions, which is
+        // indistinguishable from a clean one in the totals. Silently
+        // absorbing it biases the measured rate DOWNWARD — exactly the way a
+        // prompt change is supposed to look when it works. So failures are
+        // counted, and a run with any failure is not reportable (below).
+        const reason = (error as Error).message.slice(0, 160);
+        failures.push({ id: j.id, reason });
+        console.warn(`\n    journey ${j.id} FAILED: ${reason}`);
       }
       caught.push(...getInterceptions());
-      process.stdout.write(".");
+      process.stdout.write(failures.some((f) => f.id === j.id) ? "x" : ".");
     }
 
-    results.push({ runIndex: r, total: caught.length, interceptions: caught });
-    console.log(` ${caught.length} interception(s)`);
+    results.push({ runIndex: r, total: caught.length, interceptions: caught, failures });
+    console.log(` ${caught.length} interception(s)${failures.length ? `, ${failures.length} FAILED journey(s)` : ""}`);
+
+    // Stop early rather than burn the remaining quota producing more
+    // unusable runs. A daily-cap 429 does not clear within a run.
+    if (failures.length) {
+      console.error(
+        `\n  Run ${r} had ${failures.length} failed journey(s). Aborting the measurement —` +
+          ` a partial run cannot be compared against a complete one.`,
+      );
+      break;
+    }
   }
 
   // ---- report ----
@@ -116,9 +159,31 @@ async function main() {
   const s = stats(totals);
   const all = results.flatMap((r) => r.interceptions);
 
+  const totalFailures = results.reduce((n, r) => n + r.failures.length, 0);
+  const complete = results.filter((r) => r.failures.length === 0);
+
   const lines: string[] = [];
   lines.push(`# Interception rate — "${label}"`, "");
   lines.push(`Run at ${new Date().toISOString()}`, "");
+
+  if (totalFailures > 0) {
+    lines.push(
+      "",
+      "> **NOT A VALID MEASUREMENT.**",
+      `> ${totalFailures} journey(s) failed across ${results.length} attempted run(s), and`,
+      "> only " + complete.length + " run(s) completed. A failed journey records zero",
+      "> interceptions, which is indistinguishable from a clean one, so the totals",
+      "> below UNDERSTATE the true rate by an unknown amount. Do not compare these",
+      "> figures against another block.",
+      "",
+      "Failed journeys:",
+      "",
+    );
+    for (const r of results) {
+      for (const f of r.failures) lines.push(`- run ${r.runIndex} — \`${f.id}\`: ${f.reason}`);
+    }
+    lines.push("");
+  }
   lines.push(`- Journeys per run: **${JOURNEYS.length}**`);
   lines.push(`- Runs: **${runs}**`);
   lines.push(`- Totals per run: **${totals.join(", ")}**`);
