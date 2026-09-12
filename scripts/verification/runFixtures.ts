@@ -19,8 +19,14 @@
 
 import { writeFileSync } from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 import { runStoryThroughPipeline, type PipelineRun } from "./fixtures/pipelineRunner";
+import {
+  PIPELINE_JOURNEY_TIMEOUT_MS,
+  withTimeout,
+  describeRunDegradation,
+} from "./pipelineGuards";
 import type { Fixture } from "./fixtures/fixtureTypes";
 import { unpaidInvoiceCleanFixture } from "./fixtures/unpaidInvoiceClean.fixture";
 import { unpaidInvoiceGapFixture } from "./fixtures/unpaidInvoiceGap.fixture";
@@ -116,15 +122,59 @@ async function main() {
     return;
   }
 
+  const failures: { id: string; reason: string }[] = [];
+
   for (const fixture of FIXTURES) {
     console.log(`\n${"=".repeat(70)}\nRunning fixture: ${fixture.id}\n${"=".repeat(70)}`);
-    const run = await runStoryThroughPipeline(fixture, apiKey);
+
+    // Everything that can fail happens BEFORE the write. A throw, a timeout,
+    // or a silently-degraded run leaves the committed .actual.md untouched,
+    // because writeFileSync is only reached once `run` is known good.
+    let run: PipelineRun;
+    try {
+      run = await withTimeout(
+        runStoryThroughPipeline(fixture, apiKey),
+        PIPELINE_JOURNEY_TIMEOUT_MS,
+      );
+    } catch (error) {
+      const reason = error instanceof Error ? error.message : String(error);
+      failures.push({ id: fixture.id, reason });
+      console.error(`  FAILED (not written): ${reason}`);
+      break;
+    }
+
+    // The pipeline swallows API failures in two places and returns a run that
+    // looks ordinary. Writing placeholder text over a good .actual.md would be
+    // worse than not writing at all: it reads as real pipeline behaviour and
+    // would be diffed against .expected.md as if it were.
+    const degraded = describeRunDegradation(run);
+    if (degraded) {
+      failures.push({ id: fixture.id, reason: degraded });
+      console.error(`  DEGRADED (not written): ${degraded}`);
+      break;
+    }
+
     const markdown = renderActualMarkdown(fixture, run);
     const outPath = path.join(__dirname, "fixtures", `${toFileId(fixture.id)}.actual.md`);
     writeFileSync(outPath, markdown, "utf8");
     console.log(`Wrote ${outPath}`);
     console.log(`  turns: ${run.turns.length}, halted: ${run.halted}, matchedClaimType: ${run.retainedMatchedClaimType?.claimTypeId ?? "(none)"}`);
   }
+
+  if (failures.length) {
+    console.error(
+      `\n${"!".repeat(70)}\n` +
+        `FIXTURE RUN ABORTED — ${failures.length} failure(s). No .actual.md was written\n` +
+        `for the failing fixture, and any fixture after it was not attempted, so the\n` +
+        `committed files are NOT a mixed record of one good run and one bad one.\n` +
+        `${"!".repeat(70)}`,
+    );
+    for (const f of failures) console.error(`  - ${f.id}: ${f.reason}`);
+    process.exitCode = 1;
+    return;
+  }
+
+  console.log(`\nAll ${FIXTURES.length} fixture(s) ran and were written.`);
 }
 
 /** Fixture ids are kebab-case ("unpaid-invoice-clean"); files are camelCase, matching the .fixture.ts/.expected.md naming already committed. */
@@ -132,4 +182,17 @@ function toFileId(fixtureId: string): string {
   return fixtureId.replace(/-([a-z])/g, (_, c: string) => c.toUpperCase());
 }
 
-main();
+// Entrypoint guard — runFullClaimTypeSurvey.ts lacked one and importing it
+// silently re-ran 19 billed journeys. This harness bills three full fixtures
+// (~130 requests), and the OpenAI project is capped per day, so an accidental
+// import must not spend that. The explicit .catch() also replaces the previous
+// bare main() call, whose rejection was left to Node's unhandled-rejection
+// handler.
+const isDirect = process.argv[1] ? import.meta.url === pathToFileURL(process.argv[1]).href : false;
+
+if (isDirect) {
+  void main().catch((error: unknown) => {
+    console.error("Fixture harness threw:", error instanceof Error ? error.message : error);
+    process.exitCode = 1;
+  });
+}
