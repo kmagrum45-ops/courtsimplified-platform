@@ -22,11 +22,23 @@ type CaseRow = DashboardCaseShell & {
   updated_at: string;
 };
 
-function statusTone(count: number) {
-  if (count === 0) return "text-red-700 bg-red-50 border-red-200";
-  if (count < 3) return "text-amber-700 bg-amber-50 border-amber-200";
-  return "text-emerald-700 bg-emerald-50 border-emerald-200";
-}
+// statusTone() was removed here (Session 48), found by the journey
+// invariant suite's static arm.
+//
+// It coloured the Parties / Facts / Issues / Evidence / Proof Map /
+// Items-to-Confirm tiles by how many entries each held: 0 red, fewer than
+// 3 amber, 3 or more emerald. So a section the user had not filled in yet
+// rendered as RED — the site telling them, without words, that their case
+// file was deficient. An absent section is a fact about the file, not a
+// deficiency, and "3 or more is good" is a threshold nothing supports.
+//
+// Same construct and same reasoning as readinessTone(), removed from this
+// page in dc3934c. It survived that pass because the pass was looking at
+// the readiness bar rather than the tiles.
+//
+// The tiles now share one neutral tone and still show their counts, which
+// is the fact the user actually needs.
+const NEUTRAL_TILE_TONE = "text-[#10231f] bg-white border-[#d7e7e5]";
 
 // readinessTone() was removed with the readiness score it coloured: a
 // red/amber/green bar keyed to a 0-100 number is itself a grading of the
@@ -255,7 +267,7 @@ export default function CaseWorkspacePage() {
           ].map(([label, value]) => (
             <div
               key={label}
-              className={`rounded-3xl border p-6 shadow-sm ${statusTone(Number(value))}`}
+              className={`rounded-3xl border p-6 shadow-sm ${NEUTRAL_TILE_TONE}`}
             >
               <p className="text-sm font-semibold uppercase tracking-wide">
                 {label}

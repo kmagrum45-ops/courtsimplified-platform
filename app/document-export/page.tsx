@@ -119,17 +119,24 @@ function ExportSection({
   );
 }
 
-function getExportTone(score: number) {
-  if (score >= 80) return "border-emerald-200 bg-emerald-50 text-emerald-800";
-  if (score >= 50) return "border-amber-200 bg-amber-50 text-amber-900";
-  return "border-red-200 bg-red-50 text-red-800";
-}
-
-function getExportLabel(score: number) {
-  if (score >= 80) return "Ready for final review";
-  if (score >= 50) return "Needs review before export";
-  return "Needs repair before export";
-}
+// getExportTone() and getExportLabel() were removed here (Session 48),
+// found by the journey invariant suite's static arm.
+//
+// getExportTone(score) returned emerald at >=80, amber at >=50 and red
+// otherwise — an exact twin of readinessTone(), removed from the dashboard
+// in dc3934c for the same reason: a traffic light grades a case with no
+// words at all, and CLAUDE.md section 3 bars grading however it is
+// expressed. It survived that pass because the pass was looking at the
+// readiness bar, not at this page.
+//
+// getExportLabel(score) returned "Ready for final review" / "Needs review
+// before export" / "Needs repair before export" — the same grading in
+// words rather than colour, and arguably worse: "needs repair" states a
+// deficiency in the user's file.
+//
+// Replaced by the completeness count dc3934c established: a plain "N of M"
+// the user can verify against their own file, one neutral tone, no
+// threshold, no label.
 
 function DocumentExportPageContent() {
   const searchParams = useSearchParams();
@@ -300,7 +307,10 @@ function DocumentExportPageContent() {
 
   const readyCount = exportDocuments.filter((item) => item.ready).length;
   const missingCount = exportDocuments.filter((item) => !item.ready).length;
-  const exportScore = Math.round((readyCount / exportDocuments.length) * 100);
+  // exportScore (readyCount / total as a percentage) was removed with the
+  // two cards that rendered it. A percentage over a case file reads as a
+  // grade regardless of its label; readyCount and exportDocuments.length
+  // carry the same information as a verifiable count.
 
   const exportRisks = [
     ...(caseData?.analysis?.risksAndGaps || []),
@@ -405,18 +415,13 @@ function DocumentExportPageContent() {
               </p>
             </div>
 
-            <div
-              className={`rounded-2xl border p-4 text-sm ${getExportTone(
-                exportScore,
-              )}`}
-            >
-              <p className="font-semibold">Export Status</p>
-              <p className="mt-2 text-2xl font-bold">{exportScore}%</p>
-              <p className="mt-1 font-semibold">
-                {getExportLabel(exportScore)}
+            <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm text-[#4d675f]">
+              <p className="font-semibold text-[#10231f]">Export items</p>
+              <p className="mt-2 text-2xl font-bold text-[#10231f]">
+                {readyCount} of {exportDocuments.length}
               </p>
-              <p className="mt-2">Ready: {readyCount}</p>
-              <p className="mt-1">Missing: {missingCount}</p>
+              <p className="mt-1">have everything recorded that this export needs</p>
+              <p className="mt-2">Still to complete: {missingCount}</p>
             </div>
           </div>
 
@@ -667,17 +672,25 @@ function DocumentExportPageContent() {
                 </p>
               </div>
 
+              {/*
+                Was: a "Readiness" card showing {exportResult.readinessScore}%
+                over {exportResult.readiness} — a percentage grade plus an
+                ordinal label. Both are gradings of the user's case under
+                CLAUDE.md section 3, in the same class as the dashboard
+                readiness score removed in dc3934c.
+
+                Replaced with the section count, which is a fact about the
+                document the user can check against it. readinessScore and
+                readiness remain on ExportResult as stored data; they are no
+                longer displayed.
+              */}
               <div className="rounded-2xl border border-emerald-200 bg-white p-4">
                 <p className="text-xs font-semibold uppercase text-emerald-700">
-                  Readiness
+                  Sections included
                 </p>
 
                 <p className="mt-1 text-3xl font-bold text-emerald-900">
-                  {exportResult.readinessScore}%
-                </p>
-
-                <p className="mt-1 text-sm font-semibold text-emerald-700 capitalize">
-                  {exportResult.readiness}
+                  {(exportResult.sections || []).length}
                 </p>
               </div>
             </div>

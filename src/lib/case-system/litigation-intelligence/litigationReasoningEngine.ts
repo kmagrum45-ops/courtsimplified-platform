@@ -1,12 +1,17 @@
 export type LitigationReasoningVersion = "1.0.0";
 
-export type LitigationReadinessLevel =
-  | "not-ready"
-  | "weak"
-  | "developing"
-  | "usable"
-  | "strong"
-  | "court-ready";
+/**
+ * Session 48. Replaces LitigationReadinessLevel, which was
+ *   "not-ready" | "weak" | "developing" | "usable" | "strong" | "court-ready"
+ * — an ordinal grading of the user's case, and the same construct as the
+ * "none"|"minor"|"moderate"|"major"|"severe" union removed in c5fce59.
+ * Found by the journey invariant suite's 1e detector.
+ *
+ * These three values describe HOW MUCH of the analysis exists, not how
+ * strong it is. They are positions in a count, and there is no better or
+ * worse among them.
+ */
+export type LitigationAnalysisCoverage = "none" | "partial" | "all";
 
 export type LitigationReasoningSeverity =
   | "info"
@@ -107,7 +112,8 @@ export type LitigationReasoningResult = {
   caseId?: string;
 
   readinessScore: number;
-  readinessLevel: LitigationReadinessLevel;
+  /** How much of the analysis exists — NOT a grade. See LitigationAnalysisCoverage. */
+  readinessLevel: LitigationAnalysisCoverage;
 
   strongestCasePoints: string[];
   weakestCasePoints: string[];
@@ -152,31 +158,31 @@ function severityRank(value: unknown): number {
   return 2;
 }
 
-function confidenceScore(value: unknown): number {
-  const confidence = clean(value).toLowerCase();
+// confidenceScore() was removed with the graded score it served. It mapped
+// "very-high".."very-low" onto 95..15 — a numeric confidence figure derived
+// from an ordinal, feeding a case grade. A section count needs neither.
 
-  if (confidence === "very-high") return 95;
-  if (confidence === "high") return 80;
-  if (confidence === "medium") return 60;
-  if (confidence === "low") return 35;
-  if (confidence === "very-low") return 15;
-
-  return 45;
+/**
+ * Replaces readinessLevelFromScore(), which mapped the old graded score to
+ * "court-ready" / "strong" / "usable" / "developing" / "weak" /
+ * "not-ready" — an ordinal grading of the user's case, and exactly the
+ * construct the invariant suite's 1e detector exists to find.
+ *
+ * This reports how much of the analysis has been built, which is a fact
+ * about the file. "none" and "all" are endpoints of a count, not of a
+ * quality scale: they say how many sections exist, never how good they are.
+ */
+function readinessLevelFromSections(sections: {
+  present: number;
+  total: number;
+}): LitigationAnalysisCoverage {
+  if (sections.present === 0) return "none";
+  if (sections.present >= sections.total) return "all";
+  return "partial";
 }
 
-function readinessLevelFromScore(score: number): LitigationReadinessLevel {
-  if (score >= 90) return "court-ready";
-  if (score >= 75) return "strong";
-  if (score >= 60) return "usable";
-  if (score >= 40) return "developing";
-  if (score >= 20) return "weak";
-  return "not-ready";
-}
-
-function clampScore(value: number): number {
-  if (!Number.isFinite(value)) return 0;
-  return Math.max(0, Math.min(100, Math.round(value)));
-}
+// clampScore() was removed with the graded score. It bounded a value to
+// 0-100, which a count of six analysis sections does not need.
 
 function buildFinding(args: {
   title: string;
@@ -494,38 +500,54 @@ function buildCredibilityFindings(
   return findings;
 }
 
-function calculateReadinessScore(input: LitigationReasoningInput): number {
-  let score = 55;
+/**
+ * Session 48. This replaced a risk-weighted grading score — the FOURTH such
+ * formula in the codebase, after the three removed in dc3934c, and found by
+ * the journey invariant suite's static arm rather than by any manual sweep.
+ *
+ * The old version started at 55 and then:
+ *   += 10   a "dominant" claim theory
+ *   += 10   any proof maps existing
+ *   += 5    per proof map graded "high" or "very-high" strength
+ *   -= 3    per global proof weakness
+ *   -= 5    per evidence proof gap
+ *   -= 6    per contradiction note
+ *   -= 5    per unsafe authority id
+ *   -= 5    per contradiction finding
+ *   -= 25%  of the credibility score
+ *   -= 4    per procedure warning
+ *   -= 3    per workflow warning
+ *
+ * It could not be salvaged by deleting the subtractions the way
+ * courtSimplifiedBrain's calculateReadiness could. That one's ADDITIONS
+ * were completeness checks ("does this section have anything in it"), so
+ * removing the penalties left something factual. Here every term is a
+ * grading, including the additions: "dominant" theory and "high proof
+ * strength" are judgments about the case, not facts about the file. Take
+ * the subtractions away and what remains still grades.
+ *
+ * So the formula is replaced rather than trimmed, with the completeness
+ * count dc3934c established: how many analysis sections have anything in
+ * them, out of how many exist. Verifiable against the case file, weights
+ * nothing, predicts nothing.
+ *
+ * This value is persisted (brainMigrationLayer.ts:82-86 carries it into
+ * masterResultPatch) but is currently rendered by nothing.
+ */
+function calculateSectionsPresent(input: LitigationReasoningInput): {
+  present: number;
+  total: number;
+} {
+  const sections = [
+    (input.proofAnalysis?.claimProofMaps || []).length > 0,
+    (input.claimTheoryModel?.theories || []).length > 0,
+    Boolean(input.evidenceAnalysis),
+    Boolean(input.authorityAnalysis),
+    Boolean(input.contradictionAnalysis),
+    Boolean(input.credibilityAnalysis),
+  ];
 
-  const proofMaps = input.proofAnalysis?.claimProofMaps || [];
-  const theories = input.claimTheoryModel?.theories || [];
-
-  if (theories.some((theory) => theory.status === "dominant")) score += 10;
-  if (proofMaps.length > 0) score += 10;
-
-  const strongProofCount = proofMaps.filter(
-    (map) =>
-      map.overallProofStrength === "high" ||
-      map.overallProofStrength === "very-high",
-  ).length;
-
-  score += strongProofCount * 5;
-
-  score -= (input.proofAnalysis?.globalWeaknesses || []).length * 3;
-  score -= (input.evidenceAnalysis?.proofGaps || []).length * 5;
-  score -= (input.evidenceAnalysis?.contradictionNotes || []).length * 6;
-  score -= (input.authorityAnalysis?.unsafeAuthorityIds || []).length * 5;
-  score -= (input.contradictionAnalysis?.findings || []).length * 5;
-
-  const credibilityScore = input.credibilityAnalysis?.overallScore;
-  if (typeof credibilityScore === "number") {
-    score -= Math.round(credibilityScore * 0.25);
-  }
-
-  score -= (input.procedureWarnings || []).length * 4;
-  score -= (input.workflowWarnings || []).length * 3;
-
-  return clampScore(score);
+  return { present: sections.filter(Boolean).length, total: sections.length };
 }
 
 function buildNextActions(findings: LitigationReasoningFinding[]): string[] {
@@ -548,8 +570,14 @@ export function buildLitigationReasoning(
     ...buildCredibilityFindings(input),
   ];
 
-  const readinessScore = calculateReadinessScore(input);
-  const readinessLevel = readinessLevelFromScore(readinessScore);
+  const sections = calculateSectionsPresent(input);
+  // `readinessScore` keeps its name and number type so every downstream
+  // consumer (brainMigrationLayer, the persisted patch) is unchanged, but
+  // it now carries a COUNT of analysis sections present rather than a
+  // graded score out of 100. `readinessLevel` reports how much of the
+  // analysis exists, not how good the case is.
+  const readinessScore = sections.present;
+  const readinessLevel = readinessLevelFromSections(sections);
 
   const strongestCasePoints = uniqueStrings([
     ...(input.proofAnalysis?.globalStrengths || []),
