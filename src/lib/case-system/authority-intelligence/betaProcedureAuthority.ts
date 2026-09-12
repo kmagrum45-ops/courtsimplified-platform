@@ -248,6 +248,65 @@ function resolveWorkflowGuidance(
   };
 }
 
+/**
+ * THE SILENT-REJECTION BLOCKER, from docs/INTAKE_ENTRY_POINT_DESIGN.md §3.
+ *
+ * `authority_stage_applicability` is a string array on each
+ * legal_form_mapping_rules row, and matching is exact membership. A stage no
+ * row lists produces no verified forms — with no error, no warning and no log
+ * line. The user sees an empty list and cannot tell an empty list apart from
+ * "we have nothing for your stage".
+ *
+ * AUDITED 2026-09-12, and the problem is live rather than hypothetical. All
+ * 30 fully-verified rows carry only five stage values between them:
+ *
+ *   responding 11 | motion 6 | starting-case 5 | already-started 5 | conference 2
+ *   (plus one row carrying "parenting-affidavit", which is a form type rather
+ *    than a stage at all — a data-quality issue worth its own look)
+ *
+ * UniversalStage declares NINE values. Four of them — trial, enforcement,
+ * urgent, not-sure — appear in ZERO rows. A user at trial or in enforcement
+ * silently receives nothing today. That is not a risk introduced by adding
+ * stages; it already exists.
+ *
+ * This makes the condition observable. It does not invent form
+ * recommendations for stages the data does not cover — that would be worse —
+ * it distinguishes "no rows cover this stage" from "rows were checked and did
+ * not apply", so a caller can tell the user which.
+ */
+export const FORM_STAGE_VALUES_WITH_COVERAGE = [
+  "starting-case",
+  "responding",
+  "already-started",
+  "conference",
+  "motion",
+] as const;
+
+export type FormStageSupport =
+  | { supported: true }
+  | { supported: false; reason: "no-stage-supplied" | "stage-has-no-mapping-rows"; stage: string };
+
+/**
+ * Call before resolving, so an unmatched stage is reported rather than
+ * inferred from an empty result.
+ */
+export function resolveFormStageSupport(procedureStage: string): FormStageSupport {
+  const stage = (procedureStage || "").trim();
+  if (!stage) return { supported: false, reason: "no-stage-supplied", stage: "" };
+  if (!(FORM_STAGE_VALUES_WITH_COVERAGE as readonly string[]).includes(stage)) {
+    // Logged with the same [module] prefix convention the codebase already
+    // uses for caseStrengthLanguageValidator and voiceLayer.
+    console.warn(
+      `[betaProcedureAuthority] no legal_form_mapping_rules row lists stage "${stage}" — ` +
+        `zero verified forms will be returned. Covered stages: ${FORM_STAGE_VALUES_WITH_COVERAGE.join(", ")}. ` +
+        `This is a DATA gap, not a code failure: add the stage to the relevant rows' ` +
+        `authority_stage_applicability, or tell the user the stage is not covered.`,
+    );
+    return { supported: false, reason: "stage-has-no-mapping-rows", stage };
+  }
+  return { supported: true };
+}
+
 export function resolveBetaProcedureAuthority(
   record: BetaProcedureAuthorityMetadata,
   context: { courtArea: FormsCourtPath; procedureStage: string; asOf?: Date },

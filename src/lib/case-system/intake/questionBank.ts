@@ -59,6 +59,16 @@ export const KNOWN_FACT_FIELDS = [
   "defenceFactsText",
   "defenceEvidenceText",
   "defendantOutcomeText",
+  // Session 48 — the three defendant gaps INTAKE_ENTRY_POINT_DESIGN.md §1c
+  // identified. All three are verbatim-captured free text, the same shape as
+  // the fields above, never an inferred conclusion. No `caseStage` field is
+  // added: that design's own decision 2 concluded a derived position cannot
+  // drift from the facts it came from, so stage is computed from
+  // claimFiled/claimServed/defenceFiled by deriveCaseStage() rather than
+  // stored. See caseStageDerivation.ts.
+  "serviceMethodText",
+  "counterclaimIntentText",
+  "admissionAndPaymentText",
 ] as const;
 
 export type KnownFactField = (typeof KNOWN_FACT_FIELDS)[number];
@@ -367,6 +377,116 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     sensitive: false,
     phase: "substance",
     reviewedAt: "2026-09-10",
+    status: "reviewed",
+  },
+  {
+    // GAP 2 (INTAKE_ENTRY_POINT_DESIGN.md §1c). The reworked
+    // sc-defendant-noted-in-default asks a PLAINTIFF for date and method of
+    // service, because when service is effective depends on how it was done.
+    // A defendant needs the same two facts for the opposite reason: their own
+    // 20 days under r. 9.01 runs from being served.
+    //
+    // Says what the Rules provide and stops. It does NOT compute a date, and
+    // says so -- the regulation never states how the service-effectiveness
+    // provisions compose with r. 3.01's counting rule, and 3fdccdc
+    // established that recording that silence beats inferring a default.
+    id: "sc-defendant-service-method",
+    courtArea: "small-claims",
+    appliesWhen: { field: "role", op: "equals", value: "defendant" },
+    text:
+      "How was the Plaintiff's Claim delivered to you -- handed to you in person, left with someone " +
+      "else, sent by registered mail or courier, by email, or another way? And what date did that " +
+      "happen?",
+    why:
+      "A defendant who wants to dispute a claim has 20 days from being served to serve and file a " +
+      "Defence. When service counts as effective depends on how it was done: in person, it is the " +
+      "day it happened; where a claim is sent to an individual's home by registered mail or courier " +
+      "and a signature verifying receipt is obtained, the Rules make service effective on the date " +
+      "that signature shows receipt, not the date of mailing. (The separate five-day rule for " +
+      "documents sent by mail or courier expressly does NOT apply to a claim served that way.) " +
+      "The Rules also count a period by excluding the first day and including the last, and if the " +
+      "last day falls on a holiday the period ends on the next day that is not a holiday -- with " +
+      "\"holiday\" defined to include any Saturday or Sunday, so weekends in between are counted and " +
+      "extend nothing. " +
+      "What the Rules do NOT say is how those two things interact -- whether the effective day is " +
+      "the excluded first day, for instance. Because the regulation is silent on that, this site " +
+      "does not calculate the date for you. These are the facts to write down so you can work it " +
+      "out, and the court or a licensed paralegal or lawyer can confirm it.",
+    sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+    answerType: "short-text",
+    capturesField: "serviceMethodText",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: "2026-09-12",
+    status: "reviewed",
+  },
+  {
+    // GAP 1. Deliberately consistent with claimTypes.ts's
+    // defence-set-off-or-counterclaim, corrected in 3fdccdc, rather than
+    // restating r. 10.01(2) independently -- two statements of the same rule
+    // drift, and that entry is the one already reviewed.
+    id: "sc-defendant-counterclaim",
+    courtArea: "small-claims",
+    appliesWhen: { field: "role", op: "equals", value: "defendant" },
+    text:
+      "Do you believe the plaintiff -- or someone else -- owes you money or is responsible for part " +
+      "of what happened? And have you already started your own claim about it?",
+    why:
+      "A defendant can bring their own claim against the plaintiff or someone else as part of the " +
+      "same case, called a Defendant's Claim (Form 10A). The Rules say it may be ISSUED within 20 " +
+      "days after the day the defence is filed -- issuing and filing are different steps, and the " +
+      "20 days runs from the day the defence was filed, not from when it was served or received. " +
+      "Missing that window does not end it: after those 20 days a Defendant's Claim may still be " +
+      "issued with leave of the court, at any point before trial or default judgment. After trial " +
+      "or default judgment that route is no longer available. Once issued it still has to be served " +
+      "on every person it is made against. " +
+      "Whether any of that fits your situation is yours to decide -- this question only records what " +
+      "you think happened and what you have done so far.",
+    sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+    answerType: "short-text",
+    capturesField: "counterclaimIntentText",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: "2026-09-12",
+    status: "reviewed",
+  },
+  {
+    // GAP 3. r. 9.03, sourced directly from O. Reg. 258/98. A common
+    // defendant position the question bank had no route for at all: many
+    // people do not dispute owing money, they dispute paying it at once.
+    //
+    // Asks what the person wants and what they can manage. It does not
+    // suggest they should admit anything, and does not characterise their
+    // position -- admitting liability is a decision with real consequences
+    // and is theirs alone.
+    id: "sc-defendant-admission-payment",
+    courtArea: "small-claims",
+    appliesWhen: { field: "role", op: "equals", value: "defendant" },
+    text:
+      "Is there any part of this claim you accept you owe? If there is, is the difficulty the amount " +
+      "itself, or being able to pay it all at once?",
+    why:
+      "The Rules provide a route for this. A defendant who admits liability for all or part of the " +
+      "plaintiff's claim but wants to arrange terms of payment may, IN THE DEFENCE, admit liability " +
+      "and propose terms of payment. " +
+      "What happens next depends on the plaintiff. If the plaintiff does not dispute the proposal " +
+      "within 20 days after service of the defence, the defendant must then make payment in " +
+      "accordance with the proposal AS IF IT WERE A COURT ORDER -- and if they do not, the plaintiff " +
+      "can serve a notice of default of payment (Form 20L), and the clerk signs judgment for the " +
+      "unpaid balance once 15 days have passed since that notice was served. " +
+      "If the plaintiff does dispute it, they file and serve a request to clerk (Form 9B) for a terms " +
+      "of payment hearing, and the clerk fixes a time and serves notice of the hearing. " +
+      "Whether to admit any part of a claim is a significant decision and entirely yours. This " +
+      "question only records what you tell us.",
+    sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+    answerType: "short-text",
+    capturesField: "admissionAndPaymentText",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: "2026-09-12",
     status: "reviewed",
   },
   {

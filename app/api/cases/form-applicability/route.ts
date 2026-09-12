@@ -5,6 +5,7 @@ import {
   resolveExactFormMapping,
   type BetaProcedureAuthorityMetadata,
   type ExactCatalogFormProvenance,
+  resolveFormStageSupport,
 } from "../../../../src/lib/case-system/authority-intelligence/betaProcedureAuthority";
 import { getCanonicalFormLookup, type FormsCourtPath } from "../../../../src/lib/case-system/formsSelectedCase";
 import { getAuthenticatedOwnedCase, getAuthenticatedUser } from "../../../../src/lib/supabase/serverAuth";
@@ -168,9 +169,13 @@ async function readinessForOwnedCase(request: Request, caseId: string) {
   if (mappingsError) return { error: "Could not load verified form mappings.", status: 500 } as const;
   const activeMappings = (mappings || []) as MappingRow[];
   const stage = procedureStage(masterResult);
+  // Blocker fix (INTAKE_ENTRY_POINT_DESIGN.md §3): an unmatched stage silently
+  // produced zero verified forms — no error, no log line, and a user who
+  // could not tell that apart from "nothing applies to you". Now reported.
+  const stageSupport = resolveFormStageSupport(stage);
   const applicabilityQuestions = questionsForMappings(activeMappings, area, stage);
   const ids = activeMappings.map((mapping) => text(mapping.canonical_form_id)).filter(Boolean);
-  if (!ids.length) return { area, masterResult, applicabilityQuestions, recommendations: [] } as const;
+  if (!ids.length) return { area, masterResult, applicabilityQuestions, recommendations: [], stageSupport } as const;
   const { data: catalog, error: catalogError } = await supabase.from("court_form_library").select("canonical_form_id,court_type,official_title,form_source_id,official_source_url,form_revision_or_effective_at,form_checked_at,form_review_status").eq("court_type", area).eq("is_active", true).in("canonical_form_id", ids);
   if (catalogError) return { error: "Could not load verified form catalogue records.", status: 500 } as const;
   const catalogById = new Map<string, CleanCatalogForm>();
@@ -183,7 +188,7 @@ async function readinessForOwnedCase(request: Request, caseId: string) {
     const description = verifiedUseDescription(mapping, area);
     return lookup && form ? [{ canonicalFormId: lookup.canonicalFormId, courtType: lookup.courtType, officialTitle: form.official_title, officialSourceUrl: text(form.official_source_url), revisionOrEffectiveAt: text(form.form_revision_or_effective_at), ...(description ? { verifiedUseDescription: description } : {}) }] : [];
   });
-  return { area, masterResult, applicabilityQuestions, recommendations } as const;
+  return { area, masterResult, applicabilityQuestions, recommendations, stageSupport } as const;
 }
 
 export async function GET(request: Request) {
