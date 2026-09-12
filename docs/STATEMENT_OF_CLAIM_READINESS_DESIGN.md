@@ -504,12 +504,22 @@ whether the user has **answered**, never whether the answer is **good enough**.
    assumes it is freely changeable — a user who later finds a document should be
    able to switch it to *provided*. No reason to lock it, but worth confirming.
 
-2. **Should the draft be available at all where no claim type matched?** §3 says
-   no, because there are no elements to derive from. The engine would technically
-   still run with `matchedClaimType: null`. Withholding it is the safer default
-   and matches the existing "no specific match" copy — but it does leave a user
-   in an unmatched situation with nothing, which is the same trap §4 argues
-   against in a different form. Flagged rather than silently decided.
+2. ~~**Should the draft be available at all where no claim type matched?**~~
+   **RESOLVED by the site owner — see `docs/UNMATCHED_CLAIM_TYPE_DESIGN.md`.**
+   This spec said no (§3: there are no elements to derive from), while flagging
+   that a bare refusal leaves the user with nothing, which is the same trap §4
+   argues against in a different form. That tension was real, and the answer is
+   neither option this spec weighed: **not a weaker draft, and not an empty-
+   handed user.** Instead the site explains why a kind of claim has to be
+   identified before a Statement of Claim can exist, presents every claim type it
+   covers with each one's own sourced `plainExplanation`, and lets the user
+   recognize their own situation and choose — a selection that then flows into
+   the same per-element state map as a confirmed classifier suggestion, so
+   nothing downstream branches on how the claim type was arrived at. Where the
+   user says none fit, they get a jurisdiction route or an honest statement that
+   the site does not cover this yet. So §3's holding stands unchanged — **no
+   draft without a confirmed claim type** — but the unmatched path is no longer
+   a dead end, which is what §4's argument actually required.
 
 3. **Does approving a draft need to persist an approval record**, or is the
    approval purely a UI step before download/edit? Pattern B persists
