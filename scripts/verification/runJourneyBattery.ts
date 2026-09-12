@@ -88,7 +88,7 @@ const DEFENDANT_ANSWERS: Record<string, string> = {
 };
 
 /** Deliberately avoids every `signals` phrase, so the exact matcher cannot fire. */
-const JOURNEYS: Journey[] = [
+export const JOURNEYS: Journey[] = [
   // --- A: paraphrase-only -------------------------------------------
   {
     id: "A1-paraphrase-unpaid-services", category: "A",
