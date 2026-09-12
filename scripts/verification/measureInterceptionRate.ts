@@ -26,6 +26,11 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 import { runStoryThroughPipeline } from "./fixtures/pipelineRunner";
+import {
+  PIPELINE_JOURNEY_TIMEOUT_MS,
+  withTimeout,
+  describeRunDegradation,
+} from "./pipelineGuards";
 import { JOURNEYS } from "./runJourneyBattery";
 import {
   setInterceptionContext,
@@ -41,34 +46,13 @@ type RunResult = {
   runIndex: number;
   total: number;
   interceptions: SanitizerInterception[];
-  /** Journeys that threw or timed out. See JOURNEY_TIMEOUT_MS. */
+  /** Journeys that threw, timed out, or completed in a degraded state. */
   failures: { id: string; reason: string }[];
 };
 
-/**
- * Per-journey ceiling. A journey is ~11 turns of 3-4 API calls; a minute and
- * a half is generous for that and still bounded.
- *
- * WHY: a measurement run against an exhausted daily quota stalled for over
- * two hours. The OpenAI client returned 429s, the voice layer logged "empty
- * response or timeout", and one call never settled — so `await` never
- * returned and the harness sat there looking alive. Nothing here bounded it.
- */
-const JOURNEY_TIMEOUT_MS = 90_000;
-
-async function withTimeout<T>(work: Promise<T>, ms: number): Promise<T> {
-  let timer: NodeJS.Timeout | undefined;
-  try {
-    return await Promise.race([
-      work,
-      new Promise<never>((_resolve, reject) => {
-        timer = setTimeout(() => reject(new Error(`timed out after ${ms}ms`)), ms);
-      }),
-    ]);
-  } finally {
-    if (timer) clearTimeout(timer);
-  }
-}
+// The per-journey ceiling, the timeout wrapper, and the silent-degradation
+// check now live in pipelineGuards.ts, shared with runFixtures.ts so the two
+// harnesses cannot drift apart on what counts as a failed run.
 
 function arg(name: string, fallback: string): string {
   const hit = process.argv.find((a) => a.startsWith(`--${name}=`));
@@ -125,7 +109,15 @@ async function main() {
       clearInterceptions();
       setInterceptionContext(j.id);
       try {
-        await withTimeout(runStoryThroughPipeline(j, apiKey), JOURNEY_TIMEOUT_MS);
+        const run = await withTimeout(
+          runStoryThroughPipeline(j, apiKey),
+          PIPELINE_JOURNEY_TIMEOUT_MS,
+        );
+        // A 429 inside the brain's cognition call does not throw — it falls
+        // back to canned text and the journey "succeeds". Counting that as a
+        // clean journey is the same downward bias as swallowing a throw.
+        const degraded = describeRunDegradation(run);
+        if (degraded) throw new Error(degraded);
       } catch (error) {
         // A failed journey produces ZERO interceptions, which is
         // indistinguishable from a clean one in the totals. Silently
