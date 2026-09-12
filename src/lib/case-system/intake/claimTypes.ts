@@ -1468,8 +1468,20 @@ export const CLAIM_TYPES: ClaimType[] = [
         plainExplanation:
           "An employer must provide written notice of termination, termination pay, or a combination " +
           "equal to the required notice period, which ranges from 1 week (under 1 year of employment) " +
-          "up to 8 weeks (8 years or more), based on length of service.",
-        sourceUrl: "https://www.ontario.ca/document/your-guide-employment-standards-act-0/termination-employment",
+          "up to 8 weeks (8 years or more), based on length of service. " +
+          "IMPORTANT: that Employment Standards Act scale is a statutory FLOOR, not the whole picture. " +
+          "\"Wrongful dismissal\" is a common-law action, and the Supreme Court of Canada has " +
+          "described it as based on an implied obligation in the employment contract to give " +
+          "REASONABLE notice of an intention to end the relationship where there is no just cause. " +
+          "Reasonable notice at common law is frequently longer than the ESA minimum, and is assessed " +
+          "case by case. The Court has applied four factors from the Bardal case: the character of " +
+          "the employment, the length of service, the employee's age, and the availability of similar " +
+          "employment having regard to the employee's experience, training and qualifications. The " +
+          "Court has been explicit there can be \"no catalogue laid down\" of what is reasonable for " +
+          "particular classes of case -- it depends on the individual's particular circumstances. " +
+          "Working out what notice period a given situation calls for is exactly the kind of " +
+          "assessment this platform does not do; it is a question for a licensed paralegal or lawyer.",
+        sourceUrl: "docs/sources/honda-canada-v-keays-2008-SCC-39.pdf",
         evidenceCategories: [
           {
             name: "Termination correspondence",
@@ -1503,6 +1515,22 @@ export const CLAIM_TYPES: ClaimType[] = [
         whenThisComesUp: "When the employer's Defence disputes the employment dates or how notice was calculated, not just whether any is owed.",
         sourceUrl: "https://www.ontario.ca/document/your-guide-employment-standards-act-0/termination-employment",
       },
+      {
+        id: "employer-relies-on-termination-clause",
+        name: "The employer relies on a termination clause in the employment contract",
+        plainExplanation:
+          "The common-law presumption of reasonable notice can be rebutted, but only by an agreement " +
+          "that clearly specifies some other notice period. Where an employer points to a termination " +
+          "clause, the Supreme Court of Canada has held that a clause providing LESS than the " +
+          "statutory minimum is null and void -- the Employment Standards Act, 2000 makes any " +
+          "contracting out of or waiver of an employment standard void -- and that such a clause " +
+          "cannot then be used even as evidence of what the parties intended. The result is that the " +
+          "presumption of reasonable notice is not rebutted and the common-law entitlement applies. " +
+          "Whether a particular clause is valid is a legal question about that specific wording, and " +
+          "is not something this content can answer.",
+        whenThisComesUp: "When the Defence says the contract already set out what was owed on termination and that amount was paid.",
+        sourceUrl: "docs/sources/machtinger-v-hoj-industries-1992-1-SCR-986.pdf",
+      },
     ],
     applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim", "defence-failure-to-mitigate"],
     remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
@@ -1513,6 +1541,29 @@ export const CLAIM_TYPES: ClaimType[] = [
           "$50,000 monetary jurisdiction; larger wrongful dismissal claims generally go to a " +
           "different court.",
         sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+      },
+      {
+        note:
+          "CHOOSING BETWEEN THE TWO ROUTES MATTERS, AND THE CHOICE CAN BE FINAL. An employee who " +
+          "files a complaint under the Employment Standards Act, 2000 alleging an entitlement to " +
+          "termination pay or severance pay MAY NOT commence a civil proceeding for wrongful " +
+          "dismissal if the complaint and the proceeding would relate to the same termination or " +
+          "severance of employment. There is one way back: an employee who withdraws the complaint " +
+          "within two weeks after filing it may then commence a civil proceeding. Otherwise, apart " +
+          "from that bar, the Act does not affect an employee's civil remedies against their " +
+          "employer. Because the ESA route is capped at the statutory minimum while a civil " +
+          "wrongful-dismissal action is for common-law reasonable notice, which route to take is a " +
+          "consequential decision worth getting advice on before filing anything.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/00e41_e.doc",
+      },
+      {
+        note:
+          "The Employment Standards Act, 2000 also states that where a provision of an employment " +
+          "contract (or another Act) directly relating to the same subject matter as an employment " +
+          "standard gives the employee a GREATER benefit, that provision applies and the employment " +
+          "standard does not. The statutory scale is a floor that a contract can improve on, not a " +
+          "ceiling.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/00e41_e.doc",
       },
     ],
     signals: [
@@ -1535,6 +1586,34 @@ export const CLAIM_TYPES: ClaimType[] = [
         officialUrl: "https://www.ontario.ca/document/your-guide-employment-standards-act-0/termination-employment",
         verifiedAt: "2026-09-07",
         pinpoint: "3-month minimum employment; 1-8 week notice period by length of service",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Honda Canada Inc. v. Keays, 2008 SCC 39",
+        officialUrl: "docs/sources/honda-canada-v-keays-2008-SCC-39.pdf",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "para. 50 -- \"An action for wrongful dismissal is based on an implied obligation in the employment contract to give reasonable notice of an intention to terminate the relationship in the absence of just cause\"; paras. 28-31 -- the four Bardal factors (character of the employment, length of service, age, availability of similar employment having regard to experience, training and qualifications), adopted by the Court in Machtinger, determinable only case by case, with \"no catalogue laid down as to what is reasonable notice in particular classes of cases\"",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Machtinger v. HOJ Industries Ltd., [1992] 1 S.C.R. 986",
+        officialUrl: "docs/sources/machtinger-v-hoj-industries-1992-1-SCR-986.pdf",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "Reasons of Iacobucci J. (La Forest, L'Heureux-Dube, Sopinka, Gonthier and Cory JJ. concurring) -- termination on reasonable notice is a presumption, rebuttable only if the contract clearly specifies some other notice period; a termination clause providing less than the statutory minimum is null and void and \"cannot be used as evidence of the parties' intention\", so the presumption of reasonable notice is not rebutted; the statutory minimum notice periods do not themselves displace the common-law presumption. (Scanned PDF with no text layer -- read via the decisions.scc-csc.ca HTML-fallback route per docs/SOURCING_NOTES.md.)",
+      },
+      {
+        sourceName: "Employment Standards Act, 2000, S.O. 2000, c. 41",
+        officialUrl: "https://www.ontario.ca/laws/docs/00e41_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "s.5(1): no contracting out of or waiver of an employment standard -- any such contracting out or waiver is void; s.5(2): a contract or other Act giving a greater benefit on the same subject matter applies instead of the employment standard; s.8(1): subject to s.97, no civil remedy of an employee against their employer is affected by the Act",
+      },
+      {
+        sourceName: "Employment Standards Act, 2000, S.O. 2000, c. 41",
+        officialUrl: "https://www.ontario.ca/laws/docs/00e41_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "s.97(2): an employee who files a complaint under the Act alleging an entitlement to termination pay or severance pay may not commence a civil proceeding for wrongful dismissal relating to the same termination or severance; s.97(4): unless the complaint is withdrawn within two weeks after it is filed",
       },
     ],
     reviewedAt: null,
