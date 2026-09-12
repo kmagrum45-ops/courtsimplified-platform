@@ -910,9 +910,11 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "goods-delivered",
         name: "The goods were delivered or made available as agreed",
         plainExplanation:
-          "Small Claims Court's jurisdiction covers claims for payment of money -- this element is " +
-          "about showing the goods were actually provided.",
-        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "The person bringing the claim generally has to show, on a balance of probabilities, that " +
+          "the goods were actually delivered to the buyer, or otherwise made available to them in the " +
+          "way the agreement provided for.",
+        sourceUrl:
+          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
         evidenceCategories: [
           {
             name: "Proof of delivery",
@@ -925,14 +927,32 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "amount-unpaid-goods",
         name: "The amount claimed is accurate and remains unpaid",
         plainExplanation:
-          "Interest and costs are handled separately from, and in addition to, the amount claimed " +
-          "itself.",
-        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "The person bringing the claim generally has to show, on a balance of probabilities, what " +
+          "price was agreed for the goods, what -- if anything -- the buyer has already paid, and what " +
+          "remains outstanding.",
+        sourceUrl:
+          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
         evidenceCategories: [
           {
             name: "Invoice or statement of account",
             why: "Shows exactly how the unpaid amount was calculated.",
             examples: ["Itemized invoice", "Payment history", "Outstanding balance statement"],
+          },
+        ],
+      },
+      {
+        id: "amount-within-jurisdiction-goods-sold",
+        name: "The amount claimed falls within Small Claims Court's jurisdiction",
+        plainExplanation:
+          "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
+          "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
+          "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        evidenceCategories: [
+          {
+            name: "Cost documentation",
+            why: "Supports the specific dollar amount claimed.",
+            examples: ["Invoice or record of the agreed price", "Running total of what remains unpaid"],
           },
         ],
       },
@@ -999,6 +1019,12 @@ export const CLAIM_TYPES: ClaimType[] = [
         officialUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
         verifiedAt: "2026-08-31",
       },
+      {
+        sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
+        officialUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint: "s.23(1)(a): Small Claims Court has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount, exclusive of interest and costs",
+      },
     ],
     reviewedAt: null,
     status: "draft",
@@ -1042,14 +1068,32 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "loss-amount-cpa",
         name: "A specific loss resulted",
         plainExplanation:
-          "Small Claims Court's jurisdiction covers claims for money or the return of personal " +
-          "property, up to $50,000.",
-        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "The person bringing the claim generally has to show, on a balance of probabilities, that " +
+          "they actually suffered a loss, and what that loss was -- put in specific terms, not left " +
+          "as a general sense of having been treated unfairly.",
+        sourceUrl:
+          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
         evidenceCategories: [
           {
             name: "Payment and cost records",
             why: "Supports the dollar amount lost.",
             examples: ["Receipt or invoice", "Bank or credit card statement", "Refund correspondence"],
+          },
+        ],
+      },
+      {
+        id: "amount-within-jurisdiction-cpa",
+        name: "The amount claimed falls within Small Claims Court's jurisdiction",
+        plainExplanation:
+          "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
+          "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
+          "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        evidenceCategories: [
+          {
+            name: "Cost documentation",
+            why: "Supports the specific dollar amount claimed.",
+            examples: ["Receipt or invoice showing what was paid", "Records documenting the loss claimed"],
           },
         ],
       },
@@ -1093,6 +1137,12 @@ export const CLAIM_TYPES: ClaimType[] = [
         officialUrl: "https://www.ontario.ca/page/your-rights-under-consumer-protection-act",
         verifiedAt: "2026-09-07",
         pinpoint: "false/misleading/deceptive representations; 1-year withdrawal notice period",
+      },
+      {
+        sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
+        officialUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint: "s.23(1)(a): Small Claims Court has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount, exclusive of interest and costs",
       },
     ],
     reviewedAt: null,
@@ -1144,14 +1194,33 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "loss-amount-contractor",
         name: "The amount claimed reflects the cost of repair or loss",
         plainExplanation:
-          "Small Claims Court's jurisdiction covers claims for money, up to $50,000, not counting " +
-          "interest and costs.",
-        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "The person bringing the claim generally has to show, on a balance of probabilities, what " +
+          "it actually costs to repair or replace what was damaged -- the amount claimed should " +
+          "reflect that documented cost, not an estimate of how much the damage felt like it was " +
+          "worth.",
+        sourceUrl:
+          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
         evidenceCategories: [
           {
             name: "Repair cost documentation",
             why: "Supports the specific dollar amount claimed.",
             examples: ["Repair invoice", "Replacement cost quote", "Amount already paid to the original contractor"],
+          },
+        ],
+      },
+      {
+        id: "amount-within-jurisdiction-contractor",
+        name: "The amount claimed falls within Small Claims Court's jurisdiction",
+        plainExplanation:
+          "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
+          "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
+          "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        evidenceCategories: [
+          {
+            name: "Cost documentation",
+            why: "Supports the specific dollar amount claimed.",
+            examples: ["Repair invoice or quote", "Replacement cost quote"],
           },
         ],
       },
@@ -1199,6 +1268,12 @@ export const CLAIM_TYPES: ClaimType[] = [
         sourceName: "Ontario.ca — Guide to Procedures in Small Claims Court: Making a Claim",
         officialUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
         verifiedAt: "2026-08-31",
+      },
+      {
+        sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
+        officialUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint: "s.23(1)(a): Small Claims Court has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount, exclusive of interest and costs",
       },
     ],
     reviewedAt: null,
