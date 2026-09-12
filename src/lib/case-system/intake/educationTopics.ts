@@ -150,13 +150,36 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
       "Small Claims Court in Ontario can only order payment or return of property up to $50,000, " +
       "not counting interest and court costs. This limit applies to the total amount claimed, not " +
       "each individual issue in a case. If a claim is worth more than that, it generally has to go " +
-      "to a different court (the Superior Court of Justice) instead.",
+      "to a different court (the Superior Court of Justice) instead. " +
+      "THE LIMIT ALSO WORKS IN THE OTHER DIRECTION, which is less widely known. Since July 1, 2024, " +
+      "the Courts of Justice Act provides that an action WITHIN Small Claims Court's jurisdiction " +
+      "shall not be commenced in the Superior Court of Justice except with leave of that court, as " +
+      "provided in the rules of court. So for a claim under the limit, Small Claims Court and the " +
+      "Superior Court are not a free choice between two open doors -- starting in the Superior Court " +
+      "requires the court's permission first. " +
+      "There is an exception: that restriction does not apply to a counterclaim, crossclaim, or " +
+      "third or subsequent party claim where the main action was already commenced in the Superior " +
+      "Court of Justice.",
     citations: [
       {
         sourceName: "Ontario.ca — Suing Someone in Small Claims Court",
         officialUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
         verifiedAt: "2026-08-31",
         pinpoint: "monetary jurisdiction increased from $35,000 to $50,000, effective October 1, 2025",
+      },
+      {
+        sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
+        officialUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+        verifiedAt: "2026-09-12",
+        pinpoint:
+          "s.23(1): Small Claims Court's jurisdiction in actions for payment of money and recovery of possession of personal property up to the prescribed amount, exclusive of interest and costs",
+      },
+      {
+        sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
+        officialUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+        verifiedAt: "2026-09-12",
+        pinpoint:
+          "s.23(1.1): \"An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court.\" Added by 2023, c. 12, Sched. 3, s. 1 — in force 01/07/2024. s.23(1.2): does not apply to a counterclaim, crossclaim or third or subsequent party claim where the main action was commenced in the Superior Court of Justice",
       },
     ],
     reviewedAt: "2026-09-08",

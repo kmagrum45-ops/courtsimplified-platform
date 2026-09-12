@@ -105,6 +105,22 @@ version suffix as historical until that header proves otherwise. The plain
 `_e.doc` form is the one to cite; treat the rest of the filename pattern as
 a starting guess to try, not a template to construct blindly.
 
+### CJA s.23(1.1) — leave IS required to start a within-jurisdiction claim in the Superior Court. CONFIRMED, not a rumour
+
+Recorded because it entered the register as *"secondhand and unsourced — verify against the CJA before acting"* (from an Annual Practice extraction), and a future session should not have to re-verify it from scratch.
+
+**Confirmed directly** (Session 48) against `ontario.ca/laws/docs/90c43_e.doc`, consolidation from 2025-12-11:
+
+> **s.23(1.1)** — "An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court."
+
+Added by **2023, c. 12, Sched. 3, s. 1**, and the Act's own section-amendments table gives the in-force date as **01/07/2024** — exactly as the secondhand report claimed, including the date. The statute is the *Strengthening Safety and Modernizing Justice Act, 2023*.
+
+**The exception matters as much as the rule. s.23(1.2):** the restriction does not apply to a counterclaim, crossclaim, or third or subsequent party claim where the main action was already commenced in the Superior Court.
+
+**What it means for content:** a claim under $50,000 is *not* a free election between Small Claims and the Superior Court. Note what s.23(1.1) displaces — s.11(2), the Superior Court's inherent "all the jurisdiction, power and authority historically exercised by courts of common law and equity." That is why the subsection is phrased "despite subsection 11 (2)".
+
+**Checked and found clean:** `courtPathClassifier.ts` does not mention the Superior Court at all, and the two places that route users there (`sc-route-exceeds-jurisdiction-superior-court`, and `sc-topic-monetary-limit`'s "if a claim is worth more than that") both concern claims *over* the limit, which s.23(1.1) does not touch. **So nothing asserted a free election — the defect was omission, not error.** Now stated in `sc-topic-monetary-limit`.
+
 ### Limitations Act, 2002 — two provisions worth knowing before re-deriving them
 
 Read directly (`ontario.ca/laws/docs/02l24_e.doc`, extracted with
