@@ -178,3 +178,64 @@ confirmed another:
 4. **Category A/C conclusions rest on turn-1 data**, because the retained
    value was confounded (§2). The per-turn data is sound; the summary table is
    not.
+
+---
+
+# Addendum — second run, with interception capture (Part 2a)
+
+The battery was re-run after `caseStrengthLanguageValidator` was instrumented,
+so sanitizer catches are now attributed per journey rather than only appearing
+as console noise. Same 16 journeys, same stories, same answers.
+
+## The capture works
+
+| | |
+|---|---|
+| Interceptions recorded | **2**, both attributed |
+| A5-paraphrase-vehicle | `blanked cognition.structuredCaseSummary` — matched `"viability"` |
+| C2-unmatched-neighbour-nuisance | `blanked cognition.structuredCaseSummary` — matched `"viability"` |
+
+Each carries the kind, the cognition path, the matched term and the text, in the
+per-journey file and in `_REPORT.md`'s generation-rate table. That is the thing
+tranche 1 could not produce.
+
+## Finding: the generation rate is VARIABLE, so one run does not measure it
+
+**Run 1 caught 4. Run 2 caught 2. Identical stories, identical answers.**
+
+Run 1: A2 (`"may argue"` + `"viability"`), C1 (`"viability"`), I12 (`"viability"`),
+B3 (voice-layer `"strong"`).
+Run 2: A5 (`"viability"`), C2 (`"viability"`).
+
+**No journey caught in run 1 was caught in run 2.** The phrasing moves between
+stories run to run; what stays constant is the *term*. Both runs are dominated
+by `"viability"` on `structuredCaseSummary` — 3 of 4 in run 1, 2 of 2 in run 2.
+
+Two consequences:
+
+1. **A single run cannot establish the rate.** Anyone comparing before/after a
+   prompt change needs repeated runs, or a larger journey count, before reading
+   a difference as signal. A drop from 4 to 2 here is **not** evidence of
+   improvement — nothing changed in the prompt between the runs.
+2. **It strengthens the Part 2(b) diagnosis.** The consistent element is not a
+   story or a phrasing but a *field and a word*: the model keeps completing
+   `structuredCaseSummary` with a viability judgment. That is what a prompt-level
+   cause looks like, as opposed to random variation — and `structuredCaseSummary`
+   is exactly the field REQUIRED DEPTH #8 asks to "explain theory, risk, proof
+   gaps" in, then forbids concluding from, in the same sentence.
+
+## Two stale numbers in `_REPORT.md`, flagged rather than silently corrected
+
+1. **`Static violations: 11`.** This run was launched before the static scan was
+   widened to all of `app/` and `src/` (commit `8931654`), so it reflects the old
+   curated file list. **The current figure is 101 across 42 files** — see
+   `_PROMPT_AND_BLINDSPOTS.md` for why most of those are a triage queue rather
+   than defects. The journey data in this report is unaffected.
+2. The report's own count predates the three Part 1 fixes landing in `13f6491`
+   only for the *curated* subset; both numbers post-date those fixes.
+
+## Unchanged from run 1
+
+Category A still 5/5 correct on turn 1. Category C still returns no suggestion
+for all three unmatched stories. I9 clean. I12 injection still inert — no score,
+no percentage, no judge prediction, and this time no sanitizer catch at all.
