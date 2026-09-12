@@ -96,16 +96,16 @@ boundary because they all call `useSearchParams()`.
 
 ## 3. Which API routes require authentication
 
-The four **analyze** routes share one deliberate pattern: the AI is never
+The three **analyze** routes share one deliberate pattern: the AI is never
 invoked for an anonymous visitor, and the response always says which engine
-actually ran.
+actually ran. (A fourth, `case-summary`, was deleted in Session 48 — see
+below.)
 
 | Route | Auth check | AI gate | Reports `reasoningMode` |
 |---|---|---|---|
 | `POST /api/small-claims/analyze` | `getAuthenticatedUser(request)` | `authenticated && hasConfiguredServerAi()` | Yes |
 | `POST /api/civil/analyze` | `getAuthenticatedUser(request)` | `authenticated && hasConfiguredServerAi()` | Yes |
 | `POST /api/family/analyze` | `getAuthenticatedUser(request)` | `authenticated && hasConfiguredServerAi()` | Yes |
-| `POST /api/case-summary` | `getAuthenticatedUser(request)` | `authenticated` only — does **not** call `hasConfiguredServerAi()` before setting `allowExternalCognition` | No (returns `sourceEngine` instead) |
 
 `getAuthenticatedUser` ([`src/lib/supabase/serverAuth.ts`](../src/lib/supabase/serverAuth.ts))
 reads the `Authorization: Bearer <token>` header and validates it directly
@@ -117,9 +117,11 @@ why a client-side-only auth stub cannot satisfy it (see §5 and Task 3).
 just checks that `OPENAI_API_KEY` is set server-side. It reveals nothing
 about the key itself.
 
-**Worth flagging:** `case-summary`'s omission of the `hasConfiguredServerAi()`
-check looks like an inconsistency rather than a deliberate design choice —
-worth a decision on whether to align it with the other three.
+**Removed (Session 48):** `POST /api/case-summary` used to appear in the table
+above, and was flagged here for omitting the `hasConfiguredServerAi()` check
+that the other analyze routes perform. The route has been deleted — it had zero
+callers and still emitted outcome-adjacent fields after two cleanup sweeps — so
+that inconsistency went with it.
 
 `classify-court-path` is the only **fully unauthenticated** route among the
 ones that do real reasoning — by design, since Gate A calls it for every
@@ -128,8 +130,8 @@ persists anything and is documented in its own file as suggestion-only.
 
 Routes that check auth (via `getAuthenticatedUser`), grep-confirmed:
 `api/cases`, `api/cases/[id]/evidence`, `api/cases/form-applicability`,
-`api/generate-form`, `api/assistant-chat`, plus the four analyze routes and
-`case-summary` above.
+`api/generate-form`, `api/assistant-chat`, plus the three analyze routes
+above.
 
 Routes with no `getAuthenticatedUser` call (grep-confirmed absent):
 `api/classify-court-path`, `api/evidence-praser`, `api/rules/issues`,
@@ -220,7 +222,7 @@ overridable, not authoritative:
 - **`classify-court-path` route**: its own file comment states it "never
   routes, never persists, and never decides for the user."
 - **Analyze routes**: gate real AI reasoning behind `authenticated &&
-  hasConfiguredServerAi()` (except `case-summary`, §3) and always report
+  hasConfiguredServerAi()` and always report
   which engine ran, so a fallback-engine response is never presented as if
   it were the AI's.
 - **Out-of-scope forum suggestion** (added for the LTB fix, §7): shown with
@@ -242,7 +244,7 @@ court-path taxonomies that were never reconciled:
   Drives the home-gate suggestion (§1) only.
 - `IntelligenceCourtPath` — used by
   [`courtSimplifiedBrain.ts`](../src/lib/case-system/intelligence/courtSimplifiedBrain.ts)
-  and the `case-summary` route. Already includes `"ltb"`, `"immigration"`,
+  and formerly the deleted `case-summary` route. Already includes `"ltb"`, `"immigration"`,
   `"criminal-related"`, `"tribunal"`, `"unknown"` alongside the three in-scope
   paths, but nothing was found wiring those values to any distinct
   out-of-scope UI — `asCourtPath()`-style coercion functions there just
