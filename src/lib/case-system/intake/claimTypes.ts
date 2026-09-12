@@ -1344,7 +1344,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         name: "The amount owing falls within Small Claims Court's monetary jurisdiction",
         plainExplanation:
           "Small Claims Court can only hear claims up to $50,000, excluding interest and costs.",
-        sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
         evidenceCategories: [
           {
             name: "Wage and pay records",
@@ -1660,7 +1660,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         plainExplanation:
           "Small Claims Court can decide claims for money or the return of personal property up to " +
           "$50,000, excluding interest and costs.",
-        sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
         evidenceCategories: [
           {
             name: "Value documentation",
@@ -1685,8 +1685,21 @@ export const CLAIM_TYPES: ClaimType[] = [
     remedies: ["sc-remedy-return-of-property", "sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
     proceduralNotes: [
       {
-        note: "Small Claims Court can order either the return of the property itself or payment of its value in money.",
-        sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        note:
+          "Small Claims Court has jurisdiction over an action for the recovery of possession of " +
+          "personal property, as well as over actions for the payment of money, where the value of " +
+          "the property does not exceed the prescribed amount.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+      },
+      {
+        note:
+          "An order for the delivery of personal property is enforced by a writ of delivery issued to " +
+          "a bailiff. If the bailiff cannot find or take the property named in that writ, the person " +
+          "who obtained the order can bring a motion asking the court to direct the bailiff to seize " +
+          "other personal property belonging to the person the order was made against instead. That " +
+          "person has to pay the bailiff's storage costs in advance as the process goes on -- if they " +
+          "don't, the seizure is treated as abandoned.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
       },
     ],
     signals: [
@@ -1707,6 +1720,18 @@ export const CLAIM_TYPES: ClaimType[] = [
         officialUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
         verifiedAt: "2026-09-07",
         pinpoint: "Court hears claims for money or the return of personal property up to $50,000",
+      },
+      {
+        sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
+        officialUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint: "s.23(1)(b): Small Claims Court has jurisdiction in any action for the recovery of possession of personal property where the value does not exceed the prescribed amount",
+      },
+      {
+        sourceName: "Rules of the Small Claims Court, O. Reg. 258/98",
+        officialUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint: "r. 20.05(1)-(4): an order for delivery of personal property is enforced by a writ of delivery; if the bailiff cannot find or take that property, the party may move for an order to seize other personal property instead; the party pays storage costs in advance or the seizure is deemed abandoned",
       },
     ],
     reviewedAt: "2026-09-07",
@@ -1855,7 +1880,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         plainExplanation:
           "Small Claims Court can hear claims for money -- including unpaid rent -- up to $50,000, " +
           "excluding interest and costs.",
-        sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
         evidenceCategories: [
           {
             name: "Rent and account records",
@@ -2069,7 +2094,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         name: "The amount owing falls within Small Claims Court's jurisdiction",
         plainExplanation:
           "Small Claims Court can only hear claims up to $50,000, excluding interest and costs.",
-        sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
         evidenceCategories: [
           {
             name: "Wage calculation",
@@ -2371,7 +2396,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         name: "The amount owing falls within Small Claims Court's jurisdiction",
         plainExplanation:
           "Small Claims Court can only hear claims up to $50,000, excluding interest and costs.",
-        sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
         evidenceCategories: [
           {
             name: "Arrears calculation",

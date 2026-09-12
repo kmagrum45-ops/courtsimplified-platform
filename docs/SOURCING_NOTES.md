@@ -131,10 +131,20 @@ debt-shaped claim type (unpaid invoices, NSF cheques, anything where a
 partial payment or an informal "I'll pay you back" is a realistic fact
 pattern).
 
+**Update (Session 46): the regulation `.doc` fallback DOES exist and works.**
+`ontario.ca/laws/docs/980258_e.doc` returns the full Rules of the Small
+Claims Court (O. Reg. 258/98), current consolidation ("FROM OCTOBER 14, 2025
+TO THE E-LAWS CURRENCY DATE," including the O. Reg. 3/25 amendments), and
+extracts cleanly with antiword exactly like a statute `.doc`. It is now
+cited in `claimTypes.ts` (r. 20.05, enforcement of an order for delivery of
+personal property). So the same `<id>_e.doc` convention that works for
+statutes works for regulations too — the paragraph below was written before
+anyone tried it. Same version-suffix caution applies: check the header line.
+
 Regulation-level e-Laws pages (`ontario.ca/laws/regulation/<id>`, e.g. O. Reg.
 258/98's `980258`) have the same JS-shell problem — verified as SOURCED at the
 regulation-as-a-whole level (`docs/PROCEDURAL_RULES_INVENTORY.md` §5), but a
-`.doc` fallback for a *regulation* (as opposed to a statute) hasn't actually
+`.doc` fallback for a *regulation* (as opposed to a statute) hadn't actually
 been located and used by any citation in this codebase yet — don't assume the
 same `<id>_e.doc` pattern works there without checking.
 
