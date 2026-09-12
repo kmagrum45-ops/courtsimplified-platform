@@ -202,6 +202,11 @@ const STATIC_SCAN_FILES = [
   "src/lib/case-system/architecture/masterCaseSchema.ts",
   "src/lib/case-system/contradictions/credibilityRiskEngine.ts",
   "src/lib/case-system/litigation-intelligence/litigationReasoningEngine.ts",
+  // Added during tranche 1: blind spot 8 bit a second time. This page
+  // renders `{exportResult.readinessScore}%` and was invisible to the arm
+  // because the list was built from the dashboard surfaces only.
+  "app/document-export/page.tsx",
+  "src/lib/case-system/documentExportEngine.ts",
 ];
 
 // 1e: ordinal string-literal unions -- what "Document readiness impact" was.
