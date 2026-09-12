@@ -598,8 +598,19 @@ export const CLAIM_TYPES: ClaimType[] = [
         plainExplanation:
           "An occupier owes a duty to take reasonable care to see that people entering the premises " +
           "are reasonably safe. This applies whether the danger came from the condition of the " +
-          "property itself or from an activity carried on there.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "property itself or from an activity carried on there. " +
+          "The statute states the duty in the abstract; the Supreme Court of Canada has considered " +
+          "what it concretely requires for snow and ice. In a case about a fall on an icy, unsalted " +
+          "parking area, the Court agreed that doing nothing at all to make a treacherous area less " +
+          "slippery fell short of reasonable care, in circumstances where sand and salt were " +
+          "inexpensive and readily available -- while noting the duty did not extend to salting or " +
+          "sanding every square inch, only the part visitors were known to use. The Court also held " +
+          "that a local custom of not salting or sanding does not displace the duty: \"no amount of " +
+          "general community compliance will render negligent conduct 'reasonable ... in all the " +
+          "circumstances'.\" What reasonable care required there is not a rule about what it requires " +
+          "everywhere -- the statutory test is what is reasonable in all the circumstances of the " +
+          "particular case.",
+        sourceUrl: "docs/sources/waldick-v-malcolm-1991-2-SCR-456.pdf",
         evidenceCategories: [
           {
             name: "Photos or video of the condition",
@@ -618,8 +629,16 @@ export const CLAIM_TYPES: ClaimType[] = [
         name: "The unsafe condition caused an injury or loss",
         plainExplanation:
           "There generally needs to be a connection shown between the unsafe condition and the harm " +
-          "that resulted -- not just that a condition existed and separately that an injury occurred.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/90o02_e.doc",
+          "that resulted -- not just that a condition existed and separately that an injury occurred. " +
+          "The Occupiers' Liability Act sets the duty of care but says nothing about causation; that " +
+          "comes from the general law of negligence. The factual part is generally tested with the " +
+          "\"but for\" test -- the plaintiff must show, on a balance of probabilities, that the injury " +
+          "would not have occurred but for the defendant's negligent act. That is a factual inquiry, " +
+          "applied in a robust, common-sense way: scientific evidence of precisely how much the " +
+          "defendant's negligence contributed is not required. Separately, the damage must not be too " +
+          "remote -- it must have been reasonably foreseeable. See \"The elements of a negligence " +
+          "claim\" for the fuller general framework this draws from.",
+        sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
         evidenceCategories: [
           {
             name: "Medical records",
@@ -644,6 +663,19 @@ export const CLAIM_TYPES: ClaimType[] = [
           "some contexts.",
         whenThisComesUp: "When the plaintiff signed a waiver, release, or contract with the occupier before the incident.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90o02_e.doc",
+      },
+      {
+        id: "risk-willingly-assumed",
+        name: "The occupier argues the person willingly assumed the risk",
+        plainExplanation:
+          "Section 4(1) of the Occupiers' Liability Act lowers the duty owed to a person who willingly " +
+          "assumes the risks of entering the premises. The Supreme Court of Canada has held that this " +
+          "phrase carries the volenti non fit injuria doctrine, not a looser \"they knew it was icy\" " +
+          "standard: it requires not only knowledge of the risk, but consent to the LEGAL risk -- a " +
+          "waiver of the legal rights that might arise from the harm. Simply being aware of a hazard " +
+          "and walking on anyway is not, on its own, willing assumption of risk under this section.",
+        whenThisComesUp: "When the Defence says the person could see the hazard and chose to proceed anyway.",
+        sourceUrl: "docs/sources/waldick-v-malcolm-1991-2-SCR-456.pdf",
       },
     ],
     applicableDefenceConceptIds: [
@@ -708,6 +740,38 @@ export const CLAIM_TYPES: ClaimType[] = [
         officialUrl: "https://www.ontario.ca/laws/docs/90o02_e.doc",
         verifiedAt: "2026-09-11",
         pinpoint: "s.6.1(1)-(2): 60-day written notice requirement for personal injury caused by snow or ice, served on an occupier or the snow/ice-removal contractor; s.6.1(5)-(6): exceptions for death of the injured person, and for reasonable excuse where the defendant is not prejudiced; s.6.1(7): notice to any one listed person suffices. In force 29/01/2021 (2020, c. 33, s. 1)",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Waldick v. Malcolm, [1991] 2 S.C.R. 456",
+        officialUrl: "docs/sources/waldick-v-malcolm-1991-2-SCR-456.pdf",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "Issue 1 (breach of the s.3(1) duty): the Court agreed the occupiers breached s.3(1) by doing nothing to render a treacherous icy parking area less slippery, where sand and salt \"are not expensive and are readily available\", the duty extending only to the part visitors were known to use; and on local custom, \"the existence of customary practices which are unreasonable in themselves ... in no way ousts the duty of care owed by occupiers under s. 3(1)\" -- \"no amount of general community compliance will render negligent conduct 'reasonable ... in all the circumstances'\"",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Waldick v. Malcolm, [1991] 2 S.C.R. 456",
+        officialUrl: "docs/sources/waldick-v-malcolm-1991-2-SCR-456.pdf",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "Issue 2 (s.4(1) \"risks willingly assumed\"): \"s. 4(1) of the Act was intended to embody and preserve the volenti doctrine\" -- requiring not merely knowledge of the risk but consent to the legal risk, i.e. a waiver of the legal rights that may arise from the harm, as distinct from mere \"sciens\"",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Clements v. Clements, 2012 SCC 32",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
+        verifiedAt: "2026-09-11",
+        pinpoint: "para. 8 -- the factual branch of causation: the \"but for\" test, which the plaintiff must prove on a balance of probabilities",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Clements v. Clements, 2012 SCC 32",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
+        verifiedAt: "2026-09-11",
+        pinpoint: "para. 9 -- the \"but for\" test is applied in a robust common-sense fashion; no scientific evidence of the precise contribution the negligence made is required",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
+        officialUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-11",
+        pinpoint: "para. 11 -- causation has both a factual and a legal (remoteness) branch; paras. 12-13 -- remoteness turns on reasonable foreseeability, i.e. a \"real risk,\" not mere possibility",
       },
     ],
     reviewedAt: null,
