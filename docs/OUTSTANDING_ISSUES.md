@@ -182,6 +182,43 @@ This is the item that grows with every session of content work, and the only one
 
 ---
 
+## 11. Verification integrity — corrections to this session's own conclusions
+
+📌 Three findings about the tools used to verify work, and two corrections to claims made earlier in this session. Recorded because each one made a piece of evidence look stronger than it was.
+
+### ⚠️ The fixture harness could overwrite good `.actual.md` with degraded output — FIXED (`9c941aa`)
+
+**The original claim was wrong and is corrected here.** `runFixtures.ts:124` was reported as a possibly-unconditional write. It never was: the write is downstream of an `await`ed `runStoryThroughPipeline`, and because the loop had no `try/catch`, a throw genuinely did skip it.
+
+The real defect is narrower and worse. The pipeline **swallows API failures at two sites**, so a 429 does not reliably throw:
+
+- `src/lib/case-system/intake/voiceLayer.ts:166` — catches everything and returns `fellBackToPlainText: true`.
+- `src/lib/case-system/intelligence/courtSimplifiedBrain.ts:2027` — catches, logs only `errorName`, returns `null`; at `:2278` that null becomes `buildFallbackCognition()`, substituting canned placeholder prose ("Detailed analysis is not available right now…").
+
+A run degraded that way **completes normally** with a non-null `analysisOutput`, so the harness wrote placeholder text over good fixture output — and nothing in the rendered file recorded it, because `renderActualMarkdown` prints the summaries but never `cognitionMode`, the flag that would have exposed it. Against CLAUDE.md §7's "never quietly let `.actual.md` drift out of sync with `.expected.md`", that is precisely the prohibited drift.
+
+Fixed by `scripts/verification/pipelineGuards.ts` (`withTimeout` + `describeRunDegradation`), with the write now downstream of both. Pinned by `verifyFixtureHarnessGuards.ts`, which was mutation-tested — neutering the guard makes it fail — so it is not a check that cannot fail.
+
+### ⚠️ The interception-measurement harness shared the same blind spot — the `3,2,5,7,5` baseline is unusable
+
+`measureInterceptionRate.ts` caught a throwing journey and continued, contributing **zero interceptions** — indistinguishable from a journey that ran clean. It also had no timeout, and inherited the same silent-degradation hole: a 429 inside the brain's cognition call returns fallback text rather than throwing, so the journey "succeeds".
+
+Both failure modes bias the measured rate **downward**, which is exactly what a successful prompt change is supposed to look like. Any run that brushed the daily quota under-reported and looked like an improvement.
+
+**Consequence:** the `3,2,5,7,5` baseline (mean 4.40, spread 5) **cannot be used as the BEFORE side of any comparison.** It is not known to be wrong, but it is not known to be clean either, and there is no way to tell retroactively which runs were degraded. STEP 1's gate therefore requires a **fresh two-sided measurement** — new BEFORE *and* new AFTER, both under the guarded harness. Do not reuse the old numbers on either side.
+
+Guards added in `bcd1020`; the harness now aborts rather than burning quota producing unusable runs, and writes `NOT A VALID MEASUREMENT` into the report if any journey failed.
+
+### 📌 The OpenAI cap is **not** a project-level RPD override — hypothesis unconfirmed
+
+An earlier conclusion in this session held that the ~100 requests/day ceiling came from a custom project-level rate limit, inferred from a header mismatch (`x-ratelimit-limit-requests: 10000` alongside `remaining-requests` tracking a ~100 scale). **That inference does not hold.** The project rate-limit page lists **TPM and RPM only — there is no RPD row on any model**, and `gpt-4o-mini` inherits org values exactly. There is no project-level override to raise.
+
+**Leading hypothesis, unconfirmed:** ordinary daily consumption against the org-level **10,000 RPD** cap. A single measurement run costs roughly 680 requests (16 journeys × ~11 turns × 3–4 calls/turn), and a three-fixture regeneration roughly 130, so a heavy session can plausibly approach that ceiling.
+
+**Unresolved and not to be papered over:** this does not explain the observed `remaining-requests` going *up* (20 → 75 across ~8 minutes while 5 requests were spent), which suggests a rolling window rather than a fixed daily counter. Two samples cannot characterise it. **Pending evidence: the OpenAI usage page**, which is the only thing that settles actual consumption. Until then, treat the ceiling as real and unexplained rather than diagnosed.
+
+---
+
 ## Suggested order
 
 **Before any real user:**

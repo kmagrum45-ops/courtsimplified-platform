@@ -22,7 +22,14 @@ Three items outstanding from the interception measurement work. None blocks a us
 2. **`intelligenceSummary`** — now opens "has a potential case against…". Not on the blocked list, closer to viability than the phrases that are. Same behaviour finding new words, which is evidence the wordlist will always lag.
 3. **`ElementProofStatus`** — `"proven"` / `"partly-proven"` is the same violation as the element status already fixed. Declared independently in four places, compared by literal in two. The model never sees it (assigned downstream), so it is contained but real.
 
-**Gate:** five-run measurement before and after, both distributions reported, and a statement on whether the difference clears the variance. The last baseline spread was 5 against a mean of 4.4 — assume similar. Fixture diffs reviewed for substantive change in what a user would read, not just pass/fail.
+**Gate:** five-run measurement before and after, both distributions reported, and a statement on whether the difference clears the variance. Fixture diffs reviewed for substantive change in what a user would read, not just pass/fail.
+
+**⚠️ The gate is not yet met, and the old baseline cannot be used toward it.** The three fixes are committed (`1bec20f`) and verified on their own terms, but the measurement that was supposed to justify them is outstanding:
+
+- **The `3,2,5,7,5` baseline (mean 4.4, spread 5) is unusable.** `measureInterceptionRate.ts` counted a failed journey as zero interceptions and had no timeout, and the pipeline swallows 429s rather than throwing — so a degraded run scored as a clean one. Both biases run *downward*, i.e. toward "the change worked". Which runs were affected cannot be recovered. Guards added in `bcd1020`.
+- **What STEP 1 now requires: a fresh two-sided measurement** — new BEFORE *and* new AFTER, both under the guarded harness. Do not reuse the old numbers on either side.
+- **`npm run test:fixtures` has not run since the fix.** `git log --follow` puts the last content change to all three `.actual.md` files at `8052231` (2026-09-08), four days before `1bec20f`. Regeneration is required, and the fixture-diff half of this gate is unstarted.
+- **Cost, against a real ceiling:** a measurement run is ~680 requests, a fixture regeneration ~130. See `OUTSTANDING_ISSUES.md` §11 for the quota position — the cap is real, its cause is an unconfirmed hypothesis, and the usage page is what settles it.
 
 ---
 
@@ -133,4 +140,5 @@ Two routes: your own review pass on the highest-traffic entries, and the license
 - Clear `.next/types` if `tsc` reports a phantom module. A deleted route left stale references three separate times.
 - Add an entrypoint guard to any new script. `runFullClaimTypeSurvey.ts` lacked one and importing it silently re-ran 19 billed journeys.
 - A single run cannot measure interception rate. Five minimum per side, both distributions reported.
+- A harness that drives the real pipeline must bound each run and check `describeRunDegradation()` before recording anything. The pipeline swallows API failures in two places (`voiceLayer.ts:166`, `courtSimplifiedBrain.ts:2027`), so a rate-limited run completes and looks ordinary — and a failure counted as a clean result biases every measurement toward success.
 - Do not push until Step 6.

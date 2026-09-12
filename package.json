@@ -43,6 +43,7 @@
     "test:safety-regression": "node --import tsx scripts/verification/verifySafetyPassRegression.ts",
     "keep-alive:supabase": "node scripts/keepAliveSupabase.mjs",
     "test:fixtures": "node --import tsx scripts/verification/runFixtures.ts",
+    "test:fixture-guards": "node --import tsx scripts/verification/verifyFixtureHarnessGuards.ts",
     "test:fixtures:generated": "node --import tsx scripts/verification/runGeneratedFixtures.ts",
     "test:journey-invariants": "node --import tsx scripts/verification/verifyJourneyInvariantSelfTest.ts",
     "test:journey-battery": "node --import tsx scripts/verification/runJourneyBattery.ts"
