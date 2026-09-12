@@ -210,6 +210,22 @@ Confirmed directly (Session 42, a 22-case bulk retrieval — see `docs/sources/R
 
 The Supreme Court's neutral-citation system ("20XX SCC ##") only started in 2001 — confirmed directly across the Session 42 bulk retrieval: 7 of 22 cases (Ryan v. Victoria (City), 1999; Waldick v. Malcolm, 1991; Myers v. Peel County Board of Education, 1981; Queen v. Cognos Inc., 1993; Red Deer College v. Michaels, 1976; Machtinger v. HOJ Industries, 1992; Hill v. Church of Scientology, 1995) genuinely have no "SCC ##" number anywhere in the judgment — their only real citation is the S.C.R. volume/page (e.g. `[1991] 2 S.C.R. 456`). Don't search for or invent an SCC number for an older case; check the judgment text itself (or its absence) before assuming one exists. `docs/sources/README.md`'s naming convention now accounts for this: `<case-name>-<year>-<volume>-SCR-<page>.pdf` for a case with no neutral citation, `<case-name>-<year>-SCC-<number>.pdf` for one that has it.
 
+### Read the section the entry claims, not the page that summarizes it — the limits live in the statute
+
+The Session 46 audit-fix pass re-sourced a dozen entries that had been written from an ontario.ca overview page. In **every single case** where the primary source was read instead, the statute or regulation contained a material limit, condition or exception the overview page omitted. Not one entry came back unchanged. A representative sample:
+
+- **Used-vehicle non-disclosure.** The overview page describes a "90-day cancellation right." O. Reg. 333/08 s.50(5) runs those 90 days from when the buyer **actually received the vehicle**, not from discovery — and s.50(1) confines the whole regime to sales by a **registered** dealer to a non-dealer. Neither limit is on the page.
+- **Consumer Protection Act misrepresentation.** The page says giving "false information" is illegal. s.14(1) is "false, **misleading or deceptive**," and s.14(2) lists 17 examples — para. 14 (exaggeration, innuendo, ambiguity, or failing to state a material fact) is the one that actually carries the other two prongs.
+- **CPA withdrawal.** The page says "withdraw within 1 year." s.18 gives rescission **plus any remedy available in law including damages**, a fallback measure where rescission has become impossible, and notice mechanics (any wording, any delivery method, deemed given when sent).
+- **Condominium lien priority.** s.86's priority is **conditional on notice** to every registered encumbrancer; without it the lien loses priority, and late notice preserves it for only three months of arrears. An entry written from a summary had the priority rule and none of the condition.
+- **Wrongful dismissal.** ESA s.97(2) bars a civil wrongful-dismissal action once an ESA complaint for termination or severance pay is filed (s.97(4): two weeks to withdraw). That is a trap with permanent consequences and it is not on the ESA guide pages.
+
+**The pattern to expect:** government overview pages are written to describe the *typical* case and systematically omit scope fences, trigger conditions, and election/waiver traps. Those omissions are exactly what an entry needs, because a user whose situation is atypical is the one at risk. An ontario.ca page is fine for orienting yourself; it is not fine as the only source for an element that states a rule. When an entry states a legal rule, go to the statute, regulation or judgment and read the section.
+
+### A non-obvious corollary: read the sections *around* the one you came for
+
+Several of the most useful additions in that pass were provisions nobody had gone looking for, found because the surrounding text was on screen: Libel and Slander Act **s.8(1)** (a newspaper defendant loses the benefit of the shortened ss.5-6 deadlines unless proprietor and publisher are named) was found while reading s.7; **ESA s.97(2)** was found while reading s.8(1)'s "subject to section 97"; Waldick's **s.4(1) volenti** holding was found while reading its s.3(1) duty analysis. Cross-references (`subject to section X`, `despite section Y`) are the cheapest leads available — follow them before closing the document.
+
 ### Search the codebase before building on a claimed-existing feature
 
 `docs/COURTHOUSE_TRACKING_DESIGN.md` was scoped as "pairing with the 'Find

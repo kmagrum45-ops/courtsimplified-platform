@@ -1,5 +1,29 @@
 # Content Audit — Session 45
 
+> **STATUS: CLOSED — every finding below has been fixed.** The audit text is
+> kept unedited as the historical record of what was found. Fixes landed in
+> `ec5a3e6`, `c5cefe1`, `0313d7f`, `cf66611`, `071c9f4`, `9d836f5`, `d4a6fab`,
+> `b8931e6`, `877ce18`, `69c7e93`. Do not use the triage order at the bottom
+> as a work list — it describes the state before any of that.
+>
+> Three findings turned out to be **larger** than reported, caught by reading
+> the primary sources rather than trusting the audit's counts:
+> - the jurisdiction-cap-text-substitution pattern had **five** instances, not
+>   four (`amount-claimed-vehicle` was marked clean);
+> - the "excluding interest and costs" mis-citation covered **five** entries,
+>   not two;
+> - the stale e-Laws snapshot affected **three** statutes and 20 citations,
+>   not just the Occupiers' Liability Act. See `docs/SOURCING_NOTES.md` on
+>   version-suffixed URLs (`_eV006`) marking frozen historical consolidations.
+>
+> Two things were found while fixing that the audit did not flag at all, both
+> user-consequential: **ESA s.97(2)**, under which filing an ESA complaint for
+> termination or severance pay bars a civil wrongful-dismissal proceeding over
+> the same termination (two-week withdrawal window under s.97(4)); and
+> **Libel and Slander Act s.8(1)**, under which a newspaper defendant loses
+> the benefit of the shortened ss.5-6 deadlines unless the proprietor and
+> publisher are named. Both are now in their entries.
+
 **Read-and-report only. Nothing in this audit was fixed.** Triage and fix in a
 follow-up session, prioritized by severity group below.
 
