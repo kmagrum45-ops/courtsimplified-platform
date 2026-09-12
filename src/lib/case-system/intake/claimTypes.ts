@@ -2262,10 +2262,16 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "dealer-failed-to-disclose",
         name: "The dealer failed to give accurate required information about the vehicle",
         plainExplanation:
-          "When you buy a vehicle, a dealer must give the most accurate information available about " +
-          "the vehicle's history and key features -- including the odometer reading, make/model/year, " +
-          "salvage or rebuilt status, and past use (such as a taxi, rental, or police vehicle).",
-        sourceUrl: "https://www.ontario.ca/page/buying-new-or-used-vehicle-your-rights",
+          "Where a REGISTERED motor vehicle dealer sells or leases a vehicle to someone who is not " +
+          "themselves a registered dealer, the regulation under the Motor Vehicle Dealers Act, 2002 " +
+          "requires specific information to be disclosed accurately in the contract. For a used " +
+          "vehicle that includes the total distance it has been driven (or, where the dealer can't " +
+          "determine that, the distance as of a stated past date), the make, model and model year, " +
+          "whether it has been classified as irreparable, salvage or rebuilt, and certain past uses " +
+          "such as a daily rental, a police cruiser, or an emergency-services vehicle. " +
+          "This regime applies to registered dealers. A genuinely private sale is not covered by it, " +
+          "and neither is a sale by someone selling vehicles as a business without being registered.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/080333_e.doc",
         evidenceCategories: [
           {
             name: "Purchase and vehicle history records",
@@ -2276,16 +2282,25 @@ export const CLAIM_TYPES: ClaimType[] = [
       },
       {
         id: "cancelled-within-90-days",
-        name: "The contract was cancelled within the required window after discovering the issue",
+        name: "The contract was cancelled within 90 days of actually receiving the vehicle",
         plainExplanation:
-          "If a dealer fails to provide accurate details about the matters above, the buyer generally " +
-          "has a 90-day window to cancel the contract.",
-        sourceUrl: "https://www.ontario.ca/page/buying-new-or-used-vehicle-your-rights",
+          "Where this cancellation right applies, the regulation gives 90 days to cancel -- but the " +
+          "clock runs from when the buyer ACTUALLY RECEIVED the vehicle, not from when they " +
+          "discovered the problem. Discovering an undisclosed issue on day 95 does not extend it. " +
+          "The right is also narrower than the disclosure list as a whole: it attaches to inaccurate " +
+          "disclosure of the distance driven, certain past uses, the make/model/model year, and the " +
+          "irreparable/salvage/rebuilt classification -- not to every item a dealer must disclose. " +
+          "It is available even if the dealer did not know the information was inaccurate or honestly " +
+          "believed it was correct. Notice of cancellation has to be in writing and given to the " +
+          "dealer, and can be worded in any way that shows an intention to cancel. A distance " +
+          "disclosure counts as accurate if it is within the lesser of 5 per cent or 1,000 kilometres " +
+          "of the correct figure.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/080333_e.doc",
         evidenceCategories: [
           {
             name: "Proof of cancellation",
-            why: "Shows the cancellation step was taken and when, relative to discovering the issue.",
-            examples: ["Copy of the cancellation notice sent to the dealer", "Date-stamped email or letter"],
+            why: "Shows the cancellation step was taken in writing, and when, relative to the date the vehicle was actually received.",
+            examples: ["Copy of the written cancellation notice sent to the dealer", "Date-stamped email or letter", "Delivery record showing when the vehicle was actually received"],
           },
         ],
       },
@@ -2293,14 +2308,32 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "amount-claimed-vehicle",
         name: "The amount claimed reflects the loss",
         plainExplanation:
-          "Small Claims Court's jurisdiction covers claims for money, up to $50,000, not counting " +
-          "interest and costs.",
-        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+          "The person bringing the claim generally has to show, on a balance of probabilities, that " +
+          "they actually suffered a loss, and what that loss was -- put in specific terms, not left " +
+          "as a general sense of having overpaid.",
+        sourceUrl:
+          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
         evidenceCategories: [
           {
             name: "Cost documentation",
             why: "Supports the specific dollar amount claimed.",
             examples: ["Purchase price", "Amount paid before cancelling", "Repair or diminished-value estimate, if relevant"],
+          },
+        ],
+      },
+      {
+        id: "amount-within-jurisdiction-vehicle",
+        name: "The amount claimed falls within Small Claims Court's jurisdiction",
+        plainExplanation:
+          "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
+          "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
+          "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+        evidenceCategories: [
+          {
+            name: "Cost documentation",
+            why: "Supports the specific dollar amount claimed.",
+            examples: ["Bill of sale showing the purchase price", "Records documenting the loss claimed"],
           },
         ],
       },
@@ -2351,8 +2384,49 @@ export const CLAIM_TYPES: ClaimType[] = [
         verifiedAt: "2026-09-07",
         pinpoint: "Dealer disclosure obligations; 90-day cancellation right for inaccurate disclosure; Motor Vehicle Dealers Compensation Fund",
       },
+      {
+        sourceName: "O. Reg. 333/08 (General) under the Motor Vehicle Dealers Act, 2002",
+        officialUrl: "https://www.ontario.ca/laws/docs/080333_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "s.50(1): cancellation right arises where a registered motor vehicle dealer contracted with another person who was NOT a registered dealer, and disclosure under s.42 paras. 3, 4, 7, 17 or 23 was inaccurate",
+      },
+      {
+        sourceName: "O. Reg. 333/08 (General) under the Motor Vehicle Dealers Act, 2002",
+        officialUrl: "https://www.ontario.ca/laws/docs/080333_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "s.50(5): a person may not cancel a contract under s.50(1) more than 90 days after actually receiving the motor vehicle",
+      },
+      {
+        sourceName: "O. Reg. 333/08 (General) under the Motor Vehicle Dealers Act, 2002",
+        officialUrl: "https://www.ontario.ca/laws/docs/080333_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "s.50(2): the right applies even if the dealer did not know the information was inaccurate or believed it to be accurate; s.50(4): a distance disclosure is deemed accurate if within the lesser of 5 per cent or 1,000 km; s.50(6): notice of cancellation must be in writing, in any words showing an intention to cancel, given to the dealer",
+      },
+      {
+        sourceName: "O. Reg. 333/08 (General) under the Motor Vehicle Dealers Act, 2002",
+        officialUrl: "https://www.ontario.ca/laws/docs/080333_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "s.42 paras. 3 and 4 (total distance driven, or distance as of a stated past date), 7 (past use as a daily rental, police cruiser or emergency-services vehicle), 17 (make, model and model year), 23 (classification as irreparable, salvage or rebuilt)",
+      },
+      {
+        sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
+        officialUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint: "s.23(1)(a): Small Claims Court has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount, exclusive of interest and costs",
+      },
+      {
+        sourceName: "Ontario Superior Court of Justice — Steps in a Civil Case",
+        officialUrl:
+          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+        verifiedAt: "2026-09-11",
+        pinpoint: "The plaintiff must prove their case on a balance of probabilities",
+      },
     ],
-    reviewedAt: "2026-09-07",
+    reviewedAt: "2026-09-11",
     status: "reviewed",
   },
   {
