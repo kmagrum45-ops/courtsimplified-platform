@@ -899,8 +899,18 @@ function normalizeElementStatus(raw: string): ClaimElementStatus {
  * Falls back to a fixed, neutral string when the model supplies nothing,
  * rather than to prose.
  */
-function composeCaseFileSummary(
-  cognition: GptCognitionOutput,
+/**
+ * The only part of GptCognitionOutput the composer reads. Narrowed to this so
+ * the deterministic self-test can exercise it without constructing a whole
+ * cognition object.
+ */
+export type CaseFileSummaryParts = {
+  caseFileRecorded?: string[];
+  caseFileNotRecorded?: string[];
+};
+
+export function composeCaseFileSummary(
+  cognition: CaseFileSummaryParts,
   context: { primaryClaimTypes: string[]; stage: string },
   shape: "plain" | "structured",
 ): string {
