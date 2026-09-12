@@ -236,6 +236,33 @@ Per intake turn carrying new text, `orchestrateIntakeTurn.ts` issues:
 
 Cross-checked against the usage dashboard: 178 complete journeys ran on 2026-09-12 (battery 16, two `--runs=5` blocks at 80 each, 2 defendant journeys) ≈ 6,400 logical calls, against 13,543 observed requests — ≈ 76 requests per journey versus ~35 logical, which is the retry multiplier plus the hung block's two-hour retry storm.
 
+### 📌 All interceptions originate in the brain call, none in the voice layer
+
+Across both of today's blocks (10 runs, 16 journeys each), **all 41 interceptions carried a `cognition.*` context. Not one came from a voice-layer field.**
+
+That is the justification for skipping `composeVoiceTurn` in any measurement design: the harness already discards the generated lead-in (it answers from a fixed dict keyed by question id), and the sanitizer has never caught anything there. Dropping it removes ~11 calls per journey (~35 → ~24) at no measured cost to what the interception count observes.
+
+It also means the measured quantity is produced by **exactly one call per journey** — `runStructuredGptCognition` — which is what makes the frozen-intake replay design (option D) viable at ~1/35 the cost.
+
+### ⚠️ The `maxRetries: 2` default — every call was up to 3 requests — FIXED (`d1efdcc`)
+
+`openai@6.34.0` sets `this.maxRetries = options.maxRetries ?? 2` (`client.js:158`), and its `shouldRetry()` (`client.js:473`) contains:
+
+```js
+// Retry on rate limits.
+if (response.status === 429) return true;
+```
+
+Nine call sites each built their own client with no options, so **every logical call was up to three HTTP requests**, and the request rate **tripled exactly as the daily cap was being reached** — the failure mode accelerated itself.
+
+**Record this so it is never reintroduced: retrying a 429 against a *daily* cap can never succeed.** The quota does not replenish in the seconds between attempts, so a retry can only spend two further requests and deepen the deficit. Now `maxRetries: 0`, set once in `src/lib/case-system/openaiClient.ts`, which is the only place a client may be constructed.
+
+### ⚠️ A full five-and-five block was never affordable in one day — a second reason the baseline is unusable
+
+A full end-to-end five-and-five block is **~5,600 logical calls against a 10,000/day cap** — and was up to ~16,800 HTTP requests under the old retry default. It could not have completed within a single day's quota alongside any other work.
+
+**Therefore the `3,2,5,7,5` baseline was in all likelihood collected across a cap boundary**, with some runs throttled and some not. This is a **second, independent reason it is unusable**, separate from the absorption bias already recorded above: even had failures been counted correctly, the five runs were not drawn under equivalent conditions. Two different defects, same conclusion — discard it and measure both sides fresh.
+
 ### 📌 Only one of the three Step 1 fixes is measurable by interception rate
 
 From the per-journey interception data in `_RATE_before.md` and `_RATE_after.md` (10 runs, 41 interceptions):
