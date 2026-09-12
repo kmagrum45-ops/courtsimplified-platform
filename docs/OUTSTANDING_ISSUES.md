@@ -209,6 +209,43 @@ Both failure modes bias the measured rate **downward**, which is exactly what a 
 
 Guards added in `bcd1020`; the harness now aborts rather than burning quota producing unusable runs, and writes `NOT A VALID MEASUREMENT` into the report if any journey failed.
 
+### 📌 Request fan-out per journey — derived from the code
+
+Recorded because every cost estimate this session was wrong until it was counted properly.
+
+Per intake turn carrying new text, `orchestrateIntakeTurn.ts` issues:
+
+| Step | Call | When |
+|---|---|---|
+| `runSafetyPass` | 1 | every turn |
+| `extractIntakeFactsWithConfidence` | 1 | every turn |
+| `classifyClaimTypeWithAi` | 1 | **only** when `matchClaimType()` finds nothing |
+| `composeVoiceTurn` | 1 | only when a next question exists |
+
+**3 logical calls per turn for a matched claim type, 4 for an unmatched one.** At the observed ~11.6 turns per journey, plus exactly one brain cognition call at the end:
+
+| Unit | Logical calls | HTTP requests at the old 3× retry |
+|---|---|---|
+| One journey (matched) | **~35** | ~105 |
+| One journey (unmatched) | ~46 | ~138 |
+| Battery block — 16 journeys, 1 run | ~593 | ~1,780 |
+| **`--runs=5` block — 80 journey-runs** | **~2,965** | **~8,900** |
+| 3-fixture regeneration | ~105 | ~315 |
+
+**Correction: the earlier "~680 requests per run" figure was wrong.** It counted a single pass of 16 journeys and ignored both the `--runs=5` multiplier and the SDK's retry amplification. A `--runs=5` block is roughly **3,000 logical calls**, not 680 — and was up to ~8,900 HTTP requests before `maxRetries: 0` (`d1efdcc`).
+
+Cross-checked against the usage dashboard: 178 complete journeys ran on 2026-09-12 (battery 16, two `--runs=5` blocks at 80 each, 2 defendant journeys) ≈ 6,400 logical calls, against 13,543 observed requests — ≈ 76 requests per journey versus ~35 logical, which is the retry multiplier plus the hung block's two-hour retry storm.
+
+### 📌 Only one of the three Step 1 fixes is measurable by interception rate
+
+From the per-journey interception data in `_RATE_before.md` and `_RATE_after.md` (10 runs, 41 interceptions):
+
+- **`structuredCaseSummary`** — measurable. 13 of 16 journeys produced at least one, 34 of the 41 interceptions. The highest-yield journeys are C3, A4, A3, A2, C2.
+- **`intelligenceSummary`** — **not measurable this way. Zero interceptions in either block.** That is not evidence it is clean: the finding against it was that it opens *"has a potential case against…"*, a phrase deliberately **not on the blocked wordlist**. The sanitizer cannot count what it does not match, so interception rate is structurally blind to this fix. It needs a different check.
+- **`ElementProofStatus`** — not measurable at all. It is assigned downstream and never model-generated, so no journey can produce an interception on it. Type-level and static checks already cover it.
+
+**Consequence for the gate:** a five-and-five interception measurement validates Fix 1 only. Do not read a clean result as covering Fixes 2 and 3.
+
 ### 📌 The OpenAI cap is **not** a project-level RPD override — hypothesis unconfirmed
 
 An earlier conclusion in this session held that the ~100 requests/day ceiling came from a custom project-level rate limit, inferred from a header mismatch (`x-ratelimit-limit-requests: 10000` alongside `remaining-requests` tracking a ~100 scale). **That inference does not hold.** The project rate-limit page lists **TPM and RPM only — there is no RPD row on any model**, and `gpt-4o-mini` inherits org values exactly. There is no project-level override to raise.
