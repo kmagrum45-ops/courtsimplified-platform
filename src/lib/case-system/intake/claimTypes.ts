@@ -2580,7 +2580,13 @@ export const CLAIM_TYPES: ClaimType[] = [
           "the public by wireless radio communication or by cables, wires, fibre-optic linkages, or " +
           "laser beams. This notice requirement applies only when the statement fits one of those two " +
           "specific definitions -- not to defamation generally (for example, something said directly " +
-          "to someone, a private message, or an ordinary social media post).",
+          "to someone, a private message, or an ordinary social media post). " +
+          "It is narrower still: section 7 of the Act says subsection 5(1) and section 6 apply ONLY to " +
+          "newspapers printed and published in Ontario and to broadcasts from a station in Ontario. A " +
+          "newspaper printed and published outside Ontario, or a broadcast from a station outside " +
+          "Ontario, falls outside this notice requirement even though it is still a newspaper or a " +
+          "broadcast. Whether a particular publisher or broadcaster meets that geographic test is a " +
+          "fact to confirm, not something this content assumes.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90l12_e.doc",
         evidenceCategories: [
           {
@@ -2596,7 +2602,14 @@ export const CLAIM_TYPES: ClaimType[] = [
         plainExplanation:
           "Under the Libel and Slander Act, an action for libel in a newspaper or in a broadcast must " +
           "be commenced within 3 months after the libel came to the knowledge of the person defamed -- " +
-          "shorter than the ordinary 2-year limitation period that applies to defamation generally.",
+          "shorter than the ordinary 2-year limitation period that applies to defamation generally. " +
+          "Section 7 limits this the same way it limits the notice requirement: section 6 applies ONLY " +
+          "to newspapers printed and published in Ontario and to broadcasts from a station in Ontario. " +
+          "Where a national or out-of-province publisher or broadcaster is involved, whether the " +
+          "shortened 3-month period applies at all turns on that geographic question. " +
+          "Where an action is brought within the 3-month period, it may also include a claim for any " +
+          "other libel by the same defendant in the same newspaper or from the same broadcasting " +
+          "station within the year before the action started.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90l12_e.doc",
         evidenceCategories: [
           {
@@ -2618,10 +2631,47 @@ export const CLAIM_TYPES: ClaimType[] = [
         whenThisComesUp: "When the defendant has filed a Defence (Form 9A) disputing the statement itself, not just the amount claimed.",
         sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
       },
+      {
+        id: "responsible-communication-public-interest",
+        name: "The defendant argues the statement was responsible communication on a matter of public interest",
+        plainExplanation:
+          "The Supreme Court of Canada recognized a defence of responsible communication on matters of " +
+          "public interest. It has two elements: the publication was on a matter of public interest, " +
+          "and the publisher was diligent in trying to verify the allegation, having regard to factors " +
+          "including how serious the allegation was, how important and how urgent the matter was, the " +
+          "status and reliability of the source, whether the plaintiff's side of the story was sought " +
+          "and accurately reported, whether including the defamatory statement was justifiable, and " +
+          "whether the public interest lay in the fact that the statement was made rather than in its " +
+          "truth. The Court was explicit that this defence is not limited to journalists -- it is " +
+          "available to anyone who publishes material of public interest in any medium, expressly " +
+          "including blog postings and other online media.",
+        whenThisComesUp: "When the statement was published rather than said privately -- an online review, a post, a blog, or any other publication -- and the defendant says it concerned a matter the public had a genuine stake in.",
+        sourceUrl: "docs/sources/grant-v-torstar-2009-SCC-61.pdf",
+      },
     ],
     applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim", "defence-failure-to-mitigate"],
     remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
     proceduralNotes: [
+      {
+        note:
+          "The Libel and Slander Act's shortened notice and limitation regime is also conditional on " +
+          "the publisher identifying itself: a defendant in an action for libel in a newspaper is not " +
+          "entitled to the benefit of sections 5 and 6 unless the names of the proprietor and publisher " +
+          "and the address of publication are stated either at the head of the editorials or on the " +
+          "front page. Where that information is absent, the shortened deadlines do not protect the " +
+          "defendant.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90l12_e.doc",
+      },
+      {
+        note:
+          "In Canadian defamation law, general damages are presumed from the very publication of the " +
+          "false statement and are awarded at large -- a plaintiff is not required to document a " +
+          "specific financial loss in order to recover them. The Supreme Court of Canada also declined " +
+          "to adopt the United States \"actual malice\" standard from New York Times v. Sullivan in " +
+          "actions between private litigants. (Separately, in Small Claims Court any amount actually " +
+          "awarded is still subject to that court's $50,000 monetary limit.)",
+        sourceUrl: "docs/sources/hill-v-church-of-scientology-1995-2-SCR-1130.pdf",
+      },
       {
         note:
           "Defamation not involving a newspaper or broadcast (for example, something said directly, a " +
@@ -2658,11 +2708,39 @@ export const CLAIM_TYPES: ClaimType[] = [
       {
         sourceName: "Libel and Slander Act, R.S.O. 1990, c. L.12",
         officialUrl: "https://www.ontario.ca/laws/docs/90l12_e.doc",
-        verifiedAt: "2026-09-07",
-        pinpoint: "s.1 definitions of newspaper/broadcasting; s.5(1) 6-week pre-action notice; s.6 3-month limitation period; s.7 scope limited to newspaper/broadcast",
+        verifiedAt: "2026-09-11",
+        pinpoint: "s.1 definitions of newspaper/broadcasting; s.5(1) 6-week pre-action notice; s.6 3-month limitation period, including same-defendant libels in the preceding year",
+      },
+      {
+        sourceName: "Libel and Slander Act, R.S.O. 1990, c. L.12",
+        officialUrl: "https://www.ontario.ca/laws/docs/90l12_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "s.7: \"Subsection 5 (1) and section 6 apply only to newspapers printed and published in Ontario and to broadcasts from a station in Ontario\" -- a geographic limit on the shortened notice/limitation regime, not a restatement of the newspaper/broadcast category limit",
+      },
+      {
+        sourceName: "Libel and Slander Act, R.S.O. 1990, c. L.12",
+        officialUrl: "https://www.ontario.ca/laws/docs/90l12_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "s.8(1): no defendant in an action for a libel in a newspaper is entitled to the benefit of ss.5 and 6 unless the names of the proprietor and publisher and the address of publication are stated at the head of the editorials or on the front page",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Grant v. Torstar Corp., 2009 SCC 61",
+        officialUrl: "docs/sources/grant-v-torstar-2009-SCC-61.pdf",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "paras. 96-98 and 126 -- the two-element test for responsible communication on matters of public interest (public interest; diligence in verification, assessed against the listed factors), and its availability to \"anyone who publishes material of public interest in any medium\", expressly including blog postings and other online media",
+      },
+      {
+        sourceName: "Supreme Court of Canada — Hill v. Church of Scientology of Toronto, [1995] 2 S.C.R. 1130",
+        officialUrl: "docs/sources/hill-v-church-of-scientology-1995-2-SCR-1130.pdf",
+        verifiedAt: "2026-09-11",
+        pinpoint:
+          "para. 164 -- \"general damages in defamation cases are presumed from the very publication of the false statement and are awarded at large\"; para. 137 -- declining to adopt the New York Times v. Sullivan \"actual malice\" standard in an action between private litigants",
       },
     ],
-    reviewedAt: "2026-09-07",
+    reviewedAt: "2026-09-11",
     status: "reviewed",
   },
   {
