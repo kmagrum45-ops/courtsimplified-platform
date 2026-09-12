@@ -205,7 +205,7 @@
  * covers enforceability of an informal or oral loan without needing new
  * sourcing. The two genuinely distinct wrinkles worth sourcing precisely,
  * both read directly from the Limitations Act, 2002 (fetched
- * ontario.ca/laws/docs/02l24_eV015.doc, extracted with antiword):
+ * ontario.ca/laws/docs/02l24_e.doc, extracted with antiword):
  *   1. s.5(3)-(4): for a loan with no fixed repayment date (one repayable
  *      "on demand," the common shape for an informal loan between
  *      individuals), the 2-year clock starts on the first day the
@@ -382,7 +382,7 @@ export const DEFENCE_CONCEPTS: DefenceConcept[] = [
       "safe does not apply to risks a person willingly assumed by entering -- though even then, the " +
       "occupier still can't deliberately create a danger or act with reckless disregard for that " +
       "person's safety. A signed waiver or release is often raised in connection with this.",
-    sourceUrl: "https://www.ontario.ca/laws/docs/90o02_eV006.doc",
+    sourceUrl: "https://www.ontario.ca/laws/docs/90o02_e.doc",
     reviewedAt: null,
     status: "draft",
   },
@@ -583,7 +583,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "The Occupiers' Liability Act's duty of care applies to whoever occupies (is in " +
           "possession or control of) the premises where the incident happened -- often, but not " +
           "always, a business.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/90o02_eV006.doc",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90o02_e.doc",
         evidenceCategories: [
           {
             name: "Proof of who controls the property",
@@ -599,7 +599,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "An occupier owes a duty to take reasonable care to see that people entering the premises " +
           "are reasonably safe. This applies whether the danger came from the condition of the " +
           "property itself or from an activity carried on there.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/90o02_eV006.doc",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90o02_e.doc",
         evidenceCategories: [
           {
             name: "Photos or video of the condition",
@@ -619,7 +619,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         plainExplanation:
           "There generally needs to be a connection shown between the unsafe condition and the harm " +
           "that resulted -- not just that a condition existed and separately that an injury occurred.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/90o02_eV006.doc",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90o02_e.doc",
         evidenceCategories: [
           {
             name: "Medical records",
@@ -643,7 +643,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "does, restrict, modify, or exclude that duty -- for example, through a signed waiver in " +
           "some contexts.",
         whenThisComesUp: "When the plaintiff signed a waiver, release, or contract with the occupier before the incident.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/90o02_eV006.doc",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90o02_e.doc",
       },
     ],
     applicableDefenceConceptIds: [
@@ -655,8 +655,26 @@ export const CLAIM_TYPES: ClaimType[] = [
     remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
     proceduralNotes: [
       {
-        note: "Claims like this are generally subject to Ontario's standard 2-year limitation period, running from when the incident (or the injury) was discovered.",
+        note:
+          "Claims like this are generally subject to Ontario's standard 2-year limitation period, " +
+          "running from when the incident (or the injury) was discovered -- but for an injury caused " +
+          "by snow or ice specifically, a much shorter notice deadline can apply on top of it. See " +
+          "the next note.",
         sourceUrl: "https://www.ontario.ca/page/civil-claims-suing-and-being-sued",
+      },
+      {
+        note:
+          "Where the personal injury was caused by SNOW OR ICE, the Occupiers' Liability Act requires " +
+          "written notice of the claim -- including the date, time, and location -- to be personally " +
+          "served on, or sent by registered mail to, an occupier of the premises or an independent " +
+          "contractor employed to remove snow or ice there, within 60 days of the injury. No action " +
+          "may be brought without that notice. The Act sets out two exceptions: notice is not required " +
+          "where the injured person died as a result of the injury, and a judge may excuse missing or " +
+          "insufficient notice where there is a reasonable excuse and the defendant is not prejudiced " +
+          "in its defence. Notice to any one of the people the Act lists is enough, even if the action " +
+          "is later brought against someone who didn't originally receive it. This 60-day requirement " +
+          "is separate from, and much shorter than, the ordinary 2-year limitation period.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90o02_e.doc",
       },
     ],
     signals: [
@@ -681,9 +699,15 @@ export const CLAIM_TYPES: ClaimType[] = [
     citations: [
       {
         sourceName: "Occupiers' Liability Act, R.S.O. 1990, c. O.2",
-        officialUrl: "https://www.ontario.ca/laws/docs/90o02_eV006.doc",
-        verifiedAt: "2026-09-07",
+        officialUrl: "https://www.ontario.ca/laws/docs/90o02_e.doc",
+        verifiedAt: "2026-09-11",
         pinpoint: "s.3(1)-(3): occupier's duty to take reasonable care that premises are reasonably safe",
+      },
+      {
+        sourceName: "Occupiers' Liability Act, R.S.O. 1990, c. O.2",
+        officialUrl: "https://www.ontario.ca/laws/docs/90o02_e.doc",
+        verifiedAt: "2026-09-11",
+        pinpoint: "s.6.1(1)-(2): 60-day written notice requirement for personal injury caused by snow or ice, served on an occupier or the snow/ice-removal contractor; s.6.1(5)-(6): exceptions for death of the injured person, and for reasonable excuse where the defendant is not prejudiced; s.6.1(7): notice to any one listed person suffices. In force 29/01/2021 (2020, c. 33, s. 1)",
       },
     ],
     reviewedAt: null,
@@ -947,7 +971,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
           "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
           "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
         evidenceCategories: [
           {
             name: "Cost documentation",
@@ -1021,7 +1045,7 @@ export const CLAIM_TYPES: ClaimType[] = [
       },
       {
         sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
-        officialUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        officialUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
         verifiedAt: "2026-09-11",
         pinpoint: "s.23(1)(a): Small Claims Court has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount, exclusive of interest and costs",
       },
@@ -1088,7 +1112,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
           "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
           "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
         evidenceCategories: [
           {
             name: "Cost documentation",
@@ -1140,7 +1164,7 @@ export const CLAIM_TYPES: ClaimType[] = [
       },
       {
         sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
-        officialUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        officialUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
         verifiedAt: "2026-09-11",
         pinpoint: "s.23(1)(a): Small Claims Court has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount, exclusive of interest and costs",
       },
@@ -1215,7 +1239,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
           "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
           "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
         evidenceCategories: [
           {
             name: "Cost documentation",
@@ -1271,7 +1295,7 @@ export const CLAIM_TYPES: ClaimType[] = [
       },
       {
         sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
-        officialUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        officialUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
         verifiedAt: "2026-09-11",
         pinpoint: "s.23(1)(a): Small Claims Court has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount, exclusive of interest and costs",
       },
@@ -2435,7 +2459,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
           "costs) -- this is a monetary jurisdiction, not a subject-matter one, so a claim for money " +
           "arising from a defamatory statement is within it the same as any other money claim.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
         evidenceCategories: [
           {
             name: "Cost/harm documentation",
@@ -2528,8 +2552,8 @@ export const CLAIM_TYPES: ClaimType[] = [
     citations: [
       {
         sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
-        officialUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
-        verifiedAt: "2026-09-07",
+        officialUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+        verifiedAt: "2026-09-11",
         pinpoint: "s.23(1): Small Claims Court jurisdiction is any action for payment of money up to the prescribed amount, with no cause-of-action exclusion",
       },
       {
@@ -2653,7 +2677,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
           "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
           "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
         evidenceCategories: [
           {
             name: "Cost documentation",
@@ -2772,8 +2796,8 @@ export const CLAIM_TYPES: ClaimType[] = [
       },
       {
         sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
-        officialUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
-        verifiedAt: "2026-09-07",
+        officialUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+        verifiedAt: "2026-09-11",
         pinpoint: "s.23(1): Small Claims Court jurisdiction is any action for payment of money up to the prescribed amount, with no cause-of-action exclusion",
       },
     ],
@@ -2836,7 +2860,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
           "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
           "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
         evidenceCategories: [
           {
             name: "Cost documentation",
@@ -2881,14 +2905,14 @@ export const CLAIM_TYPES: ClaimType[] = [
           "Act, 2002 treats the claim as discovered on the first day the borrower fails to repay AFTER a " +
           "demand for repayment is made, not on the day the money was originally lent. This demand-" +
           "obligation rule applies to demand obligations created on or after January 1, 2004.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/02l24_eV015.doc",
+        sourceUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
       },
       {
         note:
           "A written, signed acknowledgment of the debt, or a partial payment toward it, is treated as " +
           "having restarted the limitation clock as of the date of that acknowledgment or payment -- an " +
           "oral acknowledgment alone, without a signed writing or a payment, does not have this effect.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/02l24_eV015.doc",
+        sourceUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
       },
     ],
     signals: [
@@ -2909,26 +2933,26 @@ export const CLAIM_TYPES: ClaimType[] = [
     citations: [
       {
         sourceName: "Limitations Act, 2002, S.O. 2002, c. 24, Sched. B",
-        officialUrl: "https://www.ontario.ca/laws/docs/02l24_eV015.doc",
-        verifiedAt: "2026-09-10",
+        officialUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
+        verifiedAt: "2026-09-11",
         pinpoint: "s.4 and s.5(1)-(2): basic 2-year limitation period, running from discovery of the claim",
       },
       {
         sourceName: "Limitations Act, 2002, S.O. 2002, c. 24, Sched. B",
-        officialUrl: "https://www.ontario.ca/laws/docs/02l24_eV015.doc",
-        verifiedAt: "2026-09-10",
+        officialUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
+        verifiedAt: "2026-09-11",
         pinpoint: "s.5(3)-(4): for a demand obligation, the claim is discovered on the first day of a failure to perform after a demand is made -- applies to demand obligations created on or after January 1, 2004",
       },
       {
         sourceName: "Limitations Act, 2002, S.O. 2002, c. 24, Sched. B",
-        officialUrl: "https://www.ontario.ca/laws/docs/02l24_eV015.doc",
-        verifiedAt: "2026-09-10",
+        officialUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
+        verifiedAt: "2026-09-11",
         pinpoint: "s.13(1): a written, signed acknowledgment of a liquidated-sum debt deems the claim to have arisen again on the day of the acknowledgment; s.13(10): the acknowledgment must be in writing and signed; s.13(11): part payment has the same effect as a written acknowledgment",
       },
       {
         sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
-        officialUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
-        verifiedAt: "2026-09-07",
+        officialUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+        verifiedAt: "2026-09-11",
         pinpoint: "s.23(1): Small Claims Court jurisdiction is any action for payment of money up to the prescribed amount, with no cause-of-action exclusion",
       },
     ],
@@ -3018,7 +3042,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
           "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
           "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
+        sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
         evidenceCategories: [
           {
             name: "Cost documentation",
@@ -3124,8 +3148,8 @@ export const CLAIM_TYPES: ClaimType[] = [
       },
       {
         sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
-        officialUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90c43_ev005.doc",
-        verifiedAt: "2026-09-07",
+        officialUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+        verifiedAt: "2026-09-11",
         pinpoint: "s.23(1): Small Claims Court jurisdiction is any action for payment of money up to the prescribed amount, with no cause-of-action exclusion",
       },
     ],

@@ -60,18 +60,54 @@ year><chapter letter><2-digit chapter number>_e.doc`:
 - `90l12_e.doc` — Libel and Slander Act, R.S.O. 1990, c. L.12
 - `98c19_e.doc` — Condominium Act, 1998, S.O. 1998, c. 19
 
-But at least three entries already cited in this codebase don't follow that
-exact pattern — `90o02_eV006.doc` (Occupiers' Liability Act, capital `V` plus
-a version number), `elaws_statutes_90c43_ev005.doc` (Courts of Justice Act, a
-completely different `elaws_statutes_` prefix), and `02l24_eV015.doc`
-(Limitations Act, 2002 — the base id shape holds but it still carries a
-version suffix, not a plain `_e`). Treat the plain pattern as a starting
-guess to try, not a template to construct blindly and cite without
-confirming the fetch actually returned the right document.
+### A version suffix (`_eV006`, `_ev005`, `_eV015`) means a HISTORICAL snapshot — not the current law
+
+**Correction (Session 46), and the most consequential one recorded in this
+file so far.** This entry previously listed three "filename pattern
+exceptions" — `90o02_eV006.doc`, `elaws_statutes_90c43_ev005.doc`,
+`02l24_eV015.doc` — as though the version suffix were a harmless naming
+quirk. It isn't. **A `_eV<nnn>`/`_ev<nnn>` suffix identifies a frozen
+historical consolidation of that statute**, and the document itself says so
+in its own header. All three were being cited as if they were current law.
+Checked directly:
+
+| Cited URL | What it actually is |
+|---|---|
+| `90o02_eV006.doc` | "HISTORICAL VERSION FOR THE PERIOD DECEMBER 8, 2020 TO JANUARY 28, 2021" |
+| `elaws_statutes_90c43_ev005.doc` | "HISTORICAL VERSION FOR THE PERIOD JUNE 22, 2006 TO OCTOBER 18, 2006" |
+| `02l24_eV015.doc` | "HISTORICAL VERSION FOR THE PERIOD JUNE 4, 2015 TO MARCH 7, 2016" |
+
+**The current consolidation is the plain `_e.doc` form** — its header reads
+"CONSOLIDATION PERIOD: FROM <date> TO THE E-LAWS CURRENCY DATE" instead:
+`90o02_e.doc` (from 2021-01-29), `90c43_e.doc` (from 2025-12-11 — note this
+is a *different filename* from the `elaws_statutes_`-prefixed one, which is
+its own separate, older-consolidation document), `02l24_e.doc` (from
+2024-12-04).
+
+**This produced a real error, not a hypothetical one.** The Occupiers'
+Liability Act snapshot predated s.6.1 by seven weeks — it carries that
+section marked "not in force," when s.6.1 has been in force since
+2021-01-29. s.6.1 imposes a **60-day written notice requirement** for
+personal injury caused by snow or ice, and no action may be brought without
+it. The slip-and-fall claim type — whose own signals are almost entirely
+snow/ice fact patterns — told users only about the ordinary 2-year
+limitation period, because the cited version of the Act did not contain the
+60-day rule. Fixed in the same session this note was written; the other two
+were checked provision-by-provision against their current text and their
+cited propositions happened to be unchanged, so those were URL-only fixes.
+
+**Practical rule:** always open the fetched `.doc` and read its first
+header line before citing from it. "CONSOLIDATION PERIOD ... TO THE E-LAWS
+CURRENCY DATE" means current; "HISTORICAL VERSION FOR THE PERIOD ..." means
+you are reading law as it stood on a past date, and anything enacted since
+is either missing or marked "not in force." Treat any filename carrying a
+version suffix as historical until that header proves otherwise. The plain
+`_e.doc` form is the one to cite; treat the rest of the filename pattern as
+a starting guess to try, not a template to construct blindly.
 
 ### Limitations Act, 2002 — two provisions worth knowing before re-deriving them
 
-Read directly (`ontario.ca/laws/docs/02l24_eV015.doc`, extracted with
+Read directly (`ontario.ca/laws/docs/02l24_e.doc`, extracted with
 antiword) while sourcing the "personal loan between individuals" claim type
 (commit — see git log for the claim-type addition following this note).
 Both are narrow, precise, and easy to re-find by accident rather than by
