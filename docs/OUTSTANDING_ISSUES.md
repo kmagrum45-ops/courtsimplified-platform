@@ -273,6 +273,22 @@ From the per-journey interception data in `_RATE_before.md` and `_RATE_after.md`
 
 **Consequence for the gate:** a five-and-five interception measurement validates Fix 1 only. Do not read a clean result as covering Fixes 2 and 3.
 
+### ⚠️ The §3 cleanup was never completed — the handoff's claim is wrong
+
+**The handoff states that "every risk-weighted score, colour ramp and ordinal grade" was removed. That is not true.** `24e47c3` did this pass for the **element-status schema only**. Five separate instances of the same pattern are still live, and each survived for a different reason. None is caught by the sanitizer.
+
+**1. A fifth score formula — `scoreFromConfidence()` / `buildReadinessScore()`**, `src/lib/case-system/dashboard/dashboardAdapter.ts:130` and `:325`. Converts ordinals to 0–95 numbers and averages **nine** of them, including `proofReadiness`, `credibilityReadiness` and `contradictionReadiness` — case-merits grades. The risk *penalty* was deleted this session (the comment at `:343` records it), but **the score itself survived**. It is user-facing: `app/dashboard/page.tsx:199` filters on `readinessScore >= 80` to show an "export ready" count. It evaded the earlier removal pass purely by being spelled `confidence` rather than `score`.
+
+**2. A live colour ramp — `getReadinessTone()`**, `app/court-package/page.tsx:94`, applied to a card at `:305`. Green when the readiness string contains "ready", amber when it contains "risk", "gap" or "missing". It survived because it keys on **strings**, not a numeric score.
+
+**3. The cognition prompt still asks the model to grade the case.** `claimClassifications[].score` (0–100), `rejectedFalsePositives[].score`, `evidenceIssueLinks[].strength`, `formRecommendations[].confidence`, and — most directly — `evidenceIssueLinks[].explanation`, whose instruction reads: *"Explain why the current proof is weak, developing, or stronger."* The prompt asks for a weakness characterisation in words.
+
+**4. The sanitizer cannot see numbers.** `sanitizeCognitionOutput` (`caseStrengthLanguageValidator.ts:205`) tests `typeof raw === "string"` and returns everything else untouched. `score: 70` passes through entirely unexamined. No wordlist can ever catch it — this is a shape problem, not a vocabulary problem.
+
+**5. `assemblyConfidence` renders `strong` / `moderate` / `weak` on the user's own evidence** — `evidenceAssemblyEngine.ts:26`, rendered at `app/evidence/page.tsx:618` as a badge reading e.g. "WEAK confidence". The computation (`confidenceFor`, `:271`) only counts how many metadata fields were filled — 5+ of 7 → "strong". **It never inspects evidential weight, but the label says it does.** `/evidence` is reachable in one click from the builder's "Organize evidence" button, so this is shipping, not latent.
+
+**The lesson for any future pass:** every one of these evaded a field-name or wordlist check. A grade is a *shape* — an ordinal drawn from a fixed ladder, or a bounded number — and that is what has to be detected. See the structural-check proposal filed with this entry.
+
 ### 📌 The OpenAI cap is **not** a project-level RPD override — hypothesis unconfirmed
 
 An earlier conclusion in this session held that the ~100 requests/day ceiling came from a custom project-level rate limit, inferred from a header mismatch (`x-ratelimit-limit-requests: 10000` alongside `remaining-requests` tracking a ~100 scale). **That inference does not hold.** The project rate-limit page lists **TPM and RPM only — there is no RPD row on any model**, and `gpt-4o-mini` inherits org values exactly. There is no project-level override to raise.
