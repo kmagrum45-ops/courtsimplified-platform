@@ -71,11 +71,11 @@ function hasProofAnalysis(input: WorkflowOrchestrationBuildInput): boolean {
 }
 
 function hasProofWeakness(input: WorkflowOrchestrationBuildInput): boolean {
-  return (input.proof?.proofWeaknesses || []).length > 0;
+  return (input.proof?.elementsWithNothingRecorded || []).length > 0;
 }
 
-function weakClaimProofCount(input: WorkflowOrchestrationBuildInput): number {
-  return input.proof?.weakClaimProofCount || 0;
+function claimsWithNothingRecordedCount(input: WorkflowOrchestrationBuildInput): number {
+  return input.proof?.claimsWithNothingRecordedCount || 0;
 }
 
 function missingElementProofCount(input: WorkflowOrchestrationBuildInput): number {
@@ -148,7 +148,7 @@ function hasCredibilityWarnings(input: WorkflowOrchestrationBuildInput): boolean
 function proofSeverity(input: WorkflowOrchestrationBuildInput): CaseSeverity {
   if (contradictedElementProofCount(input) > 0) return "critical";
   if (missingElementProofCount(input) > 0) return "high";
-  if (weakClaimProofCount(input) > 0) return "medium";
+  if (claimsWithNothingRecordedCount(input) > 0) return "medium";
   if (hasProofWeakness(input)) return "medium";
   return "info";
 }
@@ -157,7 +157,7 @@ function proofReadiness(input: WorkflowOrchestrationBuildInput): CaseConfidence 
   if (!hasProofAnalysis(input)) return "low";
   if (contradictedElementProofCount(input) > 0) return "very-low";
   if (missingElementProofCount(input) > 0) return "low";
-  if (weakClaimProofCount(input) > 0 || hasProofWeakness(input)) return "medium";
+  if (claimsWithNothingRecordedCount(input) > 0 || hasProofWeakness(input)) return "medium";
   if ((input.proof?.proofStrengths || []).length > 0) return "high";
   return "medium";
 }
@@ -526,7 +526,7 @@ function buildGates(input: WorkflowOrchestrationBuildInput): WorkflowGate[] {
         : contradictedElementProofCount(input) > 0 ||
             missingElementProofCount(input) > 0
           ? "blocked"
-          : weakClaimProofCount(input) > 0 || hasProofWeakness(input)
+          : claimsWithNothingRecordedCount(input) > 0 || hasProofWeakness(input)
             ? "open"
             : "satisfied",
       severity: !hasProofAnalysis(input) ? "high" : proofSeverity(input),
@@ -789,13 +789,13 @@ function buildProofBlockers(input: WorkflowOrchestrationBuildInput): WorkflowBlo
     );
   }
 
-  if (weakClaimProofCount(input) > 0) {
+  if (claimsWithNothingRecordedCount(input) > 0) {
     blockers.push(
       buildBlocker({
         blockerType: "proof-risk",
         severity: "medium",
         title: "Weak claim proof map",
-        explanation: `${weakClaimProofCount(
+        explanation: `${claimsWithNothingRecordedCount(
           input,
         )} claim proof map(s) are weak. The case may need stronger evidence before strategy, settlement, or court package generation.`,
         suggestedFix:
@@ -810,7 +810,7 @@ function buildProofBlockers(input: WorkflowOrchestrationBuildInput): WorkflowBlo
     );
   }
 
-  for (const weakness of input.proof?.proofWeaknesses || []) {
+  for (const weakness of input.proof?.elementsWithNothingRecorded || []) {
     blockers.push(
       buildBlocker({
         blockerType: "proof-risk",
@@ -1498,7 +1498,7 @@ function chooseRecommendedRoute(
   }
 
   if (
-    weakClaimProofCount(input) > 0 ||
+    claimsWithNothingRecordedCount(input) > 0 ||
     hasProofWeakness(input) ||
     (input.claimWarnings || []).length > 0 ||
     (input.legalReasoning?.judicialConcerns || []).length > 0 ||
@@ -1564,7 +1564,7 @@ function proofPriority(
 ): WorkflowNextAction["priority"] {
   if (contradictedElementProofCount(input) > 0) return "critical";
   if (missingElementProofCount(input) > 0) return "high";
-  if (weakClaimProofCount(input) > 0 || hasProofWeakness(input)) return "high";
+  if (claimsWithNothingRecordedCount(input) > 0 || hasProofWeakness(input)) return "high";
   return "medium";
 }
 
@@ -1674,7 +1674,7 @@ function buildProofActions(input: WorkflowOrchestrationBuildInput): WorkflowNext
   if (
     contradictedElementProofCount(input) > 0 ||
     missingElementProofCount(input) > 0 ||
-    weakClaimProofCount(input) > 0 ||
+    claimsWithNothingRecordedCount(input) > 0 ||
     hasProofWeakness(input)
   ) {
     actions.push(
@@ -2247,7 +2247,7 @@ export function buildWorkflowOrchestration(
     ...(input.contradictionWarnings || []),
     ...(input.contradictions?.warnings || []),
     ...(input.knowledgeWarnings || []),
-    ...(input.proof?.proofWeaknesses || []),
+    ...(input.proof?.elementsWithNothingRecorded || []),
     ...proceduralBlockerTitles(input),
     ...proceduralNextActionTitles(input),
   ]);

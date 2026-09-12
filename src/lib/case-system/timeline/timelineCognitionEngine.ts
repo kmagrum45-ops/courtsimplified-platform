@@ -226,7 +226,6 @@ function buildTimelineEvent(args: {
     },
 
     tags: [],
-    confidence: "medium",
   };
 
   return {
@@ -355,9 +354,9 @@ function buildReadiness(events: LitigationTimelineEvent[]): TimelineReadinessSta
 
   const dateConfidence = averageConfidence(events.map((event) => event.date.confidence));
 
-  const evidenceLinkingStrength = averageConfidence(
-    events.map((event) => (event.evidenceLinks.length > 0 ? "medium" : "low")),
-  );
+  // evidenceLinkingStrength removed: "has linked evidence / has none" is a
+  // fact already available from event.evidenceLinks.length. Averaging it onto
+  // an ordinal ladder turned it into a grade.
 
   const blockers = eventIssues
     .filter((issue) => issue.severity === "high" || issue.severity === "critical")
@@ -371,9 +370,6 @@ function buildReadiness(events: LitigationTimelineEvent[]): TimelineReadinessSta
   return {
     chronologyCompleteness: events.length > 0 ? "medium" : "very-low",
     dateConfidence,
-    evidenceLinkingStrength,
-    proceduralSequencingStrength: "low",
-    causationStrength: "low",
     blockers,
     nextTimelineActions,
   };
@@ -407,13 +403,9 @@ export function buildTimelineCognition(
       : []),
   ]);
 
-  const confidence = averageConfidence([
-    readiness.chronologyCompleteness,
-    readiness.dateConfidence,
-    readiness.evidenceLinkingStrength,
-    readiness.proceduralSequencingStrength,
-    readiness.causationStrength,
-  ]);
+  // The timeline-level `confidence` average is removed. It mixed parse
+  // fidelity (dateConfidence) with three merits grades, producing a single
+  // ordinal that read as "how good is this case's timeline".
 
   return {
     timeline: {
@@ -431,7 +423,6 @@ export function buildTimelineCognition(
       readiness,
 
       warnings,
-      confidence,
     },
     warnings,
   };

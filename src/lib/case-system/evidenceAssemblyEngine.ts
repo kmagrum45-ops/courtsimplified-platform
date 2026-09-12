@@ -23,7 +23,18 @@ export type AssembledExhibit = EvidenceItem & {
   assembledBySystem: true;
   userReviewed: boolean;
   userEdited: boolean;
-  assemblyConfidence: "strong" | "moderate" | "weak";
+  /**
+   * How many of the seven record details are filled in: title, description,
+   * date, source, related issue, related legal element, and an attached
+   * file/content. See RECORDED_DETAIL_FIELDS.
+   *
+   * This replaces `assemblyConfidence: "strong" | "moderate" | "weak"`, which
+   * computed exactly this count but labelled it as a grade. Rendered beside a
+   * user's exhibit, "WEAK confidence" reads as "this evidence is weak" -- a
+   * case-strength statement CLAUDE.md section 3 forbids, and one the
+   * computation never actually made. A count says what it measures.
+   */
+  recordedDetailCount: number;
   assemblyNotes: string[];
 };
 
@@ -268,21 +279,36 @@ function autoRelevance(input: RawEvidenceInput, category: string) {
   return "This evidence should be reviewed and connected to a specific issue or proof point.";
 }
 
-function confidenceFor(input: RawEvidenceInput) {
-  let score = 0;
+/**
+ * The seven record details counted by recordedDetailCountFor(). Exported so
+ * the UI can say "3 of 7" without hardcoding the denominator in two places.
+ */
+export const RECORDED_DETAIL_TOTAL = 7;
 
-  if (clean(input.title)) score += 1;
-  if (clean(input.description)) score += 1;
-  if (clean(input.date)) score += 1;
-  if (clean(input.source)) score += 1;
-  if (clean(input.relatedIssue)) score += 1;
-  if (clean(input.relatedLegalElement)) score += 1;
-  if (clean(input.fileName) || clean(input.storagePath) || clean(input.content)) score += 1;
+/**
+ * How many of the seven details this exhibit has on record. Purely a count of
+ * what the user supplied -- it does not look at the content of any field and
+ * says nothing about what the evidence shows.
+ */
+function recordedDetailCountFor(input: RawEvidenceInput): number {
+  let count = 0;
 
-  if (score >= 5) return "strong";
-  if (score >= 3) return "moderate";
-  return "weak";
+  if (clean(input.title)) count += 1;
+  if (clean(input.description)) count += 1;
+  if (clean(input.date)) count += 1;
+  if (clean(input.source)) count += 1;
+  if (clean(input.relatedIssue)) count += 1;
+  if (clean(input.relatedLegalElement)) count += 1;
+  if (clean(input.fileName) || clean(input.storagePath) || clean(input.content)) count += 1;
+
+  return count;
 }
+
+/**
+ * The threshold below which an exhibit is flagged for user review. Was
+ * `assemblyConfidence === "weak"`, i.e. fewer than 3 of 7 details.
+ */
+export const SPARSE_DETAIL_THRESHOLD = 3;
 
 function assemblyNotesFor(input: RawEvidenceInput, item: EvidenceItem) {
   const notes: string[] = [];
@@ -367,7 +393,7 @@ export function assembleEvidencePackage(
       assembledBySystem: true,
       userReviewed: false,
       userEdited: false,
-      assemblyConfidence: confidenceFor(input),
+      recordedDetailCount: recordedDetailCountFor(input),
       assemblyNotes: assemblyNotesFor(input, item),
     };
 
@@ -410,13 +436,13 @@ export function assembleEvidencePackage(
 
   const assemblyWarnings: string[] = [];
 
-  const weakItems = exhibits.filter(
-    (item) => item.assemblyConfidence === "weak"
+  const sparseItems = exhibits.filter(
+    (item) => item.recordedDetailCount < SPARSE_DETAIL_THRESHOLD
   );
 
-  if (weakItems.length > 0) {
+  if (sparseItems.length > 0) {
     assemblyWarnings.push(
-      `${weakItems.length} exhibit(s) were assembled with weak confidence and need user review.`
+      `${sparseItems.length} exhibit(s) have fewer than ${SPARSE_DETAIL_THRESHOLD} of ${RECORDED_DETAIL_TOTAL} details recorded and need user review.`
     );
   }
 

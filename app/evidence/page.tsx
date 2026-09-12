@@ -12,6 +12,7 @@ import {
 
 import {
   assembleEvidencePackage,
+  RECORDED_DETAIL_TOTAL,
   type AssembledExhibit,
 } from "../../src/lib/case-system/evidenceAssemblyEngine";
 
@@ -211,7 +212,9 @@ function EvidencePageContent() {
       assembledBySystem: true,
       userReviewed: false,
       userEdited: false,
-      assemblyConfidence: "moderate",
+      // Manually assembled from parsed messages: title, description, content,
+      // exhibit group and number are set above; date and source are not.
+      recordedDetailCount: 4,
       assemblyNotes: [
         "This exhibit was manually assembled from selected parsed messages.",
         "User should confirm sender, date, context, completeness, and whether surrounding messages are needed.",
@@ -614,8 +617,8 @@ function EvidencePageContent() {
                 </div>
 
                 <div className="flex flex-wrap gap-2">
-                  <span className="rounded-full bg-[#e6f3ee] px-3 py-1 text-xs font-semibold uppercase text-[#2f7d67]">
-                    {group.assemblyConfidence} confidence
+                  <span className="rounded-full bg-[#e6f3ee] px-3 py-1 text-xs font-semibold text-[#2f7d67]">
+                    {group.recordedDetailCount} of {RECORDED_DETAIL_TOTAL} details recorded
                   </span>
 
                   {group.userEdited && (

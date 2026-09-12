@@ -86,7 +86,6 @@ type GptCognitionOutput = {
     claimType?: string;
     requiredProof?: string;
     missingEvidence?: string[];
-    strength?: string;
     explanation?: string;
   }[];
   litigationRisks?: {
@@ -1122,7 +1121,6 @@ function buildEvidenceIssueLinks(args: {
     availableEvidenceIds: evidenceIds,
     missingEvidence: cleanList(item.missingEvidence || []),
     admissibilityConcerns: [],
-    strength: asConfidence(item.strength),
     explanation:
       clean(item.explanation) ||
       "Evidence must be reviewed, organized, and linked to proof points.",
@@ -1401,10 +1399,9 @@ function buildProofDrivenRisks(args: {
       });
     }
 
-    if (
-      proofMap.overallProofStrength === "very-low" ||
-      proofMap.overallProofStrength === "low"
-    ) {
+    // Was: overallProofStrength is low/very-low. Now a factual trigger --
+    // this claim has elements with nothing recorded against them.
+    if (proofMap.elementsByRecordStatus.nothingRecorded.length > 0) {
       risks.push({
         id: createId("risk"),
         severity: "high",
@@ -1429,7 +1426,7 @@ function buildProofDrivenNextActions(args: {
 }): string[] {
   return cleanList([
     ...args.elementProofAnalysis.globalNextActions,
-    ...args.elementProofAnalysis.globalWeaknesses.map(
+    ...args.elementProofAnalysis.globalNothingRecorded.map(
       (item) => `Add proof for: ${item}.`,
     ),
   ]);
@@ -1632,14 +1629,12 @@ function buildMasterResultPatch(args: {
           ...args.intelligence.claimClassifications.map((claim) => claim.explanation),
           ...(args.intelligence.factPatternAnalysis?.strongestPatterns || []),
           ...(args.intelligence.evidenceIntelligenceAnalysis?.strongestEvidence || []),
-          ...(args.intelligence.elementProofAnalysis?.globalStrengths || []),
         ],
         weaknesses: [
           ...args.intelligence.litigationRisks.map((risk) => risk.explanation),
           ...(args.intelligence.factPatternAnalysis?.weakestPatterns || []),
           ...(args.intelligence.evidenceIntelligenceAnalysis?.weakestEvidence || []),
           ...(args.intelligence.evidenceIntelligenceAnalysis?.gaps.map((gap) => gap.explanation) || []),
-          ...(args.intelligence.elementProofAnalysis?.globalWeaknesses || []),
         ],
         // Session 38 removed opposingArguments/judgeConcerns as a source
         // entirely (see caseStrengthLanguageValidator.ts's file header) --
@@ -1679,8 +1674,9 @@ function buildMasterResultPatch(args: {
         unresolvedQuestions: args.intelligence.missingInformation.map(
           (item) => item.question,
         ),
-        proofWeaknesses: args.intelligence.elementProofAnalysis?.globalWeaknesses || [],
-        proofStrengths: args.intelligence.elementProofAnalysis?.globalStrengths || [],
+        elementsWithNothingRecorded:
+          args.intelligence.elementProofAnalysis?.globalNothingRecorded || [],
+        proofStrengths: [],
         warningsForAi: [
           "Use the unified CourtSimplified brain only.",
           "Do not use old issue buckets as final legal classification.",
@@ -1735,8 +1731,8 @@ function buildDashboardPatch(
     proofAnalysis: {
       summary: intelligence.elementProofAnalysis?.summary || "",
       claimProofMaps: intelligence.elementProofAnalysis?.claimProofMaps || [],
-      globalWeaknesses: intelligence.elementProofAnalysis?.globalWeaknesses || [],
-      globalStrengths: intelligence.elementProofAnalysis?.globalStrengths || [],
+      globalNothingRecorded:
+        intelligence.elementProofAnalysis?.globalNothingRecorded || [],
       globalNextActions: intelligence.elementProofAnalysis?.globalNextActions || [],
     },
     legalKnowledgeStatus: {
@@ -1790,7 +1786,9 @@ function chooseRoute(intelligence: LegalIntelligenceResult): string {
     return "/evidence";
   }
 
-  if (intelligence.evidenceIssueLinks.some((link) => link.strength === "low")) {
+  // Was: some link is graded "low". Now factual -- some link has evidence
+  // recorded as missing.
+  if (intelligence.evidenceIssueLinks.some((link) => link.missingEvidence.length > 0)) {
     return "/evidence";
   }
 
@@ -1948,8 +1946,7 @@ Return JSON with this exact shape and no extra keys:
       "claimType": "civil-institutional-liability",
       "requiredProof": "Evidence connecting the alleged conduct or process failure to the harm or increased risk.",
       "missingEvidence": ["Chronology", "records showing knowledge", "records showing conduct", "harm evidence"],
-      "strength": "low",
-      "explanation": "Explain why the current proof is weak, developing, or stronger."
+      "explanation": "State what proof for this issue is in the file, and what is not. Do not characterize how good it is."
     }
   ],
   "litigationRisks": [
@@ -2082,7 +2079,6 @@ function buildFallbackCognition(normalizedIntake: NormalizedIntake): GptCognitio
       claimType: firstDomain,
       requiredProof: "Connect this evidence to a fact, legal issue, date, and remedy.",
       missingEvidence: item.gaps,
-      strength: item.strength,
       explanation:
         "Preliminary evidence mapping based on the information entered.",
     })),
@@ -2459,7 +2455,7 @@ export async function runCourtSimplifiedBrain(
       ...limitationAssessments
         .filter((item) => item.status === "possible-risk" || item.status === "likely-risk")
         .map(() => "Limitation or deadline risk requires review."),
-      ...elementProofAnalysis.globalWeaknesses.map(
+      ...elementProofAnalysis.globalNothingRecorded.map(
         (item) => `No documented proof yet: ${item}.`,
       ),
       ...legalKnowledge.sourceWarnings,

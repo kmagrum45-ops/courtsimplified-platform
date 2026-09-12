@@ -34,14 +34,30 @@ export type ElementProofFinding = {
   explanation: string;
 };
 
+/**
+ * Elements partitioned by what is on record, in place of the previous
+ * weakest/strongest ordering.
+ *
+ * Session 48: `weakestElements` / `strongestElements` / `overallProofStrength`
+ * ranked the user's case by how well each element was doing, which CLAUDE.md
+ * section 3 forbids. This says only which elements have evidence recorded
+ * against them, which have some, and which have none — a factual partition of
+ * the file. Each group is sorted alphabetically so the order carries no
+ * ranking either.
+ */
+export type ElementsByRecordStatus = {
+  recorded: string[];
+  partlyRecorded: string[];
+  nothingRecorded: string[];
+  contradicted: string[];
+};
+
 export type ClaimProofMap = {
   id: string;
   claimId: string;
   claimType: LegalDomain;
   claimTitle: string;
-  overallProofStrength: IntelligenceConfidence;
-  weakestElements: string[];
-  strongestElements: string[];
+  elementsByRecordStatus: ElementsByRecordStatus;
   missingEvidence: string[];
   nextActions: string[];
   elementFindings: ElementProofFinding[];
@@ -50,8 +66,12 @@ export type ClaimProofMap = {
 export type ElementProofEngineResult = {
   version: "1.0.0";
   claimProofMaps: ClaimProofMap[];
-  globalWeaknesses: string[];
-  globalStrengths: string[];
+  /**
+   * Every element, across all claims, with nothing recorded against it.
+   * Replaces globalWeaknesses/globalStrengths, which named the case's strong
+   * and weak points.
+   */
+  globalNothingRecorded: string[];
   globalNextActions: string[];
   summary: string;
 };
@@ -99,21 +119,9 @@ function mapElementStatus(
   return "not-applicable";
 }
 
-function scoreConfidence(value: IntelligenceConfidence): number {
-  if (value === "very-high") return 90;
-  if (value === "high") return 75;
-  if (value === "medium") return 55;
-  if (value === "low") return 30;
-  return 10;
-}
-
-function confidenceFromScore(score: number): IntelligenceConfidence {
-  if (score >= 85) return "very-high";
-  if (score >= 70) return "high";
-  if (score >= 45) return "medium";
-  if (score >= 20) return "low";
-  return "very-low";
-}
+// scoreConfidence() and confidenceFromScore() removed with
+// overallProofStrength. They were the ordinal-to-number-and-back pair that
+// made the penalty arithmetic possible.
 
 function burdenRiskFor(status: ElementProofStatus): IntelligenceSeverity {
   if (status === "contradicted") return "critical";
@@ -201,22 +209,21 @@ function buildClaimProofMap(args: {
     }),
   );
 
-  const weakestElements = unique(
-    elementFindings
-      .filter(
-        (item) =>
-          item.status === "no-evidence-recorded" ||
-          item.status === "contradicted" ||
-          item.status === "some-evidence-recorded",
-      )
-      .map((item) => item.elementLabel),
-  );
+  // Alphabetical within each group: the partition says what is on record, and
+  // nothing about the order should imply a ranking.
+  const labelsWithStatus = (status: ElementProofStatus): string[] =>
+    unique(
+      elementFindings
+        .filter((item) => item.status === status)
+        .map((item) => item.elementLabel),
+    ).sort((a, b) => a.localeCompare(b));
 
-  const strongestElements = unique(
-    elementFindings
-      .filter((item) => item.status === "evidence-recorded")
-      .map((item) => item.elementLabel),
-  );
+  const elementsByRecordStatus: ElementsByRecordStatus = {
+    recorded: labelsWithStatus("evidence-recorded"),
+    partlyRecorded: labelsWithStatus("some-evidence-recorded"),
+    nothingRecorded: labelsWithStatus("no-evidence-recorded"),
+    contradicted: labelsWithStatus("contradicted"),
+  };
 
   const missingEvidence = unique(
     elementFindings.flatMap((item) => item.missingEvidence),
@@ -226,26 +233,20 @@ function buildClaimProofMap(args: {
     elementFindings.map((item) => item.nextAction),
   );
 
-  const averageScore =
-    elementFindings.length > 0
-      ? elementFindings.reduce(
-          (total, item) => total + scoreConfidence(item.proofStrength),
-          0,
-        ) / elementFindings.length
-      : 0;
-
-  const penalty =
-    elementFindings.filter((item) => item.status === "no-evidence-recorded").length * 12 +
-    elementFindings.filter((item) => item.status === "contradicted").length * 20;
-
+  // `overallProofStrength` is removed, and with it the score behind it:
+  //
+  //     confidenceFromScore(averageScore - penalty)
+  //
+  // where penalty weighted each not-recorded element by 12 and each
+  // contradiction by 20. That is a risk-weighted readiness score over the
+  // user's own case — the exact construct CLAUDE.md section 3 names — and it
+  // was a sixth scoring formula, unnoticed until this pass.
   return {
     id: createId("claim_proof_map"),
     claimId: args.claim.id,
     claimType: args.claim.claimType,
     claimTitle: args.claim.claimType.replace(/-/g, " "),
-    overallProofStrength: confidenceFromScore(averageScore - penalty),
-    weakestElements,
-    strongestElements,
+    elementsByRecordStatus,
     missingEvidence,
     nextActions,
     elementFindings,
@@ -265,22 +266,13 @@ export function buildElementProofAnalysis(args: {
     }),
   );
 
-  const globalWeaknesses = unique(
-    claimProofMaps.flatMap((map) => [
-      ...map.weakestElements.map(
-        (element) => `${map.claimTitle}: ${element}`,
-      ),
-      ...map.missingEvidence,
-    ]),
-  );
-
-  const globalStrengths = unique(
+  const globalNothingRecorded = unique(
     claimProofMaps.flatMap((map) =>
-      map.strongestElements.map(
+      map.elementsByRecordStatus.nothingRecorded.map(
         (element) => `${map.claimTitle}: ${element}`,
       ),
     ),
-  );
+  ).sort((a, b) => a.localeCompare(b));
 
   const globalNextActions = unique(
     claimProofMaps.flatMap((map) => map.nextActions),
@@ -289,13 +281,12 @@ export function buildElementProofAnalysis(args: {
   const summary =
     claimProofMaps.length === 0
       ? "No active claim proof map was created because no active claim classifications were available."
-      : `Element proof analysis created ${claimProofMaps.length} claim proof map(s), with ${globalWeaknesses.length} weakness item(s) and ${globalStrengths.length} strength item(s).`;
+      : `Element proof analysis created ${claimProofMaps.length} claim proof map(s). ${globalNothingRecorded.length} element(s) have nothing recorded against them yet.`;
 
   return {
     version: "1.0.0",
     claimProofMaps,
-    globalWeaknesses,
-    globalStrengths,
+    globalNothingRecorded,
     globalNextActions,
     summary,
   };

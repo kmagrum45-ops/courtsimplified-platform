@@ -553,7 +553,10 @@ export type EvidenceIssueLink = {
   availableEvidenceIds: string[];
   missingEvidence: string[];
   admissibilityConcerns: EvidenceAdmissibilityConcern[];
-  strength: IntelligenceConfidence;
+  // Session 48: `strength` removed. The cognition prompt asked the model to
+  // grade the proof for an issue as low/medium/high and to "explain why the
+  // current proof is weak, developing, or stronger". `missingEvidence` already
+  // states, factually, what is not in the file.
   explanation: string;
 };
 
@@ -707,14 +710,24 @@ export type ElementProofFinding = {
   explanation: string;
 };
 
+/** Mirrors ElementsByRecordStatus in elementProofEngine.ts. */
+export type ElementsByRecordStatus = {
+  recorded: string[];
+  partlyRecorded: string[];
+  nothingRecorded: string[];
+  contradicted: string[];
+};
+
 export type ClaimProofMap = {
   id: string;
   claimId: string;
   claimType: LegalDomain;
   claimTitle: string;
-  overallProofStrength: IntelligenceConfidence;
-  weakestElements: string[];
-  strongestElements: string[];
+  // Session 48: overallProofStrength / weakestElements / strongestElements
+  // removed. They ranked the user's case by how well each element was doing,
+  // and overallProofStrength was computed as averageScore minus a penalty
+  // weighting not-recorded and contradicted elements — a risk-weighted score.
+  elementsByRecordStatus: ElementsByRecordStatus;
   missingEvidence: string[];
   nextActions: string[];
   elementFindings: ElementProofFinding[];
@@ -723,8 +736,7 @@ export type ClaimProofMap = {
 export type ElementProofEngineResult = {
   version: "1.0.0";
   claimProofMaps: ClaimProofMap[];
-  globalWeaknesses: string[];
-  globalStrengths: string[];
+  globalNothingRecorded: string[];
   globalNextActions: string[];
   summary: string;
 };

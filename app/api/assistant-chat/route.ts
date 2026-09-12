@@ -312,9 +312,6 @@ ${intelligence.proceduralPosture.courtPath}
 PROCEDURAL STAGE:
 ${intelligence.proceduralPosture.stage}
 
-CONFIDENCE:
-${intelligence.confidence}
-
 PRIMARY CLAIM TYPES:
 ${intelligence.primaryClaimTypes.join(", ") || "None confirmed"}
 
@@ -353,9 +350,7 @@ ${
     .slice(0, 10)
     .map(
       (link) =>
-        `- ${link.issueLabel}: strength=${link.strength}; missing=${link.missingEvidence.join(
-          "; ",
-        )}`,
+        `- ${link.issueLabel}: missing=${link.missingEvidence.join("; ")}`,
     )
     .join("\n") || "None"
 }

@@ -165,7 +165,10 @@ export type LitigationTimelineEvent = {
   source: TimelineEventSource;
 
   tags: string[];
-  confidence: CaseConfidence;
+  // Event-level `confidence` removed (Session 48). It was hardcoded "medium"
+  // for every event, so the dashboard rendered "MEDIUM confidence" on all of
+  // them unconditionally -- an ordinal grade badge attached to the user's own
+  // facts that carried no information at all.
 };
 
 export type TimelineCausationChain = {
@@ -193,10 +196,13 @@ export type TimelineProceduralSequence = {
 
 export type TimelineReadinessState = {
   chronologyCompleteness: CaseConfidence;
+  /** Parse fidelity: did the date normalize? Not a statement about the case. */
   dateConfidence: CaseConfidence;
-  evidenceLinkingStrength: CaseConfidence;
-  proceduralSequencingStrength: CaseConfidence;
-  causationStrength: CaseConfidence;
+  // evidenceLinkingStrength, proceduralSequencingStrength and causationStrength
+  // removed (Session 48). They graded whether evidence, procedure and causation
+  // were made out -- case merits, which CLAUDE.md section 3 forbids. Two were
+  // hardcoded "low" and never computed at all; all three fed only the
+  // timeline-level `confidence` average, which is removed with them.
   blockers: string[];
   nextTimelineActions: string[];
 };
@@ -217,7 +223,8 @@ export type LitigationTimelineModel = {
   readiness: TimelineReadinessState;
 
   warnings: string[];
-  confidence: CaseConfidence;
+  // Timeline-level `confidence` removed: it averaged parse fidelity together
+  // with three case-merits grades into one ordinal.
 };
 
 export type TimelineBuildInput = {

@@ -519,9 +519,14 @@ export type CaseClaimProofMap = {
   claimId: string;
   claimDomain: CaseLegalDomain;
   claimTitle: string;
-  overallProofStrength: CaseConfidence;
-  weakestElements: string[];
-  strongestElements: string[];
+  // Session 48: overallProofStrength / weakestElements / strongestElements
+  // removed as case-merits grading. See elementProofEngine.ts.
+  elementsByRecordStatus: {
+    recorded: string[];
+    partlyRecorded: string[];
+    nothingRecorded: string[];
+    contradicted: string[];
+  };
   missingEvidence: string[];
   nextActions: string[];
   elementFindings: CaseElementProofFinding[];
@@ -530,8 +535,7 @@ export type CaseClaimProofMap = {
 export type CaseProofAnalysis = {
   version: "1.0.0";
   claimProofMaps: CaseClaimProofMap[];
-  globalWeaknesses: string[];
-  globalStrengths: string[];
+  globalNothingRecorded: string[];
   globalNextActions: string[];
   summary: string;
 };
@@ -707,8 +711,8 @@ export type CaseMemorySnapshot = {
   warnings: string[];
   factPatternFindingCount: number;
   evidenceGapCount: number;
-  proofWeaknessCount: number;
-  proofStrengthCount: number;
+  /** Count of elements with nothing recorded yet. Was proofStrengthCount. */
+  nothingRecordedCount: number;
   authorityWarningCount: number;
   contradictionCount: number;
   credibilityRiskLevel: CaseCredibilityRiskLevel;

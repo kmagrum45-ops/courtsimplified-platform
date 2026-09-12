@@ -71,7 +71,7 @@ type CaseSystemAssemblyLike = {
 
   proofReadiness: {
     proofReadiness: AssemblyConfidence;
-    proofWeaknesses: string[];
+    elementsWithNothingRecorded: string[];
     proofStrengths: string[];
     proofNextActions: string[];
     missingElementProofCount: number;
@@ -123,26 +123,16 @@ function uniqueStrings(values: string[]): string[] {
   return Array.from(new Set(values.map((value) => value.trim()).filter(Boolean)));
 }
 
-function clampScore(value: number): number {
-  return Math.max(0, Math.min(100, value));
-}
+// clampScore() and scoreFromConfidence() removed with buildReadinessScore().
+//
+// scoreFromConfidence() was the mechanism that turned an ordinal grade into a
+// number, and it is the reason this formula went unnoticed: a search for
+// "score" formulas found the other four, and this one was reached through a
+// field named "confidence". Nothing converts a confidence ladder into a
+// number in this file any more, and nothing should.
 
-function scoreFromConfidence(value: AssemblyConfidence | undefined): number {
-  if (value === "very-high") return 95;
-  if (value === "high") return 80;
-  if (value === "medium") return 60;
-  if (value === "low") return 35;
-  if (value === "very-low") return 15;
-  return 0;
-}
-
-function readinessLevelFromScore(score: number): string {
-  if (score >= 85) return "ready";
-  if (score >= 70) return "near-ready";
-  if (score >= 45) return "developing";
-  if (score >= 20) return "early";
-  return "not-ready";
-}
+// readinessLevelFromScore() removed with buildReadinessScore(): an ordinal
+// ladder derived from a case score is the same grading as the score.
 
 function labelFromRoute(route: string): string {
   const cleaned = route.replace("/", "").split("-").join(" ");
@@ -322,39 +312,19 @@ function buildAssemblyRisks(assembly: CaseSystemAssemblyLike): DashboardRisk[] {
   return risks;
 }
 
-function buildReadinessScore(assembly: CaseSystemAssemblyLike): number {
-  const procedural = assembly.proceduralState?.readiness;
-
-  const values = [
-    scoreFromConfidence(procedural?.overallReadiness),
-    scoreFromConfidence(procedural?.deadlineReadiness),
-    scoreFromConfidence(procedural?.serviceReadiness),
-    scoreFromConfidence(procedural?.filingReadiness),
-    scoreFromConfidence(assembly.proofReadiness.proofReadiness),
-    scoreFromConfidence(assembly.authorityReadiness.authorityReadiness),
-    scoreFromConfidence(assembly.contradictionReadiness.contradictionReadiness),
-    scoreFromConfidence(assembly.credibilityIntelligence.credibilityReadiness),
-    scoreFromConfidence(assembly.workflow.confidence),
-  ];
-
-  const average =
-    values.reduce((total, value) => total + value, 0) / Math.max(values.length, 1);
-
-  // The critical/high risk penalty that stood here (count * 4) is removed:
-  // CLAUDE.md section 3 prohibits readiness scores that weight risk, and this
-  // fed a number displayed to the user. Deleted rather than reweighted --
-  // any non-zero weight is still the system grading the case.
-  //
-  // Blockers and warnings are kept because they are factual absences, not
-  // gradings: a blocker is "this step cannot proceed until X is recorded".
-  return clampScore(
-    Math.round(
-      average -
-        assembly.workflow.blockers.length * 3 -
-        assembly.warnings.length,
-    ),
-  );
-}
+// buildReadinessScore() removed entirely (Session 48).
+//
+// An earlier pass deleted only its risk PENALTY, on the grounds that CLAUDE.md
+// section 3 forbids a readiness score that weights risk. That was half the
+// problem. The score itself averaged nine ordinal grades -- including
+// proofReadiness, credibilityReadiness and contradictionReadiness, which grade
+// the merits -- and fed a number the user saw. It survived the earlier removal
+// of the four score formulas purely because it was spelled "confidence"
+// rather than "score".
+//
+// Nothing replaces it. `readiness.reasons` and `readiness.blockers` already
+// state, factually, what is and is not recorded; the dashboard now counts
+// outstanding items instead of grading them.
 
 export function buildDashboardWorkflowCardsFromAssembly(
   assembly: CaseSystemAssemblyLike,
@@ -382,7 +352,6 @@ export function buildDashboardMasterFromAssembly(
   assembly: CaseSystemAssemblyLike,
 ): DashboardMasterView {
   const risks = buildAssemblyRisks(assembly);
-  const readinessScore = buildReadinessScore(assembly);
 
   const proceduralBlockers = assembly.proceduralState?.readiness.blockers || [];
   const proceduralNextActions =
@@ -436,7 +405,7 @@ export function buildDashboardMasterFromAssembly(
           : "",
       ]),
       weaknesses: uniqueStrings([
-        ...assembly.proofReadiness.proofWeaknesses,
+        ...assembly.proofReadiness.elementsWithNothingRecorded,
         ...assembly.authorityReadiness.warnings,
         ...assembly.contradictionReadiness.warnings,
         ...assembly.credibilityIntelligence.warnings,
@@ -529,8 +498,6 @@ export function buildDashboardMasterFromAssembly(
     },
 
     readiness: {
-      level: readinessLevelFromScore(readinessScore),
-      score: readinessScore,
       reasons: uniqueStrings([
         assembly.authorityReadiness.summary,
         assembly.contradictionReadiness.summary,

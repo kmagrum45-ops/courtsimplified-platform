@@ -508,8 +508,7 @@ function emptyProofAnalysis(): CaseProofAnalysis {
   return {
     version: "1.0.0",
     claimProofMaps: [],
-    globalWeaknesses: [],
-    globalStrengths: [],
+    globalNothingRecorded: [],
     globalNextActions: [],
     summary: "No proof analysis was available for this case state.",
   };
@@ -602,15 +601,12 @@ function mapProofAnalysis(intelligence: LegalIntelligenceResult): CaseProofAnaly
       claimId: proofMap.claimId,
       claimDomain: asCaseLegalDomain(proofMap.claimType),
       claimTitle: proofMap.claimTitle,
-      overallProofStrength: asCaseConfidence(proofMap.overallProofStrength),
-      weakestElements: proofMap.weakestElements,
-      strongestElements: proofMap.strongestElements,
+      elementsByRecordStatus: proofMap.elementsByRecordStatus,
       missingEvidence: proofMap.missingEvidence,
       nextActions: proofMap.nextActions,
       elementFindings: proofMap.elementFindings.map(mapProofFinding),
     })),
-    globalWeaknesses: proof.globalWeaknesses,
-    globalStrengths: proof.globalStrengths,
+    globalNothingRecorded: proof.globalNothingRecorded,
     globalNextActions: proof.globalNextActions,
     summary: proof.summary,
   };
@@ -1107,7 +1103,7 @@ function buildWorkflowState(
       ...intelligence.legalKnowledge.sourceWarnings,
       ...factPatternAnalysis.warnings,
       ...evidenceIntelligence.warnings,
-      ...(intelligence.elementProofAnalysis?.globalWeaknesses || []),
+      ...(intelligence.elementProofAnalysis?.globalNothingRecorded || []),
       ...authorityAnalysis.warnings,
       ...contradictionAnalysis.warnings,
       ...credibilityAnalysis.warnings,
@@ -1140,10 +1136,11 @@ function buildReadinessState(
 ): CaseReadinessState {
   const proofMaps = intelligence.elementProofAnalysis?.claimProofMaps || [];
 
-  const weakProofCount = proofMaps.filter(
-    (map) =>
-      map.overallProofStrength === "low" ||
-      map.overallProofStrength === "very-low",
+  // Was weakProofCount, keyed on overallProofStrength. Now a count of claims
+  // that have at least one element with nothing recorded against it — a fact
+  // about the file rather than a grade of the claim.
+  const claimsWithNothingRecorded = proofMaps.filter(
+    (map) => map.elementsByRecordStatus.nothingRecorded.length > 0,
   ).length;
 
   const blockerCount =
@@ -1156,7 +1153,7 @@ function buildReadinessState(
     intelligence.litigationRisks.filter(
       (risk) => risk.severity === "high" || risk.severity === "critical",
     ).length +
-    weakProofCount +
+    claimsWithNothingRecorded +
     authorityAnalysis.warnings.length +
     contradictionAnalysis.highFindings +
     contradictionAnalysis.criticalFindings * 2 +
@@ -1200,9 +1197,7 @@ function buildReadinessState(
         ? "low"
         : proofMaps.length > 0
           ? proofMaps.some(
-              (map) =>
-                map.overallProofStrength === "low" ||
-                map.overallProofStrength === "very-low",
+              (map) => map.elementsByRecordStatus.nothingRecorded.length > 0,
             )
             ? "low"
             : "medium"
@@ -1228,7 +1223,7 @@ function buildReadinessState(
       ...intelligence.missingInformation.map((item) => item.question),
       ...factPatternAnalysis.warnings,
       ...evidenceIntelligence.warnings,
-      ...(intelligence.elementProofAnalysis?.globalWeaknesses || []),
+      ...(intelligence.elementProofAnalysis?.globalNothingRecorded || []),
       ...authorityAnalysis.warnings,
       ...contradictionAnalysis.warnings,
       ...credibilityAnalysis.warnings,
@@ -1276,8 +1271,7 @@ function buildMemorySnapshot(masterCase: MasterCaseSchema): CaseMemorySnapshot {
     warnings: masterCase.systemWarnings,
     factPatternFindingCount: masterCase.factPatternAnalysis.findings.length,
     evidenceGapCount: masterCase.evidenceIntelligence.gaps.length,
-    proofWeaknessCount: masterCase.proofAnalysis.globalWeaknesses.length,
-    proofStrengthCount: masterCase.proofAnalysis.globalStrengths.length,
+    nothingRecordedCount: masterCase.proofAnalysis.globalNothingRecorded.length,
     authorityWarningCount: masterCase.authorityAnalysis.warnings.length,
     contradictionCount: masterCase.contradictionAnalysis.totalFindings,
     credibilityRiskLevel: masterCase.credibilityAnalysis.overallLevel,

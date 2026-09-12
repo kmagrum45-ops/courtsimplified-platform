@@ -104,8 +104,11 @@ export type DashboardMasterView = {
   };
 
   readiness: {
-    level: string;
-    score: number;
+    // `level` and `score` removed. The score was a 0-95 average of nine
+    // confidence grades (buildReadinessScore), and `level` was an ordinal
+    // ladder derived from it -- a readiness score, which CLAUDE.md section 3
+    // forbids. `reasons` and `blockers` are kept: they are factual statements
+    // about what is and is not recorded.
     reasons: string[];
     blockers: string[];
   };
@@ -145,8 +148,11 @@ export type DashboardSummary = {
   systemScore: number;
   /** Factual section count shown to the user in place of the old readiness score. */
   completeness: { recorded: number; total: number };
-  readinessScore: number;
-  readinessLevel: string;
+  /**
+   * How many items are recorded as outstanding. Replaces readinessScore /
+   * readinessLevel, which were a 0-100 grade and its ordinal ladder.
+   */
+  outstandingCount: number;
   operationalWarnings: string[];
   nextAction: DashboardNextAction;
   workflowCards: DashboardWorkflowStep[];
@@ -420,8 +426,6 @@ export function extractDashboardMaster(value: unknown): DashboardMasterView {
     },
 
     readiness: {
-      level: typeof readiness.level === "string" ? readiness.level : "not-ready",
-      score: safeNumber(readiness.score),
       reasons: asStringArray(readiness.reasons),
       blockers: asStringArray(readiness.blockers),
     },
@@ -446,7 +450,8 @@ export function hasDashboardMasterData(master: DashboardMasterView): boolean {
     master.proofMap.length > 0 ||
     master.formNeeds.length > 0 ||
     master.risks.length > 0 ||
-    master.readiness.score > 0 ||
+    master.readiness.reasons.length > 0 ||
+    master.readiness.blockers.length > 0 ||
     Boolean(master.aiMemory.plainLanguageSummary) ||
     Boolean(master.aiMemory.structuredSummary)
   );
@@ -655,10 +660,12 @@ export function buildDashboardNextAction(
     };
   }
 
-  if (master.readiness.score >= 80) {
+  // Was `readiness.score >= 80`, and the text graded the case ("appears close
+  // to export readiness"). Now a fact: nothing is recorded as outstanding.
+  if (master.readiness.blockers.length === 0) {
     return {
       title: "Export Review",
-      text: "The case appears close to export readiness. Review final blockers before generating package outputs.",
+      text: "Nothing is recorded as outstanding. Review the package before generating outputs.",
       href: buildDashboardWorkflowHref("/document-export", caseFile),
     };
   }
@@ -674,7 +681,9 @@ export function buildDashboardWorkflowCards(
   caseFile: DashboardCaseShell,
   master: DashboardMasterView,
 ): DashboardWorkflowStep[] {
-  const readinessScore = clampScore(master.readiness.score);
+  // Was a 0-100 readiness score. The export card now keys on whether anything
+  // is recorded as outstanding, which is a fact rather than a grade.
+  const outstandingCount = master.readiness.blockers.length;
 
   return [
     {
@@ -791,8 +800,8 @@ export function buildDashboardWorkflowCards(
       title: "Export",
       href: buildDashboardWorkflowHref("/document-export", caseFile),
       text: "Export court-ready documents and package materials when the case is ready.",
-      complete: readinessScore >= 80,
-      warning: readinessScore < 80,
+      complete: outstandingCount === 0,
+      warning: outstandingCount > 0,
       priority: 11,
     },
   ];
@@ -814,8 +823,7 @@ export function buildDashboardSummary(
     masterHasData: hasDashboardMasterData(master),
     systemScore: calculateDashboardSystemScore(master),
     completeness: buildDashboardCompleteness(master),
-    readinessScore: clampScore(master.readiness.score),
-    readinessLevel: master.readiness.level || "not-ready",
+    outstandingCount: master.readiness.blockers.length,
     operationalWarnings: buildDashboardOperationalWarnings(master),
     nextAction: buildDashboardNextAction(caseFile, master),
     workflowCards: assemblyCandidate

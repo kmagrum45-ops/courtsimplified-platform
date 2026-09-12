@@ -195,8 +195,11 @@ export default function DashboardPage() {
   }, [cases]);
 
   const caseStats = useMemo(() => {
-    const exportReady = enrichedCases.filter(
-      (item) => item.dashboard.readinessScore >= 80,
+    // Was `readinessScore >= 80`. That score was an average of nine ordinal
+    // grades, so this card counted cases the system had graded well. It now
+    // counts cases with nothing recorded as outstanding, which is a fact.
+    const noOutstandingItems = enrichedCases.filter(
+      (item) => item.dashboard.outstandingCount === 0,
     ).length;
 
     const needsIntake = enrichedCases.filter(
@@ -211,7 +214,7 @@ export default function DashboardPage() {
       total: cases.length,
       active,
       needsIntake,
-      exportReady,
+      noOutstandingItems,
       family: cases.filter((item) => item.court_path === "family").length,
       smallClaims: cases.filter((item) => item.court_path === "small-claims")
         .length,
@@ -404,11 +407,11 @@ export default function DashboardPage() {
 
           <div className="rounded-3xl border border-[#d7e7e5] bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold uppercase tracking-wide text-[#6B7280]">
-              Export Ready
+              Nothing Outstanding
             </p>
-            <p className="mt-3 text-4xl font-bold">{caseStats.exportReady}</p>
+            <p className="mt-3 text-4xl font-bold">{caseStats.noOutstandingItems}</p>
             <p className="mt-2 text-sm text-[#6B7280]">
-              Packages near final review.
+              Cases with no items recorded as outstanding.
             </p>
           </div>
         </section>

@@ -91,23 +91,16 @@ function getPathLabel(path: string) {
   return "Unknown";
 }
 
-function getReadinessTone(readiness: string) {
-  const value = readiness.toLowerCase();
-
-  if (value.includes("ready") && !value.includes("not")) {
-    return "border-[#b7e4cf] bg-[#f0fdf4] text-[#166534]";
-  }
-
-  if (
-    value.includes("risk") ||
-    value.includes("gap") ||
-    value.includes("missing")
-  ) {
-    return "border-[#f3d6a2] bg-[#fff7ed] text-[#92400e]";
-  }
-
-  return "border-[#d8e6df] bg-[#f8fcfa] text-[#24463d]";
-}
+// getReadinessTone() removed (Session 48). It painted the readiness card green
+// when the text contained "ready" and amber when it contained "risk", "gap" or
+// "missing" -- a green/amber ramp keyed on how well the case was doing. A tone
+// derived from a grade IS the grade: it communicates the same judgment
+// pre-verbally, and it survived the earlier colour-ramp removal only because
+// it keyed on strings rather than a number.
+//
+// The readiness text itself is still shown, in the same neutral card style as
+// every other field.
+const NEUTRAL_CARD_TONE = "border-[#d8e6df] bg-[#f8fcfa] text-[#24463d]";
 
 function PackageBox({ title, items }: { title: string; items: string[] }) {
   return (
@@ -259,7 +252,7 @@ function CourtPackagePageContent() {
   }
 
   const activePath = path !== "unknown" ? path : context.casePath;
-  const readinessTone = getReadinessTone(courtPackage.readiness);
+  const readinessTone = NEUTRAL_CARD_TONE;
 
   return (
     <main className="min-h-screen bg-[#f8faf8] p-6 text-[#16302b]">

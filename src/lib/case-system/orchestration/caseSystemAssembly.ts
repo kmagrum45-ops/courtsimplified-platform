@@ -131,10 +131,10 @@ export type AssemblyEvidenceIntelligenceReadinessModel = {
 export type AssemblyProofReadinessModel = {
   hasProofAnalysis: boolean;
   proofReadiness: CaseConfidence;
-  proofWeaknesses: string[];
+  elementsWithNothingRecorded: string[];
   proofStrengths: string[];
   proofNextActions: string[];
-  weakClaimProofCount: number;
+  claimsWithNothingRecordedCount: number;
   missingElementProofCount: number;
   contradictedElementProofCount: number;
   warnings: string[];
@@ -571,17 +571,17 @@ function buildProofReadiness(input: CaseSystemAssemblyInput): AssemblyProofReadi
     return {
       hasProofAnalysis: false,
       proofReadiness: "low",
-      proofWeaknesses: [],
+      elementsWithNothingRecorded: [],
       proofStrengths: [],
       proofNextActions: [],
-      weakClaimProofCount: 0,
+      claimsWithNothingRecordedCount: 0,
       missingElementProofCount: 0,
       contradictedElementProofCount: 0,
       warnings: ["Element proof analysis has not been supplied to the assembly layer."],
     };
   }
 
-  const weakClaimProofCount = proof.weakClaimProofCount || 0;
+  const claimsWithNothingRecordedCount = proof.claimsWithNothingRecordedCount || 0;
   const missingElementProofCount = proof.missingElementProofCount || 0;
   const contradictedElementProofCount = proof.contradictedElementProofCount || 0;
 
@@ -590,7 +590,7 @@ function buildProofReadiness(input: CaseSystemAssemblyInput): AssemblyProofReadi
       ? "very-low"
       : missingElementProofCount > 0
         ? "low"
-        : weakClaimProofCount > 0
+        : claimsWithNothingRecordedCount > 0
           ? "medium"
           : (proof.proofStrengths || []).length > 0
             ? "high"
@@ -599,22 +599,22 @@ function buildProofReadiness(input: CaseSystemAssemblyInput): AssemblyProofReadi
   return {
     hasProofAnalysis: true,
     proofReadiness,
-    proofWeaknesses: uniqueStrings(proof.proofWeaknesses || []),
+    elementsWithNothingRecorded: uniqueStrings(proof.elementsWithNothingRecorded || []),
     proofStrengths: uniqueStrings(proof.proofStrengths || []),
     proofNextActions: uniqueStrings(proof.proofNextActions || []),
-    weakClaimProofCount,
+    claimsWithNothingRecordedCount,
     missingElementProofCount,
     contradictedElementProofCount,
     warnings: uniqueStrings([
-      ...(proof.proofWeaknesses || []).map((weakness) => `Proof weakness: ${weakness}`),
+      ...(proof.elementsWithNothingRecorded || []).map((weakness) => `Proof weakness: ${weakness}`),
       contradictedElementProofCount > 0
         ? `${contradictedElementProofCount} element(s) appear contradicted and require review.`
         : "",
       missingElementProofCount > 0
         ? `${missingElementProofCount} element(s) are missing proof.`
         : "",
-      weakClaimProofCount > 0
-        ? `${weakClaimProofCount} claim proof map(s) are weak.`
+      claimsWithNothingRecordedCount > 0
+        ? `${claimsWithNothingRecordedCount} claim proof map(s) are weak.`
         : "",
     ]),
   };
@@ -995,8 +995,8 @@ export function buildCaseSystemAssembly(
 
     proof: {
       hasProofAnalysis: proofReadiness.hasProofAnalysis,
-      proofWeaknesses: uniqueStrings([
-        ...proofReadiness.proofWeaknesses,
+      elementsWithNothingRecorded: uniqueStrings([
+        ...proofReadiness.elementsWithNothingRecorded,
         ...legalReasoningReadiness.burdenPriorities.map(
           (priority) => `Legal reasoning burden priority needs proof review: ${priority}`,
         ),
@@ -1014,7 +1014,7 @@ export function buildCaseSystemAssembly(
           (priority) => `Collect evidence for legal reasoning priority: ${priority}`,
         ),
       ]),
-      weakClaimProofCount: proofReadiness.weakClaimProofCount,
+      claimsWithNothingRecordedCount: proofReadiness.claimsWithNothingRecordedCount,
       missingElementProofCount:
         proofReadiness.missingElementProofCount +
         evidenceIntelligenceReadiness.gapCount,
@@ -1109,7 +1109,7 @@ export function buildCaseSystemAssembly(
 
     proofAnalysis: {
       globalWeaknesses: uniqueStrings([
-        ...proofReadiness.proofWeaknesses,
+        ...proofReadiness.elementsWithNothingRecorded,
         ...legalReasoningReadiness.burdenPriorities.map(
           (priority) => `Burden priority needs proof review: ${priority}`,
         ),

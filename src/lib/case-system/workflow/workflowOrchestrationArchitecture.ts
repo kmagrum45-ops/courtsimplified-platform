@@ -178,10 +178,10 @@ export type WorkflowReadinessState = {
 
 export type WorkflowProofInput = {
   hasProofAnalysis?: boolean;
-  proofWeaknesses?: string[];
+  elementsWithNothingRecorded?: string[];
   proofStrengths?: string[];
   proofNextActions?: string[];
-  weakClaimProofCount?: number;
+  claimsWithNothingRecordedCount?: number;
   missingElementProofCount?: number;
   contradictedElementProofCount?: number;
 };

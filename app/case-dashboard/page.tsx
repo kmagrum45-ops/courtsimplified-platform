@@ -224,9 +224,6 @@ export default function CaseDashboardPage() {
                       {event.eventType.replaceAll("-", " ")}
                     </span>
 
-                    <span className="rounded-full bg-[#f0f4f2] px-3 py-1 text-xs font-semibold text-[#49635c]">
-                      {event.confidence} confidence
-                    </span>
                   </div>
 
                   <p className="mt-4 text-sm font-semibold text-[#2f7d67]">
