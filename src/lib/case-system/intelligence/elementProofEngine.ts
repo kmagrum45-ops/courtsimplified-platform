@@ -87,10 +87,15 @@ function evidenceById(
 function mapElementStatus(
   element: ClaimElementAssessment,
 ): ElementProofStatus {
-  if (element.status === "satisfied") return "proven";
-  if (element.status === "partially-satisfied") return "partly-proven";
-  if (element.status === "missing") return "missing-proof";
-  if (element.status === "contradicted") return "contradicted";
+  // Session 48: ClaimElementStatus now records what the user SUPPLIED
+  // (documented / partially-documented / not-documented) rather than whether
+  // an element is legally made out. ElementProofStatus keeps its old
+  // vocabulary for now — see the note on its declaration in
+  // intelligenceTypes.ts for why renaming it is a separate, wider pass.
+  if (element.status === "documented") return "proven";
+  if (element.status === "partially-documented") return "partly-proven";
+  if (element.status === "not-documented") return "missing-proof";
+  if (element.status === "conflicting-information") return "contradicted";
   return "not-applicable";
 }
 

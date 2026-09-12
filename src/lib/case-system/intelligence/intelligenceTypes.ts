@@ -474,11 +474,32 @@ export type NormalizedIntake = {
   confidence: IntelligenceConfidence;
 };
 
+/**
+ * Session 48. Was:
+ *   "satisfied" | "partially-satisfied" | "missing" | "contradicted" | "not-applicable"
+ *
+ * "satisfied" is an assertion that THIS USER'S FACTS MEET A LEGAL TEST —
+ * the "who does the applying" violation in CLAUDE.md section 2, encoded as
+ * a required schema field rather than as prose. The model was told in the
+ * prompt never to grade the case and then required to mark every element
+ * satisfied or partially-satisfied. A schema constraint beats a prose
+ * prohibition, so it complied with the requirement and violated the
+ * prohibition.
+ *
+ * These values record what the USER SUPPLIED, which the system may state,
+ * instead of whether a legal element is met, which it may not. The system
+ * can see whether a document exists; it cannot decide whether it proves
+ * anything.
+ *
+ * "conflicting-information" replaces "contradicted" for the same reason at
+ * lower stakes: it describes the file (two things disagree) rather than
+ * adjudicating which is right.
+ */
 export type ClaimElementStatus =
-  | "satisfied"
-  | "partially-satisfied"
-  | "missing"
-  | "contradicted"
+  | "documented"
+  | "partially-documented"
+  | "not-documented"
+  | "conflicting-information"
   | "not-applicable";
 
 export type ClaimElementAssessment = {
@@ -606,6 +627,35 @@ export type LegalKnowledgePacket = {
   sourceWarnings: string[];
 };
 
+/**
+ * SESSION 48 — NOT CHANGED, AND THE REASON IS RECORDED RATHER THAN LEFT
+ * IMPLICIT.
+ *
+ * "proven" / "partly-proven" carry the same defect as ClaimElementStatus
+ * above: they assert that the user's evidence establishes a legal element,
+ * which is a conclusion for a court. Whether a document has been RECORDED
+ * against an element is a fact about the file; whether it PROVES anything
+ * is not the system's to say. This was not in the original finding — it
+ * surfaced while fixing ClaimElementStatus.
+ *
+ * It was left alone because the blast radius is disproportionate to this
+ * session's goal. The same vocabulary is declared independently in FOUR
+ * more places — elementProofEngine.ts has its own copy, plus
+ * architecture/masterCaseSchema.ts (CaseElementProofStatus),
+ * litigation-strategy/litigationStrategyArchitecture.ts, and
+ * types/proof-map.ts — and is compared against by string literal in
+ * courtSimplifiedBrain.ts and elementProofEngine.ts. Renaming it is a
+ * cross-module refactor, not a type edit.
+ *
+ * Crucially it is also NOT what this session measures. The model never
+ * sees this type; it sees the prompt. ElementProofStatus is assigned
+ * downstream by deterministic code from the element status the model
+ * produced, so changing the prompt changes what flows in here without
+ * touching these names.
+ *
+ * Follow-up, scoped: rename across those five declaration sites plus the
+ * two comparison sites, in one pass, with test:fixtures either side.
+ */
 export type ElementProofStatus =
   | "proven"
   | "partly-proven"

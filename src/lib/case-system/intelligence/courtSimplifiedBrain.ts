@@ -11,6 +11,7 @@ import {
 import {
   ClaimClassification,
   ClaimElementAssessment,
+  ClaimElementStatus,
   ClaimClassificationStatus,
   ContradictionFinding,
   CourtSimplifiedBrainInput,
@@ -827,6 +828,45 @@ function buildProceduralPosture(args: {
   };
 }
 
+/**
+ * Session 48. The prompt now asks for documented / partially-documented /
+ * not-documented / conflicting-information / not-applicable, which describe
+ * what the user SUPPLIED rather than whether a legal element is made out.
+ *
+ * The old satisfied / partially-satisfied / missing / contradicted values
+ * are still accepted and mapped, deliberately. The model is not
+ * deterministic and will sometimes reach for the old vocabulary, and a
+ * saved case record written before this change carries the old values. A
+ * hard rejection would turn either into a defaulted, wrong status; mapping
+ * loses nothing and is honest about what the old value meant.
+ *
+ * Unrecognised input defaults to "partially-documented" rather than
+ * "not-documented": the safer error is to say something may have been
+ * supplied and let the user correct it, not to tell them their file is
+ * empty when the model simply returned an unexpected string.
+ */
+function normalizeElementStatus(raw: string): ClaimElementStatus {
+  switch (raw) {
+    case "documented":
+    case "partially-documented":
+    case "not-documented":
+    case "conflicting-information":
+    case "not-applicable":
+      return raw;
+    // Legacy vocabulary, from the model or from a saved record.
+    case "satisfied":
+      return "documented";
+    case "partially-satisfied":
+      return "partially-documented";
+    case "missing":
+      return "not-documented";
+    case "contradicted":
+      return "conflicting-information";
+    default:
+      return "partially-documented";
+  }
+}
+
 function buildClaimElements(args: {
   claim: GptCognitionClaim;
   domain: LegalDomain;
@@ -845,14 +885,7 @@ function buildClaimElements(args: {
         claimType: args.domain,
         elementKey: clean(element.elementKey) || "element",
         label: clean(element.label) || "Required element",
-        status:
-          status === "satisfied" ||
-          status === "partially-satisfied" ||
-          status === "missing" ||
-          status === "contradicted" ||
-          status === "not-applicable"
-            ? status
-            : "partially-satisfied",
+        status: normalizeElementStatus(status),
         explanation:
           clean(element.explanation) ||
           "This element requires fact and evidence review.",
@@ -873,8 +906,8 @@ function buildClaimElements(args: {
       label: "Facts and evidence supporting the legal theory",
       status:
         args.normalizedIntake.rawUserText || args.normalizedIntake.events.length
-          ? "partially-satisfied"
-          : "missing",
+          ? "partially-documented"
+          : "not-documented",
       explanation:
         "The claim needs facts, evidence, procedural fit, remedy fit, and verified-law review before final court use.",
       supportingFactIds: factIds,
@@ -1710,19 +1743,21 @@ Allowed stage: starting-case, responding, already-started, conference, motion, t
 Allowed legal domains: defamation, contract, property-damage, negligence, personal-injury, harassment, employment, debt, consumer, family-parenting, family-support, family-property, family-safety, civil-charter, civil-human-rights, civil-institutional-liability, landlord-tenant, immigration, procedural, unknown
 Allowed confidence: very-low, low, medium, high, very-high
 Allowed claim status: detected, possible, insufficient-facts, rejected-false-positive, conflicting-signals
-Allowed element status: satisfied, partially-satisfied, missing, contradicted, not-applicable
+Allowed element status: documented, partially-documented, not-documented, conflicting-information, not-applicable
+These describe WHAT THE USER HAS SUPPLIED for an element, never whether the element is legally made out. "documented" means the person described or provided something addressing it. It does not mean the element is satisfied, proven, or established -- that is a decision for a court, never for this system, and you must not state or imply it in any field.
 Allowed severity: info, low, medium, high, critical
 Allowed risk source: facts, evidence, procedure, law, forms, strategy, limitations, remedy-fit
 
 REQUIRED DEPTH:
 1. Produce at least one claim classification unless the narrative is truly unusable.
-2. Identify the strongest primary theory, viable alternatives, weak theories, and false positives.
+2. Identify which legal theory the facts most directly describe, which other theories the facts could also fit, and which are false positives the facts do not support at all. This is about what the facts describe, not about which theory is strongest -- do not rank theories by how well they would do.
 3. Each detected/possible claim must include practical claim elements written in plain language.
 4. Every element must state status, explanation, missingFacts, and risks.
 5. Build evidenceIssueLinks that explain what proof is needed, not just what evidence exists. Before listing anything in missingEvidence, check the "Evidence described" text in the intake -- if the user already described having that item, a close equivalent, or something that would satisfy the same need, do not list it as missing. missingEvidence is for evidence the user has not indicated having at all, never a request for a more complete, original, or better version of something they already described having.
 6. Identify litigation risks the user may not realize: limitation, discoverability, jurisdiction, wrong forum, wrong form, leave/notice, causation, credibility, proportionality, remedy-fit, service, deadline, and stage risks.
 7. Give ordered nextBestActions that improve court readiness.
-8. Keep summaries useful: not just repetition of intake. Explain theory, risk, proof gaps, and next step. Never state or imply the claim's strength, viability, or likely outcome.
+8. Keep summaries useful: not just repetition of intake. State which legal theory the facts describe, which procedural deadlines or steps are in play, WHICH EVIDENCE CATEGORIES HAVE NOTHING RECORDED AGAINST THEM, and the next step. That factual half is the point of the summary -- write it fully.
+9. Then STOP. Do not close a summary by saying what any of it means for the case. Naming a gap is the job; drawing a conclusion from it is not. Concretely: write "no document has been recorded for the date of the agreement" and end the sentence there. Never continue into "which may affect the claim", "which weakens", "which could be a problem", "which may affect the claim's viability", or any other phrase that tells the reader what the gap adds up to. The person reading decides what it means; you only tell them what is and is not in the file.
 
 COURT PATH REASONING:
 Family:
@@ -1789,13 +1824,13 @@ Return JSON with this exact shape and no extra keys:
       "status": "possible",
       "score": 70,
       "confidence": "medium",
-      "explanation": "Explain the theory in litigation terms and state why it is or is not court-ready.",
+      "explanation": "Explain in plain terms what this legal theory involves and which of the facts described relate to it.",
       "elements": [
         {
           "elementKey": "actionable-conduct",
           "label": "Actionable conduct or legal wrong",
-          "status": "partially-satisfied",
-          "explanation": "Explain what facts support or weaken this element.",
+          "status": "partially-documented",
+          "explanation": "State which of the facts the person described relate to this element, and which are not in the file.",
           "missingFacts": ["Identify exactly what each actor did or failed to do."],
           "risks": ["No documented proof yet connects this conduct to the alleged wrong."]
         },
@@ -1931,7 +1966,7 @@ function buildFallbackCognition(normalizedIntake: NormalizedIntake): GptCognitio
           {
             elementKey: "fallback-proof-map",
             label: "Preliminary proof map",
-            status: normalizedIntake.evidence.length > 0 ? "partially-satisfied" : "missing",
+            status: normalizedIntake.evidence.length > 0 ? "partially-documented" : "not-documented",
             explanation:
               "This preliminary review can organize the case but cannot confirm each legal element.",
             missingFacts: [

@@ -115,8 +115,8 @@ export type LitigationReasoningResult = {
   /** How much of the analysis exists — NOT a grade. See LitigationAnalysisCoverage. */
   readinessLevel: LitigationAnalysisCoverage;
 
-  strongestCasePoints: string[];
-  weakestCasePoints: string[];
+  /** Supporting material recorded in the file. Not a strength assessment. */
+  recordedSupportingMaterial: string[];
   missingWork: string[];
 
   findings: LitigationReasoningFinding[];
@@ -579,20 +579,27 @@ export function buildLitigationReasoning(
   const readinessScore = sections.present;
   const readinessLevel = readinessLevelFromSections(sections);
 
-  const strongestCasePoints = uniqueStrings([
+  // Session 48. Was strongestCasePoints / weakestCasePoints — case-strength
+  // assessments by name and by content, reported by the journey battery and
+  // contained enough to fix here (only this file builds them and only
+  // brainMigrationLayer passes them through; nothing renders them).
+  //
+  // strongestCasePoints becomes a factual inventory of supporting material
+  // that has been recorded. "Strong authority available: X" becomes
+  // "Authority recorded: X" — the same id, without the adjective.
+  const recordedSupportingMaterial = uniqueStrings([
     ...(input.proofAnalysis?.globalStrengths || []),
     ...(input.evidenceAnalysis?.corroborationNotes || []),
     ...(input.authorityAnalysis?.strongestAuthorityIds || []).map(
-      (id) => `Strong authority available: ${id}`,
+      (id) => `Authority recorded: ${id}`,
     ),
   ]);
 
-  const weakestCasePoints = uniqueStrings([
-    ...(input.proofAnalysis?.globalWeaknesses || []),
-    ...findings
-      .filter((finding) => severityRank(finding.severity) >= 3)
-      .map((finding) => finding.title),
-  ]);
+  // weakestCasePoints is DELETED rather than renamed. Its first source
+  // (globalWeaknesses) is already the first source of missingWork below, and
+  // its second (high-severity finding titles) is already in `findings`. It
+  // was a grading view over data that exists factually elsewhere, so
+  // removing it loses nothing and removes a "weakest" label outright.
 
   const missingWork = uniqueStrings([
     ...(input.proofAnalysis?.globalWeaknesses || []),
@@ -624,8 +631,7 @@ export function buildLitigationReasoning(
     readinessScore,
     readinessLevel,
 
-    strongestCasePoints,
-    weakestCasePoints,
+    recordedSupportingMaterial,
     missingWork,
 
     findings,
