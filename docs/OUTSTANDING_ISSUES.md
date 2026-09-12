@@ -8,29 +8,25 @@ Everything found and not yet fixed, as of this session. Ordered by what actually
 
 ## 1. Defects that could mislead a user
 
-### ⚠️ `twentyDaysElapsed` — default judgment timing
-**Found:** Small Claims Rules map session.
-The fact-gate assumes a naive 20-day count from service. Three separate provisions make the real deadline later: r. 3.01 excludes the service day; day 20 lands on a weekend roughly two times in seven and rolls forward; and mail or courier service isn't effective until the fifth day. **The failure mode is telling a user default judgment is available before the defendant's time has actually run.** Currently only gates whether a question surfaces, so exposure is limited — but it cannot be fixed by reading the regulation harder. The deemed-service interaction is genuinely unresolvable from O. Reg. 258/98 and needs a licensee.
+**Every item in this section is now closed.** Kept with outcomes rather than deleted, because two of them were misdescribed and one was a rumour that turned out to be true — that record is worth more than a clean slate.
 
-### ⚠️ `defence-set-off-or-counterclaim` — issuing vs. filing
-**Found:** Small Claims Rules map session. `claimTypes.ts:372`.
-States a Defendant's Claim must be "filed within 20 days of filing a Defence." r. 10.01(2) says it may be *issued* within 20 days after the day the defence is filed — issuing and filing are distinct acts — and sets an outer bound at trial or default judgment with leave, which the entry omits entirely.
+### ✅ `twentyDaysElapsed` — FIXED (`3fdccdc`)
+The fact-gate held an AI-inferred conclusion that a legal deadline had passed. Removed from the gate, from `KNOWN_FACT_FIELDS`, and from both extraction prompts; the question now asks for the service date and method and states the rule so the user applies it. **One correction to the original finding:** "mail or courier service isn't effective until the fifth day" is true of documents generally (r. 8.07(2), r. 8.07.1(2)) but **not of claims** — r. 8.07(3) and r. 8.07.1(3) expressly exclude a claim served under r. 8.03(7), and r. 8.03(8) makes that service effective on the date a signature verifies receipt. The deemed-service/r. 3.01 composition gap is real and still needs a licensee; it is recorded in the content rather than guessed.
 
-### ⚠️ r. 8.01(2) — six-month deadline to serve an issued claim
-**Found:** Small Claims Rules map session.
-A hard gate between issuing a claim and everything downstream. Appears nowhere in any intake registry. A user could issue a claim and never be told this exists.
+### ✅ `defence-set-off-or-counterclaim` — FIXED (`3fdccdc`)
+Now states it may be **issued** within 20 days after the day the defence is filed (r. 10.01(2)(a)), that issuing and filing are distinct, and the outer bound the entry had omitted: with leave, before trial or default judgment (r. 10.01(2)(b)). Re-sourced from an ontario.ca guide page to the regulation.
 
-### ⚠️ Causation elements promise more than they deliver
-**Found:** Clements session, deliberately left for a follow-up.
-`sc-claim-vehicle-accident-uninsured-driver-property-damage` and `sc-claim-property-damaged-lost-in-business-care` both name an element "caused, in fact and in law." The explanation only covers the legal branch (remoteness, foreseeability). The factual "but for" branch is promised by the name and never explained, and Mustapha — the cited source — doesn't cover it. Clements is now in `docs/sources/` and does.
+### ✅ r. 8.01(2) six-month service deadline — FIXED (`3fdccdc`)
+Added as education topic `sc-topic-six-month-service-window`, gated on `claimFiled == true`. Placed there rather than as 22 duplicate `proceduralNotes` because it is not claim-type specific. Records that the Rules prescribe **no** method for computing a period expressed in months, rather than inferring one.
 
-### ⚠️ `outOfScopeForums.ts` — zero citations
-**Found:** jurisdiction-routes session.
-Names HRTO, WSIB, CAT, and LAT in user-facing redirect text with no sourced basis for any of it. The site is telling users where their matter belongs on nobody's verified authority.
+### ✅ Causation elements — WAS ALREADY FIXED; the register was stale
+**This was not a defect when reported here.** Commit `c5cefe1` had already extended both `causation-vehicle-accident` and `causation-property-in-care` with the factual "but for" branch, sourced to Clements with paragraph-level pinpoints (paras. 8 and 9) on both claim types. Verified directly in Session 48 — no fix was needed and none was invented.
 
-### ⚠️ The leave requirement — possibly makes `courtPathClassifier.ts` wrong
-**Found:** Annual Practice extraction, unverified.
-The *Strengthening Safety and Modernizing Justice Act, 2023* reportedly requires leave to commence a Superior Court action that falls within Small Claims jurisdiction, in force July 1, 2024. If accurate, a claim under $50,000 is not a free election between courts. **Secondhand and unsourced — verify against the CJA before acting.**
+### ✅ `outOfScopeForums.ts` — FIXED (`0791237`)
+Confirmed live and user-facing (`courtPathClassifier.ts` → `/api/classify-court-path` → `HomeLocationGate.tsx` renders `redirectMessage`). Six forums sourced to the provision conferring the jurisdiction — LTB (RTA s.3(1), s.168(2)), HRTO (Human Rights Code s.34), WSIAT (WSIA s.123(1)), CAT (Condominium Act s.1.36), LAT (Insurance Act s.280), Divisional Court (JRPA s.6). Three had the jurisdictional assertion **removed** instead: SBT (constituting Act not retrieved), IRB (federal, outside the acceptable-source domains), criminal (made no jurisdictional claim to begin with). **A real defect surfaced while sourcing CAT:** s.1.36(4) excludes lien disputes under s.85/86 and title disputes, so the old message would have wrongly redirected the unpaid-common-expenses claim type this repo already carries.
+
+### ✅ The leave requirement — CONFIRMED, and the content gap FIXED (`56de7ec`)
+The rumour was accurate, including the date. **CJA s.23(1.1)**, added by 2023, c. 12, Sched. 3, s. 1, in force **01/07/2024**: an action within Small Claims Court's jurisdiction shall not be commenced in the Superior Court except with leave. **s.23(1.2)** excepts a counterclaim, crossclaim or third-party claim where the main action was already in the Superior Court. `courtPathClassifier.ts` was checked and **does not** imply a free election — it never mentions the Superior Court, and both places that route users there concern claims *over* the limit. So the defect was omission, not error. Now stated in `sc-topic-monetary-limit`; confirmation recorded in `SOURCING_NOTES.md`.
 
 ---
 
@@ -99,13 +95,14 @@ A read-and-report audit of all sourced content — name-vs-text mismatches, cita
 
 ## 4. Content gaps now closeable
 
-26 judgments sit in `docs/sources/`. Three have been used (Garland, Red Deer College, Clements). The rest are retrieved, verified, and idle.
+26 judgments sit in `docs/sources/`. **Seven have now been used** (Garland, Red Deer College, Clements, Grant v. Torstar, Hill, Waldick, Machtinger, Honda) — this section previously said three, and was stale by four commits.
 
 | Gap | Source available | Notes |
 |---|---|---|
-| Defamation — what must be proven | Grant v. Torstar, Hill v. Church of Scientology | Entry currently rests on the Libel and Slander Act plus a jurisdiction provision only |
-| Occupiers' liability — standard of care | Waldick v. Malcolm | Slip-and-fall has the statute's duty, nothing on how courts assess it |
-| Gift vs. loan | Pecore v. Pecore | Cut from the personal-loan entry; reopens now |
+| ~~Defamation~~ | Grant v. Torstar, Hill | ✅ **DONE** in `d4a6fab` — responsible-communication defence (Torstar paras. 96-98, 126) added as a defendantConsideration; Hill para. 164 (general damages presumed from publication) and para. 137 (declining the U.S. "actual malice" standard) as a proceduralNote |
+| ~~Occupiers' liability~~ | Waldick v. Malcolm | ✅ **DONE** in `b8931e6` — standard of care on snow/ice, the local-custom holding, and s.4(1) volenti as a defendantConsideration |
+| ~~Employment — reasonable notice~~ | Machtinger, Honda | ✅ **DONE** in `69c7e93` — Honda para. 50 and the Bardal factors; Machtinger's void-termination-clause holding; plus ESA s.97(2), which bars a civil wrongful-dismissal action once an ESA complaint is filed |
+| **Gift vs. loan** | ~~Pecore v. Pecore~~ | ❌ **THIS ROW WAS WRONG.** "Reopens now" contradicts an explicit, reasoned rejection in `CONTENT_AUDIT.md`, which read Pecore in full and said "do not cite Pecore here". Re-verified in Session 48 against the judgment: Pecore is about the **presumption of resulting trust in gratuitous transfers** (a father placing assets in joint accounts with his daughter), i.e. gift vs. resulting trust — who holds beneficial title to transferred property. That is a different question from gift vs. loan, which is whether a **repayment obligation** exists. A loan is neither a gift nor a resulting trust; it is a debt created by agreement. The gap stays open and Pecore does not close it. |
 | Duty of care framework | Cooper v. Hobart | — |
 | Standard of care | Ryan v. Victoria | — |
 | School supervision | Myers v. Peel | Unbuilt claim type, roadmap Batch 3 |
@@ -155,11 +152,11 @@ This is the item that grows with every session of content work, and the only one
 
 ## 8. Repo hygiene
 
-- `PROJECT_DOCUMENTATION/` — 31 files of substantive Ontario forms work, gitignored, no version control behind it. Source material, not build output. **Prompt written, never confirmed sent.**
-- `repomix-output.xml` — 7.5 MB untracked in repo root, should be gitignored
-- `cs-context.txt` — untracked, should be deleted
-- Two near-identical ~140K-token JSON snapshots in `scripts/form-import-audit/`
-- `/family/ontario` and `/ontario-civil` — orphaned routes, unreachable, still build
+- ⏸️ `PROJECT_DOCUMENTATION/` — **scanned clean, awaiting a decision.** 31 files, 689 KB (23 `.md`, 7 `.csv`, 1 `.json`), still gitignored at `.gitignore:156`. Scanned in Session 48 for secrets (API key, JWT, `service_role`, private key, password patterns) and personal data (emails, phone numbers, postal codes): **zero matches of either.** Content is Ontario court form provenance, routing and certification research built from public sources. It is safe to commit; whether 689 KB belongs in permanent git history is the site owner's call, not a hygiene cleanup. An off-repo backup exists (taken alongside the `npm run snapshot` fix).
+- ✅ `repomix-output.xml` — **done.** The register said it "should be gitignored"; it already was, at `.gitignore:171`, and was never tracked. Only the 7.5 MB local artifact needed deleting, and it is regenerable.
+- ✅ `cs-context.txt` — **deleted** (`17d5135`).
+- ✅ Duplicate JSON snapshots — **deduplicated** (`17d5135`). Confirmed **byte-identical** by matching MD5 and by `cmp` reporting no differences, not by file size alone. Kept the earlier capture; removed the redundant re-run and the stale line in `COURTSIMPLIFIED_MASTER_BLUEPRINT.md`'s file listing.
+- ⏸️ `/family/ontario` and `/ontario-civil` — **reported, not acted on.** Both exist and build (260 and 237 lines), are linked from nowhere, and contain **zero** sourced legal links (`sourceUrl`/`officialUrl`/`ontario.ca` all absent). That makes deletion low-risk on the sourcing side, but they are still whole pages and removal is the site owner's call. Recommendation: delete rather than relink — unreachable marketing-style pages that carry no citations are a §2 liability if anyone ever links them back in without review.
 - `DEADLINE_TRACKING_DESIGN.md` citations into `app/forms/page.tsx` have drifted since the forms-messaging session edited that file
 - **46+ commits unpushed**
 
@@ -184,22 +181,55 @@ This is the item that grows with every session of content work, and the only one
 ## Suggested order
 
 **Before any real user:**
-1. ~~`ai-case-partner` auth and ownership~~ — **removed: investigated and did not hold (§2).** Not a security fix; adding auth is a product decision about guest access. What is real from that area — unbounded payloads and the no-auth route inventory — is below at 5a/5b, deliberately not at the top, because neither is a confidentiality risk and both sit behind the site password gate.
-2. Confirm and fix `case-summary` case-strength content
-3. The three Small Claims Rules defects — `twentyDaysElapsed`, `defence-set-off-or-counterclaim`, r. 8.01(2)
-4. `outOfScopeForums.ts` citations — either source them or remove the claims
-5. **Walk through the site yourself.** Still hasn't happened. Nothing on this list substitutes for it.
-
-**5a.** `admin/scan-pdf-fields` — assess why an `/admin` route has no auth (§2). Cheap to look at, and the one no-auth route whose location is itself a question.
-**5b.** Payload caps on `ai-case-partner`'s `caseMemory` and `evidence-praser`'s upload (§2). Nine routes already define `MAX_*_BYTES`; follow that pattern rather than inventing one.
-
-6. Push.
+1. ~~`ai-case-partner` auth and ownership~~ — **removed: investigated and did not hold (§2).**
+2. ~~The three Small Claims Rules defects~~ — ✅ done, `3fdccdc`.
+3. ~~`outOfScopeForums.ts` citations~~ — ✅ done, `0791237`.
+4. ~~Causation gap~~ — ✅ was never open; already fixed in `c5cefe1` (§1).
+5. ~~The leave requirement~~ — ✅ confirmed and stated, `56de7ec`.
+6. ~~Defamation and occupiers' liability from retrieved sources~~ — ✅ done in `d4a6fab` / `b8931e6`.
+7. **Confirm and fix `case-summary` case-strength content.** The dashboard half of this is done (`dc3934c` removed the risk-weighted readiness scores). The route itself is untouched and has **zero callers** — decide whether to delete it outright rather than maintain its compliance (§3).
+8. **Walk through the site yourself.** Still hasn't happened. Nothing on this list substitutes for it.
+9. `admin/scan-pdf-fields` — assess why an `/admin` route has no auth (§2).
+10. Payload caps on `ai-case-partner`'s `caseMemory` and `evidence-praser`'s upload (§2). Nine routes already define `MAX_*_BYTES`; follow that pattern.
+11. Push. **50+ commits unpushed.**
 
 **Then:**
-7. Causation gap (Clements is ready)
-8. Build the readiness gate and intake depth from the specs
-9. Defamation and occupiers' liability from sources already retrieved
-10. CJA s. 29 and the Small Claims statutory cluster
-11. The leave requirement — verify, then fix the classifier if needed
+12. Build the readiness gate, intake depth, and the unmatched-claim-type path from the specs
+13. CJA s. 29 and the Small Claims statutory cluster (see Decisions below)
+14. Coverage expansion and out-of-scope routing
 
-**Ongoing, in parallel:** coverage expansion, out-of-scope routing, and the licensee conversation.
+**Ongoing, in parallel:** the licensee conversation — it now gates two known items (the deemed-service composition gap in §1, and counting-method verification generally).
+
+---
+
+## Decisions waiting on the site owner
+
+Three items were deliberately **not acted on**. Each is a judgment call, not a defect.
+
+### 1. The `evidenceStrengths` asymmetry
+Commit `6129abd` deleted `evidenceWeaknesses` while keeping `evidenceStrengths`, having edited the `missingEvidence` block **directly above it** — so this was seen and kept, not missed. Grading evidence upward is the same operation as grading it downward.
+
+| Option | For | Against |
+|---|---|---|
+| **Remove `evidenceStrengths` too** | Symmetry with the deletion already made; §3 bars grading, and "strong evidence" is a grade | Loses a signal some users may find reassuring |
+| **Restore `evidenceWeaknesses`** | Restores symmetry the other way | Directly contradicts `6129abd`'s reasoning; reintroduces adequacy-graded commentary §3 prohibits |
+| **Keep as is, document why** | Least churn | Leaves an unexplained asymmetry for the next reader to trip over |
+| **Delete the whole route** | It has zero callers (§3); the question dissolves | Forecloses reviving it later without a rebuild |
+
+**Note:** this lives in `app/api/case-summary/route.ts`, which is **unreachable** — no caller anywhere. So nothing user-facing turns on the answer today.
+
+### 2. CJA ss. 23, 26, 27, 29, 31 — sourcing the statutory cluster
+Real work, not a quick fix. **s. 23 is now partly done** (s.23(1) and the s.23(1.1) leave requirement are cited in `sc-topic-monetary-limit`). What I would build, if asked:
+
+- **s. 29 — its own education topic, and the highest value of the five.** "What does this cost me if I lose" is the question self-represented people most need answered, and there is a statutory cap. `r. 19.06`/`19.07` already cite s. 29 from the Rules side; the statute itself is uncited.
+- **s. 27 (evidence, relaxed in Small Claims)** — pairs naturally with the existing `sc-topic-burden-of-proof`.
+- **s. 26 (representation)** and **s. 31 (appeals)** — each a short topic; s. 31 matters most to someone who has just lost.
+
+Not built this session, as instructed.
+
+### 3. `dashboardAdapter.ts:509-511` — the latent "Judge concern score"
+Still present: `` `Judge concern score: ${…}` `` and `` `Cross-examination risk score: ${…}` `` built into `courtPackage.exportNotes`. This is the exact category `d1fa87c` was written to remove.
+
+**Is removing it safe? Yes.** Traced fully: `exportNotes` is parsed into the dashboard model (`dashboardEngine.ts:419`) and typed (`types/case.ts:200`), but the only `.tsx` reference anywhere is `app/dashboard/page.tsx:146`, which sets it to `[]` as a default. **Nothing renders it.** Deleting the two lines removes strings that reach no user and breaks no display.
+
+It was left alone only because it was out of scope for the commit that found it — not because removal is risky.
