@@ -152,8 +152,20 @@ supabase/.temp/
 # =========================================================
 # Output of `npm run snapshot` and the analysis tooling. The generators
 # are committed; their output is not.
+#
+# EXCEPTION: _PROJECT_REGISTRY/PROJECT_DOCUMENTATION/ is tracked. It is
+# SOURCE, not output -- Ontario court form provenance, routing and
+# certification research, with no generator anywhere in scripts/ (confirmed
+# in 45534a0, when `npm run snapshot` turned out to delete it without being
+# able to recreate it). Ignoring it left 689 KB of unregenerable research
+# with no version control behind it.
+#
+# Note the `/*` below rather than `/`: git cannot re-include a path whose
+# parent DIRECTORY is excluded, so the exclusion has to be on the contents
+# for the negation on the next line to take effect.
 
-_PROJECT_REGISTRY/
+_PROJECT_REGISTRY/*
+!_PROJECT_REGISTRY/PROJECT_DOCUMENTATION/
 *.zip
 buildlog.txt
 create-dev-snapshot-current.txt
