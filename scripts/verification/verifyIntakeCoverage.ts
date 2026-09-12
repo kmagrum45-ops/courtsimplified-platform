@@ -280,6 +280,44 @@ function main() {
     assert.ok(topic.citations.length > 0, `topic "${topic.id}" has an empty citations array`);
   }
 
+  // ---- Noting up: count case-law citations never checked for subsequent treatment ----
+  //
+  // A citation's `verifiedAt` says the source was retrieved and the pinpoint
+  // says what we claim. It says NOTHING about whether the holding is still
+  // good law. `notedUpAt` is that second question, and it is null everywhere
+  // today: the standard noting-up route is CanLII's, and CLAUDE.md section 2
+  // forbids scraping CanLII, so there is no automated path yet.
+  //
+  // This REPORTS rather than fails. Failing would block every build on a gap
+  // that currently has no route to close, which trains people to ignore it.
+  // Printing the count on every run keeps it in front of whoever is working,
+  // and makes it obvious the day the number starts going down.
+  //
+  // Case law is identified structurally, not by a hand-maintained list: a
+  // citation is case law if its officialUrl is a docs/sources/ PDF or a
+  // CanLII /doc/ path. Confirmed 2026-09-11 that no statute or regulation
+  // citation uses either route -- those are ontario.ca/laws/docs/*.doc.
+  const isCaseLawUrl = (url: string): boolean =>
+    url.startsWith(LOCAL_SOURCE_PREFIX) || /^https:\/\/(www\.)?canlii\.org\/.*\/doc\//.test(url);
+
+  const caseLawCitations = allTopics
+    .flatMap((topic) => topic.citations)
+    .filter((citation) => isCaseLawUrl(citation.officialUrl));
+  let notNotedUpCount = caseLawCitations.filter((citation) => !citation.notedUpAt).length;
+  let caseLawCount = caseLawCitations.length;
+
+  // DEFENCE_CONCEPTS carry a bare sourceUrl rather than a citations tuple, so
+  // they are not in allTopics and would be silently missed here -- which is
+  // exactly the invisible-by-omission failure this check exists to prevent.
+  // `defence-failure-to-mitigate` is sourced to an SCC judgment and has no
+  // notedUpAt field to carry a date on, so it counts as un-noted-up.
+  for (const concept of DEFENCE_CONCEPTS) {
+    if (isCaseLawUrl(concept.sourceUrl)) {
+      caseLawCount += 1;
+      notNotedUpCount += 1;
+    }
+  }
+
   console.log(
     `Intake coverage verified: ${smallClaimsScenarios.length} small-claims scenario(s), ` +
       `${QUESTION_BANK.length} question(s) (0 uncovered intentionalGaps), ` +
@@ -288,6 +326,12 @@ function main() {
       `${JURISDICTION_ROUTES.length} jurisdiction route(s), ` +
       `0 unknown appliesWhen/surfacedWhen fields, 0 non-draft entries missing a resolvable source, ` +
       `0 dangling remedy/defence-concept references.`,
+  );
+  console.log(
+    `Noting up: ${notNotedUpCount} of ${caseLawCount} case-law citation(s) have NEVER ` +
+      `been checked for subsequent treatment (overruled/narrowed/distinguished). ` +
+      `Reported, not enforced -- no automated route exists (CanLII scraping is forbidden by ` +
+      `CLAUDE.md section 2). See docs/SOURCING_NOTES.md, "Noting up".`,
   );
 }
 

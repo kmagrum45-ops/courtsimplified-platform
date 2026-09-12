@@ -332,6 +332,46 @@ rather than built from scratch.
 
 ---
 
+## Noting up — the open gap, and why it is open
+
+**Nothing in these registries has ever been noted up.** As of 2026-09-11, `npm run test:intake-coverage` reports `44 of 44 case-law citation(s) have NEVER been checked for subsequent treatment`. That number is printed on every run deliberately — see "Making the gap visible" below.
+
+### What the gap actually is
+
+`verifiedAt` and "still good law" are two different claims, and only the first one is being made anywhere in this repo:
+
+| Field | What it asserts | How it is established here |
+|---|---|---|
+| `verifiedAt` | The source was retrieved and read, and the pinpoint says what we claim it says. | Fetch the judgment, read the paragraph. Done for all 44. |
+| `notedUpAt` | The holding has not since been overruled, narrowed, distinguished into irrelevance, or overtaken by legislation. | **Not done for any of them.** |
+
+A citation can be impeccably `verifiedAt` and still be wrong to rely on, because the case was overturned a decade after it was decided and the PDF on disk says nothing about that. Reading a judgment tells you what that court said on that day; it cannot tell you what happened to it afterwards. This is not a theoretical worry for old authorities — three of the cases in use are 30+ years old (Waldick 1991, Machtinger 1992, Hill 1995).
+
+### Why there is no route yet
+
+The standard noting-up tool is CanLII's, and **CLAUDE.md section 2 forbids scraping CanLII**. `decisions.scc-csc.ca` serves judgment text (see the technique above) but does not expose subsequent-treatment data. So this is not a "nobody got around to it" gap — there is no permitted automated path, and inventing one by scraping is off the table. Do not spend a session rediscovering that.
+
+**Do NOT close this gap from model knowledge.** Asserting that a case is still good law without checking is precisely the recall-based sourcing CLAUDE.md section 2 prohibits, and it is worse than the ordinary version because it *reads* as verified — a `notedUpAt` date is a positive claim that someone checked. An honest `null` beats a fabricated date.
+
+### Making the gap visible
+
+The problem with an unrecorded gap is that absence looks identical to completeness. Two mechanisms now prevent that:
+
+- **`notedUpAt?: string | null` on `EducationCitation`** (`educationTopics.ts`). Statute and regulation citations leave it undefined — currency there is the e-Laws consolidation date carried in the fetched `.doc` itself, a different mechanism handled a different way.
+- **A count in `verifyIntakeCoverage.ts`**, printed on every run. It **reports rather than fails**: failing the build on a gap with no available route just trains people to ignore the failure. A number that is in front of you every run, and visibly moves when it changes, does more work than a red X nobody can action.
+
+Case law is identified **structurally**, not from a hand-maintained list that would drift: a citation is case law if its `officialUrl` is a `docs/sources/` PDF or a CanLII `/doc/` path. Confirmed 2026-09-11 that no statute or regulation citation uses either route (those are `ontario.ca/laws/docs/*.doc`), so the classifier has no false positives today. **If that ever stops being true, the count silently becomes wrong** — re-check the assumption before trusting the number.
+
+One trap worth knowing, because the first version of the check fell into it: `DEFENCE_CONCEPTS` carry a bare `sourceUrl` instead of a `citations` tuple, so they are not in `allTopics` and were silently skipped — the count read 43 when the real answer was 44 (`defence-failure-to-mitigate`, sourced to Red Deer College v. Michaels). A coverage check that quietly omits a registry is the same invisible-by-omission failure it exists to catch. **Any new registry needs adding to this count explicitly.**
+
+### The adjacent gap: no Ontario appellate law at all
+
+Separate from noting up, and worth stating in the same breath: **every case in these registries is a Supreme Court of Canada decision. There are zero Ontario Court of Appeal decisions.** SCC decisions bind all Canadian courts, so nothing cited is *wrong* on hierarchy — but ONCA binds Ontario courts and is where most Ontario-specific doctrine actually gets worked out. The termination-clause content in `sc-claim-wrongful-dismissal` is the sharpest example: Machtinger sets the framework, but when a *specific* clause is valid has been developed extensively at the Ontario appellate level since 1992, and that entry deliberately says the question "is not something this content can answer" rather than pretending otherwise.
+
+ONCA decisions are not on `decisions.scc-csc.ca`, and CanLII is off-limits for scraping. **Finding a permitted retrieval route for Ontario appellate decisions is an unsolved, one-time infrastructure question** — solve it once rather than per-entry, and record the answer here.
+
+---
+
 ## Negative findings — confirmed not to exist, don't re-search
 
 - **`mitigation` defence concept — CLOSED (Session 43), no longer a confirmed

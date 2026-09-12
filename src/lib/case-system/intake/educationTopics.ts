@@ -102,6 +102,30 @@ export type EducationCitation = {
   officialUrl: string;
   verifiedAt: string;
   pinpoint?: string;
+  /**
+   * CASE-LAW CITATIONS ONLY. The date the decision was last checked for
+   * SUBSEQUENT TREATMENT -- whether it has been overruled, narrowed,
+   * distinguished, or overtaken by legislation since it was decided.
+   *
+   * This is NOT the same thing as `verifiedAt`, and the difference matters.
+   * `verifiedAt` records that the source was retrieved and the pinpoint says
+   * what we claim it says. `notedUpAt` records that the holding is still good
+   * law. A citation can be perfectly `verifiedAt` and completely wrong to
+   * rely on, because the case was overturned a decade after it was decided.
+   *
+   * `null` means NOT CHECKED -- an honest absence, not a pass. As of
+   * 2026-09-11 every case-law citation in these registries is `null`: the
+   * standard noting-up route is CanLII's, and CLAUDE.md section 2 forbids
+   * scraping CanLII, so no automated path exists yet. `verifyIntakeCoverage`
+   * counts and reports these rather than failing on them, so the gap stays
+   * visible in the data instead of being invisible by omission. See
+   * docs/SOURCING_NOTES.md, "Noting up".
+   *
+   * Statute and regulation citations leave this undefined -- currency there
+   * is the e-Laws consolidation date carried in the fetched document itself,
+   * a different mechanism handled a different way.
+   */
+  notedUpAt?: string | null;
 };
 
 export type EducationTopic = {
