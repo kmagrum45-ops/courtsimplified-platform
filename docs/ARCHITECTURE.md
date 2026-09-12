@@ -65,9 +65,9 @@ did nothing.
 |---|---|---|
 | `/` | [`app/page.tsx`](../app/page.tsx) | Marketing/landing home; hosts Gate A |
 | `/builder?path=X` | [`app/builder/page.tsx`](../app/builder/page.tsx) → `BuilderPageContent` | Hosts Gate B, then the path-specific intake, then the completed case overview |
-| `/family`, `/family/ontario` | [`app/family/page.tsx`](../app/family/page.tsx), [`app/family/ontario/page.tsx`](../app/family/ontario/page.tsx) | Static informational content, links into `/builder?path=family` |
+| `/family` | [`app/family/page.tsx`](../app/family/page.tsx) | Static informational content, links into `/builder?path=family`. (`/family/ontario` was deleted in Session 48 — orphaned, linked from nowhere, zero sourced legal links.) |
 | `/small-claims`, `/ontario-smallclaims` | [`app/small-claims/page.tsx`](../app/small-claims/page.tsx), [`app/ontario-smallclaims/page.tsx`](../app/ontario-smallclaims/page.tsx) | Same pattern for small claims |
-| `/civil`, `/ontario-civil` | [`app/civil/page.tsx`](../app/civil/page.tsx), [`app/ontario-civil/page.tsx`](../app/ontario-civil/page.tsx) | Same pattern for civil |
+| `/civil` | [`app/civil/page.tsx`](../app/civil/page.tsx) | Same pattern for civil. (`/ontario-civil` was deleted in Session 48, same reasons.) |
 | `/dashboard` | [`app/dashboard/page.tsx`](../app/dashboard/page.tsx) | List of the signed-in user's saved cases (via `dashboardEngine`) |
 | `/dashboard/cases/[id]` | [`app/dashboard/cases/[id]/page.tsx`](../app/dashboard/cases/%5Bid%5D/page.tsx) | Single-case workspace: loads the case row from Supabase, shows intake summary, readiness scoring, links into the workflow tools below |
 | `/case-dashboard` | [`app/case-dashboard/page.tsx`](../app/case-dashboard/page.tsx) | Older/local-storage-only case dashboard (`caseContextStorage`), separate from the Supabase-backed `/dashboard` |
