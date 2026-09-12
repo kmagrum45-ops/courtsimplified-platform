@@ -1452,21 +1452,20 @@ function calculateReadiness(intelligence: LegalIntelligenceResult): number {
     score += 10;
   }
 
-  score -= intelligence.litigationRisks.length * 4;
-  score -= intelligence.contradictions.length * 8;
-  score -= intelligence.limitationAssessments.filter(
-    (item) => item.status === "possible-risk" || item.status === "likely-risk",
-  ).length * 10;
-
-  score -= proofMaps.filter(
-    (map) =>
-      map.overallProofStrength === "low" ||
-      map.overallProofStrength === "very-low",
-  ).length * 8;
-
-  score -= (intelligence.evidenceIntelligenceAnalysis?.gaps.length || 0) * 2;
-  score -= (intelligence.factPatternAnalysis?.contradictions.length || 0) * 5;
-
+  // Six risk-weighted subtractions were removed here (CLAUDE.md section 3,
+  // "readiness scores that weight risk"): litigationRisks * 4, contradictions
+  // * 8, possible/likely-risk limitationAssessments * 10, low/very-low
+  // overallProofStrength proof maps * 8, evidence gaps * 2, and fact-pattern
+  // contradictions * 5. Every one of them graded the user's case and moved a
+  // displayed number down for it -- the second half of what d1fa87c started
+  // when it removed the judge-concern credit from this score and left the
+  // penalties in place.
+  //
+  // Deleted rather than reweighted: a count of which sections have
+  // information recorded needs no risk adjustment, and any non-zero weight
+  // would still be the system grading the case. What remains above is purely
+  // "does this part of the file have anything in it yet", which the user can
+  // verify against their own case.
   return Math.max(0, Math.min(100, score));
 }
 

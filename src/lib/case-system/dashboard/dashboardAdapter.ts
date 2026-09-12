@@ -340,17 +340,18 @@ function buildReadinessScore(assembly: CaseSystemAssemblyLike): number {
   const average =
     values.reduce((total, value) => total + value, 0) / Math.max(values.length, 1);
 
-  const proceduralPenalty =
-    (assembly.proceduralState?.risks || []).filter(
-      (risk) => risk.severity === "critical" || risk.severity === "high",
-    ).length * 4;
-
+  // The critical/high risk penalty that stood here (count * 4) is removed:
+  // CLAUDE.md section 3 prohibits readiness scores that weight risk, and this
+  // fed a number displayed to the user. Deleted rather than reweighted --
+  // any non-zero weight is still the system grading the case.
+  //
+  // Blockers and warnings are kept because they are factual absences, not
+  // gradings: a blocker is "this step cannot proceed until X is recorded".
   return clampScore(
     Math.round(
       average -
         assembly.workflow.blockers.length * 3 -
-        assembly.warnings.length -
-        proceduralPenalty,
+        assembly.warnings.length,
     ),
   );
 }

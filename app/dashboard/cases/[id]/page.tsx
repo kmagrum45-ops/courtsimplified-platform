@@ -28,11 +28,11 @@ function statusTone(count: number) {
   return "text-emerald-700 bg-emerald-50 border-emerald-200";
 }
 
-function readinessTone(score: number) {
-  if (score >= 70) return "bg-emerald-500";
-  if (score >= 40) return "bg-amber-500";
-  return "bg-red-500";
-}
+// readinessTone() was removed with the readiness score it coloured: a
+// red/amber/green bar keyed to a 0-100 number is itself a grading of the
+// user's case, independent of how the number was computed. The completeness
+// bar is a single neutral colour because a section count has no good or bad
+// value -- it only has a position.
 
 function completionTone(complete: boolean, warning: boolean) {
   if (complete) return "border-emerald-200 bg-emerald-50 text-emerald-800";
@@ -63,10 +63,16 @@ export default function CaseWorkspacePage() {
   const master = dashboard?.master;
   const highRisks = dashboard?.highRisks || [];
   const masterHasData = dashboard?.masterHasData || false;
-  const systemScore = dashboard?.systemScore || 0;
   const operationalWarnings = dashboard?.operationalWarnings || [];
-  const readinessScore = dashboard?.readinessScore || 0;
-  const readinessLevel = dashboard?.readinessLevel || "not-ready";
+  // readinessScore/readinessLevel/systemScore are no longer displayed --
+  // CLAUDE.md section 3 prohibits readiness scores that weight risk, and a
+  // 0-100 number reads as a grade regardless of how it is computed. The
+  // factual section count replaces them.
+  const completeness = dashboard?.completeness || { recorded: 0, total: 0 };
+  const completenessPercent =
+    completeness.total > 0
+      ? Math.round((completeness.recorded / completeness.total) * 100)
+      : 0;
 
   const nextAction = dashboard?.nextAction || {
     title: "Return to Dashboard",
@@ -245,7 +251,7 @@ export default function CaseWorkspacePage() {
             ["Issues", master.issues.length],
             ["Evidence", master.evidence.length],
             ["Proof Map", master.proofMap.length],
-            ["High Risks", highRisks.length],
+            ["Items to Confirm", highRisks.length],
           ].map(([label, value]) => (
             <div
               key={label}
@@ -261,40 +267,32 @@ export default function CaseWorkspacePage() {
 
         <section className="mt-8 grid gap-6 lg:grid-cols-[1fr_0.9fr]">
           <div className="rounded-3xl border border-[#d7e7e5] bg-white p-7 shadow-sm">
-            <h2 className="text-2xl font-bold">Case Readiness</h2>
+            <h2 className="text-2xl font-bold">Case File Completeness</h2>
 
             <div className="mt-5">
               <div className="flex items-center justify-between text-sm font-semibold">
-                <span>{readinessLevel}</span>
-                <span>{readinessScore}/100</span>
+                <span>Sections with information recorded</span>
+                <span>
+                  {completeness.recorded} of {completeness.total}
+                </span>
               </div>
 
               <div className="mt-2 h-4 overflow-hidden rounded-full bg-slate-100">
                 <div
-                  className={`h-full rounded-full ${readinessTone(readinessScore)}`}
-                  style={{ width: `${readinessScore}%` }}
+                  className="h-full rounded-full bg-[#2f7d67]"
+                  style={{ width: `${completenessPercent}%` }}
                 />
               </div>
             </div>
 
             <div className="mt-6 rounded-2xl border border-[#d7e7e5] bg-[#f8fcfb] p-5">
-              <div className="flex items-center justify-between text-sm font-semibold">
-                <span>System completeness</span>
-                <span>{systemScore}/100</span>
-              </div>
-
-              <div className="mt-2 h-3 overflow-hidden rounded-full bg-white">
-                <div
-                  className="h-full rounded-full bg-[#2f7d67]"
-                  style={{ width: `${systemScore}%` }}
-                />
-              </div>
-
-              <p className="mt-3 text-sm leading-6 text-[#4B5563]">
-                This score measures whether the case has enough structured
-                facts, issues, evidence, proof mapping, forms, strategy,
-                authority, contradiction, credibility, and package data to
-                operate as a connected litigation file.
+              <p className="text-sm leading-6 text-[#4B5563]">
+                This counts which parts of your case file have information
+                recorded: parties, facts, issues, timeline, evidence, proof
+                map, forms, package sections, and exhibit order. It is a
+                record of what you have entered so far, not an assessment of
+                your case. Whether a case is ready to proceed is a question
+                for a licensed paralegal or lawyer.
               </p>
             </div>
 
@@ -332,7 +330,7 @@ export default function CaseWorkspacePage() {
           </div>
 
           <div className="rounded-3xl border border-[#d7e7e5] bg-white p-7 shadow-sm">
-            <h2 className="text-2xl font-bold">Priority Alerts</h2>
+            <h2 className="text-2xl font-bold">Items to Confirm</h2>
 
             <div className="mt-5 space-y-3">
               {[
@@ -344,8 +342,11 @@ export default function CaseWorkspacePage() {
                 ...(authority?.warnings || []),
                 ...(contradictions?.warnings || []),
                 ...(credibility?.warnings || []),
+                // Was: `risk.description || risk.title || "High risk item"`.
+                // The fallback label graded the item; the title/description
+                // are the underlying factual text and are kept.
                 ...highRisks.map(
-                  (risk) => risk.description || risk.title || "High risk item",
+                  (risk) => risk.description || risk.title || "Item to confirm",
                 ),
               ]
                 .slice(0, 10)
@@ -364,7 +365,7 @@ export default function CaseWorkspacePage() {
               (contradictions?.warnings || []).length === 0 &&
               (credibility?.warnings || []).length === 0 ? (
                 <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
-                  No high-risk alerts detected yet. Continue adding facts,
+                  Nothing flagged to confirm yet. You can keep adding facts,
                   evidence, dates, authority, and proof connections.
                 </div>
               ) : null}

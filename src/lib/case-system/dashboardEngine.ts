@@ -143,6 +143,8 @@ export type DashboardSummary = {
   highRisks: DashboardRisk[];
   masterHasData: boolean;
   systemScore: number;
+  /** Factual section count shown to the user in place of the old readiness score. */
+  completeness: { recorded: number; total: number };
   readinessScore: number;
   readinessLevel: string;
   operationalWarnings: string[];
@@ -468,11 +470,41 @@ export function calculateDashboardSystemScore(master: DashboardMasterView): numb
   if (master.contradictionReadiness) score += 5;
   if (master.credibilityIntelligence) score += 5;
 
-  const highRiskPenalty = master.risks.filter(
-    (risk) => risk.severity === "high" || risk.severity === "critical",
-  ).length;
+  // A high/critical risk penalty (count * 2) stood here and is removed for
+  // the same reason as the two readiness formulas -- CLAUDE.md section 3.
+  // This one was not in the original report; found while fixing those.
+  return clampScore(score);
+}
 
-  return clampScore(score - highRiskPenalty * 2);
+/**
+ * The factual replacement for the displayed scores: how many parts of the
+ * case file have information recorded, out of how many exist.
+ *
+ * Counts exactly the same sections `calculateDashboardSystemScore` above
+ * checks, but without weights -- each section is one section. A user can
+ * verify this against their own case file by looking at it, which is the
+ * property a 0-100 score never had. It weights nothing and predicts nothing.
+ */
+export function buildDashboardCompleteness(master: DashboardMasterView): {
+  recorded: number;
+  total: number;
+} {
+  const sections = [
+    master.parties.length > 0,
+    master.facts.length > 0,
+    master.issues.length > 0,
+    master.timeline.length > 0,
+    master.evidence.length > 0,
+    master.proofMap.length > 0,
+    master.formNeeds.length > 0,
+    master.courtPackage.packageSections.length > 0,
+    master.courtPackage.exhibitOrder.length > 0,
+  ];
+
+  return {
+    recorded: sections.filter(Boolean).length,
+    total: sections.length,
+  };
 }
 
 export function buildDashboardOperationalWarnings(
@@ -781,6 +813,7 @@ export function buildDashboardSummary(
     highRisks,
     masterHasData: hasDashboardMasterData(master),
     systemScore: calculateDashboardSystemScore(master),
+    completeness: buildDashboardCompleteness(master),
     readinessScore: clampScore(master.readiness.score),
     readinessLevel: master.readiness.level || "not-ready",
     operationalWarnings: buildDashboardOperationalWarnings(master),

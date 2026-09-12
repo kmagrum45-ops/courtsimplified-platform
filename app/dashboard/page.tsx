@@ -580,13 +580,23 @@ export default function DashboardPage() {
                           <div
                             className="h-full rounded-full bg-[#2f7d67]"
                             style={{
-                              width: `${dashboard.readinessScore}%`,
+                              width: `${
+                                dashboard.completeness.total > 0
+                                  ? Math.round(
+                                      (dashboard.completeness.recorded /
+                                        dashboard.completeness.total) *
+                                        100,
+                                    )
+                                  : 0
+                              }%`,
                             }}
                           />
                         </div>
 
                         <p className="mt-2 text-xs font-semibold text-[#4B5563]">
-                          Readiness score: {dashboard.readinessScore}/100
+                          {dashboard.completeness.recorded} of{" "}
+                          {dashboard.completeness.total} sections have
+                          information recorded
                         </p>
                       </div>
 
