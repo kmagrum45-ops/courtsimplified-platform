@@ -119,7 +119,27 @@ function main(): void {
   const b = isAlreadyCovered(input);
   check("property 1: filter is pure (same input, same output)", JSON.stringify(a) === JSON.stringify(b));
   check("property 1: a covered topic is suppressed", a.covered, JSON.stringify(a));
-  check("property 1: suppression records the matching sentence", Boolean(a.matchedText));
+  check("property 1: suppression records the term that fired", Boolean(a.match?.term));
+  check("property 1: suppression records a clause, not the whole text", Boolean(a.match?.clause));
+
+  // The narrowing that replaced whole-sentence matchedText. A clause must be
+  // SHORTER than the sentence it came from, or the display still overclaims.
+  const clauseCase = isAlreadyCovered({
+    userTexts: ["I had someone in to redo the tiling in my upstairs bathroom, and it went badly."],
+    coveredWhenMentioned: ["redo"],
+  });
+  check(
+    "property 1: the recorded clause is narrower than the full sentence",
+    Boolean(clauseCase.match) &&
+      clauseCase.match!.clause.length <
+        "I had someone in to redo the tiling in my upstairs bathroom, and it went badly.".length,
+    JSON.stringify(clauseCase.match),
+  );
+  check(
+    "property 1: the recorded clause contains the term that fired",
+    clauseCase.match!.clause.toLowerCase().includes("redo"),
+    JSON.stringify(clauseCase.match),
+  );
 
   check(
     "property 1: ONE matched term is enough to suppress (bias toward suppression)",
@@ -303,8 +323,14 @@ function main(): void {
         complete.suppressed.every((s) => complete.stateMap[s.elementId].state === "provided"),
     );
     check(
-      "selection: a suppressed element carries the user's own words",
-      complete.suppressed.every((s) => Boolean(complete.stateMap[s.elementId].userText)),
+      "selection: a suppressed element carries the term that fired",
+      complete.suppressed.every((s) => Boolean(complete.stateMap[s.elementId].suppressionMatch?.term)),
+    );
+    // A suppression is not an answer. Leaving userText unset is what stops the
+    // readiness section rendering a matched clause as the user's answer.
+    check(
+      "selection: a suppressed element does NOT set userText (it is not an answer)",
+      complete.suppressed.every((s) => complete.stateMap[s.elementId].userText === undefined),
     );
   }
 

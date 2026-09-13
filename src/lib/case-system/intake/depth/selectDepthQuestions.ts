@@ -16,7 +16,8 @@
  *      unaskable; this reuses selectQuestions.ts's existing convention rather
  *      than inventing a second gate.
  *   5. alreadyCovered    -> suppress, and record the element as PROVIDED with
- *      the user's matching words attached.
+ *      the matched TERM and its clause attached (context for the
+ *      suppression, not evidence for the element -- see alreadyCovered.ts).
  *   6. budget            -> ask at most MAX_ASKED. Overflow is NOT dropped:
  *      it stays not-yet and the readiness section surfaces it.
  */
@@ -63,7 +64,13 @@ export type SelectedDepthQuestion = {
 export type DepthSelectionResult = {
   asked: SelectedDepthQuestion[];
   /** Elements whose question was suppressed because the story covered it. */
-  suppressed: { elementId: string; questionId: string; matchedTerms: string[]; matchedText?: string }[];
+  suppressed: {
+    elementId: string;
+    questionId: string;
+    matchedTerms: string[];
+    /** Term + clause. Context for the suppression, NOT evidence for the element. */
+    match?: { term: string; clause: string };
+  }[];
   /** Survived filtering but exceeded the budget. Still surfaced by readiness. */
   deferredToReadiness: { elementId: string; questionId: string }[];
   /** Elements with no authored question — attestation only. */
@@ -114,15 +121,16 @@ export function selectDepthQuestions(input: DepthSelectionInput): DepthSelection
           elementId: element.id,
           questionId: question.id,
           matchedTerms: coverage.matchedTerms,
-          matchedText: coverage.matchedText,
+          match: coverage.match,
         });
 
-        // Suppressed means the user DID state it — so the element is provided,
-        // carrying their words, so a wrong suppression is visible and fixable.
+        // Suppressed means the user mentioned the topic, so the element is
+        // recorded as provided, carrying the term that fired so a wrong
+        // suppression is visible and correctable.
         stateMap = recordCoveredByStory(stateMap, {
           elementId: element.id,
           questionId: question.id,
-          matchedText: coverage.matchedText || "",
+          match: coverage.match || { term: "", clause: "" },
         });
         continue;
       }

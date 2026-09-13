@@ -50,13 +50,23 @@ export type ElementRecord = {
   /** Only set when state is "provided". */
   providedVia?: ProvidedVia;
   /**
-   * The user's own words behind this state.
+   * The user's own answer, when they gave one. Only set for "depth-answer".
    *
-   * For "user-story" this is the matched excerpt, which is what makes a wrong
-   * suppression CORRECTABLE rather than silent: the readiness section shows
-   * the user what their story was taken to have supplied, so they can disagree.
+   * Deliberately NOT set for "user-story": a suppression is not an answer, and
+   * storing a sentence here would present it as one. See suppressionMatch.
    */
   userText?: string;
+  /**
+   * Why a question was suppressed: the term the user used and its immediate
+   * clause. Only set for "user-story".
+   *
+   * This is CONTEXT, not evidence for the element. alreadyCovered.ts's header
+   * explains why a token match cannot establish that the user supplied the
+   * element's fact, and why displaying a whole sentence here overclaimed. The
+   * readiness section should render it as "suppressed because you said X" so a
+   * wrong suppression is recognisable at a glance.
+   */
+  suppressionMatch?: { term: string; clause: string };
   /** Which authored question produced this, when one did. */
   questionId?: string;
 };
@@ -122,13 +132,19 @@ export function recordCannotProvide(
  */
 export function recordCoveredByStory(
   map: ElementStateMap,
-  args: { elementId: string; questionId?: string; matchedText: string },
+  args: {
+    elementId: string;
+    questionId?: string;
+    match: { term: string; clause: string };
+  },
 ): ElementStateMap {
   return setRecord(map, args.elementId, (current) => ({
     ...current,
     state: "provided",
     providedVia: "user-story",
-    userText: args.matchedText,
+    // userText stays unset: the user did not answer this, and filling it would
+    // present a suppression as an answer.
+    suppressionMatch: args.match,
     questionId: args.questionId,
   }));
 }

@@ -299,7 +299,7 @@ async function main(): Promise<void> {
   for (const s of selection.suppressed) {
     say(`  ${s.elementId}  [${s.questionId}]`);
     say(`    matched terms: ${s.matchedTerms.join(", ")}`);
-    say(`    from the user's words: "${(s.matchedText || "").slice(0, 120)}"`);
+    say(`    fired on term "${s.match?.term ?? ""}" in clause: "${s.match?.clause ?? ""}"`);
   }
   if (!selection.suppressed.length) say("  (none)");
 

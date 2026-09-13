@@ -569,10 +569,18 @@ export const CLAIM_TYPES: ClaimType[] = [
       "owes me money",
       "non-payment",
       "invoice not paid",
-      "loan not repaid",
+      // Session 48: "loan not repaid" and "won't pay me back for the loan"
+      // removed from here. They are loan wording, and they SHADOWED
+      // sc-claim-personal-loan-between-individuals: a story using either
+      // phrase matched this claim type instead of the personal-loan one,
+      // even though personal-loan is the apter fit and carries its own
+      // sourced elements. Measured before removal:
+      //   "The loan not repaid is now six months overdue."  -> debt/services
+      //   "He won't pay me back for the loan I gave him."   -> debt/services
+      // Personal-loan keeps "never repaid the loan" and
+      // "won't pay back the money i lent", which cover the same ground.
       "haven't paid me for the work",
       "still hasn't paid me for the job",
-      "won't pay me back for the loan",
       "refuses to settle the balance",
       "won't pay me what they owe for the work",
       "hasn't paid me a cent",
@@ -3390,6 +3398,12 @@ export const CLAIM_TYPES: ClaimType[] = [
       "friend owes me money he borrowed",
       "family member borrowed money",
       "loaned my cousin",
+      // Session 48: moved here from sc-claim-unpaid-debt-services, where they
+      // shadowed this claim type. Removing them from there alone left both
+      // phrases matching nothing, which fell through to the AI classifier;
+      // holding them here routes them to the claim type they describe.
+      "loan not repaid",
+      "won't pay me back for the loan",
     ],
     typicalDefendantProfile: "individual",
     citations: [

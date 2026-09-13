@@ -33,6 +33,59 @@
  * check would be more accurate and is the wrong tool. It cannot be reasoned
  * about when it misfires, and a silent AI-driven suppression could drop a
  * question the user needed with no trace.
+ *
+ * ---------------------------------------------------------------------------
+ * WHAT THIS CAN AND CANNOT ANSWER — read before "improving" the matching
+ * ---------------------------------------------------------------------------
+ *
+ * `coveredWhenMentioned` conflates two different questions:
+ *
+ *   (a) did the user TALK ABOUT this topic?        <- tokens answer this well
+ *   (b) did the user SUPPLY this element's fact?   <- tokens cannot answer it
+ *
+ * The filter tests (a) and the design treats the answer as if it settled (b).
+ * That gap is inherent to substring matching, not a tuning problem, because
+ * the distinction between "redo the tiling" (hiring) and "redo the ruined
+ * wall" (damage) is syntactic role and predication, not vocabulary. The same
+ * token carries opposite propositions and no bag-of-words test can separate
+ * them.
+ *
+ * WORKED EXAMPLE — session 48, paraphrase story 3 (contractor damage).
+ * Story: "I had someone in to redo the tiling in my upstairs bathroom.
+ * Partway through he cut into a pipe behind the wall and did not tell me. I
+ * found out when the ceiling below started staining and the plaster came
+ * away. ..."
+ *
+ * Terms for the work-caused-damage question: damage, damaged, broke, broken,
+ * cracked, leak, ruined, redo, redone. Against that story:
+ *
+ *   MATCH  redo   | I had someone in to redo the tiling in my upstairs bathroom.
+ *   no     -      | Partway through he cut into a pipe behind the wall...
+ *   no     -      | I found out when the ceiling below started staining...
+ *   no     -      | He stopped coming after that.
+ *   no     -      | I had to get someone else in to open the ceiling...
+ *
+ * The ONLY sentence that matched is about HIRING. Every sentence that actually
+ * describes the damage matched nothing. The question was suppressed, and the
+ * outcome happened to be defensible only because the story contained damage
+ * elsewhere — which the filter never saw.
+ *
+ * THIS IS NOT A RANKING BUG. A later session will be tempted to "fix" it by
+ * ranking candidate sentences (most terms wins, longest match wins). That
+ * would have changed nothing here: exactly one sentence matched. Ranking
+ * improves which excerpt is DISPLAYED when several match; it cannot make a
+ * token test answer (b).
+ *
+ * What was changed instead: the result no longer reports a whole sentence as
+ * the user's supplied evidence. It reports the TERM and its immediate clause,
+ * labelled as a term the user used. The display stops overclaiming, so a user
+ * can see "suppressed because you said 'redo'" and recognise a bad suppression
+ * at a glance. The suppression BIAS is unchanged and deliberate.
+ *
+ * Options that would actually close the gap, none of them free: an API call
+ * per question (rejected in the design for traceability), or authored negative
+ * terms per question (unbounded, and the longer-list route the design rules
+ * out). Both are decisions for the site owner, not fixes to make here.
  */
 
 /**
@@ -62,16 +115,34 @@ export type AlreadyCoveredInput = {
   coveredWhenMentioned: string[];
 };
 
+/**
+ * What actually caused the suppression: one term the user used, and the
+ * immediate clause it sat in.
+ *
+ * This deliberately replaced a full-sentence `matchedText`. The sentence was
+ * displayed as the user's supplied evidence for the element, which OVERCLAIMS
+ * — see the "what this can and cannot answer" note in the file header. A term
+ * plus its clause is the honest unit: it is exactly what the filter saw, and a
+ * user reading "suppressed because you said 'redo'" can recognise a bad
+ * suppression instantly, in a way that a plausible-looking sentence hides.
+ */
+export type SuppressionMatch = {
+  /** The authored term that fired. */
+  term: string;
+  /** The immediate clause containing it, trimmed. Context, not evidence. */
+  clause: string;
+};
+
 export type AlreadyCoveredResult = {
   covered: boolean;
   /** Which authored terms matched. Empty when not covered. */
   matchedTerms: string[];
   /**
-   * The user's own sentence that triggered suppression, so the readiness
-   * section can show what their words were taken to have supplied. A wrong
-   * suppression must be VISIBLE, not silent.
+   * The first term/clause that fired. NOT the user's evidence for the element
+   * — see SuppressionMatch. A wrong suppression must be VISIBLE, and showing
+   * less is what makes it visible here.
    */
-  matchedText?: string;
+  match?: SuppressionMatch;
 };
 
 /** How many authored terms must appear before a question is suppressed. */
@@ -99,7 +170,7 @@ export function isAlreadyCovered(input: AlreadyCoveredInput): AlreadyCoveredResu
 
   const sentences = splitSentences(input.userTexts);
   const matchedTerms = new Set<string>();
-  let matchedText: string | undefined;
+  let match: SuppressionMatch | undefined;
 
   for (const sentence of sentences) {
     const words = tokenize(sentence);
@@ -108,7 +179,9 @@ export function isAlreadyCovered(input: AlreadyCoveredInput): AlreadyCoveredResu
     for (const term of terms) {
       if (matchesTerm(term, sentence, words)) {
         matchedTerms.add(term);
-        if (!matchedText) matchedText = sentence.trim();
+        // First hit in document order. NOT ranked, and deliberately not:
+        // see the file header on why ranking cannot fix what this is.
+        if (!match) match = { term, clause: clauseAround(term, sentence) };
       }
     }
   }
@@ -116,8 +189,37 @@ export function isAlreadyCovered(input: AlreadyCoveredInput): AlreadyCoveredResu
   return {
     covered: matchedTerms.size >= SUPPRESSION_THRESHOLD,
     matchedTerms: [...matchedTerms].sort(),
-    matchedText: matchedTerms.size >= SUPPRESSION_THRESHOLD ? matchedText : undefined,
+    match: matchedTerms.size >= SUPPRESSION_THRESHOLD ? match : undefined,
   };
+}
+
+/** Clause boundaries. Splitting on these keeps the excerpt local to the term. */
+const CLAUSE_SPLIT = /,|;|:|\band\b|\bbut\b|\bso\b|\bbecause\b|\bthen\b|\bwhen\b|\bwhile\b/i;
+
+const MAX_CLAUSE_LENGTH = 80;
+
+/**
+ * The immediate clause containing `term`, rather than the whole sentence.
+ *
+ * Falls back to the trimmed sentence when no clause boundary isolates the
+ * term, capped so a long run-on cannot be displayed as if it were a clause.
+ */
+function clauseAround(term: string, sentence: string): string {
+  const fragments = sentence
+    .split(CLAUSE_SPLIT)
+    .map((fragment) => fragment.trim())
+    .filter((fragment) => fragment.length > 0);
+
+  const head = term.split(" ")[0];
+  const hit = fragments.find((fragment) => {
+    const words = tokenize(fragment);
+    return matchesTerm(term, fragment, words) || words.has(head);
+  });
+
+  const chosen = (hit || sentence).trim();
+  return chosen.length > MAX_CLAUSE_LENGTH
+    ? `${chosen.slice(0, MAX_CLAUSE_LENGTH).trimEnd()}...`
+    : chosen;
 }
 
 /**
