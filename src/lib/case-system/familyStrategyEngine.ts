@@ -1,3 +1,4 @@
+import { familyFormLabel } from "./family/familyFormsRegistry";
 import type {
   FamilyCaseType,
   ParentingIssueType,
@@ -258,8 +259,8 @@ export function analyzeFamilyStrategy(
     );
 
     recommendedForms.push(
-      "Form 8 - Application",
-      "Form 35.1 - Parenting Affidavit",
+      familyFormLabel("8"),
+      familyFormLabel("35.1"),
     );
   }
 
@@ -280,7 +281,7 @@ export function analyzeFamilyStrategy(
       "Tax returns, Notices of Assessment, pay stubs, bank records, childcare costs, and section 7 expense proof.",
     );
 
-    recommendedForms.push("Form 13 - Financial Statement");
+    recommendedForms.push(familyFormLabel("13"));
   }
 
   if (safetyIssue) {
@@ -305,8 +306,8 @@ export function analyzeFamilyStrategy(
     );
 
     recommendedForms.push(
-      "Form 14 - Notice of Motion",
-      "Form 14A - Affidavit",
+      familyFormLabel("14"),
+      familyFormLabel("14A"),
     );
   }
 
@@ -329,7 +330,7 @@ export function analyzeFamilyStrategy(
     );
 
     recommendedForms.push(
-      "Form 13.1 - Financial Statement (Property and Support Claims)",
+      familyFormLabel("13.1"),
     );
   }
 

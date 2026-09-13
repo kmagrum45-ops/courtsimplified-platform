@@ -1,3 +1,4 @@
+import { familyFormLabel } from "./family/familyFormsRegistry";
 import type {
   FamilyCaseType,
   FamilyLitigationStage,
@@ -147,7 +148,7 @@ export function runFamilyWorkflowEngine(
         title: "Review urgent safety and protection issues first",
         explanation:
           "Safety concerns must be separated from ordinary parenting conflict. The system should ask for specific incidents, dates, evidence, witnesses, and what immediate order is needed.",
-        requiredForms: ["Form 14 - Notice of Motion", "Form 14A - Affidavit"],
+        requiredForms: [familyFormLabel("14"), familyFormLabel("14A")],
         recommendedForms: ["Draft proposed temporary order terms", "Safety incident chronology"],
         evidenceNeeded: [
           "Dated incident timeline",
@@ -187,11 +188,11 @@ export function runFamilyWorkflowEngine(
         title: "Respond to the application before building optional materials",
         explanation:
           "If the user has been served, the system should focus on what was received, the response deadline, what is admitted or denied, and whether a claim should be made in response.",
-        requiredForms: ["Form 10 - Answer"],
+        requiredForms: [familyFormLabel("10")],
         recommendedForms: [
-          hasParenting ? "Form 35.1 - Parenting Affidavit" : "",
-          hasSupport ? "Form 13 - Financial Statement" : "",
-          hasProperty ? "Form 13.1 - Financial Statement" : "",
+          hasParenting ? familyFormLabel("35.1") : "",
+          hasSupport ? familyFormLabel("13") : "",
+          hasProperty ? familyFormLabel("13.1") : "",
         ],
         evidenceNeeded: [
           "Application and all served documents",
@@ -228,11 +229,11 @@ export function runFamilyWorkflowEngine(
         title: "Start the family application with the correct issue set",
         explanation:
           "Before generating forms, the system should confirm the claims being made, the requested orders, the court level, parties, children, and whether support or property disclosure is required.",
-        requiredForms: ["Form 8 - Application"],
+        requiredForms: [familyFormLabel("8")],
         recommendedForms: [
-          hasParenting ? "Form 35.1 - Parenting Affidavit" : "",
-          hasSupport ? "Form 13 - Financial Statement" : "",
-          hasProperty ? "Form 13.1 - Financial Statement" : "",
+          hasParenting ? familyFormLabel("35.1") : "",
+          hasSupport ? familyFormLabel("13") : "",
+          hasProperty ? familyFormLabel("13.1") : "",
         ],
         evidenceNeeded: [
           "Children's names, ages, residence, school/daycare, and current schedule",
@@ -272,7 +273,7 @@ export function runFamilyWorkflowEngine(
         title: "Build the parenting proposal and best-interests analysis",
         explanation:
           "Parenting materials must be child-focused. The system should convert conflict into facts about stability, caregiving, routine, communication, safety, school, medical needs, and practical scheduling.",
-        requiredForms: [hasExistingOrder ? "Motion/change materials depend on the existing order" : "Form 35.1 - Parenting Affidavit"],
+        requiredForms: [hasExistingOrder ? "Motion/change materials depend on the existing order" : familyFormLabel("35.1")],
         recommendedForms: ["Parenting schedule chart", "Best-interests evidence summary", "Proposed parenting order terms"],
         evidenceNeeded: [
           "Current and proposed parenting schedule",
@@ -345,7 +346,7 @@ export function runFamilyWorkflowEngine(
         title: "Organize support and financial disclosure",
         explanation:
           "Support issues require income, disclosure, support history, expenses, and any dispute about imputed income, arrears, or section 7 expenses.",
-        requiredForms: [hasProperty ? "Form 13.1 - Financial Statement" : "Form 13 - Financial Statement"],
+        requiredForms: [hasProperty ? familyFormLabel("13.1") : familyFormLabel("13")],
         recommendedForms: ["Support calculation worksheet", "Financial disclosure checklist", "Section 7 expense table"],
         evidenceNeeded: [
           "Recent pay stubs",
@@ -381,7 +382,7 @@ export function runFamilyWorkflowEngine(
         title: "Organize property, debts, and equalization issues",
         explanation:
           "Property claims require a separate financial-disclosure track. The system should identify the matrimonial home, assets, debts, excluded property, business interests, pensions, and sale/occupation issues.",
-        requiredForms: ["Form 13.1 - Financial Statement (Property and Support Claims)"],
+        requiredForms: [familyFormLabel("13.1")],
         recommendedForms: ["Asset/debt table", "Matrimonial home summary", "Property disclosure checklist"],
         evidenceNeeded: [
           "Mortgage or lease documents",
@@ -416,8 +417,8 @@ export function runFamilyWorkflowEngine(
         explanation:
           "Conferences require issue narrowing, settlement positions, updated disclosure, proposed orders, and a clear summary of what remains disputed.",
         requiredForms: [
-          stage === "case-conference" ? "Form 17A - Case Conference Brief" : "",
-          stage === "settlement-conference" ? "Form 17C - Settlement Conference Brief" : "",
+          stage === "case-conference" ? familyFormLabel("17A") : "",
+          stage === "settlement-conference" ? familyFormLabel("17C") : "",
         ],
         recommendedForms: ["Updated financial disclosure", "Proposed order", "Settlement position summary"],
         evidenceNeeded: [
