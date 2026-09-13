@@ -121,11 +121,36 @@ type ChatMessage = { from: "user" | "assistant"; text: string };
  * type, which would be worse than not calling onComplete at all -- see
  * this session's report for the design question this leaves open.
  */
+/**
+ * One depth question as the server hands it over.
+ *
+ * `text` is the rendered, slot-substituted, AUTHORED string. It is never model
+ * output — the depth turn discards VoiceTurn.questionText, and the lead-in
+ * travels separately as `leadIn`. See orchestrateDepthTurn.ts.
+ */
+export type DepthClientQuestion = {
+  id: string;
+  elementId: string;
+  text: string;
+  why?: string;
+  sourceUrl?: string;
+  examples?: string[];
+};
+
 export type GuidedIntakeCompletionResult = {
   facts: IntakeFacts;
   answeredIds: string[];
   /** Retained across turns like evidenceGuidance -- null if no claim type ever matched. */
   matchedClaimType: MatchedClaimType | null;
+  /**
+   * Per-element record state from the depth phase, when it ran.
+   *
+   * This is the SAME map the readiness gate reads — depth answers and
+   * attestation are one structure, not two that can disagree (design
+   * section 5). Undefined when no claim type was confirmed or the user
+   * skipped, which is a legitimate state, not a failure.
+   */
+  elementStateMap?: Record<string, unknown>;
 };
 
 /**
@@ -238,6 +263,23 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
   const [resolvingSuggestion, setResolvingSuggestion] = useState(false);
   const [noClaimTypeMatch, setNoClaimTypeMatch] = useState(false);
 
+  // --- Claim-type depth phase (docs/CLAIM_TYPE_INTAKE_DEPTH_DESIGN.md) ---
+  //
+  // Runs after general intake completes, and ONLY on a confirmed claim type.
+  // `matchedClaimType` is exactly that: it is set by an exact matchClaimType
+  // hit, and also by resolveSuggestion("confirm") below. Both paths are
+  // "confirmed"; an unconfirmed pendingSuggestion never reaches it.
+  //
+  // Skippable at any point (design section 7): the phase improves draft
+  // quality, it is not a prerequisite, and a skipper still reaches a draft.
+  const [depthQuestions, setDepthQuestions] = useState<DepthClientQuestion[]>([]);
+  const [depthIndex, setDepthIndex] = useState(0);
+  const [depthStateMap, setDepthStateMap] = useState<Record<string, unknown> | null>(null);
+  const [depthActive, setDepthActive] = useState(false);
+  // Retained so onComplete fires with the same facts/answeredIds the
+  // completing turn produced, rather than whatever state has become since.
+  const [completionPayload, setCompletionPayload] = useState<GuidedIntakeCompletionResult | null>(null);
+
   async function sendTurn(
     newStoryText: string | undefined,
     newAnsweredIds: string[],
@@ -322,11 +364,22 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
         ]);
         setCurrentQuestion(null);
         setLoading(false);
-        onComplete?.({
+
+        const payload: GuidedIntakeCompletionResult = {
           facts: result.facts,
           answeredIds: result.answeredIds,
           matchedClaimType: matchedClaimTypeThisTurn,
-        });
+        };
+
+        // Depth phase runs only on a CONFIRMED claim type. Without one there
+        // is nothing to go deeper on, so completion is immediate — exactly
+        // today's behaviour.
+        if (matchedClaimTypeThisTurn) {
+          setCompletionPayload(payload);
+          void startDepthPhase(matchedClaimTypeThisTurn.claimTypeId, result.facts);
+        } else {
+          onComplete?.(payload);
+        }
         return;
       }
 
@@ -425,8 +478,188 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
     void sendTurn(answerText || undefined, nextAnsweredIds, facts, currentQuestion.id);
   }
 
+  /**
+   * The user's own verbatim text the suppression filter reads. Exactly the
+   * fields the design names, plus the opening story.
+   */
+  function buildUserTexts(currentFacts: IntakeFacts): string[] {
+    const fields = [
+      "storyText",
+      "amountClaimedText",
+      "timelineText",
+      "evidenceText",
+      "remedySoughtText",
+      "serviceDetailsText",
+    ] as const;
+
+    return [
+      ...messages.filter((message) => message.from === "user").map((message) => message.text),
+      ...fields
+        .map((field) => currentFacts[field as keyof IntakeFacts])
+        .filter((value): value is string => typeof value === "string"),
+    ].filter((text) => text.trim().length > 0);
+  }
+
+  async function callDepthTurn(
+    claimTypeId: string,
+    currentFacts: IntakeFacts,
+    answered?: { questionId: string; answerText: string },
+  ) {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    const response = await fetch("/api/intake/depth-turn", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
+      },
+      body: JSON.stringify({
+        claimTypeId,
+        userTexts: buildUserTexts(currentFacts).slice(0, 12),
+        // Slot values are left empty, so every slot renders its authored
+        // neutral default. That is the ship-safe state the design names, not a
+        // fallback failure: filling {defendantLabel} from the user's own words
+        // needs a bounded party/subject label extractor, which does not exist
+        // yet. Every authored question is required to read correctly with all
+        // slots defaulted, and verifyDepthQuestions.ts enforces that.
+        slotValues: {},
+        stateMap: depthStateMap || undefined,
+        facts: currentFacts as Record<string, string | number | boolean>,
+        ...(answered
+          ? { answeredQuestionId: answered.questionId, answerText: answered.answerText }
+          : {}),
+      }),
+    });
+
+    const json = await response.json();
+    if (!response.ok || !json.ok) {
+      throw new Error(json.error || "That didn't go through. Please try again.");
+    }
+
+    return json.result as {
+      questions: DepthClientQuestion[];
+      stateMap: Record<string, unknown>;
+      leadIn: string | null;
+      halted: boolean;
+      haltMessage?: string;
+    };
+  }
+
+  async function startDepthPhase(claimTypeId: string, currentFacts: IntakeFacts) {
+    setLoading(true);
+    try {
+      const result = await callDepthTurn(claimTypeId, currentFacts);
+      setDepthStateMap(result.stateMap);
+
+      // A well-covered story suppresses everything. That is the filter working,
+      // not a failure — finish immediately rather than announcing a phase with
+      // nothing in it.
+      if (result.questions.length === 0) {
+        finishDepthPhase(result.stateMap);
+        return;
+      }
+
+      setDepthQuestions(result.questions);
+      setDepthIndex(0);
+      setDepthActive(true);
+      setMessages((current) => [
+        ...current,
+        {
+          from: "assistant",
+          text:
+            "A few more questions specific to this kind of claim. You can skip these at any point — " +
+            "they help the draft, and nothing depends on answering them.",
+        },
+        { from: "assistant", text: result.questions[0].text },
+      ]);
+    } catch (err) {
+      // A depth failure must never strand the user short of a draft.
+      setError(err instanceof Error ? err.message : "Could not load the detailed questions.");
+      finishDepthPhase(depthStateMap);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function finishDepthPhase(stateMap: Record<string, unknown> | null) {
+    setDepthActive(false);
+    const payload = completionPayload;
+    if (payload) {
+      onComplete?.({ ...payload, elementStateMap: stateMap || undefined });
+    }
+  }
+
+  function handleDepthAnswerSubmit() {
+    const question = depthQuestions[depthIndex];
+    if (!question || !completionPayload?.matchedClaimType) return;
+
+    const answerText = inputText.trim();
+    if (answerText) {
+      setMessages((current) => [...current, { from: "user", text: answerText }]);
+    }
+    setInputText("");
+    setLoading(true);
+
+    void (async () => {
+      try {
+        const result = await callDepthTurn(
+          completionPayload.matchedClaimType!.claimTypeId,
+          completionPayload.facts,
+          { questionId: question.id, answerText },
+        );
+        setDepthStateMap(result.stateMap);
+
+        if (result.halted) {
+          setHalted(true);
+          setDepthActive(false);
+          setMessages((current) => [
+            ...current,
+            { from: "assistant", text: result.haltMessage || "Intake stopped here." },
+          ]);
+          return;
+        }
+
+        const nextIndex = depthIndex + 1;
+        const next = depthQuestions[nextIndex];
+
+        if (!next) {
+          setMessages((current) => [
+            ...current,
+            { from: "assistant", text: "That's everything. You can continue to the next step." },
+          ]);
+          finishDepthPhase(result.stateMap);
+          return;
+        }
+
+        setDepthIndex(nextIndex);
+        // The lead-in is the ONLY model-authored text here. The question shown
+        // is next.text, the authored string — never result.leadIn's phrasing.
+        setMessages((current) => [
+          ...current,
+          ...(result.leadIn ? [{ from: "assistant" as const, text: result.leadIn }] : []),
+          { from: "assistant" as const, text: next.text },
+        ]);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "That didn't go through. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }
+
+  function handleSkipDepth() {
+    setMessages((current) => [
+      ...current,
+      { from: "assistant", text: "No problem — skipping the rest of these." },
+    ]);
+    finishDepthPhase(depthStateMap);
+  }
+
   function handleSend() {
     if (!started) handleStorySubmit();
+    else if (depthActive) handleDepthAnswerSubmit();
     else if (currentQuestion) handleAnswerSubmit();
   }
 
@@ -569,12 +802,14 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
 
       {error ? <p className="mt-3 text-sm font-semibold text-[#a63b3b]">{error}</p> : null}
 
-      {!halted && !intakeComplete ? (
+      {!halted && (!intakeComplete || depthActive) ? (
         <div className="mt-4 flex gap-2">
           <textarea
             value={inputText}
             onChange={(event) => setInputText(event.target.value)}
-            placeholder={currentQuestion ? "Your answer..." : "Tell us what happened..."}
+            placeholder={
+              depthActive || currentQuestion ? "Your answer..." : "Tell us what happened..."
+            }
             className="min-h-12 flex-1 rounded-2xl border border-[#d8e6df] px-4 py-3 text-sm"
             onKeyDown={(event) => {
               if (event.key === "Enter" && !event.shiftKey) {
@@ -597,6 +832,23 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
           {halted ? "Intake stopped here." : "Guided intake complete."}
         </p>
       )}
+
+      {depthActive ? (
+        <div className="mt-3 flex items-center gap-3">
+          <button
+            type="button"
+            onClick={handleSkipDepth}
+            disabled={loading}
+            className="rounded-xl border border-[#d8e6df] bg-white px-4 py-2 text-sm font-semibold text-[#4d675f] disabled:opacity-50"
+          >
+            Skip these questions
+          </button>
+          <span className="text-xs text-[#6b8078]">
+            Question {depthIndex + 1} of {depthQuestions.length}. Answering is optional — if you
+            don&apos;t know, say so and we&apos;ll record that.
+          </span>
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -555,6 +555,11 @@ function BuilderPageContent() {
             authenticated: response.authenticated === true,
             completedAt: new Date().toISOString(),
           },
+          // Per-element record state from the depth phase, carried through so
+          // the readiness gate reads the SAME map the depth answers populated
+          // rather than rebuilding its own (design section 5). Absent when no
+          // claim type was confirmed or the user skipped — both legitimate.
+          ...(result.elementStateMap ? { elementStateMap: result.elementStateMap } : {}),
         },
       };
       handleComplete(analysisResult.analysis, payload);
