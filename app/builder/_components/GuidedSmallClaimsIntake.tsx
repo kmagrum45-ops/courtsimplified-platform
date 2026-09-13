@@ -106,7 +106,23 @@ type GuidedTurnResult = {
   intakeComplete: boolean;
 };
 
-type ChatMessage = { from: "user" | "assistant"; text: string };
+type ChatMessage = {
+  from: "user" | "assistant";
+  text: string;
+  /** Marks a message that carries a bank question, so the one-time intro fires once. */
+  isQuestion?: boolean;
+};
+
+/**
+ * Shown once, before the first question. Replaces the per-question generated
+ * lead-in removed in session 48 — see voiceLayer.ts's composeVoiceTurn for the
+ * measurements that led to removing it.
+ *
+ * Deliberately plain: it says what is about to happen and does not thank the
+ * user, restate what they said, or characterise their situation.
+ */
+const FIRST_QUESTION_INTRO =
+  "A few questions to get the details down. Answer in your own words — and if you don't know something, say so and we'll record that.";
 
 /**
  * Session 28. What onComplete actually hands back -- the real shape of
@@ -523,10 +539,24 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
         return;
       }
 
-      const displayText = [result.voiceTurn?.leadIn, result.voiceTurn?.questionText ?? result.nextQuestion.text]
-        .filter(Boolean)
-        .join("\n\n");
-      setMessages((current) => [...current, { from: "assistant", text: displayText }]);
+      // Session 48: the generated per-question lead-in is gone (voiceLayer.ts
+      // explains why). `leadIn` is now always null, so this is the reviewed
+      // question text alone — the same conclusion the education-sequencing fix
+      // reached: the question and the input, with nothing between them.
+      //
+      // A single fixed line is shown ONCE, before the first question, in place
+      // of a fresh pseudo-personal greeting every turn. Deterministic, reviewed,
+      // and free.
+      const displayText = result.voiceTurn?.questionText ?? result.nextQuestion.text;
+      const isFirstQuestion = messages.every((message) => message.from !== "assistant" || !message.isQuestion);
+
+      setMessages((current) => [
+        ...current,
+        ...(isFirstQuestion
+          ? [{ from: "assistant" as const, text: FIRST_QUESTION_INTRO }]
+          : []),
+        { from: "assistant" as const, text: displayText, isQuestion: true },
+      ]);
       setCurrentQuestion(result.nextQuestion);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");

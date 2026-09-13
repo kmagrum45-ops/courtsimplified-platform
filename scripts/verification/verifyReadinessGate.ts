@@ -32,6 +32,7 @@ import {
   type ElementStateMap,
 } from "../../src/lib/case-system/intake/depth/elementStateMap";
 import { validateCaseStrengthLanguage } from "../../src/lib/case-system/intelligence/caseStrengthLanguageValidator";
+import { isNoQuestionNeeded } from "../../src/lib/case-system/intake/depth/elementQuestionRegistry";
 
 let failures = 0;
 
@@ -116,6 +117,63 @@ function main(): void {
   check(
     "an element missing from the map counts as not-yet, not resolved",
     !evaluateReadinessGate(baseInput({ elementStateMap: {} })).draftAvailable,
+  );
+
+  // ---- noQuestionNeeded elements must not hold the gate ----
+  //
+  // Live batch L1/L4: a jurisdictional element the registry marks as "not a
+  // fact the user narrates" held the gate, and the only way past it was for the
+  // user to attest "I don't have this" about a jurisdiction test.
+  const LOAN = CLAIM_TYPES.find((ct) => ct.id === "sc-claim-personal-loan-between-individuals")!;
+  const jurisdictional = LOAN.plaintiffElements.filter((e) => isNoQuestionNeeded(e.id));
+  const narratable = LOAN.plaintiffElements.filter((e) => !isNoQuestionNeeded(e.id));
+
+  check(
+    "the fixture claim type actually has a noQuestionNeeded element",
+    jurisdictional.length > 0,
+    "otherwise this check proves nothing",
+  );
+
+  // Every USER-NARRATABLE element answered; the jurisdictional one untouched.
+  let loanMap = createElementStateMap(
+    LOAN.plaintiffElements.map((e) => ({ id: e.id, name: e.name })),
+  );
+  for (const element of narratable) {
+    loanMap = recordDepthAnswer(loanMap, {
+      elementId: element.id,
+      questionId: "q",
+      answerText: "Something the user typed.",
+    });
+  }
+
+  const loanGate = evaluateReadinessGate({
+    claimType: LOAN,
+    elementStateMap: loanMap,
+    confirmedRemedyId: LOAN.remedies[0],
+    storyText: "I lent my sister money and she has not paid it back.",
+  });
+
+  check(
+    "a noQuestionNeeded element does NOT hold the gate",
+    loanGate.draftAvailable,
+    JSON.stringify(loanGate.blockers),
+  );
+  check(
+    "it is not listed as outstanding",
+    !loanGate.outstanding.some((o) => jurisdictional.some((j) => j.id === o.elementId)),
+  );
+  check(
+    "it is excluded from totalElements",
+    loanGate.totalElements === narratable.length,
+    `total ${loanGate.totalElements}, narratable ${narratable.length}`,
+  );
+  check(
+    "it is reported separately rather than silently dropped",
+    loanGate.notUserNarratable.length === jurisdictional.length,
+  );
+  check(
+    "the user is never asked to attest cannot-provide for it",
+    loanGate.cannotProvide.length === 0,
   );
 
   // ---- CONSTRAINT 2: cannot-provide RESOLVES ----
@@ -263,10 +321,14 @@ function main(): void {
       confirmedRemedyId: DEFAMATION.remedies[0],
     }),
   );
+  // totalElements counts USER-NARRATABLE elements only — defamation has one
+  // jurisdictional element, now excluded.
+  const defamationNarratable = DEFAMATION.plaintiffElements.filter((e) => !isNoQuestionNeeded(e.id));
   check(
     "claim-type agnostic: a different claim type yields its own elements",
-    defamationResult.totalElements === DEFAMATION.plaintiffElements.length &&
-      defamationResult.totalElements !== DEBT.plaintiffElements.length,
+    defamationResult.totalElements === defamationNarratable.length &&
+      defamationNarratable.length !== DEFAMATION.plaintiffElements.length,
+    `total ${defamationResult.totalElements}, narratable ${defamationNarratable.length}, all ${DEFAMATION.plaintiffElements.length}`,
   );
   check(
     "claim-type agnostic: remedy options come from the claim type's own data",

@@ -53,6 +53,7 @@
  */
 
 import type { ClaimType, PlaintiffElement } from "../intake/claimTypes";
+import { isNoQuestionNeeded } from "../intake/depth/elementQuestionRegistry";
 import { REMEDY_TYPES } from "../intake/remedyTypes";
 import type { ElementStateMap } from "../intake/depth/elementStateMap";
 
@@ -122,6 +123,12 @@ export type ReadinessGateResult = {
    * in the document, not only in the UI that produced it (design section 4).
    */
   cannotProvide: { elementId: string; name: string }[];
+  /**
+   * Elements the registry marks as not user-narratable (jurisdictional or
+   * procedural conditions). Excluded from the gate and from totalElements --
+   * reported here so they are visible rather than silently dropped.
+   */
+  notUserNarratable: { elementId: string; name: string }[];
   /** Remedy options to confirm, seeded from the claim type's own `remedies`. */
   remedyOptions: RemedyOption[];
 };
@@ -139,11 +146,30 @@ export function evaluateReadinessGate(input: ReadinessGateInput): ReadinessGateR
       outstandingCount: 0,
       totalElements: 0,
       cannotProvide: [],
+      notUserNarratable: [],
       remedyOptions: [],
     };
   }
 
-  const elements = input.claimType.plaintiffElements;
+  // Elements the registry marks as NOT USER-NARRATABLE are excluded entirely.
+  //
+  // Session 48, found by the live batch (L1, L4). A jurisdictional element such
+  // as `amount-within-jurisdiction-personal-loan` is checked against the amount
+  // already captured — the registry states plainly that it is "not a fact the
+  // user narrates". selectDepthQuestions correctly never asks it, which left it
+  // `not-yet`, and the gate held on `not-yet`. The only way through was for the
+  // user to attest "I don't have this" about a jurisdiction test, which is
+  // incoherent and wrote a false `cannot-provide` into the case file.
+  //
+  // They are excluded from `totalElements` as well, not merely from the
+  // blockers. The count is shown to the user as "X of Y still to add", and a Y
+  // that includes items the user can never act on misstates what is being asked
+  // of them. They are reported separately as `notUserNarratable` so nothing is
+  // silently dropped — the element still exists on the claim type, it is simply
+  // not the user's to answer.
+  const allElements = input.claimType.plaintiffElements;
+  const notUserNarratable = allElements.filter((element) => isNoQuestionNeeded(element.id));
+  const elements = allElements.filter((element) => !isNoQuestionNeeded(element.id));
 
   // Condition 3. Seeded from the claim type's own data; the user confirms.
   // Never inferred — the remedy appears in the draft's relief sought, and
@@ -191,6 +217,7 @@ export function evaluateReadinessGate(input: ReadinessGateInput): ReadinessGateR
     outstandingCount: notYet.length,
     totalElements: elements.length,
     cannotProvide,
+    notUserNarratable: notUserNarratable.map((element) => ({ elementId: element.id, name: element.name })),
     remedyOptions,
   };
 }

@@ -24,8 +24,8 @@
  * model could ever generate.
  */
 
-import OpenAI from "openai";
-import { createOpenAIClient, withAbortableTimeout } from "../openaiClient";
+// No OpenAI import. This module used to make one call per question; see
+// composeVoiceTurn() below for why that was removed.
 import type { IntakeQuestion } from "./questionBank";
 import type { IntakeFacts } from "./selectQuestions";
 
@@ -72,79 +72,64 @@ export function validateVoiceLayerOutput(text: string): { valid: boolean; matche
   return { valid: true };
 }
 
-const SYSTEM_PROMPT = `You write a short, warm lead-in for a legal intake conversation, 1-3 sentences.
-
-You are given the facts the user has already told us, the next question that needs to be asked (for context only), and sometimes a short excerpt of something the user said in their own words that carried real feeling.
-
-Rules:
-1. Restate ONLY what is in the facts you were given, in plain natural language. Never add, infer, or assume anything that isn't explicitly present in those facts. If no facts are given yet, don't invent any -- just write a brief, neutral opener.
-2. If a "user's own words" excerpt is given, you may briefly and warmly acknowledge the feeling it expresses (e.g. frustration, disappointment) in your own words -- but do NOT amplify it, escalate it, add drama, or turn it into a legal characterization of the situation. One short, plain acknowledgment at most. Never invent a feeling the excerpt doesn't actually contain, and never treat the excerpt as a source of new facts about what happened.
-3. Transition naturally toward the next question, but do NOT repeat, paraphrase, or rewrite the question itself -- it will be shown separately, verbatim, right after your lead-in. Never include the question text in your response.
-4. Never characterize the legal or factual situation (no words like negligence, wrongful, breach, harassment, entitled, liable, valid claim), never evaluate it (no "strong", "weak", "good case"), never predict an outcome (no "will win", "court will").
-5. You do not give advice and you do not decide anything -- you only restate, acknowledge tone if given, and transition.
-
-Return only the lead-in text. No JSON, no question, no extra commentary, no quotation marks around it.`;
-
-function buildUserPrompt(facts: IntakeFacts, question: IntakeQuestion, userStatedTone?: string): string {
-  const factsText = Object.keys(facts).length > 0 ? JSON.stringify(facts) : "(no facts known yet)";
-  const whyText = question.why ? `\nWhy this question matters: ${question.why}` : "";
-  const toneText = userStatedTone
-    ? `\n\nSomething the user said in their own words, which carried real feeling: "${userStatedTone}"`
-    : "";
-  return (
-    `Facts the user has already told us: ${factsText}${toneText}\n\n` +
-    `Next question to ask (for context only -- do not repeat or rewrite it): "${question.text}"${whyText}`
-  );
-}
-
-async function generateWithTimeout(
-  client: OpenAI,
-  userPrompt: string,
-  timeoutMs: number,
-): Promise<string | null> {
-  // Previously a Promise.race against a bare setTimeout. That abandoned the
-  // response but not the request: on timeout the call kept running, billed and
-  // unobserved. withAbortableTimeout cancels it. See openaiClient.ts.
-  const response = await withAbortableTimeout(
-    (signal) =>
-      client.chat.completions.create(
-        {
-          model: "gpt-4o-mini",
-          temperature: 0,
-          messages: [
-            { role: "system", content: SYSTEM_PROMPT },
-            { role: "user", content: userPrompt },
-          ],
-        },
-        { signal },
-      ),
-    timeoutMs,
-  );
-
-  if (!response) return null;
-  return response.choices[0]?.message?.content?.trim() || null;
-}
-
 export type ComposeVoiceTurnOptions = {
   /**
-   * A short excerpt of something the user said in their own words that
-   * carried real feeling (frustration, disappointment, etc.). NOT a new
-   * fact -- selectQuestions.ts's IntakeFacts has no field for tone, and
-   * this parameter is not one either. It exists solely so the model can
-   * briefly acknowledge stated feeling without amplifying or
-   * characterizing it (see SYSTEM_PROMPT rule 2). Omit when there's
-   * nothing like this to acknowledge.
+   * Retained for call-site compatibility and no longer read.
+   *
+   * It existed so the model could briefly acknowledge feeling the user had
+   * expressed. With the model gone there is nothing to acknowledge it with,
+   * and inventing a deterministic "that sounds difficult" would be worse than
+   * silence: a fixed sympathy line fired by a keyword is the kind of hollow
+   * gesture this product should not make.
    */
   userStatedTone?: string;
+  /** Retained for call-site compatibility. No call is made, so nothing times out. */
   timeoutMs?: number;
 };
 
 /**
- * One OpenAI call, bounded by a timeout: (facts, next question) -> a
- * VoiceTurn. Never throws, never blocks intake -- any failure (timeout,
- * API error, empty response, validator rejection) resolves to
- * fellBackToPlainText: true rather than propagating an error, and is
- * logged internally only, never surfaced to the user as an error.
+ * (facts, question) -> a VoiceTurn. DETERMINISTIC. NO API CALL.
+ *
+ * ---------------------------------------------------------------------------
+ * SESSION 48 — THE GENERATED LEAD-IN WAS REMOVED
+ * ---------------------------------------------------------------------------
+ *
+ * This used to make one OpenAI call per question to write a warm 1-3 sentence
+ * lead-in. It was removed for two reasons, one about the user and one about
+ * cost.
+ *
+ * THE USER. The lead-in carried no information BY CONSTRUCTION. Its prompt's
+ * rule 1 said "restate ONLY what is in the facts you were given" and rule 3
+ * forbade including the question — so it could only tell the user things they
+ * had just said, then hand over to a question shown separately and verbatim.
+ * Because every call was stateless, it could not know what it had already
+ * written, and it repeated itself badly. Measured in the live batch:
+ *
+ *   - Story L5: five of eight lead-ins told a user who had answered "I don't
+ *     know" eight times some version of "it sounds like you're still figuring
+ *     out some details." Three consecutive turns opened near-identically.
+ *   - Story L1: "Thank you for sharing that information about your situation
+ *     regarding the loan repayment. It sounds like this has been on your mind
+ *     for a couple of months now" — three times, near-identically.
+ *
+ * Restating a person's own uncertainty back to them every turn is the worst
+ * failure mode available for the least confident users, who are the ones this
+ * site exists for.
+ *
+ * THE COST. ~10 calls per journey out of ~34 — roughly 29% of a journey's
+ * spend, on decorative text.
+ *
+ * WHAT REPLACES IT: nothing per turn. The question is shown alone, which is
+ * the same conclusion the education-sequencing fix reached — during intake the
+ * user sees the question and the input, with nothing between them. A single
+ * fixed intro line lives in the UI, shown once, rather than a fresh
+ * pseudo-personal greeting every turn.
+ *
+ * The signature is unchanged, including `async`, so every call site keeps
+ * working and nothing needs to learn that this is now free.
+ *
+ * validateVoiceLayerOutput() above is KEPT. explainQuestion.ts still generates
+ * text and still needs it, and slots.ts relies on it for slot values.
  */
 export async function composeVoiceTurn(
   facts: IntakeFacts,
@@ -152,29 +137,15 @@ export async function composeVoiceTurn(
   apiKey: string,
   options: ComposeVoiceTurnOptions = {},
 ): Promise<VoiceTurn> {
-  const { userStatedTone, timeoutMs = 8000 } = options;
-  try {
-    const client = createOpenAIClient(apiKey);
-    const generated = await generateWithTimeout(client, buildUserPrompt(facts, question, userStatedTone), timeoutMs);
+  void facts;
+  void apiKey;
+  void options;
 
-    if (generated) {
-      const validation = validateVoiceLayerOutput(generated);
-      if (validation.valid) {
-        return { leadIn: generated, questionText: question.text, fellBackToPlainText: false };
-      }
-      console.error(
-        `[voiceLayer] validator rejected generated lead-in for question "${question.id}" ` +
-          `(matched term "${validation.matchedTerm}"): ${generated}`,
-      );
-    } else {
-      console.error(`[voiceLayer] no output for question "${question.id}" (empty response or timeout)`);
-    }
-  } catch (error) {
-    console.error(
-      `[voiceLayer] generation failed for question "${question.id}": ` +
-        (error instanceof Error ? error.message : String(error)),
-    );
-  }
-
-  return { leadIn: null, questionText: question.text, fellBackToPlainText: true };
+  return {
+    // No lead-in. `fellBackToPlainText` stays true, which is exactly what it
+    // has always meant: the user sees the reviewed question text alone.
+    leadIn: null,
+    questionText: question.text,
+    fellBackToPlainText: true,
+  };
 }
