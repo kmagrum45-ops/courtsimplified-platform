@@ -404,6 +404,23 @@ Observed in story L5: five of eight lead-ins told the user some version of *"it 
 
 Four options, cheapest first: (a) remove it — saves ~29%; (b) generate one lead-in at the start rather than per turn — 1 call instead of ~10; (c) pass prior lead-ins so it can vary — same cost, better output; (d) a small reviewed set chosen deterministically — zero calls. Not changed; this is a product-voice decision, not a defect fix.
 
+### ✅ Suppression: removed (option D), and the confirm-step successor (option B) measured and rejected
+
+The `alreadyCovered` filter is **gone** (`0244e91`). It suppressed a depth question on a single keyword *and* recorded the element as `provided`, so the gate treated it as resolved, the user never saw it, and the draft was assembled as though they had supplied the fact. Five for five wrong in the live batch.
+
+**Option B — suppress but record a distinct `possibly-covered` state the user confirms — was scoped, then measured before building.** Run offline against all 12 stories from this session (8 live batch + 4 paraphrase), zero API calls:
+
+| Threshold | Flagged / askable | Correct |
+|---|---|---|
+| 1 term | **6 of 16** | 0 — all six are the known false matches, plus one more |
+| 2 terms | **1 of 16** | 0 — the single firing (`loss-amount-contractor` on "cost" + "paid") is also wrong |
+
+**There is no threshold at which it fires often and correctly.** At two terms it fires once in twelve stories, is wrong when it does, and therefore saves zero calls — in exchange for a fourth state threaded through `ElementStateMap`, the gate, the attestation surface, the draft and their suites.
+
+**Recommendation taken: leave D standing, do not build B.** Rejected on the numbers, not on principle.
+
+One caveat recorded with it: **6 of the 12 stories could not fire at all**, because their claim type has no authored depth questions. If authoring expands to the remaining 18 claim types the firing rate will rise — but the mechanism is unchanged, so the false-positive rate rises with it. Re-measure before revisiting, rather than assuming more coverage makes the idea work.
+
 ### 📌 Depth-question coverage: 4 of 22 claim types — the other 18 degrade by design
 
 Authored depth questions exist for **four** claim types only:

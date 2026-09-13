@@ -120,9 +120,30 @@ export function selectDepthQuestions(input: DepthSelectionInput): DepthSelection
       // reasoning was wrong because it assumed the element still reached
       // attestation. It did not.
       //
-      // A confirm-step design that keeps the saving without asserting anything
-      // is scoped (option B) but not built. Until it is, every element is
-      // either asked or attested.
+      // A confirm-step design (option B) — suppress, but record a distinct
+      // `possibly-covered` state the user confirms or dismisses — was scoped
+      // and then MEASURED against all 12 stories run this session. Do not build
+      // it without re-reading that measurement:
+      //
+      //   threshold 1 term:  6 flagged of 16 askable questions. All six were
+      //                      the false matches listed above, plus one more.
+      //   threshold 2 terms: 1 flagged of 16. That single firing
+      //                      (loss-amount-contractor, on "cost" + "paid") is
+      //                      ALSO wrong — neither phrase says how the amount
+      //                      claimed was worked out.
+      //
+      // So there is no threshold at which it fires often AND correctly. At two
+      // terms it fires once in twelve stories and is wrong when it does, which
+      // saves zero calls and adds a fourth state through the state map, the
+      // gate, the attestation surface and their suites. Rejected on the
+      // numbers, not on principle.
+      //
+      // Six of the twelve stories could not fire at all, because their claim
+      // type has no authored questions. If authoring expands to the remaining
+      // 18 claim types the firing rate rises — but the mechanism is unchanged,
+      // so the false-positive rate rises with it. Re-measure before revisiting.
+      //
+      // Until something better exists, every element is asked or attested.
       if (asked.length >= MAX_ASKED) {
         // Budget reached. Deferred, never silently dropped: the element stays
         // not-yet and the readiness section still surfaces it.
