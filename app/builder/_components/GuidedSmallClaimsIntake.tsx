@@ -217,6 +217,152 @@ function GuidanceEntry({ entry }: { entry: EducationTopicGuidance | RemedyGuidan
   );
 }
 
+/**
+ * All general education, held below the input and collapsed during intake.
+ *
+ * THE SEQUENCING DEFECT THIS FIXES. Both panels used to render between the
+ * question and the answer box, and they appeared the moment the user confirmed
+ * a claim type — then stayed there for every remaining turn, because both are
+ * held in retain-the-last-value state. For defamation that is roughly 840 words
+ * of content (six education topics, two remedies, five evidence categories)
+ * wedged between "here is the question" and "type your answer".
+ *
+ * That is backwards for the person this site is for. Someone who knows nothing
+ * about the process needs the question and the input together, with nothing in
+ * between. Education has a place; it is not between a question and its answer.
+ *
+ * So: during intake this is ONE line under the input, collapsed, opened only if
+ * the user chooses. Once intake is complete it expands by default, because then
+ * reading it is the sensible next thing to do.
+ *
+ * WHY evidenceGuidance IS DEFERRED TOO, and not treated as part of the flow.
+ * It reads "situations like this often also involve the following, though it
+ * hasn't come up yet in what you've shared" — which tells the user what to
+ * mention next. That shapes the account rather than recording it, and cuts
+ * against the premise that the user's own words drive the case file. Its
+ * "already mentioned" line has also been observed asserting the user had
+ * mentioned something they had not. Framing it as a prompt would make both
+ * problems worse, not better.
+ *
+ * NO CONTENT IS LOST. The same educationTopics.ts and remedyTypes.ts entries
+ * render, with the same citations — only the placement changes. Neither panel
+ * is load-bearing: across this component both values are read only inside these
+ * blocks, and neither reaches onComplete, sendTurn, question selection, the
+ * depth phase or the readiness gate.
+ */
+function GuidanceDisclosure({
+  evidenceGuidance,
+  claimGuidance,
+  intakeComplete,
+}: {
+  evidenceGuidance: EvidenceGuidance | null;
+  claimGuidance: ClaimGuidance | null;
+  intakeComplete: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+
+  const hasEvidence =
+    Boolean(evidenceGuidance) &&
+    (evidenceGuidance!.addressedCategories.length > 0 ||
+      evidenceGuidance!.unaddressedCategories.length > 0);
+  const hasClaim =
+    Boolean(claimGuidance) &&
+    (claimGuidance!.educationTopics.length > 0 || claimGuidance!.remedies.length > 0);
+
+  if (!hasEvidence && !hasClaim) return null;
+
+  // Expanded once intake is done; collapsed while questions are still running,
+  // regardless of what the user toggled mid-intake.
+  const expanded = intakeComplete || open;
+
+  return (
+    <div className="mt-4">
+      {intakeComplete ? null : (
+        <button
+          type="button"
+          onClick={() => setOpen((current) => !current)}
+          className="text-sm font-semibold text-[#2f7d67] underline"
+          aria-expanded={open}
+        >
+          {open ? "Hide" : "General information about claims like this"}
+        </button>
+      )}
+
+      {expanded ? (
+        <div className="mt-3 space-y-4">
+          {hasClaim ? (
+            <div className="rounded-2xl border border-violet-200 bg-violet-50 p-4 text-sm leading-6 text-[#24463d]">
+              <p className="font-semibold text-[#10231f]">General information for situations like this</p>
+
+              {claimGuidance!.educationTopics.length > 0 ? (
+                <div className="mt-2">
+                  {claimGuidance!.educationTopics.map((topic) => (
+                    <GuidanceEntry key={topic.id} entry={topic} />
+                  ))}
+                </div>
+              ) : null}
+
+              {claimGuidance!.remedies.length > 0 ? (
+                <div className="mt-3">
+                  <p className="font-semibold">
+                    What courts in this category of situation can generally order
+                  </p>
+                  {claimGuidance!.remedies.map((remedy) => (
+                    <GuidanceEntry key={remedy.id} entry={remedy} />
+                  ))}
+                </div>
+              ) : null}
+
+              <p className="mt-3 text-xs text-[#557168]">
+                This is general information about situations like yours, not an assessment of what your
+                case is entitled to or a substitute for advice from a licensed paralegal or lawyer.
+              </p>
+            </div>
+          ) : null}
+
+          {hasEvidence ? (
+            <div className="rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm leading-6 text-[#24463d]">
+              <p className="font-semibold text-[#10231f]">
+                General evidence guidance for situations like this
+              </p>
+
+              {evidenceGuidance!.addressedCategories.length > 0 ? (
+                <p className="mt-2">
+                  Already mentioned in what you&apos;ve shared:{" "}
+                  {evidenceGuidance!.addressedCategories.map((category) => category.name).join(", ")}.
+                </p>
+              ) : null}
+
+              {evidenceGuidance!.unaddressedCategories.length > 0 ? (
+                <div className="mt-2">
+                  <p>
+                    Situations like this often also involve the following, though it hasn&apos;t come up
+                    yet in what you&apos;ve shared:
+                  </p>
+                  <ul className="mt-1 list-disc space-y-1 pl-5">
+                    {evidenceGuidance!.unaddressedCategories.map((category) => (
+                      <li key={category.name}>
+                        <span className="font-semibold">{category.name}</span>
+                        {category.examples.length > 0 ? (
+                          <span> — for example: {category.examples.join(", ")}.</span>
+                        ) : null}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+
+              <p className="mt-2 text-xs text-[#557168]">
+                This is general information about situations like yours, not an assessment of your case.
+              </p>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 type Props = {
   location: { province: "Ontario"; city: string };
   initialStory: string;
@@ -736,69 +882,13 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
         </div>
       ) : null}
 
-      {!halted && evidenceGuidance ? (
-        <div className="mt-4 rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-sm leading-6 text-[#24463d]">
-          <p className="font-semibold text-[#10231f]">General evidence guidance for situations like this</p>
-
-          {evidenceGuidance.addressedCategories.length > 0 ? (
-            <p className="mt-2">
-              Already mentioned in what you&apos;ve shared:{" "}
-              {evidenceGuidance.addressedCategories.map((category) => category.name).join(", ")}.
-            </p>
-          ) : null}
-
-          {evidenceGuidance.unaddressedCategories.length > 0 ? (
-            <div className="mt-2">
-              <p>
-                Situations like this often also involve the following, though it hasn&apos;t come up yet in what
-                you&apos;ve shared:
-              </p>
-              <ul className="mt-1 list-disc space-y-1 pl-5">
-                {evidenceGuidance.unaddressedCategories.map((category) => (
-                  <li key={category.name}>
-                    <span className="font-semibold">{category.name}</span>
-                    {category.examples.length > 0 ? (
-                      <span> — for example: {category.examples.join(", ")}.</span>
-                    ) : null}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-
-          <p className="mt-2 text-xs text-[#557168]">
-            This is general information about situations like yours, not an assessment of your case.
-          </p>
-        </div>
-      ) : null}
-
-      {!halted && claimGuidance && (claimGuidance.educationTopics.length > 0 || claimGuidance.remedies.length > 0) ? (
-        <div className="mt-4 rounded-2xl border border-violet-200 bg-violet-50 p-4 text-sm leading-6 text-[#24463d]">
-          <p className="font-semibold text-[#10231f]">General information for situations like this</p>
-
-          {claimGuidance.educationTopics.length > 0 ? (
-            <div className="mt-2">
-              {claimGuidance.educationTopics.map((topic) => (
-                <GuidanceEntry key={topic.id} entry={topic} />
-              ))}
-            </div>
-          ) : null}
-
-          {claimGuidance.remedies.length > 0 ? (
-            <div className="mt-3">
-              <p className="font-semibold">What courts in this category of situation can generally order</p>
-              {claimGuidance.remedies.map((remedy) => (
-                <GuidanceEntry key={remedy.id} entry={remedy} />
-              ))}
-            </div>
-          ) : null}
-
-          <p className="mt-3 text-xs text-[#557168]">
-            This is general information about situations like yours, not an assessment of what your case is
-            entitled to or a substitute for advice from a licensed paralegal or lawyer.
-          </p>
-        </div>
-      ) : null}
+      {/*
+        The education panels used to render HERE — between the question and the
+        input — and appeared from the moment the user confirmed a claim type,
+        on every turn thereafter. That put ~840 words of general information in
+        front of the answer box for someone who may know nothing about the
+        process. They now render BELOW the input; see GuidanceDisclosure.
+      */}
 
       {error ? <p className="mt-3 text-sm font-semibold text-[#a63b3b]">{error}</p> : null}
 
@@ -848,6 +938,14 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
             don&apos;t know, say so and we&apos;ll record that.
           </span>
         </div>
+      ) : null}
+
+      {!halted ? (
+        <GuidanceDisclosure
+          evidenceGuidance={evidenceGuidance}
+          claimGuidance={claimGuidance}
+          intakeComplete={intakeComplete && !depthActive}
+        />
       ) : null}
     </div>
   );

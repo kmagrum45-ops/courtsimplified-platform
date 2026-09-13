@@ -34,6 +34,7 @@
     "test:forms-case-isolation": "node --import tsx scripts/verification/verifyFormsSelectedCaseIsolation.ts",
     "test:generate-form-authorization": "node --import tsx scripts/verification/verifyGenerateFormSelectedCaseAuthorization.ts",
     "test:intake-coverage": "node --import tsx scripts/verification/verifyIntakeCoverage.ts",
+    "test:intake-sequencing": "node --import tsx scripts/verification/verifyIntakeSequencing.ts",
     "test:journey-battery": "node --import tsx scripts/verification/runJourneyBattery.ts",
     "test:journey-invariants": "node --import tsx scripts/verification/verifyJourneyInvariantSelfTest.ts",
     "test:narrative-prefill": "node --import tsx scripts/verification/verifyNarrativePrefill.ts",
