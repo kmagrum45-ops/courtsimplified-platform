@@ -293,6 +293,25 @@ export type PlaintiffElement = {
   plainExplanation: string;
   sourceUrl: string;
   evidenceCategories: EvidenceCategory[];
+  /**
+   * OPTIONAL, and the optionality is the point.
+   *
+   * 146 sub-entries across this file carry a sourceUrl and no date, so nothing
+   * tracks whether any of them has gone stale. Making these required would
+   * force 146 dates to be invented in one commit; a verifiedAt that was not
+   * verified is worse than none, because it converts an unknown into a false
+   * assurance.
+   *
+   * Optional means NEW entries carry them and old ones are VISIBLY absent.
+   * verifyIntakeCoverage reports the count the way it reports noting-up --
+   * the gap stays in the data instead of being invisible by omission. The
+   * backfill plan is in OUTSTANDING_ISSUES.md.
+   *
+   * consolidationPeriod is what the SOURCE says about itself, not when we
+   * looked. See docs/SOURCED_FACT_CONVENTIONS.md.
+   */
+  verifiedAt?: string;
+  consolidationPeriod?: string;
 };
 
 export type DefendantConsideration = {
@@ -301,11 +320,15 @@ export type DefendantConsideration = {
   plainExplanation: string;
   whenThisComesUp: string;
   sourceUrl: string;
+  verifiedAt?: string;
+  consolidationPeriod?: string;
 };
 
 export type ProceduralNote = {
   note: string;
   sourceUrl: string;
+  verifiedAt?: string;
+  consolidationPeriod?: string;
 };
 
 /**
@@ -334,6 +357,8 @@ export type DefenceConcept = {
   sourceUrl: string;
   reviewedAt: string | null;
   status: "draft" | "reviewed";
+  verifiedAt?: string;
+  consolidationPeriod?: string;
 };
 
 export const DEFENCE_CONCEPTS: DefenceConcept[] = [

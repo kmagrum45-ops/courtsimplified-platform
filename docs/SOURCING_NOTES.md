@@ -96,6 +96,20 @@ limitation period, because the cited version of the Act did not contain the
 were checked provision-by-provision against their current text and their
 cited propositions happened to be unchanged, so those were URL-only fixes.
 
+**The `elaws_statutes_` PREFIX is not itself a historical marker — only the
+`_eV<nnn>` SUFFIX is.** Clarified 2026-09-13, because the entry above reads as
+though the prefixed form were suspect and it is not. Checked directly:
+
+| Form | Result |
+|---|---|
+| `elaws_statutes_90n01_e.doc` | **HTTP 200**, header "CONSOLIDATION PERIOD: FROM JANUARY 1, 2004 TO THE E-LAWS CURRENCY DATE" — **current** |
+| `90n01_e.doc` | **HTTP 403** — does not exist |
+
+For the Negligence Act the prefixed form is the *only* one that resolves, and it
+is the current consolidation. Its 2004 start date looks alarming and is correct:
+the Act's last amendment was 2002, c. 24, Sched. B, s. 25. What made
+`elaws_statutes_90c43_ev005.doc` historical was the `_ev005`, not the prefix.
+
 **Practical rule:** always open the fetched `.doc` and read its first
 header line before citing from it. "CONSOLIDATION PERIOD ... TO THE E-LAWS
 CURRENCY DATE" means current; "HISTORICAL VERSION FOR THE PERIOD ..." means

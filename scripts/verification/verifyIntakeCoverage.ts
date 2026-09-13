@@ -439,6 +439,38 @@ function main() {
       `0 unknown appliesWhen/surfacedWhen fields, 0 non-draft entries missing a resolvable source, ` +
       `0 dangling remedy/defence-concept references.`,
   );
+  // ---- Undated sourceUrls, reported not enforced ----
+  //
+  // The same treatment as noting-up above, for the same reason: the gap is real,
+  // closing it needs a content review rather than a code change, and a number
+  // printed every run keeps it visible instead of invisible by omission.
+  //
+  // NOT enforced, deliberately. Failing here would pressure someone into
+  // stamping 146 dates to make the build green, and a verifiedAt that was not
+  // verified is worse than none.
+
+  let undatedSubEntries = 0;
+  let datedSubEntries = 0;
+
+  const countDate = (verifiedAt: string | undefined): void => {
+    if (verifiedAt && /^\d{4}-\d{2}-\d{2}$/.test(verifiedAt)) datedSubEntries += 1;
+    else undatedSubEntries += 1;
+  };
+
+  for (const claimType of CLAIM_TYPES) {
+    claimType.plaintiffElements.forEach((element) => countDate(element.verifiedAt));
+    (claimType.defendantConsiderations ?? []).forEach((item) => countDate(item.verifiedAt));
+    (claimType.proceduralNotes ?? []).forEach((note) => countDate(note.verifiedAt));
+  }
+  DEFENCE_CONCEPTS.forEach((concept) => countDate(concept.verifiedAt));
+
+  console.log(
+    `Undated sources: ${undatedSubEntries} of ${undatedSubEntries + datedSubEntries} ClaimType ` +
+      `sub-entr(ies) carry a sourceUrl with NO verifiedAt, so nothing tracks whether they have ` +
+      `gone stale. Reported, not enforced -- closing this is a content review, not a backfill ` +
+      `(a verifiedAt that was not verified is worse than none). See OUTSTANDING_ISSUES.md.`,
+  );
+
   console.log(
     `Noting up: ${notNotedUpCount} of ${caseLawCount} case-law citation(s) have NEVER ` +
       `been checked for subsequent treatment (overruled/narrowed/distinguished). ` +

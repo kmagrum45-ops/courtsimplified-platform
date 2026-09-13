@@ -652,6 +652,74 @@ absent.
 
 ---
 
+## 14. The 146 undated ClaimType sources — the backfill plan
+
+**Not started. Recorded so it can be done in batches rather than as one block.**
+
+`verifyIntakeCoverage` prints the count every run: **146 of 146** ClaimType
+sub-entries carry a `sourceUrl` with no `verifiedAt` — 75 plaintiff elements,
+30 defendant considerations, 35 procedural notes, 6 defence concepts. Nothing
+tracks whether any of them has gone stale.
+
+`verifiedAt?` and `consolidationPeriod?` are now optional on all four types, so
+**new** entries carry them and old ones are visibly absent rather than falsely
+dated. The check reports and does not enforce, deliberately: failing would
+pressure someone into stamping 146 dates to make the build green, and a
+`verifiedAt` that was not verified is worse than none.
+
+### The work is 26 fetches, not 146
+
+The 146 entries point at only **34 distinct URLs**:
+
+| Route | Distinct URLs | Cost |
+|---|---|---|
+| e-Laws `.doc` | 13 | fetch + `antiword` |
+| ontario.ca / ontariocourts.ca pages | 13 | fetch |
+| CanLII | 3 | **cannot be automated** — section 2 forbids scraping |
+| Local PDFs under `docs/sources/` | 5 | free, already on disk |
+
+Roughly **26 retrievals**, no OpenAI spend.
+
+### But a date is not verification
+
+`verifiedAt` asserts two things: the source was retrieved, **and the pinpoint
+still says what we claim it says**. A 200 response satisfies only the first.
+Honest re-verification means re-reading each cited proposition against the
+fetched text — 146 propositions. This session alone turned up a paraphrased form
+title, a judge prediction split across two source lines so grep missed it, and a
+historical consolidation missing a 60-day notice rule. Budget it as a content
+review with 26 fetches attached, not as a backfill.
+
+### How to run it
+
+1. **Per claim type**, not per URL — one claim type's elements reviewed together
+   keeps the legal context in one place.
+2. **Capture `consolidationPeriod` in the same pass.** For the 13 e-Laws URLs
+   the header date is right there; fetching without recording it means a second
+   pass later.
+3. **Vendor the 3 CanLII URLs to `docs/sources/`** rather than re-fetching. That
+   is the route Mustapha and Red Deer College already use, and section 2 forbids
+   scraping CanLII.
+4. **Grep each fetched source for "On a day to be named"** before dating it.
+
+### Checked already, and clean
+
+`elaws_statutes_90n01_e.doc` (Negligence Act, cited by
+`defence-contributory-negligence`) was flagged as a possible repeat of the
+Occupiers' Liability historical-version error. **It is not.** Checked
+2026-09-13: HTTP 200, and its header reads "CONSOLIDATION PERIOD: FROM JANUARY
+1, 2004 TO THE E-LAWS CURRENCY DATE" — current, not historical. The plain
+`90n01_e.doc` form **403s**; the prefixed form is the only one that resolves.
+The 2004 date looks alarming and is correct: the Act's last amendment was 2002,
+c. 24, Sched. B, s. 25. s. 1 is the apportionment provision the defence concept
+cites.
+
+**The correction that matters for future sessions:** the `elaws_statutes_`
+prefix is **not** itself a historical marker. The `_eV<nnn>` version suffix is.
+SOURCING_NOTES.md now says so.
+
+---
+
 ## Suggested order
 
 **Before any real user:**

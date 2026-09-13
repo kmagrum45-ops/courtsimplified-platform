@@ -221,7 +221,20 @@ function scoreAuthority(
     reasons.push("Supreme Court of Canada authority.");
   }
 
-  score += Math.min(Math.max(entry.importanceScore, 0), 100) * 0.2;
+  // `score += clamp(entry.importanceScore, 0, 100) * 0.2` stood here.
+  //
+  // importanceScore was hand-assigned per seed entry — 98 for one authority,
+  // 100 for another, 90, 75 — with nothing recording why any number was what
+  // it was. It sat as a third term beside the two ranks above, so a typed-in
+  // number carried the same weight in the ordering as binding force.
+  //
+  // Removed rather than re-sourced: `bindingWeight` and `courtLevel` already
+  // rank these authorities on facts about what they ARE, and both are typed and
+  // sourced. A Supreme Court decision outranks a practice direction because of
+  // its binding force, not because someone typed 98.
+  //
+  // Its weight is not redistributed. Doing that would preserve the same
+  // ordering under different arithmetic, which is not the point.
 
   if (context.legalDomains && includesAny(entry.legalDomains, context.legalDomains)) {
     score += 10;

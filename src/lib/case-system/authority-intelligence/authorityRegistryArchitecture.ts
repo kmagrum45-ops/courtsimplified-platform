@@ -1,5 +1,4 @@
 import {
-  CaseConfidence,
   CaseCourtPath,
   CaseLegalDomain,
   CaseProvince,
@@ -138,8 +137,13 @@ export type VerifiedAuthorityEntry = {
   year?: number;
 
   bindingWeight: AuthorityBindingWeight;
-  importanceScore: number;
-  confidence: CaseConfidence;
+  // importanceScore (a hand-assigned 0-100) and confidence (an ordinal) were
+  // declared here. Both are gone: importanceScore fed a third term in the
+  // ranking formula alongside binding force and court level, and confidence
+  // was read once, only to be converted to 0.9/0.7/0.5 -- the scoreFromConfidence
+  // mechanism removed from dashboardAdapter and from the family path before it.
+  // Ranking now runs on bindingWeight and courtLevel, which are facts about
+  // what an authority IS.
 
   courtPaths: CaseCourtPath[];
   legalDomains: CaseLegalDomain[];

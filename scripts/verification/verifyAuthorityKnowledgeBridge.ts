@@ -29,8 +29,6 @@ export function syntheticAuthority(
     jurisdiction: "Canada",
     year: 2026,
     bindingWeight: "binding",
-    importanceScore: 80,
-    confidence: "high",
     courtPaths: ["small-claims", "family", "civil"],
     legalDomains: ["defamation"],
     proceduralStages: ["starting-case", "responding", "trial"],
@@ -209,8 +207,17 @@ async function main() {
   assert.equal(jurisdictionRegulation.appliesAcrossIssueDomains, true, "jurisdiction regulation must explicitly apply across Small Claims issue domains");
   assert.equal(procedureGuide.appliesAcrossIssueDomains, true, "procedure guide must explicitly apply across Small Claims issue domains");
   assert.equal(jurisdictionRegulation.bindingWeight, "binding", "regulation must retain binding status");
-  assert.equal(jurisdictionRegulation.sourceReferences[1]?.sourceUrl, "https://www.ontario.ca/laws/regulation/r25042");
-  assert.equal(jurisdictionRegulation.sourceReferences[1]?.pinpoint, "s. 1; commencement s. 3");
+  // Both expectations below pinned the e-Laws VIEWER route, which returns a JS
+  // shell with no text. The suite asserted the broken form, so it would have
+  // failed if anyone fixed the citation -- a check defending the defect.
+  // O. Reg. 42/25 has no standalone .doc (25042, 250042, r25042, 042025 all
+  // 403), so the amendment is cited inside the consolidated O. Reg. 626/00,
+  // whose header records "Last amendment: 42/25".
+  assert.equal(jurisdictionRegulation.sourceReferences[1]?.sourceUrl, "https://www.ontario.ca/laws/docs/000626_e.doc");
+  assert.equal(
+    jurisdictionRegulation.sourceReferences[1]?.pinpoint?.includes("Last amendment: 42/25"),
+    true,
+  );
 
   const realSmallClaimsPacket = buildProductionReadyLegalKnowledge({
     context: { ...smallClaimsAuthorityContext, legalDomains: [...smallClaimsAuthorityContext.legalDomains] },
@@ -222,7 +229,7 @@ async function main() {
   assert.equal(realSmallClaimsPacket.proceduralRules.length + realSmallClaimsPacket.precedents.length, 0, "guide must not become a court rule or precedent");
   const regulation = realSmallClaimsPacket.statutes[0];
   assert.equal(regulation.id, jurisdictionRegulation.id);
-  assert.equal(regulation.sourceUrl, "https://www.ontario.ca/laws/regulation/000626");
+  assert.equal(regulation.sourceUrl, "https://www.ontario.ca/laws/docs/000626_e.doc");
   assert.equal(regulation.citation?.includes("s. 1"), true);
   assert.equal(regulation.useLimits.includes("Verify the applicable amount, remedy, parties, timing, interest, costs, and facts."), true);
   assert.equal(regulation.doNotUseFor.includes("Do not state that a user is eligible for Ontario Small Claims Court."), true);
@@ -311,7 +318,7 @@ async function main() {
   assert.equal(familyLawRules.appliesAcrossIssueDomains, true, "Family Law Rules must explicitly apply across Ontario Family issue domains after court-path and stage matching");
   assert.equal(familyProcedureGuide.appliesAcrossIssueDomains, true, "Family procedure guide must explicitly apply across Ontario Family issue domains after court-path and stage matching");
   assert.equal(familyLawRules.bindingWeight, "binding", "Family Law Rules must retain binding status");
-  assert.equal(familyLawRules.sourceReferences[0]?.sourceUrl, "https://www.ontario.ca/laws/regulation/990114");
+  assert.equal(familyLawRules.sourceReferences[0]?.sourceUrl, "https://www.ontario.ca/laws/docs/990114_e.doc");
   assert.equal(familyLawRules.sourceReferences[0]?.pinpoint, "Family Law Rules; applicable procedure depends on the current stage");
 
   const realFamilyPacket = buildProductionReadyLegalKnowledge({
@@ -324,7 +331,7 @@ async function main() {
   assert.equal(realFamilyPacket.statutes.length + realFamilyPacket.precedents.length, 0, "Family pilot sources must not be reclassified as statutes or precedents");
   const familyRule = realFamilyPacket.proceduralRules[0];
   assert.equal(familyRule.id, familyLawRules.id);
-  assert.equal(familyRule.sourceUrl, "https://www.ontario.ca/laws/regulation/990114");
+  assert.equal(familyRule.sourceUrl, "https://www.ontario.ca/laws/docs/990114_e.doc");
   assert.equal(familyRule.citation?.includes("current stage"), true);
   assert.equal(familyRule.useLimits.includes("Do not decide a parenting arrangement, support amount, property result, remedy, or outcome from this record alone."), true);
   const realFamilyGuide = realFamilyPacket.officialGuidance[0];
@@ -410,7 +417,7 @@ async function main() {
   assert.equal(civilClaimsGuide.appliesAcrossIssueDomains, true, "Civil claims guide must explicitly apply across Ontario Civil issue domains only after court-path and stage matching");
   assert.equal(civilProcedureRules.bindingWeight, "binding", "Rules of Civil Procedure must retain binding status");
   assert.equal(civilClaimsGuide.bindingWeight, "procedural-guidance", "Civil claims guide must retain non-binding guidance status");
-  assert.equal(civilProcedureRules.sourceReferences[0]?.sourceUrl, "https://www.ontario.ca/laws/regulation/900194");
+  assert.equal(civilProcedureRules.sourceReferences[0]?.sourceUrl, "https://www.ontario.ca/laws/docs/900194_e.doc");
   assert.equal(civilProcedureRules.sourceReferences[0]?.pinpoint, "r. 1.02");
   assert.equal(civilClaimsGuide.sourceReferences[0]?.sourceUrl, "https://www.ontario.ca/page/civil-claims-suing-and-being-sued");
   assert.equal(civilClaimsGuide.sourceReferences[0]?.pinpoint, "general steps for civil cases started by statement of claim");
@@ -425,7 +432,7 @@ async function main() {
   assert.equal(realCivilPacket.statutes.length + realCivilPacket.precedents.length, 0, "Civil pilot sources must not be reclassified as statutes or precedents");
   const civilRule = realCivilPacket.proceduralRules[0];
   assert.equal(civilRule.id, civilProcedureRules.id);
-  assert.equal(civilRule.sourceUrl, "https://www.ontario.ca/laws/regulation/900194");
+  assert.equal(civilRule.sourceUrl, "https://www.ontario.ca/laws/docs/900194_e.doc");
   assert.equal(civilRule.citation?.includes("r. 1.02"), true);
   assert.equal(civilRule.useLimits.includes("Rule 1.02 states that the Rules do not govern proceedings in the Small Claims Court or proceedings to which the Family Law Rules apply, except as the Rules provide."), true);
   const civilGuide = realCivilPacket.officialGuidance[0];
