@@ -113,14 +113,11 @@ function createStarterMasterResult(
         pathwayWarnings: [],
       },
       strategy: {
-        strengths: [],
         weaknesses: [
           "No evidence has been linked yet.",
           "No legal issues have been mapped yet.",
           "No proof chart has been created yet.",
         ],
-        likelyOtherSideArguments: [],
-        likelyJudgeConcerns: [],
         suggestedWordingImprovements: [],
         settlementConsiderations: [],
         nextStrategicSteps: [

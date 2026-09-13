@@ -556,9 +556,6 @@ function emptyCredibilityAnalysis(): CaseCredibilityAnalysis {
     overallScore: 0,
     overallLevel: "minimal",
     findings: [],
-    judgeConcernScore: 0,
-    crossExaminationRiskScore: 0,
-    settlementPressureScore: 0,
     documentReadinessImpact: "none",
     warnings: [],
     nextActions: [],
@@ -1068,9 +1065,6 @@ function buildCredibilityAnalysis(
     overallScore: credibilityResult.overallScore,
     overallLevel: credibilityResult.overallLevel,
     findings,
-    judgeConcernScore: credibilityResult.judgeConcernScore,
-    crossExaminationRiskScore: credibilityResult.crossExaminationRiskScore,
-    settlementPressureScore: credibilityResult.settlementPressureScore,
     documentReadinessImpact: credibilityResult.documentReadinessImpact,
     warnings: credibilityResult.warnings,
     nextActions: credibilityResult.nextActions,
@@ -1213,11 +1207,11 @@ function buildReadinessState(
         : proofMaps.length > 0
           ? "medium"
           : "low",
-    settlementReadiness:
-      credibilityAnalysis.settlementPressureScore >= 60 ||
-      evidenceIntelligence.gaps.length > 0
-        ? "low"
-        : "medium",
+    // The first limb was `credibilityAnalysis.settlementPressureScore >= 60`,
+    // routing on a grade of the user's case. The remaining limb is a fact —
+    // whether the evidence record has gaps recorded — and it is what the label
+    // should have turned on all along.
+    settlementReadiness: evidenceIntelligence.gaps.length > 0 ? "low" : "medium",
     blockers: uniqueStrings([
       ...intelligence.systemWarnings,
       ...intelligence.missingInformation.map((item) => item.question),

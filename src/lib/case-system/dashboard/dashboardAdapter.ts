@@ -98,9 +98,6 @@ type CaseSystemAssemblyLike = {
   credibilityIntelligence: {
     credibilityReadiness: AssemblyConfidence;
     overallLevel: string;
-    judgeConcernScore: number;
-    crossExaminationRiskScore: number;
-    settlementPressureScore: number;
     documentReadinessImpact: string;
     warnings: string[];
     nextActions: string[];
@@ -398,31 +395,34 @@ export function buildDashboardMasterFromAssembly(
     },
 
     strategy: {
-      strengths: uniqueStrings([
-        ...assembly.proofReadiness.proofStrengths,
-        assembly.authorityReadiness.strongestAuthorityCount > 0
-          ? `${assembly.authorityReadiness.strongestAuthorityCount} strong authority source(s) identified.`
-          : "",
-      ]),
-      weaknesses: uniqueStrings([
+      // `strengths` stood here, built from proofStrengths plus "N strong
+      // authority source(s) identified." Nothing rendered it, and both halves
+      // grade the case rather than describe the record.
+      //
+      // `weaknesses` is renamed to `proofGaps` — the name the dashboard's own
+      // section heading already used for it. Its contents were already factual:
+      // which elements have nothing recorded, plus warnings. The rename brings
+      // the field into line with both what it holds and what the UI calls it.
+      //
+      // likelyOtherSideArguments and likelyJudgeConcerns were hardcoded empty
+      // here with a comment explaining why they were never generated. The
+      // fields are now off StrategyProfile entirely.
+      proofGaps: uniqueStrings([
         ...assembly.proofReadiness.elementsWithNothingRecorded,
         ...assembly.authorityReadiness.warnings,
         ...assembly.contradictionReadiness.warnings,
         ...assembly.credibilityIntelligence.warnings,
         ...(assembly.proceduralState?.warnings || []),
       ]),
-      // Never generated: relabeling proof gaps or contradictions as
-      // predicted opposing arguments or judge concerns is a CLAUDE.md
-      // section 3 violation, not a data gap. The same facts are already
-      // captured factually in `weaknesses` above.
-      likelyOtherSideArguments: [],
-      likelyJudgeConcerns: [],
       suggestedWordingImprovements: assembly.credibilityIntelligence.nextActions,
-      settlementConsiderations: uniqueStrings([
-        assembly.credibilityIntelligence.settlementPressureScore > 0
-          ? `Settlement pressure score: ${assembly.credibilityIntelligence.settlementPressureScore}.`
-          : "",
-      ]),
+      // This emitted `Settlement pressure score: ${n}.` as literal user-facing
+      // text — a number telling someone how much pressure they are under to
+      // settle their own case. It was the last of the three credibility scores
+      // still rendering anywhere. Nothing replaces it: there is no factual
+      // restatement of a settlement-pressure grade, and the procedural facts a
+      // user actually needs (deadlines, outstanding steps) are already carried
+      // by nextStrategicSteps and the readiness blockers.
+      settlementConsiderations: [],
       nextStrategicSteps: uniqueStrings([
         ...assembly.proofReadiness.proofNextActions,
         ...assembly.credibilityIntelligence.nextActions,

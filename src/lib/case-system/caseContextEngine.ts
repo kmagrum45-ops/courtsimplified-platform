@@ -1531,12 +1531,16 @@ function buildMasterCaseFile(context: Omit<CaseContext, "masterCaseFile">): Case
       pathwayWarnings: context.proceduralIntelligence.pathwayWarnings,
     },
     strategy: {
-      strengths: context.strengths,
-      weaknesses: context.weaknesses,
-      // Never generated: predicting opposing-party arguments or judge
-      // reactions is a CLAUDE.md section 3 violation, not a data gap.
-      likelyOtherSideArguments: [],
-      likelyJudgeConcerns: [],
+      // `strengths` and `weaknesses` are gone from StrategyProfile; `proofGaps`
+      // replaces the second. `context.weaknesses` is fed from this file's own
+      // CaseContext.strengths/weaknesses pair, which is a SEPARATE structure
+      // built from evidenceAnalysis and is still unaudited — see
+      // OUTSTANDING_ISSUES.md. Carried across unchanged for now rather than
+      // silently widening this pass.
+      proofGaps: context.weaknesses,
+      // likelyOtherSideArguments and likelyJudgeConcerns stood here, hardcoded
+      // empty with a comment saying why. The fields themselves are now off the
+      // type, which is what Session 38 should have done.
       suggestedWordingImprovements: cleanList([
         "Use dates, actors, documents, and requested remedies rather than broad conclusions.",
         "Separate facts from assumptions and legal conclusions.",

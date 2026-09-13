@@ -42,9 +42,15 @@ export type CredibilityRiskResult = {
   overallLevel: CredibilityRiskLevel;
   findings: CredibilityRiskFinding[];
   contradictionSummary: ContradictionEngineResult["summary"];
-  judgeConcernScore: number;
-  crossExaminationRiskScore: number;
-  settlementPressureScore: number;
+  // judgeConcernScore, crossExaminationRiskScore and settlementPressureScore
+  // stood here. All three were computed from the SAME number:
+  //   judgeConcernScore        = round(overallScore * 0.9)
+  //   crossExaminationRiskScore = round(overallScore * 1.05)
+  //   settlementPressureScore  = round(overallScore * 0.85)
+  // One value wearing three names, presented as three separate predictions --
+  // about what a judge would be concerned by, how a cross-examination would
+  // go, and how much pressure to settle the user is under. All three are
+  // squarely CLAUDE.md section 3.
   documentReadinessImpact: "none" | "minor" | "moderate" | "major" | "severe";
   warnings: string[];
   nextActions: string[];
@@ -287,21 +293,6 @@ export function assessCredibilityRisk(
     ),
   );
 
-  const judgeConcernScore = Math.max(
-    0,
-    Math.min(100, Math.round(overallScore * 0.9)),
-  );
-
-  const crossExaminationRiskScore = Math.max(
-    0,
-    Math.min(100, Math.round(overallScore * 1.05)),
-  );
-
-  const settlementPressureScore = Math.max(
-    0,
-    Math.min(100, Math.round(overallScore * 0.85)),
-  );
-
   return {
     caseId: input.caseFile.id,
     generatedAt: nowIso(),
@@ -309,9 +300,6 @@ export function assessCredibilityRisk(
     overallLevel: levelFromScore(overallScore),
     findings,
     contradictionSummary: contradictionResult.summary,
-    judgeConcernScore,
-    crossExaminationRiskScore,
-    settlementPressureScore,
     documentReadinessImpact: documentImpactFromScore(overallScore),
     warnings: buildWarnings({
       findings,

@@ -41,9 +41,9 @@ export type DashboardContradictionReadiness = {
 export type DashboardCredibilityIntelligence = {
   credibilityReadiness: string;
   overallLevel: string;
-  judgeConcernScore: number;
-  crossExaminationRiskScore: number;
-  settlementPressureScore: number;
+  // The three credibility scores were parsed into the view model here. They
+  // are gone from every producer; parsing them back off a persisted blob would
+  // have quietly reintroduced them for any case saved before this change.
   documentReadinessImpact: string;
   warnings: string[];
   nextActions: string[];
@@ -75,10 +75,7 @@ export type DashboardMasterView = {
   };
 
   strategy: {
-    strengths: string[];
-    weaknesses: string[];
-    likelyOtherSideArguments: string[];
-    likelyJudgeConcerns: string[];
+    proofGaps: string[];
     suggestedWordingImprovements: string[];
     settlementConsiderations: string[];
     nextStrategicSteps: string[];
@@ -145,7 +142,12 @@ export type DashboardSummary = {
   master: DashboardMasterView;
   highRisks: DashboardRisk[];
   masterHasData: boolean;
-  systemScore: number;
+  // A `systemScore: number` stood here, from calculateDashboardSystemScore --
+  // a weighted 0-100 grade of the user's case file (+15 facts, +15 evidence,
+  // +5 for HAVING weaknesses). The dashboard page stopped displaying it but it
+  // kept being computed and kept sitting on the view model, one .map() from
+  // being shown again. `completeness` below is the factual replacement and
+  // already existed.
   /** Factual section count shown to the user in place of the old readiness score. */
   completeness: { recorded: number; total: number };
   /**
@@ -186,9 +188,6 @@ function safeString(value: unknown): string {
   return typeof value === "string" ? value : "";
 }
 
-function clampScore(value: number): number {
-  return Math.max(0, Math.min(100, value));
-}
 
 function isAssemblyLike(value: unknown): value is DashboardAssemblyAdapterInput {
   const object = asObject(value);
@@ -279,11 +278,6 @@ function extractCredibilityIntelligence(
   return {
     credibilityReadiness: safeString(credibility.credibilityReadiness),
     overallLevel: safeString(credibility.overallLevel),
-    judgeConcernScore: safeNumber(credibility.judgeConcernScore),
-    crossExaminationRiskScore: safeNumber(
-      credibility.crossExaminationRiskScore,
-    ),
-    settlementPressureScore: safeNumber(credibility.settlementPressureScore),
     documentReadinessImpact: safeString(credibility.documentReadinessImpact),
     warnings: asStringArray(credibility.warnings),
     nextActions: asStringArray(credibility.nextActions),
@@ -395,10 +389,14 @@ export function extractDashboardMaster(value: unknown): DashboardMasterView {
     },
 
     strategy: {
-      strengths: asStringArray(strategy.strengths),
-      weaknesses: asStringArray(strategy.weaknesses),
-      likelyOtherSideArguments: asStringArray(strategy.likelyOtherSideArguments),
-      likelyJudgeConcerns: asStringArray(strategy.likelyJudgeConcerns),
+      // Deliberately does NOT fall back to a stored `weaknesses` key. This
+      // parses persisted master_result blobs, and anything saved before this
+      // change has `weaknesses` holding the merit content that was just
+      // removed — litigation-risk explanations, weakest patterns, weakest
+      // evidence. Reading it back under the new name would reintroduce exactly
+      // what came out. Old cases show no proof gaps until re-analyzed, which is
+      // the correct trade.
+      proofGaps: asStringArray(strategy.proofGaps),
       suggestedWordingImprovements: asStringArray(
         strategy.suggestedWordingImprovements,
       ),
@@ -457,36 +455,12 @@ export function hasDashboardMasterData(master: DashboardMasterView): boolean {
   );
 }
 
-export function calculateDashboardSystemScore(master: DashboardMasterView): number {
-  let score = 0;
-
-  if (master.parties.length > 0) score += 10;
-  if (master.facts.length > 0) score += 15;
-  if (master.issues.length > 0) score += 10;
-  if (master.timeline.length > 0) score += 10;
-  if (master.evidence.length > 0) score += 15;
-  if (master.proofMap.length > 0) score += 15;
-  if (master.formNeeds.length > 0) score += 10;
-  if (master.strategy.weaknesses.length > 0) score += 5;
-  if (master.courtPackage.packageSections.length > 0) score += 5;
-  if (master.courtPackage.exhibitOrder.length > 0) score += 5;
-
-  if (master.authorityReadiness) score += 5;
-  if (master.contradictionReadiness) score += 5;
-  if (master.credibilityIntelligence) score += 5;
-
-  // A high/critical risk penalty (count * 2) stood here and is removed for
-  // the same reason as the two readiness formulas -- CLAUDE.md section 3.
-  // This one was not in the original report; found while fixing those.
-  return clampScore(score);
-}
-
 /**
  * The factual replacement for the displayed scores: how many parts of the
  * case file have information recorded, out of how many exist.
  *
- * Counts exactly the same sections `calculateDashboardSystemScore` above
- * checks, but without weights -- each section is one section. A user can
+ * Counts the same sections the removed `calculateDashboardSystemScore`
+ * weighted, but without the weights -- each section is one section. A user can
  * verify this against their own case file by looking at it, which is the
  * property a 0-100 score never had. It weights nothing and predicts nothing.
  */
@@ -821,7 +795,6 @@ export function buildDashboardSummary(
     master,
     highRisks,
     masterHasData: hasDashboardMasterData(master),
-    systemScore: calculateDashboardSystemScore(master),
     completeness: buildDashboardCompleteness(master),
     outstandingCount: master.readiness.blockers.length,
     operationalWarnings: buildDashboardOperationalWarnings(master),

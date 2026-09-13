@@ -664,9 +664,6 @@ export type CaseCredibilityAnalysis = {
   overallScore: number;
   overallLevel: CaseCredibilityRiskLevel;
   findings: CaseCredibilityRiskFinding[];
-  judgeConcernScore: number;
-  crossExaminationRiskScore: number;
-  settlementPressureScore: number;
   documentReadinessImpact: "none" | "minor" | "moderate" | "major" | "severe";
   warnings: string[];
   nextActions: string[];

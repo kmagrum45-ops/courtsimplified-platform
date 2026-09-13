@@ -211,9 +211,6 @@ export type WorkflowCredibilityInput = {
   hasCredibilityAnalysis?: boolean;
   overallLevel?: CaseCredibilityRiskLevel;
   overallScore?: number;
-  judgeConcernScore?: number;
-  crossExaminationRiskScore?: number;
-  settlementPressureScore?: number;
   documentReadinessImpact?: WorkflowDocumentReadinessImpact;
   warnings?: string[];
   nextActions?: string[];

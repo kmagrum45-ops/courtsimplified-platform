@@ -170,9 +170,6 @@ export type AssemblyCredibilityIntelligenceModel = {
   credibilityReadiness: CaseConfidence;
   overallScore: number;
   overallLevel: CaseCredibilityRiskLevel;
-  judgeConcernScore: number;
-  crossExaminationRiskScore: number;
-  settlementPressureScore: number;
   documentReadinessImpact: "none" | "minor" | "moderate" | "major" | "severe";
   warnings: string[];
   nextActions: string[];
@@ -716,9 +713,6 @@ function buildCredibilityIntelligence(
       credibilityReadiness: "low",
       overallScore: 0,
       overallLevel: "manageable",
-      judgeConcernScore: 0,
-      crossExaminationRiskScore: 0,
-      settlementPressureScore: 0,
       documentReadinessImpact: "none",
       warnings: ["Credibility analysis has not been supplied to the assembly layer."],
       nextActions: [],
@@ -740,9 +734,6 @@ function buildCredibilityIntelligence(
     credibilityReadiness,
     overallScore: credibilityAnalysis.overallScore,
     overallLevel: credibilityAnalysis.overallLevel,
-    judgeConcernScore: credibilityAnalysis.judgeConcernScore,
-    crossExaminationRiskScore: credibilityAnalysis.crossExaminationRiskScore,
-    settlementPressureScore: credibilityAnalysis.settlementPressureScore,
     documentReadinessImpact: credibilityAnalysis.documentReadinessImpact,
     warnings: uniqueStrings(credibilityAnalysis.warnings),
     nextActions: uniqueStrings(credibilityAnalysis.nextActions),
@@ -786,9 +777,6 @@ function toWorkflowCredibilityInput(
     hasCredibilityAnalysis: credibility.hasCredibilityAnalysis,
     overallLevel: credibility.overallLevel,
     overallScore: credibility.overallScore,
-    judgeConcernScore: credibility.judgeConcernScore,
-    crossExaminationRiskScore: credibility.crossExaminationRiskScore,
-    settlementPressureScore: credibility.settlementPressureScore,
     documentReadinessImpact: credibility.documentReadinessImpact,
     warnings: credibility.warnings,
     nextActions: credibility.nextActions,

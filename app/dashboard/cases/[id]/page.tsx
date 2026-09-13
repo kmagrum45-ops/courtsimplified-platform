@@ -537,11 +537,11 @@ export default function CaseWorkspacePage() {
             <h2 className="text-xl font-bold">Proof Gaps</h2>
 
             <ul className="mt-4 space-y-2 text-sm text-[#4B5563]">
-              {master.strategy.weaknesses.slice(0, 6).map((item) => (
+              {master.strategy.proofGaps.slice(0, 6).map((item) => (
                 <li key={item}>• {item}</li>
               ))}
 
-              {master.strategy.weaknesses.length === 0 ? (
+              {master.strategy.proofGaps.length === 0 ? (
                 <li>• No proof-gap details available yet.</li>
               ) : null}
             </ul>

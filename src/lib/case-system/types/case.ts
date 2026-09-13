@@ -182,10 +182,7 @@ export type ProceduralIntelligence = {
 };
 
 export type StrategyProfile = {
-  strengths: string[];
-  weaknesses: string[];
-  likelyOtherSideArguments: string[];
-  likelyJudgeConcerns: string[];
+  proofGaps: string[];
   suggestedWordingImprovements: string[];
   settlementConsiderations: string[];
   nextStrategicSteps: string[];
@@ -311,10 +308,7 @@ export function createEmptyCaseFile(
 
     strategy:
       overrides.strategy || {
-        strengths: [],
-        weaknesses: [],
-        likelyOtherSideArguments: [],
-        likelyJudgeConcerns: [],
+        proofGaps: [],
         suggestedWordingImprovements: [],
         settlementConsiderations: [],
         nextStrategicSteps: [],

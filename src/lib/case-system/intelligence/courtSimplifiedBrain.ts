@@ -1625,24 +1625,28 @@ function buildMasterResultPatch(args: {
       limitationAssessments: args.intelligence.limitationAssessments,
       proceduralIntelligence: args.intelligence.proceduralPosture,
       strategy: {
-        strengths: [
-          ...args.intelligence.claimClassifications.map((claim) => claim.explanation),
-          ...(args.intelligence.factPatternAnalysis?.strongestPatterns || []),
-          ...(args.intelligence.evidenceIntelligenceAnalysis?.strongestEvidence || []),
-        ],
-        weaknesses: [
-          ...args.intelligence.litigationRisks.map((risk) => risk.explanation),
-          ...(args.intelligence.factPatternAnalysis?.weakestPatterns || []),
-          ...(args.intelligence.evidenceIntelligenceAnalysis?.weakestEvidence || []),
-          ...(args.intelligence.evidenceIntelligenceAnalysis?.gaps.map((gap) => gap.explanation) || []),
-        ],
-        // Session 38 removed opposingArguments/judgeConcerns as a source
-        // entirely (see caseStrengthLanguageValidator.ts's file header) --
-        // these two arrays no longer have anything to populate them from.
-        // Left empty rather than reconstructing the same forbidden content
-        // from a different angle.
-        likelyOtherSideArguments: [],
-        likelyJudgeConcerns: [],
+        // `strengths` and `weaknesses` stood here and are the reason this pair
+        // could not simply be renamed the way the family one was. They were
+        // assembled from four grading engines:
+        //
+        //   strengths  <- claimClassifications[].explanation, strongestPatterns,
+        //                 strongestEvidence
+        //   weaknesses <- litigationRisks[].explanation, weakestPatterns,
+        //                 weakestEvidence, gaps[].explanation
+        //
+        // Everything but the last is a merit assessment — how strong a pattern
+        // is, how strong an item of evidence is, what the risks are. That is
+        // what the dashboard was rendering under "Proof Gaps".
+        //
+        // Only the evidence GAPS survive, into the renamed `proofGaps`: a gap
+        // is a statement that something is not recorded, which is a fact about
+        // the file. Session 38 emptied the sibling prediction fields for the
+        // same reason and left these because they were not named as
+        // predictions.
+        proofGaps:
+          args.intelligence.evidenceIntelligenceAnalysis?.gaps.map(
+            (gap) => gap.explanation,
+          ) || [],
         suggestedWordingImprovements: args.intelligence.missingInformation.map(
           (item) => item.question,
         ),
