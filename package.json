@@ -28,6 +28,7 @@
     "test:cohort2-split-identities": "node scripts/verification/verifyCohort2SplitCanonicalIdentities.mjs",
     "test:court-path-classifier": "node --import tsx scripts/verification/verifyCourtPathClassifier.ts",
     "test:depth-questions": "node --import tsx scripts/verification/verifyDepthQuestions.ts",
+    "test:evidence-guidance": "node --import tsx scripts/verification/verifyEvidenceGuidanceClaims.ts",
     "test:fixture-guards": "node --import tsx scripts/verification/verifyFixtureHarnessGuards.ts",
     "test:fixtures": "node --import tsx scripts/verification/runFixtures.ts",
     "test:fixtures:generated": "node --import tsx scripts/verification/runGeneratedFixtures.ts",

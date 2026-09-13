@@ -47,7 +47,8 @@ export type TurnLog = {
    * appeared alongside a same-turn exact match or evidenceGuidance.
    */
   suggestedClaimTypeThisTurn: string | null;
-  evidenceGuidanceThisTurn: { addressed: string[]; unaddressed: string[] } | null;
+  /** Session 48: one list. The addressed/unaddressed split was removed -- see evidenceGapDetector.ts. */
+  evidenceGuidanceThisTurn: { categories: string[] } | null;
   factsAfter: IntakeFacts;
   possibleCorrections: string[];
 };
@@ -136,10 +137,7 @@ export async function runStoryThroughPipeline(input: PipelineStoryInput, apiKey:
         ? `${r.suggestedClaimType.claimTypeId} (${r.suggestedClaimType.claimTypeName})`
         : null,
       evidenceGuidanceThisTurn: r.evidenceGuidance
-        ? {
-            addressed: r.evidenceGuidance.addressedCategories.map((c) => c.name),
-            unaddressed: r.evidenceGuidance.unaddressedCategories.map((c) => c.name),
-          }
+        ? { categories: r.evidenceGuidance.categories.map((c) => c.name) }
         : null,
       factsAfter: r.facts,
       possibleCorrections: r.possibleCorrections.map((c) => `${c.field}: ${JSON.stringify(c.oldValue)} -> ${JSON.stringify(c.newValue)}`),

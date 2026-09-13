@@ -44,7 +44,7 @@ import { extractIntakeFactsWithConfidence } from "./extractIntakeFacts";
 import { matchClaimType, type ClaimTypeMatch } from "./claimTypeMatcher";
 import { classifyClaimTypeWithAi, type ClaimTypeAiSuggestion } from "./claimTypeAiClassifier";
 import { CLAIM_TYPES, type ClaimType } from "./claimTypes";
-import { detectEvidenceGaps, type EvidenceGuidance } from "./evidenceGapDetector";
+import { buildEvidenceCategoryGuidance, type EvidenceGuidance } from "./evidenceGapDetector";
 import { buildClaimGuidance, type ClaimGuidance } from "./claimGuidance";
 import { selectQuestions, type IntakeFacts } from "./selectQuestions";
 import { QUESTION_BANK, type CourtArea, type IntakeQuestion, type KnownFactField } from "./questionBank";
@@ -334,7 +334,7 @@ export async function orchestrateIntakeTurn(
     const match = isOpeningStory ? matchClaimType(newStoryText, claimTypes) : null;
     matchedClaimTypes = match ? [match] : [];
     if (match) {
-      evidenceGuidance = detectEvidenceGaps(match.claimType, newStoryText);
+      evidenceGuidance = buildEvidenceCategoryGuidance(match.claimType);
       claimGuidance = buildClaimGuidance(match.claimType, facts);
     } else if (isOpeningStory) {
       // Session 48. The AI classifier runs ONLY on the opening story.

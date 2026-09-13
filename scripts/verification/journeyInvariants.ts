@@ -91,8 +91,7 @@ export function collectJourneyTexts(run: PipelineRun): FieldText[] {
   run.turns.forEach((turn, i) => {
     push(`turns[${i}].questionAsked`, turn.questionAsked);
     if (turn.evidenceGuidanceThisTurn) {
-      push(`turns[${i}].evidenceGuidance.unaddressed`, turn.evidenceGuidanceThisTurn.unaddressed);
-      push(`turns[${i}].evidenceGuidance.addressed`, turn.evidenceGuidanceThisTurn.addressed);
+      push(`turns[${i}].evidenceGuidance.categories`, turn.evidenceGuidanceThisTurn.categories);
     }
     push(`turns[${i}].possibleCorrections`, turn.possibleCorrections);
   });

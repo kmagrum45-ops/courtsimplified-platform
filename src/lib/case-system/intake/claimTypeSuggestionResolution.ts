@@ -19,7 +19,7 @@
  */
 
 import { classifyClaimTypeWithAi, type ClaimTypeAiSuggestion } from "./claimTypeAiClassifier";
-import { detectEvidenceGaps, type EvidenceGuidance } from "./evidenceGapDetector";
+import { buildEvidenceCategoryGuidance, type EvidenceGuidance } from "./evidenceGapDetector";
 import { buildClaimGuidance, type ClaimGuidance } from "./claimGuidance";
 import type { ClaimType } from "./claimTypes";
 import type { IntakeFacts } from "./selectQuestions";
@@ -56,7 +56,7 @@ export async function resolveClaimTypeSuggestion(
     return {
       outcome: "confirmed",
       claimType: { claimTypeId: claimType.id, claimTypeName: claimType.name },
-      evidenceGuidance: detectEvidenceGaps(claimType, storyText),
+      evidenceGuidance: buildEvidenceCategoryGuidance(claimType),
       claimGuidance: buildClaimGuidance(claimType, facts),
     };
   }

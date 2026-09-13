@@ -39,8 +39,8 @@ type EvidenceCategory = {
 type EvidenceGuidance = {
   claimTypeId: string;
   claimTypeName: string;
-  addressedCategories: EvidenceCategory[];
-  unaddressedCategories: EvidenceCategory[];
+  /** One list. See evidenceGapDetector.ts on why there is no "addressed" subset. */
+  categories: EvidenceCategory[];
 };
 
 type MatchedClaimType = { claimTypeId: string; claimTypeName: string };
@@ -261,10 +261,7 @@ function GuidanceDisclosure({
 }) {
   const [open, setOpen] = useState(false);
 
-  const hasEvidence =
-    Boolean(evidenceGuidance) &&
-    (evidenceGuidance!.addressedCategories.length > 0 ||
-      evidenceGuidance!.unaddressedCategories.length > 0);
+  const hasEvidence = Boolean(evidenceGuidance) && evidenceGuidance!.categories.length > 0;
   const hasClaim =
     Boolean(claimGuidance) &&
     (claimGuidance!.educationTopics.length > 0 || claimGuidance!.remedies.length > 0);
@@ -326,31 +323,28 @@ function GuidanceDisclosure({
                 General evidence guidance for situations like this
               </p>
 
-              {evidenceGuidance!.addressedCategories.length > 0 ? (
-                <p className="mt-2">
-                  Already mentioned in what you&apos;ve shared:{" "}
-                  {evidenceGuidance!.addressedCategories.map((category) => category.name).join(", ")}.
-                </p>
-              ) : null}
-
-              {evidenceGuidance!.unaddressedCategories.length > 0 ? (
-                <div className="mt-2">
-                  <p>
-                    Situations like this often also involve the following, though it hasn&apos;t come up
-                    yet in what you&apos;ve shared:
-                  </p>
-                  <ul className="mt-1 list-disc space-y-1 pl-5">
-                    {evidenceGuidance!.unaddressedCategories.map((category) => (
-                      <li key={category.name}>
-                        <span className="font-semibold">{category.name}</span>
-                        {category.examples.length > 0 ? (
-                          <span> — for example: {category.examples.join(", ")}.</span>
-                        ) : null}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
+              {/*
+                One neutral list. The "Already mentioned in what you've shared"
+                line was removed in session 48 — it asserted the user had
+                supplied things they had not (see evidenceGapDetector.ts), and
+                so was the "hasn't come up yet" framing, which told the user
+                what to say next. Both made claims about the user's own file
+                from a word match. This states what situations like theirs
+                generally involve, and claims nothing about what they said.
+              */}
+              <div className="mt-2">
+                <p>Situations like this often involve:</p>
+                <ul className="mt-1 list-disc space-y-1 pl-5">
+                  {evidenceGuidance!.categories.map((category) => (
+                    <li key={category.name}>
+                      <span className="font-semibold">{category.name}</span>
+                      {category.examples.length > 0 ? (
+                        <span> — for example: {category.examples.join(", ")}.</span>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
               <p className="mt-2 text-xs text-[#557168]">
                 This is general information about situations like yours, not an assessment of your case.

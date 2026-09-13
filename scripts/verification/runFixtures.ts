@@ -56,7 +56,7 @@ function renderActualMarkdown(fixture: Fixture, run: PipelineRun): string {
     push(
       `| ${i + 1} | ${t.questionAsked ?? "(opening story)"} | ${t.matchedClaimTypeThisTurn ?? "-"} | ${
         t.evidenceGuidanceThisTurn
-          ? `addressed: ${t.evidenceGuidanceThisTurn.addressed.join(", ") || "(none)"}; unaddressed: ${t.evidenceGuidanceThisTurn.unaddressed.join(", ") || "(none)"}`
+          ? `categories: ${t.evidenceGuidanceThisTurn.categories.join(", ") || "(none)"}`
           : "-"
       } |`,
     );

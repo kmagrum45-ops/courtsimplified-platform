@@ -497,7 +497,7 @@ async function renderSection(
     const a = (t.answerGiven ?? "").replace(/\|/g, "\\|").slice(0, 120);
     const m = t.matchedClaimTypeThisTurn ?? "-";
     const eg = t.evidenceGuidanceThisTurn
-      ? `addressed: ${t.evidenceGuidanceThisTurn.addressed.join(", ") || "(none)"}; unaddressed: ${t.evidenceGuidanceThisTurn.unaddressed.join(", ") || "(none)"}`
+      ? `categories: ${t.evidenceGuidanceThisTurn.categories.join(", ") || "(none)"}`
       : "-";
     push(`| ${i + 1} | ${q} | ${a} | ${m} | ${eg} |`);
   });
@@ -560,8 +560,7 @@ async function renderSection(
       );
       if (resolution.outcome === "confirmed") {
         push(
-          `- outcome: **confirmed** -- evidenceGuidance now has ${resolution.evidenceGuidance.addressedCategories.length} addressed / ` +
-            `${resolution.evidenceGuidance.unaddressedCategories.length} unaddressed categories; claimGuidance now has ` +
+          `- outcome: **confirmed** -- evidenceGuidance now has ${resolution.evidenceGuidance.categories.length} category/categories; claimGuidance now has ` +
             `${resolution.claimGuidance.educationTopics.length} education topic(s) and ${resolution.claimGuidance.remedies.length} remedy/remedies.`,
         );
       } else {
