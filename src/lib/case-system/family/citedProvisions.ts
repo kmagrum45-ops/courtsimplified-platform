@@ -177,6 +177,13 @@ export const CITED_PROVISIONS: CitedProvision[] = [
   },
   {
     statute: "Children's Law Reform Act",
+    section: "s. 24",
+    sourceUrl: "https://www.ontario.ca/laws/docs/90c12_e.doc",
+    vendoredIn: "clra-cited-sections.txt",
+    verifiedAt: "2026-09-13",
+  },
+  {
+    statute: "Children's Law Reform Act",
     section: "s. 35",
     sourceUrl: "https://www.ontario.ca/laws/docs/90c12_e.doc",
     vendoredIn: "clra-cited-sections.txt",

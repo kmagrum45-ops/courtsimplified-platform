@@ -47,15 +47,30 @@ export type FamilyStrategyResult = {
   detectedSafetyIssues: SafetyConcernType[];
 
   bestInterestsFactors: string[];
-  parentingStrengths: string[];
-  parentingWeaknesses: string[];
+  /**
+   * Parenting details the intake has recorded, and details it has not.
+   *
+   * These were `parentingStrengths` / `parentingWeaknesses`. The names were the
+   * whole defect: the content was already factual and always had been —
+   * "Children's information has been partially provided", "A clear timeline has
+   * not been organized yet". Statements about what the record contains, never
+   * about the merits of anyone's parenting. Renamed into the same
+   * recorded-vs-not shape used by `completeEvidence` / `incompleteEvidence` and
+   * `missingDetails`, so the names stop inviting merit content into them.
+   *
+   * NOT the same thing as the Small Claims `strategy.{strengths, weaknesses}`,
+   * which share the old names and nothing else: those are built in
+   * courtSimplifiedBrain from claim classifications, fact-pattern strength and
+   * evidence strength, and are genuine merit assessments. That pair is still
+   * open — see OUTSTANDING_ISSUES.md.
+   */
+  parentingDetailsRecorded: string[];
+  parentingDetailsNotYetRecorded: string[];
   missingParentingInfo: string[];
 
   safetyFlags: string[];
   supportFinancialIssues: string[];
 
-  likelyOtherSideArguments: string[];
-  likelyJudgeConcerns: string[];
 
   recommendedEvidence: string[];
   recommendedNextSteps: string[];
@@ -69,6 +84,42 @@ export type FamilyStrategyResult = {
   recommendedForms: string[];
   summary: string;
 };
+
+/**
+ * The best-interests factors, quoted from the statute.
+ *
+ * SOURCE. Children's Law Reform Act, R.S.O. 1990, c. C.12, s. 24, retrieved
+ * 2026-09-13 via `ontario.ca/laws/docs/90c12_e.doc` (consolidation from
+ * 2025-12-11) and vendored verbatim at docs/sources/clra-cited-sections.txt.
+ *
+ * This is legal INFORMATION: it states what the section says, generally. It
+ * does not apply any factor to a particular family, and nothing downstream may.
+ *
+ * WHY IT IS A LIST OF QUOTES RATHER THAN A SUMMARY. The sentence that stood
+ * here was written from memory, and comparing it to s. 24 (3) showed the drift
+ * a paraphrase invites: it named "routine" and "education" as things the court
+ * focuses on, and neither is in the section. Quoting removes the failure mode.
+ */
+export const CLRA_BEST_INTERESTS_SOURCE_URL = "https://www.ontario.ca/laws/docs/90c12_e.doc";
+export const CLRA_BEST_INTERESTS_CITATION =
+  "Children's Law Reform Act, R.S.O. 1990, c. C.12, s. 24";
+export const CLRA_BEST_INTERESTS_VERIFIED_AT = "2026-09-13";
+
+export const CLRA_BEST_INTERESTS_FACTORS: string[] = [
+  "Children's Law Reform Act s. 24 (1): in making a parenting order or contact order with respect to a child, \"the court shall only take into account the best interests of the child in accordance with this section\".",
+  "s. 24 (2): the court \"shall consider all factors related to the circumstances of the child, and, in doing so, shall give primary consideration to the child's physical, emotional and psychological safety, security and well-being\".",
+  "s. 24 (3) (a): \"the child's needs, given the child's age and stage of development, such as the child's need for stability\".",
+  "s. 24 (3) (b): \"the nature and strength of the child's relationship with each parent, each of the child's siblings and grandparents and any other person who plays an important role in the child's life\".",
+  "s. 24 (3) (c): \"each parent's willingness to support the development and maintenance of the child's relationship with the other parent\".",
+  "s. 24 (3) (d): \"the history of care of the child\".",
+  "s. 24 (3) (e): \"the child's views and preferences, giving due weight to the child's age and maturity, unless they cannot be ascertained\".",
+  "s. 24 (3) (f): \"the child's cultural, linguistic, religious and spiritual upbringing and heritage, including Indigenous upbringing and heritage\".",
+  "s. 24 (3) (g): \"any plans for the child's care\".",
+  "s. 24 (3) (h): \"the ability and willingness of each person in respect of whom the order would apply to care for and meet the needs of the child\".",
+  "s. 24 (3) (i): \"the ability and willingness of each person in respect of whom the order would apply to communicate and co-operate, in particular with one another, on matters affecting the child\".",
+  "s. 24 (3) (j): \"any family violence and its impact\", including on a person's ability and willingness to care for the child and on whether an order requiring co-operation is appropriate. s. 24 (4) sets out what the court takes into account in considering that impact.",
+  "s. 24 (3) (k): \"any civil or criminal proceeding, order, condition or measure that is relevant to the safety, security and well-being of the child\".",
+];
 
 function cleanList(items: Array<string | null | undefined | false>): string[] {
   return Array.from(
@@ -146,15 +197,13 @@ export function analyzeFamilyStrategy(
   const detectedSafetyIssues: SafetyConcernType[] = [];
 
   const bestInterestsFactors: string[] = [];
-  const parentingStrengths: string[] = [];
-  const parentingWeaknesses: string[] = [];
+  const parentingDetailsRecorded: string[] = [];
+  const parentingDetailsNotYetRecorded: string[] = [];
   const missingParentingInfo: string[] = [];
 
   const safetyFlags: string[] = [];
   const supportFinancialIssues: string[] = [];
 
-  const likelyOtherSideArguments: string[] = [];
-  const likelyJudgeConcerns: string[] = [];
 
   const recommendedEvidence: string[] = [];
   const recommendedNextSteps: string[] = [];
@@ -248,9 +297,14 @@ export function analyzeFamilyStrategy(
       "parenting-schedule",
     );
 
-    bestInterestsFactors.push(
-      "The court focuses on the child's best interests, stability, routine, emotional needs, education, safety, and each parent's ability to support the child's relationship with the other parent.",
-    );
+    // Sourced to CLRA s. 24, retrieved 2026-09-13 and vendored at
+    // docs/sources/clra-cited-sections.txt.
+    //
+    // The sentence this replaces was an unsourced paraphrase, and checking it
+    // against the section showed the paraphrase had drifted: it listed
+    // "routine" and "education", neither of which appears in s. 24 (3). The
+    // factors below are the statute's own words, in the statute's own order.
+    bestInterestsFactors.push(...CLRA_BEST_INTERESTS_FACTORS);
 
     recommendedEvidence.push(
       "Parenting schedules, school records, daycare records, calendars, messages, missed exchanges, and caregiving history.",
@@ -333,25 +387,25 @@ export function analyzeFamilyStrategy(
   }
 
   pushIf(
-    parentingStrengths,
+    parentingDetailsRecorded,
     hasText(input.childrenInfo),
     "Children's information has been partially provided.",
   );
 
   pushIf(
-    parentingStrengths,
+    parentingDetailsRecorded,
     hasText(input.currentLivingSituation),
     "Current living arrangement has been described.",
   );
 
   pushIf(
-    parentingWeaknesses,
+    parentingDetailsNotYetRecorded,
     !hasText(input.timeline),
     "A clear timeline has not been organized yet.",
   );
 
   pushIf(
-    parentingWeaknesses,
+    parentingDetailsNotYetRecorded,
     !hasText(input.evidence),
     "Evidence has not been clearly organized yet.",
   );
@@ -434,15 +488,13 @@ export function analyzeFamilyStrategy(
     detectedSafetyIssues,
 
     bestInterestsFactors: cleanList(bestInterestsFactors),
-    parentingStrengths: cleanList(parentingStrengths),
-    parentingWeaknesses: cleanList(parentingWeaknesses),
+    parentingDetailsRecorded: cleanList(parentingDetailsRecorded),
+    parentingDetailsNotYetRecorded: cleanList(parentingDetailsNotYetRecorded),
     missingParentingInfo: cleanList(missingParentingInfo),
 
     safetyFlags: cleanList(safetyFlags),
     supportFinancialIssues: cleanList(supportFinancialIssues),
 
-    likelyOtherSideArguments: cleanList(likelyOtherSideArguments),
-    likelyJudgeConcerns: cleanList(likelyJudgeConcerns),
 
     recommendedEvidence: cleanList(recommendedEvidence),
     recommendedNextSteps: cleanList(recommendedNextSteps),

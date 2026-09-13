@@ -171,13 +171,9 @@ export type AnalysisResult = {
 
   detectedFamilyIssues?: string[];
   bestInterestsFactors?: string[];
-  parentingStrengths?: string[];
-  parentingWeaknesses?: string[];
   missingParentingInfo?: string[];
   safetyFlags?: string[];
   supportFinancialIssues?: string[];
-  likelyOtherSideArguments?: string[];
-  likelyJudgeConcerns?: string[];
   recommendedEvidence?: string[];
   recommendedFamilyNextSteps?: string[];
   suggestedWordingImprovements?: string[];

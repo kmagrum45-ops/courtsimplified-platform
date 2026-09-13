@@ -573,10 +573,11 @@ export function runFamilyWorkflowEngine(
     ...normalized.risks.proceduralRisks,
     ...normalized.risks.serviceRisks,
   ]);
-  const judgeFocus = cleanList([
-    ...sortedSteps.flatMap((step) => step.judgeFocus),
-    ...strategy.likelyJudgeConcerns,
-  ]);
+  // `strategy.likelyJudgeConcerns` was spread in here. It was always an empty
+  // array — the field was declared and never written — and the field is now
+  // gone. The step-level judgeFocus entries remain and are a separate question:
+  // see OUTSTANDING_ISSUES.md.
+  const judgeFocus = cleanList([...sortedSteps.flatMap((step) => step.judgeFocus)]);
   const nextBestActions = cleanList([
     ...sortedSteps.flatMap((step) => step.userActions),
     ...strategy.recommendedNextSteps,

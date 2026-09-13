@@ -324,10 +324,8 @@ function buildFamilyPathAnalysis(
       ...safeStringArray(familyNormalized.risks.urgencyFlags),
     ]),
     defenceAttacks: cleanList([
-      ...safeStringArray(familyStrategy.likelyOtherSideArguments),
     ]),
     judgeConcerns: cleanList([
-      ...safeStringArray(familyStrategy.likelyJudgeConcerns),
       ...safeStringArray(familyNormalized.risks.childFocusedRisks),
       ...safeStringArray(familyNormalized.risks.wordingSuggestions),
       ...safeStringArray(familyNormalized.risks.disclosureRisks),

@@ -51,8 +51,6 @@ export type LitigationExportPackageInput = {
   chronology?: string[];
   evidenceItems?: string[];
   strategyItems?: string[];
-  opposingArguments?: string[];
-  judgeConcerns?: string[];
   exportChecklist?: string[];
   title?: string;
   caseId?: string;
@@ -674,22 +672,12 @@ export function exportLitigationPackage(
       format,
       warningIfEmpty: "No strategy items were provided.",
     }),
-    buildManualExportSection({
-      id: "opposing-arguments",
-      heading: "Likely Opposing Arguments",
-      category: "strategy",
-      items: input.opposingArguments || [],
-      format,
-      warningIfEmpty: "No likely opposing arguments were provided.",
-    }),
-    buildManualExportSection({
-      id: "judge-concerns",
-      heading: "Judge-Facing Concerns",
-      category: "trial-preparation",
-      items: input.judgeConcerns || [],
-      format,
-      warningIfEmpty: "No judge-facing concerns were provided.",
-    }),
+    // Two sections stood here — "Likely Opposing Arguments" and "Judge-Facing
+    // Concerns" — with headings, categories and warningIfEmpty text, and
+    // nothing that ever populated them. An empty section is not harmless: the
+    // shape is an invitation, and "No judge-facing concerns were provided"
+    // tells a reader this export is supposed to carry them. Removed with their
+    // input fields rather than left waiting for a caller (CLAUDE.md section 3).
     buildManualExportSection({
       id: "export-checklist",
       heading: "Final Export Checklist",
