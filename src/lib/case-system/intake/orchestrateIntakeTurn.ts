@@ -234,12 +234,14 @@ export type OrchestrateIntakeTurnOverrides = {
   classifyClaimType?: typeof classifyClaimTypeWithAi;
   composeVoice?: typeof composeVoiceTurn;
   /**
-   * Replays the pre-fix behaviour: classify on EVERY turn carrying new text,
-   * not just the opening story. Exists so the before/after table comes from
-   * one code path rather than from a description of the old one. Never set
-   * outside the verification suite.
+   * Replays the pre-fix behaviour: resolve the claim type on EVERY turn
+   * carrying new text, not just the opening story. Governs BOTH paths -- the
+   * exact matcher and the AI classifier -- because both were last-wins and
+   * both are now gated. Exists so the before/after tables come from one code
+   * path rather than from a description of the old one. Never set outside the
+   * verification suite.
    */
-  classifyEveryTurn?: boolean;
+  resolveClaimTypeEveryTurn?: boolean;
 };
 
 export async function orchestrateIntakeTurn(
@@ -272,9 +274,10 @@ export async function orchestrateIntakeTurn(
    * question has been answered. Every later turn answers a known question, so
    * `answeredQuestionId` is set.
    *
-   * This is what gates the AI claim-type classifier below.
+   * This gates BOTH claim-type paths below: the exact matcher and the AI
+   * classifier. A claim type is settled by the story, never by an answer.
    */
-  const isOpeningStory = !answeredQuestionId || overrides.classifyEveryTurn === true;
+  const isOpeningStory = !answeredQuestionId || overrides.resolveClaimTypeEveryTurn === true;
 
   if (newStoryText) {
     const safety = await runSafety(newStoryText, apiKey);
@@ -314,7 +317,21 @@ export async function orchestrateIntakeTurn(
     facts = merged.facts;
     possibleCorrections = merged.possibleCorrections;
 
-    const match = matchClaimType(newStoryText, claimTypes);
+    // Session 48. The exact matcher is gated to the opening story too, by the
+    // same rule as the AI classifier below.
+    //
+    // It was last-wins across turns exactly as the classifier was, and the
+    // exposure is real rather than theoretical. Measured against the standard
+    // question set:
+    //
+    //   "I have the unpaid invoice and the bank transfer."  -> debt/services
+    //   "Texts where he admits he owes me money."           -> debt/services
+    //
+    // Either is an ordinary answer to sc-evidence-available, and either would
+    // re-route a user whose opening story matched something else. A claim type
+    // must be settled by the user's story, not by a phrase that happens to
+    // appear in an answer about what documents they hold.
+    const match = isOpeningStory ? matchClaimType(newStoryText, claimTypes) : null;
     matchedClaimTypes = match ? [match] : [];
     if (match) {
       evidenceGuidance = detectEvidenceGaps(match.claimType, newStoryText);

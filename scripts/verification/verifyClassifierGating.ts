@@ -134,7 +134,7 @@ async function replay(simulateLastWins: boolean): Promise<ReplayRow[]> {
         // The pre-fix path classified every turn; the fix gates it to the
         // opening story. This flag replays the old behaviour honestly rather
         // than describing it.
-        classifyEveryTurn: simulateLastWins,
+        resolveClaimTypeEveryTurn: simulateLastWins,
       },
     );
 
@@ -162,6 +162,100 @@ function printTable(title: string, rows: ReplayRow[]): void {
         `${row.retained.padEnd(28)}  ${row.label}`,
     );
   }
+}
+
+/**
+ * The exact-matcher counterpart. Opening story matches personal-loan on its
+ * own signals; a later evidence answer contains "unpaid invoice", which is a
+ * debt/services signal.
+ *
+ * This exposure is REAL, not theoretical. Probed against the standard question
+ * set, both of these ordinary answers to sc-evidence-available match
+ * debt/services on their own:
+ *
+ *   "I have the unpaid invoice and the bank transfer."
+ *   "Texts where he admits he owes me money."
+ */
+const MATCHER_OPENING =
+  "I lent my cousin three thousand five hundred dollars last autumn when his car went in for " +
+  "work. He said he would sort me out when his overtime came through. He never paid me back and " +
+  "now he has stopped replying altogether.";
+
+const MATCHER_ANSWERS: { questionId: string; text: string }[] = [
+  { questionId: "sc-orient-when-happened", text: "About two months ago." },
+  { questionId: "sc-orient-role", text: "Starting a claim (plaintiff)" },
+  { questionId: "sc-orient-dispute-category", text: "Starting a Small Claims case" },
+  { questionId: "sc-claim-filed", text: "No, I have not filed anything yet." },
+  { questionId: "sc-safety-check", text: "No safety concerns." },
+  { questionId: "sc-amount-claimed", text: "$3,500." },
+  // The re-route. An ordinary answer about which documents the user holds.
+  { questionId: "sc-evidence-available", text: "I have the unpaid invoice and the bank transfer." },
+  { questionId: "sc-remedy-sought", text: "I want my money back." },
+];
+
+async function replayMatcher(
+  simulateLastWins: boolean,
+): Promise<{ rows: ReplayRow[]; classifierCalls: number }> {
+  const rows: ReplayRow[] = [];
+  let classifierCalls = 0;
+
+  let facts: IntakeFacts = {};
+  let answeredIds: string[] = [];
+  let retained: string | null = null;
+
+  const turns = [
+    { questionId: undefined as string | undefined, text: MATCHER_OPENING, label: "(opening story)" },
+    ...MATCHER_ANSWERS.map((answer) => ({
+      questionId: answer.questionId as string | undefined,
+      text: answer.text,
+      label: answer.questionId,
+    })),
+  ];
+
+  for (let i = 0; i < turns.length; i += 1) {
+    const turn = turns[i];
+
+    const result = await orchestrateIntakeTurn(
+      facts,
+      answeredIds,
+      turn.text,
+      "stub-key",
+      QUESTION_BANK,
+      CLAIM_TYPES,
+      "small-claims",
+      turn.questionId,
+      {
+        runSafety: async () => ({ classification: "clear" as const, reason: "stub" }),
+        extractFacts: async () => ({ facts: {}, directFields: [] }),
+        // Records rather than throws. In the BEFORE replay the matcher misses
+        // on short answers ("About two months ago."), so the classifier branch
+        // legitimately runs — that is the pre-fix behaviour. In the AFTER
+        // replay it must never run at all, because the opening story matches
+        // exactly and every later turn is gated. Asserted below.
+        classifyClaimType: async () => {
+          classifierCalls += 1;
+          return null;
+        },
+        composeVoice: async () => ({ leadIn: null, questionText: "", fellBackToPlainText: true }),
+        resolveClaimTypeEveryTurn: simulateLastWins,
+      },
+    );
+
+    facts = result.facts;
+    if (turn.questionId) answeredIds = [...answeredIds, turn.questionId];
+
+    const fresh = result.matchedClaimTypes[0]?.claimType;
+    if (fresh) retained = fresh.id;
+
+    rows.push({
+      turn: i + 1,
+      label: turn.label || "(opening story)",
+      classifierCalled: Boolean(fresh),
+      retained: retained || "(none)",
+    });
+  }
+
+  return { rows, classifierCalls };
 }
 
 async function main(): Promise<void> {
@@ -195,6 +289,49 @@ async function main(): Promise<void> {
     "the fix removes classifier calls from later turns",
     afterCalls < beforeCalls,
     `${beforeCalls} -> ${afterCalls}`,
+  );
+
+  // ---- The exact matcher, the same rule on the other path ----
+
+  const mBeforeRun = await replayMatcher(true);
+  const mAfterRun = await replayMatcher(false);
+  const mBefore = mBeforeRun.rows;
+  const mAfter = mAfterRun.rows;
+
+  printTable("EXACT MATCHER — BEFORE (match every turn, last-wins)", mBefore);
+  printTable("EXACT MATCHER — AFTER (match the opening story only)", mAfter);
+
+  check(
+    "matcher BEFORE: an evidence answer re-routed the claim type",
+    mBefore[mBefore.length - 1].retained === DEBT_SERVICES.claimTypeId,
+    `retained ${mBefore[mBefore.length - 1].retained}`,
+  );
+  check(
+    "matcher AFTER: the opening story's match survives every answer",
+    mAfter[mAfter.length - 1].retained === PERSONAL_LOAN.claimTypeId,
+    `retained ${mAfter[mAfter.length - 1].retained}`,
+  );
+  check(
+    "matcher AFTER: matchedClaimTypes is populated on the opening turn only",
+    mAfter[0].classifierCalled && mAfter.slice(1).every((row) => !row.classifierCalled),
+  );
+  check(
+    "matcher AFTER: the AI classifier never runs once the story matched exactly",
+    mAfterRun.classifierCalls === 0,
+    `${mAfterRun.classifierCalls} call(s)`,
+  );
+  check(
+    "matcher BEFORE: later turns also leaked into the AI classifier",
+    mBeforeRun.classifierCalls > 0,
+    `${mBeforeRun.classifierCalls} call(s)`,
+  );
+
+  // Symmetry is the actual requirement: neither path may re-resolve a claim
+  // type from an answer.
+  check(
+    "both paths are gated by the same rule",
+    after.slice(1).every((row) => !row.classifierCalled) &&
+      mAfter.slice(1).every((row) => !row.classifierCalled),
   );
 
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
