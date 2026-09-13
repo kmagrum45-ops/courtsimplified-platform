@@ -652,6 +652,52 @@ absent.
 
 ---
 
+## 15. Checks that DEFEND a defect — fixtures encode assumptions
+
+**Found 2026-09-13. One instance fixed; nothing else audited for it.**
+
+`verifyAuthorityKnowledgeBridge.ts` asserted:
+
+```ts
+assert.equal(jurisdictionRegulation.sourceReferences[1]?.sourceUrl,
+  "https://www.ontario.ca/laws/regulation/r25042");
+assert.equal(regulation.sourceUrl,
+  "https://www.ontario.ca/laws/regulation/000626");
+```
+
+Both pinned the e-Laws **viewer** route, which returns a JS shell with no
+readable text. The suite therefore **would have failed if anyone fixed those
+citations** — and it did fail, on the commit that fixed them.
+
+**This is a distinct failure mode from a check that cannot see a defect.** A
+blind check is passive: it misses the problem. A check like this is active: it
+holds the problem in place, and the person who fixes the bug is the one who gets
+the red build. The pressure is to revert the fix.
+
+**The general lesson: a fixture encodes an assumption as strongly as an
+assertion does.** Any `assert.equal` against a literal is a claim that the
+literal is correct. Any hand-built test double is a claim that its shape is
+valid. Neither is reviewed the way shipped content is, and both outlive the
+reasoning that produced them.
+
+**Not audited.** One instance was found because a fix happened to collide with
+it. Nothing systematic has looked for others. What to look for:
+
+- `assert.equal(..., "<literal URL>")` — pins a URL, right or wrong.
+- Test doubles carrying fields that shipped code no longer has, or values that
+  shipped registries no longer use.
+- Expected-output fixtures (`*.expected.md`) recording behaviour that was never
+  correct, only current.
+- Any fixture whose value was copied from production data rather than authored
+  from a source.
+
+A first pass could be mechanical: every literal URL in `scripts/verification/`
+run through `isResolvableSourceUrl`. Synthetic fixtures (`.../regulation/example`)
+would need excluding — they are test doubles, not citations, and two suites use
+them legitimately.
+
+---
+
 ## 14. The 146 undated ClaimType sources — the backfill plan
 
 **Not started. Recorded so it can be done in batches rather than as one block.**
