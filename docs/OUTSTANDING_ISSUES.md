@@ -304,6 +304,30 @@ From the per-journey interception data in `_RATE_before.md` and `_RATE_after.md`
 
 **The lesson for any future pass:** every one of these evaded a field-name or wordlist check. A grade is a *shape* — an ordinal drawn from a fixed ladder, or a bounded number — and that is what has to be detected. See the structural-check proposal filed with this entry.
 
+### ⚠️ The assistant route was passing 18,000 characters of unfiltered JSON to a free-text model — FIXED
+
+`/api/assistant-chat`'s context block ended with five raw dumps:
+
+```
+MASTER_RESULT SNAPSHOT:       safeJson(body.master_result, 5000)
+CASE_DATA SNAPSHOT:           safeJson(body.caseData, 3500)
+EVIDENCE_DATA SNAPSHOT:       safeJson(body.evidenceData, 3500)
+STRATEGY_DATA SNAPSHOT:       safeJson(body.strategyData, 2500)
+WORKSPACE_DOCUMENT SNAPSHOT:  safeJson(body.workspaceDocument, 3500)
+```
+
+`JSON.stringify` over whatever the component passed — so **any field added to any engine reached a free-text model with nobody deciding it should.** The curated fields above them were chosen carefully; these bypassed that entirely.
+
+**What was in there.** On the family path `master_result` carries `familyEvidence`, whose every item has `strength` and **`strengthScore`** — the 0–100 grade from `familyEvidenceEngine.ts:253` — plus `familyMasterResult.confidence`, the **high/medium/low** from `determineConfidence()`. `strategyData` carried `litigationRisks` with severities. `caseData` carried the entire `analysis` object.
+
+**This is why "not rendered in the UI" was never a sufficient answer to whether a §3 value reaches the user.** Both family score formulas were reported as not rendered. They were being handed, in full, to a model that writes prose.
+
+**The rule this establishes: free text has no field paths.** Every mitigation this project has built — `sanitizeCognitionOutput`'s path-walking, the field-name checks, the ordinal-ladder detectors — operates on *named fields in a structured object*. A chat reply is one string. Once the model has been given a number, nothing downstream can stop it saying the number. **No field-level check can ever cover this surface. Only what enters the context can.**
+
+**Fixed** by replacing all five with `buildUserAccountContext()`, an explicit allowlist carrying only the user's own account (`facts`, `timeline`, `evidence`, `goal`, `urgent`). A new engine field cannot reach the prompt unless someone adds it there on purpose. `risk.severity` removed. `validateCaseStrengthLanguage` now runs on the output — falling back to the deterministic answer rather than a blank bubble.
+
+**The floor is a floor.** The validator tests strings against 27 substrings: it cannot see numbers, and *"you'd likely be looking at around $600 a month"* passes it cleanly. Pinned by `verifyAssistantContext.ts`, mutation-tested.
+
 ### ⚠️ Six risk-weighted score formulas have now been found live, not four — and more remain
 
 The handoff records four score formulas removed. **Six have now been found.** The two additional ones were both live, both user-reachable, and both missed by every earlier pass:

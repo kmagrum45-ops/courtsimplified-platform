@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createOpenAIClient } from "@/src/lib/case-system/openaiClient";
+import { validateCaseStrengthLanguage } from "@/src/lib/case-system/intelligence/caseStrengthLanguageValidator";
 
 import { runCourtSimplifiedBrain } from "../../../src/lib/case-system/intelligence/courtSimplifiedBrain";
 import { getAuthenticatedUser } from "../../../src/lib/supabase/serverAuth";
@@ -49,13 +50,9 @@ function truncate(value: string, maxLength = 6000): string {
   return `${text.slice(0, maxLength)}\n\n[Content truncated for assistant reliability.]`;
 }
 
-function safeJson(input: unknown, maxLength = 8000): string {
-  try {
-    return truncate(JSON.stringify(input ?? {}, null, 2), maxLength);
-  } catch {
-    return "{}";
-  }
-}
+// safeJson() removed with the five raw snapshots it served. Nothing should
+// JSON.stringify an engine result into this prompt again — see
+// buildUserAccountContext() for why, and for the allowlist that replaced it.
 
 function asCourtPath(value: unknown): IntelligenceCourtPath {
   const text = clean(value);
@@ -293,6 +290,61 @@ Professional, plain language, calm, specific, and not generic.
 `;
 }
 
+/**
+ * The ONLY fields from the caller's payload that reach the prompt.
+ *
+ * ---------------------------------------------------------------------------
+ * SESSION 48 — FIVE RAW JSON SNAPSHOTS WERE REMOVED FROM THIS PROMPT
+ * ---------------------------------------------------------------------------
+ *
+ * The context block used to end with:
+ *
+ *   MASTER_RESULT SNAPSHOT:       safeJson(body.master_result, 5000)
+ *   CASE_DATA SNAPSHOT:           safeJson(body.caseData, 3500)
+ *   EVIDENCE_DATA SNAPSHOT:       safeJson(body.evidenceData, 3500)
+ *   STRATEGY_DATA SNAPSHOT:       safeJson(body.strategyData, 2500)
+ *   WORKSPACE_DOCUMENT SNAPSHOT:  safeJson(body.workspaceDocument, 3500)
+ *
+ * — up to 18,000 characters of `JSON.stringify` over whatever the component
+ * happened to pass. The curated fields above are chosen carefully; these
+ * bypassed that entirely, so ANY field added to ANY engine reached a free-text
+ * model with nobody deciding it should.
+ *
+ * What was actually in there, on the family path: master_result carries
+ * `familyEvidence`, whose items each have `strength` and `strengthScore`
+ * (a 0-100 grade of the user's evidence), and `familyMasterResult.confidence`
+ * (a high/medium/low readiness grade). Both are CLAUDE.md section 3 values.
+ * Neither renders in the UI — which is exactly why "not rendered" was never a
+ * sufficient answer to whether a section 3 value reaches the user. Free text
+ * has no field paths: nothing downstream can catch "your evidence is strong"
+ * once the model has been handed the score that says so.
+ *
+ * This function is the replacement: an explicit allowlist. A new field in an
+ * engine cannot reach the prompt unless someone adds it here on purpose.
+ *
+ * It carries the user's OWN account and nothing derived from it. Every value
+ * is text the user typed.
+ */
+function buildUserAccountContext(caseData: unknown): string {
+  const record = asRecord(caseData);
+  const intake = asRecord(record.intake);
+
+  const fields: [string, unknown][] = [
+    ["What happened", intake.facts],
+    ["Timeline as described", intake.timeline],
+    ["Evidence the user says they have", intake.evidence],
+    ["What the user is asking for", intake.goal],
+    ["Anything urgent the user raised", intake.urgent],
+  ];
+
+  const lines = fields
+    .map(([label, value]) => [label, clean(value)] as const)
+    .filter(([, value]) => value.length > 0)
+    .map(([label, value]) => `- ${label}: ${truncate(value, 1200)}`);
+
+  return lines.length > 0 ? lines.join("\n") : "Nothing recorded yet.";
+}
+
 function buildStructuredIntelligenceContext(args: {
   body: AssistantRequestBody;
   brainOutput: CourtSimplifiedBrainOutput;
@@ -340,7 +392,11 @@ LITIGATION RISKS:
 ${
   intelligence.litigationRisks
     .slice(0, 10)
-    .map((risk) => `- [${risk.severity}] ${risk.title}: ${risk.suggestedFix}`)
+    // Session 48: `severity` removed. It is an ordinal grade over the user's
+    // own case, and this model writes free text — so it could say "you have a
+    // critical risk" with nothing downstream able to catch it. Title and
+    // suggested fix describe the thing; the grade ranked it.
+    .map((risk) => `- ${risk.title}: ${risk.suggestedFix}`)
     .join("\n") || "None"
 }
 
@@ -379,20 +435,8 @@ ${
 SYSTEM WARNINGS:
 ${intelligence.systemWarnings.map((item) => `- ${item}`).join("\n") || "None"}
 
-MASTER_RESULT SNAPSHOT:
-${safeJson(body.master_result, 5000)}
-
-CASE_DATA SNAPSHOT:
-${safeJson(body.caseData, 3500)}
-
-EVIDENCE_DATA SNAPSHOT:
-${safeJson(body.evidenceData, 3500)}
-
-STRATEGY_DATA SNAPSHOT:
-${safeJson(body.strategyData, 2500)}
-
-WORKSPACE_DOCUMENT SNAPSHOT:
-${safeJson(body.workspaceDocument, 3500)}
+WHAT THE USER TOLD US, IN THEIR OWN WORDS:
+${buildUserAccountContext(body.caseData)}
 `;
 }
 
@@ -476,9 +520,40 @@ export async function POST(req: NextRequest) {
       ],
     });
 
+    const generated = response.choices[0]?.message?.content?.trim() || "";
+
+    // Session 48: run the case-strength validator over the model's answer.
+    //
+    // This route generated free text and NOTHING checked it — no sanitizer, no
+    // validator. The only constraint was the system prompt's "do not guarantee
+    // outcomes", and prohibition-by-prompt has failed three times in this
+    // codebase (viability concentrated 15 -> 19 AFTER the prompt was
+    // strengthened; intelligenceSummary simply found words the blocklist did
+    // not carry).
+    //
+    // FAILURE MODE. The sanitizer used elsewhere BLANKS a failing string, which
+    // is right for a field and wrong here: a blank chat bubble tells the user
+    // nothing and looks broken. Instead the deterministic fallback answer —
+    // built from the same structured intelligence, with no model involvement —
+    // is returned in its place. The user gets a real answer; the offending text
+    // never ships.
+    //
+    // This is a FLOOR, not a solution. It cannot see numbers (it tests strings
+    // against 27 substrings), and it cannot see phrasing outside that list —
+    // "you'd likely be looking at around $600 a month" passes it cleanly. What
+    // actually constrains this surface is what enters the context, which is why
+    // buildUserAccountContext above is an allowlist.
+    const verdict = validateCaseStrengthLanguage(generated);
+
+    if (generated && !verdict.valid) {
+      console.error(
+        `[assistant-chat] answer rejected by the case-strength validator ` +
+          `(matched term "${verdict.matchedTerm}") — returning the deterministic answer instead.`,
+      );
+    }
+
     const answer =
-      response.choices[0]?.message?.content?.trim() ||
-      buildFallbackAnswer(brainOutput.intelligence);
+      generated && verdict.valid ? generated : buildFallbackAnswer(brainOutput.intelligence);
 
     return NextResponse.json({
       success: true,
