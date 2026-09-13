@@ -253,6 +253,45 @@ exists" — the premise itself is sometimes the thing to verify first.
 
 ---
 
+### Family law sources — what retrieves, and how (verified 2026-09-13)
+
+**Ontario statutes and rules: the existing `.doc` route works, all current.**
+Fetched, `antiword`-extracted and read:
+
+| id | What | Consolidation |
+|---|---|---|
+| `990114_e.doc` | **O. Reg. 114/99, Family Law Rules** (header reads "Courts of Justice Act" — it is the parent Act, this *is* the Rules) | from 2026-05-01 |
+| `90f03_e.doc` | Family Law Act | from 2026-05-01 |
+| `90c12_e.doc` | Children's Law Reform Act | from 2025-12-11 |
+| `90c43_e.doc` | Courts of Justice Act | from 2025-12-11 |
+
+**Federal sources: the e-Laws technique does NOT apply, and a different one does.** `laws-lois.justice.gc.ca/eng/acts/<id>/FullText.html` returns real, parseable HTML to a plain fetch — no JS shell, no `.doc` detour. Verified:
+
+- **Divorce Act** — `acts/D-3.4/FullText.html`, HTTP 200, *current to 2026-07-21*.
+- **Federal Child Support Guidelines** — `regulations/SOR-97-175/FullText.html`, HTTP 200, *current to 2026-07-21*.
+
+**The child support TABLES are not in the Guidelines' FullText.** `SCHEDULE I — Federal Child Support Tables` appears there as a **heading only**. The table data lives on the paginated view: **`regulations/SOR-97-175/page-5.html`** carries the Ontario table, retrieved and read.
+
+**The table is a formula, not a lookup cell.** Its real columns are `From | To | Basic Amount | Plus (%) | Of Income Over` — e.g. income 17,000–17,999 for one child gives *Basic Amount 95, plus 1.14% of income over 17,000*. Anyone assuming "find the row, read the number" is wrong about the source.
+
+**Spousal Support Advisory Guidelines** — `justice.gc.ca/eng/rp-pr/fl-lf/spousal-epoux/spag/p1.html` (HTTP 200). Note the path: `/eng/fl-df/spousal-epoux/ssag-ldfpae.html` returns a JS shell with no text, and `/eng/fl-df/spousal-epoux/spag/index.html` **302s**. Use the `rp-pr/fl-lf` path. The document describes itself as *"informal guidelines"*, *"advisory"*, and *"developed for use under the federal Divorce Act"*.
+
+**ontariocourtforms.on.ca does NOT yield a form list to a plain fetch — CONFIRMED, don't retry the obvious routes.** `/en/family-law-rules-forms/` returns HTTP 200 but the page body contains navigation and analytics only; zero `Form N` strings and no form links. Two guessed patterns both 404:
+`/static/media/uploads/courtforms/family/8/fl-8-e.pdf` and `/en/family-law-rules-forms/superior-court-of-justice/`. **The correct per-form URL pattern is UNKNOWN and was not determined.** Do not invent one.
+
+**The workaround that does work: O. Reg. 114/99 names its own forms.** `990114_e.doc` contains **97 distinct `Form N` references** (Form 4, 6, 6A–6C, 8, 8.0, 8D.1–8D.3, 10, 10A, 12, 13, 13A–13C, 13.1, 14, 14A–14D, 15, 15B–15D, 17, 17C, 17E, 17F, 20.2, 22, 23, 23C, 25, 25A, 25E, 25F, 25H, …). So **form numbers and the rule that requires each are sourceable from the Rules alone**, without the forms site. What that route does *not* give is the form's official title or its PDF.
+
+**The jurisdiction map is in two places, both retrieved:**
+- **CJA s. 21.8 + its Schedule** — the Family Court branch's exclusive subject-matter list.
+- **FLR r. 1(2)** — the same list, expressed as which cases the Rules apply to, plus paragraphs (b)–(f) covering domestic contracts, unjust enrichment between cohabitees, annulment, family-arbitration appeals, and First Nation land laws.
+- **FLR r. 1(3)** — the **24 named municipalities** where the Family Court branch has jurisdiction. This is the by-location answer; it is a closed list in the regulation, not something to infer from a court-locator page.
+
+**Two carve-outs worth knowing before designing around them**, both verified by reading the Acts:
+- *Children's Law Reform Act, **except ss. 59 and 60***.
+- *Family Law Act, **except Part V***. Part V is headed **"DEPENDANTS' CLAIM FOR DAMAGES — RIGHT OF DEPENDANTS TO SUE IN TORT"** — a tort claim, which is why it sits outside the family list.
+
+---
+
 ## Dead ends already ruled out
 
 ### Ontario Fault Determination Rules ≠ a route to sue the other driver
