@@ -32,6 +32,66 @@ function check(name: string, ok: boolean, detail?: string): void {
   }
 }
 
+/**
+ * The regulation's own TABLE OF FORMS, vendored verbatim under docs/sources/.
+ *
+ * WHY A LOCAL COPY. The check below has to compare `officialTitle` against the
+ * regulation itself, and a verification suite must not depend on a live fetch
+ * of ontario.ca — it would turn a content check into a network check and would
+ * pass silently when the fetch failed. CLAUDE.md section 2 makes a primary
+ * source saved under docs/sources/ a first-class citation route, provided its
+ * provenance is recorded; docs/sources/README.md records this one.
+ */
+const TABLE_OF_FORMS = readFileSync(
+  path.join(__dirname, "..", "..", "docs", "sources", "oreg-114-99-table-of-forms.txt"),
+  "utf8",
+);
+
+/**
+ * Parse the pipe-delimited table into formNumber -> title.
+ *
+ * A title too long for the column wraps onto a following row whose form-number
+ * cell is blank, e.g.
+ *
+ *   |35.1        |AFFIDAVIT (DECISION-MAKING RESPONSIBILITY,    |SEPTEMBER 1, 2021|
+ *   |            |PARENTING TIME, CONTACT)                      |                 |
+ *
+ * so a continuation row appends to the entry above it. Reading only the first
+ * row is exactly how the wrong title got in: the visible half ended in a comma
+ * and the rest was on the next line.
+ */
+function parseTableOfForms(): Map<string, string> {
+  const titles = new Map<string, string>();
+  let current: string | null = null;
+
+  for (const line of TABLE_OF_FORMS.split("\n")) {
+    if (!line.startsWith("|")) continue;
+
+    const cells = line.split("|").map((cell) => cell.trim());
+    const [, formNumber, title] = cells;
+
+    if (formNumber === "FORM NUMBER" || title === undefined) continue;
+
+    if (formNumber) {
+      if (/^REVOKED/i.test(title)) {
+        current = null;
+        continue;
+      }
+      titles.set(formNumber, title);
+      current = formNumber;
+    } else if (current && title) {
+      titles.set(current, `${titles.get(current)} ${title}`);
+    }
+  }
+
+  return titles;
+}
+
+/** The table is upper-case; the registry is title-case. Compare on letters. */
+function canonical(title: string): string {
+  return title.toUpperCase().replace(/\s+/g, " ").trim();
+}
+
 const ENGINES = [
   "familyStrategyEngine.ts",
   "familyWorkflowEngine.ts",
@@ -60,6 +120,45 @@ function main(): void {
     );
   }
 
+  // ---- officialTitle matches the regulation, character for character ----
+  //
+  // The two checks above were what existed when Form 35.1 shipped as
+  // "...Parenting Time AND Contact" against a regulation that says
+  // "...PARENTING TIME, CONTACT". They assert that a title is non-empty and
+  // does not begin with "Form" — neither of which a paraphrase violates. A
+  // field documented as never paraphrased needs to be compared to the thing it
+  // is not allowed to paraphrase.
+
+  const tableTitles = parseTableOfForms();
+
+  check(
+    "the vendored TABLE OF FORMS parsed",
+    tableTitles.size > 50,
+    `parsed ${tableTitles.size} entries`,
+  );
+  check(
+    "multi-line titles are joined, not truncated at the first row",
+    tableTitles.get("35.1") === "AFFIDAVIT (DECISION-MAKING RESPONSIBILITY, PARENTING TIME, CONTACT)",
+    tableTitles.get("35.1"),
+  );
+
+  for (const form of FAMILY_FORMS) {
+    const fromRegulation = tableTitles.get(form.formNumber);
+
+    check(
+      `[Form ${form.formNumber}] appears in the regulation's TABLE OF FORMS`,
+      fromRegulation !== undefined,
+    );
+
+    if (fromRegulation === undefined) continue;
+
+    check(
+      `[Form ${form.formNumber}] officialTitle matches the regulation exactly`,
+      canonical(form.officialTitle) === canonical(fromRegulation),
+      `registry:   ${form.officialTitle}\n      regulation: ${fromRegulation}`,
+    );
+  }
+
   // ---- The engines no longer hardcode a form string ----
   //
   // Comments may discuss form numbers; live code must not contain a bare
@@ -85,7 +184,7 @@ function main(): void {
   check(
     "familyFormLabel returns the regulation's own title",
     familyFormLabel("35.1") ===
-      "Form 35.1 — Affidavit (Decision-Making Responsibility, Parenting Time and Contact)",
+      "Form 35.1 — Affidavit (Decision-Making Responsibility, Parenting Time, Contact)",
     familyFormLabel("35.1"),
   );
 

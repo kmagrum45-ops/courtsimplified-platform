@@ -391,3 +391,24 @@ recorded in full. Those 6 are flagged individually below.
 - **Neutral citation:** 2019 SCC 42, [2019] 3 S.C.R. 295
 - **Retrieved from:** decisions.scc-csc.ca (id=17917)
 - **Downloaded:** 2026-09-11
+
+### `oreg-114-99-table-of-forms.txt`
+
+- **What it is:** the TABLE OF FORMS from **O. Reg. 114/99 (Family Law
+  Rules)** — the regulation's own form numbers and titles, extracted
+  verbatim as a pipe-delimited block. Unlike the case PDFs above, this is
+  vendored to be *machine-read*, not just cited: `verifyFamilyForms.ts`
+  parses it and compares every `officialTitle` in
+  `familyFormsRegistry.ts` against it character for character.
+- **Why a local copy:** a verification suite must not depend on a live
+  fetch of ontario.ca. A network-dependent check is a check that passes
+  silently when the network fails, which is worse than no check.
+- **Citation:** O. Reg. 114/99, made under the Courts of Justice Act
+- **Retrieved from:** https://www.ontario.ca/laws/docs/990114_e.doc,
+  extracted with `antiword`
+- **Consolidation period:** from 2026-05-01 to the e-Laws currency date
+- **Downloaded:** 2026-09-13
+- **Refreshing it:** re-run the `.doc` fetch, re-extract the block between
+  "TABLE OF FORMS" and the closing "O. REG. 76/06, S. 14" amendment line,
+  and keep the four-line provenance header. If a title changes, the suite
+  will fail until the registry is updated to match — which is the point.

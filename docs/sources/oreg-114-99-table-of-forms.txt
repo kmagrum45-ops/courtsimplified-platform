@@ -1,0 +1,191 @@
+O. Reg. 114/99 (Family Law Rules) â€” TABLE OF FORMS
+Source: https://www.ontario.ca/laws/docs/990114_e.doc
+Consolidation period: from 2026-05-01 to the e-Laws currency date
+Extracted with antiword, 2026-09-13. Verbatim block, unedited below this line.
+----------------------------------------------------------------------
+                               TABLE OF FORMS
+
+|FORM NUMBER |FORM TITLE                                    |DATE OF FORM     |
+|4           |NOTICE OF CHANGE IN REPRESENTATION            |JUNE 13, 2025    |
+|6           |ACKNOWLEDGMENT OF SERVICE                     |SEPTEMBER 1, 2005|
+|6A          |ADVERTISEMENT                                 |MARCH 19, 2015   |
+|6B          |AFFIDAVIT OF SERVICE                          |APRIL 12, 2016   |
+|6C          |LAWYER OR PARALEGAL'S CERTIFICATE OF SERVICE  |APRIL 1, 2023    |
+|8           |APPLICATION (GENERAL)                         |JUNE 13, 2025    |
+|8.0.1       |AUTOMATIC ORDER                               |SEPTEMBER 1, 2021|
+|8A          |APPLICATION (DIVORCE)                         |APRIL 1, 2024    |
+|8B          |APPLICATION (CHILD PROTECTION AND STATUS      |FEBRUARY 1, 2022 |
+|            |REVIEW)                                       |                 |
+|8B.1        |APPLICATION (STATUS REVIEW FOR CHILD IN       |MARCH 1, 2018    |
+|            |EXTENDED SOCIETY CARE AND CHILD FORMERLY IN   |                 |
+|            |EXTENDED SOCIETY CARE)                        |                 |
+|8B.2        |APPLICATION (GENERAL) (CHILD, YOUTH AND FAMILY|MARCH 1, 2018    |
+|            |SERVICES ACT, 2017 CASES OTHER THAN CHILD     |                 |
+|            |PROTECTION AND STATUS REVIEW)                 |                 |
+|8C          |APPLICATION (SECURE TREATMENT)                |MARCH 1, 2018    |
+|8D          |APPLICATION (ADOPTION)                        |MAY 26, 2025     |
+|8D.1        |APPLICATION (DISPENSE WITH PARENT'S CONSENT TO|NOVEMBER 1, 2018 |
+|            |ADOPTION BEFORE PLACEMENT)                    |                 |
+|8D.2        |NOTICE OF INTENTION TO PLACE CHILD(REN) FOR   |MARCH 1, 2018    |
+|            |ADOPTION                                      |                 |
+|8D.3        |NOTICE OF INTENTION TO PLACE FIRST NATIONS,   |MARCH 1, 2018    |
+|            |INUK OR MÉTIS CHILD FOR ADOPTION              |                 |
+|8D.4        |REVOKED:  O. REG. 298/18, S. 23 (2)                              |
+|8E          |REVOKED:  O. REG. 519/06, S. 7 (1).                              |
+|10          |ANSWER                                        |JUNE 13, 2025    |
+|10A         |REPLY                                         |SEPTEMBER 1, 2005|
+|12          |NOTICE OF WITHDRAWAL                          |SEPTEMBER 1, 2005|
+|13          |FINANCIAL STATEMENT (SUPPORT CLAIMS)          |MAY 1, 2021      |
+|13.1        |FINANCIAL STATEMENT (PROPERTY AND SUPPORT     |MAY 1, 2021      |
+|            |CLAIMS)                                       |                 |
+|13A         |CERTIFICATE OF FINANCIAL DISCLOSURE           |MAY 1, 2021      |
+|13B         |NET FAMILY PROPERTY STATEMENT                 |MAY 15, 2009     |
+|13C         |COMPARISON OF NET FAMILY PROPERTY STATEMENTS  |MAY 1, 2021      |
+|14          |NOTICE OF MOTION                              |MARCH 1, 2018    |
+|14A         |AFFIDAVIT (GENERAL)                           |SEPTEMBER 1, 2005|
+|14B         |MOTION FORM                                   |SEPTEMBER 1, 2021|
+|14C         |CONFIRMATION OF MOTION                        |SEPTEMBER 24,    |
+|            |                                              |2024             |
+|14D         |ORDER ON MOTION WITHOUT NOTICE                |SEPTEMBER 1, 2005|
+|15          |MOTION TO CHANGE                              |SEPTEMBER 1, 2021|
+|15A         |REVOKED: O. REG. 373/20, S. 6 (2).                               |
+|15B         |RESPONSE TO MOTION TO CHANGE                  |DECEMBER 1, 2020 |
+|15C         |CONSENT MOTION TO CHANGE                      |DECEMBER 1, 2020 |
+|15D         |CONSENT MOTION TO CHANGE CHILD SUPPORT        |DECEMBER 1, 2020 |
+|17          |CONFERENCE NOTICE                             |NOVEMBER 1, 2018 |
+|17A         |CASE CONFERENCE BRIEF - GENERAL               |SEPTEMBER 1, 2023|
+|17B         |CASE CONFERENCE BRIEF FOR PROTECTION          |MARCH 1, 2018    |
+|            |APPLICATION OR STATUS REVIEW                  |                 |
+|17C         |SETTLEMENT CONFERENCE BRIEF - GENERAL         |SEPTEMBER 1, 2023|
+|17D         |SETTLEMENT CONFERENCE BRIEF FOR PROTECTION    |SEPTEMBER 1, 2023|
+|            |APPLICATION OR STATUS REVIEW                  |                 |
+|17E         |TRIAL MANAGEMENT CONFERENCE BRIEF             |SEPTEMBER 1, 2023|
+|17F         |CONFIRMATION OF CONFERENCE                    |SEPTEMBER 24,    |
+|            |                                              |2024             |
+|17G         |CERTIFICATE OF DISPUTE RESOLUTION             |MAY 1, 2021      |
+|20          |REQUEST FOR INFORMATION                       |SEPTEMBER 1, 2005|
+|20.1        |REVOKED: O. REG. 250/19, S. 13 (1).                              |
+|20A         |AUTHORIZATION TO COMMISSIONER                 |SEPTEMBER 1, 2005|
+|20B         |LETTER OF REQUEST                             |SEPTEMBER 1, 2005|
+|20.2        |ACKNOWLEDGEMENT OF EXPERT'S DUTY              |JUNE 1, 2019     |
+|22          |REQUEST TO ADMIT                              |SEPTEMBER 1, 2005|
+|22A         |RESPONSE TO REQUEST TO ADMIT                  |SEPTEMBER 1, 2005|
+|23          |SUMMONS TO WITNESS                            |SEPTEMBER 1, 2023|
+|23A         |SUMMONS TO WITNESS OUTSIDE ONTARIO            |SEPTEMBER 1, 2023|
+|23B         |ORDER FOR PRISONER'S ATTENDANCE               |SEPTEMBER 1, 2005|
+|23C         |AFFIDAVIT FOR UNCONTESTED TRIAL               |DECEMBER 1, 2020 |
+|25          |ORDER (GENERAL)                               |DECEMBER 1, 2020 |
+|25A         |DIVORCE ORDER                                 |SEPTEMBER 1, 2005|
+|25B         |SECURE TREATMENT ORDER                        |MARCH 1, 2018    |
+|25C         |ADOPTION ORDER                                |MAY 26, 2025     |
+|25D         |ORDER (UNCONTESTED TRIAL)                     |DECEMBER 1, 2020 |
+|25E         |NOTICE DISPUTING APPROVAL OF ORDER            |SEPTEMBER 1, 2005|
+|25F         |RESTRAINING ORDER                             |SEPTEMBER 1, 2009|
+|25G         |RESTRAINING ORDER ON MOTION WITHOUT NOTICE    |SEPTEMBER 1, 2009|
+|25H         |ORDER TERMINATING RESTRAINING ORDER           |SEPTEMBER 1, 2009|
+|26          |STATEMENT OF MONEY OWED                       |APRIL 12, 2016   |
+|26A         |AFFIDAVIT OF ENFORCEMENT EXPENSES             |APRIL 12, 2016   |
+|26B         |AFFIDAVIT FOR FILING DOMESTIC CONTRACT WITH   |MAY 26, 2025     |
+|            |COURT                                         |                 |
+|26C         |NOTICE OF TRANSFER OF ENFORCEMENT             |APRIL 12, 2016   |
+|26D         |AFFIDAVIT FOR FILING FAMILY ARBITRATION AWARD |MAY 26, 2025     |
+|            |FOR SUPPORT WITH COURT                        |                 |
+|27          |REQUEST FOR FINANCIAL STATEMENT               |APRIL 12, 2016   |
+|27A         |REQUEST FOR STATEMENT OF INCOME               |APRIL 12, 2016   |
+|27B         |STATEMENT OF INCOME FROM INCOME SOURCE        |SEPTEMBER 1, 2005|
+|27C         |APPOINTMENT FOR FINANCIAL EXAMINATION         |APRIL 12, 2016   |
+|28          |WRIT OF SEIZURE AND SALE                      |APRIL 12, 2016   |
+|28A         |REQUEST FOR WRIT OF SEIZURE AND SALE          |SEPTEMBER 1, 2005|
+|28B         |STATUTORY DECLARATION TO SHERIFF              |JUNE 15, 2007    |
+|28C         |WRIT OF TEMPORARY SEIZURE                     |SEPTEMBER 1, 2005|
+|29          |REQUEST FOR GARNISHMENT                       |APRIL 12, 2016   |
+|29A         |NOTICE OF GARNISHMENT (LUMP-SUM DEBT)         |APRIL 12, 2016   |
+|29B         |NOTICE OF GARNISHMENT (PERIODIC DEBT)         |APRIL 12, 2016   |
+|29C         |NOTICE TO CO-OWNER OF DEBT                    |SEPTEMBER 1, 2005|
+|29D         |STATUTORY DECLARATION OF INDEXED SUPPORT      |APRIL 12, 2016   |
+|29E         |DISPUTE (PAYOR)                               |SEPTEMBER 1, 2005|
+|29F         |DISPUTE (GARNISHEE)                           |SEPTEMBER 1, 2005|
+|29G         |DISPUTE (CO-OWNER OF DEBT)                    |SEPTEMBER 1, 2005|
+|29H         |NOTICE OF GARNISHMENT HEARING                 |SEPTEMBER 1, 2005|
+|29I         |NOTICE TO STOP GARNISHMENT                    |SEPTEMBER 1, 2005|
+|29J         |STATEMENT TO GARNISHEE FINANCIAL INSTITUTION  |APRIL 12, 2016   |
+|            |RE SUPPORT                                    |                 |
+|30          |NOTICE OF DEFAULT HEARING                     |APRIL 12, 2016   |
+|30A         |REQUEST FOR DEFAULT HEARING                   |SEPTEMBER 1, 2005|
+|30B         |DEFAULT DISPUTE                               |SEPTEMBER 1, 2005|
+|31          |NOTICE OF CONTEMPT MOTION                     |SEPTEMBER 1, 2005|
+|32          |BOND (RECOGNIZANCE)                           |SEPTEMBER 1, 2005|
+|32A         |NOTICE OF FORFEITURE MOTION                   |SEPTEMBER 1, 2005|
+|32B         |WARRANT FOR ARREST                            |APRIL 12, 2016   |
+|32C         |AFFIDAVIT FOR WARRANT OF COMMITTAL            |SEPTEMBER 1, 2005|
+|32D         |WARRANT OF COMMITTAL                          |APRIL 12, 2016   |
+|32.1        |REQUEST TO ENFORCE A FAMILY ARBITRATION AWARD |MAY 26, 2025     |
+|32.1A       |DISPUTE OF REQUEST FOR ENFORCEMENT            |OCTOBER 1, 2012  |
+|33          |INFORMATION FOR WARRANT TO BRING A CHILD TO A |MARCH 1, 2018    |
+|            |PLACE OF SAFETY                               |                 |
+|33A         |WARRANT TO BRING A CHILD TO A PLACE OF SAFETY |MARCH 1, 2018    |
+|33B         |PLAN OF CARE FOR CHILD(REN) (CHILDREN'S AID   |MARCH 1, 2018    |
+|            |SOCIETY)                                      |                 |
+|33B.1       |ANSWER AND PLAN OF CARE (PARTIES OTHER THAN   |DECEMBER 1, 2020 |
+|            |CHILDREN'S AID SOCIETY)                       |                 |
+|33B.2       |ANSWER (CHILD, YOUTH AND FAMILY SERVICES ACT, |MARCH 1, 2018    |
+|            |2017 CASES OTHER THAN CHILD PROTECTION AND    |                 |
+|            |STATUS REVIEW)                                |                 |
+|33C         |STATEMENT OF AGREED FACTS (CHILD PROTECTION)  |MARCH 1, 2018    |
+|33D         |STATEMENT OF AGREED FACTS (STATUS REVIEW)     |MARCH 1, 2018    |
+|33E         |CHILD'S CONSENT TO SECURE TREATMENT           |SEPTEMBER 1, 2005|
+|33F         |CONSENT TO SECURE TREATMENT (PERSON OTHER THAN|MAY 1, 2021      |
+|            |CHILD)                                        |                 |
+|34          |CHILD'S CONSENT TO ADOPTION                   |NOVEMBER 1, 2018 |
+|34A         |AFFIDAVIT OF PARENTAGE                        |DECEMBER 1, 2020 |
+|34B         |NON-PARENT'S CONSENT TO ADOPTION BY SPOUSE    |MARCH 1, 2018    |
+|34C         |DIRECTOR'S OR LOCAL DIRECTOR'S STATEMENT ON   |MARCH 1, 2018    |
+|            |ADOPTION                                      |                 |
+|34D         |AFFIDAVIT OF ADOPTION APPLICANT(S),           |MARCH 1, 2018    |
+|            |SWORN/AFFIRMED                                |                 |
+|34E         |DIRECTOR'S CONSENT TO ADOPTION                |MARCH 1, 2018    |
+|34F         |PARENT'S OR CUSTODIAN'S CONSENT TO ADOPTION   |DECEMBER 1, 2020 |
+|34G         |AFFIDAVIT OF ADOPTION LICENSEE OR SOCIETY     |DECEMBER 1, 2020 |
+|            |EMPLOYEE                                      |                 |
+|34G.1       |AFFIDAVIT OF SOCIETY EMPLOYEE FOR ADOPTION OF |MARCH 1, 2018    |
+|            |A CHILD IN EXTENDED SOCIETY CARE              |                 |
+|34H         |AFFIDAVIT OF APPLICANT TO A FAMILY ADOPTION   |MAY 26, 2025     |
+|34H.1       |AFFIDAVIT OF PERSON OVER 18 LIVING WITH       |MAY 26, 2025     |
+|            |APPLICANT TO A FAMILY ADOPTION                |                 |
+|34I         |PARENT'S CONSENT TO ADOPTION BY SPOUSE        |DECEMBER 1, 2020 |
+|34J         |AFFIDAVIT OF EXECUTION AND INDEPENDENT LEGAL  |NOVEMBER 1, 2018 |
+|            |ADVICE (CHILDREN'S LAWYER)                    |                 |
+|34K         |CERTIFICATE OF CLERK (ADOPTION)               |MAY 26, 2025     |
+|34L         |APPLICATION FOR OPENNESS ORDER                |MARCH 1, 2018    |
+|34M         |CONSENT TO OPENNESS ORDER UNDER S. 194 OF THE |MARCH 1, 2018    |
+|            |CHILD, YOUTH AND FAMILY SERVICES ACT, 2017    |                 |
+|34M.1       |CONSENT TO OPENNESS ORDER UNDER S. 196 OR 197 |MARCH 1, 2018    |
+|            |OF THE CHILD, YOUTH AND FAMILY SERVICES ACT,  |                 |
+|            |2017                                          |                 |
+|34N         |APPLICATION TO CHANGE OR TERMINATE OPENNESS   |MARCH 1, 2018    |
+|            |ORDER                                         |                 |
+|35.1        |AFFIDAVIT (DECISION-MAKING RESPONSIBILITY,    |SEPTEMBER 1, 2021|
+|            |PARENTING TIME, CONTACT)                      |                 |
+|35.1A       |AFFIDAVIT (CHILD PROTECTION INFORMATION)      |DECEMBER 1, 2020 |
+|36          |AFFIDAVIT FOR DIVORCE                         |APRIL 1, 2024    |
+|36A         |CERTIFICATE OF CLERK (DIVORCE)                |DECEMBER 1, 2020 |
+|36B         |CERTIFICATE OF DIVORCE                        |SEPTEMBER 1, 2005|
+|37          |NOTICE OF HEARING                             |APRIL 1, 2024    |
+|37A         |INFORMATION SHEET                             |APRIL 1, 2024    |
+|37B         |DIRECTION TO REQUEST FURTHER INFORMATION      |APRIL 1, 2024    |
+|37C         |NOTICE OF CONTINUATION OF HEARING             |APRIL 1, 2024    |
+|37D         |NOTICE OF REGISTRATION OF ORDER               |APRIL 1, 2024    |
+|37E         |NOTICE FOR TAKING FURTHER EVIDENCE            |SEPTEMBER 1, 2005|
+|38          |NOTICE OF APPEAL                              |SEPTEMBER 1, 2005|
+|39          |NOTICE OF APPROACHING DISMISSAL               |JUNE 15, 2007    |
+|43          |BINDING JUDICIAL DISPUTE RESOLUTION HEARING   |SEPTEMBER 24,    |
+|            |REQUEST AND CONSENT                           |2024             |
+|43A         |BINDING JUDICIAL DISPUTE RESOLUTION HEARING   |SEPTEMBER 24,    |
+|            |REQUEST AND CONSENT - OFFICE OF THE CHILDREN'S|2024             |
+|            |LAWYER                                        |                 |
+|43B         |AFFIDAVIT FOR BINDING JUDICIAL DISPUTE        |SEPTEMBER 24,    |
+|            |RESOLUTION HEARING                            |2024             |
+|43C         |CONFIRMATION OF BINDING JUDICIAL DISPUTE      |SEPTEMBER 24,    |
+|            |RESOLUTION HEARING                            |2024             |
+
+

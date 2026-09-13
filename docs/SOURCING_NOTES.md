@@ -264,6 +264,20 @@ Fetched, `antiword`-extracted and read:
 | `90f03_e.doc` | Family Law Act | from 2026-05-01 |
 | `90c12_e.doc` | Children's Law Reform Act | from 2025-12-11 |
 | `90c43_e.doc` | Courts of Justice Act | from 2025-12-11 |
+| `17c14_e.doc` | **Child, Youth and Family Services Act, 2017** — added 2026-09-13. Note the id drops the schedule: the Act is S.O. 2017, c. 14, **Sched. 1**, but `17c14s1_e.doc` returns **HTTP 403**. Use the bare `17c14`. | retrieved 2026-09-13 |
+| `970391_e.doc` | **Child Support Guidelines (Ontario), O. Reg. 391/97** — added 2026-09-13. The provincial table regulation, distinct from the federal SOR/97-175. | from 2024-07-26 |
+
+**Two Ontario family statutes print NOT-YET-IN-FORCE text inline, and it is easy
+to cite by mistake.** `90f03_e.doc` s. 46(1)–(2) and `90c12_e.doc` s. 35(1)–(2)
+(restraining orders) each show the in-force provision immediately followed by a
+block beginning *"Note: On a day to be named by order of the Lieutenant Governor
+in Council, subsection … is repealed and the following substituted"* — then the
+replacement text, which reads exactly like ordinary statutory text. Both point at
+2025, c. 6 (Sched. 6 for the FLA, Sched. 2 for the CLRA) and would broaden who
+may apply. This is a different trap from the historical-version one above: the
+document header says CONSOLIDATION PERIOD and is current, but individual sections
+still carry future law. **Grep for "On a day to be named" in any e-Laws `.doc`
+before quoting a section from it.**
 
 **Federal sources: the e-Laws technique does NOT apply, and a different one does.** `laws-lois.justice.gc.ca/eng/acts/<id>/FullText.html` returns real, parseable HTML to a plain fetch — no JS shell, no `.doc` detour. Verified:
 

@@ -119,8 +119,12 @@ export const FAMILY_FORMS: FamilyForm[] = [
   },
   {
     formNumber: "35.1",
+    // The regulation's TABLE OF FORMS reads "AFFIDAVIT (DECISION-MAKING
+    // RESPONSIBILITY, PARENTING TIME, CONTACT)" — a comma, not "and". The
+    // inserted word was a paraphrase in the one field documented never to
+    // carry one.
     officialTitle:
-      "Affidavit (Decision-Making Responsibility, Parenting Time and Contact)",
+      "Affidavit (Decision-Making Responsibility, Parenting Time, Contact)",
     requiringRule: "r. 8(3.1), referring to r. 35.1",
     ruleQuote:
       "An application containing a claim respecting decision-making responsibility, parenting time or contact with respect to a child shall be accompanied by the applicable documents referred to in rule 35.1.",
