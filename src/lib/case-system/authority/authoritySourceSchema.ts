@@ -161,7 +161,13 @@ export type AuthorityMetadata = {
 
   relatedAuthorities: AuthorityRelationship[];
 
-  confidence: number;
+  // A `confidence: number` stood here and nothing in the codebase read it --
+  // no `.confidence` access anywhere under authority/, and no object literal
+  // constructs an AuthorityMetadata at all. Same shape as the family
+  // `determineConfidence` removed earlier today: a bare number with no reader,
+  // which is exactly how it survived. What the weighting actually runs on is
+  // `bindingLevel` and `courtLevel`, both of which are facts about the
+  // authority rather than a grade someone typed.
 };
 
 export type AuthorityCollection = {

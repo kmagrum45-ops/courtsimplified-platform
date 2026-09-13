@@ -434,7 +434,11 @@ function toAuthorityMetadata(entry: ProductionAuthorityCandidate): AuthorityMeta
     limitations: entry.limitsAndWarnings,
     warnings: entry.limitsAndWarnings,
     relatedAuthorities: [],
-    confidence: entry.confidence === "high" ? 0.9 : entry.confidence === "medium" ? 0.7 : 0.5,
+    // `confidence: entry.confidence === "high" ? 0.9 : "medium" ? 0.7 : 0.5`
+    // stood here — an ordinal grade converted into a float. That is the
+    // `scoreFromConfidence` mechanism removed from dashboardAdapter in an
+    // earlier session, alive here under a different name, writing into an
+    // AuthorityMetadata field that nothing ever read. Both ends removed.
   };
 }
 
