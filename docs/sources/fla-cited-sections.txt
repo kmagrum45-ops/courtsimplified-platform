@@ -1,0 +1,358 @@
+Family Law Act, R.S.O. 1990, c. F.3 — sections cited by CourtSimplified
+Source: https://www.ontario.ca/laws/docs/90f03_e.doc
+Consolidation period: from 2026-05-01 to the e-Laws currency date
+Extracted with antiword, 2026-09-13. Verbatim, unedited below each rule line.
+======================================================================
+
+---------------------------------------------------------------------- 
+s. 1 (1) — definitions, including "court" and "spouse"
+---------------------------------------------------------------------- 
+
+1 (1)  In this Act,
+"child" includes a person in respect of whom a  parent  has  demonstrated  a
+ settled intention to treat as a child of his or her family,  except  under
+ an arrangement where the child is placed for valuable consideration  in  a
+ foster home by a person having lawful custody; ("enfant")
+"child  support  guidelines"  means  the  guidelines  established   by   the
+ regulations made under subsections 69 (2) and  (3);  ("lignes  directrices
+ sur les aliments pour les enfants")
+"cohabit" means to live together in a conjugal relationship, whether  within
+ or outside marriage; ("cohabiter")
+"court" means the  Ontario  Court  of  Justice,  the  Family  Court  of  the
+ Superior Court of Justice or the Superior Court of Justice; ("tribunal")
+"domestic contract"  means  a  domestic  contract  as  defined  in  Part  IV
+ (Domestic Contracts); ("contrat familial")
+"parent" includes a person who  has  demonstrated  a  settled  intention  to
+ treat a child as a child of his or her family, except under an arrangement
+ where the child is placed for valuable consideration in a foster home by a
+ person having lawful custody; ("p�re ou m�re", "parent")
+"regulations" means the regulations made under this Act; ("r�glements")
+"spouse" means either of two persons who,
+      (a)   are married to each other, or
+      (b)   have together entered into a marriage that is voidable or  void,
+    in good faith on the part of a person relying on this clause to  assert
+    any right. ("conjoint")  R.S.O. 1990, c. F.3, s. 1 (1); 1997, c. 20,
+    s. 1; 1999, c. 6, s. 25 (1); 2005, c. 5, s. 27 (1, 2); 2006, c. 19,
+    Sched. C, s. 1 (1, 2, 4); 2014, c. 7, Sched. 9, s. 1; 2020, c. 25,
+    Sched. 3, s. 1; 2024, c. 28, Sched. 9, s. 1.
+
+---------------------------------------------------------------------- 
+s. 4 (1) — Part I (Family Property) definitions, including "court"
+---------------------------------------------------------------------- 
+
+
+DEFINITIONS
+4 (1)  In this Part,
+"court" means a court as defined in subsection 1 (1), but does  not  include
+ the Ontario Court of Justice; ("tribunal")
+"matrimonial home" means a matrimonial home under section  18  and  includes
+ property that is a matrimonial home under that section  at  the  valuation
+ date; ("foyer conjugal")
+"net family property" means the value of all the property,  except  property
+ described in subsection (2), that a spouse owns  on  the  valuation  date,
+ after deducting,
+      (a)   the spouse's debts and other liabilities, and
+      (b)   the value of property, other than a matrimonial home,  that  the
+    spouse owned on the date of the marriage, after deducting the  spouse's
+    debts and other liabilities, other than debts  or  liabilities  related
+    directly to the acquisition or significant improvement of a matrimonial
+    home, calculated as of the date  of  the  marriage;  ("biens  familiaux
+    nets")
+"property" means any interest, present or future, vested or  contingent,  in
+ real or personal property and includes,
+      (a)   property over which a spouse has, alone or in  conjunction  with
+    another person, a power of appointment exercisable in favour of himself
+    or herself,
+      (b)   property disposed of by a spouse but over which the spouse  has,
+    alone or in conjunction with another person,  a  power  to  revoke  the
+    disposition or a power to consume or dispose of the property, and
+      (c)   in the case of a spouse's  rights  under  a  pension  plan,  the
+    imputed value, for family law purposes, of the spouse's interest in the
+    plan, as determined in accordance with section  10.1,  for  the  period
+    beginning with the date of the marriage and  ending  on  the  valuation
+    date; ("bien")
+"valuation date" means the earliest of the following dates:
+      1.    The date  the  spouses  separate  and  there  is  no  reasonable
+    prospect that they will resume cohabitation.
+      2.    The date a divorce is granted.
+      3.    The date the marriage is declared a nullity.
+      4.    The date one of the spouses commences an  application  based  on
+    subsection 5 (3) (improvident depletion) that is subsequently granted.
+      5.    The date before the date  on  which  one  of  the  spouses  dies
+    leaving the other spouse surviving. ("date d'�valuation")  R.S.O. 1990,
+    c. F.3, s. 4 (1); 2006, c. 19, Sched. C, s. 1 (2); 2009, c. 11, s. 22
+    (1-4); 2009, c. 33, Sched. 2, s. 34 (1).
+Net family property, liabilities
+(1.1)  The liabilities referred to in clauses (a) and (b) of the definition
+of  "net  family  property"  in  subsection  (1)  include   any   applicable
+contingent tax liabilities  in  respect  of  the  property.   2009,  c. 33,
+Sched. 2, s. 34 (2).
+
+Excluded property
+(2)  The value of  the  following  property  that  a  spouse  owns  on  the
+valuation date does not form part of the spouse's net family property:
+      1.    Property, other than a matrimonial home, that  was  acquired  by
+    gift or inheritance from a third person after the date of the marriage.
+      2.    Income from property referred to in paragraph 1,  if  the  donor
+    or testator has expressly stated that it is to  be  excluded  from  the
+    spouse's net family property.
+      3.    Damages or a right to damages  for  personal  injuries,  nervous
+    shock, mental distress or loss of guidance, care and companionship,  or
+    the part of a settlement that represents those damages.
+      4.    Proceeds or a right to proceeds of a policy of  life  insurance,
+    as defined under the Insurance Act, that are payable on  the  death  of
+    the life insured.
+      5.    Property, other than a matrimonial  home,  into  which  property
+    referred to in paragraphs 1 to 4 can be traced.
+      6.    Property that the spouses have agreed by a domestic contract  is
+    not to be included in the spouse's net family property.
+      7.    Unadjusted pensionable earnings under the Canada  Pension  Plan.
+    R.S.O. 1990, c. F.3, s. 4 (2); 2004, c. 31, Sched. 38, s. 2 (1); 2009,
+    c. 11, s. 22 (5).
+
+Onus of proof re deductions and exclusions
+(3)  The onus of proving a deduction under the definition  of  "net  family
+property" or an exclusion under subsection (2) is  on  the  person  claiming
+it.  R.S.O. 1990, c. F.3, s. 4 (3).
+
+Close of business
+(4)  When this section requires that a value be calculated as  of  a  given
+date, it shall be calculated as of close of business on that  date.   R.S.O.
+1990, c. F.3, s. 4 (4).
+
+Net family property not to be less than zero
+(5)  If a spouse's net family property as calculated under subsections (1),
+(2) and (4) is less than zero, it shall be  deemed  to  be  equal  to  zero.
+R.S.O. 1990, c. F.3, s. 4 (5).
+Section Amendments with date in force (d/m/y)
+2004, c. 31, Sched. 38, s. 2 (1) - 30/04/2007
+2006, c. 19, Sched. C, s. 1 (2) - 22/06/2006
+2009, c. 11, s. 22 (1-3, 5) -  14/05/2009;  2009,  c. 11,  s. 22  (4)  -
+1/01/2012; 2009, c. 33, Sched. 2, s. 34 (1, 2) - 15/12/2009
+
+Equalization of net family properties
+
+Divorce, etc.
+
+---------------------------------------------------------------------- 
+s. 5 — equalization of net family properties
+---------------------------------------------------------------------- 
+
+5 (1)  When a divorce is granted or a marriage is declared  a  nullity,  or
+when the spouses are separated and there  is  no  reasonable  prospect  that
+they will resume cohabitation, the spouse whose net family property  is  the
+lesser of the  two  net  family  properties  is  entitled  to  one-half  the
+difference between them.  R.S.O. 1990, c. F.3, s. 5 (1).
+
+Death of spouse
+(2)  When a spouse dies, if the net family property of the deceased  spouse
+exceeds the net family property  of  the  surviving  spouse,  the  surviving
+spouse is entitled to one-half the difference between  them.   R.S.O.  1990,
+c. F.3, s. 5 (2).
+
+Improvident depletion of spouse's net family property
+(3)  When spouses are cohabiting, if there is a  serious  danger  that  one
+spouse may improvidently deplete his or her net family property,  the  other
+spouse may on an application under section 7  have  the  difference  between
+the net family properties divided as  if  the  spouses  were  separated  and
+there were no reasonable  prospect  that  they  would  resume  cohabitation.
+R.S.O. 1990, c. F.3, s. 5 (3).
+
+No further division
+(4)  After the court has made an order for  division  based  on  subsection
+(3), neither spouse may make  a  further  application  under  section  7  in
+respect of their marriage.  R.S.O. 1990, c. F.3, s. 5 (4).
+
+Idem
+(5)  Subsection (4) applies even though the spouses  continue  to  cohabit,
+unless a domestic contract between the spouses provides  otherwise.   R.S.O.
+1990, c. F.3, s. 5 (5).
+
+Variation of share
+(6)  The court may award a spouse an amount that is more or less than  half
+the difference between the net family properties if  the  court  is  of  the
+opinion that equalizing the net family properties would  be  unconscionable,
+having regard to,
+      (a)   a spouse's failure to disclose to  the  other  spouse  debts  or
+    other liabilities existing at the date of the marriage;
+      (b)   the fact that debts or other liabilities  claimed  in  reduction
+    of a spouse's net family property were incurred recklessly  or  in  bad
+    faith;
+      (c)   the part of a spouse's net  family  property  that  consists  of
+    gifts made by the other spouse;
+      (d)   a spouse's intentional or reckless depletion of his or  her  net
+    family property;
+      (e)   the fact that the amount a spouse would otherwise receive  under
+    subsection (1), (2) or (3) is disproportionately large in relation to a
+    period of cohabitation that is less than five years;
+      (f)   the fact that  one  spouse  has  incurred  a  disproportionately
+    larger amount of debts or other liabilities than the other  spouse  for
+    the support of the family;
+      (g)   a written agreement between the spouses that is not  a  domestic
+    contract; or
+       (h)    any  other   circumstance   relating   to   the   acquisition,
+    disposition, preservation,  maintenance  or  improvement  of  property.
+    R.S.O. 1990, c. F.3, s. 5 (6).
+
+Purpose
+(7)  The purpose of this section is to recognize that child care, household
+management and financial provision are the  joint  responsibilities  of  the
+spouses and that  inherent  in  the  marital  relationship  there  is  equal
+contribution,  whether  financial  or  otherwise,  by  the  spouses  to  the
+assumption  of  these  responsibilities,  entitling  each  spouse   to   the
+equalization of the net family properties, subject  only  to  the  equitable
+considerations set out in subsection (6).  R.S.O. 1990, c. F.3, s. 5 (7).
+
+Election
+
+Spouse's will
+
+---------------------------------------------------------------------- 
+s. 7 — application to court, and the s. 7 (3) limitation
+---------------------------------------------------------------------- 
+
+7 (1)  The court may, on the application of  a  spouse,  former  spouse  or
+deceased spouse's personal representative, determine any  matter  respecting
+the spouses' entitlement under section 5.  R.S.O. 1990, c. F.3, s. 7 (1).
+
+Personal action; estates
+(2)  Entitlement under subsections 5  (1),  (2)  and  (3)  is  personal  as
+between the spouses but,
+      (a)   an application based on subsection 5 (1) or  (3)  and  commenced
+    before a spouse's death may be continued by  or  against  the  deceased
+    spouse's estate; and
+      (b)   an application based on subsection 5  (2)  may  be  made  by  or
+    against a deceased spouse's estate.  R.S.O. 1990, c. F.3, s. 7 (2).
+
+Limitation
+(3)  An application based on subsection 5 (1) or (2) shall not  be  brought
+after the earliest of,
+      (a)   two years after the day the marriage is  terminated  by  divorce
+    or judgment of nullity;
+      (b)   six years after the day the spouses separate  and  there  is  no
+    reasonable prospect that they will resume cohabitation;
+      (c)   six  months  after  the  first  spouse's  death.   R.S.O.  1990,
+    c. F.3, s. 7 (3).
+
+Statement of property
+
+---------------------------------------------------------------------- 
+s. 17 — Part II (Matrimonial Home) definitions, including "court"
+---------------------------------------------------------------------- 
+
+
+DEFINITIONS
+17 In this Part,
+"court" means a court as defined in subsection 1 (1) but  does  not  include
+ the Ontario Court of Justice; ("tribunal")
+"property" means real or personal property. ("bien")  R.S.O. 1990,  c. F.3,
+ s. 17; 2006, c. 19, Sched. C, s. 1 (2).
+Section Amendments with date in force (d/m/y)
+2006, c. 19, Sched. C, s. 1 (2) - 22/06/2006
+
+Matrimonial home
+
+---------------------------------------------------------------------- 
+s. 29 — Part III (Support Obligations) definitions, including "spouse"
+---------------------------------------------------------------------- 
+
+
+DEFINITIONS
+29 In this Part,
+"dependant" means a person to whom another  has  an  obligation  to  provide
+ support under this Part; ("personne � charge")
+"spouse" means a spouse as defined in subsection  1  (1),  and  in  addition
+ includes either of two persons who are not married to each other and  have
+ cohabited,
+      (a)   continuously for a period of not less than three years, or
+      (b)   in a relationship of some permanence, if they  are  the  parents
+    of a child as set out in section 4 of the Children's  Law  Reform  Act.
+    ("conjoint")  R.S.O. 1990, c. F.3, s. 29; 1999, c. 6, s. 25 (2); 2005,
+    c. 5, s. 27 (4-6); 2009, c. 11, s. 30; 2016, c. 23, s. 47 (1).
+Section Amendments with date in force (d/m/y)
+1999, c. 6, s. 25 (2) - 20/11/1999
+2005, c. 5, s. 27 (4-6) - 09/03/2005
+2009, c. 11, s. 30 - 14/05/2009
+2016, c. 23, s. 47 (1) - 01/01/2017
+
+Obligation of spouses for support
+
+---------------------------------------------------------------------- 
+s. 46 — restraining order (CARRIES A NOT-IN-FORCE REPLACEMENT)
+---------------------------------------------------------------------- 
+
+
+Restraining order
+46 (1)  On application, the court may make an interim or final  restraining
+order against a person described in subsection  (2)  if  the  applicant  has
+reasonable grounds to fear for his or her own safety or for  the  safety  of
+any child in his or her lawful custody.  2009, c. 11, s. 35.
+Note: On a day to be named by order of the Lieutenant Governor  in  Council,
+subsection 46 (1) of the Act is  repealed  and  the  following  substituted:
+(See: 2025, c. 6, Sched. 6, s. 1 (1))
+
+Restraining order
+(1)  The court may make an interim or final  restraining  order  against  a
+person referred to in subsection (2), on the application of,
+      (a)   a person who has  reasonable  grounds  to  fear  for  their  own
+    safety or for the safety of any child in their lawful custody;
+      (b)   a person prescribed by the regulations, on behalf  of  and  with
+    the consent of a person referred to in clause (a); or
+      (c)   any person, on behalf of a person referred  to  in  clause  (a),
+    with leave of the court, subject to any conditions  prescribed  by  the
+    regulations with respect to the granting of  the  leave.  2025,  c.  6,
+    Sched. 6, s. 1 (1).
+
+Same
+(2)  A restraining order under subsection (1) may be made against,
+      (a)   a spouse or former spouse of the applicant; or
+      (b)   a person other than a spouse or former spouse of the  applicant,
+    if the person is cohabiting with the applicant or  has  cohabited  with
+    the applicant for any period of time.  2009, c. 11, s. 35.
+Note: On a day to be named by order of the Lieutenant Governor  in  Council,
+subsection 46 (2) of the Act is  repealed  and  the  following  substituted:
+(See: 2025, c. 6, Sched. 6, s. 1 (1))
+
+Same, against whom
+(2)  A restraining order under subsection (1) may be made against,
+      (a)   a spouse or former spouse of the person referred  to  in  clause
+    (1) (a); or
+      (b)   any person who is cohabiting or  has  for  any  period  of  time
+    cohabited with the person referred to in clause (1) (a).  2025,  c.  6,
+    Sched. 6, s. 1 (1).
+
+Provisions of order
+(3)  A restraining order made under subsection (1) shall  be  in  the  form
+prescribed by the rules of  court  and  may  contain  one  or  more  of  the
+following provisions, as the court considers appropriate:
+      1.    Restraining the respondent, in whole or in part,  from  directly
+    or indirectly contacting or communicating with  the  applicant  or  any
+    child in the applicant's lawful custody.
+Note: On a day to be named by order of the Lieutenant Governor  in  Council,
+paragraph 1 of subsection 46 (3) of the Act is repealed  and  the  following
+substituted: (See: 2025, c. 6, Sched. 6, s. 1 (2))
+      1.    Restraining the respondent, in whole or in part,  from  directly
+    or indirectly contacting or communicating with the person  referred  to
+    in clause (1) (a) or with any child in that person's lawful custody.
+      2.    Restraining  the  respondent  from  coming  within  a  specified
+    distance of one or more locations.
+      3.    Specifying one or more exceptions to  the  provisions  described
+    in paragraphs 1 and 2.
+      4.    Any  other  provision  that  the  court  considers  appropriate.
+    2009, c. 11, s. 35.
+
+Transition
+(4)  This section, as it read on October 14, 2009, continues to apply to,
+      (a)   any prosecution or other proceeding  begun  under  this  section
+    before October 15, 2009; and
+      (b)   any order made under this section that was in force  on  October
+    14, 2009. 2009, c. 11, s. 35; 2014, c. 7, Sched. 9, s. 8.
+Section Amendments with date in force (d/m/y)
+1999, c. 6, s. 25 (20) - 20/11/1999
+2000, c. 33, s. 22 (1-4) - no effect - see 2009, c. 11, s. 21 - 14/05/2009
+2005, c. 5, s. 27 (23) - 09/03/2005
+2009, c. 11, s. 35 - 15/10/2009
+2014, c. 7, Sched. 9, s. 8 (1-3) - 24/07/2014
+2025, c. 6, Sched. 6, s. 1 (1, 2) - not in force
+
+Application under Children's Law Reform Act

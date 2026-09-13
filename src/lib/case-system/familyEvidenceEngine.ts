@@ -51,7 +51,13 @@ export type FamilyEvidenceAnalysisItem = {
   linkedIssues: FamilyEvidenceIssueLink[];
   exhibitGroup: string;
   affidavitUse: string[];
-  judgeImpact: string[];
+  // A `judgeImpact: string[]` field was computed for every item and read by
+  // nothing. Its entries predicted what a judge would take from a document
+  // ("Helps the judge assess support, disclosure compliance, and financial
+  // credibility"), and its fallback asserted "Judge impact depends on...".
+  // Predicting a decision-maker's reaction is prohibited by CLAUDE.md section 3
+  // whether or not anything renders it; dead code that makes a prediction is
+  // still a prediction waiting for a consumer.
   /**
    * What this item does not yet record — a missing date, an unnamed source, no
    * stated connection to a court issue. Each entry is a fact about the record,
@@ -320,23 +326,6 @@ function buildAffidavitUse(category: FamilyEvidenceCategory, links: FamilyEviden
   return cleanList(uses.length > 0 ? uses : ["Use only if it is directly connected to a requested order or disputed fact."]);
 }
 
-function buildJudgeImpact(category: FamilyEvidenceCategory, links: FamilyEvidenceIssueLink[]): string[] {
-  const impacts: string[] = [];
-
-  if (category === "court-order") impacts.push("Helps the judge understand what orders already exist.");
-  if (category === "parenting-schedule") impacts.push("Helps the judge compare the current routine against the proposed schedule.");
-  if (category === "message-email-text") impacts.push("Can show communication patterns, admissions, denials, conflict, or missed parenting time.");
-  if (category === "financial-disclosure") impacts.push("Helps the judge assess support, disclosure compliance, and financial credibility.");
-  if (category === "police-report") impacts.push("Can support safety concerns if tied to specific incidents and requested orders.");
-  if (category === "school-record") impacts.push("Can support stability, attendance, school needs, or relocation impacts.");
-  if (category === "medical-record") impacts.push("Can support child needs, safety concerns, or health-related decision-making issues.");
-
-  if (links.includes("family-violence")) impacts.push("May affect best-interests analysis and safety planning.");
-  if (links.includes("disclosure")) impacts.push("May affect support calculations and procedural fairness.");
-
-  return cleanList(impacts.length > 0 ? impacts : ["Judge impact depends on how clearly this evidence connects to a disputed issue."]);
-}
-
 function buildFollowUps(item: FamilyEvidenceRawItem, category: FamilyEvidenceCategory): string[] {
   const questions: string[] = [];
 
@@ -383,7 +372,6 @@ function analyzeItem(item: FamilyEvidenceRawItem, index: number, normalized: Fam
     linkedIssues,
     exhibitGroup: exhibitGroup(category, linkedIssues),
     affidavitUse: buildAffidavitUse(category, linkedIssues),
-    judgeImpact: buildJudgeImpact(category, linkedIssues),
     missingDetails,
     followUpQuestions: buildFollowUps(item, category),
   };

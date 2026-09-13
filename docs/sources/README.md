@@ -412,3 +412,31 @@ recorded in full. Those 6 are flagged individually below.
   "TABLE OF FORMS" and the closing "O. REG. 76/06, S. 14" amendment line,
   and keep the four-line provenance header. If a title changes, the suite
   will fail until the registry is updated to match — which is the point.
+
+### `fla-cited-sections.txt` and `clra-cited-sections.txt`
+
+- **What they are:** the *Family Law Act* and *Children's Law Reform Act*
+  sections CourtSimplified cites, extracted verbatim — FLA ss. 1(1), 4(1),
+  5, 7, 17, 29 and 46; CLRA s. 35. Like the TABLE OF FORMS, these are
+  vendored to be *machine-read*: `verifyCitedProvisions.ts` parses them.
+- **Why these sections:** they carry the family jurisdiction allocation
+  (the "court" definitions in FLA ss. 1(1)/4(1)/17 and the two different
+  "spouse" definitions in ss. 1(1)/29), the equalization limitation in
+  s. 7(3), and the two restraining-order powers.
+- **Why vendored at all:** FLA s. 46 and CLRA s. 35 each print a
+  NOT-YET-IN-FORCE replacement inline, marked only by the prose note "On
+  a day to be named by order of the Lieutenant Governor in Council". The
+  check that catches an undeclared one has to read the text, and a
+  verification suite must not depend on a live fetch.
+- **Citations:** Family Law Act, R.S.O. 1990, c. F.3; Children's Law
+  Reform Act, R.S.O. 1990, c. C.12
+- **Retrieved from:** https://www.ontario.ca/laws/docs/90f03_e.doc and
+  https://www.ontario.ca/laws/docs/90c12_e.doc, extracted with `antiword`
+- **Consolidation periods:** FLA from 2026-05-01; CLRA from 2025-12-11
+- **Downloaded:** 2026-09-13
+- **Refreshing them:** re-fetch, re-extract the labelled blocks, keep the
+  provenance header and the rule lines (the parser splits on them). If a
+  refresh introduces a new "On a day to be named" note, the suite fails
+  until someone reads the amendment and declares it. If a note DISAPPEARS,
+  the amendment is in force and the vendored text is stale law — the suite
+  fails for that too.

@@ -317,7 +317,7 @@ function determineStatus(params: {
     return "needs-document-upload";
   }
 
-  if (evidence.evidenceGaps.some((gap) => gap.priority === "critical") || narrative.unsupportedAllegations.length > 0) {
+  if (evidence.evidenceGaps.some((gap) => gap.priority === "critical") || narrative.paragraphsWithNoLinkedEvidence.length > 0) {
     return "needs-evidence-review";
   }
 

@@ -73,8 +73,13 @@ export type FamilyNarrativeParagraph = {
   section: FamilyNarrativeSectionType;
   text: string;
   source: FamilyNarrativeSource;
-  supportLevel: "supported" | "partially-supported" | "unsupported" | "needs-review";
   linkedIssues: FamilyNarrativeIssueLink[];
+  /**
+   * Evidence items a builder explicitly attached to this paragraph. Empty means
+   * nothing is linked yet — a fact about the record, not a grade of it. This
+   * replaces the `supportLevel` ladder; see the note above supportLevelForText's
+   * former location for what that did and why all four rungs went.
+   */
   evidenceReferences: string[];
   warnings: string[];
 };
@@ -105,7 +110,7 @@ export type FamilyNarrativeResult = {
   conferenceSummary: string[];
   requestedOrderDrafts: string[];
   saferWordingSuggestions: FamilyNarrativeRisk[];
-  unsupportedAllegations: string[];
+  paragraphsWithNoLinkedEvidence: string[];
   evidenceLinkingNotes: string[];
   caseRecordSummary: string;
   draftingWarnings: string[];
@@ -170,31 +175,25 @@ function evidenceTitles(input: FamilyNarrativeInput): string[] {
   return cleanList(input.evidence.analyzedEvidence.map((item) => item.title));
 }
 
-function supportLevelForText(
-  text: string,
-  input: FamilyNarrativeInput,
-): FamilyNarrativeParagraph["supportLevel"] {
-  const normalizedText = normalize(text);
-
-  const hasEvidenceMatch = input.evidence.analyzedEvidence.some((item) => {
-    const evidenceText = normalize(
-      `${item.title} ${item.description} ${item.relevance} ${item.category}`,
-    );
-
-    if (!evidenceText) return false;
-
-    return evidenceText
-      .split(" ")
-      .some((word) => word.length > 5 && normalizedText.includes(word));
-  });
-
-  if (hasEvidenceMatch) return "supported";
-  if (includesAny(normalizedText, ["i think", "maybe", "probably", "i believe", "not sure", "heard"])) {
-    return "needs-review";
-  }
-  if (input.evidence.analyzedEvidence.length > 0) return "partially-supported";
-  return "unsupported";
-}
+// `supportLevelForText` and the `supportLevel` ladder are gone. It returned
+// "supported" | "partially-supported" | "unsupported" | "needs-review" and had
+// three separate defects:
+//
+//   1. "needs-review" fired when the user's OWN wording contained "i think",
+//      "maybe" or "heard" — a credibility read on their phrasing, the same one
+//      removed from scoreEvidence.
+//   2. "partially-supported" was returned whenever ANY evidence existed,
+//      matched or not, so the middle rung carried no information.
+//   3. "supported" was returned when any word longer than five characters
+//      appeared in both the paragraph and an evidence item. A paragraph
+//      mentioning "parenting" and an unrelated item titled "parenting
+//      schedule" satisfied it. Asserting that an item supports a paragraph on
+//      that basis is a false claim about the user's own record — the defect
+//      fixed in detectEvidenceGaps, in a different engine.
+//
+// What replaces it is what the paragraph actually knows: `evidenceReferences`,
+// the items a builder explicitly attached. Empty means nothing is linked yet,
+// which is a fact. Nothing is inferred from wording.
 
 function warningsForText(text: string): string[] {
   const warnings: string[] = [];
@@ -233,7 +232,6 @@ function makeParagraph(params: {
     section: params.section,
     text: clean(params.text),
     source: params.source,
-    supportLevel: supportLevelForText(params.text, params.input),
     linkedIssues: params.linkedIssues || [],
     evidenceReferences: cleanList(params.evidenceReferences || []),
     warnings: warningsForText(params.text),
@@ -712,9 +710,13 @@ export function runFamilyAffidavitNarrativeEngine(input: FamilyNarrativeInput): 
 
   const affidavitParagraphs = sections.flatMap((section) => section.paragraphs);
   const saferWordingSuggestions = saferWordingRisks(input);
-  const unsupportedAllegations = cleanList(
+  // Was `unsupportedAllegations`, derived from the supportLevel ladder. The
+  // name called the user's statements allegations and graded them unsupported;
+  // the replacement states the one checkable thing — no evidence item has been
+  // attached to this paragraph yet.
+  const paragraphsWithNoLinkedEvidence = cleanList(
     affidavitParagraphs
-      .filter((paragraph) => paragraph.supportLevel === "unsupported" || paragraph.supportLevel === "needs-review")
+      .filter((paragraph) => paragraph.evidenceReferences.length === 0)
       .map((paragraph) => paragraph.text),
   );
 
@@ -722,8 +724,8 @@ export function runFamilyAffidavitNarrativeEngine(input: FamilyNarrativeInput): 
     ...input.evidence.affidavitSupportPoints,
     ...input.evidence.evidenceDetailsToConfirm,
     ...affidavitParagraphs
-      .filter((paragraph) => paragraph.evidenceReferences.length === 0 && paragraph.supportLevel !== "supported")
-      .map((paragraph) => `Review evidence support for paragraph: ${paragraph.text}`),
+      .filter((paragraph) => paragraph.evidenceReferences.length === 0)
+      .map((paragraph) => `No evidence item is linked to this paragraph yet: ${paragraph.text}`),
   ]);
 
   const draftingWarnings = cleanList([
@@ -758,8 +760,8 @@ export function runFamilyAffidavitNarrativeEngine(input: FamilyNarrativeInput): 
     input.evidence.analyzedEvidence.length > 0
       ? `${input.evidence.analyzedEvidence.length} evidence item(s) are recorded, including ${input.evidence.analyzedEvidence.map((item) => item.title).slice(0, 5).join(", ")}.`
       : "No evidence items are recorded yet.",
-    unsupportedAllegations.length > 0
-      ? `${unsupportedAllegations.length} paragraph(s) have no recorded evidence linked to them.`
+    paragraphsWithNoLinkedEvidence.length > 0
+      ? `${paragraphsWithNoLinkedEvidence.length} paragraph(s) have no recorded evidence linked to them.`
       : "Every paragraph has a recorded evidence item linked to it.",
   ]).join(" ");
 
@@ -769,7 +771,7 @@ export function runFamilyAffidavitNarrativeEngine(input: FamilyNarrativeInput): 
     conferenceSummary: buildConferenceSummary(input),
     requestedOrderDrafts: buildRequestedOrders(input),
     saferWordingSuggestions,
-    unsupportedAllegations,
+    paragraphsWithNoLinkedEvidence,
     evidenceLinkingNotes,
     caseRecordSummary,
     draftingWarnings,

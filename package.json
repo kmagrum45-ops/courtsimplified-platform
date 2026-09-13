@@ -23,6 +23,7 @@
     "test:case-rls-contract": "node --import tsx scripts/verification/verifyCaseRlsPolicyContract.ts",
     "test:case-simulations": "node --import tsx scripts/verification/runCaseSimulationFactory.ts",
     "test:chat-hydration": "node --import tsx scripts/verification/verifyCourtAssistantChatHydration.ts",
+    "test:cited-provisions": "node --import tsx scripts/verification/verifyCitedProvisions.ts",
     "test:claim-surface": "node --import tsx scripts/verification/verifyStatementOfClaimSurface.ts",
     "test:classifier-gating": "node --import tsx scripts/verification/verifyClassifierGating.ts",
     "test:cohort2-normalization": "node scripts/verification/verifyCohort2CatalogueNormalization.mjs",
