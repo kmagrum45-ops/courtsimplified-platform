@@ -196,7 +196,7 @@ export async function GET(request: Request) {
   if (!CASE_ID_PATTERN.test(caseId)) return NextResponse.json({ error: "A valid selected case is required." }, { status: 400 });
   const result = await readinessForOwnedCase(request, caseId);
   if ("error" in result) return NextResponse.json({ error: result.error }, { status: result.status });
-  return NextResponse.json({ courtPath: result.area, formApplicability: asRecord(result.masterResult.formApplicability) || {}, applicabilityQuestions: result.applicabilityQuestions, recommendations: result.recommendations });
+  return NextResponse.json({ courtPath: result.area, formApplicability: asRecord(result.masterResult.formApplicability) || {}, applicabilityQuestions: result.applicabilityQuestions, recommendations: result.recommendations, stageSupport: result.stageSupport });
 }
 export async function PATCH(request: Request) {
   const contentLength = Number(request.headers.get("content-length") || 0);
@@ -218,5 +218,5 @@ export async function PATCH(request: Request) {
   if (!data?.id) return NextResponse.json({ error: "The selected case could not be updated." }, { status: 404 });
   const updated = await readinessForOwnedCase(request, caseId);
   if ("error" in updated) return NextResponse.json({ error: updated.error }, { status: updated.status });
-  return NextResponse.json({ courtPath: updated.area, formApplicability: asRecord(updated.masterResult.formApplicability) || {}, applicabilityQuestions: updated.applicabilityQuestions, recommendations: updated.recommendations });
+  return NextResponse.json({ courtPath: updated.area, formApplicability: asRecord(updated.masterResult.formApplicability) || {}, applicabilityQuestions: updated.applicabilityQuestions, recommendations: updated.recommendations, stageSupport: updated.stageSupport });
 }

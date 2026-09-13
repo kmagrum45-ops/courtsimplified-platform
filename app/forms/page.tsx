@@ -405,6 +405,26 @@ function FormsPageContent() {
   const [applicabilitySaving, setApplicabilitySaving] = useState(false);
   const [applicabilityError, setApplicabilityError] = useState("");
 
+  /**
+   * Whether ANY form-routing rule covers this case's procedural stage.
+   *
+   * The silent-rejection blocker: `authority_stage_applicability` matching is
+   * exact membership, so a stage no row lists produced zero forms with no
+   * error and no explanation. A user at trial, enforcement, urgent or not-sure
+   * saw an empty list and could not tell it apart from "nothing applies to
+   * you". The API has computed this since the blocker was found; it was never
+   * sent to the client, so the user still could not tell.
+   *
+   * This states the true thing — no rules cover the stage yet — rather than
+   * inventing coverage. Only four of nine UniversalStage values have rows, and
+   * two of the four gaps (urgent, not-sure) have no rule behind them and never
+   * will: "not-sure" means the user has not told us their stage, and no rule
+   * says which form to file then.
+   */
+  const [stageSupport, setStageSupport] = useState<
+    { supported: true } | { supported: false; reason: string; stage: string } | null
+  >(null);
+
   const workspaceHref = caseId ? `/dashboard/cases/${caseId}` : "/dashboard";
   const builderHref = buildWorkflowHref("/builder", caseId, path);
   const evidenceHref = buildWorkflowHref("/evidence", caseId, path);
@@ -501,6 +521,11 @@ function FormsPageContent() {
       setFormApplicability(result.formApplicability || {});
       setApplicabilityQuestions(Array.isArray(result.applicabilityQuestions) ? result.applicabilityQuestions : []);
       setVerifiedRecommendations(Array.isArray(result.recommendations) ? result.recommendations : []);
+      setStageSupport(
+        result.stageSupport && typeof result.stageSupport === "object"
+          ? (result.stageSupport as typeof stageSupport)
+          : null,
+      );
     }
 
     loadVerifiedRecommendations();
@@ -660,6 +685,11 @@ function FormsPageContent() {
     setFormApplicability(result.formApplicability || {});
     setApplicabilityQuestions(Array.isArray(result.applicabilityQuestions) ? result.applicabilityQuestions : []);
     setVerifiedRecommendations(Array.isArray(result.recommendations) ? result.recommendations : []);
+    setStageSupport(
+      result.stageSupport && typeof result.stageSupport === "object"
+        ? (result.stageSupport as typeof stageSupport)
+        : null,
+    );
     setApplicabilitySaving(false);
   }
 
@@ -791,6 +821,24 @@ function FormsPageContent() {
               <p className="mt-1 text-[#4f685f]">
                 Verified for this case: {verifiedRecommendations.length}
               </p>
+
+              {/*
+                States the true reason the list is empty. Without this a user at
+                trial, enforcement, or with no stage recorded saw "Verified for
+                this case: 0" and had no way to tell "no rules cover your stage"
+                apart from "rules were checked and none applied to you".
+
+                It deliberately does NOT suggest a form. Four of nine stages
+                have no mapping rows, and two of those gaps have no rule behind
+                them to source one from.
+              */}
+              {stageSupport && !stageSupport.supported ? (
+                <p className="mt-3 rounded-xl border border-amber-300 bg-amber-50 p-3 text-[13px] text-amber-950">
+                  {stageSupport.reason === "no-stage-supplied"
+                    ? "No stage is recorded for this case yet, so no form-routing rules have been checked. Recording where the case is up to in Intake will let this list be checked."
+                    : `No form-routing rules cover the "${stageSupport.stage}" stage yet. That is a gap in our routing data, not a finding that no forms apply to you — the full official catalogue below is still available to browse.`}
+                </p>
+              ) : null}
             </div>
           </div>
 

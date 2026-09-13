@@ -458,3 +458,26 @@ recorded in full. Those 6 are flagged individually below.
 - **Downloaded:** 2026-09-13
 - **Refreshing it:** same procedure as the other vendored sources — keep
   the provenance header and the rule lines, which the parsers split on.
+
+### `oreg-258-98-cited-rules.txt`
+
+- **What it is:** the trial and enforcement rules of **O. Reg. 258/98
+  (Rules of the Small Claims Court)** — rr. 16–18 (trial scheduling,
+  trial management conference, trial) and r. 20 (enforcement of orders).
+- **Why these:** they are the two `legal_form_mapping_rules` stages that
+  have zero coverage today AND can be sourced. A user at trial or in
+  enforcement currently gets an empty form list. The other two uncovered
+  stages, `urgent` and `not-sure`, are not procedural stages in the rules
+  and have no provision to cite.
+- **Forms these rules name:** r. 16.01(1) — request to the clerk to fix a
+  date for trial (Form 9B); r. 20 — affidavit for enforcement request
+  (Form 20P), certificate of judgment (Form 20A), writ of delivery
+  (Form 20B), writs of seizure and sale (Forms 20C, 20D), renewal
+  (Form 20N).
+- **Citation:** O. Reg. 258/98, made under the Courts of Justice Act
+- **Retrieved from:** https://www.ontario.ca/laws/docs/980258_e.doc,
+  extracted with `antiword`
+- **Consolidation period:** from 2025-10-14 to the e-Laws currency date
+- **Downloaded:** 2026-09-13
+- **Note:** sourcing only. No `legal_form_mapping_rules` row has been
+  written from this; that is a separate decision under CLAUDE.md §6.

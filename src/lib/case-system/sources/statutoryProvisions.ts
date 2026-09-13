@@ -33,6 +33,7 @@ export const VENDORED_SOURCES = [
   "flr-cited-rules.txt",
   "cja-cited-sections.txt",
   "cyfsa-cited-sections.txt",
+  "oreg-258-98-cited-rules.txt",
 ] as const;
 
 /**
@@ -145,6 +146,42 @@ export const STATUTORY_PROVISIONS: StatutoryProvision[] = [
     vendoredIn: "cyfsa-cited-sections.txt",
     verifiedAt: "2026-09-13",
     consolidationPeriod: "2026-07-01",
+  },
+
+  // ---- Trial and enforcement ----
+  //
+  // Retrieved 2026-09-13 for the two legal_form_mapping_rules stages that have
+  // NO coverage today and CAN be sourced. A user at trial or in enforcement
+  // currently receives an empty form list. The other two uncovered stages,
+  // "urgent" and "not-sure", are deliberately absent: neither is a procedural
+  // stage in the rules, so there is no provision to cite. "not-sure" means the
+  // user has not told us their stage, and no rule says which form to file then.
+  //
+  // Sourcing only. No mapping row is written from this; that is a separate
+  // decision under CLAUDE.md section 6.
+  {
+    statute: "O. Reg. 258/98 (Rules of the Small Claims Court)",
+    section: "rr. 16 to 18",
+    sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+    vendoredIn: "oreg-258-98-cited-rules.txt",
+    verifiedAt: "2026-09-13",
+    consolidationPeriod: "2025-10-14",
+  },
+  {
+    statute: "O. Reg. 258/98 (Rules of the Small Claims Court)",
+    section: "r. 20",
+    sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+    vendoredIn: "oreg-258-98-cited-rules.txt",
+    verifiedAt: "2026-09-13",
+    consolidationPeriod: "2025-10-14",
+  },
+  {
+    statute: "O. Reg. 114/99 (Family Law Rules)",
+    section: "rr. 26 to 32",
+    sourceUrl: "https://www.ontario.ca/laws/docs/990114_e.doc",
+    vendoredIn: "flr-cited-rules.txt",
+    verifiedAt: "2026-09-13",
+    consolidationPeriod: "2026-05-01",
   },
 
   // ---- Family Law Act ----

@@ -1137,3 +1137,1141 @@ applies shall not be given to a person to whom that subrule applies, until,
       (b)   if a motion or application has  been  made  in  accordance  with
     these rules for a restricted access order,  the  court  determines  the
     motion or application. O. Reg. 590/22, s. 1; O. Reg. 105/23, s. 1 (3).
+
+
+---------------------------------------------------------------------- 
+rr. 26 to 32 — enforcement of orders
+---------------------------------------------------------------------- 
+
+
+                       RULE 26: ENFORCEMENT OF ORDERS
+
+ENFORCEMENT OF ORDERS
+
+Where to enforce an order
+      26.  (1)  The place for enforcement  of  an  order  is  governed  by
+subrules 5 (5),  (6),  (7)  and  (7.1)  (place  for  starting  enforcement).
+O. Reg. 114/99, r. 26 (1); O. Reg. 142/14, s. 11 (1).
+
+How to enforce an order
+      (2)  An order that has not been obeyed may, in addition to any  other
+method of enforcement provided by law, be enforced as provided  by  subrules
+(3) and (4).  O. Reg. 114/99, r. 26 (2).
+
+Payment orders
+      (3)  A payment order may be enforced by,
+      (a)   a request for a financial statement (subrule 27 (1));
+      (b)   a request for disclosure  from  an  income  source  (subrule  27
+    (7));
+      (c)   a financial examination (subrule 27 (11));
+      (d)   seizure and sale (rule 28);
+      (e)   garnishment (rule 29);
+      (f)   a default hearing (rule 30), if the order is a support order;
+      (g)   the appointment of a receiver under section 101  of  the  Courts
+    of Justice Act; and
+      (h)   registration under section 42 of the Family  Responsibility  and
+    Support Arrears Enforcement Act, 1996.  O. Reg. 114/99, r. 26 (3).
+
+Other orders
+      (4)  An order other than a payment order may be enforced by,
+      (a)   a writ of temporary seizure of property (subrule 28 (10));
+      (b)   a contempt order (rule 31); and
+      (c)   the appointment of a receiver under section 101  of  the  Courts
+    of Justice Act.  O. Reg. 114/99, r. 26 (4).
+
+Statement of money owed
+      (5)  A statement of money owed shall be in Form 26, with  a  copy  of
+the order that is in default attached.  O. Reg. 114/99, r. 26 (5).
+
+Special forms for statement of money owed
+      (6)  Despite subrule (5),
+      (a)   if the Family Responsibility  and  Support  Arrears  Enforcement
+    Act, 1996 applies, a statement of arrears  in  the  form  used  by  the
+    Director may be used instead of Form 26;
+      (b)   if the Interjurisdictional Support Orders Act, 2002  applies,  a
+    document receivable under section 49 of that Act may be used instead of
+    Form 26.  O. Reg. 114/99, r. 26 (6); O. Reg. 544/99, s. 11 (1); O. Reg.
+    56/03, s. 4.
+
+Recipient's or director's entitlement to costs
+      (7)  Unless the court orders otherwise, the recipient or the Director
+is entitled to the costs,
+      (a)   of carrying out a financial examination; and
+      (b)   of issuing, serving, filing and enforcing a writ of seizure  and
+    sale, a writ of temporary seizure and a notice of  garnishment  and  of
+    changing them by statutory declaration.  O. Reg. 114/99, r. 26 (7).
+
+Enforcement of administrative costs
+      (8)  For the purpose of subrule (7), the recipient  or  the  Director
+may collect under a writ of seizure and sale, a notice of garnishment  or  a
+statutory declaration changing either of them,
+      (a)   the amounts set out in the regulations under the  Administration
+    of Justice Act and  awarded  under  rule  24  (costs)  for  filing  and
+    renewing with the sheriff a writ of seizure  and  sale  or  a  writ  of
+    temporary seizure;
+       (b)    payments  made  to  a  sheriff,  clerk,   official   examiner,
+    authorized court transcriptionist or other public officer in accordance
+    with the regulations  under  the  Administration  of  Justice  Act  and
+    awarded under rule 24 (costs), on filing with the sheriff  or  clerk  a
+    copy of a receipt for each payment or  an  affidavit  setting  out  the
+    payments made; and
+      (c)   the actual expense for carrying out a financial examination,  or
+    any other costs to which the recipient  or  the  Director  is  entitled
+    under subrule (7), on filing with the sheriff  or  clerk  an  affidavit
+    (Form 26A) setting out the items of expense in detail.  O. Reg. 114/99,
+    r. 26 (8); O. Reg. 142/14, s. 11 (2).
+
+Affidavit for filing domestic contract
+      (9)  An affidavit for filing a domestic contract under subsection  35
+(1) of the Family Law Act shall be in Form 26B. O. Reg. 235/16, s. 5.
+
+Affidavit for filing family arbitration award
+      (9.1)  An affidavit for  filing  a  family  arbitration  award  under
+section 59.9 of the Family Law Act shall be in Form 26D. O. Reg. 150/25,  s.
+4.
+
+Director's status
+       (10)  If  the  Director  enforces  an  order   under   the   Family
+Responsibility and Support Arrears Enforcement Act, 1996, anything in  these
+rules relating to enforcement by the person in whose favour  the  order  was
+made applies to the Director.  O. Reg. 114/99, r. 26 (10).
+
+Filing and refiling with the director
+      (11)  A person who files or refiles a support order in the Director's
+office shall immediately give notice of the filing by,
+      (a)   sending it by mail or email to the clerk  at  any  court  office
+    where the recipient is enforcing the order; or
+      (b)   submitting it through the Justice  Services  Online  website  or
+    through the Ontario Courts Public Portal, whichever  is  available.  O.
+    Reg. 781/21, s. 8; O. Reg. 228/25, s. 5.
+
+Transferring enforcement from recipient to director
+      (12)  A recipient who files a support order in the Director's  office
+shall, on the Director's request, assign to  the  Director  any  enforcement
+that the recipient has started, and then the Director may continue with  the
+enforcement as if the Director had started it.  O. Reg. 114/99, r. 26 (12).
+
+Transferring enforcement from director to recipient
+      (13)  If the parties withdraw a support  order  from  the  Director's
+office, the Director  shall,  on  the  recipient's  request,  given  to  the
+Director at the same time  as  the  notice  of  withdrawal,  assign  to  the
+recipient any enforcement that  the  Director  has  started,  and  then  the
+recipient may continue with the enforcement as if the recipient had  started
+it.  O. Reg. 114/99, r. 26 (13).
+
+Notice of transfer of enforcement
+      (14)  A person who continues an enforcement  under  subrule  (12)  or
+(13) shall immediately send a notice of transfer of enforcement (Form 26C),
+      (a)   to all parties to the enforcement, by mail, fax or email;
+      (b)   to the clerk at every court  office  where  the  enforcement  is
+    being carried on, by mail or email; and
+      (c)   to every sheriff who is involved with  the  enforcement  at  the
+    time of transfer, by mail, fax or email. O. Reg. 781/21, s. 8.
+
+Place of registration of support order under the Divorce Act (Canada)
+      (15)  If a person wants to enforce an order for support made  outside
+Ontario under the Divorce Act (Canada), the order shall be registered  in  a
+court, as defined in subsection 20 (1) of that Act, as follows:
+      1.    If the recipient resides in Ontario, in the  municipality  where
+    the recipient resides.
+       2.     If  the  recipient  does  not  reside  in  Ontario,   in   the
+    municipality where the payor resides.
+      3.    If neither the recipient nor the payor resides  in  Ontario,  in
+    the municipality where any property owned by the payor is  located  or,
+    if the payor doesn't have any property, in any municipality.   O. Reg.
+    89/04, s. 9.
+
+Place of registration of parenting order or contact order under the Divorce
+Act (Canada)
+      (16)  If a person wants to enforce a parenting order or contact order
+that is made under the Divorce  Act  (Canada)  outside  Ontario,  the  order
+shall be registered in a court, as defined in  subsection  20  (1)  of  that
+Act, in accordance with clause 5 (6) (a) of these rules. O. Reg.  42/21,  s.
+15.
+
+Registration requirements
+      (17)  The person requesting the registration shall send to the  court
+a certified copy of the order and  a  written  request  that  the  order  be
+registered under paragraph 20 (3) (a) of the Divorce Act (Canada).  O. Reg.
+89/04, s. 9.
+
+                  RULE 27: REQUIRING FINANCIAL INFORMATION
+
+REQUIRING FINANCIAL INFORMATION
+
+Request for financial statement
+      27.  (1)  If a payment order is in default, a recipient may serve  a
+request for a financial statement (Form 27) on the payor.  O.  Reg.  114/99,
+r. 27 (1).
+
+Effect of request for financial statement
+      (2)  Within 15 days after being served with the  request,  the  payor
+shall send a completed financial statement (Form 13)  to  the  recipient  by
+mail, fax or email.  O. Reg. 114/99, r. 27 (2); O. Reg. 140/15, s. 4.
+
+Frequency of requests for financial statements
+      (3)  A recipient may request a financial statement only once in a six-
+month period, unless the court gives the recipient permission to do so  more
+often.  O. Reg. 114/99, r. 27 (3).
+
+Application of rule 13
+      (4)  If a party is required under  this  rule  to  give  a  financial
+statement, the following subrules apply with necessary changes:
+  13 (6) (full disclosure)
+  13 (7) or (7.1) (income tax documents)
+  13 (11) (insufficient financial information)
+  13 (12) (updating financial statement)
+  13 (15) (correcting and updating)
+  13 (16) (order to file statement).
+ O. Reg. 114/99, r. 27 (4); O. Reg. 89/04, s. 10; O. Reg. 322/13, s. 16 (1);
+                                                       O. Reg. 69/15, s. 10.
+
+Order for financial statement
+      (5)  The court may, on motion, order a payor  to  serve  and  file  a
+financial statement.  O. Reg. 114/99, r. 27 (5).
+
+Failure to obey order
+      (6)  If the payor does not  serve  and  file  a  financial  statement
+within 10 days after being served with the order, the court may,  on  motion
+with special service (subrule 6 (3)), order that  the  payor  be  imprisoned
+continuously or intermittently for not more than 40 days.  O.  Reg.  114/99,
+r. 27 (6).
+
+Request for statement of income from income source
+      (7)  If a payment order is in default,  the  recipient  may  serve  a
+request for a statement of income (Form 27A) on  an  income  source  of  the
+payor, requiring the income source to prepare and send to the recipient,  by
+mail, fax or email, a statement of income (Form 27B).  O.  Reg.  114/99,  r.
+27 (7); O. Reg. 544/99, s. 12; O. Reg. 140/15, s. 4.
+
+Frequency of requests for statement of income
+      (8)  A recipient may request a statement of  income  from  an  income
+source only  once  in  a  six-month  period,  unless  the  court  gives  the
+recipient permission to do so more often.  O. Reg. 114/99, r. 27 (8).
+
+Order for statement of income
+      (9)  The court may, on the recipient's motion, order an income source
+to serve and file a statement of income.  O. Reg. 114/99, r. 27 (9).
+
+Income source's failure to obey order
+      (10)  If the income source does not serve and  file  a  statement  of
+income within 10 days after being served with the order, the court  may,  on
+the recipient's motion, order the income source to post a  bond  (Form  32).
+O. Reg. 114/99, r. 27 (10).
+
+Appointment for financial examination
+      (11)  If a payment order is in default, the recipient  may  serve  on
+the payor, by  special  service  (subrule  6  (3)),  an  appointment  for  a
+financial examination (Form 27C), requiring the payor to,
+      (a)   come to a financial examination;
+      (b)   bring to the examination any document  or  thing  named  in  the
+    appointment that is in the payor's control or available to the payor on
+    request, relevant to the enforcement of the order, and not protected by
+    a legal privilege; and
+      (c)   serve a financial statement (Form  13)  on  the  recipient,  not
+    later than seven days before the date  of  the  examination.   O. Reg.
+    114/99, r. 27 (11).
+
+Financial examination of person other than payor
+      (12)  If a payment order is in default and a person  other  than  the
+payor may know about the matters listed in subrule (17), the  recipient  may
+require that person to come to a financial examination by serving a  summons
+to witness (Form 23) and the witness fee (subrule 23 (4)) on the  person  by
+special service (subrules 6 (3) and (4)).  O. Reg. 114/99, r.  27 (12);  O.
+Reg. 322/13, s. 16 (2).
+
+Place where financial examination held
+      (13)  A financial examination shall be held,
+      (a)   in a place where the parties  and  the  person  to  be  examined
+    agree;
+      (b)   where the person  to  be  examined  lives  in  Ontario,  in  the
+    municipality where the person lives; or
+      (c)   in a place chosen by the court.  O. Reg. 114/99, r. 27 (13).
+
+Other rules apply
+      (14)  Subrules 19 (4), (5) and  (8)  (documents  protected  by  legal
+privilege, use of privileged documents, documents  omitted  from  affidavit)
+and 23 (7) (failure to obey summons) apply to a financial examination,  with
+necessary changes.  O. Reg. 114/99, r. 27 (14).
+
+Notice of time and place of examination
+      (15)  A payor who is served with an appointment or a  person  who  is
+served with a summons for a financial examination shall  have  at  least  10
+days' notice of the time and place of the examination.  O. Reg.  114/99,  r.
+27 (15).
+
+Before whom examination is held, method of recording
+       (16)  A  financial  examination  shall  be  held  under   oath   or
+affirmation, before a person chosen by agreement of the payor and  recipient
+or in accordance with subrule 20 (12) (other arrangements for  questioning),
+and shall be recorded by a method chosen in the same way.  O.  Reg.  114/99,
+r. 27 (16).
+
+Scope of examination
+      (17)  On a financial examination, the payor or other  person  may  be
+questioned about,
+      (a)   the reason for the payor's default;
+      (b)   the payor's income and property;
+      (c)   the debts owed to and by the payor;
+      (d)   the disposal of any property  by  the  payor  either  before  or
+    after the making of the order that is in default;
+      (e)   the payor's past, present and future ability to  pay  under  the
+    order;
+      (f)   whether the payor intends to obey the order, and any reason  for
+    not doing so; and
+      (g)   any other matter relevant to the enforcement of the  order.   O.
+    Reg. 114/99, r. 27 (17).
+
+Resistance to examination
+      (18)  Subrule  (19)  applies  if  a  payor  who  is  served  with  an
+appointment or a person who  is  served  with  a  summons  for  a  financial
+examination,
+      (a)   does not come to the examination as required by the  appointment
+    or summons;
+      (b)   does not  serve  on  the  recipient  a  financial  statement  as
+    required by the appointment;
+      (c)   comes to the examination, but  does  not  bring  a  document  or
+    thing named in the appointment or summons; or
+      (d)   comes to the examination, but refuses to take an oath or  affirm
+    or to answer a question.  O. Reg. 114/99, r. 27 (18).
+
+Order for another examination
+      (19)  The court may, on motion, make an order and give directions for
+another financial examination of the  payor  or  other  person  and  may  in
+addition require the payor or person to post a  bond  (Form  32).   O.  Reg.
+114/99, r. 27 (19).
+
+Imprisonment
+      (20)  If a payor or other person, without sufficient excuse, fails to
+obey an order or direction made  under  subrule  (19),  the  court  may,  on
+motion with special service (subrule 6 (3)), order that the payor or  person
+be imprisoned continuously or intermittently for not more than 40 days.   O.
+Reg. 114/99, r. 27 (20).
+
+Imprisonment power is additional
+      (21)  The court may exercise its power under subrule (20) in addition
+to  or  instead  of  its  power  of  forfeiture  under   rule   32   (bonds,
+recognizances and warrants).  O. Reg. 114/99, r. 27 (21).
+
+Frequency of examinations
+      (22)  A recipient may conduct only one  financial  examination  of  a
+payor and one financial examination of  any  other  person  in  a  six-month
+period, or more often with the  court's  permission.   O.  Reg.  114/99,  r.
+27 (22).
+
+                          RULE 28: SEIZURE AND SALE
+
+SEIZURE AND SALE
+
+Interpretation, electronic filing and issuance
+      28.  (0.1)  A reference in this rule to  the  electronic  filing  or
+issuance of a document is a reference to  the  filing  or  issuance  of  the
+document by use of the software authorized by the Ministry of  the  Attorney
+General for the purposes of this rule. O. Reg. 649/20, s. 4 (1).
+
+Issue of writ of seizure and sale
+      (1)  The clerk shall issue a writ of seizure and sale (Form 28) if  a
+recipient files,
+      (a)   a request for a writ of seizure and sale (Form 28A); and
+      (b)   a statement of money owed (subrules 26 (5)  and  (6)).  O.  Reg.
+    114/99, r. 28 (1); O. Reg. 544/99, s. 13 (1).
+
+Electronic filing of writ
+      (1.1)  Subject to subrule (11), a writ of  seizure  and  sale  issued
+under subrule (1) may be  filed  with  a  sheriff  electronically.  O.  Reg.
+142/14, s. 12 (1).
+
+Electronic filing of request, issuance of writ
+      (1.2)  Subject to subrule (11), a recipient may file a request for  a
+writ of seizure and sale electronically, in which case,
+      (a)   clause (1) (b) does not apply to the request;
+      (b)   the writ shall be issued electronically; and
+      (c)   the issued writ  shall  automatically  be  filed  electronically
+    with the sheriff specified in the writ. O. Reg. 142/14, s. 12 (1).
+      (1.3)  Revoked: O. Reg. 298/18, s. 16.
+
+Error in writ issued electronically
+      (1.4)  If a person who obtained  an  electronically  issued  writ  of
+seizure and sale discovers that the writ contains an error, the person  may,
+no later than 5 p.m. eastern standard or daylight saving time, as  the  case
+may be, on the second day after the day on  which  the  writ  is  considered
+under subrule (13) to have been filed with a sheriff, correct the  error  by
+using the software that was used for the  issuance  of  the  writ.  O.  Reg.
+142/14, s. 12 (1).
+
+Statutory declaration under the Family Responsibility and Support Arrears
+Enforcement Act, 1996
+      (2)  The statutory declaration to sheriff mentioned in section 44  of
+the Family Responsibility and Support Arrears Enforcement  Act,  1996  shall
+be in Form 28B. O. Reg. 114/99, r. 28 (2).
+
+Statutory declaration if order changed
+      (3)  If a court changes a payment order that is being enforced  by  a
+writ of seizure and sale, a statutory declaration to sheriff (Form 28B)  may
+be filed with the sheriff and once filed,  it  has  the  same  effect  as  a
+declaration mentioned in subrule (2). O. Reg. 114/99, r. 28 (3).
+
+Electronic filing
+      (3.1)  A statutory declaration referred to in subrule (2) or (3)  may
+be filed electronically. O. Reg. 142/14, s. 12 (1).
+
+Duration of writ
+      (4)  A writ of seizure and sale continues in effect until,
+      (a)   the writ is withdrawn under subrule (6.5) or (7); or
+      (b)   the court orders otherwise under subrule (8).  O.  Reg.  114/99,
+    r. 28 (4); O. Reg. 544/99, s. 13 (2); O. Reg. 142/14, s. 12 (2).
+
+Writ issued under former rules
+      (5)  A writ directing  the  sheriff  to  seize  and  sell  a  payor's
+property that was issued by the court under the rules  that  applied  before
+these rules take effect has the same legal effect as a writ of  seizure  and
+sale issued under these rules, and does not expire  except  as  subrule  (4)
+provides. O. Reg. 544/99, s. 13 (3).
+
+Notifying sheriff of payment received
+      (6)  If a writ of seizure and sale has been filed with a sheriff,
+      (a)   the  recipient  shall,  on  the  sheriff's  request,  provide  a
+    statutory declaration setting out details of all payments  received  by
+    or on behalf of the recipient; and
+      (b)   the sheriff shall update the writ accordingly. O.  Reg.  114/99,
+    r. 28 (6).
+
+May be filed electronically
+      (6.1)  Subject to subrule (11), the statutory declaration referred to
+in clause (6) (a) may be filed with  the  sheriff  electronically.  O.  Reg.
+142/14, s. 12 (3).
+
+Change of address
+      (6.2)  If the address of the recipient or his or her  lawyer  changes
+after a writ has been  filed  with  a  sheriff,  the  recipient  shall  give
+written notice of the new address to the  sheriff,  and  the  sheriff  shall
+update the writ accordingly. O. Reg. 142/14, s. 12 (3).
+
+May be filed electronically
+      (6.3)  Subject to subrule (11), notice of  the  new  address  may  be
+filed with the sheriff electronically. O. Reg. 142/14, s. 12 (3).
+
+Confirmation of electronically filed writ
+      (6.4)  In order to confirm whether a writ of seizure and  sale  filed
+with a sheriff electronically  has  been  properly  issued  and  filed,  the
+sheriff may require the recipient to provide to the sheriff, in  the  manner
+and within the time  the  sheriff  specifies,  a  statement  of  money  owed
+(subrule 26 (5) or (6)). O. Reg. 142/14, s. 12 (3).
+
+Withdrawal by sheriff
+      (6.5)  The sheriff may  withdraw  an  electronically  filed  writ  of
+seizure and sale if,
+      (a)   the sheriff determines that the writ was  improperly  issued  or
+    filed; or
+      (b)   the recipient fails  to  comply  with  subrule  (6.4).  O.  Reg.
+    142/14, s. 12 (3).
+
+Same
+      (6.6)  A writ may be withdrawn under subrule (6.5) at any time during
+its enforcement. O. Reg. 142/14, s. 12 (3).
+
+Corrections by sheriff
+      (6.7)  If the sheriff makes a determination that a  writ  of  seizure
+and sale filed with the sheriff electronically was properly issued or  filed
+but contains an error or otherwise differs from the order to which the  writ
+relates, the sheriff may correct the writ to make  it  consistent  with  the
+order. O. Reg. 142/14, s. 12 (3).
+
+Notice
+      (6.8)  The sheriff shall give notice of a  withdrawal  under  subrule
+(6.5) or a correction under subrule (6.7) to the recipient. O. Reg.  142/14,
+s. 12 (3).
+
+Withdrawing writ
+      (7)  The person who  obtained  a  writ  to  enforce  an  order  shall
+immediately withdraw it from every sheriff's office where it has been  filed
+if,
+      (a)   the person no longer wants to enforce the order by a writ;
+      (b)   in the case of a payment order, the payor's obligation  to  make
+    periodic payments under the order has ended and all other amounts owing
+    under it have been paid; or
+      (c)   in the case of any other order,  the  person  against  whom  the
+    writ was issued has obeyed the order. O. Reg. 114/99, r. 28 (7).
+
+Same
+      (7.1)  A writ may be withdrawn under subrule (7) by,
+      (a)   giving written notice to the sheriff that  the  writ  should  be
+    withdrawn; or
+      (b)   subject to subrule (11), filing notice of a withdrawal  of  writ
+    electronically. O. Reg. 142/14, s. 12 (3).
+
+Order changing, withdrawing or suspending writ
+      (8)  The court may, on motion, make an order changing the terms of  a
+writ, withdrawing it or temporarily suspending it,  even  if  the  writ  was
+issued by another court in Ontario. O. Reg. 114/99, r. 28 (8).
+
+Service of order
+      (9)  The person making the motion, or another  person  named  by  the
+court, shall serve a copy of the order on,
+      (a)   every sheriff in whose office the writ has been filed; and
+      (b)   if the writ was issued by the court  in  another  place,  or  by
+    another court, on the clerk of the court in  the  other  place  or  the
+    clerk of the other court. O. Reg. 114/99, r. 28 (9).
+
+Electronic filing of changes
+      (9.1)  If the court makes an order under subrule (8)  making  any  of
+the following changes to a writ that has been  filed  with  a  sheriff,  the
+person required to serve a copy of the order under subrule (9) may,  subject
+to  subrule  (11),  file  the  changes  to  the  writ   with   the   sheriff
+electronically instead of serving a copy of the order on the  sheriff  under
+clause (9) (a):
+      1.    The name of a party.
+      2.    The recipient's representative.
+      3.    The amount owing under the writ. O. Reg. 142/14, s. 12  (3);  O.
+    Reg. 172/25, s. 12.
+
+Writ of temporary seizure of property
+      (10)  The court may, on motion with special service (subrule 6  (3)),
+give permission to issue a writ of temporary seizure  (Form  28C)  directing
+the sheriff to take possession of and hold all  or  part  of  the  land  and
+other property of a person against whom an order has been made and  to  hold
+any income from the property until  the  writ  is  withdrawn  or  the  court
+orders otherwise. O. Reg. 114/99, r. 28 (10); O. Reg. 89/04, s. 11 (1).
+
+Limit on who may file electronically
+      (11)  The electronic filing and issuance of documents under this rule
+is only available for,
+      (a)   lawyers;
+      (b)   the Director of the Family Responsibility Office; and
+      (c)   Ministers or bodies acting under the  authority  of  an  Act  of
+    Canada or Ontario. O. Reg. 142/14, s. 12 (4).
+      (12)  Subrules 1.1 (4) and (6) apply, with necessary changes, to  the
+electronic filing or issuance  of  a  document  under  this  rule.  O.  Reg.
+649/20, s. 4 (1); O. Reg. 349/23, s. 6.
+      (13)  Revoked: O. Reg. 298/18, s. 16.
+
+Electronic filing and signatures, swearing
+      (14)  The following requirements are deemed to have  been  met  if  a
+document is filed or issued electronically under this rule:
+      1.    A requirement that the document be signed.
+      2.    A requirement that the document be sworn or  affirmed.  O.  Reg.
+    142/14, s. 12 (4); O. Reg. 649/20, s. 4 (2).
+
+                            RULE 29: GARNISHMENT
+
+GARNISHMENT
+
+Issue of notice or notices of garnishment
+      29.  (1)  The clerk shall issue as many notices of garnishment (Form
+29A or 29B) as a recipient requests if the recipient files,
+      (a)   a request for  garnishment  (Form  29)  or  an  extra-provincial
+    garnishment  process  referred  to  in  section  50   of   the   Family
+    Responsibility and Support Arrears Enforcement Act, 1996; and
+      (b)   a statement of money owed (subrules 26 (5) and  (6)).   O.  Reg.
+    114/99, r. 29 (1); O. Reg. 544/99, s. 14 (1).
+
+One recipient and one garnishee per notice
+      (2)  Each notice of garnishment shall name only one recipient and one
+garnishee.  O. Reg. 114/99, r. 29 (2).
+
+Service on payor and garnishee
+      (3)  The notice of garnishment shall be served on the  payor  and  on
+the garnishee  but  the  payor  shall,  in  addition,  be  served  with  the
+documents filed under subrule (1).  O. Reg. 114/99, r. 29 (3).
+
+Effect of notice of garnishment
+      (4)  A notice of garnishment attaches,
+      (a)   every debt that is payable by the garnishee to the payor at  the
+    time the notice is served; and
+      (b)   every debt that is payable by the garnishee to the payor,
+      (i)   after the notice is served, or
+      (ii)  on the fulfilment of a condition after  the  notice  is  served.
+       O. Reg. 114/99, r. 29 (4).
+
+Duration
+      (5)  The notice of garnishment continues in effect from the  time  of
+service on the garnishee until it is withdrawn or stopped  under  this  rule
+or until the court orders otherwise under this rule.   O.  Reg.  114/99,  r.
+29 (5).
+
+Financial institution
+      (6)  If the garnishee is  a  financial  institution,  the  notice  of
+garnishment and all further notices required to be served  under  this  rule
+shall be served at the branch of the  institution  where  the  debt  to  the
+payor is payable, unless subrule (6.1) applies.  O. Reg. 56/03, s. 5.
+
+Federally regulated financial institution - garnishment re support
+      (6.1)  If the garnishee is a financial institution to which the  Bank
+Act (Canada), the Cooperative Credit Associations Act (Canada) or the  Trust
+and Loan Companies Act (Canada)  applies  and  the  garnishment  enforces  a
+support order, the notice of garnishment and all  further  notices  required
+to be served under this rule,
+      (a)   shall be served at the  designated  office  of  the  institution
+    established for this purpose; and
+      (b)   shall be accompanied  by  a  statement  to  garnishee  financial
+    institution re support (Form 29J).  O. Reg. 56/03, s. 5.
+
+New accounts
+      (6.2)  Subrules (4) and (5) do not  apply  to  money  in  an  account
+opened after a notice of garnishment is served as described in  subrule  (6)
+or (6.1).  O. Reg. 56/03, s. 5.
+
+Joint debts garnishable
+      (7)  Subrules (4) and (5) also apply to debts owed to the  payor  and
+another person jointly.  O. Reg. 114/99, r. 29 (7).
+
+Procedure when joint debt garnished
+      (8)  If a garnishee has been served with a notice of garnishment  and
+the garnishee owes a debt to which subrules (4) and (5) apply to  the  payor
+and another person jointly,
+      (a)   the garnishee shall pay, in accordance with subrule  (11),  half
+    of the debt, or the larger or smaller amount that the court orders;
+      (b)   the garnishee shall immediately send the other person  a  notice
+    to co-owner of debt (Form 29C) by mail, fax or email, to  the  person's
+    address in the garnishee's records; and
+      (c)   the garnishee shall immediately serve the notice to co-owner  of
+    debt on the recipient or the Director, depending on  who  is  enforcing
+    the order, and on the sheriff or clerk if the sheriff or  clerk  is  to
+    receive the money under subrule (11)  or  (12).   O.  Reg.  114/99,  r.
+    29 (8); O. Reg. 140/15, s. 4.
+
+Joint debt - money to be held
+      (9)  Despite subrule (12), if served with  notice  under  clause  (8)
+(c), the sheriff, clerk or Director shall hold the  money  received  for  30
+days, and may pay it out when the 30 days expire, unless  the  other  person
+serves and files a dispute within the 30 days.  O. Reg. 114/99, r. 29 (9).
+
+Payment of arrears does not end garnishment
+      (10)  A notice of garnishment continues  to  attach  future  periodic
+payments even though the total amount owed when it was served is fully  paid
+up.  O. Reg. 114/99, r. 29 (10).
+
+Persons to whom garnishee makes payments
+      (11)  A garnishee who has been served with a  notice  of  garnishment
+shall make the required payments to,
+      (a)   the Director, if the notice of garnishment relates to  an  order
+    being enforced by the Director;
+      (b)   the clerk, if the notice of garnishment does not  relate  to  an
+    order being enforced by the Director.  O. Reg. 114/99, r. 29 (11).
+
+Clerk or director to pay out money
+      (12)  On receiving money under a notice of garnishment, the  Director
+or clerk shall, even if a dispute has been filed, but  subject  to  subrules
+(9) and (13), immediately pay,
+      (a)   to the recipient, any part of the money that  comes  within  the
+    priority created by subsection 2 (3)  of  the  Creditors'  Relief  Act,
+    2010; and
+      (b)   to the  sheriff,  any  part  of  the  money  that  exceeds  that
+    priority.  O. Reg. 114/99, r. 29 (12); O. Reg. 322/13, s. 17.
+
+Order that subrule (12) does not apply
+      (13)  The court may, at a garnishment  hearing  or  on  a  motion  to
+change the garnishment under this rule, order that  subrule  (12)  does  not
+apply.  O. Reg. 114/99, r. 29 (13).
+
+Change in garnishment, indexed support
+      (14)  If a notice  of  garnishment  enforces  a  support  order  that
+indexes periodic payments for inflation, the  recipient  may  serve  on  the
+garnishee and on the payor a statutory declaration of indexed support  (Form
+29D) setting out the new amount to be paid under the  order,  and  file  the
+declaration with the court.  O. Reg. 114/99, r. 29 (14).
+
+Effect of statutory declaration of indexed support
+       (15)  A  statutory  declaration  of  indexed  support  requires  the
+garnishee to pay the new amount set out in the declaration from the time  it
+is served on the garnishee.  O. Reg. 114/99, r. 29 (15).
+
+Garnishment dispute
+      (16)  Within 10 days after being served with a notice of  garnishment
+or a statutory declaration of indexed support, a  payor,  garnishee  or  co-
+owner of a debt may serve on the other parties  and  file  a  dispute  (Form
+29E, 29F or 29G).  O. Reg. 114/99, r. 29 (16).
+
+Notice of garnishment hearing
+      (17)  The clerk shall, on request,  issue  a  notice  of  garnishment
+hearing (Form 29H),
+      (a)   within 10 days after a dispute is served and filed; or
+      (b)   if the recipient says that the garnishee has not paid any  money
+    or has not paid enough money.  O. Reg. 114/99, r. 29 (17).
+
+Service of notice
+      (18)  The clerk shall serve and file the notice  not  later  than  10
+days before the hearing.  O. Reg. 114/99, r. 29 (18).
+
+Garnishment hearing
+      (19)  At a garnishment hearing, the court may make one or more of the
+following temporary or final orders:
+      1.    An order dismissing the dispute.
+      2.    An order that changes how much is being garnished on account  of
+    a periodic payment order.  The court  may  make  an  order  under  this
+    paragraph even if it does not have the authority to change the  payment
+    order itself.
+      2.1   An order that changes how much is being garnished on account  of
+    a periodic payment order and  that,  at  the  same  time,  changes  the
+    payment order itself.  The court may make an order under this paragraph
+    only if,
+      i.    the payment order is one that the court  has  the  authority  to
+       change, and
+      ii.   the parties to the payment order agree to the change, or one  of
+       those parties has served and filed notice of a motion  to  have  the
+       change made.
+      3.    An order changing how much is being garnished on  account  of  a
+    non-periodic payment order.
+      4.    An order suspending the garnishment or any  term  of  it,  while
+    the hearing is adjourned or until the court orders otherwise.
+      5.    An  order  setting  aside  the  notice  of  garnishment  or  any
+    statutory declaration of indexed support.
+      6.    An order that garnished money held or  received  by  the  clerk,
+    Director or sheriff be held in court.
+      7.    An order that garnished money that has been paid  out  in  error
+    to the recipient be paid into  and  held  in  court,  returned  to  the
+    garnishee or sent to the payor or to the co-owner of the debt.
+      8.    An order that garnished money held in court be returned  to  the
+    garnishee or be sent to the  payor,  the  co-owner  of  the  debt,  the
+    sheriff, the clerk or the Director.
+      9.    An order deciding how much remains owing under a  payment  order
+    that is being enforced by garnishment against the payor or garnishee.
+      10.   If the garnishee has not paid what was required  by  the  notice
+    of garnishment or statutory declaration of indexed  support,  an  order
+    that the garnishee pay all or part of what was required.
+      11.    An  order  deciding  who  is  entitled  to  the  costs  of  the
+    garnishment hearing and setting the  amount  of  the  costs.   O.  Reg.
+    114/99, r. 29 (19); O. Reg. 544/99, s. 14 (2).
+
+Changing garnishment at other times
+      (20)  The court may also use the powers listed in  subrule  (19),  on
+motion or on its own initiative, even  if  the  notice  of  garnishment  was
+issued by another court,
+      (a)   on a motion under section 7 of the Wages Act;
+      (b)   if the court replaces a temporary payment  order  with  a  final
+    payment order;
+      (c)   if the court indexes or changes a payment order; or
+      (d)   if the court allows an appeal.  O. Reg. 114/99, r. 29 (20).
+
+Changing garnishment when ability to pay changes
+       (21)  If  there  has  been  a  material  change  in   the   payor's
+circumstances affecting the payor's  ability  to  pay,  the  court  may,  on
+motion, use the powers listed in subrule (19).  O. Reg. 114/99, r. 29 (21).
+
+Garnishee's payment pays debt
+      (22)  Payment of a debt by a garnishee under a notice of  garnishment
+or statutory declaration of indexed support pays off the  debt  between  the
+garnishee and the payor to the extent of the payment.  O.  Reg.  114/99,  r.
+29 (22).
+
+Notice by garnishee - payor not working or receiving money
+      (23)  Within 10 days after a payor stops working for or is no  longer
+receiving any money from a garnishee, the garnishee shall send a  notice  as
+subrule (27) requires,
+      (a)   saying that the payor is no longer working for or is  no  longer
+    receiving any money from the garnishee;
+      (b)   giving the date on  which  the  payor  stopped  working  for  or
+    receiving money from the garnishee and the date of the last payment  to
+    the payor from the garnishee; and
+      (c)   giving the name and address of any other income  source  of  the
+    payor, if known.  O. Reg. 114/99, r. 29 (23).
+
+Notice by garnishee - payor working or receiving money again
+      (24)  Within 10 days after the payor returns to work for or starts to
+receive money again from the garnishee, the  garnishee  shall  send  another
+notice as subrule (27) requires, saying that the payor has returned to  work
+for or started to receive money again from the garnishee.  O.  Reg.  114/99,
+r. 29 (24).
+
+Notice by payor - working or receiving money again
+      (25)  Within 10 days after returning  to  work  for  or  starting  to
+receive money again from the garnishee, the payor shall  send  a  notice  as
+subrule (27) requires, saying that the payor has returned  to  work  for  or
+started to receive money again from  the  garnishee.   O.  Reg.  114/99,  r.
+29 (25).
+
+Notice by payor - new income source
+      (26)  Within 10 days after starting to work for or receive money from
+a new income  source,  the  payor  shall  send  a  notice  as  subrule  (27)
+requires, saying that the payor has started to work for or to receive  money
+from the new income source.  O. Reg. 114/99, r. 29 (26).
+
+Notice sent to clerk and recipient or director
+      (27)  A notice referred to in subrule (23), (24), (25) or (26)  shall
+be sent to the clerk, and to the recipient or  the  Director  (depending  on
+who is enforcing the order), by mail or email.  O. Reg. 114/99, r. 29 (27);
+O. Reg. 140/15, s. 4; O. Reg. 781/21, s. 10.
+
+Notice by clerk
+      (28)  When the clerk receives a notice under subrule (26), the  clerk
+shall immediately notify the recipient or the Director (depending on who  is
+enforcing the order) by mail or email.  O. Reg. 114/99, r. 29 (28); O. Reg.
+140/15, s. 4; O. Reg. 781/21, s. 10.
+
+New notice of garnishment
+      (29)  If no written objection is received within 10 days of the clerk
+notifying the recipient or the Director that a  notice  under  subrule  (26)
+was received, the clerk shall,
+       (a)    issue  a  new  notice  of  garnishment  directed  to  the  new
+    garnishee, requiring the same deductions as were required to  be  made,
+    under the previous notice of garnishment or  statutory  declaration  of
+    indexed support, on the day that the  notice  under  subrule  (26)  was
+    received; and
+      (b)   send a copy of the new notice of garnishment to  the  payor  and
+    the new garnishee, by mail or email.   O. Reg.  114/99,  r.  29 (29);
+    O. Reg. 76/06, s. 7; O. Reg. 140/15, s. 4; O. Reg. 781/21, s. 10.
+
+Effect of new notice of garnishment
+      (30)  Issuing a new notice of garnishment under clause (29) (a)  does
+not cancel any previous notice of garnishment or  statutory  declaration  of
+indexed support.  O. Reg. 114/99, r. 29 (30).
+
+Notice to stop garnishment
+       (31)  The  recipient  shall  immediately  send  a  notice  to  stop
+garnishment (Form 29I), by mail, fax or email, to the  garnishee  and  payor
+and file it with the clerk if,
+       (a)    the  recipient  no  longer  wants  to  enforce  the  order  by
+    garnishment; or
+      (b)   the requirement to make periodic payments under  the  order  has
+    ended and all other amounts owing  under  the  order  have  been  paid.
+    O. Reg. 114/99, r. 29 (31); O. Reg. 544/99, s. 14 (3); O. Reg. 140/15,
+    s. 4.
+
+Old orders
+      (32)  This rule applies, with necessary changes, to,
+      (a)   an attachment order made under section  30  of  the  Family  Law
+    Reform Act (chapter 152 of the Revised Statutes of Ontario, 1980); and
+      (b)   a garnishment order issued by the court  under  the  rules  that
+    were in effect before January 1, 1985.  O. Reg. 114/99, r. 29 (32).
+
+                          RULE 30: DEFAULT HEARING
+
+DEFAULT HEARING
+
+Issuing notice of default hearing
+      30.  (1)  The clerk shall issue a notice of  default  hearing  (Form
+30),
+      (a)   if the support order is being enforced by  the  recipient,  when
+    the recipient files a request for a default hearing (Form  30A)  and  a
+    statement of money owed (subrule 26 (5));
+      (b)   if it is being enforced  by  the  Director,  when  the  Director
+    files a statement of money owed.  O. Reg. 114/99, r. 30 (1).
+
+Serving notice of default hearing
+      (2)  The notice of default hearing shall be served on  the  payor  by
+special service in accordance  with  subrule  6  (4)  and  filed.   O.  Reg.
+114/99, r. 30 (2); O. Reg. 322/13, s. 18 (1).
+
+Payor's dispute
+      (3)  Within 10 days after being served with  the  notice,  the  payor
+shall serve on the recipient and file,
+      (a)   a financial statement (Form 13); and
+      (b)   a default dispute (Form 30B).  O. Reg. 114/99, r. 30 (3).
+
+Updating statement of money owed
+      (4)  The recipient shall serve and file a new statement of money owed
+(subrule 26 (5)) not more than seven days before the  default  hearing.   O.
+Reg. 114/99, r. 30 (4).
+
+When director to update statement
+      (5)  Despite subrule 26 (10), subrule (4)  applies  to  the  Director
+only if,
+      (a)   the amount the Director  is  asking  the  court  to  enforce  is
+    greater than the amount shown in the notice of default hearing; or
+      (b)   the court directs it.  O. Reg. 114/99, r. 30 (5).
+
+Statement of money owed presumed correct
+      (6)  The payor is presumed to admit that the recipient's statement of
+money owed is correct, unless the payor has filed a default dispute  stating
+that the statement  of  money  owed  is  not  correct  and  giving  detailed
+reasons.  O. Reg. 114/99, r. 30 (6).
+
+Arrears enforceable to date of hearing
+      (7)  At the default hearing, the court may  decide  and  enforce  the
+amount owing as of the date of the hearing.  O. Reg. 114/99, r. 30 (7).
+
+Conditional imprisonment
+      (8)  The court may make an order under clause 41 (10) (h) or  (i)  of
+the  Family  Responsibility  and  Support  Arrears  Enforcement  Act,  1996,
+suspending the payor's imprisonment  on  appropriate  conditions.   O.  Reg.
+114/99, r. 30 (8); O. Reg. 76/06, s. 8 (1).
+
+Issuing warrant of committal
+      (9)  If the recipient, on a motion with special service in accordance
+with subrule 6 (4) on the payor, states by affidavit (or by  oral  evidence,
+with the court's permission) that the payor has not obeyed a condition  that
+was imposed under subrule (8), the court may issue a  warrant  of  committal
+against the payor, subject to subsection 41 (15) (power to change order)  of
+the Family Responsibility and Support Arrears  Enforcement  Act,  1996.   O.
+Reg. 114/99, r. 30 (9); O. Reg. 76/06, s. 8 (2); O. Reg. 322/13, s. 18 (2).
+
+                         RULE 31: CONTEMPT OF COURT
+
+CONTEMPT OF COURT
+
+When contempt motion available
+      31.  (1)  An order, other than a payment order, may be enforced by a
+contempt motion made in the case in  which  the  order  was  made,  even  if
+another penalty is available.  O. Reg. 114/99, r. 31 (1).
+
+Notice of contempt motion
+      (2)  The notice of contempt motion (Form 31) shall be served together
+with a supporting affidavit, by special service in accordance  with  subrule
+6 (4), unless the court orders otherwise.  O. Reg. 114/99,  r.  31 (2);  O.
+Reg. 322/13, s. 19.
+
+Affidavit for contempt motion
+      (3)  The supporting affidavit may contain statements  of  information
+that the person signing the affidavit learned from someone  else,  but  only
+if the requirements of subrule 14 (19) are satisfied.  O.  Reg.  114/99,  r.
+31 (3).
+
+Warrant to bring to court
+      (4)  To bring before the court  a  person  against  whom  a  contempt
+motion is made, the court may issue a warrant for the person's arrest if,
+      (a)    the  person's  attendance  is  necessary  in  the  interest  of
+    justice; and
+      (b)   the person  is  not  likely  to  attend  voluntarily.   O.  Reg.
+    114/99, r. 31 (4).
+
+Contempt orders
+      (5)  If the court finds a person in contempt of  the  court,  it  may
+order that the person,
+      (a)   be imprisoned for any period and  on  any  conditions  that  are
+    just;
+      (b)   pay a fine in any amount that is appropriate;
+      (c)   pay an amount to a party as a penalty;
+      (d)   do anything else that the court decides is appropriate;
+      (e)   not do what the court forbids;
+      (f)   pay costs in an amount decided by the court; and
+      (g)   obey any other order.  O. Reg. 114/99, r. 31 (5).
+
+Writ of temporary seizure
+      (6)  The court may also give permission to issue a writ of  temporary
+seizure (Form 28C) against  the  person's  property.   O. Reg.  114/99,  r.
+31 (6).
+
+Limited imprisonment or fine
+      (7)  In a contempt order under one of the following  provisions,  the
+period of imprisonment and the amount of a fine may not be greater than  the
+relevant Act allows:
+      1.    Section 38 of the Children's Law Reform Act.
+      2.    Section 49 of the Family Law Act.
+      3.    Section 53 of the  Family  Responsibility  and  Support  Arrears
+    Enforcement Act, 1996.  O. Reg. 114/99, r. 31 (7); O. Reg. 235/16,  s.
+    6.
+
+Conditional imprisonment or fine
+      (8)  A contempt order for imprisonment or for the payment of  a  fine
+may be suspended on appropriate conditions.  O. Reg. 114/99, r. 31 (8).
+
+Issuing warrant of committal
+      (9)  If a party, on a motion with special service (subrule 6 (3))  on
+the person in contempt, states by an affidavit  in  Form  32C  (or  by  oral
+evidence, with the court's permission) that the  person  has  not  obeyed  a
+condition imposed under subrule (8),  the  court  may  issue  a  warrant  of
+committal against the person.  O. Reg. 114/99, r. 31 (9).
+
+Payment of fine
+      (10)  A contempt order for the payment of a fine  shall  require  the
+person in contempt to pay the fine,
+      (a)   in a single payment, immediately  or  before  a  date  that  the
+    court chooses; or
+      (b)   in instalments, over a period of time that the  court  considers
+    appropriate.  O. Reg. 114/99, r. 31 (10).
+
+Corporation in contempt
+      (11)  If a corporation is found in contempt, the court may also  make
+an order under subrule (5), (6) or (7) against any officer  or  director  of
+the corporation.  O. Reg. 114/99, r. 31 (11).
+
+Change in contempt order
+      (12)  The court may, on motion, change an order under this rule, give
+directions and make any other order  that  is  just.   O. Reg.  114/99,  r.
+31 (12).
+
+                 RULE 32: BONDS, RECOGNIZANCES AND WARRANTS
+
+BONDS, RECOGNIZANCES AND WARRANTS
+
+Warrant to bring a person to court
+      32.  (1)  If a person does not come to court after being served with
+notice of a case,  enforcement  or  motion  that  may  result  in  an  order
+requiring the person to post a bond,
+      (a)   the court may issue a warrant for the person's arrest, to  bring
+    the person before the court, and adjourn the case to await the person's
+    arrival; or
+      (b)   the court may,
+      (i)   hear and decide  the  case  in  the  person's  absence  and,  if
+       appropriate, make an order requiring the person to post a bond, and
+      (ii)  if the person has been served with the order and does  not  post
+       the bond by the date set out in the order, issue a warrant  for  the
+       person's arrest, on motion  without  notice,  to  bring  the  person
+       before the court.  O. Reg. 114/99, r. 32 (1).
+
+Form of bond and other requirements
+      (2)  A bond shall be in Form 32, does not need a seal, and shall,
+      (a)   have at least one surety, unless the court orders otherwise;
+      (b)   list the conditions that the court considers appropriate;
+      (c)   set out an amount of money to be  forfeited  if  the  conditions
+    are not obeyed;
+      (d)   shall require the person posting the bond to deposit  the  money
+    with the clerk immediately, unless the court orders otherwise; and
+      (e)   name the person to whom any forfeited money is to be  paid  out.
+    O. Reg. 114/99, r. 32 (2).
+
+Person before whom recognizance to be entered into
+      (3)  A recognizance shall be entered into before a judge,  a  justice
+of the peace or the clerk.  O. Reg. 114/99, r. 32 (3).
+
+Change of conditions in a bond
+      (4)  The court may, on motion, change any  condition  in  a  bond  if
+there has been a material change in a party's circumstances since  the  date
+of the order for posting the bond  or  the  date  of  an  order  under  this
+subrule, whichever is more recent.  O. Reg. 114/99, r. 32 (4).
+
+Change in bond under Children's Law Reform Act
+      (5)  In the case of a bond  under  the  Children's  Law  Reform  Act,
+subrule (4) also applies to a material change in circumstances that  affects
+or is likely to affect the best interests of the child.  O. Reg. 114/99,  r.
+32 (5).
+
+Removal or replacement of surety
+      (6)  The court may, on motion, order that a surety be removed  or  be
+replaced by another person as surety, in which case as soon as the order  is
+made, the surety who is removed or replaced  is  free  from  any  obligation
+under the bond.  O. Reg. 114/99, r. 32 (6).
+
+Motion to enforce bond
+      (7)  A person requesting the court's permission  to  enforce  a  bond
+under subsection 143 (1)  (enforcement  of  recognizance  or  bond)  of  the
+Courts of Justice Act shall serve a notice of forfeiture motion (Form  32A),
+with a copy of the bond attached, on the person  said  to  have  broken  the
+bond and on each surety.  O. Reg. 114/99, r. 32 (7).
+
+Forfeiture if no deposit made
+      (8)  If an order of forfeiture of a bond is made and no  deposit  was
+required, or a deposit was required  but  was  not  made,  the  order  shall
+require the payor or surety to pay the required  amount  to  the  person  to
+whom the bond is payable,
+      (a)   in a single payment, immediately  or  before  a  date  that  the
+    court chooses; or
+      (b)   in instalments, over a period of time that the  court  considers
+    appropriate.  O. Reg. 114/99, r. 32 (8).
+
+Change in payment schedule
+      (9)  If time is allowed for payment under subrule (8), the court may,
+on a later motion by the payor or a surety, allow further time for  payment.
+ O. Reg. 114/99, r. 32 (9).
+
+Order for forfeiture of deposit
+      (10)  If an order of forfeiture of a bond is made and a  deposit  was
+required and was made, the order shall direct the clerk to pay the  required
+amount immediately to the person to whom the bond is made payable.  O.  Reg.
+114/99, r. 32 (10).
+
+Cancelling bond
+      (11)  The court may, on motion, make an order under subrule  (4),  or
+an order cancelling the bond and directing a refund of all or  part  of  the
+deposit, if,
+      (a)   a payor or surety made a deposit under the bond;
+      (b)   the conditions of the bond have not been broken; and
+      (c)   the conditions have expired or, although they have  not  expired
+    or do not have an expiry date, the payor or surety has good reasons for
+    getting the conditions  of  the  bond  changed.   O.  Reg.  114/99,  r.
+    32 (11).
+
+Form of warrant for arrest
+      (12)  A warrant for arrest issued against any of the following  shall
+be in Form 32B:
+      1.    A payor who does not file a financial  statement  ordered  under
+    subsection 40 (4) of the  Family  Responsibility  and  Support  Arrears
+    Enforcement Act, 1996 or under these rules.
+      2.    A payor who does not come to a default hearing under section  41
+    of the Family Responsibility and Support Arrears Enforcement Act, 1996.
+      3.    An absconding respondent under subsection 43 (1) or  59  (2)  of
+    the Family Law Act.
+      4.    An absconding payor  under  subsection  49  (1)  of  the  Family
+    Responsibility and Support Arrears Enforcement Act, 1996.
+      5.    A witness who does not come to court or remain in attendance  as
+    required by a summons to witness.
+      6.    A  person who does not come to court in a case that  may  result
+    in an order requiring the person to post a bond under these rules.
+      7.    A person who does not obey an  order  requiring  the  person  to
+    post a bond under these rules.
+      8.    A person against whom a contempt motion is made.
+      9.    Any other person liable to arrest under an order.
+      10.   Any other person liable to arrest  for  committing  an  offence.
+    O. Reg. 114/99, r. 32 (12).
+
+Bail on arrest
+      (13)  Section 150 (interim release by justice of the  peace)  of  the
+Provincial Offences Act applies, with necessary changes, to an  arrest  made
+under a warrant mentioned in paragraph 1, 2, 3 or 4  of  subrule  (12).   O.
+Reg. 114/99, r. 32 (13).
+
+Affidavit for warrant of committal
+      (14)  An affidavit in support of a motion for a warrant of  committal
+shall be in Form 32C.  O. Reg. 114/99, r. 32 (14).
+
+Form of warrant of committal
+       (15)  A  warrant  of  committal  issued  to  enforce  an  order  of
+imprisonment shall be in Form 32D.  O. Reg. 114/99, r. 32 (15).
+
+             RULE 32.1: ENFORCEMENT OF FAMILY ARBITRATION AWARDS
+
+ENFORCEMENT OF FAMILY ARBITRATION AWARDS
+
+Requesting enforcement
+      32.1  (1)  A party who is entitled to the enforcement  of  a  family
+arbitration award and who wants to ask the court to enforce the award  under
+section 59.8 of the Family Law Act may file a request to  enforce  a  family
+arbitration award (Form 32.1), together with,
+      (a)   copies of the certificates of independent legal advice  required
+    by the Family Law  Act  for  the  parties  to  the  family  arbitration
+    agreement;
+      (b)   a copy of the family arbitration agreement; and
+      (c)   the original award or a certified copy. O. Reg. 388/12, s. 8.
+
+When required to proceed by motion
+      (2)  Despite subrule (1), if there is already a family  law  case  to
+which these rules apply  between  the  parties  to  the  family  arbitration
+agreement in the Superior Court of  Justice  or  the  Family  Court  of  the
+Superior Court of Justice, the party entitled to enforcement  shall  make  a
+motion in that case rather than a request under this rule,  and  subrule  14
+(24) applies in respect of the motion. O. Reg. 388/12, s. 8.
+
+Application of other rules
+      (3)  The rules that apply to an application apply  to  a  request  to
+enforce a family arbitration award  that  is  proceeding  under  this  rule,
+unless these rules provide otherwise. O. Reg. 388/12, s. 8.
+
+Hearing date
+      (4)  When a request to enforce a family arbitration award  is  filed,
+the clerk shall set a hearing date. O. Reg. 388/12, s. 8.
+
+Service
+      (5)  The request shall be served immediately on  every  other  party.
+O. Reg. 388/12, s. 8.
+
+Request not served on or before hearing date
+      (6)  If a request to enforce a family arbitration award is not served
+on a respondent on or before the hearing  date,  the  clerk  shall,  at  the
+applicant's request, set a new hearing date for  that  respondent,  and  the
+applicant shall make the necessary  change  to  the  request  and  serve  it
+immediately on that respondent. O. Reg. 388/12, s. 8.
+
+Opposing a request
+      (7)  Despite subrule 10 (1) (serving and filing answer), a respondent
+who wants to oppose a request to enforce a family  arbitration  award  shall
+serve a dispute of request for  enforcement  (Form  32.1A)  on  every  other
+party and file it,
+      (a)   no later than 30 days after being served with the request; or
+      (b)   if the request is served outside Canada or the United States  of
+    America, no later than 60 days after being  served  with  the  request.
+    O. Reg. 388/12, s. 8.
+
+Written hearing
+      (8)  Unless the  court  orders  otherwise  under  subrule  (10),  the
+request shall be dealt with on the basis of written  documents  without  the
+parties or their lawyers needing to come to court. O. Reg. 388/12, s. 8.
+
+Request for oral hearing
+      (9)  A respondent may request an oral hearing by filing a motion form
+(Form 14B) within seven days after being served with the request to  enforce
+a family arbitration award. O. Reg. 388/12, s. 8; O. Reg. 69/15, s. 11.
+
+Order for oral hearing
+      (10)  The court may order an oral hearing, on motion or  on  its  own
+initiative, if it is satisfied that an oral hearing  is  necessary  to  deal
+with the case justly. O. Reg. 388/12, s. 8.

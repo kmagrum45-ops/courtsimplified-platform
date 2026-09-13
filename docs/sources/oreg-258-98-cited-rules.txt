@@ -1,0 +1,1002 @@
+O. Reg. 258/98 (Rules of the Small Claims Court) — rules cited by CourtSimplified
+Source: https://www.ontario.ca/laws/docs/980258_e.doc
+Consolidation period: from 2025-10-14 to the e-Laws currency date
+Extracted with antiword, 2026-09-13. Verbatim, unedited below each rule line.
+======================================================================
+
+---------------------------------------------------------------------- 
+rr. 16 to 18 — trial scheduling, trial management conference, trial
+---------------------------------------------------------------------- 
+
+
+                          RULE 16  TRIAL SCHEDULING
+
+CLERK FIXES DATE AND SERVES NOTICE
+      16.01  (1)  The clerk shall fix a date for trial and serve a  notice
+of trial on each party who has filed a claim or defence if,
+      (a)   a settlement conference has been held; and
+      (b)   a party has filed a request to the clerk  (Form  9B)  to  fix  a
+    date for trial and has paid the required fee.  O. Reg. 78/06, s. 32; O.
+    Reg. 3/25, s. 14 (2).
+
+Manner of Service
+      (2)  The clerk shall serve the notice of trial by mail or  email.  O.
+Reg. 3/25, s. 14 (3).
+
+                   RULE 16.1  TRIAL MANAGEMENT CONFERENCE
+
+COURT MAY REQUIRE
+      16.1.01  (1)  At any time after the filing of a request to fix a date
+for trial, the court may,  on  its  own  initiative,  direct  that  a  trial
+management conference be held before a judge. O. Reg. 3/25, s. 15.
+
+Participation
+       (2)  A  party  and  the  party's  representative,  if  any,   shall
+participate in the trial management conference,  unless  the  court  directs
+otherwise. O. Reg. 3/25, s. 15.
+
+Duties of Clerk
+      (3)  The clerk shall fix a time and date  for  the  trial  management
+conference and serve notice  of  the  trial  management  conference  on  the
+parties. O. Reg. 3/25, s. 15.
+
+Failure to Attend
+      (4)  If a party who has  received  notice  of  the  trial  management
+conference fails to attend the conference, the court may impose  appropriate
+sanctions, by way of costs or otherwise. O. Reg. 3/25, s. 15.
+
+Inadequate Preparation
+      (5)  The court may award costs against a person who attends  a  trial
+management conference if, in the opinion of the  court,  the  person  is  so
+inadequately prepared as to frustrate the purposes  of  the  conference.  O.
+Reg. 3/25, s. 15.
+
+Purposes of Trial Management Conference
+      16.1.02  (1)  The purposes of a trial management conference are,
+      (a)   to assess the parties' readiness for trial;
+      (b)   to assist the parties in effective preparation for trial;
+      (c)   to provide full disclosure between the parties of  the  relevant
+    facts and evidence;
+      (d)   to resolve or narrow the issues in the action;
+      (e)   to expedite the disposition of the action;
+      (f)   to encourage settlement of the action; and
+      (g)   to set the trial date, if necessary. O. Reg. 3/25, s. 15.
+
+Disclosure
+      (2)  At the  trial  management  conference,  the  parties  and  their
+representatives shall openly and frankly discuss the issues involved in  the
+action. O. Reg. 3/25, s. 15.
+
+Further Disclosure Restricted
+      (3)  Except as otherwise provided or with the consent of the  parties
+(Form 13B), the matters discussed at the trial management  conference  shall
+not be disclosed to others until after the action has been disposed  of.  O.
+Reg. 3/25, s. 15.
+      (4)  Subrule (3) does not prevent the review, by  a  regional  senior
+judge or a person designated  by  a  regional  senior  judge,  of  an  audio
+recording by the court of a trial management conference, for the purpose  of
+reviewing a complaint made under section 33.1 of the Courts of Justice  Act.
+O. Reg. 3/25, s. 15.
+
+Recommendations to Parties
+      16.1.03  The court may make recommendations to  the  parties  on  any
+matter relating to the conduct  of  the  action,  in  order  to  fulfil  the
+purposes of a trial management conference, including recommendations as to,
+      (a)   the clarification and simplification of issues in the action;
+      (b)   the  elimination  of  claims  or  defences  that  appear  to  be
+    unsupported; and
+      (c)   the admission of facts or documents without  further  proof.  O.
+    Reg. 3/25, s. 15.
+
+Orders at Trial Management Conference
+      16.1.04  (1)  A judge conducting a trial management  conference  may
+make any order relating to the conduct of the action that  the  court  could
+make, including an order,
+      (a)   respecting the scheduling of the trial;
+      (b)   directing the production of documents; and
+      (c)   awarding costs if a party fails to  attend  the  conference,  if
+    required to do so. O. Reg. 3/25, s. 15.
+
+Service of Order
+      (2)  Within 10 days after the judge signs an order made  at  a  trial
+management conference, the clerk shall  serve  the  order  on  each  of  the
+parties in accordance with subrule 8.01 (6). O. Reg. 3/25, s. 15.
+
+Memorandum
+      16.1.05  (1)  At the end of the  trial  management  conference,  the
+judge shall complete a  memorandum  summarizing  the  scheduling  and  trial
+preparation matters addressed at the conference. O. Reg. 3/25, s. 15.
+      (2)  The memorandum shall be filed with the clerk, who shall  give  a
+copy to the trial judge. O. Reg. 3/25, s. 15.
+
+Judge Not to Preside at Trial
+      16.1.06  A judge who conducts a trial  management  conference  in  an
+action shall not preside at the trial of the action. O. Reg. 3/25, s. 15.
+
+Costs
+      16.1.07  The costs of  a  trial  management  conference,  other  than
+disbursements, shall not exceed $100,  unless  the  court  orders  otherwise
+because there are special circumstances. O. Reg. 3/25, s. 15.
+
+                               RULE 17  TRIAL
+
+FAILURE TO ATTEND
+      17.01  (1)  If an action is called for trial and all the parties fail
+to attend, the trial judge  may  strike  the  action  off  the  trial  list.
+O. Reg. 258/98, r. 17.01 (1).
+      (2)  If an action is called for trial and a party  fails  to  attend,
+the trial judge may,
+      (a)   proceed with the trial in the party's absence;
+      (b)   if the plaintiff attends and  the  defendant  fails  to  do  so,
+    strike out the defence and dismiss the defendant's claim, if  any,  and
+    allow the plaintiff to prove the plaintiff's claim, subject to  subrule
+    (3);
+      (c)   if the defendant attends and  the  plaintiff  fails  to  do  so,
+    dismiss the action and allow the defendant  to  prove  the  defendant's
+    claim, if any; or
+       (d)    make  such  other  order  as  is  just.    O. Reg.   258/98,
+    r. 17.01 (2).
+      (2.1)  In the case described in clause (2) (b)  or  (c),  the  person
+with the claim is not required to prove liability against the party who  has
+failed to attend but is required to prove the amount of the claim.  O. Reg.
+78/06, s. 33 (1).
+      (3)  In the case described in clause (2) (b), if an issue as  to  the
+proper place of trial under subrule 6.01 (1) is raised in the  defence,  the
+trial judge  shall  consider  it  and  make  a  finding.   O. Reg.  258/98,
+r. 17.01 (3).
+
+Setting Aside or Variation of Judgment
+      (4)  The court may set aside or vary, on such terms as  are  just,  a
+judgment obtained against a  party  who  failed  to  attend  at  the  trial.
+O. Reg. 258/98, r. 17.01 (4).
+
+Conditions to Making of Order under Subrule (4)
+      (5)  The court may make an order under subrule (4) only if,
+      (a)   the party who failed to attend makes  a  motion  for  the  order
+    within 30 days after becoming aware of the judgment; or
+      (b)   the party who failed to attend makes a motion for  an  extension
+    of the 30-day period mentioned in clause (a) and the court is satisfied
+    that there  are  special  circumstances  that  justify  the  extension.
+    O. Reg. 78/06, s. 33 (2).
+
+Adjournment
+      17.02  (1)  A trial may be adjourned only by order of the court.  O.
+Reg. 3/25, s. 16.
+
+Terms
+      (2)  The court may adjourn  a  trial  on  such  terms  as  are  just,
+including the payment by one party to another of an amount  as  compensation
+for inconvenience and expense. O. Reg. 3/25, s. 16.
+
+Inspection
+      17.03  The trial judge may, in the presence of the parties  or  their
+representatives, inspect any real or personal property  concerning  which  a
+question arises in the action.  O. Reg. 258/98, r. 17.03.
+
+Motion for New Trial
+      17.04  (1)  A party may make a motion for a new trial within 30 days
+after a final order is made.  O. Reg. 78/06, s. 35.
+
+Transcript
+      (2)  In addition to serving and  filing  the  notice  of  motion  and
+supporting affidavit (Form 15A) required under rule 15.01, the moving  party
+shall serve and file proof that a request has been  made  for  a  transcript
+of,
+      (a)   the reasons for judgment; and
+      (b)   any other portion of the proceeding that is relevant.   O. Reg.
+    393/09, s. 16 (1).
+
+Service and Filing of Transcript
+      (3)  If available, a copy of the transcript  shall,  at  least  three
+days before the hearing date,
+      (a)   be served on all parties  who  were  served  with  the  original
+    notice of trial; and
+      (b)   be filed, with proof of service.  O. Reg. 78/06, s. 35; O. Reg.
+    393/09, s. 16 (2).
+
+Powers of  Court on Motion
+      (4)  On the hearing of the motion, the court may,
+      (a)   if the party  demonstrates  that  a  condition  referred  to  in
+    subrule (5) is satisfied,
+      (i)   grant a new trial, or
+      (ii)  pronounce the judgment that ought to have been  given  at  trial
+       and order judgment accordingly; or
+      (b)   dismiss the motion.  O. Reg. 78/06, s. 35.
+
+Conditions
+      (5)  The conditions referred to in clause (4) (a) are:
+      1.    There was a purely arithmetical error in  the  determination  of
+    the amount of damages awarded.
+      2.    There is relevant evidence that was not available to  the  party
+    at the time of the original trial and could not  reasonably  have  been
+    expected to be available at that time.  O. Reg. 78/06, s. 35.
+
+                         RULE 18  EVIDENCE AT TRIAL
+
+AFFIDAVIT
+      18.01  At the trial of an undefended action, the plaintiff's case may
+be proved by affidavit, unless the trial judge orders  otherwise.   O. Reg.
+258/98, r. 18.01.
+
+Written Statements, Documents and Records
+      18.02  (1)  A document or written statement or an  audio  or  visual
+record that has been served, at least 30 days before the trial date, on  all
+parties who were served with the notice  of  trial,  shall  be  received  in
+evidence, unless the trial judge orders otherwise.  O. Reg.  78/06,  s. 36
+(1).
+      (2)  Subrule (1) applies to  the  following  written  statements  and
+documents:
+      1.    The signed written  statement  of  any  witness,  including  the
+    written report of an expert, to the extent that the  statement  relates
+    to facts and opinions to  which  the  witness  would  be  permitted  to
+    testify in person.
+      2.    Any other document, including but  not  limited  to  a  hospital
+    record or medical report made in the course of care  and  treatment,  a
+    financial record, a receipt, a bill, documentary evidence  of  loss  of
+    income or property damage, and a  repair  estimate.   O. Reg.  258/98,
+    r. 18.02 (2); O. Reg. 78/06, s. 36 (2).
+
+Details about Witness or Author
+      (3)  A party who serves on  another  party  a  written  statement  or
+document described in  subrule  (2)  shall  append  to  or  include  in  the
+statement or document,
+      (a)   the name, telephone  number  and  address  for  service  of  the
+    witness or author; and
+      (b)   if the witness or author is to give expert evidence,  a  summary
+    of his or her qualifications.  O. Reg. 78/06, s. 36 (3).
+      (4)  A party who has been served with a written statement or document
+described in subrule (2) and wishes to cross-examine the witness  or  author
+may summon him or her as  a  witness  under  subrule  18.03  (1).   O. Reg.
+258/98, r. 18.02 (4).
+
+Where Witness or Author is Summoned
+      (5)  A party who serves a summons to witness on a witness  or  author
+referred to in subrule (3) shall, at the time the summons is  served,  serve
+a copy of the summons on every other party.  O. Reg. 78/06, s. 36 (4).
+      (6)  Service of a summons and the payment  or  tender  of  attendance
+money under this rule may be proved by an affidavit of service (Form 8A)  or
+lawyer or paralegal's certificate of service  (Form  8B).   O. Reg.  78/06,
+s. 36 (4); O. Reg. 521/22, s. 6.
+
+Adjournment
+      (7)  A party who is  not  served  with  a  copy  of  the  summons  in
+accordance with subrule (5) may request an adjournment of  the  trial,  with
+costs.  O. Reg. 78/06, s. 36 (4).
+
+Summons to Witness
+      18.03  (1)  A party who requires  the  attendance  of  a  person  in
+Ontario as a witness at a trial may serve  the  person  with  a  summons  to
+witness (Form 18A) requiring him or her to attend the trial at the time  and
+place  or  by  the  method  stated  in  the  summons.    O. Reg.   258/98,
+r. 18.03 (1); O. Reg. 3/25, s. 17.
+      (2)  The summons may also require the witness to produce at the trial
+the documents or other things in his or her  possession,  control  or  power
+relating to the matters in question in the action that are specified in  the
+summons.  O. Reg. 258/98, r. 18.03 (2).
+      (3)  A summons to witness (Form 18A) shall be  served  in  accordance
+with subrule 8.01 (7).  O. Reg. 78/06, s. 37 (1).
+      (4)  Service of a summons and the payment  or  tender  of  attendance
+money may be proved by an affidavit  of  service  (Form  8A)  or  lawyer  or
+paralegal's certificate of service (Form 8B).  O. Reg. 78/06, s. 37 (1); O.
+Reg. 521/22, s. 7.
+      (5)  A  summons  to  witness  continues  to  have  effect  until  the
+attendance  of  the  witness  is  no  longer  required.   O. Reg.  258/98,
+r. 18.03 (5).
+
+Interpreter
+      (5.1)  If a party serves a summons  on  a  witness  who  requires  an
+interpreter, the party shall arrange for a qualified interpreter  to  attend
+at the trial unless the interpretation is from English to French  or  French
+to English and an interpreter is provided by the Ministry  of  the  Attorney
+General.  O. Reg. 78/06, s. 37 (2).
+      (5.2)  If a party does not comply with  subrule  (5.1),  every  other
+party is entitled to request  an  adjournment  of  the  trial,  with  costs.
+O. Reg. 78/06, s. 37 (2).
+
+Failure to Attend or Remain in Attendance
+      (6)  If a witness whose evidence is material to  the  conduct  of  an
+action fails  to  attend  at  the  trial  or  to  remain  in  attendance  in
+accordance with the requirements of a summons to witness served  on  him  or
+her, the trial judge may, by warrant  (Form  18B)  directed  to  all  police
+officers in Ontario, cause the witness to  be  apprehended  anywhere  within
+Ontario  and  promptly  brought  before  the   court.    O. Reg.   258/98,
+r. 18.03 (6).
+
+Identification Form
+      (6.1)  The party who served the summons on the witness may file  with
+the clerk an  identification  form  (Form  20K)  to  assist  the  police  in
+apprehending the witness.  O. Reg. 78/06, s. 37 (3).
+      (7)  On being apprehended, the witness may  be  detained  in  custody
+until his or her presence is no longer required or released  on  such  terms
+as are just, and may be ordered to pay the costs arising out of the  failure
+to attend or remain in attendance.  O. Reg. 258/98, r. 18.03 (7).
+
+Abuse of Power to Summon Witness
+      (8)  If satisfied that a party has  abused  the  power  to  summon  a
+witness under this rule, the court may order that the party pay directly  to
+the witness  an  amount  as  compensation  for  inconvenience  and  expense.
+O. Reg. 258/98, r. 18.03 (8).
+
+---------------------------------------------------------------------- 
+r. 20 — enforcement of orders
+---------------------------------------------------------------------- 
+
+
+                       RULE 20  ENFORCEMENT OF ORDERS
+
+DEFINITIONS
+      20.01  In rules 20.02 to 20.12,
+"creditor" means a person who is  entitled  to  enforce  an  order  for  the
+ payment or recovery of money; ("cr�ancier")
+"debtor" means a person against whom an order for the  payment  or  recovery
+ of money may be enforced. ("d�biteur")  O. Reg. 258/98, r. 20.01; O. Reg.
+ 78/06, s. 40.
+
+Power of Court
+      20.02  (1)  The court may,
+      (a)   stay the enforcement of an order of the  court,  for  such  time
+    and on such terms as are just; and
+      (b)   vary the times and proportions in which money payable  under  an
+    order of the court shall be paid, if it is satisfied that the  debtor's
+    circumstances have changed.  O. Reg. 258/98, r. 20.02 (1).
+
+Enforcement Limited While Periodic Payment Order in Force
+      (2)  While an order for periodic payment is  in  force,  no  step  to
+enforce the judgment may be taken or  continued  against  the  debtor  by  a
+creditor named in the order, except issuing a writ of seizure  and  sale  of
+land and filing it with the sheriff.  O. Reg. 258/98, r. 20.02 (2).
+
+Service of Notice of Default of Payment
+      (3)  The creditor may serve the debtor with a notice  of  default  of
+payment (Form 20L) in accordance with subrule 8.01 (14) and file a  copy  of
+it, together with an affidavit of default of  payment  (Form  20M),  if  the
+debtor fails to make payments under an order for periodic payment.  O. Reg.
+78/06, s. 41.
+
+Termination on Default
+      (4)  An order for periodic payment terminates on the day that  is  15
+days after the creditor serves the debtor with  the  notice  of  default  of
+payment, unless a consent (Form  13B)  in  which  the  creditor  waives  the
+default is filed within the 15-day period.  O. Reg. 78/06, s. 41.
+
+General
+      20.03  In addition to any other method  of  enforcement  provided  by
+law,
+      (a)   an order for the payment or recovery of money  may  be  enforced
+    by,
+      (i)   a writ of seizure and  sale  of  personal  property  (Form  20C)
+       under rule 20.06,
+      (ii)  a writ of seizure and sale of land (Form 20D) under rule  20.07,
+       and
+      (iii) garnishment under rule 20.08; and
+      (b)   a further  order  as  to  payment  may  be  made  under  subrule
+    20.10 (7).  O. Reg. 258/98, r. 20.03.
+
+Certificate of Judgment
+      20.04  (1)  If there is default under an order for  the  payment  or
+recovery of money, the clerk shall, at the creditor's request, supported  by
+an affidavit for enforcement request (Form 20P)  stating  the  amount  still
+owing, issue a certificate of judgment (Form 20A) to the clerk at the  court
+location specified by the creditor.  O. Reg. 393/09, s. 17.
+      (2)  The certificate of judgment shall state,
+      (a)   the date of the order and the amount awarded;
+      (b)   the rate of postjudgment interest payable; and
+      (c)   the amount owing,  including  postjudgment  interest.   O. Reg.
+    258/98, r. 20.04 (2).
+
+Delivery of Personal Property
+      20.05  (1)  An order for the delivery of personal  property  may  be
+enforced by a writ of delivery (Form 20B) issued by the clerk to a  bailiff,
+on the request of the person in whose favour the order was  made,  supported
+by an affidavit of that person or someone acting on that person's  authority
+stating  that  the  property  has  not  been  delivered.  O. Reg.  258/98,
+r. 20.05 (1); O. Reg. 230/13, s. 16.
+
+Seizure of Other Personal Property
+      (2)  If the property referred to in a  writ  of  delivery  cannot  be
+found or taken by the bailiff, the person in  whose  favour  the  order  was
+made may make a motion to the court for an order directing  the  bailiff  to
+seize any other personal property of the person against whom the  order  was
+made.  O. Reg. 258/98, r. 20.05 (2).
+      (3)  Unless the  court  orders  otherwise,  the  bailiff  shall  keep
+personal property seized under subrule (2) until the court makes  a  further
+order for its disposition.  O. Reg. 258/98, r. 20.05 (3); O. Reg. 78/06,
+s. 42.
+
+Storage Costs
+      (4)  The person in whose favour the  order  is  made  shall  pay  the
+bailiff's storage expenses, in advance and from time to time; if the  person
+fails to do so, the seizure shall  be  deemed  to  be  abandoned.   O. Reg.
+258/98, r. 20.05 (4); O. Reg. 3/25, s. 21.
+
+Writ of Seizure and Sale of Personal Property
+      20.06  (1)  If there is default under an order for  the  payment  or
+recovery of money, the clerk shall, at the creditor's request, supported  by
+an affidavit for enforcement request (Form 20P)  stating  the  amount  still
+owing, issue to a bailiff a writ of seizure and sale  of  personal  property
+(Form 20C), and the bailiff shall enforce the writ  for  the  amount  owing,
+postjudgment interest and the bailiff's fees and expenses.  O. Reg. 258/98,
+r. 20.06 (1); O. Reg. 78/06, s. 43 (1).
+      (1.1)  If more than six years have passed since the order was made, a
+writ of seizure and sale of personal property may be issued only with  leave
+of the court.  O. Reg. 78/06, s. 43 (2); O. Reg. 393/09, s. 18 (1).
+      (1.2)  If a writ of seizure and sale  of  personal  property  is  not
+issued within one year after the date on which an order  granting  leave  to
+issue it is made,
+      (a)   the order granting leave ceases to have effect; and
+      (b)   a writ of seizure and sale of personal property  may  be  issued
+    only with leave of the court on a subsequent motion.  O. Reg.  393/09,
+    s. 18 (2).
+      (1.3)  A writ of seizure and sale of personal property shall show the
+creditor's name, address and telephone number  and  the  name,  address  and
+telephone number of the creditor's representative, if any. O. Reg.  393/09,
+s. 18 (2); O. Reg. 230/13, s. 17 (1).
+
+Duration of Writ
+      (2)  A writ of seizure and sale of personal property expires  on  the
+sixth anniversary of the date of its  issue  or,  if  it  is  renewed  under
+subrule (3), on the sixth anniversary of the date on  which  it  would  have
+expired had it not been renewed. O. Reg. 222/25, s. 1 (1).
+
+Renewal of Writ
+      (3)  A writ of seizure and sale of personal property  that  is  filed
+with the bailiff may be renewed before its expiration by  filing  a  request
+to renew a writ of seizure and sale (Form 20N) with the  bailiff.   O. Reg.
+78/06, s. 43 (3); O. Reg. 393/09, s. 18 (3); O. Reg. 222/25, s. 1 (2).
+
+Limitation
+      (3.1)  A request to renew under subrule (3) may only be filed  during
+the six year period preceding the expiration to which the  request  relates.
+O. Reg. 222/25, s. 1 (3).
+
+Direction to Enforce
+      (4)  The creditor may request enforcement of a writ  of  seizure  and
+sale of personal property by filing a direction to enforce writ  of  seizure
+and sale of personal property (Form 20O) with the bailiff.  O. Reg. 393/09,
+s. 18 (4).
+
+Inventory of Property Seized
+      (5)  Within a reasonable time after a request is made by  the  debtor
+or someone acting on the debtor's authority, the bailiff  shall  deliver  an
+inventory of personal property seized under a writ of seizure  and  sale  of
+personal property. O. Reg. 258/98, r. 20.06 (5); O. Reg. 230/13, s. 17 (2).
+
+Sale of Personal Property
+      (6)  Personal property seized under a writ of  seizure  and  sale  of
+personal property shall not be sold by the  bailiff  unless  notice  of  the
+time and place of sale has been,
+      (a)   mailed, at least 10 days before the sale,
+      (i)   to the creditor at the address shown on  the  writ,  or  to  the
+       creditor's representative, and
+      (ii)  to the debtor at the debtor's last known address; and
+      (b)   advertised in a manner  that  is  likely  to  bring  it  to  the
+    attention of the public. O. Reg. 78/06, s. 43 (4);  O. Reg.  393/09,
+    s. 18 (5); O. Reg. 230/13, s. 17 (3).
+
+Writ of Seizure and Sale of Land
+      20.07  (0.1)  In this rule,
+"authorized Teranet user" means,
+      (a)   a lawyer or paralegal, or
+      (b)   a Minister or body acting under  the  authority  of  an  Act  of
+    Canada or Ontario; ("utilisateur autoris� de Teranet")
+"Teranet software" means the software developed  by  Teranet  Inc.  that  is
+ authorized by the Ministry of the Attorney General  for  the  purposes  of
+ this rule. ("logiciel de Teranet") O. Reg. 222/25, s. 2 (1).
+      (1)  If an order for the payment or recovery of money is unsatisfied,
+the clerk shall at the creditor's request, supported  by  an  affidavit  for
+enforcement request (Form 20P) stating the amount still owing, issue to  the
+sheriff specified by the creditor a writ of seizure and sale of  land  (Form
+20D).  O. Reg. 258/98, r. 20.07 (1); O. Reg. 78/06, s. 44 (1); O. Reg.
+393/09, s. 19 (1).
+      (1.1)  If more than six years have passed since the order was made, a
+writ of seizure and sale of land may  be  issued  only  with  leave  of  the
+court.  O. Reg. 393/09, s. 19 (2).
+      (1.2)  If a writ of seizure and sale of land is not issued within one
+year after the date on which an order granting leave to issue it is made,
+      (a)   the order granting leave ceases to have effect; and
+      (b)   a writ of seizure and sale of  land  may  be  issued  only  with
+    leave of the court on a subsequent motion.  O. Reg. 393/09, s. 19 (2).
+
+Issuance Through Teranet Software
+      (1.3)  An authorized Teranet user may use  the  Teranet  software  to
+have the writ of  seizure  and  sale  of  land  issued,  without  filing  an
+affidavit for enforcement request under subrule (1). O. Reg.  222/25,  s.  2
+(2).
+      (1.4)  A writ of seizure  and  sale  of  land  issued  electronically
+through the Teranet software does not need to be  signed  by  the  clerk  or
+sealed with an electronic version of the seal of the court. O. Reg.  222/25,
+s. 2 (2).
+      (1.5)  Subrule 1.05.1 (6) does not apply to a  writ  of  seizure  and
+sale of land issued electronically through the  Teranet  software.  O.  Reg.
+222/25, s. 2 (2).
+
+Application of Rules of Civil Procedure to Issued Writ
+      (2)  Subject to subrules (3) and (4), the Rules  of  Civil  Procedure
+apply for all purposes instead of these rules to an issued writ  of  seizure
+and sale of land, as if the writ were a writ  of  seizure  and  sale  issued
+under rule 60.07 of those Rules. O. Reg. 44/14, s. 14 (2).
+
+Duration of Writ
+      (3)  A writ of  seizure  and  sale  of  land  expires  on  the  sixth
+anniversary of the date of its issue or, if  it  is  renewed  under  subrule
+(4), on the sixth anniversary of the date on which  it  would  have  expired
+had it not been renewed. O. Reg. 222/25, s. 2 (3).
+
+Alternative Method of Renewal
+      (4)  Instead of being renewed under the Rules of Civil  Procedure  in
+accordance with subrule (2), a writ of seizure and  sale  of  land  that  is
+filed with the sheriff may be renewed before  its  expiration  by  filing  a
+request to renew a writ of seizure and sale (Form 20N) with the sheriff.  O.
+Reg. 44/14, s. 14 (3); O. Reg. 222/25, s. 2 (4).
+
+Limitation
+      (5)  A request to renew under subrule (4) may only  be  filed  during
+the six year period preceding the expiration to which the  request  relates.
+O. Reg. 222/25, s. 2 (5).
+
+Garnishment
+      20.08  (1)  A creditor may enforce  an  order  for  the  payment  or
+recovery of money by garnishment of debts payable to  the  debtor  by  other
+persons.  O. Reg. 258/98, r. 20.08 (1).
+
+Joint Debts Garnishable
+      (2)  If a debt is payable to the debtor and to one or more co-owners,
+one-half of the indebtedness or a greater or lesser amount specified  in  an
+order  made  under  subrule  (15)  may  be  garnished.   O. Reg.   258/98,
+r. 20.08 (2).
+
+Where Leave Required
+      (2.1)  If more than six years have passed since the order  was  made,
+or if its enforcement is subject to a condition,  a  notice  of  garnishment
+may be issued only with leave of the court.  O. Reg. 393/09, s. 20 (1).
+      (2.2)  If a notice of garnishment is not issued within one year after
+the date on which an order granting leave to issue it is made,
+      (a)   the order granting leave ceases to have effect; and
+      (b)   a notice of garnishment may be issued only  with  leave  of  the
+    court on a subsequent motion.  O. Reg. 393/09, s. 20 (1).
+      (2.3)  A notice of renewal of garnishment may be issued under subrule
+(5.3) without leave of the court before the original notice  of  garnishment
+or any subsequent  notice  of  renewal  of  garnishment  expires.   O. Reg.
+393/09, s. 20 (1).
+
+Obtaining Notice of Garnishment
+      (3)  A creditor who seeks to enforce an order  by  garnishment  shall
+file with the clerk of a court in the  territorial  division  in  which  the
+debtor resides or carries on business,
+      (a)   an affidavit for  enforcement  request  (Form  20P)  naming  one
+    debtor and one garnishee and stating,
+      (i)   the date of the order and the amount awarded,
+      (ii)  the territorial division in which the order was made,
+      (iii) the rate of postjudgment interest payable,
+      (iv)  the total amount of any payments received since  the  order  was
+       granted,
+      (v)   the amount owing, including postjudgment interest,
+      (vi)  the name and address of the named garnishee to whom a notice  of
+       garnishment is to be directed,
+      (vii) the creditor's belief  that  the  named  garnishee  is  or  will
+       become indebted to the debtor, and the grounds for the belief, and
+      (viii)     any  particulars  of  the  debts  that  are  known  to  the
+       creditor; and
+      (b)   a certificate of judgment (Form 20A), if the order was  made  in
+    another territorial division.  O. Reg.  78/06,  s. 45  (1);  O. Reg.
+    393/09, s. 20 (2).
+      (4)  On the filing of the documents  required  by  subrule  (3),  the
+clerk shall issue a notice of garnishment (Form  20E)  naming  as  garnishee
+the person named in the affidavit.  O. Reg. 78/06, s. 45 (1).
+      (5)  A notice of garnishment issued under subrule (4) shall name only
+one debtor and only one garnishee.  O. Reg. 258/98, r. 20.08 (5).
+
+Duration and Renewal
+      (5.1)  A notice of garnishment remains in force for  six  years  from
+the date of its issue and  for  a  further  six  years  from  each  renewal.
+O. Reg. 393/09, s. 20 (3).
+      (5.2)  A notice of garnishment may be renewed before  its  expiration
+by filing with the clerk of the court in which  the  notice  of  garnishment
+was issued a notice of renewal of garnishment (Form  20E.1),  together  with
+an affidavit for enforcement request (Form 20P).   O. Reg.  393/09,  s. 20
+(3).
+      (5.3)  On the filing of the notice and affidavit required by  subrule
+(5.2), the clerk shall issue the notice  of  renewal  of  garnishment  (Form
+20E.1) naming as garnishee the person  named  in  the  affidavit.   O. Reg.
+393/09, s. 20 (3).
+      (5.4)  The provisions of these  rules  that  apply  with  respect  to
+notices of garnishment also apply with respect  to  notices  of  renewal  of
+garnishment.  O. Reg. 393/09, s. 20 (3).
+
+Service of Notice of Garnishment
+      (6)  The notice of garnishment (Form 20E)  shall  be  served  by  the
+creditor in accordance with subrule 8.01 (8).  O. Reg. 78/06, s. 45 (2).
+      (6.1)  The creditor shall serve the  notice  of  garnishment  on  the
+debtor within five days of serving it on  the  garnishee.   O. Reg.  78/06,
+s. 45 (2).
+
+Financial Institution
+      (6.2)  If the garnishee is a financial  institution,  the  notice  of
+garnishment and all further notices required to be served  under  this  rule
+shall be served at the branch at which the debt is payable.  O. Reg. 78/06,
+s. 45 (2).
+      (6.3)  Revoked: O. Reg. 521/22, s. 8.
+
+Garnishee Liable From Time of Service
+      (7)  The garnishee is liable to pay to the  clerk  any  debt  of  the
+garnishee  to  the  debtor,  up  to  the  amount  shown  in  the  notice  of
+garnishment, within 10 days after service of the notice on the garnishee  or
+10 days after the  debt  becomes  payable,  whichever  is  later.   O. Reg.
+258/98, r. 20.08 (7).
+      (8)  For the purpose of subrule (7), a debt of the garnishee  to  the
+debtor includes,
+      (a)   a debt payable at the time the notice of garnishment is  served;
+    and
+      (b)   a debt payable (whether absolutely or on  the  fulfilment  of  a
+    condition) after the notice is served and within six years after it  is
+    issued.  O. Reg. 258/98, r. 20.08 (8); O. Reg. 78/06,  s. 45  (3);
+    O. Reg. 393/09, s. 20 (4).
+
+Payment by Garnishee
+      (9)  A garnishee who admits owing a debt to the debtor shall  pay  it
+to the clerk in the manner prescribed by the notice of garnishment, and  the
+amounts paid into court shall not exceed the portion of the  debtor's  wages
+that are subject to seizure or garnishment under  section  7  of  the  Wages
+Act.  O. Reg. 78/06, s. 45 (4).
+
+Equal Distribution Among Creditors
+      (10)  If the clerk has issued notices of garnishment in respect of  a
+debtor at the request of more than one creditor and receives  payment  under
+any of the notices of garnishment, he or she shall  distribute  the  payment
+equally among the creditors who have filed a  request  for  garnishment  and
+have not been paid in full.  O. Reg. 258/98, r. 20.08 (10); O. Reg. 461/01,
+s. 18.
+
+Disputing Garnishment
+      (11)  A garnishee referred to in subrule (12) shall, within  10  days
+after service of the notice of garnishment, file with the court a  statement
+(Form 20F) setting out the particulars.  O. Reg. 258/98, r. 20.08 (11).
+      (12)  Subrule (11) applies to a garnishee who,
+      (a)   wishes to dispute the garnishment for any reason; or
+      (b)   pays to the clerk less than the amount set out in the notice  of
+    garnishment as owing by the garnishee to the debtor, because  the  debt
+    is owed to the debtor and to one or more co-owners of the debt  or  for
+    any other reason.  O. Reg. 258/98, r. 20.08 (12); O. Reg. 78/06, s. 45
+    (5).
+
+Service on Creditor and Debtor
+      (13)  The garnishee shall serve a copy of the  garnishee's  statement
+on the creditor and the debtor.  O. Reg. 78/06, s. 45 (6).
+
+Notice to Co-Owner of Debt
+      (14)  A creditor who is served with  a  garnishee's  statement  under
+subrule (13)  shall  forthwith  send  to  any  co-owners  of  the  debt,  in
+accordance with subrule 8.01 (14), a notice to co-owner of debt  (Form  20G)
+and a copy of the garnishee's statement.  O. Reg. 258/98,  r. 20.08 (14);
+O. Reg. 78/06, s. 45 (7).
+
+Garnishment Hearing
+      (15)  At the request of a creditor, debtor,  garnishee,  co-owner  of
+the debt or  any  other  interested  person,  the  clerk  shall  schedule  a
+garnishment hearing.  O. Reg. 78/06, s. 45 (8); O. Reg. 3/25, s. 22.
+
+Service of Notice of Garnishment Hearing
+      (15.1)  After having obtained a hearing  date  from  the  clerk,  the
+party  requesting  the  garnishment  hearing  shall  serve  the  notice   of
+garnishment  hearing  (Form  20Q)  in  accordance  with  subrule  8.01  (9).
+O. Reg. 78/06, s. 45 (8).
+
+Powers of Court at Hearing
+      (15.2)  At the garnishment hearing, the court may,
+      (a)   if it is alleged that the garnishee's debt  to  the  debtor  has
+    been assigned or encumbered, order  the  assignee  or  encumbrancer  to
+    appear and state the nature and particulars of the claim;
+      (b)   determine the rights and liabilities of the garnishee,  any  co-
+    owner of the debt, the debtor and any assignee or encumbrancer;
+       (c)    vary  or  suspend  periodic  payments  under   a   notice   of
+    garnishment; or
+       (d)    determine  any  other  matter  in  relation  to  a  notice  of
+    garnishment.  O. Reg. 78/06, s. 45 (8).
+
+Time to Request Hearing
+      (16)  A person who has been served with a notice to co-owner of  debt
+is not entitled to dispute the enforcement of the creditor's order  for  the
+payment or recovery of money or a payment  made  by  the  clerk  unless  the
+person requests a garnishment hearing within 30 days  after  the  notice  is
+sent.  O. Reg. 258/98, r. 20.08 (16).
+
+Enforcement Against Garnishee
+      (17)  If the garnishee does not pay to the clerk the amount  set  out
+in the notice of garnishment and does not send a garnishee's statement,  the
+creditor is entitled to an order against the garnishee for  payment  of  the
+amount set out in the notice, unless the court orders  otherwise.   O. Reg.
+258/98, r. 20.08 (17).
+
+Payment to Person other than Clerk
+      (18)  If, after service of a notice  of  garnishment,  the  garnishee
+pays a debt attached by the notice to a person other  than  the  clerk,  the
+garnishee remains  liable  to  pay  the  debt  in  accordance  with  notice.
+O. Reg. 258/98, r. 20.08 (18).
+
+Effect of Payment to Clerk
+      (19)  Payment of a debt by a garnishee in accordance with a notice of
+garnishment is a valid discharge of the debt as between  the  garnishee  and
+the debtor and any co-owner of the debt,  to  the  extent  of  the  payment.
+O. Reg. 258/98, r. 20.08 (19).
+
+Distribution of Payments
+      (20)  When proof is filed that the notice of garnishment  was  served
+on the debtor, the clerk shall distribute a payment received under a  notice
+of garnishment to a creditor in accordance with subrule (20.1), unless,
+      (a)   a hearing has been requested under subrule (15);
+      (b)   a notice of motion and supporting affidavit (Form 15A) has  been
+    filed under rule 8.10, 11.06 or 17.04; or
+      (c)   a request for clerk's order on consent  (Form  11.2A)  has  been
+    filed seeking the relief described in subparagraph  1  iii  of  subrule
+    11.2.01 (1).  O. Reg. 78/06, s. 45 (9); O. Reg. 393/09, s. 20 (5).
+      (20.1)  The clerk shall distribute the payment,
+       (a)    in  the  case  of  the  first  payment  under  the  notice  of
+    garnishment, 30 days after the date it is received; and
+      (b)   in the case of every subsequent  payment  under  the  notice  of
+    garnishment, as they are received.  O. Reg. 78/06, s. 45 (9).
+
+Notice Once Order Satisfied
+      (20.2)  Once the amount owing under an  order  that  is  enforced  by
+garnishment is paid, the  creditor  shall  immediately  serve  a  notice  of
+termination of garnishment (Form 20R) on the garnishee  and  on  the  clerk.
+O. Reg. 393/09, s. 20 (6).
+
+Payment if Debt Jointly Owned
+      (21)  If a payment of a debt owed to the debtor and one or  more  co-
+owners has been made to the clerk, no request for a garnishment  hearing  is
+made and the time for doing so under subrule (16) has expired, the  creditor
+may file with the clerk, within 30 days after that expiry,
+      (a)   proof of service of the notice to co-owner; and
+      (b)   an affidavit stating that the  creditor  believes  that  no  co-
+    owner of the debt is a person under disability, and the grounds for the
+    belief.  O. Reg. 258/98, r. 20.08 (21).
+      (22)  The affidavit required by subrule (21) may  contain  statements
+of the deponent's information and belief, if the source of  the  information
+and the fact of the belief are specified in the affidavit.  O. Reg. 258/98,
+r. 20.08 (22).
+      (23)  If the creditor does not  file  the  material  referred  to  in
+subrule (21), the clerk shall return the money to the garnishee.   O. Reg.
+258/98, r. 20.08 (23); O. Reg. 393/09, s. 20 (7).
+
+Consolidation Order
+      20.09  (1)  A debtor against whom there are two or more  unsatisfied
+orders for the payment of money may  make  a  motion  to  the  court  for  a
+consolidation order.  O. Reg. 258/98, r. 20.09 (1).
+      (2)  The debtor's notice of motion  and  supporting  affidavit  (Form
+15A) shall set out, in the affidavit portion,
+      (a)   the names and addresses of the creditors who  have  obtained  an
+    order for the payment of money against the debtor;
+      (b)   the amount owed to each creditor;
+      (c)   the amount of the debtor's income from all sources,  identifying
+    them; and
+      (d)    the  debtor's  current  financial  obligations  and  any  other
+    relevant facts.  O. Reg. 258/98, r. 20.09 (2); O. Reg. 393/09, s. 21
+    (1).
+
+Notice of Motion
+      (3)  For the purposes of clause 15.01 (3) (a), the notice  of  motion
+and supporting affidavit shall be served on each of the creditors  mentioned
+in it at least seven days before the hearing date.  O. Reg. 393/09,  s. 21
+(2).
+
+Contents of Consolidation Order
+      (4)  At the hearing of the motion, the court may make a consolidation
+order setting out,
+      (a)   a list of unsatisfied orders for the payment  of  money  against
+    the debtor, indicating in each case the date, court and amount and  the
+    amount unpaid;
+      (b)   the amounts to be paid  into  court  by  the  debtor  under  the
+    consolidation order; and
+      (c)   the times of the payments.  O. Reg. 258/98, r. 20.09 (4).
+      (5)  The total of the amounts to be paid into  court  by  the  debtor
+under a consolidation order shall not exceed the  portion  of  the  debtor's
+wages that are subject to seizure or garnishment  under  section  7  of  the
+Wages Act.  O. Reg. 78/06, s. 46 (1).
+
+Creditor May Make Submissions
+      (6)  At the hearing of the motion, a creditor may make submissions as
+to the amount and times of payment.  O. Reg. 258/98, r. 20.09 (6).
+
+Further Orders Obtained After Consolidation Order
+      (7)  If an order for the payment of money  is  obtained  against  the
+debtor after the date of the consolidation order for a debt incurred  before
+the date of the consolidation order, the creditor may file with the clerk  a
+certified copy of the  new  order;  the  creditor  shall  be  added  to  the
+consolidation order and shall share in the distribution under it  from  that
+time.  O. Reg. 258/98, r. 20.09 (7).
+      (8)  A consolidation order terminates immediately if an order for the
+payment of money is obtained against the debtor for a  debt  incurred  after
+the date of the consolidation order.  O. Reg. 258/98, r. 20.09 (8).
+
+Enforcement Limited While Consolidation Order in Force
+      (9)  While the consolidation order is in force, no  step  to  enforce
+the judgment may be taken or continued against  the  debtor  by  a  creditor
+named in the order, except issuing a writ of seizure and sale  of  land  and
+filing it with the sheriff.  O. Reg. 258/98, r. 20.09 (9).
+
+Termination on Default
+      (10)  A consolidation order terminates immediately if the  debtor  is
+in default under it for 21 days.  O. Reg. 258/98, r. 20.09 (10).
+
+Effect of Termination
+      (11)  If a consolidation order terminates under subrule (8) or  (10),
+the clerk shall notify the creditors named in the consolidation  order,  and
+no further consolidation order shall be made in respect of  the  debtor  for
+one year after the date of termination.  O. Reg.  258/98,  r. 20.09 (11);
+O. Reg. 461/01, s. 19 (1).
+
+Manner of Sending Notice
+      (11.1)  The notice that the consolidation order is  terminated  shall
+be served by mail or email.  O. Reg. 330/02, s. 12 (1); O. Reg. 108/21, s.
+18.
+      (11.2), (11.3)  Revoked:  O. Reg. 78/06, s. 46 (2).
+
+Equal Distribution Among Creditors
+      (12)  All  payments  into  a  consolidation  account  belong  to  the
+creditors named in the consolidation order, who shall share equally  in  the
+distribution of the money.  O. Reg. 258/98, r. 20.09 (12).
+       (13)  The  clerk  shall  distribute  the  money   paid   into   the
+consolidation account at least once  every  six  months.   O. Reg.  258/98,
+r. 20.09 (13).
+
+Examination of Debtor or Other Person
+      20.10  (1)  If there is default under an order for  the  payment  or
+recovery of money, the clerk of a  court  in  the  territorial  division  in
+which the debtor or other person  to  be  examined  resides  or  carries  on
+business shall, at the creditor's request, issue  a  notice  of  examination
+(Form 20H) directed  to  the  debtor  or  other  person.   O. Reg.  258/98,
+r. 20.10 (1); O. Reg. 393/09, s. 22 (1).
+      (2)  The creditor's request shall be accompanied by,
+      (a)   an affidavit for enforcement request (Form 20P) setting out,
+      (i)   the date of the order and the amount awarded,
+      (ii)  the territorial division in which the order was made,
+      (iii) the rate of postjudgment interest payable,
+      (iv)  the total amount of any payments received since  the  order  was
+       granted, and
+      (v)   the amount owing, including postjudgment interest; and
+      (b)   a certificate of judgment (Form 20A), if the order was  made  in
+    another territorial  jurisdiction.   O. Reg.  258/98,  r. 20.10 (2);
+    O. Reg. 78/06, s. 47 (1); O. Reg. 393/09, s. 22 (2).
+
+Service of Notice of Examination
+      (3)  The notice of examination shall be  served  in  accordance  with
+subrules 8.01 (10), (11) and (12).  O. Reg. 78/06, s. 47 (2).
+      (4)  The debtor, any other persons to be examined and  any  witnesses
+whose evidence the court considers necessary may  be  examined  in  relation
+to,
+      (a)   the reason for nonpayment;
+      (b)   the debtor's income and property;
+      (c)   the debts owed to and by the debtor;
+      (d)   the disposal the debtor has made of any property  either  before
+    or after the order was made;
+      (e)   the debtor's present, past  and  future  means  to  satisfy  the
+    order;
+      (f)   whether the debtor intends to obey the order or has  any  reason
+    for not doing so; and
+      (g)   any other matter pertinent to  the  enforcement  of  the  order.
+    O. Reg. 258/98, r. 20.10 (4).
+
+Duties of Person to be Examined
+      (4.1)  A person who is served with a notice of examination shall,
+      (a)   inform  himself  or  herself  about  the  matters  mentioned  in
+    subrule (4) and be prepared to answer questions about them; and
+      (b)   in the case of an examination of a debtor who is an  individual,
+    complete a financial information form (Form 20I) and,
+      (i)   serve it on the creditor requesting  the  examination,  but  not
+       file it with the court, and
+      (ii)  provide a copy of it to the judge presiding at  the  examination
+       hearing.  O. Reg. 78/06, s. 47 (3); O. Reg. 440/10, s. 6 (1).
+      (4.2)  A debtor  required  under  clause  (4.1)  (b)  to  complete  a
+financial information form (Form 20I) shall  bring  such  documents  to  the
+examination hearing as are necessary to support the information that  he  or
+she provides in the financial information form.  O. Reg. 440/10, s. 6 (2).
+
+Who May Be Examined
+      (5)  An officer or director of a corporate debtor, or, in the case of
+a debtor that is a partnership or sole proprietorship, the  sole  proprietor
+or any partner, may be examined on the debtor's behalf in  relation  to  the
+matters set out in subrule (4).  O. Reg. 258/98, r. 20.10 (5).
+      (5.1)  Revoked: O. Reg. 3/25, s. 23.
+
+Examinations Private, Under Oath and Recorded
+      (6)  The examination shall be,
+      (a)   held in the absence of  the  public,  unless  the  court  orders
+    otherwise;
+      (b)   conducted under oath; and
+      (c)   recorded.  O. Reg. 78/06, s. 47 (4).
+
+Order As To Payment
+      (7)  After the examination or if the debtor's consent is  filed,  the
+court may make an order as to  payment.   O. Reg.  258/98,  r. 20.10 (7);
+O. Reg. 461/01, s. 20 (1).
+
+Enforcement Limited while Order as to Payment in Force
+      (8)  While an order as to payment is in force, no step to enforce the
+judgment may be taken or continued against the debtor by  a  creditor  named
+in the order, except issuing a writ of seizure and sale of land  and  filing
+it with the sheriff.  O. Reg. 258/98, r. 20.10 (8).
+      (9)-(15)  Revoked:  O. Reg. 78/06, s. 47 (5).
+
+Contempt Hearing
+      20.11 (1)  If a person on whom  a  notice  of  examination  has  been
+served under rule 20.10  attends  the  examination  but  refuses  to  answer
+questions or to produce records  or  documents,  the  court  may  order  the
+person to attend  before  it  for  a  contempt  hearing.   O. Reg.  440/10,
+s. 7 (1).
+
+Same
+      (2)  If a person on whom a notice  of  examination  has  been  served
+under rule 20.10 fails to attend the examination, the court  may  order  the
+person to attend before it for a contempt hearing under  subsection  30  (1)
+of the Courts of Justice Act.  O. Reg. 440/10, s. 7 (1).
+
+Notice of Contempt Hearing
+      (3)  If the court makes an order for a contempt hearing,
+      (a)   the clerk shall provide the creditor with a notice  of  contempt
+    hearing setting out the time, date and place of the hearing; and
+      (b)   the creditor shall serve the notice of contempt hearing  on  the
+    debtor or other person in accordance with subrule 8.01  (13)  and  file
+    proof of service at least seven  days  before  the  hearing.   O. Reg.
+    78/06, s. 48; O. Reg. 440/10, s. 7 (2); O. Reg. 521/22, s. 9.
+
+Setting Aside Order for Contempt Hearing
+      (4)  A person who has been ordered to attend a contempt hearing under
+subsection 30 (1) of the Courts of Justice Act may  make  a  motion  to  set
+aside the order, before or after receiving the notice  of  contempt  hearing
+but before the date of the hearing and, on the motion,  the  court  may  set
+aside the order and order that the person attend another  examination  under
+rule 20.10.  O. Reg. 78/06, s. 48; O. Reg. 440/10, s. 7 (3).
+
+Finding of Contempt of Court
+      (5)  At a contempt hearing held under subrule (1), the court may find
+the person to be in contempt of court if the person fails to show cause  why
+the person should not be held in contempt for refusing to  answer  questions
+or produce records or documents.  O. Reg. 78/06, s. 48.
+
+Same
+      (6)  The finding of contempt at a hearing held  under  subsection  30
+(1) of the Courts of Justice Act is subject to subsection  30  (2)  of  that
+Act.  O. Reg. 440/10, s. 7 (4).
+
+Other Powers of Court at Contempt Hearing
+      (7)  At a contempt hearing, the court may order that the person,
+      (a)   attend an examination under rule 20.10;
+      (b)   be jailed for a period of not more than five days;
+      (c)   attend an additional  contempt  hearing  under  subrule  (1)  or
+    subsection 30 (1) of the Courts of Justice Act, as the case may be; or
+      (d)   comply with any other order that the judge  considers  necessary
+    or just.  O. Reg. 78/06, s. 48; O. Reg. 440/10, s. 7 (5-7).
+
+Warrant of Committal
+      (8)  If a committal is ordered under clause (7) (b),
+       (a)    the  creditor  may  complete  and  file  with  the  clerk   an
+    identification form (Form 20K) to assist the police in apprehending the
+    person named in the warrant of committal; and
+      (b)   the clerk  shall  issue  a  warrant  of  committal  (Form  20J),
+    accompanied by the identification form, if any, directed to all  police
+    officers in Ontario to  apprehend  the  person  named  in  the  warrant
+    anywhere in Ontario and  promptly  bring  the  person  to  the  nearest
+    correctional institution.  O. Reg. 78/06, s. 48; O. Reg. 440/10, s. 7
+    (8).
+
+Discharge
+      (9)  A person in custody under a warrant issued under this rule shall
+be discharged from custody on the order  of  the  court  or  when  the  time
+prescribed in the warrant expires, whichever is  earlier.   O. Reg.  78/06,
+s. 48; O. Reg. 440/10, s. 7 (9).
+
+Duration and Renewal
+      (10)  A warrant issued under this rule remains in force for 12 months
+after the date of issue and may be renewed  by  order  of  the  court  on  a
+motion made by the creditor for 12 months at each renewal, unless the  court
+orders otherwise.  O. Reg. 78/06, s. 48; O. Reg. 440/10, s. 7 (10).
+      (11)  Revoked:  O. Reg. 440/10, s. 7 (11).
+
+Satisfaction of Order
+      20.12  If payment is made in full satisfaction of an order,
+      (a)   where all parties consent,  a  party  may  file  a  request  for
+    clerk's order on consent (Form 11.2A) indicating that payment has  been
+    made in full satisfaction of the order or terms of settlement; or
+      (b)   the debtor may make  a  motion  for  an  order  confirming  that
+    payment has been made in full satisfaction of the  order  or  terms  of
+    settlement.  O. Reg. 78/06, s. 48; O. Reg. 393/09, s. 23.
