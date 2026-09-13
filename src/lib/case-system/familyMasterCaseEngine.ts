@@ -92,12 +92,18 @@ export type FamilyMasterCaseStatus =
   | "urgent-review-needed"
   | "blocked-before-generation";
 
-export type FamilyMasterCaseConfidence = "high" | "medium" | "low";
+// `FamilyMasterCaseConfidence` ("high" | "medium" | "low") and the
+// `confidence` field are gone. `determineConfidence()` started at 100 and
+// subtracted 8 per missing piece of information, 10 per blocker, 7 per evidence
+// gap and 6 per unsupported allegation, then bucketed the remainder — a
+// numeric grade of the user's case, which CLAUDE.md section 3 prohibits. It had
+// no reader: the canonical adapter copies its seven sibling fields across and
+// never touched it. Nothing replaces it; `status` already carries the
+// procedural state the engines actually route on.
 
 export type FamilyMasterCaseResult = {
   courtPath: "family";
   status: FamilyMasterCaseStatus;
-  confidence: FamilyMasterCaseConfidence;
 
   normalized: FamilyNormalizedIntake;
   strategy: FamilyStrategyResult;
@@ -120,13 +126,13 @@ export type FamilyMasterCaseResult = {
   evidencePage: {
     uploadRequests: string[];
     evidenceGaps: string[];
-    strongestEvidenceTitles: string[];
-    riskyEvidenceTitles: string[];
+    completeEvidenceTitles: string[];
+    incompleteEvidenceTitles: string[];
     exhibitGroups: string[];
   };
 
   builderSummary: {
-    judgeReadySummary: string;
+    caseRecordSummary: string;
     nextBestActions: string[];
     blockers: string[];
     warnings: string[];
@@ -322,31 +328,6 @@ function determineStatus(params: {
   return "ready-for-next-step";
 }
 
-function determineConfidence(params: {
-  normalized: FamilyNormalizedIntake;
-  workflow: FamilyWorkflowResult;
-  formRouting: FamilyFormRoutingResult;
-  evidence: FamilyEvidenceEngineResult;
-  narrative: FamilyNarrativeResult;
-}): FamilyMasterCaseConfidence {
-  const { normalized, workflow, formRouting, evidence, narrative } = params;
-
-  let score = 100;
-
-  score -= normalized.missingInformation.length * 8;
-  score -= workflow.blockersBeforeForms.length * 10;
-  score -= formRouting.blockersBeforeGeneration.length * 10;
-  score -= evidence.evidenceGaps.length * 7;
-  score -= narrative.unsupportedAllegations.length * 6;
-
-  if (normalized.primaryConfidence < 40) score -= 15;
-  if (evidence.strongestEvidence.length === 0) score -= 10;
-
-  if (score >= 75) return "high";
-  if (score >= 45) return "medium";
-  return "low";
-}
-
 function consistencyWarnings(params: {
   normalized: FamilyNormalizedIntake;
   workflow: FamilyWorkflowResult;
@@ -431,14 +412,6 @@ export function runFamilyMasterCaseEngine(input: FamilyMasterCaseInput): FamilyM
     narrative,
   });
 
-  const confidence = determineConfidence({
-    normalized,
-    workflow,
-    formRouting,
-    evidence,
-    narrative,
-  });
-
   const auditConsistencyWarnings = consistencyWarnings({
     normalized,
     workflow,
@@ -459,7 +432,6 @@ export function runFamilyMasterCaseEngine(input: FamilyMasterCaseInput): FamilyM
   return {
     courtPath: "family",
     status,
-    confidence,
 
     normalized,
     strategy,
@@ -482,13 +454,13 @@ export function runFamilyMasterCaseEngine(input: FamilyMasterCaseInput): FamilyM
     evidencePage: {
       uploadRequests: evidence.evidenceUploadRequests,
       evidenceGaps,
-      strongestEvidenceTitles: evidence.strongestEvidence.map((item) => item.title),
-      riskyEvidenceTitles: evidence.riskyEvidence.map((item) => item.title),
+      completeEvidenceTitles: evidence.completeEvidence.map((item) => item.title),
+      incompleteEvidenceTitles: evidence.incompleteEvidence.map((item) => item.title),
       exhibitGroups,
     },
 
     builderSummary: {
-      judgeReadySummary: narrative.judgeReadySummary,
+      caseRecordSummary: narrative.caseRecordSummary,
       nextBestActions: cleanList([
         ...workflow.nextBestActions,
         ...narrative.nextDraftingActions,
@@ -510,7 +482,7 @@ export function runFamilyMasterCaseEngine(input: FamilyMasterCaseInput): FamilyM
     },
 
     chatContext: {
-      shortCaseSummary: narrative.judgeReadySummary,
+      shortCaseSummary: narrative.caseRecordSummary,
       detectedIssues: cleanList([
         ...workflow.detectedCaseTypes,
         ...workflow.parentingIssues,

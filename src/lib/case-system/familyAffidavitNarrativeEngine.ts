@@ -45,7 +45,9 @@ export type FamilyNarrativeSectionType =
   | "requested-orders"
   | "conference-position"
   | "affidavit-paragraphs"
-  | "weaknesses"
+  // A "weaknesses" section member was declared here and never constructed —
+  // no builder ever emitted one. Removed rather than left as a slot something
+  // could later fill (CLAUDE.md section 3).
   | "next-steps";
 
 export type FamilyNarrativeSource =
@@ -90,7 +92,11 @@ export type FamilyNarrativeRisk = {
   originalConcern: string;
   saferWording: string;
   whyItMatters: string;
-  severity: "high" | "medium" | "low";
+  // A `severity: "high" | "medium" | "low"` field was declared here and set on
+  // every risk, and nothing ever read it — the two consumers take `issue` and
+  // `whyItMatters` only. It is the same ordinal grade over a user's own
+  // material that came out of the assistant route in 1981f80, so it is removed
+  // rather than left in the data model.
 };
 
 export type FamilyNarrativeResult = {
@@ -101,7 +107,7 @@ export type FamilyNarrativeResult = {
   saferWordingSuggestions: FamilyNarrativeRisk[];
   unsupportedAllegations: string[];
   evidenceLinkingNotes: string[];
-  judgeReadySummary: string;
+  caseRecordSummary: string;
   draftingWarnings: string[];
   nextDraftingActions: string[];
 };
@@ -158,7 +164,10 @@ function issueLabels(input: FamilyNarrativeInput): string[] {
 }
 
 function evidenceTitles(input: FamilyNarrativeInput): string[] {
-  return cleanList(input.evidence.strongestEvidence.map((item) => item.title));
+  // Every recorded item. This read `strongestEvidence`, so an item the old
+  // scorer graded low was invisible to the narrative even though the user had
+  // recorded it.
+  return cleanList(input.evidence.analyzedEvidence.map((item) => item.title));
 }
 
 function supportLevelForText(
@@ -258,7 +267,6 @@ function saferWordingRisks(input: FamilyNarrativeInput): FamilyNarrativeRisk[] {
       originalConcern: "The intake appears to use labels or character attacks.",
       saferWording: "Describe the specific conduct, date, evidence, and impact on the child or requested order.",
       whyItMatters: "Court materials are stronger when they are factual, specific, and tied to evidence rather than labels.",
-      severity: "high",
     });
   }
 
@@ -268,7 +276,6 @@ function saferWordingRisks(input: FamilyNarrativeInput): FamilyNarrativeRisk[] {
       originalConcern: "The intake appears to use broad absolute statements.",
       saferWording: "Use examples with dates, frequency, and supporting records instead of absolute wording.",
       whyItMatters: "Absolute statements are easy to attack if even one exception exists.",
-      severity: "medium",
     });
   }
 
@@ -278,7 +285,6 @@ function saferWordingRisks(input: FamilyNarrativeInput): FamilyNarrativeRisk[] {
       originalConcern: "Some facts appear uncertain or based on what someone else said.",
       saferWording: "Clarify whether the fact is personally known, supported by a document, or should be described as information received.",
       whyItMatters: "Affidavit evidence should distinguish personal knowledge from belief or second-hand information.",
-      severity: "medium",
     });
   }
 
@@ -602,7 +608,7 @@ function buildPropertySection(input: FamilyNarrativeInput): FamilyNarrativeSecti
 function buildEvidenceSummarySection(input: FamilyNarrativeInput): FamilyNarrativeSection {
   const paragraphs: FamilyNarrativeParagraph[] = [];
 
-  input.evidence.strongestEvidence.slice(0, 10).forEach((item, index) => {
+  input.evidence.analyzedEvidence.slice(0, 10).forEach((item, index) => {
     paragraphs.push(
       makeParagraph({
         section: "evidence-summary",
@@ -619,11 +625,11 @@ function buildEvidenceSummarySection(input: FamilyNarrativeInput): FamilyNarrati
   return makeSection({
     type: "evidence-summary",
     title: "Evidence Summary",
-    purpose: "Identify the strongest evidence and how it should support the narrative.",
+    purpose: "List the evidence recorded so far and what each item was recorded for.",
     paragraphs,
     draftingNotes: [
       "Do not attach every document automatically.",
-      "Use the strongest evidence first and explain relevance clearly.",
+      "Explain what each document is and which disputed fact it relates to.",
     ],
   });
 }
@@ -714,7 +720,7 @@ export function runFamilyAffidavitNarrativeEngine(input: FamilyNarrativeInput): 
 
   const evidenceLinkingNotes = cleanList([
     ...input.evidence.affidavitSupportPoints,
-    ...input.evidence.judgeEvidenceConcerns,
+    ...input.evidence.evidenceDetailsToConfirm,
     ...affidavitParagraphs
       .filter((paragraph) => paragraph.evidenceReferences.length === 0 && paragraph.supportLevel !== "supported")
       .map((paragraph) => `Review evidence support for paragraph: ${paragraph.text}`),
@@ -737,17 +743,24 @@ export function runFamilyAffidavitNarrativeEngine(input: FamilyNarrativeInput): 
     ...input.formRouting.blockersBeforeGeneration,
   ]);
 
-  const judgeReadySummary = cleanList([
+  // Was `judgeReadySummary`, and it reaches the builder as `analysis.summary` —
+  // the most visible string on the family path. Two of its four lines graded
+  // the case: "The evidence record still needs stronger supporting documents"
+  // and "Some allegations need evidence support or safer wording before
+  // filing". Both are restated as counts of what is and is not recorded, which
+  // is what CLAUDE.md section 3 allows. The name went with them: "judge-ready"
+  // is a readiness claim about someone's case.
+  const caseRecordSummary = cleanList([
     `This matter is currently routed as ${input.workflow.primaryPriority}.`,
     input.workflow.detectedCaseTypes.length > 0
       ? `The detected issue set includes ${input.workflow.detectedCaseTypes.join(", ")}.`
-      : "The issue set requires further clarification.",
-    input.evidence.strongestEvidence.length > 0
-      ? `The strongest current evidence includes ${input.evidence.strongestEvidence.map((item) => item.title).slice(0, 5).join(", ")}.`
-      : "The evidence record still needs stronger supporting documents.",
+      : "No issue set has been recorded yet.",
+    input.evidence.analyzedEvidence.length > 0
+      ? `${input.evidence.analyzedEvidence.length} evidence item(s) are recorded, including ${input.evidence.analyzedEvidence.map((item) => item.title).slice(0, 5).join(", ")}.`
+      : "No evidence items are recorded yet.",
     unsupportedAllegations.length > 0
-      ? "Some allegations need evidence support or safer wording before filing."
-      : "The current narrative has no major unsupported allegation flags from this engine pass.",
+      ? `${unsupportedAllegations.length} paragraph(s) have no recorded evidence linked to them.`
+      : "Every paragraph has a recorded evidence item linked to it.",
   ]).join(" ");
 
   return {
@@ -758,7 +771,7 @@ export function runFamilyAffidavitNarrativeEngine(input: FamilyNarrativeInput): 
     saferWordingSuggestions,
     unsupportedAllegations,
     evidenceLinkingNotes,
-    judgeReadySummary,
+    caseRecordSummary,
     draftingWarnings,
     nextDraftingActions,
   };

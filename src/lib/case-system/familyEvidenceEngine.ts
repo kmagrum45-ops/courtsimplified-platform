@@ -26,14 +26,6 @@ export type FamilyEvidenceRawItem = {
   mimeType?: string;
 };
 
-export type FamilyEvidenceStrength =
-  | "strong"
-  | "useful"
-  | "needs-context"
-  | "weak"
-  | "risky"
-  | "unknown";
-
 export type FamilyEvidenceIssueLink =
   | FamilyCaseType
   | ParentingIssueType
@@ -57,12 +49,18 @@ export type FamilyEvidenceAnalysisItem = {
   description: string;
   relevance: string;
   linkedIssues: FamilyEvidenceIssueLink[];
-  strength: FamilyEvidenceStrength;
-  strengthScore: number;
   exhibitGroup: string;
   affidavitUse: string[];
   judgeImpact: string[];
-  weaknesses: string[];
+  /**
+   * What this item does not yet record — a missing date, an unnamed source, no
+   * stated connection to a court issue. Each entry is a fact about the record,
+   * not a judgment about the evidence. This replaces the `strength` /
+   * `strengthScore` pair, which graded each item on a 0-100 scale and then
+   * bucketed it strong / useful / needs-context / weak / risky (CLAUDE.md
+   * section 3).
+   */
+  missingDetails: string[];
   followUpQuestions: string[];
 };
 
@@ -93,10 +91,12 @@ export type FamilyEvidenceEngineResult = {
   evidenceGaps: FamilyEvidenceGap[];
   evidencePackages: FamilyEvidencePackage[];
   exhibitOrder: FamilyEvidenceAnalysisItem[];
-  strongestEvidence: FamilyEvidenceAnalysisItem[];
-  riskyEvidence: FamilyEvidenceAnalysisItem[];
+  /** Items whose date, source, category and relevance are all recorded. */
+  completeEvidence: FamilyEvidenceAnalysisItem[];
+  /** Items still missing one or more of those details. */
+  incompleteEvidence: FamilyEvidenceAnalysisItem[];
   affidavitSupportPoints: string[];
-  judgeEvidenceConcerns: string[];
+  evidenceDetailsToConfirm: string[];
   evidenceUploadRequests: string[];
   contradictionWarnings: string[];
   timelineRecommendations: string[];
@@ -242,65 +242,41 @@ function linkIssues(
   return cleanList(links);
 }
 
-function scoreEvidence(params: {
+/**
+ * What an item does not yet record.
+ *
+ * This replaces `scoreEvidence`, which started every item at 20, added points
+ * for a filename, a date, a source, a relevance note and a linked issue, added
+ * 20 more for a "good" document category and 10 for a lesser one, subtracted 15
+ * if the user's own description contained "maybe" or "i think", clamped the
+ * result to 0-100 and bucketed it strong / useful / needs-context / weak /
+ * risky. That is a grade of the user's evidence, which CLAUDE.md section 3
+ * prohibits, and the number and the ladder both reached the user — the ladder
+ * through `recommendedEvidence` and `analysis.summary`.
+ *
+ * The partition that replaces it is the one `elementProofEngine` uses for
+ * claim elements: recorded versus not recorded. Each entry below is a checkable
+ * fact about the record ("no date is recorded"), never a judgment about the
+ * evidence ("this is weak"). The category weighting is gone: no document type
+ * is worth more points than another here, because ranking document types is
+ * grading. The hedging penalty is gone with no replacement — reading
+ * uncertainty into a user's phrasing is a credibility judgment and there is no
+ * factual restatement of it.
+ */
+function missingDetailsFor(params: {
   category: FamilyEvidenceCategory;
-  text: string;
   date: string;
   source: string;
-  fileName: string;
   relevance: string;
-  linkedIssues: FamilyEvidenceIssueLink[];
-}): { strength: FamilyEvidenceStrength; score: number; weaknesses: string[] } {
-  let score = 20;
-  const weaknesses: string[] = [];
+}): string[] {
+  const missing: string[] = [];
 
-  if (params.fileName) score += 10;
-  if (params.date) score += 15;
-  if (params.source) score += 10;
-  if (params.relevance) score += 10;
-  if (params.linkedIssues.length > 0) score += 10;
+  if (!params.date) missing.push("No date is recorded for this item.");
+  if (!params.source) missing.push("No source is recorded — who created or sent it.");
+  if (!params.relevance) missing.push("No court issue is recorded for this item yet.");
+  if (params.category === "other") missing.push("No evidence category is recorded.");
 
-  if (
-    [
-      "court-order",
-      "court-application-answer-reply",
-      "police-report",
-      "child-protection-record",
-      "school-record",
-      "medical-record",
-      "financial-disclosure",
-      "income-tax-return",
-      "notice-of-assessment",
-      "paystub",
-      "bank-statement",
-      "mortgage-or-lease",
-      "service-proof",
-    ].includes(params.category)
-  ) {
-    score += 20;
-  }
-
-  if (["message-email-text", "photo-video", "witness", "settlement-offer"].includes(params.category)) {
-    score += 10;
-  }
-
-  if (!params.date) weaknesses.push("Date is missing or unclear.");
-  if (!params.source) weaknesses.push("Source is missing or unclear.");
-  if (!params.relevance) weaknesses.push("Relevance to the court issue is not explained yet.");
-  if (params.category === "other") weaknesses.push("Evidence category is unclear.");
-  if (includesAny(params.text, ["maybe", "i think", "not sure", "heard from someone"])) {
-    score -= 15;
-    weaknesses.push("The description sounds uncertain or second-hand.");
-  }
-
-  const bounded = Math.max(0, Math.min(100, score));
-
-  if (bounded >= 80) return { strength: "strong", score: bounded, weaknesses };
-  if (bounded >= 60) return { strength: "useful", score: bounded, weaknesses };
-  if (bounded >= 40) return { strength: "needs-context", score: bounded, weaknesses };
-  if (weaknesses.length >= 3) return { strength: "weak", score: bounded, weaknesses };
-
-  return { strength: "unknown", score: bounded, weaknesses };
+  return missing;
 }
 
 function exhibitGroup(category: FamilyEvidenceCategory, links: FamilyEvidenceIssueLink[]): string {
@@ -388,14 +364,11 @@ function analyzeItem(item: FamilyEvidenceRawItem, index: number, normalized: Fam
   ].join(" "));
 
   const linkedIssues = linkIssues(category, text, normalized);
-  const scored = scoreEvidence({
+  const missingDetails = missingDetailsFor({
     category,
-    text,
     date: clean(item.date),
     source: clean(item.source),
-    fileName: clean(item.fileName),
     relevance: clean(item.relevance),
-    linkedIssues,
   });
 
   return {
@@ -408,12 +381,10 @@ function analyzeItem(item: FamilyEvidenceRawItem, index: number, normalized: Fam
     description: clean(item.description || item.notes),
     relevance: clean(item.relevance),
     linkedIssues,
-    strength: scored.strength,
-    strengthScore: scored.score,
     exhibitGroup: exhibitGroup(category, linkedIssues),
     affidavitUse: buildAffidavitUse(category, linkedIssues),
     judgeImpact: buildJudgeImpact(category, linkedIssues),
-    weaknesses: scored.weaknesses,
+    missingDetails,
     followUpQuestions: buildFollowUps(item, category),
   };
 }
@@ -497,9 +468,9 @@ function buildPackages(analyzed: FamilyEvidenceAnalysisItem[]): FamilyEvidencePa
   return Array.from(groups.entries()).map(([packageTitle, items]) => ({
     packageTitle,
     purpose: `Organizes evidence for ${packageTitle.toLowerCase()}.`,
-    items: items.sort((a, b) => b.strengthScore - a.strengthScore),
+    // Input order. Sorting by a computed grade is what `strengthScore` did.
+    items,
     preparationNotes: cleanList([
-      "Place strongest and clearest evidence first.",
       "Add dates and source information before using this evidence in affidavits or briefs.",
       "Connect each item to a requested order or disputed fact.",
     ]),
@@ -518,26 +489,31 @@ export function runFamilyEvidenceEngine(input: FamilyEvidenceEngineInput): Famil
   );
 
   const evidencePackages = buildPackages(analyzedEvidence);
-  const exhibitOrder = [...analyzedEvidence].sort((a, b) => {
-    if (a.exhibitGroup !== b.exhibitGroup) return a.exhibitGroup.localeCompare(b.exhibitGroup);
-    return b.strengthScore - a.strengthScore;
-  });
+  // Grouped for the exhibit brief, and within a group left in the order the
+  // user entered them. The old secondary sort was by strengthScore.
+  const exhibitOrder = [...analyzedEvidence].sort((a, b) =>
+    a.exhibitGroup.localeCompare(b.exhibitGroup),
+  );
 
-  const strongestEvidence = analyzedEvidence
-    .filter((item) => item.strength === "strong" || item.strength === "useful")
-    .sort((a, b) => b.strengthScore - a.strengthScore);
-
-  const riskyEvidence = analyzedEvidence
-    .filter((item) => item.strength === "risky" || item.strength === "weak" || item.weaknesses.length >= 2)
-    .sort((a, b) => a.strengthScore - b.strengthScore);
+  // The recorded-vs-not partition, replacing strongestEvidence / riskyEvidence.
+  // Membership is decided entirely by whether details are recorded, so a user
+  // can move an item across the line by supplying a date or a source — which is
+  // not true of a grade.
+  const completeEvidence = analyzedEvidence.filter((item) => item.missingDetails.length === 0);
+  const incompleteEvidence = analyzedEvidence.filter((item) => item.missingDetails.length > 0);
 
   const affidavitSupportPoints = cleanList(
     analyzedEvidence.flatMap((item) => item.affidavitUse.map((use) => `${item.title}: ${use}`)),
   );
 
-  const judgeEvidenceConcerns = cleanList([
+  // Was `judgeEvidenceConcerns`, built from `riskyEvidence`. The name asserted
+  // what a judge would be concerned by; the content is a list of details the
+  // record does not yet hold.
+  const evidenceDetailsToConfirm = cleanList([
     ...evidenceGaps.map((gap) => `${gap.issue}: ${gap.whyItMatters}`),
-    ...riskyEvidence.flatMap((item) => item.weaknesses.map((weakness) => `${item.title}: ${weakness}`)),
+    ...incompleteEvidence.flatMap((item) =>
+      item.missingDetails.map((detail) => `${item.title}: ${detail}`),
+    ),
   ]);
 
   const evidenceUploadRequests = cleanList([
@@ -562,12 +538,10 @@ export function runFamilyEvidenceEngine(input: FamilyEvidenceEngineInput): Famil
   const summary = cleanList([
     `${analyzedEvidence.length} evidence item(s) analyzed.`,
     `${evidenceGaps.length} evidence gap(s) detected.`,
-    strongestEvidence.length > 0
-      ? `${strongestEvidence.length} item(s) appear strong or useful.`
-      : "No strong evidence items have been identified yet.",
-    riskyEvidence.length > 0
-      ? `${riskyEvidence.length} item(s) need context before being used.`
-      : "No high-risk evidence items detected from the current evidence list.",
+    `${completeEvidence.length} item(s) have a date, a source, a category and a court issue recorded.`,
+    incompleteEvidence.length > 0
+      ? `${incompleteEvidence.length} item(s) are still missing one or more of those details.`
+      : "No item is missing those details.",
   ]).join(" ");
 
   return {
@@ -575,10 +549,10 @@ export function runFamilyEvidenceEngine(input: FamilyEvidenceEngineInput): Famil
     evidenceGaps,
     evidencePackages,
     exhibitOrder,
-    strongestEvidence,
-    riskyEvidence,
+    completeEvidence,
+    incompleteEvidence,
     affidavitSupportPoints,
-    judgeEvidenceConcerns,
+    evidenceDetailsToConfirm,
     evidenceUploadRequests,
     contradictionWarnings,
     timelineRecommendations,

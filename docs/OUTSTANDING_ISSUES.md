@@ -472,6 +472,58 @@ An earlier conclusion in this session held that the ~100 requests/day ceiling ca
 
 ---
 
+## 12. Family engines — flagged in the section 3 audit, needing a decision
+
+The family engines had never been audited before this session. Two score
+formulas were removed (`scoreEvidence`, `determineConfidence`) along with the
+`FamilyEvidenceStrength` ladder, `judgeReadySummary`'s two grading lines and a
+dead `severity` ordinal. `npm run test:family-no-scores` pins all of that.
+
+These were found in the same pass and **deliberately left alone** — each needs a
+call, not a silent edit:
+
+**a. `credibilityRisks`** (`familyStrategyEngine.ts:389`,
+`familyAiIntakeNormalizer.ts:510`, consumed by `familyFormRoutingEngine.ts:495`
+and `familyAffidavitNarrativeEngine.ts:729`). Emits *"Emotionally charged
+wording may reduce credibility if not tied to specific evidence."* That predicts
+how a reader will receive the user's material, which reads as a merits judgment.
+It is also, in substance, ordinary drafting guidance of the kind the platform
+exists to give. The question is whether "may reduce credibility" can be restated
+as a fact about the document rather than a prediction about its reception.
+
+**b. `FamilyEvidenceGap.priority: "critical" | "important" | "helpful"`**
+(`familyEvidenceEngine.ts:71`). This ranks *missing* evidence, not the user's
+case, and some entries are genuinely procedural (a form cannot be filed without
+the disclosure). But "critical" is still an ordinal the engine assigns to the
+user's situation. Either ground each level in a rule that requires the document,
+or drop the field.
+
+**c. `FamilyNarrativeParagraph.supportLevel`** — `"supported" |
+"partially-supported" | "unsupported" | "needs-review"`. This is arguably the
+allowed shape already: it records whether a recorded evidence item matches the
+paragraph. Two things spoil that. `supportLevelForText` returns `"needs-review"`
+when the user's own wording contains "i think" or "maybe" — a credibility read,
+the same one removed from `scoreEvidence`. And `"partially-supported"` is
+returned whenever *any* evidence exists, matched or not, which makes the middle
+rung meaningless.
+
+**d. `judgeImpact`** (`familyEvidenceEngine.ts`, `buildJudgeImpact`). Generic,
+category-level statements ("Helps the judge understand what orders already
+exist"), not applied to the user's facts, and **currently read by nothing**. One
+entry — "financial credibility" — does grade. The name asserts knowledge of what
+a judge will weigh.
+
+**e. `FamilyNormalizedIssueScore` and the `*Scores` locals** in
+`familyAiIntakeNormalizer.ts` (`caseTypeScores`, `parentingScores`,
+`supportScores`, `safetyScores`, `propertyScores`, `primaryConfidence`). These
+are **topic-detection** confidences — navigation, the same class as the Small
+Claims court classifier, not a grade of the matter. `verifyFamilyNoScores.ts`
+exempts this file explicitly and says why. Left as-is deliberately.
+`primaryConfidence` is now unconsumed: `determineConfidence` was its only
+reader.
+
+---
+
 ## Suggested order
 
 **Before any real user:**
