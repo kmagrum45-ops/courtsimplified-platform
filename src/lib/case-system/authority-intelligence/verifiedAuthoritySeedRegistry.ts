@@ -802,7 +802,7 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
         sourceType: "ontario-elaws",
         title: "O. Reg. 626/00, Small Claims Court Jurisdiction and Appeal Limit",
         citationOrUrlLabel: "Ontario e-Laws",
-        sourceUrl: "https://www.ontario.ca/laws/regulation/000626",
+        sourceUrl: "https://www.ontario.ca/laws/docs/000626_e.doc",
         pinpoint: "s. 1",
         verifiedAt: "2026-08-06",
         notes: ["Official Ontario source checked on 2026-08-06."],
@@ -812,10 +812,19 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
         sourceType: "ontario-elaws",
         title: "O. Reg. 42/25",
         citationOrUrlLabel: "Ontario e-Laws current amendment",
-        sourceUrl: "https://www.ontario.ca/laws/regulation/r25042",
-        pinpoint: "s. 1; commencement s. 3",
-        verifiedAt: "2026-08-06",
-        notes: ["Current amendment source checked on 2026-08-06."],
+        // O. Reg. 42/25 has no retrievable standalone text on the e-Laws .doc
+        // route: 25042, 250042, r25042 and 042025 all return HTTP 403
+        // (checked 2026-09-13). The amendment is instead verifiable inside the
+        // CONSOLIDATED O. Reg. 626/00, whose own header records "Last
+        // amendment: 42/25" and whose s. 1 credits carry "O. Reg. 42/25, s. 1".
+        // Pointing at the consolidation is honest; inventing a URL for the
+        // amending regulation would not be.
+        sourceUrl: "https://www.ontario.ca/laws/docs/000626_e.doc",
+        pinpoint: "s. 1, amendment credits; header \"Last amendment: 42/25\"",
+        verifiedAt: "2026-09-13",
+        notes: [
+          "Amending regulation has no standalone .doc; verified in the consolidated O. Reg. 626/00.",
+        ],
       },
     ],
     createdAt: "2026-08-06T00:00:00.000Z",
@@ -986,7 +995,7 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
         sourceType: "ontario-elaws",
         title: "O. Reg. 114/99, Family Law Rules",
         citationOrUrlLabel: "Ontario e-Laws",
-        sourceUrl: "https://www.ontario.ca/laws/regulation/990114",
+        sourceUrl: "https://www.ontario.ca/laws/docs/990114_e.doc",
         pinpoint: "Family Law Rules; applicable procedure depends on the current stage",
         verifiedAt: "2026-08-06",
         notes: ["Source-check date recorded as 2026-08-06; no live verification or legal-merits review is performed by this registry."],
@@ -1164,7 +1173,7 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
         sourceType: "ontario-elaws",
         title: "R.R.O. 1990, Reg. 194, Rules of Civil Procedure",
         citationOrUrlLabel: "Ontario e-Laws",
-        sourceUrl: "https://www.ontario.ca/laws/regulation/900194",
+        sourceUrl: "https://www.ontario.ca/laws/docs/900194_e.doc",
         pinpoint: "r. 1.02",
         verifiedAt: "2026-08-06",
         notes: ["Source-check date recorded as 2026-08-06; no live verification or legal-merits review is performed by this registry."],

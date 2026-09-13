@@ -12,6 +12,9 @@ import { EDUCATION_TOPICS, type EducationTopic } from "../../src/lib/case-system
 import { REMEDY_TYPES, type RemedyTopic } from "../../src/lib/case-system/intake/remedyTypes";
 import { CLAIM_TYPES, DEFENCE_CONCEPTS } from "../../src/lib/case-system/intake/claimTypes";
 import { JURISDICTION_ROUTES } from "../../src/lib/case-system/intake/jurisdictionRoutes";
+import { FAMILY_RESOURCE_TOPICS } from "../../src/lib/case-system/intake/familySafetyResources";
+import { OUT_OF_SCOPE_FORUMS } from "../../src/lib/case-system/intelligence/outOfScopeForums";
+import { VERIFIED_AUTHORITY_SEED_ENTRIES } from "../../src/lib/case-system/authority-intelligence/verifiedAuthoritySeedRegistry";
 
 // EducationTopic and RemedyTopic share the same fields these checks care
 // about (id, surfacedWhen, citations, status) -- checked structurally
@@ -82,12 +85,46 @@ const RESOLVABLE_SOURCE_HINT =
 const LOCAL_SOURCE_PREFIX = "docs/sources/";
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
 
+/**
+ * e-Laws viewer URLs that return a JS shell with no readable text.
+ *
+ * `ontario.ca/laws/statute/<id>` and `ontario.ca/laws/regulation/<id>` are the
+ * e-Laws *viewer*. Fetched directly they return an empty HTML shell — confirmed
+ * repeatedly and recorded in docs/SOURCING_NOTES.md. The fetching route for the
+ * same text is `ontario.ca/laws/docs/<id>_e.doc`.
+ *
+ * This mattered in practice: `verifiedAuthoritySeedRegistry.ts` cited
+ * O. Reg. 626/00 — the regulation that prescribes the $50,000 Small Claims
+ * limit — as `ontario.ca/laws/regulation/000626`. The citation was on the right
+ * instrument and resolved to nothing anyone could read, and a session
+ * separately reported that the repo "did not cite the regulation" partly
+ * because of it.
+ *
+ * The old check validated domain and protocol only, so every viewer URL passed.
+ * A check that cannot tell a readable source from an empty page is not checking
+ * sourcing — it is checking spelling.
+ */
+const NON_RESOLVING_ROUTES = [
+  "https://www.ontario.ca/laws/statute/",
+  "https://www.ontario.ca/laws/regulation/",
+  "https://ontario.ca/laws/statute/",
+  "https://ontario.ca/laws/regulation/",
+];
+
+export function isJsShellRoute(value: string): boolean {
+  return NON_RESOLVING_ROUTES.some((prefix) => value.startsWith(prefix));
+}
+
 function isResolvableSourceUrl(value: string | undefined): boolean {
   if (!value) return false;
 
   if (value.startsWith(LOCAL_SOURCE_PREFIX)) {
     return existsSync(path.resolve(REPO_ROOT, value));
   }
+
+  // Rejected before the domain check: these ARE on an allowed domain, which is
+  // exactly why the domain check alone let them through.
+  if (isJsShellRoute(value)) return false;
 
   try {
     const url = new URL(value);
@@ -317,6 +354,81 @@ function main() {
       notNotedUpCount += 1;
     }
   }
+
+  // ---- Registries this script did not previously reach ----
+  //
+  // familySafetyResources, outOfScopeForums and the verified-authority seed
+  // registry all carry sourced legal content and none was checked here. An
+  // audit found the authority registry citing O. Reg. 626/00 through the
+  // e-Laws viewer route, which returns no text — a broken citation that no
+  // check could see because no check looked at that file.
+  //
+  // These are folded into the SAME resolvability rule as everything else
+  // rather than given their own, so there is one definition of "resolvable"
+  // in this repo and not four.
+
+  const unreachedRegistryProblems: string[] = [];
+
+  for (const topic of FAMILY_RESOURCE_TOPICS) {
+    for (const citation of topic.citations) {
+      if (!isResolvableSourceUrl(citation.officialUrl)) {
+        unreachedRegistryProblems.push(
+          `familySafetyResources "${topic.id}" citation "${citation.sourceName}" ` +
+            `has no resolvable officialUrl (${citation.officialUrl})`,
+        );
+      }
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(citation.verifiedAt)) {
+        unreachedRegistryProblems.push(
+          `familySafetyResources "${topic.id}" citation "${citation.sourceName}" has no verifiedAt`,
+        );
+      }
+    }
+  }
+
+  for (const forum of Object.values(OUT_OF_SCOPE_FORUMS)) {
+    for (const citation of forum.citations) {
+      if (!isResolvableSourceUrl(citation.officialUrl)) {
+        unreachedRegistryProblems.push(
+          `outOfScopeForums "${forum.id}" citation "${citation.sourceName}" ` +
+            `has no resolvable officialUrl (${citation.officialUrl})`,
+        );
+      }
+    }
+  }
+
+  // The authority registry uses a third field name (`sourceUrl`, optional) and
+  // its own reference shape. A source reference that names a URL must name one
+  // that resolves; a reference with no URL at all is legitimate for case law
+  // cited by neutral citation, so absence is not an error here.
+  for (const entry of VERIFIED_AUTHORITY_SEED_ENTRIES) {
+    for (const reference of entry.sourceReferences) {
+      if (reference.sourceUrl !== undefined && !isResolvableSourceUrl(reference.sourceUrl)) {
+        unreachedRegistryProblems.push(
+          `verifiedAuthoritySeedRegistry "${entry.id}" source "${reference.id}" ` +
+            `has an unresolvable sourceUrl (${reference.sourceUrl})`,
+        );
+      }
+    }
+  }
+
+  assert.equal(
+    unreachedRegistryProblems.length,
+    0,
+    `Sourced content with an unresolvable or undated citation:\n` +
+      unreachedRegistryProblems.map((problem) => `  - ${problem}`).join("\n"),
+  );
+
+  const authoritySourceCount = VERIFIED_AUTHORITY_SEED_ENTRIES.reduce(
+    (sum, entry) => sum + entry.sourceReferences.length,
+    0,
+  );
+
+  console.log(
+    `Previously unchecked registries verified: ${FAMILY_RESOURCE_TOPICS.length} family resource ` +
+      `topic(s), ${Object.keys(OUT_OF_SCOPE_FORUMS).length} out-of-scope forum(s), ` +
+      `${VERIFIED_AUTHORITY_SEED_ENTRIES.length} authority entr(ies) carrying ` +
+      `${authoritySourceCount} source reference(s).`,
+  );
 
   console.log(
     `Intake coverage verified: ${smallClaimsScenarios.length} small-claims scenario(s), ` +

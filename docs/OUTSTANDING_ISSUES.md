@@ -587,24 +587,55 @@ undefined there. The figure is prescribed by **O. Reg. 626/00, s. 1 (1)**:
 from 2025-10-01; most recently amended by O. Reg. 42/25). s. 1 (2) sets the same
 cap on what a deputy judge may preside over.
 
-So every "$50,000" in the codebase needs the regulation added alongside the Act.
-The proposition is true and the source is the wrong half of the pair — a
+So every "$50,000" in `claimTypes.ts` needs the regulation added alongside the
+Act. The proposition is true and the source is the wrong half of the pair — a
 smaller problem than an invented citation, and still a section 2 problem. Worth
 fixing whether or not this design direction is ever built, because the amount is
 in a regulation that has been amended repeatedly and will be again.
 
-**b. Mitigation — NOT sourced. The premise that it is partly sourced does not
-hold.** The only thing in the codebase is one hand-written sentence in
-`doctrineSeedLibrary.ts`'s `mitigationIssues`: *"Whether the user took
-reasonable steps to reduce loss may become relevant depending on claim type."*
-No `sourceUrl`, no citation, no statutory or case authority. It is a bare
-assertion of a legal doctrine, which is the thing section 2 exists to prevent.
-Sourcing mitigation would need a real primary source — plausibly a Supreme Court
-decision saved under `docs/sources/`, the route that unblocked general
-negligence via *Mustapha*. `Red Deer College v. Michaels` is already in
-`docs/sources/` and is a mitigation case; it has not been read or used, so
-whether it supports a general statement is **unverified** and must be checked
-before anything is written from it.
+**Correction to this entry as first written.** It said the repo did not cite the
+regulation. It does: `verifiedAuthoritySeedRegistry.ts` has an entry for
+O. Reg. 626/00. Two qualifications keep the finding alive rather than closing
+it. First, that registry cites it as
+`https://www.ontario.ca/laws/regulation/000626` — the e-Laws viewer route, which
+`SOURCING_NOTES.md` records as returning a JS shell with no text, so the
+citation does not resolve to anything readable. Second, `claimTypes.ts` is a
+separate registry and still cites only the Act. The gap is narrower than
+originally stated and is about **parallel conventions not seeing each other**,
+which is the subject of `docs/SOURCED_FACT_CONVENTIONS.md`.
+
+**b. Mitigation — PROPERLY SOURCED. This entry previously said the opposite and
+was wrong.**
+
+The original text here asserted that mitigation was "not sourced at all" and
+that the only thing in the codebase was an unsourced sentence in
+`doctrineSeedLibrary.ts`'s `mitigationIssues`. That sentence exists, but it is
+not the only thing, and citing it as the whole picture erased work that was done
+properly.
+
+`DEFENCE_CONCEPTS` in `claimTypes.ts` carries **`defence-failure-to-mitigate`**,
+closed in Session 43 and sourced to **Red Deer College v. Michaels, [1976] 2
+S.C.R. 324**, retrieved and saved under `docs/sources/` via the
+decisions.scc-csc.ca HTML-fallback route (the PDF has no text layer). The entry
+states the burden principle — that a defendant arguing failure to mitigate
+generally has to prove both that the plaintiff failed to take reasonable steps
+and that taking them would have reduced the loss — and carries its own inline
+note that the case is a wrongful-dismissal case, that the Supreme Court stated
+the rule in employment terms, and that **how mitigation applies outside
+employment is not something that case decides**. That limitation is exactly the
+kind of thing section 2 is for, and it was already recorded.
+
+**How the error happened, because it is repeatable:** the search went to
+`doctrineSeedLibrary.ts` because that file's `mitigationIssues` field matched on
+the word, found an unsourced sentence there, and stopped. `DEFENCE_CONCEPTS` was
+never opened. A grep that finds *a* bad instance is not evidence there is no
+good one — see `docs/SOURCED_FACT_CONVENTIONS.md` on why parallel conventions
+make this failure mode likely.
+
+**What remains true:** the `doctrineSeedLibrary.ts` `mitigationIssues` sentence
+is still unsourced and still duplicates a doctrine that already has a sourced
+home. It should point at `defence-failure-to-mitigate` or be deleted, not be
+separately sourced.
 
 **c. Statutory caps** — none identified. Not searched for. Unknown rather than
 absent.

@@ -30,13 +30,13 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 import {
-  CITED_PROVISIONS,
+  STATUTORY_PROVISIONS,
   NOT_IN_FORCE_MARKER,
   PENDING_REPLACEMENT_RECHECK_DAYS,
   VENDORED_SOURCES,
   daysSinceLastChecked,
-  type CitedProvision,
-} from "../../src/lib/case-system/family/citedProvisions";
+  type StatutoryProvision,
+} from "../../src/lib/case-system/sources/statutoryProvisions";
 
 let failures = 0;
 
@@ -87,7 +87,7 @@ const ALL_BLOCKS = new Map<string, Map<string, string>>(
   VENDORED_SOURCES.map((file) => [file, blocksByLabel(file)]),
 );
 
-function blockFor(provision: CitedProvision): string | undefined {
+function blockFor(provision: StatutoryProvision): string | undefined {
   const blocks = ALL_BLOCKS.get(provision.vendoredIn);
   if (!blocks) return undefined;
 
@@ -105,7 +105,7 @@ function main(): void {
 
   // ---- 1. Every cited provision is vendored ----
 
-  for (const provision of CITED_PROVISIONS) {
+  for (const provision of STATUTORY_PROVISIONS) {
     const body = blockFor(provision);
     const label = `${provision.statute} ${provision.section}`;
 
@@ -117,6 +117,31 @@ function main(): void {
       `[${label}] records a verification date`,
       /^\d{4}-\d{2}-\d{2}$/.test(provision.verifiedAt),
     );
+
+    // consolidationPeriod is what the DOCUMENT says about itself, and it must
+    // match the vendored file's own header — not a date someone typed from
+    // memory. This is the check that would have caught the Occupiers'
+    // Liability Act historical-version error.
+    check(
+      `[${label}] records a consolidation period`,
+      /^\d{4}-\d{2}-\d{2}$/.test(provision.consolidationPeriod),
+      provision.consolidationPeriod,
+    );
+
+    const header = readVendored(provision.vendoredIn).split("====")[0] ?? "";
+    check(
+      `[${label}] consolidation period matches the vendored file's header`,
+      header.includes(provision.consolidationPeriod),
+      `entry says ${provision.consolidationPeriod}; header reads: ${
+        header.split("\n").find((line) => /consolidation/i.test(line))?.trim() ?? "(none)"
+      }`,
+    );
+
+    check(
+      `[${label}] is not sourced to a historical version`,
+      !/HISTORICAL VERSION/i.test(header),
+      "the vendored file's header declares a frozen historical consolidation",
+    );
   }
 
   // ---- 2. No undeclared not-in-force replacement ----
@@ -125,7 +150,7 @@ function main(): void {
   // exist. A refresh that pulls in a NEW amendment fails here until someone
   // reads it and writes down what it changes.
 
-  for (const provision of CITED_PROVISIONS) {
+  for (const provision of STATUTORY_PROVISIONS) {
     const body = blockFor(provision);
     if (body === undefined) continue;
 
@@ -155,7 +180,7 @@ function main(): void {
 
   // ---- 3. Declared replacements are re-checked, and staleness FAILS ----
 
-  for (const provision of CITED_PROVISIONS) {
+  for (const provision of STATUTORY_PROVISIONS) {
     if (!provision.pendingReplacement) continue;
 
     const label = `${provision.statute} ${provision.section}`;

@@ -31,6 +31,8 @@ export const VENDORED_SOURCES = [
   "fla-cited-sections.txt",
   "clra-cited-sections.txt",
   "flr-cited-rules.txt",
+  "cja-cited-sections.txt",
+  "cyfsa-cited-sections.txt",
 ] as const;
 
 /**
@@ -70,7 +72,7 @@ export type PendingReplacement = {
   lastChecked: string;
 };
 
-export type CitedProvision = {
+export type StatutoryProvision = {
   /** Statute short name, as used in the vendored file's header. */
   statute: string;
   /** Section label exactly as it heads the block in the vendored file. */
@@ -78,7 +80,24 @@ export type CitedProvision = {
   sourceUrl: string;
   /** The vendored file carrying this provision's verbatim text. */
   vendoredIn: (typeof VENDORED_SOURCES)[number];
+  /** When WE last retrieved and read it. */
   verifiedAt: string;
+  /**
+   * What the document says about ITSELF — the date its own header declares.
+   *
+   * This is a different fact from `verifiedAt` and the difference has already
+   * caused a real error. e-Laws publishes both current consolidations
+   * ("CONSOLIDATION PERIOD: FROM <date> TO THE E-LAWS CURRENCY DATE") and frozen
+   * historical ones ("HISTORICAL VERSION FOR THE PERIOD ..."), and the filenames
+   * barely differ. An Occupiers' Liability Act snapshot cited here predated
+   * s. 6.1 by seven weeks — perfectly `verifiedAt`, and missing a 60-day notice
+   * requirement that had been in force for years. See SOURCING_NOTES.md.
+   *
+   * Format: the ISO start date of the consolidation period. A provision whose
+   * source is a historical version should not be cited at all rather than
+   * recorded here.
+   */
+  consolidationPeriod: string;
   /**
    * Present ONLY where the source prints a not-yet-in-force replacement for
    * this provision. The check below fails if the vendored text contains "On a
@@ -87,13 +106,55 @@ export type CitedProvision = {
   pendingReplacement?: PendingReplacement;
 };
 
-export const CITED_PROVISIONS: CitedProvision[] = [
+export const STATUTORY_PROVISIONS: StatutoryProvision[] = [
+  // ---- The family jurisdiction spine ----
+  //
+  // These were verified on 2026-09-13 while writing FAMILY_PROCEEDING_TYPES.md
+  // and recorded there as prose only, because nothing read them yet. That is
+  // exactly the gap docs/SOURCED_FACT_CONVENTIONS.md's corollary describes: a
+  // design doc's facts fail the three registry tests on the day they are
+  // written and pass them as soon as the build starts. They belong here.
+  {
+    statute: "Courts of Justice Act",
+    section: "ss. 21.8 to 21.11",
+    sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+    vendoredIn: "cja-cited-sections.txt",
+    verifiedAt: "2026-09-13",
+    consolidationPeriod: "2025-12-11",
+  },
+  {
+    statute: "Children's Law Reform Act",
+    section: "s. 18",
+    sourceUrl: "https://www.ontario.ca/laws/docs/90c12_e.doc",
+    vendoredIn: "clra-cited-sections.txt",
+    verifiedAt: "2026-09-13",
+    consolidationPeriod: "2025-12-11",
+  },
+  {
+    statute: "Children's Law Reform Act",
+    section: "ss. 59-60",
+    sourceUrl: "https://www.ontario.ca/laws/docs/90c12_e.doc",
+    vendoredIn: "clra-cited-sections.txt",
+    verifiedAt: "2026-09-13",
+    consolidationPeriod: "2025-12-11",
+  },
+  {
+    statute: "Child, Youth and Family Services Act, 2017",
+    section: "s. 2 (1)",
+    sourceUrl: "https://www.ontario.ca/laws/docs/17c14_e.doc",
+    vendoredIn: "cyfsa-cited-sections.txt",
+    verifiedAt: "2026-09-13",
+    consolidationPeriod: "2026-07-01",
+  },
+
+  // ---- Family Law Act ----
   {
     statute: "Family Law Act",
     section: "s. 1 (1)",
     sourceUrl: "https://www.ontario.ca/laws/docs/90f03_e.doc",
     vendoredIn: "fla-cited-sections.txt",
     verifiedAt: "2026-09-13",
+    consolidationPeriod: "2026-05-01",
   },
   {
     statute: "Family Law Act",
@@ -101,6 +162,7 @@ export const CITED_PROVISIONS: CitedProvision[] = [
     sourceUrl: "https://www.ontario.ca/laws/docs/90f03_e.doc",
     vendoredIn: "fla-cited-sections.txt",
     verifiedAt: "2026-09-13",
+    consolidationPeriod: "2026-05-01",
   },
   {
     statute: "Family Law Act",
@@ -108,6 +170,7 @@ export const CITED_PROVISIONS: CitedProvision[] = [
     sourceUrl: "https://www.ontario.ca/laws/docs/90f03_e.doc",
     vendoredIn: "fla-cited-sections.txt",
     verifiedAt: "2026-09-13",
+    consolidationPeriod: "2026-05-01",
   },
   {
     statute: "Family Law Act",
@@ -115,6 +178,7 @@ export const CITED_PROVISIONS: CitedProvision[] = [
     sourceUrl: "https://www.ontario.ca/laws/docs/90f03_e.doc",
     vendoredIn: "fla-cited-sections.txt",
     verifiedAt: "2026-09-13",
+    consolidationPeriod: "2026-05-01",
   },
   {
     statute: "Family Law Act",
@@ -122,6 +186,7 @@ export const CITED_PROVISIONS: CitedProvision[] = [
     sourceUrl: "https://www.ontario.ca/laws/docs/90f03_e.doc",
     vendoredIn: "fla-cited-sections.txt",
     verifiedAt: "2026-09-13",
+    consolidationPeriod: "2026-05-01",
   },
   {
     statute: "Family Law Act",
@@ -129,6 +194,7 @@ export const CITED_PROVISIONS: CitedProvision[] = [
     sourceUrl: "https://www.ontario.ca/laws/docs/90f03_e.doc",
     vendoredIn: "fla-cited-sections.txt",
     verifiedAt: "2026-09-13",
+    consolidationPeriod: "2026-05-01",
   },
   {
     statute: "Family Law Act",
@@ -136,6 +202,7 @@ export const CITED_PROVISIONS: CitedProvision[] = [
     sourceUrl: "https://www.ontario.ca/laws/docs/90f03_e.doc",
     vendoredIn: "fla-cited-sections.txt",
     verifiedAt: "2026-09-13",
+    consolidationPeriod: "2026-05-01",
     pendingReplacement: {
       amendingCitation: "2025, c. 6, Sched. 6, s. 1 (1)",
       inForceDate: null,
@@ -153,6 +220,7 @@ export const CITED_PROVISIONS: CitedProvision[] = [
     sourceUrl: "https://www.ontario.ca/laws/docs/990114_e.doc",
     vendoredIn: "flr-cited-rules.txt",
     verifiedAt: "2026-09-13",
+    consolidationPeriod: "2026-05-01",
   },
   {
     statute: "O. Reg. 114/99 (Family Law Rules)",
@@ -160,6 +228,7 @@ export const CITED_PROVISIONS: CitedProvision[] = [
     sourceUrl: "https://www.ontario.ca/laws/docs/990114_e.doc",
     vendoredIn: "flr-cited-rules.txt",
     verifiedAt: "2026-09-13",
+    consolidationPeriod: "2026-05-01",
   },
   {
     statute: "O. Reg. 114/99 (Family Law Rules)",
@@ -167,6 +236,7 @@ export const CITED_PROVISIONS: CitedProvision[] = [
     sourceUrl: "https://www.ontario.ca/laws/docs/990114_e.doc",
     vendoredIn: "flr-cited-rules.txt",
     verifiedAt: "2026-09-13",
+    consolidationPeriod: "2026-05-01",
   },
   {
     statute: "Children's Law Reform Act",
@@ -174,6 +244,7 @@ export const CITED_PROVISIONS: CitedProvision[] = [
     sourceUrl: "https://www.ontario.ca/laws/docs/90c12_e.doc",
     vendoredIn: "clra-cited-sections.txt",
     verifiedAt: "2026-09-13",
+    consolidationPeriod: "2025-12-11",
   },
   {
     statute: "Children's Law Reform Act",
@@ -181,6 +252,7 @@ export const CITED_PROVISIONS: CitedProvision[] = [
     sourceUrl: "https://www.ontario.ca/laws/docs/90c12_e.doc",
     vendoredIn: "clra-cited-sections.txt",
     verifiedAt: "2026-09-13",
+    consolidationPeriod: "2025-12-11",
   },
   {
     statute: "Children's Law Reform Act",
@@ -188,6 +260,7 @@ export const CITED_PROVISIONS: CitedProvision[] = [
     sourceUrl: "https://www.ontario.ca/laws/docs/90c12_e.doc",
     vendoredIn: "clra-cited-sections.txt",
     verifiedAt: "2026-09-13",
+    consolidationPeriod: "2025-12-11",
     pendingReplacement: {
       amendingCitation: "2025, c. 6, Sched. 2, s. 1 (1)",
       inForceDate: null,
@@ -203,15 +276,15 @@ export const CITED_PROVISIONS: CitedProvision[] = [
 /** The marker e-Laws uses for a not-yet-in-force replacement. */
 export const NOT_IN_FORCE_MARKER = "On a day to be named";
 
-export function provisionsWithPendingReplacement(): CitedProvision[] {
-  return CITED_PROVISIONS.filter((provision) => provision.pendingReplacement);
+export function provisionsWithPendingReplacement(): StatutoryProvision[] {
+  return STATUTORY_PROVISIONS.filter((provision) => provision.pendingReplacement);
 }
 
 /**
  * Days since a pending replacement was last checked against the live source.
  * Returns null for a provision with no pending replacement.
  */
-export function daysSinceLastChecked(provision: CitedProvision, now: Date): number | null {
+export function daysSinceLastChecked(provision: StatutoryProvision, now: Date): number | null {
   if (!provision.pendingReplacement) return null;
 
   const checked = Date.parse(`${provision.pendingReplacement.lastChecked}T00:00:00Z`);

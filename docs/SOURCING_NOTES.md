@@ -513,3 +513,17 @@ Court money claim a plaintiff would bring on its own. It's logged as a
 defendant consideration on the existing unpaid-debt claim type instead. If
 this surfaces again, the fix isn't more sourcing — it's deciding whether a
 regulatory-complaint-shaped fact belongs as its own `ClaimType` at all.
+
+### O. Reg. 42/25 has no standalone `.doc` — verify it inside O. Reg. 626/00
+
+Confirmed 2026-09-13. The amending regulation that most recently changed the
+Small Claims monetary limit has no retrievable standalone text on the e-Laws
+`.doc` route. Four id forms tried, all **HTTP 403**: `25042`, `250042`,
+`r25042`, `042025`.
+
+**What works instead:** the amendment is recorded inside the CONSOLIDATED
+`000626_e.doc`, whose own header reads *"Last amendment: 42/25"* and
+*"Legislative History: 439/08, 244/10, 317/11, 343/19, 42/25"*, with s. 1's
+credits carrying *"O. Reg. 42/25, s. 1"*. Cite the consolidation and pinpoint
+the credit line. This is likely the general pattern for recent amending
+regulations — check the consolidation before hunting for a standalone document.

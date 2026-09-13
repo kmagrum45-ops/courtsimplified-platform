@@ -30,7 +30,7 @@ import {
 
 const EVIDENCE = "src/lib/case-system/familyEvidenceEngine.ts";
 const REGISTRY = "src/lib/case-system/family/familyFormsRegistry.ts";
-const PROVISIONS = "src/lib/case-system/family/citedProvisions.ts";
+const PROVISIONS = "src/lib/case-system/sources/statutoryProvisions.ts";
 const TRIAGE = "src/lib/case-system/family/statusTriage.ts";
 const STRATEGY = "src/lib/case-system/familyStrategyEngine.ts";
 const CLRA_SOURCE = "docs/sources/clra-cited-sections.txt";
@@ -39,6 +39,7 @@ const FORMS_SUITE = "scripts/verification/verifyFamilyForms.ts";
 const SCORES_SUITE = "scripts/verification/verifyFamilyNoScores.ts";
 const PROVISIONS_SUITE = "scripts/verification/verifyCitedProvisions.ts";
 const TRIAGE_SUITE = "scripts/verification/verifyStatusTriage.ts";
+const COVERAGE_SUITE = "scripts/verification/verifyIntakeCoverage.ts";
 
 /**
  * The self-test. Its pattern is not in the file and must never be.
@@ -196,6 +197,28 @@ const CASES: MutationCase[] = [
     ],
   },
   {
+    label: "a consolidation period disagrees with the vendored file's own header",
+    suite: PROVISIONS_SUITE,
+    mutations: [
+      {
+        file: PROVISIONS,
+        find: 'consolidationPeriod: "2026-07-01"',
+        replace: 'consolidationPeriod: "2020-01-01"',
+      },
+    ],
+  },
+  {
+    label: "a vendored source is a frozen historical version",
+    suite: PROVISIONS_SUITE,
+    mutations: [
+      {
+        file: "docs/sources/cyfsa-cited-sections.txt",
+        find: "Consolidation period: from 2026-07-01 to the e-Laws currency date",
+        replace: "HISTORICAL VERSION FOR THE PERIOD 2026-07-01 TO 2026-08-01",
+      },
+    ],
+  },
+  {
     label: "a cited provision is not vendored",
     suite: PROVISIONS_SUITE,
     mutations: [
@@ -203,6 +226,30 @@ const CASES: MutationCase[] = [
         file: PROVISIONS,
         find: 'section: "s. 29"',
         replace: 'section: "s. 33"',
+      },
+    ],
+  },
+
+  // ---- Sourcing conventions ----
+  {
+    label: "an e-Laws viewer URL (JS shell, no text) returns to the authority registry",
+    suite: COVERAGE_SUITE,
+    mutations: [
+      {
+        file: "src/lib/case-system/authority-intelligence/verifiedAuthoritySeedRegistry.ts",
+        find: '"https://www.ontario.ca/laws/docs/990114_e.doc"',
+        replace: '"https://www.ontario.ca/laws/regulation/990114"',
+      },
+    ],
+  },
+  {
+    label: "a family safety resource citation loses its verifiedAt",
+    suite: COVERAGE_SUITE,
+    mutations: [
+      {
+        file: "src/lib/case-system/intake/familySafetyResources.ts",
+        find: 'verifiedAt: "2026-09-07"',
+        replace: 'verifiedAt: ""',
       },
     ],
   },
