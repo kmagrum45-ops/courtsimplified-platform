@@ -30,6 +30,7 @@
 export const VENDORED_SOURCES = [
   "fla-cited-sections.txt",
   "clra-cited-sections.txt",
+  "flr-cited-rules.txt",
 ] as const;
 
 /**
@@ -145,6 +146,34 @@ export const CITED_PROVISIONS: CitedProvision[] = [
         "or any person on their behalf with leave of the court.",
       lastChecked: "2026-09-13",
     },
+  },
+  {
+    statute: "O. Reg. 114/99 (Family Law Rules)",
+    section: "r. 1",
+    sourceUrl: "https://www.ontario.ca/laws/docs/990114_e.doc",
+    vendoredIn: "flr-cited-rules.txt",
+    verifiedAt: "2026-09-13",
+  },
+  {
+    statute: "O. Reg. 114/99 (Family Law Rules)",
+    section: "r. 13",
+    sourceUrl: "https://www.ontario.ca/laws/docs/990114_e.doc",
+    vendoredIn: "flr-cited-rules.txt",
+    verifiedAt: "2026-09-13",
+  },
+  {
+    statute: "O. Reg. 114/99 (Family Law Rules)",
+    section: "r. 35.1",
+    sourceUrl: "https://www.ontario.ca/laws/docs/990114_e.doc",
+    vendoredIn: "flr-cited-rules.txt",
+    verifiedAt: "2026-09-13",
+  },
+  {
+    statute: "Children's Law Reform Act",
+    section: "s. 21.2",
+    sourceUrl: "https://www.ontario.ca/laws/docs/90c12_e.doc",
+    vendoredIn: "clra-cited-sections.txt",
+    verifiedAt: "2026-09-13",
   },
   {
     statute: "Children's Law Reform Act",

@@ -112,7 +112,7 @@ export type FamilyNormalizedIntake = {
     safetyFlags: string[];
     disclosureRisks: string[];
     serviceRisks: string[];
-    credibilityRisks: string[];
+    wordingSuggestions: string[];
     proceduralRisks: string[];
     childFocusedRisks: string[];
   };
@@ -505,9 +505,9 @@ export function normalizeFamilyAiIntake(input: FamilyAiIntakeInput): FamilyNorma
     serviceRisks.push("After documents are issued, service and proof of service must be tracked carefully.");
   }
 
-  const credibilityRisks: string[] = [];
+  const wordingSuggestions: string[] = [];
   if (includesAny(allText, ["crazy", "evil", "narcissist", "always lies", "bad mother", "bad father"])) {
-    credibilityRisks.push("Emotionally charged labels should be replaced with specific incidents and evidence.");
+    wordingSuggestions.push("Emotionally charged labels should be replaced with specific incidents and evidence.");
   }
 
   const proceduralRisks: string[] = [];
@@ -617,7 +617,7 @@ export function normalizeFamilyAiIntake(input: FamilyAiIntakeInput): FamilyNorma
       safetyFlags: cleanList(safetyFlags),
       disclosureRisks: cleanList(disclosureRisks),
       serviceRisks: cleanList(serviceRisks),
-      credibilityRisks: cleanList(credibilityRisks),
+      wordingSuggestions: cleanList(wordingSuggestions),
       proceduralRisks: cleanList(proceduralRisks),
       childFocusedRisks: cleanList(childFocusedRisks),
     },

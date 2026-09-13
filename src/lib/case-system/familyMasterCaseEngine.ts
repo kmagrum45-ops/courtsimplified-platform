@@ -317,7 +317,12 @@ function determineStatus(params: {
     return "needs-document-upload";
   }
 
-  if (evidence.evidenceGaps.some((gap) => gap.priority === "critical") || narrative.paragraphsWithNoLinkedEvidence.length > 0) {
+  // Was `gap.priority === "critical"`. The replacement asks a factual question
+  // instead: is anything outstanding that a named rule requires?
+  if (
+    evidence.gapsRequiredByRule.length > 0 ||
+    narrative.paragraphsWithNoLinkedEvidence.length > 0
+  ) {
     return "needs-evidence-review";
   }
 

@@ -329,7 +329,7 @@ function buildFamilyPathAnalysis(
     judgeConcerns: cleanList([
       ...safeStringArray(familyStrategy.likelyJudgeConcerns),
       ...safeStringArray(familyNormalized.risks.childFocusedRisks),
-      ...safeStringArray(familyNormalized.risks.credibilityRisks),
+      ...safeStringArray(familyNormalized.risks.wordingSuggestions),
       ...safeStringArray(familyNormalized.risks.disclosureRisks),
     ]),
     suggestedFocus: cleanList([

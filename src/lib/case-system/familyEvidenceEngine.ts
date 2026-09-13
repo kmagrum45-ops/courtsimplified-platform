@@ -70,11 +70,34 @@ export type FamilyEvidenceAnalysisItem = {
   followUpQuestions: string[];
 };
 
+/**
+ * A rule that requires a document, quoted so the citation can be checked.
+ *
+ * This is what replaced `priority: "critical" | "important" | "helpful"`.
+ * "Required by r. 13 (1.1)" is a fact about the Family Law Rules; "critical" is
+ * a grade the engine assigned to someone's situation (CLAUDE.md section 3). The
+ * factual version is also strictly more useful, because it tells the user which
+ * rule to read.
+ */
+export type FamilyRuleRequirement = {
+  /** e.g. "O. Reg. 114/99, r. 13 (1.1)". */
+  rule: string;
+  /** The rule's own words. Never paraphrased. */
+  quote: string;
+  sourceUrl: string;
+  verifiedAt: string;
+};
+
 export type FamilyEvidenceGap = {
   issue: string;
   missingEvidence: string[];
   whyItMatters: string;
-  priority: "critical" | "important" | "helpful";
+  /**
+   * Present only where a rule actually requires the document. Its absence is
+   * meaningful: the item may be useful, and no rule demands it. Nothing infers
+   * importance from the absence.
+   */
+  requiredBy?: FamilyRuleRequirement;
 };
 
 export type FamilyEvidencePackage = {
@@ -95,6 +118,10 @@ export type FamilyEvidenceEngineInput = {
 export type FamilyEvidenceEngineResult = {
   analyzedEvidence: FamilyEvidenceAnalysisItem[];
   evidenceGaps: FamilyEvidenceGap[];
+  /** Gaps a named rule requires the user to fill. Each carries requiredBy. */
+  gapsRequiredByRule: FamilyEvidenceGap[];
+  /** Documents no rule requires. Unordered; none carries requiredBy. */
+  gapsThatMayHelp: FamilyEvidenceGap[];
   evidencePackages: FamilyEvidencePackage[];
   exhibitOrder: FamilyEvidenceAnalysisItem[];
   /** Items whose date, source, category and relevance are all recorded. */
@@ -377,10 +404,164 @@ function analyzeItem(item: FamilyEvidenceRawItem, index: number, normalized: Fam
   };
 }
 
-function buildEvidenceGaps(
+const FLR_SOURCE = "https://www.ontario.ca/laws/docs/990114_e.doc";
+const CLRA_SOURCE = "https://www.ontario.ca/laws/docs/90c12_e.doc";
+const RULES_VERIFIED_AT = "2026-09-13";
+
+/**
+ * Gaps a rule actually requires the user to fill.
+ *
+ * Every entry carries the rule's own words. These are procedural facts —
+ * naming a rule and quoting it is legal information; nothing here tells a
+ * particular user that a rule applies to them, which is why the non-parent
+ * requirements below are phrased conditionally ("if the person making this
+ * claim is not a parent") rather than asserted from the engine's guess at the
+ * user's role. `normalizeRole` infers "third-party-caregiver" from words like
+ * "grandparent" and "uncle", and a keyword guess is not a basis for telling
+ * someone a filing requirement binds them.
+ */
+function buildRuleRequiredGaps(
   normalized: FamilyNormalizedIntake,
   workflow: FamilyWorkflowResult,
-  formRouting: FamilyFormRoutingResult,
+): FamilyEvidenceGap[] {
+  const gaps: FamilyEvidenceGap[] = [];
+  const hasParentingClaim = workflow.parentingIssues.length > 0;
+  const hasDecisionMakingClaim = workflow.parentingIssues.includes("decision-making");
+
+  if (workflow.supportIssues.length > 0 && !normalized.evidence.hasFinancialDisclosure) {
+    gaps.push({
+      issue: "Financial statement for a support claim",
+      missingEvidence: ["Tax returns", "Notices of Assessment", "Pay stubs", "Proof of expenses"],
+      whyItMatters:
+        "The Family Law Rules set which financial statement form a support claim uses.",
+      requiredBy: {
+        rule: "O. Reg. 114/99, r. 13 (1.1)",
+        quote:
+          "If the application, answer or motion contains a claim for support but does not " +
+          "contain a property claim or a claim for exclusive possession of the matrimonial " +
+          "home and its contents, the financial statement used by the parties under these " +
+          "rules shall be in Form 13.",
+        sourceUrl: FLR_SOURCE,
+        verifiedAt: RULES_VERIFIED_AT,
+      },
+    });
+  }
+
+  if (workflow.propertyIssues.length > 0) {
+    gaps.push({
+      issue: "Financial statement for a property claim",
+      missingEvidence: ["Property documents", "Mortgage/lease records", "Asset and debt statements", "Valuation records"],
+      whyItMatters:
+        "A property claim uses a different financial statement form from a support-only claim.",
+      requiredBy: {
+        rule: "O. Reg. 114/99, r. 13 (1.2)",
+        quote:
+          "If the application, answer or motion contains a property claim or a claim for " +
+          "exclusive possession of the matrimonial home and its contents, the financial " +
+          "statement used by the parties under these rules shall be in Form 13.1, whether a " +
+          "claim for support is also included or not.",
+        sourceUrl: FLR_SOURCE,
+        verifiedAt: RULES_VERIFIED_AT,
+      },
+    });
+  }
+
+  if (hasParentingClaim) {
+    gaps.push({
+      issue: "Affidavit required with a parenting, decision-making or contact claim",
+      missingEvidence: [
+        "Form 35.1 affidavit",
+        "Form 35.1A affidavit, if the child or any party has been involved in a child protection case or received services from a child protection agency",
+      ],
+      whyItMatters:
+        "The clerk will not accept the document for filing without the affidavits this rule lists (r. 35.1 (6)).",
+      requiredBy: {
+        rule: "O. Reg. 114/99, r. 35.1 (1)",
+        quote:
+          "If an application, answer or motion to change a final order contains a claim " +
+          "respecting decision-making responsibility, parenting time or contact with respect " +
+          "to a child, the party making the claim shall serve and file with the document that " +
+          "contains the claim, (a) an affidavit in Form 35.1 and, if the child or any party to " +
+          "the case has been involved in a child protection case or has received services from " +
+          "a child protection agency, an affidavit in Form 35.1A; and (b) any other documents " +
+          "required by this rule.",
+        sourceUrl: FLR_SOURCE,
+        verifiedAt: RULES_VERIFIED_AT,
+      },
+    });
+  }
+
+  if (hasDecisionMakingClaim) {
+    gaps.push({
+      issue: "Police records check — if the person claiming decision-making responsibility is not a parent",
+      missingEvidence: [
+        "Police records check obtained not more than 60 days before the claim is started",
+        "Or, if it was requested but has not arrived, proof of the request — with the check itself served and filed within 10 days of receiving it (r. 35.1 (4))",
+      ],
+      whyItMatters:
+        "This one is dated: a check obtained too early does not satisfy the rule. It applies " +
+        "only where the person making the claim is not a parent of the child.",
+      requiredBy: {
+        rule: "O. Reg. 114/99, r. 35.1 (3)",
+        quote:
+          "Every person who makes a claim for decision-making responsibility with respect to a " +
+          "child and who is not a parent of the child shall attach to Form 35.1, (a) a police " +
+          "records check obtained not more than 60 days before the person starts the claim; or " +
+          "(b) if the person requested the police records check for the purposes of the claim " +
+          "but has not received it by the time the person starts the claim, proof of the request.",
+        sourceUrl: FLR_SOURCE,
+        verifiedAt: RULES_VERIFIED_AT,
+      },
+    });
+
+    gaps.push({
+      issue: "Children's aid society records search — if the applicant is not a parent",
+      missingEvidence: [
+        "A request to every society or other prescribed body, in the form provided by the Ministry of the Attorney General",
+        "A copy of each request filed with the court",
+        "A copy of the request provided together with Form 35.1 (O. Reg. 114/99, r. 35.1 (5))",
+      ],
+      whyItMatters:
+        "This is separate from the police records check and is required by the Children's Law " +
+        "Reform Act rather than the Rules. It applies only where the applicant is not a parent " +
+        "of the child.",
+      requiredBy: {
+        rule: "Children's Law Reform Act, s. 21.2 (2) and (3)",
+        quote:
+          "Every person who applies under section 21 for a parenting order respecting " +
+          "decision-making responsibility with respect to a child and who is not a parent of " +
+          "the child shall submit a request, in the form provided by the Ministry of the " +
+          "Attorney General, to every society or other body or person prescribed by the " +
+          "regulations, for a report ... A copy of each request made under subsection (2) shall " +
+          "be filed with the court.",
+        sourceUrl: CLRA_SOURCE,
+        verifiedAt: RULES_VERIFIED_AT,
+      },
+    });
+  }
+
+  return gaps;
+}
+
+/**
+ * Documents no rule requires.
+ *
+ * DELIBERATELY UNORDERED, and every entry is phrased so it cannot be read as a
+ * requirement. Three of the old gaps were cut rather than rewritten because
+ * their reason for existing was the thing that had to go:
+ *
+ *   - "Child stability and school/daycare" said school evidence "can support
+ *     best-interests analysis" — a claim about how a court would weigh the
+ *     user's material.
+ *   - "Safety allegations" said safety concerns "must be tied to specific facts
+ *     and evidence" — "must" asserts a requirement, and no rule imposes one.
+ *     What the Rules do require for a safety-related claim is already covered by
+ *     the Form 35.1 entry above.
+ *   - "Form generation blockers" reported what this codebase's own routing
+ *     engine concluded, dressed as a gap in the user's record.
+ */
+function buildGapsThatMayHelp(
+  workflow: FamilyWorkflowResult,
   analyzed: FamilyEvidenceAnalysisItem[],
 ): FamilyEvidenceGap[] {
   const gaps: FamilyEvidenceGap[] = [];
@@ -389,55 +570,11 @@ function buildEvidenceGaps(
 
   if (workflow.parentingIssues.length > 0 && !has("parenting-schedule")) {
     gaps.push({
-      issue: "Parenting schedule",
+      issue: "A record of the current and proposed schedule",
       missingEvidence: ["Current schedule", "Proposed schedule", "Calendar or parenting log"],
-      whyItMatters: "Parenting requests are harder to assess without a clear current and proposed schedule.",
-      priority: "critical",
-    });
-  }
-
-  if (workflow.parentingIssues.length > 0 && !has("school-record")) {
-    gaps.push({
-      issue: "Child stability and school/daycare",
-      missingEvidence: ["School/daycare information", "Attendance or teacher records if relevant"],
-      whyItMatters: "School and routine evidence can support best-interests analysis.",
-      priority: "important",
-    });
-  }
-
-  if (workflow.supportIssues.length > 0 && !normalized.evidence.hasFinancialDisclosure) {
-    gaps.push({
-      issue: "Support disclosure",
-      missingEvidence: ["Tax returns", "Notices of Assessment", "Pay stubs", "Proof of expenses"],
-      whyItMatters: "Support claims require reliable income and expense information.",
-      priority: "critical",
-    });
-  }
-
-  if (workflow.safetyIssues.length > 0 && !normalized.evidence.hasPoliceOrSafetyRecords) {
-    gaps.push({
-      issue: "Safety allegations",
-      missingEvidence: ["Dated incident list", "Messages", "Police records", "Witness names", "Medical or support records if applicable"],
-      whyItMatters: "Safety concerns must be tied to specific facts and evidence, especially for urgent or protective orders.",
-      priority: "critical",
-    });
-  }
-
-  if (workflow.propertyIssues.length > 0 && !has("property-document") && !has("mortgage-or-lease")) {
-    gaps.push({
-      issue: "Property and equalization",
-      missingEvidence: ["Property documents", "Mortgage/lease records", "Asset/debt statements", "Valuation records"],
-      whyItMatters: "Property claims need organized disclosure before reliable form generation or settlement analysis.",
-      priority: "important",
-    });
-  }
-
-  if (formRouting.blockersBeforeGeneration.length > 0) {
-    gaps.push({
-      issue: "Form generation blockers",
-      missingEvidence: formRouting.blockersBeforeGeneration,
-      whyItMatters: "The form-routing engine identified missing information that should be fixed before final document generation.",
-      priority: "critical",
+      whyItMatters:
+        "No rule requires a schedule document. Form 35.1 asks about the child's current " +
+        "arrangements, so people often find it useful to have written down before filling it in.",
     });
   }
 
@@ -469,12 +606,15 @@ export function runFamilyEvidenceEngine(input: FamilyEvidenceEngineInput): Famil
   const rawEvidence = input.rawEvidence || [];
   const analyzedEvidence = rawEvidence.map((item, index) => analyzeItem(item, index, input.normalized));
 
-  const evidenceGaps = buildEvidenceGaps(
-    input.normalized,
-    input.workflow,
-    input.formRouting,
-    analyzedEvidence,
-  );
+  const gapsRequiredByRule = buildRuleRequiredGaps(input.normalized, input.workflow);
+  const gapsThatMayHelp = buildGapsThatMayHelp(input.workflow, analyzedEvidence);
+
+  // The combined list is kept for consumers that just want "what is missing".
+  // Rule-required first, because that ordering is a fact about the Rules rather
+  // than a judgment about this case — everything in the first group is required
+  // by a named rule and nothing in the second is. Within each group, authored
+  // order; nothing is ranked.
+  const evidenceGaps = [...gapsRequiredByRule, ...gapsThatMayHelp];
 
   const evidencePackages = buildPackages(analyzedEvidence);
   // Grouped for the exhibit brief, and within a group left in the order the
@@ -535,6 +675,8 @@ export function runFamilyEvidenceEngine(input: FamilyEvidenceEngineInput): Famil
   return {
     analyzedEvidence,
     evidenceGaps,
+    gapsRequiredByRule,
+    gapsThatMayHelp,
     evidencePackages,
     exhibitOrder,
     completeEvidence,

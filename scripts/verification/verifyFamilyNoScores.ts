@@ -115,6 +115,48 @@ function main(): void {
     );
   }
 
+  // ---- No prediction about how a reader will receive the user's material ----
+  //
+  // Drafting guidance is allowed and wanted: "Replace emotional labels with
+  // dated incidents" tells someone what to do. What is not allowed is the
+  // prediction that used to sit beside it — "Emotionally charged wording may
+  // reduce credibility if not tied to specific evidence" — which forecasts a
+  // decision-maker's reaction to the user's own case (CLAUDE.md section 3).
+  //
+  // These patterns are deliberately narrow. A blanket ban on "credibility"
+  // would fire on legitimate drafting vocabulary, and a check that cannot
+  // distinguish the two teaches people to suppress it.
+
+  const PREDICTION_PATTERNS: Array<{ pattern: RegExp; why: string }> = [
+    { pattern: /may reduce credibility/i, why: "forecasts how a reader will weigh the user's material" },
+    { pattern: /\b(will|would|may) (?:be )?(?:seen|viewed|perceived) (?:as|by)/i, why: "forecasts a reader's perception" },
+    { pattern: /\bthe (?:judge|court) (?:will|would|is likely to)\b/i, why: "predicts what the decision-maker will do" },
+    { pattern: /\bjudge impact\b/i, why: "asserts what a judge takes from a document" },
+    { pattern: /\bfinancial credibility\b/i, why: "grades the user's credibility" },
+  ];
+
+  for (const { file, raw } of FAMILY_FILES) {
+    const code = liveCode(raw);
+
+    for (const { pattern, why } of PREDICTION_PATTERNS) {
+      const hit = code.match(pattern);
+      check(
+        `${file} makes no prediction matching ${pattern.source.slice(0, 34)}`,
+        hit === null,
+        hit ? `"${hit[0]}" — ${why}` : undefined,
+      );
+    }
+  }
+
+  // The guidance the prediction sat beside must still be there. A check that
+  // only removes things eventually removes the useful half too.
+  const strategyEngine = FAMILY_FILES.find(({ file }) => file === "familyStrategyEngine.ts");
+  check(
+    "the drafting guidance survived the prediction's removal",
+    strategyEngine !== undefined &&
+      liveCode(strategyEngine.raw).includes("Replace emotional labels with dated incidents"),
+  );
+
   // ---- No percentage arithmetic over the user's case ----
 
   for (const { file, raw } of FAMILY_FILES) {

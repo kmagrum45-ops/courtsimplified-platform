@@ -492,7 +492,6 @@ export function runFamilyFormRoutingEngine(input: FamilyFormRoutingInput): Famil
   const routingWarnings = cleanList([
     ...workflow.proceduralWarnings,
     ...strategy.proceduralWarnings,
-    ...strategy.credibilityRisks,
     ...normalized.risks.proceduralRisks,
     ...normalized.risks.disclosureRisks,
   ]);

@@ -63,7 +63,6 @@ export type FamilyStrategyResult = {
 
   proceduralWarnings: string[];
   settlementStrategy: string[];
-  credibilityRisks: string[];
   evidenceGaps: string[];
   urgentActionFlags: string[];
 
@@ -163,7 +162,6 @@ export function analyzeFamilyStrategy(
 
   const proceduralWarnings: string[] = [];
   const settlementStrategy: string[] = [];
-  const credibilityRisks: string[] = [];
   const evidenceGaps: string[] = [];
   const urgentActionFlags: string[] = [];
 
@@ -386,10 +384,11 @@ export function analyzeFamilyStrategy(
       "bad father",
     ])
   ) {
-    credibilityRisks.push(
-      "Emotionally charged wording may reduce credibility if not tied to specific evidence.",
-    );
-
+    // A credibilityRisks entry fired here too — "Emotionally charged wording
+    // may reduce credibility if not tied to specific evidence." It predicted
+    // how a reader would receive the user's material, and added nothing the
+    // drafting suggestion below does not already carry. The guidance stays; the
+    // prediction is gone, and with it the field, which had no other writer.
     suggestedWordingImprovements.push(
       "Replace emotional labels with dated incidents, messages, conduct, and child-focused impacts.",
     );
@@ -451,7 +450,6 @@ export function analyzeFamilyStrategy(
 
     proceduralWarnings: cleanList(proceduralWarnings),
     settlementStrategy: cleanList(settlementStrategy),
-    credibilityRisks: cleanList(credibilityRisks),
     evidenceGaps: cleanList(evidenceGaps),
     urgentActionFlags: cleanList(urgentActionFlags),
 

@@ -729,7 +729,6 @@ export function runFamilyAffidavitNarrativeEngine(input: FamilyNarrativeInput): 
   ]);
 
   const draftingWarnings = cleanList([
-    ...input.strategy.credibilityRisks,
     ...input.strategy.suggestedWordingImprovements,
     ...input.evidence.contradictionWarnings,
     ...saferWordingSuggestions.map((risk) => `${risk.issue}: ${risk.whyItMatters}`),

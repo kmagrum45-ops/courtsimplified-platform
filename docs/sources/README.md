@@ -440,3 +440,21 @@ recorded in full. Those 6 are flagged individually below.
   until someone reads the amendment and declares it. If a note DISAPPEARS,
   the amendment is in force and the vendored text is stale law — the suite
   fails for that too.
+
+### `flr-cited-rules.txt`
+
+- **What it is:** the rules of **O. Reg. 114/99 (Family Law Rules)** that
+  CourtSimplified cites — r. 1 (scope, and the closed list of 24 Family
+  Court municipalities in r. 1(3)), r. 13 (financial statements), and
+  r. 35.1 (the affidavit, police records check and CAS records search
+  required with a decision-making, parenting time or contact claim).
+  Machine-read by `verifyCitedProvisions.ts` and `verifyStatusTriage.ts`,
+  the latter checking all 24 municipality names against it rather than
+  against the TypeScript copy.
+- **Citation:** O. Reg. 114/99, made under the Courts of Justice Act
+- **Retrieved from:** https://www.ontario.ca/laws/docs/990114_e.doc,
+  extracted with `antiword`
+- **Consolidation period:** from 2026-05-01 to the e-Laws currency date
+- **Downloaded:** 2026-09-13
+- **Refreshing it:** same procedure as the other vendored sources — keep
+  the provenance header and the rule lines, which the parsers split on.
