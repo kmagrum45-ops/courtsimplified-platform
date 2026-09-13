@@ -18,6 +18,7 @@
     "test:authority-seed-integrity": "node --import tsx scripts/verification/verifyAuthoritySeedRegistryIntegrity.ts",
     "test:browser-journeys": "playwright test",
     "test:builder-persistence": "node --import tsx scripts/verification/verifyBuilderPersistenceReliability.ts",
+    "test:case-events": "node --import tsx scripts/verification/verifyCaseEvents.ts",
     "test:case-isolation": "node --import tsx scripts/verification/verifyWorkflowIsolation.mjs",
     "test:case-outcomes": "node --import tsx scripts/verification/verifyCaseOutcomeMatrix.ts",
     "test:case-rls-contract": "node --import tsx scripts/verification/verifyCaseRlsPolicyContract.ts",

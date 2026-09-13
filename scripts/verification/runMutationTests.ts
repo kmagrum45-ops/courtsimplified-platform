@@ -40,6 +40,10 @@ const SCORES_SUITE = "scripts/verification/verifyFamilyNoScores.ts";
 const PROVISIONS_SUITE = "scripts/verification/verifyCitedProvisions.ts";
 const TRIAGE_SUITE = "scripts/verification/verifyStatusTriage.ts";
 const COVERAGE_SUITE = "scripts/verification/verifyIntakeCoverage.ts";
+const EVENTS_SUITE = "scripts/verification/verifyCaseEvents.ts";
+const EVENT_TYPES = "src/lib/case-system/events/caseEventTypes.ts";
+const EVENT_ADAPTER = "src/lib/case-system/events/caseEventAdapter.ts";
+const EVENT_CONSISTENCY = "src/lib/case-system/events/caseEventConsistency.ts";
 
 /**
  * The self-test. Its pattern is not in the file and must never be.
@@ -226,6 +230,52 @@ const CASES: MutationCase[] = [
         file: PROVISIONS,
         find: 'section: "s. 29"',
         replace: 'section: "s. 33"',
+      },
+    ],
+  },
+
+  // ---- Case events ----
+  {
+    label: "an approximate date is treated as reliable",
+    suite: EVENTS_SUITE,
+    mutations: [
+      {
+        file: EVENT_ADAPTER,
+        find: 'return row.date_certainty === "exact" ? row.occurred_at_normalized : null;',
+        replace: "return row.occurred_at_normalized;",
+      },
+    ],
+  },
+  {
+    label: "a superseded event stays live",
+    suite: EVENTS_SUITE,
+    mutations: [
+      {
+        file: EVENT_ADAPTER,
+        find: "return rows.filter((row) => row.retracted_at === null && !supersededIds.has(row.id));",
+        replace: "return rows.filter((row) => row.retracted_at === null);",
+      },
+    ],
+  },
+  {
+    label: "a contradiction notice loses the leave-it-alone option",
+    suite: EVENTS_SUITE,
+    mutations: [
+      {
+        file: EVENT_CONSISTENCY,
+        find: '        "Leave it as it is",\n      ],\n      relatedEventIds: laterEvents.map',
+        replace: "      ],\n      relatedEventIds: laterEvents.map",
+      },
+    ],
+  },
+  {
+    label: "the untyped option loses its first-class marker",
+    suite: EVENTS_SUITE,
+    mutations: [
+      {
+        file: EVENT_TYPES,
+        find: "    firstClassUntyped: true,",
+        replace: "",
       },
     ],
   },

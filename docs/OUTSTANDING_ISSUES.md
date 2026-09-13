@@ -652,6 +652,91 @@ absent.
 
 ---
 
+## 17. `ProceduralEventType` mixes deadlines with events, and two courts
+
+**Found 2026-09-13 while building `case_events`. The adapter handles it; the
+union is wrong and someone should know why.**
+
+`proceduralStateArchitecture.ts` declares `ProceduralEventType` with **77
+members**. Two problems, both structural.
+
+### a. Seven members are DEADLINES, not events
+
+```
+"defence-due"                    "undertaking-due"
+"motion-confirmation-due"        "conference-materials-due"
+"certificate-of-readiness-due"   "pre-trial-brief-due"
+"trial-materials-due"
+```
+
+**An event happened; a deadline has not.** They are different kinds of thing
+with different semantics, and deadlines are a separate table under
+`DEADLINE_TRACKING_DESIGN.md` with a user-supplied date and a certainty. A
+member like `defence-due` invites storing a deadline as an event, which would
+put a date the site never computed into a record of things that occurred.
+
+`case_events` maps none of the seven, and its own vocabulary has no `-due`
+member. The mismatch is carried explicitly in `EVENT_TYPE_MAPPING` rather than
+resolved by renaming either side.
+
+### b. Superior Court civil vocabulary is mixed with Small Claims
+
+`affidavit-of-documents-served`, `discovery-scheduled`, `discovery-completed`,
+`undertaking-given`, `notice-of-action-issued` and others describe a procedure
+Small Claims does not have. **Small Claims has no discovery.** The union is not
+wrong about civil practice — it is one court's vocabulary in a type used by
+three court paths, with nothing marking which member belongs where.
+
+### What an audit would do
+
+1. Move the seven `-due` members out, to the deadline model where they belong.
+2. Tag or split members by court path, so a Small Claims caller cannot reach a
+   civil-only member.
+3. Check the result against the sourced vocabularies — `caseEventTypes.ts` for
+   Small Claims, and the family equivalent when it is written.
+
+**Not urgent, and not free:** `ProceduralEventType` is referenced by
+`ProceduralRequirement.requiredBeforeEvents` and the dependency model, so
+narrowing it touches `proceduralStateEngine.ts` broadly. Recorded so the next
+person to look at that file knows the union is a known problem rather than a
+considered design.
+
+---
+
+## 16. Every case table grants ALL to `anon`
+
+**Inherited convention, matched by `case_events` for consistency, recorded here
+rather than absorbed silently.**
+
+`case_documents`, `case_evidence`, `case_generated_documents`, `case_intakes`
+and `cases` each carry:
+
+```sql
+GRANT ALL ON TABLE "public"."<table>" TO "anon";
+```
+
+RLS holds the line — every one of these tables has `ENABLE ROW LEVEL SECURITY`
+and a `USING (auth.uid() = user_id)` policy, and `auth.uid()` is null for an
+anonymous request, so no row matches. The grant is survivable.
+
+**But on a platform holding case details, this is one bad policy away from a
+leak.** The grant is the wide default and RLS is the only thing narrowing it. A
+policy dropped during a migration, a table created without `ENABLE ROW LEVEL
+SECURITY`, or a policy written with `USING (true)` during debugging would each
+turn a working grant into an open table. Defence in depth would have the grant
+itself be narrow, so that an RLS mistake fails closed rather than open.
+
+`case_events` matches the convention deliberately — diverging in one table
+would leave two conventions and make the inconsistency itself a hazard. Fixing
+it means changing all six together, checking nothing depends on anon access, and
+is its own piece of work.
+
+**Worth pairing with a check:** nothing currently asserts that every `case_*`
+table has RLS enabled and a non-trivial policy. That check is cheap and would
+catch the failure mode above.
+
+---
+
 ## 15. Checks that DEFEND a defect — fixtures encode assumptions
 
 **Found 2026-09-13. One instance fixed; nothing else audited for it.**
