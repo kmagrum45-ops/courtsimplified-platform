@@ -139,8 +139,23 @@ s. 29 matters most: "what does this cost me if I lose" is the question self-repr
 - Courthouse tracking (`COURTHOUSE_TRACKING_DESIGN.md`)
 - Institutional research guidance / FOI (`RESEARCH_GUIDANCE_DESIGN.md`)
 - CanLII research guide (filed in `INTAKE_STATUS.md`)
-- Statement of Claim readiness gate
-- Claim-type intake depth
+- ~~Statement of Claim readiness gate~~ — **built** (`e32640a`), wired (`d132fe2`)
+- ~~Claim-type intake depth~~ — **built** (`673266a`), wired (`f07b119`)
+
+### 🔭 Family court — the consent order path (FUTURE WORK, not scheduled)
+
+**Not for now. Not designed, not sourced, not scoped.** Recorded so the idea is not lost, and so nobody mistakes it for work that is ready to start.
+
+The family court area has no route for someone who has **already reached a mutual agreement** with the other party and needs the court to turn it into a written order, rather than bringing a contested application. Two parts to the work:
+
+1. **A route through the site** for a user who arrives with an agreement already made and needs it made into an order.
+2. **Content surfacing that route where it fits**, because users who have agreed often do not know this path exists and assume any court involvement means a fight. That assumption is itself the thing worth addressing.
+
+**Sourcing is entirely unstarted, and nothing here may be written from recall.** Every statement about what this path is, what it requires, which forms apply, or how a court deals with it must trace to a primary source under CLAUDE.md §2 — ontario.ca, ontariocourts.ca, ontariocourtforms.on.ca, or a source saved under `docs/sources/` with its provenance recorded. Read `SOURCING_NOTES.md` first; the e-Laws `.doc` fallback is likely to be needed, and the plain `_e.doc` / `_eV00N` current-versus-historical distinction applies.
+
+**The §3 boundary is the hard part of this one, and should be settled in design rather than discovered in build.** The site may present what this path is and what the process generally requires. It may **not** tell a user whether their agreement is suitable for it, whether a court would approve it, or whether it is the right choice for them — all three are the system applying law to the user's facts, which is the "who does the applying" test failing. The line is the same one the intake depth spec adopted: *naming what a path generally involves is fine; signalling that the user's situation qualifies is not.*
+
+**A known trap, given the second part of the work:** content that *encourages* a route sits closer to advice than content that merely describes one. "People who have agreed sometimes use this route" is information. "This sounds like it would suit your situation" is advice. Whatever surfaces this path has to stay on the first side of that, including in any copy written to counter the assume-a-fight problem — which is precisely where the pressure to be reassuring will push it.
 
 ---
 
