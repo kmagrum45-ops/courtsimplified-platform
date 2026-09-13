@@ -39,6 +39,7 @@
     "test:ontario-beta-bundle": "node --import tsx scripts/verification/verifyOntarioBetaProcedureAuthorityBundle.ts",
     "test:overview-labels": "node --import tsx scripts/verification/verifyOverviewIssueAndDocumentLabels.ts",
     "test:procedural-stage-conflict": "node --import tsx scripts/verification/verifySharedProceduralStageConflict.ts",
+    "test:readiness-gate": "node --import tsx scripts/verification/verifyReadinessGate.ts",
     "test:reasoning-contract": "node --import tsx scripts/verification/verifyReasoningContract.ts",
     "test:safety-regression": "node --import tsx scripts/verification/verifySafetyPassRegression.ts",
     "test:scenario": "node --import tsx scripts/verification/runScenario.ts",

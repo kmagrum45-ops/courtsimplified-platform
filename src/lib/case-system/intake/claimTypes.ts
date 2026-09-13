@@ -524,10 +524,26 @@ export const CLAIM_TYPES: ClaimType[] = [
       {
         id: "amount-unpaid",
         name: "The amount claimed is accurate and remains unpaid",
+        // Session 48: was "...part of what the court will expect to see
+        // documented...". Two problems, surfaced when the readiness gate ran
+        // the case-strength validator over the element text it forwards:
+        //   1. "court will expect" is a judge prediction. CLAUDE.md section 3
+        //      bars those and BLOCKED_TERMS already catches the phrase. This
+        //      was the ONLY plaintiffElement in the repo tripping it. Note it
+        //      survived earlier passes because the phrase is split across two
+        //      concatenated source lines, so a grep for it finds nothing --
+        //      only the runtime string trips the validator.
+        //   2. The cited source does not support it. Re-read 2026-09-12: the
+        //      guide says "Fill in the amount that you are claiming", and that
+        //      the $50,000 limit excludes "interest and costs such as court
+        //      fees". It describes what a claim sets out, not what a court
+        //      will expect.
+        // Reworded to what the source actually says. The legal proposition is
+        // unchanged; only the predictive framing is removed.
         plainExplanation:
-          "The claimed amount, and the fact that it hasn't been paid, are part of what the court " +
-          "will expect to see documented -- interest and costs are handled separately from, and in " +
-          "addition to, the amount claimed itself.",
+          "The claimed amount, and the fact that it hasn't been paid, are part of what a claim " +
+          "sets out -- interest and costs are handled separately from, and in addition to, the " +
+          "amount claimed itself.",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
         evidenceCategories: [
           {
