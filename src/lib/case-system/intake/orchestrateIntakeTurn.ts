@@ -219,6 +219,29 @@ function mergeFacts(
  * so there is nothing for an extractor to infer, and asking one would only
  * add cost and a chance of misreading text that's already verbatim.
  */
+/**
+ * Injectable dependencies, for verification harnesses only.
+ *
+ * Every field defaults to the real function, so production callers pass
+ * nothing and behave exactly as before. This exists so the classifier-gating
+ * suite can replay a real turn sequence without a billed call — the
+ * alternative was a second copy of the turn loop, and the pipelineRunner
+ * extraction lesson says a second copy drifts from the first.
+ */
+export type OrchestrateIntakeTurnOverrides = {
+  runSafety?: typeof runSafetyPass;
+  extractFacts?: typeof extractIntakeFactsWithConfidence;
+  classifyClaimType?: typeof classifyClaimTypeWithAi;
+  composeVoice?: typeof composeVoiceTurn;
+  /**
+   * Replays the pre-fix behaviour: classify on EVERY turn carrying new text,
+   * not just the opening story. Exists so the before/after table comes from
+   * one code path rather than from a description of the old one. Never set
+   * outside the verification suite.
+   */
+  classifyEveryTurn?: boolean;
+};
+
 export async function orchestrateIntakeTurn(
   currentFacts: IntakeFacts,
   answeredIds: string[],
@@ -228,7 +251,13 @@ export async function orchestrateIntakeTurn(
   claimTypes: readonly ClaimType[] = CLAIM_TYPES,
   courtArea: CourtArea = "small-claims",
   answeredQuestionId?: string,
+  overrides: OrchestrateIntakeTurnOverrides = {},
 ): Promise<OrchestrateIntakeTurnResult> {
+  const runSafety = overrides.runSafety || runSafetyPass;
+  const extractFacts = overrides.extractFacts || extractIntakeFactsWithConfidence;
+  const classifyClaimType = overrides.classifyClaimType || classifyClaimTypeWithAi;
+  const composeVoice = overrides.composeVoice || composeVoiceTurn;
+
   let facts = currentFacts;
   let safetyClassification: SafetyClassification | undefined;
   let distressAcknowledgment: string | undefined;
@@ -238,8 +267,17 @@ export async function orchestrateIntakeTurn(
   let evidenceGuidance: EvidenceGuidance | undefined;
   let claimGuidance: ClaimGuidance | undefined;
 
+  /**
+   * True only for the very first turn — the user's own narrative, before any
+   * question has been answered. Every later turn answers a known question, so
+   * `answeredQuestionId` is set.
+   *
+   * This is what gates the AI claim-type classifier below.
+   */
+  const isOpeningStory = !answeredQuestionId || overrides.classifyEveryTurn === true;
+
   if (newStoryText) {
-    const safety = await runSafetyPass(newStoryText, apiKey);
+    const safety = await runSafety(newStoryText, apiKey);
     safetyClassification = safety.classification;
 
     if (safety.classification === "immediate-danger") {
@@ -259,7 +297,7 @@ export async function orchestrateIntakeTurn(
       distressAcknowledgment = safety.userMessage;
     }
 
-    const { facts: extracted, directFields } = await extractIntakeFactsWithConfidence(newStoryText, apiKey);
+    const { facts: extracted, directFields } = await extractFacts(newStoryText, apiKey);
 
     const answeredQuestion = answeredQuestionId
       ? questionBank.find((question) => question.id === answeredQuestionId)
@@ -281,8 +319,30 @@ export async function orchestrateIntakeTurn(
     if (match) {
       evidenceGuidance = detectEvidenceGaps(match.claimType, newStoryText);
       claimGuidance = buildClaimGuidance(match.claimType, facts);
-    } else {
-      suggestedClaimType = (await classifyClaimTypeWithAi(newStoryText, claimTypes, apiKey)) ?? undefined;
+    } else if (isOpeningStory) {
+      // Session 48. The AI classifier runs ONLY on the opening story.
+      //
+      // It used to run on every turn carrying new text, and callers retain the
+      // last non-null suggestion, so the classification was last-wins. A
+      // three-word answer, classified in isolation with no surrounding
+      // context, could overwrite a classification derived from the user's
+      // whole story.
+      //
+      // Measured: story 4 of the paraphrase set ("My cousin was short when his
+      // car went in for work... I moved some money across to him"). Classified
+      // on its own, that story yields
+      // sc-claim-personal-loan-between-individuals. Its live run retained
+      // sc-claim-unpaid-debt-services, because later answers -- "$3,500", "I
+      // want my money back" -- were each classified alone and the last one
+      // won. The user was routed by a fragment, not by their story.
+      //
+      // The opening story is the only turn that carries enough context to
+      // classify. Answers are responses to a known question, and an answer
+      // must never re-route the claim type.
+      //
+      // Side effect, and a large one: this removes a billed call from roughly
+      // ten of the eleven turns in a typical journey.
+      suggestedClaimType = (await classifyClaimType(newStoryText, claimTypes, apiKey)) ?? undefined;
     }
   }
 
@@ -305,7 +365,7 @@ export async function orchestrateIntakeTurn(
     };
   }
 
-  const voiceTurn = await composeVoiceTurn(facts, nextQuestion, apiKey);
+  const voiceTurn = await composeVoice(facts, nextQuestion, apiKey);
 
   return {
     safetyClassification,
