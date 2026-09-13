@@ -22,6 +22,7 @@
     "test:case-rls-contract": "node --import tsx scripts/verification/verifyCaseRlsPolicyContract.ts",
     "test:case-simulations": "node --import tsx scripts/verification/runCaseSimulationFactory.ts",
     "test:chat-hydration": "node --import tsx scripts/verification/verifyCourtAssistantChatHydration.ts",
+    "test:claim-surface": "node --import tsx scripts/verification/verifyStatementOfClaimSurface.ts",
     "test:classifier-gating": "node --import tsx scripts/verification/verifyClassifierGating.ts",
     "test:cohort2-normalization": "node scripts/verification/verifyCohort2CatalogueNormalization.mjs",
     "test:cohort2-split-identities": "node scripts/verification/verifyCohort2SplitCanonicalIdentities.mjs",

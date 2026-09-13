@@ -12,6 +12,9 @@ import GuidedSmallClaimsIntake, {
   type GuidedIntakeCompletionResult,
 } from "./_components/GuidedSmallClaimsIntake";
 import { mapGuidedIntakeToSmallClaimsInput } from "./_components/guidedIntakeToSmallClaimsInput";
+import StatementOfClaimSurface from "./_components/StatementOfClaimSurface";
+import type { SmallClaimsIntelligenceInput } from "@/src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
+import type { ElementStateMap } from "@/src/lib/case-system/intake/depth/elementStateMap";
 import CivilIntake from "./_components/CivilIntake";
 import CourtAssistantChat from "./_components/CourtAssistantChat";
 import IntelligenceOverviewPanel from "./_components/IntelligenceOverviewPanel";
@@ -152,6 +155,12 @@ function BuilderPageContent() {
 
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [caseData, setCaseData] = useState<StoredCaseData | null>(null);
+  // Session 48 — inputs the Statement of Claim surface needs. Retained from
+  // the completing guided turn rather than rebuilt, so the readiness gate reads
+  // the same element states the depth phase produced.
+  const [draftInput, setDraftInput] = useState<SmallClaimsIntelligenceInput | null>(null);
+  const [draftClaimTypeId, setDraftClaimTypeId] = useState<string | null>(null);
+  const [draftElementStateMap, setDraftElementStateMap] = useState<ElementStateMap>({});
   const [masterCaseId, setMasterCaseId] = useState<string | null>(queryCaseId);
   const [existingMasterResult, setExistingMasterResult] = useState<
     Record<string, unknown>
@@ -543,6 +552,12 @@ function BuilderPageContent() {
 
     try {
       const mappedInput = mapGuidedIntakeToSmallClaimsInput(result, confirmedLocation, homeStory);
+
+      // Retained for the Statement of Claim surface below.
+      setDraftInput(mappedInput);
+      setDraftClaimTypeId(result.matchedClaimType?.claimTypeId || null);
+      setDraftElementStateMap((result.elementStateMap as ElementStateMap) || {});
+
       const response = await requestSmallClaimsAnalysis(mappedInput);
       const analysisResult = response.result!;
       const payload: StoredCaseData = {
@@ -1028,6 +1043,14 @@ function BuilderPageContent() {
         {analysis && canonicalIntakeSaved && (
           <section ref={completedOverviewRef} className="mt-8 space-y-6" data-testid="completed-case-overview" tabIndex={-1}>
             <IntelligenceOverviewPanel analysis={analysis} intake={caseData} />
+            {draftInput ? (
+              <StatementOfClaimSurface
+                matchedClaimTypeId={draftClaimTypeId}
+                initialElementStateMap={draftElementStateMap}
+                mappedInput={draftInput}
+                onStateMapChange={setDraftElementStateMap}
+              />
+            ) : null}
             <ProcedureAuthorityDisplay
               courtArea={courtPath}
               procedureStage={getStageForPersistence(analysis, caseData)}

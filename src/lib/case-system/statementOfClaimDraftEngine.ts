@@ -118,9 +118,28 @@ function numberFrom(startAt: number, items: string[]): { numbered: string[]; nex
   return { numbered, nextNumber: startAt + items.length };
 }
 
+/**
+ * Elements the user said they cannot supply, in the claim type's own words.
+ *
+ * These appear IN THE DOCUMENT, not only in the UI that produced it (readiness
+ * design section 4). A substantive gap that is visible only on the screen where
+ * it was recorded is a gap the user will not see again when they read the
+ * draft, and this draft is the thing they act on.
+ *
+ * They are NOT filled in and NOT silently omitted. Both failure modes matter:
+ * inventing content for an unrecorded element would fabricate a fact, and
+ * dropping it would hide one.
+ */
+export type UnrecordedElementForDraft = {
+  elementId: string;
+  /** The element's own `name` from claimTypes.ts. Never reworded here. */
+  name: string;
+};
+
 export function draftStatementOfClaimParticulars(
   input: SmallClaimsIntelligenceInput,
   matchedClaimType: MatchedClaimTypeForDraft | null,
+  unrecordedElements: UnrecordedElementForDraft[] = [],
 ): StatementOfClaimDraft {
   const yourName = trimmed(input.yourName);
   const yourAddress = trimmed(input.yourAddress);
@@ -208,7 +227,23 @@ export function draftStatementOfClaimParticulars(
     "",
   ];
 
+  // Recorded as not held, in the claim type's own words. Stated as a fact
+  // about the case file -- "nothing is recorded for this" -- and never as a
+  // conclusion about the claim. Saying an element is unproven, weak, or fatal
+  // would be assessment (CLAUDE.md section 3); saying nothing is recorded for
+  // it is a description of the file.
+  const unrecordedLines = unrecordedElements.length
+    ? [
+        "",
+        "RECORDED AS NOT HELD:",
+        "You told us you do not have anything for the following. They are listed here so they are " +
+          "visible in the document, not left out of it. Nothing has been written in for them.",
+        ...unrecordedElements.map((element) => `- ${element.name}`),
+      ]
+    : [];
+
   const footer = [
+    ...unrecordedLines,
     "",
     missingParticulars.length
       ? "PARTICULARS STILL NEEDED BEFORE THIS COULD BE FILED:"
