@@ -36,6 +36,14 @@ export type PipelineStoryInput = {
 
 export type TurnLog = {
   questionAsked: string | null;
+  /**
+   * Session 48: the EXACT question text shown to the user for this turn, and
+   * the model-authored lead-in that preceded it. TurnLog previously recorded
+   * only the question id, which cannot answer "what did the user actually
+   * read" -- the thing a live-story review needs most.
+   */
+  questionTextShown: string | null;
+  leadInShown: string | null;
   answerGiven: string | null;
   matchedClaimTypeThisTurn: string | null;
   /**
@@ -99,6 +107,11 @@ export async function runStoryThroughPipeline(input: PipelineStoryInput, apiKey:
   let turnCount = 0;
   while (!halted && !intakeComplete && result.nextQuestion && turnCount < MAX_TURNS) {
     const question: IntakeQuestion = result.nextQuestion;
+    // What the user saw for this question: the voice layer wrote the lead-in,
+    // the question text itself is bank content (voiceTurn.questionText is the
+    // bank text passed through, never model-authored).
+    const shownText = result.voiceTurn?.questionText || question.text;
+    const shownLeadIn = result.voiceTurn?.leadIn ?? null;
     answeredIds = [...answeredIds, question.id];
     const answerText = input.answers[question.id];
     if (answerText === undefined) {
@@ -116,11 +129,17 @@ export async function runStoryThroughPipeline(input: PipelineStoryInput, apiKey:
       question.id,
     );
     facts = result.facts;
-    recordTurn(question.id, answerText, result);
+    recordTurn(question.id, answerText, result, shownText, shownLeadIn);
     turnCount += 1;
   }
 
-  function recordTurn(questionId: string | null, answerText: string | null, r: Awaited<ReturnType<typeof orchestrateIntakeTurn>>) {
+  function recordTurn(
+    questionId: string | null,
+    answerText: string | null,
+    r: Awaited<ReturnType<typeof orchestrateIntakeTurn>>,
+    questionTextShown: string | null = null,
+    leadInShown: string | null = null,
+  ) {
     if (r.halted) {
       halted = true;
       haltMessage = r.haltMessage || "";
@@ -131,6 +150,8 @@ export async function runStoryThroughPipeline(input: PipelineStoryInput, apiKey:
     if (r.suggestedClaimType) retainedSuggestedClaimType = r.suggestedClaimType;
     turns.push({
       questionAsked: questionId,
+      questionTextShown,
+      leadInShown,
       answerGiven: answerText,
       matchedClaimTypeThisTurn: freshMatch ? `${freshMatch.id} (${freshMatch.name})` : null,
       suggestedClaimTypeThisTurn: r.suggestedClaimType

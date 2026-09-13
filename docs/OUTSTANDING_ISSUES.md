@@ -338,6 +338,74 @@ The handoff states that the "who does the applying" boundary held consistently a
 
 **Standing conclusion for any future pass: a grade is a shape, not a name.** An ordinal drawn from a fixed ladder, a bounded number, or a colour derived from either. Until a check detects grades structurally and is mutation-tested against every instance listed here, **no report that this codebase is §3-clean should be believed — including this one.** The count went four → six → nine within a single session, entirely by looking harder.
 
+### ⚠️ `noQuestionNeeded` elements hold the readiness gate — and attestation makes the user lie
+
+Found by the live batch (stories L1, L4). An element marked `noQuestionNeeded` — a jurisdictional condition like `amount-within-jurisdiction-personal-loan`, checked against the amount already captured, explicitly *"not a fact the user narrates"* — is correctly skipped by `selectDepthQuestions`, which leaves it `not-yet` in the element state map. The readiness gate holds on `not-yet`. So:
+
+```
+L1: blockers -> elements-not-yet: amount-within-jurisdiction-personal-loan
+L4: blockers -> elements-not-yet: amount-within-jurisdiction-contractor
+```
+
+**The only way through is for the user to attest "I don't have this" about a jurisdictional test.** That is incoherent — it is not a thing the user holds — and it records a false `cannot-provide` in the case file.
+
+The gate should treat `noQuestionNeeded` as resolved (or exclude those elements from the count entirely). Not fixed; the fix is a one-line change in `evaluateReadinessGate` plus a decision on whether such elements appear in `totalElements` at all.
+
+### ⚠️ The suppression filter is producing false `provided` states, not just unasked questions
+
+The over-suppression cost recorded against `alreadyCovered` was framed as "one unasked question". The live batch shows the consequence is worse: a suppressed element is recorded **`provided` via `user-story`** and feeds the readiness gate that way. Every instance observed so far is a false positive:
+
+| Element | Fired on | The user's actual words |
+|---|---|---|
+| `work-caused-damage` | `redo` | "I had someone in to **redo** the tiling" *(hiring, not damage)* |
+| `loss-amount-contractor` | `cost` | "I want what it **cost** me to put right" *(not how the amount was worked out)* |
+| `amount-remains-unpaid-personal-loan` | `payment` | "she was behind on her car **payments**" *(nothing to do with repaying the loan)* |
+| `existed-agreement-contractor` | `hired` | "I **hired** a man to put new flooring down" *(not what was agreed)* |
+| `loss-amount-contractor` | `paid` | "I have **paid** him most of it already" *(payments made, not the loss claimed)* |
+
+**Five for five.** The gate then opens on elements the user never addressed, which is a different and more serious failure than a missing prompt. `alreadyCovered.ts`'s header already explains why token matching cannot answer "did the user supply this element's fact"; this records what that costs downstream.
+
+### 📌 `sc-safety-check` is asked of everyone, and nothing reads the answer
+
+**What governs it:** the question has **no `appliesWhen`**, so it always applies. `phase: "sensitive"` sorts it last via `PHASE_ORDER` in `selectQuestions.ts:33`. It has **no `capturesField`**, and there is no safety field in `KNOWN_FACT_FIELDS`.
+
+**Nothing consumes the answer.** A repo-wide search for readers found only two comments referring to a past bug. The user's reply is not stored in `IntakeFacts` and is read nowhere. It costs one turn (~3 API calls) to produce nothing.
+
+**`runSafetyPass` already does this job, on the opening story, on every turn with new text.** It is a real classifier with a carefully-written prompt returning `immediate-danger` / `distress` / `clear`, with explicit instructions distinguishing current threat from past violence and from hyperbole. So the trigger can be folded into a call **already being made — zero new calls**, and the question disappears for most users, *saving* ~3 calls per journey.
+
+**One gap:** `runSafetyPass` classifies danger, not relationship. A calm mention of an ex-partner would be `clear`, so the domestic/intimate-partner trigger is not covered today. Closing it means extending that call's JSON schema with an additional field and criteria — still the same single call, no new request.
+
+**Bias — the inverse of the suppression filter, and it should be stated that way.** A false negative means not asking someone who needed asking; a false positive costs one extra question and ~3 calls. The errors are asymmetric in the opposite direction from `alreadyCovered`, so the judgment should be biased **toward asking**.
+
+**Sequencing caveat:** because nothing reads the answer today, asking currently has near-zero benefit and only cost. Deciding what the answer is *for* should come before tuning the trigger — otherwise the work makes a question that does nothing slightly cheaper.
+
+### 📌 The voice lead-in repeats itself, and costs ~29% of a journey's calls
+
+Observed in story L5: five of eight lead-ins told the user some version of *"it sounds like you're still figuring out some details"* — to a user who had just answered "I don't know" eight times. Three consecutive turns opened near-identically. L1 repeated *"Thank you for sharing that information about your situation regarding the loan repayment. It sounds like this has been on your mind for a couple of months now"* three times in near-identical form.
+
+**The cause is the prompt plus statelessness, not the model.** `voiceLayer.ts`'s SYSTEM_PROMPT rule 1 instructs it to *"Restate ONLY what is in the facts you were given"* — so it restates the accumulated facts **every turn**. Each call is independent: it receives `(facts, next question)` and nothing about what it has already said, so it cannot avoid repeating itself. Facts accumulate slowly, so consecutive turns restate near-identical content. When the facts consist of "I don't know" answers, rule 1 compels restating the user's own uncertainty back to them.
+
+**Does it earn ~10 requests per journey?** On this evidence, **no, not as designed.** Rule 3 forbids it from including the question, rule 1 forbids new facts — so by construction the lead-in carries no information the user does not already have. That is ~10 of ~34 calls, **roughly 29% of a journey's spend**, on decorative text whose failure mode is worst for the least confident users.
+
+Four options, cheapest first: (a) remove it — saves ~29%; (b) generate one lead-in at the start rather than per turn — 1 call instead of ~10; (c) pass prior lead-ins so it can vary — same cost, better output; (d) a small reviewed set chosen deterministically — zero calls. Not changed; this is a product-voice decision, not a defect fix.
+
+### 📌 Depth-question coverage: 4 of 22 claim types — the other 18 degrade by design
+
+Authored depth questions exist for **four** claim types only:
+
+| Claim type | Elements | Authored | noQuestionNeeded |
+|---|---|---|---|
+| `sc-claim-unpaid-debt-services` | 3 | 3 | 0 |
+| `sc-claim-contractor-damage` | 4 | 3 | 1 |
+| `sc-claim-defamation-libel-slander` | 4 | 2 | 1 |
+| `sc-claim-personal-loan-between-individuals` | 3 | 2 | 1 |
+
+**The other 18 claim types have zero authored depth questions.** That is the design working, not a gap in it: `CLAIM_TYPE_INTAKE_DEPTH_DESIGN.md` §1 makes an unauthored element fall back to the readiness gate's attestation prompt — the element's own `name`, `plainExplanation` and `evidenceCategories` — so it degrades to **exactly today's behaviour, never to a generated question**. That is what makes the feature incrementally shippable.
+
+**Authoring the remaining questions is unscoped work.** The honest size, from the correction recorded in `elementQuestionRegistry.ts`: all **75 element ids are distinct**, so keying by id yields zero reuse, and the recurring jurisdictional names are exactly the `noQuestionNeeded` category needing no authoring. Real reuse among askable elements is 3 names across 6 entries. So the remaining burden is roughly **55 authored questions**, each reviewed content under CLAUDE.md §2 where it states a legal fact.
+
+Recorded so the 4-of-22 figure is not rediscovered by a future session reading "the depth layer is built" and assuming it covers the catalogue.
+
 ### 📌 The OpenAI cap is **not** a project-level RPD override — hypothesis unconfirmed
 
 An earlier conclusion in this session held that the ~100 requests/day ceiling came from a custom project-level rate limit, inferred from a header mismatch (`x-ratelimit-limit-requests: 10000` alongside `remaining-requests` tracking a ~100 scale). **That inference does not hold.** The project rate-limit page lists **TPM and RPM only — there is no RPD row on any model**, and `gpt-4o-mini` inherits org values exactly. There is no project-level override to raise.
