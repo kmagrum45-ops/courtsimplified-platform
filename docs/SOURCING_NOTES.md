@@ -266,6 +266,7 @@ Fetched, `antiword`-extracted and read:
 | `90c43_e.doc` | Courts of Justice Act | from 2025-12-11 |
 | `17c14_e.doc` | **Child, Youth and Family Services Act, 2017** — added 2026-09-13. Note the id drops the schedule: the Act is S.O. 2017, c. 14, **Sched. 1**, but `17c14s1_e.doc` returns **HTTP 403**. Use the bare `17c14`. | retrieved 2026-09-13 |
 | `970391_e.doc` | **Child Support Guidelines (Ontario), O. Reg. 391/97** — added 2026-09-13. The provincial table regulation, distinct from the federal SOR/97-175. | from 2024-07-26 |
+| `000626_e.doc` | **O. Reg. 626/00 (Courts of Justice Act)** — added 2026-09-13. **Where the $50,000 Small Claims limit actually lives.** CJA s. 23 (1) says only "the prescribed amount"; s. 1 (1) of this regulation is what prescribes $50,000, and s. 1 (2) caps what a deputy judge may preside over at the same figure. Anything in the codebase citing `90c43_e.doc` for the *number* is citing the wrong half of the pair — see OUTSTANDING_ISSUES.md section 13 (a). The amount has been amended repeatedly (O. Reg. 439/08, 343/19, 42/25), so re-check it rather than trusting a remembered figure. | from 2025-10-01 |
 
 **Two Ontario family statutes print NOT-YET-IN-FORCE text inline, and it is easy
 to cite by mistake.** `90f03_e.doc` s. 46(1)–(2) and `90c12_e.doc` s. 35(1)–(2)

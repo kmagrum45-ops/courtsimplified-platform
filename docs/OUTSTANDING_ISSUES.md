@@ -524,6 +524,103 @@ reader.
 
 ---
 
+## 13. Small Claims amount question — a design direction
+
+**Not scheduled. Not designed. Recorded so the shape is not lost.**
+
+### The problem, observed
+
+Intake asks *"What is the total dollar amount you are claiming?"* In the
+eight-story live batch, the honest answer from a user who knows nothing about
+this was **"I don't know what it would come to."**
+
+That is the normal answer, not an outlier. The question asks for the *output* of
+work the user has not done, at the point where they are least equipped to do it,
+and a number given under that pressure is a guess the rest of the intake then
+treats as a fact.
+
+### The better shape
+
+Help the user build the addable pile from their own documents, rather than
+asking for a total upfront. Receipts, invoices, repair quotes, records of lost
+income, bills paid — the out-of-pocket amounts they can point to a document for.
+
+**The user totals it. The site records the items and what each is evidenced by.**
+That division matters: it is the same recorded-vs-not partition used by
+`elementProofEngine` and by the family evidence engine's
+`completeEvidence` / `incompleteEvidence`, applied to money. An item is either
+evidenced by a document the user can name, or it is not.
+
+### Where this stops, and why the line is sharp
+
+Damages that **cannot be added up from documents** — pain and suffering, loss of
+enjoyment, reputational harm — are assessed by reasoning from what courts have
+awarded in comparable cases.
+
+That is assessing what a court would do. It is the CLAUDE.md section 3 line,
+and it fails twice over:
+
+1. It grades the user's specific case against other cases.
+2. It requires case law this platform **cannot retrieve** — CanLII blocks
+   automated fetching, and synthesizing a range from decisions we have not read
+   is precisely what section 2 excludes.
+
+**The site records what the user can document. It does not estimate the rest,
+and it does not suggest a range.** Not a band, not a "typical", not a
+"claims like this often". The absence has to be stated to the user plainly, or
+they will read the documented subtotal as the whole answer — which is its own
+kind of misinformation by omission.
+
+### Constraints that belong in the education layer, not in any calculation
+
+These are factual and citable. They inform; they do not compute.
+
+**a. The Small Claims monetary limit — sourced, but the citation is currently
+incomplete.** `claimTypes.ts` states "$50,000" in at least ten places and cites
+`90c43_e.doc` (the Courts of Justice Act) for it. **The number is not in the
+Act.** CJA s. 23 (1) (a) gives the Small Claims Court jurisdiction *"in any
+action for the payment of money where the amount claimed does not exceed the
+prescribed amount exclusive of interest and costs"* — "the prescribed amount",
+undefined there. The figure is prescribed by **O. Reg. 626/00, s. 1 (1)**:
+*"The maximum amount of a claim in the Small Claims Court is $50,000."*
+(retrieved 2026-09-13 via `ontario.ca/laws/docs/000626_e.doc`, consolidation
+from 2025-10-01; most recently amended by O. Reg. 42/25). s. 1 (2) sets the same
+cap on what a deputy judge may preside over.
+
+So every "$50,000" in the codebase needs the regulation added alongside the Act.
+The proposition is true and the source is the wrong half of the pair — a
+smaller problem than an invented citation, and still a section 2 problem. Worth
+fixing whether or not this design direction is ever built, because the amount is
+in a regulation that has been amended repeatedly and will be again.
+
+**b. Mitigation — NOT sourced. The premise that it is partly sourced does not
+hold.** The only thing in the codebase is one hand-written sentence in
+`doctrineSeedLibrary.ts`'s `mitigationIssues`: *"Whether the user took
+reasonable steps to reduce loss may become relevant depending on claim type."*
+No `sourceUrl`, no citation, no statutory or case authority. It is a bare
+assertion of a legal doctrine, which is the thing section 2 exists to prevent.
+Sourcing mitigation would need a real primary source — plausibly a Supreme Court
+decision saved under `docs/sources/`, the route that unblocked general
+negligence via *Mustapha*. `Red Deer College v. Michaels` is already in
+`docs/sources/` and is a mitigation case; it has not been read or used, so
+whether it supports a general statement is **unverified** and must be checked
+before anything is written from it.
+
+**c. Statutory caps** — none identified. Not searched for. Unknown rather than
+absent.
+
+### What would need deciding before building
+
+- Whether the documented subtotal is ever shown as a single number, or only ever
+  as a list of items with their own amounts. A single number invites being read
+  as "the claim is worth this".
+- What the intake does with a user who genuinely has only non-documentable
+  harm — the current design gives them an empty pile and no answer.
+- Whether "I don't know" becomes a first-class recordable state for the amount,
+  the way `not-yet` is elsewhere, rather than a blocked field.
+
+---
+
 ## Suggested order
 
 **Before any real user:**
