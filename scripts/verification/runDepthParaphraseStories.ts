@@ -295,14 +295,6 @@ async function main(): Promise<void> {
     slotValues: story.slotValues,
   });
 
-  say(`\n--- SUPPRESSED (${selection.suppressed.length}) ---`);
-  for (const s of selection.suppressed) {
-    say(`  ${s.elementId}  [${s.questionId}]`);
-    say(`    matched terms: ${s.matchedTerms.join(", ")}`);
-    say(`    fired on term "${s.match?.term ?? ""}" in clause: "${s.match?.clause ?? ""}"`);
-  }
-  if (!selection.suppressed.length) say("  (none)");
-
   say(`\n--- NO QUESTION NEEDED (${selection.noQuestionNeeded.length}) ---`);
   say(selection.noQuestionNeeded.length ? `  ${selection.noQuestionNeeded.join(", ")}` : "  (none)");
 

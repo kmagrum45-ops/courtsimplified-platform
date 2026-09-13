@@ -55,11 +55,6 @@ export type DepthQuestion = {
   why?: string;
   sourceUrl?: string;
   /**
-   * Terms that mean the user already covered this in their own words.
-   * Authored next to the question so a reviewer can read both together.
-   */
-  coveredWhenMentioned: string[];
-  /**
    * PROPERTY 4: mandatory and always true. Typed as the literal so a question
    * with an unknown-dead-end cannot be written at all.
    */
@@ -117,7 +112,6 @@ export const DEPTH_QUESTIONS: DepthQuestion[] = [
       "an exchange of messages",
       "a purchase order",
     ],
-    coveredWhenMentioned: ["contract", "agreement", "quote", "invoice", "signed", "verbal", "agreed"],
     allowUnknown: true,
     status: "reviewed",
     reviewedAt: "2026-09-12",
@@ -127,7 +121,6 @@ export const DEPTH_QUESTIONS: DepthQuestion[] = [
     elementId: "services-or-money-provided",
     text: "What did you provide, and when?",
     examples: ["the dates work started and finished", "what was delivered", "when the money was lent"],
-    coveredWhenMentioned: ["provided", "delivered", "completed", "finished", "worked", "lent", "loaned"],
     allowUnknown: true,
     status: "reviewed",
     reviewedAt: "2026-09-12",
@@ -138,7 +131,6 @@ export const DEPTH_QUESTIONS: DepthQuestion[] = [
     text: "Has any part of {amountLabel} been paid?",
     slots: ["amountLabel"],
     examples: ["a partial payment and its date", "nothing has been paid", "a payment that was reversed"],
-    coveredWhenMentioned: ["paid", "payment", "partial", "deposit", "instalment", "unpaid", "outstanding"],
     allowUnknown: true,
     status: "reviewed",
     reviewedAt: "2026-09-12",
@@ -164,7 +156,6 @@ export const DEPTH_QUESTIONS: DepthQuestion[] = [
     // needs no citation at all. The element's own plainExplanation in
     // claimTypes.ts already carries the reviewed legal framing.
     examples: ["named people who saw it", "a public post", "people at a meeting"],
-    coveredWhenMentioned: ["posted", "said", "told", "wrote", "shared", "sent", "published", "saw", "heard"],
     allowUnknown: true,
     status: "reviewed",
     reviewedAt: "2026-09-12",
@@ -186,7 +177,6 @@ export const DEPTH_QUESTIONS: DepthQuestion[] = [
       "The Libel and Slander Act sets specific notice and limitation requirements for libel in a newspaper or in a broadcast.",
     sourceUrl: "https://www.ontario.ca/laws/docs/90l12_e.doc",
     examples: ["a newspaper article", "a radio or television segment", "neither"],
-    coveredWhenMentioned: ["newspaper", "broadcast", "radio", "television", "tv", "article", "journalist"],
     allowUnknown: true,
     status: "reviewed",
     reviewedAt: "2026-09-12",
@@ -199,7 +189,6 @@ export const DEPTH_QUESTIONS: DepthQuestion[] = [
     text: "What was agreed with {defendantLabel} about the work?",
     slots: ["defendantLabel"],
     examples: ["a written quote", "a scope of work", "a verbal arrangement"],
-    coveredWhenMentioned: ["quote", "contract", "agreement", "estimate", "scope", "hired", "agreed"],
     allowUnknown: true,
     status: "reviewed",
     reviewedAt: "2026-09-12",
@@ -209,7 +198,6 @@ export const DEPTH_QUESTIONS: DepthQuestion[] = [
     elementId: "work-caused-damage",
     text: "What was damaged or left different from what was agreed?",
     examples: ["what was affected", "when it was noticed", "what condition it was in before"],
-    coveredWhenMentioned: ["damage", "damaged", "broke", "broken", "cracked", "leak", "ruined", "redo", "redone"],
     allowUnknown: true,
     status: "reviewed",
     reviewedAt: "2026-09-12",
@@ -220,7 +208,6 @@ export const DEPTH_QUESTIONS: DepthQuestion[] = [
     text: "How was {amountLabel} worked out?",
     slots: ["amountLabel"],
     examples: ["a repair invoice", "a replacement quote", "an estimate from someone else"],
-    coveredWhenMentioned: ["estimate", "quote", "invoice", "receipt", "cost", "paid", "repair"],
     allowUnknown: true,
     status: "reviewed",
     reviewedAt: "2026-09-12",
@@ -232,7 +219,6 @@ export const DEPTH_QUESTIONS: DepthQuestion[] = [
     elementId: "loan-agreement-existed",
     text: "What was said or written about repaying the money?",
     examples: ["a repayment date", "instalments", "a message about paying it back", "nothing specific"],
-    coveredWhenMentioned: ["repay", "pay back", "loan", "lent", "borrowed", "agreed", "promised"],
     allowUnknown: true,
     status: "reviewed",
     reviewedAt: "2026-09-12",
@@ -242,7 +228,6 @@ export const DEPTH_QUESTIONS: DepthQuestion[] = [
     elementId: "amount-remains-unpaid-personal-loan",
     text: "Has any of it been repaid?",
     examples: ["a partial repayment and its date", "nothing has been repaid"],
-    coveredWhenMentioned: ["repaid", "paid", "payment", "partial", "returned", "still owes", "outstanding"],
     allowUnknown: true,
     status: "reviewed",
     reviewedAt: "2026-09-12",

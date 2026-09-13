@@ -29,19 +29,20 @@
  * them. See docs/OUTSTANDING_ISSUES.md section 11 on ordinal grades.
  */
 export type ElementRecordState =
-  /** The user supplied this, by answering or by saying it in their own words. */
+  /** The user supplied this, by answering the question. */
   | "provided"
   /** The user was asked and does not have it. A recorded absence; never a gap. */
   | "cannot-provide"
-  /** Never reached — suppressed by budget, skipped phase, or unauthored. */
+  /** Never reached — deferred past the budget, skipped phase, or unauthored. */
   | "not-yet";
 
-/** How an element reached `provided`, so a wrong suppression stays visible. */
-export type ProvidedVia =
-  /** Answered a depth question directly. */
-  | "depth-answer"
-  /** Suppressed by alreadyCovered: the user's own words supplied it. */
-  | "user-story";
+/**
+ * How an element reached `provided`. Only one route remains: the user answered.
+ *
+ * Session 48 removed "user-story", which marked an element provided because a
+ * keyword appeared in the story. See selectDepthQuestions.ts for why.
+ */
+export type ProvidedVia = "depth-answer";
 
 export type ElementRecord = {
   elementId: string;
@@ -49,24 +50,8 @@ export type ElementRecord = {
   state: ElementRecordState;
   /** Only set when state is "provided". */
   providedVia?: ProvidedVia;
-  /**
-   * The user's own answer, when they gave one. Only set for "depth-answer".
-   *
-   * Deliberately NOT set for "user-story": a suppression is not an answer, and
-   * storing a sentence here would present it as one. See suppressionMatch.
-   */
+  /** The user's own answer, verbatim. */
   userText?: string;
-  /**
-   * Why a question was suppressed: the term the user used and its immediate
-   * clause. Only set for "user-story".
-   *
-   * This is CONTEXT, not evidence for the element. alreadyCovered.ts's header
-   * explains why a token match cannot establish that the user supplied the
-   * element's fact, and why displaying a whole sentence here overclaimed. The
-   * readiness section should render it as "suppressed because you said X" so a
-   * wrong suppression is recognisable at a glance.
-   */
-  suppressionMatch?: { term: string; clause: string };
   /** Which authored question produced this, when one did. */
   questionId?: string;
 };
@@ -82,8 +67,9 @@ export function createElementStateMap(
     map[element.id] = {
       elementId: element.id,
       elementName: element.name,
-      // Everything starts not-yet. Only an actual answer or an actual match
-      // moves it, so an element never silently reads as settled.
+      // Everything starts not-yet, and ONLY the user moves it — by answering
+      // or by attesting. Nothing infers a state from what they wrote
+      // elsewhere, so an element never silently reads as settled.
       state: "not-yet",
     };
   }
@@ -122,29 +108,6 @@ export function recordCannotProvide(
     // provided, and code branching on providedVia must not see a stale value.
     providedVia: undefined,
     userText: args.answerText,
-    questionId: args.questionId,
-  }));
-}
-
-/**
- * `alreadyCovered` suppressed the question because the user's story supplied
- * the fact. The element is `provided`, not skipped — the user did state it.
- */
-export function recordCoveredByStory(
-  map: ElementStateMap,
-  args: {
-    elementId: string;
-    questionId?: string;
-    match: { term: string; clause: string };
-  },
-): ElementStateMap {
-  return setRecord(map, args.elementId, (current) => ({
-    ...current,
-    state: "provided",
-    providedVia: "user-story",
-    // userText stays unset: the user did not answer this, and filling it would
-    // present a suppression as an answer.
-    suppressionMatch: args.match,
     questionId: args.questionId,
   }));
 }

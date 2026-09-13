@@ -193,15 +193,8 @@ async function main(): Promise<void> {
 
     say(`\n## Depth phase\n`);
     say(`- authored & asked: ${selection.asked.length}`);
-    say(`- suppressed: ${selection.suppressed.length}`);
     say(`- unauthored (attestation only): ${selection.unauthored.length}${selection.unauthored.length ? ` — ${selection.unauthored.join(", ")}` : ""}`);
     say(`- noQuestionNeeded: ${selection.noQuestionNeeded.length}${selection.noQuestionNeeded.length ? ` — ${selection.noQuestionNeeded.join(", ")}` : ""}`);
-
-    say(`\n### Suppressed, and on what term\n`);
-    if (!selection.suppressed.length) say(`_Nothing suppressed._`);
-    for (const s of selection.suppressed) {
-      say(`- \`${s.elementId}\` — fired on term **"${s.match?.term}"** in: "${s.match?.clause}"`);
-    }
 
     say(`\n### Depth questions asked\n`);
     if (!selection.asked.length) say(`_None._`);

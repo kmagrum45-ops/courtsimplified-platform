@@ -15,26 +15,19 @@
  *   4. status !== reviewed -> skip. An unreviewed question is structurally
  *      unaskable; this reuses selectQuestions.ts's existing convention rather
  *      than inventing a second gate.
- *   5. alreadyCovered    -> suppress, and record the element as PROVIDED with
- *      the matched TERM and its clause attached (context for the
- *      suppression, not evidence for the element -- see alreadyCovered.ts).
+ *   5. (no suppression step — see the note in the loop below)
  *   6. budget            -> ask at most MAX_ASKED. Overflow is NOT dropped:
  *      it stays not-yet and the readiness section surfaces it.
  */
 
 import type { PlaintiffElement } from "../claimTypes";
-import { isAlreadyCovered } from "./alreadyCovered";
 import {
   isNoQuestionNeeded,
   questionsForElement,
   type DepthQuestion,
 } from "./elementQuestionRegistry";
 import { fillSlots, type SlotValues } from "./slots";
-import {
-  createElementStateMap,
-  recordCoveredByStory,
-  type ElementStateMap,
-} from "./elementStateMap";
+import { createElementStateMap, type ElementStateMap } from "./elementStateMap";
 
 /**
  * Hard ceiling on questions ASKED, not authored (design section 6).
@@ -63,14 +56,6 @@ export type SelectedDepthQuestion = {
 
 export type DepthSelectionResult = {
   asked: SelectedDepthQuestion[];
-  /** Elements whose question was suppressed because the story covered it. */
-  suppressed: {
-    elementId: string;
-    questionId: string;
-    matchedTerms: string[];
-    /** Term + clause. Context for the suppression, NOT evidence for the element. */
-    match?: { term: string; clause: string };
-  }[];
   /** Survived filtering but exceeded the budget. Still surfaced by readiness. */
   deferredToReadiness: { elementId: string; questionId: string }[];
   /** Elements with no authored question — attestation only. */
@@ -78,19 +63,19 @@ export type DepthSelectionResult = {
   /** Elements explicitly marked as needing no question. */
   noQuestionNeeded: string[];
   /**
-   * The state map after suppression, with covered elements already PROVIDED.
-   * The readiness gate reads this same map — one structure, not two.
+   * Every element starting at not-yet. The readiness gate reads this same map
+   * — one structure, not two. Nothing here pre-resolves an element: a state is
+   * only written when the user answers or attests.
    */
   stateMap: ElementStateMap;
 };
 
 export function selectDepthQuestions(input: DepthSelectionInput): DepthSelectionResult {
-  let stateMap = createElementStateMap(
+  const stateMap = createElementStateMap(
     input.elements.map((element) => ({ id: element.id, name: element.name })),
   );
 
   const asked: SelectedDepthQuestion[] = [];
-  const suppressed: DepthSelectionResult["suppressed"] = [];
   const deferredToReadiness: DepthSelectionResult["deferredToReadiness"] = [];
   const unauthored: string[] = [];
   const noQuestionNeeded: string[] = [];
@@ -111,30 +96,33 @@ export function selectDepthQuestions(input: DepthSelectionInput): DepthSelection
     }
 
     for (const question of candidates) {
-      const coverage = isAlreadyCovered({
-        userTexts: input.userTexts,
-        coveredWhenMentioned: question.coveredWhenMentioned,
-      });
-
-      if (coverage.covered) {
-        suppressed.push({
-          elementId: element.id,
-          questionId: question.id,
-          matchedTerms: coverage.matchedTerms,
-          match: coverage.match,
-        });
-
-        // Suppressed means the user mentioned the topic, so the element is
-        // recorded as provided, carrying the term that fired so a wrong
-        // suppression is visible and correctable.
-        stateMap = recordCoveredByStory(stateMap, {
-          elementId: element.id,
-          questionId: question.id,
-          match: coverage.match || { term: "", clause: "" },
-        });
-        continue;
-      }
-
+      // Session 48: no suppression. Every authored question is asked.
+      //
+      // `coveredWhenMentioned` and the alreadyCovered filter are gone. The
+      // filter suppressed a question when a single authored term appeared
+      // anywhere in the user's text, and — the part that made it unacceptable —
+      // recorded the element as PROVIDED via user-story. The gate treats
+      // provided as resolved, so the user never saw the element, never
+      // attested, and the draft was assembled as though they had supplied it.
+      //
+      // Every instance observed in the live batch was wrong, five for five:
+      //   "she was behind on her car payments"      -> amount-remains-unpaid
+      //   "I hired a man to put new flooring down"  -> an agreement existed
+      //   "I have paid him most of it already"      -> the loss claimed
+      //   "I had someone in to redo the tiling"     -> work caused damage
+      //   "I want what it cost me to put right"     -> how the amount was worked out
+      //
+      // That is the site asserting the user supplied a fact they did not, at
+      // the point a court document is built — CLAUDE.md section 4. The cost of
+      // asking again is a user who is mildly annoyed; the cost of a false
+      // provided state is a user misrepresented in their own claim. Those are
+      // not comparable, and the earlier "over-suppression is the cheap error"
+      // reasoning was wrong because it assumed the element still reached
+      // attestation. It did not.
+      //
+      // A confirm-step design that keeps the saving without asserting anything
+      // is scoped (option B) but not built. Until it is, every element is
+      // either asked or attested.
       if (asked.length >= MAX_ASKED) {
         // Budget reached. Deferred, never silently dropped: the element stays
         // not-yet and the readiness section still surfaces it.
@@ -155,7 +143,6 @@ export function selectDepthQuestions(input: DepthSelectionInput): DepthSelection
 
   return {
     asked,
-    suppressed,
     deferredToReadiness,
     unauthored,
     noQuestionNeeded,

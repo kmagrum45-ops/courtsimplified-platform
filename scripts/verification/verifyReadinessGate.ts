@@ -27,7 +27,6 @@ import {
 import {
   createElementStateMap,
   recordCannotProvide,
-  recordCoveredByStory,
   recordDepthAnswer,
   type ElementStateMap,
 } from "../../src/lib/case-system/intake/depth/elementStateMap";
@@ -204,14 +203,14 @@ function main(): void {
     allCannot.cannotProvide.length === DEBT.plaintiffElements.length,
   );
 
-  // Mixed: one cannot-provide, one story-covered, one still not-yet.
+  // Mixed: one cannot-provide, one answered, one still not-yet.
   const [first, second] = DEBT.plaintiffElements;
   let mixed = createElementStateMap(DEBT.plaintiffElements.map((e) => ({ id: e.id, name: e.name })));
   mixed = recordCannotProvide(mixed, { elementId: first.id, questionId: "q", answerText: "no idea" });
-  mixed = recordCoveredByStory(mixed, {
+  mixed = recordDepthAnswer(mixed, {
     elementId: second.id,
     questionId: "q",
-    match: { term: "invoice", clause: "I sent an invoice" },
+    answerText: "I sent an invoice in March.",
   });
   const mixedResult = evaluateReadinessGate(baseInput({ elementStateMap: mixed }));
   check(
@@ -220,7 +219,7 @@ function main(): void {
     `outstanding ${mixedResult.outstandingCount}`,
   );
   check(
-    "a story-covered element resolves like an answered one",
+    "an answered element is not listed as outstanding",
     !mixedResult.outstanding.some((o) => o.elementId === second.id),
   );
 

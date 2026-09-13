@@ -7,7 +7,7 @@
  * exercised by the paraphrase harness instead.
  *
  * Checks, in the order the design states them:
- *   1. The suppression filter is pure and biased toward suppression.
+ *   1. No suppression: every authored, reviewed question is asked.
  *   2. Question text is authored, never model output; slots default safely.
  *   3. Depth answers and attestation are ONE state map.
  *   4. "I don't know" resolves to cannot-provide, not to a gap.
@@ -23,7 +23,6 @@ import {
   DEPTH_QUESTIONS,
   NO_QUESTION_NEEDED,
 } from "../../src/lib/case-system/intake/depth/elementQuestionRegistry";
-import { isAlreadyCovered } from "../../src/lib/case-system/intake/depth/alreadyCovered";
 import {
   checkQuestionReadsWithDefaults,
   fillSlots,
@@ -98,7 +97,6 @@ function main(): void {
       checkQuestionReadsWithDefaults(q.text).join("; "),
     );
 
-    check(`[${q.id}] carries suppression terms`, q.coveredWhenMentioned.length > 0);
   }
 
   for (const entry of NO_QUESTION_NEEDED) {
@@ -109,76 +107,12 @@ function main(): void {
     check(`[noQuestionNeeded ${entry.elementId}] states a reason`, entry.reason.length > 20);
   }
 
-  // ---- PROPERTY 1: pure, biased toward suppression ----
-
-  const input = {
-    userTexts: ["I sent them an invoice in March and they never paid it."],
-    coveredWhenMentioned: ["invoice", "paid"],
-  };
-  const a = isAlreadyCovered(input);
-  const b = isAlreadyCovered(input);
-  check("property 1: filter is pure (same input, same output)", JSON.stringify(a) === JSON.stringify(b));
-  check("property 1: a covered topic is suppressed", a.covered, JSON.stringify(a));
-  check("property 1: suppression records the term that fired", Boolean(a.match?.term));
-  check("property 1: suppression records a clause, not the whole text", Boolean(a.match?.clause));
-
-  // The narrowing that replaced whole-sentence matchedText. A clause must be
-  // SHORTER than the sentence it came from, or the display still overclaims.
-  const clauseCase = isAlreadyCovered({
-    userTexts: ["I had someone in to redo the tiling in my upstairs bathroom, and it went badly."],
-    coveredWhenMentioned: ["redo"],
-  });
-  check(
-    "property 1: the recorded clause is narrower than the full sentence",
-    Boolean(clauseCase.match) &&
-      clauseCase.match!.clause.length <
-        "I had someone in to redo the tiling in my upstairs bathroom, and it went badly.".length,
-    JSON.stringify(clauseCase.match),
-  );
-  check(
-    "property 1: the recorded clause contains the term that fired",
-    clauseCase.match!.clause.toLowerCase().includes("redo"),
-    JSON.stringify(clauseCase.match),
-  );
-
-  check(
-    "property 1: ONE matched term is enough to suppress (bias toward suppression)",
-    isAlreadyCovered({
-      userTexts: ["There was a written contract."],
-      coveredWhenMentioned: ["contract", "quote", "invoice"],
-    }).covered,
-  );
-
-  check(
-    "property 1: an unmentioned topic is NOT suppressed",
-    !isAlreadyCovered({
-      userTexts: ["My neighbour's tree fell on my shed."],
-      coveredWhenMentioned: ["invoice", "contract", "quote"],
-    }).covered,
-  );
-
-  // Substring matching would suppress on a coincidence. The bias covers
-  // genuine doubt, not noise.
-  check(
-    "property 1: does not match a term inside an unrelated word",
-    !isAlreadyCovered({
-      userTexts: ["I consented to the work and was present throughout."],
-      coveredWhenMentioned: ["sent"],
-    }).covered,
-  );
-
-  check(
-    "property 1: matches common inflections of an authored term",
-    isAlreadyCovered({
-      userTexts: ["She posted it on Facebook."],
-      coveredWhenMentioned: ["post"],
-    }).covered,
-  );
-
-  check(
-    "property 1: no authored terms means ask, not suppress-everything",
-    !isAlreadyCovered({ userTexts: ["anything at all"], coveredWhenMentioned: [] }).covered,
-  );
+  // ---- PROPERTY 1 (session 48): NO suppression. Every question is asked. ----
+  //
+  // The alreadyCovered filter and coveredWhenMentioned are gone. The filter
+  // suppressed a question on a single keyword AND recorded the element as
+  // provided, so the gate treated it as resolved and the user never saw it.
+  // Five for five wrong in the live batch. See selectDepthQuestions.ts.
 
   // ---- PROPERTY 2: question text is authored, slots are safe ----
 
@@ -304,6 +238,9 @@ function main(): void {
       ),
     );
 
+    // A story that describes everything must STILL be asked, and must still
+    // arrive with every element not-yet. This is the inverse of the check it
+    // replaces, which asserted such a story produced an empty question set.
     const complete = selectDepthQuestions({
       elements: debt.plaintiffElements,
       userTexts: [
@@ -313,24 +250,18 @@ function main(): void {
       slotValues: {},
     });
     check(
-      "selection: a complete story is near-empty (suppression works end to end)",
-      complete.asked.length === 0,
-      `asked ${complete.asked.length}: ${complete.asked.map((q) => q.question.id).join(", ")}`,
+      "selection: a story describing everything is still asked (no suppression)",
+      complete.asked.length === terse.asked.length && complete.asked.length > 0,
+      `complete ${complete.asked.length} vs terse ${terse.asked.length}`,
     );
     check(
-      "selection: suppressed elements arrive PROVIDED, not skipped",
-      complete.suppressed.length > 0 &&
-        complete.suppressed.every((s) => complete.stateMap[s.elementId].state === "provided"),
+      "selection: NOTHING is pre-resolved from the user's text",
+      Object.values(complete.stateMap).every((record) => record.state === "not-yet"),
+      JSON.stringify(Object.values(complete.stateMap).map((r) => `${r.elementId}:${r.state}`)),
     );
     check(
-      "selection: a suppressed element carries the term that fired",
-      complete.suppressed.every((s) => Boolean(complete.stateMap[s.elementId].suppressionMatch?.term)),
-    );
-    // A suppression is not an answer. Leaving userText unset is what stops the
-    // readiness section rendering a matched clause as the user's answer.
-    check(
-      "selection: a suppressed element does NOT set userText (it is not an answer)",
-      complete.suppressed.every((s) => complete.stateMap[s.elementId].userText === undefined),
+      "selection: no element is marked provided without the user answering",
+      Object.values(complete.stateMap).every((record) => record.providedVia === undefined),
     );
   }
 
