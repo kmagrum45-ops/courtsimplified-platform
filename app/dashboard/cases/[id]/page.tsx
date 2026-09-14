@@ -593,6 +593,19 @@ export default function CaseWorkspacePage() {
             Back to Dashboard
           </Link>
 
+          {/*
+            The timeline was unreachable before this: four finished pieces —
+            the events list, the derived stage, the staleness banner and the
+            contradiction notices — were computed and returned by
+            GET /api/cases/events with nothing rendering them.
+          */}
+          <Link
+            href={`/case-timeline?caseId=${encodeURIComponent(caseFile.id)}`}
+            className="rounded-full border border-[#2f7d67] bg-white px-6 py-3 font-semibold text-[#2f7d67]"
+          >
+            Case Timeline
+          </Link>
+
           <Link
             href={buildDashboardWorkflowHref("/builder", caseFile)}
             className="rounded-full bg-[#2f7d67] px-6 py-3 font-semibold text-white"
