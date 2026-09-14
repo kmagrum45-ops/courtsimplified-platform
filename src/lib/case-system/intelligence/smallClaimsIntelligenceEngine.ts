@@ -12,6 +12,7 @@ import {
   isQuestionAlreadyAnswered,
 } from "./answeredQuestions";
 import { runCourtSimplifiedBrain } from "./courtSimplifiedBrain";
+import type { ProceduralEvent } from "../procedure/proceduralStateArchitecture";
 import { sanitizeSummaryText } from "./caseStrengthLanguageValidator";
 
 export type SmallClaimsIssue =
@@ -104,6 +105,19 @@ export type SmallClaimsIntelligenceOutput = {
 
 export type SmallClaimsAnalysisOptions = {
   allowExternalCognition?: boolean;
+  /**
+   * Live `case_events` rows, already mapped through
+   * `events/caseEventAdapter.toProceduralEvents` by the route.
+   *
+   * Threaded down rather than fetched here so every layer between the route and
+   * the procedural engine stays a pure function — which is what lets the
+   * fixture harness and verifyCaseOutcomeMatrix call them with no database stub.
+   *
+   * Absent means NO events, never a fallback to the narrative parse. A caller
+   * that forgets these produces an empty procedural event list, which is
+   * visible, rather than silently reverting to unconfirmed inferences.
+   */
+  confirmedEvents?: ProceduralEvent[];
 };
 
 function hasText(value: string): boolean {
@@ -528,6 +542,7 @@ export async function analyzeSmallClaimsWithBrain(
     },
     sourceType: "user-intake",
     allowExternalCognition: options.allowExternalCognition,
+    confirmedEvents: options.confirmedEvents,
   });
 
   const intelligence = brain.intelligence;

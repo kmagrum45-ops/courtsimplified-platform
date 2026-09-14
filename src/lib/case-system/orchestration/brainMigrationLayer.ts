@@ -132,6 +132,8 @@ export function buildBrainMigrationLayer(args: {
     intelligence: args.intelligence,
     existingCase: extractExistingMasterCase(args.input),
     recommendedNextRoute: args.existingRecommendedNextRoute,
+    // Threaded, not fetched. See CourtSimplifiedBrainInput.confirmedEvents.
+    confirmedEvents: args.input.confirmedEvents,
   });
 
   const warnings = uniqueStrings([

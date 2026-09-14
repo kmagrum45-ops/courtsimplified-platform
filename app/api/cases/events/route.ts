@@ -48,7 +48,15 @@ import {
   liveCaseEvents,
   type CaseEventRow,
 } from "../../../../src/lib/case-system/events/caseEventAdapter";
-import { existingSingletonEvents } from "../../../../src/lib/case-system/events/caseEventConsistency";
+import {
+  existingSingletonEvents,
+  findCaseEventInconsistencies,
+} from "../../../../src/lib/case-system/events/caseEventConsistency";
+import { deriveCaseStageWithEvents } from "../../../../src/lib/case-system/events/caseStageFromEvents";
+import {
+  analysisFreshness,
+  freshnessMessage,
+} from "../../../../src/lib/case-system/events/caseAnalysisFreshness";
 // Parsing and validation live in src/, not here: verifyCaseEvents checks them,
 // and a verification suite importing from app/api/ inverts the dependency.
 import {
@@ -341,10 +349,26 @@ export async function GET(request: Request) {
 
   const rows = (data || []) as unknown as CaseEventRow[];
 
+  // Stage, derived from intake answers AND the events just read. Returned here
+  // rather than computed in the client so the basis and the events come from
+  // one read of the same rows — a client deriving separately could show a stage
+  // and a reason that disagree.
+  const masterResult = ownedCase.master_result as Record<string, unknown> | null;
+  const intakeFacts = (masterResult?.intakeFacts ?? {}) as Record<string, unknown>;
+  const stage = deriveCaseStageWithEvents(intakeFacts as never, rows);
+
+  // Whether the stored analysis has seen these events. Never triggers a
+  // recompute — recomputing costs API calls and is the user's decision.
+  const freshness = analysisFreshness(masterResult, rows);
+
   return NextResponse.json({
     // Superseded and retracted rows are returned too, under `all`, because the
     // user was shown things based on them and the record stays auditable.
     events: liveCaseEvents(rows),
     all: rows,
+    stage,
+    freshness,
+    freshnessMessage: freshnessMessage(freshness),
+    inconsistencies: findCaseEventInconsistencies(rows),
   });
 }

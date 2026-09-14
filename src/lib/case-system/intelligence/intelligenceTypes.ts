@@ -1,4 +1,5 @@
 import { FactPatternAnalysisResult } from "../facts/factPatternTypes";
+import type { ProceduralEvent } from "../procedure/proceduralStateArchitecture";
 import { EvidenceIntelligenceResult } from "../evidence/evidenceIntelligenceTypes";
 
 export type CourtSimplifiedIntelligenceVersion =
@@ -792,6 +793,21 @@ export type CourtSimplifiedBrainInput = {
   existingNormalizedIntake?: NormalizedIntake;
   sourceType?: IntelligenceSourceType;
   allowExternalCognition?: boolean;
+  /**
+   * Live case_events rows for this case, already mapped through
+   * events/caseEventAdapter.toProceduralEvents by the caller.
+   *
+   * Passed DOWN from the route rather than fetched here, for the same reason
+   * existingMasterResult and existingNormalizedIntake are: every layer between
+   * the route and the bridge stays a pure function, which is what lets the
+   * fixture harness and verifyCaseOutcomeMatrix call them directly without a
+   * database stub.
+   *
+   * Absent means NO events -- never a fallback to the narrative parse. A caller
+   * that forgets to supply these produces an empty procedural event list, which
+   * is visible, rather than silently reverting to unconfirmed inferences.
+   */
+  confirmedEvents?: ProceduralEvent[];
 };
 
 export type CourtSimplifiedBrainOutput = {

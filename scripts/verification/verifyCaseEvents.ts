@@ -54,6 +54,14 @@ import {
   resolveCandidates,
   type CandidateDismissalRow,
 } from "../../src/lib/case-system/events/caseEventCandidates";
+import {
+  deriveCaseStageWithEvents,
+  stageFactsFromEvents,
+} from "../../src/lib/case-system/events/caseStageFromEvents";
+import {
+  analysisFreshness,
+  freshnessMessage,
+} from "../../src/lib/case-system/events/caseAnalysisFreshness";
 
 let failures = 0;
 
@@ -507,6 +515,113 @@ function main(): void {
   check(
     "candidates carry no procedural type — the parser does not classify",
     fromTimeline.every((candidate) => candidate.suggestedEventType === undefined),
+  );
+
+  // ---- Stage moves from events, and says why ----
+
+  const noEvents = deriveCaseStageWithEvents({} as never, []);
+  check("no events and no intake answers gives no stage", noEvents.stage === "unknown");
+
+  const defenceOnly = deriveCaseStageWithEvents({} as never, [
+    row({ id: "s1", event_type: "defence-filed" }),
+  ]);
+  check("recording a defence moves the case to conference", defenceOnly.stage === "conference");
+  check(
+    "and says why, from the event",
+    defenceOnly.basis.some((line) => /you recorded that a defence was filed/.test(line)),
+    defenceOnly.basis.join(" | "),
+  );
+  check(
+    "the event reason comes before the intake reason",
+    /you recorded/.test(defenceOnly.basis[0] ?? ""),
+  );
+  check(
+    "a defence implies the claim was filed, citing the rule",
+    defenceOnly.basis.some((line) => /r\. 7\.01 \(1\)/.test(line)),
+  );
+
+  // An event can set a fact TRUE. It must never set one false.
+  const intakeSaysFiled = deriveCaseStageWithEvents({ claimFiled: true } as never, []);
+  check(
+    "an intake answer still counts when no event contradicts it",
+    intakeSaysFiled.stage === "already-started",
+  );
+  const factsAfter = stageFactsFromEvents([row({ id: "s2", event_type: "claim-served" })]);
+  check("a recorded event sets its fact true", factsAfter.claimServed === true);
+  // The one-directional rule is enforced by the TYPE — the fields are `?: true`,
+  // not `?: boolean`, so "false" is unrepresentable. A runtime check comparing
+  // against false is vacuous (tsc says so: the types have no overlap), and a
+  // check that cannot fail is worse than none. Assert the type instead.
+  const STAGE_FACTS_SRC = readFileSync(
+    path.join(__dirname, "..", "..", "src", "lib", "case-system", "events", "caseStageFromEvents.ts"),
+    "utf8",
+  );
+  check(
+    "the stage-fact fields are typed `?: true`, making false unrepresentable",
+    /claimFiled\?: true;/.test(STAGE_FACTS_SRC) &&
+      /claimServed\?: true;/.test(STAGE_FACTS_SRC) &&
+      /defenceFiled\?: true;/.test(STAGE_FACTS_SRC),
+    "absence of a recorded event is not evidence the step did not happen, so no event may set a fact false",
+  );
+  check("and a recorded event does set its fact", factsAfter.claimServed === true);
+  check(
+    "a superseded event does not move the stage",
+    deriveCaseStageWithEvents({} as never, [
+      row({ id: "s3", event_type: "defence-filed" }),
+      row({ id: "s4", event_type: "claim-filed", supersedes_event_id: "s3" }),
+    ]).stage !== "conference",
+  );
+
+  // ---- Staleness is reported, never acted on ----
+
+  const analysedAt = "2026-09-10T00:00:00Z";
+  const master = { derivedFrom: { at: analysedAt, latestEventCreatedAt: null } };
+
+  check(
+    "an analysis with no derivedFrom is never-analyzed, not stale",
+    analysisFreshness({}, []).state === "never-analyzed",
+    "calling every pre-existing case stale on a missing key would be wrong",
+  );
+  check("an analysis with no newer events is fresh", analysisFreshness(master, []).state === "fresh");
+
+  const staleness = analysisFreshness(master, [
+    row({ id: "f1", event_type: "claim-filed", created_at: "2026-09-12T00:00:00Z" }),
+    row({ id: "f2", event_type: "claim-served", created_at: "2026-09-13T00:00:00Z" }),
+  ]);
+  check("events recorded after the analysis make it stale", staleness.state === "stale");
+  check(
+    "it counts them",
+    staleness.state === "stale" && staleness.newEventCount === 2,
+  );
+  check(
+    "a retracted event does not make an analysis stale",
+    analysisFreshness(master, [
+      row({
+        id: "f3",
+        event_type: "claim-filed",
+        created_at: "2026-09-12T00:00:00Z",
+        retracted_at: "2026-09-12T01:00:00Z",
+      }),
+    ]).state === "fresh",
+  );
+
+  const message = freshnessMessage(staleness) ?? "";
+  check("the staleness message says nothing changes on its own", /nothing here changes on its own/.test(message));
+  check(
+    "it does not claim the analysis is wrong",
+    !/incorrect|wrong|invalid/i.test(message),
+    message,
+  );
+  check("a fresh analysis produces no message", freshnessMessage({ state: "fresh" }) === null);
+
+  const FRESHNESS_SRC = readFileSync(
+    path.join(__dirname, "..", "..", "src", "lib", "case-system", "events", "caseAnalysisFreshness.ts"),
+    "utf8",
+  );
+  check(
+    "nothing in the freshness module triggers a recompute",
+    !/fetch\(|runCourtSimplifiedBrain|recompute\(/.test(FRESHNESS_SRC),
+    "recomputing costs API calls and is the user's decision, not a side effect of reading",
   );
 
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
