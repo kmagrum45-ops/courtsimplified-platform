@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 
 import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
@@ -336,12 +335,13 @@ for (const [id, courtArea, sourceId] of [...bundleTwoApproved, ...bundleTwoBAppr
   }
 }
 
-const formRulesRoute = readFileSync("app/api/form-rules/route.ts", "utf8");
-assert.match(
-  formRulesRoute,
-  /\.eq\("court_type", courtType\)[\s\S]*\.in\("canonical_form_id", canonicalFormIds\)/,
-);
-assert.doesNotMatch(formRulesRoute, /matchesRequestedLabel|formSearchText|extractFormNumber|requestedLabels/);
+// The /api/form-rules route assertions stood here. That route had no caller
+// anywhere in app/ or src/ and was deleted; this check existed only to verify
+// it, which made it a check on dead code — the same shape as
+// verifyAssistantContext, deleted alongside /api/assistant-chat.
+//
+// The court-area isolation the route enforced is still asserted above against
+// the database rows themselves, which is where it actually matters.
 
 console.log(
   "Ontario beta Bundle 2A verification passed: raw rows remain review-required, only complete source-linked workflow guidance is verified, restricted raw fields and forms remain unverified, and court areas remain isolated.",

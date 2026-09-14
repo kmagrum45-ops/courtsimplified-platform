@@ -304,7 +304,33 @@ From the per-journey interception data in `_RATE_before.md` and `_RATE_after.md`
 
 **The lesson for any future pass:** every one of these evaded a field-name or wordlist check. A grade is a *shape* — an ordinal drawn from a fixed ladder, or a bounded number — and that is what has to be detected. See the structural-check proposal filed with this entry.
 
-### ⚠️ The assistant route was passing 18,000 characters of unfiltered JSON to a free-text model — FIXED
+### ⚠️ The assistant route was passing 18,000 characters of unfiltered JSON to a free-text model — FIXED, then the ROUTE WAS DELETED
+
+> **CORRECTION (2026-09-14). `/api/assistant-chat` had no caller and has been
+> deleted.** The reachability sweep found it: `CourtAssistantChat` posts to
+> `/api/ai-case-partner`, not here, and nothing in `app/` or `src/` referenced
+> this route. So the 18,000-character leak described below was real in the
+> code and reached no user, because the code never ran.
+>
+> **A correction to a claim made in this session's own analysis:** while
+> scoping `confirmedEvents`, this route was described as "the single app
+> entry" to `runCourtSimplifiedBrain`. That was wrong. It was *an* entry in
+> the source and *no* entry in practice. The brain's only live entry is
+> `analyzeSmallClaimsWithBrain` via `/api/small-claims/analyze` — so the
+> `confirmedEvents` wiring in `aacf63c` does cover the only live path, but not
+> for the reason given at the time.
+>
+> `verifyAssistantContext.ts` was deleted with it: a whole suite whose only
+> subject was a dead route.
+>
+> **What did NOT move with the deletion.** `validateCaseStrengthLanguage` was
+> applied at this route and at no other app route, so no API route applies it
+> now. It is still applied inside the library, at `courtSimplifiedBrain:1134`
+> and `intake/depth/slots.ts:122`, both of which are live. The live
+> `/api/ai-case-partner` path calls no model at all — there is no OpenAI
+> import anywhere under `ai-case-partner/` — so its answer is assembled
+> deterministically by engines, which the runtime-string sweep (section 28)
+> covers. Worth re-checking if that ever changes.
 
 `/api/assistant-chat`'s context block ended with five raw dumps:
 
@@ -740,8 +766,25 @@ documented fallback for `caseSystemAssembly`, which is.
 
 **Still single-path:** `derivedFrom` and `intakeFacts` are written only by the
 builder save site. `POST /api/cases` spreads `...existing` and refreshes
-neither, so a case last touched by that route derives its stage from stale
-intake facts and says nothing about it.
+neither, so a case last touched by that route would derive its stage from
+stale intake facts and say nothing about it.
+
+> **CORRECTION (2026-09-14): that concern is HYPOTHETICAL, and stays that
+> way until something calls the route.** The reachability sweep found
+> `POST /api/cases` has no caller anywhere in `app/` or `src/` — the builder
+> writes to Supabase directly. There is no second write path today, so no
+> case can currently acquire a stale `derivedFrom` by this mechanism.
+>
+> **The route is KEPT, deliberately, and this is why.** It is referenced
+> through this section as the second write path, and deleting it silently
+> would make these notes wrong — a doc describing a mechanism that no longer
+> exists is worse than a dormant route. It is recorded in
+> `verifyReachability.ts` terms as live-but-uncalled: the file is reachable
+> to Next as a route, so the module check does not flag it.
+>
+> **If it is ever wired up, this becomes real on the first call**, and
+> `buildMasterResult` needs to refresh `derivedFrom` and `intakeFacts` rather
+> than spreading `...existing` over them.
 
 ---
 
@@ -814,6 +857,67 @@ finished draft rather than a missing one.
 
 Option 1 is the one that matches how `derivedFrom` and `intakeFacts` were
 handled, and it is the only one that cannot invent a party name.
+
+---
+
+## 31. Dead pairs — 4,576 lines, left in place, with two preconditions
+
+Found by the reachability sweep (section 32). Listed as a block because
+**deleting one half of a pair leaves the same problem with fewer lines**: the
+survivor keeps its only importer and stays unreachable, and the next sweep
+re-finds it looking smaller.
+
+`verifyReachability.ts` holds every entry below with a reason, so none of this
+can drift back into "nobody noticed".
+
+### The pairs
+
+| Pair | Lines | Note |
+|---|---|---|
+| `aiIntakeNormalizer` ↔ `smallClaimsEngine` | 2,037 | The live Small Claims path is `smallClaimsIntelligenceEngine` via `/api/small-claims/analyze`. This is a separate, older engine nothing routes to. |
+| `formKnowledgeBase` ↔ `formTriggerEngine` | 1,162 | Also blocked on sourcing — section 26. |
+| `scenarioEngine` ↔ `scenarioConfidenceEngine` | 713 | Carries section 3 grading. |
+| `evidencePackagingEngine` ↔ `evidencePackagingArchitecture` | 574 | Live evidence path is `evidenceEngine` plus `/evidence`. |
+| `registry` ↔ `defaults` | 90 | `registry` imports `./types/family-case.ts` with an explicit `.ts` extension, which suggests it was never compiled on a working path. |
+
+### Singletons in the same set
+
+| Module | Lines | Note |
+|---|---|---|
+| `documentExportEngine` | 770 | Carries its own `calculateReadinessScore` (`content*55 + locked*35`). |
+| `facts/factPatternAnaysisEngine` | 409 | The brain has its own `buildFactPatternAnalysis`. Filename is misspelled. |
+| `documentsStatusEngine` | 242 | |
+| `proceduralRules` | 101 | Predates the database-backed `legal_form_mapping_rules` path. |
+
+### The two preconditions, and they are preconditions rather than follow-ups
+
+**1. Section 3 removal comes FIRST, not after.** `scenarioEngine` grades
+`evidenceReadiness` as strong/partial/weak, `scenarioConfidenceEngine` exists
+to score a scenario, and `documentExportEngine` carries a weighted readiness
+formula the live export route already had removed. **None of these can be
+revived as-is.** Reviving one and then removing the grade is the sequence that
+put a grade in front of a user in the first place — the code goes live, the
+cleanup is a follow-up, and the follow-up is what gets dropped.
+
+**2. `formKnowledgeBase` is blocked on sourcing regardless** — section 26. Its
+`lawyerLogic`, `whatTheFormRequires` and `riskIfWrong` strings carry no
+citations and the rule type has nowhere to put one. Wiring `formTriggerEngine`
+without that pass puts twelve unsourced procedural assertions in front of a
+user, which is CLAUDE.md section 2.
+
+### Why they are not simply deleted
+
+4,576 lines is a large deletion, and unlike `/api/assistant-chat` — a route
+with a defined external surface and no caller — several of these are engines
+whose logic may be worth recovering. `factPatternAnaysisEngine` duplicates
+something the brain does; `documentExportEngine` duplicates something the
+export route does. A future session comparing the two implementations may find
+the dormant one is better in places.
+
+**What would justify deleting them:** nothing recovers anything from them for
+two more sessions, or a decision that duplicate implementations are worse than
+the risk of losing the better one. Both are judgment calls, and neither is
+urgent while `verifyReachability` keeps them visible.
 
 ---
 
