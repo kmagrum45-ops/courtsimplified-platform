@@ -121,8 +121,8 @@ export type AssemblyEvidenceIntelligenceReadinessModel = {
   findingCount: number;
   gapCount: number;
   contradictionCount: number;
-  strongestEvidence: string[];
-  weakestEvidence: string[];
+  // strongestEvidence / weakestEvidence removed with the schema fields they
+  // mirrored. See masterCaseSchema and OUTSTANDING_ISSUES section 28.
   recommendedEvidenceCollection: string[];
   warnings: string[];
   summary: string;
@@ -512,8 +512,6 @@ function buildEvidenceIntelligenceReadiness(
       findingCount: 0,
       gapCount: 0,
       contradictionCount: 0,
-      strongestEvidence: [],
-      weakestEvidence: [],
       recommendedEvidenceCollection: [],
       warnings: ["Evidence intelligence has not been supplied to the assembly layer."],
       summary: "No evidence intelligence was supplied to assembly.",
@@ -542,8 +540,6 @@ function buildEvidenceIntelligenceReadiness(
     findingCount: evidenceIntelligence.findings.length,
     gapCount,
     contradictionCount,
-    strongestEvidence: uniqueStrings(evidenceIntelligence.strongestEvidence),
-    weakestEvidence: uniqueStrings(evidenceIntelligence.weakestEvidence),
     recommendedEvidenceCollection: uniqueStrings(
       evidenceIntelligence.recommendedEvidenceCollection,
     ),
@@ -553,9 +549,10 @@ function buildEvidenceIntelligenceReadiness(
       contradictionCount > 0
         ? `${contradictionCount} evidence contradiction/context issue(s) require review.`
         : "",
-      evidenceIntelligence.weakestEvidence.length > 0
-        ? `${evidenceIntelligence.weakestEvidence.length} weak evidence item(s) should be strengthened or explained.`
-        : "",
+      // Was: `${n} weak evidence item(s) should be strengthened or explained.`
+      // A runtime-assembled sentence counting the user's own evidence as weak.
+      // The two counts above are facts about the record — how many gaps, how
+      // many contradictions — and are unchanged.
     ]),
     summary: evidenceIntelligence.summary,
   };
@@ -1152,8 +1149,9 @@ export function buildCaseSystemAssembly(
         ...evidenceIntelligenceReadiness.warnings,
         ...legalReasoningReadiness.evidencePriorities,
       ]),
+      // strongestEvidence fed this list. It was a mislabel as well as a
+      // grade: the highest-scoring item is not corroboration of anything.
       corroborationNotes: uniqueStrings([
-        ...evidenceIntelligenceReadiness.strongestEvidence,
         ...legalReasoningReadiness.investigationPriorities,
       ]),
     },

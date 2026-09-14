@@ -771,6 +771,125 @@ Neither is true today.
 
 ---
 
+## 27. StatementOfClaimSurface is still unreachable for a loaded case
+
+**The candidate surface half of this is FIXED. This half is not.**
+
+Both surfaces sat behind `analysis && canonicalIntakeSaved` in
+`builder/page.tsx`. Both are React state, `analysis` starts null and is reset
+to null when an existing case loads, so neither rendered for a case that was
+not being analysed in that same browser session.
+
+`EventCandidateSurface` is fixed — it needed nothing from `analysis` (its only
+prop is `caseId`, and it fetches its own state), so it now mounts on `caseId`
+alone.
+
+`StatementOfClaimSurface` genuinely needs data the load path does not rebuild:
+`mappedInput: SmallClaimsIntelligenceInput`, plus `matchedClaimTypeId` and
+`initialElementStateMap`, all set during the run from the analysis result.
+
+**What IS persisted, and why it is not simply a mapping job.**
+`master_result.intakeData` holds the `StoredCaseData` the run saved, and
+`payload.extra.elementStateMap` is in there too, so the per-element record
+state survives. Most `SmallClaimsIntelligenceInput` values exist in that blob
+in a different shape.
+
+The obstacle is not the mapping, it is the party fields. The surface's own
+design note records that party details are merged in from confirmed state
+rather than inferred from the story, **precisely so that an empty field stays
+empty and the engine emits its `[... to be confirmed]` placeholder**. A
+rehydration that filled `yourName` or `defendantAddress` from a best-effort
+read of the blob would silently defeat that, and the failure would look like a
+finished draft rather than a missing one.
+
+**Options, in preference order:**
+
+1. **Persist `mappedInput` at the save site**, alongside `derivedFrom` and
+   `intakeFacts`, and rehydrate it verbatim. No inference, nothing to guess.
+   Costs one field on `master_result`.
+2. Rebuild it from `intakeData` with party fields deliberately left blank, so
+   a loaded draft shows placeholders until the user re-confirms them. Honest,
+   but it makes a loaded draft look less complete than the one they saw.
+3. Leave it gated and route users back through analysis. Current behaviour.
+
+Option 1 is the one that matches how `derivedFrom` and `intakeFacts` were
+handled, and it is the only one that cannot invent a party name.
+
+---
+
+## 28. 📌 The field-name sweep and the runtime-string sweep are COMPLEMENTARY, not nested
+
+**Neither closes the section 3 pattern on its own.** A future session must not
+read either as complete, and must not assume that having run one makes the
+other redundant.
+
+### The two sweeps, and what each is blind to
+
+**The field-name sweep** (2026-09-13) searched declared fields, named formulas
+and type declarations: identifiers matching `[A-Za-z]+[Ss]core[sd]?`, ordinal
+unions like `"strong" | "moderate" | "weak"`, threshold ladders, `/100`
+interpolations. It found and removed eleven grades.
+
+**It is blind to a sentence assembled at runtime.** A template literal that
+says "this claim has weak overall proof" declares no field, defines no union
+and computes no score. There is nothing for a field-name search to match.
+
+**The runtime-string sweep** (2026-09-14) searched string literals for grading
+vocabulary — `weak`, `strong`, `poor`, `solid`, `likely to succeed` — then
+filtered out authority-weight language (`binding`, `persuasive`,
+`controlling`), which is legitimate vocabulary about precedent rather than a
+grade on the user's case.
+
+**It is blind to a grade that never becomes a string.** A numeric score routed
+into a branch, or an ordinal stored and read by other code, contains no
+grading word anywhere.
+
+### Proof that neither is a superset — one real miss each way
+
+| Found by | Missed by | What it was |
+|---|---|---|
+| runtime-string sweep | field-name sweep | `strongestEvidence` / `weakestEvidence`, **declared fields** on `CaseEvidenceIntelligence` (masterCaseSchema), `EvidenceIntelligenceResult` and the assembly's readiness type. The field sweep banned `strongestEvidence` in **family** code only (`verifyFamilyNoScores`), so the three non-family copies survived it. Surfaced to the user as `` `${n} weak evidence item(s) should be strengthened or explained.` `` |
+| field-name sweep | runtime-string sweep | Nothing on this pass — but the shape exists: `courtSimplifiedBrain:1410` built "This claim has weak overall proof because key evidence remains missing: …" from a template literal. The field sweep could not see it. Its **trigger** had already been made factual by an earlier pass while the sentence it produced stayed graded, which is the same blindness in the other direction. |
+
+The `strongestEvidence` case is the sharper one: a *declared field*, exactly
+what the first sweep was looking for, found only by a search for words in
+strings. The scoping of the family check to family files is why — a ban with a
+directory scope is not a ban.
+
+### What a third sweep would have to cover
+
+Both above are still keyword searches, and share a blindness neither closes:
+
+- **A grade with no grading word.** `level: "a" | "b" | "c"` ordered by
+  quality, or a numeric field named `weight`, `rank`, `tier`, `priority`,
+  `index`.
+- **A grade assembled from parts**, where no single literal contains a grading
+  word: `` `${adjective} ${noun}` `` with the adjective from a lookup.
+- **A grade a model produces at runtime**, which appears in no source file at
+  all. This is how "Pattern of harassment" reached a user: not a grade, but the
+  same invisibility — the panel's unsourced fallback branch, now removed.
+
+**The only method that would actually close it is behavioural**: render the
+product and read what a user reads. `tests/browser/case-event-loop.spec.ts`
+does this for the flow it covers — no percentage, no `N/100`, no "readiness",
+no "strongest", no "weakest" anywhere in the rendered page. That check has no
+opinion about how a string was built, which is precisely why it survives both
+blindnesses. Extending it to more screens is worth more than a third keyword
+sweep.
+
+### Still open, flagged while removing the above
+
+- **`finding.strength`** on `CaseEvidenceIntelligenceFinding`, produced by
+  `strengthFromConfidence()` mapping an ordinal confidence onto an ordinal
+  strength. Still reaches `masterCaseBridge` and `damagesRemedyEngine`. Its
+  own block.
+- **`types/civil-case.ts`** carries a separate `strongestEvidence`, its own
+  `"developing" | "moderate" | "strong"` ladder, and `keyEvidenceStrengths`
+  read by `civilStrategyEngine`. A different object with the same field name —
+  see section 25 on why a grep cannot tell them apart.
+
+---
+
 ## 26. ⚠️ BLOCKER on formKnowledgeBase — unsourced procedural assertions
 
 **`formTriggerEngine` must not be wired up until every string in

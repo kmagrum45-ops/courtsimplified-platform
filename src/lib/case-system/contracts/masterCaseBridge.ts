@@ -385,8 +385,6 @@ function emptyEvidenceIntelligence(): CaseEvidenceIntelligence {
     findings: [],
     contradictions: [],
     gaps: [],
-    strongestEvidence: [],
-    weakestEvidence: [],
     recommendedEvidenceCollection: [],
     warnings: ["Evidence intelligence was not supplied to the master case bridge."],
     summary: "No evidence intelligence was available for this case state.",
@@ -489,8 +487,6 @@ function mapEvidenceIntelligence(
     findings: analysis.findings.map(mapEvidenceIntelligenceFinding),
     contradictions: analysis.contradictions.map(mapEvidenceContradiction),
     gaps: analysis.gaps.map(mapEvidenceGap),
-    strongestEvidence: analysis.strongestEvidence,
-    weakestEvidence: analysis.weakestEvidence,
     recommendedEvidenceCollection: analysis.recommendedEvidenceCollection,
     warnings: uniqueStrings([
       analysis.gaps.length > 0

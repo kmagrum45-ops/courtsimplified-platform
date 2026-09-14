@@ -1680,7 +1680,9 @@ function buildProofActions(input: WorkflowOrchestrationBuildInput): WorkflowNext
     actions.push(
       buildAction({
         kind: "strengthen-proof",
-        title: "Strengthen missing or weak proof",
+        // Was "Strengthen missing or weak proof" — "weak" graded the user's own
+        // proof. The action is the same; it now names what is not recorded.
+        title: "Record proof for elements with nothing recorded",
         explanation:
           "Address missing, weak, or contradicted elements before preparing final pleadings, forms, affidavits, settlement materials, or trial materials.",
         priority: proofPriority(input),

@@ -259,7 +259,12 @@ export default function EventCandidateSurface({ caseId }: { caseId: string }) {
   const decided = candidates.filter((candidate) => candidate.state !== "unanswered");
 
   return (
-    <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
+    <section
+      data-testid="event-candidate-surface"
+      data-unanswered-count={unanswered.length}
+      data-decided-count={decided.length}
+      className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm"
+    >
       <h2 className="text-xl font-bold text-[#10231f]">Things that may have happened in your case</h2>
       <p className="mt-2 text-sm text-[#4f685f]">
         These are sentences from what you wrote. They might describe steps in the court process.
@@ -281,14 +286,19 @@ export default function EventCandidateSurface({ caseId }: { caseId: string }) {
           return (
             <li
               key={candidate.fingerprint}
+              data-testid="event-candidate"
+              data-fingerprint={candidate.fingerprint}
               className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"
             >
-              <p className="text-sm italic text-[#24463d]">&ldquo;{candidate.narrativeBasis}&rdquo;</p>
+              <p data-testid="event-candidate-sentence" className="text-sm italic text-[#24463d]">
+                &ldquo;{candidate.narrativeBasis}&rdquo;
+              </p>
 
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 <label className="text-sm">
                   <span className="font-semibold text-[#10231f]">What kind of step was this?</span>
                   <select
+                    data-testid="event-candidate-type"
                     value={draft.eventType}
                     onChange={(event) =>
                       setDraft(candidate, { eventType: event.target.value as CaseEventType })
@@ -354,6 +364,7 @@ export default function EventCandidateSurface({ caseId }: { caseId: string }) {
                 <button
                   type="button"
                   disabled={busy}
+                  data-testid="event-candidate-confirm"
                   onClick={() => void confirm(candidate)}
                   className="rounded-full bg-[#2f7d67] px-5 py-2 text-sm font-bold text-white disabled:opacity-70"
                 >
@@ -362,6 +373,7 @@ export default function EventCandidateSurface({ caseId }: { caseId: string }) {
                 <button
                   type="button"
                   disabled={busy}
+                  data-testid="event-candidate-dismiss"
                   onClick={() => void dismiss(candidate)}
                   className="rounded-full border border-[#d8e6df] bg-white px-5 py-2 text-sm font-semibold text-[#24463d] disabled:opacity-70"
                 >
@@ -378,7 +390,12 @@ export default function EventCandidateSurface({ caseId }: { caseId: string }) {
           <h3 className="text-sm font-bold text-[#10231f]">Already decided</h3>
           <ul className="mt-2 space-y-2 text-sm text-[#4f685f]">
             {decided.map((candidate) => (
-              <li key={candidate.fingerprint} className="flex flex-wrap items-center gap-2">
+              <li
+                key={candidate.fingerprint}
+                data-testid="event-candidate-decided"
+                data-state={candidate.state}
+                className="flex flex-wrap items-center gap-2"
+              >
                 <span>
                   {candidate.state === "confirmed" ? "Recorded" : "Set aside"}:{" "}
                   &ldquo;{candidate.narrativeBasis.slice(0, 90)}

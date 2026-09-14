@@ -484,7 +484,10 @@ function buildCredibilityFindings(
         whyItMatters:
           "Credibility risk can affect settlement pressure, cross-examination risk, and whether the court accepts the case narrative.",
         recommendedAction:
-          "Resolve contradictions, missing context, overstatement, and weak evidence before final drafting.",
+          // "weak evidence" removed. Contradictions, missing context and
+          // overstatement are observable properties of the record; "weak" is a
+          // judgment about how good the evidence is.
+          "Resolve contradictions, missing context and overstatement before final drafting.",
       }),
     );
   }

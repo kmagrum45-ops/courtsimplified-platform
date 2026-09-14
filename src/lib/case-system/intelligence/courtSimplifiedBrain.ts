@@ -1741,8 +1741,6 @@ function buildDashboardPatch(
       findings: intelligence.evidenceIntelligenceAnalysis?.findings || [],
       gaps: intelligence.evidenceIntelligenceAnalysis?.gaps || [],
       contradictions: intelligence.evidenceIntelligenceAnalysis?.contradictions || [],
-      strongestEvidence: intelligence.evidenceIntelligenceAnalysis?.strongestEvidence || [],
-      weakestEvidence: intelligence.evidenceIntelligenceAnalysis?.weakestEvidence || [],
       recommendedEvidenceCollection:
         intelligence.evidenceIntelligenceAnalysis?.recommendedEvidenceCollection || [],
     },

@@ -490,8 +490,15 @@ export type CaseEvidenceIntelligence = {
   findings: CaseEvidenceIntelligenceFinding[];
   contradictions: CaseEvidenceContradiction[];
   gaps: CaseEvidenceGap[];
-  strongestEvidence: string[];
-  weakestEvidence: string[];
+  // strongestEvidence and weakestEvidence stood here — two lists sorting
+  // the user's own evidence into best and worst, built by filtering
+  // finding.strength, which is itself strengthFromConfidence() mapping an
+  // ordinal confidence onto an ordinal strength.
+  //
+  // Found by the RUNTIME-STRING sweep, not the field-name sweep, even though
+  // these are declared fields: the field sweep banned strongestEvidence in
+  // family code only, so the schema copy survived it. See OUTSTANDING_ISSUES
+  // section 28 — the two sweeps are complementary, not nested.
   recommendedEvidenceCollection: string[];
   warnings: string[];
   summary: string;

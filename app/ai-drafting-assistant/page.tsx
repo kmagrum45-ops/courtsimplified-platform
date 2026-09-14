@@ -67,7 +67,7 @@ const ASSISTANT_MODE_OPTIONS: AssistantModeOption[] = [
   {
     value: "identify-weaknesses",
     label: "Identify weaknesses",
-    description: "Find weak wording, missing proof, or unclear claims.",
+    description: "Find unclear wording, missing proof, and claims with nothing recorded.",
   },
   {
     value: "court-tone-review",

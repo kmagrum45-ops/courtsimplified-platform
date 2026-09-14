@@ -59,9 +59,8 @@ export type EvidenceIntelligenceResult = {
 
   gaps: EvidenceGap[];
 
-  strongestEvidence: string[];
-
-  weakestEvidence: string[];
+  // strongestEvidence and weakestEvidence were here. See the note in
+  // evidenceIntelligenceEngine and OUTSTANDING_ISSUES section 28.
 
   recommendedEvidenceCollection: string[];
 

@@ -275,7 +275,10 @@ function identifyWeaknesses(section: WorkspaceSection) {
     proposedBulletPoints:
       warnings.length > 0
         ? warnings
-        : ["No obvious section-level weakness was detected by this rule-based review."],
+        : // Was "No obvious section-level weakness was detected by this
+        // rule-based review." A weakness finding about the user's draft, even
+        // when the finding is that there is none.
+        ["This rule-based review found nothing to flag at section level."],
   };
 }
 

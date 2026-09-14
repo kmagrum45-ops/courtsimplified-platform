@@ -144,7 +144,11 @@ export default function StatementOfClaimSurface({
 
   if (!matchedClaimTypeId || !claimType) {
     return (
-      <section className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6">
+      <section
+        data-testid="statement-of-claim-surface"
+        data-claim-type=""
+        className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6"
+      >
         <h2 className="text-xl font-bold text-[#10231f]">Statement of Claim</h2>
         <p className="mt-2 text-sm text-[#4d675f]">
           A claim type has not been confirmed for this case yet. Once it is, this section will show
@@ -155,7 +159,11 @@ export default function StatementOfClaimSurface({
   }
 
   return (
-    <section className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6">
+    <section
+      data-testid="statement-of-claim-surface"
+      data-claim-type={claimType.id}
+      className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6"
+    >
       <h2 className="text-xl font-bold text-[#10231f]">Statement of Claim</h2>
       <p className="mt-2 text-sm text-[#4d675f]">
         Claims like this one — {claimType.name} — generally involve the items below. Recording what
@@ -337,7 +345,10 @@ export default function StatementOfClaimSurface({
           <h3 className="text-sm font-semibold uppercase tracking-wide text-[#2f7d67]">
             Draft for your review
           </h3>
-          <pre className="mt-3 overflow-x-auto whitespace-pre-wrap rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm leading-6 text-[#10231f]">
+          <pre
+            data-testid="statement-of-claim-draft"
+            className="mt-3 overflow-x-auto whitespace-pre-wrap rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4 text-sm leading-6 text-[#10231f]"
+          >
             {draft.draftText}
           </pre>
         </div>

@@ -1187,7 +1187,11 @@ function detectIssueFrameworks(message: string): IssueFramework[] {
               relatedTo: "evidence",
               question: "What proof do you have of the agreement, such as messages, invoices, receipts, or emails?",
               reason:
-                "The agreement and terms need to be proven before the system can assess strength.",
+                // Was "...before the system can assess strength." The worst of the five:
+                // it denies assessing strength in the same breath as asserting that
+                // assessing strength is something this system does. What a string
+                // claims about the product matters as much as what it outputs.
+                "The agreement and its terms are not yet recorded.",
             },
           ],
         },

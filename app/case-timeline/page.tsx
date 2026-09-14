@@ -244,7 +244,9 @@ function CaseTimelineContent() {
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-10">
-      <h1 className="text-2xl font-bold text-[#10231f]">Your case timeline</h1>
+      <h1 data-testid="case-timeline-heading" className="text-2xl font-bold text-[#10231f]">
+        Your case timeline
+      </h1>
       <p className="mt-2 text-sm text-[#4f685f]">
         What you have recorded about the steps in your case, and what that means for where things
         stand.
@@ -258,7 +260,11 @@ function CaseTimelineContent() {
 
       {/* Staleness. Never a recompute — the user decides. */}
       {data?.freshnessMessage ? (
-        <section className="mt-6 rounded-2xl border border-amber-300 bg-amber-50 p-4">
+        <section
+          data-testid="analysis-freshness-banner"
+          data-freshness-state={data.freshness.state}
+          className="mt-6 rounded-2xl border border-amber-300 bg-amber-50 p-4"
+        >
           <p className="text-sm text-amber-950">{data.freshnessMessage}</p>
           <Link
             href={`/builder?caseId=${encodeURIComponent(caseId)}&path=small-claims`}
@@ -275,7 +281,9 @@ function CaseTimelineContent() {
           Where the case is
         </p>
         <p className="mt-1 text-lg font-bold text-[#10231f]">
-          {stageLabel(data?.stage.stage ?? "unknown")}
+          <span data-testid="case-stage" data-stage={data?.stage.stage ?? "unknown"}>
+            {stageLabel(data?.stage.stage ?? "unknown")}
+          </span>
         </p>
 
         {data?.stage.basis.length ? (
@@ -439,7 +447,12 @@ function CaseTimelineContent() {
         ) : (
           <ul className="mt-4 space-y-3">
             {events.map((event) => (
-              <li key={event.id} className="rounded-2xl border border-[#d8e6df] bg-white p-5">
+              <li
+                key={event.id}
+                data-testid="recorded-event"
+                data-event-type={event.event_type}
+                className="rounded-2xl border border-[#d8e6df] bg-white p-5"
+              >
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <p className="font-bold text-[#10231f]">{event.title}</p>
                   <p className="text-sm text-[#4f685f]">{whenText(event)}</p>

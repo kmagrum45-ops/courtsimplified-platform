@@ -245,19 +245,13 @@ export function buildEvidenceIntelligenceAnalysis(args: {
     factPatternAnalysis: args.factPatternAnalysis,
   });
 
-  const strongestEvidence = findings
-    .filter(
-      (finding) =>
-        finding.strength === "strong" || finding.strength === "very-strong",
-    )
-    .map((finding) => finding.title);
-
-  const weakestEvidence = findings
-    .filter(
-      (finding) =>
-        finding.strength === "weak" || finding.strength === "very-weak",
-    )
-    .map((finding) => finding.title);
+  // strongestEvidence and weakestEvidence were built here by filtering
+  // finding.strength into a best list and a worst list. Both are gone.
+  //
+  // NOT gone, and flagged rather than quietly left behind: finding.strength
+  // itself, produced by strengthFromConfidence() above, which maps an ordinal
+  // confidence onto an ordinal strength. It still reaches masterCaseBridge and
+  // damagesRemedyEngine. That chain is its own block.
 
   const recommendedEvidenceCollection = unique([
     ...gaps.flatMap((gap) => gap.recommendedEvidence),
@@ -270,8 +264,6 @@ export function buildEvidenceIntelligenceAnalysis(args: {
     findings,
     contradictions,
     gaps,
-    strongestEvidence,
-    weakestEvidence,
     recommendedEvidenceCollection,
     summary:
       findings.length > 0
