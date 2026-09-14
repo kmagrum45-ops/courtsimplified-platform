@@ -67,21 +67,6 @@ const DELIBERATELY_DORMANT: DormantEntry[] = [
   // set. Each reason states what it would take to resolve it. They are not
   // endorsements.
   {
-    file: "src/lib/case-system/family/statusTriage.ts",
-    reason:
-      "SHOULD BE LIVE. Built to run before the family proceeding-type question, and that question " +
-      "does not exist in code — FAMILY_PROCEEDING_TYPES is a doc, and FamilyIntake has no triage " +
-      "step. Wiring it is a UI build, not an import. Its only importer is verifyStatusTriage.",
-  },
-  {
-    file: "src/lib/case-system/intake/jurisdictionRoutes.ts",
-    reason:
-      "SHOULD BE LIVE. Sourced facts about where a matter does not belong in Small Claims. Its " +
-      "sibling outOfScopeForums IS wired through courtPathClassifier; this never was. Surfacing " +
-      "needs a decision: its `signals` field implies fact-matching, and after the claim-type " +
-      "matcher findings that is not a decision to take casually.",
-  },
-  {
     file: "src/lib/case-system/aiIntakeNormalizer.ts",
     reason: "Dead pair with smallClaimsEngine — its only importer is that module, which is itself unreachable.",
   },

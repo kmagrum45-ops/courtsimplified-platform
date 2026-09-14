@@ -16,6 +16,11 @@ import StatementOfClaimSurface from "./_components/StatementOfClaimSurface";
 import type { SmallClaimsIntelligenceInput } from "@/src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 import type { ElementStateMap } from "@/src/lib/case-system/intake/depth/elementStateMap";
 import CivilIntake from "./_components/CivilIntake";
+import FamilyStatusTriage, {
+  emptyTriageState,
+  triageStateFromStored,
+  type FamilyTriageState,
+} from "./_components/FamilyStatusTriage";
 import CourtAssistantChat from "./_components/CourtAssistantChat";
 import IntelligenceOverviewPanel from "./_components/IntelligenceOverviewPanel";
 import ProcedureAuthorityDisplay from "./_components/ProcedureAuthorityDisplay";
@@ -210,6 +215,18 @@ function BuilderPageContent() {
   // Guided intake produces real IntakeFacts. Retained so the save site can
   // persist them -- see the intakeFacts block in masterPayload for why.
   const [draftIntakeFacts, setDraftIntakeFacts] = useState<Record<string, unknown> | null>(null);
+
+  /*
+   * The family triage's recorded answers, persisted at the same save site as
+   * derivedFrom and intakeFacts so there is ONE writer rather than three, and
+   * so master_result's read-without-write audit (OUTSTANDING_ISSUES section
+   * 21) sees it.
+   *
+   * Hydrated from the loaded case below. A triage that forgets what the user
+   * already told it is worse than no triage — it asks the same questions
+   * again and teaches them the answers do not stick.
+   */
+  const [triageState, setTriageState] = useState<FamilyTriageState>(emptyTriageState);
   const [masterCaseId, setMasterCaseId] = useState<string | null>(queryCaseId);
   const [existingMasterResult, setExistingMasterResult] = useState<
     Record<string, unknown>
@@ -402,6 +419,7 @@ function BuilderPageContent() {
 
       setMasterCaseId(data.id);
       setExistingMasterResult(loadedMasterResult);
+      setTriageState(triageStateFromStored(loadedMasterResult.familyStatus));
       setExistingCaseStage(
         typeof data.current_stage === "string" ? data.current_stage : "",
       );
@@ -613,7 +631,7 @@ function BuilderPageContent() {
             court_path: courtPath,
             status: "active",
             current_stage: stage,
-            master_result: { ...masterPayload, derivedFrom, intakeFacts },
+            master_result: { ...masterPayload, derivedFrom, intakeFacts, familyStatus: triageState },
             updated_at: now,
           })
           .eq("id", activeId);
@@ -1088,6 +1106,18 @@ function BuilderPageContent() {
                 intake. Add the area-specific case details below.
               </p>
             </div>
+
+            {/*
+              ABOVE FamilyIntake and NOT blocking it. The routing question does
+              come before the claim question in family law — that is the
+              module's premise — but statusTriage RECORDS FACTS and gates
+              nothing downstream, so putting a multi-step form in front of a
+              user who wants to look around costs something and buys nothing.
+              Both render; the user chooses.
+            */}
+            {courtPath === "family" && !loadingExistingCase && !caseLoadError && (
+              <FamilyStatusTriage state={triageState} onChange={setTriageState} />
+            )}
 
             {courtPath === "family" && (
               <FamilyIntake onComplete={handleComplete} location={confirmedLocation} initialStory={homeStory} />

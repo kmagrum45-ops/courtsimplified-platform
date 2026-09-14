@@ -13,6 +13,7 @@ import {
 import type { AnalysisResult, StoredCaseData } from "./builderTypes";
 import { formatRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 import { FAMILY_RESOURCE_TOPICS } from "../../../src/lib/case-system/intake/familySafetyResources";
+import { JURISDICTION_ROUTES } from "../../../src/lib/case-system/intake/jurisdictionRoutes";
 
 type Props = { analysis: AnalysisResult; intake: StoredCaseData | null };
 
@@ -143,6 +144,27 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
    * module's own header draws against safetyPass.ts. Someone on the family
    * path sees it; nobody is assessed to decide that.
    */
+  /*
+   * Situations that generally belong somewhere other than Small Claims,
+   * shown as GENERAL INFORMATION on the court path — every route, always,
+   * never matched against this user's facts.
+   *
+   * WHY NOT MATCHED. JURISDICTION_ROUTES carries a `signals` field whose own
+   * comment calls it "fact-pattern cues for later matching". Measured, those
+   * signals are 0% single-word and 53% first-person — worse on both counts
+   * than the claim-type signals that scored 0 of 10 against plain prose.
+   * Against three plainly-worded stories, one per route, only one matched at
+   * all, and it matched on "my landlord", which appears in plenty of stories
+   * that are not tenancy matters.
+   *
+   * A false positive here is worse than in claim types: it tells a user their
+   * matter belongs at a different tribunal. So the content ships and the
+   * matching does not. Listing all three and letting the user recognise their
+   * own situation is also the posture CLAUDE.md section 2 requires — the
+   * system states the rule, the user applies it.
+   */
+  const jurisdictionRoutes = analysis.courtPath === "small-claims" ? JURISDICTION_ROUTES : [];
+
   const familyResources =
     analysis.courtPath === "family" ? FAMILY_RESOURCE_TOPICS : [];
 
@@ -176,6 +198,37 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
       <Card title="Evidence and proof to organize">{recordedEvidence.length > 0 && <><h3 className="font-semibold">Evidence you have recorded</h3><ul className="mt-2 list-disc space-y-1 pl-5">{recordedEvidence.map((item) => <li key={item}>{item}</li>)}</ul></>}{evidenceToOrganize.length > 0 && <><h3 className={recordedEvidence.length ? "mt-5 font-semibold" : "font-semibold"}>Evidence to organize or confirm</h3><ul className="mt-2 list-disc space-y-1 pl-5">{evidenceToOrganize.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></>}</Card>
       {courtPoints.length > 0 && <Card title="Points the court may need clarified"><ul className="list-disc space-y-1 pl-5">{courtPoints.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></Card>}
       {commonDefences.length > 0 && <Card title="Defences that commonly come up"><p className="mb-3 text-sm leading-6 text-[#4d675f]">General information about defences that commonly arise for this type of claim -- not a prediction about what the other side will argue in this case.</p><ul className="list-disc space-y-1 pl-5">{commonDefences.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></Card>}
+      {jurisdictionRoutes.length > 0 && (
+        <Card title="Situations that usually belong somewhere other than Small Claims">
+          <p className="mb-3 text-sm leading-6 text-[#4d675f]">
+            General information about kinds of matters that generally go elsewhere, listed so you can
+            see whether any of them describes your situation. This is not a decision about your claim —
+            nothing here has been matched against what you recorded.
+          </p>
+          <ul className="space-y-5">
+            {jurisdictionRoutes.map((route) => (
+              <li key={route.id}>
+                <p className="font-semibold text-[#10231f]">{route.matterDescription}</p>
+                <p className="mt-1">{route.whyNotSmallClaims}</p>
+                <p className="mt-1">
+                  <span className="font-semibold">Generally goes to:</span> {route.destinationForum}.{" "}
+                  {route.whereItGoes}
+                </p>
+                <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
+                  {route.citations.map((citation) => (
+                    <li key={citation.officialUrl}>
+                      <a className="text-[#2f7d67] underline" href={citation.officialUrl} target="_blank" rel="noreferrer">
+                        {citation.sourceName}
+                      </a>
+                      {citation.pinpoint ? ` — ${citation.pinpoint}` : null}
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </Card>
+      )}
       {familyResources.length > 0 && familyResources.map((topic) => (
         <Card key={topic.id} title={topic.title}>
           <p className="whitespace-pre-line">{topic.content}</p>
