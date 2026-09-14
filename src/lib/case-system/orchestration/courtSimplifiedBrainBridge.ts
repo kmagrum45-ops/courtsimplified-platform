@@ -1,4 +1,5 @@
 import { LegalIntelligenceResult } from "../intelligence/intelligenceTypes";
+import type { ProceduralEvent } from "../procedure/proceduralStateArchitecture";
 
 import {
   CaseCourtPath,
@@ -332,6 +333,17 @@ export function buildCourtSimplifiedBrainBridge(args: {
   intelligence: LegalIntelligenceResult;
   existingCase?: MasterCaseSchema;
   recommendedNextRoute?: string;
+  /**
+   * Live `case_events` rows for this case, mapped through
+   * events/caseEventAdapter's `toProceduralEvents`.
+   *
+   * OPTIONAL, and omitting it yields an empty procedural event list — not the
+   * narrative parse. A caller that cannot reach the database should produce no
+   * events rather than fall back to unconfirmed inferences, because a silent
+   * fallback would reintroduce exactly what the case_events source CHECK
+   * exists to keep out, and would do it invisibly.
+   */
+  confirmedEvents?: ProceduralEvent[];
 }): CourtSimplifiedBrainBridgeOutput {
   const { intelligence } = args;
 
@@ -390,11 +402,36 @@ export function buildCourtSimplifiedBrainBridge(args: {
     },
 
     procedure: {
-      knownEvents: intelligence.normalizedIntake.events.map((event) => ({
+      /**
+       * CONFIRMED EVENTS ONLY.
+       *
+       * This used to be `intelligence.normalizedIntake.events` — the narrative
+       * parser's output, fed straight into the procedural engine on every run.
+       * That is an inference: nobody had confirmed that any of those sentences
+       * described a court step, and nothing recorded which of them a user had
+       * actually agreed to.
+       *
+       * Now it is the live rows of `case_events`, passed in by the caller,
+       * which exist only because a user confirmed them — the table's `source`
+       * CHECK has no 'system-inference' value. Parsed sentences are candidates
+       * and are surfaced for confirmation by EventCandidateSurface; they reach
+       * this function only after a user has said yes.
+       *
+       * WHAT THIS MEANS FOR A CASE WITH NO CONFIRMED EVENTS: an empty array,
+       * where previously it would have carried whatever that run's parse
+       * produced. That is a visible change and it is the honest one — those
+       * events were never confirmed by anyone. The candidate surface is how a
+       * user fills it, and it is why the surface shipped before this switch.
+       *
+       * `knownDeadlines` stays empty. A deadline has not happened; an event
+       * has. They are different tables with different semantics, and the
+       * deadline work is DEADLINE_TRACKING_DESIGN.md's Tiers 1 and 2.
+       */
+      knownEvents: (args.confirmedEvents ?? []).map((event) => ({
         id: event.id,
         title: event.title,
         description: event.description,
-        relatedEvidenceIds: event.evidenceIds,
+        relatedEvidenceIds: event.relatedEvidenceIds,
       })),
       knownDeadlines: [],
     },

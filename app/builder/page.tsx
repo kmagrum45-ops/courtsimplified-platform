@@ -19,6 +19,7 @@ import CivilIntake from "./_components/CivilIntake";
 import CourtAssistantChat from "./_components/CourtAssistantChat";
 import IntelligenceOverviewPanel from "./_components/IntelligenceOverviewPanel";
 import ProcedureAuthorityDisplay from "./_components/ProcedureAuthorityDisplay";
+import EventCandidateSurface from "./_components/EventCandidateSurface";
 
 import {
   AnalysisResult,
@@ -1043,6 +1044,13 @@ function BuilderPageContent() {
         {analysis && canonicalIntakeSaved && (
           <section ref={completedOverviewRef} className="mt-8 space-y-6" data-testid="completed-case-overview" tabIndex={-1}>
             <IntelligenceOverviewPanel analysis={analysis} intake={caseData} />
+            {/*
+              Before the Statement of Claim, deliberately: a draft is built on the
+              record, so the record is what to settle first. This is also the only
+              surface that writes case_events, which deriveCaseStage and the
+              procedural engine read from.
+            */}
+            {getActiveCaseId() ? <EventCandidateSurface caseId={getActiveCaseId() as string} /> : null}
             {draftInput ? (
               <StatementOfClaimSurface
                 matchedClaimTypeId={draftClaimTypeId}

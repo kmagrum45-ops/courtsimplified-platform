@@ -652,7 +652,101 @@ absent.
 
 ---
 
-## 18. Event candidates live in `normalized_data` — and the trigger that makes that wrong
+## 20. Verification suites reach into `app/api` — seven of them, in two shapes
+
+**Fixed for `verifyCaseEvents`; the class is untouched and larger than first
+reported.**
+
+`src/` is the library and `app/` is the delivery mechanism. A verification suite
+importing from a route inverts that, and reads as a mistake to whoever touches
+it next. `verifyCaseEvents` was moved: its parsing and validation now live in
+`src/lib/case-system/events/caseEventRequest.ts`.
+
+**Seven suites remain coupled, and the coupling comes in two kinds:**
+
+| Suite | Imports from `app/api` | Reads route source as text |
+|---|---|---|
+| `verifyCaseOutcomeMatrix.ts` | 4 | — |
+| `verifyThreeAreaContract.ts` | 3 | — |
+| `verifyFormsSelectedCaseIsolation.ts` | 1 | 2 |
+| `verifyGenerateFormSelectedCaseAuthorization.ts` | 1 | 1 |
+| `verifyServerAiReasoningContract.ts` | 1 | — |
+| `verifyOntarioBetaProcedureAuthorityBundle.ts` | — | 1 |
+| `verifyScenarioMatrix.ts` | — | 1 |
+
+**A correction to the count.** This was described as "four suites". It is seven,
+five of which import. A plain grep for `from "../../app/api` finds only four,
+because several imports are multi-line and the `from` sits on a different line
+from the path — which is how the number came out low. Counting occurrences of
+the path itself gives the real figure.
+
+**The two kinds are not equally bad.** Importing a route handler pulls its whole
+dependency graph into the suite and couples the check to the route's runtime.
+Reading a route's source as text is a deliberate structural assertion — "this
+file does not contain X" — and is legitimate in itself, though it breaks
+silently when the file moves.
+
+**What fixing it looks like:** for each importer, move the logic the suite
+actually tests into `src/` and have the route compose it, as `caseEventRequest`
+now does. That is a per-suite change, and some of them test route-level
+behaviour (auth, status codes) that genuinely lives in the route — for those the
+honest answer may be that the coupling stays and is documented, not removed.
+
+---
+
+## 19. `case_intakes` is dead — no reader, no writer, never populated
+
+**Found 2026-09-13 while scoping the event candidate surface.**
+
+The table exists from `20260823020500_add_case_evidence_storage_bucket.sql` with
+`intake_data`, `normalized_data`, `created_at`, `updated_at` and the usual
+ownership columns. **Nothing in `app/`, `src/` or `scripts/` reads or writes
+it.** `normalized_data` has never held a row.
+
+**Why this matters more than an unused table usually does.** The step-2 scoping
+report for the case lifecycle recommended storing event candidates in
+`case_intakes.normalized_data`, on the reasoning that "they're already there".
+They were not, and they never had been. The recommendation was taken as
+plausible — and a schema that looks like it holds something is exactly the kind
+of thing that invites that error. The design was corrected before any code
+depended on it, but only because the follow-up work checked.
+
+**Drop it, or fill it?** The name and shape suggest it was meant to persist raw
+and normalized intake per case, which the pipeline recomputes on every run
+instead. There is a real argument for that being worth storing:
+
+- `master_result` is a derived cache and is overwritten wholesale, so the input
+  that produced any given analysis is not recoverable.
+- Re-running the pipeline costs API calls; a stored normalized intake would
+  allow re-deriving without re-parsing.
+
+**But nothing needs it today**, and an empty table that looks useful is worse
+than no table — this section exists because it already misled one design pass.
+
+**Recommendation: drop it**, and reopen the question as "should intake input be
+persisted, and in what shape" if the need appears. Dropping is a migration
+against dev and then a production decision under CLAUDE.md section 6. Not urgent;
+recorded so the next person to see `normalized_data` in the schema knows it is
+empty by history rather than by accident.
+
+---
+
+## 18. Event candidates — SUPERSEDED, and wrong when written
+
+> **This section's recommendation was wrong and was not followed.** It proposed
+> storing candidates in `case_intakes.normalized_data`, on the reasoning that
+> they already lived there. That table is dead and has never held a row — see
+> section 19. Candidates are instead derived from `master_result.timeline`,
+> which is genuinely persisted, and rejections are recorded in
+> `case_event_candidate_dismissals` keyed on the sentence.
+>
+> The trigger this section identified — that "what the parser suggested" and
+> "what the user has not answered" stop being the same set — was correct, and
+> arrived faster than expected: a user rejecting a candidate once was enough.
+> That is why the dismissal ledger exists. Kept for the reasoning, not the
+> recommendation.
+
+**Original text follows.**
 
 **Decision: candidates stay in `case_intakes.normalized_data` for now. Recorded
 so a later session watches for the trigger rather than rediscovering it.**
