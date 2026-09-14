@@ -643,6 +643,26 @@ function main(): void {
     "stamping against an older view would date the analysis wrongly",
   );
 
+  // The other half of the stage derivation. Same failure shape as derivedFrom:
+  // deriveCaseStageWithEvents reads intakeFacts, nothing wrote it, and every
+  // case handed it {} — so the stage came entirely from events and a user who
+  // told intake they had filed saw "Not enough recorded to say".
+  check(
+    "the analysis save site writes intakeFacts",
+    /master_result: \{[^}]*intakeFacts/.test(BUILDER_SRC),
+    "without it deriveCaseStageWithEvents gets {} for the intake half",
+  );
+  check(
+    "intakeFacts records only TRUE, never false",
+    !/claimFiled: false|claimServed: false|defenceFiled: false/.test(BUILDER_SRC),
+    "not selecting a document is not the user saying the step did not happen",
+  );
+  check(
+    "guided facts override facts read back from document selections",
+    /filingFacts[\s\S]{0,400}\.\.\.\(draftIntakeFacts \|\| \{\}\)/.test(BUILDER_SRC),
+    "a direct answer beats an inversion of a document list",
+  );
+
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
   if (failures) process.exitCode = 1;
 }

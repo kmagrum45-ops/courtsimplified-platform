@@ -21,6 +21,7 @@ import IntelligenceOverviewPanel from "./_components/IntelligenceOverviewPanel";
 import ProcedureAuthorityDisplay from "./_components/ProcedureAuthorityDisplay";
 import EventCandidateSurface from "./_components/EventCandidateSurface";
 import { buildDerivedFrom } from "../../src/lib/case-system/events/caseAnalysisFreshness";
+import { filingFactsFromDocuments } from "../../src/lib/case-system/intelligence/answeredQuestions";
 import type { CaseEventRow } from "../../src/lib/case-system/events/caseEventAdapter";
 
 import {
@@ -164,6 +165,9 @@ function BuilderPageContent() {
   const [draftInput, setDraftInput] = useState<SmallClaimsIntelligenceInput | null>(null);
   const [draftClaimTypeId, setDraftClaimTypeId] = useState<string | null>(null);
   const [draftElementStateMap, setDraftElementStateMap] = useState<ElementStateMap>({});
+  // Guided intake produces real IntakeFacts. Retained so the save site can
+  // persist them -- see the intakeFacts block in masterPayload for why.
+  const [draftIntakeFacts, setDraftIntakeFacts] = useState<Record<string, unknown> | null>(null);
   const [masterCaseId, setMasterCaseId] = useState<string | null>(queryCaseId);
   const [existingMasterResult, setExistingMasterResult] = useState<
     Record<string, unknown>
@@ -523,6 +527,43 @@ function BuilderPageContent() {
           new Date(),
         );
 
+        /**
+         * `intakeFacts` is the OTHER half of the stage derivation.
+         *
+         * `deriveCaseStageWithEvents` reads claimFiled / claimServed /
+         * defenceFiled from it and merges confirmed events over the top.
+         * Nothing wrote it before, so every case handed `{}` to that function
+         * and the stage came entirely from events — a user who told intake they
+         * had filed and served still saw "Not enough recorded to say".
+         *
+         * TWO SOURCES, and the more reliable one wins:
+         *
+         *  - Guided intake produces genuine `IntakeFacts`, captured above. That
+         *    is the user answering the question directly.
+         *  - Both paths record `filedDocuments`, and
+         *    `filingFactsFromDocuments` is the existing, already-used mapping
+         *    from those selections to filing facts. Reading a user's own
+         *    document selections back is not an inference — it is the same
+         *    answer in the other direction, and it is what the overview panel
+         *    already does.
+         *
+         * Only TRUE is written. A user who did not select "plaintiffs-claim"
+         * has not told us they did not file — the same one-directional rule the
+         * event-derived facts follow, for the same reason.
+         */
+        const filingFacts = filingFactsFromDocuments(
+          (caseData as unknown as Record<string, unknown>)?.filedDocuments,
+        );
+
+        const intakeFacts: Record<string, unknown> = {
+          ...(filingFacts.anythingFiled ? { claimFiled: true } : {}),
+          ...(filingFacts.anythingServed ? { claimServed: true } : {}),
+          ...(filingFacts.defenceOnRecord ? { defenceFiled: true } : {}),
+          // Guided facts last: they are the user's direct answer, so they
+          // override anything read back out of document selections.
+          ...(draftIntakeFacts || {}),
+        };
+
         const { error } = await supabase
           .from("cases")
           .update({
@@ -530,7 +571,7 @@ function BuilderPageContent() {
             court_path: courtPath,
             status: "active",
             current_stage: stage,
-            master_result: { ...masterPayload, derivedFrom },
+            master_result: { ...masterPayload, derivedFrom, intakeFacts },
             updated_at: now,
           })
           .eq("id", activeId);
@@ -583,6 +624,12 @@ function BuilderPageContent() {
       setDraftInput(mappedInput);
       setDraftClaimTypeId(result.matchedClaimType?.claimTypeId || null);
       setDraftElementStateMap((result.elementStateMap as ElementStateMap) || {});
+      // Guided intake produces real IntakeFacts — claimFiled, claimServed,
+      // defenceFiled among them. Retained so the save site can persist them;
+      // without that, deriveCaseStageWithEvents receives {} and the stage comes
+      // entirely from confirmed events.
+      setDraftIntakeFacts(result.facts as Record<string, unknown>);
+      setDraftIntakeFacts(result.facts as Record<string, unknown>);
 
       const response = await requestSmallClaimsAnalysis(mappedInput);
       const analysisResult = response.result!;
