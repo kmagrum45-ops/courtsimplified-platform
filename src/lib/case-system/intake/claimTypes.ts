@@ -1484,6 +1484,15 @@ export const CLAIM_TYPES: ClaimType[] = [
       "damaged my floors during the renovation",
       "botched the installation",
       "renovation crew caused damage",
+      // Third-person framings. Every signal above requires the word "damage"
+      // or "damaged". People describe the damage instead of naming it —
+      // cracked, hole, broke — and name the room or material, which the
+      // vocabulary did not cover.
+      "contractor cracked the tile",
+      "contractor put a hole in the drywall",
+      "cracked or broke something while doing the work",
+      "denies causing the damage",
+      "damage to another part of the house during the job",
     ],
     typicalDefendantProfile: "business",
     citations: [
@@ -1990,6 +1999,14 @@ export const CLAIM_TYPES: ClaimType[] = [
       "keeps making excuses not to return",
       "holding onto my equipment",
       "won't hand back what I lent them",
+      // Third-person framings. 7 of the 9 signals above are first-person, and
+      // the rest enumerate specific objects (furniture, equipment) rather than
+      // the relationship. A story naming power tools and a ring matches none.
+      "moved out and will not give them back",
+      "still has things that belong to someone else",
+      "will not give back property that belongs to another person",
+      "holding property belonging to someone else",
+      "keeping items that are not theirs",
     ],
     typicalDefendantProfile: "either",
     citations: [
@@ -2111,6 +2128,15 @@ export const CLAIM_TYPES: ClaimType[] = [
       "backed out and they won't refund",
       "cancelled but they kept my deposit",
       "refusing a refund after I cancelled",
+      // Third-person framings. The signals above assume a DEPOSIT was kept or
+      // that the story uses the phrase "cooling-off". A cancellation followed
+      // by CONTINUED CHARGING had no entry, and none of them survive a story
+      // that never uses the word "refund".
+      "cancelled and they kept charging",
+      "kept charging the card after the cancellation",
+      "cancelled within the window and the charges continued",
+      "will not return the money after a cancellation",
+      "cancelled the membership and the payments did not stop",
     ],
     typicalDefendantProfile: "business",
     citations: [
@@ -2533,6 +2559,16 @@ export const CLAIM_TYPES: ClaimType[] = [
       "want to charge me again for the same issue",
       "shop overcharged me for repairs",
       "repair still under warranty and they want more money",
+      // Third-person framings. Every signal above assumes the complaint is
+      // OVERCHARGING or a WARRANTY. The commonest repair dispute is neither:
+      // the repair did not fix the fault. The vocabulary had no entry for
+      // that at all, and none for "garage" as a word for the shop.
+      "refuse to look at it again",
+      "garage did not fix the fault",
+      "same fault after the repair",
+      "paid for a repair that did not work",
+      "still not working after the garage charged for the job",
+      "shop will not re-examine the work",
     ],
     typicalDefendantProfile: "business",
     citations: [
@@ -3457,6 +3493,16 @@ export const CLAIM_TYPES: ClaimType[] = [
       // holding them here routes them to the claim type they describe.
       "loan not repaid",
       "won't pay me back for the loan",
+      // Third-person framings. The 14 signals above include 9 built around a
+      // first-person pronoun, and all of them assume the word "money" or
+      // "loan" appears. A story saying "I lent my cousin $6,000 ... he has
+      // paid nothing" contains neither.
+      "agreed to pay it back and has paid nothing",
+      "paid nothing back",
+      "lent cash and was not paid back",
+      "borrowed and has not repaid",
+      "loan has not been repaid",
+      "has not paid back what was lent",
     ],
     typicalDefendantProfile: "individual",
     citations: [

@@ -41,15 +41,26 @@ const STORIES: Array<{ expect: string; story: string }> = [
   { expect: "sc-claim-recovery-of-personal-property", story: "My former roommate still has my power tools and my grandmother's ring. He moved out in June and will not give them back." },
   { expect: "sc-claim-dishonoured-nsf-cheque", story: "A customer paid me with a cheque for $3,200 and it bounced. The bank returned it and he has not replaced the funds." },
   { expect: "sc-claim-contractor-damage", story: "A contractor doing my bathroom cracked the tile in the hallway and put a hole in the drywall. He says it was already like that." },
-  { expect: "sc-claim-used-vehicle-nondisclosure", story: "I bought a used car privately. The seller said it had never been in a crash. The mechanic found frame repair and the report shows an accident in 2021." },
+  // A DEALER purchase, deliberately. The first version of this story was a
+  // private sale, and it did not match — correctly. This claim type is scoped
+  // to a dealer because the Consumer Protection Act duties it is built on
+  // attach to dealers, so matching a private sale to it would hand the user
+  // dealer-specific elements for a claim that does not have them. The claim
+  // type was NOT widened to make the story match. The story was corrected to
+  // the situation the claim type actually covers, and the gap the private-sale
+  // version exposed is recorded in OUTSTANDING_ISSUES.
+  { expect: "sc-claim-used-vehicle-nondisclosure", story: "I bought a used car from a dealer. The dealer didn't disclose that it had been in an accident. The mechanic found frame repair and the history report shows a crash in 2021." },
 ];
 
 /**
- * The measured floor, not a target. It was 0 before the matcher was rewritten
- * and is 4 now. Raise it as the signal vocabulary improves; the remaining six
- * misses are a vocabulary gap, not an algorithm gap.
+ * The measured floor, not a target. It was 0 before this work, 4 after the
+ * matcher rewrite alone, and 10 after the vocabulary pass on the five types
+ * that were still missing for want of words rather than algorithm.
+ *
+ * A drop below 10 means either a signal was deleted or the matcher regressed.
+ * Neither should happen quietly.
  */
-const MINIMUM_MATCHES = 4;
+const MINIMUM_MATCHES = 10;
 
 let failures = 0;
 

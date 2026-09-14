@@ -817,6 +817,111 @@ handled, and it is the only one that cannot invent a party name.
 
 ---
 
+## 30. ⚠️ The claim-type matcher never fired — and that reframes every earlier walkthrough
+
+**Before 2026-09-14, `matchClaimType` matched nothing on prose a person would
+actually write.** Measured, not estimated:
+
+| Measurement | Value |
+|---|---|
+| Plainly-worded stories matching the right claim type (one per type) | **0 of 10** |
+| Plainly-worded stories matching **anything at all** | **0 of 10** |
+| Signals that are multi-word phrases | **250 of 255 (98%)** |
+| Signals containing a first-person pronoun | **88 of 255 (35%)** |
+| Claim types with **no single-word signal** | **19 of 22** |
+
+The matcher required a signal to appear in the story **verbatim**. With 98% of
+signals being multi-word phrases, a claim type could only match a user who
+happened to type an exact string like `"spreading rumors that aren't true"`.
+The 35% carrying a first-person pronoun could only match a story written in
+that exact grammatical person.
+
+### What this means for testing done before today
+
+**Any walkthrough or manual test of the intelligence overview panel before
+2026-09-14 was reading model fallback output, not sourced content.**
+
+`buildClaimTypeOverviewContent()` returned `null` whenever the matcher missed,
+which was effectively always. The panel then fell through to
+`analysis.missingEvidence` and `intelligenceEvidenceIssues[].missingEvidence`
+— unconstrained model output — for "Evidence to organize or confirm".
+`courtPoints` and `commonDefences` returned `[]`, so those cards did not render
+at all.
+
+So an earlier session that looked at the panel and judged the sourced
+claim-type content to be working was looking at something else. The three
+cards behaved as:
+
+| Card | What was actually shown before today |
+|---|---|
+| Evidence to organize or confirm | model free-text, no citations |
+| Points the court may need clarified | nothing — card did not render |
+| Defences that commonly come up | nothing — card did not render |
+
+This is how `"Pattern of harassment"` reached a user on a defamation story
+about false statements in one custody argument. It was not a bad generation
+against good plumbing; the sourced path had never run.
+
+**Nothing failed while this was true.** No check covered the matcher against
+prose, and the panel's fallback guaranteed a non-empty list, so the symptom
+was a plausible-looking list rather than an empty one.
+
+### What changed
+
+Two independent defects, fixed separately:
+
+1. **Algorithm.** A signal now hits either as a whole phrase or when every
+   content word appears in any order and any grammatical person, after
+   stopword and pronoun removal. Plus a margin guard: the top scorer must beat
+   the runner-up outright or the result is `null`. **0 of 10 → 3 of 10.**
+2. **Vocabulary.** Signals for six claim types did not contain the words people
+   use. Third-person framings added to defamation and then to five more.
+   **3 of 10 → 4 of 10 → 10 of 10.**
+
+`scripts/verification/verifyClaimTypeMatcher.ts` pins a floor of 10 of 10 and
+zero wrong matches, and the fallback branch is removed, so a future miss shows
+as an empty list rather than an invention.
+
+### What is still NOT established
+
+The ten stories are **one per claim type and written by the same author as the
+signals**, which is the weakest part of this. They demonstrate the matcher is
+no longer inoperative. They do **not** establish real-world coverage, and a
+floor of 10 of 10 against them must not be read as "the matcher works". Real
+intake text from the fixtures, or from a walkthrough, is the next honest test.
+
+---
+
+## 29. No claim type covers a PRIVATE used-vehicle sale with a misrepresented history
+
+Found while writing the matcher's test stories. A plainly-worded story —
+*"I bought a used car privately, the seller said it had never been in a crash,
+the mechanic found frame repair"* — matches **nothing**, and that is the
+correct behaviour after this change.
+
+**Why it must not be matched to `sc-claim-used-vehicle-nondisclosure`.** That
+claim type is scoped to a **dealer**, and it is scoped that way because the
+Consumer Protection Act duties its elements are built on **attach to dealers**.
+A private seller is not subject to the same obligations. Matching a private
+sale to it would hand the user dealer-specific elements for a claim that does
+not have them — a wrong claim type, which drives the evidence checklist, the
+court points, the common defences and the elements the Statement of Claim is
+assembled from.
+
+**The claim type was deliberately NOT widened.** The test story was corrected
+to a dealer purchase instead, with the reasoning recorded inline beside it so
+nobody "fixes" the miss by loosening the scope.
+
+**The open question is coverage, not matching.** A private buyer misled about a
+vehicle's history plainly has *something*. Whether it belongs under
+misrepresentation, breach of contract, or its own claim type is a **sourcing
+question** for the coverage expansion: it needs the elements retrieved and
+cited before anything is authored, per CLAUDE.md section 2. Until then, `null`
+is the honest answer and the panel shows an empty list rather than the wrong
+checklist.
+
+---
+
 ## 28. 📌 The field-name sweep and the runtime-string sweep are COMPLEMENTARY, not nested
 
 **Neither closes the section 3 pattern on its own.** A future session must not
