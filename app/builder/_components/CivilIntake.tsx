@@ -18,6 +18,7 @@ import type {
   CivilCanonicalIntakeResult,
 } from "../../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 import { supabase } from "../../../src/lib/supabase/client";
+import { formatRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 import {
   consumeNarrativePrefill,
   directPrefillValues,
@@ -244,7 +245,7 @@ function buildCivilNarrative(input: CivilInput): string {
     input.yourRole ? `User role: ${input.yourRole}` : "",
     input.courtLocation ? `Court or tribunal location: ${input.courtLocation}` : "",
     input.courtFileNumber ? `File number: ${input.courtFileNumber}` : "",
-    input.amountClaimed ? `Amount claimed or disputed: ${input.amountClaimed}` : "",
+    input.amountClaimed ? `Amount claimed or disputed: ${formatRecordedAmount(input.amountClaimed)}` : "",
     input.limitationDeadline ? `Limitation or deadline concern: ${input.limitationDeadline}` : "",
     input.issues.length ? `Selected issue signals: ${labelsFromValues(input.issues, issueOptions).join("; ")}` : "",
     input.documents.length ? `Existing document signals: ${labelsFromValues(input.documents, documentOptions).join("; ")}` : "",
@@ -431,7 +432,7 @@ function buildCivilAnalysisFromMaster(
     masterResult.strategy.recordedTheories.length
       ? `Legal theories recorded: ${masterResult.strategy.recordedTheories.join(", ")}.`
       : "",
-    input.amountClaimed ? `Amount claimed or disputed: ${input.amountClaimed}.` : "",
+    input.amountClaimed ? `Amount claimed or disputed: ${formatRecordedAmount(input.amountClaimed)}.` : "",
     input.limitationDeadline ? `Limitation/deadline issue: ${input.limitationDeadline}.` : "",
     input.uploadedEvidenceFiles.length
       ? `${input.uploadedEvidenceFiles.length} uploaded evidence file(s) captured.`

@@ -3,6 +3,7 @@ import {
   type CivilMasterCaseResult,
 } from "../civilMasterCaseEngine";
 import type { EvidenceItem } from "../evidenceEngine";
+import { formatRecordedAmount } from "../format/recordedAmount";
 import { runCourtSimplifiedBrain } from "../intelligence/courtSimplifiedBrain";
 import type { CourtSimplifiedBrainOutput } from "../intelligence/intelligenceTypes";
 
@@ -165,7 +166,7 @@ function buildNarrative(input: CivilCanonicalIntakeInput): string {
     input.otherParty && `Other party: ${input.otherParty}`,
     input.courtLocation && `Court location: ${input.courtLocation}`,
     input.courtFileNumber && `Court file number: ${input.courtFileNumber}`,
-    input.amountClaimed && `Amount claimed or disputed: ${input.amountClaimed}`,
+    input.amountClaimed && `Amount claimed or disputed: ${formatRecordedAmount(input.amountClaimed)}`,
     input.limitationDeadline && `Limitation or deadline concern: ${input.limitationDeadline}`,
     input.issues.length && `Selected issues: ${labels(input.issues, issueLabels).join("; ")}`,
     input.documents.length &&

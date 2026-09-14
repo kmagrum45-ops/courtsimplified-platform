@@ -74,6 +74,48 @@ function getStageForPersistence(
   );
 }
 
+/**
+ * Whether the originating document is ALREADY RECORDED as filed.
+ *
+ * The "What CourtSimplified can help with next" buttons were gated on
+ * `courtPath` and `getActiveCaseId()` and nothing else. A user whose case
+ * recorded the claim filed, served, and a default judgment obtained was still
+ * offered "Create Plaintiff's Claim draft (Form 7A)" — the document that
+ * starts the case, offered to someone past default.
+ *
+ * Two independent signals, either of which is enough, because they are
+ * populated on different paths and a case can have one without the other:
+ *
+ *   - `extra.filedDocuments` / `extra.documents`, the list the overview panel
+ *     already renders under "Documents already recorded".
+ *   - `IntakeFacts.claimFiled`, the guided-intake answer that
+ *     deriveCaseStageWithEvents reads.
+ *
+ * Only TRUE is meaningful. Absence means not recorded, never "did not
+ * happen" — the same rule the intakeFacts writer follows.
+ */
+function originatingDocumentRecorded(args: {
+  courtPath: CourtPath;
+  caseData: StoredCaseData | null;
+  intakeFacts: Record<string, unknown> | null;
+}): boolean {
+  if (args.intakeFacts?.claimFiled === true) return true;
+
+  const extra = args.caseData?.extra as Record<string, unknown> | undefined;
+  const raw = extra?.filedDocuments ?? extra?.documents;
+  const filed = Array.isArray(raw)
+    ? raw.filter((item): item is string => typeof item === "string")
+    : [];
+
+  const originating: Partial<Record<CourtPath, string[]>> = {
+    "small-claims": ["plaintiffs-claim"],
+    civil: ["statement-of-claim"],
+    family: ["application"],
+  };
+
+  return (originating[args.courtPath] || []).some((id) => filed.includes(id));
+}
+
 function createChatSessionId(path: CourtPath): string {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
     return `${path}-${crypto.randomUUID()}`;
@@ -682,6 +724,12 @@ function BuilderPageContent() {
     });
   }
 
+  const originatingDocumentFiled = originatingDocumentRecorded({
+    courtPath,
+    caseData,
+    intakeFacts: draftIntakeFacts,
+  });
+
   function getActiveCaseId() {
     return masterCaseId || queryCaseId || null;
   }
@@ -1116,16 +1164,42 @@ function BuilderPageContent() {
           </section>
         )}
 
+        {/*
+          MOUNTED ON caseId ALONE, outside the analysis gate below.
+
+          This sat inside `analysis && canonicalIntakeSaved`, and both are
+          React state: `analysis` starts null, is set only by handleComplete
+          after an analysis run, and is reset to null when an existing case
+          loads. So a user who ran intake, saw candidates, answered none and
+          reloaded never saw them again — they were still unanswered
+          server-side, and nothing rendered them.
+
+          That defeated the design decision the schema was built around:
+          unanswered candidates never expire, because silence is not "no".
+          They did not expire. They became invisible, which is worse, because
+          the record says they are still open.
+
+          The surface needs NOTHING from `analysis`. Its only prop is caseId
+          and it fetches its own state from /api/cases/event-candidates. The
+          gate was incidental — it was placed there for layout, between the
+          overview panel and the draft, and inherited a condition that had
+          nothing to do with it.
+        */}
+        {getActiveCaseId() && !loadingExistingCase && !caseLoadError ? (
+          <div className="mt-8">
+            <EventCandidateSurface caseId={getActiveCaseId() as string} />
+          </div>
+        ) : null}
+
         {analysis && canonicalIntakeSaved && (
           <section ref={completedOverviewRef} className="mt-8 space-y-6" data-testid="completed-case-overview" tabIndex={-1}>
             <IntelligenceOverviewPanel analysis={analysis} intake={caseData} />
             {/*
-              Before the Statement of Claim, deliberately: a draft is built on the
-              record, so the record is what to settle first. This is also the only
-              surface that writes case_events, which deriveCaseStage and the
-              procedural engine read from.
+              The Statement of Claim stays gated, and not by oversight — see
+              the note in the spec. It needs `draftInput`, a
+              SmallClaimsIntelligenceInput built during the run, which no load
+              path reconstructs.
             */}
-            {getActiveCaseId() ? <EventCandidateSurface caseId={getActiveCaseId() as string} /> : null}
             {draftInput ? (
               <StatementOfClaimSurface
                 matchedClaimTypeId={draftClaimTypeId}
@@ -1140,18 +1214,33 @@ function BuilderPageContent() {
             />
             <section className="rounded-2xl border border-[#d8e6df] bg-white p-5">
               <h2 className="text-lg font-bold text-[#16302b]">What CourtSimplified can help with next</h2>
+              {/*
+                The draft buttons below are gated on whether the originating
+                document is already recorded as filed. They used to be gated on
+                courtPath and a case id only, so a case recording the claim
+                filed, served and a default judgment obtained was still offered
+                "Create Plaintiff's Claim draft (Form 7A)" — the document that
+                starts the case, offered to someone past default.
+              */}
+              {originatingDocumentFiled ? (
+                <p className="mt-3 text-sm leading-6 text-[#4d675f]" data-testid="originating-document-recorded">
+                  Your records show the document that starts this case has already been filed, so
+                  a draft of it is not offered here. If that is not right, change what is recorded
+                  under &ldquo;Documents already recorded&rdquo;.
+                </p>
+              ) : null}
               <div className="mt-4 flex flex-wrap gap-3">
-                {courtPath === "small-claims" && getActiveCaseId() ? (
+                {courtPath === "small-claims" && getActiveCaseId() && !originatingDocumentFiled ? (
                   <button type="button" onClick={createSmallClaimsClaimDraft} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Plaintiff&apos;s Claim draft (Form 7A)
                   </button>
                 ) : null}
-                {courtPath === "civil" && getActiveCaseId() ? (
+                {courtPath === "civil" && getActiveCaseId() && !originatingDocumentFiled ? (
                   <button type="button" onClick={() => createCourtAreaWorkingDraft("Draft Statement of Claim (Form 14A)", "Working draft created from your saved Ontario Civil intake — review and edit before use.", "Material facts")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Statement of Claim draft (Form 14A)
                   </button>
                 ) : null}
-                {courtPath === "family" && getActiveCaseId() ? (
+                {courtPath === "family" && getActiveCaseId() && !originatingDocumentFiled ? (
                   <button type="button" onClick={() => createCourtAreaWorkingDraft("Draft Family Application (Form 8)", "Working draft created from your saved Ontario Family intake — review and edit before use.", "Facts for review")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Family Application draft (Form 8)
                   </button>

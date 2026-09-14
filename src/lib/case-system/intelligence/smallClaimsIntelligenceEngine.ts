@@ -12,6 +12,7 @@ import {
   isQuestionAlreadyAnswered,
 } from "./answeredQuestions";
 import { runCourtSimplifiedBrain } from "./courtSimplifiedBrain";
+import { formatRecordedAmount } from "../format/recordedAmount";
 import type { ProceduralEvent } from "../procedure/proceduralStateArchitecture";
 import { sanitizeSummaryText } from "./caseStrengthLanguageValidator";
 
@@ -301,7 +302,7 @@ function buildRawUserText(input: SmallClaimsIntelligenceInput): string {
     `Other party: ${input.otherParty}`,
     `Court location: ${input.courtLocation}`,
     `Claim number: ${input.claimNumber}`,
-    `Amount claimed or disputed: ${input.amountClaimed}`,
+    `Amount claimed or disputed: ${formatRecordedAmount(input.amountClaimed)}`,
     `Damages breakdown: ${input.damagesBreakdown}`,
     input.agreementDetails ? `Agreement details: ${input.agreementDetails}` : "",
     input.paymentHistory ? `Payment history: ${input.paymentHistory}` : "",
@@ -425,7 +426,7 @@ function buildInferredFacts(input: SmallClaimsIntelligenceInput): string[] {
   const facts: string[] = [];
 
   if (hasText(input.amountClaimed)) {
-    facts.push(`Amount claimed or disputed was provided: ${input.amountClaimed}.`);
+    facts.push(`Amount claimed or disputed was provided: ${formatRecordedAmount(input.amountClaimed)}.`);
   }
 
   if (hasText(input.damagesBreakdown)) {

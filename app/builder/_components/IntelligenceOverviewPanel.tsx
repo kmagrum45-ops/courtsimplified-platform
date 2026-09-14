@@ -11,6 +11,7 @@ import {
 } from "@/src/lib/case-system/intake/claimTypeOverviewContent";
 
 import type { AnalysisResult, StoredCaseData } from "./builderTypes";
+import { formatRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 
 type Props = { analysis: AnalysisResult; intake: StoredCaseData | null };
 
@@ -120,7 +121,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
     parties ? `Parties recorded: ${parties}.` : "",
     role ? `Role: ${role}.` : "",
     `Current stage: ${displayStage(analysis.caseStage)}.`,
-    amount ? `Amount recorded: ${amount}.` : "",
+    amount ? `Amount recorded: ${formatRecordedAmount(amount)}.` : "",
     outcome ? `Requested outcome: ${outcome}.` : "",
     facts,
   ].filter(Boolean);
