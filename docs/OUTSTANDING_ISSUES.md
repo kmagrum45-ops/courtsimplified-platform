@@ -652,6 +652,58 @@ absent.
 
 ---
 
+## 21. AUDIT NOT YET RUN — `master_result` fields that are read and never written
+
+**Queued deliberately. Report findings before fixing anything.**
+
+### The failure shape
+
+`master_result` is an untyped `jsonb` blob. A field read from it that nothing
+writes does not throw, does not warn, and does not appear in any log — it just
+returns `undefined` forever, and whatever depends on it silently returns the
+same answer for every case, permanently.
+
+**Two were found by accident on 2026-09-13, within one commit of each other:**
+
+| Field | Read by | What it did while unwritten |
+|---|---|---|
+| `derivedFrom` | `analysisFreshness` | Every case reported `never-analyzed`, so the staleness banner could never fire. Reader, message and three freshness states all shipped and were inert. |
+| `intakeFacts` | `deriveCaseStageWithEvents` | Every case handed `{}` to the stage derivation, so the stage came entirely from confirmed events. A user who told intake they had filed and served still saw "Not enough recorded to say". |
+
+Neither was found by a check or a failing build. Both were found because
+someone went looking at the feature end to end and noticed it always said the
+same thing. **That is not a reliable way to find the rest.**
+
+### Why it is worth an audit rather than a fix-as-you-go
+
+Both instances had the same signature — a field appearing only on the read side
+— and both sat in code that was otherwise correct, tested and mutation-verified.
+The checks around them passed, because the checks tested the reader's logic, not
+whether anything fed it. A pure function given `{}` behaves perfectly.
+
+### The method
+
+1. Grep every read: `master_result.<field>`, `masterResult.<field>`,
+   `masterResult?.<field>`, `asRecord(masterResult).<field>`, and bracket forms
+   `masterResult["<field>"]`. The blob is untyped, so these are the only handles.
+2. For each field, grep the write side — `master_result: {` object literals and
+   any `mergeMasterResult` patch that sets it.
+3. Classify: **written**, **never written**, or **written only on one path**
+   (the third is real — `intakeFacts` is written by the builder save site and
+   by nothing else, so a case updated through another route keeps a stale one).
+4. **Report the list before changing anything.** Some reads may be legitimately
+   optional, some may be dead readers worth deleting rather than feeding, and
+   deciding which is which is not a mechanical call.
+
+### Worth considering afterwards, not instead
+
+A typed accessor for `master_result` would make the whole class impossible —
+one module owning the shape, with the reads and writes visible together. That is
+a larger change than the audit and should not gate it, but the audit is the
+thing that would tell you whether it is worth doing.
+
+---
+
 ## 20. Verification suites reach into `app/api` — seven of them, in two shapes
 
 **Fixed for `verifyCaseEvents`; the class is untouched and larger than first
