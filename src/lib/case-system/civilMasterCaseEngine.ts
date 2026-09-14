@@ -66,8 +66,10 @@ export type CivilMasterCaseResult = {
   formRouting: CivilFormRoutingResult;
   strategy: CivilStrategyResult;
   dashboardSummary: {
-    strongestTheories: string[];
-    biggestRisks: string[];
+    /** Detected, not ranked. Was `strongestTheories`. */
+    recordedTheories: string[];
+    /** Was `biggestRisks` — superlative over the user's own risks. */
+    recordedRisks: string[];
     immediateNextSteps: string[];
     readinessWarnings: string[];
     proceduralTrack: string;
@@ -562,32 +564,19 @@ function buildReadiness(args: {
     highRiskCount === 0 ? "No high-risk civil blockers are currently detected." : "",
   ]);
 
-  const score = Math.max(
-    0,
-    Math.min(
-      100,
-      100 -
-        highRiskCount * 18 -
-        blockers.length * 6 +
-        Math.min(args.evidenceCount, 5) * 3 +
-        Math.min(args.factsCount, 5) * 2,
-    ),
-  );
-
-  const level: CaseReadiness["level"] =
-    score >= 80
-      ? "hearing-ready"
-      : score >= 65
-        ? "filing-ready"
-        : score >= 45
-          ? "organized"
-          : score >= 25
-            ? "developing"
-            : "not-ready";
+  // The 0-100 sum (100 minus 18 per high risk, minus 6 per blocker, plus 3
+  // per evidence item) and the 80/65/45/25 ladder were here. Three of the
+  // four things it weighed are counted directly below; the fourth, high-risk
+  // count, is a warning rather than a missing record and is not counted.
+  const recordedChecks = [
+    args.factsCount > 0,
+    args.evidenceCount > 0,
+    args.formsCount > 0,
+  ];
 
   return {
-    level,
-    score,
+    recordedCount: recordedChecks.filter(Boolean).length,
+    expectedCount: recordedChecks.length,
     reasons,
     blockers,
   };
@@ -757,8 +746,8 @@ export function runCivilMasterCaseEngine(
     strategy,
 
     dashboardSummary: {
-      strongestTheories: strategy.strongestTheories,
-      biggestRisks: mergedRisks
+      recordedTheories: strategy.recordedTheories,
+      recordedRisks: mergedRisks
         .filter((risk) => risk.severity === "high")
         .map((risk) => risk.title),
       immediateNextSteps: masterCase.nextSteps.slice(0, 8),

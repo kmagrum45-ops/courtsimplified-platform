@@ -33,12 +33,15 @@ export type TriggeredFormRecommendation = {
   courtPath: CourtPath;
   priority: FormKnowledgeRule["priority"];
   status: "required" | "optional" | "later" | "blocked";
-  score: number;
+  // `score: number` and `judgeConcern: string` were here. The score is a
+  // form-ROUTING number (does this rule fire for this case) and stays
+  // internal to scoreRule; exposing the raw figure on the recommendation
+  // makes it one render away from being read as a grade. `status` is the
+  // routing answer and is what callers need.
   reasons: string[];
   missingUserData: string[];
   missingEvidence: string[];
   lawyerLogic: string;
-  judgeConcern: string;
   riskIfWrong: string;
 };
 
@@ -384,12 +387,10 @@ function buildRecommendation(
     courtPath: form.courtPath,
     priority: form.priority,
     status,
-    score: scored.score,
     reasons: scored.reasons,
     missingUserData,
     missingEvidence,
     lawyerLogic: form.lawyerLogic,
-    judgeConcern: form.judgeConcern,
     riskIfWrong: form.riskIfWrong,
   };
 }
@@ -398,7 +399,15 @@ export function runFormTriggerEngine(input: FormTriggerInput): FormTriggerResult
   const allRecommendations = FORM_KNOWLEDGE_BASE
     .filter((form) => form.courtPath === input.courtPath)
     .map((form) => buildRecommendation(form, input))
-    .sort((a, b) => b.score - a.score);
+    // Was sorted by the routing score, highest first. Ordered by the factual
+    // partition instead: forms with nothing missing before forms with
+    // something missing, alphabetically within each group. Callers filter on
+    // `status` anyway, which is where the routing answer actually lives.
+    .sort((a, b) => {
+      const aMissing = a.missingUserData.length + a.missingEvidence.length > 0 ? 1 : 0;
+      const bMissing = b.missingUserData.length + b.missingEvidence.length > 0 ? 1 : 0;
+      return aMissing - bMissing || a.title.localeCompare(b.title);
+    });
 
   return {
     requiredForms: allRecommendations.filter((item) => item.status === "required"),

@@ -150,7 +150,11 @@ export function extractNarrativePrefill(args: {
   const served = /\b(?:i served|i filed)\b/i.test(lower);
   if (wasServed && served) {
     addReview(facts, "yourRole", "contradictory", narrative);
-    questions.push("You described both serving and being served. Which role applies to this case?");
+    // Was "You described both serving and being served." — an assertion about
+    // what the user said, produced by two regexes over their narrative. "I
+    // received the invoice" and "I served the food at the event" both match.
+    // The question is asked without telling them what they said.
+    questions.push("Are you the one who started this case, or the one responding to it?");
   } else if (wasServed) {
     addDirect(facts, "yourRole", args.courtPath === "small-claims" ? "Defendant / responding party" : "respondent", "I was served/received");
     addDirect(facts, "caseStage", "already-started", "I was served/received");

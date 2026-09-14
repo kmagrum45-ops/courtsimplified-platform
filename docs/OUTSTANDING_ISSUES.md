@@ -771,7 +771,37 @@ Neither is true today.
 
 ---
 
-## 22. `readiness.score` — removed from the export, still live on the civil path
+## 24. Pattern 4 — "checks that cannot fail" was SAMPLED, not exhausted
+
+A five-pattern sweep ran on 2026-09-13. Four of the five patterns were
+enumerated to completion. **This one was not**, and it must not be read as
+closed.
+
+**What was searched:** two shapes across every suite in
+`scripts/verification/` — (a) a `check(...)` whose condition is a literal
+`true`, `!false`, or an always-empty comparison; (b) a check pinning a
+current-but-wrong value as the expected one, so fixing the defect would break
+the suite.
+
+**What was found:** no constant-true checks. One pinning check, already
+recorded — `verifyAuthorityKnowledgeBridge` pins the e-Laws viewer URLs as
+expected values, so correcting those 54 URLs fails the suite.
+
+**Why that is not the whole answer.** A check can be unfailable in ways
+neither shape catches: a condition over an empty collection that is vacuously
+true (the `?: true` fields caught earlier this session were exactly this and
+only `tsc` saw it); a regex that cannot match anything; a suite whose fixture
+makes the assertion trivially satisfied; a check whose subject was deleted so
+it now asserts over `undefined`. None of those has been swept for.
+
+**The stronger method, when someone does this properly:** mutation-test every
+check, not just the ones with a mutation case today. A check that cannot fail
+is exactly a check no mutation catches, and `runMutationTests` already has the
+harness to prove it. That is the real closure condition for this pattern.
+
+---
+
+## 23. `readiness.score` — removed from the export, still live on the civil path
 
 **The export half is FIXED.** The plain-text package a user carries to a court
 office printed `Readiness: 33%` and `Status: needs-repair`. The export SCREEN

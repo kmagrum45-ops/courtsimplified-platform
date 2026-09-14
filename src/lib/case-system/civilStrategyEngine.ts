@@ -16,24 +16,33 @@ export type CivilStrategyInput = {
 
 export type CivilTheoryAssessment = {
   theory: string;
-  score: number;
-  strength: "weak" | "developing" | "moderate" | "strong";
-  supportingFactors: string[];
-  weakeningFactors: string[];
-  proofPressurePoints: string[];
+  // `score: number` and `strength: "weak" | "developing" | "moderate" |
+  // "strong"` were here — a 0-100 sum (base 45, +8 per evidence strength,
+  // -12 per limitation concern) cut into a four-rung ladder, grading each of
+  // the user's own legal theories against the others. Both gone, and the
+  // assessments are no longer sorted by the number.
+  /** What is recorded that bears on this theory. Was `supportingFactors`. */
+  recordedSupport: string[];
+  /** What is not recorded. Was `weakeningFactors`. */
+  recordedGaps: string[];
+  /** Was `proofPressurePoints` — pressure was the grading word. */
+  proofGaps: string[];
 };
 
 export type CivilStrategyResult = {
   strategicProfile: CivilStrategicProfile;
   theoryAssessments: CivilTheoryAssessment[];
-  strongestTheories: string[];
-  weakestAreas: string[];
-  likelyDefenceArguments: string[];
-  likelyJudgeConcerns: string[];
-  settlementLeverage: string[];
-  escalationRisks: string[];
+  /** Detected, not ranked. Was `strongestTheories`. */
+  recordedTheories: string[];
+  /** What is not yet proved. Was `weakestAreas`. */
+  proofGaps: string[];
+  // likelyDefenceArguments, likelyJudgeConcerns and settlementLeverage are
+  // removed with their slots. See CivilStrategicProfile.
+  /** Was `escalationRisks` — the name predicted escalation. */
+  recordedConcerns: string[];
   tacticalNextMoves: string[];
   draftingWarnings: string[];
+  /** What is recorded and what is not. Was a level, a score, and a branch. */
   readinessStrategy: string[];
   risks: CaseRisk[];
   summary: string;
@@ -59,12 +68,8 @@ function getRisks(input: CivilStrategyInput): CaseRisk[] {
   return getCase(input)?.risks || input.masterResult?.workflow.risks || [];
 }
 
-function scoreToStrength(score: number): CivilTheoryAssessment["strength"] {
-  if (score >= 75) return "strong";
-  if (score >= 55) return "moderate";
-  if (score >= 35) return "developing";
-  return "weak";
-}
+// scoreToStrength() was here: >= 75 "strong", >= 55 "moderate", >= 35
+// "developing", else "weak". Deleted with the score it read.
 
 function theoryName(type: CivilCaseType): string {
   const names: Record<CivilCaseType, string> = {
@@ -121,37 +126,17 @@ function buildTheoryAssessments(input: CivilStrategyInput): CivilTheoryAssessmen
         clean(theory.title).toLowerCase().includes(type.replace(/-/g, " ")),
       );
 
-      let score = 45;
-
-      score += evidenceStrengthCount * 8;
-      score -= missingEvidenceCount * 8;
-      score -= damagesGapCount * 7;
-      score -= jurisdictionRiskCount * 10;
-      score -= limitationRiskCount * 12;
-      score -= highRiskCount * 8;
-
-      if (relatedTheory?.confidence === "strong") score += 15;
-      if (relatedTheory?.confidence === "very-strong") score += 25;
-      if (relatedTheory?.confidence === "low") score -= 15;
-
-      if (type === "mixed-civil") score -= 8;
-      if (type === "unknown") score -= 20;
-
-      const finalScore = Math.max(0, Math.min(100, score));
-
       return {
         theory: theoryName(type),
-        score: finalScore,
-        strength: scoreToStrength(finalScore),
-        supportingFactors: cleanList([
+        recordedSupport: cleanList([
           evidenceStrengthCount > 0
-            ? "There are identified evidence strengths."
+            ? "Evidence has been recorded."
             : "",
           relatedTheory?.strengths.join("; "),
           master?.timeline.length ? "Timeline structure has started." : "",
           master?.facts.length ? "Core facts have been captured." : "",
         ]),
-        weakeningFactors: cleanList([
+        recordedGaps: cleanList([
           missingEvidenceCount > 0 ? "Evidence gaps remain." : "",
           damagesGapCount > 0 ? "Damages proof gaps remain." : "",
           jurisdictionRiskCount > 0 ? "Forum or jurisdiction concerns remain." : "",
@@ -164,7 +149,7 @@ function buildTheoryAssessments(input: CivilStrategyInput): CivilTheoryAssessmen
             ? "Civil theory is still unclear."
             : "",
         ]),
-        proofPressurePoints: cleanList([
+        proofGaps: cleanList([
           ...(relatedTheory?.proofGaps || []),
           ...(master?.evidenceProfile.missingEvidence || []),
           ...(master?.damagesProfile.damagesProofMissing || []),
@@ -172,10 +157,17 @@ function buildTheoryAssessments(input: CivilStrategyInput): CivilTheoryAssessmen
         ]),
       };
     })
-    .sort((a, b) => b.score - a.score);
+    // Was `.sort((a, b) => b.score - a.score)` — highest grade first. Ordered
+    // by the factual partition instead: theories with something recorded come
+    // before theories with nothing, and alphabetically within each group.
+    .sort((a, b) => {
+      const aHas = a.recordedSupport.length > 0 ? 0 : 1;
+      const bHas = b.recordedSupport.length > 0 ? 0 : 1;
+      return aHas - bHas || a.theory.localeCompare(b.theory);
+    });
 }
 
-function buildWeakestAreas(input: CivilStrategyInput): string[] {
+function buildProofGaps(input: CivilStrategyInput): string[] {
   const master = getCase(input);
   const risks = getRisks(input);
 
@@ -190,27 +182,20 @@ function buildWeakestAreas(input: CivilStrategyInput): string[] {
   ]);
 }
 
-function buildSettlementLeverage(input: CivilStrategyInput): string[] {
-  const master = getCase(input);
+/*
+ * buildSettlementLeverage() was here, and it is deleted rather than renamed.
+ *
+ * Every member predicted leverage over the other side: "Organized evidence may
+ * create settlement pressure", "Documented financial losses may support a
+ * concrete settlement number", "Known defence risks can be priced into
+ * settlement strategy", plus a line gated on readiness.score >= 65. That is
+ * settlement-pressure content by name and by content, which section 3 names
+ * directly, and there is no factual restatement of leverage — the underlying
+ * facts (what evidence is recorded, what losses are documented) are already
+ * reported as facts elsewhere without being pointed at an opponent.
+ */
 
-  return cleanList([
-    ...(master?.strategicProfile.negotiationLeverage || []),
-    master?.evidenceProfile.keyEvidenceStrengths.length
-      ? "Organized evidence may create settlement pressure."
-      : "",
-    master?.damagesProfile.financialLosses.length
-      ? "Documented financial losses may support a concrete settlement number."
-      : "",
-    master?.readiness.score && master.readiness.score >= 65
-      ? "The file is organized enough to support a more structured settlement position."
-      : "",
-    master?.narrativeProfile.defenceVulnerabilities.length
-      ? "Known defence risks can be priced into settlement strategy."
-      : "",
-  ]);
-}
-
-function buildEscalationRisks(input: CivilStrategyInput): string[] {
+function buildRecordedConcerns(input: CivilStrategyInput): string[] {
   const master = getCase(input);
   const risks = getRisks(input);
 
@@ -239,20 +224,14 @@ function buildDraftingWarnings(input: CivilStrategyInput): string[] {
 function buildReadinessStrategy(input: CivilStrategyInput): string[] {
   const master = getCase(input);
 
+  // Was: "Current civil readiness level: organized (52/100)." followed by
+  // three sentences chosen by threshold (< 45, 45-64, >= 65). The number and
+  // the ladder are gone, and so are the branches — each one was a paraphrase
+  // of "you have recorded little / some / most of this", which the blockers
+  // already say item by item and without ranking.
   return cleanList([
-    master?.readiness.level
-      ? `Current civil readiness level: ${master.readiness.level} (${master.readiness.score}/100).`
-      : "",
+    ...(master?.readiness.reasons || []),
     ...(master?.readiness.blockers || []),
-    master?.readiness.score && master.readiness.score < 45
-      ? "Focus on facts, chronology, evidence, and forum before drafting final documents."
-      : "",
-    master?.readiness.score && master.readiness.score >= 45 && master.readiness.score < 65
-      ? "Move from organization into proof mapping and damages support."
-      : "",
-    master?.readiness.score && master.readiness.score >= 65
-      ? "Begin preparing drafting, settlement, and package-readiness materials while resolving final blockers."
-      : "",
   ]);
 }
 
@@ -279,53 +258,41 @@ export function runCivilStrategyEngine(
 ): CivilStrategyResult {
   const theoryAssessments = buildTheoryAssessments(input);
 
-  const strongestTheories = theoryAssessments
-    .filter((item) => item.strength === "strong" || item.strength === "moderate")
-    .map((item) => item.theory);
+  // Was filtered to theories graded "strong" or "moderate". Every detected
+  // theory is now reported: withholding one because it scored low is the
+  // system deciding which of the user's theories is worth their attention.
+  const recordedTheories = theoryAssessments.map((item) => item.theory);
 
-  const weakestAreas = buildWeakestAreas(input);
+  const proofGaps = buildProofGaps(input);
 
-  // Never generated: predicting defence arguments or judge reactions is a
-  // CLAUDE.md section 3 violation, not a data gap.
-  const likelyDefenceArguments: string[] = [];
-  const likelyJudgeConcerns: string[] = [];
-  const settlementLeverage = buildSettlementLeverage(input);
-  const escalationRisks = buildEscalationRisks(input);
+  const recordedConcerns = buildRecordedConcerns(input);
   const draftingWarnings = buildDraftingWarnings(input);
   const readinessStrategy = buildReadinessStrategy(input);
   const tacticalNextMoves = buildTacticalNextMoves(input, theoryAssessments);
 
   const strategicProfile: CivilStrategicProfile = {
-    strongestTheories:
-      strongestTheories.length > 0
-        ? strongestTheories
-        : theoryAssessments.slice(0, 3).map((item) => item.theory),
+    recordedTheories:
+      recordedTheories.length > 0
+        ? recordedTheories
+        : theoryAssessments.map((item) => item.theory),
 
-    likelyDefenceArguments,
-    likelyJudgeConcerns,
-    settlementConsiderations: settlementLeverage,
-    litigationRisks: escalationRisks,
-    negotiationLeverage: settlementLeverage,
-    proceduralPressurePoints: escalationRisks,
+    recordedConcerns,
     strategicNextSteps: tacticalNextMoves,
   };
 
   return {
     strategicProfile,
     theoryAssessments,
-    strongestTheories: strategicProfile.strongestTheories,
-    weakestAreas,
-    likelyDefenceArguments,
-    likelyJudgeConcerns,
-    settlementLeverage,
-    escalationRisks,
+    recordedTheories: strategicProfile.recordedTheories,
+    proofGaps,
+    recordedConcerns,
     tacticalNextMoves,
     draftingWarnings,
     readinessStrategy,
     risks: getRisks(input),
-    summary:
-      weakestAreas.length > 0
-        ? "Civil strategy review completed with remaining weaknesses, proof pressure, and procedural risks to resolve."
-        : "Civil strategy review completed with no major unresolved strategic weaknesses detected.",
+    // Was "...with remaining weaknesses, proof pressure, and procedural risks
+    // to resolve" / "...no major unresolved strategic weaknesses detected".
+    // Both graded. This counts.
+    summary: `Civil review recorded ${proofGaps.length} proof gap(s) and ${recordedConcerns.length} procedural concern(s).`,
   };
 }

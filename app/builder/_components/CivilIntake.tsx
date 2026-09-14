@@ -385,7 +385,7 @@ function buildCivilAnalysisFromMaster(
   const risksAndGaps = cleanList([
     ...masterCase.risks.map((risk) => `${risk.title}: ${risk.description}`),
     ...masterCase.missingInformation,
-    ...masterResult.strategy.weakestAreas,
+    ...masterResult.strategy.proofGaps,
   ]);
 
   const proceduralRisks = cleanList([
@@ -419,13 +419,17 @@ function buildCivilAnalysisFromMaster(
   ]);
 
   const inferredFacts = cleanList([
-    `Readiness level: ${masterCase.readiness.level} (${masterCase.readiness.score}/100).`,
+    // Was `Readiness level: organized (52/100).` and `Strongest theories: X`
+    // — a grade with a number, and a ranking of the user's own theories
+    // against each other. The count is the fact the grade stood for; the
+    // theories are reported as detected, in full.
+    `${masterCase.readiness.recordedCount} of ${masterCase.readiness.expectedCount} case sections have something recorded.`,
     `Procedural track: ${masterCase.procedureProfile.proceduralTrack}.`,
     masterCase.civilCaseTypes.length
       ? `Detected civil path: ${masterCase.civilCaseTypes.join(", ")}.`
       : "",
-    masterResult.strategy.strongestTheories.length
-      ? `Strongest theories: ${masterResult.strategy.strongestTheories.join(", ")}.`
+    masterResult.strategy.recordedTheories.length
+      ? `Legal theories recorded: ${masterResult.strategy.recordedTheories.join(", ")}.`
       : "",
     input.amountClaimed ? `Amount claimed or disputed: ${input.amountClaimed}.` : "",
     input.limitationDeadline ? `Limitation/deadline issue: ${input.limitationDeadline}.` : "",
@@ -443,16 +447,18 @@ function buildCivilAnalysisFromMaster(
   const summary = [
     "Civil Litigation Analysis",
     "",
-    `Readiness: ${masterCase.readiness.level} (${masterCase.readiness.score}/100)`,
+    `${masterCase.readiness.recordedCount} of ${masterCase.readiness.expectedCount} case sections have something recorded`,
     `Procedural track: ${masterCase.procedureProfile.proceduralTrack}`,
     "",
-    "Strongest theories:",
-    masterResult.strategy.strongestTheories.map((item) => `- ${item}`).join("\n") ||
-      "- No strongest theory identified yet",
+    "Legal theories recorded:",
+    masterResult.strategy.recordedTheories.map((item) => `- ${item}`).join("\n") ||
+      "- No legal theory detected yet",
     "",
-    "Immediate risks:",
+    // Was "Immediate risks:" / "No major risks detected". The list is gaps and
+    // missing information; "immediate" and "major" were the grading words.
+    "Gaps and missing information:",
     risksAndGaps.slice(0, 10).map((item) => `- ${item}`).join("\n") ||
-      "- No major risks detected",
+      "- Nothing recorded as missing",
     "",
     "Recommended next documents / packages:",
     requiredNextForms.slice(0, 10).map((item) => `- ${item}`).join("\n") ||

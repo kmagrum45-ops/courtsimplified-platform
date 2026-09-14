@@ -90,12 +90,10 @@ export type CaseRisk = {
   suggestedFix?: string;
 };
 
-export type CaseReadinessLevel =
-  | "not-ready"
-  | "developing"
-  | "organized"
-  | "filing-ready"
-  | "hearing-ready";
+// `CaseReadinessLevel` was here — "not-ready" | "developing" | "organized" |
+// "filing-ready" | "hearing-ready", a five-rung ladder on the user's case,
+// a second copy of the seven-rung one in types/case.ts. Both are gone. See
+// the note on CaseReadiness in types/case.ts.
 
 export type CaseProceduralIntelligence = {
   likelyForumIssues: string[];
@@ -108,8 +106,8 @@ export type CaseProceduralIntelligence = {
 };
 
 export type CaseReadiness = {
-  level: CaseReadinessLevel;
-  score: number;
+  recordedCount: number;
+  expectedCount: number;
   reasons: string[];
   blockers: string[];
 };
@@ -1169,96 +1167,102 @@ function buildReadiness(
     | "proceduralIntelligence"
   >,
 ): CaseReadiness {
-  let score = 0;
+  // Each check either finds something recorded or does not. It used to also
+  // add or subtract points toward a 0-100 grade; the points are gone and the
+  // two lists they ran alongside are the whole answer.
   const reasons: string[] = [];
   const blockers: string[] = [];
+  let recordedCount = 0;
+  let expectedCount = 0;
 
+  expectedCount += 1;
   if (context.summary.trim().length > 20) {
-    score += 10;
+    recordedCount += 1;
     reasons.push("Case has a plain-language summary.");
   } else {
     blockers.push("Case summary is missing or too thin.");
   }
 
+  expectedCount += 1;
   if (context.facts.length >= 3) {
-    score += 15;
+    recordedCount += 1;
     reasons.push("Core facts have been started.");
   } else {
     blockers.push("More structured facts are needed.");
   }
 
+  expectedCount += 1;
   if (context.evidenceItems.length >= 5) {
-    score += 20;
+    recordedCount += 1;
     reasons.push("Evidence package has multiple items.");
   } else if (context.evidenceItems.length > 0) {
-    score += 10;
+    recordedCount += 1;
     reasons.push("Some evidence has been added.");
     blockers.push("Evidence package still needs more support.");
   } else {
     blockers.push("Evidence package is still empty.");
   }
 
+  expectedCount += 1;
   if (context.timeline.length >= 3) {
-    score += 15;
+    recordedCount += 1;
     reasons.push("Timeline contains multiple dated events.");
   } else if (context.timeline.length > 0) {
-    score += 7;
+    recordedCount += 1;
     blockers.push("Timeline needs more dated events.");
   } else {
     blockers.push("Timeline needs dated events.");
   }
 
+  expectedCount += 1;
   if (context.issues.length >= 2) {
-    score += 15;
+    recordedCount += 1;
     reasons.push("Issues are identified and can be mapped.");
   } else if (context.issues.length > 0) {
-    score += 8;
+    recordedCount += 1;
     reasons.push("Initial issue structure has been detected.");
     blockers.push("Issue structure needs more development.");
   } else {
     blockers.push("Legal/factual issue structure needs more work.");
   }
 
+  expectedCount += 1;
   if (context.legalTheoryAnalysis.strongestTheory) {
-    score += 15;
+    recordedCount += 1;
+    // "Strongest detected theory" / "No strong legal theory" — the adjective
+    // graded the theory. The detection is a fact; the ranking was not.
     reasons.push(
-      `Strongest detected theory: ${context.legalTheoryAnalysis.strongestTheory.theoryName}.`,
+      `Detected legal theory: ${context.legalTheoryAnalysis.strongestTheory.theoryName}.`,
     );
   } else {
-    blockers.push("No strong legal theory detected yet.");
+    blockers.push("No legal theory detected yet.");
   }
 
+  expectedCount += 1;
   if (context.formNeeds.some((form) => form.status === "needed-now")) {
-    score += 10;
+    recordedCount += 1;
     reasons.push("Next document needs have been identified.");
   } else {
     blockers.push("Form needs have not been confirmed yet.");
   }
 
   if (context.risks.some((risk) => risk.severity === "high")) {
-    score -= 15;
     blockers.push(
       "High-risk proof, evidence, procedure, or strategy issues remain.",
     );
   }
 
   if (context.proceduralIntelligence.pathwayWarnings.length > 0) {
-    score -= 10;
     blockers.push("Forum/pathway warnings must be resolved.");
   }
 
-  const normalizedScore = Math.max(0, Math.min(100, score));
-
-  let level: CaseReadinessLevel = "not-ready";
-
-  if (normalizedScore >= 80) level = "hearing-ready";
-  else if (normalizedScore >= 65) level = "filing-ready";
-  else if (normalizedScore >= 45) level = "organized";
-  else if (normalizedScore >= 25) level = "developing";
-
+  // The clamp, the 0-100 value and the 80/65/45/25 ladder were here. The two
+  // penalty checks above (-15 for a high-severity risk, -10 for a pathway
+  // warning) still record their blocker; they no longer move a number, and
+  // they were never part of the count — a warning is not a missing record.
   return {
-    level,
-    score: normalizedScore,
+    recordedCount,
+    expectedCount,
     reasons: cleanList(reasons),
     blockers: cleanList(blockers),
   };
@@ -1340,7 +1344,9 @@ function buildNextSteps(
     );
   }
 
-  if (context.readiness.level === "not-ready") {
+  // Was `readiness.level === "not-ready"`. Nothing recorded is the fact the
+  // bottom rung stood for, and it needs no ladder to express.
+  if (context.readiness.recordedCount === 0) {
     steps.push(
       "Do not export final documents yet. Build evidence, timeline, issues, and proof mapping first.",
     );
@@ -1546,14 +1552,10 @@ function buildMasterCaseFile(context: Omit<CaseContext, "masterCaseFile">): Case
         "Separate facts from assumptions and legal conclusions.",
         "Explain causation and proof links issue by issue.",
       ]),
-      settlementConsiderations: cleanList([
-        context.casePath === "small-claims"
-          ? "Prepare settlement position, damages calculation, weaknesses, and proof summary."
-          : "",
-        context.casePath === "family"
-          ? "Separate child-focused outcomes, financial disclosure, safety concerns, and practical schedules."
-          : "",
-      ]),
+      // settlementConsiderations stood here. The small-claims entry told the
+      // user to "prepare settlement position, damages calculation, weaknesses
+      // and proof summary"; the field is off the type now, for the reason
+      // recorded there.
       nextStrategicSteps: context.strategyNotes,
     },
     courtPackage: {
@@ -1565,11 +1567,8 @@ function buildMasterCaseFile(context: Omit<CaseContext, "masterCaseFile">): Case
       exportNotes: context.courtPackageNotes,
     },
     readiness: {
-      level:
-        context.readiness.level === "hearing-ready"
-          ? "hearing-ready"
-          : context.readiness.level,
-      score: context.readiness.score,
+      recordedCount: context.readiness.recordedCount,
+      expectedCount: context.readiness.expectedCount,
       reasons: context.readiness.reasons,
       blockers: context.readiness.blockers,
     },

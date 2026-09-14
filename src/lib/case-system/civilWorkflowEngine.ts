@@ -597,47 +597,33 @@ function buildStrategicProfile(
   procedureProfile: CivilProcedureProfile,
   narrativeProfile: CivilNarrativeProfile,
 ): CivilStrategicProfile {
+  /*
+   * Five fields were removed here with their slots.
+   *
+   *   likelyDefenceArguments   - defenceVulnerabilities: the other side's
+   *                              case, predicted.
+   *   likelyJudgeConcerns      - judicialConcerns: what a judge will ask.
+   *   settlementConsiderations - "Settlement position should be based on
+   *                              evidence strength, damages proof, legal risk
+   *                              and procedural cost."
+   *   negotiationLeverage      - "Existing evidence can support settlement
+   *                              pressure if organized clearly."
+   *   proceduralPressurePoints - deadlines and expected motions, under a name
+   *                              framing them as pressure. The deadlines are
+   *                              already in procedureProfile as dates.
+   *
+   * Nothing replaces them. There is no factual version of what an opponent
+   * will argue, or of where a user has leverage.
+   */
   return {
-    strongestTheories: cleanStringList(
+    recordedTheories: cleanStringList(
       types.filter((type) => type !== "unknown" && type !== "mixed-civil"),
     ),
 
-    likelyDefenceArguments: cleanStringList(narrativeProfile.defenceVulnerabilities),
-
-    likelyJudgeConcerns: cleanStringList([
-      ...narrativeProfile.judicialConcerns,
-      ...procedureProfile.readinessWarnings,
-      ...procedureProfile.jurisdictionConcerns,
-    ]),
-
-    settlementConsiderations: cleanStringList([
-      "Settlement position should be based on evidence strength, damages proof, legal risk, and procedural cost.",
-      types.includes("defamation")
-        ? "Consider whether retraction, apology, removal, or correction matters in addition to money."
-        : "",
-      types.includes("breach-of-contract") || types.includes("debt")
-        ? "Consider payment plan, partial repayment, return of property, or documented settlement terms."
-        : "",
-    ]),
-
-    litigationRisks: cleanStringList([
+    recordedConcerns: cleanStringList([
       ...procedureProfile.limitationConcerns,
       ...procedureProfile.jurisdictionConcerns,
       ...narrativeProfile.unsupportedAssertions,
-    ]),
-
-    negotiationLeverage: cleanStringList([
-      evidenceCount(input) > 0
-        ? "Existing evidence can support settlement pressure if organized clearly."
-        : "",
-      hasTimeline(input)
-        ? "A clear chronology can improve negotiation credibility."
-        : "",
-    ]),
-
-    proceduralPressurePoints: cleanStringList([
-      ...procedureProfile.proceduralDeadlines,
-      ...procedureProfile.motionsExpected,
     ]),
 
     strategicNextSteps: cleanStringList([

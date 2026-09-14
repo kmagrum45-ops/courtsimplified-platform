@@ -111,9 +111,23 @@ export type LitigationReasoningResult = {
   generatedAt: string;
   caseId?: string;
 
-  readinessScore: number;
+  /**
+   * How many of the analysis sections exist, out of how many there are.
+   *
+   * These were `readinessScore: number` and `readinessLevel`. The score had
+   * already been changed to carry `sections.present` — a count — but KEPT ITS
+   * NAME "so every downstream consumer is unchanged", and the summary went on
+   * printing it as `${readinessScore}/100`. A user with four of six sections
+   * read "Readiness is partial at 4/100". That is not a grade; it is a false
+   * number, and it survived because the name still said score.
+   *
+   * Named for what they are, so the next person cannot read a count as a
+   * grade or print it over 100.
+   */
+  analysisSectionsPresent: number;
+  analysisSectionsTotal: number;
   /** How much of the analysis exists — NOT a grade. See LitigationAnalysisCoverage. */
-  readinessLevel: LitigationAnalysisCoverage;
+  analysisCoverage: LitigationAnalysisCoverage;
 
   /** Supporting material recorded in the file. Not a strength assessment. */
   recordedSupportingMaterial: string[];
@@ -172,7 +186,7 @@ function severityRank(value: unknown): number {
  * about the file. "none" and "all" are endpoints of a count, not of a
  * quality scale: they say how many sections exist, never how good they are.
  */
-function readinessLevelFromSections(sections: {
+function coverageFromSections(sections: {
   present: number;
   total: number;
 }): LitigationAnalysisCoverage {
@@ -571,13 +585,7 @@ export function buildLitigationReasoning(
   ];
 
   const sections = calculateSectionsPresent(input);
-  // `readinessScore` keeps its name and number type so every downstream
-  // consumer (brainMigrationLayer, the persisted patch) is unchanged, but
-  // it now carries a COUNT of analysis sections present rather than a
-  // graded score out of 100. `readinessLevel` reports how much of the
-  // analysis exists, not how good the case is.
-  const readinessScore = sections.present;
-  const readinessLevel = readinessLevelFromSections(sections);
+  const analysisCoverage = coverageFromSections(sections);
 
   // Session 48. Was strongestCasePoints / weakestCasePoints — case-strength
   // assessments by name and by content, reported by the journey battery and
@@ -628,8 +636,9 @@ export function buildLitigationReasoning(
     generatedAt: nowIso(),
     caseId: input.caseId,
 
-    readinessScore,
-    readinessLevel,
+    analysisSectionsPresent: sections.present,
+    analysisSectionsTotal: sections.total,
+    analysisCoverage,
 
     recordedSupportingMaterial,
     missingWork,
@@ -638,9 +647,12 @@ export function buildLitigationReasoning(
     nextActions: buildNextActions(findings),
     warnings,
 
+    // Was "Readiness is ${readinessLevel} at ${readinessScore}/100" — a count
+    // of six sections printed over 100, so a complete analysis read "6/100".
+    // The count is stated as what it is, and nothing is described as ready.
     summary:
       findings.length > 0
-        ? `Litigation reasoning reviewed the available claim, proof, evidence, authority, contradiction, and credibility signals. Readiness is ${readinessLevel} at ${readinessScore}/100 with ${findings.length} finding(s).`
-        : `Litigation reasoning found no major issues. Readiness is ${readinessLevel} at ${readinessScore}/100.`,
+        ? `Litigation reasoning reviewed the available claim, proof, evidence, authority, contradiction, and credibility signals. ${sections.present} of ${sections.total} analysis sections are present, with ${findings.length} finding(s).`
+        : `Litigation reasoning found no major issues. ${sections.present} of ${sections.total} analysis sections are present.`,
   };
 }

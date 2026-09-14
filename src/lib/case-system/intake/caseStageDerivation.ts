@@ -95,7 +95,11 @@ export function deriveCaseStage(facts: IntakeFacts): CaseStageDerivation {
     // Told us they are defending, but service is unconfirmed. Do not guess —
     // whether they were served is exactly what the service-method question
     // exists to establish.
-    basis.push("you described yourself as defending a claim", "whether you were served is not confirmed");
+    // Was "you described yourself as defending a claim". `facts.role` is an
+    // LLM extraction from the story, not an answer the user gave — the model
+    // decides "defendant" from the narrative, and the basis then told the
+    // user they had said it. The recorded value is reported as recorded.
+    basis.push("the role recorded for this case is defendant", "whether you were served is not confirmed");
     return { stage: "unknown", basis };
   }
 

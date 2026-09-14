@@ -45,14 +45,8 @@ export type EvidenceStrength =
 
 export type RiskSeverity = "low" | "medium" | "high" | "critical";
 
-export type CaseReadinessLevel =
-  | "not-ready"
-  | "developing"
-  | "organized"
-  | "filing-ready"
-  | "conference-ready"
-  | "hearing-ready"
-  | "trial-ready";
+// CaseReadinessLevel was here — a seven-rung ladder from "not-ready" to
+// "trial-ready". Deleted with the score that produced it; see CaseReadiness.
 
 export type CasePerson = {
   id: string;
@@ -184,7 +178,9 @@ export type ProceduralIntelligence = {
 export type StrategyProfile = {
   proofGaps: string[];
   suggestedWordingImprovements: string[];
-  settlementConsiderations: string[];
+  // settlementConsiderations removed, slot included. Same field, same
+  // reasoning, as the one taken off DashboardMaster: no producer, no
+  // renderer, and a slot named for settlement pressure invites it back.
   nextStrategicSteps: string[];
 };
 
@@ -197,10 +193,28 @@ export type CourtPackagePlan = {
   exportNotes: string[];
 };
 
+/**
+ * What is recorded in the file, and what is not.
+ *
+ * Was `{ level: CaseReadinessLevel; score: number; … }` — a 0-100 weighted
+ * sum (+20 for five evidence items, -15 for a high-severity risk) cut at
+ * 80/65/45/25 into a seven-value ladder ending at "trial-ready". Both graded
+ * the user's case, and the pair reached the user three separate times on the
+ * civil path as `Readiness level: organized (52/100)`.
+ *
+ * `reasons` and `blockers` were already the factual halves of the same
+ * checks: every check that produced score also pushed to one or the other.
+ * The counts say how many of the checks found something recorded, which is
+ * the fact the score was standing in for.
+ */
 export type CaseReadiness = {
-  level: CaseReadinessLevel;
-  score: number;
+  /** Checks that found something recorded. */
+  recordedCount: number;
+  /** Checks performed. Never a denominator for a percentage. */
+  expectedCount: number;
+  /** What is recorded. */
   reasons: string[];
+  /** What is not. */
   blockers: string[];
 };
 
@@ -310,7 +324,6 @@ export function createEmptyCaseFile(
       overrides.strategy || {
         proofGaps: [],
         suggestedWordingImprovements: [],
-        settlementConsiderations: [],
         nextStrategicSteps: [],
       },
 
@@ -326,8 +339,8 @@ export function createEmptyCaseFile(
 
     readiness:
       overrides.readiness || {
-        level: "not-ready",
-        score: 0,
+        recordedCount: 0,
+        expectedCount: 0,
         reasons: [],
         blockers: [],
       },

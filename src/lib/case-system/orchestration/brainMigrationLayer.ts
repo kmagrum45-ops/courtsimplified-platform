@@ -82,8 +82,9 @@ function buildLitigationReadinessSummary(
   const reasoning = bridge.assembly.litigationReasoning;
 
   return {
-    readinessScore: reasoning.readinessScore,
-    readinessLevel: reasoning.readinessLevel,
+    analysisSectionsPresent: reasoning.analysisSectionsPresent,
+    analysisSectionsTotal: reasoning.analysisSectionsTotal,
+    analysisCoverage: reasoning.analysisCoverage,
     recordedSupportingMaterialCount: reasoning.recordedSupportingMaterial.length,
     missingWorkCount: reasoning.missingWork.length,
     findingCount: reasoning.findings.length,
@@ -222,10 +223,12 @@ export function buildBrainMigrationLayer(args: {
       hasWarnings: warnings.length > 0,
       warningCount: warnings.length,
       litigationWarningCount: bridge.assembly.litigationReasoning.warnings.length,
-      litigationReadinessScore:
-        bridge.assembly.litigationReasoning.readinessScore,
-      litigationReadinessLevel:
-        bridge.assembly.litigationReasoning.readinessLevel,
+      litigationAnalysisSectionsPresent:
+        bridge.assembly.litigationReasoning.analysisSectionsPresent,
+      litigationAnalysisSectionsTotal:
+        bridge.assembly.litigationReasoning.analysisSectionsTotal,
+      litigationAnalysisCoverage:
+        bridge.assembly.litigationReasoning.analysisCoverage,
       nextRoute: recommendedNextRoute,
     },
   };

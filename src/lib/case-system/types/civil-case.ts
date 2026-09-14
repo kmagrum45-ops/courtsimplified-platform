@@ -181,16 +181,25 @@ export type CivilCaseFileCatalog = {
 };
 
 export type CivilStrategicProfile = {
-  strongestTheories: string[];
+  /**
+   * Legal theories DETECTED in the recorded facts, in the order they were
+   * detected. Was `strongestTheories` — the adjective ranked the user's own
+   * theories against each other.
+   */
+  recordedTheories: string[];
 
-  likelyDefenceArguments: string[];
-  likelyJudgeConcerns: string[];
+  // Removed, slots included:
+  //   likelyDefenceArguments    - predicted the opponent's case
+  //   likelyJudgeConcerns       - predicted a judge
+  //   settlementConsiderations  - settlement pressure
+  //   negotiationLeverage       - the same list under a second name
+  //   proceduralPressurePoints  - litigationRisks under a second name
+  // The first two were already forced to `[]` with a comment saying they were
+  // a section 3 violation. Empty named slots are how this content comes back;
+  // the fields are gone.
 
-  settlementConsiderations: string[];
-  litigationRisks: string[];
-
-  negotiationLeverage: string[];
-  proceduralPressurePoints: string[];
+  /** Recorded procedural and evidentiary concerns. Was `litigationRisks`. */
+  recordedConcerns: string[];
 
   strategicNextSteps: string[];
 };

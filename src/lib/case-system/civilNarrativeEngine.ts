@@ -357,8 +357,9 @@ export function runCivilNarrativeEngine(
       damagesProfile?.damagesProofMissing?.length
         ? "Damages proof gaps remain."
         : "",
-      strategicProfile?.strongestTheories?.length
-        ? `Strongest civil theories: ${strategicProfile.strongestTheories.join(", ")}.`
+      // Was "Strongest civil theories: X" — ranked the user's own theories.
+      strategicProfile?.recordedTheories?.length
+        ? `Civil theories recorded: ${strategicProfile.recordedTheories.join(", ")}.`
         : "",
     ]).join(" "),
   };

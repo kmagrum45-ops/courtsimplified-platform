@@ -42,7 +42,9 @@ export type FormKnowledgeRule = {
   requiredEvidence: string[];
 
   lawyerLogic: string;
-  judgeConcern: string;
+  // `judgeConcern: string` was here, on twelve forms, surfaced live
+  // through formTriggerEngine. A predicted judge question is section 3
+  // whether it is hand-authored or computed.
   riskIfWrong: string;
 };
 
@@ -114,8 +116,6 @@ export const FORM_KNOWLEDGE_BASE: FormKnowledgeRule[] = [
     ],
     lawyerLogic:
       "Do not recommend later procedural documents until the originating claim exists. The first task is to create a coherent claim with parties, facts, remedy, damages, and evidence.",
-    judgeConcern:
-      "The claim must clearly explain what happened, why the defendant is responsible, and how the amount claimed was calculated.",
     riskIfWrong:
       "Recommending later forms before the Plaintiff’s Claim confuses the workflow and may cause the user to skip the document that starts the case.",
   },
@@ -161,8 +161,6 @@ export const FORM_KNOWLEDGE_BASE: FormKnowledgeRule[] = [
     ],
     lawyerLogic:
       "Only recommend proof of service after there is actually a document to prove was served.",
-    judgeConcern:
-      "The court needs reliable proof that the other party received proper notice.",
     riskIfWrong:
       "If suggested too early, the user may try to prove service before anything was served.",
   },
@@ -213,8 +211,6 @@ export const FORM_KNOWLEDGE_BASE: FormKnowledgeRule[] = [
     ],
     lawyerLogic:
       "A defence must respond directly to the claim. The system should not recommend a new Plaintiff’s Claim when the user is actually responding.",
-    judgeConcern:
-      "The Defence should identify what facts are disputed and why.",
     riskIfWrong:
       "If the defendant does not respond properly, default steps may become possible.",
   },
@@ -254,8 +250,6 @@ export const FORM_KNOWLEDGE_BASE: FormKnowledgeRule[] = [
     ],
     lawyerLogic:
       "An offer can be strategic, but it should not replace the required originating or responding documents.",
-    judgeConcern:
-      "The offer should be clear enough that the other side can accept it.",
     riskIfWrong:
       "A vague offer may not help settlement and may confuse the user’s position.",
   },
@@ -295,8 +289,6 @@ export const FORM_KNOWLEDGE_BASE: FormKnowledgeRule[] = [
     ],
     lawyerLogic:
       "Witness forms should be recommended only when the case is actually moving toward trial.",
-    judgeConcern:
-      "Witness evidence should be relevant and not repetitive.",
     riskIfWrong:
       "Recommending witness forms too early overwhelms users and distracts from the current procedural step.",
   },
@@ -354,8 +346,6 @@ export const FORM_KNOWLEDGE_BASE: FormKnowledgeRule[] = [
     ],
     lawyerLogic:
       "The Application is the originating family document. Do not recommend conference briefs or motion records before the case exists unless there is an existing file.",
-    judgeConcern:
-      "The requested orders must be clear and tied to facts.",
     riskIfWrong:
       "Starting with later forms can make the user miss the document that opens the case.",
   },
@@ -408,8 +398,6 @@ export const FORM_KNOWLEDGE_BASE: FormKnowledgeRule[] = [
     ],
     lawyerLogic:
       "Respondents need an Answer, not a new Application, unless making separate claims that procedure allows.",
-    judgeConcern:
-      "The Answer should respond clearly to the Application.",
     riskIfWrong:
       "Wrongly recommending an Application to a respondent can confuse the role and procedural posture.",
   },
@@ -458,8 +446,6 @@ export const FORM_KNOWLEDGE_BASE: FormKnowledgeRule[] = [
     ],
     lawyerLogic:
       "Financial forms should be triggered by support or disclosure issues, not by every family case.",
-    judgeConcern:
-      "Support cannot be assessed properly without reliable financial disclosure.",
     riskIfWrong:
       "Recommending financial forms in a pure parenting dispute adds unnecessary burden.",
   },
@@ -517,8 +503,6 @@ export const FORM_KNOWLEDGE_BASE: FormKnowledgeRule[] = [
     ],
     lawyerLogic:
       "Parenting affidavits should be triggered by child-related claims, not by every family case.",
-    judgeConcern:
-      "The court needs child-focused facts, not general conflict.",
     riskIfWrong:
       "Failing to trigger this form in parenting cases can leave out core parenting evidence.",
   },
@@ -585,8 +569,6 @@ export const FORM_KNOWLEDGE_BASE: FormKnowledgeRule[] = [
     ],
     lawyerLogic:
       "Civil claims require pleading discipline: material facts first, legal causes of action second, evidence later.",
-    judgeConcern:
-      "The pleading must disclose a legally recognized claim and a remedy the court can grant.",
     riskIfWrong:
       "Using the wrong originating process or pleading weak facts can expose the case to procedural attack.",
   },
@@ -632,8 +614,6 @@ export const FORM_KNOWLEDGE_BASE: FormKnowledgeRule[] = [
     ],
     lawyerLogic:
       "The Defence must respond to pleaded allegations and preserve legal defences.",
-    judgeConcern:
-      "The Defence should clearly define what issues remain disputed.",
     riskIfWrong:
       "A poor Defence can narrow or damage the user’s position early.",
   },
@@ -677,8 +657,6 @@ export const FORM_KNOWLEDGE_BASE: FormKnowledgeRule[] = [
     ],
     lawyerLogic:
       "Proof of service is procedural proof, not an originating step.",
-    judgeConcern:
-      "The court must be satisfied the other party received proper notice.",
     riskIfWrong:
       "If service proof is missing, the court may refuse to proceed.",
   },
