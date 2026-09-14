@@ -32,6 +32,7 @@
     "test:court-path-classifier": "node --import tsx scripts/verification/verifyCourtPathClassifier.ts",
     "test:depth-questions": "node --import tsx scripts/verification/verifyDepthQuestions.ts",
     "test:evidence-guidance": "node --import tsx scripts/verification/verifyEvidenceGuidanceClaims.ts",
+    "test:exported-document": "node --import tsx scripts/verification/verifyExportedDocument.ts",
     "test:family-forms": "node --import tsx scripts/verification/verifyFamilyForms.ts",
     "test:family-no-scores": "node --import tsx scripts/verification/verifyFamilyNoScores.ts",
     "test:fixture-guards": "node --import tsx scripts/verification/verifyFixtureHarnessGuards.ts",

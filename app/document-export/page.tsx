@@ -47,8 +47,10 @@ type ExportResult = {
   id: string;
   title: string;
   format: string;
-  readiness: string;
-  readinessScore: number;
+  // `readiness` and `readinessScore` were here. They stopped being displayed
+  // when the Readiness card came out, but the slots stayed and the export
+  // route kept printing both into the document itself. Removed with the
+  // route's `score` and `status`, so there is nothing left to print back.
   content: string;
   warnings: string[];
   diagnostics: {

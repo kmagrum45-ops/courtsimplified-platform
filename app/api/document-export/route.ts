@@ -94,23 +94,37 @@ function buildEvidenceContent(evidencePackage: any): string[] {
   });
 }
 
-function calculateReadiness(sections: ExportSection[]) {
-  const total = sections.length || 1;
-  const ready = sections.filter((section) => section.ready).length;
-  const warnings = sections.flatMap((section) => section.warnings);
+/**
+ * How much of the package has content in it. Counts, not a grade.
+ *
+ * This was `calculateReadiness`, and it returned `score` —
+ * `Math.round((ready / total) * 100)` — plus `status`, one of
+ * "ready-for-final-review" / "needs-review" / "needs-repair". Both were
+ * printed into the plain-text package as `Readiness: 33%` and
+ * `Status: needs-repair`.
+ *
+ * The export screen removed its Readiness card for exactly that reason and
+ * replaced it with the section count, but the DOCUMENT kept printing both —
+ * so the grade stopped appearing on the screen and carried on leaving the
+ * building on paper the user takes to a court office. "Not rendered in the
+ * UI" is not evidence that a value does not reach the user.
+ *
+ * The facts underneath were never a merits judgment: `ready` is
+ * `content.length > 0`, so the whole thing was "two of these six sections
+ * have something in them". That fact is kept and named. The percentage and
+ * the ordinal verdict are gone, slots included — a `score` field left on the
+ * object is what let this get printed again after the screen was fixed.
+ */
+function summarizeSections(sections: ExportSection[]) {
+  const withContent = sections.filter((section) => section.ready);
+  const empty = sections.filter((section) => !section.ready);
 
   return {
-    score: Math.round((ready / total) * 100),
-    ready,
-    missing: total - ready,
-    total,
-    warnings,
-    status:
-      ready === total
-        ? "ready-for-final-review"
-        : ready >= Math.ceil(total / 2)
-          ? "needs-review"
-          : "needs-repair",
+    withContent: withContent.length,
+    empty: empty.length,
+    total: sections.length,
+    emptyTitles: empty.map((section) => section.title),
+    warnings: sections.flatMap((section) => section.warnings),
   };
 }
 
@@ -210,14 +224,18 @@ function buildPlainTextPackage(args: {
   caseId?: string;
   path?: string;
   sections: ExportSection[];
-  readiness: ReturnType<typeof calculateReadiness>;
+  sectionSummary: ReturnType<typeof summarizeSections>;
 }) {
   const header = [
     "CourtSimplified Export Package",
     `Case ID: ${args.caseId || "Not provided"}`,
     `Path: ${args.path || "unknown"}`,
-    `Readiness: ${args.readiness.score}%`,
-    `Status: ${args.readiness.status}`,
+    `Sections with content: ${args.sectionSummary.withContent} of ${args.sectionSummary.total}`,
+    // Named, not counted. A user reading this on paper can check each one
+    // against their own file; "4 missing" tells them nothing actionable.
+    args.sectionSummary.emptyTitles.length > 0
+      ? `Sections with no content: ${args.sectionSummary.emptyTitles.join(", ")}`
+      : "Every section has content.",
     `Generated: ${new Date().toISOString()}`,
   ].join("\n");
 
@@ -253,13 +271,13 @@ export async function POST(req: NextRequest) {
     const body: ExportRequestBody = await req.json();
 
     const sections = buildExportSections(body);
-    const readiness = calculateReadiness(sections);
+    const sectionSummary = summarizeSections(sections);
 
     const plainText = buildPlainTextPackage({
       caseId: body.caseId,
       path: body.path,
       sections,
-      readiness,
+      sectionSummary,
     });
 
     const exportPackage = {
@@ -268,12 +286,15 @@ export async function POST(req: NextRequest) {
       path: body.path || "unknown",
       createdAt: new Date().toISOString(),
       format: body.exportFormat || "package",
-      readiness,
+      sectionSummary,
       sections,
       plainText,
       nextActions: [
-        readiness.score < 80
-          ? "Review missing sections before relying on the export package."
+        // Was `readiness.score < 80 ? … : …` — an unsourced threshold picking
+        // which sentence the user got. Now it names what is empty, or says
+        // nothing is.
+        sectionSummary.emptyTitles.length > 0
+          ? `These sections have no content yet: ${sectionSummary.emptyTitles.join(", ")}.`
           : "Review the final package carefully before filing or sharing.",
         "Confirm exhibit labels match the evidence package.",
         "Confirm chronology dates match source evidence.",

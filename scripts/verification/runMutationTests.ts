@@ -39,6 +39,9 @@ const CANDIDATES = "src/lib/case-system/events/caseEventCandidates.ts";
 const CANDIDATES_ROUTE = "app/api/cases/event-candidates/route.ts";
 const ANALYZE_ROUTE = "app/api/small-claims/analyze/route.ts";
 
+const EXPORT_ROUTE = "app/api/document-export/route.ts";
+const EXPORT_SUITE = "scripts/verification/verifyExportedDocument.ts";
+
 const FORMS_SUITE = "scripts/verification/verifyFamilyForms.ts";
 const SCORES_SUITE = "scripts/verification/verifyFamilyNoScores.ts";
 const PROVISIONS_SUITE = "scripts/verification/verifyCitedProvisions.ts";
@@ -494,6 +497,48 @@ const CASES: MutationCase[] = [
         file: ANALYZE_ROUTE,
         find: "      allowExternalCognition,\n      confirmedEvents,\n",
         replace: "      allowExternalCognition,\n",
+      },
+    ],
+  },
+  // The exported document is the one place a graded value leaves the building
+  // on paper. These reintroduce it three ways: printed in the header, printed
+  // through the next-action branch, and merely carried on the response object
+  // where the last one sat unprinted until somebody printed it again.
+  {
+    label: "a readiness percentage is printed back into the document header",
+    suite: EXPORT_SUITE,
+    mutations: [
+      {
+        file: EXPORT_ROUTE,
+        find:
+          "    `Sections with content: ${args.sectionSummary.withContent} of ${args.sectionSummary.total}`,",
+        replace:
+          "    `Readiness: ${Math.round((args.sectionSummary.withContent / args.sectionSummary.total) * 100)}%`,",
+      },
+    ],
+  },
+  {
+    label: "the next action goes back to a threshold branch",
+    suite: EXPORT_SUITE,
+    mutations: [
+      {
+        file: EXPORT_ROUTE,
+        find:
+          "        sectionSummary.emptyTitles.length > 0\n          ? `These sections have no content yet: ${sectionSummary.emptyTitles.join(\", \")}.`",
+        replace:
+          "        sectionSummary.withContent / sectionSummary.total < 0.8\n          ? `Readiness ${Math.round((sectionSummary.withContent / sectionSummary.total) * 100)}% — review missing sections.`",
+      },
+    ],
+  },
+  {
+    label: "a score field returns to the export package, unprinted",
+    suite: EXPORT_SUITE,
+    mutations: [
+      {
+        file: EXPORT_ROUTE,
+        find: "      sectionSummary,\n      sections,\n      plainText,",
+        replace:
+          "      sectionSummary,\n      readiness: { score: 33, status: \"needs-repair\" },\n      sections,\n      plainText,",
       },
     ],
   },

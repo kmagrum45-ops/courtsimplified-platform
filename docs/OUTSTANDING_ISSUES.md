@@ -652,9 +652,11 @@ absent.
 
 ---
 
-## 21. AUDIT NOT YET RUN — `master_result` fields that are read and never written
+## 21. `master_result` fields that are read and never written — AUDIT RUN, one fixed
 
-**Queued deliberately. Report findings before fixing anything.**
+**The audit ran on 2026-09-13. Findings at the bottom of this section.** The
+method and the reasoning are kept above them because the failure shape recurs
+and the next person needs both.
 
 ### The failure shape
 
@@ -701,6 +703,128 @@ A typed accessor for `master_result` would make the whole class impossible —
 one module owning the shape, with the reads and writes visible together. That is
 a larger change than the audit and should not gate it, but the audit is the
 thing that would tell you whether it is worth doing.
+
+### FINDINGS (2026-09-13)
+
+**Found a third instance, and it was the worst of the three.**
+
+| Field | Read by | Status |
+|---|---|---|
+| `timeline` | `app/api/cases/event-candidates` | **FIXED (`aacf63c`).** Never written top-level. Entries live at `masterCase.timeline`. Every request to the candidate surface resolved zero candidates from the day it shipped. |
+
+The read is now `candidatesFromMasterResult` in `src/`, so the LOCATION is
+checkable rather than only the parsing — `candidatesFromTimeline` was correct
+and mutation-covered throughout, and was handed `undefined`. **The doc comment
+asserting the top-level location was written without checking**: inferred from
+the shape of `mapEvent`'s return value, never from where that value is stored.
+
+**Twelve dead wires on the forms page, not fixed.**
+`app/forms/page.tsx` reads `proceduralStage`, `currentStage`, `stage`,
+`requiredNextForms`, `requiredForms`, `recommendedForms`, `completedForms`,
+`receivedForms`, `architectureWarnings`, `missingInformation`, `risksAndGaps`
+and `guidance` from the blob. None is written by any path. The screen is not
+broken — the stage chain falls through to `assembly.proceduralState`, which is
+written, and the forms surface is carried by `courtSimplifiedArchitecture` and
+`masterCase` — but half the inputs to that page contribute nothing. Deciding
+between feeding them and deleting them is a design call per step 4 above.
+
+**Four dead fallback tails in `app/api/document-export`:** `analysis`, `facts`,
+`goal`, `timeline`, each last in a chain behind `body.facts` / `body.goal` /
+`body.caseData`. `app/document-export/page.tsx` passes only `master_result`,
+so they may bite; not proven either way.
+
+**Clean:** `masterCase`, `caseSystemAssembly`, `courtSimplifiedArchitecture`,
+`workflowReadiness`, `persistedRecord`, `intakeData`, `intakeAnalysis`,
+`masterCaseFile`, `formApplicability`. `assembly` is never written but is a
+documented fallback for `caseSystemAssembly`, which is.
+
+**Still single-path:** `derivedFrom` and `intakeFacts` are written only by the
+builder save site. `POST /api/cases` spreads `...existing` and refreshes
+neither, so a case last touched by that route derives its stage from stale
+intake facts and says nothing about it.
+
+---
+
+## 23. `CaseContext.strengths` / `.weaknesses` — persisted under §3 names
+
+`caseContextEngine.ts:143-144` declares them, `:1827-1828` persists them, and
+`:1872-1877` reads them back off the stored payload. So these are §3-named
+fields living in the user's saved case.
+
+**Not a live §3 exposure.** The §3 *content* question was already settled
+downstream: `:1540` maps `context.weaknesses` into `proofGaps`, and the
+comment at `:1534-1536` records that `StrategyProfile.strengths/weaknesses`
+were removed and that this is a SEPARATE structure feeding the survivor. What
+is underneath is gap content, not merit content.
+
+**Deliberately left alone (2026-09-13).** Renaming a structure that is written
+to and read back from storage is a design call, not a rename: old rows keep
+the old keys, and the read-back at `:1872` would need to decide whether to
+fall back to them — which is exactly the decision `extractDashboardMaster`
+took the other way, with a comment explaining why falling back would
+reintroduce removed content. That decision needs making once, for this
+structure, on its own.
+
+**What would make it worth doing:** any new reader of `context.strengths`
+appearing, or the field reaching a user-facing surface under its own name.
+Neither is true today.
+
+---
+
+## 22. `readiness.score` — removed from the export, still live on the civil path
+
+**The export half is FIXED.** The plain-text package a user carries to a court
+office printed `Readiness: 33%` and `Status: needs-repair`. The export SCREEN
+had already removed its Readiness card as a §3 grading (`dc3934c`), and left a
+comment saying so — **and the document went on printing both for months
+afterwards.** The screen was checked by eye; the document was checked by
+nothing.
+
+That is the lesson worth keeping: *a value that has stopped appearing on a
+screen has not stopped reaching the user.* `scripts/verification/
+verifyExportedDocument.ts` now renders the actual document and reads what a
+user would read, rather than grepping the route — a source check would have
+passed on the day the card came out, which is exactly when it was wrong.
+
+What was underneath was never a merits judgment: `ready` is
+`content.length > 0`, so the score was "two of these six sections have
+something in them". That fact is kept and named; the percentage, the ordinal
+status, and the `score < 80` next-action branch are gone, **slots included** —
+a `score` field left on the response object is one template literal away from
+being printed again, and there is a mutation covering exactly that.
+
+### STILL OPEN — the civil path, which is worse
+
+`civilStrategyEngine.ts` emits as literal user-facing text:
+
+```
+`Current civil readiness level: ${master.readiness.level} (${master.readiness.score}/100).`
+```
+
+unconditionally, as the first member of `buildReadinessStrategy`. `CivilIntake.
+tsx:422` independently builds the same string again into `inferredFacts`. Both
+reach the user: `readinessStrategy` flows into `suggestedFocus` and `guidance`,
+and `suggestedFocus` is printed under "Next focus:" in the summary handed to
+`handleComplete`. `CivilIntake` is mounted at `builder/page.tsx:1099` for
+`courtPath === "civil"`.
+
+Three threshold branches sit on the same score:
+
+| Branch | Emits |
+|---|---|
+| `>= 65` (`buildSettlementLeverage`) | "The file is organized enough to support a more structured settlement position." |
+| `< 45` (`buildReadinessStrategy`) | "Focus on facts, chronology, evidence, and forum before drafting final documents." |
+| `45–65` | "Move from organization into proof mapping and damages support." |
+| `>= 65` | "Begin preparing drafting, settlement, and package-readiness materials while resolving final blockers." |
+
+**The branches have a factual replacement; the score strings do not.** Each
+branch is really a statement about what is and is not recorded, and
+`readiness.blockers` already carries that directly and unscored. The `N/100`
+strings have nothing to replace them and should simply go.
+
+**Not started.** Three call sites plus whatever computes
+`CivilCaseData.readiness.score`, and `buildSettlementLeverage` is settlement-
+pressure content in its own right — a separate question from the number.
 
 ---
 
