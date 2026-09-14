@@ -321,6 +321,75 @@ before quoting a section from it.**
 
 ---
 
+### lso.ca returns HTTP 403 to automated fetches — by-laws need the `docs/sources/` route (2026-09-14)
+
+The Law Society of Ontario's site blocks automated requests, including with a
+browser user-agent. Verified on the by-law index and on a direct PDF guess:
+
+| URL | Result |
+|---|---|
+| `https://lso.ca/about-lso/legislation-rules/by-laws/by-law-4` | **403** |
+| `https://lso.ca/getmedia/by-law-4.pdf` | 404 |
+
+Same class as CanLII. The route is a manual download saved under
+`docs/sources/` with its URL and retrieval date recorded in the README.
+
+**This blocks a high-value question.** The Law Society Act delegates the
+entire non-licensee exemption power to the by-laws — s. 1(8)5, s. 26.1(5) and
+s. 62(0.1)3.1 all point there — so the by-laws decide what unlicensed software
+may do. See `docs/REGULATORY_POSITION.md`.
+
+### Ontario court practice directions ARE fetchable from ontariocourts.ca (2026-09-14)
+
+Unlike lso.ca and CanLII, `ontariocourts.ca` serves plain HTML to a normal
+fetch. Strip tags with `sed 's/<[^>]*>/ /g'` and read directly.
+
+The four provincial consolidated directions live at
+`https://www.ontariocourts.ca/scj/filing-procedures/provincial/`:
+`consolidated-civil-provincial-practice-direction/`,
+`consolidated-provincial-practice-direction-for-family-proceedings/`,
+`…-for-criminal-proceedings/`, and
+`consolidated-practice-direction-for-divisional-court-proceedings/`.
+
+**There is no Small Claims consolidated provincial practice direction at that
+index** — four are listed and Small Claims is not among them. Treat as
+not-found rather than non-existent.
+
+### The Federal Court publishes its AI notice as a fetchable PDF (2026-09-14)
+
+`https://www.fct-cf.gc.ca/Content/assets/pdf/base/FC-Updated-AI-Notice-EN.pdf`
+fetches cleanly. `pdftotext` is NOT installed in this environment; a small
+node script that inflates the PDF's Flate streams and pulls the `(...)`
+text-showing operands extracts it adequately for quoting.
+
+### Statute filename check, again: the `elaws_statutes_` prefix cuts both ways
+
+For the **Law Society Act** the plain form is current and the prefixed form is
+stale — the reverse of the Negligence Act already recorded above:
+
+| File | Consolidation |
+|---|---|
+| `90l08_e.doc` | **FROM DECEMBER 4, 2024** — current |
+| `elaws_statutes_90l08_e.doc` | FROM APRIL 7, 2014 — stale |
+
+Both return HTTP 200. The header is the only reliable discriminator; there is
+no filename rule in either direction.
+
+### Consolidations current as of 2026-09-14, for anything relying on them
+
+| Instrument | File | Consolidation |
+|---|---|---|
+| Law Society Act, R.S.O. 1990, c. L.8 | `90l08_e.doc` | Dec 4, 2024 |
+| Rules of Civil Procedure, R.R.O. 1990, Reg. 194 | `900194_e.doc` | **Sept 1, 2026** |
+| Rules of the Small Claims Court, O. Reg. 258/98 | `980258_e.doc` | Oct 14, 2025 |
+| Family Law Rules, O. Reg. 114/99 | `990114_e.doc` | May 1, 2026 |
+
+The Rules of Civil Procedure date is recent enough that anything recorded
+about Superior Court procedure from an earlier reading should be re-checked
+rather than assumed.
+
+---
+
 ## Dead ends already ruled out
 
 ### Ontario Fault Determination Rules ≠ a route to sue the other driver
