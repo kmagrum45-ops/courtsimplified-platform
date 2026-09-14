@@ -461,6 +461,19 @@ recorded in full. Those 6 are flagged individually below.
 
 ### `oreg-258-98-cited-rules.txt`
 
+> **Updated 2026-09-14: rr. 11.01–11.06 (default proceedings) appended.**
+> Same document, same consolidation (from 2025-10-14), extracted the same
+> way. Retrieved because a user who records a default needs to know what the
+> rule provides, and nothing in the repo stated it.
+>
+> **Forms rule 11 names:** Form 9B (request to note a defendant in default —
+> "may be made in", not required; also the form a request for an assessment
+> hearing "may be in"), Form 11A (affidavit for jurisdiction, needed before
+> the clerk may note anyone in default where ALL defendants were served
+> outside the territorial division), Form 11B (default judgment, signed by
+> the clerk), Form 15A (notice of motion and supporting affidavit, for a
+> motion in writing for an assessment of damages).
+
 - **What it is:** the trial and enforcement rules of **O. Reg. 258/98
   (Rules of the Small Claims Court)** — rr. 16–18 (trial scheduling,
   trial management conference, trial) and r. 20 (enforcement of orders).

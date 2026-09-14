@@ -1000,3 +1000,126 @@ Satisfaction of Order
       (b)   the debtor may make  a  motion  for  an  order  confirming  that
     payment has been made in full satisfaction of the  order  or  terms  of
     settlement.  O. Reg. 78/06, s. 48; O. Reg. 393/09, s. 23.
+
+---------------------------------------------------------------------- 
+rr. 11.01 to 11.06 — default proceedings
+Retrieved 2026-09-14 from the same document and consolidation as above.
+---------------------------------------------------------------------- 
+
+                        RULE 11  DEFAULT PROCEEDINGS
+
+NOTING DEFENDANT IN DEFAULT
+      11.01  (1)  If a defendant to a plaintiff's claim or  a  defendant's
+claim fails to file a defence to all or part of the  claim  with  the  clerk
+within the prescribed time, the clerk may note the defendant in  default  on
+the filing of,
+      (a)   a request to note the defendant in default, which  may  be  made
+    in Form 9B; and
+      (b)   proof that the claim was served within the  court's  territorial
+    division, subject to subrule (3). O. Reg. 249/21, s. 6 (1).
+      (1.1)  Revoked: O. Reg. 249/21, s. 6 (1).
+
+Leave Required for Person under Disability
+      (2)  A person under disability may not  be  noted  in  default  under
+subrule (1), except with leave of the court.  O. Reg. 78/06, s. 24.
+
+Service Outside Territorial Division
+      (3)  If all the defendants  have  been  served  outside  the  court's
+territorial division, the clerk shall not  note  any  defendant  in  default
+until it is proved by an affidavit for jurisdiction (Form  11A)  filed  with
+the clerk, or by evidence presented before a  judge,  that  the  action  was
+properly brought in that territorial division.  O. Reg. 78/06,  s. 24;  O.
+Reg. 249/21, s. 6 (2).
+      (4)  Revoked: O. Reg. 249/21, s. 6 (3).
+
+Default Judgment, Plaintiff's Claim, Debt or Liquidated Demand
+      11.02  (1)  If a defendant has been noted in default, the clerk  may
+sign default judgment (Form 11B) in respect of the claim or any part of  the
+claim to which the default applies that is for a debt or  liquidated  demand
+in money, including interest if claimed.  O. Reg. 78/06, s. 24.
+      (2)  The fact that default judgment has been signed under subrule (1)
+does not affect the plaintiff's right to proceed on  the  remainder  of  the
+claim or against any other defendant for all or part of the claim.  O. Reg.
+78/06, s. 24.
+
+Manner of Service of Default Judgment
+      (3)  A default judgment (Form 11B) shall be served in accordance with
+subrule 8.01 (4). O. Reg. 78/06, s. 24; O. Reg. 44/14, s. 9; O. Reg. 38/16,
+s. 4.
+
+Default Judgment, Plaintiff's Claim, Unliquidated Demand
+      11.03  (1)  If all  defendants  have  been  noted  in  default,  the
+plaintiff may obtain judgment against a  defendant  noted  in  default  with
+respect to any part of the  claim  to  which  rule  11.02  does  not  apply.
+O. Reg. 78/06, s. 24.
+      (2)  To obtain judgment, the plaintiff may,
+      (a)   file a notice of motion  and  supporting  affidavit  (Form  15A)
+    requesting a motion in writing for an assessment  of  damages,  setting
+    out the reasons why the motion should  be  granted  and  attaching  any
+    relevant documents; or
+      (b)   file a request for an assessment hearing, which may be  in  Form
+    9B. O. Reg. 78/06, s. 24; O. Reg. 393/09, s. 9; O. Reg. 249/21, s. 7
+    (1).
+      (2.1), (2.2)  Revoked: O. Reg. 249/21, s. 7 (2).
+
+Inadequate Supporting Affidavit
+      (3)  On a motion in writing for an assessment of damages under clause
+(2)  (a),  a  judge  who  finds  the  plaintiff's  affidavit  inadequate  or
+unsatisfactory may order that,
+      (a)   a further affidavit be provided; or
+      (b)   an assessment hearing be held.  O. Reg. 78/06, s. 24.
+
+Assessment Hearing
+      (4)  If an assessment hearing is to be held under clause (2)  (b)  or
+(3) (b), the clerk shall fix a date for the hearing and  send  a  notice  of
+hearing to the plaintiff, and the assessment  hearing  shall  proceed  as  a
+trial in accordance with rule 17.  O. Reg. 78/06, s. 24.
+
+Matters to be Proved
+      (5)  On a motion in writing for an assessment of  damages  or  at  an
+assessment hearing,  the  plaintiff  is  not  required  to  prove  liability
+against a defendant noted in default, but is required to  prove  the  amount
+of the claim.  O. Reg. 78/06, s. 24.
+
+Service of Order
+      (6)  An order made on a  motion  in  writing  for  an  assessment  of
+damages shall be served by the clerk in accordance with  subrule  8.01  (5).
+O. Reg. 78/06, s. 24.
+
+No Assessment where Defence Filed
+      (7)  If one or more defendants have  filed  a  defence,  a  plaintiff
+requiring an assessment of damages against  a  defendant  noted  in  default
+shall proceed to a settlement conference under rule 13 and, if necessary,  a
+trial in accordance with rule 17.  O. Reg. 78/06, s. 24.
+
+Default Judgment, Defendant's Claim
+      11.04  If a party against whom a defendant's claim is made  has  been
+noted in default, judgment may be obtained against the party only  at  trial
+or on motion.  O. Reg. 78/06, s. 24.
+
+Consequences of Noting in Default
+      11.05  (1)  A defendant who has been noted in default shall not file
+a defence or take any other step in the proceeding, except making  a  motion
+under rule 11.06, without leave of the court  or  the  plaintiff's  consent.
+O. Reg. 78/06, s. 24.
+      (2)  Any step in the proceeding may be taken without the consent of a
+defendant who has been noted in default.  O. Reg. 78/06, s. 24.
+      (3)  A defendant who has been noted in default  is  not  entitled  to
+notice of any step in the proceeding and need not be served with  any  other
+document, except the following:
+      1.    Subrule 11.02 (3) (service of default judgment).
+      2.    Rule 12.01 (amendment of claim or defence).
+      3.    Subrule 15.01 (6) (motion after judgment).
+      4.     Postjudgment  proceedings  against  a  debtor  under  rule  20.
+    O. Reg. 78/06, s. 24.
+
+Setting Aside Noting of Default by Court on Motion
+      11.06  The court may set aside  the  noting  in  default  or  default
+judgment against a party and any step that has been  taken  to  enforce  the
+judgment, on such terms as are just, if the party  makes  a  motion  to  set
+aside and the court is satisfied that,
+       (a)    the  party  has  a  meritorious  defence  and   a   reasonable
+    explanation for the default; and
+      (b)   the motion is made as soon as is reasonably possible in all  the
+    circumstances.  O. Reg. 78/06, s. 24.
+

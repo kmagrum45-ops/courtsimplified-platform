@@ -108,6 +108,31 @@ export type StatutoryProvision = {
 };
 
 export const STATUTORY_PROVISIONS: StatutoryProvision[] = [
+  // ---- Small Claims default proceedings ----
+  //
+  // Retrieved 2026-09-14. Two routes after a defendant is noted in default,
+  // and WHICH ROUTE A CLAIM TAKES IS NOT SOMETHING THIS SITE DECIDES — the
+  // rule states the distinction and the user applies it to their own claim.
+  //
+  //   r. 11.02 (1)  clerk MAY sign default judgment (Form 11B) for the part
+  //                 of the claim that is a debt or liquidated demand in
+  //                 money, including interest if claimed.
+  //   r. 11.03      everything r. 11.02 does not cover, and only if ALL
+  //                 defendants are noted in default. Either a motion in
+  //                 writing for an assessment of damages (Form 15A) or a
+  //                 request for an assessment hearing (may be Form 9B).
+  //
+  // r. 11.03 (7) is a third route the two-way framing misses: where any
+  // defendant HAS filed a defence, a plaintiff needing an assessment goes to
+  // a settlement conference under r. 13 and then trial under r. 17.
+  {
+    statute: "O. Reg. 258/98 (Rules of the Small Claims Court)",
+    section: "rr. 11.01 to 11.06",
+    sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+    vendoredIn: "oreg-258-98-cited-rules.txt",
+    verifiedAt: "2026-09-14",
+    consolidationPeriod: "2025-10-14",
+  },
   // ---- The family jurisdiction spine ----
   //
   // These were verified on 2026-09-13 while writing FAMILY_PROCEEDING_TYPES.md
