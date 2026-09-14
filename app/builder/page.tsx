@@ -20,6 +20,8 @@ import CourtAssistantChat from "./_components/CourtAssistantChat";
 import IntelligenceOverviewPanel from "./_components/IntelligenceOverviewPanel";
 import ProcedureAuthorityDisplay from "./_components/ProcedureAuthorityDisplay";
 import EventCandidateSurface from "./_components/EventCandidateSurface";
+import { buildDerivedFrom } from "../../src/lib/case-system/events/caseAnalysisFreshness";
+import type { CaseEventRow } from "../../src/lib/case-system/events/caseEventAdapter";
 
 import {
   AnalysisResult,
@@ -498,6 +500,29 @@ function BuilderPageContent() {
       setMasterCaseId(activeId);
 
       if (user && activeId) {
+        /**
+         * `derivedFrom` makes master_result an honestly-dated cache.
+         *
+         * Without it every case reads as "never-analyzed" and the staleness
+         * banner can never fire — the reader and the message existed before
+         * this and were inert, because nothing wrote the field.
+         *
+         * The events are read HERE, at the moment of saving, so the stamp
+         * records what this analysis actually saw. Reading them earlier would
+         * date the analysis against a stale view; not reading them at all
+         * would leave `latestEventCreatedAt` null on a case that has events,
+         * which then reads as fresh forever.
+         */
+        const { data: eventRowsForStamp } = await supabase
+          .from("case_events")
+          .select("id,retracted_at,supersedes_event_id,created_at")
+          .eq("case_id", activeId);
+
+        const derivedFrom = buildDerivedFrom(
+          (eventRowsForStamp || []) as unknown as CaseEventRow[],
+          new Date(),
+        );
+
         const { error } = await supabase
           .from("cases")
           .update({
@@ -505,7 +530,7 @@ function BuilderPageContent() {
             court_path: courtPath,
             status: "active",
             current_stage: stage,
-            master_result: masterPayload,
+            master_result: { ...masterPayload, derivedFrom },
             updated_at: now,
           })
           .eq("id", activeId);

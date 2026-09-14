@@ -624,6 +624,25 @@ function main(): void {
     "recomputing costs API calls and is the user's decision, not a side effect of reading",
   );
 
+  // The reader and the message are inert without a writer. They shipped one
+  // commit before the writer did, and every case read as "never-analyzed" in
+  // the meantime — a whole half of the loop present and doing nothing. This
+  // check exists so that cannot recur silently.
+  const BUILDER_SRC = readFileSync(
+    path.join(__dirname, "..", "..", "app", "builder", "page.tsx"),
+    "utf8",
+  );
+  check(
+    "the analysis save site writes derivedFrom",
+    /buildDerivedFrom\(/.test(BUILDER_SRC) && /derivedFrom\b/.test(BUILDER_SRC),
+    "without it every case reads never-analyzed and the staleness banner never fires",
+  );
+  check(
+    "it reads the events at save time, not from stale state",
+    /from\("case_events"\)[\s\S]{0,300}buildDerivedFrom\(/.test(BUILDER_SRC),
+    "stamping against an older view would date the analysis wrongly",
+  );
+
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
   if (failures) process.exitCode = 1;
 }
