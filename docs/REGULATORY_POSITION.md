@@ -180,6 +180,184 @@ them — see §2.**
 
 ---
 
+## 1A. s. 1(5), (6) and (7) in full, and what qualifies each
+
+Added 2026-09-14 after the excerpts in §1 proved too short to answer a
+question about the scope of "on behalf of a person". Re-fetched from
+`https://www.ontario.ca/laws/docs/90l08_e.doc` (consolidation from
+December 4, 2024) and reproduced below in full, in order, with nothing
+elided. Line breaks and spacing are artefacts of `antiword` extraction from
+the e-Laws `.doc`; the words are unaltered.
+
+### s. 1(5) — complete
+
+> **Provision of legal services**
+>
+> (5)  For the purposes of this Act, a person provides legal services if the
+> person engages in conduct that involves the application of legal principles
+> and legal judgment with regard to the circumstances or objectives of a
+> person.  2006, c. 21, Sched. C, s. 2 (10).
+
+That is the entire subsection. No proviso, no exception, no "on behalf of".
+
+### s. 1(6) — complete, all four paragraphs and all seven subparagraphs
+
+> **Same**
+>
+> (6)  Without limiting the generality of subsection (5), a person provides
+> legal services if the person does any of the following:
+>
+> 1.  Gives a person advice with respect to the legal interests, rights or
+> responsibilities of the person or of another person.
+>
+> 2.  **Selects, drafts, completes or revises, on behalf of a person,**
+>
+>   i.  a document that affects a person's interests in or rights to or in
+>   real or personal property,
+>
+>   ii.  a testamentary document, trust document, power of attorney or other
+>   document that relates to the estate of a person or the guardianship of a
+>   person,
+>
+>   iii.  a document that relates to the structure of a sole proprietorship,
+>   corporation, partnership or other entity, such as a document that relates
+>   to the formation, organization, reorganization, registration, dissolution
+>   or winding-up of the entity,
+>
+>   iv.  a document that relates to a matter under the *Bankruptcy and
+>   Insolvency Act* (Canada),
+>
+>   v.  a document that relates to the custody of or access to children,
+>
+>   vi.  a document that affects the legal interests, rights or
+>   responsibilities of a person, other than the legal interests, rights or
+>   responsibilities referred to in subparagraphs i to v, or
+>
+>   vii.  a document for use in a proceeding before an adjudicative body.
+>
+> 3.  Represents a person in a proceeding before an adjudicative body.
+>
+> 4.  Negotiates the legal interests, rights or responsibilities of a person.
+> 2006, c. 21, Sched. C, s. 2 (10).
+
+### s. 1(7) — complete
+
+> **Representation in a proceeding**
+>
+> (7)  Without limiting the generality of paragraph 3 of subsection (6),
+> doing any of the following **shall be considered to be representing a
+> person in a proceeding**:
+>
+> 1.  Determining what documents to serve or file in relation to the
+> proceeding, determining on or with whom to serve or file a document, or
+> determining when, where or how to serve or file a document.
+>
+> 2.  Conducting an examination for discovery.
+>
+> 3.  Engaging in any other conduct necessary to the conduct of the
+> proceeding.  2006, c. 21, Sched. C, s. 2 (10).
+
+### Is "on behalf of" defined anywhere in the Act? No.
+
+Searched the full consolidation. The phrase is **never defined**. It appears
+seven times in total:
+
+| Line | Provision | Use |
+|---|---|---|
+| 356 | **s. 1(6)2** | "Selects, drafts, completes or revises, **on behalf of a person**," |
+| 401 | s. 1(8)3 | "An individual who is acting **on his or her own behalf**" |
+| 404 | s. 1(8)4 | trade union representative "acting **on behalf of** the union" |
+| 3084 | s. 49.21 area | Society may appoint persons to "assist it or act **on its behalf**" |
+| 4294 | **s. 61.0.5(1)** | obligations of a person practising law "to a person **on whose behalf** he or she is practising law or providing legal services" |
+| 4733, 4739 | s. 61.0.x | firm reporting "**on behalf of** the firm" / "**on behalf of** some or all the licensees" |
+
+There is no definition section entry, and no interpretive subsection that
+explains it. **s. 61.0.5(1) is the closest thing to a usage clue**: it
+describes "a person **on whose behalf** he or she is practising law or
+providing legal services" as the party owed professional, fiduciary and
+ethical obligations — i.e. the Act uses "on whose behalf" to denote **the
+client**. That is context, not a definition, and it is in a provision about
+professional corporations rather than about scope.
+
+### Where the qualifier sits in each provision — the structural answer
+
+This is the part the excerpts obscured.
+
+**s. 1(6)2 — "on behalf of a person" is in the chapeau and governs all seven
+subparagraphs.** It is not attached to subparagraph vii specifically; it
+qualifies the verbs. The provision reads "Selects, drafts, completes or
+revises, on behalf of a person, … vii. a document for use in a proceeding
+before an adjudicative body." So for vii to bite, the selecting or drafting
+must be **on behalf of a person**. The phrase is load-bearing, exactly as
+suspected.
+
+**s. 1(6)1, 3 and 4 have no "on behalf of" — but each names a person as the
+object of the act.** "Gives **a person** advice"; "Represents **a person**";
+"Negotiates the legal interests … **of a person**". The personal connection is
+built into the verb rather than added as a qualifier.
+
+**s. 1(7)1 has NO "on behalf of" and no agency qualifier — and the acts it
+describes have no personal object at all.** Read alone:
+
+> Determining what documents to serve or file in relation to the proceeding,
+> determining on or with whom to serve or file a document, or determining
+> when, where or how to serve or file a document.
+
+There is no "for a person", no "on behalf of a person", no "as agent". The
+acts are described impersonally, in relation to *the proceeding*.
+
+**The personal connection in s. 1(7) is supplied by the chapeau, and it is
+supplied differently.** The chapeau does not say "doing any of the following
+on behalf of a person". It says doing these things **"shall be considered to
+be representing a person in a proceeding."** That is a deeming provision: it
+converts the act into representation rather than conditioning the act on an
+agency relationship.
+
+**Why the difference may matter.** Under s. 1(6)2 there is a textual hook to
+argue about — whether a tool operated by the user is doing anything "on behalf
+of" them, or whether the user is doing it themselves with a tool. Under
+s. 1(7)1 that hook is absent from the paragraph; the argument has to be made
+against the chapeau's deeming language instead, which asks whether the conduct
+*is* representing a person rather than whether it was done on their behalf.
+
+**I am not resolving which way either argument goes.** No provision in the Act
+addresses software, and s. 26.1(5) makes the whole question turn on by-laws I
+could not retrieve (§2). What can be said from the text alone is that the two
+provisions are built differently, and a defence that works on one does not
+automatically work on the other.
+
+### "Person" is not defined in the Law Society Act — the Legislation Act supplies it
+
+**Source:** `https://www.ontario.ca/laws/docs/06l21_e.doc` — Legislation Act,
+2006, S.O. 2006, c. 21, Sched. F. Consolidation from December 11, 2025.
+
+The Law Society Act has no definition of "person". Part VI (Interpretation) of
+the Legislation Act fills the gap:
+
+> **APPLICATION TO ACTS AND REGULATIONS**
+> 46  Every provision of this Part applies to every Act and regulation.
+> 2006, c. 21, Sched. F, s. 46.
+
+> **Contrary intention or context requiring otherwise**
+> 47  Section 46 applies unless,
+> (a) a contrary intention appears; or
+> (b) its application would give to a term or provision a meaning that is
+> inconsistent with the context.  2006, c. 21, Sched. F, s. 47.
+
+> **Definitions**
+> 87  In every Act and regulation,
+> […]
+> **"person" includes a corporation;** ("personne")
+
+So the prohibition in s. 26.1(1) — "no **person** … shall practise law in
+Ontario or provide legal services in Ontario" — reaches corporations, subject
+to s. 47's contrary-intention and context carve-outs. **A corporate vendor is
+within the class of actors the prohibition addresses.** Nothing retrieved says
+whether supplying software is conduct of the kind s. 1(5) describes; that is
+the separate and unresolved question.
+
+---
+
 ## 2. By-Law 4 — NOT RETRIEVED
 
 **I could not retrieve By-Law 4 or any other LSO by-law.** `lso.ca` returns
