@@ -1169,35 +1169,10 @@ function buildReadinessState(
   // recorded as outstanding. It is the only part of that arithmetic that
   // meant anything on its own.
   return {
+    // The five CaseConfidence grades that stood here are gone with the field
+    // on the type. Two of them read credibilityAnalysis.overallLevel, which is
+    // itself a grade and is the subject of the next block.
     outstandingCount: blockerCount,
-    pleadingReadiness: asCaseConfidence(intelligence.confidence),
-    evidenceReadiness:
-      evidenceIntelligence.gaps.length > 0 ||
-      evidenceIntelligence.contradictions.length > 0
-        ? "low"
-        : proofMaps.length > 0
-          ? proofMaps.some(
-              (map) => map.elementsByRecordStatus.nothingRecorded.length > 0,
-            )
-            ? "low"
-            : "medium"
-          : intelligence.evidenceIssueLinks.length > 0
-            ? "medium"
-            : "low",
-    proceduralReadiness: asCaseConfidence(intelligence.proceduralPosture.confidence),
-    courtroomReadiness:
-      credibilityAnalysis.overallLevel === "critical" ||
-      credibilityAnalysis.overallLevel === "serious" ||
-      factPatternAnalysis.credibilityIssues.length > 0
-        ? "low"
-        : proofMaps.length > 0
-          ? "medium"
-          : "low",
-    // The first limb was `credibilityAnalysis.settlementPressureScore >= 60`,
-    // routing on a grade of the user's case. The remaining limb is a fact —
-    // whether the evidence record has gaps recorded — and it is what the label
-    // should have turned on all along.
-    settlementReadiness: evidenceIntelligence.gaps.length > 0 ? "low" : "medium",
     blockers: uniqueStrings([
       ...intelligence.systemWarnings,
       ...intelligence.missingInformation.map((item) => item.question),
@@ -1323,11 +1298,6 @@ export function buildMasterCaseFromIntelligence(args: {
     ),
     readiness: {
       outstandingCount: 0,
-      pleadingReadiness: "low",
-      evidenceReadiness: "low",
-      proceduralReadiness: "low",
-      courtroomReadiness: "low",
-      settlementReadiness: "low",
       blockers: [],
       reasons: [],
     },

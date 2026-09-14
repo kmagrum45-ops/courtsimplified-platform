@@ -698,11 +698,18 @@ export type CaseReadinessState = {
    * already used by dashboardEngine, deliberately.
    */
   outstandingCount: number;
-  pleadingReadiness: CaseConfidence;
-  evidenceReadiness: CaseConfidence;
-  proceduralReadiness: CaseConfidence;
-  courtroomReadiness: CaseConfidence;
-  settlementReadiness: CaseConfidence;
+  // Five CaseConfidence ordinals stood here — pleadingReadiness,
+  // evidenceReadiness, proceduralReadiness, courtroomReadiness and
+  // settlementReadiness, each "very-low" through "very-high". Five grades of
+  // the user's case, on the object whose overallScore and overallLevel were
+  // already removed for the same reason.
+  //
+  // Deleting them from the TYPE rather than grepping for them is deliberate:
+  // grep for "settlementReadiness" returns hits from four different objects
+  // (procedural state, workflow, credibility, damages) and cannot tell them
+  // apart. The compiler can.
+  //
+  // blockers and reasons below are the factual halves and are unchanged.
   blockers: string[];
   reasons: string[];
 };

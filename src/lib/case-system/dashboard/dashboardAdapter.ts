@@ -140,31 +140,39 @@ function makeRisk(args: DashboardRisk): DashboardRisk {
   return args;
 }
 
-function proceduralReadinessLabels(assembly: CaseSystemAssemblyLike): string[] {
+/*
+ * proceduralReadinessLabels() was here and it is deleted, not renamed.
+ *
+ * It emitted TEN user-facing strings, not the one that was first reported:
+ *
+ *   "Overall procedural readiness: medium."   "Motion readiness: low."
+ *   "Deadline readiness: low."                "Discovery readiness: low."
+ *   "Service readiness: high."                "Settlement readiness: low."
+ *   "Filing readiness: medium."               "Pre-trial readiness: low."
+ *                                             "Costs readiness: low."
+ *                                             "Assessment readiness: low."
+ *
+ * Every value is a CaseConfidence — "very-low" | "low" | "medium" | "high" |
+ * "very-high" — so each line is an ordinal grade of the user's case printed
+ * as a sentence, and they reached the user through pathwayWarnings, exportNotes
+ * and readiness.reasons.
+ *
+ * A comment at the exportNotes call site argued these were kept because they
+ * state "which procedural steps are ready, which is a fact about the case file
+ * rather than a grading of the case". That was wrong: "ready" here is not a
+ * record status, it is a confidence level, and the comment is the reason ten
+ * grades survived a sweep that was looking for exactly this shape.
+ *
+ * The factual replacement already existed on the same object and is used
+ * below: blockers and nextActions, which say what is outstanding and what to
+ * do, item by item, without ranking anything.
+ */
+function proceduralOutstandingNotes(assembly: CaseSystemAssemblyLike): string[] {
   const readiness = assembly.proceduralState?.readiness;
 
   if (!readiness) return [];
 
-  return uniqueStrings([
-    `Overall procedural readiness: ${readiness.overallReadiness}.`,
-    `Deadline readiness: ${readiness.deadlineReadiness}.`,
-    `Service readiness: ${readiness.serviceReadiness}.`,
-    `Filing readiness: ${readiness.filingReadiness}.`,
-    readiness.motionReadiness ? `Motion readiness: ${readiness.motionReadiness}.` : "",
-    readiness.discoveryReadiness
-      ? `Discovery readiness: ${readiness.discoveryReadiness}.`
-      : "",
-    readiness.settlementReadiness
-      ? `Settlement readiness: ${readiness.settlementReadiness}.`
-      : "",
-    readiness.preTrialReadiness
-      ? `Pre-trial readiness: ${readiness.preTrialReadiness}.`
-      : "",
-    readiness.costsReadiness ? `Costs readiness: ${readiness.costsReadiness}.` : "",
-    readiness.assessmentReadiness
-      ? `Assessment readiness: ${readiness.assessmentReadiness}.`
-      : "",
-  ]);
+  return uniqueStrings([...(readiness.blockers || []), ...(readiness.nextActions || [])]);
 }
 
 function proceduralDeadlineNotes(assembly: CaseSystemAssemblyLike): string[] {
@@ -445,7 +453,7 @@ export function buildDashboardMasterFromAssembly(
       pathwayWarnings: uniqueStrings([
         ...assembly.workflow.warnings,
         ...(assembly.proceduralState?.warnings || []),
-        ...proceduralReadinessLabels(assembly),
+        ...proceduralOutstandingNotes(assembly),
       ]),
       nextProceduralFocus: uniqueStrings([
         ...proceduralNextActions,
@@ -487,10 +495,10 @@ export function buildDashboardMasterFromAssembly(
       // anything a user was seeing. Latent is not the same as harmless: it
       // is one `.map()` away from being displayed.
       //
-      // exportNotes and its type are KEPT. proceduralReadinessLabels below
-      // states which procedural steps are ready, which is a fact about the
-      // case file rather than a grading of the case.
-      exportNotes: uniqueStrings([...proceduralReadinessLabels(assembly)]),
+      // exportNotes and its type are KEPT, now carrying the outstanding
+      // procedural items rather than ten confidence grades. See the note on
+      // proceduralOutstandingNotes.
+      exportNotes: uniqueStrings([...proceduralOutstandingNotes(assembly)]),
     },
 
     readiness: {
@@ -498,7 +506,7 @@ export function buildDashboardMasterFromAssembly(
         assembly.authorityReadiness.summary,
         assembly.contradictionReadiness.summary,
         assembly.credibilityIntelligence.summary,
-        ...proceduralReadinessLabels(assembly),
+        ...proceduralOutstandingNotes(assembly),
       ]),
       blockers: uniqueStrings([
         ...assembly.workflow.readiness.blockers,

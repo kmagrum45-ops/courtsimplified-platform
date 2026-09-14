@@ -771,6 +771,87 @@ Neither is true today.
 
 ---
 
+## 26. ⚠️ BLOCKER on formKnowledgeBase — unsourced procedural assertions
+
+**`formTriggerEngine` must not be wired up until every string in
+`formKnowledgeBase` is sourced.** This is a precondition, not a nice-to-have.
+
+`FORM_KNOWLEDGE_BASE` carries three free-text fields per form —
+`lawyerLogic`, `whatTheFormRequires` and `riskIfWrong` — across twelve forms.
+**None carries a citation.** The rule type has no `sourceUrl` and no
+`verifiedAt`, so there is nowhere to put one today.
+
+They say things like *"The claim must clearly explain what happened, why the
+defendant is responsible, and how the amount claimed was calculated"* and
+*"Support cannot be assessed properly without reliable financial
+disclosure."* Those are assertions about what Ontario procedure requires. They
+may well be right. **Nothing in the repo establishes that they are**, and
+CLAUDE.md section 2 requires a specific, resolvable source retrieved and read
+before a legal statement ships.
+
+**Why it is safe right now, and only right now.** `formKnowledgeBase` and
+`formTriggerEngine` are a closed two-file loop with no external importer
+anywhere in `src/`, `app/`, `scripts/` or `tests/`. Nothing renders these
+strings, so nothing unsourced reaches a user. The moment anything imports
+`runFormTriggerEngine` and displays a recommendation, twelve unsourced
+procedural assertions become user-facing content.
+
+**What wiring it up requires, in order:**
+
+1. Add `sourceUrl` and `verifiedAt` to `FormKnowledgeRule`, required not
+   optional, so an entry cannot be added without them.
+2. Re-read every `lawyerLogic`, `whatTheFormRequires` and `riskIfWrong`
+   string against the actual rule or form, and cite it. Some will not survive
+   the check.
+3. Only then connect the engine.
+
+**History worth knowing.** The twelve `whatTheFormRequires` strings were
+called `judgeConcern` and were deleted wholesale in `f5b7a3c` as section 3
+predictions. That was wrong — every one states what the form or the court
+requires, not what a judge will think — and they were restored in `3fd0fdf`
+under the accurate name. The sourcing gap is a separate defect from the naming
+one and was found while restoring them.
+
+---
+
+## 25. 📌 A grep for a field name is NOT a trace — check for collisions first
+
+**Standing addition to the sweep method.** Two different types carrying the
+same field name is how several defects survived removal passes that were
+looking directly at them.
+
+**The cases, all real:**
+
+- `readiness.overallLevel` (dead, no readers) and
+  `credibilityAnalysis.overallLevel` (live, with readers branching on
+  `"serious"` / `"critical"`) are indistinguishable in a grep. A sweep that
+  saw hits for `overallLevel` and concluded "this has readers" would leave the
+  dead one in place; one that concluded "no readers" would break the live
+  branch.
+- `settlementReadiness` appears on **four** separate objects — procedural
+  state, workflow orchestration, credibility, damages — plus the one removed
+  from `CaseReadinessState`.
+- `scoreFromConfidence` survived three separate removal passes under three
+  names for the same reason.
+- `masterResult.strategy` in `CivilIntake` is a locally-built engine result;
+  `master_result.strategy` in the dashboard is the persisted blob. Same text,
+  unrelated objects.
+
+**The rule.** If a grep for a field name returns hits in more than one type,
+the grep has told you nothing and the hits must be separated by hand before
+any of them is acted on.
+
+**The reliable method, and it is cheaper than the grep.** Delete or rename the
+field **on the type first**, then let `tsc --noEmit` enumerate the consumers.
+The compiler knows which object each access belongs to and grep cannot. This
+is how the five `*Readiness: CaseConfidence` ordinals were traced: grep
+returned five hits across four unrelated objects, and the type change showed
+the true answer was two producers and zero readers.
+
+Applies to every future pattern sweep, not just section 3.
+
+---
+
 ## 24. Pattern 4 — "checks that cannot fail" was SAMPLED, not exhausted
 
 A five-pattern sweep ran on 2026-09-13. Four of the five patterns were
