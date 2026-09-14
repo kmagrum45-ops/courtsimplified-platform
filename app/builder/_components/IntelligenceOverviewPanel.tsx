@@ -12,6 +12,7 @@ import {
 
 import type { AnalysisResult, StoredCaseData } from "./builderTypes";
 import { formatRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
+import { FAMILY_RESOURCE_TOPICS } from "../../../src/lib/case-system/intake/familySafetyResources";
 
 type Props = { analysis: AnalysisResult; intake: StoredCaseData | null };
 
@@ -128,6 +129,23 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
       // fabricated one tells the user the system has decided something about
       // their case.
       : [];
+  /*
+   * Family support resources, shown on COURT PATH ALONE.
+   *
+   * FAMILY_RESOURCE_TOPICS is sourced content that had never been rendered
+   * anywhere: the module's only importer was its own verification script,
+   * so verifyIntakeCoverage passed while no user could reach a word of it.
+   * That is the sharpest case of a passing check on unreachable code, and it
+   * was safety content.
+   *
+   * Gated on the court path and nothing else — no AI judgment about whether
+   * violence is present in this user's facts, which is the distinction the
+   * module's own header draws against safetyPass.ts. Someone on the family
+   * path sees it; nobody is assessed to decide that.
+   */
+  const familyResources =
+    analysis.courtPath === "family" ? FAMILY_RESOURCE_TOPICS : [];
+
   const courtPoints: SourcedListItem[] = claimTypeContent ? claimTypeContent.courtPoints : [];
   // General information about what defences commonly arise for this TYPE of
   // claim (sourced, same claimTypeOverviewContent.ts pipeline as courtPoints
@@ -158,6 +176,20 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
       <Card title="Evidence and proof to organize">{recordedEvidence.length > 0 && <><h3 className="font-semibold">Evidence you have recorded</h3><ul className="mt-2 list-disc space-y-1 pl-5">{recordedEvidence.map((item) => <li key={item}>{item}</li>)}</ul></>}{evidenceToOrganize.length > 0 && <><h3 className={recordedEvidence.length ? "mt-5 font-semibold" : "font-semibold"}>Evidence to organize or confirm</h3><ul className="mt-2 list-disc space-y-1 pl-5">{evidenceToOrganize.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></>}</Card>
       {courtPoints.length > 0 && <Card title="Points the court may need clarified"><ul className="list-disc space-y-1 pl-5">{courtPoints.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></Card>}
       {commonDefences.length > 0 && <Card title="Defences that commonly come up"><p className="mb-3 text-sm leading-6 text-[#4d675f]">General information about defences that commonly arise for this type of claim -- not a prediction about what the other side will argue in this case.</p><ul className="list-disc space-y-1 pl-5">{commonDefences.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></Card>}
+      {familyResources.length > 0 && familyResources.map((topic) => (
+        <Card key={topic.id} title={topic.title}>
+          <p className="whitespace-pre-line">{topic.content}</p>
+          <ul className="mt-3 list-disc space-y-1 pl-5">
+            {topic.citations.map((citation) => (
+              <li key={citation.officialUrl}>
+                <a className="text-[#2f7d67] underline" href={citation.officialUrl} target="_blank" rel="noreferrer">
+                  {citation.sourceName}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </Card>
+      ))}
       {hasAdoptionSignal && <Card title="Official Ontario resources to review"><ul className="list-disc space-y-2 pl-5"><li><a className="text-[#2f7d67] underline" href="https://www.ontario.ca/page/adopt-stepchild-or-relative" target="_blank" rel="noreferrer">Ontario: Adopt a stepchild or relative</a></li><li><a className="text-[#2f7d67] underline" href="https://ontariocourtforms.on.ca/en/family-law-rules-forms/8d/" target="_blank" rel="noreferrer">Ontario Court Services: Form 8D, Application (adoption)</a></li><li><a className="text-[#2f7d67] underline" href="https://www.ontario.ca/laws/statute/17c14" target="_blank" rel="noreferrer">Ontario Child, Youth and Family Services Act</a></li></ul><p className="mt-3">Form 8D is an official Ontario adoption application form to review. Court requirements and any consent or notice issues must be confirmed before filing.</p></Card>}
     </div>
     <p className="mt-7 text-sm leading-7 text-[#4d675f]">CourtSimplified organizes your information and identifies items to review; it does not decide your legal claim, outcome, or judgment.</p>

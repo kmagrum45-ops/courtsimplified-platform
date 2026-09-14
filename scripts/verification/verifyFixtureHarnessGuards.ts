@@ -187,10 +187,19 @@ async function main(): Promise<void> {
   check("withAbortableTimeout signals abort to the running request", sawAbort);
   check("withAbortableTimeout resolves null once aborted", result === null);
 
-  // Both former race sites must now go through withAbortableTimeout. Comments
-  // may still mention Promise.race (they explain what was replaced), so this
-  // strips comment lines before looking for live usage.
-  for (const file of ["voiceLayer.ts", "explainQuestion.ts"]) {
+  // explainQuestion.ts is the only former race site that still makes a
+  // request. voiceLayer.ts was in this loop too, and the abort-signal check
+  // had been FAILING since e5f76fb removed the model call from
+  // composeVoiceTurn() — the check outlived its subject and went on
+  // asserting a property of code that had deliberately been deleted.
+  //
+  // A stale check is worse than no check: it burns a failing line in every
+  // run, so a NEW failure has to be spotted among known noise. It is
+  // replaced below by one that defends what is actually true now.
+  //
+  // Comments may still mention Promise.race (they explain what was
+  // replaced), so this strips comment lines before looking for live usage.
+  for (const file of ["explainQuestion.ts"]) {
     const src = readFileSync(
       path.join(__dirname, "..", "..", "src", "lib", "case-system", "intake", file),
       "utf8",
@@ -203,6 +212,30 @@ async function main(): Promise<void> {
     check(`${file} no longer races a live request with Promise.race`, !code.includes("Promise.race"));
     check(`${file} passes an abort signal to the request`, /\{\s*signal\s*\}/.test(code));
   }
+
+  // voiceLayer.ts makes NO request. composeVoiceTurn() returns the reviewed
+  // question text and a null lead-in, synchronously, keeping its async
+  // signature only so call sites did not have to change. That is the
+  // invariant worth holding: if a model call returns here, the lead-in is
+  // back and everything the removal was for is undone.
+  const voiceSrc = readFileSync(
+    path.join(__dirname, "..", "..", "src", "lib", "case-system", "intake", "voiceLayer.ts"),
+    "utf8",
+  );
+  const voiceCode = voiceSrc
+    .split("\n")
+    .filter((line) => !/^\s*(\/\/|\*|\/\*)/.test(line))
+    .join("\n");
+
+  check(
+    "voiceLayer.ts makes no model call at all",
+    !/openai|fetch\(|withAbortableTimeout/i.test(voiceCode),
+    "composeVoiceTurn was reduced to returning the reviewed question text; a request here reinstates the lead-in",
+  );
+  check(
+    "composeVoiceTurn still returns the question text verbatim",
+    /questionText:\s*question\.text/.test(voiceCode),
+  );
 
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
   if (failures) process.exitCode = 1;

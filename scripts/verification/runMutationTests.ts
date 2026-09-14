@@ -39,6 +39,12 @@ const CANDIDATES = "src/lib/case-system/events/caseEventCandidates.ts";
 const CANDIDATES_ROUTE = "app/api/cases/event-candidates/route.ts";
 const ANALYZE_ROUTE = "app/api/small-claims/analyze/route.ts";
 
+const OVERVIEW_PANEL = "app/builder/_components/IntelligenceOverviewPanel.tsx";
+const REACH_SUITE = "scripts/verification/verifyReachability.ts";
+
+const VOICE_LAYER = "src/lib/case-system/intake/voiceLayer.ts";
+const GUARDS_SUITE = "scripts/verification/verifyFixtureHarnessGuards.ts";
+
 const EXPORT_ROUTE = "app/api/document-export/route.ts";
 const EXPORT_SUITE = "scripts/verification/verifyExportedDocument.ts";
 
@@ -504,6 +510,48 @@ const CASES: MutationCase[] = [
   // on paper. These reintroduce it three ways: printed in the header, printed
   // through the next-action branch, and merely carried on the response object
   // where the last one sat unprinted until somebody printed it again.
+  // The reachability check is the only thing standing between this codebase
+  // and another "built correctly, nobody can reach it". If it cannot fail,
+  // nothing here is protected. This severs the import that made the family
+  // safety content reachable, which should put the module straight back into
+  // the unreachable set undeclared.
+  {
+    label: "a wired module falls back out of the reachable set",
+    suite: REACH_SUITE,
+    mutations: [
+      {
+        file: OVERVIEW_PANEL,
+        find: "import { FAMILY_RESOURCE_TOPICS } from \"../../../src/lib/case-system/intake/familySafetyResources\";",
+        replace: "const FAMILY_RESOURCE_TOPICS: never[] = [];",
+      },
+    ],
+  },
+
+  // The voiceLayer checks replaced one that had been failing since the model
+  // call was removed from composeVoiceTurn. A replacement for a stale check
+  // has to be shown to fail, or the suite is quieter but no stronger.
+  {
+    label: "a model call returns to voiceLayer, reinstating the lead-in",
+    suite: GUARDS_SUITE,
+    mutations: [
+      {
+        file: VOICE_LAYER,
+        find: "  void facts;",
+        replace: "  void facts;\n  void fetch(\"https://api.openai.com/v1/chat/completions\");",
+      },
+    ],
+  },
+  {
+    label: "composeVoiceTurn stops returning the reviewed question text verbatim",
+    suite: GUARDS_SUITE,
+    mutations: [
+      {
+        file: VOICE_LAYER,
+        find: "    questionText: question.text,",
+        replace: "    questionText: String(question.text || \"\").trim(),",
+      },
+    ],
+  },
   {
     label: "a readiness percentage is printed back into the document header",
     suite: EXPORT_SUITE,
