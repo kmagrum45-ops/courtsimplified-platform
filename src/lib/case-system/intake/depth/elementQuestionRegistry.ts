@@ -77,6 +77,37 @@ export type NoQuestionNeeded = {
  * explicitly is what stops them reading as an authoring gap.
  */
 export const NO_QUESTION_NEEDED: NoQuestionNeeded[] = [
+
+  // The jurisdictional elements of the six claim types authored 2026-09-14.
+  // Same reason as the existing entries: checked against the amount already
+  // captured, not a fact the user narrates. Excluded from the gate entirely,
+  // so they cannot hold a draft the user can never release.
+  {
+    elementId: "amount-within-jurisdiction-goods-sold",
+    reason:
+      "Checked against the amount already captured in amountClaimedText. Not a fact the user narrates.",
+  },
+  {
+    elementId: "amount-within-jurisdiction-cpa",
+    reason:
+      "Checked against the amount already captured in amountClaimedText. Not a fact the user narrates.",
+  },
+  {
+    elementId: "amount-within-jurisdiction-vehicle",
+    reason:
+      "Checked against the amount already captured in amountClaimedText. Not a fact the user narrates.",
+  },
+  {
+    elementId: "amount-within-jurisdiction-vehicle-accident",
+    reason:
+      "Checked against the amount already captured in amountClaimedText. Not a fact the user narrates.",
+  },
+  {
+    elementId: "amount-within-jurisdiction-property-in-care",
+    reason:
+      "Checked against the amount already captured in amountClaimedText. Not a fact the user narrates.",
+  },
+
   {
     elementId: "amount-within-jurisdiction-defamation",
     reason:
@@ -100,6 +131,252 @@ export const NO_QUESTION_NEEDED: NoQuestionNeeded[] = [
  * degrade safely, so partial coverage is the intended shipping state.
  */
 export const DEPTH_QUESTIONS: DepthQuestion[] = [
+
+  // ===================================================================
+  // The six 4+-element claim types (2026-09-14).
+  //
+  // Authored after the claim-type matcher was fixed. Before that fix the
+  // matcher returned null for essentially every story, so these claim types
+  // were never reached and the bare attestation list was invisible. It is
+  // visible now, which is why these exist.
+  //
+  // EVERY QUESTION ASKS FOR A FACT, NOT A CHARACTERISATION. The element
+  // names are legal — existed-agreement-sale, duty-of-care-negligence,
+  // breach-of-standard-of-care — and the tempting question is the element
+  // name with a question mark. "Was there a contract?" asks the user to
+  // answer the legal test. "What did you agree to, and how?" asks what
+  // happened and leaves the test alone.
+  //
+  // The causation elements are the sharpest case. Asking "was the damage
+  // caused by their breach" is the legal question. Asking "was any of it
+  // there before" is a fact that bears on it.
+  // ===================================================================
+
+  // --- Non-payment for goods sold ---
+  {
+    id: "depth-goods-agreement",
+    elementId: "existed-agreement-sale",
+    text: "What did you and {defendantLabel} agree to, and how was it agreed?",
+    slots: ["defendantLabel"],
+    examples: ["a written order","a verbal agreement","an exchange of messages","an invoice they accepted"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-goods-delivered",
+    elementId: "goods-delivered",
+    text: "What did you send or hand over, and when?",
+    examples: ["the delivery date","what was shipped","who signed for it"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-goods-amount-unpaid",
+    elementId: "amount-unpaid-goods",
+    text: "How much is still owing, and how did you work that out?",
+    examples: ["the invoice total","part payments received","the arithmetic behind the figure"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // --- Consumer Protection Act issue ---
+  {
+    id: "depth-cpa-representation",
+    elementId: "false-misleading-representation",
+    text: "What were you told, who told you, and when?",
+    examples: ["what was said in the shop","wording in an advertisement","a promise made on the phone"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-cpa-withdrawal",
+    elementId: "withdrawal-notice-timely",
+    text: "If you told them you were cancelling, when and how did you tell them?",
+    examples: ["the date you told them","email, letter, or phone","what you said"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-cpa-loss",
+    elementId: "loss-amount-cpa",
+    text: "What did this cost you, and how did you arrive at that figure?",
+    examples: ["what you paid","what you paid afterwards to put it right"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // --- Used vehicle, dealer non-disclosure ---
+  {
+    id: "depth-vehicle-disclosure",
+    elementId: "dealer-failed-to-disclose",
+    text: "What were you told about the vehicle's history before you bought it, and what did you find out afterwards?",
+    examples: ["what the dealer said","what a history report showed","what a mechanic found"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // cancelled-within-90-days SPLIT INTO TWO. The delivery date is a fact
+  // everyone in this situation has. The cancellation date only exists if they
+  // cancelled, and asking both in one question makes a user who has not
+  // cancelled feel they answered wrongly.
+  {
+    id: "depth-vehicle-delivery-date",
+    elementId: "cancelled-within-90-days",
+    text: "When did you actually receive the vehicle?",
+    examples: ["the date you drove it away","the date it was delivered to you"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-vehicle-cancellation-date",
+    elementId: "cancelled-within-90-days",
+    text: "If you have told the dealer you are cancelling the contract, when did you tell them?",
+    examples: ["the date you told them","how you told them","not applicable if you have not cancelled"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-vehicle-loss",
+    elementId: "amount-claimed-vehicle",
+    text: "What has this cost you, and how did you work that out?",
+    examples: ["the purchase price","repairs you have paid for","what you paid to replace it"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // --- Vehicle accident, uninsured at-fault driver ---
+
+  // dcpd-bar-does-not-apply is a LEGAL CONCLUSION and no fact question
+  // resolves it. This asks the fact that usually decides it — whether the
+  // other automobile was insured — and cites the provision so the reader can
+  // see the rule rather than be told the answer. Insurance Act s. 263 (1) (c)
+  // applies the section only where at least one OTHER automobile involved was
+  // insured; s. 263 (5) (a) is what removes the right of action when it does.
+  //
+  // The element may stay unresolved, and that is safe: only `not-yet` holds
+  // the readiness gate, and "I don't know" resolves to cannot-provide, which
+  // does not. The element is then listed in the draft under RECORDED AS NOT
+  // HELD rather than silently assumed.
+  {
+    id: "depth-accident-other-insurance",
+    elementId: "dcpd-bar-does-not-apply",
+    text: "What do you know about the other driver's insurance at the time of the accident?",
+    examples: ["what the police report recorded","what your own insurer told you","what the other driver said at the scene"],
+    why: "Ontario's direct-compensation scheme applies only where at least one other automobile involved in the accident was insured — Insurance Act, s. 263 (1) (c). Where it applies, s. 263 (5) (a) provides that an insured has no right of action against any person involved other than their own insurer for damage to their own automobile. Whether it applies to a particular accident is a legal question; whether the other driver was insured is a fact.",
+    sourceUrl: "https://www.ontario.ca/laws/docs/90i08_e.doc",
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-accident-where-when",
+    elementId: "duty-of-care-negligence",
+    text: "Where and when did the accident happen, and who was driving?",
+    examples: ["the road or intersection","the date and time","who was in each vehicle"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-accident-what-happened",
+    elementId: "breach-of-standard-of-care",
+    text: "What did the other driver do, in your own words?",
+    examples: ["ran a red light","rear-ended you","changed lanes into you"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-accident-damage",
+    elementId: "damage-to-vehicle",
+    text: "What was damaged, and what state is it in now?",
+    examples: ["which panels or parts","whether it still drives","photographs you have"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-accident-pre-existing",
+    elementId: "causation-vehicle-accident",
+    text: "Was any of the damage there before the accident?",
+    examples: ["damage that was already there","what a repair estimate attributes to this collision"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // --- Property damaged or lost in a business's care ---
+  {
+    id: "depth-bailment-what-left",
+    elementId: "duty-of-care-property-in-business-care",
+    text: "What did you leave with them, and what was the arrangement?",
+    examples: ["what you dropped off","the date you left it","a ticket or receipt you were given"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // Ordered so the user's own account comes FIRST. Asking what the business
+  // said, on its own, records only the business's version of events in the
+  // user's own case file.
+  {
+    id: "depth-bailment-what-happened",
+    elementId: "breach-of-standard-of-care-property-in-care",
+    text: "What happened to it while it was in their care, as far as you know?",
+    examples: ["what you found when you collected it","what you were able to see","what you were told by anyone else"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-bailment-their-account",
+    elementId: "breach-of-standard-of-care-property-in-care",
+    text: "What did the business tell you had happened?",
+    examples: ["what staff said","what a manager said","what a written response said"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-bailment-condition",
+    elementId: "damage-or-loss-to-property-in-care",
+    text: "What condition was it in when you left it, and what condition was it in when you got it back?",
+    examples: ["photographs before","photographs after","what is missing"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-bailment-pre-existing",
+    elementId: "causation-property-in-care",
+    text: "Was there anything wrong with it before you left it with them?",
+    examples: ["existing wear or marks","a previous repair"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // --- Contractor damage: the one element of four still unauthored ---
+  {
+    id: "depth-contractor-loss",
+    elementId: "loss-amount-contractor",
+    text: "What will it cost to put right, and where does that figure come from?",
+    examples: ["a repair quote","an invoice you have already paid","more than one estimate"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
   // --- debt / services ---
   {
     id: "depth-debt-agreement",

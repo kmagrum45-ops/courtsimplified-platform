@@ -459,6 +459,23 @@ recorded in full. Those 6 are flagged individually below.
 - **Refreshing it:** same procedure as the other vendored sources — keep
   the provenance header and the rule lines, which the parsers split on.
 
+### `insurance-act-s263.txt`
+
+- **What it is:** section 263 of the **Insurance Act, R.S.O. 1990, c. I.8**,
+  the provision creating Ontario's direct-compensation scheme for property
+  damage. Consolidation from 2026-01-01, retrieved 2026-09-14 via the e-Laws
+  `.doc` route and `antiword`.
+- **Why this section:** the claim-type element `dcpd-bar-does-not-apply`
+  asserts the bar does not apply, which is a legal conclusion no user can
+  answer. The depth question asks the underlying fact — was the other driver
+  insured — and cites this section so the reader can see the rule rather than
+  be told the answer.
+- **The limbs that matter:** s. 263 (1) (c) applies the section only where at
+  least one **other** automobile involved was insured; s. 263 (5) (a) is what
+  removes the right of action against anyone but the insured's own insurer;
+  s. 263 (2.2) allows an election not to recover from one's own insurer, which
+  does not by itself restore a right of action against the other driver.
+
 ### `oreg-258-98-cited-rules.txt`
 
 > **Updated 2026-09-14: rr. 11.01–11.06 (default proceedings) appended.**

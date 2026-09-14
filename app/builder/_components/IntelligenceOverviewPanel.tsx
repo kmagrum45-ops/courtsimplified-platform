@@ -14,6 +14,11 @@ import type { AnalysisResult, StoredCaseData } from "./builderTypes";
 import { formatRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 import { FAMILY_RESOURCE_TOPICS } from "../../../src/lib/case-system/intake/familySafetyResources";
 import { JURISDICTION_ROUTES } from "../../../src/lib/case-system/intake/jurisdictionRoutes";
+import {
+  DEFAULT_PROCEEDING_ROUTES,
+  SETTING_ASIDE_DEFAULT,
+  SMALL_CLAIMS_RULES_URL,
+} from "../../../src/lib/case-system/intake/defaultProceedings";
 
 type Props = { analysis: AnalysisResult; intake: StoredCaseData | null };
 
@@ -165,6 +170,23 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
    */
   const jurisdictionRoutes = analysis.courtPath === "small-claims" ? JURISDICTION_ROUTES : [];
 
+  /*
+   * Rule 11, shown when the user has recorded a default step.
+   *
+   * Gated on a RECORDED FACT — the default-judgment document the user
+   * selected — not on any inference about their claim. Every route in the
+   * rule renders, including the two that are not judgment routes at all
+   * (r. 11.01 (3)'s precondition and r. 11.04's defendant's-claim carve-out),
+   * because which one describes a reader's situation is theirs to work out.
+   *
+   * Nothing here says which route THIS claim takes. Whether a claim is "for a
+   * debt or liquidated demand in money" is the distinction the whole rule
+   * turns on, and answering it about a user's claim is applying a statutory
+   * definition to their facts.
+   */
+  const showDefaultProceedings =
+    analysis.courtPath === "small-claims" && documents.includes("default-judgment");
+
   const familyResources =
     analysis.courtPath === "family" ? FAMILY_RESOURCE_TOPICS : [];
 
@@ -198,6 +220,58 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
       <Card title="Evidence and proof to organize">{recordedEvidence.length > 0 && <><h3 className="font-semibold">Evidence you have recorded</h3><ul className="mt-2 list-disc space-y-1 pl-5">{recordedEvidence.map((item) => <li key={item}>{item}</li>)}</ul></>}{evidenceToOrganize.length > 0 && <><h3 className={recordedEvidence.length ? "mt-5 font-semibold" : "font-semibold"}>Evidence to organize or confirm</h3><ul className="mt-2 list-disc space-y-1 pl-5">{evidenceToOrganize.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></>}</Card>
       {courtPoints.length > 0 && <Card title="Points the court may need clarified"><ul className="list-disc space-y-1 pl-5">{courtPoints.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></Card>}
       {commonDefences.length > 0 && <Card title="Defences that commonly come up"><p className="mb-3 text-sm leading-6 text-[#4d675f]">General information about defences that commonly arise for this type of claim -- not a prediction about what the other side will argue in this case.</p><ul className="list-disc space-y-1 pl-5">{commonDefences.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></Card>}
+      {showDefaultProceedings && (
+        <Card title="What rule 11 provides after a defendant is noted in default">
+          <p className="mb-4 text-sm leading-6 text-[#4d675f]">
+            You recorded a default step, so here is what the rule itself says. Which of these
+            describes your claim is for you to decide — the rule draws the distinction and
+            CourtSimplified does not apply it to your facts.
+          </p>
+          <ul className="space-y-6">
+            {DEFAULT_PROCEEDING_ROUTES.map((route) => (
+              <li key={route.id} data-testid="default-proceeding-route" data-rule={route.rule}>
+                <p className="font-semibold text-[#10231f]">
+                  {route.rule} — {route.title}
+                </p>
+                <blockquote className="mt-2 border-l-4 border-[#d8e6df] pl-4 text-sm italic">
+                  &ldquo;{route.quote}&rdquo;
+                </blockquote>
+                <p className="mt-2 text-sm font-semibold text-[#24463d]">When this part applies:</p>
+                <ul className="mt-1 list-disc space-y-1 pl-5 text-sm">
+                  {route.appliesWhen.map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
+                <p className="mt-2 text-sm font-semibold text-[#24463d]">Forms the rule names:</p>
+                <ul className="mt-1 list-disc space-y-1 pl-5 text-sm">
+                  {route.forms.map((form) => (
+                    <li key={form}>{form}</li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 rounded-xl border border-[#d8e6df] bg-[#f8fcfa] p-4">
+            <p className="text-sm font-semibold text-[#10231f]">
+              {SETTING_ASIDE_DEFAULT.rule} — the other party can ask to set this aside
+            </p>
+            <blockquote className="mt-2 border-l-4 border-[#d8e6df] pl-4 text-sm italic">
+              &ldquo;{SETTING_ASIDE_DEFAULT.quote}&rdquo;
+            </blockquote>
+          </div>
+          <p className="mt-4 text-sm">
+            <a
+              className="text-[#2f7d67] underline"
+              href={SMALL_CLAIMS_RULES_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
+              O. Reg. 258/98, Rules of the Small Claims Court
+            </a>{" "}
+            — rule 11, consolidation from 14 October 2025.
+          </p>
+        </Card>
+      )}
       {jurisdictionRoutes.length > 0 && (
         <Card title="Situations that usually belong somewhere other than Small Claims">
           <p className="mb-3 text-sm leading-6 text-[#4d675f]">

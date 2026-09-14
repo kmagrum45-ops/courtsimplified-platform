@@ -34,6 +34,7 @@ export const VENDORED_SOURCES = [
   "cja-cited-sections.txt",
   "cyfsa-cited-sections.txt",
   "oreg-258-98-cited-rules.txt",
+  "insurance-act-s263.txt",
 ] as const;
 
 /**
@@ -108,6 +109,32 @@ export type StatutoryProvision = {
 };
 
 export const STATUTORY_PROVISIONS: StatutoryProvision[] = [
+  // ---- The direct-compensation bar ----
+  //
+  // Retrieved 2026-09-14 because the claim-type element
+  // `dcpd-bar-does-not-apply` asserts the bar does NOT apply — a legal
+  // conclusion no user can answer. Rather than paraphrase it from the
+  // element name, the provision is vendored and quoted.
+  //
+  //   s. 263 (1) (c)  the section applies only where at least one OTHER
+  //                   automobile involved was insured. This is the limb that
+  //                   usually decides it, and whether the other driver was
+  //                   insured is a FACT a user may know.
+  //   s. 263 (5) (a)  where it applies, an insured "has no right of action
+  //                   against any person involved in the incident other than
+  //                   the insured's insurer" for damage to their own
+  //                   automobile, its contents, or loss of use.
+  //   s. 263 (2.2)    an insured may elect not to recover from their own
+  //                   insurer. The election does not by itself restore a
+  //                   right of action against the other driver.
+  {
+    statute: "Insurance Act",
+    section: "s. 263",
+    sourceUrl: "https://www.ontario.ca/laws/docs/90i08_e.doc",
+    vendoredIn: "insurance-act-s263.txt",
+    verifiedAt: "2026-09-14",
+    consolidationPeriod: "2026-01-01",
+  },
   // ---- Small Claims default proceedings ----
   //
   // Retrieved 2026-09-14. Two routes after a defendant is noted in default,
