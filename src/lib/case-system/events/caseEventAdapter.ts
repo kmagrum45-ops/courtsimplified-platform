@@ -33,6 +33,19 @@ import type {
 
 import { type CaseEventType } from "./caseEventTypes";
 
+/**
+ * The columns `CaseEventRow` is made of, as a PostgREST select list.
+ *
+ * Lives with the type rather than in each route, so a column added to the type
+ * cannot be silently absent from one caller's select and present in another's.
+ */
+export const CASE_EVENT_SELECT_COLUMNS =
+  "id,case_id,event_type,court_path,title,description," +
+  "occurred_at_raw,occurred_at_normalized,date_certainty," +
+  "scheduled_for_raw,scheduled_for_normalized,scheduled_for_certainty," +
+  "source,narrative_basis,related_document_id,supersedes_event_id," +
+  "retracted_at,created_at";
+
 /** A stored row, as selected from `case_events`. */
 export type CaseEventRow = {
   id: string;

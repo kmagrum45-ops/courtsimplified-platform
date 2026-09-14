@@ -35,6 +35,10 @@ const TRIAGE = "src/lib/case-system/family/statusTriage.ts";
 const STRATEGY = "src/lib/case-system/familyStrategyEngine.ts";
 const CLRA_SOURCE = "docs/sources/clra-cited-sections.txt";
 
+const CANDIDATES = "src/lib/case-system/events/caseEventCandidates.ts";
+const CANDIDATES_ROUTE = "app/api/cases/event-candidates/route.ts";
+const ANALYZE_ROUTE = "app/api/small-claims/analyze/route.ts";
+
 const FORMS_SUITE = "scripts/verification/verifyFamilyForms.ts";
 const SCORES_SUITE = "scripts/verification/verifyFamilyNoScores.ts";
 const PROVISIONS_SUITE = "scripts/verification/verifyCitedProvisions.ts";
@@ -451,6 +455,56 @@ const CASES: MutationCase[] = [
         file: TRIAGE,
         find: '  "City of Ottawa",\n',
         replace: "",
+      },
+    ],
+  },
+
+  // The defect these reintroduce actually shipped: the candidate surface read
+  // a key nothing writes and returned an empty list on every request, and the
+  // analysis ran with an empty confirmedEvents list on every run. Both read
+  // clean and both stayed wrong. These say whether the new checks can see it.
+  {
+    label: "the candidate read points at the top-level `timeline` again",
+    suite: EVENTS_SUITE,
+    mutations: [
+      {
+        file: CANDIDATES,
+        find: "  const masterCase = (masterResult as Record<string, unknown>).masterCase;",
+        replace: "  const masterCase = masterResult as Record<string, unknown>;",
+      },
+    ],
+  },
+  {
+    label: "the candidates route reaches into the blob itself again",
+    suite: EVENTS_SUITE,
+    mutations: [
+      {
+        file: CANDIDATES_ROUTE,
+        find: "candidatesFromMasterResult(loaded.ownedCase.master_result)",
+        replace:
+          "candidatesFromTimeline(asRecord(loaded.ownedCase.master_result)?.timeline)",
+      },
+    ],
+  },
+  {
+    label: "the analysis stops being told which events the user confirmed",
+    suite: EVENTS_SUITE,
+    mutations: [
+      {
+        file: ANALYZE_ROUTE,
+        find: "      allowExternalCognition,\n      confirmedEvents,\n",
+        replace: "      allowExternalCognition,\n",
+      },
+    ],
+  },
+  {
+    label: "retracted events are threaded into the analysis",
+    suite: EVENTS_SUITE,
+    mutations: [
+      {
+        file: ANALYZE_ROUTE,
+        find: "            liveCaseEvents(\n              await dependencies.loadCaseEvents(request, user, caseId),\n            ),",
+        replace: "            await dependencies.loadCaseEvents(request, user, caseId),",
       },
     ],
   },

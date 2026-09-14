@@ -32,11 +32,14 @@ import { NextResponse } from "next/server";
 
 import {
   candidateFingerprint,
-  candidatesFromTimeline,
+  candidatesFromMasterResult,
   resolveCandidates,
   type CandidateDismissalRow,
 } from "../../../../src/lib/case-system/events/caseEventCandidates";
-import { type CaseEventRow } from "../../../../src/lib/case-system/events/caseEventAdapter";
+import {
+  CASE_EVENT_SELECT_COLUMNS,
+  type CaseEventRow,
+} from "../../../../src/lib/case-system/events/caseEventAdapter";
 import {
   UUID_PATTERN,
   optionalText,
@@ -49,13 +52,6 @@ import {
 
 const MAX_REQUEST_BYTES = 8_000;
 const ALLOWED_KEYS = ["caseId", "action", "narrativeBasis", "dismissalId"];
-
-const EVENT_COLUMNS =
-  "id,case_id,event_type,court_path,title,description," +
-  "occurred_at_raw,occurred_at_normalized,date_certainty," +
-  "scheduled_for_raw,scheduled_for_normalized,scheduled_for_certainty," +
-  "source,narrative_basis,related_document_id,supersedes_event_id," +
-  "retracted_at,created_at";
 
 const DISMISSAL_COLUMNS =
   "id,case_id,candidate_fingerprint,narrative_basis,suggested_event_type," +
@@ -117,11 +113,13 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: loaded.error }, { status: loaded.status });
   }
 
-  const masterResult = asRecord(loaded.ownedCase.master_result);
-  const candidates = candidatesFromTimeline(masterResult?.timeline);
+  // Where the timeline lives is decided in src/, not here. This read used to
+  // be `masterResult.timeline`, a key no write path has ever set, so every
+  // request resolved zero candidates and the surface was permanently empty.
+  const candidates = candidatesFromMasterResult(loaded.ownedCase.master_result);
 
   const [{ data: eventRows }, { data: dismissalRows }] = await Promise.all([
-    loaded.supabase.from("case_events").select(EVENT_COLUMNS).eq("case_id", caseId),
+    loaded.supabase.from("case_events").select(CASE_EVENT_SELECT_COLUMNS).eq("case_id", caseId),
     loaded.supabase
       .from("case_event_candidate_dismissals")
       .select(DISMISSAL_COLUMNS)

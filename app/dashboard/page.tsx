@@ -113,13 +113,20 @@ function createStarterMasterResult(
         pathwayWarnings: [],
       },
       strategy: {
-        weaknesses: [
+        // `proofGaps`, not `weaknesses`. The three strings are statements about
+        // what is not yet recorded, which is allowed; the field name was not.
+        // `extractDashboardMaster` reads `proofGaps` and deliberately does not
+        // fall back to `weaknesses`, so under the old name these rendered
+        // nowhere — the rename is what makes them reach the case screen.
+        // `settlementConsiderations` is gone rather than renamed: it was an
+        // empty array with no producer and no renderer, and the slot itself is
+        // the thing that invites settlement-pressure content back in.
+        proofGaps: [
           "No evidence has been linked yet.",
           "No legal issues have been mapped yet.",
           "No proof chart has been created yet.",
         ],
         suggestedWordingImprovements: [],
-        settlementConsiderations: [],
         nextStrategicSteps: [
           "Complete intake.",
           "Upload or describe evidence.",

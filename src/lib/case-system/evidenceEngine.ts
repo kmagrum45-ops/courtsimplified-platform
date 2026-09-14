@@ -52,14 +52,30 @@ export type EvidenceRelationship = {
 };
 
 export type EvidenceAnalysis = {
-  strengths: string[];
-  weaknesses: string[];
+  /**
+   * What the record for this item actually contains — "has a date or event
+   * reference", "identifies a source". Every member is a statement about
+   * completeness, not about how much the item helps. Named `strengths` until
+   * now, which described the content inaccurately and named a §3 grade.
+   */
+  recordedDetails: string[];
+  /**
+   * What the record is missing, in the same terms. One member today: the item
+   * is not yet linked to a legal element. Named `weaknesses` until now.
+   */
+  recordGaps: string[];
   missingInformation: string[];
   risks: string[];
   suggestedFixes: string[];
   exhibitUse: string[];
 
-  strengthLevel: EvidenceStrengthLevel;
+  // `strengthLevel` was here, carrying "strong" | "moderate" | "weak" from
+  // `determineStrengthLevel` — a weighted point formula (+20 for a relevance
+  // note, -8 per missing field, >=55 is "strong") that graded a user's
+  // evidence. It is gone, formula and all. It had no reader outside this file:
+  // it was computed per item, the highest was picked for the bundle, and
+  // nothing ever displayed or branched on either. The recorded-vs-not
+  // partition above is what replaces it, as everywhere else.
   suggestedExhibitGroup: string;
   suggestedExhibitNumber?: string;
 
@@ -624,58 +640,42 @@ function detectRisks(item: EvidenceItem) {
   };
 }
 
-function determineStrengthLevel(
-  item: EvidenceItem,
-  missingInformation: string[],
-  risks: string[],
-  authenticityRisks: string[],
-  hearsayRisks: string[],
-): EvidenceStrengthLevel {
-  let score = 0;
-
-  if (hasMeaningfulText(item.title)) score += 10;
-  if (hasMeaningfulText(item.description)) score += 15;
-  if (hasMeaningfulText(item.relevance)) score += 20;
-  if (hasMeaningfulText(item.date)) score += 15;
-  if (hasMeaningfulText(item.source)) score += 15;
-  if (hasMeaningfulText(item.category)) score += 10;
-  if (hasMeaningfulText(item.fileName) || hasMeaningfulText(item.storagePath)) {
-    score += 10;
-  }
-
-  score -= missingInformation.length * 8;
-  score -= risks.length * 5;
-  score -= authenticityRisks.length * 6;
-  score -= hearsayRisks.length * 8;
-
-  if (score >= 55) return "strong";
-  if (score >= 30) return "moderate";
-  if (score > 0) return "weak";
-
-  return "unknown";
-}
+/*
+ * `determineStrengthLevel` was here.
+ *
+ * It summed weights over the record (+20 for a relevance note, +15 for a date,
+ * +10 for a title), subtracted for gaps and risks (-8 per missing field, -8 per
+ * hearsay risk), and cut the total at 55 / 30 / 0 into "strong" / "moderate" /
+ * "weak" / "unknown". That is a score on a user's evidence, and the thresholds
+ * were not sourced from anything — they were chosen so the buckets came out
+ * looking reasonable.
+ *
+ * Deleted rather than left unused. The fields it read are still reported, as
+ * `recordedDetails` when present and `missingInformation` when absent, which
+ * tells the user the same facts without ranking them.
+ */
 export function analyzeEvidenceItem(item: EvidenceItem): EvidenceAnalysis {
   const text = textOf(item);
 
-  const strengths: string[] = [];
-  const weaknesses: string[] = [];
+  const recordedDetails: string[] = [];
+  const recordGaps: string[] = [];
   const missingInformation: string[] = [];
   const exhibitUse: string[] = [];
   const courtPackageNotes: string[] = [];
 
-  if (hasMeaningfulText(item.title)) strengths.push("This evidence has a clear title.");
+  if (hasMeaningfulText(item.title)) recordedDetails.push("This evidence has a clear title.");
   else missingInformation.push("Add a short exhibit title.");
 
-  if (hasMeaningfulText(item.description)) strengths.push("This evidence includes a description.");
+  if (hasMeaningfulText(item.description)) recordedDetails.push("This evidence includes a description.");
   else missingInformation.push("Explain what this evidence shows.");
 
-  if (hasMeaningfulText(item.relevance)) strengths.push("This evidence explains why it matters.");
+  if (hasMeaningfulText(item.relevance)) recordedDetails.push("This evidence explains why it matters.");
   else missingInformation.push("Explain why this evidence matters to the claim, defence, or current court step.");
 
-  if (hasMeaningfulText(item.date)) strengths.push("This evidence has a date or event reference.");
+  if (hasMeaningfulText(item.date)) recordedDetails.push("This evidence has a date or event reference.");
   else missingInformation.push("Add the date or event this evidence relates to.");
 
-  if (hasMeaningfulText(item.source)) strengths.push("This evidence identifies a source.");
+  if (hasMeaningfulText(item.source)) recordedDetails.push("This evidence identifies a source.");
   else missingInformation.push("Identify who created, sent, received, or produced this evidence.");
 
   const relatedIssues = detectRelatedIssues(item);
@@ -686,9 +686,9 @@ export function analyzeEvidenceItem(item: EvidenceItem): EvidenceAnalysis {
   const riskResult = detectRisks(item);
 
   if (relatedLegalElements.length > 0) {
-    strengths.push("This evidence can be connected to one or more legal proof points.");
+    recordedDetails.push("This evidence can be connected to one or more legal proof points.");
   } else {
-    weaknesses.push("This evidence is not yet connected to a specific legal element or proof point.");
+    recordGaps.push("This evidence is not yet connected to a specific legal element or proof point.");
     missingInformation.push("Identify what legal point this evidence helps prove.");
   }
 
@@ -731,23 +731,14 @@ export function analyzeEvidenceItem(item: EvidenceItem): EvidenceAnalysis {
     courtPackageNotes.push(`Proof point: ${relatedLegalElements.join(", ")}.`);
   }
 
-  const strengthLevel = determineStrengthLevel(
-    item,
-    missingInformation,
-    riskResult.risks,
-    riskResult.authenticityRisks,
-    riskResult.hearsayRisks,
-  );
-
   return {
-    strengths: cleanList(strengths),
-    weaknesses: cleanList(weaknesses),
+    recordedDetails: cleanList(recordedDetails),
+    recordGaps: cleanList(recordGaps),
     missingInformation: cleanList(missingInformation),
     risks: cleanList(riskResult.risks),
     suggestedFixes: cleanList(riskResult.suggestedFixes),
     exhibitUse: cleanList(exhibitUse),
 
-    strengthLevel,
     suggestedExhibitGroup,
     suggestedExhibitNumber: item.exhibitNumber,
 
@@ -767,21 +758,12 @@ export function analyzeEvidenceItem(item: EvidenceItem): EvidenceAnalysis {
 }
 
 function mergeEvidenceAnalyses(analyses: EvidenceAnalysis[]): EvidenceAnalysis {
-  const strengthPriority: Record<EvidenceStrengthLevel, number> = {
-    unknown: 0,
-    weak: 1,
-    moderate: 2,
-    strong: 3,
-  };
-
-  const strongest =
-    analyses
-      .map((item) => item.strengthLevel)
-      .sort((a, b) => strengthPriority[b] - strengthPriority[a])[0] || "unknown";
-
+  // The bundle used to pick the single highest `strengthLevel` across items
+  // and report it as the bundle's grade — one ordinal for the user's whole
+  // evidence set, derived from the point formula that is now gone.
   return {
-    strengths: cleanList(analyses.flatMap((item) => item.strengths)),
-    weaknesses: cleanList(analyses.flatMap((item) => item.weaknesses)),
+    recordedDetails: cleanList(analyses.flatMap((item) => item.recordedDetails)),
+    recordGaps: cleanList(analyses.flatMap((item) => item.recordGaps)),
     missingInformation: cleanList(
       analyses.flatMap((item) => item.missingInformation),
     ),
@@ -789,7 +771,6 @@ function mergeEvidenceAnalyses(analyses: EvidenceAnalysis[]): EvidenceAnalysis {
     suggestedFixes: cleanList(analyses.flatMap((item) => item.suggestedFixes)),
     exhibitUse: cleanList(analyses.flatMap((item) => item.exhibitUse)),
 
-    strengthLevel: strongest,
     suggestedExhibitGroup: "Bundle-level analysis",
     suggestedExhibitNumber: undefined,
 

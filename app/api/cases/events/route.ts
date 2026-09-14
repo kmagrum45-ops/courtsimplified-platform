@@ -45,6 +45,7 @@ import {
   isSingletonType,
 } from "../../../../src/lib/case-system/events/caseEventTypes";
 import {
+  CASE_EVENT_SELECT_COLUMNS,
   liveCaseEvents,
   type CaseEventRow,
 } from "../../../../src/lib/case-system/events/caseEventAdapter";
@@ -91,12 +92,6 @@ const ALLOWED_KEYS = [
   "dryRun",
 ];
 
-const SELECT_COLUMNS =
-  "id,case_id,event_type,court_path,title,description," +
-  "occurred_at_raw,occurred_at_normalized,date_certainty," +
-  "scheduled_for_raw,scheduled_for_normalized,scheduled_for_certainty," +
-  "source,narrative_basis,related_document_id,supersedes_event_id," +
-  "retracted_at,created_at";
 
 function asRecord(value: unknown): Record<string, unknown> | null {
   return value && typeof value === "object" && !Array.isArray(value)
@@ -238,7 +233,7 @@ export async function POST(request: Request) {
 
   const { data: existingRows, error: readError } = await supabase
     .from("case_events")
-    .select(SELECT_COLUMNS)
+    .select(CASE_EVENT_SELECT_COLUMNS)
     .eq("case_id", caseId);
 
   if (readError) {
@@ -296,7 +291,7 @@ export async function POST(request: Request) {
       related_document_id: parsed.relatedDocumentId,
       supersedes_event_id: parsed.supersedesEventId,
     })
-    .select(SELECT_COLUMNS)
+    .select(CASE_EVENT_SELECT_COLUMNS)
     .maybeSingle();
 
   if (insertError || !inserted) {
@@ -339,7 +334,7 @@ export async function GET(request: Request) {
 
   const { data, error } = await supabase
     .from("case_events")
-    .select(SELECT_COLUMNS)
+    .select(CASE_EVENT_SELECT_COLUMNS)
     .eq("case_id", caseId)
     .order("created_at", { ascending: false });
 

@@ -18,6 +18,7 @@ import type {
 } from "../../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 
 import { supabase } from "../../../src/lib/supabase/client";
+import { UUID_PATTERN } from "../../../src/lib/case-system/events/caseEventRequest";
 import {
   consumeNarrativePrefill,
   directPrefillValues,
@@ -482,7 +483,19 @@ async function runFormSafetyCheck(storyText: string): Promise<SafetyCheckOutcome
  */
 export async function requestSmallClaimsAnalysis(
   input: SmallClaimsIntelligenceInput,
+  /**
+   * The selected case, when there is one. Sending it is what lets the analysis
+   * see the events the user confirmed; without it the route has no case to
+   * read them from and the run proceeds on intake answers alone, as it did
+   * before confirmed events were wired in.
+   */
+  caseId?: string | null,
 ): Promise<SmallClaimsAnalysisResponse> {
+  // Only a real case row id is sent. `masterCaseId` and similar in-memory ids
+  // are not `cases.id` values, and sending one would earn a 400 that failed
+  // the whole analysis over an optional enrichment.
+  const sendCaseId = caseId && UUID_PATTERN.test(caseId) ? caseId : "";
+
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -495,7 +508,7 @@ export async function requestSmallClaimsAnalysis(
         ? { Authorization: `Bearer ${session.access_token}` }
         : {}),
     },
-    body: JSON.stringify({ input }),
+    body: JSON.stringify(sendCaseId ? { input, caseId: sendCaseId } : { input }),
   });
 
   const data = (await response.json()) as SmallClaimsAnalysisResponse;
@@ -703,7 +716,10 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
           input.filedDocuments.length > 0 ? input.filedDocuments : ["nothing"],
       };
 
-      const response = await requestSmallClaimsAnalysis(preparedInput);
+      const response = await requestSmallClaimsAnalysis(
+        preparedInput,
+        new URLSearchParams(window.location.search).get("caseId"),
+      );
       const result = response.result!;
       const payload: StoredCaseData = {
         ...result.payload,

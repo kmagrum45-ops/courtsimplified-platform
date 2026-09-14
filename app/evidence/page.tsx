@@ -346,8 +346,12 @@ function EvidencePageContent() {
         evidence: reviewedItems,
         evidencePackage: savedPackage,
         evidenceIntelligence: {
-          strengths: bundleAnalysis.strengths,
-          weaknesses: bundleAnalysis.weaknesses,
+          // Persisted under the names the engine now uses. The old
+          // `strengths` / `weaknesses` keys are not written and not read back:
+          // the content was always record-completeness, never a grade, but the
+          // names said otherwise on a field stored in the user's case.
+          recordedDetails: bundleAnalysis.recordedDetails,
+          recordGaps: bundleAnalysis.recordGaps,
           missingInformation: bundleAnalysis.missingInformation,
           risks: bundleAnalysis.risks,
           proofGaps: bundleAnalysis.proofGaps,
@@ -725,7 +729,12 @@ function EvidencePageContent() {
                   items={analysis.relatedIssues}
                 />
 
-                <AnalysisBox title="What This Supports" items={analysis.strengths} />
+                {/* "What This Supports" until now — same correction as the
+                    bundle panel below: these are record facts, not support. */}
+                <AnalysisBox
+                  title="What this record contains"
+                  items={analysis.recordedDetails}
+                />
 
                 <AnalysisBox
                   title="Missing information"
@@ -835,14 +844,20 @@ function EvidencePageContent() {
             </h2>
 
             <div className="mt-5 grid gap-4 md:grid-cols-2">
+              {/*
+                "Points Supported by Evidence" until now, which described the
+                content wrongly: every item is a statement about the record
+                ("has a date or event reference"), not about what the evidence
+                proves. The heading now says what the list is.
+              */}
               <AnalysisBox
-                title="Points Supported by Evidence"
-                items={bundleAnalysis.strengths}
+                title="What each record contains"
+                items={bundleAnalysis.recordedDetails}
               />
 
               <AnalysisBox
                 title="Gaps to Address"
-                items={bundleAnalysis.weaknesses}
+                items={bundleAnalysis.recordGaps}
               />
 
               <AnalysisBox

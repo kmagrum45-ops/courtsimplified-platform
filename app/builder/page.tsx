@@ -629,9 +629,12 @@ function BuilderPageContent() {
       // without that, deriveCaseStageWithEvents receives {} and the stage comes
       // entirely from confirmed events.
       setDraftIntakeFacts(result.facts as Record<string, unknown>);
-      setDraftIntakeFacts(result.facts as Record<string, unknown>);
 
-      const response = await requestSmallClaimsAnalysis(mappedInput);
+      // The active case, so the run sees the events the user confirmed.
+      const response = await requestSmallClaimsAnalysis(
+        mappedInput,
+        getActiveCaseId(),
+      );
       const analysisResult = response.result!;
       const payload: StoredCaseData = {
         ...analysisResult.payload,

@@ -22,12 +22,23 @@
  * confirms it — and when they do, the sentence it came from is kept in
  * `narrative_basis` so they can see what was read into their story.
  *
- * WHERE CANDIDATES COME FROM. `master_result.timeline`, written by `mapEvent`
- * in masterCaseBridge from `normalizedIntake.events`. Each carries a title, a
- * description and `sourceText` — the sentence. It carries NO procedural type,
+ * WHERE CANDIDATES COME FROM. `master_result.masterCase.timeline`, written by
+ * `mapEvent` in masterCaseBridge from `normalizedIntake.events`, carried into
+ * the persisted blob as `masterCase` by brainMigrationLayer. Each entry has a
+ * title, a description and `sourceText` — the sentence. It carries NO type,
  * and should not: classifying a sentence into the O. Reg. 258/98 vocabulary is
  * the user's judgment, and a parser guess would be the inference the source
  * CHECK exists to keep out.
+ *
+ * This comment previously said `master_result.timeline`, top-level. That was
+ * written from the shape of `mapEvent` without ever checking where the value
+ * it returns is stored, and it was wrong: nothing writes a top-level
+ * `timeline` key. The candidates route believed the comment, so the surface
+ * returned an empty list on every request from the day it shipped. The
+ * separate `masterCaseFile.timeline` is deliberately NOT read here — those are
+ * timeline entries the user already entered, not sentences parsed out of a
+ * narrative awaiting confirmation, so offering them as candidates would ask
+ * the user to confirm what they already recorded.
  */
 
 import { createHash } from "node:crypto";
@@ -175,7 +186,23 @@ export function candidatesAwaitingAnswer(resolved: ResolvedCandidate[]): Resolve
 }
 
 /**
- * Read candidates out of a persisted `master_result.timeline`.
+ * Candidates from a whole persisted `master_result` blob.
+ *
+ * This exists so the LOCATION of the timeline is checkable, not just the
+ * parsing of it. The bug this replaces was a route reading the wrong key: the
+ * parser was correct and well covered, and it was handed `undefined` on every
+ * request. A check that only exercised `candidatesFromTimeline` passed
+ * throughout. Route code calls this and does not reach into the blob itself.
+ */
+export function candidatesFromMasterResult(masterResult: unknown): EventCandidate[] {
+  if (!masterResult || typeof masterResult !== "object") return [];
+  const masterCase = (masterResult as Record<string, unknown>).masterCase;
+  if (!masterCase || typeof masterCase !== "object") return [];
+  return candidatesFromTimeline((masterCase as Record<string, unknown>).timeline);
+}
+
+/**
+ * Read candidates out of a `masterCase.timeline` array.
  *
  * Tolerant by design: a case analysed before this feature existed, or by an
  * older pipeline, should yield the candidates it can rather than throwing. An

@@ -5,7 +5,15 @@ import {
   type SmallClaimsIntelligenceOutput,
   type SmallClaimsIntelligenceInput,
 } from "@/src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
-import { getAuthenticatedUser } from "@/src/lib/supabase/serverAuth";
+import {
+  getAuthenticatedOwnedCaseEvents,
+  getAuthenticatedUser,
+} from "@/src/lib/supabase/serverAuth";
+import {
+  liveCaseEvents,
+  toProceduralEvents,
+} from "@/src/lib/case-system/events/caseEventAdapter";
+import { UUID_PATTERN } from "@/src/lib/case-system/events/caseEventRequest";
 import { hasConfiguredServerAi } from "@/src/lib/case-system/intelligence/serverAiConfiguration";
 
 export const runtime = "nodejs";
@@ -216,6 +224,7 @@ type SmallClaimsRouteDependencies = {
   authenticate: typeof getAuthenticatedUser;
   analyze: typeof analyzeSmallClaimsWithBrain;
   hasExternalAiKey: () => boolean;
+  loadCaseEvents: typeof getAuthenticatedOwnedCaseEvents;
 };
 
 export function createSmallClaimsAnalyzePost(
@@ -225,6 +234,7 @@ export function createSmallClaimsAnalyzePost(
     authenticate: getAuthenticatedUser,
     analyze: analyzeSmallClaimsWithBrain,
     hasExternalAiKey: hasConfiguredServerAi,
+    loadCaseEvents: getAuthenticatedOwnedCaseEvents,
     ...overrides,
   };
 
@@ -242,8 +252,23 @@ export function createSmallClaimsAnalyzePost(
     return errorResponse("A valid Small Claims intake payload is required.", 400);
   }
 
-  if (!isRecord(body) || Object.keys(body).some((key) => key !== "input")) {
+  if (
+    !isRecord(body) ||
+    Object.keys(body).some((key) => key !== "input" && key !== "caseId")
+  ) {
     return errorResponse("A valid Small Claims intake payload is required.", 400);
+  }
+
+  // Optional. When present it is the case whose confirmed events the analysis
+  // should see. It is never trusted as identity: the events are loaded through
+  // the ownership check, and a caseId the caller does not own yields [].
+  const caseId =
+    typeof body.caseId === "string" && UUID_PATTERN.test(body.caseId)
+      ? body.caseId
+      : "";
+
+  if (body.caseId !== undefined && !caseId) {
+    return errorResponse("A valid selected case is required.", 400);
   }
 
   const serializedInput = JSON.stringify(body.input);
@@ -259,12 +284,33 @@ export function createSmallClaimsAnalyzePost(
   }
 
   try {
-    const authenticated = Boolean(await dependencies.authenticate(request));
+    const user = await dependencies.authenticate(request);
+    const authenticated = Boolean(user);
     const allowExternalCognition =
       authenticated && dependencies.hasExternalAiKey();
 
+    // The events the user has CONFIRMED, threaded into the analysis.
+    //
+    // Before this, nothing in app/ supplied `confirmedEvents`: the parameter
+    // existed the whole way down to buildProceduralState and every run
+    // received []. Confirming an event changed the timeline screen and nothing
+    // else — not form routing, not stage, not deadlines.
+    //
+    // Retracted and superseded rows are filtered out here rather than passed
+    // on. `liveCaseEvents` is the single definition of what still stands, and
+    // an analysis must not route off an event the user took back.
+    const confirmedEvents =
+      user && caseId
+        ? toProceduralEvents(
+            liveCaseEvents(
+              await dependencies.loadCaseEvents(request, user, caseId),
+            ),
+          )
+        : [];
+
     const internalResult = await dependencies.analyze(body.input, {
       allowExternalCognition,
+      confirmedEvents,
     });
 
     const fallbackUsed =

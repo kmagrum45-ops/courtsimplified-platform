@@ -415,14 +415,10 @@ export function buildDashboardMasterFromAssembly(
         ...(assembly.proceduralState?.warnings || []),
       ]),
       suggestedWordingImprovements: assembly.credibilityIntelligence.nextActions,
-      // This emitted `Settlement pressure score: ${n}.` as literal user-facing
-      // text — a number telling someone how much pressure they are under to
-      // settle their own case. It was the last of the three credibility scores
-      // still rendering anywhere. Nothing replaces it: there is no factual
-      // restatement of a settlement-pressure grade, and the procedural facts a
-      // user actually needs (deadlines, outstanding steps) are already carried
-      // by nextStrategicSteps and the readiness blockers.
-      settlementConsiderations: [],
+      // `settlementConsiderations` was emitted here, and it is gone from
+      // DashboardMaster entirely — see the note on the type. It carried
+      // `Settlement pressure score: ${n}.` as literal user-facing text, was
+      // emptied to `[]`, and has now lost its slot as well.
       nextStrategicSteps: uniqueStrings([
         ...assembly.proofReadiness.proofNextActions,
         ...assembly.credibilityIntelligence.nextActions,

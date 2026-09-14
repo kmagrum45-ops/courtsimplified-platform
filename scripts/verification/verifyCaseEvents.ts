@@ -50,6 +50,7 @@ import {
 import {
   candidateFingerprint,
   candidatesAwaitingAnswer,
+  candidatesFromMasterResult,
   candidatesFromTimeline,
   resolveCandidates,
   type CandidateDismissalRow,
@@ -661,6 +662,148 @@ function main(): void {
     "guided facts override facts read back from document selections",
     /filingFacts[\s\S]{0,400}\.\.\.\(draftIntakeFacts \|\| \{\}\)/.test(BUILDER_SRC),
     "a direct answer beats an inversion of a document list",
+  );
+
+  // ---------------------------------------------------------------------
+  // WHERE THE CANDIDATES ARE READ FROM.
+  //
+  // The candidate surface shipped reading `master_result.timeline`, a key no
+  // write path has ever set. Every request resolved zero candidates and the
+  // surface was permanently empty. `candidatesFromTimeline` was correct and
+  // covered the whole time — it was handed `undefined`. So these check the
+  // LOCATION, which is the thing that was wrong.
+  // ---------------------------------------------------------------------
+
+  const blob = {
+    masterCase: {
+      timeline: [
+        {
+          id: "timeline_1",
+          title: "Claim served",
+          description: "Served the defendant.",
+          sourceText: "I served the defendant on 4 March.",
+        },
+      ],
+    },
+  };
+
+  check(
+    "candidates are found in a blob shaped like the persisted one",
+    candidatesFromMasterResult(blob).length === 1,
+    "this is the read that was silently empty; if it returns [] the surface is dead again",
+  );
+
+  check(
+    "a top-level `timeline` is NOT what is read",
+    candidatesFromMasterResult({ timeline: blob.masterCase.timeline }).length === 0,
+    "reading the old key would pass the check above while still being the bug",
+  );
+
+  const BRIDGE_SRC = readFileSync(
+    path.join(process.cwd(), "src/lib/case-system/contracts/masterCaseBridge.ts"),
+    "utf8",
+  );
+  const MIGRATION_SRC = readFileSync(
+    path.join(process.cwd(), "src/lib/case-system/orchestration/brainMigrationLayer.ts"),
+    "utf8",
+  );
+
+  // The two halves of the assertion that was written without checking:
+  // masterCaseBridge nests `timeline`, and brainMigrationLayer persists that
+  // object under `masterCase`. If either moves, the read above goes stale in
+  // exactly the way it did before, so both are asserted rather than assumed.
+  check(
+    "masterCaseBridge still puts timeline inside the master case",
+    /timeline: intelligence\.normalizedIntake\.events\.map\(mapEvent\)/.test(BRIDGE_SRC),
+    "the entries would no longer be at masterCase.timeline",
+  );
+  check(
+    "brainMigrationLayer still persists it under `masterCase`",
+    /masterCase: bridge\.masterCase/.test(MIGRATION_SRC),
+    "the blob key the route reads would change",
+  );
+
+  const CANDIDATES_ROUTE_SRC = readFileSync(
+    path.join(process.cwd(), "app/api/cases/event-candidates/route.ts"),
+    "utf8",
+  );
+  // Comments stripped first. The unstripped version of this check failed on
+  // the route's own note explaining the old key — the third time in this
+  // codebase that a check has fired on its own explanation. A check that reads
+  // prose is reading the wrong thing.
+  const withoutComments = (source: string) =>
+    source.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
+
+  check(
+    "the route does not reach into the blob itself",
+    /candidatesFromMasterResult\(/.test(withoutComments(CANDIDATES_ROUTE_SRC)) &&
+      !/masterResult\??\.(timeline|masterCase)/.test(withoutComments(CANDIDATES_ROUTE_SRC)),
+    "an inline read puts the key back out of reach of the checks above",
+  );
+
+  // ---------------------------------------------------------------------
+  // CONFIRMED EVENTS REACHING THE ANALYSIS.
+  //
+  // `confirmedEvents` existed the whole way down to buildProceduralState and
+  // nothing in app/ ever supplied it, so every run received []. Confirming an
+  // event changed the timeline screen and nothing else.
+  //
+  // The first check is behavioural. The second is a SOURCE check and a weak
+  // one: it cannot see whether the value actually arrives, only that the
+  // route names it. A behavioural check would mean a verification suite
+  // importing from app/api/, which is the coupling already recorded as a
+  // problem in OUTSTANDING_ISSUES. Named as weak rather than dressed up.
+  // ---------------------------------------------------------------------
+
+  const confirmedRows: CaseEventRow[] = [
+    row({
+      id: "e1",
+      event_type: "claim-served",
+      occurred_at_raw: "4 March",
+      occurred_at_normalized: "2026-03-04",
+      date_certainty: "exact",
+      source: "confirmed-from-narrative",
+      narrative_basis: "I served the defendant on 4 March.",
+    }),
+    row({
+      id: "e2",
+      event_type: "claim-served",
+      occurred_at_raw: "5 March",
+      retracted_at: "2026-03-06T00:00:00.000Z",
+    }),
+  ];
+
+  const threaded = toProceduralEvents(liveCaseEvents(confirmedRows));
+  check(
+    "confirmed rows become ProceduralEvents, retracted ones dropped",
+    threaded.length === 1 && threaded[0]?.type === "claim-served",
+    "this is what the analyze route now hands the brain",
+  );
+
+  const ANALYZE_ROUTE_SRC = readFileSync(
+    path.join(process.cwd(), "app/api/small-claims/analyze/route.ts"),
+    "utf8",
+  );
+  check(
+    "the Small Claims analyze route supplies confirmedEvents",
+    /confirmedEvents,/.test(ANALYZE_ROUTE_SRC) &&
+      /loadCaseEvents\(request, user, caseId\)/.test(ANALYZE_ROUTE_SRC),
+    "without it every analysis runs as though the user had confirmed nothing",
+  );
+  check(
+    "it filters retracted events before threading them",
+    /liveCaseEvents\(/.test(ANALYZE_ROUTE_SRC),
+    "routing off an event the user took back is worse than not routing at all",
+  );
+  check(
+    "the client sends the selected case with the analysis request",
+    /caseId: sendCaseId/.test(
+      readFileSync(
+        path.join(process.cwd(), "app/builder/_components/SmallClaimsIntake.tsx"),
+        "utf8",
+      ),
+    ),
+    "the route has no case to read events from unless the client names one",
   );
 
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);

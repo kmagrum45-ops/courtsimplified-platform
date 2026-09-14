@@ -77,9 +77,15 @@ export type DashboardMasterView = {
   strategy: {
     proofGaps: string[];
     suggestedWordingImprovements: string[];
-    settlementConsiderations: string[];
     nextStrategicSteps: string[];
   };
+  // `settlementConsiderations` was here. Its last producer emitted
+  // `Settlement pressure score: ${n}.` as literal user-facing text and was
+  // emptied to `[]`, leaving a named slot with no producer and no renderer.
+  // The slot is removed rather than left empty: prohibition-by-comment has
+  // failed in this codebase before, and an empty field named for settlement
+  // pressure is an invitation to fill it. The procedural facts a user actually
+  // needs are carried by nextStrategicSteps and the readiness blockers.
 
   proceduralIntelligence: {
     likelyForumIssues: string[];
@@ -400,7 +406,6 @@ export function extractDashboardMaster(value: unknown): DashboardMasterView {
       suggestedWordingImprovements: asStringArray(
         strategy.suggestedWordingImprovements,
       ),
-      settlementConsiderations: asStringArray(strategy.settlementConsiderations),
       nextStrategicSteps: asStringArray(strategy.nextStrategicSteps),
     },
 

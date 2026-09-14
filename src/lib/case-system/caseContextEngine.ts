@@ -1680,7 +1680,7 @@ export function buildCaseContext(input: BuildCaseContextInput): CaseContext {
     risks,
 
     strengths: cleanList([
-      ...evidenceAnalysis.strengths,
+      ...evidenceAnalysis.recordedDetails,
       ...evidenceAnalysis.corroborationNotes,
       ...(legalTheoryAnalysis.strongestTheory
         ? [
@@ -1691,7 +1691,7 @@ export function buildCaseContext(input: BuildCaseContextInput): CaseContext {
     ]),
 
     weaknesses: cleanList([
-      ...evidenceAnalysis.weaknesses,
+      ...evidenceAnalysis.recordGaps,
       ...evidenceAnalysis.contradictionNotes,
       ...evidenceAnalysis.credibilityConcerns,
       ...legalTheoryAnalysis.allMissingProof,
