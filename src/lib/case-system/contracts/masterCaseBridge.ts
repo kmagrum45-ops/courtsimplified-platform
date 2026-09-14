@@ -1159,31 +1159,17 @@ function buildReadinessState(
           ? 2
           : 0);
 
-  const base =
-    intelligence.confidence === "very-high"
-      ? 85
-      : intelligence.confidence === "high"
-        ? 70
-        : intelligence.confidence === "medium"
-          ? 50
-          : intelligence.confidence === "low"
-            ? 30
-            : 15;
-
-  const overallScore = Math.max(0, Math.min(100, base - blockerCount * 5));
-
+  // `base` stood here: intelligence.confidence mapped to 85/70/50/30/15,
+  // then `overallScore = clamp(base - blockerCount * 5)`, then a 85/70/45/20
+  // cut back into "ready" / "near-ready" / "developing" / "early" /
+  // "not-ready". An ordinal turned into a number turned back into an ordinal,
+  // with the user's case at the end of it. All three steps are gone.
+  //
+  // blockerCount survives as the count it always was — how many things are
+  // recorded as outstanding. It is the only part of that arithmetic that
+  // meant anything on its own.
   return {
-    overallScore,
-    overallLevel:
-      overallScore >= 85
-        ? "ready"
-        : overallScore >= 70
-          ? "near-ready"
-          : overallScore >= 45
-            ? "developing"
-            : overallScore >= 20
-              ? "early"
-              : "not-ready",
+    outstandingCount: blockerCount,
     pleadingReadiness: asCaseConfidence(intelligence.confidence),
     evidenceReadiness:
       evidenceIntelligence.gaps.length > 0 ||
@@ -1336,8 +1322,7 @@ export function buildMasterCaseFromIntelligence(args: {
       emptyCredibility,
     ),
     readiness: {
-      overallScore: 0,
-      overallLevel: "not-ready",
+      outstandingCount: 0,
       pleadingReadiness: "low",
       evidenceReadiness: "low",
       proceduralReadiness: "low",

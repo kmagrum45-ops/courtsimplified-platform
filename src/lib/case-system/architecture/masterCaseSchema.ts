@@ -683,8 +683,21 @@ export type CaseWorkflowState = {
 };
 
 export type CaseReadinessState = {
-  overallScore: number;
-  overallLevel: "not-ready" | "early" | "developing" | "near-ready" | "ready";
+  /**
+   * How many things are recorded as outstanding for this case.
+   *
+   * Was `overallScore: number` plus `overallLevel`, a five-rung ladder from
+   * "not-ready" to "ready". The score was `base - blockerCount * 5`, where
+   * `base` was itself an ordinal-to-number map over `intelligence.confidence`
+   * (very-high 85, high 70, medium 50, low 30, else 15) — a grade converted
+   * into a number and then cut back into a grade.
+   *
+   * Neither field had a single reader anywhere in the repo. They were written
+   * into master_result on every analysis and read by nothing, which is the
+   * shape that let them sit there. Same name as the factual replacement
+   * already used by dashboardEngine, deliberately.
+   */
+  outstandingCount: number;
   pleadingReadiness: CaseConfidence;
   evidenceReadiness: CaseConfidence;
   proceduralReadiness: CaseConfidence;
