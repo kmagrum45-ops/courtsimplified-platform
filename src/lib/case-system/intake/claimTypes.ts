@@ -3030,6 +3030,18 @@ export const CLAIM_TYPES: ClaimType[] = [
       "spreading rumors that aren't true",
       "saying things about me that aren't true",
       "made up claims about me",
+      // Added after a walkthrough: a defamation story reading "she told the
+      // school that I had been charged with fraud, none of it is true"
+      // matched NONE of the signals above, because every one of them is a
+      // first-person phrase ("about me", "my reputation") and the story was
+      // not written that way. These cover the plain framings people use.
+      "told people something that was not true",
+      "said untrue things",
+      "untrue statements",
+      "harmed my reputation",
+      "hurt my reputation",
+      "accused me of something i did not do",
+      "lied to others about me",
     ],
     typicalDefendantProfile: "either",
     citations: [

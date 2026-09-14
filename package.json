@@ -26,6 +26,7 @@
     "test:chat-hydration": "node --import tsx scripts/verification/verifyCourtAssistantChatHydration.ts",
     "test:cited-provisions": "node --import tsx scripts/verification/verifyCitedProvisions.ts",
     "test:claim-surface": "node --import tsx scripts/verification/verifyStatementOfClaimSurface.ts",
+    "test:claim-type-matcher": "node --import tsx scripts/verification/verifyClaimTypeMatcher.ts",
     "test:classifier-gating": "node --import tsx scripts/verification/verifyClassifierGating.ts",
     "test:cohort2-normalization": "node scripts/verification/verifyCohort2CatalogueNormalization.mjs",
     "test:cohort2-split-identities": "node scripts/verification/verifyCohort2SplitCanonicalIdentities.mjs",

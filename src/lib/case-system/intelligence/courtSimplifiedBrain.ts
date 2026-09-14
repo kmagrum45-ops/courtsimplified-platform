@@ -1405,11 +1405,25 @@ function buildProofDrivenRisks(args: {
       risks.push({
         id: createId("risk"),
         severity: "high",
-        title: `Overall proof weakness: ${proofMap.claimTitle}`,
+        // Was: title "Overall proof weakness: X" and explanation "This claim
+        // has weak overall proof because key evidence remains missing: …" /
+        // "…has weak overall proof and requires further fact and evidence
+        // development."
+        //
+        // A merits grade, assembled at runtime. The section 3 sweep searched
+        // declared fields and named formulas, so a sentence built from a
+        // template literal was invisible to it — and the comment two lines
+        // above shows the trigger had already been made factual while the
+        // sentence it produced was left graded.
+        //
+        // The trigger is unchanged. Only the words are: which elements have
+        // nothing recorded is a fact about the file, and it is more useful to
+        // the user than the adjective was.
+        title: `Elements with nothing recorded: ${proofMap.claimTitle}`,
         explanation:
           proofMap.missingEvidence.length > 0
-            ? `This claim has weak overall proof because key evidence remains missing: ${proofMap.missingEvidence.slice(0, 5).join("; ")}.`
-            : "This claim has weak overall proof and requires further fact and evidence development.",
+            ? `Nothing is recorded yet for one or more elements of this claim. Not recorded: ${proofMap.missingEvidence.slice(0, 5).join("; ")}.`
+            : "Nothing is recorded yet for one or more elements of this claim.",
         claimType: proofMap.claimType,
         source: "evidence",
         suggestedFix:

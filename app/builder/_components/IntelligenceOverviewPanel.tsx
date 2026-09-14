@@ -107,7 +107,27 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
     ? textItems(["Full legal names and dates of birth", "Proof of Ontario residence, if available", "Family relationship and living-history information", "Adult person’s written wishes or consent information for review", "Known information about the biological father", "A dated record of reasonable efforts already made to locate or contact him", "Any existing court, adoption, or child-protection documents"])
     : claimTypeContent
       ? claimTypeContent.evidenceToOrganize
-      : textItems([...(analysis.missingEvidence || []), ...(analysis.intelligenceEvidenceIssues || []).flatMap((issue) => issue.missingEvidence || [])]);
+      // No fallback. When no claim type matched, this list is EMPTY.
+      //
+      // It used to fall back to analysis.missingEvidence and
+      // intelligenceEvidenceIssues[].missingEvidence — unconstrained model
+      // output, rendered under a heading that reads as a determination about
+      // the user's case. A defamation story about false statements in one
+      // custody argument produced "Pattern of harassment", characterising the
+      // user's situation as something they never described.
+      //
+      // The citation asymmetry made it invisible: the sourced branch renders a
+      // (Source) link beside each item and the fallback renders none, so the
+      // unfounded entries were the ones WITHOUT a citation, which is the
+      // opposite of the signal a reader needs.
+      //
+      // The branch is removed rather than emptied. An empty fallback is one
+      // edit from being refilled; a deleted one has to be re-argued. The
+      // original justification — that the list "could come back empty for a
+      // real scenario" — inverts on contact: an empty list says nothing, and a
+      // fabricated one tells the user the system has decided something about
+      // their case.
+      : [];
   const courtPoints: SourcedListItem[] = claimTypeContent ? claimTypeContent.courtPoints : [];
   // General information about what defences commonly arise for this TYPE of
   // claim (sourced, same claimTypeOverviewContent.ts pipeline as courtPoints
