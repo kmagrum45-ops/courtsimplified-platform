@@ -43,7 +43,17 @@ import {
   existingSingletonEvents,
   findCaseEventInconsistencies,
 } from "../../src/lib/case-system/events/caseEventConsistency";
-import { parseRequest, pickedDate } from "../../app/api/cases/events/route";
+import {
+  parseEventRequest,
+  pickedDate,
+} from "../../src/lib/case-system/events/caseEventRequest";
+import {
+  candidateFingerprint,
+  candidatesAwaitingAnswer,
+  candidatesFromTimeline,
+  resolveCandidates,
+  type CandidateDismissalRow,
+} from "../../src/lib/case-system/events/caseEventCandidates";
 
 let failures = 0;
 
@@ -303,7 +313,7 @@ function main(): void {
   check("an absent date is accepted", pickedDate(undefined).ok === true);
   check("an impossible date is rejected", pickedDate("2026-02-31").ok === false);
 
-  const proseRequest = parseRequest({
+  const proseRequest = parseEventRequest({
     eventType: "claim-filed",
     title: "I filed my claim",
     occurredAtRaw: "4 March",
@@ -311,7 +321,7 @@ function main(): void {
   });
   check("a request carrying a prose normalized date is refused outright", proseRequest === null);
 
-  const goodRequest = parseRequest({
+  const goodRequest = parseEventRequest({
     eventType: "claim-filed",
     title: "I filed my claim",
     occurredAtRaw: "4 March",
@@ -328,15 +338,15 @@ function main(): void {
 
   check(
     "an event type outside the sourced vocabulary is refused",
-    parseRequest({ eventType: "claim-withdrawn", title: "t" }) === null,
+    parseEventRequest({ eventType: "claim-withdrawn", title: "t" }) === null,
   );
   check(
     "the untyped option is accepted like any other",
-    parseRequest({ eventType: "other-user-described", title: "Something happened" }) !== null,
+    parseEventRequest({ eventType: "other-user-described", title: "Something happened" }) !== null,
   );
   check(
     "a bad certainty is refused before it reaches the database",
-    parseRequest({ eventType: "claim-filed", title: "t", dateCertainty: "probably" }) === null,
+    parseEventRequest({ eventType: "claim-filed", title: "t", dateCertainty: "probably" }) === null,
   );
 
   // The route must NOT re-implement what the CHECK constraints hold. A
@@ -344,12 +354,159 @@ function main(): void {
   // what rejects it — case_events_narrative_basis_present, verified live.
   check(
     "the route does not duplicate the narrative-basis CHECK",
-    parseRequest({
+    parseEventRequest({
       eventType: "claim-filed",
       title: "t",
       source: "confirmed-from-narrative",
     }) !== null,
     "the database owns this invariant; duplicating it here is how the two drift",
+  );
+
+  // ---- Candidates: three states, and only one of them is stored ----
+
+  const SENTENCE = "I was served with the claim on the 4th of March.";
+
+  const candidates = [
+    { transientId: "timeline_1", title: "Served with the claim", narrativeBasis: SENTENCE },
+    { transientId: "timeline_2", title: "Something else", narrativeBasis: "We spoke on the phone." },
+  ];
+
+  const noAnswers = resolveCandidates(candidates, [], []);
+  check(
+    "a candidate nobody has answered is unanswered",
+    noAnswers.every((candidate) => candidate.state === "unanswered"),
+  );
+  check("unanswered candidates are what the surface prompts on", candidatesAwaitingAnswer(noAnswers).length === 2);
+
+  const confirmedEvent = row({
+    id: "ev-1",
+    event_type: "claim-served",
+    source: "confirmed-from-narrative",
+    narrative_basis: SENTENCE,
+  });
+  const afterConfirm = resolveCandidates(candidates, [confirmedEvent], []);
+  check(
+    "a candidate confirmed into an event reads as confirmed",
+    afterConfirm[0]?.state === "confirmed" && afterConfirm[0]?.confirmedEventId === "ev-1",
+  );
+  check("the other candidate is untouched", afterConfirm[1]?.state === "unanswered");
+
+  const dismissal: CandidateDismissalRow = {
+    id: "dis-1",
+    case_id: "case-1",
+    candidate_fingerprint: candidateFingerprint(SENTENCE),
+    narrative_basis: SENTENCE,
+    suggested_event_type: "",
+    dismissed_at: "2026-09-13T00:00:00Z",
+    restored_at: null,
+  };
+  const afterDismiss = resolveCandidates(candidates, [], [dismissal]);
+  check("a dismissed candidate reads as dismissed", afterDismiss[0]?.state === "dismissed");
+  check("it is not prompted on again", candidatesAwaitingAnswer(afterDismiss).length === 1);
+
+  const afterRestore = resolveCandidates(candidates, [], [
+    { ...dismissal, restored_at: "2026-09-14T00:00:00Z" },
+  ]);
+  check(
+    "restoring a dismissal makes the candidate answerable again",
+    afterRestore[0]?.state === "unanswered",
+  );
+
+  // ---- The fingerprint survives a re-parse, and ignores the type ----
+
+  check(
+    "a fresh parse of the same sentence produces the same fingerprint",
+    candidateFingerprint(SENTENCE) === candidateFingerprint(SENTENCE),
+  );
+  check(
+    "trailing punctuation and whitespace do not change identity",
+    candidateFingerprint(SENTENCE) === candidateFingerprint(`  ${SENTENCE.replace(/\.$/, "")}  `),
+  );
+  check(
+    "a genuinely different sentence is a different candidate",
+    candidateFingerprint(SENTENCE) !== candidateFingerprint("I was served in April."),
+  );
+  // Behavioural, not arity-based. An arity check (`fn.length === 1`) does NOT
+  // catch a defaulted second parameter — `(a, type = "")` still reports length
+  // 1 — and the mutation suite caught that hole. This asserts the property that
+  // actually matters: whatever is passed alongside the sentence, the
+  // fingerprint is unchanged, so a dismissed sentence cannot reappear re-typed.
+  const withExtraArg = (candidateFingerprint as (...args: unknown[]) => string)(
+    SENTENCE,
+    "claim-served",
+  );
+  const withOtherArg = (candidateFingerprint as (...args: unknown[]) => string)(
+    SENTENCE,
+    "motion-served",
+  );
+  check(
+    "the fingerprint ignores anything passed beside the sentence",
+    withExtraArg === candidateFingerprint(SENTENCE) && withOtherArg === withExtraArg,
+    "a type folded into the hash would let a dismissed sentence return under another type",
+  );
+
+  // ---- Silence is never recorded as an answer ----
+
+  const CANDIDATES_SRC = readFileSync(
+    path.join(__dirname, "..", "..", "src", "lib", "case-system", "events", "caseEventCandidates.ts"),
+    "utf8",
+  );
+  const DISMISSALS_MIGRATION = readFileSync(
+    path.join(
+      __dirname, "..", "..", "supabase", "migrations",
+      "20260913140000_add_case_event_candidate_dismissals.sql",
+    ),
+    "utf8",
+  );
+
+  check(
+    "there is no expiry, sweep or bulk-reviewed marker in the candidate logic",
+    !/expire|expiry|sweep|reviewed_at|bulkReview/i.test(CANDIDATES_SRC),
+    "any of those would convert a candidate the user skipped into a no",
+  );
+  // Assert on the SCHEMA, not the file. The migration's own comments explain
+  // the three states, so a whole-file grep fires on the explanation — the same
+  // mistake made once already on the system-inference check. Strip SQL comments
+  // and the COMMENT ON string literals before testing.
+  const dismissalsSchema = DISMISSALS_MIGRATION.split("\n")
+    .filter((line) => !/^\s*--/.test(line))
+    .join("\n")
+    .replace(/COMMENT ON[\s\S]*?;/g, "");
+
+  check(
+    "the dismissals table stores no 'unanswered' or 'pending' state",
+    !/pending|unanswered/i.test(dismissalsSchema),
+    "unanswered is the ABSENCE of a row; giving it a row gives silence somewhere to be written",
+  );
+  check(
+    "a dismissal is reversible rather than deleted",
+    /restored_at/.test(DISMISSALS_MIGRATION),
+  );
+  check(
+    "one live dismissal per sentence per case",
+    /UNIQUE INDEX[\s\S]{0,200}candidate_fingerprint[\s\S]{0,120}restored_at" IS NULL/.test(
+      DISMISSALS_MIGRATION,
+    ),
+  );
+
+  // ---- Candidates come from the persisted timeline, tolerantly ----
+
+  const fromTimeline = candidatesFromTimeline([
+    { id: "t1", title: "Served", sourceText: SENTENCE },
+    { id: "t2", description: "Only a description here." },
+    { id: "t3" },
+    null,
+    "not an object",
+  ]);
+  check("a timeline entry with a sentence becomes a candidate", fromTimeline.length === 2);
+  check(
+    "an entry with no usable sentence is skipped, not invented",
+    fromTimeline.every((candidate) => candidate.narrativeBasis.length > 0),
+  );
+  check("a malformed timeline yields nothing rather than throwing", candidatesFromTimeline(null).length === 0);
+  check(
+    "candidates carry no procedural type — the parser does not classify",
+    fromTimeline.every((candidate) => candidate.suggestedEventType === undefined),
   );
 
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);

@@ -44,7 +44,8 @@ const EVENTS_SUITE = "scripts/verification/verifyCaseEvents.ts";
 const EVENT_TYPES = "src/lib/case-system/events/caseEventTypes.ts";
 const EVENT_ADAPTER = "src/lib/case-system/events/caseEventAdapter.ts";
 const EVENT_CONSISTENCY = "src/lib/case-system/events/caseEventConsistency.ts";
-const EVENT_ROUTE = "app/api/cases/events/route.ts";
+const EVENT_REQUEST = "src/lib/case-system/events/caseEventRequest.ts";
+const EVENT_CANDIDATES = "src/lib/case-system/events/caseEventCandidates.ts";
 
 /**
  * The self-test. Its pattern is not in the file and must never be.
@@ -286,7 +287,7 @@ const CASES: MutationCase[] = [
     suite: EVENTS_SUITE,
     mutations: [
       {
-        file: EVENT_ROUTE,
+        file: EVENT_REQUEST,
         find: "  if (!ISO_DATE.test(candidate)) return { ok: false };",
         replace:
           "  if (!ISO_DATE.test(candidate)) {\n" +
@@ -303,9 +304,49 @@ const CASES: MutationCase[] = [
     suite: EVENTS_SUITE,
     mutations: [
       {
-        file: EVENT_ROUTE,
+        file: EVENT_REQUEST,
         find: "  if (!caseEventType(eventTypeValue)) return null;",
         replace: "  if (!eventTypeValue) return null;",
+      },
+    ],
+  },
+
+  {
+    label: "the candidate fingerprint hashes the event type back in",
+    suite: EVENTS_SUITE,
+    mutations: [
+      {
+        file: EVENT_CANDIDATES,
+        find:
+          "export function candidateFingerprint(narrativeBasis: string): string {\n" +
+          "  return createHash(\"sha256\").update(normalizeForFingerprint(narrativeBasis)).digest(\"hex\");",
+        replace:
+          "export function candidateFingerprint(narrativeBasis: string, type = \"\"): string {\n" +
+          "  return createHash(\"sha256\")\n" +
+          "    .update(type + \"|\" + normalizeForFingerprint(narrativeBasis))\n" +
+          "    .digest(\"hex\");",
+      },
+    ],
+  },
+  {
+    label: "a dismissed candidate is offered again as if unanswered",
+    suite: EVENTS_SUITE,
+    mutations: [
+      {
+        file: EVENT_CANDIDATES,
+        find: "    const dismissed = dismissedByFingerprint.get(fingerprint);",
+        replace: "    const dismissed = undefined as never;",
+      },
+    ],
+  },
+  {
+    label: "a restored dismissal keeps suppressing the candidate",
+    suite: EVENTS_SUITE,
+    mutations: [
+      {
+        file: EVENT_CANDIDATES,
+        find: "  return rows.filter((row) => row.restored_at === null);",
+        replace: "  return rows;",
       },
     ],
   },

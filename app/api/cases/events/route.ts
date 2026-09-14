@@ -43,23 +43,26 @@ import {
   CASE_EVENT_TYPES,
   caseEventType,
   isSingletonType,
-  type CaseEventType,
 } from "../../../../src/lib/case-system/events/caseEventTypes";
 import {
   liveCaseEvents,
   type CaseEventRow,
 } from "../../../../src/lib/case-system/events/caseEventAdapter";
 import { existingSingletonEvents } from "../../../../src/lib/case-system/events/caseEventConsistency";
+// Parsing and validation live in src/, not here: verifyCaseEvents checks them,
+// and a verification suite importing from app/api/ inverts the dependency.
+import {
+  UUID_PATTERN,
+  parseEventRequest,
+  text,
+  type ParsedEvent,
+} from "../../../../src/lib/case-system/events/caseEventRequest";
 import {
   getAuthenticatedOwnedCase,
   getAuthenticatedUser,
 } from "../../../../src/lib/supabase/serverAuth";
 
-const CASE_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const MAX_REQUEST_BYTES = 8_000;
-
-/** ISO calendar date, as a date picker produces. Never parsed from prose. */
-const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
 const ALLOWED_KEYS = [
   "caseId",
@@ -87,21 +90,10 @@ const SELECT_COLUMNS =
   "source,narrative_basis,related_document_id,supersedes_event_id," +
   "retracted_at,created_at";
 
-type Certainty = "exact" | "approximate" | "unknown";
-
 function asRecord(value: unknown): Record<string, unknown> | null {
   return value && typeof value === "object" && !Array.isArray(value)
     ? (value as Record<string, unknown>)
     : null;
-}
-
-function text(value: unknown): string {
-  return typeof value === "string" ? value.trim() : "";
-}
-
-function optionalText(value: unknown): string | null {
-  const trimmed = text(value);
-  return trimmed.length > 0 ? trimmed : null;
 }
 
 function exactKeys(value: Record<string, unknown>, keys: string[]): boolean {
@@ -128,105 +120,6 @@ function authenticatedClient(request: Request) {
     : null;
 }
 
-function certainty(value: unknown): Certainty | null {
-  return value === "exact" || value === "approximate" || value === "unknown" ? value : null;
-}
-
-/**
- * A normalized date must be an ISO date the user picked, or absent.
- *
- * The route rejects anything else rather than attempting a parse. If a client
- * sends "4 March" here, that is a client bug and a 400 is the honest answer —
- * quietly parsing it would hide the bug and store a guessed year.
- */
-export function pickedDate(value: unknown): { ok: true; date: string | null } | { ok: false } {
-  if (value === undefined || value === null || value === "") return { ok: true, date: null };
-  const candidate = text(value);
-  if (!ISO_DATE.test(candidate)) return { ok: false };
-  // Reject a well-formed but impossible date (2026-02-31) without computing
-  // anything about it.
-  const parsed = new Date(`${candidate}T00:00:00Z`);
-  if (Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== candidate) {
-    return { ok: false };
-  }
-  return { ok: true, date: candidate };
-}
-
-export type ParsedEvent = {
-  eventType: CaseEventType;
-  title: string;
-  description: string | null;
-  occurredAtRaw: string | null;
-  occurredAtNormalized: string | null;
-  dateCertainty: Certainty;
-  scheduledForRaw: string | null;
-  scheduledForNormalized: string | null;
-  scheduledForCertainty: Certainty;
-  source: "user-stated" | "confirmed-from-narrative" | "confirmed-from-document";
-  narrativeBasis: string | null;
-  relatedDocumentId: string | null;
-  supersedesEventId: string | null;
-  acknowledgedCollision: boolean;
-  dryRun: boolean;
-};
-
-export function parseRequest(raw: Record<string, unknown>): ParsedEvent | null {
-  const eventTypeValue = text(raw.eventType);
-
-  // The one invariant the database cannot hold: membership of the sourced
-  // vocabulary. caseEventType() returns undefined for anything else, including
-  // a plausible-looking type somebody invented.
-  if (!caseEventType(eventTypeValue)) return null;
-
-  const title = text(raw.title);
-  if (!title) return null;
-
-  const dateCertainty = certainty(raw.dateCertainty ?? "unknown");
-  const scheduledForCertainty = certainty(raw.scheduledForCertainty ?? "unknown");
-  if (!dateCertainty || !scheduledForCertainty) return null;
-
-  const occurredAt = pickedDate(raw.occurredAtNormalized);
-  const scheduledFor = pickedDate(raw.scheduledForNormalized);
-  if (!occurredAt.ok || !scheduledFor.ok) return null;
-
-  const source = raw.source ?? "user-stated";
-  if (
-    source !== "user-stated" &&
-    source !== "confirmed-from-narrative" &&
-    source !== "confirmed-from-document"
-  ) {
-    return null;
-  }
-
-  const supersedesEventId = optionalText(raw.supersedesEventId);
-  if (supersedesEventId && !CASE_ID_PATTERN.test(supersedesEventId)) return null;
-
-  const relatedDocumentId = optionalText(raw.relatedDocumentId);
-  if (relatedDocumentId && !CASE_ID_PATTERN.test(relatedDocumentId)) return null;
-
-  if (raw.acknowledgedCollision !== undefined && typeof raw.acknowledgedCollision !== "boolean") {
-    return null;
-  }
-  if (raw.dryRun !== undefined && typeof raw.dryRun !== "boolean") return null;
-
-  return {
-    eventType: eventTypeValue as CaseEventType,
-    title,
-    description: optionalText(raw.description),
-    occurredAtRaw: optionalText(raw.occurredAtRaw),
-    occurredAtNormalized: occurredAt.date,
-    dateCertainty,
-    scheduledForRaw: optionalText(raw.scheduledForRaw),
-    scheduledForNormalized: scheduledFor.date,
-    scheduledForCertainty,
-    source,
-    narrativeBasis: optionalText(raw.narrativeBasis),
-    relatedDocumentId,
-    supersedesEventId,
-    acknowledgedCollision: raw.acknowledgedCollision === true,
-    dryRun: raw.dryRun === true,
-  };
-}
 
 function collisionResponse(
   parsed: ParsedEvent,
@@ -289,14 +182,14 @@ export async function POST(request: Request) {
   const raw = asRecord(body);
   const caseId = text(raw?.caseId);
 
-  if (!raw || !exactKeys(raw, ALLOWED_KEYS) || !CASE_ID_PATTERN.test(caseId)) {
+  if (!raw || !exactKeys(raw, ALLOWED_KEYS) || !UUID_PATTERN.test(caseId)) {
     return NextResponse.json(
       { error: "A valid selected case and event are required." },
       { status: 400 },
     );
   }
 
-  const parsed = parseRequest(raw);
+  const parsed = parseEventRequest(raw);
   if (!parsed) {
     return NextResponse.json(
       {
@@ -421,7 +314,7 @@ export async function POST(request: Request) {
 /** GET /api/cases/events?caseId=… — the case's live events, newest first. */
 export async function GET(request: Request) {
   const caseId = new URL(request.url).searchParams.get("caseId") || "";
-  if (!CASE_ID_PATTERN.test(caseId)) {
+  if (!UUID_PATTERN.test(caseId)) {
     return NextResponse.json({ error: "A valid selected case is required." }, { status: 400 });
   }
 
