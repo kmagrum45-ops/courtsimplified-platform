@@ -44,6 +44,7 @@ const EVENTS_SUITE = "scripts/verification/verifyCaseEvents.ts";
 const EVENT_TYPES = "src/lib/case-system/events/caseEventTypes.ts";
 const EVENT_ADAPTER = "src/lib/case-system/events/caseEventAdapter.ts";
 const EVENT_CONSISTENCY = "src/lib/case-system/events/caseEventConsistency.ts";
+const EVENT_ROUTE = "app/api/cases/events/route.ts";
 
 /**
  * The self-test. Its pattern is not in the file and must never be.
@@ -276,6 +277,35 @@ const CASES: MutationCase[] = [
         file: EVENT_TYPES,
         find: "    firstClassUntyped: true,",
         replace: "",
+      },
+    ],
+  },
+
+  {
+    label: "the writer starts parsing prose dates instead of rejecting them",
+    suite: EVENTS_SUITE,
+    mutations: [
+      {
+        file: EVENT_ROUTE,
+        find: "  if (!ISO_DATE.test(candidate)) return { ok: false };",
+        replace:
+          "  if (!ISO_DATE.test(candidate)) {\n" +
+          "    const guess = new Date(candidate);\n" +
+          "    return Number.isNaN(guess.getTime())\n" +
+          "      ? { ok: false }\n" +
+          "      : { ok: true, date: guess.toISOString().slice(0, 10) };\n" +
+          "  }",
+      },
+    ],
+  },
+  {
+    label: "the writer stops enforcing the sourced event vocabulary",
+    suite: EVENTS_SUITE,
+    mutations: [
+      {
+        file: EVENT_ROUTE,
+        find: "  if (!caseEventType(eventTypeValue)) return null;",
+        replace: "  if (!eventTypeValue) return null;",
       },
     ],
   },

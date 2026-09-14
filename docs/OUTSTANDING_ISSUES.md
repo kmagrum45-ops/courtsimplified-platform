@@ -652,6 +652,58 @@ absent.
 
 ---
 
+## 18. Event candidates live in `normalized_data` — and the trigger that makes that wrong
+
+**Decision: candidates stay in `case_intakes.normalized_data` for now. Recorded
+so a later session watches for the trigger rather than rediscovering it.**
+
+A narrative-parsed event is a CANDIDATE, not an event. The `case_events`
+`source` CHECK has no `system-inference` value, so a parse cannot become a row
+until a user confirms it. Candidates therefore need somewhere to live before
+confirmation, and the choice was between a new `case_event_candidates` table and
+the column they already occupy — `normalized_data.events`, written by the intake
+normalizer.
+
+`normalized_data` was taken. It needs no migration, and nothing yet requires
+candidate state to outlive an intake run.
+
+### The trigger that invalidates this
+
+**Once a user can add events outside intake, "what the parser suggested" and
+"what the user has not answered yet" stop being the same set.**
+
+Today they coincide: every candidate came from one narrative parse, and a user
+who has not been through the confirmation surface has answered none of them.
+That coincidence is what makes a single column workable.
+
+It breaks the moment any of these is true:
+
+- **Intake is re-run.** A second parse produces a new candidate set. Does it
+  replace the first, merge with it, or sit beside it? Candidates the user
+  already rejected would reappear unless rejection is recorded — and
+  `normalized_data` has nowhere to record a rejection, because it is the
+  parser's output, not a user's answer.
+- **A document is recognised** (step 4). A parsed document produces candidates
+  that did not come from the narrative at all. Writing them into
+  `normalized_data` would make that column mean two different things.
+- **A user rejects a candidate.** There is currently no place to store "asked
+  and declined". Without it, a rejected candidate is indistinguishable from an
+  unanswered one and will be re-offered forever.
+
+**The third is the one that will bite first**, because it needs no new feature —
+just a user who says no once.
+
+### What to do when it triggers
+
+Move candidates to their own table with a status (`pending` / `confirmed` /
+`rejected`), a `source` recording where the candidate came from, and a foreign
+key to the `case_events` row when one is created from it. That is a migration
+plus a read-path change, and it is cheap while nothing depends on the current
+shape — which is the argument for watching the trigger rather than waiting for
+symptoms.
+
+---
+
 ## 17. `ProceduralEventType` mixes deadlines with events, and two courts
 
 **Found 2026-09-13 while building `case_events`. The adapter handles it; the

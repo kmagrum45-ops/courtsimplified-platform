@@ -43,6 +43,7 @@ import {
   existingSingletonEvents,
   findCaseEventInconsistencies,
 } from "../../src/lib/case-system/events/caseEventConsistency";
+import { parseRequest, pickedDate } from "../../app/api/cases/events/route";
 
 let failures = 0;
 
@@ -285,6 +286,70 @@ function main(): void {
       isSingletonType,
     ).length === 0,
     "multi-defendant cases legitimately have several, and there is no party model",
+  );
+
+  // ---- The writer never parses a date ----
+  //
+  // "4 March" has no year in it. A route that turned it into 2026-03-04 would
+  // be guessing and would then store the guess as a fact. Every prose form is
+  // REJECTED, not converted.
+
+  for (const prose of ["4 March", "last Tuesday", "March 4 2026", "04/03/2026", "sometime in spring"]) {
+    check(`[${prose}] is rejected, not parsed`, pickedDate(prose).ok === false);
+  }
+
+  const picked = pickedDate("2026-03-04");
+  check("an ISO date the user picked is accepted", picked.ok === true && picked.date === "2026-03-04");
+  check("an absent date is accepted", pickedDate(undefined).ok === true);
+  check("an impossible date is rejected", pickedDate("2026-02-31").ok === false);
+
+  const proseRequest = parseRequest({
+    eventType: "claim-filed",
+    title: "I filed my claim",
+    occurredAtRaw: "4 March",
+    occurredAtNormalized: "4 March",
+  });
+  check("a request carrying a prose normalized date is refused outright", proseRequest === null);
+
+  const goodRequest = parseRequest({
+    eventType: "claim-filed",
+    title: "I filed my claim",
+    occurredAtRaw: "4 March",
+    occurredAtNormalized: "2026-03-04",
+    dateCertainty: "exact",
+  });
+  check("a request with raw words plus a picked date is accepted", goodRequest !== null);
+  check(
+    "the user's own words are kept alongside the picked date",
+    goodRequest?.occurredAtRaw === "4 March" && goodRequest?.occurredAtNormalized === "2026-03-04",
+  );
+
+  // ---- The route owns event_type membership, and nothing else the DB owns ----
+
+  check(
+    "an event type outside the sourced vocabulary is refused",
+    parseRequest({ eventType: "claim-withdrawn", title: "t" }) === null,
+  );
+  check(
+    "the untyped option is accepted like any other",
+    parseRequest({ eventType: "other-user-described", title: "Something happened" }) !== null,
+  );
+  check(
+    "a bad certainty is refused before it reaches the database",
+    parseRequest({ eventType: "claim-filed", title: "t", dateCertainty: "probably" }) === null,
+  );
+
+  // The route must NOT re-implement what the CHECK constraints hold. A
+  // narrative-confirmed event with no basis is invalid, and the DATABASE is
+  // what rejects it — case_events_narrative_basis_present, verified live.
+  check(
+    "the route does not duplicate the narrative-basis CHECK",
+    parseRequest({
+      eventType: "claim-filed",
+      title: "t",
+      source: "confirmed-from-narrative",
+    }) !== null,
+    "the database owns this invariant; duplicating it here is how the two drift",
   );
 
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
