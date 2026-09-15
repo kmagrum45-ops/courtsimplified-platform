@@ -250,12 +250,13 @@ Everything above can be re-checked:
 
 ```
 npm run test:anon-grants          # migration-file grants and policies
-docs/security/01-audit-current-state.sql   # LIVE database state — read-only
+docs/security/01a-*.sql .. 01e-*.sql        # LIVE database state — read-only
 ```
 
 **One caveat that applies to this whole document.** Only three migrations exist
 for twenty-four tables, so most of the schema was created through the Supabase
 dashboard. The access-control section was verified against the migration files,
 which are a snapshot rather than a guaranteed record of the live database.
-`01-audit-current-state.sql` is the only thing that can confirm production, and
+The five read-only queries 01a to 01e are the only things that can confirm
+production, and
 it has not been run.

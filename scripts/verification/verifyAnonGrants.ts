@@ -11,8 +11,8 @@
  * twenty-four tables, so most of this schema was created through the Supabase
  * dashboard. A policy added by hand in production is invisible here.
  *
- * `docs/security/01-audit-current-state.sql` is the only thing that sees the
- * live state, and a person has to run it. A green run here means "the files
+ * The five read-only queries in `docs/security/` (01a to 01e) are the only
+ * things that see the live state, and a person has to run them. A green run here means "the files
  * are correct", never "production is correct".
  *
  * Saying so plainly because a check whose limits are not stated gets read as
@@ -316,7 +316,7 @@ function main(): void {
 
   console.log(
     "\nNOTE: this checks the MIGRATION FILES. It cannot see the live database.\n" +
-      "Run docs/security/01-audit-current-state.sql for that — it only reads.",
+      "Run the read-only queries in docs/security/ (01a to 01e) for that.",
   );
 
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);

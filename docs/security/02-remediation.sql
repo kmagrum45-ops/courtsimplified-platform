@@ -4,9 +4,9 @@
 -- *** without an explicit go-ahead. This is written to be read first, run by
 -- *** a person, and run against courtsimplified-dev before production.
 --
--- RUN 01-audit-current-state.sql FIRST. That script only reads, and it tells
--- you whether the live database matches the migration file this remediation
--- was written from. Only three migrations exist for twenty-four tables, so
+-- RUN 01a THROUGH 01e FIRST — see README.md for the order. Those five
+-- queries only read, and they tell you whether the live database matches the
+-- migration file this remediation was written from. Only three migrations exist for twenty-four tables, so
 -- most of the schema was created through the dashboard and the file is a
 -- snapshot rather than a guaranteed record.
 --
@@ -165,7 +165,7 @@ REVOKE ALL ON TABLE "public"."case_event_candidate_dismissals" FROM "anon";
 COMMIT;
 
 -- =====================================================================
--- AFTER RUNNING: re-run 01-audit-current-state.sql.
+-- AFTER RUNNING: re-run 01b and 01d.
 --
 -- Query 2 should return no row where roles = {public} and cmd = 'ALL'.
 -- Query 4 should return no row where grantee = 'anon'.

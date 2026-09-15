@@ -5,7 +5,7 @@
 --
 -- NOT APPLIED BY CLAUDE. CLAUDE.md section 6: production is never modified
 -- without an explicit go-ahead. Run against courtsimplified-dev first, then
--- production, after running docs/security/01-audit-current-state.sql to
+-- production, after running docs/security/01a-01e (see docs/security/README.md) to
 -- confirm the live schema matches what this was written from.
 --
 -- TWO FINDINGS:
@@ -168,7 +168,7 @@ REVOKE ALL ON TABLE "public"."case_event_candidate_dismissals" FROM "anon";
 COMMIT;
 
 -- =====================================================================
--- AFTER RUNNING: re-run 01-audit-current-state.sql.
+-- AFTER RUNNING: re-run 01a-01e (see README.md).
 --
 -- Query 2 should return no row where roles = {public} and cmd = 'ALL'.
 -- Query 4 should return no row where grantee = 'anon'.
