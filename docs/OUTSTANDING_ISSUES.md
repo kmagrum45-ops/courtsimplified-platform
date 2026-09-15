@@ -82,6 +82,40 @@ outputs out of context. The failure was not using them. It was **reporting a
 truncated list as an enumeration** — "two findings", a closed set, when what
 had actually been observed was "at least one, plus whatever `head` discarded".
 
+### 📌 The fourth instance: one search term, absence read as absence (2026-09-14)
+
+**The wrong claim:** that the contradiction notice is never rendered — reported
+as a scenario-audit finding, with the flourish that
+`app/case-timeline/page.tsx`'s own header claims to render it while the word
+appears once in the file, in that comment.
+
+**The truth:** it is rendered, at `case-timeline/page.tsx:303-316`, under the
+name **`inconsistencies`**, fed by `findCaseEventInconsistencies` through
+`GET /api/cases/events`. The section carries the comment "Contradictions.
+Surfaced, never resolved."
+
+**The mechanism.** `grep -rn "contradiction" app/case-timeline/page.tsx`
+returned one hit, in the header. That was read as proof the behaviour was
+missing. The question never asked: **does this thing have another name in the
+code?** It did — the header itself lists `inconsistencies` among the fields it
+renders, two lines below the sentence that was quoted as evidence against it.
+
+A search proves what the search term matches. It never proves what exists.
+
+This one would have been expensive in a specific way: it was about to be
+written up as a defect of the same class as the two-table assertions — a header
+claiming behaviour the code does not have — which would have put a false
+example into the record used to justify a rule.
+
+### Four instances, one habit
+
+| | What was seen | What it actually was | Never asked |
+|---|---|---|---|
+| Consolidation date | `from 2024-07-26` | the date the table was revoked | *why* is this date what it is |
+| `head` truncation | the first eslint problem | one of seven | *how many* are there |
+| Mutation no-op | a passing check | a check against unmodified code | *did the edit land* |
+| One search term | one hit, in a comment | the feature, under another name | *what else is it called* |
+
 ### 📌 The third instance: a mutation test that never mutated (2026-09-14)
 
 **Nearly the worst of the three**, because it would have produced a green tick
@@ -109,19 +143,19 @@ codebase has spent the session hunting — `verifyCitedProvisions` firing on its
 own comment, the candidate route reading a key nothing writes, the matcher
 scoring 0/10 — arrived from the opposite direction.
 
-### Three in one session, and they are one failure
+### Four in one session, and they are one failure
 
-| | Consolidation date | `head` truncation | Mutation that no-opped |
-|---|---|---|---|
-| What was seen | `from 2024-07-26` | the first eslint problem | a passing check |
-| What it actually was | the date the table was revoked | one of seven | a check run against unmodified code |
-| The question never asked | *why* is this date what it is | *how many* are there | *did the edit land* |
-| How it was reported | a definite conclusion, flagged into six files | a definite count, twice | nearly, as "mutation caught" |
+The table above lists all four. Not four accidents — one habit: **taking the
+result of an operation as evidence without confirming what the operation
+actually covered.** A date read without asking what produced it. A list read
+without asking what was cut from it. A test result read without asking whether
+the test had done anything. A search read without asking what it could not have
+matched.
 
-Not three accidents. One habit: **taking the result of an operation as evidence
-without confirming the operation happened.** A date was read without asking what
-produced it. A list was read without asking what was cut from it. A test result
-was read without asking whether the test had done anything.
+The fourth is the one that generalises furthest, because it has no operation to
+confirm — nothing went wrong mechanically. `grep` did exactly what it was asked.
+The gap was between **what was searched for** and **what was concluded**, which
+no amount of confirming the command ran would close.
 
 ### The general rule, which the other two instances produce
 
@@ -137,6 +171,7 @@ Three specific forms, each with a cheap confirmation:
 | Truncated output (`head`, `tail`) | the list ends with no marker | `wc -l`, or a formatter carrying its own totals — `eslint -f json` reports `errorCount` |
 | String replace / patch | no match, file unchanged, exit 0 | print whether the content changed; or assert the mutated text is present before running the check |
 | Reading a consolidated source | the date is shown, its cause is not | retrieve what the amendment did before building on the text around it |
+| **Search for a named thing** | zero hits, which reads as "absent" | **a negative search result is evidence about the TERM, never about the feature.** Before concluding absence: search the concept's other names, search the consumer rather than the producer, or find the thing that would have to exist and check that instead. `contradiction` returned one comment; the feature was called `inconsistencies` |
 
 The general test, applicable to a form not listed here: **ask what this step
 would look like if it had silently done nothing, and whether that is
@@ -150,6 +185,47 @@ output into context to count it is worse. It is not "stop scripting edits". The
 requirement is on the **report**: describe what was actually observed. "The
 first error is X; I have not counted the rest" is honest and takes the same
 breath as the false enumeration.
+
+### Can a check assert that a file header's claims are carried out?
+
+Asked because the fourth instance was about to be written up as one: a header
+claiming behaviour the code does not have, the same shape as the two-table
+assertions. It turned out to be false — the header was accurate and the search
+was not — but the underlying question stands, because the two-table case was
+real: six files asserted something untrue, and nothing noticed.
+
+**The general form is not expressible, and the reason is worth stating.** A
+header comment is prose making claims in natural language about intent, scope,
+history and rationale. "Four finished pieces had no screen" is a claim about the
+past. "It renders only what the API produces" is a claim about a negative. "This
+is the second table" was a claim about the world, not about the code at all —
+no analysis of this repository could have falsified it, because the fact that
+made it wrong lived in O. Reg. 303/24.
+
+A checker would need to parse intent, and one that guesses would flag correct
+comments, which is the failure mode CLAUDE.md section 5 exists to prevent.
+
+**Two narrower forms ARE expressible, and both already exist here:**
+
+1. **Declared properties with a maintained list** — `verifyMountConditions`
+   (section 0c) and `verifyReachability`'s dormant list. The claim is moved out
+   of prose and into a structure the check can read, with a required reason
+   field so the prose survives alongside it. This works because the author
+   states the property deliberately rather than a parser inferring it.
+2. **Quotation fidelity** — `verifyChildSupportTableCard` checks that every
+   passage a card presents as quoted appears in a vendored source, with the
+   vendored file's own header stripped so the comparison is against retrieved
+   text rather than someone's transcription. `verifyCitedProvisions` does the
+   same for the provisions registry.
+
+Both cover claims about **this codebase's own artefacts**. Neither could have
+caught the two-table error, whose refutation was in an external instrument
+nobody had retrieved — that one is covered instead by `verifyAmendmentTrails`
+and the trace-the-amendment rule above, which is a process, not a check.
+
+**So: no general check, and no attempt at one.** What the three specific
+mechanisms have in common is that each asks the author to state a property in a
+form a machine can read, rather than asking a machine to read prose.
 
 ### The same question asked generally: 9 untraced in-force amendments
 
@@ -367,14 +443,24 @@ question — what the case row holds, whether it is trustworthy, what happens wh
 it holds nothing — which is why it belongs with the rest of the persistence
 work and not in a UI commit.
 
-**One caveat on the cross-reference.** This was raised as matching **SC-6 and
-X-3** in the scenario document. I could not find either identifier anywhere in
-the repo: a repo-wide search for `SC-<n>` / `X-<n>` returns only `SC-001`,
-`SC-003`, `SC-030` and `SC-26`, in `docs/intake-phase0-report.md`,
-`verifyUserFacingScenarioLibrary.ts`, `verifySmallClaimsEngine.ts` and two AI
-contract checks — no `SC-6`, no `X-3`, and no document that indexes scenarios
-that way. Recorded here on its own technical merits; the link to those scenario
-ids needs whoever holds that document to make it, rather than being guessed at.
+### The scenarios this blocks
+
+`docs/SCENARIOS.md` landed 2026-09-14. Three of its scenarios cannot reach
+their second session while this stands, and all three are marked there as
+specifying work rather than checking it:
+
+| Scenario | What it needs | What it hits |
+|---|---|---|
+| **SC-6** · Dog bite across three sessions | session 2 loads the case and shows prior answers | the location gate, before any of that |
+| **X-3** · Full lifecycle, five sessions | every session after the first | the same |
+| **FS-8** · Triage dismissed, then returns | session 2 must not re-prompt | the same, though the mechanism behind it is real — `triageStateFromStored` restores dismissal from `master_result.familyStatus` at `app/builder/page.tsx:445` |
+
+FS-8 is the useful one to note: its underlying behaviour is **built and
+correct**, and only the gate stands between a returning user and it. That makes
+this a single fix unblocking three scenarios, not three separate pieces of work.
+
+A red run on any of the three is therefore expected and is not a regression
+until this is fixed.
 
 ---
 
