@@ -5,6 +5,7 @@ import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import FamilyIntake from "./_components/FamilyIntake";
+import { ChildSupportTableCard } from "./_components/ChildSupportTableCard";
 import SmallClaimsIntake, {
   requestSmallClaimsAnalysis,
 } from "./_components/SmallClaimsIntake";
@@ -1122,6 +1123,24 @@ function BuilderPageContent() {
             {courtPath === "family" && (
               <FamilyIntake onComplete={handleComplete} location={confirmedLocation} initialStory={homeStory} />
             )}
+
+            {/*
+              BELOW the intake, and mounted on the family path alone.
+
+              Mounted now rather than left for the UI pass, because an
+              unmounted component is the exact failure this repo keeps
+              finding — statusTriage.ts was built, sourced, verified and
+              mutation-covered with no screen, and its suite passed the whole
+              time. Placement is a UI question and may well move; existing at
+              all is not.
+
+              It answers a question the draft raises rather than gating
+              anything: the draft carries no support amount, and a user who
+              notices that deserves the reason and the real source instead of
+              silence. Always rendered, never conditioned on what the user has
+              recorded — it is about the table, not about them.
+            */}
+            {courtPath === "family" && <ChildSupportTableCard />}
 
             {courtPath === "small-claims" && smallClaimsMode === "choose" && (
               <div className="grid gap-4 md:grid-cols-2">

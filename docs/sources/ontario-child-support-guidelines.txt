@@ -65,6 +65,86 @@ tables.
 ======================================================================
 
 ---------------------------------------------------------------------- 
+s. 2 — definitions, including which table applies (added 2026-09-14)
+---------------------------------------------------------------------- 
+
+Extracted from the same antiword run as the sections below. Verbatim.
+
+
+DEFINITIONS
+      2.  (1)  In this Regulation,
+"child" means, other than in Schedule II to this Regulation,
+      (a)   a child who is a dependant under the Act, or
+      (b)   in cases where the Divorce Act (Canada) applies, a child of  the
+    marriage under that Act; ("enfant")
+"Federal  Child  Support  Guidelines"  means  the  Federal   Child   Support
+ Guidelines made under the Divorce Act (Canada), as they are  amended  from
+ time to time; ("Lignes directrices f�d�rales sur les pensions alimentaires
+ pour enfants")
+"income" means the  annual  income  determined  under  sections  15  to  20;
+ ("revenu")
+"majority of parenting time" means a period of time that  is  more  than  60
+ per cent of parenting time over the course of a year; ("majorit� du  temps
+ parental")
+"order assignee" means,
+      (a)   an agency to whom an order is assigned under subsection  34 (3)
+    of the Act, or
+      (b)   a minister, member or agency referred to in subsection 20.1 (1)
+    of the Divorce Act (Canada) to whom an order for the support of a child
+    is assigned in accordance with that subsection;  ("cessionnaire  de  la
+    cr�ance alimentaire")
+"parent", in a case to which  the  Act  applies,  means  a  parent  to  whom
+ section 31 of the Act applies; ("p�re ou m�re")
+"spouse", in a case to which the Divorce Act (Canada) applies, means  either
+ of two persons who are married to each other and includes a former spouse;
+ ("�poux")
+"table" means,
+      (a)   if the  parent  or  spouse  against  whom  an  order  is  sought
+    ordinarily resides in Ontario at the time of the application, the table
+    set out in the Federal Child Support Guidelines for Ontario,
+      (b)   if the  parent  or  spouse  against  whom  an  order  is  sought
+    ordinarily resides elsewhere in  Canada,  the  table  set  out  in  the
+    Federal Child Support Guidelines for the province or territory in which
+    the parent or spouse ordinarily resides at the time of the application,
+      (c)   if the court is satisfied that  the  province  or  territory  in
+    which the parent or spouse against whom an order is  sought  ordinarily
+    resides has changed since the time of the application,  the  table  set
+    out in the  Federal  Child  Support  Guidelines  for  the  province  or
+    territory in which the parent or spouse ordinarily resides at the  time
+    the amount of support is determined,
+      (d)   if the court is satisfied that  the  parent  or  spouse  against
+    whom an order is sought will, in the near future after  the  amount  of
+    support  is  determined,  ordinarily  reside  in  another  province  or
+    territory than the one in which he or she  ordinarily  resides  at  the
+    time the amount of support is determined, the  table  set  out  in  the
+    Federal Child Support Guidelines for that other province or territory,
+      (e)   if the  parent  or  spouse  against  whom  an  order  is  sought
+    ordinarily resides outside of Canada or if the  ordinary  residence  of
+    the parent or spouse is unknown,
+      (i)   the table set out in the Federal Child  Support  Guidelines  for
+       Ontario if the other parent or spouse applying for the order resides
+       in Ontario, or
+      (ii)  the table set out in the Federal Child  Support  Guidelines  for
+       the province or territory in which the parent or spouse applying for
+       the order ordinarily resides.  ("table")
+"universal child care benefit" means a benefit provided under section  4  of
+ the Universal Child Care Benefit Act  (Canada).  ("prestation  universelle
+ pour la garde d'enfant")  O. Reg. 391/97, s. 2 (1); O. Reg. 446/01, s. 1;
+ O. Reg. 159/07, s. 1; O. Reg. 25/10, s. 2 (1, 2); O. Reg. 32/21, s. 1 (1-
+ 3); O. Reg. 303/24, s. 1 (1-3).
+
+Application of Federal Child Support Guidelines tables
+      (1.1)  Tables set out in the Federal Child Support  Guidelines  apply
+for the purposes of this Regulation with necessary modifications,  including
+that a reference in a table to a child shall be read as  a  reference  to  a
+child as defined in this Regulation. O. Reg. 303/24, s. 1 (4).
+
+Income Tax Act (Canada)
+      (2)  Words and expressions that are used in sections  15  to  21  and
+that are not defined in this section have  the  meanings  assigned  to  them
+under the Income Tax Act (Canada).  O. Reg. 391/97, s. 2 (2).
+
+---------------------------------------------------------------------- 
 ss. 3 to 9 — the amount of child support
 ---------------------------------------------------------------------- 
 

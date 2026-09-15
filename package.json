@@ -26,6 +26,7 @@
     "test:case-simulations": "node --import tsx scripts/verification/runCaseSimulationFactory.ts",
     "test:chat-hydration": "node --import tsx scripts/verification/verifyCourtAssistantChatHydration.ts",
     "test:child-support-draft": "node --import tsx scripts/verification/verifyChildSupportDraft.ts",
+    "test:child-support-table-card": "node --import tsx scripts/verification/verifyChildSupportTableCard.ts",
     "test:cited-provisions": "node --import tsx scripts/verification/verifyCitedProvisions.ts",
     "test:claim-surface": "node --import tsx scripts/verification/verifyStatementOfClaimSurface.ts",
     "test:claim-type-matcher": "node --import tsx scripts/verification/verifyClaimTypeMatcher.ts",

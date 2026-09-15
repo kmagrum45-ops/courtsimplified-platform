@@ -51,13 +51,18 @@ import { pathToFileURL } from "node:url";
 type DormantEntry = { file: string; reason: string };
 
 const DELIBERATELY_DORMANT: DormantEntry[] = [
+  // childSupportFlaPath.ts came off this list on 2026-09-14: ChildSupportTableCard
+  // imports it and the card is mounted on the family path in app/builder/page.tsx.
+  // A one-line deletion with an obvious cause, which is what a maintained
+  // dormant list is supposed to cost.
   {
-    file: "src/lib/case-system/family/childSupportFlaPath.ts",
+    file: "src/lib/case-system/family/childSupportDraftEngine.ts",
     reason:
-      "IN PROGRESS, not abandoned. Sourced elements for the Family Law Act s. 33 child support " +
-      "path, authored 2026-09-15 against vendored O. Reg. 391/97, FLA and FLR text. The depth " +
-      "questions and the screen that would import it are the next step and are reported but not " +
-      "built. If this is still dormant after the child support UI lands, something went wrong.",
+      "IN PROGRESS, not abandoned. The Family Law Act s. 33 child support draft engine, built " +
+      "and mutation-covered on 2026-09-14 (npm run test:child-support-draft). The screen that " +
+      "collects the two income figures and the s. 7 expenses is the next step and is being " +
+      "reported before it is built. If this is still dormant once that screen lands, the engine " +
+      "was built and never connected — which is the failure this whole check exists to catch.",
   },
   {
     file: "src/lib/case-system/sources/statutoryProvisions.ts",
