@@ -13,6 +13,33 @@ password gate (`middleware.ts`), so there is no public user base yet.
 
 ---
 
+## 0. The short answer
+
+Added 2026-09-15 after auditing both live databases rather than reading the
+migration files. Everything below is verified; the detail is in the sections
+that follow.
+
+**There is no third-party personal data anywhere in this platform.**
+
+| | |
+|---|---|
+| Production (`us-west-2`) | **PAUSED.** 3 accounts — two the operator's own, one the test harness. 2 shell case rows. Every other case table empty. **No uploaded evidence.** |
+| Development (`ca-central-1`) | **Canada.** What the app runs against locally and in every browser test |
+| Anonymous write access | **Zero, in both projects.** Remediated and verified 2026-09-15 |
+| Anonymous access to case tables | **None.** Every policy is `TO authenticated` with `auth.uid() = user_id` |
+| Analytics / advertising / session replay | **None.** Checked |
+
+**What is genuinely outstanding**, and named here rather than left to be found:
+
+- Users' narratives and party names **are sent to OpenAI**, and the privacy
+  notice does not say so.
+- **There is no way for a user to delete their data** through the product.
+- The **privacy notice is three paragraphs** and omits the third-party
+  processing, the storage location, retention and deletion.
+- **There are no terms of service at all.**
+
+---
+
 ## 1. Personal data collected
 
 ### 1.1 Account data
@@ -58,9 +85,9 @@ held about them.
 
 | Store | Contents | Region |
 |---|---|---|
-| **Supabase Postgres (`courtsimplified`)** | Accounts, cases, intakes, evidence metadata, generated documents, events | **`us-west-2` — Oregon, United States** |
-| **Supabase Storage, bucket `case-evidence`** | Uploaded evidence files | Same project, same region |
-| **Supabase (`courtsimplified-dev`)** | Development only; no real user data intended | `ca-central-1` — Canada |
+| **Supabase (`courtsimplified-dev`)** | What the app actually runs against — accounts, cases, intakes, evidence metadata, generated documents, events | **`ca-central-1` — Canada** |
+| **Supabase Postgres (`courtsimplified`)** | PAUSED. 3 operator/harness accounts, 2 shell cases, nothing else — see 2.2 | `us-west-2` — Oregon, United States |
+| **Supabase Storage, bucket `case-evidence`** | Uploaded evidence files. **Empty in production** | Per project |
 | **Browser `localStorage`** | A compact draft (province, city, names, facts, timeline, evidence, goal), the active case id, and case-context blobs | The user's own device |
 | **Cookie `cs_site_access`** | The shared site password, HttpOnly | The user's own device |
 
@@ -78,17 +105,65 @@ verified rather than assumed.**
 browser test run against `ca-central-1`. **Production is paused and serving
 nothing.**
 
-**What remains true:** whatever was written to production before it was paused
-is still in Oregon. Pausing is not deletion. Nobody has established what is
-actually in that database — if it is development-era test rows the migration is
-a formality; if it is real case files the move matters. **That question should
-be answered before the residency position is described to anyone**, and it is a
-row count per case table.
+### 2.2 What is actually in production — counted, 2026-09-15
 
-`docs/ARCHITECTURE.md:528` records that `us-west-2` "was never a deliberate
-data-residency choice". A move to `ca-central-1` is documented as a planned
-follow-up and **has not happened**. The development project is already in
-Canada; production is not.
+The open question above has been answered. Production was resumed, read
+read-only, and re-paused.
+
+| Table | Rows |
+|---|---|
+| `auth.users` | **3** |
+| `cases` | **2** |
+| `case_intakes` | 0 |
+| `case_documents` | 0 |
+| `case_evidence` | 0 |
+| `case_generated_documents` | 0 |
+| Storage bucket `case-evidence` | **0 objects** |
+
+**All three accounts are the operator's own or the test harness:**
+
+| Account | Created | Note |
+|---|---|---|
+| The operator's personal address | 2026-08-24 | |
+| A family member's address | 2026-04-14 | last sign-in 2026-08-09 |
+| `courtsimplified.harness@example.test` | 2026-08-25 | flagged `courtSimplifiedHarness: true` |
+
+**Both cases belong to the operator**, created the same day, titled
+`"New Family Case"` and `"New Small Claims Case"` — the default titles. Each
+`master_result` is about 2.5 KB with a single key, `masterCaseFile`: shells, not
+completed analyses.
+
+The 730 objects in Supabase Storage are in the **`court-forms`** bucket — the
+blank court-form library, public reference material. The `case-evidence` bucket
+is empty.
+
+**So: no third-party personal data has ever been stored in the United States by
+this platform.** No notification obligation arises, because no other person's
+information is there.
+
+**And the Canadian migration is a formality at this size.** Two shell rows and
+three operator-controlled accounts. The `auth.users` UUID-preservation problem
+flagged in `ARCHITECTURE.md` — the step most likely to need Supabase support —
+does not arise.
+
+### 2.3 Production's schema is behind development
+
+Found while applying the security remediation, which aborted with
+`42P01: relation "public.case_events" does not exist`.
+
+Production has **24 tables**; development has **26**. `case_events` and
+`case_event_candidate_dismissals` were created in dev by the September
+migrations and **never applied to production** — nothing runs migrations against
+production, and nothing reported that they had not run.
+
+**Consequence: a new Canadian project must take its schema from development,
+not from production.** Production is not the authoritative schema; it is an
+older one.
+
+`docs/ARCHITECTURE.md` records this, the seven steps a move would take, and the
+fact that the schema is not fully reproducible from the repository — only three
+migrations exist for twenty-four tables, so a faithful move needs a `pg_dump`
+rather than a migration replay.
 
 ---
 
@@ -177,7 +252,8 @@ authenticated user to delete their own rows — but no interface exercises it.
 What this means practically, and counsel should know it:
 
 - A deletion request today would be handled manually, by an operator, against
-  the database.
+  the database. No such request could arise yet: there are no third-party
+  accounts (section 2.2).
 - There is no documented process for that, and no record of it having been done.
 - Cascade behaviour on deleting an auth user has **not been verified**. Whether
   case rows, evidence rows and storage objects are removed with the account is
@@ -191,31 +267,66 @@ data removes it. Nothing in the product tells the user this.
 
 ---
 
-## 5. Access controls, as they stand
+## 5. Access controls
 
 | Control | State |
 |---|---|
-| Row Level Security | **Enabled on all 24 tables** |
+| Row Level Security | **Enabled on every table** — 26 in dev, 24 in production |
 | Case-table policies | All scoped `TO authenticated USING (auth.uid() = user_id)`. **No anon policy exists on any case table** |
 | Evidence storage | Scoped to `bucket_id = 'case-evidence' AND foldername[1] = auth.uid()` |
 | Site-wide gate | Single shared password, HttpOnly cookie, covers `/api/*` |
-| Rate limiting | **None** |
+| Rate limiting | **None.** Still outstanding |
 | Secrets in version control | **None.** No `.env` has ever been committed; a pattern scan of all tracked files is clean |
 
-**Two findings were identified in the 2026-09-15 audit and remediation is
-written but not yet applied to production** (`docs/security/02-remediation.sql`):
+### 5.1 The 2026-09-15 audit: what was found, and what was done
 
-1. Twelve policies had no `TO` clause and therefore applied to `PUBLIC`,
-   including anonymous callers, granting write and delete on **legal content
-   tables** — the rules and form data served to users. No personal data. The
-   exposure is content integrity.
-2. `anon` held `ALL` on the five case tables. **No data was exposed** — RLS
-   denies by default and no anon policy exists — but it left RLS as the only
-   layer rather than the second.
+Four findings. **All four are closed in development; three of four are closed in
+production**, which is paused.
 
-Two unauthenticated admin surfaces (`app/admin/pdf-field-mapper`,
-`app/api/admin/scan-pdf-fields`) remain, and are recorded as known open holes in
-`scripts/verification/verifyAnonGrants.ts`.
+**1. Twelve policies applied to `PUBLIC`, including anonymous callers.**
+Written with no `TO` clause, which Postgres defaults to PUBLIC. Combined with
+`GRANT ALL`, an anonymous caller could write **and delete** the legal content
+tables — the rules and form data this platform serves to self-represented
+people. No personal data; the exposure is **content integrity**, which for this
+product is arguably the more serious failure mode.
+**Closed in both projects.**
+
+**2. `anon` held `ALL` on the case tables.** **No data was ever exposed** — RLS
+is enabled on every one and every policy is `TO authenticated`, so RLS denied by
+default. The defect was that it left RLS as the **only** layer rather than the
+second, where one mistaken policy would have converted to full exposure.
+**Closed in both projects: `anon` now appears zero times on the case tables.**
+
+**3. An unauthenticated route held service-role privileges.**
+`/api/scan-form-fields` built its client with `SUPABASE_SERVICE_ROLE_KEY`, which
+bypasses RLS entirely, and had no authentication — anyone past the shared site
+password could rewrite the court-form field definitions over HTTP with a bare
+`GET`. `/api/admin/scan-pdf-fields` was likewise unauthenticated.
+**Both routes deleted.** The logic moved to `scripts/forms/`, which never
+deploys and is never reachable over HTTP, and reads credentials from
+`.env.local` at run time.
+
+**4. An admin page behind only the shared site password.**
+`app/admin/pdf-field-mapper` edits the form-overlay coordinates the document
+filler uses. **It now requires a signed-in session**, gated before its own
+content renders.
+
+### 5.2 Verified state after remediation
+
+| | Development (`ca-central-1`) | Production (`us-west-2`, paused) |
+|---|---|---|
+| `{public}` policies | **none** | none with `cmd = ALL` |
+| `anon` write privileges | **zero, anywhere** | zero except two PDF-metadata tables |
+| `anon` on case tables | **absent** | **absent** |
+| RLS | enabled on all 26 tables | enabled on all 24 |
+
+Production is missing only the second migration
+(`20260915120000_close_admin_anon_write_holes.sql`), which closes anon write on
+`pdf_field_mappings` and `pdf_form_inventory`. **Neither holds personal data** —
+they hold PDF field coordinates and form classifications. Worth applying before
+production ever serves traffic; not urgent while it is paused.
+
+Re-checkable at any time with `npm run audit:security -- --project <dev|prod>`.
 
 ---
 
@@ -248,8 +359,10 @@ regulator would consider material.
 1. **OpenAI's contracting entity and retention terms for this account**, including
    whether ZDR applies. Determines what the policy can say about sub-processors.
 2. **The operating legal entity.** The only contact is a Gmail address.
-3. **Whether US storage is acceptable for the pre-beta period**, and what must be
-   disclosed while it persists.
+3. ~~Whether US storage is acceptable for the pre-beta period.~~ **ANSWERED
+   2026-09-15** — production holds no third-party data (section 2.2), so
+   nothing about anyone else is in the United States. What remains is to stand
+   the Canadian production project up before taking real users.
 4. **What deletion will actually mean** once built — hard delete, cascade
    behaviour, evidence files in storage, backups.
 5. **The opposing party's data.** The platform holds identifying information and
@@ -262,17 +375,36 @@ regulator would consider material.
 
 ## 8. Verification
 
-Everything above can be re-checked:
+Everything above can be re-checked, and none of the commands below modifies
+anything:
 
 ```
-npm run test:anon-grants          # migration-file grants and policies
-docs/security/01a-*.sql .. 01e-*.sql        # LIVE database state — read-only
+npm run audit:security -- --project dev     # LIVE dev state, read-only
+npm run audit:security -- --project prod    # LIVE production, read-only
+npm run test:anon-grants                    # migration files only
 ```
 
-**One caveat that applies to this whole document.** Only three migrations exist
-for twenty-four tables, so most of the schema was created through the Supabase
-dashboard. The access-control section was verified against the migration files,
-which are a snapshot rather than a guaranteed record of the live database.
-The five read-only queries 01a to 01e are the only things that can confirm
-production, and
-it has not been run.
+`audit:security` runs the five queries in `docs/security/01a-*.sql` through
+Supabase's Management API and prints the results. It is read-only by
+construction: the SQL is read from those files rather than duplicated, every
+statement is scanned against a deny-list of mutating keywords, and every one
+must begin with `SELECT`.
+
+The same five files can be pasted into the Supabase SQL editor one at a time;
+each states what it reports, what to expect, and what a bad result looks like.
+`docs/security/README.md` gives the order.
+
+**Production is paused.** Running `--project prod` against it will time out
+until it is resumed, which is itself a change to production and should be
+deliberate.
+
+**The caveat that used to govern this whole document has been discharged.** It
+previously said the access-control section was verified against the migration
+files, which are a snapshot rather than a record — only three migrations exist
+for twenty-four tables, so most of the schema was created through the dashboard.
+**Both live databases have now been queried directly**, and the findings in
+sections 2.2, 2.3 and 5.2 come from the databases rather than from the files.
+
+The narrower caveat that remains: `npm run test:anon-grants` still reads only
+the migration files and says so in its own output. A green run there means the
+files are correct, never that a database is.

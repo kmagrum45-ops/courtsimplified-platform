@@ -143,7 +143,7 @@ codebase has spent the session hunting — `verifyCitedProvisions` firing on its
 own comment, the candidate route reading a key nothing writes, the matcher
 scoring 0/10 — arrived from the opposite direction.
 
-### Six failures, and one technique that answers them
+### Eight failures, and one technique that answers them
 
 The table above lists those four. Not four accidents — one habit: **taking the
 result of an operation as evidence without confirming what the operation
@@ -267,6 +267,82 @@ Rename the field, then let the compiler enumerate the consumers, then read each
 one — because the ones that need wording changes are exactly the ones a search
 for the new name cannot find and a search for the old name has already been
 declared clean of.
+
+### 📌 A shell-mangled `\b` that produced a regex matching nothing (2026-09-15)
+
+**The same family as the CRLF no-ops, and worse to spot**, because the artefact
+it leaves behind looks correct in every normal view of the file.
+
+`GRANT` needed adding to an allow-list of regexes. Written through a shell:
+
+```
+node -e "... s=s.replace('/^COMMIT$/i,]', '/^COMMIT$/i, /^GRANT\\b/i,]') ..."
+```
+
+The `\\b` survived bash as `\b`, which **JavaScript string literals interpret as
+a BACKSPACE character, 0x08**. The file received `/^GRANT` + `0x08` + `/i` — a
+regex requiring a literal backspace after "GRANT", which nothing ever matches.
+
+The failure was silent and doubly disguised:
+
+- `sed`, `grep`, the editor and the IDE all rendered it as `/^GRANT/i`. A
+  control character has no width.
+- `tsc` passed. It is a syntactically valid regex.
+- The tool it belonged to went on refusing the GRANT statement it was added to
+  permit, and reported that refusal as a correct safety check.
+
+Three checks of the file — `sed -n`, a `grep -n`, and a targeted
+`/\/\^GRANT\/i/` test that came back **false** while `sed` showed the text —
+before `cat -A` revealed `/^GRANT^H/i`.
+
+### The rule
+
+> **When a regex or string looks correct and behaves as though it is not,
+> inspect the bytes. `cat -A`, or `xxd`, before doubting the logic.**
+
+And the narrower one that would have prevented it outright:
+
+> **Do not write backslash escapes through a shell into `node -e`.** Use the
+> Write or Edit tool, a heredoc with quoted delimiter, or a file. `\b`, `\n`,
+> `\t` and `\0` all survive bash and are then interpreted by JavaScript, so the
+> file receives a control character rather than the two characters that were
+> typed.
+
+This session had already established the Write-tool-not-heredoc rule for
+shell-quoting problems. This is the same rule reaching a case it had not been
+applied to — the escape did not break the command, it silently changed what the
+command wrote.
+
+### 📌 A script that applied the wrong file and said "Applied" (2026-09-15)
+
+`applySecurityRemediation.ts` found its migration with a single-file pattern:
+
+```ts
+const MIGRATION_PATTERN = /_revoke_anon_write_and_scope_policies\.sql$/;
+```
+
+When a **second** security migration landed, the script matched only the first,
+sent it, and printed `Applied.` — **a true statement about the wrong file.**
+
+Nothing failed. Nothing could: the first migration had been made idempotent
+earlier the same day, precisely so it could be re-run safely. The property that
+made it safe to retry is what made re-applying it indistinguishable from
+applying the new one.
+
+The tell was there and easy to miss — the header line printed
+`MIGRATION  20260915090000_...` and there was no reason to read it, because the
+command had been typed to apply something else.
+
+### The rule
+
+> **A tool that selects its input should report what it selected, and a caller
+> should read that report rather than the exit status.**
+
+It now takes the whole set, in filename order, and prints every filename. The
+deeper point is the one that recurs through this section: **success is not
+evidence that the intended thing happened.** Here the operation genuinely
+succeeded — a real migration really was applied to a real database — and it was
+still the wrong one.
 
 ### ✅ The one that worked: a rename the compiler traced for you
 
