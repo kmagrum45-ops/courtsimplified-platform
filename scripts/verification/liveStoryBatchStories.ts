@@ -24,6 +24,24 @@ export type LiveStory = {
   location: { province: "Ontario"; city: string };
   /** What the batch design expects, so a divergence is visible rather than assumed correct. */
   expectedClaimTypeId?: string;
+  /**
+   * What the user types into the Statement of Claim surface's party fields.
+   *
+   * OPTIONAL, and absent on most stories deliberately. The draft engine emits
+   * "[Plaintiff name to be confirmed]" for an empty field rather than inferring
+   * a name from the story, so a story WITHOUT this exercises the placeholder
+   * path and a story WITH it exercises the filled path. Both are real user
+   * states — someone who has filled the form in and someone who has not.
+   *
+   * Only read by runStoryJourneyReport.ts. runLiveStoryBatch.ts stops at the
+   * readiness gate and never drafts.
+   */
+  party?: {
+    yourName: string;
+    yourAddress: string;
+    otherParty: string;
+    defendantAddress: string;
+  };
 };
 
 /** Plaintiff-side defaults for the questions every story reaches. */
@@ -84,6 +102,12 @@ export const STORIES: LiveStory[] = [
     fallbackDepthAnswer: "I am not certain about that.",
     location: { province: "Ontario", city: "Toronto" },
     expectedClaimTypeId: "sc-claim-personal-loan-between-individuals",
+    party: {
+      yourName: "Deborah Whitfield",
+      yourAddress: "144 Sorauren Avenue, Unit 3, Toronto, Ontario M6R 2E4",
+      otherParty: "Kayleigh Whitfield",
+      defendantAddress: "27 Fennimore Street, Toronto, Ontario M9N 1R8",
+    },
   },
 
   // 2
@@ -154,6 +178,12 @@ export const STORIES: LiveStory[] = [
     },
     fallbackDepthAnswer: "I am not certain about that.",
     location: { province: "Ontario", city: "London" },
+    party: {
+      yourName: "Martin Osei-Bonsu",
+      yourAddress: "812 Colborne Street, London, Ontario N6A 3Z9",
+      otherParty: "Raymond Teal, operating as Teal Flooring",
+      defendantAddress: "Unknown — he only ever gave me a mobile number",
+    },
   },
 
   // 5 — RUN FIRST
@@ -214,6 +244,12 @@ export const STORIES: LiveStory[] = [
     fallbackDepthAnswer: "I am not certain about that.",
     location: { province: "Ontario", city: "Mississauga" },
     expectedClaimTypeId: "sc-claim-unpaid-overtime-vacation-pay",
+    party: {
+      yourName: "Priya Ramnarine",
+      yourAddress: "55 Eglinton Avenue West, Apt 1102, Mississauga, Ontario L5R 3E3",
+      otherParty: "Harlow Fabrication Ltd.",
+      defendantAddress: "2400 Meadowpine Boulevard, Mississauga, Ontario L5N 6S2",
+    },
   },
 
   // 8
@@ -236,5 +272,11 @@ export const STORIES: LiveStory[] = [
     fallbackDepthAnswer: "I am not certain about that.",
     location: { province: "Ontario", city: "Brampton" },
     expectedClaimTypeId: "sc-claim-improper-unauthorized-towing",
+    party: {
+      yourName: "Gordon Achterberg",
+      yourAddress: "19 Rutherford Road South, Brampton, Ontario L6W 3J1",
+      otherParty: "Clearway Towing & Storage",
+      defendantAddress: "3155 Steeles Avenue East, Brampton, Ontario L6T 4W5",
+    },
   },
 ];

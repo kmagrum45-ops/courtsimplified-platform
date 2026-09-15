@@ -75,7 +75,8 @@
     "test:small-claims": "node --import tsx scripts/verification/verifySmallClaimsEngine.ts",
     "test:three-area": "node --import tsx scripts/verification/verifyThreeAreaContract.ts",
     "test:user-facing-scenarios": "node --import tsx scripts/verification/verifyUserFacingScenarioLibrary.ts",
-    "test:workflow-gating": "node --import tsx scripts/verification/verifyWorkflowGating.ts"
+    "test:workflow-gating": "node --import tsx scripts/verification/verifyWorkflowGating.ts",
+    "report:journey": "node --import tsx --env-file=.env.local scripts/verification/runStoryJourneyReport.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",
