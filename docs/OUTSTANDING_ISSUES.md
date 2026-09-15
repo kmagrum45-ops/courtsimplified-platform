@@ -458,25 +458,131 @@ not supplied is absent from the list of things they have not supplied, and with
 nothing else missing the panel vanishes entirely — so a draft with no income
 figure in it presents as complete.
 
-### Three ways to resolve it, and the question behind them
+### The failure mode is a complete-looking draft, not a blocked one
 
-1. **Feed recorded absences into the list too**, so "an annual income figure"
+Worth stating precisely, because it is the opposite of what a reader expects
+from a gap of this kind, and it is why this is the priority item.
+
+Nothing is withheld. The user is not stuck. They click the button, a document
+appears, the "Still to fill in" panel is **absent** — which everywhere else on
+this site means *nothing is outstanding* — and the draft reads as finished. The
+words "No figure recorded" are in the body, one line among forty, in a document
+they have just been told is assembled from what they recorded.
+
+So the person most likely to be harmed is the one who reads carefully and
+believes what the interface shows them. They take a draft to a court office, or
+to a lawyer, or file it, having been given no signal that its central figure is
+missing. **A blocked draft would have been safer**, which is the uncomfortable
+part: the design decision that makes this path good — the draft is always
+produced, absence is recorded rather than blocking — is what makes this failure
+possible.
+
+That is the test each option below has to pass: not "is the information
+present" but **"would someone who reads their draft and thinks it is finished be
+corrected?"**
+
+### Three ways to resolve it, and what each means for that user
+
+1. **Feed recorded absences into the same list**, so "an annual income figure"
    and "the income documents s. 21 requires" appear alongside bracketed items.
-   Loses the current clean meaning of `placeholders` as "brackets in the text".
-2. **Give the draft a second list** — "recorded as not held" already exists as a
-   *section* for elements the user said they cannot provide, and unrecorded
-   income is arguably the same category arriving by a different route.
-3. **Rename and re-scope** `placeholders` to "what is not yet recorded",
-   covering both, which is what the panel's heading already promises.
+   *For that user:* the panel appears, they see the income named as outstanding,
+   they are corrected at the moment they would otherwise conclude it is done.
+   *Cost:* `placeholders` stops cleanly meaning "brackets in the text", and the
+   two kinds of absence — never asked, and asked-and-unavailable — become
+   indistinguishable in one list.
+2. **A second list beside it.** RECORDED AS NOT HELD already exists as a draft
+   *section* for elements the user said they cannot provide; unrecorded income
+   is the same category arriving by a different route. *For that user:* the
+   distinction survives — "you have not filled this in" reads differently from
+   "you told us you cannot get this" — but two panels is more to read, and the
+   one they need may be the second.
+3. **Rename and re-scope `placeholders` to "what is not yet recorded"**,
+   covering both. *For that user:* the panel's heading finally means what it
+   already appears to promise. *Cost:* a rename reaching the draft engine, the
+   screen, and `verifyChildSupportDraft`'s assertions.
 
-The question is whether "Still to fill in" means *brackets in this document* or
-*things this application still needs*. It is currently the first and reads as
-the second.
+The question underneath all three is whether "Still to fill in" means *brackets
+in this document* or *things this application still needs*. It is currently the
+first and reads as the second, and that gap is the defect — the options differ
+mainly in what they cost, not in whether they close it.
+
+**A fourth, not recommended but worth naming:** suppress the draft button until
+an income figure is entered. It closes the failure mode and it is wrong — it
+reintroduces exactly the blocking that section 0b rejected for this path, and
+punishes the user who genuinely cannot get the figure, who is the one the
+"No figure recorded" treatment was built for.
 
 **Not asserted in the spec.** `child-support-scenarios.spec.ts` records the gap
 in a comment and asserts nothing about it, deliberately: a spec encoding
 today's behaviour there would make fixing this look like a regression — the
 check-pins-a-current-value rule in CLAUDE.md section 5.
+
+---
+
+## 0g. The §2 boundary, in three places that were each decided separately
+
+**One question, three independent answers, and they agree — which is worth
+confirming rather than assuming.** Each is a spot where **a fact the user knows
+sits directly next to a legal characterisation the site will not make.** They
+were resolved months and sessions apart, none of them looking at the others.
+
+| | The fact the user has | The characterisation the site will not make | Where |
+|---|---|---|---|
+| **DCPD bar** | whether the other driver was insured | whether Insurance Act s. 263 bars their action | `elementQuestionRegistry.ts:808`, element `dcpd-bar-does-not-apply` |
+| **Tenancy classification** | what they rent and on what terms | whether the tenancy is residential (RTA/LTB) or commercial | `jurisdictionRoutes.ts:148`, `sc-route-residential-tenancy-ltb` |
+| **Which province's table** | where the other parent lives | which province's table O. Reg. 391/97 s. 2 (1) selects | `ChildSupportTableCard.tsx`, `ChildSupportIntake.tsx` question 2 |
+
+### What each actually did
+
+All three landed on the same pattern, independently:
+
+- **DCPD.** The element is named `dcpd-bar-does-not-apply` — a legal conclusion,
+  and no fact question resolves it. The authored question asks the fact that
+  usually decides it ("What do you know about the other driver's insurance?")
+  and quotes s. 263 (1) (c) and s. 263 (5) (a) so the reader sees the rule
+  rather than an answer. It may stay unresolved, safely: only `not-yet` holds
+  the readiness gate, `allowUnknown` routes "I don't know" to `cannot-provide`,
+  and the element is then listed under RECORDED AS NOT HELD rather than assumed.
+- **Tenancy.** The route states plainly that it "answers the
+  residential-vs-commercial classification question only", quotes RTA s. 3 (1)
+  and s. 168 (2), and records that **where the parties disagree, either can
+  apply to the LTB for a determination** — handing the classification to the
+  body that makes it rather than making it.
+- **Child support table.** s. 2 (1) (a) and (b) are quoted in full; the
+  residence answer is recorded as the respondent's address and read by nothing.
+  `child-support-scenarios.spec.ts` asserts that no part of the page tells the
+  user which table is theirs.
+
+**The shared answer: surface the rule, record the fact, name the body that
+decides, never state the conclusion.** That is CLAUDE.md section 2's "who does
+the applying" test, and three separate authors reached it three times.
+
+### Why it is still an open item
+
+The consistency is real but **accidental** — nothing enforces it and nothing
+records it as the standing answer, so the fourth instance will be decided from
+scratch too, and might land differently. Three known cases is enough to state
+the rule once, in CLAUDE.md, with these as its worked examples.
+
+Two things to settle when it is stated:
+
+1. **Where the boundary sits for navigation.** The court classifier already
+   routes on facts, which section 2 permits as topic surfacing. Selecting which
+   province's table to *show* is arguably the same act — the difference between
+   "here is the Alberta table because that is where they live" and "the Alberta
+   table applies to you" is real but thin, and the second is what a user will
+   hear either way. Currently all three refuse; whether that is the right
+   setting or merely the safe one has not been argued.
+2. **Whether the user should be told a body decides.** Only the tenancy route
+   does this, and it is the most useful of the three: it tells someone stuck on
+   a classification exactly where to take it. The DCPD and table cases have
+   equivalents — an insurer's determination, a court's — and neither says so.
+
+### Related, distinct
+
+Not the same problem, kept separate deliberately: sections 0b (no readiness gate
+on the family path) and 0f (the "Still to fill in" list) are about what a user
+is *told is missing*. This is about what the site *knows and will not say*.
 
 ---
 
