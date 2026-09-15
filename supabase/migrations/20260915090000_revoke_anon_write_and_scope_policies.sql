@@ -49,32 +49,51 @@ DROP POLICY IF EXISTS "Allow update overlay fields" ON "public"."pdf_overlay_fie
 -- app/forms/page.tsx reads it with no session.
 
 -- --- Write privileges follow. A dropped policy still leaves the GRANT. ---
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."civil_form_lookup"        FROM "anon";
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."court_form_sources"       FROM "anon";
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."court_forms"              FROM "anon";
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."form_rules"               FROM "anon";
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."forms"                    FROM "anon";
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."legal_element_rules"      FROM "anon";
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."legal_evidence_rules"     FROM "anon";
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."legal_issue_rules"        FROM "anon";
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."legal_question_rules"     FROM "anon";
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."legal_risk_rules"         FROM "anon";
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."legal_procedure_rules"    FROM "anon";
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."legal_form_mapping_rules" FROM "anon";
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."pdf_overlay_fields"       FROM "anon";
+--
+-- REFERENCES AND TRIGGER ARE INCLUDED, and they were missed in the first draft
+-- of this file. Running 01c against the live dev database showed what GRANT ALL
+-- actually expands to:
+--
+--   DELETE, INSERT, REFERENCES, SELECT, TRIGGER, TRUNCATE, UPDATE
+--
+-- Seven privileges, not four. The migration file said "GRANT ALL" and the
+-- expansion is only visible from the database — which is the point of running
+-- 01a-01e before this, and an example of why the file is a snapshot rather
+-- than a record.
+--
+-- Both are low-risk on a content table and neither is nothing: REFERENCES
+-- permits creating a foreign key against the table, which can block later
+-- schema changes; TRIGGER permits attaching a trigger. Leaving two of seven
+-- behind would mean this had to be done twice.
+--
+-- SELECT is deliberately retained on the content tables. Those reads are what
+-- /forms and the form pipeline depend on.
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."civil_form_lookup"        FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."court_form_sources"       FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."court_forms"              FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."form_rules"               FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."forms"                    FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."legal_element_rules"      FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."legal_evidence_rules"     FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."legal_issue_rules"        FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."legal_question_rules"     FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."legal_risk_rules"         FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."legal_procedure_rules"    FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."legal_form_mapping_rules" FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."pdf_overlay_fields"       FROM "anon";
 
 -- --- The remaining content tables, found by verifyAnonGrants rather than by
 -- --- the manual audit. None has a caller that writes as anon.
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."court_form_fields"        FROM "anon";
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."court_form_library"       FROM "anon";
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."court_form_overlays"      FROM "anon";
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."family_form_lookup"       FROM "anon";
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."small_claims_form_lookup" FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."court_form_fields"        FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."court_form_library"       FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."court_form_overlays"      FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."family_form_lookup"       FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."small_claims_form_lookup" FROM "anon";
 
 -- Views. GRANT ALL was applied to these too, and a view can be written through
 -- when it is simple enough to be auto-updatable.
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."court_form_clean_view"  FROM "anon";
-REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "public"."court_form_master_view" FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."court_form_clean_view"  FROM "anon";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLE "public"."court_form_master_view" FROM "anon";
 
 -- --- One more dev_full_access_*, found by the check rather than the audit. ---
 DROP POLICY IF EXISTS "dev_full_access_small_claims_form_lookup"

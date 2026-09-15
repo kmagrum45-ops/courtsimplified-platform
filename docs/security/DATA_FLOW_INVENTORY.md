@@ -64,10 +64,26 @@ held about them.
 | **Browser `localStorage`** | A compact draft (province, city, names, facts, timeline, evidence, goal), the active case id, and case-context blobs | The user's own device |
 | **Cookie `cs_site_access`** | The shared site password, HttpOnly | The user's own device |
 
-### 2.1 Data residency — stated plainly
+### 2.1 Data residency — corrected 2026-09-15 after querying the live projects
 
-**Ontario users' litigation narratives, party names and addresses, and uploaded
-evidence are stored in the United States.**
+**The position is better than the section above implies, and the correction was
+verified rather than assumed.**
+
+| Ref | Name | Region | Status |
+|---|---|---|---|
+| `fddlpnibovkkkgboabqb` | `courtsimplified-dev` | **`ca-central-1`** | ACTIVE_HEALTHY |
+| `ffymjxjcnwakgdmldpne` | `courtsimplified` | `us-west-2` | **INACTIVE (paused)** |
+
+**`.env.local` points at the CANADIAN project**, so local development and every
+browser test run against `ca-central-1`. **Production is paused and serving
+nothing.**
+
+**What remains true:** whatever was written to production before it was paused
+is still in Oregon. Pausing is not deletion. Nobody has established what is
+actually in that database — if it is development-era test rows the migration is
+a formality; if it is real case files the move matters. **That question should
+be answered before the residency position is described to anyone**, and it is a
+row count per case table.
 
 `docs/ARCHITECTURE.md:528` records that `us-west-2` "was never a deliberate
 data-residency choice". A move to `ca-central-1` is documented as a planned

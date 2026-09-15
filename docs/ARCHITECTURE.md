@@ -543,6 +543,83 @@ region migration has not historically been a standard supported
 operation — a project recreation with a data migration is more likely).
 Not started; no target date set as of this writing.
 
+### Verified against the live projects, 2026-09-15
+
+Confirmed by querying the Supabase Management API, not by reading this file:
+
+| Ref | Name | Region | Status |
+|---|---|---|---|
+| `fddlpnibovkkkgboabqb` | `courtsimplified-dev` | **`ca-central-1`** | ACTIVE_HEALTHY |
+| `ffymjxjcnwakgdmldpne` | `courtsimplified` | `us-west-2` | **INACTIVE (paused)** |
+
+**Two facts this establishes that the section above does not, and both improve
+the residency position:**
+
+1. **`.env.local` points at the CANADIAN project.** Local development, the
+   browser harness and every Playwright spec run against `ca-central-1`. The
+   US project is referenced only by `.env.diagnose`.
+2. **Production is PAUSED and serving nothing.** No user traffic reaches
+   `us-west-2` while it stays that way.
+
+So the accurate statement is **not** "Canadian users' data is in the United
+States and we plan to move it". It is: *the Canadian region already exists and
+is what the platform runs against; the US project is paused and holds whatever
+was written to it before it was paused.*
+
+**What remains true and should not be softened:** whatever data was written to
+production before it was paused is still in Oregon. Pausing is not deletion.
+Before the residency claim is made to anyone, someone should establish **what
+is actually in that database** — if it holds only development-era test rows,
+the migration is a formality and the story is straightforwardly good; if it
+holds real user case files, the move matters and the number of affected people
+should be known.
+
+That question is answerable with a row count per case table and has not been
+asked. It is the single highest-value thing to establish before describing
+residency to a regulator.
+
+### What moving production to `ca-central-1` would actually involve
+
+Supabase does not support changing an existing project's region in place. The
+move is a **new project plus a cutover**, and the shape is known because the
+same procedure was already exercised once — `courtsimplified-dev` was created
+in `ca-central-1` and the schema stood up there.
+
+1. **Create a new production project in `ca-central-1`.**
+2. **Stand up the schema.** This is the part that is harder than it should be
+   and is worth naming: **only three migrations exist for twenty-four tables**,
+   so the schema is not fully reproducible from the repository. Most of it was
+   created through the dashboard. A faithful move therefore needs a schema dump
+   from the current project (`pg_dump --schema-only`) rather than a migration
+   replay. Doing that dump and committing it would have independent value — it
+   is also what makes `verifyAnonGrants` able to check reality rather than a
+   snapshot.
+3. **Move the data.** `pg_dump` / `pg_restore` of the case tables, plus the
+   Storage bucket `case-evidence`, which is separate from the database and has
+   to be copied object by object with its folder-per-user layout preserved
+   (the RLS policies key on `foldername[1] = auth.uid()`).
+4. **Move the auth users.** `auth.users` cannot simply be copied — the user
+   UUIDs are the foreign key that every `user_id` column depends on, so they
+   must be preserved exactly or every case row orphans. This is the step most
+   likely to need Supabase support involvement, and it should be tested on dev
+   before it is attempted on real accounts.
+5. **Re-apply RLS policies and grants**, including the 2026-09-15 remediation
+   (`supabase/migrations/20260915090000_*`). A restore does not always carry
+   policies and grants faithfully; they should be verified afterwards with
+   `npm run audit:security`, which is what it is for.
+6. **Repoint the environment.** `NEXT_PUBLIC_SUPABASE_URL`, the anon key and
+   the service role key in Vercel, and `.env.local` / `.env.diagnose`.
+7. **Verify, then decommission.** Run the five audit queries against the new
+   project, exercise the app signed out and signed in, and only then delete the
+   Oregon project — deletion being the step that actually ends the residency
+   question, since a paused project still holds its data.
+
+**Scale, honestly:** steps 1, 2 and 6 are a day. Steps 3 and 4 depend entirely
+on how much real data exists, which is the unanswered question above. If
+production holds test rows only, the whole thing is a day and a cutover window.
+If it holds real case files, step 4 needs care and probably a support ticket,
+and it becomes a small project rather than a task.
+
 ### Storage — corrects an earlier, wrong claim on this page
 
 **Status: corrected 2026-08-30.** This page previously stated that

@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "audit:apply": "node --import tsx scripts/verification/applySecurityRemediation.ts",
+    "audit:security": "node --import tsx scripts/verification/runSecurityAudit.ts",
     "build": "next build",
     "dev": "next dev",
     "keep-alive:supabase": "node scripts/keepAliveSupabase.mjs",
