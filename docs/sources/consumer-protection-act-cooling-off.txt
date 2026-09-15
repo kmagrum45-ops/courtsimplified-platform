@@ -1,0 +1,98 @@
+Consumer Protection Act, 2002, S.O. 2002, c. 30, Sched. A — the statutory
+cancellation (cooling-off) rights, by agreement type
+Source: https://www.ontario.ca/laws/docs/02c30_e.doc
+Consolidation period: from 2025-12-11 to the e-Laws currency date
+Extracted with antiword, 2026-09-14. Verbatim, unedited.
+
+Why these: the claim-type element `contract-covered-by-cooling-off` asks whether
+an agreement falls into a category carrying a statutory cancellation right. A
+user cannot know their category without seeing the categories, and the periods
+differ between them. These are the six the Act sets out.
+
+NOT AN EXHAUSTIVE STATEMENT OF THE ACT. Each section below also has further
+subsections — cancellation for failure to meet requirements, and in some cases a
+one-year right — which are not reproduced here. Read the section, not this file,
+before relying on a period.
+======================================================================
+
+---------------------------------------------------------------------- 
+s. 28 — time share agreements
+---------------------------------------------------------------------- 
+
+Cancellation: cooling-off period
+28 (1)  A consumer may, without any reason, cancel a time  share  agreement
+at any time from the date of entering  into  the  agreement  until  10  days
+after receiving the written copy of the agreement.  2002, c. 30, Sched. A,
+s. 28 (1); 2013, c. 13, Sched. 2, s. 2.
+
+---------------------------------------------------------------------- 
+s. 35 — personal development services agreements
+---------------------------------------------------------------------- 
+
+Cancellation: cooling-off period
+35 (1)  A consumer may, without any reason, cancel a  personal  development
+services agreement at any time within 10 days after the later  of  receiving
+the written copy  of  the  agreement  and  the  day  all  the  services  are
+available.  2002, c. 30, Sched. A, s. 35 (1); 2013, c. 13, Sched. 2, s. 2.
+
+---------------------------------------------------------------------- 
+s. 40 — internet agreements
+---------------------------------------------------------------------- 
+
+40 (1)  A consumer may cancel an internet agreement at any  time  from  the
+date the agreement is entered into  until  seven  days  after  the  consumer
+receives a copy of the agreement if,
+      (a)   the supplier did not disclose to the  consumer  the  information
+    required under subsection 38 (1); or
+      (b)   the  supplier  did  not  provide  to  the  consumer  an  express
+    opportunity to accept or decline the agreement  or  to  correct  errors
+    immediately before entering into it.  2002, c. 30, Sched. A, s. 40 (1).
+
+Same
+(2)  A consumer may cancel an internet agreement within 30 days  after  the
+date the agreement is entered into, if the supplier does not comply  with  a
+requirement under section 39.  2004, c. 19, s. 7 (7).
+Section Amendments with date in force (d/m/y)
+2004, c. 19, s. 7 (7) - 30/07/2005
+
+                              Direct Agreements
+
+APPLICATION
+
+---------------------------------------------------------------------- 
+s. 43 — direct agreements
+---------------------------------------------------------------------- 
+
+Cancellation: cooling-off period
+43 (1)  A consumer may, without any reason, cancel a  direct  agreement  at
+any time from the date of entering into the agreement until  10  days  after
+the consumer has received the written copy of the  agreement.  2017,  c.  5,
+Sched. 2, s. 15.
+
+---------------------------------------------------------------------- 
+s. 47 — remote agreements
+---------------------------------------------------------------------- 
+
+47 (1)  A consumer may cancel a remote agreement at any time from the  date
+the agreement is entered into until seven days after the  consumer  receives
+a copy of the agreement if the supplier fails to  comply  with  section  45.
+2002, c. 30, Sched. A, s. 47 (1).
+
+Same
+(2)  A consumer may cancel a remote agreement within  one  year  after  the
+date the agreement is entered into, if the supplier does not comply  with  a
+requirement under section 46.  2004, c. 19, s. 7 (8).
+Section Amendments with date in force (d/m/y)
+2004, c. 19, s. 7 (8) - 30/07/2005
+
+---------------------------------------------------------------------- 
+s. 51 — loan brokering, credit repair and prescribed goods and services
+---------------------------------------------------------------------- 
+
+Cancellation: cooling-off period
+51 (1)  A consumer who is a party  to  an  agreement  for  loan  brokering,
+credit repair or the supply of such goods and services as may be  prescribed
+may, without any reason, cancel the agreement at any time from the  date  of
+entering into the agreement until 10 days after receiving the  written  copy
+of the agreement.  2002, c. 30, Sched. A, s. 51 (1); 2013, c. 13, Sched. 2,
+s. 6.

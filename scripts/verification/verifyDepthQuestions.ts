@@ -276,9 +276,33 @@ function main(): void {
       "selection: noQuestionNeeded elements are explicit, not gaps",
       result.noQuestionNeeded.includes("amount-within-jurisdiction-defamation"),
     );
+    // Was pinned to "limitation-if-newspaper-or-broadcast", a REAL element
+    // that happened to be unauthored. Authoring it emptied result.unauthored
+    // and the check failed — a check invalidated by doing the work it was
+    // meant to encourage, the same shape as the voiceLayer abort-signal check.
+    //
+    // Now asserted against a synthetic element id that will never be authored,
+    // so it tests the BEHAVIOUR — an element with no authored question lands in
+    // unauthored rather than vanishing — and stays true as coverage grows.
+    const syntheticResult = selectDepthQuestions({
+      elements: [
+        ...defamation.plaintiffElements,
+        {
+          ...defamation.plaintiffElements[0],
+          id: "synthetic-element-that-is-never-authored",
+        },
+      ],
+      userTexts: ["She wrote something about me."],
+      slotValues: {},
+    });
     check(
       "selection: unauthored elements degrade to attestation",
-      result.unauthored.includes("limitation-if-newspaper-or-broadcast"),
+      syntheticResult.unauthored.includes("synthetic-element-that-is-never-authored"),
+      JSON.stringify(syntheticResult.unauthored),
+    );
+    check(
+      "selection: every real defamation element is now authored or explicit",
+      result.unauthored.length === 0,
       JSON.stringify(result.unauthored),
     );
   }

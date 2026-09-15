@@ -35,6 +35,8 @@ export const VENDORED_SOURCES = [
   "cyfsa-cited-sections.txt",
   "oreg-258-98-cited-rules.txt",
   "insurance-act-s263.txt",
+  "residential-tenancies-act-scope.txt",
+  "consumer-protection-act-cooling-off.txt",
 ] as const;
 
 /**
@@ -109,6 +111,59 @@ export type StatutoryProvision = {
 };
 
 export const STATUTORY_PROVISIONS: StatutoryProvision[] = [
+  // ---- Which forum a tenancy dispute belongs in ----
+  //
+  // Retrieved 2026-09-14. The element `tenancy-is-commercial-not-residential`
+  // asks a user to classify their own tenancy, and getting it wrong sends
+  // them to the wrong forum — a residential tenancy goes to the Landlord and
+  // Tenant Board, and a person may not discover that until they are there.
+  // s. 3 (1) states what the Act applies to, s. 2 defines the words it uses,
+  // s. 5 lists what is exempt.
+  {
+    statute: "Residential Tenancies Act, 2006",
+    section: "s. 5",
+    sourceUrl: "https://www.ontario.ca/laws/docs/06r17_e.doc",
+    vendoredIn: "residential-tenancies-act-scope.txt",
+    verifiedAt: "2026-09-14",
+    consolidationPeriod: "2026-07-01",
+    pendingReplacement: {
+      amendingCitation: "2018, c. 6, Sched. 3, s. 12",
+      inForceDate: null,
+      whatWouldChange:
+        "Clause 5 (e) is amended by striking out \"Ministry of Correctional Services Act\" and substituting \"Correctional Services and Reintegration Act, 2018\". e-Laws prints this inline, marked only by the prose note \"On a day to be named by proclamation\". The vendored file carries the text IN FORCE at the consolidation date and excludes the not-in-force paragraph. The change is to a statute name in an exemption, so it does not move the residential/commercial line — but the text must be refreshed when proclaimed.",
+      lastChecked: "2026-09-14",
+    },
+  },
+
+  // s. 3 is the application provision and carries no pending amendment. It is
+  // registered separately so the s. 5 entry's pendingReplacement stays
+  // attached to the clause it actually concerns.
+  {
+    statute: "Residential Tenancies Act, 2006",
+    section: "s. 3",
+    sourceUrl: "https://www.ontario.ca/laws/docs/06r17_e.doc",
+    vendoredIn: "residential-tenancies-act-scope.txt",
+    verifiedAt: "2026-09-14",
+    consolidationPeriod: "2026-07-01",
+  },
+
+  // ---- Which agreements carry a statutory cancellation right ----
+  //
+  // Retrieved 2026-09-14. The element `contract-covered-by-cooling-off` asks
+  // whether an agreement falls into a category with a cancellation right. A
+  // user cannot know their category without seeing the categories, and the
+  // periods differ: 10 days for time share (s. 28), personal development
+  // services (s. 35), direct agreements (s. 43) and loan brokering or credit
+  // repair (s. 51); seven days for internet agreements (s. 40) and remote
+  // agreements (s. 47), each conditional on a supplier failure.
+  {
+    statute: "Consumer Protection Act, 2002",
+    section: "s. 43",
+    sourceUrl: "https://www.ontario.ca/laws/docs/02c30_e.doc",
+    vendoredIn: "consumer-protection-act-cooling-off.txt",
+    verifiedAt: "2026-09-14",
+    consolidationPeriod: "2025-12-11",
+  },
   // ---- The direct-compensation bar ----
   //
   // Retrieved 2026-09-14 because the claim-type element

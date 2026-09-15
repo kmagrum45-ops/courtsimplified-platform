@@ -78,6 +78,41 @@ export type NoQuestionNeeded = {
  */
 export const NO_QUESTION_NEEDED: NoQuestionNeeded[] = [
 
+  // The jurisdictional elements of the remaining fourteen (2026-09-14).
+  //
+  // NAMING PROBLEM, recorded and deliberately NOT fixed here:
+  // `amount-owing-commercial` and `amount-within-jurisdiction-condo` read as
+  // jurisdiction tests but their names bundle "the amount owing" into the
+  // same element. Renaming them is not an authoring change — element ids
+  // reach the readiness gate and the draft engine, and any rename needs the
+  // fixtures regenerated. See OUTSTANDING_ISSUES.
+  {
+    elementId: "amount-within-jurisdiction",
+    reason:
+      "Checked against the amount already captured in amountClaimedText. Not a fact the user narrates.",
+  },
+  {
+    elementId: "value-within-jurisdiction-property",
+    reason:
+      "Checked against the amount already captured in amountClaimedText. Not a fact the user narrates.",
+  },
+  {
+    elementId: "amount-owing-commercial",
+    reason:
+      "Checked against the amount already captured in amountClaimedText. Not a fact the user narrates.",
+  },
+  {
+    elementId: "amount-within-jurisdiction-wages",
+    reason:
+      "Checked against the amount already captured in amountClaimedText. Not a fact the user narrates.",
+  },
+  {
+    elementId: "amount-within-jurisdiction-condo",
+    reason:
+      "Checked against the amount already captured in amountClaimedText. Not a fact the user narrates.",
+  },
+
+
   // The jurisdictional elements of the six claim types authored 2026-09-14.
   // Same reason as the existing entries: checked against the amount already
   // captured, not a fact the user narrates. Excluded from the gate entirely,
@@ -131,6 +166,369 @@ export const NO_QUESTION_NEEDED: NoQuestionNeeded[] = [
  * degrade safely, so partial coverage is the intended shipping state.
  */
 export const DEPTH_QUESTIONS: DepthQuestion[] = [
+
+  // ===================================================================
+  // The remaining fourteen claim types (2026-09-14).
+  //
+  // Same rule as the batch above: every question asks for a FACT. Where an
+  // element states a legal classification the user cannot answer, the
+  // question asks the facts that bear on it and the provision is cited so
+  // the reader can see the rule. Two do that explicitly — see the notes on
+  // tenancy-is-commercial-not-residential and contract-covered-by-cooling-off.
+  // ===================================================================
+
+  // --- Slip and fall / occupier's liability ---
+  {
+    id: "depth-slip-occupier",
+    elementId: "defendant-was-occupier",
+    text: "Whose property was it, and what do you know about who looks after it?",
+    examples: ["the business name on the door","who you reported it to","a landlord or property manager"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-slip-condition",
+    elementId: "premises-not-reasonably-safe",
+    text: "What was the condition that caused the fall, and what did it look like?",
+    examples: ["ice that had not been cleared","a broken step","water on the floor","no warning sign"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-slip-injury",
+    elementId: "injury-and-connection",
+    text: "What injury did you have, and what treatment did you get?",
+    examples: ["where you were hurt","whether you saw a doctor","time off work"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // --- Improper or unauthorized towing ---
+  {
+    id: "depth-tow-where-parked",
+    elementId: "towed-without-consent",
+    text: "Where was the vehicle parked when it was towed, and what were you told about why?",
+    examples: ["a sign at the lot","what the tow operator said","where you found it"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-tow-rate-disclosure",
+    elementId: "no-rate-disclosure",
+    text: "Were you given anything in writing about the cost before or when you paid?",
+    examples: ["an invoice","a posted rate sheet","nothing at all"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // --- Breach of contract, goods ---
+  {
+    id: "depth-goods-contract-agreement",
+    elementId: "existed-agreement-goods",
+    text: "What did you agree to buy, and how was it agreed?",
+    examples: ["an online order","a written quote","a verbal agreement"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-goods-not-as-agreed",
+    elementId: "goods-not-as-agreed",
+    text: "What did you receive, and how did it differ from what you expected?",
+    examples: ["it never arrived","it arrived damaged","it was a different model"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-goods-contract-loss",
+    elementId: "loss-amount-goods",
+    text: "What did this cost you, and how did you work that out?",
+    examples: ["what you paid","what a replacement cost"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // --- Wrongful dismissal ---
+  {
+    id: "depth-dismissal-dates",
+    elementId: "minimum-employment-length",
+    text: "When did you start, and when did your employment end?",
+    examples: ["your first day","your last day","what a record of employment shows"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-dismissal-notice",
+    elementId: "notice-or-pay-not-given",
+    text: "What notice or payment were you given when your employment ended?",
+    examples: ["how much warning you had","any payment you received","what a termination letter said"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // --- Dog bite (Dog Owners' Liability Act) ---
+  {
+    id: "depth-dog-what-happened",
+    elementId: "dog-caused-bite-or-attack",
+    text: "What happened, and where were you when it happened?",
+    examples: ["the date and place","what the dog did","whether anyone else saw it"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-dog-owner",
+    elementId: "defendant-is-owner",
+    text: "What do you know about who the dog belongs to?",
+    examples: ["a name and address","what they said at the scene","what animal services recorded"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-dog-loss",
+    elementId: "loss-amount-dog-bite",
+    text: "What did this cost you, and how did you work that out?",
+    examples: ["medical costs","damaged clothing","time off work"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // --- Breach of contract, services ---
+  {
+    id: "depth-services-agreement",
+    elementId: "existed-agreement-services",
+    text: "What work did you agree to, and how was it agreed?",
+    examples: ["a written quote","a verbal agreement","messages setting it out"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-services-what-done",
+    elementId: "service-not-performed-or-substandard",
+    text: "What was actually done, and how did it differ from what you agreed?",
+    examples: ["never started","stopped partway","done differently from what was agreed"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-services-loss",
+    elementId: "loss-amount-services",
+    text: "What did this cost you, and how did you work that out?",
+    examples: ["what you paid","what someone else charged to finish it"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // --- Recovery of personal property ---
+  {
+    id: "depth-property-ownership",
+    elementId: "plaintiff-owns-or-has-right-to-property",
+    text: "What are the items, and how did you come to have them?",
+    examples: ["you bought them","you inherited them","a receipt or photograph"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-property-possession",
+    elementId: "defendant-possesses-and-wont-return",
+    text: "How did they come to have the items, and what have you asked them?",
+    examples: ["you lent them","left behind after moving out","messages asking for them back"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // --- Cancelled contract, refund (Consumer Protection Act) ---
+
+  // Whether an agreement falls into a category carrying a statutory
+  // cancellation right is a legal classification, and the periods differ by
+  // category. The question asks what the agreement was for and where it was
+  // signed — facts that bear on it — and cites the sections so the reader can
+  // see the categories. A user cannot know their category without seeing the
+  // categories, and the site does not pick one for them.
+  {
+    id: "depth-cancel-agreement-type",
+    elementId: "contract-covered-by-cooling-off",
+    text: "What was the agreement for, and where did you sign it?",
+    examples: ["a gym or club membership","a door-to-door sale","signed at home, in a shop, or online"],
+    why: "The Consumer Protection Act, 2002 gives a cancellation right for particular kinds of agreement, and the period differs between them: 10 days for a time share agreement (s. 28), personal development services such as a gym membership (s. 35), a direct agreement — one made in person somewhere other than the supplier's place of business (s. 43), and loan brokering or credit repair (s. 51); and seven days for an internet agreement (s. 40) or a remote agreement (s. 47), each of those conditional on the supplier having failed a disclosure requirement. Which category an agreement falls into is a legal question.",
+    sourceUrl: "https://www.ontario.ca/laws/docs/02c30_e.doc",
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-cancel-notice",
+    elementId: "cancellation-given",
+    text: "How and when did you tell them you were cancelling?",
+    examples: ["the date","email, letter, or phone","what you said"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-cancel-refund",
+    elementId: "refund-not-received-in-time",
+    text: "What have you received back, and when?",
+    examples: ["nothing","a partial refund","the date it arrived"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // --- Commercial tenancy ---
+
+  // This is the one where getting it wrong costs the most. A RESIDENTIAL
+  // tenancy goes to the Landlord and Tenant Board, not Small Claims Court,
+  // and a person may not discover that until they are standing in the wrong
+  // forum. So the question asks what the premises are used for and who
+  // occupies them — facts — and cites the provisions that draw the line.
+  // Nothing here classifies the tenancy.
+  {
+    id: "depth-commercial-use",
+    elementId: "tenancy-is-commercial-not-residential",
+    text: "What are the premises used for, and does anyone live there?",
+    examples: ["a shop, office, or unit","a building with flats above","whether anyone lives on the premises"],
+    why: "The Residential Tenancies Act, 2006 applies \"with respect to rental units in residential complexes\" (s. 3 (1)), and s. 2 defines a rental unit as living accommodation used or intended for use as rented residential premises. s. 5 lists what the Act does not apply to, including hotel and seasonal accommodation and accommodation tied to farm employment. Where the Act applies, the Landlord and Tenant Board has the dispute rather than the Small Claims Court. Which side of that line a particular tenancy falls on is a legal question.",
+    sourceUrl: "https://www.ontario.ca/laws/docs/06r17_e.doc",
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-commercial-terms",
+    elementId: "existed-agreement-commercial-lease",
+    text: "What terms did you agree, and how were they set out?",
+    examples: ["a signed lease","the monthly rent","the length of the term"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // --- Dishonoured (NSF) cheque ---
+  {
+    id: "depth-nsf-cheque-for",
+    elementId: "payment-made-by-cheque",
+    text: "What was the cheque for, and when did you receive it?",
+    examples: ["the amount","the date written on it","what it was paying for"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-nsf-returned",
+    elementId: "cheque-returned-nsf",
+    text: "What did your bank tell you when the cheque did not clear?",
+    examples: ["the reason given","the date it was returned","a notice from the bank"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-nsf-outstanding",
+    elementId: "amount-unpaid-nsf",
+    text: "Has any of it been paid since, and how much is still owing?",
+    examples: ["a replacement payment","a part payment","nothing since"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // --- Unpaid overtime or vacation pay ---
+  {
+    id: "depth-wages-overtime",
+    elementId: "overtime-not-paid",
+    text: "What hours did you work beyond your normal hours, and what were you paid for them?",
+    examples: ["your usual weekly hours","the extra hours worked","what your pay stubs show"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-wages-vacation",
+    elementId: "vacation-pay-not-paid",
+    text: "What vacation did you take or build up, and what vacation pay did you receive?",
+    examples: ["days taken","what your pay stubs show","what you were told"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // --- Vehicle repair dispute ---
+  {
+    id: "depth-repair-estimate",
+    elementId: "estimate-or-max-agreed",
+    text: "Before the work started, what were you told it would cost, and was any of it in writing?",
+    examples: ["a written estimate","a figure given over the phone","nothing said about cost"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-repair-charged",
+    elementId: "charged-over-permitted-limit",
+    text: "What were you charged in the end, and how does that compare to what you were told?",
+    examples: ["the final invoice","the original figure","the difference between them"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-repair-claim",
+    elementId: "amount-claimed-repair",
+    text: "What are you asking for, and how did you work that out?",
+    examples: ["the overcharge","what a second shop charged to put it right"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // --- Unpaid condominium common expenses ---
+  {
+    id: "depth-condo-parties",
+    elementId: "plaintiff-is-condo-corp",
+    text: "What is the corporation, and which unit is this about?",
+    examples: ["the corporation's name and number","the unit number","who owns the unit"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+  {
+    id: "depth-condo-arrears",
+    elementId: "owner-defaulted-common-expenses",
+    text: "Which payments were missed, and for what period?",
+    examples: ["the months unpaid","the monthly amount","any partial payments received"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
+  // --- Defamation: the one element of four still unauthored ---
+  {
+    id: "depth-defamation-publication",
+    elementId: "limitation-if-newspaper-or-broadcast",
+    text: "Was any of this published in a newspaper or broadcast, and if so, when?",
+    examples: ["a newspaper or news website article","a radio or television broadcast","the date it appeared"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-14",
+  },
+
 
   // ===================================================================
   // The six 4+-element claim types (2026-09-14).

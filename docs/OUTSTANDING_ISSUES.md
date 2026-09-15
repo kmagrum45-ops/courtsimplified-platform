@@ -860,6 +860,99 @@ handled, and it is the only one that cannot invent a party name.
 
 ---
 
+## 33. 📌 Two element ids bundle "amount owing" into a jurisdiction name — do NOT rename casually
+
+`amount-owing-commercial` (commercial tenancy) and
+`amount-within-jurisdiction-condo` (unpaid condo common expenses) are both
+marked `NO_QUESTION_NEEDED` as jurisdictional tests, which is correct for what
+they do. **Their names are not.** Both read as though they also cover whether
+the amount is in fact owed, which is a separate question with a separate answer
+and is not what the element checks.
+
+Compare the unambiguous siblings: `amount-within-jurisdiction-goods-sold`,
+`amount-within-jurisdiction-wages`, `value-within-jurisdiction-property`.
+
+**Deliberately not renamed while authoring questions.** Element ids are not
+labels — they reach the readiness gate (`evaluateReadinessGate` keys
+`elementStateMap` by them), the draft engine (`cannotProvide` entries travel
+into the Statement of Claim under RECORDED AS NOT HELD), and the
+no-question-needed registry. A rename is a data migration for any case already
+carrying the old id in `master_result`, plus a fixture regeneration.
+
+**What a rename would require, in order:**
+
+1. Decide whether the element covers jurisdiction ONLY, or jurisdiction and
+   amount-owed. If the latter, it is two elements, not a renamed one.
+2. Rename in `claimTypes.ts` and `NO_QUESTION_NEEDED`.
+3. Decide what happens to stored `elementStateMap` entries under the old id —
+   dropped, or migrated. Dropping silently reopens a gate the user already
+   passed.
+4. Regenerate the fixtures (`npm run test:fixtures`, ~105 requests) and read
+   the diff rather than accepting it.
+
+Worth doing. Not worth doing in the middle of authoring questions, which is
+where it was found.
+
+---
+
+## 32. ⚠️ The matcher fix moved 18 claim types from never-reached to reached-and-bare
+
+**This is the same defect class the reachability sweep found, one level up: the
+fix that made something reachable also made its thinnest part user-facing.**
+
+### What changed, in one morning
+
+Before 2026-09-14, `matchClaimType` scored **0 of 10** against plainly-worded
+stories (section 30). `buildClaimTypeOverviewContent` returned `null`
+essentially always, so:
+
+- the claim type was never confirmed,
+- the depth phase had no elements to work from,
+- and the overview panel fell through to unsourced model output.
+
+**The attestation fallback was load-bearing for ZERO claim types**, because no
+claim type was ever reached.
+
+After the matcher fix, a user whose story matches reaches the element list. For
+the 18 claim types with no authored depth questions, that list was **bare**: an
+element such as *"Existence of a valid contract"* with "I have this / I can't
+provide this" buttons and nothing explaining what it means for their situation.
+
+**The attestation fallback became load-bearing for eighteen claim types in a
+single commit.** It is a deliberate, documented degradation
+(`selectDepthQuestions`: "unauthored -> skip, degrades to attestation"), and it
+went from covering nothing to covering most of the product without anyone
+choosing that.
+
+### Worse than thin: it was a permanent block
+
+An element that is neither authored nor marked `NO_QUESTION_NEEDED` goes to
+`unauthored`, is never asked, and stays `not-yet`. **Only `not-yet` holds the
+readiness gate.** So those users could not reach a draft at all — not a thin
+experience, a dead end. The gate's own header records this exact failure
+happening once before, to `amount-within-jurisdiction-personal-loan`.
+
+### Closed, same day
+
+All 75 elements across all 22 claim types are now authored (62) or explicitly
+marked not-user-narratable (13). **Zero unauthored.** 65 questions in the
+registry.
+
+### The lesson worth keeping
+
+**Making something reachable is not a neutral act.** The matcher fix was
+unambiguously right, and it converted a silent gap into a user-facing one the
+same afternoon. Anything that unblocks a path should be assumed to expose
+whatever was behind the block, and the check for that is to walk the path
+afterwards — not to reason that the fix was narrow.
+
+The pattern to watch for next time: **a fallback whose load-bearing-ness
+changes without the fallback changing.** Nothing about
+`selectDepthQuestions` was edited; its importance went from zero to
+near-total because something upstream started working.
+
+---
+
 ## 31. Dead pairs — 4,576 lines, left in place, with two preconditions
 
 Found by the reachability sweep (section 32). Listed as a block because

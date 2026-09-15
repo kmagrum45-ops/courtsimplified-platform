@@ -1,0 +1,83 @@
+Residential Tenancies Act, 2006, S.O. 2006, c. 17 — the provisions that draw the
+line between a residential tenancy and everything else
+Source: https://www.ontario.ca/laws/docs/06r17_e.doc
+Consolidation period: from 2026-07-01 to the e-Laws currency date
+Extracted with antiword, 2026-09-14. Verbatim, unedited.
+
+Why these: the claim-type element `tenancy-is-commercial-not-residential` asks
+the user to classify their own tenancy, and getting it wrong sends them to the
+wrong forum — a residential tenancy goes to the Landlord and Tenant Board, not
+Small Claims Court, and a person may not discover that until they are there.
+s. 3 (1) states what the Act applies to; s. 2's definitions of "rental unit" and
+"residential complex" are what those words mean; s. 5 lists what is exempt.
+
+NOT IN FORCE, kept verbatim: the e-Laws text prints an amendment to
+clause 5 (e) marked "On a day to be named by proclamation of the Lieutenant
+Governor". The exemption list below is the text in force as at the consolidation
+date, and the not-in-force paragraph is reproduced below it EXACTLY as e-Laws
+prints it, so a reader can see which is which. It is recorded as a pending
+replacement in statutoryProvisions.ts.
+======================================================================
+
+---------------------------------------------------------------------- 
+s. 2 — definitions of "rental unit" and "residential complex"
+---------------------------------------------------------------------- 
+
+"rental unit" means any living accommodation used or  intended  for  use  as
+ rented residential premises, and "rental unit" includes,
+      (a)   a site for a mobile home or site on which there is a land  lease
+    home used or intended for use as rented residential premises, and
+      (b)   a room in a boarding house, rooming house or lodging  house  and
+    a unit in a care home; ("logement locatif")
+"residential complex", except in Part V.1, means,
+      (a)   a building or related group of buildings in which  one  or  more
+    rental units are located,
+      (b)   a mobile home park or land lease community,
+      (c)   a site that is a rental unit,
+      (d)   a care home, and,
+      includes all common areas and services and  facilities  available  for
+ the use of its residents; ("ensemble d'habitation")
+"residential unit" means any living accommodation used or intended  for  use
+ as residential premises, and "residential unit" includes,
+      (a)   a site for a mobile home or on which there is a land lease  home
+    used or intended for use as a residential premises, and
+      (b)   a room in a boarding house, rooming house or lodging  house  and
+    a unit in a care home; ("habitation")
+
+---------------------------------------------------------------------- 
+s. 3 — application of the Act
+---------------------------------------------------------------------- 
+
+Application of Act
+3 (1)  This Act, except Part V.1, applies with respect to rental  units  in
+residential complexes, despite any other Act and despite  any  agreement  or
+waiver to the contrary.  2013, c. 3, s. 22 (1).
+
+---------------------------------------------------------------------- 
+s. 5 — exemptions from the Act
+---------------------------------------------------------------------- 
+
+Exemptions from Act
+5 This Act does not apply with respect to,
+      (a)   living accommodation intended to be provided to  the  travelling
+    or vacationing public or occupied for a seasonal or temporary period in
+    a hotel, motel or motor hotel, resort, lodge, tourist camp, cottage  or
+    cabin establishment, inn, campground, trailer park, tourist  home,  bed
+    and breakfast vacation establishment or vacation home;
+      (b)   living accommodation whose occupancy  is  conditional  upon  the
+    occupant continuing to be employed  on  a  farm,  whether  or  not  the
+    accommodation is located on that farm;
+      (c)   living accommodation that is  a  member  unit  of  a  non-profit
+    housing co-operative,  except  for  Part  V.1,  and  except  for  those
+    provisions in other Parts that are needed to give effect to Part V.1;
+       (d)    living  accommodation  occupied  by  a  person  for  penal  or
+    correctional purposes;
+      (e)   living accommodation that is subject  to  the  Public  Hospitals
+    Act, the Private Hospitals Act, the Fixing Long-Term  Care  Act,  2021,
+    the Ministry of Correctional Services  Act  or  the  Child,  Youth  and
+    Family Services Act, 2017;
+
+Note: On a day to be named  by  proclamation  of  the  Lieutenant  Governor,
+clause  5  (e)  of  the  Act  is  amended  by  striking  out  "Ministry   of
+Correctional Services  Act"  and  substituting  "Correctional  Services  and
+Reintegration Act, 2018". (See: 2018, c. 6, Sched. 3, s. 12)
