@@ -23,7 +23,29 @@ import crypto from "node:crypto";
 
 import { createClient, type Session, type SupabaseClient } from "@supabase/supabase-js";
 
-const HARNESS_TEST_EMAIL = "courtsimplified.harness@example.test";
+/**
+ * A FRESH USER PER RUN, deliberately, rather than one reused user cleaned up
+ * between runs.
+ *
+ * Teardown that fails leaves rows behind, and the next run then passes on the
+ * previous run's data. That is the exact shape of every silent-pass defect
+ * found in this codebase: the candidate surface returning [] forever, the
+ * staleness banner that could never fire, the analysis that never saw a
+ * confirmed event. In each one the check was fine and what fed it was stale
+ * or absent, and nothing failed.
+ *
+ * A user created seconds ago owns no cases, no case_events and no dismissals,
+ * so an assertion like "the candidate list is non-empty" cannot be satisfied
+ * by anything except this run. There is nothing to inherit.
+ *
+ * The cost is accumulating users in the dev project. They are all
+ * @example.test, all carry courtSimplifiedHarness: true in user_metadata, and
+ * deleteHarnessUser() below removes the one a run made. If that cleanup fails
+ * the run still reported honestly, which is the trade being made.
+ */
+function freshHarnessEmail(): string {
+  return `courtsimplified.harness+${Date.now()}.${crypto.randomBytes(6).toString("hex")}@example.test`;
+}
 
 function readEnvVar(name: string): string {
   if (process.env[name]) return process.env[name] as string;
@@ -44,12 +66,13 @@ export function authStorageKey(supabaseUrl: string): string {
   return `sb-${new URL(supabaseUrl).hostname.split(".")[0]}-auth-token`;
 }
 
-async function ensureHarnessUserId(
+async function createHarnessUser(
   admin: SupabaseClient<any, any, any>,
+  email: string,
   password: string,
 ): Promise<string> {
   const created = await admin.auth.admin.createUser({
-    email: HARNESS_TEST_EMAIL,
+    email,
     password,
     email_confirm: true,
     user_metadata: { courtSimplifiedHarness: true },
@@ -57,32 +80,20 @@ async function ensureHarnessUserId(
 
   if (!created.error && created.data.user) return created.data.user.id;
 
-  // Most likely cause of failure: the harness user already exists from a
-  // prior run. Find it and reset its password rather than treating this as
-  // fatal.
-  for (let pageNumber = 1; pageNumber <= 20; pageNumber += 1) {
-    const page = await admin.auth.admin.listUsers({ page: pageNumber, perPage: 200 });
-    if (page.error) break;
-
-    const existing = page.data.users.find((user) => user.email === HARNESS_TEST_EMAIL);
-    if (existing) {
-      const updated = await admin.auth.admin.updateUserById(existing.id, { password });
-      if (updated.error) {
-        throw new Error(`Could not reset the harness test user's password: ${updated.error.message}`);
-      }
-      return existing.id;
-    }
-
-    if (page.data.users.length < 200) break;
-  }
-
-  throw new Error(
-    `Could not create or locate the harness test user (${HARNESS_TEST_EMAIL}): ${created.error?.message}`,
-  );
+  throw new Error(`Could not create a harness test user: ${created.error?.message}`);
 }
 
-/** Signs in as the harness test user and returns a real Supabase session. */
-export async function mintRealTestSession(): Promise<{ session: Session; supabaseUrl: string }> {
+/**
+ * Creates a brand-new harness user and returns a real Supabase session for it.
+ *
+ * Returns the user id as well, so a spec can delete the user it made.
+ */
+export async function mintRealTestSession(): Promise<{
+  session: Session;
+  supabaseUrl: string;
+  userId: string;
+  email: string;
+}> {
   const supabaseUrl = readEnvVar("NEXT_PUBLIC_SUPABASE_URL");
   const anonKey =
     readEnvVar("NEXT_PUBLIC_SUPABASE_ANON_KEY") || readEnvVar("NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY");
@@ -101,14 +112,15 @@ export async function mintRealTestSession(): Promise<{ session: Session; supabas
     auth: { persistSession: false, autoRefreshToken: false },
   });
 
-  await ensureHarnessUserId(admin, password);
+  const email = freshHarnessEmail();
+  const userId = await createHarnessUser(admin, email, password);
 
   const signInClient = createClient(supabaseUrl, anonKey, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
 
   const { data, error } = await signInClient.auth.signInWithPassword({
-    email: HARNESS_TEST_EMAIL,
+    email,
     password,
   });
 
@@ -116,5 +128,27 @@ export async function mintRealTestSession(): Promise<{ session: Session; supabas
     throw new Error(`Could not sign in as the harness test user: ${error?.message || "no session returned"}`);
   }
 
-  return { session: data.session, supabaseUrl };
+  return { session: data.session, supabaseUrl, userId, email };
+}
+
+/**
+ * Removes a user a run created, and everything cascading from it.
+ *
+ * Best-effort on purpose. A failure here must never fail a spec: the run has
+ * already reported, and the next run makes its own user regardless. Leftovers
+ * are all @example.test with courtSimplifiedHarness: true in user_metadata.
+ */
+export async function deleteHarnessUser(userId: string): Promise<void> {
+  const supabaseUrl = readEnvVar("NEXT_PUBLIC_SUPABASE_URL");
+  const serviceRoleKey = readEnvVar("SUPABASE_SERVICE_ROLE_KEY");
+  if (!supabaseUrl || !serviceRoleKey || !userId) return;
+
+  try {
+    const admin = createClient(supabaseUrl, serviceRoleKey, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
+    await admin.auth.admin.deleteUser(userId);
+  } catch {
+    // Deliberately swallowed. See the note above.
+  }
 }
