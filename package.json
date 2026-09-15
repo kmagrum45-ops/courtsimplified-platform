@@ -15,6 +15,7 @@
     "test:ai-real-integration": "node --import tsx scripts/verification/checkConfiguredAiReasoning.integration.ts",
     "test:ai-route-contract": "node --import tsx scripts/verification/verifyServerAiReasoningContract.ts",
     "test:assistant-context": "node --import tsx scripts/verification/verifyAssistantContext.ts",
+    "test:anon-grants": "node --import tsx scripts/verification/verifyAnonGrants.ts",
     "test:authority-bridge": "node --import tsx scripts/verification/verifyAuthorityKnowledgeBridge.ts",
     "test:authority-seed-integrity": "node --import tsx scripts/verification/verifyAuthoritySeedRegistryIntegrity.ts",
     "test:browser-journeys": "playwright test",
