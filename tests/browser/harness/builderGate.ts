@@ -68,9 +68,18 @@ export async function openBuilder(
     await page.getByLabel("Tell us what happened in your own words").fill(story);
   }
 
-  const button = page.getByRole("button", {
-    name: `Continue with ${PATH_LABEL[path]} questions`,
-  });
+  // The gate's button text is NOT uniform across paths. app/builder/page.tsx:
+  //   courtPath === "small-claims" ? "Continue" : `Continue with ${label} questions`
+  //
+  // This helper claimed to support all three paths from the day it was written
+  // and had only ever been run on family, so the small-claims branch was wrong
+  // and nothing said so — the same untested-branch shape as everything else
+  // found today. Exact match, so "Continue" does not also match the family
+  // button.
+  const button =
+    path === "small-claims"
+      ? page.getByRole("button", { name: "Continue", exact: true })
+      : page.getByRole("button", { name: `Continue with ${PATH_LABEL[path]} questions` });
   await expect(
     button,
     "the gate's Continue button is disabled — it requires Ontario, a non-empty " +
