@@ -143,9 +143,9 @@ codebase has spent the session hunting — `verifyCitedProvisions` firing on its
 own comment, the candidate route reading a key nothing writes, the matcher
 scoring 0/10 — arrived from the opposite direction.
 
-### Four in one session, and they are one failure
+### Five in one session, and four of them are one failure
 
-The table above lists all four. Not four accidents — one habit: **taking the
+The table above lists the first four. Not four accidents — one habit: **taking the
 result of an operation as evidence without confirming what the operation
 actually covered.** A date read without asking what produced it. A list read
 without asking what was cut from it. A test result read without asking whether
@@ -156,6 +156,65 @@ The fourth is the one that generalises furthest, because it has no operation to
 confirm — nothing went wrong mechanically. `grep` did exactly what it was asked.
 The gap was between **what was searched for** and **what was concluded**, which
 no amount of confirming the command ran would close.
+
+**The fifth, below, is not one of these four.** It is included in this section
+because it produces the same end state — a green result establishing nothing —
+by a different route. There the operation was confirmed, the output was
+complete, and the assertion still never ran, because it sat inside a conditional
+that was false. Confirming an operation is no defence against an assertion that
+was never reached.
+
+Worth holding both shapes in mind, because the habits that catch them differ:
+the first four are caught by asking **what did this actually cover**; the fifth
+by asking **what would this do if the interesting case did not occur**.
+
+### 📌 The fifth instance, and a different mechanism: an assertion that never ran
+
+**Different from the other four**, which is why it is worth its own entry.
+Nothing no-opped, nothing truncated, no search missed a synonym. The code ran,
+the command succeeded, and **the assertion was simply inside an `if` whose
+condition was false**.
+
+SC-1's evidence-citation guard, as first written:
+
+```ts
+const headingCount = await overview
+  .getByText("Evidence to organize or confirm", { exact: true })
+  .count();
+
+if (headingCount > 0) {
+  // ... every item must carry a (Source) link
+}
+```
+
+It passed in **4.2 seconds**, and a pass there is indistinguishable from a run
+where the heading never rendered and the entire guard was skipped. Green, fast,
+and proving nothing — with no failure anywhere to indicate it.
+
+The condition looked like defensive good practice: *the list may legitimately be
+empty, so only check items when there are items.* But **the heading's presence
+was part of what the spec existed to verify** — the defamation claim type
+matching, and carrying sourced evidence content. Guarding on it made the thing
+under test into the thing that decided whether the test happened.
+
+Rewritten to assert the condition first, then the property unconditionally. It
+now fails if the heading is missing — which is the conversation worth having —
+and mutation-confirmed by stripping the source links: red, naming the item.
+
+### The rule
+
+> **An assertion nested inside a conditional is only a check when the condition
+> is independently guaranteed. If the condition is what you are testing, assert
+> it.**
+
+The tell: ask what the test would do if the condition were false. If the answer
+is "pass", it is not a check under those circumstances — and nothing will ever
+tell you which circumstances the last green run was in.
+
+This has a sibling already in the register: `verifyMountConditions` and
+`verifyHarnessCoverage` both carry self-tests for exactly this reason — a
+condition parser that silently found nothing, or a scan that matched no calls,
+would satisfy every assertion built on top of it while establishing nothing.
 
 ### The widest rule in this section
 
