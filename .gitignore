@@ -189,3 +189,6 @@ repomix-output.xml
 !public/
 .env.diagnose
 .env*
+
+# Scratch space for source retrieval (antiword output, fetched HTML)
+.tmp-src/
