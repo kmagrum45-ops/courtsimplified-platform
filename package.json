@@ -57,6 +57,7 @@
     "test:live-stories": "node --import tsx scripts/verification/runLiveStoryBatch.ts",
     "test:mount-conditions": "node --import tsx scripts/verification/verifyMountConditions.ts",
     "test:mutations": "node --import tsx scripts/verification/runMutationTests.ts",
+    "test:no-store": "node --import tsx scripts/verification/verifyNoStore.ts",
     "test:narrative-prefill": "node --import tsx scripts/verification/verifyNarrativePrefill.ts",
     "test:ontario-beta-bundle": "node --import tsx scripts/verification/verifyOntarioBetaProcedureAuthorityBundle.ts",
     "test:overview-labels": "node --import tsx scripts/verification/verifyOverviewIssueAndDocumentLabels.ts",

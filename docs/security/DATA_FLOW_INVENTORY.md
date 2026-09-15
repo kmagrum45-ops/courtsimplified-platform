@@ -32,7 +32,8 @@ that follow.
 **What is genuinely outstanding**, and named here rather than left to be found:
 
 - Users' narratives and party names **are sent to OpenAI**, and the privacy
-  notice does not say so.
+  notice does not say so. Logging is off and verified, but abuse-monitoring
+  retention still applies and ZDR has not been applied for — see 3.2.
 - **There is no way for a user to delete their data** through the product.
 - The **privacy notice is three paragraphs** and omits the third-party
   processing, the storage location, retention and deletion.
@@ -193,21 +194,62 @@ rather than a migration replay.
 
 **So the user's story and the names of both parties are transmitted to OpenAI.**
 
-### 3.2 What counsel needs to establish about OpenAI, which the code cannot answer
+### 3.2 Retention at OpenAI — the whole position, in the order it should be said
 
-Verified from the code: there is **no** `store: false` flag, **no**
-zero-data-retention configuration, and **no** organization or project pinning in
-`src/lib/case-system/openaiClient.ts`.
+**This is written to be said out loud. It is true rather than reassuring, and
+the last sentence is the one most likely to be asked about.**
 
-**The applicable retention and training terms are a property of the OpenAI
-account, not of this codebase, and must be confirmed from the account itself.**
-Under OpenAI's standard API terms, API inputs are not used to train models by
-default and are retained for a limited abuse-monitoring period — but whether
-this account has a Zero Data Retention arrangement, and which OpenAI entity is
-the contracting party, cannot be determined from the repository.
+> When someone uses the analysis features, what they wrote about their own legal
+> problem is sent to OpenAI's API, along with the names of the parties. We have
+> configured every request with `store: false`, and we have verified in the
+> OpenAI dashboard that API call logging has never been enabled for our
+> account — the Logs tab offers an Enable button rather than any records, so
+> nothing a user has written has ever been stored in our OpenAI logs. Under
+> OpenAI's standard API terms, API inputs are not used to train their models.
+> OpenAI does retain API inputs for a limited period for abuse monitoring, and
+> that applies to us: we have not applied for Zero Data Retention, which is the
+> arrangement that removes it.
 
-This is the single most important open question for a privacy policy, because
-it determines what can truthfully be said about retention by a sub-processor.
+### The four claims, and what backs each
+
+| Claim | Evidence |
+|---|---|
+| The user's narrative and party names are sent | `buildCognitionPrompt` (`courtSimplifiedBrain.ts:1816`) interpolates the whole `NormalizedIntake`, which contains `rawUserText` and `parties`. Five other call sites send story text |
+| `store: false` on every request | `forceNoStore` in `openaiClient.ts` wraps the client at construction. `npm run test:no-store` asserts it, including that a caller passing `store: true` is overridden |
+| Logging has never been enabled | Verified in the OpenAI dashboard, 2026-09-15. The Logs tab for Chat Completions offers an **Enable** button and shows no records |
+| Abuse-monitoring retention still applies | OpenAI's standard API terms. **Not removed by `store: false`** — only Zero Data Retention removes it, and this account has not applied |
+
+### Two things worth understanding about how this came to be true
+
+**The default was already in our favour, and that is not a reason to rely on
+it.** Every call site uses **Chat Completions**, where `store` defaults to
+`false`. The **Responses API** — where OpenAI is steering new work — defaults to
+`store: true`. The first call site to move there would have started logging user
+narratives silently, with every existing check still green. `forceNoStore`
+wraps both APIs, so that move is covered before anyone makes it.
+
+**Org-level logging and per-request `store` are different controls.** The
+account setting was "Enabled per call", which defers to the request. Both are
+now closed: the setting is off, and the requests say so explicitly. Either alone
+would have been enough today; neither alone survives someone changing the other.
+
+### What is still open, and it is a real gap rather than a technicality
+
+**Zero Data Retention has not been applied for.** It is an arrangement with
+OpenAI rather than a setting, and it is the only thing that removes
+abuse-monitoring retention. Until it is in place, the honest position is that a
+user's narrative exists briefly in OpenAI's systems, in the United States, under
+their standard terms.
+
+For a platform holding family-law and financial narratives from
+self-represented people, that is worth pursuing — and worth stating plainly in
+the meantime rather than implying that `store: false` means nothing is kept.
+
+### Still to establish for the privacy policy
+
+- **Which OpenAI entity is the contracting party** (OpenAI, L.L.C. vs OpenAI
+  Ireland). Determines the cross-border framing.
+- **Whether this account is eligible for ZDR**, and on what terms.
 
 ### 3.3 When the OpenAI call does NOT happen
 
@@ -356,8 +398,11 @@ regulator would consider material.
 
 ## 7. Open questions counsel must resolve
 
-1. **OpenAI's contracting entity and retention terms for this account**, including
-   whether ZDR applies. Determines what the policy can say about sub-processors.
+1. ~~OpenAI's retention terms for this account.~~ **ANSWERED 2026-09-15** —
+   logging verified never enabled, `store: false` now forced in code,
+   abuse-monitoring retention still applies, ZDR not applied for (see 3.2).
+   What remains: which OpenAI entity is the contracting party, and whether this
+   account is eligible for ZDR.
 2. **The operating legal entity.** The only contact is a Gmail address.
 3. ~~Whether US storage is acceptable for the pre-beta period.~~ **ANSWERED
    2026-09-15** — production holds no third-party data (section 2.2), so

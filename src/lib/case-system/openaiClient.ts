@@ -36,11 +36,71 @@ import OpenAI from "openai";
  */
 export const OPENAI_MAX_RETRIES = 0;
 
+/**
+ * `store: false` on every request, forced, not defaulted.
+ *
+ * WHAT GOES TO OPENAI. `buildCognitionPrompt` sends the whole
+ * `NormalizedIntake` — including `rawUserText`, the user's account of their own
+ * legal problem verbatim, and the extracted party names. Five other call sites
+ * send the story text. This is the most sensitive data the platform holds and
+ * it leaves the system on every analysis.
+ *
+ * WHY SET IT WHEN THE DEFAULT ALREADY COVERS US. Verified on 2026-09-15: every
+ * call site uses CHAT COMPLETIONS, where `store` defaults to false, and the
+ * OpenAI dashboard's Logs tab offers an Enable button rather than any records —
+ * nothing has ever been stored in the org's logs.
+ *
+ * That position rests on two things nobody rechecks:
+ *
+ *   1. An org-level setting, which someone can flip.
+ *   2. The fact that no call site has moved to the RESPONSES API, where
+ *      `store` defaults to TRUE. That is where OpenAI is steering new work, so
+ *      the first person to use it would silently start logging user narratives
+ *      while every existing check stayed green.
+ *
+ * Forcing it here makes the property independent of both. It is the same
+ * reasoning that put `maxRetries` in this file: nine independent `new OpenAI()`
+ * sites with no shared governance is how the retry storm happened, and a
+ * privacy guarantee spread across seven call sites has the same shape.
+ *
+ * WHAT THIS DOES NOT DO — and the privacy notice must not claim otherwise.
+ * `store: false` removes retention in OUR logs. It does NOT remove OpenAI's
+ * ABUSE-MONITORING retention, which applies under the standard API terms
+ * regardless. Zero Data Retention is what removes that, it is an application
+ * rather than a toggle, and this account has not applied. See
+ * docs/security/DATA_FLOW_INVENTORY.md section 3.
+ *
+ * SPREAD LAST, DELIBERATELY. `{ ...body, store: false }` means a caller cannot
+ * turn it on by passing `store: true` — accidentally or otherwise. If a request
+ * ever genuinely needs storing, that is a change to this file, which is a
+ * visible diff someone writes and someone reviews.
+ */
+export function forceNoStore<T>(client: T): T {
+  const target = client as unknown as { chat: { completions: { create: (...args: unknown[]) => unknown } } };
+  const chatCreate = target.chat.completions.create.bind(target.chat.completions);
+  target.chat.completions.create = ((body: Record<string, unknown>, options?: unknown) =>
+    chatCreate({ ...body, store: false }, options)) as never;
+
+  // The Responses API is wrapped too, even though nothing uses it yet. It is
+  // the one that defaults to storing, so it is the one most worth covering
+  // BEFORE somebody reaches for it.
+  const responses = (client as unknown as { responses?: { create?: unknown } }).responses;
+  if (responses && typeof responses.create === "function") {
+    const responsesCreate = (responses.create as (...args: unknown[]) => unknown).bind(responses);
+    responses.create = ((body: Record<string, unknown>, options?: unknown) =>
+      responsesCreate({ ...body, store: false }, options)) as never;
+  }
+
+  return client;
+}
+
 export function createOpenAIClient(apiKey?: string): OpenAI {
-  return new OpenAI({
-    apiKey: apiKey ?? process.env.OPENAI_API_KEY,
-    maxRetries: OPENAI_MAX_RETRIES,
-  });
+  return forceNoStore(
+    new OpenAI({
+      apiKey: apiKey ?? process.env.OPENAI_API_KEY,
+      maxRetries: OPENAI_MAX_RETRIES,
+    }),
+  );
 }
 
 /**
