@@ -44,6 +44,33 @@ import { expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
 
 import { openBuilder } from "./builderGate";
+import { authStorageKey, deleteHarnessUser, mintRealTestSession } from "./realTestSession";
+
+/**
+ * A fresh harness user, and the id so the spec can delete it.
+ *
+ * Must be called BEFORE the first navigation — it works by seeding
+ * localStorage through an init script, which only applies to pages loaded
+ * afterwards.
+ *
+ * A session is required to reach an analysis at all (see the header), so this
+ * is not optional for any spec that gets past the intake form.
+ */
+export async function signInHarnessUser(page: Page): Promise<string> {
+  const session = await mintRealTestSession();
+
+  await page.addInitScript(
+    ({ key, value }) => window.localStorage.setItem(key, value),
+    {
+      key: authStorageKey(session.supabaseUrl),
+      value: JSON.stringify(session.session),
+    },
+  );
+
+  return session.userId;
+}
+
+export { deleteHarnessUser };
 
 /** Every field the form intake accepts, by its own field name. */
 export type SmallClaimsIntakeFields = Partial<{
@@ -161,4 +188,126 @@ export async function awaitAuthRequired(page: Page): Promise<void> {
     "signed out, Generate Summary should ask for a session — SmallClaimsIntake " +
       "line 679, because the safety check has no deterministic fallback",
   ).toBeVisible({ timeout: 30_000 });
+}
+
+/**
+ * ===========================================================================
+ * THE ANALYZE STUB — WHAT IT DOES AND DOES NOT COMPROMISE
+ * ===========================================================================
+ *
+ * READ THIS BEFORE ADDING AN ASSERTION TO A SPEC THAT USES IT.
+ *
+ * *** IT ECHOES THE USER'S OWN INPUT BACK AS `payload`. ***
+ *
+ * `payload` becomes `caseData`, and `IntelligenceOverviewPanel` reads the
+ * amount, parties, story, goal and evidence from `caseData` — NOT from the
+ * analysis. So a figure on that panel travelled: the form field the spec typed
+ * into → `input` in the POST body → `payload` here → `caseData` → the panel's
+ * `textField(intake, "amountClaimed")` → `formatRecordedAmount`. Every step
+ * after the stub is real product code, and the stub invents nothing along it.
+ *
+ * *** NOT COMPROMISED — safe to assert on a spec using this stub ***
+ *
+ *   - the user's amount, verbatim, qualifiers intact
+ *   - that no dollar figure appears which the spec did not type
+ *   - that nothing was totalled or otherwise arithmetic'd
+ *   - parties, story, goal, evidence, as entered
+ *   - the absence of grades, percentages, readiness language
+ *   - anything the panel derives from `intake`
+ *
+ * *** COMPROMISED — an assertion on any of these is TESTING THIS FILE ***
+ *
+ *   - `detectedIssues`, `legalIssues`, `summary`, `guidance`, `risksAndGaps`,
+ *     `missingInformation`, `inferredFacts`
+ *   - required/completed/received forms, and anything routed from them
+ *   - the claim type, the evidence checklist, court points, common defences
+ *   - `reasoningMode`, and anything that differs between the structured-AI and
+ *     deterministic paths
+ *
+ * **An analysis-content assertion added to a spec using this stub would be
+ * asserting fiction written here, and it would pass forever regardless of what
+ * the product does.** That is not a hypothetical: `aiStubs.ts` carries the same
+ * warning in its own header, and the matcher scored 0/10 on real prose for
+ * months while panel tests passed against fallback output.
+ *
+ * If a scenario needs analysis content, it does not belong in a spec using this
+ * stub. `npm run test:fixtures` runs the real pipeline, for real cost, and is
+ * what covers that.
+ *
+ * WHY STUBBED AT ALL. Reaching the overview requires a session
+ * (SmallClaimsIntake line 679, the safety check has no deterministic
+ * fallback), and a session turns external cognition ON — so every unstubbed run
+ * would spend real model calls. The intake-derived assertions above are what
+ * SC-2 and SC-3 are about, and they are free and honest this way.
+ */
+export async function stubSmallClaimsAnalyze(page: Page): Promise<{ calls: number }> {
+  const state = { calls: 0 };
+
+  await page.route("**/api/small-claims/analyze", async (route) => {
+    state.calls += 1;
+
+    const body = route.request().postDataJSON() as {
+      input?: Record<string, unknown>;
+    };
+    const input = body?.input || {};
+    const text = (key: string) => String(input[key] ?? "");
+
+    // Everything the panel reads from `intake`, taken from what was POSTed.
+    // Nothing here is authored: if the spec typed it, it comes back; if it did
+    // not, the field is empty.
+    const payload = {
+      courtPath: "small-claims",
+      pathLabel: "Small Claims",
+      caseStage: text("caseStage") || "starting-case",
+      yourName: text("yourName"),
+      otherParty: text("otherParty"),
+      facts: text("facts"),
+      timeline: text("timeline"),
+      evidence: text("evidence"),
+      missingEvidence: text("missingEvidence"),
+      goal: text("goal"),
+      urgent: text("urgent"),
+      // EVERYTHING ELSE GOES IN `extra`, because that is where the panel looks.
+      // `IntelligenceOverviewPanel.textField` reads `intake.extra[field]` and
+      // nothing else, so `amountClaimed` at the top level would be invisible —
+      // which is exactly what happened on the first run, and is the shape of
+      // stub infidelity worth watching for: the stub answered, the page
+      // rendered, and one field was silently absent.
+      extra: { ...input },
+      analysis: null as unknown,
+    };
+
+    // Deliberately EMPTY rather than plausible. A stub that returned
+    // convincing issues and guidance would invite exactly the assertions the
+    // header above forbids; empty arrays make it obvious that nothing here is
+    // a finding about the case.
+    const analysis = {
+      courtPath: "small-claims",
+      caseStage: payload.caseStage,
+      completedForms: [],
+      receivedForms: [],
+      requiredNextForms: [],
+      notNeededNow: [],
+      detectedIssues: [],
+      inferredFacts: [],
+      missingInformation: [],
+      risksAndGaps: [],
+      guidance: [],
+      summary: "",
+    };
+    payload.analysis = analysis;
+
+    await route.fulfill({
+      status: 200,
+      json: {
+        ok: true,
+        result: { analysis, payload },
+        reasoningMode: "deterministic-fallback",
+        analysisAvailable: false,
+        authenticated: true,
+      },
+    });
+  });
+
+  return state;
 }

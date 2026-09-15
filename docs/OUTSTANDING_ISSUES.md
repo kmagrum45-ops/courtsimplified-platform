@@ -545,6 +545,29 @@ Each time the tests were real and the subject was absent. A passing suite says
 what it exercised, never what it did not, and **the boundary it stops at is
 invisible from inside it** — nothing goes red when a spec simply never arrives.
 
+### The harness has now produced this shape twice, which makes it a place to look
+
+Same session, same file tree:
+
+| | Capability asserted | Evidence behind it |
+|---|---|---|
+| The builder gate | eight browser specs covering the app | none had crossed the gate, so nothing behind it had rendered in a test |
+| `builderGate.ts` | "for any of the three paths", in its own signature and header | only ever run on family. The Small Claims branch used the wrong button text — the gate renders `"Continue"` there and `"Continue with X questions"` elsewhere — and was wrong from the moment it was written |
+
+The second was found within hours of the first, by the first spec that used the
+untested branch. Both are **a capability asserted in code with no evidence
+behind it**: a `path` parameter with three values and one exercised, a suite
+whose coverage was counted in specs rather than in screens reached.
+
+**So the harness is a place to look, not a coincidence.** It is the part of the
+tree where an untested branch is least likely to be noticed, because nothing
+downstream fails when a helper is merely never called with a particular
+argument — and because a harness's own bugs surface as failures in whatever
+spec happens to use it next, which reads as a problem with the spec.
+
+Worth a pass, not yet done: every exported harness helper with a parameter that
+selects a branch, and which values of it have actually been run.
+
 ### What follows from it
 
 - A browser suite's coverage should be stated as *screens actually rendered in
