@@ -1,10 +1,35 @@
-import { NextResponse } from "next/server";
+/**
+ * Scans every active court-form PDF and rewrites the `pdf_form_inventory`
+ * classification table.
+ *
+ * WAS /api/admin/scan-pdf-fields, DELETED 2026-09-15. That route was
+ * unauthenticated — behind only the shared site password, which is not an
+ * admin control — and upserted `pdf_form_inventory` on a bare GET. It had no
+ * caller anywhere in the codebase, including `app/admin/pdf-field-mapper`,
+ * which reads the table this fills but never triggered the fill.
+ *
+ * AS A SCRIPT IT IS NEVER DEPLOYED AND NEVER REACHABLE OVER HTTP. It reads
+ * credentials from .env.local at run time, on a machine someone is sitting at.
+ *
+ * It now prefers SUPABASE_SERVICE_ROLE_KEY over the anon key, which is the
+ * opposite of what the route did and is correct here: the anon role no longer
+ * holds write on `pdf_form_inventory` after the 2026-09-15 remediation, and a
+ * local script run by an operator is exactly where a privileged key belongs.
+ *
+ * Run:
+ *   node --import tsx --env-file=.env.local scripts/forms/scanPdfInventory.ts
+ *
+ * WRITES. Upserts one `pdf_form_inventory` row per active PDF form. No
+ * personal data is involved — these are blank court form definitions.
+ */
+
+import { pathToFileURL } from "node:url";
 import { PDFDocument } from "pdf-lib";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
 type CourtForm = {
@@ -78,8 +103,9 @@ async function saveInventoryRow(payload: ScanPayload) {
   }
 }
 
-export async function GET() {
-  try {
+
+async function main(): Promise<void> {
+
     const { data: forms, error } = await supabase
       .from("court_form_library")
       .select(`
@@ -93,7 +119,7 @@ export async function GET() {
       .eq("is_active", true);
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      throw new Error(error.message);
     }
 
     const pdfForms = ((forms || []) as CourtForm[]).filter(looksLikePdf);
@@ -238,7 +264,7 @@ export async function GET() {
       }
     }
 
-    return NextResponse.json({
+    console.log(JSON.stringify({
       success: true,
       scannedForms: pdfForms.length,
       summary: {
@@ -251,14 +277,14 @@ export async function GET() {
         saveErrorCount: saveErrors.length,
         saveErrors: saveErrors.slice(0, 20),
       },
-    });
-  } catch (error) {
-    return NextResponse.json(
-      {
-        error:
-          error instanceof Error ? error.message : "Failed to scan forms",
-      },
-      { status: 500 }
-    );
-  }
+    }, null, 2));
+
+}
+
+const isDirect = process.argv[1] ? import.meta.url === pathToFileURL(process.argv[1]).href : false;
+if (isDirect) {
+  void main().catch((error) => {
+    console.error(error instanceof Error ? error.message : error);
+    process.exitCode = 1;
+  });
 }

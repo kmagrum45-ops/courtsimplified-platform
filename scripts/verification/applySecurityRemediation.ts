@@ -20,8 +20,8 @@
  *
  * *** WHAT IT SENDS ***
  *
- * The contents of supabase/migrations/*_revoke_anon_write_and_scope_policies.sql
- * — the file, not a copy. There is no second source of truth to drift.
+ * The security migrations in supabase/migrations/, concatenated in filename
+ * order — the files, not copies. There is no second source of truth to drift.
  *
  * *** WHAT IT REFUSES TO SEND ***
  *
@@ -38,7 +38,22 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 const MIGRATIONS = path.resolve(process.cwd(), "supabase", "migrations");
-const MIGRATION_PATTERN = /_revoke_anon_write_and_scope_policies\.sql$/;
+/**
+ * The security migrations, applied in filename order.
+ *
+ * WAS a single-file pattern matching only
+ * `_revoke_anon_write_and_scope_policies.sql`. When a second security
+ * migration landed on 2026-09-15 the script silently re-applied the FIRST one
+ * and reported "Applied." — a true statement about the wrong file. Nothing
+ * failed, because the first migration is idempotent.
+ *
+ * That is the shape this codebase keeps finding: a green result that says
+ * nothing about the thing you meant to do. A pattern that matches a set is
+ * right here, because these migrations are a sequence and applying them in
+ * order is what "apply the remediation" means.
+ */
+const MIGRATION_PATTERN =
+  /_(revoke_anon_write_and_scope_policies|close_admin_anon_write_holes)\.sql$/;
 
 /**
  * Projects this script may write to.
@@ -77,6 +92,7 @@ const ALLOWED_STATEMENTS = [
   /^REVOKE\b/i,
   /^BEGIN$/i,
   /^COMMIT$/i,
+  /^GRANT\b/i,
 ];
 
 function readToken(): string {
@@ -90,10 +106,13 @@ function readToken(): string {
 }
 
 function readMigration(): { file: string; sql: string; statements: string[] } {
-  const file = fs.readdirSync(MIGRATIONS).find((name) => MIGRATION_PATTERN.test(name));
-  if (!file) throw new Error(`No migration matching ${MIGRATION_PATTERN} in ${MIGRATIONS}`);
+  const files = fs.readdirSync(MIGRATIONS).filter((name) => MIGRATION_PATTERN.test(name)).sort();
+  if (files.length === 0) throw new Error(`No migration matching ${MIGRATION_PATTERN} in ${MIGRATIONS}`);
 
-  const raw = fs.readFileSync(path.join(MIGRATIONS, file), "utf8");
+  const file = files.join(", ");
+  const raw = files
+    .map((name) => fs.readFileSync(path.join(MIGRATIONS, name), "utf8"))
+    .join("\n\n");
   const sql = raw.replace(/^\s*--.*$/gm, "").trim();
 
   // DO blocks are lifted out before splitting on ";", because their bodies

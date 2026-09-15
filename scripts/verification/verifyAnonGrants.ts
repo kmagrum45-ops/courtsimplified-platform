@@ -77,19 +77,19 @@ const LEGITIMATE_ANON_READS: { table: string; reader: string }[] = [
  * printed on every run so it cannot quietly become permanent.
  */
 const KNOWN_ANON_WRITE: { table: string; reason: string }[] = [
-  {
-    table: "pdf_form_inventory",
-    reason:
-      "app/admin/pdf-field-mapper and app/api/admin/scan-pdf-fields build anon-key " +
-      "clients with NO AUTH. Revoking closes the hole and breaks the admin tool in " +
-      "the same statement. Authenticate those two surfaces first, then revoke.",
-  },
-  {
-    table: "pdf_field_mappings",
-    reason:
-      "Same two unauthenticated admin surfaces. Holds PDF field coordinates — no " +
-      "personal data; the exposure is content integrity, one step further from the user.",
-  },
+  // EMPTY as of 2026-09-15, and that is the goal state rather than an
+  // oversight.
+  //
+  // It held pdf_form_inventory and pdf_field_mappings, kept open because
+  // /api/admin/scan-pdf-fields and app/admin/pdf-field-mapper were
+  // unauthenticated and revoking would have broken them. Both routes are now
+  // deleted (the logic lives in scripts/forms/, which never deploys and is
+  // never reachable over HTTP) and the mapper requires a session, so
+  // 20260915120000_close_admin_anon_write_holes.sql closes both.
+  //
+  // The check below asserts every declared exception STILL holds, so an entry
+  // left here after its hole closed fails rather than lingering. That is why
+  // this is empty rather than carrying two satisfied comments.
 ];
 
 let failures = 0;

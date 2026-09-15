@@ -1,8 +1,32 @@
-import { NextResponse } from "next/server";
+/**
+ * Rescans court-form PDFs and rewrites the `court_form_fields` table.
+ *
+ * WAS /api/scan-form-fields, DELETED 2026-09-15. That route built a Supabase
+ * client with SUPABASE_SERVICE_ROLE_KEY — which bypasses RLS entirely — and
+ * had no authentication of any kind. Anyone past the shared site password
+ * could DELETE and re-INSERT the field definitions the form filler depends on,
+ * over HTTP, with a bare GET.
+ *
+ * It also had no caller: nothing in app/, src/ or scripts/ invoked it. It was
+ * ingestion tooling that happened to be shaped like an API route.
+ *
+ * AS A SCRIPT IT IS NEVER DEPLOYED AND NEVER REACHABLE OVER HTTP. It reads the
+ * key from .env.local at run time, on a machine someone is sitting at. That is
+ * the right shape for a privileged one-off: the privilege stays where the
+ * person is.
+ *
+ * Run:
+ *   node --import tsx --env-file=.env.local scripts/forms/scanFormFields.ts
+ *   node --import tsx --env-file=.env.local scripts/forms/scanFormFields.ts --court-path small-claims --limit 5
+ *
+ * WRITES. Deletes and re-inserts court_form_fields rows for each form scanned.
+ * No personal data is involved — these are blank court form definitions.
+ */
+
+import { pathToFileURL } from "node:url";
 import { PDFDocument } from "pdf-lib";
 import { createClient } from "@supabase/supabase-js";
 
-export const dynamic = "force-dynamic";
 
 type CourtPath = "family" | "small-claims" | "civil";
 
@@ -23,11 +47,7 @@ const supabaseKey =
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-function safe(value: unknown) {
-  return String(value ?? "").trim();
-}
-
-function getFieldType(field: any) {
+function getFieldType(field: { constructor?: { name?: string } }) {
   const name = field?.constructor?.name || "UnknownField";
 
   if (name.includes("Text")) return "text";
@@ -197,7 +217,7 @@ async function scanSingleForm(form: CourtForm) {
   const rawMarkers = analyzeRawPdfMarkers(raw);
 
   let pdfDoc: PDFDocument | null = null;
-  let pdfLibFields: any[] = [];
+  let pdfLibFields: { constructor?: { name?: string }; getName: () => string }[] = [];
   let pdfOpenError = "";
 
   try {
@@ -305,63 +325,60 @@ async function scanSingleForm(form: CourtForm) {
   };
 }
 
-export async function GET(req: Request) {
-  try {
-    const url = new URL(req.url);
 
-    const courtPath = safe(url.searchParams.get("courtPath")) as CourtPath;
-    const formNumber = safe(url.searchParams.get("formNumber"));
-    const limitRaw = Number(url.searchParams.get("limit") || "1");
-    const limit = Number.isFinite(limitRaw) && limitRaw > 0 ? limitRaw : 1;
+/** Command-line arguments, all optional. */
+function arg(name: string): string {
+  const index = process.argv.indexOf(`--${name}`);
+  return index >= 0 ? String(process.argv[index + 1] || "").trim() : "";
+}
 
-    let query = supabase
-      .from("court_form_library")
-      .select("id, file_path, court_type, file_type, form_number, official_title, is_active")
-      .eq("is_active", true)
-      .eq("file_type", "pdf")
-      .limit(limit);
-
-    if (courtPath) query = query.eq("court_type", courtPath);
-    if (formNumber) query = query.ilike("form_number", `%${formNumber}%`);
-
-    const { data: forms, error } = await query;
-
-    if (error) {
-      return NextResponse.json(
-        { ok: false, error: `Could not read court_form_library: ${error.message}` },
-        { status: 500 }
-      );
-    }
-
-    if (!forms || forms.length === 0) {
-      return NextResponse.json(
-        {
-          ok: false,
-          error: "No matching PDF forms found.",
-          received: { courtPath, formNumber, limit },
-        },
-        { status: 404 }
-      );
-    }
-
-    const results = [];
-
-    for (const form of forms as CourtForm[]) {
-      results.push(await scanSingleForm(form));
-    }
-
-    return NextResponse.json({
-      ok: true,
-      scanned: results.length,
-      results,
-    });
-  } catch (error) {
-    return NextResponse.json(
-      {
-        ok: false,
-        error: error instanceof Error ? error.message : "Unknown scanner error.",
-      },
-      { status: 500 }
+async function main(): Promise<void> {
+  if (!supabaseUrl || !supabaseKey) {
+    throw new Error(
+      "NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are required. " +
+        "Run with --env-file=.env.local.",
     );
   }
+
+  const courtPath = arg("court-path") as CourtPath;
+  const formNumber = arg("form-number");
+  const limitRaw = Number(arg("limit") || "1");
+  const limit = Number.isFinite(limitRaw) && limitRaw > 0 ? limitRaw : 1;
+
+  let query = supabase
+    .from("court_form_library")
+    .select("id, file_path, court_type, file_type, form_number, official_title, is_active")
+    .eq("is_active", true)
+    .eq("file_type", "pdf")
+    .limit(limit);
+
+  if (courtPath) query = query.eq("court_type", courtPath);
+  if (formNumber) query = query.ilike("form_number", `%${formNumber}%`);
+
+  const { data: forms, error } = await query;
+  if (error) throw new Error(`Could not read court_form_library: ${error.message}`);
+
+  if (!forms || forms.length === 0) {
+    console.log(
+      `No matching PDF forms. Filters: ${JSON.stringify({ courtPath, formNumber, limit })}`,
+    );
+    return;
+  }
+
+  console.log(`Scanning ${forms.length} form(s). THIS REWRITES court_form_fields rows.\n`);
+
+  for (const form of forms as CourtForm[]) {
+    const result = await scanSingleForm(form);
+    console.log(JSON.stringify(result, null, 2));
+  }
+
+  console.log(`\nDone. ${forms.length} form(s) scanned.`);
+}
+
+const isDirect = process.argv[1] ? import.meta.url === pathToFileURL(process.argv[1]).href : false;
+if (isDirect) {
+  void main().catch((error) => {
+    console.error(error instanceof Error ? error.message : error);
+    process.exitCode = 1;
+  });
 }

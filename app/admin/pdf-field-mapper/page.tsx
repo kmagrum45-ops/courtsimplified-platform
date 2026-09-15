@@ -44,7 +44,50 @@ const FIELD_KEYS = [
   { key: "requestedResult", label: "Requested result" },
 ];
 
+/**
+ * SIGN-IN REQUIRED, added 2026-09-15.
+ *
+ * This page was reachable by anyone past the shared site password, which is a
+ * gate on the whole site and not an admin control — everyone who can see the
+ * public pages could see and edit the form-overlay coordinates the document
+ * filler depends on.
+ *
+ * It also writes: the save below upserts `pdf_overlay_fields`. The 2026-09-15
+ * remediation revoked anon write on that table and dropped its insert/update
+ * policies, so the write now requires a session — which is the point. The
+ * table and the page are secured together rather than the table alone, since
+ * a locked table behind an open page just produces a confusing failure.
+ *
+ * No role check. There is one operator with one account, and inventing a role
+ * system for a single user would be more machinery than the problem has. If
+ * this ever has a second user, that is when the check earns its place; the
+ * TODO is here so the next person meets the decision rather than the absence.
+ */
+function useRequiredSession(): { checked: boolean; signedIn: boolean } {
+  const [state, setState] = useState({ checked: false, signedIn: false });
+
+  useEffect(() => {
+    let active = true;
+
+    supabase.auth.getSession().then(({ data }) => {
+      if (active) setState({ checked: true, signedIn: Boolean(data.session?.access_token) });
+    });
+
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (active) setState({ checked: true, signedIn: Boolean(session?.access_token) });
+    });
+
+    return () => {
+      active = false;
+      listener.subscription.unsubscribe();
+    };
+  }, []);
+
+  return state;
+}
+
 export default function PdfFieldMapperPage() {
+  const session = useRequiredSession();
   const [forms, setForms] = useState<InventoryRow[]>([]);
   const [selectedFilePath, setSelectedFilePath] = useState("");
   const [fields, setFields] = useState<OverlayField[]>([]);
@@ -209,6 +252,35 @@ export default function PdfFieldMapperPage() {
     }
 
     alert(`Saved ${rows.length} mapping(s).`);
+  }
+
+  // THE GATE. Rendered before anything else, so the page's own content is
+  // never on screen for an unauthenticated visitor — not briefly, not behind
+  // a spinner that resolves into it.
+  if (!session.checked) {
+    return (
+      <main style={{ padding: "28px", maxWidth: "1400px", margin: "0 auto" }}>
+        <p>Checking your session…</p>
+      </main>
+    );
+  }
+
+  if (!session.signedIn) {
+    return (
+      <main style={{ padding: "28px", maxWidth: "720px", margin: "0 auto" }}>
+        <h1 style={{ fontSize: "22px", fontWeight: 700 }}>Sign in required</h1>
+        <p style={{ marginTop: "12px", lineHeight: 1.6 }}>
+          This page edits the form-overlay coordinates the document filler uses. It is an
+          operator tool, not part of the site, and it needs an account rather than the site
+          password.
+        </p>
+        <p style={{ marginTop: "12px" }}>
+          <a href="/login" style={{ fontWeight: 600, textDecoration: "underline" }}>
+            Sign in
+          </a>
+        </p>
+      </main>
+    );
   }
 
   return (
