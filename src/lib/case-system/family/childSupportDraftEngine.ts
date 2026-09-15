@@ -27,6 +27,36 @@
  * annual-to-monthly division. `formatRecordedAmount` reformats a bare number
  * and returns anything carrying a qualifier untouched, so "about $60,000" stays
  * "about $60,000" in the document a court will read.
+ *
+ * *** TWO STATES, NOT THREE — AND WHY THAT HOLDS ONLY FOR NOW ***
+ *
+ * READ THIS BEFORE WIRING THE EIGHT SUPPORT_ELEMENTS TO A DEPTH PHASE.
+ *
+ * Small Claims distinguishes three states for a fact: never asked (`not-yet`),
+ * asked and unavailable (`cannot-provide`, via `allowUnknown`), and recorded as
+ * not held. This engine has a `cannotProvide` input and a RECORDED AS NOT HELD
+ * section for the third, and nothing populates them.
+ *
+ * That is correct while ChildSupportIntake is a SINGLE-PAGE FORM. Every field
+ * is asked the moment the screen renders — nothing is withheld, nothing is
+ * sequenced — so there is no "never asked" state to distinguish from. Three
+ * states collapse to two: filled in, or left blank having been asked. A blank
+ * field on a visible form already means the second.
+ *
+ * A cannot-provide control would add an "I can't get this" checkbox beside a
+ * field the user has already declined to fill, for a distinction the draft
+ * cannot act on — both produce "No figure recorded", and a court reading the
+ * application cares that no figure is recorded, not why.
+ *
+ * THE THIRD STATE COMES BACK the moment this becomes sequenced. The eight
+ * SUPPORT_ELEMENTS and their authored depth questions exist for exactly that,
+ * and when they are wired, "never asked" becomes real and distinguishable from
+ * "asked and declined" — at which point `cannotProvide` and the RECORDED AS NOT
+ * HELD section stop being dormant and `stillNeeded` must stop treating a blank
+ * as a considered answer.
+ *
+ * docs/SCENARIOS.md FS-4 assumed cannot-provide already existed here. It does
+ * not, and that entry is corrected rather than this engine changed to match it.
  */
 
 import { formatRecordedAmount } from "../format/recordedAmount";
@@ -107,17 +137,60 @@ export type ChildSupportDraft = {
   financialStatementForm: string;
   financialStatementBasis: string;
   sections: { heading: string; lines: string[] }[];
-  placeholders: string[];
+  /**
+   * WHAT THIS APPLICATION STILL NEEDS. Was `placeholders`.
+   *
+   * The rename is the fix, not decoration. `placeholders` collected bracketed
+   * `[... to be confirmed]` markers, so it answered "what is bracketed in this
+   * text" — and a missing INCOME FIGURE produces no bracket, because
+   * `incomeBlock` renders it in place as "No figure recorded". The most
+   * significant thing a user had not supplied was therefore absent from the
+   * list of things they had not supplied, and with nothing else missing the
+   * panel did not render at all, so the draft presented as finished.
+   *
+   * It now answers "what does this application still need", which is the
+   * question a user can act on. That is also the convention
+   * `statementOfClaimDraftEngine` already follows: its `track(label, present)`
+   * asks whether a thing is PRESENT, and records a missing amount in
+   * `missingParticulars` AND as a bracket — the same fact in both places,
+   * deliberately. Child support was the outlier; it no longer is.
+   *
+   * Checked rather than assumed: those two engines are the only ones in
+   * src/lib/case-system that use bracket placeholders at all. Civil's
+   * `buildReadiness` already uses presence-checks. There is no third variant.
+   */
+  stillNeeded: string[];
   draftText: string;
 };
 
 const PLACEHOLDER = "[... to be confirmed]";
 
-function value(raw: string | undefined, placeholders: string[], label: string): string {
+/**
+ * Renders a value, and records it as still needed when it is absent.
+ *
+ * Shaped after `statementOfClaimDraftEngine`'s `track(label, present)`: the
+ * question is whether the thing is PRESENT, not whether the output happens to
+ * contain a bracket. `trackMissing` below is the same helper for values that
+ * render as prose rather than as a bracket.
+ */
+function value(raw: string | undefined, stillNeeded: string[], label: string): string {
   const text = (raw || "").trim();
   if (text) return text;
-  placeholders.push(label);
+  stillNeeded.push(label);
   return PLACEHOLDER;
+}
+
+/**
+ * Records something as still needed where the draft says so in its own words
+ * rather than leaving a bracket.
+ *
+ * THIS IS THE HALF THAT WAS MISSING. "No figure recorded" is a better
+ * treatment of an absence than `[...]` — it reads as a statement rather than an
+ * unfinished form — but it meant the absence never reached the outstanding
+ * list. Both now happen: the draft says it in place, and the list says it too.
+ */
+function trackMissing(stillNeeded: string[], label: string, present: boolean): void {
+  if (!present) stillNeeded.push(label);
 }
 
 /**
@@ -156,7 +229,21 @@ function incomeBlock(label: string, income: StatedIncome | undefined, purpose: s
 export function draftChildSupportApplication(
   input: ChildSupportDraftInput,
 ): ChildSupportDraft {
-  const placeholders: string[] = [];
+  const stillNeeded: string[] = [];
+
+  // THE TWO THAT RENDER IN PROSE RATHER THAN AS BRACKETS, and so reached no
+  // list before. Tracked first so they lead the panel: for a user who supplied
+  // neither, these are the whole answer to "what does this still need".
+  trackMissing(
+    stillNeeded,
+    "an annual income figure for the table amount, and where it comes from",
+    Boolean(input.incomeForTable?.stated?.trim()),
+  );
+  trackMissing(
+    stillNeeded,
+    "the income documents O. Reg. 391/97 s. 21 requires with the application",
+    (input.incomeDocumentsHeld || []).some((entry) => entry.trim()),
+  );
 
   // ---- Which financial statement, decided by the rule ----
   let financialStatementForm: string;
@@ -211,7 +298,7 @@ export function draftChildSupportApplication(
       "support in the amount specified in the table, and there is no property or " +
       "exclusive-possession claim, the party making the claim \"is not required to file a " +
       "financial statement\".";
-    placeholders.push("whether this application also makes a property or exclusive-possession claim");
+    stillNeeded.push("whether this application also makes a property or exclusive-possession claim");
   }
 
   const sections: { heading: string; lines: string[] }[] = [];
@@ -219,24 +306,24 @@ export function draftChildSupportApplication(
   sections.push({
     heading: "PARTIES",
     lines: [
-      `Applicant: ${value(input.applicantName, placeholders, "the applicant's full legal name")}`,
-      `Applicant's address: ${value(input.applicantAddress, placeholders, "the applicant's address for service")}`,
-      `Respondent: ${value(input.respondentName, placeholders, "the respondent's full legal name")}`,
-      `Respondent's address: ${value(input.respondentAddress, placeholders, "the respondent's address for service")}`,
+      `Applicant: ${value(input.applicantName, stillNeeded, "the applicant's full legal name")}`,
+      `Applicant's address: ${value(input.applicantAddress, stillNeeded, "the applicant's address for service")}`,
+      `Respondent: ${value(input.respondentName, stillNeeded, "the respondent's full legal name")}`,
+      `Respondent's address: ${value(input.respondentAddress, stillNeeded, "the respondent's address for service")}`,
     ],
   });
 
   sections.push({
     heading: "THE CHILDREN",
     lines: [
-      value(input.childrenDescribed, placeholders, "each child's age and what they are doing now"),
+      value(input.childrenDescribed, stillNeeded, "each child's age and what they are doing now"),
     ],
   });
 
   sections.push({
     heading: "PARENTING TIME, AS RECORDED",
     lines: [
-      value(input.parentingTimeDescribed, placeholders, "how the children's time is divided"),
+      value(input.parentingTimeDescribed, stillNeeded, "how the children's time is divided"),
       "",
       "Recorded as described. O. Reg. 391/97 s. 8 applies where there are two or more children and",
       "each parent has the majority of parenting time with one or more of them; s. 9 applies where",
@@ -367,7 +454,7 @@ export function draftChildSupportApplication(
     financialStatementForm,
     financialStatementBasis,
     sections,
-    placeholders: Array.from(new Set(placeholders)),
+    stillNeeded: Array.from(new Set(stillNeeded)),
     draftText,
   };
 }

@@ -538,8 +538,23 @@ incomes. A single field would have conflated them invisibly.
 > were wrong about the mechanism:
 >
 > - **"cannot-provide resolves"** — there is no cannot-provide control on this
->   screen. The user leaves the income field **blank**. `cannot-provide` is the
->   Small Claims depth-question mechanism (see SC-3), and it is not wired here.
+>   screen, and after review there **should not be one yet**. The user leaves the
+>   income field **blank**. `cannot-provide` is the Small Claims depth-question
+>   mechanism (see SC-3), and it is not wired here.
+>
+>   Why not, decided 2026-09-15: three states are distinguishable in principle —
+>   never asked, asked and unavailable, recorded as not held — but this screen is
+>   a **single-page form**. Every field is asked the moment it renders, so there
+>   is no "never asked" to distinguish from, and three states collapse to two:
+>   filled in, or left blank having been asked. A control would add an "I can't
+>   get this" checkbox beside a field the user has already declined to fill, for
+>   a distinction the draft cannot act on — both produce "No figure recorded",
+>   and a court cares that no figure is recorded, not why.
+>
+>   **The third state returns the moment this becomes sequenced.** The eight
+>   `SUPPORT_ELEMENTS` and their authored depth questions exist for that, and
+>   `childSupportDraftEngine`'s header carries the reasoning so whoever wires
+>   them inherits it rather than rediscovering it.
 > - **"carries the s. 21 checklist under RECORDED AS NOT HELD"** — s. 21 renders
 >   under `INCOME DOCUMENTS`. `RECORDED AS NOT HELD` populates only from
 >   `cannotProvide`, which this screen never sets, so that section does not
@@ -560,25 +575,33 @@ incomes. A single field would have conflated them invisibly.
 | s. 21 | Rendered under `INCOME DOCUMENTS` — what the Guidelines require with the application, which is where a figure would come from |
 | Dollar figures | **None.** This user entered none, so any would have originated in the software |
 
-**THE DEFECT THIS SCENARIO EXISTS TO CATCH IS NOT A BLOCKED DRAFT. It is a
-draft that presents as complete.**
+**THE DEFECT THIS SCENARIO EXISTED TO CATCH WAS NOT A BLOCKED DRAFT. It was a
+draft that presented as complete. FIXED 2026-09-15.**
 
-`draft.placeholders` is `[]` for this user, so the "Still to fill in" panel —
-which everywhere else on this site means *nothing is outstanding* — does not
-render at all. "No figure recorded" sits in the body, one line among forty, in a
-document they have just been told is assembled from what they recorded.
+`draft.placeholders` was `[]` for this user: it collected bracketed markers, and
+a missing income renders in prose as "No figure recorded", so it reached no
+list. The panel — whose absence everywhere else means *nothing is outstanding* —
+did not render, and the draft read as finished, to the person with the most
+missing from it.
 
-The person harmed is the one who reads carefully and believes the interface.
-They take a draft to a court office or a lawyer with no signal that its central
-figure is missing. A blocked draft would have been safer — which is the
-uncomfortable part, because the decision that makes this path good (always
-produce the draft, record absence rather than block) is what makes this
-possible.
+**What changed:** `placeholders` → `stillNeeded`, answering *what does this
+application need* rather than *what is bracketed*, matching the
+`track(label, present)` convention `statementOfClaimDraftEngine` already used.
+The income figure and the s. 21 documents now reach the list even though they
+render in prose.
 
-Recorded as `OUTSTANDING_ISSUES.md` section 0f with three options and a fourth
-that is named and rejected. **The spec deliberately asserts nothing about the
-placeholder panel**, because encoding today's behaviour would make fixing it
-look like a regression.
+**And the panel's absence is now load-bearing:** it renders whenever anything is
+outstanding, so not seeing it means nothing is. `verifyChildSupportDraft`
+asserts that a draft missing an income figure produces a **non-empty** list, and
+that a fully-recorded case produces an **empty** one — because if empty were
+unreachable, the first assertion would hold trivially.
+
+| Additional expected | |
+|---|---|
+| Outstanding panel | **Renders**, listing the income figure and the s. 21 documents |
+| Panel absent | Means nothing is outstanding — never "nothing was counted" |
+
+Recorded as `OUTSTANDING_ISSUES.md` section 0f.
 
 **Must never**
 - Block the draft

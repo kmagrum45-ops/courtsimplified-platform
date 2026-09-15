@@ -745,7 +745,7 @@ selects a branch, and which values of it have actually been run.
 
 ---
 
-## 0f. ⚠️ The child support draft's "Still to fill in" list omits a missing income (2026-09-14)
+## 0f. ✅ FIXED 2026-09-15 — the child support draft's outstanding list omitted a missing income
 
 **Found by writing the no-income-figure browser scenario.** Not fixed — it is a
 design question about what the placeholder list is for, and worth deciding
@@ -824,6 +824,65 @@ an income figure is entered. It closes the failure mode and it is wrong — it
 reintroduces exactly the blocking that section 0b rejected for this path, and
 punishes the user who genuinely cannot get the figure, who is the one the
 "No figure recorded" treatment was built for.
+
+---
+
+### RESOLVED — option 3, and the reason the question was not actually open
+
+`placeholders` → `stillNeeded`, plus a `trackMissing(list, label, present)`
+helper for values that render in prose rather than as a bracket. The income
+figure and the s. 21 documents now reach the list.
+
+**The question underneath had a house answer already.**
+`statementOfClaimDraftEngine` has always used `track(label, present)` — it asks
+whether a thing is PRESENT, and records a missing amount in `missingParticulars`
+**and** as a bracket, the same fact in both places. So "brackets in this
+document" versus "things this application needs" was settled on the Small Claims
+path before child support existed; child support simply diverged from it.
+
+Checked rather than assumed: those two are the **only** engines in
+`src/lib/case-system` using bracket placeholders. Civil's `buildReadiness`
+already uses presence-checks pushing to `blockers`. There was no third variant
+to worry about.
+
+### The panel's absence is now load-bearing
+
+The addition beyond the three options, and the part most worth keeping.
+
+The panel renders whenever `stillNeeded` is non-empty, so **its absence means
+nothing is outstanding** — where before it meant two things at once: "nothing is
+missing" and "nothing counted what is missing". A silent state doing double duty
+for "all clear" and "not checked" is the same shape as the vacuous guard
+recorded above, and it is what made this invisible for as long as it was.
+
+`verifyChildSupportDraft` makes that assertable in both directions:
+
+- a draft missing an income figure produces a **non-empty** list
+- a fully-recorded case produces an **empty** one
+
+The second is not redundant. If empty were unreachable, the first would hold
+trivially — an assertion whose interesting case never occurs. Mutation-tested by
+restoring bracket-only tracking: the unit check fails with `got []`, and the
+browser scenario fails with "no outstanding-items panel for a user who supplied
+neither an income figure nor any documents".
+
+### The third state, and when it comes back
+
+There is no `cannot-provide` control on this screen, and after review there
+should not be one **yet**. Every field is asked the moment the single-page form
+renders, so "never asked" does not exist to be distinguished from "asked and
+left blank"; a control would add a checkbox beside a field the user has already
+declined to fill, for a distinction the draft cannot act on.
+
+That reasoning holds **only while this is a single-page form**. The eight
+`SUPPORT_ELEMENTS` and their authored depth questions exist to make it
+sequenced, and at that point "never asked" becomes real, `cannotProvide` and the
+RECORDED AS NOT HELD section stop being dormant, and `stillNeeded` must stop
+treating a blank as a considered answer. The reasoning is in
+`childSupportDraftEngine`'s header so whoever wires them inherits it.
+
+`SCENARIOS.md` FS-4 assumed cannot-provide already existed here; that entry is
+corrected rather than the engine changed to match it.
 
 **Not asserted in the spec.** `child-support-scenarios.spec.ts` records the gap
 in a comment and asserts nothing about it, deliberately: a spec encoding

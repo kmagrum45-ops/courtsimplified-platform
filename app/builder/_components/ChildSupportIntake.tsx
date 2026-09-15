@@ -597,11 +597,28 @@ export default function ChildSupportIntake() {
           <p className="text-sm text-[#4f685f]" data-testid="cs-draft-financial-statement">
             Financial statement: {draft.financialStatementForm}
           </p>
-          {draft.placeholders.length > 0 && (
-            <div data-testid="cs-draft-placeholders" className="mt-3 rounded-xl bg-[#f8fcfa] p-3">
-              <p className="text-sm font-semibold text-[#10231f]">Still to fill in</p>
-              <ul className="mt-1 list-disc pl-5 text-sm text-[#4f685f]">
-                {draft.placeholders.map((item) => (
+          {/*
+            THE ABSENCE OF THIS PANEL IS NOW LOAD-BEARING, and that is the fix.
+            It renders whenever anything is outstanding, so not seeing it means
+            nothing is outstanding.
+            It used to mean two things at once: "nothing is missing" and
+            "nothing counted what is missing". `stillNeeded` was fed only by
+            bracketed placeholders, so a user with no income figure and no
+            documents — the person with the most missing — saw no panel and a
+            draft that read as finished.
+            Same shape as the vacuous guard in OUTSTANDING_ISSUES section 0: a
+            silent state doing double duty for "all clear" and "not checked".
+            verifyChildSupportDraft now asserts that a draft missing an income
+            figure produces a NON-EMPTY list, so the panel cannot go quiet for
+            the wrong reason again.
+          */}
+          {draft.stillNeeded.length > 0 && (
+            <div data-testid="cs-draft-still-needed" className="mt-3 rounded-xl border border-amber-300 bg-amber-50 p-3">
+              <p className="text-sm font-semibold text-amber-950">
+                What this application still needs
+              </p>
+              <ul className="mt-1 list-disc pl-5 text-sm text-amber-950">
+                {draft.stillNeeded.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>

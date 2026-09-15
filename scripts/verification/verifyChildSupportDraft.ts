@@ -239,13 +239,54 @@ function main(): void {
       common.draftText.trimEnd().endsWith("before this is used."),
   );
 
-  // ---- Placeholders are named, and only where something is missing ----
+  // ---- `stillNeeded` means what this application needs, not what is bracketed ----
+  //
+  // THE ASSERTION THIS SECTION EXISTS FOR IS THE FIRST ONE. A missing income
+  // figure renders in prose — "No figure recorded" — and produces no bracket,
+  // so under the old `placeholders` it reached no list: the panel did not
+  // render, and the draft presented as finished to the user with the most
+  // missing from it.
+  //
+  // An empty `stillNeeded` now means NOTHING IS OUTSTANDING. The check below
+  // makes that load-bearing, so the list cannot go quiet for the wrong reason
+  // again — which is the vacuous-guard lesson applied forward rather than after
+  // the fact.
 
-  check("the empty draft names what is missing", empty.placeholders.length > 0);
+  const noIncome = draftChildSupportApplication({
+    ...COMMON_CASE,
+    incomeForTable: undefined,
+    incomeDocumentsHeld: [],
+  });
+
   check(
-    "the common case, fully recorded, has no placeholders",
-    common.placeholders.length === 0,
-    `got ${JSON.stringify(common.placeholders)}`,
+    "a draft with no income figure says so in `stillNeeded`",
+    noIncome.stillNeeded.some((item) => /income figure/i.test(item)),
+    `got ${JSON.stringify(noIncome.stillNeeded)} — everything else about this ` +
+      "case is recorded, so if this list is empty the user sees no panel at all " +
+      "and a draft that reads as complete",
+  );
+  check(
+    "a draft with no income documents says so in `stillNeeded`",
+    noIncome.stillNeeded.some((item) => /s\. 21|income documents/i.test(item)),
+    `got ${JSON.stringify(noIncome.stillNeeded)}`,
+  );
+
+  // The absence of the list must mean something. If a fully-recorded case also
+  // produced entries, "empty" would never occur and the assertion above would
+  // hold trivially — the same shape as an assertion nested in a condition that
+  // is never true.
+  check(
+    "the common case, fully recorded, needs nothing further",
+    common.stillNeeded.length === 0,
+    `got ${JSON.stringify(common.stillNeeded)} — an empty panel has to be ` +
+      "reachable, or its absence carries no information",
+  );
+
+  check("the empty draft names what is missing", empty.stillNeeded.length > 0);
+  check(
+    "the empty draft names the income figure among them",
+    empty.stillNeeded.some((item) => /income figure/i.test(item)),
+    `got ${JSON.stringify(empty.stillNeeded)}`,
   );
 
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);

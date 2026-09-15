@@ -209,20 +209,26 @@ test.describe("child support scenarios", () => {
       )}`,
     ).toEqual([]);
 
-    // ---- NOT asserted here, because it is not true: the "Still to fill in"
-    // list does not mention the missing income.
+    // ---- THE PANEL, which this scenario previously could not assert ----
     //
-    // `draft.placeholders` is EMPTY for this user. It collects bracketed
-    // `[... to be confirmed]` markers, and a missing income does not produce
-    // one — it is rendered in place as "No figure recorded", which is a
-    // deliberate and better treatment of an absence. The engine is internally
-    // consistent.
+    // It used to be a comment here saying the list did NOT mention the missing
+    // income, and that encoding that would make fixing it look like a
+    // regression. It is fixed: `stillNeeded` now answers "what does this
+    // application need" rather than "what is bracketed", so the income and the
+    // s. 21 documents reach it even though they render in prose.
     //
-    // The consequence is still wrong for the user: the most significant thing
-    // they have not supplied is absent from the list of things they have not
-    // supplied, so the panel does not render at all and the draft looks
-    // complete. Recorded in docs/OUTSTANDING_ISSUES.md rather than asserted
-    // around — a spec that encoded today's behaviour here would make fixing it
-    // look like a regression.
+    // This is the assertion that makes the panel's absence mean something. A
+    // user with no income figure and no documents is the person with the most
+    // missing from their draft, and they are exactly who used to see no panel.
+    const stillNeeded = page.getByTestId("cs-draft-still-needed");
+    await expect(
+      stillNeeded,
+      "no outstanding-items panel for a user who supplied neither an income " +
+        "figure nor any documents — its absence means nothing is outstanding, " +
+        "so it must not be absent here",
+    ).toBeVisible();
+
+    await expect(stillNeeded).toContainText("income figure");
+    await expect(stillNeeded).toContainText("s. 21");
   });
 });
