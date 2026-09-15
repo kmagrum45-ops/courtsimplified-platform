@@ -52,18 +52,32 @@ const SECURITY_DIR = path.resolve(process.cwd(), "docs", "security");
  * `--project` flag is that the target is stated explicitly. A ref in a file
  * that silently changed would defeat it.
  */
+/**
+ * *** THE SUPABASE PROJECT NAMES ARE BACKWARDS. READ THIS. ***
+ *
+ * The project NAMED `courtsimplified-dev` is the LIVE one — Vercel's
+ * NEXT_PUBLIC_SUPABASE_URL points at it, and so does .env.local. The project
+ * NAMED `courtsimplified` is dormant and paused.
+ *
+ * The flags here are `live` and `legacy` rather than `dev` and `prod`, because
+ * the earlier names inherited the projects' misleading ones and meant the
+ * opposite of what they said: `--project dev` addressed production.
+ *
+ * Roles, not names, because the names lie. See
+ * docs/security/DATA_FLOW_INVENTORY.md section 2.1.1.
+ */
 const PROJECTS: Record<string, { ref: string; name: string; region: string; note: string }> = {
-  dev: {
+  live: {
     ref: "fddlpnibovkkkgboabqb",
-    name: "courtsimplified-dev",
+    name: "courtsimplified-dev  [MISLEADING NAME — this is the LIVE database]",
     region: "ca-central-1",
-    note: "Development. This is also what .env.local points at, so it is the database the app uses locally.",
+    note: "THE LIVE DATABASE. Vercel serves from it, .env.local points at it, and every browser test runs against it. User data is stored in Canada.",
   },
-  prod: {
+  legacy: {
     ref: "ffymjxjcnwakgdmldpne",
-    name: "courtsimplified",
+    name: "courtsimplified  [MISLEADING NAME — this one is DORMANT]",
     region: "us-west-2",
-    note: "PRODUCTION — holds real case files. Was reported INACTIVE (paused) on 2026-09-15; a paused project may need resuming before it answers.",
+    note: "DORMANT. Paused, and nothing points at it. Holds 3 operator/harness accounts and 2 shell cases. A paused project must be resumed before it answers.",
   },
 };
 

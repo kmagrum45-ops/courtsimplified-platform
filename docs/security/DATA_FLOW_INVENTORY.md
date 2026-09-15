@@ -23,8 +23,8 @@ that follow.
 
 | | |
 |---|---|
-| Production (`us-west-2`) | **PAUSED.** 3 accounts — two the operator's own, one the test harness. 2 shell case rows. Every other case table empty. **No uploaded evidence.** |
-| Development (`ca-central-1`) | **Canada.** What the app runs against locally and in every browser test |
+| The live database | **Canada (`ca-central-1`).** The deployed site, local development and every browser test all run against it. NOTE: it is CONFUSINGLY NAMED `courtsimplified-dev` — see 2.1.1 |
+| The dormant US database (`us-west-2`) | **PAUSED and unused by the deployment.** 3 accounts — two the operator's own, one the test harness. 2 shell case rows. Nothing else. Confusingly named `courtsimplified` |
 | Anonymous write access | **Zero, in both projects.** Remediated and verified 2026-09-15 |
 | Anonymous access to case tables | **None.** Every policy is `TO authenticated` with `auth.uid() = user_id` |
 | Analytics / advertising / session replay | **None.** Checked |
@@ -34,7 +34,8 @@ that follow.
 - Users' narratives and party names **are sent to OpenAI**, and the privacy
   notice does not say so. Logging is off and verified, but abuse-monitoring
   retention still applies and ZDR has not been applied for — see 3.2.
-- **There is no way for a user to delete their data** through the product.
+- **There is no way for a user to delete their data** through the product. The
+  cascade works when done by hand (4.2.1), but storage files are not covered.
 - The **privacy notice is three paragraphs** and omits the third-party
   processing, the storage location, retention and deletion.
 - **There are no terms of service at all.**
@@ -86,25 +87,60 @@ held about them.
 
 | Store | Contents | Region |
 |---|---|---|
-| **Supabase (`courtsimplified-dev`)** | What the app actually runs against — accounts, cases, intakes, evidence metadata, generated documents, events | **`ca-central-1` — Canada** |
-| **Supabase Postgres (`courtsimplified`)** | PAUSED. 3 operator/harness accounts, 2 shell cases, nothing else — see 2.2 | `us-west-2` — Oregon, United States |
-| **Supabase Storage, bucket `case-evidence`** | Uploaded evidence files. **Empty in production** | Per project |
+| **Supabase, ref `fddlpnibovkkkgboabqb`** — **THE LIVE DATABASE**, confusingly named `courtsimplified-dev` | Everything: accounts, cases, intakes, evidence metadata, generated documents, events | **`ca-central-1` — Canada** |
+| **Supabase, ref `ffymjxjcnwakgdmldpne`** — dormant, confusingly named `courtsimplified` | Paused. 3 operator/harness accounts, 2 shell cases, nothing else — see 2.2 | `us-west-2` — Oregon, United States |
+| **Supabase Storage, bucket `case-evidence`** | Uploaded evidence files. **Empty in both** | Per project |
 | **Browser `localStorage`** | A compact draft (province, city, names, facts, timeline, evidence, goal), the active case id, and case-context blobs | The user's own device |
 | **Cookie `cs_site_access`** | The shared site password, HttpOnly | The user's own device |
 
-### 2.1 Data residency — corrected 2026-09-15 after querying the live projects
+### 2.1 Data residency — the deployed site runs on Canadian infrastructure
 
-**The position is better than the section above implies, and the correction was
-verified rather than assumed.**
+**Corrected twice, and this is the settled position.** Verified against the
+Supabase Management API and against Vercel's environment configuration.
 
-| Ref | Name | Region | Status |
-|---|---|---|---|
-| `fddlpnibovkkkgboabqb` | `courtsimplified-dev` | **`ca-central-1`** | ACTIVE_HEALTHY |
-| `ffymjxjcnwakgdmldpne` | `courtsimplified` | `us-west-2` | **INACTIVE (paused)** |
+| Ref | Project name | Region | Status | **What it actually is** |
+|---|---|---|---|---|
+| `fddlpnibovkkkgboabqb` | `courtsimplified-dev` | **`ca-central-1`** | ACTIVE_HEALTHY | **THE LIVE DATABASE.** Vercel's `NEXT_PUBLIC_SUPABASE_URL` points here, and so does `.env.local` |
+| `ffymjxjcnwakgdmldpne` | `courtsimplified` | `us-west-2` | INACTIVE (paused) | **Dormant.** Nothing points at it |
 
-**`.env.local` points at the CANADIAN project**, so local development and every
-browser test run against `ca-central-1`. **Production is paused and serving
-nothing.**
+**So the accurate statement is: user data is stored in Canada, today, not as a
+plan.** The deployed application, local development and every browser test all
+run against `ca-central-1`.
+
+### 2.1.1 ⚠️ THE PROJECT NAMES ARE BACKWARDS — read this before touching either
+
+**The project called `courtsimplified-dev` is the live one. The project called
+`courtsimplified` is dormant.**
+
+Anyone reading the names would conclude the opposite, and that conclusion is
+dangerous in both directions:
+
+- **Treating the live project as scratch.** It is named `-dev`. Someone testing
+  a destructive change "on dev" would be running it against the database the
+  deployed site serves from. This nearly happened during this audit: the
+  instruction was "test the deletion cascade on dev", given moments after
+  establishing that dev is what production serves.
+- **Treating the dormant project as live.** It is named `courtsimplified` and
+  sits in `us-west-2`, which made the residency position look far worse than it
+  is — the first version of this document described Canadian users' case files
+  as being stored in the United States, on exactly that reading.
+
+**How it came about:** `courtsimplified` was created first and was production;
+`courtsimplified-dev` was created later in Canada to prove out the migration
+procedure. The deployment was then pointed at the Canadian project and the
+original was paused. **The names record the intention at creation, not the
+current roles**, and nothing renamed them.
+
+**Recommended:** rename them in the Supabase dashboard so the names match the
+roles — the live one to something unambiguous, and the dormant one to
+`courtsimplified-legacy-us-west-2` or similar. Until then, every reference in
+tooling should carry the role rather than the name, which is why
+`runSecurityAudit.ts` and `applySecurityRemediation.ts` print region and status
+alongside the ref on every run.
+
+**Not renamed here**, because a rename changes a name that appears in tooling,
+in `.env` files and possibly in Vercel, and it should be done deliberately
+rather than at the end of a long session.
 
 ### 2.2 What is actually in production — counted, 2026-09-15
 
@@ -297,10 +333,54 @@ What this means practically, and counsel should know it:
   the database. No such request could arise yet: there are no third-party
   accounts (section 2.2).
 - There is no documented process for that, and no record of it having been done.
-- Cascade behaviour on deleting an auth user has **not been verified**. Whether
-  case rows, evidence rows and storage objects are removed with the account is
-  unknown, and should be tested before any deletion commitment is made in a
-  policy.
+
+### 4.2.1 The cascade — tested 2026-09-15, and it works
+
+**Manual deletion can be promised, because deleting the account really does
+remove the case data.** Established two ways rather than assumed.
+
+**Read-only, from `pg_constraint`:** every case table carries a foreign key to
+`auth.users` with `ON DELETE CASCADE`.
+
+| Table | On deleting the user |
+|---|---|
+| `cases` | CASCADE |
+| `case_intakes` | CASCADE |
+| `case_documents` | CASCADE |
+| `case_evidence` | CASCADE |
+| `case_generated_documents` | CASCADE |
+| `case_events` | CASCADE |
+| `case_event_candidate_dismissals` | CASCADE |
+
+Each table additionally cascades from `cases`, so deleting a single case removes
+its own children.
+
+**Empirically:** a throwaway account was created in the live project, given a
+case, and deleted. Before: 1 case. After: 0 rows in every case table, and the
+user gone. The project returned to exactly its prior state — 2 users, 2 cases,
+no residue.
+
+**A note on how that FK was nearly missed**, because it matters for anyone
+re-checking this: `information_schema.referential_constraints` did **not** list
+these seven FKs, because it only exposes constraints whose referenced table the
+querying role has privileges on, and `auth.users` is not visible there. A query
+against `information_schema` alone returns the six FKs between public tables and
+suggests `user_id` has no constraint at all — which would have meant orphaned
+case rows on deletion. **`pg_constraint` is the authority; `information_schema`
+is a filtered view.**
+
+### 4.2.2 What is still not covered by the cascade
+
+- **Storage objects.** The `case-evidence` bucket is separate from the database
+  and has no foreign key to anything. Deleting a user removes the `case_evidence`
+  ROWS but **not the uploaded files**. Both buckets are empty today, so nothing
+  is currently orphaned — but a manual deletion procedure must delete the user's
+  storage folder explicitly, and any automated deletion must do the same.
+- **`case_events.supersedes_event_id`** is `ON DELETE RESTRICT`, self-
+  referencing. A case whose event chain contains a supersession may not delete
+  cleanly in one statement. Not reproduced — the probe's `case_events` insert
+  failed on an unrelated `court_path` NOT NULL constraint, so this path is
+  untested and should be exercised before a deletion feature ships.
 
 ### 4.3 Browser-side data
 
@@ -368,7 +448,7 @@ Production is missing only the second migration
 they hold PDF field coordinates and form classifications. Worth applying before
 production ever serves traffic; not urgent while it is paused.
 
-Re-checkable at any time with `npm run audit:security -- --project <dev|prod>`.
+Re-checkable at any time with `npm run audit:security -- --project <live|legacy>`.
 
 ---
 
@@ -408,8 +488,11 @@ regulator would consider material.
    2026-09-15** — production holds no third-party data (section 2.2), so
    nothing about anyone else is in the United States. What remains is to stand
    the Canadian production project up before taking real users.
-4. **What deletion will actually mean** once built — hard delete, cascade
-   behaviour, evidence files in storage, backups.
+4. ~~What deletion will actually mean once built.~~ **PARTLY ANSWERED
+   2026-09-15** — the cascade is verified: deleting the account removes every
+   case row (4.2.1). What remains for counsel: storage objects are NOT covered
+   by the cascade and must be deleted explicitly, and backup retention at
+   Supabase is unestablished.
 5. **The opposing party's data.** The platform holds identifying information and
    allegations about a person who is not a user. What, if anything, is owed to
    them.
@@ -424,8 +507,8 @@ Everything above can be re-checked, and none of the commands below modifies
 anything:
 
 ```
-npm run audit:security -- --project dev     # LIVE dev state, read-only
-npm run audit:security -- --project prod    # LIVE production, read-only
+npm run audit:security -- --project live     # LIVE dev state, read-only
+npm run audit:security -- --project legacy    # LIVE production, read-only
 npm run test:anon-grants                    # migration files only
 ```
 
@@ -439,7 +522,7 @@ The same five files can be pasted into the Supabase SQL editor one at a time;
 each states what it reports, what to expect, and what a bad result looks like.
 `docs/security/README.md` gives the order.
 
-**Production is paused.** Running `--project prod` against it will time out
+**Production is paused.** Running `--project legacy` against it will time out
 until it is resumed, which is itself a change to production and should be
 deliberate.
 

@@ -1,22 +1,34 @@
 /**
  * Applies the security remediation migration to a Supabase project.
  *
- *   npm run audit:apply -- --project dev --confirm
+ *   npm run audit:apply -- --project legacy --confirm
  *
  * *** THIS ONE WRITES. Everything else in docs/security/ only reads. ***
  *
- * *** PRODUCTION IS REFUSED IN CODE, NOT BY CONVENTION ***
+ * *** THE FLAGS ARE `live` AND `legacy`, NOT `dev` AND `prod` ***
  *
- * `--project prod` is rejected. Not warned about — rejected, with no flag that
- * overrides it. Enabling production means editing ALLOWED_PROJECTS below,
- * which is a visible diff someone has to write and someone has to review.
+ * The Supabase PROJECT NAMES are backwards: the project named
+ * `courtsimplified-dev` is the one Vercel serves from, and the one named
+ * `courtsimplified` is dormant and paused. The earlier flags inherited that
+ * confusion and meant the opposite of what they said — `--project dev` wrote
+ * to the live database, and the safety refusal on `prod` protected a database
+ * nothing points at. Both old names are now refusals rather than aliases, so
+ * typing one stops instead of silently doing the wrong thing.
+ *
+ * See docs/security/DATA_FLOW_INVENTORY.md section 2.1.1.
+ *
+ * *** THE LIVE DATABASE IS REFUSED IN CODE, NOT BY CONVENTION ***
+ *
+ * `--project live` is rejected. Not warned about — rejected, with no flag that
+ * overrides it. Writing to it means editing ALLOWED_PROJECTS below, which is a
+ * visible diff someone has to write and someone has to review.
  *
  * CLAUDE.md section 6 puts production changes behind an explicit go-ahead. A
  * `--force` flag would technically satisfy that and practically defeat it: the
  * flag exists, so it gets typed. A code change cannot be typed by accident.
  *
- * As of 2026-09-15 production is also PAUSED (INACTIVE) and serving nothing,
- * so there is no urgency in unpausing a database in order to secure it.
+ * The `legacy` project is writable because nothing points at it — it is paused
+ * and the deployment does not use it.
  *
  * *** WHAT IT SENDS ***
  *
@@ -58,31 +70,37 @@ const MIGRATION_PATTERN =
 /**
  * Projects this script may write to.
  *
- * `prod` is ABSENT, deliberately. See the header.
+ * The LIVE database is ABSENT, deliberately. See the header.
  */
 const ALLOWED_PROJECTS: Record<string, { ref: string; name: string; region: string }> = {
-  dev: {
-    ref: "fddlpnibovkkkgboabqb",
-    name: "courtsimplified-dev",
-    region: "ca-central-1",
-  },
-
-  // `prod` WAS HERE, from 2026-09-15, for exactly one application of the
-  // anon-grant remediation. Removed the same day, as intended — the default is
-  // refuse, and an entry that outlives its purpose is how a default stops
-  // being one.
+  // The dormant US project. Writable because nothing points at it: Vercel
+  // serves from the Canadian project, and this one is paused.
   //
-  // What it was used for, recorded so the next person does not have to
-  // reconstruct it: production was audited read-only first and held NO
-  // third-party personal data (3 auth users, two the operator's own and one
-  // the test harness; 2 shell case rows; every other case table empty; no
-  // user-uploaded evidence). The remediation applied and was verified with 01b
-  // and 01d — anon zero on the case tables, no {public} ALL policies. The
-  // project was then re-paused.
+  // Both security migrations have already been applied here (2026-09-15).
+  legacy: {
+    ref: "ffymjxjcnwakgdmldpne",
+    name: "courtsimplified  [DORMANT — us-west-2, paused, nothing points at it]",
+    region: "us-west-2",
+  },
 };
 
 const KNOWN_REFUSED: Record<string, string> = {
-  prod: "courtsimplified (us-west-2) — PRODUCTION. Refused in code.",
+  live:
+    "ref fddlpnibovkkkgboabqb — THE LIVE DATABASE. Vercel serves from it. " +
+    "Refused in code.",
+
+  // The old flag names, kept as refusals rather than deleted, BECAUSE THEY
+  // MEANT THE OPPOSITE OF WHAT THEY SAID.
+  //
+  // `dev` addressed fddlpnibovkkkgboabqb — the project NAMED courtsimplified-dev
+  // and serving the deployed site. `prod` addressed the dormant one. So
+  // "--project dev --confirm" wrote to the live database while saying "dev",
+  // and the safety refusal on "prod" protected a database nothing points at.
+  // Exactly backwards from the intent.
+  //
+  // Typing either now stops rather than silently doing the wrong thing.
+  dev: "the flag `dev` addressed the LIVE database — see the note above. Use `live` or `legacy`.",
+  prod: "the flag `prod` addressed the DORMANT database — see the note above. Use `live` or `legacy`.",
 };
 
 /** Statement forms this remediation legitimately contains. */
@@ -175,10 +193,10 @@ async function main(): Promise<void> {
   if (KNOWN_REFUSED[choice]) {
     console.error(
       `REFUSED: ${KNOWN_REFUSED[choice]}\n\n` +
-        "There is no flag that overrides this. Applying to production means " +
+        "There is no flag that overrides this. Writing to the LIVE database means " +
         "adding it to ALLOWED_PROJECTS in this file — a visible diff someone " +
         "writes and someone reviews.\n\n" +
-        "As of 2026-09-15 production is also paused and serving nothing.",
+        "The dormant 'legacy' project is writable; the live one is not.",
     );
     process.exitCode = 1;
     return;
@@ -186,7 +204,7 @@ async function main(): Promise<void> {
 
   if (!ALLOWED_PROJECTS[choice]) {
     console.error(
-      "Usage: npm run audit:apply -- --project dev --confirm\n\n" +
+      "Usage: npm run audit:apply -- --project legacy --confirm\n\n" +
         "Allowed: " +
         Object.keys(ALLOWED_PROJECTS).join(", ") +
         "\nRefused: " +

@@ -3,7 +3,7 @@
 --
 -- NOT APPLIED BY CLAUDE TO PRODUCTION without an explicit go-ahead
 -- (CLAUDE.md section 6). Apply with:
---   npm run audit:apply -- --project dev --confirm
+--   npm run audit:apply -- --project legacy --confirm
 --
 -- WHY THESE WERE LEFT OPEN, AND WHY THEY CAN CLOSE NOW
 --
