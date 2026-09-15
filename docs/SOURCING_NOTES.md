@@ -390,6 +390,31 @@ rather than assumed.
 
 ---
 
+### Two child support tables, and a vocabulary difference that will catch a matcher (2026-09-15)
+
+**SOR/97-175 (federal)** governs the **Divorce Act** path — parties married to
+each other, s. 15.1. **O. Reg. 391/97 (Ontario)** governs the **Family Law Act**
+path — parties never married to each other, FLA s. 33 (11). Separate
+instruments, separate consolidation dates (federal current to 2026-07-21;
+Ontario from 2024-07-26), separate amendment histories.
+
+**Anything that reads a table must first know which path the case is on.**
+`statusTriage.marriedToOtherParty` is the fact that decides it.
+
+**The vocabulary differs, and this is the trap for a signal list.** O. Reg.
+391/97 says **"parent or spouse"** wherever SOR/97-175 says **"spouse"**. A
+matcher signal built by reading one instrument will miss stories written in the
+other's language — and `spouse` is also the word a never-married parent is
+least likely to use about themselves, so a `spouse`-heavy signal list fails
+precisely the population the Ontario regulation serves. Recorded in
+`claimTypeMatcher.ts` as well, because that is where a signal author is
+actually working.
+
+**The table is a formula, not a lookup cell** — see the note above on
+`page-5.html`. Both instruments share that shape.
+
+---
+
 ## Dead ends already ruled out
 
 ### Ontario Fault Determination Rules ≠ a route to sue the other driver

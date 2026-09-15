@@ -52,6 +52,14 @@ type DormantEntry = { file: string; reason: string };
 
 const DELIBERATELY_DORMANT: DormantEntry[] = [
   {
+    file: "src/lib/case-system/family/childSupportFlaPath.ts",
+    reason:
+      "IN PROGRESS, not abandoned. Sourced elements for the Family Law Act s. 33 child support " +
+      "path, authored 2026-09-15 against vendored O. Reg. 391/97, FLA and FLR text. The depth " +
+      "questions and the screen that would import it are the next step and are reported but not " +
+      "built. If this is still dormant after the child support UI lands, something went wrong.",
+  },
+  {
     file: "src/lib/case-system/sources/statutoryProvisions.ts",
     reason:
       "Build-time governance, not runtime product. provisionsWithPendingReplacement() and " +

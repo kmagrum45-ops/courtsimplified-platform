@@ -23,6 +23,24 @@ export type ClaimTypeMatch = {
 };
 
 /**
+ * VOCABULARY WARNING FOR ANYONE AUTHORING FAMILY SIGNALS.
+ *
+ * Ontario's Child Support Guidelines, O. Reg. 391/97, say "parent or spouse"
+ * wherever the federal Guidelines, SOR/97-175, say "spouse". The two
+ * instruments govern different paths — federal on the Divorce Act path,
+ * Ontario on the Family Law Act path — and a signal list built by reading one
+ * of them will miss stories written in the other's language.
+ *
+ * Worse for a matcher specifically: "spouse" is also the word a never-married
+ * user is least likely to type about themselves. A signal list that leans on
+ * it will fail exactly the population the Ontario regulation exists to serve.
+ *
+ * See docs/sources/ontario-child-support-guidelines.txt and
+ * federal-child-support-guidelines.txt for the two-table warning this is part
+ * of.
+ */
+
+/**
  * Words carrying no discriminating power, dropped before a signal is compared
  * to a story so that "false statements about me" can match "the statements she
  * made were false" — same content, different grammar.
