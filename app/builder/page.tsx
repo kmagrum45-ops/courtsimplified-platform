@@ -1113,6 +1113,33 @@ function BuilderPageContent() {
           </section>
         )}
 
+        {/*
+          ABOVE the structured-intake section and NOT blocking it. The routing
+          question does come before the claim question in family law — that is
+          the module's premise — but statusTriage RECORDS FACTS and gates
+          nothing downstream, so putting a multi-step form in front of a user
+          who wants to look around costs something and buys nothing. Both
+          render; the user chooses.
+
+          OUTSIDE that section as of 2026-09-14, having been inside it. The
+          section is gated on `!analysis`, so the triage disappeared the moment
+          a family analysis completed — and that contradicted the module's own
+          design in the sharpest possible way. Its header states that dismissal
+          NEVER EXPIRES: a user who puts it away has chosen to, and sees it
+          again only if they ask. A user who had simply not answered yet lost it
+          outright, with the record still saying those facts are unrecorded.
+
+          Which is the EventCandidateSurface defect almost word for word:
+          unanswered items designed never to expire, made invisible instead,
+          while the record says they are still open.
+
+          It takes `triageState` and `setTriageState` and nothing else. No part
+          of the analysis pipeline reaches it.
+        */}
+        {courtPath === "family" && confirmedLocation && !loadingExistingCase && !caseLoadError && (
+          <FamilyStatusTriage state={triageState} onChange={setTriageState} />
+        )}
+
         {!loadingExistingCase && !caseLoadError && !analysis && confirmedLocation && (
           <section className="rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
             <div className="mb-6">
@@ -1129,18 +1156,6 @@ function BuilderPageContent() {
                 intake. Add the area-specific case details below.
               </p>
             </div>
-
-            {/*
-              ABOVE FamilyIntake and NOT blocking it. The routing question does
-              come before the claim question in family law — that is the
-              module's premise — but statusTriage RECORDS FACTS and gates
-              nothing downstream, so putting a multi-step form in front of a
-              user who wants to look around costs something and buys nothing.
-              Both render; the user chooses.
-            */}
-            {courtPath === "family" && !loadingExistingCase && !caseLoadError && (
-              <FamilyStatusTriage state={triageState} onChange={setTriageState} />
-            )}
 
             {courtPath === "family" && (
               <FamilyIntake onComplete={handleComplete} location={confirmedLocation} initialStory={homeStory} />

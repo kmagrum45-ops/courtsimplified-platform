@@ -87,6 +87,17 @@ const ANALYSIS_INDEPENDENT: IndependentSurface[] = [
       "pipeline can make it more or less correct to show.",
   },
   {
+    component: "FamilyStatusTriage",
+    file: "app/builder/page.tsx",
+    reason:
+      "Takes triageState and setTriageState and nothing else; statusTriage.ts " +
+      "records facts and gates nothing downstream. Being inside the !analysis " +
+      "section contradicted its own design most sharply of the three: its header " +
+      "states that dismissal NEVER EXPIRES, so a user who put it away had chosen " +
+      "to — while a user who had simply not answered lost it outright the moment " +
+      "an analysis ran, with the record still saying those facts are unrecorded.",
+  },
+  {
     component: "EventCandidateSurface",
     file: "app/builder/page.tsx",
     reason:
