@@ -206,23 +206,46 @@ export async function awaitAuthRequired(page: Page): Promise<void> {
  * `textField(intake, "amountClaimed")` → `formatRecordedAmount`. Every step
  * after the stub is real product code, and the stub invents nothing along it.
  *
- * *** NOT COMPROMISED — safe to assert on a spec using this stub ***
+ * *** MOST OF THE PANEL IS NOT COMPROMISED. ***
  *
- *   - the user's amount, verbatim, qualifiers intact
- *   - that no dollar figure appears which the spec did not type
- *   - that nothing was totalled or otherwise arithmetic'd
- *   - parties, story, goal, evidence, as entered
- *   - the absence of grades, percentages, readiness language
- *   - anything the panel derives from `intake`
+ * This was underestimated when the stub was written, and the correction is
+ * worth stating because it is the difference between a harness that covers a
+ * screen and one that covers a corner of it.
+ *
+ * `IntelligenceOverviewPanel` calls
+ * `buildClaimTypeOverviewContent(facts)` — and `facts` is `intake.facts`, the
+ * user's own story. The claim type is matched from what the SPEC TYPED, not
+ * from anything the analysis returned. Its only dependence on the analysis is
+ * `analysis.courtPath === "small-claims"`, which is routing, not content.
+ *
+ * So all of this is real product output under the stub:
+ *
+ *   - the CLAIM TYPE matched from the story — `matchClaimType` on real prose,
+ *     which scored 0/10 before it was fixed and is worth a browser assertion
+ *   - the EVIDENCE CHECKLIST (`evidenceToOrganize`), and that every item
+ *     carries a source — the "pattern of harassment" regression guard
+ *   - COURT POINTS and COMMON DEFENCES, with their citations
+ *   - JURISDICTION ROUTES — `JURISDICTION_ROUTES` is static sourced data with
+ *     no dependence on the analysis at all
+ *   - the user's amount, verbatim, qualifiers intact, and that no figure they
+ *     did not type is attributed to their claim
+ *   - parties, story, goal, recorded evidence, as entered
+ *   - the absence of grades, percentages, readiness language, anywhere
+ *   - the absence of an unsourced fallback list when nothing matched
  *
  * *** COMPROMISED — an assertion on any of these is TESTING THIS FILE ***
  *
+ * A short list, and it is short because the panel leans on sourced data rather
+ * than on model output by design:
+ *
  *   - `detectedIssues`, `legalIssues`, `summary`, `guidance`, `risksAndGaps`,
- *     `missingInformation`, `inferredFacts`
+ *     `missingInformation`, `inferredFacts`, `nextBestActions`
+ *   - the "What to confirm next" question, which is drawn from
+ *     `missingInformation` / `nextBestActions` when no Defence question applies
  *   - required/completed/received forms, and anything routed from them
- *   - the claim type, the evidence checklist, court points, common defences
- *   - `reasoningMode`, and anything that differs between the structured-AI and
- *     deterministic paths
+ *   - `reasoningMode`, `analysisAvailable`, and anything that differs between
+ *     the structured-AI and deterministic paths
+ *   - the issue-signal cards, which read `detectedIssues` / `legalIssues`
  *
  * **An analysis-content assertion added to a spec using this stub would be
  * asserting fiction written here, and it would pass forever regardless of what

@@ -45,6 +45,7 @@
     "test:fixtures:generated": "node --import tsx scripts/verification/runGeneratedFixtures.ts",
     "test:forms-case-isolation": "node --import tsx scripts/verification/verifyFormsSelectedCaseIsolation.ts",
     "test:generate-form-authorization": "node --import tsx scripts/verification/verifyGenerateFormSelectedCaseAuthorization.ts",
+    "test:harness-coverage": "node --import tsx scripts/verification/verifyHarnessCoverage.ts",
     "test:intake-coverage": "node --import tsx scripts/verification/verifyIntakeCoverage.ts",
     "test:intake-sequencing": "node --import tsx scripts/verification/verifyIntakeSequencing.ts",
     "test:journey-battery": "node --import tsx scripts/verification/runJourneyBattery.ts",
