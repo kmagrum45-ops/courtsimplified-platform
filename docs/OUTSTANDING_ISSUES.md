@@ -157,6 +157,50 @@ confirm — nothing went wrong mechanically. `grep` did exactly what it was aske
 The gap was between **what was searched for** and **what was concluded**, which
 no amount of confirming the command ran would close.
 
+### The widest rule in this section
+
+> **A negative search result is evidence about the TERM, never about the
+> feature.**
+
+It is wider than the other three because it needs no tooling to go wrong and no
+tooling to prevent. `head` can be paired with `wc -l`; a scripted edit can print
+whether it landed; an amendment marker can be traced. This one is a reasoning
+step with nothing mechanical in it: the command succeeded, the output was
+accurate, and the conclusion did not follow from it.
+
+Before concluding a feature is absent:
+
+- **search the concept's other names** — `contradiction` is `inconsistencies`
+  here; `readiness` was also `confidence` and once an unnamed expression
+- **search the consumer, not the producer** — what would have to call it, what
+  would have to render it
+- **name the thing that would have to exist** if the feature did, and look for
+  that instead
+- or say what was actually established: *"a search for X returns nothing; I have
+  not established that the feature is absent"*
+
+### And this one was caught before it entered the record
+
+Worth stating, because it is the only one of the four that did not cost
+anything, and the reason is instructive rather than lucky.
+
+It was **one commit from being used to justify the rule it would have
+undermined.** The false finding was that
+`app/case-timeline/page.tsx`'s header claimed behaviour the code did not have —
+which would have been written up as a second example of the two-table shape, in
+the same document that argues headers making unverifiable claims are a real
+defect class. A fabricated example, in the register of real ones, supporting a
+rule about not trusting partial evidence.
+
+What caught it was re-reading the header before quoting it and noticing that the
+sentence two lines below the one being quoted as evidence **listed the field by
+its real name**. Not a tool, not a check — reading the whole of the thing being
+cited rather than the part that supported the point.
+
+That is the closing argument for this entire section. Three of these four were
+caught after they had been stated, one before. The difference each time was
+whether anything looked past the first piece of evidence that agreed.
+
 ### The general rule, which the other two instances produce
 
 > **Any verification step whose own execution is not confirmed can pass while
