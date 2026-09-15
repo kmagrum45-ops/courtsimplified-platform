@@ -1146,26 +1146,6 @@ function BuilderPageContent() {
               <FamilyIntake onComplete={handleComplete} location={confirmedLocation} initialStory={homeStory} />
             )}
 
-            {/*
-              BELOW the intake, and mounted on the family path alone.
-
-              Mounted now rather than left for the UI pass, because an
-              unmounted component is the exact failure this repo keeps
-              finding — statusTriage.ts was built, sourced, verified and
-              mutation-covered with no screen, and its suite passed the whole
-              time. Placement is a UI question and may well move; existing at
-              all is not.
-
-              It answers a question the draft raises rather than gating
-              anything: the draft carries no support amount, and a user who
-              notices that deserves the reason and the real source instead of
-              silence. Always rendered, never conditioned on what the user has
-              recorded — it is about the table, not about them.
-            */}
-            {courtPath === "family" && <ChildSupportIntake />}
-
-            {courtPath === "family" && <ChildSupportTableCard />}
-
             {courtPath === "small-claims" && smallClaimsMode === "choose" && (
               <div className="grid gap-4 md:grid-cols-2">
                 <button
@@ -1225,6 +1205,32 @@ function BuilderPageContent() {
               />
             )}
           </section>
+        )}
+
+        {/*
+          OUTSIDE the `!analysis` section, deliberately, and this is the third
+          instance of one defect shape.
+
+          Both were inside it until 2026-09-14, which meant they VANISHED the
+          moment a family analysis completed — `handleComplete` sets `analysis`,
+          and the section above is gated on `!analysis`. Neither component reads
+          `analysis`, takes it as a prop, or derives anything from it. They hold
+          their own state and build their own draft.
+
+          The same shape as EventCandidateSurface, which was mounted behind
+          `analysis && canonicalIntakeSaved` and was therefore invisible to any
+          user not mid-analysis; and as statusTriage, which had no screen at
+          all. Each time: a surface whose visibility was tied to state that had
+          nothing to do with it, inherited from the block it was laid out in.
+
+          What they actually need is both here and nothing more: the family
+          path, and a confirmed location so there is a case context to sit in.
+        */}
+        {courtPath === "family" && confirmedLocation && !loadingExistingCase && !caseLoadError && (
+          <div className="mt-8">
+            <ChildSupportIntake />
+            <ChildSupportTableCard />
+          </div>
         )}
 
         {analysis && !loadingExistingCase && !caseLoadError && !canonicalIntakeSaved && (

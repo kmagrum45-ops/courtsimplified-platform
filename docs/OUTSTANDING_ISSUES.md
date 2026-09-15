@@ -299,6 +299,44 @@ about a dropped warning message.
 
 ---
 
+## 0d. ⚠️ A returning user hits the location gate again (2026-09-14)
+
+**Scoped, not fixed — deliberately.** To be done with the other persistence
+work, not on its own.
+
+`setConfirmedLocation` is called from exactly three places in
+`app/builder/page.tsx`: the not-sure guide hand-off (331), a matching local
+draft (343), and the intake gate's own Continue button (1104). **The
+existing-case load path never calls it.**
+
+So opening `/builder?caseId=<id>&path=family` for a case that already exists
+renders the location gate — province, city, "tell us what happened in your own
+words" — to someone who did all of that when they created the case. Unless a
+local draft happens to match, which depends on the same browser and the same
+signed-in user.
+
+Everything behind that gate is affected, because the whole structured-intake
+section is conditioned on `confirmedLocation`: the family triage, the family
+intake, the child support screen and the table card, the Small Claims mode
+chooser and both its intakes, and the civil intake.
+
+The fix is to populate `confirmedLocation` when an existing case loads, from
+whatever the case already records about where it is. That is a persistence
+question — what the case row holds, whether it is trustworthy, what happens when
+it holds nothing — which is why it belongs with the rest of the persistence
+work and not in a UI commit.
+
+**One caveat on the cross-reference.** This was raised as matching **SC-6 and
+X-3** in the scenario document. I could not find either identifier anywhere in
+the repo: a repo-wide search for `SC-<n>` / `X-<n>` returns only `SC-001`,
+`SC-003`, `SC-030` and `SC-26`, in `docs/intake-phase0-report.md`,
+`verifyUserFacingScenarioLibrary.ts`, `verifySmallClaimsEngine.ts` and two AI
+contract checks — no `SC-6`, no `X-3`, and no document that indexes scenarios
+that way. Recorded here on its own technical merits; the link to those scenario
+ids needs whoever holds that document to make it, rather than being guessed at.
+
+---
+
 ## 1. Defects that could mislead a user
 
 **Every item in this section is now closed.** Kept with outcomes rather than deleted, because two of them were misdescribed and one was a rumour that turned out to be true — that record is worth more than a clean slate.
