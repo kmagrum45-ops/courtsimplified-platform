@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import FamilyIntake from "./_components/FamilyIntake";
 import { ChildSupportTableCard } from "./_components/ChildSupportTableCard";
+import ChildSupportIntake from "./_components/ChildSupportIntake";
 import SmallClaimsIntake, {
   requestSmallClaimsAnalysis,
 } from "./_components/SmallClaimsIntake";
@@ -1140,6 +1141,8 @@ function BuilderPageContent() {
               silence. Always rendered, never conditioned on what the user has
               recorded — it is about the table, not about them.
             */}
+            {courtPath === "family" && <ChildSupportIntake />}
+
             {courtPath === "family" && <ChildSupportTableCard />}
 
             {courtPath === "small-claims" && smallClaimsMode === "choose" && (

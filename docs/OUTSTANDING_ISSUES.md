@@ -102,6 +102,55 @@ looking for, and the case that produced the failure above.
 
 ---
 
+## 0b. ⚠️ There is no readiness gate on the family path (2026-09-14)
+
+**Probed, not reasoned about**, before building the child support screen:
+
+| Probe | Result |
+|---|---|
+| Family `ClaimType`s | **0 of 22** |
+| `SUPPORT_ELEMENT` ids appearing on any `ClaimType` | **0 of 8** |
+| `evaluateReadinessGate` on a common-case child support state map | `draftAvailable: false`, blocker `no-confirmed-claim-type`, `totalElements: 0` |
+| `elementsStillOutstanding` with 4 of 8 answered | correctly returns the 4 `not-yet` |
+| Product consumers of `elementsStillOutstanding` | **none** — only verification scripts |
+
+`readinessGate.ts` returns early on a null claim type, before it reads the
+element state map at all, and its only source of elements is
+`input.claimType.plaintiffElements`. `SUPPORT_ELEMENTS` is a separate array on a
+module the gate has never heard of.
+
+**The original worry was backwards.** Four skipped elements hold nothing —
+because nothing gates. The real exposure is that wiring the child support screen
+to `evaluateReadinessGate` would make the draft permanently unavailable, showing
+a user "no confirmed claim type" when they have no claim type to confirm and
+never will. That is the empty-forever shape found four times now: the candidate
+surface reading a key nothing writes, the freshness banner that could never
+fire, the matcher scoring 0/10 on prose, and this.
+
+**Decided for v1: the family path does not use the gate.** The child support
+draft is safe to produce incomplete — `"No figure recorded"`, the bracketed
+placeholders and the `RECORDED AS NOT HELD` section exist for exactly that. This
+is a real difference between the paths, not a shortcut: a Statement of Claim
+full of bracketed placeholders is a pleading someone might file; a child support
+draft saying "No figure recorded" is doing its job, because the figure is one a
+court determines regardless. `verifyChildSupportIntake` asserts the screen does
+**not** call `evaluateReadinessGate`, with the reason.
+
+**Open: generalise the gate to take elements rather than a `ClaimType`.** That
+is the right long-term shape. It was not done here because it changes a module
+the whole Small Claims path depends on, with its own mutation-covered suite, to
+serve a path that does not need withholding — the wrong trade to make inside a
+UI build.
+
+**Checked and cleared while probing:** `children-and-ages-recorded` is
+`isNoQuestionNeeded = true`, which looked wrong for child support. It is not —
+the FLA s. 31 question already asks each child's age and what they are doing.
+The element stays because O. Reg. 391/97 s. 3 turns on the number of children
+and whether one is the age of majority; the second question would be the
+duplicate.
+
+---
+
 ## 1. Defects that could mislead a user
 
 **Every item in this section is now closed.** Kept with outcomes rather than deleted, because two of them were misdescribed and one was a rumour that turned out to be true — that record is worth more than a clean slate.
