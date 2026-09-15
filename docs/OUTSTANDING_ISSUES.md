@@ -6,7 +6,7 @@ Everything found and not yet fixed, as of this session. Ordered by what actually
 
 ---
 
-## 0. 📌 A sourcing failure, and the rule it produces (2026-09-14)
+## 0. 📌 Three instances of one failure, and the rule they produce (2026-09-14)
 
 **The wrong claim:** that Ontario and the federal government each publish a
 child support table, and that a build must know which path a case is on before
@@ -35,7 +35,7 @@ not have helped; the answer was at line 885, in a one-line schedule stub, and
 in a definition in s. 2 (1) that a reader looking for the amount provisions
 scrolls past.
 
-### The rule
+### The specific rule: trace the amendment
 
 > **When a consolidation date or amendment marker is unexplained, find out what
 > the amendment changed before building on the text around it.**
@@ -82,33 +82,74 @@ outputs out of context. The failure was not using them. It was **reporting a
 truncated list as an enumeration** — "two findings", a closed set, when what
 had actually been observed was "at least one, plus whatever `head` discarded".
 
-**This is the same shape as the consolidation-date failure above.** Partial
-evidence, read as complete, stated confidently:
+### 📌 The third instance: a mutation test that never mutated (2026-09-14)
 
-| | Consolidation date | `head` truncation |
+**Nearly the worst of the three**, because it would have produced a green tick
+on a check nobody had actually tested.
+
+`FamilyStatusTriage` was added to `verifyMountConditions`'s declared list, and
+the mutation test was to put it back under `!analysis` and confirm the check
+went red. The `node -e` string replace did not match — CRLF against an `\n` in
+the search string — so **the file was never modified**. The check then ran
+against correct code and passed. In the terminal that is indistinguishable from
+a mutation that was caught, and it was one keystroke from being reported as
+"caught".
+
+Re-run printing whether the edit landed:
+
+```
+changed: true
+FAIL  FamilyStatusTriage: not gated on analysis-pipeline state
+      gated on ["analysis"] via: [...]
+```
+
+A mutation test that silently fails to mutate is **a check that cannot fail,
+wearing the costume of one that just did**. It is the exact defect this
+codebase has spent the session hunting — `verifyCitedProvisions` firing on its
+own comment, the candidate route reading a key nothing writes, the matcher
+scoring 0/10 — arrived from the opposite direction.
+
+### Three in one session, and they are one failure
+
+| | Consolidation date | `head` truncation | Mutation that no-opped |
+|---|---|---|---|
+| What was seen | `from 2024-07-26` | the first eslint problem | a passing check |
+| What it actually was | the date the table was revoked | one of seven | a check run against unmodified code |
+| The question never asked | *why* is this date what it is | *how many* are there | *did the edit land* |
+| How it was reported | a definite conclusion, flagged into six files | a definite count, twice | nearly, as "mutation caught" |
+
+Not three accidents. One habit: **taking the result of an operation as evidence
+without confirming the operation happened.** A date was read without asking what
+produced it. A list was read without asking what was cut from it. A test result
+was read without asking whether the test had done anything.
+
+### The general rule, which the other two instances produce
+
+> **Any verification step whose own execution is not confirmed can pass while
+> proving nothing.**
+>
+> Confirm the operation happened before reporting on its result.
+
+Three specific forms, each with a cheap confirmation:
+
+| Operation | Silent failure | Confirmation |
 |---|---|---|
-| What was seen | `from 2024-07-26` | the first eslint problem |
-| What it actually was | the date the table was revoked | one of seven |
-| The question never asked | *why* is this date what it is | *how many* are there |
-| How it was reported | a definite conclusion, flagged prominently | a definite count, twice |
+| Truncated output (`head`, `tail`) | the list ends with no marker | `wc -l`, or a formatter carrying its own totals — `eslint -f json` reports `errorCount` |
+| String replace / patch | no match, file unchanged, exit 0 | print whether the content changed; or assert the mutated text is present before running the check |
+| Reading a consolidated source | the date is shown, its cause is not | retrieve what the amendment did before building on the text around it |
 
-Two in one session is a pattern, not two accidents.
+The general test, applicable to a form not listed here: **ask what this step
+would look like if it had silently done nothing, and whether that is
+distinguishable from success.** Where it is not, add the confirmation. `exit 0`
+is not confirmation — `sed`, `node -e` replaces, `grep` with no match under
+`|| true`, and a mutation applied to the wrong path all exit 0 having done
+nothing.
 
-### The rule
-
-> **Output that can be truncated must be counted, or confirmed complete, before
-> it is reported as a full list.**
-
-Concretely: pipe to `wc -l`, or use a machine-readable formatter that carries
-its own totals (`eslint -f json` reports `errorCount` and `warningCount`), or
-re-run without the limit once the shape is known. A count is cheap. A wrong
-count stated as fact is what sends someone to walk a screen believing two
-things are outstanding when five more are.
-
-Note that the fix is not "stop using `head`". Reading a 200-line output into
-context to count it would be worse. The fix is that the *report* must describe
-what was actually observed — "the first error is X; I have not counted the
-rest" is honest and takes the same breath.
+Note what the rule is *not*. It is not "stop using `head`" — reading a 200-line
+output into context to count it is worse. It is not "stop scripting edits". The
+requirement is on the **report**: describe what was actually observed. "The
+first error is X; I have not counted the rest" is honest and takes the same
+breath as the false enumeration.
 
 ### The same question asked generally: 9 untraced in-force amendments
 

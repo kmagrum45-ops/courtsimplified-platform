@@ -399,8 +399,9 @@ rather than assumed.
 and rewrote its s. 2 (1) so that **"table" means the table set out in the
 Federal Child Support Guidelines**. The 2024-07-26 consolidation date *is* that
 amendment. It was the strongest available evidence against the two-table
-conclusion and it was read as evidence for it. See the sourcing-failure entry
-in `OUTSTANDING_ISSUES.md`.
+conclusion and it was read as evidence for it. See `OUTSTANDING_ISSUES.md`
+section 0, which records this alongside two other instances of the same failure
+and the rule the three of them produce.
 
 **SOR/97-175 (federal)** governs the **Divorce Act** path — parties married to
 each other, s. 15.1. **O. Reg. 391/97 (Ontario)** governs the **Family Law Act**
