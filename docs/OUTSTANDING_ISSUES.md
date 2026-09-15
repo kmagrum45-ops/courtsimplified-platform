@@ -61,6 +61,55 @@ Worth knowing on both sides. When something is flagged prominently, the
 underlying claim has to be load-bearing enough to carry the emphasis, and the
 check for it should happen **before** the flag is duplicated, not after.
 
+### 📌 The second instance, same shape: `head` truncation read as the whole list (2026-09-14)
+
+**The wrong claim:** that `app/builder/page.tsx` had "two pre-existing eslint
+findings" — an unused `localDraftWarning` and one `set-state-in-effect`.
+Reported twice in the same session, once as a closing note and once as a
+summary, both times as a complete enumeration.
+
+**The truth:** it had **seven**. One more `set-state-in-effect`, two
+`exhaustive-deps`, four `no-explicit-any`.
+
+**The mechanism.** The command was `npx eslint app/builder/page.tsx 2>&1 | head
+-12`. The `set-state-in-effect` message is eight lines of prose, so the first
+error alone consumed most of the budget and `head` cut the rest. The output
+*looked* complete — it ended mid-file with no marker, because `head` does not
+leave one. Nothing in what came back said "there is more", and nothing asked.
+
+`head` and `tail` were used throughout this session, correctly, to keep large
+outputs out of context. The failure was not using them. It was **reporting a
+truncated list as an enumeration** — "two findings", a closed set, when what
+had actually been observed was "at least one, plus whatever `head` discarded".
+
+**This is the same shape as the consolidation-date failure above.** Partial
+evidence, read as complete, stated confidently:
+
+| | Consolidation date | `head` truncation |
+|---|---|---|
+| What was seen | `from 2024-07-26` | the first eslint problem |
+| What it actually was | the date the table was revoked | one of seven |
+| The question never asked | *why* is this date what it is | *how many* are there |
+| How it was reported | a definite conclusion, flagged prominently | a definite count, twice |
+
+Two in one session is a pattern, not two accidents.
+
+### The rule
+
+> **Output that can be truncated must be counted, or confirmed complete, before
+> it is reported as a full list.**
+
+Concretely: pipe to `wc -l`, or use a machine-readable formatter that carries
+its own totals (`eslint -f json` reports `errorCount` and `warningCount`), or
+re-run without the limit once the shape is known. A count is cheap. A wrong
+count stated as fact is what sends someone to walk a screen believing two
+things are outstanding when five more are.
+
+Note that the fix is not "stop using `head`". Reading a 200-line output into
+context to count it would be worse. The fix is that the *report* must describe
+what was actually observed — "the first error is X; I have not counted the
+rest" is honest and takes the same breath.
+
 ### The same question asked generally: 9 untraced in-force amendments
 
 `npm run test:amendment-trails` (`scripts/verification/verifyAmendmentTrails.ts`)
@@ -148,6 +197,105 @@ the FLA s. 31 question already asks each child's age and what they are doing.
 The element stays because O. Reg. 391/97 s. 3 turns on the number of children
 and whether one is the age of majority; the second question would be the
 duplicate.
+
+---
+
+## 0c. Convert the builder's hydration gate to `useSyncExternalStore` — one file, not two
+
+**Scoped work, not a lint cleanup.**
+
+**CORRECTED BEFORE IT WAS COMMITTED.** The first draft of this entry scoped the
+change to two files and said they used "the identical pattern". They do not, and
+the difference is the whole point of the entry. Checked rather than assumed:
+
+| File | `hydrated` is set | What it means | eslint |
+|---|---|---|---|
+| `app/builder/page.tsx:318` | bare mount effect, empty deps | React has hydrated | flagged (suppressed in `dd1923f`) |
+| `app/_components/HomeLocationGate.tsx:63` | inside an async callback, after `supabase.auth.getUser()` | auth resolved **and** the saved draft loaded | **clean, 0 problems** |
+
+`HomeLocationGate` is waiting on asynchronous external data, which is precisely
+the case `react-hooks/set-state-in-effect` permits — "subscribe for updates from
+some external system, calling setState in a callback". It is not a hydration
+flag that happens to be spelled differently; it is a different thing wearing the
+same variable name. `useSyncExternalStore` does not apply to it and it should
+stay as it is.
+
+**So the reason given in `dd1923f` for not converting the builder — consistency
+with `HomeLocationGate` — was wrong.** They were never consistent. The real
+reason to take care is narrower and still holds: it is a change to a file on
+every path, and there is a specific property that must survive it.
+
+**Related, and worth a line while someone is in there:** the builder's comment
+says `HomeLocationGate` "already uses for this exact class of race". Same
+purpose, different mechanism — a reader following that cross-reference expecting
+the same shape will not find it.
+
+### The race this defends, which must survive the conversion
+
+This is the reason the flag exists, and it is easy to break while "cleaning up".
+
+The intake gate renders the same server markup on the client's first paint,
+**before React has attached its event handlers**. A province or city selected in
+that window is a native DOM mutation React does not know about. Hydration then
+reconciles the controlled inputs back to their still-blank React state and
+silently discards the selection. The user typed something, saw it, and it was
+gone — with no error, because nothing failed.
+
+The defence is not a delay. It is that while `!hydrated` **the form is not
+rendered at all** — the user sees "Preparing a private case start…" instead. The
+inputs and their handlers come into existence together, after hydration has
+committed, so there is no window in which one exists without the other.
+
+Any replacement must preserve exactly that: the first client render, the one
+that reconciles against server HTML, must produce the placeholder and not the
+form.
+
+### Why convert
+
+`eslint`'s `react-hooks/set-state-in-effect` fires on the builder's gate, and it
+is a **false positive**: empty dependency array, one boolean, set once, nothing
+in the effect reading it, and a repeat call setting `true` over `true` which
+React bails out of. No feedback path, no loop. The file currently carries a
+suppression with that reasoning at the call site (`dd1923f`).
+
+A suppression is the right holding position and the wrong resting one — it keeps
+a correct-but-flagged pattern in the codebase for every future reader to
+re-adjudicate. `useSyncExternalStore` expresses the same thing without an effect
+and without a suppression:
+
+```ts
+const hydrated = useSyncExternalStore(
+  () => () => {},   // never changes, so no subscription is needed
+  () => true,       // client snapshot
+  () => false,      // server snapshot — the render that matches server HTML
+);
+```
+
+React uses the server snapshot for the hydrating render and the client snapshot
+afterwards, which is the two-pass behaviour this gate already relies on, made
+explicit.
+
+### Why it was not done inside the commit that suppressed the rule
+
+`app/builder/page.tsx` is on **every path**, and the change is to the code that
+decides whether the intake form exists in the DOM at all. Getting it subtly
+wrong — the client snapshot returning `true` on the hydrating render — removes
+the guard while leaving every test that checks for the form still passing,
+because the form would be there sooner rather than later. That is a change worth
+making on its own, with the race in front of you, not as the tail of a commit
+about a dropped warning message.
+
+### Done when
+
+- `app/builder/page.tsx` uses `useSyncExternalStore` and carries no suppression.
+- Its comment no longer claims `HomeLocationGate` uses the same mechanism.
+- `HomeLocationGate` is **untouched** — it lints clean and its async flag is the
+  permitted case, not a variant of this one.
+- A browser check covers the race itself rather than the implementation:
+  **the intake form is not in the DOM until hydration has committed.** That is
+  the property. `hydrated`, and `useSyncExternalStore` after it, are two ways of
+  achieving it, and a check pinned to either mechanism would call a correct
+  conversion a regression — the standing rule in CLAUDE.md section 5.
 
 ---
 
