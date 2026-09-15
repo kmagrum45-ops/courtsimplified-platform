@@ -860,6 +860,66 @@ handled, and it is the only one that cannot invent a party name.
 
 ---
 
+## 34. 📌 A check must assert a PROPERTY, not a current value
+
+**Three checks failed in a single day because each pinned a moving target.** In
+every case the code had improved and the check reported it as a regression.
+Recorded in CLAUDE.md section 5 as a standing rule; the evidence is here.
+
+### The test to apply when writing a check
+
+**Ask what would make it fail. If the answer is "someone doing the work we want
+done", the check is wrong.**
+
+A check that pins today's value forces the person who improved the code to
+decide whether a red line is real — which is exactly the judgment a suite
+exists to spare them. Worse, a stale red line trains everyone to skim the
+output, so the *next* failure is the one nobody reads.
+
+### The three, and what each actually pinned
+
+| Check | Pinned | What broke it | Rewritten to assert |
+|---|---|---|---|
+| `verifyFixtureHarnessGuards` | `voiceLayer.ts` passes an abort signal to its request | `e5f76fb` deliberately removed the model call, so there was no request to abort. **The check had been failing since then** — a permanent red line in every run. | voiceLayer makes **no** model call at all, and `composeVoiceTurn` still returns `question.text` verbatim |
+| `verifyDepthQuestions` | `limitation-if-newspaper-or-broadcast` appears in `result.unauthored` | the element was authored — precisely the work the check existed to encourage | an element with no authored question lands in `unauthored`, asserted against a **synthetic id that will never be authored**; plus a new check that every real defamation element is covered |
+| `verifyReachability` | a list of modules that are unreachable | `statusTriage` and `jurisdictionRoutes` were wired up, exactly as intended | a module is reachable **or** declared dormant with a reason |
+
+### The reachability case is the instructive one
+
+It is **correct** for that list to need updating when a module is wired — the
+list is the point. What makes it acceptable rather than the same defect again:
+
+- the update is a **one-line deletion** with an obvious cause,
+- the failure message names the entry and says what to do,
+- and it carries a **second** check in the other direction, so a dormant entry
+  that has quietly become reachable also fails.
+
+**A list that must be maintained is fine. A check that punishes the maintenance
+is not.** The difference is whether the check tells you what changed and what to
+do, or just goes red.
+
+### Why this kept happening here specifically
+
+Every one of these was written in the same session as the thing it checked, by
+someone who had just finished making a value true and reached for that value as
+the assertion. The value was fresh, obviously correct, and easy to write. The
+property was one more step of thought.
+
+That is not a knowledge problem — it is the path of least resistance at the
+moment of writing, which is why it belongs in CLAUDE.md rather than in
+somebody's memory.
+
+### A related shape, not yet swept for
+
+A check can also be wrong in the opposite direction: asserting a property so
+weak that nothing can fail it. Section 24 records that "checks that cannot fail"
+was **sampled, not exhausted**, and names mutation-testing every check as the
+only real closure. The two are the same question asked from either end —
+*what makes this fail?* A check with no answer and a check whose answer is
+"doing good work" are both broken.
+
+---
+
 ## 33. 📌 Two element ids bundle "amount owing" into a jurisdiction name — do NOT rename casually
 
 `amount-owing-commercial` (commercial tenancy) and

@@ -61,6 +61,38 @@ Every AI-generated output is shown as a suggestion the user confirms or override
 - Prove claims by running things, not by reasoning about them. Timing, row counts, and actual output beat assumptions.
 - When you are wrong, say so plainly and correct it.
 - Do not run `git push` or start long-running dev servers — those are blocked; the user runs them.
+- Do not run `npm run build` while a dev server is running. It overwrites `.next`,
+  which the dev server is serving from, and leaves it unable to render — pages hang
+  indefinitely while middleware still answers, so it looks like a code fault. Verify
+  with `tsc --noEmit` and the terminal suites instead, and build when nothing is
+  serving.
+
+**A check must assert a property, not a current value.**
+
+When writing a check, ask what would make it fail. **If the answer is "someone doing
+the work we want done", the check is wrong.** A check that pins today's value calls
+an improvement a regression, and the person who improved the code has to decide
+whether the red line is real — which is exactly the judgment a suite exists to spare
+them.
+
+Three failed this way in a single day:
+
+| Check | Pinned | What broke it |
+|---|---|---|
+| `verifyFixtureHarnessGuards` | `voiceLayer.ts` passes an abort signal | the model call was deliberately removed, so there was no request to abort |
+| `verifyDepthQuestions` | `limitation-if-newspaper-or-broadcast` is unauthored | the element was authored — the work the check existed to encourage |
+| `verifyReachability` | a dormant list of unreachable modules | two modules were wired up, exactly as intended |
+
+Each was rewritten to assert the property instead: voiceLayer makes **no** model call;
+an element with no authored question lands in `unauthored` (asserted against a
+synthetic id that will never be authored); a module is reachable **or** declared
+dormant with a reason. All three now fail only on a real regression.
+
+The reachability case is the instructive one, because it is *correct* for a list to
+need updating when a module is wired — so it carries a second check that a dormant
+entry has not quietly become reachable, and the update is a one-line deletion with
+an obvious cause. A list that must be maintained is fine. A check that punishes the
+maintenance is not.
 
 ## 6. Environment facts
 
