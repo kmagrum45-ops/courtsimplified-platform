@@ -837,7 +837,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
           <label className="block">
             <span className="font-semibold text-[#16302b]">Case stage</span>
             <select
-              value={input.caseStage}
+              data-testid="sc-intake-caseStage" value={input.caseStage}
               onChange={(event) =>
                 updateField("caseStage", event.target.value as UniversalStage)
               }
@@ -858,7 +858,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
           <label className="block">
             <span className="font-semibold text-[#16302b]">Your role</span>
             <select
-              value={input.yourRole}
+              data-testid="sc-intake-yourRole" value={input.yourRole}
               onChange={(event) => updateField("yourRole", event.target.value)}
               className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-white px-4 py-3"
             >
@@ -876,7 +876,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
               Your full legal name or business name
             </span>
             <input
-              value={input.yourName}
+              data-testid="sc-intake-yourName" value={input.yourName}
               onChange={(event) => updateField("yourName", event.target.value)}
               className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Full legal name or business name"
@@ -888,7 +888,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
               Other party name
             </span>
             <input
-              value={input.otherParty}
+              data-testid="sc-intake-otherParty" value={input.otherParty}
               onChange={(event) => updateField("otherParty", event.target.value)}
               className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Person or business on the other side"
@@ -896,7 +896,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
           </label>
         </div>
 
-        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p><button type="button" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" value={input.facts} onChange={(event) => updateField("facts", event.target.value)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
+        <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-5"><h3 className="font-semibold text-[#16302b]">Case story</h3><p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#4d675f]">{input.facts}</p><button type="button" data-testid="sc-intake-edit-story" onClick={() => setEditingStory((current) => !current)} className="mt-3 text-sm font-semibold text-[#2f7d67]">Edit case story</button>{editingStory && <textarea aria-label="Case story" data-testid="sc-intake-facts" value={input.facts} onChange={(event) => updateField("facts", event.target.value)} className="mt-3 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" />}</div>
 
         <div className="grid gap-5 md:grid-cols-2">
           <label className="block">
@@ -904,7 +904,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
               Important dates / timeline
             </span>
             <textarea
-              value={input.timeline}
+              data-testid="sc-intake-timeline" value={input.timeline}
               onChange={(event) => updateField("timeline", event.target.value)}
               className="mt-2 min-h-28 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="List dates in order. If you do not know exact dates, estimate."
@@ -916,7 +916,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
               Evidence you have
             </span>
             <textarea
-              value={input.evidence}
+              data-testid="sc-intake-evidence" value={input.evidence}
               onChange={(event) => updateField("evidence", event.target.value)}
               className="mt-2 min-h-28 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Screenshots, messages, witnesses, receipts, photos, emails, documents."
@@ -931,7 +931,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
               Evidence still missing
             </span>
             <textarea
-              value={input.missingEvidence}
+              data-testid="sc-intake-missingEvidence" value={input.missingEvidence}
               onChange={(event) =>
                 updateField("missingEvidence", event.target.value)
               }
@@ -945,7 +945,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
               What do you want the court to order?
             </span>
             <textarea
-              value={input.goal}
+              data-testid="sc-intake-goal" value={input.goal}
               onChange={(event) => updateField("goal", event.target.value)}
               className="mt-2 min-h-24 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Money, apology, return of property, dismissal, payment plan, costs."
@@ -960,7 +960,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
               Amount claimed or disputed
             </span>
             <input
-              value={input.amountClaimed}
+              data-testid="sc-intake-amountClaimed" value={input.amountClaimed}
               onChange={(event) =>
                 updateField("amountClaimed", event.target.value)
               }
@@ -975,7 +975,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
               Breakdown of amount claimed
             </span>
             <input
-              value={input.damagesBreakdown}
+              data-testid="sc-intake-damagesBreakdown" value={input.damagesBreakdown}
               onChange={(event) =>
                 updateField("damagesBreakdown", event.target.value)
               }
@@ -992,14 +992,14 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
 
           <div className="mt-4 grid gap-5 md:grid-cols-2">
             <input
-              value={input.yourAddress}
+              data-testid="sc-intake-yourAddress" value={input.yourAddress}
               onChange={(event) => updateField("yourAddress", event.target.value)}
               className="rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Your address"
             />
 
             <input
-              value={input.yourPostalCode}
+              data-testid="sc-intake-yourPostalCode" value={input.yourPostalCode}
               onChange={(event) =>
                 updateField("yourPostalCode", event.target.value)
               }
@@ -1008,14 +1008,14 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
             />
 
             <input
-              value={input.yourEmail}
+              data-testid="sc-intake-yourEmail" value={input.yourEmail}
               onChange={(event) => updateField("yourEmail", event.target.value)}
               className="rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Your email"
             />
 
             <textarea
-              value={input.defendantAddress}
+              data-testid="sc-intake-defendantAddress" value={input.defendantAddress}
               onChange={(event) =>
                 updateField("defendantAddress", event.target.value)
               }
@@ -1024,7 +1024,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
             />
 
             <textarea
-              value={input.serviceDetails}
+              data-testid="sc-intake-serviceDetails" value={input.serviceDetails}
               onChange={(event) =>
                 updateField("serviceDetails", event.target.value)
               }
@@ -1082,7 +1082,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
 
           <div className="mt-5 grid gap-5">
             <textarea
-              value={input.agreementDetails}
+              data-testid="sc-intake-agreementDetails" value={input.agreementDetails}
               onChange={(event) =>
                 updateField("agreementDetails", event.target.value)
               }
@@ -1091,7 +1091,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
             />
 
             <textarea
-              value={input.paymentHistory}
+              data-testid="sc-intake-paymentHistory" value={input.paymentHistory}
               onChange={(event) =>
                 updateField("paymentHistory", event.target.value)
               }
@@ -1100,7 +1100,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
             />
 
             <textarea
-              value={input.defenceResponse}
+              data-testid="sc-intake-defenceResponse" value={input.defenceResponse}
               onChange={(event) =>
                 updateField("defenceResponse", event.target.value)
               }
@@ -1109,7 +1109,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
             />
 
             <textarea
-              value={input.settlementEfforts}
+              data-testid="sc-intake-settlementEfforts" value={input.settlementEfforts}
               onChange={(event) =>
                 updateField("settlementEfforts", event.target.value)
               }
@@ -1118,7 +1118,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
             />
 
             <textarea
-              value={input.deadlineDetails}
+              data-testid="sc-intake-deadlineDetails" value={input.deadlineDetails}
               onChange={(event) =>
                 updateField("deadlineDetails", event.target.value)
               }
@@ -1127,7 +1127,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
             />
 
             <textarea
-              value={input.urgent}
+              data-testid="sc-intake-urgent" value={input.urgent}
               onChange={(event) => updateField("urgent", event.target.value)}
               className="min-h-24 rounded-2xl border border-[#d8e6df] px-4 py-3"
               placeholder="Anything urgent"
@@ -1257,6 +1257,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
 
         <button
           type="button"
+          data-testid="sc-intake-analyze"
           onClick={handleAnalyze}
           disabled={isAnalyzing || safetyHalted}
           className="rounded-2xl bg-[#2f7d67] px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
