@@ -78,6 +78,17 @@ export type NoQuestionNeeded = {
  */
 export const NO_QUESTION_NEEDED: NoQuestionNeeded[] = [
 
+  // Child support, FLA s. 33 path (2026-09-15).
+  {
+    elementId: "children-and-ages-recorded",
+    reason:
+      "Recorded by the s. 31 question, which asks the age of each child and what each is doing. " +
+      "Not separately narrated. The sourced element list keeps this element because O. Reg. " +
+      "391/97 s. 3 genuinely turns on the number of children and whether a child is the age of " +
+      "majority — the element is real, the second question would not be.",
+  },
+
+
   // The jurisdictional elements of the remaining fourteen (2026-09-14).
   //
   // NAMING PROBLEM, recorded and deliberately NOT fixed here:
@@ -166,6 +177,146 @@ export const NO_QUESTION_NEEDED: NoQuestionNeeded[] = [
  * degrade safely, so partial coverage is the intended shipping state.
  */
 export const DEPTH_QUESTIONS: DepthQuestion[] = [
+
+  // ===================================================================
+  // CHILD SUPPORT — Family Law Act s. 33 path (2026-09-15).
+  //
+  // Element ids are distinct from the Small Claims ones, so these live in
+  // the same registry and reuse selectDepthQuestions, the readiness gate and
+  // allowUnknown unchanged. See family/childSupportFlaPath.ts for the sourced
+  // elements and the two-table warning.
+  //
+  // CONDITIONAL ELEMENTS ARE OMITTED, NOT DEFAULTED. Two of the eight only
+  // exist in some cases. The caller passes the applicable elements to
+  // selectDepthQuestions; an element that does not apply is never passed, so
+  // it is never asked and cannot hold the gate. That is the whole mechanism —
+  // there is no 'not applicable' answer to record.
+  // ===================================================================
+
+  {
+    id: "depth-cs-children-ages",
+    elementId: "child-is-one-the-parent-must-support",
+    text: "How old is each child, and what is each of them doing now?",
+    examples: ["ages","at school full time","working","living with you"],
+    why: "Family Law Act s. 31 (1) sets the obligation for an unmarried child who is a minor, is enrolled in a full-time program of education, or is unable by reason of illness, disability or other cause to withdraw from the charge of their parents. s. 31 (2) provides the obligation does not extend to a child who is sixteen or older and has withdrawn from parental control. Which of those describes a particular child is for the court.",
+    sourceUrl: "https://www.ontario.ca/laws/docs/90f03_e.doc",
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-15",
+  },
+  {
+    id: "depth-cs-other-parent",
+    elementId: "respondent-is-a-parent",
+    text: "Who is the other parent, and what is their relationship to the children?",
+    examples: ["their full name","whether they are named on the birth registration","whether they live with the children"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-15",
+  },
+
+  // ss. 8 and 9 turn on "the majority of parenting time" and "not less than
+  // 40%". Those are the court's thresholds. This asks days and nights and
+  // never says whether a threshold is met.
+  {
+    id: "depth-cs-parenting-time",
+    elementId: "parenting-time-arrangement-recorded",
+    text: "In a typical year, roughly how many days or nights do the children spend with each of you?",
+    examples: ["most nights with one of you","an alternating weekly schedule","roughly even","different for different children"],
+    why: "O. Reg. 391/97 s. 8 applies where there are two or more children and each parent has the majority of parenting time with one or more of them. s. 9 applies where each parent exercises not less than 40% of parenting time with a child over the course of a year. Whether either applies to a particular arrangement is determined by the court, not by this answer.",
+    sourceUrl: "https://www.ontario.ca/laws/docs/970391_e.doc",
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-15",
+  },
+
+  // THE INCOME QUESTION. Asked of everyone, once. The second income question
+  // below is asked only where spousal support moves between the parties.
+  {
+    id: "depth-cs-income-table",
+    elementId: "guidelines-income-for-table-stated",
+    text: "What figure are you using for annual income, and where does that figure come from?",
+    examples: ["line 15000 of a tax return","a notice of assessment","a figure you and the other parent agreed in writing","an estimate you have worked out yourself"],
+    why: "O. Reg. 391/97 s. 16 determines annual income using the sources under \"Total income\" in the T1 General form, adjusted in accordance with Schedule III — so the figure on a T4 or a tax return is the starting point rather than the answer. s. 15 (2) provides that where both parties agree in writing on the annual income of a party, the court may consider that amount to be their income if it thinks the amount is reasonable having regard to the income information provided under s. 21. ss. 17 to 20, and Schedule III items 9 and 12, set out circumstances in which the court determines the figure instead.",
+    sourceUrl: "https://www.ontario.ca/laws/docs/970391_e.doc",
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-15",
+  },
+
+  // --- Special or extraordinary expenses (conditional element) ---
+  //
+  // The FIRST question here is a ROUTING question. It decides whether the
+  // second income element applies at all. It is attached to this element
+  // rather than made an element of its own, deliberately: a question whose
+  // only job is routing must not be able to hold the readiness gate.
+  {
+    id: "depth-cs-spousal-support-gate",
+    elementId: "section-7-expenses-recorded",
+    text: "Does spousal support get paid between you and the other parent, in either direction?",
+    examples: ["you pay it","you receive it","neither","not sure yet"],
+    why: "Schedule III treats spousal support differently depending on what is being calculated. Item 3, for the table amount, deducts spousal support RECEIVED from the other party. Item 3.1, for section 7 expenses, deducts spousal support PAID to the other party. Where support moves between the parties the two income figures are different numbers, which is why this is asked before the expenses.",
+    sourceUrl: "https://www.ontario.ca/laws/docs/970391_e.doc",
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-15",
+  },
+  {
+    id: "depth-cs-section-7-expenses",
+    elementId: "section-7-expenses-recorded",
+    text: "What extra costs are you paying for the children, and roughly how much a year?",
+    examples: ["child care while you work","orthodontics or other health costs above what insurance covers","a school programme","an activity the children do"],
+    why: "O. Reg. 391/97 s. 7 (1) lets a court provide for an amount covering all or part of six listed kinds of expense, taking into account the necessity of the expense in relation to the child's best interests and its reasonableness in relation to the means of the parties and the family's spending pattern before separation. s. 7 (1.1) defines what makes an expense \"extraordinary\". Whether a particular cost is necessary, reasonable or extraordinary is the court's assessment — this records what is being paid.",
+    sourceUrl: "https://www.ontario.ca/laws/docs/970391_e.doc",
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-15",
+  },
+  {
+    id: "depth-cs-insurance-share",
+    elementId: "section-7-expenses-recorded",
+    text: "What does the children's share of any medical or dental insurance premiums come to?",
+    examples: ["from a benefits statement","the difference between single and family coverage"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-15",
+  },
+
+  // --- The second income figure (conditional element) ---
+  //
+  // Reached ONLY where s. 7 expenses are claimed AND spousal support moves
+  // between the parties. Anyone else never sees a second income question, and
+  // the element is never passed to the gate.
+  {
+    id: "depth-cs-income-section-7",
+    elementId: "guidelines-income-for-section-7-stated",
+    text: "Because spousal support moves between you, the Guidelines use a different income figure for special expenses than for the table amount. What figure are you using for the special-expenses calculation, and where does it come from?",
+    examples: ["the same starting figure with spousal support paid deducted instead of received","a figure from a tax return adjusted differently","a figure you and the other parent agreed in writing"],
+    why: "Schedule III item 3 applies \"to calculate income for the purpose of determining an amount under an applicable table\" and deducts the spousal support RECEIVED from the other party. Item 3.1 applies \"to calculate income for the purpose of determining an amount under section 7\" and deducts the spousal support PAID to the other party. The two items also treat the universal child care benefit differently. Where spousal support moves between the parties these are not the same number, and using one where the other belongs changes the amount.",
+    sourceUrl: "https://www.ontario.ca/laws/docs/970391_e.doc",
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-15",
+  },
+
+  // --- The income documents ---
+  //
+  // MUST NOT BLOCK. s. 21 lists what a court requires; a user who has none of
+  // it still needs a draft and the list. "I don't know" resolves to
+  // cannot-provide, the gate does not hold on it, and the draft carries the
+  // checklist under RECORDED AS NOT HELD. Getting this wrong recreates the
+  // permanent-block defect recorded as OUTSTANDING_ISSUES section 32.
+  {
+    id: "depth-cs-income-documents",
+    elementId: "income-documents-held",
+    text: "Which of the income documents do you have to hand?",
+    examples: ["tax returns for the last three years","notices of assessment for those years","a recent statement of earnings from an employer","financial statements for a business","none of these yet"],
+    why: "O. Reg. 391/97 s. 21 (1) requires an applicant whose income information is necessary to determine the amount to include specified documents with the application, including personal income tax returns and notices of assessment for each of the three most recent taxation years, and further documents depending on whether the person is an employee, self-employed, a partner, a corporate controller or a trust beneficiary. Family Law Rules r. 13 (1) separately requires a party making a support claim to serve and file a financial statement with the document containing the claim.",
+    sourceUrl: "https://www.ontario.ca/laws/docs/970391_e.doc",
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-15",
+  },
+
 
   // ===================================================================
   // The remaining fourteen claim types (2026-09-14).

@@ -240,11 +240,20 @@ const CASES: MutationCase[] = [
   {
     label: "a cited provision is not vendored",
     suite: PROVISIONS_SUITE,
+    // Was `s. 29` -> `s. 33`, which stopped being a defect the moment FLA
+    // s. 33 was vendored for the child support path: the mutation landed and
+    // the suite correctly passed, so the MUTATION reported a failure rather
+    // than the check. Same shape as the three stale checks recorded in
+    // OUTSTANDING_ISSUES section 34 — a mutation can pin a moving target too.
+    //
+    // Now points at a section that will never be vendored, because it does
+    // not exist. The property under test is unchanged: a provision cited
+    // without vendored text must fail.
     mutations: [
       {
         file: PROVISIONS,
         find: 'section: "s. 29"',
-        replace: 'section: "s. 33"',
+        replace: 'section: "s. 9999"',
       },
     ],
   },

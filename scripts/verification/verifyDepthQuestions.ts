@@ -19,6 +19,7 @@
 import { pathToFileURL } from "node:url";
 
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
+import { SUPPORT_ELEMENTS } from "../../src/lib/case-system/family/childSupportFlaPath";
 import {
   DEPTH_QUESTIONS,
   NO_QUESTION_NEEDED,
@@ -52,8 +53,24 @@ function check(name: string, ok: boolean, detail?: string): void {
   }
 }
 
+/*
+ * Every element a depth question may target, across ALL paths.
+ *
+ * Small Claims elements come from CLAIM_TYPES. The Family Law Act s. 33
+ * child support elements live in family/childSupportFlaPath.ts, because they
+ * are sourced to a different instrument and are not claim types. Both feed
+ * the same DEPTH_QUESTIONS registry and the same selectDepthQuestions, so
+ * both must be known here.
+ *
+ * This set is what stops a typo'd element id from producing a question that
+ * is never asked and an element that blocks the gate forever. Widening it is
+ * correct when a new path lands; deleting the check would not be.
+ */
 const ALL_ELEMENTS = CLAIM_TYPES.flatMap((ct) => ct.plaintiffElements);
-const ELEMENT_IDS = new Set(ALL_ELEMENTS.map((el) => el.id));
+const ELEMENT_IDS = new Set([
+  ...ALL_ELEMENTS.map((el) => el.id),
+  ...SUPPORT_ELEMENTS.map((el) => el.id),
+]);
 
 /** Words that would mean a question or example coached toward an answer. */
 const COACHING_TERMS = [
