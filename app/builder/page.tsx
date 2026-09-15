@@ -294,6 +294,27 @@ function BuilderPageContent() {
    * already uses for this exact class of race.
    */
   useEffect(() => {
+    // SUPPRESSED DELIBERATELY, and this is a false positive rather than an
+    // accepted risk.
+    //
+    // The rule warns about effects that SYNCHRONISE state, where each change
+    // schedules another render. This flips one boolean once: the dependency
+    // array is empty, nothing in the effect reads `hydrated`, and a second
+    // call would set `true` over `true`, which React bails out of. There is
+    // no feedback path and no loop — one extra render, at mount, by design.
+    //
+    // It is also load-bearing. See the comment above and the consumer below:
+    // while `!hydrated` the intake form is not rendered at all, which is what
+    // stops a selection made before hydration from being silently discarded.
+    //
+    // NOT converted to useSyncExternalStore, which would satisfy the rule
+    // without a suppression. HomeLocationGate.tsx uses this identical pattern
+    // and the comment above cites it as the same defence; converting one and
+    // not the other would leave two shapes for one problem on a file that is
+    // on every path. Worth doing to both, deliberately, rather than as a side
+    // effect of clearing a lint line.
+    //
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one boolean, once, at mount; see above
     setHydrated(true);
   }, []);
 
@@ -1354,6 +1375,27 @@ function BuilderPageContent() {
               {saveError ? (
                 <div className="mt-6 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
                   {saveError}
+                </div>
+              ) : null}
+
+              {/*
+                RENDERED AS OF 2026-09-14. setLocalDraftWarning was called in
+                two places and the value was read in none, so a user whose
+                browser cannot keep a local recovery draft — private window,
+                blocked storage, quota — was told nothing. eslint reported it
+                as an unused variable, which made a missing read look like dead
+                code; the message was always meant to be seen.
+
+                Amber rather than red: nothing has failed. The result is on the
+                page and saved to the account; only the local recovery copy is
+                unavailable.
+              */}
+              {localDraftWarning ? (
+                <div
+                  data-testid="local-draft-warning"
+                  className="mt-6 rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950"
+                >
+                  {localDraftWarning}
                 </div>
               ) : null}
 
