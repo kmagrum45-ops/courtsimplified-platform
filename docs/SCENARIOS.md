@@ -23,19 +23,20 @@ Every scenario below was checked against the code as it stands. **A red run on a
 | ✅ | Built and asserted by a spec | FS-1, FS-2, FS-4 |
 | 🟢 | Behaviour exists, spec not written | FS-3, FS-5, FS-9, SC-5, SC-8, SC-12 |
 | 🔧 | Behaviour exists, needs harness work first | SC-1, SC-2, SC-3, SC-9, SC-10, FS-6, FS-7, X-1 |
-| 🚧 | **Specifies work rather than checking it** | SC-4, SC-6, SC-7, SC-11, SC-13, X-2, X-3, FS-8 |
+| 🚧 | **Specifies work rather than checking it** | SC-4, SC-6, SC-7, SC-11, SC-13, X-2, X-3 |
+| 🔧 | Unblocked 2026-09-15 by the section 0d fix | FS-8 |
 
 **🚧 — what does not exist yet, and what a red run means**
 
 - **SC-4, SC-11** — the matcher correctly returns `null` and shows no fallback
   list, but **nothing explains why**. SC-4's own "Must never: show an empty panel
   with no explanation — that reads as broken" describes today's behaviour.
-- **SC-6, X-3, FS-8** — blocked at session 2 by `OUTSTANDING_ISSUES.md` section
-  0d: the existing-case load path never sets `confirmedLocation`, so a returning
-  user meets the location gate again. FS-8's underlying behaviour is built and
-  correct (`triageStateFromStored`, `page.tsx:445`); only the gate is in the way.
-  SC-6 additionally hits section 27 — `StatementOfClaimSurface` needs a
-  `draftInput` no load path reconstructs.
+- **SC-6, X-3, FS-8** — section 0d is **FIXED** (2026-09-15): an existing-case
+  load now restores the recorded location and story, so all three reach session
+  2. **FS-8 is unblocked entirely.** SC-6 still stops at its Statement of Claim
+  assertion — section 0j, scoped and not built: `StatementOfClaimSurface` needs
+  a `draftInput` no load path reconstructs, and unlike 0d the data is not
+  stored in that shape.
 - **SC-7** — no path exists to correct an answer. This is a design document.
 - **SC-13** — `outOfScopeForums.ts` deliberately removed its criminal entry for
   making no jurisdictional claim. Recognising a criminal matter is unbuilt.
@@ -656,7 +657,7 @@ of v1 scope and said so, rather than being run through the FLA path.
 
 ---
 
-## 🚧 FS-8 · Triage dismissed, then returns
+## 🔧 FS-8 · Triage dismissed, then returns
 
 **Turn-by-turn**
 

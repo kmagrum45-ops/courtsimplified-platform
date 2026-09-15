@@ -620,7 +620,7 @@ about a dropped warning message.
 
 ---
 
-## 0d. ⚠️ A returning user hits the location gate again (2026-09-14)
+## 0d. ✅ FIXED 2026-09-15 — a returning user hit the location gate again
 
 **Scoped, not fixed — deliberately.** To be done with the other persistence
 work, not on its own.
@@ -663,8 +663,42 @@ FS-8 is the useful one to note: its underlying behaviour is **built and
 correct**, and only the gate stands between a returning user and it. That makes
 this a single fix unblocking three scenarios, not three separate pieces of work.
 
-A red run on any of the three is therefore expected and is not a regression
-until this is fixed.
+### RESOLVED — a two-key read, with the gate kept reachable
+
+`master_result.intakeData.extra` already held the answer. The chain, verified
+end to end: `SmallClaimsIntake` sets `yourProvince` / `yourCity` from the
+confirmed location → `smallClaimsIntelligenceEngine` spreads `...input` into
+`payload.extra` → `handleComplete` carries it as `caseData` →
+`builder/page.tsx` writes `intakeData: caseData`. The load effect already read
+`master_result`; it simply never looked at those keys.
+
+The story is restored from `intakeData.facts` alongside it. The gate collects
+three things, and restoring two of them would have skipped it while leaving the
+intake's prefill empty — a returning family user landing on a blank story field
+they had already filled in.
+
+**It invents nothing.** A shell created but never analysed, or an older schema,
+has no recorded location, and the restore does nothing — the gate renders, which
+is today's behaviour and the right one. Deliberately NOT used as a source:
+`saveCompactBuilderDraft`, which stores **one draft per user rather than per
+case** and therefore holds whichever case was worked last. Reading it here would
+attach another case's city to this one.
+
+**The gate stays reachable.** A location restored from a case says where the
+case was started, not where the user is now — and before this, the gate
+re-appearing on every load was accidentally the only way for someone who had
+moved to change it. A "Change it" control now does that deliberately, shown only
+when the location was restored rather than answered in this session.
+
+`verifyCaseLoadRestore` covers the fragile part: the read and the write agree
+only by convention, four steps and a spread apart, with nothing in TypeScript
+connecting them. Narrow the spread and the restore stops working while
+everything still compiles. Mutation-tested both ways — narrowing
+`extra: { ...input }`, and disabling the restore — each caught.
+
+**Scenario status:** FS-8 is unblocked entirely. SC-6 and X-3 now reach session
+2; SC-6 then stops at its Statement of Claim assertion, which is section 27
+below.
 
 ---
 
@@ -1019,6 +1053,59 @@ themselves.
 Not deleted: it may be the intended shape for the ca-central-1 move
 (ARCHITECTURE.md). But an unwired payload builder for a table that does not
 exist should say so at the top of itself, and currently does not.
+
+---
+
+## 0j. Rehydrate the Statement of Claim surface — scoped, not built (2026-09-15)
+
+**Section 27, scoped after fixing 0d**, because the two look like one defect and
+are not.
+
+`StatementOfClaimSurface` is gated on `draftInput`, a
+`SmallClaimsIntelligenceInput` built during an analysis run and held in React
+state. No load path reconstructs it, so a returning user cannot reach the
+surface — the same symptom as 0d, a different cause.
+
+| | 0d (fixed) | 0j (this) |
+|---|---|---|
+| Gated on | `confirmedLocation` | `draftInput` |
+| Is the data stored? | **yes** — `intakeData.extra` | **no** — the input shape is never persisted |
+| Fix | read two keys already present | map from a different shape |
+| Failure mode | absent → gate renders, as before | **a wrong value looks like a right one** |
+
+### Why this one is not a two-key read
+
+`master_result.intakeData` holds the `StoredCaseData` the run saved, which
+carries most of the same values under different names. So a mapping is possible.
+
+But `StatementOfClaimSurface`'s own note says party details are **merged in
+rather than inferred**, precisely so an empty field stays empty and the draft
+emits `[... to be confirmed]`. A rehydration that guessed at party fields would
+defeat that — and it is the behaviour section 0f has just made load-bearing on
+the child support path.
+
+### How to build it
+
+**Use the `track()` / `stillNeeded` convention.** Anything not reconstructable
+from the stored case lands in the outstanding list rather than being filled in:
+
+1. Map `StoredCaseData` → `SmallClaimsIntelligenceInput` field by field,
+   explicitly. No spread, no defaulting, no `|| ""` that turns an absence into
+   an empty string indistinguishable from a recorded blank.
+2. Every field the map cannot fill is tracked as missing, so it reaches
+   `missingParticulars` **and** renders as a bracket — the same fact in both
+   places, which is what `statementOfClaimDraftEngine` already does.
+3. The surface mounts on the reconstructed input, and the draft it produces
+   names what could not be restored rather than presenting as complete.
+
+### Done when
+
+- A returning user reaches the surface, and the draft names every field that
+  could not be reconstructed.
+- No party detail is inferred from anything other than that case's own record.
+- A check asserts a deliberately-partial stored case produces a **non-empty**
+  outstanding list — the 0f property, applied here.
+- SC-6 session 2's "Statement of Claim surface is visible" passes.
 
 ---
 

@@ -21,6 +21,7 @@
     "test:builder-persistence": "node --import tsx scripts/verification/verifyBuilderPersistenceReliability.ts",
     "test:case-events": "node --import tsx scripts/verification/verifyCaseEvents.ts",
     "test:case-isolation": "node --import tsx scripts/verification/verifyWorkflowIsolation.mjs",
+    "test:case-load-restore": "node --import tsx scripts/verification/verifyCaseLoadRestore.ts",
     "test:case-outcomes": "node --import tsx scripts/verification/verifyCaseOutcomeMatrix.ts",
     "test:case-rls-contract": "node --import tsx scripts/verification/verifyCaseRlsPolicyContract.ts",
     "test:case-simulations": "node --import tsx scripts/verification/runCaseSimulationFactory.ts",

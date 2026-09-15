@@ -245,6 +245,17 @@ function BuilderPageContent() {
   const [canonicalIntakeSaved, setCanonicalIntakeSaved] = useState(false);
   const completedOverviewRef = useRef<HTMLElement | null>(null);
   const [showFollowUp, setShowFollowUp] = useState(false);
+  /**
+   * Whether `confirmedLocation` came from the loaded case rather than from the
+   * user answering the gate in this session.
+   *
+   * Drives the "recorded when you started this case / change it" line below.
+   * A location restored from a case is a FACT ABOUT THE CASE, and a user who
+   * has moved since needs to be able to say so — before this, the gate
+   * re-appearing was accidentally the only way to change it.
+   */
+  const [locationRestoredFromCase, setLocationRestoredFromCase] = useState(false);
+
   const [confirmedLocation, setConfirmedLocation] = useState<{
     province: "Ontario";
     city: string;
@@ -443,6 +454,70 @@ function BuilderPageContent() {
       setMasterCaseId(data.id);
       setExistingMasterResult(loadedMasterResult);
       setTriageState(triageStateFromStored(loadedMasterResult.familyStatus));
+
+      /*
+       * RESTORE THE LOCATION THIS CASE RECORDED. Section 0d.
+       *
+       * Without this, a returning user met the intake location gate again —
+       * province, city, and "tell us what happened in your own words" — having
+       * done all of it when they created the case. Everything behind that gate
+       * was unreachable for them: the family triage and intake, the child
+       * support screen and table card, the Small Claims mode chooser and both
+       * its intakes, the civil intake.
+       *
+       * `setConfirmedLocation` had exactly three callers — the not-sure guide
+       * hand-off, a matching local draft, and the gate's own Continue button.
+       * The existing-case load was not one of them.
+       *
+       * WHERE IT COMES FROM. `master_result.intakeData.extra` — the
+       * StoredCaseData the run saved. smallClaimsIntelligenceEngine spreads the
+       * whole input into `payload.extra`, and the intake sets yourProvince and
+       * yourCity from the confirmed location, so a case analysed on this path
+       * already carries them. Two keys, already present, already loaded here.
+       *
+       * IT IS WHAT THE CASE RECORDED, NOT WHERE THE USER IS NOW. Someone who
+       * has moved should be able to change it, so this fills the gate's answer
+       * in rather than freezing it — see the "change the location" control
+       * below, which is what keeps the gate reachable once this is set.
+       *
+       * NO GUESSING. Not from the user's profile, not from a sibling case, not
+       * from a local draft belonging to a different case. Where the keys are
+       * absent — a shell created but never analysed, or an older schema — this
+       * does nothing and the gate renders, which is correct: there is no
+       * recorded location, and inventing one attaches a wrong city to a court
+       * document. The failure mode is today's behaviour.
+       */
+      const storedLocation = asRecord(asRecord(loadedMasterResult.intakeData).extra);
+      const storedCity =
+        typeof storedLocation.yourCity === "string" ? storedLocation.yourCity.trim() : "";
+      const storedProvince =
+        typeof storedLocation.yourProvince === "string"
+          ? storedLocation.yourProvince.trim()
+          : "";
+
+      if (storedProvince === "Ontario" && storedCity) {
+        setConfirmedLocation({ province: "Ontario", city: storedCity });
+        setLocationRestoredFromCase(true);
+
+        /*
+         * THE STORY TOO, or this is a half-restore.
+         *
+         * The gate collects three things: province, city, and — on every path
+         * but Small Claims — "tell us what happened in your own words", which
+         * becomes `homeStory` and prefills the path's intake. Restoring the
+         * location alone would skip the gate while leaving that prefill empty,
+         * so a returning family user would land on an intake with a blank
+         * story field, having written one when they started the case.
+         *
+         * Same source, same rule: `intakeData.facts` is the StoredCaseData
+         * field, absent on an unanalysed shell, and absent means empty rather
+         * than invented.
+         */
+        const storedFacts = asRecord(loadedMasterResult.intakeData).facts;
+        if (typeof storedFacts === "string" && storedFacts.trim()) {
+          setHomeStory(storedFacts.trim());
+        }
+      }
       setExistingCaseStage(
         typeof data.current_stage === "string" ? data.current_stage : "",
       );
@@ -1155,6 +1230,40 @@ function BuilderPageContent() {
                 Your Home location confirmation is already attached to this
                 intake. Add the area-specific case details below.
               </p>
+
+              {/*
+                KEEPS THE GATE REACHABLE. Section 0d.
+                A location restored from a loaded case is a fact about the
+                CASE — where it was started — not about where the user is now.
+                Before the restore, the gate re-appearing on every load was the
+                only way to change it, which was accidentally the right outcome
+                for someone who had moved and the wrong one for everyone else.
+                Shown only when the location was restored rather than answered
+                in this session: a user who just went through the gate does not
+                need to be told they can go through it again.
+              */}
+              {locationRestoredFromCase && confirmedLocation ? (
+                <p
+                  data-testid="location-restored-notice"
+                  className="mt-3 text-sm leading-6 text-[#4d675f]"
+                >
+                  Location recorded when you started this case:{" "}
+                  <strong>{confirmedLocation.city}, {confirmedLocation.province}</strong>.{" "}
+                  <button
+                    type="button"
+                    data-testid="change-recorded-location"
+                    onClick={() => {
+                      setIntakeProvince(confirmedLocation.province);
+                      setIntakeCity(confirmedLocation.city);
+                      setConfirmedLocation(null);
+                      setLocationRestoredFromCase(false);
+                    }}
+                    className="font-semibold text-[#2f7d67] underline"
+                  >
+                    Change it
+                  </button>
+                </p>
+              ) : null}
             </div>
 
             {courtPath === "family" && (
