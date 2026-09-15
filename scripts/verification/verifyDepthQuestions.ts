@@ -201,7 +201,23 @@ function main(): void {
 
   // ---- PROPERTY 4: "I don't know" resolves ----
 
-  for (const phrase of [
+  // WHAT THIS FUNCTION IS FOR, stated as a property rather than as the list it
+  // currently happens to contain.
+  //
+  // FOUND LIVE: docs/journeys/SMALL_CLAIMS_JOURNEYS.md recorded "I am not
+  // certain about that." being accepted as PROVIDED six times out of six,
+  // across three claim types. The readiness gate then reported 0 outstanding
+  // and opened the draft on elements nobody had answered. The cause was not
+  // subtle — "not certain" was simply absent from UNKNOWN_PATTERNS, and no
+  // check asked whether it should be there.
+  //
+  // THE LIST WILL ALWAYS BE INCOMPLETE. Someone will phrase uncertainty a way
+  // nobody anticipated, and no test can enumerate English. What this table can
+  // do is state the INTENT — a person saying they do not know must never be
+  // recorded as having answered — so that the next gap is a failing row rather
+  // than a silent acceptance discovered in a live journey. Adding a phrasing
+  // here is how this check grows.
+  const statesUncertainty = [
     "I don't know",
     "I do not know",
     "not sure",
@@ -209,13 +225,44 @@ function main(): void {
     "I can't remember",
     "I don't have that",
     "nothing in writing",
-  ]) {
+    // The six-for-six live failure and its immediate family.
+    "I am not certain about that.",
+    "I'm not certain",
+    "uncertain",
+    "I can't say",
+    "I couldn't say",
+    "no clue",
+  ];
+
+  for (const phrase of statesUncertainty) {
     check(`property 4: "${phrase}" is recognised as unknown`, isUnknownAnswer(phrase));
   }
 
+  // The consequence, not just the predicate. isUnknownAnswer returning true is
+  // only useful if the element stops counting as answered — that is the step
+  // between "the site understood" and "the gate behaved".
+  for (const phrase of statesUncertainty) {
+    let probe = createElementStateMap([{ id: "u1", name: "Element under test" }]);
+    probe = isUnknownAnswer(phrase)
+      ? recordCannotProvide(probe, { elementId: "u1", questionId: "q", answerText: phrase })
+      : recordDepthAnswer(probe, { elementId: "u1", questionId: "q", answerText: phrase });
+
+    check(
+      `property 4: "${phrase.slice(0, 32)}" is never recorded as provided`,
+      probe.u1.state !== "provided",
+      `state was ${probe.u1.state}`,
+    );
+  }
+
+  // The other direction, and it matters as much: an over-broad pattern would
+  // record a real answer as an absence, discarding what the user told us. The
+  // cost of the two mistakes is not symmetric, but both are wrong.
   for (const phrase of [
     "We agreed on $4,000 and he paid half.",
     "I don't think they ever cashed the cheque, but I have the stub.",
+    "He said he was certain the work was finished.",
+    "I know exactly what happened — I was standing right there.",
+    "The invoice is dated the 3rd and I have a clear record of it.",
   ]) {
     check(
       `property 4: a substantive answer is NOT misread as unknown: "${phrase.slice(0, 30)}..."`,

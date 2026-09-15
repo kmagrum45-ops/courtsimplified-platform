@@ -43,6 +43,7 @@
 
 import type { SmallClaimsIntelligenceInput } from "./intelligence/smallClaimsIntelligenceEngine";
 import { sanitizeCognitionOutput } from "./intelligence/caseStrengthLanguageValidator";
+import { parseRecordedAmount, formatRecordedAmount } from "./format/recordedAmount";
 
 export type MatchedClaimTypeForDraft = {
   claimTypeId: string;
@@ -158,7 +159,13 @@ export function draftStatementOfClaimParticulars(
   track("Plaintiff's address for court forms", Boolean(yourAddress));
   track("Defendant's full legal name", Boolean(otherParty));
   track("Defendant's address for service", Boolean(defendantAddress));
-  track("Exact amount claimed", Boolean(amountClaimed));
+  // NOT `Boolean(amountClaimed)`. That asked whether the user typed anything,
+  // so "I don't know what it would come to." satisfied it and the draft
+  // reported nothing missing while claiming that sentence as a sum. The
+  // question a pleading needs answered is whether the text names a figure, and
+  // parseRecordedAmount is the existing, tested answer to exactly that — its
+  // own header says it is exported so callers can branch on it.
+  track("Exact amount claimed", parseRecordedAmount(amountClaimed) !== null);
   track("Facts explaining what happened", Boolean(facts) || Boolean(timeline));
 
   let nextNumber = 1;
@@ -197,11 +204,53 @@ export function draftStatementOfClaimParticulars(
   ));
 
   // 4. Amount claimed and what the Plaintiff is asking for
-  const amountParagraphs = [
-    `The Plaintiff claims ${amountClaimed || MISSING_AMOUNT} from the Defendant.`,
-  ];
-  if (goal) amountParagraphs.push(goal);
+  //
+  // A PLEADING NEEDS A SUM. THE INTAKE ANSWER IS FREE TEXT.
+  //
+  // `sc-amount-claimed` captures whatever the user types, verbatim and by
+  // design — recordedAmount.ts exists because deleting "about" or "plus costs"
+  // would change what someone said about their own claim. That is right for
+  // DISPLAY and wrong for a document that states a sum to a court.
+  //
+  // Interpolating the raw answer produced, live:
+  //   "The Plaintiff claims I don't know what it would come to. from the Defendant."
+  //   "The Plaintiff claims $460 plus the storage, so about $540. from the Defendant."
+  // The second is a description of an amount. The first is not an amount at
+  // all, and the draft reported nothing missing, because the old check was
+  // `Boolean(amountClaimed)` — which asks "did the user type something", not
+  // "is this a sum".
+  //
+  // So the figure position takes the parsed amount or the placeholder, and
+  // NOTHING IS DISCARDED: when the answer will not parse, the user's own
+  // wording is preserved in its own paragraph. Dropping "plus the storage"
+  // silently would be the same defect mirrored — this engine never deletes
+  // what the user said, it declines to promote it to a figure it is not.
+  const parsedAmount = parseRecordedAmount(amountClaimed);
+  const amountIsSum = parsedAmount !== null;
+  const amountForPleading = amountIsSum ? formatRecordedAmount(amountClaimed) : MISSING_AMOUNT;
+
+  const amountParagraphs = [`The Plaintiff claims ${amountForPleading} from the Defendant.`];
+
+  if (!amountIsSum && amountClaimed) {
+    amountParagraphs.push(
+      `During intake the Plaintiff described the amount as: "${amountClaimed}". ` +
+        `An exact figure is still needed here.`,
+    );
+  }
+
+  // The remedy answer is the user's own words about what they want, not a
+  // statement about the amount — it was being numbered into this section as
+  // though it were one, which produced "9. I don't know what I can even ask
+  // for." sitting under AMOUNT CLAIMED. It gets its own heading.
   ({ nextNumber } = appendSection(sections, "AMOUNT CLAIMED", numberFrom(nextNumber, amountParagraphs)));
+
+  if (goal) {
+    ({ nextNumber } = appendSection(
+      sections,
+      "WHAT THE PLAINTIFF IS ASKING FOR (in the Plaintiff's own words)",
+      numberFrom(nextNumber, [goal]),
+    ));
+  }
 
   const numberedParticulars = sections;
 
@@ -212,7 +261,10 @@ export function draftStatementOfClaimParticulars(
   // why the Defendant is liable, only states what the Plaintiff is asking
   // the court for.
   const reliefSought = [
-    `(a) payment of ${amountClaimed || MISSING_AMOUNT};`,
+    // Same rule as the AMOUNT CLAIMED paragraph: the relief a court is asked to
+    // grant is a sum or it is a placeholder. It is never the user's description
+    // of a sum — "(a) payment of about $540;" asks for something unquantified.
+    `(a) payment of ${amountForPleading};`,
     "(b) interest and costs of this proceeding, as the court may allow.",
   ];
 

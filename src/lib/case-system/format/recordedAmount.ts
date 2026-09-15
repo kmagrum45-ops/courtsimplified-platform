@@ -43,10 +43,31 @@ const PLAIN_AMOUNT = /^\$?\s*(\d{1,3}(?:[, ]\d{3})*|\d+)(?:\.(\d{1,2}))?$/;
  * plain amount. Exported so callers can branch on "is this a bare number"
  * without re-implementing the test.
  */
+/**
+ * A single trailing period is sentence punctuation, not part of the number.
+ *
+ * "$2,800." is what a person types at the end of a sentence, and the strict
+ * parse rejected it — `(?:\.(\d{1,2}))?` needs digits after the dot. That sent
+ * a perfectly plain amount down the same path as "about $540", which is the
+ * opposite of the distinction this file exists to draw.
+ *
+ * Stripping it is NOT the qualifier-deleting move this file forbids. Removing
+ * "about" or "plus costs" changes what the user said about their claim;
+ * removing a full stop changes nothing a reader could disagree with. The
+ * difference is that one carries meaning and the other carries punctuation.
+ *
+ * Deliberately ONE period, and only at the end. "1.5.0" stays unparseable,
+ * "$10,000.50" is untouched because its period is followed by digits, and
+ * "..." loses one dot and still fails.
+ */
+function stripTrailingPeriod(text: string): string {
+  return text.endsWith(".") ? text.slice(0, -1).trimEnd() : text;
+}
+
 export function parseRecordedAmount(raw: unknown): number | null {
   if (typeof raw !== "string") return null;
 
-  const trimmed = raw.trim();
+  const trimmed = stripTrailingPeriod(raw.trim());
   if (!trimmed) return null;
 
   const match = PLAIN_AMOUNT.exec(trimmed);

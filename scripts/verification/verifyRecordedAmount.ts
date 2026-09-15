@@ -59,6 +59,48 @@ function main(): void {
   expectFormat("0.75", "$0.75");
   expectFormat("1000000", "$1,000,000.00");
 
+  // ---- A trailing period is punctuation, not a qualifier ----
+  //
+  // "$2,800." is what a person types at the end of a sentence. The strict
+  // parse used to reject it, which sent a plain amount down the same path as
+  // "about $540" — the opposite of the distinction this file draws.
+  //
+  // The property: a trailing period does not change WHICH number a string
+  // names, so the string with it and the string without it must agree.
+
+  const withAndWithoutPeriod: [string, string][] = [
+    ["$2,800.", "$2,800"],
+    ["10000.", "10000"],
+    ["$1 234.56.", "$1 234.56"],
+  ];
+
+  for (const [withPeriod, without] of withAndWithoutPeriod) {
+    check(
+      `${JSON.stringify(withPeriod)} parses the same as ${JSON.stringify(without)}`,
+      parseRecordedAmount(withPeriod) === parseRecordedAmount(without) &&
+        parseRecordedAmount(withPeriod) !== null,
+      `got ${JSON.stringify(parseRecordedAmount(withPeriod))} vs ${JSON.stringify(parseRecordedAmount(without))}`,
+    );
+  }
+
+  expectFormat("$2,800.", "$2,800.00");
+
+  // Only ONE period, and only at the end. These must still fail.
+  for (const value of ["1.5.0", "...", "$.", "10..", "2,800.."]) {
+    check(
+      `${JSON.stringify(value)} is still unparseable`,
+      parseRecordedAmount(value) === null,
+      `got ${JSON.stringify(parseRecordedAmount(value))}`,
+    );
+  }
+
+  // A period followed by digits is a decimal and must be untouched.
+  check(
+    "a real decimal is unaffected by the trailing-period rule",
+    parseRecordedAmount("$10,000.50") === 10000.5,
+    `got ${JSON.stringify(parseRecordedAmount("$10,000.50"))}`,
+  );
+
   // ---- Anything carrying a qualifier is returned EXACTLY as typed ----
   //
   // Each of these contains a parseable number. Formatting it would drop the

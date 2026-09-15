@@ -191,6 +191,24 @@ const UNKNOWN_PATTERNS = [
   /\bi do not have (that|it|any|anything)\b/i,
   /\bnothing (like that|in writing)\b/i,
   /\bunsure\b/i,
+
+  // Added 2026-09-15 after docs/journeys/SMALL_CLAIMS_JOURNEYS.md recorded
+  // "I am not certain about that." being recorded as PROVIDED six times out of
+  // six, across three claim types. The readiness gate then reported 0
+  // outstanding and opened the draft on elements nobody had answered.
+  //
+  // "not certain" is a plain synonym of "not sure", which was already here.
+  // Nothing clever was missing — the list simply did not have the phrase, and
+  // no test asked whether it should. See verifyDepthQuestions.ts, where the
+  // property is now asserted against a table of phrasings rather than this
+  // list being trusted to be complete.
+  /\bnot certain\b/i,
+  /\buncertain\b/i,
+  /\bcan'?t say\b/i,
+  /\bcannot say\b/i,
+  /\bcouldn'?t say\b/i,
+  /\bno clue\b/i,
+  /\bnot certain about (that|it|this)\b/i,
 ];
 
 export function isUnknownAnswer(answerText: string): boolean {

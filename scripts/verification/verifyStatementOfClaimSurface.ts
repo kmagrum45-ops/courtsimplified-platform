@@ -29,6 +29,7 @@ import {
 import { draftStatementOfClaimParticulars } from "../../src/lib/case-system/statementOfClaimDraftEngine";
 import type { SmallClaimsIntelligenceInput } from "../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 import { validateCaseStrengthLanguage } from "../../src/lib/case-system/intelligence/caseStrengthLanguageValidator";
+import { formatRecordedAmount } from "../../src/lib/case-system/format/recordedAmount";
 
 let failures = 0;
 
@@ -42,6 +43,9 @@ function check(name: string, ok: boolean, detail?: string): void {
 }
 
 const DEBT = CLAIM_TYPES.find((ct) => ct.id === "sc-claim-unpaid-debt-services")!;
+
+/** The engine's own placeholder, kept in one place so the checks below read as intent. */
+const MISSING_AMOUNT = "[amount claimed to be confirmed]";
 
 const INPUT = {
   facts:
@@ -144,6 +148,120 @@ function main(): void {
     !draftWithoutPassthrough.draftText.includes(first.name),
   );
 
+  // ---- CONSTRAINT: a pleading states a sum, or it states a placeholder ----
+  //
+  // FOUND LIVE, not theorised: docs/journeys/SMALL_CLAIMS_JOURNEYS.md recorded
+  // all five drafts interpolating the raw intake answer into the figure
+  // position, because `sc-amount-claimed` is free text and the engine's check
+  // was `Boolean(amountClaimed)`. That produced, verbatim:
+  //
+  //   "The Plaintiff claims I don't know what it would come to. from the Defendant."
+  //   "(a) payment of I don't know what it would come to.;"
+  //
+  // and reported NOTHING missing, because a non-empty string satisfied the old
+  // check. The user is told the document is complete while it claims a sum that
+  // is a sentence saying they do not know the sum.
+  //
+  // THE PROPERTY, asserted rather than the strings above pinned: for any answer
+  // that does not name a figure, (1) the figure positions carry the placeholder,
+  // (2) "Exact amount claimed" is outstanding, and (3) the user's own wording
+  // survives somewhere in the document. The third clause matters as much as the
+  // first two — declining to promote free text to a figure must not become
+  // deleting what the user said.
+  //
+  // The table is phrasings, not a fixed expectation: adding a phrasing is how
+  // this check grows, and a correct engine passes every row without being
+  // edited.
+  const notASum = [
+    "I don't know what it would come to.",
+    "$460 plus the storage, so about $540.",
+    "About $5,400 between finishing the floor and the radiator.",
+    "Roughly $3,100 for the holiday I did not take.",
+    "somewhere around a thousand dollars I think",
+    "unknown",
+    "TBD",
+  ];
+
+  for (const answer of notASum) {
+    const d = draftStatementOfClaimParticulars(
+      { ...INPUT, amountClaimed: answer } as SmallClaimsIntelligenceInput,
+      { claimTypeId: DEBT.id, claimTypeName: DEBT.name },
+    );
+
+    check(
+      `"${answer.slice(0, 40)}" is never stated as the sum claimed`,
+      d.draftText.includes(`The Plaintiff claims ${MISSING_AMOUNT} from the Defendant.`),
+      `figure position got something else`,
+    );
+    check(
+      `"${answer.slice(0, 40)}" is never the relief asked for`,
+      d.reliefSought.some((line) => line.includes(`payment of ${MISSING_AMOUNT};`)),
+      JSON.stringify(d.reliefSought[0]),
+    );
+    check(
+      `"${answer.slice(0, 40)}" puts "Exact amount claimed" in the outstanding list`,
+      d.missingParticulars.includes("Exact amount claimed"),
+      JSON.stringify(d.missingParticulars),
+    );
+    check(
+      `"${answer.slice(0, 40)}" is still preserved in the document`,
+      d.draftText.includes(answer),
+      "declining to promote free text to a figure must not delete what the user said",
+    );
+  }
+
+  // The other direction: a real sum must NOT be sent to the outstanding list,
+  // or the fix trades a false "complete" for a false "incomplete".
+  for (const answer of ["4200", "$4,200", "4,200.00", "$2,800.", "$2,800"]) {
+    const d = draftStatementOfClaimParticulars(
+      { ...INPUT, amountClaimed: answer } as SmallClaimsIntelligenceInput,
+      { claimTypeId: DEBT.id, claimTypeName: DEBT.name },
+    );
+    check(
+      `"${answer}" is treated as a sum`,
+      !d.missingParticulars.includes("Exact amount claimed") &&
+        !d.draftText.includes(MISSING_AMOUNT),
+      JSON.stringify(d.missingParticulars),
+    );
+  }
+
+  // Every spelling of the same amount must produce the same pleading, so the
+  // document does not vary with how the user happened to type it.
+  const spellings = ["4200", "$4,200", "4,200.00", "$4200.00"].map((answer) => {
+    const d = draftStatementOfClaimParticulars(
+      { ...INPUT, amountClaimed: answer } as SmallClaimsIntelligenceInput,
+      { claimTypeId: DEBT.id, claimTypeName: DEBT.name },
+    );
+    return d.reliefSought[0];
+  });
+  check(
+    "every spelling of the same amount pleads identically",
+    new Set(spellings).size === 1,
+    JSON.stringify(spellings),
+  );
+
+  // ---- The remedy answer is not an amount and is not filed under one ----
+  //
+  // "I don't know what I can even ask for." was numbered into AMOUNT CLAIMED
+  // as though it were a statement about the sum.
+  const withGoal = draftStatementOfClaimParticulars(
+    { ...INPUT, amountClaimed: "4200", goal: "I just want the money back." } as SmallClaimsIntelligenceInput,
+    { claimTypeId: DEBT.id, claimTypeName: DEBT.name },
+  );
+  const amountSection = withGoal.draftText.slice(
+    withGoal.draftText.indexOf("AMOUNT CLAIMED"),
+    withGoal.draftText.indexOf("\n\n", withGoal.draftText.indexOf("AMOUNT CLAIMED")),
+  );
+  check(
+    "the remedy answer is not filed under AMOUNT CLAIMED",
+    amountSection.length > 0 && !amountSection.includes("I just want the money back."),
+    JSON.stringify(amountSection),
+  );
+  check(
+    "the remedy answer still appears in the document, under its own heading",
+    withGoal.draftText.includes("I just want the money back."),
+  );
+
   // ---- CONSTRAINT: the engine cannot invent facts, THROUGH the wiring ----
   //
   // Every number in the draft must come from the input. A fabricated date,
@@ -154,7 +272,16 @@ function main(): void {
     .filter((token) => !draft.draftText.includes(`\n${token}. `))
     .filter((token) => !/^\d{1,2}$/.test(token));
 
-  const inputText = [INPUT.facts, INPUT.amountClaimed].join(" ");
+  // The formatted amount is a DERIVATION of an input, not a new fact: the
+  // engine now renders a parseable amount canonically, so "4200" reaches the
+  // pleading as "$4,200.00" and every spelling of the same sum pleads
+  // identically. That is one permitted derivation, named explicitly — anything
+  // else absent from the inputs still fails this check, which is the point.
+  const inputText = [
+    INPUT.facts,
+    INPUT.amountClaimed,
+    formatRecordedAmount(INPUT.amountClaimed),
+  ].join(" ");
   const inventedNumbers = draftNumbers.filter(
     (token) => !inputText.includes(token.replace(/,/g, "")) && !inputText.includes(token),
   );
