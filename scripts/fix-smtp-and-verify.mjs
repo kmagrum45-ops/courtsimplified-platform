@@ -8,12 +8,36 @@
  * site-wide password gate against production for a fresh (cookie-less)
  * visitor.
  *
- * WRITES production Auth/SMTP config -- there is exactly one Supabase
- * project for this app, tagged PRODUCTION, no dev/staging environment
- * exists (see docs/ARCHITECTURE.md section 10). Requires
- * ALLOW_PRODUCTION_AUTH_WRITE=1 as an explicit opt-in, checked before
- * anything else runs. This is the more invasive of the two auth-debug
- * scripts here -- see diagnose-auth-email.mjs for a read-only alternative.
+ * WRITES live Auth/SMTP config. Requires ALLOW_PRODUCTION_AUTH_WRITE=1 as an
+ * explicit opt-in, checked before anything else runs. This is the more
+ * invasive of the two auth-debug scripts here -- see diagnose-auth-email.mjs
+ * for a read-only-against-Supabase alternative.
+ *
+ * *** WHICH PROJECT THIS HITS -- CORRECTED 2026-09-15 ***
+ *
+ * This header used to say "there is exactly one Supabase project for this app,
+ * tagged PRODUCTION, no dev/staging environment exists". THAT WAS WRONG, and
+ * wrong in the direction that matters: it told you the target could not be
+ * ambiguous, immediately above code that derives the target from a file.
+ *
+ * There are TWO projects, AND THEIR NAMES ARE BACKWARDS:
+ *
+ *   fddlpnibovkkkgboabqb  named `courtsimplified-dev`  ca-central-1
+ *                         THE LIVE ONE. Vercel serves from it.
+ *   ffymjxjcnwakgdmldpne  named `courtsimplified`      us-west-2
+ *                         DORMANT. Paused, nothing points at it.
+ *
+ * PROJECT_REF is derived from SUPABASE_URL in .env.diagnose (see below), so
+ * this PATCHes whichever project that file happens to point at -- and the
+ * banner it prints names neither. Read the "Project ref:" line it echoes
+ * before answering the prompt, and check it against the table above.
+ *
+ * This is the same hazard as the old `--project dev` flag in
+ * scripts/verification/applySecurityRemediation.ts, which wrote to the live
+ * database while saying "dev". That one was fixed by naming the flags for
+ * roles rather than for the projects' misleading names.
+ *
+ * See docs/security/DATA_FLOW_INVENTORY.md section 2.1.1.
  *
  * Run: ALLOW_PRODUCTION_AUTH_WRITE=1 node --env-file=.env.diagnose scripts/fix-smtp-and-verify.mjs
  *
@@ -92,16 +116,38 @@ function requireEnv(names) {
   }
 }
 // ---------------------------------------------------------------------------
-// PRODUCTION GUARD -- there is exactly one Supabase project for this app
-// ("courtsimplified"), tagged PRODUCTION, no dev/staging environment exists
-// (see docs/ARCHITECTURE.md section 10). This is the loudest guard in the
-// repo on purpose: unlike diagnose-auth-email.mjs (read-only against Supabase
-// itself), this script WRITES live Auth/SMTP configuration via the
-// Management API. A wrong PROJECT_REF or a re-run against a project with
-// real users changes what every real password-reset/confirmation email
-// looks like, immediately, with no dev environment to have made the mistake
-// in instead. Checked before requireEnv() deliberately, so this warning is
-// the first thing shown even when nothing else is configured yet.
+// WHICH PROJECT AM I ABOUT TO WRITE TO?
+//
+// Resolved BEFORE the guard prints, so the warning can name the actual target
+// instead of a project name that would be misleading either way. The strict
+// derivation further down still exits on a malformed URL; this one degrades to
+// "unrecognised" so the banner always renders.
+// ---------------------------------------------------------------------------
+const KNOWN_PROJECTS = {
+  fddlpnibovkkkgboabqb:
+    'named "courtsimplified-dev" -- ca-central-1 -- *** THE LIVE DATABASE. Vercel serves from it. ***',
+  ffymjxjcnwakgdmldpne:
+    'named "courtsimplified" -- us-west-2 -- DORMANT, paused, nothing points at it',
+};
+
+const derivedRef = (SUPABASE_URL ?? '').match(/^https?:\/\/([a-z0-9]+)\.supabase\.co\/?$/i)?.[1] ?? '';
+const targetDescription = !derivedRef
+  ? 'UNKNOWN -- SUPABASE_URL is missing or malformed in .env.diagnose'
+  : `${derivedRef}\n    ${KNOWN_PROJECTS[derivedRef] ?? 'UNRECOGNISED REF -- not one of the two known projects'}`;
+
+// ---------------------------------------------------------------------------
+// PRODUCTION GUARD -- unlike diagnose-auth-email.mjs (read-only against
+// Supabase itself), this script WRITES live Auth/SMTP configuration via the
+// Management API. A wrong PROJECT_REF changes what every real password-reset
+// and sign-in email looks like, immediately.
+//
+// THE TARGET IS NOT FIXED. It comes from SUPABASE_URL in .env.diagnose, and
+// there are two projects whose names are backwards -- see the file header.
+// The wrong one is a plausible accident, not an impossible one, which is why
+// the banner below prints the derived ref rather than a project name.
+//
+// Checked before requireEnv() deliberately, so this warning is the first
+// thing shown even when nothing else is configured yet.
 // ---------------------------------------------------------------------------
 if (process.env.ALLOW_PRODUCTION_AUTH_WRITE !== '1') {
   console.error(
@@ -109,16 +155,18 @@ if (process.env.ALLOW_PRODUCTION_AUTH_WRITE !== '1') {
     ' ⚠ DANGER: THIS WILL MODIFY PRODUCTION AUTH CONFIGURATION ⚠\n' +
     ' ALLOW_PRODUCTION_AUTH_WRITE=1 REQUIRED TO PROCEED\n' +
     '='.repeat(72) + '\n\n' +
-    'This runs against the LIVE "courtsimplified" Supabase project (tagged\n' +
-    'PRODUCTION -- no dev/staging environment exists). Running it WILL:\n\n' +
-    '  - PATCH production\'s live SMTP configuration via the Management API\n' +
+    `TARGET (from SUPABASE_URL in .env.diagnose):\n    ${targetDescription}\n\n` +
+    'There are TWO Supabase projects and THEIR NAMES ARE BACKWARDS -- the one\n' +
+    'called "courtsimplified-dev" is the live one. Check the target above\n' +
+    'against that before proceeding. Running this WILL:\n\n' +
+    '  - PATCH that project\'s live SMTP configuration via the Management API\n' +
     '    (smtp_host, smtp_port, smtp_user, smtp_pass, smtp_admin_email,\n' +
     '    smtp_sender_name) -- this OVERWRITES whatever is currently\n' +
-    '    configured, for every real user\'s password-reset and confirmation\n' +
+    '    configured, for every real user\'s password-reset and sign-in\n' +
     '    emails, immediately\n' +
     '  - Read that configuration back to confirm the write persisted\n' +
-    `  - Fire a REAL POST /auth/v1/recover against production, which can\n` +
-    `    trigger a real password-reset email to TEST_EMAIL (currently: ${TEST_EMAIL || '(not set)'})\n` +
+    `  - Fire a REAL POST /auth/v1/recover against it, which can trigger a\n` +
+    `    real password-reset email to TEST_EMAIL (currently: ${TEST_EMAIL || '(not set)'})\n` +
     `  - Fetch ${PRODUCTION_URL} live to check the site-access gate\n\n` +
     'This is the most invasive of the two auth-debug scripts in this repo --\n' +
     'see diagnose-auth-email.mjs for a read-only-against-Supabase alternative.\n' +
@@ -262,6 +310,7 @@ async function testSiteGate() {
 
 (async () => {
   console.log(`Project ref: ${PROJECT_REF}`);
+  console.log(`             ${KNOWN_PROJECTS[PROJECT_REF] ?? 'UNRECOGNISED REF'}`);
   console.log(`Production URL: ${PRODUCTION_URL}\n`);
 
   const setOk = await setSmtpConfig();

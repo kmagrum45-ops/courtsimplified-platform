@@ -53,6 +53,14 @@ const sections: { heading: string; paragraphs: string[] }[] = [
     ],
   },
   {
+    heading: "Emails we send you",
+    paragraphs: [
+      "We send email for one reason only: to let you get back into your account. A password reset link, or a sign-in link if you ask for one. We do not send newsletters, marketing, or reminders.",
+      "Those emails come from noreply@courtsimplified.com and are delivered by a company called Resend, which in turn delivers through Amazon's email service. That means your email address goes to Resend and to Amazon in order to reach you.",
+      "What goes to them is your email address and the link itself. Nothing about your case is in those emails and nothing about your case is sent to Resend or Amazon.",
+    ],
+  },
+  {
     heading: "Where your information is kept",
     paragraphs: [
       "Your information is stored in Canada. The database the live site runs on is hosted by Supabase in their Canadian region, in central Canada. Uploaded evidence is stored there too.",
@@ -80,7 +88,7 @@ const sections: { heading: string; paragraphs: string[] }[] = [
     heading: "What we don't do",
     paragraphs: [
       "We do not use analytics, advertising, or session-replay tools. Nobody is watching a recording of you using the site, and no third party is being told that you visited.",
-      "We do not sell your information. We do not share it with anyone except the service providers named here — Supabase, which stores it, and OpenAI, which processes what you write.",
+      "We do not sell your information. We do not share it with anyone except the service providers named here — Supabase, which stores it, OpenAI, which processes what you write, and Resend and Amazon, which deliver the sign-in emails.",
     ],
   },
   {

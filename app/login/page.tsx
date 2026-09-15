@@ -19,7 +19,10 @@ function signUpErrorMessage(error: AuthError): string {
     case "weak_password":
       return "Password must be at least 6 characters.";
     case "over_email_send_rate_limit":
-      return "We're temporarily unable to send confirmation emails — please try again in a few minutes.";
+      // Project-wide, not per user: Supabase's `rate_limit_email_sent` counts
+      // every email the project sends in an hour, so this can fire for someone
+      // who has done nothing at all.
+      return "We're temporarily unable to send email — please try again in a few minutes.";
     case "email_exists":
     case "user_already_exists":
       return "An account with that email already exists — try signing in instead.";
@@ -53,7 +56,7 @@ export default function LoginPage() {
       }
 
       if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email: email.trim(),
           password,
         });
@@ -63,7 +66,24 @@ export default function LoginPage() {
           return;
         }
 
-        setSuccess("Account created successfully. Check your email for confirmation.");
+        // NO CONFIRMATION EMAIL IS SENT. `mailer_autoconfirm` is true on the
+        // Supabase project (a deliberate, non-default setting -- see
+        // docs/ARCHITECTURE.md), so a new signup is confirmed immediately and
+        // Supabase returns a session.
+        //
+        // This used to say "Check your email for confirmation", which sent
+        // every new user to an inbox to wait for a message that was never
+        // going to arrive, while they were in fact already signed in.
+        //
+        // The session is read rather than assumed: if autoconfirm is ever
+        // turned off, `session` comes back null and the branch below tells the
+        // user the truth for that configuration instead.
+        if (data.session) {
+          router.push("/dashboard");
+          return;
+        }
+
+        setSuccess("Account created. You can sign in with those details now.");
         return;
       }
 

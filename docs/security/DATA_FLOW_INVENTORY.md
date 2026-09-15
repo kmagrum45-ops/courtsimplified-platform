@@ -298,17 +298,74 @@ allowExternalCognition = authenticated && hasExternalAiKey()
 An unauthenticated request runs a deterministic engine with **no model call**.
 A signed-in user's analysis does call OpenAI.
 
-### 3.4 Other outbound
+### 3.4 Resend and Amazon SES — transactional email
+
+**Email addresses leave the platform. No case content does.**
+
+Resend is **not an application dependency**. There is no `resend` package, no
+email module, and no code anywhere in `app/` or `src/` that sends mail. The
+entire integration is one block of Supabase Auth configuration:
+
+| Setting | Value (both projects, verified 2026-09-15) |
+|---|---|
+| `smtp_host` | `smtp.resend.com` |
+| `smtp_port` | `587` |
+| `smtp_user` | `resend` (the literal string, Resend's convention — not an address) |
+| `smtp_pass` | a Resend API key — set; never returned by the Management API once saved |
+| `smtp_admin_email` | `noreply@courtsimplified.com` |
+| `smtp_sender_name` | `CourtSimplified` |
+
+**The sending address is `noreply@courtsimplified.com` and there is only one.**
+The domain's DNS carries `resend._domainkey` (DKIM) and an SPF record on the
+`send` subdomain pointing at `amazonses` — Resend delivers through Amazon SES,
+so an address reaching Resend reaches AWS too.
+
+**Three Auth paths can send, and only two of them actually do:**
+
+| Path | Call site | Sends? |
+|---|---|---|
+| Password reset | `app/forgot-password/page.tsx:24` — `resetPasswordForEmail` | Yes |
+| Magic-link sign-in | `app/login/page.tsx:98` — `signInWithOtp`, `shouldCreateUser: false` | Yes |
+| Signup confirmation | `app/login/page.tsx:56` — `signUp` | **No** — `mailer_autoconfirm` is `true` |
+
+**What is transmitted:** the recipient's email address and a one-time link.
+Nothing from the case record — no narrative, no party names, no documents —
+appears in any of these messages, because Supabase's default templates are in
+use (`ARCHITECTURE.md`: every `mailer_templates_*` value is stock) and they
+interpolate only a link.
+
+**How to say it out loud:**
+
+> The only email we send is a password-reset or sign-in link. Those go out
+> through Resend, which delivers via Amazon SES, so a user's email address
+> reaches both. Nothing about their case is in those emails and nothing about
+> their case is sent to either company.
+
+**`rate_limit_email_sent` was 2 per hour on the live project**, project-wide
+rather than per user — the third person needing a reset within an hour received
+nothing, with no error surfaced to them. Raised to 30 on 2026-09-15 to match the
+legacy project.
+
+### 3.5 Other outbound
 
 | Destination | What | Notes |
 |---|---|---|
 | **Supabase** (`supabase.co`) | All persistence and auth | Processor |
 | **Vercel** | Hosting; request logs | Standard platform logging |
+| **Resend → Amazon SES** | Recipient address + sign-in link | Section 3.4. No case content |
 | **ontario.ca, laws-lois.justice.gc.ca, ontariocourtforms.on.ca** | Outbound links only | No user data transmitted; the user's browser follows a link |
 
 **No analytics, advertising, tracking pixels, or session-replay tooling were
 found.** A search for the common vendors returns nothing. This is a genuine and
 unusual privacy strength and is worth stating in the policy.
+
+**Resend was missed by the first pass of this inventory**, which listed OpenAI,
+Supabase and Vercel as the complete set of third parties. It was found from the
+DNS records rather than from the code — and it would not have been found in the
+code, because there is none to find. See `OUTSTANDING_ISSUES.md` section 0: a
+design document had asserted, under a heading reading "checked, not assumed",
+that grepping for `resend` returned nothing, sixteen days after the two scripts
+containing it were committed.
 
 ---
 
@@ -454,25 +511,38 @@ Re-checkable at any time with `npm run audit:security -- --project <live|legacy>
 
 ## 6. What the current notice says, against what is true
 
-`app/privacy/page.tsx` is a three-paragraph interim notice. Measured against
-this inventory:
+**Rewritten 2026-09-15** (commit `e6607da`, Resend added after). `app/privacy/page.tsx`
+was three paragraphs: true, and radically incomplete — a user reading it would
+not have known their story left the platform. It is now sourced section by
+section from this document.
 
 | Fact | Disclosed? |
 |---|---|
 | Intake responses, evidence, account details collected | **Yes** |
-| Not legal advice, not a law firm, no solicitor-client relationship | **Yes, prominently** |
+| Income and children's information in family matters | **Yes** |
+| Not legal advice, not a law firm, no solicitor-client relationship | **Yes, prominently** — kept verbatim from the old notice |
 | Pre-beta status, full policy pending counsel | **Yes** |
-| User content sent to OpenAI | **No — no third party is named** |
-| Data stored in the United States | **No** |
-| Retention period | **No** |
-| Deletion rights or process | **No** |
-| Cookies | **No** |
-| Operating legal entity | **No** |
-| Complaint route / PIPEDA | **No** |
+| The opposing party's name and address are held | **Yes** — including that they have no account and no notice |
+| User content sent to OpenAI | **Yes** — in the section 3.2 language |
+| OpenAI abuse-monitoring retention, ZDR not applied for | **Yes** — named as unsolved rather than glossed |
+| Where data is stored | **Yes** — Canada, which is what the live project is |
+| Resend / Amazon SES receive the user's email address | **Yes** — section 3.4 |
+| Deletion process | **Yes** — by hand, removes everything in the database, with the storage-objects gap named |
+| Cookies and browser storage | **Yes** — `cs_site_access`, and the session in `localStorage` |
+| No analytics, advertising or session-replay | **Yes** |
+| Retention period | **No** — there is none to state (4.1) |
+| Operating legal entity | **No** — unresolved, section 7 item 2 |
+| Complaint route / PIPEDA | **No** — for counsel |
 
-**It does not misstate anything. It omits the third-party AI processing, the US
-storage location, and the absence of a deletion path** — the three facts a
-regulator would consider material.
+**What remains undisclosed is what remains unresolved**: there is no retention
+policy to describe, and no legal entity to name. Both are section 7 items for
+counsel rather than omissions from the notice.
+
+**The notice and this document are coupled by convention only.** The page's
+header comment says it is sourced from here; nothing enforces it. If this
+inventory changes and the page does not, they drift silently, and the drift is
+invisible precisely where it matters most. No mechanical check for this has been
+written — see `OUTSTANDING_ISSUES.md` section 0.
 
 ---
 

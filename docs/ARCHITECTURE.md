@@ -715,6 +715,16 @@ by hand:
 - **`mailer_autoconfirm`**: `true` — a deliberate, non-default setting.
   New signups skip email confirmation. Supabase's own default is `false`;
   leaving this unset on a new project silently changes signup behavior.
+  `app/login/page.tsx` depends on this: it reads the session `signUp` returns
+  and routes straight to `/dashboard`, falling back to a "you can sign in now"
+  message if the session is absent. It used to tell every new user to check
+  their email for a confirmation that autoconfirm guarantees never arrives.
+- **`rate_limit_email_sent`**: `30` per hour. **Project-wide, not per user**,
+  and shared across password resets and magic links. It was `2` on the live
+  project until 2026-09-15 — the third person needing a reset within an hour
+  got nothing, surfaced to them only as a generic failure. Raised to match the
+  legacy project. A future reminder feature sending bulk email has to be
+  designed around this ceiling (`DEADLINE_TRACKING_DESIGN.md` section 2.3).
 
 Everything else in Auth is stock default and needs no action: no OAuth
 providers enabled, no custom email templates (every `mailer_templates_*`

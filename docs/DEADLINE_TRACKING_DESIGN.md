@@ -64,12 +64,42 @@ session builds Tier 1, not a decision this spec needs to make.
 
 ### 2.3 Reminders — a real infrastructure gap, checked, not assumed
 
-Checked this session, not assumed: there is **no existing email or push
-notification integration in this codebase**. `CLAUDE.md` §1 lists Resend
-as a secret category to protect if one is ever added, which is a
-guardrail for a future integration, not evidence one exists — grepping the
-codebase for `resend`/`Resend` returns nothing. There is also no existing
-in-app reminder or scheduled-scan job.
+**CORRECTED 2026-09-15.** This paragraph originally read: *"Checked this
+session, not assumed: there is no existing email or push notification
+integration in this codebase… grepping the codebase for `resend`/`Resend`
+returns nothing."* **The grep returns six files, and Resend has been wired up
+since before this document was written.** See `OUTSTANDING_ISSUES.md` section 0.
+
+What is actually true, and it is narrower:
+
+**Resend IS configured** — as Supabase Auth's custom SMTP provider, sending
+password resets and magic links from `noreply@courtsimplified.com` via Amazon
+SES (`DATA_FLOW_INVENTORY.md` section 3.4).
+
+**But there is no application-level send path.** No `resend` package, no email
+module, no code in `app/` or `src/` that sends mail. The integration is
+configuration inside Supabase, which is why it leaves almost no code footprint —
+and why a claim based on grepping application code came out wrong.
+
+**So the dependency for Tier 1 is smaller than this section first assumed, not
+absent.** A reminder feature does not need a provider chosen, a domain verified,
+or DKIM and SPF stood up — that exists and works. It needs a way to *call* it:
+either the Resend HTTP API with the existing key, or Supabase's SMTP credentials
+from a scheduled job. **Do not select a second email provider.**
+
+Two constraints that come with it:
+
+- **`rate_limit_email_sent` is 30 per hour, project-wide** — not per user, and
+  shared with password resets and magic links. A daily reminder scan that mails
+  more than a handful of users in one pass will exhaust it and fail silently for
+  everyone else, including someone trying to reset a password. Any reminder
+  sender needs throttling or batching designed in, not added later.
+- **Sending a reminder means putting deadline information in an email**, which
+  is case content leaving the platform to a processor that currently receives
+  none (section 3.4 says so, and the privacy notice says so). That is a privacy
+  disclosure change, not just an engineering task.
+
+There is also no existing in-app reminder or scheduled-scan job.
 
 What the repo does already have, as a real precedent to build the
 reminder scan on rather than inventing scheduling infrastructure from
@@ -77,11 +107,11 @@ scratch: `.github/workflows/courtsimplified-nightly-ai.yml` runs on a
 daily GitHub Actions `cron` schedule already. A reminder feature would
 need an equivalent scheduled job — scan every tracked deadline daily,
 find the ones crossing a `daysBefore` threshold, send the reminder — plus
-an actual delivery channel (email via something like Resend, since none
-is wired up yet, or in-app only as a lower-effort first version that
-defers the "how do we email someone" question entirely). This is a real,
-named dependency for whoever builds Tier 1's reminder half, not something
-this spec resolves.
+an actual delivery channel: either the existing Resend integration called
+directly (see the correction above — it is configured and verified, and it is
+the one to use), or in-app only as a lower-effort first version that defers the
+"how do we email someone" question entirely. This is a real, named dependency
+for whoever builds Tier 1's reminder half, not something this spec resolves.
 
 ### 2.4 Why this is lowest risk
 

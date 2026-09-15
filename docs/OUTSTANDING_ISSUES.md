@@ -425,6 +425,97 @@ check in this section.
 while tired, at the end of a long session, using the shell, is how the next
 entry in this section gets written.
 
+### 📌 "Checked, not assumed" — a false absence in a design document (2026-09-15)
+
+**The third wrong claim of absence, and the worst-placed of the three.**
+
+`docs/DEADLINE_TRACKING_DESIGN.md` section 2.3, under a heading that reads
+**"Reminders — a real infrastructure gap, checked, not assumed"**:
+
+> Checked this session, not assumed: there is **no existing email or push
+> notification integration in this codebase**. `CLAUDE.md` §1 lists Resend as a
+> secret category to protect if one is ever added, which is a guardrail for a
+> future integration, not evidence one exists — grepping the codebase for
+> `resend`/`Resend` returns nothing.
+
+**Grepping the codebase for `resend` returns six files.** Two of them are
+`scripts/diagnose-auth-email.mjs` and `scripts/fix-smtp-and-verify.mjs`, which
+exist to debug the Resend SMTP integration, and which were committed in
+`13e4f8c` on **2026-08-25** — **sixteen days before** the document that says the
+grep returns nothing (`39d97bb`, 2026-09-10).
+
+Resend has been wired up the whole time, as Supabase's custom SMTP provider,
+sending password resets and magic links from `noreply@courtsimplified.com`
+through Amazon SES.
+
+### What makes this the worst of the three
+
+The previous two produced a wrong belief in a session. This one **wrote the
+wrong belief down, in a design document, as a load-bearing premise** — and
+attached to it the one phrase that tells a future reader not to re-check:
+*"checked, not assumed"*.
+
+A later session picking up Tier 1 would read section 2.3 as settled research,
+conclude that email delivery is greenfield, and either scope work that already
+exists or pick a second provider beside the one already configured and paid for.
+The document is doing exactly the job it was written to do — it is just wrong,
+and it certifies itself.
+
+### The near-miss it caused
+
+It nearly cost accuracy in the privacy notice. The data-flow inventory listed
+OpenAI, Supabase and Vercel as the complete set of third parties, and
+`app/privacy/page.tsx` was published saying so. Resend was found **from the
+domain's DNS records** — a `resend._domainkey` and an SPF pointing at
+amazonses — not from the code.
+
+Users' email addresses go to Resend and through Resend to Amazon. That is a
+named recipient a privacy notice must name, and the notice had been shipped
+without it.
+
+### Why the narrow claim being true made it worse
+
+The thing section 2.3 actually *needed* — that there is no application-level
+send path a reminder feature could call — **is true, and still is.** There is no
+`resend` package and no email module; the whole integration is configuration
+inside Supabase Auth, which is why it has no code footprint.
+
+So the conclusion was right, the reasoning was wrong, and the stated evidence
+was false. **A correct conclusion is not a check.** The document would have read
+identically if Resend had never existed, and identically if it had been sending
+case summaries to a third party for a year.
+
+### The rule, stated for the third time
+
+> **Never write "a search returns nothing" as evidence. Write what you searched
+> for, and treat an empty result as a question rather than an answer.**
+
+Now with three distinct mechanisms behind it:
+
+| Instance | The search was | Why it came back empty |
+|---|---|---|
+| SC-12 `contradiction` | correct | the feature was named `inconsistencies` — **wrong term** |
+| `information_schema` FKs | correct | the view is privilege-filtered — **wrong vantage point** |
+| `resend` in this codebase | correct | **it was never run** — the result was asserted, not obtained |
+
+The third is the one no better search technique would have caught, because
+there was no search. The safeguard cannot be "grep more carefully"; it has to be
+that a claim of absence in a durable document names its command, so a reader can
+re-run it and a writer cannot round "I am confident" up to "I checked".
+
+**Unresolved:** nothing mechanical enforces this. A check could scan tracked
+Markdown for absence-claims — *"returns nothing"*, *"does not exist"*, *"no
+existing"* — and require an adjacent command or file reference, but it would be
+a prose-shape heuristic with a real false-positive rate, and a check that cries
+wolf gets ignored, which is worse than no check. Recorded as a known gap rather
+than papered over.
+
+**Two coupled documents with no coupling.** The same shape, still open:
+`app/privacy/page.tsx` says in its header that it is sourced from
+`docs/security/DATA_FLOW_INVENTORY.md`. Nothing enforces it. When the inventory
+changes and the page does not, they drift silently — and the drift is invisible
+exactly where accuracy matters most.
+
 ### 📌 A view that hid what it had no privilege to show (2026-09-15)
 
 **The negative-search rule reaching a place a search would not have looked** —

@@ -5,10 +5,34 @@
  * Isolates WHICH layer of the Supabase -> Resend auth email pipeline is broken.
  * Dependency-free (node:tls only).
  *
- * Runs against production -- there is exactly one Supabase project for this
- * app, tagged PRODUCTION, no dev/staging environment exists (see
- * docs/ARCHITECTURE.md section 10). Requires ALLOW_PRODUCTION_AUTH_WRITE=1
- * as an explicit opt-in, checked before anything else runs.
+ * Requires ALLOW_PRODUCTION_AUTH_WRITE=1 as an explicit opt-in, checked before
+ * anything else runs. It does not modify Supabase configuration, but it does
+ * send a real email and fire a real Auth endpoint.
+ *
+ * *** WHICH PROJECT THIS HITS -- CORRECTED 2026-09-15 ***
+ *
+ * This header used to say "there is exactly one Supabase project for this app,
+ * tagged PRODUCTION, no dev/staging environment exists". THAT WAS WRONG.
+ *
+ * There are TWO projects, AND THEIR NAMES ARE BACKWARDS:
+ *
+ *   fddlpnibovkkkgboabqb  named `courtsimplified-dev`  ca-central-1
+ *                         THE LIVE ONE. Vercel serves from it.
+ *   ffymjxjcnwakgdmldpne  named `courtsimplified`      us-west-2
+ *                         DORMANT. Paused, nothing points at it.
+ *
+ * Every read here is aimed by SUPABASE_URL, and step 2's config read is aimed
+ * separately by SUPABASE_PROJECT_REF. THOSE TWO CAN DISAGREE -- nothing
+ * cross-checks them, so step 2 can report the SMTP configuration of one
+ * project while steps 1 and 5 exercise the other, and the output would look
+ * entirely coherent. If step 2 contradicts what the other steps imply, suspect
+ * that before suspecting Supabase.
+ *
+ * Same hazard as the old `--project dev` flag in
+ * scripts/verification/applySecurityRemediation.ts, which wrote to the live
+ * database while saying "dev".
+ *
+ * See docs/security/DATA_FLOW_INVENTORY.md section 2.1.1.
  *
  * Run: ALLOW_PRODUCTION_AUTH_WRITE=1 node --env-file=.env.diagnose scripts/diagnose-auth-email.mjs
  *
@@ -115,26 +139,43 @@ process.on('unhandledRejection', (err) => {
 });
 
 // ---------------------------------------------------------------------------
-// PRODUCTION GUARD -- there is exactly one Supabase project for this app
-// ("courtsimplified"), tagged PRODUCTION, no dev/staging environment exists
-// (see docs/ARCHITECTURE.md section 10). This script sends a real email and
-// fires a real production Auth endpoint, so it must not run by accident.
+// PRODUCTION GUARD -- this script sends a real email and fires a real Auth
+// endpoint against whichever project SUPABASE_URL names, so it must not run by
+// accident. There are two projects and their names are backwards; the banner
+// below names the derived target rather than a project name. See the header.
 // ---------------------------------------------------------------------------
+const KNOWN_PROJECTS = {
+  fddlpnibovkkkgboabqb:
+    'named "courtsimplified-dev" -- ca-central-1 -- *** THE LIVE DATABASE. Vercel serves from it. ***',
+  ffymjxjcnwakgdmldpne:
+    'named "courtsimplified" -- us-west-2 -- DORMANT, paused, nothing points at it',
+};
+
+const derivedRef = (SUPABASE_URL ?? '').match(/^https?:\/\/([a-z0-9]+)\.supabase\.co\/?$/i)?.[1] ?? '';
+const targetDescription = !derivedRef
+  ? 'UNKNOWN -- SUPABASE_URL is missing or malformed in .env.diagnose'
+  : `${derivedRef}\n    ${KNOWN_PROJECTS[derivedRef] ?? 'UNRECOGNISED REF -- not one of the two known projects'}`;
+
 if (process.env.ALLOW_PRODUCTION_AUTH_WRITE !== '1') {
   console.error(
     '\n' + '='.repeat(72) + '\n' +
     ' PRODUCTION AUTH DIAGNOSTIC -- ALLOW_PRODUCTION_AUTH_WRITE=1 REQUIRED\n' +
     '='.repeat(72) + '\n\n' +
-    'This runs against the LIVE "courtsimplified" Supabase project (tagged\n' +
-    'PRODUCTION -- no dev/staging environment exists). Running it will:\n\n' +
-    '  - List real users from production auth.users (read-only, admin API)\n' +
-    '  - Read production\'s live SMTP configuration, if SUPABASE_ACCESS_TOKEN\n' +
-    '    and SUPABASE_PROJECT_REF are set (read-only)\n' +
+    `TARGET (from SUPABASE_URL in .env.diagnose):\n    ${targetDescription}\n\n` +
+    'There are TWO Supabase projects and THEIR NAMES ARE BACKWARDS -- the one\n' +
+    'called "courtsimplified-dev" is the live one. Check the target above\n' +
+    'before proceeding. Running this will:\n\n' +
+    '  - List real users from that project\'s auth.users (read-only, admin API)\n' +
+    '  - Read its live SMTP configuration, if SUPABASE_ACCESS_TOKEN\n' +
+    `    and SUPABASE_PROJECT_REF are set (read-only). NOTE: that step is aimed\n` +
+    `    by SUPABASE_PROJECT_REF (currently: ${PROJECT_REF || '(not set)'}), which is NOT\n` +
+    '    cross-checked against the target above -- if they disagree, step 2\n' +
+    '    describes a different project than every other step\n' +
     '  - Read Resend\'s live domain configuration (read-only)\n' +
     `  - Send a REAL email directly via SMTP to TEST_EMAIL (currently: ${TEST_EMAIL || '(not set)'}),\n` +
     '    bypassing Supabase entirely\n' +
-    `  - Fire a REAL POST /auth/v1/recover against production, which can\n` +
-    `    trigger a real password-reset email to TEST_EMAIL\n\n` +
+    `  - Fire a REAL POST /auth/v1/recover against it, which can trigger a\n` +
+    `    real password-reset email to TEST_EMAIL\n\n` +
     'No Supabase configuration is modified by this script -- see\n' +
     'fix-smtp-and-verify.mjs for the one that writes config.\n' +
     'Full production-exposure audit: docs/ARCHITECTURE.md section 10.\n\n' +
@@ -230,6 +271,22 @@ async function step2_supabaseSmtpConfig() {
       'This is the check that directly tests the "password silently did not save" theory.');
     return;
   }
+  // The two projects' names are backwards, so aiming this step at a different
+  // project than every other step is a plausible accident rather than an
+  // impossible one -- and the output would look entirely coherent, describing
+  // one project's SMTP config beside another's users. Asserted rather than
+  // left as a comment.
+  if (derivedRef && PROJECT_REF !== derivedRef) {
+    record('2a. Config read targets the same project as everything else', 'FAIL',
+      `SUPABASE_PROJECT_REF is "${PROJECT_REF}" but SUPABASE_URL resolves to "${derivedRef}".\n` +
+      `         Step 2 would report a DIFFERENT project's SMTP configuration than the\n` +
+      `         one steps 1, 4 and 5 exercise, and nothing in the output would say so.\n` +
+      `         ${KNOWN_PROJECTS[PROJECT_REF] ?? 'unrecognised ref'}\n` +
+      `         vs\n         ${KNOWN_PROJECTS[derivedRef] ?? 'unrecognised ref'}\n` +
+      `         Fix .env.diagnose before reading anything below as a diagnosis.`);
+    return;
+  }
+
   const res = await fetch(
     `https://api.supabase.com/v1/projects/${PROJECT_REF}/config/auth`,
     { headers: { Authorization: `Bearer ${ACCESS_TOKEN}` } }
