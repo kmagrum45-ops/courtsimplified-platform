@@ -425,6 +425,69 @@ check in this section.
 while tired, at the end of a long session, using the shell, is how the next
 entry in this section gets written.
 
+### 📌 A view that hid what it had no privilege to show (2026-09-15)
+
+**The negative-search rule reaching a place a search would not have looked** —
+not a grep this time, but a SQL query against the wrong catalogue.
+
+The question was whether deleting a user's account removes their case data,
+because a privacy notice was about to promise that it does. The obvious query:
+
+```sql
+SELECT tc.table_name, kcu.column_name, rc.delete_rule
+FROM information_schema.table_constraints tc
+JOIN information_schema.referential_constraints rc USING (constraint_name)
+...
+```
+
+It returned **eight** foreign keys, all between `public` tables. **None on
+`user_id`.** Read straight, that says the case tables have no relationship to
+`auth.users` at all — so deleting an account would leave every case row behind,
+orphaned, pointing at a user that no longer exists. A deletion promise we could
+not keep.
+
+**It was wrong.** All seven case tables carry
+`user_id → auth.users ON DELETE CASCADE`. `pg_constraint` shows them
+immediately.
+
+### Why information_schema hid them
+
+`information_schema` is a **privilege-filtered view**, by SQL-standard design.
+It shows you constraints on objects you have rights to — and `auth.users`
+belongs to Supabase's auth schema, which the querying role could not see.
+
+So the FK existed, the query was correct, the result was accurate about what
+the role could see, and the conclusion drawn from it was the opposite of the
+truth. **Nothing errored. Nothing was empty in a way that looked suspicious.**
+Eight rows came back, which reads as a working query rather than a filtered one.
+
+### The rule
+
+> **`information_schema` answers "what may I see", not "what exists". For
+> anything security- or integrity-critical, query the `pg_catalog` tables
+> directly — `pg_constraint`, `pg_policies`, `pg_class`.**
+
+More generally, and this is the part that generalises past Postgres:
+
+> **A filtered view returning fewer rows is indistinguishable from a world
+> containing fewer things.** When absence would change a decision, ask whether
+> the thing you queried is capable of showing you what you are looking for.
+
+### Why this belongs with the search failures rather than beside them
+
+`grep` for "contradiction" missed `inconsistencies` because the term was wrong.
+This missed seven foreign keys because the **vantage point** was wrong — the
+query named exactly the right thing and was answered by something that could not
+see it.
+
+Both produce the same artefact: **a confident, well-formed, empty-looking
+result that is evidence about the instrument rather than about the world.**
+
+It also nearly cost something concrete. The finding was three edits away from a
+user-facing privacy notice saying "deleting your account removes everything",
+which would have been false, in a document whose entire purpose is that it can
+be relied on.
+
 ### ✅ The one that worked: a rename the compiler traced for you
 
 **The only entry in this section describing a technique that succeeded**, and it
