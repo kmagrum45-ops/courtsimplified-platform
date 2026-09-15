@@ -49,7 +49,7 @@ FS-4), SC-1 (a cost assertion split out as SC-1a), X-2 (open question answered).
 the strength of a `grep` for "contradiction" returning one comment. It is built
 and rendered — `case-timeline/page.tsx:303-316`, under the name
 `inconsistencies`. A search proves what the term matches, never what exists.
-Recorded as the fourth instance in `OUTSTANDING_ISSUES.md` section 0.
+Recorded in `OUTSTANDING_ISSUES.md` section 0, under "One search term, absence read as absence".
 
 ---
 

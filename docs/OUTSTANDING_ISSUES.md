@@ -61,7 +61,7 @@ Worth knowing on both sides. When something is flagged prominently, the
 underlying claim has to be load-bearing enough to carry the emphasis, and the
 check for it should happen **before** the flag is duplicated, not after.
 
-### 📌 The second instance, same shape: `head` truncation read as the whole list (2026-09-14)
+### 📌 Truncated output read as a complete list (2026-09-14)
 
 **The wrong claim:** that `app/builder/page.tsx` had "two pre-existing eslint
 findings" — an unused `localDraftWarning` and one `set-state-in-effect`.
@@ -82,7 +82,7 @@ outputs out of context. The failure was not using them. It was **reporting a
 truncated list as an enumeration** — "two findings", a closed set, when what
 had actually been observed was "at least one, plus whatever `head` discarded".
 
-### 📌 The fourth instance: one search term, absence read as absence (2026-09-14)
+### 📌 One search term, absence read as absence (2026-09-14)
 
 **The wrong claim:** that the contradiction notice is never rendered — reported
 as a scenario-audit finding, with the flourish that
@@ -107,7 +107,7 @@ written up as a defect of the same class as the two-table assertions — a heade
 claiming behaviour the code does not have — which would have put a false
 example into the record used to justify a rule.
 
-### Four instances, one habit
+### The four that share one habit
 
 | | What was seen | What it actually was | Never asked |
 |---|---|---|---|
@@ -116,7 +116,7 @@ example into the record used to justify a rule.
 | Mutation no-op | a passing check | a check against unmodified code | *did the edit land* |
 | One search term | one hit, in a comment | the feature, under another name | *what else is it called* |
 
-### 📌 The third instance: a mutation test that never mutated (2026-09-14)
+### 📌 A mutation test that never mutated (2026-09-14)
 
 **Nearly the worst of the three**, because it would have produced a green tick
 on a check nobody had actually tested.
@@ -143,9 +143,9 @@ codebase has spent the session hunting — `verifyCitedProvisions` firing on its
 own comment, the candidate route reading a key nothing writes, the matcher
 scoring 0/10 — arrived from the opposite direction.
 
-### Five in one session, and four of them are one failure
+### Six failures, and one technique that answers them
 
-The table above lists the first four. Not four accidents — one habit: **taking the
+The table above lists those four. Not four accidents — one habit: **taking the
 result of an operation as evidence without confirming what the operation
 actually covered.** A date read without asking what produced it. A list read
 without asking what was cut from it. A test result read without asking whether
@@ -168,9 +168,9 @@ Worth holding both shapes in mind, because the habits that catch them differ:
 the first four are caught by asking **what did this actually cover**; the fifth
 by asking **what would this do if the interesting case did not occur**.
 
-### 📌 The fifth instance, and a different mechanism: an assertion that never ran
+### 📌 An assertion that never ran — a different mechanism (2026-09-14)
 
-**Different from the other four**, which is why it is worth its own entry.
+**A different mechanism from the four above**, which is why it is worth its own entry.
 Nothing no-opped, nothing truncated, no search missed a synonym. The code ran,
 the command succeeded, and **the assertion was simply inside an `if` whose
 condition was false**.
@@ -216,7 +216,7 @@ This has a sibling already in the register: `verifyMountConditions` and
 condition parser that silently found nothing, or a scan that matched no calls,
 would satisfy every assertion built on top of it while establishing nothing.
 
-### 📌 The sixth: a rename that touched one layer, leaving two searches that disagree
+### 📌 A rename that touched one layer, leaving two searches that disagree (2026-09-15)
 
 **A new direction on the negative-search rule**, and the one most likely to
 recur, because the half-done state looks finished from either end.
@@ -267,6 +267,55 @@ Rename the field, then let the compiler enumerate the consumers, then read each
 one — because the ones that need wording changes are exactly the ones a search
 for the new name cannot find and a search for the old name has already been
 declared clean of.
+
+### ✅ The one that worked: a rename the compiler traced for you
+
+**The only entry in this section describing a technique that succeeded**, and it
+is here because it is the answer to the five above it.
+
+Every search rule in this section shares a limit that cannot be argued away:
+**you have to know a term to grep for it.** `contradiction` missed
+`inconsistencies`. `weaknesses` missed the rendered labels, and the labels
+missed the field names. Each search was correct about its term and silent about
+everything it was not.
+
+A rename has no such limit. It propagates through the type system, and the
+compiler enumerates **every** consumer — including the ones nobody knew to look
+for.
+
+### What it found
+
+Renaming `CaseContext.strengths` / `.weaknesses` to
+`pointsSupportedByEvidence` / `gapsToAddress` broke
+`courtPackageAssemblyEngine`, which was building:
+
+> *"Strengths to consider for settlement: …"*
+> *"Weaknesses or risks to address before settlement conference: …"*
+
+**Into a settlement-conference package. A document assembled for court.**
+
+Six section 3 sweeps had not found it. Not because they were careless — because
+every one of them searched, and that file was never in the set anyone thought to
+search. The first thing to reach it was `tsc`, reporting a type error.
+
+### The rule
+
+> **When removing a graded structure, prefer renaming the field and letting the
+> compiler enumerate the consumers over deleting it and grepping for fallout.**
+
+The sequence: rename the field → run `tsc` → read every site it reports → fix
+the wording at each. The compiler's list is complete in a way a search never is,
+and the sites that need wording changes are exactly the ones a search cannot
+reach: a search for the NEW name finds nothing, because nothing uses it yet, and
+a search for the OLD name has already been declared clean by whoever renamed the
+labels.
+
+Deleting first inverts this. A deleted field produces the same type errors, but
+the temptation is to fix each by removing the reference — which silences the
+compiler while leaving the graded string beside it untouched.
+
+**Rename, read, then delete.** The rename is not an intermediate step to be
+skipped; it is the thing that does the finding.
 
 ### The widest rule in this section
 
@@ -343,7 +392,7 @@ breath as the false enumeration.
 
 ### Can a check assert that a file header's claims are carried out?
 
-Asked because the fourth instance was about to be written up as one: a header
+Asked because the one-search-term failure was about to be written up as one: a header
 claiming behaviour the code does not have, the same shape as the two-table
 assertions. It turned out to be false — the header was accurate and the search
 was not — but the underlying question stands, because the two-table case was
