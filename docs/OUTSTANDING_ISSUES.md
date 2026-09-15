@@ -143,7 +143,7 @@ codebase has spent the session hunting — `verifyCitedProvisions` firing on its
 own comment, the candidate route reading a key nothing writes, the matcher
 scoring 0/10 — arrived from the opposite direction.
 
-### Eight failures, and one technique that answers them
+### Nine failures, one technique that answers several, and one that recurred anyway
 
 The table above lists those four. Not four accidents — one habit: **taking the
 result of an operation as evidence without confirming what the operation
@@ -343,6 +343,87 @@ deeper point is the one that recurs through this section: **success is not
 evidence that the intended thing happened.** Here the operation genuinely
 succeeded — a real migration really was applied to a real database — and it was
 still the wrong one.
+
+### 📌 The one that kept happening: shell-embedded content, after the rule was known
+
+**Not a new failure mode. A known one, recurring twice more in the same session
+that established the rule** — which is the part worth recording, and the
+argument for making it mechanical.
+
+### They are all one root cause
+
+Four incidents, three surface forms, one mechanism: **content passed through a
+shell is interpreted before it reaches the file.**
+
+| Form | What happened | How it showed |
+|---|---|---|
+| **Quoting** | Backticks, `${...}` and `{" "}` inside a heredoc consumed by bash | Mangled or truncated file content; sometimes a syntax error, sometimes silence |
+| **Escapes** | `\\b` in a `node -e` string became `\b`, which JavaScript reads as 0x08 | A regex that rendered as `/^GRANT/i` in every editor and matched nothing |
+| **Line endings** | `.replace()` with `\n` patterns against CRLF files | `changed: false` — the edit silently did nothing |
+
+Each one was diagnosed separately, each got its own note, and **the rule was
+already written down** — "use the Write tool for scripts, not heredocs" — before
+the last two happened.
+
+### Knowing the rule did not prevent the repeat
+
+That is the finding. Not "shell quoting is tricky" — that is obvious and was
+already recorded. The finding is that **a rule of the form "remember to prefer
+X" does not survive momentum.** Every recurrence happened while doing something
+else: fixing a lint rule, updating a document, applying a migration. The shell
+was reached for because it was to hand, not because the rule had been forgotten
+in principle.
+
+The same argument this register makes about checks generally, turned on the
+author: a property that matters should not depend on somebody remembering it at
+the moment they are busy.
+
+### The rule, stated as a default rather than a preference
+
+> **Writing file content goes through the Write or Edit tool. The shell is for
+> running things, not for composing them.**
+>
+> Bash is a text-substitution layer with its own opinions about `\`, `` ` ``,
+> `$`, `'`, `"` and `!`. Those opinions apply BEFORE the content reaches the
+> program that was supposed to receive it. The Write and Edit tools hand content
+> to the file directly and have none of these failure modes.
+
+The reliable tell, when the shell has been used anyway: **an edit that reports
+success but changes nothing, or a diff far larger than the change.** Both
+appeared tonight — `changed: false` on a CRLF no-op, and 1530- and 2470-line
+diffs where one and four lines were edited.
+
+### Could a check enforce this? Partly, and it is worth saying which part
+
+**Not in this repository.** The thing to constrain is how an author edits files,
+which leaves no trace in the repository once the edit has landed. A correct file
+written badly and a correct file written well are the same file.
+
+**What a check COULD assert, and it is the useful half:**
+
+1. **No source file contains a control character outside a string literal.**
+   This catches the backspace-byte class directly, mechanically, in CI. `0x08`,
+   `0x0B`, `0x0C` and stray `0x1B` have no business in TypeScript source and are
+   invisible in every editor. One regex over the tracked files.
+
+2. **No source file has mixed line endings.** Not "no CRLF" — this is a Windows
+   repository and CRLF is fine. **Mixed** is the hazard: `legalTheoryEngine.ts`
+   carried CRLF *and* lone CR, which is what made a scripted edit rewrite 2470
+   lines. A file with one consistent ending cannot produce that diff.
+
+3. **A diff-size sanity check at commit time** — flag when a file's changed-line
+   count exceeds some multiple of what the message describes. Weakest of the
+   three, and probably more noise than signal; noted so the next person does not
+   have to rediscover that it was considered.
+
+The first two are worth building. They do not enforce the rule — nothing in a
+repository can — but they catch the *artefacts* the rule exists to prevent,
+which is the achievable half and the same trade as every other declared-property
+check in this section.
+
+**Not built.** Recorded here rather than added tonight, because adding a check
+while tired, at the end of a long session, using the shell, is how the next
+entry in this section gets written.
 
 ### ✅ The one that worked: a rename the compiler traced for you
 
