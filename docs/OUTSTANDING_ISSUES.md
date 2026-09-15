@@ -216,6 +216,58 @@ This has a sibling already in the register: `verifyMountConditions` and
 condition parser that silently found nothing, or a scan that matched no calls,
 would satisfy every assertion built on top of it while establishing nothing.
 
+### 📌 The sixth: a rename that touched one layer, leaving two searches that disagree
+
+**A new direction on the negative-search rule**, and the one most likely to
+recur, because the half-done state looks finished from either end.
+
+`CaseContext.strengths` / `.weaknesses` fed the case dashboard. The section 3
+sweep changed the **labels** — the dashboard has rendered them as *"Points
+Supported by Evidence"* and *"Gaps to Address"* for some time — and left the
+**field names** alone.
+
+So the codebase held two answers to the same question:
+
+| Search | Result | Conclusion it invites |
+|---|---|---|
+| `grep "weaknesses"` | `context.weaknesses`, `strategicWeaknesses`, `theory.weaknesses` | **unswept** — section 3 language throughout |
+| `grep "Weaknesses"` in rendered text | "Gaps to Address", "Points Supported by Evidence" | **clean** — already fixed |
+
+**Both are wrong.** The first over-reports: the content behind those names was
+already recorded-vs-not, and rewriting it would have damaged correct work. The
+second under-reports: the fields were still named as grades, and a reader
+scanning for section 3 problems stops on a name.
+
+### The rule
+
+> **A rename that touches only one layer leaves two searches that disagree, and
+> neither is evidence on its own.**
+
+Where they disagree, the answer is in neither result: read the value's whole
+path, from where it is computed to where it is rendered. A field can be
+correctly named and wrongly rendered, or wrongly named and correctly rendered,
+and only following it end to end distinguishes those.
+
+### What it hid, and what the compiler found that no search did
+
+Following the path turned up a consumer neither search had: **`courtPackageAssemblyEngine`**
+built two strings for a settlement-conference package —
+*"Strengths to consider for settlement: …"* and *"Weaknesses or risks to
+address before settlement conference: …"*. Live section 3 language, in a
+document assembled for court, and it surfaced only when the type was renamed
+and `tsc` reported the break.
+
+That is the technique this session already established and did not apply here
+first: **change the type and read the compiler.** A grep is a starting point;
+the compiler is the trace.
+
+### The corollary for doing a rename
+
+Rename the field, then let the compiler enumerate the consumers, then read each
+one — because the ones that need wording changes are exactly the ones a search
+for the new name cannot find and a search for the old name has already been
+declared clean of.
+
 ### The widest rule in this section
 
 > **A negative search result is evidence about the TERM, never about the
@@ -795,6 +847,70 @@ Two things to settle when it is stated:
 Not the same problem, kept separate deliberately: sections 0b (no readiness gate
 on the family path) and 0f (the "Still to fill in" list) are about what a user
 is *told is missing*. This is about what the site *knows and will not say*.
+
+---
+
+## 0h. 📌 A whole §3 structure that was load-bearing only in appearance (2026-09-15)
+
+`civilEvidenceEngine` carried a complete evidence-strength apparatus:
+
+- a type — `CivilEvidenceStrength = "strong" | "moderate" | "weak" | "missing"`
+- a classifier — `assessStrength()`, keyword matching on the user's own
+  description: *official, court, record, certified, signed* → **strong**;
+  *screenshot, email, text* → **moderate**; *heard, told me, maybe* → **weak**
+- a field computed on **every** evidence item, `CivilEvidenceLink.strength`
+
+**Traced before removal, it existed to produce one sentence.** `"Strong
+documentary evidence exists."`, pushed into a list when any item graded
+"strong". Nothing else in `src/` or `app/` read `.strength` at all.
+
+**And no consumer read that sentence.** Its only downstream use was
+`civilStrategyEngine:103`, which takes `.length` of the containing list and
+never its contents — so the sentence's entire effect was to make a count
+non-zero, in exactly the cases where `"N evidence item(s) uploaded."` had
+already done so. Deleting it changed no observable behaviour.
+
+### Why the shape is worth recording
+
+It looked load-bearing from every angle that is cheap to check. A named type, a
+classifier with real logic, a field on a core structure, four call sites. A
+reasonable reader — and a reasonable estimate of the work — treats that as
+infrastructure with consumers, and plans a replacement predicate for the branch
+it gates.
+
+There was nothing to replace. The estimate was wrong in the safe direction this
+time; the next one may not be.
+
+> **Before planning a replacement for a §3 structure, trace what actually
+> consumes it. Size is not evidence of use.**
+
+Two cheap tells, both present here: the field was computed unconditionally but
+read in one expression, and the one reader consumed a `.length` rather than the
+values. Either is a sign the structure is wider than its purpose.
+
+---
+
+## 0i. Two dead surfaces that look like live paths
+
+Recorded together because both are things a future session could reasonably
+believe are wired, and neither announces otherwise.
+
+| Surface | State |
+|---|---|
+| `buildCaseRecordSupabasePayload` (`casePersistenceEngine.ts:698`) | **Zero callers.** Grep across `src/`, `app/`, `scripts/` finds none outside its own file. It builds a full Supabase row — `id`, `user_id`, `case_context`, `evidence_packages`, `workspace_documents`, `sync_notes`, `diagnostics` — so it reads as the persistence path for the whole case record |
+| `/api/cases` | Kept deliberately (§21), not deleted, but not on a live path |
+
+**Why the first one matters more than a normal dead function.** It is the reason
+a rename of `CaseContext` fields looked risky: a payload builder targeting a
+database implies stored rows with those keys, which implies orphaned data and a
+migration. In fact that path has never run, no migration defines those columns,
+and the only persistence is `localStorage`. **The dead surface did not just sit
+there — it made a safe change look dangerous**, which is a cost beyond the lines
+themselves.
+
+Not deleted: it may be the intended shape for the ca-central-1 move
+(ARCHITECTURE.md). But an unwired payload builder for a table that does not
+exist should say so at the top of itself, and currently does not.
 
 ---
 

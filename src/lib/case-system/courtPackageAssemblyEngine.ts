@@ -309,17 +309,24 @@ function buildSettlementSection(
 ): CourtPackageSection {
   const content: string[] = [];
 
-  if (context.strengths.length > 0) {
+  // FOUND BY THE COMPILER, NOT BY A GREP. Renaming the fields turned these up;
+  // searching for "strengths" across src/ and app/ had not, because this file
+  // was not in the set I looked at. "Change the type and read the compiler" is
+  // the trace; a grep is a starting point.
+  //
+  // Both strings graded the user's case, in a document assembled for a
+  // settlement conference — "Strengths to consider for settlement",
+  // "Weaknesses or risks to address". The CONTENT is recorded-vs-not; the
+  // framing around it was the assessment (CLAUDE.md section 3).
+  if (context.pointsSupportedByEvidence.length > 0) {
     content.push(
-      `Strengths to consider for settlement: ${context.strengths.join("; ")}`
+      `Points supported by what you have recorded: ${context.pointsSupportedByEvidence.join("; ")}`
     );
   }
 
-  if (context.weaknesses.length > 0) {
+  if (context.gapsToAddress.length > 0) {
     content.push(
-      `Weaknesses or risks to address before settlement conference: ${context.weaknesses.join(
-        "; "
-      )}`
+      `Recorded as still missing: ${context.gapsToAddress.join("; ")}`
     );
   }
 
@@ -450,7 +457,7 @@ function collectCourtWarnings(
   timelineAnalysis: TimelineAnalysis
 ) {
   return cleanList([
-    ...context.weaknesses,
+    ...context.gapsToAddress,
     ...context.risks.map((risk) => risk.description),
     ...timelineAnalysis.chronologyWarnings,
     ...timelineAnalysis.chronologyGaps,

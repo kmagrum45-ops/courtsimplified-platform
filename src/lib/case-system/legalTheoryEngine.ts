@@ -45,7 +45,10 @@ export type LegalTheoryMatch = {
 
 export type LegalTheoryResult = {
   matchedTheories: LegalTheoryMatch[];
-  strongestTheory?: LegalTheoryMatch;
+  /*
+   * `strongestTheory?: LegalTheoryMatch` was here. See the note at the return
+   * site: the score stays as a matching threshold, the ranking goes.
+   */
   allMissingProof: string[];
   allRecommendedQuestions: string[];
   allDraftingWarnings: string[];
@@ -1217,9 +1220,27 @@ export function runLegalTheoryEngine(
     .filter((match) => match.score > 20)
     .sort((a, b) => b.score - a.score);
 
+  /*
+   * `strongestTheory: matchedTheories[0]` was here — the top of a list sorted
+   * by `score` descending.
+   *
+   * THE SCORE STAYS; THE RANKING GOES. `score > 20` decides which theories are
+   * DETECTED AT ALL, which is matching, and matching is navigation — the same
+   * shape as claimTypeMatcher, which scores to select and then refuses to rank,
+   * returning null rather than breaking a tie by array order. What is removed
+   * is the step from "these theories were detected" to "this one is strongest",
+   * which is a grade of the user's case (CLAUDE.md section 3).
+   *
+   * It was not only a field name. Four call sites in caseContextEngine read it,
+   * and one rendered "Build the case around the strongest detected theory: X"
+   * into user-facing text. Callers now read `matchedTheories` and name all of
+   * them.
+   *
+   * The sort is kept so output order is stable rather than dependent on rule
+   * declaration order; nothing downstream may treat position as rank.
+   */
   return {
     matchedTheories,
-    strongestTheory: matchedTheories[0],
     allMissingProof: cleanList(matchedTheories.flatMap((item) => item.missingProof)),
     allRecommendedQuestions: cleanList(matchedTheories.flatMap((item) => item.recommendedQuestions)),
     allDraftingWarnings: cleanList(matchedTheories.flatMap((item) => item.draftingWarnings)),

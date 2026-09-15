@@ -65,8 +65,16 @@ const ASSISTANT_MODE_OPTIONS: AssistantModeOption[] = [
     description: "Connect the section more clearly to exhibits and proof.",
   },
   {
+    // The `value` is the engine's action id and is left alone — renaming it
+    // would touch the action union, the dispatch chain and any stored
+    // preference, for no user-visible gain.
+    //
+    // THE LABEL IS WHAT PEOPLE READ, and "Identify weaknesses" graded the
+    // user's draft while the description under it already said the true thing:
+    // missing proof, claims with nothing recorded. Label and description now
+    // agree, and they agree with what the engine actually returns.
     value: "identify-weaknesses",
-    label: "Identify weaknesses",
+    label: "Find what's not recorded yet",
     description: "Find unclear wording, missing proof, and claims with nothing recorded.",
   },
   {

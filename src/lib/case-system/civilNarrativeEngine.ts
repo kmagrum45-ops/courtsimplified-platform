@@ -192,7 +192,7 @@ function buildToneWarnings(input: CivilNarrativeInput): string[] {
 
 function buildUnsupportedAssertions(input: CivilNarrativeInput): string[] {
   return cleanList([
-    ...(input.evidence?.strategicWeaknesses || []),
+    ...(input.evidence?.assertionsWithoutRecordedSupport || []),
     ...(input.workflow?.narrativeProfile.unsupportedAssertions || []),
   ]);
 }

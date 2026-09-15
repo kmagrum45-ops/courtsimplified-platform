@@ -268,9 +268,15 @@ function identifyWeaknesses(section: WorkspaceSection) {
       : "This section is not locked/reviewed yet.",
   ]);
 
+  // WAS: `Potential weaknesses for "X" should be reviewed before the document
+  // is finalized.` The bullet points below were already recorded-vs-not — no
+  // linked exhibit, no draft content, not yet locked — and a previous pass had
+  // fixed the "nothing found" case. This paragraph survived both, and it was
+  // the only sentence here that graded the user's draft rather than saying
+  // what is and is not recorded in it.
   return {
     proposedParagraphs: [
-      `Potential weaknesses for "${section.heading}" should be reviewed before the document is finalized.`,
+      `What this section does not yet have on record, for "${section.heading}":`,
     ],
     proposedBulletPoints:
       warnings.length > 0

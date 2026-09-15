@@ -60,19 +60,40 @@ export type CivilLiabilityTheory = {
   linkedEvidenceIds: Array<string | number>;
   linkedTimelineEventIds: string[];
 
-  strengths: string[];
-  weaknesses: string[];
+  /**
+   * What the intake records, stated as such. Was `strengths`.
+   *
+   * RENAMED, NOT REWRITTEN — the entries were already recorded-vs-not ("The
+   * intake identifies Crown/police involvement", "The intake alleges known
+   * history"). Only the field name graded, and a field name is what a reader
+   * scanning for section 3 problems stops on.
+   */
+  recordedInIntake: string[];
+  /**
+   * General information about this KIND of claim. Was `weaknesses`.
+   *
+   * Same treatment, same reason. The entries are statements about the theory
+   * in general — that misfeasance has a high threshold, that public-authority
+   * claims meet immunity and justiciability arguments — not findings about the
+   * user's case. Under the old name they read as an assessment of it.
+   */
+  generalConsiderations: string[];
   proofGaps: string[];
   likelyDefences: string[];
 
   causationConcerns: string[];
   damagesConcerns: string[];
 
-  confidence:
-    | "low"
-    | "moderate"
-    | "strong"
-    | "very-strong";
+  /*
+   * `confidence: "low" | "moderate" | "strong" | "very-strong"` was here.
+   *
+   * A four-rung ordinal ladder on a liability theory, which is a grade of the
+   * merits however it is spelled — and `confidence` is one of the six spellings
+   * the section 3 sweep found surviving a name-based pass (OUTSTANDING_ISSUES
+   * section 11). Two call sites set it, both to the literal "moderate", and
+   * NOTHING READ IT: no consumer of CivilLiabilityTheory.confidence exists in
+   * src/ or app/. Deleted with the field rather than emptied.
+   */
 };
 
 export type CivilDamagesProfile = {

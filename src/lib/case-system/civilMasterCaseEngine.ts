@@ -265,12 +265,12 @@ function buildSupplementalLiabilityTheories(
       ],
       linkedEvidenceIds: [],
       linkedTimelineEventIds: [],
-      strengths: [
+      recordedInIntake: [
         "The intake identifies Crown/police/public authority involvement.",
         "The intake describes serious harm following a bail/public-safety process.",
         "The intake identifies prior-system knowledge and documentary history as possible proof.",
       ],
-      weaknesses: [
+      generalConsiderations: [
         "Public-authority claims face immunity, justiciability, causation, and pleading threshold arguments.",
         "The theory must avoid attacking the judge’s decision and focus on operational state conduct.",
       ],
@@ -296,7 +296,6 @@ function buildSupplementalLiabilityTheories(
       damagesConcerns: [
         "Damages must be separated into documented losses, non-pecuniary harm, Charter/public-law remedy, and any aggravated/punitive theory if available.",
       ],
-      confidence: "moderate",
     });
   }
 
@@ -318,11 +317,11 @@ function buildSupplementalLiabilityTheories(
       ],
       linkedEvidenceIds: [],
       linkedTimelineEventIds: [],
-      strengths: [
+      recordedInIntake: [
         "The intake alleges known history and institutional awareness.",
         "The intake alleges process failures by Crown/police.",
       ],
-      weaknesses: [
+      generalConsiderations: [
         "Misfeasance has a high threshold and should remain secondary/alternative to Charter framing where appropriate.",
       ],
       proofGaps: [
@@ -342,7 +341,6 @@ function buildSupplementalLiabilityTheories(
       damagesConcerns: [
         "Damages require proof and careful separation from the underlying criminal act.",
       ],
-      confidence: "moderate",
     });
   }
 

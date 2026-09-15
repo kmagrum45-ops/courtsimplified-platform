@@ -138,8 +138,21 @@ export type CaseContext = {
   formNeeds: CaseFormNeed[];
   risks: CaseRisk[];
 
-  strengths: string[];
-  weaknesses: string[];
+  /**
+   * What the file records, and what has nothing behind it.
+   *
+   * RENAMED 2026-09-15 from `strengths` / `weaknesses`. The names were the last
+   * graded thing about them: the case-dashboard has rendered these under
+   * "Points Supported by Evidence" and "Gaps to Address" since the section 3
+   * sweep, so the user-facing framing was already the recorded-vs-not
+   * partition while the fields underneath still read as an assessment.
+   *
+   * That split is its own hazard, recorded in OUTSTANDING_ISSUES section 0:
+   * a search for the field name said unswept, a search for the label said
+   * clean, and neither was evidence on its own.
+   */
+  pointsSupportedByEvidence: string[];
+  gapsToAddress: string[];
   missingInformation: string[];
   nextSteps: string[];
 
@@ -1227,12 +1240,16 @@ function buildReadiness(
   }
 
   expectedCount += 1;
-  if (context.legalTheoryAnalysis.strongestTheory) {
+  // Was gated on `strongestTheory` and named only that one. The adjective went
+  // in an earlier pass; the SELECTION survived it, which is the part that
+  // graded. All detected theories are now named, in the order the engine
+  // returns them and with nothing marking one out.
+  if (context.legalTheoryAnalysis.matchedTheories.length > 0) {
     recordedCount += 1;
-    // "Strongest detected theory" / "No strong legal theory" — the adjective
-    // graded the theory. The detection is a fact; the ranking was not.
     reasons.push(
-      `Detected legal theory: ${context.legalTheoryAnalysis.strongestTheory.theoryName}.`,
+      `Detected legal theories: ${context.legalTheoryAnalysis.matchedTheories
+        .map((theory) => theory.theoryName)
+        .join("; ")}.`,
     );
   } else {
     blockers.push("No legal theory detected yet.");
@@ -1302,9 +1319,15 @@ function buildNextSteps(
     steps.push("Create a dated timeline of key events.");
   }
 
-  if (context.legalTheoryAnalysis.strongestTheory) {
+  // WAS: "Build the case around the strongest detected theory: X." Two
+  // problems in one sentence — a superlative, and an instruction about how to
+  // run the case. Now it says what was detected and leaves the choice where it
+  // belongs (CLAUDE.md section 4).
+  if (context.legalTheoryAnalysis.matchedTheories.length > 0) {
     steps.push(
-      `Build the case around the strongest detected theory: ${context.legalTheoryAnalysis.strongestTheory.theoryName}.`,
+      `Legal theories detected from what you recorded: ${context.legalTheoryAnalysis.matchedTheories
+        .map((theory) => theory.theoryName)
+        .join("; ")}. Worth reading about each to see which fits your situation.`,
     );
   }
 
@@ -1388,9 +1411,12 @@ function buildStrategyNotes(
     );
   }
 
-  if (legalTheoryAnalysis.strongestTheory) {
+  // WAS: "Strategy should be organized around: X." Same two problems.
+  if (legalTheoryAnalysis.matchedTheories.length > 0) {
     notes.push(
-      `Strategy should be organized around: ${legalTheoryAnalysis.strongestTheory.theoryName}.`,
+      `Legal theories detected: ${legalTheoryAnalysis.matchedTheories
+        .map((theory) => theory.theoryName)
+        .join("; ")}.`,
     );
   }
 
@@ -1543,7 +1569,7 @@ function buildMasterCaseFile(context: Omit<CaseContext, "masterCaseFile">): Case
       // built from evidenceAnalysis and is still unaudited — see
       // OUTSTANDING_ISSUES.md. Carried across unchanged for now rather than
       // silently widening this pass.
-      proofGaps: context.weaknesses,
+      proofGaps: context.gapsToAddress,
       // likelyOtherSideArguments and likelyJudgeConcerns stood here, hardcoded
       // empty with a comment saying why. The fields themselves are now off the
       // type, which is what Session 38 should have done.
@@ -1678,18 +1704,20 @@ export function buildCaseContext(input: BuildCaseContextInput): CaseContext {
     formNeeds,
     risks,
 
-    strengths: cleanList([
+    pointsSupportedByEvidence: cleanList([
       ...evidenceAnalysis.recordedDetails,
       ...evidenceAnalysis.corroborationNotes,
-      ...(legalTheoryAnalysis.strongestTheory
+      ...(legalTheoryAnalysis.matchedTheories.length > 0
         ? [
-            `Detected legal theory: ${legalTheoryAnalysis.strongestTheory.theoryName}.`,
+            `Detected legal theories: ${legalTheoryAnalysis.matchedTheories
+              .map((theory) => theory.theoryName)
+              .join("; ")}.`,
           ]
         : []),
       ...readiness.reasons,
     ]),
 
-    weaknesses: cleanList([
+    gapsToAddress: cleanList([
       ...evidenceAnalysis.recordGaps,
       ...evidenceAnalysis.contradictionNotes,
       ...evidenceAnalysis.credibilityConcerns,
@@ -1823,8 +1851,8 @@ export function buildCaseContextStoragePayload(context: CaseContext) {
     readiness: context.readiness,
     form_needs: context.formNeeds,
     risks: context.risks,
-    strengths: context.strengths,
-    weaknesses: context.weaknesses,
+    points_supported_by_evidence: context.pointsSupportedByEvidence,
+    gaps_to_address: context.gapsToAddress,
     missing_information: context.missingInformation,
     next_steps: context.nextSteps,
     strategy_notes: context.strategyNotes,
@@ -1868,12 +1896,31 @@ export function restoreCaseContextFromPayload(payload: any): CaseContext {
       ? payload.timeline
       : rebuilt.timeline,
     risks: Array.isArray(payload?.risks) ? payload.risks : rebuilt.risks,
-    strengths: Array.isArray(payload?.strengths)
-      ? payload.strengths
-      : rebuilt.strengths,
-    weaknesses: Array.isArray(payload?.weaknesses)
-      ? payload.weaknesses
-      : rebuilt.weaknesses,
+    // DELIBERATE OLD-KEY FALLBACK, added with the 2026-09-15 rename.
+    //
+    // These persist in localStorage only — no Supabase column, and
+    // `buildCaseRecordSupabasePayload` (which would nest them) has no callers.
+    // So the exposure is a returning user's browser holding a blob written
+    // before the rename.
+    //
+    // Without this, `payload.points_supported_by_evidence` is undefined, the
+    // check falls through to `rebuilt`, and their stored list is silently
+    // discarded and recomputed. That is not data loss — `rebuilt` is derived
+    // from the case — but it is a silent discard, and discovering it later is
+    // worse than handling it now.
+    //
+    // REMOVABLE after 2026-12-15. By then any blob still carrying the old keys
+    // belongs to a browser that has not opened the app in three months, and a
+    // recompute is the right answer for it. Delete the two `?? payload?.…`
+    // clauses and nothing else.
+    pointsSupportedByEvidence: Array.isArray(
+      payload?.points_supported_by_evidence ?? payload?.strengths,
+    )
+      ? (payload?.points_supported_by_evidence ?? payload?.strengths)
+      : rebuilt.pointsSupportedByEvidence,
+    gapsToAddress: Array.isArray(payload?.gaps_to_address ?? payload?.weaknesses)
+      ? (payload?.gaps_to_address ?? payload?.weaknesses)
+      : rebuilt.gapsToAddress,
     missingInformation: Array.isArray(payload?.missing_information)
       ? payload.missing_information
       : rebuilt.missingInformation,

@@ -132,7 +132,7 @@ function buildTheoryAssessments(input: CivilStrategyInput): CivilTheoryAssessmen
           evidenceStrengthCount > 0
             ? "Evidence has been recorded."
             : "",
-          relatedTheory?.strengths.join("; "),
+          relatedTheory?.recordedInIntake.join("; "),
           master?.timeline.length ? "Timeline structure has started." : "",
           master?.facts.length ? "Core facts have been captured." : "",
         ]),

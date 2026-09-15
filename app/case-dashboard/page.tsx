@@ -128,12 +128,12 @@ export default function CaseDashboardPage() {
         <section className="mt-8 grid gap-5 md:grid-cols-2">
           <DashboardBox
             title="Points Supported by Evidence"
-            items={context.strengths}
+            items={context.pointsSupportedByEvidence}
           />
 
           <DashboardBox
             title="Gaps to Address"
-            items={context.weaknesses}
+            items={context.gapsToAddress}
           />
 
           <DashboardBox

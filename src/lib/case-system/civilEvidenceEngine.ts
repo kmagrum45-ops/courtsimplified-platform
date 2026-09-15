@@ -24,12 +24,32 @@ export type CivilEvidenceIssue =
   | "authentication"
   | "unknown";
 
-export type CivilEvidenceStrength = "strong" | "moderate" | "weak" | "missing";
-
+/*
+ * `CivilEvidenceStrength` was here — "strong" | "moderate" | "weak" | "missing"
+ * — with an `assessStrength()` that assigned one by keyword: "official",
+ * "court", "record", "certified" or "signed" meant STRONG; "screenshot",
+ * "email", "text" meant MODERATE; "heard", "told me", "maybe" meant WEAK.
+ * Substring matching on the user's own description of their own evidence,
+ * producing a merits grade (CLAUDE.md section 3).
+ *
+ * WHAT THE WHOLE LADDER EXISTED TO DO, traced before removing it: produce ONE
+ * SENTENCE. "Strong documentary evidence exists.", pushed into
+ * `strategicAdvantages` when any item graded "strong". Nothing else in src/ or
+ * app/ read `.strength` at all.
+ *
+ * And no consumer read that sentence either. Its only downstream use was
+ * `civilStrategyEngine:103`, which takes `.length` of the list it sits in and
+ * never its contents — so the sentence's whole effect was to make a count
+ * non-zero, in cases where "N evidence item(s) uploaded." had already done so.
+ * Deleting it changes no observable behaviour.
+ *
+ * A type, a classifier, and a field computed on every item, for a string
+ * nothing reads. Recorded in OUTSTANDING_ISSUES section 0h, because the next
+ * section 3 structure may also be load-bearing only in appearance.
+ */
 export type CivilEvidenceLink = {
   evidenceId: string;
   linkedIssue: CivilEvidenceIssue;
-  strength: CivilEvidenceStrength;
   explanation: string;
 };
 
@@ -60,8 +80,10 @@ export type CivilEvidenceResult = {
   contradictionConcerns: CivilEvidenceConcern[];
   credibilityConcerns: CivilEvidenceConcern[];
   authenticationConcerns: CivilEvidenceConcern[];
-  strategicAdvantages: string[];
-  strategicWeaknesses: string[];
+  /** What is recorded in the file. Was `strategicAdvantages`. */
+  recordedEvidenceNotes: string[];
+  /** What has nothing recorded behind it. Was `strategicWeaknesses`. */
+  assertionsWithoutRecordedSupport: string[];
   evidenceProfile: CivilEvidenceProfile;
   risks: CaseRisk[];
   summary: string;
@@ -144,24 +166,6 @@ function detectIssueFromEvidence(item: EvidenceItem): CivilEvidenceIssue {
   return "unknown";
 }
 
-function assessStrength(item: EvidenceItem): CivilEvidenceStrength {
-  const text = evidenceText(item);
-
-  if (includesAny(text, ["official", "court", "record", "certified", "signed"])) {
-    return "strong";
-  }
-
-  if (includesAny(text, ["screenshot", "email", "text", "message"])) {
-    return "moderate";
-  }
-
-  if (includesAny(text, ["heard", "told me", "maybe", "probably"])) {
-    return "weak";
-  }
-
-  return "moderate";
-}
-
 function buildMissingEvidence(
   caseTypes: CivilCaseType[],
   evidenceItems: EvidenceItem[],
@@ -232,7 +236,6 @@ export function runCivilEvidenceEngine(
   const linkedEvidence: CivilEvidenceLink[] = evidenceItems.map((item, index) => ({
     evidenceId: getEvidenceId(item, index),
     linkedIssue: detectIssueFromEvidence(item),
-    strength: assessStrength(item),
     explanation: "Evidence item analyzed and linked to civil issue structure.",
   }));
 
@@ -265,14 +268,23 @@ export function runCivilEvidenceEngine(
     });
   }
 
-  const strategicAdvantages = cleanList([
+  // RENAMED, not rewritten. Both lists already held recorded-vs-not content;
+  // only the names graded. `strategicAdvantages` / `strategicWeaknesses` read
+  // as an assessment of the case, and a reader scanning for section 3 problems
+  // would stop on them — which is the whole point of the rename.
+  //
+  // The removed second entry is the "Strong documentary evidence exists."
+  // string described in the header. What remains says how many items were
+  // uploaded, which is a fact about the file.
+  const recordedEvidenceNotes = cleanList([
     evidenceItems.length > 0 ? `${evidenceItems.length} evidence item(s) uploaded.` : "",
-    linkedEvidence.some((item) => item.strength === "strong")
-      ? "Strong documentary evidence exists."
-      : "",
   ]);
 
-  const strategicWeaknesses = cleanList([
+  // Contents unchanged. Gap titles and credibility-concern titles are already
+  // statements about what is not recorded, and its only consumer —
+  // civilNarrativeEngine's buildUnsupportedAssertions — already frames them as
+  // assertions without recorded support. The name now matches both.
+  const assertionsWithoutRecordedSupport = cleanList([
     ...missingEvidence.map((gap) => gap.title),
     ...credibilityConcerns.map((concern) => concern.title),
   ]);
@@ -281,7 +293,7 @@ export function runCivilEvidenceEngine(
 
   const evidenceProfile: CivilEvidenceProfile = {
     evidenceItems,
-    keyEvidenceStrengths: strategicAdvantages,
+    keyEvidenceStrengths: recordedEvidenceNotes,
     contradictionWarnings: contradictionConcerns.map((item) => item.title),
     credibilityConcerns: credibilityConcerns.map((item) => item.title),
     missingEvidence: missingEvidence.map((item) => item.title),
@@ -296,8 +308,8 @@ export function runCivilEvidenceEngine(
     contradictionConcerns,
     credibilityConcerns,
     authenticationConcerns,
-    strategicAdvantages,
-    strategicWeaknesses,
+    recordedEvidenceNotes,
+    assertionsWithoutRecordedSupport,
     evidenceProfile,
     risks,
     summary:
