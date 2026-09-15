@@ -432,6 +432,54 @@ invisible from inside it** — nothing goes red when a spec simply never arrives
 
 ---
 
+## 0f. ⚠️ The child support draft's "Still to fill in" list omits a missing income (2026-09-14)
+
+**Found by writing the no-income-figure browser scenario.** Not fixed — it is a
+design question about what the placeholder list is for, and worth deciding
+rather than patching.
+
+A user who supplies **no income figure and no income documents** gets
+`draft.placeholders === []`, so the "Still to fill in" panel does not render at
+all. Probed directly:
+
+```
+placeholders: []
+financialStatementForm: Form 13
+```
+
+The engine is internally consistent. `placeholders` collects the bracketed
+`[... to be confirmed]` markers produced by the `value()` helper, and a missing
+income does not produce one — `incomeBlock` renders it in place as **"No figure
+recorded"**, which is a deliberate and better treatment of an absence than a
+bracket. Both behaviours are right on their own.
+
+**The consequence is wrong for the user.** The most significant thing they have
+not supplied is absent from the list of things they have not supplied, and with
+nothing else missing the panel vanishes entirely — so a draft with no income
+figure in it presents as complete.
+
+### Three ways to resolve it, and the question behind them
+
+1. **Feed recorded absences into the list too**, so "an annual income figure"
+   and "the income documents s. 21 requires" appear alongside bracketed items.
+   Loses the current clean meaning of `placeholders` as "brackets in the text".
+2. **Give the draft a second list** — "recorded as not held" already exists as a
+   *section* for elements the user said they cannot provide, and unrecorded
+   income is arguably the same category arriving by a different route.
+3. **Rename and re-scope** `placeholders` to "what is not yet recorded",
+   covering both, which is what the panel's heading already promises.
+
+The question is whether "Still to fill in" means *brackets in this document* or
+*things this application still needs*. It is currently the first and reads as
+the second.
+
+**Not asserted in the spec.** `child-support-scenarios.spec.ts` records the gap
+in a comment and asserts nothing about it, deliberately: a spec encoding
+today's behaviour there would make fixing this look like a regression — the
+check-pins-a-current-value rule in CLAUDE.md section 5.
+
+---
+
 ## 1. Defects that could mislead a user
 
 **Every item in this section is now closed.** Kept with outcomes rather than deleted, because two of them were misdescribed and one was a rumour that turned out to be true — that record is worth more than a clean slate.
