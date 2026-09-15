@@ -578,6 +578,34 @@ That question is answerable with a row count per case table and has not been
 asked. It is the single highest-value thing to establish before describing
 residency to a regulator.
 
+### Production's schema is BEHIND dev — take a new project's schema from dev
+
+Found 2026-09-15 by running the remediation against production, which aborted
+with `42P01: relation "public.case_events" does not exist`.
+
+Production has **24 tables**. Dev has **26**. The two missing are:
+
+- `case_events` (`20260913120000_add_case_events.sql`)
+- `case_event_candidate_dismissals` (`20260913140000_add_case_event_candidate_dismissals.sql`)
+
+Both September migrations were applied to dev and **never to production**. There
+is no migration-runner wired to production, so nothing applied them and nothing
+reported that they had not been.
+
+**Consequence for the Canadian move: take the schema from `courtsimplified-dev`,
+not from production.** Production is not the authoritative schema — it is an
+older one. Dev is the only place the current shape exists in full, which is the
+inverse of the usual assumption and easy to get wrong under time pressure.
+
+**Consequence for the remediation file:** it now guards those two REVOKEs with
+`to_regclass` so it applies cleanly to a project that is behind, rather than
+needing a production-specific copy that would diverge from the first edit
+onward.
+
+**A related thing worth fixing separately:** nothing detects this drift. A check
+comparing the table list of the two projects would have caught it, and would
+catch the next one. Not built.
+
 ### What moving production to `ca-central-1` would actually involve
 
 Supabase does not support changing an existing project's region in place. The

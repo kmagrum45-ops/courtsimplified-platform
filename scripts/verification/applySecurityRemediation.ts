@@ -51,6 +51,19 @@ const ALLOWED_PROJECTS: Record<string, { ref: string; name: string; region: stri
     name: "courtsimplified-dev",
     region: "ca-central-1",
   },
+
+  // `prod` WAS HERE, from 2026-09-15, for exactly one application of the
+  // anon-grant remediation. Removed the same day, as intended — the default is
+  // refuse, and an entry that outlives its purpose is how a default stops
+  // being one.
+  //
+  // What it was used for, recorded so the next person does not have to
+  // reconstruct it: production was audited read-only first and held NO
+  // third-party personal data (3 auth users, two the operator's own and one
+  // the test harness; 2 shell case rows; every other case table empty; no
+  // user-uploaded evidence). The remediation applied and was verified with 01b
+  // and 01d — anon zero on the case tables, no {public} ALL policies. The
+  // project was then re-paused.
 };
 
 const KNOWN_REFUSED: Record<string, string> = {
@@ -83,12 +96,40 @@ function readMigration(): { file: string; sql: string; statements: string[] } {
   const raw = fs.readFileSync(path.join(MIGRATIONS, file), "utf8");
   const sql = raw.replace(/^\s*--.*$/gm, "").trim();
 
-  const statements = sql
+  // DO blocks are lifted out before splitting on ";", because their bodies
+  // contain semicolons and a naive split would shred them into fragments that
+  // look like malformed statements.
+  //
+  // They are NOT waved through. Each block's body is returned as its own
+  // statement so `assertExpectedStatements` inspects what is inside it — a DO
+  // block containing a DELETE is refused exactly like a bare DELETE. The only
+  // thing this recognises is the wrapper.
+  const doBlocks: string[] = [];
+  const withoutDo = sql.replace(/DO\s+\$([a-z_]*)\$([\s\S]*?)\$\1\$\s*;/gi, (_, __, body) => {
+    doBlocks.push(body);
+    return "";
+  });
+
+  const bare = withoutDo
     .split(";")
     .map((part) => part.replace(/\s+/g, " ").trim())
     .filter(Boolean);
 
-  return { file, sql, statements };
+  // Inside a DO block, strip the PL/pgSQL scaffolding that is not itself a
+  // statement — BEGIN/END/IF/THEN — leaving the SQL the block performs.
+  const insideDo = doBlocks.flatMap((body) =>
+    body
+      .split(";")
+      .map((part) =>
+        part
+          .replace(/\b(BEGIN|END IF|END|IF\s+[^;]*?\s+THEN|ELSE)\b/gi, " ")
+          .replace(/\s+/g, " ")
+          .trim(),
+      )
+      .filter(Boolean),
+  );
+
+  return { file, sql, statements: [...bare, ...insideDo] };
 }
 
 function assertExpectedStatements(statements: string[]): void {

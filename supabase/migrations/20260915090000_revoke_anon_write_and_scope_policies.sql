@@ -35,6 +35,7 @@ DROP POLICY IF EXISTS "dev_full_access_legal_procedure_rules"    ON "public"."le
 -- --- legal_form_mapping_rules: read by an authenticated route. Replace. ---
 DROP POLICY IF EXISTS "dev_full_access_legal_form_mapping_rules" ON "public"."legal_form_mapping_rules";
 
+DROP POLICY IF EXISTS "legal_form_mapping_rules_read_authenticated" ON "public"."legal_form_mapping_rules";
 CREATE POLICY "legal_form_mapping_rules_read_authenticated"
   ON "public"."legal_form_mapping_rules"
   FOR SELECT
@@ -108,6 +109,7 @@ DROP POLICY IF EXISTS "dev_full_access_small_claims_form_lookup"
 -- permission, it was that nothing in the text said who held it.
 
 DROP POLICY IF EXISTS "Allow public read court form fields" ON "public"."court_form_fields";
+DROP POLICY IF EXISTS "court_form_fields_read_public" ON "public"."court_form_fields";
 CREATE POLICY "court_form_fields_read_public"
   ON "public"."court_form_fields"
   FOR SELECT
@@ -115,6 +117,7 @@ CREATE POLICY "court_form_fields_read_public"
   USING (true);
 
 DROP POLICY IF EXISTS "Allow read overlay fields" ON "public"."pdf_overlay_fields";
+DROP POLICY IF EXISTS "pdf_overlay_fields_read_public" ON "public"."pdf_overlay_fields";
 CREATE POLICY "pdf_overlay_fields_read_public"
   ON "public"."pdf_overlay_fields"
   FOR SELECT
@@ -181,8 +184,30 @@ REVOKE ALL ON TABLE "public"."case_generated_documents"       FROM "anon";
 
 -- Added 2026-09-13, matched to the same convention and carrying the same
 -- issue. Included so the fix does not leave two of seven behind.
-REVOKE ALL ON TABLE "public"."case_events"                    FROM "anon";
-REVOKE ALL ON TABLE "public"."case_event_candidate_dismissals" FROM "anon";
+--
+-- GUARDED, because these two do not exist everywhere. Production is behind on
+-- migrations — the September ones that create these tables were never applied
+-- there — so an unguarded REVOKE aborts the whole transaction with 42P01 and
+-- none of the rest lands.
+--
+-- Postgres has no REVOKE ... IF EXISTS, so this is the conditional form.
+-- `to_regclass` returns NULL rather than raising when the table is absent.
+--
+-- The alternative was a production-specific copy of this file, which would
+-- mean two sources of truth diverging from the first edit onwards. A
+-- remediation that applies cleanly to a project that is behind is the better
+-- shape, and it is what lets the same file be the record for both.
+DO $guarded$
+BEGIN
+  IF to_regclass('public.case_events') IS NOT NULL THEN
+    REVOKE ALL ON TABLE "public"."case_events" FROM "anon";
+  END IF;
+
+  IF to_regclass('public.case_event_candidate_dismissals') IS NOT NULL THEN
+    REVOKE ALL ON TABLE "public"."case_event_candidate_dismissals" FROM "anon";
+  END IF;
+END
+$guarded$;
 
 COMMIT;
 
