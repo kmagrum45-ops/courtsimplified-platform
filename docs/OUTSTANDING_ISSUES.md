@@ -378,6 +378,60 @@ ids needs whoever holds that document to make it, rather than being guessed at.
 
 ---
 
+## 0e. 📌 The builder's location gate had never been crossed by a browser test (2026-09-14)
+
+**Found while writing the first child support spec.** Fixed by
+`tests/browser/harness/builderGate.ts` (`3306b83`); recorded because the *shape*
+matters more than the gap.
+
+`app/builder/page.tsx` has its own location gate — province, city, and on every
+path but Small Claims a story — and everything else on the page is conditioned
+on the `confirmedLocation` it sets. **No browser test had ever passed through
+it.** `family-adoption.spec.ts` reaches the family path through `/`, the
+`HomeLocationGate`, whose button reads "Continue to Family intake"; the
+builder's reads "Continue with Family questions". Two gates, similar markup,
+and the harness only knew the first.
+
+So the entire structured-intake section was unreachable from Playwright, **on
+all three paths**:
+
+| Path | Unreachable |
+|---|---|
+| Family | `FamilyStatusTriage`, `FamilyIntake`, `ChildSupportIntake`, `ChildSupportTableCard` |
+| Small Claims | the mode chooser, `SmallClaimsIntake`, `GuidedSmallClaimsIntake` |
+| Civil | `CivilIntake` |
+
+### Why this is the same shape as the matcher and the candidate surface
+
+Machinery that looked tested, with the thing it tests never reached:
+
+| | What was green | What was never exercised |
+|---|---|---|
+| `matchClaimType` | mutation-covered unit checks | plain prose — it scored **0/10**, so every panel test had been reading model fallback output |
+| `EventCandidateSurface` | a correct, mutation-covered parser | the route handed it `undefined`, so it resolved zero candidates from the day it shipped |
+| The builder gate | eight browser specs, all passing | the gate itself, so nothing behind it had ever rendered in a test |
+
+Each time the tests were real and the subject was absent. A passing suite says
+what it exercised, never what it did not, and **the boundary it stops at is
+invisible from inside it** — nothing goes red when a spec simply never arrives.
+
+### What follows from it
+
+- A browser suite's coverage should be stated as *screens actually rendered in
+  a test*, not as spec count. Eight specs and four of the builder's nine
+  surfaces unrendered is not a contradiction.
+- The related question, not yet asked: **which other entry gates has no spec
+  crossed?** `/document-workspace`, `/court-package`, `/trial-package`,
+  `/settlement-conference`, `/evidence` and `/forms` each have their own entry
+  conditions, and whether any spec reaches past them is unknown.
+- `verifyReachability` cannot see this either. It walks the import graph; these
+  modules are all imported. Reachability in the graph, reachability behind a
+  mount condition (section 0c, `verifyMountConditions`), and reachability behind
+  a test's entry path are three different properties, and the codebase now has
+  checks for the first two.
+
+---
+
 ## 1. Defects that could mislead a user
 
 **Every item in this section is now closed.** Kept with outcomes rather than deleted, because two of them were misdescribed and one was a rumour that turned out to be true — that record is worth more than a clean slate.
