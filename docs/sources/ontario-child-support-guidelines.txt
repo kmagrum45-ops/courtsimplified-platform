@@ -1,15 +1,57 @@
-Child Support Guidelines, O. Reg. 391/97 (Family Law Act) — the ONTARIO table
+Child Support Guidelines, O. Reg. 391/97 (Family Law Act)
 Source: https://www.ontario.ca/laws/docs/970391_e.doc
 Consolidation period: from 2024-07-26 to the e-Laws currency date
+Last amendment: O. Reg. 303/24.
 Extracted with antiword, 2026-09-15. Verbatim, unedited.
+Header corrected 2026-09-14 — see the correction notice below.
 
-*** THIS IS THE SECOND TABLE, AND IT IS NOT THE FEDERAL ONE ***
+*** ONTARIO HAS NO TABLE OF ITS OWN. THERE IS ONE TABLE, AND IT IS FEDERAL. ***
 
-O. Reg. 391/97 applies on the FAMILY LAW ACT path — parties who were never
-married to each other, FLA s. 33. The federal SOR/97-175 applies on the DIVORCE
-ACT path. Separate instruments, separate consolidation dates (this one from
-2024-07-26, the federal one current to 2026-07-21), separate amendment
-histories. They are not interchangeable.
+CORRECTION, 2026-09-14. An earlier version of this header said "THIS IS THE
+SECOND TABLE, AND IT IS NOT THE FEDERAL ONE". That was wrong, and it was wrong
+on the day it was written. O. Reg. 303/24 REVOKED Schedule I of this regulation
+— Ontario's own table — and rewrote the definition of "table" to point at the
+federal one. The consolidation date above, 2024-07-26, IS that amendment. It
+was read as evidence of a separate amendment history when it was in fact the
+record of the table being abolished.
+
+s. 2 (1), as amended by O. Reg. 303/24, s. 1:
+
+  "table" means,
+    (a) if the parent or spouse against whom an order is sought ordinarily
+        resides in Ontario at the time of the application, the table set out
+        in the Federal Child Support Guidelines for Ontario,
+    (b) if the parent or spouse against whom an order is sought ordinarily
+        resides elsewhere in Canada, the table set out in the Federal Child
+        Support Guidelines for the province or territory in which the parent
+        or spouse ordinarily resides at the time of the application,
+    ...
+
+s. 2 (1.1), added by O. Reg. 303/24, s. 1 (4):
+
+  "Tables set out in the Federal Child Support Guidelines apply for the
+  purposes of this Regulation with necessary modifications, including that a
+  reference in a table to a child shall be read as a reference to a child as
+  defined in this Regulation."
+
+Schedule I, at the foot of the regulation, now reads in its entirety:
+
+  "Schedule I Revoked: O. Reg. 303/24, s. 2."
+
+WHICH TABLE IS STILL A QUESTION — BUT IT TURNS ON RESIDENCE, NOT ON PATH.
+The table is the one for the province where the PARENT OR SPOUSE AGAINST WHOM
+THE ORDER IS SOUGHT ordinarily resides. Not where the case is filed, not where
+the child lives, not where the applicant lives. Paragraphs (c) and (d) go
+further: a court may use another province's table where that residence has
+changed since the application, or will change in the near future.
+
+WHAT REMAINS TRUE, AND IS STILL THE REASON THIS FILE IS SEPARATE. The two
+instruments are distinct for everything EXCEPT the table. This regulation
+governs the FAMILY LAW ACT path — parties never married to each other, FLA
+s. 33 — for income determination (ss. 15 to 20), special or extraordinary
+expenses (s. 7), Schedule III adjustments, and s. 21 disclosure. SOR/97-175
+governs the DIVORCE ACT path. `statusTriage.marriedToOtherParty` still decides
+which instrument applies; it no longer decides which table.
 
 FLA s. 33 (11): a court making an order for the support of a child "shall do so
 in accordance with the child support guidelines" — which, on this path, means
@@ -17,9 +59,9 @@ this regulation.
 
 Note the vocabulary difference: this regulation says "parent or spouse" where
 the federal Guidelines say "spouse". Anything matching on the word "spouse"
-across both instruments will mis-handle one of them.
-
-Anything that reads a table must first know which path the case is on.
+across both instruments will mis-handle one of them. This is unaffected by the
+correction above — it is a difference between the two texts, not between two
+tables.
 ======================================================================
 
 ---------------------------------------------------------------------- 

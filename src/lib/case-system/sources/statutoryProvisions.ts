@@ -115,21 +115,34 @@ export type StatutoryProvision = {
 
 export const STATUTORY_PROVISIONS: StatutoryProvision[] = [
   // =====================================================================
-  // CHILD SUPPORT — AND THERE ARE TWO TABLES.
+  // CHILD SUPPORT — TWO INSTRUMENTS, ONE TABLE.
   //
   // SOR/97-175 (federal) governs the DIVORCE ACT path: parties married to
   // each other, Divorce Act s. 15.1.
   // O. Reg. 391/97 (Ontario) governs the FAMILY LAW ACT path: parties never
   // married to each other, FLA s. 33 (11).
+  // statusTriage.marriedToOtherParty is the fact that decides which.
   //
-  // They are separate instruments with separate consolidation dates and
-  // separate amendment histories, and their vocabulary differs — Ontario says
-  // "parent or spouse" where the federal text says "spouse", so anything
-  // matching on that word across both will mis-handle one.
+  // CORRECTED 2026-09-14. This block previously read "AND THERE ARE TWO
+  // TABLES ... separate amendment histories". Wrong. O. Reg. 303/24 REVOKED
+  // Schedule I of O. Reg. 391/97 and rewrote its s. 2 (1) so that "table"
+  // means the table in the FEDERAL Guidelines. The Ontario consolidation date
+  // of 2024-07-26 is that amendment — it was cited as evidence of a separate
+  // amendment history when it was the record of the table being abolished.
   //
-  // ANY CODE THAT READS A TABLE MUST FIRST KNOW WHICH PATH THE CASE IS ON.
-  // A build that assumes one table is a defect waiting for a user on the
-  // other path. statusTriage.marriedToOtherParty is the fact that decides it.
+  // The instruments remain distinct for everything else: income determination
+  // (ss. 15 to 20), s. 7 expenses, Schedule III, s. 21 disclosure. And the
+  // vocabulary still differs — Ontario says "parent or spouse" where the
+  // federal text says "spouse", so anything matching on that word across both
+  // will mis-handle one. That is a difference between texts, not tables, and
+  // the correction above does not touch it.
+  //
+  // WHICH TABLE IS STILL A QUESTION, AND IT TURNS ON RESIDENCE.
+  // O. Reg. 391/97 s. 2 (1) selects the federal table for the province where
+  // the parent or spouse AGAINST WHOM THE ORDER IS SOUGHT ordinarily resides
+  // — not where the case is filed, not where the child lives. Code that
+  // assumes the Ontario table because the case is in Ontario is wrong for
+  // every applicant whose payor lives elsewhere.
   // =====================================================================
   {
     statute: "Federal Child Support Guidelines",

@@ -184,7 +184,7 @@ export const DEPTH_QUESTIONS: DepthQuestion[] = [
   // Element ids are distinct from the Small Claims ones, so these live in
   // the same registry and reuse selectDepthQuestions, the readiness gate and
   // allowUnknown unchanged. See family/childSupportFlaPath.ts for the sourced
-  // elements and the two-table warning.
+  // elements and for which instrument governs — one table, two instruments.
   //
   // CONDITIONAL ELEMENTS ARE OMITTED, NOT DEFAULTED. Two of the eight only
   // exist in some cases. The caller passes the applicable elements to

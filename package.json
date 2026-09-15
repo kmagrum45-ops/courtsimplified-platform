@@ -10,6 +10,7 @@
     "snapshot": "node scripts/snapshot/createDeveloperSnapshot.mjs",
     "start": "next start",
     "test:account-recovery-ux": "node --import tsx scripts/verification/verifyAccountRecoveryUx.ts",
+    "test:amendment-trails": "node --import tsx scripts/verification/verifyAmendmentTrails.ts",
     "test:ai-context": "node scripts/verification/verifyAiCasePartnerContext.mjs",
     "test:ai-real-integration": "node --import tsx scripts/verification/checkConfiguredAiReasoning.integration.ts",
     "test:ai-route-contract": "node --import tsx scripts/verification/verifyServerAiReasoningContract.ts",

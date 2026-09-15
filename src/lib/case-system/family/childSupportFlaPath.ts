@@ -7,13 +7,19 @@
  * *** WHICH PATH, AND THEREFORE WHICH TABLE ***
  *
  * This module is the FLA s. 33 path only. Where the parties were married to
- * each other the Divorce Act s. 15.1 applies and the table is the FEDERAL
- * SOR/97-175 — a different instrument with a different consolidation date and
- * different vocabulary. `statusTriage.marriedToOtherParty` is the fact that
- * decides it, and nothing here may be shown to a married applicant.
+ * each other the Divorce Act s. 15.1 applies and SOR/97-175 governs instead —
+ * a different instrument, a different consolidation date, different
+ * vocabulary. `statusTriage.marriedToOtherParty` is the fact that decides it,
+ * and nothing here may be shown to a married applicant.
  *
- * See docs/sources/ontario-child-support-guidelines.txt and
- * federal-child-support-guidelines.txt for the full two-table warning.
+ * THE TABLE IS NOT WHAT DIVIDES THEM. O. Reg. 303/24 revoked Schedule I of
+ * O. Reg. 391/97 and rewrote its s. 2 (1) so that "table" means the table in
+ * the federal Guidelines. One table, both paths. Which PROVINCE'S table turns
+ * on where the parent or spouse against whom the order is sought ordinarily
+ * resides — not where the case is filed.
+ *
+ * See docs/sources/ontario-child-support-guidelines.txt for the quoted s. 2
+ * (1), and federal-child-support-table-structure.txt for the table's shape.
  *
  * *** WHAT THIS MODULE WILL NOT DO ***
  *

@@ -35,9 +35,10 @@ export type ClaimTypeMatch = {
  * user is least likely to type about themselves. A signal list that leans on
  * it will fail exactly the population the Ontario regulation exists to serve.
  *
- * See docs/sources/ontario-child-support-guidelines.txt and
- * federal-child-support-guidelines.txt for the two-table warning this is part
- * of.
+ * This is a difference between two TEXTS, and it stands. It is not part of a
+ * two-table warning — there are not two tables. O. Reg. 303/24 revoked
+ * Schedule I of the Ontario regulation and pointed its "table" definition at
+ * the federal one. See docs/sources/ontario-child-support-guidelines.txt.
  */
 
 /**

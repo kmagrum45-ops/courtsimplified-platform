@@ -390,16 +390,32 @@ rather than assumed.
 
 ---
 
-### Two child support tables, and a vocabulary difference that will catch a matcher (2026-09-15)
+### Child support: TWO INSTRUMENTS, ONE TABLE — and a vocabulary difference that will catch a matcher (2026-09-15, corrected 2026-09-14)
+
+**CORRECTED.** This note previously read "Two child support tables" and cited
+"separate consolidation dates (federal current to 2026-07-21; Ontario from
+2024-07-26), separate amendment histories" as proof. That was backwards.
+**O. Reg. 303/24 revoked Schedule I of O. Reg. 391/97** — Ontario's own table —
+and rewrote its s. 2 (1) so that **"table" means the table set out in the
+Federal Child Support Guidelines**. The 2024-07-26 consolidation date *is* that
+amendment. It was the strongest available evidence against the two-table
+conclusion and it was read as evidence for it. See the sourcing-failure entry
+in `OUTSTANDING_ISSUES.md`.
 
 **SOR/97-175 (federal)** governs the **Divorce Act** path — parties married to
 each other, s. 15.1. **O. Reg. 391/97 (Ontario)** governs the **Family Law Act**
-path — parties never married to each other, FLA s. 33 (11). Separate
-instruments, separate consolidation dates (federal current to 2026-07-21;
-Ontario from 2024-07-26), separate amendment histories.
+path — parties never married to each other, FLA s. 33 (11). They remain
+separate instruments for income determination (ss. 15 to 20), s. 7 expenses,
+Schedule III and s. 21 disclosure. `statusTriage.marriedToOtherParty` decides
+which instrument governs. **It does not decide which table** — there is only
+one.
 
-**Anything that reads a table must first know which path the case is on.**
-`statusTriage.marriedToOtherParty` is the fact that decides it.
+**Which PROVINCE'S table is the live question, and it turns on residence.**
+O. Reg. 391/97 s. 2 (1) selects the federal table for the province where the
+**parent or spouse against whom the order is sought ordinarily resides** — not
+where the case is filed, not where the child lives. Paragraphs (c) and (d) let
+a court use another province's table where that residence has changed since the
+application, or will change in the near future.
 
 **The vocabulary differs, and this is the trap for a signal list.** O. Reg.
 391/97 says **"parent or spouse"** wherever SOR/97-175 says **"spouse"**. A
@@ -410,8 +426,13 @@ precisely the population the Ontario regulation serves. Recorded in
 `claimTypeMatcher.ts` as well, because that is where a signal author is
 actually working.
 
-**The table is a formula, not a lookup cell** — see the note above on
-`page-5.html`. Both instruments share that shape.
+**The table is a formula, not a lookup cell.** Retrieved and read from
+`page-5.html` on 2026-09-14: two tiers of headings, `Income ($)` over
+`From | To`, and `Monthly Award ($)` over `Basic Amount | Plus (%) | Of Income
+Over`. The award is the basic amount **plus** a percentage of income above the
+band floor, so "find the row, read the number" is wrong for every income that
+is not exactly on a floor. The structure — and deliberately not the amounts —
+is vendored in `docs/sources/federal-child-support-table-structure.txt`.
 
 ---
 

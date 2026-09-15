@@ -6,6 +6,102 @@ Everything found and not yet fixed, as of this session. Ordered by what actually
 
 ---
 
+## 0. 📌 A sourcing failure, and the rule it produces (2026-09-14)
+
+**The wrong claim:** that Ontario and the federal government each publish a
+child support table, and that a build must know which path a case is on before
+reading one. Written into two vendored source headers, a registry comment in
+`statutoryProvisions.ts`, two module headers, and a `SOURCING_NOTES.md` entry.
+
+**The truth:** O. Reg. 303/24 **revoked Schedule I of O. Reg. 391/97** and
+rewrote its s. 2 (1) so that "table" means the table set out in the **Federal
+Child Support Guidelines**. There is one table. It has been one table since
+2024-07-26. All six places have been corrected.
+
+### The mechanism, which is the part worth keeping
+
+The Ontario regulation's consolidation period reads **"from 2024-07-26"** while
+the federal one is current to 2026-07-21. That difference was cited, in every
+one of the six places, as proof of *separate amendment histories*.
+
+**2024-07-26 is the date Ontario's table was abolished.** The single strongest
+piece of available evidence against the conclusion was read as the evidence for
+it — because nothing asked *why* the date was what it was. The regulation was
+retrieved, and the sections cited from it were read. The question never asked
+was what the amendment that produced this consolidation actually changed.
+
+The failure is not "didn't read enough text". Reading more of ss. 3 to 9 would
+not have helped; the answer was at line 885, in a one-line schedule stub, and
+in a definition in s. 2 (1) that a reader looking for the amount provisions
+scrolls past.
+
+### The rule
+
+> **When a consolidation date or amendment marker is unexplained, find out what
+> the amendment changed before building on the text around it.**
+
+An amendment marker is not decoration and not a version stamp. `_eV<nnn>` in an
+e-Laws URL, a "last amended" line, a consolidation period that starts on an odd
+date, `O. Reg. 303/24, s. 1 (4)` in a section's citation trail — each is a
+pointer to a change someone made on purpose, and the reason is knowable. This
+is distinct from the `pendingReplacement` field, which covers amendments **not
+yet in force**. This one was in force and complete, and nothing in the codebase
+was looking for that case.
+
+### 📌 An emphatic wrong claim spreads further than a quiet one
+
+The instruction that produced the six copies was to flag the two-table problem
+**prominently**, so a future author would hit it. It worked exactly as intended
+— and because the claim was wrong, prominence is what propagated it into six
+files instead of one. Cross-references compounded it: three of the six did not
+restate the reasoning, they pointed at a header that carried it, so the error
+gained citations without ever gaining evidence.
+
+Worth knowing on both sides. When something is flagged prominently, the
+underlying claim has to be load-bearing enough to carry the emphasis, and the
+check for it should happen **before** the flag is duplicated, not after.
+
+### The same question asked generally: 9 untraced in-force amendments
+
+`npm run test:amendment-trails` (`scripts/verification/verifyAmendmentTrails.ts`)
+reads each vendored source, finds its consolidation year, and lists the
+amendment citations **in the vendored text itself** from that year or the one
+before — amendments to the very provisions this codebase quotes, made around
+the consolidation it was cut from. All 14 vendored sources record a
+consolidation or currency date. **Exactly one records what the amendment did**,
+and only because it was corrected today.
+
+| Vendored source | Untraced amendment | Citations |
+|---|---|---|
+| `oreg-258-98-cited-rules.txt` | **O. Reg. 3/25** | **18** |
+| `oreg-258-98-cited-rules.txt` | O. Reg. 222/25 | 9 |
+| `clra-cited-sections.txt` | 2025, c. 6 | 6 |
+| `fla-cited-sections.txt` | 2025, c. 6 | 6 |
+| `flr-cited-rules.txt` | O. Reg. 228/25 | 4 |
+| `flr-cited-rules.txt` | O. Reg. 150/25 | 2 |
+| `flr-cited-rules.txt` | O. Reg. 172/25 | 1 |
+| `flr-cited-rules.txt` | O. Reg. 8/25 | 1 |
+| `flr-cited-rules.txt` | O. Reg. 9/25 | 1 |
+
+**O. Reg. 3/25 is the largest exposure by a distance** — 18 citations across
+the Rules of the Small Claims Court, which is the main path this product
+serves. Whatever it changed, it changed it in provisions already quoted to
+users. It has not been read.
+
+This is a **list, not a red line.** Tracing one costs a retrieval and a
+judgment, and a check that stays red until someone does nine of them is a check
+people switch off. It fails only when a vendored source has no consolidation
+marker at all, or when an amendment already recorded as traced disappears from
+the sources. Tracing an entry means retrieving the amending instrument, reading
+what it did, and adding it to `TRACED` in the script with the answer.
+
+Note what this does **not** cover: `pendingReplacement` on
+`statutoryProvisions.ts` already handles amendments **not yet in force**. These
+are in force and complete — which is the case nothing in the codebase was
+looking for, and the case that produced the failure above.
+
+---
+
 ## 1. Defects that could mislead a user
 
 **Every item in this section is now closed.** Kept with outcomes rather than deleted, because two of them were misdescribed and one was a rumour that turned out to be true — that record is worth more than a clean slate.

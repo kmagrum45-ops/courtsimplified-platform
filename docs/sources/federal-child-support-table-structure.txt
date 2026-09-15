@@ -1,0 +1,43 @@
+Federal Child Support Guidelines, SOR/97-175, Schedule I — TABLE STRUCTURE ONLY
+Source: https://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-5.html
+Regulations current to 2026-07-21, last amended 2025-10-01.
+Retrieved and read 2026-09-14.
+
+*** THE AMOUNTS ARE DELIBERATELY NOT HERE ***
+
+This file records the SHAPE of the table and nothing else. No income bands, no
+basic amounts, no percentages. A vendored copy of the numbers would become a
+number the site could look up, and the whole child support design exists
+because the table cannot be looked up: it takes Guidelines income, which
+O. Reg. 391/97 s. 16 defines as T1 "Total income" adjusted by Schedule III, and
+which ss. 17 to 20 let a court determine differently again.
+
+Read the table at the URL above.
+
+*** WHICH TABLE ***
+
+There is one table and it is this one, on both paths. O. Reg. 303/24 revoked
+Schedule I of O. Reg. 391/97 and rewrote its s. 2 (1) to point here. Which
+PROVINCE'S table applies turns on where the parent or spouse against whom the
+order is sought ordinarily resides — not where the case is filed, not where the
+child lives. See ontario-child-support-guidelines.txt for the quoted definition.
+
+*** THE STRUCTURE, VERBATIM ***
+
+Each table is headed by the province and the number of children, and carries
+two tiers of column headings:
+
+  Province : Ontario
+  No. of Children : One
+
+  | Income ($)  | Monthly Award ($)                       |
+  | From | To   | Basic Amount | Plus (%) | Of Income Over |
+
+A separate table follows for each number of children — "No. of Children : Two"
+and so on — with the same column structure.
+
+The award for a row is NOT the Basic Amount alone. It is the Basic Amount plus
+the Plus (%) applied to the income above the "Of Income Over" figure, which is
+the floor of that row's band. That is what makes the table a formula rather
+than a cell, and it is why "find the row, read the number" produces a wrong
+answer for every income that is not exactly on a band floor.

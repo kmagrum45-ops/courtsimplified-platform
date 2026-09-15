@@ -3,23 +3,37 @@ Source: https://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/FullText.html
 Regulations current to 2026-07-21, last amended 2025-10-01.
 Retrieved 2026-09-15. HTML stripped and re-wrapped; wording unaltered.
 
-*** TWO TABLES EXIST AND THEY ARE NOT INTERCHANGEABLE ***
+*** THERE IS ONE TABLE, AND IT IS THIS ONE — ON BOTH PATHS ***
 
-These federal Guidelines and their Schedule I tables apply on the DIVORCE ACT
-path — married spouses, s. 15.1. Where the parties were never married to each
-other, the Ontario FAMILY LAW ACT path applies and the table is O. Reg. 391/97,
-vendored separately in ontario-child-support-guidelines.txt.
+CORRECTION, 2026-09-14. An earlier version of this header said "TWO TABLES
+EXIST AND THEY ARE NOT INTERCHANGEABLE", and that where the parties were never
+married "the table is O. Reg. 391/97". That was wrong. O. Reg. 303/24 revoked
+Schedule I of O. Reg. 391/97 and rewrote its s. 2 (1) so that "table" means the
+table set out in THESE Guidelines — for Ontario where the parent or spouse
+against whom the order is sought ordinarily resides in Ontario, and for another
+province or territory where they ordinarily reside there. Its new s. 2 (1.1)
+says these tables "apply for the purposes of that Regulation with necessary
+modifications". See ontario-child-support-guidelines.txt for the quoted text.
 
-Anything that reads a table must first know which path the case is on. A build
-that assumes one table is a defect waiting to be found by a user on the other
-path.
+So Schedule I here is the table on the Divorce Act path AND on the Family Law
+Act path. The two instruments remain distinct for everything else — income
+determination, s. 7, Schedule III, disclosure — and which instrument governs
+still turns on whether the parties were married to each other.
+
+WHICH PROVINCE'S TABLE IS STILL A LIVE QUESTION, and on the Ontario path it
+turns on where the PAYOR ordinarily resides, not where the case is filed.
 
 *** THE TABLE IS A FORMULA, NOT A LOOKUP CELL ***
 
-Schedule I's real columns are: From | To | Basic Amount | Plus (%) | Of Income
-Over. An income band gives a basic amount PLUS a percentage of income above the
-band floor. Anyone assuming "find the row, read the number" is wrong about the
-source. The table data is not in FullText; it is on page-5.html.
+Schedule I's columns, retrieved and read from page-5.html on 2026-09-14, are
+two-tier. Under "Income ($)": From, To. Under "Monthly Award ($)": Basic
+Amount, Plus (%), Of Income Over.
+
+An income band gives a basic amount PLUS a percentage of income above the band
+floor. Anyone assuming "find the row, read the number" is wrong about the
+source. The table data is not in FullText; it is on page-5.html, and the header
+structure is vendored in federal-child-support-table-structure.txt — the
+amounts deliberately are not.
 ======================================================================
 
 ---------------------------------------------------------------------- 
