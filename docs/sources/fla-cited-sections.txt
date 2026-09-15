@@ -356,3 +356,282 @@ Section Amendments with date in force (d/m/y)
 2025, c. 6, Sched. 6, s. 1 (1, 2) - not in force
 
 Application under Children's Law Reform Act
+
+---------------------------------------------------------------------- 
+s. 31 — obligation of parent to support child (added 2026-09-15)
+---------------------------------------------------------------------- 
+
+31 (1)  Every parent has an obligation to provide support,  to  the  extent
+that the parent is capable of doing so, for his or her unmarried child who,
+      (a)   is a minor;
+      (b)   is enrolled in a full-time program of education; or
+      (c)   is unable by reason of illness, disability  or  other  cause  to
+    withdraw from the charge of his or her parents. 2017, c. 34, Sched. 15,
+    s. 1.
+
+Same
+(2)  The obligation under subsection (1) does not extend to a child who  is
+sixteen years of age or older  and  has  withdrawn  from  parental  control.
+R.S.O. 1990, c. F.3, s. 31 (2).
+Section Amendments with date in force (d/m/y)
+1997, c. 20, s. 2 - 01/12/1997
+2017, c. 34, Sched. 15, s. 1 - 14/12/2017
+
+Obligation of child to support parent
+
+
+---------------------------------------------------------------------- 
+s. 33 — order for support, and ss. 33 (11) to (15) on the Guidelines and consent orders (added 2026-09-15)
+---------------------------------------------------------------------- 
+
+33 (1)  A court may, on application, order a person to provide support  for
+his or her dependants and determine the amount  of  support.   R.S.O.  1990,
+c. F.3, s. 33 (1).
+
+Applicants
+(2)  An application for an order for the support of a dependant may be made
+by  the  dependant  or  the  dependant's  parent.   R.S.O.  1990,  c. F.3,
+s. 33 (2).
+
+Same
+(2.1)  The Limitations Act, 2002 applies to  an  application  made  by  the
+dependant's parent or by an agency referred to in subsection (3)  as  if  it
+were made by the dependant himself or  herself.   2002,  c. 24,  Sched. B,
+s. 37.
+
+Same
+(3)  An application for an order for the support of a dependant who is  the
+respondent's spouse or child may also  be  made  by  one  of  the  following
+agencies,
+      (a)   the Ministry of Community and Social Services  in  the  name  of
+    the Minister;
+      (b)    a  municipality,  excluding  a  lower-tier  municipality  in  a
+    regional municipality;
+      (c)   a  district  social  services  administration  board  under  the
+    District Social Services Administration Boards Act;
+      (d)   Repealed:  2006, c. 19, Sched. B, s. 9.
+      (e)   a delivery agent under the Ontario Works Act, 1997,
+if the agency is providing or  has  provided  a  benefit  under  the  Family
+Benefits Act, assistance under the General Welfare  Assistance  Act  or  the
+Ontario Works Act, 1997 or  income  support  under  the  Ontario  Disability
+Support Program Act, 1997 in respect of the dependant's support,  or  if  an
+application for such a benefit or assistance has been made to the agency  by
+or on behalf of the dependant.  1997, c. 25, Sched. E, s. 1; 1999,  c. 6,
+s. 25 (4); 2002, c. 17, Sched. F, Table; 2005, c. 5, s. 27 (8); 2006,
+c. 19, Sched. B, s. 9.
+
+Setting aside domestic contract
+(4)  The court may set aside a provision for support or  a  waiver  of  the
+right to support in a domestic contract and may determine and order  support
+in an application under subsection (1) although  the  contract  contains  an
+express provision excluding the application of this section,
+      (a)   if the provision for support or  the  waiver  of  the  right  to
+    support results in unconscionable circumstances;
+      (b)   if the provision for support is in favour of or  the  waiver  is
+    by or on behalf of a dependant  who  qualifies  for  an  allowance  for
+    support out of public money; or
+      (c)   if there  is  default  in  the  payment  of  support  under  the
+    contract at the time the application is made.   R.S.O.  1990,  c. F.3,
+    s. 33 (4); 2006, c. 1, s. 5 (1).
+
+Adding party
+(5)  In an application the court may, on a respondent's motion,  add  as  a
+party another person who may have an obligation to provide  support  to  the
+same dependant.  R.S.O. 1990, c. F.3, s. 33 (5).
+
+Idem
+(6)  In an action in the Superior Court of Justice, the defendant  may  add
+as a third party another person  who  may  have  an  obligation  to  provide
+support to the same dependant.  R.S.O.  1990,  c. F.3,  s. 33 (6);  2006,
+c. 19, Sched. C, s. 1 (1).
+
+Purposes of order for support of child
+(7)  An order for the support of a child should,
+      (a)   recognize that each parent has an obligation to provide  support
+    for the child;
+       (b)    apportion  the  obligation  according  to  the  child  support
+    guidelines.  R.S.O. 1990, c. F.3, s. 33 (7); 1997, c. 20, s. 3 (1).
+
+Purposes of order for support of spouse
+(8)  An order for the support of a spouse should,
+      (a)   recognize the spouse's contribution to the relationship and  the
+    economic consequences of the relationship for the spouse;
+      (b)   share the economic burden of child support equitably;
+      (c)   make fair provision to assist  the  spouse  to  become  able  to
+    contribute to his or her own support; and
+      (d)   relieve financial hardship, if this has not been done by  orders
+    under Parts I (Family Property)  and  II  (Matrimonial  Home).   R.S.O.
+    1990, c. F.3, s. 33 (8); 1999, c. 6, s. 25 (5); 2005, c. 5, s. 27 (9).
+
+Determination of amount for support of spouses, parents
+(9)  In determining the amount and duration,  if  any,  of  support  for  a
+spouse or parent in relation to need,  the  court  shall  consider  all  the
+circumstances of the parties, including,
+      (a)   the dependant's and respondent's current assets and means;
+      (b)   the assets and means  that  the  dependant  and  respondent  are
+    likely to have in the future;
+      (c)   the dependant's  capacity  to  contribute  to  his  or  her  own
+    support;
+      (d)   the respondent's capacity to provide support;
+      (e)   the dependant's and respondent's age  and  physical  and  mental
+    health;
+      (f)   the dependant's needs, in  determining  which  the  court  shall
+    have regard to the accustomed standard  of  living  while  the  parties
+    resided together;
+      (g)   the measures available for  the  dependant  to  become  able  to
+    provide for his or her own support and the  length  of  time  and  cost
+    involved to enable the dependant to take those measures;
+      (h)   any legal obligation of the respondent or dependant  to  provide
+    support for another person;
+      (i)   the desirability of the dependant  or  respondent  remaining  at
+    home to care for a child;
+      (j)   a contribution by  the  dependant  to  the  realization  of  the
+    respondent's career potential;
+      (k)   Repealed:  1997, c. 20, s. 3 (3).
+      (l)   if the dependant is a spouse,
+      (i)   the length of time the dependant and respondent cohabited,
+       (ii)   the  effect  on  the  spouse's   earning   capacity   of   the
+       responsibilities assumed during cohabitation,
+      (iii) whether the spouse has undertaken the care of a child who is  of
+       the age of eighteen years or over and unable by reason  of  illness,
+       disability or other cause to withdraw from the charge of his or  her
+       parents,
+      (iv)  whether the spouse has undertaken to assist in the  continuation
+       of a program of education for a child eighteen years of age or  over
+       who is unable for that reason to withdraw from the charge of his  or
+       her parents,
+       (v)    any  housekeeping,  child  care  or  other  domestic   service
+       performed by the spouse for  the  family,  as  if  the  spouse  were
+       devoting the time spent in performing that service  in  remunerative
+       employment and  were  contributing  the  earnings  to  the  family's
+       support,
+      (v.1) Repealed:  2005, c. 5, s. 27 (12).
+      (vi)  the effect on the spouse's earnings and  career  development  of
+       the responsibility of caring for a child; and
+      (m)   any other legal right of the dependant to  support,  other  than
+    out of public money.  R.S.O. 1990, c. F.3, s. 33 (9); 1997,  c. 20,
+    s. 3 (2, 3); 1999, c. 6, s. 25 (6-9); 2005, c. 5, s. 27 (10-13).
+
+Conduct
+(10)  The obligation to provide support for a spouse exists without  regard
+to the conduct of either spouse,  but  the  court  may  in  determining  the
+amount  of  support  have  regard  to  a  course  of  conduct  that  is   so
+unconscionable as to constitute an obvious  and  gross  repudiation  of  the
+relationship.  R.S.O. 1990, c. F.3, s. 33 (10); 1999, c. 6, s. 25 (10);
+2005, c. 5, s. 27 (14).
+
+Application of child support guidelines
+(11)  A court making an order for the support of a child  shall  do  so  in
+accordance with the child support guidelines.  1997, c. 20, s. 3 (4).
+
+Exception: special provisions
+(12)  Despite subsection  (11),  a  court  may  award  an  amount  that  is
+different from the amount that would be determined in  accordance  with  the
+child support guidelines if the court is satisfied,
+      (a)   that special provisions in  an  order  or  a  written  agreement
+    respecting the financial obligations of the parents, or the division or
+    transfer of their property, directly or indirectly benefit a child,  or
+    that special provisions have otherwise been made for the benefit  of  a
+    child; and
+      (b)   that the application  of  the  child  support  guidelines  would
+    result in an amount of child support that is  inequitable  given  those
+    special provisions.  1997, c. 20, s. 3 (4).
+
+Reasons
+(13)  Where the court awards, under subsection  (12),  an  amount  that  is
+different from the amount that would be determined in  accordance  with  the
+child support guidelines, the court shall record its reasons for  doing  so.
+1997, c. 20, s. 3 (4).
+
+Exception: consent orders
+(14)  Despite subsection  (11),  a  court  may  award  an  amount  that  is
+different from the amount that would be determined in  accordance  with  the
+child support guidelines on the consent of both  parents  if  the  court  is
+satisfied that,
+      (a)   reasonable arrangements have been made for the  support  of  the
+    child to whom the order relates; and
+      (b)   where support for the child is payable out of public money,  the
+    arrangements do not provide for an amount less  than  the  amount  that
+    would be determined in accordance with the  child  support  guidelines.
+    1997, c. 20, s. 3 (4).
+
+Reasonable arrangements
+(15)  For  the  purposes  of  clause  (14)  (a),  in  determining  whether
+reasonable arrangements have been made for the support of a child,
+      (a)   the court shall have regard to  the  child  support  guidelines;
+    and
+       (b)    the  court  shall  not  consider  the   arrangements   to   be
+    unreasonable solely because the amount of support agreed to is not  the
+    same as the  amount  that  would  otherwise  have  been  determined  in
+    accordance with the child support guidelines.  1997, c. 20, s. 3 (4).
+Section Amendments with date in force (d/m/y)
+1997, c. 20, s. 3 (1-4) - 01/12/1997; 1997, c. 25,  Sched.  E,  s. 1  -
+01/07/1998; 1999, c. 6, s. 25 (4-10) - 20/11/1999
+2002, c. 17, Sched. F, Table - 01/01/2003; 2002, c. 24, Sched. B, s. 37 -
+01/01/2004
+2005, c. 5, s. 27 (8-14) - 09/03/2005
+2006, c. 1, s. 5 (1)  -  30/04/2007;  2006,  c. 19,  Sched. B,  s. 9  -
+22/06/2006; 2006, c. 19, Sched. C, s. 1 (1) - 22/06/2006
+
+Powers of court
+
+
+---------------------------------------------------------------------- 
+s. 35 — a domestic contract may be filed with the court (added 2026-09-15)
+---------------------------------------------------------------------- 
+
+35 (1)  A person who is a  party  to  a  domestic  contract  may  file  the
+contract with the clerk of the Ontario Court of Justice  or  of  the  Family
+Court of the Superior Court of Justice together with the person's  affidavit
+stating that the contract is in effect and has not been set aside or  varied
+by a court or agreement.  R.S.O. 1990, c. F.3, s. 35 (1); 2006, c. 1, s. 5
+(2); 2006, c. 19, Sched. C, s. 1 (2, 4); 2009, c. 11, s. 32 (1).
+
+Interpretation
+(1.1)  For the purposes of subsection (1), a party to a  domestic  contract
+includes a party's guardian of property or attorney  for  property,  if  the
+guardian or attorney entered into the domestic contract  on  behalf  of  the
+party under the authority of subsection 55 (3).   2009,  c. 33,  Sched. 2,
+s. 34 (3).
+
+Effect of filing
+(2)  A provision for support or maintenance contained in a contract that is
+filed in this manner,
+      (a)   may be enforced;
+      (b)   may be varied under section 37;
+      (c)   except in the case of a provision for the support  of  a  child,
+    may be increased under section 38; and
+      (d)   in the case of a provision for the support of a  child,  may  be
+    recalculated under section 39.1,
+as if it were an order of the court where it is filed.  1997, c. 20, s. 5;
+2006, c. 1, s. 5 (3); 2014, c. 7, Sched. 9, s. 5.
+
+Setting aside available
+(3)  Subsection 33 (4)  (setting  aside  in  unconscionable  circumstances,
+etc.) applies to a contract that is filed  in  this  manner.   R.S.O.  1990,
+c. F.3, s. 35 (3); 2006, c. 1, s. 5 (4).
+
+Enforcement available despite waiver
+(4)  Subsection (1) and clause (2) (a) apply despite an  agreement  to  the
+contrary.  R.S.O. 1990, c. F.3, s. 35 (4).
+
+Existing contracts, etc.
+(5)  Subsections (1) and (2) also apply to contracts made  before  the  1st
+day of March, 1986.  R.S.O. 1990, c. F.3, s. 35 (5); 2006, c. 1, s. 5 (5).
+
+Existing arrears
+(6)  Clause (2) (a) also applies to arrears accrued before the 1st  day  of
+March, 1986.  R.S.O. 1990, c. F.3, s. 35 (6).
+Section Amendments with date in force (d/m/y)
+1997, c. 20, s. 5 - 01/12/1997
+2006, c. 1, s. 5 (2-5) - 30/04/2007; 2006, c. 19, Sched. C, s. 1 (2, 4) -
+22/06/2006
+2009, c. 11, s. 32 (1) - 14/05/2009; 2009, c. 11, s. 32 (2) - no effect -
+see 2014, c. 7, Sched. 9, s. 11 (1) - 24/07/2014; 2009,  c. 33,  Sched. 2,
+s. 34 (3) - 15/12/2009
+2014, c. 7, Sched. 9, s. 5 - 04/04/2016
+
+Effect of divorce proceeding
+
+
+

@@ -2275,3 +2275,161 @@ Order for oral hearing
       (10)  The court may order an oral hearing, on motion or  on  its  own
 initiative, if it is satisfied that an oral hearing  is  necessary  to  deal
 with the case justly. O. Reg. 388/12, s. 8.
+
+---------------------------------------------------------------------- 
+r. 8 — how a case is started, and the application forms (added 2026-09-15)
+---------------------------------------------------------------------- 
+
+      8.  (1)  To start a case, a person shall file an application (Form 8,
+8A, 8B, 8B.1, 8B.2, 8C, 8D, 8D.1, 34L or 34N).  O. Reg. 519/06, s. 2.
+
+Enforcement of family arbitration award
+       (1.1)  Despite  subrule  (1),  a  person  who  is  entitled  to  the
+enforcement of a family arbitration award and who wants to ask the court  to
+enforce the award under section 59.8 of the Family Law  Act  may  do  so  by
+filing a request to enforce a family arbitration  award  (Form  32.1)  under
+rule 32.1. O. Reg. 388/12, s. 3.
+
+When required to proceed by motion
+      (1.2)  Despite subrules (1) and (1.1), if there is already  a  family
+law case to which these rules  apply  between  the  parties  to  the  family
+arbitration agreement in the Superior Court of Justice or the  Family  Court
+of the Superior Court of Justice, the party entitled  to  enforcement  shall
+make a motion in that case rather than an application under this rule  or  a
+request under rule 32.1, and subrule 14  (24)  applies  in  respect  of  the
+motion. O. Reg. 388/12, s. 3.
+
+Change to final order or agreement
+      (2)  Subject to subrule 25 (19) (changing  order  -  fraud,  mistake,
+lack of notice), a party who wants to ask the court to change a final  order
+or an agreement for support filed under section 35 of the  Family  Law  Act,
+or a family arbitration award filed under section 59.9 of that Act,  may  do
+so only by a motion under rule 15 (if permitted to  do  so  by  that  rule).
+O. Reg. 151/08, s. 1; O. Reg. 150/25, s. 2.
+
+Exception
+      (2.1)  Despite subrule (2), if a party who wants to ask the court  to
+change a final order or agreement to which rule 15  applies  also  wants  to
+make one or more related claims to which rule 15 does not apply,  the  party
+may file an application under subrule (1) to deal with  the  request  for  a
+change together with  the  related  claim  or  claims  and,  in  that  case,
+subrules 15 (11) to (13)  apply  with  necessary  changes  to  the  request.
+O. Reg. 151/08, s. 1; O. Reg. 142/14, s. 4.
+
+Claims in application
+      (3)  An application may contain,
+      (a)   a claim against more than one person; and
+      (b)   more than one claim against the same person.   O.  Reg.  114/99,
+    r. 8 (3).
+
+Claim relating to decision-making responsibility, parenting time or contact
+      (3.1)  An application containing a claim  respecting  decision-making
+responsibility, parenting time or contact with respect to a child  shall  be
+accompanied by the applicable documents referred to in rule  35.1.  O.  Reg.
+42/21, s. 4.
+
+Claim relating to family arbitration
+      (3.2)  An application containing a claim under the  Arbitration  Act,
+1991 or the  Family  Law  Act  relating  to  a  family  arbitration,  family
+arbitration agreement or family arbitration award shall be accompanied by,
+      (a)   copies of the certificates of independent legal advice  required
+    by the Family Law Act for the parties;
+      (b)   a copy of the family arbitration agreement; and
+      (c)   if an award has been made, the original  award  or  a  certified
+    copy. O. Reg. 388/12, s. 3.
+
+Court date set when application filed
+      (4)  When an application is filed, the clerk shall,
+      (a)   set a court date, except as provided by  subrule  39  (7)  (case
+    management, standard  track)  and  subrule  41  (4)  (case  management,
+    clerk's role); and
+      (b)   seal the application with the court seal.  O.  Reg.  114/99,  r.
+    8 (4); O. Reg. 89/04, s. 2.
+
+Service of application
+      (5)  The application shall  be  served  immediately  on  every  other
+party, and special service shall be used  unless  the  party  is  listed  in
+subrule (6). O. Reg. 114/99, r. 8 (5).
+
+Service on officials, agencies, etc.
+      (6)  The application may be served, subject to subrule (8.1),
+      (a)   on a foster parent, at the foster parent's residence;
+      (b)   on a representative of a band or First Nations, Inuit  or  M�tis
+    community, by serving the chief or other person who appears  to  be  in
+    charge of its management;
+      (c)   on any of the following persons, at their place of business:
+      1.    A Director appointed under section 53 of the  Child,  Youth  and
+       Family Services Act, 2017.
+      2.    A local director appointed under section 38 of the Child,  Youth
+       and Family Services Act, 2017.
+      3.    An administrator in charge of a secure treatment  program  under
+       Part VII of the Child, Youth and Family Services Act, 2017.
+      4.    A children's aid society.
+      5.    The Minister of Community and Social Services.
+      6.    An agency referred to in subsection 33 (3)  of  the  Family  Law
+       Act or subsection 20.1 (1) of the Divorce Act (Canada).
+      7.    The Director of the Family Responsibility Office.
+      8.    The Children's Lawyer.
+      9.    The Public Guardian and Trustee.
+      10.   The Registrar General.  O.  Reg.  114/99,  r.  8 (6);  O.  Reg.
+       140/15, s. 5; O. Reg. 298/18, s. 8 (1-5); O. Reg. 535/18, s. 2.
+
+Serving protection application on child
+      (7)  In a child protection case in which the  child  is  entitled  to
+notice, the application shall be served on the  child  by  special  service.
+O. Reg. 114/99, r. 8 (7).
+
+Serving secure treatment application on child
+      (8)  An application for secure treatment  (Part  VII  of  the  Child,
+Youth and Family Services Act,  2017)  shall  be  served  on  the  child  by
+special service.  O. Reg. 114/99, r. 8 (8); O. Reg. 298/18, s. 8 (6).
+
+Serving openness applications
+      (8.1)  An application for an openness  order  or  an  application  to
+change or terminate an openness order (Part VIII of  the  Child,  Youth  and
+Family Services Act, 2017) shall be served by special service on,
+      (a)   the child, if he or she is 12 years of age or older;
+      (b)   the child's lawyer, if any; and
+      (c)   the Children's Lawyer. O. Reg. 298/18, s. 8 (7).
+
+Serving application on child's lawyer
+      (9)  If an order has been made for legal representation  of  a  child
+under section 78 or subsection 161  (6)  of  the  Child,  Youth  and  Family
+Services Act, 2017 or under subrule 4 (7), the applicant, or  another  party
+directed by the court, shall serve all documents in  the  continuing  record
+and any status review application on the child's lawyer.   O.  Reg.  114/99,
+r. 8 (9); O. Reg. 140/15, s. 5; O. Reg. 298/18, s. 8 (8).
+
+Serving protection application before start of case
+      (10)  If a child is brought to a place of safety (section 81, 82,  84
+or 85 of the Child, Youth and Family Services  Act,  2017),  an  application
+may be served without being sealed by the  clerk,  if  it  is  filed  on  or
+before the court date.  O. Reg. 114/99, r. 8 (10); O.  Reg.  298/18,  s.  8
+(9).
+
+Application not served on or before court date
+      (11)  If an application is not served on a respondent  on  or  before
+the court date, at the applicant's request the clerk shall set a  new  court
+date for that respondent and the applicant shall make the  necessary  change
+to the application and serve it immediately on  that  respondent.   O.  Reg.
+114/99, r. 8 (11).
+
+International child abduction cases
+       (12)  The  clerk  shall  send  a  copy  of  an  application  in  an
+international child abduction case to the Office of the  Children's  Lawyer.
+O. Reg. 320/22, s. 4.
+
+Same, Central Authority
+      (13)  If the Office of the Children's Lawyer receives a  copy  of  an
+application under subrule (12) respecting an international  child  abduction
+case under the Convention  on  the  Civil  Aspects  of  International  Child
+Abduction, the Children's Lawyer shall send a copy  of  the  application  to
+the Central Authority for Ontario for the Convention set out  in  subsection
+46 (4) of the Children's Law Reform Act. O. Reg. 320/22, s. 4.
+
+                         RULE 8.0.1: AUTOMATIC ORDER
+
+AUTOMATIC ORDER
+
+Application of rule
+

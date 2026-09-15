@@ -35,6 +35,9 @@ export const VENDORED_SOURCES = [
   "cyfsa-cited-sections.txt",
   "oreg-258-98-cited-rules.txt",
   "insurance-act-s263.txt",
+  "federal-child-support-guidelines.txt",
+  "ontario-child-support-guidelines.txt",
+  "divorce-act-child-support.txt",
   "residential-tenancies-act-scope.txt",
   "consumer-protection-act-cooling-off.txt",
 ] as const;
@@ -111,6 +114,111 @@ export type StatutoryProvision = {
 };
 
 export const STATUTORY_PROVISIONS: StatutoryProvision[] = [
+  // =====================================================================
+  // CHILD SUPPORT — AND THERE ARE TWO TABLES.
+  //
+  // SOR/97-175 (federal) governs the DIVORCE ACT path: parties married to
+  // each other, Divorce Act s. 15.1.
+  // O. Reg. 391/97 (Ontario) governs the FAMILY LAW ACT path: parties never
+  // married to each other, FLA s. 33 (11).
+  //
+  // They are separate instruments with separate consolidation dates and
+  // separate amendment histories, and their vocabulary differs — Ontario says
+  // "parent or spouse" where the federal text says "spouse", so anything
+  // matching on that word across both will mis-handle one.
+  //
+  // ANY CODE THAT READS A TABLE MUST FIRST KNOW WHICH PATH THE CASE IS ON.
+  // A build that assumes one table is a defect waiting for a user on the
+  // other path. statusTriage.marriedToOtherParty is the fact that decides it.
+  // =====================================================================
+  {
+    statute: "Federal Child Support Guidelines",
+    section: "ss. 3 to 9",
+    sourceUrl: "https://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/FullText.html",
+    vendoredIn: "federal-child-support-guidelines.txt",
+    verifiedAt: "2026-09-15",
+    consolidationPeriod: "2026-07-21",
+  },
+  {
+    statute: "Federal Child Support Guidelines",
+    section: "ss. 15 to 20",
+    sourceUrl: "https://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/FullText.html",
+    vendoredIn: "federal-child-support-guidelines.txt",
+    verifiedAt: "2026-09-15",
+    consolidationPeriod: "2026-07-21",
+  },
+  {
+    statute: "Federal Child Support Guidelines",
+    section: "ss. 21 to 25",
+    sourceUrl: "https://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/FullText.html",
+    vendoredIn: "federal-child-support-guidelines.txt",
+    verifiedAt: "2026-09-15",
+    consolidationPeriod: "2026-07-21",
+  },
+  {
+    statute: "Federal Child Support Guidelines",
+    section: "Schedule III",
+    sourceUrl: "https://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/FullText.html",
+    vendoredIn: "federal-child-support-guidelines.txt",
+    verifiedAt: "2026-09-15",
+    consolidationPeriod: "2026-07-21",
+  },
+  {
+    statute: "Child Support Guidelines (Ontario)",
+    section: "ss. 3 to 9",
+    sourceUrl: "https://www.ontario.ca/laws/docs/970391_e.doc",
+    vendoredIn: "ontario-child-support-guidelines.txt",
+    verifiedAt: "2026-09-15",
+    consolidationPeriod: "2024-07-26",
+  },
+  {
+    statute: "Child Support Guidelines (Ontario)",
+    section: "ss. 15 to 20",
+    sourceUrl: "https://www.ontario.ca/laws/docs/970391_e.doc",
+    vendoredIn: "ontario-child-support-guidelines.txt",
+    verifiedAt: "2026-09-15",
+    consolidationPeriod: "2024-07-26",
+  },
+  {
+    statute: "Divorce Act",
+    section: "s. 15.1",
+    sourceUrl: "https://laws-lois.justice.gc.ca/eng/acts/D-3.4/FullText.html",
+    vendoredIn: "divorce-act-child-support.txt",
+    verifiedAt: "2026-09-15",
+    consolidationPeriod: "2026-07-21",
+  },
+  {
+    statute: "Divorce Act",
+    section: "s. 17",
+    sourceUrl: "https://laws-lois.justice.gc.ca/eng/acts/D-3.4/FullText.html",
+    vendoredIn: "divorce-act-child-support.txt",
+    verifiedAt: "2026-09-15",
+    consolidationPeriod: "2026-07-21",
+  },
+  {
+    statute: "Family Law Act",
+    section: "s. 31",
+    sourceUrl: "https://www.ontario.ca/laws/docs/90f03_e.doc",
+    vendoredIn: "fla-cited-sections.txt",
+    verifiedAt: "2026-09-15",
+    consolidationPeriod: "2026-05-01",
+  },
+  {
+    statute: "Family Law Act",
+    section: "s. 33",
+    sourceUrl: "https://www.ontario.ca/laws/docs/90f03_e.doc",
+    vendoredIn: "fla-cited-sections.txt",
+    verifiedAt: "2026-09-15",
+    consolidationPeriod: "2026-05-01",
+  },
+  {
+    statute: "Family Law Act",
+    section: "s. 35",
+    sourceUrl: "https://www.ontario.ca/laws/docs/90f03_e.doc",
+    vendoredIn: "fla-cited-sections.txt",
+    verifiedAt: "2026-09-15",
+    consolidationPeriod: "2026-05-01",
+  },
   // ---- Which forum a tenancy dispute belongs in ----
   //
   // Retrieved 2026-09-14. The element `tenancy-is-commercial-not-residential`
