@@ -883,6 +883,125 @@ looking for, and the case that produced the failure above.
 
 ---
 
+## 0a. ⚠️ The safety pass has never been reviewed by anyone qualified to review it (2026-09-17)
+
+**Name this one yourself. It is the kind of gap that is far better volunteered
+than found.**
+
+`src/lib/case-system/intake/safetyPass.ts` is the control that reads a user's
+free-text story and classifies it `immediate-danger` / `distress` / `clear`, and
+shows crisis resources when it fires. **Its own header says, verbatim:**
+
+> *"nobody with crisis-response, clinical, or legal expertise has confirmed this
+> is the right SET of resources, the right framing, or safe/appropriate wording
+> for someone who may be in real danger while reading it. Numbers being real and
+> cited is a floor, not the review this needs before it ever reaches a real
+> user."*
+
+### What IS done
+
+- Every phone number is individually fetched from an `ontario.ca` page and
+  quoted verbatim — Assaulted Women's Helpline, Fem'aide, ConnexOntario, 911.
+  No number was recalled or guessed.
+- The model classifies only. **It never writes the words a person in danger
+  reads** — that text is a fixed constant, on the same principle as the question
+  bank, applied where improvisation costs most.
+- Adversarially tested against 8 hard cases (Session 5), which found two real
+  over-triggering failures; criteria were narrowed and all 11 cases are pinned
+  permanently in `verifySafetyPassRegression.ts`.
+
+### What is NOT done, and cannot be closed from inside this repo
+
+- **No crisis-response, clinical, or family-violence expert has read the
+  message.** Not the wording, not the framing, not the choice of resources.
+- **No legal review** of what the platform says to someone disclosing danger.
+- **One resource category is still missing, not deferred:** there is no national
+  crisis line (988 / Talk Suicide Canada style). Checked directly —
+  `ontario.ca/page/find-mental-health-support` does not list one. What that page
+  does list (ConnexOntario) is included because it is real and confirmed, but it
+  is not a substitute for the missing category. **Flagged rather than guessed**,
+  which was the right call and leaves the hole open.
+- **Halt semantics were designed for Small Claims** and have never been
+  considered for family, where the disclosure is most likely to be real.
+
+### Why it matters more than its size suggests
+
+This is the one control on the platform whose failure mode is not a bad document
+or a lost draft. Everything else in this register is about accuracy or privacy.
+This is the only one where the cost of being wrong is measured in something
+other than legal outcomes.
+
+**It also currently runs on one path out of three** — see section 0k.
+
+**What closing it takes:** a named reviewer with crisis-response or
+family-violence-support expertise, reading `IMMEDIATE_DANGER_MESSAGE`,
+`DISTRESS_ACKNOWLEDGMENT`, and `FAMILY_RESOURCE_TOPICS`, and saying in writing
+whether they are safe to show. That is not an engineering task and no amount of
+engineering closes it.
+
+---
+
+## 0k. 📌 A cost constraint became a safety constraint in three steps (2026-09-17)
+
+**Nothing in the codebase was wrong at any single step. The conclusion was still
+that the most vulnerable users get no safety check.**
+
+### The chain
+
+1. **`runSafetyPass()` calls a real model.** True, and a cost and abuse concern.
+2. **So `/api/intake/safety-check` requires authentication.** The route's header
+   states the reason plainly: *"Auth pattern matches guided-turn/route.ts:
+   required unconditionally, no deterministic fallback, since runSafetyPass()
+   always calls real AI and there's no safe deterministic substitute for a
+   safety classification."*
+3. **So Small Claims requires an account before analysis.**
+   `SmallClaimsIntake.tsx` tells the user: *"Small Claims intake now requires a
+   signed-in account so CourtSimplified can run its safety check."*
+4. **So paths that did not adopt the account requirement did not adopt the
+   check.** Family and Civil pass `userId: user?.id` — optional — and never call
+   the route.
+
+Each step follows from the one before. **The premise at step 1 is about money
+and abuse. The conclusion at step 4 is about whether a person disclosing danger
+is heard.** Nowhere did anyone decide that; it was inherited.
+
+### The honest part of the original reasoning
+
+The route's own header says: *"An unauthenticated form submission simply skips
+this check client-side rather than calling this route — same as today, not a new
+gap this route introduces."*
+
+That is accurate and it is the tell. **"Not a new gap" is true and is not a
+safety argument.** It describes the change's blast radius, which is the right
+thing to say about a diff and the wrong thing to accept about a control.
+
+### The rule
+
+> **When a safety control acquires a precondition, the precondition must be
+> justified by the safety requirement, not by the implementation. "It calls a
+> paid API, so it needs auth, so it needs an account" is a chain whose first
+> link is about cost and whose last link is about who gets protected.**
+
+And the general form, which is what makes this worth an entry rather than a
+ticket:
+
+> **A constraint inherited through valid inference does not inherit its
+> justification. Each step was locally sound; the conclusion was never
+> examined on its own terms, because it was never stated on its own terms.**
+
+### Why nothing caught it
+
+There is no check that could have. `verifyIntakeCoverage` checks content
+coverage; `verifySafetyPassRegression` checks classification behaviour **given
+that the pass runs**. Neither asks *on which paths does the safety pass run at
+all*. That is expressible — "every court path that accepts free-text narrative
+calls the safety pass before extraction" — and is not written.
+
+**Status:** the fix is scoped (anonymous rate-limited access to this one route),
+not built. The three surrounding decisions are the user's, recorded separately.
+
+---
+
 ## 0b. ⚠️ There is no readiness gate on the family path (2026-09-14)
 
 **Probed, not reasoned about**, before building the child support screen:
