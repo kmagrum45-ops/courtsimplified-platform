@@ -14,6 +14,11 @@ import type { FamilyMasterCaseInput } from "@/src/lib/case-system/familyMasterCa
 import type { FamilyCanonicalIntakeResult } from "@/src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
 import { supabase } from "@/src/lib/supabase/client";
 import {
+  runClientSafetyCheck,
+  type ClientSafetyClassification,
+} from "@/src/lib/case-system/intake/clientSafetyCheck";
+import { FAMILY_RESOURCE_TOPICS } from "@/src/lib/case-system/intake/familySafetyResources";
+import {
   consumeNarrativePrefill,
   directPrefillValues,
   type NarrativePrefillFact,
@@ -237,6 +242,13 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
   const [storageWarning, setStorageWarning] = useState("");
   const [analysisError, setAnalysisError] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  /**
+   * Result of the safety pass over `facts`. Drives the resource panel below.
+   * Never halts this path — see the comment in handleAnalyze.
+   */
+  const [safetyClassification, setSafetyClassification] =
+    useState<ClientSafetyClassification>("clear");
+  const [safetyMessage, setSafetyMessage] = useState("");
   const [extractedFacts] = useState<NarrativePrefillFact[]>(
     () => initialPrefill?.facts.filter((fact) => fact.state === "direct") || [],
   );
@@ -440,6 +452,41 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
     setAnalysisError("");
     setIsAnalyzing(true);
 
+    /*
+     * THE SAFETY PASS RUNS BEFORE EXTRACTION, AND NEVER HALTS THIS PATH.
+     *
+     * Decision recorded 2026-09-17, by the product owner, on this reasoning:
+     * the Small Claims halt stops intake dead and shows crisis resources
+     * instead of the next question. That is right where nothing is
+     * time-critical. On the family path it is not obviously right — someone
+     * completing an urgent motion about a child may need the form AND the
+     * resources, and a halt that strands them mid-application could do harm
+     * of its own.
+     *
+     * So family surfaces the resources prominently and lets the intake
+     * continue, which is closer to how `distress` already behaves on Small
+     * Claims than to how `immediate-danger` does.
+     *
+     * *** THIS IS A QUESTION FOR THE CLINICAL REVIEWER, NOT A SETTLED
+     * ANSWER. *** Nobody with crisis-response or family-violence expertise
+     * has reviewed it (OUTSTANDING_ISSUES section 0a). It is a considered
+     * product decision made in the absence of that review, and the reviewer
+     * should be asked specifically whether continuing is right here, or
+     * whether family should halt like Small Claims does.
+     */
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      const safety = await runClientSafetyCheck(facts, session?.access_token);
+      setSafetyClassification(safety.classification);
+      setSafetyMessage(safety.userMessage || "");
+    } catch {
+      // Fails open, same as the helper itself. A classifier fault must never
+      // stop someone reaching their own case.
+    }
+
     try {
       const narrative = buildNarrative();
       const familyInput: FamilyMasterCaseInput = {
@@ -570,6 +617,59 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
         posture for the unified CourtSimplified legal brain.
       </p>
 
+
+      {/*
+        Shown when the safety pass returns anything other than "clear". The
+        intake below stays fully usable — this path never halts.
+
+        The wording is NOT generated and NOT assembled here: `safetyMessage` is
+        safetyPass.ts's fixed constant, and the resources are
+        FAMILY_RESOURCE_TOPICS, whose own header records that each phone number
+        was individually fetched from an ontario.ca page and quoted verbatim.
+        Nothing on this panel is a judgment about this user's facts beyond the
+        classification itself.
+      */}
+      {safetyClassification !== "clear" && (
+        <div
+          role="note"
+          aria-live="polite"
+          className="mt-5 rounded-2xl border-2 border-[#c2410c] bg-[#fff7ed] p-5"
+        >
+          {safetyMessage && (
+            <p className="whitespace-pre-line text-[15px] font-semibold leading-7 text-[#7c2d12]">
+              {safetyMessage}
+            </p>
+          )}
+
+          {FAMILY_RESOURCE_TOPICS.map((topic) => (
+            <div key={topic.id} className={safetyMessage ? "mt-5" : ""}>
+              <h3 className="text-base font-bold text-[#7c2d12]">{topic.title}</h3>
+              <p className="mt-2 whitespace-pre-line text-[15px] leading-7 text-[#7c2d12]">
+                {topic.content}
+              </p>
+              <ul className="mt-3 space-y-1">
+                {topic.citations.map((citation) => (
+                  <li key={citation.officialUrl} className="text-xs leading-5 text-[#9a3412]">
+                    <a
+                      href={citation.officialUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline"
+                    >
+                      {citation.sourceName}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          <p className="mt-5 text-sm leading-6 text-[#7c2d12]">
+            Your intake below is saved and you can carry on with it whenever you
+            are ready.
+          </p>
+        </div>
+      )}
 
       {storageWarning && (
         <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">

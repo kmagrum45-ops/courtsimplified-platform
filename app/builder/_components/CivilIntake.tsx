@@ -18,6 +18,7 @@ import type {
   CivilCanonicalIntakeResult,
 } from "../../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 import { supabase } from "../../../src/lib/supabase/client";
+import { runClientSafetyCheck } from "../../../src/lib/case-system/intake/clientSafetyCheck";
 import { formatRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 import {
   consumeNarrativePrefill,
@@ -532,6 +533,10 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
   const [storageWarning, setStorageWarning] = useState("");
   const [analysisError, setAnalysisError] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  /** Set only on "immediate-danger". Blocks analysis and shows crisis resources. */
+  const [safetyHalt, setSafetyHalt] = useState("");
+  /** Set on "distress". Shown alongside the intake, which continues. */
+  const [safetyNotice, setSafetyNotice] = useState("");
   const [extractedFacts, setExtractedFacts] = useState<NarrativePrefillFact[]>(
     () => initialPrefill?.facts.filter((fact) => fact.state === "direct") || [],
   );
@@ -596,6 +601,40 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
     setStorageWarning("");
     setAnalysisError("");
     setIsAnalyzing(true);
+
+    /*
+     * THE SAFETY PASS RUNS BEFORE EXTRACTION. Civil KEEPS the halt.
+     *
+     * The family path deliberately does not halt (see FamilyIntake.tsx) —
+     * someone mid-application about a child may need the form as well as the
+     * resources. Civil is closer to Small Claims: nothing here is
+     * time-critical in that way, so an explicit statement of current danger
+     * stops the intake and shows the crisis resources instead, which is the
+     * behaviour Small Claims has had since the pass was introduced.
+     *
+     * Recorded rather than assumed: the three paths now differ on purpose, and
+     * that difference is itself a question for the clinical reviewer
+     * (OUTSTANDING_ISSUES section 0a).
+     */
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      const safety = await runClientSafetyCheck(input.facts, session?.access_token);
+
+      if (safety.classification === "immediate-danger") {
+        setSafetyHalt(safety.userMessage || "");
+        setIsAnalyzing(false);
+        submissionInFlight.current = false;
+        return;
+      }
+
+      setSafetyNotice(safety.classification === "distress" ? safety.userMessage || "" : "");
+    } catch {
+      // Fails open. A classifier fault must never stop someone reaching their
+      // own case.
+    }
 
     try {
       const {
@@ -701,6 +740,29 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
         dates, parties, and available documents.
       </p>
 
+
+      {/*
+        Both blocks show safetyPass.ts's fixed constants, never generated text.
+        The halt blocks analysis; the notice does not.
+      */}
+      {safetyHalt && (
+        <div
+          role="alert"
+          className="mt-5 whitespace-pre-line rounded-2xl border-2 border-[#c2410c] bg-[#fff7ed] p-5 text-[15px] font-semibold leading-7 text-[#7c2d12]"
+        >
+          {safetyHalt}
+        </div>
+      )}
+
+      {safetyNotice && !safetyHalt && (
+        <div
+          role="note"
+          aria-live="polite"
+          className="mt-5 whitespace-pre-line rounded-2xl border border-[#f0c88a] bg-[#fffaf2] p-4 text-[15px] leading-7 text-[#7a4b12]"
+        >
+          {safetyNotice}
+        </div>
+      )}
 
       {storageWarning && (
         <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">

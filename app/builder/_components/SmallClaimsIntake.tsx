@@ -18,6 +18,7 @@ import type {
 } from "../../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 
 import { supabase } from "../../../src/lib/supabase/client";
+import { runClientSafetyCheck } from "../../../src/lib/case-system/intake/clientSafetyCheck";
 import { UUID_PATTERN } from "../../../src/lib/case-system/events/caseEventRequest";
 import {
   consumeNarrativePrefill,
@@ -407,11 +408,10 @@ function buildCaseDirection(input: SmallClaimsIntelligenceInput): string {
 }
 
 
-type SafetyCheckResponse = {
-  ok: boolean;
-  classification?: "immediate-danger" | "distress" | "clear";
-  userMessage?: string | null;
-};
+// SafetyCheckResponse was removed 2026-09-17. The route's response shape now
+// lives with the one client that parses it,
+// src/lib/case-system/intake/clientSafetyCheck.ts, rather than being restated
+// per caller.
 
 type SafetyCheckOutcome = {
   halted: boolean;
@@ -439,41 +439,34 @@ type SafetyCheckOutcome = {
  * codebase.
  */
 async function runFormSafetyCheck(storyText: string): Promise<SafetyCheckOutcome> {
-  try {
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
+  /*
+   * TWO CHANGES, 2026-09-17.
+   *
+   * 1. THE SESSION CHECK IS GONE. It returned `{ halted: false }` when no
+   *    session existed -- silently skipping the safety check for anyone not
+   *    signed in. The route now accepts anonymous callers, so the check runs
+   *    for everyone. A bearer token is still sent when one exists; its
+   *    absence no longer means no check.
+   *
+   * 2. THE FETCH IS GONE, replaced by the shared helper. This file held its
+   *    own copy, which is why verifySafetyPassCoverage could not have been
+   *    written honestly before: three copies of one fetch give a checker
+   *    nothing to look for. One entry point is what makes the property
+   *    checkable.
+   */
+  const {
+    data: { session },
+  } = await supabase.auth.getSession().catch(() => ({ data: { session: null } }));
 
-    if (!session?.access_token) {
-      return { halted: false };
-    }
+  const result = await runClientSafetyCheck(storyText, session?.access_token);
 
-    const response = await fetch("/api/intake/safety-check", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session.access_token}`,
-      },
-      body: JSON.stringify({ storyText }),
-    });
-
-    const json: SafetyCheckResponse | null = await response.json().catch(() => null);
-    if (!response.ok || !json?.ok) {
-      return { halted: false };
-    }
-
-    const userMessage = typeof json.userMessage === "string" ? json.userMessage : undefined;
-
-    if (json.classification === "immediate-danger") {
-      return { halted: true, haltMessage: userMessage };
-    }
-    if (json.classification === "distress") {
-      return { halted: false, distressAcknowledgment: userMessage };
-    }
-    return { halted: false };
-  } catch {
-    return { halted: false };
+  if (result.classification === "immediate-danger") {
+    return { halted: true, haltMessage: result.userMessage };
   }
+  if (result.classification === "distress") {
+    return { halted: false, distressAcknowledgment: result.userMessage };
+  }
+  return { halted: false };
 }
 
 /**

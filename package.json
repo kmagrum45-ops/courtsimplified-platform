@@ -79,7 +79,8 @@
     "report:journey": "node --import tsx --env-file=.env.local scripts/verification/runStoryJourneyReport.ts",
     "measure:signals": "node --import tsx scripts/verification/measureSignalNegation.ts",
     "test:storage-keys": "node --import tsx scripts/verification/verifyStorageKeys.ts",
-    "test:reset-intake": "node --import tsx scripts/verification/verifyResetIntake.ts"
+    "test:reset-intake": "node --import tsx scripts/verification/verifyResetIntake.ts",
+    "test:safety-coverage": "node --import tsx scripts/verification/verifySafetyPassCoverage.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",

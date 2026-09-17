@@ -997,8 +997,58 @@ that the pass runs**. Neither asks *on which paths does the safety pass run at
 all*. That is expressible — "every court path that accepts free-text narrative
 calls the safety pass before extraction" — and is not written.
 
-**Status:** the fix is scoped (anonymous rate-limited access to this one route),
-not built. The three surrounding decisions are the user's, recorded separately.
+**Status: FIXED 2026-09-17.** The route accepts anonymous callers, all four
+narrative intakes call the pass, and `npm run test:safety-coverage` asserts the
+property that was missing.
+
+### The decisions taken, and by whom
+
+**Anonymous access, no rate limiter as a precondition.** Owner's decision. The
+site is password-gated including `/api/*`, the call is `gpt-4o-mini` at
+temperature 0 with an 8,000-character input cap, and the response is one of
+three labels plus a fixed constant. There is no rate-limiting infrastructure in
+this codebase, so requiring one would have delayed the fix by days. **An
+abusable safety check is strictly better than no safety check.** A limiter is
+still wanted; it is a second step.
+
+**Family does NOT halt. Owner's decision, 2026-09-17, on this reasoning:** the
+Small Claims halt stops intake dead and shows crisis resources instead of the
+next question. That is right where nothing is time-critical. On the family path
+it is not obviously right — someone completing an urgent motion about a child
+may need the form *and* the resources, and a halt that strands them
+mid-application could do harm of its own. So family surfaces
+`FAMILY_RESOURCE_TOPICS` prominently and lets the intake continue, closer to how
+`distress` behaves on Small Claims than to how `immediate-danger` does.
+
+> ⚠️ **THIS IS A QUESTION FOR THE CLINICAL REVIEWER, NOT A SETTLED ANSWER.**
+> It is a considered product decision made in the acknowledged absence of the
+> review described in section 0a. The reviewer should be asked specifically
+> whether continuing is right on the family path, or whether family should halt
+> as Small Claims does. The three paths now differ **on purpose**, and that
+> divergence is itself part of what needs reviewing.
+
+**Civil keeps the halt**, as the path closest to Small Claims in urgency
+profile. Same reviewer question applies.
+
+**Family distress content is `FAMILY_RESOURCE_TOPICS`**, not new wording —
+existing sourced content (Assaulted Women's Helpline, Fem'aide, Victim Support
+Line), each number individually fetched from an `ontario.ca` page and quoted
+verbatim. No new safety wording was written for this change, deliberately:
+writing unreviewed crisis copy to close a gap caused by missing review would
+compound section 0a rather than contain it.
+
+### What the new check does and does not assert
+
+`verifySafetyPassCoverage` asserts that every `*Intake.tsx` collecting a
+free-text narrative and submitting it calls `runClientSafetyCheck` or an
+orchestrated server turn; that the route still accepts anonymous callers; and
+that the shared helper fails open. It **deliberately does not pin how each path
+responds**, because the divergence above is intended and pinning it would make a
+deliberate change look like a regression.
+
+It found a real gap on its first run: `SmallClaimsIntake` still held its own
+copy of the fetch. Three copies of one call is what made the property
+uncheckable before, so the copies were replaced by one entry point.
 
 ---
 
