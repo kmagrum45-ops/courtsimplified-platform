@@ -90,7 +90,7 @@ held about them.
 | **Supabase, ref `fddlpnibovkkkgboabqb`** — **THE LIVE DATABASE**, confusingly named `courtsimplified-dev` | Everything: accounts, cases, intakes, evidence metadata, generated documents, events | **`ca-central-1` — Canada** |
 | **Supabase, ref `ffymjxjcnwakgdmldpne`** — dormant, confusingly named `courtsimplified` | Paused. 3 operator/harness accounts, 2 shell cases, nothing else — see 2.2 | `us-west-2` — Oregon, United States |
 | **Supabase Storage, bucket `case-evidence`** | Uploaded evidence files. **Empty in both** | Per project |
-| **Browser `localStorage`** | A compact draft (province, city, names, facts, timeline, evidence, goal), the active case id, and case-context blobs | The user's own device |
+| **Browser `localStorage`** | **26 keys — see 4.3.** A resumable draft, the active case id, case-context blobs, assembled evidence packages, parsed message threads, case-partner chat transcripts, and whole generated workspace documents. **20 of the 26 carry no user id** | The user's own device |
 | **Cookie `cs_site_access`** | The shared site password, HttpOnly | The user's own device |
 
 ### 2.1 Data residency — the deployed site runs on Canadian infrastructure
@@ -439,10 +439,69 @@ is a filtered view.**
   failed on an unrelated `court_path` NOT NULL constraint, so this path is
   untested and should be exercised before a deletion feature ships.
 
-### 4.3 Browser-side data
+### 4.3 Browser-side data — the shared-computer exposure
 
-`localStorage` holds a compact draft and case-context blobs. Clearing browser
-data removes it. Nothing in the product tells the user this.
+**Rewritten 2026-09-17. The previous version of this section said `localStorage`
+"holds a compact draft and case-context blobs", which understated it by an order
+of magnitude and was the basis for a privacy notice that understated it further.**
+
+**26 browser-storage keys**, enumerated from every call site rather than searched
+for by name (`src/lib/case-system/storage/intakeStorageKeys.ts` is the registry;
+`npm run test:storage-keys` fails on a storage key named anywhere else).
+
+| Scope | Count | What it means |
+|---|---|---|
+| `user` — key ends `:<userId>` | 2 | Two accounts on one browser cannot read each other's |
+| `guest` — `sessionStorage` | 4 | Dies with the tab |
+| **`shared` — `localStorage`, no user id, no expiry** | **20** | **Readable by the next person to use the browser. 19 can hold case content** |
+
+#### Confirmed in a real browser, not inferred
+
+On 2026-09-17 a user ran a storage scan on their own machine and found a case
+story from a previous session in two keys:
+
+```
+courtSimplifiedWorkspaceDocument:case:3b24868a-f37a-4334-a82c-56830dcd0269
+courtSimplifiedBuilderDraft:7ae96282-53fa-4a5a-80f1-39ea5ba1c62e
+```
+
+**The first is the worked example for this whole section.** It is the entire
+generated drafting workspace document. It is keyed by **case id with no user id**,
+so it is not partitioned by account; it lives in `localStorage`, so it survives
+closing the window and restarting the browser; and nothing cleared it when a new
+case was started.
+
+The second carries a user id, meaning a signed-in session wrote it. On a shared
+machine that is a second person's draft sitting beside the first.
+
+**Why this matters for this platform specifically:** the audience is
+self-represented people, and a material share of them use library, shelter and
+drop-in-centre computers. "Stored on the user's own device" is a reassuring
+phrase that, on a shared device, means *stored for whoever sits down next*.
+
+#### What changed
+
+`resetIntake()` (`src/lib/case-system/storage/resetIntake.ts`) clears every
+registered key across both storage areas. It enumerates what is present and
+matches against the registry rather than removing per known key, which is what
+reaches the `:<caseId>` / `:<courtPath>` / `:<userId>` suffixed forms that a
+hand-written list cannot name. It runs on anonymous arrival at the home gate, on
+sign-out, on "Start a new case", and on opening the court-path finder. The
+Supabase auth token is never touched.
+
+`npm run test:reset-intake` asserts it against **the two key strings above,
+verbatim**, so the fix is pinned to what was measured rather than to what was
+inferred.
+
+#### Still open
+
+- **Browser tests unrun.** `tests/browser/intake-reset.spec.ts` is written and
+  committed but has never executed — the local dev server would not render.
+  Verified at unit level only.
+- **A user who never returns to the home page is never swept**, other than by
+  the builder's own transient clear on a new matter.
+- **No quick-exit / "hide this site" control exists.** For this audience that is
+  a standard safety control, and the reset it would need now exists.
 
 ---
 
@@ -528,7 +587,7 @@ section from this document.
 | Where data is stored | **Yes** — Canada, which is what the live project is |
 | Resend / Amazon SES receive the user's email address | **Yes** — section 3.4 |
 | Deletion process | **Yes** — by hand, removes everything in the database, with the storage-objects gap named |
-| Cookies and browser storage | **Yes** — `cs_site_access`, and the session in `localStorage` |
+| Cookies and browser storage | **Yes** — `cs_site_access`, the session in `localStorage`, and (from 2026-09-17) that the browser holds a working copy of the case, that it used to persist across users on a shared computer, and that starting a new case now clears it |
 | No analytics, advertising or session-replay | **Yes** |
 | Retention period | **No** — there is none to state (4.1) |
 | Operating legal entity | **No** — unresolved, section 7 item 2 |
