@@ -82,8 +82,14 @@ const sections: { heading: string; paragraphs: string[] }[] = [
       "One cookie: cs_site_access. It records that you entered the password that gates the site while it is in testing. Nothing else.",
       "If you have an account, your sign-in session is kept in your browser's local storage rather than a cookie, so you stay signed in between visits. Signing out clears it.",
       "Your browser also keeps a working copy of your case while you use the site — your answers, and the documents the platform drafts for you. It stays on your own device. It is how the site remembers where you were when you come back.",
-      "That copy used to stay in the browser after you finished. It was not tied to your account, and starting a new case did not remove it — so on a shared computer, the next person to use the site could have seen it. We found one this way on our own test machine: a full draft document, still there after the browser had been closed and reopened.",
-      "Starting a new case from the home page now clears everything the site has kept in your browser. If you are signed in, your own saved case is not affected by this.",
+      // A paragraph describing the previous behaviour and how it was found sat
+      // here until 2026-09-17. Removed deliberately: a privacy notice describes
+      // how the site works now. The history of a fixed defect belongs in
+      // docs/security/DATA_FLOW_INVENTORY.md section 4.3 and in
+      // OUTSTANDING_ISSUES.md, where the people who need it will look for it.
+      // Putting it in front of a self-represented user in distress costs them
+      // attention and tells them nothing they can act on.
+      "Starting a new case from the home page clears everything the site has kept in your browser. If you are signed in, your own saved case is not affected by this.",
       "On a shared or public computer — a library, a shelter, someone else's laptop — we still suggest signing out and clearing your browsing data when you finish. If you ever see case details that are not yours, please tell us.",
       "There are no tracking cookies and no advertising cookies.",
     ],
