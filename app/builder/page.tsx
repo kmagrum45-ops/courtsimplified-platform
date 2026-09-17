@@ -267,7 +267,23 @@ function BuilderPageContent() {
   const [homeStory, setHomeStory] = useState("");
   const [intakeProvince, setIntakeProvince] = useState("");
   const [intakeCity, setIntakeCity] = useState("");
-  const [intakeStory, setIntakeStory] = useState("");
+  /*
+   * `intakeStory` was removed on 2026-09-17. See the gate below.
+   *
+   * THE RULE THIS NOW FOLLOWS: the gate establishes WHERE the case is. Each
+   * path's intake collects WHAT HAPPENED, because each of them already does —
+   * GuidedSmallClaimsIntake asks for it as its opening turn, and FamilyIntake
+   * and CivilIntake each hold their own `facts` field, prefilled from
+   * `initialStory` and validated in their own submit path
+   * (FamilyIntake.tsx:224 and :434).
+   *
+   * The gate used to collect a story too, for every path except Small Claims,
+   * because the exclusion was written as `courtPath !== "small-claims"` — a
+   * condition that names one path instead of stating a rule. Small Claims was
+   * reasoned about; Family and Civil kept the old behaviour by default. The
+   * result was a second, required, duplicate story box on two paths, and a
+   * Continue button that silently would not enable until it was filled.
+   */
   const [hydrated, setHydrated] = useState(false);
   const [smallClaimsMode, setSmallClaimsMode] = useState<"choose" | "form" | "guided">("choose");
   // Session 29: guided intake's completion result is now mapped into
@@ -391,6 +407,19 @@ function BuilderPageContent() {
    * We intentionally do not fall back to the last active case stored in
    * localStorage. That fallback caused unrelated court paths to share cases.
    */
+  /**
+   * What the gate is still waiting on, named in the order the fields appear.
+   *
+   * Derived rather than duplicated: the button's `disabled` and the message
+   * shown to the user read the same list, so they cannot disagree. A button
+   * disabled for a reason the message does not mention is the defect this
+   * replaced.
+   */
+  const gateBlockers = [
+    intakeProvince !== "Ontario" ? "a province or territory" : "",
+    !intakeCity.trim() ? "a city or municipality" : "",
+  ].filter(Boolean);
+
   const activeCaseId = masterCaseId || queryCaseId || null;
 
   const workspaceHref = activeCaseId
@@ -1191,17 +1220,33 @@ function BuilderPageContent() {
                   <label><span className="font-semibold">Province or territory</span><select aria-label="Province or territory" value={intakeProvince} onChange={(event) => setIntakeProvince(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3"><option value="">Select province or territory</option><option value="Ontario">Ontario</option></select></label>
                   <label><span className="font-semibold">City or municipality</span><input aria-label="City or municipality" value={intakeCity} onChange={(event) => setIntakeCity(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" /></label>
                 </div>
-                {courtPath !== "small-claims" && (
-                  <label className="mt-5 block"><span className="font-semibold">Tell us what happened in your own words</span><textarea aria-label="Tell us what happened in your own words" value={intakeStory} onChange={(event) => setIntakeStory(event.target.value)} className="mt-2 min-h-32 w-full rounded-2xl border border-[#d8e6df] px-4 py-3" /></label>
+                {/*
+                  A DISABLED BUTTON THAT DOES NOT SAY WHY IS A BROKEN BUTTON.
+                  Someone who knows this codebase read a correctly-disabled
+                  Continue as a dead end and concluded the Civil path could not
+                  be used at all. A self-represented user would have no better
+                  chance. The rule: whenever the button is disabled, name every
+                  field still needed.
+                */}
+                {gateBlockers.length > 0 && (
+                  <p
+                    id="gate-blockers"
+                    aria-live="polite"
+                    className="mt-5 rounded-2xl border border-[#f0c88a] bg-[#fffaf2] px-4 py-3 text-sm leading-6 text-[#7a4b12]"
+                  >
+                    {gateBlockers.length === 1
+                      ? `Still needed: ${gateBlockers[0]}.`
+                      : `Still needed: ${gateBlockers.slice(0, -1).join(", ")} and ${gateBlockers[gateBlockers.length - 1]}.`}
+                  </p>
                 )}
                 <button
                   type="button"
-                  disabled={intakeProvince !== "Ontario" || !intakeCity.trim() || (courtPath !== "small-claims" && !intakeStory.trim())}
+                  disabled={gateBlockers.length > 0}
+                  aria-describedby={gateBlockers.length > 0 ? "gate-blockers" : undefined}
                   onClick={() => {
                     setConfirmedLocation({ province: "Ontario", city: intakeCity.trim() });
-                    setHomeStory(courtPath === "small-claims" ? "" : intakeStory.trim());
                   }}
-                  className="mt-6 rounded-xl bg-[#2f7d67] px-5 py-3 font-semibold text-white disabled:bg-slate-300"
+                  className="mt-6 rounded-xl bg-[#2f7d67] px-5 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
                 >
                   {courtPath === "small-claims" ? "Continue" : `Continue with ${pathLabel} questions`}
                 </button>
