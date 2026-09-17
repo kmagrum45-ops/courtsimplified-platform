@@ -425,6 +425,106 @@ check in this section.
 while tired, at the end of a long session, using the shell, is how the next
 entry in this section gets written.
 
+### 📌 A search scoped to the wrong question (2026-09-17)
+
+**The fourth in the family, and the first where the search was run correctly,
+reported honestly, and still produced the wrong answer.**
+
+A user reported: start the Small Claims builder, every intake field is empty
+except the case story, which still holds a previous session's story.
+
+**What I did.** Searched for what populates the builder's story field —
+`homeStory`, `initialStory` — traced it to the court-path finder's
+`sessionStorage` hand-off, and found a real defect: `builder/page.tsx` removed
+that key only inside its success branch, so a payload failing the guard stayed
+for the life of the tab and was picked up by a later visit. I reported it as the
+mechanism, flagged that I had not reproduced it, and ranked the fix order as
+though it were settled.
+
+**What it actually was.** Two `localStorage` keys, found in ten seconds with a
+console snippet:
+
+```
+courtSimplifiedWorkspaceDocument:case:3b24868a-…
+courtSimplifiedBuilderDraft:7ae96282-…
+```
+
+The first — the whole drafting workspace document, keyed by case id with **no
+user id** — was what the user saw. It never touches `homeStory`. It is loaded by
+a different route entirely (`document-workspace` → `workflowCaseLoader`), so no
+amount of tracing the story field could ever have reached it.
+
+### Five things went wrong, and only the last is about tooling
+
+**1. I answered a narrower question than the one asked.** The question I
+searched was *"what writes the builder's story field?"* The question that
+mattered was *"what holds this user's story anywhere in this browser?"* The
+first is a trace. The second is an inventory. I ran the trace.
+
+**2. A real bug that fits the symptom is the most seductive wrong answer.** The
+conditional-remove was genuinely defective and genuinely explained the reported
+shape. Nothing in the evidence said "stop" — I stopped because I had something
+that fit, which is not the same as having something that was true.
+
+**3. I had the answer in my own notes.** The same report that named the
+sessionStorage key also enumerated 26 storage keys, stated that 19 unscoped
+localStorage keys can hold case content, and **listed
+`courtSimplifiedWorkspaceDocument` by name**. I built the inventory as input to
+the FIX and never re-read it as a list of SUSPECTS for the diagnosis. The
+evidence and the conclusion were in the same document, contradicting each other,
+and I did not notice.
+
+**4. The decisive test was cheap, and I never proposed it.** One console snippet
+over both storage areas would have settled it at any point. When the browser
+probe was blocked by a broken dev server I substituted reasoning for
+observation, instead of asking what *other* observation was still available. The
+user ran that snippet in one message and the question was closed.
+
+**5. Hedged prose beside confident action reads as confidence.** I wrote
+"candidates, not conclusions" and "from reading, not observation" — and then
+ordered the work as settled and called it "the most plausible mechanism." The
+words disclaimed; the behaviour did not. A reader is entitled to weigh what you
+DO over what you say about it.
+
+### The rule
+
+> **When the symptom is "user data appears where it should not", the question is
+> never "what writes this field". It is "what holds this data" — and that is
+> answered by an inventory, not by a trace.**
+
+And the one that generalises further:
+
+> **One observation of the running system outranks any amount of reading. If the
+> preferred observation is blocked, find a cheaper one; do not promote a reading
+> into its place.**
+
+### How this one differs from the other three
+
+| Instance | The search was | Why it failed |
+|---|---|---|
+| SC-12 `contradiction` | run, correct syntax | **wrong term** — feature was named `inconsistencies` |
+| `information_schema` FKs | run, correct query | **wrong vantage point** — privilege-filtered view |
+| `resend` in the codebase | **never run** — asserted | no search to be wrong |
+| workspace document | run, correct, honestly reported | **wrong question** |
+
+The first three are failures of execution or honesty. This one is neither: the
+grep was right, the finding was real, the caveats were stated. **It answered
+something adjacent to what mattered**, which no improvement in search technique
+would have caught.
+
+### What this did NOT cost, and why that is luck rather than judgment
+
+`resetIntake` clears both observed keys — proven in `verifyResetIntake.ts`
+against the exact key strings from the user's browser, not hypothetical shapes.
+The fix worked because the **inventory** was comprehensive, not because the
+**diagnosis** was correct. Had the fix been scoped to the diagnosis — "remove the
+sessionStorage key unconditionally" — it would have shipped, passed its tests,
+been reported as complete, and left the real leak untouched on every shared
+computer.
+
+**That is the actual lesson: a correct fix reached through a wrong diagnosis is
+not a near miss, it is an untested assumption that happened to be survivable.**
+
 ### 📌 "Checked, not assumed" — a false absence in a design document (2026-09-15)
 
 **The third wrong claim of absence, and the worst-placed of the three.**

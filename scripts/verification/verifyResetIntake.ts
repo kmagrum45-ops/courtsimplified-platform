@@ -163,6 +163,56 @@ function main(): void {
     );
   }
 
+  // ---- The two keys actually observed in a real browser, 2026-09-17 ----
+  //
+  // NOT hypothetical shapes. These are the exact key names a user found in
+  // localStorage on their own machine, holding a case story that had survived
+  // window closes and browser restarts:
+  //
+  //   courtSimplifiedWorkspaceDocument:case:3b24868a-f37a-4334-a82c-56830dcd0269
+  //   courtSimplifiedBuilderDraft:7ae96282-53fa-4a5a-80f1-39ea5ba1c62e
+  //
+  // The first is the whole drafting workspace document, keyed by case id with
+  // NO user id in the key. It is the one that was visible, and it is not the
+  // key the original diagnosis predicted — that diagnosis was reasoned from
+  // code rather than observed, and it was wrong. These rows exist so the fix
+  // is pinned to what was measured, not to what was inferred.
+  {
+    const observed = {
+      "courtSimplifiedWorkspaceDocument:case:3b24868a-f37a-4334-a82c-56830dcd0269": STORY,
+      "courtSimplifiedBuilderDraft:7ae96282-53fa-4a5a-80f1-39ea5ba1c62e": STORY,
+    };
+
+    const local = fakeStorage({ ...observed, theme: "dark" });
+    const session = fakeStorage({});
+    resetIntake({ local, session });
+
+    for (const key of Object.keys(observed)) {
+      check(`observed-in-browser key is cleared: ${key.slice(0, 46)}…`, !local.map.has(key));
+    }
+    check("the unrelated key beside them survives", local.map.get("theme") === "dark");
+  }
+
+  // The user-scoped half of that pair must NOT be swept when the caller cannot
+  // rule out a signed-in user — the finder's case. The workspace document,
+  // which carries no user id, must still go.
+  {
+    const local = fakeStorage({
+      "courtSimplifiedWorkspaceDocument:case:3b24868a-f37a-4334-a82c-56830dcd0269": STORY,
+      "courtSimplifiedBuilderDraft:7ae96282-53fa-4a5a-80f1-39ea5ba1c62e": STORY,
+    });
+    resetIntake({ local, session: fakeStorage({}), includeUserScoped: false });
+
+    check(
+      "includeUserScoped:false still clears the unscoped workspace document",
+      !local.map.has("courtSimplifiedWorkspaceDocument:case:3b24868a-f37a-4334-a82c-56830dcd0269"),
+    );
+    check(
+      "includeUserScoped:false keeps the user-scoped builder draft",
+      local.map.has("courtSimplifiedBuilderDraft:7ae96282-53fa-4a5a-80f1-39ea5ba1c62e"),
+    );
+  }
+
   // ---- 3: a signed-in user's draft survives when the caller says so ----
 
   {
