@@ -1,117 +1,156 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy & Terms | CourtSimplified",
+  title: "Privacy Policy & Terms of Use | CourtSimplified",
   description:
-    "What CourtSimplified collects, where it is stored, what is sent to OpenAI, and how to have it deleted.",
+    "How CourtSimplified collects, uses, and protects personal information, and the terms that apply to using the platform.",
 };
 
+const CONTACT_EMAIL = "privacy@courtsimplified.com";
+
+const LAST_UPDATED = "September 2026";
+
 /**
- * Sourced from docs/security/DATA_FLOW_INVENTORY.md, section by section. When
- * that document changes, this page changes with it — a privacy notice that
- * describes something other than what the system does is worse than none,
- * because a user relies on it.
+ * Held as data rather than inline JSX so the policy text stays exactly as
+ * written, without apostrophes and em dashes being escaped into HTML entities.
  *
- * Held as data rather than inline JSX so the text stays exactly as written,
- * without apostrophes and em dashes being escaped into HTML entities.
- *
- * Plain language throughout, deliberately. The people reading this are
- * self-represented and many are in distress. A notice they cannot read is one
- * they have not consented to.
+ * A paragraph is either a plain string, or a `lead`/`text` pair where the lead
+ * is rendered in bold at the start of the paragraph — the pattern this policy
+ * uses for defined terms ("Account information.", "Governing law.").
  */
-const sections: { heading: string; paragraphs: string[] }[] = [
+type Paragraph = string | { lead: string; text: string };
+
+type Section = {
+  heading: string;
+  paragraphs?: Paragraph[];
+  bullets?: { lead: string; text: string }[];
+  /** Rendered after the bullets, where a section needs a closing line. */
+  closing?: string;
+};
+
+const sections: Section[] = [
   {
-    heading: "What CourtSimplified is",
+    heading: "About CourtSimplified",
     paragraphs: [
-      "CourtSimplified helps you organize your own court case. It gives you legal information, not legal advice. It is not a law firm, and using it does not create a lawyer-client relationship.",
-      "It can tell you what a rule says and what a form asks for. It cannot tell you whether you will win, whether your case is strong, or what you should do. Those are decisions for you, and a licensed lawyer or paralegal can help you make them.",
+      "CourtSimplified provides legal information and case-organization tools for people representing themselves in Ontario courts. We are not a law firm, we do not provide legal advice, and using CourtSimplified does not create a lawyer-client relationship. For advice about your situation, speak with a licensed lawyer or paralegal.",
+      "This policy explains how we collect, use, and protect personal information in accordance with Canada's Personal Information Protection and Electronic Documents Act (PIPEDA).",
     ],
   },
   {
-    heading: "What you give us",
+    heading: "Information we collect",
     paragraphs: [
-      "Your account details: your email address, and your password, which is stored by our database provider in a scrambled form that nobody here can read.",
-      "Everything you enter about your case: what happened, when, who was involved, the amounts of money at issue, and the answers you give to the intake questions. In family matters this can include income figures, information about your children, and information about your relationship.",
-      "Any files you upload as evidence, and any documents the platform generates for you.",
+      {
+        lead: "Account information.",
+        text: "Your email address and password. Passwords are stored in encrypted form and cannot be read by us.",
+      },
+      {
+        lead: "Case information.",
+        text: "The details you enter about your matter, including dates, events, people involved, amounts in dispute, and your answers to intake questions. In family matters, this may include financial information and information about children.",
+      },
+      {
+        lead: "Files and documents.",
+        text: "Evidence you upload and documents the platform prepares for you.",
+      },
+      "We collect only the information needed to provide the service.",
     ],
   },
   {
-    heading: "About the other person in your case",
+    heading: "How we use your information",
     paragraphs: [
-      "To fill out a court form, we ask for the other party's name and address. That means we hold information about a person who does not have an account here and has not been told we hold it.",
-      "We are telling you this plainly because you should know it. We do not contact that person, we do not sell or share their information, and we do not use it for anything except the documents you are preparing. But it is their information, sitting in our database, and they have not been asked.",
+      "We use your information to operate the service, organize your case information, prepare your documents, respond to your requests, and keep the platform secure. We do not use your information for advertising, and we do not sell it. Information you provide about other people involved in your matter is used only to prepare your documents.",
     ],
   },
   {
-    heading: "What we send to OpenAI",
+    heading: "Service providers",
     paragraphs: [
-      "The platform uses OpenAI to read what you have written and help organize it — to pull dates and names out of your description, suggest what a form field should say, and work out which questions to ask you next.",
-      "That means the words you write about your case leave our systems and go to OpenAI. This is the part of this notice we most want you to read.",
-      "What we have checked: API call logging is turned off on our OpenAI account, and we have confirmed that nothing has ever been recorded there. Under OpenAI's terms, data sent through the API is not used to train their models.",
-      "What we have not solved: OpenAI's standard terms allow them to retain API data for up to 30 days for abuse monitoring. We have not applied for the zero-retention arrangement that would remove this. So for up to 30 days, what you wrote can exist on OpenAI's systems, outside our control. We would rather say that than leave it out.",
-      "If you would prefer not to send something to OpenAI, do not type it into the platform.",
+      "We share information only with the providers that help us run the service, and only as needed for them to do so:",
+    ],
+    bullets: [
+      { lead: "Supabase", text: "hosts our database and file storage in Canada." },
+      {
+        lead: "OpenAI",
+        text: "processes the text you write to help organize it and suggest form content. Information sent to OpenAI is not used to train its models and may be retained by OpenAI for up to 30 days for abuse monitoring before deletion.",
+      },
+      {
+        lead: "Resend",
+        text: "delivers account emails. Only your email address and the email content are shared.",
+      },
+    ],
+    closing: "We may also disclose information where required by law.",
+  },
+  {
+    heading: "Where your information is stored",
+    paragraphs: [
+      "Your information is stored in Canada. AI processing by OpenAI takes place outside Canada and may be subject to the laws of the jurisdiction where it is processed.",
     ],
   },
   {
-    heading: "Emails we send you",
+    heading: "Security",
     paragraphs: [
-      "We send email for one reason only: to let you get back into your account. A password reset link, or a sign-in link if you ask for one. We do not send newsletters, marketing, or reminders.",
-      "Those emails come from noreply@courtsimplified.com and are delivered by a company called Resend, which in turn delivers through Amazon's email service. That means your email address goes to Resend and to Amazon in order to reach you.",
-      "What goes to them is your email address and the link itself. Nothing about your case is in those emails and nothing about your case is sent to Resend or Amazon.",
+      "Your information is encrypted in transit and at rest, and access is restricted to authorized personnel. No system is completely secure, but we take reasonable measures to protect your information.",
     ],
   },
   {
-    heading: "Where your information is kept",
+    heading: "Emails",
     paragraphs: [
-      "Your information is stored in Canada. The database the live site runs on is hosted by Supabase in their Canadian region, in central Canada. Uploaded evidence is stored there too.",
-      "The exception is the OpenAI processing described above, which happens on OpenAI's systems outside Canada.",
+      "We only send account-related emails, such as password reset and sign-in links. We do not send marketing or newsletters.",
     ],
   },
   {
-    heading: "Deleting your information",
+    heading: "Cookies and browser storage",
     paragraphs: [
-      "There is no delete button yet. We are building one. Until it exists, email us and we will delete your information by hand.",
-      "We have tested what that removes. Deleting your account removes everything held in the database: your case, your intake answers, your generated documents, the evidence records, and the timeline — all of it, automatically, with nothing left behind.",
-      "One thing is not automatic. The evidence files themselves are held in separate file storage, and that storage is not covered by the database deletion. Those files have to be deleted as a second, explicit step. We would do that too, as part of the same request — but it is a step a person has to remember to take, rather than something the system guarantees, and that is a gap we are closing.",
-      "Ask us and we will confirm when it is done.",
+      "We use only essential cookies needed for the site to function. Your sign-in session and a working copy of your case are kept in your browser's local storage so you can pick up where you left off. Signing out clears your session. We do not use tracking cookies, advertising cookies, analytics, or session-recording tools.",
+      "If you use a shared or public computer, sign out and clear your browsing data when you finish.",
     ],
   },
   {
-    heading: "Cookies and what your browser keeps",
+    heading: "Retention and deletion",
     paragraphs: [
-      "One cookie: cs_site_access. It records that you entered the password that gates the site while it is in testing. Nothing else.",
-      "If you have an account, your sign-in session is kept in your browser's local storage rather than a cookie, so you stay signed in between visits. Signing out clears it.",
-      "Your browser also keeps a working copy of your case while you use the site — your answers, and the documents the platform drafts for you. It stays on your own device. It is how the site remembers where you were when you come back.",
-      // A paragraph describing the previous behaviour and how it was found sat
-      // here until 2026-09-17. Removed deliberately: a privacy notice describes
-      // how the site works now. The history of a fixed defect belongs in
-      // docs/security/DATA_FLOW_INVENTORY.md section 4.3 and in
-      // OUTSTANDING_ISSUES.md, where the people who need it will look for it.
-      // Putting it in front of a self-represented user in distress costs them
-      // attention and tells them nothing they can act on.
-      "Starting a new case from the home page clears everything the site has kept in your browser. If you are signed in, your own saved case is not affected by this.",
-      "On a shared or public computer — a library, a shelter, someone else's laptop — we still suggest signing out and clearing your browsing data when you finish. If you ever see case details that are not yours, please tell us.",
-      "There are no tracking cookies and no advertising cookies.",
+      `We keep your information while your account is active. To delete your account, email ${CONTACT_EMAIL}. We will delete your account, case information, and uploaded files, and confirm by email when it is done.`,
     ],
   },
   {
-    heading: "What we don't do",
+    heading: "Your rights",
     paragraphs: [
-      "We do not use analytics, advertising, or session-replay tools. Nobody is watching a recording of you using the site, and no third party is being told that you visited.",
-      "We do not sell your information. We do not share it with anyone except the service providers named here — Supabase, which stores it, OpenAI, which processes what you write, and Resend and Amazon, which deliver the sign-in emails.",
+      "You may request access to the personal information we hold about you, ask us to correct it, or withdraw your consent to its use. Withdrawing consent may mean we can no longer provide the service. If you have a concern we have not resolved, you may contact the Office of the Privacy Commissioner of Canada at priv.gc.ca.",
     ],
   },
   {
-    heading: "While we're in testing",
+    heading: "Terms of use",
     paragraphs: [
-      "CourtSimplified is still being built. Things can break, and information you enter could be lost while we are changing how it is stored. Keep your own copies of anything that matters.",
-      "Do not upload a document you would not want held on a platform that is still being tested.",
-      "A full Privacy Policy and Terms of Service are being finalized with legal counsel before public launch. This notice describes what the platform actually does today.",
+      {
+        lead: "Legal information, not legal advice.",
+        text: "CourtSimplified explains court procedures and forms. You are responsible for your own decisions and filings. Always confirm forms, rules, and deadlines with official court sources.",
+      },
+      {
+        lead: "Accuracy.",
+        text: "We work to keep our information current, but laws and court procedures change, and we cannot guarantee that all information is complete or up to date.",
+      },
+      {
+        lead: "Your responsibilities.",
+        text: "Provide accurate information, keep your password secure, and use the platform lawfully.",
+      },
+      {
+        lead: "Limitation of liability.",
+        text: "To the extent permitted by law, CourtSimplified is not liable for the outcome of any legal matter or for losses arising from use of the platform.",
+      },
+      {
+        lead: "Governing law.",
+        text: "These terms are governed by the laws of Ontario and the federal laws of Canada that apply there.",
+      },
+      {
+        lead: "Changes.",
+        text: "We may update this policy and these terms. The date at the top shows when they last changed.",
+      },
     ],
   },
 ];
 
-const contactEmail = "courtsimplified@gmail.com";
+function paragraphKey(paragraph: Paragraph): string {
+  return typeof paragraph === "string"
+    ? paragraph.slice(0, 40)
+    : `${paragraph.lead}${paragraph.text.slice(0, 24)}`;
+}
 
 export default function PrivacyPage() {
   return (
@@ -123,11 +162,11 @@ export default function PrivacyPage() {
           </p>
 
           <h1 className="text-4xl font-bold tracking-tight text-[#10231f] md:text-5xl">
-            {"What we collect, and what happens to it"}
+            {"Privacy Policy & Terms of Use"}
           </h1>
 
           <p className="mt-6 text-lg leading-8 text-[#4f685f]">
-            {"CourtSimplified is in testing. This page says what the platform actually does with what you give it — including the parts we have not finished. If something here is unclear, ask us."}
+            {`Last updated: ${LAST_UPDATED}`}
           </p>
         </div>
       </section>
@@ -137,39 +176,66 @@ export default function PrivacyPage() {
           {sections.map((section, index) => (
             <div
               key={section.heading}
-              className={
-                index === 0
-                  ? ""
-                  : "mt-10 border-t border-[#e5ece9] pt-10"
-              }
+              className={index === 0 ? "" : "mt-10 border-t border-[#e5ece9] pt-10"}
             >
               <h2 className="text-2xl font-bold tracking-tight text-[#10231f]">
                 {section.heading}
               </h2>
 
-              {section.paragraphs.map((paragraph) => (
+              {section.paragraphs?.map((paragraph) => (
                 <p
-                  key={paragraph.slice(0, 40)}
+                  key={paragraphKey(paragraph)}
                   className="mt-4 text-lg leading-8 text-[#4f685f]"
                 >
-                  {paragraph}
+                  {typeof paragraph === "string" ? (
+                    paragraph
+                  ) : (
+                    <>
+                      <strong className="font-semibold text-[#10231f]">
+                        {paragraph.lead}
+                      </strong>
+                      {` ${paragraph.text}`}
+                    </>
+                  )}
                 </p>
               ))}
+
+              {section.bullets ? (
+                <ul className="mt-4 list-disc space-y-3 pl-6 text-lg leading-8 text-[#4f685f]">
+                  {section.bullets.map((bullet) => (
+                    <li key={bullet.lead}>
+                      <strong className="font-semibold text-[#10231f]">
+                        {bullet.lead}
+                      </strong>
+                      {` ${bullet.text}`}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+
+              {section.closing ? (
+                <p className="mt-4 text-lg leading-8 text-[#4f685f]">
+                  {section.closing}
+                </p>
+              ) : null}
             </div>
           ))}
 
           <div className="mt-10 border-t border-[#e5ece9] pt-10">
             <h2 className="text-2xl font-bold tracking-tight text-[#10231f]">
-              {"Getting in touch"}
+              {"Contact"}
             </h2>
 
             <p className="mt-4 text-lg leading-8 text-[#4f685f]">
-              {"To ask a question, to have your information deleted, or to tell us something here is wrong: "}
+              {"Privacy Officer, CourtSimplified"}
+            </p>
+
+            <p className="mt-1 text-lg leading-8 text-[#4f685f]">
               <a
                 className="font-semibold text-[#2f7d67] underline transition hover:text-[#256454]"
-                href={`mailto:${contactEmail}`}
+                href={`mailto:${CONTACT_EMAIL}`}
               >
-                {contactEmail}
+                {CONTACT_EMAIL}
               </a>
             </p>
           </div>
