@@ -203,15 +203,36 @@ function getWorkspaceHealth(workspaceDocument: WorkspaceDocument | null) {
   };
 }
 
+/*
+ * THIS INDICATOR MUST NOT SAY "SAVED".
+ *
+ * persistWorkspace() calls writeWorkspaceDocument(), which is a single
+ * localStorage.setItem. There is no server write anywhere on this path — the
+ * workspace document exists in exactly one browser, on one device, and is gone
+ * if that browser's data is cleared.
+ *
+ * "Workspace saved", in green, beside a timestamp, is what every other
+ * application on the user's screen uses to mean "this is safe now". Someone who
+ * has spent an hour drafting reads it that way and closes the tab. The label is
+ * not imprecise; it is a false statement about whether their work survives.
+ *
+ * The wording below is deliberately unflattering to us. It is temporary: the
+ * scoped work is to persist this document server-side alongside the existing
+ * `cases.master_result` writes, and once that lands this reverts to saying
+ * "saved" because it will be true.
+ *
+ * The tone is deliberately NOT green. Green is the signal being misread.
+ */
 function getSaveStatusLabel(status: SaveStatus) {
-  if (status === "saving") return "Saving workspace...";
-  if (status === "saved") return "Workspace saved";
+  if (status === "saving") return "Saving to this browser...";
+  if (status === "saved") return "Saved in this browser only";
   if (status === "error") return "Save issue";
   return "Ready";
 }
 
 function getSaveStatusTone(status: SaveStatus) {
-  if (status === "saved") return "bg-[#f0fdf4] text-[#166534]";
+  // Amber, not green, for "saved". The state is a warning, not a success.
+  if (status === "saved") return "bg-[#fff7ed] text-[#92400e]";
   if (status === "saving") return "bg-[#fff7ed] text-[#92400e]";
   if (status === "error") return "bg-red-50 text-red-700";
   return "bg-[#f8fcfa] text-[#24463d]";
@@ -671,9 +692,23 @@ function DocumentWorkspacePageContent() {
 
               {lastSavedAt && (
                 <p className="mt-2 text-xs text-[#6b8078]">
-                  Last saved: {lastSavedAt}
+                  Last saved to this browser: {lastSavedAt}
                 </p>
               )}
+
+              {/*
+                Temporary, and removed when the workspace document persists
+                server-side. Until then the user is the only backup, and telling
+                them so is the difference between losing an hour of work and
+                not. Placed here rather than in a dismissible banner on purpose:
+                it is a standing fact about this screen, not a notification.
+              */}
+              <p className="mt-2 max-w-prose rounded-xl border border-[#f0c88a] bg-[#fffaf2] p-3 text-xs leading-5 text-[#7a4b12]">
+                This draft is stored in this browser only — it is not on our
+                servers yet, and it will not be here on another device. Clearing
+                your browsing data removes it. Export or copy anything you would
+                not want to lose.
+              </p>
             </div>
           </div>
 
