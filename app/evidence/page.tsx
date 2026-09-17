@@ -21,6 +21,7 @@ import { saveEvidencePackageLocal } from "../../src/lib/case-system/evidenceStor
 import { saveCaseContextLocal } from "../../src/lib/case-system/caseContextStorage";
 import LegalInformationNotice from "../_components/LegalInformationNotice";
 import { supabase } from "../../src/lib/supabase/client";
+import { ACTIVE_CASE_ID_KEY, EVIDENCE_PACKAGE_LEGACY_KEY, PARSED_MESSAGES_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
 
 type CourtPath = "family" | "small-claims" | "civil" | "unknown";
 
@@ -113,13 +114,13 @@ function EvidencePageContent() {
   useEffect(() => {
     const messageStorageKey = `courtsimplified_parsed_messages:case:${activeCaseId}`;
     const activeStoredCaseId =
-      localStorage.getItem("courtSimplifiedActiveCaseId") || "";
+      localStorage.getItem(ACTIVE_CASE_ID_KEY) || "";
     const mayUseLegacyMessages =
       activeCaseId === "draft-case" || activeStoredCaseId === activeCaseId;
     const rawMessages =
       localStorage.getItem(messageStorageKey) ||
       (mayUseLegacyMessages
-        ? localStorage.getItem("courtsimplified_parsed_messages")
+        ? localStorage.getItem(PARSED_MESSAGES_KEY)
         : null);
 
     if (rawMessages) {
@@ -329,7 +330,7 @@ function EvidencePageContent() {
     });
 
     localStorage.setItem(
-      "courtSimplifiedEvidencePackage",
+      EVIDENCE_PACKAGE_LEGACY_KEY,
       JSON.stringify(savedPackage),
     );
 

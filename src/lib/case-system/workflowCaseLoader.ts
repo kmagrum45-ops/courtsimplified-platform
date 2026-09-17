@@ -1,5 +1,6 @@
 import { supabase } from "../supabase/client";
 import { getEvidencePackagesLocal } from "./evidenceStorage";
+import { ACTIVE_CASE_ID_KEY } from "./storage/intakeStorageKeys";
 export { resolveWorkflowGate, type WorkflowGate } from "./workflowGate";
 
 export type WorkflowCaseRecord = {
@@ -58,7 +59,7 @@ function readJson(key: string): unknown {
 
 function getActiveCaseId(): string {
   if (typeof window === "undefined") return "";
-  return localStorage.getItem("courtSimplifiedActiveCaseId") || "";
+  return localStorage.getItem(ACTIVE_CASE_ID_KEY) || "";
 }
 
 export function getWorkspaceStorageKey(caseId?: string): string {

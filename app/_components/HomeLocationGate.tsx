@@ -5,12 +5,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "../../src/lib/supabase/client";
 import {
   clearCompactBuilderDraft,
-  clearGuestIntakeSession,
   loadCompactBuilderDraft,
   saveGuestIntakeSession,
   saveCompactBuilderDraft,
   type BuilderDraftCourtPath,
 } from "../../src/lib/case-system/builderDraftStorage";
+import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 import { scrollAndFocus } from "./scrollFocus";
 
 const pathLabels: Record<BuilderDraftCourtPath, string> = {
@@ -58,6 +58,21 @@ export default function HomeLocationGate() {
       const { data } = await supabase.auth.getUser();
       if (!active) return;
       const id = data.user?.id || null;
+
+      /*
+       * AN ANONYMOUS ARRIVAL AT THE GATE IS A NEW FLOW, AND STARTS EMPTY.
+       *
+       * This is the gate every "start a case" route passes through, so it is
+       * where a shared computer gets cleaned. A full reset here — including
+       * other accounts' user-scoped drafts — is deliberate: nobody is signed
+       * in, so there is no live session whose work could be destroyed, and a
+       * library machine should not still be holding the last person's case.
+       *
+       * A signed-in user is NOT reset. Their draft is what `savedDraft` below
+       * offers to resume, and a case loaded from Supabase must survive.
+       */
+      if (!id) resetIntakeInBrowser();
+
       setUserId(id);
       setSavedDraft(id ? loadCompactBuilderDraft(localStorage, id) : null);
       setHydrated(true);
@@ -71,7 +86,12 @@ export default function HomeLocationGate() {
       setCity("");
       setFacts("");
       setSuggestion(null);
-      if (!id) clearGuestIntakeSession(sessionStorage);
+      /*
+       * Signing out leaves a browser that the next person may use. Clearing
+       * the guest session alone left nineteen unscoped keys holding case
+       * content behind it.
+       */
+      if (!id) resetIntakeInBrowser();
     });
     return () => { active = false; listener.subscription.unsubscribe(); };
   }, []);
@@ -97,6 +117,14 @@ export default function HomeLocationGate() {
 
   function startNewCase() {
     if (userId) clearCompactBuilderDraft(localStorage, userId);
+    /*
+     * "Start a new case" means new. Clearing this user's draft left the shared,
+     * unscoped keys — the master case, the analysis result, the evidence
+     * package, the chat transcript — carrying the previous case into the next
+     * one. `includeUserScoped: false` so no OTHER account on this browser is
+     * touched; this user's own draft is cleared by the line above.
+     */
+    resetIntakeInBrowser({ includeUserScoped: false });
     setSavedDraft(null);
     setProvince("");
     setCity("");

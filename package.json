@@ -77,7 +77,9 @@
     "test:user-facing-scenarios": "node --import tsx scripts/verification/verifyUserFacingScenarioLibrary.ts",
     "test:workflow-gating": "node --import tsx scripts/verification/verifyWorkflowGating.ts",
     "report:journey": "node --import tsx --env-file=.env.local scripts/verification/runStoryJourneyReport.ts",
-    "measure:signals": "node --import tsx scripts/verification/measureSignalNegation.ts"
+    "measure:signals": "node --import tsx scripts/verification/measureSignalNegation.ts",
+    "test:storage-keys": "node --import tsx scripts/verification/verifyStorageKeys.ts",
+    "test:reset-intake": "node --import tsx scripts/verification/verifyResetIntake.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",

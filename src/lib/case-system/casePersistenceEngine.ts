@@ -7,6 +7,7 @@ import {
 
 import type { StoredEvidencePackage } from "./evidenceStorage";
 import type { WorkspaceDocument } from "./documentWorkspaceEngine";
+import { EVIDENCE_PACKAGE_LEGACY_KEY, WORKSPACE_DOCUMENT_KEY } from "./storage/intakeStorageKeys";
 
 export type CasePersistenceStatus =
   | "local-only"
@@ -770,11 +771,11 @@ export function collectCurrentLocalCaseRecord(): PersistedCaseRecord | null {
     ).find(Boolean) as any;
 
     const rawEvidencePackage = safeParse(
-      localStorage.getItem("courtSimplifiedEvidencePackage"),
+      localStorage.getItem(EVIDENCE_PACKAGE_LEGACY_KEY),
     );
 
     const rawWorkspace = safeParse(
-      localStorage.getItem("courtSimplifiedWorkspaceDocument"),
+      localStorage.getItem(WORKSPACE_DOCUMENT_KEY),
     );
 
     const evidencePackages: StoredEvidencePackage[] = rawEvidencePackage

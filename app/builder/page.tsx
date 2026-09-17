@@ -42,6 +42,7 @@ import { supabase } from "../../src/lib/supabase/client";
 import { buildMasterCaseFromIntake } from "../../src/lib/case-system/masterCaseOrchestrator";
 import { buildCaseContextStoragePayload } from "../../src/lib/case-system/caseContextEngine";
 import { consumeGuestIntakeSession, loadCompactBuilderDraft, saveCompactBuilderDraft } from "../../src/lib/case-system/builderDraftStorage";
+import { COURT_PATH_FINDER_KEY, SHARED_STORAGE_KEYS } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import { draftSmallClaimsPlaintiffClaim } from "../../src/lib/case-system/claimDraftEngine";
 import { buildWorkspaceDocument } from "../../src/lib/case-system/documentWorkspaceEngine";
 import { writeWorkspaceDocument } from "../../src/lib/case-system/workflowCaseLoader";
@@ -136,21 +137,24 @@ function clearTransientCaseContext() {
     return;
   }
 
-  const transientKeys = [
-    "courtSimplifiedActiveCaseId",
-    "courtSimplifiedMasterCase",
-    "courtSimplifiedCaseContext",
-    "courtSimplifiedLoadedCaseContext",
-    "courtSimplifiedMasterResult",
-    "courtSimplifiedMasterResultPatch",
-    "courtSimplifiedDashboardPatch",
-    "courtSimplifiedRecommendedNextRoute",
-    "caseData",
-    "courtSimplifiedCase",
-  ];
-
-  for (const key of transientKeys) {
-    localStorage.removeItem(key);
+  /*
+   * WAS a hand-written list of ten keys, one of three such lists in the
+   * codebase (the others in dashboard/page.tsx's logout and
+   * caseContextStorage.ts). There are twenty-six keys. A list maintained in
+   * three places is a list that is wrong in at least one of them.
+   *
+   * Now driven from the registry, so a key added there is cleared here.
+   */
+  for (const entry of SHARED_STORAGE_KEYS) {
+    if (entry.area !== "local") continue;
+    if (entry.matches === "exact") {
+      localStorage.removeItem(entry.key);
+      continue;
+    }
+    for (let index = localStorage.length - 1; index >= 0; index -= 1) {
+      const name = localStorage.key(index);
+      if (name && name.startsWith(entry.key)) localStorage.removeItem(name);
+    }
   }
 }
 
@@ -333,17 +337,35 @@ function BuilderPageContent() {
     if (queryCaseId) return;
     let active = true;
     async function loadUserDraft() {
-      const temporaryGuide = sessionStorage.getItem("courtSimplifiedNotSureGuide");
+      /*
+       * THE FINDER HAND-OFF IS CONSUMED UNCONDITIONALLY.
+       *
+       * This used to remove the key only inside the success branch, so a
+       * payload that parsed but failed the province/city/facts guard — or any
+       * visit where `initialPath` was absent — left the story in sessionStorage
+       * for the life of the tab. A later /builder?path=… then picked it up and,
+       * because it also set `confirmedLocation`, skipped the location gate and
+       * fed the previous story into the intake. Every other field was fresh
+       * React state, which is why the story was the only thing that survived.
+       *
+       * Read once, remove immediately, then decide whether to use it. The
+       * remove must not be conditional on the value being usable: a payload we
+       * will not use is still a story we should not keep.
+       */
+      const temporaryGuide = sessionStorage.getItem(COURT_PATH_FINDER_KEY);
+      if (temporaryGuide) sessionStorage.removeItem(COURT_PATH_FINDER_KEY);
+
       if (initialPath && temporaryGuide) {
         try {
           const guide = JSON.parse(temporaryGuide) as { province?: string; city?: string; facts?: string };
           if (guide.province === "Ontario" && guide.city?.trim() && guide.facts?.trim()) {
-            sessionStorage.removeItem("courtSimplifiedNotSureGuide");
             setConfirmedLocation({ province: "Ontario", city: guide.city.trim() });
             setHomeStory(guide.facts.trim());
             return;
           }
-        } catch { sessionStorage.removeItem("courtSimplifiedNotSureGuide"); }
+        } catch {
+          // Already removed above. Nothing to clean up.
+        }
       }
       const { data } = await supabase.auth.getUser();
       if (!active) return;

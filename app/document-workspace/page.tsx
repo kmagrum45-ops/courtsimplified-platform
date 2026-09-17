@@ -5,6 +5,7 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { supabase } from "../../src/lib/supabase/client";
+import { ACTIVE_CASE_ID_KEY, LOADED_CASE_CONTEXT_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import {
   readWorkspaceDocument,
   writeWorkspaceDocument,
@@ -357,9 +358,9 @@ function DocumentWorkspacePageContent() {
             );
           }
 
-          localStorage.setItem("courtSimplifiedActiveCaseId", caseId);
+          localStorage.setItem(ACTIVE_CASE_ID_KEY, caseId);
           localStorage.setItem(
-            "courtSimplifiedLoadedCaseContext",
+            LOADED_CASE_CONTEXT_KEY,
             JSON.stringify(caseContext),
           );
 
@@ -376,9 +377,7 @@ function DocumentWorkspacePageContent() {
           return;
         }
 
-        const localRaw = localStorage.getItem(
-          "courtSimplifiedLoadedCaseContext",
-        );
+        const localRaw = localStorage.getItem(LOADED_CASE_CONTEXT_KEY);
 
         if (localRaw) {
           try {
@@ -387,13 +386,11 @@ function DocumentWorkspacePageContent() {
             setLoading(false);
             return;
           } catch {
-            localStorage.removeItem("courtSimplifiedLoadedCaseContext");
+            localStorage.removeItem(LOADED_CASE_CONTEXT_KEY);
           }
         }
 
-        const activeCaseId = localStorage.getItem(
-          "courtSimplifiedActiveCaseId",
-        );
+        const activeCaseId = localStorage.getItem(ACTIVE_CASE_ID_KEY);
 
         if (activeCaseId) {
           const restored = setActiveCaseContextLocal(activeCaseId);

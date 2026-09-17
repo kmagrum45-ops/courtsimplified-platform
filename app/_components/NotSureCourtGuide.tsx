@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CompassQuestionIcon } from "./CourtTypeIcons";
+import { COURT_PATH_FINDER_KEY } from "../../src/lib/case-system/storage/intakeStorageKeys";
+import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 
 type Path = "family" | "small-claims" | "civil";
-const temporaryKey = "courtSimplifiedNotSureGuide";
 
 export default function NotSureCourtGuide() {
   const router = useRouter();
@@ -21,15 +22,42 @@ export default function NotSureCourtGuide() {
   const family = /family|parent|spouse|partner|relative|child/i.test(relationship);
   const money = /money|payment|damages|refund|debt|cost/i.test(remedy) && amount.trim();
   const paths: Path[] = Array.from(new Set([...(family ? ["family" as const] : []), ...(money ? ["small-claims" as const] : []), "civil" as const]));
+  /**
+   * Opening the finder starts a new flow, so anything a previous visitor left
+   * in this browser goes now — before a single field is typed.
+   *
+   * `includeUserScoped: false` because this component does not know whether
+   * anyone is signed in, and wiping a signed-in user's saved draft from here
+   * would be the mirror-image bug. Everything anonymous and everything
+   * unscoped is still cleared, which is the shared-computer exposure.
+   */
+  function toggleOpen() {
+    setOpen((value) => {
+      if (!value) resetIntakeInBrowser({ includeUserScoped: false });
+      return !value;
+    });
+  }
+
   function choose(path: Path) {
-    sessionStorage.setItem(temporaryKey, JSON.stringify({ province, city: city.trim(), facts: facts.trim(), relationship, remedy, amount, started }));
+    /*
+     * Only the three fields the builder actually reads are handed over.
+     *
+     * This used to write seven — relationship, remedy, amount and started as
+     * well — none of which anything ever read. They sat in sessionStorage for
+     * the life of the tab describing the user's situation, for no purpose.
+     * Storing what nothing consumes is storing it for the next person.
+     */
+    sessionStorage.setItem(
+      COURT_PATH_FINDER_KEY,
+      JSON.stringify({ province, city: city.trim(), facts: facts.trim() }),
+    );
     router.push(`/builder?path=${path}`);
   }
   return (
     <>
       <button
         type="button"
-        onClick={() => setOpen((value) => !value)}
+        onClick={toggleOpen}
         aria-expanded={open}
         className="group flex h-full w-full flex-col rounded-3xl border border-[#d8e6df] bg-white p-6 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-[#2f7d67] hover:shadow-md"
       >
