@@ -20,7 +20,7 @@ turns run: 9
 | 8 | sc-remedy-sought | - | - |
 | 9 | sc-safety-check | - | - |
 
-possibleCorrections seen: disputeCategory: "unpaid-invoice" -> "contract"; disputeCategory: "unpaid-invoice" -> "catering-contract"; disputeCategory: "unpaid-invoice" -> "contract"; disputeCategory: "unpaid-invoice" -> "business-contract-payment"
+possibleCorrections seen: disputeCategory: "unpaid-invoice" -> "contract"; disputeCategory: "unpaid-invoice" -> "work-or-services"; disputeCategory: "unpaid-invoice" -> "catering-contract"; disputeCategory: "unpaid-invoice" -> "contract"; disputeCategory: "unpaid-invoice" -> "business-contract-payment"
 
 ## Retained matchedClaimType at completion
 
@@ -36,7 +36,6 @@ sc-claim-unpaid-debt-services (Unpaid debt or non-payment for services)
   "timelineText": "The venue cancelled the remaining events on June 12, 2026, after we'd already delivered the first two.",
   "amountClaimedText": "$68,500",
   "claimServed": false,
-  "defenceFiled": false,
   "evidenceText": "I have three things: (1) catering-contract-signed.pdf, the signed catering services contract for the full event series, total value $68,500; (2) delivered-invoices.pdf, invoices for the two events already delivered; (3) cancellation-email.pdf, the venue's email cancelling the remaining events and refusing to pay the outstanding balance.",
   "remedySoughtText": "I want the court to order the venue to pay the outstanding $68,500 balance owed under the signed contract."
 }
@@ -55,12 +54,12 @@ issues: []
 
 detectedIssues: ["debt"]
 detectedClaimTypes: ["debt"]
-missingInformation: ["Your legal name or business name.","Other party name.","Your address for court forms.","Other party address for service."]
-missingEvidence: ["Proof of service and delivery"]
-risksAndGaps: ["Limitation or deadline risk: Build a date-by-date limitation chronology and verify the applicable limitation rules before drafting or filing."]
+missingInformation: ["Your legal name or business name.","Other party name.","Your address for court forms.","Other party address for service.","What specific efforts have been made to settle the dispute before filing?","What are the exact dates of the event, discovery, records obtained, service, filing, and any court deadlines?"]
+missingEvidence: ["Contractual evidence"]
+risksAndGaps: ["Limitation period risk: Gather exact dates related to the contract and cancellation.","Limitation or deadline risk: Build a date-by-date limitation chronology and verify the applicable limitation rules before drafting or filing."]
 userWarnings: ["Verify legal authorities, forms, deadlines, and filing requirements before relying on this output.","Evidence contradiction or context issue requires review: Incomplete evidence may create context conflict.","Evidence gap requires review: Evidence gap: Email evidence.","Limitation or deadline risk requires review.","Retrieved knowledge objects are operational guidance only unless separately verified.","Do not cite operational guidance as law.","Do not cite cases, statutes, court rules, deadlines, or official form requirements until verified against official sources.","Claim amount $68,500 exceeds the Ontario Small Claims Court limit of $50,000; Small Claims Court may not have jurisdiction and the Superior Court of Justice should be considered."]
 intelligenceWarnings: ["Verify legal authorities, forms, deadlines, and filing requirements before relying on this output.","Evidence contradiction or context issue requires review: Incomplete evidence may create context conflict.","Evidence gap requires review: Evidence gap: Email evidence.","Limitation or deadline risk requires review.","Retrieved knowledge objects are operational guidance only unless separately verified.","Do not cite operational guidance as law.","Do not cite cases, statutes, court rules, deadlines, or official form requirements until verified against official sources.","Claim amount $68,500 exceeds the Ontario Small Claims Court limit of $50,000; Small Claims Court may not have jurisdiction and the Superior Court of Justice should be considered."]
 proceduralRisks: []
 nextBestActions: ["An action is started by filing a Plaintiff's Claim (Form 7A) with the clerk, together with a copy for each defendant. A copy for each defendant is not required if the claim is filed electronically (r. 7.01 (1), (1.1)).","The claim must be served on the defendant within six months after the date it is issued. The court may extend that time, before or after the six months has passed (r. 8.01 (2)).","Service is proved by an Affidavit of Service (Form 8A), or by a lawyer or paralegal's Certificate of Service (Form 8B) where that licensee served it, or caused it to be served, and is satisfied service was effected (r. 8.09.1)."]
-intelligenceSummary: "Recorded under debt. In the file: A signed catering contract for the total value of $68,500; Invoices for the two events already delivered; An email from the venue cancelling the remaining events and refusing to pay. Still to record: No filed documents with the court yet."
-structuredIntelligenceSummary: "Claim type recorded: debt. Stage recorded: starting-case. In the file: A signed catering contract for the total value of $68,500; Invoices for the two events already delivered; An email from the venue cancelling the remaining events and refusing to pay. Still to record: No filed documents with the court yet."
+intelligenceSummary: "Recorded under debt. In the file: Signed catering services contract for the full event series, total value $68,500; Invoices for the two events already delivered; Email from the venue cancelling the remaining events and refusing to pay the outstanding balance. Still to record: Specific settlement efforts made before filing; Exact dates related to the contract and cancellation."
+structuredIntelligenceSummary: "Claim type recorded: debt. Stage recorded: starting-case. In the file: Signed catering services contract for the full event series, total value $68,500; Invoices for the two events already delivered; Email from the venue cancelling the remaining events and refusing to pay the outstanding balance. Still to record: Specific settlement efforts made before filing; Exact dates related to the contract and cancellation."

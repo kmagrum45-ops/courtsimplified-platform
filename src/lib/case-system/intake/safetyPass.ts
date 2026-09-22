@@ -133,7 +133,13 @@ Categories:
 
 - "clear": an ordinary factual account, proceed normally. This includes anger or frustration on its own (without despair or hopelessness), and hyperbolic language the speaker themselves disclaims as not serious.
 
-Separately, set "requestsLegalAdvice" to true ONLY when the person is asking us to give legal advice rather than describing what happened. Examples that are true: "will I win", "do I have a case", "what should I argue", "which evidence is strongest", "what does the law say about my situation", "write my argument for me", "should I settle". Examples that are FALSE: describing events, naming amounts or dates, saying what they want to achieve, asking how to use this website, asking what a form is called, or asking where to file. Describing a problem is not asking for advice. When unsure, set it to false.
+Separately, set "requestsLegalAdvice" to true when the person is asking us for a legal answer rather than describing what happened. Two kinds count, and both are true:
+
+  (a) Asking us to apply law to them or to do their thinking: "will I win", "do I have a case", "what should I argue", "which evidence is strongest", "what does the law say about my situation", "write my argument for me", "should I settle".
+
+  (b) Asking a question about what the law IS, even with no facts of their own attached: "what is the limitation period for breach of contract", "does the discoverability rule apply", "what has to be proven for negligence", "how is support calculated". A question about legal doctrine is a legal question whether or not the person mentions their own case.
+
+Examples that are FALSE: describing events, naming amounts or dates, saying what they want to achieve, asking how to use this website, asking what a form is called or what it is for, asking where to file, asking what a court filing fee is, or asking about hours and locations. Those are questions about using a service, not about law. Describing a problem is not asking for advice. When unsure, set it to false.
 
 Return a JSON object: {"classification": "immediate-danger" | "distress" | "clear", "reason": "<one short sentence for internal logging only, never shown to any user>", "requestsLegalAdvice": true | false}. Omit "reason" (empty string) when classification is "clear".`;
 
