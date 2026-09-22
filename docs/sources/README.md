@@ -476,7 +476,86 @@ recorded in full. Those 6 are flagged individually below.
   s. 263 (2.2) allows an election not to recover from one's own insurer, which
   does not by itself restore a right of action against the other driver.
 
+### `rcp-cited-rules.txt`
+
+- **What it is:** the rules of **R.R.O. 1990, Reg. 194 (Rules of Civil
+  Procedure)** that CourtSimplified's Superior Court content depends on —
+  r. 16.09 (proof of service), r. 29.1.03 (discovery plan), r. 30.03
+  (affidavit of documents), r. 31.05.1 (seven-hour examination limit),
+  r. 48.02 (setting down), r. 48.14 (dismissal for delay), r. 50.02
+  (pre-trial timing).
+- **Why these:** the stage-completeness audit found the Superior Court
+  stages state forms and deadlines but not service, filing or proof of
+  service. These are the provisions that say what is actually required,
+  and none of it could be written without them.
+- **The citation form matters.** This regulation is correctly cited
+  **R.R.O. 1990, Reg. 194**. "Ontario Regulation 194" and "O. Reg. 194/90"
+  are common but imprecise; `app/legal-principles/page.tsx` currently uses
+  the first of those.
+- **The finding that most changes existing content:** r. 16.09 (1.1) gives
+  a **lawyer's** certificate of service (Form 16B.1) — *lawyer only*. That
+  is narrower than the Small Claims equivalent (O. Reg. 258/98, r. 8.09.1
+  (3)), which covers a lawyer **or paralegal** (Form 8B). The two must not
+  be described in the same words.
+- **Citation:** R.R.O. 1990, Reg. 194, made under the Courts of Justice Act
+- **Retrieved from:** https://www.ontario.ca/laws/docs/900194_e.doc,
+  extracted with `antiword`
+- **Consolidation period:** from 2026-09-01 to the e-Laws currency date
+  (last amendment 275/26)
+- **Downloaded:** 2026-09-17
+- **Note:** sourcing only. No content has been written from it yet.
+
+### `flr-stage-rules.txt`
+
+- **What it is:** the procedural-stage rules of **O. Reg. 114/99 (Family
+  Law Rules)** — r. 2 (1) (the definition of "file"), r. 6 (19) (proof of
+  service), r. 8 (1) (starting a case), r. 10 (answering, and reply),
+  r. 14 (motions for temporary orders), r. 17 (1) (conferences).
+- **Why it is a SEPARATE file from `flr-cited-rules.txt`:** that file is
+  machine-read by `verifyCitedProvisions.ts` and `verifyStatusTriage.ts`,
+  which split on its rule lines. Appending to it for an editorial need
+  risks breaking two parsers for no benefit. A second file costs nothing.
+- **Two findings worth carrying forward:**
+  - **r. 6 (19) (f)** gives a **lawyer or paralegal's** certificate of
+    service (**Form 6C**) on the same condition as Small Claims 8B —
+    served it or caused it to be served, and satisfied service was
+    effected. So Family matches Small Claims here and Superior Court does
+    not.
+  - **r. 2 (1) defines "file" as "to file, WITH PROOF OF SERVICE where
+    service is required"**. Family content that says "serve and file"
+    is therefore already accurate as a matter of law — but a
+    self-represented reader has no way to know that, which is an argument
+    for stating it rather than for leaving it implied.
+- **Citation:** O. Reg. 114/99, made under the Courts of Justice Act
+- **Retrieved from:** https://www.ontario.ca/laws/docs/990114_e.doc,
+  extracted with `antiword`
+- **Consolidation period:** from 2026-05-01 to the e-Laws currency date
+  (last amendment 228/25)
+- **Downloaded:** 2026-09-17
+- **Note:** sourcing only. No content has been written from it yet.
+
 ### `oreg-258-98-cited-rules.txt`
+
+> **Updated 2026-09-17: rr. 8.09.1, 9.01, 10.03, 15.01 and 1.06 (3)
+> appended.** Same document, same consolidation (from 2025-10-14),
+> extracted the same way. Retrieved because the stage-completeness audit
+> found proof of service missing from four stages that discuss service, and
+> none of the underlying rules were vendored.
+>
+> - **r. 8.09.1** — how service is proved: affidavit of service (Form 8A)
+>   by the person who served it, or a **lawyer or paralegal's** certificate
+>   of service (Form 8B) where that licensee served it or caused it to be
+>   served *and is satisfied service was effected*. The condition is part
+>   of the rule; "for licensees" alone understates it.
+> - **r. 9.01 / r. 10.03** — a defence is served on every other party and
+>   **filed with proof of service**.
+> - **r. 15.01 (3)–(5)** — a notice of motion is served at least 7 days
+>   before the hearing and **filed, with proof of service**, at least 3
+>   days before; responding and supplementary affidavits at least 2 days.
+> - **r. 1.06 (3)** — **Form 1A is a continuation sheet** for listing
+>   parties that do not fit on a form's first page. It is not a mechanism
+>   for adding a party, which is how `app/legal-principles/page.tsx`
+>   currently reads.
 
 > **Updated 2026-09-14: rr. 11.01–11.06 (default proceedings) appended.**
 > Same document, same consolidation (from 2025-10-14), extracted the same

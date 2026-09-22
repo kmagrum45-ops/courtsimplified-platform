@@ -1,0 +1,213 @@
+R.R.O. 1990, Reg. 194 (Rules of Civil Procedure) — rules cited by CourtSimplified
+Source: https://www.ontario.ca/laws/docs/900194_e.doc
+Consolidation period: from 2026-09-01 to the e-Laws currency date (last amendment 275/26)
+Extracted with antiword, 2026-09-17. Verbatim, unedited below each rule line.
+
+NOTE ON THE CITATION: this regulation is correctly cited R.R.O. 1990, Reg. 194.
+"Ontario Regulation 194" / "O. Reg. 194/90" are common but imprecise forms.
+======================================================================
+
+---------------------------------------------------------------------- 
+r. 16.09 — proof of service (affidavit Form 16B; LAWYER's certificate Form 16B.1)
+---------------------------------------------------------------------- 
+
+      16.09  (1)  Service of a document may be proved by an  affidavit  of
+the person who served it (Form 16B).  R.R.O. 1990, Reg. 194, r. 16.09 (1).
+
+Lawyer's Certificate
+      (1.1)  A lawyer may  prove  service  of  a  document  by  a  lawyer's
+certificate of service (Form 16B.1) if the lawyer  served  the  document  or
+caused it to be served and is satisfied that service was effected.  O.  Reg.
+520/22, s. 3 (1).
+
+Sheriff's Certificate
+      (2)  Personal service or service under subrule 16.03 (5) (service  at
+place of residence) of a document by a sheriff may be proved by a  sheriff's
+certificate of service (Form 16C).  R.R.O. 1990, Reg. 194, r. 16.09 (2); O.
+Reg. 520/22, s. 3 (2).
+
+Lawyer's Admission or Acceptance Sufficient Proof
+      (3)  Where a lawyer admits or accepts service of a document on behalf
+of a party, the lawyer's written  admission  or  acceptance  of  service  is
+sufficient proof of service and need not be verified by any other  proof  of
+service. O. Reg. 520/22, s. 3 (3).
+
+Document Exchange
+      (4)  Service of a document  under  clause  16.05  (1)  (c)  (document
+exchange) may be proved by the date stamp on the document or a copy  of  it.
+R.R.O. 1990, Reg. 194, r. 16.09 (4).
+
+Electronic Document Exchange
+      (4.1)  Service of a document under subclause 16.01 (4) (b)  (iii)  or
+clause 16.05 (1) (c.1) (electronic document exchange) may  be  proved  by  a
+record of  service  generated  by  the  electronic  document  exchange  that
+identifies the document that was served and indicates,
+      (a)   the total number of pages served;
+      (b)   the name of the person who  served  the  document  and,  if  the
+    person served the document on behalf of a party, the name of the  party
+    and the nature of the relationship between the person and the party;
+      (c)   the name of the person on whom the document was served; and
+      (d)   the date on and time at which the document  was  served  through
+    the electronic document exchange. O. Reg. 170/14, s. 7 (1).
+
+Proof of Service on Document
+      (5)  The affidavit or certificate of service may be  printed  on  the
+backsheet or on a stamp or sticker affixed to the backsheet of the  document
+served.  R.R.O. 1990, Reg. 194, r. 16.09 (5).
+      (6)  Revoked: O. Reg. 689/20, s. 18.
+
+---------------------------------------------------------------------- 
+r. 29.1.03 — discovery plan
+---------------------------------------------------------------------- 
+
+      29.1.03  (1)  Where a party to an action intends to obtain  evidence
+under any of the following Rules, the parties to the action shall  agree  to
+a discovery plan in accordance with this rule:
+      1.    Rule 30 (Discovery of Documents).
+      2.    Rule 31 (Examination for Discovery).
+      3.    Rule 32 (Inspection of Property).
+      4.    Rule 33 (Medical Examination).
+      5.    Rule  35  (Examination  for  Discovery  by  Written  Questions).
+    O. Reg. 438/08, s. 25.
+
+Timing
+      (2)  The discovery plan shall be agreed to before the earlier of,
+      (a)   60 days after the close of pleadings or such  longer  period  as
+    the parties may agree to; and
+      (b)   attempting to obtain the evidence.  O. Reg. 438/08, s. 25.
+
+Contents
+      (3)  The discovery plan shall be in writing, and shall include,
+      (a)   the intended scope of documentary discovery  under  rule  30.02,
+    taking into account relevance, costs and the importance and  complexity
+    of the issues in the particular action;
+      (b)   dates for the service of each  party's  affidavit  of  documents
+    (Form 30A or 30B) under rule 30.03;
+      (c)   information respecting the  timing,  costs  and  manner  of  the
+    production of documents by the parties and any other persons;
+       (d)    the  names  of  persons  intended  to  be  produced  for  oral
+    examination for discovery under Rule 31 and information respecting  the
+    timing and length of the examinations; and
+      (e)   any other information intended to result in the expeditious  and
+    cost-effective completion of the discovery process in a manner that  is
+    proportionate to the importance and complexity of the action.  O. Reg.
+    438/08, s. 25.
+
+
+---------------------------------------------------------------------- 
+r. 30.03 — affidavit of documents: served, not filed
+---------------------------------------------------------------------- 
+
+      30.03  (1)  A party to an action shall serve on every other party an
+affidavit of documents (Form 30A or 30B) disclosing to the  full  extent  of
+the party's knowledge, information and belief all documents relevant to  any
+matter in issue in  the  action  that  are  or  have  been  in  the  party's
+possession, control or power.  O. Reg. 438/08, s. 27 (1).
+
+Contents
+      (2)  The affidavit shall list and describe,  in  separate  schedules,
+all documents relevant to any matter in issue in the action,
+      (a)   that are in the party's possession, control or  power  and  that
+    the party does not object to producing;
+      (b)   that are or were in the party's  possession,  control  or  power
+    and for which the party claims  privilege,  and  the  grounds  for  the
+    claim; and
+      (c)   that were formerly in the party's possession, control or  power,
+    but are no longer in the party's possession, control or power,  whether
+    or not privilege is claimed for them, together with a statement of when
+    and how the party lost possession or control of or power over them  and
+    their present location.  R.R.O. 1990, Reg. 194, r. 30.03 (2); O. Reg.
+    438/08, s. 27 (2).
+      (3)  The affidavit shall also contain a statement that the party  has
+never had in the party's possession, control or power any document  relevant
+to any matter in issue  in  the  action  other  than  those  listed  in  the
+affidavit.  R.R.O. 1990, Reg. 194, r. 30.03 (3); O. Reg. 438/08, s. 27 (3).
+
+Lawyer's Certificate
+      (4)  Where the party is represented by a  lawyer,  the  lawyer  shall
+certify on the affidavit that he or she has explained to the deponent,
+      (a)   the  necessity  of  making  full  disclosure  of  all  documents
+    relevant to any matter in issue in the action; and
+      (b)   what kinds of  documents  are  likely  to  be  relevant  to  the
+    allegations made in the pleadings.  O. Reg.  653/00,  s. 3;  O. Reg.
+    438/08, s. 27 (4).
+
+---------------------------------------------------------------------- 
+r. 31.05.1 — seven-hour limit on oral examinations for discovery
+---------------------------------------------------------------------- 
+
+      31.05.1  (1)  No party shall, in conducting  oral  examinations  for
+discovery, exceed a total of seven hours of examination, regardless  of  the
+number of parties or other persons to be examined, except with  the  consent
+of the parties or with leave of the court.  O. Reg. 438/08, s. 29.
+
+Considerations for Leave
+      (2)  In determining whether leave should  be  granted  under  subrule
+(1), the court shall consider,
+      (a)   the amount of money in issue;
+      (b)   the complexity of the issues of fact or law;
+      (c)   the amount of time that ought reasonably to be required  in  the
+    action for oral examinations;
+      (d)   the financial position of each party;
+      (e)   the conduct of any party, including a  party's  unresponsiveness
+    in any examinations for discovery held previously in the  action,  such
+
+---------------------------------------------------------------------- 
+r. 48.02 — setting an action down: serve the trial record, file it with proof of service
+---------------------------------------------------------------------- 
+
+      48.02  (1)  Where an action is defended, a party who wishes to set it
+down for trial may do so by serving a trial record  prepared  in  accordance
+with rule 48.03 on every party  to  the  action  or  to  a  counterclaim  or
+crossclaim in the action and on any third or subsequent party and  forthwith
+filing the trial record with proof of service.  O. Reg. 396/91, s. 5.
+
+Undefended Action
+      (2)  Where the court orders the trial  of  an  undefended  action,  a
+party who wishes to set it down for trial  may  do  so  by  filing  a  trial
+record prepared in accordance with rule 48.03.  O. Reg. 396/91, s. 5.
+
+Defended Third Party Claim
+      (3)  Where an action is a defended third party  claim,  a  party  who
+wishes to set it down  for  trial  shall,  in  addition  to  complying  with
+subrule (1), serve the  trial  record  in  the  third  party  claim  on  the
+plaintiff in the main action within the time for service on the  parties  to
+the third party claim and shall forthwith file proof of  service.   O. Reg.
+396/91, s. 5.
+
+---------------------------------------------------------------------- 
+r. 48.14 — dismissal for delay
+---------------------------------------------------------------------- 
+
+      48.14  (1)  Unless the court orders otherwise, the  registrar  shall
+dismiss an action for  delay  in  either  of  the  following  circumstances,
+subject to subrules (4) to (8):
+      1.    The action has not been set down for trial or terminated by  any
+    means by the fifth anniversary of the commencement of the action.
+      2.    The action was  struck  off  a  trial  list  and  has  not  been
+    restored to a trial list or otherwise terminated by any  means  by  the
+    second anniversary of being struck off. O. Reg. 170/14, s. 10; O.  Reg.
+    487/16, s. 8 (1).
+
+Exceptions
+      (1.1)  Subrule (1) does not apply to,
+      (a)   actions placed on the Commercial List  established  by  practice
+    direction in the Toronto Region; and
+      (b)   actions under the Class Proceedings Act, 1992. O.  Reg.  487/16,
+    s. 8 (2).
+
+---------------------------------------------------------------------- 
+r. 50.02 — pre-trial conference timing
+---------------------------------------------------------------------- 
+
+      50.02  (1)  Unless the court orders otherwise, within 180 days after
+an action is set down  for  trial,  the  parties  shall  schedule  with  the
+registrar a date and time acceptable to all parties and consistent with  the
+requirements of subrule (2.1) to appear before a judge  or  associate  judge
+for a pre-trial conference. O. Reg. 394/09, s. 22; O. Reg. 170/14,  s.  12
+(1); O. Reg. 383/21, s. 15; O. Reg. 18/22, s. 3 (1).
+      (2)  If the parties do not schedule a pre-trial conference within 180
+days after the action is set down for trial, the  registrar  shall,  subject
+to any previous order,
+      (a)   schedule a date and time consistent  with  the  requirements  of
+    subrule (2.1) for the parties to appear before  a  judge  or  associate

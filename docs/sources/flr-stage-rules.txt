@@ -1,0 +1,186 @@
+O. Reg. 114/99 (Family Law Rules) — procedural-stage rules cited by CourtSimplified
+Source: https://www.ontario.ca/laws/docs/990114_e.doc
+Consolidation period: from 2026-05-01 to the e-Laws currency date (last amendment 228/25)
+Extracted with antiword, 2026-09-17. Verbatim, unedited below each rule line.
+
+SEPARATE FROM flr-cited-rules.txt DELIBERATELY. That file is machine-read by
+verifyCitedProvisions.ts and verifyStatusTriage.ts, which split on its rule
+lines; appending to it risks breaking parsers for a purely editorial need.
+======================================================================
+
+---------------------------------------------------------------------- 
+r. 2 (1) — the definition of "file" ALREADY INCLUDES proof of service
+---------------------------------------------------------------------- 
+
+"file" means to file, with proof of service where service is required,
+      (a)   in the court office  in  the  municipality  where  the  case  or
+    enforcement  is  started  or  to  which  the  case  or  enforcement  is
+    transferred, or
+      (b)   electronically in accordance with these rules; ("d�poser")
+"final order" means an order, other than a temporary order, that  decides  a
+ claim in an application, including,
+
+---------------------------------------------------------------------- 
+r. 6 (19) — proof of service (affidavit Form 6B; lawyer OR PARALEGAL certificate Form 6C)
+---------------------------------------------------------------------- 
+
+Proof of service
+      (19)  Service of a document may be proved by,
+      (a)   an acceptance or  reconnaissance  of  service,  written  by  the
+    person to be served or the person's licensed representative;
+      (b)   an affidavit of service (Form 6B);
+      (c)   the return postcard mentioned in clause (3) (c);
+      (d)   the date stamp on a copy of the document served by deposit at  a
+    document exchange;
+      (e)   a record of service provided by an electronic document  exchange
+    that meets the requirements of this rule; or
+      (f)   a lawyer or paralegal's certificate of service (Form 6C), if,
+      (i)   the document was served by the lawyer or paralegal, or
+      (ii)  the lawyer or paralegal caused the document to be served and  is
+       satisfied that service was effected. O. Reg. 114/99, r. 6 (19);  O.
+       Reg. 140/15, s. 1 (7); O. Reg. 522/21, s. 3; O. Reg. 105/23,  s.  4;
+       O. Reg. 172/25, s. 6 (6).
+
+Document that was not seen on effective date
+
+---------------------------------------------------------------------- 
+r. 8 (1) — starting a case: file an application
+---------------------------------------------------------------------- 
+
+      8.  (1)  To start a case, a person shall file an application (Form 8,
+8A, 8B, 8B.1, 8B.2, 8C, 8D, 8D.1, 34L or 34N).  O. Reg. 519/06, s. 2.
+
+Enforcement of family arbitration award
+       (1.1)  Despite  subrule  (1),  a  person  who  is  entitled  to  the
+enforcement of a family arbitration award and who wants to ask the court  to
+enforce the award under section 59.8 of the Family Law  Act  may  do  so  by
+filing a request to enforce a family arbitration  award  (Form  32.1)  under
+rule 32.1. O. Reg. 388/12, s. 3.
+
+When required to proceed by motion
+      (1.2)  Despite subrules (1) and (1.1), if there is already  a  family
+law case to which these rules  apply  between  the  parties  to  the  family
+arbitration agreement in the Superior Court of Justice or the  Family  Court
+of the Superior Court of Justice, the party entitled  to  enforcement  shall
+make a motion in that case rather than an application under this rule  or  a
+request under rule 32.1, and subrule 14  (24)  applies  in  respect  of  the
+motion. O. Reg. 388/12, s. 3.
+
+Change to final order or agreement
+
+---------------------------------------------------------------------- 
+r. 10 (1) — answering a case: serve and file an answer
+---------------------------------------------------------------------- 
+
+      10.  (1)  A person against whom an application is made shall serve an
+answer (Form 10, 33B, 33B.1 or 33B.2) on  every  other  party  and  file  it
+within 30 days after being served with the application.  O. Reg. 114/99,  r.
+10 (1); O. Reg. 91/03, s. 2; O. Reg. 519/06, s. 4.
+
+Time for answer - application served outside Canada or U.S.A.
+      (2)  If an application is served outside Canada or the United  States
+of America, the time for serving and filing an answer is 60 days.   O.  Reg.
+114/99, r. 10 (2).
+
+Exception - placement for adoption
+      (2.1)  In an application to dispense with a parent's  consent  before
+adoption placement, (Form 8D.1), the time for serving the answer is,
+      (a)   20 days, if the application is served in Canada  or  the  United
+    States of America;
+      (b)   40 days, if the application is  served  outside  Canada  or  the
+    United States of America.  O. Reg. 337/02, s. 2; O. Reg. 535/18, s. 3.
+
+Answer may include claim
+      (3)  A respondent may include in the answer,
+      (a)   a claim against the applicant;
+      (b)   a claim against any  other  person,  who  then  also  becomes  a
+    respondent in the case.  O. Reg. 114/99, r. 10 (3).
+
+Answer by added respondent
+      (4)  Subrules (1) to (3) apply to a respondent  added  under  subrule
+(3), except that the time for serving and filing an answer is 14 days  after
+service on the added respondent, or 30  days  if  the  added  respondent  is
+served outside Canada or the United States of America.  O. Reg.  114/99,  r.
+10 (4).
+
+Claim relating to decision-making responsibility, parenting time or contact
+       (4.1)  An  answer  containing  a  claim  respecting  decision-making
+responsibility, parenting time or contact with respect to a child  shall  be
+accompanied by the applicable documents referred to in rule  35.1.  O.  Reg.
+42/21, s. 6.
+
+No answer
+      (5)  The consequences set out in paragraphs 1 to 4 of subrule 1 (8.4)
+apply, with necessary changes, if a respondent does not serve  and  file  an
+answer. O. Reg. 322/13, s. 6; O. Reg. 142/14, s. 5.
+
+Reply
+      (6)  A party may, within 10 days after being served with  an  answer,
+serve and file a reply (Form 10A)  in  response  to  a  claim  made  in  the
+answer.  O. Reg. 114/99, r. 10 (6).
+
+              RULE 11: AMENDING AN APPLICATION, ANSWER OR REPLY
+
+AMENDING AN APPLICATION, ANSWER OR REPLY
+
+Amending application without court's permission
+      11.  (1)  An applicant may amend the application without the court's
+permission as follows:
+      1.    If no answer has been filed, by serving and  filing  an  amended
+
+---------------------------------------------------------------------- 
+r. 14 — motions for temporary orders: notice and service
+---------------------------------------------------------------------- 
+
+      14.  (1)  A person who wants any of the following may make a motion:
+      1.    A temporary order for a claim made in an application.
+      2.    Directions on how to carry on the case.
+      3.    A change in a temporary order.  O. Reg. 114/99, r.  14 (1);  O.
+    Reg. 544/99, s. 6; O. Reg. 89/04, s. 6 (2).
+
+Who may make motion
+      (2)  A motion may be made by a party to the case or by a person  with
+an interest in the case.  O. Reg. 114/99, r. 14 (2).
+
+Parties to motion
+      (3)  A person who is affected by  a  motion  is  also  a  party,  for
+purposes of the motion only, but this does not apply to a child affected  by
+a  motion  relating  to  decision-making  responsibility,  parenting   time,
+contact, child protection, adoption or child support.  O.  Reg.  114/99,  r.
+14 (3); O. Reg. 42/21, s. 9.
+
+No motion before case conference on substantive issues completed
+      (4)  No notice of motion or supporting evidence may be served and  no
+motion may be heard before a conference dealing with the substantive  issues
+in the case has been completed.  O. Reg. 89/04, s. 6 (3); O. Reg. 383/11,
+s. 3 (1).
+      (4.1)  Revoked:  O. Reg. 89/04, s. 6 (3).
+
+---------------------------------------------------------------------- 
+r. 17 (1) — conferences
+---------------------------------------------------------------------- 
+
+      17.  (1)  Subject to subrules (1.1) and (1.2), in each case in which
+an answer is filed, a judge shall conduct at least one conference.  O. Reg.
+383/11, s. 4 (1); O. Reg. 320/22, s. 6 (1).
+
+Exception, case conference optional in child protection case
+      (1.1)  In a child protection case, a case conference may be conducted
+if,
+      (a)   a party requests it; or
+      (b)   the court considers it appropriate. O. Reg. 91/03, s. 6 (1).
+
+Exception, international child abduction
+      (1.2)  Subrule (1) does not apply in  international  child  abduction
+cases. O. Reg. 320/22, s. 6 (2).
+
+Undefended cases
+      (2)  If no answer is filed,
+      (a)   the clerk shall, on request, schedule a case conference  or  set
+    a date for an uncontested trial or, in  an  uncontested  divorce  case,
+    prepare the documents for a judge; and
+      (b)   a settlement conference or trial management conference shall  be
+    conducted only if the court orders it.  O.  Reg.  114/99,  r.  17 (2);
+    O. Reg. 544/99, s. 8 (1); O. Reg. 202/01, s. 5 (1).
+
+Motions to change final order or agreement

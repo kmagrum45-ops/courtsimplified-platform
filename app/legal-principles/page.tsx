@@ -108,6 +108,38 @@ const ONTARIO_COURT_FORMS_FAMILY: PrincipleCitation = {
   verifiedAt: "2026-08-25",
 };
 
+/*
+ * The three procedural regulations themselves.
+ *
+ * Every other citation in this file points at a guide or a forms index. Those
+ * are good sources for orientation and bad ones for a requirement: a guide
+ * summarises, and the summary is where "filed with proof of service" goes
+ * missing. Where a statement below says what a rule REQUIRES, it cites the rule.
+ *
+ * All three are vendored verbatim under docs/sources/ and were re-read there on
+ * the verifiedAt date, not recalled.
+ */
+const OREG_258_98_RULES: PrincipleCitation = {
+  sourceName: "O. Reg. 258/98 — Rules of the Small Claims Court (e-Laws)",
+  officialUrl: "https://www.ontario.ca/laws/regulation/980258",
+  verifiedAt: "2026-09-17",
+};
+
+const RCP_RULES: PrincipleCitation = {
+  // Cited R.R.O. 1990, Reg. 194 — not "O. Reg. 194/90", which is a common but
+  // incorrect form, and not "Ontario Regulation 194", which this file used
+  // before 2026-09-17.
+  sourceName: "R.R.O. 1990, Reg. 194 — Rules of Civil Procedure (e-Laws)",
+  officialUrl: "https://www.ontario.ca/laws/regulation/900194",
+  verifiedAt: "2026-09-17",
+};
+
+const FLR_RULES: PrincipleCitation = {
+  sourceName: "O. Reg. 114/99 — Family Law Rules (e-Laws)",
+  officialUrl: "https://www.ontario.ca/laws/regulation/990114",
+  verifiedAt: "2026-09-17",
+};
+
 const PRINCIPLES: PrincipleCard[] = [
   // ---- Small Claims Court ----
   {
@@ -137,8 +169,14 @@ const PRINCIPLES: PrincipleCard[] = [
     summary: "Starting a Small Claims Court case requires the correct form, served on the defendant within a fixed window.",
     keyFacts: [
       "A claim is started with the Plaintiff's Claim (Form 7A).",
-      "Counter-claims use the Defendant's Claim (Form 10A); additional parties use Form 1A.",
+      "An action is commenced by filing the Plaintiff's Claim with the clerk, together with a copy for each defendant — not required if it is filed electronically.",
+      // "additional parties use Form 1A" until 2026-09-17, which reads as a
+      // way to ADD a party. Under r. 1.06 (3) Form 1A is a continuation sheet,
+      // appended when a form's first page has no room to list everyone. A user
+      // looking for joinder would have filled in the wrong document.
+      "Counter-claims use the Defendant's Claim (Form 10A). Form 1A is a continuation sheet, appended to a form when its first page has no room to list all the parties.",
       "The claim must be served on the defendant within six months of being issued.",
+      "Service of the claim is proved by an Affidavit of Service (Form 8A), or by a lawyer or paralegal's Certificate of Service (Form 8B) where that licensee served it, or caused it to be served, and is satisfied service was effected.",
     ],
     workflowUse: [
       "Use Forms to locate and complete Form 7A.",
@@ -146,9 +184,10 @@ const PRINCIPLES: PrincipleCard[] = [
     ],
     commonRisks: [
       "Letting the six-month service window lapse.",
+      "Serving the claim but never filing proof of how and when it was served.",
       "Using the wrong form for the type of claim.",
     ],
-    citations: [ONTARIO_GUIDE_MAKING_CLAIM, ONTARIO_COURT_FORMS_SMALL_CLAIMS],
+    citations: [ONTARIO_GUIDE_MAKING_CLAIM, ONTARIO_COURT_FORMS_SMALL_CLAIMS, OREG_258_98_RULES],
   },
   {
     courtPath: "Small Claims Court",
@@ -156,7 +195,12 @@ const PRINCIPLES: PrincipleCard[] = [
     summary: "A defendant has a short, fixed window to file a defence, with a specific form required.",
     keyFacts: [
       "A defendant must serve and file a Defence (Form 9A) within 20 calendar days of being served with the claim.",
-      "An Affidavit of Service (Form 8A) must be filed to show all parties were properly served.",
+      // Was "An Affidavit of Service (Form 8A) must be filed to show all
+      // parties were properly served" -- true, and it named only one of the two
+      // ways r. 8.09.1 allows service to be proved. A defendant whose paralegal
+      // served the defence and filed Form 8B would read this as saying their
+      // file was incomplete.
+      "The defence is served on every other party and filed with proof of service — an Affidavit of Service (Form 8A), or a lawyer or paralegal's Certificate of Service (Form 8B).",
       "The Defence can be filed through the Small Claims Court Submissions Online Portal or in person.",
     ],
     workflowUse: [
@@ -174,8 +218,16 @@ const PRINCIPLES: PrincipleCard[] = [
     title: "If a Defence Is Not Filed",
     summary: "Missing the defence deadline has a specific, serious procedural consequence.",
     keyFacts: [
-      "If no defence is filed in time, the plaintiff may ask the court to note the defendant in default.",
+      // "the court" until 2026-09-17. Under r. 11.01 (1) it is the CLERK who
+      // notes a defendant in default, on the filing of the two things below --
+      // an administrative step, not a judicial one. A user told to "ask the
+      // court" is looking for the wrong counter.
+      "If no defence is filed in time, the plaintiff may ask the clerk to note the defendant in default.",
+      "The plaintiff asks by filing a request to note the defendant in default, which may be made in Form 9B.",
+      "The clerk also requires proof that the claim was served within the court's territorial division.",
+      "If every defendant was served outside that territorial division, no defendant can be noted in default until an Affidavit for Jurisdiction (Form 11A) is filed with the clerk, or the point is proved before a judge.",
       "A defendant noted in default cannot file a defence or take further steps without the plaintiff's consent or the court's permission.",
+      "For a debt or a fixed sum of money, the clerk may sign default judgment (Form 11B).",
       "The plaintiff may be entitled to a judgment without the defendant's participation.",
       "A defendant can bring a motion to set aside a default notation or judgment.",
     ],
@@ -185,9 +237,10 @@ const PRINCIPLES: PrincipleCard[] = [
     ],
     commonRisks: [
       "Assuming a late defence will still be accepted without consequence.",
+      "Asking to note a defendant in default without having filed proof that the claim was served.",
       "Not knowing that a motion is required to reverse a default.",
     ],
-    citations: [ONTARIO_COURTS_SMALL_CLAIMS_DEFAULT],
+    citations: [ONTARIO_COURTS_SMALL_CLAIMS_DEFAULT, OREG_258_98_RULES],
   },
   {
     courtPath: "Small Claims Court",
@@ -219,6 +272,7 @@ const PRINCIPLES: PrincipleCard[] = [
       "Documents not already attached to the claim or defence must be served and filed at least 14 days before a settlement conference.",
       "For trial, that deadline extends to at least 30 days before the trial date.",
       "A List of Proposed Witnesses (Form 13A) must be served at least 14 days before the settlement conference.",
+      "Service of a summons to witness, and the payment or tender of attendance money, may be proved by an Affidavit of Service (Form 8A) or a lawyer or paralegal's Certificate of Service (Form 8B).",
       "Parties should bring original documents plus at least three copies to trial.",
     ],
     workflowUse: [
@@ -229,7 +283,7 @@ const PRINCIPLES: PrincipleCard[] = [
       "Serving documents or the witness list too close to the settlement conference or trial.",
       "Bringing only one copy of a document to trial.",
     ],
-    citations: [ONTARIO_GUIDE_GETTING_READY],
+    citations: [ONTARIO_GUIDE_GETTING_READY, OREG_258_98_RULES],
   },
   {
     courtPath: "Small Claims Court",
@@ -238,7 +292,7 @@ const PRINCIPLES: PrincipleCard[] = [
     keyFacts: [
       "The stages run: Claim, Default Proceedings (if applicable), Settlement Conference, Motions (if needed), Trial, and Enforcement.",
       "A Request to Clerk for a trial date must generally be filed within 30 days after the settlement conference.",
-      "Motions must be served at least 7 days before the hearing and filed at least 3 days before it.",
+      "A notice of motion and supporting affidavit (Form 15A) must be served at least 7 days before the hearing and filed, with proof of service, at least 3 days before it.",
     ],
     workflowUse: [
       "Use Dashboard to see which stage a case is currently in.",
@@ -248,7 +302,7 @@ const PRINCIPLES: PrincipleCard[] = [
       "Skipping the settlement conference step by mistake.",
       "Missing the window to request a trial date.",
     ],
-    citations: [ONTARIO_COURTS_SMALL_CLAIMS_STEPS],
+    citations: [ONTARIO_COURTS_SMALL_CLAIMS_STEPS, OREG_258_98_RULES],
   },
   {
     courtPath: "Small Claims Court",
@@ -367,7 +421,10 @@ const PRINCIPLES: PrincipleCard[] = [
     title: "Forms",
     summary: "Superior Court civil cases use a distinct set of forms from Small Claims Court, organized under the Rules of Civil Procedure.",
     keyFacts: [
-      "Forms are catalogued under Ontario Regulation 194 (Rules of Civil Procedure) and include pleadings, motion forms, and enforcement writs.",
+      // "Ontario Regulation 194" until 2026-09-17. The regulation is correctly
+      // cited R.R.O. 1990, Reg. 194 -- it predates the O. Reg. numbering, and
+      // "O. Reg. 194/90" is a common but incorrect form of the same mistake.
+      "Forms are catalogued under R.R.O. 1990, Reg. 194 (Rules of Civil Procedure) and include pleadings, motion forms, and enforcement writs.",
       "Documents can be filed in hardcopy at the court counter, and in some cases by mail, email, or through online filing portals.",
     ],
     workflowUse: [
@@ -376,7 +433,42 @@ const PRINCIPLES: PrincipleCard[] = [
     commonRisks: [
       "Using a Small Claims Court form in a Superior Court civil case, or vice versa.",
     ],
-    citations: [ONTARIO_COURT_FORMS_CIVIL],
+    citations: [ONTARIO_COURT_FORMS_CIVIL, RCP_RULES],
+  },
+  {
+    /*
+     * Added 2026-09-17. Small Claims had a "Serving Documents" stage and the
+     * other two paths did not, which is why their per-stage omissions had
+     * nothing to fall back on: a reader who missed proof of service under
+     * "Starting a Claim" had nowhere else to find it.
+     *
+     * THE CERTIFICATE HERE IS NARROWER THAN SMALL CLAIMS'. r. 16.09 (1.1)
+     * allows a LAWYER's certificate only. A paralegal cannot certify service
+     * under the Rules of Civil Procedure the way one can under O. Reg. 258/98
+     * r. 8.09.1 (3) or the Family Law Rules r. 6 (19) (f). Describing the three
+     * paths in the same words would tell a paralegal-represented party their
+     * proof of service is valid when it is not.
+     */
+    courtPath: "Superior Court (Civil)",
+    title: "Serving Documents",
+    summary: "Superior Court civil documents have their own service methods and their own ways of proving service.",
+    keyFacts: [
+      "Service of a document may be proved by an affidavit of the person who served it (Form 16B).",
+      "A lawyer may instead prove service by a Lawyer's Certificate of Service (Form 16B.1), where the lawyer served the document or caused it to be served and is satisfied service was effected.",
+      "This is narrower than Small Claims Court: under the Rules of Civil Procedure a paralegal cannot certify service, and an affidavit of service is used instead.",
+      "Where a lawyer admits or accepts service on a party's behalf, that written admission is itself sufficient proof and needs no other proof of service.",
+      "Personal service by a sheriff may be proved by a Sheriff's Certificate of Service (Form 16C).",
+      "The affidavit or certificate may be printed on the backsheet of the document served, or on a stamp or sticker affixed to it.",
+    ],
+    workflowUse: [
+      "Use Evidence to preserve proof of how and when each document was served.",
+      "Use Dashboard to track which documents still need proof of service filed.",
+    ],
+    commonRisks: [
+      "Assuming a paralegal's certificate of service is available in Superior Court as it is in Small Claims Court.",
+      "Serving a document and never filing proof that it was served.",
+    ],
+    citations: [RCP_RULES, ONTARIO_COURTS_CIVIL_STEPS],
   },
 
   // ---- Family Court ----
@@ -414,6 +506,40 @@ const PRINCIPLES: PrincipleCard[] = [
       "Not replying within 10 days to new claims raised in an Answer.",
     ],
     citations: [ONTARIO_COURTS_FAMILY_STEPS],
+  },
+  {
+    /*
+     * Added 2026-09-17, and the reason is different from the other two paths.
+     *
+     * THE FAMILY CONTENT WAS NOT WRONG. Family Law Rules r. 2 (1) defines
+     * "file" as "to file, WITH PROOF OF SERVICE where service is required", so
+     * every existing "serve and file" statement already carries the proof
+     * requirement as a matter of law.
+     *
+     * It is still worth saying. A self-represented parent will not read a
+     * definitions rule, and a requirement that reaches the reader only through
+     * a defined term has not reached the reader. Being legally complete and
+     * being understood are different tests, and this content is written against
+     * the second one.
+     */
+    courtPath: "Family Court",
+    title: "Serving Documents",
+    summary: "Family documents must be served, and in family court filing a document already means filing proof that it was served.",
+    keyFacts: [
+      "In the Family Law Rules, to file a document means to file it with proof of service where service is required — so anywhere these steps say \"serve and file\", proof of service is part of filing.",
+      "Service may be proved by an affidavit of service (Form 6B).",
+      "A lawyer or paralegal may instead prove service by a Lawyer or Paralegal's Certificate of Service (Form 6C), where that licensee served the document or caused it to be served and is satisfied service was effected.",
+      "Service may also be proved by the other person's written acceptance of service, by the return postcard for service by mail, by a document exchange date stamp, or by an electronic document exchange's record of service.",
+    ],
+    workflowUse: [
+      "Use Evidence to preserve proof of how and when each document was served.",
+      "Use Dashboard to track which documents still need proof of service filed.",
+    ],
+    commonRisks: [
+      "Reading \"serve and file\" as two steps and filing without the proof of service that filing requires.",
+      "Assuming the Small Claims Court forms (8A, 8B) apply in a family case.",
+    ],
+    citations: [FLR_RULES, ONTARIO_COURT_FORMS_FAMILY],
   },
   {
     courtPath: "Family Court",
