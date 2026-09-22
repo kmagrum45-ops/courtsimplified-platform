@@ -19,6 +19,10 @@ import type {
 
 import { supabase } from "../../../src/lib/supabase/client";
 import { runClientSafetyCheck } from "../../../src/lib/case-system/intake/clientSafetyCheck";
+import {
+  explanationFor,
+  GENERIC_FALLBACK,
+} from "../../../src/lib/content-library/questionExplanations";
 import { UUID_PATTERN } from "../../../src/lib/case-system/events/caseEventRequest";
 import {
   consumeNarrativePrefill,
@@ -134,51 +138,35 @@ const DEFENCE_FILED_QUESTION = QUESTION_BANK.find((question) => question.id === 
  * Tier 1 (free): shows the question's already-sourced `why`/sourceUrl on
  * click, when present -- no AI, no network, just existing content.
  *
- * Tier 2 (AI): "explain it" calls /api/intake/explain-question with only
- * this question's id -- the server looks up the fixed text/why itself
- * from QUESTION_BANK and never receives any of this form's other field
- * values, so there is no channel for the user's other answers to reach
- * that prompt, even by accident. Available on any matched question, not
- * just why-bearing ones, since it can explain from the question text
- * alone. On any failure the button just stops loading and shows nothing
- * else, same fallback philosophy as composeVoiceTurn().
+ * Tier 2: "explain it" NO LONGER CALLS A MODEL (LSO Step 4).
+ *
+ * It used to POST to /api/intake/explain-question, which ran a model call with
+ * no `response_format` and returned free-form prose that was rendered verbatim
+ * (docs/lso-ai-audit.md finding B-7). The prompt was carefully written -- the
+ * model got no user facts and was forbidden from adding rules, deadlines or
+ * amounts -- but it was still generative text about a legal question, shown to
+ * a user with no human review. Under the A2I policy that is not permitted
+ * however well the prompt is written.
+ *
+ * The explanation now comes from src/lib/content-library/questionExplanations.ts,
+ * which derives it from the question's own existing `why` text. Nothing new was
+ * authored, and there is no network call at all -- so the button is also
+ * instant and works offline.
+ *
+ * Where a question has no `why`, there is no reviewed explanation, and the
+ * GENERIC_FALLBACK shows instead: a deliberately non-legal sentence that says
+ * nothing about law, procedure or the user's situation.
  */
 function FieldHelp({ question }: { question?: IntakeQuestion }) {
   const [showWhy, setShowWhy] = useState(false);
   const [explanation, setExplanation] = useState<string | null>(null);
-  const [explaining, setExplaining] = useState(false);
 
   if (!question) return null;
 
-  async function handleExplain() {
-    if (explaining || explanation) return;
-    setExplaining(true);
-
-    try {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-
-      const response = await fetch("/api/intake/explain-question", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
-        },
-        body: JSON.stringify({ questionId: question!.id }),
-      });
-
-      const json = await response.json().catch(() => null);
-      if (response.ok && json?.ok && typeof json.explanation === "string" && json.explanation.trim()) {
-        setExplanation(json.explanation.trim());
-      }
-      // Any other outcome (error status, malformed body, empty
-      // explanation): silently show nothing extra, never a broken state.
-    } catch {
-      // Network/parsing failure: same silent fallback.
-    } finally {
-      setExplaining(false);
-    }
+  function handleExplain() {
+    if (explanation) return;
+    const reviewed = explanationFor(question!.id);
+    setExplanation(reviewed ? reviewed.text : GENERIC_FALLBACK);
   }
 
   return (
@@ -196,10 +184,10 @@ function FieldHelp({ question }: { question?: IntakeQuestion }) {
       <button
         type="button"
         onClick={handleExplain}
-        disabled={explaining}
+        disabled={Boolean(explanation)}
         className="font-semibold text-[#2f7d67] underline disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {explaining ? "Explaining..." : "I don't understand this — explain it"}
+        {"I don't understand this — explain it"}
       </button>
 
       {showWhy && question.why ? (

@@ -128,8 +128,13 @@ export type ComposeVoiceTurnOptions = {
  * The signature is unchanged, including `async`, so every call site keeps
  * working and nothing needs to learn that this is now free.
  *
- * validateVoiceLayerOutput() above is KEPT. explainQuestion.ts still generates
- * text and still needs it, and slots.ts relies on it for slot values.
+ * validateVoiceLayerOutput() above is KEPT, though its reason has changed.
+ *
+ * It used to be needed because explainQuestion.ts still generated text. That
+ * file was DELETED on 2026-09-22 (LSO Step 4) and its explanations now come
+ * from the reviewed content library, so no generative text remains on either
+ * path. The validator stays because slots.ts relies on it for slot values, and
+ * because it is the last line of defence if a model call is ever reintroduced.
  */
 export async function composeVoiceTurn(
   facts: IntakeFacts,
