@@ -137,7 +137,14 @@ const PRINCIPLES: PrincipleCard[] = [
     summary: "Starting a Small Claims Court case requires the correct form, served on the defendant within a fixed window.",
     keyFacts: [
       "A claim is started with the Plaintiff's Claim (Form 7A).",
-      "Counter-claims use the Defendant's Claim (Form 10A); additional parties use Form 1A.",
+      // "additional parties use Form 1A" until 2026-09-22, which reads as a way
+      // to ADD a party to an action. Under O. Reg. 258/98 r. 1.06 (3), Form 1A
+      // is a CONTINUATION SHEET: where a form has no room on its first page to
+      // list everyone, the remaining parties go on Form 1A, appended
+      // immediately after that page. Someone seeking joinder would have
+      // completed the wrong document. Rule text vendored in
+      // docs/sources/oreg-258-98-cited-rules.txt.
+      "Counter-claims use the Defendant's Claim (Form 10A). Form 1A is a continuation sheet, appended to a form when its first page has no room to list all the parties.",
       "The claim must be served on the defendant within six months of being issued.",
     ],
     workflowUse: [
@@ -174,7 +181,13 @@ const PRINCIPLES: PrincipleCard[] = [
     title: "If a Defence Is Not Filed",
     summary: "Missing the defence deadline has a specific, serious procedural consequence.",
     keyFacts: [
-      "If no defence is filed in time, the plaintiff may ask the court to note the defendant in default.",
+      // "the court" until 2026-09-22. Under O. Reg. 258/98 r. 11.01 (1) it is
+      // the CLERK who notes a defendant in default, on the filing of a request
+      // (Form 9B) and proof of service. It is an administrative step at the
+      // counter, not a judicial one, and a user told to "ask the court" is
+      // looking in the wrong place. Rule text vendored in
+      // docs/sources/oreg-258-98-cited-rules.txt.
+      "If no defence is filed in time, the plaintiff may ask the clerk to note the defendant in default.",
       "A defendant noted in default cannot file a defence or take further steps without the plaintiff's consent or the court's permission.",
       "The plaintiff may be entitled to a judgment without the defendant's participation.",
       "A defendant can bring a motion to set aside a default notation or judgment.",
