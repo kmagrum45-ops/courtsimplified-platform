@@ -87,7 +87,10 @@ const DELIBERATELY_DORMANT: DormantEntry[] = [
       "engine that nothing routes to. Deleting one of the pair without the other leaves the " +
       "same problem with fewer lines, so they go together or not at all.",
   },
-  { file: "src/lib/case-system/formKnowledgeBase.ts", reason: "Dead pair with formTriggerEngine. Also blocked on sourcing — see OUTSTANDING_ISSUES section 26." },
+  // formKnowledgeBase.ts left this list on 2026-09-22: contentInventory.ts now
+  // imports FORM_KNOWLEDGE_BASE to put every form entry in the licensee review
+  // packet, so it is reachable from live code. formTriggerEngine stays dormant --
+  // the pair is broken, not revived.
   { file: "src/lib/case-system/formTriggerEngine.ts", reason: "Dead pair with formKnowledgeBase; no external importer." },
   { file: "src/lib/case-system/evidence-packaging/evidencePackagingEngine.ts", reason: "Dead pair with evidencePackagingArchitecture." },
   {

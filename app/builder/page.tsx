@@ -39,6 +39,9 @@ import {
   getPathLabel,
 } from "./_components/builderTypes";
 import StageConfirmation from "./_components/StageConfirmation";
+import AiUseNotice from "../_components/AiUseNotice";
+import FirstUseAcknowledgement from "../_components/FirstUseAcknowledgement";
+import LegalInformationNotice from "../_components/LegalInformationNotice";
 
 import { supabase } from "../../src/lib/supabase/client";
 import { buildMasterCaseFromIntake } from "../../src/lib/case-system/masterCaseOrchestrator";
@@ -1153,6 +1156,23 @@ function BuilderPageContent() {
   return (
     <main className="min-h-screen bg-[#f8faf8] px-6 py-10 text-[#16302b]">
       <div className="mx-auto max-w-6xl">
+        {/*
+          DISCLOSURES ON THE MAIN AI SURFACE (LSO Step 6).
+
+          The audit found the "legal information, not legal advice" notice on
+          six pages and NOT on this one -- the builder, which is the main intake
+          and where every model call in a user flow originates. And no AI-use
+          disclosure existed anywhere in the product at all.
+
+          The acknowledgement renders first and returns null once given, so a
+          returning user sees the two notices instead of the gate.
+        */}
+        <div className="mb-8 space-y-4">
+          <FirstUseAcknowledgement />
+          <LegalInformationNotice />
+          <AiUseNotice activity="read what you write, pull out dates and names, and suggest which court path and stage fit" />
+        </div>
+
         {!analysis && SHOW_LEGACY_INTELLIGENCE_UI && <section className="mb-8 rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm">
           <div className="flex flex-wrap items-start justify-between gap-5">
             <div>

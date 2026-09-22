@@ -127,7 +127,7 @@ async function replay(simulateLastWins: boolean): Promise<ReplayRow[]> {
       "small-claims",
       turn.questionId,
       {
-        runSafety: async () => ({ classification: "clear" as const, reason: "stub" }),
+        runSafety: async () => ({ classification: "clear" as const, reason: "stub", requestsLegalAdvice: false }),
         extractFacts: async () => ({ facts: {}, directFields: [] }),
         classifyClaimType: stub.classify,
         composeVoice: async () => ({ leadIn: null, questionText: "", fellBackToPlainText: true }),
@@ -225,7 +225,7 @@ async function replayMatcher(
       "small-claims",
       turn.questionId,
       {
-        runSafety: async () => ({ classification: "clear" as const, reason: "stub" }),
+        runSafety: async () => ({ classification: "clear" as const, reason: "stub", requestsLegalAdvice: false }),
         extractFacts: async () => ({ facts: {}, directFields: [] }),
         // Records rather than throws. In the BEFORE replay the matcher misses
         // on short answers ("About two months ago."), so the classifier branch

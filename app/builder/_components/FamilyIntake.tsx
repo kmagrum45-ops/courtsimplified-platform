@@ -18,6 +18,7 @@ import {
   type ClientSafetyClassification,
 } from "@/src/lib/case-system/intake/clientSafetyCheck";
 import { FAMILY_RESOURCE_TOPICS } from "@/src/lib/case-system/intake/familySafetyResources";
+import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 import {
   consumeNarrativePrefill,
   directPrefillValues,
@@ -249,6 +250,8 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
   const [safetyClassification, setSafetyClassification] =
     useState<ClientSafetyClassification>("clear");
   const [safetyMessage, setSafetyMessage] = useState("");
+  /** Step 6d: set when the safety pass reports the user asked for legal advice. */
+  const [asksForAdvice, setAsksForAdvice] = useState(false);
   const [extractedFacts] = useState<NarrativePrefillFact[]>(
     () => initialPrefill?.facts.filter((fact) => fact.state === "direct") || [],
   );
@@ -482,6 +485,7 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
       const safety = await runClientSafetyCheck(facts, session?.access_token);
       setSafetyClassification(safety.classification);
       setSafetyMessage(safety.userMessage || "");
+      setAsksForAdvice(safety.requestsLegalAdvice);
     } catch {
       // Fails open, same as the helper itself. A classifier fault must never
       // stop someone reaching their own case.
@@ -629,6 +633,12 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
         Nothing on this panel is a judgment about this user's facts beyond the
         classification itself.
       */}
+      {asksForAdvice && (
+        <div className="mt-5">
+          <LegalAdviceDeflection reason="legal-advice" />
+        </div>
+      )}
+
       {safetyClassification !== "clear" && (
         <div
           role="note"

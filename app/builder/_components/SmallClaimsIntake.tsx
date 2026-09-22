@@ -19,6 +19,7 @@ import type {
 
 import { supabase } from "../../../src/lib/supabase/client";
 import { runClientSafetyCheck } from "../../../src/lib/case-system/intake/clientSafetyCheck";
+import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 import {
   explanationFor,
   GENERIC_FALLBACK,
@@ -402,6 +403,8 @@ function buildCaseDirection(input: SmallClaimsIntelligenceInput): string {
 // per caller.
 
 type SafetyCheckOutcome = {
+  /** Step 6d: the user asked for legal advice rather than describing events. */
+  requestsLegalAdvice?: boolean;
   halted: boolean;
   haltMessage?: string;
   distressAcknowledgment?: string;
@@ -449,12 +452,12 @@ async function runFormSafetyCheck(storyText: string): Promise<SafetyCheckOutcome
   const result = await runClientSafetyCheck(storyText, session?.access_token);
 
   if (result.classification === "immediate-danger") {
-    return { halted: true, haltMessage: result.userMessage };
+    return { halted: true, haltMessage: result.userMessage, requestsLegalAdvice: result.requestsLegalAdvice };
   }
   if (result.classification === "distress") {
-    return { halted: false, distressAcknowledgment: result.userMessage };
+    return { halted: false, distressAcknowledgment: result.userMessage, requestsLegalAdvice: result.requestsLegalAdvice };
   }
-  return { halted: false };
+  return { halted: false, requestsLegalAdvice: result.requestsLegalAdvice };
 }
 
 /**
@@ -552,6 +555,8 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
   const [safetyHalted, setSafetyHalted] = useState(false);
   const [safetyHaltMessage, setSafetyHaltMessage] = useState("");
   const [distressAcknowledgment, setDistressAcknowledgment] = useState("");
+  /** Step 6d: set when the safety pass reports the user asked for legal advice. */
+  const [asksForAdvice, setAsksForAdvice] = useState(false);
   const [authRequired, setAuthRequired] = useState(false);
   const [extractedFacts, setExtractedFacts] = useState<NarrativePrefillFact[]>(
     () => initialPrefill?.facts.filter((fact) => fact.state === "direct") || [],
@@ -684,6 +689,7 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
       return;
     }
 
+    setAsksForAdvice(Boolean(safety.requestsLegalAdvice));
     if (safety.distressAcknowledgment) {
       setDistressAcknowledgment(safety.distressAcknowledgment);
     }
@@ -764,6 +770,12 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
           <Link href="/login" className="font-semibold underline">
             Sign in
           </Link>
+        </div>
+      )}
+
+      {asksForAdvice && (
+        <div className="mt-5">
+          <LegalAdviceDeflection reason="legal-advice" />
         </div>
       )}
 

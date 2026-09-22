@@ -27,6 +27,15 @@ export type ClientSafetyClassification = "immediate-danger" | "distress" | "clea
 export type ClientSafetyResult = {
   classification: ClientSafetyClassification;
   /**
+   * Whether the user asked for legal ADVICE rather than describing what
+   * happened (LSO Step 6d). Set by the safety pass, which already runs on
+   * every free-text narrative on every path.
+   *
+   * When true the caller shows DEFLECTION_MESSAGE and the referral resources,
+   * and nothing else. The model sets a boolean; the words are fixed.
+   */
+  requestsLegalAdvice: boolean;
+  /**
    * The fixed IMMEDIATE_DANGER_MESSAGE / DISTRESS_ACKNOWLEDGMENT constant from
    * safetyPass.ts. Never model-generated text.
    */
@@ -36,10 +45,11 @@ export type ClientSafetyResult = {
 type SafetyCheckResponse = {
   ok?: boolean;
   classification?: unknown;
+  requestsLegalAdvice?: unknown;
   userMessage?: unknown;
 };
 
-const CLEAR: ClientSafetyResult = { classification: "clear" };
+const CLEAR: ClientSafetyResult = { classification: "clear", requestsLegalAdvice: false };
 
 /**
  * Runs the safety pass over a user's narrative.
@@ -75,6 +85,7 @@ export async function runClientSafetyCheck(
 
     return {
       classification,
+      requestsLegalAdvice: json.requestsLegalAdvice === true,
       userMessage: typeof json.userMessage === "string" ? json.userMessage : undefined,
     };
   } catch {

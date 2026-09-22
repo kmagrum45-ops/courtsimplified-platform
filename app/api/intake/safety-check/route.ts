@@ -127,6 +127,8 @@ export function createSafetyCheckPost(overrides: Partial<SafetyCheckRouteDepende
       return NextResponse.json({
         ok: true,
         classification: result.classification,
+        // Step 6d: the model sets a boolean; the client shows fixed words.
+        requestsLegalAdvice: result.requestsLegalAdvice,
         userMessage: result.userMessage ?? null,
       });
     } catch {

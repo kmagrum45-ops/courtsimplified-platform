@@ -121,25 +121,53 @@ export default function RootLayout({
               </div>
             </div>
 
+            {/*
+              SITE-WIDE DISCLAIMER AND CONTACTS (LSO Step 6a).
+
+              The "legal information, not legal advice" line existed only on six
+              pages and was absent from the builder, which is the main intake and
+              the primary AI surface. In the footer it is on every page by
+              construction, and cannot be missed off a new one.
+
+              Both contact addresses are here because the audit found that
+              complaints@courtsimplified.com appeared nowhere in the codebase,
+              and A2I participants must report complaints quarterly. An address
+              nobody can find produces no complaints and a misleading return.
+            */}
             <div className="border-t border-[#E5ECEA]">
-              <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-6 py-5 text-xs text-[#7B8491] sm:flex-row sm:items-center sm:justify-between">
-                <p>
-                  © {new Date().getFullYear()} CourtSimplified. All rights
-                  reserved.
+              <div className="mx-auto w-full max-w-7xl px-6 py-5 text-xs leading-6 text-[#7B8491]">
+                <p data-testid="site-legal-disclaimer" className="font-semibold text-[#4B5563]">
+                  CourtSimplified provides legal information, not legal advice. We are not a
+                  law firm.
                 </p>
 
-                <div className="flex items-center gap-4">
-                  <Link
-                    href="/privacy"
-                    className="font-semibold transition hover:text-[#2FB8AC]"
-                  >
-                    Privacy &amp; Terms
-                  </Link>
-
+                <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                   <p>
-                    Making court procedures more understandable, organized, and
-                    manageable.
+                    © {new Date().getFullYear()} CourtSimplified. All rights reserved.
                   </p>
+
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <Link
+                      href="/privacy"
+                      className="font-semibold transition hover:text-[#2FB8AC]"
+                    >
+                      Privacy Policy &amp; Terms of Use
+                    </Link>
+
+                    <a
+                      href="mailto:complaints@courtsimplified.com"
+                      className="font-semibold transition hover:text-[#2FB8AC]"
+                    >
+                      complaints@courtsimplified.com
+                    </a>
+
+                    <a
+                      href="mailto:privacy@courtsimplified.com"
+                      className="font-semibold transition hover:text-[#2FB8AC]"
+                    >
+                      privacy@courtsimplified.com
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

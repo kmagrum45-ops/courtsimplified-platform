@@ -19,6 +19,7 @@ import type {
 } from "../../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 import { supabase } from "../../../src/lib/supabase/client";
 import { runClientSafetyCheck } from "../../../src/lib/case-system/intake/clientSafetyCheck";
+import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 import { formatRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 import {
   consumeNarrativePrefill,
@@ -537,6 +538,8 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
   const [safetyHalt, setSafetyHalt] = useState("");
   /** Set on "distress". Shown alongside the intake, which continues. */
   const [safetyNotice, setSafetyNotice] = useState("");
+  /** Step 6d: set when the safety pass reports the user asked for legal advice. */
+  const [asksForAdvice, setAsksForAdvice] = useState(false);
   const [extractedFacts, setExtractedFacts] = useState<NarrativePrefillFact[]>(
     () => initialPrefill?.facts.filter((fact) => fact.state === "direct") || [],
   );
@@ -622,6 +625,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
       } = await supabase.auth.getSession();
 
       const safety = await runClientSafetyCheck(input.facts, session?.access_token);
+      setAsksForAdvice(safety.requestsLegalAdvice);
 
       if (safety.classification === "immediate-danger") {
         setSafetyHalt(safety.userMessage || "");
@@ -745,6 +749,12 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
         Both blocks show safetyPass.ts's fixed constants, never generated text.
         The halt blocks analysis; the notice does not.
       */}
+      {asksForAdvice && (
+        <div className="mt-5">
+          <LegalAdviceDeflection reason="legal-advice" />
+        </div>
+      )}
+
       {safetyHalt && (
         <div
           role="alert"

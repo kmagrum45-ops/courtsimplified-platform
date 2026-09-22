@@ -14,6 +14,8 @@ import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetInt
 import { scrollAndFocus } from "./scrollFocus";
 import { pathwayDescriptionFor } from "../../src/lib/content-library/pathwayDescriptions";
 import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
+import LegalAdviceDeflection from "./LegalAdviceDeflection";
+import AiUseNotice from "./AiUseNotice";
 
 const pathLabels: Record<BuilderDraftCourtPath, string> = {
   family: "Family",
@@ -312,10 +314,25 @@ export default function HomeLocationGate() {
               className="mt-6 rounded-3xl border border-[#ead9a7] bg-[#fffaf0] p-5"
             >
               <h2 className="text-lg font-bold text-[#10231f]">CourtSimplified doesn&apos;t cover this</h2>
-              <p className="mt-2 text-sm leading-6 text-[#6e5726]">{suggestion.message}</p>
+              <p className="mt-2 text-sm leading-6 text-[#6e5726]">
+                {assertApprovedUserContent(
+                  suggestion.message,
+                  "HomeLocationGate:out-of-scope-redirect",
+                )}
+              </p>
               <p className="mt-2 text-sm leading-6 text-[#4d675f]">
                 This is a suggestion based on the words you used, not a decision about your case. If you believe this belongs in {pathLabels[path]}, you can continue anyway.
               </p>
+              {/*
+                LSO Step 6e. The forum wording above is the library's own
+                redirectMessage, selected by id -- but a user told "we don't
+                cover this" and nothing else has been sent away with nowhere
+                to go. The referral list is the point of saying no.
+              */}
+              <div className="mt-4">
+                <LegalAdviceDeflection reason="out-of-scope" />
+              </div>
+
               <div className="mt-4 flex flex-wrap gap-3">
                 <button
                   type="button"
@@ -328,6 +345,16 @@ export default function HomeLocationGate() {
               </div>
             </div>
           )}
+
+          {/*
+            LSO Step 6b. What the user types here goes straight to a model --
+            the court-path classifier -- before they have seen any other part
+            of the product. The notice belongs where the first call happens,
+            not only in the builder.
+          */}
+          <div className="mt-5">
+            <AiUseNotice activity="read what you write and suggest which court path fits" />
+          </div>
 
           <button type="button" onClick={continueToIntake} disabled={!isOntarioReady || checking} className="mt-6 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300">{checking ? "Checking your description…" : `Continue to ${pathLabels[path]} intake`}</button>
         </div>}

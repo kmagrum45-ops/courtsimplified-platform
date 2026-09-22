@@ -58,6 +58,20 @@ export type SafetyPassResult = {
   reason?: string;
   /** Fixed, reviewed text for immediate-danger/distress. Undefined for "clear". */
   userMessage?: string;
+  /**
+   * Whether the user is asking for legal ADVICE rather than describing what
+   * happened (LSO Step 6d).
+   *
+   * Added here rather than as a separate model call because this pass already
+   * runs on every free-text narrative on every path, before extraction
+   * (verifySafetyPassCoverage asserts that). One more boolean on a call that
+   * already happens costs nothing; a second call would double the spend and
+   * give a new path to forget to wire up.
+   *
+   * The model only sets the flag. The words shown when it is true are
+   * DEFLECTION_MESSAGE, a fixed constant.
+   */
+  requestsLegalAdvice: boolean;
 };
 
 // *** Numbers below are real and directly sourced (Session 8) -- the
@@ -114,7 +128,9 @@ Categories:
 
 - "clear": an ordinary factual account, proceed normally. This includes anger or frustration on its own (without despair or hopelessness), and hyperbolic language the speaker themselves disclaims as not serious.
 
-Return a JSON object: {"classification": "immediate-danger" | "distress" | "clear", "reason": "<one short sentence for internal logging only, never shown to any user>"}. Omit "reason" (empty string) when classification is "clear".`;
+Separately, set "requestsLegalAdvice" to true ONLY when the person is asking us to give legal advice rather than describing what happened. Examples that are true: "will I win", "do I have a case", "what should I argue", "which evidence is strongest", "what does the law say about my situation", "write my argument for me", "should I settle". Examples that are FALSE: describing events, naming amounts or dates, saying what they want to achieve, asking how to use this website, asking what a form is called, or asking where to file. Describing a problem is not asking for advice. When unsure, set it to false.
+
+Return a JSON object: {"classification": "immediate-danger" | "distress" | "clear", "reason": "<one short sentence for internal logging only, never shown to any user>", "requestsLegalAdvice": true | false}. Omit "reason" (empty string) when classification is "clear".`;
 
 function isValidClassification(value: unknown): value is SafetyClassification {
   return value === "immediate-danger" || value === "distress" || value === "clear";
@@ -154,11 +170,23 @@ export async function runSafetyPass(storyText: string, apiKey: string): Promise<
     : "distress";
   const reason = typeof record.reason === "string" && record.reason.trim() ? record.reason.trim() : undefined;
 
+  /*
+   * Fails OPEN, unlike the classification above, and the asymmetry is
+   * deliberate.
+   *
+   * A false "in danger" costs a user a slower start. A false "asking for legal
+   * advice" would refuse to help someone who was only describing their
+   * problem, and would do it on the very screen where they are trying to
+   * begin. The cost of over-triggering here is a user turned away for no
+   * reason, so an unparseable response means "not asking".
+   */
+  const requestsLegalAdvice = record.requestsLegalAdvice === true;
+
   if (classification === "immediate-danger") {
-    return { classification, reason, userMessage: IMMEDIATE_DANGER_MESSAGE };
+    return { classification, reason, userMessage: IMMEDIATE_DANGER_MESSAGE, requestsLegalAdvice };
   }
   if (classification === "distress") {
-    return { classification, reason, userMessage: DISTRESS_ACKNOWLEDGMENT };
+    return { classification, reason, userMessage: DISTRESS_ACKNOWLEDGMENT, requestsLegalAdvice };
   }
-  return { classification: "clear" };
+  return { classification: "clear", requestsLegalAdvice };
 }

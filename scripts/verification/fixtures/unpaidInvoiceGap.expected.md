@@ -68,3 +68,35 @@ not a fabricated specific date and not silence.
 
 Same as `unpaid-invoice-clean` — not expected. $3,200 is far under the $50,000 Small Claims limit
 (same citation as that file's §5: ontario.ca, verified 2026-09-08).
+
+## 7. LSO A2I rewrite (2026-09-22): `nextBestActions` and the two summaries are library text now
+
+`*.actual.md` was regenerated on 2026-09-22 and three kinds of change appear in the diff. They are
+separated here because only the first is a behaviour change, and absorbing all three silently is
+exactly what §7 of CLAUDE.md forbids.
+
+**(a) Intended — the model stopped writing procedure.** `nextBestActions` used to be model prose
+("Complete and file the Small Claims Court Claim Form", "Prepare to present evidence of the
+contract"). It is now the reviewed next-steps catalogue
+(`src/lib/content-library/nextSteps.ts`), selected by pathway and stage, and the entries carry
+their rules — Plaintiff's Claim (Form 7A) filing under r. 7.01(1) and (1.1), the six-month service
+window under r. 8.01(2), and proof of service under r. 8.09.1. The model's only remaining role is
+choosing the stage code, which the catalogue keys on.
+
+**(b) Intended — the summaries stopped applying law to facts.** `structuredIntelligenceSummary`
+used to read like advice: *"The claimant has a potential claim against [defendant] for breach of
+contract and debt recovery. The signed services agreement and demand letters support the claim."*
+That is the system applying a legal test to the user's facts, which CLAUDE.md §2's "who does the
+applying" test puts on the wrong side of the line, and CLAUDE.md §3 forbids independently. Both
+summaries are now assembled deterministically from what the user recorded: claim type, stage,
+what is in the file, what is still missing. No conclusion is drawn.
+
+**(c) Not a behaviour change — the file was stale.** Two kinds of diff are noise:
+
+  - `evidenceGuidance this turn` moved from `addressed: … ; unaddressed: …` to `categories: …`.
+    That split was removed from `evidenceGapDetector.ts` in Session 48; `pipelineRunner.ts` has
+    printed one list ever since. The `.actual.md` files simply had not been regenerated.
+  - `missingInformation`, `missingEvidence`, `risksAndGaps`, `possibleCorrections` and whether
+    `defenceFiled` is extracted all shift run to run. These are still free-text model output on
+    code this rewrite did not touch, and they are not pinned by any expectation in this file. A
+    diff in them is not a signal.
