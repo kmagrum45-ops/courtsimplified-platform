@@ -19,6 +19,7 @@
  */
 
 import { createOpenAIClient } from "../openaiClient";
+import { withAiCallContext } from "../../audit/aiCallLog";
 import { KNOWN_FACT_FIELDS, type KnownFactField } from "./questionBank";
 import type { IntakeFacts } from "./selectQuestions";
 
@@ -58,6 +59,16 @@ function sanitize(raw: unknown): IntakeFacts {
  * fields anyway, but this keeps the extraction boundary explicit.
  */
 export async function extractIntakeFacts(storyText: string, apiKey: string): Promise<IntakeFacts> {
+  // LSO Step 7. The audit row is written by openaiClient.ts's wrapper; this
+  // context is what tells it which call site the row belongs to. The body is a
+  // separate function rather than an inlined arrow so the transform is a rename
+  // plus four lines, reviewable at a glance, and the original body is untouched.
+  return withAiCallContext({ callType: "extract-intake-facts" }, () =>
+    extractIntakeFactsInner(storyText, apiKey),
+  );
+}
+
+async function extractIntakeFactsInner(storyText: string, apiKey: string): Promise<IntakeFacts> {
   const client = createOpenAIClient(apiKey);
   const response = await client.chat.completions.create({
     model: "gpt-4o-mini",
@@ -134,6 +145,15 @@ function sanitizeDirectFields(raw: unknown, facts: IntakeFacts): KnownFactField[
  * fact.
  */
 export async function extractIntakeFactsWithConfidence(
+  storyText: string,
+  apiKey: string,
+): Promise<ExtractedFactsWithConfidence> {
+  return withAiCallContext({ callType: "extract-intake-facts-confidence" }, () =>
+    extractIntakeFactsWithConfidenceInner(storyText, apiKey),
+  );
+}
+
+async function extractIntakeFactsWithConfidenceInner(
   storyText: string,
   apiKey: string,
 ): Promise<ExtractedFactsWithConfidence> {

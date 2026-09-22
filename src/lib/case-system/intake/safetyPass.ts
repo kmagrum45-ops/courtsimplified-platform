@@ -49,6 +49,11 @@
  */
 
 import { createOpenAIClient } from "../openaiClient";
+import {
+  recordAiValidation,
+  recordRequestsLegalAdvice,
+  withAiCallContext,
+} from "../../audit/aiCallLog";
 
 export type SafetyClassification = "immediate-danger" | "distress" | "clear";
 
@@ -142,6 +147,16 @@ function isValidClassification(value: unknown): value is SafetyClassification {
  * extractIntakeFacts.ts on any free-text story.
  */
 export async function runSafetyPass(storyText: string, apiKey: string): Promise<SafetyPassResult> {
+  // LSO Step 7. The audit row is written by openaiClient.ts's wrapper; this
+  // context is what tells it which call site the row belongs to. The body is a
+  // separate function rather than an inlined arrow so the transform is a rename
+  // plus four lines, reviewable at a glance, and the original body is untouched.
+  return withAiCallContext({ callType: "safety-pass" }, () =>
+    runSafetyPassInner(storyText, apiKey),
+  );
+}
+
+async function runSafetyPassInner(storyText: string, apiKey: string): Promise<SafetyPassResult> {
   const client = createOpenAIClient(apiKey);
   const response = await client.chat.completions.create({
     model: "gpt-4o-mini",
@@ -159,6 +174,11 @@ export async function runSafetyPass(storyText: string, apiKey: string): Promise<
     parsed = JSON.parse(content);
   } catch {
     parsed = {};
+    // The classification below will fail closed to "distress" and the user is
+    // served correctly either way -- but a reviewer reading the audit log
+    // needs to know the model returned something unparseable, because a rising
+    // count here is a prompt problem, not a user problem.
+    recordAiValidation("invalid", "response was not JSON");
   }
 
   const record = parsed && typeof parsed === "object" ? (parsed as Record<string, unknown>) : {};
@@ -181,6 +201,14 @@ export async function runSafetyPass(storyText: string, apiKey: string): Promise<
    * reason, so an unparseable response means "not asking".
    */
   const requestsLegalAdvice = record.requestsLegalAdvice === true;
+  // Onto its own audit column. "How often are people asking us for legal
+  // advice, and are we deflecting every time" is the first question the A2I
+  // framework makes a licensee able to answer.
+  recordRequestsLegalAdvice(requestsLegalAdvice);
+
+  if (!isValidClassification(record.classification)) {
+    recordAiValidation("invalid", "classification missing or not a known label");
+  }
 
   if (classification === "immediate-danger") {
     return { classification, reason, userMessage: IMMEDIATE_DANGER_MESSAGE, requestsLegalAdvice };

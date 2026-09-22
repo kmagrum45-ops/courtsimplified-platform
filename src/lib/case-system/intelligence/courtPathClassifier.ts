@@ -55,6 +55,7 @@ import {
   type CasePartnerCourtArea,
 } from "../ai-case-partner/conversationIntelligenceEngine";
 import { getOutOfScopeForum, type OutOfScopeForum } from "./outOfScopeForums";
+import { withAiCallContext } from "../../audit/aiCallLog";
 
 // The three paths CourtSimplified actually routes to. The keyword pass can
 // return other areas (ltb, immigration, criminal-related); those are reported
@@ -436,6 +437,18 @@ function keywordOnlyResult(args: {
  * to the keyword result, flagged through `source`.
  */
 export async function classifyCourtPath(
+  input: CourtPathClassifierInput,
+): Promise<CourtPathClassification> {
+  // LSO Step 7. The audit row is written by openaiClient.ts's wrapper; this
+  // context is what tells it which call site the row belongs to. The body is a
+  // separate function rather than an inlined arrow so the transform is a rename
+  // plus four lines, reviewable at a glance, and the original body is untouched.
+  return withAiCallContext({ callType: "court-path-classifier" }, () =>
+    classifyCourtPathInner(input),
+  );
+}
+
+async function classifyCourtPathInner(
   input: CourtPathClassifierInput,
 ): Promise<CourtPathClassification> {
   const story = clean(input.story);

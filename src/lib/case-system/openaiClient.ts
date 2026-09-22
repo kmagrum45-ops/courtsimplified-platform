@@ -30,6 +30,8 @@
 
 import OpenAI from "openai";
 
+import { observeAiCall } from "../audit/aiCallLog";
+
 /**
  * Never retry. See the file header: the dominant failure is a daily-cap 429,
  * which no retry can clear.
@@ -79,7 +81,14 @@ export function forceNoStore<T>(client: T): T {
   const target = client as unknown as { chat: { completions: { create: (...args: unknown[]) => unknown } } };
   const chatCreate = target.chat.completions.create.bind(target.chat.completions);
   target.chat.completions.create = ((body: Record<string, unknown>, options?: unknown) =>
-    chatCreate({ ...body, store: false }, options)) as never;
+    // LSO Step 7. The audit row is written HERE, for the same reason store:false
+    // is set here -- see src/lib/audit/aiCallLog.ts. "Every model call is
+    // logged" has to be a property of the client, not a habit of seven callers.
+    // observeAiCall is an observer: it returns and throws exactly what the call
+    // returns and throws.
+    observeAiCall(body, async () =>
+      chatCreate({ ...body, store: false }, options),
+    )) as never;
 
   // The Responses API is wrapped too, even though nothing uses it yet. It is
   // the one that defaults to storing, so it is the one most worth covering
@@ -88,7 +97,9 @@ export function forceNoStore<T>(client: T): T {
   if (responses && typeof responses.create === "function") {
     const responsesCreate = (responses.create as (...args: unknown[]) => unknown).bind(responses);
     responses.create = ((body: Record<string, unknown>, options?: unknown) =>
-      responsesCreate({ ...body, store: false }, options)) as never;
+      observeAiCall(body, async () =>
+        responsesCreate({ ...body, store: false }, options),
+      )) as never;
   }
 
   return client;
