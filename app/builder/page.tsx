@@ -35,8 +35,10 @@ import {
   AnalysisResult,
   CourtPath,
   StoredCaseData,
+  UniversalStage,
   getPathLabel,
 } from "./_components/builderTypes";
+import StageConfirmation from "./_components/StageConfirmation";
 
 import { supabase } from "../../src/lib/supabase/client";
 import { buildMasterCaseFromIntake } from "../../src/lib/case-system/masterCaseOrchestrator";
@@ -69,6 +71,19 @@ function buildWorkflowHref(
 
   return `${route}?${params.toString()}`;
 }
+
+/** The UniversalStage codes, for validating a resolved stage before use. */
+const STAGE_CODES = [
+  "starting-case",
+  "responding",
+  "already-started",
+  "conference",
+  "motion",
+  "trial",
+  "enforcement",
+  "urgent",
+  "not-sure",
+] as const;
 
 function getStageForPersistence(
   analysis: AnalysisResult | null,
@@ -211,7 +226,28 @@ function BuilderPageContent() {
   );
 
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
+  /**
+   * The stage the USER confirmed, which is the only one that drives next-step
+   * content. Null until they confirm, which is what gates the overview below.
+   * Reset whenever a new analysis arrives, so a fresh run is re-confirmed
+   * rather than inheriting the previous case's answer.
+   */
+  const [confirmedStage, setConfirmedStage] = useState<UniversalStage | null>(null);
   const [caseData, setCaseData] = useState<StoredCaseData | null>(null);
+
+  /**
+   * The stage the model detected, normalised to a UniversalStage code.
+   *
+   * `getStageForPersistence` already resolves this from the same three
+   * sources, so the suggestion the user is asked to confirm is exactly the
+   * value the rest of the app would have used silently.
+   */
+  const detectedStage = useMemo<UniversalStage>(() => {
+    const raw = getStageForPersistence(analysis, caseData);
+    return (STAGE_CODES as readonly string[]).includes(raw)
+      ? (raw as UniversalStage)
+      : "not-sure";
+  }, [analysis, caseData]);
   // Session 48 — inputs the Statement of Claim surface needs. Retained from
   // the completing guided turn rather than rebuilt, so the readiness gate reads
   // the same element states the depth phase produced.
@@ -462,6 +498,9 @@ function BuilderPageContent() {
 
     clearTransientCaseContext();
     setAnalysis(null);
+    // A cleared analysis means the stage must be confirmed again rather than
+    // inheriting the previous case's answer.
+    setConfirmedStage(null);
     setCaseData(null);
     setMasterCaseId(null);
     setExistingMasterResult({});
@@ -885,6 +924,8 @@ function BuilderPageContent() {
     );
 
     setAnalysis(result);
+    // A fresh analysis is a fresh stage suggestion, so it is re-confirmed.
+    setConfirmedStage(null);
     setCaseData({
       ...payload,
       masterResultPatch,
@@ -1071,6 +1112,9 @@ function BuilderPageContent() {
    */
   function editCurrentIntake() {
     setAnalysis(null);
+    // A cleared analysis means the stage must be confirmed again rather than
+    // inheriting the previous case's answer.
+    setConfirmedStage(null);
     setCaseData(null);
     setSaveError("");
     setLastSavedAt("");
@@ -1089,6 +1133,9 @@ function BuilderPageContent() {
     clearTransientCaseContext();
 
     setAnalysis(null);
+    // A cleared analysis means the stage must be confirmed again rather than
+    // inheriting the previous case's answer.
+    setConfirmedStage(null);
     setCaseData(null);
     setMasterCaseId(null);
     setExistingMasterResult({});
@@ -1463,7 +1510,23 @@ function BuilderPageContent() {
 
         {analysis && canonicalIntakeSaved && (
           <section ref={completedOverviewRef} className="mt-8 space-y-6" data-testid="completed-case-overview" tabIndex={-1}>
-            <IntelligenceOverviewPanel analysis={analysis} intake={caseData} />
+            {/*
+              SUGGEST THEN CONFIRM, BEFORE ANY NEXT STEPS RENDER.
+              The stage is detected by a model from what the user wrote. It
+              decides which next steps they are shown, so the user confirms it
+              or picks another before the overview appears. No next-step
+              content renders until they have.
+            */}
+            <StageConfirmation
+              suggestedStage={detectedStage}
+              pathway={courtPath === "family" ? "family" : courtPath === "civil" ? "civil" : "small-claims"}
+              confirmedStage={confirmedStage}
+              onConfirm={setConfirmedStage}
+            />
+
+            {confirmedStage && (
+              <IntelligenceOverviewPanel analysis={analysis} intake={caseData} />
+            )}
             {/*
               The Statement of Claim stays gated, and not by oversight — see
               the note in the spec. It needs `draftInput`, a

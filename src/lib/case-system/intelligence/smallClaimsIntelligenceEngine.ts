@@ -15,6 +15,10 @@ import { runCourtSimplifiedBrain } from "./courtSimplifiedBrain";
 import { formatRecordedAmount } from "../format/recordedAmount";
 import type { ProceduralEvent } from "../procedure/proceduralStateArchitecture";
 import { sanitizeSummaryText } from "./caseStrengthLanguageValidator";
+import {
+  nextStepBlockFor,
+  isPlaceholder,
+} from "../../content-library/nextSteps";
 
 export type SmallClaimsIssue =
   | "unpaid-money"
@@ -489,6 +493,22 @@ function buildEvidenceFromFiles(input: SmallClaimsIntelligenceInput) {
   }));
 }
 
+/**
+ * Next steps for a stage, from the reviewed catalogue. Never from the model.
+ *
+ * Returns [] for an unknown stage and for a block that is still an unwritten
+ * placeholder — a user must never be shown the words "NEEDS LICENSEE REVIEW",
+ * and showing nothing is the honest alternative to showing invented procedure.
+ */
+function catalogueNextSteps(stage: UniversalStage): string[] {
+  const block = nextStepBlockFor("small-claims", stage);
+  if (!block || isPlaceholder(block)) return [];
+  return block.text
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+}
+
 function buildSummary(args: {
   input: SmallClaimsIntelligenceInput;
   stage: UniversalStage;
@@ -517,9 +537,12 @@ function buildSummary(args: {
       ? `Missing proof: ${analysis.missingEvidence.join("; ")}`
       : input.evidence || "No evidence details entered yet.",
     "",
+    // This heading is the one that reached the downloadable document. It now
+    // renders catalogue text or nothing -- never model prose. See the note on
+    // `guidance` above.
     "What to do next",
-    analysis.nextBestActions?.length
-      ? analysis.nextBestActions.map((item) => `- ${item}`).join("\n")
+    catalogueNextSteps(stage).length
+      ? catalogueNextSteps(stage).map((line) => `- ${line}`).join("\n")
       : "- Continue organizing the case record.",
   ].join("\n");
 }
@@ -565,6 +588,17 @@ export async function analyzeSmallClaimsWithBrain(
     formRecommendations: intelligence.formRecommendations,
     plainLanguageSummary: intelligence.plainLanguageSummary,
     structuredCaseSummary: intelligence.structuredCaseSummary,
+    /*
+     * The model's raw next-step suggestions are carried into the INTERNAL
+     * patch and go no further. Nothing user-facing reads them any more: the
+     * four fields that used to spread them now select from the reviewed
+     * catalogue instead (see the note further down).
+     *
+     * They are kept rather than dropped because Step 7's audit log needs the
+     * model's actual output to be reviewable — the same reason the court-path
+     * classifier's `reasoning` is retained but never rendered. Deleting the
+     * evidence of what the model said would make monitoring impossible.
+     */
     nextBestActions: intelligence.nextBestActions,
     systemWarnings: intelligence.systemWarnings,
     normalizedIntake: intelligence.normalizedIntake,
@@ -611,9 +645,25 @@ export async function analyzeSmallClaimsWithBrain(
 
     risksAndGaps: cleanList(intelligencePatch.risksAndGaps || []),
 
+    /*
+     * MODEL-WRITTEN NEXT STEPS REMOVED, 2026-09-22 (LSO Step 2).
+     *
+     * `intelligence.nextBestActions` is model output. It used to be spread into
+     * `guidance`, `nextBestActions`, `suggestedFocus` and
+     * `intelligenceNextActions`, and from `nextBestActions` it reached
+     * buildSummary()'s "What to do next" heading, then context.summary, then
+     * documentGenerationEngine.ts, and so into a document the user downloads.
+     *
+     * That is AI-generated procedural content delivered to a user with no human
+     * review — the clearest breach of the LSO A2I policy in this codebase
+     * (docs/lso-ai-audit.md finding B-4).
+     *
+     * Next steps now come from the reviewed catalogue in
+     * src/lib/content-library/nextSteps.ts, selected by pathway and stage. The
+     * two lines below are fixed, non-legal process reminders, not procedure.
+     */
     guidance: cleanList([
       ...defaultStageGuidance,
-      ...(intelligence.nextBestActions || []),
       "Use the evidence step to connect each fact to proof before generating final documents.",
       "Verify current court filing and service requirements before filing anything.",
     ]),
@@ -625,10 +675,11 @@ export async function analyzeSmallClaimsWithBrain(
       cleanList(intelligencePatch.missingEvidence || []),
       input.evidence,
     ),
-    nextBestActions: cleanList([...defaultStageGuidance, ...(intelligence.nextBestActions || [])]),
+    // Catalogue text only. See the note on `guidance` above.
+    nextBestActions: cleanList([...defaultStageGuidance, ...catalogueNextSteps(stage)]),
     userWarnings: cleanList(intelligence.systemWarnings || []),
     proceduralRisks: cleanList(intelligence.proceduralPosture.warnings || []),
-    suggestedFocus: cleanList(intelligence.nextBestActions || []),
+    suggestedFocus: cleanList(catalogueNextSteps(stage)),
 
     damagesIssues: hasText(input.amountClaimed)
       ? ["Amount was captured. The next step is explaining the calculation and connecting it to proof."]
@@ -638,7 +689,8 @@ export async function analyzeSmallClaimsWithBrain(
     intelligenceSummary: sanitizeSummaryText(intelligence.plainLanguageSummary || "", "intelligenceSummary"),
     structuredIntelligenceSummary: sanitizeSummaryText(intelligence.structuredCaseSummary || "", "structuredIntelligenceSummary"),
     intelligenceWarnings: cleanList(intelligence.systemWarnings),
-    intelligenceNextActions: cleanList(intelligence.nextBestActions),
+    // Catalogue text only. See the note on `guidance` above.
+    intelligenceNextActions: cleanList(catalogueNextSteps(stage)),
     intelligenceEvidenceIssues: intelligence.evidenceIssueLinks,
     intelligenceFormRecommendations: intelligence.formRecommendations,
   };
