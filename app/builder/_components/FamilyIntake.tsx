@@ -19,6 +19,7 @@ import {
 } from "@/src/lib/case-system/intake/clientSafetyCheck";
 import { FAMILY_RESOURCE_TOPICS } from "@/src/lib/case-system/intake/familySafetyResources";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
+import EvidenceFileNotice from "../../_components/EvidenceFileNotice";
 import {
   consumeNarrativePrefill,
   directPrefillValues,
@@ -818,7 +819,7 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
 
         <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">
-            Upload and describe family-law evidence
+            List and describe your family-law evidence
           </h3>
 
           <p className="mt-2 text-sm leading-6 text-[#4d675f]">
@@ -827,9 +828,16 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
             documents. Each file should explain what it proves.
           </p>
 
+          {/*
+            LSO Step 8. Sits directly under the heading, before the picker: a
+            caution a person reads after choosing is a caution that arrived too
+            late. See EvidenceFileNotice.tsx for what actually happens to a file.
+          */}
+          <EvidenceFileNotice />
+
           <label className="mt-4 flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-[#d8e6df] bg-white px-4 py-6 text-center hover:bg-[#f4fbf8]">
             <span className="font-semibold text-[#2f7d67]">
-              Choose evidence files
+              Choose files to list
             </span>
             <span className="mt-1 text-sm text-[#6b8078]">
               You can select multiple files

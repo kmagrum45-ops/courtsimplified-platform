@@ -20,6 +20,7 @@ import type {
 import { supabase } from "../../../src/lib/supabase/client";
 import { runClientSafetyCheck } from "../../../src/lib/case-system/intake/clientSafetyCheck";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
+import EvidenceFileNotice from "../../_components/EvidenceFileNotice";
 import { formatRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 import {
   consumeNarrativePrefill,
@@ -437,7 +438,9 @@ function buildCivilAnalysisFromMaster(
     input.amountClaimed ? `Amount claimed or disputed: ${formatRecordedAmount(input.amountClaimed)}.` : "",
     input.limitationDeadline ? `Limitation/deadline issue: ${input.limitationDeadline}.` : "",
     input.uploadedEvidenceFiles.length
-      ? `${input.uploadedEvidenceFiles.length} uploaded evidence file(s) captured.`
+      // "uploaded ... captured" said the file was held. Nothing is uploaded and
+      // nothing is captured -- the name and what the user typed are listed.
+      ? `${input.uploadedEvidenceFiles.length} evidence file(s) listed.`
       : "",
   ]);
 
@@ -946,7 +949,7 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
 
         <div className="rounded-3xl border border-dashed border-[#b8d8cc] bg-[#f8fcfa] p-5">
           <h3 className="text-lg font-bold text-[#10231f]">
-            Upload civil evidence files
+            List your civil evidence
           </h3>
 
           <p className="mt-2 text-sm leading-6 text-[#4d675f]">
@@ -956,9 +959,16 @@ export default function CivilIntake({ onComplete, caseId, location, initialStory
             or other civil evidence.
           </p>
 
+          {/*
+            LSO Step 8. Sits directly under the heading, before the picker: a
+            caution a person reads after choosing is a caution that arrived too
+            late. See EvidenceFileNotice.tsx for what actually happens to a file.
+          */}
+          <EvidenceFileNotice />
+
           <label className="mt-4 flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-[#d8e6df] bg-white px-4 py-6 text-center hover:bg-[#f4fbf8]">
             <span className="font-semibold text-[#2f7d67]">
-              Choose civil evidence files
+              Choose files to list
             </span>
             <span className="mt-1 text-sm text-[#6b8078]">
               You can select multiple files
