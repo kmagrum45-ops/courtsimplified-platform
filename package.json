@@ -80,7 +80,9 @@
     "measure:signals": "node --import tsx scripts/verification/measureSignalNegation.ts",
     "test:storage-keys": "node --import tsx scripts/verification/verifyStorageKeys.ts",
     "test:reset-intake": "node --import tsx scripts/verification/verifyResetIntake.ts",
-    "test:safety-coverage": "node --import tsx scripts/verification/verifySafetyPassCoverage.ts"
+    "test:safety-coverage": "node --import tsx scripts/verification/verifySafetyPassCoverage.ts",
+    "content:export": "node --import tsx scripts/content/exportReviewPacket.ts",
+    "content:import": "node --import tsx scripts/content/importReviewResults.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",
