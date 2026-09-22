@@ -13,6 +13,7 @@ import {
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 import { scrollAndFocus } from "./scrollFocus";
 import { pathwayDescriptionFor } from "../../src/lib/content-library/pathwayDescriptions";
+import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
 
 const pathLabels: Record<BuilderDraftCourtPath, string> = {
   family: "Family",
@@ -271,7 +272,10 @@ export default function HomeLocationGate() {
               */}
               {pathwayDescriptionFor(suggestion.suggestedPath) && (
                 <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-                  {pathwayDescriptionFor(suggestion.suggestedPath)!.text}
+                  {assertApprovedUserContent(
+                    pathwayDescriptionFor(suggestion.suggestedPath)!.text,
+                    "HomeLocationGate:pathway-description",
+                  )}
                 </p>
               )}
               <p className="mt-2 text-sm leading-6 text-[#4d675f]">

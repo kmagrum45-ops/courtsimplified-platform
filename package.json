@@ -82,7 +82,8 @@
     "test:reset-intake": "node --import tsx scripts/verification/verifyResetIntake.ts",
     "test:safety-coverage": "node --import tsx scripts/verification/verifySafetyPassCoverage.ts",
     "content:export": "node --import tsx scripts/content/exportReviewPacket.ts",
-    "content:import": "node --import tsx scripts/content/importReviewResults.ts"
+    "content:import": "node --import tsx scripts/content/importReviewResults.ts",
+    "test:output-guard": "node --import tsx scripts/verification/verifyOutputGuard.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",
