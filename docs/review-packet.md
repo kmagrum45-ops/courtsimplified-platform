@@ -31,9 +31,9 @@ edited afterwards the approval no longer applies, and the item returns to draft.
 
 | Measure | Count |
 |---|---|
-| Total items | 259 |
+| Total items | 268 |
 | Approved (current version) | 0 |
-| Draft / unreviewed | 259 |
+| Draft / unreviewed | 268 |
 | Approvals voided by later edits | 0 |
 | Items that are unwritten placeholders | 35 |
 
@@ -2724,7 +2724,7 @@ Service of a summons to witness, and the payment or tender of attendance money, 
 [NEEDS LICENSEE REVIEW: Superior Court (Civil) next steps for the "not-sure" stage. R.R.O. 1990, Reg. 194 rr. 16.09, 29.1.03, 30.03, 31.05.1, 48.02, 48.14 and 50.02 are vendored in docs/sources/rcp-cited-rules.txt, but no reviewed user-facing next-step wording exists for this pathway]
 ```
 
-## pathway-description (13)
+## pathway-description (22)
 
 ### `pathway:small-claims`
 
@@ -2867,6 +2867,123 @@ Immigration and refugee matters are federal and are dealt with by the Immigratio
 
 ```
 [NEEDS LICENSEE REVIEW: wording for someone describing a criminal charge or criminal court process. This needs care: it should direct to duty counsel and Legal Aid Ontario without implying anything about their situation]
+```
+
+### `out-of-scope:ltb`
+
+- **Status:** draft
+- **Pathway / stage:** ltb / routing
+- **Appears in:** Home, when a story points outside the three court paths
+- **Source:** https://www.ontario.ca/laws/docs/06r17_e.doc
+
+```
+Landlord and Tenant Board (LTB)
+
+This sounds like it may involve a landlord-tenant relationship — rent, eviction, repairs, or a residential lease. CourtSimplified does not cover matters that go to the Landlord and Tenant Board (LTB). The LTB is a separate tribunal from Family, Small Claims, and Civil court. The Residential Tenancies Act, 2006 applies to rental units in residential complexes despite any other Act, and gives the LTB exclusive jurisdiction to determine all applications under that Act.
+```
+
+### `out-of-scope:hrto`
+
+- **Status:** draft
+- **Pathway / stage:** hrto / routing
+- **Appears in:** Home, when a story points outside the three court paths
+- **Source:** https://www.ontario.ca/laws/docs/90h19_e.doc
+
+```
+Human Rights Tribunal of Ontario (HRTO)
+
+This sounds like it may involve discrimination or a human rights issue — for example, based on a protected ground like disability, race, sex, or family status, or a request for accommodation. CourtSimplified does not cover matters that go to the Human Rights Tribunal of Ontario (HRTO). The HRTO is a separate tribunal from Family, Small Claims, and Civil court. Under the Human Rights Code, a person who believes their rights under Part I of the Code have been infringed may apply to the Tribunal — generally within one year of the incident, or of the last incident in a series, though the Tribunal may accept a later application in some circumstances.
+```
+
+### `out-of-scope:wsiat`
+
+- **Status:** draft
+- **Pathway / stage:** wsiat / routing
+- **Appears in:** Home, when a story points outside the three court paths
+- **Source:** https://www.ontario.ca/laws/docs/97w16_e.doc
+
+```
+Workplace Safety and Insurance Appeals Tribunal (WSIAT)
+
+This sounds like it may involve a workplace injury or a workers' compensation claim. CourtSimplified does not cover matters that go through the Workplace Safety and Insurance Board (WSIB) or the Workplace Safety and Insurance Appeals Tribunal (WSIAT). WSIB and WSIAT are separate from Family, Small Claims, and Civil court. Under the Workplace Safety and Insurance Act, 1997, WSIAT has exclusive jurisdiction to hear and decide appeals from final decisions of the Board on entitlement to benefits under the insurance plan.
+```
+
+### `out-of-scope:cat`
+
+- **Status:** draft
+- **Pathway / stage:** cat / routing
+- **Appears in:** Home, when a story points outside the three court paths
+- **Source:** https://www.ontario.ca/laws/docs/98c19_e.doc
+
+```
+Condominium Authority Tribunal (CAT)
+
+This sounds like it may involve a dispute with a condominium corporation or board — for example, about condo rules, records, or by-laws. CourtSimplified does not cover matters that go to the Condominium Authority Tribunal (CAT). The CAT is a separate tribunal from Family, Small Claims, and Civil court. Under the Condominium Act, 1998 a corporation, an owner, a mortgagee and (where the regulations provide) a purchaser may apply to the Tribunal to resolve a PRESCRIBED dispute — the categories are set by regulation rather than open-ended. The Act also carves matters OUT of the Tribunal's reach, including disputes about a corporation's lien for unpaid common expenses and disputes involving the determination of title to real property, so not every condominium disagreement goes there.
+```
+
+### `out-of-scope:social-benefits-tribunal`
+
+- **Status:** draft
+- **Pathway / stage:** social-benefits-tribunal / routing
+- **Appears in:** Home, when a story points outside the three court paths
+- **Source:** _none recorded_
+
+```
+Social Benefits Tribunal (SBT)
+
+This sounds like it may involve an appeal of an Ontario Works or Ontario Disability Support Program (ODSP) decision. CourtSimplified does not cover those matters. Appeals of social assistance decisions in Ontario are generally dealt with through the Social Benefits Tribunal (SBT), which is separate from Family, Small Claims, and Civil court — the SBT publishes its own process, and confirming it directly is the reliable route.
+```
+
+### `out-of-scope:lat`
+
+- **Status:** draft
+- **Pathway / stage:** lat / routing
+- **Appears in:** Home, when a story points outside the three court paths
+- **Source:** https://www.ontario.ca/laws/docs/90i08_e.doc
+
+```
+Licence Appeal Tribunal (LAT)
+
+This sounds like it may involve a dispute over statutory accident benefits or another licensing-related matter. CourtSimplified does not cover matters that go to the Licence Appeal Tribunal (LAT). The LAT is a separate tribunal from Family, Small Claims, and Civil court. Under the Insurance Act, where there is a dispute about an insured person's entitlement to statutory accident benefits, or the amount of those benefits, the insured person or the insurer may apply to the Licence Appeal Tribunal to resolve it.
+```
+
+### `out-of-scope:divisional-court`
+
+- **Status:** draft
+- **Pathway / stage:** divisional-court / routing
+- **Appears in:** Home, when a story points outside the three court paths
+- **Source:** https://www.ontario.ca/laws/docs/90j01_e.doc
+
+```
+Divisional Court
+
+This sounds like it may involve asking a court to review a decision made by a government body, tribunal, or official — a judicial review. CourtSimplified does not cover judicial review applications. Under the Judicial Review Procedure Act an application for judicial review is made to the Divisional Court, which is a separate branch of the Ontario Superior Court of Justice from Family, Small Claims, and ordinary Civil proceedings. The Act does allow an application to be made instead to a judge of the Superior Court of Justice, with that judge's leave, where the delay of proceeding in the Divisional Court is likely to involve a failure of justice.
+```
+
+### `out-of-scope:immigration`
+
+- **Status:** draft
+- **Pathway / stage:** immigration / routing
+- **Appears in:** Home, when a story points outside the three court paths
+- **Source:** _none recorded_
+
+```
+Immigration and Refugee Board of Canada (IRB)
+
+This sounds like it may involve an immigration or refugee matter. CourtSimplified does not cover immigration or refugee matters. These are dealt with federally rather than by Ontario courts, so nothing on this site — which covers Ontario Family, Small Claims, and Civil court — will apply to them. The Immigration and Refugee Board of Canada (IRB) and Immigration, Refugees and Citizenship Canada publish their own processes.
+```
+
+### `out-of-scope:criminal-related`
+
+- **Status:** draft
+- **Pathway / stage:** criminal-related / routing
+- **Appears in:** Home, when a story points outside the three court paths
+- **Source:** _none recorded_
+
+```
+Criminal Court
+
+This sounds like it may involve a criminal charge or a criminal court process. CourtSimplified does not cover criminal matters. Criminal Court is separate from Family, Small Claims, and Civil court, which handle non-criminal matters. If you are dealing with a criminal charge, a paralegal, a criminal defence lawyer, or duty counsel can help.
 ```
 
 ## question-explanation (22)

@@ -34,6 +34,7 @@ import { DEPTH_QUESTIONS } from "../case-system/intake/depth/elementQuestionRegi
 import { FORM_KNOWLEDGE_BASE } from "../case-system/formKnowledgeBase";
 import { FAMILY_RESOURCE_TOPICS } from "../case-system/intake/familySafetyResources";
 import { REMEDY_TYPES } from "../case-system/intake/remedyTypes";
+import { OUT_OF_SCOPE_FORUMS } from "../case-system/intelligence/outOfScopeForums";
 import { NEXT_STEP_BLOCKS } from "./nextSteps";
 import { PATHWAY_DESCRIPTIONS } from "./pathwayDescriptions";
 import { QUESTION_EXPLANATIONS } from "./questionExplanations";
@@ -196,6 +197,26 @@ export function collectContentInventory(): ContentItem[] {
         text: `${topic.title}\n\n${topic.content}`,
         sourceUrl: topic.citations[0]?.officialUrl || "",
         appearsIn: "Family intake and overview",
+      }),
+    );
+  }
+
+  // ---- Out-of-scope forum redirects ----
+  //
+  // Already a static, hand-written catalogue — the model only picks a forum
+  // id, never the wording. But the wording IS shown to users, and the file's
+  // own header says every redirectMessage is "DRAFT: pending lawyer/paralegal
+  // review", so it belongs in the packet.
+  for (const forum of Object.values(OUT_OF_SCOPE_FORUMS)) {
+    items.push(
+      item({
+        id: `out-of-scope:${forum.id}`,
+        type: "pathway-description",
+        pathway: forum.id,
+        stage: "routing",
+        text: `${forum.name}\n\n${forum.redirectMessage}`,
+        sourceUrl: forum.citations[0]?.officialUrl || "",
+        appearsIn: "Home, when a story points outside the three court paths",
       }),
     );
   }

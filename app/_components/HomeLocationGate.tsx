@@ -12,6 +12,7 @@ import {
 } from "../../src/lib/case-system/builderDraftStorage";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 import { scrollAndFocus } from "./scrollFocus";
+import { pathwayDescriptionFor } from "../../src/lib/content-library/pathwayDescriptions";
 
 const pathLabels: Record<BuilderDraftCourtPath, string> = {
   family: "Family",
@@ -26,7 +27,18 @@ const pathLabels: Record<BuilderDraftCourtPath, string> = {
 const SUGGESTION_CONFIDENCE_FLOOR = 0.6;
 
 type CourtPathSuggestion =
-  | { kind: "switch-path"; suggestedPath: BuilderDraftCourtPath; reasoning: string }
+  | {
+      kind: "switch-path";
+      suggestedPath: BuilderDraftCourtPath;
+      /**
+       * The model's own sentence. RETAINED FOR THE AUDIT LOG, NEVER RENDERED.
+       *
+       * Removing it entirely would have been simpler, and wrong: Step 7's
+       * monitoring needs the model's actual output to be reviewable. What
+       * changed is that it no longer reaches the screen.
+       */
+      reasoningForAuditLogOnly: string;
+    }
   | { kind: "out-of-scope"; forumName: string; message: string };
 
 function asCourtPath(value: unknown): BuilderDraftCourtPath | null {
@@ -197,7 +209,7 @@ export default function HomeLocationGate() {
           setSuggestion({
             kind: "switch-path",
             suggestedPath: suggested,
-            reasoning: String(result.reasoning || "").trim(),
+            reasoningForAuditLogOnly: String(result.reasoning || "").trim(),
           });
           setChecking(false);
           return;
@@ -237,8 +249,30 @@ export default function HomeLocationGate() {
               <h2 className="text-lg font-bold text-[#10231f]">
                 This looks like it may be {pathLabels[suggestion.suggestedPath]}, not {pathLabels[path]}
               </h2>
-              {suggestion.reasoning && (
-                <p className="mt-2 text-sm leading-6 text-[#4d675f]">{suggestion.reasoning}</p>
+              {/*
+                MODEL REASONING IS NO LONGER SHOWN HERE (LSO Step 3).
+
+                This used to render `suggestion.reasoning` -- a model-written
+                sentence about the user's own story, delivered verbatim with no
+                human review (docs/lso-ai-audit.md finding B-6).
+
+                Selecting the pathway CODE is a permitted use: the model
+                analyses the input and picks from a fixed list. Writing a
+                sentence about this person's matter is not. So the code is
+                kept, and the words come from the reviewed catalogue in
+                src/lib/content-library/pathwayDescriptions.ts.
+
+                The description says what that FORUM handles, and nothing about
+                the reader's situation -- which is the line CLAUDE.md section 2
+                draws between legal information and legal advice.
+
+                The model's reasoning is still returned by the route and is
+                carried to the audit log (Step 7). It is never rendered.
+              */}
+              {pathwayDescriptionFor(suggestion.suggestedPath) && (
+                <p className="mt-2 text-sm leading-6 text-[#4d675f]">
+                  {pathwayDescriptionFor(suggestion.suggestedPath)!.text}
+                </p>
               )}
               <p className="mt-2 text-sm leading-6 text-[#4d675f]">
                 This is a suggestion based on the words you used, not a decision about your case. You choose which path to continue with, and you can change it later.
