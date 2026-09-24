@@ -96,8 +96,37 @@ maintenance is not.
 
 ## 6. Environment facts
 
-- Supabase: two projects. `courtsimplified` (us-west-2, PRODUCTION) and `courtsimplified-dev` (ca-central-1). Never modify production without explicit go-ahead.
-- Production is intended to move to ca-central-1 for Canadian data residency — see ARCHITECTURE.md.
+### Supabase — THE PROJECT NAMES ARE BACKWARDS. READ THIS BEFORE TOUCHING EITHER.
+
+**Identify a project by its REF, never by its name.** Until the rename below is
+done, the name tells you the opposite of the truth.
+
+| Ref | Current name | Region | What it actually is |
+|---|---|---|---|
+| `fddlpnibovkkkgboabqb` | `courtsimplified-dev` | `ca-central-1` | **PRODUCTION. THE LIVE DATABASE.** Real users' accounts, cases and intakes. Vercel and `.env.local` both point here. |
+| `ffymjxjcnwakgdmldpne` | `courtsimplified` | `us-west-2` | **Dormant and paused.** 3 operator accounts, 2 shell cases, nothing else. |
+
+This entry previously read *"`courtsimplified` (us-west-2, PRODUCTION) and  <!-- [dev-wording-quoted] -->
+`courtsimplified-dev` (ca-central-1)"*, which named the paused project as  <!-- [dev-wording-quoted] -->
+production and implied the live one was a scratch environment. Any instruction
+anywhere that says "apply it to dev first" was, read literally, an instruction  <!-- [dev-wording-quoted] -->
+to apply it to production. That wording is the hazard, not the names
+themselves.
+
+- **Never modify `fddlpnibovkkkgboabqb` without an explicit go-ahead.** It is
+  production regardless of what it is called.
+- **Never apply a migration to any project without being asked to.** Write the
+  file; the site owner applies it. See `scripts/db/applyMigrations.ts`, which
+  enforces staging-before-production and refuses to do anything without
+  `--confirm`.
+- A rename to `courtsimplified-prod` / `courtsimplified-staging` is planned and
+  not yet done — step-by-step instructions are in `docs/lso-fixes-report.md`.
+  **Until it is done, this table is the only reliable statement of which is
+  which.** When it is done, update this table, `docs/ARCHITECTURE.md`,
+  `docs/security/DATA_FLOW_INVENTORY.md` and `supabase/environments.json`.
+- Production is intended to stay in ca-central-1 for Canadian data residency —
+  see ARCHITECTURE.md. It is already there; it is the *paused* project that is
+  in the United States.
 - The site is behind a password gate (middleware.ts, cookie `cs_site_access`). Test harnesses need `grantSiteAccess`.
 - `.env.local` and `.env.diagnose` are gitignored and must stay that way.
 

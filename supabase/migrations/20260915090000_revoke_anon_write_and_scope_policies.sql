@@ -4,9 +4,17 @@
 -- reasoning and the reader-by-reader analysis behind every line here.
 --
 -- NOT APPLIED BY CLAUDE. CLAUDE.md section 6: production is never modified
--- without an explicit go-ahead. Run against courtsimplified-dev first, then
--- production, after running docs/security/01a-01e (see docs/security/README.md) to
--- confirm the live schema matches what this was written from.
+-- without an explicit go-ahead.
+--
+-- THE LINE ABOVE USED TO READ "Run against courtsimplified-dev first, then  [dev-wording-quoted]
+-- production". That was wrong and dangerous: the project named
+-- courtsimplified-dev IS production (ca-central-1, ref fddlpnibovkkkgboabqb).
+-- Followed literally it said to apply this to the live database first.
+--
+-- Apply it with scripts/db/applyMigrations.ts, which resolves a project by ref
+-- and enforces staging before production, after running docs/security/01a-01e
+-- (see docs/security/README.md) to confirm the live schema matches what this
+-- was written from.
 --
 -- TWO FINDINGS:
 --   1. Twelve dev_full_access_* policies had no TO clause, so they applied to

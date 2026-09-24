@@ -630,8 +630,8 @@ This needs fixing before it causes an incident.
 The project named "dev" is the one real users are on. The project named
 `courtsimplified` is paused and empty.
 
-Every safeguard that says "apply to dev first, never to production" points at
-the live database when read literally, and the failure only shows up after the
+Every safeguard phrased in terms of applying to "dev" first points at the live
+database when read literally, and the failure only shows up after the
 destructive command has run. The migration file carries this warning in its own
 header for the same reason.
 

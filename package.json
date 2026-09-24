@@ -88,7 +88,9 @@
     "compliance:ai-report": "node --import tsx --env-file=.env.local scripts/compliance/aiQuarterlyReport.ts",
     "test:lso-demo-cases": "node --import tsx scripts/verification/verifyLsoDemoCases.ts",
     "test:no-filenames": "node --import tsx scripts/verification/verifyNoFilenamesToModel.ts",
-    "test:phase-scope": "node --import tsx scripts/verification/verifyPhaseScope.ts"
+    "test:phase-scope": "node --import tsx scripts/verification/verifyPhaseScope.ts",
+    "db:migrate": "node --import tsx scripts/db/applyMigrations.ts",
+    "test:db-environments": "node --import tsx scripts/verification/verifyDatabaseEnvironments.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",

@@ -533,8 +533,8 @@ lives is a real consideration for those users, not just an infrastructure
 preference.
 
 **The plan:** prove out the migration/CI/harness procedure end-to-end
-against `courtsimplified-dev` first (this is what the current dev-project
-setup work is doing). Once that procedure is verified working, apply the
+against the project named `courtsimplified-dev` — **which is the LIVE
+database, not a dev environment; see CLAUDE.md section 6 for the table**. Once that procedure is verified working, apply the
 same procedure to move production itself to `ca-central-1` — either via a
 new Canadian-region production project with a cutover, or whatever path
 Supabase supports for changing a project's region at that time (this may

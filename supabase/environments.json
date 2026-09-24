@@ -1,0 +1,46 @@
+{
+  "$comment": [
+    "The two Supabase projects, addressed by REF because the NAMES ARE BACKWARDS.",
+    "",
+    "The project named 'courtsimplified-dev' is production. The project named",
+    "'courtsimplified' is dormant and paused. Until they are renamed, any tool",
+    "that resolves a project by name will pick the wrong one, so nothing in this",
+    "repository resolves by name.",
+    "",
+    "'currentName' records what each project is called TODAY. 'intendedName' is",
+    "what it will be called after the rename described in docs/lso-fixes-report.md.",
+    "When the rename is done, move each intendedName into currentName and set",
+    "'renameComplete' to true -- scripts/db/applyMigrations.ts prints a warning",
+    "while it is false, and that warning is the reminder."
+  ],
+  "renameComplete": false,
+  "environments": {
+    "staging": {
+      "ref": "ffymjxjcnwakgdmldpne",
+      "currentName": "courtsimplified",
+      "intendedName": "courtsimplified-staging",
+      "region": "us-west-2",
+      "status": "PAUSED",
+      "notes": [
+        "Must be RESTORED before it can be used as staging -- it is paused, and a",
+        "paused project accepts no connections.",
+        "Holds 3 operator/harness accounts and 2 shell cases. No real user data.",
+        "In us-west-2. That is acceptable for staging, which must never hold real",
+        "user data, but it is why this one must NOT become production: Canadian",
+        "data residency is the reason production sits in ca-central-1."
+      ]
+    },
+    "production": {
+      "ref": "fddlpnibovkkkgboabqb",
+      "currentName": "courtsimplified-dev",
+      "intendedName": "courtsimplified-prod",
+      "region": "ca-central-1",
+      "status": "ACTIVE_HEALTHY",
+      "notes": [
+        "THE LIVE DATABASE. Real users' accounts, cases, intakes and documents.",
+        "Vercel's NEXT_PUBLIC_SUPABASE_URL and .env.local both point here.",
+        "Its name says 'dev'. It is not dev."
+      ]
+    }
+  }
+}
