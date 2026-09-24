@@ -885,11 +885,10 @@ function classifyEvidenceCategories(text: string): EvidenceCategory[] {
 function normalizeEvidenceItems(input: AiIntakeNormalizerInput, buckets: Record<string, string>): NormalizedEvidenceItem[] {
   const uploaded = input.uploadedEvidenceFiles || [];
   const items: NormalizedEvidenceItem[] = uploaded.map((file) => {
-    const title = pickString(file.title, file.name, "Evidence item");
+    const title = pickString(file.title, file.reference, "Evidence item");
     const description = pickString(file.description, file.relevance, "");
     const fileText = normalize(
       [
-        file.name,
         file.title,
         file.description,
         file.category,
@@ -909,7 +908,7 @@ function normalizeEvidenceItems(input: AiIntakeNormalizerInput, buckets: Record<
       date: pickString(file.evidenceDate),
       source: pickString(file.source),
       relevance: pickString(file.relevance),
-      fileName: pickString(file.name),
+      reference: pickString(file.reference),
       confidence: description ? 80 : 45,
     };
   });
@@ -1168,7 +1167,6 @@ export function normalizeAiIntake(input: AiIntakeNormalizerInput): NormalizedCas
     ...(input.availableEvidence || []),
     ...((input.uploadedEvidenceFiles || []).map((file) =>
       [
-        file.name,
         file.title,
         file.description,
         file.category,

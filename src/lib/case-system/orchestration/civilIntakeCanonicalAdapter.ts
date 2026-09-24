@@ -20,7 +20,21 @@ export type CivilCanonicalStage =
 
 export type CivilCanonicalEvidenceFile = {
   id: string;
-  name: string;
+  /**
+   * A NEUTRAL HANDLE, NEVER THE FILE NAME. "Document 1", "Document 2".
+   *
+   * The file name used to live here and was sent to OpenAI as part of the
+   * case description. A file name is a disclosure nobody decides to make:
+   * "restraining-order-application-2025.pdf" and "hiv-results-march.pdf"
+   * both say something the user never chose to say, because nobody thinks
+   * of a file name as content.
+   *
+   * The name is not scrubbed on the way out; it is never captured. There is
+   * no field on this type that can hold one, which is what makes
+   * verifyNoFilenamesToModel able to assert the property rather than test a
+   * sample of payloads.
+   */
+  reference: string;
   size: number;
   type: string;
   lastModified: number;
@@ -136,15 +150,14 @@ function labels(values: string[], mapping: Record<string, string>): string[] {
   return values.map((value) => mapping[value] || value);
 }
 
-function buildUploadNarrative(input: CivilCanonicalIntakeInput): string {
+/** Exported for verifyNoFilenamesToModel. See that file. */
+export function buildUploadNarrative(input: CivilCanonicalIntakeInput): string {
   return input.uploadedEvidenceFiles
     .map((file) =>
       cleanList([
-        `id=${file.id}`,
-        `name=${file.name}`,
+        `reference=${file.reference}`,
         `size=${file.size}`,
         `type=${file.type}`,
-        `lastModified=${file.lastModified}`,
         `title=${file.title}`,
         `description=${file.description}`,
         `relatedIssue=${file.relatedIssue}`,
@@ -195,7 +208,7 @@ function buildNarrative(input: CivilCanonicalIntakeInput): string {
 function buildEvidenceItems(input: CivilCanonicalIntakeInput): EvidenceItem[] {
   const uploaded = input.uploadedEvidenceFiles.map((file, index) => ({
     id: file.id || `civil_uploaded_${index + 1}`,
-    title: file.title || file.name,
+    title: file.title || file.reference,
     description: cleanList([
       file.description,
       file.whyItMatters && `Why it matters: ${file.whyItMatters}`,
@@ -205,11 +218,11 @@ function buildEvidenceItems(input: CivilCanonicalIntakeInput): EvidenceItem[] {
     relevance: file.whyItMatters,
     relatedIssue: file.relatedIssue,
     relatedLegalElement: file.relatedIssue,
-    source: file.createdBy || file.name,
+    source: file.createdBy || file.reference,
     date: file.evidenceDate,
-    content: file.description || file.whyItMatters || file.name,
-    label: file.title || file.name,
-    fileName: file.name,
+    content: file.description || file.whyItMatters || file.reference,
+    label: file.title || file.reference,
+    reference: file.reference,
     fileType: file.type,
   }));
 

@@ -22,7 +22,17 @@ const allowedIssues = new Set(["contract", "negligence", "institutional-negligen
 const allowedDocuments = new Set(["statement-claim", "statement-defence", "notice-application", "notice-motion", "affidavit-service", "affidavit", "order", "judgment", "tribunal-application", "human-rights-application", "judicial-review-materials", "demand-letter", "discovery", "trial-record", "nothing", "not-sure"]);
 const allowedFields = new Set(["caseId", "caseStage", "issues", "documents", "uploadedEvidenceFiles", "yourName", "otherParty", "yourRole", "courtLocation", "courtFileNumber", "amountClaimed", "limitationDeadline", "facts", "timeline", "evidence", "missingEvidence", "damagesBreakdown", "legalRemedy", "settlementEfforts", "serviceDetails", "urgent", "humanRightsGrounds", "discriminationFacts", "accommodationRequests", "governmentActor", "publicDecisionOrConduct", "institutionalFacts", "privacyRecordsFacts"]);
 const longFields = new Set(["facts", "timeline", "evidence", "missingEvidence", "damagesBreakdown", "legalRemedy", "settlementEfforts", "serviceDetails", "urgent", "humanRightsGrounds", "discriminationFacts", "accommodationRequests", "publicDecisionOrConduct", "institutionalFacts", "privacyRecordsFacts"]);
-const uploadFields = new Set(["id", "name", "size", "type", "lastModified", "title", "description", "relatedIssue", "evidenceDate", "createdBy", "whyItMatters"]);
+/*
+ * "name" was here until 2026-09-23. It is not renamed to "reference" by
+ * accident: this is a strict allowlist, so with "name" gone a body that still
+ * carries a file name is REJECTED at the door rather than quietly forwarded.
+ *
+ * That makes the route a second, independent control. The first is structural
+ * — no evidence-file type has a field that can hold a name (see
+ * src/lib/case-system/evidence/evidenceReference.ts) — and if that one is ever
+ * undone by a future edit, this one still refuses the request.
+ */
+const uploadFields = new Set(["id", "reference", "size", "type", "lastModified", "title", "description", "relatedIssue", "evidenceDate", "createdBy", "whyItMatters"]);
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value && typeof value === "object" && !Array.isArray(value));

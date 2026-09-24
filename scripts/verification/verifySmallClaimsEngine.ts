@@ -18,7 +18,7 @@ function buildInput(
     uploadedEvidenceFiles: [
       {
         id: "invoice-1",
-        name: "invoice.pdf",
+        reference: "Document 1",
         size: 1200,
         type: "application/pdf",
         lastModified: 1_767_225_600_000,

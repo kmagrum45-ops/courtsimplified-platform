@@ -86,7 +86,8 @@
     "test:output-guard": "node --import tsx scripts/verification/verifyOutputGuard.ts",
     "test:ai-call-logging": "node --import tsx scripts/verification/verifyAiCallLogging.ts",
     "compliance:ai-report": "node --import tsx --env-file=.env.local scripts/compliance/aiQuarterlyReport.ts",
-    "test:lso-demo-cases": "node --import tsx scripts/verification/verifyLsoDemoCases.ts"
+    "test:lso-demo-cases": "node --import tsx scripts/verification/verifyLsoDemoCases.ts",
+    "test:no-filenames": "node --import tsx scripts/verification/verifyNoFilenamesToModel.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",

@@ -50,7 +50,21 @@ export type SmallClaimsFiledDocument =
 
 export type SmallClaimsEvidenceFile = {
   id: string;
-  name: string;
+  /**
+   * A NEUTRAL HANDLE, NEVER THE FILE NAME. "Document 1", "Document 2".
+   *
+   * The file name used to live here and was sent to OpenAI as part of the
+   * case description. A file name is a disclosure nobody decides to make:
+   * "restraining-order-application-2025.pdf" and "hiv-results-march.pdf"
+   * both say something the user never chose to say, because nobody thinks
+   * of a file name as content.
+   *
+   * The name is not scrubbed on the way out; it is never captured. There is
+   * no field on this type that can hold one, which is what makes
+   * verifyNoFilenamesToModel able to assert the property rather than test a
+   * sample of payloads.
+   */
+  reference: string;
   size: number;
   type: string;
   lastModified: number;
@@ -279,10 +293,16 @@ function determineProceduralStage(input: SmallClaimsIntelligenceInput): Universa
   return input.caseStage || "not-sure";
 }
 
-function buildRawUserText(input: SmallClaimsIntelligenceInput): string {
+/**
+ * Exported so verifyNoFilenamesToModel can assert on the ACTUAL prompt text
+ * rather than on a copy of it. A test that rebuilds the payload itself proves
+ * only that the copy is clean.
+ */
+export function buildRawUserText(input: SmallClaimsIntelligenceInput): string {
   const evidenceFiles = input.uploadedEvidenceFiles.map((file) =>
     [
-      `Evidence file: ${file.name}`,
+      `Evidence file: ${file.reference}`,
+      file.type ? `File type: ${file.type}` : "",
       file.title ? `Title: ${file.title}` : "",
       file.category ? `Category: ${file.category}` : "",
       file.evidenceDate ? `Date: ${file.evidenceDate}` : "",
@@ -480,8 +500,8 @@ function buildContactMissingInfo(
 function buildEvidenceFromFiles(input: SmallClaimsIntelligenceInput) {
   return input.uploadedEvidenceFiles.map((file) => ({
     id: file.id,
-    name: file.name,
-    title: file.title || file.name,
+    reference: file.reference,
+    title: file.title || file.reference,
     description: file.description,
     category: file.category,
     evidenceDate: file.evidenceDate,

@@ -125,7 +125,7 @@ function buildEvidenceSection(input: ClaimDraftInput) {
   if (input.extra?.uploadedEvidenceFiles && Array.isArray(input.extra.uploadedEvidenceFiles)) {
     const uploaded = input.extra.uploadedEvidenceFiles
       .map((file: any) => {
-        const title = file.title || file.name || "Untitled evidence";
+        const title = file.title || file.reference || "Untitled evidence";
         const relevance = file.relevance ? ` — ${file.relevance}` : "";
         return `${title}${relevance}`;
       })

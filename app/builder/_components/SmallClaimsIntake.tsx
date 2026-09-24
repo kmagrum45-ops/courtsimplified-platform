@@ -20,6 +20,12 @@ import type {
 import { supabase } from "../../../src/lib/supabase/client";
 import { runClientSafetyCheck } from "../../../src/lib/case-system/intake/clientSafetyCheck";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
+import {
+  assignReferences,
+  describeFileType,
+  evidenceFileId,
+  readSelectedFiles,
+} from "../../../src/lib/case-system/evidence/evidenceReference";
 import EvidenceFileNotice from "../../_components/EvidenceFileNotice";
 import {
   explanationFor,
@@ -590,31 +596,39 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
   function handleEvidenceFilesSelected(files: FileList | null) {
     if (!files) return;
 
-    const nextFiles: SmallClaimsEvidenceFile[] = Array.from(files).map((file) => ({
-      id: `${file.name}-${file.size}-${file.lastModified}`,
-      name: file.name,
-      size: file.size,
-      type: file.type || "Unknown file type",
-      lastModified: file.lastModified,
-      title: "",
-      description: "",
-      category: "",
-      evidenceDate: "",
-      source: "",
-      relevance: "",
-    }));
+    /*
+     * The FileList is read by evidenceReference.readSelectedFiles, which
+     * touches size, type and lastModified and never `name`. See that module
+     * for why the name is not captured rather than scrubbed later.
+     *
+     * Numbering happens inside the state updater because "Document N"
+     * continues from what is already listed, and only the updater can see
+     * that without racing another selection.
+     */
+    const chosen = readSelectedFiles(files);
 
     setInput((current) => {
       const existingIds = new Set(
         current.uploadedEvidenceFiles.map((file) => file.id),
       );
+      const fresh = assignReferences(
+        current.uploadedEvidenceFiles.map((file) => file.reference),
+        chosen.filter((facts) => !existingIds.has(evidenceFileId(facts))),
+      );
+
+      const nextFiles: SmallClaimsEvidenceFile[] = fresh.map((file) => ({
+        ...file,
+        title: "",
+        description: "",
+        category: "",
+        evidenceDate: "",
+        source: "",
+        relevance: "",
+      }));
 
       return {
         ...current,
-        uploadedEvidenceFiles: [
-          ...current.uploadedEvidenceFiles,
-          ...nextFiles.filter((file) => !existingIds.has(file.id)),
-        ],
+        uploadedEvidenceFiles: [...current.uploadedEvidenceFiles, ...nextFiles],
       };
     });
   }
@@ -1172,11 +1186,15 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
                 >
                   <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                     <div>
+                      {/*
+                        The file name used to be here, and was also sent to
+                        OpenAI. Now neither -- see evidenceReference.ts.
+                      */}
                       <p className="font-semibold text-[#16302b]">
-                        {file.name}
+                        {file.reference}
                       </p>
                       <p className="mt-1 text-sm text-[#6b8078]">
-                        {formatFileSize(file.size)} · {file.type}
+                        {describeFileType(file.type)} · {formatFileSize(file.size)}
                       </p>
                     </div>
 
@@ -1190,14 +1208,22 @@ export default function SmallClaimsIntake({ onComplete, location, initialStory }
                   </div>
 
                   <div className="mt-4 grid gap-4 md:grid-cols-2">
-                    <input
-                      value={file.title}
-                      onChange={(event) =>
-                        updateEvidenceFile(file.id, "title", event.target.value)
-                      }
-                      className="rounded-2xl border border-[#d8e6df] px-4 py-3 text-sm"
-                      placeholder="Evidence title"
-                    />
+                    <label className="block">
+                      <input
+                        value={file.title}
+                        onChange={(event) =>
+                          updateEvidenceFile(file.id, "title", event.target.value)
+                        }
+                        className="w-full rounded-2xl border border-[#d8e6df] px-4 py-3 text-sm"
+                        placeholder="Your label for this document"
+                      />
+                      <span
+                        data-testid="evidence-label-hint"
+                        className="mt-1 block text-xs leading-5 text-[#6b8078]"
+                      >
+                        Your own label for this document. Optional, and sent to our AI provider along with what you write about it.
+                      </span>
+                    </label>
 
                     <select
                       value={file.category}

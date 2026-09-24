@@ -17,16 +17,28 @@
  *
  * *** WHAT DOES LEAVE THE BROWSER ***
  *
- * The FILENAME does, along with the size, the type, and whatever the user
- * types into the title, description and relevance fields. Those go into the
- * analysis, which goes to OpenAI.
+ * The file's TYPE and SIZE, a neutral reference ("Document 1"), and whatever
+ * the user chooses to type about it. Those go into the analysis, which goes to
+ * OpenAI.
  *
- * A filename is not nothing. "restraining-order-application-2025.pdf" and
- * "hiv-results-march.pdf" are disclosures, and they are disclosures a person
- * makes without ever deciding to, because nobody thinks of a filename as
- * content. That is the specific reason the caution below names the categories
- * it names, and the specific reason this component sits at the picker rather
- * than in a privacy page nobody opens at the moment they are choosing a file.
+ * *** THE FILENAME NO LONGER DOES. UPDATED 2026-09-23. ***
+ *
+ * It used to. "restraining-order-application-2025.pdf" and
+ * "hiv-results-march.pdf" are disclosures a person makes without ever deciding
+ * to, because nobody thinks of a filename as content — and this notice's
+ * previous wording told users to rename such files, which put the burden on
+ * the person least placed to carry it.
+ *
+ * The name is now never read at all. `readSelectedFiles` in
+ * evidenceReference.ts touches size, type and lastModified, and there is no
+ * field on the resulting object that can hold a name. So this notice no longer
+ * warns about filenames: there is nothing left to warn about, and a warning
+ * that describes a risk we have removed teaches users to distrust the accurate
+ * parts too.
+ *
+ * What replaces it is the label. A label is a disclosure the user makes ON
+ * PURPOSE, which is a different thing entirely — so the notice says where it
+ * goes, and so does the hint beside the field itself.
  *
  * *** NOT LEGAL CONTENT, DELIBERATELY ***
  *
@@ -50,20 +62,21 @@ export default function EvidenceFileNotice() {
       </p>
 
       <p className="mt-2 text-sm leading-6 text-[#6e5726]">
-        CourtSimplified records the file name, size and type, plus whatever you
-        type about it. The file itself never leaves your device and is not kept
-        anywhere. Keep your own copy of every document — this is a list, not a
-        place to store evidence.
+        The file itself never leaves your device and is not kept anywhere. Keep
+        your own copy of every document — this is a list, not a place to store
+        evidence.
       </p>
 
       <p className="mt-3 text-sm font-semibold text-[#10231f]">
-        Before you choose a file, check the name.
+        We do not read or record your file names.
       </p>
 
       <p className="mt-1 text-sm leading-6 text-[#6e5726]">
-        The file name is recorded and is sent to our AI provider as part of your
-        case description. Rename anything whose name alone would reveal more
-        than you want to share.
+        Each document is listed as &ldquo;Document 1&rdquo;,
+        &ldquo;Document 2&rdquo; and so on, with its type and size. You can add
+        your own label and notes — <strong>those are sent to our AI provider</strong>{" "}
+        as part of your case description, so write them the way you would write
+        anything else here.
       </p>
 
       <p className="mt-3 text-sm leading-6 text-[#6e5726]">

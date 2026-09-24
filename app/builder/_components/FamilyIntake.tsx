@@ -19,6 +19,12 @@ import {
 } from "@/src/lib/case-system/intake/clientSafetyCheck";
 import { FAMILY_RESOURCE_TOPICS } from "@/src/lib/case-system/intake/familySafetyResources";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
+import {
+  assignReferences,
+  describeFileType,
+  evidenceFileId,
+  readSelectedFiles,
+} from "../../../src/lib/case-system/evidence/evidenceReference";
 import EvidenceFileNotice from "../../_components/EvidenceFileNotice";
 import {
   consumeNarrativePrefill,
@@ -54,7 +60,21 @@ type FamilyIssue =
 
 type EvidenceFile = {
   id: string;
-  name: string;
+  /**
+   * A NEUTRAL HANDLE, NEVER THE FILE NAME. "Document 1", "Document 2".
+   *
+   * The file name used to live here and was sent to OpenAI as part of the
+   * case description. A file name is a disclosure nobody decides to make:
+   * "restraining-order-application-2025.pdf" and "hiv-results-march.pdf"
+   * both say something the user never chose to say, because nobody thinks
+   * of a file name as content.
+   *
+   * The name is not scrubbed on the way out; it is never captured. There is
+   * no field on this type that can hold one, which is what makes
+   * verifyNoFilenamesToModel able to assert the property rather than test a
+   * sample of payloads.
+   */
+  reference: string;
   size: number;
   type: string;
   lastModified: number;
@@ -349,21 +369,33 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
   function handleEvidenceFilesSelected(files: FileList | null) {
     if (!files) return;
 
-    const nextFiles: EvidenceFile[] = Array.from(files).map((file) => ({
-      id: `${file.name}-${file.size}-${file.lastModified}`,
-      name: file.name,
-      size: file.size,
-      type: file.type || "Unknown file type",
-      lastModified: file.lastModified,
-      title: "",
-      description: "",
-      category: "",
-      evidenceDate: "",
-      source: "",
-      relevance: "",
-    }));
+    /*
+     * The FileList is read by evidenceReference.readSelectedFiles, which
+     * touches size, type and lastModified and never `name`. See that module
+     * for why the name is not captured rather than scrubbed later.
+     *
+     * Numbering happens inside the state updater because "Document N"
+     * continues from what is already listed, and only the updater can see
+     * that without racing another selection.
+     */
+    const chosen = readSelectedFiles(files);
 
     setUploadedEvidenceFiles((current) => {
+      const nextFiles: EvidenceFile[] = assignReferences(
+        current.map((file) => file.reference),
+        chosen.filter(
+          (facts) => !new Set(current.map((file) => file.id)).has(evidenceFileId(facts)),
+        ),
+      ).map((file) => ({
+        ...file,
+        title: "",
+        description: "",
+        category: "",
+        evidenceDate: "",
+        source: "",
+        relevance: "",
+      }));
+
       const existingIds = new Set(current.map((file) => file.id));
       const uniqueNewFiles = nextFiles.filter((file) => !existingIds.has(file.id));
       return [...current, ...uniqueNewFiles];
@@ -430,7 +462,8 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
         ? `Uploaded evidence metadata: ${uploadedEvidenceFiles
             .map((file) =>
               cleanList([
-                `File: ${file.name}`,
+                `Document: ${file.reference}`,
+                file.type ? `File type: ${file.type}` : "",
                 file.title ? `Title: ${file.title}` : "",
                 file.category ? `Category: ${file.category}` : "",
                 file.evidenceDate ? `Date/Event: ${file.evidenceDate}` : "",
@@ -515,8 +548,7 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
         adoptionDetails,
         uploadedFiles: uploadedEvidenceFiles.map((file) => ({
           id: file.id,
-          fileName: file.name,
-          originalName: file.name,
+          reference: file.reference,
           mimeType: file.type,
           sizeBytes: file.size,
           title: file.title,
@@ -864,9 +896,10 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
                   >
                     <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                       <div>
-                        <p className="font-semibold text-[#16302b]">{file.name}</p>
+                        {/* File name deliberately absent -- see evidenceReference.ts. */}
+                        <p className="font-semibold text-[#16302b]">{file.reference}</p>
                         <p className="mt-1 text-sm text-[#6b8078]">
-                          {formatFileSize(file.size)} · {file.type}
+                          {describeFileType(file.type)} · {formatFileSize(file.size)}
                         </p>
                       </div>
 
@@ -882,7 +915,13 @@ export default function FamilyIntake({ onComplete, location, initialStory }: Pro
                     <div className="mt-4 grid gap-4 md:grid-cols-2">
                       <label className="block">
                         <span className="text-sm font-semibold text-[#16302b]">
-                          Evidence title
+                          Your label for this document
+                        </span>
+                        <span
+                          data-testid="evidence-label-hint"
+                          className="mt-1 block text-xs leading-5 text-[#6b8078]"
+                        >
+                          Your own label for this document. Optional, and sent to our AI provider along with what you write about it.
                         </span>
                         <input
                           value={file.title}

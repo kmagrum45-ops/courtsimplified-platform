@@ -255,7 +255,7 @@ function civilInput(caseId = "civil-case-a"): CivilCanonicalIntakeInput {
     caseStage: "starting-case",
     issues: ["contract"],
     documents: ["statement-claim"],
-    uploadedEvidenceFiles: [{ id: "civil-evidence-1", name: "agreement.pdf", size: 100, type: "application/pdf", lastModified: 1, title: "Agreement", description: "Written agreement", relatedIssue: "contract", evidenceDate: "2026-01-02", createdBy: "plaintiff", whyItMatters: "Records the agreement" }],
+    uploadedEvidenceFiles: [{ id: "civil-evidence-1", reference: "Document 1", size: 100, type: "application/pdf", lastModified: 1, title: "Agreement", description: "Written agreement", relatedIssue: "contract", evidenceDate: "2026-01-02", createdBy: "plaintiff", whyItMatters: "Records the agreement" }],
     yourName: "Civil Plaintiff",
     otherParty: "Civil Defendant",
     yourRole: "plaintiff",
@@ -409,10 +409,29 @@ async function verifyCivilCanonicalProductionRoute() {
     "Service detail beta", "Urgency detail gamma", "Protected ground delta",
     "Discrimination fact epsilon", "Accommodation request zeta", "Government actor eta",
     "Public conduct theta", "Institutional fact iota", "Privacy record kappa",
-    "agreement.pdf", "application/pdf", "lastModified=1", "2026-01-02", "Records the agreement",
+    // "agreement.pdf" and "lastModified=1" were in this list until 2026-09-23.
+    // This suite was ASSERTING the leak: it required the narrative sent to
+    // OpenAI to contain the user's file name, so removing the leak broke the
+    // test that was supposed to protect them. Replaced by the neutral
+    // reference, with the inverse assertion below.
+    "Document 1", "application/pdf", "2026-01-02", "Records the agreement",
   ]) {
     assert.ok(rawNarrative.includes(expected), `Brain narrative omitted: ${expected}`);
     assert.ok(specializedNarrative.includes(expected), `Civil engine summary omitted: ${expected}`);
+  }
+
+  // The inverse. Asserted here as well as in verifyNoFilenamesToModel because
+  // this is the only place the narrative is built by the REAL ROUTE rather
+  // than by calling the builder directly.
+  for (const forbidden of ["agreement.pdf", "lastModified="]) {
+    assert.ok(
+      !rawNarrative.includes(forbidden),
+      `Brain narrative leaked "${forbidden}" — see src/lib/case-system/evidence/evidenceReference.ts`,
+    );
+    assert.ok(
+      !specializedNarrative.includes(forbidden),
+      `Civil engine summary leaked "${forbidden}"`,
+    );
   }
 
   const isolated = await callCivil(civilInput("civil-case-b"));
