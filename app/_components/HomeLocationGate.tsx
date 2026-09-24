@@ -16,6 +16,8 @@ import { pathwayDescriptionFor } from "../../src/lib/content-library/pathwayDesc
 import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
 import LegalAdviceDeflection from "./LegalAdviceDeflection";
 import AiUseNotice from "./AiUseNotice";
+import PathwayUnavailable from "./PathwayUnavailable";
+import { isPathwayAvailable, type KnownPathway } from "../../src/lib/content-library/phaseScope";
 
 const pathLabels: Record<BuilderDraftCourtPath, string> = {
   family: "Family",
@@ -226,6 +228,28 @@ export default function HomeLocationGate() {
     goToIntake(path);
   }
 
+  /*
+   * PHASE 1 IS SMALL CLAIMS ONLY (src/lib/content-library/phaseScope.ts).
+   *
+   * The front door. The builder gates the same thing independently, because
+   * /builder?path=family is reachable by URL and from a saved draft.
+   *
+   * Placed after every hook so the hook order does not depend on the branch.
+   */
+  if (!isPathwayAvailable(path)) {
+    return (
+      <section
+        className="border-y border-[#d9e6df] bg-white"
+        data-testid="court-path-location-gate"
+        tabIndex={-1}
+      >
+        <div className="mx-auto max-w-3xl px-6 py-12">
+          <PathwayUnavailable pathway={path as KnownPathway} />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="border-y border-[#d9e6df] bg-white" data-testid="court-path-location-gate" tabIndex={-1}>
       <div className="mx-auto max-w-4xl px-6 py-12">
@@ -283,15 +307,31 @@ export default function HomeLocationGate() {
               <p className="mt-2 text-sm leading-6 text-[#4d675f]">
                 This is a suggestion based on the words you used, not a decision about your case. You choose which path to continue with, and you can change it later.
               </p>
+              {/*
+                PHASE 1. When the classifier points at a path we do not cover
+                yet, the "Switch to X" button would walk the user into a gate.
+                The suggestion itself is still worth showing -- knowing the
+                matter looks like family law is useful even when we cannot
+                help -- so the offer is replaced by the honest answer and the
+                referrals, and the "continue anyway" button below still stands.
+              */}
+              {!isPathwayAvailable(suggestion.suggestedPath) && (
+                <div className="mt-4">
+                  <PathwayUnavailable pathway={suggestion.suggestedPath as KnownPathway} />
+                </div>
+              )}
+
               <div className="mt-4 flex flex-wrap gap-3">
-                <button
-                  type="button"
-                  data-testid="court-path-suggestion-accept"
-                  onClick={() => goToIntake(suggestion.suggestedPath)}
-                  className="rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
-                >
-                  Switch to {pathLabels[suggestion.suggestedPath]}
-                </button>
+                {isPathwayAvailable(suggestion.suggestedPath) && (
+                  <button
+                    type="button"
+                    data-testid="court-path-suggestion-accept"
+                    onClick={() => goToIntake(suggestion.suggestedPath)}
+                    className="rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
+                  >
+                    Switch to {pathLabels[suggestion.suggestedPath]}
+                  </button>
+                )}
                 <button
                   type="button"
                   data-testid="court-path-suggestion-keep"

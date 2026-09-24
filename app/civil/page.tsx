@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PathwayUnavailable from "../_components/PathwayUnavailable";
 
 import { ONTARIO_SMALL_CLAIMS_LIMIT } from "@/src/lib/case-system/utils";
 import { ScalesIcon } from "../_components/CourtTypeIcons";
@@ -53,6 +54,14 @@ const civilResources: [string, string][] = [
 export default function CivilPage() {
   return (
     <main className="min-h-screen bg-[#f8faf8] text-[#16302b]">
+      {/*
+        PHASE 1 IS SMALL CLAIMS ONLY -- src/lib/content-library/phaseScope.ts.
+        The builder gates this path too, independently. This notice exists so
+        the answer arrives before the pitch rather than after it.
+      */}
+      <div className="mx-auto max-w-3xl px-6 pt-10">
+        <PathwayUnavailable pathway="civil" />
+      </div>
       <section className="border-b border-[#d9e6df] bg-white">
         <div className="mx-auto max-w-4xl px-6 py-16 text-center">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-[#2f7d67]">
@@ -70,13 +79,6 @@ export default function CivilPage() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/builder?path=civil"
-              className="rounded-full bg-[#2f7d67] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#256b58]"
-            >
-              Start my Civil case
-            </Link>
-
             <Link
               href="/forms?path=civil"
               className="rounded-full border border-[#2f7d67] bg-white px-6 py-3 text-sm font-semibold text-[#2f7d67] transition hover:bg-[#eef8f5]"
@@ -180,13 +182,6 @@ export default function CivilPage() {
           </div>
 
           <div className="mt-8 flex flex-wrap gap-4">
-            <Link
-              href="/builder?path=civil"
-              className="inline-block rounded-full bg-[#2f7d67] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#256b58]"
-            >
-              Continue to Civil Intake →
-            </Link>
-
             <Link
               href="/document-workspace?path=civil"
               className="inline-block rounded-full border border-[#bdd4ca] bg-white px-6 py-3 text-sm font-semibold text-[#1c473d] transition hover:border-[#2f7d67] hover:text-[#2f7d67]"

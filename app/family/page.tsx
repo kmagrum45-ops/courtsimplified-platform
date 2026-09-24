@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PathwayUnavailable from "../_components/PathwayUnavailable";
 
 import { FamilyIcon } from "../_components/CourtTypeIcons";
 
@@ -43,6 +44,14 @@ const familyResources: [string, string][] = [
 export default function FamilyPage() {
   return (
     <main className="min-h-screen bg-[#f8faf8] text-[#16302b]">
+      {/*
+        PHASE 1 IS SMALL CLAIMS ONLY -- src/lib/content-library/phaseScope.ts.
+        The builder gates this path too, independently. This notice exists so
+        the answer arrives before the pitch rather than after it.
+      */}
+      <div className="mx-auto max-w-3xl px-6 pt-10">
+        <PathwayUnavailable pathway="family" />
+      </div>
       <section className="border-b border-[#d9e6df] bg-white">
         <div className="mx-auto max-w-4xl px-6 py-16 text-center">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-[#2f7d67]">
@@ -60,13 +69,6 @@ export default function FamilyPage() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/builder?path=family"
-              className="rounded-full bg-[#2f7d67] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#276a57]"
-            >
-              Start my Family case
-            </Link>
-
             <Link
               href="/forms?path=family"
               className="rounded-full border border-[#2f7d67] bg-white px-6 py-3 text-sm font-semibold text-[#2f7d67] transition hover:bg-[#edf7f3]"
@@ -170,13 +172,6 @@ export default function FamilyPage() {
           </div>
 
           <div className="mt-8 flex flex-wrap gap-4">
-            <Link
-              href="/builder?path=family"
-              className="inline-block rounded-full bg-[#2f7d67] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#276a57]"
-            >
-              Continue to Family Intake →
-            </Link>
-
             <Link
               href="/document-workspace?path=family"
               className="inline-block rounded-full border border-[#bdd4ca] bg-white px-6 py-3 text-sm font-semibold text-[#1c473d] transition hover:border-[#2f7d67] hover:text-[#2f7d67]"

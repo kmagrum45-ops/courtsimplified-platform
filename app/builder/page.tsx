@@ -40,6 +40,8 @@ import {
 } from "./_components/builderTypes";
 import StageConfirmation from "./_components/StageConfirmation";
 import AiUseNotice from "../_components/AiUseNotice";
+import PathwayUnavailable from "../_components/PathwayUnavailable";
+import { isPathwayAvailable, type KnownPathway } from "../../src/lib/content-library/phaseScope";
 import FirstUseAcknowledgement from "../_components/FirstUseAcknowledgement";
 import LegalInformationNotice from "../_components/LegalInformationNotice";
 
@@ -1151,6 +1153,27 @@ function BuilderPageContent() {
     setChatSessionId(createChatSessionId(courtPath));
 
     router.replace(`/builder?path=${courtPath}`);
+  }
+
+  /*
+   * PHASE 1 IS SMALL CLAIMS ONLY (see src/lib/content-library/phaseScope.ts).
+   *
+   * Gated HERE and not only at the home gate, because `/builder?path=family`
+   * is reachable by URL and from a saved draft — gating the front door alone
+   * would leave the side door open.
+   *
+   * Before every hook has run? No: this sits after all of them, so the hook
+   * order is unchanged whichever branch is taken. An early return above the
+   * hooks would break the rules of hooks the moment someone added one.
+   */
+  if (!isPathwayAvailable(courtPath)) {
+    return (
+      <main className="min-h-screen bg-[#f8faf8] px-6 py-10 text-[#16302b]">
+        <div className="mx-auto max-w-3xl">
+          <PathwayUnavailable pathway={courtPath as KnownPathway} />
+        </div>
+      </main>
+    );
   }
 
   return (
