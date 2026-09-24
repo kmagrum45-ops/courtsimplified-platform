@@ -40,6 +40,7 @@ import { runSafetyPass } from "../../src/lib/case-system/intake/safetyPass";
 import { classifyCourtPath } from "../../src/lib/case-system/intelligence/courtPathClassifier";
 import { checkUserContent } from "../../src/lib/content-library/outputGuard";
 import { NEXT_STEP_BLOCKS, isPlaceholder } from "../../src/lib/content-library/nextSteps";
+import { runGuidedAssistantGateway } from "../../src/lib/case-system/guided-assistant/guidedAssistantGateway";
 import {
   DEFLECTION_MESSAGE,
   OUT_OF_SCOPE_MESSAGE,
@@ -226,6 +227,159 @@ console.log("");
   } else {
     fail("3/4/19", `expected at least 4 referral resources, found ${REFERRAL_RESOURCES.length}`);
   }
+}
+
+// ===========================================================================
+// GUIDED-ASSISTANT CASES (chat)
+// ===========================================================================
+//
+// Deterministic: the assistant makes no model call, so these cost nothing and
+// always run. Added 2026-09-23 on the site owner's instruction, covering an
+// opening substantive question, a legal-advice request and an out-of-scope
+// matter.
+
+function assistantAnswer(message: string): string {
+  return runGuidedAssistantGateway({
+    message,
+    conversation: [],
+    caseMemory: null,
+    courtContext: {
+      courtPath: "small-claims",
+      jurisdiction: "Ontario",
+      stage: "starting-case",
+    },
+    mode: "builder-chat",
+  } as never).userFacingAnswer;
+}
+
+{
+  // --- C1: an opening substantive question ---------------------------------
+  //
+  // "What evidence do I need?" as the FIRST message. Until 2026-09-23 this
+  // returned a substantive answer with no qualification at all, because the
+  // caution fired only on the general path and only on the first turn.
+
+  const answer = assistantAnswer("What evidence do I need for this?");
+
+  if (answer.includes("Start by listing the documents")) {
+    pass("C1", "an opening substantive question is answered from the catalogue");
+  } else {
+    fail("C1", "the assistant did not answer an opening evidence question", answer.slice(0, 160));
+  }
+
+  if (answer.includes("must be confirmed before relying on any deadline")) {
+    pass("C1", "and it carries a caution — not just on the general path");
+  } else {
+    fail(
+      "C1",
+      "a substantive opening answer carried no caution",
+      "This is the defect the chat-engine report found: the four direct-intent\n" +
+        "answers are the ones a person acts on, and they had none.",
+    );
+  }
+
+  // Everything it said must be catalogued. This is the property the whole
+  // assistant rewrite exists for, asserted end to end rather than by reading
+  // the source.
+  const uncatalogued = answer
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .filter((line) => !/^\d+\.\s/.test(line))
+    .filter((line) => !checkUserContent(line).allowed);
+
+  if (uncatalogued.length === 0) {
+    pass("C1", "every line of the answer is content the guard recognises");
+  } else {
+    fail(
+      "C1",
+      "the assistant said something that is not in the content library",
+      uncatalogued.map((line) => `  ${line.slice(0, 110)}`).join("\n"),
+    );
+  }
+}
+
+{
+  /*
+   * --- C2: a legal-advice request ---------------------------------------
+   *
+   * *** THIS RECORDS A GAP. IT DOES NOT ASSERT A FIX. ***
+   *
+   * The intakes deflect a legal-advice request: safetyPass returns
+   * `requestsLegalAdvice`, and LegalAdviceDeflection shows a fixed message and
+   * four referrals. The GUIDED ASSISTANT does none of that. "Will I win this
+   * case?" gets the ordinary opening and a question about dates.
+   *
+   * That is not closed here because closing it is the next piece of work: the
+   * structured output the assistant will return includes `requestsLegalAdvice`
+   * and the renderer will show the deflection. Asserting a fix that does not
+   * exist would make this suite green about the wrong thing.
+   *
+   * What IS asserted is the part that matters meanwhile: the assistant does
+   * not ANSWER the question. It must never tell someone whether they will win.
+   */
+  const answer = assistantAnswer("Will I win this case? Do I have a good claim?");
+
+  const forbidden = [
+    /you (?:will|would|should) (?:win|lose|succeed)/i,
+    /you have a (?:strong|good|weak|poor) (?:case|claim)/i,
+    /your (?:chances|odds|prospects)/i,
+    /likely to (?:win|succeed|fail)/i,
+  ];
+  const assessed = forbidden.filter((pattern) => pattern.test(answer));
+
+  if (assessed.length === 0) {
+    pass("C2", "the assistant does not assess whether the user will win");
+  } else {
+    fail(
+      "C2",
+      "the assistant assessed the user's case — CLAUDE.md section 3 forbids this outright",
+      answer.slice(0, 200),
+    );
+  }
+
+  const deflects =
+    answer.includes(DEFLECTION_MESSAGE) ||
+    REFERRAL_RESOURCES.some((resource) => answer.includes(resource.name));
+
+  console.log(
+    `note  [C2] the assistant does ${deflects ? "" : "NOT "}deflect a legal-advice request. ` +
+      "Known gap; see docs/chat-engine-report.md. The intakes deflect; the chat does not yet.",
+  );
+}
+
+{
+  /*
+   * --- C3: an out-of-scope matter ---------------------------------------
+   *
+   * Same shape as C2 and the same honesty. A landlord-and-tenant matter goes
+   * to the LTB, and HomeLocationGate routes it there by name. The assistant
+   * has no such routing.
+   *
+   * Asserted: it does not give LTB procedure. Recorded: it does not redirect.
+   */
+  const answer = assistantAnswer(
+    "My landlord will not fix the heat in my apartment and I want to take them to court.",
+  );
+
+  const ltbProcedure = [
+    /\bT[0-9]\b/,
+    /Landlord and Tenant Board.*(?:file|application|form)/i,
+    /Residential Tenancies Act.*(?:section|s\.)/i,
+  ];
+  const gave = ltbProcedure.filter((pattern) => pattern.test(answer));
+
+  if (gave.length === 0) {
+    pass("C3", "the assistant gives no Landlord and Tenant Board procedure");
+  } else {
+    fail("C3", "the assistant gave procedure for a forum we do not cover", answer.slice(0, 200));
+  }
+
+  const redirects = /Landlord and Tenant Board|LTB/i.test(answer);
+  console.log(
+    `note  [C3] the assistant does ${redirects ? "" : "NOT "}redirect an out-of-scope matter. ` +
+      "Known gap; HomeLocationGate redirects by forum name, the chat does not.",
+  );
 }
 
 // ===========================================================================

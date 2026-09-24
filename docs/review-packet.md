@@ -31,9 +31,9 @@ edited afterwards the approval no longer applies, and the item returns to draft.
 
 | Measure | Count |
 |---|---|
-| Total items | 333 |
+| Total items | 334 |
 | Approved (current version) | 0 |
-| Draft / unreviewed | 333 |
+| Draft / unreviewed | 334 |
 | Approvals voided by later edits | 0 |
 | Items that are unwritten placeholders | 41 |
 
@@ -85,7 +85,7 @@ which is the thing this work exists to prevent.
 - **assistant:explain:public-authority** (all / assistant) — [NEEDS LICENSEE REVIEW: a sourced plain-language explanation of what a public-authority claim involves. Notice, leave and limitation requirements differ from ordinary claims and must be cited, not summarised]
 - **assistant:explain:burden** (all / assistant) — [NEEDS LICENSEE REVIEW: wording for "The main proof issue currently identified is: X", where X comes from doctrineSeedLibrary.ts. Every object in that library is marked verificationStatus "not-verified", so nothing from it may render until it is verified — see the gate in renderAssistantBlock]
 
-## assistant-block (31)
+## assistant-block (32)
 
 ### `assistant:opening:generic`
 
@@ -250,6 +250,17 @@ I have your saved case story and structured intake. What important date, documen
 
 ```
 [NEEDS LICENSEE REVIEW: a sourced plain-language explanation of what a public-authority claim involves. Notice, leave and limitation requirements differ from ordinary claims and must be cited, not summarised]
+```
+
+### `assistant:explain:working-issue`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, when an issue label has been detected
+- **Source:** _none recorded_
+
+```
+The current working issue is: {{label}}. This remains a preliminary classification until the missing facts and proof are confirmed.
 ```
 
 ### `assistant:explain:unknown`

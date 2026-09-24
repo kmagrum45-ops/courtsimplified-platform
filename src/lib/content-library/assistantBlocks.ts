@@ -271,6 +271,28 @@ export const ASSISTANT_BLOCKS: AssistantBlock[] = [
     appearsIn: "Guided assistant, first turn on a public-authority signal",
   },
   {
+    id: "assistant:explain:working-issue",
+    kind: "conversational",
+    /*
+     * A THIRTEENTH OUTPUT PATH, found 2026-09-23 by running the demo cases
+     * rather than by any check.
+     *
+     * verifyAssistantBlocks check 1 looks for returned string LITERALS of 40+
+     * characters. This one is a template literal interpolating a label, and
+     * the pattern excluded backticks containing ${...} -- so a sentence built
+     * by interpolation walked straight past it. The check is now widened.
+     *
+     * It names a detected issue label and says the classification is
+     * preliminary. It states nothing about law, so no citation is required.
+     */
+    template:
+      "The current working issue is: {{label}}. This remains a preliminary classification until the missing facts and proof are confirmed.",
+    slots: ["label"],
+    statesLaw: false,
+    citations: [],
+    appearsIn: "Guided assistant, when an issue label has been detected",
+  },
+  {
     id: "assistant:explain:unknown",
     kind: "conversational",
     template:

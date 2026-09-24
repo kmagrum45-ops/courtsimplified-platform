@@ -76,17 +76,37 @@ function withoutComments(source: string): string {
   const MIN_SENTENCE = 40;
   const offenders: string[] = [];
 
+  /*
+   * TEMPLATE LITERALS ARE INCLUDED, AND THAT IS A CORRECTION.
+   *
+   * The first version of this check used /return\s+`([^`\\$]{40,})`/ — which
+   * excludes any backtick string containing ${...}. So a sentence built by
+   * INTERPOLATION was invisible to it, and one was: a thirteenth output path
+   * returning `The current working issue is: ${label}. This remains a
+   * preliminary classification…` sat uncatalogued through the whole rewrite
+   * and was found by running the demo cases, not by this suite.
+   *
+   * Interpolation is exactly how a sentence about a specific user's case gets
+   * built, so excluding it excluded the most important case.
+   *
+   * The patterns below now allow ${...} inside, and the length test counts the
+   * literal text around it — so `${a} ${b}` is not a sentence, and
+   * "The current working issue is: ${label}. This remains…" is.
+   */
   const patterns = [
     /return\s+"([^"\\]{40,})"/g,
-    /return\s+`([^`\\$]{40,})`/g,
+    /return\s+`([^`\\]{40,})`/g,
     /push\(\s*"([^"\\]{40,})"/g,
-    /push\(\s*`([^`$]{40,})`/g,
+    /push\(\s*`([^`\\]{40,})`/g,
   ];
 
   for (const pattern of patterns) {
     for (const match of source.matchAll(pattern)) {
       const text = match[1];
-      if (text.length >= MIN_SENTENCE) offenders.push(`  "${text.slice(0, 90)}…"`);
+      // Measure the PROSE, not the interpolations: a template that is mostly
+      // ${...} is assembling values, not writing a sentence.
+      const prose = text.replace(/\$\{[^}]*\}/g, "").trim();
+      if (prose.length >= MIN_SENTENCE) offenders.push(`  "${text.slice(0, 90)}…"`);
     }
   }
 

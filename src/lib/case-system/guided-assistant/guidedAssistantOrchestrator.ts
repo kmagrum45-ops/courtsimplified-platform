@@ -855,7 +855,7 @@ function buildLegalExplanation(args: {
     return assistantText("assistant:explain:public-authority") || assistantText("assistant:explain:unknown");
   }
 
-  return `The current working issue is: ${label}. This remains a preliminary classification until the missing facts and proof are confirmed.`;
+  return assistantText("assistant:explain:working-issue", { label });
 }
 
 function buildEvidenceAnswer(args: {
