@@ -15,6 +15,18 @@ import {
 
 import { DOCTRINE_SEED_LIBRARY } from "../knowledge/doctrineSeedLibrary";
 
+import { assistantText } from "../../content-library/renderAssistantBlock";
+
+/*
+ * Every object in DOCTRINE_SEED_LIBRARY carries verificationStatus
+ * "not-verified". Read from the library rather than hard-coded, so that
+ * verifying an object is what changes this -- not an edit here.
+ */
+const DOCTRINE_VERIFICATION_STATUS =
+  DOCTRINE_SEED_LIBRARY.every((entry) => entry.source.verificationStatus === "verified")
+    ? "approved"
+    : "not-verified";
+
 import {
   CaseCourtPath,
   CaseLegalDomain,
@@ -740,7 +752,7 @@ function buildWarmOpening(
   const normalizedIssue = normalize(issue);
 
   if (normalizedIssue.includes("defamation")) {
-    return "I’m sorry you’re dealing with that. Let’s organize the exact words, who received them, what proof exists, and what harm followed.";
+    return assistantText("assistant:opening:defamation");
   }
 
   if (
@@ -748,7 +760,7 @@ function buildWarmOpening(
     normalizedIssue.includes("parenting") ||
     normalizedIssue.includes("support")
   ) {
-    return "Family matters can become overwhelming quickly. Let’s organize the current arrangements, any existing orders, the important dates, and the records that support what you are saying.";
+    return assistantText("assistant:opening:family");
   }
 
   if (
@@ -756,11 +768,11 @@ function buildWarmOpening(
     normalizedIssue.includes("payment") ||
     normalizedIssue.includes("debt")
   ) {
-    return "Let’s organize the agreement, what each side was expected to do, what went wrong, the proof, and the outcome you are seeking.";
+    return assistantText("assistant:opening:contract");
   }
 
   if (normalizedIssue.includes("property damage")) {
-    return "Let’s organize what was damaged, how it happened, who may be responsible, and the records showing the repair cost or loss.";
+    return assistantText("assistant:opening:property-damage");
   }
 
   if (
@@ -768,10 +780,10 @@ function buildWarmOpening(
     normalizedIssue.includes("crown") ||
     normalizedIssue.includes("police")
   ) {
-    return "This needs careful fact organization because the specific actor, decision, record, legal authority, and resulting harm may all matter.";
+    return assistantText("assistant:opening:public-authority");
   }
 
-  return "I’ll help organize what happened into a clear case record, identify missing information, and focus on the next useful question.";
+  return assistantText("assistant:opening:generic");
 }
 
 function buildLegalExplanation(args: {
@@ -785,12 +797,23 @@ function buildLegalExplanation(args: {
     args.legalReasoning.reasoningSummary.burdenPriorities,
   );
 
+  /*
+   * The burden priority comes from doctrineSeedLibrary, every object of which
+   * is marked verificationStatus "not-verified". The block is gated on that
+   * status, so today this renders nothing and the caller falls through to the
+   * explanation below. See renderAssistantBlock.
+   */
   if (hasText(burden)) {
-    return `The main proof issue currently identified is: ${burden}.`;
+    const rendered = assistantText(
+      "assistant:explain:burden",
+      { burden },
+      DOCTRINE_VERIFICATION_STATUS,
+    );
+    if (rendered) return rendered;
   }
 
   if (!hypothesis && !signal) {
-    return "There is not enough information yet to identify the legal issue confidently. The next step is to confirm the court path, important facts, proof, and requested outcome.";
+    return assistantText("assistant:explain:unknown");
   }
 
   const label =
@@ -801,7 +824,7 @@ function buildLegalExplanation(args: {
   const normalizedLabel = normalize(label);
 
   if (normalizedLabel.includes("defamation")) {
-    return "A possible defamation issue usually turns on the exact words, whether they referred to you, whether they were communicated to another person, the context, any resulting reputational harm, and any defence that may apply.";
+    return assistantText("assistant:explain:defamation") || assistantText("assistant:explain:unknown");
   }
 
   if (
@@ -809,11 +832,11 @@ function buildLegalExplanation(args: {
     normalizedLabel.includes("payment") ||
     normalizedLabel.includes("debt")
   ) {
-    return "A contract or payment dispute usually turns on the agreement, each side’s obligations, the alleged breach, supporting records, and the resulting loss.";
+    return assistantText("assistant:explain:contract") || assistantText("assistant:explain:unknown");
   }
 
   if (normalizedLabel.includes("property damage")) {
-    return "A property-damage issue usually turns on causation, responsibility, photographs or records, repair estimates, invoices, and proof of the amount claimed.";
+    return assistantText("assistant:explain:property-damage") || assistantText("assistant:explain:unknown");
   }
 
   if (
@@ -821,7 +844,7 @@ function buildLegalExplanation(args: {
     normalizedLabel.includes("parenting") ||
     normalizedLabel.includes("support")
   ) {
-    return "A family matter usually requires child-focused facts where applicable, current arrangements, existing orders, payment or disclosure records, and evidence supporting the requested outcome.";
+    return assistantText("assistant:explain:family") || assistantText("assistant:explain:unknown");
   }
 
   if (
@@ -829,7 +852,7 @@ function buildLegalExplanation(args: {
     normalizedLabel.includes("crown") ||
     normalizedLabel.includes("police")
   ) {
-    return "A public-authority issue usually requires the exact actor, conduct, decision, governing power or duty, available record, procedural requirements, and provable harm.";
+    return assistantText("assistant:explain:public-authority") || assistantText("assistant:explain:unknown");
   }
 
   return `The current working issue is: ${label}. This remains a preliminary classification until the missing facts and proof are confirmed.`;
@@ -849,11 +872,11 @@ function buildEvidenceAnswer(args: {
   ]);
 
   if (evidenceNeeds.length === 0) {
-    return "No case-specific evidence gap has been identified yet. Start by listing the documents, messages, photographs, recordings, receipts, witnesses, and court records you already have.";
+    return assistantText("assistant:evidence:none");
   }
 
   return formatList(
-    "The most important evidence gaps currently identified are:",
+    assistantText("assistant:evidence:heading"),
     evidenceNeeds,
     5,
   );
@@ -878,11 +901,11 @@ function buildLegalIssuesAnswer(args: {
   ]);
 
   if (issues.length === 0) {
-    return "The legal issues cannot be classified confidently yet. More information is needed about what happened, where it happened, who was involved, and the outcome being requested.";
+    return assistantText("assistant:issues:none");
   }
 
   return formatList(
-    "These are the main issues currently flagged for review:",
+    assistantText("assistant:issues:heading"),
     issues,
     5,
   );
@@ -906,11 +929,11 @@ function buildDocumentReadinessAnswer(args: {
   ]);
 
   if (readinessIssues.length === 0) {
-    return "No specific blocker has been identified, but all names, dates, allegations, requested remedies, exhibits, court information, and filing requirements should still be verified before generating final documents.";
+    return assistantText("assistant:readiness:none");
   }
 
   return formatList(
-    "Before generating documents, address these items:",
+    assistantText("assistant:readiness:heading"),
     readinessIssues,
     6,
   );
@@ -927,8 +950,13 @@ function buildBestQuestion(args: {
     const reason = clean(selectedQuestion.reason);
 
     return reason
-      ? `${selectedQuestion.question}\n\nWhy this matters: ${reason}`
-      : selectedQuestion.question;
+      ? assistantText("assistant:question:selected", {
+          question: selectedQuestion.question,
+          reason,
+        })
+      : assistantText("assistant:question:plain", {
+          question: selectedQuestion.question,
+        });
   }
 
   const reasoningQuestion = firstItem(
@@ -936,10 +964,10 @@ function buildBestQuestion(args: {
   );
 
   if (hasText(reasoningQuestion)) {
-    return reasoningQuestion;
+    return assistantText("assistant:question:plain", { question: reasoningQuestion });
   }
 
-  return "What are the main dates, what proof do you currently have, and what outcome are you seeking?";
+  return assistantText("assistant:question:fallback");
 }
 
 function buildCaution(
@@ -954,7 +982,7 @@ function buildCaution(
   );
 
   if (jurisdictionWarning) {
-    return "The province or jurisdiction must be confirmed before relying on any deadline, form, filing, or court-procedure information.";
+    return assistantText("assistant:caution:jurisdiction");
   }
 
   const firstWarning = firstItem(warnings);
@@ -1016,21 +1044,17 @@ function buildGeneralAnswer(args: {
 
     if (newlyAddedFacts.length > 0) {
       paragraphs.push(
-        `I’ve added the new information to the case record: ${uniqueStrings(
-          newlyAddedFacts,
-        )
-          .slice(0, 3)
-          .join("; ")}`,
+        assistantText("assistant:recorded:facts", {
+          facts: uniqueStrings(newlyAddedFacts).slice(0, 3).join("; "),
+        }),
       );
     }
 
     if (newlyIdentifiedIssues.length > 0) {
       paragraphs.push(
-        `The new information may affect these issues: ${uniqueStrings(
-          newlyIdentifiedIssues,
-        )
-          .slice(0, 3)
-          .join("; ")}`,
+        assistantText("assistant:recorded:issues", {
+          issues: uniqueStrings(newlyIdentifiedIssues).slice(0, 3).join("; "),
+        }),
       );
     }
 
@@ -1038,9 +1062,7 @@ function buildGeneralAnswer(args: {
       newlyAddedFacts.length === 0 &&
       newlyIdentifiedIssues.length === 0
     ) {
-      paragraphs.push(
-        "I’ve added that response to the case record.",
-      );
+      paragraphs.push(assistantText("assistant:recorded:plain"));
     }
   }
 
@@ -1092,7 +1114,7 @@ function buildAnswer(args: {
         previousAssistantText,
       ).join("\n\n") ||
       directAnswer ||
-      "More case information is needed before this can be answered reliably."
+      assistantText("assistant:fallback:need-more")
     );
   }
 
@@ -1102,7 +1124,7 @@ function buildAnswer(args: {
     legalReasoning: args.legalReasoning,
     investigation: args.investigation,
     previousAssistantText,
-  }) || "I recorded that update. What happened next, and what document or message supports it?";
+  }) || assistantText("assistant:fallback:recorded");
 }
 
 export function runAiCasePartnerOrchestrator(

@@ -39,6 +39,8 @@ import { NEXT_STEP_BLOCKS } from "./nextSteps";
 import { PATHWAY_DESCRIPTIONS } from "./pathwayDescriptions";
 import { QUESTION_EXPLANATIONS } from "./questionExplanations";
 import { PROCEDURAL_STAGES } from "./proceduralStages";
+import { ASSISTANT_BLOCKS } from "./assistantBlocks";
+import { DOCTRINE_SEED_LIBRARY } from "../case-system/knowledge/doctrineSeedLibrary";
 import {
   IMMEDIATE_DANGER_MESSAGE,
   DISTRESS_ACKNOWLEDGMENT,
@@ -322,6 +324,67 @@ export function collectContentInventory(): ContentItem[] {
         "Every free-text intake, when the safety pass returns immediate-danger. The intake HALTS.",
     }),
   );
+
+  /*
+   * ---- Guided assistant blocks ----
+   *
+   * ADDED 2026-09-23. docs/chat-engine-report.md traced twelve output paths
+   * through the chat orchestrator: no model involved, but six stated law or
+   * procedure and all twelve were template literals buried in a 1,200-line
+   * file — outside the library, outside the packet, outside the guard.
+   *
+   * Indexed as the TEMPLATE, with `{{slots}}` intact. That is the string a
+   * licensee reviews and the string `renderAssistantBlock` passes to the guard
+   * before filling anything in. Indexing a filled example would approve one
+   * user's sentence and no other.
+   */
+  for (const block of ASSISTANT_BLOCKS) {
+    items.push(
+      item({
+        id: block.id,
+        type: "assistant-block",
+        pathway: "all",
+        stage: "assistant",
+        text: block.template,
+        sourceUrl: block.citations[0]?.officialUrl || "",
+        appearsIn: block.appearsIn,
+      }),
+    );
+  }
+
+  /*
+   * ---- The doctrine library ----
+   *
+   * ADDED 2026-09-23. 11 objects, every one carrying
+   * `verificationStatus: "not-verified"`, `authorityLevel:
+   * "operational-guidance"` and `jurisdiction: "Unknown"`. Zero statute, rule
+   * or case-law citations in the file. It supplies the evidence priorities,
+   * burden priorities and procedural watch-points behind three of the guided
+   * assistant's answers, and it was in no review packet.
+   *
+   * The file is honest about itself in its own metadata. Nothing downstream
+   * was telling the user, and nothing was routing it to a reviewer. Both are
+   * now true: it is here, and `renderAssistantBlock` refuses to render a block
+   * backed by knowledge that is not `verified-draft` or `approved`.
+   */
+  for (const knowledge of DOCTRINE_SEED_LIBRARY) {
+    items.push(
+      item({
+        id: `doctrine:${knowledge.id}`,
+        type: "doctrine",
+        pathway: "all",
+        stage: "assistant",
+        text: `${knowledge.title}\n\n${knowledge.summary}`,
+        // Deliberately empty: operationalSource() carries no official URL, and
+        // inventing one would be the opposite of what this entry is for.
+        sourceUrl: "",
+        appearsIn:
+          `Guided assistant — evidence, issue and readiness answers. ` +
+          `verificationStatus: ${knowledge.source.verificationStatus}. ` +
+          `NOT RENDERED while it is "not-verified".`,
+      }),
+    );
+  }
 
   items.push(
     item({

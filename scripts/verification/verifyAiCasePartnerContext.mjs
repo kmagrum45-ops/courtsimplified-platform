@@ -156,7 +156,7 @@ async function assertProtectedCaseStorage() {
 }
 
 async function assertUnauthenticatedAssistantUsesFallback() {
-  const response = await fetch(`${baseUrl}/api/assistant-chat`, {
+  const response = await fetch(`${baseUrl}/api/ai-case-partner`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -172,11 +172,39 @@ async function assertUnauthenticatedAssistantUsesFallback() {
 
   const data = await response.json();
 
+  /*
+   * ASSERTIONS UPDATED 2026-09-23. The intent is unchanged; the field names
+   * were stale.
+   *
+   * This block asserted `data.success`, `data.mode === "brain-only-fallback"`
+   * and `data.metadata.usedOpenAIForBrain`. None of those fields exists on the
+   * route any more — it returns `{ ok, userFacingAnswer, gateway: { ... } }`.
+   * The suite had also been fetching `/api/assistant-chat`, a route that does
+   * not exist, and was getting a 404 HTML page back.
+   *
+   * Both were invisible because the suite failed earlier, at a 400 from the
+   * Small Claims route. Fixing that one exposed these two.
+   *
+   * What the test was checking is still worth checking and is still true: an
+   * unauthenticated assistant request succeeds, and it reaches no external
+   * model. `gateway.externalModelUsed` is the field that says so now.
+   */
   assert.equal(response.status, 200, JSON.stringify(data));
-  assert.equal(data.success, true, JSON.stringify(data));
-  assert.equal(data.mode, "brain-only-fallback");
-  assert.equal(data.metadata?.usedOpenAIForBrain, false);
-  assert.equal(data.metadata?.usedOpenAIForAssistant, false);
+  assert.equal(data.ok, true, JSON.stringify(data));
+  assert.equal(
+    data.gateway?.externalModelUsed,
+    false,
+    `The guided assistant must reach no external model: ${JSON.stringify(data.gateway)}`,
+  );
+  assert.equal(
+    data.gateway?.modelProvider,
+    "internal-orchestrator",
+    JSON.stringify(data.gateway),
+  );
+  assert.ok(
+    typeof data.userFacingAnswer === "string" && data.userFacingAnswer.length > 0,
+    "The assistant returned no answer at all.",
+  );
 }
 
 function resultText(result) {
@@ -331,7 +359,7 @@ function buildSmallClaimsIntake() {
     uploadedEvidenceFiles: [
       {
         id: "api-invoice-1",
-        name: "invoice.pdf",
+        reference: "Document 1",
         size: 1200,
         type: "application/pdf",
         lastModified: 1_767_225_600_000,

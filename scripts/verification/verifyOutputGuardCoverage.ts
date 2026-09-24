@@ -76,6 +76,13 @@ type GuardedPath = {
 
 const GUARDED: GuardedPath[] = [
   {
+    file: "src/lib/content-library/renderAssistantBlock.ts",
+    what:
+      "every string the guided assistant can say -- it guards the block TEMPLATE, " +
+      "with slots intact, before filling any of them",
+    atLeast: 1,
+  },
+  {
     file: "app/_components/HomeLocationGate.tsx",
     what: "the pathway description, and the out-of-scope forum redirect message",
     atLeast: 2,
@@ -160,14 +167,6 @@ const UNGUARDED: UnguardedPath[] = [
       "renders the cards directly rather than through the guard, so " +
       "REQUIRE_APPROVED_CONTENT would not gate them. Same gap as the catalogue " +
       "renders.",
-  },
-  {
-    file: "src/lib/case-system/ai-case-partner/",
-    what: "the deterministic chat responses behind CourtAssistantChat",
-    reason:
-      "Template text, not model-written despite the directory name. Contains " +
-      "procedural statements and is outside the content library entirely. " +
-      "Recorded in the report.",
   },
   {
     file: "src/lib/case-system/documentGenerationEngine.ts",

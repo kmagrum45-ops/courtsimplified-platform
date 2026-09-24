@@ -31,11 +31,11 @@ edited afterwards the approval no longer applies, and the item returns to draft.
 
 | Measure | Count |
 |---|---|
-| Total items | 291 |
+| Total items | 333 |
 | Approved (current version) | 0 |
-| Draft / unreviewed | 291 |
+| Draft / unreviewed | 333 |
 | Approvals voided by later edits | 0 |
-| Items that are unwritten placeholders | 35 |
+| Items that are unwritten placeholders | 41 |
 
 ## Placeholders — text that does not exist yet
 
@@ -78,6 +78,357 @@ which is the thing this work exists to prevent.
 - **next:civil:urgent** (civil / urgent) — [NEEDS LICENSEE REVIEW: Superior Court (Civil) next steps for the "urgent" stage. R.R.O. 1990, Reg. 194 rr. 16.09, 29.1.03, 30.03, 31.05.1, 48.02, 48.14 and 50.02 are vendored in docs/sources/rcp-cited-rules.txt, but no reviewed user-facing next-step wording exists for this pathway]
 - **next:civil:not-sure** (civil / not-sure) — [NEEDS LICENSEE REVIEW: Superior Court (Civil) next steps for the "not-sure" stage. R.R.O. 1990, Reg. 194 rr. 16.09, 29.1.03, 30.03, 31.05.1, 48.02, 48.14 and 50.02 are vendored in docs/sources/rcp-cited-rules.txt, but no reviewed user-facing next-step wording exists for this pathway]
 - **pathway:criminal-related** (criminal-related / routing) — [NEEDS LICENSEE REVIEW: wording for someone describing a criminal charge or criminal court process. This needs care: it should direct to duty counsel and Legal Aid Ontario without implying anything about their situation]
+- **assistant:explain:defamation** (all / assistant) — [NEEDS LICENSEE REVIEW: a sourced plain-language explanation of what a defamation claim involves. Until 2026-09-23 the assistant said, unsourced: "A possible defamation issue usually turns on the exact words, whether they referred to you, whether they were communicated to another person, the context, any resulting reputational harm, and any defence that may apply." claimTypes.ts holds sourced element text for defamation and should be the source]
+- **assistant:explain:contract** (all / assistant) — [NEEDS LICENSEE REVIEW: a sourced plain-language explanation of what a contract or payment dispute involves. Until 2026-09-23 the assistant said, unsourced: "A contract or payment dispute usually turns on the agreement, each side's obligations, the alleged breach, supporting records, and the resulting loss."]
+- **assistant:explain:property-damage** (all / assistant) — [NEEDS LICENSEE REVIEW: a sourced plain-language explanation of what a property-damage claim involves. Until 2026-09-23 the assistant said, unsourced: "A property-damage issue usually turns on causation, responsibility, photographs or records, repair estimates, invoices, and proof of the amount claimed."]
+- **assistant:explain:family** (all / assistant) — [NEEDS LICENSEE REVIEW: a sourced plain-language explanation of what a family matter involves. Not needed for phase 1 — the family pathway is gated (phaseScope.ts) — but kept so the block exists when phase 2 opens it]
+- **assistant:explain:public-authority** (all / assistant) — [NEEDS LICENSEE REVIEW: a sourced plain-language explanation of what a public-authority claim involves. Notice, leave and limitation requirements differ from ordinary claims and must be cited, not summarised]
+- **assistant:explain:burden** (all / assistant) — [NEEDS LICENSEE REVIEW: wording for "The main proof issue currently identified is: X", where X comes from doctrineSeedLibrary.ts. Every object in that library is marked verificationStatus "not-verified", so nothing from it may render until it is verified — see the gate in renderAssistantBlock]
+
+## assistant-block (31)
+
+### `assistant:opening:generic`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, first turn when no issue type is detected
+- **Source:** _none recorded_
+
+```
+I'll help organize what happened into a clear case record, identify missing information, and focus on the next useful question.
+```
+
+### `assistant:opening:defamation`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, first turn on a defamation signal
+- **Source:** _none recorded_
+
+```
+I'm sorry you're dealing with that. Let's organize the exact words, who received them, what proof exists, and what harm followed.
+```
+
+### `assistant:opening:family`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, first turn on a family signal
+- **Source:** _none recorded_
+
+```
+Family matters can become overwhelming quickly. Let's organize the current arrangements, any existing orders, the important dates, and the records that support what you are saying.
+```
+
+### `assistant:opening:contract`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, first turn on a contract or debt signal
+- **Source:** _none recorded_
+
+```
+Let's organize the agreement, what each side was expected to do, what went wrong, the proof, and the outcome you are seeking.
+```
+
+### `assistant:opening:property-damage`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, first turn on a property-damage signal
+- **Source:** _none recorded_
+
+```
+Let's organize what was damaged, how it happened, who may be responsible, and the records showing the repair cost or loss.
+```
+
+### `assistant:opening:public-authority`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, first turn on a public-authority signal
+- **Source:** _none recorded_
+
+```
+This needs careful fact organization because the specific actor, decision, record, legal authority, and resulting harm may all matter.
+```
+
+### `assistant:recorded:facts`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, after a turn that added facts
+- **Source:** _none recorded_
+
+```
+I've added the new information to the case record: {{facts}}
+```
+
+### `assistant:recorded:issues`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, after a turn that changed the issue list
+- **Source:** _none recorded_
+
+```
+The new information may affect these issues: {{issues}}
+```
+
+### `assistant:recorded:plain`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, after a turn that added nothing new
+- **Source:** _none recorded_
+
+```
+I've added that response to the case record.
+```
+
+### `assistant:opening-message`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, the first message in an empty conversation
+- **Source:** _none recorded_
+
+```
+I have your saved case story and structured intake. What important date, document, or case detail should we clarify next?
+```
+
+### `assistant:explain:defamation`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, first turn on a defamation signal
+- **Source:** _none recorded_
+
+```
+[NEEDS LICENSEE REVIEW: a sourced plain-language explanation of what a defamation claim involves. Until 2026-09-23 the assistant said, unsourced: "A possible defamation issue usually turns on the exact words, whether they referred to you, whether they were communicated to another person, the context, any resulting reputational harm, and any defence that may apply." claimTypes.ts holds sourced element text for defamation and should be the source]
+```
+
+### `assistant:explain:contract`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, first turn on a contract or debt signal
+- **Source:** _none recorded_
+
+```
+[NEEDS LICENSEE REVIEW: a sourced plain-language explanation of what a contract or payment dispute involves. Until 2026-09-23 the assistant said, unsourced: "A contract or payment dispute usually turns on the agreement, each side's obligations, the alleged breach, supporting records, and the resulting loss."]
+```
+
+### `assistant:explain:property-damage`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, first turn on a property-damage signal
+- **Source:** _none recorded_
+
+```
+[NEEDS LICENSEE REVIEW: a sourced plain-language explanation of what a property-damage claim involves. Until 2026-09-23 the assistant said, unsourced: "A property-damage issue usually turns on causation, responsibility, photographs or records, repair estimates, invoices, and proof of the amount claimed."]
+```
+
+### `assistant:explain:family`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, first turn on a family signal (phase 2)
+- **Source:** _none recorded_
+
+```
+[NEEDS LICENSEE REVIEW: a sourced plain-language explanation of what a family matter involves. Not needed for phase 1 — the family pathway is gated (phaseScope.ts) — but kept so the block exists when phase 2 opens it]
+```
+
+### `assistant:explain:public-authority`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, first turn on a public-authority signal
+- **Source:** _none recorded_
+
+```
+[NEEDS LICENSEE REVIEW: a sourced plain-language explanation of what a public-authority claim involves. Notice, leave and limitation requirements differ from ordinary claims and must be cited, not summarised]
+```
+
+### `assistant:explain:unknown`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, when no issue can be identified
+- **Source:** _none recorded_
+
+```
+There is not enough information yet to identify the legal issue confidently. The next step is to confirm the court path, important facts, proof, and requested outcome.
+```
+
+### `assistant:explain:burden`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, when the doctrine library supplies a burden priority
+- **Source:** _none recorded_
+
+```
+[NEEDS LICENSEE REVIEW: wording for "The main proof issue currently identified is: X", where X comes from doctrineSeedLibrary.ts. Every object in that library is marked verificationStatus "not-verified", so nothing from it may render until it is verified — see the gate in renderAssistantBlock]
+```
+
+### `assistant:evidence:heading`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, when asked about evidence
+- **Source:** _none recorded_
+
+```
+The most important evidence gaps currently identified are:
+```
+
+### `assistant:evidence:none`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, when asked about evidence and none is flagged
+- **Source:** _none recorded_
+
+```
+No case-specific evidence gap has been identified yet. Start by listing the documents, messages, photographs, recordings, receipts, witnesses, and court records you already have.
+```
+
+### `assistant:issues:heading`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, when asked about legal issues
+- **Source:** _none recorded_
+
+```
+These are the main issues currently flagged for review:
+```
+
+### `assistant:issues:none`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, when asked about issues and none is classified
+- **Source:** _none recorded_
+
+```
+The legal issues cannot be classified confidently yet. More information is needed about what happened, where it happened, who was involved, and the outcome being requested.
+```
+
+### `assistant:readiness:heading`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, when asked about document readiness
+- **Source:** _none recorded_
+
+```
+Before generating documents, address these items:
+```
+
+### `assistant:readiness:none`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, when asked about readiness and nothing is blocking
+- **Source:** _none recorded_
+
+```
+No specific blocker has been identified, but all names, dates, allegations, requested remedies, exhibits, court information, and filing requirements should still be verified before generating final documents.
+```
+
+### `assistant:caution:jurisdiction`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, when the jurisdiction is unconfirmed
+- **Source:** https://www.ontario.ca/laws/statute/90c43
+
+```
+The province or jurisdiction must be confirmed before relying on any deadline, form, filing, or court-procedure information.
+```
+
+### `assistant:caution:over-limit`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant warnings panel, when the recorded amount exceeds the limit
+- **Source:** https://www.ontario.ca/page/suing-someone-small-claims-court
+
+```
+The amount recorded for this case is {{amount}}, which is above the Ontario Small Claims Court limit of $50,000, excluding interest and costs. Small Claims Court may not be able to hear a claim for that amount.
+```
+
+### `assistant:question:selected`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, the next question it asks
+- **Source:** _none recorded_
+
+```
+{{question}}
+
+Why this matters: {{reason}}
+```
+
+### `assistant:question:plain`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, the next question when no reason is recorded
+- **Source:** _none recorded_
+
+```
+{{question}}
+```
+
+### `assistant:question:fallback`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, when no specific question has been selected
+- **Source:** _none recorded_
+
+```
+What are the main dates, what proof do you currently have, and what outcome are you seeking?
+```
+
+### `assistant:fallback:need-more`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, when a direct answer produced nothing
+- **Source:** _none recorded_
+
+```
+More case information is needed before this can be answered reliably.
+```
+
+### `assistant:fallback:recorded`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, when a general answer produced nothing
+- **Source:** _none recorded_
+
+```
+I recorded that update. What happened next, and what document or message supports it?
+```
+
+### `assistant:error`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant, when the request fails
+- **Source:** _none recorded_
+
+```
+CourtSimplified could not respond right now. Please try again in a moment.
+```
 
 ## claim-type (75)
 
@@ -1870,6 +2221,151 @@ What was said or written about repaying the money?
 
 ```
 Has any of it been repaid?
+```
+
+## doctrine (11)
+
+### `doctrine:SEED_EVIDENCE_DIGITAL_CONTEXT_001`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant — evidence, issue and readiness answers. verificationStatus: not-verified. NOT RENDERED while it is "not-verified".
+- **Source:** _none recorded_
+
+```
+Digital evidence requires context and authenticity review
+
+Screenshots, messages, emails, and social-media evidence should be preserved with sender, recipient, date, platform, surrounding context, and original thread where possible.
+```
+
+### `doctrine:SEED_DEFAMATION_PATTERN_001`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant — evidence, issue and readiness answers. verificationStatus: not-verified. NOT RENDERED while it is "not-verified".
+- **Source:** _none recorded_
+
+```
+Defamation cases require exact words and publication proof
+
+A defamation-style claim is usually weak if the exact words, recipients, context, and harm are unclear.
+```
+
+### `doctrine:SEED_DAMAGES_PROPORTIONALITY_001`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant — evidence, issue and readiness answers. verificationStatus: not-verified. NOT RENDERED while it is "not-verified".
+- **Source:** _none recorded_
+
+```
+Damages require proof, causation, and proportionality
+
+A claimed amount should be connected to actual harm, evidence, explanation, causation, and proportionality.
+```
+
+### `doctrine:SEED_JUDICIAL_CONCERN_ORGANIZATION_001`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant — evidence, issue and readiness answers. verificationStatus: not-verified. NOT RENDERED while it is "not-verified".
+- **Source:** _none recorded_
+
+```
+Courts need organized facts, proof, and procedural clarity
+
+A court-facing case is stronger when facts, dates, parties, issues, evidence, and requested relief are organized clearly.
+```
+
+### `doctrine:SEED_LIMITATION_DISCOVERABILITY_001`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant — evidence, issue and readiness answers. verificationStatus: not-verified. NOT RENDERED while it is "not-verified".
+- **Source:** _none recorded_
+
+```
+Older events require limitation and discoverability screening
+
+When events happened long ago or dates are unclear, the system must flag limitation, discoverability, notice, delay, and procedural timing risk.
+```
+
+### `doctrine:SEED_PUBLIC_AUTHORITY_SCREENING_001`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant — evidence, issue and readiness answers. verificationStatus: not-verified. NOT RENDERED while it is "not-verified".
+- **Source:** _none recorded_
+
+```
+Public authority claims require threshold screening
+
+Claims involving Crown, police, government, hospitals, ministries, courts, or public authorities require careful screening for immunity, discretion, notice, leave, jurisdiction, causation, and proper defendant naming.
+```
+
+### `doctrine:SEED_FAMILY_PARENTING_BEST_INTERESTS_001`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant — evidence, issue and readiness answers. verificationStatus: not-verified. NOT RENDERED while it is "not-verified".
+- **Source:** _none recorded_
+
+```
+Family parenting cases must stay child-focused
+
+Parenting and decision-making disputes should be organized around the child’s needs, stability, safety, history of care, practical schedule, communication, and evidence.
+```
+
+### `doctrine:SEED_BURDEN_PROOF_MAPPING_001`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant — evidence, issue and readiness answers. verificationStatus: not-verified. NOT RENDERED while it is "not-verified".
+- **Source:** _none recorded_
+
+```
+Every claim needs evidence mapped to each required point
+
+The system should not treat a story as court-ready until each major issue is connected to supporting facts, documents, witnesses, dates, and remedy proof.
+```
+
+### `doctrine:SEED_CREDIBILITY_INCONSISTENCY_001`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant — evidence, issue and readiness answers. verificationStatus: not-verified. NOT RENDERED while it is "not-verified".
+- **Source:** _none recorded_
+
+```
+Inconsistencies and exaggeration can weaken court readiness
+
+The system should flag contradictions, unsupported accusations, changing stories, exaggerated damages, and missing context before documents are generated.
+```
+
+### `doctrine:SEED_SETTLEMENT_COST_RISK_001`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant — evidence, issue and readiness answers. verificationStatus: not-verified. NOT RENDERED while it is "not-verified".
+- **Source:** _none recorded_
+
+```
+Settlement decisions require risk, proof, cost, and timing analysis
+
+The system should help users compare settlement pressure against evidence strength, litigation cost, delay, credibility risk, and likely procedural next steps.
+```
+
+### `doctrine:SEED_FORM_SELECTION_DISCIPLINE_001`
+
+- **Status:** draft
+- **Pathway / stage:** all / assistant
+- **Appears in:** Guided assistant — evidence, issue and readiness answers. verificationStatus: not-verified. NOT RENDERED while it is "not-verified".
+- **Source:** _none recorded_
+
+```
+Forms must follow legal theory and procedural posture
+
+Court forms should be recommended only after court path, role, stage, relief, and procedural posture are identified.
 ```
 
 ## education-topic (9)

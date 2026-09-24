@@ -64,6 +64,8 @@ export type ContentType =
   | "pathway-description"
   | "form-guidance"
   | "procedural-stage"
+  | "assistant-block"
+  | "doctrine"
   | "safety-resource"
   | "remedy";
 
