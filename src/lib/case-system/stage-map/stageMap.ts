@@ -617,7 +617,17 @@ const PLAINTIFF: CaseStage[] = [
         by: "whether the clerk has actually noted the defendant in default",
       },
     ],
-    rules: [C.R_11_01_NOTING_IN_DEFAULT, C.R_9_01_DEFENCE],
+    // r. 11.02 and r. 11.03 are here because the content pipeline could not
+    // write "what happens after" without them: a plaintiff asking "they never
+    // responded, what can I do?" needs the whole arc — note in default, then
+    // judgment — not just the first step. The rules a stage cites have to
+    // cover the reader's QUESTION, not only the reader's position.
+    rules: [
+      C.R_11_01_NOTING_IN_DEFAULT,
+      C.R_9_01_DEFENCE,
+      C.R_11_02_DEFAULT_JUDGMENT,
+      C.R_11_03_ASSESSMENT,
+    ],
     deadlines: [],
   },
   {
@@ -993,7 +1003,16 @@ const DEFENDANT: CaseStage[] = [
         by: "which claim the person is responding to — the original claim or a defendant's claim",
       },
     ],
-    rules: [C.R_9_01_DEFENCE, C.R_3_01_COMPUTATION],
+    // r. 11.01 and r. 13.01 answer "what happens after", which splits two ways
+    // here: file in time and a settlement conference follows; do not, and the
+    // clerk can note you in default. A block that covers only one of those
+    // leaves out whichever half the reader is about to live through.
+    rules: [
+      C.R_9_01_DEFENCE,
+      C.R_3_01_COMPUTATION,
+      C.R_11_01_NOTING_IN_DEFAULT,
+      C.R_13_01_SETTLEMENT_CONFERENCE,
+    ],
     deadlines: [
       {
         id: "deadline:defence-20-days",

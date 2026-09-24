@@ -99,7 +99,10 @@
     "test:rules-corpus": "node --import tsx scripts/verification/verifyRulesCorpus.ts",
     "test:stage-map": "tsx scripts/verification/verifyStageMap.ts",
     "test:deadlines": "tsx scripts/verification/verifyDeadlineEngine.ts",
-    "test:readability": "tsx scripts/verification/verifyReadability.ts"
+    "test:readability": "tsx scripts/verification/verifyReadability.ts",
+    "test:verifier": "tsx scripts/verification/verifyVerifierRejects.ts",
+    "content:draft": "tsx scripts/content/draftStageAnswers.ts",
+    "test:stage-answers": "tsx scripts/verification/verifyStageAnswers.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",
