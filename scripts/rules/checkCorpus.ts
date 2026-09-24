@@ -42,6 +42,8 @@ import { sha256, consolidationLine, readManifest } from "./fetchCorpus";
 import { NEXT_STEP_BLOCKS } from "../../src/lib/content-library/nextSteps";
 import { ASSISTANT_BLOCKS } from "../../src/lib/content-library/assistantBlocks";
 import { PROCEDURAL_STAGES } from "../../src/lib/content-library/proceduralStages";
+import { CASE_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
+import { SOURCE_NAMES } from "../../src/lib/case-system/stage-map/citations";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const CORPUS_DIR = path.join(ROOT, "docs", "sources", "corpus");
@@ -152,6 +154,32 @@ export function collectCiters(): Citer[] {
         .map((c) => `${c.sourceName} ${c.quote ?? ""}`)
         .join(" ")}`,
     );
+  }
+
+  /*
+   * The stage map, which is the sharpest case for watching.
+   *
+   * Its citations are VERBATIM QUOTES, not restatements. A restatement can
+   * survive a small amendment; a quote that no longer appears in the source is
+   * wrong the moment the consolidation changes, and `test:stage-map` will fail
+   * — loudly, but only after the fact. The watch is what gives notice first.
+   *
+   * Citers are collected from the pinpoint and the quote together, so both the
+   * rule-number path ("r. 9.01") and the statute-name path (the notice
+   * provisions, cited as "s. 44 (10)") can see them.
+   */
+  for (const stage of CASE_STAGES) {
+    const citations = [
+      ...stage.rules,
+      ...stage.deadlines.flatMap((d) => [d.rule, d.computation, ...d.exceptions]),
+    ];
+    for (const citation of citations) {
+      add(
+        `${stage.id} — ${citation.pinpoint}`,
+        "stage map",
+        `${citation.pinpoint} ${SOURCE_NAMES[citation.sourceId]} ${citation.quote}`,
+      );
+    }
   }
 
   for (const stage of PROCEDURAL_STAGES) {

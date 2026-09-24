@@ -190,6 +190,18 @@ const UNINDEXED: Array<{ what: string; where: string; reason: string }> = [
       "verified to resolve; the wording is product copy, not legal content.",
   },
   {
+    what: "the UNKNOWN and OUT_OF_SCOPE stage messages",
+    where: "src/lib/case-system/stage-map/stageMessages.ts",
+    reason:
+      "Fixed text that says only that we cannot place the case, or that it is not " +
+      "a Small Claims matter, and points to the same four referral services. It " +
+      "states no law and names no procedure — deliberately, since it is what we " +
+      "say INSTEAD of procedure when we do not know. The clarifying question it " +
+      "shows is not written here: it comes from the stage map's recorded " +
+      "boundaries, which test:stage-map verifies against the vendored corpus. " +
+      "Worth a licensee's eye for tone, like the phase-1 message beside it.",
+  },
+  {
     what: "the AI-use notice and first-use acknowledgement",
     where: "app/_components/AiUseNotice.tsx, FirstUseAcknowledgement.tsx",
     reason:

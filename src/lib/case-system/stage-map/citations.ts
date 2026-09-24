@@ -1,0 +1,365 @@
+/**
+ * Rule and statute citations for the stage map — quotes only, never paraphrase.
+ *
+ * *** WHY QUOTES AND NOT SUMMARIES ***
+ *
+ * A summary of a rule is a new legal statement, written by whoever summarised
+ * it. A quote is the rule. `verifyStageMap` reads every quote here back out of
+ * the vendored corpus under docs/sources/corpus/ and fails if it is not there —
+ * so a provision that was remembered rather than read cannot ship.
+ *
+ * The quotes are whitespace-normalised. antiword pads words apart and hard-
+ * wraps at column 78, so the vendored text of r. 9.01 contains runs of spaces
+ * and newlines mid-sentence. The verifier collapses whitespace on BOTH sides
+ * before comparing; nothing else about the text may differ.
+ *
+ * *** TWO URLS, DELIBERATELY ***
+ *
+ * `sourceId` names the corpus file, which is what gets verified and what
+ * `rules:check` watches. `officialUrl` is the human-readable e-Laws page a user
+ * follows to check us. They are different addresses for the same law: we verify
+ * against a .doc, a person reads a web page. Keeping both means a user is never
+ * asked to trust a citation they cannot open.
+ *
+ * officialUrl is derived from OFFICIAL_URLS by sourceId rather than typed per
+ * citation, so a link cannot rot in one block and stay right in forty others.
+ */
+
+export type CorpusSourceId =
+  | "oreg-258-98-small-claims-rules"
+  | "oreg-626-00-monetary-jurisdiction"
+  | "limitations-act-2002"
+  | "legislation-act-2006"
+  | "municipal-act-2001"
+  | "city-of-toronto-act-2006"
+  | "occupiers-liability-act"
+  | "cja-courts-of-justice-act";
+
+/** The page a person opens to read the law for themselves. */
+export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
+  "oreg-258-98-small-claims-rules": "https://www.ontario.ca/laws/regulation/980258",
+  "oreg-626-00-monetary-jurisdiction": "https://www.ontario.ca/laws/regulation/000626",
+  "limitations-act-2002": "https://www.ontario.ca/laws/statute/02l24",
+  "legislation-act-2006": "https://www.ontario.ca/laws/statute/06l21",
+  "municipal-act-2001": "https://www.ontario.ca/laws/statute/01m25",
+  "city-of-toronto-act-2006": "https://www.ontario.ca/laws/statute/06c11",
+  "occupiers-liability-act": "https://www.ontario.ca/laws/statute/90o02",
+  "cja-courts-of-justice-act": "https://www.ontario.ca/laws/statute/90c43",
+};
+
+/** How each source is named to a user. Shown beside the quote. */
+export const SOURCE_NAMES: Record<CorpusSourceId, string> = {
+  "oreg-258-98-small-claims-rules": "Rules of the Small Claims Court, O. Reg. 258/98",
+  "oreg-626-00-monetary-jurisdiction": "O. Reg. 626/00 (Small Claims Court jurisdiction)",
+  "limitations-act-2002": "Limitations Act, 2002, S.O. 2002, c. 24, Sched. B",
+  "legislation-act-2006": "Legislation Act, 2006, S.O. 2006, c. 21, Sched. F",
+  "municipal-act-2001": "Municipal Act, 2001, S.O. 2001, c. 25",
+  "city-of-toronto-act-2006": "City of Toronto Act, 2006, S.O. 2006, c. 11, Sched. A",
+  "occupiers-liability-act": "Occupiers' Liability Act, R.S.O. 1990, c. O.2",
+  "cja-courts-of-justice-act": "Courts of Justice Act, R.S.O. 1990, c. C.43",
+};
+
+export type RuleCitation = {
+  sourceId: CorpusSourceId;
+  /** How the provision is cited, e.g. "r. 9.01" or "s. 44 (10)". */
+  pinpoint: string;
+  /**
+   * Verbatim from the vendored text, whitespace collapsed. Never edited for
+   * readability. Where a quote skips material, the skipped part is marked with
+   * " ... " and the verifier checks each run on either side separately.
+   */
+  quote: string;
+};
+
+export function sourceName(citation: RuleCitation): string {
+  return SOURCE_NAMES[citation.sourceId];
+}
+
+export function officialUrl(citation: RuleCitation): string {
+  return OFFICIAL_URLS[citation.sourceId];
+}
+
+/** Shorthand for the regulation nearly every stage cites. */
+const scc = (pinpoint: string, quote: string): RuleCitation => ({
+  sourceId: "oreg-258-98-small-claims-rules",
+  pinpoint,
+  quote,
+});
+
+// ---------------------------------------------------------------- the rules
+
+export const R_3_01_COMPUTATION = scc(
+  "r. 3.01",
+  "If these rules or an order of the court prescribe a period of time for the taking of a step in a proceeding, the time shall be counted by excluding the first day and including the last day of the period; if the last day of the period of time falls on a holiday, the period ends on the next day that is not a holiday.",
+);
+
+export const R_3_02_EXTEND = scc(
+  "r. 3.02 (1)",
+  "The court may lengthen or shorten any time prescribed by these rules or an order, on such terms as are just.",
+);
+
+export const R_6_01_PLACE = scc(
+  "r. 6.01 (1)",
+  "An action shall be commenced, (a) in the territorial division, (i) in which the cause of action arose, or (ii) in which the defendant or, if there are several defendants, in which any one of them resides or carries on business",
+);
+
+export const R_6_02_NO_DIVISION = scc(
+  "r. 6.02",
+  "A cause of action shall not be divided into two or more actions for the purpose of bringing it within the court's jurisdiction.",
+);
+
+export const R_7_01_COMMENCEMENT = scc(
+  "r. 7.01 (1)",
+  "An action shall be commenced by filing a plaintiff's claim (Form 7A) with the clerk, together with a copy of the claim for each defendant.",
+);
+
+export const R_7_01_ELECTRONIC = scc(
+  "r. 7.01 (1.1)",
+  "If the plaintiff's claim is filed electronically, the requirement to also file a copy of the claim for each defendant does not apply.",
+);
+
+export const R_8_01_TIME_FOR_SERVICE = scc(
+  "r. 8.01 (2)",
+  "A claim shall be served within six months after the date it is issued, but the court may extend the time for service, before or after the six months has elapsed.",
+);
+
+export const R_8_01_MANNER = scc(
+  "r. 8.01 (1)",
+  "A plaintiff's claim or defendant's claim (Form 7A or 10A) shall be served personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03.",
+);
+
+export const R_9_01_DEFENCE = scc(
+  "r. 9.01",
+  "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk.",
+);
+
+export const R_10_01_DEFENDANTS_CLAIM = scc(
+  "r. 10.01 (2)",
+  "The defendant's claim shall be in Form 10A and may be issued, (a) within 20 days after the day on which the defence is filed; or (b) after the time described in clause (a) but before trial or default judgment, with leave of the court.",
+);
+
+export const R_10_03_DEFENCE_TO_DEFENDANTS_CLAIM = scc(
+  "r. 10.03",
+  "A party who wishes to dispute the defendant's claim or a third party who wishes to dispute the plaintiff's claim shall, within 20 days after service of the defendant's claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk.",
+);
+
+export const R_11_01_NOTING_IN_DEFAULT = scc(
+  "r. 11.01 (1)",
+  "If a defendant to a plaintiff's claim or a defendant's claim fails to file a defence to all or part of the claim with the clerk within the prescribed time, the clerk may note the defendant in default on the filing of, (a) a request to note the defendant in default, which may be made in Form 9B; and (b) proof that the claim was served within the court's territorial division, subject to subrule (3).",
+);
+
+export const R_11_02_DEFAULT_JUDGMENT = scc(
+  "r. 11.02 (1)",
+  "If a defendant has been noted in default, the clerk may sign default judgment (Form 11B) in respect of the claim or any part of the claim to which the default applies that is for a debt or liquidated demand in money, including interest if claimed.",
+);
+
+export const R_11_03_ASSESSMENT = scc(
+  "r. 11.03 (2)",
+  "To obtain judgment, the plaintiff may, (a) file a notice of motion and supporting affidavit (Form 15A) requesting a motion in writing for an assessment of damages, setting out the reasons why the motion should be granted and attaching any relevant documents; or (b) file a request for an assessment hearing, which may be in Form 9B.",
+);
+
+export const R_11_06_SET_ASIDE = scc(
+  "r. 11.06",
+  "The court may set aside the noting in default or default judgment against a party and any step that has been taken to enforce the judgment, on such terms as are just, if the party makes a motion to set aside and the court is satisfied that, (a) the party has a meritorious defence and a reasonable explanation for the default; and (b) the motion is made as soon as is reasonably possible in all the circumstances.",
+);
+
+export const R_11_1_01_DISMISSAL_FOR_DELAY = scc(
+  "r. 11.1.01 (1)",
+  "Unless the court orders otherwise, the clerk shall make an order dismissing an action for delay if, by the second anniversary of the commencement of the action, (a) the action has not been disposed of by order; and (b) no step has been taken by the plaintiff under rule 11.03 to obtain judgment, nor has a trial date been requested.",
+);
+
+export const R_13_01_SETTLEMENT_CONFERENCE = scc(
+  "r. 13.01 (1)",
+  "A settlement conference shall be held in every defended action.",
+);
+
+export const R_13_01_TIMING = scc(
+  "r. 13.01 (3)",
+  "The settlement conference shall be held within 90 days after the first defence is filed.",
+);
+
+export const R_13_02_FAILURE_TO_ATTEND = scc(
+  "r. 13.02 (5)",
+  "If a party who has received a notice of settlement conference fails to attend the conference, the court may, (a) impose appropriate sanctions, by way of costs or otherwise; and (b) order that an additional settlement conference be held, if necessary.",
+);
+
+export const R_13_02_DEFENDANT_TWICE_ABSENT = scc(
+  "r. 13.02 (6)",
+  "If a defendant fails to attend a first settlement conference, receives notice of an additional settlement conference and fails to attend the additional settlement conference, the court may, (a) strike out the defence and dismiss the defendant's claim, if any, and allow the plaintiff to prove the plaintiff's claim; or (b) make such other order as is just.",
+);
+
+export const R_13_03_DISCLOSURE = scc(
+  "r. 13.03 (2)",
+  "At least 14 days before the date of the settlement conference, each party shall serve on every other party and file with the court, (a) a copy of any document to be relied on at the trial, including an expert report, not attached to the party's claim or defence",
+);
+
+export const R_13_07_SET_DOWN = scc(
+  "r. 13.07",
+  "At or after the settlement conference, the clerk shall provide the parties with a notice stating that one of the parties must request a trial date if the action is not disposed of within 30 days after the settlement conference, and pay the fee required for setting the action down for trial.",
+);
+
+export const R_16_01_TRIAL_DATE = scc(
+  "r. 16.01 (1)",
+  "The clerk shall fix a date for trial and serve a notice of trial on each party who has filed a claim or defence if, (a) a settlement conference has been held; and (b) a party has filed a request to the clerk (Form 9B) to fix a date for trial and has paid the required fee.",
+);
+
+export const R_17_01_FAILURE_TO_ATTEND_TRIAL = scc(
+  "r. 17.01 (2)",
+  "If an action is called for trial and a party fails to attend, the trial judge may, (a) proceed with the trial in the party's absence; (b) if the plaintiff attends and the defendant fails to do so, strike out the defence and dismiss the defendant's claim, if any, and allow the plaintiff to prove the plaintiff's claim, subject to subrule (3); (c) if the defendant attends and the plaintiff fails to do so, dismiss the action and allow the defendant to prove the defendant's claim, if any",
+);
+
+// ------------------------------------------------------------- the statutes
+
+/*
+ * Day counting for STATUTORY periods.
+ *
+ * r. 3.01 counts time for "these rules" — it does not reach the Municipal Act
+ * or Occupiers' Liability Act notice periods. Those are counted under the
+ * Legislation Act, 2006, and the two regimes are not identical, so the stage
+ * map records which one governs each deadline rather than assuming one rule
+ * covers everything.
+ *
+ * *** THE SATURDAY TRAP ***
+ *
+ * s. 88 (2) lists the holidays, and SATURDAY IS NOT ONE OF THEM — only Sunday.
+ * So a 10-day notice period ending on a Saturday is NOT extended by s. 89 (1).
+ * What can extend it is s. 89 (2), and only where the place for filing or
+ * serving is closed. Anyone reasoning "it lands on a weekend, so I have until
+ * Monday" is reasoning from the wrong rule, and on a 10-day notice period that
+ * error bars the claim. Part 4's engine must implement s. 88 and s. 89 as
+ * written, not as weekend intuition suggests.
+ */
+
+export const S_LEGISLATION_88_HOLIDAYS: RuleCitation = {
+  sourceId: "legislation-act-2006",
+  pinpoint: "s. 88 (2)",
+  quote:
+    "The following days are holidays: 1. Sunday. 2. New Year's Day. 2.1 Family Day. 3. Good Friday. 4. Easter Monday. 5. Victoria Day. 6. Canada Day. 7. Labour Day. 8. Thanksgiving Day. 9. Remembrance Day. 10. Christmas Day. 11. Boxing Day.",
+};
+
+export const S_LEGISLATION_89_1_HOLIDAY: RuleCitation = {
+  sourceId: "legislation-act-2006",
+  pinpoint: "s. 89 (1)",
+  quote:
+    "Time limits that would otherwise expire on a holiday are extended to include the next day that is not a holiday.",
+};
+
+export const S_LEGISLATION_89_2_CLOSED: RuleCitation = {
+  sourceId: "legislation-act-2006",
+  pinpoint: "s. 89 (2)",
+  quote:
+    "Time limits for registering or filing documents or for doing anything else that expire on a day when the place for doing so is not open during its regular hours of business are extended to include the next day the place is open during its regular hours of business.",
+};
+
+export const S_LEGISLATION_89_3_BETWEEN: RuleCitation = {
+  sourceId: "legislation-act-2006",
+  pinpoint: "s. 89 (3)",
+  quote:
+    "A reference to a number of days between two events excludes the day on which the first event happens and includes the day on which the second event happens",
+};
+
+export const S_LEGISLATION_89_6_MONTHS: RuleCitation = {
+  sourceId: "legislation-act-2006",
+  pinpoint: "s. 89 (6)",
+  quote:
+    "The number of months is counted from the specified day, excluding the month in which the specified day falls. 2. The period includes the day in the last month counted that has the same calendar number as the specified day or, if that month has no day with that number, its last day.",
+};
+
+export const S_LIMITATIONS_4_BASIC: RuleCitation = {
+  sourceId: "limitations-act-2002",
+  pinpoint: "s. 4",
+  quote:
+    "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered.",
+};
+
+export const S_LIMITATIONS_5_DISCOVERY: RuleCitation = {
+  sourceId: "limitations-act-2002",
+  pinpoint: "s. 5 (1)",
+  quote: "A claim is discovered on the earlier of,",
+};
+
+export const S_MONETARY_LIMIT: RuleCitation = {
+  sourceId: "oreg-626-00-monetary-jurisdiction",
+  pinpoint: "s. 1 (1)",
+  quote: "The maximum amount of a claim in the Small Claims Court is $50,000.",
+};
+
+// --- the pre-suit notice provisions. See scripts/rules/noticeSources.ts for
+// --- why they are handled apart from every other deadline in the product.
+
+export const S_MUNICIPAL_44_10_NOTICE: RuleCitation = {
+  sourceId: "municipal-act-2001",
+  pinpoint: "s. 44 (10)",
+  quote:
+    "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+};
+
+export const S_MUNICIPAL_44_11_DEATH: RuleCitation = {
+  sourceId: "municipal-act-2001",
+  pinpoint: "s. 44 (11)",
+  quote:
+    "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury.",
+};
+
+export const S_MUNICIPAL_44_12_EXCUSE: RuleCitation = {
+  sourceId: "municipal-act-2001",
+  pinpoint: "s. 44 (12)",
+  quote:
+    "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the municipality is not prejudiced in its defence.",
+};
+
+export const S_MUNICIPAL_44_9_SIDEWALK: RuleCitation = {
+  sourceId: "municipal-act-2001",
+  pinpoint: "s. 44 (9)",
+  quote:
+    "Except in case of gross negligence, a municipality is not liable for a personal injury caused by snow or ice on a sidewalk.",
+};
+
+export const S_TORONTO_42_6_NOTICE: RuleCitation = {
+  sourceId: "city-of-toronto-act-2006",
+  pinpoint: "s. 42 (6)",
+  quote:
+    "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the city clerk",
+};
+
+export const S_TORONTO_42_5_SIDEWALK: RuleCitation = {
+  sourceId: "city-of-toronto-act-2006",
+  pinpoint: "s. 42 (5)",
+  quote:
+    "Except in case of gross negligence, the City is not liable for a personal injury caused by snow or ice on a sidewalk.",
+};
+
+export const S_TORONTO_42_8_EXCUSE: RuleCitation = {
+  sourceId: "city-of-toronto-act-2006",
+  pinpoint: "s. 42 (8)",
+  quote:
+    "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+};
+
+export const S_OLA_6_1_NOTICE: RuleCitation = {
+  sourceId: "occupiers-liability-act",
+  pinpoint: "s. 6.1 (1)",
+  quote:
+    "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim, including the date, time and location of the occurrence, has been personally served on or sent by registered mail to at least one person listed in subsection (2).",
+};
+
+export const S_OLA_6_1_2_WHO: RuleCitation = {
+  sourceId: "occupiers-liability-act",
+  pinpoint: "s. 6.1 (2)",
+  quote:
+    "The persons referred to in subsection (1) are the following: 1. An occupier. 2. An independent contractor employed by the occupier to remove snow or ice on the premises during the relevant period in which the injury occurred.",
+};
+
+export const S_OLA_6_1_5_DEATH: RuleCitation = {
+  sourceId: "occupiers-liability-act",
+  pinpoint: "s. 6.1 (5)",
+  quote:
+    "Failure to give notice in accordance with subsection (1) is not a bar to the action in the case of the death of the injured person as a result of the injury.",
+};
+
+export const S_OLA_6_1_6_EXCUSE: RuleCitation = {
+  sourceId: "occupiers-liability-act",
+  pinpoint: "s. 6.1 (6)",
+  quote:
+    "Failure to give notice in accordance with subsection (1) or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence.",
+};

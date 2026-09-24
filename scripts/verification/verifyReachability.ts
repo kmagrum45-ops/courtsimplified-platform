@@ -156,6 +156,41 @@ const DELIBERATELY_DORMANT: DormantEntry[] = [
       "Other half of the registry.ts dead pair. Builds an empty Ontario family case bundle that " +
       "no live family path uses — FamilyIntake posts to /api/family/analyze instead.",
   },
+  /*
+   * The stage map is dormant ON PURPOSE, and only until Part 5.
+   *
+   * It is deliberately finer than the routing code can currently resolve: 37
+   * positions where `UniversalStage` has nine. Wiring it to the existing
+   * `inferStage` would make it reachable while leaving the answers just as
+   * wrong, because that function decides by `text.includes("defendant")` —
+   * the root cause Part 0 traced. The taxonomy has to be right before the
+   * routing is rebuilt on it.
+   *
+   * Dormant does not mean unchecked: `npm run test:stage-map` verifies all 126
+   * quoted passages against the vendored corpus on every run, and
+   * `npm run rules:check` watches the provisions for amendment.
+   *
+   * These three entries come out when Part 5 replaces the runtime stage
+   * detection. If they are still here after that, something was left half-done.
+   */
+  {
+    file: "src/lib/case-system/stage-map/stageMap.ts",
+    reason:
+      "Part 2 of the accuracy work. Built before the routing that will consume it, so the " +
+      "taxonomy can be got right without being constrained by `inferStage`. Part 5 wires it up.",
+  },
+  {
+    file: "src/lib/case-system/stage-map/citations.ts",
+    reason:
+      "Quoted rule text for the stage map. Verified against the vendored corpus by " +
+      "test:stage-map on every run; reachable once Part 5 wires the stage map up.",
+  },
+  {
+    file: "src/lib/case-system/stage-map/stageMessages.ts",
+    reason:
+      "The UNKNOWN and OUT_OF_SCOPE wording and the clarifying-question lookup. Reachable " +
+      "once Part 5 replaces stage detection and can return UNKNOWN instead of defaulting.",
+  },
 ];
 
 let failures = 0;
