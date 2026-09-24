@@ -34,33 +34,33 @@ import {
   CaseStage,
 } from "../architecture/masterCaseSchema";
 
-export type AiCasePartnerOrchestratorVersion = "1.5.0";
+export type GuidedAssistantOrchestratorVersion = "1.5.0";
 
-export type AiCasePartnerCourtContextInput = {
+export type GuidedAssistantCourtContextInput = {
   courtPath?: string;
   jurisdiction?: string;
   city?: string;
   stage?: string;
 };
 
-export type AiCasePartnerResolvedCourtContext = {
+export type GuidedAssistantResolvedCourtContext = {
   courtPath: CaseCourtPath;
   jurisdiction: CaseProvince | "Canada";
   city?: string;
   stage: CaseStage;
 };
 
-export type AiCasePartnerOrchestratorInput = {
+export type GuidedAssistantOrchestratorInput = {
   caseId?: string;
   message: string;
   conversation?: CasePartnerConversationMessage[];
   caseMemory?: unknown;
-  courtContext?: AiCasePartnerCourtContextInput;
+  courtContext?: GuidedAssistantCourtContextInput;
   mode?: string;
   diagnosticId?: string;
 };
 
-export type AiCasePartnerDiagnosticStage =
+export type GuidedAssistantDiagnosticStage =
   | "conversation-intelligence"
   | "legal-domain-detection"
   | "legal-reasoning"
@@ -68,14 +68,14 @@ export type AiCasePartnerDiagnosticStage =
   | "case-investigation"
   | "response-construction";
 
-export type AiCasePartnerStageDiagnostic = {
-  stage: AiCasePartnerDiagnosticStage;
+export type GuidedAssistantStageDiagnostic = {
+  stage: GuidedAssistantDiagnosticStage;
   ok: true;
   durationMs: number;
   outputBytes: number;
 };
 
-export type AiCasePartnerOrchestratorDiagnostics = {
+export type GuidedAssistantOrchestratorDiagnostics = {
   diagnosticId: string;
   totalDurationMs: number;
   inputMetrics: {
@@ -84,18 +84,18 @@ export type AiCasePartnerOrchestratorDiagnostics = {
     conversationCharacters: number;
     caseMemoryBytes: number;
   };
-  stages: AiCasePartnerStageDiagnostic[];
+  stages: GuidedAssistantStageDiagnostic[];
 };
 
-export type AiCasePartnerOrchestratorResult = {
-  version: AiCasePartnerOrchestratorVersion;
+export type GuidedAssistantOrchestratorResult = {
+  version: GuidedAssistantOrchestratorVersion;
   generatedAt: string;
   ok: true;
 
   userFacingAnswer: string;
   answer: string;
 
-  courtContext: AiCasePartnerResolvedCourtContext;
+  courtContext: GuidedAssistantResolvedCourtContext;
 
   conversationIntelligence: ReturnType<typeof buildConversationIntelligence>;
   legalReasoning: CoordinatedReasoningPackage;
@@ -104,7 +104,7 @@ export type AiCasePartnerOrchestratorResult = {
 
   caseMemory: ReturnType<typeof buildConversationMemory>["memory"];
 
-  diagnostics: AiCasePartnerOrchestratorDiagnostics;
+  diagnostics: GuidedAssistantOrchestratorDiagnostics;
 
   result: {
     conversationIntelligence: ReturnType<typeof buildConversationIntelligence>;
@@ -123,7 +123,7 @@ type ResponseIntent =
 
 
 type OrchestratorStageError = Error & {
-  stage?: AiCasePartnerDiagnosticStage;
+  stage?: GuidedAssistantDiagnosticStage;
   diagnosticId?: string;
   cause?: unknown;
 };
@@ -144,7 +144,7 @@ function estimateJsonSize(value: unknown): number {
 
 function buildStageError(args: {
   error: unknown;
-  stage: AiCasePartnerDiagnosticStage;
+  stage: GuidedAssistantDiagnosticStage;
   diagnosticId: string;
 }): OrchestratorStageError {
   const original =
@@ -154,10 +154,10 @@ function buildStageError(args: {
 
   const stageError = new Error(
     original.message ||
-      `AI Case Partner failed during ${args.stage}.`,
+      `guided assistant failed during ${args.stage}.`,
   ) as OrchestratorStageError;
 
-  stageError.name = "AiCasePartnerOrchestratorStageError";
+  stageError.name = "GuidedAssistantOrchestratorStageError";
   stageError.stage = args.stage;
   stageError.diagnosticId = args.diagnosticId;
   stageError.cause = original;
@@ -167,9 +167,9 @@ function buildStageError(args: {
 }
 
 function runDiagnosticStage<T>(args: {
-  stage: AiCasePartnerDiagnosticStage;
+  stage: GuidedAssistantDiagnosticStage;
   diagnosticId: string;
-  diagnostics: AiCasePartnerStageDiagnostic[];
+  diagnostics: GuidedAssistantStageDiagnostic[];
   operation: () => T;
 }): T {
   const startedAt = Date.now();
@@ -186,7 +186,7 @@ function runDiagnosticStage<T>(args: {
 
     return output;
   } catch (error) {
-    console.error("AI Case Partner orchestrator stage failed", {
+    console.error("guided assistant orchestrator stage failed", {
       diagnosticId: args.diagnosticId,
       stage: args.stage,
       durationMs: Date.now() - startedAt,
@@ -376,8 +376,8 @@ function toConversationStage(
 }
 
 function resolveStructuredCourtContext(
-  input: AiCasePartnerOrchestratorInput,
-): AiCasePartnerResolvedCourtContext {
+  input: GuidedAssistantOrchestratorInput,
+): GuidedAssistantResolvedCourtContext {
   const memory = input.caseMemory;
 
   return {
@@ -469,10 +469,10 @@ function resolveStructuredCourtContext(
 }
 
 function resolveFinalCourtContext(args: {
-  input: AiCasePartnerOrchestratorInput;
-  structured: AiCasePartnerResolvedCourtContext;
+  input: GuidedAssistantOrchestratorInput;
+  structured: GuidedAssistantResolvedCourtContext;
   intelligence: ReturnType<typeof buildConversationIntelligence>;
-}): AiCasePartnerResolvedCourtContext {
+}): GuidedAssistantResolvedCourtContext {
   return {
     courtPath: firstCourtPath([
       args.structured.courtPath,
@@ -1152,14 +1152,14 @@ function buildAnswer(args: {
   }) || assistantText("assistant:fallback:recorded");
 }
 
-export function runAiCasePartnerOrchestrator(
-  input: AiCasePartnerOrchestratorInput,
-): AiCasePartnerOrchestratorResult {
+export function runGuidedAssistantOrchestrator(
+  input: GuidedAssistantOrchestratorInput,
+): GuidedAssistantOrchestratorResult {
   const diagnosticId =
     clean(input.diagnosticId) || createDiagnosticId();
 
   const totalStartedAt = Date.now();
-  const stageDiagnostics: AiCasePartnerStageDiagnostic[] = [];
+  const stageDiagnostics: GuidedAssistantStageDiagnostic[] = [];
 
   const message = clean(input.message);
   const conversation = input.conversation || [];
@@ -1267,14 +1267,14 @@ export function runAiCasePartnerOrchestrator(
       }),
   });
 
-  const diagnostics: AiCasePartnerOrchestratorDiagnostics = {
+  const diagnostics: GuidedAssistantOrchestratorDiagnostics = {
     diagnosticId,
     totalDurationMs: Date.now() - totalStartedAt,
     inputMetrics,
     stages: stageDiagnostics,
   };
 
-  console.info("AI Case Partner orchestrator completed", diagnostics);
+  console.info("guided assistant orchestrator completed", diagnostics);
 
   return {
     version: "1.5.0",

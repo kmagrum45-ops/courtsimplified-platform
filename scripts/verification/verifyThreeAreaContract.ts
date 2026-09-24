@@ -523,7 +523,7 @@ async function verifyCivilRouteRejections() {
  * The engine had already detected both domains — primaryClaimTypes came back
  * ["defamation","family-parenting"] — but nothing acted on the split.
  *
- * This drives the ACTUAL /api/family/analyze route, not the AI Case Partner
+ * This drives the ACTUAL /api/family/analyze route, not the guided assistant
  * path, because that is where the bug was found. courtPath deliberately stays
  * "family": the declared path still selects the engine, forms and workflow, and
  * the conflict is surfaced as a warning instead of a silent reroute.

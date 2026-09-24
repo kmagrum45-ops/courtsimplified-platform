@@ -90,7 +90,7 @@ type CaseInvestigation = {
   issues?: unknown;
 };
 
-type AiCasePartnerResponse = {
+type GuidedAssistantResponse = {
   ok: boolean;
   answer?: string;
   userFacingAnswer?: string;
@@ -348,7 +348,7 @@ function normalizeIssues(input: unknown): Array<{ id: string; label: string }> {
     .filter((issue): issue is { id: string; label: string } => issue !== null);
 }
 
-function buildWarnings(data: AiCasePartnerResponse): string[] {
+function buildWarnings(data: GuidedAssistantResponse): string[] {
   return uniqueStrings([
     ...unknownArray(data.caseInvestigation?.validation?.warnings),
     ...unknownArray(
@@ -443,7 +443,7 @@ function buildCourtPathGuidance(
 }
 
 function buildRecommendedRoute(
-  data: AiCasePartnerResponse,
+  data: GuidedAssistantResponse,
 ): string | null {
   const investigation = data.caseInvestigation;
 
@@ -857,7 +857,7 @@ function CourtAssistantChatInner({
     setLoading(true);
 
     try {
-      const response = await fetch("/api/ai-case-partner", {
+      const response = await fetch("/api/guided-assistant", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -885,11 +885,11 @@ function CourtAssistantChatInner({
         }),
       });
 
-      const data: AiCasePartnerResponse = await response.json();
+      const data: GuidedAssistantResponse = await response.json();
 
       if (!response.ok || !data.ok) {
         throw new Error(
-          data?.error || "CourtSimplified AI Case Partner error.",
+          data?.error || "CourtSimplified guided assistant error.",
         );
       }
 
@@ -897,7 +897,7 @@ function CourtAssistantChatInner({
         setCaseMemory(data.caseMemory);
 
         onMasterResultUpdate?.({
-          aiCasePartnerMemory: data.caseMemory,
+          guidedAssistantMemory: data.caseMemory,
         });
       }
 
@@ -909,7 +909,7 @@ function CourtAssistantChatInner({
         setLatestInvestigation(data.caseInvestigation);
 
         onDashboardUpdate?.({
-          aiCasePartnerInvestigation: data.caseInvestigation,
+          guidedAssistantInvestigation: data.caseInvestigation,
         });
       }
 
@@ -956,7 +956,7 @@ function CourtAssistantChatInner({
       ]);
     } catch (error) {
       console.error(
-        "CourtSimplified AI Case Partner request failed.",
+        "CourtSimplified guided assistant request failed.",
         error instanceof Error ? { message: error.message } : { message: "unknown" },
       );
 
@@ -1075,11 +1075,11 @@ function CourtAssistantChatInner({
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="mb-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#2f7d67]">
-              AI Case Partner
+              Guided assistant
             </p>
 
             <h2 className="text-xl font-bold text-[#10231f]">
-              CourtSimplified Case Companion
+              Questions about your case
             </h2>
           </div>
 
@@ -1109,7 +1109,7 @@ function CourtAssistantChatInner({
 
           The AI notice's wording is deliberately narrow. This assistant makes
           no model call at all: `gateway.externalModelUsed` is false by
-          construction and verifyAiCasePartnerContext asserts it. Saying "AI
+          construction and verifyGuidedAssistantContext asserts it. Saying "AI
           helps..." here would be the opposite error from the one the report
           found — claiming a model where there is none.
         */}

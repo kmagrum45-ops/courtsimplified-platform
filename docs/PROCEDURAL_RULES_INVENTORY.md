@@ -236,7 +236,7 @@ UNVERIFIED, and moot in practice since nothing reads it.
 
 **`src/lib/case-system/knowledge/doctrineSeedLibrary.ts`** (977 lines) —
 **live**, imported by `courtSimplifiedBrain.ts`, `caseSystemAssembly.ts`,
-and `aiCasePartnerOrchestrator.ts`. Its family-parenting seed
+and `guidedAssistantOrchestrator.ts`. Its family-parenting seed
 (`SEED_FAMILY_PARENTING_BEST_INTERESTS_001`, `doctrineSeedLibrary.ts:550-589`)
 is explicitly tagged `source: operationalSource(...)` — the file's own
 convention for internal organizational heuristics, distinct from a

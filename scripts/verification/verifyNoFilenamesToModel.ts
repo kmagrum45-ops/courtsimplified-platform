@@ -289,6 +289,72 @@ function sourceFiles(): string[] {
 }
 
 // ===========================================================================
+// 2c. No verification fixture still carries a removed field
+// ===========================================================================
+//
+// Added 2026-09-23, after the fact, because this exact defect hid twice.
+//
+// Removing `name` from the evidence types also removed it from three strict
+// route allowlists. Fixtures that still sent it started getting 400s — and the
+// suites that used them went red in ways that looked unrelated:
+//
+//   verifyCaseOutcomeMatrix   38 passing -> 24, via test:case-simulations
+//   verifyAiCasePartnerContext  a 400 that masked two further defects
+//
+// Neither was noticed at the time, because neither suite names the field in
+// its failure. A 400 says "A complete Small Claims intake is required", which
+// reads like a fixture that is missing something rather than one that has an
+// extra.
+//
+// So: no fixture may carry a field the types no longer have.
+
+{
+  const FIXTURE_FIELDS = [
+    "name",
+    "fileName",
+    "originalName",
+    "filename",
+  ];
+
+  const offenders: string[] = [];
+  const scriptFiles = readdirSync(path.join(ROOT, "scripts/verification"))
+    .filter((entry) => /\.(ts|mjs)$/.test(entry))
+    .map((entry) => `scripts/verification/${entry}`);
+
+  for (const file of scriptFiles) {
+    // This file names the forbidden fields by definition.
+    if (file.endsWith("verifyNoFilenamesToModel.ts")) continue;
+
+    const source = read(file);
+
+    // Only lines that are building an evidence-file object — identified by the
+    // sibling fields that only appear there. A bare `name:` elsewhere in a
+    // fixture is a party name and is fine.
+    for (const [index, line] of source.split("\n").entries()) {
+      const isEvidenceObject =
+        /uploadedEvidenceFiles|uploadedFiles/.test(line) ||
+        (/lastModified|sizeBytes|mimeType/.test(line) && /id:/.test(line));
+      if (!isEvidenceObject) continue;
+
+      for (const field of FIXTURE_FIELDS) {
+        if (new RegExp(`\\b${field}\\s*:\\s*["'\`]`).test(line)) {
+          offenders.push(`${file}:${index + 1} — evidence fixture sets \`${field}\``);
+        }
+      }
+    }
+  }
+
+  if (offenders.length === 0) {
+    pass(`no verification fixture carries a removed evidence field (${scriptFiles.length} files)`);
+  } else {
+    fail(
+      "a fixture still sets a field the evidence types no longer have",
+      `${offenders.join("\n")}\nThe analyze routes reject it with a 400 that does not name the field.`,
+    );
+  }
+}
+
+// ===========================================================================
 // 3. BEHAVIOURAL — the real builder, over real input
 // ===========================================================================
 

@@ -1,20 +1,20 @@
 import {
-  runAiCasePartnerOrchestrator,
-  AiCasePartnerOrchestratorInput,
-  AiCasePartnerOrchestratorResult,
-} from "./aiCasePartnerOrchestrator";
+  runGuidedAssistantOrchestrator,
+  GuidedAssistantOrchestratorInput,
+  GuidedAssistantOrchestratorResult,
+} from "./guidedAssistantOrchestrator";
 
-export type AiCasePartnerGatewayVersion = "1.1.0";
+export type GuidedAssistantGatewayVersion = "1.1.0";
 
-export type AiCasePartnerGatewayInput =
-  AiCasePartnerOrchestratorInput & {
+export type GuidedAssistantGatewayInput =
+  GuidedAssistantOrchestratorInput & {
     diagnosticId?: string;
   };
 
-export type AiCasePartnerGatewayResult =
-  AiCasePartnerOrchestratorResult & {
+export type GuidedAssistantGatewayResult =
+  GuidedAssistantOrchestratorResult & {
     gateway: {
-      version: AiCasePartnerGatewayVersion;
+      version: GuidedAssistantGatewayVersion;
       modelProvider: "internal-orchestrator";
       externalModelUsed: false;
       generatedAt: string;
@@ -68,10 +68,10 @@ function buildGatewayError(args: {
 
   const gatewayError = new Error(
     original.message ||
-      "AI Case Partner gateway failed.",
+      "guided assistant gateway failed.",
   ) as GatewayError;
 
-  gatewayError.name = "AiCasePartnerGatewayError";
+  gatewayError.name = "GuidedAssistantGatewayError";
   gatewayError.stage =
     (original as GatewayError).stage || "gateway";
   gatewayError.diagnosticId = args.diagnosticId;
@@ -81,9 +81,9 @@ function buildGatewayError(args: {
   return gatewayError;
 }
 
-export function runAiCasePartnerGateway(
-  input: AiCasePartnerGatewayInput,
-): AiCasePartnerGatewayResult {
+export function runGuidedAssistantGateway(
+  input: GuidedAssistantGatewayInput,
+): GuidedAssistantGatewayResult {
   const diagnosticId =
     clean(input.diagnosticId) || createDiagnosticId();
 
@@ -102,7 +102,7 @@ export function runAiCasePartnerGateway(
   };
 
   try {
-    const result = runAiCasePartnerOrchestrator({
+    const result = runGuidedAssistantOrchestrator({
       caseId: input.caseId,
       message,
       conversation,
@@ -126,7 +126,7 @@ export function runAiCasePartnerGateway(
       },
     };
   } catch (error) {
-    console.error("AI Case Partner gateway failed", {
+    console.error("guided assistant gateway failed", {
       diagnosticId,
       durationMs: Date.now() - startedAt,
       inputMetrics,

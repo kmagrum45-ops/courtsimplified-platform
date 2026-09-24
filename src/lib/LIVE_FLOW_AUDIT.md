@@ -10,7 +10,7 @@ Find exactly which files are controlling the current user experience so old logi
 
 ## Current Problem
 
-The site still shows old/wrong outputs even after creating the AI Case Partner route.
+The site still shows old/wrong outputs even after creating the guided assistant route.
 
 This means the tested page is not using the new AI route, or old engines are still controlling dashboard panels.
 

@@ -42,7 +42,7 @@ import { collectContentInventory } from "../../src/lib/content-library/contentIn
 import { DOCTRINE_SEED_LIBRARY } from "../../src/lib/case-system/knowledge/doctrineSeedLibrary";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
-const ORCHESTRATOR = "src/lib/case-system/ai-case-partner/aiCasePartnerOrchestrator.ts";
+const ORCHESTRATOR = "src/lib/case-system/guided-assistant/guidedAssistantOrchestrator.ts";
 
 let failures = 0;
 const pass = (m: string) => console.log(`pass  ${m}`);

@@ -53,7 +53,7 @@ import {
   buildConversationIntelligence,
   inferCourtArea,
   type CasePartnerCourtArea,
-} from "../ai-case-partner/conversationIntelligenceEngine";
+} from "../guided-assistant/conversationIntelligenceEngine";
 import { getOutOfScopeForum, type OutOfScopeForum } from "./outOfScopeForums";
 import { withAiCallContext } from "../../audit/aiCallLog";
 

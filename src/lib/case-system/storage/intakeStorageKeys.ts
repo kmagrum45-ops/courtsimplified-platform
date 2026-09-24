@@ -281,6 +281,20 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
       "Bare key plus `:case:<caseId>`. Parsed message threads — among the most sensitive " +
       "content the platform holds.",
   },
+  /*
+   * STILL NAMED "ai-case-partner" ON PURPOSE, 2026-09-23.
+   *
+   * The module was renamed to guided-assistant because the old name claimed an
+   * AI feature that does not exist -- the engine makes no model call. These
+   * three localStorage keys were NOT renamed with it.
+   *
+   * A key rename orphans every saved conversation on every user device,
+   * silently, at the moment they next open the page. The key is invisible to
+   * users; the rename exists so a DEVELOPER does not mistake the module for an
+   * AI feature, and this comment achieves that without losing anyone's work.
+   *
+   * Rename it only with a read-time migration that copies the old key forward.
+   */
   {
     key: "courtsimplified-ai-case-partner-chat",
     area: "local",

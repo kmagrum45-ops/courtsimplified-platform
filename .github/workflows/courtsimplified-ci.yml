@@ -135,4 +135,4 @@ jobs:
         run: npm run build
 
       - name: AI Case Partner context verification
-        run: npm run test:ai-context
+        run: npm run test:assistant-context

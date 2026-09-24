@@ -1560,7 +1560,7 @@ function BuilderPageContent() {
           <section className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6 shadow-sm" aria-live="polite">
             <h2 className="text-xl font-bold text-[#10231f]">Saving core intake</h2>
             <p className="mt-2 text-sm leading-6 text-[#4d675f]">
-              CourtSimplified is saving this area&apos;s structured intake to the canonical case record before opening AI Case Partner.
+              CourtSimplified is saving this area&apos;s structured intake to the canonical case record before opening guided assistant.
             </p>
             {saveError && <p className="mt-3 text-sm font-semibold text-[#a63b3b]">The core intake could not be saved. Review or edit the intake before continuing.</p>}
           </section>

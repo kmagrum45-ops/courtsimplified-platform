@@ -1151,7 +1151,7 @@ app/ai-test/page.tsx
 
 APP/API:
 app/api/admin/scan-pdf-fields/route.ts
-app/api/ai-case-partner/route.ts
+app/api/guided-assistant/route.ts
 app/api/assistant-chat/route.ts
 app/api/builder-analysis/route.ts
 app/api/case-summary/route.ts

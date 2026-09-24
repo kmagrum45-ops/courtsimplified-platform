@@ -161,7 +161,7 @@ function relevantSyntheticInput(fixture: Fixture): Record<string, unknown> {
 
 function expectedContract(fixture: Fixture): ExpectedCompactContract {
   return {
-    area: fixture.expectedRouteResult.routedCourt || (fixture.selectedCourtPath === "ai-case-partner" ? undefined : fixture.selectedCourtPath),
+    area: fixture.expectedRouteResult.routedCourt || (fixture.selectedCourtPath === "guided-assistant" ? undefined : fixture.selectedCourtPath),
     requiredDomains: fixture.requiredPrimaryClassifications,
     allowedDomains: [...fixture.allowedSecondaryClassifications, ...fixture.reviewRequiredClassifications],
     forbiddenDomains: fixture.forbiddenClassifications,

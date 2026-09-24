@@ -15,7 +15,7 @@
  *   safetyPass.ts              the immediate-danger and distress messages —
  *                              the file's own header says they need clinical
  *                              review before shipping
- *   ai-case-partner/           ~5,000 lines of template chat responses
+ *   guided-assistant/           ~5,000 lines of template chat responses
  *
  * **A licensee could have signed off all 268 items and left every word of
  * those unreviewed**, and the packet would have looked complete.
@@ -168,7 +168,7 @@ const texts = new Set(inventory.map((entry) => entry.text));
 const UNINDEXED: Array<{ what: string; where: string; reason: string }> = [
   {
     what: "the deterministic chat engine",
-    where: "src/lib/case-system/ai-case-partner/",
+    where: "src/lib/case-system/guided-assistant/",
     reason:
       "~5,000 lines of template responses behind CourtAssistantChat, containing " +
       "procedural statements. Template text, not model-written despite the " +

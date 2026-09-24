@@ -75,7 +75,7 @@ export default function AITestPage() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/ai-case-partner", {
+      const response = await fetch("/api/guided-assistant", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -90,7 +90,7 @@ export default function AITestPage() {
       const data = (await response.json()) as ApiResponse;
 
       if (!response.ok || data.error) {
-        throw new Error(data.error || "The AI Case Partner could not respond.");
+        throw new Error(data.error || "The guided assistant could not respond.");
       }
 
       const assistantMessage: ChatMessage = {
@@ -118,7 +118,7 @@ export default function AITestPage() {
         content:
           error instanceof Error
             ? `Something went wrong: ${error.message}`
-            : "Something went wrong while contacting the AI Case Partner.",
+            : "Something went wrong while contacting the guided assistant.",
       };
 
       setMessages((current) => [...current, assistantMessage]);
@@ -135,7 +135,7 @@ export default function AITestPage() {
         role: "assistant",
         createdAt: new Date().toISOString(),
         content:
-          "Sandbox reset. Tell me a new case story and I will test whether the AI Case Partner can understand it.",
+          "Sandbox reset. Tell me a new case story and I will test whether the guided assistant can understand it.",
       },
     ]);
   }
@@ -151,7 +151,7 @@ export default function AITestPage() {
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <h1 className="text-3xl font-bold tracking-tight">
-                AI Case Partner Test Workspace
+                guided assistant Test Workspace
               </h1>
               <p className="mt-3 max-w-3xl text-base leading-7 text-slate-700">
                 This page tests the new AI reasoning layer outside the production
@@ -203,7 +203,7 @@ export default function AITestPage() {
                     }`}
                   >
                     <div className="mb-2 text-xs font-semibold uppercase tracking-wide opacity-75">
-                      {message.role === "user" ? "User" : "AI Case Partner"}
+                      {message.role === "user" ? "User" : "guided assistant"}
                     </div>
 
                     <div className="whitespace-pre-wrap text-sm leading-6">
@@ -225,7 +225,7 @@ export default function AITestPage() {
 
                 {isLoading ? (
                   <div className="mr-auto max-w-[92%] rounded-3xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
-                    AI Case Partner is analyzing the case story…
+                    guided assistant is analyzing the case story…
                   </div>
                 ) : null}
               </div>
@@ -257,7 +257,7 @@ export default function AITestPage() {
                     disabled={!input.trim() || isLoading}
                     className="rounded-2xl bg-cyan-700 px-5 py-3 text-sm font-bold text-white shadow-sm hover:bg-cyan-800 disabled:cursor-not-allowed disabled:bg-slate-300"
                   >
-                    {isLoading ? "Analyzing…" : "Send to AI Case Partner"}
+                    {isLoading ? "Analyzing…" : "Send to guided assistant"}
                   </button>
                 </div>
               </div>

@@ -16,7 +16,7 @@ import {
   LegalSignal,
   NormalizedIntake,
 } from "./intelligenceTypes";
-import { detectContextualLegalDomains } from "../ai-case-partner/conversationIntelligenceEngine";
+import { detectContextualLegalDomains } from "../guided-assistant/conversationIntelligenceEngine";
 
 function createId(prefix: string): string {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {

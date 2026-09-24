@@ -137,7 +137,7 @@ Routes with no `getAuthenticatedUser` call (grep-confirmed absent):
 `api/classify-court-path`, `api/evidence-praser`, `api/rules/issues`,
 `api/rules/evidence`, `api/rules/procedures`, `api/scan-form-fields`,
 `api/admin/scan-pdf-fields`, `api/rule-engine`, `api/document-export`,
-`api/ai-case-partner`, `api/form-rules`, `api/site-access`. All of these
+`api/guided-assistant`, `api/form-rules`, `api/site-access`. All of these
 still sit behind the site-wide password gate in middleware (§4) — that gate
 is not a substitute for per-user auth, since the site password is shared by
 every visitor, not per-account.
@@ -240,7 +240,7 @@ court-path taxonomies that were never reconciled:
 - `CourtPathValue` / `CasePartnerCourtArea` — used by
   [`courtPathClassifier.ts`](../src/lib/case-system/intelligence/courtPathClassifier.ts)
   and the keyword engine underneath it
-  ([`conversationIntelligenceEngine.ts`](../src/lib/case-system/ai-case-partner/conversationIntelligenceEngine.ts)).
+  ([`conversationIntelligenceEngine.ts`](../src/lib/case-system/guided-assistant/conversationIntelligenceEngine.ts)).
   Drives the home-gate suggestion (§1) only.
 - `IntelligenceCourtPath` — used by
   [`courtSimplifiedBrain.ts`](../src/lib/case-system/intelligence/courtSimplifiedBrain.ts)
@@ -417,7 +417,7 @@ script's name or docstring.
 | Real, unstubbed `GET /auth/v1/user` | [`tests/browser/harness/intakeDriver.ts`](../tests/browser/harness/intakeDriver.ts) — only `**/rest/v1/cases**` is stubbed; `**/auth/v1/user**` is not | Read-only, real Auth traffic | No | Every scenario run through `authenticateRealTestUser()` (e.g. `supabase.auth.getUser()` calls inside `app/builder/page.tsx`) |
 | Full scenario sweep, up to `SCENARIO_BATCH` (default 25) runs | [`tests/browser/scenario-quality.spec.ts`](../tests/browser/scenario-quality.spec.ts) | Both rows above, once per scenario | No | `npm run test:browser-journeys` (manual only — **not** in either CI workflow) |
 | Read-only export of the real form catalogue | `scripts/verification/inspectSupabaseFormCatalogueReadonly.mjs` | Anon-key `SELECT` on `court_form_library` and related tables | No | Ad hoc — not wired to any `npm run` script |
-| Boots a real `next dev` server against production Supabase vars (falls back to them when none are explicitly set) | `scripts/verification/verifyAiCasePartnerContext.mjs` | Real HTTP requests to `/api/ai-case-partner`, `/api/cases`, `/api/small-claims/analyze`, `/api/assistant-chat`; assertions expect 401/`deterministic-fallback`, so it's not designed to write rows, but nothing structural prevents it | No | `npm run test:ai-context` — **runs on every push/PR** as the last step of `courtsimplified-ci.yml`, with `SUPABASE_SERVICE_ROLE_KEY` and the rest injected from `secrets.*` |
+| Boots a real `next dev` server against production Supabase vars (falls back to them when none are explicitly set) | `scripts/verification/verifyGuidedAssistantContext.mjs` | Real HTTP requests to `/api/guided-assistant`, `/api/cases`, `/api/small-claims/analyze`; assertions expect 401/`deterministic-fallback`, so it's not designed to write rows, but nothing structural prevents it | No | `npm run test:assistant-context` — **runs on every push/PR** as the last step of `courtsimplified-ci.yml`, with `SUPABASE_SERVICE_ROLE_KEY` and the rest injected from `secrets.*` |
 | Lists real `auth.users`; sends a real SMTP email via Resend; fires a real `POST /auth/v1/recover` against production | `scripts/diagnose-auth-email.mjs` (untracked) | Admin API read + real email send + real Auth endpoint | No | Manual only (`node --env-file=.env.diagnose scripts/diagnose-auth-email.mjs`) |
 | **PATCHes production Supabase Auth/SMTP configuration** via the Management API, reads it back, then fires a real `POST /auth/v1/recover` | `scripts/fix-smtp-and-verify.mjs` (untracked) | Direct write to live Auth config (`smtp_host`, `smtp_pass`, `smtp_admin_email`, …) + real recovery email | No | Manual only |
 
@@ -434,7 +434,7 @@ protected from *other real users*, and from the harness user's own queries
 under its own anon-key session. But every script in the table above that
 uses `SUPABASE_SERVICE_ROLE_KEY` (`realTestSession.ts`,
 `diagnose-auth-email.mjs`, `fix-smtp-and-verify.mjs`, and the CI-wired
-`verifyAiCasePartnerContext.mjs`) **bypasses RLS entirely by design** — a
+`verifyGuidedAssistantContext.mjs`) **bypasses RLS entirely by design** — a
 service-role key is the database's admin credential. RLS is not a backstop
 for a bug in one of these scripts; an unscoped query, a typo'd filter, or a
 copy-paste mistake in any of them has unrestricted read/write access to

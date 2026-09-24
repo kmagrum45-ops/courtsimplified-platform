@@ -7,10 +7,10 @@ import {
   POST as civilPost,
   createCivilAnalyzePost,
 } from "../../app/api/civil/analyze/route";
-import { POST as aiPartnerPost } from "../../app/api/ai-case-partner/route";
+import { POST as aiPartnerPost } from "../../app/api/guided-assistant/route";
 import { runCivilIntakeCanonicalIntegration } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
 
-export type CourtPath = "small-claims" | "family" | "civil" | "ai-case-partner";
+export type CourtPath = "small-claims" | "family" | "civil" | "guided-assistant";
 type ExpectedRoute = {
   status: number;
   ok: boolean;
@@ -183,7 +183,7 @@ smallClaimsIssues.forEach(([issue, domain, narrative], index) => {
   fixtures.push(completeFixture({
     id: `sc-issue-${issue}`, selectedCourtPath: "small-claims", role: stage === "responding" ? "Defendant / responding party" : "Plaintiff / claimant", stage,
     narrative, structuredIntake: smallInput({ caseStage: stage, issues: [issue], filedDocuments: [document], yourRole: stage === "responding" ? "Defendant / responding party" : "Plaintiff / claimant", facts: narrative,
-      defenceResponse: stage === "responding" ? "The synthetic allegations are disputed." : "", uploadedEvidenceFiles: [{ id: `sc-evidence-${index}`, name: "synthetic.txt", size: 20, type: "text/plain", lastModified: 1, title: evidenceCategory, description: narrative, category: evidenceCategory, evidenceDate: "2026-01-10", source: "Synthetic source", relevance: "Tests category coverage." }] }),
+      defenceResponse: stage === "responding" ? "The synthetic allegations are disputed." : "", uploadedEvidenceFiles: [{ id: `sc-evidence-${index}`, reference: "Document 1", size: 20, type: "text/plain", lastModified: 1, title: evidenceCategory, description: narrative, category: evidenceCategory, evidenceDate: "2026-01-10", source: "Synthetic source", relevance: "Tests category coverage." }] }),
     requiredPrimaryClassifications: ["defending-claim", "settlement", "enforcement"].includes(issue) ? [] : [domain],
     allowedSecondaryClassifications: issue === "work-or-services" ? ["defamation"] : ["defending-claim", "settlement", "enforcement"].includes(issue) ? ["unknown"] : [],
     forbiddenClassifications: issue === "work-or-services" ? ["personal-injury"] : [],
@@ -201,7 +201,7 @@ familyIssues.forEach(([issue, domain, narrative], index) => {
   fixtures.push(completeFixture({
     id: `family-issue-${issue}`, selectedCourtPath: "family", role, stage, narrative,
     structuredIntake: familyInput({ caseStage: stage, role, issues: [issue], filedDocuments: [document], facts: narrative,
-      uploadedFiles: [{ id: `family-evidence-${index}`, fileName: "synthetic.txt", originalName: "synthetic.txt", mimeType: "text/plain", sizeBytes: 20, title: evidenceCategory, description: narrative, category: evidenceCategory, source: "Synthetic source", notes: "Tests category coverage." }] }),
+      uploadedFiles: [{ id: `family-evidence-${index}`, reference: "Document 1", mimeType: "text/plain", sizeBytes: 20, title: evidenceCategory, description: narrative, category: evidenceCategory, source: "Synthetic source", notes: "Tests category coverage." }] }),
     requiredPrimaryClassifications: ["decision-making-responsibility", "parenting-time", "child-support", "spousal-support", "other"].includes(issue) ? [domain] : [],
     allowedSecondaryClassifications: ["child-support", "spousal-support"].includes(issue) ? ["family-parenting"] : ["decision-making-responsibility", "parenting-time", "child-support", "spousal-support", "other"].includes(issue) ? [] : ["unknown"],
     reviewRequiredClassifications: ["decision-making-responsibility", "parenting-time", "child-support", "spousal-support", "other"].includes(issue) ? [] : [domain],
@@ -218,7 +218,7 @@ civilIssues.forEach(([issue, domain], index) => {
   fixtures.push(completeFixture({
     id: `civil-issue-${issue}`, selectedCourtPath: "civil", role, stage, narrative,
     structuredIntake: civilInput({ caseId: `civil-${issue}`, caseStage: stage, yourRole: role, issues: [issue], documents: [document], facts: narrative,
-      uploadedEvidenceFiles: [{ id: `civil-evidence-${index}`, name: "synthetic.txt", size: 20, type: "text/plain", lastModified: 1, title: `${issue} record`, description: narrative, relatedIssue: issue, evidenceDate: "2026-01-10", createdBy: "Synthetic source", whyItMatters: "Tests uploaded-civil-evidence coverage." }] }),
+      uploadedEvidenceFiles: [{ id: `civil-evidence-${index}`, reference: "Document 1", size: 20, type: "text/plain", lastModified: 1, title: `${issue} record`, description: narrative, relatedIssue: issue, evidenceDate: "2026-01-10", createdBy: "Synthetic source", whyItMatters: "Tests uploaded-civil-evidence coverage." }] }),
     requiredPrimaryClassifications: ["negligence", "institutional-negligence", "professional-negligence", "human-rights", "disability-accommodation", "employment-human-rights", "housing-human-rights", "education-human-rights", "charter", "government-public-authority", "police-conduct", "defamation", "estate", "other"].includes(issue) ? [domain] : [],
     allowedSecondaryClassifications: issue === "institutional-negligence" ? ["negligence"] : issue === "charter" ? ["civil-human-rights"] : issue === "intentional-tort" ? ["personal-injury"] : issue === "enforcement" ? ["civil-human-rights", "unknown"] : ["contract", "judicial-review", "tribunal-overlap", "privacy", "property", "debt", "employment", "fraud-misrepresentation", "injunction", "motion", "appeal"].includes(issue) ? ["unknown"] : [],
     forbiddenClassifications: ["government-public-authority", "police-conduct"].includes(issue) ? ["civil-charter"] : [],
@@ -237,7 +237,7 @@ fixtures.push(
   // Detection disagreeing with it is not authority to move someone silently, so
   // the declared path stands and the disagreement is surfaced as a warning. The
   // genuinely cross-area case is separate and still resolves to "mixed".
-  completeFixture({ id: "collision-genuine-family-relief", selectedCourtPath: "ai-case-partner", role: "applicant", stage: "starting-case", narrative: "I need a parenting order and child support because the other parent is not paying support.",
+  completeFixture({ id: "collision-genuine-family-relief", selectedCourtPath: "guided-assistant", role: "applicant", stage: "starting-case", narrative: "I need a parenting order and child support because the other parent is not paying support.",
     structuredIntake: { courtContext: { courtPath: "small-claims", jurisdiction: "Ontario", stage: "starting-case" } }, requiredPrimaryClassifications: ["family-parenting"], expectedRouteResult: { status: 200, ok: true, routedCourt: "small-claims" },
     requiredWarnings: ["may be a family law matter", "worth confirming you're in the right place"],
     requiredQuestions: ["order"], canonical: { required: false }, regression: "Genuine parenting and support relief under a declared Small Claims path must warn rather than silently reroute." }),
@@ -289,14 +289,14 @@ fixtures.push(
     structuredIntake: civilInput({ caseId: "civil-private", issues: ["defamation"], facts: "Two private people dispute a false statement sent to a neighbour.", legalRemedy: "Compensation" }), requiredPrimaryClassifications: ["defamation"], forbiddenClassifications: ["civil-charter", "civil-institutional-liability"], canonical: { required: true, preserveCaseId: "civil-private" }, regression: "Prevents ordinary private disputes from acquiring public-authority domains." }),
   completeFixture({ id: "collision-witness-versus-role", selectedCourtPath: "small-claims", role: "Plaintiff / claimant", stage: "starting-case", narrative: "The claimant was a witness in another proceeding but is the plaintiff starting this selected case.",
     structuredIntake: smallInput({ issues: ["defamation-reputation"], facts: "A false statement was sent to a third party because the claimant was a witness in another proceeding." }), requiredPrimaryClassifications: ["defamation"], forbiddenClassifications: ["procedural"], regression: "Keeps a witness role in another proceeding separate from the selected case role." }),
-  completeFixture({ id: "collision-mixed-relief", selectedCourtPath: "ai-case-partner", role: "not-sure", stage: "starting-case", narrative: "Someone sent false messages about me and I want compensation, but I also need a custody order changing parenting time.",
+  completeFixture({ id: "collision-mixed-relief", selectedCourtPath: "guided-assistant", role: "not-sure", stage: "starting-case", narrative: "Someone sent false messages about me and I want compensation, but I also need a custody order changing parenting time.",
     structuredIntake: { courtContext: { courtPath: "small-claims", jurisdiction: "Ontario", stage: "starting-case" } }, requiredPrimaryClassifications: ["defamation", "family-parenting"], expectedRouteResult: { status: 200, ok: true, routedCourt: "mixed" }, requiredQuestions: ["main issue"], canonical: { required: false }, regression: "Requires clarification when requested relief genuinely spans court areas." }),
   // Real user story reported 2026-08-21. Tester selected Family in the builder;
   // the defamation relief was silently accepted as a Family matter. Detection
   // already returned ["defamation","family-parenting"], but a declared courtPath
   // short-circuited the cross-area conflict check. Locks in that a declared path
   // can no longer suppress "mixed".
-  completeFixture({ id: "collision-defamation-in-family-context", selectedCourtPath: "ai-case-partner", role: "not-sure", stage: "starting-case",
+  completeFixture({ id: "collision-defamation-in-family-context", selectedCourtPath: "guided-assistant", role: "not-sure", stage: "starting-case",
     narrative: "my uncles ex girlfriend sent text messages to my uncle and my dad saying I was a prostitute which is not true and she did this because I was going to testify in my uncle's custody case",
     structuredIntake: { courtContext: { courtPath: "family", jurisdiction: "Ontario", stage: "starting-case" } },
     requiredPrimaryClassifications: ["defamation", "family-parenting"], expectedRouteResult: { status: 200, ok: true, routedCourt: "mixed" },
@@ -314,7 +314,7 @@ for (const [id, deadline, expectedWarning] of [
 
 fixtures.push(
   completeFixture({ id: "coverage-family-evidence-other", selectedCourtPath: "family", role: "applicant", stage: "starting-case", narrative: "An unclear family concern includes a synthetic evidence item categorized as Other.",
-    structuredIntake: familyInput({ issues: ["other"], facts: "An unclear family concern includes a synthetic evidence item categorized as Other.", uploadedFiles: [{ id: "family-evidence-other", fileName: "synthetic.txt", originalName: "synthetic.txt", mimeType: "text/plain", sizeBytes: 20, title: "Other evidence", description: "Synthetic uncategorized record.", category: "Other", source: "Synthetic source", notes: "Completes live evidence-category coverage." }] }),
+    structuredIntake: familyInput({ issues: ["other"], facts: "An unclear family concern includes a synthetic evidence item categorized as Other.", uploadedFiles: [{ id: "family-evidence-other", reference: "Document 1", mimeType: "text/plain", sizeBytes: 20, title: "Other evidence", description: "Synthetic uncategorized record.", category: "Other", source: "Synthetic source", notes: "Completes live evidence-category coverage." }] }),
     requiredPrimaryClassifications: ["unknown"], expectedEvidenceCategories: ["Other"], regression: "Completes coverage of the live Family Other evidence category." }),
   completeFixture({ id: "security-small-unknown-field", selectedCourtPath: "small-claims", role: "Plaintiff / claimant", stage: "starting-case", narrative: "Unknown field injection.", structuredIntake: smallInput({ unknownField: "reject" }),
     expectedRouteResult: { status: 400, ok: false }, canonical: { required: false }, regression: "Rejects unknown Small Claims fields." }),
@@ -373,8 +373,8 @@ export async function runRouteFixture(fixture: Fixture): Promise<FixtureRun> {
     return { fixture, status: firstResponse.status, body: { ...firstBody,
       isolationIds: [(firstBody.result?.masterResultPatch?.masterCase as any)?.id, (secondBody.result?.masterResultPatch?.masterCase as any)?.id] }, externalAiObserved: false };
   }
-  if (fixture.selectedCourtPath === "ai-case-partner") {
-    const response = await aiPartnerPost(new NextRequest("http://matrix/api/ai-case-partner", { method: "POST", headers: { "Content-Type": "application/json" },
+  if (fixture.selectedCourtPath === "guided-assistant") {
+    const response = await aiPartnerPost(new NextRequest("http://matrix/api/guided-assistant", { method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ caseId: fixture.id, message: fixture.narrative, conversation: [{ role: "user", content: fixture.narrative }], ...fixture.structuredIntake, mode: "verification" }) }));
     return { fixture, status: response.status, body: await response.json(), externalAiObserved: false };
   }
@@ -385,14 +385,14 @@ export async function runRouteFixture(fixture: Fixture): Promise<FixtureRun> {
 }
 
 function intelligenceFor(run: FixtureRun): any {
-  if (run.fixture.selectedCourtPath === "ai-case-partner") return run.body.conversationIntelligence || {};
+  if (run.fixture.selectedCourtPath === "guided-assistant") return run.body.conversationIntelligence || {};
   const result = run.body.result || {};
   return run.fixture.selectedCourtPath === "small-claims" ? result.analysis?.intelligence || {} : result.brain?.intelligence || {};
 }
 
 function classificationsFor(run: FixtureRun): string[] {
   const intelligence = intelligenceFor(run);
-  if (run.fixture.selectedCourtPath === "ai-case-partner") {
+  if (run.fixture.selectedCourtPath === "guided-assistant") {
     const labels = (intelligence.hypotheses || []).map((item: any) => String(item.label).toLowerCase());
     const domains: string[] = [];
     if (labels.some((label: string) => label.includes("defamation") || label.includes("reputation"))) domains.push("defamation");
@@ -489,7 +489,7 @@ export function evaluateFixtureRun(run: FixtureRun): FixtureReport {
     if (!canonical.masterCase) fail("canonical masterCase absent");
     if (!canonical.migration || canonical.migration.migrationLayer !== "BrainMigrationLayer") fail("BrainMigrationLayer marker absent");
     if (!canonical.assembly) fail("caseSystemAssembly absent");
-    if (canonical.masterCase?.courtPath !== (fixture.selectedCourtPath === "ai-case-partner" ? undefined : fixture.selectedCourtPath)) fail(`canonical courtPath mismatch: ${String(canonical.masterCase?.courtPath)}`);
+    if (canonical.masterCase?.courtPath !== (fixture.selectedCourtPath === "guided-assistant" ? undefined : fixture.selectedCourtPath)) fail(`canonical courtPath mismatch: ${String(canonical.masterCase?.courtPath)}`);
   }
   if (fixture.canonical.preserveCaseId && canonical.masterCase?.id !== fixture.canonical.preserveCaseId) fail(`case ID expected ${fixture.canonical.preserveCaseId}, received ${String(canonical.masterCase?.id)}`);
   for (const [key, expected] of Object.entries(fixture.canonical.preserveFields || {})) if (JSON.stringify(canonical.masterCase?.[key]) !== JSON.stringify(expected)) fail(`unrelated masterCase field not preserved: ${key}`);

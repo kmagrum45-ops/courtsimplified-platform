@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { runAiCasePartnerGateway } from "@/src/lib/case-system/ai-case-partner/aiCasePartnerGateway";
-import type { AiCasePartnerCourtContextInput } from "@/src/lib/case-system/ai-case-partner/aiCasePartnerOrchestrator";
-import { CasePartnerConversationMessage } from "@/src/lib/case-system/ai-case-partner/conversationIntelligenceEngine";
+import { runGuidedAssistantGateway } from "@/src/lib/case-system/guided-assistant/guidedAssistantGateway";
+import type { GuidedAssistantCourtContextInput } from "@/src/lib/case-system/guided-assistant/guidedAssistantOrchestrator";
+import { CasePartnerConversationMessage } from "@/src/lib/case-system/guided-assistant/conversationIntelligenceEngine";
 
 export const runtime = "nodejs";
 
@@ -11,7 +11,7 @@ type RequestBody = {
   message?: string;
   conversation?: CasePartnerConversationMessage[];
   caseMemory?: unknown;
-  courtContext?: AiCasePartnerCourtContextInput;
+  courtContext?: GuidedAssistantCourtContextInput;
   mode?: string;
 };
 
@@ -30,7 +30,7 @@ function cleanString(value: unknown): string {
 }
 
 function createDiagnosticId(): string {
-  return `ai_case_partner_${Date.now()}_${Math.random()
+  return `guided_assistant_${Date.now()}_${Math.random()
     .toString(36)
     .slice(2, 10)}`;
 }
@@ -112,7 +112,7 @@ export async function POST(request: NextRequest) {
 
     const gatewayStartedAt = Date.now();
 
-    const result = runAiCasePartnerGateway({
+    const result = runGuidedAssistantGateway({
       caseId: caseId || undefined,
       message,
       conversation,
@@ -155,7 +155,7 @@ export async function POST(request: NextRequest) {
     responsePayload.diagnostics.responseBytes =
       estimateJsonSize(responsePayload);
 
-    console.info("AI Case Partner request completed", {
+    console.info("guided assistant request completed", {
       diagnosticId,
       gatewayDurationMs,
       totalDurationMs: responsePayload.diagnostics.totalDurationMs,
@@ -169,7 +169,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     const detailedError = error as ErrorWithDetails;
 
-    console.error("AI Case Partner route error", {
+    console.error("guided assistant route error", {
       diagnosticId,
       stage: detailedError?.stage || "route-or-gateway",
       durationMs: Date.now() - requestStartedAt,

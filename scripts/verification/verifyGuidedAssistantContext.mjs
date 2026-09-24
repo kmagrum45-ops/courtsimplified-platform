@@ -78,7 +78,7 @@ async function waitForServer() {
     }
 
     try {
-      const response = await fetch(`${baseUrl}/api/ai-case-partner`, {
+      const response = await fetch(`${baseUrl}/api/guided-assistant`, {
         headers: { Cookie: siteAccessCookieHeader },
       });
 
@@ -98,7 +98,7 @@ async function waitForServer() {
 }
 
 async function postCasePartner(payload) {
-  const response = await fetch(`${baseUrl}/api/ai-case-partner`, {
+  const response = await fetch(`${baseUrl}/api/guided-assistant`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -156,7 +156,7 @@ async function assertProtectedCaseStorage() {
 }
 
 async function assertUnauthenticatedAssistantUsesFallback() {
-  const response = await fetch(`${baseUrl}/api/ai-case-partner`, {
+  const response = await fetch(`${baseUrl}/api/guided-assistant`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

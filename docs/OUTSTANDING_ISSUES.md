@@ -1715,7 +1715,7 @@ The rumour was accurate, including the date. **CJA s.23(1.1)**, added by 2023, c
 
 ## 2. Security and privacy
 
-### ✅ `app/api/ai-case-partner/route.ts` — "cross-user data exposure" — RAISED, INVESTIGATED, DID NOT HOLD
+### ✅ `app/api/guided-assistant/route.ts` — "cross-user data exposure" — RAISED, INVESTIGATED, DID NOT HOLD
 **Found:** Codex review. **Investigated and corrected:** verification session, 2026-09-12.
 
 **Kept deliberately rather than deleted, so nobody re-raises it from the same surface reading.**
@@ -1724,7 +1724,7 @@ The original entry read: *"Accepts a `caseId` and sensitive case context with no
 
 **The two literal facts are true: there is no authentication, and there is no ownership check.** The conclusion drawn from them is not.
 
-- `runAiCasePartnerGateway` is a **synchronous pure function**. The entire `src/lib/case-system/ai-case-partner/` directory has **zero database access** — no Supabase client, no service-role key, no `fetch`, no OpenAI call. Grepped across the whole directory, not inferred.
+- `runGuidedAssistantGateway` is a **synchronous pure function**. The entire `src/lib/case-system/guided-assistant/` directory has **zero database access** — no Supabase client, no service-role key, no `fetch`, no OpenAI call. Grepped across the whole directory, not inferred.
 - `caseId` is passed in and **only ever echoed back as a label**, into `createEmptyMemory(caseId)` in `conversationMemoryEngine.ts`. It is never used to look anything up.
 - All case context arrives **in the request body**, from a client that loaded it through an authenticated path (`CourtAssistantChat.tsx:866` sends `caseMemory` containing `caseData`, `masterResult`, `evidenceData`, `strategyData`). Passing another user's `caseId` returns analysis of **the caller's own submitted text** with that id echoed back.
 - `middleware.ts:70-79` gates **every** request including `/api/*` behind the `cs_site_access` cookie, with an explicit comment that API routes are deliberately not excluded *"an API route reachable without the gate would let someone bypass it entirely by calling the API directly."* Only `/site-access` and `/api/site-access` are exempt.
@@ -1735,12 +1735,12 @@ The original entry read: *"Accepts a `caseId` and sensitive case context with no
 
 **If that decision is ever made, the model to follow is `app/api/cases/form-applicability/route.ts:158-164`** — `getAuthenticatedUser` then `getAuthenticatedOwnedCase`. Do not invent a second approach. (`getAuthenticatedUser`'s own doc: it *"never accepts a user id supplied in a request body or query string as proof of identity."*)
 
-**Test gap, real and worth recording:** `verifyAiCasePartnerContext.mjs` exercises this route but **asserts nothing about auth or ownership** — its only 401 assertion is against case *storage*. So if auth is ever added, no existing test would catch a regression that removed it again.
+**Test gap, real and worth recording:** `verifyGuidedAssistantContext.mjs` exercises this route but **asserts nothing about auth or ownership** — its only 401 assertion is against case *storage*. So if auth is ever added, no existing test would catch a regression that removed it again.
 
 ### 🔒 Unbounded request payloads
 **Found:** Codex review. **Confirmed** in the same verification session — this is the part of the original finding that is real.
 
-- **`ai-case-partner`** accepts `caseMemory?: unknown` with **no validation and no size cap**, and passes it straight to `estimateJsonSize()`, which runs `JSON.stringify` over it. `sanitizeConversation` properly bounds the conversation (20 messages × 6,000 chars); `caseMemory` is bounded by nothing. **Nine routes define a `MAX_*_BYTES` cap; this one doesn't.**
+- **`guided-assistant`** accepts `caseMemory?: unknown` with **no validation and no size cap**, and passes it straight to `estimateJsonSize()`, which runs `JSON.stringify` over it. `sanitizeConversation` properly bounds the conversation (20 messages × 6,000 chars); `caseMemory` is bounded by nothing. **Nine routes define a `MAX_*_BYTES` cap; this one doesn't.**
 - **`evidence-praser`** (yes — the directory name is misspelled) does `await file.text()` on an uploaded file with **no limit**, then runs a global regex over the whole string.
 
 **Resource-exhaustion risk, behind the password gate. Not confidentiality** — `evidence-praser` parses only what the caller uploaded and hands it back; it takes no `caseId` and touches no database.
@@ -1748,7 +1748,7 @@ The original entry read: *"Accepts a `caseId` and sensitive case context with no
 ### 🔒 Eleven of 25 API routes have no authentication
 **Found:** route-by-route survey, same verification session.
 
-`ai-case-partner`, `evidence-praser`, `admin/scan-pdf-fields`, `classify-court-path`, `document-export`, `form-rules`, `rule-engine`, `rules/evidence`, `rules/issues`, `rules/procedures`, `scan-form-fields`.
+`guided-assistant`, `evidence-praser`, `admin/scan-pdf-fields`, `classify-court-path`, `document-export`, `form-rules`, `rule-engine`, `rules/evidence`, `rules/issues`, `rules/procedures`, `scan-form-fields`.
 
 **`admin/scan-pdf-fields` is the one worth looking at first**, because it sits under `/admin` and carries no auth at all. The rest are largely stateless utility or content routes, but none has been individually assessed.
 
@@ -1757,7 +1757,7 @@ All of them sit behind the `cs_site_access` gate, which is a real mitigation and
 ### 📌 A finding about findings
 **Recorded because it should change how the next external review is weighed.**
 
-The `ai-case-partner` entry above came from an external reviewer reading **one route file in isolation**. Refuting it required reading **three others** — the gateway (to establish there is no database access), `conversationMemoryEngine.ts` (to establish `caseId` is only echoed), and `middleware.ts` (to establish the gate covers `/api/*`).
+The `guided-assistant` entry above came from an external reviewer reading **one route file in isolation**. Refuting it required reading **three others** — the gateway (to establish there is no database access), `conversationMemoryEngine.ts` (to establish `caseId` is only echoed), and `middleware.ts` (to establish the gate covers `/api/*`).
 
 The reviewer's two literal observations were correct. The severity conclusion was wrong, and it was wrong in the direction that produces urgent-looking work that isn't needed — it sat at the top of this register's suggested order.
 
@@ -1991,7 +1991,7 @@ From the per-journey interception data in `_RATE_before.md` and `_RATE_after.md`
 
 > **CORRECTION (2026-09-14). `/api/assistant-chat` had no caller and has been
 > deleted.** The reachability sweep found it: `CourtAssistantChat` posts to
-> `/api/ai-case-partner`, not here, and nothing in `app/` or `src/` referenced
+> `/api/guided-assistant`, not here, and nothing in `app/` or `src/` referenced
 > this route. So the 18,000-character leak described below was real in the
 > code and reached no user, because the code never ran.
 >
@@ -2010,8 +2010,8 @@ From the per-journey interception data in `_RATE_before.md` and `_RATE_after.md`
 > applied at this route and at no other app route, so no API route applies it
 > now. It is still applied inside the library, at `courtSimplifiedBrain:1134`
 > and `intake/depth/slots.ts:122`, both of which are live. The live
-> `/api/ai-case-partner` path calls no model at all — there is no OpenAI
-> import anywhere under `ai-case-partner/` — so its answer is assembled
+> `/api/guided-assistant` path calls no model at all — there is no OpenAI
+> import anywhere under `guided-assistant/` — so its answer is assembled
 > deterministically by engines, which the runtime-string sweep (section 28)
 > covers. Worth re-checking if that ever changes.
 
@@ -3451,7 +3451,7 @@ SOURCING_NOTES.md now says so.
 ## Suggested order
 
 **Before any real user:**
-1. ~~`ai-case-partner` auth and ownership~~ — **removed: investigated and did not hold (§2).**
+1. ~~`guided-assistant` auth and ownership~~ — **removed: investigated and did not hold (§2).**
 2. ~~The three Small Claims Rules defects~~ — ✅ done, `3fdccdc`.
 3. ~~`outOfScopeForums.ts` citations~~ — ✅ done, `0791237`.
 4. ~~Causation gap~~ — ✅ was never open; already fixed in `c5cefe1` (§1).
@@ -3460,7 +3460,7 @@ SOURCING_NOTES.md now says so.
 7. ~~Confirm and fix `case-summary` case-strength content~~ — ✅ done. Dashboard half in `dc3934c`; the route itself deleted in `901716e`.
 8. **Walk through the site yourself.** Still hasn't happened. Nothing on this list substitutes for it.
 9. `admin/scan-pdf-fields` — assess why an `/admin` route has no auth (§2).
-10. Payload caps on `ai-case-partner`'s `caseMemory` and `evidence-praser`'s upload (§2). Nine routes already define `MAX_*_BYTES`; follow that pattern.
+10. Payload caps on `guided-assistant`'s `caseMemory` and `evidence-praser`'s upload (§2). Nine routes already define `MAX_*_BYTES`; follow that pattern.
 11. Push. **50+ commits unpushed.**
 
 **Then:**
@@ -3477,7 +3477,7 @@ SOURCING_NOTES.md now says so.
 All four were delegated and acted on. Kept with outcomes rather than deleted, since two of them turned out to be larger than described.
 
 ### ✅ 1. `evidenceStrengths` asymmetry — resolved by deleting the route (`901716e`)
-`app/api/case-summary/route.ts` is gone. Reachability re-verified independently: no fetch of the path anywhere, its only export was the Next.js `POST` handler and nothing imported it, and no verification script referenced it — `verifyAiCasePartnerContext.mjs` and `verifyServerAiReasoningContract.ts` both checked by name. The six `"case-summary"` hits prior sessions flagged are confirmed to be an unrelated `documentType` union member. **The asymmetry `6129abd` created dissolves rather than being answered in either direction.** Nothing was orphaned — `runCourtSimplifiedBrain` and `getAuthenticatedUser` both have many other callers. `ARCHITECTURE.md` updated in four places.
+`app/api/case-summary/route.ts` is gone. Reachability re-verified independently: no fetch of the path anywhere, its only export was the Next.js `POST` handler and nothing imported it, and no verification script referenced it — `verifyGuidedAssistantContext.mjs` and `verifyServerAiReasoningContract.ts` both checked by name. The six `"case-summary"` hits prior sessions flagged are confirmed to be an unrelated `documentType` union member. **The asymmetry `6129abd` created dissolves rather than being answered in either direction.** Nothing was orphaned — `runCourtSimplifiedBrain` and `getAuthenticatedUser` both have many other callers. `ARCHITECTURE.md` updated in four places.
 
 ### ✅ 2. Latent judge-concern strings — removed (`c5fce59`)
 **Three strings, not the two reported.** `Judge concern score` and `Cross-examination risk score` were flagged; `Document readiness impact` (typed `"none" | "minor" | "moderate" | "major" | "severe"`) sat alongside them, came from the same `credibilityRiskEngine`, and is the same kind of grading — removing only the named two would have left the defect under a less obvious label. `exportNotes` and its type are kept; what remains is `proceduralReadinessLabels()`, which states which procedural steps are ready — a fact about the file, not a grade.

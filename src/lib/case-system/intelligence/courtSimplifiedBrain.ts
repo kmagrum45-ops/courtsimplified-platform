@@ -2219,7 +2219,7 @@ function domainLabels(domains: LegalDomain[]): string {
 /**
  * Cross-court-area conflict detection for the builder analyze routes.
  *
- * conversationIntelligenceEngine has had this for the AI Case Partner path,
+ * conversationIntelligenceEngine has had this for the guided assistant path,
  * where it resolves a conflict by reporting courtArea "mixed". None of the
  * Family, Civil or Small Claims routes ever had an equivalent, so a story whose
  * relief spans two court paths was silently accepted into whichever path the

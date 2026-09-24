@@ -1000,7 +1000,7 @@ The honest position, maintained in `scripts/verification/verifyOutputGuardCovera
 | `LegalAdviceDeflection.tsx` | Same. |
 | `safetyPass.ts` crisis messages | Fixed constants, never model text — but unreviewed crisis wording, and not in the review packet. **Highest-priority library gap.** |
 | `proceduralStages.ts` (rendered by `/legal-principles`) | 21 hand-written procedural-stage cards, every one cited. **Now in the review packet**, so a licensee will read them — but the page renders them directly, so `REQUIRE_APPROVED_CONTENT` would not gate them. Same gap as the catalogue renders. |
-| `ai-case-partner/` | ~5,000 lines of deterministic template responses behind the builder's chat. Procedural statements, outside the library entirely. |
+| `guided-assistant/` | ~5,000 lines of deterministic template responses behind the builder's chat. Procedural statements, outside the library entirely. |
 | `documentGenerationEngine.ts` | Assembles the user's own recorded facts plus catalogue next steps. Guarding it would refuse the user's own words, which are not library items. Covered by `test:no-model-prose` instead. |
 
 ### The consequence for `REQUIRE_APPROVED_CONTENT`
@@ -1093,7 +1093,7 @@ every review track:
 of text still outside the packet with a reason each — so "291 items" cannot
 again be read as "everything".
 
-**REMAINING GAP.** `src/lib/case-system/ai-case-partner/` (~5,000 lines of
+**REMAINING GAP.** `src/lib/case-system/guided-assistant/` (~5,000 lines of
 template chat responses) is still outside. Reported separately in
 `docs/chat-engine-report.md`; a scoping decision is pending.
 
@@ -1292,7 +1292,7 @@ Run on this branch at `51621ca`.
    `StageConfirmation`. Until then approval is not load-bearing.
 3. **Apply the migration.** Yours to review and run — §"Renaming the Supabase
    projects".
-4. **The chat engine (`ai-case-partner/`) is still outside the review packet.**
+4. **The chat engine (`guided-assistant/`) is still outside the review packet.**
    The procedural stages and crisis messages were added on 2026-09-23;
    `docs/chat-engine-report.md` sets out what the chat engine can say, and a
    scoping decision is pending.
