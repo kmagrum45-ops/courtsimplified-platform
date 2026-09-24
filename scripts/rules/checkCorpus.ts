@@ -82,31 +82,89 @@ export function citedRules(text: string): string[] {
   );
 }
 
-type Citer = { id: string; where: string; rules: string[] };
+/**
+ * Which STATUTES a piece of content names.
+ *
+ * *** WHY THIS EXISTS BESIDE citedRules ***
+ *
+ * The pre-suit notice blocks cite sections, not rules: "Municipal Act s. 44
+ * (10)", "Occupiers' Liability Act s. 6.1". `citedRules` matches the "r. 9.01"
+ * shape and would see none of them — so the highest-consequence content in the
+ * product would have been outside the change watch entirely.
+ *
+ * Matching by STATUTE rather than by section is deliberate. Section numbering
+ * inside a large Act is not reliably parseable from prose ("s. 44 (10)",
+ * "s. 44(10)", "subsection 44(10)"), and a false negative here means a barred
+ * claim nobody was warned about. Statute-level granularity over-reports —
+ * a change anywhere in the Municipal Act flags every block citing it — and
+ * over-reporting on three sources is the right trade against missing one.
+ */
+const STATUTE_NAMES: Array<{ sourceId: string; pattern: RegExp }> = [
+  { sourceId: "municipal-act-2001", pattern: /Municipal Act/i },
+  { sourceId: "city-of-toronto-act-2006", pattern: /City of Toronto Act/i },
+  { sourceId: "occupiers-liability-act", pattern: /Occupiers'? Liability Act/i },
+  { sourceId: "limitations-act-2002", pattern: /Limitations Act/i },
+  { sourceId: "cja-courts-of-justice-act", pattern: /Courts of Justice Act/i },
+  { sourceId: "legislation-act-2006", pattern: /Legislation Act/i },
+  { sourceId: "oreg-626-00-monetary-jurisdiction", pattern: /O\.\s*Reg\.\s*626\/00|42\/25/i },
+];
 
-/** Everything in the content library that cites a rule by number. */
+export function citedStatutes(text: string): string[] {
+  return STATUTE_NAMES.filter(({ pattern }) => pattern.test(text)).map(
+    ({ sourceId }) => sourceId,
+  );
+}
+
+type Citer = {
+  id: string;
+  where: string;
+  /** Small Claims rule numbers, e.g. "9.01". */
+  rules: string[];
+  /** Corpus source ids for statutes this content names. */
+  statutes: string[];
+};
+
+/**
+ * Everything in the content library that cites a rule or names a statute.
+ *
+ * Both, because they fail differently. A rule citation is precise enough to
+ * diff per provision. A statute reference is not — so a change anywhere in
+ * that Act flags every block naming it, which over-reports and never misses.
+ */
 export function collectCiters(): Citer[] {
   const citers: Citer[] = [];
 
+  const add = (id: string, where: string, text: string) => {
+    const rules = citedRules(text);
+    const statutes = citedStatutes(text);
+    if (rules.length || statutes.length) citers.push({ id, where, rules, statutes });
+  };
+
   for (const block of NEXT_STEP_BLOCKS) {
-    const rules = citedRules(block.text);
-    if (rules.length) citers.push({ id: block.id, where: "next-step block", rules });
+    add(block.id, "next-step block", block.text);
   }
 
   for (const block of ASSISTANT_BLOCKS) {
-    const rules = citedRules(
-      `${block.template} ${block.citations.map((c) => `${c.sourceName} ${c.quote ?? ""}`).join(" ")}`,
+    add(
+      block.id,
+      "assistant block",
+      `${block.template} ${block.citations
+        .map((c) => `${c.sourceName} ${c.quote ?? ""}`)
+        .join(" ")}`,
     );
-    if (rules.length) citers.push({ id: block.id, where: "assistant block", rules });
   }
 
   for (const stage of PROCEDURAL_STAGES) {
-    const rules = citedRules(
-      [stage.summary, ...stage.keyFacts, ...stage.commonRisks].join(" "),
+    add(
+      stage.title,
+      "procedural-stage card",
+      [
+        stage.summary,
+        ...stage.keyFacts,
+        ...stage.commonRisks,
+        ...stage.citations.map((c) => c.sourceName),
+      ].join(" "),
     );
-    if (rules.length) {
-      citers.push({ id: stage.title, where: "procedural-stage card", rules });
-    }
   }
 
   return citers;
@@ -202,9 +260,17 @@ async function main(): Promise<void> {
 
     for (const citer of citers) {
       const touched = citer.rules.filter((rule) => changedRules.includes(rule));
-      if (touched.length === 0) continue;
+      // A block that NAMES this statute is flagged whether or not a rule
+      // number matched — see citedStatutes for why that over-reports on
+      // purpose. The notice provisions are cited as "s. 44 (10)", which no
+      // rule-number pattern can see.
+      const namesThisStatute = citer.statutes.includes(source.id);
+
+      if (touched.length === 0 && !namesThisStatute) continue;
+
       const key = `${citer.where}: ${citer.id}`;
-      reverify.set(key, new Set([...(reverify.get(key) ?? []), ...touched]));
+      const reasons = touched.length > 0 ? touched : [`(names ${source.citation})`];
+      reverify.set(key, new Set([...(reverify.get(key) ?? []), ...reasons]));
     }
   }
 

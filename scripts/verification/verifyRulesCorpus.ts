@@ -155,7 +155,132 @@ if (!manifest) {
       { source: "limitations-act-2002", probe: /basic limitation period/i, what: "the basic limitation period" },
       { source: "legislation-act-2006", probe: /holiday/i, what: "the holiday definition, for day counting" },
       { source: "cja-courts-of-justice-act", probe: /Small Claims Court/, what: "the Small Claims Court provisions" },
+
+      /*
+       * The pre-suit notice provisions. These bar an action outright, which
+       * makes them the highest-consequence deadlines in the product and the
+       * ones a self-represented person is least likely to know exist.
+       *
+       * *** A CORRECTION, AFTER TESTING IT ***
+       *
+       * This comment first claimed the 60-day probe was "the one check that
+       * would have caught the error that actually happened". It is not.
+       *
+       * I vendored `90o02_eV006.doc` — the frozen snapshot from seven weeks
+       * before s. 6.1 came into force, the document that produced the real
+       * error — and the 60-day probe PASSED against it. The section is in
+       * that document; it is simply marked "2020, c. 33, s. 1 - not in force".
+       * So the text is present and inoperative, which is the worst possible
+       * shape for a check that only looks for the text.
+       *
+       * What caught it was check 2, the HISTORICAL VERSION header. That is the
+       * load-bearing one. The probes below prove the provisions are present;
+       * the header check proves they are in force. Both are needed, and the
+       * "not in force" probe added at the end of this list is the third.
+       */
+      /*
+       * NOTE ON THE PROBES BELOW. antiword pads words with multiple spaces
+       * and hard-wraps lines, so a probe written with single spaces fails
+       * against text that reads correctly — "snow  or  ice  on  a  sidewalk".
+       * Every gap is `\s+`. The first version of this list used literal
+       * spaces and reported a provision as absent that was plainly there.
+       */
+      {
+        source: "occupiers-liability-act",
+        probe: /within\s+60\s+days\s+after\s+the\s+occurrence/i,
+        what: "OLA s. 6.1 — the 60-day snow-and-ice notice (ABSENT from the pre-2021 snapshot)",
+      },
+      {
+        source: "occupiers-liability-act",
+        probe: /reasonable excuse/i,
+        what: "OLA s. 6.1(6) — the reasonable-excuse exception, without which the deadline reads as absolute",
+      },
+      {
+        source: "municipal-act-2001",
+        probe: /within\s+10\s+days\s+after\s+the\s+occurrence/i,
+        what: "Municipal Act s. 44(10) — the 10-day notice to the clerk",
+      },
+      {
+        source: "municipal-act-2001",
+        probe: /snow\s+or\s+ice\s+on\s+a\s+sidewalk/i,
+        what: "Municipal Act s. 44(9) — the sidewalk snow-and-ice immunity absent gross negligence",
+      },
+      {
+        source: "city-of-toronto-act-2006",
+        probe: /within\s+10\s+days\s+after\s+the\s+occurrence/i,
+        what: "City of Toronto Act s. 42 — the 10-day notice, for Toronto claims",
+      },
     ];
+
+    /*
+     * The third guard: nothing we cite may contain a "not in force" marker.
+     *
+     * A current consolidation has none. A historical one carries the marker
+     * beside any section enacted but not yet operative — which is exactly how
+     * s. 6.1 appeared in the document that caused the real error: present,
+     * findable by a text probe, and legally inoperative.
+     *
+     * *** SCOPED TO THE PROVISION, NOT THE STATUTE ***
+     *
+     * The first version checked each whole Act and failed immediately: the
+     * Municipal Act carries 15 "not in force" markers and the City of Toronto
+     * Act 16, all against unproclaimed amendments elsewhere in a very large
+     * statute. That is normal and says nothing about s. 44 or s. 42.
+     *
+     * So the window is the notice provision itself, plus the credit line that
+     * follows it. A marker THERE means the provision we are about to build
+     * blocks on does not apply. A marker four hundred sections away means
+     * nothing.
+     */
+    const NOTICE_PROVISIONS: Array<{ id: string; probe: RegExp; what: string }> = [
+      {
+        id: "occupiers-liability-act",
+        probe: /within\s+60\s+days\s+after\s+the\s+occurrence/i,
+        what: "OLA s. 6.1",
+      },
+      {
+        id: "municipal-act-2001",
+        probe: /within\s+10\s+days\s+after\s+the\s+occurrence/i,
+        what: "Municipal Act s. 44(10)",
+      },
+      {
+        id: "city-of-toronto-act-2006",
+        probe: /within\s+10\s+days\s+after\s+the\s+occurrence/i,
+        what: "City of Toronto Act s. 42",
+      },
+    ];
+
+    /** Enough to reach the credit line beneath a subsection. */
+    const WINDOW = 1_200;
+    const inoperative: string[] = [];
+
+    for (const { id, probe, what } of NOTICE_PROVISIONS) {
+      const entry = manifest.entries.find((candidate) => candidate.id === id);
+      if (!entry) continue;
+      const text = readFileSync(path.join(CORPUS_DIR, entry.file), "utf8");
+      const found = probe.exec(text);
+      if (!found) continue;
+
+      const around = text.slice(
+        Math.max(0, found.index - WINDOW),
+        found.index + WINDOW,
+      );
+      if (/not\s+in\s+force/i.test(around)) {
+        const line = text.slice(0, found.index).split("\n").length;
+        inoperative.push(`  ${what} (${id}:${line}) is marked not in force`);
+      }
+    }
+
+    if (inoperative.length === 0) {
+      pass(`all ${NOTICE_PROVISIONS.length} notice provisions are in force`);
+    } else {
+      fail(
+        "a notice provision is marked NOT IN FORCE — this is probably a historical consolidation",
+        `${inoperative.join("\n")}\n` +
+          "A section marked 'not in force' is findable by a text probe and does not\n" +
+          "apply. That is how OLA s. 6.1 was cited from a frozen snapshot.",
+      );
+    }
 
     const absent: string[] = [];
 
