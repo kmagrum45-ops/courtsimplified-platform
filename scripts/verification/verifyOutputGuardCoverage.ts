@@ -146,17 +146,20 @@ const UNGUARDED: UnguardedPath[] = [
     file: "src/lib/case-system/intake/safetyPass.ts",
     what: "IMMEDIATE_DANGER_MESSAGE and DISTRESS_ACKNOWLEDGMENT",
     reason:
-      "Fixed constants, never model text. But they are unreviewed crisis wording " +
-      "— the file's own header says so — and they are not in the review packet. " +
-      "This is the highest-priority library gap, not a guard gap.",
+      "Fixed constants, never model text. Unreviewed crisis wording — the file's " +
+      "own header says so — and now IN the review packet (added 2026-09-23), " +
+      "which is what routes it to someone with clinical expertise. Still rendered " +
+      "without the guard, like every other fixed constant.",
   },
   {
-    file: "app/legal-principles/page.tsx",
-    what: "22 procedural stages across three courts",
+    file: "src/lib/content-library/proceduralStages.ts",
+    what: "21 procedural-stage cards across three courts, rendered by /legal-principles",
     reason:
-      "Hand-written, not model output, and cited. Not in contentInventory.ts, so " +
-      "no licensee review tracks it and the guard has nothing to check it " +
-      "against. Recorded in the report as a review-packet gap.",
+      "Hand-written, not model output, and every card cited. IS now in the review " +
+      "packet (added 2026-09-23), so a licensee will read it -- but the page " +
+      "renders the cards directly rather than through the guard, so " +
+      "REQUIRE_APPROVED_CONTENT would not gate them. Same gap as the catalogue " +
+      "renders.",
   },
   {
     file: "src/lib/case-system/ai-case-partner/",

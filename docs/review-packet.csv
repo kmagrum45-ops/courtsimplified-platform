@@ -526,3 +526,353 @@ Small Claims Court's jurisdiction is generally limited to two kinds of remedies:
 "sc-remedy-interest-and-costs","remedy","small-claims","readiness","Interest and costs
 
 Interest and costs (such as court filing fees) are generally handled separately from, and in addition to, the amount claimed -- they don't count against the $50,000 limit. Whether interest or costs are awarded, and how much, depends on the specific case; this is general information that these can be part of an order, not a specific amount for any claim.","https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim","Readiness gate, remedy confirmation","1646982257","draft","","",""
+"stage:small-claims:monetary-jurisdiction","procedural-stage","small-claims","reference","Monetary Jurisdiction
+
+Small Claims Court can only hear claims up to a set dollar limit. Claims for more than that must go to the Superior Court of Justice, unless the excess is waived.
+
+Key facts:
+- The claim limit is $50,000, excluding interest and costs.
+- This limit increased from $35,000 effective October 1, 2025.
+- The minimum amount that can be appealed also rose, from $3,500 to $5,000.
+- A claim must generally be started within two years of the incident.
+
+How CourtSimplified uses it:
+- Confirm the claim amount fits Small Claims Court before starting a case.
+- Use Evidence to support the dollar amount claimed.
+
+Common risks:
+- Filing in the wrong court for the amount claimed.
+- Missing the two-year limitation period.","https://www.ontario.ca/page/suing-someone-small-claims-court","/legal-principles — a public page, live today","1906463241","draft","","",""
+"stage:small-claims:filing-a-claim","procedural-stage","small-claims","reference","Filing a Claim
+
+Starting a Small Claims Court case requires the correct form, served on the defendant within a fixed window.
+
+Key facts:
+- A claim is started with the Plaintiff's Claim (Form 7A).
+- An action is commenced by filing the Plaintiff's Claim with the clerk, together with a copy for each defendant — not required if it is filed electronically.
+- Counter-claims use the Defendant's Claim (Form 10A). Form 1A is a continuation sheet, appended to a form when its first page has no room to list all the parties.
+- The claim must be served on the defendant within six months of being issued.
+- Service of the claim is proved by an Affidavit of Service (Form 8A), or by a lawyer or paralegal's Certificate of Service (Form 8B) where that licensee served it, or caused it to be served, and is satisfied service was effected.
+
+How CourtSimplified uses it:
+- Use Forms to locate and complete Form 7A.
+- Use Evidence to organize proof of the amount and basis of the claim before filing.
+
+Common risks:
+- Letting the six-month service window lapse.
+- Serving the claim but never filing proof of how and when it was served.
+- Using the wrong form for the type of claim.","https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim","/legal-principles — a public page, live today","1729550523","draft","","",""
+"stage:small-claims:responding-to-a-claim","procedural-stage","small-claims","reference","Responding to a Claim
+
+A defendant has a short, fixed window to file a defence, with a specific form required.
+
+Key facts:
+- A defendant must serve and file a Defence (Form 9A) within 20 calendar days of being served with the claim.
+- The defence is served on every other party and filed with proof of service — an Affidavit of Service (Form 8A), or a lawyer or paralegal's Certificate of Service (Form 8B).
+- The Defence can be filed through the Small Claims Court Submissions Online Portal or in person.
+
+How CourtSimplified uses it:
+- Use Forms to complete Form 9A before the deadline.
+- Use Dashboard to track the 20-day response deadline.
+
+Common risks:
+- Missing the 20-day deadline.
+- Filing the Defence without an Affidavit of Service.","https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/","/legal-principles — a public page, live today","27832300","draft","","",""
+"stage:small-claims:if-a-defence-is-not-filed","procedural-stage","small-claims","reference","If a Defence Is Not Filed
+
+Missing the defence deadline has a specific, serious procedural consequence.
+
+Key facts:
+- If no defence is filed in time, the plaintiff may ask the clerk to note the defendant in default.
+- The plaintiff asks by filing a request to note the defendant in default, which may be made in Form 9B.
+- The clerk also requires proof that the claim was served within the court's territorial division.
+- If every defendant was served outside that territorial division, no defendant can be noted in default until an Affidavit for Jurisdiction (Form 11A) is filed with the clerk, or the point is proved before a judge.
+- A defendant noted in default cannot file a defence or take further steps without the plaintiff's consent or the court's permission.
+- For a debt or a fixed sum of money, the clerk may sign default judgment (Form 11B).
+- The plaintiff may be entitled to a judgment without the defendant's participation.
+- A defendant can bring a motion to set aside a default notation or judgment.
+
+How CourtSimplified uses it:
+- Use Dashboard to flag cases at risk of default.
+- Use Legal Strategy if a default has already been noted, to assess a motion to set it aside.
+
+Common risks:
+- Assuming a late defence will still be accepted without consequence.
+- Asking to note a defendant in default without having filed proof that the claim was served.
+- Not knowing that a motion is required to reverse a default.","https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/default-proceedings/","/legal-principles — a public page, live today","163864841","draft","","",""
+"stage:small-claims:serving-documents","procedural-stage","small-claims","reference","Serving Documents
+
+Different documents in a Small Claims case require different service methods and notice periods.
+
+Key facts:
+- Documents can be served personally, by mail, by courier, or by email where the Rules permit.
+- A claim must be served within six months of issuance.
+- Motions require at least 7 days' notice before the hearing.
+- Examinations require at least 30 days' notice; witness summonses require at least 10 days' notice.
+- Proof of service is filed using an Affidavit of Service (Form 8A), or a Certificate of Service (Form 8B) for licensees.
+
+How CourtSimplified uses it:
+- Use Dashboard to track service deadlines for each document type.
+- Use Evidence to preserve proof of how and when service occurred.
+
+Common risks:
+- Using a service method the Rules do not permit for a given document.
+- Missing the notice period for a motion or examination.","https://www.ontario.ca/document/guide-procedures-small-claims-court/serving-documents","/legal-principles — a public page, live today","1827300685","draft","","",""
+"stage:small-claims:evidence-and-witnesses-for-trial","procedural-stage","small-claims","reference","Evidence and Witnesses for Trial
+
+The court expects specific document deadlines and preparation before a settlement conference or trial.
+
+Key facts:
+- Admissible evidence includes oral testimony, documents such as business records, expert reports, and photographs where properly identified.
+- Documents not already attached to the claim or defence must be served and filed at least 14 days before a settlement conference.
+- For trial, that deadline extends to at least 30 days before the trial date.
+- A List of Proposed Witnesses (Form 13A) must be served at least 14 days before the settlement conference.
+- Service of a summons to witness, and the payment or tender of attendance money, may be proved by an Affidavit of Service (Form 8A) or a lawyer or paralegal's Certificate of Service (Form 8B).
+- Parties should bring original documents plus at least three copies to trial.
+
+How CourtSimplified uses it:
+- Use Evidence to label and organize exhibits ahead of these deadlines.
+- Use Trial Package to prepare document copies and the witness list.
+
+Common risks:
+- Serving documents or the witness list too close to the settlement conference or trial.
+- Bringing only one copy of a document to trial.","https://www.ontario.ca/document/guide-procedures-small-claims-court/getting-ready-court","/legal-principles — a public page, live today","1744893802","draft","","",""
+"stage:small-claims:case-timeline","procedural-stage","small-claims","reference","Case Timeline
+
+A Small Claims case moves through a defined sequence of stages, each with its own deadlines.
+
+Key facts:
+- The stages run: Claim, Default Proceedings (if applicable), Settlement Conference, Motions (if needed), Trial, and Enforcement.
+- A Request to Clerk for a trial date must generally be filed within 30 days after the settlement conference.
+- A notice of motion and supporting affidavit (Form 15A) must be served at least 7 days before the hearing and filed, with proof of service, at least 3 days before it.
+
+How CourtSimplified uses it:
+- Use Dashboard to see which stage a case is currently in.
+- Use Court Package to prepare stage-appropriate materials.
+
+Common risks:
+- Skipping the settlement conference step by mistake.
+- Missing the window to request a trial date.","https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/steps-in-a-case/","/legal-principles — a public page, live today","193776866","draft","","",""
+"stage:small-claims:filing-fees","procedural-stage","small-claims","reference","Filing Fees
+
+Filing a claim or taking further steps has fixed government fees, which vary by how often a party files.
+
+Key facts:
+- An infrequent filer pays $108 to file a claim.
+- A frequent filer (10 or more claims per year) pays $228 to file a claim.
+- Additional fees apply for judgments, trials, and motions.
+
+How CourtSimplified uses it:
+- Use Dashboard to budget for filing and later-stage fees.
+
+Common risks:
+- Assuming filing is free.
+- Not budgeting for motion or trial fees later in the case.","https://www.ontario.ca/page/suing-someone-small-claims-court","/legal-principles — a public page, live today","1509260254","draft","","",""
+"stage:civil:starting-a-claim","procedural-stage","civil","reference","Starting a Claim
+
+A civil claim above the Small Claims limit is started in the Superior Court of Justice with its own form, service window, and limitation period.
+
+Key facts:
+- A claim is started with a Statement of Claim (Form 14A or 14B), or a Notice of Action (Form 14C) for extra time to prepare it.
+- The claim must generally be served on each defendant within six months of being issued.
+- A claim generally cannot be started more than two years after it was discovered.
+- An Affidavit of Service (Form 16B) must be filed after serving defendants.
+
+How CourtSimplified uses it:
+- Use Forms to locate the Statement of Claim form.
+- Use Dashboard to track the limitation period and service deadline.
+
+Common risks:
+- Missing the two-year limitation period.
+- Letting the six-month service window lapse.","https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/","/legal-principles — a public page, live today","1260769617","draft","","",""
+"stage:civil:defending-a-claim","procedural-stage","civil","reference","Defending a Claim
+
+A defendant in a civil claim has a form-specific deadline that can be extended once, briefly.
+
+Key facts:
+- A Statement of Defence (Form 18A) must be served within the timeframe set out in Rule 18 of the Rules of Civil Procedure, which varies by where the defendant was served.
+- A Notice of Intent to Defend (Form 18B) gives an additional 10 days to serve and file the Statement of Defence.
+- An Affidavit of Service (Form 16B) must be filed with proof of service of the defence.
+
+How CourtSimplified uses it:
+- Use Forms to complete Form 18A or the Form 18B extension.
+- Use Dashboard to track the Rule 18 deadline once it is confirmed for the specific case.
+
+Common risks:
+- Assuming the deadline is the same as Small Claims Court's 20 days — Rule 18 deadlines vary by how and where service occurred.
+- Not filing a Notice of Intent to Defend when more time is needed.","https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/","/legal-principles — a public page, live today","564274427","draft","","",""
+"stage:civil:discovery","procedural-stage","civil","reference","Discovery
+
+After pleadings close, both sides must exchange documents and may examine each other under oath, on a schedule.
+
+Key facts:
+- Parties must agree on a Discovery Plan within 60 days of the close of pleadings.
+- Each side exchanges an Affidavit of Documents (Form 30A or 30B).
+- Examinations for discovery are typically limited to about 7 hours per examination.
+
+How CourtSimplified uses it:
+- Use Evidence to prepare the Affidavit of Documents.
+- Use Legal Strategy to plan for examinations for discovery.
+
+Common risks:
+- Missing the 60-day Discovery Plan deadline.
+- Incomplete document disclosure in the Affidavit of Documents.","https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/","/legal-principles — a public page, live today","598362497","draft","","",""
+"stage:civil:mandatory-mediation","procedural-stage","civil","reference","Mandatory Mediation
+
+In some regions, mediation is a required step before trial, on a fixed timeline.
+
+Key facts:
+- Mandatory mediation applies in Toronto, Ottawa, and Windsor.
+- Mediation must occur within 180 days after the first defence is filed.
+
+How CourtSimplified uses it:
+- Use Settlement Conference preparation tools if the case is in a mandatory mediation region.
+
+Common risks:
+- Not scheduling mediation within the 180-day window in a mandatory region.","https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/","/legal-principles — a public page, live today","993018398","draft","","",""
+"stage:civil:setting-down-for-trial","procedural-stage","civil","reference","Setting Down for Trial
+
+A civil case must be actively moved toward trial or it can be dismissed for delay.
+
+Key facts:
+- A pre-trial conference must be scheduled within 180 days of the case being set down for trial.
+- An action can be dismissed if it is not set down for trial or settled within five years of being started.
+
+How CourtSimplified uses it:
+- Use Dashboard to track the five-year dismissal risk on older cases.
+- Use Trial Package once the case is set down for trial.
+
+Common risks:
+- Letting a case sit without being set down for trial or settled.
+- Missing the 180-day pre-trial conference window.","https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/","/legal-principles — a public page, live today","744117016","draft","","",""
+"stage:civil:forms","procedural-stage","civil","reference","Forms
+
+Superior Court civil cases use a distinct set of forms from Small Claims Court, organized under the Rules of Civil Procedure.
+
+Key facts:
+- Forms are catalogued under R.R.O. 1990, Reg. 194 (Rules of Civil Procedure) and include pleadings, motion forms, and enforcement writs.
+- Documents can be filed in hardcopy at the court counter, and in some cases by mail, email, or through online filing portals.
+
+How CourtSimplified uses it:
+- Use Forms to locate the correct Rules of Civil Procedure form for each stage.
+
+Common risks:
+- Using a Small Claims Court form in a Superior Court civil case, or vice versa.","https://ontariocourtforms.on.ca/en/rules-of-civil-procedure-forms/","/legal-principles — a public page, live today","754361882","draft","","",""
+"stage:civil:serving-documents","procedural-stage","civil","reference","Serving Documents
+
+Superior Court civil documents have their own service methods and their own ways of proving service.
+
+Key facts:
+- Service of a document may be proved by an affidavit of the person who served it (Form 16B).
+- A lawyer may instead prove service by a Lawyer's Certificate of Service (Form 16B.1), where the lawyer served the document or caused it to be served and is satisfied service was effected.
+- This is narrower than Small Claims Court: under the Rules of Civil Procedure a paralegal cannot certify service, and an affidavit of service is used instead.
+- Where a lawyer admits or accepts service on a party's behalf, that written admission is itself sufficient proof and needs no other proof of service.
+- Personal service by a sheriff may be proved by a Sheriff's Certificate of Service (Form 16C).
+- The affidavit or certificate may be printed on the backsheet of the document served, or on a stamp or sticker affixed to it.
+
+How CourtSimplified uses it:
+- Use Evidence to preserve proof of how and when each document was served.
+- Use Dashboard to track which documents still need proof of service filed.
+
+Common risks:
+- Assuming a paralegal's certificate of service is available in Superior Court as it is in Small Claims Court.
+- Serving a document and never filing proof that it was served.","https://www.ontario.ca/laws/regulation/900194","/legal-principles — a public page, live today","1973079212","draft","","",""
+"stage:family:starting-a-case","procedural-stage","family","reference","Starting a Case
+
+Most family law cases begin with a required education session before the case proceeds.
+
+Key facts:
+- Attendance at a Mandatory Information Program (MIP) is required for most family law cases.
+- The party starting the case is the applicant; the party who receives it is the respondent.
+
+How CourtSimplified uses it:
+- Use Dashboard to confirm MIP attendance has been arranged before other steps proceed.
+
+Common risks:
+- Proceeding with other steps before completing the required MIP session.","https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/family-resources-to-help-self-represented-litigants/steps/","/legal-principles — a public page, live today","1905478581","draft","","",""
+"stage:family:responding-to-an-application","procedural-stage","family","reference","Responding to an Application
+
+A respondent has a fixed window to answer, and the applicant then has a further, shorter window to reply.
+
+Key facts:
+- An Answer (Form 10) must be served and filed within 30 days of being served with the application (60 days if the respondent lives outside Canada or the United States).
+- The Answer can agree or disagree with the applicant's claims, state supporting facts, and make the respondent's own requests for court orders.
+- If the Answer raises new claims or issues, the applicant has 10 days to serve and file a Reply (Form 10A).
+
+How CourtSimplified uses it:
+- Use Forms to complete Form 10 or Form 10A.
+- Use Dashboard to track the 30-day or 10-day response window.
+
+Common risks:
+- Missing the 30-day deadline to answer.
+- Not replying within 10 days to new claims raised in an Answer.","https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/family-resources-to-help-self-represented-litigants/steps/","/legal-principles — a public page, live today","699688832","draft","","",""
+"stage:family:serving-documents","procedural-stage","family","reference","Serving Documents
+
+Family documents must be served, and in family court filing a document already means filing proof that it was served.
+
+Key facts:
+- In the Family Law Rules, to file a document means to file it with proof of service where service is required — so anywhere these steps say ""serve and file"", proof of service is part of filing.
+- Service may be proved by an affidavit of service (Form 6B).
+- A lawyer or paralegal may instead prove service by a Lawyer or Paralegal's Certificate of Service (Form 6C), where that licensee served the document or caused it to be served and is satisfied service was effected.
+- Service may also be proved by the other person's written acceptance of service, by the return postcard for service by mail, by a document exchange date stamp, or by an electronic document exchange's record of service.
+
+How CourtSimplified uses it:
+- Use Evidence to preserve proof of how and when each document was served.
+- Use Dashboard to track which documents still need proof of service filed.
+
+Common risks:
+- Reading ""serve and file"" as two steps and filing without the proof of service that filing requires.
+- Assuming the Small Claims Court forms (8A, 8B) apply in a family case.","https://www.ontario.ca/laws/regulation/990114","/legal-principles — a public page, live today","1869409772","draft","","",""
+"stage:family:conferences","procedural-stage","family","reference","Conferences
+
+A family case moves through a sequence of court conferences before any trial.
+
+Key facts:
+- The sequence generally runs: First Appearance, Case Conference, Settlement Conference, and (if unresolved) a Trial Scheduling and Management Conference, then Trial.
+- At First Appearance, the court clerk checks that documents are complete and properly served.
+- The Case Conference and Settlement Conference are opportunities to narrow or resolve disputed issues before trial.
+
+How CourtSimplified uses it:
+- Use Settlement Conference preparation tools ahead of each conference stage.
+- Use Dashboard to see which conference stage the case has reached.
+
+Common risks:
+- Arriving at a conference without documents properly served or filed.
+- Treating a Case Conference as optional.","https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/family-resources-to-help-self-represented-litigants/steps/","/legal-principles — a public page, live today","154006149","draft","","",""
+"stage:family:motions","procedural-stage","family","reference","Motions
+
+Bringing a family court motion has its own notice rules, including an emergency exception.
+
+Key facts:
+- Motions generally require at least 1 day's notice, unless emergency circumstances apply.
+- An emergency motion may be brought without notice, but the case must return to court within 14 days.
+
+How CourtSimplified uses it:
+- Use Legal Strategy to assess whether a motion, including an emergency motion, is appropriate.
+
+Common risks:
+- Bringing an emergency motion without a genuine emergency.
+- Missing the 14-day return date after an emergency motion.","https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/family-resources-to-help-self-represented-litigants/steps/","/legal-principles — a public page, live today","1660384370","draft","","",""
+"stage:family:forms","procedural-stage","family","reference","Forms
+
+Family Court uses its own set of forms under the Family Law Rules, distinct from civil or Small Claims forms.
+
+Key facts:
+- Forms are catalogued under the Family Law Rules, O. Reg. 114/99, including Application (Form 8), Answer (Form 10), and Financial Statement (Form 13 or 13.1).
+- Most family court forms can be filed online through the Ministry of the Attorney General's Justice Services Online.
+
+How CourtSimplified uses it:
+- Use Forms to locate the correct Family Law Rules form for each stage.
+
+Common risks:
+- Using a civil or Small Claims form instead of the matching Family Law Rules form.","https://ontariocourtforms.on.ca/en/family-law-rules-forms/","/legal-principles — a public page, live today","124856554","draft","","",""
+"safety:immediate-danger-message","safety-resource","all","safety","If you are in immediate danger, please call 911.
+
+CourtSimplified is a legal information platform. It is not equipped to respond to emergencies or provide crisis support, and this intake cannot continue right now.
+
+Other support that may help:
+- Assaulted Women's Helpline: 1-866-863-0511 (toll-free), or 416-863-0511
+- Fem'aide (French-language support): 1-877-336-2433 (toll-free)
+- ConnexOntario mental health, addictions, and problem gambling helpline: 1-866-531-2600 (toll-free)
+- To report a child who may be in need of protection: contact your local Children's Aid Society, or call police if a child is in immediate danger. There is no single province-wide number for this -- Ontario's own guidance directs people to their local society.","https://www.ontario.ca/page/connect-supports-survivors-violence","Every free-text intake, when the safety pass returns immediate-danger. The intake HALTS.","816992964","draft","","",""
+"safety:distress-acknowledgment","safety-resource","all","safety","Thank you for sharing that -- it sounds like a genuinely difficult situation. We'll take this at a slower pace, and there's no need to rush through anything.","","Every free-text intake, when the safety pass returns distress. The intake continues.","1651688095","draft","","",""

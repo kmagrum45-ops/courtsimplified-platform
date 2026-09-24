@@ -136,7 +136,7 @@ and derives each item's `version` from a hash of its own text, so an item whose
 wording changes gets a new version automatically and its old approval stops
 applying. An approval that silently survives an edit is worse than no approval.
 
-**268 items** across ten types:
+**291 items** across eleven types:
 
 | Type | Count |
 |---|---|
@@ -148,8 +148,9 @@ applying. An approval that silently survives an edit is worse than no approval.
 | pathway-description | 22 |
 | form-guidance | 12 |
 | education-topic | 9 |
+| procedural-stage | 21 |
 | remedy | 4 |
-| safety-resource | 1 |
+| safety-resource | 3 |
 
 `REQUIRE_APPROVED_CONTENT` (env `CONTENT_REQUIRE_APPROVED`) defaults to
 **false**, so nothing disappears from the site today.
@@ -545,7 +546,7 @@ must come back **false**, and that failure would be the more serious of the two.
 
 ## Placeholders — content that needs writing
 
-**35 of 268 inventory items** carry `[NEEDS LICENSEE REVIEW: …]`. Nothing is
+**35 of 291 inventory items** carry `[NEEDS LICENSEE REVIEW: …]`. Nothing is
 invented; a placeholder renders as nothing.
 
 > **A correction.** This paragraph used to say placeholders "are blocked from
@@ -928,7 +929,7 @@ this document as much as of the code.
 | 5 | The audit log would have stored the narrative in substance — `safety-pass` returns the model's sentence about why someone is in distress | **Fixed by redaction** |
 | 6 | `output_guard_blocked` had no callers, so the quarterly report always printed a false "nothing was blocked" | **Fixed: reports the limitation instead** |
 | 7 | `user_id` and `case_id` would be NULL on every audit row | **Fixed at the analyze route; anonymous routes stay anonymous** |
-| 8 | The review packet omits `legal-principles/page.tsx`, the crisis messages and the chat engine | **NOT FIXED — needs your decision** |
+| 8 | The review packet omits `legal-principles/page.tsx`, the crisis messages and the chat engine | **Two fixed** (2026-09-23, commit `6d3e1a2`); the chat engine is reported on separately and still needs a decision |
 | 9 | This report was three commits stale and contradicted the code | **Fixed by this revision** |
 | 10 | "The model returns only a stage code under a JSON schema" was wrong in both halves | **Fixed in Step 2** |
 | 11 | The first-use acknowledgement gated nothing — a user could scroll past it | **Fixed; storage limitation still stands** |
@@ -998,7 +999,7 @@ The honest position, maintained in `scripts/verification/verifyOutputGuardCovera
 | `PathwayUnavailable.tsx` | Fixed constants outside the library. Adding them to the library would let the guard cover them. |
 | `LegalAdviceDeflection.tsx` | Same. |
 | `safetyPass.ts` crisis messages | Fixed constants, never model text — but unreviewed crisis wording, and not in the review packet. **Highest-priority library gap.** |
-| `legal-principles/page.tsx` | 22 hand-written procedural stages, cited, but outside `contentInventory.ts` so no review tracks them. |
+| `proceduralStages.ts` (rendered by `/legal-principles`) | 21 hand-written procedural-stage cards, every one cited. **Now in the review packet**, so a licensee will read them — but the page renders them directly, so `REQUIRE_APPROVED_CONTENT` would not gate them. Same gap as the catalogue renders. |
 | `ai-case-partner/` | ~5,000 lines of deterministic template responses behind the builder's chat. Procedural statements, outside the library entirely. |
 | `documentGenerationEngine.ts` | Assembles the user's own recorded facts plus catalogue next steps. Guarding it would refuse the user's own words, which are not library items. Covered by `test:no-model-prose` instead. |
 
@@ -1060,11 +1061,11 @@ run against the content registries.
 
 **IN PLACE.** Content is versioned by a hash of its own text
 (`content-library/contentInventory.ts`), so editing an item invalidates any
-approval it had. 268 items are inventoried across ten types.
+approval it had. 291 items are inventoried across eleven types.
 
-**IN PLACE.** A review packet exports to `docs/review-packet.csv` and `.md`, and
-an import script refuses unknown ids, version mismatches, half-filled rows and
-malformed dates.
+**IN PLACE.** A review packet exports **291 items** to `docs/review-packet.csv`
+and `.md`, and an import script refuses unknown ids, version mismatches,
+half-filled rows and malformed dates.
 
 **NOT BUILT — and this is the largest gap.** *No licensee has reviewed any
 content.* `src/lib/content-library/approvals.json` is empty. Accuracy today
@@ -1075,10 +1076,26 @@ and the user-facing notices now say exactly that.
 turning it on would currently affect two paragraphs. See §"What the output guard
 actually covers".
 
-**KNOWN GAP.** The review packet omits `app/legal-principles/page.tsx` (22
-procedural stages), the crisis messages in `safetyPass.ts`, and
-`src/lib/case-system/ai-case-partner/`. **A licensee could sign off all 268
-items and leave those unreviewed.** This needs a scoping decision.
+**IN PLACE as of 2026-09-23.** The packet holds **291 items**, up from 268.
+Added on the site owner's decision after independent review found them outside
+every review track:
+
+- the **21 procedural-stage cards** rendered by `/legal-principles` — a public
+  page, 926 lines, three courts. They were a module-private const inside the
+  page, so `contentInventory.ts` could not see them. Moved to
+  `src/lib/content-library/proceduralStages.ts`; the move was verified
+  byte-identical before anything else changed.
+- the **two crisis messages** in `safetyPass.ts`. That file's own header says
+  they need clinical review before shipping, and answer Q7 leads with it, yet
+  neither string was in the packet.
+
+`npm run test:inventory-coverage` now asserts both, and names the five bodies
+of text still outside the packet with a reason each — so "291 items" cannot
+again be read as "everything".
+
+**REMAINING GAP.** `src/lib/case-system/ai-case-partner/` (~5,000 lines of
+template chat responses) is still outside. Reported separately in
+`docs/chat-engine-report.md`; a scoping decision is pending.
 
 ### Q3 — Safety guardrails and transparency
 
@@ -1192,10 +1209,10 @@ the moment storage ships.
 
 **Four things we would rather state than have found.**
 
-**First, nothing has been reviewed by a licensee.** Not the 268 catalogued
-items, not the 22 procedural stages on `/legal-principles`, not the crisis
-messages, not the chat engine. Until 2026-09-23 the product told users the
-opposite.
+**First, nothing has been reviewed by a licensee.** Not the 291 catalogued
+items — which is now 291, after the procedural-stage cards and the crisis
+messages were added to the packet on 2026-09-23. Until that same day the product
+told users the legal information had been "written and checked by people".
 
 **Second, the safety pass's crisis resources have never been reviewed by anyone
 with crisis-response, clinical or legal expertise.** The phone numbers are
@@ -1275,9 +1292,10 @@ Run on this branch at `51621ca`.
    `StageConfirmation`. Until then approval is not load-bearing.
 3. **Apply the migration.** Yours to review and run — §"Renaming the Supabase
    projects".
-4. **Add the three omitted bodies of content to the review packet** —
-   `legal-principles/page.tsx`, the crisis messages, `ai-case-partner/`. Needs
-   your scoping decision.
+4. **The chat engine (`ai-case-partner/`) is still outside the review packet.**
+   The procedural stages and crisis messages were added on 2026-09-23;
+   `docs/chat-engine-report.md` sets out what the chat engine can say, and a
+   scoping decision is pending.
 5. **Privacy and Terms additions A–E**, none of them made.
 6. **Wire the output-guard block counter**, which needs guard evaluation moved
    server-side or a separate reporting channel.

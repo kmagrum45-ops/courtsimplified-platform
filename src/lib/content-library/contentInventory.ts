@@ -38,6 +38,11 @@ import { OUT_OF_SCOPE_FORUMS } from "../case-system/intelligence/outOfScopeForum
 import { NEXT_STEP_BLOCKS } from "./nextSteps";
 import { PATHWAY_DESCRIPTIONS } from "./pathwayDescriptions";
 import { QUESTION_EXPLANATIONS } from "./questionExplanations";
+import { PROCEDURAL_STAGES } from "./proceduralStages";
+import {
+  IMMEDIATE_DANGER_MESSAGE,
+  DISTRESS_ACKNOWLEDGMENT,
+} from "./crisisMessages";
 import type { ContentItem } from "./licenseeReview";
 
 /**
@@ -236,5 +241,108 @@ export function collectContentInventory(): ContentItem[] {
     );
   }
 
+  /*
+   * ---- Procedural stages: /legal-principles ----
+   *
+   * ADDED 2026-09-23. These 22 cards are live on a public page and were in NO
+   * review packet, because they lived as a module-private const inside
+   * `app/legal-principles/page.tsx` and this file could not see them. A
+   * licensee could have signed off every other item here and left 926 lines of
+   * procedural content across three courts unreviewed. Found by independent
+   * review; the content moved to `proceduralStages.ts` so it could be indexed.
+   *
+   * The whole card is one item. A reviewer checking "the clerk notes a
+   * defendant in default" needs the surrounding keyFacts and the citation in
+   * front of them, and splitting the card into six rows would put each fact on
+   * its own line with the source on another.
+   */
+  const PATHWAY_BY_COURT: Record<string, string> = {
+    "Small Claims Court": "small-claims",
+    "Superior Court (Civil)": "civil",
+    "Family Court": "family",
+  };
+
+  for (const stage of PROCEDURAL_STAGES) {
+    const pathway = PATHWAY_BY_COURT[stage.courtPath] ?? "unknown";
+    items.push(
+      item({
+        // Includes the pathway: "Filing a Claim" and "Serving Documents" both
+        // recur across courts, and an id collision would silently drop a card
+        // from the packet. Same defect the form-guidance ids hit earlier.
+        id: `stage:${pathway}:${slug(stage.title)}`,
+        type: "procedural-stage",
+        pathway,
+        stage: "reference",
+        text: [
+          stage.title,
+          "",
+          stage.summary,
+          "",
+          "Key facts:",
+          ...stage.keyFacts.map((fact) => `- ${fact}`),
+          "",
+          "How CourtSimplified uses it:",
+          ...stage.workflowUse.map((use) => `- ${use}`),
+          "",
+          "Common risks:",
+          ...stage.commonRisks.map((risk) => `- ${risk}`),
+        ].join("\n"),
+        sourceUrl: stage.citations[0]?.officialUrl || "",
+        appearsIn: "/legal-principles — a public page, live today",
+      }),
+    );
+  }
+
+  /*
+   * ---- Crisis messages ----
+   *
+   * ADDED 2026-09-23, and these are the highest-consequence strings in the
+   * product. `safetyPass.ts`'s own header says the message "STILL NEEDS REAL
+   * CLINICAL/LEGAL REVIEW BEFORE THIS EVER SHIPS", and answer Q7 to the LSO
+   * leads with it — yet neither string was in the packet. The one
+   * `safety-resource` row was `family-violence-support-resources`, a different
+   * file entirely.
+   *
+   * The phone numbers inside are individually sourced from ontario.ca and
+   * quoted verbatim (see the block comment above the constant). What has never
+   * been reviewed is the MESSAGE: whether this is the right thing to say to
+   * someone who has just disclosed danger, in this order, at this length.
+   * That is a clinical judgment, not a sourcing one, and it is exactly what a
+   * review packet exists to route to the right person.
+   */
+  items.push(
+    item({
+      id: "safety:immediate-danger-message",
+      type: "safety-resource",
+      pathway: "all",
+      stage: "safety",
+      text: IMMEDIATE_DANGER_MESSAGE,
+      sourceUrl: "https://www.ontario.ca/page/connect-supports-survivors-violence",
+      appearsIn:
+        "Every free-text intake, when the safety pass returns immediate-danger. The intake HALTS.",
+    }),
+  );
+
+  items.push(
+    item({
+      id: "safety:distress-acknowledgment",
+      type: "safety-resource",
+      pathway: "all",
+      stage: "safety",
+      text: DISTRESS_ACKNOWLEDGMENT,
+      sourceUrl: "",
+      appearsIn:
+        "Every free-text intake, when the safety pass returns distress. The intake continues.",
+    }),
+  );
+
   return items;
+}
+
+/** Lowercase-hyphenated, for ids built from a human title. */
+function slug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }

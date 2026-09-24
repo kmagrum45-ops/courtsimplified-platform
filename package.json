@@ -92,7 +92,8 @@
     "db:migrate": "node --import tsx scripts/db/applyMigrations.ts",
     "test:db-environments": "node --import tsx scripts/verification/verifyDatabaseEnvironments.ts",
     "test:guard-coverage": "node --import tsx scripts/verification/verifyOutputGuardCoverage.ts",
-    "test:no-model-prose": "node --import tsx scripts/verification/verifyNoModelProseInDocuments.ts"
+    "test:no-model-prose": "node --import tsx scripts/verification/verifyNoModelProseInDocuments.ts",
+    "test:inventory-coverage": "node --import tsx scripts/verification/verifyInventoryCoverage.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",
