@@ -93,7 +93,10 @@
     "test:guard-coverage": "node --import tsx scripts/verification/verifyOutputGuardCoverage.ts",
     "test:no-model-prose": "node --import tsx scripts/verification/verifyNoModelProseInDocuments.ts",
     "test:inventory-coverage": "node --import tsx scripts/verification/verifyInventoryCoverage.ts",
-    "test:assistant-blocks": "node --import tsx scripts/verification/verifyAssistantBlocks.ts"
+    "test:assistant-blocks": "node --import tsx scripts/verification/verifyAssistantBlocks.ts",
+    "rules:fetch": "node --import tsx scripts/rules/fetchCorpus.ts",
+    "rules:check": "node --import tsx scripts/rules/checkCorpus.ts",
+    "test:rules-corpus": "node --import tsx scripts/verification/verifyRulesCorpus.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",
