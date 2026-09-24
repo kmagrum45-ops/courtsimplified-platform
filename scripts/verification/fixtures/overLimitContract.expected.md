@@ -99,3 +99,49 @@ what is in the file, what is still missing. No conclusion is drawn.
     `defenceFiled` is extracted all shift run to run. These are still free-text model output on
     code this rewrite did not touch, and they are not pinned by any expectation in this file. A
     diff in them is not a signal.
+
+## 8. Independent review (2026-09-23): model prose removed from three more fields
+
+`*.actual.md` was regenerated again. Three fields went empty or shorter, and
+this is the intended change, not a regression.
+
+An independent reviewer — given only the LSO policy, the seven regulator
+questions, the original audit and the branch diff — found that §7's fix was
+incomplete. The "What to do next" heading had been converted to catalogue text,
+and three sibling fields were still carrying model prose to a user by routes
+nobody had walked:
+
+| Field | Where it reached a user |
+|---|---|
+| `missingEvidence` | `buildSummary()`'s "Evidence to gather" heading — **three lines above** the heading that was fixed — then `analysis.summary` → `CaseContext.summary` → `documentGenerationEngine.ts:105` → the document body |
+| `missingInformation` | `documentGenerationEngine.ts:91`, `baseWarnings()` |
+| `risksAndGaps` | `app/api/document-export/route.ts:151`, the "Risks and gaps" section of a downloaded package |
+
+The same reviewer found `IntelligenceOverviewPanel` rendering a model-written
+question ("What to confirm next") on the main builder screen, unguarded.
+
+All three fields are assembled once, in `smallClaimsIntelligenceEngine.ts`, so
+the model's contribution is now stripped there rather than at each render site
+— the render sites were how the first fix came to be partial.
+
+**What the diff shows:**
+
+- `missingEvidence: []` and `risksAndGaps: []`. Empty rather than substituted:
+  there is no reviewed catalogue of risk or evidence-gap wording to select
+  from, and a risk statement about a specific case sits close to CLAUDE.md §3's
+  line anyway. The panel still shows "Evidence to organize or confirm" from the
+  claim-type catalogue, which is reviewed library content with source links, so
+  the capability is not lost on the surface where it belongs.
+- `missingInformation` keeps only its deterministic entries — does the intake
+  have a name, an address for service, a claim amount — plus the fixed defence
+  question.
+- The summary's heading changed from "Evidence to gather" to "Evidence
+  recorded" and now always shows what the user typed. It used to *prefer* the
+  model's list and fall back to the user's words; the preference was backwards.
+
+None of this is lost for supervision. The model's version is still carried on
+`analysis.intelligence`, which is what the audit log records.
+
+Asserted by `npm run test:no-model-prose`, which checks the assembly point
+rather than the rendered document — the property that makes every downstream
+consumer safe, including ones added later.

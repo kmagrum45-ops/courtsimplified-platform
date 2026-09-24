@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { withAiCallIdentity } from "../../../../src/lib/audit/aiCallLog";
 
 import {
   analyzeSmallClaimsWithBrain,
@@ -66,9 +67,20 @@ const allowedFiledDocuments = new Set([
   "not-sure",
 ]);
 
+/*
+ * "name" was here until 2026-09-23. This is a STRICT allowlist -- isEvidenceFile
+ * rejects any unknown key and requires an exact field count -- so leaving it
+ * would have done two wrong things at once: rejected every payload carrying the
+ * new neutral `reference`, and accepted one carrying a file name.
+ *
+ * With it replaced, the route refuses a body that still sends a name. That
+ * makes it a second control behind the structural one in
+ * src/lib/case-system/evidence/evidenceReference.ts, the same way
+ * app/api/civil/analyze/route.ts is.
+ */
 const evidenceStringFields = [
   "id",
-  "name",
+  "reference",
   "type",
   "title",
   "description",
@@ -283,6 +295,10 @@ export function createSmallClaimsAnalyzePost(
     return errorResponse("A complete Small Claims intake is required.", 400);
   }
 
+  // Bound here rather than read inside the closure below: the narrowing from
+  // isSmallClaimsInput does not survive into an arrow function.
+  const validatedInput = body.input;
+
   try {
     const user = await dependencies.authenticate(request);
     const authenticated = Boolean(user);
@@ -308,10 +324,27 @@ export function createSmallClaimsAnalyzePost(
           )
         : [];
 
-    const internalResult = await dependencies.analyze(body.input, {
-      allowExternalCognition,
-      confirmedEvents,
-    });
+    /*
+     * LSO Step 7, corrected 2026-09-23.
+     *
+     * Every audit row was landing with user_id and case_id NULL, because the
+     * six call sites that open an audit context are library functions two or
+     * three layers below here and none of them knows who is asking. This route
+     * does. `withAiCallIdentity` puts it in scope for every model call made
+     * underneath, at any depth, without threading the ids through functions
+     * that have no use for them.
+     *
+     * Both may legitimately be null: this route serves unauthenticated callers
+     * (they just get the deterministic path), and a case id is optional.
+     */
+    const internalResult = await withAiCallIdentity(
+      { userId: user?.id ?? null, caseId },
+      () =>
+        dependencies.analyze(validatedInput, {
+          allowExternalCognition,
+          confirmedEvents,
+        }),
+    );
 
     const fallbackUsed =
       internalResult.analysis.intelligence?.cognitionMode === "fallback";

@@ -37,8 +37,22 @@ import {
  */
 export default function FirstUseAcknowledgement({
   onAcknowledged,
+  onStatus,
 }: {
   onAcknowledged?: () => void;
+  /**
+   * Reports whether the acknowledgement is still OUTSTANDING.
+   *
+   * Added 2026-09-23. Independent review found this component rendered as one
+   * item in a stack above the intake, so a user could scroll past it and
+   * complete a whole case without ever ticking the box. Its own header called
+   * it a gate. It was a notice.
+   *
+   * A caller that wants it to gate now has something to gate on. Called with
+   * null while the answer is still unknown, so a caller never flashes the
+   * intake and then hides it.
+   */
+  onStatus?: (outstanding: boolean | null) => void;
 }) {
   const [checked, setChecked] = useState(false);
   const [needed, setNeeded] = useState<boolean | null>(null);
@@ -52,7 +66,9 @@ export default function FirstUseAcknowledgement({
       if (!active) return;
       const id = data.user?.id ?? null;
       setUserId(id);
-      setNeeded(!readAcknowledgement(id));
+      const outstanding = !readAcknowledgement(id);
+      setNeeded(outstanding);
+      onStatus?.(outstanding);
     }
 
     void load();
@@ -78,8 +94,10 @@ export default function FirstUseAcknowledgement({
 
       <p className="mt-3 text-[15px] leading-7 text-[#24463d]">
         We use AI to help organize what you write and point you to the right part of the
-        site. It does not write the legal information you see — people write and check that.
-        Please confirm anything the AI suggests before relying on it.
+        site. The legal and procedural wording you read is written by people and selected by
+        the AI, not composed by it — but it has <strong>not yet been reviewed by a licensed
+        Ontario lawyer or paralegal</strong>. Check anything here against the official source
+        before relying on it.
       </p>
 
       <label className="mt-5 flex items-start gap-3">
@@ -103,6 +121,7 @@ export default function FirstUseAcknowledgement({
         onClick={() => {
           writeAcknowledgement(userId);
           setNeeded(false);
+          onStatus?.(false);
           onAcknowledged?.();
         }}
         className="mt-5 rounded-xl bg-[#2f7d67] px-5 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"

@@ -98,8 +98,18 @@ export function pathwayUnavailableMessage(pathway: KnownPathway): string {
 /**
  * Every fixed string this module can put on a screen.
  *
- * Exported so the output guard's allowlist and the tests read the same list the
- * component renders, rather than a second copy that can drift.
+ * *** THE COMMENT HERE USED TO BE FALSE. CORRECTED 2026-09-23. ***
+ *
+ * It said "exported so the output guard's allowlist and the tests read the
+ * same list the component renders". Neither `outputGuard.ts` nor
+ * `contentInventory.ts` imports it, and `PathwayUnavailable.tsx` renders the
+ * message directly — so it was a dead export whose own documentation asserted
+ * a coverage that did not exist. Found by independent review.
+ *
+ * It is kept because it is the right shape for the fix: when these messages go
+ * into the content library, this is the function that enumerates them for the
+ * inventory. Until then it is used only by `verifyPhaseScope`, and this
+ * comment says so rather than implying more.
  */
 export function allPathwayUnavailableMessages(): string[] {
   return (["family", "civil", "small-claims"] as KnownPathway[]).map(

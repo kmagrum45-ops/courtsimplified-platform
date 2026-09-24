@@ -608,12 +608,27 @@ function getCaseValues(masterResult: unknown, courtType: CourtPath): CaseValues 
       defendantName,
   );
 
+  /*
+   * "summary" REMOVED from this fallback chain, 2026-09-23.
+   *
+   * The destination is a PDF the user prints and files at a court counter, so
+   * the bar for what may land here is the highest in the product.
+   *
+   * `deepPick(..., "summary")` could resolve to `analysis.summary`, which is
+   * `buildSummary()`'s output — and that carried model prose until the same
+   * review. The other four keys are the user's own account of what happened,
+   * which is exactly what a court form's fact field should contain.
+   *
+   * It fired only when every earlier key was empty, so this was a narrow path.
+   * It is removed rather than guarded because there is no version of "the
+   * model's summary of your case" that belongs on a filed document.
+   */
   const facts = safe(
     data.facts ||
       extra.facts ||
       extra.story ||
       extra.caseSummary ||
-      deepPick(allSources, ["facts", "story", "caseSummary", "summary"]),
+      deepPick(allSources, ["facts", "story", "caseSummary"]),
   );
 
   const timeline = safe(

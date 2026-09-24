@@ -33,6 +33,17 @@ import { pathwayDescriptionFor } from "../../src/lib/content-library/pathwayDesc
 
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
 
+/**
+ * Source with comments removed.
+ *
+ * Needed because the checks below count occurrences of expressions this
+ * codebase also discusses at length in prose — see the note at the
+ * response_format count.
+ */
+function withoutComments(source: string): string {
+  return source.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
+}
+
 let failures = 0;
 
 function check(name: string, ok: boolean, detail?: string): void {
@@ -180,7 +191,16 @@ function main(): void {
       continue;
     }
 
-    const text = fs.readFileSync(full, "utf8");
+    /*
+     * Comments stripped before counting.
+     *
+     * Independent review on 2026-09-23: this compared two substring counts,
+     * and `response_format:` appears in prose all over this codebase. A file
+     * whose comment discussed response_format satisfied the check without
+     * declaring one. Correct today by luck rather than by construction, which
+     * is the definition of a check that will fail to fail.
+     */
+    const text = withoutComments(fs.readFileSync(full, "utf8"));
     const creates = (text.match(/chat\.completions\.create\(/g) || []).length;
     const formats = (text.match(/response_format:/g) || []).length;
 

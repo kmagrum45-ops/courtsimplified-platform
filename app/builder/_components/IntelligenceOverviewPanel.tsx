@@ -86,7 +86,16 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
   const hasAdoptionSignal = issueSignals.some((item) => /adoption/i.test(item));
   const recordedEvidence = Array.from(new Set([
     ...(intake?.evidence.trim() ? [intake.evidence] : []),
-    ...((intake?.extra?.uploadedEvidenceFiles as Array<{ name?: unknown }> | undefined) || []).flatMap((file) => typeof file?.name === "string" && file.name.trim() ? [file.name.trim()] : []),
+    // Reads `reference` ("Document 1"), not `name`. The name field no longer
+    // exists -- see src/lib/case-system/evidence/evidenceReference.ts -- so
+    // this read was silently returning nothing after that change. The user's
+    // own label is shown alongside it, which is the part that means anything.
+    ...((intake?.extra?.uploadedEvidenceFiles as Array<{ reference?: unknown; title?: unknown }> | undefined) || []).flatMap((file) => {
+      const reference = typeof file?.reference === "string" ? file.reference.trim() : "";
+      if (!reference) return [];
+      const label = typeof file?.title === "string" ? file.title.trim() : "";
+      return [label ? `${reference} — ${label}` : reference];
+    }),
   ]));
   // The card used to hardcode the Defence question whenever a claim and an
   // affidavit of service were recorded, so it asked it even when the same
@@ -97,6 +106,22 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
   const defenceQuestion = "Has the defendant filed a Defence?";
   const askDefenceQuestion =
     hasClaimAndService && !isQuestionAlreadyAnswered(defenceQuestion, filingFacts);
+  /*
+   * "What to confirm next" used to display a MODEL-WRITTEN QUESTION about this
+   * user's matter, on the main builder screen, with no guard.
+   *
+   * `analysis.missingInformation` and `analysis.nextBestActions` were filtered
+   * for anything ending in "?" and the first hit was rendered verbatim. Found
+   * by independent review on 2026-09-23; it is audit finding B-5, which the
+   * first pass of the LSO work did not address.
+   *
+   * Both source fields are now stripped of model prose at the engine's
+   * assembly point, so this list is already deterministic. The filter is kept
+   * rather than deleted because `missingInformation` still legitimately
+   * carries fixed questions ("Has the defendant filed a Defence?") and the
+   * catalogue's next steps are library text -- both are fine to show. What is
+   * gone is the model's contribution to either.
+   */
   const isQuestionText = (value: string) => value.trim().endsWith("?");
   const candidateQuestions = withoutAnsweredQuestions(
     [

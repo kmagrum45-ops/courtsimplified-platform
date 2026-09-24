@@ -45,9 +45,10 @@ export default function AiUseNotice({ activity, className }: AiUseNoticeProps) {
         {activity
           ? `On this page, AI helps ${activity}.`
           : "AI helps organize what you write and point you to the right part of the site."}{" "}
-        It does not write the legal information you see — that was written and checked by
-        people. Please confirm anything the AI suggests before relying on it, and remember
-        CourtSimplified gives legal information, not legal advice.
+        The legal and procedural wording you read is written by people and selected by the
+        AI, not composed by it. That wording has <strong>not yet been reviewed by a licensed
+        Ontario lawyer or paralegal</strong>. Please check anything here against the official
+        source before relying on it — CourtSimplified gives legal information, not legal advice.
       </p>
     </aside>
   );

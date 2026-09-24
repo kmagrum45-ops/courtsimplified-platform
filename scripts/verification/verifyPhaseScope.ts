@@ -30,6 +30,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import {
+  allPathwayUnavailableMessages,
   AVAILABLE_PATHWAYS,
   isPathwayAvailable,
   pathwayUnavailableMessage,
@@ -169,6 +170,16 @@ const DOORS: Array<{ file: string; why: string }> = [
     pass(`${REFERRAL_RESOURCES.length} referral resources accompany the message`);
   } else {
     fail(`expected at least 4 referral resources, found ${REFERRAL_RESOURCES.length}`);
+  }
+
+  // allPathwayUnavailableMessages() is used ONLY here. Its own comment used to
+  // claim the output guard read it, which was false. Exercised so it is not a
+  // wholly dead export while it waits to be wired into the content inventory.
+  const all = allPathwayUnavailableMessages();
+  if (all.length === 3 && all.every((message) => message.includes("Small Claims Court"))) {
+    pass("allPathwayUnavailableMessages enumerates all three pathways");
+  } else {
+    fail(`allPathwayUnavailableMessages returned ${all.length} message(s)`);
   }
 
   const component = read("app/_components/PathwayUnavailable.tsx");

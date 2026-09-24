@@ -39,6 +39,7 @@ import path from "node:path";
 import { runSafetyPass } from "../../src/lib/case-system/intake/safetyPass";
 import { classifyCourtPath } from "../../src/lib/case-system/intelligence/courtPathClassifier";
 import { checkUserContent } from "../../src/lib/content-library/outputGuard";
+import { NEXT_STEP_BLOCKS, isPlaceholder } from "../../src/lib/content-library/nextSteps";
 import {
   DEFLECTION_MESSAGE,
   OUT_OF_SCOPE_MESSAGE,
@@ -140,8 +141,17 @@ console.log("");
 
 // --- Case 20 ---------------------------------------------------------------
 // "Completing Small Claims end to end — confirm no AI free text appears in the
-// document." Asserted at the guard, which is the thing that would have to fail
-// for free text to get through, rather than by reading one generated document.
+// document."
+//
+// THIS BLOCK USED TO CLAIM MORE THAN IT CHECKED. Its comment said the guard
+// "is the thing that would have to fail for free text to get through" — which
+// was false, because the document path never consults the guard at all. The
+// real control for the document is that model prose is stripped from the
+// engine's user-facing fields; that is asserted by
+// verifyNoModelProseInDocuments.ts, and case 20 is covered THERE.
+//
+// What remains here is narrower and true: the guard refuses model prose when
+// it is asked, and allows the catalogue when it is asked.
 
 {
   const modelProse = [
@@ -159,26 +169,55 @@ console.log("");
 }
 
 {
-  // And the other direction: the guard must not be refusing everything, which
-  // would pass the check above for the wrong reason.
-  const fixed = [DEFLECTION_MESSAGE, OUT_OF_SCOPE_MESSAGE];
-  const refused = fixed.filter((text) => !checkUserContent(text).allowed);
+  /*
+   * THE OTHER DIRECTION, REWRITTEN 2026-09-23.
+   *
+   * This block used to pass when the guard REFUSED the two deflection
+   * constants — `if (refused.length === fixed.length)` — while its own comment
+   * introduced it as a control that "the guard must not be refusing
+   * everything". It asserted the opposite of what it said, and it would have
+   * gone red if someone did the right thing and moved the deflection text into
+   * the library. Found by independent review.
+   *
+   * What the check should assert is that the guard is not a blanket refuser,
+   * which is tested properly with something that IS in the library: a
+   * catalogue next-step block.
+   */
+  const libraryText = NEXT_STEP_BLOCKS.find(
+    (block) => block.pathway === "small-claims" && !isPlaceholder(block),
+  )?.text;
 
-  // These two are component constants rather than library items, so they are
-  // expected NOT to be in the library index — what matters is that the
-  // component renders them directly and never through the guard. Asserted here
-  // as documentation of that boundary, not as a pass/fail on the guard.
-  if (refused.length === fixed.length) {
-    pass(
-      "20",
-      "the deflection constants are rendered directly, not through the guard (they are not library items)",
-    );
+  if (!libraryText) {
+    fail("20", "no authored Small Claims block to test the guard's positive case with");
+  } else if (checkUserContent(libraryText).allowed) {
+    pass("20", "the guard ALLOWS a real catalogue block — it is not refusing everything");
   } else {
     fail(
       "20",
-      "a deflection constant is in the content library index; it should be one or the other, not both",
+      "the guard refused its own catalogue's text",
+      "Every 'the guard blocks X' check above now passes for the wrong reason.",
     );
   }
+}
+
+{
+  /*
+   * And the honest note about the two deflection constants.
+   *
+   * They are component constants, not library items, so the guard does not
+   * recognise them — and the components render them directly rather than
+   * through it. That is a real gap, recorded rather than asserted away:
+   * see docs/lso-fixes-report.md and verifyOutputGuardCoverage.ts's UNGUARDED
+   * list. Printed here so a reader of this suite is not left believing the
+   * guard covers the deflection.
+   */
+  const unrecognised = [DEFLECTION_MESSAGE, OUT_OF_SCOPE_MESSAGE].filter(
+    (text) => !checkUserContent(text).allowed,
+  );
+  console.log(
+    `note  [20] ${unrecognised.length} of 2 deflection constants are outside the content ` +
+      "library and render without the guard — see verifyOutputGuardCoverage.ts",
+  );
 }
 
 {

@@ -141,17 +141,27 @@ function buildExportSections(body: ExportRequestBody): ExportSection[] {
     body.caseData?.timeline ||
     body.master_result?.timeline;
 
+  /*
+   * TWO FALLBACKS REMOVED 2026-09-23, after independent review found this
+   * route putting model text into a package the user downloads.
+   *
+   * `body.strategyData?.strengths` and `body.strategyData?.weaknesses` are
+   * case-strength assessments. Those are forbidden outright by CLAUDE.md
+   * section 3 — not merely unreviewed, but the specific thing the platform
+   * must never do — and they were reachable here whenever the fields above
+   * them were absent.
+   *
+   * `source?.analysis?.risksAndGaps` was model prose about this user's matter.
+   * It is now empty at the engine's assembly point, and the read is dropped
+   * here as well so that a stored analysis from before that change cannot
+   * revive it.
+   */
   const strategy =
     source?.analysis?.caseStrategy ||
     source?.caseStrategy ||
-    body.strategyData?.caseStrategy ||
-    body.strategyData?.strengths;
+    body.strategyData?.caseStrategy;
 
-  const risks =
-    source?.analysis?.risksAndGaps ||
-    source?.risksAndGaps ||
-    body.strategyData?.risks ||
-    body.strategyData?.weaknesses;
+  const risks = source?.risksAndGaps || body.strategyData?.risks;
 
   return [
     {

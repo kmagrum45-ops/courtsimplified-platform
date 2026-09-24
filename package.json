@@ -90,7 +90,9 @@
     "test:no-filenames": "node --import tsx scripts/verification/verifyNoFilenamesToModel.ts",
     "test:phase-scope": "node --import tsx scripts/verification/verifyPhaseScope.ts",
     "db:migrate": "node --import tsx scripts/db/applyMigrations.ts",
-    "test:db-environments": "node --import tsx scripts/verification/verifyDatabaseEnvironments.ts"
+    "test:db-environments": "node --import tsx scripts/verification/verifyDatabaseEnvironments.ts",
+    "test:guard-coverage": "node --import tsx scripts/verification/verifyOutputGuardCoverage.ts",
+    "test:no-model-prose": "node --import tsx scripts/verification/verifyNoModelProseInDocuments.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",

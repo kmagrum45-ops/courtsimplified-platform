@@ -53,16 +53,41 @@
 -- requires the user, who has their own case file.
 --
 --
--- DECISION 2: THE OUTPUT *IS* STORED, IN FULL, AS JSONB.
+-- DECISION 2: THE OUTPUT IS STORED AS JSONB, REDACTED.
 --
--- Every user-facing model call in this system now returns structured output
--- under a JSON schema: a classification label, a stage code, a content id, a
--- boolean. That is the whole point of the LSO rewrite — the model selects, it
--- does not write. So structured_output is small, it is non-legal by
--- construction, and it is exactly the thing a reviewer needs to see.
+-- *** THIS DECISION WAS WRONG WHEN FIRST WRITTEN. CORRECTED 2026-09-23. ***
 --
--- If a row ever appears here with prose in structured_output, that is not an
--- audit-log problem. That is the finding.
+-- It used to read: "Every user-facing model call in this system now returns
+-- structured output under a JSON schema: a classification label, a stage code,
+-- a content id, a boolean... So structured_output is small, it is non-legal by
+-- construction... If a row ever appears here with prose in structured_output,
+-- that is not an audit-log problem. That is the finding."
+--
+-- An independent review found that untrue of four of the six call types:
+--
+--   safety-pass            returns `reason`, the model's sentence about why it
+--                          thinks this person is in distress or danger. The
+--                          most sensitive string the platform produces.
+--   court-path-classifier  returns `reasoning`, a sentence about the story.
+--   small-claims-analysis  returns caseFileRecorded / caseFileNotRecorded as
+--                          free sentences naming evidence and counterparties.
+--   extract-intake-facts   exists to return facts pulled from the narrative.
+--
+-- Storing those verbatim for twelve months would have made Decision 1 false in
+-- substance while it stayed true in letter: no column called "narrative", and
+-- the narrative in the table anyway.
+--
+-- WHAT IS STORED NOW. The structured output with its prose fields replaced by
+-- "[redacted N chars]" -- see PROSE_FIELDS and MAX_STORED_STRING in
+-- src/lib/audit/aiCallLog.ts. Labels, codes, ids and booleans survive intact,
+-- because those are what a reviewer needs. The shape of the prose survives
+-- (which field, how long); the prose does not. An unparseable response is
+-- recorded as its length, not its first four thousand characters.
+--
+-- The deny-list is the weaker kind of control and is chosen deliberately: an
+-- allowlist would silently drop the labels that are the point of the log the
+-- first time someone adds a field. It is paired with a blanket length cap,
+-- which catches the prose field nobody thought to name.
 --
 --
 -- DECISION 3: SERVICE ROLE ONLY. NO POLICIES, AND NO ADMIN ROLE INVENTED.

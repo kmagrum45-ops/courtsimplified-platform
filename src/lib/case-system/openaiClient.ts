@@ -90,6 +90,31 @@ export function forceNoStore<T>(client: T): T {
       chatCreate({ ...body, store: false }, options),
     )) as never;
 
+  /*
+   * `chat.completions.parse` — the SDK's structured-output helper.
+   *
+   * Wrapped 2026-09-23 after independent review pointed out that only
+   * `.create` was covered. `.parse` is the method someone reaches for when
+   * they want a typed response under a JSON schema, which is exactly the
+   * direction this codebase is being pushed — so it is the single most likely
+   * next call, and it would have bypassed BOTH `store: false` and the audit
+   * log in one line.
+   *
+   * Guarded by a typeof check rather than assumed present: it arrived in a
+   * recent SDK version and pinning behaviour to its existence would break the
+   * client on an older one.
+   */
+  const chatCompletions = target.chat.completions as unknown as Record<string, unknown>;
+  if (typeof chatCompletions.parse === "function") {
+    const chatParse = (chatCompletions.parse as (...args: unknown[]) => unknown).bind(
+      target.chat.completions,
+    );
+    chatCompletions.parse = ((body: Record<string, unknown>, options?: unknown) =>
+      observeAiCall(body, async () =>
+        chatParse({ ...body, store: false }, options),
+      )) as never;
+  }
+
   // The Responses API is wrapped too, even though nothing uses it yet. It is
   // the one that defaults to storing, so it is the one most worth covering
   // BEFORE somebody reaches for it.

@@ -101,10 +101,16 @@ const arrayFields = new Set([
   "receivedForms",
 ]);
 
+/*
+ * "fileName" and "originalName" were here until 2026-09-23. Strict allowlist,
+ * so leaving them would have rejected every payload carrying the new neutral
+ * `reference` AND accepted one carrying a file name. Replaced, so this route
+ * now refuses a body that still sends one -- a second control behind the
+ * structural one in src/lib/case-system/evidence/evidenceReference.ts.
+ */
 const allowedUploadFields = new Set([
   "id",
-  "fileName",
-  "originalName",
+  "reference",
   "mimeType",
   "sizeBytes",
   "title",
@@ -137,7 +143,7 @@ function isUpload(value: unknown): boolean {
   }
   if (
     !isBoundedString(value.id, MAX_SHORT_TEXT_LENGTH) ||
-    !isBoundedString(value.fileName, MAX_SHORT_TEXT_LENGTH) ||
+    !isBoundedString(value.reference, MAX_SHORT_TEXT_LENGTH) ||
     !isBoundedString(value.mimeType, MAX_SHORT_TEXT_LENGTH) ||
     typeof value.sizeBytes !== "number" ||
     !Number.isFinite(value.sizeBytes) ||

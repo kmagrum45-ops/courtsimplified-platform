@@ -230,6 +230,12 @@ function BuilderPageContent() {
     createChatSessionId(courtPath),
   );
 
+  /**
+   * Whether the first-use acknowledgement is still outstanding. null until the
+   * component has read storage -- see the gate below the hooks.
+   */
+  const [acknowledgementOutstanding, setAcknowledgementOutstanding] = useState<boolean | null>(null);
+
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   /**
    * The stage the USER confirmed, which is the only one that drives next-step
@@ -1176,6 +1182,37 @@ function BuilderPageContent() {
     );
   }
 
+  /*
+   * THE ACKNOWLEDGEMENT NOW ACTUALLY GATES (2026-09-23).
+   *
+   * It used to render as one item in a stack of notices with the entire intake
+   * below it, so a user could scroll past and complete a whole case without
+   * ticking the box. Its own header described it as "one screen, one checkbox,
+   * shown once, before a user starts a case" — independent review found it was
+   * none of those things structurally.
+   *
+   * `null` means the answer is not known yet and is treated the same as
+   * outstanding, so the intake is never flashed and then withdrawn.
+   *
+   * An early return rather than wrapping the JSX below, for the same reason as
+   * the pathway gate above: it sits after every hook, so the hook order does
+   * not depend on the branch.
+   */
+  if (acknowledgementOutstanding !== false) {
+    return (
+      <main className="min-h-screen bg-[#f8faf8] px-6 py-10 text-[#16302b]">
+        <div className="mx-auto max-w-3xl space-y-4">
+          <FirstUseAcknowledgement onStatus={setAcknowledgementOutstanding} />
+          {acknowledgementOutstanding === null && (
+            <p className="text-sm text-[#4d675f]" aria-live="polite">
+              Loading…
+            </p>
+          )}
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="min-h-screen bg-[#f8faf8] px-6 py-10 text-[#16302b]">
       <div className="mx-auto max-w-6xl">
@@ -1189,9 +1226,14 @@ function BuilderPageContent() {
 
           The acknowledgement renders first and returns null once given, so a
           returning user sees the two notices instead of the gate.
+
+          IT NOW ACTUALLY GATES (2026-09-23). It used to be one item in this
+          stack with the intake rendered below it, so a user could scroll past
+          and complete a whole case without ticking the box. Its own header
+          called it a gate; independent review found it was a notice. While the
+          acknowledgement is outstanding, nothing below this block renders.
         */}
         <div className="mb-8 space-y-4">
-          <FirstUseAcknowledgement />
           <LegalInformationNotice />
           <AiUseNotice activity="read what you write, pull out dates and names, and suggest which court path and stage fit" />
         </div>

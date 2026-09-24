@@ -179,10 +179,32 @@ function sourceFiles(): string[] {
     if (file === READER) continue;
     const source = read(file);
 
-    // Reading a FileList anywhere else is itself the finding: it means a
-    // second reader exists, and a second reader is how the first rule gets
-    // quietly re-broken.
-    if (/Array\.from\(\s*files\s*\)|new FileReader|\.files\[\s*0\s*\]/.test(source)) {
+    /*
+     * Reading a FileList anywhere else is itself the finding: a second reader
+     * is how the first rule gets quietly re-broken.
+     *
+     * BROADENED 2026-09-23. The first version matched three spellings —
+     * `Array.from(files)`, `new FileReader`, `.files[0]` — and independent
+     * review pointed out that `for (const f of e.target.files)` or
+     * `[...files]` would walk straight past it. The catch-all now is any read
+     * of `.files` off a target, plus the spread and for-of forms.
+     *
+     * A false positive here costs someone a minute adding a file to the
+     * exception above. A false negative ships a leak.
+     */
+    // `[\w$.]*files` so a dotted path matches: `e.target.files` is the
+    // ordinary spelling and an earlier version of this list only handled
+    // `files` and `x.files`, so a for-of over `e.target.files` walked past it.
+    const FILES_EXPR = String.raw`[\w$.]*\bfiles\b`;
+    const readers = [
+      new RegExp(String.raw`Array\.from\(\s*${FILES_EXPR}`),
+      /new FileReader/,
+      new RegExp(String.raw`${FILES_EXPR}\s*\[`),
+      new RegExp(String.raw`\.\.\.\s*${FILES_EXPR}`),
+      new RegExp(String.raw`\bof\s+${FILES_EXPR}`),
+      new RegExp(String.raw`${FILES_EXPR}\s*\.\s*(?:map|forEach|filter|reduce|item)\s*\(`),
+    ];
+    if (readers.some((pattern) => pattern.test(source))) {
       offenders.push(`${file} reads a FileList directly`);
     }
   }
@@ -206,6 +228,63 @@ function sourceFiles(): string[] {
     fail("readSelectedFiles reads the file name — that is the one thing it must not do");
   } else {
     pass("readSelectedFiles reads size, type and lastModified only");
+  }
+}
+
+// ===========================================================================
+// 2b. The API routes refuse a body that still carries a name
+// ===========================================================================
+//
+// Added 2026-09-23. The three analyze routes each validate uploads against a
+// STRICT allowlist — unknown keys are rejected — and two of them still listed
+// `name`, `fileName` and `originalName` after the field was removed from the
+// types. That was wrong in both directions at once: the routes would have
+// rejected every payload carrying the new neutral `reference`, AND accepted
+// one carrying a file name.
+//
+// Found by inspection rather than by any check, which is why this now exists.
+// With the allowlists corrected these routes are a second, independent control
+// behind the structural one: even if a future edit puts `name` back on a type,
+// the request does not get past the door.
+
+{
+  const ROUTES = [
+    "app/api/small-claims/analyze/route.ts",
+    "app/api/civil/analyze/route.ts",
+    "app/api/family/analyze/route.ts",
+  ];
+
+  const offenders: string[] = [];
+  const accepting: string[] = [];
+
+  for (const route of ROUTES) {
+    const source = read(route);
+    // Only the allowlist declarations, not the comments explaining them.
+    const declarations = source
+      .split("\n")
+      .filter((line) => /^\s*"(?:name|fileName|filename|originalName|path|filePath)",?\s*$/.test(line));
+
+    if (declarations.length > 0) {
+      offenders.push(`${route} still allows: ${declarations.map((l) => l.trim()).join(" ")}`);
+    }
+    if (/"reference"/.test(source)) accepting.push(route);
+  }
+
+  if (offenders.length === 0) {
+    pass(`no analyze route (${ROUTES.length}) accepts a file-name field`);
+  } else {
+    fail("an analyze route's upload allowlist accepts a file name", offenders.join("\n"));
+  }
+
+  // The other direction: a route that allows nothing would pass the check
+  // above and reject every real request.
+  if (accepting.length === ROUTES.length) {
+    pass("all three analyze routes accept the neutral `reference` field");
+  } else {
+    fail(
+      "an analyze route does not accept `reference`, so real payloads are rejected",
+      ROUTES.filter((route) => !accepting.includes(route)).join("\n"),
+    );
   }
 }
 

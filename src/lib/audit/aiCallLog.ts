@@ -104,6 +104,51 @@ type PendingRow = Omit<
 const storage = new AsyncLocalStorage<AiCallContext>();
 
 /**
+ * Who the enclosing request belongs to, if anyone knows.
+ *
+ * *** WHY A SECOND STORE ***
+ *
+ * Independent review on 2026-09-23 found `user_id` and `case_id` NULL on every
+ * row: all six call sites seed `withAiCallContext` with a call type and
+ * nothing else, because none of them HAS an identity to give. They are library
+ * functions two or three layers below the route, and the route is the only
+ * place that knows who is asking.
+ *
+ * The alternative was threading `userId` and `caseId` through every
+ * intervening signature — through functions that have no use for them — which
+ * is the pattern `withAiCallContext` exists to avoid in the first place.
+ *
+ * So a route wraps its handler in `withAiCallIdentity` and every model call
+ * underneath it, at any depth, inherits. A call site that does know can still
+ * pass identity explicitly and that wins.
+ *
+ * NOT EVERY ROUTE HAS ONE. `/api/intake/safety-check` and
+ * `/api/classify-court-path` are deliberately reachable without a session, so
+ * their rows stay anonymous. That is correct, not a gap: the alternative is
+ * requiring an account before the safety check can run, which is precisely the
+ * defect OUTSTANDING_ISSUES section 0k records.
+ */
+const identityStorage = new AsyncLocalStorage<{
+  userId: string | null;
+  caseId: string | null;
+}>();
+
+/**
+ * Attaches the requesting user and case to every model call made inside.
+ *
+ * Called by a route handler, not by a library function.
+ */
+export function withAiCallIdentity<T>(
+  identity: { userId?: string | null; caseId?: string | null },
+  work: () => Promise<T>,
+): Promise<T> {
+  return identityStorage.run(
+    { userId: identity.userId ?? null, caseId: identity.caseId ?? null },
+    work,
+  );
+}
+
+/**
  * Runs `work` with an audit context attached. Every OpenAI call made inside it,
  * at any depth, is logged against these fields.
  */
@@ -115,11 +160,14 @@ export function withAiCallContext<T>(
   },
   work: () => Promise<T>,
 ): Promise<T> {
+  // An explicit seed wins; otherwise inherit whatever the route declared.
+  const inherited = identityStorage.getStore();
+
   return storage.run(
     {
       callType: seed.callType,
-      userId: seed.userId ?? null,
-      caseId: seed.caseId ?? null,
+      userId: seed.userId ?? inherited?.userId ?? null,
+      caseId: seed.caseId ?? inherited?.caseId ?? null,
       validationResult: "valid",
       validationDetail: null,
       requestsLegalAdvice: null,
@@ -181,7 +229,29 @@ export function recordRequestsLegalAdvice(value: boolean): void {
   context.requestsLegalAdvice = value;
 }
 
-/** Counts a string the output guard refused to render. */
+/**
+ * Counts a string the output guard refused to render.
+ *
+ * *** THIS IS NOT WIRED UP, AND THE REPORT NOW SAYS SO. ***
+ *
+ * Independent review on 2026-09-23 found it had no callers, so
+ * `output_guard_blocked` was hard-wired to 0 and the quarterly report printed
+ * "Nothing was blocked. Every string a render path tried to show was either a
+ * content-library item or an allowlisted system message." — a false statement
+ * to a regulator, produced by the script named as the reporting mechanism.
+ *
+ * It is kept rather than deleted because there is a real obstacle to wiring it,
+ * and deleting it would hide that obstacle: `outputGuard.ts` runs inside React
+ * client components, and `AsyncLocalStorage` is a Node API with no context
+ * there. Calling this from the guard would compile, do nothing in the browser,
+ * and leave a counter that looks wired and is not — worse than one that is
+ * visibly not.
+ *
+ * Closing it properly means either moving guard evaluation server-side or
+ * reporting blocks over a separate channel. Recorded in the report as
+ * outstanding work, and `aiQuarterlyReport.ts` now states the limitation
+ * instead of the false claim.
+ */
 export function recordOutputGuardBlock(): void {
   const context = storage.getStore();
   if (!context) return;
@@ -255,11 +325,90 @@ function systemPromptOf(body: Record<string, unknown>): string {
 }
 
 /**
- * The structured object the model returned, or null.
+ * Fields that carry the model's own prose about the user's matter.
  *
- * Parses the JSON so the column is queryable, and stores `{ raw: ... }` when it
- * will not parse. A response that failed to parse is one of the more
- * interesting rows in the table and dropping it would lose the evidence.
+ * *** WHY THIS LIST EXISTS — A CORRECTION ***
+ *
+ * The migration's Decision 2 said the structured output was "small, and
+ * non-legal by construction", because "every user-facing model call now returns
+ * structured output under a JSON schema: a classification label, a stage code,
+ * a content id, a boolean". Independent review on 2026-09-23 found that is not
+ * true of four of the six call types:
+ *
+ *   safety-pass            `reason` — the model's sentence about why it thinks
+ *                          this person is in distress or danger. The most
+ *                          sensitive string the platform produces.
+ *   court-path-classifier  `reasoning` — a sentence about the user's story.
+ *   small-claims-analysis  `caseFileRecorded` / `caseFileNotRecorded` — free
+ *                          sentences naming evidence and counterparties.
+ *   extract-intake-facts   its whole purpose is facts pulled from the story.
+ *
+ * Decision 1 says the user's narrative is never stored. Storing these would
+ * have made that false the moment the migration ran — and the privacy wording
+ * proposed in the report ("we do not keep what you wrote") false with it.
+ *
+ * *** WHAT IS KEPT INSTEAD ***
+ *
+ * The SHAPE of the prose, not the prose: the field name and its length. A
+ * reviewer asking "did the model return a reason at all", "are reasons getting
+ * longer", "which calls produced nothing" gets an answer. A reviewer asking
+ * "what did this person say" does not, and should not.
+ *
+ * Redaction is by DENY-LIST, which is the weaker kind of control and is chosen
+ * deliberately: an allowlist would silently drop the classification labels and
+ * stage codes that are the whole point of the log the first time someone adds a
+ * field. The deny-list is paired with `redactLongStrings` below, which catches
+ * a prose field nobody thought to name.
+ */
+const PROSE_FIELDS = new Set([
+  "reason",
+  "reasoning",
+  "caseFileRecorded",
+  "caseFileNotRecorded",
+  "plainLanguageSummary",
+  "structuredCaseSummary",
+  "missingInformation",
+  "missingEvidence",
+  "risksAndGaps",
+  "nextBestActions",
+  "summary",
+  "explanation",
+  "notes",
+]);
+
+/**
+ * Any string longer than this is treated as prose whatever it is called.
+ *
+ * A classification label, a stage code, a content id and a claim-type id are
+ * all comfortably under it. A sentence about someone's case is not. This is
+ * what catches the prose field that gets added next year under a name nobody
+ * put in the list above.
+ */
+const MAX_STORED_STRING = 80;
+
+function redact(value: unknown, key?: string): unknown {
+  if (typeof value === "string") {
+    if (key && PROSE_FIELDS.has(key)) return `[redacted ${value.length} chars]`;
+    if (value.length > MAX_STORED_STRING) return `[redacted ${value.length} chars]`;
+    return value;
+  }
+  if (Array.isArray(value)) return value.map((entry) => redact(entry, key));
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value as Record<string, unknown>).map(([k, v]) => [k, redact(v, k)]),
+    );
+  }
+  return value;
+}
+
+/**
+ * The structured object the model returned, redacted, or null.
+ *
+ * An unparseable response is recorded as its LENGTH, not its text. The old
+ * version stored 4,000 characters of it, reasoning that a failed parse is an
+ * interesting row — which is true, and the interesting part is that it failed,
+ * not what it said. Raw model output on a failed parse is exactly the case
+ * where the content is least likely to be a tidy label.
  */
 function structuredOutputOf(response: unknown): unknown {
   const choice = (response as { choices?: Array<{ message?: { content?: unknown } }> })?.choices?.[0];
@@ -267,9 +416,9 @@ function structuredOutputOf(response: unknown): unknown {
   if (typeof content !== "string") return null;
 
   try {
-    return JSON.parse(content);
+    return redact(JSON.parse(content));
   } catch {
-    return { unparsed: content.slice(0, 4_000) };
+    return { unparsed: `[redacted ${content.length} chars]` };
   }
 }
 

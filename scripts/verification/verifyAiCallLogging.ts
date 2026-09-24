@@ -97,12 +97,21 @@ const clientSource = read(CLIENT_FILE);
 
 {
   const observed = (clientSource.match(/observeAiCall\(/g) || []).length;
-  if (observed >= 2) {
-    pass(`openaiClient.ts routes both create paths through observeAiCall (${observed} call sites)`);
+  /*
+   * Three: chat.completions.create, chat.completions.parse, responses.create.
+   *
+   * `.parse` was added on 2026-09-23 after independent review noted only
+   * `.create` was wrapped. It is the method someone reaches for when they want
+   * a typed response under a JSON schema — the direction this codebase is
+   * being pushed — so it was the most likely next call, and it would have
+   * bypassed both store:false and this log in one line.
+   */
+  if (observed >= 3) {
+    pass(`openaiClient.ts routes every create path through observeAiCall (${observed} call sites)`);
   } else {
     fail(
-      "openaiClient.ts must route BOTH chat.completions.create and responses.create through observeAiCall",
-      `found ${observed} observeAiCall(...) call(s); expected at least 2`,
+      "openaiClient.ts must route chat.completions.create, chat.completions.parse AND responses.create through observeAiCall",
+      `found ${observed} observeAiCall(...) call(s); expected at least 3`,
     );
   }
 }
@@ -228,6 +237,61 @@ if (rogueConstructions.length === 0) {
       fail(
         "an audit-log column that could hold the user's narrative",
         `fields: ${found.join(", ")} — see migration Decision 1`,
+      );
+    }
+  }
+
+  /*
+   * `structured_output` IS a column that can carry the narrative, and the
+   * sweep above cannot see it.
+   *
+   * Independent review on 2026-09-23: the migration's Decision 2 claimed the
+   * structured output was "non-legal by construction" because every call
+   * returns "a classification label, a stage code, a content id, a boolean".
+   * That is untrue of four of the six call types — safety-pass returns
+   * `reason` (the model's sentence about why someone is in distress),
+   * court-path-classifier returns `reasoning`, small-claims-analysis returns
+   * free sentences naming evidence and counterparties, and
+   * extract-intake-facts exists to return facts pulled from the story.
+   *
+   * So the check is not "is there a column called narrative" — it is "is the
+   * one unbounded column redacted before it is written". Asserted three ways,
+   * because this is the claim the proposed privacy wording rests on.
+   */
+  {
+    const problems: string[] = [];
+
+    if (!/structured_output: structuredOutputOf\(/.test(auditSource)) {
+      problems.push("structured_output is not produced by structuredOutputOf()");
+    }
+    if (!/return redact\(JSON\.parse\(content\)\)/.test(auditSource)) {
+      problems.push("structuredOutputOf does not pass the parsed body through redact()");
+    }
+    if (/content\.slice\(/.test(auditSource)) {
+      problems.push(
+        "raw model text is still sliced into the row on a parse failure — record its length, not its content",
+      );
+    }
+
+    if (problems.length === 0) {
+      pass("structured_output is redacted before it is written");
+    } else {
+      fail("the audit log can store the model's prose about the user", problems.join("\n"));
+    }
+
+    // And the redactor must actually redact. A `redact` that returned its
+    // input would satisfy every check above.
+    const proseFields = auditSource.match(/const PROSE_FIELDS = new Set\(\[([\s\S]*?)\]\)/);
+    const named = Array.from(proseFields?.[1]?.matchAll(/"([^"]+)"/g) ?? [], (m) => m[1]);
+    const mustCover = ["reason", "reasoning", "caseFileRecorded", "caseFileNotRecorded"];
+    const missing = mustCover.filter((field) => !named.includes(field));
+
+    if (missing.length === 0) {
+      pass(`PROSE_FIELDS names all ${mustCover.length} known prose fields (${named.length} total)`);
+    } else {
+      fail(
+        "PROSE_FIELDS omits a field a call type is known to return as prose",
+        missing.join(", "),
       );
     }
   }

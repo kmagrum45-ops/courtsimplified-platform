@@ -552,10 +552,12 @@ function buildSummary(args: {
     "Important dates",
     input.timeline || "No timeline entered yet.",
     "",
-    "Evidence to gather",
-    analysis.missingEvidence?.length
-      ? `Missing proof: ${analysis.missingEvidence.join("; ")}`
-      : input.evidence || "No evidence details entered yet.",
+    // The user's own words, always. This line used to prefer
+    // `analysis.missingEvidence` -- model prose -- and fall back to what the
+    // user wrote. The preference was backwards: the one thing in this document
+    // that is certainly safe to show a user is what they typed themselves.
+    "Evidence recorded",
+    input.evidence || "No evidence details entered yet.",
     "",
     // This heading is the one that reached the downloadable document. It now
     // renders catalogue text or nothing -- never model prose. See the note on
@@ -657,13 +659,49 @@ export async function analyzeSmallClaimsWithBrain(
     detectedIssues: buildDetectedIssuesFromIntelligence(intelligence.primaryClaimTypes),
     inferredFacts: buildInferredFacts(input),
 
+    /*
+     * MODEL PROSE IS STRIPPED HERE, AT THE ONE ASSEMBLY POINT.
+     *
+     * An independent review on 2026-09-23 found that the LSO work closed the
+     * "What to do next" heading and left three sibling fields carrying model
+     * prose straight into the downloadable document:
+     *
+     *   missingInformation -> documentGenerationEngine.ts:91 (baseWarnings)
+     *   missingEvidence    -> buildSummary -> CaseContext.summary
+     *                         -> documentGenerationEngine.ts:105 (body)
+     *   risksAndGaps       -> app/api/document-export/route.ts:151
+     *
+     * Fixing each render site would have left the next one. These three fields
+     * are assembled once, here, so removing the model's contribution here
+     * covers every consumer that exists and every consumer someone adds.
+     *
+     * `intelligencePatch.missingInformation` was model-authored free text about
+     * this user's matter. `buildContactMissingInfo` is deterministic (does the
+     * intake have a name, an address for service, a claim amount) and the
+     * defence question is a fixed string, so both stay.
+     *
+     * Nothing is lost for supervision: the model's version is still carried on
+     * `intelligence` below, which is what the audit log records.
+     */
     missingInformation: cleanList([
       ...buildContactMissingInfo(input, stage),
-      ...(intelligencePatch.missingInformation || []),
       ...(defaultStageReview ? ["Has the defendant filed a Defence?"] : []),
     ]),
 
-    risksAndGaps: cleanList(intelligencePatch.risksAndGaps || []),
+    /*
+     * EMPTY, deliberately. `intelligencePatch.risksAndGaps` was model prose
+     * about this user's matter, and app/api/document-export/route.ts:151 put
+     * it into the "Risks and gaps" section of a package the user downloads.
+     *
+     * There is no reviewed catalogue of risk wording to select from, and a
+     * risk statement about a specific case is close to the line CLAUDE.md
+     * section 3 draws anyway. So the honest answer is nothing, not a
+     * substitute: the export section renders empty and the user is not told
+     * something no licensee has checked.
+     *
+     * The model's version is retained on `intelligence` for the audit log.
+     */
+    risksAndGaps: [],
 
     /*
      * MODEL-WRITTEN NEXT STEPS REMOVED, 2026-09-22 (LSO Step 2).
@@ -691,10 +729,23 @@ export async function analyzeSmallClaimsWithBrain(
     summary: "",
 
     detectedClaimTypes: intelligence.primaryClaimTypes,
-    missingEvidence: filterConfirmedEvidenceFromMissing(
-      cleanList(intelligencePatch.missingEvidence || []),
-      input.evidence,
-    ),
+    /*
+     * EMPTY, deliberately. Same reason as risksAndGaps above.
+     *
+     * This one reached the user by the least obvious route, which is why it
+     * survived the first pass: buildSummary()'s "Evidence to gather" heading
+     * emitted `Missing proof: ${analysis.missingEvidence.join("; ")}` three
+     * lines ABOVE the "What to do next" heading that was fixed. The comment
+     * added there in Step 2 even named the document as the destination.
+     *
+     * Users have not lost the capability. IntelligenceOverviewPanel already
+     * shows "Evidence to organize or confirm" from the claim-type catalogue
+     * (buildClaimTypeOverviewContent), which is reviewed library content with
+     * source links. Deriving this field from that catalogue as well is the
+     * right follow-up and is recorded in the report; until then, empty is
+     * correct and a model-written list is not.
+     */
+    missingEvidence: [],
     // Catalogue text only. See the note on `guidance` above.
     nextBestActions: cleanList([...defaultStageGuidance, ...catalogueNextSteps(stage)]),
     userWarnings: cleanList(intelligence.systemWarnings || []),

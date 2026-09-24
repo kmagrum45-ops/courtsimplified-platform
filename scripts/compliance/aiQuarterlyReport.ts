@@ -251,8 +251,27 @@ async function main(): Promise<void> {
   );
   console.log("");
   if (blocked === 0) {
-    console.log("  Nothing was blocked. Every string a render path tried to show was either a");
-    console.log("  content-library item or an allowlisted system message.");
+    /*
+     * This block used to print "Nothing was blocked. Every string a render
+     * path tried to show was either a content-library item or an allowlisted
+     * system message." Independent review on 2026-09-23 established that was
+     * false twice over: recordOutputGuardBlock() has no callers, so the
+     * counter cannot move, and the guard is applied at only two render sites
+     * in the product, so most strings never consult it at all.
+     *
+     * A reporting script that tells a regulator a control is working when the
+     * metric is hard-wired to zero is worse than one that reports nothing.
+     * It now reports what it actually knows.
+     */
+    console.log("  NOT A RESULT. This counter is not wired up: recordOutputGuardBlock() in");
+    console.log("  src/lib/audit/aiCallLog.ts has no callers, so this figure is always 0 and");
+    console.log("  a zero here means nothing was MEASURED, not that nothing was blocked.");
+    console.log("");
+    console.log("  The obstacle is real and is recorded in that file: the guard runs inside");
+    console.log("  React client components and AsyncLocalStorage is server-only. Closing it");
+    console.log("  means moving guard evaluation server-side or reporting blocks over a");
+    console.log("  separate channel. Until then, treat output-guard coverage as unmeasured");
+    console.log("  and see docs/lso-fixes-report.md for which render paths consult it.");
   } else {
     console.log("  A nonzero count is worth reading, not just recording. It means either that");
     console.log("  content is awaiting licensee review, or that a render path tried to show");
