@@ -1,0 +1,186 @@
+Motions and clerk&#039;s orders | Guide to procedures in small claims court | ontario.ca
+
+ Skip to main content
+
+ Ontario.ca needs JavaScript to function properly and provide you with a fast, stable experience.
+
+ To have a better experience, you need to:
+
+ Go to your browser's settings
+ Enable JavaScript
+
+ Log in to continue
+
+ Please log in for full account access.
+
+ Print all
+
+ Motions and clerk&#039;s orders
+
+ On this page
+ Skip this page navigation
+
+ Overview
+ A motion is a process for requesting that a judge make an order. Generally, a party will make a motion to have a matter addressed before judgment, or in some circumstances after judgment or to support an enforcement process. Usually, a motion is a hearing in court before a judge.
+ There is one type of motion that can be made in writing. It is called a “motion in writing for assessment of damages”, which can be made by the plaintiff when all defendants have failed to file a defence and have been noted in default. For a motion in writing, the plaintiff does not have to attend court for a hearing. Instead, the documents filed should provide the court with everything the judge needs to make a decision.
+ The Rules of the Small Claims Court (after this, referred to as the Rules), also allow the clerk of the court to grant certain orders on consent of all the parties. These are called clerk's orders.
+ Motions
+ A motion is a process that is used to make a request to a judge for an order. You can “make a motion” to ask for an order to:
+ resolve an issue in the case
+ get direction on how to proceed in the case
+ change an order that has already been made
+ Motions can be very helpful to the parties in a dispute. However, depending on the stage of the proceeding, motions may also lead to the case taking longer. There is a fee to file a motion. For more information about fees, refer to “ Small claims court fees .”
+ Examples of motions
+ You may need to make a motion for a judge’s order before the settlement conference, or after the settlement conference but before trial.
+ Example 1
+ You are a roofer. You put a roof on an addition to a customer's house and now the customer is suing you over a leaky roof and water damage to a rug and chair. You go to the court office to file your defence. The clerk tells you that you cannot file it because the plaintiff had you noted in default for failing to file your defence within 20 days after the customer served you with the claim.
+ You just received the claim in the mail 3 days ago. You could make a motion to ask the judge to set aside the noting in default and allow you to file your defence. In the supporting affidavit you would explain when you received the claim and that you want to file a defence.
+ Other times, a party may need to make a motion to get a judge’s order after the trial.
+ Example 2
+ You were a defendant in a Small Claims Court action. At trial the plaintiff was awarded judgment for $1,000 against you. You didn’t have savings to pay the plaintiff so the plaintiff had your wages garnished.
+ You have now paid off the $1,000 and you want to clear your credit record. You could remind the creditor of their obligation under the rules of court to fill out the Notice of Termination of Garnishment form and send it to the garnishee and the clerk of the court. You could then get a copy of the completed form from the clerk and send it to the credit reporting agencies.
+ If the creditor refuses to fill out that form, you would then have to make a motion to ask the judge for an order stating that you paid the debt in full. You could ask the court to order the creditor to pay your costs for making the motion because the creditor was responsible for completing the notice of termination of garnishment and refused to do so. Once you received your judgment, you could send a copy to the credit reporting agencies that have you on file.
+ Other examples of motions that you may wish to make are listed on the Notice of Motion and Supporting Affidavit [Form 15A] .
+ Who can make a motion
+ Anyone who is a party in the case can make a motion. The person who makes the motion is called the “moving party.” The person who responds to the motion is called the “responding party.”
+ In special circumstances, a judge may allow a person who is not a party to the action to make a motion because the person’s interests would be affected by the outcome of the case. For example, a person who has been served with a summons to witness may make a motion challenging the summons and wants an order to be excused from attending.
+ How to make a motion
+ To make a motion you must file a Notice of Motion and Supporting Affidavit [Form 15A] .
+ How to fill out the notice of motion and supporting affidavit form
+ In the notice of motion and supporting affidavit, you tell the court and the other parties to the action who is making the motion and what you (the moving party) are asking the court to decide.
+ Once your motion is submitted to the court, the court will specify the date, time and hearing details on the notice of motion form.
+ In the supporting affidavit section of the form, you will give information that supports your request for an order on motion. In the supporting affidavit, you will:
+ State the order (or orders) that you are requesting
+ Give the reasons why you think the court should make the order requested. Usually you would set out your reasons (i.e., statements of fact) in numbered paragraphs. Try to make each statement of fact short and to the point. Often, one sentence is enough
+ If you need additional pages, attach them to the affidavit. Put a page number on the bottom of each additional page and the total number of additional pages (for example, “Page 1 of 5”) and initial each page
+ Attach a copy of any document you refer to in your affidavit, if it is available. You may wish to refer to the first document you intend to attach to your affidavit as “Exhibit A.” If you have more than one document attached to the affidavit you can label them “Exhibit A,” “Exhibit B,” and so on. On the first page of the “Exhibit” itself, you could print the following information:
+ “This is Exhibit A referred to in the affidavit of ( insert your name ) sworn or affirmed on ( _______, 200_ ) by ( signature of the commissioner for taking affidavits ).”
+ You must swear (or affirm) that the statements in your affidavit are true and sign it in front of a commissioner for taking affidavits. Your affidavit can be sworn before: a Small Claims Court or ServiceOntario staff member who has been appointed a commissioner for taking affidavits (there is no fee for this service)
+ a lawyer or paralegal licensed by the Law Society of Ontario
+ a notary public
+ any other person who has been appointed a commissioner for taking affidavits in connection with court documents
+
+ The commissioner for taking affidavits will date and sign the affidavit and each document attached to it.
+ It is a criminal offence to knowingly swear a false affidavit.
+ What to do when you’ve completed a notice of motion and supporting affidavit
+ Once you have completed your notice of motion and supporting affidavit, you must serve a copy of it on each party to the action except for any defendant who has been noted in default. The notice of motion and supporting affidavit must be served at least 7 days before the motion hearing and filed with at the court at least 3 days before the motion hearing. If you wish, you can serve the notice of motion and supporting affidavit on the parties before you file the original at the court office.
+ An Affidavit of Service [Form 8A] must be completed for each party served and filed with the court at least 3 days before the motion hearing. The affidavit of service is proof that the notice of motion and supporting affidavit (including any attachments) has been served on each party. Each affidavit of service must be sworn or affirmed by the person who served the documents.
+ There are very specific rules for serving documents. Refer to “ Serving documents ” for more information on the rules and procedures relating to service of documents and preparing affidavits of service.
+ If you are unable to serve all parties 7 days before the motion hearing or file your materials 3 days before the motion hearing, contact the court office and ask what to do next.
+ Hearing a motion without notifying the other parties
+ In very limited circumstances, a judge may make an order that it is not necessary to give notice of the motion to the other parties. For example, a plaintiff may make a motion without notice to seek an order for substituted service because they have not been able to serve the defendant with the claim by personal service and want an order allowing another method of service.
+ You must still file the notice of motion and supporting affidavit with the court even if you are making the motion without notice to the other party.
+ If you make a motion without notice, the judge will usually first decide whether or not you should be permitted to make the motion without notifying the other side. If the judge decides that notice is required, you will need to obtain a date for the hearing and serve all the documents on the other party as explained in this guide.
+ Remember, a party who obtains an order on motion without notice must serve a copy of the judge’s order on every affected party, together with a copy of the notice of motion and supporting affidavit used on the motion, within five days after the order is signed. For more information, refer to “ Serving documents .”
+ A party who is affected by an order obtained on motion without notice may make a motion to set aside or change the order within 30 days after being served with the order.
+ Responding to a motion
+ If you have been served with a notice of motion and supporting affidavit and you disagree with what it says, you can respond to it by filing an Affidavit [Form 15B] . This is called a “responding affidavit” because you are responding to what the moving party has said in his or her notice of motion and supporting affidavit. For example, in your affidavit you may set out different statements of fact that you want the judge to consider when hearing the motion. If you refer to a document in your affidavit, you should attach a copy if it is available.
+ Your responding affidavit must be served on every party who has filed a claim or defence. File your responding affidavit at the court, together with one affidavit of service for each party served, at least 2 days before the hearing date.
+ If you cannot attend on the date set for the motion
+ If you are unable to attend on the date set for the motion, you can ask the court to adjourn the motion and reschedule it on another date. Contact the court office for assistance.
+ If the judge allows the request and makes an order, the clerk will notify the parties of the new motion date.
+ If the motion is not adjourned before the scheduled date you, or someone on your behalf, must attend the motion to request the adjournment. If a judge allows the request and makes an order adjourning the motion, the clerk will notify the parties of the new motion date.
+ Changing the attendance method
+ A party may request a change in the method by which the party or their representative is to attend the motion. This is done by serving a Request to Change Attendance Method [Form 1B] on every other party, and filing — with proof of service — at least 30 days before the hearing date.
+ Make the request as soon as you are aware you need to change the attendance method and indicate the reasons for your request. If the judge grants the request, the court will make the necessary arrangements and notify the parties.
+ The court will review the request and any objections. It may grant the request, reject the request, or alter the entire hearing method.
+ The clerk will serve the order on all parties.
+ Objecting to change of attendance method
+ A party can object to the request to change the attendance method by completing, serving and filing an Objection to Request to Change Attendance Method [Form 1C] within 7 days of receiving the request. The objection is served on all other parties involved in the case, and filed with proof of service to the court.
+ If you think a party is trying to delay the proceeding by making unnecessary motions
+ Rule 15.04 of the Rules provides that:
+ “If the court is satisfied that a party has tried to delay the action, add to its costs or otherwise abuse the court’s process by making numerous motions without merit, the court may, on motion, make an order prohibiting the party from making any further motions in the action without leave of the court.”
+ If you think that a party has made a large number of motions in order to increase costs or delay the progress of the case, you can make a motion under Rule 15.04 of the Rules to ask the court to make an order stopping the other party from making more motions unless the party has the court’s permission to do so.
+ Requesting costs
+ Depending on the circumstances, if you are the successful party at the motion, you can ask the court to order the other party to pay some costs to you. The Rules and the Courts of Justice Act address costs issues.
+ Checklist: Making a motion
+ If you are making a motion:
+ Schedule the hearing date, time and arrangements with the Small Claims Court clerk.
+ Fill out the Notice of Motion and Supporting Affidavit [Form 15A] , including the date, time and details for attending the hearing.
+ At least 7 days before the hearing date, serve the notice of motion and supporting affidavit on the responding party or parties (refer to “ Serving documents ” for more information).
+ At least 3 days before the hearing date, file with the court the notice of motion and supporting affidavit and an Affidavit of Service [Form 8A] for each party served.
+ Pay the filing fee.
+ If you are responding to a motion:
+ Fill out an Affidavit [Form 15B] to respond to the moving party’s notice of motion and supporting affidavit.
+ At least 2 days before the hearing date, serve your affidavit on every party who has filed a claim or defence and file it with the court together with an Affidavit of Service [Form 8A] for each party served.
+ Remember, an Affidavit [Form 15B] must be sworn by the person making the affidavit. An Affidavit of Service [Form 8A] must be sworn by the person who served the documents.
+ A motion in writing for an assessment of damages
+ There is one type of motion that can be made “in writing” under the Rules. It is called a “motion in writing for an assessment of damages.”
+ If all defendants have been noted in default and your claim is an “unliquidated” claim, then you can ask for an order from a judge for an assessment of damages. To get this order, you can either file a motion in writing for an assessment of damages or request an assessment hearing before a judge. Refer to “ Making a claim ” and “ Getting ready for court ” for more information about assessment hearings.
+ If you choose to make a motion in writing for an assessment of damages, you do not have to attend a hearing before a judge. The documents you file should provide the court with everything you think will be required for a decision to be made.
+ When you can make a motion in writing for an assessment of damages
+ You may make a motion in writing for an assessment of damages where:
+ all defendants in the claim have been served with the claim
+ no defendants have filed a defence
+ all defendants have been noted in default
+ If one or more defendants have not been served with the claim, you cannot obtain an assessment of damages against any defendants who have been served, because all defendants must be noted in default. The clerk will not note a defendant in default if that defendant has not been served with the claim. For more information, refer to “ Serving documents .”
+ If one or more defendants has filed a defence, you cannot obtain an assessment of damages against the other defendants. You will need to attend a settlement conference and, if necessary, a trial.
+ How to make a motion in writing for an assessment of damages
+ Starting June 9, 2025, you can file a notice of motion for an assessment in writing online through the Small Claims Court Submissions Online portal. You can access this portal at File small claims online . You can also file a Notice of Motion and Supporting Affidavit [Form 15A] with the court office in person or by mail. There is a fee for this process. Be sure to fill out the part “B” of the notice of motion form that reads:
+ “B. This motion in writing for an assessment of damages is made by _____________ (insert name of plaintiff) who asks the court for an order assessing damages against _____________ (insert name of defendant(s)) who have/has been noted in default.”
+ It is not necessary to serve a defendant who is noted in default with the notice of motion.
+ In the affidavit, you must set out the reasons why the motion should be granted and attach any relevant documents.
+ The judge will review the notice of motion and affidavit and may do one of the following:
+ grant judgment
+ make an order requesting you to provide another affidavit
+ make an order requiring you to attend an assessment hearing
+ A copy of the court order or the endorsement record containing the order will be emailed to you if you filed online or mailed to you if you have provided the clerk with a stamped self-addressed envelope.
+ Example 3
+ Your neighbour accidentally broke your basement window and you had it repaired by ABC Windows for $700. Your neighbour refuses to pay you, so you file a claim at Small Claims Court. Your neighbour fails to file a defence and you make a written request to the clerk to note her in default. You need a judge to assess the amount of damages that she owes you, but you don’t want to take time off work to attend an assessment hearing.
+ Instead, you file a notice of motion in which you indicate that it is a motion in writing for an assessment of damages. You set out the reasons why your neighbour owes you money in your supporting affidavit. You attach the invoice from ABC Windows marked “paid” along with two other higher quotes you got from other window repair shops.
+ The judge reviews your written materials and grants judgment. The clerk emails the order to you or mails the order to you in the stamped self-addressed envelope that you gave to the clerk when you filed your motion.
+ Example 4
+ Referring back to Example 3, instead of making the order, the judge reviewing your motion in writing for an assessment of damages notes that $700 seems to be a lot of money for repairing a basement window. They decide they do not have enough information. They orders you to file another affidavit giving more explanation about the age and type of the window, and the damage done to it by the defendant.
+ You file another affidavit explaining that you had custom windows installed in your basement just last year. You also explain that your neighbour backed her car into the window when driving out of your mutual driveway, causing damage to the window frame in addition to breaking the glass. You attach photographs of the repaired window to show that repairs were also made to the window frame.
+ The judge reviews your additional affidavit and makes an order. The clerk emails the order to you or mails the order to you in the stamped self-addressed envelope that you gave to the clerk when you filed your motion.
+ If the judge orders you to attend an assessment hearing you should contact the court office to schedule the hearing. Refer to “ Getting ready for court ” for information about preparing for an assessment hearing. Preparing for an assessment hearing is very similar to the process for preparing for trial.
+ Checklist: Motion in writing for assessment of damages
+ If you are bringing a motion in writing for an assessment of damages:
+ Fill out Part B of the Notice of Motion and Supporting Affidavit [Form 15A] and attach documents referred to in the affidavit. This form does not need to be served on the defendants because they have been noted in default. This form also does not need a hearing date because you do not need to attend the motion.
+ Swear/Affirm the affidavit before a commissioner for taking affidavits.
+ File your documents through the Small Claims Court Submissions Online portal at which is found on File small claims online and pay the filing fee. If you did not file your claim online, file your Notice of Motion and Supporting Affidavit [Form 15A] and supporting documents at the court together with a stamped self-addressed envelope.
+ An Affidavit must be sworn by the person making the affidavit.
+ Clerk’s orders on consent
+ Small Claims Court clerks can make orders only in the specific circumstances set out in the Rules. These orders can only be made if the written consent of all parties has been provided to the clerk. The clerk makes the order based on the Request for Clerk’s Order on Consent [Form 11.2A] filed with the court. No hearing is required.
+ The consent form must state that no party who would be affected by the order is under legal disability, and that all parties to the action have received a copy of the request for clerk’s order on consent form.
+ Provided that the above criteria are met, it may be more cost-effective and efficient for the parties to get a clerk’s order than to make a motion for a judge’s order.
+ What kind of orders the clerk can make
+ The clerk can make an order only for the following:
+ amending a claim or defence where the originally scheduled trial date is less than 30 days away (otherwise see Rule 12 for amendments)
+ adding, deleting or substituting a party where the originally scheduled trial date is less than 30 days away
+ setting aside a noting in default or default judgment against a party, and any specified step to enforce the judgment that has not yet been completed
+ restoring a matter that was dismissed under Rule 11.1 to the list
+ noting payment is made in full satisfaction of a judgment or terms of settlement
+ dismissing an action
+ See Rule 11.2 of the Rules for further details.
+ How to request a clerk’s order on consent
+ To request a clerk’s order on consent:
+ Fill out the Request for Clerk’s Order on Consent [Form 11.2A] indicating which of the above listed orders you want.
+ Ask each party to sign the request for clerk’s order on consent form in the presence of their witness. If a party is being added or substituted, the signature of that new party is also required. If a party is being deleted, that party must also sign. If all parties do not consent, the clerk cannot make the order requested. If a party has been noted in default, their consent is not required.
+ Give each party who has signed the form a copy. The form states that each party has received a copy of the form, and that no party who would be affected by the order is under legal disability.
+ File the completed request for clerk’s order on consent form with the court together with a stamped self-addressed envelope in person or by mail, or file the request for clerk’s order on consent using the Small Claims Court Submissions Online portal at www.ontario.ca/smallclaims . The clerk will review the documents and, if the legal requirements of the Rules are met, the clerk will sign the order. The clerk will email or mail a copy of the order to a party who requested it if a stamped self-addressed envelope was provided.
+
+ Example 5
+ Referring back to Example 1, imagine you are the roofer. You put a roof on an addition to a customer's house and now the customer is suing you over a leaky roof and water damage to a rug and chair. In your defence you stated that Len’s Shingles Ltd. is responsible for the damage because the shingles you installed were faulty. You also brought a defendant’s claim against Len’s Shingles Ltd.
+ The originally scheduled trial date is less than 30 days away and you now realize that the company’s name is actually Leonard’s Shingles Ltd. You ask Leonard’s Shingles Ltd. to agree to be substituted as a party for “Len’s Shingles Ltd.” on your claim form. (If the originally scheduled trial date was more than 30 days away, you could simply amend your defendant’s claim under Rule 12 of the Rules of the Small Claims Court .)
+ If Leonard’s Shingles Ltd. agrees, you can prepare a request for clerk’s order on consent for Leonard’s Shingles Ltd. and the plaintiff to sign. You would give them a copy of the completed form and then file the original at the court together with a stamped self-addressed envelope or file each document online using the Small Claims Court Submissions Online portal at www.ontario.ca/smallclaims . The clerk would then review the documents and make the order.
+ If the clerk refuses to sign the clerk’s order
+ The clerk may refuse to make a clerk’s order if:
+ the criteria set out in Rule 11.2 (discussed above) are not met;
+ the consent of all parties is not obtained
+ the form is incomplete.
+ When the clerk refuses to sign an order, the clerk will serve a copy of the request for clerk’s order, with reasons for the refusal, on all parties.
+ Depending on the reasons the clerk gives for refusing to grant the order, the party can either amend the documents and re-submit the request for clerk’s order on consent, or make a motion before a judge for an order.
+ Example 6
+ In Example 5 above, if Leonard’s Shingles Ltd. does not consent to be substituted as a party, the clerk cannot sign the order. In this case, you must make a motion before a judge to make the substitution. Refer to Part One of this guide on how to make a motion.
+ Checklist: Requesting a clerk’s order on consent
+ Fill out the Request for Clerk’s Order on Consent [Form 11.2A] .
+ Ask each party, including any party being added, substituted or deleted within 30 days of the original trial date to sign the form in the presence of their witness.
+ After you get the form signed, but before you file it with the court, provide everyone who signed it with a copy.
+ File the request for clerk’s order on consent form with the court together with a stamped self-addressed envelope in person or by mail, or file the request for clerk’s order on consent using the Small Claims Court Submissions Online portal at www.ontario.ca/smallclaims .
+
+ Updated: July 02, 2026
+
+ Published: March 23, 2022
+
+ Top

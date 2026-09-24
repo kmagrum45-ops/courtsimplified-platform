@@ -1,0 +1,353 @@
+After judgment | Guide to procedures in small claims court | ontario.ca
+
+ Skip to main content
+
+ Ontario.ca needs JavaScript to function properly and provide you with a fast, stable experience.
+
+ To have a better experience, you need to:
+
+ Go to your browser's settings
+ Enable JavaScript
+
+ Log in to continue
+
+ Please log in for full account access.
+
+ Print all
+
+ After judgment
+
+ On this page
+ Skip this page navigation
+
+ Overview
+ Some people think that when the trial is over and the judge's decision is made or a default judgment is obtained, the successful party (for purposes of this guide, the creditor) will automatically be paid (by the debtor) and that is the end of the case.
+ Obtaining a judgment is sometimes just the beginning for both parties. A judgment is an order of the court; it is not a guarantee of payment.
+ If you are a creditor, there are many different tools available to help you collect the money you are owed under the order. This guide will give you general information about what you may have to do after you have your judgment in order to enforce (attempt to collect) it.
+ If you are a debtor who has lost your case and now has to pay, this guide will provide some general information and tell you what some of your options are. For example, if you do not have money or assets available with which to pay the judgment, or if you disagree with the judgment made, you may wish to take some of the steps outlined in this guide.
+ Before we get into the details on specific enforcement processes, the rest of this overview will give you some more general information on enforcing judgments.
+ In this guide, you will see many references to making or filing a motion. A motion is a process used to make a request to a judge for an order. For more information about motions, refer to " Motions and clerk's orders ."
+ Collecting money following a judgment in a Small Claims Court action
+ There are a number of procedures available to the parties, but it is up to the parties to commence the different enforcement procedures available.
+ What can be done as soon as judgment is given to collect the money owed under the judgment
+ You can start taking enforcement steps immediately after judgment is given. However, whether your judgment was made by a judge after a trial or settlement conference, or whether it was obtained by default, the best place to start is often with a simple written request for payment. You can send a letter to the debtor (the one who owes the money) asking for prompt payment. Be sure to include the address where payment can be made. Set a reasonable deadline, taking into account whether payment will likely come by mail, and any other circumstances you may know about. Keep a record of the payments you receive.
+ If the letter asking for payment is unsuccessful and/or you are unable to reach a mutually satisfactory agreement with the debtor, you will have to take other steps to enforce your judgment. Generally, the faster the creditor acts, the better the results will be.
+ The next step you take will depend on the information you have about the debtor's assets and ability to pay. If you have sufficient information, you can take an enforcement step immediately. If you do not know where the debtor banks, what assets he or she has, or where he or she may work, you could begin the enforcement process by requesting an examination hearing.
+ You should read the entire guide before deciding what methods of enforcement will work best in attempting to collect your judgment.
+ What the debtor can do as soon as judgment is given
+ You may receive a letter from the creditor asking for prompt payment after judgment has been given at trial, at the settlement conference, or by default. Once you are aware of the judgment, you should contact the creditor immediately.
+ If you are able to pay the full amount of the judgment, send your payment to the creditor at the address provided in the claim or letter. If you are unable to pay the judgment in full, you should still contact the creditor to make arrangements for payment. Be sure to let the creditor know if there are any circumstances which affect your ability to pay right away, and make a proposal for paying the judgment within a reasonable timeframe. Be prepared to negotiate with the creditor until you are able to reach a payment schedule that is acceptable to both parties. Keep copies of proof of any payments you make.
+ If you are unable to continue meeting payment arrangements that you have agreed to, you should notify the creditor and try to make other mutually satisfactory arrangements.
+ What the debtor can do if they disagree with the judgment
+ If the judgment was obtained by default, you should refer to " Replying to a claim " for information on how to ask the court to set aside the default judgment. If the judgment was obtained at trial, you should refer to " Getting ready for court " for more information on your possible next steps.
+ Enforcing orders of boards, tribunals, agencies or other courts be in Small Claims Court
+ The orders of some boards, tribunals and agencies, as well as other levels of court in Ontario can be filed and enforced in the Small Claims Court e.g. , orders under the Residential Tenancies Act , Employment Standards Act , and the Provincial Offences Act ). Once the order is filed, for enforcement purposes, the order is treated as an order of the court. Refer to section 19 of the Statutory Powers Procedure Act for more information. These orders can be filed online using the Small Claims Submissions Online portal at www.ontario.ca/smallclaims .
+ Where a party files an order from a board, tribunal or agency for enforcement and the order is in a for eign currency e.g. U.S. dollars, conversion of the amount to Canadian dollars takes place when the enforcement and execution of the order takes place. For more information, refer to section 121 of the Courts of Justice Act .
+ The Criminal Code of Canada provides that in criminal court either a judge of the Ontario Court of Justice or Superior Court of Justice can order an offender to pay money to a person under either:
+ a restitution order under section 738 or 739
+ a condition of probation under section 732.1
+ a condition of a conditional sentence under section 742.3
+ Where an offender fails to pay the amount ordered, the person entitled to the money can file the order at Small Claims Court if the amount ordered is $50,000 or less. For enforcement purposes, the order is treated as a judgment of the court rendered against the offender. There is no fee charged to file the Criminal Code order or for issuing and filing any enforcement process related to it. However, mil eage and disbursement expenses incurred by the enforcement office will be charged.
+ Once the order has been filed with the Small Claims Court, it can no longer be enforced in the office of the criminal court where it was made.
+
+ Enforcing an order from another Canadian province or territory
+ An order originating from another Canadian province or territory (other than Quebec) may be filed in accordance with the Reciprocal Enforcement of Judgments Act , R.S.O. 1990, c. R.5. , and may then be enforced. You must get permission from the Small Claims Court before the order may be filed in Ontario. You can make the request for permission by filing a Notice of Motion and Supporting Affidavit [Form 15A] along with a certified copy of the order you wish to file in Ontario at the Small Claims Court office where you wish to have your order filed.
+ In your supporting affidavit, explain why you wish to file the order for enforcement in Ontario. Details about how the matter proceeded through the court in the other province or territory, including how and when the debtor was served with any documentation and if they defended themselves in the original matter should also be provided. You are not required to attend at the motion, but may do so if you wish. You will be notified by the court if the court permits you to file your order in a Small Claims Court in Ontario for enforcement. There is a fee to file these orders. Refer to " Small claims court fees " for more information.
+ Once filed, for enforcement purposes, your order will be treated as a judgment of the court rendered against the debtor.
+ Collecting from a debtor
+ As a creditor, you may have to enforce the judgment. In order for you to collect, the debtor must have one of the following:
+ money
+ assets that can be seized and sold
+ a debt owing to the debtor by a third party e.g. , bank account, employment income) that can be garnished
+ If the debtor does not have the ability to pay immediately, you may choose to wait. The person may get a job in a few months, for example. You will still have your judgment and you can attempt to collect it then through a notice of garnishment (see Part Two of this guide).
+ If you do choose to enforce an order through one of the processes outlined below, it is your responsibility to contact the court and the enforcement office(s) when the debt has been paid in full. This will stop any unnecessary enforcement steps by the court or enforcement office.
+ Entering a private dwelling to enforce a judgement
+ Enforcement staff can only use force to enter a private dwelling if the order for the writ specifically authorizes the use of reasonable force. Full details can be found under section 20(2) of the Execution Act .
+ Interest on money claimed
+ For information on claiming and calculating pre-judgment interest (interest before judgment), see the " Making a claim ".
+ After judgment, interest is called post-judgment interest. If your claim is successful, post-judgment interest accrues automatically on the amount owing to you under the judgment.
+ Calculating post-judgment interest
+ You can calculate the amount of post-judgment interest owing as follows:
+ (total judgment amount) x (post-judgment interest rate %) (365 days per year) x (number of days from date of judgment to date payment received) = post-judgment interest owing
+ Example 1
+ Juan got a Small Claims Court judgment for $5,000. The pre-judgment interest rate was 10% and 60 days passed from the date his claim arose until the date judgment was given.
+ Pre-judgment interest would be calculated as follows:
+ $5,000 x10% 365 days per year x 60 days =
+ $82.19 pre-judgment interest owing (this amount will not change once it has been calculated)
+ Juan was paid the total amount of his outstanding judgment (which includes pre-judgment interest) 240 days after he received the judgment. The post-judgment interest rate was 5%.
+ Post-judgment interest would be calculated as follows:
+ $5,082.19 x 5% 365 x 240 days = $167.09 post-judgment interest owing
+ Calculation of simple (not compound) interest is always on the amount owing from time to time on the amount of the judgment (debt + pre-judgment interest) and costs awarded at the time of judgment that continue to reduce as payments are received.
+
+ Interest calculations must be performed after every payment is received as the daily (per diem) interest accumulating on the judgment and/or costs awarded at the time of judgment may be reduced as a result of the payment applied.
+ For example, if several partial payments are made, the daily interest rate due must be re-calculated after each payment based on the reduced balance owed. This is true for both pre-judgment and post-judgment interest.
+ Example 2
+ Karen got a Small Claims Court judgment for $5,000. The pre-judgment interest rate was 10% and 60 days passed from the date her claim arose until the date judgment was given.
+ Pre-judgment interest would be calculated as follows:
+ $5,000 x 10% 365 days per year x 60 days =
+ $82.19 pre-judgment interest owing (this amount will not change once it has been calculated)
+ Karen requests the issuance of a garnishment 300 days after she obtained judgment and advises that she received a payment of $2,000 from the debtor 240 days after she received the judgment. The post-judgment interest rate was 5%.
+ Post-judgment interest would be calculated as follows:
+ post-judgment interest owing from the judgment date to the date when the payment was made (day 240)- $5,082.19 x 5% 365 x 240 days = $167.09
+ post-judgment interest owing from date the payment was made (day 240) to the date she requested the garnishment (day 300) $5,082.19 + $167.09 - $2,000.00 = $3,249.28 x 5% 365 x 60 days = $26.71
+ The total amount owing would be $3,249.28 + $26.71 = $3,275.99 (plus fees for enforcement)
+ When the creditor needs to file a Certificate of Judgment
+ The court where the judgment is made is often called the originating court. Sometimes, the debtor lives or carries on business within the area of a court other than the originating court. In this case, before the creditor can get either a notice of garnishment or notice of examination from the court in that jurisdiction, a Certificate of Judgment [Form 20A] is required . The creditor may also request the issuance of a certificate of judgment if they wish to have it for their records, or where required as proof of judgment (for example, may be required by sheriff as proof of judgment where sale of land is requested). The certificate of judgment must be requested and issued by the originating court and filed in the court office where the judgment will be enforced. There is a fee for issuing each certificate of judgment.
+ Example 3
+ Meera sued Norman in Brockville Small Claims Court and the judge made a judgment in her favour for $1,500. Meera knows that Norman has now moved to Ottawa.
+ Meera will now need to request a certificate of judgment from the Brockville Small Claims Court and file it with the Ottawa Small Claims Court if she wishes to file either a notice of garnishment or a notice of examination.
+ Meera could then garnish Norman's bank account, for example, by filing a notice of garnishment with the Ottawa Small Claims Court.
+ What the parties should do if the judgment has been paid in full
+ As noted above, if you are the creditor and you have chosen to enforce an order through one of the processes outlined in this guide, it is your responsibility to contact the court and the enforcement office(s) to advise that the debt has been paid in full and to stop or withdraw any enforcement steps. If the debt is paid in full under a notice of garnishment, you must immediately serve a Notice of Termination of Garnishment [Form 20R] on the garnishee and on the clerk.
+ If you are the debtor, once you have paid all you owe to the creditor under the judgment, you can fill out a Request for Clerk's Order on Consent [Form 11.2A] . On this form, check the box that indicates that you are requesting a clerk's order noting "payment has been made in full satisfaction of an order or terms of settlement." Each party must sign the form in the presence of his or her witness. This form must be filed with the court. Refer to " Motions and clerk's order " for more information.
+ If the creditor is unavailable or unwilling to complete the notice of termination of garnishment form or sign the Request for Clerk's Order on Consent [Form 11.2A] , you can make a motion to the court for an order stating that payment has been made in full satisfaction of the debt. There is a fee for this process.
+ Examination Hearing
+ Preparing for an examination hearing
+ A creditor can request an examination hearing if there is a default under an order for the payment or recovery of money.
+ An examination of the debtor gives both the court and the creditor information about the debtor's financial situation. It may be that the creditor wants to enforce an order through garnishment and needs to know where the debtor works or banks. The examination may give the creditor the information needed to request a garnishment. The creditor can also examine a person other than the debtor to get information about the debtor's assets.
+ At the hearing, the debtor or other person should be prepared to answer questions about the debtor's employment, any property the debtor owns such as motor vehicles or land, and about all bank branches where the debtor has an account, including accounts which may be held jointly with another person. It may later prove helpful if both the creditor and the person being examined take notes during the examination.
+ A judge may also make orders at an examination, for example an order as to payment.
+ Attendees of an examination
+ The creditor and the person to be examined (usually the debtor) must attend the examination. Representatives may also attend. The examination will be conducted under oath. The public will not be allowed to attend unless the court orders otherwise.
+ How the creditor begins the examination process
+ The procedure is:
+ You fill out a Notice of Examination [Form 20H] indicating the person to be examined (usually the debtor). If the debtor is a company, name the person who has the information you need. For example, you could name an officer or director of the corporation, a partner in the partnership or the sole proprietor.
+ You fill out an Affidavit for Enforcement Request [Form 20P] in support of a request for a notice of examination. This form generally describes:
+ the details of the court order you are enforcing
+ payments that have been made to date
+ the amount still owing
+
+ You file the notice of examination and affidavit with the court in person, by mail or online using the Small Claims Court Submissions Online portal at www.ontario.ca/smallclaims , along with a Certificate of Judgment if necessary (see "When does the creditor need to file a Certificate of Judgment?" above). There is a fee for filing the notice of examination. The court clerk signs the notice, sets the date and returns your copy. Make sure you print or pick up from the court office enough affidavit(s) of service to allow you to fill out an affidavit to prove service on each debtor or person to be examined.
+ You serve the notice of examination on the debtor or other person to be examined at least 30 days before the hearing. If the debtor to be examined is an individual, you will also need to serve a blank Financial Information Form [Form 20I] . If the debtor is a business, no financial information form is required.
+ If you cannot serve the debtor at least 30 days before the scheduled date of the hearing, call the court office for more information.
+
+ You fill out an Affidavit of Service [Form 8A] with the court proving service on the debtor or person to be examined and file it at the court at least 3 days prior to the date set for the examination. The notice of examination must be served by personal service or an alternative to personal service. See " Serving documents " for more information.
+ If you filed your claim online you may also need to file in hardcopy all e-filed and e-issued documents in your case together with the notice of examination.
+ You attend the examination hearing on the date set by the court. The debtor (or other person) can be examined in relation to: the reason for non-payment
+ the debtor's income and property
+ the debts owed to and by the debtor
+ the disposal the debtor has made of any property either before or after the order was made
+ the debtor's present, past and future means to satisfy the order
+ whether the debtor intends to obey the order or has any reason for not doing so
+ any other matter pertinent to the enforcement of the order
+
+ See " Tips on completing forms in Small Claims Court " for more information on completing forms. Refer to " Small claims court fees " for information on fees.
+
+ What the debtor (or other person) needs to do before the examination hearing
+ The debtor or any other person to be examined should be prepared to answer questions and provide documents in relation to the examination.
+ A debtor who is an individual ( i.e. not a corporation) must fill out the Financial Information Form [Form 20I] and serve it on the creditor before the hearing. The debtor must also bring a copy of the completed form to the hearing and give it to the judge. A financial information form provides a snapshot of the debtor's income, expenses, debts and assets.
+ The form is not filed with the court. The debtor must also bring to the hearing documents that support the information given in the form.
+
+ What happens to the Financial Information Form (Form 20I) given to the judge at the after the examination hearing
+ The judge at the examination hearing may consider the information you provide in the Financial Information Form and any supporting documents when making a decision at the examination hearing. You should ask the courtroom clerk to return these documents to you after the hearing has finished because they may not be available for you to pick up after the hearing. The Financial Information Form and supporting documents do not belong in the court file. Court files are available for public viewing, unless an order of the court provides otherwise.
+ Taking other steps to enforce a judgment if a payment schedule is ordered at the examination hearing
+ If, at the examination, the court orders a periodic payment schedule, the debtor must make the payments in the amounts and on the dates ordered in the schedule. As long as those periodic payments are made, the creditor cannot do anything else to enforce the judgment, other than issue a writ of seizure and sale of land.
+ What creditor can do if the debtor fails to make a payment under a periodic payment order or makes a partial payment
+ If the debtor fails to make a payment or makes only a partial payment, you can serve on the debtor and file with the court a Notice of Default of Payment [Form 20L] and an Affidavit of Default of Payment [Form 20M] . An order for periodic payment terminates 15 days after you serve the debtor with the notice of default of payment, unless a Consent [Form 13B] in which you waive the default, is filed with the court within the 15-day period. You are then free to proceed with another method of enforcement.
+ Example 4
+ Meera sued Norman, and the judge made a judgment in her favour for $1,500. At the examination hearing, the judge then ordered Norman to pay $100 to Meera on the first day of each month.
+ As long as Norman makes those payments on time, Meera cannot do anything to enforce the order except file a Writ of Seizure and Sale of Land.
+ But if Norman misses a payment, Meera can file an affidavit of default of payment swearing to the default, the amount paid (if any) and the balance owing, and serve it on him.
+ If Norman and Meera do not file a consent in which Meera waives the default, 15 days later Meera could then file the documents necessary to commence any other enforcement processes to collect the total amount owed to her.
+ What happens if the debtor (or other person) attends an examination hearing but refuses to produce documents or answer questions
+ If the debtor or other person attends the examination but refuses to produce documents or answer questions, the judge may order the person to attend a contempt hearing to determine whether the person is in contempt of court.
+ The Small Claims Court will schedule a time, date and place for the contempt hearing. The clerk will provide the creditor with the notice of contempt hearing. The creditor must serve the notice on the debtor or other person who has been ordered to attend the contempt hearing by means of personal service. Once service is made, an Affidavit of Service [Form 8A] must be filled out, sworn (or affirmed) and filed with the Small Claims Court at least 7 days in advance of the hearing date. Refer to " Serving documents " for more information.
+ The creditor and the debtor (or other person) must attend the contempt hearing.
+ Asking the court to cancel a contempt hearing ordered for failure to produce documents or answer questions
+ If you are ordered to attend a contempt hearing for failing to produce documents or answer questions you must attend the contempt hearing. If you have changed your mind and are now willing to produce documents or answer questions, tell the judge at the hearing. Bring the documents with you to the contempt hearing.
+ What happens if the debtor (or other person) does not attend the examination hearing
+ If the debtor (or other person) does not attend the examination hearing, the judge may order the person to attend a contempt hearing to determine whether the person is in contempt of court.
+ The Small Claims Court will schedule a time, date and place for the contempt hearing. The clerk will provide the creditor with the notice of contempt hearing. The creditor must serve the notice on the debtor or other person who has been ordered to attend the contempt hearing by means of personal service. Once service is made, an Affidavit of Service [Form 8A] must be filled out, sworn (or affirmed) and filed with the Small Claims Court at least 7 days in advance of the hearing date. Refer to " Serving documents " for more information.
+ The creditor and debtor (or other person) must attend the contempt hearing.
+ Asking the court to cancel a contempt hearing ordered for failure to attend the examination hearing
+ If you want to ask the court to cancel the contempt hearing that was ordered because you failed to attend the examination hearing, you may file a Notice of Motion and Supporting Affidavit [Form 15A] before the date of the contempt hearing. In your affidavit and at the motion hearing, ask the judge to rescind (reverse) the order for a contempt hearing. Explain the reasons why you failed to attend the examination hearing and that you are willing to attend a rescheduled examination hearing.
+ If the motion cannot be heard before the date of the contempt hearing, or if the motions judge refuses to grant your request, you must attend the contempt hearing.
+ Paying the whole amount of my debt to the creditor
+ If you have been ordered to attend a contempt hearing and you did not get the order to attend the contempt hearing set aside on a motion, you must attend even if, in the meantime, you have paid your debt to the creditor. This is because you have been ordered to the contempt hearing for your behaviour in court (for example, refusing to answer questions or provide documents) or for your failure to attend the examination hearing, not for failing to pay the debt. Paying the debt does not expunge (remove) the contempt.
+ What happens at a contempt hearing
+ A contempt hearing is a serious matter. At the contempt hearing, you will be given an opportunity to explain your actions and any reasons for them. The judge may order you to attend an examination hearing. The judge may also make an order that you are to be jailed up to five days for contempt of court. If you do not attend the contempt hearing, orders may also be made against you.
+ When the judge orders a Warrant of Committal for contempt
+ If the judge orders the debtor or other person to be jailed for contempt of court, the clerk will issue a Warrant of Committal [Form 20J] directed to the police. The warrant authorizes the police to take the individual named in the warrant to the nearest correctional institution and hold him or her there for the time specified in the warrant.
+ If you are found in contempt of court at the contempt hearing and a warrant of committal is issued, you or your representative may ask the court to set aside the warrant and the finding of contempt by filing a Notice of Motion and Supporting Affidavit [Form 15A] at the Small Claims Court. In your supporting affidavit and at the motion hearing, explain to the judge the reasons why the contempt order should be set aside.
+ Getting legal advice before a contempt hearing
+ A lawyer or paralegal is in the best position to advise you about your legal rights and responsibilities. If you wish to consult an Ontario lawyer or paralegal, you may contact the Law Society Referral Service operated by the Law Society of Ontario. The Law Society Referral Service can provide you with the name of a lawyer or paralegal in your area, who will provide a free initial consultation of up to 30 minutes to help determine your rights and options.
+ If you would like to be referred to a lawyer or paralegal, you may submit a request to the Law Society Referral Service by completing the online request form at www.lawsocietyreferralservice.ca .
+ A crisis line is available Monday to Friday, 9:00 am to 5:00 pm. The crisis line is intended for people who are unable to use the online service, such as those in custody, in a shelter, or in a remote community without access to the internet. The phone number for the crisis line is 416-947-5255 (toll free 1-855-947-5255 ).
+ Information about how to be referred to a lawyer or paralegal through the Law Society's Referral Service is available at www.lsrs.info . You may also use the Law Society's Lawyer and Paralegal Directory, which may be viewed at www.lawyerandparalegal.directory .
+ Notice of Garnishment
+ If a court has ruled in your favour and you have not received payment, you can claim/demand money owed to the debtor by someone else. This is called garnishment. Most often, people garnish wages or bank accounts.
+ The rules for garnishment are contained in the Rules of the Small Claims Court . The rules on garnishment are strict and have to be followed carefully.
+
+ Section 7 of the Wages Act restricts the amount of wages that can be garnished. In addition, there are some exemptions from garnishment. For example, employment insurance, social assistance and pension payments cannot be garnished, even if the funds have been deposited into an account at a financial institution.
+ There are also specific time limits and extra steps to garnish the wages of an employee of the federal government, a military member of the Canadian Armed Forces or an employee of the provincial government.
+ For information about the process of garnishing the wages of a federal government employee, you can use the Checklist for Applicants Garnishment, Attachment and Pension Diversion Act to help guide you through the garnishment process under Part I of the federal Garnishment Attachment and Pension Diversion Act .
+ For more information about garnishing the wages of a member of the Canadian Armed Forces, you can refer to Chapter 207 of the Queen's Regulations and Orders .
+ For information about the process of garnishing the wages of a provincial government employee, you can refer to the O. Reg. 210/19: "Garnishment" under the Crown Liability and Proceedings Act, 2019 .
+ Example 5
+ Norman has not made any attempt to pay the judgment in spite of receiving a letter requesting payment from Meera. Meera decides to garnish his bank account. (She knows where he does his banking from a cheque he gave her.)
+ She gets an Affidavit for Enforcement Request [Form 20P] and a Notice of Garnishment [Form 20E] , and fills out and files both documents. The court returns her copies. She makes additional copies and takes one to the bank and serves the manager by giving a copy to her. She then serves Norman and files with the court affidavits of service proving service on the garnishee (the bank) and the debtor (see " Serving documents ").
+ She finds out that there was $100 in Norman's bank account and that money has now been paid into court. The payment will be held for 30 days and then paid out equally to all Small Claims Court creditors who have filed a garnishment against Norman, including Meera.
+ Information needed to proceed
+ If you are garnishing wages, you must know the correct legal name and address of the employer. If the name of the employer is not correct, the employer may have a case for ignoring the order. For information on how to search a corporation or registered business name, you can visit the ServiceOntario website or contact the Companies Helpline, Ministry of Government and Consumer Services at 416-314-8880 or toll free in Ontario at 1-800-361-3223 .
+ There is a fee payable to that Ministry for the search and the search will not be conducted over the phone.
+
+ If you are garnishing a bank account, you must know the name and address of the branch where the debtor banks.
+ How a creditor begins the garnishment process
+ The procedure is:
+ You must have the notice of garnishment issued by the clerk within 6 years after the court made the order you are trying to enforce or make a motion to have it issued later.
+
+ You fill out an Affidavit for Enforcement Request [Form 20P] in support of a notice of garnishment. This form describes: the details of the court order you are enforcing
+ the amount still owing
+ that someone else (the garnishee) does or will owe money to the debtor
+ the address of the garnishee
+
+ You fill out a Notice of Garnishment [Form 20E] . If there is more than one garnishee, you must fill out a separate notice of garnishment and affidavit for enforcement request for each garnishee.
+ You file the affidavit and notice of garnishment with the court or file each document online using the Small Claims Court Submissions Online portal at www.ontario.ca/smallclaims . There is a fee for filing the notice of garnishment. The court clerk signs ("issues") the notice of garnishment and returns your copy. You can serve the documents on the garnishee and the debtor personally, by courier, or by mail. One affidavit of service must be completed for each person served.
+ You serve the notice of garnishment and a blank Garnishee's Statement [Form 20F] on the garnishee (that is, the bank, the employer, or whoever you have named in the notice). The usual practice is to serve the garnishee first and then serve the debtor.
+ You serve the notice of garnishment and a copy of the affidavit for enforcement request on the debtor. You must do so within 5 days of serving the garnishee.
+ You then fill out and file two Affidavits of Service [Form 8A] with the court: one proving service on the garnishee and the other proving service on the debtor.
+ The garnishee pays the money to the court (if there is any money).
+ See the " Tips " sheet at the end of this guide for more information on completing forms. Refer to " Small claims court fees " for information on fees.
+
+ Co-owner of the debt
+ A co-owner of debt is a person who is also entitled to a portion of the debt payable to the debtor (for example, in the case of a joint bank account). Where there is a co-owner, up to 50% of the indebtedness, subject to an order of the court, may be garnished.
+ The garnishee (the person who owes the debt to the debtor) is required to identify any co-owners of debt in the Garnishee's Statement [Form 20F] . The creditor is then required to serve the co-owner or co-owners of debt with a Notice to Co-owner of Debt [Form 20G] and the garnishee's statement.
+ When the garnishee pays the money into court
+ Any money paid into court will be deposited in the court's account in trust for the creditor. In order to pay the money out, the clerk needs proof that the creditor served the notice of garnishment on the debtor. These are a few of the things that the creditor should keep in mind:
+ Make sure you file your affidavits of service (of the notice of garnishment) with the court.
+ The clerk will hold the first payment for 30 days. After that, unless one of the situations set out below occurs, the clerk will send a cheque to the creditor or creditors.
+ The money will be divided equally between all Small Claims Court creditors in that location who have garnishments filed against the same debtor and have not been paid in full.
+ All subsequent payments received from the garnishee will be paid to the eligible creditor(s) as they are received.
+ The payout of money may be affected by certain circumstances, such as the following:
+ a garnishment hearing has been requested
+ a notice of motion has been filed, for example, a motion to set aside default judgment or a motion for a new trial
+ a "Sheriff's Demand" for the funds has been received, in accordance with the Creditors' Relief Act ( Note: The demand only attaches to funds that are in the court at the time the demand is filed with the clerk and will result in the clerk providing the sheriff with the funds that were subject to the demand)
+ a court order delaying payment is made
+ a written notice of a stay of proceeding under the Bankruptcy and Insolvency Act has been filed
+ in some circumstances where the judgment for which the garnishment was issued has been appealed
+ Renewing a garnishment when a debt is not paid in time
+ You can renew your notice of garnishment before it expires. A notice of garnishment remains in force for 6 years from the date it was issued by the court and for a further 6 years from each renewal. You must file a Notice of Renewal of Garnishment [Form 20E.1] with the court together with a completed affidavit of enforcement request.
+ When the debt has been paid in full but the notice of garnishment hasn't expired
+ Once the amount owed by the debtor has been paid to the creditor, the creditor must immediately serve a Notice of Termination of Garnishment [Form 20R] on the garnishee and on the clerk of the court.
+ If the creditor fails to file the notice of termination of garnishment form, the debtor can fill out a Request for Clerk's Order on Consent [Form 11.2A] . On this form, check the box that indicates that you are requesting a clerk's order noting "payment has been made in full satisfaction of an order or terms of settlement." Each party must sign the form in the presence of his or her witness. This form must be filed with the court. Refer to " Motions and clerk's order " for more information.
+ If the creditor is unavailable or unwilling to complete the notice of termination of garnishment form or sign the request for clerk's order on consent form, you can make a motion to the court for an order stating that payment has been made in full satisfaction of the debt. There is a fee for this process.
+ Garnishment hearing
+ A garnishment hearing is a hearing before a judge about issues arising from the garnishment. A garnishment hearing can be requested by a debtor, creditor, co-owner of debt, or garnishee, or any other interested person.
+ What the debtor can do if money is being garnished
+ If you are the debtor and you do not agree with a notice of garnishment that has been served on you, you can request a garnishment hearing.
+ You can also request a garnishment hearing if the garnishment means a real financial hardship for you. At the hearing you can ask a judge for an order to increase the amount of wages that is exempt from garnishment under the Wages Act . For example, if the percentage of your wages that is exempt from garnishment is increased, less money will be deducted from your wages.
+ What the co-owner of debt can do if funds are being garnished
+ A co-owner of debt can request that the clerk schedule a garnishment hearing before a judge. A co-owner of debt must request the garnishment hearing within 30 days after the notice to co-owner of debt is sent in order to be able to dispute the garnishment.
+ Requesting a garnishment hearing as a creditor
+ Any interested person, including the debtor or garnishee, may request that the clerk schedule a garnishment hearing before a judge. For example, you may receive a garnishee's statement that you disagree with, or you may believe that monies are not being fully and properly remitted by the garnishee. The garnishee has 10 days to pay the court clerk after being served with the notice of garnishment, or 10 days after the debt of the garnishee to the debtor becomes payable, whichever is later. After the 10 days have passed, you can request a garnishment hearing. However, where the notice of garnishment is served on the Crown in Right of Ontario, the notice is deemed to have been served 30 days after the actual date of service (O. Reg. 210/19: "Garnishment" under the Crown Liability and Proceedings Act, 2019 ). In this situation, you would have to wait 40 days to request a garnishment hearing.
+ Scheduling a garnishment hearing
+ The person requesting the hearing must fill out and file a Notice of Garnishment Hearing [Form 20Q] . These are the steps to follow:
+ Call the court office to get a hearing date to put on the form.
+ Complete the form and serve a copy of it on the creditor, debtor, garnishee (for example, the bank or employer), co-owner of debt, if any (for example, person who has a joint bank account with the debtor), and any other interested person that you know of (for example, any other person affected by the garnishment order). Please refer to " Serving documents " for more information.
+ File the original notice of garnishment hearing with the court or file the notice of garnishment online using the Small Claims Court Submissions Online portal at www.ontario.ca/smallclaims before the hearing date. There is no fee to file this notice.
+ If you filed your claim online, you may also need to file in hardcopy all e-filed and e-issued documents in your case together with the notice of garnishment hearing.
+ Writ of Seizure and Sale of Personal Property
+ If the debtor has been ordered by the court to pay the creditor money but he or she has not paid, the creditor can ask the enforcement office to take specific personal possessions belonging to the debtor and sell them at public auction so that the money can be used to pay the judgment debt.
+ The costs of this procedure can be relatively high. The creditor risks paying these costs with no chance of recovery if the debtor does not have any goods worth seizing and selling, and other enforcement remedies fail. It is a good idea to confirm beforehand whether this procedure will be worthwhile.
+ Debtor's goods exempt from seizure by the creditor
+ Under the Execution Act , a debtor is entitled to certain exemptions from seizure of personal property such as:
+ clothing (up to a certain amount)
+ household furniture, utensils, equipment, food and fuel (up to a certain amount)
+ tools and instruments used in the debtor's business (other than tillage of the soil or farming) (up to a certain amount)
+ tools, books and instruments used for the tillage of the soil or farming and livestock, fowl, bees and seed (up to a certain amount)
+ one motor vehicle worth less than the specified amount
+ The debtor has a right to choose the goods that make up the exemptions.
+ Full details of the exemptions under the Execution Act and its regulations are available on the e-Laws website at: www.e-laws.gov.on.ca .
+ How a creditor begins the writ of seizure and sale of personal property process
+ The procedure is:
+ You fill out an Affidavit for Enforcement Request [Form 20P] in support of a writ of seizure and sale of personal property.
+ This form describes:
+ the details of the court order you are enforcing; and
+ the amount still owing.
+
+ You fill out a Writ of Seizure and Sale of Personal Property [Form 20C] .
+ You file the affidavit and writ of seizure and sale of personal property with the court where you obtained your judgment or file each document online using the Small Claims Court Submissions Online portal at www.ontario.ca/smallclaims . Court staff will issue the writ and return the issued writ to you to file in the enforcement office. There is a fee for issuing the writ in the Small Claims Court.
+ You must have the writ issued within 6 years after the court made the order you are trying to enforce or make a motion to have it issued it later.
+
+ You file the issued writ at the enforcement office. You must advise the enforcement office in writing what property you want seized and give detailed information that will allow enforcement staff to locate and seize the specific property. You can set this information out in a Direction to Enforce Writ of Seizure and Sale of Personal Property [Form 20O] and file it at the enforcement office.
+ You pay an enforcement fee and a deposit to the enforcement office to cover the anticipated disbursements (expenses) to enforce the writ. Disbursements are costs of enforcement likely to be incurred and may include such things as freight, insurance, locksmith, storage, mileage and advertising of the sale of the goods seized. If the amount of the deposit you pay is used up prior to the disposition of the goods, you will be asked to replenish the deposit.
+ The enforcement office has a general duty to act reasonably and in good faith towards all parties, including both the debtor and the creditor. The enforcement office can refuse to act if the estimated costs of executing the writ of seizure and sale are greater than the debtor's equity in the property to be seized. The purpose of seizure is to sell property to satisfy the judgment debt, not to punish the debtor.
+
+ Enforcement staff will seize and store the items until a public auction is held. The goods will be sold at the public auction.
+ Proceeds from the public auction will be paid into court and paid out to creditor(s) who initiated the enforcement process once the enforcement office has calculated the net amount of proceeds.
+ See the " Tips " sheet at the end of this guide for more information on completing forms. Refer to " Small claims court fees " for information on fees.
+
+ Having a motor vehicle, snowmobile or boat seized
+ If the creditor is requesting that a motor vehicle, snowmobile or boat be seized, he or she must also provide the court with proof that the following searches have been made:
+ Personal Property Security Act search and Repair and Storage Liens Act search to show whether there are any liens or other securities registered against the vehicle, the amounts of the liens or securities, and whether there is enough equity in the vehicle for it to be seized and sold;
+ For information about how to conduct these searches, visit the ServiceOntario website or contact the Companies Helpline, Ministry of Government and Consumer Services at 416-314-8880 or toll free in Ontario at 1-800-361-3223 . Please note that there is a fee payable to that ministry for the search and the search will not be conducted over the phone.
+
+ Vehicle abstract to prove that the vehicle is owned by the debtor;
+ For a motor vehicle only: An up-to-date copy of a used vehicle information package, which can be obtained from the Ministry of Transportation. (This should not be more than one week old.)
+ (Information about where vehicle abstract searches or used vehicle information packages may be obtained is available on the ServiceOntario website.)
+ How long a writ lasts
+ The writ will expire six years from the date it is issued, unless you renew it for an additional six-year period. A writ may be renewed before it expires by filing a Request to Renew a Writ of Seizure and Sale [Form 20N] with the enforcement office. Each renewal is valid for six years from the previous expiry date. There is a fee to file a writ. Refer to " Small claims court fees " or the enforcement office for more information.
+ Writ of Seizure and Sale of Land
+ A creditor can file a writ of seizure and sale of land against a debtor in any county or district where the debtor may own land (including a house). The writ would encumber any land presently owned or land which may be purchased in the future by the debtor in the county(ies) or district(s) where the writ is filed. If you wish to enforce the writ in more than one location, you must issue a separate writ for each location and file it there.
+ The writ of seizure and sale of land can be very effective in the long run since it will be difficult for the debtor to sell or mortgage the land until the debt is paid.
+ In addition, if another creditor has a writ filed in the same enforcement office against the same debtor and is actively enforcing it, you will share, on a pro-rata basis (divided on a proportionate basis depending on the amount of each debt), in any money paid into the enforcement office (sheriff) from any enforcement activity taken against the debtor.
+ Note, however, that the enforcement office has a general duty to act reasonably and in good faith towards all parties. The enforcement office can refuse to act if the estimated costs of executing the writ of seizure and sale are greater than the debtor's equity in the property to be seized.
+ The writ can be filed whether or not the debtor owns land at the time of filing. However, if you prefer not to file until you are certain the debtor owns land, for a fee you can do a name search at the land registry or land titles office (visit the ServiceOntario website for a list land registry/titles offices) located in the area where you think the debtor may own property.
+ When the land can be sold
+ Four months after filing the writ with the enforcement office you can direct the enforcement office (sheriff) to seize and sell the land, but the actual sale cannot proceed until the writ has been on file for six months. Contact the enforcement office to determine what will be required to commence with the seizure and sale of land.
+ The enforcement office can only sell the portion of the land that the debtor actually owns. Mortgages, liens and encumbrances may reduce the value of the property that is available to be seized and sold by the enforcement office. Creditors should determine, before proceeding with this process that the debtor actually has equity (difference between what a property is worth and what the owner owes against that property) available to be sold.
+ The sale of land is a complicated and costly process, and commencing this process requires a large initial deposit for expenses associated with the sale.
+ Creditors should consider other less costly enforcement options before directing the enforcement office to proceed with seizing and selling the debtor's equity in the land.
+ How long the writ lasts
+ The writ will expire six years from the date it is issued, unless you renew it for an additional six-year period. A writ may be renewed before it expires by filing a Request to Renew a Writ of Seizure and Sale [Form 20N] with the enforcement office. Each renewal is valid for six years from the previous expiry date. There is a fee to file and renew a writ.
+ Beginning the Writ of Seizure and Sale of Land process
+ The procedure is:
+ You fill out an Affidavit for Enforcement Request [Form 20P] . This form describes: the details of the court order you are enforcing;
+ the amount still owing; and
+ the county or district where the debtor owns land.
+
+ You fill out a Writ of Seizure and Sale of Land [Form 20D] .
+ You file the affidavit and writ in the court where you obtained judgment. Court staff will issue the writ and return the original to you to file in the enforcement office. You must have the writ issued within six years after the court made the order you are trying to enforce or make a motion to have it issued it later. If you wish to file a writ in more than one county or district, you will require an additional affidavit and writ for each location. There is a fee for issuing the writ in the Small Claims Court and a fee for filing it in the enforcement office.
+ Help for someone involved in a seizure and sale of land
+ Any party involved in a seizure and sale of land may choose to get legal advice. If you wish to consult an Ontario lawyer or paralegal, you may contact the Law Society Referral Service operated by the Law Society of Ontario. The Law Society Referral Service can provide you with the name of a lawyer or paralegal in your area, who will provide a free initial consultation of up to 30 minutes to help determine your rights and options. If you would like to be referred to a lawyer or paralegal, you may submit a request to the Law Society Referral Service by completing the online request form at www.lawsocietyreferralservice.ca .
+ A crisis line is available Monday to Friday, 9:00 am to 5:00 pm. The crisis line is intended for people who are unable to use the online service, such as those in custody, in a shelter, or in a remote community without access to the internet. The phone number for the crisis line is 416-947-5255 (toll free 1-855-947-5255 ). Information about how to be referred to a lawyer or paralegal through the Law Society's Referral Service is available at www.lsrs.info . You may also use the Law Society's Lawyer and Paralegal Directory, which may be viewed at www.lawyerandparalegal.directory .
+ Writ of Delivery
+ When a person or business has personal property that does not belong to him or her and refuses to return it to the rightful owner, the owner can request a court order for a writ of delivery. This writ authorizes enforcement staff to take the specific items and return them.
+ What information property owner needs to get started
+ You must provide the court with a full description of the personal property, i.e. serial numbers, make, model, photographs (if available), the exact location where the items can be found and proof of ownership, where applicable.
+ What a person who possesses goods can do if they are served with an order and writ of delivery, and disagrees with the order
+ If you are served with an order for a writ of delivery, you may make a motion to the court in relation to the order. See " Motions and clerk's orders " for more information.
+ However, the goods may still be seized unless you have a court order rescinding the writ of delivery.
+ How the owner begins the writ of delivery process
+ The procedure is:
+ Once a judge grants the order for a writ of delivery, you fill out an Affidavit for Enforcement Request [Form 20P] and Writ of Delivery [Form 20B] . The affidavit form describes:
+ the details of the court order you are enforcing ( i.e. , interim order or final judgment);
+ exact details of the specific personal property you want returned to you and where it can be located; and
+ your statement that the personal property in question has not been returned.
+ The court will sign the writ and return the writ and affidavit to you to take to the enforcement office.
+
+ File with the enforcement officer the issued writ, a copy of the affidavit of enforcement and a copy of the order granting the writ of delivery with the enforcement office. There is a fee for this process, including a fee for mileage.
+ The enforcement office will contact you with a date and time when the writ will be executed and advise you of any arrangements that you will need to make before the enforcement date such as:
+ that enough resources are available to retrieve the personal property in an efficient and timely way.
+ Depending on the size of the personal property, you may be asked to hire movers or rent a vehicle large enough to transport it.
+ You may also need to hire a locksmith to get access to the personal property to be seized. For example, if property to be seized must be dismantled prior to removal from a person's possession, you should hire enough people to dismantle it quickly. You are responsible for making and paying the costs of these arrangements.
+
+ An enforcement officer will carry out the seizure of property in accordance with the order on the execution date identified and if the property is located, return it to you.
+ What the owner can do if the item(s) cannot be located
+ If the personal property referred to in a writ of delivery cannot be found or taken by an enforcement officer, you can ask the court, by filing a notice of motion, for an order directing an enforcement officer to seize any other personal property owned by the debtor.
+ If you obtain this type of order, enforcement staff will keep the personal property until the judge makes an order for its disposition (for example, orders the sale of the property). You must pay any additional costs to execute the order or store the personal property during this time.
+ Consolidation Order
+ If you are a debtor and you have more than one outstanding Small Claims Court judgment against you, you can apply to the Small Claims Court where you live for a consolidation order. If granted, this order would combine the judgment debts and set up a schedule of repayments for all creditors named in the order. As long as you make the payments as ordered, no other enforcement measures can be taken against you to collect the debts included in the order, except each creditor could seek issuance of a Writ of Seizure and Sale of Land [Form 20D] and file it with the enforcement office (sheriff).
+ How a debtor can get a consolidation order
+ To ask for a consolidation order, file a Notice of Motion and Supporting Affidavit [Form 15A] listing the judgments against you, your debts, your income from all sources and any family support obligations. The notice of motion and affidavit must be served on each creditor at least seven days before the scheduled motion date. For more information about motions, see the " Motions and clerk's orders ." For more information about service, refer to " Serving documents ."
+ At the hearing, a judge will hear evidence about your income and expenses and may make an order combining your debts and order payments to be made in installments.
+ Remember, a consolidation order terminates immediately if:
+ an order for payment of money is obtained against you for a debt incurred after the date of the consolidation order
+ if you are in default under the terms of the order for 21 days
+ If the order is terminated, no further consolidation order can be made until a year has passed from the date of the termination.
+
+ Updated: July 02, 2026
+
+ Published: March 23, 2022
+
+ Top

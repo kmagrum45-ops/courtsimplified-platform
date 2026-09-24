@@ -20,7 +20,7 @@
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 
-import { CORPUS_SOURCES } from "../rules/corpusSources";
+import { CORPUS_SOURCES, sourceTier } from "../rules/corpusSources";
 import { sha256, readManifest } from "../rules/fetchCorpus";
 import { smallClaimsForms, formTitle } from "../../src/lib/content-library/smallClaimsForms";
 
@@ -219,6 +219,57 @@ if (!manifest) {
       pass("an unknown form number resolves to nothing");
     } else {
       fail("an invented form number resolved to a title");
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // 6. Both tiers are present, and the practical sources carry real content
+  // -------------------------------------------------------------------------
+  {
+    const byTier = { legislation: 0, practical: 0 };
+    for (const source of CORPUS_SOURCES) byTier[sourceTier(source)] += 1;
+
+    if (byTier.legislation >= 5 && byTier.practical >= 8) {
+      pass(
+        `both tiers are vendored: ${byTier.legislation} legislation, ${byTier.practical} practical`,
+      );
+    } else {
+      fail(
+        `tier counts are ${byTier.legislation} legislation / ${byTier.practical} practical`,
+        "The practical layer -- fees, online filing, what to bring -- cannot be\n" +
+          "written without its own sources. None of it is in the regulation.",
+      );
+    }
+
+    /*
+     * A practical source is a live web page, and the extractor strips nav,
+     * header, footer and aside. If a site restructures so that real content
+     * sits inside one of those, the vendored file becomes boilerplate -- and
+     * a block citing it would point at a page whose words we no longer hold.
+     *
+     * Each source declares substantive markers for exactly this. Asserted
+     * again here, offline, because the fetch-time check only runs when
+     * someone re-fetches.
+     */
+    const hollow: string[] = [];
+    for (const source of CORPUS_SOURCES) {
+      if (sourceTier(source) !== "practical") continue;
+      const entry = manifest.entries.find((candidate) => candidate.id === source.id);
+      if (!entry) continue;
+      const text = readFileSync(path.join(CORPUS_DIR, entry.file), "utf8").toUpperCase();
+      const absent = source.mustContain.filter(
+        (marker) => !text.includes(marker.toUpperCase()),
+      );
+      if (absent.length > 0) hollow.push(`  ${source.id} — missing: ${absent.join("; ")}`);
+    }
+
+    if (hollow.length === 0) {
+      pass(`every practical source's vendored text carries its substantive markers`);
+    } else {
+      fail(
+        "a practical source vendored as boilerplate — the extractor stripped its content",
+        hollow.join("\n"),
+      );
     }
   }
 

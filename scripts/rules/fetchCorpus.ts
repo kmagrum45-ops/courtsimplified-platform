@@ -28,10 +28,10 @@
  */
 
 import { writeFileSync, mkdirSync, existsSync, readFileSync, unlinkSync } from "node:fs";
-import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import path from "node:path";
-import os from "node:os";
+
+import { extract } from "./extractText";
 
 import { CORPUS_SOURCES, type CorpusSource } from "./corpusSources";
 
@@ -78,43 +78,9 @@ export function consolidationLine(text: string): string {
   return match ? match[0].trim().replace(/\s+/g, " ") : "(none stated)";
 }
 
-function extractDoc(buffer: Buffer): string {
-  const temporary = path.join(os.tmpdir(), `corpus-${Date.now()}.doc`);
-  writeFileSync(temporary, buffer);
-  try {
-    // antiword is the only reliable reader for these: they are old-format OLE
-    // compound documents, not .docx, so a zip-based parser sees nothing.
-    return execFileSync("antiword", [temporary], {
-      encoding: "utf8",
-      maxBuffer: 64 * 1024 * 1024,
-    });
-  } finally {
-    try {
-      unlinkSync(temporary);
-    } catch {
-      // A leftover temp file is not worth failing a corpus fetch over.
-    }
-  }
-}
 
-function extractHtml(buffer: Buffer): string {
-  return buffer
-    .toString("utf8")
-    .replace(/<script[\s\S]*?<\/script>/gi, " ")
-    .replace(/<style[\s\S]*?<\/style>/gi, " ")
-    // Table cells become tab-separated so the forms table survives as a table.
-    .replace(/<\/t[dh]>\s*/gi, "\t")
-    .replace(/<\/tr>\s*/gi, "\n")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&#39;/g, "'")
-    .replace(/&quot;/g, '"')
-    .replace(/[ \t]+\n/g, "\n")
-    .replace(/\n{3,}/g, "\n\n")
-    .replace(/[ ]{2,}/g, " ")
-    .trim();
-}
+
+
 
 /**
  * Default backstop against an error page served with HTTP 200.
@@ -155,7 +121,7 @@ async function fetchOne(
 
   let text: string;
   try {
-    text = source.format === "elaws-doc" ? extractDoc(buffer) : extractHtml(buffer);
+    text = extract(source.format, buffer);
   } catch (error) {
     return {
       failure: {

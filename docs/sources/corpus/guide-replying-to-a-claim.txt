@@ -1,0 +1,137 @@
+Replying to a claim | Guide to procedures in small claims court | ontario.ca
+
+ Skip to main content
+
+ Ontario.ca needs JavaScript to function properly and provide you with a fast, stable experience.
+
+ To have a better experience, you need to:
+
+ Go to your browser's settings
+ Enable JavaScript
+
+ Log in to continue
+
+ Please log in for full account access.
+
+ Print all
+
+ Replying to a claim
+
+ On this page
+ Skip this page navigation
+
+ Overview
+ If someone starts an action against you in Small Claims Court, you will receive either:
+ a Plaintiff’s Claim [Form 7A] ; or
+ a Defendant’s Claim [Form 10A] .
+ Most people who receive a claim have a lot of questions about what lies ahead. We encourage you to read this guide and “ Small claims court: suing someone ” before you decide what action you want to take. These guides will give you information that may help with some of the decisions you will have to make.
+ What happens if you ignore the claim
+ If you ignore the claim it will be assumed that you admit to the truth of what is claimed against you. The plaintiff can then get a judgment against you, with no further notice to you, just as if there had been a trial. The judgment can then be enforced against you. To learn about what enforcement activities are available to the plaintiff to enforce a judgment, refer to “ After judgment .”
+ Definition of a defence
+ A Defence [Form 9A] is your answer to the claim. It is the form you will use to explain:
+ what you disagree with in the claim, and why
+ what, if anything, you agree with
+ whether you want to propose terms of payment for all or part of the amount claimed
+ Filing a defence if under 18 years of age
+ An action against a minor must be defended by a litigation guardian. A litigation guardian is usually a parent or guardian. The litigation guardian must fill out a Consent to Act as Litigation Guardian [Form 4A] and file it with the court at the time the defence is filed.
+ If there is more than one defendant in an action
+ The plaintiff will list the name and contact information for one defendant on the Plaintiff’s Claim [Form 7A] . For additional defendants, the plaintiff will tick the box on the claim form that indicates “Additional parties listed on attached Form 1A.” The rest of the defendants and their contact information will be listed on the Additional Parties [Form 1A] attached to the claim as the second page.
+ How do dispute the claim
+ If you want to dispute the claim, you will need to fill out a Defence [Form 9A] and make one copy for yourself and a copy for every plaintiff and defendant listed on the plaintiff's claim. You must serve a copy of your defence on every other party. File the completed defence form, together with one affidavit of service for each party served, with the court office indicated on the top of the claim.
+ How much time you have to file a defence
+ You have 20 calendar days from the date you were served with the claim to file your defence. After 20 days, the plaintiff can have you noted in default. After the 20 days have passed, you may still try to file your defence. Your defence will be accepted for filing as long as the plaintiff has not filed a request to note you in default.
+ How to fill in the defence
+ Make sure that you state on whose behalf the defence is being filed. For example, if there is more than one defendant, is the defence being filed on behalf of all of the defendants or just one defendant?
+ Include names and contact information for all plaintiffs and defendants indicated on the claim. If the claim has more than one plaintiff or defendant you will need to attach an Additional Parties [Form 1A] . Check the box on the defence form that indicates “Additional plaintiffs (or defendants) listed on attached Form 1A.”
+ Write or type your name on your defence form as it appears in the claim ( e.g. if the claim says “Alex Andrew Wong”, the defence should say “Alex Andrew Wong”, not “Alex Wong”). If your legal name is different from the name used on the claim, indicate the error and state your full legal name in your defence.
+ If your address is listed incorrectly on the claim, put your correct address on the defence. If you do not provide your correct address, the court and the other parties will continue to send documents to the incorrect address and you will not know what is happening in your case.
+ Fill in the court address and number file from the plaintiff’s claim.
+ Organize any supporting documents you need to file with the defence. If your defence is based in whole, or in part, on a document, attach a copy of the document to your defence ( e.g. a contract or invoice). If you no longer have the document, or cannot find it, state in your defence the reason why the document is not attached.
+ Review the "Reasons for claim and details" section of the plaintiff’s claim. In your defence, give clear, detailed reasons why you dispute the claim. It is often helpful to use separately numbered paragraphs. If the claim has numbered paragraphs, you can write your reply to each paragraph using the same numbers used in the claim.
+ Try to be brief. You may have many other quarrels with the plaintiff unrelated to the claim, but do not include them here. Do not try to use "legal language." Just make your points clearly and in your own words.
+ Example 1
+ You are a roofer. You put a roof on an addition to a customer's house and now the customer is suing you. He says the roof leaked and he had to pay $1,250 to fix it.
+ In the "Reasons for claim and details" section of the claim he says:
+ “I am claiming the following amounts and am attaching my invoices to this claim”:
+ Cost of replacing water damaged chair = $479
+ Cost of cleaning carpet = $135
+ Cost of repairing roof = $1,250
+ You might say, in your "Reasons for disputing the claim and details" section of the defence:
+ I do not know about any chair in the area that could have been damaged by a leak from the roof.
+ There was only a small rug in the room and it would not cost $135 to clean it.
+ If there was a leak at all, it was caused by faulty shingles.
+ If you agree you owe the money
+ You may complete a Defence [Form 9A] and, in your defence, you can admit the amount owing and propose a payment date. If you do not file a defence, and the plaintiff takes additional steps in the proceeding, you may be responsible for paying the extra costs incurred by the plaintiff.
+ You must make your payments directly to the plaintiff. You should keep proof of your payments ( e.g. a copy of your cheques or money order stubs).
+ Example 2
+ You are the roofer in Example 1. If you admit that you owe the money, you might indicate on the defence form:
+ "I admit the full claim made against me in the amount of $1,864 and propose the following terms of payment: $1,864 on August 1, 2010."
+ If you agree you owe the money but cannot afford to pay it all right now
+ You may not be able to pay what you owe because you do not have the money to pay right now. Sometimes instalment payments can be the answer, or a delayed payment date might satisfy both parties.
+ If you agree that you owe the money claimed, but cannot afford to pay it immediately, you may complete a Defence [Form 9A] . In your defence form, you can make a proposal for “terms of payment”. This is where you can tell the plaintiff what sort of payment arrangements you want to make, such as weekly or monthly payments.
+ Example 3
+ You are the roofer in Example 1. You admit that you owe the $1,864, but work has been slow lately and you have a lot of other financial obligations. You might indicate on the defence form:
+ "I admit the full claim made against me in the amount of $1,864 and propose the following terms of payment: $300 per month for five months commencing June 1, 2010, and an additional $364 on November 1, 2010."
+ If you only agree you owe part of what is claimed
+ You can also make a proposal for terms of payment for only part of the amount claimed. You would then make payments as proposed and go to a settlement conference and, if necessary, a trial regarding the amount that you do not admit to owing.
+ When you should start making payments following a proposal
+ The Rules state that you must make the payments in your proposal as though the proposal were an order of the court. Keep copies of your proof of payment.
+ Failing to make payments according to your proposal
+ If you fail to make payment in accordance with the proposal in your defence, and the plaintiff has not disputed your proposal, the plaintiff can serve a Notice of Default of Payment [Form 20L] on you. You must then make arrangements to pay the plaintiff the money owing under the proposal within 15 days of being served with the notice. If you do not, the plaintiff can ask the clerk to sign judgment for the part of the claim that you admitted to owing in your defence.
+ When the plaintiff does not agree with my proposal
+ If the plaintiff does not agree with your proposal for terms of payment in your defence, the plaintiff can ask the court to schedule a terms of payment hearing. The plaintiff must file the Request to Clerk [Form 9B] asking for the hearing within 20 days after receiving a copy of your defence from you. The plaintiff will also serve this request on you.
+ The court will send all parties a Notice of Terms of Payment Hearing setting out the date, time and place for the hearing. The court will also send you a blank Financial Information Form [Form 20I] if you, not your business, is being sued. If you are an individual who is being sued, you must fill out the Financial Information Form and serve it on the plaintiff before the hearing.
+ You cannot file the Financial Information form with the court.
+
+ At the hearing, the court may make a payment order that differs from your proposal for terms of payment. If you do not appear at the hearing, the plaintiff may obtain judgment for the part of the claim that you admitted to owing in your defence.
+ If you do not make the payments ordered at the terms of payment hearing
+ If you do not make the payments ordered at the terms of payment hearing, the plaintiff may ask the clerk to sign default judgment against you for the outstanding amount, unless the court has ordered otherwise.
+ If you think the plaintiff should pay
+ If you believe that you have a claim to make against the plaintiff indicate that in the defence form and file a Defendant’s Claim [Form 10A] . For example, if the roofer in Example 1 has not been paid in full for the work, he might file a defendant’s claim against the customer for the amount owing.
+ If you think someone else is responsible for the plaintiff’s loss
+ You may believe that you have a claim to make against someone else who, in your opinion, should be responsible for paying the claim. If you wish to make a claim against another party, indicate that in your defence form and complete and file a Defendant’s Claim [Form 10A] . A defendant’s claim is like a plaintiff’s claim, except that it is made by the defendant against the plaintiff or someone else.
+ When you fill out your defendant’s claim, you are the plaintiff since you are now the one making a claim. This is referred to as being “a plaintiff by defendant’s claim.” In your defendant’s claim, it is important to correctly identify who you are suing. Refer to “ Making a claim ” for more information about completing a defendant’s claim.
+ Example 4
+ The roofer in Example 1 might feel that if the roof does leak, it is because the shingles were faulty. In that case, the roofer might file a defendant’s claim against another party, the manufacturer of the shingles. The roofer can say, "I do not agree that there is anything wrong with the roofing job but if there is, then it is the shingle manufacturer who should pay you, not me."
+ You must file your defendant’s claim within 20 days after you file your defence, unless you make a motion and ask the court to allow you to file it later. Refer to “ Motions and clerk’s orders ” for more information about how to make a motion.
+ What to do with you defence after you have filled it out
+ After you have filled out your Defence [Form 9A] , you must serve a copy of it on each party to the action. An Affidavit of Service [Form 8A] must be completed for each party served and filed with the court. The affidavit of service is proof that the defence has been served on each party. Each affidavit of service must be sworn or affirmed by the person who served the documents. There are very specific rules for serving documents. Refer to “ Serving documents ” for more information on the rules and procedures relating to service of documents and preparing affidavits of service.
+ The next step is to file the defence (with any supporting documents and affidavit(s) of service) to the Small Claims Court office where the claim was filed. The address of the court office will be on the top of the claim you receive. You can file these documents online using the Small Claims Court Submissions Online portal. You can access this portal and learn more about e-filing at www.ontario.ca/smallclaims . There will be a fee for filing the defence. For more information about court fees, refer to “ Small claims court fees .”
+ Another way to file the defence is in person at the courthouse. The clerk will keep the original.
+ It is also possible to mail your defence, supporting documents and affidavit(s) of service, together with the fee to the Small Claims Court.
+ Next steps
+ If you disputed all or part of the claim you will have to attend a settlement conference. The settlement conference should take place within 90 days after the first defence in the case is filed. It is helpful if you advise the court in writing when you file your defence if there are particular days when you cannot attend court during that 90-day period. You must attend the settlement conference. Refer to “ Getting ready for court ” for more information.
+ If you admitted the entire claim and made a proposal for terms of payment, and the plaintiff does not dispute it, no further steps are required as long as you make your payments on time.
+ Remember, you are free at any stage to try to work out an agreement with the plaintiff, which could settle your lawsuit.
+ What happens if you are noted in default
+ If you have been noted in default because you did not file a defence within 20 days of being served with the claim, the plaintiff can obtain default judgment against you without further notice to you. The Rules also provide that once you are noted in default, you cannot file a defence or take any other step except to bring a motion to set aside the noting of default, unless you have the court's permission or the plaintiff's consent.
+ How to ask for the noting in default or a default judgment to be set aside
+ There are two ways to do this under the Rules:
+ You may bring a motion to set aside the noting in default or default judgment. The Rules provide that the defendant should bring a motion to set aside a default judgment "as soon as is reasonably possible in the circumstances." The Rules also outline the test that you will have to meet. You should read Rule 11.06 in particular, to make sure that you have addressed all the requirements. In your materials you should explain what your defence is and why you failed to file your defence in time.
+ You may also file a Request for Clerk's Order on Consent [Form 11.2A] in which all parties consent to set aside the noting in default and default judgment. Refer to “ Motions and clerk's orders ” for more information.
+ If the noting in default and/or default judgment is set aside, you will need to complete and file a Defence [Form 9A] .
+
+ When you are served with an amended claim
+ If you are served with an amended claim, you are not required to file an amended defence. However, you may wish to file an amended defence in order to reply to any new claims made.
+ How to amend your defence
+ You may amend your defence without paying a fee and without obtaining an order from the court to do so, as long as:
+ the amended defence is served on all parties, including any party noted in default
+ the amended defence is filed with the court at least 30 days before the originally scheduled trial date, unless the court on motion allows a shorter notice period, or a clerk’s order permitting the amendment is obtained
+ You must file a copy that is marked "AMENDED" with any additions underlined and any other changes clearly identified on the amended defence.
+ However, if you wish to amend your defence when your trial is less than 30 days away, you will need an order from a judge or a clerk's order on consent to do so. Refer to “ Motions and clerk's orders ” for more information.
+ If you want to settle
+ For more information about settling a claim, refer to “ Getting ready for court .”
+ Checklist: Replying to a claim
+ Review the claim thoroughly.
+ Complete a Defence [Form 9A] . If you are admitting part, or all, of the claim, make your proposal for terms of payment. For the part of the claim that you dispute, give a full response to what is claimed. It may be helpful to use separately numbered paragraphs. Attach an Additional Parties [Form 1A] form, if there is more than one plaintiff or defendant in the case and check the “Additional plaintiff/defendant” box on the defence form. Fill in the court file number from the plaintiff’s claim.
+ Organize any supporting documents you need to file with the defence.
+ File both the original defence (with any supporting documents and affidavit(s) of service) and a copy for yourself and each defendant, with the court in person or by mail, or file the defence and documents online using the Small Claims Court Submissions Online portal at www.ontario.ca/smallclaims .
+ If you filed online, the court will e-mail you confirming your documents have been e-filed.
+ Remember the defence must be filed within 20 calendar days after you were served, unless the court extends the time. You can try to file your defence after the 20-day period expires. The court office will accept your defence for filing as long as you have not been noted in default.
+ Pay the fee to file the defence.
+
+ Updated: July 02, 2026
+
+ Published: March 23, 2022
+
+ Top

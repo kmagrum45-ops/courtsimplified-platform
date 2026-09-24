@@ -1,0 +1,453 @@
+Serving documents | Guide to procedures in small claims court | ontario.ca
+
+ Skip to main content
+
+ Ontario.ca needs JavaScript to function properly and provide you with a fast, stable experience.
+
+ To have a better experience, you need to:
+
+ Go to your browser's settings
+ Enable JavaScript
+
+ Log in to continue
+
+ Please log in for full account access.
+
+ Print all
+
+ Serving documents
+
+ On this page
+ Skip this page navigation
+
+ Overview
+ A lot of paperwork is involved in most court cases, and it is important that copies of documents get to everyone who needs them.
+ "Serving" documents means providing copies of documents to all other parties in a court case. Documents must be served at each step in the court process, unless the Rules of the Small Claims Court (after this, referred to as the Rules) provide otherwise. By serving the other parties, you are notifying them of the step you are taking and of the information you will be presenting to the court, and giving them an opportunity to respond.
+ The Rules have specific requirements about service of documents. The Rules describe which party must serve a document, how service should be made, how particular kinds of entities (such as corporations or government) may be served, and the timelines for service.
+ Whether you are serving a Plaintiff’s Claim [Form 7A] or Defendant’s Claim [Form 10A] , or serving other documents (for example, a Notice of Garnishment [Form 20E] or Notice of Motion and Supporting Affidavit [Form 15A] ) this guide will attempt to help you understand the importance of serving the documents properly (as set out in the Rules) and answer some general questions about serving documents.
+ In Small Claims Court, parties arrange for service of their own documents. You can:
+ serve the documents yourself
+ have a friend, a business associate, or a private process server serve the documents for you
+ have your representative arrange for service of your documents
+ The person serving the documents should make careful, detailed notes regarding the name of the person served, the date, time, and manner of service made, and any other related details. This will assist later when the person prepares an affidavit of service. An affidavit of service is a sworn or affirmed statement that tells the court who was served, and when and how service was made.
+ Serving a claim
+ How to serve a Plaintiff’s Claim [Form 7A]
+ A claim is the first official notice of the case that the defendant (the person you are suing) will have. For this reason, there are special requirements for serving the claim in the Rules. The Rules provide for several specific types of service of a claim. How you serve the claim, and on whom, depends on what type of defendant is being sued (for example, whether the defendant is a person or a company).
+ Excerpt from the Rules
+ Plaintiff’s or Defendant’s Claim
+ 8.01(1) A plaintiff’s claim or defendant’s claim (Form 7A or 10A) shall be served personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03.
+ How long the plaintiff has to serve the claim
+ A plaintiff’s claim and defendant’s claim must be served on the defendant within six months after the date the claim is issued by the court. If there is more than one defendant in the case, all defendants must be served within this timeframe.
+ How the plaintiff can extend the time for service of the claim
+ A plaintiff can file a motion to request an order to extend the time for service. You must explain to the judge why you were not able to serve the claim within the six months.
+ Excerpt from the Rules
+ Time for Service of Claim
+ 8.01(2) A claim shall be served within six months after the date it is issued, but the court may extend the time for service, before or after the six months has elapsed.
+ Refer to “ Motions and clerk’s orders ” for more information on making a motion.
+ Serving a claim on a party who is out of province
+ If the person you are suing normally lives in Ontario but is away (for example, working on a job in Montreal), you can serve the claim on the person in Montreal just as you would if they were in Ontario.
+ If the person lives or carries on business outside of Ontario, you could serve your claim on the person outside of Ontario just as you would if the person lived or carried on business in Ontario. If you request it, the court may award additional costs to you to cover any extra expense involved in serving the claim outside Ontario.
+ If you are unable to serve your claim
+ When you try to serve your claim, you might find that the party has moved and you cannot find a forwarding address. You might believe that the party knows you are trying to serve the claim and is avoiding you. In either case, you may file a motion to seek an order for substituted service under Rule 8.04. The method ordered by the court is substituted for the method(s) of service allowed for that particular document and on that particular party in the Rules.
+ Excerpt from the Rules
+ Substituted Service
+ 8.04 If it is shown that it is impractical to effect prompt service of a claim personally or by an alternative to personal service, the court may allow substituted service.
+ For more information about making a motion, refer to “ Motions and clerk’s orders .”
+ Types of substituted service of a claim you can ask for
+ The judge will decide what kind of substituted service will be permitted. Examples of substituted service you might request are:
+ leaving the claim with a relative of the defendant
+ mailing the claim to the address of the defendant’s employer
+ posting the claim on the door of a particular residence or other place
+ Before asking for an order for substituted service, you should already have tried several times to serve the document by the method or methods provided by the Rules. Be prepared to give details of how you tried to serve the claim, what happened and why the method of service you are asking for will succeed.
+ Example 1
+ Meera wants to serve Norman with a plaintiff’s claim but she cannot find him. She makes a motion for substituted service requesting that the judge make an order allowing her to serve him by giving a copy (in an envelope addressed to Norman) to his mother.
+ In her affidavit, Meera writes that:
+ she does not know where Norman lives, but knows where Norman’s mother lives
+ she believes the claim will come to Norman’s attention if it is served on his mother because she knows that he visits his mother each week and calls her regularly on the telephone
+ Norman has indicated to mutual friends that he intends to be at his mother’s anniversary party in two weeks
+ If the court makes an order allowing substituted service, you must serve on the party:
+ a copy of the order
+ the notice of motion and supporting affidavit
+ the claim
+ In Small Claims Court, an order made by a judge is generally set out in an endorsement record. An endorsement record is the official document that records the judgment or court order.
+ Service of defence
+ A defence is your answer to the claim. The Rules provide for several types of service of a defence. How you serve the defence, and on whom, depends on what type of plaintiff is suing you (for example, whether the plaintiff is a person or a company).
+ Excerpt from the Rules
+ Defence and Other Documents
+ 8.01(14) The following documents may be served by mail, by courier, by email, personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03, unless the court orders otherwise:
+ A defence
+ Any other document not referred to in subrules (1) to (13)
+ How long a defendant has to serve the defence
+ You have 20 calendar days from the date you were served with the claim to serve and file your defence. After 20 days, the plaintiff can have you noted in default. After the 20 days have passed, you may still try to serve and file your defence. The court office will accept your defence for filing as long as the plaintiff has not filed a request to note you in default.
+ Extending the time for service of the defence
+ The court office will accept your defence for filing as long as the plaintiff has not filed a request to note you in default. If you have been noted in default, the Rules provide that you cannot file a defence or take any other step in the proceeding, except making a motion to set aside the noting of default, without leave of the court or the plaintiff's consent.
+ Refer to “ Replying to a claim ” for more information on setting aside a noting in default.
+ Personal service and alternatives to personal service
+ Personal service
+ To serve a document by means of personal service, you, or someone acting on your behalf, will hand the document to the party (for example, the defendant). The person serving the document must first be satisfied that the person being handed the document is in fact the party. If the party refuses to take the document, you can drop it on the floor at the party’s feet. The person who serves the document would note this in their affidavit of service because it is a related detail.
+ Excerpt from the Rules
+ Personal Service
+ 8.02 If a document is to be served personally, service shall be made,
+ Individual
+ (a) on an individual, other than a person under disability, by leaving a copy of the document with him or her;
+ Municipality
+ (b) on a municipal corporation, by leaving a copy of the document with the chair, mayor, warden or reeve of the municipality, with the clerk or deputy clerk of the municipality or with a lawyer for the municipality;
+ Corporation
+ (c) on any other corporation, by leaving a copy of the document with
+ an officer, a director or another person authorized to act on behalf of the corporation, or
+ a person at any place of business of the corporation who appears to be in control or management of the place of business;
+ Board or Commission
+ (d) on a board or commission, by leaving a copy of the document with a member or officer of the board or commission;
+ Person Outside Ontario Carrying on Business in Ontario
+ (e) on a person outside Ontario who carries on business in Ontario, by leaving a copy of the document with anyone carrying on business in Ontario for the person;
+ Crown in Right of Canada
+ (f) on Her Majesty the Queen in right of Canada, in accordance with subsection 23(2) of the Crown Liability and Proceedings Act (Canada);
+ Crown in Right of Ontario
+ (g) on Her Majesty the Queen in right of Ontario, in accordance with section 15 of the Crown Liability and Proceedings Act, 2019 ;
+ Attorney General
+ (g.1) on the Attorney General of Ontario, by leaving a copy of the document with an employee of the Crown at the Crown Law Office (Civil Law) of the Ministry of the Attorney General;
+ Absentee
+ (h) on an absentee, by leaving a copy of the document with the absentee’s committee, if one has been appointed or, if not, with the Public Guardian and Trustee;
+ Minor
+ (i) on a minor, by leaving a copy of the document with the minor and, if the minor resides with a parent or other person having his or her care or lawful custody, by leaving another copy of the document with the parent or other person;
+ Mentally Incapable Person
+ (j) on a mentally incapable person,
+ if there is a guardian or an attorney acting under a validated power of attorney for personal care with authority to act in the proceeding, by leaving a copy of the document with the guardian or attorney,
+ if there is no guardian or attorney acting under a validated power of attorney for personal care with authority to act in the proceeding but there is an attorney under a power of attorney with authority to act in the proceeding, by leaving a copy of the document with the attorney and leaving an additional copy with the person,
+ if there is neither a guardian nor an attorney with authority to act in the proceeding, by leaving a copy of the document bearing the person’s name and address with the Public Guardian and Trustee and leaving an additional copy with the person;
+ Partnership
+ (k) on a partnership, by leaving a copy of the document with
+ any one or more of the partners, or
+ a person at the principal place of business of the partnership who appears to be in control or management of the place of business; and
+ Sole Proprietorship
+ (l) on a sole proprietorship, by leaving a copy of the document with
+ the sole proprietor, or
+ a person at the principal place of business of the sole proprietorship who appears to be in control or management of the place of business.
+ Alternative to personal service
+ If you are unable to serve a document by means of personal service, you may choose an “alternative to personal service.” This means that you are choosing another method of service ( e.g. at place of residence) permitted by the Rules . See Rule 8.03 below.
+ Excerpt from the Rules
+ Alternatives to personal service
+ 8.03 (1) If a document is to be served by an alternative to personal service, service shall be made in accordance with this rule.
+ At Place of Residence
+ (2) If an attempt is made to effect personal service at an individual’s place of residence and for any reason personal service cannot be effected, the document may be served by,
+ leaving a copy in a sealed envelope addressed to the individual at the place of residence with anyone who appears to be an adult member of the same household; and
+ on the same day or the following day, mailing or sending by courier another copy of the document to the individual at the place of residence.
+ Corporation
+ (3) If the head office or principal place of business of a corporation or, in the case of an extra-provincial corporation, the attorney for service in Ontario cannot be found at the last address recorded with the Ministry of Public and Business Service Delivery , service may be made on the corporation
+ by mailing or sending by courier a copy of the document to the corporation or to the attorney for service in Ontario, as the case may be, at that address and
+ by mailing or sending by courier a copy of the document to each director of the corporation as recorded with the Ministry of Public and Business Service Delivery , at the director’s address as recorded with that Ministry.
+ When Effective
+ (4) Service made under subrule (2) or (3) is effective on the fifth day after the document is mailed or verified by courier that it was delivered.
+ Acceptance of Service by Lawyer or Paralegal
+ (5) Service on a party who is represented by a lawyer or paralegal may be made by leaving a copy of the document with the lawyer or paralegal, or with an employee in the lawyer’s or paralegal’s office, but service under this subrule is effective only if the lawyer, paralegal or employee endorses on the document or a copy of it an acceptance of service and the date of the acceptance.
+ (6) By accepting service, the lawyer or paralegal is deemed to represent to the court that he or she has the client’s authority to accept service.
+ Service of Claim
+ (7) Service of a plaintiff’s claim or defendant’s claim on an individual against whom the claim is made may be made by sending a copy of the claim by registered mail or by courier to the individual’s place of residence, if the signature of the individual or any person who appears to be a member of the same household, verifying receipt of the copy, is obtained.
+ (8) Service under subrule (7) is effective on the date on which receipt of the copy of the claim is verified by signature, as shown in a delivery confirmation provided by or obtained from Canada Post or the commercial courier, as the case may be.
+ Crown in Right of Ontario, Attorney General
+ (9) Service of a document on the Crown in Right of Ontario or on the Attorney General of Ontario may be made by emailing a copy of the document to the email address for service specified for the Crown or the Attorney General, as the case may be, on the website of the Ministry of the Attorney General.
+ Children's Lawyer
+ (10) Service of a document on the Children’s Lawyer may be made by emailing a copy of the document to the email address for service specified for the Children’s Lawyer on the website of the Ministry of the Attorney General.
+ Public Guardian and Trustee
+ (11) Service of a document on the Public Guardian and Trustee, and any service of a document that involves leaving a copy with the Public Guardian and Trustee, may be made with respect to the Public Guardian and Trustee by emailing a copy of the document to the email address for service specified for the Public Guardian and Trustee on the website of the Ministry of the Attorney General.
+ One example of an alternative to personal service is provided in Rule 8.03(2)(a) (service at place of residence), which allows you to serve a document in a sealed envelope addressed to the individual at their residence by leaving a copy with an adult member of the same household. You must also, on the same day or the following day, mail or send by courier another copy of the document to the individual at the place of residence. Service is effective on the fifth day after the document is mailed or verified by courier that it was delivered.
+ Example 2
+ Meera wants to serve Norman with a plaintiff’s claim. She knows where he lives and goes in person to his house to deliver the claim to him. In case Norman is not home, she puts the claim in a sealed envelope addressed to Norman.
+ When Meera knocks on Norman’s door a woman answers. Meera asks if Norman is home, but the woman says no. Meera then asks the woman what her name is and if she lives there. The woman says, “I’m Susan Long and yes, I live here.” The woman appears to be at least 18 years of age.
+ Meera hands the envelope containing the claim to Susan. Meera then mails another copy of the document to Norman at his home. Meera makes a note of Susan’s name for her affidavit of service.
+ If Susan had refused to provide her name or say whether or not she lived at Norman’s house, Meera could still leave a copy of the claim with her as long as Susan appeared to be a resident of Norman’s household and at least 18 years of age.
+ In another example of an alternative to personal service, Rule 8.03(7) provides that a claim can be served by registered mail or courier if the signature of the individual or any person who appears to be a member of the same household, verifying receipt of the copy, is obtained. Rule 8.03(8) provides that service is effective on the day on which receipt of the copy of the claim is verified by signature as shown on the delivery confirmation provided by Canada Post or the commercial courier.
+ Example 3
+ Meera wants to serve Norman with a plaintiff’s claim. She goes to his house several times to serve it, but no one answers the door. Meera does not know of any other way to contact Norman to find him. She believes Norman lives there because he responded to mail she sent there before.
+ Meera mails the claim to Norman by registered mail. On the day Norman or his spouse signs for the document, Meera prints off the delivery confirmation including the signature verifying the receipt from the Canada Post website. Meera includes the delivery confirmation with her Affidavit of Service [Form 8A] .
+ If Meera had sent the claim to Norman by courier, she would include the delivery confirmation with signature provided by the commercial courier company when filing her Affidavit of Service [Form 8A] .
+ Service of particular documents
+ How documents (other than the claim) are served
+ The Rules must be followed when serving court documents. In some cases it is the clerk of the court who will serve documents by mail. However, in most cases it is the party’s responsibility to serve their own documents on the other parties.
+ Excerpts from the Rules
+ Default Judgment
+ 8.01 (4) A default judgment (Form 11B) shall be served by the clerk on all parties named in the claim by mail or by email.
+ Assessment Order
+ (5) An order made on a motion in writing for an assessment of damages under subrule 11.03(2) shall be served by the clerk on the plaintiff by mail or by email.
+ (5.1) A plaintiff who wishes for service under subrule (5) by mail shall provide a stamped, self-addressed envelope with the notice of motion and supporting affidavit.
+ Conference Orders
+ (6) An order made at a settlement conference or trial management conference shall be served by the clerk on all parties by mail or by email.
+ Summons to Witness
+ (7) A summons to witness (Form 18A) shall be served personally by the party who requires the presence of the witness, or by the party’s representative, at least ten days before the trial date; at the time of service attendance money calculated in accordance with the regulations made under the Administration of Justice Act shall be paid or tendered to the witness.
+ Notice of Garnishment
+ (8) A notice of garnishment (Form 20E) shall be served by the creditor,
+ together with a sworn affidavit for enforcement request (Form 20P), on the debtor, by mail, by courier, personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03; and
+ together with a garnishee’s statement (Form 20F), on the garnishee, by mail, by courier, personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03.
+ Notice of Garnishment Hearing
+ (9) A notice of garnishment hearing (Form 20Q) shall be served by the person requesting the hearing on the creditor, debtor, garnishee, co-owner of debt, if any, and any other interested persons by mail, by courier, personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03.
+ Notice of Examination
+ (10) A notice of examination (Form 20H) shall be served by the creditor on the debtor or person to be examined personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03.
+ Financial Statement
+ (11) If the person to be examined is the debtor and the debtor is an individual, the creditor shall serve the notice of examination on the debtor together with a blank financial information form (Form 20I).
+ (12) The notice of examination
+ shall be served, together with the financial information form if applicable, at least 30 days before the date fixed for the examination; and
+ shall be filed, with proof of service, at least three days before the date fixed for the examination.
+ Notice of Contempt Hearing
+ (13) A notice of contempt hearing shall be served by the creditor on the debtor or person to be examined personally as provided in rule 8.02.
+ Defence and Other Documents
+ (14) The following documents may be served by mail, by courier, by email, personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03, unless the court orders otherwise:
+ A defence.
+ Any other document not referred to in subrules (1) to (13).
+ Trial Management Conference Order
+ 16.1.04(2) Within 10 days after the judge signs an order made at a trial management conference, the clerk shall serve the order on each of the parties in accordance with subrule 8.01 (6).
+ General service information
+ What does the person making service have to provide to the party
+ The person making service will provide the party (by whatever method of service being used) with a copy of the document. If there is more than one party being served, each party must be served with their own copy of the document being served. For example, if you are serving two parties at the same address by mail or by courier, you must send a copy of the document to each party in separate addressed, sealed envelopes. Complete an Affidavit of Service [Form 8A] for each party.
+ If personal service is not required under the Rules, often service of documents will be fairly simple - either emailing it, sending it by mail or by courier, dropping it off at an office, or having someone serve it for you.
+ Sometimes distance makes it inconvenient or impossible for you to serve your own documents. Sometimes it may be an awkward or a potentially confrontational situation. If sending the document by email, mail or by courier is not allowed under the Rules, there are professional process servers who will serve the document for you for a fee. You can get the name of a process server from the yellow pages. A lawyer or paralegal may also be able to recommend a suitable agency.
+ You could also ask a friend to serve a document for you. If the party you are serving is in another town, you might be able to mail it to a friend there and have him or her serve it for you.
+ Remember, you will have to file with the court an Affidavit of Service [Form 8A] that is signed and sworn or affirmed by the person who has served the document.
+ Recovering the cost of service
+ If you are successful in your claim, you may be entitled to recover some costs. Refer to “ Getting ready for court ” for more information.
+ If you served the document by mail or courier and you wish to recover the costs, you must provide the court office with a receipt showing what you paid.
+ If you hired someone to serve the document for you, you must provide the court office with a detailed invoice or statement setting out the amount paid to have the document served. You can ask for a maximum of $60 per person to be served regardless of the amount paid or number of attempts made to serve the document, unless the court orders otherwise [Rule 19.01(3)].
+ Changing address of service
+ It is up to you to be sure that the court and the other parties in the case always have your proper address so that they can serve documents on you. If your address changes, you must serve written notice of the change on the court and other parties within seven days after the change takes place. Make detailed notes of when and how you served your new address on each party and the court. The court may require an affidavit of service at some future time, so you will need to keep a record of these details.
+ If you do not advise the court and the other parties of your change of address, they are entitled to serve you with documents at your old address. That will mean you are not fully informed about what is happening in your case. Orders may be made without your knowledge and in your absence.
+ If you are represented in your case (for example, by a lawyer or paralegal), they must advise the court of your address, telephone number and email address if they stop representing you before the case is over.
+
+ When a document is not received, or received late
+ If a party did not receive a document that was supposed to have been served on him or her under the Rules, or received it after the timeframe allowed under the Rules, the party can bring a motion to the court for the order that the party needs in the circumstances.
+ For example, where a defendant does not receive the claim but receives a default judgment from the court, they may wish to bring a motion to set aside the default judgment and extend the time to file a defence. In another example, if a party received a notice of motion less than 7 days before the hearing date, they may request an adjournment of the motion in order to have more time to prepare. For more information, refer to “ Motions and clerk’s orders .”
+ Serving a party under legal disability
+ A party under “legal disability” means:
+ a minor (a person under 18 years of age)
+ a mentally incapable person within the meaning of section 6 or section 45 of the Substitute Decisions Act, 1992 or
+ an absentee within the meaning of the Absentees Act .
+ If a party in an action is a party under legal disability, then that party must have a litigation guardian. Documents can be served on the party by serving the person named as the litigation guardian.
+ A minor (a person under the age of 18) may sue someone for any sum up to $500 without requiring a litigation guardian. A minor who is a plaintiff in an action up to $500 can be served in the same way as an adult.
+
+ Serving a document by mail
+ Rule 8.01 and the chart in this guide can help you determine whether the document you want to serve can be served by mail. If it can, then the document is considered to be served on the 5th day following the date of mailing.
+ However, if you served the claim on the defendant by an alternative to personal service by registered mail or courier, you need the signature of the individual, or any person who appears to be a member of the same household, verifying receipt before service is effective. See Part Two of this guide for more information on service of a claim.
+ You cannot file your affidavit of service until after the date the document is deemed to be served.
+ Excerpt from the Rules
+ Service by Mail
+ 8.07 (1) If a document is to be served by mail under these rules, it shall be sent, by regular lettermail or registered mail, to the last address of the person or of the person’s representative that is,
+ on file with the court, if the document is to be served by the clerk;
+ known to the sender, if the document is to be served by any other person.
+ (2) Service of a document by mail is deemed to be effective on the fifth day following the date of mailing.
+ (3) This rule does not apply when a claim is served by registered mail under subrule 8.03(7).
+ Regular mail includes postal services provided by Canada Post, including Priority and Xpresspost, unless otherwise ordered by a judge.
+
+ Serving a document by courier
+ Rule 8.01 and the chart in this guide can help you determine whether the document you want to serve can be served by courier. If it can, then the document is considered to be served on the 5th day following the date on which the courier verifies to the sender that the document was delivered.
+ However, if you served the claim by an alternative to personal service by having it couriered to the defendant, it is considered to be served on the day the signature verifying receipt of the claim was received. See Part Two of this guide for more information on service of a claim by courier.
+ You cannot file your affidavit of service until after the date the document is deemed to be served.
+ Excerpt from the Rules
+ Service by Courier
+ 8.07.1 (1) If a document is to be served by courier under these rules, it shall be sent by means of a commercial courier to the last address of the person or of the person’s representative that is on file with the court or known to the sender.
+ (2) Service of a document sent by courier is deemed to be effective on the fifth day following the date on which the courier verifies to the sender that the document was delivered.
+ (3) This rule does not apply when a claim is served by courier under subrule 8.03(7).
+ Serving a document by email
+ Rule 8.08 and the chart in this guide can help you determine whether the document you want to serve can be served by email. If it can, then the document is normally considered to be served on the day the email is sent. However, if the document is sent between 4 p.m. and midnight or on a Saturday, a Sunday, or a holiday, then it is considered to be served on the next day that is not a Saturday, Sunday, or holiday.
+ Unless specified otherwise in the rules, you can email a document to a party or their representative to the last email address they gave you or if this email address was not provided, then their last known email address. You can also email the document to the email address listed for a party’s lawyer or paralegal in the Lawyer and Paralegal Directory found on the Law Society of Ontario website .
+ When you are serving by email, your email must include
+ the sender’s name, address, telephone number, and email address
+ the name of the person or representative being served
+ the date and time of the email
+ the name and telephone number of a person to contact in the event of a transmission problem
+ Excerpt from the Rules
+ 8.08 (1) Except as otherwise specified in any other rule, if a document is to be served by email under these rules, it shall be sent to,
+ the last email address provided by the person to be served or the person’s representative or, if no email address is provided, to the person’s or representative’s last known email address; or
+ in the case of a lawyer or paralegal whose email address is not provided, the email address for the lawyer or paralegal as published on the Law Society of Ontario’s website.
+ (2) In the case of a document to be served by the clerk by email, the document shall, except as otherwise specified in any other rule, be sent to the email address provided for under subrule 1.05.2 (1).
+ (3) The email message to which a document served by email in accordance with these rules is attached shall include,
+ the sender’s name, address, telephone number, and email address
+ the name of the person or representative being served
+ the date and time of the email
+ the name and telephone number of a person to contact in the event of a transmission problem
+ (4) Service of a document by email is deemed to be effective
+ on the day the email is sent
+ if the email is sent between 4 p.m. and midnight, on the following day
+ Proving a document has been served
+ The person who served the document must fill out an Affidavit of Service [Form 8A] setting out who was served, and when and how service was made. Generally, you are not required to file the affidavit of service with the court until you are ready to proceed with your next step, or a judge orders that it must be filed. For example, if you want to ask the clerk to note the defendant in default, you would file your affidavit of service of the claim at the time you make the request.
+ If a copy of a document has been served on more than one person, then you would need to complete an affidavit of service for each person served.
+ If you have a paralegal or lawyer, they can use a Certificate of Service [Form 8B] instead of an Affidavit of Service to prove that they served a document or arranged for it to be served. Only paralegals and lawyers are allowed to use a Certificate of Service.
+ Filling out an affidavit or service
+ To fill out an Affidavit of Service [Form 8A] , follow the instructions on the form. You must describe: the name of the person who served the document ( e.g. you or a representative or friend) and where they are from
+ the name of the person who was served
+ when the document was served (day, month and year)
+ where the document was served ( e.g. house number, apartment number, street name, city, and province)
+ what document was served ( e.g. a claim, defence, or notice of motion)
+ the method of service ( e.g. by personal service, service at place of residence, service by registered mail, courier, regular lettermail, or email)
+
+ If you served the documents, then you must fill it out. If you had another person serve the documents, then that person must fill out the affidavit of service.
+ The affidavit must be signed and either sworn or affirmed by the person who served the documents in front of a person authorized to take oaths and affirmations ( i.e. a commissioner for taking affidavits). The commissioner will: ask the person making the affidavit to swear or affirm that the information in the affidavit is true,
+ ask that person to sign the affidavit, and
+ sign the affidavit as sworn or affirmed.
+
+ Do not sign the affidavit before going to the commissioner or get anyone else to sign it. If someone else served your documents, they must go to the commissioner and both sign and swear or affirm the affidavit in front of the commissioner. For more information about swearing affidavits, see “ Tips on completing forms in Small Claims Court ”.
+ It is a criminal offence to swear or affirm an affidavit you know is false.
+
+ Determining when service was effective so a defendant can be noted in default
+ If the defendant fails to serve and file a defence within 20 days of being served with the claim, you can ask the clerk to note the defendant in default. When calculating the 20-day time period, count the number of days following the date that service was effective by excluding the first day and including the last day. If the last day falls on a Saturday, a Sunday, or a holiday, the period ends on the next day that is not a Saturday, Sunday, or holiday.
+ For example:
+ If you served your claim by:	 I served the claim on:	 Rule that applies:	 Effective date of service:	 I can ask the clerk to note the defendant in default on:
+ Personally handing the claim to the defendant.	 June 1st	 Service is effective immediately	 June 1st	 June 22nd
+ Leaving a copy of the claim at the defendant’s place of residence with an adult member of the same household and mailing or couriering a copy the same or next day. See rule 8.03(2).	 June 1st	 Service is effective the 5th day after the claim was mailed or verified by courier that it was delivered. See rule 8.03(4).	 June 6th (or June 7th, if the claim was sent the following day)	 June 27th or June 28th
+ Service on a corporation by mailing or couriering a copy of the claim to the corporation or attorney for service and to each director. See rule 8.03(3).	 June 1st	 Service is effective the 5th day after the claim was mailed or verified by courier that it was delivered. See rule 8.03(4).	 June 6th	 June 27th
+ Leaving a copy of the claim with the defendant’s lawyer or paralegal, or an employee in the lawyer or paralegal’s office and receiving a signature on the back page of the document as acceptance of service. See rule 8.03(5).	 June 1st	 Service is effective on the date of acceptance indicated on the back page of the document. See rule 8.03(5)	 June 1st	 June 22nd
+ Sending a copy of the claim by registered mail or by courier to the defendant’s place of residence and obtaining a signature verifying receipt. See rule 8.03(7).	 June 1st	 Service effective on the date on which an individual verifies receipt of the copy of the claim by signature, as shown in a delivery confirmation. See rule 8.03(8).	 June 4 because that day a person verified receipt of the copy of the claim by signature (as shown in a delivery confirmation)	 June 25th
+ Service chart
+ The chart below lists the service requirements and time limits for specific documents you may need to serve in your case. It is a summary based on the Rules as they exist at the date of this guide. It is provided for your convenience only. You should always refer to the actual Rules.
+ Document and Service Rule(s) 	 Who Serves * 	 How Service May be Made	 Time for Service
+ Request to Change Attendance Method (Form 1B )	 Party making the request	 On all other parties, by
+ Personal service [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ Mail [r. 8.07]
+ Courier [r. 8.07.1]
+ Email [r. 8.08]
+ At least 30 days before the hearing date
+ Objection to Request to Change Attendance Method (Form 1C) 	 Party objecting to request	 On all other parties, by
+ Personal service [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ Mail [r. 8.07]
+ Courier [r. 8.07.1]
+ Email [r. 8.08]
+ Within 7 days after being served with the request
+ Plaintiff's Claim (Form 7A)
+ Defendant's Claim (Form 10A)
+ r. 8.01(1), (2) r. 10.02
+ Party making the claim	 Personal service (requirements depend on the type of person served) [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ Substituted service (with leave of court) [r. 8.04]
+ Note: Rule 8.03(7) sets out a specific alternative to personal service applicable only to claims. The other alternatives to personal service can also be used (depending on the type of party).
+ Within 6 months after date issued (or longer with leave of court)
+ Defence (Form 9A) r. 9.01(a) r. 10.03(a)	 Defendant	 Personal service [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ Mail [r. 8.07]
+ Courier [r. 8.07.1]
+ Email [r. 8.08]
+ 	 On every other party within 20 days of being served with the claim, or defendant's claim, as the case may be
+ Summons to Witness (Form 18A) r. 8.01(7) 	 Party who requires the presence of the witness	 On witness, together with attendance money, by
+ Personal service only (requirements depend on the type of person served) [r. 8.02],
+ and a copy of the summons (without attendance money) on other parties, if the witness is summoned in relation to their written statement or document under r. 18.02(3), by
+ Personal service (requirements depend on the type of person served) [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ Mail [r. 8.07]
+ Courier [r. 8.07.1]
+ Email [r. 8.08]
+ 	 At least 10 days before the trial date, and attendance money must be paid or tendered to the witness when the summons is served, as set out in the affidavit of service or lawyer or paralegal’s certificate of service.
+ Notice of Garnishment (Form 20E)
+ r. 8.01(8) r. 20.08(6)
+ and
+ Notice of Renewal of Garnishment (Form 20E.1)
+ Creditor	 On the debtor together with a sworn Affidavit for Enforcement Request (Form 20P) , by:
+ Personal service [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ Mail [r. 8.07]
+ Courier [r. 8.07.1] and
+ On the garnishee together with a Garnishee’s Statement (Form 20F) by:
+ Personal service [ r. 8.02 ]
+ Alternative to personal service [ r. 8.03 ]
+ Mail [ r. 8.07 ]
+ Courier [ r. 8.07.1 ]
+ 	 On the debtor within 5 days of service on the garnishee
+ Notice of Termination of Garnishment (Form 20R) r. 20.08(20.2)	 Creditor	 On the garnishee and the clerk by:
+ Personal service [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ Mail [r. 8.07]
+ Courier [r. 8.07.1]
+ 	 Immediately after the amount owing under the order is paid
+ Garnishee’s Statement (Form 20F) r. 20.08(13)	 Garnishee	 On creditor and debtor, by
+ Personal service [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ Mail [r. 8.07]
+ Courier [r. 8.07.1]
+ Email [r. 8.08]
+ 	 File with the court within 10 days after service of notice of garnishment
+ Notice of Garnishment Hearing (Form 20Q) r. 8.01(9) r. 20.08(15.1) 	 Person requesting the hearing	 On creditor, debtor, garnishee, co-owner of debt (if any) and any other interested persons by:
+ Personal service [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ Mail [r. 8.07]
+ Courier [r. 8.07.1]
+ 	 -
+ Notice of Examination (Form 20H) and Financial Statement (Form 20I} r. 8.01(10), (11), (12) r. 20.10(3)	 Creditor	 On debtor (together with a blank Financial Information Form (Form 20I) if the debtor is an individual) or the person to be examined by:
+ Personal service [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ 	 At least 30 days before the date fixed for the examination Notice of examination shall be filed with proof of service at least 3 days before date fixed for examination.
+ Notice of Contempt Hearing (provided by clerk) r. 8.01(13) r. 20.11(3), (6)	 Creditor	 On debtor or person to be examined by:
+ Personal service only (requirements depend on type of person served) [r. 8.02]
+ 	 Affidavit of Service/Lawyer or Paralegal's Certificate of Service filed at least 7 days before the date of the hearing
+ "Amended" claim or defence r. 8.01(14) r. 12.01(2)-(3)	 Party making amendment	 On all existing parties, including parties noted in default , by:
+ Personal service [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ Mail [r. 8.07]
+ Courier [r. 8.07.1]
+ Email [r. 8.08]
+ On any newly added parties that have not been served with the claim previously, by:
+ Personal service [r. 8.02]
+ Alternative to personal service [r. 8.03, including r. 8.03(7)]
+ 	 Filing and service at least 30 days before the originally scheduled trial date, unless:
+ the court, on motion allows a shorter notice period, or
+ a clerk's order permitting the amendment is obtained under subrule 11.2.01(1)
+
+ Notice to Co-owner of Debt (Form 20G) r. 20.08(14) r. 8.01(14)	 Creditor	 On co-owners of the debt, together with a copy of the Garnishee’s Statement (Form 20F) , by:
+ Personal service [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ Mail [r. 8.07]
+ Courier [r. 8.07.1]
+ Email [r. 8.08]
+ 	 Promptly (“forthwith”)
+ Notice of Discontinued Claim (Form 11.3A) 	 Plaintiff	 On all defendants served with the claim by:
+ Personal service [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ Mail [r. 8.07]
+ Courier [r. 8.07.1]
+ 	 After time for filing defence has elapsed (and no defence is filed)
+ Subsequently file with proof of service.
+ Notice of Motion and Supporting Affidavit (Form 15A) (other than motion for assessment order) r. 15.01(3), (6) r. 8.01(14)	 Party filing motion	 Prior to Judgment: On every party who has filed a claim and any defendant who has not been noted in default, by
+ Personal service [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ Mail [r. 8.07]
+ Courier [r. 8.07.1]
+ Email [r. 8.08],
+ or After Judgment: On all parties, including those noted in default, by:
+ Personal service [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ Mail [r. 8.07]
+ Courier [r. 8.07.1]
+ Email [r. 8.08]
+ 	 At least 7 days before the hearing. Filed with proof of service at least 3 days before the hearing date.
+ Order made on Motion without Notice r. 15.03(2) r. 8.01(14)	 Party who obtained order on motion without notice	 On all affected parties, together with a copy of the notice of motion and supporting affidavit used on the motion, by:
+ Personal service [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ Mail [r. 8.07]
+ Courier [r. 8.07.1]
+ Email [r. 8.08]
+ 	 Within 5 days after order signed
+ Request to Clerk (Form 9B) for a terms of payment hearing r. 8.01(14) r. 9.03(3)	 Plaintiff	 On defendant by:
+ Personal service [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ Mail [r. 8.07]
+ Courier [r. 8.07.1]
+ Email [r. 8.08]
+ 	 Within 20 days after service of a defence in which terms of payment are proposed
+ Written submissions in relation to a possible order to stay or dismiss an action (not a prescribed form) pursuant to r. 12.02(4)	 A party who receives a copy of the plaintiff's or moving party's submission	 On the plaintiff and, if requested, on any other party by:
+ Mail [r. 8.07(1)]
+ 	 Within 10 days after receiving the plaintiff’s written submissions in response to the court’s notice that it is considering making the order
+ Completed Financial Information Form (Form 20I) (for an examination hearing or terms of payment hearing) r. 9.03(4.3)	 Defendant served with notice of Terms of Payment hearing or debtor who is an individual and who is served with a Notice of Examination (where the debtor is an individual)	 On the plaintiff who requested the terms of payment hearing or the creditor who requested the examination hearing by:
+ Personal service [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ Mail [r. 8.07]
+ Courier [r. 8.07.1]
+ Email [r. 8.08]
+ 	 Completed Financial Information Form (Form 20I) must be served on plaintiff/creditor, but not filed with the court
+ Other Documents r. 8.01(14)	 Party	 Personal service [r. 8.02]
+ Alternative to personal service [r. 8.03]
+ Mail [r. 8.07]
+ Courier [r. 8.07.1] Email [r. 8.08]
+ 	 -
+ [ * ] ^ Service by the party includes service by their representative.
+
+ Updated: July 02, 2026
+
+ Published: March 23, 2022
+
+ Top

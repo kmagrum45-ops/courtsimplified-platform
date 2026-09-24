@@ -28,6 +28,20 @@
 
 export type CorpusFormat = "elaws-doc" | "html";
 
+/**
+ * What KIND of authority a source is.
+ *
+ *   "legislation" — what the law requires. Rule numbers are stable, the text
+ *                   changes rarely, and a change is always significant.
+ *   "practical"   — what happens at the counter: fees, online filing, what to
+ *                   bring. None of it is derivable from the regulation, and a
+ *                   change is a content update rather than an emergency.
+ *
+ * rules:check reports the two separately, because treating a fee revision with
+ * the same urgency as a rule amendment trains people to ignore both.
+ */
+export type CorpusTier = "legislation" | "practical";
+
 export type CorpusSource = {
   /** Stable id. Also the vendored filename. */
   id: string;
@@ -36,6 +50,8 @@ export type CorpusSource = {
   citation: string;
   url: string;
   format: CorpusFormat;
+  /** Defaults to "legislation" when omitted. */
+  tier?: CorpusTier;
   /**
    * A string the extracted text MUST contain, proving the fetch landed on the
    * right document and the current consolidation.
@@ -64,7 +80,9 @@ export type CorpusSource = {
   minCharacters?: number;
 };
 
-export const CORPUS_SOURCES: CorpusSource[] = [
+import { PRACTICAL_SOURCES } from "./practicalSources";
+
+const LEGISLATION_SOURCES: CorpusSource[] = [
   {
     id: "oreg-258-98-small-claims-rules",
     title: "Rules of the Small Claims Court",
@@ -144,3 +162,18 @@ export const CORPUS_SOURCES: CorpusSource[] = [
       "has been withdrawn must stop being recommended.",
   },
 ];
+
+/**
+ * Everything the corpus vendors, both tiers.
+ *
+ * Legislation first so the fetch log reads in order of authority, and so a
+ * partial run gets the rules before the guides.
+ */
+export const CORPUS_SOURCES: CorpusSource[] = [
+  ...LEGISLATION_SOURCES,
+  ...PRACTICAL_SOURCES,
+];
+
+export function sourceTier(source: CorpusSource): CorpusTier {
+  return source.tier ?? "legislation";
+}

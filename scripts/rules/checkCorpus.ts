@@ -33,12 +33,11 @@
  */
 
 import { readFileSync, existsSync } from "node:fs";
-import { execFileSync } from "node:child_process";
-import { writeFileSync, unlinkSync } from "node:fs";
 import path from "node:path";
-import os from "node:os";
 
-import { CORPUS_SOURCES } from "./corpusSources";
+import { extract } from "./extractText";
+
+import { CORPUS_SOURCES, sourceTier } from "./corpusSources";
 import { sha256, consolidationLine, readManifest } from "./fetchCorpus";
 import { NEXT_STEP_BLOCKS } from "../../src/lib/content-library/nextSteps";
 import { ASSISTANT_BLOCKS } from "../../src/lib/content-library/assistantBlocks";
@@ -113,40 +112,9 @@ export function collectCiters(): Citer[] {
   return citers;
 }
 
-function extractDoc(buffer: Buffer): string {
-  const temporary = path.join(os.tmpdir(), `corpus-check-${Date.now()}.doc`);
-  writeFileSync(temporary, buffer);
-  try {
-    return execFileSync("antiword", [temporary], {
-      encoding: "utf8",
-      maxBuffer: 64 * 1024 * 1024,
-    });
-  } finally {
-    try {
-      unlinkSync(temporary);
-    } catch {
-      /* not worth failing over */
-    }
-  }
-}
 
-function extractHtml(buffer: Buffer): string {
-  return buffer
-    .toString("utf8")
-    .replace(/<script[\s\S]*?<\/script>/gi, " ")
-    .replace(/<style[\s\S]*?<\/style>/gi, " ")
-    .replace(/<\/t[dh]>\s*/gi, "\t")
-    .replace(/<\/tr>\s*/gi, "\n")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&#39;/g, "'")
-    .replace(/&quot;/g, '"')
-    .replace(/[ \t]+\n/g, "\n")
-    .replace(/\n{3,}/g, "\n\n")
-    .replace(/[ ]{2,}/g, " ")
-    .trim();
-}
+
+
 
 async function main(): Promise<void> {
   const manifest = readManifest();
@@ -157,9 +125,18 @@ async function main(): Promise<void> {
   }
 
   const citers = collectCiters();
-  let changedSources = 0;
   let unreachable = 0;
   const reverify = new Map<string, Set<string>>();
+
+  /*
+   * Changed sources are counted BY TIER, and reported separately.
+   *
+   * A rule amendment and a fee revision both move a hash, and treating them
+   * with the same urgency trains people to ignore both. Legislation changing
+   * means content may now be WRONG. A practical page changing usually means a
+   * number moved -- which still needs checking, but is a different errand.
+   */
+  const changed: Record<string, string[]> = { legislation: [], practical: [] };
 
   console.log("");
   console.log(`Vendored ${manifest.generatedAt.slice(0, 10)}. Re-fetching ${CORPUS_SOURCES.length} source(s).`);
@@ -186,7 +163,7 @@ async function main(): Promise<void> {
         continue;
       }
       const buffer = Buffer.from(await response.arrayBuffer());
-      fresh = source.format === "elaws-doc" ? extractDoc(buffer) : extractHtml(buffer);
+      fresh = extract(source.format, buffer);
     } catch (error) {
       console.log(`UNREACHABLE — ${error instanceof Error ? error.name : "unknown"}`);
       unreachable += 1;
@@ -198,7 +175,7 @@ async function main(): Promise<void> {
       continue;
     }
 
-    changedSources += 1;
+    changed[sourceTier(source)].push(source.id);
     console.log("CHANGED");
     console.log(`${" ".repeat(39)}was: ${entry.consolidation.slice(0, 92)}`);
     console.log(`${" ".repeat(39)}now: ${consolidationLine(fresh).slice(0, 92)}`);
@@ -244,7 +221,7 @@ async function main(): Promise<void> {
     console.log("For each: read the new rule text, confirm the block still states it");
     console.log("correctly, and re-run `npm run rules:fetch` once the block is right.");
     console.log("Do NOT re-vendor first — that erases the evidence anything moved.");
-  } else if (changedSources > 0) {
+  } else if (changed.legislation.length + changed.practical.length > 0) {
     console.log("Sources changed, but no rule a content block cites was affected.");
     console.log("Re-vendor with `npm run rules:fetch` when convenient.");
   } else {

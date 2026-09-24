@@ -1,0 +1,284 @@
+Making a claim | Guide to procedures in small claims court | ontario.ca
+
+ Skip to main content
+
+ Ontario.ca needs JavaScript to function properly and provide you with a fast, stable experience.
+
+ To have a better experience, you need to:
+
+ Go to your browser's settings
+ Enable JavaScript
+
+ Log in to continue
+
+ Please log in for full account access.
+
+ Print all
+
+ Making a claim
+
+ On this page
+ Skip this page navigation
+
+ Overview
+ If you are thinking of making a claim in Small Claims Court, or if you are already involved in a case, this guide will answer questions about the court and provide examples of how to prepare a typical Small Claims Court claim.
+ The information set out in this guide will attempt to assist you if you want to file either a Plaintiff's Claim [Form 7A] or a Defendant's Claim [Form 10A] .
+ Definition of a claim
+ A claim is your opportunity to explain to the court:
+ who you are
+ who you are suing
+ what happened that led to the lawsuit
+ what you are asking for
+ Types of claims that are dealt with in Small Claims Court
+ The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees. This includes the value of all goods that the plaintiff is asking for in total, no matter how many defendants there are. Refer to " Small claims court: suing someone" for more information.
+ A claim can also be brought in Small Claims Court under the Parental Responsibility Act, 2000 against a parent of a child (under 18 years of age) in certain circumstances where a child takes, damages or destroys your property. Please refer to the Parental Responsibility Act, 2000 and "The Parental Responsibility Act - Recovering Losses in Small Claims Court" brochure for more information. You can request a copy of this brochure at any Small Claims Court location.
+ Filing your claim online
+ The Small Claims Court Submissions Online portal allows users to e-file a Pla i ntiff's Claim [Form 7A] using an online system. Filers have the option of filing electronically instead of in-person or by mail. This service allows plaintiffs to prepare and submit all required forms online up to and including default proceedings. They are able to pay court fees online and will receive court-issued documents by email from the court.
+ Making a claim if under 18 years of age
+ A minor (a child under 18 years of age) may sue for an amount up to $500 as if he or she were an adult. If the amount claimed is greater than $500, a litigation guardian must represent the minor. A litigation guardian is usually a parent or guardian. The litigation guardian must fill out a Consent to Act as Litigation Guardian [Form 4A] and file it with the court at the time the claim is filed or as soon as possible afterwards.
+ Settling a case
+ You can settle your case at any time before final judgment. For more information see " Getting ready for court ".
+ Plaintiff's claim
+ A Plaintiff's Claim [Form 7A] commences an action.
+ Defendant's claim
+ A Defendant's Claim [Form 10A] may be filed by a defendant to an action where the defendant makes a claim in the action against another person, or another party (such as the plaintiff, or a co-defendant).
+ The general information in this guide about filling out the claim form applies to a plaintiff's claim, but there are also some special rules which apply to a defendant's claim. These are discussed in the defendants claim section .
+ Get free online help to complete your court forms
+ Community Legal Education Ontario ( CLEO ) has a free online tool to help you complete select Small Claims Court forms (like a plaintiff's claim).
+ The Small Claims Court Guided Pathways ask you questions and put your answers into the required court forms. When you're finished, you can save or print your completed forms before filing them with the court.
+ You can also find more information about Small Claims Court on CLEO 's Steps to Justice website.
+ How to fill out the claim form
+ The forms for both the plaintiff's claim and defendant's claim include a lot of information to help you fill them out. The following is a list of the key information you should include in your claim:
+ Fill in the court name, address and telephone number.
+ Check the box if one or more of the plaintiffs is under 18 years of age.
+ Check the box if there are additional plaintiffs or defendants listed on an Additional Parties [Form 1A] and include the additional parties form as page 2 of your claim.
+ Fill in the full names of the parties to the action and their addresses and contact information. Ensure that you have named each defendant correctly. Where a defendant is known by several different names, the Additional Parties [Form 1A] can be used to continue with the identification of the defendant's "Also Known As" names if the space provided in the Plaintiff's Claim [Form 7A] is insufficient. Ensure that additional defendant names are linked to the first defendant name by using the same defendant number reference.
+ If you chose to represent yourself insert your own name, address, telephone number and email address (if any).
+ Fill in the amount that you are claiming.
+ Fill in the annualized pre-judgment interest rate claimed and amount due up to the date the claim is filed.
+ If you are filling out a defendant's claim, include the court file number of the main action.
+ Fill in the reasons for your claim and details. Give a full explanation of what happened, including the dates and places and nature of the occurrences involved. Calculate and explain the amount of money and any interest you are claiming.
+ Attach a copy of supporting documents to the claim. If the documents are not attached, fill in the reasons for not attaching the documents in the "Reasons for Claim and Details" section.
+ Make one copy of everything for yourself and a copy for each defendant.
+ More than one plaintiff or defendant
+ Together you and one or more other plaintiffs can sue one or more defendants. List the name and contact information for one plaintiff on the Plaintiff's Claim [Form 7A] and check the box that indicates "Additional parties listed on attached Form 1A." List the rest of the plaintiffs and their contact information on the Additional Parties [Form 1A] and attach it to the claim as the second page. Do the same if there is more than one defendant, or if there is insufficient space for a defendant's "Also Known As" names.
+ Information to include about the defendant
+ If your claim is against an individual, be sure to indicate the defendant's full given name and address, including their apartment or unit number and postal code. You must be very careful when naming the defendant. If the name you use on your claim is not exactly right, you may win your case but then be unable to take steps to enforce your judgment. If, after judgment, you realize you have incorrectly named a defendant, you will need a court order to amend your judgment to correct the name.
+ Example 1
+ You hired a roofer to put a new roof on your house. The roof leaks, so you sue "Zoro Carey Roofing." You obtain judgment, but they refuse to pay, so you direct the sheriff to seize personal property to sell at auction. Now you find that the company's registered name is "ZC Roofing Ltd ." You have a judgment against the wrong party.
+ The rules about names are strict, but they are not complicated. Here are some rules you may need to know:
+ Use the person's full name. Initials are not enough. Write : HELEN RODRIGUEZ on the claim form Not : H. RODRIGUEZ
+ Do not use titles such as Mr., Miss or Dr. Write : JAMAL ROBERTS on the claim form Not : Mr. ROBERTS
+ If your claim is against more than one individual, be sure to include each defendant's full name. Also, check the box on the claim form to indicate that additional defendants are listed on the Additional Parties [Form 1A] attached as page 2 of the claim. Write : RONALD SIMMONS on the claim form and LORRAINE SIMMONS on the additional parties form Not : RONALD AND LORRAINE SIMMONS on the claim form
+ If a defendant is known by more than one name, the Additional Parties [Form 1A] can be used to list the defendant's "Also Known As" names if the space provided within the claim form is insufficient. Check the box on the claim form to indicate the form is attached as page 2 of the claim and ensure the same defendant number is used to link the additional "Also Known As" names to the first defendant name. Example: The defendant you are suing is named Robert Smith. However, you have information that he is also known as Rob Smith, Bob Smith and Robbie Smith. Write : (Defendant No. 1) ROBERT SMITH and ROB SMITH in the "Also Known As" box on the claim form, and BOB SMITH and ROBBIE SMITH on the additional parties form within the "Also Known As" box. Not : ROBERT SMITH as Defendant No. 1, ROB SMITH as Defendant No. 2, BOB SMITH as Defendant No. 3, and ROBBIE SMITH as Defendant No. 4.
+ If you are suing an incorporated company (it usually has Limited, Ltd ., Corporation, Corp., Incorporated or Inc. after its name), make sure you have the correct corporate name, address and postal code. If you want a specific corporate officer to be served, include the person's name and position in the corporation.
+ Example 2
+ Referring back to Example 1, the unsatisfied customer was suing Zoro Carey Roofing because that was the name on the invoice provided and Zoro Carey installed the leaky roof. Even though Zoro Carey did the work, the defendant would still be ZC Roofing Ltd . because the agreement to install the roof was with the company.
+ There are some cases where both the company and the proprietor of the company would be defendants. These are cases where the proprietor has something to do with the case, beyond just being the proprietor of the company.
+ Example 3
+ ZC Roofing Ltd . applied for credit at a roofing supply company but the credit application is denied without a personal guarantee from Zoro Carey. Zoro signs the guarantee and, by doing so, is agreeing to pay the debt personally if ZC Roofing Ltd . does not. If the roofing supply company decides to sue, the defendants in the action could be:
+ ZC Roofing Ltd . on the claim form; and
+ Zoro Carey on the additional parties form.
+ For information on how to search a corporation or registered business name, visit the Ministry of Public and Business Service Delivery and Procurement ( MPBSDP ) website on the Ontario Business Registry. You can also call ServiceOntario with questions at:
+ Tel : 416-314-8880
+ Toll-free: 1-800-361-3223
+ TTY : 416-325-3408
+ Toll-free TTY : 1-800-268-7095
+ If the business you are suing is not incorporated (for example, a sole proprietorship or partnership), you will need the correct name of the business and the address for service. You may also wish to name the proprietor(s) or partner(s) as parties if you wish to obtain a judgment against them as well.
+ Example 4
+ Ann Carey has her own landscaping business. It is not an incorporated company. If one of her suppliers wants to sue her because she did not pay a bill, the supplier could name as the defendants:
+ ANN CAREY, carrying on business as ANN'S LANDSCAPING on the claim form; and
+ ANN'S LANDSCAPING on the additional parties form.
+ You may use " c.o.b. " as a short form for "carrying on business" if you wish.
+ Example 5
+ If Ann, in the above example, was in partnership with her sister Joan, then the defendants could be:
+ ANN CAREY c.o.b. as ANN'S LANDSCAPING on the claim form;
+ JOAN KOSKI c.o.b. as ANN'S LANDSCAPING on the additional parties form; and
+ ANN'S LANDSCAPING on the additional parties form.
+ If you make a claim against a partnership or proprietorship you may also use the firm name, and ask for an order that would be enforceable personally against a person as a partner or proprietor. You should serve that person with the claim, together with a Notice to Alleged Partner [Form 5A] .
+ Proof to support your claim
+ You should set out the reasons for your position in the claim. You must also attach to the claim form copies of documents that you intend to use to support your claim (called "supporting documents"). Keep your originals because you will likely need to hand them to the judge if you proceed to trial. If you refer to any documents that are lost or unavailable, you must explain on the claim form why this material is not attached.
+ Explaining your case on the claim form
+ You should type or write clearly on the claim form a clear outline of the events that took place and the reasons you think you are entitled to a judgment. It is up to you to decide how to explain your case. Often a good way to organize what you want to explain is in the order that the events actually happened. You may also find it helpful to use separately numbered paragraphs. Give a full explanation of what happened including the dates and places involved.
+ You do not have to use "legal language." Just say what happened, including important details. The defendant should know exactly what the claim is about.
+ Example 6
+ The customer who was suing the roofer in Example 1 might say this:
+ "ZC Roofing Ltd . put a new roof on my house at 123 King Street Barrie, Ontario on October 1, 2008.
+ The new roof leaked.
+ I advised ZC Roofing of the leak on October 5, 2008 but ZC Roofing Ltd . refused to fix it.
+ My furniture and carpeting were damaged by the leak and I had to hire another roofer to fix the leak.
+ The leak was repaired on October 15, 2008 by YZ Roofing."
+ Notice that in our example the address of the house and the date of the job are given. The roofer will have no trouble knowing which job this case is about.
+ Calculate and explain the amount of money you are claiming.
+ Example 7
+ Referring back to Example 6, the plaintiff in that case might show the breakdown of the amount claimed (in the Reasons for Claim & Details) like this:
+ "I am claiming the following amounts and am attaching my invoices to this claim:
+ a) Cost of replacing chair $ 479
+ b) Cost of cleaning carpet $ 135
+ c) Cost of repairing roof $1,250
+ TOTAL $1,864"
+ Asking for interest on the money claimed
+ If you want to ask for interest on the money you are claiming you must ask for interest in your claim form. If the rate of interest has been agreed to by the parties ( e.g. in a written contract signed by the parties), indicate that interest rate in your claim.
+ Example 8
+ A supplier is suing a customer for payment of a bill. The plaintiff might show the breakdown of the amount claimed (in the Reasons for Claim & Details) like this:
+ How much? $ 849
+ The plaintiff also claims pre-judgment interest from May 1, 2007 under an agreement at the rate of 24% per year, and post-judgment interest, and court costs.
+ If no interest rate was agreed upon, you can ask the judge to award you pre-judgment and post-judgment interest at the rate as defined in the Courts of Justice Act . Before judgment, the interest is called pre-judgment interest. After judgment it is called post-judgment interest. These rates are available in the court office and on the Ministry's website at: www.ontario.ca/attorneygeneral .
+ Interest must be expressed as an annual rate ( e.g. 24% per annum and not 2% per month). The Interest Act (Canada) provides that where a contract does not provide for an annualized rate of interest equivalent to the monthly, weekly or daily rate of interest charged, no interest exceeding the rate of 5% per annum shall be chargeable.
+
+ Section 347 of the Criminal Code of Canada deals with "criminal interest rates."
+ Calculating pre-judgment interest
+ On your claim form you will indicate the pre-judgment interest rate that you are claiming, which will be pursuant to an agreement or the Courts of Justice Act , but the amount of pre-judgment interest will not be calculated until the date judgment has been awarded:
+ (principal claim amount) x (pre-judgment interest rate %) (365 days per year) x (number of days from date the claim arose to the date judgment is awarded) = pre-judgment interest owing to date of judgment
+ Example 9
+ Naoki is filing a claim in Small Claims Court for $5,000. He has a written contract signed by the parties that indicates interest will be calculated at 10% per year.
+ Naoki wants to claim pre-judgment interest at the rate of 10%, pursuant to the written contract. Sixty days had passed from the date the cause of action arose until the date judgment is awarded.
+ Pre-judgment interest would be calculated as follows:
+ $5,000 x 10% 365 days per year x 60 days = $82.19
+ If the defendant fails to file a defence, you may be able to obtain default judgment against him or her. This process is discussed later on in this guide. If you obtain a default judgment signed by the clerk against him or her, the amount of interest awarded will be the amount owed on the date judgment is awarded.
+ If you go to trial or an assessment hearing, or make a motion for an assessment of damages in writing, you can ask the judge at the hearing (or in your motion documents) for pre-judgment interest up to the judgment date. You would calculate the total amount of pre-judgment interest owing up to date of judgment in the same manner:
+ (principal claim amount) x (pre-judgment interest rate %) (365 days per year) x (number of days from date the claim arose to date of judgment) = pre-judgment interest owing
+ Calculation of simple (not compound) interest is always on the amount owing from time to time as payments are received. For example, if several partial payments are made, the daily interest rate due must be re-calculated after each payment based on the reduced balance owed.
+
+ What happens next with the plaintiff's claim
+ What to do with your claim after it's filled out
+ You can fill out your claim, pay the fee and file it online using the Small Claims Court Submissions Online portal delivered by the Ministry of the Attorney General. The court will e-mail you your court-stamped claim and instructions for your next steps. For more information and to file online, go to www.ontario.ca/smallclaims .
+ If you prefer to file your claim in person or by mail, after you have filled out your claim form, the next step is to take or mail the claim and supporting documents, and copies for yourself and each defendant, to the Small Claims Court office. When you file your claim form you will be asked to pay a fee. The clerk will keep the original claim and one copy of the supporting documents in the court file. The copies will be stamped and returned to you. Keep one copy for your records and serve a stamped copy on each defendant. For more information about court fees, refer to " Small claims court fees ."
+ What Small Claims Court office you should file your claim in
+ If you are filing a plaintiff's claim, you must file your claim in the proper courthouse location. You have a couple of options. You can file your claim in the court that satisfies any of the following criteria:
+ the court in the territorial division where the cause of action arose ( i.e. where the event took place or problem occurred)
+ the court in the territorial division in which the defendant lives or carries on business (if there are several defendants, then it can be the court in the territorial division in which any one of them lives or carries on business)
+ at the court's place of sitting that is nearest to the place where the defendant lives or carries on business (if there are several defendants, then it can be the court nearest to the place in which any one of them lives or carries on business).
+ If you are unsure of which court office handles cases in the area where you want to file your claim you can call the court office where you think you should file the claim and ask the clerk. Court addresses and telephone numbers are available on the Ministry's website at: www.ontario.ca/attorneygeneral .
+ Example 10
+ Referring back to Example 6, your leaky roof is in Barrie and the roofing company's head office is in Whitby. You could file the claim in Barrie (where the problem occurred) or in Whitby (where the defendant carries on business).
+ How to serve a claim that has been filed
+ The Rules allow parties to arrange for service of their own claims as follows:
+ you can serve the claim yourself
+ you can have a friend, a business associate, or a private process server serve the claim for you
+ If you have someone representing you they will arrange for service of your claim.
+ Refer to " Serving documents " for more information.
+ Serving the claim outside the court's territorial division
+ If all the defendants have been, or will be, served with the claim outside the court's territorial division, then the plaintiff (named in a plaintiff's claim) may need to fill out an Affidavit for Jurisdiction [Form 11A] to prove that the action was, in fact, brought in the proper jurisdiction (subject to any order by the court).
+ Generally, you are not required to file the affidavit for jurisdiction with the court until you are ready to proceed with certain steps, such as asking for the defendant to be noted in default. However, if you are not certain that you are filing in the correct jurisdiction, you may wish to prepare an affidavit for jurisdiction to bring in with your claim and ask the clerk to review it. This may help to avoid delays and additional costs if you are later unable to prove the claim has been brought in the proper jurisdiction. In that case, you may not be entitled to proceed in the court where you filed your claim.
+ Example 11
+ Look back at our roofing company example. Your leaky roof is in Barrie and the roofing company is in Whitby. You choose to file the claim in Barrie where the problem occurred.
+ You serve your claim on the defendant at its place of business in Whitby and indicate this in your affidavit of service. Because the defendant was served outside of the Barrie court's territorial division, to have the defendant noted in default you would file an Affidavit for Jurisdiction [Form 11A] in which you indicate that you are entitled to proceed with your action in Barrie because it is where the event (cause of action) took place.
+ The affidavit for jurisdiction would not be necessary if you had filed your claim in the Whitby court because you would have served the defendant within the Whitby court's territorial division.
+ Proving the claim was served
+ One Affidavit of Service [Form 8A] is required for each person served. Set out who was served and how service was made. Generally, you are not required to file the affidavit of service with the court until you are ready to proceed with certain steps, such as making a written request to the clerk to note the defendant in default.
+ How long you have to serve the claim
+ A claim should be served on each defendant within six months after the date it is issued. This will help you avoid your claim being dismissed for delay by the clerk two (2) years after it was filed.
+ If necessary, you can ask the court to make an order extending the time for service before or after the two (2) year period has elapsed, and extend the time before the clerk can dismiss the action. To do so, file a Notice of Motion and Supporting Affidavit [Form 15A] . There is a fee for this process. In your affidavit, explain why you need more time to serve the claim. Refer to " Motions and clerk's orders " for more information.
+ Making changes to your claim after it has been filed
+ If you wish to amend a claim, you may amend your claim through the Small Claims Court Submissions Online portal or at the court office. You can access the portal at www.ontario.ca/smallclaim s .
+ A plaintiff may amend a claim without paying a fee and without obtaining an order from the court to amend, as long as:
+ the amended claim is served on all parties, including any party noted in default
+ the amended claim must be filed and served at least 30 days before the originally scheduled trial date, unless, the court, on motion, allows a shorter notice period or a clerk's order permitting the amendment is obtained.
+ You must file with the clerk a copy that is marked "AMENDED" with any additions underlined and any other changes identified on the amended claim.
+ However, if you wish to amend your claim when your trial date is less than 30 days away you will need to get an order from a judge or a clerk's order on consent to do so. Refer to " Motions and clerk's orders " for more information.
+ How long the defendant has to file a defence
+ The defendant may dispute all or a portion of the claim in his or her Defence [Form 9A] . The defendant must serve and file the defence with the court within 20 days of being served with the claim. After the 20-day period has passed, the court office will accept a defence for filing if the defendant has not been noted in default.
+ If the defendant does not file a defence
+ If the defendant fails to file a defence with the court and at least 20 days have passed since you served the claim, you can fill out and file a Request to Clerk [Form 9B] asking the clerk to note the defendant in default. You must also file a completed Affidavit of Service [Form 8A] for each defendant to show the court that the defendant was served with the claim properly.
+ If you served your claim on all defendants outside the court's territorial division, you must also file an Affidavit for Jurisdiction [Form 11A] at this time.
+ Consequences of noting a defendant in default
+ The Rules provide that a defendant who has been noted in default cannot file a defence or take any other step in the proceeding, except making a motion to set aside the noting of default, without leave of the court or the plaintiff's consent. A defendant who has been noted in default is not entitled to notice of any step in the proceeding and need not be served with any other document except those required by the Rules, such as: default judgment, amendment of a claim or defence, motion after judgment, and post-judgment proceedings against a debtor.
+ In some circumstances, a defendant may ask a judge for an order setting aside the noting in default. The plaintiff and defendant may also agree to a clerk's order setting aside the noting in default.
+ Refer to " Replying to a claim " for more information on setting aside a noting in default.
+ If you no longer wish to proceed with a claim and the defendant has not filed a defence.
+ In some circumstances following service of your claim, you may reach an agreement with the defendant to settle the action outside of court, or you may simply decide not to proceed with your claim.
+ Where you no longer wish to proceed with your claim and the defendant does not file a defence, you may serve a Notice of Discontinued Claim [Form 11.3A] on the defendant and file that notice with proof of service with the court. For more information on service refer to " Serving documents ."
+ The claim may not be discontinued by or against a person under a legal disability ( e.g. , a person under 18 years of age), except with the court's permission.
+
+ When a defence is filed
+ The court will send a Notice of Settlement Conference to all parties unless the defence contains a proposal for terms of payment for the full amount claimed. The settlement conference should take place within 90 days after the first defence is filed. For more information on settlement conferences, refer to " Getting ready for court ."
+ A defendant who is served with an amended claim is not required to file an amended defence. However, the defendant may choose to file and serve an amended defence to respond to any new allegations made in the claim. Refer to " Replying to a claim " for more information.
+ If the defendant files a defence which includes a proposal for terms of payment
+ The defendant may file a Defence [Form 9A] which admits part, or all, of the claim and makes a proposal for terms of payment. If the defendant admits all of the claim and his or her proposal is acceptable to you, you are not required to take any further steps in the case. The defendant is required to make payments directly to you in accordance with the proposal.
+ If the defendant admits only part of the claim and you are satisfied with his or her proposal for terms of payment, you will need to go to a settlement conference, and possibly trial, only for the part of the claim that was not admitted. Refer to " Getting ready for court " for more information on settlement conferences and trials.
+ If you do not agree with the defendant's proposal for terms of payment
+ If you do not agree with the defendant's proposal for terms of payment, you must request a terms of payment hearing, for which there is no fee. Within 20 days of service of the defence, fill out and file with the court a Request to Clerk [Form 9B] . In the request to clerk form, ask the court to set up a terms of payment hearing because you dispute the defendant's proposed terms of payment contained in the defence. You must also serve a copy of the request form on the defendant.
+ The court will send both parties a Notice of Terms of Payment Hearing setting out the date, time and place for the hearing. The court will also send the defendant a blank Financial Information Form [Form 20I] , if the defendant is an individual and not a business. The defendant must fill out the financial information form and serve it on you before the hearing.
+ The financial information form cannot be filed with the court.
+
+ At the hearing the court may make an order that could differ from the defendant's proposal. If the defendant does not appear at the hearing, the plaintiff may obtain judgment for the part of the claim that the defendant admitted to owing.
+ If you accept the terms but the defendant does not make the payments as proposed
+ If the defendant fails to make payment in accordance with the proposal made in the defence, you can serve a Notice of Default of Payment [Form 20L] on the defendant. If the defendant does not make arrangements to pay you within 15 days of being served with the notice, you can fill out and file with the court an Affidavit of Default of Payment [Form 20M] along with a copy of the notice of default of payment.
+ Your affidavit of default of payment form must indicate:
+ that the defendant failed to make payment in accordance with the proposal in his or her defence
+ that 15 days have passed since the defendant was served with a notice of default of payment
+ the amount that has been paid by the defendant and the unpaid balance
+ The clerk will sign judgment for the unpaid balance of the amount of the claim that the defendant had admitted to owing.
+ How to obtain judgment where the defendant has been noted in default
+ If the defendant to a plaintiff's claim fails to file a defence and has been noted in default, you can ask the court to grant you judgment in one of two ways:
+ default judgment signed by the clerk (for "liquidated" claims only)
+ judge's order for an assessment of damages (for "non-liquidated" claims)
+ In either situation, you do not have to prove the defendant's liability ( i.e. that the defendant does, in fact, owe you something). You only have to prove the amount of the claim (the amount of money that the defendant should pay).
+ Liquidated claim
+ A "liquidated" claim is a claim for a set amount owing under a written contract or verbal agreement, such as an unpaid invoice, bounced cheque and/or unpaid loan.
+ How to get a default judgment signed by the clerk
+ If the defendant has been noted in default and your claim is a "liquidated" claim, then you can fill out a Default Judgment [Form 11B] and file it with the clerk.
+ If the clerk is satisfied with the contents of the default judgment and any supporting documents, the clerk will sign the default judgment for the amount of the claim and interest (if you claimed interest). There is a fee for this process. The clerk will serve copies of the default judgment on all parties.
+ Once you get a judgment, refer to " After judgment " for more information on your next steps.
+ Non-liquidated claim
+ A "non-liquidated" claim is a claim for an amount that a judge will need to approve, such as damage to property, personal injury, poor workmanship, and/or termination pay. This type of claim will require an assessment of damages by a judge.
+ How to get an assessment of damages
+ If all defendants have been noted in default and your claim is a "non-liquidated" claim, then you can ask a judge to assess damages and make an order. To request this order, you can either file a motion in writing for an assessment of damages, or request an assessment hearing before a judge.
+ How to make a motion in writing for an assessment of damages
+ " Motions and clerk's orders " provides detailed information on how to make a motion in writing for an assessment of damages.
+ How to request an assessment hearing
+ You can file your request for an assessment hearing ( Request to Clerk [Form 9B] ) through the Small Claims Court Submissions Online Portal.
+ If you prefer to file your request in person or by mail, you can request an assessment hearing before a judge by filing a Request to Clerk [Form 9B] . The clerk will send a notice of hearing (to the plaintiff only) indicating the date, time and location of the hearing.
+ An assessment hearing is like a trial except that the defendant is not present and you do not need to prove the defendant's liability. You must prove the amount that the defendant should pay to compensate you. Refer to " Getting ready for court " for more information about how to prepare for an assessment hearing.
+ Once you get a judgment, refer to " After judgment " for more information on your next steps.
+ If your case has more than one defendant and you are unable to serve one of them
+ In order to obtain an order on a motion in writing for an assessment of damages or at an assessment hearing, all defendants must have been noted in default. The clerk cannot note a defendant in default if the defendant has not been served. For more information on service refer to " Serving documents ."
+ If the defendant obtains an order setting aside the default judgment
+ In some circumstances, a defendant may ask a judge for an order setting aside the noting in default or the default judgment that the plaintiff may have obtained. The plaintiff and defendant may also agree to a clerk's order setting aside the noting in default or default judgment. If the noting in default or default judgment is set aside and the defendant files a defence, the case will proceed to a settlement conference and, if necessary, a trial.
+ Refer to " Replying to a claim " for more information on this process.
+ Filing the claim but doing nothing afterward
+ If you do not take the necessary steps to get final judgment within the time period set out in the Rules, the clerk of the court will make an order dismissing your case for delay.
+ Unless ordered otherwise, the clerk will dismiss your case if the following conditions are satisfied:
+ more than two (2) years have passed since the date the claim was issued (or since the date an order was made extending the time for service of the claim)
+ the action has not been disposed of by order or settled
+ a motion in writing for an assessment of damages has not been filed
+ a trial or assessment hearing date has not been requested
+ If you are served with an order dismissing your claim for delay and you want to ask the court to set aside the order, you can make a motion before a judge. If all parties consent to having the order set aside, you can file a Request for Clerk's Order on Consent [Form 11.2A] signed by all of the parties. Refer to " Motions and clerk's orders " for more information.
+ What happens next with the defendant's claim
+ The defendant's claim must be filed at the office where the plaintiff's claim was filed. Remember, the defendant's claim must be filed within 20 days after the day on which the Defence [Form 9A] is filed unless you obtain a court order to file it later.
+ After you have filled out your claim form, the next step is to file the claim and supporting documents, and one copy of each, with the Small Claims Court office where the original action was filed. When you file your claim form you will be asked to pay a fee. For more information about fees, refer to Small claims court fees . The clerk will keep the original claim and one copy of the documents in the court file. The copy will be stamped and returned to you. You must then make enough photocopies of the stamped copy to serve on each defendant to your defendant's claim.
+ It is possible to mail your claim and supporting documents, and one copy of everything, together with the fee to the Small Claims Court. However, if you can, you should take your documents in personally. If the defendant's claim is incomplete, the clerk will inform you so that you can fix the claim on the spot. This way, you will avoid wasting time mailing the documents back and forth with the court.
+ How to serve defendant's claim after it has been filed
+ The Rules allow parties to arrange for service of their own claims as follows:
+ you can serve the claim yourself
+ you can have a friend, a business associate, or a private process server serve the claim for you
+ If you have someone representing you they will arrange for service of your claim
+ Refer to " Serving documents " for more information.
+ How to prove the defendant's claim was served
+ One Affidavit of Service [Form 8A] is required for each person served. Set out who was served and how service was made. Generally, you are not required to file the affidavit of service with the court until you are ready to proceed with certain steps, such as making a written request to the clerk to note the defendant in default.
+ How long the defendant to a defendant's claim has to file a defence
+ The defendant to the defendant's claim may dispute the claim in his or her Defence [Form 9A] . The defendant to the defendant's claim must serve and file the defence at the court within 20 days of being served with the claim. After the 20-day period has passed, the court office will accept a defence for filing if the defendant to the defendant's claim has not been noted in default.
+ When a defence to a defendant's claim is filed
+ The Rules provide that the defendant's claim shall be tried and determined at the trial of the action, unless the court orders otherwise.
+ If the defendant to the defendant's claim does not file a defence
+ If the defendant to the defendant's claim fails to file a defence with the court and at least 20 days have passed since you served the claim, you can fill out and file a Request to Clerk [Form 9B] asking the clerk to note the defendant in default. You must also file a completed Affidavit of Service [Form 8A] for each defendant to the defendant's claim to show the court that the defendant was served with the claim properly.
+ If all defendants to the defendant's claim were served outside the territorial jurisdiction of the court, you must also file an affidavit for jurisdiction at this time.
+ How to obtain judgment against a defendant to the defendant's claim who has been noted in default
+ If a party against whom the defendant's claim is made has been noted in default, the Rules provide the judgment may be obtained against the party only at trial or on motion.
+ Checklist: Making a claim
+ Prepare your claim carefully. It will make it easier for all parties to understand who is making the claim and exactly what is being claimed.
+ Fill out a Plaintiff's Claim [Form 7A] or Defendant's Claim [Form 10A] . Attach an Additional Parties [Form 1A] if there is more than one plaintiff or defendant, or the defendant is known by more than one name and there is insufficient space on the claim form. Be sure to check the "additional parties" box on the claim form.
+ File both the original claim and supporting documents, and a copy for yourself and each defendant, in person or by mail with the court, or file the claim and supporting documents online using the Small Claims Court Submissions Online portal.
+ If you filed in person or by mail, the clerk will stamp the documents, keep the original, and return the copies to you. If you filed online, the court will e-mail you confirming your documents have been e-filed or e-issued. Make sure you print from the Ministry's website, or pick up from the court office, the "Guide to Serving Documents" and enough copies of the Affidavit of Service [Form 8A] to allow you to complete the affidavits required in step 8.
+ If you are filing a plaintiff's claim, make sure you are filing your claim in the proper territorial jurisdiction.
+ If you are filing a defendant's claim, file your claim with the court office where the plaintiff's claim was filed. Remember it must be filed within 20 days after the defence is filed unless the court orders otherwise.
+ Pay the filing fee.
+ You will need to serve a copy of the claim and supporting documents on each defendant.
+ You will need to have a completed Affidavit of Service [Form 8A] for each defendant setting out who was served and how service was made. Remember you are not required to file the affidavit of service with the court until you are ready to proceed with your next step. Refer to " Serving documents " for more information.
+
+ Updated: July 02, 2026
+
+ Published: March 23, 2022
+
+ Top

@@ -1,0 +1,384 @@
+Steps in a Case &#8211; Ontario Superior Court of Justice
+
+ 
+ 
+ 
+
+ 
+ 
+
+
+
+ 
+ 
+ 
+ 
+
+		 Skip to content 
+
+ 
+ 	 
+ 		 
+
+ 
+ 				 
+ 					 Case Information
+ Court Locations &#038; Scheduling
+ Media
+ FR
+
+ 
+ 	 
+ 		 
+ 			 
+ 				 
+ 					 
+ 						 
+ 						 Ontario Superior Court of Justice
+ 
+
+ 
+ 				 
+ 					 
+ 						 
+
+								 Search Search 
+
+
+ 
+ 	 
+
+ 		 
+ 			 
+ 				 
+ 					 
+ 						 
+
+ 
+ 
+ 
+ 
+ 
+ Home Areas of Law Small Claims Court Steps in a Case
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+ 
+
+ 
+ -->
+ 
+
+ 
+ Accessibility Steps in a Case
+
+ 
+
+ 
+ 
+ 
+
+ Steps in a Case
+
+ 
+
+	There are six stages to a Small Claims Court case. From beginning to end, they are Claim, Default proceedings, Settlement conference, Motions, Trial and judgment, and Enforcement.
+
+	There can be more than one hearing for each stage, depending on the specifics of your case.
+
+				Claim
+
+					 See the Starting and responding to a case page for information on filing a claim.
+
+			 Default Proceedings
+
+					 A defendant generally has 20 calendar days to serve and file a defence to a claim.
+ If defence not filed
+ If a defendant does not file a defence in time, then the plaintiff may ask the Court to note the defendant in default.
+ Even if a defendant is noted in default, a case will proceed to settlement conference as long as one defendant has filed a defence.
+ Noting in default
+ If you wish to have the Court note a defendant in default, then you need to file a Request to Clerk (Form 9B). You can do this through the Small Claims Court E-Filing Service Portal if you filed your claim there.
+ Being noted in default has serious consequences . The plaintiff may be entitled to get a judgment against you without your participation. You cannot file a defence or take any other step in the case without the plaintiff’s consent or the Court’s permission.
+ If you are noted in default , then you may bring a motion to set aside the noting in default, any default judgment against you and any steps taken to enforce those default judgments. You may also seek the plaintiff’s consent to set these things aside, except for any enforcement steps that have been completed.
+ Default judgment
+ There are three ways to seek default judgment against a defendant to a plaintiff’s claim:
+
+						 request to Clerk
+ motion in writing for assessment of damages
+ assessment hearing
+
+					 More information about default proceedings is available at these buttons:
+
+										 Asking to have a defendant noted in default
+
+											 Read More
+
+										 Asking to set aside default proceedings
+
+											 Read More
+
+			 3 -->
+			 Settlement Conference
+
+					 If any defendants in the case file their defence in time and disagree with any part of the claim, then the Court will schedule a settlement conference.
+ What is a settlement conference?
+
+						 The settlement conference is an informal, confidential meeting in the presence of a member of the judiciary. It gives you a chance to seriously consider ways to resolve your case without the expense, inconvenience and stress of a trial.
+ The goals of a settlement conference are to:
+
+							 encourage the parties to resolve their dispute,
+ narrow down the issues in the case,
+ provide full disclosure of relevant facts and evidence, and
+ help the parties prepare for trial if the dispute cannot be resolved.
+
+ The role of the judicial officer
+
+						 The judge or deputy judge is there to listen to your story, deal with any procedural problems, and give you their opinion of how your case will likely be decided if it goes to trial.
+ That opinion will be based on their experience as a lawyer, judge or deputy judge. You have the right to know what that opinion is, and you also have the right to ignore that opinion. However, you should carefully consider what they say because their opinion is based upon years of experience.
+
+ Important information for before, during and after the conference
+ At least 14 days before your settlement conference , you must serve on every other party and file with the Court:
+
+							 a copy of any document you intend to rely on at trial that was not attached to your claim or defence, and
+ a completed List of Proposed Witnesses (Form 13A).
+
+						 At your settlement conference , you must discuss the issues in your case openly and frankly. If someone (for example, a paralegal or lawyer) is representing you at the conference, they must do the same.
+ Discussions at a settlement conference are confidential. You cannot disclose the matters you talked about at a settlement conference until after your case is fully resolved. This includes the trial. The only exception is where the parties have filed a consent (Form 13B) saying they agree to disclosure.
+ If the case does not settle at the settlement conference, then the presiding deputy judge may make orders to help the trial run effectively (for example, disclosure of certain documents before the trial). A different deputy judge will preside at the trial.
+ If you do not attend the settlement conference, or come unprepared , then there can be serious consequences. The Court may order costs against you. The Court may schedule another settlement conference and, in some cases, strike your defence and dismiss your defendant’s claim.
+ You are not required to settle your case at the settlement conference or at any point if you do not want to.
+
+ Trial management conference
+ In some cases that do not settle at the settlement conference, the Small Claims Court may schedule a trial management conference.
+ This is a brief meeting between a deputy judge and the parties (or their representatives) to help the parties prepare for trial and ensure the trial runs efficiently.
+ Rule 13
+					 Rule 13 of the Rules of the Small Claims Court governs settlement conferences.
+ More information
+					 For more information about getting ready for a settlement conference, see the Getting ready for court section of the Ministry of the Attorney General’s Guide to procedures in Small Claims Court .
+
+										 Rule 13
+
+											 Read More
+
+										 Getting Ready for Court
+
+											 Read More
+
+			 4 -->
+			 Motions
+
+					 Motions are requests to the Court to make an order before judgment, or sometimes after judgment.
+ The party making the motion is called the moving party. A party responding to the motion is called the responding party.
+ Generally, all parties in a case must be served with a motion so they have a chance to participate in the hearing. A party cannot make a motion without notice to other parties, except in limited circumstances.
+ Making a motion
+					 To make a motion, follow these four steps:
+
+						 Fill out a Notice of Motion and Supporting Affidavit (Form 15A), leaving out the date, time and hearing details.
+ Contact the courthouse to schedule the motion hearing. Put into your motion form the date, time and hearing details that court staff give you.
+ Serve the motion form by at least 7 days before the hearing date on (a) all parties who have filed a claim and (b) all defendants not noted in default.
+ File the motion form, with Affidavits of Service (Form 8A) proving service on each party whom you had to serve, at least 3 days before the motion hearing. [Lawyers and paralegals representing a party may be able to prove service using the Lawyer’s or Paralegal’s Certificate of Service (Form 8B) instead.]
+
+					 Responding to a motion
+					 If you have been served with a motion, you can respond to it by following these steps:
+
+						 Fill out an Affidavit (Form 15B) in response to the motion.
+ Serve your Affidavit on every party who has filed a claim or defence in your case.
+ File the Affidavit, with Affidavits of Service (Form 8A) proving service on each party whom you had to serve, at least 2 days before the motion hearing. [Lawyers and paralegals representing a party may be able to prove service using the Lawyer’s or Paralegal’s Certificate of Service (Form 8B) instead.]
+
+					 Moving party’s supplementary Affidavit
+					 If you are the moving party and you want to provide more information after receiving another party’s Affidavit, you can file a supplementary Affidavit (Form 15B), with proof of service on every party who has filed a claim or defence, at least 2 days before the motion hearing.
+ More information
+					 Rule 15 of the Rules of the Small Claims Court governs motions.
+ For more information about motions, see the Motions and clerk’s orders section of the Ministry of the Attorney General’s Guide to procedures in small claims court .
+
+			 Trials
+
+					 At trial, each party tells their story and presents evidence to the Court so that the Court can decide the case.
+ To ask for a trial date, file a Request to Clerk (Form 9B) and pay the required fee at least 30 days after your settlement conference.
+ For more information about trials, including preparation, etiquette, evidence and other topics, see the Getting ready for court section of the Ministry of the Attorney General’s Guide to procedures in small claims court .
+ Rule 17 of the Rules of the Small Claims Court deals with different procedural issues related to trials. Rule 18 deals with evidence at trial.
+
+			 Enforcement
+
+					 If you are the successful party in your case
+ If the Court has made a judgment in your favour after trial, you can start taking steps to collect on the judgment. The successful party is called the creditor, and the unsuccessful party (who owes money under the judgment) is called the debtor.
+ Try to reach an agreement with the debtor about paying the amount they owe. This may be the easiest and most cost-effective way to collect your money. If that does not work, there are court processes available to help you enforce the judgment.
+ If you want to take an enforcement step but need to know more information about the debtor’s financial situation to do this , you can ask for an examination hearing. This is explained in more detail below.
+ Enforcement steps
+ If you are ready to take an enforcement step, there are four options available to you:
+
+						 Garnishment
+ Writ of seizure and sale of personal property
+ Writ of seizure and sale of land
+ Writ of delivery
+
+					 For more information about these options, see the After judgment section of the Ministry of the Attorney General’s Guide to procedures in small claims court .
+ Examination hearing
+ At an examination hearing, you can examine the debtor or anyone else who might have information related to enforcing the judgment. This can include:
+
+						 The debtor’s debts, income, property and previous transactions
+ Any debts owed to the debtor
+ Reasons why the debtor has not paid
+ Whether the debtor intends to obey the judgment
+ Whether the debtor has a reason not to obey the judgment
+ Any other information related to enforcing the judgment
+
+					 You can ask for an examination hearing by requesting court staff to issue a Notice of Examination (Form 20H). You must then serve the Notice of Examination on each person you intend to examine. If you intend to examine the debtor, then you must serve a blank Financial Information Form (Form 20I) on them as well. They will be required to fill it out and provide it to you.
+ If you are the unsuccessful party in your case
+ If the Court has made a judgment against you after trial, the successful party can immediately start taking steps to collect the money you owe them. The successful party is called the creditor, and the unsuccessful party (who owes money under the judgment) is called the debtor.
+ The creditor may ask you to pay the money right away. If you cannot pay the entire amount right away, the creditor may agree to a payment schedule. However, they do not have to agree. The judgment entitles the creditor to the money right away.
+ The creditor may require you to attend an examination hearing to answer questions and provide documents about your financial situation. To do this, they will serve you with a Notice of Examination (Form 20H) and a blank Financial Information Form (Form 20I). You will be required to complete the Financial Information Form and attend the hearing.
+ Examination hearing
+ If you have been served with a Notice of Examination (Form 20H), then you must attend the examination hearing. You must also fill out the Financial Information Form (Form 20I) and provide it to the creditor. Do not file it with the Court.
+ Come to the examination prepared to answer questions and provide documents about your financial situation and other issues related to the judgment. The creditor can ask about anything related to enforcing the judgment against you, including:
+
+						 Your debts, income, property and previous transactions
+ Any debts owed to you
+ Reasons why you have not paid
+ Whether you intend to obey the judgment
+ Whether you have a reason not to obey the judgment
+ Any other information related to enforcing the judgment
+
+					 These hearings are held under oath and in private.
+ At an examination hearing, the Court may make orders about paying the judgment.
+ If you do not come to the hearing , or you come but refuse to answer questions or show important documents , then the Court may require you to attend a contempt hearing. This hearing can have very serious consequences, including imprisonment.
+ Contempt hearing
+ At a contempt hearing, you have an opportunity to explain why you did not attend the examination hearing or refused to answer questions or produce documents. The Court will listen to your explanation and decide whether to find you in contempt of court.
+ If the Court finds you in contempt of court, you may face very serious consequences. The Court can make a variety of orders against you, including imprisonment for up to five days.
+ Asking to cancel the contempt hearing
+ If you have been ordered to attend a contempt hearing, you may file a Notice of Motion and Supporting Affidavit (Form 15A) asking the Court to set aside the order. The Court will decide whether to set aside the order and require you to attend another examination hearing instead.
+ You must make this request and file and serve this Notice of Motion and Supporting Affidavit on the other parties before the date of the contempt hearing . The Court may deny the motion and require you to attend the hearing on the scheduled date.
+
+										 Rule 20.10
+
+											 Read More
+
+										 Guide to procedures in Small Claims Court
+
+											 Read More
+
+										 CJA, s.30
+ Read More
+
+	 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Other useful links: 
+
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+								 
+ 
+								 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ This website is maintained by the Office of the Chief Justice.
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ LinkedIn
+ Site Map
+ Accessibility
+ Feedback
+ Website Policies
