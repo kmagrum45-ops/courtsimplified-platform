@@ -82,6 +82,7 @@ export type CorpusSource = {
 
 import { PRACTICAL_SOURCES } from "./practicalSources";
 import { NOTICE_SOURCES } from "./noticeSources";
+import { HOLIDAY_SOURCES } from "./holidaySources";
 
 const LEGISLATION_SOURCES: CorpusSource[] = [
   {
@@ -173,6 +174,7 @@ const LEGISLATION_SOURCES: CorpusSource[] = [
 export const CORPUS_SOURCES: CorpusSource[] = [
   ...LEGISLATION_SOURCES,
   ...NOTICE_SOURCES,
+  ...HOLIDAY_SOURCES,
   ...PRACTICAL_SOURCES,
 ];
 

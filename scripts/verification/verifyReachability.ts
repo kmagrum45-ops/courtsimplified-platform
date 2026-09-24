@@ -191,6 +191,19 @@ const DELIBERATELY_DORMANT: DormantEntry[] = [
       "The UNKNOWN and OUT_OF_SCOPE wording and the clarifying-question lookup. Reachable " +
       "once Part 5 replaces stage detection and can return UNKNOWN instead of defaulting.",
   },
+  {
+    file: "src/lib/case-system/deadlines/deadlineEngine.ts",
+    reason:
+      "Part 4. Computes dates for the stage map's deadlines and is wired up with it in " +
+      "Part 5. Exercised on every run by test:deadlines, including against every " +
+      "deadline the stage map declares.",
+  },
+  {
+    file: "src/lib/case-system/deadlines/holidays.ts",
+    reason:
+      "The two holiday calendars the deadline engine counts against. Dormant with the " +
+      "engine; covered by test:deadlines.",
+  },
 ];
 
 let failures = 0;

@@ -44,6 +44,7 @@ import { ASSISTANT_BLOCKS } from "../../src/lib/content-library/assistantBlocks"
 import { PROCEDURAL_STAGES } from "../../src/lib/content-library/proceduralStages";
 import { CASE_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 import { SOURCE_NAMES } from "../../src/lib/case-system/stage-map/citations";
+import * as CITATIONS from "../../src/lib/case-system/stage-map/citations";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const CORPUS_DIR = path.join(ROOT, "docs", "sources", "corpus");
@@ -109,6 +110,14 @@ const STATUTE_NAMES: Array<{ sourceId: string; pattern: RegExp }> = [
   { sourceId: "cja-courts-of-justice-act", pattern: /Courts of Justice Act/i },
   { sourceId: "legislation-act-2006", pattern: /Legislation Act/i },
   { sourceId: "oreg-626-00-monetary-jurisdiction", pattern: /O\.\s*Reg\.\s*626\/00|42\/25/i },
+  /*
+   * Added with the holiday sources. These two fix the dates of Victoria Day,
+   * Canada Day, Remembrance Day and Family Day, so an amendment to either
+   * moves dates the deadline engine computes — in a way nothing else would
+   * notice, because no block mentions them by name.
+   */
+  { sourceId: "holidays-act-canada", pattern: /Holidays Act/i },
+  { sourceId: "esa-2000-ontario", pattern: /Employment Standards Act/i },
 ];
 
 export function citedStatutes(text: string): string[] {
@@ -168,18 +177,45 @@ export function collectCiters(): Citer[] {
    * rule-number path ("r. 9.01") and the statute-name path (the notice
    * provisions, cited as "s. 44 (10)") can see them.
    */
+  const stageFor = new Map<string, string>();
   for (const stage of CASE_STAGES) {
-    const citations = [
+    for (const citation of [
       ...stage.rules,
       ...stage.deadlines.flatMap((d) => [d.rule, d.computation, ...d.exceptions]),
-    ];
-    for (const citation of citations) {
-      add(
-        `${stage.id} — ${citation.pinpoint}`,
-        "stage map",
-        `${citation.pinpoint} ${SOURCE_NAMES[citation.sourceId]} ${citation.quote}`,
-      );
+    ]) {
+      const key = `${citation.sourceId} ${citation.pinpoint}`;
+      if (!stageFor.has(key)) stageFor.set(key, stage.id);
     }
+  }
+
+  /*
+   * Walk the CITATIONS MODULE, not the stage map.
+   *
+   * Walking the stage map left the holiday citations outside the watch — the
+   * Holidays Act provision that fixes Victoria Day is used by the deadline
+   * engine and reached from no stage, so an amendment to it would have changed
+   * every date this product computes and flagged nothing.
+   *
+   * The citations module is the only place a quote may live, so iterating it
+   * is exhaustive by construction rather than by anyone remembering.
+   */
+  for (const [name, citation] of Object.entries(CITATIONS)) {
+    if (
+      typeof citation !== "object" ||
+      citation === null ||
+      !("quote" in citation) ||
+      !("pinpoint" in citation) ||
+      !("sourceId" in citation)
+    ) {
+      continue;
+    }
+    const typed = citation as { sourceId: string; pinpoint: string; quote: string };
+    const where = stageFor.get(`${typed.sourceId} ${typed.pinpoint}`);
+    add(
+      `${typed.pinpoint} (${name})${where ? ` — e.g. ${where}` : " — deadline engine"}`,
+      "quoted citation",
+      `${typed.pinpoint} ${SOURCE_NAMES[typed.sourceId as keyof typeof SOURCE_NAMES]} ${typed.quote}`,
+    );
   }
 
   for (const stage of PROCEDURAL_STAGES) {

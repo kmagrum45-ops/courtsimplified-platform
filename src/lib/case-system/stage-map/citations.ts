@@ -33,7 +33,9 @@ export type CorpusSourceId =
   | "municipal-act-2001"
   | "city-of-toronto-act-2006"
   | "occupiers-liability-act"
-  | "cja-courts-of-justice-act";
+  | "cja-courts-of-justice-act"
+  | "holidays-act-canada"
+  | "esa-2000-ontario";
 
 /** The page a person opens to read the law for themselves. */
 export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
@@ -45,6 +47,8 @@ export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
   "city-of-toronto-act-2006": "https://www.ontario.ca/laws/statute/06c11",
   "occupiers-liability-act": "https://www.ontario.ca/laws/statute/90o02",
   "cja-courts-of-justice-act": "https://www.ontario.ca/laws/statute/90c43",
+  "holidays-act-canada": "https://laws-lois.justice.gc.ca/eng/acts/H-5/",
+  "esa-2000-ontario": "https://www.ontario.ca/laws/statute/00e41",
 };
 
 /** How each source is named to a user. Shown beside the quote. */
@@ -57,6 +61,8 @@ export const SOURCE_NAMES: Record<CorpusSourceId, string> = {
   "city-of-toronto-act-2006": "City of Toronto Act, 2006, S.O. 2006, c. 11, Sched. A",
   "occupiers-liability-act": "Occupiers' Liability Act, R.S.O. 1990, c. O.2",
   "cja-courts-of-justice-act": "Courts of Justice Act, R.S.O. 1990, c. C.43",
+  "holidays-act-canada": "Holidays Act (Canada), R.S.C. 1985, c. H-5",
+  "esa-2000-ontario": "Employment Standards Act, 2000, S.O. 2000, c. 41",
 };
 
 export type RuleCitation = {
@@ -208,6 +214,35 @@ export const R_17_01_FAILURE_TO_ATTEND_TRIAL = scc(
   "If an action is called for trial and a party fails to attend, the trial judge may, (a) proceed with the trial in the party's absence; (b) if the plaintiff attends and the defendant fails to do so, strike out the defence and dismiss the defendant's claim, if any, and allow the plaintiff to prove the plaintiff's claim, subject to subrule (3); (c) if the defendant attends and the plaintiff fails to do so, dismiss the action and allow the defendant to prove the defendant's claim, if any",
 );
 
+/*
+ * *** THE TWO HOLIDAY DEFINITIONS ARE NOT THE SAME, AND THE DIFFERENCE DECIDES
+ * *** REAL DATES
+ *
+ * r. 1.02 makes ANY SATURDAY OR SUNDAY a holiday, and includes Civic Holiday.
+ * Legislation Act s. 88 (2) makes only SUNDAY a holiday, and has no Civic
+ * Holiday at all.
+ *
+ * So a period ending on a Saturday runs to Monday under the Small Claims rules
+ * and expires that Saturday under the Legislation Act. On a 10-day municipal
+ * notice — a statutory period — assuming the friendlier rule loses the claim.
+ * This is why every deadline in the stage map records which regime counts it.
+ *
+ * The substitution rules differ too. r. 1.02 moves New Year's, Canada Day and
+ * Remembrance Day to the following Monday when they fall on a Saturday OR a
+ * Sunday, and gives Christmas both the Monday and the Tuesday. s. 88 (3)-(5)
+ * shifts only for Sunday, and defers Canada Day to the federal Holidays Act.
+ */
+
+export const R_1_02_HOLIDAY = scc(
+  "r. 1.02 (1)",
+  "\"holiday\" means, (a) any Saturday or Sunday, (b) New Year's Day, (b.1) Family Day, (c) Good Friday, (d) Easter Monday, (e) Victoria Day, (f) Canada Day, (g) Civic Holiday, (h) Labour Day, (i) Thanksgiving Day, (j) Remembrance Day, (k) Christmas Day, (l) Boxing Day, and (m) any special holiday proclaimed by the Governor General or the Lieutenant Governor,",
+);
+
+export const R_1_02_HOLIDAY_SUBSTITUTION = scc(
+  "r. 1.02 (1)",
+  "and if New Year's Day, Canada Day or Remembrance Day falls on a Saturday or Sunday, the following Monday is a holiday, and if Christmas Day falls on a Saturday or Sunday, the following Monday and Tuesday are holidays, and if Christmas Day falls on a Friday, the following Monday is a holiday;",
+);
+
 // ------------------------------------------------------------- the statutes
 
 /*
@@ -263,6 +298,54 @@ export const S_LEGISLATION_89_6_MONTHS: RuleCitation = {
   pinpoint: "s. 89 (6)",
   quote:
     "The number of months is counted from the specified day, excluding the month in which the specified day falls. 2. The period includes the day in the last month counted that has the same calendar number as the specified day or, if that month has no day with that number, its last day.",
+};
+
+/*
+ * The Legislation Act reaches regulations too — s. 46 says so expressly, and
+ * s. 47 makes that subject to a contrary intention. r. 3.01 is a contrary
+ * intention about counting DAYS and about which days are holidays; it says
+ * nothing about counting MONTHS, so s. 89 (6) supplies that for the six-month
+ * service window in r. 8.01 (2).
+ */
+export const S_LEGISLATION_46_APPLIES: RuleCitation = {
+  sourceId: "legislation-act-2006",
+  pinpoint: "s. 46",
+  quote: "Every provision of this Part applies to every Act and regulation.",
+};
+
+export const S_LEGISLATION_89_7_LEAP: RuleCitation = {
+  sourceId: "legislation-act-2006",
+  pinpoint: "s. 89 (7)",
+  quote:
+    "The anniversary of an event that took place on February 29 falls on February 28, except in a leap year.",
+};
+
+// --- when the named holidays actually fall. See scripts/rules/holidaySources.ts
+// --- for the five whose dates no statute we could find states at all.
+
+export const S_HOLIDAYS_ACT_4_VICTORIA: RuleCitation = {
+  sourceId: "holidays-act-canada",
+  pinpoint: "s. 4",
+  quote:
+    "The first Monday immediately preceding May 25 is a legal holiday and shall be kept and observed as such throughout Canada under the name of",
+};
+
+export const S_HOLIDAYS_ACT_2_CANADA_DAY: RuleCitation = {
+  sourceId: "holidays-act-canada",
+  pinpoint: "s. 2",
+  quote: "July 1, not being a Sunday, is a legal holiday",
+};
+
+export const S_HOLIDAYS_ACT_3_REMEMBRANCE: RuleCitation = {
+  sourceId: "holidays-act-canada",
+  pinpoint: "s. 3",
+  quote: "November 11, being the day in the year 1918",
+};
+
+export const S_ESA_FAMILY_DAY: RuleCitation = {
+  sourceId: "esa-2000-ontario",
+  pinpoint: "s. 1 (1)",
+  quote: "Family Day, being the third Monday in February.",
 };
 
 export const S_LIMITATIONS_4_BASIC: RuleCitation = {

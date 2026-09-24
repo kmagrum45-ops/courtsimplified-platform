@@ -44,7 +44,9 @@ import {
   OFFICIAL_URLS,
   SOURCE_NAMES,
   type CorpusSourceId,
+  type RuleCitation,
 } from "../../src/lib/case-system/stage-map/citations";
+import * as CITATIONS from "../../src/lib/case-system/stage-map/citations";
 import {
   UNKNOWN_STAGE_MESSAGE,
   OUT_OF_SCOPE_STAGE_MESSAGE,
@@ -76,10 +78,32 @@ for (const file of readdirSync(CORPUS_DIR)) {
   }
 }
 
-const allCitations = CASE_STAGES.flatMap((stage) => [
-  ...stage.rules,
-  ...stage.deadlines.flatMap((d) => [d.rule, d.computation, ...d.exceptions]),
-]);
+/*
+ * EVERY exported citation, not only the ones a stage reaches.
+ *
+ * The first version of this walked the stage map, which left the holiday and
+ * computation citations unchecked the moment the deadline engine started using
+ * them directly — quoted rule text, in the module that decides dates, with
+ * nothing reading it back out of the source. Checking the citations module
+ * itself closes that by construction: a citation cannot be written anywhere in
+ * this codebase without being verified, because there is nowhere else to put
+ * one.
+ */
+const allCitations = Object.values(CITATIONS).filter(
+  (value): value is RuleCitation =>
+    typeof value === "object" &&
+    value !== null &&
+    "quote" in value &&
+    "pinpoint" in value &&
+    "sourceId" in value,
+);
+
+const reachedByStages = new Set(
+  CASE_STAGES.flatMap((stage) => [
+    ...stage.rules,
+    ...stage.deadlines.flatMap((d) => [d.rule, d.computation, ...d.exceptions]),
+  ]).map((c) => `${c.sourceId} ${c.pinpoint}`),
+);
 
 let quotesChecked = 0;
 for (const citation of allCitations) {
@@ -309,6 +333,10 @@ console.log(`  ${CASE_STAGES.length} stages: ` +
 console.log(`  ${CASE_STAGES.filter((s) => s.wentWrong).length} where something has already gone wrong`);
 console.log(`  ${CASE_STAGES.flatMap((s) => s.deadlines).length} deadlines, ${bars.length} of which bar the claim`);
 console.log(`  ${quotesChecked} quoted passages checked against the vendored corpus`);
+console.log(
+  `    of ${allCitations.length} citations, ${reachedByStages.size} are reached from a stage; ` +
+    `the rest are used by the deadline engine and are checked here for the same reason`,
+);
 console.log(
   `  ${CASE_STAGES.reduce((n, s) => n + s.distinguishedFrom.length, 0)} recorded boundaries between stages`,
 );
