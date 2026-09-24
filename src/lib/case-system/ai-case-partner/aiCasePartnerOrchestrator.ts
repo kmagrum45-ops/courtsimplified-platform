@@ -1066,6 +1066,12 @@ function buildGeneralAnswer(args: {
     }
   }
 
+  /*
+   * The general path keeps its first-turn rule: a conversational answer that
+   * repeated the same caution on every turn would train people to skip it. The
+   * DIRECT-intent answers carry it every time instead -- see buildAnswer --
+   * because those are the ones a person acts on.
+   */
   const caution = buildCaution(args.investigation);
 
   if (args.firstTurn && hasText(caution)) {
@@ -1108,9 +1114,28 @@ function buildAnswer(args: {
       investigation: args.investigation,
     });
 
+    /*
+     * THE CAUTION NOW ACCOMPANIES EVERY SUBSTANTIVE ANSWER, 2026-09-23.
+     *
+     * It used to fire only in `buildGeneralAnswer`, and only on the first
+     * turn. So the four direct-intent answers — evidence, legal issues,
+     * document readiness, next question — never carried one at all, and a user
+     * whose opening message was "what evidence do I need?" got a substantive
+     * answer with no qualification whatsoever.
+     *
+     * Found by independent review of the chat engine
+     * (docs/chat-engine-report.md), and it is the worse half of that finding:
+     * the direct-intent answers are the ones a person acts on.
+     *
+     * `deduplicateParagraphs` against the previous turn stops it repeating on
+     * every message in a conversation, which is what made the first-turn-only
+     * rule tempting in the first place.
+     */
+    const directCaution = buildCaution(args.investigation);
+
     return (
       deduplicateParagraphs(
-        [directAnswer],
+        hasText(directCaution) ? [directAnswer, directCaution] : [directAnswer],
         previousAssistantText,
       ).join("\n\n") ||
       directAnswer ||

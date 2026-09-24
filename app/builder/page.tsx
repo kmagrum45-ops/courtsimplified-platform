@@ -1677,7 +1677,27 @@ function BuilderPageContent() {
               caseData={{ courtPath, pathLabel, analysis, intake: caseData, createdMasterCaseId: masterCaseId }}
               masterResult={caseData?.masterResultPatch || existingMasterResult}
               evidenceData={analysis?.intelligenceEvidenceIssues}
-              strategyData={{ risks: analysis?.intelligence?.litigationRisks, nextBestActions: analysis?.nextBestActions }}
+              strategyData={
+                /*
+                 * `risks: analysis.intelligence.litigationRisks` was here until
+                 * 2026-09-23. It is MODEL OUTPUT, and it was POSTed into the
+                 * assistant route inside caseMemory.
+                 *
+                 * Independent review traced it and found no path that renders
+                 * it: the orchestrator reads caseMemory only for courtArea. So
+                 * it was a latent risk, not a live leak -- and exactly one
+                 * getNestedValue(caseMemory, ["strategyData", "risks"]) away
+                 * from becoming one, in a file whose job is reading nested
+                 * values out of caseMemory.
+                 *
+                 * Removed rather than guarded. Data that is never sent cannot
+                 * leak, and nothing has to stay correct for that to hold.
+                 *
+                 * nextBestActions stays: catalogue text since Step 2, not model
+                 * output.
+                 */
+                { nextBestActions: analysis?.nextBestActions }
+              }
               onMasterResultUpdate={handleChatMasterResultUpdate}
               onDashboardUpdate={handleChatDashboardUpdate}
               onRecommendedRoute={handleRecommendedRoute}
@@ -1895,7 +1915,27 @@ function BuilderPageContent() {
               caseData={{ courtPath, pathLabel, analysis, intake: caseData, createdMasterCaseId: masterCaseId }}
               masterResult={caseData?.masterResultPatch || existingMasterResult}
               evidenceData={analysis?.intelligenceEvidenceIssues}
-              strategyData={{ risks: analysis?.intelligence?.litigationRisks, nextBestActions: analysis?.nextBestActions }}
+              strategyData={
+                /*
+                 * `risks: analysis.intelligence.litigationRisks` was here until
+                 * 2026-09-23. It is MODEL OUTPUT, and it was POSTed into the
+                 * assistant route inside caseMemory.
+                 *
+                 * Independent review traced it and found no path that renders
+                 * it: the orchestrator reads caseMemory only for courtArea. So
+                 * it was a latent risk, not a live leak -- and exactly one
+                 * getNestedValue(caseMemory, ["strategyData", "risks"]) away
+                 * from becoming one, in a file whose job is reading nested
+                 * values out of caseMemory.
+                 *
+                 * Removed rather than guarded. Data that is never sent cannot
+                 * leak, and nothing has to stay correct for that to hold.
+                 *
+                 * nextBestActions stays: catalogue text since Step 2, not model
+                 * output.
+                 */
+                { nextBestActions: analysis?.nextBestActions }
+              }
               onMasterResultUpdate={handleChatMasterResultUpdate}
               onDashboardUpdate={handleChatDashboardUpdate}
               onRecommendedRoute={handleRecommendedRoute}

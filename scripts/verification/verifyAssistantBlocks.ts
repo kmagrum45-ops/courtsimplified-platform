@@ -373,6 +373,97 @@ function withoutComments(source: string): string {
   }
 }
 
+// ===========================================================================
+// 8. The three gaps the chat-engine report found
+// ===========================================================================
+
+{
+  // (a) The disclosures. This surface carried none of them while every other
+  // AI-adjacent surface did, and it is the one most likely to be read as
+  // advice.
+  const chat = read("app/builder/_components/CourtAssistantChat.tsx");
+  const missing: string[] = [];
+
+  if (!/<LegalInformationNotice\s*\/?>/.test(chat)) missing.push("LegalInformationNotice");
+  if (!/<AiUseNotice[\s/>]/.test(chat)) missing.push("AiUseNotice");
+
+  if (missing.length === 0) {
+    pass("the chat surface carries the legal-information and AI-use notices");
+  } else {
+    fail("the chat surface is missing a disclosure", missing.join(", "));
+  }
+}
+
+{
+  /*
+   * (b) The caution on every substantive answer.
+   *
+   * It used to fire only in buildGeneralAnswer, and only on the first turn —
+   * so the four direct-intent answers never carried one, and "what evidence do
+   * I need?" as an opening message got a substantive answer with no
+   * qualification at all.
+   *
+   * Asserted on the DIRECT-intent branch specifically, because that is the one
+   * that had none.
+   */
+  const orchestrator = withoutComments(read(ORCHESTRATOR));
+  const start = orchestrator.indexOf('if (intent !== "general")');
+  const directBranch = orchestrator.slice(start, start + 900);
+
+  if (/buildCaution\(/.test(directBranch)) {
+    pass("the direct-intent answers carry a caution, not just the first turn");
+  } else {
+    fail(
+      "a direct-intent answer can be returned with no caution",
+      "Evidence, legal issues, readiness and next-question are the answers a\n" +
+        "person acts on, and they were the four with no qualification.",
+    );
+  }
+}
+
+{
+  /*
+   * (c) Model output must not be POSTed into the assistant at all.
+   *
+   * `litigationRisks` was passed in `strategyData` and forwarded inside
+   * caseMemory. Nothing rendered it — the orchestrator reads caseMemory only
+   * for courtArea — so it was a latent risk, one `getNestedValue` from
+   * becoming a live one.
+   *
+   * Removed rather than guarded: data that is never sent cannot leak, and
+   * nothing has to stay correct for that to hold.
+   */
+  const builder = withoutComments(read("app/builder/page.tsx"));
+  const chatProps = Array.from(
+    builder.matchAll(/strategyData=\{[\s\S]{0,400}?\}\s*\n/g),
+    (m) => m[0],
+  );
+
+  if (chatProps.length === 0) {
+    fail("could not find strategyData on the chat component — has it moved?");
+  } else {
+    const leaking = chatProps.filter((prop) => /litigationRisks|intelligence\?\./.test(prop));
+
+    if (leaking.length === 0) {
+      pass(`no model output is passed to the assistant (${chatProps.length} call sites)`);
+    } else {
+      fail(
+        "model output is passed into the assistant's caseMemory",
+        leaking.map((p) => `  ${p.trim().slice(0, 120)}`).join("\n"),
+      );
+    }
+  }
+
+  // The orchestrator must still not be reading strategyData out of caseMemory
+  // by any route — belt as well as braces, since the prop is only one door.
+  const orchestrator = withoutComments(read(ORCHESTRATOR));
+  if (!/strategyData|litigationRisks/.test(orchestrator)) {
+    pass("the orchestrator reads no strategy field out of caseMemory");
+  } else {
+    fail("the orchestrator reads strategyData or litigationRisks from caseMemory");
+  }
+}
+
 console.log("");
 console.log(failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`);
 process.exitCode = failures === 0 ? 0 : 1;

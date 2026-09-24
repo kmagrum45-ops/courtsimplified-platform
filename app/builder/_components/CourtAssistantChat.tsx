@@ -4,6 +4,8 @@
 // so a client component gets the constant without pulling an engine into the
 // browser bundle.
 import { ONTARIO_SMALL_CLAIMS_LIMIT } from "@/src/lib/case-system/utils";
+import AiUseNotice from "../../_components/AiUseNotice";
+import LegalInformationNotice from "../../_components/LegalInformationNotice";
 import {
   useCallback,
   useEffect,
@@ -1095,6 +1097,26 @@ function CourtAssistantChatInner({
           Your saved case information is available here. Ask about the next
           detail you need to confirm, a document, or an important date.
         </p>
+
+        {/*
+          THE DISCLOSURES, ADDED 2026-09-23.
+
+          docs/chat-engine-report.md found this surface carried none of them —
+          no "legal information, not legal advice", no AI-use notice — while
+          every other AI-adjacent surface in the product does. It is also the
+          most conversational surface here, and therefore the one most likely
+          to be read as advice.
+
+          The AI notice's wording is deliberately narrow. This assistant makes
+          no model call at all: `gateway.externalModelUsed` is false by
+          construction and verifyAiCasePartnerContext asserts it. Saying "AI
+          helps..." here would be the opposite error from the one the report
+          found — claiming a model where there is none.
+        */}
+        <div className="mt-4 space-y-3">
+          <LegalInformationNotice />
+          <AiUseNotice activity="select from written guidance based on what you have already recorded — no AI model reads this conversation" />
+        </div>
 
         {recommendedRoute && (
           <div className="mt-4 rounded-2xl border border-[#d5ebe2] bg-[#f4fbf8] px-4 py-3">
