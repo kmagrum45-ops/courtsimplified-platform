@@ -437,6 +437,67 @@ is vendored in `docs/sources/federal-child-support-table-structure.txt`.
 
 ---
 
+
+### The holidays are named everywhere and dated almost nowhere (2026-09-23)
+
+`r. 1.02 (1)` and `Legislation Act s. 88 (2)` both list the holidays **by name**
+and neither says when any of them falls. Anything computing a deadline needs
+those dates, so this was chased properly. What came back:
+
+| Holiday | Dated by | Notes |
+|---|---|---|
+| Victoria Day | **Holidays Act (Canada) s. 4** | "The first Monday immediately preceding May 25". The only text anywhere that fixes it. |
+| Canada Day | **Holidays Act (Canada) s. 2** | s. 2(2) handles July 1 on a Sunday; `Leg. Act s. 88 (4)` expressly defers to this Act |
+| Remembrance Day | **Holidays Act (Canada) s. 3** | November 11 |
+| Family Day | **ESA, 2000 s. 1 (1)** | "Family Day, being the third Monday in February" — the only Ontario statutory text that dates it |
+| New Year's, Christmas, Boxing Day | the rules themselves | fixed calendar dates, stated directly |
+
+**CONFIRMED NOT TO EXIST — five holidays no statute dates.** Checked the
+Legislation Act, the ESA (statute *and* guide), the Retail Business Holidays
+Act and the federal Holidays Act:
+
+- **Good Friday, Easter Monday** — ecclesiastical computation, no statutory date
+- **Labour Day, Thanksgiving Day** — proclamation and long practice. Both are
+  *named* by the ESA and the Retail Business Holidays Act; neither dates them
+- **Civic Holiday** — not a statutory holiday in Ontario at all. Declared
+  municipally and not observed everywhere. `r. 1.02 (g)` names it; the
+  Legislation Act does not include it
+
+Do not go looking for these again, and do not fill them in from memory. The
+deadline engine marks them `settled-practice` and flags any deadline whose
+answer turns on one.
+
+### The two holiday definitions differ, and the difference bars claims
+
+Worth stating separately because it is the single most consequential fact in
+the deadline work:
+
+- **r. 1.02 (a)**: "any Saturday or Sunday" is a holiday. Plus Civic Holiday.
+- **Leg. Act s. 88 (2)**: Sunday. **Saturday is not on the list.** No Civic Holiday.
+
+The Small Claims rules count periods the *rules* set. The Legislation Act counts
+*statutory* periods — which is what the `Municipal Act s. 44 (10)`,
+`City of Toronto Act s. 42 (6)` and `Occupiers' Liability Act s. 6.1 (1)` notice
+deadlines are. `Leg. Act s. 46` puts this beyond doubt: "Every provision of this
+Part applies to every Act and regulation."
+
+So the same ten days from the same event ends on a Saturday under the Act and on
+the Monday under the rules. Assuming the friendlier rule on a 10-day notice
+period loses the claim.
+
+### laws-lois.justice.gc.ca serves plain fetchable HTML (2026-09-23)
+
+`https://laws-lois.justice.gc.ca/eng/acts/<chapter>/FullText.html` returns
+server-rendered HTML — no JS, no 403, no `docs/sources/` detour. The Holidays
+Act extracts to about **1,250 characters**, which is not an error: the whole Act
+is four sections. A minimum-length guard set at a round number will reject it.
+
+### Go to the ESA statute, not the ESA guide page
+
+`ontario.ca/document/your-guide-employment-standards-act-0/public-holidays` is
+~147 KB of entitlement worked examples and states no date rules. The statute
+(`00e41_e.doc`, the ordinary e-Laws `.doc` route) has the definition in s. 1 (1).
+`ontario.ca/page/ontario-public-holidays` is a **404**.
 ## Dead ends already ruled out
 
 ### Ontario Fault Determination Rules ≠ a route to sue the other driver
