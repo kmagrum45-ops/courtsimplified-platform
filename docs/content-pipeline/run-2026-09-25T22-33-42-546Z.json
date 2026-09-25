@@ -1,0 +1,445 @@
+{
+  "model": "gpt-4o-mini",
+  "startedAt": "2026-09-25T22:33:07.956Z",
+  "usage": [
+    {
+      "model": "gpt-4o-mini",
+      "inputTokens": 70207,
+      "outputTokens": 3349,
+      "calls": 16
+    }
+  ],
+  "log": [
+    {
+      "stageId": "plaintiff:served-awaiting-defence",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "You have been served with the claim. The defendant has 20 calendar days to serve and file a defence.",
+            "whatToDoNext": "Wait for the defendant to serve and file their defence.",
+            "yourDeadline": "The defendant's time to serve and file a defence. You have 20 days, counted from the day the defendant was served with the claim.",
+            "whatHappensAfter": "If the defendant does not file a defence in time, you may ask the Court to note the defendant in default."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have been served with the claim.",
+              "supported": true,
+              "quote": "The defendant has been served and the time to deliver a defence has not yet run out.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The defendant has 20 calendar days to serve and file a defence.",
+              "supported": true,
+              "quote": "A defendant generally has 20 calendar days to serve and file a defence to a claim.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Wait for the defendant to serve and file their defence.",
+              "supported": false,
+              "reason": "The source does not specify that you should wait for the defendant to serve and file their defence."
+            },
+            {
+              "sentence": "The defendant's time to serve and file a defence.",
+              "supported": false,
+              "reason": "The source does not provide a specific statement about the defendant's time to serve and file a defence without additional context."
+            },
+            {
+              "sentence": "You have 20 days, counted from the day the defendant was served with the claim.",
+              "supported": false,
+              "reason": "The source states that the defendant has 20 days from being served, not the reader."
+            },
+            {
+              "sentence": "If the defendant does not file a defence in time, you may ask the Court to note the defendant in default.",
+              "supported": true,
+              "quote": "If a defendant does not file a defence in time, then the plaintiff may ask the Court to note the defendant in default.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            }
+          ],
+          "readability": 5.151111111111113,
+          "problems": [
+            "\"Wait for the defendant to serve and file their defence.\" — The source does not specify that you should wait for the defendant to serve and file their defence.",
+            "\"The defendant's time to serve and file a defence.\" — The source does not provide a specific statement about the defendant's time to serve and file a defence without additional context.",
+            "\"You have 20 days, counted from the day the defendant was served with the claim.\" — The source states that the defendant has 20 days from being served, not the reader."
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "The defendant has been served. They have 20 calendar days to serve and file a defence (Form 9A). This period is counted from the day after they were served.",
+            "whatToDoNext": "You should wait for the defendant to serve and file their defence.",
+            "yourDeadline": "The defendant's time to serve and file a defence. You have 20 days, counted from the day the defendant was served with the claim.",
+            "whatHappensAfter": "If the defendant does not file a defence in time, you may ask the Court to note the defendant in default by filing a Request to Clerk (Form 9B)."
+          },
+          "verdicts": [
+            {
+              "sentence": "The defendant has been served.",
+              "supported": true,
+              "quote": "The defendant has been served and the time to deliver a defence has not yet run out.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "They have 20 calendar days to serve and file a defence (Form 9A).",
+              "supported": true,
+              "quote": "A defendant generally has 20 calendar days to serve and file a defence to a claim.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This period is counted from the day after they were served.",
+              "supported": true,
+              "quote": "the time shall be counted by excluding the first day and including the last day of the period",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You should wait for the defendant to serve and file their defence.",
+              "supported": false,
+              "reason": "The source does not state that you should wait for the defendant to serve and file their defence."
+            },
+            {
+              "sentence": "The defendant's time to serve and file a defence.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "You have 20 days, counted from the day the defendant was served with the claim.",
+              "supported": false,
+              "reason": "The source states that the defendant has 20 days, but does not specify that it is counted from the day the defendant was served with the claim."
+            },
+            {
+              "sentence": "If the defendant does not file a defence in time, you may ask the Court to note the defendant in default by filing a Request to Clerk (Form 9B).",
+              "supported": true,
+              "quote": "If defence not filed If a defendant does not file a defence in time, then the plaintiff may ask the Court to note the defendant in default. | If you wish to have the Court note a defendant in default, then you need to file a Request to Clerk (Form 9B).",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            }
+          ],
+          "readability": 5.403766233766234,
+          "problems": [
+            "\"You should wait for the defendant to serve and file their defence.\" — The source does not state that you should wait for the defendant to serve and file their defence.",
+            "\"The defendant's time to serve and file a defence.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source",
+            "\"You have 20 days, counted from the day the defendant was served with the claim.\" — The source states that the defendant has 20 days, but does not specify that it is counted from the day the defendant was served with the claim."
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "The defendant has been served. They have 20 calendar days to serve and file a defence (Form 9A). This period is counted from the day after they were served.",
+            "whatToDoNext": "You should wait for the defendant to serve and file their defence.",
+            "yourDeadline": "The defendant's time to serve and file a defence. You have 20 days, counted from the day the defendant was served with the claim.",
+            "whatHappensAfter": "If the defendant does not file a defence in time, you may ask the Court to note the defendant in default by filing a Request to Clerk (Form 9B)."
+          },
+          "verdicts": [
+            {
+              "sentence": "The defendant has been served.",
+              "supported": true,
+              "quote": "The defendant has been served and the time to deliver a defence has not yet run out.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "They have 20 calendar days to serve and file a defence (Form 9A).",
+              "supported": true,
+              "quote": "A defendant generally has 20 calendar days to serve and file a defence to a claim.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This period is counted from the day after they were served.",
+              "supported": true,
+              "quote": "the time shall be counted by excluding the first day and including the last day of the period",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You should wait for the defendant to serve and file their defence.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "The defendant's time to serve and file a defence.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "You have 20 days, counted from the day the defendant was served with the claim.",
+              "supported": false,
+              "reason": "The source states that the defendant has 20 days from the day they were served, but does not specify that the counting starts from the day of service."
+            },
+            {
+              "sentence": "If the defendant does not file a defence in time, you may ask the Court to note the defendant in default by filing a Request to Clerk (Form 9B).",
+              "supported": true,
+              "quote": "If a defendant does not file a defence in time, then the plaintiff may ask the Court to note the defendant in default. | If you wish to have the Court note a defendant in default, then you need to file a Request to Clerk (Form 9B).",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            }
+          ],
+          "readability": 5.403766233766234,
+          "problems": [
+            "\"You should wait for the defendant to serve and file their defence.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source",
+            "\"The defendant's time to serve and file a defence.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source",
+            "\"You have 20 days, counted from the day the defendant was served with the claim.\" — The source states that the defendant has 20 days from the day they were served, but does not specify that the counting starts from the day of service."
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "The defendant has been served. They have 20 calendar days to serve and file a defence (Form 9A).",
+            "whatToDoNext": "You must wait for the defendant to serve and file their defence.",
+            "yourDeadline": "The defendant's time to serve and file a defence. You have 20 days, counted from the day the defendant was served with the claim.",
+            "whatHappensAfter": "If the defendant does not file a defence in time, you may ask the Court to note the defendant in default."
+          },
+          "verdicts": [
+            {
+              "sentence": "The defendant has been served.",
+              "supported": true,
+              "quote": "The defendant has been served and the time to deliver a defence has not yet run out.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "They have 20 calendar days to serve and file a defence (Form 9A).",
+              "supported": true,
+              "quote": "A defendant generally has 20 calendar days to serve and file a defence to a claim.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must wait for the defendant to serve and file their defence.",
+              "supported": false,
+              "reason": "The source does not state that you must wait for the defendant to serve and file their defence."
+            },
+            {
+              "sentence": "The defendant's time to serve and file a defence.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "You have 20 days, counted from the day the defendant was served with the claim.",
+              "supported": false,
+              "reason": "The source states 20 days from being served but does not specify that it is counted from the day the defendant was served with the claim."
+            },
+            {
+              "sentence": "If the defendant does not file a defence in time, you may ask the Court to note the defendant in default.",
+              "supported": true,
+              "quote": "If a defendant does not file a defence in time, then the plaintiff may ask the Court to note the defendant in default.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            }
+          ],
+          "readability": 5.14612676056338,
+          "problems": [
+            "\"You must wait for the defendant to serve and file their defence.\" — The source does not state that you must wait for the defendant to serve and file their defence.",
+            "\"The defendant's time to serve and file a defence.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source",
+            "\"You have 20 days, counted from the day the defendant was served with the claim.\" — The source states 20 days from being served but does not specify that it is counted from the day the defendant was served with the claim."
+          ]
+        }
+      ],
+      "status": "needs-human"
+    },
+    {
+      "stageId": "plaintiff:defence-period-expired-no-defence",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "More than 20 days have passed since you served the claim, and the defendant has not filed a defence. You can now ask the court to note the defendant in default.",
+            "whatToDoNext": "File a Request to Clerk (Form 9B) to note the defendant in default. You must also provide proof that the claim was served within the court's territorial division.",
+            "yourDeadline": null,
+            "whatHappensAfter": "Once the defendant is noted in default, the clerk may sign a default judgment (Form 11B) against the defendant for the claim or part of the claim that is for a debt or liquidated demand in money."
+          },
+          "verdicts": [
+            {
+              "sentence": "More than 20 days have passed since you served the claim, and the defendant has not filed a defence.",
+              "supported": true,
+              "quote": "More than 20 days have passed since service and no defence has been filed.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can now ask the court to note the defendant in default.",
+              "supported": true,
+              "quote": "the plaintiff may ask the Court to note the defendant in default.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "File a Request to Clerk (Form 9B) to note the defendant in default.",
+              "supported": true,
+              "quote": "you need to file a Request to Clerk (Form 9B).",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must also provide proof that the claim was served within the court's territorial division.",
+              "supported": true,
+              "quote": "proof that the claim was served within the court's territorial division",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Once the defendant is noted in default, the clerk may sign a default judgment (Form 11B) against the defendant for the claim or part of the claim that is for a debt or liquidated demand in money.",
+              "supported": true,
+              "quote": "the clerk may sign default judgment (Form 11B) in respect of the claim or any part of the claim to which the default applies that is for a debt or liquidated demand in money, including interest if claimed.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            }
+          ],
+          "readability": 8.105802197802198,
+          "problems": [
+            "reads at grade 8.1, above the grade 8 target. Longest sentence: \"Once the defendant is noted in default, the clerk may sign a default judgment against the defendant for the claim or part of the claim that is for a debt or liquidated demand in money.\""
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "More than 20 days have passed since you were served with the claim. You have not filed a defence. The plaintiff may now ask the court to note you in default.",
+            "whatToDoNext": "You may file a Request to Clerk (Form 9B) to have the court note the defendant in default. You must also provide proof that the claim was served within the court's territorial division.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If you are noted in default, the plaintiff may obtain a default judgment against you without your participation."
+          },
+          "verdicts": [
+            {
+              "sentence": "More than 20 days have passed since you were served with the claim.",
+              "supported": true,
+              "quote": "More than 20 days have passed since service and no defence has been filed.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You have not filed a defence.",
+              "supported": true,
+              "quote": "Nothing has been asked of the clerk yet.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The plaintiff may now ask the court to note you in default.",
+              "supported": true,
+              "quote": "the plaintiff may ask the Court to note the defendant in default.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may file a Request to Clerk (Form 9B) to have the court note the defendant in default.",
+              "supported": true,
+              "quote": "If you wish to have the Court note a defendant in default, then you need to file a Request to Clerk (Form 9B).",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must also provide proof that the claim was served within the court's territorial division.",
+              "supported": true,
+              "quote": "proof that the claim was served within the court's territorial division, subject to subrule (3).",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you are noted in default, the plaintiff may obtain a default judgment against you without your participation.",
+              "supported": true,
+              "quote": "the plaintiff may be entitled to get a judgment against you without your participation.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            }
+          ],
+          "readability": 6.124746835443037,
+          "problems": [
+            "this is a plaintiff's block but tells the reader to take the other side's step: \"You have not filed a defence.\"",
+            "this is a plaintiff's block but describes \"the plaintiff\" as somebody else, so it is written for the other party: \"The plaintiff may now ask the court to note you in default.\""
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "More than 20 days have passed since you were served with the claim, and you have not filed a defence.",
+            "whatToDoNext": "The plaintiff may file a Request to Clerk (Form 9B) to note you in default.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If you are noted in default, the plaintiff may seek a default judgment against you."
+          },
+          "verdicts": [
+            {
+              "sentence": "More than 20 days have passed since you were served with the claim, and you have not filed a defence.",
+              "supported": true,
+              "quote": "More than 20 days have passed since service and no defence has been filed.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The plaintiff may file a Request to Clerk (Form 9B) to note you in default.",
+              "supported": true,
+              "quote": "the plaintiff may ask the Court to note the defendant in default. | If you wish to have the Court note a defendant in default, then you need to file a Request to Clerk (Form 9B).",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you are noted in default, the plaintiff may seek a default judgment against you.",
+              "supported": true,
+              "quote": "If a defendant has been noted in default, the clerk may sign default judgment (Form 11B) in respect of the claim or any part of the claim to which the default applies that is for a debt or liquidated demand in money, including interest if claimed.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            }
+          ],
+          "readability": 5.8348936170212795,
+          "problems": [
+            "this is a plaintiff's block but tells the reader to take the other side's step: \"More than 20 days have passed since you were served with the claim, and you have not filed a defence.\"",
+            "this is a plaintiff's block but describes \"the plaintiff\" as somebody else, so it is written for the other party: \"The plaintiff may file a Request to Clerk (Form 9B) to note you in default.\""
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "More than 20 days have passed since service and no defence has been filed. You may ask the Court to note the defendant in default.",
+            "whatToDoNext": "File a Request to Clerk (Form 9B) to note the defendant in default. You must also provide proof that the claim was served within the court's territorial division.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the defendant is noted in default, the clerk may sign default judgment (Form 11B) against the defendant for the claim or any part of the claim that is for a debt or liquidated demand in money."
+          },
+          "verdicts": [
+            {
+              "sentence": "More than 20 days have passed since service and no defence has been filed.",
+              "supported": true,
+              "quote": "More than 20 days have passed since service and no defence has been filed.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may ask the Court to note the defendant in default.",
+              "supported": true,
+              "quote": "the plaintiff may ask the Court to note the defendant in default.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "File a Request to Clerk (Form 9B) to note the defendant in default.",
+              "supported": true,
+              "quote": "you need to file a Request to Clerk (Form 9B).",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must also provide proof that the claim was served within the court's territorial division.",
+              "supported": true,
+              "quote": "proof that the claim was served within the court's territorial division",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the defendant is noted in default, the clerk may sign default judgment (Form 11B) against the defendant for the claim or any part of the claim that is for a debt or liquidated demand in money.",
+              "supported": true,
+              "quote": "the clerk may sign default judgment (Form 11B) in respect of the claim or any part of the claim to which the default applies that is for a debt or liquidated demand in money, including interest if claimed.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.698823529411765,
+          "problems": []
+        }
+      ],
+      "status": "verified-draft"
+    }
+  ]
+}

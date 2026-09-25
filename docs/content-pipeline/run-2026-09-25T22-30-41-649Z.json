@@ -1,0 +1,1415 @@
+{
+  "model": "gpt-4o-mini",
+  "startedAt": "2026-09-25T22:27:59.025Z",
+  "usage": [
+    {
+      "model": "gpt-4o-mini",
+      "inputTokens": 345469,
+      "outputTokens": 12720,
+      "calls": 46
+    }
+  ],
+  "log": [
+    {
+      "stageId": "plaintiff:service-attempted-failed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "You have attempted to serve the claim to the defendant, but it has not been successful. You may need to consider filing a motion for substituted service if you cannot locate the defendant or if they are avoiding service.",
+            "whatToDoNext": "File a motion for substituted service under Rule 8.04. You must explain to the court why personal service is impractical and detail your attempts to serve the claim.",
+            "yourDeadline": "Serve the claim on the defendant. You have 6 months, counted from the date the claim was issued.",
+            "whatHappensAfter": "If the court grants your motion for substituted service, you will be allowed to serve the claim using an alternative method as specified by the court."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have attempted to serve the claim to the defendant, but it has not been successful.",
+              "supported": true,
+              "quote": "The claim has been issued and delivery to the defendant has been tried without success.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may need to consider filing a motion for substituted service if you cannot locate the defendant or if they are avoiding service.",
+              "supported": true,
+              "quote": "you may file a motion to seek an order for substituted service under Rule 8.04. | you might believe that the party knows you are trying to serve the claim and is avoiding you.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "File a motion for substituted service under Rule 8.04.",
+              "supported": true,
+              "quote": "you may file a motion to seek an order for substituted service under Rule 8.04.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must explain to the court why personal service is impractical and detail your attempts to serve the claim.",
+              "supported": true,
+              "quote": "Be prepared to give details of how you tried to serve the claim, what happened and why the method of service you are asking for will succeed.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve the claim on the defendant.",
+              "supported": false,
+              "reason": "The source material does not specify that you must serve the claim on the defendant without any conditions or context."
+            },
+            {
+              "sentence": "You have 6 months, counted from the date the claim was issued.",
+              "supported": true,
+              "quote": "A claim shall be served within six months after the date it is issued.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court grants your motion for substituted service, you will be allowed to serve the claim using an alternative method as specified by the court.",
+              "supported": true,
+              "quote": "the court may allow substituted service.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            }
+          ],
+          "readability": 8.345242463958062,
+          "problems": [
+            "\"Serve the claim on the defendant.\" — The source material does not specify that you must serve the claim on the defendant without any conditions or context.",
+            "reads at grade 8.3, above the grade 8 target. Longest sentence: \"You may need to consider filing a motion for substituted service if you cannot locate the defendant or if they are avoiding service.\""
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "You have attempted to serve the claim but have been unsuccessful. You may need to consider filing a motion for substituted service.",
+            "whatToDoNext": "File a motion for substituted service under Rule 8.04. You will need to explain to the court why you could not serve the claim personally or by an alternative method.",
+            "yourDeadline": "Serve the claim on the defendant. You have 6 months, counted from the date the claim was issued.",
+            "whatHappensAfter": "If the court grants your motion for substituted service, you will be allowed to serve the claim using the method specified in the court's order."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have attempted to serve the claim but have been unsuccessful.",
+              "supported": true,
+              "quote": "The claim has been issued and delivery to the defendant has been tried without success.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may need to consider filing a motion for substituted service.",
+              "supported": true,
+              "quote": "you may file a motion to seek an order for substituted service under Rule 8.04.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "File a motion for substituted service under Rule 8.04.",
+              "supported": true,
+              "quote": "you may file a motion to seek an order for substituted service under Rule 8.04.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You will need to explain to the court why you could not serve the claim personally or by an alternative method.",
+              "supported": true,
+              "quote": "You must explain to the judge why you were not able to serve the claim within the six months.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve the claim on the defendant.",
+              "supported": false,
+              "reason": "The source does not specify that you must serve the claim on the defendant; it discusses methods of service."
+            },
+            {
+              "sentence": "You have 6 months, counted from the date the claim was issued.",
+              "supported": true,
+              "quote": "A claim shall be served within six months after the date it is issued.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court grants your motion for substituted service, you will be allowed to serve the claim using the method specified in the court's order.",
+              "supported": true,
+              "quote": "the method ordered by the court is substituted for the method(s) of service allowed for that particular document and on that particular party in the Rules.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.101105990783413,
+          "problems": [
+            "\"Serve the claim on the defendant.\" — The source does not specify that you must serve the claim on the defendant; it discusses methods of service."
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "You have attempted to serve the claim but have been unsuccessful. You may need to consider alternative methods of service.",
+            "whatToDoNext": "You can file a motion for substituted service under Rule 8.04. This allows you to request the court to permit a different method of service if personal service is impractical.",
+            "yourDeadline": "Serve the claim on the defendant. You have 6 months, counted from the date the claim was issued.",
+            "whatHappensAfter": "If the court grants your motion for substituted service, you will need to serve the claim according to the method ordered by the court."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have attempted to serve the claim but have been unsuccessful.",
+              "supported": true,
+              "quote": "The claim has been issued and delivery to the defendant has been tried without success.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may need to consider alternative methods of service.",
+              "supported": true,
+              "quote": "the court may allow substituted service.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can file a motion for substituted service under Rule 8.04.",
+              "supported": true,
+              "quote": "you may file a motion to seek an order for substituted service under Rule 8.04.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This allows you to request the court to permit a different method of service if personal service is impractical.",
+              "supported": true,
+              "quote": "the court may allow substituted service.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve the claim on the defendant.",
+              "supported": false,
+              "reason": "The source does not specify that you must serve the claim on the defendant; it discusses methods of service."
+            },
+            {
+              "sentence": "You have 6 months, counted from the date the claim was issued.",
+              "supported": true,
+              "quote": "A claim shall be served within six months after the date it is issued.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court grants your motion for substituted service, you will need to serve the claim according to the method ordered by the court.",
+              "supported": true,
+              "quote": "the method ordered by the court is substituted for the method(s) of service allowed for that particular document and on that particular party in the Rules.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.386507936507936,
+          "problems": [
+            "\"Serve the claim on the defendant.\" — The source does not specify that you must serve the claim on the defendant; it discusses methods of service."
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "You have attempted to serve the claim but have been unsuccessful. You may need to consider alternative methods of service.",
+            "whatToDoNext": "You can file a motion for substituted service under Rule 8.04. This allows you to request the court to permit a different method of service if personal service is impractical.",
+            "yourDeadline": "Serve the claim on the defendant. You have 6 months, counted from the date the claim was issued.",
+            "whatHappensAfter": "If the court grants your motion for substituted service, you will need to serve the claim according to the method ordered by the court."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have attempted to serve the claim but have been unsuccessful.",
+              "supported": true,
+              "quote": "The claim has been issued and delivery to the defendant has been tried without success.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may need to consider alternative methods of service.",
+              "supported": true,
+              "quote": "the court may allow substituted service.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can file a motion for substituted service under Rule 8.04.",
+              "supported": false,
+              "reason": "The source does not explicitly state that you can file a motion for substituted service under Rule 8.04; it only describes the conditions under which the court may allow substituted service."
+            },
+            {
+              "sentence": "This allows you to request the court to permit a different method of service if personal service is impractical.",
+              "supported": true,
+              "quote": "the court may allow substituted service.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve the claim on the defendant.",
+              "supported": true,
+              "quote": "A plaintiff's claim or defendant's claim (Form 7A or 10A) shall be served personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You have 6 months, counted from the date the claim was issued.",
+              "supported": true,
+              "quote": "A claim shall be served within six months after the date it is issued, but the court may extend the time for service, before or after the six months has elapsed.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court grants your motion for substituted service, you will need to serve the claim according to the method ordered by the court.",
+              "supported": false,
+              "reason": "The source does not specify that you will need to serve the claim according to the method ordered by the court after a motion for substituted service; it only states that the method ordered by the court is substituted for the method(s) of service allowed."
+            }
+          ],
+          "readability": 7.386507936507936,
+          "problems": [
+            "\"You can file a motion for substituted service under Rule 8.04.\" — The source does not explicitly state that you can file a motion for substituted service under Rule 8.04; it only describes the conditions under which the court may allow substituted service.",
+            "\"If the court grants your motion for substituted service, you will need to serve the claim according to the method ordered by the court.\" — The source does not specify that you will need to serve the claim according to the method ordered by the court after a motion for substituted service; it only states that the method ordered by the court is substituted for the method(s) of service allowed."
+          ]
+        }
+      ],
+      "status": "no-source"
+    },
+    {
+      "stageId": "plaintiff:served-awaiting-defence",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "You have been served with a claim. You are waiting for the defendant to deliver a defence.",
+            "whatToDoNext": "The defendant has 20 days to serve and file a defence (Form 9A) from the date they were served with the claim.",
+            "yourDeadline": "The defendant's time to serve and file a defence. You have 20 days, counted from the day the defendant was served with the claim.",
+            "whatHappensAfter": "If the defendant does not file a defence in time, the plaintiff may ask the Court to note the defendant in default."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have been served with a claim.",
+              "supported": true,
+              "quote": "The defendant has been served",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You are waiting for the defendant to deliver a defence.",
+              "supported": true,
+              "quote": "The reader's question at this point is: They have been served — how long do I have to wait to hear back?",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The defendant has 20 days to serve and file a defence (Form 9A) from the date they were served with the claim.",
+              "supported": true,
+              "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The defendant's time to serve and file a defence.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "You have 20 days, counted from the day the defendant was served with the claim.",
+              "supported": true,
+              "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the defendant does not file a defence in time, the plaintiff may ask the Court to note the defendant in default.",
+              "supported": true,
+              "quote": "If defence not filed If a defendant does not file a defence in time, then the plaintiff may ask the Court to note the defendant in default.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            }
+          ],
+          "readability": 5.554012345679016,
+          "problems": [
+            "\"The defendant's time to serve and file a defence.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "You have been served with a claim. The time to deliver a defence is running.",
+            "whatToDoNext": "You must serve and file a defence (Form 9A) within 20 days of being served with the claim.",
+            "yourDeadline": "The defendant's time to serve and file a defence. You have 20 days, counted from the day the defendant was served with the claim.",
+            "whatHappensAfter": "If you do not file a defence in time, the plaintiff may ask the Court to note you in default."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have been served with a claim.",
+              "supported": true,
+              "quote": "The defendant has been served",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The time to deliver a defence is running.",
+              "supported": false,
+              "reason": "The source material states that the time to deliver a defence has not yet run out."
+            },
+            {
+              "sentence": "You must serve and file a defence (Form 9A) within 20 days of being served with the claim.",
+              "supported": true,
+              "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The defendant's time to serve and file a defence.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "You have 20 days, counted from the day the defendant was served with the claim.",
+              "supported": true,
+              "quote": "A defendant generally has 20 calendar days to serve and file a defence to a claim.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you do not file a defence in time, the plaintiff may ask the Court to note you in default.",
+              "supported": true,
+              "quote": "If defence not filed If a defendant does not file a defence in time, then the plaintiff may ask the Court to note the defendant in default.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            }
+          ],
+          "readability": 4.3495205479452075,
+          "problems": [
+            "\"The time to deliver a defence is running.\" — The source material states that the time to deliver a defence has not yet run out.",
+            "\"The defendant's time to serve and file a defence.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "You have been served with a claim. You need to serve and file a defence within 20 days of being served.",
+            "whatToDoNext": "Complete and serve a defence using Form 9A. File the defence with proof of service with the clerk.",
+            "yourDeadline": "The defendant's time to serve and file a defence. You have 20 days, counted from the day the defendant was served with the claim.",
+            "whatHappensAfter": "If you do not file a defence in time, the plaintiff may ask the Court to note you in default."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have been served with a claim.",
+              "supported": true,
+              "quote": "The defendant has been served",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You need to serve and file a defence within 20 days of being served.",
+              "supported": true,
+              "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Complete and serve a defence using Form 9A.",
+              "supported": true,
+              "quote": "serve on every other party a defence (Form 9A)",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "File the defence with proof of service with the clerk.",
+              "supported": true,
+              "quote": "file the defence, with proof of service, with the clerk.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The defendant's time to serve and file a defence.",
+              "supported": true,
+              "quote": "A defendant generally has 20 calendar days to serve and file a defence to a claim.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You have 20 days, counted from the day the defendant was served with the claim.",
+              "supported": true,
+              "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you do not file a defence in time, the plaintiff may ask the Court to note you in default.",
+              "supported": true,
+              "quote": "If defence not filed If a defendant does not file a defence in time, then the plaintiff may ask the Court to note the defendant in default.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            }
+          ],
+          "readability": 4.207142857142859,
+          "problems": []
+        }
+      ],
+      "status": "verified-draft"
+    },
+    {
+      "stageId": "plaintiff:defence-period-expired-no-defence",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "The defendant has not filed a defence within the 20-day period after being served with the claim. The plaintiff can now ask the court to note the defendant in default.",
+            "whatToDoNext": "The plaintiff should file a Request to Clerk (Form 9B) to have the defendant noted in default. They must also provide proof that the claim was served within the court's territorial division.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the defendant is noted in default, the clerk may sign a default judgment (Form 11B) against the defendant for the claim or any part of the claim that is for a debt or liquidated demand in money."
+          },
+          "verdicts": [
+            {
+              "sentence": "The defendant has not filed a defence within the 20-day period after being served with the claim.",
+              "supported": true,
+              "quote": "More than 20 days have passed since service and no defence has been filed.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The plaintiff can now ask the court to note the defendant in default.",
+              "supported": true,
+              "quote": "the plaintiff may ask the Court to note the defendant in default.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The plaintiff should file a Request to Clerk (Form 9B) to have the defendant noted in default.",
+              "supported": true,
+              "quote": "If a defendant does not file a defence in time, then the plaintiff may ask the Court to note the defendant in default. | If you wish to have the Court note a defendant in default, then you need to file a Request to Clerk (Form 9B).",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "They must also provide proof that the claim was served within the court's territorial division.",
+              "supported": true,
+              "quote": "proof that the claim was served within the court's territorial division",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the defendant is noted in default, the clerk may sign a default judgment (Form 11B) against the defendant for the claim or any part of the claim that is for a debt or liquidated demand in money.",
+              "supported": true,
+              "quote": "the clerk may sign default judgment (Form 11B) in respect of the claim or any part of the claim to which the default applies that is for a debt or liquidated demand in money, including interest if claimed.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            }
+          ],
+          "readability": 8.860500000000002,
+          "problems": [
+            "reads at grade 8.9, above the grade 8 target. Longest sentence: \"If the defendant is noted in default, the clerk may sign a default judgment against the defendant for the claim or any part of the claim that is for a debt or liquidated demand in money.\""
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "More than 20 days have passed since service and no defence has been filed. The plaintiff may ask the Court to note the defendant in default. To do this, the plaintiff needs to file a Request to Clerk (Form 9B) and provide proof that the claim was served.",
+            "whatToDoNext": "The plaintiff can file the Request to Clerk (Form 9B) to note the defendant in default. After being noted in default, the plaintiff may seek a default judgment using Form 11B. The plaintiff can also file a notice of motion and supporting affidavit (Form 15A) for an assessment of damages.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the defendant is noted in default, they cannot file a defence or take other steps in the case without the plaintiff's consent or the Court's permission."
+          },
+          "verdicts": [
+            {
+              "sentence": "More than 20 days have passed since service and no defence has been filed.",
+              "supported": true,
+              "quote": "More than 20 days have passed since service and no defence has been filed.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The plaintiff may ask the Court to note the defendant in default.",
+              "supported": true,
+              "quote": "the plaintiff may ask the Court to note the defendant in default.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "To do this, the plaintiff needs to file a Request to Clerk (Form 9B) and provide proof that the claim was served.",
+              "supported": true,
+              "quote": "you need to file a Request to Clerk (Form 9B) | proof that the claim was served",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The plaintiff can file the Request to Clerk (Form 9B) to note the defendant in default.",
+              "supported": true,
+              "quote": "file a Request to Clerk (Form 9B)",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "After being noted in default, the plaintiff may seek a default judgment using Form 11B.",
+              "supported": false,
+              "reason": "The source states that the clerk may sign default judgment (Form 11B) but does not specify that the plaintiff may seek it directly using that form."
+            },
+            {
+              "sentence": "The plaintiff can also file a notice of motion and supporting affidavit (Form 15A) for an assessment of damages.",
+              "supported": true,
+              "quote": "file a notice of motion and supporting affidavit (Form 15A) requesting a motion in writing for an assessment of damages",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the defendant is noted in default, they cannot file a defence or take other steps in the case without the plaintiff's consent or the Court's permission.",
+              "supported": true,
+              "quote": "You cannot file a defence or take any other step in the case without the plaintiff’s consent or the Court’s permission.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            }
+          ],
+          "readability": 8.073870573870575,
+          "problems": [
+            "\"After being noted in default, the plaintiff may seek a default judgment using Form 11B.\" — The source states that the clerk may sign default judgment (Form 11B) but does not specify that the plaintiff may seek it directly using that form.",
+            "reads at grade 8.1, above the grade 8 target. Longest sentence: \"If the defendant is noted in default, they cannot file a defence or take other steps in the case without the plaintiff's consent or the Court's permission.\""
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "More than 20 days have passed since service and no defence has been filed. The plaintiff may ask the Court to note the defendant in default. This is done by filing a Request to Clerk (Form 9B) and providing proof that the claim was served.",
+            "whatToDoNext": "If you wish to have the Court note the defendant in default, file a Request to Clerk (Form 9B). You must also provide proof that the claim was served within the court's territorial division.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the defendant is noted in default, the clerk may sign a default judgment (Form 11B) for the claim or any part of the claim that is for a debt or liquidated demand in money. The plaintiff may also file a notice of motion and supporting affidavit (Form 15A) for an assessment of damages."
+          },
+          "verdicts": [
+            {
+              "sentence": "More than 20 days have passed since service and no defence has been filed.",
+              "supported": true,
+              "quote": "More than 20 days have passed since service and no defence has been filed.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The plaintiff may ask the Court to note the defendant in default.",
+              "supported": true,
+              "quote": "the plaintiff may ask the Court to note the defendant in default.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This is done by filing a Request to Clerk (Form 9B) and providing proof that the claim was served.",
+              "supported": false,
+              "reason": "The source does not state that both filing a Request to Clerk (Form 9B) and providing proof that the claim was served are required together; it only states that a request to note the defendant in default may be made in Form 9B."
+            },
+            {
+              "sentence": "If you wish to have the Court note the defendant in default, file a Request to Clerk (Form 9B).",
+              "supported": true,
+              "quote": "If you wish to have the Court note a defendant in default, then you need to file a Request to Clerk (Form 9B).",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must also provide proof that the claim was served within the court's territorial division.",
+              "supported": true,
+              "quote": "proof that the claim was served within the court's territorial division, subject to subrule (3).",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the defendant is noted in default, the clerk may sign a default judgment (Form 11B) for the claim or any part of the claim that is for a debt or liquidated demand in money.",
+              "supported": true,
+              "quote": "the clerk may sign default judgment (Form 11B) in respect of the claim or any part of the claim to which the default applies that is for a debt or liquidated demand in money, including interest if claimed.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The plaintiff may also file a notice of motion and supporting affidavit (Form 15A) for an assessment of damages.",
+              "supported": true,
+              "quote": "the plaintiff may, (a) file a notice of motion and supporting affidavit (Form 15A) requesting a motion in writing for an assessment of damages, setting out the reasons why the motion should be granted and attaching any relevant documents;",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.971797235023043,
+          "problems": [
+            "\"This is done by filing a Request to Clerk (Form 9B) and providing proof that the claim was served.\" — The source does not state that both filing a Request to Clerk (Form 9B) and providing proof that the claim was served are required together; it only states that a request to note the defendant in default may be made in Form 9B."
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "The defendant has not filed a defence within the 20-day period. The plaintiff may now ask the court to note the defendant in default.",
+            "whatToDoNext": "To have the court note the defendant in default, the plaintiff needs to file a Request to Clerk (Form 9B).",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the defendant is noted in default, the clerk may sign a default judgment (Form 11B) against the defendant for the claim or part of the claim."
+          },
+          "verdicts": [
+            {
+              "sentence": "The defendant has not filed a defence within the 20-day period.",
+              "supported": true,
+              "quote": "More than 20 days have passed since service and no defence has been filed.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The plaintiff may now ask the court to note the defendant in default.",
+              "supported": true,
+              "quote": "the plaintiff may ask the Court to note the defendant in default.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "To have the court note the defendant in default, the plaintiff needs to file a Request to Clerk (Form 9B).",
+              "supported": true,
+              "quote": "If you wish to have the Court note a defendant in default, then you need to file a Request to Clerk (Form 9B).",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the defendant is noted in default, the clerk may sign a default judgment (Form 11B) against the defendant for the claim or part of the claim.",
+              "supported": true,
+              "quote": "the clerk may sign default judgment (Form 11B) in respect of the claim or any part of the claim to which the default applies that is for a debt or liquidated demand in money, including interest if claimed.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.145485074626865,
+          "problems": []
+        }
+      ],
+      "status": "verified-draft"
+    },
+    {
+      "stageId": "plaintiff:defence-filed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "A settlement conference will be held in your defended action. The clerk will fix a time, date, and place for the settlement conference and serve a notice to the parties.",
+            "whatToDoNext": "You must prepare for the settlement conference. At least 14 days before the conference, serve and file a List of Proposed Witnesses (Form 13A) and any documents you intend to rely on at trial that were not attached to your defence.",
+            "yourDeadline": "The settlement conference is to be held. You have 90 days, counted from the day the first defence was filed.",
+            "whatHappensAfter": "If the case does not settle at the settlement conference, the judge may make orders to help the trial run effectively. You will receive an Endorsement Record/Order of the Court after the conference."
+          },
+          "verdicts": [
+            {
+              "sentence": "A settlement conference will be held in your defended action.",
+              "supported": true,
+              "quote": "A settlement conference shall be held in every defended action.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The clerk will fix a time, date, and place for the settlement conference and serve a notice to the parties.",
+              "supported": true,
+              "quote": "The clerk shall fix a time, date and place for the settlement conference and serve a notice of settlement conference, together with a list of proposed witnesses (Form 13A), on the parties.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must prepare for the settlement conference.",
+              "supported": true,
+              "quote": "The better prepared you are for your settlement conference, the more you may gain from it.",
+              "sourceId": "guide-getting-ready-for-court",
+              "quoteFound": true
+            },
+            {
+              "sentence": "At least 14 days before the conference, serve and file a List of Proposed Witnesses (Form 13A) and any documents you intend to rely on at trial that were not attached to your defence.",
+              "supported": false,
+              "quote": "At least 14 days before your settlement conference, you must serve on every other party and file with the Court: a copy of any document you intend to rely on at trial that was not attached to your claim or defence, and a completed List of Proposed Witnesses (Form 13A).",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "The settlement conference is to be held.",
+              "supported": false,
+              "reason": "The sentence is vague and does not specify that it will be held in every defended action or within a specific timeframe."
+            },
+            {
+              "sentence": "You have 90 days, counted from the day the first defence was filed.",
+              "supported": true,
+              "quote": "The settlement conference shall be held within 90 days after the first defence is filed.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the case does not settle at the settlement conference, the judge may make orders to help the trial run effectively.",
+              "supported": true,
+              "quote": "If the case does not settle at the settlement conference, then the presiding deputy judge may make orders to help the trial run effectively (for example, disclosure of certain documents before the trial).",
+              "sourceId": "scj-steps-in-a-case",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You will receive an Endorsement Record/Order of the Court after the conference.",
+              "supported": true,
+              "quote": "After the settlement conference, the parties will be provided with a copy of the Endorsement Record/Order of the Court, either at the conference or afterwards by mail or by email.",
+              "sourceId": "guide-getting-ready-for-court",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.861666666666668,
+          "problems": [
+            "\"At least 14 days before the conference, serve and file a List of Proposed Witnesses (Form 13A) and any documents you intend to rely on at trial that were not attached to your defence.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"The settlement conference is to be held.\" — The sentence is vague and does not specify that it will be held in every defended action or within a specific timeframe."
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "A settlement conference will be held in your defended action. The clerk will fix a time, date, and place for the settlement conference and serve a notice of settlement conference on the parties.",
+            "whatToDoNext": "Prepare for the settlement conference. You must serve and file a List of Proposed Witnesses (Form 13A) at least 14 days before the settlement conference.",
+            "yourDeadline": "The settlement conference is to be held. You have 90 days, counted from the day the first defence was filed.",
+            "whatHappensAfter": "If the case does not settle at the settlement conference, the judge may provide orders to help prepare for trial."
+          },
+          "verdicts": [
+            {
+              "sentence": "A settlement conference will be held in your defended action.",
+              "supported": true,
+              "quote": "A settlement conference shall be held in every defended action.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The clerk will fix a time, date, and place for the settlement conference and serve a notice of settlement conference on the parties.",
+              "supported": true,
+              "quote": "The clerk shall fix a time, date and place for the settlement conference and serve a notice of settlement conference, together with a list of proposed witnesses (Form 13A), on the parties.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare for the settlement conference.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "You must serve and file a List of Proposed Witnesses (Form 13A) at least 14 days before the settlement conference.",
+              "supported": false,
+              "quote": "At least 14 days before your settlement conference , you must serve on every other party and file with the Court: a completed List of Proposed Witnesses (Form 13A).",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "The settlement conference is to be held.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "You have 90 days, counted from the day the first defence was filed.",
+              "supported": true,
+              "quote": "The settlement conference shall be held within 90 days after the first defence is filed.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the case does not settle at the settlement conference, the judge may provide orders to help prepare for trial.",
+              "supported": true,
+              "quote": "If the case does not settle at the settlement conference, then the presiding deputy judge may make orders to help the trial run effectively (for example, disclosure of certain documents before the trial).",
+              "sourceId": "scj-steps-in-a-case",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.221610942249239,
+          "problems": [
+            "\"Prepare for the settlement conference.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source",
+            "\"You must serve and file a List of Proposed Witnesses (Form 13A) at least 14 days before the settlement conference.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"The settlement conference is to be held.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "A settlement conference will be held in your defended action. The clerk will fix a time, date, and place for the settlement conference and serve a notice of settlement conference on the parties.",
+            "whatToDoNext": "You will receive a notice of settlement conference indicating the date, time, and location. You must prepare for the conference and be ready to discuss the issues in your case.",
+            "yourDeadline": "The settlement conference is to be held. You have 90 days, counted from the day the first defence was filed.",
+            "whatHappensAfter": "If the case does not settle at the settlement conference, the judge may provide orders to help prepare for trial. You will receive an Endorsement Record/Order of the Court after the conference."
+          },
+          "verdicts": [
+            {
+              "sentence": "A settlement conference will be held in your defended action.",
+              "supported": true,
+              "quote": "A settlement conference shall be held in every defended action.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The clerk will fix a time, date, and place for the settlement conference and serve a notice of settlement conference on the parties.",
+              "supported": true,
+              "quote": "The clerk shall fix a time, date and place for the settlement conference and serve a notice of settlement conference, together with a list of proposed witnesses (Form 13A), on the parties.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You will receive a notice of settlement conference indicating the date, time, and location.",
+              "supported": true,
+              "quote": "the parties will receive a notice of settlement conference from the court office indicating the date, time and location of the settlement conference.",
+              "sourceId": "guide-getting-ready-for-court",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must prepare for the conference and be ready to discuss the issues in your case.",
+              "supported": true,
+              "quote": "At your settlement conference , you must discuss the issues in your case openly and frankly.",
+              "sourceId": "scj-steps-in-a-case",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The settlement conference is to be held.",
+              "supported": false,
+              "reason": "The sentence is vague and does not specify that it is a requirement for defended actions."
+            },
+            {
+              "sentence": "You have 90 days, counted from the day the first defence was filed.",
+              "supported": true,
+              "quote": "The settlement conference shall be held within 90 days after the first defence is filed.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the case does not settle at the settlement conference, the judge may provide orders to help prepare for trial.",
+              "supported": true,
+              "quote": "the presiding deputy judge may make orders to help the trial run effectively (for example, disclosure of certain documents before the trial).",
+              "sourceId": "scj-steps-in-a-case",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You will receive an Endorsement Record/Order of the Court after the conference.",
+              "supported": true,
+              "quote": "the parties will be provided with a copy of the Endorsement Record/Order of the Court, either at the conference or afterwards by mail or by email.",
+              "sourceId": "guide-getting-ready-for-court",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.874517543859653,
+          "problems": [
+            "\"The settlement conference is to be held.\" — The sentence is vague and does not specify that it is a requirement for defended actions."
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "A settlement conference will be held because the action is defended.",
+            "whatToDoNext": "The clerk will fix a time, date, and place for the settlement conference and serve a notice of settlement conference, along with a List of Proposed Witnesses (Form 13A), on the parties.",
+            "yourDeadline": "The settlement conference is to be held. You have 90 days, counted from the day the first defence was filed.",
+            "whatHappensAfter": "The settlement conference will be held within 90 days after the first defence is filed."
+          },
+          "verdicts": [
+            {
+              "sentence": "A settlement conference will be held because the action is defended.",
+              "supported": true,
+              "quote": "A settlement conference shall be held in every defended action.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The clerk will fix a time, date, and place for the settlement conference and serve a notice of settlement conference, along with a List of Proposed Witnesses (Form 13A), on the parties.",
+              "supported": true,
+              "quote": "The clerk shall fix a time, date and place for the settlement conference and serve a notice of settlement conference, together with a list of proposed witnesses (Form 13A), on the parties.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The settlement conference is to be held.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "You have 90 days, counted from the day the first defence was filed.",
+              "supported": false,
+              "reason": "The source states that the settlement conference shall be held within 90 days after the first defence is filed, but does not specify that 'you' have 90 days."
+            },
+            {
+              "sentence": "The settlement conference will be held within 90 days after the first defence is filed.",
+              "supported": true,
+              "quote": "The settlement conference shall be held within 90 days after the first defence is filed.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.8820000000000014,
+          "problems": [
+            "\"The settlement conference is to be held.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source",
+            "\"You have 90 days, counted from the day the first defence was filed.\" — The source states that the settlement conference shall be held within 90 days after the first defence is filed, but does not specify that 'you' have 90 days."
+          ]
+        }
+      ],
+      "status": "needs-human"
+    },
+    {
+      "stageId": "both:missed-trial",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "You missed your trial date. The trial judge may have proceeded in your absence or dismissed your case.",
+            "whatToDoNext": "If you want to challenge the judgment, you must make a motion to set aside the judgment within 30 days after you became aware of it.",
+            "yourDeadline": "Ask the court to set aside a judgment made when you did not attend, by making a motion. You have 30 days, counted from the day you became aware of the judgment.",
+            "whatHappensAfter": "If you file a motion to set aside the judgment, the court will consider your request and may set terms as it sees fit."
+          },
+          "verdicts": [
+            {
+              "sentence": "You missed your trial date.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "The trial judge may have proceeded in your absence or dismissed your case.",
+              "supported": true,
+              "quote": "the trial judge may, (a) proceed with the trial in the party's absence; (b) if the plaintiff attends and the defendant fails to do so, strike out the defence and dismiss the defendant's claim, if any, and allow the plaintiff to prove the plaintiff's claim, subject to subrule (3); (c) if the defendant attends and the plaintiff fails to do so, dismiss the action and allow the defendant to prove the defendant's claim, if any",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you want to challenge the judgment, you must make a motion to set aside the judgment within 30 days after you became aware of it.",
+              "supported": true,
+              "quote": "the party who failed to attend makes a motion for the order within 30 days after becoming aware of the judgment",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Ask the court to set aside a judgment made when you did not attend, by making a motion.",
+              "supported": true,
+              "quote": "The court may set aside or vary, on such terms as are just, a judgment obtained against a party who failed to attend at the trial.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You have 30 days, counted from the day you became aware of the judgment.",
+              "supported": true,
+              "quote": "the party who failed to attend makes a motion for the order within 30 days after becoming aware of the judgment",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you file a motion to set aside the judgment, the court will consider your request and may set terms as it sees fit.",
+              "supported": true,
+              "quote": "The court may set aside or vary, on such terms as are just, a judgment obtained against a party who failed to attend at the trial.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            }
+          ],
+          "readability": 6.312653061224491,
+          "problems": [
+            "\"You missed your trial date.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "An action was called for trial and a party did not attend. The trial judge may proceed with the trial in the party's absence. The court may also set aside or vary a judgment obtained against a party who failed to attend at the trial.",
+            "whatToDoNext": "If you missed your trial, you may make a motion to set aside the judgment within 30 days after becoming aware of it. You must file this motion with the court. You can also request an extension of the 30-day period if there are special circumstances.",
+            "yourDeadline": "Ask the court to set aside a judgment made when you did not attend, by making a motion. You have 30 days, counted from the day you became aware of the judgment.",
+            "whatHappensAfter": "If you file a motion to set aside the judgment, the court will consider your request and may grant or deny it."
+          },
+          "verdicts": [
+            {
+              "sentence": "An action was called for trial and a party did not attend.",
+              "supported": true,
+              "quote": "An action was called for trial and a party did not attend.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The trial judge may proceed with the trial in the party's absence.",
+              "supported": true,
+              "quote": "the trial judge may, (a) proceed with the trial in the party's absence;",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The court may also set aside or vary a judgment obtained against a party who failed to attend at the trial.",
+              "supported": true,
+              "quote": "The court may set aside or vary, on such terms as are just, a judgment obtained against a party who failed to attend at the trial.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you missed your trial, you may make a motion to set aside the judgment within 30 days after becoming aware of it.",
+              "supported": true,
+              "quote": "the party who failed to attend makes a motion for the order within 30 days after becoming aware of the judgment;",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must file this motion with the court.",
+              "supported": false,
+              "reason": "The source does not explicitly state that the motion must be filed with the court, only that a motion must be made."
+            },
+            {
+              "sentence": "You can also request an extension of the 30-day period if there are special circumstances.",
+              "supported": true,
+              "quote": "the party who failed to attend makes a motion for an extension of the 30-day period mentioned in clause (a) and the court is satisfied that there are special circumstances that justify the extension.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Ask the court to set aside a judgment made when you did not attend, by making a motion.",
+              "supported": true,
+              "quote": "The court may set aside or vary, on such terms as are just, a judgment obtained against a party who failed to attend at the trial.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You have 30 days, counted from the day you became aware of the judgment.",
+              "supported": true,
+              "quote": "the party who failed to attend makes a motion for the order within 30 days after becoming aware of the judgment;",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you file a motion to set aside the judgment, the court will consider your request and may grant or deny it.",
+              "supported": false,
+              "reason": "The source does not state that the court will consider the request and may grant or deny it; it only states that the court may set aside or vary a judgment."
+            }
+          ],
+          "readability": 6.78009324009324,
+          "problems": [
+            "\"You must file this motion with the court.\" — The source does not explicitly state that the motion must be filed with the court, only that a motion must be made.",
+            "\"If you file a motion to set aside the judgment, the court will consider your request and may grant or deny it.\" — The source does not state that the court will consider the request and may grant or deny it; it only states that the court may set aside or vary a judgment."
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "You missed your trial date. The trial judge may have proceeded with the trial in your absence. If the plaintiff attended and you did not, the judge may have struck out your defence and dismissed your claim, if any.",
+            "whatToDoNext": "If you want to set aside the judgment, you must make a motion within 30 days after becoming aware of the judgment. You can also request an extension of this 30-day period if you have special circumstances.",
+            "yourDeadline": "Ask the court to set aside a judgment made when you did not attend, by making a motion. You have 30 days, counted from the day you became aware of the judgment.",
+            "whatHappensAfter": "If you make a motion to set aside the judgment, the court may set aside or vary the judgment on terms it considers just."
+          },
+          "verdicts": [
+            {
+              "sentence": "You missed your trial date.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "The trial judge may have proceeded with the trial in your absence.",
+              "supported": true,
+              "quote": "the trial judge may, (a) proceed with the trial in the party's absence;",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the plaintiff attended and you did not, the judge may have struck out your defence and dismissed your claim, if any.",
+              "supported": true,
+              "quote": "if the plaintiff attends and the defendant fails to do so, strike out the defence and dismiss the defendant's claim, if any, and allow the plaintiff to prove the plaintiff's claim, subject to subrule (3);",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you want to set aside the judgment, you must make a motion within 30 days after becoming aware of the judgment.",
+              "supported": true,
+              "quote": "the party who failed to attend makes a motion for the order within 30 days after becoming aware of the judgment;",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can also request an extension of this 30-day period if you have special circumstances.",
+              "supported": true,
+              "quote": "the party who failed to attend makes a motion for an extension of the 30-day period mentioned in clause (a) and the court is satisfied that there are special circumstances that justify the extension.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Ask the court to set aside a judgment made when you did not attend, by making a motion.",
+              "supported": true,
+              "quote": "The court may set aside or vary, on such terms as are just, a judgment obtained against a party who failed to attend at the trial.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You have 30 days, counted from the day you became aware of the judgment.",
+              "supported": true,
+              "quote": "the party who failed to attend makes a motion for the order within 30 days after becoming aware of the judgment;",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you make a motion to set aside the judgment, the court may set aside or vary the judgment on terms it considers just.",
+              "supported": true,
+              "quote": "The court may set aside or vary, on such terms as are just, a judgment obtained against a party who failed to attend at the trial.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            }
+          ],
+          "readability": 6.541346153846153,
+          "problems": [
+            "\"You missed your trial date.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "An action was called for trial and a party did not attend. The trial judge may proceed with the trial in the party's absence. The court may also set aside or vary a judgment obtained against a party who failed to attend at the trial.",
+            "whatToDoNext": "If you missed your trial, you may make a motion to set aside the judgment within 30 days after becoming aware of it. You must file this motion with the court. If you need more time, you can request an extension of the 30-day period if you have special circumstances.",
+            "yourDeadline": "Ask the court to set aside a judgment made when you did not attend, by making a motion. You have 30 days, counted from the day you became aware of the judgment.",
+            "whatHappensAfter": "If you file a motion to set aside the judgment, the court will consider your request and may grant or deny it."
+          },
+          "verdicts": [
+            {
+              "sentence": "An action was called for trial and a party did not attend.",
+              "supported": true,
+              "quote": "An action was called for trial and a party did not attend.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The trial judge may proceed with the trial in the party's absence.",
+              "supported": true,
+              "quote": "the trial judge may, (a) proceed with the trial in the party's absence;",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The court may also set aside or vary a judgment obtained against a party who failed to attend at the trial.",
+              "supported": true,
+              "quote": "The court may set aside or vary, on such terms as are just, a judgment obtained against a party who failed to attend at the trial.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you missed your trial, you may make a motion to set aside the judgment within 30 days after becoming aware of it.",
+              "supported": true,
+              "quote": "the party who failed to attend makes a motion for the order within 30 days after becoming aware of the judgment;",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must file this motion with the court.",
+              "supported": false,
+              "reason": "The source does not explicitly state that the motion must be filed with the court, only that a motion must be made."
+            },
+            {
+              "sentence": "If you need more time, you can request an extension of the 30-day period if you have special circumstances.",
+              "supported": true,
+              "quote": "the party who failed to attend makes a motion for an extension of the 30-day period mentioned in clause (a) and the court is satisfied that there are special circumstances that justify the extension.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Ask the court to set aside a judgment made when you did not attend, by making a motion.",
+              "supported": true,
+              "quote": "the court may set aside or vary, on such terms as are just, a judgment obtained against a party who failed to attend at the trial.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You have 30 days, counted from the day you became aware of the judgment.",
+              "supported": true,
+              "quote": "the party who failed to attend makes a motion for the order within 30 days after becoming aware of the judgment;",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you file a motion to set aside the judgment, the court will consider your request and may grant or deny it.",
+              "supported": false,
+              "reason": "The source does not state that the court will consider the request and may grant or deny it; it only states that the court may set aside or vary a judgment."
+            }
+          ],
+          "readability": 6.754149659863945,
+          "problems": [
+            "\"You must file this motion with the court.\" — The source does not explicitly state that the motion must be filed with the court, only that a motion must be made.",
+            "\"If you file a motion to set aside the judgment, the court will consider your request and may grant or deny it.\" — The source does not state that the court will consider the request and may grant or deny it; it only states that the court may set aside or vary a judgment."
+          ]
+        }
+      ],
+      "status": "no-source"
+    },
+    {
+      "stageId": "both:filed-in-wrong-place",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "The action appears to have been started somewhere other than where the rules require, or in a court that cannot hear it.",
+            "whatToDoNext": "You may need to make a motion to have the case transferred to the correct court or territorial division. To do this, fill out a Notice of Motion and Supporting Affidavit [Form 15A].",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the judge finds that the action was not commenced in the proper place, the court may order that the action be tried in any other place where it could have been commenced."
+          },
+          "verdicts": [
+            {
+              "sentence": "The action appears to have been started somewhere other than where the rules require, or in a court that cannot hear it.",
+              "supported": true,
+              "quote": "The action appears to have been started somewhere other than where the rules require, or in a court that cannot hear it.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may need to make a motion to have the case transferred to the correct court or territorial division.",
+              "supported": false,
+              "reason": "The source does not mention making a motion to transfer the case to the correct court or territorial division."
+            },
+            {
+              "sentence": "To do this, fill out a Notice of Motion and Supporting Affidavit [Form 15A].",
+              "supported": true,
+              "quote": "To make a motion, follow these four steps: Fill out a Notice of Motion and Supporting Affidavit (Form 15A)",
+              "sourceId": "scj-steps-in-a-case",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the judge finds that the action was not commenced in the proper place, the court may order that the action be tried in any other place where it could have been commenced.",
+              "supported": true,
+              "quote": "If, when an action is called for trial, settlement conference or trial management conference, the judge finds that the place where the action was commenced is not the proper place of trial, the court may order that the action be tried in any other place where it could have been commenced under this rule.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            }
+          ],
+          "readability": 9.439626436781612,
+          "problems": [
+            "\"You may need to make a motion to have the case transferred to the correct court or territorial division.\" — The source does not mention making a motion to transfer the case to the correct court or territorial division.",
+            "reads at grade 9.4, above the grade 8 target. Longest sentence: \"If the judge finds that the action was not commenced in the proper place, the court may order that the action be tried in any other place where it could have been commenced.\""
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "The action appears to have been started somewhere other than where the rules require, or in a court that cannot hear it.",
+            "whatToDoNext": "You may need to make a motion to address the issue of the wrong court or territorial division.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the judge finds that the action was not commenced in the proper place, the court may order that the action be tried in any other place where it could have been commenced."
+          },
+          "verdicts": [
+            {
+              "sentence": "The action appears to have been started somewhere other than where the rules require, or in a court that cannot hear it.",
+              "supported": true,
+              "quote": "The action appears to have been started somewhere other than where the rules require, or in a court that cannot hear it.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may need to make a motion to address the issue of the wrong court or territorial division.",
+              "supported": false,
+              "reason": "The source does not state that a motion is needed to address the issue of the wrong court or territorial division."
+            },
+            {
+              "sentence": "If the judge finds that the action was not commenced in the proper place, the court may order that the action be tried in any other place where it could have been commenced.",
+              "supported": true,
+              "quote": "If, when an action is called for trial, settlement conference or trial management conference, the judge finds that the place where the action was commenced is not the proper place of trial, the court may order that the action be tried in any other place where it could have been commenced under this rule.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            }
+          ],
+          "readability": 9.902739726027402,
+          "problems": [
+            "\"You may need to make a motion to address the issue of the wrong court or territorial division.\" — The source does not state that a motion is needed to address the issue of the wrong court or territorial division.",
+            "reads at grade 9.9, above the grade 8 target. Longest sentence: \"If the judge finds that the action was not commenced in the proper place, the court may order that the action be tried in any other place where it could have been commenced.\""
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "The action appears to have been started in the wrong court or territorial division. An action must be commenced in the territorial division where the cause of action arose or where the defendant resides or carries on business. If the court finds that the action was not commenced in the proper place, it may order that the action be tried in a proper place.",
+            "whatToDoNext": "You may want to consider making a motion to address the issue of the wrong court or territorial division. To make a motion, fill out a Notice of Motion and Supporting Affidavit [Form 15A]. Serve the motion on all parties at least 7 days before the hearing and file it with the court at least 3 days before the hearing.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the court orders a change of venue, the case will be tried in the proper court or territorial division."
+          },
+          "verdicts": [
+            {
+              "sentence": "The action appears to have been started in the wrong court or territorial division.",
+              "supported": true,
+              "quote": "The action appears to have been started somewhere other than where the rules require, or in a court that cannot hear it.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "An action must be commenced in the territorial division where the cause of action arose or where the defendant resides or carries on business.",
+              "supported": true,
+              "quote": "An action shall be commenced, (a) in the territorial division, (i) in which the cause of action arose, or (ii) in which the defendant or, if there are several defendants, in which any one of them resides or carries on business",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court finds that the action was not commenced in the proper place, it may order that the action be tried in a proper place.",
+              "supported": true,
+              "quote": "If, when an action is called for trial, settlement conference or trial management conference, the judge finds that the place where the action was commenced is not the proper place of trial, the court may order that the action be tried in any other place where it could have been commenced under this rule.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may want to consider making a motion to address the issue of the wrong court or territorial division.",
+              "supported": false,
+              "reason": "The source material does not mention considering making a motion; it only discusses the rules regarding the commencement of actions."
+            },
+            {
+              "sentence": "To make a motion, fill out a Notice of Motion and Supporting Affidavit [Form 15A].",
+              "supported": true,
+              "quote": "To make a motion you must file a Notice of Motion and Supporting Affidavit [Form 15A].",
+              "sourceId": "guide-motions-and-clerks-orders",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve the motion on all parties at least 7 days before the hearing and file it with the court at least 3 days before the hearing.",
+              "supported": true,
+              "quote": "At least 7 days before the hearing date, serve the notice of motion and supporting affidavit on the responding party or parties | At least 3 days before the hearing date, file with the court the notice of motion and supporting affidavit and an Affidavit of Service [Form 8A] for each party served.",
+              "sourceId": "guide-motions-and-clerks-orders",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court orders a change of venue, the case will be tried in the proper court or territorial division.",
+              "supported": false,
+              "reason": "The source material states that the court may order the action to be tried in another place, but it does not specify that it will be tried in the proper court or territorial division."
+            }
+          ],
+          "readability": 9.589118541033436,
+          "problems": [
+            "\"You may want to consider making a motion to address the issue of the wrong court or territorial division.\" — The source material does not mention considering making a motion; it only discusses the rules regarding the commencement of actions.",
+            "\"If the court orders a change of venue, the case will be tried in the proper court or territorial division.\" — The source material states that the court may order the action to be tried in another place, but it does not specify that it will be tried in the proper court or territorial division.",
+            "reads at grade 9.6, above the grade 8 target. Longest sentence: \"An action must be commenced in the territorial division where the cause of action arose or where the defendant resides or carries on business.\""
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "The action appears to have been started somewhere other than where the rules require, or in a court that cannot hear it. An action shall be commenced in the territorial division where the cause of action arose or where the defendant resides or carries on business. If the judge finds that the place where the action was commenced is not the proper place of trial, the court may order that the action be tried in any other place where it could have been commenced.",
+            "whatToDoNext": "You may need to make a motion to address the issue of the wrong court or territorial division. To make a motion, fill out a Notice of Motion and Supporting Affidavit [Form 15A]. Serve the motion form at least 7 days before the hearing date and file it with the court at least 3 days before the hearing date.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the court orders a change of venue, the case may be tried in another place. The court may also provide directions on how to proceed with the case."
+          },
+          "verdicts": [
+            {
+              "sentence": "The action appears to have been started somewhere other than where the rules require, or in a court that cannot hear it.",
+              "supported": true,
+              "quote": "The action appears to have been started somewhere other than where the rules require, or in a court that cannot hear it.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "An action shall be commenced in the territorial division where the cause of action arose or where the defendant resides or carries on business.",
+              "supported": true,
+              "quote": "An action shall be commenced, (a) in the territorial division, (i) in which the cause of action arose, or (ii) in which the defendant or, if there are several defendants, in which any one of them resides or carries on business",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the judge finds that the place where the action was commenced is not the proper place of trial, the court may order that the action be tried in any other place where it could have been commenced.",
+              "supported": true,
+              "quote": "If, when an action is called for trial, settlement conference or trial management conference, the judge finds that the place where the action was commenced is not the proper place of trial, the court may order that the action be tried in any other place where it could have been commenced under this rule.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may need to make a motion to address the issue of the wrong court or territorial division.",
+              "supported": false,
+              "reason": "The source does not specifically state that a motion is needed to address the issue of the wrong court or territorial division."
+            },
+            {
+              "sentence": "To make a motion, fill out a Notice of Motion and Supporting Affidavit [Form 15A].",
+              "supported": true,
+              "quote": "To make a motion you must file a Notice of Motion and Supporting Affidavit [Form 15A].",
+              "sourceId": "guide-motions-and-clerks-orders",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve the motion form at least 7 days before the hearing date and file it with the court at least 3 days before the hearing date.",
+              "supported": true,
+              "quote": "At least 7 days before the hearing date, serve the notice of motion and supporting affidavit on the responding party or parties | At least 3 days before the hearing date, file with the court the notice of motion and supporting affidavit and an Affidavit of Service [Form 8A] for each party served.",
+              "sourceId": "guide-motions-and-clerks-orders",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court orders a change of venue, the case may be tried in another place.",
+              "supported": true,
+              "quote": "the court may order that the action be tried at that other place.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The court may also provide directions on how to proceed with the case.",
+              "supported": false,
+              "reason": "The source does not explicitly state that the court may provide directions on how to proceed with the case."
+            }
+          ],
+          "readability": 9.057034023668638,
+          "problems": [
+            "\"You may need to make a motion to address the issue of the wrong court or territorial division.\" — The source does not specifically state that a motion is needed to address the issue of the wrong court or territorial division.",
+            "\"The court may also provide directions on how to proceed with the case.\" — The source does not explicitly state that the court may provide directions on how to proceed with the case.",
+            "reads at grade 9.1, above the grade 8 target. Longest sentence: \"If the judge finds that the place where the action was commenced is not the proper place of trial, the court may order that the action be tried in any other place where it could have been commenced.\""
+          ]
+        }
+      ],
+      "status": "needs-human"
+    }
+  ]
+}

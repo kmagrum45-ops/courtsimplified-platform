@@ -1,0 +1,177 @@
+{
+  "model": "gpt-4o-mini",
+  "startedAt": "2026-09-25T22:56:25.957Z",
+  "usage": [
+    {
+      "model": "gpt-4o-mini",
+      "inputTokens": 26727,
+      "outputTokens": 1272,
+      "calls": 6
+    }
+  ],
+  "log": [
+    {
+      "stageId": "plaintiff:defence-period-expired-no-defence",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "More than 20 days have passed since you served the claim, and the defendant has not filed a defence. You can now ask the court to note the defendant in default.",
+            "whatToDoNext": "File a Request to Clerk (Form 9B) to note the defendant in default. You must also provide proof that the claim was served within the court's territorial division.",
+            "yourDeadline": null,
+            "whatHappensAfter": "Once the defendant is noted in default, the clerk may sign a default judgment (Form 11B) against the defendant for the claim or part of the claim that is for a debt or liquidated demand in money."
+          },
+          "verdicts": [
+            {
+              "sentence": "More than 20 days have passed since you served the claim, and the defendant has not filed a defence.",
+              "supported": true,
+              "quote": "More than 20 days have passed since service and no defence has been filed.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can now ask the court to note the defendant in default.",
+              "supported": true,
+              "quote": "the plaintiff may ask the Court to note the defendant in default.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "File a Request to Clerk (Form 9B) to note the defendant in default.",
+              "supported": true,
+              "quote": "you need to file a Request to Clerk (Form 9B).",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must also provide proof that the claim was served within the court's territorial division.",
+              "supported": true,
+              "quote": "proof that the claim was served within the court's territorial division",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Once the defendant is noted in default, the clerk may sign a default judgment (Form 11B) against the defendant for the claim or part of the claim that is for a debt or liquidated demand in money.",
+              "supported": true,
+              "quote": "the clerk may sign default judgment (Form 11B) in respect of the claim or any part of the claim to which the default applies that is for a debt or liquidated demand in money, including interest if claimed.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            }
+          ],
+          "readability": 8.105802197802198,
+          "problems": [
+            "reads at grade 8.1, above the grade 8 target. Longest sentence: \"Once the defendant is noted in default, the clerk may sign a default judgment against the defendant for the claim or part of the claim that is for a debt or liquidated demand in money.\""
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "More than 20 days have passed since you were served with the claim. You have not filed a defence. The plaintiff may now ask the court to note you in default.",
+            "whatToDoNext": "You may file a Request to Clerk (Form 9B) to have the court note the defendant in default. You must also provide proof that the claim was served within the court's territorial division.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If you are noted in default, the plaintiff may obtain a default judgment against you without your participation."
+          },
+          "verdicts": [
+            {
+              "sentence": "More than 20 days have passed since you were served with the claim.",
+              "supported": true,
+              "quote": "More than 20 days have passed since service and no defence has been filed.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You have not filed a defence.",
+              "supported": true,
+              "quote": "Nothing has been asked of the clerk yet.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The plaintiff may now ask the court to note you in default.",
+              "supported": true,
+              "quote": "the plaintiff may ask the Court to note the defendant in default.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may file a Request to Clerk (Form 9B) to have the court note the defendant in default.",
+              "supported": true,
+              "quote": "you need to file a Request to Clerk (Form 9B).",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must also provide proof that the claim was served within the court's territorial division.",
+              "supported": true,
+              "quote": "proof that the claim was served within the court's territorial division, subject to subrule (3).",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you are noted in default, the plaintiff may obtain a default judgment against you without your participation.",
+              "supported": true,
+              "quote": "the plaintiff may be entitled to get a judgment against you without your participation.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            }
+          ],
+          "readability": 6.124746835443037,
+          "problems": [
+            "this is a plaintiff's block but has service the wrong way round — a plaintiff serves the claim, a defendant is served with it: \"More than 20 days have passed since you were served with the claim.\"",
+            "this is a plaintiff's block but tells the reader to take the other side's step: \"You have not filed a defence.\"",
+            "this is a plaintiff's block but describes \"the plaintiff\" as somebody else, so it is written for the other party: \"The plaintiff may now ask the court to note you in default.\""
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "More than 20 days have passed since service and no defence has been filed. You may ask the court to note the defendant in default.",
+            "whatToDoNext": "File a Request to Clerk (Form 9B) to note the defendant in default. You must also provide proof that the claim was served within the court's territorial division.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the defendant is noted in default, the clerk may sign default judgment (Form 11B) against the defendant for the claim or part of the claim."
+          },
+          "verdicts": [
+            {
+              "sentence": "More than 20 days have passed since service and no defence has been filed.",
+              "supported": true,
+              "quote": "More than 20 days have passed since service and no defence has been filed.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may ask the court to note the defendant in default.",
+              "supported": true,
+              "quote": "the plaintiff may ask the Court to note the defendant in default.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "File a Request to Clerk (Form 9B) to note the defendant in default.",
+              "supported": true,
+              "quote": "you need to file a Request to Clerk (Form 9B).",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must also provide proof that the claim was served within the court's territorial division.",
+              "supported": true,
+              "quote": "proof that the claim was served within the court's territorial division, subject to subrule (3).",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the defendant is noted in default, the clerk may sign default judgment (Form 11B) against the defendant for the claim or part of the claim.",
+              "supported": true,
+              "quote": "the clerk may sign default judgment (Form 11B) in respect of the claim or any part of the claim to which the default applies that is for a debt or liquidated demand in money, including interest if claimed.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            }
+          ],
+          "readability": 6.765783783783785,
+          "problems": []
+        }
+      ],
+      "status": "verified-draft"
+    }
+  ]
+}

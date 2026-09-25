@@ -524,7 +524,16 @@ const PLAINTIFF: CaseStage[] = [
         by: "whether six months have passed since the claim was issued",
       },
     ],
-    rules: [C.R_8_01_MANNER, C.R_8_01_TIME_FOR_SERVICE, C.R_3_02_EXTEND],
+    // r. 8.04 added: the block understated the test as "if personal service is
+    // impractical". The rule requires personal service OR AN ALTERNATIVE to it
+    // to be impractical, so a user who had tried only personal service would
+    // bring a motion that fails.
+    rules: [
+      C.R_8_01_MANNER,
+      C.R_8_01_TIME_FOR_SERVICE,
+      C.R_8_04_SUBSTITUTED_SERVICE,
+      C.R_3_02_EXTEND,
+    ],
     deadlines: [
       {
         id: "deadline:serve-claim-six-months:failed-service",
@@ -1388,8 +1397,36 @@ const BOTH: CaseStage[] = [
         by: "whether judgment followed a trial the party missed or a defence never filed",
       },
     ],
-    rules: [C.R_17_01_FAILURE_TO_ATTEND_TRIAL],
-    deadlines: [],
+    /*
+     * r. 17.01 (4) and (5) were missing from this list, so the drafter could
+     * not support "you may ask the court to set the judgment aside" and the
+     * block ended up saying the rules set out no step — while a 30-day clock
+     * was running. Found by independent review. See citations.ts.
+     */
+    rules: [
+      C.R_17_01_FAILURE_TO_ATTEND_TRIAL,
+      C.R_17_01_SET_ASIDE,
+      C.R_17_01_SET_ASIDE_30_DAYS,
+    ],
+    deadlines: [
+      {
+        id: "deadline:set-aside-after-missed-trial",
+        what:
+          "Ask the court to set aside a judgment made when you did not attend, by making a motion",
+        countFrom: "the day you became aware of the judgment",
+        length: { unit: "days", count: 30 },
+        regime: "small-claims-rules",
+        rule: C.R_17_01_SET_ASIDE_30_DAYS,
+        computation: C.R_3_01_COMPUTATION,
+        consequence: "changes-what-happens-next",
+        /*
+         * r. 17.01 (5) (b) lets the court extend the 30 days for special
+         * circumstances. Giving the number without it would tell somebody on
+         * day 31 that it was over.
+         */
+        exceptions: [C.R_17_01_SET_ASIDE_30_DAYS],
+      },
+    ],
   },
   {
     id: "both:filed-in-wrong-place",
@@ -1415,7 +1452,19 @@ const BOTH: CaseStage[] = [
         by: "whether the claim has been filed somewhere already",
       },
     ],
-    rules: [C.R_6_01_PLACE, C.R_6_02_NO_DIVISION, C.S_MONETARY_LIMIT],
+    /*
+     * r. 6.01 (2) and (3) are the remedy, and citing only subrule (1) is why
+     * this stage was recorded as having no source for what to do. The claim
+     * that "nothing anywhere says how to fix having commenced it in the wrong
+     * place" was wrong, and it was wrong about the very rule already cited.
+     */
+    rules: [
+      C.R_6_01_PLACE,
+      C.R_6_01_TRIED_ELSEWHERE,
+      C.R_6_01_JUDGE_MAY_MOVE,
+      C.R_6_02_NO_DIVISION,
+      C.S_MONETARY_LIMIT,
+    ],
     deadlines: [],
   },
 ];

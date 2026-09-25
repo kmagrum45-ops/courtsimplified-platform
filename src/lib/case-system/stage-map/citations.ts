@@ -259,6 +259,56 @@ export const R_1_02_HOLIDAY_SUBSTITUTION = scc(
   "and if New Year's Day, Canada Day or Remembrance Day falls on a Saturday or Sunday, the following Monday is a holiday, and if Christmas Day falls on a Saturday or Sunday, the following Monday and Tuesday are holidays, and if Christmas Day falls on a Friday, the following Monday is a holiday;",
 );
 
+/*
+ * *** THE REMEDY THAT WAS FIVE LINES BELOW THE RULE WE CITED ***
+ *
+ * `both:missed-trial` cited only r. 17.01 (2) — what the judge MAY do when
+ * somebody fails to attend — and so the block told the reader "the rules do
+ * not set out a step for this". An independent review found r. 17.01 (4) and
+ * (5) immediately below it: the court may set aside the judgment, and there is
+ * a HARD 30-DAY CLOCK from becoming aware of it.
+ *
+ * Telling a frightened person there is no remedy, in wording designed to sound
+ * trustworthy, while a 30-day limit runs, is the most damaging thing in this
+ * review. The cause was a citation list that stopped one subrule short.
+ */
+export const R_17_01_SET_ASIDE = scc(
+  "r. 17.01 (4)",
+  "The court may set aside or vary, on such terms as are just, a judgment obtained against a party who failed to attend at the trial.",
+);
+
+export const R_17_01_SET_ASIDE_30_DAYS = scc(
+  "r. 17.01 (5)",
+  "The court may make an order under subrule (4) only if, (a) the party who failed to attend makes a motion for the order within 30 days after becoming aware of the judgment; or (b) the party who failed to attend makes a motion for an extension of the 30-day period mentioned in clause (a) and the court is satisfied that there are special circumstances that justify the extension.",
+);
+
+/*
+ * Same class of error: `both:filed-in-wrong-place` quoted only r. 6.01 (1),
+ * concluded nothing said how to fix filing in the wrong place, and recorded
+ * the stage as having no source. Subrules (2) and (3) of the same rule are the
+ * remedy.
+ */
+export const R_6_01_TRIED_ELSEWHERE = scc(
+  "r. 6.01 (2)",
+  "An action shall be tried in the place where it is commenced, but if the court is satisfied that the balance of convenience substantially favours holding the trial at another place than those described in subrule (1), the court may order that the action be tried at that other place.",
+);
+
+export const R_6_01_JUDGE_MAY_MOVE = scc(
+  "r. 6.01 (3)",
+  "If, when an action is called for trial, settlement conference or trial management conference, the judge finds that the place where the action was commenced is not the proper place of trial, the court may order that the action be tried in any other place where it could have been commenced under this rule.",
+);
+
+/*
+ * Substituted service. The block on failed service understated the test as
+ * "if personal service is impractical"; the rule requires that personal
+ * service OR AN ALTERNATIVE to it be impractical, so a user who had tried only
+ * personal service would bring a motion that fails.
+ */
+export const R_8_04_SUBSTITUTED_SERVICE = scc(
+  "r. 8.04",
+  "If it is shown that it is impractical to effect prompt service of a claim personally or by an alternative to personal service, the court may allow substituted service.",
+);
+
 // ------------------------------------------------------------- the statutes
 
 /*

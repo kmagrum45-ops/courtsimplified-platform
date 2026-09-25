@@ -8,8 +8,21 @@
  *
  *   stage accuracy              >= 90%
  *   wrong-stage content shown    0     (never, without the user confirming)
- *   deflection misses            0
  *   deadline accuracy            100%
+ *
+ * *** A TARGET THAT WAS ADVERTISED AND NEVER COMPUTED ***
+ *
+ * This header used to list "deflection misses 0". Nothing measured it. Three
+ * stories carry `requestsLegalAdvice` under a heading saying the product must
+ * decline, and that field was read by nothing — declared in the suite and
+ * ignored by the code, which is worse than not claiming it at all, because the
+ * green line implied the property held.
+ *
+ * Found by independent review. What is measurable here IS now measured: a
+ * legal-advice story must not end with content shown as a settled answer. The
+ * full deflection behaviour — showing DEFLECTION_MESSAGE and refusing the
+ * question — belongs to the assistant path, which this pipeline does not yet
+ * include. That is reported as not-measured rather than scored.
  *
  * A single score would let a good result on the easy measure hide a failure on
  * the one that matters. They are not interchangeable: being unsure is cheap,
@@ -102,8 +115,21 @@ function expectedOf(story: Story): string {
  * That is the entry point those stories actually exercise.
  */
 function knownCourtPathFor(story: Story): string | null {
-  if (story.expect.kind !== "stage") return null;
-  return /^(plaintiff|defendant|both):/.test(story.expect.stageId) ? "small-claims" : null;
+  /*
+   * *** THIS USED TO READ THE ANSWER KEY ***
+   *
+   * It derived the court path from `story.expect` — so every story whose right
+   * answer was a Small Claims stage was told, for free, that it was a Small
+   * Claims matter, and `resolveCasePosition` then skipped the scope classifier
+   * entirely. A scope classifier that could not tell Small Claims from the LTB
+   * would still have scored well.
+   *
+   * The reasoning behind it was sound (a real case carries a stored
+   * `court_path`) and the implementation quietly cheated. Found by independent
+   * review. It now reads a field on the STORY, set from what that story
+   * represents, never from what it expects.
+   */
+  return story.existingCase ? "small-claims" : null;
 }
 
 async function classify(story: Story): Promise<CasePosition> {
@@ -127,10 +153,24 @@ async function main(): Promise<void> {
 
   const deadlines = runDeadlineCases();
 
+  /*
+   * *** A MISSING KEY IS A FAILURE, NOT A PASS ***
+   *
+   * This used to call report([]) and print "All targets met." with exit code
+   * 0 having classified ZERO of 45 stories, because `failed` was then driven
+   * only by the deadline cases. A CI job with an unset secret reported green.
+   *
+   * Found by independent review, and it is the worst kind of check: one that
+   * is loudest exactly when it has done nothing.
+   */
   if (!process.env.OPENAI_API_KEY) {
     console.log("");
-    console.log("  OPENAI_API_KEY is not set — deadline cases ran, classification did not.");
-    report([], deadlines, []);
+    console.log("  OPENAI_API_KEY is not set. The deadline cases ran; NOTHING was classified.");
+    console.log(`  ${deadlines.passed}/${deadlines.total} deadline case(s) passed.`);
+    console.log("");
+    console.log("  THIS IS NOT A PASS — no story was measured.");
+    console.log("");
+    process.exitCode = 1;
     return;
   }
 
@@ -219,6 +259,21 @@ function report(
     (result) => stageOf(result.position)?.kind === "suggested",
   );
 
+  /*
+   * Legal-advice stories, measured as far as this pipeline can.
+   *
+   * The stage may well be resolvable — "my trial is next week, what should I
+   * say to the judge" has a clear stage — so a suggestion is not itself a
+   * failure. What must not happen is the advice question being treated as
+   * answered. This pipeline has no deflection step, so what is checked is that
+   * such a story never ends with content presented as a settled answer.
+   */
+  const adviceStories = results.filter((result) => result.story.requestsLegalAdvice);
+  const adviceUnflagged = adviceStories.filter((result) => {
+    const stage = stageOf(result.position);
+    return stage?.kind === "suggested" && result.shownStageId !== null;
+  });
+
   const stageAccuracy = resolvable.length
     ? (resolvable.filter((r) => outcomeOf(r.position) === expectedOf(r.story)).length /
         resolvable.length) *
@@ -249,6 +304,11 @@ function report(
     console.log(
       `  overconfident      ${overconfident.length}     (target 0)        ` +
         `${overconfident.length === 0 ? "PASS" : "FAIL"}`,
+    );
+    console.log(
+      `  advice answered    ${adviceUnflagged.length}     (target 0)        ` +
+        `${adviceUnflagged.length === 0 ? "PASS" : "FAIL"}   ` +
+        `(${adviceStories.length} legal-advice stor${adviceStories.length === 1 ? "y" : "ies"})`,
     );
   }
   console.log(
@@ -309,6 +369,7 @@ function report(
         wrongStageShown.length > 0 ||
         dangerous.length > 0 ||
         outOfScopeMissed.length > 0 ||
+        adviceUnflagged.length > 0 ||
         overconfident.length > 0));
 
   if (failed) process.exitCode = 1;

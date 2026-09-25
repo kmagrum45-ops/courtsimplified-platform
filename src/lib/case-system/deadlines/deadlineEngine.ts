@@ -134,6 +134,27 @@ function addYears(from: IsoDate, years: number): { date: IsoDate; leapAdjusted: 
 
 export function computeDeadline(input: DeadlineInput): DeadlineResult {
   const { from, length, regime } = input;
+
+  /*
+   * *** A PERIOD OF ZERO IS NOT A PERIOD ***
+   *
+   * r. 11.06 sets no fixed number of days — it requires a motion "as soon as
+   * is reasonably possible in all the circumstances" — and the stage map
+   * records that as count 0. Without this guard the engine happily counted
+   * zero days and then rolled the result off a weekend, returning a date two
+   * days later with the step "Counted 0 days ... the period runs to ...".
+   *
+   * That fabricates a deadline out of a rule whose whole point is that there
+   * is not one, and it does it in the engine that exists to stop exactly that.
+   * Found by independent review. `renderDeadlineSection` already filtered
+   * these out; the engine did not.
+   */
+  if (length.count === 0) {
+    throw new Error(
+      "computeDeadline called with a period of 0 — this rule sets no fixed deadline, " +
+        "and returning a date for it would invent one",
+    );
+  }
   const direction = input.direction ?? "after";
   const steps: ComputationStep[] = [];
 

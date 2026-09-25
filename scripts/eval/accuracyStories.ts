@@ -67,6 +67,16 @@ export type Story = {
   neverSuggest?: string[];
   /** The user is asking for legal advice; the product must decline. */
   requestsLegalAdvice?: boolean;
+  /**
+   * This story is about a case that ALREADY EXISTS in the product.
+   *
+   * Such a case carries a stored court_path from intake, so the pipeline does
+   * not re-run scope classification on it. Set from what the story IS, never
+   * from what it expects — deriving it from the expected answer handed the
+   * classifier the answer key, which is how an earlier version of this eval
+   * cheated without anybody noticing.
+   */
+  existingCase?: boolean;
 };
 
 export const STORIES: Story[] = [
@@ -145,24 +155,28 @@ export const STORIES: Story[] = [
     id: "p-filed-not-served",
     text: "I filed my claim at the courthouse on Monday and they gave me back a stamped copy with a number on it. Now what? Do I mail it to him?",
     expect: { kind: "stage", stageId: "plaintiff:claim-issued-not-served" },
+    existingCase: true,
     because: "Issued but not served. r. 8.01 (2) gives six months to serve.",
   },
   {
     id: "p-cannot-find-defendant",
     text: "I've tried thrice to serve the guy. He's moved out of the address on the lease and the new tenant says she doesn't know him. The process server gave up.",
     expect: { kind: "stage", stageId: "plaintiff:service-attempted-failed" },
+    existingCase: true,
     because: "Service attempted and failed — a different position from not having tried.",
   },
   {
     id: "p-service-window-gone",
     text: "I started this last spring and honestly life got in the way. I never did get the papers to her. That was about eight months ago now. Have I blown it?",
     expect: { kind: "stage", stageId: "plaintiff:six-month-service-window-expired" },
+    existingCase: true,
     because: "More than six months since issue, still unserved (r. 8.01 (2)).",
   },
   {
     id: "p-waiting-for-defence",
     text: "He was served last Tuesday by a process server, I have the affidavit. How long do I have to sit here waiting before something happens?",
     expect: { kind: "stage", stageId: "plaintiff:served-awaiting-defence" },
+    existingCase: true,
     because: "Served, and the 20-day defence period is still running.",
     neverSuggest: ["plaintiff:defence-period-expired-no-defence"],
   },
@@ -170,12 +184,14 @@ export const STORIES: Story[] = [
     id: "p-no-defence-yet-acted",
     text: "It's been five weeks since he was served and there's nothing from him. Nothing in the mail, nothing from the court. What do I do to move this along?",
     expect: { kind: "stage", stageId: "plaintiff:defence-period-expired-no-defence" },
+    existingCase: true,
     because: "20 days elapsed, no defence, nothing yet asked of the clerk (r. 11.01 (1)).",
   },
   {
     id: "p-noted-in-default",
     text: "The clerk stamped my request and said he's been noted in default. She mentioned something about judgment but I didn't follow. It's a flat $3,000 invoice he never paid.",
     expect: { kind: "stage", stageId: "plaintiff:defendant-noted-in-default" },
+    existingCase: true,
     because:
       "Noted in default, no judgment yet. A liquidated demand, so r. 11.02 (1) lets the " +
       "clerk sign — not the assessment route.",
@@ -184,18 +200,21 @@ export const STORIES: Story[] = [
     id: "p-assessment-needed",
     text: "The clerk wouldn't sign my judgment. She said because I'm claiming for the damage to my reputation and lost customers it isn't a set amount and a judge has to decide how much.",
     expect: { kind: "stage", stageId: "plaintiff:assessment-of-damages-needed" },
+    existingCase: true,
     because: "Unliquidated, so r. 11.03 applies rather than r. 11.02.",
   },
   {
     id: "p-defence-arrived",
     text: "Got a copy of his defence in the mail today. He's saying the work was done properly and I refused to let him finish. So he's fighting it.",
     expect: { kind: "stage", stageId: "plaintiff:defence-filed" },
+    existingCase: true,
     because: "A defence is filed, so the action is defended (r. 13.01 (1)).",
   },
   {
     id: "p-countersued",
     text: "Not only is she defending, she's turned round and filed her own claim saying I owe HER money for storage. I got both documents together.",
     expect: { kind: "stage", stageId: "plaintiff:served-with-defendants-claim" },
+    existingCase: true,
     because:
       "Served with a defendant's claim. r. 10.03 gives 20 days after service of THAT claim " +
       "— a rule the verifier has previously misread, see ACCURACY_ENGINE.md.",
@@ -204,24 +223,28 @@ export const STORIES: Story[] = [
     id: "p-conference-coming",
     text: "There's a settlement conference on the 14th of next month. The notice came from the court. Is there stuff I'm supposed to send in before?",
     expect: { kind: "stage", stageId: "plaintiff:awaiting-settlement-conference" },
+    existingCase: true,
     because: "Conference scheduled; r. 13.03 (2) disclosure is due 14 days before.",
   },
   {
     id: "p-conference-done",
     text: "We went to the settlement conference on Tuesday. The judge tried to get us to settle and we couldn't agree. He said something about 30 days.",
     expect: { kind: "stage", stageId: "plaintiff:settlement-conference-held" },
+    existingCase: true,
     because: "Conference held, not disposed of; r. 13.07 and the trial request (r. 16.01).",
   },
   {
     id: "p-trial-set",
     text: "I have a trial date in September. I've never been in a courtroom. I have texts and photos and my brother saw the whole thing.",
     expect: { kind: "stage", stageId: "plaintiff:trial-date-set" },
+    existingCase: true,
     because: "Notice of trial served (r. 16.01 (1)); preparing.",
   },
   {
     id: "p-won-unpaid",
     text: "I won! The judge ordered him to pay me $7,400. That was in June. It is now October and he has paid me nothing at all and won't answer.",
     expect: { kind: "stage", stageId: "plaintiff:judgment-in-my-favour-unpaid" },
+    existingCase: true,
     because: "Judgment after a hearing, unpaid — enforcement, not default.",
     neverSuggest: ["plaintiff:default-judgment-signed"],
   },
@@ -229,6 +252,7 @@ export const STORIES: Story[] = [
     id: "p-dismissed-for-delay",
     text: "I got a letter from the court saying my case has been dismissed for delay. I didn't do anything wrong, I was waiting to hear from them.",
     expect: { kind: "stage", stageId: "plaintiff:action-dismissed-for-delay" },
+    existingCase: true,
     because: "The clerk's order under r. 11.1.01 (1) has been made and served.",
   },
 
@@ -239,6 +263,7 @@ export const STORIES: Story[] = [
     id: "d-just-served",
     text: "A guy knocked on my door yesterday and handed me an envelope. It is a claim for $2,800 from a company I did work for, saying I owe them money. I do not agree with any of it.",
     expect: { kind: "stage", stageId: "defendant:served-defence-period-running" },
+    existingCase: true,
     because: "Served yesterday; the 20 days under r. 9.01 are running.",
     neverSuggest: ["plaintiff:claim-drafted-not-filed"],
   },
@@ -246,18 +271,21 @@ export const STORIES: Story[] = [
     id: "d-missed-the-20-days",
     text: "I got served about six weeks ago. I put it in a drawer because I was dealing with my mum being in hospital. I want to fight it. Is it too late?",
     expect: { kind: "stage", stageId: "defendant:defence-period-expired-not-yet-noted" },
+    existingCase: true,
     because: "Past 20 days, nothing to suggest the clerk has noted them in default yet.",
   },
   {
     id: "d-noted-in-default",
     text: "I got something saying I've been noted in default because I didn't file a defence. There's no judgment yet as far as I can tell. I do have a real defence, the work was never finished.",
     expect: { kind: "stage", stageId: "defendant:noted-in-default" },
+    existingCase: true,
     because: "Noted, not yet judgment. r. 11.06 is the route and it sets NO fixed deadline.",
   },
   {
     id: "d-default-judgment-blindsided",
     text: "My bank called to say my account is being garnished. I phoned the court and they said there's a judgment against me from a case I have never heard of. I never got any papers. I moved in 2024.",
     expect: { kind: "stage", stageId: "defendant:default-judgment-against-me" },
+    existingCase: true,
     because:
       "Default judgment signed and being enforced, against someone who says they were " +
       "never served. THE stage where a wrong answer costs the most.",
@@ -271,12 +299,14 @@ export const STORIES: Story[] = [
     id: "d-filed-defence",
     text: "I sent my defence in and filed it with proof of service like the clerk told me. What happens now, do I just wait?",
     expect: { kind: "stage", stageId: "defendant:defence-filed" },
+    existingCase: true,
     because: "Defence filed; a settlement conference follows within 90 days (r. 13.01 (3)).",
   },
   {
     id: "d-wants-to-countersue",
     text: "I'm being sued for $1,500 but honestly she owes me more than that — she damaged my trailer when she borrowed it. Can I bring that up in the same case or do I start my own?",
     expect: { kind: "stage", stageId: "defendant:considering-defendants-claim" },
+    existingCase: true,
     because:
       "r. 10.01 (2): a defendant's claim MAY be issued within 20 days after the defence is " +
       "filed, and later with leave. 'Must' here would tell them they had lost it.",
@@ -285,18 +315,21 @@ export const STORIES: Story[] = [
     id: "d-conference-coming",
     text: "Court sent me a date for a settlement conference next month. I'm the one being sued. Do I need to bring anything?",
     expect: { kind: "stage", stageId: "defendant:awaiting-settlement-conference" },
+    existingCase: true,
     because: "Defendant side of the conference stage; r. 13.03 (2) applies to both parties.",
   },
   {
     id: "d-trial-set",
     text: "There's a trial booked for November and I'm defending. I don't have a lawyer. I have emails that show I paid her.",
     expect: { kind: "stage", stageId: "defendant:trial-date-set" },
+    existingCase: true,
     because: "Defendant preparing for trial.",
   },
   {
     id: "d-lost-cannot-pay",
     text: "The judge decided against me last week. I owe $5,100 and I'm on ODSP. I genuinely cannot pay that. What happens to me?",
     expect: { kind: "stage", stageId: "defendant:judgment-against-me" },
+    existingCase: true,
     because: "Judgment after a hearing they took part in — not a default judgment.",
     neverSuggest: ["defendant:default-judgment-against-me"],
   },
@@ -308,18 +341,21 @@ export const STORIES: Story[] = [
     id: "both-missed-conference",
     text: "I completely missed the settlement conference. I had the date wrong in my phone. I only found out when I called the court about something else.",
     expect: { kind: "stage", stageId: "both:missed-settlement-conference" },
+    existingCase: true,
     because: "r. 13.02 (5): the court MAY impose costs or order another conference.",
   },
   {
     id: "both-missed-trial",
     text: "My trial was yesterday and I wasn't there. My car broke down on the 401 and by the time I got there everyone had gone.",
     expect: { kind: "stage", stageId: "both:missed-trial" },
+    existingCase: true,
     because: "r. 17.01 (2) lists what the judge may do when a party fails to attend.",
   },
   {
     id: "both-wrong-place",
     text: "I filed in Ottawa because that's where I live but he lives in Windsor and that's where the whole thing happened. Someone said I've filed in the wrong place.",
     expect: { kind: "stage", stageId: "both:filed-in-wrong-place" },
+    existingCase: true,
     because:
       "r. 6.01 (1) governs where an action is commenced. Note this is a known content gap: " +
       "nothing published says how to FIX it, so the block is no-source.",
@@ -437,6 +473,7 @@ export const STORIES: Story[] = [
     id: "advice-will-i-win",
     text: "I was served two weeks ago and I'm filing my defence. Honestly though — do you think I'll win? Is my side strong enough?",
     expect: { kind: "stage", stageId: "defendant:served-defence-period-running" },
+    existingCase: true,
     because: "The stage is clear; the question is not answerable and must be declined.",
     requestsLegalAdvice: true,
   },
@@ -444,6 +481,7 @@ export const STORIES: Story[] = [
     id: "advice-what-do-i-say",
     text: "My trial is next week. What should I say to the judge to make them believe me over him?",
     expect: { kind: "stage", stageId: "plaintiff:trial-date-set" },
+    existingCase: true,
     because: "Drafting what to argue is advice. The stage is still resolvable.",
     requestsLegalAdvice: true,
   },

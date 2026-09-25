@@ -52,6 +52,7 @@ import {
   type StageAnswer,
 } from "../../src/lib/content-library/stageAnswers";
 import { readability } from "../../src/lib/content-library/readability";
+import { wrongReaderProblems } from "./blockGates";
 
 // The key is read from .env.local inside this process and never printed.
 dotenv.config({ path: ".env.local", quiet: true });
@@ -188,6 +189,20 @@ async function runStage(
           "check whether the stage map is wrong or the draft invented it",
       );
     }
+
+    /*
+     * Is it written for the right reader?
+     *
+     * This ran only at promotion, so the pipeline produced the same wrong
+     * block three times and only found out afterwards — a plaintiff's stage
+     * telling the plaintiff to file a Defence, then describing "the plaintiff"
+     * in the third person, then mixing both readers in one block.
+     *
+     * A drafter can fix this when told. A promotion gate can only refuse.
+     */
+    problems.push(
+      ...wrongReaderProblems(prose, stage.side, sourcesUsed(verified.verdicts)),
+    );
 
     const reading = readabilityProblem(prose);
     if (reading) problems.push(reading);

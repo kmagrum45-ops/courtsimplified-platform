@@ -407,9 +407,31 @@ const PRACTICAL_FOR_STAGE: Array<{ match: RegExp; sources: string[] }> = [
       "guide-motions-and-clerks-orders",
     ],
   },
+  /*
+   * *** THE GUIDE ON REPLYING TO A CLAIM IS FOR DEFENDANTS ONLY ***
+   *
+   * This pattern used to be side-blind, so `plaintiff:defence-period-expired-
+   * no-defence` — a plaintiff asking "they never responded, what can I do?" —
+   * was handed `guide-replying-to-a-claim` and nothing else. The block that
+   * came out told the plaintiff to file a Defence.
+   *
+   * An independent review found it in the PUBLISHED library. Every gate passed
+   * it because every sentence was a true statement about a defendant; no
+   * sentence-level check can see that the reader is the wrong person.
+   *
+   * The `defendant:` prefix is the fix. A plaintiff's defence-related stages
+   * fall through to the settlement-conference and default sources below, which
+   * are written for the side actually reading.
+   */
   {
-    match: /defence-period|served-defence|defence-filed|defendants-claim/,
+    match: /^defendant:(defence-period|served-defence|defence-filed|considering-defendants-claim)/,
     sources: ["guide-replying-to-a-claim", "scj-how-to-respond"],
+  },
+  {
+    // The plaintiff's side of the same moment: they are waiting, or the time
+    // has run out and they are deciding what to ask the clerk for.
+    match: /^plaintiff:(served-awaiting-defence|defence-period-expired)/,
+    sources: ["scj-default-proceedings", "scj-steps-in-a-case"],
   },
   {
     match: /default/,
@@ -555,6 +577,7 @@ ABSOLUTE RULES
 3a. Use Canadian spelling: defence, favour, honour, centre, judgment (not judgement). The document a defendant files is a DEFENCE.
 4. Write at a Grade 8 reading level. Short sentences. Ordinary words. Say what a term means the first time you use it.
 5. Address the reader as "you". Be direct and calm. Do not reassure, do not alarm, do not apologise.
+5a. THE READER IS ONE OF THE PARTIES, AND THE STAGE SAYS WHICH. Write to them in the second person and never describe their own side in the third person. On a plaintiff's stage, "the plaintiff may file a request to note the defendant in default" must be "you may file a request to note the defendant in default" — the other party stays in the third person, the reader never does. Getting this backwards produced a block that told a plaintiff to file a Defence.
 6. Where a form is mentioned, give BOTH its number and its name.
 7. Keep each sentence to one idea. Do not combine what the rule says with where the case stands in a single sentence.
 8. Do not write encouragement, exhortation or filler. "Prepare for the conference", "be ready for trial", "review the judgment" and "you may want to consider" say nothing a source can support and nothing a reader can act on. Every sentence must carry a fact from the sources.
