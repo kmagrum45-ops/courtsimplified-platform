@@ -35,7 +35,21 @@
 export type ExpectedOutcome =
   | { kind: "stage"; stageId: string }
   | { kind: "unknown" }
-  | { kind: "out-of-scope" };
+  | { kind: "out-of-scope" }
+  /*
+   * *** A LINE NOBODY COULD SOURCE ***
+   *
+   * Where the LTB's jurisdiction ends and Small Claims begins, for a FORMER
+   * tenant, was confirmed unsourceable from ontario.ca, ontariocourts.ca and
+   * ontariocourtforms.on.ca in an earlier session — see the note above
+   * TENANCY_ENDED_SIGNALS in courtPathClassifier.ts.
+   *
+   * Expecting either answer here would be asserting the thing nobody could
+   * establish. The correct outcome is the one the pipeline now produces: say
+   * it may be either, give the Small Claims guidance anyway so the person is
+   * not left with nothing, and name who can confirm.
+   */
+  | { kind: "boundary-unclear" };
 
 export type Story = {
   id: string;
@@ -223,7 +237,7 @@ export const STORIES: Story[] = [
   // ======================================================================
   {
     id: "d-just-served",
-    text: "A guy knocked on my door yesterday and handed me an envelope. It's a claim from my old landlord for $2,800 he says I owe for damage. I don't agree with any of it.",
+    text: "A guy knocked on my door yesterday and handed me an envelope. It is a claim for $2,800 from a company I did work for, saying I owe them money. I do not agree with any of it.",
     expect: { kind: "stage", stageId: "defendant:served-defence-period-running" },
     because: "Served yesterday; the 20 days under r. 9.01 are running.",
     neverSuggest: ["plaintiff:claim-drafted-not-filed"],
@@ -357,11 +371,43 @@ export const STORIES: Story[] = [
     because: "A family matter. Routing this into Small Claims procedure is worse than UNKNOWN.",
     neverSuggest: ["before-filing:deciding-whether-to-sue"],
   },
+  /*
+   * THE LANDLORD PAIR. The word is the same; the subject is not.
+   *
+   * An over-correction of mine had made anything mentioning a landlord
+   * out-of-scope, which sent a plain debt claim to a tribunal that does not
+   * hear it. Turning somebody away from a claim that is theirs to bring is a
+   * worse failure than any stage error, so both kinds are pinned here.
+   */
   {
-    id: "oos-landlord",
+    id: "ltb-eviction-is-out-of-scope",
     text: "My landlord is trying to evict me and I don't think he's allowed to. The notice he gave me looks wrong.",
     expect: { kind: "out-of-scope" },
-    because: "Landlord and Tenant Board, not Small Claims.",
+    because:
+      "An eviction under a live tenancy. Squarely the Landlord and Tenant Board, and the " +
+      "classifier says so at full confidence.",
+  },
+  {
+    id: "landlord-damage-claim-is-a-debt-claim",
+    text: "A guy knocked on my door yesterday and handed me an envelope. It's a claim from my old landlord for $2,800 he says I owe for damage to the unit. I moved out in April. I don't agree with any of it.",
+    expect: { kind: "boundary-unclear" },
+    because:
+      "A money claim for property damage, after the tenancy ended. It is NOT an eviction " +
+      "or a tenancy dispute, and treating the word 'landlord' as out-of-scope turns away " +
+      "somebody being sued.\n" +
+      "      Expected `boundary-unclear` rather than a Small Claims stage, and that is a " +
+      "deliberate limit: exactly where the LTB's jurisdiction ends for a former tenant is " +
+      "UNSOURCEABLE (recorded in courtPathClassifier.ts). The pipeline gives the Small " +
+      "Claims guidance anyway and says it may be either — useful without asserting the line.",
+  },
+  {
+    id: "landlord-deposit-claim",
+    text: "My old landlord kept my last month's rent deposit when I moved out in June and won't give it back. It's $1,400 and I want to sue him for it.",
+    expect: { kind: "boundary-unclear" },
+    because:
+      "The other direction — the former tenant suing. Same unsourceable boundary, same " +
+      "honest outcome. Note this one is closer to the LTB than the damage claim is, which " +
+      "is precisely why neither is asserted.",
   },
   {
     id: "oos-human-rights",

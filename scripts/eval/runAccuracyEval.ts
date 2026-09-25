@@ -35,14 +35,14 @@ import dotenv from "dotenv";
 import { STORIES, type Story } from "./accuracyStories";
 import {
   resolveFromModelOutput,
-  stageCatalogueForPrompt,
-  STAGE_RESOLVER_SYSTEM,
-  type StageModelOutput,
   type StageResolution,
 } from "../../src/lib/case-system/stage-map/resolveStage";
+import {
+  resolveCasePosition,
+  type CasePosition,
+} from "../../src/lib/case-system/stage-map/resolveCasePosition";
 import { renderStageAnswer } from "../../src/lib/content-library/stageAnswerView";
-import { createOpenAIClient } from "../../src/lib/case-system/openaiClient";
-import { addUsage, costOf, type Usage } from "../content/verifiedContentPipeline";
+import { costOf, type Usage } from "../content/verifiedContentPipeline";
 import { DEADLINE_CASES, runDeadlineCases } from "./deadlineCases";
 
 dotenv.config({ path: ".env.local", quiet: true });
@@ -51,48 +51,70 @@ const MODEL = "gpt-4o-mini";
 
 type Result = {
   story: Story;
-  resolution: StageResolution;
+  position: CasePosition;
   /** Did the user actually get content, and for which stage? */
   shownStageId: string | null;
 };
 
-function outcomeOf(resolution: StageResolution): string {
-  return resolution.kind === "suggested" ? resolution.stageId : resolution.kind;
+/**
+ * What the pipeline concluded, as one comparable label.
+ *
+ * boundary-unclear is its OWN outcome and is never collapsed into the stage it
+ * also carries. Collapsing it would hide the whole point: we gave guidance AND
+ * said the forum is uncertain.
+ */
+function outcomeOf(position: CasePosition): string {
+  if (position.kind === "out-of-scope") return "out-of-scope";
+  if (position.kind === "boundary-unclear") return "boundary-unclear";
+  return position.stage.kind === "suggested" ? position.stage.stageId : position.stage.kind;
+}
+
+/** The stage resolution inside a position, when there is one. */
+function stageOf(position: CasePosition): StageResolution | null {
+  return position.kind === "out-of-scope" ? null : position.stage;
 }
 
 function expectedOf(story: Story): string {
   return story.expect.kind === "stage" ? story.expect.stageId : story.expect.kind;
 }
 
-async function classify(story: Story, usage: Usage[]): Promise<StageResolution> {
+/*
+ * *** THE EVAL RUNS THE REAL PIPELINE ***
+ *
+ * It used to call the stage resolver directly, which meant the five
+ * out-of-scope stories were measuring a component that does not own that
+ * decision — and the resolver kept being blamed for a job belonging to
+ * `classifyCourtPath`.
+ *
+ * `resolveCasePosition` is what the API route runs. Measuring anything else
+ * would be measuring an arrangement of parts nobody uses.
+ */
+/**
+ * Stories about an EXISTING case carry the court path the product already has.
+ *
+ * A case in the builder holds `court_path` from intake. Re-deriving it from a
+ * fragment about service is asking a settled question badly — "he was served
+ * last Tuesday by a process server" came back as a Landlord and Tenant Board
+ * matter when it was put through the intake classifier.
+ *
+ * Stories about a case that does not exist yet — before-filing, out-of-scope,
+ * the landlord boundary — carry nothing, because at intake nothing is settled.
+ * That is the entry point those stories actually exercise.
+ */
+function knownCourtPathFor(story: Story): string | null {
+  if (story.expect.kind !== "stage") return null;
+  return /^(plaintiff|defendant|both):/.test(story.expect.stageId) ? "small-claims" : null;
+}
+
+async function classify(story: Story): Promise<CasePosition> {
   try {
-    const client = createOpenAIClient();
-    const response = await client.chat.completions.create({
+    return await resolveCasePosition(story.text, {
       model: MODEL,
-      temperature: 0,
-      seed: 1,
-      response_format: { type: "json_object" },
-      messages: [
-        { role: "system", content: STAGE_RESOLVER_SYSTEM },
-        {
-          role: "user",
-          content: `STAGES:\n\n${stageCatalogueForPrompt()}\n\nTHE CASE:\n\n${story.text}`,
-        },
-      ],
+      knownCourtPath: knownCourtPathFor(story),
     });
-
-    addUsage(usage, {
-      model: MODEL,
-      inputTokens: response.usage?.prompt_tokens ?? 0,
-      outputTokens: response.usage?.completion_tokens ?? 0,
-      calls: 1,
-    });
-
-    const content = response.choices[0]?.message?.content;
-    return resolveFromModelOutput(content ? (JSON.parse(content) as StageModelOutput) : null);
   } catch (error) {
     console.error(`  ${story.id}: ${error instanceof Error ? error.message : String(error)}`);
-    return resolveFromModelOutput(null);
+    return { kind: "in-scope", stage: resolveFromModelOutput(null) };
   }
 }
 
@@ -120,7 +142,8 @@ async function main(): Promise<void> {
   console.log("");
 
   for (const story of stories) {
-    const resolution = await classify(story, usage);
+    const position = await classify(story);
+    const resolution = stageOf(position);
 
     /*
      * What the user would actually SEE. A suggested stage with no published
@@ -129,13 +152,13 @@ async function main(): Promise<void> {
      * the harm.
      */
     const shownStageId =
-      resolution.kind === "suggested" && renderStageAnswer(resolution.stageId)
+      resolution?.kind === "suggested" && renderStageAnswer(resolution.stageId)
         ? resolution.stageId
         : null;
 
-    results.push({ story, resolution, shownStageId });
+    results.push({ story, position, shownStageId });
 
-    const got = outcomeOf(resolution);
+    const got = outcomeOf(position);
     const want = expectedOf(story);
     const ok = got === want;
     /*
@@ -146,7 +169,7 @@ async function main(): Promise<void> {
      * a higher floor. The number does.
      */
     const confidence =
-      resolution.kind === "suggested" ? ` @${resolution.confidence.toFixed(2)}` : "";
+      resolution?.kind === "suggested" ? ` @${resolution.confidence.toFixed(2)}` : "";
     console.log(
       `  ${ok ? "ok  " : "MISS"}  ${story.id.padEnd(30)} want ${want.padEnd(44)} got ${got}${confidence}`,
     );
@@ -162,7 +185,7 @@ function report(
 ): void {
   const resolvable = results.filter((result) => result.story.expect.kind === "stage");
   const correct = results.filter(
-    (result) => outcomeOf(result.resolution) === expectedOf(result.story),
+    (result) => outcomeOf(result.position) === expectedOf(result.story),
   );
 
   /*
@@ -183,21 +206,21 @@ function report(
    * claim is not the same size of error as a neighbouring-stage mix-up.
    */
   const dangerous = results.filter((result) =>
-    (result.story.neverSuggest ?? []).includes(outcomeOf(result.resolution)),
+    (result.story.neverSuggest ?? []).includes(outcomeOf(result.position)),
   );
 
   const outOfScope = results.filter((result) => result.story.expect.kind === "out-of-scope");
   const outOfScopeMissed = outOfScope.filter(
-    (result) => result.resolution.kind !== "out-of-scope",
+    (result) => result.position.kind !== "out-of-scope",
   );
 
   const shouldBeUnknown = results.filter((result) => result.story.expect.kind === "unknown");
   const overconfident = shouldBeUnknown.filter(
-    (result) => result.resolution.kind === "suggested",
+    (result) => stageOf(result.position)?.kind === "suggested",
   );
 
   const stageAccuracy = resolvable.length
-    ? (resolvable.filter((r) => outcomeOf(r.resolution) === expectedOf(r.story)).length /
+    ? (resolvable.filter((r) => outcomeOf(r.position) === expectedOf(r.story)).length /
         resolvable.length) *
       100
     : 0;
@@ -244,22 +267,22 @@ function report(
     console.log(`${label}:`);
     for (const entry of entries) {
       console.log(`  ${entry.story.id}`);
-      console.log(`      want ${expectedOf(entry.story)}, got ${outcomeOf(entry.resolution)}`);
+      console.log(`      want ${expectedOf(entry.story)}, got ${outcomeOf(entry.position)}`);
       console.log(`      ${entry.story.because}`);
     }
     console.log("");
   }
 
   const misses = results.filter(
-    (result) => outcomeOf(result.resolution) !== expectedOf(result.story),
+    (result) => outcomeOf(result.position) !== expectedOf(result.story),
   );
   if (misses.length > 0) {
     console.log("ALL MISSES:");
     for (const miss of misses) {
-      const unknown = miss.resolution.kind === "unknown";
+      const unknown = stageOf(miss.position)?.kind === "unknown";
       console.log(
         `  ${unknown ? "(unsure)" : "(wrong) "} ${miss.story.id}: want ` +
-          `${expectedOf(miss.story)}, got ${outcomeOf(miss.resolution)}`,
+          `${expectedOf(miss.story)}, got ${outcomeOf(miss.position)}`,
       );
     }
     console.log("");

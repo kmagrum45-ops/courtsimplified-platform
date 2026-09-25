@@ -30,17 +30,10 @@
 import { NextResponse } from "next/server";
 
 import {
-  createOpenAIClient,
-  withAbortableTimeout,
-} from "../../../../src/lib/case-system/openaiClient";
+  resolveCasePosition,
+  type CasePosition,
+} from "../../../../src/lib/case-system/stage-map/resolveCasePosition";
 import { withAiCallContext, recordAiValidation } from "../../../../src/lib/audit/aiCallLog";
-import {
-  resolveFromModelOutput,
-  stageCatalogueForPrompt,
-  STAGE_RESOLVER_SYSTEM,
-  type StageModelOutput,
-  type StageResolution,
-} from "../../../../src/lib/case-system/stage-map/resolveStage";
 import {
   UNKNOWN_STAGE_MESSAGE,
   UNKNOWN_STAGE_MESSAGE_NO_QUESTION,
@@ -50,20 +43,56 @@ import {
 import { renderStageAnswer } from "../../../../src/lib/content-library/stageAnswerView";
 
 const MAX_CONTEXT_BYTES = 20_000;
-const TIMEOUT_MS = 25_000;
 
-type Body = { caseContext?: unknown; caseId?: unknown };
+type Body = { caseContext?: unknown; caseId?: unknown; courtPath?: unknown };
 
 function text(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
 /** Everything the user sees, assembled from content that was checked first. */
-function present(resolution: StageResolution) {
+function present(position: CasePosition) {
+  if (position.kind === "out-of-scope") {
+    return {
+      outcome: "out-of-scope" as const,
+      message: OUT_OF_SCOPE_STAGE_MESSAGE,
+      forum: position.forum ? { id: position.forum.id, name: position.forum.name } : null,
+      referrals: STAGE_REFERRALS,
+    };
+  }
+
+  const resolution = position.stage;
+
+  /*
+   * The boundary caveat rides ALONGSIDE the answer, never instead of it.
+   *
+   * See resolveCasePosition: where the LTB / Small Claims line falls for a
+   * former tenant is unsourceable, so the person gets the Small Claims
+   * guidance AND is told the forum may be the other one. A dead end would be
+   * safe and useless.
+   */
+  const caveat =
+    position.kind === "boundary-unclear"
+      ? {
+          forum: position.forum ? { id: position.forum.id, name: position.forum.name } : null,
+          message: position.reasoning,
+          referrals: STAGE_REFERRALS,
+        }
+      : null;
+
+  /*
+   * The resolver's own out-of-scope backstop fired.
+   *
+   * Scope is settled before it is called, so reaching here means the stage
+   * resolver saw a matter that plainly belongs elsewhere and the classifier
+   * had let it through. Treated as out of scope rather than overruled — it is
+   * the second of two components to say so.
+   */
   if (resolution.kind === "out-of-scope") {
     return {
       outcome: "out-of-scope" as const,
       message: OUT_OF_SCOPE_STAGE_MESSAGE,
+      forum: null,
       referrals: STAGE_REFERRALS,
     };
   }
@@ -78,6 +107,7 @@ function present(resolution: StageResolution) {
       clarifyingQuestion: resolution.clarifyingQuestion ?? null,
       candidates: resolution.candidates,
       referrals: STAGE_REFERRALS,
+      caveat,
     };
   }
 
@@ -96,6 +126,7 @@ function present(resolution: StageResolution) {
       clarifyingQuestion: null,
       candidates: [resolution.stageId],
       referrals: STAGE_REFERRALS,
+      caveat,
     };
   }
 
@@ -108,6 +139,7 @@ function present(resolution: StageResolution) {
       alternative: resolution.alternative ?? null,
     },
     answer,
+    caveat,
   };
 }
 
@@ -129,51 +161,21 @@ export async function POST(request: Request) {
 
   const caseId = text(body.caseId) || null;
 
-  const resolution = await withAiCallContext({ callType: "stage-resolver", caseId }, async () => {
-    let output: StageModelOutput | null = null;
+  const courtPath = text(body.courtPath) || null;
 
-    try {
-      const client = createOpenAIClient();
-      const response = await withAbortableTimeout(
-        (signal) =>
-          client.chat.completions.create(
-            {
-              model: "gpt-4o-mini",
-              temperature: 0,
-              seed: 1,
-              response_format: { type: "json_object" },
-              messages: [
-                { role: "system", content: STAGE_RESOLVER_SYSTEM },
-                {
-                  role: "user",
-                  content: `STAGES:\n\n${stageCatalogueForPrompt()}\n\nTHE CASE:\n\n${caseContext}`,
-                },
-              ],
-            },
-            { signal },
-          ),
-        TIMEOUT_MS,
-      );
+  const position = await withAiCallContext({ callType: "stage-resolver", caseId }, async () => {
+    const resolved = await resolveCasePosition(caseContext, { knownCourtPath: courtPath });
 
-      const content = response?.choices[0]?.message?.content;
-      if (content) output = JSON.parse(content) as StageModelOutput;
-    } catch {
-      // Any failure is UNKNOWN. See the header: there is no path from a
-      // failure to a confident answer.
-      output = null;
-    }
-
-    const resolved = resolveFromModelOutput(output);
-
+    const stage = resolved.kind === "out-of-scope" ? null : resolved.stage;
     recordAiValidation(
-      resolved.kind === "suggested" ? "valid" : "invalid",
-      resolved.kind === "suggested"
-        ? `stage ${resolved.stageId} at ${resolved.confidence}`
-        : `declined: ${resolved.kind}`,
+      stage?.kind === "suggested" ? "valid" : "invalid",
+      stage?.kind === "suggested"
+        ? `stage ${stage.stageId} at ${stage.confidence}`
+        : `declined: ${resolved.kind}${stage ? ` / ${stage.kind}` : ""}`,
     );
 
     return resolved;
   });
 
-  return NextResponse.json(present(resolution));
+  return NextResponse.json(present(position));
 }

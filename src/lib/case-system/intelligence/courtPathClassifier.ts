@@ -120,6 +120,14 @@ const TENANCY_ENDED_SIGNALS = [
   "former tenant",
   "former landlord",
   "ex-landlord",
+  // Added with the Part 6 scope work. "My old landlord is suing me for $2,800
+  // in damage" was matching LTB at full confidence, because none of the
+  // phrases here cover "old" — so a plain debt claim was being redirected to
+  // a tribunal that does not hear it. Same class of signal, same purpose.
+  "old landlord",
+  "old tenant",
+  "previous landlord",
+  "previous tenant",
   "ex-tenant",
   "no longer living there",
   "no longer live there",
@@ -285,6 +293,10 @@ const SYSTEM_PROMPT =
   'Set primaryPath to "out-of-scope" and outOfScopeForum to the matching id ONLY when the story affirmatively ' +
   "describes that forum's specific subject matter -- an explicit landlord/tenant/eviction relationship for ltb, " +
   "an explicit discrimination/accommodation issue for hrto, an explicit workplace injury for wsiat, and so on for " +
+  "An injury on its own is NOT wsiat. wsiat is workplace injury and workers compensation: the person must have " +
+  "been hurt AT WORK or be dealing with WSIB. Slipping on an icy sidewalk, falling in a shop car park, or any " +
+  "other injury away from work is an ordinary court matter, not a tribunal one — a real run sent two slip-and-fall " +
+  "stories to wsiat purely because somebody was hurt. " +
   "each id -- never inferred from the story's absence of an in-scope fit. Out-of-scope is never a default for an " +
   "unclear or uninformative story. A story that is vague, generic, or simply too short to identify any specific " +
   "claim is NOT evidence of being out-of-scope -- the mere fact that a story doesn't clearly fit family, " +
