@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 
+import { supabasePublic } from "@/src/lib/supabase/client";
+
 type InventoryRow = {
   id: string;
   form_id: string | null;
@@ -151,7 +153,10 @@ export default function PdfFieldMapperPage() {
     async function loadMappings() {
       if (!selectedFilePath) return;
 
-      const { data, error } = await supabase
+      // Reading the mapping is public reference data, so it goes through the
+      // session-free client — a stale token must not blank it. The upsert
+      // below is a write and keeps the signed-in client.
+      const { data, error } = await supabasePublic
         .from("pdf_overlay_fields")
         .select(`
           field_key,

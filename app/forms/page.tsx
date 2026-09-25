@@ -5,6 +5,8 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 
+import { supabasePublic, isSessionTokenError } from "@/src/lib/supabase/client";
+
 import {
   getCanonicalFormLookup,
   resolveSelectedFormsCase,
@@ -17,6 +19,11 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 );
+
+/*
+ * The catalogue is read through a client with no session attached, so a
+ * rejected login cannot blank public reference data. See the import.
+ */
 
 type CourtPath = FormsCourtPath;
 
@@ -536,8 +543,17 @@ function FormsPageContent() {
       setLoading(true);
       setLoadError("");
 
+      /*
+       * Read the catalogue through the SESSION-FREE client.
+       *
+       * The form library is public reference data and needs no session. Read
+       * through the signed-in client it inherited the session's access token,
+       * so a rejected token ("JWT issued in the future" — clock skew) blanked
+       * the whole page with an error that looked like the catalogue was gone.
+       * See src/lib/supabase/client.ts.
+       */
       const [{ data, error }, provenanceResult] = await Promise.all([
-        supabase
+        supabasePublic
         .from("court_form_master_view")
         .select(
           "canonical_form_id, court_type, form_number, official_title, pdf_path, word_path, form_group, procedure_stage, purpose, version_count",
@@ -545,7 +561,7 @@ function FormsPageContent() {
         .eq("court_type", path)
         .order("form_number", { ascending: true })
         .order("official_title", { ascending: true }),
-        supabase
+        supabasePublic
           .from("court_form_library")
           .select("canonical_form_id,court_type,form_source_id,official_source_url,form_revision_or_effective_at,form_checked_at,form_review_status")
           .eq("court_type", path)
@@ -553,7 +569,22 @@ function FormsPageContent() {
       ]);
 
       if (error) {
-        setLoadError(error.message);
+        /*
+         * Say which kind of failure this is.
+         *
+         * "Could not load forms — JWT issued in the future" told a user the
+         * catalogue was broken when the catalogue was fine and the sign-in was
+         * stale. Reading without a session should make that impossible here,
+         * but if a token error ever does surface, it should read as a sign-in
+         * problem rather than as missing data.
+         */
+        setLoadError(
+          isSessionTokenError(error.message)
+            ? "Your sign-in could not be verified, so this did not load. Signing out " +
+              "and back in usually fixes it. If it keeps happening, the clock on this " +
+              `device may be out of step with the server. (${error.message})`
+            : error.message,
+        );
         setForms([]);
         setLoading(false);
         return;
@@ -574,7 +605,8 @@ function FormsPageContent() {
 
   useEffect(() => {
     async function loadOverlaySupport() {
-      const { data, error } = await supabase
+      // Also public reference data — which fields a form PDF supports.
+      const { data, error } = await supabasePublic
         .from("pdf_overlay_fields")
         .select("file_path");
 
