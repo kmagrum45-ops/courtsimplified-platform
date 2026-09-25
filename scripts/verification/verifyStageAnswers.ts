@@ -29,9 +29,17 @@ import path from "node:path";
 
 import { findQuote } from "../content/verifiedContentPipeline";
 import { CASE_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
-import { answerText, type StageAnswer } from "../../src/lib/content-library/stageAnswers";
+import {
+  answerText,
+  NO_SOURCE_NOTICE,
+  type StageAnswer,
+} from "../../src/lib/content-library/stageAnswers";
 import { readability, TARGET_GRADE } from "../../src/lib/content-library/readability";
 import { NEXT_STEP_BLOCKS } from "../../src/lib/content-library/nextSteps";
+import { R_9_01_DEFENCE } from "../../src/lib/case-system/stage-map/citations";
+
+/** Real source text, used as the control against the fabricated quote. */
+const CITATION_FOR_CONTROL = R_9_01_DEFENCE.quote;
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const ANSWERS = path.join(ROOT, "docs", "content-pipeline", "stage-answers.json");
@@ -56,6 +64,69 @@ const stages = new Map(CASE_STAGES.map((stage) => [stage.id, stage]));
 
 const verified = answers.filter((a) => a.verification.status === "verified-draft");
 const needsHuman = answers.filter((a) => a.verification.status === "needs-human");
+const noSource = answers.filter((a) => a.verification.status === "no-source");
+
+// ---------------------------------------------------------------------------
+// no-source blocks say so, and say it in the fixed wording
+// ---------------------------------------------------------------------------
+
+/*
+ * These ARE shown to users, so they get checked like published content.
+ *
+ * The risk specific to them is drift: a block that quietly stops carrying the
+ * notice reads as though we had guidance when we do not, which is the exact
+ * failure the status exists to prevent. And any sentence that survived into
+ * one must still have verified — the notice is added alongside the sourced
+ * fragments, never instead of checking them.
+ */
+for (const answer of noSource) {
+  check(
+    `${answer.id}: carries the no-source notice`,
+    answerText(answer).includes(NO_SOURCE_NOTICE),
+    "without it the block reads as guidance rather than as an honest gap",
+  );
+
+  /*
+   * The notice must not sit next to guidance in the same section.
+   *
+   * A run produced: "You can file in the Superior Court of Justice or waive
+   * the amount over $50,000. The rules do not set out a step for this." The
+   * block set out the step and then denied doing so, in consecutive sentences.
+   * A reader who notices that stops trusting everything else on the page.
+   *
+   * So the notice appears ONLY in a section the pipeline recorded as empty.
+   */
+  if (answer.verification.status === "no-source") {
+    const emptySections = new Set(answer.verification.sectionsWithoutSource);
+    for (const name of ["whatToDoNext", "whatHappensAfter"] as const) {
+      const section = answer[name];
+      if (!section?.includes(NO_SOURCE_NOTICE)) continue;
+      check(
+        `${answer.id}: the no-source notice is only where there is no source (${name})`,
+        emptySections.has(name) && section.trim() === NO_SOURCE_NOTICE,
+        "this section carries the notice alongside sourced guidance, so it says we " +
+          "cannot help immediately after helping",
+      );
+    }
+  }
+
+  check(
+    `${answer.id}: every surviving sentence was supported`,
+    answer.verification.status === "no-source" &&
+      answer.verification.verdicts.some((verdict) => verdict.supported),
+    "a no-source block keeps only what verified — if nothing did, it should say only " +
+      "the notice, and that is worth a look",
+  );
+
+  for (const verdict of answer.verification.verdicts) {
+    if (!verdict.supported) continue;
+    check(
+      `${answer.id}: no unverifiable quote survived into a published block`,
+      !unverifiableQuote(verdict),
+      `"${(verdict.quote ?? "").slice(0, 100)}"`,
+    );
+  }
+}
 
 // ---------------------------------------------------------------------------
 // Nothing claims an approval it does not have
@@ -169,20 +240,88 @@ for (const answer of verified) {
   );
 
   for (const verdict of verdicts) {
-    // A premise-supported sentence has no corpus quote by design.
-    if (!verdict.quote || verdict.sourceId === "stage-premise") continue;
-    const stillThere = verdict.quote
-      .split(" | ")
-      .every((quote) => findQuote(quote) !== null || quote.length < 25);
+    if (!unverifiableQuote(verdict)) continue;
     check(
       `${answer.id}: quoted support is still in the corpus`,
-      stillThere,
-      `a passage this block rests on is no longer in the vendored text:\n      ` +
-        `"${verdict.quote.slice(0, 120)}"\n      ` +
+      false,
+      `a passage this block rests on is not in the vendored text:\n      ` +
+        `"${(verdict.quote ?? "").slice(0, 120)}"\n      ` +
         `If the corpus was re-vendored, this block needs re-verification, not a green tick.`,
     );
   }
 }
+
+/**
+ * A verdict whose quoted support cannot be found in the vendored corpus.
+ *
+ * Extracted so the same predicate can be run against a SYNTHETIC block below.
+ * A check that only ever sees real data passes whenever the data happens to be
+ * clean, which tells you nothing about whether it would catch the thing it
+ * exists for.
+ *
+ * A premise-supported sentence has no corpus quote by design and is not a
+ * failure. A quote too short to be support was already rejected upstream.
+ */
+function unverifiableQuote(verdict: {
+  quote?: string;
+  sourceId?: string;
+  supported?: boolean;
+}): boolean {
+  if (!verdict.supported) return false;
+  if (!verdict.quote || verdict.sourceId === "stage-premise") return false;
+  return verdict.quote
+    .split(" | ")
+    .some((quote) => quote.trim().length >= 25 && findQuote(quote) === null);
+}
+
+// ---------------------------------------------------------------------------
+// A fabricated quote can never reach verified-draft — asserted synthetically
+// ---------------------------------------------------------------------------
+
+/*
+ * *** WHY A SYNTHETIC CASE AND NOT JUST THE REAL BLOCKS ***
+ *
+ * Every check above runs against whatever the last pipeline run produced. If
+ * that output is clean, they all pass — including the one that would catch a
+ * fabricated quote — and the suite reports success without ever having
+ * exercised the thing that matters. A green run would then mean "today's data
+ * is fine", not "invented support cannot get through".
+ *
+ * So the predicate is run against a block that is wrong on purpose: marked
+ * verified-draft, every field present, one verdict quoting a passage that
+ * reads exactly like O. Reg. 258/98 and appears nowhere in it.
+ *
+ * This is not hypothetical. The pipeline's code gate caught real verifier
+ * output doing exactly this, twice, on sentences the verifier itself had
+ * called supported.
+ */
+const FABRICATED_QUOTE =
+  "A defendant who fails to file a defence within the prescribed time shall be " +
+  "deemed to have admitted the allegations in the plaintiff's claim.";
+
+check(
+  "a fabricated quote is detected as unverifiable",
+  unverifiableQuote({ supported: true, quote: FABRICATED_QUOTE, sourceId: "oreg-258-98-small-claims-rules" }),
+  "invented support marked verified-draft would pass review unnoticed — this is the " +
+    "one failure a reviewer reading the verification record cannot catch",
+);
+
+check(
+  "genuine support is NOT flagged as unverifiable",
+  !unverifiableQuote({
+    supported: true,
+    quote: CITATION_FOR_CONTROL,
+    sourceId: "oreg-258-98-small-claims-rules",
+  }),
+  "if real quotes are flagged, every true block fails and the check is worthless — " +
+    "rejecting everything and accepting everything are both failures",
+);
+
+check(
+  "a premise-supported sentence is not flagged",
+  !unverifiableQuote({ supported: true, quote: "You have been served.", sourceId: "stage-premise" }),
+  "the premise has no corpus quote by design",
+);
 
 // ---------------------------------------------------------------------------
 // needs-human means not shown
@@ -255,7 +394,10 @@ for (const answer of verified) {
 console.log("");
 console.log("STAGE ANSWERS");
 console.log("");
-console.log(`  ${answers.length} block(s): ${verified.length} verified-draft, ${needsHuman.length} needs-human`);
+console.log(
+  `  ${answers.length} block(s): ${verified.length} verified-draft, ` +
+    `${needsHuman.length} needs-human, ${noSource.length} no-source`,
+);
 console.log(`  ${passed} check(s) passed`);
 console.log("");
 

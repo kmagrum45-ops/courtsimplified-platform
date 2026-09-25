@@ -90,6 +90,32 @@ export type VerificationRecord =
       verdicts: SentenceVerdict[];
       /** The sentences that could not be supported, for the person who picks it up. */
       unsupported: string[];
+    }
+  /*
+   * *** no-source: THERE IS NOTHING TO SAY, AND SAYING SO IS THE ANSWER ***
+   *
+   * Some stages have no official source for what to do. `both:filed-in-wrong-place`
+   * is the clearest: the rules say where an action SHALL BE COMMENCED and
+   * nothing anywhere says how to fix having commenced it in the wrong place.
+   *
+   * Lumping those in with `needs-human` was wrong in a way that mattered. It
+   * implied a person could sit down, work harder and write the block — and
+   * they cannot, because the material does not exist. It also meant a user in
+   * that position got NOTHING from us, when what they need is the truth: here
+   * is what the rules do say, we cannot tell you the rest, here is who can.
+   *
+   * These blocks ARE publishable. The fixed wording states no law and makes no
+   * promise; the sourced fragments around it are the sentences that passed
+   * verification. What distinguishes this from a failure is that its emptiness
+   * is deliberate and declared.
+   */
+  | {
+      status: "no-source";
+      recordedAt: string;
+      attempts: number;
+      verdicts: SentenceVerdict[];
+      /** Which sections had no source, so a reviewer can confirm the gap is real. */
+      sectionsWithoutSource: string[];
     };
 
 export type StageAnswer = {
@@ -138,8 +164,29 @@ export function answerText(answer: StageAnswer): string {
     .join("\n\n");
 }
 
-/** Only these may be shown to a user. `draft` and `needs-human` may not. */
-export const RENDERABLE_STATUSES = ["verified-draft", "approved"] as const;
+/**
+ * Fixed wording for a stage the rules do not cover.
+ *
+ * Written by hand, not by a model, and it states no law — which is the point.
+ * It is what honesty looks like when the sources run out, and it is better
+ * than the alternatives: silence, or plausible prose about a procedure nobody
+ * can point to.
+ */
+export const NO_SOURCE_NOTICE =
+  "The rules do not set out a step for this. We would rather tell you that than " +
+  "guess. The court office where your case is filed can tell you what to do in " +
+  "your situation, and the services below can help you work out where you stand.";
+
+/**
+ * Only these may be shown to a user.
+ *
+ * `no-source` is included deliberately: it carries the sourced fragments that
+ * DID verify plus fixed wording saying the rest is not written down. A person
+ * in that position is better served by that than by an empty screen.
+ * `needs-human` and `draft` are not shown — those are blocks we could write
+ * and have not finished.
+ */
+export const RENDERABLE_STATUSES = ["verified-draft", "approved", "no-source"] as const;
 
 export function isRenderable(answer: StageAnswer): boolean {
   return (RENDERABLE_STATUSES as readonly string[]).includes(answer.verification.status);

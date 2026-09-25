@@ -236,6 +236,63 @@ export function assertsRequirement(sentence: string): boolean {
 }
 
 /**
+ * Does this sentence predict an outcome? Refused even when a source says it.
+ *
+ * *** WHY "SOURCED" IS NOT A DEFENCE HERE ***
+ *
+ * A verified block said: "The faster you act, the better your chances of
+ * collecting the money owed." Every sentence in it was supported, that one by
+ * the court's own after-judgment guide. The verifier passed it correctly — the
+ * source really does say it.
+ *
+ * It still cannot go out. CLAUDE.md §3 is not a rule about accuracy, it is a
+ * rule about what this product is: it organises facts and identifies gaps, and
+ * it does not judge how a case will go. A sourced prediction is still a
+ * prediction, and a user reading "your chances improve" is being given an
+ * assessment of their own case by a system that has no business making one.
+ *
+ * The court may tell people that. We may report that the court recommends
+ * acting promptly, and link them to it. We may not adopt the prediction in our
+ * own voice.
+ *
+ * *** WHY THIS IS CODE AND NOT ONLY AN INSTRUCTION ***
+ *
+ * Every other constraint in this pipeline is enforced twice: a model is told,
+ * and then something deterministic checks. This one earns that more than most,
+ * because the failure is invisible — a sentence about chances reads as helpful,
+ * a reviewer nods at it, and nobody ever reports being quietly told they would
+ * probably win.
+ */
+const OUTCOME_MARKERS = [
+  // Odds, in any phrasing.
+  /\bchances?\b/i,
+  /\bodds\b/i,
+  /\blikelihood\b/i,
+  /\b(un)?likely\b/i,
+  /\bprobabl[ey]\b/i,
+  // Winning and losing, including the softened forms.
+  /\b(you|your case)\s+(will|would|may|might|could)\s+(win|lose)\b/i,
+  /\b(win|lose|losing|winning)\s+(your|the)\s+case\b/i,
+  // Grading the case itself.
+  /\b(strong|weak|good|poor|solid)\s+(case|claim|defence|position|argument)\b/i,
+  // Comparatives that imply a better result.
+  /\bbetter\s+(your|the|chances|result|outcome)\b/i,
+  /\bimprove[sd]?\s+(your|the)\s+(chances|position|case|odds)\b/i,
+  /\bincrease[sd]?\s+(your|the)\s+(chances|odds)\b/i,
+  // Predicting what the court will do.
+  /\bthe\s+(judge|court)\s+will\s+(likely|probably)\b/i,
+  /\bexpect\s+to\s+(win|lose|succeed|recover)\b/i,
+];
+
+export function predictsOutcome(sentence: string): string | null {
+  for (const marker of OUTCOME_MARKERS) {
+    const found = marker.exec(sentence);
+    if (found) return found[0];
+  }
+  return null;
+}
+
+/**
  * The practical layer — fees, filing, what to bring, what happens after.
  *
  * *** WHY THE FIRST FULL RUN PRODUCED 3 BLOCKS OUT OF 35 ***
@@ -361,6 +418,7 @@ const DRAFTER_SYSTEM = `You write procedural information for people representing
 ABSOLUTE RULES
 1. Every factual statement you make must be supported by the SOURCE MATERIAL given to you. If the source material does not say something, you do not say it. Do not add anything from your own knowledge of Ontario procedure, however confident you are.
 2. Never tell the reader whether they will win, how strong their position is, what they should argue, or what a judge is likely to do. You give information; the reader applies it.
+2a. This holds EVEN WHEN A SOURCE SAYS IT. Court guides sometimes talk about improving your chances. You may report that the guide recommends something and link to it -- "the court's guide recommends starting enforcement promptly" -- but never adopt a prediction about odds, chances, likelihood, winning or losing in your own voice.
 3. Never address the reader's specific facts. Write the general position for someone at this stage.
 3a. Use Canadian spelling: defence, favour, honour, centre, judgment (not judgement). The document a defendant files is a DEFENCE.
 4. Write at a Grade 8 reading level. Short sentences. Ordinary words. Say what a term means the first time you use it.
@@ -368,7 +426,9 @@ ABSOLUTE RULES
 6. Where a form is mentioned, give BOTH its number and its name.
 7. Keep each sentence to one idea. Do not combine what the rule says with where the case stands in a single sentence.
 8. Do not write encouragement, exhortation or filler. "Prepare for the conference", "be ready for trial", "review the judgment" and "you may want to consider" say nothing a source can support and nothing a reader can act on. Every sentence must carry a fact from the sources.
-9. If the source material does not let you write one of the sections properly, write the string NOT_SUPPORTED for that section rather than filling it with something plausible.
+9. THE SECTION NAMES ARE ALREADY HEADINGS THE READER SEES. Do not restate them. "Prepare for the settlement conference", "You need to be ready for trial" and "Here is what happens next" say nothing the heading has not already said, and they carry no fact a source can support. Go straight to the specifics: which document, which form number and name, where it is filed, what it costs, what the period is.
+10. SHORTER IS BETTER. Three sentences that are each supported by a source beat ten with two rejections among them. Never pad a section to make it look complete. If a source gives you only one fact for a section, write that one fact.
+11. If the source material does not let you write one of the sections properly, write the string NOT_SUPPORTED for that section rather than filling it with something plausible. This is a correct answer, not a failure — some things genuinely are not written down.
 
 You reply with JSON only, in this shape:
 {"whatsHappening": "...", "whatToDoNext": "...", "yourDeadline": "..." or null, "whatHappensAfter": "..."}`;
@@ -380,6 +440,8 @@ You are not the author. You have not seen how these sentences were written or wh
 For EACH sentence you must decide:
 - supported: true ONLY if the source material actually states this. You must then give "quote": the exact wording from the source material that supports it, copied character for character. If the sentence draws on more than one passage, give "quote" as a LIST of the exact passages. Every passage you list must be copied from the source material. Do not paraphrase the quote. Do not construct a quote. If you cannot copy an exact passage that states this, the sentence is NOT supported.
 - supported: false otherwise. Give "reason": what the sentence claims that the sources do not say.
+
+A sentence that predicts an outcome -- chances, odds, likelihood, winning, losing, how strong a case is -- is NOT supported, even if the source material says it. Mark it unsupported and say it is a prediction.
 
 Be strict about these in particular, because they are the errors that cost people their cases:
 - a number that differs from the source (days, months, dollar amounts)
@@ -589,6 +651,27 @@ ${sentences.map((sentence, index) => `${index + 1}. ${sentence}`).join("\n")}`;
   const returned = parsed.verdicts ?? [];
 
   const verdicts: SentenceVerdict[] = sentences.map((sentence) => {
+    /*
+     * Outcome language is refused BEFORE the verifier's verdict is read.
+     *
+     * Not after, and not as a tie-breaker. If a source says it, the verifier
+     * will pass it and quote it accurately — that is the verifier working. The
+     * question this answers is not "is it true" but "is it ours to say", and
+     * the answer is no regardless.
+     */
+    const prediction = predictsOutcome(sentence);
+    if (prediction) {
+      return {
+        sentence,
+        supported: false,
+        reason:
+          `this predicts an outcome ("${prediction}"). CourtSimplified does not judge ` +
+          `how a case will go, even where a source does. Say what the source recommends ` +
+          `and link to it — "the court's guide recommends starting enforcement promptly" ` +
+          `— rather than what it will achieve.`,
+      };
+    }
+
     const match =
       returned.find((verdict) => verdict.sentence?.trim() === sentence.trim()) ??
       returned.find((verdict) => sentence.includes((verdict.sentence ?? "").slice(0, 40)));

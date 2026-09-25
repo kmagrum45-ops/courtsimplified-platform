@@ -34,6 +34,7 @@ import dotenv from "dotenv";
 import {
   findQuote,
   makesAClaim,
+  predictsOutcome,
   verify,
   addUsage,
   costOf,
@@ -136,6 +137,55 @@ check(
   makesAClaim("The clerk handles this part."),
   "",
 );
+
+/*
+ * OUTCOME LANGUAGE — refused by code, before any verifier verdict is read.
+ *
+ * The first case below is not hypothetical. It reached verified-draft: every
+ * sentence supported, that one by the court's own after-judgment guide. The
+ * verifier was right to pass it — the source really does say it.
+ *
+ * It still cannot go out. CLAUDE.md §3 is not about accuracy, it is about what
+ * this product is. A sourced prediction is still a prediction, and the reader
+ * is being handed an assessment of their own case by something with no
+ * business making one. "Sourced" is not a defence.
+ */
+for (const [sentence, why] of [
+  [
+    "The faster you act, the better your chances of collecting the money owed.",
+    "THIS ACTUALLY SHIPPED to verified-draft, sourced to the court's own guide",
+  ],
+  ["You are likely to win this case.", "bare prediction"],
+  ["The odds of recovering the full amount are good.", "odds"],
+  ["Filing early improves your chances of success.", "improvement claim"],
+  ["You have a strong case for the money owed.", "grading the case — §3 directly"],
+  ["The judge will probably order the defendant to pay.", "predicting the court"],
+] as const) {
+  check(
+    `refuses outcome language: ${sentence.slice(0, 46)}`,
+    predictsOutcome(sentence) !== null,
+    `${why} — this must be refused even when a source says it`,
+  );
+}
+
+/*
+ * And it must NOT refuse the neutral rephrasing, or the drafter has nowhere to
+ * go. Reporting what a guide recommends is information; adopting its
+ * prediction is not.
+ */
+for (const sentence of [
+  "The court's guide recommends starting enforcement promptly.",
+  "You may file a request to note the defendant in default.",
+  "The clerk may sign default judgment for a debt or liquidated demand.",
+  "A settlement conference is held in every defended action.",
+]) {
+  check(
+    `allows the neutral form: ${sentence.slice(0, 46)}`,
+    predictsOutcome(sentence) === null,
+    "if this is refused the drafter has no way to state what a source recommends, " +
+      "and the rule becomes unsatisfiable rather than protective",
+  );
+}
 
 check(
   "a quote with a changed number is still rejected",

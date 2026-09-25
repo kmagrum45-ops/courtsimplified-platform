@@ -45,7 +45,11 @@ import {
   type DraftSections,
 } from "./verifiedContentPipeline";
 import { CASE_STAGES, isSpecialStage, type CaseStage } from "../../src/lib/case-system/stage-map/stageMap";
-import type { SentenceVerdict, StageAnswer } from "../../src/lib/content-library/stageAnswers";
+import {
+  NO_SOURCE_NOTICE,
+  type SentenceVerdict,
+  type StageAnswer,
+} from "../../src/lib/content-library/stageAnswers";
 import { readability } from "../../src/lib/content-library/readability";
 
 // The key is read from .env.local inside this process and never printed.
@@ -54,7 +58,31 @@ dotenv.config({ path: ".env.local", quiet: true });
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const OUT_DIR = path.join(ROOT, "docs", "content-pipeline");
 
-const MAX_ATTEMPTS = 3; // the first draft plus two redrafts
+/*
+ * The first draft plus three redrafts.
+ *
+ * Raised from three after the first full run. The verifier's reason is fed
+ * back each time, and the pattern in the logs was a draft converging — losing
+ * one rejected sentence per pass — and then running out of attempts one short.
+ * A fourth costs about a tenth of a cent and converts blocks that were failing
+ * for want of one more edit.
+ */
+const MAX_ATTEMPTS = 4;
+
+/**
+ * A rejection that means the sources do not reach, rather than the draft being
+ * wrong.
+ *
+ * These two are different failures and were being reported as one. "The source
+ * does not mention X" after four honest attempts is not a drafting problem a
+ * person can sit down and solve — it means nobody has written X down.
+ */
+function isSourceGap(problem: string): boolean {
+  return (
+    problem.includes("could not be written from the sources") ||
+    /the source(s| material)? (does not|do not) (mention|state|specify|explicitly)/i.test(problem)
+  );
+}
 
 type Attempt = {
   attempt: number;
@@ -188,19 +216,138 @@ async function runStage(
     feedback.push(...problems);
   }
 
+  /*
+   * Out of attempts. Which kind of failure is it?
+   *
+   * If EVERY remaining problem is the sources not reaching, this is not a
+   * block someone can finish by trying harder — the material does not exist.
+   * It becomes a no-source block: the sentences that did verify, kept, plus
+   * fixed wording saying the rest is not written down and where to ask.
+   *
+   * If anything else is outstanding — a fabricated quote, a prediction, a
+   * reading level, a missing deadline — it is needs-human, because those are
+   * all fixable and none of them should be papered over by declaring the
+   * sources absent.
+   */
   const last = attempts[attempts.length - 1];
+  const allGaps = last.problems.length > 0 && last.problems.every(isSourceGap);
+
+  const base0 = {
+    id: `answer:${stage.id}`,
+    stageId: stage.id,
+    userQuestion: stage.userQuestion,
+    slots: [],
+    citations: stage.rules,
+    sourceIds: sourcesUsed(last.verdicts),
+  };
+
+  if (allGaps) {
+    /*
+     * Keep only what verified. The unsupported sentences are dropped rather
+     * than softened — a sentence nobody could source does not improve by being
+     * hedged, it just becomes harder to spot.
+     */
+    const kept = new Set(
+      last.verdicts.filter((verdict) => verdict.supported).map((verdict) => verdict.sentence),
+    );
+    const keepVerified = (section: string | null): string | null => {
+      if (!section || section === "NOT_SUPPORTED") return null;
+      const surviving = sentencesOf(section).filter((sentence) => kept.has(sentence));
+      return surviving.length > 0 ? surviving.join(" ") : null;
+    };
+
+    const trimmed: DraftSections = {
+      whatsHappening: keepVerified(last.sections.whatsHappening) ?? "",
+      whatToDoNext: keepVerified(last.sections.whatToDoNext) ?? "",
+      yourDeadline: keepVerified(last.sections.yourDeadline),
+      whatHappensAfter: keepVerified(last.sections.whatHappensAfter) ?? "",
+    };
+
+    /*
+     * *** WHICH SECTIONS ARE ACTUALLY EMPTY — NOT WHICH BLOCK HAD PROBLEMS ***
+     *
+     * The first version appended the notice to whatToDoNext unconditionally
+     * whenever the leftover problems were all source gaps. That produced this,
+     * on the over-the-limit stage:
+     *
+     *   "You can file in the Superior Court of Justice or waive the amount
+     *    over $50,000. The rules do not set out a step for this."
+     *
+     * It had just set out the step. The block contradicted itself in
+     * consecutive sentences, and a reader would rightly stop trusting it.
+     *
+     * The notice belongs only where a section is genuinely empty after the
+     * unsupported sentences are dropped. Rejected EXTRA sentences are not a
+     * gap in the sources; they are a drafter reaching past them.
+     */
+    const empty = (["whatToDoNext", "whatHappensAfter"] as const).filter(
+      (name) => !trimmed[name],
+    );
+
+    const deadlineMissing =
+      stage.deadlines.some((deadline) => deadline.length.count > 0) && !trimmed.yourDeadline;
+
+    const reading = readabilityProblem(proseOf(trimmed));
+
+    /*
+     * If nothing is missing, this block IS verified.
+     *
+     * Every sentence that remains was checked against a source and its quote
+     * found in the corpus — which is exactly what verified-draft means. The
+     * pipeline not converging on its own is a fact about the drafter, not
+     * about the content that survived.
+     */
+    if (empty.length === 0 && !deadlineMissing && !reading) {
+      return {
+        answer: {
+          ...base0,
+          whatsHappening: trimmed.whatsHappening || stage.description,
+          whatToDoNext: trimmed.whatToDoNext,
+          yourDeadline: trimmed.yourDeadline,
+          whatHappensAfter: trimmed.whatHappensAfter,
+          verification: {
+            status: "verified-draft",
+            verifiedAt: new Date().toISOString(),
+            attempts: MAX_ATTEMPTS,
+            verdicts: last.verdicts.filter((verdict) => verdict.supported),
+          },
+        },
+        attempts,
+      };
+    }
+
+    // A deadline the stage map says exists, missing from the block, is never
+    // a "no source" situation — the rule is right there. That is for a person.
+    if (!deadlineMissing) {
+      return {
+        answer: {
+          ...base0,
+          whatsHappening: trimmed.whatsHappening || stage.description,
+          whatToDoNext: trimmed.whatToDoNext
+            ? trimmed.whatToDoNext
+            : NO_SOURCE_NOTICE,
+          yourDeadline: trimmed.yourDeadline,
+          whatHappensAfter: trimmed.whatHappensAfter || NO_SOURCE_NOTICE,
+          verification: {
+            status: "no-source",
+            recordedAt: new Date().toISOString(),
+            attempts: MAX_ATTEMPTS,
+            verdicts: last.verdicts,
+            sectionsWithoutSource: empty,
+          },
+        },
+        attempts,
+      };
+    }
+  }
+
   return {
     answer: {
-      id: `answer:${stage.id}`,
-      stageId: stage.id,
-      userQuestion: stage.userQuestion,
+      ...base0,
       whatsHappening: last.sections.whatsHappening,
       whatToDoNext: last.sections.whatToDoNext,
       yourDeadline: last.sections.yourDeadline,
       whatHappensAfter: last.sections.whatHappensAfter,
-      slots: [],
-      citations: stage.rules,
-      sourceIds: sourcesUsed(last.verdicts),
       verification: {
         status: "needs-human",
         lastAttemptAt: new Date().toISOString(),
@@ -298,8 +445,11 @@ async function main(): Promise<void> {
   );
 
   console.log("");
-  const verified = answers.filter((a) => a.verification.status === "verified-draft").length;
-  console.log(`  ${verified} verified-draft, ${answers.length - verified} needs-human`);
+  const count = (status: string) => answers.filter((a) => a.verification.status === status).length;
+  console.log(
+    `  ${count("verified-draft")} verified-draft, ${count("needs-human")} needs-human, ` +
+      `${count("no-source")} no-source`,
+  );
   console.log("");
 
   let total = 0;

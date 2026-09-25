@@ -103,7 +103,8 @@
     "test:verifier": "tsx scripts/verification/verifyVerifierRejects.ts",
     "content:draft": "tsx scripts/content/draftStageAnswers.ts",
     "test:stage-answers": "tsx scripts/verification/verifyStageAnswers.ts",
-    "test:public-data": "tsx scripts/verification/verifyPublicDataNoSession.ts"
+    "test:public-data": "tsx scripts/verification/verifyPublicDataNoSession.ts",
+    "docs:suites": "tsx scripts/docs/generateSuiteIndex.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",
