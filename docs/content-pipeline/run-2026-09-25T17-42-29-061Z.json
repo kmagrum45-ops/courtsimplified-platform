@@ -1,0 +1,236 @@
+{
+  "model": "gpt-4o-mini",
+  "startedAt": "2026-09-25T17:42:08.837Z",
+  "usage": [
+    {
+      "model": "gpt-4o-mini",
+      "inputTokens": 60503,
+      "outputTokens": 2064,
+      "calls": 8
+    }
+  ],
+  "log": [
+    {
+      "stageId": "plaintiff:action-dismissed-for-delay",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "The court has dismissed your action for delay because two years passed without a judgment being sought or a trial date requested.",
+            "whatToDoNext": "You can make a motion to ask the court to set aside the dismissal. To do this, file a Notice of Motion and Supporting Affidavit [Form 15A] with the court.",
+            "yourDeadline": "Obtain judgment or request a trial date before the action is dismissed. You have 2 years, counted from the commencement of the action.",
+            "whatHappensAfter": "If you file your motion, the court will schedule a hearing date. You must serve the notice of motion and supporting affidavit on all parties at least 7 days before the hearing."
+          },
+          "verdicts": [
+            {
+              "sentence": "The court has dismissed your action for delay because two years passed without a judgment being sought or a trial date requested.",
+              "supported": true,
+              "quote": "The clerk has made an order dismissing the action because two years passed without judgment being sought or a trial date requested.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can make a motion to ask the court to set aside the dismissal.",
+              "supported": false,
+              "reason": "The source material does not state that you can make a motion to set aside the dismissal."
+            },
+            {
+              "sentence": "To do this, file a Notice of Motion and Supporting Affidavit [Form 15A] with the court.",
+              "supported": true,
+              "quote": "To make a motion you must file a Notice of Motion and Supporting Affidavit [Form 15A].",
+              "sourceId": "guide-motions-and-clerks-orders",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Obtain judgment or request a trial date before the action is dismissed.",
+              "supported": false,
+              "reason": "The source does not state that you can obtain judgment or request a trial date before the action is dismissed."
+            },
+            {
+              "sentence": "You have 2 years, counted from the commencement of the action.",
+              "supported": true,
+              "quote": "Unless the court orders otherwise, the clerk shall make an order dismissing an action for delay if, by the second anniversary of the commencement of the action, (a) the action has not been disposed of by order; and (b) no step has been taken by the plaintiff under rule 11.03 to obtain judgment, nor has a trial date been requested.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you file your motion, the court will schedule a hearing date.",
+              "supported": false,
+              "reason": "The source does not state that the court will schedule a hearing date if you file your motion."
+            },
+            {
+              "sentence": "You must serve the notice of motion and supporting affidavit on all parties at least 7 days before the hearing.",
+              "supported": true,
+              "quote": "At least 7 days before the hearing date, serve the notice of motion and supporting affidavit on the responding party or parties.",
+              "sourceId": "guide-motions-and-clerks-orders",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.677362637362638,
+          "problems": [
+            "\"You can make a motion to ask the court to set aside the dismissal.\" — The source material does not state that you can make a motion to set aside the dismissal.",
+            "\"Obtain judgment or request a trial date before the action is dismissed.\" — The source does not state that you can obtain judgment or request a trial date before the action is dismissed.",
+            "\"If you file your motion, the court will schedule a hearing date.\" — The source does not state that the court will schedule a hearing date if you file your motion."
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "The court has dismissed your action for delay because two years passed without judgment being sought or a trial date requested.",
+            "whatToDoNext": "You may make a motion to the court regarding the dismissal. To do this, fill out a Notice of Motion and Supporting Affidavit [Form 15A].",
+            "yourDeadline": "Obtain judgment or request a trial date before the action is dismissed. You have 2 years, counted from the commencement of the action.",
+            "whatHappensAfter": "After filing your motion, you will need to serve it on all parties involved in the case."
+          },
+          "verdicts": [
+            {
+              "sentence": "The court has dismissed your action for delay because two years passed without judgment being sought or a trial date requested.",
+              "supported": true,
+              "quote": "The clerk has made an order dismissing the action because two years passed without judgment being sought or a trial date requested.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may make a motion to the court regarding the dismissal.",
+              "supported": true,
+              "quote": "A party who is affected by an order obtained on motion without notice may make a motion to set aside or change the order within 30 days after being served with the order.",
+              "sourceId": "guide-motions-and-clerks-orders",
+              "quoteFound": true
+            },
+            {
+              "sentence": "To do this, fill out a Notice of Motion and Supporting Affidavit [Form 15A].",
+              "supported": true,
+              "quote": "To make a motion you must file a Notice of Motion and Supporting Affidavit [Form 15A].",
+              "sourceId": "guide-motions-and-clerks-orders",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Obtain judgment or request a trial date before the action is dismissed.",
+              "supported": false,
+              "reason": "The source does not state that you can obtain judgment or request a trial date before the action is dismissed; it only discusses the dismissal due to inaction."
+            },
+            {
+              "sentence": "You have 2 years, counted from the commencement of the action.",
+              "supported": true,
+              "quote": "Unless the court orders otherwise, the clerk shall make an order dismissing an action for delay if, by the second anniversary of the commencement of the action, (a) the action has not been disposed of by order; and (b) no step has been taken by the plaintiff under rule 11.03 to obtain judgment, nor has a trial date been requested.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "After filing your motion, you will need to serve it on all parties involved in the case.",
+              "supported": true,
+              "quote": "Generally, all parties in a case must be served with a motion so they have a chance to participate in the hearing.",
+              "sourceId": "scj-steps-in-a-case",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.429523809523811,
+          "problems": [
+            "\"Obtain judgment or request a trial date before the action is dismissed.\" — The source does not state that you can obtain judgment or request a trial date before the action is dismissed; it only discusses the dismissal due to inaction."
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "The court has dismissed your action for delay because two years passed without a judgment being sought or a trial date requested.",
+            "whatToDoNext": "You can make a motion to ask the court to set aside the dismissal. To do this, file a Notice of Motion and Supporting Affidavit [Form 15A].",
+            "yourDeadline": "Obtain judgment or request a trial date before the action is dismissed. You have 2 years, counted from the commencement of the action.",
+            "whatHappensAfter": "If the court grants your motion, your case may be reinstated and you can proceed with your claim."
+          },
+          "verdicts": [
+            {
+              "sentence": "The court has dismissed your action for delay because two years passed without a judgment being sought or a trial date requested.",
+              "supported": true,
+              "quote": "The clerk has made an order dismissing the action because two years passed without judgment being sought or a trial date requested.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can make a motion to ask the court to set aside the dismissal.",
+              "supported": false,
+              "reason": "The source material does not state that you can make a motion to set aside the dismissal."
+            },
+            {
+              "sentence": "To do this, file a Notice of Motion and Supporting Affidavit [Form 15A].",
+              "supported": true,
+              "quote": "To make a motion you must file a Notice of Motion and Supporting Affidavit [Form 15A].",
+              "sourceId": "guide-motions-and-clerks-orders",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Obtain judgment or request a trial date before the action is dismissed.",
+              "supported": false,
+              "reason": "The source does not state that you must obtain judgment or request a trial date before the action is dismissed."
+            },
+            {
+              "sentence": "You have 2 years, counted from the commencement of the action.",
+              "supported": true,
+              "quote": "Unless the court orders otherwise, the clerk shall make an order dismissing an action for delay if, by the second anniversary of the commencement of the action, (a) the action has not been disposed of by order; and (b) no step has been taken by the plaintiff under rule 11.03 to obtain judgment, nor has a trial date been requested.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court grants your motion, your case may be reinstated and you can proceed with your claim.",
+              "supported": false,
+              "reason": "The source material does not state that if the court grants your motion, your case may be reinstated."
+            }
+          ],
+          "readability": 7.159545454545455,
+          "problems": [
+            "\"You can make a motion to ask the court to set aside the dismissal.\" — The source material does not state that you can make a motion to set aside the dismissal.",
+            "\"Obtain judgment or request a trial date before the action is dismissed.\" — The source does not state that you must obtain judgment or request a trial date before the action is dismissed.",
+            "\"If the court grants your motion, your case may be reinstated and you can proceed with your claim.\" — The source material does not state that if the court grants your motion, your case may be reinstated."
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "The clerk has dismissed your action for delay because two years passed without judgment being sought or a trial date requested.",
+            "whatToDoNext": "You may file a Notice of Motion and Supporting Affidavit [Form 15A] to request a judge to address the dismissal.",
+            "yourDeadline": "Obtain judgment or request a trial date before the action is dismissed. You have 2 years, counted from the commencement of the action.",
+            "whatHappensAfter": "After you file your motion, the court will schedule a hearing date for your motion."
+          },
+          "verdicts": [
+            {
+              "sentence": "The clerk has dismissed your action for delay because two years passed without judgment being sought or a trial date requested.",
+              "supported": true,
+              "quote": "The clerk has made an order dismissing the action because two years passed without judgment being sought or a trial date requested.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may file a Notice of Motion and Supporting Affidavit [Form 15A] to request a judge to address the dismissal.",
+              "supported": false,
+              "reason": "The source does not explicitly state that you may file a Notice of Motion and Supporting Affidavit [Form 15A] to request a judge to address the dismissal."
+            },
+            {
+              "sentence": "Obtain judgment or request a trial date before the action is dismissed.",
+              "supported": false,
+              "reason": "The source does not state that you must obtain judgment or request a trial date before the action is dismissed."
+            },
+            {
+              "sentence": "You have 2 years, counted from the commencement of the action.",
+              "supported": true,
+              "quote": "Unless the court orders otherwise, the clerk shall make an order dismissing an action for delay if, by the second anniversary of the commencement of the action, (a) the action has not been disposed of by order; and (b) no step has been taken by the plaintiff under rule 11.03 to obtain judgment, nor has a trial date been requested.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "After you file your motion, the court will schedule a hearing date for your motion.",
+              "supported": true,
+              "quote": "Once your motion is submitted to the court, the court will specify the date, time and hearing details on the notice of motion form.",
+              "sourceId": "guide-motions-and-clerks-orders",
+              "quoteFound": true
+            }
+          ],
+          "readability": 8.652363636363638,
+          "problems": [
+            "\"You may file a Notice of Motion and Supporting Affidavit [Form 15A] to request a judge to address the dismissal.\" — The source does not explicitly state that you may file a Notice of Motion and Supporting Affidavit [Form 15A] to request a judge to address the dismissal.",
+            "\"Obtain judgment or request a trial date before the action is dismissed.\" — The source does not state that you must obtain judgment or request a trial date before the action is dismissed.",
+            "reads at grade 8.7, above the grade 8 target. Longest sentence: \"You may file a Notice of Motion and Supporting Affidavit [rule] to request a judge to address the dismissal.\""
+          ]
+        }
+      ],
+      "status": "needs-human"
+    }
+  ]
+}

@@ -90,6 +90,33 @@ const STAGE_CODES = [
   "not-sure",
 ] as const;
 
+/**
+ * Where the case stands, or an admission that we do not know.
+ *
+ * *** THE DEFAULT USED TO BE "starting-case", AND THAT WAS THE BUG ***
+ *
+ * docs/accuracy-diagnosis.md traced ten realistic stories through this code.
+ * Eight received the same guidance. The proximate cause was a
+ * `text.includes("defendant")` elsewhere, but this line was the more dangerous
+ * half: when the three real signals were all absent, it asserted that the case
+ * was at the beginning.
+ *
+ * A default is a confident answer given without evidence. This one told a
+ * defendant who already had default judgment signed against them how to start
+ * a claim — because nothing had recorded a stage, and "nothing recorded" was
+ * being read as "nothing has happened".
+ *
+ * "not-sure" is a real position with its own content: `next:small-claims:not-sure`
+ * directs to the referral resources rather than guessing at a procedural step.
+ * Saying we cannot tell costs one more question. Guessing costs somebody the
+ * step they were actually due to take.
+ *
+ * The richer form of this — a model reading the full case context and
+ * returning a stage from the 37-position map, with UNKNOWN and a clarifying
+ * question when it cannot tell — is in
+ * src/lib/case-system/stage-map/resolveStage.ts. This function stays on the
+ * nine-value builder taxonomy until that is wired through the builder.
+ */
 function getStageForPersistence(
   analysis: AnalysisResult | null,
   caseData: StoredCaseData | null,
@@ -98,7 +125,7 @@ function getStageForPersistence(
     analysis?.intelligence?.proceduralPosture?.stage ||
     caseData?.caseStage ||
     analysis?.caseStage ||
-    "starting-case"
+    "not-sure"
   );
 }
 

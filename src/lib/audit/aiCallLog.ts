@@ -62,7 +62,14 @@ export type AiCallType =
   | "extract-intake-facts"
   | "extract-intake-facts-confidence"
   | "claim-type-classifier"
-  | "small-claims-analysis";
+  | "small-claims-analysis"
+  /**
+   * Part 5: the stage resolver. Its reasoning is recorded here and never
+   * shown — the whole design is to reason deeply in private and answer only
+   * from verified content, so the private half has to land somewhere a
+   * regulator can read.
+   */
+  | "stage-resolver";
 
 export type AiValidationResult = "valid" | "invalid" | "error" | "timeout";
 

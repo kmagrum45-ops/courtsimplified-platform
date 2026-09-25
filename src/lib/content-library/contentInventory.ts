@@ -40,6 +40,8 @@ import { PATHWAY_DESCRIPTIONS } from "./pathwayDescriptions";
 import { QUESTION_EXPLANATIONS } from "./questionExplanations";
 import { PROCEDURAL_STAGES } from "./proceduralStages";
 import { ASSISTANT_BLOCKS } from "./assistantBlocks";
+import { PUBLISHED_BLOCKS } from "./publishedLibrary";
+import { OFFICIAL_URLS } from "../case-system/stage-map/citations";
 import { DOCTRINE_SEED_LIBRARY } from "../case-system/knowledge/doctrineSeedLibrary";
 import {
   IMMEDIATE_DANGER_MESSAGE,
@@ -350,6 +352,45 @@ export function collectContentInventory(): ContentItem[] {
         appearsIn: block.appearsIn,
       }),
     );
+  }
+
+  /*
+   * ---- Published stage answers ----
+   *
+   * The blocks the accuracy pipeline produced and a promotion pinned. Only
+   * the PUBLISHED set is indexed — candidate runs are not content, they are
+   * proposals, and indexing one would let the output guard pass whatever the
+   * last script run happened to write.
+   *
+   * Each of the four sections is indexed separately because that is how the
+   * guard sees them. It checks a string, and a renderer shows one section at
+   * a time; indexing the joined block would mean a section on its own was not
+   * in the index and would be refused.
+   */
+  for (const block of PUBLISHED_BLOCKS) {
+    const sections: Array<[string, string | null]> = [
+      ["whats-happening", block.whatsHappening],
+      ["what-to-do-next", block.whatToDoNext],
+      ["your-deadline", block.yourDeadline],
+      ["what-happens-after", block.whatHappensAfter],
+    ];
+
+    for (const [name, text] of sections) {
+      if (!text) continue;
+      items.push(
+        item({
+          id: `${block.id}:${name}`,
+          type: "stage-answer",
+          pathway: "small-claims",
+          stage: block.stageId,
+          text,
+          sourceUrl: block.citations[0]
+            ? OFFICIAL_URLS[block.citations[0].sourceId]
+            : "",
+          appearsIn: `Stage answer for "${block.userQuestion}"`,
+        }),
+      );
+    }
   }
 
   /*

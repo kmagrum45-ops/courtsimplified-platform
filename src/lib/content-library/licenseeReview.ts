@@ -65,6 +65,8 @@ export type ContentType =
   | "form-guidance"
   | "procedural-stage"
   | "assistant-block"
+  /** A published stage answer from the accuracy pipeline. See publishedLibrary.ts. */
+  | "stage-answer"
   | "doctrine"
   | "safety-resource"
   | "remedy";

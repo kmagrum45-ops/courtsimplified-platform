@@ -708,7 +708,20 @@ async function chat(
   const client = createOpenAIClient();
   const response = await client.chat.completions.create({
     model,
+    /*
+     * As deterministic as the API allows, which is not fully deterministic.
+     *
+     * temperature 0 was already set. `seed` asks for reproducible sampling and
+     * is explicitly best-effort — OpenAI documents it as such, and the
+     * `system_fingerprint` on the response is what actually tells you whether
+     * the backend changed underneath you.
+     *
+     * So this narrows the noise; it does not remove it. That is precisely why
+     * the published content is pinned to ONE promoted run rather than being
+     * whatever the last run produced. See promoteContentRun.ts.
+     */
     temperature: 0,
+    seed: 1,
     response_format: { type: "json_object" },
     messages: [
       { role: "system", content: system },

@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-53 documented, 30 without a header.
+55 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -49,6 +49,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:overview-labels` | **Guards the two leaks the browser scenario harness found on 2026-08-22, across**<br>16 and 8 scenarios respectively: |
 | `npm run test:phase-scope` | **Phase 1 is Small Claims only, and no user reaches an empty screen.**<br>COSTS NOTHING. Reads source off disk and calls pure functions. |
 | `npm run test:public-data` | **Public reference data must not be read through a session-carrying client.**<br>The forms page went blank with "Could not load forms — JWT issued in the future". The court form catalogue is public: a read with the anon key alone returns rows from every one of those tables, and nothing about them depends on who is asking. |
+| `npm run test:published-library` | **The published set is what it says it is, and nothing else is servable.**<br>1. IMMUTABLE. The release carries a hash over its own blocks. Editing a published block by hand — fixing a typo, softening a sentence — changes the content without it having passed a single gate, and nothing downstream would know. Recomputing the hash makes th |
 | `npm run test:reachability` | **Every module is reachable from something a user can actually load, or it is**<br>listed here as dormant WITH A REASON. |
 | `npm run test:readability` | **Is the content readable by the people it is for?**<br>Content produced by the verified-content pipeline is HELD to Grade 8. That is the standard the pipeline drafts against, so failing it is a real defect in something we control end to end. |
 | `npm run test:readiness-gate` | **Verifies the Statement of Claim readiness gate, offline.**<br>COSTS NOTHING. The gate is a pure function over data the pipeline already holds, so every condition in design section 8 is checkable without an API call. That is a property of the gate, not a limitation of this harness. |
@@ -59,6 +60,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:safety-regression` | **Permanent regression suite for safetyPass.ts -- all 11 cases from**<br>Sessions 4 and 5, wired into CI (npm run test:safety-regression), same pattern as test:intake-coverage. |
 | `npm run test:stage-answers` | **Can the pipeline's output be trusted?**<br>The run log says every sentence was verified and every quote was found. This suite does not take its word for it. It re-reads each quote out of the vendored corpus, now, on this machine — because the run log is a record of what happened on one afternoon agains |
 | `npm run test:stage-map` | **Does the stage map hold up?**<br>A stage map is a list of assertions about Ontario procedure, written by someone who could be wrong or could be working from memory. Three failures matter, and each has its own check group: |
+| `npm run test:stage-resolution` | **The runtime says "we don't know" when it doesn't, and shows only published text.**<br>Part 0 traced ten realistic stories through the old runtime. Eight got the same answer. The proximate cause was `text.includes("defendant")`; the more dangerous half was `\|\| "starting-case"` — a default, which is a confident answer given without evidence, an |
 | `npm run test:status-triage` | **The family status triage records facts and concludes nothing.**<br>COSTS NOTHING. Pure function calls. |
 | `npm run test:storage-keys` | **A browser-storage key may only be named in the registry.**<br>COSTS NOTHING. Pure source scanning. |
 | `npm run test:verifier` | **Does the verifier actually reject wrong content?**<br>The whole value of a drafter/verifier split rests on the verifier being willing to say no. A verifier that agrees with plausible text is not a check, it is a second opinion from the same kind of mind, and it would turn every block green while changing nothing. |

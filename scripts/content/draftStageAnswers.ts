@@ -271,7 +271,25 @@ async function runStage(
     const trimmed: DraftSections = {
       whatsHappening: keepVerified(last.sections.whatsHappening) ?? "",
       whatToDoNext: keepVerified(last.sections.whatToDoNext) ?? "",
-      yourDeadline: keepVerified(last.sections.yourDeadline),
+      /*
+       * THE DEADLINE IS NEVER TRIMMED.
+       *
+       * Trimming keeps only the sentences the verifier supported, which is
+       * right for prose a model wrote and WRONG for the deadline, because the
+       * deadline is rendered by code from the stage map. Running it through
+       * the verifier's verdicts meant a sentence it had not happened to mark
+       * supported was silently dropped.
+       *
+       * The promotion gate caught the result: blocks stored as
+       *   "You have 6 months, counted from the date the claim was issued."
+       * where the renderer produces
+       *   "Serve the claim on the defendant. You have 6 months, counted …"
+       *
+       * So a block could reach verified-draft having quietly lost the part of
+       * its deadline that says WHAT the six months is for. Re-rendered here so
+       * the published text is always exactly what the stage map says.
+       */
+      yourDeadline: renderDeadlineSection(stage.deadlines),
       whatHappensAfter: keepVerified(last.sections.whatHappensAfter) ?? "",
     };
 
@@ -371,7 +389,8 @@ async function runStage(
       ...base0,
       whatsHappening: last.sections.whatsHappening,
       whatToDoNext: last.sections.whatToDoNext,
-      yourDeadline: last.sections.yourDeadline,
+      // Re-rendered, never carried over from the draft — see the trimming note.
+      yourDeadline: renderDeadlineSection(stage.deadlines),
       whatHappensAfter: last.sections.whatHappensAfter,
       verification: {
         status: "needs-human",

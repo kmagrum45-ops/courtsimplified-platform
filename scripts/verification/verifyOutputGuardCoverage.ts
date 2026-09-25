@@ -76,6 +76,14 @@ type GuardedPath = {
 
 const GUARDED: GuardedPath[] = [
   {
+    file: "src/lib/content-library/stageAnswerView.ts",
+    what:
+      "every section of a published stage answer -- the ONLY way one reaches a user. " +
+      "It guards the TEMPLATE before filling any slot, so an approval covers the " +
+      "reviewed words rather than one user's filled-in sentence",
+    atLeast: 1,
+  },
+  {
     file: "src/lib/content-library/renderAssistantBlock.ts",
     what:
       "every string the guided assistant can say -- it guards the block TEMPLATE, " +

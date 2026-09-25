@@ -242,18 +242,32 @@ which is the one that governs it.
 
 ---
 
-## What is deliberately not wired up
+## Part 5: the runtime
 
-The stage map and the deadline engine are **declared dormant** in
-`verifyReachability`. That is intentional and temporary.
+`POST /api/case/resolve-stage` is the door. Full case context goes to the
+model; a STAGE ID comes back. Nothing it writes reaches a user — its reasoning
+goes to `ai_call_log` and nowhere else.
 
-Wiring them to the existing `inferStage` would make them reachable while
-leaving the answers just as wrong, because that function decides by
-`text.includes("defendant")`. The taxonomy has to be right before the routing is
-rebuilt on it. **Part 5 replaces the routing; the dormant entries come out
-then.** If they are still there afterwards, something was left half-done.
+  resolveStage.ts       turns model output into a decision. Pure, so every
+                        path is tested without an API call
+  stageAnswerView.ts    the ONLY way a block reaches a user. Guards the
+                        template, then fills slots by code
+  publishedLibrary.ts   the pinned set. Candidates are never served
 
-Dormant does not mean unchecked — every quote is verified on every run.
+**Four ways to decline, and all of them are real answers.** An id not in the
+map, confidence below 0.7, two candidates it cannot separate, or no answer at
+all — every one lands in UNKNOWN with the referrals, and where the stage map
+records a boundary, the question that would settle it. There is no path from a
+failure to a confident answer, because the failure being replaced was a default
+that looked like one.
+
+`getStageForPersistence` defaulted to `"starting-case"`. It now defaults to
+`"not-sure"`, which has content directing to the referral resources.
+
+**Still dormant:** the deadline engine. Part 5 renders the PERIOD and what it
+runs from; a date needs the user's own event date and no slot supplies one yet.
+Computing a date from a date we do not have would be the worst possible use of
+it.
 
 ---
 

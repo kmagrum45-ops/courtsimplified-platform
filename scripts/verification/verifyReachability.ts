@@ -156,47 +156,16 @@ const DELIBERATELY_DORMANT: DormantEntry[] = [
       "Other half of the registry.ts dead pair. Builds an empty Ontario family case bundle that " +
       "no live family path uses — FamilyIntake posts to /api/family/analyze instead.",
   },
-  /*
-   * The stage map is dormant ON PURPOSE, and only until Part 5.
-   *
-   * It is deliberately finer than the routing code can currently resolve: 37
-   * positions where `UniversalStage` has nine. Wiring it to the existing
-   * `inferStage` would make it reachable while leaving the answers just as
-   * wrong, because that function decides by `text.includes("defendant")` —
-   * the root cause Part 0 traced. The taxonomy has to be right before the
-   * routing is rebuilt on it.
-   *
-   * Dormant does not mean unchecked: `npm run test:stage-map` verifies all 126
-   * quoted passages against the vendored corpus on every run, and
-   * `npm run rules:check` watches the provisions for amendment.
-   *
-   * These three entries come out when Part 5 replaces the runtime stage
-   * detection. If they are still here after that, something was left half-done.
-   */
-  {
-    file: "src/lib/case-system/stage-map/stageMap.ts",
-    reason:
-      "Part 2 of the accuracy work. Built before the routing that will consume it, so the " +
-      "taxonomy can be got right without being constrained by `inferStage`. Part 5 wires it up.",
-  },
-  {
-    file: "src/lib/case-system/stage-map/citations.ts",
-    reason:
-      "Quoted rule text for the stage map. Verified against the vendored corpus by " +
-      "test:stage-map on every run; reachable once Part 5 wires the stage map up.",
-  },
-  {
-    file: "src/lib/case-system/stage-map/stageMessages.ts",
-    reason:
-      "The UNKNOWN and OUT_OF_SCOPE wording and the clarifying-question lookup. Reachable " +
-      "once Part 5 replaces stage detection and can return UNKNOWN instead of defaulting.",
-  },
   {
     file: "src/lib/case-system/deadlines/deadlineEngine.ts",
     reason:
-      "Part 4. Computes dates for the stage map's deadlines and is wired up with it in " +
-      "Part 5. Exercised on every run by test:deadlines, including against every " +
-      "deadline the stage map declares.",
+      "Part 4, and still dormant AFTER Part 5 — this reason previously said Part 5 would " +
+      "wire it up, which turned out to be wrong. Part 5 resolves a stage and renders a " +
+      "published block; that block states the PERIOD and what it runs from (\"20 days, " +
+      "counted from the day you were served\") without computing a date, because a date " +
+      "needs the user's own event date and no slot supplies one yet. Computing one from " +
+      "a date we do not have would be the worst possible use of this engine. Exercised on " +
+      "every run by test:deadlines against every deadline the stage map declares.",
   },
   {
     file: "src/lib/case-system/deadlines/holidays.ts",
