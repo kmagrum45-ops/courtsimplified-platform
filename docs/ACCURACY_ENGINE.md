@@ -199,6 +199,69 @@ consequential sentence in a block is the last place a model belongs.
 
 ---
 
+## Part 6: the eval — and what it found about scope
+
+`npm run eval:accuracy`. 45 stories in the register people actually write in,
+plus 9 date cases that use no model at all.
+
+| Target | Result |
+|---|---|
+| Stage accuracy ≥ 90% | 94–97% |
+| Wrong-stage content shown | 0 |
+| Dangerous stage suggested | 0 |
+| Overconfident on ambiguous | 0 |
+| Deadline accuracy 100% | 9/9 |
+| Out-of-scope misses | **1** |
+
+**Some stories are supposed to return UNKNOWN**, and a confident answer on them
+is a failure. A suite made only of resolvable cases rewards confidence, and
+confidence is what produced the original eight-of-ten failure.
+
+### The confidence number meant nothing until it was given a scale
+
+The first runs showed the model emitting only 0.80 and 0.90, with the 0.80
+bucket containing *both* seven correct answers and three it should have
+declined. Confidence could not separate them, so raising the floor traded
+accuracy (97% → 83%) for overconfidence (3 → 0) and met neither target.
+
+The cause was mine: the prompt asked for a number 0–1 and never said what the
+numbers meant. Given an explicit scale — 0.9+ only when the story *states* the
+separating fact, 0.5–0.8 when it is being inferred — both targets came good at
+a floor of 0.85.
+
+**That floor is calibrated to a 45-story sample.** If the model drifts it is
+wrong and nothing announces it; the eval's zero-overconfidence target is what
+catches that.
+
+### Out-of-scope belongs to the court-path classifier, not here
+
+The remaining failure is one out-of-scope story, and chasing it with prompt
+edits made things oscillate — one fix, one regression, run-to-run variance of
+±2 on top. That is thrashing, not progress.
+
+The reason is architectural: **`classifyCourtPath` already exists**, already
+returns an `outOfScopeForum` (ltb, hrto, wsiat…), and is already tested. The
+stage resolver was being asked to re-do that job badly alongside its own. It
+keeps a backstop rule for a matter that plainly belongs elsewhere, but the
+decision is not its to make, and the eval currently measures the wrong
+component for those five stories.
+
+**Next step, and it is not more prompt tuning:** run scope through
+`classifyCourtPath` and call the resolver only once a matter is established as
+Small Claims.
+
+### One design tension worth knowing
+
+The resolver is told not to compute dates — that is the deadline engine's job,
+and a model doing date arithmetic in a confident voice is exactly what Part 4
+exists to prevent. But some stage boundaries *are* temporal
+("whether the 20 days have run out"). The rule now permits the coarse judgment
+a person makes without a calendar ("six weeks ago is plainly more than twenty
+days") while still forbidding computed dates. `d-missed-the-20-days` sits on
+that line and is the most frequent miss.
+
+---
+
 ## Recorded verifier errors
 
 The verifier is a check, not an oracle. When it is wrong, that goes here and

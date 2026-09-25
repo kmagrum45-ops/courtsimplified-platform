@@ -51,7 +51,33 @@ import { clarifyingQuestionsFor, distinguishingQuestion } from "./stageMessages"
  * somebody else's position — the exact failure Part 0 documented — and the
  * cost of UNKNOWN is one more question. Those are not close.
  */
-export const CONFIDENCE_FLOOR = 0.7;
+/*
+ * *** 0.85, AND THIS NUMBER IS CALIBRATED RATHER THAN CHOSEN ***
+ *
+ * It was 0.7, picked a priori. The first eval runs then measured what the
+ * model actually does, and the separation was clean:
+ *
+ *   stories it should have declined     0.80, every one
+ *   stories with the fact plainly stated 0.90
+ *
+ * That is the model applying the distinction rule 5a asks for — 0.80 when it
+ * is INFERRING the separating fact, 0.90 when the story states it — and
+ * expressing it consistently. A floor of 0.7 sat below both, so it caught
+ * nothing.
+ *
+ * *** THE HONEST CAVEAT ***
+ *
+ * A threshold set between two clusters in a 45-story sample is fitted to that
+ * sample. If the model changes, or its calibration drifts, this number is
+ * wrong and nothing will announce it. `npm run eval:accuracy` is what checks:
+ * the overconfidence target is zero, so drift shows up as a failure rather
+ * than as quietly worse answers.
+ *
+ * Raising it further is cheap in the right direction — the cost of UNKNOWN is
+ * one more question, and the cost of a confident wrong stage is somebody
+ * following another party's instructions for a week.
+ */
+export const CONFIDENCE_FLOOR = 0.85;
 
 export type StageResolution =
   | {
@@ -100,7 +126,29 @@ export function stageCatalogueForPrompt(): string {
       const boundaries = stage.distinguishedFrom
         .map((entry) => `      vs ${entry.stage}: ${entry.by}`)
         .join("\n");
-      return `- ${stage.id} (${stage.side})\n    ${stage.description}\n${boundaries}`;
+
+      /*
+       * WHOSE POSITION THIS IS, stated before anything else.
+       *
+       * The first eval run missed three stories by picking the opposite
+       * side's twin: "he was served last Tuesday" from a PLAINTIFF was read
+       * as defendant:served-defence-period-running.
+       *
+       * The cause was my stage descriptions. They are written from an
+       * observer's view — "The defendant has been served and the time to
+       * deliver a defence has not yet run out" — so a classifier matching on
+       * words sees "defendant" and "served" and picks the defendant stage.
+       * The `side` field was in the line already and was losing to the prose.
+       *
+       * Saying it as a sentence about the READER puts the decisive fact in
+       * the same register as the story it is being matched against.
+       */
+      const whose =
+        stage.side === "both"
+          ? "THE READER IS ON EITHER SIDE."
+          : `THE READER IS THE ${stage.side.toUpperCase()}.`;
+
+      return `- ${stage.id}\n    ${whose} ${stage.description}\n    They are asking: ${stage.userQuestion}\n${boundaries}`;
     })
     .join("\n");
 }
@@ -114,9 +162,19 @@ Then return ONE stage id from the list, and nothing else. You do not write anyth
 RULES
 1. Return a stage id EXACTLY as it appears in the list. Never invent one.
 2. Each stage lists what separates it from its neighbours. If you cannot tell which side of that line this case falls on, say so with a LOW confidence and name the other stage in alternativeStageId. Do not guess.
-3. confidence is 0 to 1. Use it honestly. A confident wrong answer sends somebody procedural steps for a position they are not in; an unsure answer costs one more question.
+3. confidence is 0 to 1, and it has a MEANING. Use this scale exactly:
+     0.9 to 1.0  the story STATES the fact that separates this stage from its neighbours, in so many words
+     0.5 to 0.8  the fact is implied but not stated — you are reading between the lines
+     0.0 to 0.4  you are inferring from what was NOT said, or several stages fit equally
+   Only the top band results in the person being shown procedural steps. The middle band is not a weaker yes, it is a no with a reason: we ask them one more question instead. Do not compress everything into 0.8 and 0.9 — the difference between "she told me a defence arrived" and "she didn't mention a defence" is the whole decision.
 4. If this is not an Ontario Small Claims matter at all — a family, criminal, immigration or tribunal matter, or a dispute outside Ontario — set outOfScope true.
-5. Absence of information is not evidence. If nothing says a defence was filed, that does not mean none was.
+5. Absence of information is not evidence, and this is the commonest way to get it wrong. If nothing says a defence was filed, that does not mean none was. If nothing says the claim was served, that does not mean it was not. "The claim went in a while back" tells you it was filed and NOTHING about what happened next — that is a low confidence, not a claim sitting unserved.
+5a. THE TEST FOR CONFIDENCE. Each stage lists what separates it from its neighbours. Before answering above 0.7, check that the story actually STATES that separating fact. If it does not — if you are inferring it from what the person did not mention — your confidence must be below 0.7 and you must name the neighbour in alternativeStageId. "They served him ages ago and I'm not sure where things are at" does not say whether a defence came, so it cannot be answered confidently either way.
+6. A VAGUE STORY IS NOT AN EARLY STORY. When someone says little — "I need help with my court case", "there is a court thing with my neighbour" — that tells you they did not explain, not that nothing has happened. Do NOT fall back on the earliest or most general stage. Use a low confidence and say what you would need to know.
+7. Work out WHOSE side the reader is on before anything else. "He was served last week" from someone suing is a plaintiff waiting; the same words from someone being sued are a defendant's deadline running. Each stage says which side the reader is on. Getting this backwards sends a person the other party's instructions.
+9. SCOPE. Set outOfScope true when the subject is not a Small Claims matter: what a landlord or tenant may do under a tenancy (eviction, notice to end a tenancy, rent arrears, repairs, tenancy rights); custody, access, divorce or support; discrimination or human rights; employment standards; criminal charges; immigration; or a dispute outside Ontario. Judge the SUBJECT, not a noun in the story — a money claim between a former landlord and tenant is an ordinary debt claim and IS in scope.
+   This is a backstop. The court-path classifier decides scope before you are called; if it has sent you a matter that plainly belongs elsewhere, say so rather than placing it.
+8. Do not compute DATES — no counting days to a deadline, no working out when a period expires. A separate part of the system does that from the rules. You MAY make the coarse judgment a person would make without a calendar: "six weeks ago" is plainly more than twenty days, "yesterday" is plainly within them. That is reading the story, not doing arithmetic.
 
 Reply with JSON only:
 {"stageId": "...", "confidence": 0.0, "reasoning": "...", "alternativeStageId": "..." (optional), "outOfScope": false}`;

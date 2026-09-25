@@ -107,7 +107,8 @@
     "docs:suites": "tsx scripts/docs/generateSuiteIndex.ts",
     "content:promote": "tsx scripts/content/promoteContentRun.ts",
     "test:published-library": "tsx scripts/verification/verifyPublishedLibrary.ts",
-    "test:stage-resolution": "tsx scripts/verification/verifyStageResolution.ts"
+    "test:stage-resolution": "tsx scripts/verification/verifyStageResolution.ts",
+    "eval:accuracy": "tsx scripts/eval/runAccuracyEval.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",
