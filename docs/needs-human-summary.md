@@ -18,6 +18,100 @@ content in the product.
 
 ---
 
+## Update — what genuinely needs a new source
+
+**The block-by-block list below was written against an earlier run and its
+counts have moved.** Read this section first: most of what that list called a
+source gap was not one.
+
+### Three defects of mine were hiding the sources
+
+| What | Effect |
+|---|---|
+| Guides truncated to 7,000 characters | `guide-getting-ready-for-court` is 45,269. Of 61 mentions of "witness", **one** fell inside the window. |
+| The window was mostly page furniture | ontario.ca pages open with "Skip to main content", "Ontario.ca needs JavaScript", "Log in to continue". The drafter was reading a JavaScript warning. |
+| Three stage-to-guide mapping gaps | `assessment-of-damages-needed` had **no** practical source; `plaintiff:defence-filed` got the *defendant's* replying guide; `six-month-service-window-expired` was not given the motions guide, where its answer lives. |
+
+### And a counterintuitive result worth keeping
+
+Passing the guides **whole** fixed the gap it targeted and made everything else
+worse — the drafter writes more and more loosely, lifting guide prose that
+reads above grade 8.
+
+| Budget | verified | no-source | cost |
+|---|---|---|---|
+| 7,000 | 10 | 8 | $0.20 |
+| 18,000 | 9 | 4 | $0.38 |
+| 60,000 | 9 | 3 | $0.57 |
+
+**Do not read the 7,000-character row as the best one.** A `no-source` block
+tells the user "the rules do not set out a step for this". At 7,000 characters
+eight blocks said that while the guide *did* set it out, past the cutoff — a
+false statement to a user, and worse than an honest `needs-human`. Raising the
+budget converted fake no-source blocks into visible failures. The setting is
+18,000, chosen by measuring: one mention of "witness" at 7,000, eight at
+18,000, and nothing the checks could detect from the remaining 42,000.
+
+Counts also vary run to run — verified-draft has been 15, 10, 10, 9, 9 on the
+same code. A single run is not a measurement.
+
+### The six that survive
+
+Four `no-source` blocks and two `needs-human` sections. For each, what would
+actually close it:
+
+**1. `both:filed-in-wrong-place` — "is my case in the wrong court?"**
+The clearest real gap, and it held when gpt-4o reached the same conclusion
+independently and wrote NOT_SUPPORTED. `r. 6.01 (1)` says where an action
+**shall be commenced**; `r. 6.01 (3)` says that if a judge finds the place wrong
+when the action is called, the court **may order** it tried elsewhere. That is
+what a judge does, not what a person does now.
+**Needed:** an official page on transferring a Small Claims action between
+territorial divisions, or confirmation that the only route is to wait for the
+court to raise it. Until then this stays `no-source` and points at the court
+office.
+
+**2. `before-filing:claim-exceeds-small-claims-limit` — "my claim is over the limit"**
+Half-sourced. ontario.ca says you may waive the excess and stay in Small Claims.
+Nothing vendored covers the other route.
+**Needed:** the Rules of Civil Procedure (O. Reg. 194/90) or an ontario.ca guide
+to starting a Superior Court action — **neither is in the corpus**, because the
+product is Small Claims only. Also unclear whether waiving requires particular
+wording in the claim.
+
+**3. `plaintiff:action-dismissed-for-delay` — "the court dismissed my case"**
+`r. 11.1.01` says the clerk dismisses and serves the order. `r. 11.1.02` covers
+a defendant's claim being deemed dismissed 60 days later. Nothing says what the
+plaintiff can do.
+**Needed:** an official source on whether a clerk's dismissal for delay can be
+set aside or the action restored, and how.
+
+**4. `plaintiff:six-month-service-window-expired` — "I never served them"**
+"What to do next" is now sourced — a motion to extend time, since `r. 8.01 (2)`
+lets the court extend "before or after the six months has elapsed". Only "what
+happens after" is missing.
+**Needed:** what follows an extension motion. Low value; the block is useful
+without it.
+
+**5. `before-filing:notice-municipality` — "do I have to tell the city first?"**
+"What happens after" is empty because giving notice does not *start* anything —
+it preserves the ability to sue. That is a **structure** problem, not a source
+gap: the honest content is already sourced (the limitation period still runs).
+**Needed:** nothing. Compose it from what is already cited.
+
+**6. `before-filing:limitation-period-may-have-passed` — "am I out of time?"**
+**This one should probably stay `no-source` permanently.** The Limitations Act
+says what the period is and when a claim is discovered. What a person should
+*do* when they may be out of time is advice about their own facts, which this
+product does not give and no procedural source provides. `no-source` plus the
+referrals is the correct answer here, not a gap to fill.
+
+So: **one clear gap needing new material** (filed-in-wrong-place), **two needing
+sources outside the Small Claims corpus**, one low-value, one that is a
+structure fix, and one that is correctly unanswerable.
+
+---
+
 ## First, the four things going wrong
 
 Most of the 18 are not eighteen separate problems. Counted from the run log,

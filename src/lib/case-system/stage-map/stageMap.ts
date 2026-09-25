@@ -100,6 +100,16 @@ export type StageDeadline = {
   /** The event the clock runs from. Part 4 turns this into a date. */
   countFrom: string;
   length: DeadlineLength;
+  /**
+   * Whether the period runs forward from an event or back from a hearing.
+   *
+   * Defaults to "after". Only r. 13.03 (2)'s disclosure deadline counts back,
+   * and it reads completely differently — "at least 14 days before the
+   * conference" rather than "within 14 days of" it. Recorded rather than
+   * inferred from the prose, so the renderer and the deadline engine cannot
+   * disagree about which way a clock runs.
+   */
+  direction?: "after" | "before";
   regime: CountingRegime;
   /** The provision that imposes the deadline. */
   rule: RuleCitation;
@@ -302,8 +312,13 @@ const BEFORE_FILING: CaseStage[] = [
     deadlines: [
       {
         id: "deadline:occupier-notice-60-days",
+        // Plain wording, because this is rendered straight into the block a
+        // user reads. The near-verbatim version read at grade 9.3 and pushed
+        // whole blocks over the target on its own. HOW to serve it — by hand
+        // or by registered mail, per s. 6.1 (1) — belongs in "what to do
+        // next", not in the label on a deadline.
         what:
-          "Written notice of the claim, including the date, time and location, to an occupier or the snow-removal contractor",
+          "Give written notice of the claim to an occupier or to the snow-removal contractor. The notice must say the date, time and place of the injury",
         countFrom: "the occurrence of the injury",
         length: { unit: "days", count: 60 },
         regime: "legislation-act",
@@ -740,7 +755,7 @@ const PLAINTIFF: CaseStage[] = [
         by: "whether the defendant also made a claim of their own",
       },
     ],
-    rules: [C.R_13_01_SETTLEMENT_CONFERENCE, C.R_13_01_TIMING],
+    rules: [C.R_13_01_SETTLEMENT_CONFERENCE, C.R_13_01_TIMING, C.R_13_01_CLERK_FIXES],
     deadlines: [
       {
         id: "deadline:settlement-conference-90-days",
@@ -822,10 +837,13 @@ const PLAINTIFF: CaseStage[] = [
     deadlines: [
       {
         id: "deadline:settlement-conference-disclosure-14-days",
+        // Plain wording: this renders straight into the block. The near-verbatim
+        // r. 13.03 (2) phrasing read at grade 9.3.
         what:
-          "Serve on every other party and file with the court any document to be relied on at trial that is not already attached to a claim or defence",
+          "Give every other party and the court a copy of any document you will use at trial. This includes any expert report. You do not need to send what is already attached to your claim or defence",
         countFrom: "the date of the settlement conference, counting backwards",
         length: { unit: "days", count: 14 },
+        direction: "before",
         regime: "small-claims-rules",
         rule: C.R_13_03_DISCLOSURE,
         computation: C.R_3_01_COMPUTATION,
@@ -1149,7 +1167,7 @@ const DEFENDANT: CaseStage[] = [
         by: "whether a date for the settlement conference has been received",
       },
     ],
-    rules: [C.R_13_01_SETTLEMENT_CONFERENCE, C.R_13_01_TIMING],
+    rules: [C.R_13_01_SETTLEMENT_CONFERENCE, C.R_13_01_TIMING, C.R_13_01_CLERK_FIXES],
     deadlines: [
       {
         id: "deadline:settlement-conference-90-days:defendant",
@@ -1188,7 +1206,7 @@ const DEFENDANT: CaseStage[] = [
         by: "who is making the defendant's claim and who is responding to it",
       },
     ],
-    rules: [C.R_10_01_DEFENDANTS_CLAIM],
+    rules: [C.R_10_01_DEFENDANTS_CLAIM, C.R_10_04_TRIED_TOGETHER],
     deadlines: [
       {
         id: "deadline:issue-defendants-claim-20-days",
@@ -1235,10 +1253,13 @@ const DEFENDANT: CaseStage[] = [
     deadlines: [
       {
         id: "deadline:settlement-conference-disclosure-14-days:defendant",
+        // Plain wording: this renders straight into the block. The near-verbatim
+        // r. 13.03 (2) phrasing read at grade 9.3.
         what:
-          "Serve on every other party and file with the court any document to be relied on at trial that is not already attached to a claim or defence",
+          "Give every other party and the court a copy of any document you will use at trial. This includes any expert report. You do not need to send what is already attached to your claim or defence",
         countFrom: "the date of the settlement conference, counting backwards",
         length: { unit: "days", count: 14 },
+        direction: "before",
         regime: "small-claims-rules",
         rule: C.R_13_03_DISCLOSURE,
         computation: C.R_3_01_COMPUTATION,
@@ -1300,7 +1321,10 @@ const DEFENDANT: CaseStage[] = [
         by: "whether the trial has happened",
       },
     ],
-    rules: [],
+    // r. 11.06 was missing here entirely — this stage's rules list was empty, so
+    // the drafter could not say that a default judgment can be set aside. The
+    // block that most needs a route out had no rule describing one.
+    rules: [C.R_11_06_SET_ASIDE],
     deadlines: [],
   },
 ];

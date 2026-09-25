@@ -189,6 +189,57 @@ the block is shown. Without this the verifier correctly rejected every
 blanking the form catalogue, because supabase-js attaches the session token to
 every request. See `src/lib/supabase/client.ts`.
 
+**Deadlines are rendered by code, not written by a model.** The drafter kept
+producing labels — "14 days before the settlement conference date" — which the
+verifier rejected as incomplete statements. Nine of eighteen unfinished blocks
+were failing on it. But the better answer was not to patch the prose: a
+deadline is already structured data in the stage map, authored by hand with
+every quote checked. `renderDeadlineSection` assembles it. The most
+consequential sentence in a block is the last place a model belongs.
+
+---
+
+## Recorded verifier errors
+
+The verifier is a check, not an oracle. When it is wrong, that goes here and
+becomes a control in `test:verifier`, so the same misreading cannot quietly
+kill a correct block twice.
+
+### False positive — `r. 10.03`, the defendant's-claim defence deadline
+
+The verifier rejected a correct sentence on `plaintiff:served-with-defendants-claim`,
+reasoning that the source gives 20 days from the *plaintiff's* claim. It does
+not. The rule, verbatim from the vendored corpus:
+
+> "A party who wishes to dispute **the defendant's claim** or a third party who
+> wishes to dispute the plaintiff's claim shall, **within 20 days after service
+> of the defendant's claim**, (a) serve on every other party a defence (Form
+> 9A); and (b) file the defence, with proof of service, with the clerk."
+
+One sentence covers two different parties, and **both clocks run from service
+of the defendant's claim**. The phrase "plaintiff's claim" belongs to the
+third-party limb, not to the period. The verifier attached it to the period and
+rejected a true statement.
+
+Now a control in the adversarial suite. A verifier that rejects it fails the
+build.
+
+### False negative — "must" where the rule says "may"
+
+The verifier passed "You **must** issue your Defendant's Claim within 20 days"
+against `r. 10.01 (2)`, which says the claim **may** be issued within 20 days,
+and after that — before trial or default judgment — **with leave of the court**.
+It had been told in as many words to be strict about exactly this.
+
+Turning a permission into an obligation closes a door the rule leaves open. A
+person reading it on day 25 concludes they have lost a claim they could still
+bring, and abandons it. Nobody reports that kind of harm.
+
+So there is a code gate, `modalMismatch`. The subtlety worth knowing: the rule
+contains **both** modals — "**shall** be in Form 10A and **may** be issued" —
+so presence proves nothing. The gate takes the modal **nearest the period**,
+which is the one that governs it.
+
 ---
 
 ## What is deliberately not wired up

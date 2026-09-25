@@ -179,6 +179,22 @@ export const R_13_01_SETTLEMENT_CONFERENCE = scc(
   "A settlement conference shall be held in every defended action.",
 );
 
+/*
+ * Added after the pipeline could not support "you will receive a notice with
+ * the date and time". The statement is true and this is where it lives — it
+ * was simply not in the stage's citation list, so the drafter had no way to
+ * reach it. Found by reading why a sentence failed, not by auditing the map.
+ */
+export const R_13_01_CLERK_FIXES = scc(
+  "r. 13.01 (2)",
+  "The clerk shall fix a time, date and place for the settlement conference and serve a notice of settlement conference, together with a list of proposed witnesses (Form 13A), on the parties.",
+);
+
+export const R_10_04_TRIED_TOGETHER = scc(
+  "r. 10.04 (1)",
+  "A defendant's claim shall be tried and disposed of at the trial of the action, unless the court orders otherwise.",
+);
+
 export const R_13_01_TIMING = scc(
   "r. 13.01 (3)",
   "The settlement conference shall be held within 90 days after the first defence is filed.",

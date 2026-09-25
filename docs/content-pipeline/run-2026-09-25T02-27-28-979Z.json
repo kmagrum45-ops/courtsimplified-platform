@@ -1,0 +1,501 @@
+{
+  "model": "gpt-4o-mini",
+  "startedAt": "2026-09-25T02:26:13.817Z",
+  "usage": [
+    {
+      "model": "gpt-4o-mini",
+      "inputTokens": 200036,
+      "outputTokens": 4060,
+      "calls": 16
+    }
+  ],
+  "log": [
+    {
+      "stageId": "plaintiff:service-attempted-failed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "You have attempted to serve the claim to the defendant, but the delivery has failed. You can file a motion for substituted service if you cannot find the defendant or if they are avoiding service.",
+            "whatToDoNext": "File a Notice of Motion and Supporting Affidavit [Form 15A] to request an order for substituted service. You must explain to the court why you could not serve the claim personally.",
+            "yourDeadline": "Serve the claim on the defendant. You have 6 months, counted from the date the claim was issued.",
+            "whatHappensAfter": "If the court grants your motion for substituted service, you will need to serve the defendant using the method ordered by the court."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have attempted to serve the claim to the defendant, but the delivery has failed.",
+              "supported": true,
+              "quote": "The claim has been issued and delivery to the defendant has been tried without success.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can file a motion for substituted service if you cannot find the defendant or if they are avoiding service.",
+              "supported": true,
+              "quote": "you may file a motion to seek an order for substituted service under Rule 8.04. | If it is shown that it is impractical to effect prompt service of a claim personally or by an alternative to personal service, the court may allow substituted service.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "File a Notice of Motion and Supporting Affidavit [Form 15A] to request an order for substituted service.",
+              "supported": true,
+              "quote": "To make a motion you must file a Notice of Motion and Supporting Affidavit [Form 15A].",
+              "sourceId": "guide-motions-and-clerks-orders",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must explain to the court why you could not serve the claim personally.",
+              "supported": true,
+              "quote": "You must explain to the judge why you were not able to serve the claim within the six months.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve the claim on the defendant.",
+              "supported": false,
+              "reason": "The sentence does not specify the method of service or the context in which the claim should be served, which is necessary for support."
+            },
+            {
+              "sentence": "You have 6 months, counted from the date the claim was issued.",
+              "supported": true,
+              "quote": "A claim shall be served within six months after the date it is issued.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court grants your motion for substituted service, you will need to serve the defendant using the method ordered by the court.",
+              "supported": true,
+              "quote": "the method ordered by the court is substituted for the method(s) of service allowed for that particular document and on that particular party in the Rules.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            }
+          ],
+          "readability": 8.12857142857143,
+          "problems": [
+            "\"Serve the claim on the defendant.\" — The sentence does not specify the method of service or the context in which the claim should be served, which is necessary for support.",
+            "reads at grade 8.1, above the grade 8 target. Longest sentence: \"File a Notice of Motion and Supporting Affidavit [rule] to request an order for substituted service.\""
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "You have attempted to serve the claim but have been unsuccessful. You may need to consider alternative methods of service.",
+            "whatToDoNext": "You can file a motion for substituted service under Rule 8.04. This motion requests the court to allow a different method of service if personal service is impractical.",
+            "yourDeadline": "Serve the claim on the defendant. You have 6 months, counted from the date the claim was issued.",
+            "whatHappensAfter": "If the court grants your motion for substituted service, you will need to serve the claim according to the method ordered by the court."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have attempted to serve the claim but have been unsuccessful.",
+              "supported": true,
+              "quote": "The claim has been issued and delivery to the defendant has been tried without success.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may need to consider alternative methods of service.",
+              "supported": true,
+              "quote": "If you are unable to serve your claim | you may file a motion to seek an order for substituted service under Rule 8.04.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can file a motion for substituted service under Rule 8.04.",
+              "supported": true,
+              "quote": "you may file a motion to seek an order for substituted service under Rule 8.04.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This motion requests the court to allow a different method of service if personal service is impractical.",
+              "supported": true,
+              "quote": "the court may allow substituted service.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve the claim on the defendant.",
+              "supported": false,
+              "reason": "The source does not specify that you must serve the claim on the defendant; it discusses methods of service."
+            },
+            {
+              "sentence": "You have 6 months, counted from the date the claim was issued.",
+              "supported": true,
+              "quote": "A claim shall be served within six months after the date it is issued",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court grants your motion for substituted service, you will need to serve the claim according to the method ordered by the court.",
+              "supported": true,
+              "quote": "the method ordered by the court is substituted for the method(s) of service allowed for that particular document and on that particular party in the Rules.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.415129870129874,
+          "problems": [
+            "\"Serve the claim on the defendant.\" — The source does not specify that you must serve the claim on the defendant; it discusses methods of service."
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "You have attempted to serve the claim but have been unsuccessful. You may need to consider alternative methods of service.",
+            "whatToDoNext": "You can file a motion for substituted service under Rule 8.04. This allows you to request the court to permit a different method of service if personal service is impractical.",
+            "yourDeadline": "Serve the claim on the defendant. You have 6 months, counted from the date the claim was issued.",
+            "whatHappensAfter": "If the court grants your motion for substituted service, you will need to serve the claim according to the method ordered by the court."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have attempted to serve the claim but have been unsuccessful.",
+              "supported": true,
+              "quote": "The claim has been issued and delivery to the defendant has been tried without success.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may need to consider alternative methods of service.",
+              "supported": true,
+              "quote": "If you are unable to serve your claim | you may file a motion to seek an order for substituted service under Rule 8.04.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can file a motion for substituted service under Rule 8.04.",
+              "supported": true,
+              "quote": "you may file a motion to seek an order for substituted service under Rule 8.04.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This allows you to request the court to permit a different method of service if personal service is impractical.",
+              "supported": true,
+              "quote": "the court may allow substituted service.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve the claim on the defendant.",
+              "supported": false,
+              "reason": "The source material does not specify that you must serve the claim on the defendant; it discusses methods of service without stating a requirement."
+            },
+            {
+              "sentence": "You have 6 months, counted from the date the claim was issued.",
+              "supported": true,
+              "quote": "A claim shall be served within six months after the date it is issued.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court grants your motion for substituted service, you will need to serve the claim according to the method ordered by the court.",
+              "supported": true,
+              "quote": "the method ordered by the court is substituted for the method(s) of service allowed for that particular document and on that particular party in the Rules.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.386507936507936,
+          "problems": [
+            "\"Serve the claim on the defendant.\" — The source material does not specify that you must serve the claim on the defendant; it discusses methods of service without stating a requirement."
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "You have attempted to serve the claim but have been unsuccessful. You may need to consider alternative methods of service.",
+            "whatToDoNext": "You can file a motion for substituted service under Rule 8.04. This allows you to request the court to permit a different method of service if personal service is impractical.",
+            "yourDeadline": "Serve the claim on the defendant. You have 6 months, counted from the date the claim was issued.",
+            "whatHappensAfter": "If the court grants your motion for substituted service, you will need to serve the claim according to the method ordered by the court."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have attempted to serve the claim but have been unsuccessful.",
+              "supported": true,
+              "quote": "The claim has been issued and delivery to the defendant has been tried without success.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may need to consider alternative methods of service.",
+              "supported": true,
+              "quote": "If you are unable to serve your claim | you may file a motion to seek an order for substituted service under Rule 8.04.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can file a motion for substituted service under Rule 8.04.",
+              "supported": true,
+              "quote": "you may file a motion to seek an order for substituted service under Rule 8.04.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This allows you to request the court to permit a different method of service if personal service is impractical.",
+              "supported": true,
+              "quote": "the court may allow substituted service.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve the claim on the defendant.",
+              "supported": false,
+              "reason": "The source does not specify that you must serve the claim on the defendant; it discusses methods of service."
+            },
+            {
+              "sentence": "You have 6 months, counted from the date the claim was issued.",
+              "supported": true,
+              "quote": "A claim shall be served within six months after the date it is issued",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court grants your motion for substituted service, you will need to serve the claim according to the method ordered by the court.",
+              "supported": true,
+              "quote": "the method ordered by the court is substituted for the method(s) of service allowed for that particular document and on that particular party in the Rules.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.386507936507936,
+          "problems": [
+            "\"Serve the claim on the defendant.\" — The source does not specify that you must serve the claim on the defendant; it discusses methods of service."
+          ]
+        }
+      ],
+      "status": "verified-draft"
+    },
+    {
+      "stageId": "plaintiff:six-month-service-window-expired",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "The claim was issued more than six months ago and has still not been served. A claim must be served within six months after the date it is issued. However, the court may extend the time for service, even after the six months has elapsed.",
+            "whatToDoNext": "You can file a motion to request an order to extend the time for service. In the motion, you must explain to the judge why you were not able to serve the claim within the six months.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the court grants your motion, you will be allowed to serve the claim after the six-month period. If the court does not grant your motion, your claim may be dismissed."
+          },
+          "verdicts": [
+            {
+              "sentence": "The claim was issued more than six months ago and has still not been served.",
+              "supported": true,
+              "quote": "The claim was issued more than six months ago and has still not been served.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "A claim must be served within six months after the date it is issued.",
+              "supported": true,
+              "quote": "A claim shall be served within six months after the date it is issued, but the court may extend the time for service, before or after the six months has elapsed.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "However, the court may extend the time for service, even after the six months has elapsed.",
+              "supported": true,
+              "quote": "A claim shall be served within six months after the date it is issued, but the court may extend the time for service, before or after the six months has elapsed.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can file a motion to request an order to extend the time for service.",
+              "supported": true,
+              "quote": "A plaintiff can file a motion to request an order to extend the time for service.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "In the motion, you must explain to the judge why you were not able to serve the claim within the six months.",
+              "supported": true,
+              "quote": "You must explain to the judge why you were not able to serve the claim within the six months.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court grants your motion, you will be allowed to serve the claim after the six-month period.",
+              "supported": false,
+              "reason": "The source does not state that you will be allowed to serve the claim after the six-month period if the motion is granted; it only states that the court may extend the time for service."
+            },
+            {
+              "sentence": "If the court does not grant your motion, your claim may be dismissed.",
+              "supported": false,
+              "reason": "The source does not state that the claim may be dismissed if the motion is not granted."
+            }
+          ],
+          "readability": 5.95173198482933,
+          "problems": [
+            "\"If the court grants your motion, you will be allowed to serve the claim after the six-month period.\" — The source does not state that you will be allowed to serve the claim after the six-month period if the motion is granted; it only states that the court may extend the time for service.",
+            "\"If the court does not grant your motion, your claim may be dismissed.\" — The source does not state that the claim may be dismissed if the motion is not granted."
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "The claim was issued more than six months ago and has still not been served. A claim must be served within six months after the date it is issued. However, the court may extend the time for service, before or after the six months has elapsed.",
+            "whatToDoNext": "You can file a motion to request an order to extend the time for service. In your motion, you must explain to the judge why you were not able to serve the claim within the six months.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If you file a motion, the court will review your request and may grant or deny the extension."
+          },
+          "verdicts": [
+            {
+              "sentence": "The claim was issued more than six months ago and has still not been served.",
+              "supported": true,
+              "quote": "The claim was issued more than six months ago and has still not been served.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "A claim must be served within six months after the date it is issued.",
+              "supported": true,
+              "quote": "A claim shall be served within six months after the date it is issued, but the court may extend the time for service, before or after the six months has elapsed.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "However, the court may extend the time for service, before or after the six months has elapsed.",
+              "supported": true,
+              "quote": "A claim shall be served within six months after the date it is issued, but the court may extend the time for service, before or after the six months has elapsed.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can file a motion to request an order to extend the time for service.",
+              "supported": true,
+              "quote": "A plaintiff can file a motion to request an order to extend the time for service.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "In your motion, you must explain to the judge why you were not able to serve the claim within the six months.",
+              "supported": true,
+              "quote": "You must explain to the judge why you were not able to serve the claim within the six months.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you file a motion, the court will review your request and may grant or deny the extension.",
+              "supported": false,
+              "reason": "The source does not state that the court will grant or deny the extension; it only mentions that the court may extend the time for service."
+            }
+          ],
+          "readability": 6.396782178217823,
+          "problems": [
+            "\"If you file a motion, the court will review your request and may grant or deny the extension.\" — The source does not state that the court will grant or deny the extension; it only mentions that the court may extend the time for service."
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "The claim was issued more than six months ago and has still not been served. A claim must be served within six months after the date it is issued. However, the court may extend the time for service, before or after the six months has elapsed.",
+            "whatToDoNext": "You can file a motion to request an order to extend the time for service. In your motion, you must explain to the judge why you were not able to serve the claim within the six months.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the court grants your motion, you will be allowed to serve the claim after the six-month period."
+          },
+          "verdicts": [
+            {
+              "sentence": "The claim was issued more than six months ago and has still not been served.",
+              "supported": true,
+              "quote": "The claim was issued more than six months ago and has still not been served.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "A claim must be served within six months after the date it is issued.",
+              "supported": true,
+              "quote": "A claim shall be served within six months after the date it is issued,",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "However, the court may extend the time for service, before or after the six months has elapsed.",
+              "supported": true,
+              "quote": "but the court may extend the time for service, before or after the six months has elapsed.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can file a motion to request an order to extend the time for service.",
+              "supported": true,
+              "quote": "A plaintiff can file a motion to request an order to extend the time for service.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "In your motion, you must explain to the judge why you were not able to serve the claim within the six months.",
+              "supported": true,
+              "quote": "You must explain to the judge why you were not able to serve the claim within the six months.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court grants your motion, you will be allowed to serve the claim after the six-month period.",
+              "supported": false,
+              "reason": "The source does not state that you will be allowed to serve the claim after the six-month period; it only states that the court may extend the time for service."
+            }
+          ],
+          "readability": 6.279950495049508,
+          "problems": [
+            "\"If the court grants your motion, you will be allowed to serve the claim after the six-month period.\" — The source does not state that you will be allowed to serve the claim after the six-month period; it only states that the court may extend the time for service."
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "The claim was issued more than six months ago and has still not been served. A claim must be served within six months after the date it is issued. However, the court may extend the time for service, before or after the six months has elapsed.",
+            "whatToDoNext": "You can file a motion to request an order to extend the time for service. In your motion, you must explain to the judge why you were not able to serve the claim within the six months.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the court grants your motion, you may be allowed to serve the claim after the six-month period."
+          },
+          "verdicts": [
+            {
+              "sentence": "The claim was issued more than six months ago and has still not been served.",
+              "supported": true,
+              "quote": "The claim was issued more than six months ago and has still not been served.",
+              "sourceId": "stage-premise",
+              "quoteFound": true
+            },
+            {
+              "sentence": "A claim must be served within six months after the date it is issued.",
+              "supported": true,
+              "quote": "A claim shall be served within six months after the date it is issued,",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "However, the court may extend the time for service, before or after the six months has elapsed.",
+              "supported": true,
+              "quote": "but the court may extend the time for service, before or after the six months has elapsed.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can file a motion to request an order to extend the time for service.",
+              "supported": true,
+              "quote": "A plaintiff can file a motion to request an order to extend the time for service.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "In your motion, you must explain to the judge why you were not able to serve the claim within the six months.",
+              "supported": true,
+              "quote": "You must explain to the judge why you were not able to serve the claim within the six months.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court grants your motion, you may be allowed to serve the claim after the six-month period.",
+              "supported": false,
+              "reason": "The source does not state that you may be allowed to serve the claim after the six-month period; it only states that the court may extend the time for service."
+            }
+          ],
+          "readability": 6.279950495049508,
+          "problems": [
+            "\"If the court grants your motion, you may be allowed to serve the claim after the six-month period.\" — The source does not state that you may be allowed to serve the claim after the six-month period; it only states that the court may extend the time for service."
+          ]
+        }
+      ],
+      "status": "no-source"
+    }
+  ]
+}

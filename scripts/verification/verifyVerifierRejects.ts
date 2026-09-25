@@ -35,6 +35,7 @@ import {
   findQuote,
   makesAClaim,
   predictsOutcome,
+  modalMismatch,
   verify,
   addUsage,
   costOf,
@@ -187,6 +188,46 @@ for (const sentence of [
   );
 }
 
+/*
+ * MUST vs MAY, checked deterministically.
+ *
+ * The verifier is told to be strict about this and was not — it passed "You
+ * must issue your Defendant's Claim within 20 days" with r. 10.01 (2) in front
+ * of it. So there is a code gate, and these assert it without a model.
+ *
+ * The hard part is that r. 10.01 (2) contains BOTH modals: "shall be in Form
+ * 10A and may be issued". Presence proves nothing; the modal nearest the
+ * period is the one that governs it.
+ */
+check(
+  "an obligation resting on permissive text is caught",
+  modalMismatch(
+    "You must issue your Defendant's Claim within 20 days after the day your defence is filed.",
+    C.R_10_01_DEFENDANTS_CLAIM.quote,
+  ),
+  "r. 10.01 (2) says the claim MAY be issued within 20 days, and allows it later with " +
+    "leave. 'Must' closes a door the rule leaves open.",
+);
+
+check(
+  "an obligation resting on mandatory text is NOT caught",
+  !modalMismatch(
+    "A defendant who wishes to dispute a claim must serve and file a defence within 20 days of being served.",
+    C.R_9_01_DEFENCE.quote,
+  ),
+  "r. 9.01 says 'shall', so 'must' is correct here — flagging it would fail true " +
+    "sentences in bulk",
+);
+
+check(
+  "a sentence asserting no obligation is not flagged",
+  !modalMismatch(
+    "You may issue a Defendant's Claim within 20 days after your defence is filed.",
+    C.R_10_01_DEFENDANTS_CLAIM.quote,
+  ),
+  "the permissive form is the correct way to state this rule",
+);
+
 check(
   "a quote with a changed number is still rejected",
   findQuote(
@@ -199,7 +240,14 @@ check(
 // The verifier — one call, five sentences
 // ---------------------------------------------------------------------------
 
-const SOURCE = [C.R_9_01_DEFENCE, C.R_11_01_NOTING_IN_DEFAULT, C.R_3_01_COMPUTATION]
+const SOURCE = [
+  C.R_9_01_DEFENCE,
+  C.R_11_01_NOTING_IN_DEFAULT,
+  C.R_3_01_COMPUTATION,
+  C.R_10_01_DEFENDANTS_CLAIM,
+  C.R_10_03_DEFENCE_TO_DEFENDANTS_CLAIM,
+  C.R_11_06_SET_ASIDE,
+]
   .map(
     (citation) =>
       `[${citation.pinpoint} — ${SOURCE_NAMES[citation.sourceId]}]\n${citation.quote}`,
@@ -238,6 +286,67 @@ const SENTENCES: Planted[] = [
       "When time is counted under these rules, the first day is not counted and the last day is.",
     shouldBeSupported: true,
     why: "CONTROL — this is r. 3.01. A verifier that rejects this cannot pass any deadline sentence.",
+  },
+
+  /*
+   * MUST WHERE THE RULE SAYS MAY.
+   *
+   * Caught in a real block. r. 10.01 (2) says a defendant's claim MAY be
+   * issued within 20 days, and after that, before trial or default judgment,
+   * WITH LEAVE OF THE COURT. "Must" closes a door the rule leaves open: a
+   * person reading it on day 25 concludes they have lost a claim they can
+   * still bring, and abandons it. Nobody ever reports that.
+   */
+  {
+    sentence:
+      "You must issue your Defendant's Claim within 20 days after the day your defence is filed.",
+    shouldBeSupported: false,
+    why: "MUST vs MAY — r. 10.01 (2) says 'may be issued', and allows it later with leave of the court",
+  },
+
+  /*
+   * A DEADLINE THAT DOES NOT EXIST.
+   *
+   * Also caught in a real block, and the most dangerous of the lot. r. 11.06
+   * sets NO fixed period for a motion to set aside — it requires only that the
+   * motion be made "as soon as is reasonably possible in all the
+   * circumstances". The draft had borrowed the 20 days from the defence
+   * deadline, which is a different rule for a different thing.
+   *
+   * A person told on day 25 that they had missed a 20-day limit would stop.
+   * There is no limit to have missed.
+   */
+  {
+    sentence:
+      "You have 20 calendar days from the date the judgment was signed to ask the court to set it aside.",
+    shouldBeSupported: false,
+    why: "INVENTED DEADLINE — r. 11.06 sets no fixed period, only 'as soon as is reasonably possible'",
+  },
+
+  /*
+   * CONTROL — and a recorded verifier FALSE POSITIVE.
+   *
+   * The verifier rejected this in a real run, reasoning that the source gives
+   * 20 days from the plaintiff's claim rather than the defendant's. It does
+   * not. r. 10.03 gives 20 days after service of the DEFENDANT'S claim.
+   *
+   * What confused it is visible in the rule: one sentence covers two different
+   * parties — "a party who wishes to dispute the defendant's claim OR a third
+   * party who wishes to dispute the plaintiff's claim" — and both clocks run
+   * from service of the defendant's claim. The phrase "plaintiff's claim"
+   * belongs to the third-party limb, not to the clock.
+   *
+   * It is a control now so the same misreading cannot quietly kill the block
+   * again. A verifier that rejects this is wrong, and the suite says so.
+   */
+  {
+    sentence:
+      "A party who wishes to dispute the defendant's claim must serve and file a defence within 20 days after service of the defendant's claim.",
+    shouldBeSupported: true,
+    why:
+      "CONTROL, and a recorded false positive — r. 10.03 gives 20 days after service of " +
+      "the DEFENDANT'S claim. The verifier previously misread the third-party limb of the " +
+      "same sentence and rejected a correct block.",
   },
 ];
 

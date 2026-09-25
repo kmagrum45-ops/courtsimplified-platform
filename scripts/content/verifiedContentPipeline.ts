@@ -284,6 +284,75 @@ const OUTCOME_MARKERS = [
   /\bexpect\s+to\s+(win|lose|succeed|recover)\b/i,
 ];
 
+/**
+ * An obligation asserted on the strength of a permissive passage.
+ *
+ * *** WHY THE PROMPT WAS NOT ENOUGH ***
+ *
+ * The verifier is told, in as many words, to be strict about "'must' where the
+ * source says 'may', or the reverse". It was then handed "You must issue your
+ * Defendant's Claim within 20 days after the day your defence is filed" with
+ * r. 10.01 (2) in front of it — which says the claim MAY be issued within 20
+ * days, and after that, before trial or default judgment, WITH LEAVE OF THE
+ * COURT — and marked it supported.
+ *
+ * So this is code. A quote whose operative verb is permissive cannot support a
+ * sentence that asserts an obligation, and that is checkable without judgment.
+ *
+ * *** WHY ONLY THIS DIRECTION ***
+ *
+ * Turning "may" into "must" CLOSES A DOOR the rule leaves open. A person
+ * reading it on day 25 concludes they have lost a claim they could still bring
+ * with leave, and abandons it — a harm nobody ever reports, because they
+ * simply go away.
+ *
+ * The reverse is not checked, because it is usually legitimate. r. 9.01 says a
+ * defendant who WISHES to dispute a claim "shall" file a defence; writing
+ * "you may file a defence" describes a genuinely conditional obligation
+ * correctly. Flagging that would fail true sentences in bulk.
+ */
+const ASSERTS_OBLIGATION = /\b(must|have to|has to|is required to|are required to)\b/i;
+
+/**
+ * The modal that GOVERNS the period, not merely one present in the passage.
+ *
+ * The first version asked whether the quote contained "may" and no "shall",
+ * and it let the real error straight through. r. 10.01 (2) reads:
+ *
+ *   "The defendant's claim SHALL be in Form 10A and MAY be issued, (a) within
+ *    20 days after the day on which the defence is filed; or (b) after the
+ *    time described in clause (a) but before trial or default judgment, with
+ *    leave of the court."
+ *
+ * Both modals are there. The "shall" governs the FORM; the "may" governs the
+ * issuing, which is the thing the sentence was making mandatory. Presence tells
+ * you nothing — proximity does.
+ *
+ * So: find the period in the quote, walk backwards, and take the LAST modal
+ * before it. For r. 10.01 (2) that is "may". For r. 9.01 — "a defendant who
+ * wishes to dispute a plaintiff's claim SHALL, within 20 days" — it is "shall",
+ * and the control passes.
+ */
+function governingModal(quote: string, period: string): "may" | "shall" | null {
+  const at = quote.toLowerCase().indexOf(period.toLowerCase());
+  if (at < 0) return null;
+
+  const before = quote.slice(0, at);
+  const modals = [...before.matchAll(/\b(may|shall|must)\b/gi)];
+  if (modals.length === 0) return null;
+
+  return /may/i.test(modals[modals.length - 1][1]) ? "may" : "shall";
+}
+
+export function modalMismatch(sentence: string, quote: string): boolean {
+  if (!ASSERTS_OBLIGATION.test(sentence)) return false;
+
+  const period = /\b(?:within\s+)?(\d{1,3}\s+(?:days?|months?|years?))\b/i.exec(sentence)?.[1];
+  if (!period) return false;
+
+  return governingModal(quote, period) === "may";
+}
+
 export function predictsOutcome(sentence: string): string | null {
   for (const marker of OUTCOME_MARKERS) {
     const found = marker.exec(sentence);
@@ -327,8 +396,16 @@ const PRACTICAL_FOR_STAGE: Array<{ match: RegExp; sources: string[] }> = [
     ],
   },
   {
+    // The motions guide is here because the answer for an expired service
+    // window is a motion to extend time — r. 8.01 (2) allows the court to
+    // extend "before or after the six months has elapsed". Without it the
+    // block could not say what to do and was reported as an unsourced gap.
     match: /not-served|service-attempted|service-window/,
-    sources: ["guide-serving-documents", "guide-making-a-claim"],
+    sources: [
+      "guide-serving-documents",
+      "guide-making-a-claim",
+      "guide-motions-and-clerks-orders",
+    ],
   },
   {
     match: /defence-period|served-defence|defence-filed|defendants-claim/,
@@ -339,11 +416,19 @@ const PRACTICAL_FOR_STAGE: Array<{ match: RegExp; sources: string[] }> = [
     sources: ["scj-default-proceedings", "guide-after-judgment"],
   },
   {
+    // A plaintiff asking "they filed a defence, what now?" needs the
+    // settlement-conference material, not the guide on replying to a claim,
+    // which is written for the defendant. That mismatch left the block unable
+    // to say what happens next.
+    match: /defence-filed/,
+    sources: ["guide-getting-ready-for-court", "scj-steps-in-a-case"],
+  },
+  {
     match: /settlement-conference|awaiting-settlement/,
     sources: ["guide-getting-ready-for-court", "scj-steps-in-a-case"],
   },
   {
-    match: /trial/,
+    match: /trial|assessment-of-damages/,
     sources: ["guide-getting-ready-for-court", "scj-steps-in-a-case"],
   },
   {
@@ -356,8 +441,55 @@ const PRACTICAL_FOR_STAGE: Array<{ match: RegExp; sources: string[] }> = [
   },
 ];
 
-/** Characters of each guide passed through. Whole pages, where they fit. */
-const PRACTICAL_BUDGET = 7_000;
+/**
+ * *** THE TRUNCATION THAT WAS THROWING AWAY THE ANSWER ***
+ *
+ * This was 7,000 characters. `guide-getting-ready-for-court` is 45,269 and
+ * `guide-after-judgment` is 57,427, so the drafter was seeing 15% and 12% of
+ * them — and then being asked what to bring to trial.
+ *
+ * Measured, not guessed: of 61 mentions of "witness" in the getting-ready
+ * guide, ONE fell inside the old budget. Of 20 mentions of "evidence", one.
+ *
+ * Worse, the part it did see was mostly not the guide. An ontario.ca page
+ * begins with "Skip to main content", "Ontario.ca needs JavaScript to function
+ * properly", "Log in to continue", "Print all" and a page-navigation list. So
+ * a meaningful share of that 7,000 characters was boilerplate, and several
+ * blocks that came back "the source does not mention it" were reading a
+ * JavaScript warning.
+ *
+ * *** AND THEN 60,000 WAS WORSE THAN 7,000 ***
+ *
+ * Passing the guides whole fixed the gap it was meant to fix — sections that
+ * could not be sourced fell from four to three. Everything else got worse:
+ * reading-level rejections 8 -> 14, filler 5 -> 9, paraphrased quotes 5 -> 8,
+ * unsupported claims 20 -> 31. Publishable blocks fell from 18 to 12, and the
+ * run cost tripled.
+ *
+ * Given 60,000 characters the drafter writes MORE and more loosely — lifting
+ * guide prose that reads well above grade 8 rather than saying the one thing
+ * the section needs. More context is not more accuracy.
+ *
+ * 18,000 is the compromise, chosen by measuring rather than by taste: at 7,000
+ * the getting-ready guide yielded ONE mention of "witness", at 18,000 it
+ * yields eight, and at 60,000 the extra material bought nothing the checks
+ * could see.
+ */
+const PRACTICAL_BUDGET = 18_000;
+
+/**
+ * Drops the navigation furniture an ontario.ca page carries before its content.
+ *
+ * Conservative on purpose: it looks for the guide's own "Overview" heading and
+ * keeps everything from there. If that marker is not found, NOTHING is
+ * dropped — a stripper that silently ate the content it could not recognise
+ * would reintroduce exactly the failure this exists to fix.
+ */
+export function stripPageFurniture(text: string): string {
+  const at = text.indexOf("Overview");
+  if (at < 0 || at > 3_000) return text;
+  return text.slice(at);
+}
 
 export function practicalSourcesFor(stageId: string): string[] {
   const matched = PRACTICAL_FOR_STAGE.filter((entry) => entry.match.test(stageId));
@@ -404,7 +536,7 @@ export function sourceMaterial(stage: CaseStage): string {
     lines.push(
       `[${SOURCE_NAMES[sourceId as keyof typeof SOURCE_NAMES] ?? sourceId} — official court guide. ` +
         `Use for practical detail: fees, filing, timing, what to bring. It is not legislation, ` +
-        `so do not state a rule from it.]\n${text.slice(0, PRACTICAL_BUDGET)}`,
+        `so do not state a rule from it.]\n${stripPageFurniture(text).slice(0, PRACTICAL_BUDGET)}`,
     );
   }
 
@@ -508,8 +640,23 @@ type ChatResult = { content: string; usage: Usage };
  * throttled at all. An unnecessary throttle is not a safe default: it makes
  * long runs unusable, and unusable checks get skipped.
  */
+/*
+ * *** THESE ARE THE OBSERVED LIMITS, AND BOTH ARE NEEDED ***
+ *
+ * gpt-4o-mini was deliberately left out of this table when a call was about
+ * 7,000 tokens: its ceiling is high and throttling it made a ten-minute run
+ * take hours. Raising PRACTICAL_BUDGET so the guides arrive whole took a call
+ * to ~24,000 tokens, and the next full run lost TWENTY of thirty-five stages
+ * to "Rate limit reached ... on tokens per min (TPM): Limit 200000".
+ *
+ * So the earlier decision was right for the traffic at the time and wrong the
+ * moment the traffic changed. Both models are paced now, from the limits their
+ * own 429s reported, with headroom because the estimate is approximate and a
+ * 429 here does not retry — it loses the stage.
+ */
 const TPM_BY_MODEL: Record<string, number> = {
   "gpt-4o": 28_000,
+  "gpt-4o-mini": 170_000,
 };
 
 const recentCalls: Array<{ at: number; tokens: number }> = [];
@@ -761,6 +908,27 @@ ${sentences.map((sentence, index) => `${index + 1}. ${sentence}`).join("\n")}`;
         reason:
           "the verifier called this supported but the passage it quoted is not in the " +
           "vendored source text",
+      };
+    }
+
+    /*
+     * An obligation resting only on permissive text. See modalMismatch.
+     * Checked after the quotes are located, because it needs the quote.
+     */
+    const permissive = resolved.find(
+      (entry) => entry.sourceId !== PREMISE_SOURCE_ID && modalMismatch(sentence, entry.quote),
+    );
+    if (permissive) {
+      return {
+        sentence,
+        supported: false,
+        quote: permissive.quote,
+        quoteFound: true,
+        reason:
+          "this says something must be done, but the passage supporting it says 'may'. " +
+          "Turning a permission into an obligation closes a door the rule leaves open — " +
+          "write what the rule actually allows, including any later route with leave of " +
+          "the court.",
       };
     }
 

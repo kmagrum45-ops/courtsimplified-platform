@@ -152,6 +152,63 @@ export type StageAnswer = {
   verification: VerificationRecord;
 };
 
+/**
+ * The deadline section, written by CODE from the stage map's own data.
+ *
+ * *** WHY THIS IS NO LONGER THE MODEL'S JOB ***
+ *
+ * The drafter was producing the deadline as a bare label — "14 days before the
+ * settlement conference date", "20 days from the date of service" — and the
+ * verifier rejected each one, correctly, as an incomplete statement. NINE of
+ * the eighteen unfinished blocks were failing on it. The fault was mine: the
+ * section is a label, and I was feeding it to a sentence-level verifier that
+ * expects propositions.
+ *
+ * Patching the prose would have missed the better answer. A deadline is
+ * already structured data in the stage map — the period, what it is for, the
+ * event it runs from, the rule behind it, all authored by hand and every quote
+ * checked against the vendored corpus. There is nothing for a model to add,
+ * and a model is the last thing that should be near the most consequential
+ * sentence in a block.
+ *
+ * So the deadline is rendered here, deterministically, and the same function
+ * serves the runtime. That is the design principle applied where it matters
+ * most: verified content assembled by code, not written by a model.
+ */
+export function renderDeadlineSection(
+  deadlines: Array<{
+    what: string;
+    countFrom: string;
+    length: { unit: "days" | "months" | "years"; count: number };
+    direction?: "after" | "before";
+  }>,
+): string | null {
+  // count === 0 marks a period the rule declines to fix — r. 11.06's "as soon
+  // as is reasonably possible". Saying "you have 0 days" would be a lie, and a
+  // frightening one.
+  const fixed = deadlines.filter((deadline) => deadline.length.count > 0);
+  if (fixed.length === 0) return null;
+
+  return fixed
+    .map((deadline) => {
+      const period = `${deadline.length.count} ${
+        deadline.length.count === 1
+          ? deadline.length.unit.replace(/s$/, "")
+          : deadline.length.unit
+      }`;
+
+      // A backwards clock reads nothing like a forwards one. "Within 14 days
+      // of the conference" is the opposite of what r. 13.03 (2) requires.
+      if (deadline.direction === "before") {
+        const event = deadline.countFrom.replace(/,?\s*counting backwards\.?$/i, "");
+        return `${deadline.what}. Do this at least ${period} before ${event}.`;
+      }
+
+      return `${deadline.what}. You have ${period}, counted from ${deadline.countFrom}.`;
+    })
+    .join("\n\n");
+}
+
 /** The prose a user reads, in order. Used by the readability and guard checks. */
 export function answerText(answer: StageAnswer): string {
   return [

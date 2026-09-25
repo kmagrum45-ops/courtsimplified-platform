@@ -47,6 +47,7 @@ import {
 import { CASE_STAGES, isSpecialStage, type CaseStage } from "../../src/lib/case-system/stage-map/stageMap";
 import {
   NO_SOURCE_NOTICE,
+  renderDeadlineSection,
   type SentenceVerdict,
   type StageAnswer,
 } from "../../src/lib/content-library/stageAnswers";
@@ -133,6 +134,17 @@ async function runStage(
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt += 1) {
     const drafted = await draft(model, stage, feedback);
     addUsage(usage, drafted.usage);
+
+    /*
+     * The deadline is overwritten with the code-rendered one before anything
+     * is verified. Whatever the drafter wrote for it is discarded.
+     *
+     * Nine blocks were failing because the drafter wrote a label where a
+     * sentence was needed. The stage map already holds the period, the event
+     * and the rule, all authored and all verified — so this section is
+     * assembled rather than written, and the model has nothing to get wrong.
+     */
+    drafted.sections.yourDeadline = renderDeadlineSection(stage.deadlines);
 
     const prose = proseOf(drafted.sections);
     const sentences = sentencesOf(prose);
@@ -316,9 +328,22 @@ async function runStage(
       };
     }
 
-    // A deadline the stage map says exists, missing from the block, is never
-    // a "no source" situation — the rule is right there. That is for a person.
-    if (!deadlineMissing) {
+    /*
+     * no-source ONLY when a section is genuinely empty.
+     *
+     * The first version fell through to no-source whenever the block was not
+     * publishable, which let a READABILITY failure produce a "no-source" block
+     * with no empty section and therefore no notice in it. The suite caught it
+     * on `plaintiff:default-judgment-signed`: a block labelled as an honest gap
+     * that never told the reader anything was missing, because nothing was.
+     *
+     * A block that is merely too hard to read has plenty of source. That is
+     * rewriting — a person's job — and it is needs-human.
+     *
+     * A deadline the stage map says exists, missing from the block, is never a
+     * "no source" situation either. The rule is right there.
+     */
+    if (empty.length > 0 && !deadlineMissing) {
       return {
         answer: {
           ...base0,
@@ -385,6 +410,7 @@ async function main(): Promise<void> {
   const usage: Usage[] = [];
   const answers: StageAnswer[] = [];
   const log: Array<{ stageId: string; attempts: Attempt[]; status: string }> = [];
+  const failed: string[] = [];
   const started = Date.now();
 
   console.log("");
@@ -412,6 +438,7 @@ async function main(): Promise<void> {
       }
     } catch (error) {
       console.log(`ERROR — ${error instanceof Error ? error.message : String(error)}`);
+      failed.push(stage.id);
     }
   }
 
@@ -465,6 +492,23 @@ async function main(): Promise<void> {
   console.log(`  run cost $${total.toFixed(4)} — $${(total / stages.length).toFixed(4)} per stage`);
   console.log(`  ${((Date.now() - started) / 1000).toFixed(0)}s`);
   console.log("");
+  /*
+   * A partial run must be impossible to miss.
+   *
+   * A rate-limit burst once dropped twenty of thirty-five stages and the run
+   * still ended with a cheerful summary; the only sign was the verification
+   * suite reporting fifteen blocks instead of thirty-five. A run that did not
+   * do what it was asked reports it loudly and exits non-zero.
+   */
+  if (failed.length > 0) {
+    console.log("");
+    console.log(`  ${failed.length} of ${stages.length} STAGE(S) FAILED and were not written:`);
+    for (const id of failed) console.log(`    ${id}`);
+    console.log("");
+    console.log("  The artefact is INCOMPLETE. Re-run before trusting the counts above.");
+    process.exitCode = 1;
+  }
+
   console.log(`  written to docs/content-pipeline/`);
   console.log("");
 }
