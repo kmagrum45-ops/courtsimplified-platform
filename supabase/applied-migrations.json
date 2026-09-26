@@ -1,0 +1,130 @@
+[
+  {
+    "migration": "20260823020500_add_case_evidence_storage_bucket.sql",
+    "sha256": "fcffaaf952807cb7f6c0e2f704f93ce21d98b95ec8e67d8ede64605d0b36bf4e",
+    "environment": "staging",
+    "ref": "icpvzwxyjsdgyqfkwycw",
+    "appliedAt": "2026-09-26T20:00:57.023Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260913120000_add_case_events.sql",
+    "sha256": "7aa6087e3d27e3ab2e8da7d237fb606332a358f14047e302e7b1e1f411ec1f76",
+    "environment": "staging",
+    "ref": "icpvzwxyjsdgyqfkwycw",
+    "appliedAt": "2026-09-26T20:00:57.023Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260913140000_add_case_event_candidate_dismissals.sql",
+    "sha256": "7086024f2a7cc36aa5709dc721a95cc12fbd0e15558356dca87400635bf8941a",
+    "environment": "staging",
+    "ref": "icpvzwxyjsdgyqfkwycw",
+    "appliedAt": "2026-09-26T20:00:57.023Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260915090000_revoke_anon_write_and_scope_policies.sql",
+    "sha256": "f3cace7981a84640a7cc4a2c9640b6caca176d11f81234dffe0e9a0d099064ad",
+    "environment": "staging",
+    "ref": "icpvzwxyjsdgyqfkwycw",
+    "appliedAt": "2026-09-26T20:00:57.023Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260915120000_close_admin_anon_write_holes.sql",
+    "sha256": "e917100d0cef82189e6ee7a67b7209ebaa588a36acb8214313b98ccddf6bbcee",
+    "environment": "staging",
+    "ref": "icpvzwxyjsdgyqfkwycw",
+    "appliedAt": "2026-09-26T20:00:57.023Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260922120000_add_ai_call_log.sql",
+    "sha256": "598cc5999f84d3a3022bf644cd1352fe320ea28d8d88247840e0964323ce1628",
+    "environment": "staging",
+    "ref": "icpvzwxyjsdgyqfkwycw",
+    "appliedAt": "2026-09-26T20:00:57.023Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260926030000_ai_call_log_call_types.sql",
+    "sha256": "751f8613bdc4d6f81de25e727af7a9a64abdb435d735a3e7421ec1190ebe1d38",
+    "environment": "staging",
+    "ref": "icpvzwxyjsdgyqfkwycw",
+    "appliedAt": "2026-09-26T20:00:57.023Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260926120000_case_evidence_bucket_private.sql",
+    "sha256": "ed5f25771a078d61a161c072cd776819e77d19e003b257a9b9ae8e488d03e213",
+    "environment": "staging",
+    "ref": "icpvzwxyjsdgyqfkwycw",
+    "appliedAt": "2026-09-26T20:00:57.023Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260823020500_add_case_evidence_storage_bucket.sql",
+    "sha256": "fcffaaf952807cb7f6c0e2f704f93ce21d98b95ec8e67d8ede64605d0b36bf4e",
+    "environment": "production",
+    "ref": "fddlpnibovkkkgboabqb",
+    "appliedAt": "2026-09-26T20:03:24.708Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260913120000_add_case_events.sql",
+    "sha256": "7aa6087e3d27e3ab2e8da7d237fb606332a358f14047e302e7b1e1f411ec1f76",
+    "environment": "production",
+    "ref": "fddlpnibovkkkgboabqb",
+    "appliedAt": "2026-09-26T20:03:24.708Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260913140000_add_case_event_candidate_dismissals.sql",
+    "sha256": "7086024f2a7cc36aa5709dc721a95cc12fbd0e15558356dca87400635bf8941a",
+    "environment": "production",
+    "ref": "fddlpnibovkkkgboabqb",
+    "appliedAt": "2026-09-26T20:03:24.708Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260915090000_revoke_anon_write_and_scope_policies.sql",
+    "sha256": "f3cace7981a84640a7cc4a2c9640b6caca176d11f81234dffe0e9a0d099064ad",
+    "environment": "production",
+    "ref": "fddlpnibovkkkgboabqb",
+    "appliedAt": "2026-09-26T20:03:24.708Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260915120000_close_admin_anon_write_holes.sql",
+    "sha256": "e917100d0cef82189e6ee7a67b7209ebaa588a36acb8214313b98ccddf6bbcee",
+    "environment": "production",
+    "ref": "fddlpnibovkkkgboabqb",
+    "appliedAt": "2026-09-26T20:03:24.708Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260922120000_add_ai_call_log.sql",
+    "sha256": "598cc5999f84d3a3022bf644cd1352fe320ea28d8d88247840e0964323ce1628",
+    "environment": "production",
+    "ref": "fddlpnibovkkkgboabqb",
+    "appliedAt": "2026-09-26T20:03:24.708Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260926030000_ai_call_log_call_types.sql",
+    "sha256": "751f8613bdc4d6f81de25e727af7a9a64abdb435d735a3e7421ec1190ebe1d38",
+    "environment": "production",
+    "ref": "fddlpnibovkkkgboabqb",
+    "appliedAt": "2026-09-26T20:03:24.708Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260926120000_case_evidence_bucket_private.sql",
+    "sha256": "ed5f25771a078d61a161c072cd776819e77d19e003b257a9b9ae8e488d03e213",
+    "environment": "production",
+    "ref": "fddlpnibovkkkgboabqb",
+    "appliedAt": "2026-09-26T20:03:24.708Z",
+    "appliedBy": "kmagr"
+  }
+]

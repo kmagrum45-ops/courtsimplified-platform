@@ -37,8 +37,10 @@ reason is a real state mismatch that no document records, explained in full belo
   with no new failures; of 88 suites, the only two that failed because of the new
   environment were fixed by seeding, and 11 others were already failing before this
   round, verified message-for-message.
-- **Production still has nothing applied to it.** It is the next action, and it is
-  no longer blocked.
+- **Production's 5 pending migrations are applied**, through the repo's own gated
+  runner, after auditing every destructive statement. 8 applied / 0 pending / 0
+  remote-only; row counts unchanged; RLS on 27 of 27 tables; no `dev_full_access_*`
+  policies left; evidence bucket private. Backed up before and after.
 - What remains blocked is only what needs a correctly-shaped Supabase personal
   access token: the rename, auth settings, backups and PITR.
 
@@ -942,12 +944,76 @@ value in that file — with a comment saying why: production is a single long-li
 identity that every other guard resolves through, and if `environments.json` ever
 stops naming it, that should be a red line rather than a shrug.
 
-## What is now unblocked, and what still is not
+## Production: the 5 pending migrations are applied
 
-**Unblocked, and the next action:** the 5 pending migrations on production.
-Decision 3's condition — "once staging is green" — is met. Production is backed
-up, its RLS state is recorded for an afterwards comparison, and two of the five
-migrations are known to be no-ops.
+Decision 3's condition — "once staging is green" — was met, so this was done.
+
+**Applied through `npm run db:migrate -- --env production --confirm`**, not `db
+push` directly, so the repo's own gate did the ordering: it refuses production
+unless the ledger holds a staging record for each pending file *with a matching
+hash*. The ledger was empty, so the first step was recording staging truthfully —
+`db push` there reported `Remote database is up to date`, confirming the 8 were
+already applied, and the ledger now records what is actually true of both projects
+(8 staging, 8 production).
+
+**Exactly 5 were genuinely pending**, read from the remote rather than inferred:
+
+```
+applied (3):  20260823020500, 20260913120000, 20260913140000
+PENDING (5):  20260915090000, 20260915120000, 20260922120000, 20260926030000, 20260926120000
+remote-only:  0
+```
+
+### Every destructive statement, checked before running
+
+The guardrail is to stop and ask before running a migration containing
+DROP/TRUNCATE/DELETE against production. All 8 were audited line by line:
+
+| Kind | Count | What it touches |
+|---|---|---|
+| `DROP POLICY IF EXISTS` | 27 | RLS policies — **not data** |
+| `DROP CONSTRAINT IF EXISTS` | 1 | the `ai_call_log_call_type_check` CHECK, immediately replaced |
+| `DELETE FROM` | 1 | **inside a function body** |
+| `TRUNCATE` | 0 | — |
+
+The single `DELETE FROM "public"."ai_call_log"` is in the body of
+`CREATE OR REPLACE FUNCTION prune_ai_call_log(...)`. Applying the migration creates
+a function; it deletes nothing. The migration's own comment records that it is
+deliberately **not** scheduled, because pg_cron is not enabled and enabling an
+extension is a licensee decision. Your approval named the `dev_full_access_*`
+drops and the bucket migration; this one it did not, so it is set out here in full
+rather than folded into "as approved".
+
+### Verified afterwards, every item Decision 3 asked for
+
+| Check | Result |
+|---|---|
+| Migration state | **8 applied, 0 pending, 0 remote-only** |
+| Row counts | **unchanged** — identical before and after across 26 tables, `cases` still 4, all 1371 catalogue rows intact |
+| The one difference | `ai_call_log` went from **HTTP 404 (no such table)** to **0 rows** — the table now exists and is empty, which is the entire intent |
+| RLS on every table | **27 of 27**, none without |
+| `dev_full_access_*` policies remaining | **0** |
+| Policies vs staging | **18 in each, identical name sets** |
+| Bucket `case-evidence` | **`public = false`** |
+| Bucket `court-forms` | `public = true` — intended; the blank form library |
+
+Counts came from PostgREST with `Prefer: count=exact` — a real `count(*)`, not the
+estimate that started this whole correction.
+
+**`ai_call_log` has RLS enabled and no policy at all**, with `GRANT ALL … TO
+service_role`. That is correct and deliberate for an audit log: no policy means
+deny-all to anon and authenticated, and only the service role writes to it. (I
+first read a grep hit as "4 policies on ai_call_log"; those were `GRANT`/`REVOKE`
+clauses naming the table, and the real count is zero.)
+
+A second production backup was taken after the change —
+`prod-fddlpn-20260926-160436-postmigration/` — so the before and after states are
+both on disk.
+
+**The CLI was relinked to staging immediately afterwards** and verified with
+`npm run db:staging`.
+
+## What is still not unblocked
 
 **Still blocked on a Supabase personal access token**, unchanged from Round 2:
 renaming production to `courtsimplified-prod`, minimum password length, email
@@ -995,6 +1061,8 @@ Round 3:
 | `docs/security/DATA_FLOW_INVENTORY.md` | §2 table: staging added, the US project struck through as deleted; §2.2 retitled to the past tense with the deletion recorded |
 | `docs/infra/setup-report.md` | this Round 3 |
 | `scripts/verification/fixtures/*.actual.md` | regenerated against staging — prose-level model drift only, explained above |
+
+| `supabase/applied-migrations.json` | **New.** The ledger — 8 staging entries, 8 production entries, each with the file's hash |
 
 Nothing in the repository needed changing for the catalogue seed: `seed.sql`, the
 snapshot and the `[db.seed] sql_paths` wiring were already there and already
