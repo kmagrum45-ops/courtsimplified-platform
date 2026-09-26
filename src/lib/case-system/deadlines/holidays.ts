@@ -61,6 +61,17 @@ export type Holiday = {
   name: string;
   date: IsoDate;
   basis: HolidayBasis;
+  /**
+   * Set where the day is a holiday because it is a weekend day, not because it
+   * is a named holiday.
+   *
+   * Recorded rather than left to be recognised from `name`. A caller that
+   * writes a sentence about it needs to say "is a Sunday, which these rules
+   * count as a holiday" rather than "is Sunday", and deciding that by comparing
+   * the name against a list of weekday words is the kind of test that survives
+   * until somebody renames something.
+   */
+  weekend?: true;
 };
 
 /** Which list of holidays applies. They are not the same list. */
@@ -317,11 +328,12 @@ export function holidayFor(date: IsoDate, regime: HolidayRegime): Holiday | unde
       name: dow === 0 ? "Sunday" : "Saturday",
       date,
       basis: STATUTE(C.R_1_02_HOLIDAY),
+      weekend: true,
     };
   }
 
   if (regime === "legislation-act" && dow === 0) {
-    return { name: "Sunday", date, basis: STATUTE(C.S_LEGISLATION_88_HOLIDAYS) };
+    return { name: "Sunday", date, basis: STATUTE(C.S_LEGISLATION_88_HOLIDAYS), weekend: true };
   }
 
   const year = Number(date.slice(0, 4));
@@ -341,4 +353,36 @@ export function unsourcedHolidayNames(regime: HolidayRegime): string[] {
     .filter((holiday) => holiday.basis.kind === "settled-practice")
     .map((holiday) => holiday.name)
     .sort();
+}
+
+/*
+ * Dates a person reads, rather than dates a machine reads.
+ *
+ * *** WHY THE WEEKDAY IS ALWAYS INCLUDED ***
+ *
+ * "13 June 2026" and "Saturday 13 June 2026" are the same date and not the same
+ * information. The single most dangerous deadline in this product is a
+ * statutory period that genuinely expires on a Saturday, and the reader's own
+ * eyes on the word "Saturday" do more than any warning we could append.
+ *
+ * *** WHY NOT Intl.DateTimeFormat ***
+ *
+ * Its output depends on the ICU data built into whatever runtime is serving the
+ * page, so the same deadline could render differently on a developer's machine
+ * and on Vercel, and a verification suite could pass on one and fail on the
+ * other. These names are fixed here so the rendered date is a function of the
+ * date alone.
+ */
+const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const MONTH_NAMES = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
+export function formatLongDate(date: IsoDate): string {
+  const when = new Date(parseIso(date));
+  return (
+    `${WEEKDAYS[when.getUTCDay()]} ${when.getUTCDate()} ` +
+    `${MONTH_NAMES[when.getUTCMonth()]} ${when.getUTCFullYear()}`
+  );
 }

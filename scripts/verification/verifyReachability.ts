@@ -156,23 +156,13 @@ const DELIBERATELY_DORMANT: DormantEntry[] = [
       "Other half of the registry.ts dead pair. Builds an empty Ontario family case bundle that " +
       "no live family path uses — FamilyIntake posts to /api/family/analyze instead.",
   },
-  {
-    file: "src/lib/case-system/deadlines/deadlineEngine.ts",
-    reason:
-      "Part 4, and still dormant AFTER Part 5 — this reason previously said Part 5 would " +
-      "wire it up, which turned out to be wrong. Part 5 resolves a stage and renders a " +
-      "published block; that block states the PERIOD and what it runs from (\"20 days, " +
-      "counted from the day you were served\") without computing a date, because a date " +
-      "needs the user's own event date and no slot supplies one yet. Computing one from " +
-      "a date we do not have would be the worst possible use of this engine. Exercised on " +
-      "every run by test:deadlines against every deadline the stage map declares.",
-  },
-  {
-    file: "src/lib/case-system/deadlines/holidays.ts",
-    reason:
-      "The two holiday calendars the deadline engine counts against. Dormant with the " +
-      "engine; covered by test:deadlines.",
-  },
+  /*
+   * The deadline engine and its holiday calendars WERE here, with a reason that
+   * twice said the next part would wire them up. Decision 5 did: the engine is
+   * called by src/lib/content-library/computedDeadline.ts, which stageAnswerView
+   * calls, which the resolve-stage route calls. Deleted rather than reworded,
+   * which is what this check exists to force.
+   */
 ];
 
 let failures = 0;

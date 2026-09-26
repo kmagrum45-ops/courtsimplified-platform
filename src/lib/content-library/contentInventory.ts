@@ -41,6 +41,7 @@ import { QUESTION_EXPLANATIONS } from "./questionExplanations";
 import { PROCEDURAL_STAGES } from "./proceduralStages";
 import { ASSISTANT_BLOCKS } from "./assistantBlocks";
 import { PUBLISHED_BLOCKS } from "./publishedLibrary";
+import { DEADLINE_TEMPLATES } from "../case-system/deadlines/deadlineTemplates";
 import { OFFICIAL_URLS } from "../case-system/stage-map/citations";
 import { DOCTRINE_SEED_LIBRARY } from "../case-system/knowledge/doctrineSeedLibrary";
 import {
@@ -391,6 +392,36 @@ export function collectContentInventory(): ContentItem[] {
         }),
       );
     }
+  }
+
+  /*
+   * ---- The deadline engine's sentences (decision 5) ----
+   *
+   * Every sentence the deadline engine can produce, as the template a reviewer
+   * reads rather than as one filled instance of it.
+   *
+   * These had to be indexed the moment the engine got a production caller.
+   * `outputGuard` is an allowlist, so an engine sentence that is not in the
+   * index cannot be shown at all — and, worse than being blocked, prose
+   * assembled inside an engine and appended to a section would never have
+   * reached the guard to be blocked. Indexing the templates is what makes the
+   * guard true of the deadline text as well as the block text.
+   *
+   * A slot is left AS a slot (`{result}`) in the indexed text: the reviewer is
+   * approving the sentence, and the dates that go into it are the reader's own.
+   */
+  for (const template of Object.values(DEADLINE_TEMPLATES)) {
+    items.push(
+      item({
+        id: `deadline-template:${template.id}`,
+        type: "deadline-computation",
+        pathway: "small-claims",
+        stage: "deadlines",
+        text: template.text,
+        sourceUrl: template.cites ? OFFICIAL_URLS[template.cites.sourceId] : "",
+        appearsIn: "The deadline section of a stage answer, when the date it counts from is known",
+      }),
+    );
   }
 
   /*

@@ -57,6 +57,13 @@ export const unpaidInvoiceGapFixture: Fixture = {
     "sc-evidence-available":
       "I have three things: (1) invoice-final.jpg, a photo of the handwritten invoice for $3,200; (2) deck-finished-photo.jpg, a photo of the completed deck repair showing the finished work; (3) text-message-followup.png, a screenshot of one follow-up text message asking about payment. I don't have anything in writing showing the original agreement -- it was all arranged over a phone call.",
     "sc-remedy-sought": "I want the court to order the Whitfields to pay the $3,200 owed for the deck repair work.",
+    "sc-date-claim-served": "Nothing has been served -- no claim has been issued yet.",
+    "sc-date-claim-issued": "No claim has been issued yet.",
+    "sc-date-defence-filed": "No defence -- there is no claim yet.",
+    "sc-date-defendants-claim-served": "Not applicable -- nobody has made a claim against me.",
+    "sc-date-settlement-conference": "Nothing is scheduled; the case has not been started.",
+    "sc-date-learned-of-default": "Not applicable -- I have not been noted in default.",
+    "sc-date-learned-of-judgment": "Not applicable -- there has been no hearing and no judgment.",
     "sc-safety-check": "No safety concerns -- this is a straightforward payment dispute.",
   },
   location: { province: "Ontario", city: "London" },

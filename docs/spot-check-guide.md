@@ -104,6 +104,41 @@ period and not the 60-day notice. That already happened here.
 The deadline engine (`src/lib/case-system/deadlines/`) counts days in code, not
 by model, and shows its working. Check a few against the calendar.
 
+**As of decision 5 a reader can now see one of these dates.** Until then the
+engine ran only in tests: a block said "you have 20 days, counted from the day
+you were served" and left the counting to the reader. Where the reader has told
+us the date the clock runs from, the block now adds the computed date and the
+steps, like this:
+
+> Based on the date you gave us, the last day for this is Monday 23 March 2026.
+>
+> How that was counted:
+> - Counted 20 days from Monday 2 March 2026, not counting that day itself and counting the last day, which gives Sunday 22 March 2026.
+> - Sunday 22 March 2026 is a Sunday, and a Sunday counts as a holiday for this deadline.
+> - The period therefore runs to the next day that is not a holiday: Monday 23 March 2026.
+
+Three things to check, in this order:
+
+1. **The first sentence and the last step must name the same day.** They did not,
+   at first: the statement was built from the step before the holiday extension,
+   so it announced the Sunday while the steps correctly ended on the Monday. Two
+   days early, in the sentence most likely to be the only one read.
+2. **The counting itself**, against a calendar. The steps are there so you can.
+3. **The period is still stated above the date.** The period is true for
+   everybody and comes from the rule; the date depends on something the reader
+   typed, which may be wrong. If the date ever replaces the period rather than
+   following it, that is a defect.
+
+Every sentence in that block is a fixed template you will find in the review
+packet under `deadline-computation` (18 of them). The dates are the only thing
+filled in. If the wording of one is wrong, it is wrong everywhere at once, which
+is the point of reviewing it once.
+
+**An ambiguous date is refused rather than guessed.** "03/04/2026" is 3 April to
+most of the world and 4 March to some of it, so nothing is computed from it and
+the reader simply sees the period. If you find a computed date resting on a date
+format that could be read two ways, that is a serious defect — report it.
+
 The one to check hardest: **a statutory deadline that lands on a Saturday.**
 
 - Under the Small Claims rules (`r. 1.02 (a)`), every Saturday and Sunday is a

@@ -42,6 +42,7 @@ import type { CountingRegime, DeadlineLength } from "../stage-map/stageMap";
 import {
   addDays,
   dayOfWeek,
+  formatLongDate,
   holidayFor,
   isLeapYear,
   parseIso,
@@ -49,14 +50,33 @@ import {
   type HolidayRegime,
   type IsoDate,
 } from "./holidays";
+import { fillTemplate, type DeadlineTemplateId } from "./deadlineTemplates";
 
 export type DeadlineCertainty = "computed" | "confirm-with-court";
 
 export type ComputationStep = {
-  /** Plain language, written here, never by a model. */
+  /**
+   * Which reviewed sentence this step is. Decision 5.
+   *
+   * The engine picks a template and supplies dates; it does not write prose.
+   * `did` below is that template filled, so callers that only want the text
+   * still get it, and the render path can guard the template it came from.
+   */
+  templateId: DeadlineTemplateId;
+  values: Record<string, string>;
+  /** The template, filled. Plain language, written in deadlineTemplates.ts. */
   did: string;
   citation: RuleCitation;
 };
+
+/** Every sentence the engine produces goes through here, or it is not produced. */
+function step(
+  templateId: DeadlineTemplateId,
+  values: Record<string, string>,
+  citation: RuleCitation,
+): ComputationStep {
+  return { templateId, values, did: fillTemplate(templateId, values), citation };
+}
 
 export type DeadlineResult = {
   /** The event the clock ran from. */
@@ -67,6 +87,16 @@ export type DeadlineResult = {
   steps: ComputationStep[];
   /** Set when certainty is "confirm-with-court". Says exactly what is unsure. */
   uncertainty?: string;
+  /**
+   * Which reviewed template the uncertainty text came from.
+   *
+   * Recorded rather than inferred. The render path has to guard the template
+   * before showing the filled sentence, and the alternative was matching the
+   * text back to its template by its fixed prefix — which works until a
+   * template is reworded by someone who does not know a matcher depends on its
+   * first twelve characters.
+   */
+  uncertaintyTemplate?: DeadlineTemplateId;
 };
 
 export type DeadlineInput = {
@@ -165,48 +195,47 @@ export function computeDeadline(input: DeadlineInput): DeadlineResult {
   if (length.unit === "days") {
     const signed = direction === "after" ? length.count : -length.count;
     date = addDays(from, signed);
-    steps.push({
-      did:
-        direction === "after"
-          ? `Counted ${length.count} days from ${from}, not counting that day itself and counting the last day, which gives ${date}.`
-          : `Counted back ${length.count} days from ${from}, which gives ${date}.`,
-      citation: countingRule(regime),
-    });
+    steps.push(
+      step(
+        direction === "after" ? "counted-days-forward" : "counted-days-backward",
+        { count: String(length.count), from: formatLongDate(from), result: formatLongDate(date) },
+        countingRule(regime),
+      ),
+    );
   } else if (length.unit === "months") {
     const signed = direction === "after" ? length.count : -length.count;
     date = addMonths(from, signed);
-    steps.push({
-      did:
-        `Counted ${length.count} months from ${from}, landing on the same day of the month ` +
-        `(or the last day of that month, if it is shorter), which gives ${date}.`,
-      citation: C.S_LEGISLATION_89_6_MONTHS,
-    });
+    steps.push(
+      step(
+        "counted-months",
+        { count: String(length.count), from: formatLongDate(from), result: formatLongDate(date) },
+        C.S_LEGISLATION_89_6_MONTHS,
+      ),
+    );
     if (regime === "small-claims-rules") {
       // r. 3.01 counts days, not months, so the Legislation Act supplies the
       // month arithmetic even for a period set by the rules.
-      steps.push({
-        did:
-          "The Small Claims rules say how to count days but not months, so the " +
-          "Legislation Act supplies the month arithmetic, as it applies to every " +
-          "Act and regulation.",
-        citation: C.S_LEGISLATION_46_APPLIES,
-      });
+      steps.push(step("months-supplied-by-legislation-act", {}, C.S_LEGISLATION_46_APPLIES));
     }
   } else {
     const signed = direction === "after" ? length.count : -length.count;
     const { date: anniversary, leapAdjusted } = addYears(from, signed);
     date = anniversary;
-    steps.push({
-      did: `Counted ${length.count} years from ${from} to the anniversary, which gives ${date}.`,
-      citation: C.S_LEGISLATION_89_6_MONTHS,
-    });
+    steps.push(
+      step(
+        "counted-years",
+        { count: String(length.count), from: formatLongDate(from), result: formatLongDate(date) },
+        C.S_LEGISLATION_89_6_MONTHS,
+      ),
+    );
     if (leapAdjusted) {
-      steps.push({
-        did:
-          `${from} was 29 February, and ${date.slice(0, 4)} is not a leap year, so the ` +
-          `anniversary falls on 28 February.`,
-        citation: C.S_LEGISLATION_89_7_LEAP,
-      });
+      steps.push(
+        step(
+          "leap-year-anniversary",
+          { from: formatLongDate(from), year: date.slice(0, 4) },
+          C.S_LEGISLATION_89_7_LEAP,
+        ),
+      );
     }
   }
 
@@ -215,6 +244,7 @@ export function computeDeadline(input: DeadlineInput): DeadlineResult {
   const hRegime = holidayRegime(regime);
   let certainty: DeadlineCertainty = "computed";
   let uncertainty: string | undefined;
+  let uncertaintyTemplate: DeadlineTemplateId | undefined;
 
   /*
    * A period counted BACKWARDS is not extended.
@@ -232,16 +262,16 @@ export function computeDeadline(input: DeadlineInput): DeadlineResult {
     const landed = holidayFor(date, hRegime);
     if (landed) {
       certainty = "confirm-with-court";
-      uncertainty =
-        `${date} is ${landed.name}, and this is a deadline counted backwards from a ` +
-        `hearing date. The rules say a period ENDING on a holiday runs to the next ` +
-        `working day; they do not say what happens to a backwards-counted date. ` +
-        `Filing and serving before ${date} avoids the question entirely.`;
+      uncertaintyTemplate = "uncertain-backward-count-lands-on-holiday";
+      uncertainty = fillTemplate("uncertain-backward-count-lands-on-holiday", {
+        result: formatLongDate(date),
+        holiday: landed.name,
+      });
     }
-    return { from, deadline: date, certainty, steps, uncertainty };
+    return { from, deadline: date, certainty, steps, uncertainty, uncertaintyTemplate };
   }
 
-  const shifted: string[] = [];
+  const shifted: ComputationStep[] = [];
   let guard = 0;
   for (;;) {
     const landed = holidayFor(date, hRegime);
@@ -250,28 +280,27 @@ export function computeDeadline(input: DeadlineInput): DeadlineResult {
 
     if (landed.basis.kind === "settled-practice") {
       certainty = "confirm-with-court";
-      uncertainty =
-        `This date moved because of ${landed.name}. No statute we can quote states ` +
-        `when ${landed.name} falls — the date used here is the settled one, but the ` +
-        `court is the place to confirm it.`;
+      uncertaintyTemplate = "uncertain-settled-practice-holiday";
+      uncertainty = fillTemplate("uncertain-settled-practice-holiday", { holiday: landed.name });
     }
 
-    shifted.push(`${date} is ${landed.name}`);
+    shifted.push(
+      step(
+        landed.weekend ? "landed-on-weekend" : "landed-on-holiday",
+        { result: formatLongDate(date), holiday: landed.name },
+        extensionRule(regime),
+      ),
+    );
     date = addDays(date, 1);
   }
 
   if (shifted.length > 0) {
-    steps.push({
-      did: `${shifted.join(", and ")}, so the period runs to the next day that is not a holiday: ${date}.`,
-      citation: extensionRule(regime),
-    });
+    steps.push(...shifted);
+    steps.push(
+      step("extended-past-holiday", { result: formatLongDate(date) }, extensionRule(regime)),
+    );
     if (regime === "small-claims-rules") {
-      steps.push({
-        did:
-          "Under these rules every Saturday and Sunday is a holiday, along with the " +
-          "named days.",
-        citation: C.R_1_02_HOLIDAY,
-      });
+      steps.push(step("weekends-are-holidays-under-the-rules", {}, C.R_1_02_HOLIDAY));
     }
   } else if (regime === "legislation-act" && dayOfWeek(date) === 6) {
     /*
@@ -284,19 +313,10 @@ export function computeDeadline(input: DeadlineInput): DeadlineResult {
      * facts we do not have.
      */
     certainty = "confirm-with-court";
-    uncertainty =
-      `${date} is a Saturday. For a deadline set by a statute rather than by the ` +
-      `Small Claims rules, Saturday is NOT a holiday — only Sunday is — so this ` +
-      `period does end on the Saturday. It may be extended if the place you have to ` +
-      `serve or file is closed that day, which is worth confirming.`;
-    steps.push({
-      did:
-        "Checked whether the last day is a holiday. For a statutory deadline the " +
-        "holidays are the ones listed in the Legislation Act, and Saturday is not " +
-        "among them.",
-      citation: C.S_LEGISLATION_88_HOLIDAYS,
-    });
+    uncertaintyTemplate = "uncertain-statutory-saturday";
+    uncertainty = fillTemplate("uncertain-statutory-saturday", { result: formatLongDate(date) });
+    steps.push(step("statutory-saturday-is-not-a-holiday", {}, C.S_LEGISLATION_88_HOLIDAYS));
   }
 
-  return { from, deadline: date, certainty, steps, uncertainty };
+  return { from, deadline: date, certainty, steps, uncertainty, uncertaintyTemplate };
 }

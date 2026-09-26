@@ -41,17 +41,36 @@ import {
   STAGE_REFERRALS,
 } from "../../../../src/lib/case-system/stage-map/stageMessages";
 import { renderStageAnswer } from "../../../../src/lib/content-library/stageAnswerView";
+import {
+  caseDatesFrom,
+  type CaseDates,
+} from "../../../../src/lib/case-system/deadlines/deadlineEvents";
 
 const MAX_CONTEXT_BYTES = 20_000;
 
-type Body = { caseContext?: unknown; caseId?: unknown; courtPath?: unknown };
+type Body = {
+  caseContext?: unknown;
+  caseId?: unknown;
+  courtPath?: unknown;
+  /**
+   * Answers to the date questions, keyed by question bank id. All optional.
+   *
+   * Decision 5. Sent as whatever the person typed, never as a date this route
+   * is asked to trust: `caseDatesFrom` parses each one and drops anything
+   * ambiguous. The alternative — accepting an ISO date from the caller — would
+   * put the parsing in whichever component happened to collect the answer, and
+   * "03/04/2026" would then mean March or April depending on who wrote that
+   * component.
+   */
+  dateAnswers?: unknown;
+};
 
 function text(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
 /** Everything the user sees, assembled from content that was checked first. */
-function present(position: CasePosition) {
+function present(position: CasePosition, dates: CaseDates) {
   if (position.kind === "out-of-scope") {
     return {
       outcome: "out-of-scope" as const,
@@ -118,7 +137,7 @@ function present(position: CasePosition) {
    * an answer. Showing the stage name alone would imply guidance we do not
    * have.
    */
-  const answer = renderStageAnswer(resolution.stageId);
+  const answer = renderStageAnswer(resolution.stageId, {}, dates);
   if (!answer) {
     return {
       outcome: "unknown" as const,
@@ -163,6 +182,22 @@ export async function POST(request: Request) {
 
   const courtPath = text(body.courtPath) || null;
 
+  /*
+   * A bad `dateAnswers` costs the reader their computed dates and nothing else.
+   *
+   * Not a 400. The date questions are optional by design, so a malformed bag of
+   * answers has to land in the same place as an unanswered one — the periods,
+   * with their rules. Failing the whole request would mean a client bug here
+   * took away the stage answer as well.
+   */
+  const dateAnswers: Record<string, string> = {};
+  if (body.dateAnswers && typeof body.dateAnswers === "object") {
+    for (const [key, value] of Object.entries(body.dateAnswers as Record<string, unknown>)) {
+      if (typeof value === "string" && value.length <= 64) dateAnswers[key] = value;
+    }
+  }
+  const dates = caseDatesFrom(dateAnswers);
+
   const position = await withAiCallContext({ callType: "stage-resolver", caseId }, async () => {
     const resolved = await resolveCasePosition(caseContext, { knownCourtPath: courtPath });
 
@@ -177,5 +212,5 @@ export async function POST(request: Request) {
     return resolved;
   });
 
-  return NextResponse.json(present(position));
+  return NextResponse.json(present(position, dates));
 }

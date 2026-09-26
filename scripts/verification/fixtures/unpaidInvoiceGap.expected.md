@@ -146,3 +146,54 @@ None of this is lost for supervision. The model's version is still carried on
 Asserted by `npm run test:no-model-prose`, which checks the assembly point
 rather than the rendered document — the property that makes every downstream
 consumer safe, including ones added later.
+
+## Decision 5 — the seven date questions, and why none of them is asked here
+
+`QUESTION_BANK` gained seven optional date questions, one for each event the
+stage map counts a deadline from that a person can simply report: the date the
+claim was served, the date on the issued claim, the date a defence was filed, the
+date a defendant's claim was served, the settlement conference date, the date the
+reader learned of a noting in default, and the date they learned of a judgment
+made at a hearing they missed. They exist so the deadline engine — which until
+now had no production caller at all — can show a person their actual date with
+the counting shown, instead of leaving them to apply "20 days" across a weekend.
+
+**Expected to be asked here: none of the seven.** This fixture is a pre-filing
+story: nothing issued, nothing served, no defence. Each question is gated on the
+procedural fact that makes it answerable (`claimFiled`, `claimServed`,
+`defenceFiled`), and the two side-specific ones on `role` as well, so all seven
+gate out and the turn count is unchanged.
+
+That is the expected behaviour, and it is the behaviour only after a correction
+the fixture run forced. Ungated, the seven were asked of all three fixtures:
+
+- every story went from 11 turns to 18, being asked about default judgments and
+  settlement conferences in a case that did not exist yet, and
+- all three picked up `possibleCorrections: role "plaintiff" -> "defendant"`,
+  because the extractor reads the transcript and a plaintiff answering questions
+  about being served and being noted in default reads like a defendant.
+
+The role correction was only ever *proposed* (CLAUDE.md §4 — nothing is applied
+without the user), and the claim type and stage were right regardless. But a date
+question nudging the reader's own role toward the wrong answer is not a cost
+worth paying for a date that, in a pre-filing case, does not exist. Hence the
+gates. The "If…" phrasing stays on top of them, because the gates read
+AI-extracted booleans that can be wrong.
+
+The story answers all seven anyway — the harness requires every bank question to
+have an answer — and each answer says the thing has not happened. Those answers
+are not dates, and `parseUserDate` refuses anything that is not an unambiguous
+one, so nothing is computed. The refusal is the point: "03/04/2026" is two
+different days, and a deadline out by a month with a rule cited beside it is the
+most credible wrong answer this product could give.
+
+The computed-date path is therefore NOT exercised by these fixtures. It is
+measured by `npm run eval:accuracy`, whose nine deadline cases now read the date
+out of the rendered prose a reader sees, two of them through `renderStageAnswer`
+and a real published block.
+
+**On the summary wording in `.actual.md`:** the `intelligenceSummary` and
+`structuredIntelligenceSummary` lines differ from the previous run in wording
+only. Those are model output and §2 above already records them as subject to
+variance. The structural record — questions asked, claim type matched, stage
+derived, turn count — is identical to the run before these questions existed.

@@ -96,6 +96,8 @@ interpretation, and an unrecoverable failure mode.
 |---|---|
 | `holidays.ts` | Two holiday calendars — they are not the same list |
 | `deadlineEngine.ts` | Counts a period and returns the date **plus the reasoning and citation for each step** |
+| `deadlineTemplates.ts` | The 18 fixed sentences the engine is allowed to say. It picks one and supplies dates; it does not compose prose |
+| `deadlineEvents.ts` | The events a deadline can run from, which of them we ask a date for, and **why we decline to ask the others** |
 
 **The finding this part turns on:**
 
@@ -327,10 +329,138 @@ that looked like one.
 `getStageForPersistence` defaulted to `"starting-case"`. It now defaults to
 `"not-sure"`, which has content directing to the referral resources.
 
-**Still dormant:** the deadline engine. Part 5 renders the PERIOD and what it
-runs from; a date needs the user's own event date and no slot supplies one yet.
-Computing a date from a date we do not have would be the worst possible use of
-it.
+**The deadline engine was dormant at the end of Part 5** — Part 5 rendered the
+period and what it runs from, and a date needs the user's own event date, which
+nothing supplied. Decision 5 supplied it. See "Decision 5" below.
+
+---
+
+## Decision 5: wiring the deadline engine
+
+The independent review's finding was one sentence: **the deadline engine has no
+production caller.** It was right, and it is the most expensive kind of finding,
+because nothing was broken. The arithmetic was correct, the 60 assertions passed,
+the nine worked cases passed, and no user could reach a single date any of it
+produced. A reader at the defence stage got "You have 20 days, counted from the
+day of being served with the claim" and was left to do the weekend rollover
+themselves — which is the part people get wrong, and the reason the engine exists.
+
+### What was missing was a join, not arithmetic
+
+Every deadline already recorded the event its clock runs from, as prose: "the day
+of being served with the claim". Prose is right for reading and useless as a key —
+the same moment is phrased from the other side as "the day the defendant was
+served with the claim" — so nothing could connect it to an answer in a form.
+
+| Added | What it is |
+|---|---|
+| `StageDeadline.countFromEvent` | The event, as a key, beside the prose. All 18 deadlines |
+| `deadlineEvents.ts` | The catalogue: 11 events, the 7 we ask a date for, and why we decline the rest |
+| 7 intake questions | Optional, conditional, gated on the procedural state that makes each answerable |
+| `caseDatesFrom` | The one join: answers keyed by question id become dates keyed by event |
+| `computedDeadline.ts` | Calls the engine, guards each template, fills it, assembles the prose |
+| `renderStageAnswer(stageId, facts, dates)` | The existing single door, now carrying the date |
+| `POST /api/case/resolve-stage` | Takes `dateAnswers`, parses them, never trusts a date from a caller |
+
+### What the reader sees
+
+The period first, because it is true for everybody and it is what the rule says.
+The date second, because it depends on something they told us.
+
+> Serve a defence on every other party and file it with the clerk, with proof of
+> service. You have 20 days, counted from the day of being served with the claim.
+>
+> Based on the date you gave us, the last day for this is Monday 23 March 2026.
+>
+> How that was counted:
+> - Counted 20 days from Monday 2 March 2026, not counting that day itself and counting the last day, which gives Sunday 22 March 2026.
+> - Sunday 22 March 2026 is a Sunday, and a Sunday counts as a holiday for this deadline.
+> - The period therefore runs to the next day that is not a holiday: Monday 23 March 2026.
+> - Under these rules every Saturday and Sunday is a holiday, along with the named days.
+>
+> This date was worked out by counting, not taken from your court file. If the
+> date you gave us is not exactly right, this one will not be either — and the
+> court office can confirm both.
+
+### Three decisions worth stating
+
+**The engine no longer writes its own prose.** `outputGuard` is an allowlist: a
+string reaches a user only if it is a content-library item. Interpolated prose
+assembled inside an engine is neither, and returning it from the render path
+would have routed a dozen sentences about how the law counts days around the one
+control that exists to stop that — quietly, because text that never reaches the
+guard cannot be blocked by it. So the 18 sentences live in
+`deadlineTemplates.ts`, are indexed by `contentInventory`, appear in the review
+packet, and are guarded before being filled. The engine picks one and supplies
+dates.
+
+**An ambiguous date is refused, not guessed.** "03/04/2026" is 3 April to most of
+the world and 4 March to some of it. `parseUserDate` accepts `2026-04-03`,
+`3 April 2026`, `April 3 2026` and `3 Apr 2026`, and returns nothing for anything
+else. A refusal is not an error and is not shown as one: the reader gets the
+period, which is what they would have got without answering. A deadline out by a
+month with a rule cited beside it is the most credible wrong answer this product
+could give.
+
+**Two events are deliberately not asked about**, and the reasons are different:
+
+- **When a claim was discovered** decides whether the two-year limitation period
+  has run, and it is a question under Limitations Act s. 5 rather than a fact a
+  person can report. A date box labelled "when did you discover the claim?" whose
+  answer drives a computed date telling them they are out of time is the system
+  applying law to their facts (CLAUDE.md §2). The period is shown; the reader
+  applies it.
+- **The date of the judgment** is not asked because **no deadline runs from it.**
+  r. 17.01 (5) gives 30 days after the party becomes **aware** of the judgment,
+  and r. 11.06 speaks to acting as soon as reasonably possible after **learning**
+  of the default. A judgment made at a hearing nobody attended is often learned of
+  weeks later, so counting from the judgment date would hand the reader an earlier
+  deadline than the rule gives them. We ask when they found out.
+
+### Two bugs this found
+
+**The statement sentence named the wrong day.** It was built from the first
+computation step's result — the date *before* the holiday extension — so a
+defence period served 2 March announced "the last day for this is Sunday 22
+March" above four steps that correctly ended at Monday 23 March. Two days early,
+in the one sentence most likely to be the only one read. Found by reading the
+rendered output; comparing the engine's return value would never have caught it,
+because the engine was right. The eval now reads the date out of the prose, and
+reintroducing the bug takes it from 9/9 to 5/9.
+
+**A template claimed the rules were silent.** The backwards-counting uncertainty
+read "they do not say what happens to a backwards-counted date" — exactly the
+claim decision 1 forbids, sitting unreachable in an engine nobody called.
+Rewritten as what the provisions do say. `test:deadlines` now runs every template
+through the same absence gate the blocks pass.
+
+### And two the fixture harness found
+
+Ungated, the seven date questions were asked of everyone: three pre-filing
+fixtures went from 11 turns to 18, being asked about default judgments in a case
+that did not exist — and all three picked up `possibleCorrections: role
+"plaintiff" -> "defendant"`, because the extractor reads the transcript and a
+plaintiff answering questions about being served and being noted in default reads
+like a defendant. Only ever proposed, never applied (§4), and the claim types
+were still right. Gating each question on the state that makes it answerable put
+the turn counts back to exactly where they were.
+
+### How it is measured
+
+```
+deadline accuracy  9/9   as RENDERED to a reader, not as returned by the engine
+through a block    2/9   the runtime door end to end, with a real published block
+```
+
+Two numbers, because they are not the same claim. The gap between them is the
+remaining work: the three notice stages are still `needs-human`, and the
+limitation period runs from an event we decline to ask about. Reporting only the
+first would let "end to end" stand for more than it is.
+
+`test:reachability` confirmed the wiring by failing: `deadlineEngine.ts` and
+`holidays.ts` were on the dormant list, and the check that a dormant module has
+not quietly become reachable fired. Two deletions, obvious cause — which is what
+that check exists to force.
 
 ---
 

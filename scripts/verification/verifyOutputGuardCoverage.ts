@@ -76,6 +76,19 @@ type GuardedPath = {
 
 const GUARDED: GuardedPath[] = [
   {
+    file: "src/lib/content-library/computedDeadline.ts",
+    what:
+      "every sentence the deadline engine can produce, as the TEMPLATE a licensee " +
+      "reviewed rather than the filled instance. Added by decision 5, and it had to be: " +
+      "wiring the engine to a render path made a dozen sentences about how the law counts " +
+      "days user-facing for the first time, and prose assembled inside an engine would " +
+      "never have reached the guard to be blocked. Two call sites rather than a dozen: " +
+      "every step, statement and caution routes through one `guardedFill` helper, and the " +
+      "second call is the uncertainty explanation, guarded on its own because a " +
+      "confirm-with-court date whose explanation had been dropped would read as settled",
+    atLeast: 2,
+  },
+  {
     file: "src/lib/content-library/stageAnswerView.ts",
     what:
       "every section of a published stage answer -- the ONLY way one reaches a user. " +

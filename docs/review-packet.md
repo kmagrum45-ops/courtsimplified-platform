@@ -31,11 +31,11 @@ edited afterwards the approval no longer applies, and the item returns to draft.
 
 | Measure | Count |
 |---|---|
-| Total items | 379 |
+| Total items | 411 |
 | Approved (current version) | 0 |
-| Draft / unreviewed | 379 |
+| Draft / unreviewed | 411 |
 | Approvals voided by later edits | 0 |
-| Items that are unwritten placeholders | 41 |
+| Items that are unwritten placeholders | 48 |
 
 ## Placeholders — text that does not exist yet
 
@@ -55,6 +55,13 @@ which is the thing this work exists to prevent.
 - **explain:sc-contractor-notice-before-replacement** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-contractor-notice-before-replacement", which has no "why" text to derive one from]
 - **explain:sc-evidence-available** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-evidence-available", which has no "why" text to derive one from]
 - **explain:sc-remedy-sought** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-remedy-sought", which has no "why" text to derive one from]
+- **explain:sc-date-claim-served** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-claim-served", which has no "why" text to derive one from]
+- **explain:sc-date-claim-issued** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-claim-issued", which has no "why" text to derive one from]
+- **explain:sc-date-defence-filed** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-defence-filed", which has no "why" text to derive one from]
+- **explain:sc-date-defendants-claim-served** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-defendants-claim-served", which has no "why" text to derive one from]
+- **explain:sc-date-settlement-conference** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-settlement-conference", which has no "why" text to derive one from]
+- **explain:sc-date-learned-of-default** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-learned-of-default", which has no "why" text to derive one from]
+- **explain:sc-date-learned-of-judgment** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-learned-of-judgment", which has no "why" text to derive one from]
 - **explain:sc-safety-check** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-safety-check", which has no "why" text to derive one from]
 - **next:small-claims:enforcement** (small-claims / enforcement) — [NEEDS LICENSEE REVIEW: Small Claims enforcement steps. O. Reg. 258/98 r. 20 is vendored in docs/sources/oreg-258-98-cited-rules.txt and names the forms (20A certificate of judgment, 20C and 20D writs of seizure and sale, 20P affidavit for enforcement request), but no reviewed user-facing next-step wording exists yet]
 - **next:small-claims:urgent** (small-claims / urgent) — [NEEDS LICENSEE REVIEW: what a self-represented person should do when a Small Claims matter is urgent. This is not a procedural stage in the Rules and has no provision to cite]
@@ -1418,6 +1425,206 @@ The amount claimed falls within Small Claims Court's jurisdiction
 The Small Claims Court has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount ($50,000, excluding interest and costs) -- this is a monetary jurisdiction, not a subject-matter one.
 ```
 
+## deadline-computation (18)
+
+### `deadline-template:counted-days-forward`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / deadlines
+- **Appears in:** The deadline section of a stage answer, when the date it counts from is known
+- **Source:** https://www.ontario.ca/laws/regulation/980258
+
+```
+Counted {count} days from {from}, not counting that day itself and counting the last day, which gives {result}.
+```
+
+### `deadline-template:counted-days-backward`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / deadlines
+- **Appears in:** The deadline section of a stage answer, when the date it counts from is known
+- **Source:** https://www.ontario.ca/laws/regulation/980258
+
+```
+Counted back {count} days from {from}, which gives {result}.
+```
+
+### `deadline-template:counted-months`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / deadlines
+- **Appears in:** The deadline section of a stage answer, when the date it counts from is known
+- **Source:** https://www.ontario.ca/laws/statute/06l21
+
+```
+Counted {count} months from {from}, landing on the same day of the month (or the last day of that month, if it is shorter), which gives {result}.
+```
+
+### `deadline-template:months-supplied-by-legislation-act`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / deadlines
+- **Appears in:** The deadline section of a stage answer, when the date it counts from is known
+- **Source:** https://www.ontario.ca/laws/statute/06l21
+
+```
+The Small Claims rules say how to count days. The Legislation Act supplies the month arithmetic, because Part VI of that Act applies to every Act and regulation.
+```
+
+### `deadline-template:counted-years`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / deadlines
+- **Appears in:** The deadline section of a stage answer, when the date it counts from is known
+- **Source:** https://www.ontario.ca/laws/statute/06l21
+
+```
+Counted {count} years from {from} to the anniversary, which gives {result}.
+```
+
+### `deadline-template:leap-year-anniversary`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / deadlines
+- **Appears in:** The deadline section of a stage answer, when the date it counts from is known
+- **Source:** https://www.ontario.ca/laws/statute/06l21
+
+```
+{from} was 29 February, and {year} is not a leap year, so the anniversary falls on 28 February.
+```
+
+### `deadline-template:landed-on-holiday`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / deadlines
+- **Appears in:** The deadline section of a stage answer, when the date it counts from is known
+- **Source:** https://www.ontario.ca/laws/regulation/980258
+
+```
+{result} is {holiday}.
+```
+
+### `deadline-template:landed-on-weekend`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / deadlines
+- **Appears in:** The deadline section of a stage answer, when the date it counts from is known
+- **Source:** https://www.ontario.ca/laws/regulation/980258
+
+```
+{result} is a {holiday}, and a {holiday} counts as a holiday for this deadline.
+```
+
+### `deadline-template:extended-past-holiday`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / deadlines
+- **Appears in:** The deadline section of a stage answer, when the date it counts from is known
+- **Source:** https://www.ontario.ca/laws/regulation/980258
+
+```
+The period therefore runs to the next day that is not a holiday: {result}.
+```
+
+### `deadline-template:weekends-are-holidays-under-the-rules`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / deadlines
+- **Appears in:** The deadline section of a stage answer, when the date it counts from is known
+- **Source:** https://www.ontario.ca/laws/regulation/980258
+
+```
+Under these rules every Saturday and Sunday is a holiday, along with the named days.
+```
+
+### `deadline-template:statutory-saturday-is-not-a-holiday`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / deadlines
+- **Appears in:** The deadline section of a stage answer, when the date it counts from is known
+- **Source:** https://www.ontario.ca/laws/statute/06l21
+
+```
+Checked whether the last day is a holiday. For a deadline set by a statute the holidays are the days listed in the Legislation Act, and Saturday is not one of the days that list names.
+```
+
+### `deadline-template:uncertain-settled-practice-holiday`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / deadlines
+- **Appears in:** The deadline section of a stage answer, when the date it counts from is known
+- **Source:** https://www.ontario.ca/laws/regulation/980258
+
+```
+This date moved because of {holiday}. We could not find a statute stating when {holiday} falls, so the date used here is the settled one. The court office can confirm it.
+```
+
+### `deadline-template:uncertain-statutory-saturday`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / deadlines
+- **Appears in:** The deadline section of a stage answer, when the date it counts from is known
+- **Source:** https://www.ontario.ca/laws/statute/06l21
+
+```
+{result} is a Saturday. This deadline is set by a statute rather than by the Small Claims rules, and the list of holidays in the Legislation Act names Sunday and the named holidays, not Saturday — so this period ends on the Saturday. It may be extended if the place you have to serve or file is closed that day, which is worth confirming with the court office.
+```
+
+### `deadline-template:uncertain-backward-count-lands-on-holiday`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / deadlines
+- **Appears in:** The deadline section of a stage answer, when the date it counts from is known
+- **Source:** https://www.ontario.ca/laws/regulation/980258
+
+```
+{result} is {holiday}, and this deadline is counted backwards from a hearing date. The provisions on holidays speak to a period that ends or expires on a holiday, and this date is one you have to act by rather than one a period runs out on. Doing it before {result} avoids the question.
+```
+
+### `deadline-template:computed-date-forward`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / deadlines
+- **Appears in:** The deadline section of a stage answer, when the date it counts from is known
+- **Source:** _none recorded_
+
+```
+Based on the date you gave us, the last day for this is {result}.
+```
+
+### `deadline-template:computed-date-backward`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / deadlines
+- **Appears in:** The deadline section of a stage answer, when the date it counts from is known
+- **Source:** _none recorded_
+
+```
+Based on the date you gave us, this has to be done by {result} at the latest.
+```
+
+### `deadline-template:how-this-was-counted`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / deadlines
+- **Appears in:** The deadline section of a stage answer, when the date it counts from is known
+- **Source:** _none recorded_
+
+```
+How that was counted:
+```
+
+### `deadline-template:confirm-the-computed-date`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / deadlines
+- **Appears in:** The deadline section of a stage answer, when the date it counts from is known
+- **Source:** _none recorded_
+
+```
+This date was worked out by counting, not taken from your court file. If the date you gave us is not exactly right, this one will not be either — and the court office can confirm both.
+```
+
 ## depth-question (74)
 
 ### `depth-cs-children-ages`
@@ -2656,7 +2863,7 @@ Affidavit of Service
 Proves that a civil court document was served.
 ```
 
-## intake-question (22)
+## intake-question (29)
 
 ### `sc-orient-when-happened`
 
@@ -2905,6 +3112,83 @@ What evidence do you have to support your claim (documents, photos, messages, re
 
 ```
 What outcome are you asking the court to order?
+```
+
+### `sc-date-claim-served`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / substance
+- **Appears in:** Guided intake and the Small Claims static form
+- **Source:** _none recorded_
+
+```
+If the claim has been served, what date was it served?
+```
+
+### `sc-date-claim-issued`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / substance
+- **Appears in:** Guided intake and the Small Claims static form
+- **Source:** _none recorded_
+
+```
+If a claim has been issued by the court, what date is on it?
+```
+
+### `sc-date-defence-filed`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / substance
+- **Appears in:** Guided intake and the Small Claims static form
+- **Source:** _none recorded_
+
+```
+If a defence has been filed, what date was it filed?
+```
+
+### `sc-date-defendants-claim-served`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / substance
+- **Appears in:** Guided intake and the Small Claims static form
+- **Source:** _none recorded_
+
+```
+If you were served with a defendant's claim, what date was it served?
+```
+
+### `sc-date-settlement-conference`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / substance
+- **Appears in:** Guided intake and the Small Claims static form
+- **Source:** _none recorded_
+
+```
+If a settlement conference has been scheduled, what date is it?
+```
+
+### `sc-date-learned-of-default`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / substance
+- **Appears in:** Guided intake and the Small Claims static form
+- **Source:** _none recorded_
+
+```
+If you have been noted in default, what date did you find out?
+```
+
+### `sc-date-learned-of-judgment`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / substance
+- **Appears in:** Guided intake and the Small Claims static form
+- **Source:** _none recorded_
+
+```
+If judgment was made at a hearing you did not attend, what date did you find out?
 ```
 
 ### `sc-safety-check`
@@ -4045,7 +4329,7 @@ Common risks:
 - Using a civil or Small Claims form instead of the matching Family Law Rules form.
 ```
 
-## question-explanation (22)
+## question-explanation (29)
 
 ### `explain:sc-orient-when-happened`
 
@@ -4276,6 +4560,83 @@ The Rules provide a route for this. A defendant who admits liability for all or 
 
 ```
 [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-remedy-sought", which has no "why" text to derive one from]
+```
+
+### `explain:sc-date-claim-served`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Intake, "I don't understand this" on sc-date-claim-served
+- **Source:** _none recorded_
+
+```
+[NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-claim-served", which has no "why" text to derive one from]
+```
+
+### `explain:sc-date-claim-issued`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Intake, "I don't understand this" on sc-date-claim-issued
+- **Source:** _none recorded_
+
+```
+[NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-claim-issued", which has no "why" text to derive one from]
+```
+
+### `explain:sc-date-defence-filed`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Intake, "I don't understand this" on sc-date-defence-filed
+- **Source:** _none recorded_
+
+```
+[NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-defence-filed", which has no "why" text to derive one from]
+```
+
+### `explain:sc-date-defendants-claim-served`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Intake, "I don't understand this" on sc-date-defendants-claim-served
+- **Source:** _none recorded_
+
+```
+[NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-defendants-claim-served", which has no "why" text to derive one from]
+```
+
+### `explain:sc-date-settlement-conference`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Intake, "I don't understand this" on sc-date-settlement-conference
+- **Source:** _none recorded_
+
+```
+[NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-settlement-conference", which has no "why" text to derive one from]
+```
+
+### `explain:sc-date-learned-of-default`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Intake, "I don't understand this" on sc-date-learned-of-default
+- **Source:** _none recorded_
+
+```
+[NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-learned-of-default", which has no "why" text to derive one from]
+```
+
+### `explain:sc-date-learned-of-judgment`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Intake, "I don't understand this" on sc-date-learned-of-judgment
+- **Source:** _none recorded_
+
+```
+[NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-learned-of-judgment", which has no "why" text to derive one from]
 ```
 
 ### `explain:sc-safety-check`

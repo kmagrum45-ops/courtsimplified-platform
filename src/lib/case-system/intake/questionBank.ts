@@ -560,6 +560,183 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     status: "reviewed",
   },
 
+  /*
+   * ---------------------------------------------- the dates a deadline runs from
+   *
+   * DECISION 5. Seven questions, one for each event in the stage map that a
+   * deadline is counted from and that a person can simply report. The events
+   * are catalogued in `case-system/deadlines/deadlineEvents.ts`, which holds the
+   * join from these ids to the deadlines, and which also records the events we
+   * deliberately DO NOT ask about and why — the limitation period is the
+   * important one, because when a claim was "discovered" is decided under
+   * Limitations Act s. 5 and is not a fact a reader can report.
+   *
+   * *** WHY EVERY ONE IS OPTIONAL AND CONDITIONAL ***
+   *
+   * Each begins "If…" and every one has `allowUnknown`. A known date buys the
+   * reader a computed deadline with the counting shown; an unknown one costs
+   * them nothing, because the block still states the period and the rule. There
+   * is no path where skipping one produces a worse answer, which is the only
+   * arrangement under which an optional question is honest.
+   *
+   * *** WHY NONE OF THEM HAS A `sourceUrl` ***
+   *
+   * None states a legal or procedural fact. "What date was it served?" asks for
+   * something that happened; it does not say what follows from the answer. The
+   * moment one of these said "you have 20 days from that date" it would need a
+   * source — and it would also be the wrong place to say it, because the
+   * deadline belongs beside the rule in the stage answer, not in the question.
+   *
+   * *** WHY THERE IS NO `capturesField` ***
+   *
+   * `capturesField` writes a verbatim answer into an `IntakeFacts` text field.
+   * These answers are consumed as DATES, by `caseDatesFrom`, which refuses
+   * anything ambiguous — "03/04/2026" is two different days and is rejected
+   * rather than guessed. Storing them as prose beside that would create a second
+   * copy that the arithmetic does not read.
+   *
+   * *** WHY EACH ONE IS GATED ON THE STATE THAT MAKES IT POSSIBLE ***
+   *
+   * They were ungated at first, on the reasoning that the "If…" did the work and
+   * a gate we got wrong would hide a question somebody needed. Running
+   * `test:fixtures` settled it, and it settled it twice over:
+   *
+   *   - Every fixture went from 11 turns to 18. Three pre-filing stories were
+   *     each asked seven questions about default judgments and settlement
+   *     conferences in a case that did not exist yet. Even answered "not
+   *     applicable" seven times, that is a worse intake.
+   *
+   *   - Worse, all three picked up `possibleCorrections: role "plaintiff" ->
+   *     "defendant"`. The extractor reads the transcript, and a plaintiff
+   *     answering questions about being served with a claim and being noted in
+   *     default reads like a defendant. The correction was only ever proposed,
+   *     never applied (CLAUDE.md §4), and the stories still matched the right
+   *     claim type — but a date question was pushing the reader's own role
+   *     toward the wrong answer, which is not a cost worth paying for a date we
+   *     would not have used.
+   *
+   * So each is gated on the procedural fact that makes it answerable at all,
+   * and the two side-specific ones on `role` as well: a defendant's claim is
+   * served BY a defendant ON a plaintiff (r. 10), and being noted in default
+   * happens to a defendant.
+   *
+   * The "If…" phrasing STAYS even so. The gates read AI-extracted booleans,
+   * which can be wrong, and the conditional wording is what keeps a
+   * wrongly-gated question from asserting something about the reader's case.
+   */
+  {
+    id: "sc-date-claim-served",
+    courtArea: "small-claims",
+    appliesWhen: { field: "claimServed", op: "equals", value: true },
+    text: "If the claim has been served, what date was it served?",
+    examples: ["2026-03-02", "3 April 2026", "April 3 2026"],
+    answerType: "date",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: "2026-09-25",
+    status: "reviewed",
+  },
+  {
+    id: "sc-date-claim-issued",
+    courtArea: "small-claims",
+    appliesWhen: { field: "claimFiled", op: "equals", value: true },
+    text: "If a claim has been issued by the court, what date is on it?",
+    examples: ["2026-03-02", "3 April 2026", "April 3 2026"],
+    answerType: "date",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: "2026-09-25",
+    status: "reviewed",
+  },
+  {
+    id: "sc-date-defence-filed",
+    courtArea: "small-claims",
+    appliesWhen: { field: "defenceFiled", op: "equals", value: true },
+    text: "If a defence has been filed, what date was it filed?",
+    examples: ["2026-03-02", "3 April 2026", "April 3 2026"],
+    answerType: "date",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: "2026-09-25",
+    status: "reviewed",
+  },
+  {
+    id: "sc-date-defendants-claim-served",
+    courtArea: "small-claims",
+    appliesWhen: {
+      all: [
+        { field: "role", op: "equals", value: "plaintiff" },
+        { field: "defenceFiled", op: "equals", value: true },
+      ],
+    },
+    text: "If you were served with a defendant's claim, what date was it served?",
+    examples: ["2026-03-02", "3 April 2026", "April 3 2026"],
+    answerType: "date",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: "2026-09-25",
+    status: "reviewed",
+  },
+  {
+    id: "sc-date-settlement-conference",
+    courtArea: "small-claims",
+    appliesWhen: { field: "defenceFiled", op: "equals", value: true },
+    text: "If a settlement conference has been scheduled, what date is it?",
+    examples: ["2026-03-02", "3 April 2026", "April 3 2026"],
+    answerType: "date",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: "2026-09-25",
+    status: "reviewed",
+  },
+  {
+    id: "sc-date-learned-of-default",
+    courtArea: "small-claims",
+    appliesWhen: {
+      all: [
+        { field: "role", op: "equals", value: "defendant" },
+        { field: "claimServed", op: "equals", value: true },
+      ],
+    },
+    text: "If you have been noted in default, what date did you find out?",
+    examples: ["2026-03-02", "3 April 2026", "April 3 2026"],
+    answerType: "date",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: "2026-09-25",
+    status: "reviewed",
+  },
+  {
+    /*
+     * The date you FOUND OUT, not the date of the judgment.
+     *
+     * r. 17.01 (5) gives 30 days after the party becomes aware of the judgment,
+     * and r. 11.06 speaks to acting as soon as is reasonably possible after
+     * learning of the default. A judgment made at a hearing nobody attended is
+     * often learned of weeks later, so counting from the judgment date would
+     * hand the reader a deadline earlier than the one the rule gives them. The
+     * judgment date is therefore a question we do not ask at all — see
+     * deadlineEvents.ts.
+     */
+    id: "sc-date-learned-of-judgment",
+    courtArea: "small-claims",
+    appliesWhen: { field: "claimFiled", op: "equals", value: true },
+    text: "If judgment was made at a hearing you did not attend, what date did you find out?",
+    examples: ["2026-03-02", "3 April 2026", "April 3 2026"],
+    answerType: "date",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: "2026-09-25",
+    status: "reviewed",
+  },
+
   // ------------------------------------------------------------------ sensitive
   {
     id: "sc-safety-check",

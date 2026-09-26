@@ -67,6 +67,12 @@ export type ContentType =
   | "assistant-block"
   /** A published stage answer from the accuracy pipeline. See publishedLibrary.ts. */
   | "stage-answer"
+  /**
+   * A sentence the deadline engine can produce, as a template. Decision 5.
+   * See case-system/deadlines/deadlineTemplates.ts for why the engine no
+   * longer composes its own prose.
+   */
+  | "deadline-computation"
   | "doctrine"
   | "safety-resource"
   | "remedy";

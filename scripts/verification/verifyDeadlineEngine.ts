@@ -14,6 +14,21 @@
  * The expected dates are worked out from the provisions and stated in the case
  * itself, so a failure says what was expected AND why — otherwise a red line
  * here just invites someone to update the number until it goes green.
+ *
+ * *** TWO SECTIONS, ASKING TWO DIFFERENT QUESTIONS ***
+ *
+ * Everything up to "DECISION 5" asks whether the engine counts correctly. It
+ * did, from the day it was written, and it did not matter: the independent
+ * review's finding was not that the arithmetic was wrong but that NOTHING
+ * CALLED IT. A correct date in an object no render path asks for is not a
+ * correct date on anybody's screen.
+ *
+ * The second section asks whether the path from a question a person is asked to
+ * a date a person reads is unbroken — the event catalogue, the question bank,
+ * the join, the guard, the render layer, and the two rules that must produce no
+ * date at all. Those checks are written as properties: none of them fails
+ * because somebody added a deadline, a question or a template. They fail when a
+ * link is missing.
  */
 
 import {
@@ -26,6 +41,17 @@ import {
   holidaysInYear,
   unsourcedHolidayNames,
 } from "../../src/lib/case-system/deadlines/holidays";
+import {
+  DEADLINE_EVENTS,
+  askedEvents,
+  caseDatesFrom,
+  parseUserDate,
+} from "../../src/lib/case-system/deadlines/deadlineEvents";
+import { DEADLINE_TEMPLATES } from "../../src/lib/case-system/deadlines/deadlineTemplates";
+import { QUESTION_BANK } from "../../src/lib/case-system/intake/questionBank";
+import { collectContentInventory } from "../../src/lib/content-library/contentInventory";
+import { computedDeadlinesFor } from "../../src/lib/content-library/computedDeadline";
+import { assertsAbsenceProblems } from "../content/blockGates";
 import { CASE_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 
 let passed = 0;
@@ -379,6 +405,224 @@ for (const stage of CASE_STAGES) {
 }
 
 // ---------------------------------------------------------------------------
+
+// =========================================================================
+// DECISION 5 — IS THE ENGINE ACTUALLY WIRED TO ANYTHING?
+// =========================================================================
+//
+// Everything above this line checks that the engine counts correctly. It did
+// that already, on the day it was written, while no user could reach a single
+// date it produced. The independent review's finding was not "the arithmetic is
+// wrong" — it was "nothing calls this".
+//
+// So these are checks of a different kind. They assert that the path from a
+// question a person is asked to a date a person reads is unbroken, and they are
+// written as properties rather than counts: none of them fails because somebody
+// added a deadline, a question or a template. They fail when a link is missing.
+
+// ---- 1. every deadline names an event, and every event is real -------------
+
+for (const stage of CASE_STAGES) {
+  for (const deadline of stage.deadlines) {
+    check(
+      `${deadline.id} names a real event`,
+      Boolean(DEADLINE_EVENTS[deadline.countFromEvent]),
+      `countFromEvent "${deadline.countFromEvent}" is not in the catalogue`,
+    );
+  }
+}
+
+// ---- 2. an event we ask about is one we can use ---------------------------
+//
+// A date question whose answer drives no deadline is worse than no question: it
+// asks a person for something, implies it matters, and does nothing with it.
+// This is the check that stops the catalogue from growing a question because it
+// seemed like a useful thing to know.
+
+const eventsUsedByDeadlines = new Set(
+  CASE_STAGES.flatMap((stage) => stage.deadlines.map((deadline) => deadline.countFromEvent)),
+);
+
+for (const event of Object.values(DEADLINE_EVENTS)) {
+  if (event.question === null) {
+    check(
+      `${event.key} says why it is not asked`,
+      Boolean(event.notAskedBecause),
+      "an event we decline to ask about must record the reason, or it reads as an oversight",
+    );
+    continue;
+  }
+
+  check(
+    `${event.key} is asked AND used`,
+    eventsUsedByDeadlines.has(event.key),
+    "we ask a person for this date and no deadline is counted from it",
+  );
+}
+
+// ---- 3. the question exists, in the bank, in the words the catalogue claims -
+
+const bankById = new Map(QUESTION_BANK.map((question) => [question.id, question]));
+
+for (const event of askedEvents()) {
+  const question = event.questionId ? bankById.get(event.questionId) : undefined;
+  check(
+    `${event.key} has its question in the bank`,
+    Boolean(question),
+    `questionId "${event.questionId}" is not in QUESTION_BANK, so nothing asks it`,
+  );
+  if (!question) continue;
+
+  // The catalogue and the bank must not drift: a reader answers the bank's
+  // wording, and the catalogue is what claims that answer is this event's date.
+  check(
+    `${event.key}'s question text matches the bank`,
+    question.text === event.question,
+    `catalogue: ${event.question}\n      bank:      ${question.text}`,
+  );
+  check(
+    `${event.key}'s question takes a date`,
+    question.answerType === "date",
+    `answerType is "${question.answerType}"`,
+  );
+  check(
+    `${event.key}'s question can be skipped`,
+    question.allowUnknown,
+    "these questions are optional by design: a known date buys a computed date, " +
+      "and an unknown one must cost nothing",
+  );
+}
+
+// ---- 4. an answer becomes a date, and an ambiguous one does not ------------
+//
+// The refusals matter more than the acceptances. "03/04/2026" is 3 April to most
+// of the world and 4 March to some of it; guessing produces a deadline out by a
+// month with a rule cited beside it, which is the most credible wrong answer
+// this product could give.
+
+for (const accepted of [
+  ["2026-04-03", "2026-04-03"],
+  ["3 April 2026", "2026-04-03"],
+  ["April 3 2026", "2026-04-03"],
+  ["3 Apr 2026", "2026-04-03"],
+  ["3rd April, 2026", "2026-04-03"],
+  ["  2026-4-3 ", "2026-04-03"],
+] as const) {
+  check(
+    `parseUserDate accepts "${accepted[0]}"`,
+    parseUserDate(accepted[0]) === accepted[1],
+    `got ${String(parseUserDate(accepted[0]))}, wanted ${accepted[1]}`,
+  );
+}
+
+for (const refused of [
+  "03/04/2026",
+  "3/4/2026",
+  "last Tuesday",
+  "early March",
+  "about 3 weeks ago",
+  "31 February 2026",
+  "2026-02-30",
+  "sometime in 2026",
+  "",
+]) {
+  check(
+    `parseUserDate refuses "${refused}"`,
+    parseUserDate(refused) === null,
+    `it returned ${String(parseUserDate(refused))} — an ambiguous or impossible date must be ` +
+      `refused, not guessed`,
+  );
+}
+
+// The join, end to end: an answer keyed by question id becomes a date keyed by
+// event. Both events that share the claim-issued question must be filled.
+const joined = caseDatesFrom({
+  "sc-date-claim-served": "3 April 2026",
+  "sc-date-claim-issued": "2026-01-02",
+  "sc-date-learned-of-default": "not sure, maybe March",
+});
+check("caseDatesFrom parses a served date", joined["served-with-claim"] === "2026-04-03");
+check("caseDatesFrom fills both events sharing one question", joined["claim-issued"] === "2026-01-02" && joined["action-commenced"] === "2026-01-02");
+check(
+  "caseDatesFrom drops a vague answer rather than guessing",
+  joined["learned-of-default"] === undefined,
+);
+
+// ---- 5. every sentence the engine can say is reachable through the guard ---
+//
+// The guard is an allowlist. A template that is not in the content inventory
+// cannot be shown at all — and the failure is silent, because a sentence that
+// never reaches the guard cannot be reported by it.
+
+const inventoryText = new Set(collectContentInventory().map((entry) => entry.text.trim()));
+
+for (const template of Object.values(DEADLINE_TEMPLATES)) {
+  check(
+    `template ${template.id} is in the content inventory`,
+    inventoryText.has(template.text.trim()),
+    "the output guard is an allowlist, so this sentence can never be shown to anyone",
+  );
+}
+
+// ---- 6. and none of them claims the law is silent -------------------------
+//
+// Decision 1, applied to the engine's own prose. One of these templates DID
+// claim it — "they do not say what happens to a backwards-counted date" — and
+// nothing caught it for the whole of Part 4, because prose in an engine nobody
+// calls is prose nobody reads. Wiring the engine up is exactly the moment to
+// hold it to the same rule as every block.
+
+for (const template of Object.values(DEADLINE_TEMPLATES)) {
+  const problems = assertsAbsenceProblems(template.text);
+  check(
+    `template ${template.id} does not assert the law is silent`,
+    problems.length === 0,
+    problems.join("; "),
+  );
+}
+
+// ---- 7. a rule that fixes no period never produces a date ------------------
+//
+// r. 11.06 requires a motion "as soon as is reasonably possible in all the
+// circumstances" and the stage map records that as count 0. The engine throws on
+// it; the render path must skip it. Asserted against the real stage rather than
+// a synthetic one, because the stage this protects —
+// `defendant:default-judgment-against-me` — is the one the eval calls the place
+// where a wrong answer costs the most.
+
+const noFixedPeriod = CASE_STAGES.flatMap((stage) => stage.deadlines).filter(
+  (deadline) => deadline.length.count === 0,
+);
+check(
+  "there is still a deadline with no fixed period to test against",
+  noFixedPeriod.length > 0,
+  "if this is empty the check below asserts nothing; r. 11.06 should be here",
+);
+for (const deadline of noFixedPeriod) {
+  const computed = computedDeadlinesFor([deadline], {
+    [deadline.countFromEvent]: "2026-03-02",
+  });
+  check(
+    `${deadline.id} produces no date even with its event date known`,
+    computed.length === 0,
+    "a rule that deliberately fixes no period must not be turned into a date",
+  );
+}
+
+// ---- 8. an unknown date leaves the answer exactly as it was ---------------
+//
+// The promise the optional questions rest on. If skipping a date question could
+// make an answer worse, the question is not optional in any meaningful sense.
+
+for (const stage of CASE_STAGES) {
+  if (stage.deadlines.length === 0) continue;
+  check(
+    `${stage.id} computes nothing without dates`,
+    computedDeadlinesFor(stage.deadlines, {}).length === 0,
+    "a stage with no dates given must fall back to the period, not produce something",
+  );
+}
+
 
 console.log("");
 console.log("DEADLINE ENGINE");

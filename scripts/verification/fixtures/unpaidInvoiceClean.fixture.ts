@@ -54,6 +54,13 @@ export const unpaidInvoiceCleanFixture: Fixture = {
     "sc-evidence-available":
       "I have four things: (1) service-agreement-signed.pdf, a signed services agreement dated March 3, 2026, both parties' signatures, stating the scope and the $8,400 fee; (2) invoice-2026-014.pdf, the invoice dated April 10, 2026, for $8,400, due April 25, 2026; (3) delivery-email-thread.pdf, an email thread confirming the final files were delivered and received April 10, 2026; (4) demand-letters.pdf, two written demand emails sent April 28 and May 15, 2026 asking for payment.",
     "sc-remedy-sought": "I want the court to order Cedar & Co. to pay the full $8,400 owed, plus my court costs.",
+    "sc-date-claim-served": "Nothing has been served -- no claim has been issued yet.",
+    "sc-date-claim-issued": "No claim has been issued yet.",
+    "sc-date-defence-filed": "No defence -- there is no claim yet.",
+    "sc-date-defendants-claim-served": "Not applicable -- nobody has made a claim against me.",
+    "sc-date-settlement-conference": "Nothing is scheduled; the case has not been started.",
+    "sc-date-learned-of-default": "Not applicable -- I have not been noted in default.",
+    "sc-date-learned-of-judgment": "Not applicable -- there has been no hearing and no judgment.",
     "sc-safety-check": "No safety concerns -- this is a straightforward business payment dispute.",
   },
   location: { province: "Ontario", city: "Ottawa" },

@@ -30,6 +30,9 @@ import { assertApprovedUserContent } from "./outputGuard";
 import { publishedBlockFor, PUBLISHED_RELEASE } from "./publishedLibrary";
 import { fillSlots, slotsUsed, type StageAnswer } from "./stageAnswers";
 import { OFFICIAL_URLS, SOURCE_NAMES } from "../case-system/stage-map/citations";
+import { findStage } from "../case-system/stage-map/stageMap";
+import type { CaseDates } from "../case-system/deadlines/deadlineEvents";
+import { computedDeadlinesFor, computedDeadlineProse, type ComputedDeadline } from "./computedDeadline";
 
 export type RenderedSection = {
   heading: string;
@@ -53,6 +56,17 @@ export type RenderedStageAnswer = {
    * and hiding that would defeat the point of having the status.
    */
   status: "verified-draft" | "no-source" | "approved";
+  /**
+   * The dates that could be computed, structured, with the provision behind
+   * each step.
+   *
+   * The same content is already in the deadline section as prose, because a
+   * caller that renders only `sections` must not silently lose the date. This
+   * is here so a renderer can show the working as a list with a link to each
+   * rule instead of a paragraph — the difference between "here is your date"
+   * and "here is your date and here is how to check it".
+   */
+  computed: ComputedDeadline[];
   /** Provenance, for the footer a regulator or a curious user can read. */
   release: { runId: string; promotedAt: string };
 };
@@ -75,6 +89,7 @@ const HEADINGS: Array<[keyof StageAnswer, string]> = [
 export function renderStageAnswer(
   stageId: string,
   facts: Record<string, string> = {},
+  dates: CaseDates = {},
 ): RenderedStageAnswer | null {
   const block = publishedBlockFor(stageId);
   if (!block) return null;
@@ -86,6 +101,21 @@ export function renderStageAnswer(
     console.error(`[stageAnswerView] refused a "${status}" block for ${stageId}`);
     return null;
   }
+
+  /*
+   * What can be computed from the dates we were given, before any section is
+   * built, so the deadline section can carry it and the structured form can go
+   * back with the answer.
+   *
+   * `findStage` rather than the block: the deadlines are stage-map data, hand
+   * authored, every quote checked by test:stage-map. The block's deadline text
+   * is rendered FROM that data, so reading the periods back out of the prose
+   * would be parsing our own output.
+   */
+  const stage = findStage(stageId);
+  const computed = stage
+    ? computedDeadlinesFor(stage.deadlines, dates, `stageAnswerView:${stageId}`)
+    : [];
 
   const sections: RenderedSection[] = [];
 
@@ -112,7 +142,30 @@ export function renderStageAnswer(
       continue;
     }
 
-    sections.push({ heading, text: needed.length > 0 ? fillSlots(approved, facts) : approved });
+    const filled = needed.length > 0 ? fillSlots(approved, facts) : approved;
+
+    /*
+     * *** THE COMPUTED DATE GOES HERE, AND NOWHERE ELSE ***
+     *
+     * The period text above is a published block section. The promotion gate
+     * requires it byte-identical to what `renderDeadlineSection` produces from
+     * the stage map, which is what stops the most consequential sentence in a
+     * block from drifting. So the computed date is APPENDED to it at render
+     * time rather than woven into it: the reviewed words are untouched, and
+     * what follows them is a set of separately reviewed templates filled with
+     * this reader's own dates.
+     *
+     * Order matters. The period comes first because it is true for everybody
+     * and it is what the rule says. The date comes second because it depends on
+     * a date the reader gave us, which may be wrong.
+     */
+    if (field === "yourDeadline" && computed.length > 0) {
+      const prose = computedDeadlineProse(computed, `stageAnswerView:${stageId}`);
+      sections.push({ heading, text: prose ? `${filled}\n\n${prose}` : filled });
+      continue;
+    }
+
+    sections.push({ heading, text: filled });
   }
 
   if (sections.length === 0) return null;
@@ -127,6 +180,7 @@ export function renderStageAnswer(
       url: OFFICIAL_URLS[citation.sourceId],
     })),
     status: status as RenderedStageAnswer["status"],
+    computed,
     release: { runId: PUBLISHED_RELEASE.runId, promotedAt: PUBLISHED_RELEASE.promotedAt },
   };
 }

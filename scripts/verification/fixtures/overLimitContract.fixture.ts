@@ -57,6 +57,13 @@ export const overLimitContractFixture: Fixture = {
     "sc-evidence-available":
       "I have three things: (1) catering-contract-signed.pdf, the signed catering services contract for the full event series, total value $68,500; (2) delivered-invoices.pdf, invoices for the two events already delivered; (3) cancellation-email.pdf, the venue's email cancelling the remaining events and refusing to pay the outstanding balance.",
     "sc-remedy-sought": "I want the court to order the venue to pay the outstanding $68,500 balance owed under the signed contract.",
+    "sc-date-claim-served": "Nothing has been served -- no claim has been issued yet.",
+    "sc-date-claim-issued": "No claim has been issued yet.",
+    "sc-date-defence-filed": "No defence -- there is no claim yet.",
+    "sc-date-defendants-claim-served": "Not applicable -- nobody has made a claim against me.",
+    "sc-date-settlement-conference": "Nothing is scheduled; the case has not been started.",
+    "sc-date-learned-of-default": "Not applicable -- I have not been noted in default.",
+    "sc-date-learned-of-judgment": "Not applicable -- there has been no hearing and no judgment.",
     "sc-safety-check": "No safety concerns -- this is a business contract payment dispute.",
   },
   location: { province: "Ontario", city: "Toronto" },

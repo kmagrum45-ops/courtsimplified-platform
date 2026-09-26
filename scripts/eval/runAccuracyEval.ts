@@ -237,6 +237,21 @@ function report(
    */
   const wrongStageShown = results.filter((result) => {
     if (!result.shownStageId) return false;
+    /*
+     * *** boundary-unclear SHOWS A STAGE ON PURPOSE ***
+     *
+     * `landlord-damage-claim-is-a-debt-claim` printed as wrong-stage content
+     * under the line "want boundary-unclear, got boundary-unclear". It got
+     * exactly what it should: where the LTB's jurisdiction ends for a FORMER
+     * tenant is unsourceable (recorded in courtPathClassifier.ts), so the
+     * design is to give the Small Claims guidance AND say the forum may be the
+     * other one. A dead end would be safe and useless.
+     *
+     * So content shown alongside a boundary caveat is the designed outcome, not
+     * wrong-stage content, and counting it as a failure punished the component
+     * for behaving as specified.
+     */
+    if (expectedOf(result.story) === "boundary-unclear") return false;
     return result.shownStageId !== expectedOf(result.story);
   });
 
@@ -249,9 +264,33 @@ function report(
     (result.story.neverSuggest ?? []).includes(outcomeOf(result.position)),
   );
 
+  /*
+   * *** A MISS IS WHAT THE READER GETS, NOT WHICH COMPONENT CAUGHT IT ***
+   *
+   * This filtered on `position.kind !== "out-of-scope"`, which is the
+   * CLASSIFIER's verdict. Two stories then printed as misses reading
+   * "want out-of-scope, got out-of-scope" under a FAIL line, because the
+   * classifier let them through and the stage resolver's own backstop caught
+   * them — which the route then presents as out of scope, correctly, with
+   * referrals and no Small Claims guidance.
+   *
+   * So the reader was sent to the right place and the eval called it a failure.
+   * A red line that is wrong is worse than no line: it is the one a person
+   * starts ignoring, and this report is evidence for a regulator.
+   *
+   * The miss is now measured on the outcome the reader actually gets. Which
+   * component caught it is still worth knowing — a backstop doing the
+   * classifier's job is a weakness even when the answer is right — so it is
+   * reported on its own line rather than as a failure.
+   */
   const outOfScope = results.filter((result) => result.story.expect.kind === "out-of-scope");
   const outOfScopeMissed = outOfScope.filter(
-    (result) => result.position.kind !== "out-of-scope",
+    (result) => outcomeOf(result.position) !== "out-of-scope",
+  );
+  const caughtByBackstopOnly = outOfScope.filter(
+    (result) =>
+      result.position.kind !== "out-of-scope" &&
+      outcomeOf(result.position) === "out-of-scope",
   );
 
   const shouldBeUnknown = results.filter((result) => result.story.expect.kind === "unknown");
@@ -299,7 +338,13 @@ function report(
     );
     console.log(
       `  out-of-scope miss  ${outOfScopeMissed.length}     (target 0)        ` +
-        `${outOfScopeMissed.length === 0 ? "PASS" : "FAIL"}`,
+        `${outOfScopeMissed.length === 0 ? "PASS" : "FAIL"}   ` +
+        `(as the reader is answered, not as the classifier voted)`,
+    );
+    console.log(
+      `  caught by backstop ${caughtByBackstopOnly.length}                     ` +
+        `     right answer, wrong component: the classifier let these through and the ` +
+        `stage resolver stopped them`,
     );
     console.log(
       `  overconfident      ${overconfident.length}     (target 0)        ` +
@@ -311,9 +356,28 @@ function report(
         `(${adviceStories.length} legal-advice stor${adviceStories.length === 1 ? "y" : "ies"})`,
     );
   }
+  /*
+   * Two lines, not one, because they are not the same claim.
+   *
+   * The first says the date a reader would SEE is right — measured through the
+   * render path, guard included, with the date read out of the prose rather than
+   * out of the engine's return value. The second says how many of those went the
+   * whole way through the runtime door and a real published block.
+   *
+   * Reporting only the first would let "9/9 end to end" stand for something
+   * broader than it is, and reporting only the second would hide six correct
+   * dates behind two published blocks. The gap between them IS the remaining
+   * work: the three notice stages are still needs-human, and the limitation
+   * period runs from an event we deliberately never ask about.
+   */
   console.log(
     `  deadline accuracy  ${deadlines.passed}/${deadlines.total}   (target 100%)     ` +
-      `${deadlines.failures.length === 0 ? "PASS" : "FAIL"}`,
+      `${deadlines.failures.length === 0 ? "PASS" : "FAIL"}   ` +
+      `(as rendered to a reader, not as returned by the engine)`,
+  );
+  console.log(
+    `  through a block    ${deadlines.throughPublishedBlock}/${deadlines.total}                     ` +
+      `     the runtime door end to end; the rest have no published block yet`,
   );
   console.log("");
 

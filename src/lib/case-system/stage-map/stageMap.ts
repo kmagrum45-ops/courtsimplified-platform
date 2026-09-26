@@ -61,6 +61,7 @@
  * corpus, so a rule number recalled rather than read cannot ship.
  */
 
+import type { DeadlineEventKey } from "../deadlines/deadlineEvents";
 import type { RuleCitation } from "./citations";
 import * as C from "./citations";
 
@@ -97,8 +98,28 @@ export type StageDeadline = {
   id: string;
   /** Plain language, no law. The law is in `rule`. */
   what: string;
-  /** The event the clock runs from. Part 4 turns this into a date. */
+  /**
+   * The event the clock runs from, in the words a reader sees.
+   *
+   * This is the prose. `countFromEvent` beside it is the key. Both are here on
+   * purpose: the prose is what belongs in a sentence ("counted from the day the
+   * defendant was served with the claim") and it is deliberately phrased from
+   * the reader's side, which makes it useless as an identifier — the same
+   * moment is "the day of being served with the claim" on the other side of the
+   * same case.
+   */
   countFrom: string;
+  /**
+   * Which event in the catalogue that is, so a date a user gave us can be
+   * joined to it and the engine can be called.
+   *
+   * Decision 5. Before this, the deadline engine had no production caller: it
+   * could count days correctly and nothing ever asked it to, because nothing
+   * connected "the day the defendant was served with the claim" to an answer in
+   * a form. See deadlines/deadlineEvents.ts, which also records which of these
+   * events we decline to ask about and why.
+   */
+  countFromEvent: DeadlineEventKey;
   length: DeadlineLength;
   /**
    * Whether the period runs forward from an event or back from a hearing.
@@ -188,6 +209,7 @@ const BEFORE_FILING: CaseStage[] = [
         id: "deadline:basic-limitation",
         what: "The general deadline to start a court case",
         countFrom: "the day the claim was discovered",
+        countFromEvent: "claim-discovered",
         length: { unit: "years", count: 2 },
         regime: "legislation-act",
         rule: C.S_LIMITATIONS_4_BASIC,
@@ -240,6 +262,7 @@ const BEFORE_FILING: CaseStage[] = [
         id: "deadline:municipal-notice-10-days",
         what: "Give written notice of the claim to the clerk of the municipality",
         countFrom: "the occurrence of the injury",
+        countFromEvent: "injury-occurred",
         length: { unit: "days", count: 10 },
         regime: "legislation-act",
         rule: C.S_MUNICIPAL_44_10_NOTICE,
@@ -275,6 +298,7 @@ const BEFORE_FILING: CaseStage[] = [
         id: "deadline:toronto-notice-10-days",
         what: "Give written notice of the claim to the city clerk",
         countFrom: "the occurrence of the injury",
+        countFromEvent: "injury-occurred",
         length: { unit: "days", count: 10 },
         regime: "legislation-act",
         rule: C.S_TORONTO_42_6_NOTICE,
@@ -322,6 +346,7 @@ const BEFORE_FILING: CaseStage[] = [
         what:
           "Give written notice of the claim to an occupier or to the snow-removal contractor. The notice must say the date, time and place of the injury",
         countFrom: "the occurrence of the injury",
+        countFromEvent: "injury-occurred",
         length: { unit: "days", count: 60 },
         regime: "legislation-act",
         rule: C.S_OLA_6_1_NOTICE,
@@ -492,6 +517,7 @@ const PLAINTIFF: CaseStage[] = [
         id: "deadline:serve-claim-six-months",
         what: "Serve the claim on the defendant",
         countFrom: "the date the claim was issued",
+        countFromEvent: "claim-issued",
         length: { unit: "months", count: 6 },
         regime: "small-claims-rules",
         rule: C.R_8_01_TIME_FOR_SERVICE,
@@ -541,6 +567,7 @@ const PLAINTIFF: CaseStage[] = [
         id: "deadline:serve-claim-six-months:failed-service",
         what: "Serve the claim on the defendant",
         countFrom: "the date the claim was issued",
+        countFromEvent: "claim-issued",
         length: { unit: "months", count: 6 },
         regime: "small-claims-rules",
         rule: C.R_8_01_TIME_FOR_SERVICE,
@@ -610,6 +637,7 @@ const PLAINTIFF: CaseStage[] = [
         id: "deadline:defence-20-days:plaintiff-view",
         what: "The defendant's time to serve and file a defence",
         countFrom: "the day the defendant was served with the claim",
+        countFromEvent: "served-with-claim",
         length: { unit: "days", count: 20 },
         regime: "small-claims-rules",
         rule: C.R_9_01_DEFENCE,
@@ -772,6 +800,7 @@ const PLAINTIFF: CaseStage[] = [
         id: "deadline:settlement-conference-90-days",
         what: "The settlement conference is to be held",
         countFrom: "the day the first defence was filed",
+        countFromEvent: "first-defence-filed",
         length: { unit: "days", count: 90 },
         regime: "small-claims-rules",
         rule: C.R_13_01_TIMING,
@@ -811,6 +840,7 @@ const PLAINTIFF: CaseStage[] = [
         id: "deadline:defence-to-defendants-claim-20-days",
         what: "Serve and file a defence to the defendant's claim",
         countFrom: "the day the defendant's claim was served",
+        countFromEvent: "defendants-claim-served",
         length: { unit: "days", count: 20 },
         regime: "small-claims-rules",
         rule: C.R_10_03_DEFENCE_TO_DEFENDANTS_CLAIM,
@@ -853,6 +883,7 @@ const PLAINTIFF: CaseStage[] = [
         what:
           "Give every other party and the court a copy of any document you will use at trial. This includes any expert report. You do not need to send what is already attached to your claim or defence",
         countFrom: "the date of the settlement conference, counting backwards",
+        countFromEvent: "settlement-conference-date",
         length: { unit: "days", count: 14 },
         direction: "before",
         regime: "small-claims-rules",
@@ -894,6 +925,7 @@ const PLAINTIFF: CaseStage[] = [
         what:
           "One of the parties must request a trial date and pay the fee if the action is not disposed of",
         countFrom: "the day of the settlement conference",
+        countFromEvent: "settlement-conference-date",
         length: { unit: "days", count: 30 },
         regime: "small-claims-rules",
         rule: C.R_13_07_SET_DOWN,
@@ -987,6 +1019,7 @@ const PLAINTIFF: CaseStage[] = [
         id: "deadline:dismissal-for-delay-two-years",
         what: "Obtain judgment or request a trial date before the action is dismissed",
         countFrom: "the commencement of the action",
+        countFromEvent: "action-commenced",
         length: { unit: "years", count: 2 },
         regime: "small-claims-rules",
         rule: C.R_11_1_01_DISMISSAL_FOR_DELAY,
@@ -1047,6 +1080,7 @@ const DEFENDANT: CaseStage[] = [
         id: "deadline:defence-20-days",
         what: "Serve a defence on every other party and file it with the clerk, with proof of service",
         countFrom: "the day of being served with the claim",
+        countFromEvent: "served-with-claim",
         length: { unit: "days", count: 20 },
         regime: "small-claims-rules",
         rule: C.R_9_01_DEFENCE,
@@ -1142,6 +1176,7 @@ const DEFENDANT: CaseStage[] = [
         what:
           "Bring a motion to set aside. The rule sets no fixed number of days: the motion must be made as soon as is reasonably possible in all the circumstances",
         countFrom: "learning of the noting in default or the default judgment",
+        countFromEvent: "learned-of-default",
         length: { unit: "days", count: 0 },
         regime: "small-claims-rules",
         rule: C.R_11_06_SET_ASIDE,
@@ -1184,6 +1219,7 @@ const DEFENDANT: CaseStage[] = [
         id: "deadline:settlement-conference-90-days:defendant",
         what: "The settlement conference is to be held",
         countFrom: "the day the first defence was filed",
+        countFromEvent: "first-defence-filed",
         length: { unit: "days", count: 90 },
         regime: "small-claims-rules",
         rule: C.R_13_01_TIMING,
@@ -1223,6 +1259,7 @@ const DEFENDANT: CaseStage[] = [
         id: "deadline:issue-defendants-claim-20-days",
         what: "Issue the defendant's claim (Form 10A) without needing leave of the court",
         countFrom: "the day the defence is filed",
+        countFromEvent: "first-defence-filed",
         length: { unit: "days", count: 20 },
         regime: "small-claims-rules",
         rule: C.R_10_01_DEFENDANTS_CLAIM,
@@ -1269,6 +1306,7 @@ const DEFENDANT: CaseStage[] = [
         what:
           "Give every other party and the court a copy of any document you will use at trial. This includes any expert report. You do not need to send what is already attached to your claim or defence",
         countFrom: "the date of the settlement conference, counting backwards",
+        countFromEvent: "settlement-conference-date",
         length: { unit: "days", count: 14 },
         direction: "before",
         regime: "small-claims-rules",
@@ -1416,6 +1454,7 @@ const BOTH: CaseStage[] = [
         what:
           "Ask the court to set aside a judgment made when you did not attend, by making a motion",
         countFrom: "the day you became aware of the judgment",
+        countFromEvent: "trial-judgment-awareness",
         length: { unit: "days", count: 30 },
         regime: "small-claims-rules",
         rule: C.R_17_01_SET_ASIDE_30_DAYS,
