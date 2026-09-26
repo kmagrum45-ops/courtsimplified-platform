@@ -31,9 +31,9 @@ edited afterwards the approval no longer applies, and the item returns to draft.
 
 | Measure | Count |
 |---|---|
-| Total items | 425 |
+| Total items | 424 |
 | Approved (current version) | 0 |
-| Draft / unreviewed | 425 |
+| Draft / unreviewed | 424 |
 | Approvals voided by later edits | 0 |
 | Items that are unwritten placeholders | 49 |
 
@@ -1626,7 +1626,7 @@ How that was counted:
 This date was worked out by counting, not taken from your court file. If the date you gave us is not exactly right, this one will not be either — and the court office can confirm both.
 ```
 
-## depth-question (74)
+## depth-question (73)
 
 ### `depth-cs-children-ages`
 
@@ -2321,17 +2321,6 @@ What condition was it in when you left it, and what condition was it in when you
 Was there anything wrong with it before you left it with them?
 ```
 
-### `depth-contractor-loss`
-
-- **Status:** draft
-- **Pathway / stage:** small-claims / depth
-- **Appears in:** Depth phase, asked per claim-type element
-- **Source:** _none recorded_
-
-```
-What will it cost to put right, and where does that figure come from?
-```
-
 ### `depth-debt-agreement`
 
 - **Status:** draft
@@ -2409,7 +2398,7 @@ What was agreed with {defendantLabel} about the work?
 What was damaged or left different from what was agreed?
 ```
 
-### `depth-contractor-loss#2`
+### `depth-contractor-loss`
 
 - **Status:** draft
 - **Pathway / stage:** small-claims / depth

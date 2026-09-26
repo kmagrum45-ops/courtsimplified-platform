@@ -392,7 +392,6 @@ The Small Claims Court has jurisdiction in any action for the payment of money w
 "depth-bailment-their-account","depth-question","small-claims","depth","What did the business tell you had happened?","","Depth phase, asked per claim-type element","1576104659","draft","","",""
 "depth-bailment-condition","depth-question","small-claims","depth","What condition was it in when you left it, and what condition was it in when you got it back?","","Depth phase, asked per claim-type element","290629272","draft","","",""
 "depth-bailment-pre-existing","depth-question","small-claims","depth","Was there anything wrong with it before you left it with them?","","Depth phase, asked per claim-type element","605072878","draft","","",""
-"depth-contractor-loss","depth-question","small-claims","depth","What will it cost to put right, and where does that figure come from?","","Depth phase, asked per claim-type element","1215007529","draft","","",""
 "depth-debt-agreement","depth-question","small-claims","depth","How was the arrangement with {defendantLabel} set up?","","Depth phase, asked per claim-type element","1623687213","draft","","",""
 "depth-debt-work-done","depth-question","small-claims","depth","What did you provide, and when?","","Depth phase, asked per claim-type element","1815692709","draft","","",""
 "depth-debt-amount-unpaid","depth-question","small-claims","depth","Has any part of {amountLabel} been paid?","","Depth phase, asked per claim-type element","1896330439","draft","","",""
@@ -400,7 +399,7 @@ The Small Claims Court has jurisdiction in any action for the payment of money w
 "depth-defamation-newspaper-notice","depth-question","small-claims","depth","Did this involve a newspaper or a broadcast?","","Depth phase, asked per claim-type element","265309552","draft","","",""
 "depth-contractor-agreement","depth-question","small-claims","depth","What was agreed with {defendantLabel} about the work?","","Depth phase, asked per claim-type element","1031878576","draft","","",""
 "depth-contractor-damage","depth-question","small-claims","depth","What was damaged or left different from what was agreed?","","Depth phase, asked per claim-type element","47951159","draft","","",""
-"depth-contractor-loss#2","depth-question","small-claims","depth","How was {amountLabel} worked out?","","Depth phase, asked per claim-type element","1595968682","draft","","",""
+"depth-contractor-loss","depth-question","small-claims","depth","How was {amountLabel} worked out?","","Depth phase, asked per claim-type element","1595968682","draft","","",""
 "depth-loan-agreement","depth-question","small-claims","depth","What was said or written about repaying the money?","","Depth phase, asked per claim-type element","853968596","draft","","",""
 "depth-loan-unpaid","depth-question","small-claims","depth","Has any of it been repaid?","","Depth phase, asked per claim-type element","1116157010","draft","","",""
 "next:small-claims:starting-case","next-step","small-claims","starting-case","An action is started by filing a Plaintiff's Claim (Form 7A) with the clerk, together with a copy for each defendant. A copy for each defendant is not required if the claim is filed electronically (r. 7.01 (1), (1.1)).

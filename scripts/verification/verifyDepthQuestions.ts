@@ -371,6 +371,60 @@ function main(): void {
     );
   }
 
+  /*
+   * ---- no two questions share an id ---------------------------------------
+   *
+   * THE DEFECT THIS EXISTS TO CATCH, which sat in the registry for twelve days:
+   * `depth-contractor-loss` appeared TWICE, same id, same elementId, different
+   * text. The second was added under a comment saying the element was "still
+   * unauthored" when it had been authored two days before.
+   *
+   * Two consequences, and the first is the one that reaches a person.
+   * `selectDepthQuestions` asks EVERY authored question for an element — no
+   * suppression, by design — so a contractor damage claimant was asked the same
+   * thing twice in two phrasings, back to back. And a licensee approval is keyed
+   * by id, so neither copy could be approved: there was no addressable text.
+   *
+   * `exportReviewPacket` found it and reported it. This suite did not look, which
+   * is why it survived a dozen runs of a suite whose whole job is this registry.
+   *
+   * Asserted as a property: no id occurs more than once. It does not name
+   * `depth-contractor-loss`, so it keeps working when the next duplicate is a
+   * different id.
+   */
+  {
+    const seen = new Map();
+    for (const question of DEPTH_QUESTIONS) {
+      seen.set(question.id, (seen.get(question.id) ?? 0) + 1);
+    }
+    const duplicates = [...seen.entries()].filter(([, count]) => count > 1);
+
+    check(
+      "registry: no two depth questions share an id",
+      duplicates.length === 0,
+      duplicates.map(([id, count]) => `${id} x${count}`).join(", ") ||
+        "(none)",
+    );
+
+    /*
+     * And the same for the elementId + text pair, which is the near-miss version:
+     * two DIFFERENT ids asking the same element the same question would not trip
+     * the check above and would still ask a person twice.
+     */
+    const pairs = new Map();
+    for (const question of DEPTH_QUESTIONS) {
+      const key = `${question.elementId}::${question.text}`;
+      pairs.set(key, (pairs.get(key) ?? 0) + 1);
+    }
+    const repeated = [...pairs.entries()].filter(([, count]) => count > 1);
+
+    check(
+      "registry: no element is asked the identical question twice under different ids",
+      repeated.length === 0,
+      repeated.map(([key]) => key).join(" | ") || "(none)",
+    );
+  }
+
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
   if (failures) process.exitCode = 1;
 }

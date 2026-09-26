@@ -915,16 +915,32 @@ export const DEPTH_QUESTIONS: DepthQuestion[] = [
     reviewedAt: "2026-09-14",
   },
 
-  // --- Contractor damage: the one element of four still unauthored ---
-  {
-    id: "depth-contractor-loss",
-    elementId: "loss-amount-contractor",
-    text: "What will it cost to put right, and where does that figure come from?",
-    examples: ["a repair quote","an invoice you have already paid","more than one estimate"],
-    allowUnknown: true,
-    status: "reviewed",
-    reviewedAt: "2026-09-14",
-  },
+  /*
+   * *** A SECOND `depth-contractor-loss` USED TO SIT HERE, AND IT WAS ASKED ***
+   *
+   * It read "What will it cost to put right, and where does that figure come
+   * from?", dated 2026-09-14, under the comment "Contractor damage: the one
+   * element of four still unauthored".
+   *
+   * That comment was wrong when it was written. `loss-amount-contractor` had been
+   * authored two days earlier, further down this file, as "How was {amountLabel}
+   * worked out?" — so the element had two questions with the SAME ID.
+   *
+   * And it was not a harmless bookkeeping clash. `selectDepthQuestions` asks
+   * EVERY authored question for an element ("Session 48: no suppression"), so a
+   * person with a contractor damage claim was asked the same thing twice in two
+   * phrasings, one after the other. It also meant a licensee approval could not
+   * be attached to either: approvals are keyed by id, and two items sharing one
+   * id have no addressable text.
+   *
+   * Surfaced by `exportReviewPacket`, which reports duplicate ids and exits
+   * non-zero. `verifyDepthQuestions` did not check id uniqueness; it does now.
+   *
+   * The 09-12 entry is kept because it was authored deliberately, sits with its
+   * siblings, and uses the slot mechanism as designed. This one existed only
+   * because somebody could not see that the work was already done — which is what
+   * CLAUDE.md §8 is about.
+   */
 
   // --- debt / services ---
   {
