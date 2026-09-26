@@ -1,0 +1,36 @@
+{
+  "//": [
+    "The typecheck used for VERIFICATION. Identical to tsconfig.json except that it",
+    "does not include Next.js's generated type files.",
+    "",
+    "*** WHY THIS FILE EXISTS ***",
+    "",
+    "On 2026-09-26 `npx tsc --noEmit` reported only errors in",
+    ".next/dev/types/validator.ts -- TS1109, TS1434, TS1005, TS1128 -- and nothing",
+    "else, across the whole project. That looked like a clean result with some",
+    "generated-file noise to filter out, and it was filtered out, repeatedly.",
+    "",
+    "It was not a clean result. Those are SYNTAX errors, and when a program has",
+    "parse errors tsc emits syntactic diagnostics and skips semantic checking",
+    "entirely. So every type error in src/ was invisible. Proven by appending",
+    "`const x: number = \"not a number\";` to a source file: tsc reported nothing.",
+    "Moving the generated file aside surfaced both that canary AND four real",
+    "pre-existing errors in citations.ts.",
+    "",
+    "A generated dev-server artefact could therefore switch off the project's type",
+    "safety, silently, and the failure looked exactly like success.",
+    "",
+    "`.next` is a build output. Verification does not need it: the route types it",
+    "contains are checked by `next build`, which is where a route-type error",
+    "belongs. So verification reads the source tree and nothing else.",
+    "",
+    "`npm run test:typecheck-live` asserts this is still working, by requiring that",
+    "a deliberate error IS reported. A typecheck that cannot fail is not a check."
+  ],
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "incremental": false
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.mts"],
+  "exclude": ["node_modules", ".next", ".claude/worktrees"]
+}

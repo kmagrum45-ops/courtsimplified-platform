@@ -1153,3 +1153,41 @@ Things that cost time to learn and would cost it again:
 - **City of Toronto notice is s. 42(6)**, not s. 42 at large.
 - **A check must assert a property, not a current value.** See CLAUDE.md §5.
   Several checks here were rewritten after failing that test.
+
+## The typecheck was reporting success while checking nothing (2026-09-26)
+
+**Worth its own section because the failure looked exactly like a pass, and it was
+believed for a whole working session.**
+
+`npx tsc --noEmit` reported errors only in `.next/dev/types/validator.ts` — a
+generated dev-server file — and nothing else. Those were filtered out as
+generated-file noise, which is reasonable, and the remaining count of zero was
+read as "the types are fine".
+
+They were not fine. TS1109, TS1434, TS1005 and TS1128 are **syntax** errors, and
+**when a TypeScript program contains parse errors, tsc emits syntactic diagnostics
+and skips semantic checking for the entire program.** Every type error anywhere in
+`src/` was invisible for as long as that one generated file stayed malformed.
+
+Proven, not inferred: appending `const x: number = "not a number";` to a source
+file produced no error at all. Moving the generated file aside surfaced the canary
+**and four real pre-existing errors** in `stage-map/citations.ts`, where three new
+corpus source ids had been used without being added to the `CorpusSourceId` union.
+
+### What now exists
+
+| | |
+|---|---|
+| `tsconfig.verify.json` | the same config with `.next` excluded — a build output has no business gating verification, and route types are checked by `next build` where they belong |
+| `npm run typecheck` | `tsc --noEmit -p tsconfig.verify.json`. **Use this, not bare `tsc`** |
+| `npm run test:typecheck-live` | writes a deliberate type error, asserts it IS reported, deletes it. Also asserts the project is clean first, because a typecheck that always fails would "detect" the canary for the wrong reason |
+
+### The general lesson, which is not about TypeScript
+
+A count of zero is not evidence unless something could have made it non-zero.
+Every "0 errors" in this repository should be read as a question: *what would have
+had to go wrong for this number to be 1?* Where the answer is "nothing could",
+the check is decoration. That is the same reasoning as CLAUDE.md §5's rule about
+properties versus values, arriving from the opposite direction: §5 is about checks
+that fail when they should not, and this is about a check that passes when it
+should not.

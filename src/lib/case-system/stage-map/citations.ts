@@ -35,7 +35,13 @@ export type CorpusSourceId =
   | "occupiers-liability-act"
   | "cja-courts-of-justice-act"
   | "holidays-act-canada"
-  | "esa-2000-ontario";
+  | "esa-2000-ontario"
+  // Added for the claim-type profiles. Each one is vendored -- the ids match
+  // docs/sources/corpus/manifest.json -- and each carries its public e-Laws page
+  // below, because a citation a user cannot open is not much of a citation.
+  | "crown-liability-and-proceedings-act-2019"
+  | "libel-and-slander-act"
+  | "trustee-act";
 
 /** The page a person opens to read the law for themselves. */
 export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
@@ -49,6 +55,9 @@ export const OFFICIAL_URLS: Record<CorpusSourceId, string> = {
   "cja-courts-of-justice-act": "https://www.ontario.ca/laws/statute/90c43",
   "holidays-act-canada": "https://laws-lois.justice.gc.ca/eng/acts/H-5/",
   "esa-2000-ontario": "https://www.ontario.ca/laws/statute/00e41",
+  "crown-liability-and-proceedings-act-2019": "https://www.ontario.ca/laws/statute/19c07",
+  "libel-and-slander-act": "https://www.ontario.ca/laws/statute/90l12",
+  "trustee-act": "https://www.ontario.ca/laws/statute/90t23",
 };
 
 /** How each source is named to a user. Shown beside the quote. */
@@ -63,6 +72,10 @@ export const SOURCE_NAMES: Record<CorpusSourceId, string> = {
   "cja-courts-of-justice-act": "Courts of Justice Act, R.S.O. 1990, c. C.43",
   "holidays-act-canada": "Holidays Act (Canada), R.S.C. 1985, c. H-5",
   "esa-2000-ontario": "Employment Standards Act, 2000, S.O. 2000, c. 41",
+  "crown-liability-and-proceedings-act-2019":
+    "Crown Liability and Proceedings Act, 2019, S.O. 2019, c. 7, Sched. 17",
+  "libel-and-slander-act": "Libel and Slander Act, R.S.O. 1990, c. L.12",
+  "trustee-act": "Trustee Act, R.S.O. 1990, c. T.23",
 };
 
 export type RuleCitation = {
@@ -532,4 +545,74 @@ export const S_OLA_6_1_6_EXCUSE: RuleCitation = {
   pinpoint: "s. 6.1 (6)",
   quote:
     "Failure to give notice in accordance with subsection (1) or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence.",
+};
+
+/* ---------------------------------------------------------------------------
+ * CLAIM-BARRING PROVISIONS FOR THE CLAIM-TYPE PROFILES
+ *
+ * Every quote below was extracted FROM THE VENDORED TEXT by a script, not
+ * transcribed. Transcribing a 400-character statutory sentence by hand is an
+ * invitation to drop a word, and a dropped word in a claim-barring provision is
+ * the worst kind of error this repository can make.
+ *
+ * Two of these are scoping provisions rather than deadlines, and they are here
+ * because without them the deadlines beside them would be stated far too widely:
+ *
+ *   S_LS_7_SCOPE      — ss. 5 (1) and 6 apply ONLY to Ontario newspapers and
+ *                       Ontario broadcasts. A profile that told everyone
+ *                       defamed online that they had six weeks would frighten
+ *                       people who have two years; one that told a newspaper
+ *                       case it had two years would end the claim.
+ *   S_CLPA_18_4_PROPERTY — the Crown's general rule is 60 days BEFORE starting;
+ *                       for a property-duty claim it is 10 days AFTER the event.
+ *                       Same section, opposite shape.
+ * ------------------------------------------------------------------------- */
+
+export const S_CLPA_18_1_NOTICE: RuleCitation = {
+  sourceId: "crown-liability-and-proceedings-act-2019",
+  pinpoint: "s. 18 (1)",
+  quote:
+    "No proceeding that includes a claim for damages may be brought against the Crown unless, at least 60 days before the commencement of the proceeding, the claimant serves on the Crown, in accordance with section 15, notice of the claim containing sufficient particulars to identify the occasion out of which the claim arose.",
+};
+
+export const S_CLPA_18_3_EXTENSION: RuleCitation = {
+  sourceId: "crown-liability-and-proceedings-act-2019",
+  pinpoint: "s. 18 (3)",
+  quote:
+    "If a notice of claim is served under subsection (1) before the expiry of a limitation period applicable with respect to the claim but the 60-day period referred to in that subsection ends after the expiry of the limitation period, the limitation period is extended to the last instant of the seventh day following the end of the 60-day period.",
+};
+
+export const S_CLPA_18_4_PROPERTY: RuleCitation = {
+  sourceId: "crown-liability-and-proceedings-act-2019",
+  pinpoint: "s. 18 (4)",
+  quote:
+    "Despite subsection (1), no proceeding that includes a claim for damages may be brought against the Crown under clause 8 (1) (b) unless the notice required by subsection (1) is served on the Crown in accordance with section 15 no later than 10 days after the occurrence of the event out of which the claim arises.",
+};
+
+export const S_LS_5_1_NOTICE: RuleCitation = {
+  sourceId: "libel-and-slander-act",
+  pinpoint: "s. 5 (1)",
+  quote:
+    "No action for libel in a newspaper or in a broadcast lies unless the plaintiff has, within six weeks after the alleged libel has come to the plaintiff's knowledge, given to the defendant notice in writing, specifying the matter complained of, which shall be served in the same manner as a statement of claim or by delivering it to a grown-up person at the chief office of the defendant.",
+};
+
+export const S_LS_6_LIMITATION: RuleCitation = {
+  sourceId: "libel-and-slander-act",
+  pinpoint: "s. 6",
+  quote:
+    "An action for a libel in a newspaper or in a broadcast shall be commenced within three months after the libel has come to the knowledge of the person defamed, but, where such an action is brought within that period, the action may include a claim for any other libel against the plaintiff by the defendant in the same newspaper or the same broadcasting station within a period of one year before the commencement of the action.",
+};
+
+export const S_LS_7_SCOPE: RuleCitation = {
+  sourceId: "libel-and-slander-act",
+  pinpoint: "s. 7",
+  quote:
+    "Subsection 5 (1) and section 6 apply only to newspapers printed and published in Ontario and to broadcasts from a station in Ontario.",
+};
+
+export const S_TRUSTEE_38_3_LIMITATION: RuleCitation = {
+  sourceId: "trustee-act",
+  pinpoint: "s. 38 (3)",
+  quote:
+    "An action under this section shall not be brought after the expiration of two years from the death of the deceased.",
 };
