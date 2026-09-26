@@ -75,6 +75,40 @@ with the same urgency trains people to ignore both.
 a deliberate act, because silently refreshing the local copy erases the evidence
 that anything moved.
 
+
+
+### The 23 sources, with what they are and when they were taken
+
+All retrieved 24 September 2026. The consolidation period is the statute's own —
+it is how e-Laws states the version, and it is what `npm run rules:check` compares
+against to notice the law moving.
+
+| Source | Citation | Retrieved | Consolidation |
+|---|---|---|---|
+| [Rules of the Small Claims Court](https://www.ontario.ca/laws/docs/980258_e.doc) | O. Reg. 258/98 | 2026-09-24 | FROM OCTOBER 14, 2025 TO THE E-LAWS CURRENCY DATE. |
+| [Courts of Justice Act](https://www.ontario.ca/laws/docs/90c43_e.doc) | R.S.O. 1990, c. C.43 | 2026-09-24 | FROM DECEMBER 11, 2025 TO THE E-LAWS CURRENCY DATE. |
+| [Small Claims Court Jurisdiction and Appeal Limit](https://www.ontario.ca/laws/docs/000626_e.doc) | O. Reg. 626/00 | 2026-09-24 | FROM OCTOBER 1, 2025 TO THE E-LAWS CURRENCY DATE. |
+| [Limitations Act, 2002](https://www.ontario.ca/laws/docs/02l24_e.doc) | S.O. 2002, c. 24, Sched. B | 2026-09-24 | FROM DECEMBER 4, 2024 TO THE E-LAWS CURRENCY DATE. |
+| [Legislation Act, 2006](https://www.ontario.ca/laws/docs/06l21_e.doc) | S.O. 2006, c. 21, Sched. F | 2026-09-24 | FROM DECEMBER 11, 2025 TO THE E-LAWS CURRENCY DATE. |
+| [Rules of the Small Claims Court Forms](https://ontariocourtforms.on.ca/en/rules-of-the-small-claims-court-forms/) | ontariocourtforms.on.ca | 2026-09-24 | (none stated) |
+| [Municipal Act, 2001](https://www.ontario.ca/laws/docs/01m25_e.doc) | S.O. 2001, c. 25 | 2026-09-24 | FROM JUNE 2, 2026 TO THE E-LAWS CURRENCY DATE. |
+| [City of Toronto Act, 2006](https://www.ontario.ca/laws/docs/06c11_e.doc) | S.O. 2006, c. 11, Sched. A | 2026-09-24 | FROM JUNE 2, 2026 TO THE E-LAWS CURRENCY DATE. |
+| [Occupiers' Liability Act](https://www.ontario.ca/laws/docs/90o02_e.doc) | R.S.O. 1990, c. O.2 | 2026-09-24 | FROM JANUARY 29, 2021 TO THE E-LAWS CURRENCY DATE. |
+| [Holidays Act (Canada)](https://laws-lois.justice.gc.ca/eng/acts/H-5/FullText.html) | R.S.C. 1985, c. H-5 | 2026-09-24 | (none stated) |
+| [Employment Standards Act, 2000](https://www.ontario.ca/laws/docs/00e41_e.doc) | S.O. 2000, c. 41 | 2026-09-24 | FROM JANUARY 1, 2026 TO THE E-LAWS CURRENCY DATE. |
+| [Guide to Procedures in Small Claims Court: Making a claim](https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim) | ontario.ca — Guide to Procedures in Small Claims Court | 2026-09-24 | (none stated) |
+| [Guide to Procedures in Small Claims Court: Serving documents](https://www.ontario.ca/document/guide-procedures-small-claims-court/serving-documents) | ontario.ca — Guide to Procedures in Small Claims Court | 2026-09-24 | (none stated) |
+| [Guide to Procedures in Small Claims Court: Replying to a claim](https://www.ontario.ca/document/guide-procedures-small-claims-court/replying-claim) | ontario.ca — Guide to Procedures in Small Claims Court | 2026-09-24 | (none stated) |
+| [Guide to Procedures in Small Claims Court: Getting ready for court](https://www.ontario.ca/document/guide-procedures-small-claims-court/getting-ready-court) | ontario.ca — Guide to Procedures in Small Claims Court | 2026-09-24 | (none stated) |
+| [Guide to Procedures in Small Claims Court: Motions and clerk's orders](https://www.ontario.ca/document/guide-procedures-small-claims-court/motions-and-clerks-orders) | ontario.ca — Guide to Procedures in Small Claims Court | 2026-09-24 | (none stated) |
+| [Guide to Procedures in Small Claims Court: After judgment](https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment) | ontario.ca — Guide to Procedures in Small Claims Court | 2026-09-24 | (none stated) |
+| [Suing someone in Small Claims Court](https://www.ontario.ca/page/suing-someone-small-claims-court) | ontario.ca | 2026-09-24 | (none stated) |
+| [File Small Claims Court documents online](https://www.ontario.ca/page/file-small-claims-court-documents-online) | ontario.ca | 2026-09-24 | (none stated) |
+| [Have your court fees waived](https://www.ontario.ca/page/have-your-court-fees-waived) | ontario.ca | 2026-09-24 | (none stated) |
+| [Small Claims Court — Steps in a Case](https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/steps-in-a-case/) | ontariocourts.ca — Superior Court of Justice | 2026-09-24 | (none stated) |
+| [Small Claims Court — How to Respond to a Case](https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/) | ontariocourts.ca — Superior Court of Justice | 2026-09-24 | (none stated) |
+| [Small Claims Court — Default Proceedings](https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/default-proceedings/) | ontariocourts.ca — Superior Court of Justice | 2026-09-24 | (none stated) |
+
 ### Two findings from this work worth recording
 
 **The monetary limit is $50,000**, not $35,000 — O. Reg. 626/00 s. 1 (1) as
@@ -122,6 +156,65 @@ sample, and `npm run eval:accuracy` is what would notice drift.
 
 ---
 
+
+### Every stage, and whether it has content
+
+"Content" is the published status where there is one. A dash means a person at
+that position gets UNKNOWN and the referrals — 21 of 35.
+
+### plaintiff (23)
+
+| Stage | Content | Deadlines | Went wrong |
+|---|---|---|---|
+| `before-filing:deciding-whether-to-sue` | — | 1 (1 BAR) |  |
+| `before-filing:notice-municipality` | verified-draft | 1 (1 BAR) |  |
+| `before-filing:notice-toronto` | verified-draft | 1 (1 BAR) |  |
+| `before-filing:notice-snow-ice-private` | verified-draft | 1 (1 BAR) |  |
+| `before-filing:notice-deadline-missed` | verified-draft | — | yes |
+| `before-filing:limitation-period-may-have-passed` | no-source | — | yes |
+| `before-filing:claim-exceeds-small-claims-limit` | — | — | yes |
+| `plaintiff:claim-drafted-not-filed` | — | — |  |
+| `plaintiff:claim-issued-not-served` | verified-draft | 1 |  |
+| `plaintiff:service-attempted-failed` | verified-draft | 1 | yes |
+| `plaintiff:six-month-service-window-expired` | verified-draft | — | yes |
+| `plaintiff:served-awaiting-defence` | — | 1 |  |
+| `plaintiff:defence-period-expired-no-defence` | verified-draft | — |  |
+| `plaintiff:defendant-noted-in-default` | — | — |  |
+| `plaintiff:assessment-of-damages-needed` | — | — |  |
+| `plaintiff:default-judgment-signed` | — | — |  |
+| `plaintiff:defence-filed` | — | 1 |  |
+| `plaintiff:served-with-defendants-claim` | — | 1 |  |
+| `plaintiff:awaiting-settlement-conference` | — | 1 |  |
+| `plaintiff:settlement-conference-held` | — | 1 |  |
+| `plaintiff:trial-date-set` | — | — |  |
+| `plaintiff:judgment-in-my-favour-unpaid` | — | — |  |
+| `plaintiff:action-dismissed-for-delay` | no-source | 1 | yes |
+
+### defendant (9)
+
+| Stage | Content | Deadlines | Went wrong |
+|---|---|---|---|
+| `defendant:served-defence-period-running` | verified-draft | 1 |  |
+| `defendant:defence-period-expired-not-yet-noted` | verified-draft | — | yes |
+| `defendant:noted-in-default` | verified-draft | — | yes |
+| `defendant:default-judgment-against-me` | verified-draft | 1 | yes |
+| `defendant:defence-filed` | verified-draft | 1 |  |
+| `defendant:considering-defendants-claim` | — | 1 |  |
+| `defendant:awaiting-settlement-conference` | — | 1 |  |
+| `defendant:trial-date-set` | — | — |  |
+| `defendant:judgment-against-me` | — | — |  |
+
+### both (3)
+
+| Stage | Content | Deadlines | Went wrong |
+|---|---|---|---|
+| `both:missed-settlement-conference` | — | — | yes |
+| `both:missed-trial` | verified-draft | 1 | yes |
+| `both:filed-in-wrong-place` | — | — | yes |
+
+---
+
+
 ## 5. Dates are computed, never guessed
 
 Date arithmetic has exactly one right answer, no interpretation, and an
@@ -164,6 +257,33 @@ earlier deadline than the rule gives them.
 
 ---
 
+
+### The nine worked cases, and why each one is there
+
+Every expected date is derived from the provisions in the case itself, so a red
+line says what was expected AND why. Without that, the temptation is to update the
+number until it goes green.
+
+| Case | From | Period | Regime | Expected | The trap |
+|---|---|---|---|---|---|
+| defence-20-days-lands-sunday | 2 Mar 2026 | 20 days | rules | Mon 23 Mar | lands Sunday; r. 1.02 (a) rolls it to Monday |
+| **municipal-notice-ends-saturday** | 3 Jun 2026 | 10 days | statute | **Sat 13 Jun** | **THE SATURDAY TRAP.** s. 88 (2) lists Sunday, not Saturday |
+| same-ten-days-under-the-rules | 3 Jun 2026 | 10 days | rules | Mon 15 Jun | identical arithmetic, **two days later**, because the regime differs |
+| municipal-notice-ends-sunday | 4 Jun 2026 | 10 days | statute | Mon 15 Jun | the mirror: Sunday IS a holiday under the Act |
+| occupiers-60-days-january-slip | 15 Jan 2026 | 60 days | statute | Mon 16 Mar | 60 days lands Sunday, extends |
+| service-window-six-months-from-31-august | 31 Aug 2025 | 6 months | rules | Mon 2 Mar | s. 89 (6): February has no 31st |
+| limitation-two-years-from-29-february | 29 Feb 2024 | 2 years | statute | **Sat 28 Feb 2026** | s. 89 (7) leap year, AND it ends on a Saturday |
+| four-years-from-29-february | 29 Feb 2024 | 4 years | statute | Sat 29 Feb 2028 | 2028 IS a leap year, so no adjustment |
+| disclosure-14-days-before-conference | 20 May 2026 | 14 days | rules | Wed 6 May | counted BACKWARDS; forwards is the opposite of the rule |
+
+The seventh caught me while writing Part 4: I expected 2 March, reasoning the
+weekend would carry it to Monday. It does not, because the Legislation Act's
+holiday list has no Saturday in it. That is the exact mistake the engine exists to
+prevent, and I made it.
+
+---
+
+
 ## 6. How a sentence becomes publishable
 
 Two model passes and a third gate that is not a model.
@@ -203,6 +323,34 @@ blocks change status. Pinning is what makes "what does the product say" a
 question with an answer.
 
 ---
+
+
+### What the pipeline has actually produced
+
+```
+35 stages drafted
+   14  verified-draft     every sentence checked against source text
+    2  no-source          nobody has written this down; says so
+   19  needs-human        four attempts, still unsupported
+
+16 published (run-9, hash 22bb4604)
+```
+
+The published set is smaller than verified-draft + no-source because promotion is
+all-or-nothing against every gate: a block that verifies but fails the
+wrong-reader check, the absence check, the gloss check or the bar-exception check
+does not go out.
+
+**Conflicts with the older catalogue.** `test:stage-answers` reports particulars
+in the new blocks that disagree with the pre-existing content catalogue —
+different day counts, different form numbers, different actors for the same step —
+as a list for a reviewer rather than as a failure. It reports rather than fails
+because when two of our own sources disagree, a script is not the thing that
+should decide which is right. The current run reports none outstanding; the
+mechanism stays because the next re-vendoring is when it earns its keep.
+
+---
+
 
 ## 7. The gates no model verdict can override
 
@@ -281,6 +429,157 @@ showing guidance WITH the caveat is the specified design. A red line that is
 wrong is worse than no line: it is the one people learn to ignore.
 
 ---
+
+
+### Before and after, by layer
+
+Each number is from a committed eval run. Where a measurement CHANGED as well as
+the number, that is noted — because an improved score on a re-defined measure is
+not an improvement, and two of these were re-definitions that made a passing line
+honest rather than a failing one pass.
+
+| Layer | Before | Now | What changed |
+|---|---|---|---|
+| Stage accuracy | 94% | **97%** | three notice stages published; the WSIAT scope fix |
+| Wrong-stage content shown | 0 | **0** | held |
+| Confidence floor | 0.7 | **0.85** | calibrated against measured output, not chosen |
+| Deadline accuracy | 9/9 | **9/9** | MEASURE CHANGED: was the engine's return value, now the date read out of the rendered prose |
+| Deadline reaching a reader | 0/9 | **5/9** | the engine had no production caller at all |
+| Out-of-scope harm | 0 | **0** | held |
+| Out-of-scope latent | 1 | **0** | the forum gate; no longer depends on which blocks are published |
+| Advice deflection | not measured | **3/3** | was advertised in the header and computed by nothing |
+| Chat routing | 4/5 | **5/5** | the composition rule |
+| Chat advice flag | 4/5 | **5/5** | procedural intents decided in code |
+| Published blocks | 13 | **16** | the three claim-barring notice stages |
+| Reviewed by a licensee | 0 | **0** | unchanged, and the largest single item outstanding |
+
+Two lines are worth reading twice. **Deadline accuracy stayed at 9/9 while the
+measurement got harder** — and the harder measurement immediately found a bug the
+old one could not see. **Advice deflection went from unmeasured to 3/3**, having
+been listed as a target in the eval's own header while nothing computed it.
+
+
+### What the independent review found, and what was done
+
+| Finding | Status |
+|---|---|
+| A block on the **plaintiff's** stage told the reader to file a **Defence (Form 9A)** | Fixed. Every sentence was true *about a defendant* and every gate passed it. Now: `wrongReaderProblems` in the drafting loop, side-aware sourcing, and section 0 of the spot-check guide |
+| `quoteFound` had never once been false — 82 of 82, including 16 citing our own stage map | Fixed. Premise-only verdicts record false; four planted verdicts prove it can fail; mutation-tested |
+| Blocks claimed **the rules set out no step** where r. 17.01 (4)-(5) and r. 6.01 (2)-(3) give remedies | Fixed. `assertsAbsenceProblems` refuses any claim that the law is silent |
+| The deadline engine had **no production caller** | Fixed. Decision 5; 5/9 cases now reach a reader |
+| The eval reported "All targets met" with exit 0 having classified **nothing** when the API key was unset | Fixed. Hard failure |
+| `requestsLegalAdvice` declared in the suite and read by nothing | Fixed, then re-fixed: the first measure failed the right behaviour |
+| A period of 0 days produced a fabricated date | Fixed. The engine throws |
+| Duplicate content id `depth-contractor-loss` | Fixed. It was being ASKED twice |
+| 13–15 of 30 stages have content | Open. 16 of 35 now |
+
+Three findings were mine, from reading output the gates had passed: the statement
+sentence naming the pre-extension date, the Toronto block chosen for "a city
+sidewalk", and the audit log writing to production from every test run.
+
+
+### Three people, end to end
+
+Generated by running the real pipeline, not written by hand.
+
+```
+======================================================================
+A PLAINTIFF
+======================================================================
+
+THEY TYPE:
+  "I did design work for a company in April and invoiced them $8,400. They never paid and stopped answering. I filed a claim and the court issued it on 2 March 2026, but I haven't served it on them yet."
+
+SCOPE:  small-claims @ 0.7
+STAGE:  plaintiff:claim-issued-not-served @ 0.9
+
+THEY SEE  [status: verified-draft, release run-9]
+
+  The court gave me back my claim — how do I get it to the defendant?
+
+  ## Where things stand
+  The court has issued your claim, but it has not yet been delivered to the defendant. You need to serve the claim to the defendant according to the rules.
+
+  ## What to do next
+  You can serve the claim personally or use an alternative method of service as provided in the rules. You must serve the claim within six months after the date it was issued.
+
+  ## Your deadline
+  Serve the claim on the defendant. You have 6 months, counted from the date the claim was issued.
+  
+  Based on the date you gave us, the last day for this is Wednesday 2 September 2026.
+  
+  How that was counted:
+  - Counted 6 months from Monday 2 March 2026, landing on the same day of the month (or the last day of that month, if it is shorter), which gives Wednesday 2 September 2026.
+  - The Small Claims rules say how to count days. The Legislation Act supplies the month arithmetic, because Part VI of that Act applies to every Act and regulation.
+  
+  This date was worked out by counting, not taken from your court file. If the date you gave us is not exactly right, this one will not be either — and the court office can confirm both.
+
+  ## What happens after
+  After serving the claim, you may need to file an affidavit of service to confirm that the claim was delivered.
+
+  Sources: Rules of the Small Claims Court, O. Reg. 258/98 r. 8.01 (1); Rules of the Small Claims Court, O. Reg. 258/98 r. 8.01 (2)
+
+======================================================================
+A DEFENDANT
+======================================================================
+
+THEY TYPE:
+  "I was served with a Plaintiff's Claim on 2 March 2026 over a fence between our properties. They want $4,000. I don't agree with it."
+
+SCOPE:  small-claims @ 0.7
+STAGE:  defendant:served-defence-period-running @ 0.9
+
+THEY SEE  [status: verified-draft, release run-9]
+
+  I have been sued — what do I have to do, and by when?
+
+  ## Where things stand
+  You have been served with a claim. You need to respond by delivering a Defence (Form 9A) within 20 days of being served.
+
+  ## What to do next
+  Complete the Defence (Form 9A). Serve a copy on every other party. File the Defence with proof of service at the court office indicated on the claim.
+
+  ## Your deadline
+  Serve a defence on every other party and file it with the clerk, with proof of service. You have 20 days, counted from the day of being served with the claim.
+  
+  Based on the date you gave us, the last day for this is Monday 23 March 2026.
+  
+  How that was counted:
+  - Counted 20 days from Monday 2 March 2026, not counting that day itself and counting the last day, which gives Sunday 22 March 2026.
+  - Sunday 22 March 2026 is a Sunday, and a Sunday counts as a holiday for this deadline.
+  - The period therefore runs to the next day that is not a holiday: Monday 23 March 2026.
+  - Under these rules every Saturday and Sunday is a holiday, along with the named days.
+  
+  This date was worked out by counting, not taken from your court file. If the date you gave us is not exactly right, this one will not be either — and the court office can confirm both.
+
+  ## What happens after
+  If you do not file your Defence within the 20 days, the plaintiff can request to note you in default. This may lead to a judgment against you without further notice.
+
+  Sources: Rules of the Small Claims Court, O. Reg. 258/98 r. 9.01; Rules of the Small Claims Court, O. Reg. 258/98 r. 3.01; Rules of the Small Claims Court, O. Reg. 258/98 r. 11.01 (1); Rules of the Small Claims Court, O. Reg. 258/98 r. 13.01 (1)
+
+======================================================================
+SOMEBODY WE CANNOT PLACE
+======================================================================
+
+THEY TYPE:
+  "I need help with my court case. There's a thing with my neighbour."
+
+SCOPE:  out-of-scope @ 0.3
+STAGE:  unknown (low-confidence)
+
+THEY SEE:
+  We could not work out where the case stands.
+  Candidates considered: before-filing:deciding-whether-to-sue
+  Plus the referral resources.
+```
+
+The third is the one to look at hardest. A vague message produces UNKNOWN with the
+candidate named and the referrals — **not** the earliest stage, and not a guess.
+That is the specific failure this rebuild exists to undo: the old code defaulted
+to `starting-case` and told eight of ten people to file a defence.
+
+---
+
 
 ## 9. What is NOT true yet
 
@@ -378,6 +677,25 @@ of its own text. Edit the wording afterwards and the approval no longer applies 
 that is the difference between "a licensee approved this" and "a licensee
 approved something that used to be here".
 
+
+### What Jason and Krystel should look at first
+
+In this order, and none of it needs a licensee:
+
+1. **The three notice blocks** — `before-filing:notice-municipality`,
+   `:notice-toronto`, `:notice-snow-ice-private`. They are the only content where
+   an error means there is no claim at all. Check each states the bar, the number
+   of days, AND both exceptions.
+2. **The two computed dates in section 10's walkthroughs.** Count them on a
+   calendar. The first sentence and the last step must name the same day.
+3. **The wording of the five system messages** (review packet, type
+   `system-message`). They are what somebody reads at the moment they are most
+   likely to give up.
+4. **The Saturday warning.** It appears on statutory deadlines only. Decide whether
+   the wording is clear enough for somebody reading at midnight.
+5. **The 19 `needs-human` blocks** are NOT the priority. They show nothing to
+   anybody. The published 16 are what a user sees.
+
 ### Reproducing everything in this report
 
 ```
@@ -399,6 +717,50 @@ verdict and the passage it quoted. Committed rather than written to a database,
 so the record of what was checked can be read without access to anything.
 
 ---
+
+
+## 11. Decisions we need from you
+
+Not code. These are yours.
+
+1. **Who reviews the content, and when?** 440 items, 0 reviewed. This is the
+   single largest item between here and compliance, and nothing in the product can
+   substitute for it. A licensee could start with the 16 published blocks — that is
+   the set a user can actually reach today.
+
+2. **Do we turn on `REQUIRE_APPROVED_CONTENT`?** It is one line. With it on, the
+   product shows only licensee-approved content, which today is nothing. It is the
+   switch that makes "nothing unreviewed is served" true rather than aspirational,
+   and it cannot be flipped until (1) has happened.
+
+3. **Apply the two migrations?** `ai_call_log` and the call-type correction,
+   staging then production, by REF never by name. Until then no model call in
+   production is recorded and the quarterly return has nothing to read. The
+   checklist is in `docs/lso-fixes-report.md`.
+
+4. **Rename the Supabase projects.** The names are backwards — the one called
+   `-dev` is production. Every instruction anywhere that says "apply it to dev
+   first" is, read literally, an instruction to apply it to production. The
+   step-by-step is written; it needs someone to do it.
+
+5. **What happens to the 21 stages with no content?** Options: draft them through
+   the pipeline (about $0.02 per stage per attempt, and roughly half need several),
+   author them by hand, or accept UNKNOWN for those positions and say so plainly in
+   the product.
+
+6. **Is the chat shown in phase 1?** The new one only selects from verified
+   content. The OLD one (`ai-case-partner`) is still mounted in the builder and
+   still states unreviewed law from templates and the doctrine library. Replacing
+   the mount is a small change; deciding to do it is not mine.
+
+7. **`before-filing:deciding-whether-to-sue` has no content, deliberately.** It is
+   the catch-all that a misclassified matter lands on, and it is now gated behind
+   an affirmative small-claims verdict. If we publish content for it, that gate is
+   the only thing standing between a criminal complaint and Small Claims
+   procedure. Worth deciding consciously rather than when somebody drafts it.
+
+---
+
 
 ## Where the reasoning lives
 
