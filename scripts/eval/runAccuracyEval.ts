@@ -64,6 +64,7 @@ import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
 import { costOf, type Usage } from "../content/verifiedContentPipeline";
 import { DEADLINE_CASES, runDeadlineCases } from "./deadlineCases";
 import { runChatCases } from "./chatCases";
+import { assertNotProduction } from "../db/assertNotProduction";
 
 dotenv.config({ path: ".env.local", quiet: true });
 
@@ -158,6 +159,9 @@ async function classify(story: Story): Promise<CasePosition> {
 }
 
 async function main(): Promise<void> {
+  // Before anything else, and before any model spend.
+  assertNotProduction("eval:accuracy");
+
   const args = process.argv.slice(2);
   const only = args.includes("--story") ? args[args.indexOf("--story") + 1] : null;
   const stories = only ? STORIES.filter((story) => story.id === only) : STORIES;

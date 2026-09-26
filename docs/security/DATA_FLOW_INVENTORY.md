@@ -88,7 +88,7 @@ held about them.
 | Store | Contents | Region |
 |---|---|---|
 | **Supabase, ref `fddlpnibovkkkgboabqb`** — **THE LIVE DATABASE**, confusingly named `courtsimplified-dev` | Everything: accounts, cases, intakes, evidence metadata, generated documents, events | **`ca-central-1` — Canada** |
-| **Supabase, ref `ffymjxjcnwakgdmldpne`** — dormant, confusingly named `courtsimplified` | Paused. 3 operator/harness accounts, 2 shell cases, nothing else — see 2.2 | `us-west-2` — Oregon, United States |
+| **Supabase, ref `ffymjxjcnwakgdmldpne`** — STAGING, confusingly named `courtsimplified` | Active. 24 tables, all empty — see 2.2 and docs/infra/projects.md | `us-west-2` — Oregon, United States |
 | **Supabase Storage, bucket `case-evidence`** | Uploaded evidence files. **Empty in both** | Per project |
 | **Browser `localStorage`** | **26 keys — see 4.3.** A resumable draft, the active case id, case-context blobs, assembled evidence packages, parsed message threads, case-partner chat transcripts, and whole generated workspace documents. **20 of the 26 carry no user id** | The user's own device |
 | **Cookie `cs_site_access`** | The shared site password, HttpOnly | The user's own device |
@@ -101,7 +101,7 @@ Supabase Management API and against Vercel's environment configuration.
 | Ref | Project name | Region | Status | **What it actually is** |
 |---|---|---|---|---|
 | `fddlpnibovkkkgboabqb` | `courtsimplified-dev` | **`ca-central-1`** | ACTIVE_HEALTHY | **THE LIVE DATABASE.** Vercel's `NEXT_PUBLIC_SUPABASE_URL` points here, and so does `.env.local` |
-| `ffymjxjcnwakgdmldpne` | `courtsimplified` | `us-west-2` | INACTIVE (paused) | **Dormant.** Nothing points at it |
+| `ffymjxjcnwakgdmldpne` | `courtsimplified` | `us-west-2` | ACTIVE_HEALTHY | **STAGING.** Nothing points at it. Recorded here as paused until 2026-09-26; it is not — see docs/infra/projects.md |
 
 **So the accurate statement is: user data is stored in Canada, today, not as a
 plan.** The deployed application, local development and every browser test all

@@ -20,14 +20,19 @@
       "currentName": "courtsimplified",
       "intendedName": "courtsimplified-staging",
       "region": "us-west-2",
-      "status": "PAUSED",
+      "status": "ACTIVE_HEALTHY",
       "notes": [
-        "Must be RESTORED before it can be used as staging -- it is paused, and a",
-        "paused project accepts no connections.",
-        "Holds 3 operator/harness accounts and 2 shell cases. No real user data.",
-        "In us-west-2. That is acceptable for staging, which must never hold real",
-        "user data, but it is why this one must NOT become production: Canadian",
-        "data residency is the reason production sits in ca-central-1."
+        "VERIFIED ACTIVE 2026-09-26 by supabase projects list. It was recorded as PAUSED",
+        "here and in two other documents; it is not, and appears to have been restored",
+        "at some point without the docs being updated. Nothing needed restoring.",
+        "It is the ORIGINAL project (created 2026-04-13) and carries 25 migrations of",
+        "legacy history that are NOT in this repository. Production (created 2026-08-26)",
+        "has a clean history matching the repo exactly. That asymmetry is why",
+        "supabase db push refuses against staging -- see docs/infra/setup-report.md.",
+        "Holds no real user data: 24 tables, every one empty.",
+        "In us-west-2. Acceptable for staging, which must never hold real user data,",
+        "and the reason this one must NOT become production: Canadian data residency",
+        "is why production sits in ca-central-1."
       ]
     },
     "production": {
@@ -37,9 +42,11 @@
       "region": "ca-central-1",
       "status": "ACTIVE_HEALTHY",
       "notes": [
-        "THE LIVE DATABASE. Real users' accounts, cases, intakes and documents.",
-        "Vercel's NEXT_PUBLIC_SUPABASE_URL and .env.local both point here.",
-        "Its name says 'dev'. It is not dev."
+        "THE LIVE DATABASE. Verified 2026-09-26: the Vercel PRODUCTION environment",
+        "NEXT_PUBLIC_SUPABASE_URL resolves to this ref.",
+        "Created 2026-08-26. Migration history matches this repository exactly --",
+        "0 migrations applied that are not in supabase/migrations.",
+        "Its name says dev. It is not dev. See docs/infra/projects.md."
       ]
     }
   }

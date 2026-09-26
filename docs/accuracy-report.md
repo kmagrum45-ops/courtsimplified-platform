@@ -745,7 +745,7 @@ Not code. These are yours.
    checklist is in `docs/lso-fixes-report.md`.
 
 4. **Rename the Supabase projects.** The names are backwards — the one called
-   `-dev` is production. Every instruction anywhere that says "apply it to dev
+   `-dev` is production. Every instruction anywhere that says "apply it to dev <!-- [dev-wording-quoted] -->
    first" is, read literally, an instruction to apply it to production. The
    step-by-step is written; it needs someone to do it.
 

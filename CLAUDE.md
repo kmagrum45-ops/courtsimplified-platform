@@ -103,8 +103,20 @@ done, the name tells you the opposite of the truth.
 
 | Ref | Current name | Region | What it actually is |
 |---|---|---|---|
-| `fddlpnibovkkkgboabqb` | `courtsimplified-dev` | `ca-central-1` | **PRODUCTION. THE LIVE DATABASE.** Real users' accounts, cases and intakes. Vercel and `.env.local` both point here. |
-| `ffymjxjcnwakgdmldpne` | `courtsimplified` | `us-west-2` | **Dormant and paused.** 3 operator accounts, 2 shell cases, nothing else. |
+| `fddlpnibovkkkgboabqb` | `courtsimplified-dev` | `ca-central-1` | **PRODUCTION. THE LIVE DATABASE.** Real users' accounts, cases and intakes. The Vercel production environment points here. |
+| `ffymjxjcnwakgdmldpne` | `courtsimplified` | `us-west-2` | **STAGING.** Active, 24 tables, every one empty. |
+
+**`docs/infra/projects.md` is the source of truth for which is which**, established
+2026-09-26 by reading the live systems. Two things in this table were wrong before
+that and are worth knowing about:
+
+- The second project was recorded here and in two other documents as *paused*. It
+  is `ACTIVE_HEALTHY` and appears to have been restored without the docs being
+  updated.
+- `.env.local` on the development machine pointed at **production**, so fixture
+  and eval runs were exercising the real pipeline against real users' data.
+  `scripts/db/assertNotProduction.ts` now refuses that, and `npm run db:staging` /
+  `npm run db:prod` print the target before anything runs.
 
 This entry previously read *"`courtsimplified` (us-west-2, PRODUCTION) and  <!-- [dev-wording-quoted] -->
 `courtsimplified-dev` (ca-central-1)"*, which named the paused project as  <!-- [dev-wording-quoted] -->

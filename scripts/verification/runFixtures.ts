@@ -32,6 +32,7 @@ import type { Fixture } from "./fixtures/fixtureTypes";
 import { unpaidInvoiceCleanFixture } from "./fixtures/unpaidInvoiceClean.fixture";
 import { unpaidInvoiceGapFixture } from "./fixtures/unpaidInvoiceGap.fixture";
 import { overLimitContractFixture } from "./fixtures/overLimitContract.fixture";
+import { assertNotProduction } from "../db/assertNotProduction";
 
 const FIXTURES: Fixture[] = [unpaidInvoiceCleanFixture, unpaidInvoiceGapFixture, overLimitContractFixture];
 
@@ -116,6 +117,10 @@ function renderActualMarkdown(fixture: Fixture, run: PipelineRun): string {
 }
 
 async function main() {
+  // The fixtures sign in, create a case and write intake rows. None of that goes
+  // through the audit log, so this is the guard that covers the connection.
+  assertNotProduction("test:fixtures");
+
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     console.error("OPENAI_API_KEY not set -- run with --env-file=.env.local");
