@@ -79,7 +79,23 @@ import { clarifyingQuestionsFor, distinguishingQuestion } from "./stageMessages"
  */
 export const CONFIDENCE_FLOOR = 0.85;
 
-export type StageResolution =
+/**
+ * *** WHY asksForAdvice RIDES ON EVERY VARIANT ***
+ *
+ * Whether the QUESTION asks for advice is independent of whether we can work out
+ * the STAGE. "My trial is next week, what should I say to the judge?" has a
+ * perfectly clear stage and a question we must decline; "they offered me $1,800,
+ * should I take it?" has neither. So it is an intersection rather than a field on
+ * one branch: a deflection that only appeared alongside a resolved stage would go
+ * missing on exactly the vaguest advice questions.
+ */
+export type StageResolution = {
+  /**
+   * The question asked for legal advice. Carried whatever the stage turned out
+   * to be; the caller shows DEFLECTION_MESSAGE, which is a fixed constant.
+   */
+  asksForAdvice?: boolean;
+} & (
   | {
       kind: "suggested";
       stageId: string;
@@ -97,7 +113,8 @@ export type StageResolution =
       clarifyingQuestion?: string;
       candidates: string[];
     }
-  | { kind: "out-of-scope" };
+  | { kind: "out-of-scope" }
+);
 
 /** What the model is allowed to return. Anything else is treated as no answer. */
 export type StageModelOutput = {
@@ -109,6 +126,13 @@ export type StageModelOutput = {
   alternativeStageId?: string;
   /** The model's read that this is not a Small Claims matter at all. */
   outOfScope?: boolean;
+  /**
+   * The QUESTION asks for legal advice, whatever the stage turns out to be.
+   *
+   * Set by the model; the words shown when it is true are DEFLECTION_MESSAGE, a
+   * fixed constant. See the route.
+   */
+  asksForAdvice?: boolean;
 };
 
 /**
@@ -176,8 +200,10 @@ RULES
    A MONEY CLAIM IS NOT A TENANCY DISPUTE. A claim for property damage, or a debt, between people who happen to be a landlord and a tenant is an ordinary Small Claims matter. Judge the subject, never a noun in the story.
 8. Do not compute DATES — no counting days to a deadline, no working out when a period expires. A separate part of the system does that from the rules. You MAY make the coarse judgment a person would make without a calendar: "six weeks ago" is plainly more than twenty days, "yesterday" is plainly within them. That is reading the story, not doing arithmetic.
 
+10. SET asksForAdvice TRUE WHEN THE QUESTION ITSELF CANNOT BE ANSWERED WITH INFORMATION. "Will I win", "how strong is my case", "what should I say to the judge", "should I take this offer", "do I have a case", "what will the judge think" are all legal advice. This is SEPARATE from the stage: a person asking "my trial is next week, what should I say?" has a perfectly clear stage AND has asked something we must decline. Resolve the stage as usual and set the flag too — the flag does not replace the answer, it rides alongside it.
+
 Reply with JSON only:
-{"stageId": "...", "confidence": 0.0, "reasoning": "...", "alternativeStageId": "..." (optional), "outOfScope": false}`;
+{"stageId": "...", "confidence": 0.0, "reasoning": "...", "alternativeStageId": "..." (optional), "outOfScope": false, "asksForAdvice": false}`;
 
 /**
  * Turns what the model returned into what we will act on.
@@ -192,7 +218,17 @@ export function resolveFromModelOutput(
     return { kind: "unknown", reason: "no-answer", candidates: [] };
   }
 
-  if (output.outOfScope) return { kind: "out-of-scope" };
+  /*
+   * Read once and attached to every branch below.
+   *
+   * A person can ask for advice and be at a clear stage, at an ambiguous one, or
+   * at one we cannot place at all, and the deflection is owed in all three cases.
+   * Attaching it on only the branch that resolves a stage would drop it on the
+   * vaguest questions, which are the ones most likely to BE advice questions.
+   */
+  const asksForAdvice = output.asksForAdvice === true;
+
+  if (output.outOfScope) return { kind: "out-of-scope", asksForAdvice };
 
   const stage = findStage(output.stageId);
 
@@ -203,7 +239,7 @@ export function resolveFromModelOutput(
    * model's behalf, which is the whole failure being replaced here.
    */
   if (!stage || isSpecialStage(stage.id)) {
-    return { kind: "unknown", reason: "no-match", candidates: [] };
+    return { kind: "unknown", reason: "no-match", candidates: [], asksForAdvice };
   }
 
   const alternative = output.alternativeStageId
@@ -221,6 +257,7 @@ export function resolveFromModelOutput(
         (alternative ? distinguishingQuestion(stage.id, alternative.id) : undefined) ??
         clarifyingQuestionsFor(candidates)[0],
       candidates,
+      asksForAdvice,
     };
   }
 
@@ -238,6 +275,7 @@ export function resolveFromModelOutput(
               `whether this is instead: ${alternative.description}`,
           }
         : undefined,
+    asksForAdvice,
   };
 }
 

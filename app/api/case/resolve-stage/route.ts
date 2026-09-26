@@ -41,6 +41,7 @@ import {
   STAGE_REFERRALS,
 } from "../../../../src/lib/case-system/stage-map/stageMessages";
 import { renderStageAnswer } from "../../../../src/lib/content-library/stageAnswerView";
+import { DEFLECTION_MESSAGE } from "../../../../src/lib/content-library/referralResources";
 import {
   caseDatesFrom,
   type CaseDates,
@@ -81,6 +82,29 @@ function present(position: CasePosition, dates: CaseDates) {
   }
 
   const resolution = position.stage;
+
+  /*
+   * *** THE QUESTION WE CANNOT ANSWER, ANSWERED HONESTLY ***
+   *
+   * "Will I win?" has a perfectly resolvable stage. Before this, the route
+   * returned the stage answer and nothing else — so somebody who asked whether
+   * they would win got procedural information about where they are and NO
+   * acknowledgement that their actual question had not been answered.
+   *
+   * CLAUDE.md §2 settles what is owed: the platform organizes and informs but
+   * cannot assess, a licensee can, and here is how to reach one. That wording
+   * already existed as DEFLECTION_MESSAGE and was wired into intake's safety
+   * pass only. The stage route had no equivalent.
+   *
+   * It rides ALONGSIDE the answer rather than replacing it. Withholding the
+   * procedural content because the question was badly framed would punish the
+   * person for not knowing what kind of question to ask — and the content is the
+   * same verified block anyone at that stage gets, containing no prediction,
+   * which the outcome-language gate guarantees before publication.
+   */
+  const advice = resolution.asksForAdvice
+    ? { message: DEFLECTION_MESSAGE, referrals: STAGE_REFERRALS }
+    : null;
 
   /*
    * The boundary caveat rides ALONGSIDE the answer, never instead of it.
@@ -127,6 +151,7 @@ function present(position: CasePosition, dates: CaseDates) {
       candidates: resolution.candidates,
       referrals: STAGE_REFERRALS,
       caveat,
+      advice,
     };
   }
 
@@ -146,6 +171,7 @@ function present(position: CasePosition, dates: CaseDates) {
       candidates: [resolution.stageId],
       referrals: STAGE_REFERRALS,
       caveat,
+      advice,
     };
   }
 
@@ -159,6 +185,7 @@ function present(position: CasePosition, dates: CaseDates) {
     },
     answer,
     caveat,
+    advice,
   };
 }
 

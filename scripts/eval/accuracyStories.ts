@@ -393,8 +393,28 @@ export const STORIES: Story[] = [
     expect: { kind: "unknown" },
     because:
       "Says nothing about service or a defence. Absence of information is not evidence " +
-      "that nothing happened — the system prompt says so explicitly.",
-    neverSuggest: ["plaintiff:defence-period-expired-no-defence"],
+      "that nothing happened — the system prompt says so explicitly.\n" +
+      "      THIS STORY FAILS ON ABOUT HALF OF RUNS, AND IT IS RECORDED RATHER THAN FIXED.\n" +
+      "      Rule 5 of the resolver prompt uses THIS SENTENCE as its worked example: \"'The\n" +
+      "      claim went in a while back' tells you it was filed and NOTHING about what\n" +
+      "      happened next — that is a low confidence, not a claim sitting unserved.\" The\n" +
+      "      model still returns plaintiff:claim-drafted-not-filed above the floor on some\n" +
+      "      runs, which is not merely overconfident: \"went in\" means it WAS filed, so that\n" +
+      "      stage contradicts the story rather than over-reading it.\n" +
+      "      Nothing short of a second model pass would fix it, and the prompt already says\n" +
+      "      the thing it would say. What IS done: the contradicted stage is named in\n" +
+      "      neverSuggest below, so a run that returns it fails as a DANGEROUS suggestion\n" +
+      "      and not just as a percentage — somebody told they have not filed yet, when they\n" +
+      "      have, may file a second claim.",
+    /*
+     * Both neighbours, for different reasons. `defence-period-expired-no-defence`
+     * reads an absence as evidence; `claim-drafted-not-filed` contradicts the one
+     * fact the story does state.
+     */
+    neverSuggest: [
+      "plaintiff:defence-period-expired-no-defence",
+      "plaintiff:claim-drafted-not-filed",
+    ],
   },
 
   // ======================================================================
