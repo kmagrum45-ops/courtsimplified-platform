@@ -3,6 +3,7 @@ import { loadEnvConfig } from "@next/env";
 
 import {
   classifyCourtPath,
+  coerceModelPayload,
   type CourtPathClassification,
 } from "../../src/lib/case-system/intelligence/courtPathClassifier";
 import { classificationScenarios } from "./scenarioRegistry";
@@ -434,6 +435,121 @@ async function main() {
     );
     checks += 1;
   }
+  console.log("");
+
+
+  // ---- WSIAT requires a work connection -----------------------------------
+  //
+  // THE FAILURE THIS EXISTS TO CATCH, in the words that caused it:
+  //
+  //   "I slipped on the sidewalk outside the library on Elgin Street on
+  //    February 3rd. It was solid ice, nobody had salted it. I broke my wrist
+  //    and I'm off work. The city owns that sidewalk."
+  //
+  // Classified out-of-scope wsiat at 0.9 confidence, reasoning "a workplace
+  // injury due to slipping on ice". It is a municipal non-repair claim carrying
+  // a TEN-DAY notice deadline under Municipal Act s. 44 (10), and the person was
+  // turned away from the platform. Turning away a claim-barring stage is the
+  // worst outcome this product has.
+  //
+  // The prompt already said an injury away from work is not wsiat. It was
+  // ignored, because "I'm off work" reads as a work connection while describing
+  // a consequence. So the refusal is in code, and it is not a keyword patch:
+  // WSIA s. 123 (1) gives the tribunal jurisdiction over appeals from decisions
+  // of the Board on entitlement under the insurance plan, which presupposes a
+  // worker and a Board claim.
+  //
+  // *** WHY THESE DRIVE coerceModelPayload AND NOT classifyCourtPath ***
+  //
+  // The first version of this block called classifyCourtPath offline and
+  // asserted the forum was not wsiat. It passed. It ALSO passed with the
+  // refusal deleted, because the keyword pass never called these stories wsiat
+  // to begin with — "forum=none" was the check testing nothing, and it took a
+  // mutation run to notice. The bug was on the AI path, so the payload the model
+  // actually returned is what goes in here.
+  console.log("WSIAT coherence — an injury is not a workplace injury:");
+
+  /** The payload the model returned on the day this broke. */
+  const wsiatPayload = {
+    primaryPath: "out-of-scope",
+    secondaryPath: null,
+    outOfScopeForum: "wsiat",
+    confidence: 0.9,
+    reasoning: "The story describes a workplace injury due to slipping on ice.",
+  } as const;
+
+  const noWorkConnection = [
+    {
+      id: "icy-municipal-sidewalk",
+      story:
+        "I slipped on the sidewalk outside the library on Elgin Street on February 3rd. " +
+        "It was solid ice, nobody had salted it. I broke my wrist and I'm off work. " +
+        "The city owns that sidewalk. It's now February 20th.",
+      why: "municipal non-repair, 10-day notice under Municipal Act s. 44 (10)",
+    },
+    {
+      id: "fall-in-a-shop",
+      story:
+        "I fell in the entrance of a grocery store because the floor was wet and there was " +
+        "no sign. I hurt my back and I have been unable to work since.",
+      why: "an occupier's premises — 'unable to work' is a consequence, not a workplace",
+    },
+    {
+      id: "injury-that-cost-wages",
+      story:
+        "A cyclist hit me on the path and I broke my arm. I have missed work for three weeks " +
+        "and want the cost of my treatment and lost pay.",
+      why: "lost wages are a HEAD OF DAMAGES, not a work connection",
+    },
+  ];
+
+  for (const story of noWorkConnection) {
+    const coerced = coerceModelPayload(wsiatPayload, "unknown", story.story);
+    assert.notEqual(
+      coerced.primaryPath,
+      "out-of-scope",
+      `[${story.id}] a WSIAT payload was accepted on a story with no work connection — ${story.why}`,
+    );
+    assert.equal(coerced.outOfScopeForum, null, `[${story.id}] must carry no forum`);
+    // The model's justification for the refused conclusion must not survive it.
+    assert.ok(
+      !coerced.reasoning.includes("workplace injury due to slipping"),
+      `[${story.id}] kept the model's reasoning for a conclusion that was refused`,
+    );
+    checks += 3;
+    console.log(`   [${story.id}] refused -> ${coerced.primaryPath}   ${story.why}`);
+  }
+
+  /*
+   * And the other direction, which is what stops this from being a check that
+   * simply disables wsiat. The same payload, on a story with a real work
+   * connection, must still be accepted — otherwise the refusal has quietly
+   * become a deletion.
+   */
+  const realWorkplaceInjury = coerceModelPayload(
+    wsiatPayload,
+    "unknown",
+    "I was injured at work when a pallet fell on me during my shift. My employer reported " +
+      "it and WSIB has denied my claim for benefits. I want to appeal that decision.",
+  );
+  assert.equal(
+    realWorkplaceInjury.outOfScopeForum?.id,
+    "wsiat",
+    "a genuine workplace injury with a WSIB claim must still reach WSIAT — otherwise the " +
+      "coherence check has turned into a way of never saying wsiat at all",
+  );
+  checks += 1;
+  console.log("   [real-workplace-injury] accepted, as it must be");
+
+  // And the end-to-end path stays in scope, offline, so the classifier as a
+  // whole cannot regress even if the refusal moves.
+  const icyEndToEnd = await classifyCourtPath({
+    story: noWorkConnection[0].story,
+    allowExternalCognition: false,
+  });
+  assert.notEqual(icyEndToEnd.primaryPath, "out-of-scope");
+  checks += 1;
+  console.log(`   [icy-municipal-sidewalk end to end] ${icyEndToEnd.primaryPath}`);
   console.log("");
 
   const expectedCalls = LIVE_AI ? aiCallCount : 0;

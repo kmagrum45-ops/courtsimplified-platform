@@ -145,6 +145,94 @@ function hasTenancyEndedSignal(story: string): boolean {
   return TENANCY_ENDED_SIGNALS.some((signal) => normalized.includes(signal));
 }
 
+/*
+ * *** WSIAT REQUIRES A WORK CONNECTION. THIS CHECKS FOR ONE. ***
+ *
+ * The story that forced this: "I slipped on the sidewalk outside the library on
+ * Elgin Street on February 3rd. It was solid ice, nobody had salted it. I broke
+ * my wrist and I'm off work. The city owns that sidewalk."
+ *
+ * Classified out-of-scope `wsiat` at 0.9 confidence, reasoning "a workplace
+ * injury due to slipping on ice". It is a municipal non-repair claim with a
+ * TEN-DAY notice deadline under Municipal Act s. 44 (10), and the person was
+ * turned away from the platform entirely. That is the worst outcome this product
+ * has: a claim-barring deadline, and we sent them somewhere that cannot hear it.
+ *
+ * The prompt already told the model that an injury away from work is not wsiat,
+ * in as many words, after two slip-and-fall stories went there in an earlier
+ * run. It said so and was ignored — because "I'm off work" reads as a work
+ * connection, when it describes a CONSEQUENCE of the injury and says nothing
+ * about where it happened. A prompt is a request, not a safeguard.
+ *
+ * So this is a code check, and it is not a heuristic: WSIA s. 123 (1) gives the
+ * Appeals Tribunal exclusive jurisdiction over appeals from FINAL DECISIONS OF
+ * THE BOARD on entitlement under the insurance plan (quoted in
+ * outOfScopeForums.ts). That presupposes a worker, an employer and a Board
+ * claim. A member of the public who fell on a city sidewalk has none of those,
+ * so "wsiat" with no work connection anywhere in the story is internally
+ * incoherent whatever words it happens to contain.
+ *
+ * *** THE TRADE-OFF, STATED ***
+ *
+ * A genuine workplace injury described without any of these phrases would now
+ * be let through as in-scope. That is the lesser harm, deliberately: the reader
+ * gets Small Claims guidance and referrals rather than being turned away from a
+ * 10-day notice period, and the stage resolver's own out-of-scope backstop is
+ * still downstream of this. Nothing here decides anything — the classification
+ * is a dismissible suggestion (CLAUDE.md §4).
+ *
+ * Note what is NOT in the list: bare "work". "off work", "can't work", "missed
+ * work" and "back to work" must not match, and they are the exact phrases a
+ * person with a broken wrist uses.
+ */
+const WORKPLACE_SIGNALS = [
+  "at work",
+  "on the job",
+  "job site",
+  "jobsite",
+  "work site",
+  "worksite",
+  "workplace",
+  "my employer",
+  "the employer",
+  "my boss",
+  "my shift",
+  "on shift",
+  "during my shift",
+  "while working",
+  "wsib",
+  "workers compensation",
+  "workers' compensation",
+  "workplace safety",
+  "occupational",
+  "on duty",
+  "my employee",
+  "work injury",
+  "injured at work",
+  "hurt at work",
+];
+
+function hasWorkplaceSignal(story: string): boolean {
+  const normalized = story.toLowerCase();
+  return WORKPLACE_SIGNALS.some((signal) => normalized.includes(signal));
+}
+
+/**
+ * Is this out-of-scope forum coherent with the story at all?
+ *
+ * Returns the forum, or null to refuse it. Refusing means the story falls
+ * through to ordinary in-scope handling, which is what a personal injury claim
+ * against a municipality or an occupier is: a Small Claims matter up to the
+ * $50,000 limit (O. Reg. 626/00 s. 1 (1)).
+ *
+ * Only wsiat is checked here, because only wsiat's own statute makes the
+ * requirement checkable without deciding anything about the reader's case.
+ */
+function coherentForum(forum: OutOfScopeForum, story: string): OutOfScopeForum | null {
+  if (forum.id === "wsiat" && !hasWorkplaceSignal(story)) return null;
+  return forum;
+}
+
 /**
  * "mixed" is deliberately absent. When the keyword stage reports a genuine
  * cross-area conflict it has already answered the question, and the model adds
@@ -295,7 +383,11 @@ const SYSTEM_PROMPT =
   "an explicit discrimination/accommodation issue for hrto, an explicit workplace injury for wsiat, and so on for " +
   "An injury on its own is NOT wsiat. wsiat is workplace injury and workers compensation: the person must have " +
   "been hurt AT WORK or be dealing with WSIB. Slipping on an icy sidewalk, falling in a shop car park, or any " +
-  "other injury away from work is an ordinary court matter, not a tribunal one — a real run sent two slip-and-fall " +
+  "other injury away from work is an ordinary court matter, not a tribunal one. BEING OFF WORK IS NOT A WORK " +
+  "CONNECTION: 'I'm off work', 'I can't work', 'I've missed work' describe a CONSEQUENCE of an injury and say " +
+  "nothing about where it happened — a real run classified a broken wrist from a fall on a city sidewalk as wsiat " +
+  "at 0.9 confidence on exactly those words, and that person has a TEN-DAY notice deadline. An injury claim " +
+  "against a city, a shop or another occupier is a court matter — a real run sent two slip-and-fall " +
   "stories to wsiat purely because somebody was hurt. " +
   "each id -- never inferred from the story's absence of an in-scope fit. Out-of-scope is never a default for an " +
   "unclear or uninformative story. A story that is vague, generic, or simply too short to identify any specific " +
@@ -329,7 +421,7 @@ function buildUserPrompt(args: {
   return `${declared}\n\nStory:\n${args.story}`;
 }
 
-type ModelPayload = {
+export type ModelPayload = {
   primaryPath?: unknown;
   secondaryPath?: unknown;
   outOfScopeForum?: unknown;
@@ -337,14 +429,37 @@ type ModelPayload = {
   reasoning?: unknown;
 };
 
-function coerceModelPayload(
+/**
+ * Turns a model payload into a classification.
+ *
+ * *** EXPORTED AS A TEST SEAM, FOR A REASON WORTH READING ***
+ *
+ * The WSIAT failure happened here, on the AI path, and the first attempt to
+ * check it drove `classifyCourtPath` offline instead. Those assertions passed —
+ * and they passed with the refusal deleted, because the KEYWORD pass never
+ * called those stories wsiat in the first place. `forum=none` looked like the
+ * check working and was the check testing nothing.
+ *
+ * Found by mutation-testing it. So the checks now feed this function the exact
+ * payload the model actually returned — `out-of-scope` / `wsiat` at 0.9 — which
+ * is the only way to assert the refusal without paying for a model call and
+ * without depending on what a model says today.
+ */
+export function coerceModelPayload(
   payload: ModelPayload,
   fallbackArea: CasePartnerCourtArea,
+  story: string,
 ): Omit<CourtPathClassification, "source" | "aiCalled"> {
   const rawPrimary = clean(payload.primaryPath).toLowerCase();
+  /** A forum the model named and `coherentForum` refused. Changes the reasoning. */
+  let refusedForum: OutOfScopeForum | null = null;
 
   if (rawPrimary === "out-of-scope") {
-    const forum = asOutOfScopeForum(payload.outOfScopeForum);
+    const named = asOutOfScopeForum(payload.outOfScopeForum);
+    // An incoherent forum is refused here, before the payload becomes an
+    // answer. See coherentForum: a wsiat call on a story with no work
+    // connection anywhere in it contradicts wsiat's own jurisdiction.
+    const forum = named ? coherentForum(named, story) : null;
     if (forum) {
       return {
         primaryPath: "out-of-scope",
@@ -358,6 +473,7 @@ function coerceModelPayload(
     // recognizes -- fall through to the ordinary in-scope handling rather
     // than surface an out-of-scope suggestion with nothing to point the
     // user to.
+    if (named && !forum) refusedForum = named;
   }
 
   const primaryPath =
@@ -374,7 +490,22 @@ function coerceModelPayload(
     secondaryPath: secondaryPath === primaryPath ? null : secondaryPath,
     outOfScopeForum: null,
     confidence: clampConfidence(payload.confidence),
-    reasoning: clean(payload.reasoning) || "No reasoning returned.",
+    /*
+     * *** THE MODEL'S REASONING DOES NOT SURVIVE A REFUSED FORUM ***
+     *
+     * Carrying it did, at first, and the result was a classification reading
+     * `primaryPath: "unknown"` with `reasoning: "The injury occurred on a city
+     * sidewalk, which indicates a potential workplace injury claim."` — the
+     * argument for a conclusion this function had just rejected, attached to
+     * the opposite answer, on a field a caller may show.
+     *
+     * A justification is only ever a justification for the answer it came with.
+     */
+    reasoning: refusedForum
+      ? `This does not appear to be a ${refusedForum.name} matter: nothing in the story ` +
+        `indicates the injury happened at work or that a Workplace Safety and Insurance ` +
+        `Board claim is involved. Treating it as a court matter.`
+      : clean(payload.reasoning) || "No reasoning returned.",
   };
 }
 
@@ -540,6 +671,7 @@ async function classifyCourtPathInner(
     const parsed = coerceModelPayload(
       JSON.parse(content) as ModelPayload,
       keywordArea,
+      story,
     );
 
     return { ...parsed, source: "ai", aiCalled: true };
