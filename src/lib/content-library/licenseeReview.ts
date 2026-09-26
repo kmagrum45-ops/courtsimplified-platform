@@ -79,6 +79,12 @@ export type ContentType =
    * needs reading — it is what somebody sees at the moment they may give up.
    */
   | "system-message"
+  /**
+   * A checklist item for a settlement conference or trial, quoted from the
+   * court's own guide. Chat item 7, Level 1: organise and prepare, never what
+   * to argue. See content-library/presentationHelp.ts.
+   */
+  | "presentation-help"
   | "doctrine"
   | "safety-resource"
   | "remedy";

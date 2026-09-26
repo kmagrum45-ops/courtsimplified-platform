@@ -31,9 +31,9 @@ edited afterwards the approval no longer applies, and the item returns to draft.
 
 | Measure | Count |
 |---|---|
-| Total items | 429 |
+| Total items | 440 |
 | Approved (current version) | 0 |
-| Draft / unreviewed | 429 |
+| Draft / unreviewed | 440 |
 | Approvals voided by later edits | 0 |
 | Items that are unwritten placeholders | 49 |
 
@@ -3776,6 +3776,129 @@ This sounds like it may involve an immigration or refugee matter. CourtSimplifie
 Criminal Court
 
 This sounds like it may involve a criminal charge or a criminal court process. CourtSimplified does not cover criminal matters. Criminal Court is separate from Family, Small Claims, and Civil court, which handle non-criminal matters. If you are dealing with a criminal charge, a paralegal, a criminal defence lawyer, or duty counsel can help.
+```
+
+## presentation-help (11)
+
+### `presentation:sc:serve-witness-list`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / settlement-conference
+- **Appears in:** Getting ready for your settlement conference
+- **Source:** https://www.ontario.ca/laws/regulation/980258
+
+```
+Fill out the List of Proposed Witnesses (Form 13A), serve it on every other party, and file it with the court.
+```
+
+### `presentation:sc:no-witnesses-attend`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / settlement-conference
+- **Appears in:** Getting ready for your settlement conference
+- **Source:** _none recorded_
+
+```
+Do not bring your witnesses to the settlement conference. Be ready to say briefly what each of them would say at a trial.
+```
+
+### `presentation:sc:bring-documents`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / settlement-conference
+- **Appears in:** Getting ready for your settlement conference
+- **Source:** _none recorded_
+
+```
+Bring the documents you are relying on.
+```
+
+### `presentation:sc:attend`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / settlement-conference
+- **Appears in:** Getting ready for your settlement conference
+- **Source:** _none recorded_
+
+```
+Attend. If you do not, an order can be made against you.
+```
+
+### `presentation:trial:review-filed`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / trial
+- **Appears in:** Getting ready for your trial
+- **Source:** _none recorded_
+
+```
+Read the claim, the defence and anything else that has been filed.
+```
+
+### `presentation:trial:list-points`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / trial
+- **Appears in:** Getting ready for your trial
+- **Source:** _none recorded_
+
+```
+List the points you need to prove, and how you will prove each one.
+```
+
+### `presentation:trial:serve-documents-30-days`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / trial
+- **Appears in:** Getting ready for your trial
+- **Source:** _none recorded_
+
+```
+Serve on every other party the documents and witness statements you will use, at least 30 days before the trial.
+```
+
+### `presentation:trial:summons-10-days`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / trial
+- **Appears in:** Getting ready for your trial
+- **Source:** _none recorded_
+
+```
+If you are summonsing a witness, serve the summons and the attendance money at least 10 days before the trial.
+```
+
+### `presentation:trial:three-copies`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / trial
+- **Appears in:** Getting ready for your trial
+- **Source:** _none recorded_
+
+```
+Bring the original documents and at least three copies of each: one for the judge, one for the other party, one for you.
+```
+
+### `presentation:trial:questions-for-witnesses`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / trial
+- **Appears in:** Getting ready for your trial
+- **Source:** _none recorded_
+
+```
+Write out the questions you want to ask your own witnesses and theirs.
+```
+
+### `presentation:trial:arrive-early`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / trial
+- **Appears in:** Getting ready for your trial
+- **Source:** _none recorded_
+
+```
+On the day, give yourself plenty of time to get to the courthouse and find your courtroom.
 ```
 
 ## procedural-stage (21)

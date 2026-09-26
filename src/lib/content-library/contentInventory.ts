@@ -48,6 +48,7 @@ import {
   OUT_OF_SCOPE_STAGE_MESSAGE,
 } from "../case-system/stage-map/stageMessages";
 import { CHAT_NO_MATCH_MESSAGE, DEFLECTION_MESSAGE } from "./referralResources";
+import { PRESENTATION_CHECKLISTS } from "./presentationHelp";
 import { OFFICIAL_URLS } from "../case-system/stage-map/citations";
 import { DOCTRINE_SEED_LIBRARY } from "../case-system/knowledge/doctrineSeedLibrary";
 import {
@@ -395,6 +396,31 @@ export function collectContentInventory(): ContentItem[] {
             ? OFFICIAL_URLS[block.citations[0].sourceId]
             : "",
           appearsIn: `Stage answer for "${block.userQuestion}"`,
+        }),
+      );
+    }
+  }
+
+  /*
+   * ---- Presentation help, Level 1 (chat item 7) ----
+   *
+   * The court's own checklists for a settlement conference and a trial. Every
+   * item carries a quote from a vendored guide, checked by
+   * `test:presentation-help` with the same `findQuote` gate a stage answer
+   * passes — so the source url here is the guide the item came from, not a
+   * decoration.
+   */
+  for (const checklist of PRESENTATION_CHECKLISTS) {
+    for (const entry of checklist.items) {
+      items.push(
+        item({
+          id: entry.id,
+          type: "presentation-help",
+          pathway: "small-claims",
+          stage: checklist.occasion,
+          text: entry.text,
+          sourceUrl: entry.citation ? OFFICIAL_URLS[entry.citation.sourceId] : "",
+          appearsIn: checklist.title,
         }),
       );
     }

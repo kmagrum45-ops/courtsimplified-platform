@@ -800,6 +800,82 @@ correctly, so the content exists and the chat declined to show it.
 
 ---
 
+## Chat item 7: presentation help, Level 1 only
+
+Helping somebody ORGANISE what they already have, and telling them what the
+court's own guide says to bring and do. Nothing else.
+
+| In | Out |
+|---|---|
+| the court's checklists, quoted, with the source behind each item | rewriting a word they wrote |
+| their recorded events in the order they happened | what to emphasise, which point is strongest |
+| what is missing from the record | anything about how it will go |
+
+The middle line needs stating. "Organise your story chronologically" is not our
+advice and not a judgment about their case — it is what the Ministry's guide tells
+every self-represented person, in those words:
+
+> "Usually the best way to organize a story is in the order that the events
+> actually happened."
+
+That sentence is quoted, and `test:presentation-help` finds it in the vendored
+corpus. "Lead with the contract and leave out the argument about the fence" would
+be strategy, and this module has no function that could produce it.
+
+### Three properties, each checkable
+
+**1. Every checklist item is quoted from a source.** The same `findQuote` gate a
+stage answer passes. 11 items across two checklists, all found. An item whose
+quote is not in the corpus is not a checklist item, it is our opinion about how to
+prepare for court — and an opinion about preparation is exactly what no licensee
+has reviewed.
+
+**2. Nothing predicts or grades.** Reuses `predictsOutcome`, the gate that refuses
+outcome language in published blocks. There is a second check behind it, and it
+earns its place: the guide itself says preparation may let you "avoid the expense
+and risks of having to go to trial". Quoting a source does not license repeating
+it in our own voice — decision 1 of the Part 7 review settled that outcome
+language is refused EVEN WHEN SOURCED — so the check asserts the item TEXT is
+clean where the quote behind it is not.
+
+**3. Structuring returns a PERMUTATION of the input.** Same multiset of strings,
+different order. Nothing edited, nothing merged, nothing dropped.
+
+That third one is the whole of "no wording rewrites", expressed as something a
+check can fail on. A future change that starts tidying somebody's account breaks
+the suite instead of passing a review. The difference between a rule in a brief
+and a rule in the code.
+
+### What it does with a date it cannot read
+
+An undated event goes LAST and is marked — not dropped, and not guessed into a
+position. And "sometime later" is distinguished from no date at all: the first is
+an answer, and telling somebody it is not a date they can put in front of a judge
+is more useful than sorting it quietly to the bottom. Two events on the same day
+keep the order the person entered them, because which came first is something we
+do not know.
+
+### The gap flags say what is absent and stop
+
+CLAUDE.md §3 gives the examples — "no evidence recorded for this issue", "this
+date is unconfirmed" — and forbids anything grading the merits. So a flag names
+something missing and says nothing about severity, nothing about ordering by
+importance, and nothing about what the absence means for the case. A check
+asserts the flags contain no such language, because a severity ranking is
+assessment wearing a checklist's clothes.
+
+### Reachable
+
+`POST /api/case/prepare` takes an occasion and the recorded events and returns
+the checklist with its quotes, the ordered story, and the gaps. No model call
+anywhere in the path.
+
+It exists as a route rather than as a library because of a finding from earlier in
+this same work: the deadline engine was built correctly, checked thoroughly, and
+unreachable for two whole parts. A capability with no caller is not a capability.
+
+---
+
 ## The commands
 
 ```
