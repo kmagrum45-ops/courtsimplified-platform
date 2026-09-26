@@ -1,0 +1,231 @@
+A guide for auto repair businesses | ontario.ca
+
+ Skip to main content
+
+ Ontario.ca needs JavaScript to function properly and provide you with a fast, stable experience.
+
+ To have a better experience, you need to:
+
+ Go to your browser's settings
+ Enable JavaScript
+
+ Log in to continue
+
+ Please log in for full account access.
+
+ A guide for auto repair businesses
+
+ Learn about the rules for running an auto repair business.
+
+ On this page
+ Skip this page navigation
+
+ Overview
+ In Ontario, the Consumer Protection Act, 2002 ( CPA ) and Ontario Regulation 17/05 ( O. Reg. 17/05) provide broad marketplace protections and regulate most Ontario-based consumer-to-business transactions.
+
+ Descriptive transcript: Introduction to the Consumer Protection Act
+ Part VI of the CPA and O. Reg. 17/05 outline specific rules for auto repair businesses, such as:
+ information you must include on signs posted at your business
+ information you must include in estimates and invoices
+ mandatory warranties you must provide on all new or reconditioned parts installed, and the labour required to install them
+ As an auto repair business, you may also have rights under the Repair and Storage Liens Act when a customer does not pay for repairs you have made to their vehicle.
+ Outlined below are the basic rules and rights under these laws. For more information, read the legislation or consult legal counsel.
+ Signage
+ You must post at least one sign in your business with important information for customers, about such things as estimates, warranties and fees.
+ The sign must:
+ be easily seen by customers (for example, no small-print text or posting the sign in an area with little or no customer traffic)
+ have clear, prominent and understandable information
+ What to include on the sign
+ Your sign must tell customers about:
+ their right to receive a written estimate, except in certain cases (see estimates for more information)
+ any estimate fees, and notification that they will not be charged for the estimate if the work is authorized within a reasonable period of time
+ how labour and/or assessment charges are calculated (flat rate, hourly rate, or both) and the amounts that will be charged
+ any commissions repairers receive for selling parts and how the commission is calculated
+ all charges for goods and services other than parts, shop supplies and labour (for example, storing a vehicle)
+ circumstances when you are required to return parts removed from vehicles during repairs
+ For more information on posting signs and for a full description of signage requirements, see section 60 of the CPA and section 50 of O. Reg. 17/05 .
+ Sample sign
+ Download, print and use our sample sign to help you comply with signage requirements under the CPA .
+ The sample is for general informational purposes only it is not legal advice . The laws governing consumer protection and auto repair may change from time to time. Consult your legal counsel as required.
+ Download sample sign
+ Contact us if you need this document in another format.
+ Tips and reminders
+ You may change the content of the sample to reflect your business practices. However, your sign must meet all signage requirements under the CPA . For example:
+ if your repairers or people who work on their behalf do not receive any commissions, you can remove the commission section
+ if you do not charge a flat rate in any circumstances, you can remove the flat rate section
+ if you do not offer services like storage, pick-up/delivery or temporary vehicles or if you will not charge a customer for those, you do not have to include that section
+ You may use your business logo on the sign, but you may not use the Ontario government logo.
+ Estimates
+ You must provide your customer with a written estimate of costs before you can charge them for any work or repairs, except in certain cases.
+ You do not have to provide a written estimate if:
+ the customer doesn't want one, but instead specifies a maximum amount they are willing to pay; and
+ the actual cost of the work does not exceed the maximum amount the customer is willing to pay
+ Under section 64 of the CPA , your estimate must be the same amount whether a customer is paying out of their own pocket or having the cost covered by an insurance company.
+ You should maintain a record of the initial estimate. This is important, especially if you use electronic software that converts estimates into invoices.
+ Estimate fees
+ If you charge a fee for an estimate, you must tell the customer in advance. This fee must include the cost for:
+ the time spent examining the vehicle to make a diagnosis
+ reassembling the vehicle after examining it
+ any parts damaged during examination or reassembly that need to be replaced
+ If you do not include these costs in the fee, it will be assumed by law that they are included anyway, and the customer is not obligated to pay more.
+ You cannot charge the estimate fee for work the customer authorizes. However, if they take too long to give you permission to do the work and you have to reassemble the vehicle to move it (for example, to make room for another vehicle) you may charge them the estimate fee.
+ For more information, refer to section 57 of the CPA .
+ What to include in the estimate
+ Customer, vehicle and business information
+ customer's name
+ name, address and contact details of your business
+ make, model, vehicle identification number ( VIN ) and licence number of the vehicle
+ odometer reading at the time of the estimate
+ Details about the proposed repairs
+ an exact description of the work to be done and the repairs to be made
+ a list of any parts you plan to install and if those parts will be new, used or reconditioned
+ if applicable, a statement that the customer declines the return of any parts that will be removed and the resulting reduction, if any, in price
+ Pricing information
+ price of all parts (listed individually)
+ total cost of the labour and how it will be calculated (for example, an hourly rate and the number of hours to be charged, flat rate or some combination of the two)
+ an itemized list of charges for goods and services other than parts, shop supplies and labour (for example, storing a vehicle) and the amount to be charged for each
+ total amount the customer will be billed, with a disclosure indicating that the final cost can't exceed the estimate by more than 10 per cent
+ Dates
+ when the estimate is given and the date after which it no longer applies
+ when the work and repairs will be completed
+ For a full list of estimate requirements, refer to section 48 of O. Reg. 17/05 .
+
+ Customer authorization
+ The customer must authorize any work before you can charge them for it.
+ If they do not give you the authorization in writing, you must record the:
+ name of the person giving authorization
+ date and time
+ authorizer's contact information, including their phone number if they give their authorization over the phone
+ For more information, refer to sections 58 and 59 of the CPA and section 49 of O. Reg. 17/05 .
+ Invoices
+ You must provide the customer with a written invoice after the work or repairs are completed. An invoice is a detailed bill listing the goods and services you provided. It should list the price of each item individually and the total cost.
+ The invoice and estimate may look very similar, so you must clearly label them to avoid confusion.
+ The final invoice cannot be more than 10% higher than the written estimate. (see section 58(2) of the CPA ).
+ For more information on invoices, refer to section 62 of the CPA and section 51 of O. Reg. 17/05 .
+
+ What to include in an invoice
+ Customer, vehicle, and business information
+ customer's name
+ name, address and contact information of your business
+ make, model, vehicle identification number ( VIN ) and licence number of the vehicle
+ odometer reading when the vehicle is dropped off and when it is returned to the customer
+ Details about the repairs
+ dates when the customer authorized the work or repairs, when work and repairs were completed, and when the vehicle is returned to the customer
+ an exact description of the work done and the repairs made to the vehicle
+ a list of the parts you installed and if the parts are new, used or reconditioned
+ Pricing information
+ price of the parts (listed individually)
+ shop supplies charged to the customer (and not included in normal operating costs)
+ total cost for the labour and how it was calculated (for example, hourly rate and number of hours billed, or a flat rate, or some combination of the two)
+ an itemized list of charges for goods and services other than parts, shop supplies and labour (for example, storing a vehicle) and the amount charged for each
+ total amount billed and method of payment
+ if an estimate was provided, the total amount set out in the estimate (the total amount to be paid cannot be more than 10 per cent above the estimate)
+ if the customer authorized a maximum amount, as an alternative to receiving an estimate, that maximum amount
+ Other information
+ terms of the warranty provided by your business for all installed parts and labour, if it is equal to or greater than the deemed warranty set out at section 63 of the CPA
+ if such a warranty is not provided by your business, the deemed warranty terms set out at section 63 of the CPA as subject to prescribed exceptions
+ any restrictions, limitations or conditions you impose
+ You must also clearly print the following statement in its entirety on the invoice:
+ The Consumer Protection Act, 2002 , provides you with rights in relation to having a motor vehicle repaired. Among other things, you have a right to a written estimate. A repairer may not charge an amount that is more than ten (10) per cent above that estimate. If you waived your right to an estimate, the repairer must have your authorization of the maximum amount that you will pay for the repairs. The repairer may not charge more than the maximum amount you authorized. In either case, the repairer may not charge for any work you did not authorize.
+ If you have concerns about the work or repairs performed by the repairer or about your rights or duties under the Consumer Protection Act, 2002 , you should contact the Ministry of Consumer and Business Services.
+ For a full list of invoice requirements, refer to section 51 of O. Reg. 17/05 .
+ Vehicle repair warranty
+ The CPA imposes a mandatory warranty on all new or reconditioned parts installed and the labour required to install them, for a minimum of 90 days or 5,000 kilometres, whichever comes first.
+
+ If a customer's vehicle breaks down or becomes unsafe to drive because of faulty repair during the term of this warranty, they are entitled to have the issue fixed at your repair shop at no charge.
+ However, if the vehicle becomes inoperable or unsafe, and if it is unreasonable for the customer to return to your shop, they may go to the closest repair shop. You will be required to reimburse them for:
+ the cost of the original work you completed on their vehicle
+ reasonable towing charges, if applicable
+ If the failure was a result of a defective part:
+ if you ask the customer to return it to you, they must return it at your expense, unless it would not be reasonably possible for them to do so
+ you can recover the amount you paid the customer for the cost of repairs and towing charges (if applicable) from the supplier of the defective part
+ you can only refuse to reimburse the customer for a defective part if you have reasonable grounds to believe they misused or abused the part under warranty
+ For more information, refer to section 63 of the CPA .
+ Exemptions
+ The mandatory warranty on parts and labour does not apply to:
+ fluids, filters, lights, tires or batteries
+ any part that was not warranted by the manufacturer of the vehicle when the vehicle was sold as new
+ any part or the labour required to install it under another warranty that provides equal or greater coverage (in both time and distance) than the warranty imposed by the CPA
+ For more information, refer to section 52 of O. Reg. 17/05 .
+ Returning parts after servicing a vehicle
+ If you remove parts from a customer's vehicle when you are servicing it, you must offer to return the parts to the customer.
+ You do not have to return the parts if:
+ the customer has told you at the time they authorized the repairs that they do not want them back
+ the customer has not been charged either for the replacement part or repair to the part, or
+ the parts must be returned to the manufacturer or distributor under the terms of the manufacturer or distributor warranty for service
+ For more information, refer to section 61 of the CPA .
+ If the customer doesn't pay
+ As an auto repair business, you may have rights under the Repair and Storage Liens Act ( RSLA ) if a customer doesn't pay you for your work on their vehicle.
+ If the CPA applies, you must comply with certain sections of the CPA , such as estimate requirements , otherwise you won't have a lien under the RSLA .
+ Read the RSLA for more information or consult legal counsel.
+ If you have the customer's vehicle (possessory lien)
+ If the customer hasn't paid you for your work and you have not yet returned their vehicle, you may be able to keep possession of it until you're paid. This is known as a possessory lien .
+ A possessory lien is a legal right to keep possession of someone's property until they pay you what they owe you for the repair of their property.
+ The amount of the possessory lien is equal to:
+ the amount you and the customer agreed upon when they requested the work, or
+ the fair value of the repair, if no amount had been agreed upon
+ If the CPA applies, the amount of the lien has to comply with the act.
+ If you have a possessory lien on a vehicle, you may be able to sell or keep the vehicle if the customer still hasn't paid you 60 days following the day when the amount became due, but you will need to comply with the requirements under Part III of the RSLA .
+ For more information, refer to Part I and Part III of the RSLA .
+ If the customer has the vehicle (non-possessory lien)
+ If you performed the repairs and returned the vehicle to the customer before they paid you the full amount, you may register a non-possessory lien for the amount owing. You must:
+ have a signed acknowledgement of the amount owing (such as an invoice) from the customer
+ register the lien online with ServiceOntario , or call 1-800-267-8847
+ If you register a non-possessory lien and the non-possessory lien hasn't been discharged (for example, the customer still hasn't paid what they owe), you can have the vehicle seized. One way of doing so is to ask the sheriff for the area where the vehicle is located to seize the vehicle as long as another lien claimant with a possessory lien, like another repairer, does not have it. To do so, you will need to provide the local sheriff's office with:
+ a copy of your registered claim for lien
+ a direction to seize form
+ If you have the customer's vehicle seized and the amount of the lien is unpaid, you may be able to:
+ sell the vehicle 60 days after the day when you gave up possession of the vehicle, or
+ keep the vehicle
+ For more information, refer to sections 7 , 14 , and Part III of the RSLA .
+ Compliance and enforcement
+ Complaints
+ Customers can submit complaints about auto repair businesses to the Ministry of Public and Business Service Delivery and Procurement. If a complaint is filed against your business, the ministry may request additional information from you.
+ Learn more about the consumer complaint process .
+ Other customer remedies
+ If you do not meet the disclosure requirements under the CPA and its regulations, the agreement you have with the customer is not legally binding unless a court orders otherwise. This means they may not have to pay you for the work on their vehicle.
+ For example, this may be the case if you:
+ do not give the customer an estimate or invoice with all the required information
+ begin working on a vehicle before the customer authorizes it
+ Under the CPA , it is also illegal to:
+ misrepresent a good or service you offer
+ take advantage of customers, for example because of disability, ignorance, illiteracy or inability to understand the language of the agreement
+ use possession of the customer's property (such as a vehicle) to pressure them into renegotiating the price
+ If you engage in any of these unfair practices, the customer:
+ can cancel the contract with you (within one year)
+ is entitled to compensation, including punitive or exemplary damages (at the discretion of the court)
+ Inspections
+ The ministry inspects businesses to promote compliance with the CPA .
+ During an inspection, inspectors may:
+ enter your business and observe your business practices
+ request and make copies of any documents (for example, invoices and estimates)
+ take photos
+ After an inspection, the inspector:
+ will review their findings with you and explain the next steps you must take
+ may issue a Notice of Contravention, outlining any contraventions they observed and requesting that you address them within a specified timeframe
+ Learn more about inspections for consumer protection .
+ Charges and offences
+ You can be charged with an offence for:
+ contravening the CPA or its regulations
+ knowingly failing to comply with any order, direction, or requirement under the CPA
+ If you are convicted, you can be fined up to $50,000 and/or imprisoned for up to two years less a day. Corporations and other entities can be fined up to $250,000 upon conviction.
+ Learn more about enforcement of the CPA .
+ Consumer Beware List
+ If you don't comply with the CPA , your business name and details will be published on the Consumer Beware List .
+ The Consumer Beware List is a public list of businesses that have had compliance or enforcement action taken against them. Information about businesses remains on this list for 21 to 27 months.
+ Learn more about the Consumer Beware List .
+ Contact us
+ If you have any questions about this guide, please contact us at:
+ Ministry of Public and Business Service Delivery and Procurement Consumer Services Operations Division Box 450 Toronto, ON M7A 2J6
+ Courier packages should be delivered by Canada Post or Purolator.
+ Tel : 416-326-8800
+ Toll-free: 1-800-889-9768
+ TTY : 416-229-6086
+ Toll-free TTY : 1-877-666-6545
+ CPOBusinessEducation@Ontario.ca
+
+ Updated: August 19, 2025
+
+ Published: January 28, 2020
+
+ Top

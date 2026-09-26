@@ -1,0 +1,285 @@
+A guide for collection agencies | ontario.ca
+
+ Skip to main content
+
+ Ontario.ca needs JavaScript to function properly and provide you with a fast, stable experience.
+
+ To have a better experience, you need to:
+
+ Go to your browser's settings
+ Enable JavaScript
+
+ Log in to continue
+
+ Please log in for full account access.
+
+ A guide for collection agencies
+
+ Learn about the rules for running a collection agency.
+
+ On this page
+ Skip this page navigation
+
+ Overview
+ In Ontario, there are laws about debt collection activities and debt settlement services. This guide summarizes many of your obligations as a collection agency.
+
+ Descriptive transcript: Introduction to the Consumer Protection Act
+ You must comply with all the requirements in the Collection and Debt Settlement Services Act ( CDSSA ) and its regulations not just the rules summarized in this guide.
+ All persons that carry on business as collection agencies must be registered.
+ As of January 1, 2018, individual collectors are no longer required to be registered in Ontario, but they must still comply with the CDSSA . A collection agency is responsible for ensuring that all collectors who are employed, authorized, or acting for or on behalf of the agency comply with the rules.
+ If you do not comply with all the requirements, you could lose your registration or face other enforcement action. Learn more about compliance and enforcement .
+ Definitions
+ Collection agency
+ A person, other than a collector, who:
+ obtains or arranges for payment of money owing to another person
+ sells or offers to sell forms or letters represented to be a collection system or scheme
+ provides debt settlement services
+ purchases debts that are in arrears and collects them (with some exceptions)
+ Collector
+ A person who works on behalf of a collection agency to:
+ collect debts
+ interact with debtors
+ provide debt settlement services
+ Registrar
+ This is the person who ensures collection agencies and collectors act in accordance with the CDSSA and its regulations. Learn more about the Registrar .
+ There are some circumstances in which the CDSSA does not apply . For example, the CDSSA does not apply to an isolated collection made by a person whose usual business is not collecting debts for other persons.
+ Learn more definitions in the CDSSA .
+ Apply for or renew your registration
+ Eligibility
+ To register as a collection agency, you must:
+ have at least two years of actual or related experience working for a collection agency in all areas of the business, or equivalent experience (in the Registrar's opinion)
+ pass a mandatory written exam
+ operate from a permanent place of business in Ontario that is not a private residence
+ pay all applicable fees
+ not be engaged directly or indirectly in the business of lending money
+ be 18 years of age or older
+ See sections 4-11 of the CDSSA and sections 12-16 of the General Regulation for more information about eligibility to register and operate a collection agency.
+ Steps to register
+ To register as a collection agency:
+ Complete an application for registration
+ Provide the following documents: your current or opening financial statement prepared by a person licensed under the Public Accounting Act, 2004
+ a business plan
+ copies of sample demand/collection letters/debt settlement material
+ copy of your business/client contract
+ copy of your commercial tenancy lease
+
+ Send your completed application, supporting documents and registration fee to: Registrar of Collection Agencies Ministry of Public and Business Service Delivery and Procurement 56 Wellesley Street West, 16 th Floor Toronto, Ontario M7A 1C1 CPOLicensing@ontario.ca
+
+ You cannot transfer your registration to another agency or person.
+ Renewing your registration
+ Your registration is valid for two years. You must apply to renew your registration and pay the fee before the expiry date.
+ Renew your registration
+ Mandatory exam
+ All active officers and directors of a collection agency must pass a mandatory exam before they can register or maintain an existing registration.
+ You must get at least 75% to pass the written exam.
+ If you fail the exam the first time, you may rewrite the exam at any time.
+ If you fail the exam a second time, you must wait four months before you can rewrite it.
+ The Registrar or a person appointed by the Registrar must supervise and mark the exam.
+ Contact us to write or rewrite the exam.
+ See section 15 of the General Regulation for more information about the mandatory exam.
+ Fees
+ You must pay the following fees, as applicable:
+ $290 to register or renew a collection agency registration
+ $290 to register each branch office of the collection agency (if any)
+ $10 to write the mandatory exam
+ See section 29.1 of the CDSSA for more information about fees.
+ Conducting business
+ There are rules that your collection agency and its branch office(s) must follow. For example, you:
+ must operate under your registered name and location(s)
+ must be open during normal business hours and have a toll-free phone number
+ must be incorporated by or under an Act of Ontario, Canada or a province or a territory of Canada
+ cannot engage in any prohibited practice or employ any prohibited method in collecting debts, (for example, using excessive or unreasonable pressure when contacting a debtor)
+ cannot make harsh, false, misleading or deceptive statements in any letter, form, notice, advertisement or similar material
+ cannot also be a bailiff or assistant bailiff under the Bailiffs Act , a private investigator or security guard under the Private Security and Investigative Services Act, 2005 , or a mortgage brokerage, broker or agent under the Mortgage Brokerages, Lenders and Administrators Act, 2006
+ See sections 4 , 5 , 11 , 22 and 25 of the CDSSA and sections 13 and 20-25 of the General Regulation for more information about rules on conducting business.
+ Books and records
+ You must keep records and accounting books showing money received and money paid out. These records must include:
+ receipts journal
+ disbursements journal
+ general journal
+ clients' ledger
+ general ledger
+ any additional records that the Registrar requires
+ You must update and store these records separately from records related to any other activities. You must keep entries in books of account for at least six years from the date of the entry.
+ See subsections 13(12) to 13(13) of the General Regulation for more information about records.
+ Changes to your agency
+ You must notify the Registrar in writing within five calendar days of:
+ changes to the address of the collection agency
+ changes in officers, directors, controlling interest or members
+ the start and end date of every collector employed, appointed or authorized by the agency
+ See section 20 of the CDSSA and sections 1(3) and 16 of the General Regulation for more information about notifying the Registrar about changes to your agency.
+ Trust accounts and trust funds
+ Trust funds are all funds received by a collection agency in the normal course of business from clients or debtors.
+ Trust funds are not:
+ payments for fees earned
+ advance payments for future services or expenses
+ funds owed to the agency
+ See subsections 17(1) and 17(1.1.) of the General Regulation for more information about trust accounts and trust funds.
+ Registration and maintenance of trust account
+ Unless the Registrar grants written permission:
+ a collection agency can only have one trust account
+ the trust account must be at: a bank branch in Ontario
+ an Ontario loan or trust corporation
+ an Ontario credit union
+
+ The trust account must be designated as a Collection and Debt Settlement Services Act Trust Account.
+ If requested by the Registrar, you must provide an accounting of your agency's trust account within 30 calendar days.
+ See sections 17 and 18 of the General Regulation for more information about maintaining a trust account in Ontario.
+ Trust account deposits and disbursals
+ Within two banking days you must deposit all trust monies that the collection agency receives from debtors located in Ontario. This applies to all monies, including:
+ cash
+ cheque
+ credit card payments
+ electronic transfer
+ Money collected and held in trust must be paid out to the persons entitled to the monies on or before the 20 th day of the month following the month of collection. If you collect the money, and less than $15 is due, an agency must pay the person entitled to the money within 90 calendar days.
+ See subsections 17(4) and 18(1) of the General Regulation for more information about trust account deposits and disbursements.
+ Unclaimed trust funds
+ If you are unable to send the money held in trust to the person entitled to it within six months, you must forward all unclaimed and/or unpaid funds to the Government of Ontario.
+ Send us a list of the applicable creditors and the amounts owed to them. Your cheque must be payable to the Minister of Finance.
+ If a creditor claims that it is entitled to unclaimed trust funds, ask the creditor to contact us .
+ See subsection 18(2) of the General Regulation for more information about unclaimed trust funds.
+ Prohibited practices and conduct
+ The CDSSA and its regulations prohibit collection agencies and collectors from engaging in certain types of conduct.
+ Before contacting a debtor
+ Before you can contact a debtor to demand payment, you must send a written notice to the debtor. You can send the notice by regular mail or email. The notice must include:
+ the name of the creditor
+ details about the debt, including the balance owing and product type (for example, line of credit or credit card)
+ the name of the collection agency and collector demanding payment
+ the agency's authority to demand payment of the debt
+ the disclosure statement, " Debt Collection: Information About Your Rights "
+ See subsection 21(2) of the General Regulation for the complete list of information requirements for a written notice.
+ Also see subsections 21(3) and 21(4) of the General Regulation and Ontario Regulation 247/18 made under the CDSSA for more information about contacting a debtor.
+ Initial contact with a debtor
+ You must wait six calendar days after sending a written notice before you can:
+ contact the debtor
+ demand payment
+ attempt to collect payment from the debtor
+ If the debtor tells you that they did not receive the written notice, you must:
+ stop communicating with the debtor
+ send another copy of the written notice to the address the debtor gives you
+ wait six more days until you can contact the debtor again
+ On or after six days, you can contact a debtor up to three times within a seven-day period on behalf of the same creditor.
+ You cannot contact the debtor more than three times within a seven-day period unless additional contact was agreed to, requested or initiated by the debtor, or if contact is by mail. This rule does not apply until you have spoken to the debtor in person or by phone.
+ See sections 21 and 22 of the General Regulation for more information about initial contact with a debtor.
+ Rules on using aggressive tactics or false information
+ You cannot contact anyone in relation to a debt:
+ between 9 p.m. and 7 a.m. (debtor's local time) from Monday to Saturday
+ on a Sunday, except between 1 p.m. and 5 p.m. (debtor's local time)
+ on a public holiday
+ When dealing with a debtor, you cannot:
+ publish or threaten to publish the debtor's failure to pay
+ use threatening, profane, intimidating or coercive language
+ use excessive or unreasonable pressure
+ give false or misleading information
+ communicate in a harassing manner or with a frequency that constitutes harassment
+ communicate in a way that incurs charges to the debtor (for example, pay-as-you-go, long distance or text charges)
+ threaten legal action without the creditor's written authority to commence legal proceedings
+ continue contacting the debtor after the debtor advises you they are disputing the debt and requests that the matter be taken to court
+ See section 22 of the CDSSA and sections 20-25 of the General Regulation for more information about rules on using aggressive tactics and false information.
+ When you can contact a debtor's employer
+ You can contact a debtor's employer only if:
+ the debtor's employer has guaranteed to pay the debt and the contact is about that guarantee
+ the debtor has given you written permission
+ the contact is about payments that relate to a court order or judgment, or an automatic deduction from the debtor's salary (for example, an assignment or garnishment of wages given to a credit union or caisse populaire)
+ you contact them only once, to confirm that the debtor works there, the debtor's job title, and/or the debtor's business address
+ See subsection 22(4) of the General Regulation for more information about contacting a debtor's employer.
+ When you can contact other people about a debtor
+ You can contact a debtor's spouse, family member, someone in the debtor's household, or a relative, neighbour, friend or acquaintance of the debtor only if:
+ that person has guaranteed to pay the debt and the contact is regarding that guarantee
+ the debtor has requested that you contact the person to discuss the debt
+ you are requesting the debtor's home address or telephone number because you do not have the debtor's contact information
+ See subsection 22(3) of the General Regulation for more information about contacting other people about a debtor.
+ Trying to collect from the wrong person
+ You cannot contact or attempt to contact someone if:
+ you know or reasonably should know they are not responsible for the debt
+ they have told you that you have the wrong person unless you have taken reasonable steps to confirm you do have the right person
+ See subsection 22(5) of the General Regulation for more information about trying to collect from the wrong person.
+ What to do before taking legal action
+ Before you recommend that a creditor starts a legal proceeding to collect a debt, you must notify the debtor that you intend to make the recommendation.
+ See section 23 of the General Regulation for more information about taking legal action.
+ If a debtor seeks legal action
+ If the debtor sends you a notice suggesting that the matter be taken to court, you cannot contact or attempt to contact the debtor.
+ You can only contact the debtor if they consent to or request contact.
+ If the debtor or the debtor's lawyer or paralegal sends you a notice, requesting that you communicate only with them, you cannot contact the debtor directly you must only communicate with their lawyer or paralegal.
+ See subsections 22(1) and 22(2) of the General Regulation for more information about what to do if a debtor seeks legal action.
+ Charges not part of debt
+ You cannot ask the debtor to pay for charges incurred by your agency or the creditor (for example, commissions).
+ If a debtor's cheque bounces, you can get back all reasonable charges from the debtor if:
+ the agreement between the creditor and debtor states that the debtor is responsible for these charges and states the amount of the charge
+ the creditor has informed the debtor (for example, in the terms and conditions of their agreement) that the debtor is responsible for non-sufficient funds (NSF) or other related charges, and the debtor knows or should have known that they would be responsible for any charges and the amount of any charges
+ See section 25 of the General Regulation for more information about charges.
+ Call recording
+ If your agency employs 10 or more collectors, you must record all phone calls that relate to the collection of a debt (for example, phone calls to or from a debtor, debtor's employer or debtor's family). You must also advise the person that the call is being recorded to comply with the CDSSA .
+ You must keep recordings in a readily accessible format for one year after the day each call is made or received. You may anonymize any numbers that identify credit card, bank account or other financial account information.
+ The person who made or received the recorded call can submit a written request for a copy of the recording. The Registrar can also request a copy. You must provide a copy of the recording at no charge within 10 days of receiving the request.
+ You do not need to record phone calls with a creditor of a debt, or a credit counselling agency or consumer counselling agency providing debt settlement services.
+ See sections 31 and 32 of the General Regulation for more information about call recording.
+ Compliance and enforcement
+ The Registrar's powers
+ The Registrar has been given authority under the CDSSA to enforce the CDSSA and its regulations. For example, the Registrar may ask a collection agency to provide:
+ copies of letters, advertisements, contracts, agreements and similar materials used by the agency in its business
+ copies of audio recordings of calls to or from debtors, if an agency employs 10 or more collectors
+ trust account statements, bank reconciliations and other financial reports and documents
+ current financial statements signed by the proprietor or officer of your agency and certified by a person licensed under the Public Accounting Act, 2004
+ an accounting of trust funds received and paid out
+ any further information or material that the Registrar may require
+ In addition, the Registrar has the authority to:
+ propose to suspend, revoke or place conditions on your registration, or refuse to issue or renew your registration
+ order you to alter, amend, restrict or stop using any materials, such as agreements or advertising, that the Registrar believes are harsh, false, misleading or deceptive
+ See sections 4-8 , section 21 and 25 of the CDSSA and subsections 13(4)-13(6), 13(11) , 17(8) and section 31 of the General Regulation for more information about the Registrar's powers.
+ The Director's powers
+ Where it appears that a person does not comply with the CDSSA or its regulations, the Director identified in the CDSSA may apply to the Superior Court of Justice for a court order directing that person to comply, and the court may issue such an order.
+ See section 27 of the CDSSA for more information about the Director's powers.
+ Complaints
+ Consumers can submit complaints about collection agencies to the Ministry of Public and Business Service Delivery and Procurement.
+ If a complaint is filed against your business, the ministry (acting on behalf of the Registrar) may request additional information from you. By law, you must provide the requested information to the ministry.
+ Learn more about the ministry's consumer complaint process . Also see section 12 of the CDSSA for more information about complaints.
+ Inspections
+ Inspectors designated under section 13 of the CDSSA have the authority to inspect registered collection agencies. An inspector is entitled to access all documents, records and other items that are relevant to the inspection, including those in electronic form.
+ If asked, you must assist the inspector. You cannot:
+ obstruct an inspector
+ withhold, conceal, alter or destroy documents, records or other items relevant to the inspection
+ After an inspection, the inspector will review their findings with you and explain any next steps you must take.
+ The inspector may also issue a Notice of Contravention, which identifies any violations of the CDSSA and provides a timeframe for compliance.
+ See section 13 of the CDSSA or contact us for more information about inspections.
+ Administrative penalties
+ If you do not comply with the CDSSA , you may be ordered to pay administrative penalties of up to $10,000 in respect of certain contraventions, including:
+ prohibited interactions with debtors
+ breaches of the rules about trust accounts and the disbursement of trust funds
+ breaches of the rules for conducting business
+ If an administrative penalty is imposed, you have the right to appeal. This must be done by filing a notice of appeal within 15 days after you receive the Order of Administrative Penalty.
+ See sections 29.0.1-29.0.4 of the CDSSA , section 33 of the General Regulation and Ontario Regulation 461/17 for more information about administrative penalties.
+ Hearings
+ You can dispute an order or Notice of Proposal to suspend, revoke or refuse to renew your registration by requesting a hearing before the Licence Appeal Tribunal. You must submit a notice requiring a hearing before the Tribunal within 15 days of being issued the order or proposal.
+ Visit the Licence Appeal Tribunal's website or call 1-844-242-0608 (toll-free) for more information.
+ See section 8 of the CDSSA for more information about disputing proposals and orders.
+ Charges and offences
+ The ministry also has a team that investigates violations of the CDSSA and its regulations. Investigators determine if offences have been committed and, where appropriate, can lay charges.
+ You can be charged with an offence for knowingly:
+ contravening or attempting to contravene the CDSSA or the regulations
+ providing false information
+ failing to comply with any order, direction or other requirement made against you under the CDSSA or its regulations
+ If convicted, you can be fined up to $50,000 and/or imprisoned for up to two years less a day. This includes officers and directors who do not take reasonable care to prevent a corporation from committing an offence or knowingly concur in the commission of the offence.
+ Corporations can be fined up to $250,000 upon conviction.
+ See section 28 of the CDSSA for more information about charges and offences.
+ Consumer Beware List
+ If you don't comply with the CDSSA , your business name and details will be published on the Consumer Beware List .
+ The Consumer Beware List is a searchable, public list of businesses that have contravened one of Ontario's consumer protection statutes including by:
+ failing to respond to a consumer complaint
+ failing to comply with a Notice of Contravention
+ having had enforcement action taken against them
+ Information about a business remains on the Consumer Beware List for between 21 and 27 months.
+ Learn more about the Consumer Beware List .
+ Contact us
+ If you have any questions, please contact us for assistance: Registrar of Collection Agencies Ministry of Public and Business Service Delivery and Procurement 56 Wellesley Street West, 16th Floor Toronto, Ontario M7A 1C1
+ Tel : 416-326-6203
+ Toll-free: 1-800-889-9768
+ TTY : 416-229-6086
+ Toll-free TTY : 1-877-666-6545
+ Email: CPOLicensing@ontario.ca
+
+ Updated: September 25, 2024
+
+ Published: October 23, 2019
+
+ Top
