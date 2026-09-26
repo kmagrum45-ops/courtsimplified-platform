@@ -478,6 +478,27 @@ export const S_TORONTO_42_5_SIDEWALK: RuleCitation = {
     "Except in case of gross negligence, the City is not liable for a personal injury caused by snow or ice on a sidewalk.",
 };
 
+/*
+ * *** THE CITATION LIST STOPPED ONE SUBRULE SHORT. AGAIN. ***
+ *
+ * The Toronto stage cited s. 42 (6) (the 10-day bar), s. 42 (5) (no liability
+ * for snow and ice on a sidewalk) and s. 42 (8) (reasonable excuse) — and not
+ * s. 42 (7), the death exception, although the Municipal Act stage beside it
+ * cites both of its equivalents, s. 44 (11) and s. 44 (12).
+ *
+ * This is the third time in this work that a missing adjacent subrule has been
+ * the defect: r. 17.01 (4)-(5) produced a block saying the rules set out no step
+ * for a missed trial, and r. 6.01 (2)-(3) produced the same claim in a comment.
+ * Here it meant a family bringing a claim after a fatal injury could be shown a
+ * ten-day bar with no mention that the bar does not apply to them.
+ */
+export const S_TORONTO_42_7_DEATH: RuleCitation = {
+  sourceId: "city-of-toronto-act-2006",
+  pinpoint: "s. 42 (7)",
+  quote:
+    "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury.",
+};
+
 export const S_TORONTO_42_8_EXCUSE: RuleCitation = {
   sourceId: "city-of-toronto-act-2006",
   pinpoint: "s. 42 (8)",

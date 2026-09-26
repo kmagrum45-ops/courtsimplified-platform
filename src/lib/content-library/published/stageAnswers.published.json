@@ -1,11 +1,11 @@
 {
   "release": {
-    "runId": "run-8",
+    "runId": "run-9",
     "model": "gpt-4o-mini",
-    "promotedAt": "2026-09-26T00:07:00.778Z",
+    "promotedAt": "2026-09-26T02:26:38.733Z",
     "corpusGeneratedAt": "2026-09-24T02:42:23.022Z",
-    "blockCount": 13,
-    "contentHash": "42c9a9ce"
+    "blockCount": 16,
+    "contentHash": "22bb4604"
   },
   "blocks": [
     {
@@ -163,6 +163,312 @@
             "supported": true,
             "quote": "The person or business you are suing has 20 days after being served with your claim to respond.",
             "sourceId": "ontario-suing-someone-small-claims",
+            "quoteFound": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "answer:before-filing:notice-municipality",
+      "stageId": "before-filing:notice-municipality",
+      "userQuestion": "I was hurt because a road or sidewalk was in bad repair — do I have to tell the city first?",
+      "whatsHappening": "You must give the municipality written notice of your claim. The notice must be served upon or sent by registered mail to the clerk of the municipality. You have 10 days after the occurrence of the injury to give this notice.",
+      "whatToDoNext": "Prepare your written notice. Include the details of your injury and the circumstances, including the date, time, and location of the occurrence. Serve the notice on the clerk of the municipality.",
+      "yourDeadline": "Give written notice of the claim to the clerk of the municipality. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+      "whatHappensAfter": "If you do not give notice, you cannot bring a claim for these damages unless a judge finds a reasonable excuse. Failure to give notice is not a bar to the action in the case of the death of the injured person.",
+      "slots": [],
+      "citations": [
+        {
+          "sourceId": "municipal-act-2001",
+          "pinpoint": "s. 44 (10)",
+          "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality"
+        },
+        {
+          "sourceId": "municipal-act-2001",
+          "pinpoint": "s. 44 (9)",
+          "quote": "Except in case of gross negligence, a municipality is not liable for a personal injury caused by snow or ice on a sidewalk."
+        },
+        {
+          "sourceId": "legislation-act-2006",
+          "pinpoint": "s. 88 (2)",
+          "quote": "The following days are holidays: 1. Sunday. 2. New Year's Day. 2.1 Family Day. 3. Good Friday. 4. Easter Monday. 5. Victoria Day. 6. Canada Day. 7. Labour Day. 8. Thanksgiving Day. 9. Remembrance Day. 10. Christmas Day. 11. Boxing Day."
+        },
+        {
+          "sourceId": "legislation-act-2006",
+          "pinpoint": "s. 89 (1)",
+          "quote": "Time limits that would otherwise expire on a holiday are extended to include the next day that is not a holiday."
+        },
+        {
+          "sourceId": "municipal-act-2001",
+          "pinpoint": "s. 44 (11)",
+          "quote": "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury."
+        },
+        {
+          "sourceId": "municipal-act-2001",
+          "pinpoint": "s. 44 (12)",
+          "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the municipality is not prejudiced in its defence."
+        }
+      ],
+      "sourceIds": [
+        "city-of-toronto-act-2006",
+        "municipal-act-2001"
+      ],
+      "verification": {
+        "status": "verified-draft",
+        "verifiedAt": "2026-09-26T02:21:54.455Z",
+        "attempts": 4,
+        "verdicts": [
+          {
+            "sentence": "You must give the municipality written notice of your claim.",
+            "supported": true,
+            "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+            "sourceId": "municipal-act-2001",
+            "quoteFound": true
+          },
+          {
+            "sentence": "The notice must be served upon or sent by registered mail to the clerk of the municipality.",
+            "supported": true,
+            "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+            "sourceId": "municipal-act-2001",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You have 10 days after the occurrence of the injury to give this notice.",
+            "supported": true,
+            "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+            "sourceId": "municipal-act-2001",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Prepare your written notice.",
+            "supported": true,
+            "quoteFound": false
+          },
+          {
+            "sentence": "Include the details of your injury and the circumstances, including the date, time, and location of the occurrence.",
+            "supported": true,
+            "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+            "sourceId": "city-of-toronto-act-2006",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Serve the notice on the clerk of the municipality.",
+            "supported": true,
+            "quote": "has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+            "sourceId": "municipal-act-2001",
+            "quoteFound": true
+          },
+          {
+            "sentence": "If you do not give notice, you cannot bring a claim for these damages unless a judge finds a reasonable excuse.",
+            "supported": true,
+            "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the municipality is not prejudiced in its defence.",
+            "sourceId": "municipal-act-2001",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Failure to give notice is not a bar to the action in the case of the death of the injured person.",
+            "supported": true,
+            "quote": "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury.",
+            "sourceId": "city-of-toronto-act-2006",
+            "quoteFound": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "answer:before-filing:notice-snow-ice-private",
+      "stageId": "before-filing:notice-snow-ice-private",
+      "userQuestion": "I slipped on ice outside a shop or building — is there something I have to send before I sue?",
+      "whatsHappening": "You cannot bring a claim for damages for personal injury caused by snow or ice unless you give written notice of the claim. This notice must include the date, time, and location of the occurrence. You must serve this notice within 60 days after the injury.",
+      "whatToDoNext": "Prepare your written notice. Include the date, time, and location of the injury. Serve the notice personally or send it by registered mail to at least one of the following: the occupier of the property or an independent contractor employed to remove snow or ice.",
+      "yourDeadline": "Give written notice of the claim to an occupier or to the snow-removal contractor. The notice must say the date, time and place of the injury. You have 60 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+      "whatHappensAfter": "If you fail to give notice, you may still proceed with your claim if a judge finds there is a reasonable excuse for the lack of notice and that the defendant is not prejudiced in their defence. If the injured person has died as a result of the injury, failure to give notice is not a bar to the action.",
+      "slots": [],
+      "citations": [
+        {
+          "sourceId": "occupiers-liability-act",
+          "pinpoint": "s. 6.1 (1)",
+          "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim, including the date, time and location of the occurrence, has been personally served on or sent by registered mail to at least one person listed in subsection (2)."
+        },
+        {
+          "sourceId": "occupiers-liability-act",
+          "pinpoint": "s. 6.1 (2)",
+          "quote": "The persons referred to in subsection (1) are the following: 1. An occupier. 2. An independent contractor employed by the occupier to remove snow or ice on the premises during the relevant period in which the injury occurred."
+        },
+        {
+          "sourceId": "occupiers-liability-act",
+          "pinpoint": "s. 6.1 (5)",
+          "quote": "Failure to give notice in accordance with subsection (1) is not a bar to the action in the case of the death of the injured person as a result of the injury."
+        },
+        {
+          "sourceId": "occupiers-liability-act",
+          "pinpoint": "s. 6.1 (6)",
+          "quote": "Failure to give notice in accordance with subsection (1) or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence."
+        },
+        {
+          "sourceId": "legislation-act-2006",
+          "pinpoint": "s. 88 (2)",
+          "quote": "The following days are holidays: 1. Sunday. 2. New Year's Day. 2.1 Family Day. 3. Good Friday. 4. Easter Monday. 5. Victoria Day. 6. Canada Day. 7. Labour Day. 8. Thanksgiving Day. 9. Remembrance Day. 10. Christmas Day. 11. Boxing Day."
+        },
+        {
+          "sourceId": "legislation-act-2006",
+          "pinpoint": "s. 89 (1)",
+          "quote": "Time limits that would otherwise expire on a holiday are extended to include the next day that is not a holiday."
+        }
+      ],
+      "sourceIds": [
+        "city-of-toronto-act-2006",
+        "occupiers-liability-act"
+      ],
+      "verification": {
+        "status": "verified-draft",
+        "verifiedAt": "2026-09-26T02:13:23.727Z",
+        "attempts": 1,
+        "verdicts": [
+          {
+            "sentence": "You cannot bring a claim for damages for personal injury caused by snow or ice unless you give written notice of the claim.",
+            "supported": true,
+            "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim...has been personally served on or sent by registered mail to at least one person listed in subsection (2).",
+            "sourceId": "occupiers-liability-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "This notice must include the date, time, and location of the occurrence.",
+            "supported": true,
+            "quote": "...including the date, time and location of the occurrence...",
+            "sourceId": "city-of-toronto-act-2006",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You must serve this notice within 60 days after the injury.",
+            "supported": true,
+            "quote": "...unless, within 60 days after the occurrence of the injury, written notice of the claim...has been personally served on or sent by registered mail...",
+            "sourceId": "occupiers-liability-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Prepare your written notice.",
+            "supported": true,
+            "quoteFound": false
+          },
+          {
+            "sentence": "Include the date, time, and location of the injury.",
+            "supported": true,
+            "quoteFound": false
+          },
+          {
+            "sentence": "Serve the notice personally or send it by registered mail to at least one of the following: the occupier of the property or an independent contractor employed to remove snow or ice.",
+            "supported": true,
+            "quote": "...has been personally served on or sent by registered mail to at least one person listed in subsection (2). | The persons referred to in subsection (1) are the following: 1. An occupier. 2. An independent contractor employed by the occupier to remove snow or ice on the premises during the relevant period in which the injury occurred.",
+            "sourceId": "occupiers-liability-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "If you fail to give notice, you may still proceed with your claim if a judge finds there is a reasonable excuse for the lack of notice and that the defendant is not prejudiced in their defence.",
+            "supported": true,
+            "quote": "Failure to give notice in accordance with subsection (1) or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence.",
+            "sourceId": "occupiers-liability-act",
+            "quoteFound": true
+          },
+          {
+            "sentence": "If the injured person has died as a result of the injury, failure to give notice is not a bar to the action.",
+            "supported": true,
+            "quote": "Failure to give notice in accordance with subsection (1) is not a bar to the action in the case of the death of the injured person as a result of the injury.",
+            "sourceId": "occupiers-liability-act",
+            "quoteFound": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "answer:before-filing:notice-toronto",
+      "stageId": "before-filing:notice-toronto",
+      "userQuestion": "I was hurt on a Toronto street or sidewalk — do I have to tell the City first?",
+      "whatsHappening": "You must give the City of Toronto written notice of your claim. This notice must include the date, time, and location of the occurrence. You must serve it upon or send it by registered mail to the city clerk.",
+      "whatToDoNext": "You have 10 days from the day you were injured to give this notice.",
+      "yourDeadline": "Give written notice of the claim to the city clerk. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+      "whatHappensAfter": "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury. Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+      "slots": [],
+      "citations": [
+        {
+          "sourceId": "city-of-toronto-act-2006",
+          "pinpoint": "s. 42 (6)",
+          "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the city clerk"
+        },
+        {
+          "sourceId": "city-of-toronto-act-2006",
+          "pinpoint": "s. 42 (5)",
+          "quote": "Except in case of gross negligence, the City is not liable for a personal injury caused by snow or ice on a sidewalk."
+        },
+        {
+          "sourceId": "city-of-toronto-act-2006",
+          "pinpoint": "s. 42 (7)",
+          "quote": "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury."
+        },
+        {
+          "sourceId": "city-of-toronto-act-2006",
+          "pinpoint": "s. 42 (8)",
+          "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence."
+        },
+        {
+          "sourceId": "legislation-act-2006",
+          "pinpoint": "s. 88 (2)",
+          "quote": "The following days are holidays: 1. Sunday. 2. New Year's Day. 2.1 Family Day. 3. Good Friday. 4. Easter Monday. 5. Victoria Day. 6. Canada Day. 7. Labour Day. 8. Thanksgiving Day. 9. Remembrance Day. 10. Christmas Day. 11. Boxing Day."
+        },
+        {
+          "sourceId": "legislation-act-2006",
+          "pinpoint": "s. 89 (1)",
+          "quote": "Time limits that would otherwise expire on a holiday are extended to include the next day that is not a holiday."
+        }
+      ],
+      "sourceIds": [
+        "city-of-toronto-act-2006"
+      ],
+      "verification": {
+        "status": "verified-draft",
+        "verifiedAt": "2026-09-26T02:26:02.915Z",
+        "attempts": 3,
+        "verdicts": [
+          {
+            "sentence": "You must give the City of Toronto written notice of your claim.",
+            "supported": true,
+            "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the city clerk",
+            "sourceId": "city-of-toronto-act-2006",
+            "quoteFound": true
+          },
+          {
+            "sentence": "This notice must include the date, time, and location of the occurrence.",
+            "supported": true,
+            "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+            "sourceId": "city-of-toronto-act-2006",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You must serve it upon or send it by registered mail to the city clerk.",
+            "supported": true,
+            "quote": "has been served upon or sent by registered mail to, (a) the city clerk",
+            "sourceId": "city-of-toronto-act-2006",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You have 10 days from the day you were injured to give this notice.",
+            "supported": true,
+            "quote": "within 10 days after the occurrence of the injury",
+            "sourceId": "city-of-toronto-act-2006",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury.",
+            "supported": true,
+            "quote": "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury",
+            "sourceId": "city-of-toronto-act-2006",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+            "supported": true,
+            "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence",
+            "sourceId": "city-of-toronto-act-2006",
             "quoteFound": true
           }
         ]

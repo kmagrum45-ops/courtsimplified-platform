@@ -292,7 +292,15 @@ const BEFORE_FILING: CaseStage[] = [
         by: "whether the municipality is Toronto or any other Ontario municipality",
       },
     ],
-    rules: [C.S_TORONTO_42_6_NOTICE, C.S_TORONTO_42_5_SIDEWALK, C.S_TORONTO_42_8_EXCUSE, C.S_LEGISLATION_88_HOLIDAYS, C.S_LEGISLATION_89_1_HOLIDAY],
+    rules: [
+      C.S_TORONTO_42_6_NOTICE,
+      C.S_TORONTO_42_5_SIDEWALK,
+      // s. 42 (7) was missing while s. 42 (8) was present. See citations.ts.
+      C.S_TORONTO_42_7_DEATH,
+      C.S_TORONTO_42_8_EXCUSE,
+      C.S_LEGISLATION_88_HOLIDAYS,
+      C.S_LEGISLATION_89_1_HOLIDAY,
+    ],
     deadlines: [
       {
         id: "deadline:toronto-notice-10-days",
@@ -304,7 +312,7 @@ const BEFORE_FILING: CaseStage[] = [
         rule: C.S_TORONTO_42_6_NOTICE,
         computation: C.S_LEGISLATION_89_3_BETWEEN,
         consequence: "bars-the-claim",
-        exceptions: [C.S_TORONTO_42_8_EXCUSE],
+        exceptions: [C.S_TORONTO_42_7_DEATH, C.S_TORONTO_42_8_EXCUSE],
       },
     ],
   },

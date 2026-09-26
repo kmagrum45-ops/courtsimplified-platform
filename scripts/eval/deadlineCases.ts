@@ -82,6 +82,7 @@ export const DEADLINE_CASES: DeadlineCase[] = [
       "Sunday and NOT Saturday, so a statutory period genuinely ends that Saturday. " +
       "Assuming the weekend carries it to Monday loses two days on a 10-day notice.",
     expectCertainty: "confirm-with-court",
+    throughStage: { stageId: "before-filing:notice-municipality", event: "injury-occurred" },
   },
   {
     id: "same-ten-days-under-the-rules",
@@ -105,6 +106,7 @@ export const DEADLINE_CASES: DeadlineCase[] = [
       "4 June + 10 is Sunday 14 June, which s. 88 (2) DOES make a holiday, so s. 89 (1) " +
       "extends to Monday 15 June. The mirror of the Saturday case.",
     expectCertainty: "computed",
+    throughStage: { stageId: "before-filing:notice-municipality", event: "injury-occurred" },
   },
   {
     id: "occupiers-60-days-january-slip",
@@ -116,6 +118,7 @@ export const DEADLINE_CASES: DeadlineCase[] = [
       "The private-premises snow-and-ice notice. 15 January + 60 is Sunday 15 March, " +
       "extended by s. 89 (1) to Monday 16 March.",
     expectCertainty: "computed",
+    throughStage: { stageId: "before-filing:notice-snow-ice-private", event: "injury-occurred" },
   },
   {
     id: "service-window-six-months-from-31-august",

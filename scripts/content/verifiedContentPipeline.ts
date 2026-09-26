@@ -127,6 +127,85 @@ export function findQuote(quote: string): { sourceId: string } | null {
   for (const [sourceId, text] of corpus()) {
     if (text.toLowerCase().includes(needle.toLowerCase())) return { sourceId };
   }
+  return findElidedQuote(needle);
+}
+
+/**
+ * The longest gap an interior "..." may stand for, in characters.
+ *
+ * 200 covers the clause that caused this — ", including the date, time and
+ * location of the occurrence," is about 55 — while keeping the fragments close
+ * enough that they are plainly one passage. Without a bound, an ellipsis would
+ * let two sentences from opposite ends of a statute be presented as one quote.
+ */
+const MAX_ELISION = 200;
+
+/**
+ * A quote that elides its own middle with "...".
+ *
+ * *** WHY THIS EXISTS: IT WAS REJECTING TRUE QUOTES OF A CLAIM-BARRING RULE ***
+ *
+ * `before-filing:notice-snow-ice-private` sat at needs-human across two runs on
+ * this verdict:
+ *
+ *   "No action shall be brought for the recovery of damages for personal injury
+ *    caused by snow or ice against a person or persons listed in subsection (2)
+ *    unless, within 60 days after the occurrence of the injury, written notice
+ *    of the claim...has been personally served on or sent by registered mail to
+ *    at least one person listed in subsection (2)."
+ *
+ * That is Occupiers' Liability Act s. 6.1 (1), VERBATIM, with one clause elided:
+ * ", including the date, time and location of the occurrence,". Every word the
+ * verifier kept is in the vendored text, in that order. `includes()` cannot
+ * match it, so the gate called a true quote a fabrication and sent the 60-day
+ * notice deadline — one of three deadlines in this product that bar the claim
+ * outright — back to a human queue.
+ *
+ * An ellipsis is not a CHANGE to the interior, which is what the gate exists to
+ * catch. It is an omission, and each fragment on either side is still
+ * character-for-character. So the fragments are chained instead:
+ *
+ *   - all of them in the SAME source, and
+ *   - in the SAME ORDER as the quote, and
+ *   - each starting within MAX_ELISION characters of the end of the last.
+ *
+ * *** WHY ALL THREE CONDITIONS, AND NOT JUST THE FIRST ***
+ *
+ * Because the probe that found this also found the trap. The fragment "written
+ * notice of the claim" — 26 characters, past the length floor — matches
+ * `city-of-toronto-act-2006` as readily as the Occupiers' Liability Act, since
+ * several statutes contain the phrase. Accepting a quote because each fragment
+ * appears SOMEWHERE would let an ellipsis stitch two unrelated statutes into one
+ * passage and call it support. Same source, in order, close together is what
+ * makes it one passage rather than two lucky substrings.
+ */
+function findElidedQuote(needle: string): { sourceId: string } | null {
+  const fragments = needle
+    .split(/\s*(?:\.\.\.|…)\s*/)
+    .map((fragment) => fragment.trim())
+    .filter((fragment) => fragment.length > 0);
+
+  if (fragments.length < 2) return null;
+  // A fragment this short matches by accident even inside one source.
+  if (fragments.some((fragment) => fragment.length < 16)) return null;
+
+  for (const [sourceId, text] of corpus()) {
+    const haystack = text.toLowerCase();
+    let cursor = 0;
+    let chained = true;
+
+    for (const [index, fragment] of fragments.entries()) {
+      const at = haystack.indexOf(fragment.toLowerCase(), cursor);
+      if (at < 0 || (index > 0 && at - cursor > MAX_ELISION)) {
+        chained = false;
+        break;
+      }
+      cursor = at + fragment.length;
+    }
+
+    if (chained) return { sourceId };
+  }
+
   return null;
 }
 
@@ -576,11 +655,15 @@ ABSOLUTE RULES
 3. Never address the reader's specific facts. Write the general position for someone at this stage.
 3a. Use Canadian spelling: defence, favour, honour, centre, judgment (not judgement). The document a defendant files is a DEFENCE.
 4. Write at a Grade 8 reading level. Short sentences. Ordinary words. Say what a term means the first time you use it.
+4a. NO SENTENCE OVER ABOUT 20 WORDS, and ONE REQUIREMENT MAY BE SEVERAL SENTENCES. A statute states who must be served, how, and by when in a single breath; you must not. Write "You must give the municipality written notice of your claim. You can serve it on the clerk in person, or send it by registered mail. You have 10 days from the day you were injured." rather than one 34-word sentence carrying all three. Splitting is not softening: keep every element, keep the number exactly, keep the word "must" where the source says shall.
 5. Address the reader as "you". Be direct and calm. Do not reassure, do not alarm, do not apologise.
 5a. THE READER IS ONE OF THE PARTIES, AND THE STAGE SAYS WHICH. Write to them in the second person and never describe their own side in the third person. On a plaintiff's stage, "the plaintiff may file a request to note the defendant in default" must be "you may file a request to note the defendant in default" — the other party stays in the third person, the reader never does. Getting this backwards produced a block that told a plaintiff to file a Defence.
+5b. STATE A BAR IN THE SOURCE'S OWN SHAPE. Where a source says "no action shall be brought ... unless" something is done, write it the same way round: "You cannot bring a claim for these damages unless you give this notice." TWO THINGS TO AVOID. Do not hedge it into "you may not be able to" — that is a weaker claim than the source makes, and a reader who takes it as a maybe loses the claim. And do not flip it into "if you do not give notice, you cannot bring a claim" — the same fact, but the verifier checks each sentence against the text and has rejected that form as not what the source says. Keep the source's construction. Then, where the same section lists exceptions, give them in the same breath: a bar without its exceptions frightens people out of claims they still have. PUT THE BAR AND ITS EXCEPTIONS IN whatsHappening, TOGETHER. Not in whatHappensAfter — a section that fails verification is dropped whole, and putting the exception there means a reader can be shown a bar with no mention that it may not apply to them. That has happened: two blocks about a ten-day notice period lost "unless a judge finds a reasonable excuse" and "not a bar in the case of the death of the injured person" exactly that way.
+5c. DO NOT GLOSS HOW SERVICE IS MADE. Where a source says notice must be "served upon or sent by registered mail", write that. Do not turn "served upon" into "in person", "in person or by mail", "by hand" or "delivered personally" — service is a defined procedure and personal delivery is not the same thing as personal service. If the source does not say how to serve, do not say.
 6. Where a form is mentioned, give BOTH its number and its name.
 7. Keep each sentence to one idea. Do not combine what the rule says with where the case stands in a single sentence.
 8. Do not write encouragement, exhortation or filler. "Prepare for the conference", "be ready for trial", "review the judgment" and "you may want to consider" say nothing a source can support and nothing a reader can act on. Every sentence must carry a fact from the sources.
+8a. THE TEST FOR FILLER: if a sentence names no new particular — no number, no form, no named person or office, no document, no period — it is filler however sensible it sounds. "Prepare your written notice to the clerk of the municipality", "Include the details of your injury and the circumstances", "Ensure you send it within the required time frame" and "After sending the notice you can consider filing a claim" are all filler by this test: every particular in them is already in another sentence, or in none. Delete them. A section of two sentences that each carry a particular is finished; do not add a third to introduce them. NEVER open a section by restating what the reader is about to be told.
 9. THE SECTION NAMES ARE ALREADY HEADINGS THE READER SEES. Do not restate them. "Prepare for the settlement conference", "You need to be ready for trial" and "Here is what happens next" say nothing the heading has not already said, and they carry no fact a source can support. Go straight to the specifics: which document, which form number and name, where it is filed, what it costs, what the period is.
 10. SHORTER IS BETTER. Three sentences that are each supported by a source beat ten with two rejections among them. Never pad a section to make it look complete. If a source gives you only one fact for a section, write that one fact.
 11. If the source material does not let you write one of the sections properly, write the string NOT_SUPPORTED for that section rather than filling it with something plausible. This is a correct answer, not a failure — some things genuinely are not written down.
@@ -1026,8 +1109,35 @@ export function readabilityProblem(text: string): string | null {
    * human reviewer over rounding noise.
    */
   if (Number(score.grade.toFixed(1)) <= TARGET_GRADE) return null;
+
+  /*
+   * *** THE FEEDBACK NAMES THE FIX, NOT JUST THE FAILURE ***
+   *
+   * This used to say only "reads at grade 8.9, above the grade 8 target. Longest
+   * sentence: …". Three blocks failed on it FOUR TIMES EACH and stayed
+   * needs-human — the three pre-suit notice stages, which are the only stages in
+   * the product where missing the deadline means there is no action at all.
+   *
+   * The drafter was being told its score and left to guess what to change. It
+   * kept returning the same shape of sentence, because the sentence it had
+   * written was a faithful rendering of one statutory requirement: who to serve,
+   * how to serve them, and by when, in a single breath — which is how the
+   * statute says it and is 34 words.
+   *
+   * So the instruction is now explicit that ONE REQUIREMENT MAY BECOME SEVERAL
+   * SENTENCES. That is not a style preference. A 34-word sentence carrying a
+   * ten-day bar is read once, by a frightened person, and the part they need is
+   * at the end.
+   */
+  const worst = score.hardestSentences[0];
+  const wordCount = worst?.words ?? 0;
+
   return (
     `reads at grade ${score.grade.toFixed(1)}, above the grade ${TARGET_GRADE} target. ` +
-    `Longest sentence: "${score.hardestSentences[0]?.text ?? ""}"`
+    `The hardest sentence is ${wordCount} words: "${worst?.text ?? ""}". ` +
+    `SPLIT IT. One requirement may be several sentences: put who must be served in ` +
+    `one sentence, how they may be served in the next, and the number of days in a ` +
+    `third. Do not drop any of it and do not soften it — say the same thing in ` +
+    `shorter sentences. Aim for no sentence over 20 words.`
   );
 }

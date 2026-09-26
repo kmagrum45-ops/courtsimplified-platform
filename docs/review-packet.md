@@ -31,11 +31,11 @@ edited afterwards the approval no longer applies, and the item returns to draft.
 
 | Measure | Count |
 |---|---|
-| Total items | 411 |
+| Total items | 425 |
 | Approved (current version) | 0 |
-| Draft / unreviewed | 411 |
+| Draft / unreviewed | 425 |
 | Approvals voided by later edits | 0 |
-| Items that are unwritten placeholders | 48 |
+| Items that are unwritten placeholders | 49 |
 
 ## Placeholders — text that does not exist yet
 
@@ -55,6 +55,7 @@ which is the thing this work exists to prevent.
 - **explain:sc-contractor-notice-before-replacement** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-contractor-notice-before-replacement", which has no "why" text to derive one from]
 - **explain:sc-evidence-available** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-evidence-available", which has no "why" text to derive one from]
 - **explain:sc-remedy-sought** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-remedy-sought", which has no "why" text to derive one from]
+- **explain:sc-date-injury** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-injury", which has no "why" text to derive one from]
 - **explain:sc-date-claim-served** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-claim-served", which has no "why" text to derive one from]
 - **explain:sc-date-claim-issued** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-claim-issued", which has no "why" text to derive one from]
 - **explain:sc-date-defence-filed** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-defence-filed", which has no "why" text to derive one from]
@@ -2863,7 +2864,7 @@ Affidavit of Service
 Proves that a civil court document was served.
 ```
 
-## intake-question (29)
+## intake-question (30)
 
 ### `sc-orient-when-happened`
 
@@ -3112,6 +3113,17 @@ What evidence do you have to support your claim (documents, photos, messages, re
 
 ```
 What outcome are you asking the court to order?
+```
+
+### `sc-date-injury`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / substance
+- **Appears in:** Guided intake and the Small Claims static form
+- **Source:** _none recorded_
+
+```
+If this involves an injury, what date did it happen?
 ```
 
 ### `sc-date-claim-served`
@@ -4329,7 +4341,7 @@ Common risks:
 - Using a civil or Small Claims form instead of the matching Family Law Rules form.
 ```
 
-## question-explanation (29)
+## question-explanation (30)
 
 ### `explain:sc-orient-when-happened`
 
@@ -4562,6 +4574,17 @@ The Rules provide a route for this. A defendant who admits liability for all or 
 [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-remedy-sought", which has no "why" text to derive one from]
 ```
 
+### `explain:sc-date-injury`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Intake, "I don't understand this" on sc-date-injury
+- **Source:** _none recorded_
+
+```
+[NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-injury", which has no "why" text to derive one from]
+```
+
 ### `explain:sc-date-claim-served`
 
 - **Status:** draft
@@ -4756,7 +4779,7 @@ Other support that may help:
 Thank you for sharing that -- it sounds like a genuinely difficult situation. We'll take this at a slower pace, and there's no need to rush through anything.
 ```
 
-## stage-answer (45)
+## stage-answer (57)
 
 ### `answer:before-filing:limitation-period-may-have-passed:whats-happening`
 
@@ -4852,6 +4875,216 @@ You may consider filing a claim in Small Claims Court. You can use the Plaintiff
 
 ```
 If you file your claim, the defendant will have 20 days to respond after being served with your claim.
+```
+
+> **Read this as the person at this stage.** Does every instruction apply to
+> you, and could you follow it? Check whose step it is (a plaintiff asks the
+> clerk to note a defendant in default with Form 9B; a defendant files the
+> Defence, Form 9A), whether it speaks _to_ you or _about_ you, and who served
+> whom. If it has those the wrong way round, nothing else about it matters.
+
+### `answer:before-filing:notice-municipality:whats-happening`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / before-filing:notice-municipality
+- **Appears in:** Stage answer for "I was hurt because a road or sidewalk was in bad repair — do I have to tell the city first?"
+- **Source:** https://www.ontario.ca/laws/statute/01m25
+
+```
+You must give the municipality written notice of your claim. The notice must be served upon or sent by registered mail to the clerk of the municipality. You have 10 days after the occurrence of the injury to give this notice.
+```
+
+> **Read this as the person at this stage.** Does every instruction apply to
+> you, and could you follow it? Check whose step it is (a plaintiff asks the
+> clerk to note a defendant in default with Form 9B; a defendant files the
+> Defence, Form 9A), whether it speaks _to_ you or _about_ you, and who served
+> whom. If it has those the wrong way round, nothing else about it matters.
+
+### `answer:before-filing:notice-municipality:what-to-do-next`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / before-filing:notice-municipality
+- **Appears in:** Stage answer for "I was hurt because a road or sidewalk was in bad repair — do I have to tell the city first?"
+- **Source:** https://www.ontario.ca/laws/statute/01m25
+
+```
+Prepare your written notice. Include the details of your injury and the circumstances, including the date, time, and location of the occurrence. Serve the notice on the clerk of the municipality.
+```
+
+> **Read this as the person at this stage.** Does every instruction apply to
+> you, and could you follow it? Check whose step it is (a plaintiff asks the
+> clerk to note a defendant in default with Form 9B; a defendant files the
+> Defence, Form 9A), whether it speaks _to_ you or _about_ you, and who served
+> whom. If it has those the wrong way round, nothing else about it matters.
+
+### `answer:before-filing:notice-municipality:your-deadline`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / before-filing:notice-municipality
+- **Appears in:** Stage answer for "I was hurt because a road or sidewalk was in bad repair — do I have to tell the city first?"
+- **Source:** https://www.ontario.ca/laws/statute/01m25
+
+```
+Give written notice of the claim to the clerk of the municipality. You have 10 days, counted from the occurrence of the injury.
+
+This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.
+```
+
+> **Read this as the person at this stage.** Does every instruction apply to
+> you, and could you follow it? Check whose step it is (a plaintiff asks the
+> clerk to note a defendant in default with Form 9B; a defendant files the
+> Defence, Form 9A), whether it speaks _to_ you or _about_ you, and who served
+> whom. If it has those the wrong way round, nothing else about it matters.
+
+### `answer:before-filing:notice-municipality:what-happens-after`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / before-filing:notice-municipality
+- **Appears in:** Stage answer for "I was hurt because a road or sidewalk was in bad repair — do I have to tell the city first?"
+- **Source:** https://www.ontario.ca/laws/statute/01m25
+
+```
+If you do not give notice, you cannot bring a claim for these damages unless a judge finds a reasonable excuse. Failure to give notice is not a bar to the action in the case of the death of the injured person.
+```
+
+> **Read this as the person at this stage.** Does every instruction apply to
+> you, and could you follow it? Check whose step it is (a plaintiff asks the
+> clerk to note a defendant in default with Form 9B; a defendant files the
+> Defence, Form 9A), whether it speaks _to_ you or _about_ you, and who served
+> whom. If it has those the wrong way round, nothing else about it matters.
+
+### `answer:before-filing:notice-snow-ice-private:whats-happening`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / before-filing:notice-snow-ice-private
+- **Appears in:** Stage answer for "I slipped on ice outside a shop or building — is there something I have to send before I sue?"
+- **Source:** https://www.ontario.ca/laws/statute/90o02
+
+```
+You cannot bring a claim for damages for personal injury caused by snow or ice unless you give written notice of the claim. This notice must include the date, time, and location of the occurrence. You must serve this notice within 60 days after the injury.
+```
+
+> **Read this as the person at this stage.** Does every instruction apply to
+> you, and could you follow it? Check whose step it is (a plaintiff asks the
+> clerk to note a defendant in default with Form 9B; a defendant files the
+> Defence, Form 9A), whether it speaks _to_ you or _about_ you, and who served
+> whom. If it has those the wrong way round, nothing else about it matters.
+
+### `answer:before-filing:notice-snow-ice-private:what-to-do-next`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / before-filing:notice-snow-ice-private
+- **Appears in:** Stage answer for "I slipped on ice outside a shop or building — is there something I have to send before I sue?"
+- **Source:** https://www.ontario.ca/laws/statute/90o02
+
+```
+Prepare your written notice. Include the date, time, and location of the injury. Serve the notice personally or send it by registered mail to at least one of the following: the occupier of the property or an independent contractor employed to remove snow or ice.
+```
+
+> **Read this as the person at this stage.** Does every instruction apply to
+> you, and could you follow it? Check whose step it is (a plaintiff asks the
+> clerk to note a defendant in default with Form 9B; a defendant files the
+> Defence, Form 9A), whether it speaks _to_ you or _about_ you, and who served
+> whom. If it has those the wrong way round, nothing else about it matters.
+
+### `answer:before-filing:notice-snow-ice-private:your-deadline`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / before-filing:notice-snow-ice-private
+- **Appears in:** Stage answer for "I slipped on ice outside a shop or building — is there something I have to send before I sue?"
+- **Source:** https://www.ontario.ca/laws/statute/90o02
+
+```
+Give written notice of the claim to an occupier or to the snow-removal contractor. The notice must say the date, time and place of the injury. You have 60 days, counted from the occurrence of the injury.
+
+This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.
+```
+
+> **Read this as the person at this stage.** Does every instruction apply to
+> you, and could you follow it? Check whose step it is (a plaintiff asks the
+> clerk to note a defendant in default with Form 9B; a defendant files the
+> Defence, Form 9A), whether it speaks _to_ you or _about_ you, and who served
+> whom. If it has those the wrong way round, nothing else about it matters.
+
+### `answer:before-filing:notice-snow-ice-private:what-happens-after`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / before-filing:notice-snow-ice-private
+- **Appears in:** Stage answer for "I slipped on ice outside a shop or building — is there something I have to send before I sue?"
+- **Source:** https://www.ontario.ca/laws/statute/90o02
+
+```
+If you fail to give notice, you may still proceed with your claim if a judge finds there is a reasonable excuse for the lack of notice and that the defendant is not prejudiced in their defence. If the injured person has died as a result of the injury, failure to give notice is not a bar to the action.
+```
+
+> **Read this as the person at this stage.** Does every instruction apply to
+> you, and could you follow it? Check whose step it is (a plaintiff asks the
+> clerk to note a defendant in default with Form 9B; a defendant files the
+> Defence, Form 9A), whether it speaks _to_ you or _about_ you, and who served
+> whom. If it has those the wrong way round, nothing else about it matters.
+
+### `answer:before-filing:notice-toronto:whats-happening`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / before-filing:notice-toronto
+- **Appears in:** Stage answer for "I was hurt on a Toronto street or sidewalk — do I have to tell the City first?"
+- **Source:** https://www.ontario.ca/laws/statute/06c11
+
+```
+You must give the City of Toronto written notice of your claim. This notice must include the date, time, and location of the occurrence. You must serve it upon or send it by registered mail to the city clerk.
+```
+
+> **Read this as the person at this stage.** Does every instruction apply to
+> you, and could you follow it? Check whose step it is (a plaintiff asks the
+> clerk to note a defendant in default with Form 9B; a defendant files the
+> Defence, Form 9A), whether it speaks _to_ you or _about_ you, and who served
+> whom. If it has those the wrong way round, nothing else about it matters.
+
+### `answer:before-filing:notice-toronto:what-to-do-next`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / before-filing:notice-toronto
+- **Appears in:** Stage answer for "I was hurt on a Toronto street or sidewalk — do I have to tell the City first?"
+- **Source:** https://www.ontario.ca/laws/statute/06c11
+
+```
+You have 10 days from the day you were injured to give this notice.
+```
+
+> **Read this as the person at this stage.** Does every instruction apply to
+> you, and could you follow it? Check whose step it is (a plaintiff asks the
+> clerk to note a defendant in default with Form 9B; a defendant files the
+> Defence, Form 9A), whether it speaks _to_ you or _about_ you, and who served
+> whom. If it has those the wrong way round, nothing else about it matters.
+
+### `answer:before-filing:notice-toronto:your-deadline`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / before-filing:notice-toronto
+- **Appears in:** Stage answer for "I was hurt on a Toronto street or sidewalk — do I have to tell the City first?"
+- **Source:** https://www.ontario.ca/laws/statute/06c11
+
+```
+Give written notice of the claim to the city clerk. You have 10 days, counted from the occurrence of the injury.
+
+This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.
+```
+
+> **Read this as the person at this stage.** Does every instruction apply to
+> you, and could you follow it? Check whose step it is (a plaintiff asks the
+> clerk to note a defendant in default with Form 9B; a defendant files the
+> Defence, Form 9A), whether it speaks _to_ you or _about_ you, and who served
+> whom. If it has those the wrong way round, nothing else about it matters.
+
+### `answer:before-filing:notice-toronto:what-happens-after`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / before-filing:notice-toronto
+- **Appears in:** Stage answer for "I was hurt on a Toronto street or sidewalk — do I have to tell the City first?"
+- **Source:** https://www.ontario.ca/laws/statute/06c11
+
+```
+Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury. Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.
 ```
 
 > **Read this as the person at this stage.** Does every instruction apply to

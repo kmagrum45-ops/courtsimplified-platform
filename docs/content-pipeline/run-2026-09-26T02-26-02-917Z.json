@@ -1,0 +1,190 @@
+{
+  "model": "gpt-4o-mini",
+  "startedAt": "2026-09-26T02:25:42.657Z",
+  "usage": [
+    {
+      "model": "gpt-4o-mini",
+      "inputTokens": 90690,
+      "outputTokens": 1636,
+      "calls": 6
+    }
+  ],
+  "log": [
+    {
+      "stageId": "before-filing:notice-toronto",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "You must give the City of Toronto written notice of your claim. You must serve it on the city clerk. This notice must include the date, time, and location of the occurrence. You have 10 days from the day you were injured to provide this notice.",
+            "whatToDoNext": "Prepare your written notice to the city clerk. Include the details of your injury and the circumstances. Ensure you send it within the required time frame.",
+            "yourDeadline": "Give written notice of the claim to the city clerk. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not give notice, you cannot bring a claim for these damages unless a judge finds a reasonable excuse. Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury."
+          },
+          "verdicts": [
+            {
+              "sentence": "You must give the City of Toronto written notice of your claim.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of... has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must serve it on the city clerk.",
+              "supported": true,
+              "quote": "...has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This notice must include the date, time, and location of the occurrence.",
+              "supported": true,
+              "quote": "...written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You have 10 days from the day you were injured to provide this notice.",
+              "supported": true,
+              "quote": "...within 10 days after the occurrence of the injury...",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare your written notice to the city clerk.",
+              "supported": false,
+              "reason": "The source does not provide guidance on how to prepare the written notice."
+            },
+            {
+              "sentence": "Include the details of your injury and the circumstances.",
+              "supported": false,
+              "reason": "The source does not specify that you must include the circumstances of the injury."
+            },
+            {
+              "sentence": "Ensure you send it within the required time frame.",
+              "supported": false,
+              "reason": "The source does not mention the need to ensure sending it within the required time frame, only that it must be done within 10 days."
+            },
+            {
+              "sentence": "If you do not give notice, you cannot bring a claim for these damages unless a judge finds a reasonable excuse.",
+              "supported": false,
+              "reason": "The source states that failure to give notice is not a bar to the action if a judge finds a reasonable excuse, but it does not state that you cannot bring a claim."
+            },
+            {
+              "sentence": "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury.",
+              "supported": true,
+              "quote": "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury.",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            }
+          ],
+          "readability": 6.001918367346942,
+          "problems": [
+            "\"Prepare your written notice to the city clerk.\" — The source does not provide guidance on how to prepare the written notice.",
+            "\"Include the details of your injury and the circumstances.\" — The source does not specify that you must include the circumstances of the injury.",
+            "\"Ensure you send it within the required time frame.\" — The source does not mention the need to ensure sending it within the required time frame, only that it must be done within 10 days.",
+            "\"If you do not give notice, you cannot bring a claim for these damages unless a judge finds a reasonable excuse.\" — The source states that failure to give notice is not a bar to the action if a judge finds a reasonable excuse, but it does not state that you cannot bring a claim."
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "You must give the City of Toronto written notice of your claim. You must serve it on the city clerk within 10 days after the occurrence of the injury.",
+            "whatToDoNext": "Prepare your written notice and serve it on the city clerk.",
+            "yourDeadline": "Give written notice of the claim to the city clerk. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you fail to give notice, it is not a bar to your action if a judge finds there is a reasonable excuse for the failure."
+          },
+          "verdicts": [
+            {
+              "sentence": "You must give the City of Toronto written notice of your claim.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must serve it on the city clerk within 10 days after the occurrence of the injury.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare your written notice and serve it on the city clerk.",
+              "supported": false,
+              "reason": "The source does not specifically state that you must 'prepare' your written notice; it only states that written notice must be given."
+            },
+            {
+              "sentence": "If you fail to give notice, it is not a bar to your action if a judge finds there is a reasonable excuse for the failure.",
+              "supported": true,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            }
+          ],
+          "readability": 6.235323943661971,
+          "problems": [
+            "\"Prepare your written notice and serve it on the city clerk.\" — The source does not specifically state that you must 'prepare' your written notice; it only states that written notice must be given.",
+            "states a deadline that BARS THE CLAIM (s. 42 (6)) without the exception at s. 42 (7). A bar without its exceptions frightens people out of claims they still have, and they never come back to tell us. Looked for 2 of: failure, death, injured, person, result; found failure in one sentence"
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "You must give the City of Toronto written notice of your claim. This notice must include the date, time, and location of the occurrence. You must serve it upon or send it by registered mail to the city clerk.",
+            "whatToDoNext": "You have 10 days from the day you were injured to give this notice.",
+            "yourDeadline": "Give written notice of the claim to the city clerk. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury. Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence."
+          },
+          "verdicts": [
+            {
+              "sentence": "You must give the City of Toronto written notice of your claim.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This notice must include the date, time, and location of the occurrence.",
+              "supported": true,
+              "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must serve it upon or send it by registered mail to the city clerk.",
+              "supported": true,
+              "quote": "has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You have 10 days from the day you were injured to give this notice.",
+              "supported": true,
+              "quote": "within 10 days after the occurrence of the injury",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury.",
+              "supported": true,
+              "quote": "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+              "supported": true,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.489000000000001,
+          "problems": []
+        }
+      ],
+      "status": "verified-draft"
+    }
+  ]
+}

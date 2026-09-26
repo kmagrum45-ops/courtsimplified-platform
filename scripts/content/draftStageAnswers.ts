@@ -52,7 +52,7 @@ import {
   type StageAnswer,
 } from "../../src/lib/content-library/stageAnswers";
 import { readability } from "../../src/lib/content-library/readability";
-import { wrongReaderProblems } from "./blockGates";
+import { barExceptionProblems, wrongReaderProblems } from "./blockGates";
 
 // The key is read from .env.local inside this process and never printed.
 dotenv.config({ path: ".env.local", quiet: true });
@@ -253,6 +253,19 @@ async function runStage(
 
     const reading = readabilityProblem(prose);
     if (reading) problems.push(reading);
+
+    /*
+     * A CLAIM-BARRING DEADLINE WITHOUT ITS EXCEPTIONS, TOLD TO THE DRAFTER.
+     *
+     * Same reasoning as the wrong-reader check above: the promotion gate can
+     * only refuse, and refusing at the end of four attempts wastes the run and
+     * leaves the stage unpublished. This one is worth telling the drafter about
+     * more than any other, because four successive runs on the same three
+     * stages produced the excuse exception without the death exception, the
+     * death exception without the excuse, both, and neither — and every one of
+     * those runs was otherwise clean.
+     */
+    problems.push(...barExceptionProblems(prose, stage));
 
     attempts.push({
       attempt,

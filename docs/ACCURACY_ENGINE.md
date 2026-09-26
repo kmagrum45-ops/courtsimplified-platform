@@ -502,6 +502,136 @@ that check exists to force.
 
 ---
 
+## The three pre-suit notice stages, and the four gates it took
+
+All three are published. `before-filing:notice-municipality`,
+`:notice-toronto` and `:notice-snow-ice-private` were `needs-human` after four
+attempts each across two runs. Run 9 promotes 16 blocks (hash `22bb4604`), up
+from 13.
+
+These are the only deadlines in the product where missing it means there is no
+action at all, so the record of why they failed is worth keeping.
+
+### Why each one failed, at the start
+
+| Stage | Cause |
+|---|---|
+| `:notice-snow-ice-private` | reading level 8.9 — one 34-word sentence |
+| `:notice-municipality` | reading level 8.5, AND a hedge: "you **may not be able to** bring your claim" for a rule that says NO ACTION SHALL BE BROUGHT |
+| `:notice-toronto` | a quote the code gate could not find, and an unsourced inference ("if you provide the notice, you may proceed") |
+
+### What actually fixed them
+
+**The readability feedback named the score and not the fix.** It said "reads at
+grade 8.9, above the grade 8 target. Longest sentence: …" and left the drafter to
+guess. It kept returning the same shape, because the sentence it wrote was a
+faithful rendering of one statutory requirement — who to serve, how, and by when,
+in a single breath, which is how the statute says it and is 34 words. The
+feedback now says SPLIT IT, and that one requirement may be several sentences.
+All three dropped to grade 5.7–7.2.
+
+**`findQuote` was rejecting a true quote of a claim-barring rule.** The verifier
+had quoted Occupiers' Liability Act s. 6.1 (1) verbatim with one clause elided —
+", including the date, time and location of the occurrence," replaced by "..." —
+and `includes()` cannot match that, so the gate called it a fabrication. An
+ellipsis is not a CHANGE to the interior, which is what the gate exists to catch;
+it is an omission, and each fragment is still character-for-character. Fragments
+are now chained: same source, same order, each within 200 characters of the last.
+
+All three conditions are load-bearing, and the probe that found the bug also
+found why. The fragment "written notice of the claim" is 26 characters, past the
+length floor, and matches the Municipal Act, the City of Toronto Act AND the
+Occupiers' Liability Act. Accepting a quote because each fragment appears
+SOMEWHERE would let an ellipsis stitch two statutes into one passage and call it
+support.
+
+### Two new gates, both from reading the output the gates had passed
+
+**`glossProblems`.** Toronto reached verified-draft saying "serve the notice on
+the city clerk IN PERSON or send it by registered mail". s. 42 (6) says "served
+upon or sent by registered mail". Service is a defined procedure and personal
+delivery is not personal service — the verifier caught this once, correctly, and
+then passed the same gloss on a later run, which is the whole argument for a code
+gate. A block may use "in person", "by hand", "hand-deliver" only if a passage it
+actually rests on uses that phrase.
+
+TWO BUGS IN MY FIRST VERSION OF IT, both found by probing rather than by the
+suite:
+
+1. It matched substrings, so "in person" matched inside "certaIN PERSONs" — and
+   the City of Toronto Act's table of contents contains "DELEGATION TO CERTAIN
+   PERSONS". The gate licensed the gloss from a heading about delegation. This is
+   the same bug the court-path classifier's header already records ("rent" inside
+   "parent", "lease" inside "please") and I reproduced it in a new file the same
+   day. Word boundaries now.
+2. It searched the whole Act. These statutes run to thousands of lines and almost
+   any everyday phrase appears somewhere in one. The authority is the passages the
+   block RESTS ON — the verifier's quotes, located in the corpus by code — not the
+   source as a whole.
+
+**`barExceptionProblems`.** A deadline whose consequence is `bars-the-claim` must
+appear with EVERY exception the stage map records for it. `spot-check-guide.md`
+already opened its highest-risk list with exactly this instruction, for exactly
+these stages, and four successive runs produced: the excuse exception without the
+death exception, the death without the excuse, both, and neither. Every one of
+those runs passed every other gate. "I read it and it was complete" is a
+statement about one run of a pipeline that is not deterministic.
+
+It derives each exception's DISTINCTIVE WORDS from its own quote — the words not
+in the quote of the rule it qualifies — and requires two of them IN ONE SENTENCE.
+Across the whole block was too loose, and it passed a Toronto block that did not
+state the death exception at all: `whatsHappening` said "10 days from the day you
+were INJURED" and `whatHappensAfter` said "the FAILURE to give notice", two of
+s. 42 (7)'s words in different sentences meaning different things. Words like
+"injured" and "person" run all through injury content; proximity is what
+separates stating an exception from using its vocabulary.
+
+### And the citation list stopped one subrule short. Again.
+
+The Toronto stage cited s. 42 (6), s. 42 (5) and s. 42 (8) — and NOT s. 42 (7),
+the death exception, while the Municipal Act stage beside it cited both of its
+equivalents. Third time in this work that a missing adjacent subrule was the
+defect, after r. 17.01 (4)-(5) and r. 6.01 (2)-(3). Here it meant a family
+bringing a claim after a fatal injury could be shown a ten-day bar with no
+mention that the bar does not apply to them.
+
+### A false positive in my own absence gate
+
+`assertsAbsenceProblems` fired on the deadline section of all three notice
+blocks, on the Saturday warning: "Under the statute it does not — only Sunday and
+holidays are excluded." Decision 4 wrote the warning; decision 1 wrote the gate;
+between them they made these three stages impossible to publish, because no
+drafter writes that text and every run would produce it.
+
+It is also wrong on its own terms. Decision 1 forbids claiming the law provides no
+remedy. This says which days a statutory list NAMES, and s. 88 (2) is an
+enumeration — a fact about the text, checkable by reading it. The absence and
+gloss gates now run on the model-written sections, which is the division decision
+4 already settled for the verifier: the deadline section is not model output, it
+is assembled from authored fields and required byte-identical to the renderer's
+output, which is a stronger guarantee than a prose gate rather than a weaker one.
+
+### What a reader gets now
+
+The icy-sidewalk story, end to end, with the injury date known:
+
+> **Your deadline** — Give written notice of the claim to the clerk of the
+> municipality. You have 10 days, counted from the occurrence of the injury.
+>
+> This deadline is set by a statute rather than by the court's rules… Under the
+> statute it does not — only Sunday and holidays are excluded. Do not assume a
+> weekend gives you extra time.
+>
+> Based on the date you gave us, the last day for this is Friday 13 February 2026.
+>
+> **What happens after** — If you do not give notice, you cannot bring a claim for
+> these damages unless a judge finds a reasonable excuse. Failure to give notice
+> is not a bar to the action in the case of the death of the injured person.
+
+`through a block` went from 2/9 to 5/9, and stage accuracy from 94% to 97%.
+
+---
+
 ## The commands
 
 ```

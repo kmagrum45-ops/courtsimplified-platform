@@ -229,6 +229,167 @@ export function assertsAbsenceProblems(text: string): string[] {
  * it up keeps this a pure function, which is what lets the suite run it against
  * a synthetic block that is wrong on purpose.
  */
+/**
+ * Phrases that describe HOW something is done, which a block may use only if a
+ * source it cites actually uses them.
+ *
+ * *** THE GLOSS THAT KEPT GETTING THROUGH ***
+ *
+ * City of Toronto Act s. 42 (6) and Municipal Act s. 44 (10) both say notice
+ * must have "been served upon or sent by registered mail to" the clerk. Blocks
+ * kept rendering that as "serve it on the city clerk IN PERSON or send it by
+ * registered mail".
+ *
+ * Service is a defined procedure and personal delivery is not the same thing as
+ * personal service. The verifier caught this once, correctly, and then passed the
+ * same gloss on a later run — which is the whole argument for a code gate: a
+ * model's judgment about a subtle distinction is not stable across runs, and
+ * this one decides whether somebody's notice was validly given.
+ *
+ * *** WHY THIS IS A PROPERTY AND NOT A BANNED-WORDS LIST ***
+ *
+ * The rule is not "never say in person". It is "do not say it unless a source
+ * you are citing says it". The corpus is the authority, exactly as it is for
+ * every quote: if `occupiers-liability-act` says "personally served", a block
+ * resting on it may say personally served. If no cited source contains the
+ * phrase, the block invented the procedure.
+ */
+const PROCEDURAL_GLOSSES = [
+  "in person",
+  "by hand",
+  "hand-deliver",
+  "hand deliver",
+  "deliver it personally",
+  "delivered personally",
+  "drop it off",
+];
+
+/*
+ * *** TWO BUGS IN THE FIRST VERSION OF THIS GATE, BOTH FOUND BY PROBING IT ***
+ *
+ * 1. IT MATCHED SUBSTRINGS. "in person" is inside "certaIN PERSONs", and the City
+ *    of Toronto Act's table of contents contains "DELEGATION TO CERTAIN PERSONS".
+ *    So the gate licensed the gloss from a heading about delegation. This is the
+ *    exact class of bug the court-path classifier's header records — bare "rent"
+ *    matching inside "parent", bare "lease" inside "please" — and I reproduced it
+ *    in a new file the same day. Word boundaries now.
+ *
+ * 2. IT ASKED THE WRONG AUTHORITY. Searching an entire Act for a phrase is far too
+ *    weak: these statutes run to thousands of lines, and almost any everyday
+ *    phrase appears somewhere in one. What licenses a block's wording is the
+ *    passage the block actually RESTS ON — the quotes the verifier found and the
+ *    code gate located in the corpus. So the authority is those quotes, not the
+ *    whole source.
+ */
+export function glossProblems(text: string, supportingQuotes: string[]): string[] {
+  const support = supportingQuotes.join("  ").toLowerCase();
+  const problems: string[] = [];
+
+  for (const gloss of PROCEDURAL_GLOSSES) {
+    const boundary = new RegExp(`\\b${gloss.replace(/[-\s]/g, "[-\\s]")}\\b`, "i");
+    if (!boundary.test(text)) continue;
+    if (boundary.test(support)) continue;
+    problems.push(
+      `says "${gloss}" to describe how something is served or filed, and no passage this ` +
+        `block rests on uses that phrase. Service is a defined procedure: "served upon" is ` +
+        `not "in person", and telling someone to hand a notice over when the provision ` +
+        `requires service may cost them the claim`,
+    );
+  }
+
+  return problems;
+}
+
+/**
+ * A deadline that bars the claim must appear with EVERY exception the stage map
+ * records for it.
+ *
+ * *** WHY THIS IS A GATE AND NOT A REVIEWER'S JOB ***
+ *
+ * `docs/spot-check-guide.md` opens its list of highest-risk items with exactly
+ * this instruction: check that every block stating one of the three pre-suit
+ * notice deadlines ALSO states the exceptions — not a bar where the injured
+ * person died, and not a bar where a judge finds a reasonable excuse and no
+ * prejudice. "A block giving the number without those would frighten someone out
+ * of a claim they still have. That failure is invisible — the person simply goes
+ * away and never tells anyone."
+ *
+ * Four successive drafting runs on the same three stages produced, variously: the
+ * excuse exception and not the death exception, the death exception and not the
+ * excuse, both, and neither. Every one of those runs passed every other gate.
+ * The pipeline is not deterministic, so "I read it and it was complete" is a
+ * statement about one run, and the next promotion could publish a bar with no
+ * exceptions while the suite stayed green.
+ *
+ * *** HOW IT DECIDES THE EXCEPTION IS PRESENT ***
+ *
+ * Not by semantics, which a check cannot do. Each exception's DISTINCTIVE WORDS
+ * are derived from its own quote — the words in it that do not appear in the
+ * quote of the rule it qualifies — and the block must use at least two of them
+ * (or the only one, where a quote yields just one). So s. 44 (11) is satisfied by
+ * a block that says "death" and "injured", and not by one that merely repeats
+ * the notice requirement.
+ *
+ * Derived rather than hand-listed, so adding an exception to a stage
+ * automatically extends the requirement instead of needing a second edit
+ * somewhere else.
+ */
+export function barExceptionProblems(text: string, stage: CaseStage): string[] {
+  const lower = text.toLowerCase();
+  const problems: string[] = [];
+
+  for (const deadline of stage.deadlines) {
+    if (deadline.consequence !== "bars-the-claim") continue;
+
+    for (const exception of deadline.exceptions) {
+      // An exception that IS the rule carries no extra qualification to state.
+      if (exception.pinpoint === deadline.rule.pinpoint) continue;
+
+      const ruleWords = new Set(wordsOf(deadline.rule.quote));
+      const distinctive = [...new Set(wordsOf(exception.quote))].filter(
+        (word) => word.length >= 5 && !ruleWords.has(word),
+      );
+      if (distinctive.length === 0) continue;
+
+      /*
+       * *** THE WORDS MUST LAND IN ONE SENTENCE ***
+       *
+       * Counting them across the whole block passed a Toronto notice block that
+       * did NOT state the death exception. Its `whatsHappening` said "10 days from
+       * the day you were INJURED" and its `whatHappensAfter` said "the FAILURE to
+       * give notice" — two of s. 42 (7)'s distinctive words, in different
+       * sentences, meaning entirely different things. Words like "injured" and
+       * "person" occur naturally all through injury content, so proximity is what
+       * distinguishes stating an exception from happening to use its vocabulary.
+       */
+      const needed = distinctive.length === 1 ? 1 : 2;
+      const sentences = lower.split(/(?<=[.!?])\s+/);
+      const best = sentences.reduce((most, sentence) => {
+        const hits = distinctive.filter((word) => sentence.includes(word));
+        return hits.length > most.length ? hits : most;
+      }, [] as string[]);
+      const found = best;
+
+      if (found.length < needed) {
+        problems.push(
+          `states a deadline that BARS THE CLAIM (${deadline.rule.pinpoint}) without the ` +
+            `exception at ${exception.pinpoint}. A bar without its exceptions frightens ` +
+            `people out of claims they still have, and they never come back to tell us. ` +
+            `Looked for ${needed} of: ${distinctive.slice(0, 8).join(", ")}; found ` +
+            `${found.length === 0 ? "none in any one sentence" : found.join(" + ") + " in one sentence"}`,
+        );
+      }
+    }
+  }
+
+  return problems;
+}
+
+/** Lowercased alphabetic words, for the distinctive-word derivation above. */
+function wordsOf(quote: string): string[] {
+  return quote.toLowerCase().match(/[a-z]+/g) ?? [];
+}
+
 export function gateFailures(answer: StageAnswer, stage: CaseStage | undefined): string[] {
   const failures: string[] = [];
 
@@ -361,9 +522,53 @@ export function gateFailures(answer: StageAnswer, stage: CaseStage | undefined):
 
   failures.push(...wrongReaderProblems(answerText(answer), stage.side, answer.sourceIds ?? []));
 
-  // ---- never assert that the law is silent -------------------------------
+  /*
+   * ---- the prose gates run on what a MODEL wrote --------------------------
+   *
+   * *** WHY THE DEADLINE SECTION IS EXCLUDED, AND WHY THAT IS NOT A LOOPHOLE ***
+   *
+   * `assertsAbsenceProblems` fired on the deadline section of all three pre-suit
+   * notice blocks, on this sentence:
+   *
+   *   "Under the statute it does not — only Sunday and holidays are excluded."
+   *
+   * which is MY OWN Saturday warning, written in decision 4, and the gate is mine
+   * too, written in decision 1. Between them they made the three claim-barring
+   * notice stages impossible to publish: every run would produce a block whose
+   * code-rendered deadline text violated a gate no drafter could avoid, because
+   * no drafter writes that text.
+   *
+   * It is also a false positive on its own terms. Decision 1 forbids claiming the
+   * law provides no remedy — an absence nothing in the corpus can verify. This
+   * sentence says which days a statutory list NAMES, and s. 88 (2) is an
+   * enumeration: "Sunday" is in it and "Saturday" is not, which is a fact about
+   * the text, checkable by reading it.
+   *
+   * So these two gates now run on the model-written sections. That is the same
+   * division decision 4 already settled for the verifier: the deadline section is
+   * not model output, it is assembled from the stage map's authored fields, every
+   * quote checked by test:stage-map on every run, and the gate below requires it
+   * BYTE-IDENTICAL to what the renderer produces. A stronger guarantee than a
+   * prose gate, not a weaker one — and applying a gate designed for model prose to
+   * code-rendered text is the same category error as sending it to the verifier.
+   */
+  const modelProse = [answer.whatsHappening, answer.whatToDoNext, answer.whatHappensAfter]
+    .filter(Boolean)
+    .join("\n\n");
 
-  failures.push(...assertsAbsenceProblems(answerText(answer)));
+  failures.push(...assertsAbsenceProblems(modelProse));
+  failures.push(
+    ...glossProblems(
+      modelProse,
+      (answer.verification.verdicts ?? [])
+        .map((verdict) => verdict.quote ?? "")
+        .filter((quote) => quote.length > 0),
+    ),
+  );
+
+  // ---- a claim-barring deadline carries EVERY exception the stage records -
+
+  failures.push(...barExceptionProblems(answerText(answer), stage));
 
   // ---- a bar stated without the thing that qualifies it ------------------
 

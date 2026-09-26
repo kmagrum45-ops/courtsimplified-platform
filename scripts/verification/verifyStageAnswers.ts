@@ -551,6 +551,96 @@ console.log(
     `${needsHuman.length} needs-human, ${noSource.length} no-source`,
 );
 console.log(`  ${passed} check(s) passed`);
+// ===========================================================================
+// AN ELIDED QUOTE — THE GATE WAS REFUSING TRUE SUPPORT FOR A CLAIM-BARRING RULE
+// ===========================================================================
+//
+// `before-filing:notice-snow-ice-private` sat at needs-human across two runs on a
+// verdict quoting Occupiers' Liability Act s. 6.1 (1) verbatim with ONE clause
+// elided — ", including the date, time and location of the occurrence," replaced
+// by "...". Every word the verifier kept is in the vendored text, in order.
+// `includes()` cannot match that, so the gate called a true quote a fabrication
+// and held back the 60-day notice deadline: one of three deadlines in this
+// product that bar the claim outright.
+//
+// findQuote now chains the fragments. These prove the chaining is not a hole.
+
+{
+  /** The real verdict, from the run that sat at needs-human. */
+  const ELIDED_BUT_REAL =
+    "No action shall be brought for the recovery of damages for personal injury caused " +
+    "by snow or ice against a person or persons listed in subsection (2) unless, within " +
+    "60 days after the occurrence of the injury, written notice of the claim...has been " +
+    "personally served on or sent by registered mail to at least one person listed in " +
+    "subsection (2).";
+
+  check(
+    "a quote eliding its own middle with ... is found when every fragment really is there",
+    findQuote(ELIDED_BUT_REAL)?.sourceId === "occupiers-liability-act",
+    `got ${findQuote(ELIDED_BUT_REAL)?.sourceId ?? "NOT FOUND"} — this is s. 6.1 (1) with ` +
+      `one clause elided, and refusing it holds back a claim-barring deadline`,
+  );
+
+  /*
+   * THE TRAP THE PROBE FOUND. "written notice of the claim" is 26 characters,
+   * past the length floor, and appears in the Municipal Act, the City of Toronto
+   * Act AND the Occupiers' Liability Act. Accepting a quote because each fragment
+   * appears SOMEWHERE would let an ellipsis stitch two unrelated statutes
+   * together and call the result support. This is the same string the real
+   * verdict used, cut so its halves live in different Acts.
+   */
+  const STITCHED_ACROSS_SOURCES =
+    "the clerk of the municipality; or if the claim is against two or more " +
+    "municipalities...at least one person listed in subsection (2) of the " +
+    "Occupiers' Liability Act";
+
+  check(
+    "an elided quote whose fragments live in DIFFERENT sources is refused",
+    findQuote(STITCHED_ACROSS_SOURCES) === null,
+    `found in ${findQuote(STITCHED_ACROSS_SOURCES)?.sourceId} — an ellipsis must not be a ` +
+      `way to join two statutes into one passage`,
+  );
+
+  /** Fragments in the wrong order are not the passage. */
+  const OUT_OF_ORDER =
+    "has been personally served on or sent by registered mail to at least one person " +
+    "listed in subsection (2)...No action shall be brought for the recovery of damages " +
+    "for personal injury caused by snow or ice";
+
+  check(
+    "an elided quote whose fragments appear in the wrong order is refused",
+    findQuote(OUT_OF_ORDER) === null,
+    `found in ${findQuote(OUT_OF_ORDER)?.sourceId} — reversing a passage changes what it says`,
+  );
+
+  /*
+   * And a gap far too large to be an elision. Both fragments are real and in the
+   * right source and the right order; they are simply not one passage.
+   */
+  const GAP_TOO_LARGE =
+    "An occupier of premises owes a duty to take such care as in all the " +
+    "circumstances of the case is reasonable...at least one person listed in " +
+    "subsection (2)";
+
+  check(
+    "an elided quote spanning far more than a clause is refused",
+    findQuote(GAP_TOO_LARGE) === null,
+    `found in ${findQuote(GAP_TOO_LARGE)?.sourceId} — an ellipsis stands for a clause, not ` +
+      `for whatever lies between two distant sentences`,
+  );
+
+  /** A fabricated fragment beside a real one still fails. */
+  const ONE_REAL_ONE_INVENTED =
+    "No action shall be brought for the recovery of damages for personal injury caused " +
+    "by snow or ice...within 14 days after the occurrence of the injury as prescribed";
+
+  check(
+    "an elided quote with one invented fragment is refused",
+    findQuote(ONE_REAL_ONE_INVENTED) === null,
+    `found in ${findQuote(ONE_REAL_ONE_INVENTED)?.sourceId} — half a real passage is not support`,
+  );
+}
+
 console.log("");
 
 if (conflicts.length > 0) {
