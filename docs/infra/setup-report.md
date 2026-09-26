@@ -22,6 +22,12 @@ reason is a real state mismatch that no document records, explained in full belo
 
 **Two live hazards were found and closed** — both were quietly true for some time.
 
+**Round 2, after your six decisions, is at the bottom of this file.** Short
+version: both databases are now backed up and counted, production's RLS is in
+better shape than expected, the test data in production turns out to be one
+account that owns nothing, and everything still outstanding is waiting on a single
+credential — a correctly-shaped Supabase personal access token.
+
 ---
 
 ## What was actually wrong when I started
@@ -143,13 +149,22 @@ newer, clean one**, created in August, whose history matches the repo exactly.
 So `supabase db push` works against production and refuses against staging — the
 inverse of the safe order this whole task is built on.
 
-Staging does have a schema: 24 tables, **every one empty**, including `cases`,
-`case_intakes`, `case_evidence`, `case_documents`. Missing, consistent with its
-pending list: `case_events`, `case_event_candidate_dismissals`, `ai_call_log`.
+Staging does have a schema: 24 tables, including `cases`, `case_intakes`,
+`case_evidence`, `case_documents`. Missing, consistent with its pending list:
+`case_events`, `case_event_candidate_dismissals`, `ai_call_log`.
 
-```
-npx supabase inspect db table-stats      # 24 tables, estimated_row_count 0 on all
-```
+> **CORRECTION, later the same day.** This paragraph said those 24 tables were
+> "every one empty", on the strength of:
+>
+> ```
+> npx supabase inspect db table-stats      # estimated_row_count 0 on all
+> ```
+>
+> **That column is a planner estimate, not a count.** It is
+> `pg_class.reltuples`, which `ANALYZE` and autovacuum populate and which reads
+> `0` on any table nobody has analysed. A dump of the same project produced
+> **977 KB of data — 3 auth accounts and 2 cases.** See "Decision 2" below for
+> the real numbers and "what this cost" for the general lesson.
 
 ### Why I stopped instead of proceeding
 
@@ -325,6 +340,333 @@ production is not covered by it — worth checking before launch rather than aft
 
 ---
 
+# Round 2 — after your six decisions
+
+Same day. Everything below was read from the live systems or from verified dumps
+of them. **Nothing was written to any database in this round**, and one thing
+that could have been is flagged for you instead.
+
+## Decision 1 — `migration repair --status reverted`: not run, and now not needed
+
+Recorded as settled: **the repo's migration history will never carry a statement
+that is not true.** The 25 legacy versions on the April project were applied, not
+reverted, and nothing will say otherwise.
+
+This also stops being the blocking problem it was in Step 2. The plan is no longer
+"make the April project acceptable as staging" but "stand up a clean staging
+project", and a clean project has no legacy history to reconcile. The repair
+command is not needed on either path.
+
+## Decision 2 — staging: the census is done, the backup is done, creation is blocked by the plan
+
+### First: what is actually in the April project
+
+You asked for this before anything was touched, and it is the reason the rest of
+this section is careful.
+
+**Backup taken first**, outside the repository, and verified non-empty:
+
+```
+/c/Users/kmagr/courtsimplified-backups/april-ffymjx-20260926-143148/
+    schema.sql        45,534 bytes
+    data.sql         976,981 bytes
+    auth-data.sql     15,369 bytes
+```
+
+An earlier dump in this session came out **0 bytes** because `supabase db dump`
+runs `pg_dump` inside Docker and the daemon was not running. It reported no error
+worth noticing. **A backup is not a backup until its size has been checked** —
+that is now the habit, and the three files above were each checked.
+
+Counted from the dump, not from `table-stats`:
+
+| | Rows |
+|---|---|
+| `auth.users` | **3** |
+| `cases` | **2** |
+| `case_intakes`, `case_events`, `case_evidence`, `case_documents`, `case_generated_documents` | 0 |
+| `storage.objects` | 730 — **all in `court-forms`**, no owner: the public form library |
+| Reference tables (forms, rules, lookups) | ~1,380 |
+
+Email domains, counts only: **`gmail.com` × 2, `example.test` × 1.**
+
+| Account (id) | Created | Last sign-in | What it is |
+|---|---|---|---|
+| `756fc7fa-f79d-461a-996f-a97d4f13f261` | 2026-04-14 | 2026-08-09 | a family member's address — already identified as such in `DATA_FLOW_INVENTORY.md` §2.2 |
+| `c45172cd-5037-49dd-a8cb-609fb0dbbf8d` | 2026-08-24 | 2026-08-31 | the operator's personal address |
+| `f9f3717a-1398-4c1a-a2e3-c08794edc9f1` | 2026-08-25 | 2026-08-26 | the browser harness — carries `courtSimplifiedHarness: true` |
+
+Both cases belong to the operator, created 2026-08-31, `master_result` about 2.5 KB
+each: shells, not completed analyses.
+
+**So: no member of the public has data in the April project.** On the plain reading
+of your condition — "only if the April project holds no real user data" — the
+reset fallback would be permitted. I did not take it, for the reason below.
+
+### Then: creating a fresh project — refused by the plan
+
+```
+supabase projects create courtsimplified-staging \
+  --org-id rcxzxczzgsnrrmfdujvv --region ca-central-1 --db-password <generated, never printed>
+```
+
+```
+The following organization members have reached their maximum limits for the
+number of active free projects within organizations where they are an
+administrator or owner: kmagrum45-ops (2 project limit). To continue, these
+users will need to either delete, pause or upgrade one or more of these projects.
+```
+
+**The org is on the free plan with a 2-active-project limit, and both projects are
+`ACTIVE_HEALTHY`.** You anticipated this and authorised pausing the April project
+to make room. I cannot: `supabase projects` offers only `list`, `create`,
+`api-keys` and `delete`. **There is no `pause` subcommand.** Pausing is a dashboard
+action or a Management API call, and the Management API needs a personal access
+token — see "the one blocker" below.
+
+### Why I did not fall back to `db reset --linked`
+
+Your fallback was conditioned on creation being *impossible*. It is not
+impossible; it is **one click away** from being possible. The difference matters,
+because the fallback destroys a family member's account and the operator's two
+cases to save that click, and it runs head-on into the standing guardrail *never
+drop, truncate or delete anything*. Two routes cost you a click; one costs you
+rows you cannot get back. I took neither and am reporting instead, which is what
+you asked for if the plan blocked creation.
+
+A password for the new project **was** generated and is at
+`/c/Users/kmagr/courtsimplified-backups/staging-db-password.txt` (40 characters,
+alphanumeric so it is safe inside a connection string). It has never been printed
+and is outside the repository. **Move it into your password manager and delete the
+file.** If you would rather I generate a fresh one when the project is actually
+created, delete it now and say so.
+
+### Consequence for the rest of the task
+
+The full suite, the evals and the fixtures were **not** run against staging,
+because there is no staging to run them against. `.env.local` was not repointed,
+for the same reason. Both are the first thing to do once a staging project exists.
+
+## Decision 3 — production: NOT applied, because staging has not passed
+
+Your approval was explicit and conditional: *"once staging is green"*. Staging is
+not green; staging does not exist. **No migration was applied to
+`fddlpnibovkkkgboabqb`.**
+
+What was done is the read-only preparation, so that applying them later is a short
+job rather than a fresh investigation.
+
+**Production backed up**, outside the repository, verified non-empty:
+
+```
+/c/Users/kmagr/courtsimplified-backups/prod-fddlpn-20260926-144214/
+    schema.sql           53,998 bytes
+    data.sql         14,799,068 bytes
+    auth-data.sql        21,732 bytes
+    roles.sql               431 bytes
+```
+
+**RLS, read from that backup** — and it is better news than expected:
+
+| Check | Finding |
+|---|---|
+| Public tables | **26** |
+| Tables with `ENABLE ROW LEVEL SECURITY` | **26 — all of them** |
+| Tables **without** RLS | **none** |
+| `dev_full_access_*` policies present | **zero** |
+| Bucket `case-evidence` | **`public = false` already** |
+| Bucket `court-forms` | `public = true` — intended; it is the blank form library |
+
+Two things follow.
+
+**The `DROP POLICY IF EXISTS "dev_full_access_*"` statements will be no-ops.**
+Those policies are not on production — they never were, or were already removed.
+That was the part of the pending set most worth being nervous about, and it turns
+out to have nothing to remove. It is still worth applying: the migration is what
+makes their absence *asserted* rather than merely currently true.
+
+**The bucket-private migration will also be a no-op**, for the same reason and to
+the same benefit — the bucket is private now, and nothing in the repository says
+so until that file runs.
+
+One thing to be aware of rather than to fix: **13 of the 26 tables have RLS
+enabled and no policy at all** — `civil_form_lookup`, `court_form_overlays`,
+`court_form_sources`, `form_rules`, `forms`, `small_claims_form_lookup`,
+`pdf_field_mappings` and the six `legal_*` rule tables. RLS on with no policy is
+deny-all to anon and authenticated clients.
+
+**That is not breaking anything today, and I checked rather than assuming.**
+`npm run test:public-data` reports the client reads exactly three public objects —
+`court_form_master_view`, `court_form_library` and `pdf_overlay_fields` — and the
+two tables among them each carry a public-read policy. None of the 13 is read with
+the anon key. Everything that touches them goes through the service role, which
+bypasses RLS.
+
+So it is a latent trap, not a live fault: **the first time a client-side read is
+added against one of those 13 tables it will come back empty rather than
+erroring**, which is the hardest failure of its kind to diagnose. Worth a policy or
+an explicit comment before that happens.
+
+The 18 policies that do exist cover the ones that matter — `cases`,
+`case_intakes`, `case_evidence`, `case_documents`, `case_generated_documents`,
+`case_events` and `case_event_candidate_dismissals` each carry an own-rows
+policy.
+
+Row counts were recorded before any change, so "unchanged" can be checked
+afterwards: see the table in Decision 4.
+
+## Decision 4 — test data in production: found, counted, nothing deleted
+
+The harness that writes real accounts is
+[`tests/browser/harness/realTestSession.ts`](../../tests/browser/harness/realTestSession.ts).
+It signs up addresses shaped `courtsimplified.harness+<timestamp>.<hex>@example.test`
+and stamps `courtSimplifiedHarness: true` into `user_metadata`. **The metadata
+flag, not the address, is the reliable identifier** — the address pattern could be
+changed by a future harness, and the flag is what the harness's own cleanup reads.
+
+### In production, `fddlpnibovkkkgboabqb`
+
+**One test account. It owns nothing.**
+
+| Id | Domain | Created | Last sign-in | Verdict |
+|---|---|---|---|---|
+| `0b91f467-302b-44e5-a621-17c551bae78a` | `example.test` | 2026-08-27 15:42:53 | 2026-09-12 15:49:45 | **test harness** — `courtSimplifiedHarness: true` |
+| `7ae96282-53fa-4a5a-80f1-39ea5ba1c62e` | `gmail.com` | 2026-08-31 14:23:01 | 2026-09-13 02:36:13 | not identifiable as test — the operator's own |
+
+| Table | Rows | Owned by the test account | Owned by the operator |
+|---|---|---|---|
+| `cases` | **4** | **0** | 4 |
+| `case_intakes` | 0 | — | — |
+| `case_events` | 0 | — | — |
+| `case_evidence` | 0 | — | — |
+| `case_documents` | 0 | — | — |
+| `case_generated_documents` | 0 | — | — |
+| `storage.objects` | 730 | 0 | 0 — all 730 are unowned, in `court-forms` |
+
+The four cases, all the operator's:
+
+| Case id | Path | Stage | Created | `master_result` |
+|---|---|---|---|---|
+| `2fd81061-a185-493c-8bd7-f0bf1a1b63c7` | small-claims | `starting-case` | 2026-08-31 | 3,607,392 bytes |
+| `058448de-f451-4b5a-ae52-488bd23c4db8` | small-claims | `already-started` | 2026-09-14 | 3,545,939 bytes |
+| `03fe2853-ff0c-4a94-893c-163986b3ea8f` | small-claims | `already-started` | 2026-09-16 | 3,311,647 bytes |
+| `3b24868a-f37a-4334-a82c-56830dcd0269` | small-claims | `starting-case` | 2026-09-17 | 3,357,097 bytes |
+
+### Reading that honestly
+
+The result is smaller than the risk suggested. `.env.local` pointed at production
+for weeks, so the expectation was a pile of fixture rows. What is actually there is
+**one harness account that created no cases**, plus four cases the operator made by
+hand. The harness signs in, exercises the UI and cleans up its own rows; it left
+the account behind and nothing else.
+
+The four operator cases are not *fixture* rows, but the multi-megabyte
+`master_result` on each says they are completed pipeline runs rather than real
+matters, made between 31 August and 17 September. **They are almost certainly your
+own testing.** You are the only person who can say so, which is why nothing was
+deleted.
+
+### The list to decide on
+
+| Candidate | What it is | Cost of keeping | Cost of removing |
+|---|---|---|---|
+| `0b91f467-…` | harness account, `example.test`, 0 rows | an `example.test` address sits in your live auth table and shows in user counts | none — nothing references it |
+| the 4 `cases` rows | operator's test runs, ~14 MB total | 14 MB and four rows that are not real matters; they will appear in any future "how many cases" figure | none if they are yours; irreversible if one is not |
+
+**Recommendation, for when you decide:** delete the harness account, keep the four
+cases until you have looked at the titles and confirmed they are yours. Removing an
+account is clean; removing four 3.5 MB analyses you might have wanted to compare
+against is not. The backup above holds all of it either way.
+
+**Nothing was deleted. Nothing will be, without you saying so.**
+
+## Decision 5 — still blocked, and it is the only thing blocking everything else
+
+`SUPABASE_ACCESS_TOKEN` is now set in the Windows **User** environment, 48
+characters, `sbp_` prefix. The CLI rejects it:
+
+```
+Invalid access token format. Must be like sbp_0102...1920
+```
+
+A Supabase personal access token is `sbp_` followed by **40 hexadecimal**
+characters — 44 in total. The value present is `sbp_` plus **44 non-hex**
+characters, 48 in total. It is the wrong shape for a PAT, so it is probably a
+different Supabase credential (a publishable or secret API key, which are also
+`sb…`-prefixed) rather than a mistyped PAT. The Management API returns 401 with
+it, consistent with that.
+
+Everything in Decision 5 needs it: renaming the project, minimum password length,
+email confirmation, MFA, daily backups, PITR. **So does pausing the April project,
+which is what Decision 2 is waiting on.** One credential unblocks both.
+
+**To generate the right one:** platform.supabase.com → account dropdown → Access
+Tokens → *Generate new token*. Then set `SUPABASE_ACCESS_TOKEN` to it. Check it is
+44 characters and that everything after `sbp_` is `0-9a-f`.
+
+The CLI's *own* stored credential still works, which is why the reads, dumps and
+the `projects create` attempt in this round were possible at all. It lives in the
+Windows Credential Manager, and I did not go after it — a task that needs a
+credential should be given one, not have one extracted from a keystore.
+
+## Decision 6 — the OpenAI organisation, recorded
+
+**ZDR must be requested for, and confirmed against, organisation
+`user-zqoler46rb4loij8kspdgxjk`.** That is the organisation the production
+`OPENAI_API_KEY` belongs to. Project: `proj_JoBynQOalHeEDA8y8EGE7blx`.
+
+The `user-` prefix means it is a **personal-account organisation**, not a company
+one. Two consequences worth writing down now rather than discovering later:
+
+- **A ZDR grant naming any other organisation does not cover this key.** If the
+  request was made under a differently-named org, the traffic in production is not
+  covered by it. Confirm the org id, not the org name.
+- **Once CourtSimplified is incorporated, a company organisation should replace
+  this one**, and the ZDR request has to be made again for it — a grant does not
+  follow a key into a new org. Doing it at incorporation is cheap; doing it after
+  launch means re-papering a data-protection claim you have already made to users.
+  Treat the personal org as temporary.
+
+## The one blocker, stated once
+
+| Wants | Waiting on |
+|---|---|
+| Create `courtsimplified-staging` | the April project being paused — **dashboard click, or a valid PAT** |
+| Run the suite/evals/fixtures against staging | staging existing |
+| Apply the 5 pending migrations to production | staging being green |
+| Rename both projects, auth settings, backups, PITR | **a valid PAT** |
+
+**Two human actions clear all of it:** generate a correctly-shaped PAT, and pause
+the April project (or upgrade the plan, if you would rather keep it running — at
+which point the pause is unnecessary and I can create the staging project
+directly).
+
+## What this round cost, so it is not paid twice
+
+**A planner estimate was read as a row count.** `supabase inspect db table-stats`
+reports `estimated_row_count`, which is `pg_class.reltuples` — maintained by
+`ANALYZE` and autovacuum, and `0` on a table nobody has analysed. It said every
+table in the April project was empty. The project holds 3 accounts and 2 cases. On
+the strength of that estimate, "holds no real user data" was written into
+`CLAUDE.md`, `supabase/environments.json`, `DATA_FLOW_INVENTORY.md` and this
+report, and a `db reset` was contemplated against it. **Count rows with
+`count(*)` or from a dump. Never from `table-stats`.**
+
+**A privacy document had censused the wrong project.**
+`DATA_FLOW_INVENTORY.md` §2.2 was headed "What is actually in production" and its
+numbers are the April project's — written while the backwards names were still
+believed. Its privacy conclusion survives, because the conclusion was about the US
+project and so were the numbers. But the live database had never been counted
+until this round. **When the names are known to be backwards, re-check what each
+existing measurement measured, not just the sentences that name the projects.**
+
+**A 0-byte dump reported success.** `supabase db dump` shells out to `pg_dump`
+inside Docker; with the daemon down it wrote an empty file and said
+`Dumped schema to …`. **Check the byte count. A backup you have not sized is not a
+backup.**
+
+---
+
 ## What changed in the repository
 
 | File | Change |
@@ -339,5 +681,25 @@ production is not covered by it — worth checking before launch rather than aft
 | `docs/security/DATA_FLOW_INVENTORY.md` | the same two corrections |
 | `scripts/eval/runAccuracyEval.ts`, `scripts/verification/runFixtures.ts` | call the guard before anything else |
 
-Nothing was applied to any database. No backup was needed because no change was
-made.
+Round 2:
+
+| File | Change |
+|---|---|
+| `CLAUDE.md` §6 | the April project is **not empty**; why `table-stats` must not be read as a row count |
+| `supabase/environments.json` | the "every one empty" note replaced with the counted figures |
+| `docs/security/DATA_FLOW_INVENTORY.md` | §2 row corrected; §2.2 relabelled as the US project; **§2.2a added — the live database counted for the first time**; §2.2b on the `table-stats` trap; §2.3's inverted labels corrected |
+| `docs/infra/setup-report.md` | the Step 2 "every one empty" claim corrected in place; Round 2 added |
+
+**Nothing was applied to either database in either round.** Two full backups were
+taken — the April project and production — because reading production at all is
+worth doing behind a backup, and because Decision 3 will need one already in hand.
+Both are outside the repository and both were verified non-empty:
+
+```
+/c/Users/kmagr/courtsimplified-backups/april-ffymjx-20260926-143148/
+/c/Users/kmagr/courtsimplified-backups/prod-fddlpn-20260926-144214/
+```
+
+The CLI was linked to production for the duration of the backup and **relinked to
+`ffymjxjcnwakgdmldpne` afterwards**, so that a stray `supabase db push` cannot
+reach the live database. Verified with `supabase projects list`.

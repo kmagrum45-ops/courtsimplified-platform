@@ -104,15 +104,23 @@ done, the name tells you the opposite of the truth.
 | Ref | Current name | Region | What it actually is |
 |---|---|---|---|
 | `fddlpnibovkkkgboabqb` | `courtsimplified-dev` | `ca-central-1` | **PRODUCTION. THE LIVE DATABASE.** Real users' accounts, cases and intakes. The Vercel production environment points here. |
-| `ffymjxjcnwakgdmldpne` | `courtsimplified` | `us-west-2` | **STAGING.** Active, 24 tables, every one empty. |
+| `ffymjxjcnwakgdmldpne` | `courtsimplified` | `us-west-2` | **NOT EMPTY. The original April project.** 3 auth accounts — two of them real people's, not fixtures — and 2 cases. It was being treated as a scratch staging environment; it is not one. |
 
 **`docs/infra/projects.md` is the source of truth for which is which**, established
-2026-09-26 by reading the live systems. Two things in this table were wrong before
+2026-09-26 by reading the live systems. Three things in this table were wrong before
 that and are worth knowing about:
 
 - The second project was recorded here and in two other documents as *paused*. It
   is `ACTIVE_HEALTHY` and appears to have been restored without the docs being
   updated.
+- **This table said the April project held "24 tables, every one empty". That was
+  wrong, and the way it was wrong is the lesson.** It came from
+  `supabase inspect db table-stats`, whose `estimated_row_count` column is
+  `pg_class.reltuples` — a planner estimate that is only updated by `ANALYZE` or
+  autovacuum, and reads 0 on a table nobody has analysed. A dump of the same
+  project produced 977 KB of data: 3 auth accounts and 2 cases. **Never conclude a
+  table is empty from `table-stats`. Use `count(*)`, or count rows in a dump.**
+  An estimate that happens to say 0 is not a measurement that says 0.
 - `.env.local` on the development machine pointed at **production**, so fixture
   and eval runs were exercising the real pipeline against real users' data.
   `scripts/db/assertNotProduction.ts` now refuses that, and `npm run db:staging` /

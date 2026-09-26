@@ -12,10 +12,18 @@ display name and the reality disagree, **the ref decides**.
 
 | Ref | Display name | Region | Status | What it IS |
 |---|---|---|---|---|
-| `fddlpnibovkkkgboabqb` | `courtsimplified-dev` | `ca-central-1` | ACTIVE_HEALTHY | **PRODUCTION.** The live database |
-| `ffymjxjcnwakgdmldpne` | `courtsimplified` | `us-west-2` | ACTIVE_HEALTHY | **STAGING.** Nothing points at it |
+| `fddlpnibovkkkgboabqb` | `courtsimplified-dev` | `ca-central-1` | ACTIVE_HEALTHY | **PRODUCTION.** The live database. 2 accounts, 4 cases |
+| `ffymjxjcnwakgdmldpne` | `courtsimplified` | `us-west-2` | ACTIVE_HEALTHY | **The original April project.** Nothing points at it — but it is **not empty**: 3 accounts, 2 cases |
 
-Both are in organisation `rcxzxczzgsnrrmfdujvv`.
+Both are in organisation `rcxzxczzgsnrrmfdujvv`, which is on the **free plan with
+a 2-active-project limit**. That limit is currently reached, which is why a third
+project cannot be created without pausing one or upgrading.
+
+**Neither project is a scratch environment.** There is no staging project yet.
+Calling `ffymjxjcnwakgdmldpne` "staging" — as this file and others did until
+2026-09-26 — invited a `db reset` against a database holding a family member's
+account. Row counts for both, counted from dumps rather than estimated, are in
+`docs/security/DATA_FLOW_INVENTORY.md` §2.2 and §2.2a.
 
 ### How production was identified
 
@@ -47,7 +55,7 @@ instruction to apply it to production.
 
 ---
 
-## Two things that differ from what the older docs say
+## Three things that differ from what the older docs say
 
 Recorded rather than silently corrected, because a document that disagrees with
 the system is a hazard and somebody should know which way it drifted.
@@ -71,16 +79,30 @@ So Preview deployments have no database configuration at all, rather than
 pointing at the wrong one. That is safe today and is a gap to fill once staging
 has the schema.
 
+**3. `ffymjxjcnwakgdmldpne` is not empty, and the source of that belief was an
+estimate.** Every document said it held no data. All of them were quoting
+`supabase inspect db table-stats`, whose `estimated_row_count` is
+`pg_class.reltuples` — a planner statistic that `ANALYZE` and autovacuum maintain
+and that reads `0` on any table nobody has analysed. A dump produced 977 KB: 3
+accounts and 2 cases. **Row counts in this file and in the inventory now come from
+dumps or `count(*)`, never from `table-stats`.**
+
 ---
 
 ## State to fix
 
-| What | Found | Wanted |
-|---|---|---|
-| Supabase CLI link | linked to `fddlpnibovkkkgboabqb` (**production**) | linked to staging |
-| `.env.local` | points at production | points at staging |
-| Display names | backwards | `courtsimplified-prod` / `courtsimplified-staging` |
-| Vercel Preview | no Supabase vars | staging vars |
+| What | Found | Wanted | Blocked on |
+|---|---|---|---|
+| A staging project | **does not exist** | `courtsimplified-staging`, `ca-central-1` | the free plan's 2-project limit — pause the April project or upgrade |
+| Supabase CLI link | now `ffymjxjcnwakgdmldpne` | staging | staging existing |
+| `.env.local` | points at production | points at staging | staging existing |
+| Display names | backwards | `courtsimplified-prod` / `courtsimplified-archive` / `courtsimplified-staging` | a valid `SUPABASE_ACCESS_TOKEN` |
+| Auth settings, daily backups, PITR | not set | min password 12, email confirmation, MFA | a valid `SUPABASE_ACCESS_TOKEN` |
+| Vercel Preview | no Supabase vars | staging vars | staging existing |
+
+The token in the environment on 2026-09-26 is 48 characters; a personal access
+token is `sbp_` plus 40 **hex** characters, 44 in total. See
+`docs/infra/setup-report.md`, Decision 5.
 
 ---
 

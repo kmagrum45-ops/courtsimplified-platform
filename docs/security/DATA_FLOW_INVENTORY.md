@@ -88,7 +88,7 @@ held about them.
 | Store | Contents | Region |
 |---|---|---|
 | **Supabase, ref `fddlpnibovkkkgboabqb`** — **THE LIVE DATABASE**, confusingly named `courtsimplified-dev` | Everything: accounts, cases, intakes, evidence metadata, generated documents, events | **`ca-central-1` — Canada** |
-| **Supabase, ref `ffymjxjcnwakgdmldpne`** — STAGING, confusingly named `courtsimplified` | Active. 24 tables, all empty — see 2.2 and docs/infra/projects.md | `us-west-2` — Oregon, United States |
+| **Supabase, ref `ffymjxjcnwakgdmldpne`** — the original April project, confusingly named `courtsimplified` | Active, and **NOT empty**: 3 auth accounts (2 real people's, 1 browser-harness) and 2 cases, verified by dump 2026-09-26. An earlier version of this row said "all empty" on the strength of `table-stats`, whose row count is a planner estimate — see 2.2 and docs/infra/projects.md | `us-west-2` — **Oregon, United States** |
 | **Supabase Storage, bucket `case-evidence`** | Uploaded evidence files. **Empty in both** | Per project |
 | **Browser `localStorage`** | **26 keys — see 4.3.** A resumable draft, the active case id, case-context blobs, assembled evidence packages, parsed message threads, case-partner chat transcripts, and whole generated workspace documents. **20 of the 26 carry no user id** | The user's own device |
 | **Cookie `cs_site_access`** | The shared site password, HttpOnly | The user's own device |
@@ -142,10 +142,20 @@ alongside the ref on every run.
 in `.env` files and possibly in Vercel, and it should be done deliberately
 rather than at the end of a long session.
 
-### 2.2 What is actually in production — counted, 2026-09-15
+### 2.2 What is in the US project, `ffymjxjcnwakgdmldpne` — counted 2026-09-15, re-counted 2026-09-26
 
-The open question above has been answered. Production was resumed, read
-read-only, and re-paused.
+**CORRECTION, 2026-09-26. This section was headed "What is actually in
+production". It is not production.** The counts below are the **April /
+`us-west-2` project, ref `ffymjxjcnwakgdmldpne`** — read under the backwards
+naming this document's own §2.1 warns about, where the us-west-2 project was
+believed to be the live one. The live database is `fddlpnibovkkkgboabqb` in
+`ca-central-1`, and it had never been counted until §2.2a below.
+
+Every number here was re-verified on 2026-09-26 from a fresh `supabase db dump`
+of `ffymjxjcnwakgdmldpne`, and every one of them is **correct for that project**.
+Only the label was wrong. The privacy conclusion at the end of this section is
+also still correct, because it is a conclusion about the US project, which is
+what was actually measured.
 
 | Table | Rows |
 |---|---|
@@ -183,7 +193,85 @@ three operator-controlled accounts. The `auth.users` UUID-preservation problem
 flagged in `ARCHITECTURE.md` — the step most likely to need Supabase support —
 does not arise.
 
-### 2.3 Production's schema is behind development
+### 2.2a What is in the LIVE database, `fddlpnibovkkkgboabqb` — counted 2026-09-26
+
+Counted for the first time, from a full `supabase db dump` (schema, data, auth,
+roles) of the project that Vercel production actually points at. Everything above
+this line describes the other project.
+
+| Table | Rows |
+|---|---|
+| `auth.users` | **2** |
+| `cases` | **4** |
+| `case_intakes` | 0 |
+| `case_events` | 0 |
+| `case_event_candidate_dismissals` | 0 |
+| `case_evidence` | 0 |
+| `case_documents` | 0 |
+| `case_generated_documents` | 0 |
+| Storage bucket `case-evidence` | **0 objects** |
+| Storage bucket `court-forms` | 730 objects, no owner — the public form library |
+
+**Both accounts are the operator's own or the test harness. There are no
+third-party accounts in the live database at all.**
+
+| Account (id) | Domain | Created | Last sign-in | What it is |
+|---|---|---|---|---|
+| `0b91f467-302b-44e5-a621-17c551bae78a` | `example.test` | 2026-08-27 | 2026-09-12 | browser harness — carries `courtSimplifiedHarness: true` |
+| `7ae96282-53fa-4a5a-80f1-39ea5ba1c62e` | `gmail.com` | 2026-08-31 | 2026-09-13 | the operator's personal address |
+
+**All four cases belong to the operator's account.** Unlike the two shells in the
+US project, these are *completed* runs: each `master_result` is **3.3–3.6 MB**,
+created between 2026-08-31 and 2026-09-17 — which is the footprint of the real
+pipeline being exercised against this database, consistent with `.env.local`
+having pointed here (§6 of `CLAUDE.md`).
+
+| Case id | Court path | Stage | Created | `master_result` |
+|---|---|---|---|---|
+| `2fd81061-a185-493c-8bd7-f0bf1a1b63c7` | small-claims | `starting-case` | 2026-08-31 | 3,607,392 bytes |
+| `058448de-f451-4b5a-ae52-488bd23c4db8` | small-claims | `already-started` | 2026-09-14 | 3,545,939 bytes |
+| `03fe2853-ff0c-4a94-893c-163986b3ea8f` | small-claims | `already-started` | 2026-09-16 | 3,311,647 bytes |
+| `3b24868a-f37a-4334-a82c-56830dcd0269` | small-claims | `starting-case` | 2026-09-17 | 3,357,097 bytes |
+
+**So no member of the public has ever had data in this platform, in either
+country.** Every account in both projects is the operator's, a family member's, or
+the test harness's. That is the reason the naming mix-up in §2.1 did not become an
+incident, and it is not a reason to leave it unfixed.
+
+### 2.2b How the "all empty" claim got in here, and what to do instead
+
+The summary table in §2 said this platform's US project held "24 tables, all
+empty". It holds 3 accounts and 2 cases. The claim came from:
+
+```
+npx supabase inspect db table-stats     # estimated_row_count: 0 on every table
+```
+
+`estimated_row_count` is `pg_class.reltuples`. That is a **planner estimate**,
+populated by `ANALYZE` and autovacuum, and it reads `0` on any table nobody has
+analysed — including tables full of rows. On a project with no query traffic,
+autovacuum may never have run.
+
+**In a privacy document, "empty" is a claim about personal data. Never source it
+from `table-stats`.** Count with `select count(*)`, or count rows in a dump. The
+row counts in §2.2 and §2.2a were both taken from dumps.
+
+### 2.3 The US project's schema is behind the repo — and the live one is not
+
+**CORRECTION, 2026-09-26: this section had the two projects the wrong way round,
+for the same reason as §2.2.** It read "Production has 24 tables; development has
+26", concluding that production was the older schema. Verified from the dumps:
+
+| | Public tables | `case_events` / `case_event_candidate_dismissals` | `ai_call_log` |
+|---|---|---|---|
+| **Live, `fddlpnibovkkkgboabqb`** | **26** | present | **missing** — pending migration |
+| **US, `ffymjxjcnwakgdmldpne`** | 24 | missing | missing |
+
+So the live database is the one whose history matches this repository, and the US
+project is the older one. The original text follows, with its inverted labels;
+read "production" as the US project and "development" as the live one.
+
+#### 2.3 (original text, labels inverted — kept for the record)
 
 Found while applying the security remediation, which aborted with
 `42P01: relation "public.case_events" does not exist`.

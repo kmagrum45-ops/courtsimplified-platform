@@ -29,7 +29,12 @@
         "legacy history that are NOT in this repository. Production (created 2026-08-26)",
         "has a clean history matching the repo exactly. That asymmetry is why",
         "supabase db push refuses against staging -- see docs/infra/setup-report.md.",
-        "Holds no real user data: 24 tables, every one empty.",
+        "IT IS NOT EMPTY. An earlier note here said '24 tables, every one empty',",
+        "read off supabase inspect db table-stats, whose estimated_row_count is",
+        "pg_class.reltuples -- a planner estimate that reads 0 until something runs",
+        "ANALYZE. A dump on 2026-09-26 found 3 auth accounts (two of them real",
+        "people's, one the browser harness) and 2 cases. Do not reset or reuse this",
+        "project as staging without deciding what happens to those accounts.",
         "In us-west-2. Acceptable for staging, which must never hold real user data,",
         "and the reason this one must NOT become production: Canadian data residency",
         "is why production sits in ca-central-1."
