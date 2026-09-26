@@ -109,7 +109,8 @@
     "test:published-library": "tsx scripts/verification/verifyPublishedLibrary.ts",
     "test:stage-resolution": "tsx scripts/verification/verifyStageResolution.ts",
     "eval:accuracy": "tsx scripts/eval/runAccuracyEval.ts",
-    "test:ai-call-log-sink": "node --import tsx scripts/verification/verifyAiCallLogSink.ts"
+    "test:ai-call-log-sink": "node --import tsx scripts/verification/verifyAiCallLogSink.ts",
+    "test:library-chat": "node --import tsx scripts/verification/verifyLibraryChat.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",

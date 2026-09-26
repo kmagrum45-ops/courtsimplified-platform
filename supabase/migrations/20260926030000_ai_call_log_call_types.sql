@@ -1,4 +1,6 @@
--- Adds 'stage-resolver' to ai_call_log.call_type.
+-- Brings ai_call_log.call_type into line with the call types the code emits.
+--
+-- Adds two: 'stage-resolver' (Part 5) and 'library-chat' (chat item 6).
 --
 -- *** WHY THIS EXISTS: THE TABLE WOULD HAVE REJECTED EVERY STAGE-RESOLVER ROW ***
 --
@@ -36,5 +38,7 @@ ALTER TABLE "public"."ai_call_log"
         'small-claims-analysis',
         -- Part 5. The stage resolver reasons privately and answers only from
         -- verified content; this is where the private half lands.
-        'stage-resolver'
+        'stage-resolver',
+        -- Chat item 6. Selects published blocks by id; writes no prose.
+        'library-chat'
     ));

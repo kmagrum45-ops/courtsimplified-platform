@@ -62,6 +62,7 @@ import {
 import { renderStageAnswer } from "../../src/lib/content-library/stageAnswerView";
 import { costOf, type Usage } from "../content/verifiedContentPipeline";
 import { DEADLINE_CASES, runDeadlineCases } from "./deadlineCases";
+import { runChatCases } from "./chatCases";
 
 dotenv.config({ path: ".env.local", quiet: true });
 
@@ -220,13 +221,16 @@ async function main(): Promise<void> {
     );
   }
 
-  report(results, deadlines, usage);
+  const chat = await runChatCases();
+
+  report(results, deadlines, usage, chat);
 }
 
 function report(
   results: Result[],
   deadlines: ReturnType<typeof runDeadlineCases>,
   usage: Usage[],
+  chat: Awaited<ReturnType<typeof runChatCases>>,
 ): void {
   const resolvable = results.filter((result) => result.story.expect.kind === "stage");
   const correct = results.filter(
@@ -458,7 +462,23 @@ function report(
     `  through a block    ${deadlines.throughPublishedBlock}/${deadlines.total}                     ` +
       `     the runtime door end to end; the rest have no published block yet`,
   );
-  console.log("");
+
+  /*
+   * The chat, measured rather than asserted.
+   *
+   * Two numbers because the two decisions fail differently. Picking the wrong
+   * BLOCK hands somebody another position's procedure. Getting the ADVICE flag
+   * wrong tells them their ordinary procedural question needs a lawyer, or fails
+   * to tell them that a question about their odds does.
+   */
+  console.log(
+    `  chat routing      ${chat.blockCorrect}/${chat.total}   (target all)      ` +
+      `${chat.blockCorrect === chat.total ? "PASS" : "FAIL"}   which published block answers the question`,
+  );
+  console.log(
+    `  chat advice flag  ${chat.adviceCorrect}/${chat.total}   (target all)      ` +
+      `${chat.adviceCorrect === chat.total ? "PASS" : "FAIL"}   whether the question is one only a licensee may answer`,
+  );  console.log("");
 
   for (const [label, entries] of [
     ["WRONG-STAGE CONTENT SHOWN", wrongStageShown],
@@ -491,6 +511,13 @@ function report(
     console.log("");
   }
 
+  if (chat.failures.length > 0) {
+    console.log("CHAT:");
+    console.log("");
+    for (const failure of chat.failures) console.log(`  ${failure}`);
+    console.log("");
+  }
+
   if (deadlines.failures.length > 0) {
     console.log("DEADLINE FAILURES:");
     for (const failure of deadlines.failures) console.log(`  ${failure}`);
@@ -507,6 +534,7 @@ function report(
 
   const failed =
     deadlines.failures.length > 0 ||
+    chat.failures.length > 0 ||
     (results.length > 0 &&
       (stageAccuracy < 90 ||
         wrongStageShown.length > 0 ||

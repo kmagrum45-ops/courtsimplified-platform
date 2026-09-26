@@ -73,6 +73,12 @@ export type ContentType =
    * longer composes its own prose.
    */
   | "deadline-computation"
+  /**
+   * A fixed message shown when the product declines: wrong forum, cannot place
+   * the case, cannot give advice, nothing written yet. States no law, and still
+   * needs reading — it is what somebody sees at the moment they may give up.
+   */
+  | "system-message"
   | "doctrine"
   | "safety-resource"
   | "remedy";

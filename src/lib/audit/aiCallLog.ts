@@ -70,7 +70,13 @@ export type AiCallType =
    * from verified content, so the private half has to land somewhere a
    * regulator can read.
    */
-  | "stage-resolver";
+  | "stage-resolver"
+  /**
+   * Chat item 6: the library chat. It SELECTS published blocks by id and never
+   * writes prose, so what is worth auditing is which content it chose and
+   * whether it invented an id.
+   */
+  | "library-chat";
 
 export type AiValidationResult = "valid" | "invalid" | "error" | "timeout";
 

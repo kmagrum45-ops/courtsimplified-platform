@@ -31,9 +31,9 @@ edited afterwards the approval no longer applies, and the item returns to draft.
 
 | Measure | Count |
 |---|---|
-| Total items | 424 |
+| Total items | 429 |
 | Approved (current version) | 0 |
-| Draft / unreviewed | 424 |
+| Draft / unreviewed | 429 |
 | Approvals voided by later edits | 0 |
 | Items that are unwritten placeholders | 49 |
 
@@ -5744,4 +5744,61 @@ The court may extend the time for service, before or after the six months has el
 > clerk to note a defendant in default with Form 9B; a defendant files the
 > Defence, Form 9A), whether it speaks _to_ you or _about_ you, and who served
 > whom. If it has those the wrong way round, nothing else about it matters.
+
+## system-message (5)
+
+### `message:out-of-scope`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / any
+- **Appears in:** When the matter belongs to another forum entirely
+- **Source:** _none recorded_
+
+```
+This doesn't look like an Ontario Small Claims Court matter, so the steps and deadlines we track don't apply to it. We'd rather tell you that than give you guidance built for the wrong court. These services can point you to the right place.
+```
+
+### `message:unknown-stage`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / any
+- **Appears in:** When the case cannot be placed and there is a question that would settle it
+- **Source:** _none recorded_
+
+```
+We can't tell where your case is up to from what we have so far, and we'd rather say that than guess — the next step is different at every stage, and the wrong one can cost you a deadline. Answering the question below would settle it. If you'd rather not, these services can help you work out where you stand.
+```
+
+### `message:unknown-stage-no-question`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / any
+- **Appears in:** When the case cannot be placed and the stage map records no boundary
+- **Source:** _none recorded_
+
+```
+We can't tell where your case is up to from what we have so far, and we'd rather say that than guess — the next step is different at every stage, and the wrong one can cost you a deadline. These services can help you work out where you stand.
+```
+
+### `message:cannot-give-advice`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / any
+- **Appears in:** Beside the answer, when the question asked for legal advice
+- **Source:** _none recorded_
+
+```
+We can't answer that. Questions like how strong your case is, what you should argue, or what the law means for your situation are legal advice, and CourtSimplified gives legal information only. A lawyer or paralegal can answer it properly, and these services can help you reach one.
+```
+
+### `message:chat-no-match`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / any
+- **Appears in:** Chat, when no published block answers the question
+- **Source:** _none recorded_
+
+```
+We don't have verified guidance that answers that yet. We only show steps we have checked against the actual rules, and this is not one of them. The court office where your case is filed can answer procedural questions, and the services below can help you work out where you stand.
+```
 

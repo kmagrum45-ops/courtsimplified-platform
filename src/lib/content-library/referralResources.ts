@@ -82,6 +82,24 @@ export const DEFLECTION_MESSAGE =
   "CourtSimplified gives legal information only. A lawyer or paralegal can answer " +
   "it properly, and these services can help you reach one.";
 
+/**
+ * Shown when the chat has no verified content that answers the question.
+ *
+ * *** WHY IT SAYS WHAT WE LACK AND NOT WHAT THE LAW LACKS ***
+ *
+ * Decision 1, applied to a new surface. The library covers 16 of 37 positions,
+ * so "we have not written this yet" is the commonest honest answer the chat can
+ * give — and the tempting alternatives are both worse. Offering the nearest
+ * block misleads twice, once about the answer and once about whether we had one.
+ * Saying the rules do not cover it is a claim about the law that nothing in the
+ * corpus can verify, and we have been wrong about exactly that twice before.
+ */
+export const CHAT_NO_MATCH_MESSAGE =
+  "We don't have verified guidance that answers that yet. We only show steps we " +
+  "have checked against the actual rules, and this is not one of them. The court " +
+  "office where your case is filed can answer procedural questions, and the " +
+  "services below can help you work out where you stand.";
+
 /** Shown when the matter is outside Ontario or outside the three court paths. */
 export const OUT_OF_SCOPE_MESSAGE =
   "CourtSimplified only covers Family, Small Claims and Civil matters in the " +

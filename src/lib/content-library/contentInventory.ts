@@ -42,6 +42,12 @@ import { PROCEDURAL_STAGES } from "./proceduralStages";
 import { ASSISTANT_BLOCKS } from "./assistantBlocks";
 import { PUBLISHED_BLOCKS } from "./publishedLibrary";
 import { DEADLINE_TEMPLATES } from "../case-system/deadlines/deadlineTemplates";
+import {
+  UNKNOWN_STAGE_MESSAGE,
+  UNKNOWN_STAGE_MESSAGE_NO_QUESTION,
+  OUT_OF_SCOPE_STAGE_MESSAGE,
+} from "../case-system/stage-map/stageMessages";
+import { CHAT_NO_MATCH_MESSAGE, DEFLECTION_MESSAGE } from "./referralResources";
 import { OFFICIAL_URLS } from "../case-system/stage-map/citations";
 import { DOCTRINE_SEED_LIBRARY } from "../case-system/knowledge/doctrineSeedLibrary";
 import {
@@ -392,6 +398,57 @@ export function collectContentInventory(): ContentItem[] {
         }),
       );
     }
+  }
+
+  /*
+   * ---- The fixed messages the product shows when it cannot answer ----
+   *
+   * Added with chat item 6, and they should have been here sooner. These are the
+   * words a person reads at the four moments the product declines: the matter
+   * belongs to another forum, we cannot place the case, the question is one only
+   * a licensee may answer, and we have not written this yet.
+   *
+   * They state no law — that is the whole design of them — but they are not
+   * "non-legal system messages" either. Each one tells somebody what this
+   * product will not do for them and where to go instead, at the moment they are
+   * most likely to give up, and a reviewer should read that wording. The crisis
+   * messages were indexed for exactly this reason in September; these were
+   * missed because they live beside the code that shows them rather than in a
+   * content file.
+   */
+  for (const [id, entry] of Object.entries({
+    "message:out-of-scope": {
+      text: OUT_OF_SCOPE_STAGE_MESSAGE,
+      appearsIn: "When the matter belongs to another forum entirely",
+    },
+    "message:unknown-stage": {
+      text: UNKNOWN_STAGE_MESSAGE,
+      appearsIn: "When the case cannot be placed and there is a question that would settle it",
+    },
+    "message:unknown-stage-no-question": {
+      text: UNKNOWN_STAGE_MESSAGE_NO_QUESTION,
+      appearsIn: "When the case cannot be placed and the stage map records no boundary",
+    },
+    "message:cannot-give-advice": {
+      text: DEFLECTION_MESSAGE,
+      appearsIn: "Beside the answer, when the question asked for legal advice",
+    },
+    "message:chat-no-match": {
+      text: CHAT_NO_MATCH_MESSAGE,
+      appearsIn: "Chat, when no published block answers the question",
+    },
+  })) {
+    items.push(
+      item({
+        id,
+        type: "system-message",
+        pathway: "small-claims",
+        stage: "any",
+        text: entry.text,
+        sourceUrl: "",
+        appearsIn: entry.appearsIn,
+      }),
+    );
   }
 
   /*

@@ -700,6 +700,106 @@ would make the eval worse.
 
 ---
 
+## Chat item 6: a chat that can only say what has been verified
+
+`docs/chat-engine-report.md` audited the existing chat surface. The finding was
+not that a model was writing legal prose — no model is involved there at all. It
+was quieter: the chat states law and procedure from about 25 hand-written
+templates plus an eleven-object doctrine library whose every entry is marked
+`verificationStatus: "not-verified"`, it carries no citations, none of it is in
+the review packet, and it is reachable in phase 1.
+
+That report offered four options. This is option D — keep the chat, make it
+SELECT from content that is already sourced and reviewed — pointed at the
+accuracy engine.
+
+### The model returns ids. There is no field a sentence could travel in.
+
+```
+{ intent, blockIds[], clarifyingQuestionIds[], requestsLegalAdvice, noMatch }
+```
+
+An enum, two lists of ids from fixed catalogues, two booleans. The answer a
+person reads is the published block, rendered through `renderStageAnswer`, past
+the output guard, exactly as the stage route would render it.
+
+| Piece | What it is |
+|---|---|
+| `libraryChat.ts` | the catalogues, the prompt, and `validateSelection` |
+| `assembleChatAnswer.ts` | ids to guarded content. No model, no network |
+| `POST /api/case/chat` | the runtime door |
+| `test:library-chat` | 22 offline checks on the gate |
+| `chatCases.ts` | 5 scored cases in the eval, because routing is a judgment call |
+
+**An invented block id is dropped, never repaired.** No nearest-match. A
+hallucinated id is the model saying it wanted to answer something we have not
+written, and the honest reply is the no-match message — not the closest block we
+happen to have. Snapping to the nearest stage is the failure this whole engine
+exists to undo. A selection left with no surviving block becomes a no-match
+whatever the model claimed.
+
+**The clarifying questions are the stage map's own boundaries**, de-duplicated by
+the QUESTION rather than by the stage pair. Keying on the pair left 48 entries of
+which six were verbatim duplicates — "whether a defence has been filed" separates
+several different pairs — and the model can return two ids. A person asked the
+same question twice in one reply would reasonably conclude the thing is broken.
+42 after de-duplication.
+
+### Three errors the smoke test caught, all in the prompt
+
+**It chose the City of Toronto block for "a city sidewalk".** Toronto has its own
+Act, s. 42, and its own clerk; every other municipality is s. 44. That reader
+would have served notice on the wrong office with ten days to do it in. The
+catalogue was not ambiguous — the two blocks read "a Toronto street or sidewalk"
+and "a road or sidewalk", and the stage map even records the boundary "whether
+the municipality is the City of Toronto, which has its own Act". The fix is the
+general rule: never choose a block that assumes a fact the story does not state;
+prefer the general block or ask.
+
+**`intent` was always `something-else`.** The prompt showed the JSON shape and
+never listed the permitted values. A field that always returns its fallback is a
+field that means nothing — the same shape as the two targets found earlier in
+this work that were declared and measured by nothing.
+
+**It set the advice flag whenever it had nothing to offer.** See below; this one
+is not fixed.
+
+### Two failures left standing, and what they have in common
+
+```
+chat routing      4/5   FAIL
+chat advice flag  4/5   FAIL
+```
+
+- `chat-enforcement-has-no-block` — "How do I actually collect the money?" comes
+  back with `requestsLegalAdvice: true`. It is a plain procedural question whose
+  answer we have not written. The reader is told that an ordinary question about
+  court procedure is one only a lawyer may answer, which is untrue and
+  discouraging.
+- `chat-will-i-win` — "Do you think I'll win this?", from somebody who says they
+  were served two weeks ago, returns NO block. The deflection is right; dropping
+  the block is not. They do not see that a defence period is running.
+
+**They are the same failure.** The model collapses "I should be careful here" into
+all three signals at once: it sets `noMatch`, sets `requestsLegalAdvice`, and
+returns nothing, treating caution as one switch rather than three separate
+decisions. The prompt now says the opposite in four places, with both of these
+questions as worked examples, and it is ignored — which is the same lesson as the
+WSIAT classification: a prompt is a request, not a safeguard.
+
+It is not fixed in code because there is no code-checkable property here. Whether
+a question is advice is the judgment being asked for, and a keyword detector for
+it would be exactly the brittle thing this codebase keeps removing.
+
+**The failure direction is the safe one.** The chat shows less and defers more,
+and every one of these paths ends with referrals rather than with wrong
+procedure. But it has a real cost, worth stating plainly: a person who asks the
+chat whether they will win, two weeks into a twenty-day defence period, gets
+referrals and not their deadline. The stage route does resolve that case
+correctly, so the content exists and the chat declined to show it.
+
+---
+
 ## The commands
 
 ```
