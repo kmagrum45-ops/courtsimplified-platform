@@ -47,6 +47,7 @@
 import { computeDeadline } from "../case-system/deadlines/deadlineEngine";
 import { formatLongDate } from "../case-system/deadlines/holidays";
 import { DEADLINE_TEMPLATES, type DeadlineTemplateId } from "../case-system/deadlines/deadlineTemplates";
+import { closureWarningFor } from "../case-system/deadlines/courtServiceNotices";
 import type { CaseDates } from "../case-system/deadlines/deadlineEvents";
 import type { StageDeadline } from "../case-system/stage-map/stageMap";
 import type { RuleCitation } from "../case-system/stage-map/citations";
@@ -71,6 +72,16 @@ export type ComputedDeadline = {
   uncertainty: string | null;
   /** Always present: the reminder that this was counted, not read off a file. */
   caution: string;
+  /**
+   * Set when a court office closure falls on this date, or within a few days
+   * after it. Says the deadline is UNCHANGED and the counter is shut.
+   *
+   * Separate from `uncertainty` on purpose. Uncertainty means the engine is not
+   * sure what the date is. This means the engine is sure, and the office is
+   * closed anyway — a practical fact from a ministry notice, not a doubt about
+   * the law. Merging them would make a certain date look uncertain.
+   */
+  closureWarning: string | null;
 };
 
 /**
@@ -163,6 +174,21 @@ export function computedDeadlinesFor(
     const caution = guardedFill("confirm-the-computed-date", {}, context);
     if (!caution) continue;
 
+    /*
+     * The closure warning is ADDITIVE and never blocks the entry.
+     *
+     * If the warning cannot be produced — no notice, or a notice without a
+     * stamping date — the date still goes out, because the date is right. That
+     * is the opposite of the uncertainty rule above, where a date without its
+     * explanation is withheld. The difference is that an unexplained uncertain
+     * date misleads, whereas a correct date without a closure note is merely
+     * less helpful than it could be.
+     */
+    const closure = closureWarningFor(result.deadline);
+    const closureWarning = closure
+      ? guardedFill(closure.templateId, closure.values, context)
+      : null;
+
     const working: ComputedDeadlineWorking[] = [];
     for (const step of result.steps) {
       const text = guardedFill(step.templateId, step.values, context);
@@ -200,6 +226,7 @@ export function computedDeadlinesFor(
       working,
       uncertainty,
       caution,
+      closureWarning,
     });
   }
 
@@ -224,6 +251,15 @@ export function computedDeadlineProse(computed: ComputedDeadline[], context = "c
   for (const entry of computed) {
     parts.push(entry.statement);
     if (entry.uncertainty) parts.push(entry.uncertainty);
+    /*
+     * Immediately after the date and any uncertainty, and BEFORE the working.
+     *
+     * Reading order is the whole value of this warning. A reader who stops after
+     * the date has to have already met "the office is shut that day"; put it
+     * below the step-by-step working and the people most likely to file on the
+     * deadline are the least likely to have read it.
+     */
+    if (entry.closureWarning) parts.push(entry.closureWarning);
     if (heading && entry.working.length > 0) {
       parts.push([heading, ...entry.working.map((line) => `- ${line.text}`)].join("\n"));
     }

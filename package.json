@@ -113,7 +113,10 @@
     "test:library-chat": "node --import tsx scripts/verification/verifyLibraryChat.ts",
     "test:presentation-help": "node --import tsx scripts/verification/verifyPresentationHelp.ts",
     "db:staging": "node --import tsx scripts/db/target.ts staging",
-    "db:prod": "node --import tsx scripts/db/target.ts production"
+    "db:prod": "node --import tsx scripts/db/target.ts production",
+    "rules:notices": "node --import tsx scripts/rules/extractServiceNotices.ts",
+    "test:service-notices": "node --import tsx scripts/verification/verifyServiceNotices.ts",
+    "rules:check:notices": "node --import tsx scripts/rules/checkCorpus.ts --only ontario-file-small-claims-online,ontario-file-civil-claim-online,scj-news"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",

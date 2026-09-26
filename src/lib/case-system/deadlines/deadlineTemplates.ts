@@ -52,7 +52,9 @@ export type DeadlineTemplateId =
   | "computed-date-forward"
   | "computed-date-backward"
   | "how-this-was-counted"
-  | "confirm-the-computed-date";
+  | "confirm-the-computed-date"
+  | "court-office-closed-on-this-date"
+  | "court-office-closes-soon-after-this-date";
 
 export type DeadlineTemplate = {
   id: DeadlineTemplateId;
@@ -227,6 +229,42 @@ export const DEADLINE_TEMPLATES: Record<DeadlineTemplateId, DeadlineTemplate> = 
       "This date was worked out by counting, not taken from your court file. If the date " +
       "you gave us is not exactly right, this one will not be either — and the court " +
       "office can confirm both.",
+    cites: null,
+  },
+
+  /*
+   * *** THE TWO CLOSURE SENTENCES, AND WHY THEY CITE NOTHING ***
+   *
+   * These describe a MINISTRY SERVICE NOTICE, not law. The date they warn about
+   * is not a holiday under r. 1.02 and the deadline does NOT move: the rule says
+   * what it says, and the engine is right about it. What these add is that the
+   * counter is shut, which no provision states and which only the ministry's own
+   * page says. Attaching a rule number to them would put a citation beside a
+   * sentence the rule does not support — the error the citation discipline
+   * exists to prevent — so `cites` is null and the sentence names its source
+   * in the text instead.
+   *
+   * The {source} slot holds a URL that comes from the vendored corpus manifest,
+   * never from a model and never typed. It carries no legal meaning, which is
+   * what the slot rule forbids.
+   */
+  "court-office-closed-on-this-date": {
+    id: "court-office-closed-on-this-date",
+    text:
+      "Court offices are closed on {closedOn} for {occasion}. This date is still the " +
+      "deadline — a closure does not move it. But anything filed online or by email that " +
+      "day is marked as filed on the next business day, {stampedAs}, so filing on the " +
+      "deadline itself would be recorded as late. Filing before {closedOn} avoids this. " +
+      "If that is not possible, ask the court office what to do. Source: {source}",
+    cites: null,
+  },
+  "court-office-closes-soon-after-this-date": {
+    id: "court-office-closes-soon-after-this-date",
+    text:
+      "Court offices are closed on {closedOn} for {occasion}, which is within a few days " +
+      "of this date. Anything filed online or by email on {closedOn} is marked as filed " +
+      "on the next business day, {stampedAs}. If you are filing close to the deadline, " +
+      "that closure day will not count as the day you filed. Source: {source}",
     cites: null,
   },
 };

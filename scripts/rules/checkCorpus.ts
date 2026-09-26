@@ -261,10 +261,48 @@ async function main(): Promise<void> {
   const changed: Record<string, string[]> = { legislation: [], practical: [] };
 
   console.log("");
-  console.log(`Vendored ${manifest.generatedAt.slice(0, 10)}. Re-fetching ${CORPUS_SOURCES.length} source(s).`);
+  /*
+   * `--only <id,id>` narrows the run to named sources.
+   *
+   * *** WHY: COURT CLOSURES GO STALE ON A DIFFERENT CLOCK TO STATUTES ***
+   *
+   * A statute changes rarely and a monthly check is generous. A court-service
+   * notice is published for one occasion and is wrong the week after, so those
+   * sources are checked WEEKLY by .github/workflows/courtsimplified-service-notices.yml.
+   * Re-fetching all 51 sources weekly to watch 3 of them would be 48 needless
+   * requests to e-Laws and a slower signal on the ones that matter.
+   *
+   * An unknown id is a hard failure rather than an empty run: a weekly job that
+   * silently checks nothing is worse than no weekly job, because it reports
+   * success.
+   */
+  const onlyIndex = process.argv.indexOf("--only");
+  const only =
+    onlyIndex >= 0 && process.argv[onlyIndex + 1]
+      ? process.argv[onlyIndex + 1].split(",").map((id) => id.trim()).filter(Boolean)
+      : null;
+
+  if (only) {
+    const unknown = only.filter((id) => !CORPUS_SOURCES.some((source) => source.id === id));
+    if (unknown.length > 0) {
+      console.log(`--only names ${unknown.length} source(s) that do not exist: ${unknown.join(", ")}`);
+      console.log("Refusing to run: a filtered check that matches nothing would report success.");
+      process.exitCode = 1;
+      return;
+    }
+  }
+
+  const sources = only
+    ? CORPUS_SOURCES.filter((source) => only.includes(source.id))
+    : CORPUS_SOURCES;
+
+  console.log(
+    `Vendored ${manifest.generatedAt.slice(0, 10)}. Re-fetching ${sources.length} source(s)` +
+      `${only ? ` (--only ${only.join(", ")})` : ""}.`,
+  );
   console.log("");
 
-  for (const source of CORPUS_SOURCES) {
+  for (const source of sources) {
     const entry = manifest.entries.find((candidate) => candidate.id === source.id);
     process.stdout.write(`${source.id.padEnd(38)} `);
 

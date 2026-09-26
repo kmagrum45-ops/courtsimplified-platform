@@ -1,0 +1,62 @@
+name: CourtSimplified Court Service Notices (weekly)
+
+# Court closures go stale on a different clock to statutes.
+#
+# `rules:check` over the whole corpus is a MONTHLY job: a statute changes rarely,
+# and 51 re-fetches is a lot of traffic to learn nothing.
+#
+# The court-service notice sources are different in kind. They carry ministry
+# announcements published for a single occasion — "provincial court offices will
+# be closed on Wednesday 30 September 2026" — which appear with little notice and
+# are wrong the week after. A monthly check can miss a closure entirely, and the
+# thing it would have caught is a user filing on a day the counter is shut.
+#
+# So these three are checked WEEKLY, and only these three.
+#
+# WHAT THIS JOB DOES AND DOES NOT DO
+#
+# It REPORTS drift. It does not re-vendor, because `rules:fetch` overwrites the
+# vendored copy and would destroy the evidence of what changed — see
+# docs/SOURCING_NOTES.md, "run rules:check BEFORE rules:fetch". A human re-vendors
+# and re-runs `npm run rules:notices`, which regenerates the dated closure data
+# from the new text.
+#
+# It makes no model calls and touches no database.
+
+on:
+  schedule:
+    # 06:00 UTC Mondays (about 02:00 America/Toronto). Early in the week, so a
+    # closure announced for that same week is seen before it arrives.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  service-notices:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
+      NEXT_TELEMETRY_DISABLED: 1
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # The committed closure data must still match the committed sources. This
+      # runs first and offline: if it fails, the repository is already
+      # inconsistent with itself and the network result would be noise.
+      - name: Closure data still traces to the corpus
+        run: npm run test:service-notices
+
+      # Goes out to ontario.ca and ontariocourts.ca. Reports; changes nothing.
+      - name: Have the service notices changed?
+        run: >
+          npx tsx scripts/rules/checkCorpus.ts --only
+          ontario-file-small-claims-online,ontario-file-civil-claim-online,scj-news

@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-58 documented, 30 without a header.
+59 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -61,6 +61,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:rules-corpus` | **The vendored corpus is complete, current, and actually on disk.**<br>COSTS NOTHING. Reads the vendored files. No network — `rules:check` is the one that goes out, and it is a monthly job rather than a test. |
 | `npm run test:safety-coverage` | **Every court path that accepts a free-text narrative runs the safety pass**<br>before extraction. |
 | `npm run test:safety-regression` | **Permanent regression suite for safetyPass.ts -- all 11 cases from**<br>Sessions 4 and 5, wired into CI (npm run test:safety-regression), same pattern as test:intake-coverage. |
+| `npm run test:service-notices` | **Court-closure notices are real, traceable to the corpus, and warn at the right**<br>times. |
 | `npm run test:stage-answers` | **Can the pipeline's output be trusted?**<br>The run log says every sentence was verified and every quote was found. This suite does not take its word for it. It re-reads each quote out of the vendored corpus, now, on this machine — because the run log is a record of what happened on one afternoon agains |
 | `npm run test:stage-map` | **Does the stage map hold up?**<br>A stage map is a list of assertions about Ontario procedure, written by someone who could be wrong or could be working from memory. Three failures matter, and each has its own check group: |
 | `npm run test:stage-resolution` | **The runtime says "we don't know" when it doesn't, and shows only published text.**<br>Part 0 traced ten realistic stories through the old runtime. Eight got the same answer. The proximate cause was `text.includes("defendant")`; the more dangerous half was `\|\| "starting-case"` — a default, which is a confident answer given without evidence, an |
