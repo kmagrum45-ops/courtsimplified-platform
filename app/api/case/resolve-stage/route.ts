@@ -40,7 +40,7 @@ import {
   OUT_OF_SCOPE_STAGE_MESSAGE,
   STAGE_REFERRALS,
 } from "../../../../src/lib/case-system/stage-map/stageMessages";
-import { renderStageAnswer } from "../../../../src/lib/content-library/stageAnswerView";
+import { renderStageAnswerOrRefuse } from "../../../../src/lib/content-library/stageAnswerView";
 import { DEFLECTION_MESSAGE } from "../../../../src/lib/content-library/referralResources";
 import {
   caseDatesFrom,
@@ -64,6 +64,15 @@ type Body = {
    * component.
    */
   dateAnswers?: unknown;
+  /**
+   * Facts the reader has confirmed, keyed by the stage map's `requiresConfirmedFact.key`.
+   *
+   * The municipality is the one that exists today. It is here rather than
+   * inferred from the narrative because s. 42 (6) names the Toronto city clerk and
+   * s. 44 (10) names every other municipality's — and a reader who serves the
+   * wrong clerk has done nothing, with ten days to do it in.
+   */
+  confirmedFacts?: unknown;
 };
 
 function text(value: unknown): string {
@@ -71,7 +80,11 @@ function text(value: unknown): string {
 }
 
 /** Everything the user sees, assembled from content that was checked first. */
-function present(position: CasePosition, dates: CaseDates) {
+function present(
+  position: CasePosition,
+  dates: CaseDates,
+  facts: Record<string, string>,
+) {
   if (position.kind === "out-of-scope") {
     return {
       outcome: "out-of-scope" as const,
@@ -162,7 +175,46 @@ function present(position: CasePosition, dates: CaseDates) {
    * an answer. Showing the stage name alone would imply guidance we do not
    * have.
    */
-  const answer = renderStageAnswer(resolution.stageId, {}, dates);
+  /*
+   * *** THE SCOPE VERDICT GOES TO THE RENDER DOOR, NOT JUST TO THIS FUNCTION ***
+   *
+   * A stage marked `requiresAffirmativeScope` will not produce content unless the
+   * classifier SAID "small-claims". Reaching this branch means the position is
+   * "in scope" in the loose sense — which a criminal complaint mislabelled
+   * "civil" also satisfies.
+   */
+  const scope = position.kind === "in-scope" ? position.scope : null;
+  const outcome = renderStageAnswerOrRefuse(resolution.stageId, facts, dates, scope);
+
+  /*
+   * A fact we are not entitled to assume. The reader gets the question and, where
+   * the stage map records one, the block that is true whichever way they answer —
+   * so a ten-day notice period is not spent waiting for us to ask.
+   */
+  if (outcome.kind === "refused" && outcome.refusal.reason === "fact-not-confirmed") {
+    const alternative = outcome.refusal.generalAlternative;
+    const general = alternative
+      ? renderStageAnswerOrRefuse(alternative, facts, dates, scope)
+      : null;
+
+    return {
+      outcome: "needs-a-fact" as const,
+      clarifyingQuestion: outcome.refusal.question,
+      /** The general block, where there is one. Never the specific one. */
+      answer: general?.kind === "rendered" ? general.answer : null,
+      suggested: {
+        stageId: alternative ?? resolution.stageId,
+        confidence: resolution.confidence,
+        because: resolution.because,
+        alternative: null,
+      },
+      referrals: STAGE_REFERRALS,
+      caveat,
+      advice,
+    };
+  }
+
+  const answer = outcome.kind === "rendered" ? outcome.answer : null;
   if (!answer) {
     return {
       outcome: "unknown" as const,
@@ -225,6 +277,23 @@ export async function POST(request: Request) {
   }
   const dates = caseDatesFrom(dateAnswers);
 
+  /*
+   * Facts the reader has CONFIRMED, for the high-stakes ambiguity rule.
+   *
+   * Only these reach the render door. A stage marked `requiresConfirmedFact` will
+   * not produce content unless its key is here, and the model has no way to put
+   * anything here — the whole point is that "which municipality" comes from the
+   * person and not from an inference about a story that never named one.
+   */
+  const facts: Record<string, string> = {};
+  if (body.confirmedFacts && typeof body.confirmedFacts === "object") {
+    for (const [key, value] of Object.entries(body.confirmedFacts as Record<string, unknown>)) {
+      if (typeof value === "string" && value.trim() && value.length <= 200) {
+        facts[key] = value.trim();
+      }
+    }
+  }
+
   const position = await withAiCallContext({ callType: "stage-resolver", caseId }, async () => {
     const resolved = await resolveCasePosition(caseContext, { knownCourtPath: courtPath });
 
@@ -239,5 +308,5 @@ export async function POST(request: Request) {
     return resolved;
   });
 
-  return NextResponse.json(present(position, dates));
+  return NextResponse.json(present(position, dates, facts));
 }

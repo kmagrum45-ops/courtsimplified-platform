@@ -31,6 +31,7 @@ import { publishedBlockFor, PUBLISHED_RELEASE } from "./publishedLibrary";
 import { fillSlots, slotsUsed, type StageAnswer } from "./stageAnswers";
 import { OFFICIAL_URLS, SOURCE_NAMES } from "../case-system/stage-map/citations";
 import { findStage } from "../case-system/stage-map/stageMap";
+import { SCOPE_CONFIDENCE_FLOOR } from "../case-system/stage-map/resolveCasePosition";
 import type { CaseDates } from "../case-system/deadlines/deadlineEvents";
 import { computedDeadlinesFor, computedDeadlineProse, type ComputedDeadline } from "./computedDeadline";
 
@@ -86,10 +87,127 @@ const HEADINGS: Array<[keyof StageAnswer, string]> = [
  * a model. A guard that checked a filled sentence would be approving one
  * user's sentence and no other.
  */
+/**
+ * What the scope classifier concluded, for the stages that require it.
+ *
+ * `null` means no scope call was made — which is itself a refusal for any stage
+ * carrying `requiresAffirmativeScope`. A caller that cannot say whether the
+ * matter is in scope has not established that it is.
+ */
+export type ScopeVerdict = {
+  primaryPath: string;
+  confidence: number;
+} | null;
+
+/**
+ * Why a block was refused, when it was.
+ *
+ * Returned rather than logged-and-dropped, because two of these refusals have
+ * something the reader should be given INSTEAD — a question, and a more general
+ * block — and a render door that only says "no" cannot offer either.
+ */
+export type RenderRefusal =
+  | { reason: "not-published" }
+  | { reason: "unservable-status"; status: string }
+  | { reason: "scope-not-established"; scope: ScopeVerdict }
+  | {
+      reason: "fact-not-confirmed";
+      /** Asked verbatim. From the stage map, never model-written. */
+      question: string;
+      /** The block to show meanwhile, where the stage records one. */
+      generalAlternative: string | null;
+    };
+
+export type RenderOutcome =
+  | { kind: "rendered"; answer: RenderedStageAnswer }
+  | { kind: "refused"; refusal: RenderRefusal };
+
+/**
+ * The refusing version of `renderStageAnswer`, for callers that can act on WHY.
+ *
+ * *** THE TWO GATES THAT LIVE HERE AND NOT IN THE CALLER ***
+ *
+ * Both were put at the render door on purpose: this is the only way a stage
+ * answer reaches a user, so a gate here holds for every caller — the route, the
+ * chat, the eval, and whatever is added next. A gate in the route would have to
+ * be remembered in the chat.
+ *
+ * 1. THE FORUM GATE. A stage marked `requiresAffirmativeScope` renders only where
+ *    the classifier affirmatively said "small-claims". Not "did not say
+ *    out-of-scope" — said it. See the field's comment in stageMap.ts for why this
+ *    is per-stage: the criminal-complaint story came back as "civil", which is
+ *    affirmative, while the municipal-notice story came back "unknown" and must
+ *    still reach its block.
+ *
+ * 2. THE HIGH-STAKES AMBIGUITY RULE. A stage marked `requiresConfirmedFact`
+ *    renders only where that fact came FROM THE USER. The model may not supply
+ *    it. Asked about "a city sidewalk" the chat returned the City of Toronto
+ *    block, and s. 42 (6) names the Toronto city clerk while every other
+ *    municipality is s. 44 (10) and a different clerk.
+ */
+export function renderStageAnswerOrRefuse(
+  stageId: string,
+  facts: Record<string, string> = {},
+  dates: CaseDates = {},
+  scope: ScopeVerdict = null,
+): RenderOutcome {
+  const stage = findStage(stageId);
+
+  if (stage?.requiresAffirmativeScope) {
+    const established =
+      scope !== null &&
+      scope.primaryPath === "small-claims" &&
+      scope.confidence >= SCOPE_CONFIDENCE_FLOOR;
+
+    if (!established) {
+      console.error(
+        `[stageAnswerView] refused ${stageId}: scope not established ` +
+          `(${scope ? `${scope.primaryPath} @ ${scope.confidence}` : "no scope call"})`,
+      );
+      return { kind: "refused", refusal: { reason: "scope-not-established", scope } };
+    }
+  }
+
+  const required = stage?.requiresConfirmedFact;
+  if (required && !facts[required.key]) {
+    console.error(`[stageAnswerView] refused ${stageId}: "${required.key}" not confirmed`);
+    return {
+      kind: "refused",
+      refusal: {
+        reason: "fact-not-confirmed",
+        question: required.question,
+        generalAlternative: required.generalAlternative ?? null,
+      },
+    };
+  }
+
+  const answer = renderPublishedBlock(stageId, facts, dates);
+  return answer
+    ? { kind: "rendered", answer }
+    : { kind: "refused", refusal: { reason: "not-published" } };
+}
+
+/**
+ * Renders the published answer for a stage, or null if there is not one.
+ *
+ * The convenience wrapper over `renderStageAnswerOrRefuse`. Passes the scope
+ * verdict through, so the forum gate applies to this door too — a caller cannot
+ * evade it by choosing the simpler function.
+ */
 export function renderStageAnswer(
   stageId: string,
   facts: Record<string, string> = {},
   dates: CaseDates = {},
+  scope: ScopeVerdict = null,
+): RenderedStageAnswer | null {
+  const outcome = renderStageAnswerOrRefuse(stageId, facts, dates, scope);
+  return outcome.kind === "rendered" ? outcome.answer : null;
+}
+
+function renderPublishedBlock(
+  stageId: string,
+  facts: Record<string, string>,
+  dates: CaseDates,
 ): RenderedStageAnswer | null {
   const block = publishedBlockFor(stageId);
   if (!block) return null;

@@ -28,6 +28,7 @@ import { withAiCallContext, recordAiValidation, recordRequestsLegalAdvice } from
 import { selectFromLibrary } from "../../../../src/lib/case-system/chat/libraryChat";
 import { assembleChatAnswer } from "../../../../src/lib/case-system/chat/assembleChatAnswer";
 import { caseDatesFrom } from "../../../../src/lib/case-system/deadlines/deadlineEvents";
+import { resolveCasePosition } from "../../../../src/lib/case-system/stage-map/resolveCasePosition";
 
 const MAX_MESSAGE_BYTES = 4_000;
 const MAX_CONTEXT_BYTES = 20_000;
@@ -36,7 +37,10 @@ type Body = {
   message?: unknown;
   caseContext?: unknown;
   caseId?: unknown;
+  courtPath?: unknown;
   dateAnswers?: unknown;
+  /** Facts the reader confirmed. See the stage map's requiresConfirmedFact. */
+  confirmedFacts?: unknown;
 };
 
 function text(value: unknown): string {
@@ -65,6 +69,16 @@ export async function POST(request: Request) {
   }
 
   const caseId = text(body.caseId) || null;
+  const courtPath = text(body.courtPath) || null;
+
+  const facts: Record<string, string> = {};
+  if (body.confirmedFacts && typeof body.confirmedFacts === "object") {
+    for (const [key, value] of Object.entries(body.confirmedFacts as Record<string, unknown>)) {
+      if (typeof value === "string" && value.trim() && value.length <= 200) {
+        facts[key] = value.trim();
+      }
+    }
+  }
 
   // Same treatment as resolve-stage: whatever they typed, parsed here, and an
   // ambiguous date is dropped rather than guessed.
@@ -94,5 +108,32 @@ export async function POST(request: Request) {
     return chosen;
   });
 
-  return NextResponse.json(assembleChatAnswer(selection, caseDatesFrom(dateAnswers)));
+  /*
+   * *** THE READER'S OWN STAGE, RESOLVED SEPARATELY ***
+   *
+   * A second model call per message where a case context is given, and it is
+   * bought deliberately. The chat router collapses "be careful here" into
+   * suppressing everything — measured, twice — so the stage that decides whether
+   * a person is told their defence period is running does not come from it.
+   *
+   * No context means no stage call. Somebody asking a general question has no
+   * position to resolve, and inventing one from a single sentence is the failure
+   * this engine was built to undo.
+   */
+  const currentStage = caseContext
+    ? await withAiCallContext({ callType: "stage-resolver", caseId }, async () => {
+        const position = await resolveCasePosition(caseContext, { knownCourtPath: courtPath });
+        if (position.kind === "out-of-scope") return null;
+        const stage = position.stage;
+        if (stage.kind !== "suggested") return null;
+        return {
+          stageId: stage.stageId,
+          scope: position.kind === "in-scope" ? position.scope : null,
+        };
+      })
+    : null;
+
+  return NextResponse.json(
+    assembleChatAnswer(selection, caseDatesFrom(dateAnswers), currentStage, facts),
+  );
 }

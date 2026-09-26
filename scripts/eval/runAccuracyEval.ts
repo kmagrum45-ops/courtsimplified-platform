@@ -60,6 +60,7 @@ import {
   type CasePosition,
 } from "../../src/lib/case-system/stage-map/resolveCasePosition";
 import { renderStageAnswer } from "../../src/lib/content-library/stageAnswerView";
+import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
 import { costOf, type Usage } from "../content/verifiedContentPipeline";
 import { DEADLINE_CASES, runDeadlineCases } from "./deadlineCases";
 import { runChatCases } from "./chatCases";
@@ -146,7 +147,13 @@ async function classify(story: Story): Promise<CasePosition> {
     });
   } catch (error) {
     console.error(`  ${story.id}: ${error instanceof Error ? error.message : String(error)}`);
-    return { kind: "in-scope", stage: resolveFromModelOutput(null) };
+    // A thrown classification establishes nothing, so the verdict must fail the
+    // forum gate rather than default to something that passes it.
+    return {
+      kind: "in-scope",
+      stage: resolveFromModelOutput(null),
+      scope: { primaryPath: "unknown", confidence: 0 },
+    };
   }
 }
 
@@ -197,8 +204,22 @@ async function main(): Promise<void> {
      * turns that into UNKNOWN. Measuring the suggestion alone would overstate
      * the harm.
      */
+    /*
+     * *** RENDERED THE WAY THE ROUTE RENDERS, SCOPE VERDICT AND ALL ***
+     *
+     * This used to call the door with no scope, which stopped reflecting the
+     * product the moment the forum gate landed: a stage marked
+     * `requiresAffirmativeScope` would have been refused here for the wrong
+     * reason, and shown in production for the right one — or the reverse.
+     *
+     * An eval that renders differently from the route is measuring an
+     * arrangement of parts nobody uses, which is the same finding that moved the
+     * out-of-scope stories onto `resolveCasePosition` in the first place.
+     */
+    const scope = position.kind === "in-scope" ? position.scope : null;
     const shownStageId =
-      resolution?.kind === "suggested" && renderStageAnswer(resolution.stageId)
+      resolution?.kind === "suggested" &&
+      renderStageAnswer(resolution.stageId, {}, {}, scope)
         ? resolution.stageId
         : null;
 
@@ -331,10 +352,39 @@ function report(
    * from a genuine UNKNOWN. One is the pipeline declining; the other is the
    * pipeline being wrong and the content gap covering for it.
    */
-  const outOfScopeLatent = outOfScope.filter(
-    (result) =>
-      result.shownStageId === null && stageOf(result.position)?.kind === "suggested",
-  );
+  /*
+   * *** WHAT "LATENT" MEANS NOW THAT THE FORUM GATE EXISTS ***
+   *
+   * It used to mean: a stage was suggested confidently and nothing was shown
+   * ONLY because that block is unpublished. That was luck, and it was reported
+   * as such — the day somebody published the block it became real harm.
+   *
+   * The forum gate removed the luck for the stages that carry it: a matter the
+   * classifier did not affirmatively place in Small Claims cannot render those
+   * blocks whether or not they are published. So a story is only latent now if
+   * the suggested stage is one the gate does NOT cover — where publishing content
+   * would still turn a wrong suggestion into wrong content.
+   *
+   * The distinction matters for the report. "Nothing is shown because we have not
+   * written it" and "nothing is shown because the gate refused it" look identical
+   * to a reader and are opposite facts about the product.
+   */
+  const outOfScopeLatent = outOfScope.filter((result) => {
+    if (result.shownStageId !== null) return false;
+    const stage = stageOf(result.position);
+    if (stage?.kind !== "suggested") return false;
+    return findStage(stage.stageId)?.requiresAffirmativeScope !== true;
+  });
+
+  /** Confidently suggested, and stopped by the gate rather than by a content gap. */
+  const outOfScopeGated = outOfScope.filter((result) => {
+    const stage = stageOf(result.position);
+    return (
+      result.shownStageId === null &&
+      stage?.kind === "suggested" &&
+      findStage(stage.stageId)?.requiresAffirmativeScope === true
+    );
+  });
   const outOfScopeUnplaced = outOfScope.filter(
     (result) =>
       result.shownStageId === null &&
@@ -419,6 +469,10 @@ function report(
         `${outOfScopeLatent.length === 0 ? "PASS" : "FAIL"}   ` +
         `a Small Claims stage suggested CONFIDENTLY; nothing shown only because that ` +
         `block is unpublished`,
+    );
+    console.log(
+      `  gate refused      ${outOfScopeGated.length}                        ` +
+        `    a wrong stage STOPPED BY THE FORUM GATE rather than by a content gap`,
     );
     console.log(
       `  out-of-scope unsure ${outOfScopeUnplaced.length}                        ` +

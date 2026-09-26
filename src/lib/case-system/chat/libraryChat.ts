@@ -237,6 +237,55 @@ function catalogueForPrompt(): string {
   return `AVAILABLE ANSWERS:\n\n${blocks}\n\nCLARIFYING QUESTIONS:\n\n${questions}`;
 }
 
+/*
+ * *** PROCEDURAL QUESTIONS ARE NEVER LEGAL ADVICE, AND THIS IS DECIDED IN CODE ***
+ *
+ * The model sets `requestsLegalAdvice` whenever it has nothing to offer. It was
+ * told not to, in four places, with "How do I collect on my judgment?" given as a
+ * worked counter-example, and it did it anyway — which is the same lesson as the
+ * WSIAT classification: a prompt is a request, not a safeguard.
+ *
+ * The cost is not abstract. A person asking how to serve a document is told that
+ * their ordinary question about court procedure is one only a lawyer may answer.
+ * That is untrue, it is discouraging, and it is the opposite of what a
+ * self-represented person needs to hear from a product built for them.
+ *
+ * So a fixed list of procedural askings overrides the flag BEFORE it is read.
+ *
+ * *** WHY THIS LIST IS SAFE WHERE A LIST OF ADVICE PHRASES WOULD NOT BE ***
+ *
+ * It only ever makes the product MORE willing to answer a question of the form
+ * "how do I do this procedural step". It cannot cause an advice question to be
+ * answered as though it were procedural, because being on this list does not
+ * produce content — the blocks are still selected by id from the published set,
+ * still rendered through the guard, and still contain no prediction, which
+ * `predictsOutcome` guarantees before publication.
+ *
+ * The verbs are paired with a procedural object on purpose. "How do I file" and
+ * "what form do I need" are procedure. "How do I win" and "what should I say"
+ * share the interrogative and are not on the list.
+ */
+const PROCEDURAL_ASKINGS: RegExp[] = [
+  /\bhow (do|can|would) i\b[^?.]{0,40}\b(file|filing|serve|serving|collect|enforce|respond|reply|defend|appeal|start|begin|issue|withdraw|discontinue|amend)\b/i,
+  /\bwhat form\b/i,
+  /\bwhich form\b/i,
+  /\bwhat (do|does) i\b[^?.]{0,20}\b(file|serve|bring|fill)\b/i,
+  /\bwhere (do|can) i\b[^?.]{0,30}\b(file|serve|pay|go)\b/i,
+  /\bwhat (is|are) the (steps?|process|procedure)\b/i,
+  /\bhow (much|long)\b[^?.]{0,30}\b(cost|fee|days?|time)\b/i,
+  /\bhow do i (get|obtain)\b[^?.]{0,30}\b(judgment|a hearing|a date|a copy)\b/i,
+];
+
+/**
+ * Is this a procedural asking, on its face?
+ *
+ * Exported so the check can drive it directly, and so the list is visible to
+ * anyone reviewing what the product refuses to treat as advice.
+ */
+export function isProceduralAsking(message: string): boolean {
+  return PROCEDURAL_ASKINGS.some((pattern) => pattern.test(message));
+}
+
 /**
  * Keeps only what the catalogues actually contain.
  *
@@ -248,7 +297,10 @@ function catalogueForPrompt(): string {
  * through the whole pipeline to reach a validator ends up testing whichever path
  * the model happened to take that day.
  */
-export function validateSelection(raw: Partial<ChatSelection> | null): ChatSelection {
+export function validateSelection(
+  raw: Partial<ChatSelection> | null,
+  message = "",
+): ChatSelection {
   if (!raw) {
     return {
       intent: "something-else",
@@ -290,7 +342,12 @@ export function validateSelection(raw: Partial<ChatSelection> | null): ChatSelec
     intent,
     blockIds,
     clarifyingQuestionIds,
-    requestsLegalAdvice: raw.requestsLegalAdvice === true,
+    /*
+     * The override, applied BEFORE the model's flag is read rather than after:
+     * a procedural asking is not legal advice however little content we have for
+     * it. See PROCEDURAL_ASKINGS.
+     */
+    requestsLegalAdvice: raw.requestsLegalAdvice === true && !isProceduralAsking(message),
     noMatch,
   };
 }
@@ -345,7 +402,7 @@ export async function selectFromLibrary(
         });
       }
 
-      return validateSelection(parsed);
+      return validateSelection(parsed, message);
     } catch {
       return validateSelection(null);
     }

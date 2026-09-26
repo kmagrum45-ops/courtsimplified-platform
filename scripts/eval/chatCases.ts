@@ -24,6 +24,7 @@
 
 import { selectFromLibrary } from "../../src/lib/case-system/chat/libraryChat";
 import { assembleChatAnswer } from "../../src/lib/case-system/chat/assembleChatAnswer";
+import { resolveCasePosition } from "../../src/lib/case-system/stage-map/resolveCasePosition";
 
 export type ChatCase = {
   id: string;
@@ -103,7 +104,26 @@ export async function runChatCases(): Promise<{
 
   for (const testCase of CHAT_CASES) {
     const selection = await selectFromLibrary(testCase.question, testCase.caseContext ?? "");
-    const answer = assembleChatAnswer(selection);
+
+    /*
+     * The composition rule, measured as the route runs it: where there is a case
+     * context, the reader s own stage comes from the STAGE RESOLVER and is shown
+     * first, whatever the chat router decided. See assembleChatAnswer.
+     */
+    let currentStage = null as { stageId: string; scope: { primaryPath: string; confidence: number } | null } | null;
+    if (testCase.caseContext) {
+      const position = await resolveCasePosition(testCase.caseContext, {
+        knownCourtPath: "small-claims",
+      });
+      if (position.kind !== "out-of-scope" && position.stage.kind === "suggested") {
+        currentStage = {
+          stageId: position.stage.stageId,
+          scope: position.kind === "in-scope" ? position.scope : null,
+        };
+      }
+    }
+
+    const answer = assembleChatAnswer(selection, {}, currentStage);
 
     const wanted = testCase.expectBlock;
     const wantedNothing = wanted === null;
@@ -113,9 +133,13 @@ export async function runChatCases(): Promise<{
      * block, that block must be among those returned — not necessarily first,
      * because a second block is allowed and sometimes right.
      */
-    const blockOk = wantedNothing
-      ? selection.blockIds.length === 0
-      : selection.blockIds.includes(wanted);
+    /*
+     * Measured on what the READER SEES, not on what the router picked. The
+     * composition rule means a block can reach them from the stage resolver even
+     * when the router returned none — which is the whole point of it.
+     */
+    const seen = answer.answers.map((a) => a.stageId);
+    const blockOk = wantedNothing ? seen.length === 0 : seen.includes(wanted);
 
     if (blockOk) blockCorrect += 1;
     else {

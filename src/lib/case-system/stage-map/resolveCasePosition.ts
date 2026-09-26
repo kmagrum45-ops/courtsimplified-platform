@@ -91,7 +91,21 @@ export type CasePosition =
        */
       stage: StageResolution;
     }
-  | { kind: "in-scope"; stage: StageResolution };
+  | {
+      kind: "in-scope";
+      stage: StageResolution;
+      /**
+       * What the scope classifier affirmatively concluded.
+       *
+       * Carried because the render door needs it: a stage marked
+       * `requiresAffirmativeScope` will not produce content unless the classifier
+       * SAID "small-claims", and "in-scope" on its own does not distinguish
+       * "small-claims at 0.9" from "unknown" or from "civil" — which is exactly
+       * the difference between an ordinary debt claim, a municipal notice claim,
+       * and a criminal complaint the classifier mislabelled.
+       */
+      scope: { primaryPath: string; confidence: number };
+    };
 
 export type PositionOptions = {
   model?: string;
@@ -129,7 +143,20 @@ export type PositionOptions = {
 function withoutEmptyCaveat(position: CasePosition): CasePosition {
   if (position.kind !== "boundary-unclear") return position;
   if (position.stage.kind === "suggested") return position;
-  return { kind: "in-scope", stage: position.stage };
+  /*
+   * The caveat is dropped and the SCOPE VERDICT IS NOT LAUNDERED.
+   *
+   * A boundary-unclear position is one where the classifier named another forum
+   * below the confidence floor. Collapsing the caveat because the stage is also
+   * unknown must not turn that into an affirmative small-claims answer, so the
+   * verdict is carried as what it was. A stage requiring affirmative scope stays
+   * refused, which is correct: we do not know which forum this belongs to.
+   */
+  return {
+    kind: "in-scope",
+    stage: position.stage,
+    scope: { primaryPath: "out-of-scope", confidence: position.confidence },
+  };
 }
 
 /**
@@ -158,7 +185,16 @@ async function resolveCasePositionInner(
    * decision already made on better information.
    */
   if (options.knownCourtPath === "small-claims") {
-    return { kind: "in-scope", stage: await resolveStageWithModel(story, options.model) };
+    /*
+     * A stored court_path counts as affirmative, and is stronger evidence than a
+     * classifier call: it was decided at intake from the whole narrative rather
+     * than from a fragment about service.
+     */
+    return {
+      kind: "in-scope",
+      stage: await resolveStageWithModel(story, options.model),
+      scope: { primaryPath: "small-claims", confidence: 1 },
+    };
   }
 
   const scope = await classifyCourtPath({
@@ -227,7 +263,11 @@ async function resolveCasePositionInner(
     };
   }
 
-  return { kind: "in-scope", stage: await resolveStageWithModel(story, options.model) };
+  return {
+    kind: "in-scope",
+    stage: await resolveStageWithModel(story, options.model),
+    scope: { primaryPath: scope.primaryPath, confidence: scope.confidence },
+  };
 }
 
 /**

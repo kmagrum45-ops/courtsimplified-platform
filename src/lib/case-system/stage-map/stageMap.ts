@@ -167,6 +167,59 @@ export type CaseStage = {
   distinguishedFrom: Array<{ stage: string; by: string }>;
   rules: RuleCitation[];
   deadlines: StageDeadline[];
+  /**
+   * This stage renders ONLY where the scope classifier affirmatively said
+   * "small-claims". Not "did not say out-of-scope" — said it.
+   *
+   * *** THE FAILURE THIS CLOSES, AND WHY A GLOBAL GATE COULD NOT ***
+   *
+   * "My neighbour smashed my car windows on purpose. I want him charged." came
+   * back from `classifyCourtPath` as **civil at 0.8** — affirmatively in scope —
+   * and then from the stage resolver as `before-filing:deciding-whether-to-sue`
+   * at 0.90. Two independent components, both wrong, agreeing. Nothing was shown
+   * only because that block is unpublished, which is luck and not a control.
+   *
+   * A global "must be affirmatively in scope" gate does not help: civil IS
+   * affirmative. A global "must be small-claims" gate breaks the opposite and
+   * worse case — the icy-sidewalk story classifies as **unknown**, and that is a
+   * municipal notice claim with a TEN-DAY bar which must still reach its block.
+   *
+   * So the gate is per stage, and it goes on the stages whose content is generic
+   * enough to look plausible for a matter that belongs somewhere else entirely.
+   * A person genuinely deciding whether to sue over a debt gets "small-claims"
+   * from the classifier; a person wanting somebody charged does not.
+   *
+   * This is deliberately NOT on the notice stages. They describe a specific
+   * situation, they carry the deadlines that bar a claim, and a reader who
+   * reaches one has said enough for the stage resolver to place them precisely.
+   */
+  requiresAffirmativeScope?: true;
+  /**
+   * A fact this stage's content depends on, which must come FROM THE USER.
+   *
+   * *** THE HIGH-STAKES AMBIGUITY RULE ***
+   *
+   * Where the answer turns on a fact the reader has not given us, and getting it
+   * wrong costs them a claim, the product asks instead of inferring. The model
+   * may not supply the deciding fact, however confident it sounds.
+   *
+   * The case that forced it: asked about "a city sidewalk", the chat returned the
+   * City of Toronto block. Toronto has its own Act (s. 42) and its own clerk;
+   * every other municipality is s. 44. That reader would have served notice on
+   * the wrong office, with ten days to do it in and no action at all if they
+   * missed it — and nothing in their story named a city.
+   *
+   * `generalAlternative` is what they get meanwhile: the block that is true
+   * whichever answer comes back, plus the question. Not silence.
+   */
+  requiresConfirmedFact?: {
+    /** Key in the facts record the caller passes to `renderStageAnswer`. */
+    key: string;
+    /** Asked verbatim. Never model-written. */
+    question: string;
+    /** The stage to show instead, until the fact is confirmed. */
+    generalAlternative?: string;
+  };
 };
 
 // =====================================================================
@@ -218,6 +271,15 @@ const BEFORE_FILING: CaseStage[] = [
         exceptions: [C.S_LIMITATIONS_5_DISCOVERY],
       },
     ],
+    /*
+     * THE CATCH-ALL, AND THEREFORE THE EXPOSURE. Its own question is "Can I sue
+     * over this, and is Small Claims the right court?" — which is where a
+     * criminal complaint, a tenancy dispute or a human-rights matter lands when
+     * the classifier is wrong. A person genuinely deciding whether to sue over a
+     * debt is classified "small-claims"; the one who wants somebody charged was
+     * classified "civil".
+     */
+    requiresAffirmativeScope: true,
   },
   {
     id: "before-filing:notice-municipality",
@@ -315,6 +377,22 @@ const BEFORE_FILING: CaseStage[] = [
         exceptions: [C.S_TORONTO_42_7_DEATH, C.S_TORONTO_42_8_EXCUSE],
       },
     ],
+    /*
+     * MUNICIPALITY-SPECIFIC, SO THE MUNICIPALITY MUST BE CONFIRMED.
+     *
+     * s. 42 (6) names the CITY CLERK of Toronto. Every other municipality is
+     * Municipal Act s. 44 (10) and a different clerk. Asked about "a city
+     * sidewalk", the chat returned this block — and a reader who served the wrong
+     * clerk has done nothing, with ten days to do it in.
+     *
+     * Until the reader says which city, they get the general Municipal Act block,
+     * which is true whichever answer comes back, and the question.
+     */
+    requiresConfirmedFact: {
+      key: "municipality",
+      question: "Which city or town was this in?",
+      generalAlternative: "before-filing:notice-municipality",
+    },
   },
   {
     id: "before-filing:notice-snow-ice-private",
@@ -428,6 +506,12 @@ const BEFORE_FILING: CaseStage[] = [
     ],
     rules: [C.S_LIMITATIONS_4_BASIC, C.S_LIMITATIONS_5_DISCOVERY],
     deadlines: [],
+    /*
+     * Same reasoning. "Is it too late?" is askable about any dispute in any
+     * forum, and this block would answer it with the Small Claims limitation
+     * period.
+     */
+    requiresAffirmativeScope: true,
   },
   {
     id: "before-filing:claim-exceeds-small-claims-limit",
@@ -455,6 +539,12 @@ const BEFORE_FILING: CaseStage[] = [
     ],
     rules: [C.S_MONETARY_LIMIT, C.R_6_02_NO_DIVISION],
     deadlines: [],
+    /*
+     * Same reasoning, and it reads as authoritative about which court to use —
+     * which is precisely the question a misclassified matter needs answered
+     * correctly rather than confidently.
+     */
+    requiresAffirmativeScope: true,
   },
 ];
 

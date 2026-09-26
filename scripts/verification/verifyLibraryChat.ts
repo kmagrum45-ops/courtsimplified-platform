@@ -40,6 +40,7 @@ import {
   type ChatSelection,
 } from "../../src/lib/case-system/chat/libraryChat";
 import { PUBLISHED_BLOCKS } from "../../src/lib/content-library/publishedLibrary";
+import { findStage } from "../../src/lib/case-system/stage-map/stageMap";
 import {
   CHAT_NO_MATCH_MESSAGE,
   DEFLECTION_MESSAGE,
@@ -59,7 +60,20 @@ function check(name: string, ok: boolean, detail?: string): void {
   console.log(`FAIL  ${name}${detail ? `\n      ${detail}` : ""}`);
 }
 
-const realBlockId = PUBLISHED_BLOCKS[0]?.stageId ?? "";
+/*
+ * A published block with NO render gate on it.
+ *
+ * PUBLISHED_BLOCKS[0] used to do, and then the forum gate landed on the stage
+ * that happens to sort first — so these checks started measuring the gate
+ * instead of the chat, and reported that the chat could not show a block. Picking
+ * an ungated one keeps each suite testing its own subject; the gates have their
+ * own checks in verifyStageResolution.
+ */
+const realBlockId =
+  PUBLISHED_BLOCKS.map((block) => block.stageId).find((id) => {
+    const stage = findStage(id);
+    return !stage?.requiresAffirmativeScope && !stage?.requiresConfirmedFact;
+  }) ?? "";
 const realQuestionId = clarifyingQuestionCatalogue()[0]?.id ?? "";
 
 function selection(over: Partial<ChatSelection> = {}): ChatSelection {
@@ -227,6 +241,58 @@ check(
     "an ordinary question gets no deflection and no referrals",
     ordinary.cannotAnswer === null && ordinary.referrals.length === 0,
     "referrals on every answer are furniture, and furniture is not read",
+  );
+
+  /*
+   * ---- THE COMPOSITION RULE ----
+   *
+   * Deflecting must never suppress stage guidance. The measured failure: "Do you
+   * think I'll win this?" from somebody served two weeks ago came back with the
+   * deflection and NO BLOCK — so they never saw that a twenty-day defence period
+   * was running, which was the most consequential thing we could have told them.
+   *
+   * The reader's stage now comes from the STAGE RESOLVER and is composed in
+   * first, in code. The router cannot suppress it, which is asserted here by
+   * giving the router the worst selection it could return.
+   */
+  const suppressed = validateSelection({
+    intent: "something-else",
+    blockIds: [],
+    clarifyingQuestionIds: [],
+    requestsLegalAdvice: true,
+    noMatch: true,
+  });
+
+  const composed = assembleChatAnswer(suppressed, {}, {
+    stageId: realBlockId,
+    scope: { primaryPath: "small-claims", confidence: 0.9 },
+  });
+
+  check(
+    "the reader's own stage survives a router that returned nothing at all",
+    composed.answers.length === 1 && composed.answers[0].stageId === realBlockId,
+    `answers: ${composed.answers.map((a) => a.stageId).join(", ") || "none"} — the router ` +
+      `said noMatch AND advice AND no blocks; the stage came from the resolver`,
+  );
+  check(
+    "and the deflection still rides alongside it",
+    composed.cannotAnswer === DEFLECTION_MESSAGE,
+  );
+  check(
+    "a composed answer is not also reported as a no-match",
+    composed.noMatch === null,
+    "the reader has content in front of them; telling them we have none is false",
+  );
+
+  /** Not shown twice when the router happened to pick the same stage. */
+  const both = assembleChatAnswer(selection({ blockIds: [realBlockId] }), {}, {
+    stageId: realBlockId,
+    scope: { primaryPath: "small-claims", confidence: 0.9 },
+  });
+  check(
+    "a stage the resolver AND the router both chose appears once",
+    both.answers.length === 1,
+    `${both.answers.length} copies of the same block`,
   );
 }
 
