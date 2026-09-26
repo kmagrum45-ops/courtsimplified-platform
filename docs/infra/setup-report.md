@@ -1,4 +1,4 @@
-# Infrastructure setup — what was done, what is blocked, what is yours
+# Infrastructure setup — what was done, what is yours
 
 **26 September 2026, branch `infra-staging`.** Every fact below was read from the
 live systems with the command shown beside it.
@@ -6,6 +6,131 @@ live systems with the command shown beside it.
 No secret, token, password or connection string appears in this file or in any
 command that produced it. Project refs and organisation ids do appear — those are
 identifiers, not credentials.
+
+---
+
+# FINAL SUMMARY
+
+**Read this section and the human list under it. Everything after them is the
+working record, in the order it happened.**
+
+## Where things stand
+
+There are now two Supabase projects, both in Canada, with honest names, the same
+schema, and a real boundary between them.
+
+| | Ref | Name | Region | Points at it |
+|---|---|---|---|---|
+| **Production** | `fddlpnibovkkkgboabqb` | `courtsimplified-prod` | ca-central-1 | Vercel **Production** |
+| **Staging** | `icpvzwxyjsdgyqfkwycw` | `courtsimplified-staging` | ca-central-1 | Vercel **Preview**, `.env.local`, the CLI |
+
+**Identify a project by its ref, not its name** — that rule survives the rename,
+because a name is editable in a dashboard and a ref is not.
+
+## Done
+
+| | What |
+|---|---|
+| **Which is which** | Established by reading Vercel and Supabase, not documents. `docs/infra/projects.md` is the source of truth |
+| **Two live hazards closed** | `.env.local` pointed at production, so fixture and eval runs were exercising the real pipeline against the live database. `scripts/db/assertNotProduction.ts` refuses that now, and `npm run db:staging` / `db:prod` print the target before anything runs |
+| **Both databases counted** | From dumps, not from `table-stats` — whose "row count" is a planner estimate that had every document claiming a database was empty when it held 3 accounts and 2 cases |
+| **The live database counted for the first time** | 2 accounts (1 test harness, 1 the operator's), 4 cases, all the operator's. **No member of the public has ever had data in this platform, in either country** |
+| **April project deleted** | `ffymjxjcnwakgdmldpne`, us-west-2 — after a backup verified against a census of its contents, plus its roles and the 26 legacy migration versions that existed nowhere else |
+| **Nothing outside Canada** | That project was the only one ever in the United States |
+| **Staging built** | Clean project, all 8 repo migrations from zero, plus the 1371 catalogue rows, which `db push` does **not** load. Diffed against production: same tables, RLS on all of them, 18 policies with identical names |
+| **Production migrated** | The 5 pending migrations applied through the repo's gated runner, after auditing every destructive statement. 8 applied / 0 pending / 0 remote-only. Row counts unchanged; the only change was `ai_call_log` going from absent to present and empty |
+| **RLS verified** | 27 of 27 tables on production, no permissive `dev_full_access_*` policies, `case-evidence` bucket private |
+| **Renamed** | `courtsimplified-dev` → `courtsimplified-prod`, confirmed by the CLI |
+| **Production auth hardened** | Minimum password 6 → **12**; email confirmation **now required** (it was not enforced at all before today); TOTP MFA was already on |
+| **Vercel Preview wired up** | Staging's three Supabase variables plus its own site password. **Confirmed loading**: the gate accepts the Preview password and `GET /` returns 200 with the real homepage |
+| **Test data in production identified** | One harness account, owning no rows. Nothing deleted — the list is yours to decide on |
+| **Backups on disk** | Four verified dumps under `courtsimplified-backups/`: the April project, production before and after the migration, and staging |
+
+## What could not be done, and it is not a credential problem
+
+**Production has no automatic backups of any kind.** The organisation is on the
+**free plan**, which provides neither daily backups nor point-in-time recovery.
+There is no setting to enable — `pitr_enabled` is `false` and the backup list is
+empty. The only backups in existence are the manual dumps above.
+
+**This is the largest open risk on the list.** For a platform holding litigants'
+case files it matters more than anything else outstanding, and it is a purchasing
+decision rather than a technical one — see the human list.
+
+---
+
+# THE HUMAN LIST
+
+Six things, none of which I can or should do. Roughly in the order they matter.
+
+### 1. Upgrade to Pro so production has daily backups — the one that matters most
+
+Free plan = no backups. Pro is **$25/month** and brings daily backups with 7-day
+retention. Until then, a mistake or a failure loses everything since the last
+manual dump. **Do this before real users arrive, not after.**
+
+### 2. Turn on PITR at launch
+
+Point-in-time recovery is a paid add-on **on top of** Pro, and the API quotes:
+
+| Retention | Price |
+|---|---|
+| 7 days | **$100/month** |
+| 14 days | $200/month |
+| 28 days | $400/month |
+
+Not urgent while the only data is yours. **It becomes urgent the day a real user's
+case file is in there**, because daily backups mean losing up to a day and PITR
+means losing minutes.
+
+### 3. Two-factor authentication on every account
+
+Supabase, Vercel, OpenAI, GitHub, Namecheap, Resend. Needs a phone and your own
+hands — no API does it. Every guardrail in this repository is downstream of these
+logins: an attacker in the Supabase account does not need to defeat RLS.
+
+### 4. DNS records at Namecheap — SPF, DKIM, DMARC
+
+Still outstanding, and **it is now load-bearing.** Email confirmation is required
+on production as of today, so a new user who cannot receive the confirmation email
+cannot finish signing up. Resend SMTP is configured; what is unverified is whether
+the domain's DNS lets that mail be delivered rather than binned.
+
+### 5. One test signup on production
+
+The single cheapest way to prove item 4 actually works. Sign up a real address on
+`https://www.courtsimplified.com`, confirm the email arrives, and confirm the link
+completes the signup. **Do this soon** — the change that makes it necessary is
+already live. If the mail does not arrive, tell me and I will look at the auth logs.
+
+### 6. Move two passwords into your password manager, then delete the files
+
+| File | What it is |
+|---|---|
+| `courtsimplified-backups/staging-db-password.txt` | staging's **database** password (40 chars) |
+| `courtsimplified-backups/preview-password.txt` | the **Vercel Preview** site-gate password (28 chars) — this is the one to give Jason |
+
+Both are outside the repository and neither has ever been printed. They are plain
+files on one machine, which is fine for today and not fine as a permanent home.
+
+**The Preview password is deliberately different from production's** — verified by
+checking that production's password is *rejected* by Preview. Worth knowing:
+production's site password is only **11 characters**. Rotating it would lock out
+whoever currently has it, so I left it alone, but it is short for a shared gate and
+worth changing deliberately.
+
+### Also worth deciding, though not blocking
+
+- **Zero Data Retention with OpenAI** must be requested for organisation
+  `user-zqoler46rb4loij8kspdgxjk` — a grant naming any other org does not cover the
+  production key. It is a **personal-account** org; once CourtSimplified is
+  incorporated, a company org should replace it and the ZDR request has to be made
+  again. Cheap at incorporation, awkward after launch.
+- **The test data in production**: one harness account owning nothing, plus four of
+  your own test cases (~14 MB). Nothing was deleted. My suggestion is to remove the
+  harness account and keep the four cases until you have read their titles.
+- **11 verification suites were already failing** before any of this work, verified
+  message-for-message against `HEAD`. Not caused by this task and not fixed by it.
 
 ---
 
@@ -48,8 +173,9 @@ reason is a real state mismatch that no document records, explained in full belo
   no automatic backups.** The org is on the free plan, which provides neither daily
   backups nor PITR; PITR is $100/month and needs Pro. The only backups that exist
   are the manual dumps. That is the largest open risk here.
-- Preview deployments will 401 until `SITE_ACCESS_PASSWORD` is added to Preview too
-  — the gate fails closed. One command, left as your decision.
+- Preview has its own site password, different from production's, and **Preview is
+  confirmed loading**: `GET /` returns 200 with the real homepage once the gate
+  accepts it.
 
 ---
 
@@ -1152,7 +1278,7 @@ value, so Preview matches. The value went in over **stdin**, not as
 `--value "<literal>"` as the CLI's own hint suggested, so the key never appeared on
 a command line.
 
-### Preview will still return 401 until it also has `SITE_ACCESS_PASSWORD`
+### Preview needed its own site password, and now has one
 
 Found by reading `middleware.ts` rather than by deploying:
 
@@ -1161,19 +1287,45 @@ const configuredPassword = process.env.SITE_ACCESS_PASSWORD;
 if (!configuredPassword) return unauthorized(request);
 ```
 
-**The gate fails closed.** With that variable unset, every request is rejected —
-including `/site-access` itself. `SITE_ACCESS_PASSWORD` currently exists in
-Production only. So Preview deployments now have a working staging database and are
-still unreachable.
+**The gate fails closed.** With that variable unset every request is rejected,
+including `/site-access` itself — so Preview would have had a working staging
+database and still served nothing.
 
-That is the safe direction to fail, and it is one command from working:
+A fresh **28-character** value was generated in-process (56-symbol alphabet, ~162
+bits), written straight to
+`courtsimplified-backups/preview-password.txt` outside the repository, and added
+over **stdin** so it never appeared on a command line. It is **deliberately not
+production's value.**
 
-```
-vercel env add SITE_ACCESS_PASSWORD preview     # value on stdin, never on the command line
-```
+**Preview had never been deployed** — every deployment in the project's history was
+Production — so `vercel deploy` created the first Preview build, since environment
+variables only take effect on a new build.
 
-**Not done**, because it copies a shared secret into another environment and you did
-not ask for it. Say the word and it is a single step.
+Verified, not assumed:
+
+| Check | Result |
+|---|---|
+| `GET /` without a cookie | **307** → `/site-access?next=%2F` — the gate is live |
+| `GET /site-access` | **200** — proves the password is set; unset, the gate would redirect this path too and loop |
+| `POST /api/site-access` with the **Preview** password | **200**, `{"success":true}`, cookie set `HttpOnly, Secure, Path=/` |
+| `POST /api/site-access` with **production's** password | **401 Incorrect password** — the two values really are different |
+| `GET /` with the cookie | **200**, 33,690 bytes, `<title>CourtSimplified \| Tools for Self-Represented Litigants</title>` |
+
+**So Preview loads.** Production's variables were re-pulled afterwards and still
+resolve to `fddlpnibovkkkgboabqb`, unchanged.
+
+Two false negatives happened on the way to that table and are worth recording,
+because both would have read as real failures. A `POST` returned **401 Incorrect
+password** twice — not because the gate rejected the password, but because the JSON
+body was empty: the body file was written by bash at `/tmp/...` while Node read
+`C:\tmp\...`, which does not exist. **Git Bash `/tmp` and Node's `C:/tmp` are not
+the same directory.** The fix was to let Node do both the reading and the writing so
+no path crosses tools. A 401 from an empty body looks exactly like a 401 from a
+wrong password.
+
+Incidentally: **production's `SITE_ACCESS_PASSWORD` is 11 characters.** Short for a
+shared gate. Rotating it would lock out whoever holds it, so it was left alone
+rather than changed as a side effect — but it is worth doing deliberately.
 
 ## A third check of mine failed the way CLAUDE.md §5 warns about
 
@@ -1216,7 +1368,7 @@ the file it recorded.
 | Daily backups | **NOT POSSIBLE** — free plan provides none |
 | PITR "if the plan allows" | **the plan does not allow it** — $100/month add-on, needs Pro |
 | Update `docs/infra/projects.md` | **done**, plus the three other files CLAUDE.md §6 requires |
-| Vercel Preview gets staging's Supabase variables | **done**; Preview 401s until `SITE_ACCESS_PASSWORD` is added too |
+| Vercel Preview gets staging's Supabase variables | **done**, plus its own `SITE_ACCESS_PASSWORD`; Preview confirmed loading |
 
 ---
 

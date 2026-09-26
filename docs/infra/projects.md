@@ -152,7 +152,7 @@ dumps or `count(*)`, never from `table-stats`.**
 | Vercel Preview | **done** — the three staging Supabase variables | — | — |
 | Daily backups on production | **NOT POSSIBLE** | daily backups | **the free plan provides none.** Needs Pro |
 | Point-in-time recovery | **NOT POSSIBLE** | PITR | **paid add-on, $100/month for 7 days**, and needs Pro |
-| `SITE_ACCESS_PASSWORD` on Preview | **absent** | present | a decision — see below |
+| `SITE_ACCESS_PASSWORD` on Preview | **done** — its own value, not production's | — | — |
 
 ### Two things that are deliberately not done
 
@@ -163,12 +163,18 @@ plan. `GET /v1/projects/fddlpnibovkkkgboabqb/database/backups` returns
 it spends money, so it was left for the site owner. **Until then the only backups
 in existence are the manual dumps under `courtsimplified-backups/`.**
 
-**Vercel Preview will return 401 until it also has `SITE_ACCESS_PASSWORD`.**
-`middleware.ts` **fails closed**: with that variable unset, every request is
-rejected, including `/site-access` itself. So Preview deployments now have a working
-staging database and are still unreachable. That is the safe failure direction, and
-it is one `vercel env add` away from working — but it puts a shared secret into
-another environment, so it was left as a decision rather than done unasked.
+**Vercel Preview has its own site password, deliberately not production's.**
+`middleware.ts` **fails closed** — with `SITE_ACCESS_PASSWORD` unset, every request
+is rejected including `/site-access` itself — so Preview needed its own value before
+it could serve anything. A fresh 28-character value was generated and stored at
+`courtsimplified-backups/preview-password.txt` for Jason; **move it into a password
+manager and delete the file.**
+
+Verified rather than assumed: Preview **accepts** that value (`POST
+/api/site-access` → 200, cookie set `HttpOnly, Secure, Path=/`) and **rejects
+production's** (→ 401). `GET /` then returns 200 with the real homepage. Production's
+own site password is only 11 characters — short for a shared gate, and worth
+rotating deliberately rather than as a side effect of this work.
 
 **Staging's auth is deliberately NOT hardened.** `password_min_length` is 6 and
 `mailer_autoconfirm` is false there. The browser harness signs up real accounts, so
