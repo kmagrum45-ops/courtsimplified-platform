@@ -192,3 +192,9 @@ repomix-output.xml
 
 # Scratch space for source retrieval (antiword output, fetched HTML)
 .tmp-src/
+
+# Local audit sink. Every script, eval and fixture run writes its ai_call_log
+# rows here instead of to the live database — see src/lib/audit/aiCallLog.ts.
+# Rows describe calls and never hold what a user wrote, but they are not content
+# either, and a fixture run produces dozens.
+.ai-call-log.jsonl

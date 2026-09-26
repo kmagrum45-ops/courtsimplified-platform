@@ -1313,6 +1313,52 @@ Run on this branch at `51621ca`.
 
 ---
 
+## Migrations to apply — Krystel
+
+Nothing in this repository applies a migration. The files are written; the site
+owner applies them (CLAUDE.md §6, and `scripts/db/applyMigrations.ts` refuses to
+act without `--confirm`).
+
+### `ai_call_log` — staging first, then production
+
+`supabase/migrations/20260922120000_add_ai_call_log.sql`
+
+**Apply it to staging (`ffymjxjcnwakgdmldpne`, currently paused) first, then to
+production (`fddlpnibovkkkgboabqb`).** Identify each by its REF, never by its
+name — the names are backwards until the rename is done.
+
+This is the table the AI audit log writes to: every model call, with its type, the
+validation verdict, latency and token counts, and no user content. Until it exists,
+every model call in production is unrecorded and the quarterly report has nothing
+to read.
+
+**Before applying it, know what used to happen and no longer does.** Every eval run
+and every fixture run loads `.env.local`, which points at PRODUCTION. Those runs
+were already opening a service-role client to the live project and attempting dozens
+of audit inserts each. They failed only because this table does not exist — the
+`[aiCallLog] insert failed` lines in a fixture run's output were that, and they read
+like noise.
+
+So applying this migration would, before 2026-09-26, have started filling the live
+audit log with fabricated fixture stories interleaved with real users' calls. That is
+fixed: a script, eval or fixture run now writes to a local gitignored file and builds
+no database client at all. `npm run test:ai-call-log-sink` asserts it, including that
+the client factory is never called — which is checked synchronously, because the first
+version of that check spied on `fetch`, looked too early, and passed with the safety
+deliberately disabled.
+
+**After applying it, confirm the app itself still writes.** The decision keys on
+`NEXT_RUNTIME`, which Next.js sets in server code and nothing else does. If a
+deployment somehow lacks it, auditing would silently stop — so set `AI_CALL_LOG=database`
+in the Vercel environment to force it rather than relying on the default. Then check
+that rows appear:
+
+```
+npm run compliance:ai-report   # reads the table and reports coverage gaps
+```
+
+---
+
 ## What Krystel and Jason should look at first
 
 1. **The two notices** — `AiUseNotice.tsx` and `FirstUseAcknowledgement.tsx`.

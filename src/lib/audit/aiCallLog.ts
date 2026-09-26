@@ -46,6 +46,7 @@
 
 import { AsyncLocalStorage } from "node:async_hooks";
 import { createHash } from "node:crypto";
+import { appendFileSync } from "node:fs";
 
 import { createClient } from "@supabase/supabase-js";
 
@@ -451,7 +452,116 @@ type AiCallLogRow = {
  * page fails. A failed write is reported to the server console, where the
  * quarterly report's own gap check will also notice the hole.
  */
+/**
+ * Where a row goes.
+ *
+ * *** WHY THE DATABASE IS NOT THE DEFAULT ***
+ *
+ * Every eval run and every fixture run loads `.env.local`, which points at
+ * `fddlpnibovkkkgboabqb` — THE LIVE DATABASE (CLAUDE.md §6: the project names are
+ * backwards). So every one of those runs was already opening a service-role client
+ * to production and inserting audit rows, several dozen per fixture run.
+ *
+ * It has not done any damage yet for the worst possible reason: the insert fails
+ * with PGRST205 because `ai_call_log` does not exist. The migration is written and
+ * waiting to be applied. THE DAY IT IS APPLIED, every test run starts writing to
+ * production, and the audit log a regulator reads fills up with fabricated
+ * fixture stories mixed in with real users' calls.
+ *
+ * *** SO THE DECISION FAILS SAFE, AND IT IS NOT OPT-IN ***
+ *
+ * An opt-in test flag would mean the next script somebody writes defaults to
+ * writing to production, because nobody remembers a flag that is only needed in
+ * the place they are not looking.
+ *
+ * `NEXT_RUNTIME` is set by Next.js inside server and route code and by nothing
+ * else. A script run through tsx does not have it. So the database is used only
+ * when we are demonstrably inside the app, and everything else — scripts, evals,
+ * fixtures, anything added later — lands in a local file with no network call.
+ *
+ * `AI_CALL_LOG` overrides it explicitly ("database", "file", "off") so a
+ * deployment that somehow lacks NEXT_RUNTIME can force the database rather than
+ * silently stop auditing, which is the failure this arrangement could otherwise
+ * introduce.
+ */
+export type AiCallLogSink = "database" | "file" | "off";
+
+/**
+ * How the Supabase client is built, as a replaceable reference.
+ *
+ * *** WHY A SEAM AND NOT A fetch SPY ***
+ *
+ * The check for "a test run makes no database write" first spied on
+ * `globalThis.fetch` and counted requests. It PASSED with the safety deliberately
+ * disabled, which is the one result a check must never give.
+ *
+ * The reason is the design of `insertRow` itself: the write is fire and forget, so
+ * the request is issued after the assertion has already run. The spy was not
+ * wrong about what it saw; it was looking too early, and a check whose verdict
+ * depends on a race is not evidence of anything.
+ *
+ * Constructing the client, by contrast, happens synchronously and before any
+ * await. So the check replaces this reference and asserts it is never called —
+ * which is true or false the instant `insertRow` returns, with no timing in it.
+ */
+let makeClient: typeof createClient = createClient;
+
+/** Test seam. Returns a restore function; never called by the product. */
+export function setAiCallLogClientFactory(factory: typeof createClient): () => void {
+  const previous = makeClient;
+  makeClient = factory;
+  return () => {
+    makeClient = previous;
+  };
+}
+
+export function sinkFor(env: NodeJS.ProcessEnv = process.env): AiCallLogSink {
+  const override = (env.AI_CALL_LOG ?? "").trim().toLowerCase();
+  if (override === "database" || override === "file" || override === "off") {
+    return override;
+  }
+  return env.NEXT_RUNTIME ? "database" : "file";
+}
+
+/** Where the file sink writes. Gitignored: rows describe calls, not secrets, but they are not content either. */
+export const FILE_SINK_PATH = ".ai-call-log.jsonl";
+
+let announced = false;
+
+/**
+ * The local sink. One JSON object per line, appended synchronously.
+ *
+ * Synchronous on purpose: a script that exits immediately after its last model
+ * call would otherwise lose the rows it was meant to be proving it wrote, and
+ * nothing here is on a user's request path.
+ */
+function appendToFile(row: AiCallLogRow): void {
+  try {
+    appendFileSync(FILE_SINK_PATH, `${JSON.stringify(row)}\n`, "utf8");
+  } catch (error) {
+    console.error("[aiCallLog] file sink failed", {
+      call_type: row.call_type,
+      error: error instanceof Error ? error.message : String(error),
+    });
+  }
+}
+
 function insertRow(row: AiCallLogRow): void {
+  const sink = sinkFor();
+
+  if (!announced) {
+    announced = true;
+    // Said once, so a run cannot quietly be auditing somewhere unexpected.
+    console.log(`[aiCallLog] sink: ${sink}${sink === "file" ? ` (${FILE_SINK_PATH})` : ""}`);
+  }
+
+  if (sink === "off") return;
+
+  if (sink === "file") {
+    appendToFile(row);
+    return;
+  }
+
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -462,7 +572,7 @@ function insertRow(row: AiCallLogRow): void {
     return;
   }
 
-  const client = createClient(url, serviceRoleKey, {
+  const client = makeClient(url, serviceRoleKey, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
 

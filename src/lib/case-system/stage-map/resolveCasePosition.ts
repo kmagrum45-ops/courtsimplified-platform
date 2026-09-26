@@ -31,6 +31,7 @@
 import { classifyCourtPath } from "../intelligence/courtPathClassifier";
 import type { OutOfScopeForum } from "../intelligence/outOfScopeForums";
 import { createOpenAIClient } from "../openaiClient";
+import { currentAiCallContext, withAiCallContext } from "../../audit/aiCallLog";
 import {
   resolveFromModelOutput,
   stageCatalogueForPrompt,
@@ -229,11 +230,33 @@ async function resolveCasePositionInner(
   return { kind: "in-scope", stage: await resolveStageWithModel(story, options.model) };
 }
 
-/** The stage pass on its own, for callers that have already settled scope. */
+/**
+ * The stage pass on its own, for callers that have already settled scope.
+ *
+ * *** WHY IT ENSURES AN AUDIT CONTEXT RATHER THAN ASSUMING ONE ***
+ *
+ * `verifyAiCallLogging` names this file as a call site that builds an OpenAI
+ * client without running it inside `withAiCallContext`, and it is right. The
+ * route does wrap it, so production calls ARE attributed — but the eval calls
+ * `resolveCasePosition` directly, and every one of those model calls was
+ * unattributable and therefore never recorded. Dozens per eval run, invisible.
+ *
+ * It ENSURES a context instead of always opening one, which matters: the route
+ * seeds its context with the case id, and a nested `withAiCallContext` would
+ * start a fresh one and lose it (identity is inherited from
+ * `withAiCallIdentity`, not from an enclosing context). So an existing context
+ * wins and this only fills the gap.
+ */
 export async function resolveStageWithModel(
   story: string,
   model = "gpt-4o-mini",
 ): Promise<StageResolution> {
+  return currentAiCallContext()
+    ? resolveStageInner(story, model)
+    : withAiCallContext({ callType: "stage-resolver" }, () => resolveStageInner(story, model));
+}
+
+async function resolveStageInner(story: string, model: string): Promise<StageResolution> {
   try {
     const client = createOpenAIClient();
     const response = await client.chat.completions.create({

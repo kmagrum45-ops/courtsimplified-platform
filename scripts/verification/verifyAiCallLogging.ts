@@ -46,7 +46,14 @@ const ROOT = path.resolve(import.meta.dirname, "..", "..");
 
 const CLIENT_FILE = "src/lib/case-system/openaiClient.ts";
 const AUDIT_FILE = "src/lib/audit/aiCallLog.ts";
-const MIGRATION = "supabase/migrations/20260922120000_add_ai_call_log.sql";
+/*
+ * There is deliberately no single MIGRATION constant any more. The call_type
+ * constraint is read from the LAST migration that defines it, because a check
+ * pinned to the file that first created a constraint calls a later correction a
+ * regression — which is exactly what happened when `stage-resolver` was added.
+ * See section 4.
+ */
+const MIGRATION_DIR = "supabase/migrations";
 
 let failures = 0;
 
@@ -174,12 +181,37 @@ if (rogueConstructions.length === 0) {
     Array.from(unionMatch?.[1]?.matchAll(/"([^"]+)"/g) ?? [], (match) => match[1]),
   );
 
-  const migrationSource = read(MIGRATION);
-  const checkMatch = migrationSource.match(
-    /ai_call_log_call_type_check"\s+CHECK\s*\("call_type"\s+IN\s*\(([\s\S]*?)\)\)/,
-  );
+  /*
+   * *** THE EFFECTIVE CONSTRAINT, NOT THE FIRST FILE THAT DEFINED ONE ***
+   *
+   * This read one hardcoded migration. When `stage-resolver` was added to the
+   * code and the constraint was extended by a LATER migration, the check went on
+   * failing — it was still reading the original file, which correctly lists six
+   * values because that is what it created.
+   *
+   * A check pinned to one file calls the fix a regression. What matters is what
+   * the database will actually enforce after every migration has run, so the
+   * constraint is read from the LAST migration that defines it, in the order
+   * they apply.
+   */
+  const constraintPattern =
+    /ai_call_log_call_type_check"\s+CHECK\s*\("call_type"\s+IN\s*\(([\s\S]*?)\)\)/;
+
+  const defining = readdirSync(MIGRATION_DIR)
+    .filter((file) => file.endsWith(".sql"))
+    .sort()
+    .map((file) => ({ file, source: read(`${MIGRATION_DIR}/${file}`) }))
+    .filter((entry) => constraintPattern.test(entry.source));
+
+  const effective = defining[defining.length - 1];
+  const checkMatch = effective ? constraintPattern.exec(effective.source) : null;
   const dbTypes = new Set(
     Array.from(checkMatch?.[1]?.matchAll(/'([^']+)'/g) ?? [], (match) => match[1]),
+  );
+
+  console.log(
+    `      effective call_type constraint: ${effective?.file ?? "(none found)"}` +
+      `${defining.length > 1 ? ` (last of ${defining.length} that define it)` : ""}`,
   );
 
   if (codeTypes.size === 0 || dbTypes.size === 0) {

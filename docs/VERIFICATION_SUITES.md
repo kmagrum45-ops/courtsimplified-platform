@@ -5,10 +5,11 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-55 documented, 30 without a header.
+56 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
+| `npm run test:ai-call-log-sink` | **Does a test run write to the live database? It must not.**<br>COSTS NOTHING. No model call, no network, no database — which is the entire point, and is asserted rather than assumed: the Supabase client factory is replaced with one that throws, and the check fails if anything builds a client. |
 | `npm run test:ai-call-logging` | **Every model call is attributable in the audit log.**<br>COSTS NOTHING. Reads source off disk. No network, no AI, no database. |
 | `npm run test:amendment-trails` | **Every vendored source's recent amendments, and whether anyone traced them.**<br>COSTS NOTHING. Reads docs/sources/ off disk. No network. |
 | `npm run test:anon-grants` | **No migration grants anon write access, and no policy applies to PUBLIC.**<br>COSTS NOTHING. Reads supabase/migrations/*.sql off disk. No database connection, no network. |
