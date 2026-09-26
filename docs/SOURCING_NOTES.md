@@ -55,10 +55,121 @@ actually resolves.** Confirmed real examples, most commonly `<2-digit
 year><chapter letter><2-digit chapter number>_e.doc`:
 - `90i08_e.doc` — Insurance Act, R.S.O. 1990, c. I.8
 - `90d16_e.doc` — Dog Owners' Liability Act, R.S.O. 1990, c. D.16
-- `90n01_e.doc` — Negligence Act, R.S.O. 1990, c. N.1
+- ~~`90n01_e.doc` — Negligence Act~~ — **WRONG, and this line contradicted the
+  entry further down this same file.** `90n01_e.doc` is an **HTTP 403**; the
+  Negligence Act resolves only as `elaws_statutes_90n01_e.doc`. Re-confirmed
+  2026-09-26. See "the `elaws_statutes_` prefix cuts both ways" below.
 - `90s01_e.doc` — Sale of Goods Act, R.S.O. 1990, c. S.1
 - `90l12_e.doc` — Libel and Slander Act, R.S.O. 1990, c. L.12
 - `98c19_e.doc` — Condominium Act, 1998, S.O. 1998, c. 19
+
+### Four more id rules, from resolving 27 statutes in one pass (2026-09-26)
+
+26 of 27 resolved. Everything below was established by fetching the document and
+reading its own title and citation, which is the only method that works.
+
+**1. S.O. statutes use BOTH forms. There is no rule.** `98c19` (Condominium Act,
+1998) uses `<yy>c<chapter>`, but these use the chapter-LETTER form, exactly like
+an R.S.O. statute:
+
+| File | Statute |
+|---|---|
+| `00p04_e.doc` | Parental Responsibility Act, 2000, S.O. 2000, c. 4 |
+| `06r17_e.doc` | Residential Tenancies Act, 2006, S.O. 2006, c. 17 |
+| `02m30_e.doc` | Motor Vehicle Dealers Act, 2002, S.O. 2002, c. 30, Sched. B |
+
+Try both spellings; neither is the default.
+
+**2. THE SCHEDULE TRAP — the one that can put the wrong Act in a citation.**
+Several statutes share a chapter and are published as separate schedule
+documents. The bare chapter id returns whichever schedule e-Laws treats as
+primary, **with HTTP 200 and a valid consolidation header**, so nothing looks
+wrong:
+
+| File | What it actually is |
+|---|---|
+| `02c30_e.doc` | Consumer Protection Act, 2002 — **Schedule A** |
+| `02m30_e.doc` | Motor Vehicle Dealers Act, 2002 — **Schedule B**, same chapter |
+
+A profile meaning to cite the dealer statute that derived `02c30` would quote the
+consumer statute instead and pass every check. **Put the schedule marker in
+`mustContain` for any schedule statute.**
+
+**3. The schedule suffix is a SEQUENCE POSITION, not the schedule number.** The
+Crown Liability and Proceedings Act, 2019 is S.O. 2019, c. 7, **Schedule 17**, and
+lives at **`19c07c_e.doc`**. Deriving `19c07s17` finds nothing. Sweeping suffixes
+`a`–`t` found it at `c`, alongside `19c07` (Cannabis Taxation Coordination Act,
+2019) and `19c07b` (Combative Sports Act, 2019).
+
+**4. An id can be frozen at a statute's FORMER name.** The Ontario Career
+Colleges Act, 2005 is at **`05p28_e.doc`** — `p` for *Private* Career Colleges
+Act, 2005, its name when the file was created. `05o28` does not exist. So when a
+statute has been renamed, try the old name's letter.
+
+### RUN `rules:check` BEFORE `rules:fetch`, never after — the wrong order destroys the evidence (2026-09-26)
+
+`rules:fetch` re-fetches every source and overwrites the vendored copy.
+`rules:check` re-fetches and diffs against the vendored copy. So running fetch
+first **silently absorbs any drift**, and the check that follows reports
+"No source changed" — truthfully, because by then nothing does.
+
+That happened here. Adding 26 sources meant a full `rules:fetch`, which quietly
+updated `ontario-file-small-claims-online.txt` along with everything else.
+`rules:check` then reported all 49 sources unchanged. The drift was only found by
+diffing the manifest's `sha256` values against the previous commit:
+
+```
+git show HEAD:docs/sources/corpus/manifest.json     # compare sha256 per id
+```
+
+**So: `npm run rules:check` first, read it, then `rules:fetch`.** And after any
+fetch, diff the manifest against `HEAD` — that is the only record of what moved.
+What drifted this time mattered (see below), which is how the gap was noticed at
+all rather than by design.
+
+### Provincial court offices are closed 30 September 2026, and the deadline engine does not know it (2026-09-26)
+
+The drift above was this, newly added to
+`https://www.ontario.ca/page/file-small-claims-court-documents-online` (now
+vendored, so it is citable):
+
+> Provincial court offices will be closed on Wednesday, September 30, 2026 in
+> honour of the National Day for Truth and Reconciliation. The ministry's online
+> filing services will remain available 24 hours a day, 7 days a week, including
+> on September 30, 2026. However, any documents submitted that day through the
+> ministry's online portals or by email, will be marked as filed/issued on the
+> next business day, October 1, 2026.
+
+**The engine is right and still incomplete.** 30 September is not in
+`deadlines/holidays.ts`, and it should not be: r. 1.02 does not name it and it is
+not an Ontario statutory holiday. The engine models *holidays that extend a
+deadline*. This is a different thing — **a day the counter is shut** — and the
+two are not the same:
+
+- A deadline computed as falling on 30 September 2026 is, on the rules, a valid
+  date. The engine will say so.
+- The office is closed, and a filing made online that day is **stamped 1 October**.
+
+So someone told "your deadline is 30 September" who files that day may hold a
+document stamped after their deadline. **This is a real gap, live in the same week
+it was found, and it is recorded rather than fixed** — closing it means modelling
+court-office closures as their own concept, separate from r. 1.02 holidays, which
+is a design decision and not a patch. See `docs/ACCURACY_ENGINE.md`.
+
+The general lesson is bigger than one date: **the holiday list answers "does the
+clock move?", and nothing in the system yet answers "is the counter open?"**
+
+### Negative finding: the Towing and Storage Safety and Enforcement Act, 2021 has no fetchable e-Laws `.doc` (2026-09-26)
+
+Tried and all absent: `21t04`, `21t01`–`21t08`, `21c04`, `21c4`,
+`elaws_statutes_21t04`, schedule suffixes `a`–`t`, and numeric suffixes `s1`–`s20`.
+`https://www.ontario.ca/page/towing-and-storage-industry-oversight` is also a 404.
+
+**Don't re-run that sweep.** For towing and vehicle-storage content, the
+Consumer Protection Act, 2002 and the **Repair and Storage Liens Act** are
+vendored and do cover the lien-and-charges questions users actually ask. The
+towing-specific statute is recorded as a content gap rather than written from
+memory.
 
 ### A version suffix (`_eV006`, `_ev005`, `_eV015`) means a HISTORICAL snapshot — not the current law
 

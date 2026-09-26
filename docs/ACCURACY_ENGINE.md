@@ -1079,9 +1079,64 @@ first and what wrong looks like.
 
 ---
 
+## Open gap: the holiday list answers "does the clock move?", nothing answers "is the counter open?"
+
+**Found 2026-09-26 while expanding the corpus for claim types. Recorded, not
+fixed, because closing it is a design decision.**
+
+`deadlines/holidays.ts` models the holidays **r. 1.02 names**, which is the right
+thing for computing a deadline: a deadline landing on a holiday moves. That list
+deliberately excludes the National Day for Truth and Reconciliation, because
+r. 1.02 does not name it and it is not an Ontario statutory holiday. **That
+remains correct.**
+
+But `ontario-file-small-claims-online` (vendored, and it changed under us — see
+SOURCING_NOTES) now states that **provincial court offices are closed on
+Wednesday 30 September 2026**, and that anything filed online that day is
+**marked filed/issued on 1 October 2026**.
+
+Those are two different questions, and the engine only answers the first:
+
+| Question | Modelled? | Source |
+|---|---|---|
+| Does a deadline landing on this date move? | **yes** | r. 1.02, Legislation Act s. 88(2) |
+| Is the court office open on this date? | **no** | ministry closure notices, published per-occasion |
+
+**The failure mode:** a user told "your deadline is 30 September 2026" files
+online that day and holds a document stamped 1 October — after the deadline the
+engine gave them. The engine is not wrong about the rule; it is silent about the
+counter.
+
+**Why it is not a patch.** Closures are announced on guidance pages per occasion,
+are not in any statute, and differ between the physical counter and the online
+portal. Modelling them means a second calendar with its own provenance, its own
+staleness problem, and a template that says something honest about a date that is
+legally fine and practically shut. That belongs with the deadline engine's
+owner, not bolted on while vendoring statutes.
+
+**Until then:** the closure is quoted in the corpus and citable, and any content
+that tells a user a filing date should be read with it in mind.
+
 ## Where the bodies are buried
 
 Things that cost time to learn and would cost it again:
+
+- **Run `rules:check` BEFORE `rules:fetch`.** Fetch overwrites the vendored copy,
+  so a check afterwards truthfully reports "nothing changed" about drift it just
+  absorbed. This hid a live change to the online-filing guide; it was only found
+  by diffing the manifest's hashes against `HEAD`.
+- **Expanding the corpus invalidates the published library**, because
+  `verifyPublishedLibrary` compares the release's `corpusGeneratedAt` against the
+  manifest's. Re-promoting the same candidate run re-checks every quote against
+  the new corpus text and is the intended fix — `npx tsx
+  scripts/content/promoteContentRun.ts docs/content-pipeline/candidates/run-N.json
+  --confirm`. If the content hash comes back identical, nothing changed but the
+  verification is now real.
+- **e-Laws schedule statutes share a chapter id.** `02c30_e.doc` is the Consumer
+  Protection Act (Sched. A); the Motor Vehicle Dealers Act is a *different
+  document*, `02m30_e.doc`. The chapter id returns Schedule A with HTTP 200 and a
+  valid consolidation header, so deriving the id gets you the wrong Act with
+  nothing looking wrong. Put the schedule marker in `mustContain`.
 
 - **`docs/SOURCING_NOTES.md` first.** Techniques that work, dead ends already
   ruled out, things confirmed not to exist. Read it before any sourcing.
