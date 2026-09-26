@@ -103,8 +103,20 @@ done, the name tells you the opposite of the truth.
 
 | Ref | Current name | Region | What it actually is |
 |---|---|---|---|
-| `fddlpnibovkkkgboabqb` | `courtsimplified-dev` | `ca-central-1` | **PRODUCTION. THE LIVE DATABASE.** Real users' accounts, cases and intakes. The Vercel production environment points here. |
-| `ffymjxjcnwakgdmldpne` | `courtsimplified` | `us-west-2` | **NOT EMPTY. The original April project.** 3 auth accounts — two of them real people's, not fixtures — and 2 cases. It was being treated as a scratch staging environment; it is not one. |
+| `fddlpnibovkkkgboabqb` | `courtsimplified-dev` | `ca-central-1` | **PRODUCTION. THE LIVE DATABASE.** The Vercel production environment points here. **Its name still says dev. It is not dev.** |
+| `icpvzwxyjsdgyqfkwycw` | `courtsimplified-staging` | `ca-central-1` | **STAGING.** Created 2026-09-26, clean, all 8 repo migrations applied in order. Holds no user data and must never hold any. |
+
+Only production's name is now misleading, and it is the dangerous one, so the
+rule below does not relax.
+
+**`ffymjxjcnwakgdmldpne` no longer exists.** That was the original April project,
+in `us-west-2`, which this file described as empty staging. It was **deleted on
+2026-09-26** on the site owner's explicit instruction, after a backup that was
+verified against a census of its contents. If you find that ref named anywhere,
+it is stale; the backup is at
+`courtsimplified-backups/april-ffymjx-20260926-143148/` and includes its schema,
+data, auth rows with password hashes, roles, and the 26 legacy migration
+versions that were never in this repository.
 
 **`docs/infra/projects.md` is the source of truth for which is which**, established
 2026-09-26 by reading the live systems. Three things in this table were wrong before
@@ -121,6 +133,25 @@ that and are worth knowing about:
   project produced 977 KB of data: 3 auth accounts and 2 cases. **Never conclude a
   table is empty from `table-stats`. Use `count(*)`, or count rows in a dump.**
   An estimate that happens to say 0 is not a measurement that says 0.
+- **The baseline schema lives in a file whose name hides it.**
+  `supabase/migrations/20260823020500_add_case_evidence_storage_bucket.sql` is
+  48 KB and contains **24 `CREATE TABLE` statements** — it is the whole base
+  schema, not a storage bucket. It is the output of
+  `supabase migration squash --linked`, which collapsed the 26 original
+  migrations into one file and kept the **last** migration's name, so the name
+  describes the smallest thing in it. `supabase/seed.sql` records the squash and
+  why it was needed. Worth knowing before concluding, as I did, that the repo
+  carries no baseline and a fresh project cannot be built from it.
+- **Migrations alone do NOT give you a working environment; the catalogue is
+  seeded separately.** A fresh project built from the 8 migrations has 27 tables,
+  RLS on all of them and the same 18 policies as production — and **zero rows of
+  reference data**. The 1371 catalogue rows (723 `court_form_library`, 113
+  `court_forms`, 104 `forms`, the `legal_*` rules, the lookups) come from
+  `supabase/seed.sql` + `supabase/snapshots/20260822_catalogue_data_snapshot.sql`,
+  wired into `[db.seed] sql_paths` and normally loaded by `supabase db reset`.
+  Push migrations to a new project without seeding and `test:cohort2-*` fail on
+  `must be present in court_form_library`. That snapshot is also now the only
+  surviving copy of that data's origin, the April project having been deleted.
 - `.env.local` on the development machine pointed at **production**, so fixture
   and eval runs were exercising the real pipeline against real users' data.
   `scripts/db/assertNotProduction.ts` now refuses that, and `npm run db:staging` /
@@ -144,9 +175,10 @@ themselves.
   **Until it is done, this table is the only reliable statement of which is
   which.** When it is done, update this table, `docs/ARCHITECTURE.md`,
   `docs/security/DATA_FLOW_INVENTORY.md` and `supabase/environments.json`.
-- Production is intended to stay in ca-central-1 for Canadian data residency —
-  see ARCHITECTURE.md. It is already there; it is the *paused* project that is
-  in the United States.
+- Production stays in ca-central-1 for Canadian data residency — see
+  ARCHITECTURE.md. **Both projects are now in ca-central-1**, so a staging run
+  exercises the same residency path as the real thing. Nothing of ours is in the
+  United States any more; the US project was the one deleted on 2026-09-26.
 - The site is behind a password gate (middleware.ts, cookie `cs_site_access`). Test harnesses need `grantSiteAccess`.
 - `.env.local` and `.env.diagnose` are gitignored and must stay that way.
 

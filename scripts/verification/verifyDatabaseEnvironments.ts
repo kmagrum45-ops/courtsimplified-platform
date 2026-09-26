@@ -8,16 +8,18 @@
  *
  * *** THE HAZARD THIS GUARDS ***
  *
- * The two Supabase projects are named backwards. `courtsimplified-dev`
- * (ca-central-1) is the live database; `courtsimplified` (us-west-2) is paused
- * and nearly empty. So an instruction reading "apply it to dev first" is, taken
- * literally, an instruction to apply it to production — and the person most
- * likely to take it literally is someone new, working quickly, in an
- * unfamiliar area.
+ * PRODUCTION IS NAMED `courtsimplified-dev`, and that one name is the whole
+ * hazard. `courtsimplified-dev` (ca-central-1) is the live database. Staging is
+ * `courtsimplified-staging`, also in ca-central-1, and its name is honest.
  *
- * Renaming the projects is the real fix and is the site owner's to do. Until
- * then the only defence is that no instruction in the repository can be
- * followed literally into the wrong project, which is what check 1 asserts.
+ * So an instruction reading "apply it to dev first" is, taken literally, an
+ * instruction to apply it to production — and the person most likely to take it
+ * literally is someone new, working quickly, in an unfamiliar area.
+ *
+ * Renaming production is the real fix and is the site owner's to do; it needs a
+ * Supabase personal access token this machine does not have. Until then the only
+ * defence is that no instruction in the repository can be followed literally into
+ * the wrong project, which is what check 1 asserts.
  *
  * Run: node --import tsx scripts/verification/verifyDatabaseEnvironments.ts
  */
@@ -37,8 +39,37 @@ const fail = (m: string, d?: string) => {
   if (d) for (const line of d.split("\n")) console.log(`      ${line}`);
 };
 
+/**
+ * Production's ref IS pinned here, deliberately, and it is the one pinned value
+ * in this file. Production is a single long-lived identity; if the value in
+ * `environments.json` ever stops being this one, that must be a red line and not
+ * a shrug, because every other guard in this file resolves through it. The day
+ * production legitimately moves, this constant is the thing you change first and
+ * on purpose.
+ */
 const PRODUCTION_REF = "fddlpnibovkkkgboabqb";
-const STAGING_REF = "ffymjxjcnwakgdmldpne";
+
+/**
+ * Staging's ref is deliberately NOT pinned.
+ *
+ * It was, and on 2026-09-26 the pin did exactly the damage CLAUDE.md §5
+ * describes: a clean staging project was created in ca-central-1 -- the work this
+ * whole area of the repo exists to make possible -- and this suite called it a
+ * failure, reporting `expected ffymjxjcnwakgdmldpne`, a project that had just
+ * been deleted. The check punished the maintenance.
+ *
+ * Staging is disposable by design. It gets recreated, and each new one has a new
+ * ref. So the properties asserted below are the ones that actually matter:
+ * staging is well-formed, and staging is NOT production.
+ */
+const REF_SHAPE = /^[a-z0-9]{20}$/;
+
+/**
+ * A ref-shaped string that can never be a real project, for driving the ledger
+ * checks. Using the real staging ref there would make those checks depend on
+ * which staging project exists today, which is the same trap again.
+ */
+const SYNTHETIC_STAGING_REF = "zzzzzzzzzzzzzzzzzzzz";
 
 // ---------------------------------------------------------------------------
 // 1. No instruction can be followed literally into production
@@ -147,7 +178,22 @@ const QUOTED_MARKER = "[dev-wording-quoted]";
   const problems: string[] = [];
 
   if (!claude.includes(PRODUCTION_REF)) problems.push("does not name the production ref");
-  if (!claude.includes(STAGING_REF)) problems.push("does not name the dormant ref");
+
+  // The property is that CLAUDE.md and environments.json agree about staging --
+  // not that staging is any particular project. Reading the ref from the config
+  // rather than from a constant is what lets staging be replaced without this
+  // check going red.
+  const configuredStaging = (
+    JSON.parse(readFileSync(path.join(ROOT, "supabase", "environments.json"), "utf8")) as {
+      environments: Record<string, { ref: string }>;
+    }
+  ).environments.staging?.ref;
+  if (configuredStaging && !claude.includes(configuredStaging)) {
+    problems.push(
+      `names no staging ref matching environments.json (${configuredStaging}) — ` +
+        `the two disagree, which is how somebody ends up pointing at a project that no longer exists`,
+    );
+  }
   if (!/NAMES ARE BACKWARDS/i.test(claude)) problems.push("does not warn that the names are backwards");
   if (!/by (?:its )?REF, never by (?:its )?name/i.test(claude)) {
     problems.push("does not say to identify a project by ref rather than name");
@@ -181,8 +227,16 @@ const QUOTED_MARKER = "[dev-wording-quoted]";
   if (production?.ref !== PRODUCTION_REF) {
     problems.push(`production ref is ${production?.ref}, expected ${PRODUCTION_REF}`);
   }
-  if (staging?.ref !== STAGING_REF) {
-    problems.push(`staging ref is ${staging?.ref}, expected ${STAGING_REF}`);
+  // Properties, not a pinned value: staging must be a real ref, and it must not
+  // be production. A new staging project is expected to change this value.
+  if (!staging?.ref || !REF_SHAPE.test(staging.ref)) {
+    problems.push(`staging ref ${staging?.ref ?? "(missing)"} is not a 20-character project ref`);
+  }
+  if (staging?.ref && staging.ref === production?.ref) {
+    problems.push(
+      "staging and production are THE SAME REF — staging-before-production would be a no-op " +
+        "and every migration would go straight to the live database",
+    );
   }
   if (production?.region !== "ca-central-1") {
     problems.push(`production region is ${production?.region} — Canadian residency requires ca-central-1`);
@@ -224,7 +278,7 @@ const QUOTED_MARKER = "[dev-wording-quoted]";
       migration: files[0],
       sha256: `${hashOf()}-different`,
       environment: "staging",
-      ref: STAGING_REF,
+      ref: SYNTHETIC_STAGING_REF,
       appliedAt: "2026-01-01T00:00:00.000Z",
       appliedBy: "test",
     },

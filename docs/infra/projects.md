@@ -13,17 +13,40 @@ display name and the reality disagree, **the ref decides**.
 | Ref | Display name | Region | Status | What it IS |
 |---|---|---|---|---|
 | `fddlpnibovkkkgboabqb` | `courtsimplified-dev` | `ca-central-1` | ACTIVE_HEALTHY | **PRODUCTION.** The live database. 2 accounts, 4 cases |
-| `ffymjxjcnwakgdmldpne` | `courtsimplified` | `us-west-2` | ACTIVE_HEALTHY | **The original April project.** Nothing points at it — but it is **not empty**: 3 accounts, 2 cases |
+| `icpvzwxyjsdgyqfkwycw` | `courtsimplified-staging` | `ca-central-1` | ACTIVE_HEALTHY | **STAGING.** Created 2026-09-26, clean, no user data |
 
-Both are in organisation `rcxzxczzgsnrrmfdujvv`, which is on the **free plan with
-a 2-active-project limit**. That limit is currently reached, which is why a third
-project cannot be created without pausing one or upgrading.
+Both are in organisation `rcxzxczzgsnrrmfdujvv`, on the **free plan with a
+2-active-project limit** — which is exactly filled by these two. A third project
+cannot be created without pausing one or upgrading, and the CLI has no `pause`
+subcommand.
 
-**Neither project is a scratch environment.** There is no staging project yet.
-Calling `ffymjxjcnwakgdmldpne` "staging" — as this file and others did until
-2026-09-26 — invited a `db reset` against a database holding a family member's
-account. Row counts for both, counted from dumps rather than estimated, are in
-`docs/security/DATA_FLOW_INVENTORY.md` §2.2 and §2.2a.
+**Both are now in `ca-central-1`**, so a staging run exercises the same Canadian
+data-residency path as production. Nothing of ours is in the United States.
+
+### `ffymjxjcnwakgdmldpne` was DELETED on 2026-09-26
+
+The original April project, in `us-west-2`. This file and three others called it
+"staging" and said it was empty. It was not: 3 auth accounts — the operator's, a
+family member's, and the browser harness's — and 2 cases.
+
+It was deleted on the site owner's explicit instruction, after a backup that was
+**verified against a census of its contents** rather than merely checked for
+non-zero size: 3 accounts in the dump matching 3 in the census, 3 of 3 with bcrypt
+password hashes, 3 auth identities, 2 cases. The backup is at
+`courtsimplified-backups/april-ffymjx-20260926-143148/` and holds `schema.sql`,
+`data.sql`, `auth-data.sql`, `roles.sql`, and `migration-history.sql` — the 26
+legacy migration versions with their statements, which existed nowhere else and
+would otherwise have gone with the project.
+
+**A SQL dump does not contain storage object bytes**, only the `storage.objects`
+rows. The 730 objects were all in the public `court-forms` bucket; their bytes are
+in `courtsimplified-backups/oregon-2026-08-30/storage/` (733 files) and the same
+730 objects exist in production. Nothing unique was lost.
+
+**If you find that ref named anywhere, it is stale.**
+
+Row counts for the projects that exist, counted from dumps rather than estimated,
+are in `docs/security/DATA_FLOW_INVENTORY.md` §2.2a.
 
 ### How production was identified
 
@@ -91,14 +114,18 @@ dumps or `count(*)`, never from `table-stats`.**
 
 ## State to fix
 
-| What | Found | Wanted | Blocked on |
+| What | State | Wanted | Blocked on |
 |---|---|---|---|
-| A staging project | **does not exist** | `courtsimplified-staging`, `ca-central-1` | the free plan's 2-project limit — pause the April project or upgrade |
-| Supabase CLI link | now `ffymjxjcnwakgdmldpne` | staging | staging existing |
-| `.env.local` | points at production | points at staging | staging existing |
-| Display names | backwards | `courtsimplified-prod` / `courtsimplified-archive` / `courtsimplified-staging` | a valid `SUPABASE_ACCESS_TOKEN` |
+| A staging project | **done** — `icpvzwxyjsdgyqfkwycw`, ca-central-1 | — | — |
+| Repo migrations on staging | **done** — 8 of 8, 0 remote-only | — | — |
+| Supabase CLI link | **done** — `icpvzwxyjsdgyqfkwycw` | — | — |
+| `.env.local` | **done** — points at staging | — | — |
+| `supabase/config.toml` `project_id` | **done** — `courtsimplified-staging` | — | — |
+| Suite, fixtures, eval against staging | **done** — see setup-report | — | — |
+| The 5 pending migrations on production | not applied | applied | nothing — staging is green; this is the next action |
+| Production's display name | `courtsimplified-dev` | `courtsimplified-prod` | a valid `SUPABASE_ACCESS_TOKEN` |
 | Auth settings, daily backups, PITR | not set | min password 12, email confirmation, MFA | a valid `SUPABASE_ACCESS_TOKEN` |
-| Vercel Preview | no Supabase vars | staging vars | staging existing |
+| Vercel Preview | no Supabase vars | staging vars | nothing — staging now exists |
 
 The token in the environment on 2026-09-26 is 48 characters; a personal access
 token is `sbp_` plus 40 **hex** characters, 44 in total. See

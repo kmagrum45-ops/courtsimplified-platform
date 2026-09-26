@@ -88,7 +88,12 @@ held about them.
 | Store | Contents | Region |
 |---|---|---|
 | **Supabase, ref `fddlpnibovkkkgboabqb`** — **THE LIVE DATABASE**, confusingly named `courtsimplified-dev` | Everything: accounts, cases, intakes, evidence metadata, generated documents, events | **`ca-central-1` — Canada** |
-| **Supabase, ref `ffymjxjcnwakgdmldpne`** — the original April project, confusingly named `courtsimplified` | Active, and **NOT empty**: 3 auth accounts (2 real people's, 1 browser-harness) and 2 cases, verified by dump 2026-09-26. An earlier version of this row said "all empty" on the strength of `table-stats`, whose row count is a planner estimate — see 2.2 and docs/infra/projects.md | `us-west-2` — **Oregon, United States** |
+| **Supabase, ref `icpvzwxyjsdgyqfkwycw`** — `courtsimplified-staging` | **STAGING, created 2026-09-26.** No user data, and it must never hold any. Schema built from the repo's 8 migrations; 27 tables, RLS on all 27, `case-evidence` private | **`ca-central-1` — Canada** |
+| ~~**Supabase, ref `ffymjxjcnwakgdmldpne`**~~ — the original April project | **DELETED 2026-09-26**, on the site owner's instruction, after a backup verified against a census of its contents. It held 3 auth accounts (the operator's, a family member's, the browser harness's) and 2 cases. An earlier version of this row said "all empty" on the strength of `table-stats`, whose row count is a planner estimate — see 2.2 and 2.2b | was `us-west-2` — Oregon, United States |
+
+**As of 2026-09-26 no data of ours is stored outside Canada.** The only project
+that was ever in the United States is the one deleted above, and what it held is
+set out in 2.2.
 | **Supabase Storage, bucket `case-evidence`** | Uploaded evidence files. **Empty in both** | Per project |
 | **Browser `localStorage`** | **26 keys — see 4.3.** A resumable draft, the active case id, case-context blobs, assembled evidence packages, parsed message threads, case-partner chat transcripts, and whole generated workspace documents. **20 of the 26 carry no user id** | The user's own device |
 | **Cookie `cs_site_access`** | The shared site password, HttpOnly | The user's own device |
@@ -142,7 +147,15 @@ alongside the ref on every run.
 in `.env` files and possibly in Vercel, and it should be done deliberately
 rather than at the end of a long session.
 
-### 2.2 What is in the US project, `ffymjxjcnwakgdmldpne` — counted 2026-09-15, re-counted 2026-09-26
+### 2.2 What WAS in the US project, `ffymjxjcnwakgdmldpne` — counted 2026-09-15, re-counted and then deleted 2026-09-26
+
+**That project no longer exists.** It was deleted on 2026-09-26 on the site
+owner's explicit instruction, after a backup verified against the census below —
+3 accounts in the dump against 3 in the census, all 3 carrying password hashes and
+identities, and 2 cases. The backup is at
+`courtsimplified-backups/april-ffymjx-20260926-143148/`. This section is kept
+because it is the record of what was in the United States and for how long, which
+is a question a privacy inventory has to be able to answer after the fact.
 
 **CORRECTION, 2026-09-26. This section was headed "What is actually in
 production". It is not production.** The counts below are the **April /

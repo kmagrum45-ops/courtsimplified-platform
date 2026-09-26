@@ -1,43 +1,41 @@
 {
   "$comment": [
-    "The two Supabase projects, addressed by REF because the NAMES ARE BACKWARDS.",
-    "",
-    "The project named 'courtsimplified-dev' is production. The project named",
-    "'courtsimplified' is dormant and paused. Until they are renamed, any tool",
-    "that resolves a project by name will pick the wrong one, so nothing in this",
-    "repository resolves by name.",
+    "The two Supabase projects, addressed by REF. Nothing here resolves a project",
+    "by name, and that stays true even now that the names are trustworthy: a name",
+    "is editable in a dashboard, a ref is not.",
     "",
     "'currentName' records what each project is called TODAY. 'intendedName' is",
     "what it will be called after the rename described in docs/lso-fixes-report.md.",
     "When the rename is done, move each intendedName into currentName and set",
     "'renameComplete' to true -- scripts/db/applyMigrations.ts prints a warning",
-    "while it is false, and that warning is the reminder."
+    "while it is false, and that warning is the reminder.",
+    "",
+    "Staging is a NEW project as of 2026-09-26. The old staging entry pointed at",
+    "ffymjxjcnwakgdmldpne, the original April project, which was DELETED that day",
+    "on the site owner's explicit instruction after a verified backup. See",
+    "docs/infra/setup-report.md. That ref no longer exists; if you find it named",
+    "anywhere, it is stale."
   ],
   "renameComplete": false,
   "environments": {
     "staging": {
-      "ref": "ffymjxjcnwakgdmldpne",
-      "currentName": "courtsimplified",
+      "ref": "icpvzwxyjsdgyqfkwycw",
+      "currentName": "courtsimplified-staging",
       "intendedName": "courtsimplified-staging",
-      "region": "us-west-2",
+      "region": "ca-central-1",
       "status": "ACTIVE_HEALTHY",
       "notes": [
-        "VERIFIED ACTIVE 2026-09-26 by supabase projects list. It was recorded as PAUSED",
-        "here and in two other documents; it is not, and appears to have been restored",
-        "at some point without the docs being updated. Nothing needed restoring.",
-        "It is the ORIGINAL project (created 2026-04-13) and carries 25 migrations of",
-        "legacy history that are NOT in this repository. Production (created 2026-08-26)",
-        "has a clean history matching the repo exactly. That asymmetry is why",
-        "supabase db push refuses against staging -- see docs/infra/setup-report.md.",
-        "IT IS NOT EMPTY. An earlier note here said '24 tables, every one empty',",
-        "read off supabase inspect db table-stats, whose estimated_row_count is",
-        "pg_class.reltuples -- a planner estimate that reads 0 until something runs",
-        "ANALYZE. A dump on 2026-09-26 found 3 auth accounts (two of them real",
-        "people's, one the browser harness) and 2 cases. Do not reset or reuse this",
-        "project as staging without deciding what happens to those accounts.",
-        "In us-west-2. Acceptable for staging, which must never hold real user data,",
-        "and the reason this one must NOT become production: Canadian data residency",
-        "is why production sits in ca-central-1."
+        "Created 2026-09-26 in ca-central-1, in the same region as production so that",
+        "a staging run exercises the same data-residency path as the real thing.",
+        "It is a CLEAN project: all 8 repo migrations pushed in order, 0 migrations",
+        "applied that are not in supabase/migrations. This is the first time staging",
+        "and the repository have agreed, and it is why db push now works on both.",
+        "Verified 2026-09-26 against production's backup: 27 public tables to",
+        "production's 26 -- the extra is ai_call_log, which is still pending on",
+        "production. 27 of 27 tables have RLS enabled. The 18 policies are identical",
+        "to production's, name for name. The case-evidence bucket is public = false.",
+        "It holds NO user data and must never hold any. It replaced a project that",
+        "was wrongly believed to hold none -- see docs/infra/projects.md."
       ]
     },
     "production": {
@@ -51,7 +49,11 @@
         "NEXT_PUBLIC_SUPABASE_URL resolves to this ref.",
         "Created 2026-08-26. Migration history matches this repository exactly --",
         "0 migrations applied that are not in supabase/migrations.",
-        "Its name says dev. It is not dev. See docs/infra/projects.md."
+        "Its name says dev. It is not dev. See docs/infra/projects.md.",
+        "Counted from a backup 2026-09-26: 2 auth accounts (1 browser harness, 1 the",
+        "operator's) and 4 cases, all the operator's. 26 of 26 tables have RLS",
+        "enabled, there are no dev_full_access_* policies to drop, and the",
+        "case-evidence bucket is already private."
       ]
     }
   }

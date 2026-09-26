@@ -22,11 +22,25 @@ reason is a real state mismatch that no document records, explained in full belo
 
 **Two live hazards were found and closed** — both were quietly true for some time.
 
-**Round 2, after your six decisions, is at the bottom of this file.** Short
-version: both databases are now backed up and counted, production's RLS is in
-better shape than expected, the test data in production turns out to be one
-account that owns nothing, and everything still outstanding is waiting on a single
-credential — a correctly-shaped Supabase personal access token.
+**Rounds 2 and 3 are at the bottom of this file, and they supersede Step 2's
+"BLOCKED" above.** Short version:
+
+- Both databases were backed up and **counted** — the April project was never
+  empty, and the belief that it was came from a planner estimate.
+- Production's RLS is in better shape than expected: 26 of 26 tables covered,
+  nothing permissive to drop, evidence bucket already private.
+- The test data in production is **one harness account that owns nothing**.
+- The April project was **deleted** on your instruction, after the backup was
+  verified against its census.
+- **Staging now exists** — `icpvzwxyjsdgyqfkwycw`, ca-central-1, all 8 migrations
+  applied and the 1371 catalogue rows seeded. Fixtures and the eval run against it
+  with no new failures; of 88 suites, the only two that failed because of the new
+  environment were fixed by seeding, and 11 others were already failing before this
+  round, verified message-for-message.
+- **Production still has nothing applied to it.** It is the next action, and it is
+  no longer blocked.
+- What remains blocked is only what needs a correctly-shaped Supabase personal
+  access token: the rename, auth settings, backups and PITR.
 
 ---
 
@@ -667,6 +681,285 @@ backup.**
 
 ---
 
+# Round 3 — the April project deleted, staging built, staging green
+
+Same day, on your instruction to delete `ffymjxjcnwakgdmldpne` after confirming
+the backup, then continue with the decisions block.
+
+## The backup, confirmed restorable before anything was deleted
+
+"Non-empty" was the bar in Round 2. For a deletion it is not enough, so the
+backup was checked against the census rather than against zero:
+
+| Property | Result |
+|---|---|
+| `auth.users` in the dump vs. the census | **3 vs 3 — match** |
+| `public.cases` in the dump vs. the census | **2 vs 2 — match** |
+| The two dumps agree on `auth.users` | yes — `data.sql` and `auth-data.sql` independently hold 3 |
+| bcrypt password hashes present | **3 of 3 accounts** — the accounts are restorable, not just listed |
+| `auth.identities` rows | 3 |
+| Every table with data also has its DDL | yes, for `public`; the `auth` and `storage` tables have data and no DDL, which is correct — a fresh Supabase project supplies those schemas |
+| `data.sql` / `auth-data.sql` end cleanly | both carry `RESET ALL;` and pg_dump's completion marker |
+
+`schema.sql` carries **no** completion marker, because the Supabase CLI
+post-processes that file. Rather than treat its absence as either fine or fatal, the
+DDL-coverage check above was used instead: it asserts the property that actually
+matters for a restore, which is that no table has data without a definition.
+
+**Two things were captured before deleting that the first backup had missed**, both
+cheap while the project still existed and impossible afterwards:
+
+- **`roles.sql`** — taken for production in Round 2 but not for this project.
+- **`migration-history.sql`, 191 KB** — the `supabase_migrations.schema_migrations`
+  table, holding **26 migration versions** from 2026-07-07 to 2026-08-23 *with
+  their SQL*. This is the legacy history that the whole Step 2 deadlock was about.
+  It existed in no other place. Deleting the project without it would have thrown
+  away the only record of how that schema came to be.
+
+**One limit of a SQL dump, stated plainly:** it holds `storage.objects` rows, not
+the objects' bytes. All 730 were in the public `court-forms` bucket. Their bytes
+are in `courtsimplified-backups/oregon-2026-08-30/storage/` (733 files) and the
+same 730 objects exist in production, so nothing unique was lost — but if that
+bucket had held user evidence, the dump alone would not have been a backup of it.
+
+**Nothing live pointed at the project**: `.env.local` was on production, and
+Vercel's Supabase variables exist only in Production and resolve to production.
+
+## Deleted
+
+```
+supabase projects delete ffymjxjcnwakgdmldpne
+  -> {"name":"courtsimplified","message":"Deleted project"}
+```
+
+Confirmed by `supabase projects list`: **one project in the org, and it is
+production.** The ref is gone. The CLI also cleared `supabase/.temp`, so the stale
+link went with it.
+
+## Staging created, and it is a genuinely clean environment
+
+```
+supabase projects create courtsimplified-staging \
+  --org-id rcxzxczzgsnrrmfdujvv --region ca-central-1 --db-password <never printed>
+```
+
+**`icpvzwxyjsdgyqfkwycw`, `courtsimplified-staging`, `ca-central-1`,
+ACTIVE_HEALTHY.** In the same region as production deliberately, so that a staging
+run exercises the same Canadian residency path as the real thing. It also means
+**nothing of ours is in the United States any more.**
+
+`supabase db push` applied **all 8 repo migrations in order, from 0 applied**. That
+is the first time staging and this repository have ever agreed, and it retires the
+asymmetry that blocked Step 2: `db push` now works on both projects, staging first.
+
+> A warning at the end of the push — `failed to cache migrations catalog … pgdelta-target-ca.crt: ENOENT` — is a CLI catalog-caching step, after `Finished supabase db push`. The migrations applied; the schema comparison below is the proof, not the absence of warnings.
+
+### One assumption of mine this disproved
+
+I had concluded in Round 2 that the repo carried no baseline schema, since its
+8 migrations begin in August and production's 26 tables came from the 26 legacy
+versions. That was wrong, and the reason is worth writing down:
+
+**`supabase/migrations/20260823020500_add_case_evidence_storage_bucket.sql` is
+48 KB and contains 24 `CREATE TABLE` statements.** It is the entire base schema.
+24 + `case_events` + `case_event_candidate_dismissals` + `ai_call_log` = the 27
+tables staging now has.
+
+It is the output of `supabase migration squash --linked`, which collapsed the 26
+original migrations into one file and **kept the last one's name** — so the name
+describes the smallest thing in the file. `supabase/seed.sql` already records the
+squash and why it was done. The 26 legacy versions this replaced are the ones now
+preserved only in `migration-history.sql` in the April backup.
+
+### Staging compared against production's backup
+
+Not asserted — diffed, from the two dumps:
+
+| | Staging | Production | Verdict |
+|---|---|---|---|
+| Public tables | **27** | 26 | the extra is `ai_call_log`, still pending on production — correct |
+| Tables in production but not staging | — | **none** | |
+| Tables with RLS enabled | **27 of 27** | **26 of 26** | |
+| RLS policies | **18** | **18** | **identical, name for name and table for table** |
+| `case-evidence` bucket | `public = false` | `public = false` | the bucket migration did what it says |
+
+## Staging is green
+
+`.env.local` was repointed at staging (backed up to `.env.local.before-staging`,
+which `.gitignore` covers via `.env*`). `supabase/config.toml` `project_id` and
+`supabase/environments.json` now name the new project, so every guard reports the
+truth rather than a deleted ref.
+
+**`npm run db:staging`** prints `CLI linked icpvzwxyjsdgyqfkwycw` and the 8 local
+migrations.
+
+**Fixtures** — all 3 ran end to end against staging, and the audit-log sink
+correctly reported `sink: file (.ai-call-log.jsonl)`, so the test run wrote no
+audit rows to any database:
+
+| Fixture | Turns | Claim type |
+|---|---|---|
+| `unpaid-invoice-clean` | 11 | `sc-claim-unpaid-debt-services` |
+| `unpaid-invoice-gap` | 11 | `sc-claim-unpaid-debt-services` |
+| `over-limit-contract` | 9 | `sc-claim-unpaid-debt-services` |
+
+Drift against the committed run is **10 insertions and 9 deletions across the three
+files**, and all of it is model prose in `intelligenceSummary` /
+`structuredIntelligenceSummary`, plus two boolean-extraction wobbles
+(`claimFiled: false -> true` no longer observed in one; `"defenceFiled": false`
+newly present in another). Turn counts, question sequences and claim types are
+unchanged, so none of it is attributable to the new database. The two boolean
+wobbles are extraction nondeterminism worth watching, not a regression to chase
+today.
+
+**The accuracy eval — 47 stories, against staging:**
+
+| | Result | Target | |
+|---|---|---|---|
+| overall | **44/47** | | |
+| stage accuracy | **97%** | ≥ 90% | PASS |
+| wrong-stage shown | **0** | 0 | PASS |
+| out-of-scope harm | **0** | 0 | PASS |
+| out-of-scope latent | **0** | 0 | PASS |
+| deadline accuracy | **9/9** | 100% | PASS |
+| chat routing | **5/5** | all | PASS |
+| chat advice flag | **5/5** | all | PASS |
+| advice deflected | **3/3** | all | PASS |
+| dangerous stage | 1 | 0 | FAIL — pre-existing |
+| overconfident | 1 | 0 | FAIL — pre-existing |
+| gate refused | 1 | — | pre-existing |
+
+The three misses are the three already recorded, unchanged and unrelated to the
+environment: `amb-absence-not-evidence` (the ~half-of-runs model behaviour that is
+recorded rather than fixed, and which accounts for both FAILs, being one story
+counted twice), `oos-criminal` (the two-model agreement failure, caught by the
+forum gate rather than by a content gap), and `d-missed-the-20-days` coming back
+unknown.
+
+The render gates are visibly doing their job in the run:
+
+```
+[stageAnswerView] refused before-filing:notice-toronto: "municipality" not confirmed
+[stageAnswerView] refused before-filing:deciding-whether-to-sue: scope not established (civil @ 0.7)
+```
+
+**The full suite — and the thing migrations alone did not give us**
+
+There is no aggregate runner in this repo (89 `test:` scripts), so one was written
+to run them all with `.env.local` injected into each child. **88 ran** (the browser
+suites need a dev server, which must not be started). First result: **74 passed,
+14 failed.**
+
+Two of those 14 were a real gap, and mine:
+
+```
+AssertionError: 4300c97c-… must be present in court_form_library for small-claims
+AssertionError: ontario/small-claims/scr-15a-aug22-en-fil.pdf must be present in court_form_library
+```
+
+**Pushing migrations builds the schema and none of the data.** Staging had 27
+tables, RLS on all of them — and **zero catalogue rows**, where production has
+1371. The repo already solves this and I had not used it: `supabase/seed.sql`
+clears the 17 catalogue tables, then
+`supabase/snapshots/20260822_catalogue_data_snapshot.sql` loads them, both wired
+into `[db.seed] sql_paths` and normally run by `supabase db reset`.
+
+I did **not** use `db reset --linked`, which would drop and rebuild the whole
+schema. `seed.sql`'s `TRUNCATE` list is only the 17 catalogue tables and reaches no
+`case_*` table, so running the two files directly is strictly narrower. They were
+executed with `psql` in Docker over the pooler connection, after confirming every
+table in staging — catalogue *and* user — was at 0, so nothing could be lost.
+
+All 17 tables then matched the snapshot's own documented counts exactly, **1371
+rows**, and both suites pass.
+
+> Worth noting: that snapshot was captured from `ffymjxjcnwakgdmldpne` on
+> 2026-08-22. With that project deleted, the committed snapshot is now the only
+> surviving copy of where this catalogue came from. It earned its place in the
+> repository.
+
+That leaves **11 failures plus one artefact of my own runner**:
+
+| Suite | Failure | Verdict |
+|---|---|---|
+| `test:scenario` | `Use: npm run test:scenario SC-…-001` | **not a failure** — it needs a scenario id; my runner called it bare. The scenario matrix itself reports `total=120; pass=120; fail=0` |
+| `test:builder-persistence` | "authorized selected case must retain the canonical Supabase master_result update" | pre-existing |
+| `test:case-rls-contract` | "Selected-case updates must stay scoped to the selected case ID" | pre-existing |
+| `test:fixture-guards` | `ENOENT … src/lib/case-system/intake/explainQuestion.ts` | pre-existing |
+| `test:forms-case-isolation` | — | pre-existing |
+| `test:mutations` | "the analysis stops being told which events the user confirmed" | pre-existing |
+| `test:ontario-beta-bundle` | — | pre-existing |
+| `test:overview-labels` | "settlement conference issues list must filter through the shared helper" | pre-existing |
+| `test:workflow-gating` | regex `/resolveWorkflowGate/` unmatched | pre-existing |
+| `test:output-guard` | "no undeclared model call sites" | pre-existing |
+| `test:journey-battery` | story `B1-defendant-served-disputes-facts` has no answer for `sc-defendant-service-method` | pre-existing — a content gap |
+| `test:fixtures:generated` | `expected: sc-claim-personal-loan-between-individuals — DIFFERENT` | pre-existing — model drift in a generated fixture |
+
+**"Pre-existing" here was established, not assumed, and the first attempt to
+establish it was not good enough.** Running them at `HEAD` without the env file
+showed the same exit codes — but a suite failing for want of an API key and a suite
+failing on a real assertion both exit 1, so that proved nothing. Re-run at `HEAD`
+**with the same env injected**, comparing failure *messages*: every message is
+byte-identical to the working tree, the sole difference being a process id inside a
+deprecation warning. No `src/` file was modified in this round, which is consistent.
+
+`test:fixtures:generated` rewrote `fixtures/liveStories/L1-personal-loan.md` as it
+ran. That change was **reverted rather than committed** — it is model drift in a
+generated fixture belonging to an already-failing suite, and absorbing it into an
+infrastructure commit would hide it.
+
+**So: staging behaves as production does, every failure present was already
+present, and the two that were genuinely caused by the new environment are fixed.**
+The 11 pre-existing failures are not this task's work and are not claimed as fixed.
+
+## A check of mine that failed the way CLAUDE.md §5 warns about
+
+`npm run test:db-environments` went red on the new project:
+
+```
+FAIL  environments.json has the projects wrong
+      staging ref is icpvzwxyjsdgyqfkwycw, expected ffymjxjcnwakgdmldpne
+```
+
+It pinned staging's ref to a literal. So the check failed **because the work it
+exists to protect had been done**, and it demanded the ref of a project that had
+just been deleted. That is precisely the failure mode in §5, in a check written
+two rounds earlier in this same task.
+
+Rewritten to assert properties:
+
+- **Staging is a well-formed 20-character ref**, and **staging is not
+  production** — the thing that would actually be catastrophic, since equal refs
+  would make staging-before-production a no-op.
+- **CLAUDE.md names whatever staging ref `environments.json` records**, read from
+  the config rather than from a constant. The property is that the documents and
+  the config agree; a new staging project satisfies it without an edit here.
+- The ledger checks now use a **synthetic ref** (`zzzz…`) that can never be a real
+  project, so they test the rule rather than today's environment.
+
+**Production's ref stays pinned, deliberately**, and it is now the only pinned
+value in that file — with a comment saying why: production is a single long-lived
+identity that every other guard resolves through, and if `environments.json` ever
+stops naming it, that should be a red line rather than a shrug.
+
+## What is now unblocked, and what still is not
+
+**Unblocked, and the next action:** the 5 pending migrations on production.
+Decision 3's condition — "once staging is green" — is met. Production is backed
+up, its RLS state is recorded for an afterwards comparison, and two of the five
+migrations are known to be no-ops.
+
+**Still blocked on a Supabase personal access token**, unchanged from Round 2:
+renaming production to `courtsimplified-prod`, minimum password length, email
+confirmation, MFA, daily backups and PITR. Staging no longer needs one, because
+creating a project was the part the CLI could do.
+
+**Newly possible but not done:** Vercel Preview can now be given staging's
+Supabase variables. That is a deployment-configuration change and was not part of
+the decisions block.
+
+---
+
 ## What changed in the repository
 
 | File | Change |
@@ -690,16 +983,39 @@ Round 2:
 | `docs/security/DATA_FLOW_INVENTORY.md` | §2 row corrected; §2.2 relabelled as the US project; **§2.2a added — the live database counted for the first time**; §2.2b on the `table-stats` trap; §2.3's inverted labels corrected |
 | `docs/infra/setup-report.md` | the Step 2 "every one empty" claim corrected in place; Round 2 added |
 
-**Nothing was applied to either database in either round.** Two full backups were
-taken — the April project and production — because reading production at all is
-worth doing behind a backup, and because Decision 3 will need one already in hand.
-Both are outside the repository and both were verified non-empty:
+Round 3:
+
+| File | Change |
+|---|---|
+| `supabase/environments.json` | staging is now `icpvzwxyjsdgyqfkwycw` in ca-central-1; both entries carry counted figures |
+| `supabase/config.toml` | `project_id` → `courtsimplified-staging` |
+| `CLAUDE.md` §6 | the project table rewritten; `ffymjxjcnwakgdmldpne` recorded as deleted; the 48 KB baseline-migration trap written down |
+| `scripts/verification/verifyDatabaseEnvironments.ts` | **staging's ref no longer pinned** — asserts well-formedness, that staging ≠ production, and that CLAUDE.md agrees with `environments.json`; ledger checks moved to a synthetic ref; production's pin kept and explained |
+| `docs/infra/projects.md` | the two current projects; the deletion and what the backup holds; "state to fix" rewritten against what is now done |
+| `docs/security/DATA_FLOW_INVENTORY.md` | §2 table: staging added, the US project struck through as deleted; §2.2 retitled to the past tense with the deletion recorded |
+| `docs/infra/setup-report.md` | this Round 3 |
+| `scripts/verification/fixtures/*.actual.md` | regenerated against staging — prose-level model drift only, explained above |
+
+Nothing in the repository needed changing for the catalogue seed: `seed.sql`, the
+snapshot and the `[db.seed] sql_paths` wiring were already there and already
+correct. The gap was that `db push` does not run them, which is now written down in
+`CLAUDE.md` §6 so the next fresh project does not repeat it.
+
+**Nothing was applied to either database in Rounds 1 or 2.** In Round 3 the April
+project was deleted and staging was created and migrated, both on explicit
+instruction. **Production has still had nothing applied to it.**
+
+Three backups exist, all outside the repository, all verified non-empty, and the
+April one verified against a census before its project was deleted:
 
 ```
-/c/Users/kmagr/courtsimplified-backups/april-ffymjx-20260926-143148/
-/c/Users/kmagr/courtsimplified-backups/prod-fddlpn-20260926-144214/
+/c/Users/kmagr/courtsimplified-backups/april-ffymjx-20260926-143148/   schema, data, auth, roles, migration history
+/c/Users/kmagr/courtsimplified-backups/prod-fddlpn-20260926-144214/    schema, data, auth, roles
+/c/Users/kmagr/courtsimplified-backups/staging-icpvzw-20260926-151429/ schema, storage data
 ```
 
-The CLI was linked to production for the duration of the backup and **relinked to
-`ffymjxjcnwakgdmldpne` afterwards**, so that a stray `supabase db push` cannot
-reach the live database. Verified with `supabase projects list`.
+The CLI was linked to production only for the duration of its backup, and is now
+linked to **`icpvzwxyjsdgyqfkwycw`, staging**, so that a stray `supabase db push`
+cannot reach the live database. `.env.local` points at staging for the same reason.
+Both verified by `npm run db:staging`, which prints the target before anything
+runs.
