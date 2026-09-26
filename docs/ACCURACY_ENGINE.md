@@ -876,6 +876,117 @@ unreachable for two whole parts. A capability with no caller is not a capability
 
 ---
 
+## The two render gates, and the chat composition rule
+
+### Why the obvious forum gate had to be abandoned
+
+The requirement was: stage resolution cannot run and no stage result can render
+unless `classifyCourtPath` returned in-scope. Probing the three stories that
+matter, before writing anything:
+
+```
+"I want him charged"            classifyCourtPath -> CIVIL at 0.8
+"a city sidewalk, broke wrist"  classifyCourtPath -> UNKNOWN at 0.9
+"client owes me $8,400"         classifyCourtPath -> small-claims at 0.9
+```
+
+A gate requiring "not out-of-scope" passes the criminal complaint, because civil
+is in scope. A gate requiring an affirmative routable answer passes it for the
+same reason. And a gate requiring "small-claims" specifically **blocks the icy
+sidewalk** — a municipal notice claim with a ten-day bar, which classifies as
+unknown and must still reach its block. That would have undone the fix from two
+commits earlier, in the worst possible direction.
+
+The keyword pass detects nothing for any of the three, so there was no
+deterministic override to reach for either.
+
+### So the gate is per stage
+
+`requiresAffirmativeScope` on the three catch-all before-filing stages. They
+render only where the classifier said **small-claims** at or above the floor.
+
+That is where a misclassified matter lands. The stage's own question is "Can I sue
+over this, and is Small Claims the right court?" — a person genuinely deciding
+that over a debt is classified small-claims; the one who wanted somebody charged
+was classified civil. The notice stages are deliberately NOT gated: they describe
+a specific situation, they carry the bars, and `unknown` must still reach them.
+
+```
+out-of-scope latent   1 FAIL  ->  0 PASS
+gate refused          -            1
+```
+
+The second line is the point. The criminal story is now stopped BY A GATE rather
+than by the absence of a published block. The eval reports the two separately,
+because "nothing shown because we have not written it" and "nothing shown because
+the gate refused it" look identical to a reader and are opposite facts about the
+product.
+
+### The high-stakes ambiguity rule
+
+`requiresConfirmedFact` on the Toronto notice stage: the `municipality`, asked as
+"Which city or town was this in?", with the general Municipal Act block as the
+alternative.
+
+s. 42 (6) names the Toronto **city clerk**; s. 44 (10) names every other
+municipality's. A reader who serves the wrong clerk has done nothing, with ten
+days to do it in — and the story that caused this said only "a city sidewalk".
+
+Without the confirmed fact the Toronto block does not render at all. The reader
+gets the question AND the general block, which is true whichever way they answer,
+so a ten-day period is not spent waiting for us to ask. There is no path from a
+narrative to that fact: the routes read `confirmedFacts` from the request body
+and nothing else writes it.
+
+**Both gates live at the render door**, not in the route. `renderStageAnswerOrRefuse`
+is the only way a stage answer reaches a user, so a gate there holds for the
+route, the chat, the eval, and whatever is added next. A gate in the route would
+have to be remembered in the chat — and the chat is exactly where the Toronto
+error happened.
+
+Mutation-tested: disabling the forum gate fails three checks by name, disabling
+the ambiguity rule fails four.
+
+### The chat composition rule
+
+Deflecting a question must never suppress stage guidance. The response is composed
+in code, in this order:
+
+1. the deflection, where the question asked for advice
+2. **the reader's current stage block, from the stage resolver**
+3. the blocks the chat router selected
+
+Item 2 is the addition. The measured failure: "Do you think I'll win this?" from
+somebody who said they were served two weeks ago came back with the deflection and
+NO BLOCK — so they never saw that a twenty-day defence period was running.
+
+The stage now comes from the **stage resolver**, a different call with a different
+job, which got that case right every time. The chat router no longer has the power
+to suppress it. Where both chose the same stage it appears once.
+
+### Procedural questions are never legal advice, decided in code
+
+A fixed list of procedural askings — how do I file / serve / collect / respond,
+what form, where do I file, what are the steps — overrides the model's
+`requestsLegalAdvice` flag **before it is read**.
+
+The model set that flag whenever it had nothing to offer. It was told not to, in
+four places, with "How do I collect on my judgment?" given as a worked
+counter-example, and did it anyway. A person asking how to serve a document was
+being told that their ordinary procedural question needs a lawyer.
+
+The list is safe in a way a list of advice phrases would not be: it only ever makes
+the product MORE willing to answer a procedural question, and being on it does not
+produce content — blocks are still selected by id from the published set, still
+rendered through the guard, still free of predictions.
+
+```
+chat routing      4/5 FAIL  ->  5/5 PASS
+chat advice flag  4/5 FAIL  ->  5/5 PASS
+```
+
+---
+
 ## The commands
 
 ```
