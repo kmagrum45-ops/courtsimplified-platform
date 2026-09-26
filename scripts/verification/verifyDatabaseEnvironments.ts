@@ -194,13 +194,37 @@ const QUOTED_MARKER = "[dev-wording-quoted]";
         `the two disagree, which is how somebody ends up pointing at a project that no longer exists`,
     );
   }
-  if (!/NAMES ARE BACKWARDS/i.test(claude)) problems.push("does not warn that the names are backwards");
   if (!/by (?:its )?REF, never by (?:its )?name/i.test(claude)) {
     problems.push("does not say to identify a project by ref rather than name");
   }
 
+  /**
+   * *** WHY THIS NO LONGER LOOKS FOR "NAMES ARE BACKWARDS" ***
+   *
+   * It did, and on 2026-09-26 the projects were renamed -- production from
+   * `courtsimplified-dev` to `courtsimplified-prod` -- so this check failed
+   * because the hazard it described had been FIXED. Third time in this one task
+   * that a check here punished the work it existed to encourage (CLAUDE.md §5).
+   *
+   * The durable property is not "the names are wrong today". It is that the
+   * reader is warned the OLD wording can mean production, because the
+   * repository's history, several documents' historical passages and four
+   * migration files still contain it -- and the migrations are never edited,
+   * since the ledger stores their hashes. That warning stays necessary for as
+   * long as the history does, which is forever.
+   */
+  const warnsAboutOldWording =
+    /before\s+2026-09-26[\s\S]{0,400}?\bdev\b/i.test(claude) ||
+    /\bdev\b[\s\S]{0,200}?may mean production/i.test(claude) ||
+    /was called `?courtsimplified-dev/i.test(claude);
+  if (!warnsAboutOldWording) {
+    problems.push(
+      'does not warn that wording predating the 2026-09-26 rename may mean production when it says "dev"',
+    );
+  }
+
   if (problems.length === 0) {
-    pass("CLAUDE.md identifies both projects by ref and warns about the names");
+    pass("CLAUDE.md identifies both projects by ref and warns about the old names");
   } else {
     fail(`CLAUDE.md ${problems.join("; ")}`);
   }

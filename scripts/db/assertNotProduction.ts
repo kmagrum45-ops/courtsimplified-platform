@@ -47,11 +47,27 @@ export function refFromUrl(url: string | undefined): string | null {
   return match ? match[1] : null;
 }
 
-export function productionRef(): string {
-  const file = JSON.parse(
+function environments(): EnvironmentsFile {
+  return JSON.parse(
     readFileSync(path.join(ROOT, "supabase", "environments.json"), "utf8"),
   ) as EnvironmentsFile;
-  return file.environments.production.ref;
+}
+
+export function productionRef(): string {
+  return environments().environments.production.ref;
+}
+
+/**
+ * Production's name, read from the config rather than written into the message.
+ *
+ * The refusal used to say *the one named "courtsimplified-dev", which is
+ * production despite the name*. Production was renamed on 2026-09-26, so that
+ * sentence would now send the reader looking for a project that does not exist —
+ * in an error whose entire purpose is to say which project they are about to
+ * touch.
+ */
+export function productionName(): string {
+  return environments().environments.production.currentName;
 }
 
 /**
@@ -112,7 +128,7 @@ export function assertNotProduction(what: string): void {
   throw new Error(
     `${what} refuses to run against PRODUCTION (${production}).\n\n` +
       `NEXT_PUBLIC_SUPABASE_URL points at the live database — the one named\n` +
-      `"courtsimplified-dev", which is production despite the name.\n\n` +
+      `"${productionName()}".\n\n` +
       `Point .env.local at staging, or, if you genuinely mean to use production,\n` +
       `state why:\n\n` +
       `  ALLOW_PROD_DB="one line saying why" npm run <the command>\n\n` +

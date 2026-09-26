@@ -23,8 +23,8 @@ that follow.
 
 | | |
 |---|---|
-| The live database | **Canada (`ca-central-1`).** The deployed site, local development and every browser test all run against it. NOTE: it is CONFUSINGLY NAMED `courtsimplified-dev` — see 2.1.1 |
-| The dormant US database (`us-west-2`) | **PAUSED and unused by the deployment.** 3 accounts — two the operator's own, one the test harness. 2 shell case rows. Nothing else. Confusingly named `courtsimplified` |
+| The live database | **Canada (`ca-central-1`).** `courtsimplified-prod`, ref `fddlpnibovkkkgboabqb`. The deployed site runs against it; local development and the browser tests now run against STAGING instead — see 2.1.1 |
+| The US database (`us-west-2`) | **DELETED 2026-09-26**, after a verified backup. It held 3 accounts — the operator's, a family member's, the test harness's — and 2 shell case rows. Nothing of ours is outside Canada now |
 | Anonymous write access | **Zero, in both projects.** Remediated and verified 2026-09-15 |
 | Anonymous access to case tables | **None.** Every policy is `TO authenticated` with `auth.uid() = user_id` |
 | Analytics / advertising / session replay | **None.** Checked |
@@ -87,7 +87,7 @@ held about them.
 
 | Store | Contents | Region |
 |---|---|---|
-| **Supabase, ref `fddlpnibovkkkgboabqb`** — **THE LIVE DATABASE**, confusingly named `courtsimplified-dev` | Everything: accounts, cases, intakes, evidence metadata, generated documents, events | **`ca-central-1` — Canada** |
+| **Supabase, ref `fddlpnibovkkkgboabqb`** — **THE LIVE DATABASE**, `courtsimplified-prod` (renamed from `courtsimplified-dev` on 2026-09-26) | Everything: accounts, cases, intakes, evidence metadata, generated documents, events | **`ca-central-1` — Canada** |
 | **Supabase, ref `icpvzwxyjsdgyqfkwycw`** — `courtsimplified-staging` | **STAGING, created 2026-09-26.** No user data, and it must never hold any. Schema built from the repo's 8 migrations; 27 tables, RLS on all 27, `case-evidence` private | **`ca-central-1` — Canada** |
 | ~~**Supabase, ref `ffymjxjcnwakgdmldpne`**~~ — the original April project | **DELETED 2026-09-26**, on the site owner's instruction, after a backup verified against a census of its contents. It held 3 auth accounts (the operator's, a family member's, the browser harness's) and 2 cases. An earlier version of this row said "all empty" on the strength of `table-stats`, whose row count is a planner estimate — see 2.2 and 2.2b | was `us-west-2` — Oregon, United States |
 
@@ -105,17 +105,26 @@ Supabase Management API and against Vercel's environment configuration.
 
 | Ref | Project name | Region | Status | **What it actually is** |
 |---|---|---|---|---|
-| `fddlpnibovkkkgboabqb` | `courtsimplified-dev` | **`ca-central-1`** | ACTIVE_HEALTHY | **THE LIVE DATABASE.** Vercel's `NEXT_PUBLIC_SUPABASE_URL` points here, and so does `.env.local` |
-| `ffymjxjcnwakgdmldpne` | `courtsimplified` | `us-west-2` | ACTIVE_HEALTHY | **STAGING.** Nothing points at it. Recorded here as paused until 2026-09-26; it is not — see docs/infra/projects.md |
+| `fddlpnibovkkkgboabqb` | `courtsimplified-prod` | **`ca-central-1`** | ACTIVE_HEALTHY | **THE LIVE DATABASE.** Vercel's Production `NEXT_PUBLIC_SUPABASE_URL` points here. Renamed from `courtsimplified-dev` on 2026-09-26 |
+| `icpvzwxyjsdgyqfkwycw` | `courtsimplified-staging` | **`ca-central-1`** | ACTIVE_HEALTHY | **STAGING.** Created 2026-09-26. Vercel **Preview** and `.env.local` point here. No user data |
+| ~~`ffymjxjcnwakgdmldpne`~~ | ~~`courtsimplified`~~ | ~~`us-west-2`~~ | **DELETED 2026-09-26** | The original April project — see 2.2 |
 
 **So the accurate statement is: user data is stored in Canada, today, not as a
 plan.** The deployed application, local development and every browser test all
-run against `ca-central-1`.
+run against `ca-central-1`, and since 2026-09-26 there is no project of ours
+outside Canada at all.
 
-### 2.1.1 ⚠️ THE PROJECT NAMES ARE BACKWARDS — read this before touching either
+### 2.1.1 The project names were backwards until 2026-09-26 — RESOLVED, but read this
 
-**The project called `courtsimplified-dev` is the live one. The project called
-`courtsimplified` is dormant.**
+**Fixed.** Production is now `courtsimplified-prod` and staging is
+`courtsimplified-staging`, both in `ca-central-1`.
+
+**⚠️ The hazard survives in anything written before that date.** Production was
+called `courtsimplified-dev` for five months, so an older instruction saying "apply
+it to dev" means *apply it to production*. That wording is still in this
+repository's history, in the historical passages below, and in four migration
+files. **Resolve the ref, not the word.** The original warning is kept below
+because it explains why so many documents read the way they do.
 
 Anyone reading the names would conclude the opposite, and that conclusion is
 dangerous in both directions:

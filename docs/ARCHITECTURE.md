@@ -518,6 +518,31 @@ writing this section.
 
 ### Follow-up: move production to `ca-central-1` once the dev project proves out
 
+> ## ✅ RESOLVED 2026-09-26 — read this before the section below
+>
+> **Everything of ours is in `ca-central-1`, and the residency question is
+> closed.** The plan below was written on 2026-08-27 under the belief that the
+> `us-west-2` project was production. It was not: the `ca-central-1` project
+> `fddlpnibovkkkgboabqb` was already the live database, and Vercel Production
+> already pointed at it.
+>
+> - **Production** is `fddlpnibovkkkgboabqb`, now named **`courtsimplified-prod`**
+>   (renamed from `courtsimplified-dev` on 2026-09-26), in `ca-central-1`.
+> - **Staging** is `icpvzwxyjsdgyqfkwycw`, **`courtsimplified-staging`**, created
+>   2026-09-26, also in `ca-central-1`.
+> - **The `us-west-2` project `ffymjxjcnwakgdmldpne` was DELETED** on 2026-09-26
+>   after a verified backup. It held 3 accounts (the operator's, a family
+>   member's, the test harness's) and 2 shell cases — no member of the public.
+>
+> So **no cutover or region migration is needed**; there is nothing left outside
+> Canada to move. The `auth.users` UUID-preservation problem this section worried
+> about never arose. `docs/infra/projects.md` is the source of truth, and
+> `docs/infra/setup-report.md` records how it was established.
+>
+> The text below is kept because it explains how the misunderstanding arose, and
+> because its region reasoning is still the right reasoning. **Read every
+> "`courtsimplified-dev`" in it as production.**
+
 **Status: documented 2026-08-27, not yet done.** Option 2 above (a second
 Supabase project as dev/staging) is now underway: `courtsimplified-dev`
 (project ref `fddlpnibovkkkgboabqb`) was created on the free tier in
@@ -551,6 +576,17 @@ Confirmed by querying the Supabase Management API, not by reading this file:
 |---|---|---|---|
 | `fddlpnibovkkkgboabqb` | `courtsimplified-dev` | **`ca-central-1`** | ACTIVE_HEALTHY |
 | `ffymjxjcnwakgdmldpne` | `courtsimplified` | `us-west-2` | **INACTIVE (paused)** |
+
+**Superseded 2026-09-26.** Both rows are stale: `fddlpnibovkkkgboabqb` is now named
+`courtsimplified-prod`, and `ffymjxjcnwakgdmldpne` no longer exists. The
+`us-west-2` project was also **not** paused — that status was wrong here and in two
+other documents, and it was `ACTIVE_HEALTHY` when checked on 2026-09-26. Current
+state, verified the same way:
+
+| Ref | Name | Region | Status |
+|---|---|---|---|
+| `fddlpnibovkkkgboabqb` | `courtsimplified-prod` | **`ca-central-1`** | ACTIVE_HEALTHY — **PRODUCTION** |
+| `icpvzwxyjsdgyqfkwycw` | `courtsimplified-staging` | **`ca-central-1`** | ACTIVE_HEALTHY — staging |
 
 **Two facts this establishes that the section above does not, and both improve
 the residency position:**
@@ -596,6 +632,17 @@ reported that they had not been.
 not from production.** Production is not the authoritative schema — it is an
 older one. Dev is the only place the current shape exists in full, which is the
 inverse of the usual assumption and easy to get wrong under time pressure.
+
+> **Corrected 2026-09-26, and it is the reverse of what this paragraph says.**
+> `courtsimplified-dev` *was* production, so this reads as "take the schema from
+> production, not from production". The project that was actually behind was the
+> `us-west-2` one, now deleted. **The authoritative schema is
+> `supabase/migrations/` in this repository** — a fresh project built from those 8
+> files comes out with 27 tables, RLS on all of them, and the same 18 policies as
+> production, which is how staging was built on 2026-09-26. Note that the
+> migrations carry the schema and **not** the catalogue data: the 1371 reference
+> rows come from `supabase/seed.sql` plus
+> `supabase/snapshots/20260822_catalogue_data_snapshot.sql`.
 
 **Consequence for the remediation file:** it now guards those two REVOKEs with
 `to_regclass` so it applies cleanly to a project that is behind, rather than

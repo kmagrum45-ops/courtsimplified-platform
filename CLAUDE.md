@@ -96,18 +96,23 @@ maintenance is not.
 
 ## 6. Environment facts
 
-### Supabase — THE PROJECT NAMES ARE BACKWARDS. READ THIS BEFORE TOUCHING EITHER.
+### Supabase — identify a project by its REF, never by its name
 
-**Identify a project by its REF, never by its name.** Until the rename below is
-done, the name tells you the opposite of the truth.
+**The names were backwards until 2026-09-26 and are now correct.** The rule stands
+anyway: a name is editable in a dashboard, a ref is not, and every script here
+resolves by ref.
 
-| Ref | Current name | Region | What it actually is |
+| Ref | Name | Region | What it is |
 |---|---|---|---|
-| `fddlpnibovkkkgboabqb` | `courtsimplified-dev` | `ca-central-1` | **PRODUCTION. THE LIVE DATABASE.** The Vercel production environment points here. **Its name still says dev. It is not dev.** |
-| `icpvzwxyjsdgyqfkwycw` | `courtsimplified-staging` | `ca-central-1` | **STAGING.** Created 2026-09-26, clean, all 8 repo migrations applied in order. Holds no user data and must never hold any. |
+| `fddlpnibovkkkgboabqb` | `courtsimplified-prod` | `ca-central-1` | **PRODUCTION. THE LIVE DATABASE.** The Vercel production environment points here |
+| `icpvzwxyjsdgyqfkwycw` | `courtsimplified-staging` | `ca-central-1` | **STAGING.** Created 2026-09-26, clean, all 8 repo migrations plus the seeded catalogue. Vercel **Preview** points here. Holds no user data and must never hold any |
 
-Only production's name is now misleading, and it is the dangerous one, so the
-rule below does not relax.
+**⚠️ ANYTHING WRITTEN BEFORE 2026-09-26 THAT SAYS "dev" MAY MEAN PRODUCTION.**
+Production was called `courtsimplified-dev` for five months. That name still
+appears in this repository's history, in several documents' historical passages,
+and in four migration files — the migrations are deliberately **not** edited,
+because the migration ledger stores their hashes. When you read an older
+instruction, resolve the ref, not the word.
 
 **`ffymjxjcnwakgdmldpne` no longer exists.** That was the original April project,
 in `us-west-2`, which this file described as empty staging. It was **deleted on
@@ -170,11 +175,24 @@ themselves.
   file; the site owner applies it. See `scripts/db/applyMigrations.ts`, which
   enforces staging-before-production and refuses to do anything without
   `--confirm`.
-- A rename to `courtsimplified-prod` / `courtsimplified-staging` is planned and
-  not yet done — step-by-step instructions are in `docs/lso-fixes-report.md`.
-  **Until it is done, this table is the only reliable statement of which is
-  which.** When it is done, update this table, `docs/ARCHITECTURE.md`,
-  `docs/security/DATA_FLOW_INVENTORY.md` and `supabase/environments.json`.
+- **The rename is DONE (2026-09-26).** `courtsimplified-prod` /
+  `courtsimplified-staging`, via the Management API.
+  `supabase/environments.json` has `renameComplete: true`, which is what silences
+  the warning `scripts/db/applyMigrations.ts` prints on every run.
+- **Production's auth is hardened; staging's deliberately is not.** Production:
+  `password_min_length` 12, `mailer_autoconfirm` **false** so email confirmation
+  is required, TOTP MFA enrol and verify on. Staging keeps the minimum at 6 with
+  no confirmation, because the browser harness signs up real accounts and both
+  changes would break it. **Requiring confirmation means signup now depends on
+  Resend SMTP delivering** — it is configured on production, and if it stops
+  working, new users cannot complete signup.
+- **There are NO automatic backups of production.** The organisation is on the
+  **free** plan, which provides neither daily backups nor point-in-time recovery.
+  PITR is a paid add-on: $100/month for 7 days, and it needs Pro. Until that
+  changes, the only backups that exist are the manual `supabase db dump` runs
+  under `courtsimplified-backups/`. **Take one before any change to production**,
+  and check its byte count — a dump with Docker down writes a 0-byte file and
+  still reports success.
 - Production stays in ca-central-1 for Canadian data residency — see
   ARCHITECTURE.md. **Both projects are now in ca-central-1**, so a staging run
   exercises the same residency path as the real thing. Nothing of ours is in the

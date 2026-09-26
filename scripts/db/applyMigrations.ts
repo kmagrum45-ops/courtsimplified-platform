@@ -198,8 +198,15 @@ function main(): void {
   console.log("");
 
   if (!config.renameComplete) {
+    // Read out of the config, never hardcoded. The previous version named
+    // 'courtsimplified-dev' literally, and when production was actually renamed
+    // on 2026-09-26 this warning would have gone on asserting a name that no
+    // longer existed -- in the one message whose whole job is to stop somebody
+    // trusting a name.
     console.log("!! The projects have NOT been renamed yet.");
-    console.log("!! The project named 'courtsimplified-dev' is PRODUCTION.");
+    console.log(
+      `!! The project named '${config.environments.production.currentName}' is PRODUCTION.`,
+    );
     console.log("!! Instructions: docs/lso-fixes-report.md.");
     console.log("");
   }

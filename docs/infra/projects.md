@@ -4,7 +4,9 @@
 the live systems, not by reading other documents.
 
 Every fact below was verified by a command, and the command is given. Where the
-display name and the reality disagree, **the ref decides**.
+display name and the reality disagree, **the ref decides** — and although the
+names are now honest, that rule stands, because a name is editable in a dashboard
+and a ref is not.
 
 ---
 
@@ -12,8 +14,29 @@ display name and the reality disagree, **the ref decides**.
 
 | Ref | Display name | Region | Status | What it IS |
 |---|---|---|---|---|
-| `fddlpnibovkkkgboabqb` | `courtsimplified-dev` | `ca-central-1` | ACTIVE_HEALTHY | **PRODUCTION.** The live database. 2 accounts, 4 cases |
-| `icpvzwxyjsdgyqfkwycw` | `courtsimplified-staging` | `ca-central-1` | ACTIVE_HEALTHY | **STAGING.** Created 2026-09-26, clean, no user data |
+| `fddlpnibovkkkgboabqb` | `courtsimplified-prod` | `ca-central-1` | ACTIVE_HEALTHY | **PRODUCTION.** The live database. 2 accounts, 4 cases. Vercel **Production** points here |
+| `icpvzwxyjsdgyqfkwycw` | `courtsimplified-staging` | `ca-central-1` | ACTIVE_HEALTHY | **STAGING.** Created 2026-09-26, clean, no user data. Vercel **Preview** points here |
+
+### The names were fixed on 2026-09-26
+
+Production was called **`courtsimplified-dev`** from its creation on 2026-08-26
+until 2026-09-26. Renamed via the Management API:
+
+```
+PATCH /v1/projects/fddlpnibovkkkgboabqb   {"name":"courtsimplified-prod"}
+  -> HTTP 200 {"ref":"fddlpnibovkkkgboabqb","name":"courtsimplified-prod"}
+```
+
+Confirmed with `supabase projects list`. `supabase/environments.json` now carries
+`renameComplete: true`, which is what silences the warning
+`scripts/db/applyMigrations.ts` prints on every run.
+
+**⚠️ Anything written before 2026-09-26 that says "dev" may mean PRODUCTION.**
+The old name survives in this repository's history, in the historical passages of
+several documents, and in four migration files — the migrations are deliberately
+not edited, because the migration ledger stores their hashes. `npm run
+test:db-environments` asserts that CLAUDE.md keeps warning about this, and it will
+go on mattering for as long as the history exists.
 
 Both are in organisation `rcxzxczzgsnrrmfdujvv`, on the **free plan with a
 2-active-project limit** — which is exactly filled by these two. A third project
@@ -122,14 +145,35 @@ dumps or `count(*)`, never from `table-stats`.**
 | `.env.local` | **done** — points at staging | — | — |
 | `supabase/config.toml` `project_id` | **done** — `courtsimplified-staging` | — | — |
 | Suite, fixtures, eval against staging | **done** — see setup-report | — | — |
-| The 5 pending migrations on production | not applied | applied | nothing — staging is green; this is the next action |
-| Production's display name | `courtsimplified-dev` | `courtsimplified-prod` | a valid `SUPABASE_ACCESS_TOKEN` |
-| Auth settings, daily backups, PITR | not set | min password 12, email confirmation, MFA | a valid `SUPABASE_ACCESS_TOKEN` |
-| Vercel Preview | no Supabase vars | staging vars | nothing — staging now exists |
+| Catalogue seed on staging | **done** — 1371 rows, all 17 tables matching the snapshot | — | — |
+| The 5 pending migrations on production | **done** — 8 applied / 0 pending / 0 remote-only, row counts unchanged | — | — |
+| Production's display name | **done** — `courtsimplified-prod` | — | — |
+| Production auth settings | **done** — min password 12, email confirmation required, TOTP MFA on | — | — |
+| Vercel Preview | **done** — the three staging Supabase variables | — | — |
+| Daily backups on production | **NOT POSSIBLE** | daily backups | **the free plan provides none.** Needs Pro |
+| Point-in-time recovery | **NOT POSSIBLE** | PITR | **paid add-on, $100/month for 7 days**, and needs Pro |
+| `SITE_ACCESS_PASSWORD` on Preview | **absent** | present | a decision — see below |
 
-The token in the environment on 2026-09-26 is 48 characters; a personal access
-token is `sbp_` plus 40 **hex** characters, 44 in total. See
-`docs/infra/setup-report.md`, Decision 5.
+### Two things that are deliberately not done
+
+**Production has no automatic backups at all.** The organisation is on the free
+plan. `GET /v1/projects/fddlpnibovkkkgboabqb/database/backups` returns
+`"pitr_enabled": false` and `"backups": []`. PITR is offered as an add-on at
+**$100/month (7 days)**, $200 (14 days), $400 (28 days), and requires Pro. Enabling
+it spends money, so it was left for the site owner. **Until then the only backups
+in existence are the manual dumps under `courtsimplified-backups/`.**
+
+**Vercel Preview will return 401 until it also has `SITE_ACCESS_PASSWORD`.**
+`middleware.ts` **fails closed**: with that variable unset, every request is
+rejected, including `/site-access` itself. So Preview deployments now have a working
+staging database and are still unreachable. That is the safe failure direction, and
+it is one `vercel env add` away from working — but it puts a shared secret into
+another environment, so it was left as a decision rather than done unasked.
+
+**Staging's auth is deliberately NOT hardened.** `password_min_length` is 6 and
+`mailer_autoconfirm` is false there. The browser harness signs up real accounts, so
+a 12-character minimum or a confirmation requirement would break it. Production's
+hardening must not be copied to staging without fixing the harness first.
 
 ---
 

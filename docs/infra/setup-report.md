@@ -41,8 +41,15 @@ reason is a real state mismatch that no document records, explained in full belo
   runner, after auditing every destructive statement. 8 applied / 0 pending / 0
   remote-only; row counts unchanged; RLS on 27 of 27 tables; no `dev_full_access_*`
   policies left; evidence bucket private. Backed up before and after.
-- What remains blocked is only what needs a correctly-shaped Supabase personal
-  access token: the rename, auth settings, backups and PITR.
+- **The rename is done**: `courtsimplified-prod` / `courtsimplified-staging`.
+  Production's auth is hardened (min password 12, email confirmation required, TOTP
+  MFA on), and Vercel Preview now points at staging.
+- **One item could not be done and it is not a credential problem: production has
+  no automatic backups.** The org is on the free plan, which provides neither daily
+  backups nor PITR; PITR is $100/month and needs Pro. The only backups that exist
+  are the manual dumps. That is the largest open risk here.
+- Preview deployments will 401 until `SITE_ACCESS_PASSWORD` is added to Preview too
+  — the gate fails closed. One command, left as your decision.
 
 ---
 
@@ -1026,6 +1033,193 @@ the decisions block.
 
 ---
 
+# Round 4 — the token arrived, so item 5 is done
+
+The `SUPABASE_ACCESS_TOKEN` now in the environment is **44 characters, `sbp_` plus
+40 lowercase hex** — the right shape, where the previous one was 48 characters and
+not hex. It authenticates against the Management API (HTTP 200). That was the single
+blocker behind everything below.
+
+## The rename — done, and the names are now honest
+
+```
+PATCH /v1/projects/fddlpnibovkkkgboabqb   {"name":"courtsimplified-prod"}
+  -> HTTP 200  {"ref":"fddlpnibovkkkgboabqb","name":"courtsimplified-prod"}
+```
+
+Confirmed independently with `supabase projects list`:
+
+| Ref | Name | Region | Status |
+|---|---|---|---|
+| `fddlpnibovkkkgboabqb` | **`courtsimplified-prod`** | ca-central-1 | ACTIVE_HEALTHY |
+| `icpvzwxyjsdgyqfkwycw` | **`courtsimplified-staging`** | ca-central-1 | ACTIVE_HEALTHY |
+
+**The hazard this whole task began with is gone.** But it does not disappear from
+history: production was `courtsimplified-dev` for five months, so any instruction,
+comment or commit message written before 2026-09-26 that says "dev" may mean
+production. That wording is still in the repo's history, in the historical passages
+of several documents, and in **four migration files, which are deliberately not
+edited because the migration ledger stores their hashes.** So the standing rule does
+not relax: **resolve the ref, never the name.**
+
+`supabase/environments.json` now has `renameComplete: true`, which is what silences
+the reminder `applyMigrations.ts` prints on every run.
+
+## Auth settings on production — applied and verified
+
+| Setting | Before | After |
+|---|---|---|
+| `password_min_length` | **6** | **12** |
+| `mailer_autoconfirm` | **true** — confirmation NOT required | **false** — confirmation **required** |
+| `mfa_totp_enroll_enabled` | true | true |
+| `mfa_totp_verify_enabled` | true | true |
+
+Two things worth being straight about.
+
+**MFA was already on.** TOTP enrol and verify both already read `true`. They were
+included in the PATCH so the state is asserted rather than assumed, but this is not
+a change I made — it was already correct. Phone and WebAuthn factors remain off;
+phone MFA needs an SMS provider, and neither was asked for.
+
+**`mailer_autoconfirm: true` was the real finding here.** Until today, a signup on
+the live site was auto-confirmed — email confirmation was not enforced at all.
+That is now off, which is the safer posture and what you asked for. **It also means
+signup now depends on email delivery working.** Before flipping it I checked that
+custom SMTP is configured on production rather than assuming: host `smtp.resend.com`
+port 587, user and password both set, sender `noreply@courtsimplified.com`. So
+confirmation mail goes out over Resend. **If Resend's domain verification or the DNS
+records are not in order, new users will not be able to complete signup** — and the
+DNS work (SPF/DKIM/DMARC) is still on the human list further up this file. Worth one
+real test signup before you rely on it.
+
+**Staging was deliberately left alone.** Its `password_min_length` is 6 and
+`mailer_autoconfirm` is already false. Raising the minimum to 12 would break
+`tests/browser/harness/realTestSession.ts`, which signs up real accounts. Copying
+production's hardening to staging needs the harness fixed first, and that was not
+part of this.
+
+The auth config was read through an allow-list of field names rather than printed
+wholesale, because `GET /v1/projects/{ref}/config/auth` returns the SMTP password
+and any OAuth client secrets in the same object.
+
+## Backups and PITR — NOT done, because the plan does not allow it
+
+This is the one item in your list that could not be carried out, and it is not a
+credential problem.
+
+```
+GET /v1/organizations/rcxzxczzgsnrrmfdujvv      -> "plan": "free"
+GET /v1/projects/fddlpnibovkkkgboabqb/database/backups
+  -> { "walg_enabled": true, "pitr_enabled": false, "backups": [] }
+```
+
+**The organisation is on the free plan, which provides no daily backups and no
+point-in-time recovery.** There is no setting to turn on. PITR is a paid add-on, and
+the API lists its real prices:
+
+| Variant | Retention | Price |
+|---|---|---|
+| `pitr_7` | 7 days | **$100/month** |
+| `pitr_14` | 14 days | $200/month |
+| `pitr_28` | 28 days | $400/month |
+
+It also requires Pro ($25/month). **Enabling it spends your money, so I did not.**
+
+**The consequence, stated plainly: production has no automatic backups of any
+kind.** The only backups that exist are the manual `supabase db dump` runs under
+`courtsimplified-backups/`. For a platform holding litigants' case files that is the
+most significant open risk on this list — more than anything else outstanding — and
+it is a purchasing decision rather than a technical one.
+
+## Vercel Preview — the staging variables are in
+
+| Variable | Environment | Type |
+|---|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | **Preview** | Config |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | **Preview** | Config |
+| `SUPABASE_SERVICE_ROLE_KEY` | **Preview** | Secret |
+
+Verified by pulling the Preview environment and grepping for project refs: it
+resolves to **`icpvzwxyjsdgyqfkwycw` only**, never the production ref. Production's
+own variables were re-pulled afterwards and still resolve to
+`fddlpnibovkkkgboabqb`, unchanged.
+
+The anon key needed an explicit decision. The CLI refused it with
+`public_prefix_requires_type`, because `NEXT_PUBLIC_` exposes a value to every
+visitor. The Supabase anon key is *designed* to be public — it is enforced by RLS,
+not by secrecy — and Production already carries it under the same name as a Config
+value, so Preview matches. The value went in over **stdin**, not as
+`--value "<literal>"` as the CLI's own hint suggested, so the key never appeared on
+a command line.
+
+### Preview will still return 401 until it also has `SITE_ACCESS_PASSWORD`
+
+Found by reading `middleware.ts` rather than by deploying:
+
+```ts
+const configuredPassword = process.env.SITE_ACCESS_PASSWORD;
+if (!configuredPassword) return unauthorized(request);
+```
+
+**The gate fails closed.** With that variable unset, every request is rejected —
+including `/site-access` itself. `SITE_ACCESS_PASSWORD` currently exists in
+Production only. So Preview deployments now have a working staging database and are
+still unreachable.
+
+That is the safe direction to fail, and it is one command from working:
+
+```
+vercel env add SITE_ACCESS_PASSWORD preview     # value on stdin, never on the command line
+```
+
+**Not done**, because it copies a shared secret into another environment and you did
+not ask for it. Say the word and it is a single step.
+
+## A third check of mine failed the way CLAUDE.md §5 warns about
+
+`test:db-environments` asserted that CLAUDE.md contains the literal phrase
+**"NAMES ARE BACKWARDS"**. Renaming the projects made that phrase untrue, so the
+check failed **because the hazard it described had been fixed** — the third time in
+this one task that a check here punished the work it existed to encourage.
+
+Rewritten to the property that actually endures: **CLAUDE.md must warn that wording
+predating the 2026-09-26 rename may mean production when it says "dev".** That stays
+necessary as long as the history exists, which is permanently, and it is satisfied
+by a sentence about the past rather than a claim about the present.
+
+Mutation-tested three ways — remove the old-wording warning, remove the
+identify-by-ref rule, stop naming the production ref — all three caught, files
+restored clean.
+
+Two stale strings were also fixed, both of which would have lied in the one place it
+matters most:
+
+- `applyMigrations.ts` printed *"The project named 'courtsimplified-dev' is
+  PRODUCTION"* from a hardcoded literal. It now reads the name out of
+  `environments.json`.
+- `assertNotProduction.ts` refused with *"the one named 'courtsimplified-dev', which
+  is production despite the name"*. It now reads the name from the same place, and
+  the refusal was exercised for real to confirm it prints `courtsimplified-prod`.
+
+Four migration files still contain the old name and are **left alone on purpose** —
+their hashes are in the ledger, and editing one would make the ledger disagree with
+the file it recorded.
+
+## Item 5, line by line
+
+| Asked | Status |
+|---|---|
+| Rename production to `courtsimplified-prod` | **done**, confirmed by the CLI |
+| Minimum password 12 | **done**, 6 → 12 |
+| Email confirmation required | **done**, `mailer_autoconfirm` true → false |
+| MFA enabled | **already on** (TOTP enrol + verify); asserted, not changed |
+| Daily backups | **NOT POSSIBLE** — free plan provides none |
+| PITR "if the plan allows" | **the plan does not allow it** — $100/month add-on, needs Pro |
+| Update `docs/infra/projects.md` | **done**, plus the three other files CLAUDE.md §6 requires |
+| Vercel Preview gets staging's Supabase variables | **done**; Preview 401s until `SITE_ACCESS_PASSWORD` is added too |
+
+---
+
 ## What changed in the repository
 
 | File | Change |
@@ -1063,6 +1257,19 @@ Round 3:
 | `scripts/verification/fixtures/*.actual.md` | regenerated against staging — prose-level model drift only, explained above |
 
 | `supabase/applied-migrations.json` | **New.** The ledger — 8 staging entries, 8 production entries, each with the file's hash |
+
+Round 4:
+
+| File | Change |
+|---|---|
+| `supabase/environments.json` | `renameComplete: true`; both `currentName`s updated; notes record the auth hardening, the free-plan backup gap and why staging's auth is deliberately softer |
+| `CLAUDE.md` §6 | heading no longer claims the names are backwards; table carries the new names; the "anything before 2026-09-26 that says dev may mean production" warning; the no-backups fact |
+| `docs/infra/projects.md` | new names, the rename command and its confirmation, "state to fix" rewritten, and the two things deliberately not done |
+| `docs/security/DATA_FLOW_INVENTORY.md` | §2 and §2.1 tables updated; §2.1.1 retitled as resolved while keeping the explanation; the deleted project struck through |
+| `docs/ARCHITECTURE.md` | a RESOLVED banner on the Canadian-move section; the stale project table superseded in place; the "take the schema from dev" instruction corrected — the repo's migrations are authoritative |
+| `scripts/verification/verifyDatabaseEnvironments.ts` | the "NAMES ARE BACKWARDS" literal replaced with the durable property; mutation-tested |
+| `scripts/db/applyMigrations.ts` | the not-renamed warning reads production's name from the config instead of a hardcoded literal |
+| `scripts/db/assertNotProduction.ts` | new `productionName()`; the refusal message no longer hardcodes the old name |
 
 Nothing in the repository needed changing for the catalogue seed: `seed.sql`, the
 snapshot and the `[db.seed] sql_paths` wiring were already there and already
