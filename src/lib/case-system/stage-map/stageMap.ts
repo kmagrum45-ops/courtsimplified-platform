@@ -230,13 +230,15 @@ const BEFORE_FILING: CaseStage[] = [
     rules: [
       C.S_MUNICIPAL_44_10_NOTICE,
       C.S_MUNICIPAL_44_9_SIDEWALK,
+      C.S_LEGISLATION_88_HOLIDAYS,
+      C.S_LEGISLATION_89_1_HOLIDAY,
       C.S_MUNICIPAL_44_11_DEATH,
       C.S_MUNICIPAL_44_12_EXCUSE,
     ],
     deadlines: [
       {
         id: "deadline:municipal-notice-10-days",
-        what: "Written notice of the claim to the clerk of the municipality",
+        what: "Give written notice of the claim to the clerk of the municipality",
         countFrom: "the occurrence of the injury",
         length: { unit: "days", count: 10 },
         regime: "legislation-act",
@@ -267,11 +269,11 @@ const BEFORE_FILING: CaseStage[] = [
         by: "whether the municipality is Toronto or any other Ontario municipality",
       },
     ],
-    rules: [C.S_TORONTO_42_6_NOTICE, C.S_TORONTO_42_5_SIDEWALK, C.S_TORONTO_42_8_EXCUSE],
+    rules: [C.S_TORONTO_42_6_NOTICE, C.S_TORONTO_42_5_SIDEWALK, C.S_TORONTO_42_8_EXCUSE, C.S_LEGISLATION_88_HOLIDAYS, C.S_LEGISLATION_89_1_HOLIDAY],
     deadlines: [
       {
         id: "deadline:toronto-notice-10-days",
-        what: "Written notice of the claim to the city clerk",
+        what: "Give written notice of the claim to the city clerk",
         countFrom: "the occurrence of the injury",
         length: { unit: "days", count: 10 },
         regime: "legislation-act",
@@ -308,7 +310,7 @@ const BEFORE_FILING: CaseStage[] = [
         by: "whether more than 60 days have already passed since the injury",
       },
     ],
-    rules: [C.S_OLA_6_1_NOTICE, C.S_OLA_6_1_2_WHO, C.S_OLA_6_1_5_DEATH, C.S_OLA_6_1_6_EXCUSE],
+    rules: [C.S_OLA_6_1_NOTICE, C.S_OLA_6_1_2_WHO, C.S_OLA_6_1_5_DEATH, C.S_OLA_6_1_6_EXCUSE, C.S_LEGISLATION_88_HOLIDAYS, C.S_LEGISLATION_89_1_HOLIDAY],
     deadlines: [
       {
         id: "deadline:occupier-notice-60-days",

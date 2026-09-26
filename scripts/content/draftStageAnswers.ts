@@ -148,7 +148,38 @@ async function runStage(
     drafted.sections.yourDeadline = renderDeadlineSection(stage.deadlines);
 
     const prose = proseOf(drafted.sections);
-    const sentences = sentencesOf(prose);
+
+    /*
+     * *** THE DEADLINE SECTION IS NOT SENT TO THE VERIFIER ***
+     *
+     * It is not model prose. It is assembled by `renderDeadlineSection` from
+     * the stage map's own fields — authored by hand, every citation checked
+     * against the vendored corpus by `test:stage-map` on every run.
+     *
+     * Sending it through anyway blocked the highest-stakes stages in the
+     * product. The statutory weekend warning says "under the rules a deadline
+     * landing on a Saturday moves to the next working day", which is r. 1.02
+     * (a) with r. 3.01 — provisions the NOTICE stages do not cite, because
+     * their own deadline is counted under the Legislation Act. The verifier
+     * correctly reported it as unsupported by the material in front of it, and
+     * the municipal and occupiers' notice blocks — the only two in the product
+     * where missing the deadline means there is no action at all — could never
+     * be published.
+     *
+     * The verifier exists to check what a MODEL wrote. This section has a
+     * stronger guarantee than a verifier verdict: `gateFailures` requires it to
+     * be byte-identical to what the renderer produces, so it cannot drift, be
+     * edited, or be paraphrased.
+     */
+    const verifiableProse = [
+      drafted.sections.whatsHappening,
+      drafted.sections.whatToDoNext,
+      drafted.sections.whatHappensAfter,
+    ]
+      .filter((part) => part && part !== "NOT_SUPPORTED")
+      .join("\n\n");
+
+    const sentences = sentencesOf(verifiableProse);
 
     const verified = await verify(model, source, sentences, stagePremise(stage));
     addUsage(usage, verified.usage);
@@ -177,10 +208,26 @@ async function runStage(
      * drafter's judgment. A stage with a deadline whose block omits it is the
      * failure that matters most, and a model is the wrong thing to ask.
      */
-    if (stage.deadlines.length > 0 && !drafted.sections.yourDeadline) {
+    /*
+     * *** A STAGE CAN HAVE A DEADLINE AND NO PERIOD ***
+     *
+     * This used to test `stage.deadlines.length > 0`, which made
+     * `defendant:default-judgment-against-me` UNPUBLISHABLE FOREVER. Its only
+     * deadline is r. 11.06 — "as soon as is reasonably possible in all the
+     * circumstances" — recorded with count 0 because the rule fixes no period.
+     * `renderDeadlineSection` correctly returns nothing for it, and this check
+     * then demanded a section that must not exist.
+     *
+     * The stage where a wrong answer costs the most was blocked by a
+     * disagreement between two of my own functions about what "has a deadline"
+     * means. The renderer is the authority: if it produces a period, the block
+     * must carry it.
+     */
+    const expectedDeadline = renderDeadlineSection(stage.deadlines);
+    if (expectedDeadline && !drafted.sections.yourDeadline) {
       problems.push(
-        `this stage has ${stage.deadlines.length} deadline(s) in the stage map but the ` +
-          `draft gives no deadline section`,
+        `this stage has a deadline the stage map can state, but the draft gives no ` +
+          `deadline section`,
       );
     }
     if (stage.deadlines.length === 0 && drafted.sections.yourDeadline) {

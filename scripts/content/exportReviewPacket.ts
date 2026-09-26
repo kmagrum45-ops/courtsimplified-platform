@@ -166,6 +166,35 @@ function writeMarkdown(items: ContentItem[]): void {
         "```",
         "",
       );
+
+      /*
+       * *** THE QUESTION AUTOMATED VERIFICATION CANNOT ASK ***
+       *
+       * Printed against every stage answer, because this is the check that
+       * caught the worst error in the product and the only one a person can
+       * make.
+       *
+       * An independent review found a block on the PLAINTIFF's
+       * defence-period-expired stage telling the reader to file a Defence
+       * (Form 9A). Every sentence was a true statement about a defendant,
+       * every quote was real, and every automated gate passed it — because no
+       * individual sentence was false. Sentence-level verification is blind to
+       * who the reader is.
+       *
+       * Only on stage answers: asking it of an intake question or a form
+       * description would be noise, and a prompt that appears everywhere gets
+       * read nowhere.
+       */
+      if (entry.type === "stage-answer") {
+        lines.push(
+          "> **Read this as the person at this stage.** Does every instruction apply to",
+          "> you, and could you follow it? Check whose step it is (a plaintiff asks the",
+          "> clerk to note a defendant in default with Form 9B; a defendant files the",
+          "> Defence, Form 9A), whether it speaks _to_ you or _about_ you, and who served",
+          "> whom. If it has those the wrong way round, nothing else about it matters.",
+          "",
+        );
+      }
     }
   }
 

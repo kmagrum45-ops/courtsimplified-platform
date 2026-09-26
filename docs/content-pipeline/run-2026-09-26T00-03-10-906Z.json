@@ -1,0 +1,822 @@
+{
+  "model": "gpt-4o-mini",
+  "startedAt": "2026-09-25T23:59:45.379Z",
+  "usage": [
+    {
+      "model": "gpt-4o-mini",
+      "inputTokens": 471240,
+      "outputTokens": 8097,
+      "calls": 32
+    }
+  ],
+  "log": [
+    {
+      "stageId": "before-filing:notice-municipality",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "You must provide written notice to the municipality before you can bring a claim for damages due to an injury caused by a failure to keep a highway, bridge, or sidewalk in repair.",
+            "whatToDoNext": "Serve written notice of your claim and the injury to the clerk of the municipality within 10 days after the occurrence of the injury.",
+            "yourDeadline": "Give written notice of the claim to the clerk of the municipality. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not provide this notice, you may not be able to bring your action unless a judge finds a reasonable excuse for the lack of notice."
+          },
+          "verdicts": [
+            {
+              "sentence": "You must provide written notice to the municipality before you can bring a claim for damages due to an injury caused by a failure to keep a highway, bridge, or sidewalk in repair.",
+              "supported": false,
+              "reason": "The source states that no action shall be brought unless notice is given, but it does not say that you must provide notice before bringing a claim."
+            },
+            {
+              "sentence": "Serve written notice of your claim and the injury to the clerk of the municipality within 10 days after the occurrence of the injury.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you do not provide this notice, you may not be able to bring your action unless a judge finds a reasonable excuse for the lack of notice.",
+              "supported": true,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the municipality is not prejudiced in its defence.",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            }
+          ],
+          "readability": 8.919959100204498,
+          "problems": [
+            "\"You must provide written notice to the municipality before you can bring a claim for damages due to an injury caused by a failure to keep a highway, bridge, or sidewalk in repair.\" — The source states that no action shall be brought unless notice is given, but it does not say that you must provide notice before bringing a claim.",
+            "reads at grade 8.9, above the grade 8 target. Longest sentence: \"You must provide written notice to the municipality before you can bring a claim for damages due to an injury caused by a failure to keep a highway, bridge, or sidewalk in repair.\""
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "You are at the pre-suit notice stage regarding an injury caused by a municipality's failure to maintain a highway, bridge, or sidewalk. You have not yet given notice to the municipality's clerk.",
+            "whatToDoNext": "You must serve written notice of your claim and the injury to the clerk of the municipality within 10 days after the occurrence of the injury. The notice must include the date, time, and location of the occurrence.",
+            "yourDeadline": "Give written notice of the claim to the clerk of the municipality. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not provide the required notice, it may affect your ability to bring a claim for damages."
+          },
+          "verdicts": [
+            {
+              "sentence": "You are at the pre-suit notice stage regarding an injury caused by a municipality's failure to maintain a highway, bridge, or sidewalk.",
+              "supported": true,
+              "quote": "The injury is said to come from a municipality failing to keep a highway, bridge or sidewalk in repair, and no notice has been given to the clerk yet.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "You have not yet given notice to the municipality's clerk.",
+              "supported": true,
+              "quote": "no notice has been given to the clerk yet.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "You must serve written notice of your claim and the injury to the clerk of the municipality within 10 days after the occurrence of the injury.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The notice must include the date, time, and location of the occurrence.",
+              "supported": true,
+              "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you do not provide the required notice, it may affect your ability to bring a claim for damages.",
+              "supported": false,
+              "reason": "The source does not state that failing to provide notice will affect the ability to bring a claim for damages; it only specifies the requirement for notice."
+            }
+          ],
+          "readability": 8.419531845400112,
+          "problems": [
+            "\"If you do not provide the required notice, it may affect your ability to bring a claim for damages.\" — The source does not state that failing to provide notice will affect the ability to bring a claim for damages; it only specifies the requirement for notice.",
+            "reads at grade 8.4, above the grade 8 target. Longest sentence: \"You are at the pre-suit notice stage regarding an injury caused by a municipality's failure to maintain a highway, bridge, or sidewalk.\""
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "You must provide written notice to the municipality if you were injured due to a failure to maintain a highway, bridge, or sidewalk. This notice must be served upon or sent by registered mail to the clerk of the municipality within 10 days after the injury occurred. The notice should include the claim details, such as the date, time, and location of the incident.",
+            "whatToDoNext": "Prepare your written notice to the municipality. Include the date, time, and location of the injury, along with a description of the claim. Send this notice to the clerk of the municipality by registered mail or deliver it in person.",
+            "yourDeadline": "Give written notice of the claim to the clerk of the municipality. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "After you provide the notice, you may proceed with your claim if you choose to do so. If the municipality does not respond or resolve the issue, you can consider filing a claim in Small Claims Court."
+          },
+          "verdicts": [
+            {
+              "sentence": "You must provide written notice to the municipality if you were injured due to a failure to maintain a highway, bridge, or sidewalk.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of... has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "This notice must be served upon or sent by registered mail to the clerk of the municipality within 10 days after the injury occurred.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of... has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "The notice should include the claim details, such as the date, time, and location of the incident.",
+              "supported": true,
+              "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare your written notice to the municipality.",
+              "supported": true,
+              "quoteFound": false
+            },
+            {
+              "sentence": "Include the date, time, and location of the injury, along with a description of the claim.",
+              "supported": true,
+              "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Send this notice to the clerk of the municipality by registered mail or deliver it in person.",
+              "supported": true,
+              "quote": "has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            },
+            {
+              "sentence": "After you provide the notice, you may proceed with your claim if you choose to do so.",
+              "supported": false,
+              "reason": "The source does not state that you may proceed with your claim after providing the notice; it only states the requirement for notice."
+            },
+            {
+              "sentence": "If the municipality does not respond or resolve the issue, you can consider filing a claim in Small Claims Court.",
+              "supported": false,
+              "reason": "The source does not mention anything about the municipality's response or the option to file a claim in Small Claims Court after providing notice."
+            }
+          ],
+          "readability": 8.61482387475538,
+          "problems": [
+            "\"You must provide written notice to the municipality if you were injured due to a failure to maintain a highway, bridge, or sidewalk.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"This notice must be served upon or sent by registered mail to the clerk of the municipality within 10 days after the injury occurred.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"After you provide the notice, you may proceed with your claim if you choose to do so.\" — The source does not state that you may proceed with your claim after providing the notice; it only states the requirement for notice.",
+            "\"If the municipality does not respond or resolve the issue, you can consider filing a claim in Small Claims Court.\" — The source does not mention anything about the municipality's response or the option to file a claim in Small Claims Court after providing notice.",
+            "reads at grade 8.6, above the grade 8 target. Longest sentence: \"This notice must be served upon or sent by registered mail to the clerk of the municipality within 10 days after the injury occurred.\""
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "You are required to give written notice to the municipality if you were injured due to a failure to maintain a highway, bridge, or sidewalk. This notice must be served upon or sent by registered mail to the clerk of the municipality within 10 days after the injury occurred.",
+            "whatToDoNext": "Prepare your written notice including the details of your claim, such as the date, time, and location of the injury. Send this notice to the clerk of the municipality by registered mail or deliver it in person.",
+            "yourDeadline": "Give written notice of the claim to the clerk of the municipality. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not provide the notice within the 10-day period, it may affect your ability to pursue a claim."
+          },
+          "verdicts": [
+            {
+              "sentence": "You are required to give written notice to the municipality if you were injured due to a failure to maintain a highway, bridge, or sidewalk.",
+              "supported": false,
+              "reason": "The source material states that no action shall be brought unless notice is given, but it does not explicitly state that you are required to give notice."
+            },
+            {
+              "sentence": "This notice must be served upon or sent by registered mail to the clerk of the municipality within 10 days after the injury occurred.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of... has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "Prepare your written notice including the details of your claim, such as the date, time, and location of the injury.",
+              "supported": true,
+              "quote": "...written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Send this notice to the clerk of the municipality by registered mail or deliver it in person.",
+              "supported": false,
+              "reason": "The source specifies that the notice must be served upon or sent by registered mail to the clerk, but it does not mention delivering it in person."
+            },
+            {
+              "sentence": "If you do not provide the notice within the 10-day period, it may affect your ability to pursue a claim.",
+              "supported": false,
+              "reason": "The source states that no action shall be brought unless notice is given, but it does not specify that failing to provide notice within the 10-day period affects the ability to pursue a claim."
+            }
+          ],
+          "readability": 9.082549407114627,
+          "problems": [
+            "\"You are required to give written notice to the municipality if you were injured due to a failure to maintain a highway, bridge, or sidewalk.\" — The source material states that no action shall be brought unless notice is given, but it does not explicitly state that you are required to give notice.",
+            "\"This notice must be served upon or sent by registered mail to the clerk of the municipality within 10 days after the injury occurred.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"Send this notice to the clerk of the municipality by registered mail or deliver it in person.\" — The source specifies that the notice must be served upon or sent by registered mail to the clerk, but it does not mention delivering it in person.",
+            "\"If you do not provide the notice within the 10-day period, it may affect your ability to pursue a claim.\" — The source states that no action shall be brought unless notice is given, but it does not specify that failing to provide notice within the 10-day period affects the ability to pursue a claim.",
+            "reads at grade 9.1, above the grade 8 target. Longest sentence: \"This notice must be served upon or sent by registered mail to the clerk of the municipality within 10 days after the injury occurred.\""
+          ]
+        }
+      ],
+      "status": "needs-human"
+    },
+    {
+      "stageId": "before-filing:notice-toronto",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "You must provide written notice to the City of Toronto within 10 days after the injury occurred. This notice must include details such as the date, time, and location of the injury. The notice should be served upon or sent by registered mail to the city clerk.",
+            "whatToDoNext": "Prepare your written notice including all required details. Send it to the city clerk within the 10-day period.",
+            "yourDeadline": "Give written notice of the claim to the city clerk. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you fail to give notice, it may not bar your action if a judge finds a reasonable excuse for the failure and that the City is not prejudiced in its defence."
+          },
+          "verdicts": [
+            {
+              "sentence": "You must provide written notice to the City of Toronto within 10 days after the injury occurred.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of... has been served upon or sent by registered mail to, (a) the city clerk",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "This notice must include details such as the date, time, and location of the injury.",
+              "supported": true,
+              "quote": "...written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The notice should be served upon or sent by registered mail to the city clerk.",
+              "supported": true,
+              "quote": "...has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare your written notice including all required details.",
+              "supported": false,
+              "reason": "The source does not specify that you must prepare your written notice; it only states the requirements for the notice."
+            },
+            {
+              "sentence": "Send it to the city clerk within the 10-day period.",
+              "supported": false,
+              "reason": "The source does not explicitly state that you must send it; it only mentions that it must be served or sent."
+            },
+            {
+              "sentence": "If you fail to give notice, it may not bar your action if a judge finds a reasonable excuse for the failure and that the City is not prejudiced in its defence.",
+              "supported": true,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.28914739884393,
+          "problems": [
+            "\"You must provide written notice to the City of Toronto within 10 days after the injury occurred.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"Prepare your written notice including all required details.\" — The source does not specify that you must prepare your written notice; it only states the requirements for the notice.",
+            "\"Send it to the city clerk within the 10-day period.\" — The source does not explicitly state that you must send it; it only mentions that it must be served or sent."
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "You need to provide written notice to the City of Toronto if you were injured on a Toronto street or sidewalk. This notice must include details such as the claim and the injury, including the date, time, and location of the occurrence.",
+            "whatToDoNext": "Prepare your written notice with the required details and serve it upon or send it by registered mail to the city clerk.",
+            "yourDeadline": "Give written notice of the claim to the city clerk. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you fail to give notice or if the notice is insufficient, it may not bar your action if a judge finds a reasonable excuse and that the City is not prejudiced in its defence."
+          },
+          "verdicts": [
+            {
+              "sentence": "You need to provide written notice to the City of Toronto if you were injured on a Toronto street or sidewalk.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This notice must include details such as the claim and the injury, including the date, time, and location of the occurrence.",
+              "supported": true,
+              "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare your written notice with the required details and serve it upon or send it by registered mail to the city clerk.",
+              "supported": true,
+              "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you fail to give notice or if the notice is insufficient, it may not bar your action if a judge finds a reasonable excuse and that the City is not prejudiced in its defence.",
+              "supported": true,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            }
+          ],
+          "readability": 8.437636363636365,
+          "problems": [
+            "reads at grade 8.4, above the grade 8 target. Longest sentence: \"If you fail to give notice or if the notice is insufficient, it may not bar your action if a judge finds a reasonable excuse and that the City is not prejudiced in its defence.\""
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "You must provide written notice to the City of Toronto within 10 days after the injury occurred. This notice must include details such as the date, time, and location of the injury. The notice should be served upon or sent by registered mail to the city clerk.",
+            "whatToDoNext": "Prepare your written notice including the required details. Send it to the city clerk within the 10-day period.",
+            "yourDeadline": "Give written notice of the claim to the city clerk. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not provide the notice, it may not bar your action if a judge finds a reasonable excuse and that the City is not prejudiced in its defence."
+          },
+          "verdicts": [
+            {
+              "sentence": "You must provide written notice to the City of Toronto within 10 days after the injury occurred.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of... has been served upon or sent by registered mail to, (a) the city clerk",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "This notice must include details such as the date, time, and location of the injury.",
+              "supported": true,
+              "quote": "...written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The notice should be served upon or sent by registered mail to the city clerk.",
+              "supported": true,
+              "quote": "...has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare your written notice including the required details.",
+              "supported": false,
+              "reason": "The source does not specify that you must prepare a written notice; it only states the requirements for the notice."
+            },
+            {
+              "sentence": "Send it to the city clerk within the 10-day period.",
+              "supported": false,
+              "reason": "The source does not explicitly state that you must send the notice; it only mentions that it must be served or sent."
+            },
+            {
+              "sentence": "If you do not provide the notice, it may not bar your action if a judge finds a reasonable excuse and that the City is not prejudiced in its defence.",
+              "supported": true,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.287967836257312,
+          "problems": [
+            "\"You must provide written notice to the City of Toronto within 10 days after the injury occurred.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"Prepare your written notice including the required details.\" — The source does not specify that you must prepare a written notice; it only states the requirements for the notice.",
+            "\"Send it to the city clerk within the 10-day period.\" — The source does not explicitly state that you must send the notice; it only mentions that it must be served or sent."
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "You need to provide notice to the City of Toronto if you were injured on a street or sidewalk.",
+            "whatToDoNext": "You must serve written notice of your claim and the injury within 10 days after the occurrence of the injury.",
+            "yourDeadline": "Give written notice of the claim to the city clerk. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you fail to give notice or if the notice is insufficient, a judge may still allow your action if there is a reasonable excuse and the City is not prejudiced in its defence."
+          },
+          "verdicts": [
+            {
+              "sentence": "You need to provide notice to the City of Toronto if you were injured on a street or sidewalk.",
+              "supported": true,
+              "quote": "The same 10-day notice, for a claim against the City of Toronto, which is governed by its own Act rather than the Municipal Act.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "You must serve written notice of your claim and the injury within 10 days after the occurrence of the injury.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you fail to give notice or if the notice is insufficient, a judge may still allow your action if there is a reasonable excuse and the City is not prejudiced in its defence.",
+              "supported": true,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.89351230425056,
+          "problems": []
+        }
+      ],
+      "status": "verified-draft"
+    },
+    {
+      "stageId": "before-filing:notice-snow-ice-private",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "You have a personal injury claim due to slipping on ice outside a privately occupied property. Before you can sue, you must send a written notice of your claim to the occupier or the independent contractor responsible for snow or ice removal. This notice must include the date, time, and location of the incident.",
+            "whatToDoNext": "Prepare a written notice that includes the date, time, and location of your injury. Serve this notice personally or send it by registered mail to at least one person listed in subsection (2) of the Occupiers' Liability Act, which includes the occupier or an independent contractor responsible for snow or ice removal.",
+            "yourDeadline": "Give written notice of the claim to an occupier or to the snow-removal contractor. The notice must say the date, time and place of the injury. You have 60 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not send the notice within 60 days, you may still proceed with your claim, but there are exceptions if a judge finds a reasonable excuse for the delay and that the defendant is not prejudiced in their defence."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have a personal injury claim due to slipping on ice outside a privately occupied property.",
+              "supported": true,
+              "quote": "A personal injury caused by snow or ice, where the place is occupied privately rather than by a municipality, and no notice has been sent.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "Before you can sue, you must send a written notice of your claim to the occupier or the independent contractor responsible for snow or ice removal.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim...has been personally served on or sent by registered mail to at least one person listed in subsection (2).",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "This notice must include the date, time, and location of the incident.",
+              "supported": true,
+              "quote": "...written notice of the claim, including the date, time and location of the occurrence...",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare a written notice that includes the date, time, and location of your injury.",
+              "supported": true,
+              "quote": "...written notice of the claim, including the date, time and location of the occurrence...",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve this notice personally or send it by registered mail to at least one person listed in subsection (2) of the Occupiers' Liability Act, which includes the occupier or an independent contractor responsible for snow or ice removal.",
+              "supported": true,
+              "quote": "...has been personally served on or sent by registered mail to at least one person listed in subsection (2). | The persons referred to in subsection (1) are the following: 1. An occupier. 2. An independent contractor employed by the occupier to remove snow or ice on the premises during the relevant period in which the injury occurred.",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you do not send the notice within 60 days, you may still proceed with your claim, but there are exceptions if a judge finds a reasonable excuse for the delay and that the defendant is not prejudiced in their defence.",
+              "supported": true,
+              "quote": "Failure to give notice in accordance with subsection (1) is not a bar to the action in the case of the death of the injured person as a result of the injury. | Failure to give notice in accordance with subsection (1) or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence.",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            }
+          ],
+          "readability": 9.646638655462187,
+          "problems": [
+            "\"Before you can sue, you must send a written notice of your claim to the occupier or the independent contractor responsible for snow or ice removal.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "reads at grade 9.6, above the grade 8 target. Longest sentence: \"Serve this notice personally or send it by registered mail to at least one person listed in subsection (2) of the Occupiers' Liability Act, which includes the occupier or an independent contractor responsible for snow or ice removal.\""
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "You have a personal injury claim due to snow or ice on private property. You must send a written notice of your claim before you can sue. This notice must include the date, time, and location of the injury.",
+            "whatToDoNext": "Prepare a written notice of your claim. Serve this notice personally or send it by registered mail to at least one person listed in subsection (2) of the Occupiers' Liability Act, which includes the occupier or an independent contractor responsible for snow or ice removal.",
+            "yourDeadline": "Give written notice of the claim to an occupier or to the snow-removal contractor. The notice must say the date, time and place of the injury. You have 60 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not send the notice within 60 days, you may still be able to proceed with your claim if a judge finds a reasonable excuse for the delay."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have a personal injury claim due to snow or ice on private property.",
+              "supported": true,
+              "quote": "A personal injury caused by snow or ice, where the place is occupied privately rather than by a municipality, and no notice has been sent.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "You must send a written notice of your claim before you can sue.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim...has been personally served on or sent by registered mail to at least one person listed in subsection (2).",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "This notice must include the date, time, and location of the injury.",
+              "supported": true,
+              "quote": "...written notice of the claim, including the date, time and location of the occurrence...",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare a written notice of your claim.",
+              "supported": true,
+              "quoteFound": false
+            },
+            {
+              "sentence": "Serve this notice personally or send it by registered mail to at least one person listed in subsection (2) of the Occupiers' Liability Act, which includes the occupier or an independent contractor responsible for snow or ice removal.",
+              "supported": true,
+              "quote": "...has been personally served on or sent by registered mail to at least one person listed in subsection (2). | The persons referred to in subsection (1) are the following: 1. An occupier. 2. An independent contractor employed by the occupier to remove snow or ice on the premises during the relevant period in which the injury occurred.",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you do not send the notice within 60 days, you may still be able to proceed with your claim if a judge finds a reasonable excuse for the delay.",
+              "supported": true,
+              "quote": "Failure to give notice in accordance with subsection (1) or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence.",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.94341463414634,
+          "problems": [
+            "\"You must send a written notice of your claim before you can sue.\" — the verifier called this supported but the passage it quoted is not in the vendored source text"
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "You have a personal injury claim due to slipping on ice outside a shop or building. You have not yet sent a notice of your claim.",
+            "whatToDoNext": "You must send a written notice of your claim to at least one person listed in subsection (2) of the Occupiers' Liability Act within 60 days after the occurrence of the injury. This notice must include the date, time, and location of the occurrence.",
+            "yourDeadline": "Give written notice of the claim to an occupier or to the snow-removal contractor. The notice must say the date, time and place of the injury. You have 60 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not send the notice within the 60 days, you may still be able to proceed with your claim, but there are specific conditions under which this is allowed."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have a personal injury claim due to slipping on ice outside a shop or building.",
+              "supported": true,
+              "quote": "A personal injury caused by snow or ice, where the place is occupied privately rather than by a municipality, and no notice has been sent.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "You have not yet sent a notice of your claim.",
+              "supported": false,
+              "reason": "The source material does not state whether the notice has been sent or not."
+            },
+            {
+              "sentence": "You must send a written notice of your claim to at least one person listed in subsection (2) of the Occupiers' Liability Act within 60 days after the occurrence of the injury.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim, including the date, time and location of the occurrence, has been personally served on or sent by registered mail to at least one person listed in subsection (2).",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This notice must include the date, time, and location of the occurrence.",
+              "supported": true,
+              "quote": "written notice of the claim, including the date, time and location of the occurrence",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you do not send the notice within the 60 days, you may still be able to proceed with your claim, but there are specific conditions under which this is allowed.",
+              "supported": true,
+              "quote": "Failure to give notice in accordance with subsection (1) or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence.",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.483468586387435,
+          "problems": [
+            "\"You have not yet sent a notice of your claim.\" — The source material does not state whether the notice has been sent or not."
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "You may need to send a written notice of your claim for personal injury caused by snow or ice on private property before you can sue.",
+            "whatToDoNext": "You must personally serve or send by registered mail a written notice of your claim to at least one person listed in subsection (2) of the Occupiers' Liability Act within 60 days after the occurrence of the injury.",
+            "yourDeadline": "Give written notice of the claim to an occupier or to the snow-removal contractor. The notice must say the date, time and place of the injury. You have 60 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not provide the notice within the 60 days, you may still proceed with your claim, but there are exceptions if a judge finds reasonable excuse for the lack of notice."
+          },
+          "verdicts": [
+            {
+              "sentence": "You may need to send a written notice of your claim for personal injury caused by snow or ice on private property before you can sue.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim, including the date, time and location of the occurrence, has been personally served on or sent by registered mail to at least one person listed in subsection (2).",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must personally serve or send by registered mail a written notice of your claim to at least one person listed in subsection (2) of the Occupiers' Liability Act within 60 days after the occurrence of the injury.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim, including the date, time and location of the occurrence, has been personally served on or sent by registered mail to at least one person listed in subsection (2).",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you do not provide the notice within the 60 days, you may still proceed with your claim, but there are exceptions if a judge finds reasonable excuse for the lack of notice.",
+              "supported": true,
+              "quote": "Failure to give notice in accordance with subsection (1) or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence.",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            }
+          ],
+          "readability": 8.866636363636363,
+          "problems": [
+            "reads at grade 8.9, above the grade 8 target. Longest sentence: \"You must personally serve or send by registered mail a written notice of your claim to at least one person listed in subsection (2) of the Occupiers' Liability Act within 60 days after the occurrence of the injury.\""
+          ]
+        }
+      ],
+      "status": "needs-human"
+    },
+    {
+      "stageId": "before-filing:notice-deadline-missed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "The notice period for your claim has passed without notice being given. This means you may face challenges in proceeding with your claim.",
+            "whatToDoNext": "You may still file a claim in Small Claims Court. If you believe there is a reasonable excuse for not giving notice, you can present this to a judge.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If you file a claim, the court will consider your situation. A judge may allow your claim to proceed if they find a reasonable excuse for the lack of notice and that the defendant is not prejudiced."
+          },
+          "verdicts": [
+            {
+              "sentence": "The notice period for your claim has passed without notice being given.",
+              "supported": true,
+              "quote": "The injury is one of the kinds that needs notice first, and the notice period has run out without notice being given.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "This means you may face challenges in proceeding with your claim.",
+              "supported": false,
+              "reason": "The source does not state that facing challenges is a consequence of the notice period having passed."
+            },
+            {
+              "sentence": "You may still file a claim in Small Claims Court.",
+              "supported": false,
+              "reason": "The source does not explicitly state that you may still file a claim despite the notice period having passed."
+            },
+            {
+              "sentence": "If you believe there is a reasonable excuse for not giving notice, you can present this to a judge.",
+              "supported": false,
+              "reason": "The source does not mention the ability to present a reasonable excuse to a judge in this context."
+            },
+            {
+              "sentence": "If you file a claim, the court will consider your situation.",
+              "supported": false,
+              "reason": "The source does not specify that the court will consider your situation upon filing a claim."
+            },
+            {
+              "sentence": "A judge may allow your claim to proceed if they find a reasonable excuse for the lack of notice and that the defendant is not prejudiced.",
+              "supported": true,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the municipality is not prejudiced in its defence. | Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            }
+          ],
+          "readability": 6.635449438202251,
+          "problems": [
+            "\"This means you may face challenges in proceeding with your claim.\" — The source does not state that facing challenges is a consequence of the notice period having passed.",
+            "\"You may still file a claim in Small Claims Court.\" — The source does not explicitly state that you may still file a claim despite the notice period having passed.",
+            "\"If you believe there is a reasonable excuse for not giving notice, you can present this to a judge.\" — The source does not mention the ability to present a reasonable excuse to a judge in this context.",
+            "\"If you file a claim, the court will consider your situation.\" — The source does not specify that the court will consider your situation upon filing a claim."
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "The notice period for your injury claim has passed without notice being given. This may affect your ability to proceed with your claim.",
+            "whatToDoNext": "You may want to consider consulting a lawyer or paralegal for advice on your options.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If you decide to file a claim, the court may address the issue of notice during the proceedings."
+          },
+          "verdicts": [
+            {
+              "sentence": "The notice period for your injury claim has passed without notice being given.",
+              "supported": true,
+              "quote": "The injury is one of the kinds that needs notice first, and the notice period has run out without notice being given.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "This may affect your ability to proceed with your claim.",
+              "supported": false,
+              "reason": "The source does not state that the lack of notice affects the ability to proceed with the claim; it only discusses the notice period."
+            },
+            {
+              "sentence": "You may want to consider consulting a lawyer or paralegal for advice on your options.",
+              "supported": false,
+              "reason": "The source does not mention consulting a lawyer or paralegal."
+            },
+            {
+              "sentence": "If you decide to file a claim, the court may address the issue of notice during the proceedings.",
+              "supported": false,
+              "reason": "The source does not state that the court will address the issue of notice during the proceedings."
+            }
+          ],
+          "readability": 8.20214285714286,
+          "problems": [
+            "\"This may affect your ability to proceed with your claim.\" — The source does not state that the lack of notice affects the ability to proceed with the claim; it only discusses the notice period.",
+            "\"You may want to consider consulting a lawyer or paralegal for advice on your options.\" — The source does not mention consulting a lawyer or paralegal.",
+            "\"If you decide to file a claim, the court may address the issue of notice during the proceedings.\" — The source does not state that the court will address the issue of notice during the proceedings.",
+            "reads at grade 8.2, above the grade 8 target. Longest sentence: \"You may want to consider consulting a lawyer or paralegal for advice on your options.\""
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "The notice period for your injury claim has passed without notice being given. This means you may have questions about your ability to proceed with your claim.",
+            "whatToDoNext": "You can still file a claim in Small Claims Court. You may want to include reasons for not providing notice in your claim.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If you file a claim, the court will review it and may consider the notice issue based on the circumstances."
+          },
+          "verdicts": [
+            {
+              "sentence": "The notice period for your injury claim has passed without notice being given.",
+              "supported": true,
+              "quote": "The injury is one of the kinds that needs notice first, and the notice period has run out without notice being given.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "This means you may have questions about your ability to proceed with your claim.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "You can still file a claim in Small Claims Court.",
+              "supported": false,
+              "reason": "The source does not explicitly state that you can still file a claim in Small Claims Court after the notice period has passed."
+            },
+            {
+              "sentence": "You may want to include reasons for not providing notice in your claim.",
+              "supported": false,
+              "reason": "The source does not mention including reasons for not providing notice in your claim."
+            },
+            {
+              "sentence": "If you file a claim, the court will review it and may consider the notice issue based on the circumstances.",
+              "supported": false,
+              "reason": "The source does not state that the court will review the claim and consider the notice issue based on circumstances."
+            }
+          ],
+          "readability": 6.558571428571433,
+          "problems": [
+            "\"This means you may have questions about your ability to proceed with your claim.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source",
+            "\"You can still file a claim in Small Claims Court.\" — The source does not explicitly state that you can still file a claim in Small Claims Court after the notice period has passed.",
+            "\"You may want to include reasons for not providing notice in your claim.\" — The source does not mention including reasons for not providing notice in your claim.",
+            "\"If you file a claim, the court will review it and may consider the notice issue based on the circumstances.\" — The source does not state that the court will review the claim and consider the notice issue based on circumstances."
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "The notice period for your claim has passed without notice being given. This may affect your ability to proceed with your claim.",
+            "whatToDoNext": "You may consider filing a claim in Small Claims Court. You will need to complete a Plaintiff's Claim [Form 7A] and file it with the court. You can file online, in person, or by mail.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If you file a claim, the defendant will have 20 days to respond. If they do not respond, you may request to have them noted in default."
+          },
+          "verdicts": [
+            {
+              "sentence": "The notice period for your claim has passed without notice being given.",
+              "supported": true,
+              "quote": "The injury is one of the kinds that needs notice first, and the notice period has run out without notice being given.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "This may affect your ability to proceed with your claim.",
+              "supported": false,
+              "reason": "The source does not state that the lack of notice affects the ability to proceed with the claim."
+            },
+            {
+              "sentence": "You may consider filing a claim in Small Claims Court.",
+              "supported": false,
+              "reason": "The source does not mention considering filing a claim; it discusses the status of a claim after notice issues."
+            },
+            {
+              "sentence": "You will need to complete a Plaintiff's Claim [Form 7A] and file it with the court.",
+              "supported": true,
+              "quote": "Fill out a form called the Plaintiff’s Claim (Form 7A).",
+              "sourceId": "ontario-suing-someone-small-claims",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can file online, in person, or by mail.",
+              "supported": true,
+              "quote": "You can file a claim in-person, by mail or online (where eligible).",
+              "sourceId": "ontario-suing-someone-small-claims",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you file a claim, the defendant will have 20 days to respond.",
+              "supported": true,
+              "quote": "The person or business you are suing has 20 days after being served with your claim to respond.",
+              "sourceId": "ontario-suing-someone-small-claims",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If they do not respond, you may request to have them noted in default.",
+              "supported": false,
+              "quote": "If the defendant does not file a Defence within 20 days after you filed the claim, you can ask the court to have the defendant 'noted in default.'",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            }
+          ],
+          "readability": 4.951742160278748,
+          "problems": [
+            "\"This may affect your ability to proceed with your claim.\" — The source does not state that the lack of notice affects the ability to proceed with the claim.",
+            "\"You may consider filing a claim in Small Claims Court.\" — The source does not mention considering filing a claim; it discusses the status of a claim after notice issues.",
+            "\"If they do not respond, you may request to have them noted in default.\" — the verifier called this supported but the passage it quoted is not in the vendored source text"
+          ]
+        }
+      ],
+      "status": "needs-human"
+    }
+  ]
+}

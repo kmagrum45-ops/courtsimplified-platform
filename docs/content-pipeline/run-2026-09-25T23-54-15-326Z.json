@@ -1,0 +1,1809 @@
+{
+  "model": "gpt-4o-mini",
+  "startedAt": "2026-09-25T23:50:08.911Z",
+  "usage": [
+    {
+      "model": "gpt-4o-mini",
+      "inputTokens": 534269,
+      "outputTokens": 16344,
+      "calls": 44
+    }
+  ],
+  "log": [
+    {
+      "stageId": "before-filing:notice-municipality",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "You must provide written notice to the municipality about your claim before you can bring an action for damages. This notice must include details about the injury, including the date, time, and location of the occurrence.",
+            "whatToDoNext": "Prepare a written notice of your claim and serve it upon or send it by registered mail to the clerk of the municipality.",
+            "yourDeadline": "Written notice of the claim to the clerk of the municipality. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not provide the required notice, you may not be able to bring your action for damages, unless a judge finds a reasonable excuse for the lack of notice."
+          },
+          "verdicts": [
+            {
+              "sentence": "You must provide written notice to the municipality about your claim before you can bring an action for damages.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of... has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "This notice must include details about the injury, including the date, time, and location of the occurrence.",
+              "supported": true,
+              "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare a written notice of your claim and serve it upon or send it by registered mail to the clerk of the municipality.",
+              "supported": false,
+              "quote": "written notice of the claim and of the injury complained of... has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "Written notice of the claim to the clerk of the municipality.",
+              "supported": false,
+              "reason": "This sentence is incomplete and does not make a claim that can be supported by the source material."
+            },
+            {
+              "sentence": "You have 10 days, counted from the occurrence of the injury.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury...",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted.",
+              "supported": false,
+              "reason": "The source does not specify that the deadline is set by a statute rather than court rules."
+            },
+            {
+              "sentence": "Under the rules a deadline landing on a Saturday moves to the next working day.",
+              "supported": false,
+              "reason": "The source does not mention anything about deadlines landing on a Saturday."
+            },
+            {
+              "sentence": "Under the statute it does not — only Sunday and holidays are excluded.",
+              "supported": false,
+              "reason": "The source does not specify that only Sunday and holidays are excluded from the counting of days."
+            },
+            {
+              "sentence": "Do not assume a weekend gives you extra time.",
+              "supported": false,
+              "reason": "The source does not mention anything about weekends giving extra time."
+            },
+            {
+              "sentence": "If you do not provide the required notice, you may not be able to bring your action for damages, unless a judge finds a reasonable excuse for the lack of notice.",
+              "supported": true,
+              "quote": "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury. | Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the municipality is not prejudiced in its defence.",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            }
+          ],
+          "readability": 8.662000000000003,
+          "problems": [
+            "\"You must provide written notice to the municipality about your claim before you can bring an action for damages.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"Prepare a written notice of your claim and serve it upon or send it by registered mail to the clerk of the municipality.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"Written notice of the claim to the clerk of the municipality.\" — This sentence is incomplete and does not make a claim that can be supported by the source material.",
+            "\"This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted.\" — The source does not specify that the deadline is set by a statute rather than court rules.",
+            "\"Under the rules a deadline landing on a Saturday moves to the next working day.\" — The source does not mention anything about deadlines landing on a Saturday.",
+            "\"Under the statute it does not — only Sunday and holidays are excluded.\" — The source does not specify that only Sunday and holidays are excluded from the counting of days.",
+            "\"Do not assume a weekend gives you extra time.\" — The source does not mention anything about weekends giving extra time.",
+            "reads at grade 8.7, above the grade 8 target. Longest sentence: \"If you do not provide the required notice, you may not be able to bring your action for damages, unless a judge finds a reasonable excuse for the lack of notice.\""
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "You need to provide written notice to the municipality about your claim before you can bring an action for damages. This notice must be served upon or sent by registered mail to the clerk of the municipality. You have 10 days after the occurrence of the injury to provide this notice.",
+            "whatToDoNext": "Prepare your written notice of the claim and ensure it includes the date, time, and location of the occurrence. Serve it upon or send it by registered mail to the clerk of the municipality.",
+            "yourDeadline": "Written notice of the claim to the clerk of the municipality. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not provide the required notice, you may not be able to bring your action for damages, unless a judge finds a reasonable excuse for the lack of notice."
+          },
+          "verdicts": [
+            {
+              "sentence": "You need to provide written notice to the municipality about your claim before you can bring an action for damages.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of... has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "This notice must be served upon or sent by registered mail to the clerk of the municipality.",
+              "supported": true,
+              "quote": "...has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You have 10 days after the occurrence of the injury to provide this notice.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury...",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare your written notice of the claim and ensure it includes the date, time, and location of the occurrence.",
+              "supported": false,
+              "reason": "The source does not specify that the notice must include the date, time, and location of the occurrence."
+            },
+            {
+              "sentence": "Serve it upon or send it by registered mail to the clerk of the municipality.",
+              "supported": true,
+              "quote": "...has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Written notice of the claim to the clerk of the municipality.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "You have 10 days, counted from the occurrence of the injury.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury...",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted.",
+              "supported": false,
+              "reason": "The source does not state that the deadline is set by a statute rather than by court rules."
+            },
+            {
+              "sentence": "Under the rules a deadline landing on a Saturday moves to the next working day.",
+              "supported": false,
+              "reason": "The source does not mention any rules regarding deadlines landing on a Saturday."
+            },
+            {
+              "sentence": "Under the statute it does not — only Sunday and holidays are excluded.",
+              "supported": true,
+              "quote": "A reference to a number of days between two events excludes the day on which the first event happens and includes the day on which the second event happens",
+              "sourceId": "legislation-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Do not assume a weekend gives you extra time.",
+              "supported": false,
+              "reason": "The source does not mention anything about weekends giving extra time."
+            },
+            {
+              "sentence": "If you do not provide the required notice, you may not be able to bring your action for damages, unless a judge finds a reasonable excuse for the lack of notice.",
+              "supported": true,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the municipality is not prejudiced in its defence.",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            }
+          ],
+          "readability": 8.351930051813472,
+          "problems": [
+            "\"You need to provide written notice to the municipality about your claim before you can bring an action for damages.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"Prepare your written notice of the claim and ensure it includes the date, time, and location of the occurrence.\" — The source does not specify that the notice must include the date, time, and location of the occurrence.",
+            "\"Written notice of the claim to the clerk of the municipality.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source",
+            "\"This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted.\" — The source does not state that the deadline is set by a statute rather than by court rules.",
+            "\"Under the rules a deadline landing on a Saturday moves to the next working day.\" — The source does not mention any rules regarding deadlines landing on a Saturday.",
+            "\"Do not assume a weekend gives you extra time.\" — The source does not mention anything about weekends giving extra time.",
+            "reads at grade 8.4, above the grade 8 target. Longest sentence: \"If you do not provide the required notice, you may not be able to bring your action for damages, unless a judge finds a reasonable excuse for the lack of notice.\""
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "You must provide written notice to the clerk of the municipality about your claim within 10 days after the occurrence of the injury.",
+            "whatToDoNext": "Prepare your written notice of the claim.",
+            "yourDeadline": "Written notice of the claim to the clerk of the municipality. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not provide the required notice, you may not be able to bring your action for damages."
+          },
+          "verdicts": [
+            {
+              "sentence": "You must provide written notice to the clerk of the municipality about your claim within 10 days after the occurrence of the injury.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare your written notice of the claim.",
+              "supported": true,
+              "quoteFound": false
+            },
+            {
+              "sentence": "Written notice of the claim to the clerk of the municipality.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "You have 10 days, counted from the occurrence of the injury.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Under the rules a deadline landing on a Saturday moves to the next working day.",
+              "supported": false,
+              "reason": "The source material does not mention anything about deadlines landing on a Saturday or how they are treated."
+            },
+            {
+              "sentence": "Under the statute it does not — only Sunday and holidays are excluded.",
+              "supported": false,
+              "reason": "The source material does not specify how weekends are treated in relation to the deadline."
+            },
+            {
+              "sentence": "Do not assume a weekend gives you extra time.",
+              "supported": false,
+              "reason": "The source material does not address the treatment of weekends in relation to the deadline."
+            },
+            {
+              "sentence": "If you do not provide the required notice, you may not be able to bring your action for damages.",
+              "supported": true,
+              "quote": "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury. | Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the municipality is not prejudiced in its defence.",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.289047619047622,
+          "problems": [
+            "\"Written notice of the claim to the clerk of the municipality.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source",
+            "\"Under the rules a deadline landing on a Saturday moves to the next working day.\" — The source material does not mention anything about deadlines landing on a Saturday or how they are treated.",
+            "\"Under the statute it does not — only Sunday and holidays are excluded.\" — The source material does not specify how weekends are treated in relation to the deadline.",
+            "\"Do not assume a weekend gives you extra time.\" — The source material does not address the treatment of weekends in relation to the deadline."
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "You must provide written notice of your claim to the clerk of the municipality within 10 days after the occurrence of the injury.",
+            "whatToDoNext": "Prepare your written notice, including the date, time, and location of the occurrence, and serve it upon or send it by registered mail to the clerk of the municipality.",
+            "yourDeadline": "Written notice of the claim to the clerk of the municipality. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not provide the notice within the specified time, you may not be able to bring an action for damages against the municipality."
+          },
+          "verdicts": [
+            {
+              "sentence": "You must provide written notice of your claim to the clerk of the municipality within 10 days after the occurrence of the injury.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of... has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "Prepare your written notice, including the date, time, and location of the occurrence, and serve it upon or send it by registered mail to the clerk of the municipality.",
+              "supported": true,
+              "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Written notice of the claim to the clerk of the municipality.",
+              "supported": false,
+              "reason": "The sentence is incomplete and does not provide a full claim or context as required by the source."
+            },
+            {
+              "sentence": "You have 10 days, counted from the occurrence of the injury.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury...",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted.",
+              "supported": false,
+              "reason": "The source does not specify that the deadline is set by a statute rather than court rules or how the days are counted."
+            },
+            {
+              "sentence": "Under the rules a deadline landing on a Saturday moves to the next working day.",
+              "supported": false,
+              "reason": "The source does not mention any rules regarding deadlines landing on a Saturday."
+            },
+            {
+              "sentence": "Under the statute it does not — only Sunday and holidays are excluded.",
+              "supported": true,
+              "quote": "A reference to a number of days between two events excludes the day on which the first event happens and includes the day on which the second event happens",
+              "sourceId": "legislation-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Do not assume a weekend gives you extra time.",
+              "supported": false,
+              "reason": "The source does not explicitly state that a weekend does not provide extra time."
+            },
+            {
+              "sentence": "If you do not provide the notice within the specified time, you may not be able to bring an action for damages against the municipality.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury...",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            }
+          ],
+          "readability": 9.089826839826845,
+          "problems": [
+            "\"You must provide written notice of your claim to the clerk of the municipality within 10 days after the occurrence of the injury.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"Written notice of the claim to the clerk of the municipality.\" — The sentence is incomplete and does not provide a full claim or context as required by the source.",
+            "\"This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted.\" — The source does not specify that the deadline is set by a statute rather than court rules or how the days are counted.",
+            "\"Under the rules a deadline landing on a Saturday moves to the next working day.\" — The source does not mention any rules regarding deadlines landing on a Saturday.",
+            "\"Do not assume a weekend gives you extra time.\" — The source does not explicitly state that a weekend does not provide extra time.",
+            "reads at grade 9.1, above the grade 8 target. Longest sentence: \"Prepare your written notice, including the date, time, and location of the occurrence, and serve it upon or send it by registered mail to the clerk of the municipality.\""
+          ]
+        }
+      ],
+      "status": "needs-human"
+    },
+    {
+      "stageId": "before-filing:notice-toronto",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "You must provide written notice to the City of Toronto within 10 days after the injury occurred. This notice must include details such as the date, time, and location of the injury. The notice should be served upon or sent by registered mail to the city clerk.",
+            "whatToDoNext": "Prepare your written notice including the required details. Send it to the city clerk within the 10-day period.",
+            "yourDeadline": "Written notice of the claim to the city clerk. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you fail to give notice, it may not bar your action if a judge finds a reasonable excuse for the failure and that the City is not prejudiced in its defence."
+          },
+          "verdicts": [
+            {
+              "sentence": "You must provide written notice to the City of Toronto within 10 days after the injury occurred.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of... has been served upon or sent by registered mail to, (a) the city clerk",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "This notice must include details such as the date, time, and location of the injury.",
+              "supported": true,
+              "quote": "...written notice of the claim and of the injury complained of, including the date, time and location of the occurrence...",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The notice should be served upon or sent by registered mail to the city clerk.",
+              "supported": true,
+              "quote": "...has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare your written notice including the required details.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "Send it to the city clerk within the 10-day period.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim... has been served upon or sent by registered mail to, (a) the city clerk",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "Written notice of the claim to the city clerk.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "You have 10 days, counted from the occurrence of the injury.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury...",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted.",
+              "supported": true,
+              "quote": "The same 10-day notice, for a claim against the City of Toronto, which is governed by its own Act rather than the Municipal Act.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "Under the rules a deadline landing on a Saturday moves to the next working day.",
+              "supported": false,
+              "reason": "The source does not mention anything about deadlines landing on a Saturday moving to the next working day."
+            },
+            {
+              "sentence": "Under the statute it does not — only Sunday and holidays are excluded.",
+              "supported": false,
+              "reason": "The source does not specify that only Sunday and holidays are excluded from the counting of days."
+            },
+            {
+              "sentence": "Do not assume a weekend gives you extra time.",
+              "supported": false,
+              "reason": "The source does not mention anything about weekends giving extra time."
+            },
+            {
+              "sentence": "If you fail to give notice, it may not bar your action if a judge finds a reasonable excuse for the failure and that the City is not prejudiced in its defence.",
+              "supported": true,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.288372093023256,
+          "problems": [
+            "\"You must provide written notice to the City of Toronto within 10 days after the injury occurred.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"Prepare your written notice including the required details.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source",
+            "\"Send it to the city clerk within the 10-day period.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"Written notice of the claim to the city clerk.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source",
+            "\"Under the rules a deadline landing on a Saturday moves to the next working day.\" — The source does not mention anything about deadlines landing on a Saturday moving to the next working day.",
+            "\"Under the statute it does not — only Sunday and holidays are excluded.\" — The source does not specify that only Sunday and holidays are excluded from the counting of days.",
+            "\"Do not assume a weekend gives you extra time.\" — The source does not mention anything about weekends giving extra time."
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "You need to provide written notice to the City of Toronto if you were injured on a Toronto street or sidewalk. This notice must include details such as the date, time, and location of the injury. The notice must be served upon or sent by registered mail to the city clerk.",
+            "whatToDoNext": "Prepare your written notice with the required details. Ensure it is sent to the city clerk within the 10-day period after the injury occurred.",
+            "yourDeadline": "Written notice of the claim to the city clerk. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you fail to give notice or if the notice is insufficient, a judge may still allow your action if there is a reasonable excuse and the City is not prejudiced in its defence."
+          },
+          "verdicts": [
+            {
+              "sentence": "You need to provide written notice to the City of Toronto if you were injured on a Toronto street or sidewalk.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of... has been served upon or sent by registered mail to, (a) the city clerk",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "This notice must include details such as the date, time, and location of the injury.",
+              "supported": true,
+              "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The notice must be served upon or sent by registered mail to the city clerk.",
+              "supported": true,
+              "quote": "has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare your written notice with the required details.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "Ensure it is sent to the city clerk within the 10-day period after the injury occurred.",
+              "supported": true,
+              "quote": "within 10 days after the occurrence of the injury",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Written notice of the claim to the city clerk.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "You have 10 days, counted from the occurrence of the injury.",
+              "supported": true,
+              "quote": "within 10 days after the occurrence of the injury",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted.",
+              "supported": false,
+              "reason": "The source does not specify that the deadline is set by a statute rather than by court rules or how the days are counted."
+            },
+            {
+              "sentence": "Under the rules a deadline landing on a Saturday moves to the next working day.",
+              "supported": false,
+              "reason": "The source does not mention anything about deadlines landing on a Saturday moving to the next working day."
+            },
+            {
+              "sentence": "Under the statute it does not — only Sunday and holidays are excluded.",
+              "supported": true,
+              "quote": "A reference to a number of days between two events excludes the day on which the first event happens and includes the day on which the second event happens",
+              "sourceId": "legislation-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Do not assume a weekend gives you extra time.",
+              "supported": false,
+              "reason": "The source does not mention anything about weekends giving extra time."
+            },
+            {
+              "sentence": "If you fail to give notice or if the notice is insufficient, a judge may still allow your action if there is a reasonable excuse and the City is not prejudiced in its defence.",
+              "supported": true,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.835472972972973,
+          "problems": [
+            "\"You need to provide written notice to the City of Toronto if you were injured on a Toronto street or sidewalk.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"Prepare your written notice with the required details.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source",
+            "\"Written notice of the claim to the city clerk.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source",
+            "\"This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted.\" — The source does not specify that the deadline is set by a statute rather than by court rules or how the days are counted.",
+            "\"Under the rules a deadline landing on a Saturday moves to the next working day.\" — The source does not mention anything about deadlines landing on a Saturday moving to the next working day.",
+            "\"Do not assume a weekend gives you extra time.\" — The source does not mention anything about weekends giving extra time."
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "You must provide written notice to the City of Toronto if you were injured on a Toronto street or sidewalk. This notice must be served upon or sent by registered mail to the city clerk within 10 days after the occurrence of the injury.",
+            "whatToDoNext": "Prepare your written notice with the required details, including the date, time, and location of the occurrence. Serve the notice to the city clerk.",
+            "yourDeadline": "Written notice of the claim to the city clerk. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you fail to give notice or if the notice is insufficient, a judge may still allow your action if there is a reasonable excuse and the City is not prejudiced in its defence."
+          },
+          "verdicts": [
+            {
+              "sentence": "You must provide written notice to the City of Toronto if you were injured on a Toronto street or sidewalk.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of... has been served upon or sent by registered mail to, (a) the city clerk",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "This notice must be served upon or sent by registered mail to the city clerk within 10 days after the occurrence of the injury.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of... has been served upon or sent by registered mail to, (a) the city clerk",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "Prepare your written notice with the required details, including the date, time, and location of the occurrence.",
+              "supported": true,
+              "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve the notice to the city clerk.",
+              "supported": true,
+              "quote": "has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Written notice of the claim to the city clerk.",
+              "supported": true,
+              "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You have 10 days, counted from the occurrence of the injury.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury...",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted.",
+              "supported": false,
+              "reason": "The source does not specify that the deadline is set by a statute rather than by court rules or how that changes the counting of days."
+            },
+            {
+              "sentence": "Under the rules a deadline landing on a Saturday moves to the next working day.",
+              "supported": false,
+              "reason": "The source does not mention any rules regarding deadlines landing on a Saturday."
+            },
+            {
+              "sentence": "Under the statute it does not — only Sunday and holidays are excluded.",
+              "supported": true,
+              "quote": "A reference to a number of days between two events excludes the day on which the first event happens and includes the day on which the second event happens",
+              "sourceId": "legislation-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Do not assume a weekend gives you extra time.",
+              "supported": false,
+              "reason": "The source does not mention anything about weekends giving extra time."
+            },
+            {
+              "sentence": "If you fail to give notice or if the notice is insufficient, a judge may still allow your action if there is a reasonable excuse and the City is not prejudiced in its defence.",
+              "supported": true,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            }
+          ],
+          "readability": 8.218787878787882,
+          "problems": [
+            "\"You must provide written notice to the City of Toronto if you were injured on a Toronto street or sidewalk.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"This notice must be served upon or sent by registered mail to the city clerk within 10 days after the occurrence of the injury.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted.\" — The source does not specify that the deadline is set by a statute rather than by court rules or how that changes the counting of days.",
+            "\"Under the rules a deadline landing on a Saturday moves to the next working day.\" — The source does not mention any rules regarding deadlines landing on a Saturday.",
+            "\"Do not assume a weekend gives you extra time.\" — The source does not mention anything about weekends giving extra time.",
+            "reads at grade 8.2, above the grade 8 target. Longest sentence: \"If you fail to give notice or if the notice is insufficient, a judge may still allow your action if there is a reasonable excuse and the City is not prejudiced in its defence.\""
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "You must provide written notice to the City of Toronto if you were injured on a Toronto street or sidewalk. This notice must be served upon or sent by registered mail to the city clerk within 10 days after the occurrence of the injury. The deadline is counted from the date of the injury.",
+            "whatToDoNext": "Prepare your written notice including the details of your claim and the injury. Serve this notice to the city clerk within the 10-day period.",
+            "yourDeadline": "Written notice of the claim to the city clerk. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you fail to give notice or if the notice is insufficient, a judge may still allow your action if there is a reasonable excuse and the City is not prejudiced in its defence."
+          },
+          "verdicts": [
+            {
+              "sentence": "You must provide written notice to the City of Toronto if you were injured on a Toronto street or sidewalk.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This notice must be served upon or sent by registered mail to the city clerk within 10 days after the occurrence of the injury.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The deadline is counted from the date of the injury.",
+              "supported": true,
+              "quote": "A reference to a number of days between two events excludes the day on which the first event happens and includes the day on which the second event happens",
+              "sourceId": "legislation-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare your written notice including the details of your claim and the injury.",
+              "supported": false,
+              "reason": "The source does not specify what details must be included in the written notice."
+            },
+            {
+              "sentence": "Serve this notice to the city clerk within the 10-day period.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Written notice of the claim to the city clerk.",
+              "supported": false,
+              "reason": "This sentence is incomplete and does not provide a full claim."
+            },
+            {
+              "sentence": "You have 10 days, counted from the occurrence of the injury.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted.",
+              "supported": true,
+              "quote": "The same 10-day notice, for a claim against the City of Toronto, which is governed by its own Act rather than the Municipal Act.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "Under the rules a deadline landing on a Saturday moves to the next working day.",
+              "supported": false,
+              "reason": "The source does not mention anything about deadlines moving to the next working day."
+            },
+            {
+              "sentence": "Under the statute it does not — only Sunday and holidays are excluded.",
+              "supported": true,
+              "quote": "A reference to a number of days between two events excludes the day on which the first event happens and includes the day on which the second event happens",
+              "sourceId": "legislation-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Do not assume a weekend gives you extra time.",
+              "supported": false,
+              "reason": "The source does not mention anything about weekends affecting the deadline."
+            },
+            {
+              "sentence": "If you fail to give notice or if the notice is insufficient, a judge may still allow your action if there is a reasonable excuse and the City is not prejudiced in its defence.",
+              "supported": true,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.840441176470591,
+          "problems": [
+            "\"Prepare your written notice including the details of your claim and the injury.\" — The source does not specify what details must be included in the written notice.",
+            "\"Written notice of the claim to the city clerk.\" — This sentence is incomplete and does not provide a full claim.",
+            "\"Under the rules a deadline landing on a Saturday moves to the next working day.\" — The source does not mention anything about deadlines moving to the next working day.",
+            "\"Do not assume a weekend gives you extra time.\" — The source does not mention anything about weekends affecting the deadline."
+          ]
+        }
+      ],
+      "status": "needs-human"
+    },
+    {
+      "stageId": "before-filing:notice-snow-ice-private",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "You have a personal injury claim due to slipping on ice outside a privately occupied property. Before you can sue, you must send a written notice of your claim to the occupier or the independent contractor responsible for snow or ice removal. This notice must include the date, time, and location of the incident.",
+            "whatToDoNext": "Prepare a written notice that includes the date, time, and location of your injury. You must personally serve this notice or send it by registered mail to at least one person listed in subsection (2) of the Occupiers' Liability Act, which includes the occupier or an independent contractor responsible for snow or ice removal.",
+            "yourDeadline": "Give written notice of the claim to an occupier or to the snow-removal contractor. The notice must say the date, time and place of the injury. You have 60 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not send the notice within the 60-day period, you may still proceed with your claim, but there are specific conditions under which a judge may allow it. If you send the notice, you can then consider filing a claim in Small Claims Court."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have a personal injury claim due to slipping on ice outside a privately occupied property.",
+              "supported": true,
+              "quote": "A personal injury caused by snow or ice, where the place is occupied privately rather than by a municipality, and no notice has been sent.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "Before you can sue, you must send a written notice of your claim to the occupier or the independent contractor responsible for snow or ice removal.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim...has been personally served on or sent by registered mail to at least one person listed in subsection (2).",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "This notice must include the date, time, and location of the incident.",
+              "supported": true,
+              "quote": "...written notice of the claim, including the date, time and location of the occurrence...",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare a written notice that includes the date, time, and location of your injury.",
+              "supported": true,
+              "quote": "...written notice of the claim, including the date, time and location of the occurrence...",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must personally serve this notice or send it by registered mail to at least one person listed in subsection (2) of the Occupiers' Liability Act, which includes the occupier or an independent contractor responsible for snow or ice removal.",
+              "supported": true,
+              "quote": "...has been personally served on or sent by registered mail to at least one person listed in subsection (2). | The persons referred to in subsection (1) are the following: 1. An occupier. 2. An independent contractor employed by the occupier to remove snow or ice on the premises during the relevant period in which the injury occurred.",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Give written notice of the claim to an occupier or to the snow-removal contractor.",
+              "supported": true,
+              "quote": "...has been personally served on or sent by registered mail to at least one person listed in subsection (2).",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The notice must say the date, time and place of the injury.",
+              "supported": true,
+              "quote": "...written notice of the claim, including the date, time and location of the occurrence...",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You have 60 days, counted from the occurrence of the injury.",
+              "supported": true,
+              "quote": "...unless, within 60 days after the occurrence of the injury...",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted.",
+              "supported": true,
+              "quote": "A reference to a number of days between two events excludes the day on which the first event happens and includes the day on which the second event happens",
+              "sourceId": "legislation-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Under the rules a deadline landing on a Saturday moves to the next working day.",
+              "supported": false,
+              "reason": "The source does not mention any rules about deadlines moving to the next working day."
+            },
+            {
+              "sentence": "Under the statute it does not — only Sunday and holidays are excluded.",
+              "supported": false,
+              "reason": "The source does not specify that only Sundays and holidays are excluded; it states how days are counted but does not address weekends."
+            },
+            {
+              "sentence": "Do not assume a weekend gives you extra time.",
+              "supported": false,
+              "reason": "The source does not mention anything about weekends giving extra time."
+            },
+            {
+              "sentence": "If you do not send the notice within the 60-day period, you may still proceed with your claim, but there are specific conditions under which a judge may allow it.",
+              "supported": true,
+              "quote": "Failure to give notice in accordance with subsection (1) is not a bar to the action in the case of the death of the injured person as a result of the injury. | Failure to give notice in accordance with subsection (1) or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence.",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you send the notice, you can then consider filing a claim in Small Claims Court.",
+              "supported": false,
+              "reason": "The source does not state that sending the notice allows you to consider filing a claim in Small Claims Court."
+            }
+          ],
+          "readability": 9.058792102206738,
+          "problems": [
+            "\"Before you can sue, you must send a written notice of your claim to the occupier or the independent contractor responsible for snow or ice removal.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"Under the rules a deadline landing on a Saturday moves to the next working day.\" — The source does not mention any rules about deadlines moving to the next working day.",
+            "\"Under the statute it does not — only Sunday and holidays are excluded.\" — The source does not specify that only Sundays and holidays are excluded; it states how days are counted but does not address weekends.",
+            "\"Do not assume a weekend gives you extra time.\" — The source does not mention anything about weekends giving extra time.",
+            "\"If you send the notice, you can then consider filing a claim in Small Claims Court.\" — The source does not state that sending the notice allows you to consider filing a claim in Small Claims Court.",
+            "reads at grade 9.1, above the grade 8 target. Longest sentence: \"You must personally serve this notice or send it by registered mail to at least one person listed in subsection (2) of the Occupiers' Liability Act, which includes the occupier or an independent contractor responsible for snow or ice removal.\""
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "You have a personal injury claim due to snow or ice on private property. You must send a written notice of your claim to the occupier or the independent contractor responsible for snow or ice removal. This notice must be served within 60 days after the injury occurred.",
+            "whatToDoNext": "Prepare a written notice that includes the date, time, and location of the injury. Serve this notice personally or send it by registered mail to at least one person listed in subsection (2) of the Occupiers' Liability Act.",
+            "yourDeadline": "Give written notice of the claim to an occupier or to the snow-removal contractor. The notice must say the date, time and place of the injury. You have 60 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not send the notice within the 60 days, you may still be able to proceed with your claim, but it could affect your case."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have a personal injury claim due to snow or ice on private property.",
+              "supported": true,
+              "quote": "A personal injury caused by snow or ice, where the place is occupied privately rather than by a municipality, and no notice has been sent.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "You must send a written notice of your claim to the occupier or the independent contractor responsible for snow or ice removal.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim... has been personally served on or sent by registered mail to at least one person listed in subsection (2).",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "This notice must be served within 60 days after the injury occurred.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice... unless, within 60 days after the occurrence of the injury, written notice of the claim... has been personally served on or sent by registered mail...",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "Prepare a written notice that includes the date, time, and location of the injury.",
+              "supported": true,
+              "quote": "written notice of the claim, including the date, time and location of the occurrence",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve this notice personally or send it by registered mail to at least one person listed in subsection (2) of the Occupiers' Liability Act.",
+              "supported": true,
+              "quote": "has been personally served on or sent by registered mail to at least one person listed in subsection (2).",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Give written notice of the claim to an occupier or to the snow-removal contractor.",
+              "supported": true,
+              "quote": "has been personally served on or sent by registered mail to at least one person listed in subsection (2).",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The notice must say the date, time and place of the injury.",
+              "supported": true,
+              "quote": "written notice of the claim, including the date, time and location of the occurrence",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You have 60 days, counted from the occurrence of the injury.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice... unless, within 60 days after the occurrence of the injury...",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted.",
+              "supported": true,
+              "quote": "A reference to a number of days between two events excludes the day on which the first event happens and includes the day on which the second event happens",
+              "sourceId": "legislation-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Under the rules a deadline landing on a Saturday moves to the next working day.",
+              "supported": false,
+              "reason": "The source does not mention any rules about deadlines landing on a Saturday."
+            },
+            {
+              "sentence": "Under the statute it does not — only Sunday and holidays are excluded.",
+              "supported": true,
+              "quote": "A reference to a number of days between two events excludes the day on which the first event happens and includes the day on which the second event happens",
+              "sourceId": "legislation-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Do not assume a weekend gives you extra time.",
+              "supported": false,
+              "reason": "The source does not explicitly state that weekends do not provide extra time."
+            },
+            {
+              "sentence": "If you do not send the notice within the 60 days, you may still be able to proceed with your claim, but it could affect your case.",
+              "supported": true,
+              "quote": "Failure to give notice in accordance with subsection (1) is not a bar to the action in the case of the death of the injured person as a result of the injury.",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.996551724137934,
+          "problems": [
+            "\"You must send a written notice of your claim to the occupier or the independent contractor responsible for snow or ice removal.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"This notice must be served within 60 days after the injury occurred.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"You have 60 days, counted from the occurrence of the injury.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"Under the rules a deadline landing on a Saturday moves to the next working day.\" — The source does not mention any rules about deadlines landing on a Saturday.",
+            "\"Do not assume a weekend gives you extra time.\" — The source does not explicitly state that weekends do not provide extra time."
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "You have a personal injury claim due to snow or ice on private property. You need to send a written notice of your claim to the occupier or the independent contractor responsible for snow or ice removal. This notice must include the date, time, and location of the occurrence.",
+            "whatToDoNext": "Prepare your written notice of claim. Ensure it includes the required details. Send it by personal service or registered mail to at least one person listed in subsection (2) of the Occupiers' Liability Act.",
+            "yourDeadline": "Give written notice of the claim to an occupier or to the snow-removal contractor. The notice must say the date, time and place of the injury. You have 60 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not send the notice within the 60 days, you may still proceed with your claim, but there are exceptions if a judge finds a reasonable excuse for the delay."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have a personal injury claim due to snow or ice on private property.",
+              "supported": true,
+              "quote": "A personal injury caused by snow or ice, where the place is occupied privately rather than by a municipality, and no notice has been sent.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "You need to send a written notice of your claim to the occupier or the independent contractor responsible for snow or ice removal.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim...has been personally served on or sent by registered mail to at least one person listed in subsection (2).",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "This notice must include the date, time, and location of the occurrence.",
+              "supported": true,
+              "quote": "...including the date, time and location of the occurrence...",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare your written notice of claim.",
+              "supported": true,
+              "quoteFound": false
+            },
+            {
+              "sentence": "Ensure it includes the required details.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "Send it by personal service or registered mail to at least one person listed in subsection (2) of the Occupiers' Liability Act.",
+              "supported": true,
+              "quote": "...has been personally served on or sent by registered mail to at least one person listed in subsection (2).",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Give written notice of the claim to an occupier or to the snow-removal contractor.",
+              "supported": true,
+              "quote": "The persons referred to in subsection (1) are the following: 1. An occupier. 2. An independent contractor employed by the occupier to remove snow or ice on the premises during the relevant period in which the injury occurred.",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The notice must say the date, time and place of the injury.",
+              "supported": true,
+              "quote": "...including the date, time and location of the occurrence...",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You have 60 days, counted from the occurrence of the injury.",
+              "supported": true,
+              "quote": "...unless, within 60 days after the occurrence of the injury...",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted.",
+              "supported": true,
+              "quote": "A reference to a number of days between two events excludes the day on which the first event happens and includes the day on which the second event happens.",
+              "sourceId": "legislation-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Under the rules a deadline landing on a Saturday moves to the next working day.",
+              "supported": false,
+              "reason": "The source does not mention anything about deadlines landing on a Saturday moving to the next working day."
+            },
+            {
+              "sentence": "Under the statute it does not — only Sunday and holidays are excluded.",
+              "supported": false,
+              "reason": "The source does not specify that only Sunday and holidays are excluded; it only states how days are counted."
+            },
+            {
+              "sentence": "Do not assume a weekend gives you extra time.",
+              "supported": false,
+              "reason": "The source does not mention anything about weekends giving extra time."
+            },
+            {
+              "sentence": "If you do not send the notice within the 60 days, you may still proceed with your claim, but there are exceptions if a judge finds a reasonable excuse for the delay.",
+              "supported": true,
+              "quote": "Failure to give notice in accordance with subsection (1) is not a bar to the action in the case of the death of the injured person as a result of the injury. | Failure to give notice in accordance with subsection (1) or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence.",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.676726768377257,
+          "problems": [
+            "\"You need to send a written notice of your claim to the occupier or the independent contractor responsible for snow or ice removal.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"Ensure it includes the required details.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source",
+            "\"Under the rules a deadline landing on a Saturday moves to the next working day.\" — The source does not mention anything about deadlines landing on a Saturday moving to the next working day.",
+            "\"Under the statute it does not — only Sunday and holidays are excluded.\" — The source does not specify that only Sunday and holidays are excluded; it only states how days are counted.",
+            "\"Do not assume a weekend gives you extra time.\" — The source does not mention anything about weekends giving extra time."
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "You have a personal injury claim due to snow or ice on private property. You must send a written notice of your claim within 60 days after the injury occurred.",
+            "whatToDoNext": "Prepare a written notice that includes the date, time, and location of the injury. Serve this notice personally or send it by registered mail to at least one person listed in subsection (2) of the Occupiers' Liability Act.",
+            "yourDeadline": "Give written notice of the claim to an occupier or to the snow-removal contractor. The notice must say the date, time and place of the injury. You have 60 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not send the notice within the 60 days, you may still proceed with your claim, but there are exceptions if a judge finds reasonable excuse for the delay."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have a personal injury claim due to snow or ice on private property.",
+              "supported": true,
+              "quote": "A personal injury caused by snow or ice, where the place is occupied privately rather than by a municipality, and no notice has been sent.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "You must send a written notice of your claim within 60 days after the injury occurred.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice against a person or persons listed in subsection (2) unless, within 60 days after the occurrence of the injury, written notice of the claim... has been personally served on or sent by registered mail to at least one person listed in subsection (2).",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "Prepare a written notice that includes the date, time, and location of the injury.",
+              "supported": true,
+              "quote": "written notice of the claim, including the date, time and location of the occurrence",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve this notice personally or send it by registered mail to at least one person listed in subsection (2) of the Occupiers' Liability Act.",
+              "supported": true,
+              "quote": "has been personally served on or sent by registered mail to at least one person listed in subsection (2).",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Give written notice of the claim to an occupier or to the snow-removal contractor.",
+              "supported": true,
+              "quote": "The persons referred to in subsection (1) are the following: 1. An occupier. 2. An independent contractor employed by the occupier to remove snow or ice on the premises during the relevant period in which the injury occurred.",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The notice must say the date, time and place of the injury.",
+              "supported": true,
+              "quote": "written notice of the claim, including the date, time and location of the occurrence",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You have 60 days, counted from the occurrence of the injury.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages for personal injury caused by snow or ice... unless, within 60 days after the occurrence of the injury...",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "This deadline is set by a statute rather than by the court's rules, and that changes how the days are counted.",
+              "supported": true,
+              "quote": "A reference to a number of days between two events excludes the day on which the first event happens and includes the day on which the second event happens",
+              "sourceId": "legislation-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Under the rules a deadline landing on a Saturday moves to the next working day.",
+              "supported": false,
+              "reason": "The source does not mention anything about deadlines landing on a Saturday moving to the next working day."
+            },
+            {
+              "sentence": "Under the statute it does not — only Sunday and holidays are excluded.",
+              "supported": false,
+              "reason": "The source does not specify that only Sunday and holidays are excluded; it only states how days are counted."
+            },
+            {
+              "sentence": "Do not assume a weekend gives you extra time.",
+              "supported": false,
+              "reason": "The source does not mention anything about weekends giving extra time."
+            },
+            {
+              "sentence": "If you do not send the notice within the 60 days, you may still proceed with your claim, but there are exceptions if a judge finds reasonable excuse for the delay.",
+              "supported": true,
+              "quote": "Failure to give notice in accordance with subsection (1) or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence.",
+              "sourceId": "occupiers-liability-act",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.90911375661376,
+          "problems": [
+            "\"You must send a written notice of your claim within 60 days after the injury occurred.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"You have 60 days, counted from the occurrence of the injury.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"Under the rules a deadline landing on a Saturday moves to the next working day.\" — The source does not mention anything about deadlines landing on a Saturday moving to the next working day.",
+            "\"Under the statute it does not — only Sunday and holidays are excluded.\" — The source does not specify that only Sunday and holidays are excluded; it only states how days are counted.",
+            "\"Do not assume a weekend gives you extra time.\" — The source does not mention anything about weekends giving extra time."
+          ]
+        }
+      ],
+      "status": "needs-human"
+    },
+    {
+      "stageId": "before-filing:notice-deadline-missed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "The notice period for your claim has passed without notice being given. This means you may face challenges in proceeding with your claim.",
+            "whatToDoNext": "You may still file a claim in Small Claims Court. If you believe there is a reasonable excuse for not giving notice, you can present this to a judge.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If you file a claim, the court will consider your situation. A judge may allow your claim to proceed if they find a reasonable excuse for the lack of notice and that the defendant is not prejudiced."
+          },
+          "verdicts": [
+            {
+              "sentence": "The notice period for your claim has passed without notice being given.",
+              "supported": true,
+              "quote": "The injury is one of the kinds that needs notice first, and the notice period has run out without notice being given.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "This means you may face challenges in proceeding with your claim.",
+              "supported": false,
+              "reason": "The source does not state that facing challenges is a consequence of the notice period having passed."
+            },
+            {
+              "sentence": "You may still file a claim in Small Claims Court.",
+              "supported": false,
+              "reason": "The source does not explicitly state that you may still file a claim despite the notice period having passed."
+            },
+            {
+              "sentence": "If you believe there is a reasonable excuse for not giving notice, you can present this to a judge.",
+              "supported": false,
+              "reason": "The source does not mention the ability to present a reasonable excuse to a judge in this context."
+            },
+            {
+              "sentence": "If you file a claim, the court will consider your situation.",
+              "supported": false,
+              "reason": "The source does not specify that the court will consider your situation upon filing a claim."
+            },
+            {
+              "sentence": "A judge may allow your claim to proceed if they find a reasonable excuse for the lack of notice and that the defendant is not prejudiced.",
+              "supported": true,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the municipality is not prejudiced in its defence. | Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            }
+          ],
+          "readability": 6.635449438202251,
+          "problems": [
+            "\"This means you may face challenges in proceeding with your claim.\" — The source does not state that facing challenges is a consequence of the notice period having passed.",
+            "\"You may still file a claim in Small Claims Court.\" — The source does not explicitly state that you may still file a claim despite the notice period having passed.",
+            "\"If you believe there is a reasonable excuse for not giving notice, you can present this to a judge.\" — The source does not mention the ability to present a reasonable excuse to a judge in this context.",
+            "\"If you file a claim, the court will consider your situation.\" — The source does not specify that the court will consider your situation upon filing a claim."
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "The notice period for your injury claim has passed without notice being given. This may affect your ability to proceed with your claim.",
+            "whatToDoNext": "You may consider filing a claim in Small Claims Court. You can fill out a Plaintiff's Claim [Form 7A] and file it with the court.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If you file a claim, the defendant will have 20 days to respond. If they do not respond, you may request to have them noted in default."
+          },
+          "verdicts": [
+            {
+              "sentence": "The notice period for your injury claim has passed without notice being given.",
+              "supported": true,
+              "quote": "The injury is one of the kinds that needs notice first, and the notice period has run out without notice being given.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "This may affect your ability to proceed with your claim.",
+              "supported": false,
+              "reason": "The source does not state that the lack of notice affects the ability to proceed with the claim."
+            },
+            {
+              "sentence": "You may consider filing a claim in Small Claims Court.",
+              "supported": false,
+              "reason": "The source does not mention considering filing a claim in Small Claims Court."
+            },
+            {
+              "sentence": "You can fill out a Plaintiff's Claim [Form 7A] and file it with the court.",
+              "supported": true,
+              "quote": "A Plaintiff's Claim [Form 7A] commences an action.",
+              "sourceId": "guide-making-a-claim",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you file a claim, the defendant will have 20 days to respond.",
+              "supported": true,
+              "quote": "The person or business you are suing has 20 days after being served with your claim to respond.",
+              "sourceId": "ontario-suing-someone-small-claims",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If they do not respond, you may request to have them noted in default.",
+              "supported": false,
+              "quote": "If the defendant does not file a Defence within 20 days after you filed the claim, you can ask the court to have the defendant 'noted in default.'",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            }
+          ],
+          "readability": 5.319383561643836,
+          "problems": [
+            "\"This may affect your ability to proceed with your claim.\" — The source does not state that the lack of notice affects the ability to proceed with the claim.",
+            "\"You may consider filing a claim in Small Claims Court.\" — The source does not mention considering filing a claim in Small Claims Court.",
+            "\"If they do not respond, you may request to have them noted in default.\" — the verifier called this supported but the passage it quoted is not in the vendored source text"
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "The notice period for your injury claim has passed without notice being given. However, failure to give notice is not a bar to the action if a judge finds there is a reasonable excuse for the lack of notice and that the defendant is not prejudiced in its defence.",
+            "whatToDoNext": "You may want to consider filing a claim in Small Claims Court. To start, fill out a Plaintiff's Claim [Form 7A]. You can file this form online, in person, or by mail.",
+            "yourDeadline": null,
+            "whatHappensAfter": "After you file your claim, the defendant has 20 days to respond. If they do not respond, you may be able to request a default judgment."
+          },
+          "verdicts": [
+            {
+              "sentence": "The notice period for your injury claim has passed without notice being given.",
+              "supported": true,
+              "quote": "The injury is one of the kinds that needs notice first, and the notice period has run out without notice being given.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "However, failure to give notice is not a bar to the action if a judge finds there is a reasonable excuse for the lack of notice and that the defendant is not prejudiced in its defence.",
+              "supported": false,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence.",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "You may want to consider filing a claim in Small Claims Court.",
+              "supported": false,
+              "reason": "the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source"
+            },
+            {
+              "sentence": "To start, fill out a Plaintiff's Claim [Form 7A].",
+              "supported": true,
+              "quote": "Fill out a form called the Plaintiff’s Claim (Form 7A).",
+              "sourceId": "ontario-suing-someone-small-claims",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can file this form online, in person, or by mail.",
+              "supported": true,
+              "quote": "You can file a claim in-person, by mail or online (where eligible).",
+              "sourceId": "ontario-suing-someone-small-claims",
+              "quoteFound": true
+            },
+            {
+              "sentence": "After you file your claim, the defendant has 20 days to respond.",
+              "supported": true,
+              "quote": "The person or business you are suing has 20 days after being served with your claim to respond.",
+              "sourceId": "ontario-suing-someone-small-claims",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If they do not respond, you may be able to request a default judgment.",
+              "supported": false,
+              "quote": "If no Defence is filed within 20 days, you can ask the court to have the defendant “noted in default.”",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            }
+          ],
+          "readability": 6.780000000000001,
+          "problems": [
+            "\"However, failure to give notice is not a bar to the action if a judge finds there is a reasonable excuse for the lack of notice and that the defendant is not prejudiced in its defence.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"You may want to consider filing a claim in Small Claims Court.\" — the verifier called this a sentence that states nothing, but it makes a procedural claim (a number, a form, a deadline, a court actor or an obligation) and so must be supported by a source",
+            "\"If they do not respond, you may be able to request a default judgment.\" — the verifier called this supported but the passage it quoted is not in the vendored source text"
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "The notice period for your claim has passed without notice being given. This may affect your ability to proceed with your claim, but there are exceptions. If the injured person has died as a result of the injury, or if a judge finds a reasonable excuse for the lack of notice and that the defendant is not prejudiced, you may still be able to proceed with your action.",
+            "whatToDoNext": "You can consider filing a claim in Small Claims Court. To start, fill out a Plaintiff's Claim [Form 7A]. You can file this form online, in person, or by mail.",
+            "yourDeadline": null,
+            "whatHappensAfter": "After you file your claim, the defendant will have 20 days to respond. If they do not respond, you may be able to request a default judgment."
+          },
+          "verdicts": [
+            {
+              "sentence": "The notice period for your claim has passed without notice being given.",
+              "supported": true,
+              "quote": "The injury is one of the kinds that needs notice first, and the notice period has run out without notice being given.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "This may affect your ability to proceed with your claim, but there are exceptions.",
+              "supported": true,
+              "quote": "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury. | Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the municipality is not prejudiced in its defence. | Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the injured person has died as a result of the injury, or if a judge finds a reasonable excuse for the lack of notice and that the defendant is not prejudiced, you may still be able to proceed with your action.",
+              "supported": false,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence.",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "You can consider filing a claim in Small Claims Court.",
+              "supported": true,
+              "quote": "If you are thinking of making a claim in Small Claims Court, or if you are already involved in a case, this guide will answer questions about the court and provide examples of how to prepare a typical Small Claims Court claim.",
+              "sourceId": "guide-making-a-claim",
+              "quoteFound": true
+            },
+            {
+              "sentence": "To start, fill out a Plaintiff's Claim [Form 7A].",
+              "supported": true,
+              "quote": "A claim can also be brought in Small Claims Court under the Parental Responsibility Act, 2000 against a parent of a child (under 18 years of age) in certain circumstances where a child takes, damages or destroys your property. Please refer to the Parental Responsibility Act, 2000 and \"The Parental Responsibility Act - Recovering Losses in Small Claims Court\" brochure for more information. You can request a copy of this brochure at any Small Claims Court location.",
+              "sourceId": "guide-making-a-claim",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can file this form online, in person, or by mail.",
+              "supported": true,
+              "quote": "You can fill out your claim, pay the fee and file it online using the Small Claims Court Submissions Online portal delivered by the Ministry of the Attorney General.",
+              "sourceId": "guide-making-a-claim",
+              "quoteFound": true
+            },
+            {
+              "sentence": "After you file your claim, the defendant will have 20 days to respond.",
+              "supported": true,
+              "quote": "The person or business you are suing has 20 days after being served with your claim to respond.",
+              "sourceId": "ontario-suing-someone-small-claims",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If they do not respond, you may be able to request a default judgment.",
+              "supported": false,
+              "quote": "If no Defence is filed within 20 days after you filed the claim, you can ask the court to have the defendant “noted in default.”",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            }
+          ],
+          "readability": 7.002997967479676,
+          "problems": [
+            "\"If the injured person has died as a result of the injury, or if a judge finds a reasonable excuse for the lack of notice and that the defendant is not prejudiced, you may still be able to proceed with your action.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"If they do not respond, you may be able to request a default judgment.\" — the verifier called this supported but the passage it quoted is not in the vendored source text"
+          ]
+        }
+      ],
+      "status": "needs-human"
+    },
+    {
+      "stageId": "defendant:noted-in-default",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "You have been noted in default. This means the court has recorded that you did not file a defence in time. However, you can still fight this by making a motion to set aside the noting in default.",
+            "whatToDoNext": "To set aside the noting in default, you must file a motion. You need to show that you have a meritorious defence and a reasonable explanation for your default. The motion should be made as soon as is reasonably possible.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the court is satisfied with your motion, it may set aside the noting in default. This allows you to participate in the case again."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have been noted in default.",
+              "supported": true,
+              "quote": "The clerk has noted the defendant in default.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "This means the court has recorded that you did not file a defence in time.",
+              "supported": false,
+              "reason": "The source does not explicitly state that being noted in default means the court has recorded that a defence was not filed in time."
+            },
+            {
+              "sentence": "However, you can still fight this by making a motion to set aside the noting in default.",
+              "supported": true,
+              "quote": "the party makes a motion to set aside and the court is satisfied that, (a) the party has a meritorious defence and a reasonable explanation for the default; and (b) the motion is made as soon as is reasonably possible in all the circumstances.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "To set aside the noting in default, you must file a motion.",
+              "supported": true,
+              "quote": "the party makes a motion to set aside",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You need to show that you have a meritorious defence and a reasonable explanation for your default.",
+              "supported": true,
+              "quote": "the party has a meritorious defence and a reasonable explanation for the default;",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The motion should be made as soon as is reasonably possible.",
+              "supported": true,
+              "quote": "the motion is made as soon as is reasonably possible in all the circumstances.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court is satisfied with your motion, it may set aside the noting in default.",
+              "supported": true,
+              "quote": "the court may set aside the noting in default or default judgment against a party",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This allows you to participate in the case again.",
+              "supported": false,
+              "reason": "The source does not explicitly state that setting aside the noting in default allows you to participate in the case again."
+            }
+          ],
+          "readability": 6.61571601941748,
+          "problems": [
+            "\"This means the court has recorded that you did not file a defence in time.\" — The source does not explicitly state that being noted in default means the court has recorded that a defence was not filed in time.",
+            "\"This allows you to participate in the case again.\" — The source does not explicitly state that setting aside the noting in default allows you to participate in the case again."
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "You have been noted in default. This means the clerk has recorded that you did not file a defence in time. No judgment has been signed yet.",
+            "whatToDoNext": "You may bring a motion to set aside the noting in default. To succeed, you must show that you have a meritorious defence and a reasonable explanation for the default. The motion must be made as soon as is reasonably possible in all the circumstances.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the court is satisfied with your motion, it may set aside the noting in default or any default judgment against you."
+          },
+          "verdicts": [
+            {
+              "sentence": "You have been noted in default.",
+              "supported": true,
+              "quote": "The clerk has noted the defendant in default.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "This means the clerk has recorded that you did not file a defence in time.",
+              "supported": true,
+              "quote": "If a defendant to a plaintiff's claim or a defendant's claim fails to file a defence to all or part of the claim with the clerk within the prescribed time, the clerk may note the defendant in default...",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "No judgment has been signed yet.",
+              "supported": true,
+              "quote": "No judgment has been signed yet.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "You may bring a motion to set aside the noting in default.",
+              "supported": true,
+              "quote": "you may bring a motion to set aside the noting in default, any default judgment against you and any steps taken to enforce those default judgments.",
+              "sourceId": "scj-default-proceedings",
+              "quoteFound": true
+            },
+            {
+              "sentence": "To succeed, you must show that you have a meritorious defence and a reasonable explanation for the default.",
+              "supported": true,
+              "quote": "the party has a meritorious defence and a reasonable explanation for the default;",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The motion must be made as soon as is reasonably possible in all the circumstances.",
+              "supported": true,
+              "quote": "the motion is made as soon as is reasonably possible in all the circumstances.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court is satisfied with your motion, it may set aside the noting in default or any default judgment against you.",
+              "supported": true,
+              "quote": "The court may set aside the noting in default or default judgment against a party and any step that has been taken to enforce the judgment, on such terms as are just, if the party makes a motion to set aside and the court is satisfied that...",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            }
+          ],
+          "readability": 6.719483282674773,
+          "problems": []
+        }
+      ],
+      "status": "verified-draft"
+    },
+    {
+      "stageId": "defendant:default-judgment-against-me",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "A default judgment has been signed against you. This means the court has ordered you to pay a certain amount, and you were not present to defend yourself. You can ask the court to set aside the judgment if you have a valid reason for not responding.",
+            "whatToDoNext": "You should make a motion to set aside the default judgment. You need to show that you have a meritorious defence and a reasonable explanation for your default. This motion should be made as soon as possible.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the court agrees to set aside the judgment, you may be allowed to defend the case. If the court does not set aside the judgment, the judgment will remain in effect."
+          },
+          "verdicts": [
+            {
+              "sentence": "A default judgment has been signed against you.",
+              "supported": false,
+              "reason": "The source material states that a judgment has been signed against a defendant who did not file a defence, but it does not specifically state that it has been signed against 'you'."
+            },
+            {
+              "sentence": "This means the court has ordered you to pay a certain amount, and you were not present to defend yourself.",
+              "supported": false,
+              "reason": "The source material does not explicitly state that the court has ordered payment of a certain amount or that the defendant was not present to defend themselves."
+            },
+            {
+              "sentence": "You can ask the court to set aside the judgment if you have a valid reason for not responding.",
+              "supported": true,
+              "quote": "The court may set aside the noting in default or default judgment against a party and any step that has been taken to enforce the judgment, on such terms as are just, if the party makes a motion to set aside and the court is satisfied that, (a) the party has a meritorious defence and a reasonable explanation for the default; and (b) the motion is made as soon as is reasonably possible in all the circumstances.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You should make a motion to set aside the default judgment.",
+              "supported": true,
+              "quote": "the party makes a motion to set aside",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You need to show that you have a meritorious defence and a reasonable explanation for your default.",
+              "supported": true,
+              "quote": "the court is satisfied that, (a) the party has a meritorious defence and a reasonable explanation for the default;",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This motion should be made as soon as possible.",
+              "supported": true,
+              "quote": "the motion is made as soon as is reasonably possible in all the circumstances.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court agrees to set aside the judgment, you may be allowed to defend the case.",
+              "supported": false,
+              "reason": "The source material does not state that if the court agrees to set aside the judgment, the defendant will be allowed to defend the case."
+            },
+            {
+              "sentence": "If the court does not set aside the judgment, the judgment will remain in effect.",
+              "supported": false,
+              "reason": "The source material does not explicitly state what happens if the court does not set aside the judgment."
+            }
+          ],
+          "readability": 6.646034482758623,
+          "problems": [
+            "\"A default judgment has been signed against you.\" — The source material states that a judgment has been signed against a defendant who did not file a defence, but it does not specifically state that it has been signed against 'you'.",
+            "\"This means the court has ordered you to pay a certain amount, and you were not present to defend yourself.\" — The source material does not explicitly state that the court has ordered payment of a certain amount or that the defendant was not present to defend themselves.",
+            "\"If the court agrees to set aside the judgment, you may be allowed to defend the case.\" — The source material does not state that if the court agrees to set aside the judgment, the defendant will be allowed to defend the case.",
+            "\"If the court does not set aside the judgment, the judgment will remain in effect.\" — The source material does not explicitly state what happens if the court does not set aside the judgment."
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "A default judgment has been signed against you. You did not file a defence in the case. You may make a motion to set aside the default judgment.",
+            "whatToDoNext": "You should prepare a motion to set aside the default judgment. You need to show that you have a meritorious defence and a reasonable explanation for not filing a defence. File your motion as soon as is reasonably possible.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the court sets aside the judgment, you may be able to defend the case. If the court does not set aside the judgment, the judgment remains in effect."
+          },
+          "verdicts": [
+            {
+              "sentence": "A default judgment has been signed against you.",
+              "supported": true,
+              "quote": "Judgment has been signed against a defendant who did not file a defence.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "You did not file a defence in the case.",
+              "supported": true,
+              "quote": "Judgment has been signed against a defendant who did not file a defence.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "You may make a motion to set aside the default judgment.",
+              "supported": true,
+              "quote": "The court may set aside the noting in default or default judgment against a party and any step that has been taken to enforce the judgment, on such terms as are just, if the party makes a motion to set aside...",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You should prepare a motion to set aside the default judgment.",
+              "supported": false,
+              "reason": "The source does not state that you should prepare a motion; it states that you may make a motion."
+            },
+            {
+              "sentence": "You need to show that you have a meritorious defence and a reasonable explanation for not filing a defence.",
+              "supported": true,
+              "quote": "the court is satisfied that, (a) the party has a meritorious defence and a reasonable explanation for the default;",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "File your motion as soon as is reasonably possible.",
+              "supported": true,
+              "quote": "the motion is made as soon as is reasonably possible in all the circumstances.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court sets aside the judgment, you may be able to defend the case.",
+              "supported": false,
+              "reason": "The source does not state that you may be able to defend the case if the judgment is set aside."
+            },
+            {
+              "sentence": "If the court does not set aside the judgment, the judgment remains in effect.",
+              "supported": false,
+              "reason": "The source does not explicitly state what happens if the court does not set aside the judgment."
+            }
+          ],
+          "readability": 6.298333333333332,
+          "problems": [
+            "\"You should prepare a motion to set aside the default judgment.\" — The source does not state that you should prepare a motion; it states that you may make a motion.",
+            "\"If the court sets aside the judgment, you may be able to defend the case.\" — The source does not state that you may be able to defend the case if the judgment is set aside.",
+            "\"If the court does not set aside the judgment, the judgment remains in effect.\" — The source does not explicitly state what happens if the court does not set aside the judgment."
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "A default judgment has been signed against you. You were not aware of the case. You may take steps to set aside the default judgment.",
+            "whatToDoNext": "You may make a motion to set aside the default judgment. You must show that you have a meritorious defence and a reasonable explanation for your default. This motion should be made as soon as is reasonably possible in all the circumstances.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the court sets aside the default judgment, you may be able to defend the case. If the court does not set aside the judgment, the judgment remains in effect."
+          },
+          "verdicts": [
+            {
+              "sentence": "A default judgment has been signed against you.",
+              "supported": true,
+              "quote": "Judgment has been signed against a defendant who did not file a defence.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "You were not aware of the case.",
+              "supported": true,
+              "quote": "the reader's question at this point is: There is a judgment against me and I never knew about the case — what can I do?",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "You may take steps to set aside the default judgment.",
+              "supported": true,
+              "quote": "the court may set aside the noting in default or default judgment against a party and any step that has been taken to enforce the judgment, on such terms as are just, if the party makes a motion to set aside",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may make a motion to set aside the default judgment.",
+              "supported": true,
+              "quote": "the party makes a motion to set aside",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must show that you have a meritorious defence and a reasonable explanation for your default.",
+              "supported": true,
+              "quote": "the court is satisfied that, (a) the party has a meritorious defence and a reasonable explanation for the default;",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This motion should be made as soon as is reasonably possible in all the circumstances.",
+              "supported": true,
+              "quote": "the motion is made as soon as is reasonably possible in all the circumstances.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court sets aside the default judgment, you may be able to defend the case.",
+              "supported": false,
+              "reason": "The source does not state that you will be able to defend the case if the court sets aside the default judgment."
+            },
+            {
+              "sentence": "If the court does not set aside the judgment, the judgment remains in effect.",
+              "supported": false,
+              "reason": "The source does not explicitly state what happens if the court does not set aside the judgment."
+            }
+          ],
+          "readability": 6.048028350515462,
+          "problems": [
+            "\"If the court sets aside the default judgment, you may be able to defend the case.\" — The source does not state that you will be able to defend the case if the court sets aside the default judgment.",
+            "\"If the court does not set aside the judgment, the judgment remains in effect.\" — The source does not explicitly state what happens if the court does not set aside the judgment."
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "A default judgment has been signed against you. You were not aware of the case. You can make a motion to set aside the default judgment.",
+            "whatToDoNext": "You should prepare a motion to set aside the default judgment. You must show that you have a meritorious defence and a reasonable explanation for not responding. File the motion as soon as is reasonably possible.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If the court grants your motion, the default judgment may be set aside. If the motion is denied, the judgment remains in effect."
+          },
+          "verdicts": [
+            {
+              "sentence": "A default judgment has been signed against you.",
+              "supported": true,
+              "quote": "Judgment has been signed against a defendant who did not file a defence.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "You were not aware of the case.",
+              "supported": true,
+              "quote": "the reader's question at this point is: There is a judgment against me and I never knew about the case — what can I do?",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "You can make a motion to set aside the default judgment.",
+              "supported": true,
+              "quote": "the court may set aside the noting in default or default judgment against a party and any step that has been taken to enforce the judgment, on such terms as are just, if the party makes a motion to set aside",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You should prepare a motion to set aside the default judgment.",
+              "supported": false,
+              "reason": "The source does not state that you should prepare a motion; it states that you may make a motion."
+            },
+            {
+              "sentence": "You must show that you have a meritorious defence and a reasonable explanation for not responding.",
+              "supported": true,
+              "quote": "the court is satisfied that, (a) the party has a meritorious defence and a reasonable explanation for the default;",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "File the motion as soon as is reasonably possible.",
+              "supported": true,
+              "quote": "the motion is made as soon as is reasonably possible in all the circumstances.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the court grants your motion, the default judgment may be set aside.",
+              "supported": true,
+              "quote": "the court may set aside the noting in default or default judgment against a party",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If the motion is denied, the judgment remains in effect.",
+              "supported": false,
+              "reason": "The source does not state what happens if the motion is denied."
+            }
+          ],
+          "readability": 6.323161764705883,
+          "problems": [
+            "\"You should prepare a motion to set aside the default judgment.\" — The source does not state that you should prepare a motion; it states that you may make a motion.",
+            "\"If the motion is denied, the judgment remains in effect.\" — The source does not state what happens if the motion is denied."
+          ]
+        }
+      ],
+      "status": "verified-draft"
+    }
+  ]
+}

@@ -21,7 +21,7 @@
  * only way to know is to look again rather than to trust a stored verdict.
  */
 
-import { findQuote, predictsOutcome } from "./verifiedContentPipeline";
+import { corpus, findQuote, predictsOutcome } from "./verifiedContentPipeline";
 import type { CaseStage } from "../../src/lib/case-system/stage-map/stageMap";
 import {
   answerText,
@@ -167,6 +167,62 @@ export function wrongReaderProblems(
 }
 
 /**
+ * Does this text claim the law does not provide something?
+ *
+ * *** AN ABSENCE IS A CLAIM, AND IT IS THE ONE WE CANNOT CHECK ***
+ *
+ * Every other legal statement in this product is verified by finding it in the
+ * corpus. An absence cannot be verified that way at all — you can only fail to
+ * find something, which is a fact about your search, not about the law.
+ *
+ * We asserted it twice and were wrong both times, in the direction that does
+ * the most harm:
+ *
+ *   `both:missed-trial` said "the rules do not set out a step for this" while
+ *   r. 17.01 (4) and (5) gave a set-aside remedy on a 30-day clock, five lines
+ *   below the rule the stage cited.
+ *
+ *   A comment justifying the whole no-source category said "nothing anywhere
+ *   says how to fix having commenced it in the wrong place". r. 6.01 (2) and
+ *   (3) — subrules of the rule already cited — are the remedy.
+ *
+ * Both times the citation list stopped short and we published the gap as
+ * though it were the law. A person reading that concludes there is nothing to
+ * be done and stops.
+ *
+ * So the product may say what IT does not have. It may never say what the law
+ * does not have.
+ */
+const ABSENCE_CLAIMS: RegExp[] = [
+  // The rules / the Act / the law does not provide, set out, say, allow…
+  /\b(the )?(rules?|act|legislation|law|statute|regulation)\b[^.]{0,30}\b(do(es)? not|don'?t|doesn'?t)\b/i,
+  // The court / the clerk / a judge cannot or does not…
+  /\b(the )?(court|clerk|judge)\b[^.]{0,20}\b(cannot|can'?t|has no power|does not (allow|provide|permit))\b/i,
+  // Blanket absences.
+  /\b(there is|there'?s) (no|nothing)\b[^.]{0,30}\b(rule|step|remedy|provision|procedure|way to)\b/i,
+  /\bnothing (in the rules|anywhere|in the act)\b/i,
+  /\bno (rule|provision|procedure|remedy) (exists|covers|applies|for)\b/i,
+  /\bnot (set out|provided for|addressed) (in|by) the (rules?|act)\b/i,
+];
+
+export function assertsAbsenceProblems(text: string): string[] {
+  const problems: string[] = [];
+
+  for (const sentence of text.split(/(?<=[.!?])\s+/)) {
+    const hit = ABSENCE_CLAIMS.find((pattern) => pattern.test(sentence));
+    if (!hit) continue;
+    problems.push(
+      `claims the law does not provide something, which is an assertion nothing in the ` +
+        `corpus can verify — an absence can only be failed to find: ` +
+        `"${sentence.trim().slice(0, 120)}". Say what WE do not have instead.`,
+    );
+    break;
+  }
+
+  return problems;
+}
+
+/**
  * Everything wrong with this block, as plain sentences. Empty means publishable.
  *
  * `stage` is the stage map entry it answers. Passing it in rather than looking
@@ -225,7 +281,40 @@ export function gateFailures(answer: StageAnswer, stage: CaseStage | undefined):
   // ---- every quote still in the corpus, checked NOW ----------------------
 
   for (const verdict of answer.verification.verdicts) {
-    if (!verdict.supported || !verdict.quote || verdict.sourceId === "stage-premise") continue;
+    if (!verdict.supported || !verdict.quote) continue;
+
+    /*
+     * *** A VERDICT MAY NOT CLAIM CORPUS SUPPORT IT DOES NOT HAVE ***
+     *
+     * The premise is the stage map's own description. A verdict resting on it
+     * must record `quoteFound: false`, and must never name a corpus source.
+     * An independent review found sixteen verdicts recorded as
+     * `supported: true, quoteFound: true` against `sourceId: "stage-premise"` —
+     * the system verifying its prose against its own prose and booking it as
+     * corpus support.
+     */
+    if (verdict.sourceId === "stage-premise") {
+      if (verdict.quoteFound) {
+        failures.push(
+          `a verdict cites the stage map as its source and claims quoteFound — our own ` +
+            `prose is not corpus support, and recording it as such is circular`,
+        );
+      }
+      continue;
+    }
+
+    /*
+     * A named source must be a real corpus file. `guide-after-judgment` is;
+     * an invented id is not, and a verdict naming one has been checked against
+     * nothing.
+     */
+    if (verdict.sourceId && !corpus().has(verdict.sourceId)) {
+      failures.push(
+        `a verdict names "${verdict.sourceId}" as its source, which is not a vendored ` +
+          `corpus file — nothing checked it`,
+      );
+    }
+
     for (const quote of verdict.quote.split(" | ")) {
       if (quote.trim().length < 25) continue;
       if (findQuote(quote) === null) {
@@ -271,6 +360,10 @@ export function gateFailures(answer: StageAnswer, stage: CaseStage | undefined):
   // ---- the block must address the right party ----------------------------
 
   failures.push(...wrongReaderProblems(answerText(answer), stage.side, answer.sourceIds ?? []));
+
+  // ---- never assert that the law is silent -------------------------------
+
+  failures.push(...assertsAbsenceProblems(answerText(answer)));
 
   // ---- a bar stated without the thing that qualifies it ------------------
 

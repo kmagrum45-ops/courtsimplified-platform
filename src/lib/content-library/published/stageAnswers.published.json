@@ -1,82 +1,13 @@
 {
   "release": {
-    "runId": "run-6",
+    "runId": "run-8",
     "model": "gpt-4o-mini",
-    "promotedAt": "2026-09-25T22:57:03.172Z",
+    "promotedAt": "2026-09-26T00:07:00.778Z",
     "corpusGeneratedAt": "2026-09-24T02:42:23.022Z",
-    "blockCount": 15,
-    "contentHash": "2f89816d"
+    "blockCount": 13,
+    "contentHash": "42c9a9ce"
   },
   "blocks": [
-    {
-      "id": "answer:before-filing:claim-exceeds-small-claims-limit",
-      "stageId": "before-filing:claim-exceeds-small-claims-limit",
-      "userQuestion": "My claim is worth more than the limit — what happens now?",
-      "slots": [],
-      "citations": [
-        {
-          "sourceId": "oreg-626-00-monetary-jurisdiction",
-          "pinpoint": "s. 1 (1)",
-          "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
-        },
-        {
-          "sourceId": "oreg-258-98-small-claims-rules",
-          "pinpoint": "r. 6.02",
-          "quote": "A cause of action shall not be divided into two or more actions for the purpose of bringing it within the court's jurisdiction."
-        }
-      ],
-      "sourceIds": [
-        "ontario-suing-someone-small-claims",
-        "oreg-626-00-monetary-jurisdiction"
-      ],
-      "whatsHappening": "The amount described is above what this court can award. The Small Claims Court can handle claims up to $50,000. You may need to go to the Superior Court of Justice for claims over this amount or waive the amount over $50,000 to proceed in Small Claims Court.",
-      "whatToDoNext": "The rules do not set out a step for this. We would rather tell you that than guess. The court office where your case is filed can tell you what to do in your situation, and the services below can help you work out where you stand.",
-      "yourDeadline": null,
-      "whatHappensAfter": "If you choose to proceed in Small Claims Court, you will need to file a Plaintiff's Claim [Form 7A] and pay the required fees.",
-      "verification": {
-        "status": "no-source",
-        "recordedAt": "2026-09-25T22:40:11.394Z",
-        "attempts": 4,
-        "verdicts": [
-          {
-            "sentence": "The amount described is above what this court can award.",
-            "supported": true,
-            "quote": "The amount described is above what this court can award, so the dispute either goes elsewhere or the amount over the limit is given up.",
-            "sourceId": "stage-premise",
-            "quoteFound": true
-          },
-          {
-            "sentence": "The Small Claims Court can handle claims up to $50,000.",
-            "supported": true,
-            "quote": "The maximum amount of a claim in the Small Claims Court is $50,000. | The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees.",
-            "sourceId": "oreg-626-00-monetary-jurisdiction",
-            "quoteFound": true
-          },
-          {
-            "sentence": "You may need to go to the Superior Court of Justice for claims over this amount or waive the amount over $50,000 to proceed in Small Claims Court.",
-            "supported": true,
-            "quote": "For anything over $50,000, you need to go to the Superior Court of Justice. | If what you are owed is more than $50,000, you can still file in Small Claims Court if you are willing to waive the amount over $50,000.",
-            "sourceId": "ontario-suing-someone-small-claims",
-            "quoteFound": true
-          },
-          {
-            "sentence": "Consider whether to file your claim in the Superior Court of Justice or waive the amount over $50,000 to proceed in Small Claims Court.",
-            "supported": false,
-            "reason": "The source material does not state that you should consider these options; it only describes the options available."
-          },
-          {
-            "sentence": "If you choose to proceed in Small Claims Court, you will need to file a Plaintiff's Claim [Form 7A] and pay the required fees.",
-            "supported": true,
-            "quote": "Fill out a form called the Plaintiff’s Claim (Form 7A). | When you file your claim form you will be asked to pay a fee.",
-            "sourceId": "ontario-suing-someone-small-claims",
-            "quoteFound": true
-          }
-        ],
-        "sectionsWithoutSource": [
-          "whatToDoNext"
-        ]
-      }
-    },
     {
       "id": "answer:before-filing:limitation-period-may-have-passed",
       "stageId": "before-filing:limitation-period-may-have-passed",
@@ -95,57 +26,57 @@
         }
       ],
       "sourceIds": [
-        "ontario-suing-someone-small-claims"
+        "limitations-act-2002"
       ],
-      "whatsHappening": "More than two years appear to have passed since the events. The claim's discovery date has not been established.",
-      "whatToDoNext": "Review the Limitations Act, 2002 to understand the rules about the limitation period.",
+      "whatsHappening": "More than two years appear to have passed since the events. The date when the claim was discovered has not been established.",
+      "whatToDoNext": "If it was discovered more than two years ago, you may be out of time to file a claim.",
       "yourDeadline": null,
-      "whatHappensAfter": "The rules do not set out a step for this. We would rather tell you that than guess. The court office where your case is filed can tell you what to do in your situation, and the services below can help you work out where you stand.",
+      "whatHappensAfter": "We don't have verified guidance for this step yet. The court office where your case is filed can tell you what to do in your situation, and the services below can help you work out where you stand.",
       "verification": {
         "status": "no-source",
-        "recordedAt": "2026-09-25T22:39:14.212Z",
+        "recordedAt": "2026-09-25T23:34:16.237Z",
         "attempts": 4,
         "verdicts": [
           {
             "sentence": "More than two years appear to have passed since the events.",
             "supported": true,
-            "quote": "More than two years appear to have passed since the events, and when the claim was discovered has not been established.",
+            "quote": "More than two years appear to have passed since the events",
             "sourceId": "stage-premise",
-            "quoteFound": true
+            "quoteFound": false
           },
           {
-            "sentence": "The claim's discovery date has not been established.",
+            "sentence": "The date when the claim was discovered has not been established.",
             "supported": true,
-            "quote": "when the claim was discovered has not been established.",
+            "quote": "when the claim was discovered has not been established",
             "sourceId": "stage-premise",
-            "quoteFound": true
+            "quoteFound": false
           },
           {
-            "sentence": "You may be out of time to file your claim.",
+            "sentence": "You are questioning whether you are out of time to file a claim.",
             "supported": false,
-            "reason": "The source does not explicitly state that you may be out of time; it only raises the question of whether the reader is out of time."
+            "reason": "The source does not state that the reader is questioning whether they are out of time; it states that the reader's question is about being out of time."
           },
           {
-            "sentence": "Review the Limitations Act, 2002 to understand the rules about the limitation period.",
+            "sentence": "You should determine when the claim was discovered.",
+            "supported": false,
+            "reason": "The source does not explicitly state that you should determine when the claim was discovered."
+          },
+          {
+            "sentence": "If it was discovered more than two years ago, you may be out of time to file a claim.",
             "supported": true,
-            "quote": "To learn more, see the Limitations Act, 2002",
-            "sourceId": "ontario-suing-someone-small-claims",
+            "quote": "a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered",
+            "sourceId": "limitations-act-2002",
             "quoteFound": true
           },
           {
-            "sentence": "Consider whether your claim was discovered within the two-year period.",
+            "sentence": "If you find that you are still within the limitation period, you can file a Plaintiff's Claim [Form 7A].",
             "supported": false,
-            "reason": "The source does not state that you should consider whether your claim was discovered within the two-year period; it only mentions that the claim's discovery date has not been established."
+            "reason": "The source does not state that you can file a Plaintiff's Claim [Form 7A] if you are within the limitation period."
           },
           {
-            "sentence": "If you are unsure, you may want to consult a lawyer or paralegal.",
+            "sentence": "If you are out of time, you may not be able to proceed with your claim.",
             "supported": false,
-            "reason": "The source does not mention consulting a lawyer or paralegal."
-          },
-          {
-            "sentence": "If the limitation period has expired, you may not be able to start a claim in Small Claims Court.",
-            "supported": false,
-            "reason": "The source does not explicitly state that if the limitation period has expired, you may not be able to start a claim; it only discusses the limitation period without making this conclusion."
+            "reason": "The source does not explicitly state that being out of time means you may not be able to proceed with your claim."
           }
         ],
         "sectionsWithoutSource": [
@@ -157,6 +88,10 @@
       "id": "answer:before-filing:notice-deadline-missed",
       "stageId": "before-filing:notice-deadline-missed",
       "userQuestion": "Nobody told me I had to send a notice and the time has passed — is it over?",
+      "whatsHappening": "The notice period for your claim has passed without notice being given. This situation may not bar your action if certain conditions are met.",
+      "whatToDoNext": "You may consider filing a claim in Small Claims Court. You can use the Plaintiff's Claim [Form 7A] to start your action.",
+      "yourDeadline": null,
+      "whatHappensAfter": "If you file your claim, the defendant will have 20 days to respond after being served with your claim.",
       "slots": [],
       "citations": [
         {
@@ -186,17 +121,13 @@
         }
       ],
       "sourceIds": [
+        "city-of-toronto-act-2006",
         "guide-making-a-claim",
-        "municipal-act-2001",
         "ontario-suing-someone-small-claims"
       ],
-      "whatsHappening": "The notice period for your claim has passed without notice being given.",
-      "whatToDoNext": "You may consider filing a Plaintiff's Claim [Form 7A] in Small Claims Court. If you believe there is a reasonable excuse for not giving notice, you may want to present this to a judge.",
-      "yourDeadline": null,
-      "whatHappensAfter": "If you file a claim, the defendant will have 20 days to respond after being served with your claim.",
       "verification": {
         "status": "verified-draft",
-        "verifiedAt": "2026-09-25T22:38:18.328Z",
+        "verifiedAt": "2026-09-26T00:06:42.571Z",
         "attempts": 4,
         "verdicts": [
           {
@@ -204,24 +135,31 @@
             "supported": true,
             "quote": "The injury is one of the kinds that needs notice first, and the notice period has run out without notice being given.",
             "sourceId": "stage-premise",
+            "quoteFound": false
+          },
+          {
+            "sentence": "This situation may not bar your action if certain conditions are met.",
+            "supported": true,
+            "quote": "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury. | Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the municipality is not prejudiced in its defence. | Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence. | Failure to give notice in accordance with subsection (1) is not a bar to the action in the case of the death of the injured person as a result of the injury. | Failure to give notice in accordance with subsection (1) or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence.",
+            "sourceId": "city-of-toronto-act-2006",
             "quoteFound": true
           },
           {
-            "sentence": "You may consider filing a Plaintiff's Claim [Form 7A] in Small Claims Court.",
+            "sentence": "You may consider filing a claim in Small Claims Court.",
             "supported": true,
-            "quote": "A claim can also be brought in Small Claims Court under the Parental Responsibility Act, 2000 against a parent of a child (under 18 years of age) in certain circumstances where a child takes, damages or destroys your property.",
+            "quote": "If you are thinking of making a claim in Small Claims Court, or if you are already involved in a case, this guide will answer questions about the court and provide examples of how to prepare a typical Small Claims Court claim.",
             "sourceId": "guide-making-a-claim",
             "quoteFound": true
           },
           {
-            "sentence": "If you believe there is a reasonable excuse for not giving notice, you may want to present this to a judge.",
+            "sentence": "You can use the Plaintiff's Claim [Form 7A] to start your action.",
             "supported": true,
-            "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the municipality is not prejudiced in its defence. | Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
-            "sourceId": "municipal-act-2001",
+            "quote": "A Plaintiff's Claim [Form 7A] commences an action.",
+            "sourceId": "guide-making-a-claim",
             "quoteFound": true
           },
           {
-            "sentence": "If you file a claim, the defendant will have 20 days to respond after being served with your claim.",
+            "sentence": "If you file your claim, the defendant will have 20 days to respond after being served with your claim.",
             "supported": true,
             "quote": "The person or business you are suing has 20 days after being served with your claim to respond.",
             "sourceId": "ontario-suing-someone-small-claims",
@@ -234,10 +172,10 @@
       "id": "answer:both:missed-trial",
       "stageId": "both:missed-trial",
       "userQuestion": "I missed my trial date — is my case over?",
-      "whatsHappening": "An action was called for trial and a party did not attend. The trial judge may proceed with the trial in the party's absence. The court may also strike out the defence and dismiss the defendant's claim if the plaintiff attends and the defendant does not.",
-      "whatToDoNext": "If you missed your trial, you may make a motion to set aside or vary the judgment obtained against you. You must do this within 30 days after becoming aware of the judgment.",
+      "whatsHappening": "An action was called for trial and you did not attend. The trial judge may have proceeded with the trial in your absence. If the plaintiff attended and you did not, the judge may have struck out your defence and dismissed your claim, if any.",
+      "whatToDoNext": "You may make a motion to set aside the judgment obtained against you. This motion must be made within 30 days after you become aware of the judgment.",
       "yourDeadline": "Ask the court to set aside a judgment made when you did not attend, by making a motion. You have 30 days, counted from the day you became aware of the judgment.",
-      "whatHappensAfter": "If you make a motion within the 30-day period, the court may set aside or vary the judgment on terms it considers just.",
+      "whatHappensAfter": "If you make a motion to set aside the judgment, the court may set aside or vary the judgment on terms it considers just.",
       "slots": [],
       "citations": [
         {
@@ -261,39 +199,39 @@
       ],
       "verification": {
         "status": "verified-draft",
-        "verifiedAt": "2026-09-25T22:52:11.806Z",
+        "verifiedAt": "2026-09-25T23:47:19.621Z",
         "attempts": 4,
         "verdicts": [
           {
-            "sentence": "An action was called for trial and a party did not attend.",
+            "sentence": "An action was called for trial and you did not attend.",
             "supported": true,
             "quote": "An action was called for trial and a party did not attend.",
             "sourceId": "stage-premise",
-            "quoteFound": true
+            "quoteFound": false
           },
           {
-            "sentence": "The trial judge may proceed with the trial in the party's absence.",
+            "sentence": "The trial judge may have proceeded with the trial in your absence.",
             "supported": true,
             "quote": "the trial judge may, (a) proceed with the trial in the party's absence;",
             "sourceId": "oreg-258-98-small-claims-rules",
             "quoteFound": true
           },
           {
-            "sentence": "The court may also strike out the defence and dismiss the defendant's claim if the plaintiff attends and the defendant does not.",
+            "sentence": "If the plaintiff attended and you did not, the judge may have struck out your defence and dismissed your claim, if any.",
             "supported": true,
             "quote": "if the plaintiff attends and the defendant fails to do so, strike out the defence and dismiss the defendant's claim, if any, and allow the plaintiff to prove the plaintiff's claim, subject to subrule (3);",
             "sourceId": "oreg-258-98-small-claims-rules",
             "quoteFound": true
           },
           {
-            "sentence": "If you missed your trial, you may make a motion to set aside or vary the judgment obtained against you.",
+            "sentence": "You may make a motion to set aside the judgment obtained against you.",
             "supported": true,
             "quote": "The court may set aside or vary, on such terms as are just, a judgment obtained against a party who failed to attend at the trial.",
             "sourceId": "oreg-258-98-small-claims-rules",
             "quoteFound": true
           },
           {
-            "sentence": "You must do this within 30 days after becoming aware of the judgment.",
+            "sentence": "This motion must be made within 30 days after you become aware of the judgment.",
             "supported": true,
             "quote": "the party who failed to attend makes a motion for the order within 30 days after becoming aware of the judgment;",
             "sourceId": "oreg-258-98-small-claims-rules",
@@ -314,7 +252,7 @@
             "quoteFound": true
           },
           {
-            "sentence": "If you make a motion within the 30-day period, the court may set aside or vary the judgment on terms it considers just.",
+            "sentence": "If you make a motion to set aside the judgment, the court may set aside or vary the judgment on terms it considers just.",
             "supported": true,
             "quote": "The court may set aside or vary, on such terms as are just, a judgment obtained against a party who failed to attend at the trial.",
             "sourceId": "oreg-258-98-small-claims-rules",
@@ -324,9 +262,269 @@
       }
     },
     {
+      "id": "answer:defendant:default-judgment-against-me",
+      "stageId": "defendant:default-judgment-against-me",
+      "userQuestion": "There is a judgment against me and I never knew about the case — what can I do?",
+      "slots": [],
+      "citations": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 11.06",
+          "quote": "The court may set aside the noting in default or default judgment against a party and any step that has been taken to enforce the judgment, on such terms as are just, if the party makes a motion to set aside and the court is satisfied that, (a) the party has a meritorious defence and a reasonable explanation for the default; and (b) the motion is made as soon as is reasonably possible in all the circumstances."
+        },
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 11.02 (1)",
+          "quote": "If a defendant has been noted in default, the clerk may sign default judgment (Form 11B) in respect of the claim or any part of the claim to which the default applies that is for a debt or liquidated demand in money, including interest if claimed."
+        }
+      ],
+      "sourceIds": [
+        "oreg-258-98-small-claims-rules"
+      ],
+      "whatsHappening": "A default judgment has been signed against you. You were not aware of the case. You can make a motion to set aside the default judgment.",
+      "whatToDoNext": "You must show that you have a meritorious defence and a reasonable explanation for not responding. File the motion as soon as is reasonably possible.",
+      "yourDeadline": null,
+      "whatHappensAfter": "If the court grants your motion, the default judgment may be set aside.",
+      "verification": {
+        "status": "verified-draft",
+        "verifiedAt": "2026-09-25T23:54:15.325Z",
+        "attempts": 4,
+        "verdicts": [
+          {
+            "sentence": "A default judgment has been signed against you.",
+            "supported": true,
+            "quote": "Judgment has been signed against a defendant who did not file a defence.",
+            "sourceId": "stage-premise",
+            "quoteFound": false
+          },
+          {
+            "sentence": "You were not aware of the case.",
+            "supported": true,
+            "quote": "the reader's question at this point is: There is a judgment against me and I never knew about the case — what can I do?",
+            "sourceId": "stage-premise",
+            "quoteFound": false
+          },
+          {
+            "sentence": "You can make a motion to set aside the default judgment.",
+            "supported": true,
+            "quote": "the court may set aside the noting in default or default judgment against a party and any step that has been taken to enforce the judgment, on such terms as are just, if the party makes a motion to set aside",
+            "sourceId": "oreg-258-98-small-claims-rules",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You must show that you have a meritorious defence and a reasonable explanation for not responding.",
+            "supported": true,
+            "quote": "the court is satisfied that, (a) the party has a meritorious defence and a reasonable explanation for the default;",
+            "sourceId": "oreg-258-98-small-claims-rules",
+            "quoteFound": true
+          },
+          {
+            "sentence": "File the motion as soon as is reasonably possible.",
+            "supported": true,
+            "quote": "the motion is made as soon as is reasonably possible in all the circumstances.",
+            "sourceId": "oreg-258-98-small-claims-rules",
+            "quoteFound": true
+          },
+          {
+            "sentence": "If the court grants your motion, the default judgment may be set aside.",
+            "supported": true,
+            "quote": "the court may set aside the noting in default or default judgment against a party",
+            "sourceId": "oreg-258-98-small-claims-rules",
+            "quoteFound": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "answer:defendant:defence-filed",
+      "stageId": "defendant:defence-filed",
+      "userQuestion": "I filed my defence — what happens next?",
+      "whatsHappening": "A settlement conference will be held because you have filed a defence. The settlement conference is an informal meeting to discuss the case and explore settlement options.",
+      "whatToDoNext": "You will receive a notice from the court with the time, date, and place for the settlement conference. You must attend the settlement conference.",
+      "yourDeadline": "The settlement conference is to be held. You have 90 days, counted from the day the first defence was filed.",
+      "whatHappensAfter": "If the case does not settle at the conference, the judge may make orders to help prepare for trial. If a settlement is reached, the judge may make an order that disposes of the case.",
+      "slots": [],
+      "citations": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 13.01 (1)",
+          "quote": "A settlement conference shall be held in every defended action."
+        },
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 13.01 (3)",
+          "quote": "The settlement conference shall be held within 90 days after the first defence is filed."
+        },
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 13.01 (2)",
+          "quote": "The clerk shall fix a time, date and place for the settlement conference and serve a notice of settlement conference, together with a list of proposed witnesses (Form 13A), on the parties."
+        }
+      ],
+      "sourceIds": [
+        "guide-getting-ready-for-court",
+        "guide-replying-to-a-claim",
+        "oreg-258-98-small-claims-rules",
+        "scj-steps-in-a-case"
+      ],
+      "verification": {
+        "status": "verified-draft",
+        "verifiedAt": "2026-09-25T23:44:26.626Z",
+        "attempts": 3,
+        "verdicts": [
+          {
+            "sentence": "A settlement conference will be held because you have filed a defence.",
+            "supported": true,
+            "quote": "A settlement conference shall be held in every defended action.",
+            "sourceId": "oreg-258-98-small-claims-rules",
+            "quoteFound": true
+          },
+          {
+            "sentence": "The settlement conference is an informal meeting to discuss the case and explore settlement options.",
+            "supported": true,
+            "quote": "The settlement conference is an informal, confidential meeting in the presence of a member of the judiciary. It gives you a chance to seriously consider ways to resolve your case without the expense, inconvenience and stress of a trial.",
+            "sourceId": "scj-steps-in-a-case",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You will receive a notice from the court with the time, date, and place for the settlement conference.",
+            "supported": true,
+            "quote": "The clerk shall fix a time, date and place for the settlement conference and serve a notice of settlement conference, together with a list of proposed witnesses (Form 13A), on the parties.",
+            "sourceId": "oreg-258-98-small-claims-rules",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You must attend the settlement conference.",
+            "supported": true,
+            "quote": "You must attend the settlement conference.",
+            "sourceId": "guide-replying-to-a-claim",
+            "quoteFound": true
+          },
+          {
+            "sentence": "The settlement conference is to be held.",
+            "supported": true,
+            "quote": "A settlement conference shall be held in every defended action.",
+            "sourceId": "oreg-258-98-small-claims-rules",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You have 90 days, counted from the day the first defence was filed.",
+            "supported": true,
+            "quote": "The settlement conference shall be held within 90 days after the first defence is filed.",
+            "sourceId": "oreg-258-98-small-claims-rules",
+            "quoteFound": true
+          },
+          {
+            "sentence": "If the case does not settle at the conference, the judge may make orders to help prepare for trial.",
+            "supported": true,
+            "quote": "If the case does not settle at the settlement conference, then the presiding deputy judge may make orders to help the trial run effectively (for example, disclosure of certain documents before the trial).",
+            "sourceId": "scj-steps-in-a-case",
+            "quoteFound": true
+          },
+          {
+            "sentence": "If a settlement is reached, the judge may make an order that disposes of the case.",
+            "supported": true,
+            "quote": "If all parties agree on a final settlement, the judge may make an order which disposes of the case and you will not need to go to trial.",
+            "sourceId": "guide-getting-ready-for-court",
+            "quoteFound": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "answer:defendant:defence-period-expired-not-yet-noted",
+      "stageId": "defendant:defence-period-expired-not-yet-noted",
+      "userQuestion": "I missed the 20 days — is it too late to defend myself?",
+      "whatsHappening": "More than 20 days have passed since you were served with the claim, and you have not yet filed a Defence [Form 9A]. The plaintiff may file a request to note you in default.",
+      "whatToDoNext": "You may still try to file your Defence [Form 9A] as long as the plaintiff has not filed a request to note you in default. Complete the Defence form and serve it on every other party. Then file it with the court office where the claim was filed, along with proof of service.",
+      "yourDeadline": null,
+      "whatHappensAfter": "If you file your Defence and the plaintiff has not noted you in default, the court will accept your Defence for filing. If you dispute the claim, you will need to attend a settlement conference.",
+      "slots": [],
+      "citations": [
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 11.01 (1)",
+          "quote": "If a defendant to a plaintiff's claim or a defendant's claim fails to file a defence to all or part of the claim with the clerk within the prescribed time, the clerk may note the defendant in default on the filing of, (a) a request to note the defendant in default, which may be made in Form 9B; and (b) proof that the claim was served within the court's territorial division, subject to subrule (3)."
+        },
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 9.01",
+          "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+        },
+        {
+          "sourceId": "oreg-258-98-small-claims-rules",
+          "pinpoint": "r. 3.02 (1)",
+          "quote": "The court may lengthen or shorten any time prescribed by these rules or an order, on such terms as are just."
+        }
+      ],
+      "sourceIds": [
+        "guide-replying-to-a-claim"
+      ],
+      "verification": {
+        "status": "verified-draft",
+        "verifiedAt": "2026-09-25T23:43:10.605Z",
+        "attempts": 1,
+        "verdicts": [
+          {
+            "sentence": "More than 20 days have passed since you were served with the claim, and you have not yet filed a Defence [Form 9A].",
+            "supported": true,
+            "quote": "More than 20 days have passed since service without a defence being filed, and the defendant has not been noted in default.",
+            "sourceId": "stage-premise",
+            "quoteFound": false
+          },
+          {
+            "sentence": "The plaintiff may file a request to note you in default.",
+            "supported": true,
+            "quote": "the plaintiff can have you noted in default.",
+            "sourceId": "guide-replying-to-a-claim",
+            "quoteFound": true
+          },
+          {
+            "sentence": "You may still try to file your Defence [Form 9A] as long as the plaintiff has not filed a request to note you in default.",
+            "supported": true,
+            "quote": "After 20 days, the plaintiff can have you noted in default. After the 20 days have passed, you may still try to file your defence. Your defence will be accepted for filing as long as the plaintiff has not filed a request to note you in default.",
+            "sourceId": "guide-replying-to-a-claim",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Complete the Defence form and serve it on every other party.",
+            "supported": true,
+            "quote": "you will need to fill out a Defence [Form 9A] and make one copy for yourself and a copy for every plaintiff and defendant listed on the plaintiff's claim. You must serve a copy of your defence on every other party.",
+            "sourceId": "guide-replying-to-a-claim",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Then file it with the court office where the claim was filed, along with proof of service.",
+            "supported": true,
+            "quote": "The next step is to file the defence (with any supporting documents and affidavit(s) of service) to the Small Claims Court office where the claim was filed.",
+            "sourceId": "guide-replying-to-a-claim",
+            "quoteFound": true
+          },
+          {
+            "sentence": "If you file your Defence and the plaintiff has not noted you in default, the court will accept your Defence for filing.",
+            "supported": true,
+            "quote": "You can try to file your defence after the 20-day period expires. The court office will accept your defence for filing as long as you have not been noted in default.",
+            "sourceId": "guide-replying-to-a-claim",
+            "quoteFound": true
+          },
+          {
+            "sentence": "If you dispute the claim, you will need to attend a settlement conference.",
+            "supported": true,
+            "quote": "If you disputed all or part of the claim you will have to attend a settlement conference.",
+            "sourceId": "guide-replying-to-a-claim",
+            "quoteFound": true
+          }
+        ]
+      }
+    },
+    {
       "id": "answer:defendant:noted-in-default",
       "stageId": "defendant:noted-in-default",
       "userQuestion": "I have been noted in default — can I still fight this?",
+      "whatsHappening": "You have been noted in default. This means the clerk has recorded that you did not file a defence in time. No judgment has been signed yet.",
+      "whatToDoNext": "You may bring a motion to set aside the noting in default. To succeed, you must show that you have a meritorious defence and a reasonable explanation for the default. The motion must be made as soon as is reasonably possible in all the circumstances.",
+      "yourDeadline": null,
+      "whatHappensAfter": "If the court is satisfied with your motion, it may set aside the noting in default or any default judgment against you.",
       "slots": [],
       "citations": [
         {
@@ -344,35 +542,31 @@
         "oreg-258-98-small-claims-rules",
         "scj-default-proceedings"
       ],
-      "whatsHappening": "You have been noted in default. This means the clerk has recorded that you did not file a defence in time. No judgment has been signed yet, so you may still take action.",
-      "whatToDoNext": "You may bring a motion to set aside the noting in default. To succeed, you must show that you have a meritorious defence and a reasonable explanation for your default. The motion should be made as soon as is reasonably possible.",
-      "yourDeadline": null,
-      "whatHappensAfter": "The rules do not set out a step for this. We would rather tell you that than guess. The court office where your case is filed can tell you what to do in your situation, and the services below can help you work out where you stand.",
       "verification": {
-        "status": "no-source",
-        "recordedAt": "2026-09-25T22:48:22.799Z",
-        "attempts": 4,
+        "status": "verified-draft",
+        "verifiedAt": "2026-09-25T23:53:51.050Z",
+        "attempts": 2,
         "verdicts": [
           {
             "sentence": "You have been noted in default.",
             "supported": true,
             "quote": "The clerk has noted the defendant in default.",
             "sourceId": "stage-premise",
-            "quoteFound": true
+            "quoteFound": false
           },
           {
             "sentence": "This means the clerk has recorded that you did not file a defence in time.",
             "supported": true,
-            "quote": "If a defendant to a plaintiff's claim or a defendant's claim fails to file a defence to all or part of the claim with the clerk within the prescribed time, the clerk may note the defendant in default.",
+            "quote": "If a defendant to a plaintiff's claim or a defendant's claim fails to file a defence to all or part of the claim with the clerk within the prescribed time, the clerk may note the defendant in default...",
             "sourceId": "oreg-258-98-small-claims-rules",
             "quoteFound": true
           },
           {
-            "sentence": "No judgment has been signed yet, so you may still take action.",
+            "sentence": "No judgment has been signed yet.",
             "supported": true,
             "quote": "No judgment has been signed yet.",
             "sourceId": "stage-premise",
-            "quoteFound": true
+            "quoteFound": false
           },
           {
             "sentence": "You may bring a motion to set aside the noting in default.",
@@ -382,32 +576,26 @@
             "quoteFound": true
           },
           {
-            "sentence": "To succeed, you must show that you have a meritorious defence and a reasonable explanation for your default.",
+            "sentence": "To succeed, you must show that you have a meritorious defence and a reasonable explanation for the default.",
             "supported": true,
-            "quote": "the court may set aside the noting in default or default judgment against a party and any step that has been taken to enforce the judgment, on such terms as are just, if the party makes a motion to set aside and the court is satisfied that, (a) the party has a meritorious defence and a reasonable explanation for the default;",
+            "quote": "the party has a meritorious defence and a reasonable explanation for the default;",
             "sourceId": "oreg-258-98-small-claims-rules",
             "quoteFound": true
           },
           {
-            "sentence": "The motion should be made as soon as is reasonably possible.",
+            "sentence": "The motion must be made as soon as is reasonably possible in all the circumstances.",
             "supported": true,
             "quote": "the motion is made as soon as is reasonably possible in all the circumstances.",
             "sourceId": "oreg-258-98-small-claims-rules",
             "quoteFound": true
           },
           {
-            "sentence": "If the court sets aside the noting in default, you may be allowed to participate in the case.",
-            "supported": false,
-            "reason": "The source does not explicitly state that you will be allowed to participate in the case if the court sets aside the noting in default."
-          },
-          {
-            "sentence": "If the court does not set it aside, the plaintiff may obtain a default judgment against you.",
-            "supported": false,
-            "reason": "The source does not explicitly state that a default judgment will be obtained if the court does not set aside the noting in default."
+            "sentence": "If the court is satisfied with your motion, it may set aside the noting in default or any default judgment against you.",
+            "supported": true,
+            "quote": "The court may set aside the noting in default or default judgment against a party and any step that has been taken to enforce the judgment, on such terms as are just, if the party makes a motion to set aside and the court is satisfied that...",
+            "sourceId": "oreg-258-98-small-claims-rules",
+            "quoteFound": true
           }
-        ],
-        "sectionsWithoutSource": [
-          "whatHappensAfter"
         ]
       }
     },
@@ -415,10 +603,10 @@
       "id": "answer:defendant:served-defence-period-running",
       "stageId": "defendant:served-defence-period-running",
       "userQuestion": "I have been sued — what do I have to do, and by when?",
-      "whatsHappening": "You have been served with a claim. You are a defendant in this case. You have 20 calendar days from the date you were served to respond.",
-      "whatToDoNext": "You must serve a Defence (Form 9A) on every other party. You must file the Defence with proof of service with the clerk at the court office indicated on the claim.",
+      "whatsHappening": "You have been served with a claim. You need to respond by delivering a Defence (Form 9A) within 20 days of being served.",
+      "whatToDoNext": "Complete the Defence (Form 9A). Serve a copy on every other party. File the Defence with proof of service at the court office indicated on the claim.",
       "yourDeadline": "Serve a defence on every other party and file it with the clerk, with proof of service. You have 20 days, counted from the day of being served with the claim.",
-      "whatHappensAfter": "If you do not file your Defence within the 20 days, the plaintiff may request to note you in default. This could lead to a judgment against you without further notice.",
+      "whatHappensAfter": "If you do not file your Defence within the 20 days, the plaintiff can request to note you in default. This may lead to a judgment against you without further notice.",
       "slots": [],
       "citations": [
         {
@@ -444,71 +632,72 @@
       ],
       "sourceIds": [
         "guide-replying-to-a-claim",
-        "oreg-258-98-small-claims-rules"
+        "oreg-258-98-small-claims-rules",
+        "scj-how-to-respond"
       ],
       "verification": {
         "status": "verified-draft",
-        "verifiedAt": "2026-09-25T22:47:40.200Z",
-        "attempts": 2,
+        "verifiedAt": "2026-09-25T23:43:03.485Z",
+        "attempts": 1,
         "verdicts": [
           {
             "sentence": "You have been served with a claim.",
             "supported": true,
-            "quote": "The defendant has been served with a claim",
+            "quote": "The defendant has been served with a claim and the 20 days to deliver a defence have not run out.",
             "sourceId": "stage-premise",
-            "quoteFound": true
+            "quoteFound": false
           },
           {
-            "sentence": "You are a defendant in this case.",
+            "sentence": "You need to respond by delivering a Defence (Form 9A) within 20 days of being served.",
             "supported": true,
-            "quote": "The defendant has been served with a claim",
-            "sourceId": "stage-premise",
-            "quoteFound": true
-          },
-          {
-            "sentence": "You have 20 calendar days from the date you were served to respond.",
-            "supported": true,
-            "quote": "You have 20 calendar days from the date you were served with the claim to file your defence.",
-            "sourceId": "guide-replying-to-a-claim",
-            "quoteFound": true
-          },
-          {
-            "sentence": "You must serve a Defence (Form 9A) on every other party.",
-            "supported": true,
-            "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A)",
+            "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk.",
             "sourceId": "oreg-258-98-small-claims-rules",
             "quoteFound": true
           },
           {
-            "sentence": "You must file the Defence with proof of service with the clerk at the court office indicated on the claim.",
+            "sentence": "Complete the Defence (Form 9A).",
             "supported": true,
-            "quote": "...file the completed defence form, together with one affidavit of service for each party served, with the court office indicated on the top of the claim.",
+            "quote": "You must complete the Defence (Form 9A).",
+            "sourceId": "scj-how-to-respond",
+            "quoteFound": true
+          },
+          {
+            "sentence": "Serve a copy on every other party.",
+            "supported": true,
+            "quote": "You must serve a copy of your defence on every other party.",
+            "sourceId": "guide-replying-to-a-claim",
+            "quoteFound": true
+          },
+          {
+            "sentence": "File the Defence with proof of service at the court office indicated on the claim.",
+            "supported": true,
+            "quote": "File the completed defence form, together with one affidavit of service for each party served, with the court office indicated on the top of the claim.",
             "sourceId": "guide-replying-to-a-claim",
             "quoteFound": true
           },
           {
             "sentence": "Serve a defence on every other party and file it with the clerk, with proof of service.",
             "supported": true,
-            "quote": "You must serve a copy of it on each party to the action. An Affidavit of Service [Form 8A] must be completed for each party served and filed with the court.",
+            "quote": "You must serve a copy of your defence on every other party. File the completed defence form, together with one affidavit of service for each party served, with the court office indicated on the top of the claim.",
             "sourceId": "guide-replying-to-a-claim",
             "quoteFound": true
           },
           {
             "sentence": "You have 20 days, counted from the day of being served with the claim.",
             "supported": true,
-            "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim...",
-            "sourceId": "oreg-258-98-small-claims-rules",
+            "quote": "You have 20 calendar days from the date you were served with the claim to file your defence.",
+            "sourceId": "guide-replying-to-a-claim",
             "quoteFound": true
           },
           {
-            "sentence": "If you do not file your Defence within the 20 days, the plaintiff may request to note you in default.",
+            "sentence": "If you do not file your Defence within the 20 days, the plaintiff can request to note you in default.",
             "supported": true,
             "quote": "After 20 days, the plaintiff can have you noted in default.",
             "sourceId": "guide-replying-to-a-claim",
             "quoteFound": true
           },
           {
-            "sentence": "This could lead to a judgment against you without further notice.",
+            "sentence": "This may lead to a judgment against you without further notice.",
             "supported": true,
             "quote": "the plaintiff can obtain default judgment against you without further notice to you.",
             "sourceId": "guide-replying-to-a-claim",
@@ -533,24 +722,24 @@
         "guide-motions-and-clerks-orders",
         "oreg-258-98-small-claims-rules"
       ],
-      "whatsHappening": "The clerk has dismissed your action for delay because two years passed without judgment being sought or a trial date requested.",
+      "whatsHappening": "The clerk has dismissed your action for delay because two years passed without a judgment being sought or a trial date requested.",
       "whatToDoNext": "To do this, file a Notice of Motion and Supporting Affidavit [Form 15A].",
       "yourDeadline": "Obtain judgment or request a trial date before the action is dismissed. You have 2 years, counted from the commencement of the action.",
-      "whatHappensAfter": "The rules do not set out a step for this. We would rather tell you that than guess. The court office where your case is filed can tell you what to do in your situation, and the services below can help you work out where you stand.",
+      "whatHappensAfter": "We don't have verified guidance for this step yet. The court office where your case is filed can tell you what to do in your situation, and the services below can help you work out where you stand.",
       "verification": {
         "status": "no-source",
-        "recordedAt": "2026-09-25T22:47:23.759Z",
+        "recordedAt": "2026-09-25T23:42:55.561Z",
         "attempts": 4,
         "verdicts": [
           {
-            "sentence": "The clerk has dismissed your action for delay because two years passed without judgment being sought or a trial date requested.",
+            "sentence": "The clerk has dismissed your action for delay because two years passed without a judgment being sought or a trial date requested.",
             "supported": true,
             "quote": "The clerk has made an order dismissing the action because two years passed without judgment being sought or a trial date requested.",
             "sourceId": "stage-premise",
-            "quoteFound": true
+            "quoteFound": false
           },
           {
-            "sentence": "You may make a motion to the court to set aside the dismissal.",
+            "sentence": "You may make a motion to ask the court to set aside the dismissal.",
             "supported": false,
             "reason": "The source material does not state that you may make a motion to set aside the dismissal."
           },
@@ -564,7 +753,7 @@
           {
             "sentence": "Obtain judgment or request a trial date before the action is dismissed.",
             "supported": false,
-            "reason": "The source does not state that you can obtain judgment or request a trial date before the action is dismissed."
+            "reason": "The source does not state that you must obtain judgment or request a trial date before the action is dismissed."
           },
           {
             "sentence": "You have 2 years, counted from the commencement of the action.",
@@ -574,9 +763,9 @@
             "quoteFound": true
           },
           {
-            "sentence": "If the court grants your motion, your case may be reinstated and you can proceed with your claim.",
+            "sentence": "If your motion is granted, the court may allow your case to proceed.",
             "supported": false,
-            "reason": "The source material does not state that if the court grants your motion, your case may be reinstated."
+            "reason": "The source material does not state what happens if the motion is granted."
           }
         ],
         "sectionsWithoutSource": [
@@ -605,13 +794,13 @@
         "guide-serving-documents",
         "oreg-258-98-small-claims-rules"
       ],
-      "whatsHappening": "The court has issued your claim, but it has not yet been delivered to the defendant. You need to serve the claim to notify the defendant of the lawsuit.",
-      "whatToDoNext": "You may serve the claim personally or use an alternative method of service as provided in the rules. You can serve the claim yourself, have someone else serve it, or hire a process server. Ensure you follow the specific requirements for serving the claim as outlined in the rules.",
+      "whatsHappening": "The court has issued your claim, but it has not yet been delivered to the defendant. You need to serve the claim to the defendant according to the rules.",
+      "whatToDoNext": "You can serve the claim personally or use an alternative method of service as provided in the rules. You must serve the claim within six months after the date it was issued.",
       "yourDeadline": "Serve the claim on the defendant. You have 6 months, counted from the date the claim was issued.",
-      "whatHappensAfter": "If you do not serve the claim within the six-month period, you may need to file a motion to request an extension of time for service.",
+      "whatHappensAfter": "After serving the claim, you may need to file an affidavit of service to confirm that the claim was delivered.",
       "verification": {
         "status": "verified-draft",
-        "verifiedAt": "2026-09-25T22:41:37.473Z",
+        "verifiedAt": "2026-09-25T23:36:42.795Z",
         "attempts": 4,
         "verdicts": [
           {
@@ -619,129 +808,41 @@
             "supported": true,
             "quote": "The court has issued the claim. It has not yet been delivered to the defendant in the way the rules require.",
             "sourceId": "stage-premise",
-            "quoteFound": true
+            "quoteFound": false
           },
           {
-            "sentence": "You need to serve the claim to notify the defendant of the lawsuit.",
+            "sentence": "You need to serve the claim to the defendant according to the rules.",
             "supported": true,
-            "quote": "By serving the other parties, you are notifying them of the step you are taking and of the information you will be presenting to the court, and giving them an opportunity to respond.",
+            "quote": "Documents must be served at each step in the court process, unless the Rules of the Small Claims Court (after this, referred to as the Rules) provide otherwise.",
             "sourceId": "guide-serving-documents",
             "quoteFound": true
           },
           {
-            "sentence": "You may serve the claim personally or use an alternative method of service as provided in the rules.",
+            "sentence": "You can serve the claim personally or use an alternative method of service as provided in the rules.",
             "supported": true,
             "quote": "A plaintiff's claim or defendant's claim (Form 7A or 10A) shall be served personally as provided in rule 8.02 or by an alternative to personal service as provided in rule 8.03.",
             "sourceId": "oreg-258-98-small-claims-rules",
             "quoteFound": true
           },
           {
-            "sentence": "You can serve the claim yourself, have someone else serve it, or hire a process server.",
+            "sentence": "You must serve the claim within six months after the date it was issued.",
             "supported": true,
-            "quote": "In Small Claims Court, parties arrange for service of their own documents. You can: serve the documents yourself have a friend, a business associate, or a private process server serve the documents for you",
-            "sourceId": "guide-serving-documents",
-            "quoteFound": true
-          },
-          {
-            "sentence": "Ensure you follow the specific requirements for serving the claim as outlined in the rules.",
-            "supported": true,
-            "quote": "The Rules have specific requirements about service of documents.",
+            "quote": "A claim shall be served within six months after the date it is issued, but the court may extend the time for service, before or after the six months has elapsed.",
             "sourceId": "guide-serving-documents",
             "quoteFound": true
           },
           {
             "sentence": "You have 6 months, counted from the date the claim was issued.",
             "supported": true,
-            "quote": "A claim shall be served within six months after the date it is issued",
+            "quote": "A claim shall be served within six months after the date it is issued, but the court may extend the time for service, before or after the six months has elapsed.",
             "sourceId": "guide-serving-documents",
             "quoteFound": true
           },
           {
-            "sentence": "If you do not serve the claim within the six-month period, you may need to file a motion to request an extension of time for service.",
+            "sentence": "After serving the claim, you may need to file an affidavit of service to confirm that the claim was delivered.",
             "supported": true,
-            "quote": "but the court may extend the time for service, before or after the six months has elapsed.",
+            "quote": "The person serving the documents should make careful, detailed notes regarding the name of the person served, the date, time, and manner of service made, and any other related details. This will assist later when the person prepares an affidavit of service.",
             "sourceId": "guide-serving-documents",
-            "quoteFound": true
-          }
-        ]
-      }
-    },
-    {
-      "id": "answer:plaintiff:default-judgment-signed",
-      "stageId": "plaintiff:default-judgment-signed",
-      "userQuestion": "I have a default judgment — how do I actually get paid?",
-      "whatsHappening": "You have obtained a default judgment against the defendant. This means you can take steps to collect the money owed to you. A judgment is an order of the court, but it does not guarantee payment.",
-      "whatToDoNext": "You can start by sending a written request for payment to the defendant. If this does not work, you may need to take further enforcement steps. You can request an examination hearing to learn about the defendant's financial situation or file a notice of garnishment if you have enough information.",
-      "yourDeadline": null,
-      "whatHappensAfter": "If you choose to enforce the judgment, you must contact the court and the enforcement office when the debt is paid in full.",
-      "slots": [],
-      "citations": [
-        {
-          "sourceId": "oreg-258-98-small-claims-rules",
-          "pinpoint": "r. 11.02 (1)",
-          "quote": "If a defendant has been noted in default, the clerk may sign default judgment (Form 11B) in respect of the claim or any part of the claim to which the default applies that is for a debt or liquidated demand in money, including interest if claimed."
-        },
-        {
-          "sourceId": "oreg-258-98-small-claims-rules",
-          "pinpoint": "r. 11.06",
-          "quote": "The court may set aside the noting in default or default judgment against a party and any step that has been taken to enforce the judgment, on such terms as are just, if the party makes a motion to set aside and the court is satisfied that, (a) the party has a meritorious defence and a reasonable explanation for the default; and (b) the motion is made as soon as is reasonably possible in all the circumstances."
-        }
-      ],
-      "sourceIds": [
-        "guide-after-judgment"
-      ],
-      "verification": {
-        "status": "verified-draft",
-        "verifiedAt": "2026-09-25T22:44:46.816Z",
-        "attempts": 2,
-        "verdicts": [
-          {
-            "sentence": "You have obtained a default judgment against the defendant.",
-            "supported": true,
-            "quote": "Judgment has been signed against a defendant who did not defend.",
-            "sourceId": "stage-premise",
-            "quoteFound": true
-          },
-          {
-            "sentence": "This means you can take steps to collect the money owed to you.",
-            "supported": true,
-            "quote": "there are many different tools available to help you collect the money you are owed under the order.",
-            "sourceId": "guide-after-judgment",
-            "quoteFound": true
-          },
-          {
-            "sentence": "A judgment is an order of the court, but it does not guarantee payment.",
-            "supported": true,
-            "quote": "Obtaining a judgment is sometimes just the beginning for both parties. A judgment is an order of the court; it is not a guarantee of payment.",
-            "sourceId": "guide-after-judgment",
-            "quoteFound": true
-          },
-          {
-            "sentence": "You can start by sending a written request for payment to the defendant.",
-            "supported": true,
-            "quote": "the best place to start is often with a simple written request for payment.",
-            "sourceId": "guide-after-judgment",
-            "quoteFound": true
-          },
-          {
-            "sentence": "If this does not work, you may need to take further enforcement steps.",
-            "supported": true,
-            "quote": "If the letter asking for payment is unsuccessful and/or you are unable to reach a mutually satisfactory agreement with the debtor, you will have to take other steps to enforce your judgment.",
-            "sourceId": "guide-after-judgment",
-            "quoteFound": true
-          },
-          {
-            "sentence": "You can request an examination hearing to learn about the defendant's financial situation or file a notice of garnishment if you have enough information.",
-            "supported": true,
-            "quote": "A creditor can request an examination hearing if there is a default under an order for the payment or recovery of money. An examination of the debtor gives both the court and the creditor information about the debtor's financial situation.",
-            "sourceId": "guide-after-judgment",
-            "quoteFound": true
-          },
-          {
-            "sentence": "If you choose to enforce the judgment, you must contact the court and the enforcement office when the debt is paid in full.",
-            "supported": true,
-            "quote": "it is your responsibility to contact the court and the enforcement office(s) to advise that the debt has been paid in full and to stop or withdraw any enforcement steps.",
-            "sourceId": "guide-after-judgment",
             "quoteFound": true
           }
         ]
@@ -751,10 +852,10 @@
       "id": "answer:plaintiff:defence-period-expired-no-defence",
       "stageId": "plaintiff:defence-period-expired-no-defence",
       "userQuestion": "The 20 days are up and they never responded — what can I do?",
-      "whatsHappening": "More than 20 days have passed since service and no defence has been filed. You may ask the court to note the defendant in default.",
+      "whatsHappening": "The defendant has not filed a defence within the 20-day period. You can now ask the court to note the defendant in default.",
       "whatToDoNext": "File a Request to Clerk (Form 9B) to note the defendant in default. You must also provide proof that the claim was served within the court's territorial division.",
       "yourDeadline": null,
-      "whatHappensAfter": "If the defendant is noted in default, the clerk may sign default judgment (Form 11B) against the defendant for the claim or part of the claim.",
+      "whatHappensAfter": "Once the defendant is noted in default, the clerk may sign a default judgment (Form 11B) against the defendant for the claim or any part of the claim that is for a debt or liquidated demand in money.",
       "slots": [],
       "citations": [
         {
@@ -784,18 +885,18 @@
       ],
       "verification": {
         "status": "verified-draft",
-        "verifiedAt": "2026-09-25T22:56:40.055Z",
-        "attempts": 3,
+        "verifiedAt": "2026-09-25T23:38:31.465Z",
+        "attempts": 1,
         "verdicts": [
           {
-            "sentence": "More than 20 days have passed since service and no defence has been filed.",
+            "sentence": "The defendant has not filed a defence within the 20-day period.",
             "supported": true,
             "quote": "More than 20 days have passed since service and no defence has been filed.",
             "sourceId": "stage-premise",
-            "quoteFound": true
+            "quoteFound": false
           },
           {
-            "sentence": "You may ask the court to note the defendant in default.",
+            "sentence": "You can now ask the court to note the defendant in default.",
             "supported": true,
             "quote": "the plaintiff may ask the Court to note the defendant in default.",
             "sourceId": "scj-default-proceedings",
@@ -804,99 +905,22 @@
           {
             "sentence": "File a Request to Clerk (Form 9B) to note the defendant in default.",
             "supported": true,
-            "quote": "you need to file a Request to Clerk (Form 9B).",
+            "quote": "If you wish to have the Court note a defendant in default, then you need to file a Request to Clerk (Form 9B).",
             "sourceId": "scj-default-proceedings",
             "quoteFound": true
           },
           {
             "sentence": "You must also provide proof that the claim was served within the court's territorial division.",
             "supported": true,
-            "quote": "proof that the claim was served within the court's territorial division, subject to subrule (3).",
+            "quote": "proof that the claim was served within the court's territorial division",
             "sourceId": "oreg-258-98-small-claims-rules",
             "quoteFound": true
           },
           {
-            "sentence": "If the defendant is noted in default, the clerk may sign default judgment (Form 11B) against the defendant for the claim or part of the claim.",
+            "sentence": "Once the defendant is noted in default, the clerk may sign a default judgment (Form 11B) against the defendant for the claim or any part of the claim that is for a debt or liquidated demand in money.",
             "supported": true,
             "quote": "the clerk may sign default judgment (Form 11B) in respect of the claim or any part of the claim to which the default applies that is for a debt or liquidated demand in money, including interest if claimed.",
             "sourceId": "oreg-258-98-small-claims-rules",
-            "quoteFound": true
-          }
-        ]
-      }
-    },
-    {
-      "id": "answer:plaintiff:judgment-in-my-favour-unpaid",
-      "stageId": "plaintiff:judgment-in-my-favour-unpaid",
-      "userQuestion": "I won but they are not paying — how do I collect?",
-      "whatsHappening": "You have a judgment in your favour, but the debtor has not paid. You can take steps to collect the money owed to you. Obtaining a judgment is not a guarantee of payment.",
-      "whatToDoNext": "You can start by sending a written request for payment to the debtor. Include the address where payment can be made and set a reasonable deadline. If this is unsuccessful, you may need to take further enforcement steps, such as requesting an examination hearing.",
-      "yourDeadline": null,
-      "whatHappensAfter": "If you have information about the debtor's assets, you can take enforcement steps immediately. If not, you may need to gather more information before proceeding.",
-      "slots": [],
-      "citations": [],
-      "sourceIds": [
-        "guide-after-judgment"
-      ],
-      "verification": {
-        "status": "verified-draft",
-        "verifiedAt": "2026-09-25T22:47:00.714Z",
-        "attempts": 2,
-        "verdicts": [
-          {
-            "sentence": "You have a judgment in your favour, but the debtor has not paid.",
-            "supported": true,
-            "quote": "Judgment has been given in the plaintiff's favour and the money has not been paid.",
-            "sourceId": "stage-premise",
-            "quoteFound": true
-          },
-          {
-            "sentence": "You can take steps to collect the money owed to you.",
-            "supported": true,
-            "quote": "there are many different tools available to help you collect the money you are owed under the order.",
-            "sourceId": "guide-after-judgment",
-            "quoteFound": true
-          },
-          {
-            "sentence": "Obtaining a judgment is not a guarantee of payment.",
-            "supported": true,
-            "quote": "Obtaining a judgment is sometimes just the beginning for both parties. A judgment is an order of the court; it is not a guarantee of payment.",
-            "sourceId": "guide-after-judgment",
-            "quoteFound": true
-          },
-          {
-            "sentence": "You can start by sending a written request for payment to the debtor.",
-            "supported": true,
-            "quote": "the best place to start is often with a simple written request for payment.",
-            "sourceId": "guide-after-judgment",
-            "quoteFound": true
-          },
-          {
-            "sentence": "Include the address where payment can be made and set a reasonable deadline.",
-            "supported": true,
-            "quote": "Be sure to include the address where payment can be made. Set a reasonable deadline, taking into account whether payment will likely come by mail, and any other circumstances you may know about.",
-            "sourceId": "guide-after-judgment",
-            "quoteFound": true
-          },
-          {
-            "sentence": "If this is unsuccessful, you may need to take further enforcement steps, such as requesting an examination hearing.",
-            "supported": true,
-            "quote": "If the letter asking for payment is unsuccessful and/or you are unable to reach a mutually satisfactory agreement with the debtor, you will have to take other steps to enforce your judgment.",
-            "sourceId": "guide-after-judgment",
-            "quoteFound": true
-          },
-          {
-            "sentence": "If you have information about the debtor's assets, you can take enforcement steps immediately.",
-            "supported": true,
-            "quote": "If you have sufficient information, you can take an enforcement step immediately.",
-            "sourceId": "guide-after-judgment",
-            "quoteFound": true
-          },
-          {
-            "sentence": "If not, you may need to gather more information before proceeding.",
-            "supported": true,
-            "quote": "If you do not know where the debtor banks, what assets he or she has, or where he or she may work, you could begin the enforcement process by requesting an examination hearing.",
-            "sourceId": "guide-after-judgment",
             "quoteFound": true
           }
         ]
@@ -930,51 +954,43 @@
         }
       ],
       "sourceIds": [
-        "guide-motions-and-clerks-orders",
         "guide-serving-documents"
       ],
-      "whatsHappening": "You have attempted to serve the claim but have been unsuccessful. You may now file a motion for substituted service if you can show that it is impractical to serve the claim personally or by an alternative method.",
-      "whatToDoNext": "File a Notice of Motion and Supporting Affidavit [Form 15A] with the court. In your motion, explain why you could not serve the claim and request an order for substituted service. You must also serve a copy of the motion on each party except any defendant noted in default.",
+      "whatsHappening": "You have attempted to serve the claim to the defendant, but it has not been successful. You may need to consider alternative methods of service.",
+      "whatToDoNext": "You can file a motion for substituted service under Rule 8.04. This allows you to request the court to permit a different method of service if personal service is impractical.",
       "yourDeadline": "Serve the claim on the defendant. You have 6 months, counted from the date the claim was issued.",
-      "whatHappensAfter": "If the court grants your motion, you will be allowed to serve the claim using the method specified in the order.",
+      "whatHappensAfter": "If the court grants your motion for substituted service, you will need to serve the claim according to the method ordered by the court.",
       "verification": {
         "status": "verified-draft",
-        "verifiedAt": "2026-09-25T22:42:32.094Z",
+        "verifiedAt": "2026-09-25T23:37:34.390Z",
         "attempts": 4,
         "verdicts": [
           {
-            "sentence": "You have attempted to serve the claim but have been unsuccessful.",
+            "sentence": "You have attempted to serve the claim to the defendant, but it has not been successful.",
             "supported": true,
             "quote": "The claim has been issued and delivery to the defendant has been tried without success.",
             "sourceId": "stage-premise",
-            "quoteFound": true
+            "quoteFound": false
           },
           {
-            "sentence": "You may now file a motion for substituted service if you can show that it is impractical to serve the claim personally or by an alternative method.",
+            "sentence": "You may need to consider alternative methods of service.",
             "supported": true,
-            "quote": "the court may allow substituted service. | If it is shown that it is impractical to effect prompt service of a claim personally or by an alternative to personal service, the court may allow substituted service.",
+            "quote": "the court may allow substituted service.",
             "sourceId": "guide-serving-documents",
             "quoteFound": true
           },
           {
-            "sentence": "File a Notice of Motion and Supporting Affidavit [Form 15A] with the court.",
+            "sentence": "You can file a motion for substituted service under Rule 8.04.",
             "supported": true,
-            "quote": "To make a motion you must file a Notice of Motion and Supporting Affidavit [Form 15A].",
-            "sourceId": "guide-motions-and-clerks-orders",
-            "quoteFound": true
-          },
-          {
-            "sentence": "In your motion, explain why you could not serve the claim and request an order for substituted service.",
-            "supported": true,
-            "quote": "Be prepared to give details of how you tried to serve the claim, what happened and why the method of service you are asking for will succeed.",
+            "quote": "you may file a motion to seek an order for substituted service under Rule 8.04.",
             "sourceId": "guide-serving-documents",
             "quoteFound": true
           },
           {
-            "sentence": "You must also serve a copy of the motion on each party except any defendant noted in default.",
+            "sentence": "This allows you to request the court to permit a different method of service if personal service is impractical.",
             "supported": true,
-            "quote": "You must serve a copy of it on each party to the action except for any defendant who has been noted in default.",
-            "sourceId": "guide-motions-and-clerks-orders",
+            "quote": "the court may allow substituted service.",
+            "sourceId": "guide-serving-documents",
             "quoteFound": true
           },
           {
@@ -985,7 +1001,7 @@
             "quoteFound": true
           },
           {
-            "sentence": "If the court grants your motion, you will be allowed to serve the claim using the method specified in the order.",
+            "sentence": "If the court grants your motion for substituted service, you will need to serve the claim according to the method ordered by the court.",
             "supported": true,
             "quote": "the method ordered by the court is substituted for the method(s) of service allowed for that particular document and on that particular party in the Rules.",
             "sourceId": "guide-serving-documents",
@@ -995,83 +1011,13 @@
       }
     },
     {
-      "id": "answer:plaintiff:settlement-conference-held",
-      "stageId": "plaintiff:settlement-conference-held",
-      "userQuestion": "The settlement conference did not settle it — how do I get a trial date?",
-      "whatsHappening": "The settlement conference has taken place and the action has not been disposed of. You need to request a trial date if you want to proceed with your case.",
-      "whatToDoNext": "File a Request to Clerk (Form 9B) to fix a date for trial and pay the required fee.",
-      "yourDeadline": "One of the parties must request a trial date and pay the fee if the action is not disposed of. You have 30 days, counted from the day of the settlement conference.",
-      "whatHappensAfter": "The clerk will fix a date for trial and serve a notice of trial on each party who has filed a claim or defence.",
-      "slots": [],
-      "citations": [
-        {
-          "sourceId": "oreg-258-98-small-claims-rules",
-          "pinpoint": "r. 13.07",
-          "quote": "At or after the settlement conference, the clerk shall provide the parties with a notice stating that one of the parties must request a trial date if the action is not disposed of within 30 days after the settlement conference, and pay the fee required for setting the action down for trial."
-        },
-        {
-          "sourceId": "oreg-258-98-small-claims-rules",
-          "pinpoint": "r. 16.01 (1)",
-          "quote": "The clerk shall fix a date for trial and serve a notice of trial on each party who has filed a claim or defence if, (a) a settlement conference has been held; and (b) a party has filed a request to the clerk (Form 9B) to fix a date for trial and has paid the required fee."
-        }
-      ],
-      "sourceIds": [
-        "oreg-258-98-small-claims-rules"
-      ],
-      "verification": {
-        "status": "verified-draft",
-        "verifiedAt": "2026-09-25T22:46:16.679Z",
-        "attempts": 2,
-        "verdicts": [
-          {
-            "sentence": "The settlement conference has taken place and the action has not been disposed of.",
-            "supported": true,
-            "quote": "The settlement conference has taken place and the action has not been disposed of.",
-            "sourceId": "stage-premise",
-            "quoteFound": true
-          },
-          {
-            "sentence": "You need to request a trial date if you want to proceed with your case.",
-            "supported": true,
-            "quote": "one of the parties must request a trial date if the action is not disposed of within 30 days after the settlement conference",
-            "sourceId": "oreg-258-98-small-claims-rules",
-            "quoteFound": true
-          },
-          {
-            "sentence": "File a Request to Clerk (Form 9B) to fix a date for trial and pay the required fee.",
-            "supported": true,
-            "quote": "a party has filed a request to the clerk (Form 9B) to fix a date for trial and has paid the required fee.",
-            "sourceId": "oreg-258-98-small-claims-rules",
-            "quoteFound": true
-          },
-          {
-            "sentence": "One of the parties must request a trial date and pay the fee if the action is not disposed of.",
-            "supported": true,
-            "quote": "one of the parties must request a trial date if the action is not disposed of within 30 days after the settlement conference",
-            "sourceId": "oreg-258-98-small-claims-rules",
-            "quoteFound": true
-          },
-          {
-            "sentence": "You have 30 days, counted from the day of the settlement conference.",
-            "supported": true,
-            "quote": "one of the parties must request a trial date if the action is not disposed of within 30 days after the settlement conference",
-            "sourceId": "oreg-258-98-small-claims-rules",
-            "quoteFound": true
-          },
-          {
-            "sentence": "The clerk will fix a date for trial and serve a notice of trial on each party who has filed a claim or defence.",
-            "supported": true,
-            "quote": "The clerk shall fix a date for trial and serve a notice of trial on each party who has filed a claim or defence if, (a) a settlement conference has been held; and (b) a party has filed a request to the clerk (Form 9B) to fix a date for trial and has paid the required fee.",
-            "sourceId": "oreg-258-98-small-claims-rules",
-            "quoteFound": true
-          }
-        ]
-      }
-    },
-    {
       "id": "answer:plaintiff:six-month-service-window-expired",
       "stageId": "plaintiff:six-month-service-window-expired",
       "userQuestion": "It has been more than six months and I never served them — is my case dead?",
+      "whatsHappening": "The claim was issued more than six months ago and has still not been served. You have not served the claim within the required six-month period.",
+      "whatToDoNext": "You may file a motion to request an order to extend the time for service. In your motion, you must explain to the judge why you were not able to serve the claim within the six months.",
+      "yourDeadline": null,
+      "whatHappensAfter": "The court may extend the time for service, before or after the six months has elapsed.",
       "slots": [],
       "citations": [
         {
@@ -1088,33 +1034,22 @@
       "sourceIds": [
         "guide-serving-documents"
       ],
-      "whatsHappening": "Your claim was issued more than six months ago and has still not been served. A claim must be served within six months after the date it is issued. However, the court may extend the time for service, before or after the six months has elapsed.",
-      "whatToDoNext": "You may file a motion to request an order to extend the time for service. In your motion, you must explain to the judge why you were not able to serve the claim within the six months.",
-      "yourDeadline": null,
-      "whatHappensAfter": "The rules do not set out a step for this. We would rather tell you that than guess. The court office where your case is filed can tell you what to do in your situation, and the services below can help you work out where you stand.",
       "verification": {
-        "status": "no-source",
-        "recordedAt": "2026-09-25T22:43:25.406Z",
-        "attempts": 4,
+        "status": "verified-draft",
+        "verifiedAt": "2026-09-25T23:38:08.714Z",
+        "attempts": 2,
         "verdicts": [
           {
-            "sentence": "Your claim was issued more than six months ago and has still not been served.",
+            "sentence": "The claim was issued more than six months ago and has still not been served.",
             "supported": true,
             "quote": "The claim was issued more than six months ago and has still not been served.",
             "sourceId": "stage-premise",
-            "quoteFound": true
+            "quoteFound": false
           },
           {
-            "sentence": "A claim must be served within six months after the date it is issued.",
+            "sentence": "You have not served the claim within the required six-month period.",
             "supported": true,
-            "quote": "A claim shall be served within six months after the date it is issued,",
-            "sourceId": "guide-serving-documents",
-            "quoteFound": true
-          },
-          {
-            "sentence": "However, the court may extend the time for service, before or after the six months has elapsed.",
-            "supported": true,
-            "quote": "but the court may extend the time for service, before or after the six months has elapsed.",
+            "quote": "A claim shall be served within six months after the date it is issued, but the court may extend the time for service, before or after the six months has elapsed.",
             "sourceId": "guide-serving-documents",
             "quoteFound": true
           },
@@ -1133,77 +1068,12 @@
             "quoteFound": true
           },
           {
-            "sentence": "If you file a motion, the court will review your request and may grant or deny the extension.",
-            "supported": false,
-            "reason": "The source does not state that the court will grant or deny the extension; it only mentions that the court may extend the time for service."
-          }
-        ],
-        "sectionsWithoutSource": [
-          "whatHappensAfter"
-        ]
-      }
-    },
-    {
-      "id": "answer:plaintiff:trial-date-set",
-      "stageId": "plaintiff:trial-date-set",
-      "userQuestion": "I have a trial date — what do I need to do to get ready?",
-      "slots": [],
-      "citations": [
-        {
-          "sourceId": "oreg-258-98-small-claims-rules",
-          "pinpoint": "r. 16.01 (1)",
-          "quote": "The clerk shall fix a date for trial and serve a notice of trial on each party who has filed a claim or defence if, (a) a settlement conference has been held; and (b) a party has filed a request to the clerk (Form 9B) to fix a date for trial and has paid the required fee."
-        },
-        {
-          "sourceId": "oreg-258-98-small-claims-rules",
-          "pinpoint": "r. 17.01 (2)",
-          "quote": "If an action is called for trial and a party fails to attend, the trial judge may, (a) proceed with the trial in the party's absence; (b) if the plaintiff attends and the defendant fails to do so, strike out the defence and dismiss the defendant's claim, if any, and allow the plaintiff to prove the plaintiff's claim, subject to subrule (3); (c) if the defendant attends and the plaintiff fails to do so, dismiss the action and allow the defendant to prove the defendant's claim, if any"
-        }
-      ],
-      "sourceIds": [
-        "scj-steps-in-a-case"
-      ],
-      "whatsHappening": "The clerk has fixed a trial date and served a notice of trial.",
-      "whatToDoNext": "The rules do not set out a step for this. We would rather tell you that than guess. The court office where your case is filed can tell you what to do in your situation, and the services below can help you work out where you stand.",
-      "yourDeadline": null,
-      "whatHappensAfter": "At trial, each party will present their case and evidence to the court.",
-      "verification": {
-        "status": "no-source",
-        "recordedAt": "2026-09-25T22:46:49.523Z",
-        "attempts": 4,
-        "verdicts": [
-          {
-            "sentence": "The clerk has fixed a trial date and served a notice of trial.",
+            "sentence": "The court may extend the time for service, before or after the six months has elapsed.",
             "supported": true,
-            "quote": "The clerk has fixed a trial date and served a notice of trial.",
-            "sourceId": "stage-premise",
-            "quoteFound": true
-          },
-          {
-            "sentence": "You should review the claim and defence.",
-            "supported": false,
-            "reason": "The source does not explicitly state that you should review the claim and defence."
-          },
-          {
-            "sentence": "You may want to prepare your evidence and consider what witnesses you will call.",
-            "supported": false,
-            "reason": "The source does not explicitly state that you may want to prepare your evidence and consider what witnesses you will call."
-          },
-          {
-            "sentence": "Ensure you understand the issues in your case.",
-            "supported": false,
-            "reason": "The source does not explicitly state that you should ensure you understand the issues in your case."
-          },
-          {
-            "sentence": "At trial, each party will present their case and evidence to the court.",
-            "supported": true,
-            "quote": "At trial, each party tells their story and presents evidence to the Court so that the Court can decide the case.",
-            "sourceId": "scj-steps-in-a-case",
+            "quote": "A claim shall be served within six months after the date it is issued, but the court may extend the time for service, before or after the six months has elapsed.",
+            "sourceId": "guide-serving-documents",
             "quoteFound": true
           }
-        ],
-        "sectionsWithoutSource": [
-          "whatToDoNext"
         ]
       }
     }

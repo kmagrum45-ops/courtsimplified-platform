@@ -1,0 +1,580 @@
+{
+  "model": "gpt-4o-mini",
+  "startedAt": "2026-09-26T00:04:21.635Z",
+  "usage": [
+    {
+      "model": "gpt-4o-mini",
+      "inputTokens": 352359,
+      "outputTokens": 5489,
+      "calls": 24
+    }
+  ],
+  "log": [
+    {
+      "stageId": "before-filing:notice-municipality",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "You must provide written notice to the municipality before you can bring a claim for damages due to an injury caused by a failure to keep a highway, bridge, or sidewalk in repair.",
+            "whatToDoNext": "Serve written notice of your claim and the injury to the clerk of the municipality within 10 days after the occurrence of the injury.",
+            "yourDeadline": "Give written notice of the claim to the clerk of the municipality. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not provide the required notice, you may not be able to bring your claim unless a judge finds a reasonable excuse for the lack of notice."
+          },
+          "verdicts": [
+            {
+              "sentence": "You must provide written notice to the municipality before you can bring a claim for damages due to an injury caused by a failure to keep a highway, bridge, or sidewalk in repair.",
+              "supported": false,
+              "reason": "The source states that no action shall be brought unless notice is given, but it does not explicitly say that you 'must' provide notice before bringing a claim."
+            },
+            {
+              "sentence": "Serve written notice of your claim and the injury to the clerk of the municipality within 10 days after the occurrence of the injury.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you do not provide the required notice, you may not be able to bring your claim unless a judge finds a reasonable excuse for the lack of notice.",
+              "supported": true,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the municipality is not prejudiced in its defence.",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            }
+          ],
+          "readability": 9.00081300813008,
+          "problems": [
+            "\"You must provide written notice to the municipality before you can bring a claim for damages due to an injury caused by a failure to keep a highway, bridge, or sidewalk in repair.\" — The source states that no action shall be brought unless notice is given, but it does not explicitly say that you 'must' provide notice before bringing a claim.",
+            "reads at grade 9.0, above the grade 8 target. Longest sentence: \"You must provide written notice to the municipality before you can bring a claim for damages due to an injury caused by a failure to keep a highway, bridge, or sidewalk in repair.\""
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "You are at the pre-suit notice stage regarding an injury caused by a municipality's failure to maintain a highway, bridge, or sidewalk. You have not yet given notice to the municipality's clerk.",
+            "whatToDoNext": "You should serve written notice of your claim and the injury to the clerk of the municipality. This notice must include the date, time, and location of the occurrence.",
+            "yourDeadline": "Give written notice of the claim to the clerk of the municipality. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not provide this notice, you may not be able to bring an action for damages."
+          },
+          "verdicts": [
+            {
+              "sentence": "You are at the pre-suit notice stage regarding an injury caused by a municipality's failure to maintain a highway, bridge, or sidewalk.",
+              "supported": true,
+              "quote": "The injury is said to come from a municipality failing to keep a highway, bridge or sidewalk in repair, and no notice has been given to the clerk yet.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "You have not yet given notice to the municipality's clerk.",
+              "supported": true,
+              "quote": "no notice has been given to the clerk yet.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "You should serve written notice of your claim and the injury to the clerk of the municipality.",
+              "supported": true,
+              "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This notice must include the date, time, and location of the occurrence.",
+              "supported": true,
+              "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you do not provide this notice, you may not be able to bring an action for damages.",
+              "supported": false,
+              "reason": "The source states that no action shall be brought unless notice is given, but it does not say that failure to provide notice will prevent bringing an action in all cases."
+            }
+          ],
+          "readability": 7.711818181818185,
+          "problems": [
+            "\"If you do not provide this notice, you may not be able to bring an action for damages.\" — The source states that no action shall be brought unless notice is given, but it does not say that failure to provide notice will prevent bringing an action in all cases."
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "You must provide written notice to the municipality if you were injured due to a road or sidewalk in bad repair. This notice must be served upon or sent by registered mail to the clerk of the municipality.",
+            "whatToDoNext": "Prepare a written notice that includes details of your claim and the injury, including the date, time, and location of the occurrence. Send this notice to the clerk of the municipality within the required time frame.",
+            "yourDeadline": "Give written notice of the claim to the clerk of the municipality. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "After you provide the notice, you may proceed with your claim if you choose to do so."
+          },
+          "verdicts": [
+            {
+              "sentence": "You must provide written notice to the municipality if you were injured due to a road or sidewalk in bad repair.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This notice must be served upon or sent by registered mail to the clerk of the municipality.",
+              "supported": true,
+              "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare a written notice that includes details of your claim and the injury, including the date, time, and location of the occurrence.",
+              "supported": true,
+              "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Send this notice to the clerk of the municipality within the required time frame.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            },
+            {
+              "sentence": "After you provide the notice, you may proceed with your claim if you choose to do so.",
+              "supported": false,
+              "reason": "The source does not state that you may proceed with your claim after providing the notice; it only discusses the requirement for notice."
+            }
+          ],
+          "readability": 8.13727272727273,
+          "problems": [
+            "\"After you provide the notice, you may proceed with your claim if you choose to do so.\" — The source does not state that you may proceed with your claim after providing the notice; it only discusses the requirement for notice.",
+            "reads at grade 8.1, above the grade 8 target. Longest sentence: \"Prepare a written notice that includes details of your claim and the injury, including the date, time, and location of the occurrence.\""
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "You must provide written notice to the municipality before you can bring a claim for damages due to an injury caused by a failure to keep a highway, bridge, or sidewalk in repair.",
+            "whatToDoNext": "Prepare a written notice that includes details of your claim and the injury, including the date, time, and location of the occurrence. Serve this notice upon or send it by registered mail to the clerk of the municipality.",
+            "yourDeadline": "Give written notice of the claim to the clerk of the municipality. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not provide the notice within the 10-day period, you may not be able to bring your claim."
+          },
+          "verdicts": [
+            {
+              "sentence": "You must provide written notice to the municipality before you can bring a claim for damages due to an injury caused by a failure to keep a highway, bridge, or sidewalk in repair.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare a written notice that includes details of your claim and the injury, including the date, time, and location of the occurrence.",
+              "supported": true,
+              "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve this notice upon or send it by registered mail to the clerk of the municipality.",
+              "supported": true,
+              "quote": "has been served upon or sent by registered mail to, (a) the clerk of the municipality",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you do not provide the notice within the 10-day period, you may not be able to bring your claim.",
+              "supported": false,
+              "reason": "The source states a requirement for notice but does not say that failing to provide it within the 10-day period prevents bringing a claim."
+            }
+          ],
+          "readability": 8.462352941176473,
+          "problems": [
+            "\"If you do not provide the notice within the 10-day period, you may not be able to bring your claim.\" — The source states a requirement for notice but does not say that failing to provide it within the 10-day period prevents bringing a claim.",
+            "reads at grade 8.5, above the grade 8 target. Longest sentence: \"You must provide written notice to the municipality before you can bring a claim for damages due to an injury caused by a failure to keep a highway, bridge, or sidewalk in repair.\""
+          ]
+        }
+      ],
+      "status": "needs-human"
+    },
+    {
+      "stageId": "before-filing:notice-toronto",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "You must provide written notice to the City of Toronto within 10 days after the injury occurred. This notice must include details such as the date, time, and location of the incident.",
+            "whatToDoNext": "Prepare a written notice of your claim and injury. Serve this notice to the city clerk.",
+            "yourDeadline": "Give written notice of the claim to the city clerk. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you fail to give notice, it may not bar your action if a judge finds a reasonable excuse for the failure and that the City is not prejudiced in its defence."
+          },
+          "verdicts": [
+            {
+              "sentence": "You must provide written notice to the City of Toronto within 10 days after the injury occurred.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of... has been served upon or sent by registered mail to, (a) the city clerk",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "This notice must include details such as the date, time, and location of the incident.",
+              "supported": true,
+              "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare a written notice of your claim and injury.",
+              "supported": false,
+              "reason": "The source does not specifically state that you must prepare a written notice; it only states that written notice must be provided."
+            },
+            {
+              "sentence": "Serve this notice to the city clerk.",
+              "supported": true,
+              "quote": "has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you fail to give notice, it may not bar your action if a judge finds a reasonable excuse for the failure and that the City is not prejudiced in its defence.",
+              "supported": true,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            }
+          ],
+          "readability": 6.960139860139861,
+          "problems": [
+            "\"You must provide written notice to the City of Toronto within 10 days after the injury occurred.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"Prepare a written notice of your claim and injury.\" — The source does not specifically state that you must prepare a written notice; it only states that written notice must be provided."
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "You need to provide written notice to the City of Toronto if you were injured on a Toronto street or sidewalk.",
+            "whatToDoNext": "Serve the written notice of your claim and the injury complained of, including the date, time, and location of the occurrence, upon the city clerk.",
+            "yourDeadline": "Give written notice of the claim to the city clerk. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you fail to give notice or if the notice is insufficient, a judge may still allow your action if there is a reasonable excuse and the City is not prejudiced in its defence."
+          },
+          "verdicts": [
+            {
+              "sentence": "You need to provide written notice to the City of Toronto if you were injured on a Toronto street or sidewalk.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve the written notice of your claim and the injury complained of, including the date, time, and location of the occurrence, upon the city clerk.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you fail to give notice or if the notice is insufficient, a judge may still allow your action if there is a reasonable excuse and the City is not prejudiced in its defence.",
+              "supported": true,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            }
+          ],
+          "readability": 8.499957537154987,
+          "problems": [
+            "reads at grade 8.5, above the grade 8 target. Longest sentence: \"If you fail to give notice or if the notice is insufficient, a judge may still allow your action if there is a reasonable excuse and the City is not prejudiced in its defence.\""
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "You must provide written notice to the City of Toronto within 10 days after the injury occurred. This notice must include details such as the date, time, and location of the injury. The notice should be served upon or sent by registered mail to the city clerk.",
+            "whatToDoNext": "Prepare your written notice including the required details. Send it to the city clerk within the 10-day period.",
+            "yourDeadline": "Give written notice of the claim to the city clerk. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you do not provide the notice, it may affect your ability to bring a claim against the City."
+          },
+          "verdicts": [
+            {
+              "sentence": "You must provide written notice to the City of Toronto within 10 days after the injury occurred.",
+              "supported": false,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of... has been served upon or sent by registered mail to, (a) the city clerk",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "This notice must include details such as the date, time, and location of the injury.",
+              "supported": true,
+              "quote": "...written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The notice should be served upon or sent by registered mail to the city clerk.",
+              "supported": true,
+              "quote": "...has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Prepare your written notice including the required details.",
+              "supported": false,
+              "reason": "The source does not specify that you must prepare a written notice; it only states the requirements for the notice."
+            },
+            {
+              "sentence": "Send it to the city clerk within the 10-day period.",
+              "supported": false,
+              "reason": "The source does not explicitly state that you must send the notice; it only mentions that it must be served or sent."
+            },
+            {
+              "sentence": "If you do not provide the notice, it may affect your ability to bring a claim against the City.",
+              "supported": false,
+              "reason": "The source does not state that failing to provide notice will affect your ability to bring a claim; it only mentions that failure or insufficiency of notice is not a bar to the action if certain conditions are met."
+            }
+          ],
+          "readability": 7.015000000000001,
+          "problems": [
+            "\"You must provide written notice to the City of Toronto within 10 days after the injury occurred.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"Prepare your written notice including the required details.\" — The source does not specify that you must prepare a written notice; it only states the requirements for the notice.",
+            "\"Send it to the city clerk within the 10-day period.\" — The source does not explicitly state that you must send the notice; it only mentions that it must be served or sent.",
+            "\"If you do not provide the notice, it may affect your ability to bring a claim against the City.\" — The source does not state that failing to provide notice will affect your ability to bring a claim; it only mentions that failure or insufficiency of notice is not a bar to the action if certain conditions are met."
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "You need to provide written notice to the City of Toronto if you were injured on a Toronto street or sidewalk. This notice must include the claim and details of the injury, including the date, time, and location of the occurrence.",
+            "whatToDoNext": "You must serve the notice upon or send it by registered mail to the city clerk within 10 days after the occurrence of the injury.",
+            "yourDeadline": "Give written notice of the claim to the city clerk. You have 10 days, counted from the occurrence of the injury.\n\nThis deadline is set by a statute rather than by the court's rules, and that changes how the days are counted. Under the rules a deadline landing on a Saturday moves to the next working day. Under the statute it does not — only Sunday and holidays are excluded. Do not assume a weekend gives you extra time.",
+            "whatHappensAfter": "If you provide the notice, you may proceed with your claim against the City."
+          },
+          "verdicts": [
+            {
+              "sentence": "You need to provide written notice to the City of Toronto if you were injured on a Toronto street or sidewalk.",
+              "supported": true,
+              "quote": "No action shall be brought for the recovery of damages under subsection (2) unless, within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of, including the date, time and location of the occurrence, has been served upon or sent by registered mail to, (a) the city clerk",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This notice must include the claim and details of the injury, including the date, time, and location of the occurrence.",
+              "supported": true,
+              "quote": "written notice of the claim and of the injury complained of, including the date, time and location of the occurrence",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must serve the notice upon or send it by registered mail to the city clerk within 10 days after the occurrence of the injury.",
+              "supported": false,
+              "quote": "within 10 days after the occurrence of the injury, written notice of the claim and of the injury complained of...has been served upon or sent by registered mail to, (a) the city clerk",
+              "quoteFound": false,
+              "reason": "the verifier called this supported but the passage it quoted is not in the vendored source text"
+            },
+            {
+              "sentence": "If you provide the notice, you may proceed with your claim against the City.",
+              "supported": false,
+              "reason": "The source does not state that providing the notice guarantees the ability to proceed with the claim; it only states the requirement for notice."
+            }
+          ],
+          "readability": 7.664512820512822,
+          "problems": [
+            "\"You must serve the notice upon or send it by registered mail to the city clerk within 10 days after the occurrence of the injury.\" — the verifier called this supported but the passage it quoted is not in the vendored source text",
+            "\"If you provide the notice, you may proceed with your claim against the City.\" — The source does not state that providing the notice guarantees the ability to proceed with the claim; it only states the requirement for notice."
+          ]
+        }
+      ],
+      "status": "needs-human"
+    },
+    {
+      "stageId": "before-filing:notice-deadline-missed",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "The notice period for your claim has passed without notice being given. This means you may face challenges in proceeding with your claim.",
+            "whatToDoNext": "You may still file a claim in Small Claims Court. If you believe there is a reasonable excuse for not giving notice, you can present this to a judge.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If you file a claim, the court will consider your situation. A judge may allow your claim to proceed if they find a reasonable excuse for the lack of notice and that the defendant is not prejudiced."
+          },
+          "verdicts": [
+            {
+              "sentence": "The notice period for your claim has passed without notice being given.",
+              "supported": true,
+              "quote": "The injury is one of the kinds that needs notice first, and the notice period has run out without notice being given.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "This means you may face challenges in proceeding with your claim.",
+              "supported": false,
+              "reason": "The source does not state that facing challenges is a consequence of the notice period having passed."
+            },
+            {
+              "sentence": "You may still file a claim in Small Claims Court.",
+              "supported": false,
+              "reason": "The source does not explicitly state that you may still file a claim despite the notice period having passed."
+            },
+            {
+              "sentence": "If you believe there is a reasonable excuse for not giving notice, you can present this to a judge.",
+              "supported": false,
+              "reason": "The source does not mention the ability to present a reasonable excuse to a judge in this context."
+            },
+            {
+              "sentence": "If you file a claim, the court will consider your situation.",
+              "supported": false,
+              "reason": "The source does not specify that the court will consider your situation upon filing a claim."
+            },
+            {
+              "sentence": "A judge may allow your claim to proceed if they find a reasonable excuse for the lack of notice and that the defendant is not prejudiced.",
+              "supported": true,
+              "quote": "Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the municipality is not prejudiced in its defence. | Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence.",
+              "sourceId": "municipal-act-2001",
+              "quoteFound": true
+            }
+          ],
+          "readability": 6.635449438202251,
+          "problems": [
+            "\"This means you may face challenges in proceeding with your claim.\" — The source does not state that facing challenges is a consequence of the notice period having passed.",
+            "\"You may still file a claim in Small Claims Court.\" — The source does not explicitly state that you may still file a claim despite the notice period having passed.",
+            "\"If you believe there is a reasonable excuse for not giving notice, you can present this to a judge.\" — The source does not mention the ability to present a reasonable excuse to a judge in this context.",
+            "\"If you file a claim, the court will consider your situation.\" — The source does not specify that the court will consider your situation upon filing a claim."
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "The notice period for your injury claim has passed without notice being given. This may affect your ability to proceed with your claim.",
+            "whatToDoNext": "You may want to consider consulting a lawyer or paralegal for advice on your options.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If you decide to file a claim, the court may review the circumstances surrounding the failure to give notice."
+          },
+          "verdicts": [
+            {
+              "sentence": "The notice period for your injury claim has passed without notice being given.",
+              "supported": true,
+              "quote": "The injury is one of the kinds that needs notice first, and the notice period has run out without notice being given.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "This may affect your ability to proceed with your claim.",
+              "supported": false,
+              "reason": "The source does not state that the failure to give notice affects the ability to proceed with the claim; it only discusses the notice period."
+            },
+            {
+              "sentence": "You may want to consider consulting a lawyer or paralegal for advice on your options.",
+              "supported": false,
+              "reason": "The source does not mention consulting a lawyer or paralegal."
+            },
+            {
+              "sentence": "If you decide to file a claim, the court may review the circumstances surrounding the failure to give notice.",
+              "supported": false,
+              "reason": "The source does not state that the court will review the circumstances surrounding the failure to give notice."
+            }
+          ],
+          "readability": 8.392061403508773,
+          "problems": [
+            "\"This may affect your ability to proceed with your claim.\" — The source does not state that the failure to give notice affects the ability to proceed with the claim; it only discusses the notice period.",
+            "\"You may want to consider consulting a lawyer or paralegal for advice on your options.\" — The source does not mention consulting a lawyer or paralegal.",
+            "\"If you decide to file a claim, the court may review the circumstances surrounding the failure to give notice.\" — The source does not state that the court will review the circumstances surrounding the failure to give notice.",
+            "reads at grade 8.4, above the grade 8 target. Longest sentence: \"You may want to consider consulting a lawyer or paralegal for advice on your options.\""
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "The notice period for your claim has passed without notice being given. This may impact your ability to proceed with your claim.",
+            "whatToDoNext": "You can still file a claim in Small Claims Court. You may need to explain the circumstances of the missed notice period in your claim.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If you file a claim, the defendant may respond. The court will then determine the next steps based on the response."
+          },
+          "verdicts": [
+            {
+              "sentence": "The notice period for your claim has passed without notice being given.",
+              "supported": true,
+              "quote": "The injury is one of the kinds that needs notice first, and the notice period has run out without notice being given.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "This may impact your ability to proceed with your claim.",
+              "supported": false,
+              "reason": "The source does not state that the missed notice period impacts the ability to proceed with the claim."
+            },
+            {
+              "sentence": "You can still file a claim in Small Claims Court.",
+              "supported": false,
+              "reason": "The source does not explicitly state that you can still file a claim despite the notice period having passed."
+            },
+            {
+              "sentence": "You may need to explain the circumstances of the missed notice period in your claim.",
+              "supported": false,
+              "reason": "The source does not mention the need to explain the circumstances of the missed notice period in your claim."
+            },
+            {
+              "sentence": "If you file a claim, the defendant may respond.",
+              "supported": true,
+              "quote": "The person or business you are suing has 20 days after being served with your claim to respond.",
+              "sourceId": "ontario-suing-someone-small-claims",
+              "quoteFound": true
+            },
+            {
+              "sentence": "The court will then determine the next steps based on the response.",
+              "supported": true,
+              "quote": "What happens next depends on how the person you are suing replies to the claim.",
+              "sourceId": "ontario-suing-someone-small-claims",
+              "quoteFound": true
+            }
+          ],
+          "readability": 5.1417647058823555,
+          "problems": [
+            "\"This may impact your ability to proceed with your claim.\" — The source does not state that the missed notice period impacts the ability to proceed with the claim.",
+            "\"You can still file a claim in Small Claims Court.\" — The source does not explicitly state that you can still file a claim despite the notice period having passed.",
+            "\"You may need to explain the circumstances of the missed notice period in your claim.\" — The source does not mention the need to explain the circumstances of the missed notice period in your claim."
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "The notice period for your claim has passed without notice being given. This situation may not bar your action if certain conditions are met.",
+            "whatToDoNext": "You may consider filing a claim in Small Claims Court. You can use the Plaintiff's Claim [Form 7A] to start your action.",
+            "yourDeadline": null,
+            "whatHappensAfter": "If you file your claim, the defendant will have 20 days to respond after being served with your claim."
+          },
+          "verdicts": [
+            {
+              "sentence": "The notice period for your claim has passed without notice being given.",
+              "supported": true,
+              "quote": "The injury is one of the kinds that needs notice first, and the notice period has run out without notice being given.",
+              "sourceId": "stage-premise",
+              "quoteFound": false
+            },
+            {
+              "sentence": "This situation may not bar your action if certain conditions are met.",
+              "supported": true,
+              "quote": "Failure to give notice is not a bar to the action in the case of the death of the injured person as a result of the injury. | Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the municipality is not prejudiced in its defence. | Failure to give notice or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the City is not prejudiced in its defence. | Failure to give notice in accordance with subsection (1) is not a bar to the action in the case of the death of the injured person as a result of the injury. | Failure to give notice in accordance with subsection (1) or insufficiency of the notice is not a bar to the action if a judge finds that there is reasonable excuse for the want or the insufficiency of the notice and that the defendant is not prejudiced in its defence.",
+              "sourceId": "city-of-toronto-act-2006",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You may consider filing a claim in Small Claims Court.",
+              "supported": true,
+              "quote": "If you are thinking of making a claim in Small Claims Court, or if you are already involved in a case, this guide will answer questions about the court and provide examples of how to prepare a typical Small Claims Court claim.",
+              "sourceId": "guide-making-a-claim",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You can use the Plaintiff's Claim [Form 7A] to start your action.",
+              "supported": true,
+              "quote": "A Plaintiff's Claim [Form 7A] commences an action.",
+              "sourceId": "guide-making-a-claim",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you file your claim, the defendant will have 20 days to respond after being served with your claim.",
+              "supported": true,
+              "quote": "The person or business you are suing has 20 days after being served with your claim to respond.",
+              "sourceId": "ontario-suing-someone-small-claims",
+              "quoteFound": true
+            }
+          ],
+          "readability": 5.619238095238099,
+          "problems": []
+        }
+      ],
+      "status": "verified-draft"
+    }
+  ]
+}

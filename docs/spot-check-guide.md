@@ -27,6 +27,47 @@ right thing to say to a frightened person. That is what your review is for.
 
 ---
 
+## 0. Read it as the person at that stage — do this before anything else
+
+For each block, put yourself in the position the stage describes and ask:
+
+> **Does every instruction here apply to me, and could I actually follow it?**
+
+This is the check that automated verification cannot make, and it is not a
+style question. An independent review found this in the published library,
+marked as verified, on the stage for a **plaintiff** asking "the 20 days are up
+and they never responded — what can I do?":
+
+> "You may file a **Defence (Form 9A)**… serve it on all parties."
+
+Every sentence in that block was a **true statement about a defendant**. Every
+quote was real and present in the rules. Every automated gate passed it,
+because no individual sentence was false — and sentence-by-sentence
+verification cannot see that the person reading it is the wrong person.
+
+A plaintiff who followed it would have filed a Defence to their own claim.
+
+So when you read a block, check:
+
+- **Whose step is this?** A plaintiff files the claim and asks the clerk to note
+  a defendant in default (Form 9B). A defendant files the Defence (Form 9A).
+  If the block has those the wrong way round, nothing else about it matters.
+- **Does it speak to me or about me?** "The plaintiff may file a request…" on a
+  plaintiff's own block means it was written for the other party.
+- **Who served whom?** A plaintiff serves the claim; a defendant is served with
+  it. "Since you were served" on a plaintiff's block is backwards.
+- **Could I do this today?** If it names a form, can you find it? If it says
+  where to file, does that tell you enough to walk in and do it?
+- **Does it tell me there is nothing to be done?** It should never say the rules
+  provide no remedy. We are not entitled to claim that — and twice we were
+  wrong about it, while a deadline ran. A block may say *we* do not have
+  verified guidance yet. It may not say the law is silent.
+
+Automated checks now cover the specific confusions above. They cover them
+because those confusions **actually reached published content**, not because
+anybody predicted them. Assume the next one will be a shape nobody has thought
+of, and that your reading is the thing most likely to catch it.
+
 ## 1. The three pre-suit notice deadlines — check these first
 
 `docs/sources/corpus/municipal-act-2001.txt`, `city-of-toronto-act-2006.txt`,

@@ -982,12 +982,30 @@ ${sentences.map((sentence, index) => `${index + 1}. ${sentence}`).join("\n")}`;
       };
     }
 
+    /*
+     * *** quoteFound MEANS THE CORPUS, AND ONLY THE CORPUS ***
+     *
+     * It used to be `true` on every supported verdict, including the sixteen
+     * whose "source" was the stage map's own description. An independent
+     * review counted it: true on 82 of 82 quoted verdicts, NEVER ONCE false.
+     * A field documented as "was the quote actually in the corpus?" that always
+     * answers yes is not a check, it is a label.
+     *
+     * Two consequences, both now fixed here. A premise-only verdict records
+     * `quoteFound: false`, because our own prose is not corpus support — and
+     * a false legal statement sitting in a stage `description` would otherwise
+     * have passed verification unchallenged. And a verdict whose quote spans a
+     * pipe-joined composite is only `true` if EVERY run was found, which is
+     * what `missing` above already established.
+     */
+    const premiseOnly = fromLaw.length === 0;
+
     return {
       sentence,
       supported: true,
       quote: offered.join(" | "),
       sourceId: (fromLaw[0] ?? resolved[0]).sourceId ?? undefined,
-      quoteFound: true,
+      quoteFound: !premiseOnly,
     };
   });
 

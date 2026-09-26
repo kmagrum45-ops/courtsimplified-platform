@@ -175,12 +175,40 @@ export type StageAnswer = {
  * serves the runtime. That is the design principle applied where it matters
  * most: verified content assembled by code, not written by a model.
  */
+/**
+ * The Saturday warning, for deadlines a STATUTE sets rather than the rules.
+ *
+ * *** WHY THIS IS IN THE BLOCK AND NOT ONLY IN THE ENGINE ***
+ *
+ * `r. 1.02 (a)` makes every Saturday and Sunday a holiday, so a period under
+ * the Small Claims rules that ends on a Saturday runs to the Monday. The
+ * `Legislation Act s. 88 (2)` lists Sunday and NOT Saturday — so a period a
+ * statute sets genuinely can end on a Saturday.
+ *
+ * The three pre-suit notice deadlines are statutory, and they are the only
+ * deadlines in this product where missing it means there is no action at all.
+ * Somebody reasoning "it lands on the weekend, so I have until Monday" — which
+ * is what the rules would give them anywhere else in the same case — loses the
+ * claim.
+ *
+ * So the warning travels with the deadline, not only inside the engine that
+ * computes dates. A person reading "you have 10 days" needs to know that here,
+ * unlike everywhere else, the weekend does not help them.
+ */
+const STATUTORY_WEEKEND_WARNING =
+  "This deadline is set by a statute rather than by the court's rules, and that " +
+  "changes how the days are counted. Under the rules a deadline landing on a " +
+  "Saturday moves to the next working day. Under the statute it does not — only " +
+  "Sunday and holidays are excluded. Do not assume a weekend gives you extra time.";
+
 export function renderDeadlineSection(
   deadlines: Array<{
     what: string;
     countFrom: string;
     length: { unit: "days" | "months" | "years"; count: number };
     direction?: "after" | "before";
+    regime?: "small-claims-rules" | "legislation-act";
+    consequence?: "bars-the-claim" | "changes-what-happens-next";
   }>,
 ): string | null {
   // count === 0 marks a period the rule declines to fix — r. 11.06's "as soon
@@ -206,7 +234,27 @@ export function renderDeadlineSection(
 
       return `${deadline.what}. You have ${period}, counted from ${deadline.countFrom}.`;
     })
-    .join("\n\n");
+    .join("\n\n")
+    .concat(weekendWarningFor(fixed));
+}
+
+/**
+ * Appended once, and only where a STATUTORY deadline is the one that bars the
+ * claim.
+ *
+ * Only for those. On every other deadline in the product a Saturday genuinely
+ * does move to the Monday, so attaching this everywhere would be wrong in the
+ * opposite direction — and a warning on every deadline is a warning nobody
+ * reads.
+ */
+function weekendWarningFor(
+  deadlines: Array<{ regime?: string; consequence?: string }>,
+): string {
+  const statutoryBar = deadlines.some(
+    (deadline) =>
+      deadline.regime === "legislation-act" && deadline.consequence === "bars-the-claim",
+  );
+  return statutoryBar ? `\n\n${STATUTORY_WEEKEND_WARNING}` : "";
 }
 
 /** The prose a user reads, in order. Used by the readability and guard checks. */
@@ -230,9 +278,31 @@ export function answerText(answer: StageAnswer): string {
  * can point to.
  */
 export const NO_SOURCE_NOTICE =
-  "The rules do not set out a step for this. We would rather tell you that than " +
-  "guess. The court office where your case is filed can tell you what to do in " +
-  "your situation, and the services below can help you work out where you stand.";
+  "We don't have verified guidance for this step yet. The court office where your " +
+  "case is filed can tell you what to do in your situation, and the services below " +
+  "can help you work out where you stand.";
+
+/*
+ * *** WHY THIS WORDING CHANGED ***
+ *
+ * It used to read "The rules do not set out a step for this." That is a LEGAL
+ * CLAIM — an assertion about what the law contains — and it is exactly the
+ * claim this pipeline cannot verify. Nothing in the corpus can prove an
+ * absence; you can only fail to find something.
+ *
+ * And we were wrong about it twice, in the worst possible direction. An
+ * independent review found `both:missed-trial` saying it while r. 17.01 (4)
+ * and (5) — five lines below the rule the stage cited — gave a set-aside
+ * remedy on a 30-day clock. It found the same claim in a code comment about
+ * `both:filed-in-wrong-place`, where r. 6.01 (2) and (3) are the remedy.
+ *
+ * Both times the rules DID set out a step and our citation list stopped short.
+ * A person reading the old wording would have concluded there was nothing to
+ * be done, which is the most damaging thing this product could tell them.
+ *
+ * "We don't have verified guidance for this yet" is a claim about US, and it is
+ * one we can actually stand behind.
+ */
 
 /**
  * Only these may be shown to a user.

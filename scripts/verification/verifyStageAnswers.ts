@@ -28,10 +28,12 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 import { findQuote } from "../content/verifiedContentPipeline";
+import { gateFailures } from "../content/blockGates";
 import { CASE_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 import {
   answerText,
   NO_SOURCE_NOTICE,
+  renderDeadlineSection,
   type StageAnswer,
 } from "../../src/lib/content-library/stageAnswers";
 import { readability, TARGET_GRADE } from "../../src/lib/content-library/readability";
@@ -322,6 +324,156 @@ check(
   !unverifiableQuote({ supported: true, quote: "You have been served.", sourceId: "stage-premise" }),
   "the premise has no corpus quote by design",
 );
+
+// ---------------------------------------------------------------------------
+// quoteFound CAN FAIL — proved, not asserted
+// ---------------------------------------------------------------------------
+
+/*
+ * *** WHY THIS EXISTS ***
+ *
+ * An independent review counted `quoteFound` across the published library and
+ * found it `true` on 82 of 82 quoted verdicts — it had NEVER ONCE been false.
+ * The field documents itself as "was the quote actually in the corpus?" and it
+ * had answered yes every single time, including on sixteen verdicts whose
+ * "source" was the stage map's own description.
+ *
+ * A flag that has never been false is indistinguishable from a constant. So
+ * these plant the failures and assert the gate refuses the block — the
+ * behaviour, not the label.
+ */
+const stageForPlant = CASE_STAGES.find((stage) => stage.id === "defendant:served-defence-period-running");
+
+if (stageForPlant) {
+  const soundBlock = {
+    id: "answer:plant",
+    stageId: stageForPlant.id,
+    userQuestion: stageForPlant.userQuestion,
+    whatsHappening: "You have been served with a claim.",
+    whatToDoNext: "Serve a defence on every other party and file it with the clerk.",
+    yourDeadline: renderDeadlineSection(stageForPlant.deadlines),
+    whatHappensAfter: "A settlement conference will be held.",
+    slots: [],
+    citations: stageForPlant.rules,
+    sourceIds: ["oreg-258-98-small-claims-rules"],
+  };
+
+  /** A quote in the right register that appears nowhere in the corpus. */
+  const FABRICATED_SUPPORT =
+    "A defendant who fails to file a defence within the prescribed time shall be deemed " +
+    "to have admitted the allegations in the plaintiff's claim.";
+
+  const withFabricated = {
+    ...soundBlock,
+    verification: {
+      status: "verified-draft" as const,
+      verifiedAt: new Date().toISOString(),
+      attempts: 1,
+      verdicts: [
+        {
+          sentence: "Serve a defence on every other party and file it with the clerk.",
+          supported: true,
+          quote: FABRICATED_SUPPORT,
+          sourceId: "oreg-258-98-small-claims-rules",
+          // The pipeline would set this false. A tampered or buggy record
+          // claiming true is exactly what this must not be fooled by.
+          quoteFound: true,
+        },
+      ],
+    },
+  };
+
+  const fabricatedFailures = gateFailures(withFabricated as StageAnswer, stageForPlant);
+  check(
+    "a planted quote that is not in the corpus is refused, even claiming quoteFound",
+    fabricatedFailures.some((failure) => failure.includes("not in the vendored corpus")),
+    `the gate believed a stored flag instead of looking. Failures: ${fabricatedFailures.join("; ") || "(none)"}`,
+  );
+
+  /** The same block with a REAL quote must pass — or the check proves nothing. */
+  const withRealQuote = {
+    ...soundBlock,
+    verification: {
+      status: "verified-draft" as const,
+      verifiedAt: new Date().toISOString(),
+      attempts: 1,
+      verdicts: [
+        {
+          sentence: "Serve a defence on every other party and file it with the clerk.",
+          supported: true,
+          quote: CITATION_FOR_CONTROL,
+          sourceId: "oreg-258-98-small-claims-rules",
+          quoteFound: true,
+        },
+      ],
+    },
+  };
+
+  const realFailures = gateFailures(withRealQuote as StageAnswer, stageForPlant);
+  check(
+    "the same block with a real quote is not refused for its support",
+    !realFailures.some((failure) => failure.includes("not in the vendored corpus")),
+    `a gate that refuses real support would fail every true block. Failures: ${realFailures.join("; ")}`,
+  );
+
+  /*
+   * And the circular case: a verdict naming the stage map while claiming the
+   * corpus confirmed it.
+   */
+  const circular = {
+    ...soundBlock,
+    verification: {
+      status: "verified-draft" as const,
+      verifiedAt: new Date().toISOString(),
+      attempts: 1,
+      verdicts: [
+        {
+          sentence: "You have been served with a claim.",
+          supported: true,
+          quote: "The defendant has been served and the time to deliver a defence has not yet run out.",
+          sourceId: "stage-premise",
+          quoteFound: true,
+        },
+      ],
+    },
+  };
+
+  check(
+    "a verdict citing the stage map as corpus support is refused",
+    gateFailures(circular as StageAnswer, stageForPlant).some((failure) =>
+      failure.includes("circular"),
+    ),
+    "our own prose recorded as corpus support is how a false statement in a stage " +
+      "description would pass verification unchallenged",
+  );
+
+  /** A verdict naming a source that is not a corpus file at all. */
+  const inventedSource = {
+    ...soundBlock,
+    verification: {
+      status: "verified-draft" as const,
+      verifiedAt: new Date().toISOString(),
+      attempts: 1,
+      verdicts: [
+        {
+          sentence: "Serve a defence on every other party and file it with the clerk.",
+          supported: true,
+          quote: CITATION_FOR_CONTROL,
+          sourceId: "guide-that-does-not-exist",
+          quoteFound: true,
+        },
+      ],
+    },
+  };
+
+  check(
+    "a verdict naming a source that is not a vendored file is refused",
+    gateFailures(inventedSource as StageAnswer, stageForPlant).some((failure) =>
+      failure.includes("not a vendored"),
+    ),
+    "",
+  );
+}
 
 // ---------------------------------------------------------------------------
 // needs-human means not shown
