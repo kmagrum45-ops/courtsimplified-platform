@@ -173,6 +173,13 @@ export const QUESTION_BANK: IntakeQuestion[] = [
       "A consumer purchase problem",
       "A vehicle-related dispute",
       "Something said about you (defamation)",
+      /*
+       * Added with the injury-date question. Somebody who slipped on an icy
+       * municipal sidewalk had no category to pick but "Something else", which
+       * is the worst possible answer for them: the municipal notice deadline is
+       * TEN DAYS, and nothing downstream could recognise what they had.
+       */
+      "A slip, a fall, or another injury",
       "Something else",
     ],
     allowUnknown: true,
@@ -624,6 +631,53 @@ export const QUESTION_BANK: IntakeQuestion[] = [
    * which can be wrong, and the conditional wording is what keeps a
    * wrongly-gated question from asserting something about the reader's case.
    */
+  {
+    /*
+     * The date a 10-day clock starts, and the highest-stakes date in the bank.
+     *
+     * Municipal Act s. 44 (10) and City of Toronto Act s. 42 (6) give TEN DAYS
+     * from the injury to serve written notice, and Occupiers' Liability Act
+     * s. 6.1 gives sixty for snow and ice on private premises. Those are the
+     * only deadlines in this product where missing it means there is no action
+     * at all, and until this question existed they were the only ones that could
+     * never show a computed date — the event was recorded as one we do not ask
+     * about, on a reason that stopped being true the day the route started
+     * accepting dates.
+     *
+     * *** WHY THE GATE IS A SET AND NOT A SINGLE VALUE ***
+     *
+     * `disputeCategory` is a lowercase-hyphenated slug the extractor writes
+     * freely ("a short lowercase-hyphenated slug for the kind of dispute, if
+     * clear"), so an `equals "personal-injury"` gate would hold or fail on which
+     * synonym a model happened to pick that run. Several are listed. If it emits
+     * one that is not here the question is not asked, the date stays unknown, and
+     * the block shows the period — the same fallback as every other date, and the
+     * reason that fallback had to be safe.
+     */
+    id: "sc-date-injury",
+    courtArea: "small-claims",
+    appliesWhen: {
+      field: "disputeCategory",
+      op: "in",
+      values: [
+        "personal-injury",
+        "injury",
+        "slip-and-fall",
+        "slip-or-fall",
+        "trip-and-fall",
+        "premises-liability",
+        "occupiers-liability",
+      ],
+    },
+    text: "If this involves an injury, what date did it happen?",
+    examples: ["2026-02-03", "3 February 2026", "February 3 2026"],
+    answerType: "date",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: "2026-09-26",
+    status: "reviewed",
+  },
   {
     id: "sc-date-claim-served",
     courtArea: "small-claims",

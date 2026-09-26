@@ -445,6 +445,44 @@ like a defendant. Only ever proposed, never applied (§4), and the claim types
 were still right. Gating each question on the state that makes it answerable put
 the turn counts back to exactly where they were.
 
+### The 7 deadline cases that do not go through a block, by cause
+
+Asked for as a triage of "no published block" against "block exists but the date
+slot is not wired". The answer turned out to be neither, for most of them, and
+the useful split is four ways:
+
+| Case | Cause |
+|---|---|
+| `municipal-notice-ends-saturday` | **was a wiring gap** — no block AND the injury date was never asked |
+| `municipal-notice-ends-sunday` | same |
+| `occupiers-60-days-january-slip` | same |
+| `disclosure-14-days-before-conference` | **no published block.** The event is asked and wired; both `awaiting-settlement-conference` stages are unpublished |
+| `limitation-two-years-from-29-february` | **never computable, by design.** Runs from `claim-discovered`, which we decline to ask — see decision 5 |
+| `same-ten-days-under-the-rules` | **no stage has this shape.** It exists only as the twin of the municipal case, to prove the two regimes give different dates from identical arithmetic |
+| `four-years-from-29-february-is-a-leap-year` | **no stage has this shape.** A leap-year control on `addYears`, not a deadline anyone has |
+
+**Zero slot-wiring failures of the kind the question expected** — a published
+block whose date slot was not connected. A check confirms that directly: no
+published block has a computable deadline and no deadline section.
+
+**One real wiring gap, and it was the worst one to have.** `injury-occurred` was
+recorded as an event we do not ask about, on the reason that "the pre-suit notice
+stages come before there is a case record to read a date from". That was true of
+the product before decision 5 and false the moment decision 5 shipped — the route
+takes dates from any caller. So the three deadlines that BAR THE CLAIM were the
+only ones in the product that could never show a date, when they are the ones
+where a date matters most. A person with ten days does not need "you have 10
+days, counted from the occurrence of the injury".
+
+Fixed: `sc-date-injury` asks it, gated on a SET of `disputeCategory` slugs rather
+than one, because that field is a slug the extractor writes freely and an
+`equals` gate would hold or fail on which synonym a model picked that run. And
+`sc-orient-dispute-category` gained "A slip, a fall, or another injury" — somebody
+who fell on an icy sidewalk previously had no category but "Something else".
+
+The remaining four are content work, not wiring: three notice stages and two
+settlement-conference stages need published blocks.
+
 ### How it is measured
 
 ```

@@ -157,13 +157,31 @@ export const DEADLINE_EVENTS: Record<DeadlineEventKey, DeadlineEvent> = {
       "as a fact, and computing a limitation date from a typed answer would be this " +
       "system applying the law to the reader's facts",
   },
+  /*
+   * *** THIS WAS THE ONE REAL WIRING GAP, AND IT WAS THE WORST ONE TO HAVE ***
+   *
+   * It read `question: null`, because "the pre-suit notice stages come before
+   * there is a case record to read a date from". That was true of the product
+   * before decision 5 and false the moment decision 5 shipped: the route takes
+   * `dateAnswers` from any caller, and nothing about a notice stage stops us
+   * asking when somebody fell.
+   *
+   * Which left the three deadlines that BAR THE CLAIM — municipal 10 days,
+   * Toronto 10 days, occupiers 60 days — as the only ones in the product that
+   * could never show a date, when they are the ones where a date matters most.
+   * A person with ten days does not need "you have 10 days, counted from the
+   * occurrence of the injury". They need the day of the month, and they need to
+   * be told that under a statute a Saturday does not save them.
+   *
+   * Unlike `claim-discovered` below, this is a plain fact. What day did you
+   * fall. No legal question, nothing for the reader to apply, nothing for us to
+   * decide on their behalf.
+   */
   "injury-occurred": {
     key: "injury-occurred",
     label: "the day the injury happened",
-    question: null,
-    notAskedBecause:
-      "the pre-suit notice stages come before there is a case record to read a date " +
-      "from; the event is recorded so the wiring exists when there is",
+    question: "If this involves an injury, what date did it happen?",
+    questionId: "sc-date-injury",
   },
   "judgment-date": {
     key: "judgment-date",
