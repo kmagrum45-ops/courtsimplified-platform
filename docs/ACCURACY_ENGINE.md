@@ -987,6 +987,77 @@ chat advice flag  4/5 FAIL  ->  5/5 PASS
 
 ---
 
+## The design rule: forum-check stages route, they do not instruct
+
+**Three before-filing stages may only ever carry FORUM-CHECK content** — which
+court or tribunal handles this kind of matter, the monetary line that decides it,
+and the questions that would settle it. Never a form, never a rule, never a step.
+
+```
+before-filing:deciding-whether-to-sue
+before-filing:limitation-period-may-have-passed
+before-filing:claim-exceeds-small-claims-limit
+```
+
+### Why these three
+
+They are the catch-alls a MISCLASSIFIED matter lands on. That is their whole
+character: "Can I sue over this, and is Small Claims the right court?" is what a
+criminal complaint, a tenancy dispute or a human-rights matter looks like after
+two model components have each got it wrong.
+
+Not hypothetical. "I want him charged" was classified **civil at 0.8** and then
+placed at `before-filing:deciding-whether-to-sue` at **0.90**.
+
+A person who arrives there needs ROUTING. Small Claims procedure is the one thing
+that would send them further in the wrong direction — and it is exactly what a
+drafter given those stages reaches for, because the stage map hands it r. 6.01
+and a limitation period.
+
+### The gate
+
+`forumCheckOnlyProblems` refuses a block on those stages that names a numbered
+form, a numbered rule, the clerk, a defence, default, a settlement conference, a
+trial date, an affidavit of service, service of a claim, or a motion. It runs in
+`gateFailures` — so promotion refuses it and the published-set suite fails on it —
+and in the drafting loop, because a gate that can only refuse wastes four attempts
+and leaves the stage unwritten.
+
+**What stays allowed, and why the list is shaped that way.** The monetary limit is
+forum-check content: $50,000 is the line BETWEEN Small Claims and the Superior
+Court, so stating it answers "is this the right court". "A lawyer or paralegal can
+tell you" stays. The clarifying questions come from the stage map's own recorded
+boundaries and never appear in block prose at all.
+
+"File a claim" on its own is deliberately NOT caught. The limitation period
+applies to filing in any court, and telling somebody time may have run out is
+routing-adjacent rather than instruction — which is why the one published block on
+these stages, `limitation-period-may-have-passed`, still passes.
+
+### Why this is separate from `requiresAffirmativeScope`, and both apply
+
+Two different claims about the same stages, failing differently. The scope gate
+stops the block rendering **at all** where the classifier did not affirmatively
+place the matter in Small Claims. This rule governs what the block may **say** if
+it does render — which matters because the classifier can be right about the forum
+and the resolver still wrong about the stage.
+
+Defence in depth, deliberately: the criminal-complaint failure was two independent
+components agreeing, so a single gate is exactly the thing that would not have
+caught it. A check asserts every forum-check stage also carries the scope gate.
+
+### The tension, stated
+
+`limitation-period-may-have-passed` is in the set because it is one of the three
+catch-alls, and its subject is TIME rather than forum. For that stage the rule
+means its content stays at "a two-year period generally applies, and here is which
+court this belongs to" rather than filing mechanics. That is what it already does;
+the gate holds it there.
+
+18 checks, mutation-tested — disabling the gate fails 8 by name.
+
+---
+
 ## The commands
 
 ```

@@ -28,6 +28,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 import { findQuote } from "../content/verifiedContentPipeline";
+import { forumCheckOnlyProblems } from "../content/blockGates";
 import { gateFailures } from "../content/blockGates";
 import { CASE_STAGES } from "../../src/lib/case-system/stage-map/stageMap";
 import {
@@ -542,6 +543,136 @@ for (const answer of verified) {
 }
 
 // ---------------------------------------------------------------------------
+
+// ===========================================================================
+// FORUM-CHECK STAGES ROUTE. THEY DO NOT INSTRUCT.
+// ===========================================================================
+//
+// Three before-filing stages are the catch-alls a MISCLASSIFIED matter lands on.
+// "Can I sue over this, and is Small Claims the right court?" is what a criminal
+// complaint, a tenancy dispute or a human-rights matter looks like after two
+// model components have each got it wrong — which is not hypothetical: "I want
+// him charged" was classified CIVIL at 0.8 and then placed at
+// `before-filing:deciding-whether-to-sue` at 0.90.
+//
+// A person who arrives there needs ROUTING. Small Claims procedure is the one
+// thing that would send them further in the wrong direction, and it is exactly
+// what a drafter given those stages reaches for, because the stage map hands it
+// r. 6.01 and a limitation period.
+
+{
+  const forumStages = CASE_STAGES.filter((stage) => stage.forumCheckOnly);
+
+  check(
+    "the three catch-all before-filing stages are marked forum-check only",
+    forumStages.length === 3 &&
+      forumStages.some((stage) => stage.id === "before-filing:deciding-whether-to-sue"),
+    `marked: ${forumStages.map((s) => s.id).join(", ") || "(none)"}`,
+  );
+
+  /*
+   * Every forum-check stage also requires affirmative scope. Two different claims
+   * about the same stages, and both are wanted: the scope gate stops the block
+   * rendering at all for a matter the classifier did not place in Small Claims,
+   * and this rule governs what it may SAY if it does render — which matters
+   * because the classifier can be right about the forum and the resolver still
+   * wrong about the stage.
+   */
+  for (const stage of forumStages) {
+    check(
+      `${stage.id} also requires affirmative scope`,
+      stage.requiresAffirmativeScope === true,
+      "the criminal-complaint failure was two components agreeing, so one gate is " +
+        "exactly what would not have caught it",
+    );
+  }
+
+  const example = stages.get("before-filing:deciding-whether-to-sue");
+  if (!example) throw new Error("the catch-all stage is missing from the map");
+
+  /** What a drafter handed r. 6.01 and a limitation period actually writes. */
+  const procedure = [
+    ["a numbered form", "You start an action by filing a Plaintiff's Claim (Form 7A) with the clerk."],
+    ["a numbered rule", "The action must be commenced in the territorial division under r. 6.01 (1)."],
+    ["a defence", "The defendant then has 20 days to file a defence."],
+    ["a settlement conference", "A settlement conference is scheduled after the first defence is filed."],
+    ["a motion", "You may bring a motion for an order extending the time."],
+    ["default", "If they do not respond you can have them noted in default."],
+    ["service of a document", "You must serve the claim on every defendant."],
+  ];
+
+  for (const [what, text] of procedure) {
+    check(
+      `forum-check gate refuses ${what}`,
+      forumCheckOnlyProblems(text, example).length > 0,
+      `passed: "${text}"`,
+    );
+  }
+
+  /*
+   * And the other direction, which is what stops the gate from being a way of
+   * publishing nothing for these stages. The monetary limit is FORUM-CHECK
+   * content: $50,000 is the line between Small Claims and the Superior Court, so
+   * stating it answers "is this the right court" rather than instructing.
+   */
+  const forumCheck = [
+    "Small Claims Court can hear claims up to $50,000, not counting interest and costs.",
+    "A dispute about a residential tenancy is heard by the Landlord and Tenant Board.",
+    "If your claim is for more than that amount, it belongs in the Superior Court of Justice.",
+    "A lawyer or paralegal can tell you which court your matter belongs in.",
+    "More than two years appear to have passed since the events.",
+  ];
+
+  for (const text of forumCheck) {
+    const problems = forumCheckOnlyProblems(text, example);
+    check(
+      `forum-check gate allows: "${text.slice(0, 46)}…"`,
+      problems.length === 0,
+      problems.join("; "),
+    );
+  }
+
+  /** The gate applies to these stages ONLY. Every other block is untouched. */
+  const ordinary = stages.get("defendant:served-defence-period-running");
+  check(
+    "the gate does not touch an ordinary stage",
+    ordinary !== undefined &&
+      forumCheckOnlyProblems(
+        "You must serve a defence on every other party and file it with the clerk.",
+        ordinary,
+      ).length === 0,
+    "an ordinary stage's whole job is to state procedure; gating it would empty the product",
+  );
+
+  /** And it is wired into the promotion gate, not only available to be called. */
+  const planted = {
+    id: "answer:forum-check-plant",
+    stageId: "before-filing:deciding-whether-to-sue",
+    userQuestion: example.userQuestion,
+    whatsHappening: "You start an action by filing a Plaintiff's Claim (Form 7A) with the clerk.",
+    whatToDoNext: "Small Claims Court hears claims up to $50,000.",
+    yourDeadline: null,
+    whatHappensAfter: "A lawyer or paralegal can tell you which court your matter belongs in.",
+    slots: [],
+    citations: [],
+    sourceIds: [],
+    verification: {
+      status: "verified-draft" as const,
+      verifiedAt: new Date().toISOString(),
+      attempts: 1,
+      verdicts: [],
+    },
+  };
+
+  check(
+    "a forum-check stage carrying procedure is REFUSED BY gateFailures",
+    gateFailures(planted as StageAnswer, example).some((failure) =>
+      failure.includes("FORUM-CHECK content"),
+    ),
+    `gateFailures did not refuse it: ${gateFailures(planted as StageAnswer, example).join("; ")}`,
+  );
+}
+
 
 console.log("");
 console.log("STAGE ANSWERS");

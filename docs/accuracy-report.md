@@ -376,6 +376,12 @@ mechanism stays because the next re-vendoring is when it earns its keep.
   frightens people out of claims they still have.
 - **The deadline section must be byte-identical** to what the renderer produces
   from the stage map.
+- **`forumCheckOnlyProblems`** — the three catch-all before-filing stages may carry
+  FORUM-CHECK content only: which court or tribunal handles this kind of matter,
+  and the monetary line that decides it. Never a form, a rule or a step. They are
+  where a misclassified matter lands, so a person arriving there is ROUTED rather
+  than instructed — procedure is the one thing that would send them further in the
+  wrong direction.
 
 **The output guard is an allowlist**, not a deny-list. A string reaches a user
 only if it is a content-library item or an allowlisted non-legal system message.
@@ -753,11 +759,30 @@ Not code. These are yours.
    still states unreviewed law from templates and the doctrine library. Replacing
    the mount is a small change; deciding to do it is not mine.
 
-7. **`before-filing:deciding-whether-to-sue` has no content, deliberately.** It is
-   the catch-all that a misclassified matter lands on, and it is now gated behind
-   an affirmative small-claims verdict. If we publish content for it, that gate is
-   the only thing standing between a criminal complaint and Small Claims
-   procedure. Worth deciding consciously rather than when somebody drafts it.
+7. **Recognising out-of-scope matters at the classifier level is scheduled for
+   the claim-types work.** Criminal, family, tenancy, human rights, employment
+   standards, and the rest of the nine forums — recognised where the decision
+   belongs, rather than caught downstream by a render gate. With **eval stories
+   per forum**, so each one is measured rather than assumed.
+
+   That is the real fix for the failure section 8 records as `gate refused 1`. The
+   gate makes a misclassified matter safe; it does not make the classification
+   right. "I want him charged" should be recognised as criminal by the component
+   whose job that is, and today it is classified civil at 0.8.
+
+   Until then the two render gates hold the line, and the design rule below keeps
+   the content at those stages to routing.
+
+8. **The three catch-all before-filing stages may only ever carry FORUM-CHECK
+   content.** This is now a recorded design rule and a gate, not a convention:
+   which court or tribunal handles this kind of matter, the monetary line that
+   decides it, and the questions that would settle it — never a form, a rule or a
+   step. `forumCheckOnlyProblems` refuses any block on those stages that names
+   one, at promotion and in the drafting loop.
+
+   So if content is written for them, a misclassified matter landing there gets
+   ROUTED rather than instructed. The decision left for you is only whether to
+   have that content written at all; what it may say is settled.
 
 ---
 

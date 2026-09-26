@@ -52,7 +52,11 @@ import {
   type StageAnswer,
 } from "../../src/lib/content-library/stageAnswers";
 import { readability } from "../../src/lib/content-library/readability";
-import { barExceptionProblems, wrongReaderProblems } from "./blockGates";
+import {
+  barExceptionProblems,
+  forumCheckOnlyProblems,
+  wrongReaderProblems,
+} from "./blockGates";
 
 // The key is read from .env.local inside this process and never printed.
 dotenv.config({ path: ".env.local", quiet: true });
@@ -266,6 +270,14 @@ async function runStage(
      * those runs was otherwise clean.
      */
     problems.push(...barExceptionProblems(prose, stage));
+
+    /*
+     * A forum-check stage told it is one, in the loop rather than at promotion.
+     * The stage map hands this drafter r. 6.01 and a limitation period, so
+     * procedure is exactly what it will reach for; four attempts of being refused
+     * afterwards produces nothing.
+     */
+    problems.push(...forumCheckOnlyProblems(prose, stage));
 
     attempts.push({
       attempt,

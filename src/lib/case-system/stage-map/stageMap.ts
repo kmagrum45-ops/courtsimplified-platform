@@ -195,6 +195,45 @@ export type CaseStage = {
    */
   requiresAffirmativeScope?: true;
   /**
+   * This stage may carry FORUM-CHECK content only, and never Small Claims
+   * procedure.
+   *
+   * *** THE DESIGN RULE ***
+   *
+   * Which court or tribunal handles this kind of matter, the monetary line that
+   * decides it, and the questions that would settle it. Not a form number, not a
+   * rule, not a step.
+   *
+   * These are the stages a MISCLASSIFIED matter lands on. That is their whole
+   * character: the catch-all question "can I sue over this, and is this the right
+   * court" is what a criminal complaint, a tenancy dispute or a human-rights
+   * matter looks like after two model components have each got it wrong. A person
+   * who arrives here needs ROUTING, and procedure is the one thing that would
+   * send them further in the wrong direction.
+   *
+   * *** WHY THIS IS SEPARATE FROM requiresAffirmativeScope, AND BOTH APPLY ***
+   *
+   * They are different claims about the same stages and they fail differently.
+   *
+   * The scope gate stops the block rendering at all where the classifier did not
+   * affirmatively place the matter in Small Claims. This rule governs what the
+   * block may SAY if it does render — which matters because the classifier can be
+   * right about the forum and the resolver still wrong about the stage.
+   *
+   * Defence in depth, deliberately: the criminal-complaint failure was two
+   * independent components agreeing, so a single gate is exactly the thing that
+   * would not have caught it.
+   *
+   * *** THE TENSION, STATED ***
+   *
+   * `before-filing:limitation-period-may-have-passed` is in this set because it is
+   * one of the three catch-alls, and its subject is TIME rather than forum. For
+   * that stage the rule means its content stays at "a two-year period generally
+   * applies, and here is which court this belongs to" rather than Small Claims
+   * filing mechanics. That is what it already does; the gate holds it there.
+   */
+  forumCheckOnly?: true;
+  /**
    * A fact this stage's content depends on, which must come FROM THE USER.
    *
    * *** THE HIGH-STAKES AMBIGUITY RULE ***
@@ -280,6 +319,7 @@ const BEFORE_FILING: CaseStage[] = [
      * classified "civil".
      */
     requiresAffirmativeScope: true,
+    forumCheckOnly: true,
   },
   {
     id: "before-filing:notice-municipality",
@@ -512,6 +552,7 @@ const BEFORE_FILING: CaseStage[] = [
      * period.
      */
     requiresAffirmativeScope: true,
+    forumCheckOnly: true,
   },
   {
     id: "before-filing:claim-exceeds-small-claims-limit",
@@ -545,6 +586,7 @@ const BEFORE_FILING: CaseStage[] = [
      * correctly rather than confidently.
      */
     requiresAffirmativeScope: true,
+    forumCheckOnly: true,
   },
 ];
 

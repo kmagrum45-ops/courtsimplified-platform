@@ -300,6 +300,77 @@ export function glossProblems(text: string, supportingQuotes: string[]): string[
   return problems;
 }
 
+/*
+ * *** FORUM-CHECK ONLY: THESE STAGES ROUTE, THEY DO NOT INSTRUCT ***
+ *
+ * Three before-filing stages are the catch-alls a MISCLASSIFIED matter lands on.
+ * "Can I sue over this, and is Small Claims the right court?" is what a criminal
+ * complaint, a tenancy dispute or a human-rights matter looks like after two
+ * model components have each got it wrong.
+ *
+ * A person who arrives there needs to be told WHICH FORUM handles their kind of
+ * matter. Small Claims procedure is the one thing that would send them further in
+ * the wrong direction — and it is exactly what a drafter given those stages will
+ * reach for, because the stage map hands it r. 6.01 and a limitation period.
+ *
+ * So the block may name no form, no rule, and no Small Claims step.
+ *
+ * *** WHAT IS STILL ALLOWED, AND WHY THE LIST IS SHAPED THIS WAY ***
+ *
+ * The monetary limit stays allowed: $50,000 is the line BETWEEN Small Claims and
+ * Civil, so stating it is forum-check content and not procedure. "A lawyer or
+ * paralegal can tell you" stays allowed. The clarifying questions come from the
+ * stage map's own recorded boundaries and never appear in block prose at all.
+ *
+ * The patterns catch the things that only make sense once you are already in this
+ * court: a numbered form, a numbered rule, the clerk, a defence, default, a
+ * settlement conference, service of a claim. "File a claim" on its own is NOT
+ * caught — the limitation period applies to filing in any court, and telling
+ * somebody time may have run out is routing-adjacent rather than instruction.
+ */
+const SMALL_CLAIMS_PROCEDURE: Array<{ pattern: RegExp; what: string }> = [
+  { pattern: /\bForm\s+\d+[A-Z]?\b/i, what: "a numbered court form" },
+  { pattern: /\br(?:ule)?\.?\s*\d+\.\d+/i, what: "a numbered rule" },
+  { pattern: /\bthe clerk\b/i, what: "the clerk" },
+  { pattern: /\bdefence\b/i, what: "a defence" },
+  { pattern: /\bnot(?:e|ed|ing) (?:you |them |the defendant )?in default\b/i, what: "noting in default" },
+  { pattern: /\bdefault judgment\b/i, what: "default judgment" },
+  { pattern: /\bsettlement conference\b/i, what: "a settlement conference" },
+  { pattern: /\btrial date\b/i, what: "a trial date" },
+  { pattern: /\baffidavit of service\b/i, what: "an affidavit of service" },
+  { pattern: /\bserve (?:the|your) (?:claim|defence|documents)\b/i, what: "serving a court document" },
+  { pattern: /\bfile (?:it |the |your )?(?:claim |defence )?with the court\b/i, what: "filing with the court" },
+  { pattern: /\bplaintiff's claim\b/i, what: "the Plaintiff's Claim" },
+  { pattern: /\bdefendant's claim\b/i, what: "the Defendant's Claim" },
+  { pattern: /\bmotion\b/i, what: "a motion" },
+];
+
+/**
+ * Does this block instruct on Small Claims procedure where it may only route?
+ *
+ * Exported so the drafting loop can feed it back, not only the promotion gate. A
+ * gate that can only refuse wastes four attempts and leaves the stage unwritten;
+ * a drafter told "this stage is forum-check only" can write the right block.
+ */
+export function forumCheckOnlyProblems(text: string, stage: CaseStage): string[] {
+  if (!stage.forumCheckOnly) return [];
+
+  const problems: string[] = [];
+
+  for (const { pattern, what } of SMALL_CLAIMS_PROCEDURE) {
+    const match = pattern.exec(text);
+    if (!match) continue;
+    problems.push(
+      `names ${what} ("${match[0]}"), and ${stage.id} may carry FORUM-CHECK content ` +
+        `only — which court or tribunal handles this kind of matter. This is a stage a ` +
+        `misclassified matter lands on, so procedure sends the reader further in the ` +
+        `wrong direction. Say which forum, say the monetary line, and stop`,
+    );
+  }
+
+  return problems;
+}
+
 /**
  * A deadline that bars the claim must appear with EVERY exception the stage map
  * records for it.
@@ -565,6 +636,10 @@ export function gateFailures(answer: StageAnswer, stage: CaseStage | undefined):
         .filter((quote) => quote.length > 0),
     ),
   );
+
+  // ---- forum-check stages route; they do not instruct ---------------------
+
+  failures.push(...forumCheckOnlyProblems(answerText(answer), stage));
 
   // ---- a claim-barring deadline carries EVERY exception the stage records -
 
