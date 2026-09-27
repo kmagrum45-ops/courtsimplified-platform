@@ -1,0 +1,22 @@
+{
+  "rule": "Rule 16",
+  "engine": "ServiceEngine",
+  "status": "Complete",
+  "controls": [
+    "originating process service",
+    "personal service",
+    "alternative service",
+    "lawyer service",
+    "email timing",
+    "proof of service",
+    "validating service"
+  ],
+  "keyRisks": [
+    "wrong method",
+    "wrong recipient",
+    "actual notice fallacy",
+    "premature substituted service",
+    "missing proof of service"
+  ],
+  "architectureImpact": "Triggers response deadlines and default risk."
+}

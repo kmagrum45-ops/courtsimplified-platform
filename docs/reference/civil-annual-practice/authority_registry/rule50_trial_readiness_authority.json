@@ -1,0 +1,163 @@
+{
+  "rule": "Rule 50",
+  "title": "Conferences / Pre-Trial Conferences / Case Conferences",
+  "status": "Complete from uploaded materials",
+  "primaryEngine": "TrialReadinessIntelligenceSystem",
+  "coreDoctrine": "Rule 50 is not mere scheduling. It is a trial-readiness, settlement, issue-narrowing, expert-readiness, and court-management system.",
+  "authoritySectionsCaptured": [
+    "RCP50:1 Synopsis, Comment and Advocacy Notes",
+    "50.01 Purpose",
+    "50.02 Pre-Trial Conferences for Actions",
+    "50.03 Pre-Trial Conferences for Applications",
+    "50.03.1 Certificate of Readiness",
+    "50.04 Materials to be Filed",
+    "50.05 Attendance",
+    "50.06 Matters to be Considered",
+    "50.07 Powers",
+    "50.07 Case Law",
+    "50.08 Pre-Trial Conference Report",
+    "50.09 No Disclosure",
+    "50.09 Case Law",
+    "50.10 Pre-Trial Judge Not to Preside",
+    "50.10 Case Law",
+    "50.11 Documents to be Made Available",
+    "50.12 Costs of Pre-Trial Conference",
+    "50.13 Case Conferences",
+    "50.13 Case Law"
+  ],
+  "engines": [
+    "TrialReadinessEngine",
+    "PreTrialSchedulingEngine",
+    "CertificateOfReadinessEngine",
+    "ExpertReadinessEngine",
+    "PreTrialBriefEngine",
+    "SettlementAuthorityEngine",
+    "IssueNarrowingEngine",
+    "AdmissionOpportunityEngine",
+    "WitnessPlanningEngine",
+    "TrialTimetableEngine",
+    "PreTrialReportEngine",
+    "PreTrialConfidentialityEngine",
+    "PreTrialJudgeConflictEngine",
+    "CaseConferenceEngine",
+    "UnproductiveConferenceCostsEngine"
+  ],
+  "forms": [
+    {
+      "form": "Form 50A",
+      "purpose": "Certificate of Readiness"
+    },
+    {
+      "form": "Pre-Trial Conference Brief",
+      "purpose": "Concise pre-trial brief with required Rule 50.04 contents"
+    },
+    {
+      "form": "Pre-Trial Conference Report",
+      "purpose": "Report under Rule 50.08 with steps, timing, trial length, readiness certification"
+    }
+  ],
+  "deadlineObjects": [
+    {
+      "name": "PreTrialSchedulingWindow",
+      "rule": "50.02",
+      "deadline": "For actions set down after March 30, 2022, pre-trial conference generally scheduled not more than 120 days and not less than 30 days before the later of trial date or first sitting date, unless order/practice direction provides otherwise."
+    },
+    {
+      "name": "CertificateOfReadinessDeadline",
+      "rule": "50.03.1",
+      "deadline": "At least 30 days before pre-trial conference."
+    },
+    {
+      "name": "PreTrialBriefDeadline",
+      "rule": "50.04",
+      "deadline": "At least 5 days before pre-trial conference, with proof of service."
+    }
+  ],
+  "coreObjects": [
+    "PreTrialConferenceRecord",
+    "CertificateOfReadinessRecord",
+    "ExpertReadinessRecord",
+    "PreTrialBriefRecord",
+    "SettlementAuthorityRecord",
+    "IssueNarrowingRecord",
+    "AdmissionOpportunityRecord",
+    "TrialTimetableRecord",
+    "PreTrialConferenceReportRecord",
+    "CaseConferenceRecord",
+    "TrialReadinessAssessment"
+  ],
+  "decisionTrees": [
+    {
+      "name": "PreTrialReadiness",
+      "logic": [
+        "Confirm action/application and whether pre-trial conference is mandatory or court-directed.",
+        "Confirm scheduling window.",
+        "Confirm Form 50A delivered at least 30 days before pre-trial.",
+        "Confirm expert reports served or reasons for non-service captured.",
+        "Confirm pre-trial brief filed with proof of service at least 5 days before pre-trial.",
+        "Confirm attendance and settlement authority.",
+        "Confirm trial documents available.",
+        "After conference, generate trial readiness tasks and certification obligations."
+      ]
+    },
+    {
+      "name": "PreTrialConfidentiality",
+      "logic": [
+        "Do not communicate pre-trial statements to hearing judge/officer except as disclosed in Rule 50.07 order or Rule 50.08 report.",
+        "Flag risk if user tries to include pre-trial settlement statements in trial materials."
+      ]
+    },
+    {
+      "name": "PreTrialJudgeConflict",
+      "logic": [
+        "If judge conducted pre-trial conference, do not assign same judge to trial/hearing unless all parties consent in writing.",
+        "Conference before trial judge during hearing does not automatically disqualify under Rule 50.10(2)."
+      ]
+    }
+  ],
+  "riskObjects": [
+    "MissedCertificateOfReadinessRisk",
+    "LatePreTrialBriefRisk",
+    "ExpertReportReadinessRisk",
+    "NoSettlementAuthorityRisk",
+    "UnpreparedLawyerOrPartyRisk",
+    "TrialNotReadyRisk",
+    "PreTrialConfidentialityBreachRisk",
+    "ImproperPreTrialJudgeRisk",
+    "UnproductiveConferenceCostsRisk",
+    "TimetableNonComplianceRisk"
+  ],
+  "crossRuleDependencies": [
+    {
+      "rule": "Rule49",
+      "relationship": "Settlement offers and settlement authority feed pre-trial settlement discussions."
+    },
+    {
+      "rule": "Rule53",
+      "relationship": "Expert report service is directly checked in Form 50A / Rule 50.03.1."
+    },
+    {
+      "rule": "Rule57",
+      "relationship": "Unproductive pre-trial conduct can trigger costs."
+    },
+    {
+      "rule": "Rule20",
+      "relationship": "Pre-trial powers may include orders under Rule 20.05 after unsuccessful summary judgment motion."
+    },
+    {
+      "rule": "Rule6.1.01",
+      "relationship": "Separate hearings/bifurcation intention must be addressed; order may require consent."
+    },
+    {
+      "rule": "Rule77",
+      "relationship": "Case conference can connect to Rule 77 case management proceedings."
+    }
+  ],
+  "codingImplementationNotes": [
+    "Rule 50 must feed TrialReadinessEngine and not be coded as simple calendar scheduling.",
+    "Pre-trial readiness must check experts, witnesses, admissions, issues, trial length, documents, settlement authority, and unfinished steps.",
+    "Confidential pre-trial communications must be protected from trial materials unless captured in formal order/report.",
+    "Pre-trial report must update MasterCaseSchema with trial readiness obligations and fixed-date readiness certification.",
+    "Rule 50 is a bridge between settlement strategy, trial preparation, expert evidence, costs risk, and judicial case management."
+  ]
+}

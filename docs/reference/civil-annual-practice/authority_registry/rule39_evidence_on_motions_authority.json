@@ -1,0 +1,275 @@
+{
+  "rule": "Rule 39",
+  "title": "Evidence on Motions and Applications",
+  "status": "Phase 1 Complete based on uploaded materials: 39:1, 39.01, 39.02, 39.03, 39.04 and case law. Requires TOC verification that no 39.05+ exists.",
+  "primaryEngine": "MotionEvidenceIntelligenceSystem",
+  "coreDoctrine": "Rule 37 tells the system how a motion is brought. Rule 39 tells the system how facts are proven on motions and applications.",
+  "authoritySectionsCaptured": [
+    "RCP39:1 Synopsis and Comment",
+    "39.01 Evidence by Affidavit",
+    "39.01:1 Case Law Generally",
+    "39.01:2 Information and Belief",
+    "39.01:3 Full and Fair Disclosure",
+    "39.01:4 Counsel on Motion",
+    "39.01:5 Privilege Generally",
+    "39.02 Evidence by Cross-Examination on Affidavit",
+    "39.02:1 Case Law Generally",
+    "39.02:2 Subsequent Affidavit",
+    "39.02:3 Costs",
+    "39.03 Evidence by Examination of a Witness",
+    "39.03:1 Case Law Generally",
+    "39.03:2 Before the Hearing",
+    "39.03:3 At the Hearing",
+    "39.03:4 Summons to Witness",
+    "39.04 Evidence by Examination for Discovery",
+    "39.04:1 Case Law"
+  ],
+  "engines": [
+    "AffidavitComplianceEngine",
+    "InformationAndBeliefEngine",
+    "EvidenceWeightEngine",
+    "ExParteFairnessEngine",
+    "CounselEvidenceRiskEngine",
+    "AffidavitAdmissibilityEngine",
+    "CrossExaminationOnAffidavitEngine",
+    "MotionCredibilityEngine",
+    "SubsequentAffidavitEngine",
+    "MotionWitnessEngine",
+    "SummonsToWitnessEngine",
+    "DiscoveryToMotionBridge",
+    "MotionEvidenceDeadlineEngine",
+    "PrivilegeWaiverRiskEngine"
+  ],
+  "coreObjects": [
+    {
+      "name": "MotionEvidenceRecord",
+      "fields": [
+        "motionId",
+        "evidenceType",
+        "affidavitId",
+        "deponent",
+        "filedBy",
+        "serviceDate",
+        "filingDate",
+        "hearingDate",
+        "deadlineCompliant",
+        "proofOfService",
+        "admissibilityStatus",
+        "weightScore",
+        "credibilityRisk",
+        "linkedRelief",
+        "linkedGround"
+      ]
+    },
+    {
+      "name": "AffidavitEvidenceRecord",
+      "fields": [
+        "affiant",
+        "languageUnderstood",
+        "translationRequired",
+        "juratCompliant",
+        "personalKnowledgeStatements",
+        "informationAndBeliefStatements",
+        "sourceIdentified",
+        "beliefStated",
+        "contentiousFactFlag",
+        "exhibits",
+        "expertOpinionFlag",
+        "lawyerEvidenceFlag",
+        "privilegeRisk",
+        "weightScore"
+      ]
+    },
+    {
+      "name": "ExParteDisclosureAssessment",
+      "fields": [
+        "withoutNotice",
+        "materialFactsDisclosed",
+        "opposingPositionDisclosed",
+        "contraryEvidenceDisclosed",
+        "settlementHistoryRelevant",
+        "omissionRisk",
+        "setAsideRisk",
+        "candourScore"
+      ]
+    },
+    {
+      "name": "CrossExaminationOnAffidavitRecord",
+      "fields": [
+        "affidavitId",
+        "deponent",
+        "crossExaminingParty",
+        "allAffidavitsServedBeforeCross",
+        "rule3903ExaminationsCompleted",
+        "scope",
+        "reliefSought",
+        "transcriptOrdered",
+        "transcriptServed",
+        "refusals",
+        "undertakings",
+        "admissions",
+        "contradictions",
+        "subsequentAffidavitRequested"
+      ]
+    },
+    {
+      "name": "SubsequentAffidavitAssessment",
+      "fields": [
+        "requestedAfterCross",
+        "respondsToCrossExamination",
+        "relevance",
+        "importance",
+        "prejudice",
+        "curableByTerms",
+        "explanationForDelay",
+        "leaveLikely"
+      ]
+    },
+    {
+      "name": "MotionWitnessExaminationRecord",
+      "fields": [
+        "witness",
+        "pendingMotion",
+        "issue",
+        "relevance",
+        "necessity",
+        "summonsIssued",
+        "summonsChallengeRisk",
+        "transcriptAvailable",
+        "crossExaminationCompleted",
+        "reExaminationCompleted"
+      ]
+    },
+    {
+      "name": "DiscoveryMotionEvidenceRecord",
+      "fields": [
+        "discoverySource",
+        "adverseParty",
+        "ownDiscoveryAttempted",
+        "consentRequired",
+        "rule3111Applied",
+        "admissibility",
+        "weight",
+        "linkedMotionIssue"
+      ]
+    }
+  ],
+  "deadlines": [
+    {
+      "name": "MovingPartyAffidavitDeadline",
+      "rule": "39.01(2)",
+      "deadline": "At least 7 days before hearing, served with notice and filed with proof of service."
+    },
+    {
+      "name": "RespondingReplyAffidavitDeadline",
+      "rule": "39.01(3)",
+      "deadline": "At least 4 days before hearing, served and filed with proof of service."
+    }
+  ],
+  "decisionTrees": [
+    {
+      "name": "MotionEvidenceReadiness",
+      "logic": [
+        "Default evidence form is affidavit unless statute/rule says otherwise.",
+        "Check moving affidavit 7-day deadline.",
+        "Check responding/reply affidavit 4-day deadline.",
+        "Classify evidence type: personal knowledge, information and belief, expert, lawyer evidence, discovery evidence, witness transcript.",
+        "Run admissibility and weight review.",
+        "Link evidence to Rule 37 relief and grounds."
+      ]
+    },
+    {
+      "name": "InformationAndBeliefValidity",
+      "logic": [
+        "If statement is information and belief, require source identification and belief statement.",
+        "If source is vague, flag defect.",
+        "If contentious fact on application, flag risk.",
+        "If lawyer evidence routed through staff affidavit on contentious fact, flag counsel evidence risk."
+      ]
+    },
+    {
+      "name": "WithoutNoticeDisclosure",
+      "logic": [
+        "If motion/application is without notice, require full and fair disclosure of all material facts.",
+        "Check contrary evidence, opponent position, and key documents.",
+        "If material omission exists, set aside risk is high."
+      ]
+    },
+    {
+      "name": "CrossExaminationSequencing",
+      "logic": [
+        "Before cross-examination, confirm party served every affidavit intended to be relied on.",
+        "Confirm Rule 39.03 examinations completed if any.",
+        "After cross-examination, block later affidavits or Rule 39.03 exams unless leave/consent.",
+        "If new matter raised, assess leave for subsequent affidavit."
+      ]
+    },
+    {
+      "name": "DiscoveryEvidenceOnMotion",
+      "logic": [
+        "Adverse party discovery may be used on motion subject to admissibility and Rule 31.11 modifications.",
+        "Own discovery cannot be used without consent.",
+        "Link discovery admission to motion issue, relief, and proof requirement."
+      ]
+    }
+  ],
+  "riskObjects": [
+    "LateAffidavitRisk",
+    "MissingProofOfServiceRisk",
+    "InformationBeliefDefectRisk",
+    "UnsupportedHearsayRisk",
+    "LawyerAffidavitRisk",
+    "CounselAsWitnessRisk",
+    "TranslationJuratDefectRisk",
+    "ExpertEvidenceComplianceRisk",
+    "ExParteNonDisclosureRisk",
+    "SetAsideForNonDisclosureRisk",
+    "PrivilegeWaiverRisk",
+    "ImproperSupplementaryAffidavitRisk",
+    "CrossExaminationDelayRisk",
+    "ImproperSummonsRisk",
+    "OwnDiscoveryUseRisk",
+    "DiscoveryEvidenceMisuseRisk",
+    "LowWeightEvidenceRisk"
+  ],
+  "crossRuleDependencies": [
+    {
+      "rule": "Rule37",
+      "relationship": "Rule 37 controls motion procedure; Rule 39 controls motion evidence."
+    },
+    {
+      "rule": "Rule31",
+      "relationship": "Rule 39.04 imports adverse discovery evidence into motions."
+    },
+    {
+      "rule": "Rule30",
+      "relationship": "Documents and privilege feed affidavit exhibits and motion evidence."
+    },
+    {
+      "rule": "Rule20",
+      "relationship": "Summary judgment uses motion evidence but has special evidence logic."
+    },
+    {
+      "rule": "Rule53",
+      "relationship": "Expert opinion evidence requirements interact with Rule 39.01 expert evidence."
+    }
+  ],
+  "uiImplications": [
+    "Ask what evidence supports each requested order.",
+    "Separate evidence from argument.",
+    "Flag information-and-belief statements and require named sources.",
+    "Warn where lawyer/law clerk affidavit is used for contentious facts.",
+    "Show 7-day and 4-day affidavit deadlines.",
+    "Require full-and-fair disclosure checklist for without-notice motions.",
+    "Track cross-examination sequencing and late affidavit risks.",
+    "Allow discovery admissions to be used as motion evidence only through Rule 39.04 logic."
+  ],
+  "codingImplementationNotes": [
+    "Do not code Rule 39 as document upload only.",
+    "Rule 39 must sit between MotionEngine and EvidenceEngine.",
+    "MotionEvidenceRecord attaches to MotionRecord and MasterCaseSchema evidence/proof objects.",
+    "ExParteDisclosureAssessment must be mandatory for without-notice workflows.",
+    "DiscoveryToMotionBridge must reuse Rule31 DiscoveryAdmissionRecord and Rule30 EvidenceDocument objects.",
+    "EvidenceWeightEngine should support High/Medium/Low confidence and explain why."
+  ]
+}

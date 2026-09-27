@@ -1,0 +1,14 @@
+{
+  "rule": "Rule 14",
+  "engine": "CommencementEngine",
+  "status": "Extracted earlier / registry preserved",
+  "controls": [
+    "action routing",
+    "application routing",
+    "issuance",
+    "court file logic",
+    "service deadline logic",
+    "commencement risks"
+  ],
+  "architectureImpact": "Starts the litigation workflow and triggers downstream service, pleadings, and deadlines."
+}

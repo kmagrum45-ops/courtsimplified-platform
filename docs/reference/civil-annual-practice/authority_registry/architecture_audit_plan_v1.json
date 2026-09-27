@@ -1,0 +1,23 @@
+{
+  "auditName": "CourtSimplified Architecture Audit Plan",
+  "status": "Phase 1 started",
+  "purpose": "Prevent architecture drift before coding.",
+  "auditChecks": [
+    "Confirm every rule has an authority file.",
+    "Confirm every deadline has one canonical DeadlineObject.",
+    "Confirm every form has one canonical FormObject.",
+    "Confirm every workflow enters and exits through MasterCaseSchema.",
+    "Confirm no duplicate engines exist.",
+    "Confirm no duplicate source of truth exists.",
+    "Confirm rules that depend on each other are linked.",
+    "Confirm UI warnings are authority-backed.",
+    "Confirm coding notes prevent shallow checklist implementation."
+  ],
+  "highestRiskAreas": [
+    "Costs: Rule49 + Rule57 + Rule58 must be consolidated together.",
+    "Trial readiness: Rule50 + Rule53 + Rule31 + Rule30 must be linked.",
+    "Motions: Rule37 + Rule39 must be linked.",
+    "Default: Rule16 + Rule18 + Rule19 must be linked.",
+    "Pleadings: Rule25 + Rule26 + Rule20 must be linked."
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "version": "v17_live_code_integration_audit",
+  "purpose": "Record findings from the actual live code inspection and define the safe Annual Practice integration path.",
+  "filesReviewed": [
+    {
+      "file": "masterCaseSchema.ts",
+      "finding": "Strong case-centric schema with claims, timeline, evidence, legalKnowledge, risks, judicialConcerns, opposingArguments, proofAnalysis, authorityAnalysis, contradictionAnalysis, credibilityAnalysis, workflow, readiness, memorySnapshots, auditTrail.",
+      "gap": "No dedicated top-level procedural authority, motion, settlement, costs, assessment, or trial-readiness storage."
+    },
+    {
+      "file": "courtSimplifiedBrain.ts",
+      "finding": "Strong central reasoning layer. Handles intake normalization, GPT cognition, claim classification, proof analysis, contradiction checks, limitation risk, risks, judge concerns, opposing arguments, legal knowledge, master patch, and dashboard patch.",
+      "gap": "Procedural authority is still generic and warning-based, not Annual-Practice-object based."
+    },
+    {
+      "file": "brainMigrationLayer.ts",
+      "finding": "Correctly enforces MasterCaseSchema and CaseSystemAssembly as the only persisted litigation intelligence outputs.",
+      "gap": "None major. Preserve."
+    },
+    {
+      "file": "courtSimplifiedBrainBridge.ts",
+      "finding": "Correct bridge between intelligence, MasterCaseSchema, and CaseSystemAssembly.",
+      "gap": "Procedure input currently sends knownEvents and knownDeadlines but not structured authority-backed procedural objects."
+    },
+    {
+      "file": "caseSystemAssembly.ts",
+      "finding": "Strong assembly layer that builds timeline, evidence graph, procedural state, claim theory, damages/remedy, credibility, workflow, form readiness, proof readiness, authority readiness, contradiction readiness, credibility intelligence.",
+      "gap": "ProceduralState is authority-light. Annual Practice belongs in the procedure path, not as separate engines."
+    },
+    {
+      "file": "masterCaseBridge.ts",
+      "finding": "Heart of persistent MasterCaseSchema. Builds authority analysis, contradiction analysis, credibility analysis, workflow, readiness, memory snapshots.",
+      "gap": "Procedural authority analysis is not yet mapped into persistent schema."
+    },
+    {
+      "file": "proceduralStateArchitecture.ts",
+      "finding": "Correct base model already exists: events, deadlines, dependencies, risks, nextActions, readiness.",
+      "gap": "Types are too generic for Rule 14-58 procedural authority. Missing authorityId/sourceRule/subrule/form/judgePower/stage-specific procedural requirements."
+    },
+    {
+      "file": "proceduralStateEngine.ts",
+      "finding": "Functional v1 engine. Builds events, deadlines, dependencies, risks, next actions, readiness from knownEvents/knownDeadlines and narrative signals.",
+      "gap": "Does not generate Annual Practice authority-backed events, deadlines, dependencies, risks, or readiness gates."
+    },
+    {
+      "file": "workflowOrchestrationEngine.ts",
+      "finding": "Strong decision layer. Converts gates, blockers, next actions, route assessments, readiness into workflow route decisions.",
+      "gap": "Receives proceduralWarnings only, not structured procedural readiness."
+    },
+    {
+      "file": "workflowOrchestrationArchitecture.ts",
+      "finding": "Workflow contract already supports procedure gate/blocker/action concepts.",
+      "gap": "Needs structured procedure input later, likely WorkflowProcedureInput, but not before procedural engine upgrade."
+    }
+  ],
+  "canonicalOwnership": {
+    "MasterCaseSchema": "Persistent legal truth",
+    "CourtSimplifiedBrain": "Reasoning/cognition layer",
+    "BrainBridge": "Translation layer",
+    "CaseSystemAssembly": "Assembled operating-system model",
+    "ProceduralStateEngine": "Procedural truth from rules, events, deadlines, dependencies, risks",
+    "WorkflowOrchestrationEngine": "Strategic routing, blockers, gates, next actions, readiness interpretation",
+    "AuthorityEngines": "Verification, weight, citation safety, jurisdiction fit",
+    "UI": "Display only; no independent legal truth"
+  },
+  "firstUpgradeTarget": {
+    "target": "ProceduralStateEngine v2",
+    "why": "All Annual Practice procedural authority belongs here first.",
+    "mustPreserve": [
+      "Existing ProceduralStateModel structure",
+      "Existing event/deadline/dependency/risk/nextAction/readiness pattern",
+      "Existing workflow integration",
+      "Existing warnings flow"
+    ],
+    "mustAdd": [
+      "Authority-backed procedural rule objects",
+      "Rule/subrule/source traceability",
+      "Authority-derived deadlines",
+      "Authority-derived dependencies",
+      "Authority-derived risks",
+      "Forms and document requirements",
+      "Judge powers / court powers",
+      "Stage-specific procedural readiness",
+      "Cross-rule dependencies"
+    ],
+    "mustNotDo": [
+      "Do not create a new procedural brain",
+      "Do not create separate Rule16Engine/Rule37Engine as independent source of truth",
+      "Do not bypass MasterCaseSchema",
+      "Do not make UI compute legal deadlines"
+    ]
+  },
+  "workflowUpgradeLater": {
+    "target": "WorkflowOrchestration v2",
+    "when": "Only after ProceduralStateEngine v2 produces structured procedural readiness.",
+    "likelyContractAdditions": [
+      "WorkflowProcedureInput",
+      "serviceReadiness",
+      "deadlineReadiness",
+      "filingReadiness",
+      "motionReadiness",
+      "discoveryReadiness",
+      "settlementReadiness",
+      "preTrialReadiness",
+      "costsReadiness",
+      "assessmentReadiness"
+    ],
+    "ownershipRule": "Workflow interprets procedural state; it must not recalculate procedural truth independently."
+  },
+  "authorityCoverageToFeedProceduralState": {
+    "commencementAndService": [
+      "Rule14",
+      "Rule16",
+      "Rule18",
+      "Rule19"
+    ],
+    "pleadingsAndAmendments": [
+      "Rule25",
+      "Rule26"
+    ],
+    "discovery": [
+      "Rule30",
+      "Rule31"
+    ],
+    "motions": [
+      "Rule37",
+      "Rule39"
+    ],
+    "settlementCosts": [
+      "Rule49",
+      "Rule57",
+      "Rule58"
+    ],
+    "trialReadiness": [
+      "Rule50"
+    ]
+  },
+  "codingGate": {
+    "safeToCodeNow": false,
+    "reason": "Need current full files and one complete replacement strategy. First code replacement should likely be proceduralStateArchitecture.ts, then proceduralStateEngine.ts, then courtSimplifiedBrainBridge.ts/CaseSystemAssembly only if needed.",
+    "requiredBeforeReplacement": [
+      "Confirm current file paths",
+      "Confirm imports compile",
+      "Confirm no other files depend on exact union values that would break",
+      "Provide full replacement file only",
+      "Run TypeScript diagnostics after paste"
+    ]
+  }
+}

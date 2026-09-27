@@ -1,0 +1,126 @@
+{
+  "auditVersion": "v15_architecture_audit_phase_1",
+  "purpose": "Identify how extracted Ontario Annual Practice authorities connect, where duplication risks exist, and what must be preserved before coding.",
+  "nonNegotiableFindings": [
+    "All rules must flow through MasterCaseSchema.",
+    "No engine may become a second source of truth.",
+    "No rule may be coded as a shallow checklist if it affects strategy, evidence, risk, costs, or readiness.",
+    "Every recommendation must be traceable to authority, facts, risk, and confidence."
+  ],
+  "canonicalEngineFamilies": {
+    "CommencementAndService": {
+      "rules": [
+        "Rule14",
+        "Rule16",
+        "Rule18",
+        "Rule19"
+      ],
+      "canonicalEngine": "ProceduralStartAndResponseEngine",
+      "mustNotDuplicate": [
+        "separate service deadline engines",
+        "separate default risk engines"
+      ],
+      "integrationPoint": "MasterCaseSchema.procedure"
+    },
+    "PleadingsAndIssues": {
+      "rules": [
+        "Rule25",
+        "Rule26"
+      ],
+      "canonicalEngine": "PleadingIssueAndAmendmentEngine",
+      "mustNotDuplicate": [
+        "separate issue map outside pleading record",
+        "second pleading version history"
+      ],
+      "integrationPoint": "MasterCaseSchema.pleadings"
+    },
+    "EvidenceAndDiscovery": {
+      "rules": [
+        "Rule30",
+        "Rule31"
+      ],
+      "canonicalEngine": "EvidenceDiscoveryIntelligenceEngine",
+      "mustNotDuplicate": [
+        "separate evidence upload brain",
+        "separate discovery admission database"
+      ],
+      "integrationPoint": "MasterCaseSchema.evidence"
+    },
+    "MotionsAndMotionEvidence": {
+      "rules": [
+        "Rule37",
+        "Rule39"
+      ],
+      "canonicalEngine": "MotionReliefAndEvidenceEngine",
+      "mustNotDuplicate": [
+        "motion checklist separate from evidence proof map",
+        "second affidavit evidence store"
+      ],
+      "integrationPoint": "MasterCaseSchema.motions"
+    },
+    "SettlementCostsRisk": {
+      "rules": [
+        "Rule49",
+        "Rule57",
+        "Rule58"
+      ],
+      "canonicalEngine": "LitigationRiskCostsSettlementEngine",
+      "mustNotDuplicate": [
+        "offer tracker separate from costs exposure",
+        "costs engine separate from conduct engine"
+      ],
+      "integrationPoint": "MasterCaseSchema.risk"
+    },
+    "TrialReadiness": {
+      "rules": [
+        "Rule50"
+      ],
+      "canonicalEngine": "TrialReadinessEngine",
+      "mustNotDuplicate": [
+        "calendar-only pretrial tracker",
+        "expert readiness outside evidence engine"
+      ],
+      "integrationPoint": "MasterCaseSchema.trialReadiness"
+    }
+  },
+  "globalSharedObjectsRequired": [
+    "AuthorityObject",
+    "WorkflowObject",
+    "DeadlineObject",
+    "RiskObject",
+    "JudgeConcernObject",
+    "ProceduralEventObject",
+    "FormObject",
+    "EvidenceObject",
+    "SettlementOfferRecord",
+    "CostsAssessment",
+    "TrialReadinessAssessment"
+  ],
+  "highestDuplicationRisks": [
+    {
+      "risk": "Deadline duplication",
+      "why": "Service, defence, motion, affidavit, pre-trial, assessment, and offer deadlines all create timers.",
+      "solution": "One DeadlineEngine; rule-specific deadlines are DeadlineObjects only."
+    },
+    {
+      "risk": "Evidence duplication",
+      "why": "Rule30 documents, Rule31 discovery answers, Rule39 affidavit evidence, and Rule50 trial documents overlap.",
+      "solution": "One EvidenceDiscoveryIntelligenceEngine with evidence-use-context fields."
+    },
+    {
+      "risk": "Costs duplication",
+      "why": "Rule49, Rule57, and Rule58 all affect costs.",
+      "solution": "One LitigationRiskCostsSettlementEngine with submodules, not three independent engines."
+    },
+    {
+      "risk": "Readiness duplication",
+      "why": "Summary judgment readiness, motion readiness, discovery readiness, and trial readiness are related.",
+      "solution": "One Readiness framework with stage-specific readiness assessments."
+    }
+  ],
+  "codingReadinessConclusion": {
+    "readyForFeatureCoding": false,
+    "reason": "Need engine-by-engine implementation map and MasterCaseSchema field map first.",
+    "nextArtifact": "v16_master_schema_engine_map"
+  }
+}

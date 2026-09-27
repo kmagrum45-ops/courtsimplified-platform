@@ -1,0 +1,184 @@
+{
+  "version": "v16_schema_engine_map",
+  "purpose": "Convert extracted authority into a coding implementation map without creating duplicate engines.",
+  "sourceOfTruth": "MasterCaseSchema",
+  "nonNegotiableRule": "Every engine writes into or reads from MasterCaseSchema. No engine becomes an independent legal truth store.",
+  "canonicalEngineImplementationMap": [
+    {
+      "canonicalEngine": "ProceduralStartAndResponseEngine",
+      "rules": [
+        "Rule14",
+        "Rule16",
+        "Rule18",
+        "Rule19"
+      ],
+      "responsibility": "Commencement, service, response deadlines, default risk, default consequences.",
+      "writesToMasterCaseSchema": [
+        "procedure.commencement",
+        "procedure.service",
+        "procedure.responseDeadlines",
+        "procedure.defaultStatus",
+        "authorityTrace"
+      ],
+      "mustPreserve": [
+        "Existing commencement engine logic",
+        "Existing service engine logic",
+        "Any already-working defence/default deadline logic"
+      ],
+      "duplicationBan": [
+        "No separate ServiceDeadlineEngine outside procedure.responseDeadlines",
+        "No separate DefaultRiskStore outside procedure.defaultStatus"
+      ],
+      "codingOrder": 1
+    },
+    {
+      "canonicalEngine": "PleadingIssueAndAmendmentEngine",
+      "rules": [
+        "Rule25",
+        "Rule26"
+      ],
+      "responsibility": "Material facts, pleadings, admissions, denials, replies, particulars, amendments, and pleading version control.",
+      "writesToMasterCaseSchema": [
+        "pleadings.claims",
+        "pleadings.defences",
+        "pleadings.replies",
+        "pleadings.issues",
+        "pleadings.amendments",
+        "pleadings.versions",
+        "proof.legalElements",
+        "authorityTrace"
+      ],
+      "mustPreserve": [
+        "Existing pleading issue extraction",
+        "Existing amendment/version tracking if present"
+      ],
+      "duplicationBan": [
+        "No second issue map outside pleadings.issues",
+        "No independent amendment history separate from pleadings.versions"
+      ],
+      "codingOrder": 2
+    },
+    {
+      "canonicalEngine": "EvidenceDiscoveryIntelligenceEngine",
+      "rules": [
+        "Rule30",
+        "Rule31"
+      ],
+      "responsibility": "Document discovery, privilege, continuing disclosure, affidavits of documents, oral discovery, undertakings, refusals, admissions, corrections, and trial use.",
+      "writesToMasterCaseSchema": [
+        "evidence.documents",
+        "evidence.privilege",
+        "evidence.discovery",
+        "evidence.disclosure",
+        "evidence.undertakings",
+        "evidence.refusals",
+        "evidence.admissions",
+        "evidence.contradictions",
+        "proof.evidenceLinks",
+        "authorityTrace"
+      ],
+      "mustPreserve": [
+        "Existing evidence intelligence engine",
+        "Existing admission/contradiction detection",
+        "Existing document/evidence upload structure"
+      ],
+      "duplicationBan": [
+        "No separate evidence upload brain disconnected from Rule30/31 authority",
+        "No separate admissions database outside evidence.admissions"
+      ],
+      "codingOrder": 3
+    },
+    {
+      "canonicalEngine": "MotionReliefAndEvidenceEngine",
+      "rules": [
+        "Rule37",
+        "Rule39"
+      ],
+      "responsibility": "Motion creation, relief mapping, grounds, jurisdiction, materials, confirmations, abandonment, affidavit evidence, cross-examinations, witness examinations, and discovery evidence on motions.",
+      "writesToMasterCaseSchema": [
+        "motions.records",
+        "motions.relief",
+        "motions.grounds",
+        "motions.evidence",
+        "motions.deadlines",
+        "motions.orders",
+        "evidence.motionUse",
+        "authorityTrace"
+      ],
+      "mustPreserve": [
+        "Existing motion workflow if present",
+        "Existing affidavit/document support structure"
+      ],
+      "duplicationBan": [
+        "No motion checklist separate from motions.records",
+        "No affidavit evidence store separate from evidence.motionUse"
+      ],
+      "codingOrder": 4
+    },
+    {
+      "canonicalEngine": "LitigationRiskCostsSettlementEngine",
+      "rules": [
+        "Rule49",
+        "Rule57",
+        "Rule58"
+      ],
+      "responsibility": "Offers, settlement lifecycle, cost consequences, conduct, entitlement to costs, assessment of costs, objections, appeals, registrar fixing, set-off and sheriff costs.",
+      "writesToMasterCaseSchema": [
+        "risk.settlementOffers",
+        "risk.costsExposure",
+        "risk.conductAssessment",
+        "risk.rule49Exposure",
+        "risk.rule57CostsFactors",
+        "risk.rule58Assessment",
+        "strategy.settlementRecommendations",
+        "authorityTrace"
+      ],
+      "mustPreserve": [
+        "Existing strategy/risk scoring if present",
+        "Any settlement/cost tracking currently implemented"
+      ],
+      "duplicationBan": [
+        "No isolated offer tracker without cost exposure",
+        "No separate costs engine disconnected from conduct and settlement"
+      ],
+      "codingOrder": 5
+    },
+    {
+      "canonicalEngine": "TrialReadinessEngine",
+      "rules": [
+        "Rule50"
+      ],
+      "responsibility": "Pre-trial conferences, certificate of readiness, expert readiness, witness planning, issue narrowing, settlement authority, documents for trial, pre-trial report, case conferences.",
+      "writesToMasterCaseSchema": [
+        "trialReadiness.preTrialConference",
+        "trialReadiness.certificateOfReadiness",
+        "trialReadiness.expertReadiness",
+        "trialReadiness.witnessPlan",
+        "trialReadiness.issueNarrowing",
+        "trialReadiness.trialDocuments",
+        "trialReadiness.preTrialReport",
+        "authorityTrace"
+      ],
+      "mustPreserve": [
+        "Existing trial preparation structures if present",
+        "Existing expert/witness/evidence structures"
+      ],
+      "duplicationBan": [
+        "No calendar-only pre-trial tracker",
+        "No expert readiness outside evidence/proof/trialReadiness linkage"
+      ],
+      "codingOrder": 6
+    }
+  ],
+  "implementationGate": {
+    "beforeCoding": [
+      "Inspect actual current MasterCaseSchema file.",
+      "Inspect current CourtSimplifiedBrain.",
+      "Inspect current BrainMigrationLayer.",
+      "Inspect current CaseSystemAssembly.",
+      "Inspect existing evidence, strategy, forms, workflow and dashboard engines.",
+      "Confirm existing field names before proposing any replacement.",
+      "Only then create full replacement files, never patches."
+    ]
+  }
+}

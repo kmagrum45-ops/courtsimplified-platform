@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-60 documented, 30 without a header.
+61 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -57,6 +57,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:readability` | **Is the content readable by the people it is for?**<br>Content produced by the verified-content pipeline is HELD to Grade 8. That is the standard the pipeline drafts against, so failing it is a real defect in something we control end to end. |
 | `npm run test:readiness-gate` | **Verifies the Statement of Claim readiness gate, offline.**<br>COSTS NOTHING. The gate is a pure function over data the pipeline already holds, so every condition in design section 8 is checkable without an API call. That is a property of the gate, not a limitation of this harness. |
 | `npm run test:recorded-amount` | **A recorded amount is formatted when it is a plain number, and returned**<br>untouched when it is not. |
+| `npm run test:reference-not-shipped` | **Nothing under `app/` or `src/` reads the non-shipping reference folders, and no**<br>commercial publication is a corpus source. |
 | `npm run test:reset-intake` | **resetIntake clears everything an intake left behind, and nothing it should**<br>not. |
 | `npm run test:rules-corpus` | **The vendored corpus is complete, current, and actually on disk.**<br>COSTS NOTHING. Reads the vendored files. No network — `rules:check` is the one that goes out, and it is a monthly job rather than a test. |
 | `npm run test:safety-coverage` | **Every court path that accepts a free-text narrative runs the safety pass**<br>before extraction. |

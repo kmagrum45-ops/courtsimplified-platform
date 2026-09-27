@@ -87,6 +87,7 @@ import { CLAIM_TYPE_SOURCES } from "./claimTypeSources";
 import { COURT_SERVICE_NOTICE_SOURCES } from "./courtServiceNoticeSources";
 import { CLEO_SOURCES } from "./cleoSources";
 import { FORUM_CHECK_SOURCES } from "./forumCheckSources";
+import { CIVIL_PROCEDURE_SOURCES } from "./civilProcedureSources";
 
 const LEGISLATION_SOURCES: CorpusSource[] = [
   {
@@ -184,6 +185,7 @@ export const CORPUS_SOURCES: CorpusSource[] = [
   ...COURT_SERVICE_NOTICE_SOURCES,
   ...CLEO_SOURCES,
   ...FORUM_CHECK_SOURCES,
+  ...CIVIL_PROCEDURE_SOURCES,
 ];
 
 export function sourceTier(source: CorpusSource): CorpusTier {

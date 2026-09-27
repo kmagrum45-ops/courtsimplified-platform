@@ -1,0 +1,104 @@
+{
+  "registryVersion": "v17_live_code_integration_audit",
+  "project": "CourtSimplified",
+  "purpose": "Master coding reference for Ontario Annual Practice authority integration.",
+  "codingRule": "Do not code from memory. Before coding any engine, read master_authority_index.json, then the relevant rule authority file, then inspect the current full source file. All authority must route through MasterCaseSchema. No duplicate engines, no parallel workflows.",
+  "currentSourceOfTruthFlow": [
+    "Intake",
+    "CourtSimplifiedBrain",
+    "BrainMigrationLayer",
+    "MasterCaseSchema",
+    "CaseSystemAssembly",
+    "Supabase master_result",
+    "UI"
+  ],
+  "confirmedRules": {
+    "Rule14": "Commencement Engine",
+    "Rule16": "Service Engine",
+    "Rule18": "Defence Deadline / Default Risk Engine",
+    "Rule19": "Default Proceedings Engine",
+    "Rule20": "Summary Judgment Intelligence System",
+    "Rule25": "Pleading Intelligence Engine",
+    "Rule26": "Amendment / Litigation Evolution Engine",
+    "Rule30": "Documentary Discovery / Evidence Governance Framework",
+    "Rule31": "Examination for Discovery / Human Evidence Intelligence",
+    "Rule37": "Motion Intelligence / Litigation Control Layer",
+    "Rule39": "Evidence on Motions and Applications / Motion Evidence Intelligence System",
+    "Rule49": "Settlement / Offers to Settle / Costs Consequences / Settlement Intelligence System"
+  },
+  "nextPriorityRules": [
+    "Rule50",
+    "Rule51",
+    "Rule53",
+    "Rule76"
+  ],
+  "registryCompletenessWarning": "Earlier ZIPs had drift. This v8 package consolidates all rules confirmed in chat into one complete master registry.",
+  "lastUpdated": "2026-06-16",
+  "currentCompletedAuthorityPackages": [
+    "Rule14 Commencement",
+    "Rule16 Service",
+    "Rule18 Defence Deadlines",
+    "Rule19 Default Proceedings",
+    "Rule20 Summary Judgment",
+    "Rule25 Pleadings",
+    "Rule26 Amendments",
+    "Rule30 Documentary Discovery",
+    "Rule31 Examination for Discovery",
+    "Rule37 Motions",
+    "Rule39 Evidence on Motions and Applications",
+    "Rule49 Settlement / Offers to Settle"
+  ],
+  "authorityQualityStandard": {
+    "standard": "elite / coding-ready / credibility-first",
+    "credibilityRule": "Every recommendation must be traceable to rule, authority principle, facts, and confidence level."
+  },
+  "rule49Status": "Locked as complete from uploaded materials, subject only to later correction if a missing 49.14 page is found.",
+  "rule49Engines": [
+    "Settlement Enforcement Engine",
+    "Settlement Certainty Analyzer",
+    "Litigation Risk Engine",
+    "Offer Comparison Engine",
+    "Trial Exposure Engine",
+    "Multi-Defendant Settlement Engine",
+    "Contribution Engine",
+    "Judicial Discretion Engine",
+    "Settlement Fairness Analyzer"
+  ],
+  "rule57Status": "Locked as complete",
+  "rule58Status": "Locked as complete",
+  "costsArchitectureStatus": "Rule57 + Rule58 integrated",
+  "phase": "Live Code Integration Audit",
+  "accuracyStandard": {
+    "rule": "No recommendation may be treated as reliable unless tied to an authority object, workflow object, deadline object, risk object, and confidence level.",
+    "noGuessing": true,
+    "mustPreserve": [
+      "MasterCaseSchema as single source of truth",
+      "No duplicate engines",
+      "No parallel workflows",
+      "No coding before architecture audit",
+      "Authority traceability for every output"
+    ]
+  },
+  "confirmedCompletedAuthorityPackages": [
+    "Rule14 Commencement",
+    "Rule16 Service",
+    "Rule18 Defence",
+    "Rule19 Default Proceedings",
+    "Rule20 Summary Judgment",
+    "Rule25 Pleadings",
+    "Rule26 Amendments",
+    "Rule30 Documentary Discovery",
+    "Rule31 Examination for Discovery",
+    "Rule37 Motions",
+    "Rule39 Evidence on Motions and Applications",
+    "Rule49 Settlement / Offers to Settle",
+    "Rule50 Conferences / Pre-Trial",
+    "Rule57 Costs",
+    "Rule58 Assessment of Costs"
+  ],
+  "nextPhase": "Architecture audit before feature coding",
+  "auditStatus": "Started and structured",
+  "nextRequiredStep": "Inspect actual current authority/procedure files needed for the first safe full-file replacement, then upgrade proceduralStateArchitecture.ts and proceduralStateEngine.ts only after confirming current full files.",
+  "codingStatus": "No replacement code yet. Live-code audit findings recorded first.",
+  "currentArchitectureFinding": "Existing architecture is strong. Annual Practice should not create a new brain or parallel workflow. It should upgrade the existing ProceduralStateEngine and feed WorkflowOrchestration through structured procedural readiness."
+}

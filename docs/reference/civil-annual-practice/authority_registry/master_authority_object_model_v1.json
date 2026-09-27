@@ -1,0 +1,92 @@
+{
+  "name": "CourtSimplified Master Authority Object Model",
+  "purpose": "Normalize every Annual Practice extraction into coding-ready, traceable authority objects.",
+  "objects": {
+    "AuthorityObject": {
+      "fields": [
+        "authorityId",
+        "rule",
+        "subrule",
+        "title",
+        "source",
+        "purpose",
+        "appliesWhen",
+        "doesNotApplyWhen",
+        "forms",
+        "deadlines",
+        "judgePowers",
+        "risks",
+        "caseLawPrinciples",
+        "crossReferences",
+        "confidence",
+        "codingNotes"
+      ]
+    },
+    "WorkflowObject": {
+      "fields": [
+        "workflowId",
+        "name",
+        "trigger",
+        "preconditions",
+        "requiredSteps",
+        "optionalSteps",
+        "decisionPoints",
+        "exitConditions",
+        "nextWorkflow",
+        "relatedRules",
+        "authorityIds"
+      ]
+    },
+    "DeadlineObject": {
+      "fields": [
+        "deadlineId",
+        "rule",
+        "triggerEvent",
+        "timeAmount",
+        "timeUnit",
+        "countingRuleNeeded",
+        "serviceImpact",
+        "missedDeadlineRisk",
+        "extensionPossible",
+        "authorityIds"
+      ]
+    },
+    "RiskObject": {
+      "fields": [
+        "riskId",
+        "riskType",
+        "trigger",
+        "severity",
+        "ruleSource",
+        "judgeConcern",
+        "mitigation",
+        "userWarning",
+        "authorityIds"
+      ]
+    },
+    "JudgeConcernObject": {
+      "fields": [
+        "concernId",
+        "concern",
+        "triggerFacts",
+        "affectedStage",
+        "possibleCourtResponse",
+        "relatedRules",
+        "authorityIds"
+      ]
+    },
+    "ProceduralEventObject": {
+      "fields": [
+        "eventId",
+        "eventName",
+        "stage",
+        "triggeredBy",
+        "createsDeadlines",
+        "requiresDocuments",
+        "updatesMasterCaseSchema",
+        "nextEvents",
+        "authorityIds"
+      ]
+    }
+  }
+}

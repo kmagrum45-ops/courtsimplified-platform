@@ -1,0 +1,16 @@
+{
+  "rule": "Rule 26",
+  "engine": "AmendmentIntelligenceEngine",
+  "status": "Complete",
+  "controls": [
+    "leave to amend",
+    "consent amendments",
+    "party changes",
+    "service of amended pleadings",
+    "response deadline",
+    "trial amendments",
+    "version tracking"
+  ],
+  "coreDoctrine": "Litigation is not static. Pleadings and facts evolve and must be versioned.",
+  "architectureImpact": "Creates Litigation Evolution Engine, Amendment Routing Engine, Limitation Risk Engine, and Pleading Version Engine."
+}

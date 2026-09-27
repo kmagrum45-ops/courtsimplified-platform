@@ -1,0 +1,73 @@
+{
+  "version": "v16_master_case_schema_blueprint",
+  "purpose": "Blueprint only. Must be reconciled against actual current MasterCaseSchema before coding.",
+  "suggestedMasterCaseSchemaDomains": {
+    "procedure": {
+      "commencement": "Rule14",
+      "service": "Rule16",
+      "responseDeadlines": "Rule18",
+      "defaultStatus": "Rule19"
+    },
+    "pleadings": {
+      "claims": "Rule25",
+      "defences": "Rule25",
+      "replies": "Rule25",
+      "issues": "Rule25",
+      "amendments": "Rule26",
+      "versions": "Rule26"
+    },
+    "proof": {
+      "legalElements": "Rule25 + substantive law",
+      "evidenceLinks": "Rule30/31",
+      "missingProof": "CourtSimplified intelligence layer"
+    },
+    "evidence": {
+      "documents": "Rule30",
+      "privilege": "Rule30",
+      "disclosure": "Rule30",
+      "discovery": "Rule31",
+      "undertakings": "Rule31",
+      "refusals": "Rule31",
+      "admissions": "Rule31",
+      "contradictions": "CourtSimplified intelligence layer",
+      "motionUse": "Rule39"
+    },
+    "motions": {
+      "records": "Rule37",
+      "relief": "Rule37",
+      "grounds": "Rule37",
+      "evidence": "Rule39",
+      "deadlines": "Rule37/39",
+      "orders": "Rule37"
+    },
+    "risk": {
+      "settlementOffers": "Rule49",
+      "costsExposure": "Rule49/57",
+      "conductAssessment": "Rule57/58",
+      "rule49Exposure": "Rule49",
+      "rule57CostsFactors": "Rule57",
+      "rule58Assessment": "Rule58"
+    },
+    "strategy": {
+      "settlementRecommendations": "Rule49 + CourtSimplified intelligence",
+      "motionRecommendations": "Rule37/39 + evidence/proof",
+      "trialRisk": "Rule50 + evidence/proof/costs"
+    },
+    "trialReadiness": {
+      "preTrialConference": "Rule50",
+      "certificateOfReadiness": "Rule50.03.1",
+      "expertReadiness": "Rule50 + Rule53 later",
+      "witnessPlan": "Rule50",
+      "issueNarrowing": "Rule50",
+      "trialDocuments": "Rule50.11",
+      "preTrialReport": "Rule50.08"
+    },
+    "authorityTrace": {
+      "authorityIds": "all rules",
+      "sourceRule": "all rules",
+      "confidence": "all outputs",
+      "caseLawPrinciples": "where available"
+    }
+  },
+  "schemaWarning": "This is not a replacement file. It is a blueprint requiring reconciliation with current code."
+}

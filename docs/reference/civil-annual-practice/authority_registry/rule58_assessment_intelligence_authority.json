@@ -1,0 +1,46 @@
+{
+  "rule": "58",
+  "title": "Assessment of Costs",
+  "status": "Locked",
+  "primaryEngine": "AssessmentIntelligenceSystem",
+  "coreDoctrine": "Rule 57 decides entitlement to costs. Rule 58 governs assessment, review, objection, appeal, fixing and recovery of those costs.",
+  "engines": [
+    "CostsAssessmentEngine",
+    "BillOfCostsEngine",
+    "AssessmentVenueEngine",
+    "AssessmentSchedulingEngine",
+    "CostsDelayPreventionEngine",
+    "DisbursementRecoveryEngine",
+    "CostsSetOffEngine",
+    "AssessmentObjectionEngine",
+    "AssessmentAppealEngine",
+    "SheriffCostsEngine",
+    "RegistrarFixedCostsEngine"
+  ],
+  "forms": [
+    "58A Notice of Assessment",
+    "58C Certificate of Assessment"
+  ],
+  "deadlineObjects": [
+    "AssessmentNoticeDeadline (7 days before assessment)",
+    "ObjectionDeadline (7 days)",
+    "ReplyToObjectionDeadline (7 days)"
+  ],
+  "coreObjects": [
+    "BillOfCosts",
+    "AssessmentAppointment",
+    "AssessmentVenue",
+    "AssessmentCertificate",
+    "AssessmentObjection",
+    "AssessmentAppeal",
+    "AssessableCostItem",
+    "SheriffCostAssessment"
+  ],
+  "crossRuleDependencies": [
+    "Rule57 Costs",
+    "Rule49 Settlement",
+    "Rule37 Motions",
+    "Rule62 Appeals",
+    "Rule74 Passing of Accounts"
+  ]
+}

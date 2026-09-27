@@ -1,0 +1,18 @@
+{
+  "rule": "Rule 18",
+  "engine": "DefenceDeadlineEngine",
+  "status": "Complete",
+  "controls": [
+    "statement of defence deadline",
+    "20/40/60 day location logic",
+    "notice of intent to defend",
+    "10 day extension",
+    "late defence before default"
+  ],
+  "keyObjects": [
+    "DefenceDeadlineRecord",
+    "NoticeOfIntentRecord",
+    "DefaultRiskRecord"
+  ],
+  "architectureImpact": "Bridge between service under Rule 16 and default proceedings under Rule 19."
+}

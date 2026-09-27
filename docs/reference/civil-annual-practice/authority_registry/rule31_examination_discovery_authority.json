@@ -1,0 +1,21 @@
+{
+  "rule": "Rule 31",
+  "engine": "DiscoveryIntelligenceEngine",
+  "status": "Complete",
+  "controls": [
+    "oral/written discovery",
+    "who may examine",
+    "timing",
+    "scope",
+    "witnesses",
+    "experts",
+    "surveillance",
+    "privilege",
+    "undertakings",
+    "corrections",
+    "non-party discovery",
+    "trial use"
+  ],
+  "coreDoctrine": "Discovery is for admissions, proof gaps, surprise prevention, and trial strategy\u2014not asking every possible question.",
+  "architectureImpact": "Creates Admissions Engine, Contradiction Engine, Undertaking Engine, Refusal Engine, Trial Read-In Engine, and Discovery Strategy Engine."
+}

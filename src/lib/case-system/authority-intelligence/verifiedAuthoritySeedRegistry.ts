@@ -95,8 +95,7 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
       overrules: [],
       overruledBy: [],
       related: ["authority_defamation_wic_radio_v_simpson_2008_scc_40"],
-    },
-    annualPracticeLinks: [],
+    },
     aiUseRules: {
       canShowToUser: true,
       canUseForReasoning: false,
@@ -213,8 +212,7 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
       overrules: [],
       overruledBy: [],
       related: [],
-    },
-    annualPracticeLinks: [],
+    },
     aiUseRules: {
       canShowToUser: true,
       canUseForReasoning: false,
@@ -329,15 +327,6 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
       overruledBy: [],
       related: [],
     },
-    annualPracticeLinks: [
-      {
-        rule: "Rule 20",
-        sectionLabel: "Summary Judgment",
-        commentarySummary:
-          "Annual Practice commentary should be added from verified user-provided extraction.",
-        notes: ["Pending Annual Practice extraction."],
-      },
-    ],
     aiUseRules: {
       canShowToUser: true,
       canUseForReasoning: false,
@@ -450,8 +439,7 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
       overrules: [],
       overruledBy: [],
       related: [],
-    },
-    annualPracticeLinks: [],
+    },
     aiUseRules: {
       canShowToUser: true,
       canUseForReasoning: false,
@@ -562,8 +550,7 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
       overrules: [],
       overruledBy: [],
       related: [],
-    },
-    annualPracticeLinks: [],
+    },
     aiUseRules: {
       canShowToUser: true,
       canUseForReasoning: false,
@@ -676,8 +663,7 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
       overrules: [],
       overruledBy: [],
       related: [],
-    },
-    annualPracticeLinks: [],
+    },
     aiUseRules: {
       canShowToUser: true,
       canUseForReasoning: false,
@@ -762,8 +748,7 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
     relatedAuthorities: {
       follows: [], followedBy: [], distinguishes: [], distinguishedBy: [], limits: [],
       limitedBy: [], overrules: [], overruledBy: [], related: [],
-    },
-    annualPracticeLinks: [],
+    },
     aiUseRules: {
       canShowToUser: true,
       canUseForReasoning: true,
@@ -866,8 +851,7 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
     relatedAuthorities: {
       follows: [], followedBy: [], distinguishes: [], distinguishedBy: [], limits: [],
       limitedBy: [], overrules: [], overruledBy: [], related: [],
-    },
-    annualPracticeLinks: [],
+    },
     aiUseRules: {
       canShowToUser: true,
       canUseForReasoning: true,
@@ -951,8 +935,7 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
     relatedAuthorities: {
       follows: [], followedBy: [], distinguishes: [], distinguishedBy: [], limits: [],
       limitedBy: [], overrules: [], overruledBy: [], related: [],
-    },
-    annualPracticeLinks: [],
+    },
     aiUseRules: {
       canShowToUser: true,
       canUseForReasoning: true,
@@ -1037,8 +1020,7 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
     relatedAuthorities: {
       follows: [], followedBy: [], distinguishes: [], distinguishedBy: [], limits: [],
       limitedBy: [], overrules: [], overruledBy: [], related: [],
-    },
-    annualPracticeLinks: [],
+    },
     aiUseRules: {
       canShowToUser: true,
       canUseForReasoning: true,
@@ -1124,8 +1106,7 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
     relatedAuthorities: {
       follows: [], followedBy: [], distinguishes: [], distinguishedBy: [], limits: [],
       limitedBy: [], overrules: [], overruledBy: [], related: [],
-    },
-    annualPracticeLinks: [],
+    },
     aiUseRules: {
       canShowToUser: true,
       canUseForReasoning: true,
@@ -1211,8 +1192,7 @@ export const VERIFIED_AUTHORITY_SEED_ENTRIES: VerifiedAuthorityEntry[] = [
     relatedAuthorities: {
       follows: [], followedBy: [], distinguishes: [], distinguishedBy: [], limits: [],
       limitedBy: [], overrules: [], overruledBy: [], related: [],
-    },
-    annualPracticeLinks: [],
+    },
     aiUseRules: {
       canShowToUser: true,
       canUseForReasoning: true,

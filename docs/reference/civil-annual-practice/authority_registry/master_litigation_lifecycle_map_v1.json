@@ -1,0 +1,124 @@
+{
+  "name": "Master Litigation Lifecycle Map",
+  "sourceOfTruth": "MasterCaseSchema",
+  "ruleSequence": [
+    {
+      "stage": "Commencement",
+      "rules": [
+        "Rule14"
+      ],
+      "purpose": "Start proceeding correctly, choose action/application route, issue originating process.",
+      "outputs": [
+        "CourtFile",
+        "OriginatingProcess",
+        "ServiceDeadline"
+      ]
+    },
+    {
+      "stage": "Service",
+      "rules": [
+        "Rule16"
+      ],
+      "purpose": "Determine valid method, recipient, timing, proof, and service risk.",
+      "outputs": [
+        "ServiceRecord",
+        "ProofOfService",
+        "ResponseDeadlineTrigger"
+      ]
+    },
+    {
+      "stage": "Response / Defence",
+      "rules": [
+        "Rule18",
+        "Rule19"
+      ],
+      "purpose": "Track defence deadlines, notice of intent, default risk, default consequences, and set-aside pathways.",
+      "outputs": [
+        "DefenceDeadlineRecord",
+        "DefaultRiskRecord",
+        "DefaultStatus"
+      ]
+    },
+    {
+      "stage": "Pleadings",
+      "rules": [
+        "Rule25",
+        "Rule26"
+      ],
+      "purpose": "Define issues, material facts, admissions, denials, replies, particulars, amendments, and pleading version history.",
+      "outputs": [
+        "PleadingIssueMap",
+        "AdmissionMap",
+        "PleadingVersionRecord"
+      ]
+    },
+    {
+      "stage": "Discovery",
+      "rules": [
+        "Rule30",
+        "Rule31"
+      ],
+      "purpose": "Govern documentary evidence, privilege, disclosure, affidavits of documents, oral discovery, undertakings, refusals, admissions, contradictions, and trial use.",
+      "outputs": [
+        "EvidenceGovernanceRecord",
+        "DiscoveryAdmissionRecord",
+        "UndertakingRecord",
+        "RefusalRecord"
+      ]
+    },
+    {
+      "stage": "Motions",
+      "rules": [
+        "Rule37",
+        "Rule39"
+      ],
+      "purpose": "Request relief, route motion jurisdiction, manage materials, confirmations, abandonment, affidavit evidence, cross-examination, and discovery evidence on motions.",
+      "outputs": [
+        "MotionRecord",
+        "MotionEvidenceRecord",
+        "ReliefMap",
+        "MotionReadinessScore"
+      ]
+    },
+    {
+      "stage": "Settlement / Risk",
+      "rules": [
+        "Rule49",
+        "Rule57",
+        "Rule58"
+      ],
+      "purpose": "Track offers, cost consequences, litigation conduct, entitlement to costs, assessment of costs, objections, appeals, and cost exposure.",
+      "outputs": [
+        "SettlementOfferRecord",
+        "CostsExposure",
+        "CostsAssessment",
+        "AssessmentCertificate"
+      ]
+    },
+    {
+      "stage": "Pre-Trial Readiness",
+      "rules": [
+        "Rule50"
+      ],
+      "purpose": "Narrow issues, settlement review, expert readiness, admissions, witness planning, trial timetable, pre-trial report, confidentiality, and trial-readiness certification.",
+      "outputs": [
+        "CertificateOfReadiness",
+        "PreTrialBrief",
+        "PreTrialConferenceReport",
+        "TrialReadinessScore"
+      ]
+    }
+  ],
+  "globalEngines": [
+    "WorkflowEngine",
+    "DeadlineEngine",
+    "EvidenceIntelligenceEngine",
+    "ProofMappingEngine",
+    "JudgeConcernEngine",
+    "StrategyEngine",
+    "SettlementIntelligenceEngine",
+    "CostsIntelligenceEngine",
+    "TrialReadinessEngine",
+    "ConductIntelligenceEngine"
+  ]
+}

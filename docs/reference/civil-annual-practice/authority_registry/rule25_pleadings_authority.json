@@ -1,0 +1,16 @@
+{
+  "rule": "Rule 25",
+  "engine": "PleadingIntelligenceEngine",
+  "status": "Complete",
+  "controls": [
+    "pleading chain",
+    "material facts",
+    "admissions",
+    "denials",
+    "replies",
+    "particulars",
+    "strike risk"
+  ],
+  "coreDoctrine": "Pleadings define the litigation battlefield.",
+  "architectureImpact": "Foundation for proof mapping, admissions, contradiction detection, and issue extraction."
+}

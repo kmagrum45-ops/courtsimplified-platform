@@ -1,0 +1,60 @@
+{
+  "name": "MasterCaseSchema Preliminary Authority Integration Map",
+  "status": "Draft map for next audit phase",
+  "topLevelSuggestedDomains": {
+    "procedure": [
+      "commencement",
+      "service",
+      "defenceDeadline",
+      "defaultStatus"
+    ],
+    "pleadings": [
+      "claims",
+      "defences",
+      "replies",
+      "issues",
+      "amendments",
+      "versions"
+    ],
+    "evidence": [
+      "documents",
+      "privilege",
+      "disclosure",
+      "discoveryAnswers",
+      "undertakings",
+      "admissions",
+      "contradictions"
+    ],
+    "motions": [
+      "motionRecords",
+      "reliefRequested",
+      "grounds",
+      "motionEvidence",
+      "confirmations",
+      "orders"
+    ],
+    "risk": [
+      "settlementOffers",
+      "costsExposure",
+      "conductAssessment",
+      "rule49Exposure",
+      "rule57Factors",
+      "rule58Assessment"
+    ],
+    "trialReadiness": [
+      "preTrialConference",
+      "certificateOfReadiness",
+      "expertReadiness",
+      "witnessPlan",
+      "issueNarrowing",
+      "trialDocuments"
+    ],
+    "authorityTrace": [
+      "authorityIds",
+      "confidence",
+      "sourceRule",
+      "caseLawPrinciples"
+    ]
+  },
+  "criticalRule": "No UI module should invent its own independent legal state. UI reads from MasterCaseSchema only."
+}

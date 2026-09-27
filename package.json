@@ -118,7 +118,8 @@
     "test:service-notices": "node --import tsx scripts/verification/verifyServiceNotices.ts",
     "rules:check:notices": "node --import tsx scripts/rules/checkCorpus.ts --only ontario-file-small-claims-online,ontario-file-civil-claim-online,scj-news",
     "typecheck": "tsc --noEmit -p tsconfig.verify.json",
-    "test:typecheck-live": "node --import tsx scripts/verification/verifyTypecheckIsLive.ts"
+    "test:typecheck-live": "node --import tsx scripts/verification/verifyTypecheckIsLive.ts",
+    "test:reference-not-shipped": "node --import tsx scripts/verification/verifyReferenceFolderIsNotShipped.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",

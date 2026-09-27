@@ -1,0 +1,164 @@
+{
+  "version": "v17_procedural_state_v2_upgrade_plan",
+  "targetFiles": [
+    "proceduralStateArchitecture.ts",
+    "proceduralStateEngine.ts"
+  ],
+  "purpose": "Upgrade the existing procedural engine so Rule 14-58 Annual Practice authority becomes structured procedural intelligence.",
+  "newOrExpandedConcepts": {
+    "ProceduralAuthorityReference": [
+      "authorityId",
+      "rule",
+      "subrule",
+      "title",
+      "source",
+      "authorityLevel",
+      "verificationStatus",
+      "confidence"
+    ],
+    "ProceduralRequirement": [
+      "id",
+      "requirementType",
+      "title",
+      "appliesWhen",
+      "notApplicableWhen",
+      "requiredAction",
+      "requiredFormLabels",
+      "deadlineIds",
+      "riskIds",
+      "authorityIds"
+    ],
+    "ProceduralCourtPower": [
+      "id",
+      "rule",
+      "powerType",
+      "title",
+      "description",
+      "trigger",
+      "possibleOrders",
+      "authorityIds"
+    ],
+    "ProceduralReadinessByArea": [
+      "commencement",
+      "service",
+      "response",
+      "pleadings",
+      "discovery",
+      "motions",
+      "motionEvidence",
+      "settlement",
+      "preTrial",
+      "costs",
+      "assessment"
+    ]
+  },
+  "authorityRuleMapping": [
+    {
+      "rules": [
+        "Rule14"
+      ],
+      "proceduralAreas": [
+        "commencement",
+        "forms",
+        "serviceTrigger"
+      ]
+    },
+    {
+      "rules": [
+        "Rule16"
+      ],
+      "proceduralAreas": [
+        "service",
+        "serviceValidity",
+        "serviceRisk",
+        "proofOfService"
+      ]
+    },
+    {
+      "rules": [
+        "Rule18",
+        "Rule19"
+      ],
+      "proceduralAreas": [
+        "response",
+        "defenceDeadline",
+        "defaultRisk",
+        "defaultJudgment"
+      ]
+    },
+    {
+      "rules": [
+        "Rule25",
+        "Rule26"
+      ],
+      "proceduralAreas": [
+        "pleadings",
+        "amendments",
+        "versionControl"
+      ]
+    },
+    {
+      "rules": [
+        "Rule30",
+        "Rule31"
+      ],
+      "proceduralAreas": [
+        "discovery",
+        "disclosure",
+        "undertakings",
+        "refusals",
+        "admissions"
+      ]
+    },
+    {
+      "rules": [
+        "Rule37",
+        "Rule39"
+      ],
+      "proceduralAreas": [
+        "motions",
+        "motionEvidence",
+        "affidavits",
+        "confirmation",
+        "abandonment"
+      ]
+    },
+    {
+      "rules": [
+        "Rule49"
+      ],
+      "proceduralAreas": [
+        "settlement",
+        "offerStatus",
+        "costConsequenceEligibility"
+      ]
+    },
+    {
+      "rules": [
+        "Rule50"
+      ],
+      "proceduralAreas": [
+        "preTrial",
+        "trialReadiness",
+        "caseConference"
+      ]
+    },
+    {
+      "rules": [
+        "Rule57",
+        "Rule58"
+      ],
+      "proceduralAreas": [
+        "costs",
+        "assessment",
+        "conduct",
+        "costsEnforcement"
+      ]
+    }
+  ],
+  "firstCodeChangeRecommendation": {
+    "file": "proceduralStateArchitecture.ts",
+    "reason": "Contracts must be expanded before engine logic can safely produce authority-backed procedural state.",
+    "replacementPolicy": "Full file replacement only after confirming current full file."
+  }
+}

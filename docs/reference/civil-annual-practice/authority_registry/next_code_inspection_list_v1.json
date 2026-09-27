@@ -1,0 +1,18 @@
+{
+  "version": "v16_next_code_inspection_list",
+  "purpose": "Exact files needed before any safe coding begins.",
+  "requiredFilesToInspectBeforeCoding": [
+    "src/lib/case-system/contracts/masterCaseSchema.ts or actual MasterCaseSchema file",
+    "src/lib/case-system/contracts/masterCaseBridge.ts",
+    "CourtSimplifiedBrain file",
+    "BrainMigrationLayer file",
+    "CaseSystemAssembly file",
+    "existing Evidence Intelligence Engine file",
+    "existing Workflow Engine file",
+    "existing Strategy Engine file",
+    "existing Forms/Document generation engine file",
+    "dashboard or UI case result renderer consuming master_result"
+  ],
+  "reason": "The registry cannot be safely coded until actual current architecture is inspected and matched to the blueprint.",
+  "strictRule": "No replacement file until the current full file has been reviewed and confirmed."
+}

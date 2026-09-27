@@ -1,0 +1,339 @@
+{
+  "rule": "Rule 49",
+  "title": "Settlement / Offers to Settle",
+  "status": "Complete and locked from uploaded materials",
+  "primaryEngine": "SettlementIntelligenceSystem",
+  "coreDoctrine": "Rule 49 is not merely settlement procedure. It is a litigation pressure and risk-allocation system that turns offers into cost-consequence benchmarks.",
+  "authoritySectionsCaptured": [
+    "RCP49:1 Synopsis, Comment and Advocacy Notes",
+    "49.01.1 Definitions / Application",
+    "49.01 Plaintiff and Defendant Definitions",
+    "49.02 Where Available",
+    "49.02 Case Law",
+    "49.03 Time for Making Offer",
+    "49.03 Case Law",
+    "49.04 Withdrawal or Expiry of Offer",
+    "49.04 Case Law",
+    "49.05 Effect of Offer",
+    "49.06 Disclosure of Offer to Court",
+    "49.06 Case Law",
+    "49.07 Acceptance of Offer",
+    "49.07 Case Law Generally",
+    "49.07 Successive Offers",
+    "49.08 Party Under Disability",
+    "49.08 Case Law",
+    "49.09 Failure to Comply with Accepted Offer",
+    "49.09 Case Law Generally",
+    "49.09 Judgment Granted",
+    "49.09 Judgment Refused",
+    "49.10 Costs Consequences of Failure to Accept",
+    "49.10 Case Law Generally",
+    "49.10 Timing",
+    "49.10 Interest",
+    "49.10 Costs",
+    "49.10 Order Otherwise",
+    "49.10 Judgment More Favourable",
+    "49.10 Multiple Offers",
+    "49.10 Appeals",
+    "49.11 Multiple Defendants",
+    "49.11 Case Law",
+    "49.12 Offer to Contribute",
+    "49.12 Case Law",
+    "49.13 Discretion of Court",
+    "49.13 Case Law"
+  ],
+  "engines": [
+    "OfferCreationEngine",
+    "SettlementScopeEngine",
+    "OfferValidityEngine",
+    "SettlementTimingAnalyzer",
+    "OfferLifecycleEngine",
+    "OfferWithdrawalEngine",
+    "OfferExpiryEngine",
+    "JudicialFirewallEngine",
+    "OfferAcceptanceEngine",
+    "DisabilityApprovalEngine",
+    "SettlementEnforcementEngine",
+    "SettlementCertaintyAnalyzer",
+    "CostsConsequenceEngine",
+    "OfferComparisonEngine",
+    "LitigationRiskEngine",
+    "TrialExposureEngine",
+    "MultiDefendantSettlementEngine",
+    "ContributionOfferEngine",
+    "JudicialDiscretionEngine",
+    "SettlementFairnessAnalyzer"
+  ],
+  "forms": [
+    {
+      "form": "Form 49A",
+      "purpose": "Offer to settle"
+    },
+    {
+      "form": "Form 49B",
+      "purpose": "Notice of withdrawal of offer"
+    },
+    {
+      "form": "Form 49C",
+      "purpose": "Acceptance of offer"
+    },
+    {
+      "form": "Form 49D",
+      "purpose": "Offer to contribute between defendants"
+    }
+  ],
+  "coreObjects": [
+    {
+      "name": "SettlementOfferRecord",
+      "fields": [
+        "offerId",
+        "offeringParty",
+        "receivingParty",
+        "partyRole",
+        "dateServed",
+        "serviceMethod",
+        "claimsCovered",
+        "terms",
+        "costsTerms",
+        "expiryDate",
+        "withdrawn",
+        "withdrawalDate",
+        "accepted",
+        "acceptanceDate",
+        "courtDisposedClaim",
+        "rule49Eligible",
+        "costConsequenceEligible",
+        "currentStatus"
+      ]
+    },
+    {
+      "name": "OfferComparisonResult",
+      "fields": [
+        "offerAmount",
+        "offerTerms",
+        "judgmentAmount",
+        "formalJudgment",
+        "interestIncluded",
+        "costsExcludedFromComparison",
+        "moreFavourable",
+        "lessFavourable",
+        "equalOrBetter",
+        "nearMissRisk",
+        "rule49Exposure"
+      ]
+    },
+    {
+      "name": "SettlementEnforcementAssessment",
+      "fields": [
+        "acceptedOffer",
+        "settlementTermsClear",
+        "essentialTermsAgreed",
+        "partyFailedToComply",
+        "judgmentAvailable",
+        "continueProceedingAvailable",
+        "enforcementRisk",
+        "authorityOrCapacityIssue",
+        "mistakeOrFairnessIssue"
+      ]
+    },
+    {
+      "name": "MultiDefendantSettlementAssessment",
+      "fields": [
+        "multipleDefendants",
+        "jointLiability",
+        "jointAndSeveralLiability",
+        "contributionIndemnityPossible",
+        "offerMadeToAllDefendants",
+        "settlesAllClaimsAgainstAllDefendants",
+        "nonJoiningDefendantCosts",
+        "rule4910Applies",
+        "rule4913DiscretionAvailable"
+      ]
+    },
+    {
+      "name": "ContributionOfferRecord",
+      "fields": [
+        "offeringDefendant",
+        "receivingDefendant",
+        "contributionAmount",
+        "settlementTarget",
+        "accepted",
+        "withdrawn",
+        "costIndemnityExposure",
+        "courtMayConsider"
+      ]
+    },
+    {
+      "name": "JudicialDiscretionAssessment",
+      "fields": [
+        "technicalCompliance",
+        "writtenOffer",
+        "dateMade",
+        "terms",
+        "reasonableness",
+        "spiritOfRule49",
+        "partyConduct",
+        "trialResult",
+        "costsDiscretionImpact"
+      ]
+    }
+  ],
+  "deadlineObjects": [
+    {
+      "name": "Rule49CostConsequenceEligibilityDeadline",
+      "rule": "49.03 / 49.10",
+      "trigger": "Offer made before hearing",
+      "requirement": "Offer must be made at least 7 days before commencement of hearing for mandatory Rule 49.10 costs consequences."
+    },
+    {
+      "name": "OfferExpiryDeadline",
+      "rule": "49.04",
+      "trigger": "Offer specifies time for acceptance",
+      "effect": "Offer deemed withdrawn when acceptance period expires."
+    }
+  ],
+  "decisionTrees": [
+    {
+      "name": "Rule49Eligibility",
+      "logic": [
+        "Confirm proceeding type: action, application, motion, counterclaim, crossclaim, third party or subsequent party claim.",
+        "Confirm offer is in writing and identifies claims/terms.",
+        "Confirm offer is made by or to a proper party.",
+        "Confirm whether offer is still open, withdrawn, expired, accepted, or ended by court disposition.",
+        "For cost consequences, confirm offer was made at least 7 days before commencement of hearing.",
+        "Confirm offer did not expire or get withdrawn before hearing commenced."
+      ]
+    },
+    {
+      "name": "OfferLifecycle",
+      "logic": [
+        "Offer starts open when served.",
+        "Offer may be accepted before written withdrawal or court disposition.",
+        "Rejected offer may still remain open unless withdrawn or expired.",
+        "Counter-offer does not automatically prevent later acceptance unless original offer withdrawn/expired or new offer implicitly cancels old offer.",
+        "Offer with time limit expires when specified time expires.",
+        "Written withdrawal required."
+      ]
+    },
+    {
+      "name": "CostsConsequencePlaintiffOffer",
+      "logic": [
+        "If plaintiff made compliant offer at least 7 days before hearing, not withdrawn/expired, and defendant did not accept, compare judgment to offer.",
+        "If plaintiff judgment is as favourable or more favourable than offer, plaintiff presumptively gets partial indemnity costs to offer date and substantial indemnity costs after offer date unless court orders otherwise."
+      ]
+    },
+    {
+      "name": "CostsConsequenceDefendantOffer",
+      "logic": [
+        "If defendant made compliant offer at least 7 days before hearing, not withdrawn/expired, and plaintiff did not accept, compare judgment to offer.",
+        "If plaintiff judgment is as favourable or less favourable than defendant offer, plaintiff presumptively gets partial indemnity costs to offer date and defendant gets partial indemnity costs after offer date unless court orders otherwise."
+      ]
+    },
+    {
+      "name": "AcceptedOfferNonCompliance",
+      "logic": [
+        "If offer accepted and party fails to comply, non-breaching party chooses either motion for judgment in terms of accepted offer or continuing proceeding as if no accepted offer existed.",
+        "Assess whether settlement terms are certain and essential terms agreed.",
+        "Assess authority, capacity, undue influence, mistake, fairness, and rare interests-of-justice refusal factors."
+      ]
+    },
+    {
+      "name": "MultiDefendantRule49",
+      "logic": [
+        "If multiple defendants and joint/joint-and-several liability plus contribution/indemnity rights may exist, ordinary Rule 49.10 costs consequences require special compliance.",
+        "Plaintiff offer must generally be made to all defendants and settle claim against all defendants.",
+        "Defendant offer must satisfy multi-defendant requirements, including costs treatment for non-joining defendants.",
+        "If Rule 49.10 does not apply, Rule 49.13 discretion may still apply."
+      ]
+    },
+    {
+      "name": "JudicialDiscretionUnder4913",
+      "logic": [
+        "Even if Rule 49.03, 49.10, or 49.11 technical requirements are not met, court may consider any written offer, its date, and its terms when exercising costs discretion.",
+        "Assess spirit of Rule 49, reasonableness, timing, conduct, and practical fairness."
+      ]
+    }
+  ],
+  "riskObjects": [
+    "OfferNotInWritingRisk",
+    "OfferServiceDefectRisk",
+    "OfferTooLateFor4910Risk",
+    "OfferExpiredRisk",
+    "OfferWithdrawnRisk",
+    "AmbiguousOfferRisk",
+    "NoRealCompromiseRisk",
+    "CostsTermsAmbiguityRisk",
+    "SettlementDisclosureToCourtRisk",
+    "ImproperPleadingReferenceRisk",
+    "RejectedOfferStillOpenRisk",
+    "SuccessiveOfferConfusionRisk",
+    "DisabilityApprovalRisk",
+    "AcceptedOfferBreachRisk",
+    "SettlementCertaintyRisk",
+    "LawyerAuthorityChallengeRisk",
+    "CapacityOrUndueInfluenceRisk",
+    "NearMissCostsRisk",
+    "MultiDefendantNonComplianceRisk",
+    "ContributionIndemnityRisk",
+    "JudicialDiscretionOverrideRisk"
+  ],
+  "judgeConcernObjects": [
+    "SettlementCertaintyConcern",
+    "OfferClarityConcern",
+    "TimingConcern",
+    "RealCompromiseConcern",
+    "CostsFairnessConcern",
+    "PartyConductConcern",
+    "AuthorityConcern",
+    "CapacityConcern",
+    "MultiPartyFairnessConcern",
+    "JudicialDiscretionConcern",
+    "SpiritOfRule49Concern"
+  ],
+  "crossRuleDependencies": [
+    {
+      "rule": "Rule7.08",
+      "relationship": "Party under disability settlements require judicial approval."
+    },
+    {
+      "rule": "Rule37",
+      "relationship": "Failure to comply with accepted offer may require motion for judgment."
+    },
+    {
+      "rule": "Rule57",
+      "relationship": "Costs discretion and Rule 49 cost consequences interact directly."
+    },
+    {
+      "rule": "Rule50",
+      "relationship": "Offers to settle affect pre-trial settlement strategy."
+    },
+    {
+      "rule": "Rule20",
+      "relationship": "Settlement offers affect summary judgment and litigation risk strategy."
+    },
+    {
+      "rule": "Rule49.13",
+      "relationship": "Even technically non-compliant offers may affect costs discretion."
+    }
+  ],
+  "uiImplications": [
+    "Every offer must show open/withdrawn/expired/accepted status.",
+    "Warn users that rejected offers may still be accepted unless withdrawn or expired.",
+    "Warn users not to disclose offers to the court before liability and relief are determined.",
+    "Calculate whether offer was made at least 7 days before hearing.",
+    "Compare offer to expected judgment and later actual judgment.",
+    "Flag disability approval requirements.",
+    "In multiple defendant cases, ask about joint liability and contribution/indemnity.",
+    "Show costs exposure from plaintiff and defendant perspectives.",
+    "Track written offers even if technically non-compliant because Rule 49.13 may still matter."
+  ],
+  "codingImplementationNotes": [
+    "Rule 49 must not be coded as a simple offer tracker.",
+    "Rule 49 must feed StrategyEngine, ReadinessEngine, CostRiskEngine, TrialExposureEngine, and NegotiationEngine.",
+    "OfferComparisonResult must support plaintiff-offer and defendant-offer logic separately.",
+    "SettlementVisibilityStatus must prevent offers from leaking into liability analysis.",
+    "Multi-defendant logic must support joint, several, joint-and-several, contribution, indemnity, counterclaim, crossclaim, and third-party claim streams.",
+    "Judicial discretion must remain modeled; do not make Rule 49 purely mechanical.",
+    "All Rule 49 recommendations must show authority traceability and confidence."
+  ]
+}

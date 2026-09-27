@@ -1,0 +1,15 @@
+{
+  "rule": "Rule 19",
+  "engine": "DefaultProceedingsEngine",
+  "status": "Complete",
+  "controls": [
+    "noting default",
+    "consequences of default",
+    "deemed admissions",
+    "default judgment",
+    "set aside default",
+    "set aside default judgment"
+  ],
+  "coreDoctrine": "Default is not automatic success. Facts may be deemed admitted, but legal entitlement must still be proven.",
+  "architectureImpact": "Feeds entitlement analysis, proof mapping, admissions, and judgment route logic."
+}

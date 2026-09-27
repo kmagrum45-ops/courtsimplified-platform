@@ -1,0 +1,18 @@
+{
+  "rule": "Rule 30",
+  "engine": "EvidenceGovernanceFramework",
+  "status": "Complete",
+  "controls": [
+    "scope of documents",
+    "possession/control/power",
+    "affidavit of documents",
+    "inspection",
+    "privilege",
+    "continuing disclosure",
+    "sanctions",
+    "non-party production",
+    "deemed undertaking"
+  ],
+  "coreDoctrine": "Evidence must be governed across its full lifecycle, not merely uploaded.",
+  "architectureImpact": "Foundation for Evidence Intelligence, Privilege Engine, Missing Evidence Engine, Sanctions Engine, and Discovery Privacy Engine."
+}

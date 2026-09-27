@@ -1,0 +1,17 @@
+{
+  "rule": "Rule 20",
+  "engine": "SummaryJudgmentIntelligenceSystem",
+  "status": "Complete",
+  "controls": [
+    "eligibility",
+    "evidence sufficiency",
+    "genuine issue requiring trial",
+    "enhanced powers",
+    "mini-trial",
+    "partial judgment",
+    "costs",
+    "stay of execution"
+  ],
+  "coreDoctrine": "Trial is required only when necessary. The court may decide a case where a fair, just, proportionate determination can be made.",
+  "architectureImpact": "Creates Trial Necessity Engine, Proportionality Engine, Evidence Sufficiency Engine, and Genuine Issue Analysis."
+}

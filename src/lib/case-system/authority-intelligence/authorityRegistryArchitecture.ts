@@ -180,13 +180,28 @@ export type VerifiedAuthorityEntry = {
     related: string[];
   };
 
-  annualPracticeLinks: {
-    rule?: string;
-    sectionLabel?: string;
-    commentarySummary?: string;
-    pageOrPinpoint?: string;
-    notes: string[];
-  }[];
+  /*
+   * REMOVED 2026-09-26: `annualPracticeLinks`.
+   *
+   * It was write-only. Eleven of the twelve entries were `[]`, and the twelfth
+   * held a placeholder whose own text read "Annual Practice commentary should be
+   * added from verified user-provided extraction". Nothing anywhere read the
+   * field — the only reference outside the data was this declaration and one test
+   * fixture.
+   *
+   * It is removed rather than left empty because an empty field shaped for
+   * commentary is an invitation. The Ontario Annual Practice is a commercial
+   * Thomson Reuters publication and is not on CLAUDE.md §2's acceptable-source
+   * list, so filling it is a licensing decision for the site owner, not a coding
+   * task. The planning package that motivated it is preserved, non-shipping, at
+   * docs/reference/civil-annual-practice/, and scripts/rules/refusedCorpusPaths.ts
+   * records why it is never a corpus source.
+   *
+   * If a licensing route is ever agreed, add it back WITH the provenance it always
+   * lacked: which edition and which year. The book is republished annually and the
+   * old shape had nowhere to record which year a passage came from — noted in the
+   * 2026-09-11 findings as a gap before any of it was ever populated.
+   */
 
   aiUseRules: {
     canShowToUser: boolean;

@@ -1,0 +1,25 @@
+{
+  "rule": "Rule 37",
+  "engine": "MotionIntelligenceEngine",
+  "status": "Complete",
+  "controls": [
+    "notice of motion",
+    "jurisdiction",
+    "venue",
+    "hearing date",
+    "content of notice",
+    "service",
+    "filing",
+    "abandonment",
+    "motion materials",
+    "confirmation",
+    "written motions",
+    "disposition",
+    "set aside/vary orders",
+    "complex proceedings",
+    "motion abuse",
+    "pre-commencement motions"
+  ],
+  "coreDoctrine": "Motions are a litigation control layer, not just filing events.",
+  "architectureImpact": "Creates Motion Readiness Engine, Relief Mapping Engine, Jurisdiction Routing Engine, Urgency Engine, Motion Disposition Engine, Order Challenge Engine, and Abuse Detection Engine."
+}
