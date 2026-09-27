@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-63 documented, 30 without a header.
+65 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -72,6 +72,8 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:storage-keys` | **A browser-storage key may only be named in the registry.**<br>COSTS NOTHING. Pure source scanning. |
 | `npm run test:typecheck-live` | **The project's typecheck can actually fail.**<br>WHAT THIS CATCHES: a typecheck that reports success while checking nothing. |
 | `npm run test:verifier` | **Does the verifier actually reject wrong content?**<br>The whole value of a drafter/verifier split rests on the verifier being willing to say no. A verifier that agrees with plausible text is not a check, it is a second opinion from the same kind of mind, and it would turn every block green while changing nothing. |
+| `npm run test:workspace-catalogue` | **The document-type catalogue in code and the CHECK constraint in the migration say**<br>the same thing, and no type label characterises anything legally. |
+| `npm run test:workspace-dates` | **Dates parse correctly, precision is never invented, ambiguity is surfaced, and**<br>chronological order is independent of upload order. |
 
 ## Without a header comment
 
