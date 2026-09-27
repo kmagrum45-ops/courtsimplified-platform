@@ -46,6 +46,7 @@
     "test:fixture-guards": "node --import tsx scripts/verification/verifyFixtureHarnessGuards.ts",
     "test:fixtures": "node --import tsx scripts/verification/runFixtures.ts",
     "test:fixtures:generated": "node --import tsx scripts/verification/runGeneratedFixtures.ts",
+    "test:case-reviews": "node --import tsx scripts/verification/runCaseReviews.ts",
     "test:forms-case-isolation": "node --import tsx scripts/verification/verifyFormsSelectedCaseIsolation.ts",
     "test:generate-form-authorization": "node --import tsx scripts/verification/verifyGenerateFormSelectedCaseAuthorization.ts",
     "test:harness-coverage": "node --import tsx scripts/verification/verifyHarnessCoverage.ts",
