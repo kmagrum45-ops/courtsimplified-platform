@@ -54,6 +54,7 @@ import { createOpenAIClient } from "../../src/lib/case-system/openaiClient";
 import type { CaseStage } from "../../src/lib/case-system/stage-map/stageMap";
 import { SOURCE_NAMES } from "../../src/lib/case-system/stage-map/citations";
 import type { SentenceVerdict } from "../../src/lib/content-library/stageAnswers";
+import type { GenericTopic } from "../../src/lib/content-library/genericAnswers";
 import { readability, TARGET_GRADE } from "../../src/lib/content-library/readability";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
@@ -885,6 +886,138 @@ ${sourceMaterial(stage)}${retry}`;
       whatsHappening: parsed.whatsHappening ?? "NOT_SUPPORTED",
       whatToDoNext: parsed.whatToDoNext ?? "NOT_SUPPORTED",
       yourDeadline: parsed.yourDeadline ?? null,
+      whatHappensAfter: parsed.whatHappensAfter ?? "NOT_SUPPORTED",
+    },
+    usage: result.usage,
+  };
+}
+
+/**
+ * Source material for a stage-INDEPENDENT topic.
+ *
+ * Deliberately narrower than `sourceMaterial`: the authored rule quotes and nothing
+ * else. No stage premise, because there is no stage, and no practical guide pages.
+ *
+ * *** WHY NO GUIDE PAGES HERE ***
+ *
+ * `sourceMaterial` includes whole court-guide pages so the drafter can reach
+ * practical detail — fees, filing, what to bring. For a topic shown on every screen
+ * regardless of case position, that breadth is a liability: a guide page describes
+ * what to do at a particular point in a case, and a sentence lifted from it would
+ * carry that point's assumptions into a block with no stage to qualify them.
+ *
+ * So a generic block may rest only on provisions that are true throughout, quoted to
+ * a pinpoint. That is a narrower thing to be able to say and the right trade.
+ */
+export function genericSourceMaterial(topic: GenericTopic): string {
+  const seen = new Set<string>();
+  const lines: string[] = [];
+
+  for (const citation of topic.rules) {
+    const key = `${citation.sourceId} ${citation.pinpoint}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    lines.push(
+      `[${citation.pinpoint} — ${SOURCE_NAMES[citation.sourceId as keyof typeof SOURCE_NAMES]}]\n${citation.quote}`,
+    );
+  }
+
+  /*
+   * The named guide pages, whole, framed exactly as `sourceMaterial` frames them —
+   * same words, so the drafter is under the same instruction about them.
+   */
+  for (const sourceId of topic.practicalSourceIds) {
+    const text = corpus().get(sourceId);
+    if (!text) continue;
+    lines.push(
+      `[${SOURCE_NAMES[sourceId as keyof typeof SOURCE_NAMES] ?? sourceId} — official court guide. ` +
+        `Use for practical detail: fees, filing, timing, what to bring. It is not legislation, ` +
+        `so do not state a rule from it.]\n${stripPageFurniture(text).slice(0, PRACTICAL_BUDGET)}`,
+    );
+  }
+
+  return lines.join("\n\n");
+}
+
+/**
+ * The drafter, for a topic that belongs to no stage.
+ *
+ * Uses the SAME `DRAFTER_SYSTEM` as `draft`, so every rule about outcome language,
+ * filler, glossing service and reading level applies identically. Only the user
+ * message differs, and it differs in two ways that matter:
+ *
+ *   - there is no stage, so no premise and no "where their case stands"
+ *   - rule 5a of the system prompt says "THE STAGE SAYS WHICH" side the reader is
+ *     on. There is no stage and therefore no side, so the addendum below replaces
+ *     that instruction rather than leaving the drafter to guess. `partyNeutralProblems`
+ *     in blockGates.ts is the gate that catches it if this fails.
+ *
+ * `yourDeadline` is forced to null: a generic block has no authored StageDeadline[]
+ * for `renderDeadlineSection` to work from, and the gate refuses a hand-written one.
+ */
+export async function draftGeneric(
+  model: string,
+  topic: GenericTopic,
+  feedback: string[],
+): Promise<{ sections: DraftSections; usage: Usage }> {
+  const retry =
+    feedback.length === 0
+      ? ""
+      : `\n\nA previous draft was rejected. Each line below is a sentence that could not be supported, and why. Do not repeat these claims. If a section cannot be written from the sources without them, write NOT_SUPPORTED for that section.\n${feedback.map((line) => `- ${line}`).join("\n")}`;
+
+  const user = `TOPIC: ${topic.title}
+THE READER'S QUESTION: ${topic.userQuestion}
+CONTEXT: ${topic.context}
+
+THIS BLOCK IS NOT TIED TO A STAGE, AND THAT CHANGES TWO THINGS.
+
+First, it is shown to every reader whatever position their case is in, and to BOTH
+sides. Rule 5a does not apply: there is no stage telling you which party is reading.
+Do not tell the reader to do anything only one side does — do not tell them to file a
+defence, and do not tell them to note anyone in default. Where the rule says "each
+party", say "each party" or "you and the other parties". Use "you" for what any party
+must do, and keep it true for a plaintiff and a defendant alike.
+
+Second, set yourDeadline to null. The periods in the sources belong in the ordinary
+sections as statements of what the rule says. Do not compute or state a calendar
+date: you do not know this reader's conference or trial date.
+
+THE READING LEVEL IS THE HARD PART HERE, AND HERE IS WHY, MEASURED.
+
+"Serve your documents 14 days before the settlement conference." scores grade 9.66
+entirely on its own. "settlement conference" is six syllables across two words and it
+is not optional — it is the name of the event the period runs from. So that one term
+spends almost your whole budget, and you cannot get under grade 8 by shortening the
+sentence that contains it.
+
+What works is dilution. Name "settlement conference" ONCE. Make every other sentence
+short and plain — seven to twelve words, one- and two-syllable words. Prefer "give"
+to "provide", "send" to "deliver", "use" to "utilise", "trial" to "trial proceeding".
+Do not write "documents to be relied on at the trial" twice; say it once and then say
+"these documents".
+
+Short does not mean vague: keep every number, every form number and name, and every
+"must". Lose a particular and the sentence fails verification instead.
+
+WATCH THE DIFFERENCE BETWEEN A DUTY AND A ROUTE TO ADMISSIBILITY. One of the
+provisions below says parties SHALL serve and file. Another says a document served
+within a period SHALL BE RECEIVED IN EVIDENCE unless the judge orders otherwise —
+that is not a duty to serve it, and writing it as one invents a requirement the
+source does not state.
+
+SOURCE MATERIAL — the only thing you may state:
+
+${genericSourceMaterial(topic)}${retry}`;
+
+  const result = await chat(model, DRAFTER_SYSTEM, user);
+  const parsed = JSON.parse(result.content) as Partial<DraftSections>;
+
+  return {
+    sections: {
+      whatsHappening: parsed.whatsHappening ?? "NOT_SUPPORTED",
+      whatToDoNext: parsed.whatToDoNext ?? "NOT_SUPPORTED",
+      // Never the model's, whatever it returned.
+      yourDeadline: null,
       whatHappensAfter: parsed.whatHappensAfter ?? "NOT_SUPPORTED",
     },
     usage: result.usage,

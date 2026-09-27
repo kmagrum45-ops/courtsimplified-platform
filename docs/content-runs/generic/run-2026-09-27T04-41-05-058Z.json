@@ -1,0 +1,437 @@
+{
+  "model": "gpt-4o",
+  "startedAt": "2026-09-27T04:41:05.058Z",
+  "usage": [
+    {
+      "model": "gpt-4o",
+      "inputTokens": 44876,
+      "outputTokens": 5139,
+      "calls": 8
+    }
+  ],
+  "log": [
+    {
+      "topicId": "serving-documents",
+      "attempts": [
+        {
+          "attempt": 1,
+          "sections": {
+            "whatsHappening": "You and the other parties must serve and file documents at different stages. At least 14 days before the settlement conference, each party must serve on every other party and file with the court a copy of any document to be relied on at the trial, including an expert report, not attached to the party's claim or defence. You must also serve and file a list of proposed witnesses (Form 13A) and of other persons with knowledge of the matters in dispute. A document served at least 30 days before the trial date shall be received in evidence, unless the trial judge orders otherwise.",
+            "whatToDoNext": "Serve your documents on the other parties and file them with the court as required. You can serve the documents yourself or have someone else do it for you. Make sure to keep detailed notes of the service, including the name of the person served, the date, time, and manner of service. This will help when preparing an affidavit of service.",
+            "whatHappensAfter": "After serving and filing your documents, the other parties will have the opportunity to review them and respond. If you have served a document at least 30 days before the trial, it will be received in evidence unless the trial judge decides otherwise. If you wish to cross-examine a witness or author of a document served on you, you may summon them as a witness."
+          },
+          "verdicts": [
+            {
+              "sentence": "You and the other parties must serve and file documents at different stages.",
+              "supported": false,
+              "reason": "The source material does not explicitly state that parties must serve and file documents at different stages."
+            },
+            {
+              "sentence": "At least 14 days before the settlement conference, each party must serve on every other party and file with the court a copy of any document to be relied on at the trial, including an expert report, not attached to the party's claim or defence.",
+              "supported": true,
+              "quote": "At least 14 days before the date of the settlement conference, each party shall serve on every other party and file with the court, | a copy of any document to be relied on at the trial, including an expert report, not attached to the party's claim or defence",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must also serve and file a list of proposed witnesses (Form 13A) and of other persons with knowledge of the matters in dispute.",
+              "supported": true,
+              "quote": "a list of proposed witnesses (Form 13A) and of other persons with knowledge of the matters in dispute in the action",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "A document served at least 30 days before the trial date shall be received in evidence, unless the trial judge orders otherwise.",
+              "supported": true,
+              "quote": "A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve your documents on the other parties and file them with the court as required.",
+              "supported": false,
+              "reason": "The source material does not explicitly state this general instruction; it provides specific rules for serving and filing documents."
+            },
+            {
+              "sentence": "You can serve the documents yourself or have someone else do it for you.",
+              "supported": true,
+              "quote": "In Small Claims Court, parties arrange for service of their own documents. You can: serve the documents yourself have a friend, a business associate, or a private process server serve the documents for you have your representative arrange for service of your documents",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Make sure to keep detailed notes of the service, including the name of the person served, the date, time, and manner of service.",
+              "supported": true,
+              "quote": "The person serving the documents should make careful, detailed notes regarding the name of the person served, the date, time, and manner of service made, and any other related details.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This will help when preparing an affidavit of service.",
+              "supported": true,
+              "quote": "This will assist later when the person prepares an affidavit of service.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "After serving and filing your documents, the other parties will have the opportunity to review them and respond.",
+              "supported": false,
+              "reason": "The source material does not explicitly state that other parties will have the opportunity to review and respond after serving and filing documents."
+            },
+            {
+              "sentence": "If you have served a document at least 30 days before the trial, it will be received in evidence unless the trial judge decides otherwise.",
+              "supported": true,
+              "quote": "A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you wish to cross-examine a witness or author of a document served on you, you may summon them as a witness.",
+              "supported": true,
+              "quote": "A party who has been served with a written statement or document described in subrule (2) and wishes to cross-examine the witness or author may summon him or her as a witness under subrule 18.03 (1).",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            }
+          ],
+          "readability": 10.11349494949495,
+          "problems": [
+            "\"You and the other parties must serve and file documents at different stages.\" — The source material does not explicitly state that parties must serve and file documents at different stages.",
+            "\"Serve your documents on the other parties and file them with the court as required.\" — The source material does not explicitly state this general instruction; it provides specific rules for serving and filing documents.",
+            "\"After serving and filing your documents, the other parties will have the opportunity to review them and respond.\" — The source material does not explicitly state that other parties will have the opportunity to review and respond after serving and filing documents.",
+            "3 sentence(s) are unsupported in a verified block",
+            "reads at grade 10.1, above the grade 8 target",
+            "reads at grade 10.1, above the grade 8 target. The hardest sentence is 44 words: \"At least 14 days before the settlement conference, each party must serve on every other party and file with the court a copy of any document to be relied on at the trial, including an expert report, not attached to the party's claim or defence.\". SPLIT IT. One requirement may be several sentences: put who must be served in one sentence, how they may be served in the next, and the number of days in a third. Do not drop any of it and do not soften it — say the same thing in shorter sentences. Aim for no sentence over 20 words."
+          ]
+        },
+        {
+          "attempt": 2,
+          "sections": {
+            "whatsHappening": "You and the other parties must serve documents before certain events. At least 14 days before the settlement conference, serve a copy of any document you will rely on at trial. This includes expert reports not attached to your claim or defence. You must also serve a list of proposed witnesses using Form 13A. At least 30 days before the trial, serve any document or record you want to use as evidence. If served in time, it will be received in evidence unless the judge orders otherwise.",
+            "whatToDoNext": "Serve your documents on every other party. File them with the court. Use Form 13A for your list of witnesses. Make sure to serve documents at least 14 days before the settlement conference. Serve evidence documents at least 30 days before the trial.",
+            "whatHappensAfter": "Documents served 30 days before the trial will be received in evidence unless the judge decides otherwise. If you serve a written statement or document, the other party can summon the author as a witness."
+          },
+          "verdicts": [
+            {
+              "sentence": "You and the other parties must serve documents before certain events.",
+              "supported": true,
+              "quote": "At least 14 days before the date of the settlement conference, each party shall serve on every other party and file with the court, | A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "At least 14 days before the settlement conference, serve a copy of any document you will rely on at trial.",
+              "supported": true,
+              "quote": "At least 14 days before the date of the settlement conference, each party shall serve on every other party and file with the court, | a copy of any document to be relied on at the trial, including an expert report, not attached to the party's claim or defence",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This includes expert reports not attached to your claim or defence.",
+              "supported": true,
+              "quote": "a copy of any document to be relied on at the trial, including an expert report, not attached to the party's claim or defence",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must also serve a list of proposed witnesses using Form 13A.",
+              "supported": true,
+              "quote": "a list of proposed witnesses (Form 13A) and of other persons with knowledge of the matters in dispute in the action",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "At least 30 days before the trial, serve any document or record you want to use as evidence.",
+              "supported": true,
+              "quote": "A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If served in time, it will be received in evidence unless the judge orders otherwise.",
+              "supported": true,
+              "quote": "A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve your documents on every other party.",
+              "supported": true,
+              "quote": "At least 14 days before the date of the settlement conference, each party shall serve on every other party and file with the court, | A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "File them with the court.",
+              "supported": true,
+              "quote": "At least 14 days before the date of the settlement conference, each party shall serve on every other party and file with the court,",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Use Form 13A for your list of witnesses.",
+              "supported": true,
+              "quote": "a list of proposed witnesses (Form 13A) and of other persons with knowledge of the matters in dispute in the action",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Make sure to serve documents at least 14 days before the settlement conference.",
+              "supported": true,
+              "quote": "At least 14 days before the date of the settlement conference, each party shall serve on every other party and file with the court,",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve evidence documents at least 30 days before the trial.",
+              "supported": true,
+              "quote": "A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Documents served 30 days before the trial will be received in evidence unless the judge decides otherwise.",
+              "supported": true,
+              "quote": "A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you serve a written statement or document, the other party can summon the author as a witness.",
+              "supported": true,
+              "quote": "A party who has been served with a written statement or document described in subrule (2) and wishes to cross-examine the witness or author may summon him or her as a witness under subrule 18.03 (1).",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            }
+          ],
+          "readability": 7.372784810126586,
+          "problems": [
+            "\"This includes expert reports not attached to your claim or defence.\" names no new particular — no number, form, period, document or office — so it is filler by drafter rule 8a. Delete it rather than rewording it."
+          ]
+        },
+        {
+          "attempt": 3,
+          "sections": {
+            "whatsHappening": "You and the other parties must serve and file documents before certain events. At least 14 days before the settlement conference, each party must serve on every other party and file with the court a copy of any document to be relied on at the trial, including expert reports not attached to the party's claim or defence. You must also serve and file a list of proposed witnesses (Form 13A) and of other persons with knowledge of the matters in dispute. A document served at least 30 days before the trial date shall be received in evidence, unless the trial judge orders otherwise.",
+            "whatToDoNext": "Serve your documents on the other parties and file them with the court. You can serve the documents yourself or have someone else do it for you. Make detailed notes about the service for your affidavit of service.",
+            "whatHappensAfter": "Once documents are served and filed, they will be part of the court record. If you serve a document at least 30 days before the trial, it will be received in evidence unless the judge decides otherwise. If you wish to cross-examine a witness or author of a document served on you, you may summon them as a witness."
+          },
+          "verdicts": [
+            {
+              "sentence": "You and the other parties must serve and file documents before certain events.",
+              "supported": false,
+              "reason": "The source material does not state that all parties must serve and file documents before certain events. It specifies certain documents and timelines, but not a general requirement for all documents before all events."
+            },
+            {
+              "sentence": "At least 14 days before the settlement conference, each party must serve on every other party and file with the court a copy of any document to be relied on at the trial, including expert reports not attached to the party's claim or defence.",
+              "supported": true,
+              "quote": "At least 14 days before the date of the settlement conference, each party shall serve on every other party and file with the court, | a copy of any document to be relied on at the trial, including an expert report, not attached to the party's claim or defence",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must also serve and file a list of proposed witnesses (Form 13A) and of other persons with knowledge of the matters in dispute.",
+              "supported": true,
+              "quote": "a list of proposed witnesses (Form 13A) and of other persons with knowledge of the matters in dispute in the action",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "A document served at least 30 days before the trial date shall be received in evidence, unless the trial judge orders otherwise.",
+              "supported": true,
+              "quote": "A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve your documents on the other parties and file them with the court.",
+              "supported": false,
+              "reason": "The source material does not provide a general rule that all documents must be served and filed with the court. It specifies certain documents and timelines, but not a general requirement for all documents."
+            },
+            {
+              "sentence": "You can serve the documents yourself or have someone else do it for you.",
+              "supported": true,
+              "quote": "In Small Claims Court, parties arrange for service of their own documents. You can: serve the documents yourself have a friend, a business associate, or a private process server serve the documents for you have your representative arrange for service of your documents",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Make detailed notes about the service for your affidavit of service.",
+              "supported": true,
+              "quote": "The person serving the documents should make careful, detailed notes regarding the name of the person served, the date, time, and manner of service made, and any other related details. This will assist later when the person prepares an affidavit of service.",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Once documents are served and filed, they will be part of the court record.",
+              "supported": false,
+              "reason": "The source material does not state that once documents are served and filed, they will automatically be part of the court record."
+            },
+            {
+              "sentence": "If you serve a document at least 30 days before the trial, it will be received in evidence unless the judge decides otherwise.",
+              "supported": true,
+              "quote": "A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise.",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you wish to cross-examine a witness or author of a document served on you, you may summon them as a witness.",
+              "supported": true,
+              "quote": "A party who has been served with a written statement or document described in subrule (2) and wishes to cross-examine the witness or author may summon him or her as a witness under subrule 18.03 (1).",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            }
+          ],
+          "readability": 9.62423076923077,
+          "problems": [
+            "\"You and the other parties must serve and file documents before certain events.\" — The source material does not state that all parties must serve and file documents before certain events. It specifies certain documents and timelines, but not a general requirement for all documents before all events.",
+            "\"Serve your documents on the other parties and file them with the court.\" — The source material does not provide a general rule that all documents must be served and filed with the court. It specifies certain documents and timelines, but not a general requirement for all documents.",
+            "\"Once documents are served and filed, they will be part of the court record.\" — The source material does not state that once documents are served and filed, they will automatically be part of the court record.",
+            "3 sentence(s) are unsupported in a verified block",
+            "reads at grade 9.6, above the grade 8 target",
+            "reads at grade 9.6, above the grade 8 target. The hardest sentence is 43 words: \"At least 14 days before the settlement conference, each party must serve on every other party and file with the court a copy of any document to be relied on at the trial, including expert reports not attached to the party's claim or defence.\". SPLIT IT. One requirement may be several sentences: put who must be served in one sentence, how they may be served in the next, and the number of days in a third. Do not drop any of it and do not soften it — say the same thing in shorter sentences. Aim for no sentence over 20 words."
+          ]
+        },
+        {
+          "attempt": 4,
+          "sections": {
+            "whatsHappening": "You and the other parties must serve documents before certain events. Serve a copy of any document you will rely on at trial. This includes expert reports not attached to your claim or defence. Do this at least 14 days before the settlement conference. You must also file these documents with the court. Use Form 13A for your list of proposed witnesses and others with knowledge of the case. Serve this list on every other party and file it with the court. A document served at least 30 days before the trial will be received in evidence. This is unless the trial judge orders otherwise.",
+            "whatToDoNext": "Serve your documents on the other parties. File them with the court. Use Form 13A for your witness list. Make sure to serve and file at least 14 days before the settlement conference. For trial, serve documents at least 30 days before the trial date.",
+            "whatHappensAfter": "Documents served 30 days before trial will be received in evidence. This is unless the judge decides otherwise. If you serve a written statement or document, include any required attachments. If you receive a document and want to cross-examine the author, you may summon them as a witness."
+          },
+          "verdicts": [
+            {
+              "sentence": "You and the other parties must serve documents before certain events.",
+              "supported": true,
+              "quote": "\"Documents must be served at each step in the court process, unless the Rules of the Small Claims Court (after this, referred to as the Rules) provide otherwise.\"",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve a copy of any document you will rely on at trial.",
+              "supported": true,
+              "quote": "\"a copy of any document to be relied on at the trial, including an expert report, not attached to the party's claim or defence\"",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This includes expert reports not attached to your claim or defence.",
+              "supported": true,
+              "quote": "\"a copy of any document to be relied on at the trial, including an expert report, not attached to the party's claim or defence\"",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Do this at least 14 days before the settlement conference.",
+              "supported": true,
+              "quote": "\"At least 14 days before the date of the settlement conference, each party shall serve on every other party and file with the court,\"",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "You must also file these documents with the court.",
+              "supported": true,
+              "quote": "\"At least 14 days before the date of the settlement conference, each party shall serve on every other party and file with the court,\"",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Use Form 13A for your list of proposed witnesses and others with knowledge of the case.",
+              "supported": true,
+              "quote": "\"a list of proposed witnesses (Form 13A) and of other persons with knowledge of the matters in dispute in the action\"",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve this list on every other party and file it with the court.",
+              "supported": true,
+              "quote": "\"At least 14 days before the date of the settlement conference, each party shall serve on every other party and file with the court,\" | \"a list of proposed witnesses (Form 13A) and of other persons with knowledge of the matters in dispute in the action\"",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "A document served at least 30 days before the trial will be received in evidence.",
+              "supported": true,
+              "quote": "\"A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise.\"",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This is unless the trial judge orders otherwise.",
+              "supported": true,
+              "quote": "\"A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise.\"",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Serve your documents on the other parties.",
+              "supported": true,
+              "quote": "\"Documents must be served at each step in the court process, unless the Rules of the Small Claims Court (after this, referred to as the Rules) provide otherwise.\"",
+              "sourceId": "guide-serving-documents",
+              "quoteFound": true
+            },
+            {
+              "sentence": "File them with the court.",
+              "supported": false,
+              "reason": "The source does not explicitly state that all documents must be filed with the court, only specific ones as per the rules."
+            },
+            {
+              "sentence": "Use Form 13A for your witness list.",
+              "supported": true,
+              "quote": "\"a list of proposed witnesses (Form 13A) and of other persons with knowledge of the matters in dispute in the action\"",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Make sure to serve and file at least 14 days before the settlement conference.",
+              "supported": true,
+              "quote": "\"At least 14 days before the date of the settlement conference, each party shall serve on every other party and file with the court,\"",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "For trial, serve documents at least 30 days before the trial date.",
+              "supported": true,
+              "quote": "\"A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise.\"",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "Documents served 30 days before trial will be received in evidence.",
+              "supported": true,
+              "quote": "\"A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise.\"",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "This is unless the judge decides otherwise.",
+              "supported": true,
+              "quote": "\"A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise.\"",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you serve a written statement or document, include any required attachments.",
+              "supported": true,
+              "quote": "\"A party who serves on another party a written statement or document described in subrule (2) shall append to or include in the statement or document,\"",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            },
+            {
+              "sentence": "If you receive a document and want to cross-examine the author, you may summon them as a witness.",
+              "supported": true,
+              "quote": "\"A party who has been served with a written statement or document described in subrule (2) and wishes to cross-examine the witness or author may summon him or her as a witness under subrule 18.03 (1).\"",
+              "sourceId": "oreg-258-98-small-claims-rules",
+              "quoteFound": true
+            }
+          ],
+          "readability": 6.27922338568936,
+          "problems": [
+            "\"File them with the court.\" — The source does not explicitly state that all documents must be filed with the court, only specific ones as per the rules.",
+            "\"This includes expert reports not attached to your claim or defence.\" names no new particular — no number, form, period, document or office — so it is filler by drafter rule 8a. Delete it rather than rewording it.",
+            "1 sentence(s) are unsupported in a verified block"
+          ]
+        }
+      ]
+    }
+  ]
+}

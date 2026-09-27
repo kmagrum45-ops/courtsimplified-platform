@@ -29,12 +29,13 @@ import {
   renderDeadlineSection,
   type StageAnswer,
 } from "../../src/lib/content-library/stageAnswers";
+import type { GenericAnswer } from "../../src/lib/content-library/genericAnswers";
 import { readability, TARGET_GRADE } from "../../src/lib/content-library/readability";
 
 /** Statuses a user may be shown. `needs-human` and `draft` are never published. */
 export const PUBLISHABLE = ["verified-draft", "no-source", "approved"] as const;
 
-export function isPublishable(answer: StageAnswer): boolean {
+export function isPublishable(answer: { verification: { status: string } }): boolean {
   return (PUBLISHABLE as readonly string[]).includes(answer.verification.status);
 }
 
@@ -461,12 +462,121 @@ function wordsOf(quote: string): string[] {
   return quote.toLowerCase().match(/[a-z]+/g) ?? [];
 }
 
-export function gateFailures(answer: StageAnswer, stage: CaseStage | undefined): string[] {
-  const failures: string[] = [];
+/**
+ * What every gate below actually reads. Both `StageAnswer` and `GenericAnswer`
+ * satisfy it structurally, which is what lets one implementation serve both without
+ * either type learning about the other.
+ */
+export type GateableAnswer = {
+  whatsHappening: string;
+  whatToDoNext: string;
+  yourDeadline: string | null;
+  whatHappensAfter: string;
+  citations: StageAnswer["citations"];
+  sourceIds: string[];
+  verification: StageAnswer["verification"];
+};
 
+/**
+ * A block shown to everybody must not assume which party is reading it.
+ *
+ * *** WHY THIS EXISTS: AN ABSENT GATE IS WORSE THAN A NEW ONE ***
+ *
+ * `wrongReaderProblems` protects a stage block by knowing whose stage it is, and it
+ * returns nothing when the side is neither plaintiff nor defendant. A generic block
+ * has no side, so that protection silently evaporates — and a block shown to
+ * EVERYBODY that tells the reader to file a defence is worse than a defendant's
+ * block that does, because the plaintiff reading it has no way to know it was not
+ * written for them.
+ *
+ * So the gate is replaced rather than skipped. The patterns are the same confusions
+ * `wrongReaderProblems` catches, minus any assumption about which side is wrong.
+ */
+export function partyNeutralProblems(text: string): string[] {
+  const problems: string[] = [];
+
+  /** Steps only one side ever takes. In a block shown to both, each is wrong for half its readers. */
+  const ONE_SIDED_STEPS: { pattern: RegExp; whose: string }[] = [
+    {
+      pattern: /\byou\b[^.]{0,30}\b(file|filed|filing|serve|served|prepare|complete)\b[^.]{0,40}\b(defence|form 9a)\b/i,
+      whose: "only a defendant files a defence",
+    },
+    {
+      pattern: /\byou\b[^.]{0,30}\b(file|filed|filing|request)\b[^.]{0,40}\b(request to clerk|form 9b|note the defendant in default)\b/i,
+      whose: "only a plaintiff notes a defendant in default",
+    },
+    {
+      pattern: /\byou (were|have been|was) served with the claim\b/i,
+      whose: "only a defendant is served with the claim",
+    },
+    {
+      pattern: /\byou (served|have served)\b[^.]{0,30}\b(the claim|the defendant)\b/i,
+      whose: "only a plaintiff serves the claim",
+    },
+  ];
+
+  for (const sentence of text.split(/(?<=[.!?])\s+/)) {
+    for (const { pattern, whose } of ONE_SIDED_STEPS) {
+      if (pattern.test(sentence)) {
+        problems.push(
+          `this block is shown whatever position the case is in, but it assumes a side — ` +
+            `${whose}: "${sentence.trim().slice(0, 110)}"`,
+        );
+      }
+    }
+  }
+
+  /*
+   * Describing either party in the third person is fine here and would be a failure
+   * in a stage block. That asymmetry is deliberate: a generic block genuinely has no
+   * "own side", so "each party" and "the other parties" are the correct register, and
+   * the rule it rests on is itself written that way — r. 13.03 (2) says "each party
+   * shall serve on every other party".
+   */
+  return problems;
+}
+
+/**
+ * The gate for a block that belongs to a stage.
+ *
+ * Thin on purpose: a block whose stage does not resolve is refused here, and
+ * everything else is the one shared implementation below.
+ */
+export function gateFailures(answer: StageAnswer, stage: CaseStage | undefined): string[] {
   if (!stage) {
     return [`answers stage "${answer.stageId}", which is not in the stage map`];
   }
+  return allGateFailures(answer, stage);
+}
+
+/**
+ * The gate for a stage-INDEPENDENT block (src/lib/content-library/genericAnswers.ts).
+ *
+ * *** WHY THIS IS NOT A SECOND GATE FUNCTION ***
+ *
+ * A separate implementation would be a second chance to be weaker, and the weaker
+ * one always wins in the end because it is the one that passes. So there is ONE
+ * implementation, `allGateFailures`, and it takes a nullable stage. Every
+ * stage-dependent check inside it is guarded by `if (stage)` and carries an
+ * explicit `else` — nothing is skipped for a generic block, it is replaced:
+ *
+ *   deadline byte-match      -> the deadline section must be null
+ *   wrongReaderProblems      -> partyNeutralProblems (the block has no side, so it
+ *                               must not tell the reader to take one side's step)
+ *   forumCheckOnlyProblems   -> n/a: a generic block routes nobody to a forum
+ *   barExceptionProblems     -> n/a: a generic block states no claim-barring deadline,
+ *                               and `statesTheBar` below still fires if one appears
+ */
+export function genericGateFailures(answer: GateableAnswer): string[] {
+  return allGateFailures(answer, null);
+}
+
+/**
+ * Everything both kinds of block must satisfy, plus the stage-shaped checks where
+ * a stage exists and their stage-free equivalents where it does not.
+ */
+function allGateFailures(answer: GateableAnswer, stage: CaseStage | null): string[] {
+  const failures: string[] = [];
 
   if (!isPublishable(answer)) {
     failures.push(`status is "${answer.verification.status}", which is never shown to a user`);
@@ -494,13 +604,27 @@ export function gateFailures(answer: StageAnswer, stage: CaseStage | undefined):
    * what that renderer produces today. Anything else means the block was
    * hand-edited, or the stage map moved after promotion.
    */
-  const expected = renderDeadlineSection(stage.deadlines);
-  if ((answer.yourDeadline ?? null) !== (expected ?? null)) {
+  if (stage) {
+    const expected = renderDeadlineSection(stage.deadlines);
+    if ((answer.yourDeadline ?? null) !== (expected ?? null)) {
+      failures.push(
+        expected
+          ? "the deadline section does not match what the stage map renders — the block was " +
+            "edited after promotion, or the stage map changed and this content was not re-promoted"
+          : "states a deadline the stage map does not have",
+      );
+    }
+  } else if ((answer.yourDeadline ?? null) !== null) {
+    /*
+     * A generic block has no stage, so it has no authored StageDeadline[] and there
+     * is nothing for renderDeadlineSection to produce. A deadline section here could
+     * only have been hand-written, which is the one thing ACCURACY_ENGINE decision 4
+     * took out of the model's hands. Periods still appear inside the ordinary
+     * sections, where the verifier checks them against quoted rule text.
+     */
     failures.push(
-      expected
-        ? "the deadline section does not match what the stage map renders — the block was " +
-          "edited after promotion, or the stage map changed and this content was not re-promoted"
-        : "states a deadline the stage map does not have",
+      "carries a deadline section, but a stage-independent block has no stage map " +
+        "deadline to render one from — so this text was hand-written",
     );
   }
 
@@ -591,7 +715,11 @@ export function gateFailures(answer: StageAnswer, stage: CaseStage | undefined):
 
   // ---- the block must address the right party ----------------------------
 
-  failures.push(...wrongReaderProblems(answerText(answer), stage.side, answer.sourceIds ?? []));
+  if (stage) {
+    failures.push(...wrongReaderProblems(answerText(answer), stage.side, answer.sourceIds ?? []));
+  } else {
+    failures.push(...partyNeutralProblems(answerText(answer)));
+  }
 
   /*
    * ---- the prose gates run on what a MODEL wrote --------------------------
@@ -639,11 +767,11 @@ export function gateFailures(answer: StageAnswer, stage: CaseStage | undefined):
 
   // ---- forum-check stages route; they do not instruct ---------------------
 
-  failures.push(...forumCheckOnlyProblems(answerText(answer), stage));
+  if (stage) failures.push(...forumCheckOnlyProblems(answerText(answer), stage));
 
   // ---- a claim-barring deadline carries EVERY exception the stage records -
 
-  failures.push(...barExceptionProblems(answerText(answer), stage));
+  if (stage) failures.push(...barExceptionProblems(answerText(answer), stage));
 
   // ---- a bar stated without the thing that qualifies it ------------------
 
@@ -683,6 +811,46 @@ export function gateFailures(answer: StageAnswer, stage: CaseStage | undefined):
         "states the two-year limitation bar without the qualifier that limits it " +
           `("Unless this Act provides otherwise"), or discovery, or that the date is not ` +
           `established — a reader with a later discovery date would abandon a live claim`,
+      );
+    }
+  }
+
+  /*
+   * ---- ADMISSIBILITY STATED WITHOUT THE JUDGE'S DISCRETION -----------------
+   *
+   * *** THE SAME SHAPE OF ERROR AS THE LIMITATION BAR ABOVE, POINTING THE OTHER WAY ***
+   *
+   * r. 18.02 (1) says a document served at least 30 days before trial "shall be
+   * received in evidence, UNLESS THE TRIAL JUDGE ORDERS OTHERWISE". Drafts of the
+   * serving-documents block repeatedly dropped the last four words, producing
+   * "serve it 30 days before trial to ensure it is received in evidence" and
+   * "they will be part of the court record and can be used during the trial".
+   *
+   * The harm is the mirror of the limitation case. There, dropping a qualifier made
+   * a live claim look dead. Here it makes an evidentiary question look settled: a
+   * litigant who believes service alone guarantees admission does not prepare to
+   * put the document in any other way, and finds out at trial. The judge's
+   * discretion is the whole difference between a right and a route.
+   *
+   * So: state the 30-day admissibility and you must carry the discretion with it.
+   */
+  const text0 = answerText(answer);
+  const statesAdmissibility =
+    /\b30 days\b/i.test(text0) &&
+    /\b(received in evidence|admitted|be used (at|during) (the )?trial|part of the court record)\b/i.test(
+      text0,
+    );
+
+  if (statesAdmissibility) {
+    const carriesDiscretion =
+      /unless the (trial )?judge orders otherwise/i.test(text0) ||
+      /\bthe (trial )?judge (may|can) (decide|order|rule)\b/i.test(text0);
+
+    if (!carriesDiscretion) {
+      failures.push(
+        "states that serving a document 30 days before trial gets it into evidence, " +
+          'without the qualifier that limits it ("unless the trial judge orders ' +
+          'otherwise") — a reader would stop preparing any other way to prove it',
       );
     }
   }

@@ -129,7 +129,9 @@
     "test:workspace-extraction": "node --import tsx scripts/verification/verifyWorkspaceExtraction.ts",
     "test:workspace-pii": "node --import tsx scripts/verification/verifyWorkspacePii.ts",
     "test:workspace-ocr": "node --import tsx scripts/verification/verifyWorkspaceOcr.ts",
-    "test:workspace-organisation": "node --import tsx scripts/verification/verifyWorkspaceOrganisation.ts"
+    "test:workspace-organisation": "node --import tsx scripts/verification/verifyWorkspaceOrganisation.ts",
+    "content:draft-generic": "tsx scripts/content/draftGenericBlocks.ts",
+    "test:generic-library": "node --import tsx scripts/verification/verifyGenericLibrary.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

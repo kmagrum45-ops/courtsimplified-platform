@@ -829,3 +829,72 @@ Small Claims monetary limit has no retrievable standalone text on the e-Laws
 credits carrying *"O. Reg. 42/25, s. 1"*. Cite the consolidation and pinpoint
 the credit line. This is likely the general pattern for recent amending
 regulations — check the consolidation before hunting for a standalone document.
+
+---
+
+## The generic "serving your documents" block: rules verified, block NOT published (2026-09-27)
+
+**Read this before attempting it again. The sources are fine; the blocker is readability.**
+
+### What the two rule citations actually verified to
+
+Both read out of `docs/sources/corpus/oreg-258-98-small-claims-rules.txt`, rule
+numbers confirmed against the regulation's own table of contents in the same file.
+
+| Cited as | Actually is | Status |
+|---|---|---|
+| r. 13.03 (2) | "Disclosure" under RULE 13 SETTLEMENT CONFERENCES. "At least 14 days before the date of the settlement conference, each party **shall** serve on every other party and file with the court, (a) a copy of any document to be relied on at the trial, including an expert report, not attached to the party's claim or defence; and (b) a list of proposed witnesses (Form 13A)…" | **Correct as given.** A genuine mandatory duty |
+| r. 18.02 | "WRITTEN STATEMENTS, DOCUMENTS AND RECORDS" under RULE 18 EVIDENCE AT TRIAL | **Rule number correct.** The *description* was not — see below |
+
+**r. 18.02 (1) IS NOT A SERVICE REQUIREMENT, and describing it as one invents an
+obligation.** It reads: "A document or written statement or an audio or visual record
+that has been served, at least 30 days before the trial date, on all parties who were
+served with the notice of trial, **shall be received in evidence, unless the trial
+judge orders otherwise.**" That is a route to admissibility a party may take, not a
+duty to serve. r. 18.02 (3) *is* mandatory, but only once a party chooses to serve
+under 18.02: they "shall append to or include in" the name, telephone number and
+address for service, plus a summary of qualifications for an expert.
+
+Three provisions, two different kinds of obligation. A block has to keep them apart.
+
+### Why it is not published
+
+Seven drafter/verifier runs (gpt-4o-mini then gpt-4o, ~$1.40). The best run reached
+**11 of 11 sentences verified** with every accuracy gate clear, and failed readability
+at grade 8.2 against the grade 8 target. Runs landed 8.1–9.8 and never cleared both at
+once.
+
+**The readability target is structurally tight for this topic, and it was measured
+rather than assumed:**
+
+- `"Serve your documents 14 days before the settlement conference."` scores **9.66 on
+  its own**. "settlement conference" is six syllables across two words and is not
+  optional — it is the name of the event the 14-day period runs from.
+- Drop the term and the same sentence scores 7.19.
+- The 16 published stage blocks top out at **7.98**, median 6.61, because their
+  vocabulary is shorter: notice, clerk, claim, defence.
+
+So this is not a drafting failure that more attempts will fix reliably. Raising
+attempts within a run from 4 to 7 made it *worse* (grade 9.8) — accumulated feedback
+makes the drafter overcorrect between padding and verbatim quotation.
+
+**The decision it needs is the site owner's:** allow a documented per-topic readability
+allowance for blocks whose mandatory vocabulary forces it, keep iterating runs, or
+leave the panel absent. Nothing was published in the meantime and nothing was
+hand-written.
+
+### Two dead ends, so they are not repeated
+
+- **Legislation-only source material does not work here.** The first version passed
+  pinpoint-quoted rules and no guide pages, on the reasoning that a guide page carries
+  one case-position's assumptions. The regulation says "shall"; grade 8 prose says
+  "must"; drafter rule 4a instructs exactly that — and with no text saying "must"
+  available, the verifier rejected every obligation sentence with "the source does not
+  use the word 'must'". The 16 stage blocks never hit this because `sourceMaterial`
+  hands them guide pages that do say "must". `guide-serving-documents` (ontario.ca
+  *Guide to Procedures in Small Claims Court: Serving documents*) is the right second
+  source: its whole subject is service, so it is not scoped to a point in a case.
+- **`makesAClaim` is not a filler detector.** I used it to enforce drafter rule 8a and
+  it rejected "This includes expert reports not attached to your claim or defence." —
+  a particular straight out of r. 13.03 (2) (a). Its marker list is tuned for "is this
+  verifiable" and contains no document nouns. Removed.

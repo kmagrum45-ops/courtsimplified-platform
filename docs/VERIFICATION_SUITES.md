@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-71 documented, 30 without a header.
+72 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -34,6 +34,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:fixture-guards` | **Asserts that runFixtures.ts cannot write a .actual.md from a run that**<br>threw, timed out, or silently degraded. |
 | `npm run test:fixtures` | **Session 35 -- runs the three whole-case fixtures in fixtures/ through the**<br>REAL pipeline the app uses, end to end, and writes what actually happened to fixtures/<id>.actual.md. |
 | `npm run test:fixtures:generated` | **Session 36 -- scales Session 35's fixture harness from 3 hand-written**<br>fixtures to a generated batch, checked against rules instead of one hand-written expectation per story. |
+| `npm run test:generic-library` | **Stage-independent content rests on quoted sources, renders the same whatever stage**<br>the case is in, and renders NOTHING while nothing is verified. |
 | `npm run test:guard-coverage` | **WHERE the output guard is actually applied — asserted, and stated honestly.**<br>COSTS NOTHING. Reads source off disk. |
 | `npm run test:harness-coverage` | **Which values of a branch-selecting harness parameter have actually been run.**<br>COSTS NOTHING. Reads the spec and harness sources off disk. No browser, no network. |
 | `npm run test:intake-sequencing` | **Asserts that during intake nothing renders between the question and the**<br>answer box. |

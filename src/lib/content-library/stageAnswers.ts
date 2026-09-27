@@ -258,7 +258,24 @@ function weekendWarningFor(
 }
 
 /** The prose a user reads, in order. Used by the readability and guard checks. */
-export function answerText(answer: StageAnswer): string {
+/**
+ * The four prose fields, which is all `answerText` reads.
+ *
+ * Widened from `StageAnswer` so a stage-INDEPENDENT block
+ * (`genericAnswers.ts`) can go through the identical gates. The narrower type was
+ * not protecting anything here: this function never touches `stageId`, `id`,
+ * `userQuestion` or `slots`, so requiring them only forced a caller to either
+ * fabricate them or get its own copy of the gates — and a second copy of a gate is
+ * a second chance to be weaker.
+ */
+export type AnswerProse = {
+  whatsHappening: string;
+  whatToDoNext: string;
+  yourDeadline: string | null;
+  whatHappensAfter: string;
+};
+
+export function answerText(answer: AnswerProse): string {
   return [
     answer.whatsHappening,
     answer.whatToDoNext,
