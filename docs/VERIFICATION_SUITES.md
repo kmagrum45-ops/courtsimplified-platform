@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-73 documented, 30 without a header.
+75 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -74,8 +74,10 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:storage-keys` | **A browser-storage key may only be named in the registry.**<br>COSTS NOTHING. Pure source scanning. |
 | `npm run test:typecheck-live` | **The project's typecheck can actually fail.**<br>WHAT THIS CATCHES: a typecheck that reports success while checking nothing. |
 | `npm run test:verifier` | **Does the verifier actually reject wrong content?**<br>The whole value of a drafter/verifier split rests on the verifier being willing to say no. A verifier that agrees with plausible text is not a check, it is a second opinion from the same kind of mind, and it would turn every block green while changing nothing. |
+| `npm run test:workspace-ai-flag` | **No document text and no file name can reach a model while document analysis is off —**<br>and it is off, and stays off. |
 | `npm run test:workspace-catalogue` | **The document-type catalogue in code and the CHECK constraint in the migration say**<br>the same thing, and no type label characterises anything legally. |
 | `npm run test:workspace-dates` | **Dates parse correctly, precision is never invented, ambiguity is surfaced, and**<br>chronological order is independent of upload order. |
+| `npm run test:workspace-export` | **The export covers every store the data map lists, and the data map lists every store**<br>the schema has. |
 | `npm run test:workspace-extraction` | **Text comes out of every format the upload route accepts, and a document with no**<br>readable text is reported as such rather than stored as an empty success. |
 | `npm run test:workspace-ocr` | **Client-side OCR is treated as a suggestion, never as text the server read, and a**<br>low-confidence reading asks the user for details instead of claiming success. |
 | `npm run test:workspace-organisation` | **Exhibit numbers do not move under a user's feet, the chronology says where every**<br>date came from, and the exhibit book's index points at the pages it claims to. |

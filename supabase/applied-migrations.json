@@ -166,5 +166,13 @@
     "ref": "icpvzwxyjsdgyqfkwycw",
     "appliedAt": "2026-09-27T03:17:36.567Z",
     "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260927130000_workspace_analysis_audit.sql",
+    "sha256": "f286fe03a2533741a5265085c8932a7f500d299eb5e5f1f593d5fc2d9b04a052",
+    "environment": "staging",
+    "ref": "icpvzwxyjsdgyqfkwycw",
+    "appliedAt": "2026-09-27T16:15:33.978Z",
+    "appliedBy": "kmagr"
   }
 ]
