@@ -95,6 +95,44 @@ async function fetchOne(
 ): Promise<{ entry?: CorpusEntry; failure?: { id: string; url: string; reason: string } }> {
   let buffer: Buffer;
 
+  /*
+   * *** A HUMAN-SUPPLIED SNAPSHOT IS READ FROM DISK, NEVER FETCHED ***
+   *
+   * These exist precisely because the URL does not yield the page -- a 403, a
+   * cookie banner, a JavaScript notice. Fetching would either fail or vendor the
+   * banner, which is the failure the length floor catches for ordinary sources.
+   *
+   * The URL is still recorded in the manifest: a reader must be able to open the
+   * page for themselves. It just is not what we read.
+   *
+   * Everything after this branch is shared with fetched sources on purpose --
+   * same markers, same length floor, same hash, same manifest entry. A snapshot
+   * is second-tier in what it may support, not in how carefully it is checked.
+   */
+  if (source.format === "human-snapshot") {
+    const snapshot = source.snapshot;
+    if (!snapshot) {
+      return {
+        failure: {
+          id: source.id,
+          url: source.url,
+          reason: "format is human-snapshot but no snapshot provenance is declared",
+        },
+      };
+    }
+    const saved = path.join(ROOT, snapshot.localPath);
+    if (!existsSync(saved)) {
+      return {
+        failure: {
+          id: source.id,
+          url: source.url,
+          reason: `saved file missing: ${snapshot.localPath} -- see docs/infra/human-list.md`,
+        },
+      };
+    }
+    buffer = readFileSync(saved);
+  } else {
+
   try {
     const response = await fetch(source.url, {
       headers: {
@@ -119,9 +157,11 @@ async function fetchOne(
     };
   }
 
+  }
+
   let text: string;
   try {
-    text = extract(source.format, buffer);
+    text = extract(source.format, buffer, source.snapshot?.localPath);
   } catch (error) {
     return {
       failure: {

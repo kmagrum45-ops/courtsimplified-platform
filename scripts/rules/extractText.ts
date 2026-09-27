@@ -81,6 +81,60 @@ export function extractHtml(buffer: Buffer): string {
     .trim();
 }
 
-export function extract(format: "elaws-doc" | "html", buffer: Buffer): string {
+
+/**
+ * A PDF saved by hand from a browser.
+ *
+ * `pdftotext -layout` keeps the column structure, which matters because these
+ * are guidance pages with tables in them, and a table flattened into one column
+ * reads as gibberish and would be quoted as gibberish.
+ *
+ * Available here as pdftotext 4.00. A snapshot that cannot be extracted fails the
+ * fetch rather than vendoring an empty file — same rule as every other format.
+ */
+export function extractPdf(buffer: Buffer): string {
+  const temporary = path.join(os.tmpdir(), `corpus-${process.pid}-${Date.now()}.pdf`);
+  writeFileSync(temporary, buffer);
+  try {
+    return execFileSync("pdftotext", ["-layout", temporary, "-"], {
+      encoding: "utf8",
+      maxBuffer: 64 * 1024 * 1024,
+    });
+  } finally {
+    try {
+      unlinkSync(temporary);
+    } catch {
+      // A leftover temp file is not worth failing a vendor run over.
+    }
+  }
+}
+
+/**
+ * A human-supplied snapshot carries no format of its own — it is whatever the
+ * person saved. So the caller passes the SAVED FILE'S extension, and this decides
+ * from that. An unknown extension is a hard failure: silently treating a .docx as
+ * HTML would vendor tag soup and hash it as though it were text.
+ */
+export function extractSnapshot(localPath: string, buffer: Buffer): string {
+  const lower = localPath.toLowerCase();
+  if (lower.endsWith(".pdf")) return extractPdf(buffer);
+  if (lower.endsWith(".html") || lower.endsWith(".htm") || lower.endsWith(".mhtml")) {
+    return extractHtml(buffer);
+  }
+  throw new Error(
+    `snapshot ${localPath} has an extension this pipeline cannot extract. ` +
+      `Save the page as HTML ("Web page, complete" or "Web page, HTML only") or as PDF.`,
+  );
+}
+
+export function extract(
+  format: "elaws-doc" | "html" | "human-snapshot",
+  buffer: Buffer,
+  localPath?: string,
+): string {
+  if (format === "human-snapshot") {
+    if (!localPath) throw new Error("a human-snapshot needs the saved file's path to know how to read it");
+    return extractSnapshot(localPath, buffer);
+  }
   return format === "elaws-doc" ? extractDoc(buffer) : extractHtml(buffer);
 }

@@ -1171,8 +1171,21 @@ and skips semantic checking for the entire program.** Every type error anywhere 
 
 Proven, not inferred: appending `const x: number = "not a number";` to a source
 file produced no error at all. Moving the generated file aside surfaced the canary
-**and four real pre-existing errors** in `stage-map/citations.ts`, where three new
-corpus source ids had been used without being added to the `CorpusSourceId` union.
+**and four errors in `stage-map/citations.ts`**, where three new corpus source ids
+had been used without being added to the `CorpusSourceId` union.
+
+**Those four were NOT pre-existing, and this entry said they were.** They had been
+introduced minutes earlier in the same session, by appending citations before
+extending the union. Checked afterwards by restoring the previous `citations.ts`
+into the current tree and running the fixed typecheck: **zero errors.** So nothing
+had been hiding in the codebase — the suppression was real, and what it suppressed
+was a brand-new mistake.
+
+That distinction matters more than it looks. "The typecheck was off and there were
+four errors behind it" invites a hunt for what else rotted while it was off. The
+truth is narrower and more useful: the typecheck was off, and the only thing it
+hid was the error being made at that moment. The reason the suppression was noticed
+at all is that those four errors were *expected* and did not appear.
 
 ### What now exists
 

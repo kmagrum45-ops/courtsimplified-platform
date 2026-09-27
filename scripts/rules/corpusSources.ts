@@ -26,7 +26,50 @@
  * match.
  */
 
-export type CorpusFormat = "elaws-doc" | "html";
+export type CorpusFormat = "elaws-doc" | "html" | "human-snapshot";
+
+/**
+ * A page saved by hand from a browser, because it cannot be fetched.
+ *
+ * *** WHY THIS EXISTS ***
+ *
+ * Ten pages the forum checks need are unreachable: TICO and FSRA return 403 to an
+ * automated request, the Licence Appeal Tribunal has no page that resolves, and
+ * five more return HTTP 200 with nothing but a cookie banner or a JavaScript
+ * notice. Without a route for those, the travel, banking, financial-services,
+ * new-home, veterinary, funeral and auto-insurance forum checks stay incomplete —
+ * and a forum check that cannot name a route sends a user nowhere.
+ *
+ * This is the same route docs/sources/README.md already uses for CanLII decisions
+ * and Law Society by-laws: a human opens the page, saves it, and records what it
+ * is. CLAUDE.md §2 blesses that explicitly — "reading it from disk satisfies the
+ * 'retrieved and read' requirement the same way a live fetch does, provided
+ * docs/sources/README.md records what it is, its neutral citation, the URL it came
+ * from, and the date it was downloaded."
+ *
+ * *** SECOND-TIER, LIKE THE GUIDES ***
+ *
+ * Always `tier: "practical"`. A snapshot is one person's copy of one page on one
+ * day; it is evidence of what a body said, not of what the law is. Nothing
+ * claim-barring may rest on one.
+ *
+ * *** WHAT rules:check CAN AND CANNOT DO WITH THESE ***
+ *
+ * It cannot re-fetch them — that is the whole point. So it verifies the saved file
+ * still hashes to what the manifest recorded, and reports the snapshot's AGE. A
+ * snapshot is the only source type that goes stale silently, because the world
+ * moves and the file does not.
+ */
+export type HumanSnapshot = {
+  /** Repo-relative path to the saved file, under docs/sources/snapshots/. */
+  localPath: string;
+  /** ISO date the page was saved. */
+  savedAt: string;
+  /** Who saved it. A snapshot with no name against it is unattributable. */
+  savedBy: string;
+  /** Why it could not be fetched, so nobody re-tries the automated route. */
+  becauseUnfetchable: string;
+};
 
 /**
  * What KIND of authority a source is.
@@ -52,6 +95,11 @@ export type CorpusSource = {
   format: CorpusFormat;
   /** Defaults to "legislation" when omitted. */
   tier?: CorpusTier;
+  /**
+   * Required when format is "human-snapshot", and meaningless otherwise.
+   * verifySnapshotProvenance asserts that pairing rather than trusting it.
+   */
+  snapshot?: HumanSnapshot;
   /**
    * A string the extracted text MUST contain, proving the fetch landed on the
    * right document and the current consolidation.
