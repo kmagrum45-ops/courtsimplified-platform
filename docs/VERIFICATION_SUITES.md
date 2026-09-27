@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-66 documented, 30 without a header.
+67 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -75,6 +75,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:verifier` | **Does the verifier actually reject wrong content?**<br>The whole value of a drafter/verifier split rests on the verifier being willing to say no. A verifier that agrees with plausible text is not a check, it is a second opinion from the same kind of mind, and it would turn every block green while changing nothing. |
 | `npm run test:workspace-catalogue` | **The document-type catalogue in code and the CHECK constraint in the migration say**<br>the same thing, and no type label characterises anything legally. |
 | `npm run test:workspace-dates` | **Dates parse correctly, precision is never invented, ambiguity is surfaced, and**<br>chronological order is independent of upload order. |
+| `npm run test:workspace-upload` | **Uploaded documents are typed from their own bytes, pathed under their owner, and**<br>bounded by a limit that says the same number in the code and in the bucket. |
 
 ## Without a header comment
 

@@ -124,7 +124,8 @@
     "test:claim-types": "node --import tsx scripts/verification/verifyClaimTypeCatalogue.ts",
     "test:workspace-dates": "node --import tsx scripts/verification/verifyWorkspaceDates.ts",
     "test:workspace-catalogue": "node --import tsx scripts/verification/verifyWorkspaceCatalogue.ts",
-    "test:reasoning-text-gate": "node --import tsx scripts/verification/verifyReasoningTextGate.ts"
+    "test:reasoning-text-gate": "node --import tsx scripts/verification/verifyReasoningTextGate.ts",
+    "test:workspace-upload": "node --import tsx scripts/verification/verifyWorkspaceUpload.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",

@@ -134,5 +134,21 @@
     "ref": "icpvzwxyjsdgyqfkwycw",
     "appliedAt": "2026-09-27T01:33:16.121Z",
     "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260927090000_case_workspace_documents.sql",
+    "sha256": "06ce5672a4f1d771ce35784a93a57d91d0b931fb083554ac2039ec9198eb6b41",
+    "environment": "staging",
+    "ref": "icpvzwxyjsdgyqfkwycw",
+    "appliedAt": "2026-09-27T02:22:07.809Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260927100000_case_evidence_bucket_limits.sql",
+    "sha256": "d33a613e550fdb531f668664c0cbb282023e49afef7da9699e78f98c61ca0194",
+    "environment": "staging",
+    "ref": "icpvzwxyjsdgyqfkwycw",
+    "appliedAt": "2026-09-27T02:22:07.809Z",
+    "appliedBy": "kmagr"
   }
 ]
