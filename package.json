@@ -121,7 +121,8 @@
     "test:typecheck-live": "node --import tsx scripts/verification/verifyTypecheckIsLive.ts",
     "test:reference-not-shipped": "node --import tsx scripts/verification/verifyReferenceFolderIsNotShipped.ts",
     "test:snapshot-provenance": "node --import tsx scripts/verification/verifySnapshotProvenance.ts",
-    "test:claim-types": "node --import tsx scripts/verification/verifyClaimTypeCatalogue.ts"
+    "test:claim-types": "node --import tsx scripts/verification/verifyClaimTypeCatalogue.ts",
+    "test:reasoning-text-gate": "node --import tsx scripts/verification/verifyReasoningTextGate.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",

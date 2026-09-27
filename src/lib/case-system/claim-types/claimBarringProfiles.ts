@@ -72,7 +72,15 @@ export const CLAIM_BARRING_PROFILES: ClaimTypeProfile[] = [
       "There was a pothole in the road and I fell off my bike",
       "I slipped where the sidewalk had heaved up and hurt my knee",
       "I fell on a city walkway and the city says it is not their problem",
-      "I hurt my ankle on a loose paving stone outside the library",
+      /*
+       * REPLACED in the full scenario review. Was "I hurt my ankle on a loose
+       * paving stone outside the library". A library forecourt is the
+       * institution's own land, not a highway or sidewalk, so the s. 44 regime
+       * is the wrong one — that is an occupier's liability matter. Training the
+       * classifier toward a 10-day municipal notice for it would attach the
+       * wrong deadline to the wrong defendant.
+       */
+      "I tripped where the city sidewalk had cracked apart and hurt my ankle",
     ],
   },
 
@@ -120,7 +128,13 @@ export const CLAIM_BARRING_PROFILES: ClaimTypeProfile[] = [
     intakeQuestionIds: ["municipality"],
     scenarios: [
       "I fell on a sidewalk in Toronto and hurt my shoulder",
-      "I tripped on a broken curb on Queen Street and needed stitches",
+      /*
+       * REPLACED. Was "a broken curb on Queen Street". There is a Queen Street in
+       * a great many Ontario municipalities, so the scenario carries NO signal
+       * that this is Toronto — and Toronto has its own statute. A scenario that
+       * cannot identify the municipality does not belong on the Toronto profile.
+       */
+      "I tripped on a broken curb in downtown Toronto and needed stitches",
       "There was ice on a Toronto sidewalk and I fell and cracked a rib",
       "I hurt myself on a raised sidewalk slab in Scarborough",
       "I fell on a bridge walkway in Toronto and the City has not replied",
@@ -229,7 +243,14 @@ export const CLAIM_BARRING_PROFILES: ClaimTypeProfile[] = [
     sourceIds: ["crown-liability-and-proceedings-act-2019", "limitations-act-2002"],
     scenarios: [
       "A provincial inspector damaged my equipment and the ministry will not pay",
-      "I want to sue a provincial agency over money they took",
+      /*
+       * REPLACED. Was "sue a provincial agency over money they took", which is
+       * vague twice over: money taken by a public body is often a fee or tax
+       * dispute with its own appeal route, and many provincial agencies are
+       * separate legal entities rather than the Crown, so s. 18 may not apply at
+       * all.
+       */
+      "A ministry damaged my property while doing work and will not pay for it",
       /*
        * Replaced during the 10% scenario review. The original read "The province
        * cancelled my licence and it cost me income", which is the wrong shape for
@@ -240,7 +261,14 @@ export const CLAIM_BARRING_PROFILES: ClaimTypeProfile[] = [
        * somebody to the wrong court with a sixty-day notice they do not need.
        */
       "A provincial office lost documents I sent and I had to pay to replace them",
-      "A government road crew wrecked my fence",
+      /*
+       * REPLACED. Was "a government road crew wrecked my fence". Road crews are
+       * usually MUNICIPAL, and this profile carries the Crown's 60-days-BEFORE
+       * notice while a municipality carries a 10-days-after one. Getting that
+       * backwards is the most expensive confusion available in this tier, so the
+       * scenario now names a provincial highway explicitly.
+       */
+      "A crew working on a provincial highway damaged my fence",
       "I was told to claim against the Ontario government but do not know how to start",
     ],
   },

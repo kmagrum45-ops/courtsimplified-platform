@@ -63,35 +63,45 @@ assistant-block route. Treat the coordinator route as an open question.
 
 ---
 
-## The eleven items
+## The four that graded a case are DELETED, 2026-09-27
+
+Not on the needs-source list, because no source would have cured them. Each asked the
+product to grade a case or predict a decision-maker, which CLAUDE.md §3 forbids
+outright:
+
+| Deleted | What it asked for |
+|---|---|
+| `SEED_JUDICIAL_CONCERN_ORGANIZATION_001` | how a judge reads a disorganised file — a prediction about a decision-maker |
+| `SEED_CREDIBILITY_INCONSISTENCY_001` | how inconsistency affects credibility — weighing a witness |
+| `SEED_SETTLEMENT_COST_RISK_001` | cost risk around settlement — §3 names settlement pressure explicitly |
+| `SEED_DAMAGES_PROPORTIONALITY_001` | whether damages are proportionate — grading the merits |
+
+**Seven objects remain.** Five suites re-run clean after the deletion.
+
+## The seven remaining items
 
 Each needs a source from the vendored corpus, or deletion. None may be paraphrased
-into content as it stands.
+into content as it stands, and `test:reasoning-text-gate` plus the assistant-block
+knowledge gate keep all of it away from users meanwhile.
 
-| Id | What it asserts, in outline | Likely source route |
+| Id | What it asserts, in outline | Route |
 |---|---|---|
-| `SEED_EVIDENCE_DIGITAL_CONTEXT_001` | how digital evidence should be read in context | no statutory source; CLEO "going to court" pages, or drop |
-| `SEED_DEFAMATION_PATTERN_001` | patterns in defamation matters | Libel and Slander Act **is now vendored** — rewrite from it, and respect s. 7's scope |
-| `SEED_DAMAGES_PROPORTIONALITY_001` | proportionality of damages | borders on assessing a case. Check against CLAUDE.md §3 before sourcing at all |
-| `SEED_JUDICIAL_CONCERN_ORGANIZATION_001` | how a judge reads a disorganised file | a prediction about judges — **§3 forbids this**. Recommend deletion |
-| `SEED_LIMITATION_DISCOVERABILITY_001` | discoverability under the limitation rules | Limitations Act ss. 4 and 5 are vendored. Rewritable |
-| `SEED_PUBLIC_AUTHORITY_SCREENING_001` | screening immunity, discretion and notice in public-authority claims | Municipal Act, City of Toronto Act and **Crown Liability and Proceedings Act** are all vendored. Rewritable, and this is the same proposition found unsourced in the deleted `ontarioCivilAuthorityCollection.ts` |
-| `SEED_FAMILY_PARENTING_BEST_INTERESTS_001` | best interests in parenting matters | out of scope for this product — family law routes elsewhere. Recommend deletion |
-| `SEED_BURDEN_PROOF_MAPPING_001` | mapping what must be proved | the one the assistant's burden block draws on. Needs a real source per claim type, which is what the claim-type profiles are for |
-| `SEED_CREDIBILITY_INCONSISTENCY_001` | how inconsistency affects credibility | assessing a case. **§3 forbids it.** Recommend deletion |
-| `SEED_SETTLEMENT_COST_RISK_001` | cost risk around settlement | settlement pressure — **§3 names this explicitly.** Recommend deletion |
-| `SEED_FORM_SELECTION_DISCIPLINE_001` | choosing the right form | the forms table and the ontario.ca guides are vendored. Rewritable |
+| `SEED_DEFAMATION_PATTERN_001` | patterns in defamation matters | **rewritable.** The Libel and Slander Act is now vendored — rewrite from it, respecting s. 7's scope, which limits ss. 5 (1) and 6 to Ontario newspapers and broadcasts |
+| `SEED_LIMITATION_DISCOVERABILITY_001` | discoverability under the limitation rules | **rewritable.** Limitations Act ss. 4 and 5 are vendored |
+| `SEED_PUBLIC_AUTHORITY_SCREENING_001` | screening immunity, discretion and notice in public-authority claims | **rewritable.** Municipal Act, City of Toronto Act and Crown Liability and Proceedings Act are all vendored. This is the same proposition found unsourced in the deleted `ontarioCivilAuthorityCollection.ts` |
+| `SEED_BURDEN_PROOF_MAPPING_001` | mapping what must be proved | **rewritable, per claim type.** This is the one the assistant's burden block draws on, and the claim-type profiles are where it belongs |
+| `SEED_FORM_SELECTION_DISCIPLINE_001` | choosing the right form | **rewritable.** The forms table and the ontario.ca guides are vendored |
+| `SEED_FAMILY_PARENTING_BEST_INTERESTS_001` | best interests in parenting matters | **OUT OF SCOPE.** Family law routes elsewhere; this product does not advise on it. Delete when the family surfaces are settled |
+| `SEED_EVIDENCE_DIGITAL_CONTEXT_001` | how digital evidence should be read in context | **no evident source route.** Not a statutory proposition. Either find a CLEO "going to court" page that states it, or drop it |
 
-### The split, counted
+### Where that leaves the library
 
-- **5 rewritable** from sources already in the corpus: defamation, limitation
-  discoverability, public-authority screening, burden mapping, form selection.
-- **4 recommended for deletion** because they grade a case or predict a
-  decision-maker, which no amount of sourcing cures: judicial concern, credibility,
-  settlement cost risk, damages proportionality.
-- **1 out of scope**: family parenting.
-- **1 with no evident source route**: digital evidence context.
+- **5 rewritable** from sources already in the corpus.
+- **1 out of scope**, marked as such.
+- **1 with no evident source route.**
+- **4 deleted** as ungateable under §3.
 
-**That is the finding worth acting on.** Roughly a third of this library is not
-waiting for a citation — it is asking the product to do something CLAUDE.md §3
-forbids. Sourcing it would not make it shippable.
+The original eleven were described as "waiting for a citation". Four were not
+waiting for anything; they were asking for something the product may never do. That
+distinction is the whole value of the triage, and it is why the list is a work item
+in the review packet rather than a research backlog.
