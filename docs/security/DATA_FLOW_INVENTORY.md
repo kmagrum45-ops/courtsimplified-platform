@@ -477,6 +477,42 @@ design document had asserted, under a heading reading "checked, not assumed",
 that grepping for `resend` returned nothing, sixteen days after the two scripts
 containing it were committed.
 
+### 3.6 REFUSED PROCESSORS — considered for a real job and rejected
+
+A list of what we do **not** send data to is worth as much as the list of what we
+do, because the second list only stays short if somebody records the reasoning
+the first time a convenient option is turned down. Every entry here was a genuine
+candidate for work that actually needed doing, not a hypothetical.
+
+| Processor | What it was considered for | Why it was refused | Date |
+|---|---|---|---|
+| **Adobe PDF Services** (`@adobe/pdfservices-node-sdk`) | Extracting text from uploaded documents, and OCR of scans, in the case workspace (Part 2) | **Data residency.** Production runs in `ca-central-1` specifically so Canadian litigants' data stays in Canada (§2.1). Adobe's service would send the most sensitive data this product holds — medical records, bank statements, solicitors' letters — to a processor outside that boundary. Adding a cross-border processor for *that* category is a decision for the site owner and counsel, not an implementation convenience. Pure-JS extraction (`pdfjs-dist`, `fflate`) does the same job on our own infrastructure | 2026-09-27 |
+
+**The Adobe SDK had been a dependency since before this was noticed, imported by
+nothing.** Zero hits for `pdfservices` or `adobe` across `app/`, `src/` and
+`scripts/` on 2026-09-27. That is the hazard worth naming: an unused SDK in
+`package.json` reads, to the next person under time pressure, like an approved
+route that somebody already cleared. It had cleared nothing. It has now been
+removed from `package.json` so the option cannot be mistaken for a decision.
+
+**A refused processor is not refused forever.** If the residency question is
+answered — by a Canadian processing region with contractual terms counsel has
+read — this table is where the reversal gets recorded, with the same specificity.
+
+#### Related but not refused: OCR
+
+OCR of scanned documents is a real need, since a large share of what a litigant
+uploads is a photograph. It is **not** solved by sending images to a processor.
+It runs in the user's own browser (`tesseract.js`, English and French), so the
+image never leaves their device for that purpose, and the recognised text arrives
+tagged `client-ocr` with a confidence score. Server-side, an image that cannot be
+read is reported as needing the user's own details — never as an empty success.
+
+Model-based reading of document images is recorded in `ACCURACY_ENGINE.md` as a
+**future option that is deliberately not built**, because it is not yet confirmed
+that OpenAI image inputs are covered by the zero-retention and modified
+abuse-monitoring terms that §3.2 relies on for text.
+
 ---
 
 ## 4. Retention and deletion

@@ -158,5 +158,13 @@
     "ref": "icpvzwxyjsdgyqfkwycw",
     "appliedAt": "2026-09-27T02:43:40.461Z",
     "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260927120000_workspace_ocr_and_needs_details.sql",
+    "sha256": "80badc5d9b21c9c38c70aba97f0b7d336d7ddcc81ba69b927c68403056e59322",
+    "environment": "staging",
+    "ref": "icpvzwxyjsdgyqfkwycw",
+    "appliedAt": "2026-09-27T03:17:36.567Z",
+    "appliedBy": "kmagr"
   }
 ]

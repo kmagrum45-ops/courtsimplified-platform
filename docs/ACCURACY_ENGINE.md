@@ -1154,6 +1154,45 @@ Things that cost time to learn and would cost it again:
 - **A check must assert a property, not a current value.** See CLAUDE.md §5.
   Several checks here were rewritten after failing that test.
 
+## Deliberately NOT built: model-based reading of document images (2026-09-27)
+
+**Do not build this yet. The blocker is a retention question, not a technical one.**
+
+A large share of what a self-represented litigant uploads is a photograph — a
+receipt on a table, a letter held up to a phone. Those are read by
+`tesseract.js` **in the user's own browser** (`src/lib/case-workspace/clientOcr.ts`),
+English and French, so the image is never transmitted anywhere to be read. The
+recognised text arrives tagged `client-ocr` with a confidence score, and below 70
+the document lands in `needs-details` and asks the user to type the date and a
+description themselves.
+
+Tesseract on a phone photograph is mediocre, and a multimodal model would read
+those images far better. **It is not built, and the reason is specific.**
+
+`docs/security/DATA_FLOW_INVENTORY.md` §3.2 sets out the retention position for
+OpenAI **text**: zero data retention and modified abuse monitoring. It has **not**
+been confirmed that those terms cover **image inputs**. Until OpenAI confirms that
+in writing, sending a photograph of a medical record would mean sending the most
+sensitive data this product holds under terms nobody has checked — while the
+equivalent text is protected by terms somebody did.
+
+So the sequence is: get the confirmation, record it in §3.2 alongside the text
+position with the date, and only then build it behind `AI_DOCUMENT_ANALYSIS_ENABLED`
+like the rest of the AI surface.
+
+**What this entry is protecting against:** the reasoning above is invisible from the
+code. Someone comparing tesseract's output on a phone photo against what a model
+would produce will conclude, correctly, that the model is better, and reasonably
+assume nobody had considered it. The gap is deliberate and the blocker is a
+contract, not a capability.
+
+Related: Adobe PDF Services was refused outright on data-residency grounds and
+removed from `package.json` — §3.6 of the inventory. That refusal is about where
+data goes; this deferral is about what happens to it when it arrives. Two different
+questions, and answering one does not answer the other.
+
+---
+
 ## The typecheck was reporting success while checking nothing (2026-09-26)
 
 **Worth its own section because the failure looked exactly like a pass, and it was
