@@ -120,7 +120,8 @@
     "typecheck": "tsc --noEmit -p tsconfig.verify.json",
     "test:typecheck-live": "node --import tsx scripts/verification/verifyTypecheckIsLive.ts",
     "test:reference-not-shipped": "node --import tsx scripts/verification/verifyReferenceFolderIsNotShipped.ts",
-    "test:snapshot-provenance": "node --import tsx scripts/verification/verifySnapshotProvenance.ts"
+    "test:snapshot-provenance": "node --import tsx scripts/verification/verifySnapshotProvenance.ts",
+    "test:claim-types": "node --import tsx scripts/verification/verifyClaimTypeCatalogue.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",
