@@ -898,3 +898,103 @@ hand-written.
   it rejected "This includes expert reports not attached to your claim or defence." —
   a particular straight out of r. 13.03 (2) (a). Its marker list is tuned for "is this
   verifiable" and contains no document nouns. Removed.
+
+---
+
+## PIPELINE RULE: the term-of-art readability exception (2026-09-27)
+
+**This is a rule of the content pipeline, alongside drafter rules 4a (split a long
+requirement), 5c (do not gloss how service is made) and 8a (filler names no new
+particular). It is not a per-block override and there is no way to grant one.**
+
+`src/lib/content-library/readabilityExceptions.ts`.
+
+### The rule
+
+A block over `TARGET_GRADE` still passes **if and only if** the excess is attributable
+to an allowlisted legal term of art — a named proceeding, a statutory phrase, a form
+number — with no accurate plain-language substitute.
+
+### How that is decided, which is the part that stops it becoming a relaxation
+
+The term is replaced with a placeholder of the **same word count** and the **minimum
+possible syllable count** (one per word), and the block is measured again. It passes
+only if the substituted block meets the target.
+
+Flesch-Kincaid is a function of words, sentences and syllables, so holding word and
+sentence counts constant isolates the term's syllable cost and changes nothing else.
+The question the test asks is deliberately hostile to itself: *if this term were as
+easy as any English phrase could possibly be, would this block pass?* If not, the
+excess is not the term's fault.
+
+**What therefore still fails, exactly as before:** padding, long sentences, awkward
+constructions, ordinary long vocabulary, and any combination of them. All four are
+checked by `test:generic-library` against fixed synthetic cases, so the mechanism
+cannot drift into permissiveness without a red suite.
+
+### The repetition guard
+
+Each term carries `maxOccurrences` (2 for "settlement conference"). Beyond that the
+excess is repetition the drafter can fix — and the drafter is already told to name the
+term once and then refer back to it. Without this guard the mechanism would excuse
+precisely the padding the readability gate exists to catch.
+
+### Every entry must cite a source using the term as a name
+
+`definedAt` is a pinpoint into the vendored corpus, and the suite checks the passage is
+really there *and* that it contains the term. So an entry cannot be added on an
+assertion that some rule probably uses the phrase.
+
+### The allowlist
+
+| Term | Where the source uses it | Why no plain substitute is accurate |
+|---|---|---|
+| settlement conference | r. 13.01 (1), O. Reg. 258/98 — "A settlement conference shall be held in every defended action." | The name of a specific proceeding the Rules require and fix a date for. "Meeting" or "hearing" is inaccurate — it is neither a trial nor an informal meeting, and it is the event r. 13.03 (2) counts 14 days back from. A reader told to serve documents before a "meeting" cannot identify which event that is on the notice the clerk sends them |
+
+### A granted exception is recorded on the block, not just logged
+
+`GenericAnswer.readabilityException` carries the term, the occurrence count, the grade
+with and without, and the pinpoint. It therefore appears in the review packet where a
+reviewer can disagree with it, and `test:generic-library` re-derives it from the
+block's own text — a stored grant that the mechanism would no longer give fails.
+Promotion re-derives it too, so a block cannot publish on a grant that has expired.
+
+### Two things measured while building this
+
+- **The exception is not always needed.** "Serve your documents 14 days before the
+  settlement conference." scores 9.66 alone and 6.13 beside two plain sentences.
+  Dilution works, and a tightly written block containing the term can meet grade 8
+  outright — one draft did, at 7.82.
+- **More attempts per run make things worse.** Feedback is replaced each attempt rather
+  than accumulated into understanding, so a long run accumulates contradictory
+  corrections: the drafter shortens until the verifier rejects the sentence as not what
+  the source says, restores the source wording until readability fails, and by attempt
+  seven reproduces generalities it was told twice to avoid. Measured: 4-attempt runs
+  landed grade 7.8–8.4, 7-attempt runs landed 9.4–9.9. `MAX_ATTEMPTS` is 4. Fresh runs
+  beat long ones.
+
+## PIPELINE RULE: a duty stated by halves (2026-09-27)
+
+`dutyCompletenessProblems` in `scripts/content/blockGates.ts`. Same family as the
+bar-exceptions gate and the admissibility-discretion gate: a proposition whose second
+half or qualifier must travel with it.
+
+**Found by reading a draft that had passed everything.** A serving-documents block
+reached 11 of 11 verified verdicts at grade 7.82 and never told the reader to file
+anything. r. 13.03 (2) reads "each party shall serve on every other party **and file
+with the court**" — two obligations in one breath. Every sentence was true, and a
+litigant following it exactly would have served their documents and not filed them,
+which is not compliance.
+
+**The verifier cannot catch this and it is not a defect that it cannot.** It checks
+each sentence against the sources, so it catches a sentence saying something no source
+states. An omission is not a sentence.
+
+The gate now requires: where a cited quote imposes serving **and** filing, the block
+mentions filing; and where a cited quote says "at least N days", the block does not
+state "N days" without the floor — "14 days before" turns a minimum into a single
+permitted day, and a reader who cannot manage that exact day does not learn that
+earlier is fine.
+
+No existing published block cites a serve-and-file duty, so adding this changed nothing
+for the 16.

@@ -60,13 +60,22 @@ import {
   addUsage,
   costOf,
   draftGeneric,
+  findQuote,
   genericSourceMaterial,
   readabilityProblem,
   sentencesOf,
   verify,
   type Usage,
 } from "./verifiedContentPipeline";
-import { genericGateFailures, partyNeutralProblems } from "./blockGates";
+import {
+  dutyCompletenessProblems,
+  genericGateFailures,
+  partyNeutralProblems,
+} from "./blockGates";
+import {
+  assessReadability,
+  formatReadabilityException,
+} from "../../src/lib/content-library/readabilityExceptions";
 import {
   GENERIC_TOPICS,
   type GenericAnswer,
@@ -77,6 +86,19 @@ import type { SentenceVerdict } from "../../src/lib/content-library/stageAnswers
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const OUT_DIR = path.join(ROOT, "docs", "content-runs", "generic");
+/**
+ * Blocks that passed a run, held for promotion. Served to nobody.
+ *
+ * *** WHY DRAFTING AND PROMOTION ARE SEPARATE, LEARNED THE OBVIOUS WAY ***
+ *
+ * This script used to re-draft when asked to promote. The pipeline is
+ * non-deterministic — publishedLibrary.ts records that temperature 0 and a seed
+ * still produce different results — so a block that passed at 12:07 failed at 12:14
+ * and promotion was a lottery. The stage pipeline never had this problem because it
+ * keeps candidates and promotes one.
+ */
+const CANDIDATES = path.join(OUT_DIR, "candidates.json");
+
 const PUBLISHED = path.join(
   ROOT,
   "src",
@@ -90,20 +112,18 @@ const PUBLISHED = path.join(
 dotenv.config({ path: ".env.local", quiet: true });
 
 /*
- * Seven, where the stage run uses four.
+ * Four, the same as the stage run. Seven was tried and was WORSE, consistently.
  *
- * Not a lowered bar -- every gate is unchanged. It is that this topic has a much
- * narrower target to hit: measured, "Serve your documents 14 days before the
- * settlement conference." scores grade 9.66 on its own, and the 16 published stage
- * blocks top out at 7.98 because their vocabulary is shorter. Across seven separate
- * four-attempt runs the drafter reached 11/11 verified with every gate passing except
- * readability by 0.2 -- and then oscillated, because feedback resets between runs and
- * four attempts is not enough to converge on both constraints at once.
+ * Feedback is replaced each attempt with the last attempt failures, so a long run
+ * does not accumulate understanding -- it accumulates contradictory corrections. The
+ * drafter would shorten a sentence until the verifier rejected it as not what the
+ * source says, then restore the source wording until readability failed, and by
+ * attempt seven it was reproducing the generalities it had been told twice to avoid.
+ * Measured: 4-attempt runs landed grade 7.8 to 8.4; 7-attempt runs landed 9.4 to 9.9.
  *
- * Generic topics are few, so the extra attempts cost little. A run that stops short of
- * converging just spends money and publishes nothing.
+ * The one fully clean draft arrived on attempt TWO. Fresh runs beat long ones here.
  */
-const MAX_ATTEMPTS = 7;
+const MAX_ATTEMPTS = 4;
 const MODEL = process.env.CONTENT_MODEL || "gpt-4o-mini";
 
 type Attempt = {
@@ -186,6 +206,13 @@ async function runTopic(
     problems.push(...partyNeutralProblems(prose));
 
     /*
+     * Completeness, told to the drafter. A promotion gate can only refuse, and this is
+     * the failure that slipped through eleven clean verdicts: the duty in r. 13.03 (2)
+     * is to serve AND file, and the block only said serve.
+     */
+    problems.push(...dutyCompletenessProblems(prose, topic.rules));
+
+    /*
      * *** A FILLER GATE WAS HERE AND IT WAS WRONG. RECORDED SO IT IS NOT RE-ADDED. ***
      *
      * Drafter rule 8a states a filler test -- if a sentence names no new particular,
@@ -256,6 +283,13 @@ async function runTopic(
     });
 
     if (problems.length === 0) {
+      /*
+       * The reading-level assessment is recorded on the block itself, so a granted
+       * term-of-art exception is auditable in the published artefact rather than only
+       * in this run log. Null for a block that simply met the target.
+       */
+      const assessment = assessReadability(prose);
+
       return {
         answer: {
           id: `answer:generic:${topic.id}`,
@@ -274,6 +308,8 @@ async function runTopic(
             attempts: attempt,
             verdicts: verified.verdicts,
           },
+          readabilityException: assessment.withinTarget ? assessment.exception : null,
+          draftedWith: MODEL,
         },
         attempts,
       };
@@ -290,8 +326,130 @@ async function runTopic(
   return { answer: null, attempts };
 }
 
+/**
+ * Publishes a held candidate. MAKES NO MODEL CALLS.
+ *
+ * The gates are re-run here rather than trusted from the run that produced the
+ * candidate, because the corpus can be re-vendored between drafting and promotion and
+ * a quote that was in it may not be any more. That is the same reason
+ * verifyPublishedLibrary re-checks every quote on every run.
+ */
+function promoteCandidates(): number {
+  if (!existsSync(CANDIDATES)) {
+    console.log("");
+    console.log(`  nothing to promote: no candidates at ${path.relative(ROOT, CANDIDATES)}.`);
+    console.log("  run the drafter first, without --promote.");
+    console.log("");
+    return 1;
+  }
+
+  const held = JSON.parse(readFileSync(CANDIDATES, "utf8")) as GenericAnswer[];
+  const clean: GenericAnswer[] = [];
+
+  console.log("");
+  console.log(`PROMOTING — ${held.length} candidate(s), no model calls`);
+  console.log("");
+
+  for (const candidate of held) {
+    const problems = genericGateFailures(candidate);
+
+    /*
+     * Every quote re-checked against the corpus as it is NOW. A candidate drafted
+     * against last week's vendored text is not verified against this week's.
+     */
+    for (const verdict of candidate.verification.verdicts ?? []) {
+      if (!verdict.supported || !verdict.quote) continue;
+      for (const quote of verdict.quote.split(" | ")) {
+        if (quote.trim().length < 25) continue;
+        if (findQuote(quote) === null) {
+          problems.push(`rests on a passage no longer in the corpus: "${quote.slice(0, 70)}"`);
+        }
+      }
+    }
+
+    /*
+     * A stored readability exception is re-derived, not trusted. If the mechanism
+     * would no longer grant it — the allowlist changed, the term was removed — the
+     * candidate must not publish on a grant that no longer exists.
+     */
+    const assessment = assessReadability(
+      [candidate.whatsHappening, candidate.whatToDoNext, candidate.whatHappensAfter]
+        .filter(Boolean)
+        .join("\n\n"),
+    );
+    if (candidate.readabilityException && !assessment.exception) {
+      problems.push(
+        "carries a readability exception that the mechanism would not grant today",
+      );
+    }
+
+    if (problems.length > 0) {
+      console.log(`  ${candidate.id} — REFUSED`);
+      for (const problem of problems) console.log(`      - ${problem}`);
+      continue;
+    }
+
+    console.log(`  ${candidate.id} — passes every gate`);
+    if (assessment.exception) {
+      console.log("      " + formatReadabilityException(assessment.exception, candidate.id));
+    }
+    clean.push({ ...candidate, readabilityException: assessment.exception });
+  }
+
+  if (clean.length !== GENERIC_TOPICS.length) {
+    console.log("");
+    console.log(
+      `  NOT PROMOTING: ${clean.length} of ${GENERIC_TOPICS.length} topic(s) are clean.`,
+    );
+    console.log("");
+    return 1;
+  }
+
+  const existing: GenericAnswer[] = existsSync(PUBLISHED)
+    ? (JSON.parse(readFileSync(PUBLISHED, "utf8")) as { blocks: GenericAnswer[] }).blocks
+    : [];
+  const merged = new Map(existing.map((answer) => [answer.id, answer]));
+  for (const answer of clean) merged.set(answer.id, answer);
+  const blocks = [...merged.values()].sort((a, b) => a.id.localeCompare(b.id));
+
+  writeFileSync(
+    PUBLISHED,
+    `${JSON.stringify(
+      {
+        release: {
+          /*
+           * From the BLOCKS, not from this process env. Promotion is a separate
+           * invocation and does not know which model drafted the candidate.
+           */
+          model:
+            [...new Set(blocks.map((block) => block.draftedWith).filter(Boolean))].join(", ") ||
+            "unrecorded",
+          promotedAt: new Date().toISOString(),
+          blockCount: blocks.length,
+        },
+        blocks,
+      },
+      null,
+      2,
+    )}\n`,
+  );
+
+  console.log("");
+  console.log(`  promoted ${blocks.length} block(s) to ${path.relative(ROOT, PUBLISHED)}`);
+  console.log("");
+  return 0;
+}
+
 async function main() {
-  const promote = process.argv.includes("--promote");
+  /*
+   * Promotion never drafts. Separate invocations, because the pipeline is not
+   * deterministic and re-drafting at promotion time makes publication a lottery.
+   */
+  if (process.argv.includes("--promote")) {
+    process.exitCode = promoteCandidates();
+    return;
+  }
+
   const usage: Usage[] = [];
   const log: unknown[] = [];
   const answers: GenericAnswer[] = [];
@@ -325,6 +483,13 @@ async function main() {
       continue;
     }
 
+    if (answer.readabilityException) {
+      console.log("");
+      console.log("      " + formatReadabilityException(answer.readabilityException, answer.id));
+      console.log("      justification: " + answer.readabilityException.justification);
+      process.stdout.write("      ");
+    }
+
     console.log(
       `verified-draft in ${answer.verification.attempts} attempt(s), ` +
         `grade ${readability(proseOf(answer)).grade.toFixed(1)}, ` +
@@ -341,6 +506,23 @@ async function main() {
     `${JSON.stringify({ model: MODEL, startedAt: new Date().toISOString(), usage, log }, null, 2)}\n`,
   );
 
+  /*
+   * Candidates are merged by id and kept, whether or not this invocation promotes.
+   * A passing block is worth keeping even when the next run fails.
+   */
+  if (answers.length > 0) {
+    const held: GenericAnswer[] = existsSync(CANDIDATES)
+      ? (JSON.parse(readFileSync(CANDIDATES, "utf8")) as GenericAnswer[])
+      : [];
+    const mergedCandidates = new Map(held.map((answer) => [answer.id, answer]));
+    for (const answer of answers) mergedCandidates.set(answer.id, answer);
+    writeFileSync(
+      CANDIDATES,
+      `${JSON.stringify([...mergedCandidates.values()], null, 2)}\n`,
+    );
+    console.log(`  held ${answers.length} candidate(s) in ${path.relative(ROOT, CANDIDATES)}`);
+  }
+
   console.log("");
   for (const entry of usage) {
     console.log(
@@ -350,54 +532,10 @@ async function main() {
   }
   console.log(`  total $${usage.reduce((sum, entry) => sum + costOf(entry), 0).toFixed(4)}`);
 
-  if (!promote) {
-    console.log("");
-    console.log(`  ${answers.length} block(s) ready. Re-run with --promote to publish.`);
-    console.log("");
-    return;
-  }
-
-  if (answers.length !== GENERIC_TOPICS.length) {
-    console.log("");
-    console.log(
-      `  NOT PROMOTING: ${answers.length} of ${GENERIC_TOPICS.length} topics passed. ` +
-        `Publishing a partial set would leave a screen showing nothing with no record of why.`,
-    );
-    console.log("");
-    process.exitCode = 1;
-    return;
-  }
-
-  /*
-   * MERGE, never overwrite — the same rule the stage run learned the hard way when a
-   * two-stage run replaced a thirty-five-stage one.
-   */
-  const existing: GenericAnswer[] = existsSync(PUBLISHED)
-    ? (JSON.parse(readFileSync(PUBLISHED, "utf8")) as { blocks: GenericAnswer[] }).blocks
-    : [];
-  const merged = new Map(existing.map((answer) => [answer.id, answer]));
-  for (const answer of answers) merged.set(answer.id, answer);
-
-  const blocks = [...merged.values()].sort((a, b) => a.id.localeCompare(b.id));
-
-  writeFileSync(
-    PUBLISHED,
-    `${JSON.stringify(
-      {
-        release: {
-          model: MODEL,
-          promotedAt: new Date().toISOString(),
-          blockCount: blocks.length,
-        },
-        blocks,
-      },
-      null,
-      2,
-    )}\n`,
-  );
-
   console.log("");
-  console.log(`  promoted ${blocks.length} block(s) to ${path.relative(ROOT, PUBLISHED)}`);
+  console.log(
+    `  ${answers.length} block(s) passed. Run with --promote to publish the held candidate(s).`,
+  );
   console.log("");
 }
 

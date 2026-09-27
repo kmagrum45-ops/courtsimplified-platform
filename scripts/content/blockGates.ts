@@ -31,6 +31,7 @@ import {
 } from "../../src/lib/content-library/stageAnswers";
 import type { GenericAnswer } from "../../src/lib/content-library/genericAnswers";
 import { readability, TARGET_GRADE } from "../../src/lib/content-library/readability";
+import { assessReadability } from "../../src/lib/content-library/readabilityExceptions";
 
 /** Statuses a user may be shown. `needs-human` and `draft` are never published. */
 export const PUBLISHABLE = ["verified-draft", "no-source", "approved"] as const;
@@ -492,6 +493,87 @@ export type GateableAnswer = {
  * So the gate is replaced rather than skipped. The patterns are the same confusions
  * `wrongReaderProblems` catches, minus any assumption about which side is wrong.
  */
+/**
+ * A duty stated by halves, and a period stated without its "at least".
+ *
+ * *** WHY THE VERIFIER CANNOT CATCH THIS, WHICH IS THE WHOLE REASON IT IS A GATE ***
+ *
+ * The verifier checks each sentence against the sources: it catches a sentence that
+ * says something the source does not. It has no view on what the block LEFT OUT,
+ * because an omission is not a sentence.
+ *
+ * The serving-documents block passed 11 of 11 verdicts at grade 7.82 and never told
+ * the reader to file anything. r. 13.03 (2) reads "each party shall serve on every
+ * other party AND FILE WITH THE COURT" — two obligations in one breath. Everything the
+ * block said was true; a litigant following it exactly would have served their
+ * documents and not filed them, which is not compliance. Found by reading the draft,
+ * not by any check, which is why there is now a check.
+ *
+ * This is the same family as `barExceptionProblems` and the admissibility-discretion
+ * gate: a proposition whose qualifier or second half must travel with it.
+ *
+ * *** THE "AT LEAST" HALF ***
+ *
+ * r. 13.03 (2) and r. 18.02 (1) both say "at least N days before". A block that says
+ * "N days before" has stated a different, narrower thing — it reads as a single
+ * permitted day rather than a floor, and a reader who cannot serve on precisely that
+ * day does not know that earlier is fine. The source's own qualifier is cheap to keep.
+ */
+export function dutyCompletenessProblems(
+  text: string,
+  citations: readonly { pinpoint: string; quote: string }[],
+): string[] {
+  const problems: string[] = [];
+
+  for (const citation of citations) {
+    const quote = citation.quote;
+
+    /*
+     * A citation that imposes serving AND filing. Matched on the quote's own words so
+     * it cannot drift from what was authored.
+     */
+    if (/\bserve\b[^.]*\band file\b/i.test(quote) || /\bfile with the court\b/i.test(quote)) {
+      const mentionsFiling = /\bfil(e|es|ed|ing)\b/i.test(text);
+      if (!mentionsFiling) {
+        problems.push(
+          `${citation.pinpoint} requires serving AND filing with the court, and the block ` +
+            `never mentions filing. A reader following this exactly would serve their ` +
+            `documents and not file them, which is not compliance.`,
+        );
+      }
+    }
+
+    /*
+     * "At least N days" in the source, stated as a bare "N days" in the block.
+     *
+     * Only fires where the block actually states that same number, so a block that
+     * omits the period entirely is not caught here — that is a different problem, and
+     * one the stage-map deadline section handles for stage blocks.
+     */
+    const atLeast = /\bat least (\d{1,3}) days\b/i.exec(quote);
+    if (atLeast) {
+      const period = atLeast[1];
+      const statesPeriod = new RegExp(`\\b${period}\\s+days\\b`, "i").test(text);
+      if (statesPeriod) {
+        const keepsFloor = new RegExp(
+          `\\b(at least|no later than|or more|minimum of)\\s+(\\w+\\s+){0,2}${period}\\s+days\\b`,
+          "i",
+        ).test(text);
+        if (!keepsFloor) {
+          problems.push(
+            `${citation.pinpoint} says "at least ${period} days", and the block says ` +
+              `"${period} days" without the floor. That reads as one permitted day rather ` +
+              `than a minimum, so a reader who cannot serve on exactly that day does not ` +
+              `learn that earlier is fine.`,
+          );
+        }
+      }
+    }
+  }
+
+  return problems;
+}
+
 export function partyNeutralProblems(text: string): string[] {
   const problems: string[] = [];
 
@@ -773,6 +855,9 @@ function allGateFailures(answer: GateableAnswer, stage: CaseStage | null): strin
 
   if (stage) failures.push(...barExceptionProblems(answerText(answer), stage));
 
+  // ---- a duty stated by halves, or a period without its floor ------------
+  failures.push(...dutyCompletenessProblems(answerText(answer), answer.citations ?? []));
+
   // ---- a bar stated without the thing that qualifies it ------------------
 
   /*
@@ -871,9 +956,27 @@ function allGateFailures(answer: GateableAnswer, stage: CaseStage | null): strin
     failures.push(`American spelling: ${spellings.join(", ")}`);
   }
 
-  const grade = readability(text).grade;
-  if (Number(grade.toFixed(1)) > TARGET_GRADE) {
-    failures.push(`reads at grade ${grade.toFixed(1)}, above the grade ${TARGET_GRADE} target`);
+  /*
+   * *** READING LEVEL, WITH THE TERM-OF-ART EXCEPTION ***
+   *
+   * `assessReadability` returns withinTarget for a block that meets grade 8, and also
+   * for one that only misses it because of an allowlisted term of art — a named
+   * proceeding or statutory phrase with no accurate plain substitute. See
+   * readabilityExceptions.ts for the mechanism and why it cannot be used to wave
+   * through padding: the term is substituted at one syllable per word, holding word and
+   * sentence counts constant, and the block must then meet the target.
+   *
+   * This applies to stage blocks as well as generic ones, deliberately. It is a rule
+   * about terms of art, not a concession to one block, and a stage block naming a
+   * settlement conference has exactly the same problem. It changes nothing for the 16
+   * published blocks: they top out at 7.98, so they never reach this branch.
+   *
+   * The grant is not silent. `readabilityExceptionFor` lets a caller retrieve the
+   * exception and log it, and the drafting run prints it.
+   */
+  const assessment = assessReadability(text, TARGET_GRADE);
+  if (!assessment.withinTarget) {
+    failures.push(assessment.reason);
   }
 
   return failures;

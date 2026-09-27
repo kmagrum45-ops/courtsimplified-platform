@@ -40,6 +40,7 @@
 
 import type { RuleCitation } from "../case-system/stage-map/citations";
 import type { VerificationRecord, Slot } from "./stageAnswers";
+import type { ReadabilityException } from "./readabilityExceptions";
 
 /** Where a generic block is shown. Not a stage — a screen and a topic. */
 export type GenericTopicId = "serving-documents";
@@ -82,6 +83,32 @@ export type GenericAnswer = {
   citations: RuleCitation[];
   sourceIds: string[];
   verification: VerificationRecord;
+  /**
+   * Set only where the block met the reading-level target because of a term of art.
+   *
+   * *** WHY THIS IS IN THE PUBLISHED ARTEFACT AND NOT ONLY IN A LOG ***
+   *
+   * An exception that lives in a run log is an exception nobody sees again. Recorded
+   * here it travels with the block: it appears in the review packet, a reviewer can
+   * disagree with it, and `test:generic-library` re-derives it from the block's own
+   * text and fails if the stored grant no longer matches what the mechanism would
+   * grant today.
+   *
+   * Absent (or null) for a block that simply met the target, which must stay the
+   * ordinary case.
+   */
+  readabilityException?: ReadabilityException | null;
+  /**
+   * The model that drafted and verified this block.
+   *
+   * Recorded per block, not only on the release. Promotion happens in a separate
+   * invocation from drafting, so the promoting process has no idea which model produced
+   * the candidate -- and it duly wrote "gpt-4o-mini" into the release for a block
+   * drafted with gpt-4o, because that is what its own env defaulted to. A published
+   * artefact that misstates how its content was produced is worse than one that says
+   * nothing.
+   */
+  draftedWith?: string;
 };
 
 export type GenericTopic = {

@@ -56,6 +56,7 @@ import { SOURCE_NAMES } from "../../src/lib/case-system/stage-map/citations";
 import type { SentenceVerdict } from "../../src/lib/content-library/stageAnswers";
 import type { GenericTopic } from "../../src/lib/content-library/genericAnswers";
 import { readability, TARGET_GRADE } from "../../src/lib/content-library/readability";
+import { assessReadability } from "../../src/lib/content-library/readabilityExceptions";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const CORPUS_DIR = path.join(ROOT, "docs", "sources", "corpus");
@@ -999,6 +1000,36 @@ Do not write "documents to be relied on at the trial" twice; say it once and the
 Short does not mean vague: keep every number, every form number and name, and every
 "must". Lose a particular and the sentence fails verification instead.
 
+DO NOT GENERALISE THE DUTIES. THIS IS WHAT KEEPS FAILING.
+
+Sentences like "you must serve and file documents before certain events", "serve your
+documents as required by the rules" and "once served, documents will be considered by
+the court" are all REJECTED, every time, and correctly: the sources impose specific
+duties for specific documents before specific events, and a general version of them
+says something no source states.
+
+Name the event and the document. Never "before certain events", never "as required".
+
+BUT DO IT IN SHORT SENTENCES. Being concrete is not a licence to write one long
+sentence carrying everything. This is the shape to copy:
+
+  "You must serve two things on every other party. One is any document you will rely
+   on at trial. The other is your list of proposed witnesses, on Form 13A. You must
+   also file both with the court. Do this at least 14 days before the settlement
+   conference."
+
+Five sentences, none over twelve words, and nothing dropped: both documents, both
+duties, the floor, and the named event. That is the target.
+
+SERVING AND FILING ARE TWO THINGS AND BOTH ARE REQUIRED. r. 13.03 (2) says each party
+shall serve on every other party AND FILE WITH THE COURT. A block that tells the reader
+only to serve is describing half a duty, and somebody following it exactly has not
+complied. Say both, every time you state that duty.
+
+KEEP "AT LEAST". The rule says "at least 14 days before" and "at least 30 days before".
+Writing "14 days before" turns a floor into a single day, and a reader who cannot manage
+that exact day does not learn that earlier is fine.
+
 WATCH THE DIFFERENCE BETWEEN A DUTY AND A ROUTE TO ADMISSIBILITY. One of the
 provisions below says parties SHALL serve and file. Another says a document served
 within a period SHALL BE RECEIVED IN EVIDENCE unless the judge orders otherwise —
@@ -1242,6 +1273,32 @@ export function readabilityProblem(text: string): string | null {
    * human reviewer over rounding noise.
    */
   if (Number(score.grade.toFixed(1)) <= TARGET_GRADE) return null;
+
+  /*
+   * *** THE TERM-OF-ART EXCEPTION, APPLIED HERE TOO AND NOT ONLY AT THE GATE ***
+   *
+   * If the gate will accept the block, the drafter must not be told to fix it. The
+   * serving-documents block spent seven runs being told to shorten a sentence whose
+   * only excess was the words "settlement conference" — the name of the proceeding
+   * r. 13.03 (2) counts back from, which has no accurate plain substitute. Each
+   * attempt either shortened it into something the verifier then rejected as not what
+   * the source says, or quoted the rule verbatim at 44 words.
+   *
+   * `assessReadability` is hostile to itself: the term is replaced with one syllable
+   * per word and the block must then meet the target, so padding and long sentences
+   * still fail here exactly as before.
+   */
+  const assessment = assessReadability(text, TARGET_GRADE);
+  if (assessment.withinTarget) return null;
+
+  /*
+   * The assessment's own reason is used when it is more specific than the generic
+   * split-it advice — it distinguishes "no allowlisted term", "the term is repeated"
+   * and "the term is not what pushes this over", and each points at a different fix.
+   */
+  if (/appears \d+ times|is not what pushes this over/.test(assessment.reason)) {
+    return assessment.reason;
+  }
 
   /*
    * *** THE FEEDBACK NAMES THE FIX, NOT JUST THE FAILURE ***

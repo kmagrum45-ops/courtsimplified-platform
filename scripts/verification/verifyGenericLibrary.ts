@@ -35,7 +35,7 @@
  * Run: node --import tsx scripts/verification/verifyGenericLibrary.ts
  */
 
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 import { GENERIC_TOPICS } from "../../src/lib/content-library/genericAnswers";
@@ -46,6 +46,12 @@ import {
 import { genericGateFailures } from "../../scripts/content/blockGates";
 import { findQuote } from "../../scripts/content/verifiedContentPipeline";
 import { OFFICIAL_URLS } from "../../src/lib/case-system/stage-map/citations";
+import {
+  TERMS_OF_ART,
+  assessReadability,
+  minimumSyllablePlaceholder,
+} from "../../src/lib/content-library/readabilityExceptions";
+import { countSyllables } from "../../src/lib/content-library/readability";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 
@@ -184,6 +190,54 @@ console.log("");
 
     if (block.yourDeadline !== null) {
       problems.push(`${block.id}: carries a deadline section, which a stage-free block cannot render`);
+    }
+  }
+
+  /*
+   * *** A CORRUPT PUBLISHED FILE MUST FAIL, NOT DISAPPEAR ***
+   *
+   * `publishedGenericLibrary` loads the file in a try/catch and treats absence as "nothing
+   * published", which is the right FAIL-CLOSED behaviour for serving: a broken file must
+   * never put unverified prose on a screen.
+   *
+   * It also made this suite blind. A mutation that edited a published block's text and
+   * broke the JSON left every check passing — the loader reported an empty set and the
+   * checks below it had nothing to disagree with. Silence read as health.
+   *
+   * So: if the file EXISTS on disk, it must parse and it must contain blocks. Absence is
+   * still fine; absence-with-a-file-present is not.
+   */
+  const publishedPath = path.join(
+    ROOT,
+    "src",
+    "lib",
+    "content-library",
+    "published",
+    "genericAnswers.published.json",
+  );
+
+  if (existsSync(publishedPath)) {
+    let parsed: { blocks?: unknown[] } | null = null;
+    try {
+      parsed = JSON.parse(readFileSync(publishedPath, "utf8")) as { blocks?: unknown[] };
+    } catch (error) {
+      problems.push(
+        `the published file exists but does not parse (${
+          error instanceof Error ? error.message.slice(0, 60) : "unknown"
+        }). The loader treats this as "nothing published", so every other check here would ` +
+          `pass while the artefact is broken.`,
+      );
+    }
+
+    if (parsed && (!Array.isArray(parsed.blocks) || parsed.blocks.length === 0)) {
+      problems.push("the published file exists but contains no blocks");
+    }
+
+    if (parsed && Array.isArray(parsed.blocks) && parsed.blocks.length !== PUBLISHED_GENERIC_BLOCKS.length) {
+      problems.push(
+        `the file on disk has ${parsed.blocks.length} block(s) and the loader exposes ` +
+          `${PUBLISHED_GENERIC_BLOCKS.length} — a block is being silently dropped`,
+      );
     }
   }
 
@@ -329,6 +383,248 @@ console.log("");
     );
   } else {
     fail("unverified content could reach the screen", problems.join("\n"));
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 5. Every term of art is real, and justified
+// ---------------------------------------------------------------------------
+
+{
+  /*
+   * A term qualifies for the readability exception because a source uses it as the
+   * name of something, not because it is long. So the cited passage has to be in the
+   * vendored corpus — otherwise an entry could be added on an assertion that some rule
+   * probably uses the phrase, and the exception would rest on nothing.
+   */
+  const problems: string[] = [];
+
+  for (const entry of TERMS_OF_ART) {
+    const found = findQuote(entry.definedAt.quote);
+
+    if (found === null) {
+      problems.push(
+        `"${entry.term}": the passage cited at ${entry.definedAt.pinpoint} is NOT in the ` +
+          `vendored corpus, so the entry rests on nothing`,
+      );
+    } else if (found.sourceId !== entry.definedAt.sourceId) {
+      problems.push(
+        `"${entry.term}": cited to "${entry.definedAt.sourceId}" but the passage is in ` +
+          `"${found.sourceId}"`,
+      );
+    }
+
+    // The term must actually appear in the passage that supposedly uses it as a name.
+    if (!entry.definedAt.quote.toLowerCase().includes(entry.term.toLowerCase())) {
+      problems.push(
+        `"${entry.term}": the cited passage does not contain the term, so it does not ` +
+          `show the source using it as a name`,
+      );
+    }
+
+    /*
+     * A justification long enough to be a reason. Not a proxy for quality — a
+     * deliberate floor, because "it is a legal term" is not a justification and a
+     * one-word entry is how this mechanism would be abused first.
+     */
+    if (entry.justification.trim().length < 80) {
+      problems.push(
+        `"${entry.term}": the justification is ${entry.justification.trim().length} ` +
+          `characters. Say why no plain substitute is ACCURATE, not that the term is legal.`,
+      );
+    }
+
+    /*
+     * *** THE SUBSTITUTION MUST CHANGE SYLLABLES AND NOTHING ELSE ***
+     *
+     * Flesch-Kincaid is a function of words, sentences and syllables. The exception's
+     * whole basis is that the placeholder isolates the term's SYLLABLE cost, so it must
+     * preserve the word count. A placeholder that dropped a word would lower the grade
+     * for a reason unrelated to the term, and the exception would be granted to blocks
+     * it is not for.
+     *
+     * A mutation replacing the placeholder word with an empty string went UNNOTICED
+     * until this check existed.
+     */
+    const placeholder = minimumSyllablePlaceholder(entry.term);
+    const termWords = entry.term.trim().split(/\s+/);
+    const placeholderWords = placeholder.trim().split(/\s+/).filter(Boolean);
+
+    if (placeholderWords.length !== termWords.length) {
+      problems.push(
+        `"${entry.term}": its placeholder has ${placeholderWords.length} word(s) against ` +
+          `the term's ${termWords.length}. The substitution must change syllables only.`,
+      );
+    }
+    for (const word of placeholderWords) {
+      if (countSyllables(word) !== 1) {
+        problems.push(
+          `"${entry.term}": placeholder word "${word}" is ${countSyllables(word)} syllables, ` +
+            `not 1 — the substitution is not the plainest possible case`,
+        );
+      }
+    }
+
+    if (entry.maxOccurrences < 1 || entry.maxOccurrences > 3) {
+      problems.push(
+        `"${entry.term}": maxOccurrences is ${entry.maxOccurrences}. Above 3 the excess is ` +
+          `repetition the drafter can fix, which the exception must not excuse.`,
+      );
+    }
+  }
+
+  if (problems.length === 0) {
+    pass(
+      `all ${TERMS_OF_ART.length} term(s) of art cite a real corpus passage that uses the ` +
+        `term, with a justification and an occurrence cap`,
+    );
+  } else {
+    fail("a term of art is not properly established", problems.join("\n"));
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 6. The exception refuses everything it is not for
+// ---------------------------------------------------------------------------
+
+{
+  /*
+   * *** THE CHECK THAT MATTERS MOST ABOUT THIS MECHANISM ***
+   *
+   * A readability exception is one step from a readability relaxation. These cases are
+   * synthetic and fixed, so they keep asserting the same property no matter what the
+   * real content becomes — the trap the reachability and depth-question checks fell
+   * into was pinning a current value instead.
+   *
+   * Each case is over the target for a reason that is NOT an unavoidable term of art,
+   * and each must be refused.
+   */
+  const term = TERMS_OF_ART[0]?.term ?? "settlement conference";
+
+  const mustRefuse: [string, string][] = [
+    [
+      "padding, no term of art anywhere",
+      "It is important to ensure that you carefully review and consider all of the " +
+        "documentation which may potentially be relevant to the proceedings in question.",
+    ],
+    [
+      "a term of art present, but the excess is a very long sentence",
+      `At least 14 days before the ${term}, each party must serve on every other party ` +
+        `and file with the court a copy of any document to be relied on at the trial, ` +
+        `including an expert report, not attached to the party's claim or defence.`,
+    ],
+    [
+      "the term repeated past its cap",
+      `Serve before the ${term}. The ${term} is scheduled by the clerk. At the ${term} ` +
+        `you will discuss the issues. After the ${term} a trial may follow.`,
+    ],
+    [
+      "ordinary long vocabulary, no term of art",
+      "Notwithstanding the aforementioned considerations, the applicant should " +
+        "endeavour to substantiate their allegations with corroborative documentation.",
+    ],
+  ];
+
+  const problems: string[] = [];
+
+  for (const [label, text] of mustRefuse) {
+    const assessment = assessReadability(text);
+    if (assessment.withinTarget) {
+      problems.push(
+        `${label}: ACCEPTED at grade ${assessment.grade.toFixed(1)}` +
+          (assessment.exception ? ` on a "${assessment.exception.term}" exception` : " outright") +
+          ". The exception is behaving as a general readability relaxation.",
+      );
+    }
+  }
+
+  /*
+   * And it must still GRANT the case it exists for, or it is dead code that only ever
+   * refuses. The sentence below is the one the report measured at 9.66.
+   */
+  const granted = assessReadability(
+    `Serve your documents 14 days before the ${term}.`,
+  );
+  if (!granted.withinTarget || !granted.exception) {
+    problems.push(
+      "the measured case is no longer granted, so the mechanism only ever refuses — " +
+        `grade ${granted.grade.toFixed(2)}`,
+    );
+  } else if (granted.exception.gradeWithoutTerm > granted.exception.target) {
+    problems.push("a grant was issued although the substituted grade is still over target");
+  }
+
+  if (problems.length === 0) {
+    pass(
+      `the exception refuses all ${mustRefuse.length} cases it is not for (padding, long ` +
+        `sentences, repetition, ordinary vocabulary) and still grants the measured case`,
+    );
+  } else {
+    fail("the readability exception is too permissive", problems.join("\n"));
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 7. A stored exception still matches what the mechanism would grant
+// ---------------------------------------------------------------------------
+
+{
+  const problems: string[] = [];
+
+  for (const block of PUBLISHED_GENERIC_BLOCKS) {
+    const prose = [block.whatsHappening, block.whatToDoNext, block.whatHappensAfter]
+      .filter(Boolean)
+      .join("\n\n");
+
+    const assessment = assessReadability(prose);
+
+    if (block.readabilityException && !assessment.exception) {
+      problems.push(
+        `${block.id}: carries a stored readability exception for ` +
+          `"${block.readabilityException.term}" that the mechanism would NOT grant today`,
+      );
+    }
+
+    if (!block.readabilityException && assessment.exception) {
+      problems.push(
+        `${block.id}: relies on a readability exception that is not recorded on the block, ` +
+          `so the grant is invisible to a reviewer`,
+      );
+    }
+
+    if (block.readabilityException && assessment.exception) {
+      if (block.readabilityException.term !== assessment.exception.term) {
+        problems.push(
+          `${block.id}: stored exception names "${block.readabilityException.term}", the ` +
+            `mechanism names "${assessment.exception.term}"`,
+        );
+      }
+      if (
+        Math.abs(block.readabilityException.gradeWithTerm - assessment.exception.gradeWithTerm) >
+        0.05
+      ) {
+        problems.push(
+          `${block.id}: stored grade ${block.readabilityException.gradeWithTerm} does not ` +
+            `match the recomputed ${assessment.exception.gradeWithTerm} — the text was edited ` +
+            `after promotion`,
+        );
+      }
+    }
+
+    if (!assessment.withinTarget) {
+      problems.push(`${block.id}: ${assessment.reason}`);
+    }
+  }
+
+  if (problems.length === 0) {
+    pass(
+      PUBLISHED_GENERIC_BLOCKS.length === 0
+        ? "no published block, so no stored exception to re-derive"
+        : `every published block's reading level re-derives to the same verdict, and any ` +
+          `exception it relies on is recorded on the block`,
+    );
+  } else {
+    fail("a stored readability exception no longer matches the block", problems.join("\n"));
   }
 }
 
