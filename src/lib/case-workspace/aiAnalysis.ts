@@ -319,18 +319,81 @@ export type AnalysisSuggestion = {
  */
 const ASSESSMENT_WORDS = new RegExp(
   [
+    // ---- §3: grading the case ----
+    //
+    // Stems take \w* because the boundary bug lives in the suffixes. `\bweak\b` misses
+    // "weakens"; `\bhelpful\b` misses "unhelpful", because there is no boundary before
+    // "helpful" in it. Both were found by driving the filter with sentences, not by
+    // reading it.
     "\\b(?:strong\\w*|weak\\w*)\\b",
-    "\\bhelps?\\b|\\bhelpful\\b",
+    "\\w*helps?\\b|\\w*helpful\\b",
     "\\bhurts?\\b|\\bharm\\w*\\b",
     "\\bprove[sn]?\\b|\\bproving\\b",
     "\\bimportant\\b|\\bcrucial\\b|\\bvital\\b|\\bessential\\b|\\bsignificant\\b",
     "\\brisk\\w*\\b|\\blikel\\w*\\b|\\bchance\\w*\\b|\\bunlikely\\b",
     "\\bwins?\\b|\\bwinning\\b|\\bloses?\\b|\\blosing\\b",
-    "\\bbest\\b|\\bworst\\b",
+    "\\bbest\\b|\\bworst\\b|\\bgood\\b|\\bpoor\\b",
     "\\bsupports?\\s+your\\b|\\bbacks?\\s+up\\s+your\\b",
     "\\bkey\\s+(?:\\w+\\s+){0,2}(?:evidence|document|piece)\\b",
-    "\\bdamag\\w*\\s+to\\s+your\\b",
     "\\bin\\s+your\\s+favour\\b|\\bagainst\\s+you\\b",
+
+    /*
+     * ---- §2: applying law to the user's facts ----
+     *
+     * *** THIS WHOLE CLASS WAS MISSING, AND IT IS THE WORSE OF THE TWO ***
+     *
+     * The filter covered case-grading and nothing else. Sixteen of fifty-six adversarial
+     * sentences escaped, and almost all of them were this: a model stating that the
+     * user's facts satisfy a legal test.
+     *
+     *   "This shows a breach of the contract."
+     *   "The contractor is liable for the damage."
+     *   "This establishes liability."
+     *   "You are entitled to the full amount."
+     *
+     * CLAUDE.md §2's "who does the applying" test. Legal INFORMATION explains law
+     * generally and the USER applies it; legal ADVICE is the SYSTEM applying it to their
+     * facts. Every sentence above is the second, and none of them is caught by a
+     * case-grading filter — "the contractor is liable" contains no word about strength,
+     * chances or importance. It simply decides the case.
+     *
+     * A suggestion may say a document IS a contract. It may not say the contract was
+     * breached.
+     */
+    "\\bbreach\\w*\\b",
+    "\\bliable\\b|\\bliabilit\\w*\\b",
+    "\\bnegligen\\w*\\b",
+    "\\bat\\s+fault\\b|\\byour\\s+fault\\b|\\btheir\\s+fault\\b",
+    "\\bentitle\\w*\\b",
+    "\\bestablish\\w*\\b",
+    "\\bobligation\\w*\\b|\\bobliged\\b",
+    /*
+     * The PLURAL only. "damages" is the legal term for the money claimed; "damage" is the
+     * ordinary word, and "a photograph of the damage to the fence" is a perfectly good
+     * description that must keep working.
+     */
+    "\\bdamages\\b",
+    "\\bvalid\\s+claim\\b|\\bhas\\s+a\\s+claim\\b",
+    "\\bowes?\\b|\\bowing\\s+to\\s+you\\b",
+    "\\bin\\s+default\\s+of\\b",
+    /*
+     * Attribution, not the bare word. "The landlord IS responsible for the repair" decides
+     * who bears an obligation; "a letter naming the person responsible for the account" is
+     * a description, and the copula is what separates them.
+     *
+     * *** WHICH WAY TO ERR, WHEN THE PATTERN CANNOT SEPARATE THEM CLEANLY ***
+     *
+     * Past tense is included, which does catch a contrived description like "a work order
+     * listing who was responsible for scheduling". That is deliberate, because the two
+     * failures are not equal:
+     *
+     *   a false REFUSAL costs the user a suggestion they can type themselves
+     *   a false ACCEPTANCE tells a litigant who is legally responsible
+     *
+     * The first is recoverable in seconds. The second is this product doing the one thing
+     * §2 forbids, in a sentence the user has no reason to doubt.
+     */
+    "\\b(?:is|are|was|were)\\s+responsible\\b",
   ].join("|"),
   "i",
 );

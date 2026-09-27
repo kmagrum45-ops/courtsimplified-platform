@@ -135,7 +135,8 @@
     "content:recover-generic": "tsx scripts/content/recoverGenericCandidate.ts",
     "test:workspace-ui": "node --import tsx scripts/verification/verifyWorkspaceUi.ts",
     "test:workspace-ai-flag": "node --import tsx scripts/verification/verifyWorkspaceAiFlag.ts",
-    "test:workspace-export": "node --import tsx scripts/verification/verifyWorkspaceExport.ts"
+    "test:workspace-export": "node --import tsx scripts/verification/verifyWorkspaceExport.ts",
+    "test:check-oracles": "node --import tsx scripts/verification/verifyCheckOracles.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

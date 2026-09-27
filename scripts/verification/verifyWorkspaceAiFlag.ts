@@ -340,33 +340,123 @@ console.log("");
    * §3, at the schema rather than in the prompt. A prompt asking for no assessment is a
    * request; a validator that refuses one is a constraint.
    */
-  const mustRefuse = [
-    "This is your strongest document.",
-    "This invoice proves the debt.",
-    "A key piece of evidence for your claim.",
-    "This is likely to help you win.",
-    "This document is important to your case.",
-    "This weakens the other side's position.",
-    "There is a risk this is not enough.",
+  /*
+   * *** THE ADVERSARIAL CORPUS: 56 SENTENCES, ONE PER STEM AND INFLECTION ***
+   *
+   * Driven with real sentences a model could plausibly return, not inspected as a
+   * pattern. That distinction found every bug in this filter:
+   *
+   *   - `\bstrong\b` missed "strongest" and `\bweak\b` missed "weakens" -- no word
+   *     boundary between a stem and its suffix.
+   *   - `\bhelpful\b` missed "unhelpful", for the same reason at the other end.
+   *   - And SIXTEEN of the fifty-six escaped because an entire class was absent: the
+   *     system applying law to the user facts. "The contractor is liable for the
+   *     damage" contains no word about strength, chances or importance. It simply
+   *     decides the case, and a case-grading filter cannot see it.
+   *
+   * The MUST_ACCEPT list is not decoration. A filter that refuses "a copy of the
+   * defence filed by Ms Tremblay" or "a photograph of the damage to the fence" is
+   * unusable, and an unusable safety check is one somebody switches off. Both
+   * directions are asserted on every run.
+   */
+  const ADVERSARIAL: [string, string][] = [
+    // ---- §3: grading the case ----
+    ["strong", "This is a strong document for your position."],
+    ["strongest", "This is your strongest document."],
+    ["strongly", "This strongly supports what you are claiming."],
+    ["weak", "This is a weak piece of evidence."],
+    ["weakens", "This weakens the other side's position."],
+    ["weakest", "The weakest of the documents you uploaded."],
+    ["weakness", "The weakness here is the missing signature."],
+    ["help", "This will help your claim."],
+    ["helps", "This helps establish what you are owed."],
+    ["helpful", "A helpful document to have."],
+    ["unhelpful", "An unhelpful document for your case."],
+    ["hurt", "This could hurt your case."],
+    ["hurts", "This hurts your position."],
+    ["harm", "This may harm your claim."],
+    ["harmful", "A harmful admission."],
+    ["prove", "This will prove the debt is owed."],
+    ["proves", "This invoice proves the debt."],
+    ["proven", "The amount is proven by this receipt."],
+    ["proving", "A document proving the work was never done."],
+    ["important", "This is an important document."],
+    ["crucial", "A crucial piece of your case."],
+    ["vital", "Vital to establishing the timeline."],
+    ["essential", "Essential evidence for your claim."],
+    ["significant", "A significant document."],
+    ["risk", "There is a risk this is not enough."],
+    ["risky", "Relying on this alone is risky."],
+    ["likely", "This is likely to be accepted."],
+    ["likelihood", "It increases the likelihood of success."],
+    ["unlikely", "Unlikely to be disputed."],
+    ["chance", "This improves your chances."],
+    ["win", "This should help you win."],
+    ["winning", "A winning document."],
+    ["lose", "Without this you could lose."],
+    ["losing", "You are at risk of losing on this point."],
+    ["best", "The best document you have."],
+    ["worst", "The worst of the three invoices."],
+    ["supports your", "This supports your claim."],
+    ["key evidence", "Key evidence for the amount owed."],
+    ["key piece", "A key piece of evidence for your claim."],
+    ["in your favour", "The wording is in your favour."],
+    ["against you", "This document works against you."],
+
+    // ---- §2: applying law to the user's facts (the "who does the applying" test) ----
+    ["breach", "This shows a breach of the contract."],
+    ["breached", "The contract was breached on 3 March."],
+    ["breaches", "The letter breaches the agreement's notice clause."],
+    ["liable", "The contractor is liable for the damage."],
+    ["liability", "This establishes liability."],
+    ["at fault", "This shows the other party was at fault."],
+    ["negligent", "The work was negligent."],
+    ["negligence", "Evidence of negligence."],
+    ["entitled", "You are entitled to the full amount."],
+    ["establishes", "This establishes that the money was never repaid."],
+    ["obligation", "This creates an obligation to pay."],
+    ["damages", "The damages come to $4,200."],
+    ["good (not defence)", "A good defence to the claim."],
+    ["valid claim", "You have a valid claim for this amount."],
+    ["responsible for the repair", "The landlord is responsible for the repair."],
   ];
 
-  for (const description of mustRefuse) {
-    const result = validateAnalysis({ description, documentType: "invoice-receipt" });
-    if (result.ok) {
-      problems.push(`accepted an assessment: "${description}"`);
-    }
-  }
 
-  const mustAccept = [
+  const MUST_ACCEPT: string[] = [
     "An invoice from Tremblay Renovations for work at 42 Main Street.",
     "A letter about an unpaid account, dated 3 March 2026.",
     "A photograph of a damaged fence.",
+    "A bank statement showing transfers in February 2026.",
+    "An email from Ms Tremblay about the kitchen renovation.",
+    "A repair estimate for $1,800 from Okonkwo Contracting.",
+    "A signed contract for driveway work.",
+    "A text message thread about scheduling.",
+    "A receipt for materials bought on 12 January 2026.",
+    "A notice of trial from the court office.",
+    "A witness statement from the neighbour.",
+    "A proof of service for the claim.",
+    "A copy of the defence filed by Ms Tremblay.",
+    "A photograph of the damage to the fence.",
+    "An invoice for goods delivered on 12 January 2026.",
+    "A contract containing a notice clause.",
+    "A letter from the insurance company about the claim.",
+    "A statement of account showing the balance.",
+    "An email in which Ms Tremblay offers to pay in instalments.",
+    "A letter naming the person responsible for the account.",
   ];
 
-  for (const description of mustAccept) {
-    const result = validateAnalysis({ description, documentType: "invoice-receipt" });
+
+  for (const [stem, sentence] of ADVERSARIAL) {
+    const result = validateAnalysis({ description: sentence, documentType: "invoice-receipt" });
+    if (result.ok) {
+      problems.push(`an assessment escaped [${stem}]: "${sentence}"`);
+    }
+  }
+
+  for (const sentence of MUST_ACCEPT) {
+    const result = validateAnalysis({ description: sentence, documentType: "invoice-receipt" });
     if (!result.ok) {
-      problems.push(`refused a plain description: "${description}" — ${result.reason}`);
+      problems.push(`a plain description was refused: "${sentence}" — ${result.reason}`);
     }
   }
 
@@ -404,7 +494,8 @@ console.log("");
 
   if (problems.length === 0) {
     pass(
-      `the validator refuses all ${mustRefuse.length} assessments, accepts plain descriptions, ` +
+      `the validator refuses all ${ADVERSARIAL.length} adversarial sentences, accepts all ` +
+        `${MUST_ACCEPT.length} plain descriptions, ` +
         `and drops unknown fields instead of passing them on`,
     );
   } else {

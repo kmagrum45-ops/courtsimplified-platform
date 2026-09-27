@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-75 documented, 30 without a header.
+76 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -16,6 +16,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:assistant-blocks` | **The guided assistant can only say catalogued things.**<br>COSTS NOTHING. Reads source off disk and calls pure functions. |
 | `npm run test:case-events` | **The case-event vocabulary stays sourced, and the untyped option stays**<br>first-class. |
 | `npm run test:case-load-restore` | **A loaded case restores what it recorded, and invents nothing when it did not.**<br>COSTS NOTHING. Reads `app/builder/page.tsx` and the engine that writes the keys it reads. No browser, no network, no database. |
+| `npm run test:check-oracles` | **No check can be satisfied by a comment. A check's oracle must be independent of the**<br>implementation's description of itself. |
 | `npm run test:child-support-draft` | **The child support draft carries recorded figures and cited rules, and**<br>calculates nothing. |
 | `npm run test:child-support-intake` | **The child support screen: the common case is small, the second income figure**<br>is absent rather than empty, and an out-of-scope situation is named. |
 | `npm run test:child-support-table-card` | **The table card explains the table and never works an example.**<br>COSTS NOTHING. Reads the component source and the vendored sources. No render, no network. |

@@ -1271,3 +1271,61 @@ the check is decoration. That is the same reasoning as CLAUDE.md §5's rule abou
 properties versus values, arriving from the opposite direction: §5 is about checks
 that fail when they should not, and this is about a check that passes when it
 should not.
+
+---
+
+## The recurring blind spot: a check whose oracle is the code's own description (2026-09-27)
+
+**Four instances, three of them on one branch, each found by a mutation after the fact.**
+This is a structural hazard of how this repository is written, not a run of bad luck, and
+`npm run test:check-oracles` now looks for it.
+
+| Check | Searched for | In | Why it was wrong |
+|---|---|---|---|
+| the absence-claims gate | "cannot" near "court" | its own template | tripped on its own explanatory wording |
+| `verifyWorkspaceOcr` | the Vite-only `?url` import | `clientOcr.ts` | the file has a comment explaining that `?url` does not work under Next, so the check **failed against correct code** |
+| `verifyWorkspaceUi` | the boundary sentence, "Date needed" | the workspace page | every string it looks for is also discussed in that page's comments |
+| `verifyWorkspaceExport` | `no-store` | the export route | the phrase is in the header comment explaining why the response must be no-store. A mutation making it cacheable left the check **green** |
+
+### The mechanism, and why good comments make it worse
+
+A source-level check greps a file for the text that proves a behaviour. The same text
+appears in the comment explaining why that behaviour matters. The check then passes on a
+file that merely *talks about* doing the right thing.
+
+**The better the comment, the more certainly it contains the rule's keywords.** So this
+gets more likely as the codebase gets better documented, which is the opposite of how a
+hazard is supposed to behave.
+
+### Two shapes, and only one is visible after the fact
+
+- **only-in-comments** — the check is already broken and fails against correct code, or
+  passes against no code at all. This is the aftermath.
+- **in both code and comments** — the check passes *today*, correctly, and stops meaning
+  anything the moment the code changes, because the comment holds it green. **This is the
+  condition, and it is detectable before anything breaks.** All three branch instances
+  were this shape when written.
+
+`test:check-oracles` reports both. It resolves which file each literal is tested against,
+via path constants and one level of aliasing, because a meta-check with false positives
+gets skipped, and a skipped meta-check catches nothing.
+
+### It caught itself first, which is the measure of the thing
+
+The first version asked whether a suite *file* mentioned a comment-stripper anywhere. It
+returned true for `verifyWorkspaceExport` even with the stripping removed, because the
+file still defines `stripComments` and still explains it in a docstring. So every at-risk
+suite was skipped and the audit reported all clear against all three known instances.
+
+**The audit for comment-oracles was defeated by a comment-oracle inside the audit.**
+Stripping is now recorded per variable, from the initialiser that produced it.
+
+### What it does not cover
+
+Only this shape, and only where the target file resolves. It prints an upper bound on the
+literals it could not tie to a file rather than reporting silent success. The wider family
+of a check comparing a constant with itself, or a document with its own prose, was scanned
+for separately and found nothing, but it needs judgement rather than a pattern.
+
+**The rule for writing one of these:** if a check greps source for a phrase, strip
+comments first. There is no case where reading the comments is what you wanted.
