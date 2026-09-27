@@ -128,7 +128,8 @@
     "test:workspace-upload": "node --import tsx scripts/verification/verifyWorkspaceUpload.ts",
     "test:workspace-extraction": "node --import tsx scripts/verification/verifyWorkspaceExtraction.ts",
     "test:workspace-pii": "node --import tsx scripts/verification/verifyWorkspacePii.ts",
-    "test:workspace-ocr": "node --import tsx scripts/verification/verifyWorkspaceOcr.ts"
+    "test:workspace-ocr": "node --import tsx scripts/verification/verifyWorkspaceOcr.ts",
+    "test:workspace-organisation": "node --import tsx scripts/verification/verifyWorkspaceOrganisation.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

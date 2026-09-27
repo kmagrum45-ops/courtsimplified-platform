@@ -62,7 +62,29 @@ export type ComputedDeadlineWorking = {
 export type ComputedDeadline = {
   /** Which stage-map deadline this is, so a caller can line it up with its period text. */
   deadlineId: string;
-  /** The date, spelled out with its weekday. */
+  /**
+   * The date as `YYYY-MM-DD`.
+   *
+   * *** THIS COMMENT USED TO SAY "spelled out with its weekday". IT IS NOT. ***
+   *
+   * The code assigns `result.deadline`, which is an ISO date. The spelled-out form
+   * is built separately as `spelled` and goes only into `statement`, where a reader
+   * sees it. `scripts/eval/deadlineCases.ts` compares this field against an ISO
+   * expectation, so consumers have always relied on it being ISO — the comment was
+   * the only thing that was wrong.
+   *
+   * Worth recording because of how it nearly cost something. The case-workspace
+   * chronology needs a sortable date, read this comment, believed it, and recovered
+   * an ISO value by REGEX over an expected "23 March 2026". Against an actual
+   * "2026-03-23" that regex matches nothing and returns null — and the chronology
+   * drops a computed item whose date cannot be recovered. Every deadline would have
+   * vanished from every chronology, silently, and no check would have failed because
+   * the count of computed items was never asserted against a non-zero expectation.
+   *
+   * Found by reading the assembly at the bottom of this file rather than by any
+   * test. A doc comment that disagrees with its code is worse than none: nobody
+   * verifies what they have just been told.
+   */
   date: string;
   /** The one-sentence statement of the date, already guarded and filled. */
   statement: string;
