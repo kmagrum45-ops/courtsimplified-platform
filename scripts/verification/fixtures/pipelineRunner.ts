@@ -25,7 +25,21 @@ import { analyzeSmallClaimsWithBrain } from "../../../src/lib/case-system/intell
 import { mapGuidedIntakeToSmallClaimsInput } from "../../../app/builder/_components/guidedIntakeToSmallClaimsInput";
 import type { GuidedIntakeCompletionResult } from "../../../app/builder/_components/GuidedSmallClaimsIntake";
 
-const MAX_TURNS = 20; // safety cap -- QUESTION_BANK has 15 entries, so 20 is generous headroom.
+/*
+ * Safety cap on the turn loop, derived from the bank rather than pinned.
+ *
+ * Was `20`, commented "QUESTION_BANK has 15 entries". The bank grew to 30
+ * (the defendant branch, Decision 5's seven date questions, sc-date-injury)
+ * and the constant didn't. On 2026-09-27 the case-review batch's defendant
+ * fixture legitimately needed 20 questions after the opening story plus
+ * sc-safety-check, hit the cap one question short, and was written out with
+ * intakeComplete: false as if it were a finished run.
+ *
+ * A question is never asked twice (answeredIds only grows), so a real
+ * conversation is bounded by the bank's size. Headroom above that exists
+ * only to catch an actual loop.
+ */
+const MAX_TURNS = QUESTION_BANK.length + 5;
 
 export type PipelineStoryInput = {
   id: string;
