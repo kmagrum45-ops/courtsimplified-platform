@@ -123,7 +123,8 @@
     "test:snapshot-provenance": "node --import tsx scripts/verification/verifySnapshotProvenance.ts",
     "test:claim-types": "node --import tsx scripts/verification/verifyClaimTypeCatalogue.ts",
     "test:workspace-dates": "node --import tsx scripts/verification/verifyWorkspaceDates.ts",
-    "test:workspace-catalogue": "node --import tsx scripts/verification/verifyWorkspaceCatalogue.ts"
+    "test:workspace-catalogue": "node --import tsx scripts/verification/verifyWorkspaceCatalogue.ts",
+    "test:reasoning-text-gate": "node --import tsx scripts/verification/verifyReasoningTextGate.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",

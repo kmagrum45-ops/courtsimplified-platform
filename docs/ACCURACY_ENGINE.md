@@ -1195,6 +1195,34 @@ at all is that those four errors were *expected* and did not appear.
 | `npm run typecheck` | `tsc --noEmit -p tsconfig.verify.json`. **Use this, not bare `tsc`** |
 | `npm run test:typecheck-live` | writes a deliberate type error, asserts it IS reported, deletes it. Also asserts the project is clean first, because a typecheck that always fails would "detect" the canary for the wrong reason |
 
+### It came back the next day, because `exclude` does not exclude (2026-09-27)
+
+The canary earned its keep within a day. `npm run typecheck` started reporting
+`TS1011`, `TS1109` and `TS1128` in `.next/dev/types/routes.d.ts` — the same class
+of syntax error in the same generated directory that `tsconfig.verify.json`
+excludes. The artefact was a **torn write**: a fragment line reading
+`ecord<string, string | string[] | undefined>>` and `interface RouteContext`
+appearing twice in 137 lines. No dev server was running by then; one had been.
+
+**`exclude` never had a chance.** `next-env.d.ts` contains
+`import "./.next/dev/types/routes.d.ts"`, and **a file reached by an import is in
+the program regardless of `exclude`.** `exclude` only filters what the `include`
+globs sweep up; it does not sever a reference. So a half-written build artefact
+could still switch off semantic checking for the whole source tree, which is the
+precise failure the config was written to prevent.
+
+A second detail is worth knowing, because the obvious fix is a no-op: dropping
+`next-env.d.ts` from `include` changes nothing, since `**/*.ts` matches it. It has
+to be named in `exclude`.
+
+`types/verify-env.d.ts` now carries the two `/// <reference types="next" />`
+directives that were the only part of `next-env.d.ts` verification needed, and
+`next-env.d.ts` itself is excluded. Verified afterwards by `test:typecheck-live`:
+clean first, deliberate error reported, canary removed.
+
+**The finding, in one line: an exclusion is not a boundary. An import is.** Any
+claim that a config reads only the source tree has to be checked against what the
+source tree imports, not against the glob list.
 ### The general lesson, which is not about TypeScript
 
 A count of zero is not evidence unless something could have made it non-zero.

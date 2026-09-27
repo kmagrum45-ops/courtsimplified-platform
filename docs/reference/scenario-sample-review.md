@@ -1,70 +1,80 @@
-# Scenario sample review — 10%, 2026-09-26
+# Scenario review — all 35, 2026-09-27
 
-Decision 4 required a bulk sample review of 10% of the synthetic scenarios, recorded
-in the report. This is that record.
+Supersedes the 10% sample of 2026-09-26. **Every scenario has now been read against
+the profile it sits under.** No model calls; this is reading.
 
-**Population: 35 scenarios** across the 7 authored claim-barring profiles.
-**Sample: 4** (10%, rounded up), drawn deterministically at even intervals so the
-same sample can be re-read rather than re-rolled.
+**Population: 35** across the 7 authored claim-barring profiles.
+**Reviewed: 35.** **Replaced: 5** (1 in the sample, 4 in this pass).
 
-Criteria: is it synthetic; does it contain personal data; is it phrased as a real
-person would; and **does it belong to the profile it sits under**.
+Criteria: synthetic; no personal data; phrased as a real person would; **and does it
+belong to this profile** — meaning would training a classifier on it point at the
+right notice regime.
 
-| # | Profile | Scenario | Verdict |
-|---|---|---|---|
-| 1 | `sc-claim-fall-municipal-sidewalk-or-road` | "I tripped on a broken sidewalk downtown and broke my wrist" | **keep** |
-| 2 | `sc-claim-fall-toronto-sidewalk-or-road` | "I hurt myself on a raised sidewalk slab in Scarborough" | **keep, with a note** |
-| 3 | `sc-claim-against-the-crown-ontario` | "The province cancelled my licence and it cost me income" | **REPLACED** |
-| 4 | `sc-claim-by-or-against-an-estate` | "I lent money to someone who has since passed away" | **keep** |
+That last criterion is the one that matters, and it is the one no gate can check.
+`test:claim-types` verifies the structural properties across all 35 by machine. The
+judgement is human, and it found five problems the machine could not.
 
-All four are synthetic and none contains personal data, consistent with
-`test:claim-types`. Two findings are worth more than the pass rate.
+---
 
-## Finding 1 — scenario 3 was the wrong shape, and has been replaced
+## The five replaced, and why each was wrong
 
-> "The province cancelled my licence and it cost me income"
+| Profile | Was | Why it was wrong |
+|---|---|---|
+| `sc-claim-against-the-crown-ontario` | "The province cancelled my licence and it cost me income" | Challenging a licensing **decision** is judicial review in the Superior Court, not a damages claim. Would have attached a 60-day Crown notice to somebody who needs a different court. |
+| `sc-claim-fall-municipal-sidewalk-or-road` | "a loose paving stone outside the library" | A library forecourt is the institution's own land, not a highway or sidewalk. That is an occupiers' liability matter, not the s. 44 regime — wrong deadline, wrong defendant. |
+| `sc-claim-fall-toronto-sidewalk-or-road` | "a broken curb on Queen Street" | There is a Queen Street in a great many Ontario municipalities. The scenario carries **no signal at all** that this is Toronto, and Toronto has its own statute. |
+| `sc-claim-against-the-crown-ontario` | "sue a provincial agency over money they took" | Vague twice over: money taken by a public body is often a fee or tax dispute with its own appeal route, and many provincial agencies are separate legal entities rather than the Crown, so s. 18 may not apply. |
+| `sc-claim-against-the-crown-ontario` | "A government road crew wrecked my fence" | Road crews are usually **municipal**. This profile carries the Crown's 60-days-**before** notice; a municipality carries 10-days-**after**. Getting that backwards is the most expensive confusion in this tier. |
 
-Challenging a licensing **decision** is a judicial review matter for the Superior
-Court, not a damages claim, and nothing in the vendored Crown Liability and
-Proceedings Act says otherwise. A scenario that trains the classifier toward this
-profile for a judicial-review question would route somebody to the wrong court
-**and** attach a sixty-day notice requirement they do not need.
+Three of the five were on the Crown profile. That is not chance: "the government" is
+the one phrase a self-represented person uses for the province, the city, an agency
+and a ministry interchangeably, and those four carry different notice regimes. The
+Crown scenarios needed to name the actor explicitly, and now do.
 
-Replaced with a claim that is actually a damages claim against the Crown:
+---
 
-> "A provincial office lost documents I sent and I had to pay to replace them"
+## Two kept deliberately, as hard cases
 
-**This is what the review was for.** The gates could not have caught it: the string
-is synthetic, contains no personal data, is the right length, and reaches no render
-path. Only reading it against the profile it sits under shows the mismatch.
+**`sc-claim-fall-toronto-sidewalk-or-road`: "a raised sidewalk slab in Scarborough".**
+Scarborough is Toronto, so the filing is right, and it usefully tests whether the
+classifier knows that. But the Toronto profile requires the municipality as a
+**confirmed fact from the user**, never inferred — that is what
+`requiresConfirmedFact` on `before-filing:notice-toronto` is for. Inferring "Toronto"
+from a borough name is still an inference. So the correct behaviour is to **ask**
+which city, and this story belongs in the eval set expecting a clarifying question
+rather than the Toronto profile. Deleting it would remove the test.
 
-## Finding 2 — scenario 2 sits in tension with the municipality gate
+**`sc-claim-fall-toronto-sidewalk-or-road`: "There was ice on a Toronto sidewalk".**
+This sits across two regimes — s. 42 (6) for a Toronto sidewalk and the Occupiers'
+Liability Act s. 6.1 (1) sixty-day snow-and-ice notice. For a municipal sidewalk the
+municipal regime governs, so the filing is right. Kept because the overlap is real
+and a user will describe it this way; noted here so nobody "fixes" it later by moving
+it to the snow-and-ice profile.
 
-> "I hurt myself on a raised sidewalk slab in Scarborough"
+---
 
-Scarborough is part of Toronto, so the scenario is correctly filed and it usefully
-tests whether the classifier knows that. But the Toronto profile requires the
-municipality to be a **confirmed fact from the user**, never inferred by the model —
-that is the whole point of `requiresConfirmedFact` on
-`before-filing:notice-toronto`.
+## The 30 that stand
 
-Inferring "Toronto" from "Scarborough" is an inference, however reliable. So this
-scenario is kept deliberately as a **hard case**: the right behaviour is to ask
-"which city or town was this in?" rather than to cite the City of Toronto Act
-because a borough name appeared. Whether the classifier does that is an eval
-question, and the story belongs in the eval set with `unknown` or a clarifying
-question as its expected answer — not with the Toronto profile.
+| Profile | Scenarios | Verdict |
+|---|---|---|
+| `sc-claim-fall-municipal-sidewalk-or-road` | 5 | 4 stand, 1 replaced |
+| `sc-claim-fall-toronto-sidewalk-or-road` | 5 | 3 stand, 1 replaced, 1 kept as a hard case |
+| `sc-claim-fall-snow-ice-private-property` | 5 | **all 5 stand** — parking lot, apartment walkway, restaurant entrance, plaza, and one where the landlord blames the snow contractor, which usefully exercises the multiple-occupier point in s. 6.1 (2) |
+| `sc-claim-against-the-crown-ontario` | 5 | 2 stand, 3 replaced |
+| `sc-claim-defamation-newspaper-or-broadcast` | 5 | **all 5 stand.** Newspaper and broadcast in a mix, one naming Ontario explicitly for the s. 7 scope point, and none is an online-only post — that belongs to `sc-claim-defamation-online-or-in-print`, which is declared and unauthored |
+| `sc-claim-by-or-against-an-estate` | 5 | **all 5 stand**, and they cover both directions of s. 38 — four claims against an estate and one by a trustee |
+| `sc-claim-notice-deadline-already-missed` | 5 | **all 5 stand**, and between them they exercise both statutory exceptions: hospital (a reasonable excuse) and the city repairing the sidewalk immediately (no prejudice) |
 
-Recorded rather than changed, because deleting it would remove the test.
+---
 
-## What this says about the other 31
+## Eval stories may only be generated from reviewed scenarios
 
-The sample found one genuine misassignment in four, which does not support a claim
-that the remaining 31 are clean. The two structural checks in `test:claim-types` —
-no personal data, no render path — hold across all 35 and are machine-verified. The
-judgement question, *does this scenario belong to this profile*, is verified for
-4 of 35 and is open for the rest.
+All 35 are now reviewed, so all 35 are eligible. The rule matters for what comes
+next: the declared profiles have no scenarios yet, and when they get them the same
+reading has to happen before any eval story is generated from them.
 
-**Recommendation: review the remaining 31 before they are used to generate eval
-stories**, since a misassigned scenario becomes a misassigned expected answer, and
-an eval that encodes the wrong answer is worse than no eval.
+**A misassigned scenario becomes a misassigned expected answer, and an eval that
+encodes the wrong answer is worse than no eval** — it converts a bug into a
+requirement, and the next person to fix the behaviour has to argue with a red suite.
+`test:claim-types` cannot catch this, which is why the rule is written down rather
+than automated.

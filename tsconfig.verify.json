@@ -25,12 +25,24 @@
     "belongs. So verification reads the source tree and nothing else.",
     "",
     "`npm run test:typecheck-live` asserts this is still working, by requiring that",
-    "a deliberate error IS reported. A typecheck that cannot fail is not a check."
+    "a deliberate error IS reported. A typecheck that cannot fail is not a check.",
+    "",
+    "*** AND EXCLUDE IS NOT ENOUGH, WHICH TOOK A SECOND INCIDENT TO LEARN ***",
+    "",
+    "Excluding `.next` did not keep it out. `next-env.d.ts` does",
+    "`import \"./.next/dev/types/routes.d.ts\"`, and an import pulls a file into the",
+    "program whatever `exclude` says. On 2026-09-27 the dev server left that file",
+    "half-written and the same suppression came back through the import.",
+    "",
+    "So `next-env.d.ts` is excluded too, and `types/verify-env.d.ts` carries its two",
+    "ambient reference directives instead. Note that listing a file in `include` was",
+    "never what pulled it in: `**/*.ts` already matches `next-env.d.ts`, so removing",
+    "it from `include` would have changed nothing. It had to be excluded."
   ],
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "incremental": false
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.mts"],
-  "exclude": ["node_modules", ".next", ".claude/worktrees"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.mts"],
+  "exclude": ["node_modules", ".next", ".claude/worktrees", "next-env.d.ts"]
 }
