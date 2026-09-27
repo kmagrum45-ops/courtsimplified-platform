@@ -125,7 +125,9 @@
     "test:workspace-dates": "node --import tsx scripts/verification/verifyWorkspaceDates.ts",
     "test:workspace-catalogue": "node --import tsx scripts/verification/verifyWorkspaceCatalogue.ts",
     "test:reasoning-text-gate": "node --import tsx scripts/verification/verifyReasoningTextGate.ts",
-    "test:workspace-upload": "node --import tsx scripts/verification/verifyWorkspaceUpload.ts"
+    "test:workspace-upload": "node --import tsx scripts/verification/verifyWorkspaceUpload.ts",
+    "test:workspace-extraction": "node --import tsx scripts/verification/verifyWorkspaceExtraction.ts",
+    "test:workspace-pii": "node --import tsx scripts/verification/verifyWorkspacePii.ts"
   },
   "dependencies": {
     "@adobe/pdfservices-node-sdk": "^4.1.0",
@@ -135,6 +137,7 @@
     "next": "16.2.4",
     "openai": "^6.34.0",
     "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^6.3.289",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },

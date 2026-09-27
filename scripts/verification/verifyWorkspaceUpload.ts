@@ -31,7 +31,7 @@
  * Run: node --import tsx scripts/verification/verifyWorkspaceUpload.ts
  */
 
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 
 import {
@@ -515,12 +515,38 @@ const TEN_KB = 10 * 1024;
    * mentioning OpenAI must not fail a check, and an import is what actually makes
    * a call possible.
    */
-  const routes = [
-    "app/api/workspace/documents/route.ts",
-    "app/api/workspace/documents/upload-url/route.ts",
-  ];
+  /*
+   * The routes are DISCOVERED, not listed. A list would cover the routes that
+   * existed when this was written and silently miss the next one — which is the
+   * route most likely to reach for a model. Walking the directory means a new
+   * workspace route is covered the moment it exists, without anyone remembering to
+   * add it here.
+   */
+  const workspaceApi = path.join(ROOT, "app", "api", "workspace");
+  const routes: string[] = [];
+
+  const walk = (directory: string) => {
+    for (const entry of readdirSync(directory, { withFileTypes: true })) {
+      const full = path.join(directory, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (entry.name === "route.ts") routes.push(path.relative(ROOT, full));
+    }
+  };
 
   const problems: string[] = [];
+
+  try {
+    walk(workspaceApi);
+  } catch {
+    problems.push(`no workspace routes found under ${workspaceApi}`);
+  }
+
+  if (routes.length === 0) {
+    problems.push(
+      "no route.ts files were discovered under app/api/workspace, so this check is " +
+        "asserting nothing",
+    );
+  }
 
   for (const relative of routes) {
     let source = "";
@@ -545,7 +571,7 @@ const TEN_KB = 10 * 1024;
   }
 
   if (problems.length === 0) {
-    pass(`neither document route imports a model client (${routes.length} routes read)`);
+    pass(`no workspace route imports a model client (${routes.length} discovered)`);
   } else {
     fail("a document route can reach a model", problems.join("\n"));
   }
