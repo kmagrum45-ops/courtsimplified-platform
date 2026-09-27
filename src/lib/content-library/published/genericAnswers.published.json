@@ -1,7 +1,7 @@
 {
   "release": {
     "model": "gpt-4o",
-    "promotedAt": "2026-09-27T12:40:32.386Z",
+    "promotedAt": "2026-09-27T13:19:13.488Z",
     "blockCount": 1
   },
   "blocks": [
@@ -52,7 +52,7 @@
       ],
       "verification": {
         "status": "verified-draft",
-        "verifiedAt": "2026-09-27T12:40:29.327Z",
+        "verifiedAt": "2026-09-27T13:19:10.523Z",
         "attempts": 2,
         "verdicts": [
           {
@@ -147,7 +147,8 @@
         "gradeWithoutTerm": 7.98,
         "target": 8
       },
-      "draftedWith": "gpt-4o"
+      "draftedWith": "gpt-4o",
+      "publishedVia": "recovered-from-run-log"
     }
   ]
 }

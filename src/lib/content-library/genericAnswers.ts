@@ -109,6 +109,28 @@ export type GenericAnswer = {
    * nothing.
    */
   draftedWith?: string;
+  /**
+   * How this block reached the candidate set.
+   *
+   * "drafter-run"        a live run wrote it straight out of the drafter and verifier.
+   * "recovered-from-run-log"  rebuilt by content:recover-generic from the run log of a
+   *                      run that produced it cleanly, because the candidates file did
+   *                      not exist when that run happened.
+   *
+   * *** WHY THIS IS RECORDED, WHEN IT CHANGES NOTHING ABOUT VERIFICATION ***
+   *
+   * It genuinely changes nothing: promotion re-runs every gate, re-checks every quote
+   * against the corpus as it is now, and re-derives the readability exception, whatever
+   * route the text took to get there. A recovered candidate passes on its own merits or
+   * it does not publish.
+   *
+   * It is recorded for the same reason the model field is. A reviewer looking at a
+   * published block should be able to see its full origin, not only what verified it —
+   * and "this was reassembled from a log" is exactly the kind of fact that is obvious
+   * on the day and invisible a month later. Provenance is cheap to record and
+   * impossible to reconstruct.
+   */
+  publishedVia?: "drafter-run" | "recovered-from-run-log";
 };
 
 export type GenericTopic = {

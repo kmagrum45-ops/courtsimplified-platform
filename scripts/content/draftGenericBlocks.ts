@@ -310,6 +310,7 @@ async function runTopic(
           },
           readabilityException: assessment.withinTarget ? assessment.exception : null,
           draftedWith: MODEL,
+          publishedVia: "drafter-run",
         },
         attempts,
       };

@@ -188,6 +188,27 @@ console.log("");
       }
     }
 
+    /*
+     * Provenance. Neither field affects whether the block is verified — promotion
+     * re-gates everything regardless of route — but a published block with no record of
+     * how it was produced cannot be reconstructed later, and "reassembled from a run
+     * log" is precisely the fact that is obvious today and invisible in a month.
+     */
+    if (!block.draftedWith) {
+      problems.push(`${block.id}: does not record which model drafted it`);
+    }
+    if (!block.publishedVia) {
+      problems.push(
+        `${block.id}: does not record whether it came from a live drafter run or was ` +
+          `recovered from a run log`,
+      );
+    } else if (
+      block.publishedVia !== "drafter-run" &&
+      block.publishedVia !== "recovered-from-run-log"
+    ) {
+      problems.push(`${block.id}: unknown publishedVia "${block.publishedVia}"`);
+    }
+
     if (block.yourDeadline !== null) {
       problems.push(`${block.id}: carries a deadline section, which a stage-free block cannot render`);
     }

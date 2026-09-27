@@ -129,6 +129,7 @@ function main(): void {
       readabilityException: assessment.withinTarget ? assessment.exception : null,
       // From the run file, which recorded it at drafting time.
       draftedWith: run.model,
+      publishedVia: "recovered-from-run-log",
     });
 
     console.log(
