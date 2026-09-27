@@ -2,8 +2,8 @@
   "release": {
     "runId": "run-9",
     "model": "gpt-4o-mini",
-    "promotedAt": "2026-09-27T00:20:29.937Z",
-    "corpusGeneratedAt": "2026-09-27T00:08:18.675Z",
+    "promotedAt": "2026-09-27T00:49:03.039Z",
+    "corpusGeneratedAt": "2026-09-27T00:45:24.224Z",
     "blockCount": 16,
     "contentHash": "22bb4604"
   },
