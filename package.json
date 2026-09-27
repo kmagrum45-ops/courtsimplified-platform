@@ -136,7 +136,8 @@
     "test:workspace-ui": "node --import tsx scripts/verification/verifyWorkspaceUi.ts",
     "test:workspace-ai-flag": "node --import tsx scripts/verification/verifyWorkspaceAiFlag.ts",
     "test:workspace-export": "node --import tsx scripts/verification/verifyWorkspaceExport.ts",
-    "test:check-oracles": "node --import tsx scripts/verification/verifyCheckOracles.ts"
+    "test:check-oracles": "node --import tsx scripts/verification/verifyCheckOracles.ts",
+    "test:workspace-rls": "node --import tsx scripts/verification/verifyWorkspaceRls.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-76 documented, 30 without a header.
+77 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -83,6 +83,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:workspace-ocr` | **Client-side OCR is treated as a suggestion, never as text the server read, and a**<br>low-confidence reading asks the user for details instead of claiming success. |
 | `npm run test:workspace-organisation` | **Exhibit numbers do not move under a user's feet, the chronology says where every**<br>date came from, and the exhibit book's index points at the pages it claims to. |
 | `npm run test:workspace-pii` | **The personal-data scanner finds sensitive identifiers and never repeats one back.**<br>WHAT THIS CATCHES: the scanner that warns about Social Insurance Numbers putting a Social Insurance Number in the warning. |
+| `npm run test:workspace-rls` | **One litigant cannot reach another's documents. Proved by trying it, against a real**<br>database, with two real accounts. |
 | `npm run test:workspace-ui` | **The workspace screens carry the things that cannot be left to a reviewer's eye: the**<br>suggestion boundary line, a source tag on every chronology item, the "Date needed" group, and the verified serving content beside the exhibit book. |
 | `npm run test:workspace-upload` | **Uploaded documents are typed from their own bytes, pathed under their owner, and**<br>bounded by a limit that says the same number in the code and in the bucket. |
 
