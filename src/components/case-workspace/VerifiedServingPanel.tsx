@@ -52,8 +52,8 @@ function Citation({ citation }: { citation: GenericAnswer["citations"][number] }
   const name = SOURCE_NAMES[citation.sourceId as keyof typeof SOURCE_NAMES] ?? citation.sourceId;
 
   return (
-    <li className="border-l-2 border-slate-300 pl-3">
-      <p className="text-sm text-slate-700">
+    <li className="border-l-2 border-[#cfe3dd] pl-3">
+      <p className="text-sm text-[#24463d]">
         {/*
           The quote, marked as a quotation. This is the regulation's own words, taken
           from the vendored corpus and checked to be present there by findQuote, so it
@@ -61,7 +61,7 @@ function Citation({ citation }: { citation: GenericAnswer["citations"][number] }
         */}
         <q className="italic">{citation.quote}</q>
       </p>
-      <p className="mt-1 text-xs text-slate-500">
+      <p className="mt-1 text-xs text-[#6b8078]">
         {citation.pinpoint} — {name}
         {url ? (
           <>
@@ -97,7 +97,7 @@ export function VerifiedServingPanel({ className }: VerifiedServingPanelProps) {
   return (
     <section className={className} aria-labelledby="verified-serving-heading">
       <div className="flex items-baseline justify-between gap-2">
-        <h2 id="verified-serving-heading" className="text-base font-semibold text-slate-900">
+        <h2 id="verified-serving-heading" className="text-base font-semibold text-[#10231f]">
           Serving your documents
         </h2>
         {/*
@@ -110,22 +110,22 @@ export function VerifiedServingPanel({ className }: VerifiedServingPanelProps) {
           gateFailures refuses a block that claims it. The compiler rejected that
           branch as unreachable, which is the type doing its job.
         */}
-        <span className="text-xs uppercase tracking-wide text-slate-500">
+        <span className="text-xs uppercase tracking-wide text-[#6b8078]">
           {block.verification.status === "verified-draft" ? "verified" : "no verified source"}
         </span>
       </div>
 
-      <p className="mt-1 text-sm text-slate-600">{block.userQuestion}</p>
+      <p className="mt-1 text-sm text-[#6b8078]">{block.userQuestion}</p>
 
       {sections.map((section, index) => (
-        <p key={index} className="mt-3 text-sm leading-relaxed text-slate-800">
+        <p key={index} className="mt-3 text-sm leading-relaxed text-[#16302b]">
           {section}
         </p>
       ))}
 
       {block.citations.length > 0 ? (
         <>
-          <h3 className="mt-4 text-xs font-semibold uppercase tracking-wide text-slate-500">
+          <h3 className="mt-4 text-xs font-semibold uppercase tracking-wide text-[#6b8078]">
             What the rules say
           </h3>
           <ul className="mt-2 space-y-3">

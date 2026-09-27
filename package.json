@@ -132,7 +132,8 @@
     "test:workspace-organisation": "node --import tsx scripts/verification/verifyWorkspaceOrganisation.ts",
     "content:draft-generic": "tsx scripts/content/draftGenericBlocks.ts",
     "test:generic-library": "node --import tsx scripts/verification/verifyGenericLibrary.ts",
-    "content:recover-generic": "tsx scripts/content/recoverGenericCandidate.ts"
+    "content:recover-generic": "tsx scripts/content/recoverGenericCandidate.ts",
+    "test:workspace-ui": "node --import tsx scripts/verification/verifyWorkspaceUi.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

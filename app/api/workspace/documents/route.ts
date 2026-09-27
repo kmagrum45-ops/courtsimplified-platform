@@ -52,6 +52,7 @@ import {
   documentObjectPath,
   isUuid,
 } from "@/src/lib/case-workspace/storagePaths";
+import { DOCUMENT_TYPE_IDS } from "@/src/lib/case-workspace/documentTypes";
 
 export const runtime = "nodejs";
 
@@ -70,6 +71,9 @@ type RegisterRequestBody = {
   originalName?: string;
   declaredMime?: string | null;
 };
+
+/** Alias used by PATCH; same client, named so the call sites read as one thing. */
+const supabaseAdminFor = () => getSupabaseAdmin();
 
 function getSupabaseAdmin() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -303,6 +307,167 @@ export async function GET(req: NextRequest) {
 // ---------------------------------------------------------------------------
 // DELETE — the object, the extracted text and the row
 // ---------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------
+// PATCH — the user confirming or correcting what a document is
+// ---------------------------------------------------------------------------
+
+/**
+ * *** THIS IS THE "CONFIRM" HALF OF SUGGEST-THEN-CONFIRM ***
+ *
+ * CLAUDE.md §4: every AI-generated output is a suggestion the user confirms or
+ * overrides. Nothing else in this product writes `user_type`, `user_date` or
+ * `user_label` — not extraction, not OCR, not the analysis in Part 4. A suggestion is
+ * returned to the screen, the user accepts or edits it, and THIS route records the
+ * result. The column names say whose values they are.
+ *
+ * So there is no "apply suggestion" endpoint and there must not be one. The difference
+ * between a suggestion and a decision is that a person made the second, and a route
+ * that writes a suggestion directly erases that difference while looking like a
+ * convenience.
+ */
+export async function PATCH(req: NextRequest) {
+  try {
+    const user = await getAuthenticatedUser(req);
+    if (!user) return refuse(401, "Authentication is required.");
+
+    if (Number(req.headers.get("content-length") || 0) > MAX_BODY_BYTES) {
+      return refuse(413, "The request is too large.");
+    }
+
+    const body = (await req.json()) as {
+      documentId?: string;
+      userType?: string | null;
+      userDate?: string | null;
+      userDatePrecision?: string | null;
+      userLabel?: string | null;
+      parties?: unknown;
+      amount?: unknown;
+      notes?: string | null;
+    };
+
+    const documentId = String(body.documentId || "").trim();
+    if (!isUuid(documentId)) return refuse(400, "A valid document id is required.");
+
+    const update: Record<string, unknown> = {};
+
+    if (body.userType !== undefined) {
+      const type = body.userType === null ? null : String(body.userType);
+      /*
+       * Checked here as well as by the CHECK constraint. The constraint is the thing
+       * that cannot be bypassed; this exists so a bad value returns a 422 the screen
+       * can show rather than a 500 from a rejected insert.
+       */
+      if (type !== null && !DOCUMENT_TYPE_IDS.includes(type as (typeof DOCUMENT_TYPE_IDS)[number])) {
+        return refuse(422, "Unknown document type.", `"${type}" is not in the catalogue.`);
+      }
+      update.user_type = type;
+    }
+
+    if (body.userDate !== undefined) {
+      const date = body.userDate === null ? null : String(body.userDate).trim();
+      if (date !== null && !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+        return refuse(422, "A date must be written as YYYY-MM-DD.");
+      }
+
+      const precision = String(body.userDatePrecision ?? "day");
+      if (!["day", "month", "year"].includes(precision)) {
+        return refuse(422, "Precision must be day, month or year.");
+      }
+
+      /*
+       * *** A MONTH OR YEAR DATE MUST NOT CARRY A DAY THE DOCUMENT NEVER GAVE ***
+       *
+       * The CHECK constraint enforces this at the table, and it is enforced here too so
+       * the user gets a readable refusal. A document dated "March 2026" stored as
+       * 2026-03-14 asserts a day nobody read, and a chronology is taken as a record of
+       * what happened.
+       */
+      if (date !== null && precision !== "day") {
+        const [, month, day] = date.split("-");
+        if (day !== "01" || (precision === "year" && month !== "01")) {
+          return refuse(
+            422,
+            "That date is more precise than the precision says.",
+            precision === "month"
+              ? "A month-precision date must be the first of the month."
+              : "A year-precision date must be 1 January.",
+          );
+        }
+      }
+
+      update.user_date = date;
+      update.user_date_precision = precision;
+    }
+
+    if (body.userLabel !== undefined) {
+      update.user_label = body.userLabel === null ? null : String(body.userLabel).slice(0, 300);
+    }
+
+    if (body.notes !== undefined) {
+      update.notes = body.notes === null ? null : String(body.notes).slice(0, 4000);
+    }
+
+    if (body.parties !== undefined) {
+      update.parties = Array.isArray(body.parties)
+        ? body.parties.map((party) => String(party).slice(0, 200)).slice(0, 20)
+        : [];
+    }
+
+    if (body.amount !== undefined) {
+      if (body.amount === null) {
+        update.amount = null;
+      } else {
+        const amount = Number(body.amount);
+        if (!Number.isFinite(amount)) return refuse(422, "That amount is not a number.");
+        update.amount = amount;
+      }
+    }
+
+    if (Object.keys(update).length === 0) {
+      return refuse(400, "Nothing to change.");
+    }
+
+    /*
+     * Confirming a date is what moves a document out of 'needs-details'. Without this
+     * the low-confidence OCR banner would stay on screen after the user had answered it,
+     * which reads as the product ignoring them.
+     */
+    if (update.user_date !== undefined && update.user_date !== null) {
+      const { data: current } = await supabaseAdminFor().from("workspace_documents")
+        .select("extraction_status")
+        .eq("id", documentId)
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+      if (current?.extraction_status === "needs-details") {
+        update.extraction_status = "done";
+        update.extraction_notice = null;
+      }
+    }
+
+    const { data, error } = await supabaseAdminFor()
+      .from("workspace_documents")
+      .update(update)
+      .eq("id", documentId)
+      .eq("user_id", user.id)
+      .is("deleted_at", null)
+      .select(DOCUMENT_COLUMNS)
+      .maybeSingle();
+
+    if (error) {
+      console.error("workspace patch error:", error.message);
+      return refuse(500, "CourtSimplified could not save this change.");
+    }
+
+    if (!data) return refuse(404, "Document not found.");
+
+    return NextResponse.json({ success: true, document: data });
+  } catch (error) {
+    console.error("workspace patch error:", error);
+    return refuse(500, "CourtSimplified could not save this change.");
+  }
+}
 
 export async function DELETE(req: NextRequest) {
   try {
