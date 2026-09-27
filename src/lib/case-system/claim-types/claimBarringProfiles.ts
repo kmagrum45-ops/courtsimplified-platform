@@ -230,7 +230,16 @@ export const CLAIM_BARRING_PROFILES: ClaimTypeProfile[] = [
     scenarios: [
       "A provincial inspector damaged my equipment and the ministry will not pay",
       "I want to sue a provincial agency over money they took",
-      "The province cancelled my licence and it cost me income",
+      /*
+       * Replaced during the 10% scenario review. The original read "The province
+       * cancelled my licence and it cost me income", which is the wrong shape for
+       * this profile: challenging a licensing DECISION is a judicial review matter,
+       * not a damages claim, and nothing in the vendored Crown Liability and
+       * Proceedings Act establishes otherwise. A scenario that trains the
+       * classifier toward this profile for a judicial review question would route
+       * somebody to the wrong court with a sixty-day notice they do not need.
+       */
+      "A provincial office lost documents I sent and I had to pay to replace them",
       "A government road crew wrecked my fence",
       "I was told to claim against the Ontario government but do not know how to start",
     ],

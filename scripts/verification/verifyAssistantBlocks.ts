@@ -35,6 +35,7 @@ import {
   isAssistantPlaceholder,
 } from "../../src/lib/content-library/assistantBlocks";
 import {
+  knowledgeGateRefusal,
   renderAssistantBlock,
   isRenderableVerification,
 } from "../../src/lib/content-library/renderAssistantBlock";
@@ -483,6 +484,64 @@ function withoutComments(source: string): string {
     fail("the orchestrator reads strategyData or litigationRisks from caseMemory");
   }
 }
+
+// ---------------------------------------------------------------------------
+// The knowledge gate fails CLOSED
+// ---------------------------------------------------------------------------
+
+/*
+ * WHAT THIS CATCHES: the gate reverting to opt-in.
+ *
+ * It used to read `knowledgeVerification !== undefined && !renderable`, so a
+ * caller who omitted the argument rendered the block. One call site out of
+ * thirty-seven passed it, and everything drawing on doctrineSeedLibrary -- eleven
+ * entries, all "not-verified" -- would have reached a user by default.
+ *
+ * *** THE FIRST VERSION OF THIS CHECK PASSED WITH THE FIX REVERTED ***
+ *
+ * It rendered the one real block that declares the dependency,
+ * assistant:explain:burden. That block is also a PLACEHOLDER, so
+ * renderAssistantBlock refused it a step earlier and the knowledge gate never
+ * ran. The check watched the wrong refusal and asserted nothing.
+ *
+ * So it now drives the exported decision directly with SYNTHETIC blocks. No
+ * placeholder check, no registry lookup, nothing but the rule.
+ */
+{
+  const declares = { drawsOnUnverifiedKnowledge: true } as const;
+  const declaresNothing = {} as { drawsOnUnverifiedKnowledge?: true };
+
+  const problems: string[] = [];
+
+  // A declaring block refuses unless given a renderable status.
+  if (knowledgeGateRefusal(declares, undefined) !== "unverified-knowledge") {
+    problems.push("a declaring block with NO status was not refused — the gate is opt-in again");
+  }
+  if (knowledgeGateRefusal(declares, "not-verified") !== "unverified-knowledge") {
+    problems.push('a declaring block with "not-verified" was not refused');
+  }
+  if (knowledgeGateRefusal(declares, "verified-draft") !== null) {
+    problems.push('a declaring block with "verified-draft" was refused — verification would be pointless');
+  }
+  if (knowledgeGateRefusal(declares, "approved") !== null) {
+    problems.push('a declaring block with "approved" was refused');
+  }
+
+  // A block declaring nothing keeps the older behaviour, deliberately.
+  if (knowledgeGateRefusal(declaresNothing, undefined) !== null) {
+    problems.push("a block declaring nothing was refused with no status — that would break 36 call sites");
+  }
+  if (knowledgeGateRefusal(declaresNothing, "not-verified") !== "unverified-knowledge") {
+    problems.push('a block declaring nothing was NOT refused for an explicit "not-verified"');
+  }
+
+  if (problems.length === 0) {
+    pass("the knowledge gate fails closed for a declaring block and stays open for others");
+  } else {
+    fail("the knowledge gate does not behave as specified", problems.join("\n"));
+  }
+}
+
 
 console.log("");
 console.log(failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`);

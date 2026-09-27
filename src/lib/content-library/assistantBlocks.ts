@@ -72,6 +72,28 @@ export type AssistantBlock = {
   citations: AssistantBlockCitation[];
   /** Where a user encounters it, for the review packet. */
   appearsIn: string;
+  /**
+   * Set when this block's TEXT comes from an unverified knowledge object — today
+   * that means `doctrineSeedLibrary`, every entry of which is `"not-verified"`.
+   *
+   * *** WHY THE BLOCK DECLARES IT AND NOT THE CALLER ***
+   *
+   * `renderAssistantBlock` refuses a block whose `knowledgeVerification` is not
+   * renderable, but only when the caller PASSES one. Omitting the argument renders
+   * the block. Proven, not assumed: with no status `assistant:opening:generic`
+   * returns 127 characters; with `"not-verified"` it returns none.
+   *
+   * One call site out of thirty-seven passes it. So the gate depended on every
+   * caller remembering a positional third argument, and a new call site for a
+   * doctrine-backed block would render unverified content by default.
+   *
+   * With this field the block carries its own requirement and the gate fails
+   * CLOSED for it whatever the caller does. Blocks WITHOUT it still render when the
+   * status is omitted, deliberately — most stand on their own citations and draw on
+   * no knowledge object at all. Marking the block is therefore the step that makes
+   * a doctrine-backed block safe.
+   */
+  drawsOnUnverifiedKnowledge?: true;
 };
 
 const PLACEHOLDER = (what: string) => `[NEEDS LICENSEE REVIEW: ${what}]`;
@@ -312,6 +334,15 @@ export const ASSISTANT_BLOCKS: AssistantBlock[] = [
     statesLaw: true,
     citations: [],
     appearsIn: "Guided assistant, when the doctrine library supplies a burden priority",
+    /*
+     * The only block confirmed to take its text from doctrineSeedLibrary, traced
+     * through the single call site that passes DOCTRINE_VERIFICATION_STATUS.
+     *
+     * Marked even though it is currently a PLACEHOLDER and so refused a step
+     * earlier. The refusals are independent: placeholder status will go away when
+     * the wording is written, and the knowledge requirement must not go with it.
+     */
+    drawsOnUnverifiedKnowledge: true,
   },
 
   // =====================================================================
