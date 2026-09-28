@@ -4,6 +4,7 @@ import {
   type FamilyMasterCaseResult,
 } from "../familyMasterCaseEngine";
 import { runCourtSimplifiedBrain } from "../intelligence/courtSimplifiedBrain";
+import { nameRecorded } from "../privacy/modelPayloadNames";
 import type {
   CourtSimplifiedBrainOutput,
 } from "../intelligence/intelligenceTypes";
@@ -65,8 +66,9 @@ function buildCanonicalNarrative(input: FamilyMasterCaseInput): string {
     "Jurisdiction: Ontario",
     `Stage: ${normalizeStage(input.caseStage)}`,
     clean(input.role) ? `User role: ${clean(input.role)}` : "",
-    clean(input.yourName) ? `User: ${clean(input.yourName)}` : "",
-    clean(input.otherParty) ? `Other party: ${clean(input.otherParty)}` : "",
+    // Names are never sent to the model -- see privacy/modelPayloadNames.ts.
+    clean(input.yourName) ? `User: ${nameRecorded(input.yourName)}` : "",
+    clean(input.otherParty) ? `Other party: ${nameRecorded(input.otherParty)}` : "",
     input.issues?.length ? `Selected issues: ${input.issues.join("; ")}` : "",
     input.filedDocuments?.length
       ? `Existing documents: ${input.filedDocuments.join("; ")}`
