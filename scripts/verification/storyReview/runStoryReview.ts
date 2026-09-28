@@ -75,6 +75,7 @@ import {
 
 const OUT_DIR = path.join(process.cwd(), "scripts", "verification", "storyReview");
 const MAX_TURNS = 25;
+const CONCURRENCY = 3;
 const UNSCRIPTED = "I'm not sure.";
 
 type Shown = { stage: "question" | "depth" | "proposal" | "review" | "notice"; id: string; text: string };
@@ -91,6 +92,8 @@ type StoryRun = {
   courtPathSource: string;
   safety: string;
   halted: boolean;
+  /** The legal-advice notice showed (the user asked "do I have a case" or similar). */
+  legalAdviceNotice: boolean;
   claimTypeMatched: string | null;
   claimTypeSuggested: string | null;
   claimTypeUsed: string | null;
@@ -168,6 +171,7 @@ async function runOne(story: ReviewStory, apiKey: string, offline: boolean): Pro
     courtPathSource: "",
     safety: "",
     halted: false,
+    legalAdviceNotice: false,
     claimTypeMatched: null,
     claimTypeSuggested: null,
     claimTypeUsed: null,
@@ -219,6 +223,8 @@ async function runOne(story: ReviewStory, apiKey: string, offline: boolean): Pro
   let answeredIds = result.answeredIds;
   run.safety = result.safetyClassification || "";
   run.halted = result.halted;
+  run.legalAdviceNotice = result.requestsLegalAdvice === true;
+  if (run.legalAdviceNotice) run.shown.push({ stage: "notice", id: "legal-advice", text: "We can't answer that one (fixed notice + referral list)" });
   run.checks.push({
     check: "safety",
     pass: story.expect.safety.includes(result.safetyClassification as never),
@@ -336,6 +342,16 @@ async function runOne(story: ReviewStory, apiKey: string, offline: boolean): Pro
   for (const f of review.findings) run.shown.push({ stage: "review", id: f.kind, text: f.text });
 
   // ---- Checks over the whole journey ----
+
+  if (story.expect.asksForAdvice !== undefined) {
+    run.checks.push({
+      check: "legal-advice-notice",
+      pass: run.legalAdviceNotice === story.expect.asksForAdvice,
+      detail: run.legalAdviceNotice
+        ? "the \"we can't answer that\" notice and referrals were shown"
+        : "the story asked for legal advice but no notice was shown",
+    });
+  }
 
   for (const id of story.expect.answeredByStory || []) {
     const proposed = run.proposals.some((p) => p.questionId === id);
@@ -463,23 +479,34 @@ async function main() {
   }
 
   const stories = STORIES.filter((s) => !only || s.id === only);
-  const runs: StoryRun[] = [];
-  for (const story of stories) {
-    process.stdout.write(`${story.id} ... `);
+  // Three stories at a time: each story's own turns stay strictly in order,
+  // and the report keeps the story order whatever finishes first.
+  const runs: StoryRun[] = new Array(stories.length);
+  let next = 0;
+  async function worker() {
+    while (next < stories.length) {
+      const index = next;
+      next += 1;
+      runs[index] = await runSafely(stories[index]);
+    }
+  }
+  await Promise.all(Array.from({ length: offline ? 1 : CONCURRENCY }, () => worker()));
+
+  async function runSafely(story: ReviewStory): Promise<StoryRun> {
     try {
       const run = await runOne(story, apiKey, offline);
-      runs.push(run);
       const bad = run.checks.filter((c) => !c.pass).length;
-      console.log(bad === 0 ? "ok" : `${bad} failed`);
+      console.log(`${story.id} ... ${bad === 0 ? "ok" : `${bad} failed`}`);
+      return run;
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      console.log(`RUN ERROR: ${message}`);
-      runs.push({
+      console.log(`${story.id} ... RUN ERROR: ${message}`);
+      return {
         id: story.id, area: story.area, side: story.side, note: story.note, story: story.story,
-        courtPath: "", courtPathSource: "", safety: "", halted: false, claimTypeMatched: null,
+        courtPath: "", courtPathSource: "", safety: "", halted: false, legalAdviceNotice: false, claimTypeMatched: null,
         claimTypeSuggested: null, claimTypeUsed: null, proposals: [], askedIds: [], unscripted: [],
         depthAsked: [], review: null, shown: [], finalFacts: {}, checks: [{ check: "ran", pass: false, detail: message }], error: message,
-      });
+      };
     }
   }
 

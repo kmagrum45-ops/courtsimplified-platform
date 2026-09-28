@@ -54,6 +54,8 @@ export type ReviewStory = {
      * finding kind, optionally with words one of its quotes must contain.
      */
     reviewShouldRaise?: { kind: string; quoteIncludes?: string }[];
+    /** Set when the story asks for legal advice ("do I have a case"); the notice must show. */
+    asksForAdvice?: boolean;
   };
 };
 
@@ -372,5 +374,482 @@ export const STORIES: ReviewStory[] = [
       "winter and my landlord keeps saying he'll send someone but never does. My son has asthma and it's " +
       "getting worse. I want the landlord to fix it and I want some rent back.",
     expect: { courtPath: ["out-of-scope"], safety: ["clear", "distress"] },
+  },
+
+  // ================================================================== 2026-09-28, round 2
+  // Every Small Claims claim type the site knows, plus the situations real
+  // people bring that no single-stage suite imagines.
+
+  {
+    id: "SC10-slip-city-sidewalk",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Fall on an icy city sidewalk. The municipal notice period is short, so the date matters.",
+    story:
+      "On January 14 I slipped on a sheet of ice on the sidewalk outside the library on Main Street and " +
+      "broke my wrist. The city hadn't salted it at all. I was off work for six weeks and lost about $4,800 " +
+      "in pay. I want the city to pay me back.",
+    answers: { "sc-amount-claimed": "$4,800 in lost pay.", "sc-date-injury": "January 14." },
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear", "distress"],
+      claimTypes: ["sc-claim-slip-and-fall-occupier-liability"],
+      answeredByStory: ["sc-orient-when-happened"],
+      role: "plaintiff",
+      reviewShouldRaise: [{ kind: "missing-other-party-address" }],
+    },
+  },
+  {
+    id: "SC11-towed-private-lot",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Towed from a plaza lot with no posted rates; charged far more than expected.",
+    story:
+      "My car got towed from a plaza parking lot in Mississauga on August 2nd while I was in the pharmacy for " +
+      "ten minutes. There was no sign with the towing rates. The tow company charged me $640 to get it back " +
+      "and wouldn't give me an itemized bill until I paid.",
+    answers: { "sc-amount-claimed": "$640." },
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      claimTypes: ["sc-claim-improper-unauthorized-towing"],
+      answeredByStory: ["sc-orient-when-happened"],
+      role: "plaintiff",
+    },
+  },
+  {
+    id: "SC12-sofa-arrived-damaged",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Goods not as agreed: furniture store delivered a damaged, wrong-colour sofa.",
+    story:
+      "I ordered a grey sectional from a furniture store for $2,300. What they delivered in June was beige " +
+      "and one arm was ripped. They said they'd replace it and never did. They won't refund me either.",
+    answers: { "sc-amount-claimed": "$2,300." },
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      claimTypes: ["sc-claim-breach-of-contract-goods", "sc-claim-consumer-protection-act-issue"],
+      role: "plaintiff",
+    },
+  },
+  {
+    id: "SC13-supplier-unpaid-by-store",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "A small business supplier owed for goods delivered to a shop.",
+    story:
+      "I run a small bakery and I delivered $6,450 worth of baked goods to a cafe over March and April on " +
+      "their standing order. They paid the first two invoices and then stopped. The owner says business is " +
+      "slow and he'll pay when he can, but it's been four months.",
+    answers: { "sc-amount-claimed": "$6,450." },
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      claimTypes: ["sc-claim-non-payment-goods-sold", "sc-claim-unpaid-debt-services"],
+      role: "plaintiff",
+    },
+  },
+  {
+    id: "SC14-door-to-door-furnace",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Door-to-door contract cancelled in the cooling-off period; no refund.",
+    story:
+      "A salesman came to my door and signed me up for a furnace rental and I paid a $500 deposit. I " +
+      "cancelled in writing four days later. That was two months ago and they still haven't refunded the " +
+      "deposit.",
+    answers: { "sc-amount-claimed": "$500." },
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      claimTypes: ["sc-claim-consumer-cancellation-refund", "sc-claim-consumer-protection-act-issue"],
+      role: "plaintiff",
+    },
+  },
+  {
+    id: "SC15-fired-after-8-months",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Short-service dismissal, small amount: a Small Claims matter.",
+    story:
+      "I worked as a receptionist at a dental office for eight months. Last Friday they told me not to come " +
+      "back and gave me nothing, no notice and no pay in lieu. They didn't say I did anything wrong.",
+    expect: {
+      courtPath: ["small-claims", "civil"],
+      safety: ["clear", "distress"],
+      claimTypes: ["sc-claim-wrongful-dismissal"],
+      role: "plaintiff",
+    },
+  },
+  {
+    id: "SC16-friend-keeps-laptop",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Recovery of personal property: a laptop a friend won't give back.",
+    story:
+      "I lent my MacBook to a friend in the spring while hers was being fixed. She still has it and now says " +
+      "I gave it to her. I didn't. It cost me $1,900 and I have the receipt in my name.",
+    answers: { "sc-amount-claimed": "$1,900 or the laptop back." },
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      claimTypes: ["sc-claim-recovery-of-personal-property"],
+      role: "plaintiff",
+    },
+  },
+  {
+    id: "SC17-restaurant-lease-deposit",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Commercial tenant: landlord kept the deposit on a restaurant lease. Not the LTB.",
+    story:
+      "I leased a commercial unit for my restaurant in a strip mall for three years. When the lease ended in " +
+      "July I handed back the keys and the unit was in good shape, but the landlord kept my $8,000 security " +
+      "deposit and won't say why.",
+    answers: { "sc-amount-claimed": "$8,000." },
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      claimTypes: ["sc-claim-commercial-tenancy-dispute"],
+      role: "plaintiff",
+    },
+  },
+  {
+    id: "SC18-bounced-cheque",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Buyer paid for a used boat with a cheque that bounced.",
+    story:
+      "I sold my fishing boat to a man for $3,700 in May and he paid by cheque. The cheque bounced for " +
+      "insufficient funds and by then he'd already taken the boat. He keeps saying he'll send an e-transfer.",
+    answers: { "sc-amount-claimed": "$3,700." },
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      claimTypes: ["sc-claim-dishonoured-nsf-cheque"],
+      answeredByStory: ["sc-orient-when-happened"],
+      role: "plaintiff",
+    },
+  },
+  {
+    id: "SC19-unpaid-vacation-pay",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Former employee owed vacation pay and overtime.",
+    story:
+      "I quit my warehouse job in June and they never paid out my vacation pay. I also worked a lot of " +
+      "overtime in the spring that was never paid at time and a half. I figure it's about $2,200 total.",
+    answers: { "sc-amount-claimed": "About $2,200." },
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      claimTypes: ["sc-claim-unpaid-overtime-vacation-pay"],
+      role: "plaintiff",
+    },
+  },
+  {
+    id: "SC20-mechanic-overcharged",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Repair shop charged well over its written estimate.",
+    story:
+      "The garage gave me a written estimate of $900 to fix my brakes. When I went to pick up the car the " +
+      "bill was $1,650 and they said they found more problems. They never called me to ask. I paid so I " +
+      "could get my car back.",
+    answers: { "sc-amount-claimed": "$750, the amount over the estimate." },
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      claimTypes: ["sc-claim-vehicle-repair-dispute"],
+      role: "plaintiff",
+    },
+  },
+  {
+    id: "SC21-condo-arrears",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "A condo corporation's manager wants unpaid common expenses from an owner.",
+    story:
+      "I'm the property manager for a condominium corporation. One owner hasn't paid common expenses since " +
+      "January and owes $4,120. We've sent notices and he ignores them. The board asked me to look at small " +
+      "claims.",
+    answers: { "sc-amount-claimed": "$4,120." },
+    expect: {
+      courtPath: ["small-claims", "out-of-scope"],
+      safety: ["clear"],
+      claimTypes: ["sc-claim-unpaid-condo-common-expenses"],
+      role: "plaintiff",
+    },
+  },
+  {
+    id: "SC22-uninsured-driver",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Rear-ended by a driver with no insurance.",
+    story:
+      "A driver rear-ended me at a red light on Bank Street in April. It turns out he had no insurance. My " +
+      "repair bill was $5,300 and my insurance company told me to go after him myself for the deductible and " +
+      "the rest.",
+    answers: { "sc-amount-claimed": "$5,300." },
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      claimTypes: ["sc-claim-vehicle-accident-uninsured-driver-property-damage"],
+      role: "plaintiff",
+    },
+  },
+  {
+    id: "SC23-dry-cleaner-ruined-dress",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Property damaged while in a business's care.",
+    story:
+      "I took my wedding dress to a dry cleaner to be cleaned and boxed. It came back with a large burn mark " +
+      "on the skirt. The dress cost $2,800. The cleaner says their ticket limits them to ten times the " +
+      "cleaning price.",
+    answers: { "sc-amount-claimed": "$2,800." },
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      claimTypes: ["sc-claim-property-damaged-lost-in-business-care"],
+      role: "plaintiff",
+    },
+  },
+
+  // ------------------------------------------------------------ situations, not claim types
+  {
+    id: "EX1-vague",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Almost no detail. The site should ask, not guess.",
+    story: "I got ripped off and I want my money back.",
+    expect: { courtPath: ["unknown", "small-claims"], safety: ["clear"] },
+  },
+  {
+    id: "EX2-asks-will-i-win",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Ordinary story that ends by asking for legal advice.",
+    story:
+      "My neighbour's tree fell on my shed in a storm last month and crushed it. He knew the tree was dead " +
+      "because I told him last year. The shed cost $3,000. Do I have a case? Will I win if I sue him?",
+    answers: { "sc-amount-claimed": "$3,000." },
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      role: "plaintiff",
+      asksForAdvice: true,
+    },
+  },
+  {
+    id: "EX3-over-limit-invoice",
+    area: "civil",
+    side: "plaintiff",
+    note: "Unpaid invoice over $50,000: belongs in the Superior Court.",
+    story:
+      "My company did a software project for a distribution company and they owe us $78,000 on the final " +
+      "invoice. The work was delivered and accepted in March. They say they're disputing the quality but " +
+      "they never raised it before.",
+    expect: { courtPath: ["civil"], safety: ["clear"] },
+  },
+  {
+    id: "EX4-old-events",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Events years ago. The site must not say it is too late, and must not guess.",
+    story:
+      "Back in 2021 I lent my cousin $3,000 and she promised to pay it back in a year. She never did and I " +
+      "finally want to do something about it.",
+    answers: { "sc-amount-claimed": "$3,000." },
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      claimTypes: ["sc-claim-personal-loan-between-individuals"],
+      role: "plaintiff",
+    },
+  },
+  {
+    id: "EX5-already-filed-no-defence",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Plaintiff already filed and served; no defence yet. Needs the plaintiff procedure questions.",
+    story:
+      "I filed my Plaintiff's Claim against my old landlord's cleaning company in August for $2,400 and had " +
+      "it served on them by registered mail on September 2. They haven't filed a defence.",
+    answers: {
+      "sc-amount-claimed": "$2,400.",
+      "sc-claim-filed": "Yes, in August.",
+      "sc-defendant-served": "Yes, by registered mail on September 2. I don't have the affidavit of service yet.",
+      "sc-defence-filed": "No.",
+      "sc-date-claim-served": "September 2.",
+      "sc-date-claim-issued": "August 12.",
+    },
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      answeredByStory: ["sc-orient-role", "sc-claim-filed"],
+      role: "plaintiff",
+    },
+  },
+  {
+    id: "EX6-two-problems",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Two disputes with the same person in one story.",
+    story:
+      "My ex-boyfriend owes me $1,500 I lent him for rent in January, and when he moved out of my place in " +
+      "May he took my TV and my bike and won't give them back. I want both sorted out.",
+    answers: { "sc-amount-claimed": "$1,500 plus the TV and bike, about $1,200." },
+    expect: { courtPath: ["small-claims"], safety: ["clear"], role: "plaintiff" },
+  },
+  {
+    id: "EX7-business-suing-customer",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "A business owner, writing as the business, suing a customer.",
+    story:
+      "We are a landscaping company. A homeowner hired us to redo her backyard for $11,500. We finished the " +
+      "job in July and she paid $5,000 and now refuses to pay the rest, saying the grass didn't take.",
+    answers: { "sc-amount-claimed": "$6,500." },
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      claimTypes: ["sc-claim-unpaid-debt-services"],
+      role: "plaintiff",
+    },
+  },
+  {
+    id: "EX8-noted-in-default",
+    area: "small-claims",
+    side: "defendant",
+    note: "Defendant who ignored the claim and has now been noted in default.",
+    story:
+      "Someone sued me over a car I sold him. I got the papers in July but I didn't do anything because I " +
+      "thought it would go away. Now I got a letter from the court saying I've been noted in default. What " +
+      "happens now?",
+    answers: {
+      "sc-defendant-default-status": "I've been noted in default",
+      "sc-date-learned-of-default": "Last week, around September 20.",
+    },
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear", "distress"],
+      answeredByStory: ["sc-orient-role"],
+      role: "defendant",
+    },
+  },
+  {
+    id: "EX9-defendant-counterclaim",
+    area: "small-claims",
+    side: "defendant",
+    note: "Defendant who thinks the plaintiff owes them more.",
+    story:
+      "My former business partner is suing me for $9,000 he says I owe from our food truck. I was served two " +
+      "weeks ago. The truth is he took $14,000 of equipment when he left and never paid me for my share. I " +
+      "want to make a claim back against him.",
+    answers: { "sc-defendant-counterclaim": "Yes, he owes me for the equipment, about $14,000. I haven't started anything yet." },
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      answeredByStory: ["sc-orient-role"],
+      role: "defendant",
+    },
+  },
+  {
+    id: "EX10-dog-owner-sued",
+    area: "small-claims",
+    side: "defendant",
+    note: "Dog owner served with a claim after a bite.",
+    story:
+      "I've been served with a claim by a delivery driver who says my dog bit him on my porch. My dog did " +
+      "nip him but he walked right past the Beware of Dog sign and into the gate. He wants $7,500.",
+    expect: {
+      courtPath: ["small-claims"],
+      safety: ["clear"],
+      answeredByStory: ["sc-orient-role"],
+      role: "defendant",
+    },
+  },
+  {
+    id: "EX11-genuine-distress",
+    area: "small-claims",
+    side: "plaintiff",
+    note: "Distress in the person's own words. The slower-pace message is right here.",
+    story:
+      "I lent my brother $6,000 from my savings and he won't pay it back and won't talk to me. I can't sleep, " +
+      "I cry every day, I feel completely hopeless and I don't know how much longer I can cope with this.",
+    answers: { "sc-amount-claimed": "$6,000." },
+    expect: { courtPath: ["small-claims"], safety: ["distress", "immediate-danger"] },
+  },
+  {
+    id: "EX12-past-violence-family",
+    area: "family",
+    side: "applicant",
+    note: "Past abuse recounted as background to a custody question.",
+    story:
+      "I left my husband two years ago because he was violent. We share custody of our daughter and now he " +
+      "wants her every weekend. I want to keep the current schedule. He hasn't threatened me since I left.",
+    expect: { courtPath: ["family"], safety: ["distress"] },
+  },
+  {
+    id: "TR2-discrimination",
+    area: "tribunal",
+    side: "applicant",
+    note: "Workplace discrimination: the Human Rights Tribunal, not a court.",
+    story:
+      "My manager cut my hours in half after I told her I was pregnant, and gave them to a coworker who " +
+      "isn't. When I asked why, she said I'd need to slow down anyway.",
+    expect: { courtPath: ["out-of-scope"], safety: ["clear", "distress"] },
+  },
+  {
+    id: "TR3-hurt-at-work",
+    area: "tribunal",
+    side: "applicant",
+    note: "Injured on the job: WSIB, not a court.",
+    story:
+      "I hurt my back lifting boxes at work at the warehouse in August and I've been off since. My employer " +
+      "says I should just use my sick days. I want to get paid while I'm off.",
+    expect: { courtPath: ["out-of-scope"], safety: ["clear", "distress"] },
+  },
+  {
+    id: "TR4-criminal-charge",
+    area: "tribunal",
+    side: "respondent",
+    note: "A criminal charge: outside what the site covers.",
+    story:
+      "I was charged with assault after a fight outside a bar last month. My first court date is in two " +
+      "weeks and I don't know if I need a lawyer.",
+    expect: { courtPath: ["out-of-scope"], safety: ["clear", "distress"] },
+  },
+  {
+    id: "TR5-residential-deposit",
+    area: "tribunal",
+    side: "applicant",
+    note: "Residential tenant and landlord: the Landlord and Tenant Board.",
+    story:
+      "I moved out of my apartment in Kingston at the end of August and my landlord won't give back my last " +
+      "month's rent deposit. He says he needs it for painting.",
+    expect: { courtPath: ["out-of-scope", "small-claims"], safety: ["clear"] },
+  },
+  {
+    id: "FM3-property-division-married",
+    area: "family",
+    side: "applicant",
+    note: "Married couple separating; house and pension.",
+    story:
+      "My wife and I separated in March after 15 years of marriage. We own a house together and she wants " +
+      "to keep it. I have a work pension. We can't agree on how to split things.",
+    expect: { courtPath: ["family"], safety: ["clear", "distress"] },
+  },
+  {
+    id: "CV3-neighbour-encroachment",
+    area: "civil",
+    side: "plaintiff",
+    note: "Wants a structure removed, not money: the Superior Court.",
+    story:
+      "My neighbour built a garage that sits two feet onto my property according to my survey. I want the " +
+      "court to make him move it. I'm not really after money.",
+    expect: { courtPath: ["civil"], safety: ["clear"] },
   },
 ];

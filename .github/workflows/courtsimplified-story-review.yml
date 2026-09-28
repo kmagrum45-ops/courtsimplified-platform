@@ -9,7 +9,7 @@ name: CourtSimplified Story Review
 #
 # Runs on demand (Actions tab -> CourtSimplified Story Review -> Run workflow),
 # and whenever the battery, the intake or the case review changes on main. It is not run on
-# every push: about 250 gpt-4o-mini calls a run.
+# every push: about 800 gpt-4o-mini calls a run (well under a dollar).
 
 on:
   workflow_dispatch:
@@ -33,7 +33,7 @@ concurrency:
 jobs:
   story-review:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 75
 
     env:
       NODE_OPTIONS: --max-old-space-size=4096

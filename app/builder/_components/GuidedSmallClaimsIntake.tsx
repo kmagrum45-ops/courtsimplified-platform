@@ -16,6 +16,7 @@ import type {
 } from "@/src/lib/case-system/intake/storyAnswerProposals";
 
 import { supabase } from "../../../src/lib/supabase/client";
+import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
 
 type IntakeFacts = Record<string, string | number | boolean>;
 
@@ -78,6 +79,8 @@ type ClaimGuidance = {
 
 type GuidedTurnResult = {
   halted: boolean;
+  /** 2026-09-28. The user asked for legal advice in text sent this turn. */
+  requestsLegalAdvice?: boolean;
   haltMessage?: string;
   distressAcknowledgment?: string;
   facts: IntakeFacts;
@@ -398,6 +401,9 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
   const [answeredIds, setAnsweredIds] = useState<string[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState<IntakeQuestion | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  // Sticky once set: the notice answers a question the user asked, and it
+  // stays in view while they carry on with the intake.
+  const [asksForAdvice, setAsksForAdvice] = useState(false);
   const [inputText, setInputText] = useState(initialStory || "");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -531,6 +537,10 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
       if (result.distressAcknowledgment) {
         setMessages((current) => [...current, { from: "assistant", text: result.distressAcknowledgment as string }]);
       }
+
+      // Same notice Civil, Family and the Small Claims form show: fixed words
+      // and the reviewed referral list. It does not stop the intake.
+      if (result.requestsLegalAdvice) setAsksForAdvice(true);
 
       // Answers the story already gives are shown for confirmation BEFORE any
       // question is asked. Nothing is applied until the user confirms; what
@@ -915,6 +925,11 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
 
   return (
     <div>
+      {asksForAdvice ? (
+        <div className="mb-4">
+          <LegalAdviceDeflection reason="legal-advice" />
+        </div>
+      ) : null}
       <div className="rounded-2xl border border-[#d8e6df] bg-[#f8fcfa] p-4" style={{ minHeight: 220 }}>
         {messages.length === 0 ? (
           <p className="text-sm text-[#5a736a]">

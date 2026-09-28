@@ -159,6 +159,17 @@ async function main(): Promise<void> {
   });
   check("the proposer never runs on an answer turn", calls.length === before);
 
+  // 2026-09-28: the flag the safety pass sets must reach the screen.
+  const asking = await orchestrateIntakeTurn({}, [], STORY + " Do I have a case?", "stub-key", QUESTION_BANK, CLAIM_TYPES, "small-claims", undefined, {
+    runSafety: async () => ({ classification: "clear" as const, reason: "stub", requestsLegalAdvice: true }),
+    extractFacts: async () => ({ facts: { role: "plaintiff" }, directFields: ["role"] }),
+    classifyClaimType: STUB_CLASSIFY,
+    composeVoice: STUB_VOICE,
+    proposeAnswers: async () => [],
+  });
+  check("a request for legal advice reaches the intake result", asking.requestsLegalAdvice === true);
+  check("an ordinary story does not raise the legal-advice notice", opening.requestsLegalAdvice === false);
+
   const failing = await orchestrateIntakeTurn({}, [], STORY, "stub-key", QUESTION_BANK, CLAIM_TYPES, "small-claims", undefined, {
     runSafety: STUB_SAFETY,
     extractFacts: async () => ({ facts: { role: "plaintiff" }, directFields: ["role"] }),

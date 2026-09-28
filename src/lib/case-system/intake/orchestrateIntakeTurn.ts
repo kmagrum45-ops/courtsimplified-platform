@@ -137,6 +137,15 @@ export type OrchestrateIntakeTurnResult = {
    * the proposal call failed -- a failure here never blocks intake.
    */
   storyProposals: StoryAnswerProposal[];
+  /**
+   * 2026-09-28. True when the safety pass found the user asking for legal
+   * advice ("do I have a case", "will I win") in text sent this turn. The
+   * caller shows LegalAdviceDeflection -- fixed words plus the reviewed
+   * referral list -- and the intake carries on. Civil, Family and the Small
+   * Claims form already did this; the guided intake computed the flag and
+   * dropped it (story review battery). Always false when no new text.
+   */
+  requestsLegalAdvice: boolean;
 };
 
 export type PossibleCorrection = {
@@ -285,6 +294,7 @@ export async function orchestrateIntakeTurn(
   let matchedClaimTypes: ClaimTypeMatch[] = [];
   let suggestedClaimType: ClaimTypeAiSuggestion | undefined;
   let possibleCorrections: PossibleCorrection[] = [];
+  let requestsLegalAdvice = false;
   let evidenceGuidance: EvidenceGuidance | undefined;
   let claimGuidance: ClaimGuidance | undefined;
 
@@ -301,6 +311,7 @@ export async function orchestrateIntakeTurn(
   if (newStoryText) {
     const safety = await runSafety(newStoryText, apiKey);
     safetyClassification = safety.classification;
+    requestsLegalAdvice = safety.requestsLegalAdvice === true;
 
     if (safety.classification === "immediate-danger") {
       return {
@@ -313,6 +324,8 @@ export async function orchestrateIntakeTurn(
         intakeComplete: false,
         possibleCorrections: [],
         storyProposals: [],
+        // A halt shows only the safety message; nothing else competes with it.
+        requestsLegalAdvice: false,
       };
     }
 
@@ -429,6 +442,7 @@ export async function orchestrateIntakeTurn(
       claimGuidance,
       possibleCorrections,
       storyProposals,
+      requestsLegalAdvice,
     },
   });
 }
@@ -450,6 +464,7 @@ type FinishTurnArgs = {
     | "claimGuidance"
     | "possibleCorrections"
     | "storyProposals"
+    | "requestsLegalAdvice"
   >;
 };
 
@@ -472,6 +487,7 @@ async function finishTurn({
     claimGuidance,
     possibleCorrections,
     storyProposals,
+    requestsLegalAdvice,
   } = base;
   const remainingIds = selectQuestions(facts, answeredIds, questionBank, courtArea);
   const nextQuestion = remainingIds.length > 0 ? questionBank.find((q) => q.id === remainingIds[0]) : undefined;
@@ -490,6 +506,7 @@ async function finishTurn({
       intakeComplete: true,
       possibleCorrections,
       storyProposals,
+      requestsLegalAdvice,
     };
   }
 
@@ -510,6 +527,7 @@ async function finishTurn({
     intakeComplete: false,
     possibleCorrections,
     storyProposals,
+    requestsLegalAdvice,
   };
 }
 
@@ -586,6 +604,7 @@ export async function applyConfirmedStoryAnswers(
       matchedClaimTypes: [],
       possibleCorrections,
       storyProposals: [],
+      requestsLegalAdvice: false,
     },
   });
 }
