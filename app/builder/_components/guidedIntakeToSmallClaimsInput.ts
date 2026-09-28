@@ -108,9 +108,45 @@ function mapYourRole(role: unknown): string {
  * mode doesn't have available here, so this covers only what's honestly
  * derivable from the same two structured facts already used above.
  */
-function inferCaseStage(filedDocuments: SmallClaimsFiledDocument[]): UniversalStage {
-  if (filedDocuments.includes("defence")) return "responding";
-  if (filedDocuments.includes("plaintiffs-claim")) return "already-started";
+/*
+ * *** ROLE DECIDES WHICH STAGE, NOT JUST WHICH DOCUMENTS EXIST ***
+ *
+ * This read documents only, and each stage's next-step block (nextSteps.ts)
+ * is written for ONE side. Found 2026-09-27 by the case-review batch:
+ *
+ *   - A PLAINTIFF whose defendant had filed a Defence was mapped to
+ *     "responding" and told "A defendant who wishes to dispute a claim must,
+ *     within 20 days of being served, serve a Defence".
+ *   - A DEFENDANT who had been served (so claimFiled is true -- the
+ *     plaintiff's claim) was mapped to "already-started" and told the
+ *     PLAINTIFF may ask the clerk to note the defendant in default.
+ *
+ * Both are the other side's instructions.
+ *
+ * A defended action goes to the "conference" stage for either side:
+ * "A settlement conference shall be held in every defended action"
+ * (O. Reg. 258/98 r. 13.01 (1), read from
+ * docs/sources/corpus/oreg-258-98-small-claims-rules.txt line 1863,
+ * 2026-09-27). The conference block is written for both parties.
+ *
+ * When role is unknown, the documents-only order below is unchanged -- a
+ * guess at role would be worse than the old behaviour, not better.
+ */
+function inferCaseStage(filedDocuments: SmallClaimsFiledDocument[], role: unknown): UniversalStage {
+  const defenceFiled = filedDocuments.includes("defence");
+  const claimFiled = filedDocuments.includes("plaintiffs-claim");
+
+  if (role === "defendant") {
+    return defenceFiled ? "conference" : "responding";
+  }
+  if (role === "plaintiff") {
+    if (defenceFiled) return "conference";
+    if (claimFiled) return "already-started";
+    return "starting-case";
+  }
+
+  if (defenceFiled) return "responding";
+  if (claimFiled) return "already-started";
   return "starting-case";
 }
 
@@ -130,7 +166,7 @@ export function mapGuidedIntakeToSmallClaimsInput(
   const issues = mapDisputeCategoryToIssues(result.facts.disputeCategory);
 
   return {
-    caseStage: inferCaseStage(filedDocuments),
+    caseStage: inferCaseStage(filedDocuments, result.facts.role),
     issues,
     filedDocuments,
     uploadedEvidenceFiles: [], // guided mode has no file-upload capability at all

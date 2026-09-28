@@ -45,6 +45,7 @@
     "test:family-no-scores": "node --import tsx scripts/verification/verifyFamilyNoScores.ts",
     "test:fixture-guards": "node --import tsx scripts/verification/verifyFixtureHarnessGuards.ts",
     "test:fixtures": "node --import tsx scripts/verification/runFixtures.ts",
+    "test:guided-stage-by-role": "node --import tsx scripts/verification/verifyGuidedStageByRole.ts",
     "test:fixtures:generated": "node --import tsx scripts/verification/runGeneratedFixtures.ts",
     "test:forms-case-isolation": "node --import tsx scripts/verification/verifyFormsSelectedCaseIsolation.ts",
     "test:generate-form-authorization": "node --import tsx scripts/verification/verifyGenerateFormSelectedCaseAuthorization.ts",
