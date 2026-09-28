@@ -26,6 +26,7 @@ import FamilyStatusTriage, {
 } from "./_components/FamilyStatusTriage";
 import CourtAssistantChat from "./_components/CourtAssistantChat";
 import IntelligenceOverviewPanel from "./_components/IntelligenceOverviewPanel";
+import CaseReviewPanel from "./_components/CaseReviewPanel";
 import ProcedureAuthorityDisplay from "./_components/ProcedureAuthorityDisplay";
 import EventCandidateSurface from "./_components/EventCandidateSurface";
 import { buildDerivedFrom } from "../../src/lib/case-system/events/caseAnalysisFreshness";
@@ -1645,6 +1646,7 @@ function BuilderPageContent() {
             {confirmedStage && (
               <IntelligenceOverviewPanel analysis={analysis} intake={caseData} />
             )}
+            {confirmedStage ? <CaseReviewPanel caseId={getActiveCaseId() || null} /> : null}
             {/*
               The Statement of Claim stays gated, and not by oversight — see
               the note in the spec. It needs `draftInput`, a
@@ -1805,6 +1807,10 @@ function BuilderPageContent() {
 
               <div className="mt-8">
                 <IntelligenceOverviewPanel analysis={analysis} intake={caseData} />
+              </div>
+
+              <div className="mt-8">
+                <CaseReviewPanel caseId={getActiveCaseId() || null} />
               </div>
 
               <div className="mt-8 rounded-3xl border border-[#d8e6df] bg-[#f8fcfa] p-5">

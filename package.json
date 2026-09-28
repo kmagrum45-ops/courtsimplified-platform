@@ -72,6 +72,7 @@
     "test:story-answer-proposals": "node --import tsx scripts/verification/verifyStoryAnswerProposals.ts",
     "test:overview-relevance": "node --import tsx scripts/verification/verifyOverviewRelevance.ts",
     "test:a2i-scope": "node --import tsx scripts/verification/verifyA2iScope.ts",
+    "test:case-review": "node --import tsx scripts/verification/verifyCaseReview.ts",
     "test:select-questions": "node --import tsx scripts/verification/verifySelectQuestions.ts",
     "test:status-triage": "node --import tsx scripts/verification/verifyStatusTriage.ts",
     "test:small-claims": "node --import tsx scripts/verification/verifySmallClaimsEngine.ts",

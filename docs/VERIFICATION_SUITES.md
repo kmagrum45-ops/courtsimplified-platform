@@ -5,10 +5,11 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-79 documented, 30 without a header.
+81 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
+| `npm run test:a2i-scope` | **The platform only does what A2I has approved.**<br>COSTS NOTHING. Pure data checks. |
 | `npm run test:ai-call-log-sink` | **Does a test run write to the live database? It must not.**<br>COSTS NOTHING. No model call, no network, no database — which is the entire point, and is asserted rather than assumed: the Supabase client factory is replaced with one that throws, and the check fails if anything builds a client. |
 | `npm run test:ai-call-logging` | **Every model call is attributable in the audit log.**<br>COSTS NOTHING. Reads source off disk. No network, no AI, no database. |
 | `npm run test:amendment-trails` | **Every vendored source's recent amendments, and whether anyone traced them.**<br>COSTS NOTHING. Reads docs/sources/ off disk. No network. |
@@ -16,6 +17,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:assistant-blocks` | **The guided assistant can only say catalogued things.**<br>COSTS NOTHING. Reads source off disk and calls pure functions. |
 | `npm run test:case-events` | **The case-event vocabulary stays sourced, and the untyped option stays**<br>first-class. |
 | `npm run test:case-load-restore` | **A loaded case restores what it recorded, and invents nothing when it did not.**<br>COSTS NOTHING. Reads `app/builder/page.tsx` and the engine that writes the keys it reads. No browser, no network, no database. |
+| `npm run test:case-review` | **The case review points at gaps in the user's own record, grounded in their**<br>own words, and never grades, advises or invents. |
 | `npm run test:check-oracles` | **No check can be satisfied by a comment. A check's oracle must be independent of the**<br>implementation's description of itself. |
 | `npm run test:child-support-draft` | **The child support draft carries recorded figures and cited rules, and**<br>calculates nothing. |
 | `npm run test:child-support-intake` | **The child support screen: the common case is small, the second income figure**<br>is absent rather than empty, and an out-of-scope situation is named. |

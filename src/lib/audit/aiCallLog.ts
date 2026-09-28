@@ -82,7 +82,13 @@ export type AiCallType =
    * to a code-verified quote. The user confirms every one. See
    * storyAnswerProposals.ts.
    */
-  | "propose-story-answers";
+  | "propose-story-answers"
+  /**
+   * 2026-09-28. Locates things worth checking in the user's own record by
+   * quoting their words. The wording shown comes from fixed templates. See
+   * caseReview/caseReviewModel.ts.
+   */
+  | "case-review";
 
 export type AiValidationResult = "valid" | "invalid" | "error" | "timeout";
 

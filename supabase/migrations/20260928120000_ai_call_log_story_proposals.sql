@@ -1,4 +1,4 @@
--- Adds one call type to ai_call_log.call_type:
+-- Adds two call types to ai_call_log.call_type:
 --
 --   'propose-story-answers' -- reads the user's opening story and proposes
 --                              answers to intake questions it already answers,
@@ -6,6 +6,12 @@
 --                              code verifies. The user confirms, edits or
 --                              removes every proposal. See
 --                              storyAnswerProposals.ts.
+--   'case-review'           -- points at the user's own words that are worth
+--                              checking (a document they mention, an
+--                              approximate date, two entries that differ). The
+--                              model returns a fixed kind and quotes only; the
+--                              text shown comes from fixed templates. See
+--                              caseReview/caseReviewModel.ts.
 --
 -- *** NOT APPLIED BY ANYTHING IN THIS REPOSITORY ***
 --
@@ -26,5 +32,6 @@ ALTER TABLE "public"."ai_call_log"
         'small-claims-analysis',
         'stage-resolver',
         'library-chat',
-        'propose-story-answers'
+        'propose-story-answers',
+        'case-review'
     ));

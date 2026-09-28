@@ -1329,3 +1329,20 @@ for separately and found nothing, but it needs judgement rather than a pattern.
 
 **The rule for writing one of these:** if a check greps source for a phrase, strip
 comments first. There is no case where reading the comments is what you wanted.
+
+## Case review and A2I scope (2026-09-28)
+
+- **`src/lib/case-system/policy/a2iScope.ts`** is the one place that decides what kind of help the
+  platform gives. "information" capabilities are on; each "needs-a2i-approval" capability (the five
+  steps in the Stage 1 application) is off and cannot report as on without a recorded approval.
+  Court-document drafting follows its `formCompletion` switch. Suite: `test:a2i-scope`.
+- **Case review** (`src/lib/case-system/caseReview/`, route `/api/case/review`, panel
+  `CaseReviewPanel.tsx`): deterministic findings from recorded fields (r. 7.01(2) contents for a
+  Small Claims plaintiff before filing, no evidence, no confirmed claim type) plus AI-located
+  findings. The model returns a fixed kind and quotes only; code checks every quote is the user's
+  own text and words the finding from a fixed template. Names and addresses never reach the model.
+  Mapping facts to kinds of claim is deliberately NOT here: that is the approval-tier
+  `claimElementMapping` switch. Suite: `test:case-review`.
+- Not built yet: persisting "done / not relevant" (screen-only today), and a server-side case-file
+  assembler that also reads `case_events` and the workspace tables. The review reads
+  `master_result.intakeData` only.
