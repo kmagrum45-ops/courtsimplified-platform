@@ -311,6 +311,49 @@ function detectFromKeywords(story: string): CasePartnerCourtArea {
   return blended;
 }
 
+/**
+ * 2026-09-28. The line between small-claims and civil is an amount, and the
+ * keyword pass never looked at one: the story review battery saw a $185,000
+ * renovation routed to Small Claims on keywords alone, because it was short
+ * and said "contractor". Courts of Justice Act s. 23 (1) gives the Small
+ * Claims Court money claims up to "the prescribed amount" exclusive of
+ * interest and costs; O. Reg. 626/00 s. 1 (1) prescribes $50,000 (both read
+ * from docs/sources/corpus, retrieved 2026-09-27; e-Laws 90c43_e.doc and
+ * 000626_e.doc). And s. 23 (1.1): an action within that jurisdiction must
+ * start in Small Claims unless the Superior Court gives leave.
+ *
+ * Used only to ESCALATE to the model when the keyword answer and the stated
+ * amounts point different ways. It never decides a path on its own: a story
+ * can mention a house price or a salary that is not the amount in dispute.
+ */
+export const SMALL_CLAIMS_LIMIT = 50_000;
+
+export function statedDollarAmounts(story: string): number[] {
+  const amounts: number[] = [];
+  const pattern = /\$\s?(\d{1,3}(?:,\d{3})+|\d+)(\.\d{1,2})?\s*(k|thousand|million)?\b/gi;
+  for (const match of story.matchAll(pattern)) {
+    let value = Number(match[1].replace(/,/g, "") + (match[2] || ""));
+    const unit = (match[3] || "").toLowerCase();
+    if (unit === "k" || unit === "thousand") value *= 1_000;
+    if (unit === "million") value *= 1_000_000;
+    if (Number.isFinite(value)) amounts.push(value);
+  }
+  return amounts;
+}
+
+function amountContradicts(area: CasePartnerCourtArea, story: string): string | null {
+  const amounts = statedDollarAmounts(story);
+  if (amounts.length === 0) return null;
+  const largest = Math.max(...amounts);
+  if (area === "small-claims" && largest > SMALL_CLAIMS_LIMIT) {
+    return `keyword pass said small-claims but the story states $${largest.toLocaleString("en-CA")}, over the $50,000 limit`;
+  }
+  if (area === "civil" && largest <= SMALL_CLAIMS_LIMIT) {
+    return `keyword pass said civil but every amount stated is within the $50,000 Small Claims limit`;
+  }
+  return null;
+}
+
 type EscalationDecision = {
   escalate: boolean;
   reason: string;
@@ -339,6 +382,11 @@ function decideEscalation(args: {
       escalate: true,
       reason: `keyword pass returned "${args.keywordArea}"`,
     };
+  }
+
+  const amountConflict = amountContradicts(args.keywordArea, args.story);
+  if (amountConflict) {
+    return { escalate: true, reason: amountConflict };
   }
 
   if (args.story.length > SHORT_STORY_CHARACTERS) {
@@ -397,6 +445,12 @@ const SYSTEM_PROMPT =
   "can point to the specific words that put it there. " +
   "Only set outOfScopeForum when you can name a specific forum id; never as a vague catch-all, and never invent " +
   "an id outside the list given. " +
+  "Between small-claims and civil, the dividing line is the amount. The Small Claims Court hears claims for money, " +
+  "or for the return of personal property, worth up to $50,000 not counting interest and costs -- whatever the " +
+  "subject: a debt, a loan, unpaid work, a contractor, damaged property, an injury such as a dog bite, or something " +
+  "said about the person. A claim of that size must be started there. A claim for more than $50,000 is civil. When " +
+  "the story states the amount in dispute, route by it; when it states none, an ordinary money dispute between " +
+  "individuals or small businesses is small-claims. " +
   "When the story is in scope, decide by the relief actually being sought, not by the most prominent topic " +
   "mentioned. A story can name one court's subject matter as background, context or motive while the relief the " +
   "person actually wants belongs to a different court. Identify the operative claim. For example, a story about " +

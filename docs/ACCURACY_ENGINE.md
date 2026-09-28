@@ -1381,9 +1381,12 @@ for the receipt or address), which no single-stage suite could see.
   defendants; the contractor-customer questions asked of freelancers owed money and a used-car buyer
   (free `disputeCategory` slug, now a fixed list); `sc-claim-filed` proposed from quotes unrelated to
   filing; case-review pointers quoting the user's own evidence list and "unknown amount" on a figure;
-  "distress" on three plain disputes. Still open: court routing sent a $185,000 renovation to Small
-  Claims and a $1,100 dog bite to civil; defendants are asked the noted-in-default and
-  judgment-at-a-hearing date questions whatever their stage.
+  "distress" on three plain disputes; court routing ignoring amounts (a $185,000 renovation to Small
+  Claims on keywords alone -- now a stated amount that contradicts the keyword answer sends the story
+  to the model, whose prompt now carries the $50,000 line from CJA s. 23 (1) / O. Reg. 626/00 s. 1 (1)).
+  Still open: defendants are asked the noted-in-default and judgment-at-a-hearing date questions
+  whatever their stage; the keyword pass sends defamation to civil with no amount stated, and calls
+  some contractor stories "mixed" with no second path.
 - `npm run review:stories -- --offline` checks the plumbing here with fake model calls. Its
   results mean nothing about quality.
 - Deterministic checks only (no model grades a model). The report also prints every question in

@@ -4,6 +4,7 @@ import { loadEnvConfig } from "@next/env";
 import {
   classifyCourtPath,
   coerceModelPayload,
+  statedDollarAmounts,
   type CourtPathClassification,
 } from "../../src/lib/case-system/intelligence/courtPathClassifier";
 import { classificationScenarios } from "./scenarioRegistry";
@@ -558,6 +559,23 @@ async function main() {
     expectedCalls,
     `Offline run must make zero model calls, made ${aiCallCount}`,
   );
+
+  // 2026-09-28, story review battery: the Small Claims / civil line is the
+  // $50,000 limit (CJA s. 23 (1), O. Reg. 626/00 s. 1 (1)). A keyword answer
+  // that a stated amount contradicts must reach the model, never stand alone.
+  assert.deepEqual(statedDollarAmounts("paid $185,000, quoted $140,000, a $2k deposit, $1,100.50"), [185000, 140000, 2000, 1100.5]);
+  const overLimit = await classifyCourtPath({
+    // The story review battery's CV1, verbatim: the keyword pass calls it
+    // small-claims.
+    story:
+      "We paid a general contractor $185,000 to build an addition on our house in Ottawa. The work " +
+      "stopped in March with the roof unfinished and water has been coming in since. Another builder " +
+      "quoted $140,000 to fix and finish it. The contractor has stopped responding and we think they have " +
+      "gone out of business.",
+    allowExternalCognition: false,
+  });
+  assert.notEqual(overLimit.source, "keyword", `an over-limit amount must escalate, got ${describe(overLimit)}`);
+  assert.match(overLimit.reasoning, /50,000/);
 
   console.log(
     `Court path classifier verification passed: ${cases.length} stories x ${declaredVariants.length} declared variants, ` +
