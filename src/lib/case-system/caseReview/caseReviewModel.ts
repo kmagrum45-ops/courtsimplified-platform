@@ -17,6 +17,7 @@
  */
 
 import { createOpenAIClient } from "../openaiClient";
+import { parseRecordedAmount } from "../format/recordedAmount";
 import { withAiCallContext } from "../../audit/aiCallLog";
 import {
   AI_FINDING_ARITY,
@@ -72,6 +73,9 @@ export function validateCaseReviewOutput(raw: unknown, file: ConfirmedCaseFile):
     // "You said 'About $5,200'. A written quote would give you a figure" --
     // a quote with a number in it is a figure, whatever the model thought.
     if (typedKind === "unknown-amount-mentioned" && /\d/.test(clean[0])) continue;
+    // Nor when they have already recorded a figure: "the rest back" after
+    // recording 4000 is not an unknown amount (story review, SC3).
+    if (typedKind === "unknown-amount-mentioned" && parseRecordedAmount(file.amountText) !== null) continue;
     if (typedKind === "entries-differ") {
       const [a, b] = clean.map(normalize);
       if (a === b || a.includes(b) || b.includes(a)) continue;
@@ -96,9 +100,9 @@ export function validateCaseReviewOutput(raw: unknown, file: ConfirmedCaseFile):
 const SYSTEM_PROMPT = `You help a person keep their own court case file complete and consistent. You read what they wrote and point at places in THEIR OWN WORDS that are worth checking. You never give legal advice, never say whether they have a case, never judge who is right, and never write sentences for them.
 
 Return findings of these kinds only:
-- "document-mentioned": in their STORY they mention something that happened which a document, receipt, invoice, message, email or photo could show (a payment, a charge, a message sent, damage). Quote the event from the story, not their list of evidence -- what they already listed as evidence needs no pointer. One quote.
+- "document-mentioned": in their STORY they mention something that happened which a document, receipt, invoice, message, email or photo could show -- a payment they made, a bill they were charged, messages they sent, damage they saw. Quote the event from the story, not their list of evidence. For example, from "I paid him a $2000 deposit by e-transfer" quote "paid him a $2000 deposit"; from "another contractor charged me 3200" quote "charged me 3200". Most stories about money have at least one. One quote per event.
 - "date-approximate": they give a date only roughly ("in march", "a few weeks later", "last summer"). One quote.
-- "entries-differ": two things they wrote seem to disagree with each other (two different amounts for the same thing, two different dates for the same event). Two quotes.
+- "entries-differ": two things they wrote give different values for THE SAME thing -- the same payment, the same event, the same date. Amounts for different things never disagree: a deposit and a later bill, what is claimed and what is admitted, a price and a repair cost are all different things. Two quotes.
 - "unknown-amount-mentioned": they say they do not know or have not decided how much to claim ("not sure how much", "whatever is fair"). Not when they give a number, and not when they only say they were not paid. One quote.
 
 Each quote must be words copied exactly, character for character, from what they wrote. Copy a short phrase (a few words), not a whole sentence. If nothing fits, return an empty list. Leaving something out is always safe.

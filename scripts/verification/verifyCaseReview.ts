@@ -134,6 +134,16 @@ async function main(): Promise<void> {
     FILE,
   );
   check("an amount with a figure in it is never called unknown", figure.length === 0);
+  const recorded = validateCaseReviewOutput(
+    { findings: [{ kind: "unknown-amount-mentioned", quotes: ["im not sure how much the drywall will cost"] }] },
+    { ...FILE, amountText: "5200" },
+  );
+  check("no unknown-amount finding once a figure is recorded", recorded.length === 0);
+  const stillUnknown = validateCaseReviewOutput(
+    { findings: [{ kind: "unknown-amount-mentioned", quotes: ["im not sure how much the drywall will cost"] }] },
+    FILE,
+  );
+  check("an unknown amount with no recorded figure is still raised", stillUnknown.length === 1);
   check("garbage model output yields nothing", validateCaseReviewOutput("nonsense", FILE).length === 0);
 
   // ---- every sentence a user can see ----
