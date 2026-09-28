@@ -1,0 +1,73 @@
+name: CourtSimplified Story Review
+
+# Runs realistic stories through the whole guided intake with real model calls
+# and publishes the report to the `story-review-reports` branch
+# (REPORT.md + results.json). See scripts/verification/storyReview/runStoryReview.ts.
+#
+# A review, not a gate: findings never fail this workflow. It fails only if the
+# battery could not run.
+#
+# Runs on demand (Actions tab -> CourtSimplified Story Review -> Run workflow),
+# and whenever the battery or its stories change on main. It is not run on
+# every push: about 250 gpt-4o-mini calls a run.
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - scripts/verification/storyReview/**
+      - .github/workflows/courtsimplified-story-review.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: story-review
+  cancel-in-progress: false
+
+jobs:
+  story-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    env:
+      NODE_OPTIONS: --max-old-space-size=4096
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      # The audit log goes to a local file, never to a database. No Supabase
+      # credentials are given to this job at all.
+      AI_CALL_LOG: file
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run the story review
+        run: npm run review:stories
+
+      - name: Publish the report to the story-review-reports branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          out="$(mktemp -d)"
+          cp scripts/verification/storyReview/REPORT.md scripts/verification/storyReview/results.json "$out/"
+          cd "$out"
+          git init -q
+          git config user.name "story-review-bot"
+          git config user.email "story-review-bot@users.noreply.github.com"
+          git add REPORT.md results.json
+          git commit -q -m "Story review for ${GITHUB_SHA::7} (run ${GITHUB_RUN_ID})"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/story-review-reports
+          echo "Published to story-review-reports." >> "$GITHUB_STEP_SUMMARY"
+          head -40 REPORT.md >> "$GITHUB_STEP_SUMMARY"

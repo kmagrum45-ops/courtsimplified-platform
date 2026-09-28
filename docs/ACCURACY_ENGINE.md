@@ -1360,3 +1360,22 @@ comments first. There is no case where reading the comments is what you wanted.
   2026-08-27**, and until 2026-09-28 no run had reached the safety step, the production build or
   `test:assistant-context` -- an earlier step always failed first. The nightly "Real-AI" workflow
   does not prove the secret works: it exits 0 unless `RUN_REAL_AI_INTEGRATION=1`, which it never sets.
+
+## Story review battery (2026-09-28)
+
+`scripts/verification/storyReview/` runs realistic stories (Small Claims both sides, civil, family,
+a tribunal case, one safety case) through the whole guided intake in order -- routing, opening
+story, story proposals accepted, remaining questions, depth phase, case review -- and checks each
+against expectations committed in `stories.ts` before any run. It exists because the site owner's
+manual test found failures that live *between* stages (re-asked questions, wrong side, no request
+for the receipt or address), which no single-stage suite could see.
+
+- Runs on GitHub (`.github/workflows/courtsimplified-story-review.yml`) with the real key, on
+  demand or when the battery changes on main. The report is force-pushed to the
+  `story-review-reports` branch; `git fetch origin story-review-reports` reads it without a
+  browser login. Job logs need a signed-in browser; that branch does not.
+- A review, not a gate: findings never fail the workflow.
+- `npm run review:stories -- --offline` checks the plumbing here with fake model calls. Its
+  results mean nothing about quality.
+- Deterministic checks only (no model grades a model). The report also prints every question in
+  order, because "that question didn't need asking" is often visible only to a reader.

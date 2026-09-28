@@ -198,3 +198,7 @@ repomix-output.xml
 # Rows describe calls and never hold what a user wrote, but they are not content
 # either, and a fixture run produces dozens.
 .ai-call-log.jsonl
+
+# Story review outputs: the real report is published to the story-review-reports branch.
+scripts/verification/storyReview/REPORT*.md
+scripts/verification/storyReview/results*.json
