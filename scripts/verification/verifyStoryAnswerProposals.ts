@@ -213,6 +213,49 @@ async function main(): Promise<void> {
     applied.nextQuestion?.id,
   );
 
+  // 2026-09-28: one more read of the story for questions the confirmations
+  // just made applicable -- never a question the first card showed, never an
+  // answered one, and only when asked for.
+  const seen: string[][] = [];
+  const recordingProposer = async (_story: string, questions: readonly { id: string }[]) => {
+    seen.push(questions.map((question) => question.id));
+    return [];
+  };
+  const confirmedCategory = [{ questionId: "sc-orient-dispute-category", answerText: "A slip, a fall, or another injury" }];
+  await applyConfirmedStoryAnswers(
+    { role: "plaintiff" },
+    [],
+    confirmedCategory,
+    "stub-key",
+    QUESTION_BANK,
+    "small-claims",
+    {
+      extractFacts: async () => ({ facts: { disputeCategory: "personal-injury" }, directFields: ["disputeCategory"] }),
+      composeVoice: STUB_VOICE,
+      proposeAnswers: recordingProposer,
+    },
+    { story: "On September 3rd the dog bit me.", alreadyOffered: ["sc-orient-dispute-category", "sc-amount-claimed"] },
+  );
+  const reoffered = seen[0] || [];
+  check("the re-read offers a question the confirmation made applicable", reoffered.includes("sc-date-injury"), JSON.stringify(reoffered));
+  check("the re-read never offers a question the first card showed", !reoffered.includes("sc-amount-claimed"));
+  check("the re-read never offers an answered question", !reoffered.includes("sc-orient-dispute-category"));
+  const before2 = seen.length;
+  await applyConfirmedStoryAnswers(
+    { role: "plaintiff" },
+    [],
+    confirmedCategory,
+    "stub-key",
+    QUESTION_BANK,
+    "small-claims",
+    {
+      extractFacts: async () => ({ facts: { disputeCategory: "personal-injury" }, directFields: ["disputeCategory"] }),
+      composeVoice: STUB_VOICE,
+      proposeAnswers: recordingProposer,
+    },
+  );
+  check("no re-read unless the caller asks for it", seen.length === before2);
+
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
   if (failures) process.exitCode = 1;
 }

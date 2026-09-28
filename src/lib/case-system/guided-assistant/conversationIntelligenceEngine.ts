@@ -768,7 +768,27 @@ export function inferCourtArea(message: string): CasePartnerCourtArea {
   // and would collide with every other tribunal's own keyword list added
   // below. Every remaining term is either a whole word unlikely to appear as
   // a substring of something unrelated, or a multi-word phrase.
-  const ltb = countSignals(message, [
+  // 2026-09-28. The LTB decides residential tenancies only: the Residential
+  // Tenancies Act, 2006 s. 3 (1) "applies with respect to rental units in
+  // residential complexes" (docs/sources/corpus, e-Laws 06r17_e.doc,
+  // retrieved 2026-09-27). A restaurant owner's lease in a strip mall scored
+  // "landlord" + "lease" here and was routed to the LTB (story review SC17).
+  // A lease described as commercial, with nothing residential in the story,
+  // scores no LTB signal and falls through to the ordinary court paths.
+  const commercialTenancy =
+    countSignals(message, [
+      "commercial",
+      "strip mall",
+      "storefront",
+      "retail unit",
+      "office space",
+      "my restaurant",
+      "my store",
+      "my shop",
+      "business premises",
+    ]) > 0 &&
+    countSignals(message, ["apartment", "residential", "rental unit", "basement", "my home", "house i rent"]) === 0;
+  const ltb = commercialTenancy ? 0 : countSignals(message, [
     "landlord",
     "tenant",
     "eviction",

@@ -577,6 +577,21 @@ async function main() {
   assert.notEqual(overLimit.source, "keyword", `an over-limit amount must escalate, got ${describe(overLimit)}`);
   assert.match(overLimit.reasoning, /50,000/);
 
+  // 2026-09-28: RTA s. 3 (1) -- the LTB is residential only. A commercial
+  // lease must not be sent there; a residential one still must.
+  const commercial = await classifyCourtPath({
+    story:
+      "I leased a commercial unit for my restaurant in a strip mall for three years. When the lease ended in " +
+      "July I handed back the keys and the landlord kept my $8,000 security deposit.",
+    allowExternalCognition: false,
+  });
+  assert.notEqual(commercial.primaryPath, "out-of-scope", `a commercial lease was sent to ${describe(commercial)}`);
+  const residential = await classifyCourtPath({
+    story: "I moved out of my apartment at the end of August and my landlord won't give back my last month's rent deposit.",
+    allowExternalCognition: false,
+  });
+  assert.equal(residential.outOfScopeForum?.id, "ltb", `a residential deposit must still reach the LTB, got ${describe(residential)}`);
+
   console.log(
     `Court path classifier verification passed: ${cases.length} stories x ${declaredVariants.length} declared variants, ` +
       `${checks} assertions, ${aiCallCount} model call(s), ` +

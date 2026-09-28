@@ -435,7 +435,8 @@ const SYSTEM_PROMPT =
   "CONNECTION: 'I'm off work', 'I can't work', 'I've missed work' describe a CONSEQUENCE of an injury and say " +
   "nothing about where it happened — a real run classified a broken wrist from a fall on a city sidewalk as wsiat " +
   "at 0.9 confidence on exactly those words, and that person has a TEN-DAY notice deadline. An injury claim " +
-  "against a city, a shop or another occupier is a court matter — a real run sent two slip-and-fall " +
+  "against a city, a shop or another occupier is a court matter (small-claims for $50,000 or less, civil above " +
+  "that) — a real run sent two slip-and-fall " +
   "stories to wsiat purely because somebody was hurt. " +
   "each id -- never inferred from the story's absence of an in-scope fit. Out-of-scope is never a default for an " +
   "unclear or uninformative story. A story that is vague, generic, or simply too short to identify any specific " +

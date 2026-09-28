@@ -457,6 +457,8 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
   // 2026-09-28. "Here's what I understood" -- answers the opening story
   // already gives, awaiting the user's confirmation. Null when none pending.
   const [proposalDrafts, setProposalDrafts] = useState<ProposalDraft[] | null>(null);
+  // One extra read of the story after the first confirmations, never more.
+  const [reproposed, setReproposed] = useState(false);
 
   async function sendTurn(
     newStoryText: string | undefined,
@@ -464,6 +466,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
     nextFacts: IntakeFacts,
     answeredQuestionId?: string,
     confirmedAnswers?: ConfirmedStoryAnswer[],
+    repropose?: { story: string; alreadyOffered: string[] },
   ) {
     setLoading(true);
     setError("");
@@ -485,6 +488,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
           newStoryText,
           answeredQuestionId,
           confirmedAnswers,
+          repropose,
         }),
       });
 
@@ -551,9 +555,11 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
           ...current,
           {
             from: "assistant",
-            text:
-              "Here's what I understood from what you wrote. Check each one: fix anything that's " +
-              "off, and untick anything that's wrong. I'll only ask about what's left.",
+            text: confirmedAnswers
+              ? "Your answers opened a few more questions that your story already answers. Check " +
+                "these the same way."
+              : "Here's what I understood from what you wrote. Check each one: fix anything that's " +
+                "off, and untick anything that's wrong. I'll only ask about what's left.",
           },
         ]);
         setCurrentQuestion(null);
@@ -908,7 +914,13 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
             : "None of those were right.",
       },
     ]);
-    void sendTurn(undefined, answeredIds, facts, undefined, confirmed);
+    const openingStory = messages.find((message) => message.from === "user")?.text || "";
+    const repropose =
+      !reproposed && openingStory
+        ? { story: openingStory, alreadyOffered: proposalDrafts.map((draft) => draft.questionId) }
+        : undefined;
+    if (repropose) setReproposed(true);
+    void sendTurn(undefined, answeredIds, facts, undefined, confirmed, repropose);
   }
 
   function updateProposalDraft(index: number, patch: Partial<ProposalDraft>) {

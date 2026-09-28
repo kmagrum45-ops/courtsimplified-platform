@@ -90,6 +90,7 @@ type StoryRun = {
   story: string;
   courtPath: string;
   courtPathSource: string;
+  courtPathReasoning?: string;
   safety: string;
   halted: boolean;
   /** The legal-advice notice showed (the user asked "do I have a case" or similar). */
@@ -189,10 +190,11 @@ async function runOne(story: ReviewStory, apiKey: string, offline: boolean): Pro
   const court = await classifyCourtPath({ story: story.story, allowExternalCognition: !offline });
   run.courtPath = court.primaryPath === "out-of-scope" ? `out-of-scope (${court.outOfScopeForum?.id ?? "unnamed forum"})` : court.primaryPath;
   run.courtPathSource = court.source;
+  run.courtPathReasoning = court.reasoning;
   run.checks.push({
     check: "court-path",
     pass: story.expect.courtPath.includes(court.primaryPath),
-    detail: `routed to "${run.courtPath}", expected ${story.expect.courtPath.join(" or ")}`,
+    detail: `routed to "${run.courtPath}" (${court.source}: ${court.reasoning}), expected ${story.expect.courtPath.join(" or ")}`,
   });
 
   if (story.area !== "small-claims") {
@@ -245,18 +247,33 @@ async function runOne(story: ReviewStory, apiKey: string, offline: boolean): Pro
   for (const p of result.storyProposals) {
     run.shown.push({ stage: "proposal", id: p.questionId, text: `${p.questionText} -> ${p.answer}  (from: "${p.storyQuote}")` });
   }
-  if (result.storyProposals.length > 0) {
+  // As the page does: the first confirmation asks for one more read of the
+  // story; a second card, if any, is accepted too, with no further read.
+  const confirmOverrides = offline
+    ? { extractFacts: OFFLINE_OVERRIDES.extractFacts, composeVoice: OFFLINE_OVERRIDES.composeVoice, proposeAnswers: OFFLINE_OVERRIDES.proposeAnswers }
+    : {};
+  let firstCard = true;
+  while (result.storyProposals.length > 0) {
+    const card = result.storyProposals;
+    if (!firstCard) {
+      for (const p of card) {
+        run.proposals.push({ questionId: p.questionId, answer: p.answer, quote: p.storyQuote });
+        run.shown.push({ stage: "proposal", id: p.questionId, text: `(second card) ${p.questionText} -> ${p.answer}  (from: "${p.storyQuote}")` });
+      }
+    }
     result = await applyConfirmedStoryAnswers(
       facts,
       answeredIds,
-      result.storyProposals.map((p) => ({ questionId: p.questionId, answerText: p.answer })),
+      card.map((p) => ({ questionId: p.questionId, answerText: p.answer })),
       apiKey,
       QUESTION_BANK,
       "small-claims",
-      offline ? { extractFacts: OFFLINE_OVERRIDES.extractFacts, composeVoice: OFFLINE_OVERRIDES.composeVoice } : {},
+      confirmOverrides,
+      firstCard ? { story: story.story, alreadyOffered: card.map((p) => p.questionId) } : undefined,
     );
     facts = result.facts;
     answeredIds = result.answeredIds;
+    firstCard = false;
   }
 
   // 4. Remaining questions.

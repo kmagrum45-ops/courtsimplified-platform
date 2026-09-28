@@ -555,10 +555,23 @@ export async function applyConfirmedStoryAnswers(
   apiKey: string,
   questionBank: readonly IntakeQuestion[] = QUESTION_BANK,
   courtArea: CourtArea = "small-claims",
-  overrides: Pick<OrchestrateIntakeTurnOverrides, "extractFacts" | "composeVoice"> = {},
+  overrides: Pick<OrchestrateIntakeTurnOverrides, "extractFacts" | "composeVoice" | "proposeAnswers"> = {},
+  /**
+   * 2026-09-28. One more read of the opening story, for questions the
+   * confirmations just made applicable. The story review battery: a dog-bite
+   * story said "On September 3rd", but the injury-date question only applies
+   * once the dispute is known to be an injury -- which the first
+   * confirmations establish -- so it was never offered and was asked again.
+   * `alreadyOffered` excludes every question shown in the first card, so a
+   * question the user unticked is asked, never offered twice. The caller
+   * sends this on the FIRST confirmation only, so there is at most one extra
+   * card.
+   */
+  repropose?: { story: string; alreadyOffered: readonly string[] },
 ): Promise<OrchestrateIntakeTurnResult> {
   const extractFacts = overrides.extractFacts || extractIntakeFactsWithConfidence;
   const composeVoice = overrides.composeVoice || composeVoiceTurn;
+  const proposeAnswers = overrides.proposeAnswers || proposeAnswersFromStory;
 
   const allowed = new Set(proposableQuestions(questionBank).map((question) => question.id));
   const accepted = confirmed
@@ -593,6 +606,23 @@ export async function applyConfirmedStoryAnswers(
     possibleCorrections = merged.possibleCorrections;
   }
 
+  let storyProposals: StoryAnswerProposal[] = [];
+  if (repropose && repropose.story.trim()) {
+    const excluded = new Set([...repropose.alreadyOffered, ...nextAnsweredIds]);
+    const upcoming = selectQuestions(facts, nextAnsweredIds, questionBank, courtArea)
+      .filter((id) => !excluded.has(id))
+      .map((id) => questionBank.find((question) => question.id === id))
+      .filter((question): question is IntakeQuestion => Boolean(question));
+    const offered = proposableQuestions(upcoming);
+    if (offered.length > 0) {
+      try {
+        storyProposals = await proposeAnswers(repropose.story, offered, apiKey);
+      } catch {
+        storyProposals = [];
+      }
+    }
+  }
+
   return finishTurn({
     facts,
     answeredIds: nextAnsweredIds,
@@ -603,7 +633,7 @@ export async function applyConfirmedStoryAnswers(
     base: {
       matchedClaimTypes: [],
       possibleCorrections,
-      storyProposals: [],
+      storyProposals,
       requestsLegalAdvice: false,
     },
   });

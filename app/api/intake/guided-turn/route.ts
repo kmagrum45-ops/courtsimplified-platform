@@ -120,6 +120,12 @@ type GuidedTurnRequestBody = {
    * applyConfirmedStoryAnswers().
    */
   confirmedAnswers?: ConfirmedStoryAnswer[];
+  /**
+   * 2026-09-28. Only with confirmedAnswers: the opening story and the ids the
+   * first card showed, so answers for questions the confirmations just made
+   * applicable can be offered once. See applyConfirmedStoryAnswers.
+   */
+  repropose?: { story: string; alreadyOffered: string[] };
 };
 
 function isConfirmedAnswers(value: unknown): value is ConfirmedStoryAnswer[] {
@@ -147,6 +153,7 @@ function isGuidedTurnRequestBody(value: unknown): value is GuidedTurnRequestBody
     "courtArea",
     "answeredQuestionId",
     "confirmedAnswers",
+    "repropose",
   ]);
   if (Object.keys(value).some((key) => !allowedKeys.has(key))) return false;
 
@@ -166,6 +173,20 @@ function isGuidedTurnRequestBody(value: unknown): value is GuidedTurnRequestBody
     !(typeof value.answeredQuestionId === "string" && value.answeredQuestionId.length <= MAX_ANSWERED_ID_LENGTH)
   ) {
     return false;
+  }
+
+  if (value.repropose !== undefined) {
+    if (value.confirmedAnswers === undefined) return false;
+    if (!isRecord(value.repropose)) return false;
+    const { story, alreadyOffered } = value.repropose;
+    if (typeof story !== "string" || story.length > MAX_STORY_TEXT_LENGTH) return false;
+    if (
+      !Array.isArray(alreadyOffered) ||
+      alreadyOffered.length > MAX_ANSWERED_IDS ||
+      !alreadyOffered.every((id) => typeof id === "string" && id.length <= MAX_ANSWERED_ID_LENGTH)
+    ) {
+      return false;
+    }
   }
 
   if (value.confirmedAnswers !== undefined) {
@@ -239,6 +260,8 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
           apiKey,
           questionBank,
           courtArea,
+          {},
+          body.repropose,
         );
         return NextResponse.json({ ok: true, result: confirmedResult, authenticated });
       }
