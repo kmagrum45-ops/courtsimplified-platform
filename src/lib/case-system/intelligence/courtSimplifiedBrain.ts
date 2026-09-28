@@ -2286,6 +2286,10 @@ function seeksInjunctiveRelief(desiredOutcomes: DesiredOutcome[]): boolean {
   return desiredOutcomes.some((outcome) => outcome.type === "injunction");
 }
 
+/** Fixed text: the generic caution every analysis carries. Never model-written. */
+export const FIXED_VERIFY_WARNING =
+  "Verify legal authorities, forms, deadlines, and filing requirements before relying on this output.";
+
 export async function runCourtSimplifiedBrain(
   input: CourtSimplifiedBrainInput,
 ): Promise<CourtSimplifiedBrainOutput> {
@@ -2474,8 +2478,24 @@ export async function runCourtSimplifiedBrain(
 
     nextBestActions: sanitizeTextArray(nextBestActions, "nextBestActions"),
 
+    /*
+     * *** NO MODEL-WRITTEN WARNING REACHES A USER ***
+     *
+     * This list becomes AnalysisResult.userWarnings. It used to open with
+     * `...safeArray(gptCognition.systemWarnings)` -- free text the model
+     * wrote, filtered only by the case-strength blocklist, so the model could
+     * put a procedural or legal statement ("file within 20 days") straight in
+     * front of a user. The LSO A2I policy forbids AI-generated legal content
+     * reaching a user without human review, and 2026-09-27's review for the
+     * A2I response found this route.
+     *
+     * Every entry below is now built by code. The one line the model almost
+     * always produced is kept as fixed text. The model's own warnings are not
+     * lost for supervision: they remain on `cognition`, which the audit log
+     * records. Asserted by `npm run test:no-model-warnings`.
+     */
     systemWarnings: sanitizeTextArray(cleanList([
-      ...safeArray(gptCognition.systemWarnings),
+      FIXED_VERIFY_WARNING,
       ...proceduralPosture.warnings,
       ...contradictions.map((item) => item.title),
       ...factPatternAnalysis.contradictions.map(
