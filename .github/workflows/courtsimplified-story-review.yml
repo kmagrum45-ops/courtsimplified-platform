@@ -80,6 +80,10 @@ jobs:
           cp scripts/verification/fixtures/*.actual.md "$out/fixtures/" || true
           cp fixture-run.log "$out/fixtures/" || true
           echo "fixture harness outcome: ${{ steps.fixtures.outcome }}" > "$out/fixtures/OUTCOME.txt"
+          # This branch holds a report, not the site. Without this Vercel tries
+          # to build it as a preview, fails, and emails the site owner on every
+          # run (2026-09-28). Vercel reads vercel.json from the commit it deploys.
+          printf '{\n  "git": { "deploymentEnabled": false }\n}\n' > "$out/vercel.json"
           cd "$out"
           git init -q
           git config user.name "story-review-bot"

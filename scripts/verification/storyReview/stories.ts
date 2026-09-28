@@ -576,7 +576,10 @@ export const STORIES: ReviewStory[] = [
       "claims.",
     answers: { "sc-amount-claimed": "$4,120." },
     expect: {
-      courtPath: ["small-claims", "out-of-scope"],
+      // "mixed" accepted (2026-09-28): which condo disputes belong at the
+      // Condominium Authority Tribunal rather than a court turns on provisions
+      // this project has not sourced, so a suggestion naming both is honest.
+      courtPath: ["small-claims", "out-of-scope", "mixed"],
       safety: ["clear"],
       claimTypes: ["sc-claim-unpaid-condo-common-expenses"],
       role: "plaintiff",
@@ -761,6 +764,8 @@ export const STORIES: ReviewStory[] = [
     area: "small-claims",
     side: "defendant",
     note: "Dog owner served with a claim after a bite.",
+    // The injury-date question applies to either side of an injury claim.
+    answers: { "sc-date-injury": "I'm not sure, sometime in the summer." },
     story:
       "I've been served with a claim by a delivery driver who says my dog bit him on my porch. My dog did " +
       "nip him but he walked right past the Beware of Dog sign and into the gate. He wants $7,500.",
