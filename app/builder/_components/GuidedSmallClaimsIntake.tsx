@@ -950,9 +950,14 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
           data-testid="story-proposals"
           className="mt-4 rounded-2xl border border-[#d8e6df] bg-white p-4 text-sm text-[#16302b]"
         >
-          <p className="font-semibold">Here&apos;s what I understood</p>
+          <p className="flex items-center gap-2 font-semibold">
+            Here&apos;s what I understood
+            <span className="rounded-full bg-[#eef6f2] px-2 py-0.5 text-xs font-semibold text-[#2f7d67]">
+              AI suggestion
+            </span>
+          </p>
           <p className="mt-1 text-xs text-[#5a736a]">
-            Taken from your own words. Nothing is saved until you confirm.
+            Suggested by AI from your own words. Nothing is saved until you confirm.
           </p>
           <div className="mt-3 space-y-3">
             {proposalDrafts.map((draft, index) => (
@@ -1013,7 +1018,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
             This sounds like it may be about: {pendingSuggestion.claimTypeName} — is that right?
           </p>
           <p className="mt-1 text-xs text-[#6b5a26]">
-            This is a suggestion only, not a determination of your case -- nothing is applied until you confirm it.
+            AI suggestion only, not a determination of your case -- nothing is applied until you confirm it.
           </p>
           <div className="mt-3 flex gap-2">
             <button
