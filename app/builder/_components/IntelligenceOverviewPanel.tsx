@@ -80,8 +80,17 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
   // resemble one of the 19 CLAIM_TYPES entries yet, still fall back to the
   // generic AI-derived paths below -- claimTypeContent is null for those,
   // never a fabricated stand-in.
+  const extraRecord = (intake?.extra || {}) as Record<string, unknown>;
+  const confirmedClaimTypeId: string | null | undefined =
+    "confirmedClaimTypeId" in extraRecord
+      ? typeof extraRecord.confirmedClaimTypeId === "string"
+        ? extraRecord.confirmedClaimTypeId
+        : null
+      : undefined;
   const claimTypeContent =
-    analysis.courtPath === "small-claims" && facts ? buildClaimTypeOverviewContent(facts) : null;
+    analysis.courtPath === "small-claims" && facts
+      ? buildClaimTypeOverviewContent(facts, undefined, confirmedClaimTypeId)
+      : null;
   const hasDefamationSignal = issueSignals.some((item) => /defamation|reputation/i.test(item));
   const hasAdoptionSignal = issueSignals.some((item) => /adoption/i.test(item));
   const recordedEvidence = Array.from(new Set([

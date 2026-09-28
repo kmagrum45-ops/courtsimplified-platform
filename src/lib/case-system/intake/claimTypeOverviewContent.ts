@@ -139,11 +139,27 @@ function buildCommonDefences(claimType: ClaimType): SourcedListItem[] {
 export function buildClaimTypeOverviewContent(
   storyText: string,
   claimTypes: readonly ClaimType[] = CLAIM_TYPES,
+  /**
+   * 2026-09-28. When the case records a user-confirmed claim type, pass it
+   * here: a string uses that claim type, null means none was confirmed and no
+   * claim-type content is shown. Omitted (undefined) keeps the older
+   * behaviour of matching the story, for cases saved before this existed.
+   *
+   * Why: the overview used to re-run the keyword matcher on the story,
+   * independently of what the user confirmed in the intake, so its evidence
+   * list, court points and defences could describe a different claim than the
+   * one the user said yes to.
+   */
+  confirmedClaimTypeId?: string | null,
 ): ClaimTypeOverviewContent | null {
-  const match = matchClaimType(storyText, claimTypes);
-  if (!match) return null;
-
-  const { claimType } = match;
+  let claimType: ClaimType | undefined;
+  if (confirmedClaimTypeId === null) return null;
+  if (typeof confirmedClaimTypeId === "string") {
+    claimType = claimTypes.find((candidate) => candidate.id === confirmedClaimTypeId);
+  } else {
+    claimType = matchClaimType(storyText, claimTypes)?.claimType;
+  }
+  if (!claimType) return null;
   const sourceUrlByCategoryName = buildSourceUrlByCategoryName(claimType);
 
   const evidenceToOrganize: SourcedListItem[] = collectEvidenceCategories(claimType).map((category) => ({

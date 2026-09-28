@@ -20,6 +20,15 @@ import type { ClaimType } from "./claimTypes";
 export type ClaimTypeMatch = {
   claimType: ClaimType;
   matchedSignals: string[];
+  /**
+   * 2026-09-28. True when at least one signal appeared in the story as a
+   * whole phrase. False when the match rests only on content words scattered
+   * through the story -- the weaker evidence, and the way a customer's story
+   * ("hired... someone else to finish... I want my money back") matched the
+   * contractor's unpaid-debt claim. orchestrateIntakeTurn treats a
+   * scattered-words-only match as a candidate, not a match.
+   */
+  exactPhraseMatched: boolean;
 };
 
 /**
@@ -120,6 +129,7 @@ export function matchClaimType(
   const scored = claimTypes.map((claimType) => {
     const matchedSignals: string[] = [];
     let score = 0;
+    let exactPhrases = 0;
 
     for (const signal of claimType.signals) {
       const phrase = normalize(signal);
@@ -127,6 +137,7 @@ export function matchClaimType(
       if (phrase && story.includes(phrase)) {
         matchedSignals.push(signal);
         score += EXACT_PHRASE_SCORE;
+        exactPhrases += 1;
         continue;
       }
 
@@ -137,7 +148,7 @@ export function matchClaimType(
       }
     }
 
-    return { claimType, matchedSignals, score };
+    return { claimType, matchedSignals, score, exactPhrases };
   });
 
   const ranked = scored
@@ -150,5 +161,6 @@ export function matchClaimType(
   return {
     claimType: ranked[0].claimType,
     matchedSignals: ranked[0].matchedSignals,
+    exactPhraseMatched: ranked[0].exactPhrases > 0,
   };
 }

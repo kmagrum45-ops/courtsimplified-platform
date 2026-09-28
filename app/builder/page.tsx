@@ -938,6 +938,11 @@ function BuilderPageContent() {
           // rather than rebuilding its own (design section 5). Absent when no
           // claim type was confirmed or the user skipped — both legitimate.
           ...(result.elementStateMap ? { elementStateMap: result.elementStateMap } : {}),
+          // 2026-09-28. The claim type the USER confirmed, or null when none
+          // was. The overview reads this instead of re-matching the story, so
+          // its cards follow the user's confirmation rather than a separate
+          // keyword match that can disagree with it.
+          confirmedClaimTypeId: result.matchedClaimType?.claimTypeId ?? null,
         },
       };
       handleComplete(analysisResult.analysis, payload);

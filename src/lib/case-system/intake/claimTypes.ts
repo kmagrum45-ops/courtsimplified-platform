@@ -490,6 +490,16 @@ export type ClaimType = {
   proceduralNotes: ProceduralNote[];
   /** Fact-pattern cues for later extraction matching. No AI here -- just data. */
   signals: string[];
+  /**
+   * 2026-09-28. Plain words for WHICH SIDE brings this claim -- the customer
+   * or the provider, the buyer or the seller, the lender, the employee. Not a
+   * legal statement: it says who is typically the plaintiff, so the
+   * classifier can tell a customer suing a contractor apart from a contractor
+   * suing for payment. Those two share almost every word ("hired", "work",
+   * "paid", "finish"), and without this a customer's story about a contractor
+   * who quit was classified as the contractor's unpaid-debt claim.
+   */
+  broughtBy: string;
   typicalDefendantProfile: "individual" | "business" | "either";
   /** Non-empty tuple, compile-time enforced -- same pattern as educationTopics.ts. */
   citations: [EducationCitation, ...EducationCitation[]];
@@ -501,6 +511,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-unpaid-debt-services",
     name: "Unpaid debt or non-payment for services",
+    broughtBy: "The person or business that did the work, provided the service, or is owed the money, and has not been paid. Not the customer who paid for work that went wrong.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -640,6 +651,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-slip-and-fall-occupier-liability",
     name: "Slip and fall / occupier's liability",
+    broughtBy: "The person who was hurt on someone else's property.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -846,6 +858,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-improper-unauthorized-towing",
     name: "Improper or unauthorized towing",
+    broughtBy: "The vehicle owner whose vehicle was towed.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -938,6 +951,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-breach-of-contract-goods",
     name: "Breach of contract — goods (wrong item, non-delivery, defective goods)",
+    broughtBy: "The buyer who paid for goods that were wrong, never delivered, or defective.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -1066,6 +1080,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-non-payment-goods-sold",
     name: "Non-payment for goods sold",
+    broughtBy: "The seller who delivered goods and was not paid.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -1210,6 +1225,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-consumer-protection-act-issue",
     name: "Consumer Protection Act issue (defective goods, misleading practices)",
+    broughtBy: "The consumer who bought goods or services from a business.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -1374,6 +1390,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-contractor-damage",
     name: "Damage caused by a contractor's work",
+    broughtBy: "The property owner or customer whose property was damaged by a contractor's work.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -1514,6 +1531,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-wrongful-dismissal",
     name: "Wrongful dismissal (within Small Claims monetary jurisdiction)",
+    broughtBy: "The employee who was dismissed.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -1691,6 +1709,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-dog-bite-animal-injury",
     name: "Dog bite or attack (Dog Owners' Liability Act)",
+    broughtBy: "The person bitten or attacked, or whose animal or property was harmed.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -1805,6 +1824,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-breach-of-contract-services",
     name: "Breach of contract — services not performed or substandard",
+    broughtBy: "The customer who paid or hired someone for work or a service that was not done, was abandoned partway, or was not done as agreed.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -1907,6 +1927,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-recovery-of-personal-property",
     name: "Recovery of personal property wrongfully held by another",
+    broughtBy: "The owner who wants their belongings back from someone holding them.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -2035,6 +2056,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-consumer-cancellation-refund",
     name: "Cancelled contract — deposit or payment not refunded (Consumer Protection Act)",
+    broughtBy: "The consumer who cancelled a contract with a business and did not get their deposit or payment back.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -2153,6 +2175,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-commercial-tenancy-dispute",
     name: "Commercial (non-residential) tenancy dispute",
+    broughtBy: "A landlord or tenant of commercial (non-residential) premises.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -2269,6 +2292,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-dishonoured-nsf-cheque",
     name: "Dishonoured (NSF) cheque",
+    broughtBy: "The person or business that received a cheque that bounced.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -2368,6 +2392,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-unpaid-overtime-vacation-pay",
     name: "Unpaid overtime or vacation pay",
+    broughtBy: "The employee who was not paid overtime or vacation pay.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -2478,6 +2503,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-vehicle-repair-dispute",
     name: "Vehicle repair dispute (overcharge or warranty)",
+    broughtBy: "The vehicle owner in a dispute with a repair shop over a charge or warranty.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -2585,6 +2611,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-used-vehicle-nondisclosure",
     name: "Used vehicle purchase — non-disclosure by a dealer",
+    broughtBy: "The buyer of a used vehicle from a dealer.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -2761,6 +2788,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-unpaid-condo-common-expenses",
     name: "Unpaid condominium common expenses",
+    broughtBy: "The condominium corporation owed common expenses by a unit owner.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -2897,6 +2925,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-defamation-libel-slander",
     name: "Defamation (libel or slander)",
+    broughtBy: "The person or business that something false was said or written about.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -3128,6 +3157,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-vehicle-accident-uninsured-driver-property-damage",
     name: "Vehicle accident property damage -- direct claim against an uninsured at-fault driver",
+    broughtBy: "The owner whose vehicle or property was damaged by an uninsured driver.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -3366,6 +3396,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-personal-loan-between-individuals",
     name: "Personal loan between individuals -- borrower hasn't repaid",
+    broughtBy: "The person who lent money to another individual and was not repaid.",
     courtArea: "small-claims",
     plaintiffElements: [
       {
@@ -3537,6 +3568,7 @@ export const CLAIM_TYPES: ClaimType[] = [
   {
     id: "sc-claim-property-damaged-lost-in-business-care",
     name: "Property damaged, lost, or not returned while left in a business's care",
+    broughtBy: "The owner whose belongings were damaged, lost, or not returned by a business that had them.",
     courtArea: "small-claims",
     plaintiffElements: [
       {

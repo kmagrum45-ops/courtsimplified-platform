@@ -29,6 +29,7 @@ import { pathToFileURL } from "node:url";
 
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { matchClaimType } from "../../src/lib/case-system/intake/claimTypeMatcher";
+import { buildClaimTypeOverviewContent } from "../../src/lib/case-system/intake/claimTypeOverviewContent";
 
 /** Plainly-worded stories, one per claim type, written the way a person writes. */
 const STORIES: Array<{ expect: string; story: string }> = [
@@ -104,6 +105,41 @@ function main(): void {
   check(
     "unrelated prose matches nothing",
     matchClaimType("I would like to know what the weather is on Tuesday.", CLAIM_TYPES) === null,
+  );
+
+  // 2026-09-28. The customer's side of a contractor story must not be SETTLED
+  // as the contractor's claim for payment. Scattered words may still make it a
+  // candidate; what must not happen is a whole-phrase match, because only a
+  // whole-phrase match is treated as confirmed without asking the user.
+  const customerStory =
+    "I hired a guy off kijiji to redo my basement bathroom. we agreed 4500 for labour and I paid him " +
+    "2000 up front in march. he did about half the work then stopped showing up. I texted him for weeks " +
+    "and he read them and didnt answer. I had to hire someone else to finish and they charged me 3200. " +
+    "I want my 2000 back";
+  const customerMatch = matchClaimType(customerStory, CLAIM_TYPES);
+  check(
+    "a customer's contractor story is never settled as the contractor's unpaid-debt claim",
+    !(customerMatch?.claimType.id === "sc-claim-unpaid-debt-services" && customerMatch.exactPhraseMatched),
+    JSON.stringify(customerMatch && { id: customerMatch.claimType.id, exact: customerMatch.exactPhraseMatched }),
+  );
+
+  // The overview follows the claim type the USER confirmed, not a second,
+  // independent match of the story.
+  check(
+    "the overview uses the confirmed claim type over its own story match",
+    buildClaimTypeOverviewContent(customerStory, CLAIM_TYPES, "sc-claim-breach-of-contract-services")?.claimTypeId ===
+      "sc-claim-breach-of-contract-services",
+  );
+  check(
+    "the overview shows no claim-type content when none was confirmed",
+    buildClaimTypeOverviewContent(customerStory, CLAIM_TYPES, null) === null,
+  );
+
+  const missingSide = CLAIM_TYPES.filter((claimType) => !claimType.broughtBy || !claimType.broughtBy.trim());
+  check(
+    "every claim type says which side brings it",
+    missingSide.length === 0,
+    missingSide.map((claimType) => claimType.id).join(", "),
   );
 
   console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);

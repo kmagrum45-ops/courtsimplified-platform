@@ -56,7 +56,10 @@ const NONE_VALUE = "none";
  */
 function describeClaimType(claimType: ClaimType): string {
   const examples = claimType.signals.slice(0, 2).map((signal) => `"${signal}"`).join(", ");
-  return `- ${claimType.id}: ${claimType.name}${examples ? ` (e.g., ${examples})` : ""}`;
+  return (
+    `- ${claimType.id}: ${claimType.name}${examples ? ` (e.g., ${examples})` : ""}\n` +
+    `  brought by: ${claimType.broughtBy}`
+  );
 }
 
 function buildSystemPrompt(candidates: readonly ClaimType[]): string {
@@ -64,6 +67,8 @@ function buildSystemPrompt(candidates: readonly ClaimType[]): string {
   return `You are a closed-list classifier for a legal self-help intake form covering Ontario Small Claims Court. Read the person's free-text story and decide which ONE claim type from the list below it most resembles -- or none, if nothing on the list fits.
 
 You do not give legal advice, you do not decide whether the person has a valid case, and you do not describe or characterize their situation in your own words. You only pick from the closed list given to you. If the story could plausibly fit more than one, pick the single best fit. If it fits none of them well, or you are unsure, say "none" -- do not guess.
+
+Pay attention to WHICH SIDE the person telling the story is on. Each claim type says who brings it. A customer who paid someone for work that was abandoned or done badly is not the person who did the work and is owed payment, even though both stories mention hiring, work and money. Only pick a claim type whose "brought by" matches the person telling the story.
 
 Claim types:
 ${listing}

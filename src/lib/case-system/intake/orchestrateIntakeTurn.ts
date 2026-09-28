@@ -351,7 +351,17 @@ export async function orchestrateIntakeTurn(
     // re-route a user whose opening story matched something else. A claim type
     // must be settled by the user's story, not by a phrase that happens to
     // appear in an answer about what documents they hold.
-    const match = isOpeningStory ? matchClaimType(newStoryText, claimTypes) : null;
+    const candidate = isOpeningStory ? matchClaimType(newStoryText, claimTypes) : null;
+    // 2026-09-28. A match resting only on scattered content words is not
+    // treated as settled. Live run: a customer whose contractor quit halfway
+    // ("hired a guy... stopped showing up... hire someone else to finish...
+    // I want my 2000 back") matched sc-claim-unpaid-debt-services -- the
+    // CONTRACTOR's claim for payment -- on scattered words, and was treated
+    // as confirmed with no confirmation step, so every downstream card was
+    // written for the other side. Such a story now goes to the side-aware AI
+    // classifier below, whose answer the user must confirm. A whole-phrase
+    // match is unchanged.
+    const match = candidate && candidate.exactPhraseMatched ? candidate : null;
     matchedClaimTypes = match ? [match] : [];
     if (match) {
       evidenceGuidance = buildEvidenceCategoryGuidance(match.claimType);
