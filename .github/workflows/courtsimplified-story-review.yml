@@ -20,6 +20,7 @@ on:
       - scripts/verification/storyReview/**
       - src/lib/case-system/intake/**
       - src/lib/case-system/caseReview/**
+      - src/lib/case-system/intelligence/courtPathClassifier.ts
       - .github/workflows/courtsimplified-story-review.yml
 
 permissions:
