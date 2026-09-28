@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { supabase } from "../../src/lib/supabase/client";
-import { clearCompactBuilderDraft } from "../../src/lib/case-system/builderDraftStorage";
+import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 
 import {
   buildDashboardSummary,
@@ -302,11 +302,10 @@ export default function DashboardPage() {
   }
 
   async function logout() {
-    const { data } = await supabase.auth.getUser();
-    if (data.user) clearCompactBuilderDraft(localStorage, data.user.id);
-    for (const key of ["courtSimplifiedActiveCaseId", "courtSimplifiedMasterCase", "courtSimplifiedCaseContext", "courtSimplifiedLoadedCaseContext", "courtSimplifiedMasterResult", "courtSimplifiedMasterResultPatch", "courtSimplifiedDashboardPatch", "courtSimplifiedRecommendedNextRoute", "caseData", "courtSimplifiedCase"]) {
-      localStorage.removeItem(key);
-    }
+    // Everything, not a hand-kept list: the registry drives it. AuthStorageGuard
+    // also clears on SIGNED_OUT; clearing first means nothing survives even if
+    // the sign-out request fails.
+    resetIntakeInBrowser();
     await supabase.auth.signOut();
     router.push("/login");
   }

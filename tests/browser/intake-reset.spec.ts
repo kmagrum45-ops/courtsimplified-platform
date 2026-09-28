@@ -165,3 +165,48 @@ test("a signed-in user's saved draft is not wiped by the gate", async ({ page })
 
   expect(stillThere, "a signed-in user's saved draft was cleared by the gate").toBe(true);
 });
+
+/*
+ * THE PROPERTY THE USER ASKED FOR (2026-09-28): nothing from an earlier
+ * session is SHOWN before the user opens a case from their workspace.
+ *
+ * A signed-in user found an old test story pre-filled in the Small Claims
+ * intake. The per-user browser draft was restored by the builder on every
+ * visit and offered by the gate as "Saved case on this device". Both are gone;
+ * this plants such a draft (as an older build would have left it) and asserts
+ * neither page shows it.
+ */
+test("a signed-in user's old browser draft is never shown in the gate or the builder", async ({ page }) => {
+  const userId = "00000000-0000-4000-8000-000000000002";
+  await page.addInitScript(
+    ({ id, draftStory }) => {
+      const token = {
+        access_token: "synthetic-browser-token",
+        refresh_token: "synthetic-browser-refresh-token",
+        token_type: "bearer",
+        expires_at: 4_102_444_800,
+        user: { id, aud: "authenticated", role: "authenticated", email: "stale@example.test" },
+      };
+      const nativeGetItem = Storage.prototype.getItem;
+      Storage.prototype.getItem = function getItem(key: string) {
+        if (key.startsWith("sb-") && key.endsWith("-auth-token")) return JSON.stringify(token);
+        return nativeGetItem.call(this, key);
+      };
+      localStorage.setItem(
+        `courtSimplifiedBuilderDraft:${id}`,
+        JSON.stringify({ version: 1, courtPath: "small-claims", province: "Ontario", city: "Toronto", facts: draftStory }),
+      );
+    },
+    { id: userId, draftStory: STORY },
+  );
+
+  await page.goto("/?path=small-claims", SLOW);
+  await page.getByTestId("court-path-location-gate-ready").waitFor({ state: "visible", timeout: 60_000 });
+  expect(await page.getByTestId("saved-case-panel").count(), "gate offered to resume a browser draft").toBe(0);
+  expect(await page.getByLabel("Tell us what happened in your own words").inputValue()).toBe("");
+
+  await page.goto("/builder?path=small-claims", SLOW);
+  await page.waitForTimeout(2500);
+  const shown = await findMarker(page, "SECRETMARKER");
+  expect(shown.onPage || shown.inFields, "builder showed an old browser draft").toBe(false);
+});
