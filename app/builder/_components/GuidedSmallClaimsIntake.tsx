@@ -10,6 +10,10 @@
  */
 
 import { useState } from "react";
+import type {
+  ConfirmedStoryAnswer,
+  StoryAnswerProposal,
+} from "@/src/lib/case-system/intake/storyAnswerProposals";
 
 import { supabase } from "../../../src/lib/supabase/client";
 
@@ -104,7 +108,12 @@ type GuidedTurnResult = {
    */
   claimGuidance?: ClaimGuidance;
   intakeComplete: boolean;
+  /** Opening story only: answers the story already gives. Nothing is applied until confirmed. */
+  storyProposals?: StoryAnswerProposal[];
 };
+
+/** One proposal as the user is reviewing it. */
+type ProposalDraft = StoryAnswerProposal & { keep: boolean };
 
 type ChatMessage = {
   from: "user" | "assistant";
@@ -439,12 +448,16 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
   // Retained so onComplete fires with the same facts/answeredIds the
   // completing turn produced, rather than whatever state has become since.
   const [completionPayload, setCompletionPayload] = useState<GuidedIntakeCompletionResult | null>(null);
+  // 2026-09-28. "Here's what I understood" -- answers the opening story
+  // already gives, awaiting the user's confirmation. Null when none pending.
+  const [proposalDrafts, setProposalDrafts] = useState<ProposalDraft[] | null>(null);
 
   async function sendTurn(
     newStoryText: string | undefined,
     newAnsweredIds: string[],
     nextFacts: IntakeFacts,
     answeredQuestionId?: string,
+    confirmedAnswers?: ConfirmedStoryAnswer[],
   ) {
     setLoading(true);
     setError("");
@@ -460,7 +473,13 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
           "Content-Type": "application/json",
           ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
         },
-        body: JSON.stringify({ facts: nextFacts, answeredIds: newAnsweredIds, newStoryText, answeredQuestionId }),
+        body: JSON.stringify({
+          facts: nextFacts,
+          answeredIds: newAnsweredIds,
+          newStoryText,
+          answeredQuestionId,
+          confirmedAnswers,
+        }),
       });
 
       const json = await response.json();
@@ -511,6 +530,25 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
 
       if (result.distressAcknowledgment) {
         setMessages((current) => [...current, { from: "assistant", text: result.distressAcknowledgment as string }]);
+      }
+
+      // Answers the story already gives are shown for confirmation BEFORE any
+      // question is asked. Nothing is applied until the user confirms; what
+      // they untick is simply asked as normal.
+      if (result.storyProposals && result.storyProposals.length > 0) {
+        setProposalDrafts(result.storyProposals.map((proposal) => ({ ...proposal, keep: true })));
+        setMessages((current) => [
+          ...current,
+          {
+            from: "assistant",
+            text:
+              "Here's what I understood from what you wrote. Check each one: fix anything that's " +
+              "off, and untick anything that's wrong. I'll only ask about what's left.",
+          },
+        ]);
+        setCurrentQuestion(null);
+        setLoading(false);
+        return;
       }
 
       if (result.intakeComplete || !result.nextQuestion) {
@@ -844,6 +882,31 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
     finishDepthPhase(depthStateMap);
   }
 
+  function handleConfirmProposals() {
+    if (!proposalDrafts) return;
+    const confirmed: ConfirmedStoryAnswer[] = proposalDrafts
+      .filter((draft) => draft.keep && draft.answer.trim())
+      .map((draft) => ({ questionId: draft.questionId, answerText: draft.answer.trim() }));
+    setProposalDrafts(null);
+    setMessages((current) => [
+      ...current,
+      {
+        from: "user",
+        text:
+          confirmed.length > 0
+            ? `Confirmed ${confirmed.length} answer${confirmed.length === 1 ? "" : "s"} from my story.`
+            : "None of those were right.",
+      },
+    ]);
+    void sendTurn(undefined, answeredIds, facts, undefined, confirmed);
+  }
+
+  function updateProposalDraft(index: number, patch: Partial<ProposalDraft>) {
+    setProposalDrafts((current) =>
+      current ? current.map((draft, i) => (i === index ? { ...draft, ...patch } : draft)) : current,
+    );
+  }
+
   function handleSend() {
     if (!started) handleStorySubmit();
     else if (depthActive) handleDepthAnswerSubmit();
@@ -881,6 +944,64 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
           ))
         )}
       </div>
+
+      {!halted && proposalDrafts ? (
+        <div
+          data-testid="story-proposals"
+          className="mt-4 rounded-2xl border border-[#d8e6df] bg-white p-4 text-sm text-[#16302b]"
+        >
+          <p className="font-semibold">Here&apos;s what I understood</p>
+          <p className="mt-1 text-xs text-[#5a736a]">
+            Taken from your own words. Nothing is saved until you confirm.
+          </p>
+          <div className="mt-3 space-y-3">
+            {proposalDrafts.map((draft, index) => (
+              <div key={draft.questionId} className="rounded-xl border border-[#d8e6df] p-3">
+                <label className="flex items-start gap-2">
+                  <input
+                    type="checkbox"
+                    checked={draft.keep}
+                    onChange={(event) => updateProposalDraft(index, { keep: event.target.checked })}
+                    className="mt-1"
+                  />
+                  <span className="font-semibold">{draft.questionText}</span>
+                </label>
+                {draft.choices && draft.choices.length > 0 ? (
+                  <select
+                    value={draft.answer}
+                    disabled={!draft.keep}
+                    onChange={(event) => updateProposalDraft(index, { answer: event.target.value })}
+                    className="mt-2 w-full rounded-lg border border-[#d8e6df] px-3 py-2 disabled:opacity-50"
+                  >
+                    {draft.choices.map((choice) => (
+                      <option key={choice} value={choice}>
+                        {choice}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <input
+                    type="text"
+                    value={draft.answer}
+                    disabled={!draft.keep}
+                    onChange={(event) => updateProposalDraft(index, { answer: event.target.value })}
+                    className="mt-2 w-full rounded-lg border border-[#d8e6df] px-3 py-2 disabled:opacity-50"
+                  />
+                )}
+                <p className="mt-1 text-xs text-[#6b8078]">From your story: &ldquo;{draft.storyQuote}&rdquo;</p>
+              </div>
+            ))}
+          </div>
+          <button
+            type="button"
+            disabled={loading}
+            onClick={handleConfirmProposals}
+            className="mt-4 rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white disabled:opacity-50"
+          >
+            {loading ? "..." : "Looks right, continue"}
+          </button>
+        </div>
+      ) : null}
 
       {!halted && currentQuestion ? (
         <QuestionHelp key={currentQuestion.id} question={currentQuestion} />
@@ -933,7 +1054,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
 
       {error ? <p className="mt-3 text-sm font-semibold text-[#a63b3b]">{error}</p> : null}
 
-      {!halted && (!intakeComplete || depthActive) ? (
+      {!halted && proposalDrafts ? null : !halted && (!intakeComplete || depthActive) ? (
         <div className="mt-4 flex gap-2">
           <textarea
             value={inputText}

@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import {
+  applyConfirmedStoryAnswers,
   orchestrateIntakeTurn,
   type OrchestrateIntakeTurnResult,
 } from "@/src/lib/case-system/intake/orchestrateIntakeTurn";
+import type { ConfirmedStoryAnswer } from "@/src/lib/case-system/intake/storyAnswerProposals";
 import { KNOWN_FACT_FIELDS, QUESTION_BANK, type IntakeQuestion } from "@/src/lib/case-system/intake/questionBank";
 import { CLAIM_TYPES, type ClaimType } from "@/src/lib/case-system/intake/claimTypes";
 import type { IntakeFacts } from "@/src/lib/case-system/intake/selectQuestions";
@@ -54,6 +56,8 @@ const MAX_STORY_TEXT_LENGTH = 8_000;
 const MAX_FACT_STRING_LENGTH = 1_200;
 const MAX_ANSWERED_IDS = 50;
 const MAX_ANSWERED_ID_LENGTH = 200;
+const MAX_CONFIRMED_ANSWERS = 30;
+const MAX_CONFIRMED_ANSWER_LENGTH = 1_000;
 
 const KNOWN_FACT_FIELD_SET = new Set<string>(KNOWN_FACT_FIELDS);
 
@@ -109,11 +113,41 @@ type GuidedTurnRequestBody = {
    * story turn, where there is no single question being answered.
    */
   answeredQuestionId?: string;
+  /**
+   * 2026-09-28. Story answers the user confirmed (after editing or removing
+   * any) from the "Here's what I understood" step. When present, the turn
+   * applies them instead of processing new text; see
+   * applyConfirmedStoryAnswers().
+   */
+  confirmedAnswers?: ConfirmedStoryAnswer[];
 };
+
+function isConfirmedAnswers(value: unknown): value is ConfirmedStoryAnswer[] {
+  return (
+    Array.isArray(value) &&
+    value.length <= MAX_CONFIRMED_ANSWERS &&
+    value.every(
+      (item) =>
+        isRecord(item) &&
+        Object.keys(item).every((key) => key === "questionId" || key === "answerText") &&
+        typeof item.questionId === "string" &&
+        item.questionId.length <= MAX_ANSWERED_ID_LENGTH &&
+        typeof item.answerText === "string" &&
+        item.answerText.length <= MAX_CONFIRMED_ANSWER_LENGTH,
+    )
+  );
+}
 
 function isGuidedTurnRequestBody(value: unknown): value is GuidedTurnRequestBody {
   if (!isRecord(value)) return false;
-  const allowedKeys = new Set(["facts", "answeredIds", "newStoryText", "courtArea", "answeredQuestionId"]);
+  const allowedKeys = new Set([
+    "facts",
+    "answeredIds",
+    "newStoryText",
+    "courtArea",
+    "answeredQuestionId",
+    "confirmedAnswers",
+  ]);
   if (Object.keys(value).some((key) => !allowedKeys.has(key))) return false;
 
   if (!isIntakeFacts(value.facts)) return false;
@@ -134,6 +168,12 @@ function isGuidedTurnRequestBody(value: unknown): value is GuidedTurnRequestBody
     return false;
   }
 
+  if (value.confirmedAnswers !== undefined) {
+    if (!isConfirmedAnswers(value.confirmedAnswers)) return false;
+    // A confirmation turn carries no new text and answers no single question.
+    if (value.newStoryText !== undefined || value.answeredQuestionId !== undefined) return false;
+  }
+
   return true;
 }
 
@@ -144,6 +184,7 @@ function errorResponse(error: string, status: number) {
 type GuidedTurnRouteDependencies = {
   authenticate: typeof getAuthenticatedUser;
   orchestrate: typeof orchestrateIntakeTurn;
+  applyConfirmed: typeof applyConfirmedStoryAnswers;
   hasExternalAiKey: () => boolean;
 };
 
@@ -151,6 +192,7 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
   const dependencies: GuidedTurnRouteDependencies = {
     authenticate: getAuthenticatedUser,
     orchestrate: orchestrateIntakeTurn,
+    applyConfirmed: applyConfirmedStoryAnswers,
     hasExternalAiKey: hasConfiguredServerAi,
     ...overrides,
   };
@@ -188,6 +230,18 @@ export function createGuidedTurnPost(overrides: Partial<GuidedTurnRouteDependenc
 
       const courtArea = body.courtArea ?? "small-claims";
       const { questionBank, claimTypes } = COURT_AREA_CONTENT[courtArea];
+
+      if (body.confirmedAnswers) {
+        const confirmedResult: OrchestrateIntakeTurnResult = await dependencies.applyConfirmed(
+          body.facts,
+          body.answeredIds,
+          body.confirmedAnswers,
+          apiKey,
+          questionBank,
+          courtArea,
+        );
+        return NextResponse.json({ ok: true, result: confirmedResult, authenticated });
+      }
 
       const result: OrchestrateIntakeTurnResult = await dependencies.orchestrate(
         body.facts,

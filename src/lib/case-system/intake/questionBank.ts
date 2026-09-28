@@ -500,9 +500,11 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     id: "sc-contractor-completion-date",
     courtArea: "small-claims",
     appliesWhen: { field: "disputeCategory", op: "equals", value: "work-or-services" },
-    text:
-      "What was the agreed completion date for the work, and did that date pass before the " +
-      "other party stopped responding?",
+    // Reworded 2026-09-28: the old text ("...and did that date pass before the
+    // other party stopped responding?") read oddly when no date was agreed,
+    // which is common with informal hires, and asked the user to compare two
+    // dates in one breath. Still pure fact collection.
+    text: "Was a date agreed for the work to be finished? If so, what was it?",
     answerType: "short-text",
     allowUnknown: true,
     sensitive: false,

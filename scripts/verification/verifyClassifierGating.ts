@@ -131,6 +131,7 @@ async function replay(simulateLastWins: boolean): Promise<ReplayRow[]> {
         extractFacts: async () => ({ facts: {}, directFields: [] }),
         classifyClaimType: stub.classify,
         composeVoice: async () => ({ leadIn: null, questionText: "", fellBackToPlainText: true }),
+        proposeAnswers: async () => [],
         // The pre-fix path classified every turn; the fix gates it to the
         // opening story. This flag replays the old behaviour honestly rather
         // than describing it.
@@ -237,6 +238,7 @@ async function replayMatcher(
           return null;
         },
         composeVoice: async () => ({ leadIn: null, questionText: "", fellBackToPlainText: true }),
+        proposeAnswers: async () => [],
         resolveClaimTypeEveryTurn: simulateLastWins,
       },
     );

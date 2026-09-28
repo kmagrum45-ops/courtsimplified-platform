@@ -76,7 +76,19 @@ export type AiCallType =
    * writes prose, so what is worth auditing is which content it chose and
    * whether it invented an id.
    */
-  | "library-chat";
+  | "library-chat"
+  /**
+   * 2026-09-28. Proposes answers the opening story already gives, each tied
+   * to a code-verified quote. The user confirms every one. See
+   * storyAnswerProposals.ts.
+   */
+  | "propose-story-answers"
+  /**
+   * 2026-09-28. May only HIDE general-information overview items that plainly
+   * do not fit the user's confirmed facts. Writes no content. See
+   * overviewRelevanceCheck.ts.
+   */
+  | "overview-relevance-check";
 
 export type AiValidationResult = "valid" | "invalid" | "error" | "timeout";
 

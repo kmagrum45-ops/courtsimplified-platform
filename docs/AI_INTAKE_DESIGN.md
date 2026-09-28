@@ -47,6 +47,20 @@ built as of this writing — see "What's actually built" below.
 2. **Fact extraction (AI)**: free text → structured facts, shown back to
    the user for confirmation — suggest-then-confirm applied to
    comprehension itself, not just to output. Not built.
+
+   **2026-09-28: the confirmation half is built** — `storyAnswerProposals.ts`.
+   On the opening story only, one call proposes answers to the questions
+   that would otherwise be asked, each with the exact words from the story
+   it relies on. Code drops any proposal whose quote is not in the story or
+   whose choice is not a reviewed choice. The user sees a "Here's what I
+   understood" card, edits or unticks, and confirms; only confirmed answers
+   mark questions answered (`applyConfirmedStoryAnswers()`), captured
+   verbatim like any typed answer. The safety question is never proposed.
+   This is deliberately different from the story-based depth suppression
+   removed in Session 48 (5 of 5 false "provided"): that decided silently,
+   this decides nothing. Suite: `test:story-answer-proposals`. Live
+   trigger: a user whose story answered eight questions was asked all
+   eight again.
 3. **Question selection (NO AI, deterministic)**: facts → remaining gaps →
    next question ID. **Built in Phase 0** — see `selectQuestions.ts`.
    Deliberately the one phase with no AI in it at all, now or later: gap

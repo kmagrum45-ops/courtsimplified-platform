@@ -49,6 +49,13 @@ import { buildClaimGuidance, type ClaimGuidance } from "./claimGuidance";
 import { selectQuestions, type IntakeFacts } from "./selectQuestions";
 import { QUESTION_BANK, type CourtArea, type IntakeQuestion, type KnownFactField } from "./questionBank";
 import { composeVoiceTurn, type VoiceTurn } from "./voiceLayer";
+import {
+  confirmedAnswersAsText,
+  proposableQuestions,
+  proposeAnswersFromStory,
+  type ConfirmedStoryAnswer,
+  type StoryAnswerProposal,
+} from "./storyAnswerProposals";
 
 // Session 30: a sane upper bound on a single question's captured raw
 // answer text, independent of MAX_STORY_TEXT_LENGTH (guided-turn/route.ts),
@@ -120,6 +127,16 @@ export type OrchestrateIntakeTurnResult = {
    * conversation-design work, not built this session.
    */
   possibleCorrections: PossibleCorrection[];
+  /**
+   * 2026-09-28. Opening story only. Answers the story already gives to the
+   * questions that would otherwise be asked, each tied to a verified quote
+   * from the story. NOT applied: no question is marked answered and no fact
+   * is set by these. The caller shows them to the user, who confirms, edits
+   * or removes each, and sends the confirmed ones back through
+   * applyConfirmedStoryAnswers(). Empty when there is nothing to propose or
+   * the proposal call failed -- a failure here never blocks intake.
+   */
+  storyProposals: StoryAnswerProposal[];
 };
 
 export type PossibleCorrection = {
@@ -233,6 +250,7 @@ export type OrchestrateIntakeTurnOverrides = {
   extractFacts?: typeof extractIntakeFactsWithConfidence;
   classifyClaimType?: typeof classifyClaimTypeWithAi;
   composeVoice?: typeof composeVoiceTurn;
+  proposeAnswers?: typeof proposeAnswersFromStory;
   /**
    * Replays the pre-fix behaviour: resolve the claim type on EVERY turn
    * carrying new text, not just the opening story. Governs BOTH paths -- the
@@ -259,6 +277,7 @@ export async function orchestrateIntakeTurn(
   const extractFacts = overrides.extractFacts || extractIntakeFactsWithConfidence;
   const classifyClaimType = overrides.classifyClaimType || classifyClaimTypeWithAi;
   const composeVoice = overrides.composeVoice || composeVoiceTurn;
+  const proposeAnswers = overrides.proposeAnswers || proposeAnswersFromStory;
 
   let facts = currentFacts;
   let safetyClassification: SafetyClassification | undefined;
@@ -293,6 +312,7 @@ export async function orchestrateIntakeTurn(
         matchedClaimTypes: [],
         intakeComplete: false,
         possibleCorrections: [],
+        storyProposals: [],
       };
     }
 
@@ -363,6 +383,86 @@ export async function orchestrateIntakeTurn(
     }
   }
 
+  // 2026-09-28. On the opening story only (never on an answer, never under
+  // the verification replay flag), propose answers to the questions that
+  // would now be asked. Proposals are returned, never applied -- see
+  // storyProposals' doc comment. A failure is swallowed: proposing is a
+  // convenience, and the intake must continue exactly as before without it.
+  let storyProposals: StoryAnswerProposal[] = [];
+  if (newStoryText && !answeredQuestionId) {
+    const upcoming = selectQuestions(facts, answeredIds, questionBank, courtArea)
+      .map((id) => questionBank.find((question) => question.id === id))
+      .filter((question): question is IntakeQuestion => Boolean(question));
+    const offered = proposableQuestions(upcoming);
+    if (offered.length > 0) {
+      try {
+        storyProposals = await proposeAnswers(newStoryText, offered, apiKey);
+      } catch {
+        storyProposals = [];
+      }
+    }
+  }
+
+  return finishTurn({
+    facts,
+    answeredIds,
+    questionBank,
+    courtArea,
+    apiKey,
+    composeVoice,
+    base: {
+      safetyClassification,
+      distressAcknowledgment,
+      matchedClaimTypes,
+      suggestedClaimType,
+      evidenceGuidance,
+      claimGuidance,
+      possibleCorrections,
+      storyProposals,
+    },
+  });
+}
+
+type FinishTurnArgs = {
+  facts: IntakeFacts;
+  answeredIds: string[];
+  questionBank: readonly IntakeQuestion[];
+  courtArea: CourtArea;
+  apiKey: string;
+  composeVoice: typeof composeVoiceTurn;
+  base: Pick<
+    OrchestrateIntakeTurnResult,
+    | "safetyClassification"
+    | "distressAcknowledgment"
+    | "matchedClaimTypes"
+    | "suggestedClaimType"
+    | "evidenceGuidance"
+    | "claimGuidance"
+    | "possibleCorrections"
+    | "storyProposals"
+  >;
+};
+
+/** Picks the next question (or reports completion). Shared by both entry points. */
+async function finishTurn({
+  facts,
+  answeredIds,
+  questionBank,
+  courtArea,
+  apiKey,
+  composeVoice,
+  base,
+}: FinishTurnArgs): Promise<OrchestrateIntakeTurnResult> {
+  const {
+    safetyClassification,
+    distressAcknowledgment,
+    matchedClaimTypes,
+    suggestedClaimType,
+    evidenceGuidance,
+    claimGuidance,
+    possibleCorrections,
+    storyProposals,
+  } = base;
   const remainingIds = selectQuestions(facts, answeredIds, questionBank, courtArea);
   const nextQuestion = remainingIds.length > 0 ? questionBank.find((q) => q.id === remainingIds[0]) : undefined;
 
@@ -379,6 +479,7 @@ export async function orchestrateIntakeTurn(
       claimGuidance,
       intakeComplete: true,
       possibleCorrections,
+      storyProposals,
     };
   }
 
@@ -398,5 +499,83 @@ export async function orchestrateIntakeTurn(
     voiceTurn,
     intakeComplete: false,
     possibleCorrections,
+    storyProposals,
   };
+}
+
+/**
+ * 2026-09-28. Applies the story answers the user CONFIRMED (after editing or
+ * removing any) as if each question had been asked and answered.
+ *
+ * For each confirmed answer:
+ *   - its question id is added to answeredIds, so it is not asked again;
+ *   - a question with a capturesField stores the user's confirmed words
+ *     verbatim, exactly as a typed answer would.
+ * Structured facts (role, dispute category, filing status) come from one pass
+ * of the existing extractor over the confirmed question-and-answer pairs --
+ * the same path any typed answer takes -- merged with the never-overwrite
+ * rule. No claim type is resolved here: the claim type is settled by the
+ * opening story alone.
+ *
+ * Only ids that exist in the bank and are not in the sensitive phase are
+ * accepted; anything else is ignored rather than trusted.
+ */
+export async function applyConfirmedStoryAnswers(
+  currentFacts: IntakeFacts,
+  answeredIds: string[],
+  confirmed: readonly ConfirmedStoryAnswer[],
+  apiKey: string,
+  questionBank: readonly IntakeQuestion[] = QUESTION_BANK,
+  courtArea: CourtArea = "small-claims",
+  overrides: Pick<OrchestrateIntakeTurnOverrides, "extractFacts" | "composeVoice"> = {},
+): Promise<OrchestrateIntakeTurnResult> {
+  const extractFacts = overrides.extractFacts || extractIntakeFactsWithConfidence;
+  const composeVoice = overrides.composeVoice || composeVoiceTurn;
+
+  const allowed = new Set(proposableQuestions(questionBank).map((question) => question.id));
+  const accepted = confirmed
+    .filter((item) => allowed.has(item.questionId))
+    .map((item) => ({
+      questionId: item.questionId,
+      answerText: item.answerText.trim().slice(0, MAX_CAPTURED_ANSWER_LENGTH),
+    }))
+    .filter((item) => item.answerText.length > 0);
+
+  let facts = currentFacts;
+  let possibleCorrections: PossibleCorrection[] = [];
+  const nextAnsweredIds = [...answeredIds];
+
+  if (accepted.length > 0) {
+    const text = confirmedAnswersAsText(accepted, questionBank);
+    const { facts: extracted, directFields } = text
+      ? await extractFacts(text, apiKey)
+      : { facts: {} as IntakeFacts, directFields: [] as KnownFactField[] };
+
+    for (const item of accepted) {
+      const question = questionBank.find((candidate) => candidate.id === item.questionId);
+      if (question?.capturesField) {
+        extracted[question.capturesField] = item.answerText;
+        directFields.push(question.capturesField);
+      }
+      if (!nextAnsweredIds.includes(item.questionId)) nextAnsweredIds.push(item.questionId);
+    }
+
+    const merged = mergeFacts(facts, extracted, directFields);
+    facts = merged.facts;
+    possibleCorrections = merged.possibleCorrections;
+  }
+
+  return finishTurn({
+    facts,
+    answeredIds: nextAnsweredIds,
+    questionBank,
+    courtArea,
+    apiKey,
+    composeVoice,
+    base: {
+      matchedClaimTypes: [],
+      possibleCorrections,
+      storyProposals: [],
+    },
+  });
 }
