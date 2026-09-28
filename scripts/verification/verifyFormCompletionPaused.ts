@@ -10,7 +10,9 @@
  *   1. /api/generate-form refuses BEFORE reading the request, so the pause
  *      cannot be bypassed by calling the route directly;
  *   2. the /forms page renders the paused notice instead of the form tool;
- *   3. the builder does not render the Statement of Claim surface.
+ *   3. the builder does not render the Statement of Claim surface;
+ *   4. the builder's claim-draft buttons (Form 7A / 14A / 8) are hidden and
+ *      the functions behind them refuse while paused.
  *
  * Asserts the PROPERTY, not the flag's value: if the flag is later turned off
  * on purpose, this suite reports that and passes -- re-enabling is a decision,
@@ -64,6 +66,27 @@ if (!FORM_COMPLETION_PAUSED) {
   const gated = /!FORM_COMPLETION_PAUSED \? \(\s*<StatementOfClaimSurface/.test(builder);
   check("builder: Statement of Claim surface is rendered in exactly one place", renders === 1, `found ${renders}`);
   check("builder: that render is gated on the pause", gated);
+
+  // 4. The builder's claim-draft buttons (Form 7A / 14A / 8). Missed on the
+  //    first pass on 2026-09-27 and caught by an independent review of the
+  //    A2I answers: the page said "switched off" while these still drafted.
+  //    Property: every JSX line that invokes a draft function is inside a
+  //    condition that tests the pause, AND each draft function itself returns
+  //    early while paused, so a new caller cannot reopen the door.
+  const DRAFT_FNS = ["createSmallClaimsClaimDraft", "createCourtAreaWorkingDraft"];
+  for (const fn of DRAFT_FNS) {
+    const def = builder.indexOf(`function ${fn}(`);
+    check(`builder: ${fn} exists`, def !== -1);
+    if (def === -1) continue;
+    const head = builder.slice(builder.indexOf(") {", def) + 3, builder.indexOf(") {", def) + 200).trimStart();
+    check(`builder: ${fn} returns immediately while paused`, head.startsWith("if (FORM_COMPLETION_PAUSED) return;"), head.slice(0, 60));
+    const lines = builder.split("\n");
+    lines.forEach((line, i) => {
+      if (!line.includes(`onClick`) || !line.includes(fn)) return;
+      const context = lines.slice(Math.max(0, i - 2), i + 1).join("\n");
+      check(`builder: the ${fn} button at line ${i + 1} is gated on the pause`, context.includes("!FORM_COMPLETION_PAUSED"));
+    });
+  }
 }
 
 console.log(failures ? `\n${failures} failure(s).` : "\nAll checks passed.");
