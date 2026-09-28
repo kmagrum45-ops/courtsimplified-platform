@@ -220,6 +220,10 @@ export function validateCaseStrengthLanguage(text: string): { valid: boolean; ma
  *
  * The console.error calls beside each record below are the existing
  * convention and are KEPT — they are what a developer sees in a terminal.
+ * They carry the field and matched term but NOT the text: in production a
+ * console line goes to the hosting provider's logs, outside the Canadian
+ * database, and the text is about the user's case (2026-09-28, found while
+ * checking the LSO A2I answers). The text stays in the in-memory record.
  * This adds an in-memory record of the same events so a test can assert on
  * them and a human can review them after the run, which a console line
  * cannot support.
@@ -281,7 +285,7 @@ function recordInterception(
 export function sanitizeSummaryText(text: string, fieldName: string): string {
   const result = validateCaseStrengthLanguage(text);
   if (result.valid) return text;
-  console.error(`[caseStrengthLanguageValidator] rejected ${fieldName} (matched term "${result.matchedTerm}"): ${text}`);
+  console.error(`[caseStrengthLanguageValidator] rejected ${fieldName} (matched term "${result.matchedTerm}", ${text.length} chars)`);
   recordInterception("rejected", fieldName, result.matchedTerm, text);
   return "A summary of the saved facts is available in the case details below.";
 }
@@ -296,7 +300,7 @@ export function sanitizeTextArray(items: string[], fieldName: string): string[] 
   return items.filter((item) => {
     const result = validateCaseStrengthLanguage(item);
     if (result.valid) return true;
-    console.error(`[caseStrengthLanguageValidator] dropped ${fieldName} item (matched term "${result.matchedTerm}"): ${item}`);
+    console.error(`[caseStrengthLanguageValidator] dropped ${fieldName} item (matched term "${result.matchedTerm}", ${item.length} chars)`);
     recordInterception("dropped", fieldName, result.matchedTerm, item);
     return false;
   });
@@ -318,7 +322,7 @@ export function sanitizeCognitionOutput<T>(raw: T, path = "cognition"): T {
   if (typeof raw === "string") {
     const result = validateCaseStrengthLanguage(raw);
     if (result.valid) return raw;
-    console.error(`[caseStrengthLanguageValidator] blanked ${path} (matched term "${result.matchedTerm}"): ${raw}`);
+    console.error(`[caseStrengthLanguageValidator] blanked ${path} (matched term "${result.matchedTerm}", ${String(raw).length} chars)`);
     recordInterception("blanked", path, result.matchedTerm, raw);
     return "" as unknown as T;
   }

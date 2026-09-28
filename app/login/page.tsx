@@ -17,7 +17,7 @@ import { supabase } from "../../src/lib/supabase/client";
 function signUpErrorMessage(error: AuthError): string {
   switch (error.code) {
     case "weak_password":
-      return "Password must be at least 6 characters.";
+      return "That password is too short or too weak. Use at least 12 characters.";
     case "over_email_send_rate_limit":
       // Project-wide, not per user: Supabase's `rate_limit_email_sent` counts
       // every email the project sends in an hour, so this can fire for someone

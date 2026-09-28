@@ -1138,7 +1138,7 @@ function buildRiskExplanation(rawExplanation: unknown): string {
   if (!explanation) return fallback;
   const result = validateCaseStrengthLanguage(explanation);
   if (result.valid) return explanation;
-  console.error(`[caseStrengthLanguageValidator] rejected litigationRisk.explanation (matched term "${result.matchedTerm}"): ${explanation}`);
+  console.error(`[caseStrengthLanguageValidator] rejected litigationRisk.explanation (matched term "${result.matchedTerm}", ${explanation.length} chars)`); // no case text in hosting logs
   return fallback;
 }
 
