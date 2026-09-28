@@ -1355,3 +1355,8 @@ comments first. There is no case where reading the comments is what you wanted.
   (fixed to assert properties) and four read-only catalogue checks refused by the
   20260915090000 anon-read change (they now read with the service key when present). The safety
   regression passed all 11 cases when run locally the same afternoon.
+  In CI it failed in under a second: the `OPENAI_API_KEY` repository secret is set but OpenAI
+  rejects it (a local run with the working key passes). **CI main has not been green since
+  2026-08-27**, and until 2026-09-28 no run had reached the safety step, the production build or
+  `test:assistant-context` -- an earlier step always failed first. The nightly "Real-AI" workflow
+  does not prove the secret works: it exits 0 unless `RUN_REAL_AI_INTEGRATION=1`, which it never sets.
