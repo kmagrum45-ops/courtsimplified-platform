@@ -9,6 +9,11 @@ import {
 } from "./answeredQuestions";
 
 import {
+  amountMismatchWarning,
+  detectClaimedVersusRequestedMismatch,
+} from "./amountConsistency";
+
+import {
   ClaimClassification,
   ClaimElementAssessment,
   ClaimElementStatus,
@@ -2285,6 +2290,7 @@ export async function runCourtSimplifiedBrain(
   input: CourtSimplifiedBrainInput,
 ): Promise<CourtSimplifiedBrainOutput> {
   const overLimitClaimAmount = detectOverLimitClaimAmount(input.rawUserText);
+  const claimedVersusRequested = detectClaimedVersusRequestedMismatch(input.rawUserText);
 
   const normalizedIntake = await normalizeIntake(input);
 
@@ -2494,6 +2500,10 @@ export async function runCourtSimplifiedBrain(
             `Claim amount $${overLimitClaimAmount.toLocaleString()} exceeds the Ontario Small Claims Court limit of $${ONTARIO_SMALL_CLAIMS_LIMIT.toLocaleString()}; Small Claims Court may not have jurisdiction and the Superior Court of Justice should be considered.`,
           ]
         : []),
+      // The user's two statements of what they want disagree. A fact to confirm,
+      // stated as such -- see amountConsistency.ts for why no other figures are
+      // compared.
+      ...(claimedVersusRequested ? [amountMismatchWarning(claimedVersusRequested)] : []),
       ...(crossCourtAreaConflict
         ? [
             `Detected issues span more than one court path: family (${domainLabels(crossCourtAreaConflict.familyDomains)}) and non-family (${domainLabels(crossCourtAreaConflict.otherDomains)}). Confirm whether this case belongs in the selected court path, or whether separate matters need to be started in different courts.`,
