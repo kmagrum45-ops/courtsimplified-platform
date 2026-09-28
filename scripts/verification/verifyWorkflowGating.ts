@@ -14,7 +14,18 @@ for (const path of ["small-claims", "family", "civil"]) {
   assert.equal(ready.ready, true);
 }
 
-for (const file of ["app/trial-package/page.tsx", "app/court-package/page.tsx", "app/document-export/page.tsx"]) {
+// app/trial-package/page.tsx is no longer listed: since 2026-09-07 (de3cc27) it
+// is a hub of links to the evidence, document, court-package and export pages,
+// which gate themselves, and it shows no trial-preparation material to gate.
+// Listing it made CI fail on main on 2026-09-28. If it renders case material
+// again, add it back.
+const trialPackage = readFileSync("app/trial-package/page.tsx", "utf8");
+assert.doesNotMatch(
+  trialPackage,
+  /caseData|master_result|evidencePackage/,
+  "trial-package renders case material again -- it must be gated; add it back to the list below.",
+);
+for (const file of ["app/court-package/page.tsx", "app/document-export/page.tsx"]) {
   const source = readFileSync(file, "utf8");
   assert.match(source, /resolveWorkflowGate/);
   assert.match(source, /not ready yet/);

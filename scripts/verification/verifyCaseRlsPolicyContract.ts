@@ -17,7 +17,12 @@ const baselineSchema = readdirSync(migrationsDir)
   .join("\n");
 
 assert.match(builder, /user_id:\s*user\.id/, "Case creation must use the authenticated user's ID.");
-assert.match(builder, /\.update\([\s\S]*?master_result:\s*masterPayload,[\s\S]*?\)\s*\.eq\("id", activeId\)/, "Selected-case updates must stay scoped to the selected case ID.");
+// Asserts the property -- the update that writes the case's master_result is
+// scoped to the selected case id -- not today's spelling of the payload. It
+// used to require `master_result: masterPayload,` exactly, and failed when the
+// payload became `{ ...masterPayload, derivedFrom, ... }` though the scoping
+// was unchanged (found 2026-09-28, CI red on main).
+assert.match(builder, /\.update\(\{[\s\S]*?master_result:[^\n]*masterPayload[\s\S]*?\)\s*\.eq\("id", activeId\)/, "Selected-case updates must stay scoped to the selected case ID.");
 assert.doesNotMatch(client, /SUPABASE_SERVICE_ROLE_KEY|service_role/, "Browser Supabase client must not use service-role credentials.");
 
 // pg_dump quotes every identifier, so these tolerate optional double quotes

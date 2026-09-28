@@ -60,7 +60,8 @@ assert.equal(loadCompactBuilderDraft(storage, "user-b"), null, "A different user
 const builderSource = readFileSync("app/builder/page.tsx", "utf8");
 assert.match(
   builderSource,
-  /\.update\(\{[\s\S]*master_result: masterPayload,[\s\S]*\}\)\s*\.eq\("id", activeId\)/,
+  // Property, not spelling: the payload is now `{ ...masterPayload, ... }` (2026-09-28).
+  /\.update\(\{[\s\S]*master_result:[^\n]*masterPayload[\s\S]*\}\)\s*\.eq\("id", activeId\)/,
   "An authorized selected case must retain the canonical Supabase master_result update",
 );
 assert.match(

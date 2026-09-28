@@ -83,19 +83,25 @@ assert.doesNotMatch(
   "The case overview must not rebuild an unfiltered issue list.",
 );
 
-const settlementConference = readFileSync("app/settlement-conference/page.tsx", "utf8");
-assert.match(
-  settlementConference,
-  /meaningfulIssueSignals\(caseData\?\.analysis\?\.detectedIssues/,
-  "The settlement conference issues list must filter through the shared helper.",
-);
-
-const trialPackage = readFileSync("app/trial-package/page.tsx", "utf8");
-assert.match(
-  trialPackage,
-  /meaningfulIssueSignals\(caseData\?\.analysis\?\.detectedIssues/,
-  "The trial package issues list must filter through the shared helper. Missed on the first pass -- this file was only checked for its scoring uses, not its render.",
-);
+// Property, not spelling (fixed 2026-09-28, CI red on main): any workflow page
+// that renders the engine's detected issues must filter them through the shared
+// helper. The settlement-conference and trial-package pages were rewritten on
+// 2026-09-07 (de3cc27) into link hubs that no longer render an issues list at
+// all; the old check demanded the helper call regardless, and so failed on the
+// removal it should have welcomed.
+for (const [label, file] of [
+  ["settlement conference", "app/settlement-conference/page.tsx"],
+  ["trial package", "app/trial-package/page.tsx"],
+] as const) {
+  const source = readFileSync(file, "utf8");
+  if (/detectedIssues/.test(source)) {
+    assert.match(
+      source,
+      /meaningfulIssueSignals\(/,
+      `The ${label} issues list must filter through the shared helper.`,
+    );
+  }
+}
 
 console.log(
   "Overview issue and document label verification passed: unclassified issue types and non-filing document sentinels are filtered, and both renderers route through the shared helpers.",
