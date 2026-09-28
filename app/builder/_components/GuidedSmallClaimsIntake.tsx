@@ -124,6 +124,10 @@ type ChatMessage = {
 const FIRST_QUESTION_INTRO =
   "A few questions to get the details down. Answer in your own words — and if you don't know something, say so and we'll record that.";
 
+/** Shown exactly once, when the last question of the whole intake is done. */
+const INTAKE_CLOSING_LINE =
+  "That's everything needed for now. You can review what you've entered, or continue to the next step whenever you're ready.";
+
 /**
  * Session 28. What onComplete actually hands back -- the real shape of
  * what guided intake produces, NOT SmallClaimsIntake.tsx's
@@ -511,13 +515,6 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
 
       if (result.intakeComplete || !result.nextQuestion) {
         setIntakeComplete(true);
-        setMessages((current) => [
-          ...current,
-          {
-            from: "assistant",
-            text: "That's everything needed for now. You can review what you've entered, or continue to the next step whenever you're ready.",
-          },
-        ]);
         setCurrentQuestion(null);
         setLoading(false);
 
@@ -528,12 +525,18 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
         };
 
         // Depth phase runs only on a CONFIRMED claim type. Without one there
-        // is nothing to go deeper on, so completion is immediate — exactly
-        // today's behaviour.
+        // is nothing to go deeper on, so completion is immediate.
+        //
+        // The closing line is shown only when the intake is actually over.
+        // It used to be appended here unconditionally, so "That's everything
+        // needed for now" appeared directly ABOVE "A few more questions
+        // specific to this kind of claim" (found in a live run, 2026-09-28).
+        // When a depth phase follows, the depth phase owns the closing line.
         if (matchedClaimTypeThisTurn) {
           setCompletionPayload(payload);
-          void startDepthPhase(matchedClaimTypeThisTurn.claimTypeId, result.facts);
+          void startDepthPhase(matchedClaimTypeThisTurn.claimTypeId, result.facts, payload);
         } else {
+          setMessages((current) => [...current, { from: "assistant", text: INTAKE_CLOSING_LINE }]);
           onComplete?.(payload);
         }
         return;
@@ -717,7 +720,15 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
     };
   }
 
-  async function startDepthPhase(claimTypeId: string, currentFacts: IntakeFacts) {
+  // `payload` is passed in rather than read from completionPayload state: the
+  // caller sets that state in the same pass, so a read here (or in
+  // finishDepthPhase on the zero-question and error paths) still sees null and
+  // onComplete never fires -- the user would be stranded short of the overview.
+  async function startDepthPhase(
+    claimTypeId: string,
+    currentFacts: IntakeFacts,
+    payload: GuidedIntakeCompletionResult,
+  ) {
     setLoading(true);
     try {
       const result = await callDepthTurn(claimTypeId, currentFacts);
@@ -727,7 +738,8 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
       // not a failure — finish immediately rather than announcing a phase with
       // nothing in it.
       if (result.questions.length === 0) {
-        finishDepthPhase(result.stateMap);
+        setMessages((current) => [...current, { from: "assistant", text: INTAKE_CLOSING_LINE }]);
+        finishDepthPhase(result.stateMap, payload);
         return;
       }
 
@@ -747,15 +759,19 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
     } catch (err) {
       // A depth failure must never strand the user short of a draft.
       setError(err instanceof Error ? err.message : "Could not load the detailed questions.");
-      finishDepthPhase(depthStateMap);
+      setMessages((current) => [...current, { from: "assistant", text: INTAKE_CLOSING_LINE }]);
+      finishDepthPhase(depthStateMap, payload);
     } finally {
       setLoading(false);
     }
   }
 
-  function finishDepthPhase(stateMap: Record<string, unknown> | null) {
+  function finishDepthPhase(
+    stateMap: Record<string, unknown> | null,
+    payloadOverride?: GuidedIntakeCompletionResult,
+  ) {
     setDepthActive(false);
-    const payload = completionPayload;
+    const payload = payloadOverride ?? completionPayload;
     if (payload) {
       onComplete?.({ ...payload, elementStateMap: stateMap || undefined });
     }
@@ -797,7 +813,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
         if (!next) {
           setMessages((current) => [
             ...current,
-            { from: "assistant", text: "That's everything. You can continue to the next step." },
+            { from: "assistant", text: INTAKE_CLOSING_LINE },
           ]);
           finishDepthPhase(result.stateMap);
           return;
@@ -823,6 +839,7 @@ export default function GuidedSmallClaimsIntake({ initialStory, onComplete }: Pr
     setMessages((current) => [
       ...current,
       { from: "assistant", text: "No problem — skipping the rest of these." },
+      { from: "assistant", text: INTAKE_CLOSING_LINE },
     ]);
     finishDepthPhase(depthStateMap);
   }
