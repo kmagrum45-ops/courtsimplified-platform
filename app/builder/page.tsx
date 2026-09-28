@@ -41,7 +41,7 @@ import {
 import StageConfirmation from "./_components/StageConfirmation";
 import AiUseNotice from "../_components/AiUseNotice";
 import PathwayUnavailable from "../_components/PathwayUnavailable";
-import { isPathwayAvailable, type KnownPathway } from "../../src/lib/content-library/phaseScope";
+import { FORM_COMPLETION_PAUSED, isPathwayAvailable, type KnownPathway } from "../../src/lib/content-library/phaseScope";
 import FirstUseAcknowledgement from "../_components/FirstUseAcknowledgement";
 import LegalInformationNotice from "../_components/LegalInformationNotice";
 
@@ -1645,7 +1645,8 @@ function BuilderPageContent() {
               SmallClaimsIntelligenceInput built during the run, which no load
               path reconstructs.
             */}
-            {draftInput ? (
+            {/* Paused with official-form completion: see FORM_COMPLETION_PAUSED in phaseScope.ts. */}
+            {draftInput && !FORM_COMPLETION_PAUSED ? (
               <StatementOfClaimSurface
                 matchedClaimTypeId={draftClaimTypeId}
                 initialElementStateMap={draftElementStateMap}
