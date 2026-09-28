@@ -61,7 +61,19 @@ if (!supabaseUrl || !supabaseKey) {
   );
 }
 
-const supabase = createClient(supabaseUrl, supabaseKey);
+/*
+ * legal_form_mapping_rules is readable only by authenticated callers since
+ * 20260915090000_revoke_anon_write_and_scope_policies.sql. Read with an
+ * anonymous key, every mapping row comes back missing once that migration is
+ * applied, and this check reports "Mapping row N must exist" for rows that are
+ * there (CI on main, 2026-09-28). This script only SELECTs, so when the
+ * service role key is available (it is in CI) it reads with that; otherwise it
+ * falls back to the public key as before. The key is never printed.
+ */
+const readKey = process.env.SUPABASE_SERVICE_ROLE_KEY || supabaseKey;
+const supabase = createClient(supabaseUrl, readKey, {
+  auth: { persistSession: false, autoRefreshToken: false },
+});
 
 type CourtFormLibraryRow = {
   canonical_form_id: string;
