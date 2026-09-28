@@ -94,8 +94,9 @@ export default function FirstUseAcknowledgement({
 
       <p className="mt-3 text-[15px] leading-7 text-[#24463d]">
         We use AI to help organize what you write and point you to the right part of the
-        site. The legal and procedural wording you read is written by people and selected by
-        the AI, not composed by it — but it has <strong>not yet been reviewed by a licensed
+        site. The legal and procedural information you read comes from a library we prepare in
+        advance with AI help and check against the court rules and laws it cites. The AI does
+        not write it for you on the spot. It has <strong>not yet been reviewed by a licensed
         Ontario lawyer or paralegal</strong>. Check anything here against the official source
         before relying on it.
       </p>
