@@ -19,6 +19,28 @@ import {
 } from "@/src/lib/case-system/statementOfClaimDraftEngine";
 import type { SmallClaimsIntelligenceInput } from "@/src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 
+import { COURT_DOCUMENT_DRAFTING_ENABLED as CLAIM_DRAFTING_ENABLED } from "@/src/lib/case-system/policy/courtDocumentDrafting";
+
+/**
+ * Sourced general information shown in place of the draft. Nothing here is
+ * computed from the user's facts; it is the rule, repeated.
+ */
+const FORM_7A_RULE = {
+  text:
+    "Under the Rules of the Small Claims Court, an action is started by filing a " +
+    "Plaintiff's Claim (Form 7A) with the court clerk, with a copy for each defendant. " +
+    "When the claim is filed electronically, the extra copies are not needed.",
+  sourceName: "Rules of the Small Claims Court, O. Reg. 258/98, r. 7.01(1) and (1.1)",
+  sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+  verifiedAt: "2026-09-27",
+};
+
+const FORMS_PAGE = {
+  sourceName: "Ontario Court Forms — Rules of the Small Claims Court Forms",
+  sourceUrl: "https://ontariocourtforms.on.ca/en/rules-of-the-small-claims-court-forms/",
+  verifiedAt: "2026-09-27",
+};
+
 /**
  * The Statement of Claim surface: readiness gate, attestation, party details,
  * and the draft itself.
@@ -99,7 +121,7 @@ export default function StatementOfClaimSurface({
    * defaults and no inference from the story text.
    */
   const draft: StatementOfClaimDraft | null = useMemo(() => {
-    if (!gate.draftAvailable || !claimType) return null;
+    if (!CLAIM_DRAFTING_ENABLED || !gate.draftAvailable || !claimType) return null;
 
     return draftStatementOfClaimParticulars(
       {
@@ -149,7 +171,7 @@ export default function StatementOfClaimSurface({
         data-claim-type=""
         className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6"
       >
-        <h2 className="text-xl font-bold text-[#10231f]">Statement of Claim</h2>
+        <h2 className="text-xl font-bold text-[#10231f]">Preparing your Plaintiff&apos;s Claim (Form 7A)</h2>
         <p className="mt-2 text-sm text-[#4d675f]">
           A claim type has not been confirmed for this case yet. Once it is, this section will show
           what a claim of that kind generally involves.
@@ -164,10 +186,22 @@ export default function StatementOfClaimSurface({
       data-claim-type={claimType.id}
       className="mt-8 rounded-3xl border border-[#d8e6df] bg-white p-6"
     >
-      <h2 className="text-xl font-bold text-[#10231f]">Statement of Claim</h2>
+      <h2 className="text-xl font-bold text-[#10231f]">Preparing your Plaintiff&apos;s Claim (Form 7A)</h2>
       <p className="mt-2 text-sm text-[#4d675f]">
-        Claims like this one — {claimType.name} — generally involve the items below. Recording what
-        you have (or don&apos;t have) for each one lets us assemble a draft from your own words.
+        {FORM_7A_RULE.text}{" "}
+        <a
+          href={FORM_7A_RULE.sourceUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="font-semibold text-[#2f7d67] underline"
+        >
+          Source
+        </a>
+      </p>
+      <p className="mt-2 text-sm text-[#4d675f]">
+        You fill in the form yourself. Claims described as {claimType.name.toLowerCase()} generally
+        involve the items below. Recording what you have (or don&apos;t have) for each one keeps it
+        in your case file, ready for when you write your claim.
       </p>
 
       {/* --- Remedy: seeded from the claim type, confirmed by the user --- */}
@@ -280,7 +314,7 @@ export default function StatementOfClaimSurface({
             ))}
           </ul>
           <p className="mt-2 text-xs text-[#6b8078]">
-            These appear in the draft too, so what is not recorded is visible in the document.
+            These stay in your case file, so what is not recorded stays visible.
           </p>
         </div>
       ) : null}
@@ -291,8 +325,8 @@ export default function StatementOfClaimSurface({
           Names and addresses
         </h3>
         <p className="mt-1 text-sm text-[#4d675f]">
-          Leave anything you don&apos;t have yet blank — the draft will show a placeholder rather
-          than guessing.
+          The form asks for these. Leave anything you don&apos;t have yet blank and add it
+          later. Names are kept in your case file and are never sent to the AI.
         </p>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           {(
@@ -318,7 +352,32 @@ export default function StatementOfClaimSurface({
         </div>
       </div>
 
-      {/* --- The gate --- */}
+      {/* --- Guided self-completion (drafting is off; see CLAIM_DRAFTING_ENABLED) --- */}
+      {!CLAIM_DRAFTING_ENABLED ? (
+        <div className="mt-8 border-t border-[#d8e6df] pt-6 text-sm text-[#4d675f]">
+          <h3 className="text-sm font-semibold uppercase tracking-wide text-[#2f7d67]">
+            Filling in the form
+          </h3>
+          <p className="mt-2">
+            The official form is on the Ontario court forms site. Keep this page open while you
+            fill it in: the items above are what you have recorded so far.
+          </p>
+          <a
+            href={FORMS_PAGE.sourceUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-3 inline-block rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
+          >
+            Open the Small Claims court forms
+          </a>
+          {gate.blockers.some((b) => b.kind === "no-remedy-confirmed") ? (
+            <p className="mt-3">Still open in your case file: what you are asking the court for.</p>
+          ) : null}
+        </div>
+      ) : null}
+
+      {/* --- The gate (only when drafting is enabled) --- */}
+      {CLAIM_DRAFTING_ENABLED ? (
       <div className="mt-8 border-t border-[#d8e6df] pt-6">
         {gate.draftAvailable ? (
           <button
@@ -339,8 +398,9 @@ export default function StatementOfClaimSurface({
           </div>
         )}
       </div>
+      ) : null}
 
-      {showDraft && draft ? (
+      {CLAIM_DRAFTING_ENABLED && showDraft && draft ? (
         <div className="mt-6">
           <h3 className="text-sm font-semibold uppercase tracking-wide text-[#2f7d67]">
             Draft for your review
