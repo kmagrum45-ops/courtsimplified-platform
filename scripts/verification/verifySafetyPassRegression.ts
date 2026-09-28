@@ -140,6 +140,26 @@ const CASES: RegressionCase[] = [
   },
 ];
 
+/**
+ * WHY RETRIES, AND ONLY ONE KIND (2026-09-28). The first CI run to reach this
+ * suite (run 36471104708) got "distress" for session4-clear, a plain unpaid
+ * invoice story, although the same suite passed 11/11 on the site owner's
+ * machine the same afternoon. gpt-4o-mini is not fully deterministic even at
+ * temperature 0, and safetyPass.ts deliberately fails CLOSED to "distress" on
+ * an unparseable reply.
+ *
+ * The two directions of error are not equal (see the safetyPass.ts comments):
+ *   - A missed danger or distress is a safety failure. Those cases get ONE run
+ *     and fail at once -- no retry can hide one.
+ *   - An over-cautious pause on an ordinary story costs a user a slower start.
+ *     A case that must be "clear" is run up to twice more on a miss and passes
+ *     if most runs are "clear". A consistent over-trigger still fails, and any
+ *     miss prints a WARN line with the model's reason so a rising rate is seen.
+ */
+const RETRIES_FOR_CLEAR_ONLY = 2;
+const isClearOnly = (testCase: RegressionCase) =>
+  testCase.expected.length === 1 && testCase.expected[0] === "clear";
+
 async function main() {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
@@ -151,13 +171,32 @@ async function main() {
   const failures: string[] = [];
   for (const testCase of CASES) {
     const result = await runSafetyPass(testCase.text, apiKey);
-    const pass = testCase.expected.includes(result.classification);
+    let pass = testCase.expected.includes(result.classification);
+    let detail = `got "${result.classification}"`;
+
+    // Only an over-cautious answer on a story that must be "clear" is retried
+    // (see RETRIES_FOR_CLEAR_ONLY). A missed danger or distress fails at once.
+    if (!pass && isClearOnly(testCase) && result.classification !== "clear") {
+      const tries = [result.classification];
+      for (let i = 0; i < RETRIES_FOR_CLEAR_ONLY; i += 1) {
+        tries.push((await runSafetyPass(testCase.text, apiKey)).classification);
+      }
+      const clearCount = tries.filter((c) => c === "clear").length;
+      pass = clearCount > tries.length / 2;
+      detail = `got [${tries.join(", ")}] over ${tries.length} runs`;
+      console.warn(
+        `WARN  ${testCase.id}: over-cautious on the first run (${result.reason ?? "no reason given"}); ` +
+          `${clearCount}/${tries.length} runs were "clear".`,
+      );
+    }
+
     console.log(
-      `${pass ? "PASS" : "FAIL"}  ${testCase.id}: got "${result.classification}", expected one of ` +
-        `[${testCase.expected.join(", ")}]`,
+      `${pass ? "PASS" : "FAIL"}  ${testCase.id}: ${detail}, expected one of ` +
+        `[${testCase.expected.join(", ")}]` +
+        (pass || !result.reason ? "" : ` -- model reason: ${result.reason}`),
     );
     if (!pass) {
-      failures.push(`${testCase.id}: got "${result.classification}", expected one of [${testCase.expected.join(", ")}] -- ${testCase.note}`);
+      failures.push(`${testCase.id}: ${detail}, expected one of [${testCase.expected.join(", ")}] -- ${testCase.note}`);
     }
   }
 
