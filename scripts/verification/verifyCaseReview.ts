@@ -144,6 +144,23 @@ async function main(): Promise<void> {
     FILE,
   );
   check("an unknown amount with no recorded figure is still raised", stillUnknown.length === 1);
+  const differing = validateCaseReviewOutput(
+    { findings: [
+      { kind: "entries-differ", quotes: ["paid him 2000", "they charged me 3200"] },
+      { kind: "entries-differ", quotes: ["I paid him 2000 up front", "2000 plus what the judge"] },
+    ] },
+    { ...FILE, amountText: "2000 plus what the judge thinks is fare" },
+  );
+  check(
+    "amounts for different things are never shown as not matching",
+    !differing.some((f) => f.quotes.includes("they charged me 3200")),
+    JSON.stringify(differing.map((f) => f.quotes)),
+  );
+  const sameThing = validateCaseReviewOutput(
+    { findings: [{ kind: "entries-differ", quotes: ["I paid him 2000 up front", "paid him 1500 up front"] }] },
+    { ...FILE, timelineText: "paid him 1500 up front in march" },
+  );
+  check("two values for the same thing are still shown", sameThing.length === 1, JSON.stringify(sameThing));
   check("garbage model output yields nothing", validateCaseReviewOutput("nonsense", FILE).length === 0);
 
   // ---- every sentence a user can see ----

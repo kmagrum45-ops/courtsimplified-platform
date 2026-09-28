@@ -42,6 +42,37 @@ function normalize(text: string): string {
     .trim();
 }
 
+/**
+ * Words that say what a quote is ABOUT -- not numbers, not filler. Two quotes
+ * that share none are about different things and cannot "differ".
+ *
+ * 2026-09-28: the prompt alone did not stop gpt-4o-mini pairing amounts for
+ * different things -- "$2000 deposit" v "$3200 to finish", "$14,900" (price)
+ * v "$4,000" (loss), "$2,800" claimed v "$1,200" admitted -- across three
+ * story review runs. A real mismatch names the same thing twice ("paid him a
+ * $2000 deposit" v "the 1500 deposit"), so a shared subject word is required.
+ */
+const FILLER = new Set([
+  "about", "after", "again", "also", "back", "been", "before", "from", "have", "into", "just", "more",
+  "much", "only", "over", "paid", "said", "says", "some", "than", "that", "their", "them", "then",
+  "they", "this", "total", "were", "what", "when", "which", "will", "with", "would", "your",
+]);
+
+function subjectWords(quote: string): Set<string> {
+  return new Set(
+    normalize(quote)
+      .replace(/[^a-z\s]/g, " ")
+      .split(/\s+/)
+      .filter((word) => word.length >= 4 && !FILLER.has(word)),
+  );
+}
+
+function shareSubject(a: string, b: string): boolean {
+  const left = subjectWords(a);
+  for (const word of subjectWords(b)) if (left.has(word)) return true;
+  return false;
+}
+
 /** Pure. The whole safety of the AI half lives here. */
 export function validateCaseReviewOutput(raw: unknown, file: ConfirmedCaseFile): CaseReviewFinding[] {
   if (!raw || typeof raw !== "object") return [];
@@ -79,6 +110,7 @@ export function validateCaseReviewOutput(raw: unknown, file: ConfirmedCaseFile):
     if (typedKind === "entries-differ") {
       const [a, b] = clean.map(normalize);
       if (a === b || a.includes(b) || b.includes(a)) continue;
+      if (!shareSubject(clean[0], clean[1])) continue;
     }
 
     const key = `${typedKind}|${clean.map(normalize).sort().join("|")}`;
