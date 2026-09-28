@@ -13,7 +13,8 @@ the clean fixture, confirmed by directly running `matchClaimType()` against this
 
 Same prediction and same caveat (subject to real model variance) as `unpaid-invoice-clean.expected.md`:
 - `role: "plaintiff"`
-- `disputeCategory: "work-or-services"` (handyman deck-repair work, unpaid)
+- `disputeCategory: "unpaid-money"` (handyman deck-repair work, unpaid; was `work-or-services`, see
+  `unpaidInvoiceClean.expected.md` §2 note)
 - `claimFiled: false` ("I haven't filed anything with the court yet")
 
 ## 3. Questions expected to be selected
@@ -58,8 +59,8 @@ expectations are asserting).
 ## 5. The uncertain date
 
 The story states the completion date as "sometime in early spring 2026 -- I don't remember the
-exact date," both in the opening story and again when answering `sc-orient-when-happened` and
-`sc-contractor-completion-date`. **Expected: this should surface somewhere as an unconfirmed/
+exact date," both in the opening story and again when answering `sc-orient-when-happened`
+(`sc-contractor-completion-date` is no longer asked of someone owed payment; 2026-09-28). **Expected: this should surface somewhere as an unconfirmed/
 uncertain fact** (`missingInformation`, `risksAndGaps`, or equivalent) — CLAUDE.md §3's allowed
 framing is exactly "this date is unconfirmed," which is what a correct system should produce here,
 not a fabricated specific date and not silence.

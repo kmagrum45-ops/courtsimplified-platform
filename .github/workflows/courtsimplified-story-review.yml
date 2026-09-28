@@ -8,7 +8,7 @@ name: CourtSimplified Story Review
 # battery could not run.
 #
 # Runs on demand (Actions tab -> CourtSimplified Story Review -> Run workflow),
-# and whenever the battery or its stories change on main. It is not run on
+# and whenever the battery, the intake or the case review changes on main. It is not run on
 # every push: about 250 gpt-4o-mini calls a run.
 
 on:
@@ -18,6 +18,8 @@ on:
       - main
     paths:
       - scripts/verification/storyReview/**
+      - src/lib/case-system/intake/**
+      - src/lib/case-system/caseReview/**
       - .github/workflows/courtsimplified-story-review.yml
 
 permissions:
@@ -55,6 +57,17 @@ jobs:
       - name: Run the story review
         run: npm run review:stories
 
+      # CLAUDE.md section 7: intake changes must go through the fixture harness,
+      # which needs the real key. Its .actual.md output is published beside the
+      # report for comparison with the committed .expected.md files. A failure
+      # here is reported, not hidden, and does not stop the report publishing.
+      - name: Fixture harness
+        id: fixtures
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npm run test:fixtures 2>&1 | tee fixture-run.log
+
       - name: Publish the report to the story-review-reports branch
         env:
           GH_TOKEN: ${{ github.token }}
@@ -62,11 +75,15 @@ jobs:
           set -euo pipefail
           out="$(mktemp -d)"
           cp scripts/verification/storyReview/REPORT.md scripts/verification/storyReview/results.json "$out/"
+          mkdir -p "$out/fixtures"
+          cp scripts/verification/fixtures/*.actual.md "$out/fixtures/" || true
+          cp fixture-run.log "$out/fixtures/" || true
+          echo "fixture harness outcome: ${{ steps.fixtures.outcome }}" > "$out/fixtures/OUTCOME.txt"
           cd "$out"
           git init -q
           git config user.name "story-review-bot"
           git config user.email "story-review-bot@users.noreply.github.com"
-          git add REPORT.md results.json
+          git add -A
           git commit -q -m "Story review for ${GITHUB_SHA::7} (run ${GITHUB_RUN_ID})"
           git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/story-review-reports
           echo "Published to story-review-reports." >> "$GITHUB_STEP_SUMMARY"

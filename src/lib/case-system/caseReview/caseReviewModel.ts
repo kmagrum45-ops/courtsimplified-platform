@@ -48,6 +48,10 @@ export function validateCaseReviewOutput(raw: unknown, file: ConfirmedCaseFile):
   if (!Array.isArray(list)) return [];
 
   const haystack = normalize(caseFileText(file));
+  // What the user has NOT already listed as evidence. A document-mentioned
+  // finding that quotes their own evidence answer tells them to add what they
+  // just said they have (story review battery, 2026-09-28, SC1/SC2/SC5).
+  const beyondEvidence = normalize(caseFileText({ ...file, evidenceText: "" }));
   const seen = new Set<string>();
   const kept: CaseReviewFinding[] = [];
 
@@ -64,6 +68,10 @@ export function validateCaseReviewOutput(raw: unknown, file: ConfirmedCaseFile):
       (quote) => quote.length >= MIN_QUOTE && quote.length <= MAX_QUOTE && haystack.includes(normalize(quote)),
     );
     if (!allGrounded) continue;
+    if (typedKind === "document-mentioned" && !beyondEvidence.includes(normalize(clean[0]))) continue;
+    // "You said 'About $5,200'. A written quote would give you a figure" --
+    // a quote with a number in it is a figure, whatever the model thought.
+    if (typedKind === "unknown-amount-mentioned" && /\d/.test(clean[0])) continue;
     if (typedKind === "entries-differ") {
       const [a, b] = clean.map(normalize);
       if (a === b || a.includes(b) || b.includes(a)) continue;
@@ -88,10 +96,10 @@ export function validateCaseReviewOutput(raw: unknown, file: ConfirmedCaseFile):
 const SYSTEM_PROMPT = `You help a person keep their own court case file complete and consistent. You read what they wrote and point at places in THEIR OWN WORDS that are worth checking. You never give legal advice, never say whether they have a case, never judge who is right, and never write sentences for them.
 
 Return findings of these kinds only:
-- "document-mentioned": they mention something that a document, receipt, invoice, message, email or photo could show (a payment, a charge, a message sent, damage). One quote.
+- "document-mentioned": in their STORY they mention something that happened which a document, receipt, invoice, message, email or photo could show (a payment, a charge, a message sent, damage). Quote the event from the story, not their list of evidence -- what they already listed as evidence needs no pointer. One quote.
 - "date-approximate": they give a date only roughly ("in march", "a few weeks later", "last summer"). One quote.
 - "entries-differ": two things they wrote seem to disagree with each other (two different amounts for the same thing, two different dates for the same event). Two quotes.
-- "unknown-amount-mentioned": they say an amount is not known yet ("not sure how much", "whatever is fair"). One quote.
+- "unknown-amount-mentioned": they say they do not know or have not decided how much to claim ("not sure how much", "whatever is fair"). Not when they give a number, and not when they only say they were not paid. One quote.
 
 Each quote must be words copied exactly, character for character, from what they wrote. Copy a short phrase (a few words), not a whole sentence. If nothing fits, return an empty list. Leaving something out is always safe.
 

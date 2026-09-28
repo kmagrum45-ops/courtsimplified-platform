@@ -39,7 +39,7 @@ export const unpaidInvoiceCleanFixture: Fixture = {
   answers: {
     "sc-orient-when-happened": "The work was delivered on April 10, 2026, with payment due 15 days later.",
     "sc-orient-role": "Bringing the claim (plaintiff)",
-    "sc-orient-dispute-category": "Work done or services provided (e.g. a contractor)",
+    "sc-orient-dispute-category": "Unpaid money owed to you",
     "sc-amount-claimed": "$8,400",
     "sc-defamation-publication-details": "Not applicable -- this isn't a defamation matter.",
     "sc-claim-filed": "No, I haven't filed anything with the court yet.",

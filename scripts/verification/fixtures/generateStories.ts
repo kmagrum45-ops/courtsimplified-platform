@@ -79,7 +79,7 @@ const ARCHETYPES: Archetype[] = [
   // 1. sc-claim-unpaid-debt-services -- signal: "unpaid invoice"
   {
     claimTypeId: "sc-claim-unpaid-debt-services",
-    disputeCategoryChoice: "Work done or services provided (e.g. a contractor)",
+    disputeCategoryChoice: "Unpaid money owed to you",
     build: ({ i, amount, hasGap, dateUncertain }) => {
       const when = dateText(i, dateUncertain);
       const business = ["a marketing consultancy", "a bookkeeping service", "a photography studio", "a web development shop"][i % 4];

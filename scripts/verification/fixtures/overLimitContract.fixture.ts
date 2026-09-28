@@ -42,7 +42,7 @@ export const overLimitContractFixture: Fixture = {
   answers: {
     "sc-orient-when-happened": "The venue cancelled the remaining events on June 12, 2026, after we'd already delivered the first two.",
     "sc-orient-role": "Bringing the claim (plaintiff)",
-    "sc-orient-dispute-category": "Work done or services provided (e.g. a contractor)",
+    "sc-orient-dispute-category": "Unpaid money owed to you",
     "sc-amount-claimed": "$68,500",
     "sc-defamation-publication-details": "Not applicable -- this isn't a defamation matter.",
     "sc-claim-filed": "No, I haven't filed anything with the court yet.",

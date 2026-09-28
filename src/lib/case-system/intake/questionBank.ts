@@ -168,7 +168,10 @@ export const QUESTION_BANK: IntakeQuestion[] = [
       "A contract or agreement dispute",
       "Property damage",
       "A loan or debt",
-      "Work done or services provided (e.g. a contractor)",
+      // 2026-09-28: was "Work done or services provided (e.g. a contractor)",
+      // which a freelancer owed money would also pick. Unpaid work has its own
+      // choice above.
+      "Work or a service you paid for (e.g. a contractor)",
       "A deposit that wasn't returned",
       "A consumer purchase problem",
       "A vehicle-related dispute",
@@ -235,9 +238,17 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     status: "reviewed",
   },
   {
+    // 2026-09-28: plaintiff only. Worded from the plaintiff's side ("the other
+    // party", "the defendant"), it was asked of defendants too, because the gate
+    // tested only the filing facts. Found by the story review battery (SC7, SC8).
     id: "sc-defendant-served",
     courtArea: "small-claims",
-    appliesWhen: { field: "claimFiled", op: "equals", value: true },
+    appliesWhen: {
+      all: [
+        { field: "role", op: "equals", value: "plaintiff" },
+        { field: "claimFiled", op: "equals", value: true },
+      ],
+    },
     text:
       "Has the other party been formally served with the claim, and do you have a completed " +
       "Affidavit of Service (Form 8A)?",
@@ -252,9 +263,17 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     status: "reviewed",
   },
   {
+    // 2026-09-28: plaintiff only. Worded from the plaintiff's side ("the other
+    // party", "the defendant"), it was asked of defendants too, because the gate
+    // tested only the filing facts. Found by the story review battery (SC7, SC8).
     id: "sc-defence-filed",
     courtArea: "small-claims",
-    appliesWhen: { field: "claimServed", op: "equals", value: true },
+    appliesWhen: {
+      all: [
+        { field: "role", op: "equals", value: "plaintiff" },
+        { field: "claimServed", op: "equals", value: true },
+      ],
+    },
     text: "Has the other party filed a Defence with the court?",
     why:
       "A defendant generally has 20 calendar days to serve and file a defence. If that time has " +
@@ -270,10 +289,14 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     status: "reviewed",
   },
   {
+    // 2026-09-28: plaintiff only. Worded from the plaintiff's side ("the other
+    // party", "the defendant"), it was asked of defendants too, because the gate
+    // tested only the filing facts. Found by the story review battery (SC7, SC8).
     id: "sc-defence-time-elapsed",
     courtArea: "small-claims",
     appliesWhen: {
       all: [
+        { field: "role", op: "equals", value: "plaintiff" },
         { field: "claimServed", op: "equals", value: true },
         { field: "defenceFiled", op: "equals", value: false },
       ],
@@ -299,10 +322,14 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     // when service is effective depends on the method used), and one
     // composition question is unanswerable from the regulation at all.
     // The rule is now stated so the user can apply it to their own dates.
+    // 2026-09-28: plaintiff only. Worded from the plaintiff's side ("the other
+    // party", "the defendant"), it was asked of defendants too, because the gate
+    // tested only the filing facts. Found by the story review battery (SC7, SC8).
     id: "sc-defendant-noted-in-default",
     courtArea: "small-claims",
     appliesWhen: {
       all: [
+        { field: "role", op: "equals", value: "plaintiff" },
         { field: "claimServed", op: "equals", value: true },
         { field: "defenceFiled", op: "equals", value: false },
       ],
@@ -497,9 +524,18 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     status: "reviewed",
   },
   {
+    // 2026-09-28: plaintiff only, and "work-or-services" now means work the
+    // narrator PAID FOR (extractIntakeFacts.ts). Both questions are addressed to
+    // the customer ("before hiring anyone else"); they were asked of a contractor
+    // being sued and of freelancers owed money. Found by the story review battery.
     id: "sc-contractor-completion-date",
     courtArea: "small-claims",
-    appliesWhen: { field: "disputeCategory", op: "equals", value: "work-or-services" },
+    appliesWhen: {
+      all: [
+        { field: "role", op: "equals", value: "plaintiff" },
+        { field: "disputeCategory", op: "equals", value: "work-or-services" },
+      ],
+    },
     // Reworded 2026-09-28: the old text ("...and did that date pass before the
     // other party stopped responding?") read oddly when no date was agreed,
     // which is common with informal hires, and asked the user to compare two
@@ -517,9 +553,18 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     // Pure fact-gathering -- no legal rule is stated, so no sourceUrl is needed.
   },
   {
+    // 2026-09-28: plaintiff only, and "work-or-services" now means work the
+    // narrator PAID FOR (extractIntakeFacts.ts). Both questions are addressed to
+    // the customer ("before hiring anyone else"); they were asked of a contractor
+    // being sued and of freelancers owed money. Found by the story review battery.
     id: "sc-contractor-notice-before-replacement",
     courtArea: "small-claims",
-    appliesWhen: { field: "disputeCategory", op: "equals", value: "work-or-services" },
+    appliesWhen: {
+      all: [
+        { field: "role", op: "equals", value: "plaintiff" },
+        { field: "disputeCategory", op: "equals", value: "work-or-services" },
+      ],
+    },
     text:
       "Before hiring anyone else to finish or fix the work, did you tell the original contractor " +
       "about the problem and give them a chance to respond?",

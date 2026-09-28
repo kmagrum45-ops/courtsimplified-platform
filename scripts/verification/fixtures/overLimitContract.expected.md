@@ -15,7 +15,8 @@ running `matchClaimType()` against this exact text.
 
 Same prediction and caveat as the other two fixtures:
 - `role: "plaintiff"`
-- `disputeCategory: "work-or-services"` (a signed catering-services contract, unpaid balance)
+- `disputeCategory: "unpaid-money"` (a signed catering-services contract, unpaid balance; was
+  `work-or-services`, see `unpaidInvoiceClean.expected.md` §2 note)
 - `claimFiled: false`
 
 ## 3. Questions expected to be selected

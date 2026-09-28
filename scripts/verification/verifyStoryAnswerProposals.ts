@@ -86,15 +86,31 @@ async function main(): Promise<void> {
   check("quote matching ignores case and spacing", keptIds.includes("sc-contractor-notice-before-replacement"));
 
   const choiceKept = validateStoryProposals(
-    { proposals: [{ questionId: "sc-orient-dispute-category", answer: "work done or services provided (e.g. a contractor)", storyQuote: "hired a guy off kijiji" }] },
+    { proposals: [{ questionId: "sc-orient-dispute-category", answer: "work or a service you paid for (e.g. a contractor)", storyQuote: "hired a guy off kijiji" }] },
     STORY,
     offered,
   );
   check(
     "a choice answer is normalised to the reviewed choice text",
-    choiceKept[0]?.answer === "Work done or services provided (e.g. a contractor)",
+    choiceKept[0]?.answer === "Work or a service you paid for (e.g. a contractor)",
     JSON.stringify(choiceKept),
   );
+
+  // 2026-09-28, story review battery: "filed? -> No" from a quote that says
+  // nothing about filing.
+  const filedOffered = [q("sc-claim-filed")];
+  const offTopic = validateStoryProposals(
+    { proposals: [{ questionId: "sc-claim-filed", answer: "No", storyQuote: "I texted him for weeks" }] },
+    STORY,
+    filedOffered,
+  );
+  check("a filing proposal whose quote says nothing about filing is dropped", offTopic.length === 0, JSON.stringify(offTopic));
+  const onTopic = validateStoryProposals(
+    { proposals: [{ questionId: "sc-claim-filed", answer: "No", storyQuote: "I haven't filed anything yet" }] },
+    STORY + " I haven't filed anything yet.",
+    filedOffered,
+  );
+  check("a filing proposal quoting the person on filing is kept", onTopic.length === 1, JSON.stringify(onTopic));
 
   const unofferedQuestion = validateStoryProposals(
     { proposals: [{ questionId: "sc-remedy-sought", answer: "Money", storyQuote: "I want my 2000 back" }] },

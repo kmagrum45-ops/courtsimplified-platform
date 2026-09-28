@@ -100,6 +100,13 @@ import {
   DISTRESS_ACKNOWLEDGMENT,
 } from "../../content-library/crisisMessages";
 
+/*
+ * 2026-09-28: the "clear" definition now says outright that being wronged is
+ * not distress. The story review battery saw "distress" -- and the "we'll take
+ * this at a slower pace" message -- on three plain disputes told factually: a
+ * loan to a friend, a used car with an undisclosed accident, a false Facebook
+ * post. All three are now must-be-clear cases in verifySafetyPassRegression.ts.
+ */
 const SYSTEM_PROMPT = `You are a safety classifier for a legal self-help intake form. Read the free-text story and classify it into exactly one category. You do not give advice, you do not characterize the legal or factual situation, and you do not decide what happens next -- you only classify.
 
 Categories:
@@ -112,7 +119,7 @@ Categories:
 
 - "distress": no immediate danger (per the strict test above), but the story contains heavy content well beyond an ordinary factual account -- either strong emotional language (despair, being overwhelmed, crying, hopelessness) or serious-but-not-current content like past violence or trauma recounted as background, even when the person's tone is calm or flat.
 
-- "clear": an ordinary factual account, proceed normally. This includes anger or frustration on its own (without despair or hopelessness), and hyperbolic language the speaker themselves disclaims as not serious.
+- "clear": an ordinary factual account, proceed normally. This includes anger or frustration on its own (without despair or hopelessness), and hyperbolic language the speaker themselves disclaims as not serious. A dispute about money, a purchase, a loan, a job left unfinished, or something said about the person is "clear" when told factually, even though the person has lost money, been lied to, been ignored, lost customers, or been treated unfairly -- being wronged is what every dispute is about, not a sign of distress. Only choose "distress" for such a story when the person's own words show despair, hopelessness or being overwhelmed, or recount trauma.
 
 Separately, set "requestsLegalAdvice" to true when the person is asking us for a legal answer rather than describing what happened. Two kinds count, and both are true:
 

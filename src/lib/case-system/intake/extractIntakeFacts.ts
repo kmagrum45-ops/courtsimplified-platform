@@ -23,11 +23,20 @@ import { withAiCallContext } from "../../audit/aiCallLog";
 import { KNOWN_FACT_FIELDS, type KnownFactField } from "./questionBank";
 import type { IntakeFacts } from "./selectQuestions";
 
+/*
+ * 2026-09-28: disputeCategory is now a fixed list, not a free slug. The old
+ * prompt gave "work-or-services" as its only example, and the story review
+ * battery found it applied to a freelancer OWED money and to a used-car
+ * purchase -- which switched on two questions addressed to a contractor's
+ * customer. The list is guidedIntakeToSmallClaimsInput.ts's
+ * KNOWN_SMALL_CLAIMS_ISSUES plus "defamation" (aliased there) and
+ * "personal-injury" (in sc-date-injury's gate).
+ */
 const SYSTEM_PROMPT = `You extract structured facts from a short first-person story about a legal dispute. You do not give legal advice, characterize the dispute legally, or judge who is right. You only report what the story states or clearly implies.
 
 Return a JSON object with ONLY these fields, omitting any you cannot determine from the text:
 - "role": "plaintiff" if the narrator is the one bringing/considering a claim, "defendant" if they are responding to one.
-- "disputeCategory": a short lowercase-hyphenated slug for the kind of dispute, if clear (e.g. "work-or-services", "defamation"). Omit if unclear.
+- "disputeCategory": exactly one of these, if clear; omit if unclear. "unpaid-money" (the narrator is owed money for work they did, goods they supplied, or wages), "work-or-services" (the narrator PAID someone to do work or provide a service, such as a contractor, and has a problem with it), "contract-dispute", "loan-or-debt", "deposit-refund", "consumer-purchase", "vehicle-dispute", "property-damage", "defamation", "personal-injury", "other". If the narrator did the work and was not paid, that is "unpaid-money", not "work-or-services".
 - "claimFiled": true or false, only if the story explicitly says whether a court claim/Plaintiff's Claim has been filed. Omit if not mentioned.
 - "claimServed": true or false, only if the story explicitly addresses service on the other party. Omit if not mentioned.
 - "defenceFiled": true or false, only if the story explicitly addresses whether the other side filed a Defence. Omit if not mentioned.
@@ -118,7 +127,7 @@ Return a JSON object with exactly two top-level fields:
 
 - "facts": an object with ONLY these keys, omitting any you cannot determine from the text:
   - "role": "plaintiff" if the narrator is the one bringing/considering a claim, "defendant" if they are responding to one.
-  - "disputeCategory": a short lowercase-hyphenated slug for the kind of dispute, if clear (e.g. "work-or-services", "defamation"). Omit if unclear.
+  - "disputeCategory": exactly one of these, if clear; omit if unclear. "unpaid-money" (the narrator is owed money for work they did, goods they supplied, or wages), "work-or-services" (the narrator PAID someone to do work or provide a service, such as a contractor, and has a problem with it), "contract-dispute", "loan-or-debt", "deposit-refund", "consumer-purchase", "vehicle-dispute", "property-damage", "defamation", "personal-injury", "other". If the narrator did the work and was not paid, that is "unpaid-money", not "work-or-services".
   - "claimFiled": true or false, only if the story explicitly says whether a court claim/Plaintiff's Claim has been filed. Omit if not mentioned.
   - "claimServed": true or false, only if the story explicitly addresses service on the other party. Omit if not mentioned.
   - "defenceFiled": true or false, only if the story explicitly addresses whether the other side filed a Defence. Omit if not mentioned.

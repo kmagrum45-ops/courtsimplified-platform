@@ -100,6 +100,8 @@ type StoryRun = {
   depthAsked: { id: string; text: string }[];
   review: { aiRan: boolean; findings: { kind: string; text: string; quotes: string[]; ai: boolean }[] } | null;
   shown: Shown[];
+  /** The facts the intake ended with -- what every later screen reads. */
+  finalFacts: IntakeFacts;
   checks: CheckResult[];
   error?: string;
 };
@@ -175,12 +177,13 @@ async function runOne(story: ReviewStory, apiKey: string, offline: boolean): Pro
     depthAsked: [],
     review: null,
     shown: [],
+    finalFacts: {},
     checks: [],
   };
 
   // 1. Court routing.
   const court = await classifyCourtPath({ story: story.story, allowExternalCognition: !offline });
-  run.courtPath = court.primaryPath === "out-of-scope" ? `out-of-scope (${court.outOfScopeForum})` : court.primaryPath;
+  run.courtPath = court.primaryPath === "out-of-scope" ? `out-of-scope (${court.outOfScopeForum?.id ?? "unnamed forum"})` : court.primaryPath;
   run.courtPathSource = court.source;
   run.checks.push({
     check: "court-path",
@@ -321,6 +324,8 @@ async function runOne(story: ReviewStory, apiKey: string, offline: boolean): Pro
     }
   }
 
+  run.finalFacts = facts;
+
   // 6. Case review over the confirmed file.
   const file = caseFileFrom(story.story, facts, run.claimTypeUsed);
   const review = await runCaseReview(file, offline ? null : apiKey);
@@ -433,6 +438,13 @@ function renderReport(runs: StoryRun[], offline: boolean): string {
     lines.push("");
     if (r.error) lines.push(`**Run error:** ${r.error}`, "");
     for (const s of r.shown) lines.push(`- [${s.stage}] \`${s.id}\` ${s.text}`);
+    if (Object.keys(r.finalFacts).length > 0) {
+      const brief = Object.entries(r.finalFacts)
+        .filter(([, v]) => typeof v !== "string" || v.length <= 60)
+        .map(([k, v]) => `${k}=${JSON.stringify(v)}`)
+        .join(", ");
+      lines.push("", `Facts recorded: ${brief}`);
+    }
     lines.push("");
     for (const c of r.checks) lines.push(`- ${c.pass ? "PASS" : "**FAIL**"} ${c.check}: ${c.detail}`);
   }
@@ -466,7 +478,7 @@ async function main() {
         id: story.id, area: story.area, side: story.side, note: story.note, story: story.story,
         courtPath: "", courtPathSource: "", safety: "", halted: false, claimTypeMatched: null,
         claimTypeSuggested: null, claimTypeUsed: null, proposals: [], askedIds: [], unscripted: [],
-        depthAsked: [], review: null, shown: [], checks: [{ check: "ran", pass: false, detail: message }], error: message,
+        depthAsked: [], review: null, shown: [], finalFacts: {}, checks: [{ check: "ran", pass: false, detail: message }], error: message,
       });
     }
   }

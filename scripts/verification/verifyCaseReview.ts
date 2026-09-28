@@ -113,6 +113,27 @@ async function main(): Promise<void> {
   check("extra model fields never reach the text", kept.every((f) => !/win/i.test(f.text)));
   check("the same finding is not repeated", kept.filter((f) => f.kind === "document-mentioned").length === 1);
   check("AI-located findings are marked as such", kept.every((f) => f.aiLocated));
+
+  // 2026-09-28, story review battery: a pointer to add what the user already
+  // listed as evidence, and an "unknown amount" that quotes a figure.
+  const withEvidence: ConfirmedCaseFile = { ...FILE, evidenceText: "the second contractor's invoice and my texts" };
+  const pointless = validateCaseReviewOutput(
+    { findings: [
+      { kind: "document-mentioned", quotes: ["the second contractor's invoice"] },
+      { kind: "document-mentioned", quotes: ["they charged me 3200"] },
+    ] },
+    withEvidence,
+  );
+  check(
+    "a document pointer never quotes the user's own evidence list",
+    pointless.length === 1 && pointless[0].quotes[0] === "they charged me 3200",
+    JSON.stringify(pointless.map((f) => f.quotes)),
+  );
+  const figure = validateCaseReviewOutput(
+    { findings: [{ kind: "unknown-amount-mentioned", quotes: ["they charged me 3200"] }] },
+    FILE,
+  );
+  check("an amount with a figure in it is never called unknown", figure.length === 0);
   check("garbage model output yields nothing", validateCaseReviewOutput("nonsense", FILE).length === 0);
 
   // ---- every sentence a user can see ----

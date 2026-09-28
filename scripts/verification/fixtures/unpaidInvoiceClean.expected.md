@@ -20,7 +20,17 @@ signal phrase appears in the story.
 These ARE subject to model variance (`extractIntakeFactsWithConfidence` is a real GPT-4o-mini
 call) — stated as the well-grounded prediction, not a guarantee:
 - `role: "plaintiff"` — the narrator is the one who performed the work and wasn't paid, considering suing.
-- `disputeCategory: "work-or-services"` — a design-services agreement, unpaid.
+- `disputeCategory: "unpaid-money"` — a design-services agreement, unpaid (was `work-or-services`; see note below).
+> **Changed 2026-09-28.** The narrator here did the work and was not paid, so the predicted
+> category is now `unpaid-money`, and the scripted answer to `sc-orient-dispute-category` is
+> "Unpaid money owed to you". `extractIntakeFacts.ts` now has a fixed category list in which
+> `work-or-services` means work the narrator PAID FOR. The two contractor questions
+> (`sc-contractor-completion-date`, `sc-contractor-notice-before-replacement`) are addressed to a
+> contractor's customer ("before hiring anyone else to finish...") and are gated on
+> `role == plaintiff` AND `disputeCategory == work-or-services`, so they are no longer asked here.
+> This fixture's own scripted answer to the second one was "Not applicable -- I completed and
+> delivered the work myself", which is the defect. Found by the story review battery.
+
 - `claimFiled: false` — the story states explicitly: "I haven't filed anything with the court yet."
 
 ## 3. Questions expected to be selected
@@ -28,17 +38,18 @@ call) — stated as the well-grounded prediction, not a guarantee:
 Traced by hand through `selectQuestions.ts`'s `appliesWhen` evaluation against the facts in §2,
 against the real 15-question `QUESTION_BANK` (all `status: "reviewed"`):
 
-**Expected to be asked** (10, in phase order — orientation, then substance, then sensitive):
+**Expected to be asked** (8, in phase order — orientation, then substance, then sensitive):
 1. `sc-orient-when-happened`
 2. `sc-orient-role`
 3. `sc-orient-dispute-category`
 4. `sc-amount-claimed`
 5. `sc-claim-filed` (`appliesWhen: role == "plaintiff"` — true)
-6. `sc-contractor-completion-date` (`appliesWhen: disputeCategory == "work-or-services"` — true)
-7. `sc-contractor-notice-before-replacement` (same condition)
-8. `sc-evidence-available`
-9. `sc-remedy-sought`
-10. `sc-safety-check`
+6. `sc-evidence-available`
+7. `sc-remedy-sought`
+8. `sc-safety-check`
+
+(`sc-contractor-completion-date` and `sc-contractor-notice-before-replacement` were 6 and 7
+until 2026-09-28; see §2.)
 
 **Expected NOT to be asked** (5, all correctly gated out given no claim has been filed and this
 isn't a defamation matter):

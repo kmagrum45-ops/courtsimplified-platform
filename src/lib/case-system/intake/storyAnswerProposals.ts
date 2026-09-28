@@ -69,6 +69,18 @@ function normalize(text: string): string {
 }
 
 /**
+ * Questions whose answer the quote must actually be ABOUT. 2026-09-28: the
+ * story review battery found "Has a Plaintiff's Claim been filed? -> No"
+ * proposed from "they've stopped responding to my emails" and from "I want
+ * the rest back" -- real words from the story, saying nothing about filing.
+ * The quote check alone cannot see that. A proposal for one of these whose
+ * quote never touches the subject is dropped, and the question is asked.
+ */
+const QUOTE_MUST_MENTION: Record<string, RegExp> = {
+  "sc-claim-filed": /\b(fil(e|ed|ing)|court|claim|su(e|ed|ing))\b/i,
+};
+
+/**
  * The code-side check. Pure, so it runs offline in the suite.
  *
  * Drops a proposal when:
@@ -77,6 +89,7 @@ function normalize(text: string): string {
  *     case-insensitive);
  *   - a choice question's answer is not one of the reviewed choices;
  *   - a yes-no answer is not yes or no;
+ *   - the quote is not about the question's subject (QUOTE_MUST_MENTION);
  *   - the answer is empty or says the story does not say.
  * Keeps at most one proposal per question (the first).
  */
@@ -107,6 +120,8 @@ export function validateStoryProposals(
 
     const quote = normalize(storyQuote);
     if (quote.length < 3 || !normalizedStory.includes(quote)) continue;
+    const mustMention = QUOTE_MUST_MENTION[questionId];
+    if (mustMention && !mustMention.test(storyQuote)) continue;
 
     if (question.answerType === "choice") {
       const choice = (question.choices || []).find((option) => normalize(option) === normalize(trimmedAnswer));

@@ -42,7 +42,7 @@ export const unpaidInvoiceGapFixture: Fixture = {
   answers: {
     "sc-orient-when-happened": "Sometime in early spring 2026 -- I don't remember the exact date the work was finished.",
     "sc-orient-role": "Bringing the claim (plaintiff)",
-    "sc-orient-dispute-category": "Work done or services provided (e.g. a contractor)",
+    "sc-orient-dispute-category": "Unpaid money owed to you",
     "sc-amount-claimed": "$3,200",
     "sc-defamation-publication-details": "Not applicable -- this isn't a defamation matter.",
     "sc-claim-filed": "No, I haven't filed anything with the court yet.",

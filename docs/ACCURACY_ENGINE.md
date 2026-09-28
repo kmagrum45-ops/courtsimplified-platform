@@ -1374,7 +1374,16 @@ for the receipt or address), which no single-stage suite could see.
   demand or when the battery changes on main. The report is force-pushed to the
   `story-review-reports` branch; `git fetch origin story-review-reports` reads it without a
   browser login. Job logs need a signed-in browser; that branch does not.
-- A review, not a gate: findings never fail the workflow.
+- A review, not a gate: findings never fail the workflow. It also runs when `src/lib/case-system/intake/`
+  or `caseReview/` changes on main, and runs `test:fixtures` (CLAUDE.md section 7) in the same job,
+  publishing the three `.actual.md` files and the run log under `fixtures/` on the reports branch.
+- First run (2026-09-28) found, and this commit series fixed: plaintiff-worded filing questions asked of
+  defendants; the contractor-customer questions asked of freelancers owed money and a used-car buyer
+  (free `disputeCategory` slug, now a fixed list); `sc-claim-filed` proposed from quotes unrelated to
+  filing; case-review pointers quoting the user's own evidence list and "unknown amount" on a figure;
+  "distress" on three plain disputes. Still open: court routing sent a $185,000 renovation to Small
+  Claims and a $1,100 dog bite to civil; defendants are asked the noted-in-default and
+  judgment-at-a-hearing date questions whatever their stage.
 - `npm run review:stories -- --offline` checks the plumbing here with fake model calls. Its
   results mean nothing about quality.
 - Deterministic checks only (no model grades a model). The report also prints every question in

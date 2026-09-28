@@ -206,7 +206,7 @@ const STORIES: SurveyStory[] = [
       "[FABRICATED TEST DOCUMENT] Repair estimate from a second contractor to fix both the plumbing and the floor.",
     ],
     answers: withAnswers({
-      "sc-orient-dispute-category": "Work done or services provided (e.g. a contractor)",
+      "sc-orient-dispute-category": "Work or a service you paid for (e.g. a contractor)",
       "sc-amount-claimed": "$5,600",
       "sc-evidence-available": "I have photos of the water damage and the hardwood damage, plus a repair estimate from another contractor.",
       "sc-remedy-sought": "I want the cost of the repairs, based on the second contractor's estimate.",
@@ -266,7 +266,7 @@ const STORIES: SurveyStory[] = [
       "[FABRICATED TEST DOCUMENT] Call log showing four unanswered attempts to reach the company.",
     ],
     answers: withAnswers({
-      "sc-orient-dispute-category": "Work done or services provided (e.g. a contractor)",
+      "sc-orient-dispute-category": "Work or a service you paid for (e.g. a contractor)",
       "sc-amount-claimed": "$4,500",
       "sc-evidence-available": "I have the signed contract, photos of the unfinished patio, and a log of my calls trying to reach them.",
       "sc-remedy-sought": "I want a refund for the portion of the job that was never completed.",
