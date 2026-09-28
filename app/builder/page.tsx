@@ -995,6 +995,7 @@ function BuilderPageContent() {
   }
 
   function createSmallClaimsClaimDraft() {
+    if (FORM_COMPLETION_PAUSED) return; // paused: see phaseScope.ts
     const caseId = getActiveCaseId();
     if (!caseData || !caseId || courtPath !== "small-claims") {
       setSaveError("Save the selected Small Claims case before creating a working claim draft.");
@@ -1030,6 +1031,7 @@ function BuilderPageContent() {
     subtitle: string,
     factsHeading: string,
   ) {
+    if (FORM_COMPLETION_PAUSED) return; // paused: see phaseScope.ts
     const caseId = getActiveCaseId();
     if (!caseData || !caseId) {
       setSaveError("Save the selected case before creating a working draft.");
@@ -1676,17 +1678,17 @@ function BuilderPageContent() {
                 </p>
               ) : null}
               <div className="mt-4 flex flex-wrap gap-3">
-                {courtPath === "small-claims" && getActiveCaseId() && !originatingDocumentFiled ? (
+                {!FORM_COMPLETION_PAUSED && courtPath === "small-claims" && getActiveCaseId() && !originatingDocumentFiled ? (
                   <button type="button" onClick={createSmallClaimsClaimDraft} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Plaintiff&apos;s Claim draft (Form 7A)
                   </button>
                 ) : null}
-                {courtPath === "civil" && getActiveCaseId() && !originatingDocumentFiled ? (
+                {!FORM_COMPLETION_PAUSED && courtPath === "civil" && getActiveCaseId() && !originatingDocumentFiled ? (
                   <button type="button" onClick={() => createCourtAreaWorkingDraft("Draft Statement of Claim (Form 14A)", "Working draft created from your saved Ontario Civil intake — review and edit before use.", "Material facts")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Statement of Claim draft (Form 14A)
                   </button>
                 ) : null}
-                {courtPath === "family" && getActiveCaseId() && !originatingDocumentFiled ? (
+                {!FORM_COMPLETION_PAUSED && courtPath === "family" && getActiveCaseId() && !originatingDocumentFiled ? (
                   <button type="button" onClick={() => createCourtAreaWorkingDraft("Draft Family Application (Form 8)", "Working draft created from your saved Ontario Family intake — review and edit before use.", "Facts for review")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Family Application draft (Form 8)
                   </button>
