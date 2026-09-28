@@ -82,13 +82,7 @@ export type AiCallType =
    * to a code-verified quote. The user confirms every one. See
    * storyAnswerProposals.ts.
    */
-  | "propose-story-answers"
-  /**
-   * 2026-09-28. May only HIDE general-information overview items that plainly
-   * do not fit the user's confirmed facts. Writes no content. See
-   * overviewRelevanceCheck.ts.
-   */
-  | "overview-relevance-check";
+  | "propose-story-answers";
 
 export type AiValidationResult = "valid" | "invalid" | "error" | "timeout";
 

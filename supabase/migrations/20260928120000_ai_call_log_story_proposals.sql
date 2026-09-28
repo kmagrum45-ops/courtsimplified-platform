@@ -1,16 +1,11 @@
--- Adds two call types to ai_call_log.call_type:
+-- Adds one call type to ai_call_log.call_type:
 --
---   'propose-story-answers'     -- reads the user's opening story and proposes
---                                  answers to intake questions it already
---                                  answers, each tied to an exact quote from
---                                  the story that code verifies. The user
---                                  confirms, edits or removes every proposal.
---                                  See storyAnswerProposals.ts.
---   'overview-relevance-check'  -- after the overview is assembled, checks each
---                                  general-information item against the facts
---                                  the user CONFIRMED and may only hide items
---                                  that plainly do not fit. It writes no legal
---                                  content. See overviewRelevanceCheck.ts.
+--   'propose-story-answers' -- reads the user's opening story and proposes
+--                              answers to intake questions it already answers,
+--                              each tied to an exact quote from the story that
+--                              code verifies. The user confirms, edits or
+--                              removes every proposal. See
+--                              storyAnswerProposals.ts.
 --
 -- *** NOT APPLIED BY ANYTHING IN THIS REPOSITORY ***
 --
@@ -31,6 +26,5 @@ ALTER TABLE "public"."ai_call_log"
         'small-claims-analysis',
         'stage-resolver',
         'library-chat',
-        'propose-story-answers',
-        'overview-relevance-check'
+        'propose-story-answers'
     ));

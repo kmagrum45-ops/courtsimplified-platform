@@ -14,6 +14,12 @@ import type { AnalysisResult, StoredCaseData } from "./builderTypes";
 import { formatRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 import { FAMILY_RESOURCE_TOPICS } from "../../../src/lib/case-system/intake/familySafetyResources";
 import { JURISDICTION_ROUTES } from "../../../src/lib/case-system/intake/jurisdictionRoutes";
+import { routesForConfirmedClaimType } from "../../../src/lib/case-system/intake/jurisdictionRouteRelevance";
+import { splitLead } from "../../../src/lib/case-system/format/previewText";
+import {
+  SMALL_CLAIMS_RULES_SOURCE,
+  STARTING_A_SMALL_CLAIMS_ACTION,
+} from "../../../src/lib/content-library/smallClaimsStartingSteps";
 import {
   DEFAULT_PROCEEDING_ROUTES,
   SETTING_ASIDE_DEFAULT,
@@ -47,6 +53,37 @@ function documentLabel(document: string): string {
 
 function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return <section className="rounded-2xl border border-[#d8e6df] bg-white p-5"><h2 className="text-lg font-bold text-[#16302b]">{title}</h2><div className="mt-3 text-sm leading-7 text-[#24463d]">{children}</div></section>;
+}
+
+/**
+ * Long general-information text: a sentence-bounded lead, the rest behind
+ * "Read more". Nothing is removed or reworded -- see splitLead.
+ */
+function LongText({ text }: { text: string }) {
+  const { lead, rest } = splitLead(text);
+  if (!rest) return <>{text}</>;
+  return (
+    <>
+      {lead}{" "}
+      <details className="inline">
+        <summary className="inline cursor-pointer font-semibold text-[#2f7d67]">Read more</summary>
+        <span className="block mt-1">{rest}</span>
+      </details>
+    </>
+  );
+}
+
+function SourcedList({ items }: { items: SourcedListItem[] }) {
+  return (
+    <ul className="list-disc space-y-2 pl-5">
+      {items.map((item) => (
+        <li key={item.text}>
+          <LongText text={item.text} />
+          {item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
@@ -202,7 +239,23 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
    * own situation is also the posture CLAUDE.md section 2 requires — the
    * system states the rule, the user applies it.
    */
-  const jurisdictionRoutes = analysis.courtPath === "small-claims" ? JURISDICTION_ROUTES : [];
+  // 2026-09-28: narrowed by the claim type the USER confirmed, never by the
+  // story -- see jurisdictionRouteRelevance.ts. With no confirmed claim type
+  // every route is listed, as before.
+  const jurisdictionRoutes =
+    analysis.courtPath === "small-claims"
+      ? routesForConfirmedClaimType(JURISDICTION_ROUTES, confirmedClaimTypeId)
+      : [];
+  const routesNarrowed = jurisdictionRoutes.length < JURISDICTION_ROUTES.length;
+
+  // 2026-09-28. What the rules say about starting an action. Gated on the
+  // user's own record: bringing a claim, nothing filed yet. General
+  // information, the same for every such user.
+  const showStartingSteps =
+    analysis.courtPath === "small-claims" &&
+    /plaintiff/i.test(role) &&
+    analysis.caseStage === "starting-case" &&
+    !documents.includes("plaintiffs-claim");
 
   /*
    * Rule 11, shown when the user has recorded a default step.
@@ -232,28 +285,71 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
   // null for (Family/Civil, or a Small Claims story matching none of the 19
   // CLAIM_TYPES entries yet), same as courtPoints.
   const commonDefences: SourcedListItem[] = claimTypeContent ? claimTypeContent.commonDefences : [];
-  const snapshot = [
-    `${analysis.courtPath === "small-claims" ? "Small Claims" : analysis.courtPath === "family" ? "Family" : "Civil"} matter.`,
-    parties ? `Parties recorded: ${parties}.` : "",
-    role ? `Role: ${role}.` : "",
-    `Current stage: ${displayStage(analysis.caseStage)}.`,
-    amount ? `Amount recorded: ${formatRecordedAmount(amount)}.` : "",
-    outcome ? `Requested outcome: ${outcome}.` : "",
-    facts,
-  ].filter(Boolean);
+  // 2026-09-28. Labelled rows instead of one run-on paragraph that ended with
+  // the whole story pasted in. Values are still the user's own words, shown
+  // as entered -- nothing is corrected or restated -- and the story sits
+  // under its own heading.
+  const timeline = intake?.timeline?.trim() || "";
+  const confirmedClaimTypeName = claimTypeContent?.claimTypeName || "";
+  const snapshotRows: Array<[string, string]> = [
+    ["Court", analysis.courtPath === "small-claims" ? "Small Claims Court" : analysis.courtPath === "family" ? "Family" : "Civil (Superior Court)"],
+    ...(confirmedClaimTypeName ? ([["Kind of claim you confirmed", confirmedClaimTypeName]] as Array<[string, string]>) : []),
+    ...(parties ? ([["Parties recorded", parties]] as Array<[string, string]>) : []),
+    ...(role ? ([["Your role", role]] as Array<[string, string]>) : []),
+    ["Current stage", displayStage(analysis.caseStage)],
+    ...(timeline ? ([["When (your words)", timeline]] as Array<[string, string]>) : []),
+    ...(amount ? ([["Amount (your words)", formatRecordedAmount(amount)]] as Array<[string, string]>) : []),
+    ...(outcome ? ([["What you want (your words)", outcome]] as Array<[string, string]>) : []),
+  ];
 
   return <section className="rounded-3xl border border-[#d8e6df] bg-[#f8faf8] p-6 md:p-8" data-testid="case-overview">
     <h1 className="text-3xl font-bold tracking-tight text-[#10231f]">Your case overview</h1>
     <p className="mt-3 max-w-3xl text-sm leading-7 text-[#4d675f]">A clear view of the information saved from your intake and the next item to review.</p>
     <div className="mt-7 grid gap-5 lg:grid-cols-2">
-      <Card title="Case snapshot"><p>{snapshot.join(" ")}</p></Card>
+      <Card title="Case snapshot">
+        <dl className="grid grid-cols-[auto,1fr] gap-x-4 gap-y-1">
+          {snapshotRows.map(([label, value]) => (
+            <div key={label} className="contents">
+              <dt className="font-semibold text-[#10231f]">{label}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))}
+        </dl>
+        {facts ? (
+          <details className="mt-3">
+            <summary className="cursor-pointer font-semibold text-[#2f7d67]">What you told us</summary>
+            <p className="mt-2 whitespace-pre-wrap">{facts}</p>
+          </details>
+        ) : null}
+      </Card>
       {(issueSignals.length > 0 || issueTypeUndetermined) && <Card title="Issues to review">{hasDefamationSignal ? <><p className="font-semibold">Possible defamation or reputational-harm issue to review</p><p className="mt-2">The saved story describes an allegation said to have been communicated to other people and described as false. The court will need the full facts, context, evidence, and procedure reviewed.</p></> : hasAdoptionSignal ? <><p className="font-semibold">Possible adult step-parent adoption process to review</p><p className="mt-2">The saved facts describe an adult who may wish to be adopted by a long-term step-parent. Ontario has an adoption application process, but the required documents, notice/consent issues, and court requirements must be confirmed for the specific circumstances.</p></> : issueTypeUndetermined ? <p>We couldn’t determine a specific issue type from what you’ve described yet. Adding more detail about what happened, and what you want the court to do, will help narrow it.</p> : <ul className="list-disc space-y-1 pl-5">{issueSignals.map((issue) => <li key={issue}>Possible issue to review: {issue}. The saved facts and supporting information should be reviewed.</li>)}</ul>}</Card>}
       <Card title="Where your case is now"><p>{hasClaimAndService ? "Claim already filed and served." : `Recorded stage: ${displayStage(analysis.caseStage)}.`}</p></Card>
       <Card title="What to confirm next"><p className="font-semibold">{hasAdoptionSignal ? "Does the adult person freely agree to the proposed adoption?" : confirmQuestion}</p><p className="mt-2">{hasClaimAndService ? "This helps identify the next Small Claims step. Confirm it from the court record or documents you received." : hasAdoptionSignal ? "This helps organize the saved facts for review of the proposed adoption process." : "This helps keep the next review based on the facts already entered."}</p></Card>
       <Card title="Documents already recorded">{documents.length ? <ul className="list-disc space-y-1 pl-5">{documents.map((document) => <li key={document}>{documentLabel(document)}</li>)}</ul> : <p>No filed or served documents were selected in this intake.</p>}</Card>
       <Card title="Evidence and proof to organize">{recordedEvidence.length > 0 && <><h3 className="font-semibold">Evidence you have recorded</h3><ul className="mt-2 list-disc space-y-1 pl-5">{recordedEvidence.map((item) => <li key={item}>{item}</li>)}</ul></>}{evidenceToOrganize.length > 0 && <><h3 className={recordedEvidence.length ? "mt-5 font-semibold" : "font-semibold"}>Evidence to organize or confirm</h3><ul className="mt-2 list-disc space-y-1 pl-5">{evidenceToOrganize.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></>}</Card>
-      {courtPoints.length > 0 && <Card title="Points the court may need clarified"><ul className="list-disc space-y-1 pl-5">{courtPoints.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></Card>}
-      {commonDefences.length > 0 && <Card title="Defences that commonly come up"><p className="mb-3 text-sm leading-6 text-[#4d675f]">General information about defences that commonly arise for this type of claim -- not a prediction about what the other side will argue in this case.</p><ul className="list-disc space-y-1 pl-5">{commonDefences.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></Card>}
+      {showStartingSteps && (
+        <Card title="What the rules say about starting a Small Claims action">
+          <p className="mb-3 text-sm leading-6 text-[#4d675f]">
+            General information from the Rules of the Small Claims Court. You fill in and file the
+            form yourself; the Plaintiff&apos;s Claim section below walks through what it asks for.
+          </p>
+          <ol className="list-decimal space-y-2 pl-5">
+            {STARTING_A_SMALL_CLAIMS_ACTION.map((step) => (
+              <li key={step.id}>
+                <span className="font-semibold text-[#10231f]">{step.title}.</span> {step.text}{" "}
+                <span className="text-xs text-[#4d675f]">({step.pinpoint})</span>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-3 text-xs">
+            <a className="font-semibold text-[#2f7d67] underline" href={SMALL_CLAIMS_RULES_SOURCE.sourceUrl} target="_blank" rel="noreferrer">
+              {SMALL_CLAIMS_RULES_SOURCE.sourceName}
+            </a>
+          </p>
+        </Card>
+      )}
+      {courtPoints.length > 0 && <Card title="Points the court may need clarified"><SourcedList items={courtPoints} /></Card>}
+      {commonDefences.length > 0 && <Card title="Defences that commonly come up"><p className="mb-3 text-sm leading-6 text-[#4d675f]">General information about defences that commonly arise for this type of claim -- not a prediction about what the other side will argue in this case.</p><SourcedList items={commonDefences} /></Card>}
       {showDefaultProceedings && (
         <Card title="What rule 11 provides after a defendant is noted in default">
           <p className="mb-4 text-sm leading-6 text-[#4d675f]">
@@ -311,13 +407,16 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
           <p className="mb-3 text-sm leading-6 text-[#4d675f]">
             General information about kinds of matters that generally go elsewhere, listed so you can
             see whether any of them describes your situation. This is not a decision about your claim —
-            nothing here has been matched against what you recorded.
+            nothing here has been matched against your story.
+            {routesNarrowed
+              ? " Entries about kinds of claim other than the one you confirmed are left out."
+              : ""}
           </p>
           <ul className="space-y-5">
             {jurisdictionRoutes.map((route) => (
               <li key={route.id}>
                 <p className="font-semibold text-[#10231f]">{route.matterDescription}</p>
-                <p className="mt-1">{route.whyNotSmallClaims}</p>
+                <p className="mt-1"><LongText text={route.whyNotSmallClaims} /></p>
                 <p className="mt-1">
                   <span className="font-semibold">Generally goes to:</span> {route.destinationForum}.{" "}
                   {route.whereItGoes}

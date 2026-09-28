@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-78 documented, 30 without a header.
+79 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -52,6 +52,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:no-store` | **Every OpenAI request carries `store: false`, and no call site can bypass it.**<br>COSTS NOTHING. Reads source off disk and calls the factory with a fake key. No network, no model call. |
 | `npm run test:output-guard` | **Arbitrary model text cannot reach a user, and every user-facing model call**<br>returns structured output. |
 | `npm run test:overview-labels` | **Guards the two leaks the browser scenario harness found on 2026-08-22, across**<br>16 and 8 scenarios respectively: |
+| `npm run test:overview-relevance` | **The overview shows what fits the claim the user confirmed, and nothing is**<br>silently dropped or reworded. |
 | `npm run test:phase-scope` | **Phase 1 is Small Claims only, and no user reaches an empty screen.**<br>COSTS NOTHING. Reads source off disk and calls pure functions. |
 | `npm run test:presentation-help` | **Presentation help stays at Level 1: organise, never rewrite, never advise.**<br>COSTS NOTHING. No model call. Reads the vendored corpus off disk and calls pure functions. |
 | `npm run test:public-data` | **Public reference data must not be read through a session-carrying client.**<br>The forms page went blank with "Could not load forms — JWT issued in the future". The court form catalogue is public: a read with the anon key alone returns rows from every one of those tables, and nothing about them depends on who is asking. |

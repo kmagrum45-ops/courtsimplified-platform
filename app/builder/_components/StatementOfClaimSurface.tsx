@@ -20,6 +20,11 @@ import {
 import type { SmallClaimsIntelligenceInput } from "@/src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 
 import { COURT_DOCUMENT_DRAFTING_ENABLED as CLAIM_DRAFTING_ENABLED } from "@/src/lib/case-system/policy/courtDocumentDrafting";
+import {
+  PLAINTIFFS_CLAIM_CONTENTS,
+  PLAINTIFFS_CLAIM_CONTENTS_PINPOINT,
+  SMALL_CLAIMS_RULES_SOURCE,
+} from "@/src/lib/content-library/smallClaimsStartingSteps";
 
 /**
  * Sourced general information shown in place of the draft. Nothing here is
@@ -359,6 +364,25 @@ export default function StatementOfClaimSurface({
             Filling in the form
           </h3>
           <p className="mt-2">
+            The rules say a Plaintiff&apos;s Claim must contain the following, in concise and
+            non-technical language:
+          </p>
+          <ul className="mt-2 list-disc space-y-1 pl-5">
+            {PLAINTIFFS_CLAIM_CONTENTS.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          <p className="mt-1 text-xs">
+            <a
+              href={SMALL_CLAIMS_RULES_SOURCE.sourceUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold text-[#2f7d67] underline"
+            >
+              {SMALL_CLAIMS_RULES_SOURCE.sourceName}, {PLAINTIFFS_CLAIM_CONTENTS_PINPOINT}
+            </a>
+          </p>
+          <p className="mt-3">
             The official form is on the Ontario court forms site. Keep this page open while you
             fill it in: the items above are what you have recorded so far.
           </p>
