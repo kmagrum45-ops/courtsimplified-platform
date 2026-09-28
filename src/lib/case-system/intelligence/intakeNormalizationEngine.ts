@@ -810,7 +810,63 @@ function extractEvidence(text: string): ExtractedEvidence[] {
     });
   }
 
+  /*
+   * *** THE USER DESCRIBED EVIDENCE THE KEYWORDS ABOVE DO NOT KNOW ***
+   *
+   * The categories above recognise seven kinds of evidence by keyword. An
+   * invoice, a contract, a receipt, photos, a bill of sale, an appraisal or an
+   * affidavit matches none of them, so a user who listed only those ended with
+   * an empty list -- and evidenceIntelligenceEngine's buildMissingEvidenceGaps
+   * then told them, at high severity, "No evidence identified". The 2026-09-27
+   * case-review batch showed that in 5 of 10 cases, each of which had listed
+   * three to five documents.
+   *
+   * The fix is to stop saying something untrue, not to add categories. Every
+   * category above carries gap and admissibility wording, which is legal
+   * information and needs a source (CLAUDE.md section 2). So this item says only
+   * what is true -- the user described evidence that was not sorted into a
+   * category -- and carries no gaps and no admissibility concerns.
+   *
+   * It fires only when nothing above matched, and only when the intake actually
+   * contains described evidence: an intake with none still produces an empty
+   * list, and the "No evidence identified" gap still fires for it.
+   */
+  if (evidence.length === 0 && userDescribedEvidence(text)) {
+    pushEvidence({
+      id: createId("evidence"),
+      type: "unknown",
+      title: "Evidence described by the user",
+      description: "The intake describes evidence that has not been sorted into a category.",
+      linkedFactIds: [],
+      linkedIssueIds: [],
+      // Same default every item above uses; it is not an assessment of this
+      // evidence. finding.strength is itself an open item -- see the note in
+      // evidenceIntelligenceEngine.buildEvidenceIntelligenceAnalysis.
+      strength: "medium",
+      gaps: [],
+      admissibilityConcerns: [],
+      sourceText: text,
+    });
+  }
+
   return evidence;
+}
+
+/*
+ * The labels come from buildRawUserText() in smallClaimsIntelligenceEngine.ts,
+ * which is what produces the raw text for Small Claims. The text reaches here
+ * whitespace-normalized, so the section runs up to the next label rather than
+ * the next line. verifyDescribedEvidenceIsCounted exercises the real
+ * buildRawUserText -> normalizeIntake path, so a renamed label fails a suite
+ * instead of silently bringing the false warning back.
+ */
+const EVIDENCE_SECTION = /Evidence described:\s*(.*?)\s*(?:Missing evidence:|Settlement efforts:|Defence response:|Goal \/ requested outcome:|Urgent concerns:|Evidence file:|$)/i;
+const NOTHING_DESCRIBED = /^(?:none|nothing|n\/a|na|no|no evidence|not yet|unknown)\.?$/i;
+
+function userDescribedEvidence(text: string): boolean {
+  if (/Evidence file:/i.test(text)) return true;
+  const described = EVIDENCE_SECTION.exec(text)?.[1]?.trim() ?? "";
+  return described.length > 0 && !NOTHING_DESCRIBED.test(described);
 }
 
 function extractHarms(

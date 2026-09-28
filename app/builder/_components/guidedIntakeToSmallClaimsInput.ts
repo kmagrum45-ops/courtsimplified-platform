@@ -195,10 +195,25 @@ export function mapGuidedIntakeToSmallClaimsInput(
     deadlineDetails: "", // not collected
     facts: initialStory, // real -- the opening story, unchanged from what the user typed
     timeline: textField(result.facts.timelineText), // real -- verbatim answer to sc-orient-when-happened
-    evidence: textField(result.facts.evidenceText), // real -- verbatim answer to sc-evidence-available
+    // real -- verbatim answer to sc-evidence-available (plaintiff) or
+    // sc-defendant-response-evidence (defendant). The defendant branch was
+    // added after this mapper and its answers were dropped here: a served
+    // defendant who listed their documents reached the analysis with no
+    // evidence at all (case-review batch, 2026-09-27). Each question is gated
+    // to one role, so at most one of the two is ever set.
+    evidence: textField(result.facts.evidenceText) || textField(result.facts.defenceEvidenceText),
     missingEvidence: "", // not collected
     settlementEfforts: "", // not collected
-    defenceResponse: "", // not collected
+    // real -- the defendant branch's own words: which facts they agree and
+    // disagree with (sc-defendant-response-facts) and any part they accept
+    // owing (sc-defendant-admission-payment). Recorded as they wrote it; the
+    // mapper does not characterise their position.
+    defenceResponse: [
+      textField(result.facts.defenceFactsText),
+      textField(result.facts.admissionAndPaymentText),
+    ]
+      .filter(Boolean)
+      .join("\n\n"),
     goal: textField(result.facts.remedySoughtText), // real -- verbatim answer to sc-remedy-sought
     urgent: "", // not collected
   };
