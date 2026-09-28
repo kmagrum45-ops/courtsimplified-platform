@@ -16,4 +16,7 @@
  * back on deliberately if an approved sandbox scope allows it. Turning it on
  * is a regulatory decision, not a code one.
  */
-export const COURT_DOCUMENT_DRAFTING_ENABLED = false;
+import { isInScope } from "./a2iScope";
+
+/** Follows the "formCompletion" switch in a2iScope.ts -- the single place scope is decided. */
+export const COURT_DOCUMENT_DRAFTING_ENABLED: boolean = isInScope("formCompletion");
