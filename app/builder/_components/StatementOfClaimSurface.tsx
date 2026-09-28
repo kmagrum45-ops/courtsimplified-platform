@@ -20,6 +20,7 @@ import {
 import type { SmallClaimsIntelligenceInput } from "@/src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 
 import { COURT_DOCUMENT_DRAFTING_ENABLED as CLAIM_DRAFTING_ENABLED } from "@/src/lib/case-system/policy/courtDocumentDrafting";
+import ScopePreviewNotice from "./ScopePreviewNotice";
 import {
   PLAINTIFFS_CLAIM_CONTENTS,
   PLAINTIFFS_CLAIM_CONTENTS_PINPOINT,
@@ -403,6 +404,7 @@ export default function StatementOfClaimSurface({
       {/* --- The gate (only when drafting is enabled) --- */}
       {CLAIM_DRAFTING_ENABLED ? (
       <div className="mt-8 border-t border-[#d8e6df] pt-6">
+        <ScopePreviewNotice scope="formCompletion" />
         {gate.draftAvailable ? (
           <button
             type="button"

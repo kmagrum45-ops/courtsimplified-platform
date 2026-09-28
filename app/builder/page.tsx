@@ -27,6 +27,7 @@ import FamilyStatusTriage, {
 import CourtAssistantChat from "./_components/CourtAssistantChat";
 import IntelligenceOverviewPanel from "./_components/IntelligenceOverviewPanel";
 import CaseReviewPanel from "./_components/CaseReviewPanel";
+import ScopePreviewNotice from "./_components/ScopePreviewNotice";
 import ProcedureAuthorityDisplay from "./_components/ProcedureAuthorityDisplay";
 import EventCandidateSurface from "./_components/EventCandidateSurface";
 import { buildDerivedFrom } from "../../src/lib/case-system/events/caseAnalysisFreshness";
@@ -1681,6 +1682,11 @@ function BuilderPageContent() {
                   a draft of it is not offered here. If that is not right, change what is recorded
                   under &ldquo;Documents already recorded&rdquo;.
                 </p>
+              ) : null}
+              {COURT_DOCUMENT_DRAFTING_ENABLED ? (
+                <div className="mt-3">
+                  <ScopePreviewNotice scope="formCompletion" />
+                </div>
               ) : null}
               <div className="mt-4 flex flex-wrap gap-3">
                 {COURT_DOCUMENT_DRAFTING_ENABLED && courtPath === "small-claims" && getActiveCaseId() && !originatingDocumentFiled ? (

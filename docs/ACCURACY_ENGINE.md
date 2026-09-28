@@ -1346,3 +1346,8 @@ comments first. There is no case where reading the comments is what you wanted.
 - Not built yet: persisting "done / not relevant" (screen-only today), and a server-side case-file
   assembler that also reads `case_events` and the workspace tables. The review reads
   `master_result.intakeData` only.
+- **Testing preview.** Setting `NEXT_PUBLIC_CS_SCOPE_PREVIEW=on` turns every approval-tier capability
+  on for testing, on any deployment that is not Vercel production (both `VERCEL_ENV` and
+  `NEXT_PUBLIC_VERCEL_ENV` are checked). Set it on Vercel Preview/Development and in `.env.local`,
+  never Production. Previewed screens show `ScopePreviewNotice`. `test:a2i-scope` asserts the
+  preview never applies in production.

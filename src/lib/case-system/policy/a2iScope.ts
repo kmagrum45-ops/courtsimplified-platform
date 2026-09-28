@@ -115,14 +115,52 @@ export const A2I_SCOPE = {
 
 export type ScopeKey = keyof typeof A2I_SCOPE;
 
-/** The one question every feature asks. */
-export function isInScope(key: ScopeKey): boolean {
-  const capability: ScopeCapability = A2I_SCOPE[key];
+/**
+ * TESTING PREVIEW (2026-09-28, at the site owner's request).
+ *
+ * The site owner wants to build and test every step on his wish list now, and
+ * switch each one on for real users only when A2I approves it. So an
+ * unapproved capability can be turned on for TESTING ONLY, never in
+ * production:
+ *
+ *   - NEXT_PUBLIC_CS_SCOPE_PREVIEW must be exactly "on", AND
+ *   - the deployment must not be Vercel production (neither VERCEL_ENV nor
+ *     NEXT_PUBLIC_VERCEL_ENV is "production").
+ *
+ * Set the variable on Vercel's Preview and Development environments and in
+ * .env.local -- never on Production. Even if it were set on Production, the
+ * second condition keeps everything off there. Staging holds no user data
+ * (CLAUDE.md section 6), so nothing previewed reaches a real user. Screens
+ * showing a previewed capability must say so (scopeIsPreviewOnly()).
+ *
+ * The references are written out literally so Next.js inlines the public
+ * variables into client code; a dynamic lookup would read undefined there.
+ */
+export function scopePreviewActive(): boolean {
+  if (process.env.NEXT_PUBLIC_CS_SCOPE_PREVIEW !== "on") return false;
+  if (process.env.VERCEL_ENV === "production") return false;
+  if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") return false;
+  return true;
+}
+
+function approvedForRealUsers(capability: ScopeCapability): boolean {
   if (!capability.enabled) return false;
   // Belt and braces: an approval-tier switch with no recorded approval is off,
   // whatever `enabled` says. The suite fails loudly on this too.
   if (capability.tier === "needs-a2i-approval" && !capability.approval) return false;
   return true;
+}
+
+/** The one question every feature asks. */
+export function isInScope(key: ScopeKey): boolean {
+  const capability: ScopeCapability = A2I_SCOPE[key];
+  if (approvedForRealUsers(capability)) return true;
+  return capability.tier === "needs-a2i-approval" && scopePreviewActive();
+}
+
+/** True when a capability is on only because of the testing preview. */
+export function scopeIsPreviewOnly(key: ScopeKey): boolean {
+  return isInScope(key) && !approvedForRealUsers(A2I_SCOPE[key]);
 }
 
 export function listScope(): ScopeCapability[] {
