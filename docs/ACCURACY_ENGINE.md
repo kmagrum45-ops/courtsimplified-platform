@@ -1351,3 +1351,7 @@ comments first. There is no case where reading the comments is what you wanted.
   `NEXT_PUBLIC_VERCEL_ENV` are checked). Set it on Vercel Preview/Development and in `.env.local`,
   never Production. Previewed screens show `ScopePreviewNotice`. `test:a2i-scope` asserts the
   preview never applies in production.
+- **CI on main, 2026-09-28.** Releasing case-workspace to main surfaced six stale source checks
+  (fixed to assert properties) and four read-only catalogue checks refused by the
+  20260915090000 anon-read change (they now read with the service key when present). The safety
+  regression passed all 11 cases when run locally the same afternoon.
