@@ -330,6 +330,21 @@ function countSignals(text: string, terms: string[]): number {
   return terms.filter((term) => normalized.includes(term.toLowerCase())).length;
 }
 
+/**
+ * Whole-word matching, for the few terms that are also the start or end of
+ * unrelated words. 2026-09-28: the civil list's "contract" matched inside
+ * "contractor" and "sue" inside "sued"/"issue"/"pursue", so "take the
+ * contractor to small claims" scored one civil point against one small-claims
+ * point and came back "mixed" (story review battery, SC1 and SC7). The same
+ * precision bug as bare "rent" in "parent", fixed the same narrow way.
+ */
+function countWholeWordSignals(text: string, terms: string[]): number {
+  const normalized = normalizeText(text);
+  return terms.filter((term) =>
+    new RegExp(`\\b${term.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`).test(normalized),
+  ).length;
+}
+
 function currentDomainText(
   text: string,
   domainTerms: string[],
@@ -849,19 +864,18 @@ export function inferCourtArea(message: string): CasePartnerCourtArea {
     "criminal record",
   ]);
 
-  const civil = countSignals(message, [
-    "lawsuit",
-    "statement of claim",
-    "civil",
-    "negligence",
-    "defamation",
-    "contract",
-    "damages",
-    "sue",
-    "false statement",
-    "third party",
-    "reputation",
-  ]);
+  const civil =
+    countSignals(message, [
+      "lawsuit",
+      "statement of claim",
+      "civil",
+      "negligence",
+      "defamation",
+      "damages",
+      "false statement",
+      "third party",
+      "reputation",
+    ]) + countWholeWordSignals(message, ["contract", "contracts", "sue"]);
 
   // Bare "removal" was here until this fix -- it appears in ordinary civil
   // property stories ("removal of the fence," "removal of debris") with no

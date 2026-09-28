@@ -90,6 +90,9 @@ export const DEFENDANT_DEFAULTS: Record<string, string> = {
   "sc-defendant-service-method": "Someone handed it to me.",
   "sc-defendant-counterclaim": "I'm not sure.",
   "sc-defendant-admission-payment": "No.",
+  "sc-defendant-default-status": "No, neither has happened",
+  "sc-date-claim-served": "I'm not sure of the exact date.",
+  "sc-date-claim-issued": "I'm not sure, I'd have to check the form.",
 };
 
 export const STORIES: ReviewStory[] = [
@@ -233,13 +236,15 @@ export const STORIES: ReviewStory[] = [
       "wages were about $1,100.",
     answers: {
       "sc-amount-claimed": "My lost wages of $1,100 plus something for the injury, I'm not sure how much.",
+      "sc-date-injury": "September 3rd.",
       "sc-evidence-available": "The clinic receipt and photos of the bite.",
     },
     expect: {
       courtPath: ["small-claims"],
       safety: ["clear", "distress"],
       claimTypes: ["sc-claim-dog-bite-animal-injury"],
-      answeredByStory: ["sc-orient-when-happened"],
+      // The story gives the date of the injury outright.
+      answeredByStory: ["sc-orient-when-happened", "sc-date-injury"],
       role: "plaintiff",
       reviewShouldRaise: [{ kind: "document-mentioned" }],
     },

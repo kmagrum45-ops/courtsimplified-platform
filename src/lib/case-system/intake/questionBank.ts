@@ -69,6 +69,9 @@ export const KNOWN_FACT_FIELDS = [
   "serviceMethodText",
   "counterclaimIntentText",
   "admissionAndPaymentText",
+  // 2026-09-28. Verbatim choice from sc-defendant-default-status, gating the
+  // two "learned of" date questions below.
+  "defaultStatusText",
 ] as const;
 
 export type KnownFactField = (typeof KNOWN_FACT_FIELDS)[number];
@@ -130,6 +133,14 @@ export type IntakeQuestion = {
   reviewedAt: string | null;
   status: "draft" | "reviewed";
 };
+
+/** Choices for sc-defendant-default-status; the date questions gate on them by index. */
+export const DEFAULT_STATUS_CHOICES = [
+  "No, neither has happened",
+  "I've been noted in default",
+  "A judgment was made against me",
+  "I'm not sure",
+];
 
 export const QUESTION_BANK: IntakeQuestion[] = [
   // ---------------------------------------------------------------- orientation
@@ -796,12 +807,44 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     status: "reviewed",
   },
   {
+    // 2026-09-28. The story review battery found every defendant asked "If you
+    // have been noted in default, what date did you find out?" and "If
+    // judgment was made at a hearing you did not attend..." -- including
+    // people served last week. This asks first, in plain facts, and those two
+    // date questions follow only on a yes or "not sure". Their question ids,
+    // and so the deadline engine's inputs, are unchanged.
+    id: "sc-defendant-default-status",
+    courtArea: "small-claims",
+    appliesWhen: {
+      all: [
+        { field: "role", op: "equals", value: "defendant" },
+        { field: "claimServed", op: "equals", value: true },
+      ],
+    },
+    text:
+      "As far as you know, since you were served, has the court noted you in default or made a " +
+      "judgment against you?",
+    answerType: "choice",
+    choices: DEFAULT_STATUS_CHOICES,
+    capturesField: "defaultStatusText",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: "2026-09-28",
+    status: "reviewed",
+  },
+  {
     id: "sc-date-learned-of-default",
     courtArea: "small-claims",
     appliesWhen: {
       all: [
         { field: "role", op: "equals", value: "defendant" },
         { field: "claimServed", op: "equals", value: true },
+        {
+          field: "defaultStatusText",
+          op: "in",
+          values: [DEFAULT_STATUS_CHOICES[1], DEFAULT_STATUS_CHOICES[2], DEFAULT_STATUS_CHOICES[3]],
+        },
       ],
     },
     text: "If you have been noted in default, what date did you find out?",
@@ -827,7 +870,25 @@ export const QUESTION_BANK: IntakeQuestion[] = [
      */
     id: "sc-date-learned-of-judgment",
     courtArea: "small-claims",
-    appliesWhen: { field: "claimFiled", op: "equals", value: true },
+    // 2026-09-28: unchanged for a plaintiff; a defendant is asked only after
+    // saying a judgment was made, or not being sure.
+    appliesWhen: {
+      any: [
+        {
+          all: [
+            { field: "role", op: "equals", value: "plaintiff" },
+            { field: "claimFiled", op: "equals", value: true },
+          ],
+        },
+        {
+          all: [
+            { field: "role", op: "equals", value: "defendant" },
+            { field: "claimFiled", op: "equals", value: true },
+            { field: "defaultStatusText", op: "in", values: [DEFAULT_STATUS_CHOICES[2], DEFAULT_STATUS_CHOICES[3]] },
+          ],
+        },
+      ],
+    },
     text: "If judgment was made at a hearing you did not attend, what date did you find out?",
     examples: ["2026-03-02", "3 April 2026", "April 3 2026"],
     answerType: "date",

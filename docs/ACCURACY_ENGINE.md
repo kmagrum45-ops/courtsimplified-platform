@@ -1384,9 +1384,13 @@ for the receipt or address), which no single-stage suite could see.
   "distress" on three plain disputes; court routing ignoring amounts (a $185,000 renovation to Small
   Claims on keywords alone -- now a stated amount that contradicts the keyword answer sends the story
   to the model, whose prompt now carries the $50,000 line from CJA s. 23 (1) / O. Reg. 626/00 s. 1 (1)).
-  Still open: defendants are asked the noted-in-default and judgment-at-a-hearing date questions
-  whatever their stage; the keyword pass sends defamation to civil with no amount stated, and calls
-  some contractor stories "mixed" with no second path.
+  Then: defendants were asked the noted-in-default and judgment-at-a-hearing date questions whatever
+  their stage -- now `sc-defendant-default-status` asks first and the date questions (ids unchanged, so
+  the deadline engine's inputs are unchanged) follow only on yes / not sure; and the keyword pass
+  called contractor stories "mixed" because civil's "contract" matched "contractor" and "sue"
+  matched "sued" -- those two are now whole-word matches. Still open: the keyword pass sends a
+  defamation story with no amount to civil (the civil list has "defamation"); the chat engine shares
+  that list, so it was left for a decision rather than changed here.
 - `npm run review:stories -- --offline` checks the plumbing here with fake model calls. Its
   results mean nothing about quality.
 - Deterministic checks only (no model grades a model). The report also prints every question in
