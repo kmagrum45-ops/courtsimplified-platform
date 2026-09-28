@@ -679,7 +679,14 @@ assert.doesNotMatch(formsPageSource, /needsSmallClaims|needsFamily|needsCivil|el
 assert.match(formsPageSource, /Official source verified[\s\S]*Review before filing; current court requirements may differ\./, "Verified recommendations must show the required source and filing-review language");
 assert.match(formsPageSource, /!caseId[\s\S]*Save a case to verify a form recommendation/, "No-case mode must not receive a form recommendation");
 assert.doesNotMatch(formsPageSource, /stats\.(?:requiredCount|recommendedCount|completedCount)/, "Forms readiness must not read unsupported matched or completed counters");
-assert.match(formsPageSource, /Available official forms: \{stats\.total\}[\s\S]*Verified for this case: \{verifiedRecommendations\.length\}[\s\S]*Overlay-ready: \{stats\.overlayCount\}/, "Every displayed readiness count must come from current library, resolver, or overlay state");
+// The "Overlay-ready" count was removed when the page moved to download-and-
+// self-fill (7c9ee52); requiring it failed CI on main on 2026-09-28. The
+// property is that every count shown comes from current state, so the overlay
+// count is checked only if it is displayed.
+assert.match(formsPageSource, /Available official forms: \{stats\.total\}[\s\S]*Verified for this case: \{verifiedRecommendations\.length\}/, "Every displayed readiness count must come from current library, resolver, or overlay state");
+if (/Overlay-ready:/.test(formsPageSource)) {
+  assert.match(formsPageSource, /Overlay-ready: \{stats\.overlayCount\}/, "A displayed overlay count must come from current overlay state");
+}
 
 // ---- Bundle 4: family conference/motion + civil motion (5 records) -------
 const bundleFourMappings = [
