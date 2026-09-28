@@ -177,7 +177,7 @@ async function main() {
     // Only an over-cautious answer on a story that must be "clear" is retried
     // (see RETRIES_FOR_CLEAR_ONLY). A missed danger or distress fails at once.
     if (!pass && isClearOnly(testCase) && result.classification !== "clear") {
-      const tries = [result.classification];
+      const tries: SafetyClassification[] = [result.classification];
       for (let i = 0; i < RETRIES_FOR_CLEAR_ONLY; i += 1) {
         tries.push((await runSafetyPass(testCase.text, apiKey)).classification);
       }
