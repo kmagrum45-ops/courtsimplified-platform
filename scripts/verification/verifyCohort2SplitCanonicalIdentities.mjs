@@ -19,7 +19,13 @@ if (!supabaseUrl || !supabaseKey) {
     "NEXT_PUBLIC_SUPABASE_URL and an anon/publishable key are required (environment or .env.local).",
   );
 }
-const supabase = createClient(supabaseUrl, supabaseKey);
+// Read-only check. Content rule tables lost their anonymous read policies in
+// 20260915090000_revoke_anon_write_and_scope_policies.sql, so an anon client
+// reads them as empty once that migration is applied (CI on main, 2026-09-28).
+// Uses the service role key when available (it is in CI); never printed.
+const supabase = createClient(supabaseUrl, process.env.SUPABASE_SERVICE_ROLE_KEY || supabaseKey, {
+  auth: { persistSession: false, autoRefreshToken: false },
+});
 
 const repairs = [
   ["6cdaec7b-5e8b-4f31-a360-580fc85660d3", "c64b6ee4-f865-4da7-a8e9-6d26762d7098", "small-claims", "ontario/small-claims/scr-15a-aug22-en-fil.pdf", "pdf"],

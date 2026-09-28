@@ -30,7 +30,13 @@ if (!supabaseUrl || !supabaseKey) {
     "NEXT_PUBLIC_SUPABASE_URL and an anon/publishable key are required (environment or .env.local).",
   );
 }
-const supabase = createClient(supabaseUrl, supabaseKey);
+// Read-only check. Content rule tables lost their anonymous read policies in
+// 20260915090000_revoke_anon_write_and_scope_policies.sql, so an anon client
+// reads them as empty once that migration is applied (CI on main, 2026-09-28).
+// Uses the service role key when available (it is in CI); never printed.
+const supabase = createClient(supabaseUrl, process.env.SUPABASE_SERVICE_ROLE_KEY || supabaseKey, {
+  auth: { persistSession: false, autoRefreshToken: false },
+});
 
 async function fetchProcedureRulesById(ids: readonly number[]) {
   const { data, error } = await supabase
