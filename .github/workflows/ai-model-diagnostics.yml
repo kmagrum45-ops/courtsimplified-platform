@@ -1,6 +1,6 @@
-# Temporary: runs the real-AI safety suite on this branch only and saves its
-# output to the ai-model-diagnostics-reports branch so it can be read without
-# Actions log access. Delete this branch when done; never merge it.
+# Temporary: side-by-side comparison of gpt-4o-mini vs the new tiered models.
+# Saves reports to the ai-model-diagnostics-reports branch (no Actions log
+# access needed). Delete this branch when done; never merge it.
 name: AI model diagnostics
 on:
   push:
@@ -10,6 +10,11 @@ permissions:
 jobs:
   diagnose:
     runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [old, new]
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -20,13 +25,29 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Safety regression
+      - name: Pick models
         run: |
-          for i in 1 2 3; do echo "=== RUN $i" >> safety.log; npm run test:safety-regression >> safety.log 2>&1 || echo "EXIT $?" >> safety.log; done
-      - name: Publish log
+          if [ "${{ matrix.variant }}" = "old" ]; then
+            echo "AI_MODEL_DEEP=gpt-4o-mini" >> $GITHUB_ENV
+            echo "AI_MODEL_STANDARD=gpt-4o-mini" >> $GITHUB_ENV
+          fi
+      - name: Lift the journey timeout for measurement only
+        run: sed -i 's/PIPELINE_JOURNEY_TIMEOUT_MS = 90_000/PIPELINE_JOURNEY_TIMEOUT_MS = 900_000/' scripts/verification/pipelineGuards.ts
+      - name: Story review
+        run: npm run review:stories > story.log 2>&1 || echo "EXIT $?" >> story.log
+      - name: Fixtures
         run: |
-          mkdir -p out && mv safety.log out/
-          sed -i -E 's/sk-[A-Za-z0-9_-]{10,}/[redacted]/g' out/safety.log
+          start=$(date +%s); npm run test:fixtures > fixtures.log 2>&1 || echo "EXIT $?" >> fixtures.log
+          echo "FIXTURES WALL SECONDS $(( $(date +%s) - start ))" >> fixtures.log
+      - name: Publish
+        run: |
+          V=${{ matrix.variant }}
+          mkdir -p out/$V
+          cp story.log fixtures.log out/$V/ || true
+          cp scripts/verification/storyReview/REPORT*.md scripts/verification/storyReview/results*.json out/$V/ || true
+          mkdir -p out/$V/fixtures && cp scripts/verification/fixtures/*.actual.md out/$V/fixtures/ || true
+          cp .ai-call-log.jsonl out/$V/ai-call-log.jsonl || true
+          grep -rlE "sk-[A-Za-z0-9_-]{10,}" out && sed -i -E 's/sk-[A-Za-z0-9_-]{10,}/[redacted]/g' $(grep -rlE "sk-[A-Za-z0-9_-]{10,}" out) || true
           cd out && git init -q && git checkout -q -b r
-          git -c user.name=ci -c user.email=ci@example.com add . && git -c user.name=ci -c user.email=ci@example.com commit -q -m "diagnostics ${GITHUB_SHA::7}"
-          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" r:refs/heads/ai-model-diagnostics-reports
+          git -c user.name=ci -c user.email=ci@example.com add . && git -c user.name=ci -c user.email=ci@example.com commit -q -m "diagnostics $V"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" r:refs/heads/ai-diag-$V
