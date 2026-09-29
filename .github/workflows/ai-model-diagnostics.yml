@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        variant: [old, new]
+        variant: [new2]
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -33,6 +33,8 @@ jobs:
           fi
       - name: Lift the journey timeout for measurement only
         run: sed -i 's/PIPELINE_JOURNEY_TIMEOUT_MS = 90_000/PIPELINE_JOURNEY_TIMEOUT_MS = 900_000/' scripts/verification/pipelineGuards.ts
+      - name: Safety regression x3
+        run: for i in 1 2 3; do echo "=== RUN $i" >> safety.log; npm run test:safety-regression >> safety.log 2>&1 || echo "EXIT $?" >> safety.log; done
       - name: Story review
         run: npm run review:stories > story.log 2>&1 || echo "EXIT $?" >> story.log
       - name: Fixtures
@@ -43,7 +45,7 @@ jobs:
         run: |
           V=${{ matrix.variant }}
           mkdir -p out/$V
-          cp story.log fixtures.log out/$V/ || true
+          cp story.log fixtures.log safety.log out/$V/ || true
           cp scripts/verification/storyReview/REPORT*.md scripts/verification/storyReview/results*.json out/$V/ || true
           mkdir -p out/$V/fixtures && cp scripts/verification/fixtures/*.actual.md out/$V/fixtures/ || true
           cp .ai-call-log.jsonl out/$V/ai-call-log.jsonl || true
