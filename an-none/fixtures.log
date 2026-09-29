@@ -1,0 +1,21 @@
+
+> courtsimplified@0.1.0 test:fixtures
+> node --import tsx scripts/verification/runFixtures.ts
+
+[db] test:fixtures -> no Supabase URL configured
+
+======================================================================
+Running fixture: unpaid-invoice-clean
+======================================================================
+[aiCallLog] sink: file (.ai-call-log.jsonl)
+CourtSimplified GPT cognition failed. { errorName: 'Error' }
+  DEGRADED (not written): brain cognition fell back to buildFallbackCognition() — the structured OpenAI call failed (rate limit, timeout, or parse error) and the summaries are canned placeholder text, not real pipeline output
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+FIXTURE RUN ABORTED — 1 failure(s). No .actual.md was written
+for the failing fixture, and any fixture after it was not attempted, so the
+committed files are NOT a mixed record of one good run and one bad one.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  - unpaid-invoice-clean: brain cognition fell back to buildFallbackCognition() — the structured OpenAI call failed (rate limit, timeout, or parse error) and the summaries are canned placeholder text, not real pipeline output
+EXIT 1
+FIXTURES WALL SECONDS 45
