@@ -21,7 +21,8 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Safety regression
-        run: npm run test:safety-regression > safety.log 2>&1 || echo "EXIT $?" >> safety.log
+        run: |
+          for i in 1 2 3; do echo "=== RUN $i" >> safety.log; npm run test:safety-regression >> safety.log 2>&1 || echo "EXIT $?" >> safety.log; done
       - name: Publish log
         run: |
           mkdir -p out && mv safety.log out/
