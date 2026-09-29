@@ -56,6 +56,7 @@ import {
 } from "../guided-assistant/conversationIntelligenceEngine";
 import { getOutOfScopeForum, type OutOfScopeForum } from "./outOfScopeForums";
 import { withAiCallContext } from "../../audit/aiCallLog";
+import { modelParams } from "../aiModels";
 
 // The three paths CourtSimplified actually routes to. The keyword pass can
 // return other areas (ltb, immigration, criminal-related); those are reported
@@ -699,13 +700,16 @@ async function classifyCourtPathInner(
     const client = createOpenAIClient();
 
     const response = await client.chat.completions.create({
-      model:
-        process.env.COURTSIMPLIFIED_CLASSIFIER_MODEL ||
-        process.env.COURTSIMPLIFIED_REASONING_MODEL ||
-        "gpt-4o-mini",
-      temperature: 0,
-      // Caps spend on a job whose answer is four short fields.
-      max_tokens: 200,
+      ...modelParams("deep", {
+        model:
+          process.env.COURTSIMPLIFIED_CLASSIFIER_MODEL ||
+          process.env.COURTSIMPLIFIED_REASONING_MODEL,
+        temperature: 0,
+        // Caps spend on a job whose answer is four short fields. modelParams
+        // adds reasoning headroom on top: thinking tokens count against this
+        // cap, and 200 alone would be spent before the answer was written.
+        maxOutputTokens: 200,
+      }),
       response_format: { type: "json_object" },
       messages: [
         { role: "system", content: SYSTEM_PROMPT },

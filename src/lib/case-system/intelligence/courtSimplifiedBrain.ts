@@ -37,6 +37,7 @@ import {
 } from "./intelligenceTypes";
 
 import { normalizeIntake } from "./intakeNormalizationEngine";
+import { modelParams } from "../aiModels";
 import { buildElementProofAnalysis } from "./elementProofEngine";
 import { buildBrainMigrationLayer } from "../orchestration/brainMigrationLayer";
 import { buildEvidenceIntelligenceAnalysis } from "../evidence/evidenceIntelligenceEngine";
@@ -2029,8 +2030,16 @@ async function runStructuredGptCognitionInner(
     const client = createOpenAIClient();
 
     const response = await client.chat.completions.create({
-      model: process.env.COURTSIMPLIFIED_REASONING_MODEL || "gpt-4o-mini",
-      temperature: 0.1,
+      ...modelParams("deep", {
+        model: process.env.COURTSIMPLIFIED_REASONING_MODEL,
+        // Measured 2026-09-29 on the story review: this call took a median
+        // 77s at the deep tier's "medium" effort (9.5s on gpt-4o-mini) --
+        // too long for a person waiting on their analysis. It returns a large
+        // JSON document, so it gets "low" unless AI_EFFORT_ANALYSIS says
+        // otherwise.
+        effort: process.env.AI_EFFORT_ANALYSIS || "low",
+        temperature: 0.1,
+      }),
       response_format: { type: "json_object" },
       messages: [
         {

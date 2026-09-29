@@ -65,10 +65,13 @@ import { costOf, type Usage } from "../content/verifiedContentPipeline";
 import { DEADLINE_CASES, runDeadlineCases } from "./deadlineCases";
 import { runChatCases } from "./chatCases";
 import { assertNotProduction } from "../db/assertNotProduction";
+import { resolveTier } from "../../src/lib/case-system/aiModels";
 
 dotenv.config({ path: ".env.local", quiet: true });
 
-const MODEL = "gpt-4o-mini";
+// The eval measures what production runs: the deep tier from aiModels.ts,
+// unless EVAL_MODEL names another model to compare against.
+const MODEL = process.env.EVAL_MODEL || resolveTier("deep").model;
 
 type Result = {
   story: Story;

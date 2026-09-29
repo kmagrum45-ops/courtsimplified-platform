@@ -19,6 +19,7 @@
  */
 
 import { createOpenAIClient } from "../openaiClient";
+import { modelParams } from "../aiModels";
 import { withAiCallContext } from "../../audit/aiCallLog";
 import { KNOWN_FACT_FIELDS, type KnownFactField } from "./questionBank";
 import type { IntakeFacts } from "./selectQuestions";
@@ -80,8 +81,7 @@ export async function extractIntakeFacts(storyText: string, apiKey: string): Pro
 async function extractIntakeFactsInner(storyText: string, apiKey: string): Promise<IntakeFacts> {
   const client = createOpenAIClient(apiKey);
   const response = await client.chat.completions.create({
-    model: "gpt-4o-mini",
-    temperature: 0,
+    ...modelParams("standard", { temperature: 0 }),
     response_format: { type: "json_object" },
     messages: [
       { role: "system", content: SYSTEM_PROMPT },
@@ -168,8 +168,7 @@ async function extractIntakeFactsWithConfidenceInner(
 ): Promise<ExtractedFactsWithConfidence> {
   const client = createOpenAIClient(apiKey);
   const response = await client.chat.completions.create({
-    model: "gpt-4o-mini",
-    temperature: 0,
+    ...modelParams("standard", { temperature: 0 }),
     response_format: { type: "json_object" },
     messages: [
       { role: "system", content: CONFIDENCE_SYSTEM_PROMPT },

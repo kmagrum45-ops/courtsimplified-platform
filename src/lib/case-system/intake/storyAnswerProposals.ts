@@ -31,6 +31,7 @@
  */
 
 import { createOpenAIClient } from "../openaiClient";
+import { modelParams } from "../aiModels";
 import { withAiCallContext } from "../../audit/aiCallLog";
 import type { IntakeQuestion } from "./questionBank";
 
@@ -189,8 +190,7 @@ async function proposeAnswersFromStoryInner(
 ): Promise<StoryAnswerProposal[]> {
   const client = createOpenAIClient(apiKey);
   const response = await client.chat.completions.create({
-    model: "gpt-4o-mini",
-    temperature: 0,
+    ...modelParams("standard", { temperature: 0 }),
     response_format: { type: "json_object" },
     messages: [
       { role: "system", content: SYSTEM_PROMPT },
