@@ -1,0 +1,28 @@
+
+> courtsimplified@0.1.0 test:fixtures
+> node --import tsx scripts/verification/runFixtures.ts
+
+[db] test:fixtures -> no Supabase URL configured
+
+======================================================================
+Running fixture: unpaid-invoice-clean
+======================================================================
+[aiCallLog] sink: file (.ai-call-log.jsonl)
+Wrote /home/runner/work/courtsimplified-platform/courtsimplified-platform/scripts/verification/fixtures/unpaidInvoiceClean.actual.md
+  turns: 9, halted: false, matchedClaimType: sc-claim-unpaid-debt-services
+
+======================================================================
+Running fixture: unpaid-invoice-gap
+======================================================================
+Wrote /home/runner/work/courtsimplified-platform/courtsimplified-platform/scripts/verification/fixtures/unpaidInvoiceGap.actual.md
+  turns: 9, halted: false, matchedClaimType: sc-claim-unpaid-debt-services
+
+======================================================================
+Running fixture: over-limit-contract
+======================================================================
+[caseStrengthLanguageValidator] blanked cognition.systemWarnings[3] (matched term "viability"): Classification scores describe factual topic correspondence, not merits, viability, or likelihood of success.
+Wrote /home/runner/work/courtsimplified-platform/courtsimplified-platform/scripts/verification/fixtures/overLimitContract.actual.md
+  turns: 9, halted: false, matchedClaimType: sc-claim-unpaid-debt-services
+
+All 3 fixture(s) ran and were written.
+FIXTURES WALL SECONDS 278
