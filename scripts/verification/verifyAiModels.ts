@@ -156,6 +156,13 @@ withEnv({ ...CLEAN_ENV, AI_EFFORT_STANDARD: "none" }, () => {
   }
 });
 
+withEnv({ ...CLEAN_ENV, AI_EFFORT_DEEP: "high" }, () => {
+  check("a per-call effort beats the tier's env effort",
+    resolveTier("deep", undefined, "low").effort === "low");
+  check("an invalid per-call effort falls back to the tier",
+    resolveTier("deep", undefined, "fast").effort === "high");
+});
+
 withEnv({ ...CLEAN_ENV, AI_EFFORT_DEEP: "extreme" }, () => {
   check("an invalid effort in env falls back to the tier default",
     resolveTier("deep").effort === TIER_DEFAULTS.deep.effort);

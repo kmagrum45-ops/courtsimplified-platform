@@ -108,18 +108,30 @@ function isEffort(value: unknown): value is AiEffort {
 export function resolveTier(
   tier: AiTier,
   modelOverride?: string,
+  effortOverride?: string,
 ): { model: string; effort: AiEffort } {
   const defaults = TIER_DEFAULTS[tier];
   const names = ENV_NAMES[tier];
   const model = (modelOverride && modelOverride.trim()) || readEnv(names.model) || defaults.model;
   const envEffort = readEnv(names.effort);
-  const effort = isEffort(envEffort) ? envEffort : defaults.effort;
+  const effort = isEffort(effortOverride)
+    ? effortOverride
+    : isEffort(envEffort)
+      ? envEffort
+      : defaults.effort;
   return { model, effort };
 }
 
 export type ModelParamOptions = {
   /** Explicit model for this call; wins over env and default. */
   model?: string;
+  /**
+   * Explicit effort for this call; wins over the tier's env var and default.
+   * For a single call site whose speed matters differently from the rest of
+   * its tier (see the final analysis in courtSimplifiedBrain.ts). An invalid
+   * value is ignored, falling back to the tier.
+   */
+  effort?: string;
   /** What the call used with the old models. Kept for legacy models and `none`. */
   temperature?: number;
   seed?: number;
@@ -146,7 +158,7 @@ export type ChatModelParams = {
  *     });
  */
 export function modelParams(tier: AiTier, options: ModelParamOptions = {}): ChatModelParams {
-  const { model, effort } = resolveTier(tier, options.model);
+  const { model, effort } = resolveTier(tier, options.model, options.effort);
   const params: ChatModelParams = { model };
 
   if (options.seed !== undefined) params.seed = options.seed;
