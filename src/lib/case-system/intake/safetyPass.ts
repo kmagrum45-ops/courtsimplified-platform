@@ -6,8 +6,8 @@
  * is the gap flagged at the end of Session 3: no free-text story should
  * reach extractIntakeFacts.ts without running through here first.
  *
- * Same shape as extractIntakeFacts.ts: one OpenAI call, gpt-4o-mini,
- * temperature 0. The model's job is classification ONLY -- it never gives
+ * Same shape as extractIntakeFacts.ts: one OpenAI call, the standard-tier
+ * model (see ../aiModels.ts). The model's job is classification ONLY -- it never gives
  * advice, never characterizes the legal situation, and never writes the
  * text a user in danger or distress actually sees. That text is a fixed,
  * reviewed constant below (same "fixed skeleton, no AI on safety-critical
@@ -49,6 +49,7 @@
  */
 
 import { createOpenAIClient } from "../openaiClient";
+import { modelParams } from "../aiModels";
 import {
   recordAiValidation,
   recordRequestsLegalAdvice,
@@ -111,15 +112,16 @@ const SYSTEM_PROMPT = `You are a safety classifier for a legal self-help intake 
 
 Categories:
 
-- "immediate-danger": ONLY when the person explicitly and unambiguously states, in their own words, that they are CURRENTLY unsafe or being threatened -- a threat, act of violence, or fear for physical safety that is happening now, was very recent and remains unresolved, or a child currently at risk. This must be a direct statement, not something inferred from violent word choice, a scary topic, or emotional tone. Do NOT classify as immediate-danger:
+- "immediate-danger": ONLY when the person explicitly and unambiguously states, in their own words, that they are CURRENTLY unsafe or being threatened -- a threat, act of violence, or fear for physical safety that is happening now, was very recent and remains unresolved, or a child currently at risk of harm from a person (abuse, violence, threats). This must be a direct statement, not something inferred from violent word choice, a scary topic, or emotional tone. Do NOT classify as immediate-danger:
   - Violence described as being in the past, with nothing indicating it's ongoing or unresolved. Example: "he was physically violent with me during our relationship, including choking me once; I moved out months ago and we're no longer in contact" -- this describes something serious, but there is no current threat. Classify this as "distress" instead, given the seriousness of what's being recounted.
   - Hyperbolic or figurative violent language the person themselves signals isn't a real threat. Example: "I could kill him, not seriously, obviously, I'm just so fed up" -- this is ordinary frustrated speech, not a threat. Classify this as "clear".
   - A violent or frightening topic mentioned without the person saying THEY are currently unsafe.
+  - Health problems caused or worsened by living conditions, a product, or the dispute itself -- for example mould, a broken heater, pests, or an injury being treated -- even when a child is affected. These are serious and often the reason for the claim, but they are not danger from a person. Classify as "distress" if the person's words show the strain described below, otherwise "clear".
   DO classify as immediate-danger when the person directly describes a real, explicit threat or act of violence that is current or very recent and unresolved -- even if it's mentioned briefly within an otherwise ordinary story. Example: someone recounting an unrelated contract dispute who also mentions the other party showed up recently and threatened them, leaving them scared -- that threat is real, explicit, and unresolved, so this IS immediate-danger, regardless of how much of the story is about something else.
 
-- "distress": no immediate danger (per the strict test above), but the story contains heavy content well beyond an ordinary factual account -- either strong emotional language (despair, being overwhelmed, crying, hopelessness) or serious-but-not-current content like past violence or trauma recounted as background, even when the person's tone is calm or flat.
+- "distress": no immediate danger (per the strict test above), but the story contains heavy content well beyond an ordinary factual account -- either strong emotional language (despair, being overwhelmed, crying, hopelessness) or serious-but-not-current content like past violence or trauma recounted as background, even when the person's tone is calm or flat. Distress is also often written flatly, with no emotional words at all: the person says their life has been knocked off course beyond the dispute itself (lost their job or home, fallen behind on bills, can't keep up) together with signs they are struggling to cope ("it's been a rough stretch", "I'm not sure where to start", "that's about all I can manage"). Read what they are telling you about their situation, not only the vocabulary they use -- that combination is "distress" even when every word is plain.
 
-- "clear": an ordinary factual account, proceed normally. This includes anger or frustration on its own (without despair or hopelessness), and hyperbolic language the speaker themselves disclaims as not serious. A dispute about money, a purchase, a loan, a job left unfinished, or something said about the person is "clear" when told factually, even though the person has lost money, been lied to, been ignored, lost customers, or been treated unfairly -- being wronged is what every dispute is about, not a sign of distress. Only choose "distress" for such a story when the person's own words show despair, hopelessness or being overwhelmed, or recount trauma.
+- "clear": an ordinary factual account, proceed normally. This includes anger or frustration on its own (without despair or hopelessness), and hyperbolic language the speaker themselves disclaims as not serious. A dispute about money, a purchase, a loan, a job left unfinished, or something said about the person is "clear" when told factually, even though the person has lost money, been lied to, been ignored, lost customers, or been treated unfairly -- being wronged is what every dispute is about, not a sign of distress. Only choose "distress" for such a story when the person's own words show despair, hopelessness or being overwhelmed, recount trauma, or describe their wider life falling apart as above.
 
 Separately, set "requestsLegalAdvice" to true when the person is asking us for a legal answer rather than describing what happened. Two kinds count, and both are true:
 
@@ -153,8 +155,7 @@ export async function runSafetyPass(storyText: string, apiKey: string): Promise<
 async function runSafetyPassInner(storyText: string, apiKey: string): Promise<SafetyPassResult> {
   const client = createOpenAIClient(apiKey);
   const response = await client.chat.completions.create({
-    model: "gpt-4o-mini",
-    temperature: 0,
+    ...modelParams("standard", { temperature: 0 }),
     response_format: { type: "json_object" },
     messages: [
       { role: "system", content: SYSTEM_PROMPT },

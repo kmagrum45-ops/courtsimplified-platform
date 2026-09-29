@@ -9,6 +9,11 @@ import {
 } from "./answeredQuestions";
 
 import {
+  amountMismatchWarning,
+  detectClaimedVersusRequestedMismatch,
+} from "./amountConsistency";
+
+import {
   ClaimClassification,
   ClaimElementAssessment,
   ClaimElementStatus,
@@ -37,6 +42,7 @@ import {
 } from "./intelligenceTypes";
 
 import { normalizeIntake } from "./intakeNormalizationEngine";
+import { modelParams } from "../aiModels";
 import { buildElementProofAnalysis } from "./elementProofEngine";
 import { buildBrainMigrationLayer } from "../orchestration/brainMigrationLayer";
 import { buildEvidenceIntelligenceAnalysis } from "../evidence/evidenceIntelligenceEngine";
@@ -1133,7 +1139,7 @@ function buildRiskExplanation(rawExplanation: unknown): string {
   if (!explanation) return fallback;
   const result = validateCaseStrengthLanguage(explanation);
   if (result.valid) return explanation;
-  console.error(`[caseStrengthLanguageValidator] rejected litigationRisk.explanation (matched term "${result.matchedTerm}"): ${explanation}`);
+  console.error(`[caseStrengthLanguageValidator] rejected litigationRisk.explanation (matched term "${result.matchedTerm}", ${explanation.length} chars)`); // no case text in hosting logs
   return fallback;
 }
 
@@ -2029,8 +2035,16 @@ async function runStructuredGptCognitionInner(
     const client = createOpenAIClient();
 
     const response = await client.chat.completions.create({
-      model: process.env.COURTSIMPLIFIED_REASONING_MODEL || "gpt-4o-mini",
-      temperature: 0.1,
+      ...modelParams("deep", {
+        model: process.env.COURTSIMPLIFIED_REASONING_MODEL,
+        // Measured 2026-09-29 on the story review: this call took a median
+        // 77s at the deep tier's "medium" effort (9.5s on gpt-4o-mini) --
+        // too long for a person waiting on their analysis. It returns a large
+        // JSON document, so it gets "low" unless AI_EFFORT_ANALYSIS says
+        // otherwise.
+        effort: process.env.AI_EFFORT_ANALYSIS || "low",
+        temperature: 0.1,
+      }),
       response_format: { type: "json_object" },
       messages: [
         {
@@ -2281,10 +2295,15 @@ function seeksInjunctiveRelief(desiredOutcomes: DesiredOutcome[]): boolean {
   return desiredOutcomes.some((outcome) => outcome.type === "injunction");
 }
 
+/** Fixed text: the generic caution every analysis carries. Never model-written. */
+export const FIXED_VERIFY_WARNING =
+  "Verify legal authorities, forms, deadlines, and filing requirements before relying on this output.";
+
 export async function runCourtSimplifiedBrain(
   input: CourtSimplifiedBrainInput,
 ): Promise<CourtSimplifiedBrainOutput> {
   const overLimitClaimAmount = detectOverLimitClaimAmount(input.rawUserText);
+  const claimedVersusRequested = detectClaimedVersusRequestedMismatch(input.rawUserText);
 
   const normalizedIntake = await normalizeIntake(input);
 
@@ -2468,8 +2487,24 @@ export async function runCourtSimplifiedBrain(
 
     nextBestActions: sanitizeTextArray(nextBestActions, "nextBestActions"),
 
+    /*
+     * *** NO MODEL-WRITTEN WARNING REACHES A USER ***
+     *
+     * This list becomes AnalysisResult.userWarnings. It used to open with
+     * `...safeArray(gptCognition.systemWarnings)` -- free text the model
+     * wrote, filtered only by the case-strength blocklist, so the model could
+     * put a procedural or legal statement ("file within 20 days") straight in
+     * front of a user. The LSO A2I policy forbids AI-generated legal content
+     * reaching a user without human review, and 2026-09-27's review for the
+     * A2I response found this route.
+     *
+     * Every entry below is now built by code. The one line the model almost
+     * always produced is kept as fixed text. The model's own warnings are not
+     * lost for supervision: they remain on `cognition`, which the audit log
+     * records. Asserted by `npm run test:no-model-warnings`.
+     */
     systemWarnings: sanitizeTextArray(cleanList([
-      ...safeArray(gptCognition.systemWarnings),
+      FIXED_VERIFY_WARNING,
       ...proceduralPosture.warnings,
       ...contradictions.map((item) => item.title),
       ...factPatternAnalysis.contradictions.map(
@@ -2494,6 +2529,10 @@ export async function runCourtSimplifiedBrain(
             `Claim amount $${overLimitClaimAmount.toLocaleString()} exceeds the Ontario Small Claims Court limit of $${ONTARIO_SMALL_CLAIMS_LIMIT.toLocaleString()}; Small Claims Court may not have jurisdiction and the Superior Court of Justice should be considered.`,
           ]
         : []),
+      // The user's two statements of what they want disagree. A fact to confirm,
+      // stated as such -- see amountConsistency.ts for why no other figures are
+      // compared.
+      ...(claimedVersusRequested ? [amountMismatchWarning(claimedVersusRequested)] : []),
       ...(crossCourtAreaConflict
         ? [
             `Detected issues span more than one court path: family (${domainLabels(crossCourtAreaConflict.familyDomains)}) and non-family (${domainLabels(crossCourtAreaConflict.otherDomains)}). Confirm whether this case belongs in the selected court path, or whether separate matters need to be started in different courts.`,

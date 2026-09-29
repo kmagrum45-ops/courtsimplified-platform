@@ -402,7 +402,13 @@ async function verifyCivilCanonicalProductionRoute() {
   const rawNarrative = result.brain.intelligence.normalizedIntake.rawUserText;
   const specializedNarrative = result.civilMasterResult.masterCase.summary;
   for (const expected of [
-    "Civil Plaintiff", "Civil Defendant", "plaintiff", "Toronto", "CV-TEST-1",
+    // "Civil Plaintiff" and "Civil Defendant" (the name FIELDS) were in this
+    // list until 2026-09-29. Same inversion as the file names below: the
+    // suite required the narrative sent to OpenAI to carry both parties'
+    // names, which the LSO A2I answers say it does not. They are now asserted
+    // ABSENT from that narrative (below) and still present in the civil
+    // engine's own summary, which stays in the Canadian database.
+    "plaintiff", "Toronto", "CV-TEST-1",
     "$25,000", "Contract / agreement dispute", "Statement of Claim", "breach of a written agreement",
     "agreement preceded", "Written agreement and communications", "Complete payment record",
     "Claimed financial loss", "Damages", "A demand was sent", "Limitation concern alpha",
@@ -433,6 +439,12 @@ async function verifyCivilCanonicalProductionRoute() {
       `Civil engine summary leaked "${forbidden}"`,
     );
   }
+
+  for (const name of ["Civil Plaintiff", "Civil Defendant"]) {
+    assert.ok(!rawNarrative.includes(name), `Brain narrative sent a name field to the model: ${name} — see src/lib/case-system/privacy/modelPayloadNames.ts`);
+    assert.ok(specializedNarrative.includes(name), `Civil engine summary lost the name field: ${name}`);
+  }
+  assert.ok(rawNarrative.includes("recorded (not shared with AI)"), "Brain narrative no longer says a name was recorded");
 
   const isolated = await callCivil(civilInput("civil-case-b"));
   const isolatedBody = (await isolated.json()) as { result: CivilCanonicalIntakeResult };

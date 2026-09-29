@@ -31,6 +31,7 @@
 import { classifyCourtPath } from "../intelligence/courtPathClassifier";
 import type { OutOfScopeForum } from "../intelligence/outOfScopeForums";
 import { createOpenAIClient } from "../openaiClient";
+import { modelParams } from "../aiModels";
 import { currentAiCallContext, withAiCallContext } from "../../audit/aiCallLog";
 import {
   resolveFromModelOutput,
@@ -289,20 +290,18 @@ async function resolveCasePositionInner(
  */
 export async function resolveStageWithModel(
   story: string,
-  model = "gpt-4o-mini",
+  model?: string,
 ): Promise<StageResolution> {
   return currentAiCallContext()
     ? resolveStageInner(story, model)
     : withAiCallContext({ callType: "stage-resolver" }, () => resolveStageInner(story, model));
 }
 
-async function resolveStageInner(story: string, model: string): Promise<StageResolution> {
+async function resolveStageInner(story: string, model: string | undefined): Promise<StageResolution> {
   try {
     const client = createOpenAIClient();
     const response = await client.chat.completions.create({
-      model,
-      temperature: 0,
-      seed: 1,
+      ...modelParams("deep", { model, temperature: 0, seed: 1 }),
       response_format: { type: "json_object" },
       messages: [
         { role: "system", content: STAGE_RESOLVER_SYSTEM },

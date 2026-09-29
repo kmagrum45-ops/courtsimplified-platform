@@ -55,10 +55,15 @@ export function abortIfRateLimited(error: unknown, context: string): void {
 }
 
 /**
- * Per-journey ceiling. A journey is ~11 turns of 3-4 API calls; 90s is
- * generous for that and still bounded.
+ * Per-journey ceiling. A journey is ~11 turns of 3-4 API calls plus, for a
+ * fixture, the final analysis.
+ *
+ * 90s was generous on gpt-4o-mini. Measured 2026-09-29 on gpt-6.1-sol: turn
+ * calls take a median 1.5-5s and the final analysis ~55s, so a whole fixture
+ * runs ~90-95s and the first story-review run timed out on the first fixture.
+ * 240s keeps the guard's purpose (a hung journey still ends) with headroom.
  */
-export const PIPELINE_JOURNEY_TIMEOUT_MS = 90_000;
+export const PIPELINE_JOURNEY_TIMEOUT_MS = 240_000;
 
 export async function withTimeout<T>(work: Promise<T>, ms: number): Promise<T> {
   let timer: NodeJS.Timeout | undefined;
@@ -96,6 +101,18 @@ export function describeRunDegradation(run: PipelineRun): string | null {
   // analysis step silently produced nothing.
   if (!run.halted && !run.analysisOutput) {
     return "pipeline returned no analysisOutput on a run that did not halt";
+  }
+
+  // A run that neither halted nor completed stopped for a reason of the
+  // harness's own -- the turn cap -- not the pipeline's. Its analysis is
+  // built from a truncated conversation and must not be recorded as a real
+  // run. Caught 2026-09-27: a defendant fixture ran out of turns one question
+  // short and was written with intakeComplete: false, unflagged.
+  if (!run.halted && !run.intakeComplete) {
+    return (
+      "conversation stopped before intake completed (turn cap reached, " +
+      `${run.turns.length} turns) -- the analysis was built from a truncated intake`
+    );
   }
 
   const cognitionMode = run.analysisOutput?.analysis?.intelligence?.cognitionMode;

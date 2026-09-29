@@ -198,3 +198,22 @@ and a real published block.
 only. Those are model output and §2 above already records them as subject to
 variance. The structural record — questions asked, claim type matched, stage
 derived, turn count — is identical to the run before these questions existed.
+
+## 2026-09-29 — model upgrade (gpt-4o-mini → gpt-6.1-sol)
+
+Re-run on the new models (src/lib/case-system/aiModels.ts). Every change in
+`.actual.md` was reviewed and is accepted as correct; none touches a routing,
+question-selection or stage decision this file asserts.
+
+- **`claimServed` is no longer set.** gpt-4o-mini wrote `claimServed: false`
+  from a story that never mentions service; the new model leaves it unset. This
+  file already expects it *never set*, so the new behaviour matches it more
+  closely. Every question gated on `claimServed == true` stays unselected either
+  way.
+- **Summary and warning wording is more careful.** Documents are now described
+  as "reported" / "described, contents not reviewed" rather than listed as if
+  verified. That is closer to the information-not-advice rule, not further.
+
+- **`detectedIssues` / `detectedClaimTypes` add `contract` alongside `debt`.**
+  The story is an agreement for services with an unpaid balance; tagging both is
+  a more complete label. Labels here are navigation, not an assessment.

@@ -17,6 +17,7 @@
  */
 
 import { createOpenAIClient } from "../openaiClient";
+import { modelParams } from "../aiModels";
 import { parseRecordedAmount } from "../format/recordedAmount";
 import { withAiCallContext } from "../../audit/aiCallLog";
 import {
@@ -150,8 +151,7 @@ export async function locateCaseReviewFindings(
   return withAiCallContext({ callType: "case-review" }, async () => {
     const client = createOpenAIClient(apiKey);
     const response = await client.chat.completions.create({
-      model: "gpt-4o-mini",
-      temperature: 0,
+      ...modelParams("deep", { temperature: 0 }),
       response_format: { type: "json_object" },
       messages: [
         { role: "system", content: SYSTEM_PROMPT },

@@ -206,8 +206,12 @@ const I9_MARKERS: Record<string, string[]> = {
 /* ------------------------------------------------------------------ */
 
 function estimateCost(n: number): string {
-  const perJourney = 0.08 / 19; // measured baseline, all gpt-4o-mini
-  return `$${(n * perJourney).toFixed(3)} (baseline $0.0042/journey x ${n})`;
+  // Measured when every call was gpt-4o-mini. Since 2026-09-29 the pipeline
+  // runs the gpt-6.x models in src/lib/case-system/aiModels.ts, which cost far
+  // more per token and also bill their reasoning — so this is a floor, not an
+  // estimate. Re-measure from the OpenAI usage page and replace it.
+  const perJourney = 0.08 / 19;
+  return `at least $${(n * perJourney).toFixed(3)} (gpt-4o-mini baseline $0.0042/journey x ${n}; current models cost more)`;
 }
 
 function serialise(run: PipelineRun, j: Journey, violations: Violation[], interceptions: SanitizerInterception[] = []): string {

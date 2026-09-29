@@ -128,6 +128,9 @@ jobs:
       - name: Intake coverage verification
         run: npm run test:intake-coverage
 
+      - name: AI model configuration verification
+        run: npm run test:ai-models
+
       # This suite makes real, billed OpenAI calls, so it needs the
       # OPENAI_API_KEY repository secret. Without the secret it cannot run at
       # all -- it failed in one second on 2026-09-28, the first time any CI run

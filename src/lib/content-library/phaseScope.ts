@@ -39,6 +39,28 @@
  * different things in two places is two gates.
  */
 
+/*
+ * *** OFFICIAL-FORM COMPLETION AND CLAIM DRAFTING ARE PAUSED ***
+ *
+ * Decided 2026-09-27 for the LSO A2I Stage 1 application. /api/generate-form
+ * fills the fields of official court PDFs from a user's case data, and the
+ * builder's Statement of Claim surface drafts claim particulars.
+ * docs/REGULATORY_POSITION.md sections 6.4-6.5 identify these as the sharpest
+ * exposure under Law Society Act s. 1(6)2.vii and s. 1(7)1, so they are out of
+ * scope until the Law Society gives guidance. The application says so.
+ *
+ * While true: the route refuses before reading the request, the /forms page
+ * shows FORM_COMPLETION_PAUSED_MESSAGE, and the builder does not render the
+ * Statement of Claim surface. Asserted by `npm run test:form-completion-paused`.
+ */
+export const FORM_COMPLETION_PAUSED = true;
+
+export const FORM_COMPLETION_PAUSED_MESSAGE =
+  "Filling in official court forms is not available right now. You can find every Ontario court form, " +
+  "free, on the Ontario Court Forms website, and complete it yourself.";
+
+export const OFFICIAL_COURT_FORMS_URL = "https://ontariocourtforms.on.ca/en/";
+
 /** Pathways a user can actually complete today. */
 export const AVAILABLE_PATHWAYS = ["small-claims"] as const;
 

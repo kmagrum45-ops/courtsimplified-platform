@@ -44,14 +44,14 @@ import {
 import StageConfirmation from "./_components/StageConfirmation";
 import AiUseNotice from "../_components/AiUseNotice";
 import PathwayUnavailable from "../_components/PathwayUnavailable";
-import { isPathwayAvailable, type KnownPathway } from "../../src/lib/content-library/phaseScope";
+import { FORM_COMPLETION_PAUSED, isPathwayAvailable, type KnownPathway } from "../../src/lib/content-library/phaseScope";
 import FirstUseAcknowledgement from "../_components/FirstUseAcknowledgement";
 import LegalInformationNotice from "../_components/LegalInformationNotice";
 
 import { supabase } from "../../src/lib/supabase/client";
 import { buildMasterCaseFromIntake } from "../../src/lib/case-system/masterCaseOrchestrator";
 import { buildCaseContextStoragePayload } from "../../src/lib/case-system/caseContextEngine";
-import { consumeGuestIntakeSession, loadCompactBuilderDraft, saveCompactBuilderDraft } from "../../src/lib/case-system/builderDraftStorage";
+import { consumeGuestIntakeSession } from "../../src/lib/case-system/builderDraftStorage";
 import { COURT_PATH_FINDER_KEY, SHARED_STORAGE_KEYS } from "../../src/lib/case-system/storage/intakeStorageKeys";
 import { draftSmallClaimsPlaintiffClaim } from "../../src/lib/case-system/claimDraftEngine";
 import { buildWorkspaceDocument } from "../../src/lib/case-system/documentWorkspaceEngine";
@@ -460,11 +460,16 @@ function BuilderPageContent() {
           // Already removed above. Nothing to clean up.
         }
       }
-      const { data } = await supabase.auth.getUser();
+      /*
+       * The home page's hand-off, read once and deleted, for signed-in and
+       * anonymous users alike. There is deliberately NO fallback to a stored
+       * draft: an intake opened without a caseId starts empty. Saved work is
+       * opened from the workspace (?caseId=...), which loads it from the
+       * account. (2026-09-28: a per-user localStorage draft was restored here
+       * on every visit, so an old test story reappeared after signing in.)
+       */
       if (!active) return;
-      const draft = data.user
-        ? loadCompactBuilderDraft(localStorage, data.user.id)
-        : consumeGuestIntakeSession(sessionStorage);
+      const draft = consumeGuestIntakeSession(sessionStorage);
       if (initialPath && draft?.courtPath === courtPath && draft.province === "Ontario" && draft.city.trim() && draft.facts.trim()) {
         setConfirmedLocation({ province: "Ontario", city: draft.city.trim() });
         setHomeStory(draft.facts.trim());
@@ -774,21 +779,7 @@ function BuilderPageContent() {
 
       const activeId = finalCaseId || record.id;
 
-      const localDraftSaved = saveCompactBuilderDraft(localStorage, {
-        caseId: activeId,
-        courtPath,
-        province: confirmedLocation?.province,
-        city: confirmedLocation?.city,
-        caseStage: stage,
-        yourName: caseData.yourName,
-        otherParty: caseData.otherParty,
-        facts: caseData.facts,
-        timeline: caseData.timeline,
-        evidence: caseData.evidence,
-        missingEvidence: caseData.missingEvidence,
-        goal: caseData.goal,
-        urgent: caseData.urgent,
-      }, user?.id);
+      // No browser copy of the case is kept: it is saved to the account below.
 
       setMasterCaseId(activeId);
 
@@ -870,12 +861,6 @@ function BuilderPageContent() {
           setSavingMaster(false);
           return;
         }
-      }
-
-      if (!localDraftSaved) {
-        setLocalDraftWarning(
-          "This browser cannot keep a local recovery draft. Your result remains available on this page.",
-        );
       }
 
       setLastSavedAt(user && activeId ? now : "");
@@ -1003,6 +988,7 @@ function BuilderPageContent() {
   }
 
   function createSmallClaimsClaimDraft() {
+    if (FORM_COMPLETION_PAUSED) return; // paused: see phaseScope.ts
     const caseId = getActiveCaseId();
     if (!caseData || !caseId || courtPath !== "small-claims") {
       setSaveError("Save the selected Small Claims case before creating a working claim draft.");
@@ -1038,6 +1024,7 @@ function BuilderPageContent() {
     subtitle: string,
     factsHeading: string,
   ) {
+    if (FORM_COMPLETION_PAUSED) return; // paused: see phaseScope.ts
     const caseId = getActiveCaseId();
     if (!caseData || !caseId) {
       setSaveError("Save the selected case before creating a working draft.");
@@ -1654,7 +1641,8 @@ function BuilderPageContent() {
               SmallClaimsIntelligenceInput built during the run, which no load
               path reconstructs.
             */}
-            {draftInput ? (
+            {/* Paused with official-form completion: see FORM_COMPLETION_PAUSED in phaseScope.ts. */}
+            {draftInput && !FORM_COMPLETION_PAUSED ? (
               <StatementOfClaimSurface
                 matchedClaimTypeId={draftClaimTypeId}
                 initialElementStateMap={draftElementStateMap}
@@ -1689,17 +1677,17 @@ function BuilderPageContent() {
                 </div>
               ) : null}
               <div className="mt-4 flex flex-wrap gap-3">
-                {COURT_DOCUMENT_DRAFTING_ENABLED && courtPath === "small-claims" && getActiveCaseId() && !originatingDocumentFiled ? (
+                {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "small-claims" && getActiveCaseId() && !originatingDocumentFiled ? (
                   <button type="button" onClick={createSmallClaimsClaimDraft} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Plaintiff&apos;s Claim draft (Form 7A)
                   </button>
                 ) : null}
-                {COURT_DOCUMENT_DRAFTING_ENABLED && courtPath === "civil" && getActiveCaseId() && !originatingDocumentFiled ? (
+                {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "civil" && getActiveCaseId() && !originatingDocumentFiled ? (
                   <button type="button" onClick={() => createCourtAreaWorkingDraft("Draft Statement of Claim (Form 14A)", "Working draft created from your saved Ontario Civil intake — review and edit before use.", "Material facts")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Statement of Claim draft (Form 14A)
                   </button>
                 ) : null}
-                {COURT_DOCUMENT_DRAFTING_ENABLED && courtPath === "family" && getActiveCaseId() && !originatingDocumentFiled ? (
+                {COURT_DOCUMENT_DRAFTING_ENABLED && !FORM_COMPLETION_PAUSED && courtPath === "family" && getActiveCaseId() && !originatingDocumentFiled ? (
                   <button type="button" onClick={() => createCourtAreaWorkingDraft("Draft Family Application (Form 8)", "Working draft created from your saved Ontario Family intake — review and edit before use.", "Facts for review")} className="rounded-xl bg-[#16302b] px-5 py-3 text-sm font-semibold text-white">
                     Create Family Application draft (Form 8)
                   </button>

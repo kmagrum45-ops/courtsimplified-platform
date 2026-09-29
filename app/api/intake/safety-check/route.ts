@@ -95,9 +95,10 @@ export function createSafetyCheckPost(overrides: Partial<SafetyCheckRouteDepende
        *   - middleware.ts gates the entire site, /api/* included, on
        *     SITE_ACCESS_PASSWORD. "Anonymous" here means someone who already
        *     has the shared beta password, not the open internet.
-       *   - The call is gpt-4o-mini at temperature 0, input capped at 8,000
-       *     characters by isSafetyCheckRequestBody above. It is the cheapest
-       *     model call in the system.
+       *   - The call is the standard-tier model (src/lib/case-system/aiModels.ts,
+       *     low reasoning effort), input capped at 8,000 characters by
+       *     isSafetyCheckRequestBody above. It is one of the cheapest model
+       *     calls in the system.
        *   - The response is one of three labels plus a FIXED constant. There
        *     is no model-generated text to extract and nothing worth stealing.
        *   - Prompt injection can at worst flip a classification, which lands

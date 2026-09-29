@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { AuthError } from "@supabase/supabase-js";
 import { supabase } from "../../src/lib/supabase/client";
+import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
 
 /**
  * Supabase Auth returns a specific error code for most signup failures, but
@@ -17,7 +18,7 @@ import { supabase } from "../../src/lib/supabase/client";
 function signUpErrorMessage(error: AuthError): string {
   switch (error.code) {
     case "weak_password":
-      return "Password must be at least 6 characters.";
+      return "That password is too short or too weak. Use at least 12 characters.";
     case "over_email_send_rate_limit":
       // Project-wide, not per user: Supabase's `rate_limit_email_sent` counts
       // every email the project sends in an hour, so this can fire for someone
@@ -79,6 +80,7 @@ export default function LoginPage() {
         // turned off, `session` comes back null and the branch below tells the
         // user the truth for that configuration instead.
         if (data.session) {
+          resetIntakeInBrowser(); // a new account starts with nothing from this browser
           router.push("/dashboard");
           return;
         }
@@ -97,6 +99,15 @@ export default function LoginPage() {
         return;
       }
 
+      /*
+       * SIGNING IN STARTS FROM NOTHING. Whatever this browser holds -- an
+       * earlier session's story, analysis, evidence list or chat, this user's
+       * or anyone else's -- is removed before the workspace opens. A user's
+       * saved work lives in their account and is loaded from there, never
+       * from the browser. (2026-09-28: a signed-in user found an old test
+       * story pre-filled in the Small Claims intake.)
+       */
+      resetIntakeInBrowser();
       router.push("/dashboard");
     } catch {
       setError("Something went wrong. Please try again.");

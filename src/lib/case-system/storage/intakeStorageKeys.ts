@@ -72,7 +72,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "guest",
     matches: "exact",
     holdsCaseContent: true,
-    note: "Anonymous hand-off from the home gate into the builder. Consumed on entry.",
+    note: "Hand-off from the home gate into the builder, signed in or not. Consumed on entry.",
   },
   {
     key: "courtSimplifiedNotSureGuide",
@@ -109,7 +109,7 @@ export const INTAKE_STORAGE_KEYS: readonly IntakeStorageKey[] = [
     scope: "user",
     matches: "prefix",
     holdsCaseContent: true,
-    note: "Resumable intake draft. Suffixed with the user id; refuses to write without one.",
+    note: "RETIRED 2026-09-28: no page reads or writes it (test:no-stale-intake). Listed so the reset still clears copies an older build left in a browser.",
   },
   {
     key: "courtSimplifiedActiveCaseId",

@@ -9,7 +9,7 @@
  * paraphrasing, not more hand-written phrases.
  *
  * Same shape as safetyPass.ts/extractIntakeFacts.ts: one OpenAI call,
- * gpt-4o-mini, temperature 0, structured JSON response. The model's job
+ * the deep-tier model (see ../aiModels.ts), structured JSON response. The model's job
  * is classification ONLY, against a closed list -- it never characterizes
  * the legal situation, never explains why it picked an id, and never
  * writes anything the user sees directly (the caller looks up the
@@ -36,6 +36,7 @@
  */
 
 import { createOpenAIClient } from "../openaiClient";
+import { modelParams } from "../aiModels";
 import { withAiCallContext } from "../../audit/aiCallLog";
 import type { ClaimType } from "./claimTypes";
 
@@ -133,8 +134,7 @@ async function classifyClaimTypeWithAiInner(
 
   const client = createOpenAIClient(apiKey);
   const response = await client.chat.completions.create({
-    model: "gpt-4o-mini",
-    temperature: 0,
+    ...modelParams("deep", { temperature: 0 }),
     response_format: buildResponseSchema(candidates),
     messages: [
       { role: "system", content: buildSystemPrompt(candidates) },
