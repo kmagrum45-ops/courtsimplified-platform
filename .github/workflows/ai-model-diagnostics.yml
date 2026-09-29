@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        variant: [new2]
+        variant: [an-none, an-luna]
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -27,16 +27,14 @@ jobs:
       - run: npm ci
       - name: Pick models
         run: |
+          if [ "${{ matrix.variant }}" = "an-none" ]; then echo "AI_EFFORT_ANALYSIS=none" >> $GITHUB_ENV; fi
+          if [ "${{ matrix.variant }}" = "an-luna" ]; then echo "COURTSIMPLIFIED_REASONING_MODEL=gpt-6-luna" >> $GITHUB_ENV; fi
           if [ "${{ matrix.variant }}" = "old" ]; then
             echo "AI_MODEL_DEEP=gpt-4o-mini" >> $GITHUB_ENV
             echo "AI_MODEL_STANDARD=gpt-4o-mini" >> $GITHUB_ENV
           fi
       - name: Lift the journey timeout for measurement only
         run: sed -i 's/PIPELINE_JOURNEY_TIMEOUT_MS = 90_000/PIPELINE_JOURNEY_TIMEOUT_MS = 900_000/' scripts/verification/pipelineGuards.ts
-      - name: Safety regression x3
-        run: for i in 1 2 3; do echo "=== RUN $i" >> safety.log; npm run test:safety-regression >> safety.log 2>&1 || echo "EXIT $?" >> safety.log; done
-      - name: Story review
-        run: npm run review:stories > story.log 2>&1 || echo "EXIT $?" >> story.log
       - name: Fixtures
         run: |
           start=$(date +%s); npm run test:fixtures > fixtures.log 2>&1 || echo "EXIT $?" >> fixtures.log
