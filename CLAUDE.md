@@ -94,6 +94,23 @@ entry has not quietly become reachable, and the update is a one-line deletion wi
 an obvious cause. A list that must be maintained is fine. A check that punishes the
 maintenance is not.
 
+## 5a. One line of work — nothing waits on a side branch
+
+Established 2026-09-29, after work from several chats sat on seven unmerged
+branches: each passed its own tests, they conflicted with each other, and the
+live site ran none of it.
+
+- **Start every session from the latest `main`** (`git fetch origin main` and
+  branch from `origin/main`), never from an old branch or another chat's branch.
+- **Finish every session with the work in `main`:** open a PR into `main`, let
+  CI run (it runs on PRs into `main`, with the real OpenAI key), fix what fails,
+  merge. Do not end a session with work only on a side branch, and do not tell
+  the user something is fixed until it is merged and Vercel has deployed it.
+- **Never push directly to `main`.** The PR is what makes CI run.
+- **`case-workspace` follows `main`:** after a merge, fast-forward it to `main`.
+- If a PR cannot be merged yet (it needs a decision), say so plainly and list it,
+  so the user always knows what is not live.
+
 ## 6. Environment facts
 
 ### Supabase — identify a project by its REF, never by its name
