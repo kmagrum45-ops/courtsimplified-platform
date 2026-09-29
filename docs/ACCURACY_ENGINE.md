@@ -1391,3 +1391,36 @@ for the receipt or address), which no single-stage suite could see.
   results mean nothing about quality.
 - Deterministic checks only (no model grades a model). The report also prints every question in
   order, because "that question didn't need asking" is often visible only to a reader.
+
+## Model upgrade: gpt-4o-mini → gpt-6.1-sol (2026-09-29)
+
+Every model call now takes its model from `src/lib/case-system/aiModels.ts`
+(tiers `deep` / `standard`; env `AI_MODEL_*`, `AI_EFFORT_*`, `AI_EFFORT_ANALYSIS`).
+`npm run test:ai-models` keeps it that way. Measured side by side on the story
+review battery and the three fixtures, same stories, same day:
+
+| | gpt-4o-mini | gpt-6.1-sol |
+|---|---|---|
+| Story review failed checks | 9 | 6 |
+| Safety regression (x3) | — | 42/42 after the two prompt fixes below |
+| Turn calls, median | 0.7–2.2s | 1.5–5.7s |
+| Final analysis (`small-claims-analysis`) | ~9.5s | ~77s at medium, ~55s at low; gpt-6-luna ~33s |
+
+**What it cost to learn, so nobody repeats it:**
+
+- **The new model follows the safety prompt more literally.** Two misses came
+  from wording gpt-4o-mini had been reading generously: flat, vocabulary-free
+  distress was classed `clear` (the prompt said "only when their own words show
+  despair…"), and "a child currently at risk" stopped a tenant-mould story whose
+  son's asthma was worsening. Both fixed in the prompt, with examples that
+  deliberately do not copy the regression text.
+- **`gpt-6.1-sol` rejects `reasoning_effort: "none"`** with a 400 — found by
+  setting `AI_EFFORT_ANALYSIS=none`, which broke the analysis outright.
+  `modelParams()` now maps it to `low` for that model and gpt-6-astra.
+- **The final analysis is output-bound, not reasoning-bound.** Dropping effort
+  from medium to low saved only ~20s, and the fast model still took ~33s. It
+  returns a large JSON document; making it shorter is the lever if speed matters
+  more than depth.
+- **Court-path "mixed"/"civil" misses (SC1, SC5, SC7) and the unscripted
+  date questions (SC7, SC8) happen on BOTH models** — they are existing
+  issues, not upgrade regressions.

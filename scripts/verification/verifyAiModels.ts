@@ -149,7 +149,7 @@ withEnv(CLEAN_ENV, () => {
   check("an uncapped call stays uncapped", uncapped.max_completion_tokens === undefined);
 });
 
-withEnv({ ...CLEAN_ENV, AI_EFFORT_STANDARD: "none" }, () => {
+withEnv({ ...CLEAN_ENV, AI_MODEL_STANDARD: "gpt-6-luna", AI_EFFORT_STANDARD: "none" }, () => {
   const params = modelParams("standard", { temperature: 0 });
   if (!isLegacyChatModel(params.model)) {
     check("effort 'none' keeps the caller's temperature", params.temperature === 0);
@@ -189,6 +189,17 @@ withEnv({ ...CLEAN_ENV, AI_MODEL_DEEP: "env-model" }, () => {
 withEnv(CLEAN_ENV, () => {
   check("an empty override falls through to the default",
     modelParams("deep", { model: "" }).model === TIER_DEFAULTS.deep.model);
+});
+
+withEnv({ ...CLEAN_ENV, AI_MODEL_DEEP: "gpt-6.1-sol", AI_EFFORT_DEEP: "none" }, () => {
+  check("effort 'none' becomes 'low' on a model that rejects it",
+    modelParams("deep", { temperature: 0 }).reasoning_effort === "low");
+  check("...and then sends no temperature",
+    modelParams("deep", { temperature: 0 }).temperature === undefined);
+});
+withEnv({ ...CLEAN_ENV, AI_MODEL_DEEP: "gpt-6-luna", AI_EFFORT_DEEP: "none" }, () => {
+  check("effort 'none' is kept on a model that accepts it",
+    modelParams("deep").reasoning_effort === "none");
 });
 
 check("gpt-4o-mini is legacy", isLegacyChatModel("gpt-4o-mini"));

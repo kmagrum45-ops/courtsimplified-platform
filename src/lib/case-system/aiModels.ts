@@ -91,6 +91,11 @@ export function isLegacyChatModel(model: string): boolean {
   return /^(gpt-3\.5|gpt-4(?!\.5)|gpt-4o|gpt-4\.1|chatgpt-4o)/i.test(model.trim());
 }
 
+/** False for models that always reason and reject `reasoning_effort: "none"`. */
+export function supportsNoReasoning(model: string): boolean {
+  return !/^gpt-6(?:\.\d+)?-astra|^gpt-6\.1-sol/i.test(model.trim());
+}
+
 function readEnv(name: string): string | undefined {
   const value = typeof process !== "undefined" ? process.env?.[name] : undefined;
   return value && value.trim() ? value.trim() : undefined;
@@ -169,12 +174,16 @@ export function modelParams(tier: AiTier, options: ModelParamOptions = {}): Chat
     return params;
   }
 
-  params.reasoning_effort = effort;
-  if (effort === "none" && options.temperature !== undefined) {
+  // Measured 2026-09-29: gpt-6.1-sol rejects "none" outright (a 400 that the
+  // fallback deliberately does not paper over), and OpenAI's model pages list
+  // no "none" for gpt-6-astra either. Setting AI_EFFORT_*=none against them
+  // would break every call, so it becomes the lowest effort they accept.
+  params.reasoning_effort = effort === "none" && !supportsNoReasoning(model) ? "low" : effort;
+  if (params.reasoning_effort === "none" && options.temperature !== undefined) {
     params.temperature = options.temperature;
   }
   if (options.maxOutputTokens !== undefined) {
-    params.max_completion_tokens = options.maxOutputTokens + REASONING_HEADROOM[effort];
+    params.max_completion_tokens = options.maxOutputTokens + REASONING_HEADROOM[params.reasoning_effort];
   }
   return params;
 }
