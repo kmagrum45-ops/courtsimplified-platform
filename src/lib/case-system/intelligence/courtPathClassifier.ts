@@ -701,9 +701,6 @@ async function classifyCourtPathInner(
 
     const response = await client.chat.completions.create({
       ...modelParams("deep", {
-        model:
-          process.env.COURTSIMPLIFIED_CLASSIFIER_MODEL ||
-          process.env.COURTSIMPLIFIED_REASONING_MODEL,
         temperature: 0,
         // Caps spend on a job whose answer is four short fields. modelParams
         // adds reasoning headroom on top: thinking tokens count against this

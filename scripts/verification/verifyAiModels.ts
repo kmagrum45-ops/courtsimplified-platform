@@ -123,6 +123,13 @@ check(`found model calls to inspect (${callCount})`, callCount > 0,
 check("no chat.completions call in src/ or app/ has a model string literal",
   offenders.length === 0, `hard-coded in: ${[...new Set(offenders)].join(", ")}`);
 
+// The two pre-2026-09-29 variables overrode the tier default, so a value
+// left in Vercel silently kept two sites on an old model. Nothing may read them.
+const legacyReaders = [...walk("src"), ...walk("app")].filter((file) =>
+  /process\.env\.COURTSIMPLIFIED_(REASONING|CLASSIFIER)_MODEL\b/.test(fs.readFileSync(file, "utf8")));
+check("no code reads the retired COURTSIMPLIFIED_*_MODEL variables",
+  legacyReaders.length === 0, `still read in: ${legacyReaders.join(", ")}`);
+
 // ------------------------------------------------ 2. reasoning-model params
 
 console.log("\nReasoning models get parameters they accept");
