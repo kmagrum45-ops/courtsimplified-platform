@@ -56,6 +56,10 @@ export type ReviewStory = {
     reviewShouldRaise?: { kind: string; quoteIncludes?: string }[];
     /** Set when the story asks for legal advice ("do I have a case"); the notice must show. */
     asksForAdvice?: boolean;
+    /** Questions that must never be asked of this person (asked = shown as a question). */
+    mustNotAsk?: string[];
+    /** Questions this person must reach, asked or offered from the story. */
+    mustReach?: string[];
   };
 };
 
@@ -92,7 +96,7 @@ export const DEFENDANT_DEFAULTS: Record<string, string> = {
   "sc-defendant-service-method": "Someone handed it to me.",
   "sc-defendant-counterclaim": "I'm not sure.",
   "sc-defendant-admission-payment": "No.",
-  "sc-defendant-default-status": "No, neither has happened",
+  "sc-defendant-defence-filed": "No, not yet.",
   "sc-date-claim-served": "I'm not sure of the exact date.",
   "sc-date-claim-issued": "I'm not sure, I'd have to check the form.",
 };
@@ -269,6 +273,10 @@ export const STORIES: ReviewStory[] = [
       "sc-defendant-response-evidence": "Photos from the first day and our texts about the changes.",
     },
     expect: {
+      // Just served: the next step is responding. Default and judgment are
+      // never asked unless the person raises them (site owner, 2026-09-29).
+      mustNotAsk: ["sc-date-learned-of-default", "sc-date-learned-of-judgment"],
+      mustReach: ["sc-defendant-defence-filed"],
       courtPath: ["small-claims"],
       safety: ["clear"],
       answeredByStory: ["sc-orient-role", "sc-claim-filed", "sc-defendant-served"],
@@ -290,6 +298,10 @@ export const STORIES: ReviewStory[] = [
       "sc-defendant-admission-payment": "I agree I owe about $1,200 and I'm willing to pay it.",
     },
     expect: {
+      // Just served: the next step is responding. Default and judgment are
+      // never asked unless the person raises them (site owner, 2026-09-29).
+      mustNotAsk: ["sc-date-learned-of-default", "sc-date-learned-of-judgment"],
+      mustReach: ["sc-defendant-defence-filed"],
       courtPath: ["small-claims"],
       safety: ["clear"],
       answeredByStory: ["sc-orient-role", "sc-claim-filed", "sc-defendant-served"],
@@ -732,10 +744,11 @@ export const STORIES: ReviewStory[] = [
       "thought it would go away. Now I got a letter from the court saying I've been noted in default. What " +
       "happens now?",
     answers: {
-      "sc-defendant-default-status": "I've been noted in default",
       "sc-date-learned-of-default": "Last week, around September 20.",
     },
     expect: {
+      // They said they were noted in default, so the date they found out is asked.
+      mustReach: ["sc-date-learned-of-default"],
       courtPath: ["small-claims"],
       safety: ["clear", "distress"],
       answeredByStory: ["sc-orient-role"],
@@ -753,6 +766,10 @@ export const STORIES: ReviewStory[] = [
       "want to make a claim back against him.",
     answers: { "sc-defendant-counterclaim": "Yes, he owes me for the equipment, about $14,000. I haven't started anything yet." },
     expect: {
+      // Just served: the next step is responding. Default and judgment are
+      // never asked unless the person raises them (site owner, 2026-09-29).
+      mustNotAsk: ["sc-date-learned-of-default", "sc-date-learned-of-judgment"],
+      mustReach: ["sc-defendant-defence-filed"],
       courtPath: ["small-claims"],
       safety: ["clear"],
       answeredByStory: ["sc-orient-role"],
@@ -770,6 +787,10 @@ export const STORIES: ReviewStory[] = [
       "I've been served with a claim by a delivery driver who says my dog bit him on my porch. My dog did " +
       "nip him but he walked right past the Beware of Dog sign and into the gate. He wants $7,500.",
     expect: {
+      // Just served: the next step is responding. Default and judgment are
+      // never asked unless the person raises them (site owner, 2026-09-29).
+      mustNotAsk: ["sc-date-learned-of-default", "sc-date-learned-of-judgment"],
+      mustReach: ["sc-defendant-defence-filed"],
       courtPath: ["small-claims"],
       safety: ["clear"],
       answeredByStory: ["sc-orient-role"],

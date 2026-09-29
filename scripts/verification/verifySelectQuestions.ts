@@ -216,6 +216,28 @@ assert.ok(
   "selectQuestions must only return small-claims questions in this phase",
 );
 
+// --- 2026-09-29, site owner's rule: a defendant who was just served is asked
+// whether they have responded, never about default or judgment unless their
+// own words raise it.
+const justServed = selectQuestions({ role: "defendant", claimFiled: true, claimServed: true }, [], QUESTION_BANK);
+assert.ok(justServed.includes("sc-defendant-defence-filed"), "a served defendant must be asked whether they have filed a Defence");
+for (const id of ["sc-date-learned-of-default", "sc-date-learned-of-judgment", "sc-defence-filed", "sc-defendant-served"]) {
+  assert.ok(!justServed.includes(id), `a just-served defendant must not be asked ${id}`);
+}
+const saysDefault = selectQuestions(
+  { role: "defendant", claimFiled: true, claimServed: true, notedInDefault: true },
+  [],
+  QUESTION_BANK,
+);
+assert.ok(saysDefault.includes("sc-date-learned-of-default"), "a defendant who says they were noted in default is asked when they found out");
+assert.ok(!saysDefault.includes("sc-date-learned-of-judgment"), "noted in default is not a judgment");
+const saysJudgment = selectQuestions(
+  { role: "defendant", claimFiled: true, claimServed: true, defaultJudgment: true },
+  [],
+  QUESTION_BANK,
+);
+assert.ok(saysJudgment.includes("sc-date-learned-of-judgment"), "a defendant who says a judgment was made is asked when they found out");
+
 console.log(
   `selectQuestions: determinism, phase ordering, sensitive-last, appliesWhen filtering, ` +
     `allowUnknown, and draft-exclusion all verified. Real bank: ${QUESTION_BANK.length} question(s), ` +

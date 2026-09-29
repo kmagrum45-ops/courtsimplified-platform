@@ -231,7 +231,23 @@ function hasWorkplaceSignal(story: string): boolean {
  */
 function coherentForum(forum: OutOfScopeForum, story: string): OutOfScopeForum | null {
   if (forum.id === "wsiat" && !hasWorkplaceSignal(story)) return null;
+  if (forum.id === "ltb" && isCommercialTenancyOnly(story)) return null;
   return forum;
+}
+
+/**
+ * 2026-09-29. Residential Tenancies Act, 2006 s. 3 (1): the Act -- and so
+ * the LTB -- "applies with respect to rental units in residential complexes"
+ * (docs/sources/corpus, e-Laws 06r17_e.doc, retrieved 2026-09-27). The model
+ * named the LTB for a restaurant's strip-mall lease while its own reasoning
+ * said "commercial lease" (story review SC17). The keyword pass already
+ * scores no LTB signal for such a story; this refuses the model's LTB too.
+ */
+function isCommercialTenancyOnly(story: string): boolean {
+  const text = story.toLowerCase();
+  const commercial = ["commercial", "strip mall", "storefront", "retail unit", "office space", "my restaurant", "my store", "my shop", "business premises"];
+  const residential = ["apartment", "residential", "rental unit", "basement", "my home", "house i rent"];
+  return commercial.some((term) => text.includes(term)) && !residential.some((term) => text.includes(term));
 }
 
 /**

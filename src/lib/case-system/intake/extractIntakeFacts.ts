@@ -40,7 +40,9 @@ Return a JSON object with ONLY these fields, omitting any you cannot determine f
 - "disputeCategory": exactly one of these, if clear; omit if unclear. "unpaid-money" (the narrator is owed money for work they did, goods they supplied, or wages), "work-or-services" (the narrator PAID someone to do work or provide a service, such as a contractor, and has a problem with it), "contract-dispute", "loan-or-debt", "deposit-refund", "consumer-purchase", "vehicle-dispute", "property-damage", "defamation", "personal-injury", "other". If the narrator did the work and was not paid, that is "unpaid-money", not "work-or-services".
 - "claimFiled": true or false, only if the story explicitly says whether a court claim/Plaintiff's Claim has been filed. Omit if not mentioned.
 - "claimServed": true or false, only if the story explicitly addresses service on the other party. Omit if not mentioned.
-- "defenceFiled": true or false, only if the story explicitly addresses whether the other side filed a Defence. Omit if not mentioned.
+- "defenceFiled": true or false, only if the story explicitly says whether a Defence has been filed in the case -- by the defendant, who may be the narrator ("I haven't filed my defence yet" is false). Omit if not mentioned.
+- "notedInDefault": true only if the narrator explicitly says they have been noted in default. Never infer it from a missed deadline. Omit otherwise.
+- "defaultJudgment": true only if the narrator explicitly says a judgment was made against them. Omit otherwise.
 
 Do not guess at fields the story doesn't address -- omit them rather than assume. Return only the JSON object, no other text.`;
 
@@ -130,7 +132,9 @@ Return a JSON object with exactly two top-level fields:
   - "disputeCategory": exactly one of these, if clear; omit if unclear. "unpaid-money" (the narrator is owed money for work they did, goods they supplied, or wages), "work-or-services" (the narrator PAID someone to do work or provide a service, such as a contractor, and has a problem with it), "contract-dispute", "loan-or-debt", "deposit-refund", "consumer-purchase", "vehicle-dispute", "property-damage", "defamation", "personal-injury", "other". If the narrator did the work and was not paid, that is "unpaid-money", not "work-or-services".
   - "claimFiled": true or false, only if the story explicitly says whether a court claim/Plaintiff's Claim has been filed. Omit if not mentioned.
   - "claimServed": true or false, only if the story explicitly addresses service on the other party. Omit if not mentioned.
-  - "defenceFiled": true or false, only if the story explicitly addresses whether the other side filed a Defence. Omit if not mentioned.
+  - "defenceFiled": true or false, only if the story explicitly says whether a Defence has been filed in the case -- by the defendant, who may be the narrator ("I haven't filed my defence yet" is false). Omit if not mentioned.
+  - "notedInDefault": true only if the narrator explicitly says they have been noted in default. Never infer it from a missed deadline. Omit otherwise.
+  - "defaultJudgment": true only if the narrator explicitly says a judgment was made against them. Omit otherwise.
   Do not guess at fields the story doesn't address -- omit them rather than assume.
 
 - "directFields": an array of field names, drawn only from the keys actually present in "facts", whose value was stated as a DIRECT, CONFIDENT assertion -- something the person clearly and definitely says happened, is true, or is not true, right now. Do NOT include a field here if the mention was incidental, hedged, uncertain, hypothetical, or about something merely being considered or not yet decided (e.g. "I was going to file but haven't decided," "I might serve them soon," "I think maybe"). A field can be present in "facts" without being in "directFields" if it's stated but not with that level of directness.

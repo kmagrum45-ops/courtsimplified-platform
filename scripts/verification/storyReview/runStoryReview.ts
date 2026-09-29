@@ -370,6 +370,22 @@ async function runOne(story: ReviewStory, apiKey: string, offline: boolean): Pro
     });
   }
 
+  for (const id of story.expect.mustNotAsk || []) {
+    run.checks.push({
+      check: "must-not-ask",
+      pass: !run.askedIds.includes(id),
+      detail: run.askedIds.includes(id) ? `asked "${id}", which this person should never be asked` : `"${id}" not asked`,
+    });
+  }
+  for (const id of story.expect.mustReach || []) {
+    const reached = run.askedIds.includes(id) || run.proposals.some((p) => p.questionId === id);
+    run.checks.push({
+      check: "must-reach",
+      pass: reached,
+      detail: reached ? `"${id}" reached` : `"${id}" was never asked or offered`,
+    });
+  }
+
   for (const id of story.expect.answeredByStory || []) {
     const proposed = run.proposals.some((p) => p.questionId === id);
     const asked = run.askedIds.includes(id);
