@@ -2036,7 +2036,6 @@ async function runStructuredGptCognitionInner(
 
     const response = await client.chat.completions.create({
       ...modelParams("deep", {
-        model: process.env.COURTSIMPLIFIED_REASONING_MODEL,
         // Measured 2026-09-29 on the story review: this call took a median
         // 77s at the deep tier's "medium" effort (9.5s on gpt-4o-mini) --
         // too long for a person waiting on their analysis. It returns a large

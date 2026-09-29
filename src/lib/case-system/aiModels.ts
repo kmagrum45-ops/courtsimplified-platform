@@ -30,10 +30,10 @@
  *   AI_MODEL_STANDARD    AI_EFFORT_STANDARD
  *
  * The older `COURTSIMPLIFIED_REASONING_MODEL` and
- * `COURTSIMPLIFIED_CLASSIFIER_MODEL` are still honoured at the two sites that
- * always read them, and they WIN over the tier default there. If either is set
- * in Vercel to an old model, those two sites stay on it — delete them unless
- * that is intended.
+ * `COURTSIMPLIFIED_CLASSIFIER_MODEL` are NO LONGER READ (removed 2026-09-29).
+ * They overrode the tier default at two sites, so a leftover value in Vercel
+ * would silently have kept those sites on an old model. A leftover value is
+ * now harmless. `test:ai-models` fails if anything reads them again.
  *
  * REASONING MODELS TAKE DIFFERENT PARAMETERS. The gpt-5.x / gpt-6.x models
  * think before answering. `modelParams` translates each call's request for the
