@@ -269,40 +269,17 @@ export type CivilCaseData = {
   requestedRemedies: string[];
 };
 
-export type CivilAnalysisResult = {
-  summary: string;
-
-  strongestTheory?: string;
-
-  liabilityStrength:
-    | "weak"
-    | "developing"
-    | "moderate"
-    | "strong";
-
-  causationStrength:
-    | "weak"
-    | "developing"
-    | "moderate"
-    | "strong";
-
-  damagesStrength:
-    | "weak"
-    | "developing"
-    | "moderate"
-    | "strong";
-
-  strongestEvidence: string[];
-
-  biggestProofGaps: string[];
-
-  proceduralWarnings: string[];
-
-  likelyDefenceArguments: string[];
-
-  recommendedNextSteps: string[];
-
-  recommendedForms: CaseFormNeed[];
-
-  readiness: CaseReadiness;
-};
+/*
+ * `CivilAnalysisResult` was here — declared and never constructed or read
+ * anywhere else in the tree (confirmed by a whole-repo grep before removal).
+ * It carried `liabilityStrength` / `causationStrength` / `damagesStrength`
+ * ("weak" | "developing" | "moderate" | "strong"), `strongestEvidence`, and
+ * `likelyDefenceArguments` — the same class of case-merit-grading and
+ * opposing-argument-prediction construct already removed elsewhere in this
+ * codebase (see the `confidence` field removed from `CivilLiabilityTheory`
+ * above, and Session 48 in courtSimplifiedBrain.ts). Dead code that matches
+ * a known-prohibited shape is a bigger liability than a live one: nobody
+ * flags it as active, so it survives static scans as noise and is one
+ * careless `...` away from being wired back up. Removed rather than left as
+ * a triage item.
+ */
