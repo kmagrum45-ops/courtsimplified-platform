@@ -1,0 +1,21 @@
+
+> courtsimplified@0.1.0 review:stories
+> node --import tsx scripts/verification/storyReview/runStoryReview.ts
+
+SC1-contractor-quit-customer ... [aiCallLog] sink: file (.ai-call-log.jsonl)
+2 failed
+SC2-freelance-invoice ... ok
+SC3-loan-to-friend ... ok
+SC4-used-car-dealer ... ok
+SC5-facebook-post ... 2 failed
+SC6-dog-bite ... 1 failed
+SC7-contractor-being-sued ... 2 failed
+SC8-sued-on-loan-part-owed ... 1 failed
+SC9-threat-buried ... ok
+CV1-renovation-over-limit ... ok
+CV2-fired-after-12-years ... 1 failed
+FM1-separation-parenting ... ok
+FM2-served-motion-to-change ... ok
+TR1-tenant-mould ... ok
+
+Story review: 14 stories, 9 failed checks. Report: scripts/verification/storyReview/REPORT.md
