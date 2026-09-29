@@ -170,15 +170,23 @@ export function buildUploadNarrative(input: CivilCanonicalIntakeInput): string {
     .join("; ");
 }
 
-function buildNarrative(input: CivilCanonicalIntakeInput): string {
+/**
+ * `forModel` decides the two name lines. The same narrative is the case
+ * summary saved in the Canadian database (names kept: it is the user's own
+ * file) and the text sent to the model (names replaced -- see
+ * privacy/modelPayloadNames.ts). Until 2026-09-29 one string served both, so
+ * removing names from the model also removed them from the saved summary.
+ */
+function buildNarrative(input: CivilCanonicalIntakeInput, { forModel }: { forModel: boolean }): string {
+  const name = (value: string) => (forModel ? nameRecorded(value) : value);
   return cleanList([
     "Court path: Civil",
     "Jurisdiction: Ontario",
     `Stage: ${input.caseStage}`,
     `User role: ${input.yourRole}`,
     // Names are never sent to the model -- see privacy/modelPayloadNames.ts.
-    input.yourName && `User / party name: ${nameRecorded(input.yourName)}`,
-    input.otherParty && `Other party: ${nameRecorded(input.otherParty)}`,
+    input.yourName && `User / party name: ${name(input.yourName)}`,
+    input.otherParty && `Other party: ${name(input.otherParty)}`,
     input.courtLocation && `Court location: ${input.courtLocation}`,
     input.courtFileNumber && `Court file number: ${input.courtFileNumber}`,
     input.amountClaimed && `Amount claimed or disputed: ${formatRecordedAmount(input.amountClaimed)}`,
@@ -256,7 +264,8 @@ export async function runCivilIntakeCanonicalIntegration(
     existingMasterResult?: unknown;
   } = {},
 ): Promise<CivilCanonicalIntakeResult> {
-  const narrative = buildNarrative(input);
+  const narrative = buildNarrative(input, { forModel: false });
+  const modelNarrative = buildNarrative(input, { forModel: true });
   const civilMasterResult = runCivilMasterCaseEngine({
     caseId: input.caseId,
     title: cleanList([input.yourName, input.otherParty, "Civil Case"]).join(" v. "),
@@ -277,7 +286,7 @@ export async function runCivilIntakeCanonicalIntegration(
     courtPath: "civil",
     province: "Ontario",
     stage: input.caseStage,
-    rawUserText: narrative,
+    rawUserText: modelNarrative,
     existingMasterResult: options.existingMasterResult || {},
     sourceType: "user-intake",
     allowExternalCognition: options.allowExternalCognition,
