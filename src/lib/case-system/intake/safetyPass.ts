@@ -6,8 +6,8 @@
  * is the gap flagged at the end of Session 3: no free-text story should
  * reach extractIntakeFacts.ts without running through here first.
  *
- * Same shape as extractIntakeFacts.ts: one OpenAI call, gpt-4o-mini,
- * temperature 0. The model's job is classification ONLY -- it never gives
+ * Same shape as extractIntakeFacts.ts: one OpenAI call, the standard-tier
+ * model (see ../aiModels.ts). The model's job is classification ONLY -- it never gives
  * advice, never characterizes the legal situation, and never writes the
  * text a user in danger or distress actually sees. That text is a fixed,
  * reviewed constant below (same "fixed skeleton, no AI on safety-critical
@@ -49,6 +49,7 @@
  */
 
 import { createOpenAIClient } from "../openaiClient";
+import { modelParams } from "../aiModels";
 import {
   recordAiValidation,
   recordRequestsLegalAdvice,
@@ -153,8 +154,7 @@ export async function runSafetyPass(storyText: string, apiKey: string): Promise<
 async function runSafetyPassInner(storyText: string, apiKey: string): Promise<SafetyPassResult> {
   const client = createOpenAIClient(apiKey);
   const response = await client.chat.completions.create({
-    model: "gpt-4o-mini",
-    temperature: 0,
+    ...modelParams("standard", { temperature: 0 }),
     response_format: { type: "json_object" },
     messages: [
       { role: "system", content: SYSTEM_PROMPT },

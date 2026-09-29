@@ -38,6 +38,7 @@
  */
 
 import { createOpenAIClient } from "../openaiClient";
+import { modelParams } from "../aiModels";
 import { currentAiCallContext, withAiCallContext } from "../../audit/aiCallLog";
 import { PUBLISHED_BLOCKS } from "../../content-library/publishedLibrary";
 import { CASE_STAGES, findStage } from "../stage-map/stageMap";
@@ -369,15 +370,13 @@ export function droppedIds(raw: Partial<ChatSelection> | null): string[] {
 export async function selectFromLibrary(
   message: string,
   caseContext = "",
-  model = "gpt-4o-mini",
+  model?: string,
 ): Promise<ChatSelection> {
   const run = async (): Promise<ChatSelection> => {
     try {
       const client = createOpenAIClient();
       const response = await client.chat.completions.create({
-        model,
-        temperature: 0,
-        seed: 1,
+        ...modelParams("standard", { model, temperature: 0, seed: 1 }),
         response_format: { type: "json_object" },
         messages: [
           { role: "system", content: LIBRARY_CHAT_SYSTEM },

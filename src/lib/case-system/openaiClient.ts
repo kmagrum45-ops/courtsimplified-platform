@@ -31,6 +31,20 @@
 import OpenAI from "openai";
 
 import { observeAiCall } from "../audit/aiCallLog";
+import { createWithParamFallback } from "./aiModels";
+
+/**
+ * Logged when a model rejects a sampling parameter and the call is retried
+ * without it (see aiModels.ts). A warning, not an error: the user got their
+ * answer. But it means modelParams() is sending something this model does not
+ * take, and the fix belongs there so the extra 400 stops happening.
+ */
+function warnDroppedParam(param: string, model: unknown): void {
+  console.warn(
+    `[openaiClient] ${String(model)} rejected '${param}'; retried without it. ` +
+      "Update modelParams() in src/lib/case-system/aiModels.ts so this stops happening.",
+  );
+}
 
 /**
  * Never retry. See the file header: the dominant failure is a daily-cap 429,
@@ -87,7 +101,11 @@ export function forceNoStore<T>(client: T): T {
     // observeAiCall is an observer: it returns and throws exactly what the call
     // returns and throws.
     observeAiCall(body, async () =>
-      chatCreate({ ...body, store: false }, options),
+      createWithParamFallback(
+        (attempt) => chatCreate({ ...attempt, store: false }, options) as Promise<unknown>,
+        body,
+        warnDroppedParam,
+      ),
     )) as never;
 
   /*
@@ -111,7 +129,11 @@ export function forceNoStore<T>(client: T): T {
     );
     chatCompletions.parse = ((body: Record<string, unknown>, options?: unknown) =>
       observeAiCall(body, async () =>
-        chatParse({ ...body, store: false }, options),
+        createWithParamFallback(
+          (attempt) => chatParse({ ...attempt, store: false }, options) as Promise<unknown>,
+          body,
+          warnDroppedParam,
+        ),
       )) as never;
   }
 

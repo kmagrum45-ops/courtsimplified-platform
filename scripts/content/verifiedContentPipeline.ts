@@ -71,6 +71,11 @@ const CORPUS_DIR = path.join(ROOT, "docs", "sources", "corpus");
 export const PRICING: Record<string, { inputPerM: number; outputPerM: number }> = {
   "gpt-4o": { inputPerM: 2.5, outputPerM: 10 },
   "gpt-4o-mini": { inputPerM: 0.15, outputPerM: 0.6 },
+  // developers.openai.com/api/docs/models, read 2026-09-29. Output includes
+  // reasoning tokens, which the API bills as output.
+  "gpt-6.1-sol": { inputPerM: 2, outputPerM: 10 },
+  "gpt-6-sol": { inputPerM: 2, outputPerM: 10 },
+  "gpt-6-luna": { inputPerM: 0.1, outputPerM: 0.5 },
 };
 
 export type Usage = { model: string; inputTokens: number; outputTokens: number; calls: number };

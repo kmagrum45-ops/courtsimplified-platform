@@ -37,6 +37,7 @@ import {
 } from "./intelligenceTypes";
 
 import { normalizeIntake } from "./intakeNormalizationEngine";
+import { modelParams } from "../aiModels";
 import { buildElementProofAnalysis } from "./elementProofEngine";
 import { buildBrainMigrationLayer } from "../orchestration/brainMigrationLayer";
 import { buildEvidenceIntelligenceAnalysis } from "../evidence/evidenceIntelligenceEngine";
@@ -2029,8 +2030,10 @@ async function runStructuredGptCognitionInner(
     const client = createOpenAIClient();
 
     const response = await client.chat.completions.create({
-      model: process.env.COURTSIMPLIFIED_REASONING_MODEL || "gpt-4o-mini",
-      temperature: 0.1,
+      ...modelParams("deep", {
+        model: process.env.COURTSIMPLIFIED_REASONING_MODEL,
+        temperature: 0.1,
+      }),
       response_format: { type: "json_object" },
       messages: [
         {
