@@ -4,10 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "../../src/lib/supabase/client";
 import {
-  clearCompactBuilderDraft,
-  loadCompactBuilderDraft,
   saveGuestIntakeSession,
-  saveCompactBuilderDraft,
   type BuilderDraftCourtPath,
 } from "../../src/lib/case-system/builderDraftStorage";
 import { resetIntakeInBrowser } from "../../src/lib/case-system/storage/resetIntake";
@@ -61,12 +58,10 @@ export default function HomeLocationGate() {
   const [city, setCity] = useState("");
   const [facts, setFacts] = useState("");
   const [userId, setUserId] = useState<string | null>(null);
-  const [savedDraft, setSavedDraft] = useState<ReturnType<typeof loadCompactBuilderDraft>>(null);
   const [hydrated, setHydrated] = useState(false);
   const [checking, setChecking] = useState(false);
   const [suggestion, setSuggestion] = useState<CourtPathSuggestion | null>(null);
   const provinceRef = useRef<HTMLSelectElement | null>(null);
-  const savedCaseRef = useRef<HTMLDivElement | null>(null);
   const suggestionRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -85,20 +80,19 @@ export default function HomeLocationGate() {
        * in, so there is no live session whose work could be destroyed, and a
        * library machine should not still be holding the last person's case.
        *
-       * A signed-in user is NOT reset. Their draft is what `savedDraft` below
-       * offers to resume, and a case loaded from Supabase must survive.
+       * A signed-in user is not reset here: they may be mid-case in another
+       * tab. They were already reset when they signed in (login page), and
+       * this form never pre-fills from the browser -- see below.
        */
       if (!id) resetIntakeInBrowser();
 
       setUserId(id);
-      setSavedDraft(id ? loadCompactBuilderDraft(localStorage, id) : null);
       setHydrated(true);
     }
     void hydrate();
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       const id = session?.user.id || null;
       setUserId(id);
-      setSavedDraft(id ? loadCompactBuilderDraft(localStorage, id) : null);
       setProvince("");
       setCity("");
       setFacts("");
@@ -114,8 +108,8 @@ export default function HomeLocationGate() {
   }, []);
 
   useEffect(() => {
-    if (hydrated && path) scrollAndFocus(savedDraft ? savedCaseRef.current : provinceRef.current);
-  }, [hydrated, path, savedDraft]);
+    if (hydrated && path) scrollAndFocus(provinceRef.current);
+  }, [hydrated, path]);
 
   useEffect(() => {
     if (suggestion) scrollAndFocus(suggestionRef.current);
@@ -124,40 +118,20 @@ export default function HomeLocationGate() {
   if (!path) return null;
   const isOntarioReady = province === "Ontario" && city.trim().length > 0 && facts.trim().length > 0;
 
-  function resumeSavedCase() {
-    if (!savedDraft || !userId) return;
-    setProvince(savedDraft.province === "Ontario" ? "Ontario" : "");
-    setCity(savedDraft.city);
-    setFacts(savedDraft.facts);
-    setSavedDraft(null);
-  }
-
-  function startNewCase() {
-    if (userId) clearCompactBuilderDraft(localStorage, userId);
-    /*
-     * "Start a new case" means new. Clearing this user's draft left the shared,
-     * unscoped keys — the master case, the analysis result, the evidence
-     * package, the chat transcript — carrying the previous case into the next
-     * one. `includeUserScoped: false` so no OTHER account on this browser is
-     * touched; this user's own draft is cleared by the line above.
-     */
-    resetIntakeInBrowser({ includeUserScoped: false });
-    setSavedDraft(null);
-    setProvince("");
-    setCity("");
-    setFacts("");
-    setSuggestion(null);
-    requestAnimationFrame(() => scrollAndFocus(provinceRef.current));
-  }
-
   /** Commits to a path and leaves the gate. Only ever called from a user action. */
   function goToIntake(chosenPath: BuilderDraftCourtPath) {
     const intakeStart = { courtPath: chosenPath, province: "Ontario", city: city.trim(), facts: facts.trim() };
-    if (userId) {
-      saveCompactBuilderDraft(localStorage, intakeStart, userId);
-    } else {
-      saveGuestIntakeSession(sessionStorage, intakeStart);
-    }
+    /*
+     * ONE HAND-OFF FOR EVERYONE, READ ONCE. Signed-in users used to get a
+     * per-user localStorage draft here instead, and the builder restored that
+     * draft on every later visit -- which is how a signed-in user found an old
+     * test story pre-filled in the Small Claims intake (2026-09-28). The
+     * "Saved case on this device" panel that offered to resume it is gone for
+     * the same reason: saved work is opened from the workspace, never from
+     * the browser. The session hand-off is tab-scoped and the builder deletes
+     * it the moment it reads it.
+     */
+    saveGuestIntakeSession(sessionStorage, intakeStart);
     router.push(`/builder?path=${chosenPath}`);
   }
 
@@ -255,7 +229,7 @@ export default function HomeLocationGate() {
       <div className="mx-auto max-w-4xl px-6 py-12">
         <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#2f7d67]">{pathLabels[path]} intake</p>
         <h1 className="mt-3 text-3xl font-bold tracking-tight text-[#10231f]">Confirm your location before starting this path</h1>
-        {!hydrated ? <p className="mt-6 text-sm font-semibold text-[#4d675f]" aria-live="polite">Preparing a private case start…</p> : savedDraft ? <div ref={savedCaseRef} tabIndex={-1} className="mt-6 rounded-3xl border border-[#cde7dc] bg-[#f8fcfa] p-5" data-testid="saved-case-panel"><h2 className="text-lg font-bold text-[#10231f]">Saved case on this device</h2><p className="mt-2 text-sm leading-6 text-[#4d675f]">Resume your saved {pathLabels[savedDraft.courtPath || path]} case, or begin a separate new case.</p><div className="mt-4 flex flex-wrap gap-3"><button type="button" onClick={resumeSavedCase} className="rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white">Resume saved case</button><button type="button" onClick={startNewCase} className="rounded-xl border border-[#bdd4ca] bg-white px-5 py-3 text-sm font-semibold text-[#1c473d]">Start a new case</button></div></div> : <div data-testid="court-path-location-gate-ready">
+        {!hydrated ? <p className="mt-6 text-sm font-semibold text-[#4d675f]" aria-live="polite">Preparing a private case start…</p> : <div data-testid="court-path-location-gate-ready">
           {!userId && <p className="mt-6 rounded-2xl border border-[#cde7dc] bg-[#f8fcfa] p-4 text-sm text-[#24463d]">You can begin now. Sign in when you want to save and return to this case.</p>}
           <div className="mt-6 grid gap-5 md:grid-cols-2">
             <label className="block"><span className="font-semibold text-[#16302b]">Province or territory</span><select ref={provinceRef} aria-label="Province or territory" value={province} onChange={(event) => setProvince(event.target.value)} className="mt-2 w-full rounded-2xl border border-[#d8e6df] bg-white px-4 py-3"><option value="">Select province or territory</option><option value="Ontario">Ontario</option><option value="not-sure">Not sure</option><option value="Other">Another province or territory</option></select></label>

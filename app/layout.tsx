@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AuthNavAction from "./_components/AuthNavAction";
+import AuthStorageGuard from "./_components/AuthStorageGuard";
 import MobileNav from "./_components/MobileNav";
 import ScrollToTopOnNavigation from "./_components/ScrollToTopOnNavigation";
 
@@ -48,6 +49,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-screen bg-[#F7FAFA] text-[#1F2937]">
+        <AuthStorageGuard />
         {/* useSearchParams() bails out of static prerendering unless it sits
             inside a Suspense boundary, which would fail the build for every
             statically rendered route. It renders null, so no fallback needed. */}

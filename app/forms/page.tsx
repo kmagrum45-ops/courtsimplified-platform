@@ -3,6 +3,11 @@
 import Link from "next/link";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import {
+  FORM_COMPLETION_PAUSED,
+  FORM_COMPLETION_PAUSED_MESSAGE,
+  OFFICIAL_COURT_FORMS_URL,
+} from "../../src/lib/content-library/phaseScope";
 import { createClient } from "@supabase/supabase-js";
 
 import { supabasePublic, isSessionTokenError } from "@/src/lib/supabase/client";
@@ -1368,7 +1373,32 @@ function FormsPageContent() {
   );
 }
 
+function FormsPausedNotice() {
+  return (
+    <main className="flex min-h-screen items-center justify-center bg-[#f8faf8] px-6 text-[#16302b]">
+      <section className="max-w-xl rounded-2xl border border-[#d8e6df] bg-white p-8">
+        <h1 className="text-2xl font-bold">Court forms</h1>
+        <p className="mt-4 leading-7">{FORM_COMPLETION_PAUSED_MESSAGE}</p>
+        <a
+          href={OFFICIAL_COURT_FORMS_URL}
+          className="mt-6 inline-block rounded-xl bg-[#2f7d67] px-5 py-3 text-sm font-semibold text-white"
+        >
+          Go to Ontario Court Forms
+        </a>
+        <p className="mt-6">
+          <Link href="/builder" className="text-sm font-semibold text-[#2f7d67] underline">
+            Back to my case
+          </Link>
+        </p>
+      </section>
+    </main>
+  );
+}
+
 export default function FormsPage() {
+  // Paused: see FORM_COMPLETION_PAUSED in phaseScope.ts.
+  if (FORM_COMPLETION_PAUSED) return <FormsPausedNotice />;
+
   return (
     <Suspense
       fallback={

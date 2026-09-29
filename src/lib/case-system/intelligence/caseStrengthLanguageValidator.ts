@@ -35,18 +35,74 @@
  * fallback-to-plain-question-text behavior.
  */
 
+/*
+ * 2026-09-27 -- expanded after an independent second-opinion review (a
+ * different AI, given only this file and CLAUDE.md section 3, asked to find
+ * gaps). Two kinds of gap were real and are added below: outcome-prediction
+ * verb forms this list only caught in one tense/modal ("likely to succeed"
+ * but not "may succeed" or "may be dismissed"), and merit-grading adjectives
+ * with no synonym coverage ("viability" but not "viable"/"non-viable").
+ *
+ * Several of that review's suggestions were REJECTED, not overlooked --
+ * recorded here so they aren't re-suggested and re-added later without this
+ * reasoning:
+ *   - Bare "accept", "reject", "believe", "prefer", "conclude", "award" --
+ *     these are ordinary words this site's own LEGITIMATE output uses
+ *     constantly in neutral procedural sentences (e.g. nextBestActions
+ *     content describing that "the court may award costs" -- reviewed
+ *     library text, not a case-specific prediction). validateCaseStrengthLanguage
+ *     is a plain substring match, so a bare common word blocks correct
+ *     output silently instead of catching the forbidden thing.
+ *   - Bare "succeed", "fail", "claim", "rely on" -- same problem, worse for
+ *     "claim": the entire product is about a user's "claim". A bare match
+ *     would misfire on nearly every legitimate sentence.
+ *   - "the defendant/plaintiff/respondent may/could/might [verb]" as one
+ *     pattern -- redundant. Substring matching already means "the defendant
+ *     may argue" contains "may argue" and is already caught; no separate
+ *     party-label pattern is needed for verbs already in this list.
+ */
 // Deliberately small and extensible, not exhaustive -- see file header.
 const BLOCKED_TERMS = [
   // judge-prediction
   "judge may",
   "judge will",
+  "judge could",
+  "judge might",
+  "judge is likely to",
+  "judge is expected to",
+  "judge would likely",
   "court may question",
   "court may ask",
   "court may require",
   "court may care",
   "court will expect",
+  "court is likely to",
+  "court is expected to",
+  "court would likely",
   // opposing-argument-prediction
   "may argue",
+  "could argue",
+  "might argue",
+  "will argue",
+  "may contend",
+  "could contend",
+  "might contend",
+  "may assert",
+  "could assert",
+  "might assert",
+  "may allege",
+  "could allege",
+  "might allege",
+  "may deny",
+  "could deny",
+  "might deny",
+  "will deny",
+  "may dispute",
+  "could dispute",
+  "might dispute",
+  "may maintain",
+  "could maintain",
+  "might maintain",
   "opposing side",
   "opposing counsel may",
   "other side may",
@@ -54,16 +110,72 @@ const BLOCKED_TERMS = [
   "strongest argument",
   // case-strength / viability / outcome grading
   "viability",
+  "viable",
+  "non-viable",
+  "not viable",
+  "tenable",
+  "untenable",
+  "meritorious",
+  "lacks merit",
+  "meritless",
+  "well-founded",
+  "unfounded",
+  "compelling",
+  "persuasive",
+  "unpersuasive",
+  "credible",
+  "not credible",
+  "strong claim",
+  "weak claim",
+  "strong evidence",
+  "weak evidence",
+  "helps your case",
+  "hurts your case",
+  "supports your claim",
+  "undermines your claim",
+  "strengthens your case",
+  "weakens your case",
+  "open-and-shut",
+  "slam dunk",
+  "clear-cut case",
+  "good case",
+  "bad case",
+  "solid case",
+  "winnable",
   "likely to succeed",
   "likely to win",
   "unlikely to succeed",
   "unlikely to win",
+  "may succeed",
+  "could succeed",
+  "might succeed",
+  "may fail",
+  "could fail",
+  "might fail",
+  "may be dismissed",
+  "could be dismissed",
+  "might be dismissed",
+  "will be dismissed",
+  "may be denied",
+  "could be denied",
+  "might be denied",
+  "will be denied",
+  "may be granted",
+  "could be granted",
+  "might be granted",
   "chances of success",
   "chance of success",
+  "prospects of success",
+  "probability of success",
+  "likely to prevail",
+  "unlikely to prevail",
+  "prevail",
   "strong case",
   "weak case",
   "will win",
   "will lose",
+  "you'll win",
+  "you'll lose",
 ];
 
 /**
@@ -108,6 +220,10 @@ export function validateCaseStrengthLanguage(text: string): { valid: boolean; ma
  *
  * The console.error calls beside each record below are the existing
  * convention and are KEPT — they are what a developer sees in a terminal.
+ * They carry the field and matched term but NOT the text: in production a
+ * console line goes to the hosting provider's logs, outside the Canadian
+ * database, and the text is about the user's case (2026-09-28, found while
+ * checking the LSO A2I answers). The text stays in the in-memory record.
  * This adds an in-memory record of the same events so a test can assert on
  * them and a human can review them after the run, which a console line
  * cannot support.
@@ -169,7 +285,7 @@ function recordInterception(
 export function sanitizeSummaryText(text: string, fieldName: string): string {
   const result = validateCaseStrengthLanguage(text);
   if (result.valid) return text;
-  console.error(`[caseStrengthLanguageValidator] rejected ${fieldName} (matched term "${result.matchedTerm}"): ${text}`);
+  console.error(`[caseStrengthLanguageValidator] rejected ${fieldName} (matched term "${result.matchedTerm}", ${text.length} chars)`);
   recordInterception("rejected", fieldName, result.matchedTerm, text);
   return "A summary of the saved facts is available in the case details below.";
 }
@@ -184,7 +300,7 @@ export function sanitizeTextArray(items: string[], fieldName: string): string[] 
   return items.filter((item) => {
     const result = validateCaseStrengthLanguage(item);
     if (result.valid) return true;
-    console.error(`[caseStrengthLanguageValidator] dropped ${fieldName} item (matched term "${result.matchedTerm}"): ${item}`);
+    console.error(`[caseStrengthLanguageValidator] dropped ${fieldName} item (matched term "${result.matchedTerm}", ${item.length} chars)`);
     recordInterception("dropped", fieldName, result.matchedTerm, item);
     return false;
   });
@@ -206,7 +322,7 @@ export function sanitizeCognitionOutput<T>(raw: T, path = "cognition"): T {
   if (typeof raw === "string") {
     const result = validateCaseStrengthLanguage(raw);
     if (result.valid) return raw;
-    console.error(`[caseStrengthLanguageValidator] blanked ${path} (matched term "${result.matchedTerm}"): ${raw}`);
+    console.error(`[caseStrengthLanguageValidator] blanked ${path} (matched term "${result.matchedTerm}", ${String(raw).length} chars)`);
     recordInterception("blanked", path, result.matchedTerm, raw);
     return "" as unknown as T;
   }

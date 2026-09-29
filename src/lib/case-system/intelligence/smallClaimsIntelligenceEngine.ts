@@ -15,6 +15,7 @@ import { runCourtSimplifiedBrain } from "./courtSimplifiedBrain";
 import { formatRecordedAmount } from "../format/recordedAmount";
 import type { ProceduralEvent } from "../procedure/proceduralStateArchitecture";
 import { sanitizeSummaryText } from "./caseStrengthLanguageValidator";
+import { nameRecorded } from "../privacy/modelPayloadNames";
 import {
   nextStepBlockFor,
   isPlaceholder,
@@ -322,8 +323,10 @@ export function buildRawUserText(input: SmallClaimsIntelligenceInput): string {
       input.filedDocuments.map(filedDocumentLabel).join(", ") || "None selected"
     }`,
     `User role: ${input.yourRole || "not entered"}`,
-    `User name: ${input.yourName}`,
-    `Other party: ${input.otherParty}`,
+    // Names are never sent to the model -- only whether one was entered.
+    // See src/lib/case-system/privacy/modelPayloadNames.ts.
+    `User name: ${nameRecorded(input.yourName)}`,
+    `Other party: ${nameRecorded(input.otherParty)}`,
     `Court location: ${input.courtLocation}`,
     `Claim number: ${input.claimNumber}`,
     `Amount claimed or disputed: ${formatRecordedAmount(input.amountClaimed)}`,

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { FORM_COMPLETION_PAUSED, FORM_COMPLETION_PAUSED_MESSAGE } from "../../../src/lib/content-library/phaseScope";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { createClient } from "@supabase/supabase-js";
 
@@ -1189,6 +1190,12 @@ function buildFailureMessage(
 }
 
 export async function POST(req: Request) {
+  // Paused: see FORM_COMPLETION_PAUSED in phaseScope.ts. Refuses before the
+  // request is read, so no case data is touched.
+  if (FORM_COMPLETION_PAUSED) {
+    return NextResponse.json({ error: FORM_COMPLETION_PAUSED_MESSAGE, paused: true }, { status: 503 });
+  }
+
   try {
     const contentLength = Number(req.headers.get("content-length") || 0);
     if (

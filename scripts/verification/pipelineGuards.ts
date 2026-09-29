@@ -103,6 +103,18 @@ export function describeRunDegradation(run: PipelineRun): string | null {
     return "pipeline returned no analysisOutput on a run that did not halt";
   }
 
+  // A run that neither halted nor completed stopped for a reason of the
+  // harness's own -- the turn cap -- not the pipeline's. Its analysis is
+  // built from a truncated conversation and must not be recorded as a real
+  // run. Caught 2026-09-27: a defendant fixture ran out of turns one question
+  // short and was written with intakeComplete: false, unflagged.
+  if (!run.halted && !run.intakeComplete) {
+    return (
+      "conversation stopped before intake completed (turn cap reached, " +
+      `${run.turns.length} turns) -- the analysis was built from a truncated intake`
+    );
+  }
+
   const cognitionMode = run.analysisOutput?.analysis?.intelligence?.cognitionMode;
 
   if (cognitionMode === "fallback") {

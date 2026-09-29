@@ -4,6 +4,7 @@ import {
 } from "../civilMasterCaseEngine";
 import type { EvidenceItem } from "../evidenceEngine";
 import { formatRecordedAmount } from "../format/recordedAmount";
+import { nameRecorded } from "../privacy/modelPayloadNames";
 import { runCourtSimplifiedBrain } from "../intelligence/courtSimplifiedBrain";
 import type { CourtSimplifiedBrainOutput } from "../intelligence/intelligenceTypes";
 
@@ -175,8 +176,9 @@ function buildNarrative(input: CivilCanonicalIntakeInput): string {
     "Jurisdiction: Ontario",
     `Stage: ${input.caseStage}`,
     `User role: ${input.yourRole}`,
-    input.yourName && `User / party name: ${input.yourName}`,
-    input.otherParty && `Other party: ${input.otherParty}`,
+    // Names are never sent to the model -- see privacy/modelPayloadNames.ts.
+    input.yourName && `User / party name: ${nameRecorded(input.yourName)}`,
+    input.otherParty && `Other party: ${nameRecorded(input.otherParty)}`,
     input.courtLocation && `Court location: ${input.courtLocation}`,
     input.courtFileNumber && `Court file number: ${input.courtFileNumber}`,
     input.amountClaimed && `Amount claimed or disputed: ${formatRecordedAmount(input.amountClaimed)}`,

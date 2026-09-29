@@ -91,6 +91,16 @@ async function main(): Promise<void> {
     describeRunDegradation(runWith({ halted: true, analysisOutput: null })) === null,
   );
 
+  // A conversation cut off by the harness's turn cap still produces an
+  // analysis, so the check above does not see it. Caught 2026-09-27 when a
+  // defendant fixture ran one question past the old cap of 20.
+  check(
+    "a non-halted run that never completed intake is rejected, even with an analysis",
+    describeRunDegradation(
+      runWith({ halted: false, intakeComplete: false, analysisOutput: analysisWithCognitionMode("structured") }),
+    ) !== null,
+  );
+
   // ---- 2. The timeout actually rejects rather than hanging ----
 
   const neverSettles = new Promise<string>(() => {});
