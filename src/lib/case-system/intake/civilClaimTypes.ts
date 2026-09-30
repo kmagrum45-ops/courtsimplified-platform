@@ -1161,7 +1161,7 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
     plaintiffElements: [
       {
         id: "duty-of-care-civneg",
-        name: "The defendant owed you a duty of care",
+        name: "The defendant owed the plaintiff a duty of care",
         plainExplanation:
           "In Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, the Supreme Court of Canada said a " +
           "successful action in negligence requires the plaintiff to show four things: (1) that the " +
@@ -1258,7 +1258,7 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
       },
       {
         id: "damage-sustained-civneg",
-        name: "You suffered damage",
+        name: "The plaintiff sustained damage the law recognizes",
         plainExplanation:
           "This part of the checklist is about the damage. In Mustapha v. Culligan of Canada Ltd., 2008 " +
           "SCC 27, the Supreme Court of Canada said that, generally, a plaintiff who suffers personal " +
@@ -1303,7 +1303,13 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
           "negligent act, the injury would not have occurred. The Court said this is a factual inquiry " +
           "(para. 8), and that the test must be applied in a robust common sense fashion; there is no " +
           "need for scientific evidence of the precise contribution the defendant's negligence made to " +
-          "the injury (para. 9). Causation \"in law\" is about remoteness. In Mustapha v. Culligan of " +
+          "the injury (para. 9). The Court described \"but for\" causation as the general rule and set " +
+          "out a narrow exception, under which liability can rest on showing that the defendant's conduct " +
+          "materially contributed to risk of the plaintiff's injury, where the plaintiff has " +
+          "established that the loss would not have occurred \"but for\" the negligence of two or more " +
+          "wrongdoers, each possibly in fact responsible, and, through no fault of the plaintiff's own, " +
+          "cannot show which one was the \"but for\" cause because each can point to another as the " +
+          "possible cause (para. 46). Causation \"in law\" is about remoteness. In Mustapha v. Culligan of " +
           "Canada Ltd., 2008 SCC 27, the Court said the remoteness inquiry asks whether \"the harm [is] " +
           "too unrelated to the wrongful conduct to hold the defendant fairly liable\" (para. 12). It " +
           "described a reasonably foreseeable harm as a \"real risk\" -- one which would occur to the " +
@@ -1343,7 +1349,7 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
       },
       {
         id: "burden-of-proof-civneg",
-        name: "You have to prove your claim on a balance of probabilities",
+        name: "The plaintiff has to prove the claim on a balance of probabilities",
         plainExplanation:
           "The Superior Court of Justice's guide to the steps in a civil case says that in every civil " +
           "case the plaintiff has the burden of proof to establish, on a balance of probabilities, the " +
@@ -1404,7 +1410,11 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
           "reasonably safe while on the premises. Under s. 3(2), this applies whether the danger is " +
           "caused by the condition of the premises or by an activity carried on there. Under s. 3(3), " +
           "that duty applies except in so far as the occupier is free to and does restrict, modify or " +
-          "exclude it. Under s. 4(1), the s. 3(1) duty does not apply to risks willingly assumed by the " +
+          "exclude it. Under s. 5(1), the duty (or the liability for breaching it) cannot be restricted " +
+          "or excluded by a contract to which the person owed the duty is not a party, and under s. " +
+          "5(3), where an occupier is free to restrict, modify or exclude it, the occupier shall take " +
+          "reasonable steps to bring the restriction, modification or exclusion to the attention of the " +
+          "person to whom the duty is owed. Under s. 4(1), the s. 3(1) duty does not apply to risks willingly assumed by the " +
           "person who enters the premises; in that case the occupier owes a duty not to create a danger " +
           "with the deliberate intent of doing harm or damage to the person or their property, and not " +
           "to act with reckless disregard of the presence of the person or their property. Sections " +
@@ -1704,7 +1714,7 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
       },
       {
         id: "reasonable-reliance-and-loss-civmisrep",
-        name: "You reasonably relied on the statement, and it caused you loss",
+        name: "The plaintiff relied on the statement in a reasonable manner, and damages resulted",
         plainExplanation:
           "This part of the checklist is about the fourth and fifth requirements listed in Queen v. " +
           "Cognos Inc., [1993] 1 S.C.R. 87: \"the representee must have relied, in a reasonable manner, " +
@@ -1735,7 +1745,7 @@ export const CIVIL_CLAIM_TYPES: ClaimType[] = [
       },
       {
         id: "burden-of-proof-civmisrep",
-        name: "You have to prove your claim on a balance of probabilities",
+        name: "The plaintiff has to prove the claim on a balance of probabilities",
         plainExplanation:
           "The Superior Court of Justice's guide to the steps in a civil case says that in every civil " +
           "case the plaintiff has the burden of proof to establish, on a balance of probabilities, the " +

@@ -571,8 +571,8 @@ export const FAMILY_MATTER_TYPES: ClaimType[] = [
           "(except as r. 39(7) and r. 41(4) provide) and seal the application. Under r. 8(5), the " +
           "application shall be served immediately on every other party, by special service unless the " +
           "party is listed in r. 8(6). Under r. 8(2), subject to r. 25(19), a party who wants to change " +
-          "a final order, or an agreement for support filed under s. 35 of the Family Law Act, may do " +
-          "so only by a motion under r. 15 (if that rule permits it), with the exception in r. 8(2.1) " +
+          "a final order, an agreement for support filed under s. 35 of the Family Law Act, or a family " +
+          "arbitration award filed under s. 59.9 of that Act, may do so only by a motion under r. 15 (if that rule permits it), with the exception in r. 8(2.1) " +
           "for related claims.",
         sourceUrl: "https://www.ontario.ca/laws/docs/990114_e.doc",
         verifiedAt: "2026-09-30",
@@ -1471,14 +1471,18 @@ export const FAMILY_MATTER_TYPES: ClaimType[] = [
     id: "family-matter-property-division",
     name: "Dividing property after a marriage ends (equalization and the matrimonial home)",
     broughtBy:
-      "A married spouse or former spouse (or a deceased spouse's personal representative) asking " +
-      "the court to decide the equalization of net family property. Under s. 7(2), entitlement " +
+      "A spouse, former spouse or deceased spouse's personal representative asking the court to " +
+      "decide the equalization of net family property: under s. 7(1) of the Family Law Act, the court " +
+      "may, on the application of any of them, determine any matter respecting the spouses' " +
+      "entitlement under s. 5. Under s. 7(2), entitlement " +
       "under s. 5(1), (2) and (3) is personal as between the spouses, but an application based on " +
       "s. 5(1) or (3) and started before a spouse's death may be continued by or against the " +
       "deceased spouse's estate, and an application based on s. 5(2) may be made by or against a " +
-      "deceased spouse's estate. Part I and Part II of the Family Law Act use the Act's definition " +
-      "of \"spouse\", which covers people who are or were married to each other; it does not include " +
-      "unmarried partners, even though Part III (support) uses a wider definition.",
+      "deceased spouse's estate. Part I and Part II of the Act use the s. 1(1) definition of " +
+      "\"spouse\": either of two persons who are married to each other, or who have together entered " +
+      "into a marriage that is voidable or void, in good faith on the part of a person relying on this " +
+      "to assert a right. It does not include unmarried partners, even though Part III (support) " +
+      "uses a wider definition in s. 29.",
     courtArea: "family",
     plaintiffElements: [
       {
@@ -2147,7 +2151,10 @@ export const FAMILY_MATTER_TYPES: ClaimType[] = [
     name: "Spousal support (support for a married or common-law partner after separation)",
     broughtBy:
       "Usually a spouse or former spouse, married or unmarried, asking the court to order the other " +
-      "to pay support for them. On the divorce path, either or both married spouses apply. Under " +
+      "to pay support for them. Under s. 29 of the Family Law Act, unmarried partners count as " +
+      "spouses for support only if they have cohabited continuously for not less than three years, " +
+      "or in a relationship of some permanence if they are the parents of a child as set out in s. 4 " +
+      "of the Children's Law Reform Act. On the divorce path, either or both married spouses apply. Under " +
       "the Family Law Act, certain social assistance agencies can also apply. Not a claim for " +
       "support for a child (that is child support).",
     courtArea: "family",

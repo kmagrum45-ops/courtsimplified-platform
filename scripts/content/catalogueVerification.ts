@@ -179,9 +179,33 @@ export type VerificationLog = {
 
 /** Whitespace and typographic quotes are not content; nothing else is forgiven. */
 export function normalizeForQuote(text: string): string {
-  return text
-    .replace(/[‘’]/g, "'")
-    .replace(/[“”]/g, '"')
-    .replace(/\s+/g, " ")
-    .trim();
+  return (
+    text
+      // Pages vendored from HTML keep a few entities and put spaces inside
+      // link text: "( CTA )", "Act , 2002". A quote copied from the rendered
+      // page has neither. Both are markup, not words (2026-09-30, when the
+      // ontario.ca guide pages were first vendored and 22 recorded quotes
+      // failed on this alone).
+      .replace(/&#8217;|&#8216;|&rsquo;|&lsquo;/g, "'")
+      .replace(/&#8220;|&#8221;|&ldquo;|&rdquo;|&quot;/g, '"')
+      .replace(/&#8211;|&ndash;/g, "–")
+      .replace(/&#8212;|&mdash;/g, "—")
+      .replace(/&#038;|&amp;/g, "&")
+      .replace(/&nbsp;|&#160;/g, " ")
+      .replace(/[‘’]/g, "'")
+      .replace(/[“”]/g, '"')
+      .replace(/\s+/g, " ")
+      .replace(/([(\[]) /g, "$1")
+      // Not before "." -- " ... " is the skipped-material marker.
+      .replace(/ ([)\],;])/g, "$1")
+      .trim()
+  );
+}
+
+/**
+ * A recorded quote is sometimes stored with its own quotation marks around
+ * it. Those marks are the recorder's, not the source's.
+ */
+export function stripWrappingQuotes(run: string): string {
+  return run.replace(/^"+/, "").replace(/"+$/, "").trim();
 }

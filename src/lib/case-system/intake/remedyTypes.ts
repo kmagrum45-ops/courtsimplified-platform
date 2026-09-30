@@ -45,7 +45,7 @@ export const REMEDY_TYPES: RemedyTopic[] = [
     title: "Money judgments",
     plainExplanation:
       "Small Claims Court can order one party to pay money to another, up to $50,000 (not " +
-      "counting interest and costs). This is the most common kind of order the court makes. " +
+      "counting interest and costs). " +
       "See the education topic on the $50,000 limit for how that cap works.",
     citations: [
       {
@@ -88,7 +88,11 @@ export const REMEDY_TYPES: RemedyTopic[] = [
     title: "What Small Claims Court generally doesn't handle",
     plainExplanation:
       "Small Claims Court's jurisdiction is generally limited to two kinds of remedies: money, and " +
-      "the return of personal property, each up to $50,000. If what someone is looking for doesn't " +
+      "the return of personal property, each up to $50,000. Under s. 23(1) of the Courts of Justice " +
+      "Act, the court has jurisdiction in actions for the payment of money and for the recovery of " +
+      "possession of personal property, up to the prescribed amount; under s. 96(3), only the Court " +
+      "of Appeal and the Superior Court of Justice, exclusive of the Small Claims Court, may grant " +
+      "equitable relief, unless otherwise provided. If what someone is looking for doesn't " +
       "fit either of those -- for example, asking a court to order someone to do or stop doing " +
       "something, rather than pay money or return an item -- that generally falls outside what " +
       "Small Claims Court can order, and would typically need to go to a different court instead.",
@@ -109,6 +113,16 @@ export const REMEDY_TYPES: RemedyTopic[] = [
           "\"The Small Claims Court can handle any action for the payment of money or the recovery " +
           "of personal property where the amount claimed does not exceed $50,000\"",
       },
+      {
+        sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
+        officialUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+        verifiedAt: "2026-09-30",
+        pinpoint:
+          "s.23(1): jurisdiction in actions for the payment of money and the recovery of possession of " +
+          "personal property up to the prescribed amount; s.96(3): \"Only the Court of Appeal and the " +
+          "Superior Court of Justice, exclusive of the Small Claims Court, may grant equitable relief, " +
+          "unless otherwise provided.\"",
+      },
     ],
     reviewedAt: "2026-09-08",
     status: "reviewed",
@@ -121,7 +135,14 @@ export const REMEDY_TYPES: RemedyTopic[] = [
       "Interest and costs (such as court filing fees) are generally handled separately from, and in " +
       "addition to, the amount claimed -- they don't count against the $50,000 limit. Whether " +
       "interest or costs are awarded, and how much, depends on the specific case; this is general " +
-      "information that these can be part of an order, not a specific amount for any claim.",
+      "information that these can be part of an order, not a specific amount for any claim. Under " +
+      "s. 29 of the Courts of Justice Act, an award of costs in Small Claims Court, other than " +
+      "disbursements, shall not exceed 15 per cent of the amount claimed or the value of the property " +
+      "sought to be recovered, unless the court considers it necessary in the interests of justice to " +
+      "penalize a party or a party's representative for unreasonable behaviour in the proceeding. " +
+      "Costs can go either way: Ontario's page on suing in Small Claims Court says the judge might " +
+      "order the defendant to pay some of the costs if the plaintiff wins, and a plaintiff who loses " +
+      "might have to pay their own costs and some of the defendant's costs.",
     citations: [
       {
         sourceName: "Ontario.ca — Guide to Procedures in Small Claims Court: Making a Claim",
@@ -129,6 +150,25 @@ export const REMEDY_TYPES: RemedyTopic[] = [
         verifiedAt: "2026-08-31",
         pinpoint:
           "\"...where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees\"",
+      },
+      {
+        sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
+        officialUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+        verifiedAt: "2026-09-30",
+        pinpoint:
+          "s.29: \"An award of costs in the Small Claims Court, other than disbursements, shall not " +
+          "exceed 15 per cent of the amount claimed or the value of the property sought to be recovered " +
+          "unless the court considers it necessary in the interests of justice to penalize a party or a " +
+          "party's representative for unreasonable behaviour in the proceeding.\"",
+      },
+      {
+        sourceName: "Ontario.ca — Suing Someone in Small Claims Court",
+        officialUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        verifiedAt: "2026-09-30",
+        pinpoint:
+          "\"The judge might order the person you are suing (“the defendant”) to pay some of the costs " +
+          "if you win the case. If you lose, you might have to pay your own costs and some of the " +
+          "defendant’s costs.\"",
       },
     ],
     reviewedAt: "2026-09-08",

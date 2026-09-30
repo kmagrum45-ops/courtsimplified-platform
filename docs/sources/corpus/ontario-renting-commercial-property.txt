@@ -1,0 +1,106 @@
+Renting commercial property in Ontario | ontario.ca
+
+ Skip to main content
+
+ Ontario.ca needs JavaScript to function properly and provide you with a fast, stable experience.
+
+ To have a better experience, you need to:
+
+ Go to your browser's settings
+ Enable JavaScript
+
+ Log in to continue
+
+ Please log in for full account access.
+
+ Renting commercial property in Ontario
+
+ Learn about commercial lease agreements, how to end a tenancy and where to get help to resolve a conflict.
+
+ On this page
+ Skip this page navigation
+
+ Background
+ Ontario’s Commercial Tenancies Act ( CTA ) outlines the relationship, rights and obligations between commercial landlords and tenants.
+ You should be aware that a signed commercial lease agreement with your landlord or tenant may take precedence over the CTA .
+ Resolving conflicts
+ The provincial government does not get involved in commercial landlord and tenant disagreements. You should get legal advice to help you understand how the CTA applies to your specific situation.
+ Legal disputes between commercial landlords and tenants about money or personal property under $50,000 can be brought before Small Claims Court . Otherwise, a claim must be brought before the Superior Court of Justice .
+ Learn how to file a civil case in the Superior Court of Justice online .
+ Learn how to file a case in Small Claims Court.
+ The Law Society Referral Service can help landlords and tenants find a lawyer who will provide free consultation of up to 30 minutes.
+ If there is a question about whether the tenancy is residential or commercial, a landlord or tenant can apply to the Landlord and Tenant Board ( LTB ) for a determination about whether the Residential Tenancies Act applies to their situation.
+ Learn more about residential tenancy rights .
+ Commercial lease agreements
+ If you rent a space for your business you may choose to enter into a commercial lease agreement with the landlord. A lease is a written contract that helps make sure both the landlord and tenant know what their rental rights and responsibilities are.
+ There is no standard commercial lease because businesses have different needs, but there are some things which most commercial leases should cover such as:
+ the rent amount, including rules for rent increases and notice requirements
+ the deposit amount
+ insurance requirements
+ repair and maintenance obligations
+ rules about how to renew or end the lease
+ the length and type of tenancy (month-to-month or fixed-term)
+ other business details that have been negotiated between the landlord and the tenant
+ Since every commercial lease is different, think carefully about the space and services needed for your business and make sure they are covered. For example, if you need to renovate a commercial space for a restaurant, make sure the lease outlines who will pay for the improvements.
+ It can also be helpful to speak with a lawyer about how to negotiate and draw up a lease that meets your needs.
+ Ending a tenancy
+ Month-to-month tenancy
+ In a “month-to-month” tenancy, either the tenant or the landlord must give written notice at least one-month in advance. The last day of the tenancy would be the last day of the month.
+ For example, if you plan to end your lease on November 30, you must give your landlord written notice no later than October 31.
+ Fixed-term lease
+ No notice is needed to end a fixed-term lease. The tenant must be out of the rental space on the date outlined in the lease. If the tenant and the landlord would like to continue with the tenancy agreement, they should take steps to renew or amend the lease before it expires.
+ If a tenant wants to terminate their fixed-term lease early, they must pay the rent for the remaining term of the lease agreement unless there is a clause in the lease allowing the tenant to end the lease early.
+ Tenants can sublet or assign the lease unless it is prohibited by the lease.
+ If a fixed-term tenant continues to occupy the rental premises after the landlord has requested they move out, they may be subject to a penalty of two months' rent for every month they remain on the premises, plus applicable costs.
+ In addition to imposing a financial penalty, the landlord may also apply to the Ontario Superior Court of Justice to obtain a writ of possession (eviction order).
+ Rules in the lease
+ A commercial lease can also have rules about ending a tenancy. These rules must be followed, even if they are different from the CTA . For example, tenants must pay the rent for the length of the lease agreement unless they negotiated rules that allow them to end their tenancy early.
+ Breaches of the lease
+ A lease may say that a tenant can be evicted for not following certain rules in the lease. The landlord must give the tenant:
+ notice of the breach
+ a reasonable period of time to remedy the breach
+ If the tenant does not remedy the breach, the landlord may change the locks.
+ Late or unpaid rent
+ When a tenant has failed to pay the rent on time, the landlord has two options available under the CTA . A landlord can change the locks and end the tenancy or seize and sell the tenant’s property to cover unpaid rent. They can’t do both.
+ Option 1: Change the locks and end a tenancy
+ A landlord may change the locks of the unit and evict on the 16 th day after the day rent was due. For example, if rent was due January 1, the landlord may change the locks on January 17. The landlord does not have to notify the tenant that the locks will be changed.
+ After the locks are changed, landlords should allow tenants reasonable access to the rental unit to remove their property.
+ A landlord may hire a private bailiff to carry out an eviction. Bailiffs are governed by the Bailiffs Act and are licensed by the Ministry of Public and Business Service Delivery and Procurement ( MPBSDP ) .
+ Landlords should not force their way into the rental unit.
+ Both landlords and tenants should get legal advice on their specific situations.
+ Option 2: Seize and sell a tenant's property
+ Instead of evicting tenants, landlords may seize and sell a tenant’s property that is contained within the rented premises to cover unpaid rent. This process is called distress . To be clear, a landlord cannot evict and exercise distress at the same time.
+ Some types of tenant property cannot be seized, for example, property that is leased or co-owned.
+ Landlords may hire a bailiff to help them with the distress process.
+ Commercial tenants who disagree with their landlord’s actions may apply to the Superior Court of Justice .
+ Before landlords can sell seized property
+ Landlords are not required to give advance notice to tenants before they seize the tenant’s property unless their commercial lease agreement requires advanced notice .
+ Before landlords sell the seized property, they must:
+ notify the tenant of the distress
+ tell the tenant the amount required to pay off the rent arrears
+ hold the seized property for five calendar days, not including the date the property was seized
+ If the tenant pays the rent arrears
+ If the tenant pays the rent arrears in full during the five-day period, the landlord cannot sell the tenant’s property.
+ If the tenant does not pay the rent arrears
+ If the tenant does not pay the rent arrears within the five-day period, the landlord must have the property appraised by two appraisers before they can sell it.
+ The proceeds from the sale of a tenant’s property must be applied to the rent arrears and the costs of the distress. Any amount left over must be paid to the tenant.
+ Sub-tenants who continue to pay the full rent cannot have their property seized if the head tenant failed to pay the rent to the landlord. If a sub-tenant’s property is seized, the landlord is required to return it.
+ Rent increases
+ The CTA does not regulate rent increases. Commercial tenancy agreements should specify the amount of rent charged and frequency of rent increases.
+ If there is no tenancy agreement, the landlord can increase the rent by any amount at any time.
+ Landlords should always consider giving a tenant a reasonable notice of a rent increase in writing.
+ Maintenance
+ The CTA does not set out responsibilities for maintenance.
+ Landlords and tenants should list these responsibilities in the lease agreement and seek legal advice if there is a disagreement over who is responsible for maintenance.
+ Storage units
+ The CTA does not cover storage units.
+ The Repair and Storage Liens Act regulates storage units and is administered by the Ministry of Public and Business Service Delivery and Procurement .
+ Illegal drug activity
+ It is an offence for commercial landlords to knowingly permit prescribed illegal drug activities on their premises.
+ Learn more about the Measures Respecting Premises with Illegal Drug Activity Act, 2025 .
+
+ Updated: July 02, 2026
+
+ Published: December 27, 2018
+
+ Top
