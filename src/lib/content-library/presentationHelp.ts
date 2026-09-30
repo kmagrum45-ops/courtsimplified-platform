@@ -171,7 +171,7 @@ export const TRIAL_CHECKLIST: PresentationChecklist = {
     },
     {
       id: "presentation:trial:questions-for-witnesses",
-      text: "Write out the questions you want to ask your own witnesses and theirs.",
+      text: "Write out the questions you want to ask your own witnesses.",
       quote: "Prepare a list of questions for your witnesses.",
       sourceId: GUIDE,
     },

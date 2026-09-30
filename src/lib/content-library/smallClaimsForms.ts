@@ -63,7 +63,7 @@ export function parseFormsTable(text: string): SmallClaimsForm[] {
   const forms: SmallClaimsForm[] = [];
 
   for (const line of text.split("\n")) {
-    const match = /^\s*(\d{1,2}[A-Z]?(?:\.\d)?)\t\s*([^\t]+?)\s*(?:\t\s*([^\t]*?)\s*)?$/.exec(
+    const match = /^\s*(\d{1,2}(?:\.\d)?[A-Z]?(?:\.\d)?)\t\s*([^\t]+?)\s*(?:\t\s*([^\t]*?)\s*)?$/.exec(
       line,
     );
     if (!match) continue;

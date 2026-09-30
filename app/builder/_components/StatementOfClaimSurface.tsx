@@ -26,6 +26,7 @@ import {
   PLAINTIFFS_CLAIM_CONTENTS_PINPOINT,
   SMALL_CLAIMS_RULES_SOURCE,
 } from "@/src/lib/content-library/smallClaimsStartingSteps";
+import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 
 /**
  * Sourced general information shown in place of the draft. Nothing here is
@@ -298,7 +299,7 @@ export default function StatementOfClaimSurface({
                 </p>
 
                 <a
-                  href={element.sourceUrl}
+                  href={publicSourceUrl(element.sourceUrl)}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-2 inline-block text-xs font-semibold text-[#2f7d67] underline"

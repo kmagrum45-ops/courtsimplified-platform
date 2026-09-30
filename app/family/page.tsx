@@ -67,7 +67,9 @@ export default function FamilyPage() {
           </h1>
 
           <p className="mt-6 text-lg leading-8 text-[#4f685f]">
-            Family Court handles parenting, decision-making responsibility,
+            Ontario&apos;s family cases are heard in the Ontario Court of Justice,
+            the Superior Court of Justice, or the Superior Court&apos;s Family
+            Court branch where it sits. They cover parenting, decision-making responsibility,
             child and spousal support, separation, divorce, and property
             matters between families.
           </p>
@@ -108,12 +110,12 @@ export default function FamilyPage() {
               What Family Court covers
             </h2>
             <p className="mt-3 text-base leading-7 text-[#33584d]">
-              Family Court hears matters about parenting time and
+              Where it has jurisdiction, the Family Court branch of the Superior Court of Justice hears matters about parenting time and
               decision-making responsibility, child and spousal support,
               separation and divorce, and the division of property between
-              spouses. There is no monetary limit the way there is in Small
-              Claims Court — what matters is the type of matter, not an
-              amount.
+              spouses. The Courts of Justice Act lists the proceedings the
+              Family Court hears by type (Schedule to s. 21.8), not by an
+              amount claimed.
             </p>
             <p className="mt-3 text-sm leading-6 text-[#557168]">
               If you or a child may be unsafe, safety comes first. If you are

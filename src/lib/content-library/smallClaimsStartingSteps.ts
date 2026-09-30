@@ -72,7 +72,7 @@ export const PLAINTIFFS_CLAIM_CONTENTS: readonly string[] = [
   "The full names of the parties (and, if relevant, the capacity in which they sue or are sued).",
   "The nature of the claim, with reasonable certainty and detail, including the date, place and nature of what happened.",
   "The amount of the claim and what you are asking for.",
-  "If you are representing yourself: your address, phone number and email address (if any).",
+  "If the plaintiff is self-represented, their address, phone number and email address (if any); if represented, the representative's name, address, phone number, email address (if any) and Law Society of Ontario registration number (if any).",
   "The address where you believe the defendant can be served.",
   "A copy of any document the claim is based on, attached to each copy of the claim -- or, if it is unavailable, the reason it is not attached.",
 ];

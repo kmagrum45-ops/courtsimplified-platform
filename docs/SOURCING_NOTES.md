@@ -1321,3 +1321,24 @@ What broke the moment those pages became checkable, so it is not rediscovered:
   rights page now splits the cooling-off sentence across a list; the
   commercial-renting sentence begins "You should be aware that a signed...").
   The meaning was unchanged; the quotes were re-taken from the vendored text.
+
+## Findings from the third audit round (2026-09-30)
+
+- **Small Claims r. 13.07 exists and gives a 30-day trial-request notice**
+  after the settlement conference. An earlier audit pass called a card line
+  about it invented; it was a loose paraphrase. Read r. 13.07 before
+  concluding anything about trial requests.
+- **r. 13.02(1) now says parties "participate" in the settlement conference**
+  (O. Reg. 3/25), not "attend". The ontario.ca guide still says "attend", so
+  anything drafted from the guide carries the old word.
+- **Periods in months:** the Small Claims Rules do not say how months are
+  counted, but the Legislation Act, 2006 (s. 89(6)) does, and s. 46 applies it
+  to regulations. "The Rules are silent" is true; "nothing says" is not.
+- **Forms table parsing:** dotted form numbers (11.2A, 11.3A) need
+  `\d{1,2}(?:\.\d)?[A-Z]?` -- the older pattern dropped them, and a title that
+  wraps onto a second line (20O) is still cut short by the line-based parser.
+- **The Family Court branch sits only in Hamilton and proclaimed areas**
+  (CJA s. 21.1(4)); elsewhere family cases are in the Superior Court of Justice
+  or the Ontario Court of Justice. "Family Court" as a single forum is wrong.
+- **Human Rights Code claims cannot be started in court on their own**
+  (s. 46.1(2)); don't list "human rights" as a civil claim type.

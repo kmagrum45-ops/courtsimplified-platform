@@ -42,6 +42,7 @@ import {
   QUESTION_BANK,
   type IntakeQuestion,
 } from "../../../src/lib/case-system/intake/questionBank";
+import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 
 type Props = {
   onComplete: (analysis: AnalysisResult, payload: StoredCaseData) => void;
@@ -204,7 +205,7 @@ function FieldHelp({ question }: { question?: IntakeQuestion }) {
           {question.sourceUrl ? (
             <>
               {" "}
-              <a href={question.sourceUrl} target="_blank" rel="noreferrer" className="font-semibold underline">
+              <a href={publicSourceUrl(question.sourceUrl)} target="_blank" rel="noreferrer" className="font-semibold underline">
                 Source
               </a>
             </>

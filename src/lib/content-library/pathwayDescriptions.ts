@@ -48,7 +48,7 @@ export const PATHWAY_DESCRIPTIONS: PathwayDescription[] = [
     pathway: "small-claims",
     label: "Small Claims Court",
     text:
-      "Small Claims Court handles claims for money or the return of personal property up to $50,000, not counting interest and costs. The limit rose from $35,000 on October 1, 2025.",
+      "Small Claims Court handles claims for money up to $50,000, not counting interest and costs, and claims for the return of personal property worth up to $50,000. The limit rose from $35,000 on October 1, 2025.",
     sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
     outOfScope: false,
   },
@@ -57,7 +57,7 @@ export const PATHWAY_DESCRIPTIONS: PathwayDescription[] = [
     pathway: "civil",
     label: "Superior Court of Justice (Civil)",
     text:
-      "The Superior Court of Justice hears civil claims, including those above the Small Claims Court limit. Its procedure is set by the Rules of Civil Procedure, R.R.O. 1990, Reg. 194.",
+      "The Superior Court of Justice hears civil claims above the Small Claims Court limit; a claim within that limit can be started there only with the Superior Court's leave. Its procedure is set by the Rules of Civil Procedure, R.R.O. 1990, Reg. 194.",
     sourceUrl: "https://www.ontario.ca/laws/regulation/900194",
     outOfScope: false,
   },
@@ -66,7 +66,7 @@ export const PATHWAY_DESCRIPTIONS: PathwayDescription[] = [
     pathway: "family",
     label: "Family Court",
     text:
-      "Family Court deals with matters such as parenting, child and spousal support, and property on the breakdown of a relationship. Its procedure is set by the Family Law Rules, O. Reg. 114/99.",
+      "Family law cases -- such as parenting, child and spousal support, and property on the breakdown of a relationship -- are heard in the Family Court of the Superior Court of Justice, the Superior Court of Justice or the Ontario Court of Justice. Its procedure is set by the Family Law Rules, O. Reg. 114/99.",
     sourceUrl: "https://www.ontario.ca/laws/regulation/990114",
     outOfScope: false,
   },
@@ -149,7 +149,7 @@ export const PATHWAY_DESCRIPTIONS: PathwayDescription[] = [
     pathway: "immigration",
     label: "Immigration and refugee matters",
     text:
-      "Immigration and refugee matters are federal and are dealt with by the Immigration and Refugee Board. CourtSimplified does not cover them.",
+      "Immigration and refugee matters fall outside the Ontario court paths this site covers. CourtSimplified does not cover them.",
     sourceUrl: "https://irb.gc.ca/en/Pages/index.aspx",
     outOfScope: true,
   },

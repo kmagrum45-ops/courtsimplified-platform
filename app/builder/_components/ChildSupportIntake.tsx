@@ -61,6 +61,7 @@ import {
   COURT_DETERMINES_INCOME,
   ONTARIO_GUIDELINES_URL,
 } from "../../../src/lib/case-system/family/childSupportFlaPath";
+import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 
 type IncomeFields = { stated: string; basisStated: string; agreedInWriting: boolean };
 
@@ -566,7 +567,7 @@ export default function ChildSupportIntake() {
               <p className="mt-2 text-sm text-amber-950">{notice.whatItIs}</p>
               <p className="mt-2 text-sm text-amber-950">{notice.whyNotCoveredHere}</p>
               <p className="mt-2 text-xs text-amber-900">
-                <a className="underline" href={notice.sourceUrl} target="_blank" rel="noreferrer">
+                <a className="underline" href={publicSourceUrl(notice.sourceUrl)} target="_blank" rel="noreferrer">
                   {notice.pinpoint}
                 </a>
               </p>
