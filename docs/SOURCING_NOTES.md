@@ -44,8 +44,13 @@ type, each with a table of event / email / phone. Traps: nine small-claims-only
 locations have no address under the heading, only inside the Small Claims tab;
 the LAST tab pane on a page is followed by a `<script>`, not another pane, so
 a pattern that stops only at the next pane misses it. **The Ontario Court of
-Justice location list** (`/ocj/court-locations/`) did not expose its locations
-as links when fetched; OCJ courthouses (some family cases) are not covered.
+Justice location list** (`/ocj/court-locations/`) is a search box over an
+embedded `ontariocourtlocations = [...]` array of NAMES only. The per-location
+pages (`/ocj/locations/<slug>/`) exist, but the address block on them sits
+inside an HTML comment, so it is not reliably what the page displays. What is
+clean: `/ocj/courthouse-email-addresses/` (58 courthouses by region, city,
+email, some with separate criminal and family addresses). The directory uses
+that and points to the ministry for addresses, as the page itself does.
 
 ### Writing the in-depth guides: what the independent read found (2026-09-30)
 

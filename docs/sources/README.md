@@ -623,3 +623,10 @@ fetched 2026-09-30 by the Fetch Decisions workflow (run 36769153083), from the
 location heading onward with tags and scripts removed. The directory in
 `src/lib/content-library/courts/courtLocations.json` is extracted from the same
 pages; `npm run test:court-locations` checks every value against these files.
+
+`docs/sources/court-locations/ocj-courthouse-email-addresses.txt`: the Ontario
+Court of Justice's list of courthouse email addresses by region
+(https://www.ontariocourts.ca/ocj/courthouse-email-addresses/), fetched
+2026-09-30 by the Fetch Decisions workflow (run 36772144591), tags, scripts
+and HTML comments removed. 58 courthouses; source of
+`src/lib/content-library/courts/ocjCourthouses.json`.
