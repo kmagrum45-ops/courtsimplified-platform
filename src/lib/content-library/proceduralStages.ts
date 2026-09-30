@@ -73,6 +73,17 @@ const ONTARIO_SUING_SOMEONE_SMALL_CLAIMS: PrincipleCitation = {
   pinpoint: "monetary limit updated effective October 1, 2025",
 };
 
+// 2026-09-30: read from docs/sources/corpus/ontario-fee-waiver.txt, retrieved
+// 2026-09-27 (manifest id "ontario-fee-waiver"). The page lists the income,
+// liquid-asset and net-worth figures without making clear, in its text form,
+// whether they combine, so the card names the income figure only as an example
+// and sends the reader to the page for the rest.
+const ONTARIO_FEE_WAIVER: PrincipleCitation = {
+  sourceName: "Ontario.ca — Have your court fees waived",
+  officialUrl: "https://www.ontario.ca/page/have-your-court-fees-waived",
+  verifiedAt: "2026-09-27",
+};
+
 const ONTARIO_GUIDE_MAKING_CLAIM: PrincipleCitation = {
   sourceName: "Ontario.ca — Guide to Procedures in Small Claims Court: Making a Claim",
   officialUrl:
@@ -336,15 +347,21 @@ export const PRINCIPLES: PrincipleCard[] = [
       "An infrequent filer pays $108 to file a claim.",
       "A frequent filer (10 or more claims per year) pays $228 to file a claim.",
       "Additional fees apply for judgments, trials, and motions.",
+      "If you cannot afford the fees, you can ask the court to waive them. Applying costs nothing, and a fee waiver covers one case.",
+      "You may qualify if, for example, your household's main income is Ontario Works, the Ontario Disability Support Program, or Old Age Security with the Guaranteed Income Supplement, or if your household's income and assets are under the limits Ontario sets (the income limit for one person is $33,100 a year before taxes).",
+      "If you think you qualify, use the Fee Waiver Request to Registrar, Clerk or Sheriff (form FW-A-3). If you do not, but still cannot afford the fees, use the Fee Waiver Request to Court (form FW-A 4) and a judge will look at your finances.",
+      "A fee waiver is not available to someone acting for a business, and it does not cover fees for serving documents, bailiff enforcement fees, or costs a court orders you to pay the other side.",
     ],
     workflowUse: [
       "Use Dashboard to budget for filing and later-stage fees.",
+      "Apply for a fee waiver before you file: it does not refund fees already paid.",
     ],
     commonRisks: [
       "Assuming filing is free.",
       "Not budgeting for motion or trial fees later in the case.",
+      "Paying fees that could have been waived.",
     ],
-    citations: [ONTARIO_SUING_SOMEONE_SMALL_CLAIMS],
+    citations: [ONTARIO_SUING_SOMEONE_SMALL_CLAIMS, ONTARIO_FEE_WAIVER],
   },
 
   // ---- Superior Court (Civil) ----
