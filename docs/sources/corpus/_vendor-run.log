@@ -1,0 +1,15 @@
+evidence-act                           ok     83301 chars  6511a2ea0490
+                                       CONSOLIDATION PERIOD: FROM MARCH 6, 2024 TO THE E-LAWS CURRENCY DATE.
+oreg-332-16-small-claims-fees          ok      8397 chars  8c94525077fe
+                                       CONSOLIDATION PERIOD: FROM DECEMBER 19, 2025 TO THE E-LAWS CURRENCY DATE.
+oreg-293-92-superior-court-fees        ok     15810 chars  3dcbdb151f4b
+                                       CONSOLIDATION PERIOD: FROM DECEMBER 19, 2025 TO THE E-LAWS CURRENCY DATE.
+ontario-fees-small-claims              ok     16257 chars  be5fe42e4ec9
+                                       (none stated)
+ontario-fees-civil                     ok     16848 chars  cba47c62dd27
+                                       (none stated)
+ontario-fees-family                    ok      8823 chars  ad3a0004a772
+                                       (none stated)
+
+195 vendored, 0 failed.
+Manifest: docs/sources/corpus/manifest.json
