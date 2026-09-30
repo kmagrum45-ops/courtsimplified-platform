@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CourtResourcesPanel from "../_components/CourtResourcesPanel";
 import PathwayUnavailable from "../_components/PathwayUnavailable";
 import { isPathwayAvailable } from "../../src/lib/content-library/phaseScope";
 
@@ -97,6 +98,8 @@ export default function FamilyPage() {
           </div>
         </div>
       </section>
+
+      <CourtResourcesPanel court="family" courtName="family cases" />
 
       <section className="border-b border-[#d9e6df] bg-[#edf7f3]">
         <div className="mx-auto max-w-7xl px-6 py-10">

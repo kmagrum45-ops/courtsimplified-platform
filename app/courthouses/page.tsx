@@ -17,7 +17,16 @@ export const metadata = {
   description: "Addresses and contacts for Ontario Superior Court of Justice courthouses: Small Claims, civil and family.",
 };
 
-export default function CourthousesPage() {
+export default async function CourthousesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ court?: string }>;
+}) {
+  const requested = (await searchParams).court;
+  const initialCourt =
+    requested === "small-claims" || requested === "civil" || requested === "family" || requested === "divisional"
+      ? requested
+      : "all";
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
       <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#2f7d67]">Courthouses</p>
@@ -43,7 +52,7 @@ export default function CourthousesPage() {
         </Link>{" "}
         guides.
       </p>
-      <CourthouseList locations={COURT_LOCATIONS} />
+      <CourthouseList locations={COURT_LOCATIONS} initialCourt={initialCourt} />
     </div>
   );
 }

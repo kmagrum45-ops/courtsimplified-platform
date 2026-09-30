@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CourtResourcesPanel from "../_components/CourtResourcesPanel";
 
 import { ONTARIO_SMALL_CLAIMS_LIMIT } from "@/src/lib/case-system/utils";
 import { CoinsIcon } from "../_components/CourtTypeIcons";
@@ -79,6 +80,8 @@ export default function SmallClaimsPage() {
           </div>
         </div>
       </section>
+
+      <CourtResourcesPanel court="small-claims" courtName="Small Claims Court" />
 
       <section className="border-b border-[#d9e6df] bg-[#edf7f3]">
         <div className="mx-auto max-w-7xl px-6 py-10">

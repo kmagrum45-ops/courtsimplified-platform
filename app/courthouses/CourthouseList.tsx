@@ -10,9 +10,15 @@ import {
 
 const FILTERS: (LocationCourt | "all")[] = ["all", "small-claims", "civil", "family", "divisional"];
 
-export default function CourthouseList({ locations }: { locations: CourtLocation[] }) {
+export default function CourthouseList({
+  locations,
+  initialCourt = "all",
+}: {
+  locations: CourtLocation[];
+  initialCourt?: LocationCourt | "all";
+}) {
   const [query, setQuery] = useState("");
-  const [court, setCourt] = useState<LocationCourt | "all">("all");
+  const [court, setCourt] = useState<LocationCourt | "all">(initialCourt);
 
   const shown = useMemo(() => {
     const q = query.trim().toLowerCase();
