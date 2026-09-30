@@ -167,6 +167,9 @@ jobs:
       - name: Glossary definitions are the law's own words
         run: npm run test:glossary
 
+      - name: In-depth guides quote their sources and cite every paragraph
+        run: npm run test:topic-guides
+
       - name: AI model configuration verification
         run: npm run test:ai-models
 

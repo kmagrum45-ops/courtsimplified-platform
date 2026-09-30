@@ -1,0 +1,106 @@
+{
+ "id": "summary-judgment-and-simplified-procedure",
+ "title": "Summary judgment and simplified procedure",
+ "courts": [
+  "civil",
+  "family"
+ ],
+ "intro": "This guide explains what the court rules say about deciding a case, or part of one, without a full trial (summary judgment) in civil and family cases, and about the simplified procedure for some civil actions in the Superior Court of Justice.",
+ "sections": [
+  {
+   "heading": "Civil summary judgment: who can ask, and when",
+   "court": "civil",
+   "paragraphs": [
+    "A plaintiff may, “after the defendant has delivered a statement of defence or served a notice of motion, move with supporting affidavit material or other evidence for summary judgment on all or part of the claim in the statement of claim.” (Rules of Civil Procedure, r. 20.01 (1))",
+    "A defendant may, “after delivering a statement of defence, move with supporting affidavit material or other evidence for summary judgment dismissing all or part of the claim in the statement of claim.” A plaintiff may also ask, without notice, for leave to serve the motion with the statement of claim, which “may be given where special urgency is shown”. (Rules of Civil Procedure, r. 20.01 (2), (3))"
+   ]
+  },
+  {
+   "heading": "Civil summary judgment: evidence and factums",
+   "court": "civil",
+   "paragraphs": [
+    "A responding party “may not rest solely on the allegations or denials in the party's pleadings, but must set out, in affidavit material or other evidence, specific facts showing that there is a genuine issue requiring a trial.” (Rules of Civil Procedure, r. 20.02 (2))",
+    "An affidavit may be made on information and belief, but the court may “draw an adverse inference from the failure of a party to provide the evidence of any person having personal knowledge of contested facts.” (Rules of Civil Procedure, r. 20.02 (1))",
+    "Each party serves a factum. The moving party's factum is served and filed “at least seven days before the hearing”, and the responding party's “at least four days before the hearing.” (Rules of Civil Procedure, r. 20.03 (1), (2), (3))"
+   ]
+  },
+  {
+   "heading": "Civil summary judgment: how the court decides",
+   "court": "civil",
+   "paragraphs": [
+    "The court “shall grant summary judgment if” it “is satisfied that there is no genuine issue requiring a trial with respect to a claim or defence”, or the parties agree to have all or part of the claim decided this way and the court is satisfied that it is appropriate. (Rules of Civil Procedure, r. 20.04 (2))",
+    "In deciding whether there is a genuine issue requiring a trial, a judge may weigh the evidence, evaluate the credibility of a deponent, and draw any reasonable inference from the evidence, “unless it is in the interest of justice for such powers to be exercised only at a trial”. A judge may also order that oral evidence be presented. (Rules of Civil Procedure, r. 20.04 (2.1), (2.2))",
+    "If the only genuine issue is the amount, the court “may order a trial of that issue or grant judgment with a reference to determine the amount.” If the only genuine issue is a question of law, the court may decide it and grant judgment, but a motion made to an associate judge is adjourned to be heard by a judge. (Rules of Civil Procedure, r. 20.04 (3), (4))"
+   ]
+  },
+  {
+   "heading": "Civil summary judgment: if a trial is still needed, and costs",
+   "court": "civil",
+   "paragraphs": [
+    "Where summary judgment is refused or granted only in part, the court may specify “what material facts are not in dispute” and define the issues to be tried, and order that the action proceed to trial expeditiously. It may also give directions, such as time limits for motions or a discovery plan. (Rules of Civil Procedure, r. 20.05 (1), (2))",
+    "The court may order a party to pay the costs of a summary judgment motion on a substantial indemnity basis if “the party acted unreasonably by making or responding to the motion” or “the party acted in bad faith for the purpose of delay.” (Rules of Civil Procedure, r. 20.06)"
+   ]
+  },
+  {
+   "heading": "Simplified procedure: when it applies",
+   "court": "civil",
+   "paragraphs": [
+    "The simplified procedure in Rule 76 “shall be used” in an action when the plaintiff's claim is exclusively for money, real property or personal property, and the total of the money claimed and the fair market value of the property “is $200,000 or less exclusive of interest and costs”. Property value is taken as at the date the action is commenced. (Rules of Civil Procedure, r. 76.02 (1))",
+    "With two or more plaintiffs, each plaintiff's claim is considered separately. With two or more defendants, the claim against each defendant is considered separately. In any other action, the procedure “may be used” at the option of the plaintiff. The statement of claim or notice of action “shall indicate” that the action is brought under Rule 76. (Rules of Civil Procedure, r. 76.02 (2), (2.1), (3), (4))",
+    "Rule 76 does not apply to class proceedings, to actions under the Construction Act “except trust claims”, to actions assigned for case management under rule 77.05, or to actions where a jury notice is delivered under subrule 76.02.1 (2). (Rules of Civil Procedure, r. 76.01 (1))",
+    "An action started under Rule 76 stops proceeding under it if, among other things, a defendant objects in the statement of defence that the claim does not meet the conditions and the plaintiff does not abandon, in the reply, the parts that do not comply. (Rules of Civil Procedure, r. 76.02 (5))"
+   ]
+  },
+  {
+   "heading": "Simplified procedure: how it differs from an ordinary action",
+   "court": "civil",
+   "paragraphs": [
+    "Within 10 days after the close of pleadings, each party serves an affidavit of documents and copies of the documents in its Schedule A. The affidavit includes a list of people who might reasonably be expected to know about matters in issue. A party may not call an undisclosed person as a witness at trial “unless the court orders otherwise.” (Rules of Civil Procedure, r. 76.03 (1), (2), (3))",
+    "Written discovery, cross-examination on an affidavit, and examination of a witness on a motion are not permitted. No party may “exceed a total of three hours of examination” in oral discovery. An action under Rule 76 “shall not be tried with a jury”, except for listed claims such as slander and libel. (Rules of Civil Procedure, r. 76.04 (1), (2), r. 76.02.1 (1), (2))",
+    "The plaintiff sets the action down for trial within 180 days after the first defence or notice of intent to defend is filed. The trial management plan's total time “shall not exceed five days”. In an action started on or after January 1, 2020, no party may recover costs exceeding $50,000 or disbursements exceeding $25,000, exclusive of HST, except as Rule 76.13 or an Act provides. (Rules of Civil Procedure, r. 76.09 (1), r. 76.10 (2), r. 76.12.1 (1), (2))",
+    "Under Rule 76, the registrar “shall make an order granting the relief sought” on certain motions that are on consent, or have no responding material, where the filed material states that no affected party is under disability, including motions for “setting aside the noting of a party in default” and “setting aside a default judgment”. (Rules of Civil Procedure, r. 76.05 (4), (5))"
+   ]
+  },
+  {
+   "heading": "Family summary judgment: when it is available",
+   "court": "family",
+   "paragraphs": [
+    "“After the respondent has served an answer or after the time for serving an answer has expired, a party may make a motion for summary judgment for a final order without a trial on all or part of any claim made or any defence presented in the case.” (Family Law Rules, r. 16 (1))",
+    "The motion “may be made in any case (including a child protection case) that does not include a divorce claim.” In a case with a divorce claim, the uncontested divorce procedure in rule 36 may be used, or the divorce claim may be split from the rest of the case. (Family Law Rules, r. 16 (2), (3))"
+   ]
+  },
+  {
+   "heading": "Family summary judgment: evidence and how the court decides",
+   "court": "family",
+   "paragraphs": [
+    "The party making the motion serves “an affidavit or other evidence that sets out specific facts showing that there is no genuine issue requiring a trial.” The responding party “may not rest on mere allegations or denials” but sets out specific facts showing a genuine issue for trial. (Family Law Rules, r. 16 (4), (4.1))",
+    "“If there is no genuine issue requiring a trial of a claim or defence, the court shall make a final order accordingly.” The court may weigh the evidence, evaluate credibility and draw reasonable inferences, and may order oral evidence. If a party's evidence is not from a person with personal knowledge, “the court may draw conclusions unfavourable to the party.” (Family Law Rules, r. 16 (5), (6), (6.1), (6.2))",
+    "“If the only genuine issue is the amount to which a party is entitled, the court shall order a trial to decide the amount.” If the only genuine issue is a question of law, the court decides it. If no final order is made, the court may specify facts not in dispute, state the issues and give directions. (Family Law Rules, r. 16 (7), (8), (9))"
+   ]
+  },
+  {
+   "heading": "Family: summary decision on a legal issue",
+   "court": "family",
+   "paragraphs": [
+    "Separately, the court may, on motion, “decide a question of law before trial, if the decision may dispose of all or part of the case, substantially shorten the trial or save substantial costs”. It may also strike out an application, answer or reply “because it sets out no reasonable claim or defence in law”, or dismiss or suspend a case for reasons listed in the rule. (Family Law Rules, r. 16 (12))",
+    "On that kind of motion, “evidence is admissible only if the parties consent or the court gives permission.” (Family Law Rules, r. 16 (13))"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "localText": "docs/sources/corpus/rules-of-civil-procedure.txt",
+   "sourceName": "Rules of Civil Procedure",
+   "pinpoints": "r. 20.01-20.06, 76.01 (1), 76.02 (1)-(5), 76.02.1 (1), (2), 76.03 (1)-(3), 76.04, 76.05 (4), (5), 76.09 (1), 76.10 (2), 76.12.1 (1), (2)",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/900194",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/family-law-rules.txt",
+   "sourceName": "Family Law Rules",
+   "pinpoints": "r. 16 (1)-(9), (12), (13)",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/990114",
+   "retrievedAt": "2026-09-30"
+  }
+ ]
+}

@@ -39,6 +39,7 @@ import { NEXT_STEP_BLOCKS } from "./nextSteps";
 import { PATHWAY_DESCRIPTIONS } from "./pathwayDescriptions";
 import { FORM_REGULATION_URLS, FORM_SUMMARIES } from "./forms/formSummaries";
 import { GLOSSARY } from "./glossary/glossary";
+import { TOPIC_GUIDES, paragraphId } from "./guides/topicGuides";
 import {
   CROSS_FORUM_NOTES,
   ISSUE_KIND_LABELS,
@@ -260,6 +261,33 @@ export function collectContentInventory(): ContentItem[] {
         }),
       );
     }
+  }
+
+  // ---- In-depth guides (2026-09-30). Every paragraph, title and intro. ----
+  for (const guide of TOPIC_GUIDES) {
+    const sourceUrl = guide.sources[0]?.officialUrl ?? "";
+    items.push(
+      item({ id: `guide:${guide.id}:title`, type: "procedural-stage", pathway: "all", stage: "guide", text: guide.title, sourceUrl, appearsIn: `Guides, ${guide.title}` }),
+      item({ id: `guide:${guide.id}:intro`, type: "procedural-stage", pathway: "all", stage: "guide", text: guide.intro, sourceUrl, appearsIn: `Guides, ${guide.title}` }),
+    );
+    guide.sections.forEach((section, sectionIndex) => {
+      items.push(
+        item({ id: `guide:${guide.id}:${sectionIndex + 1}:heading`, type: "procedural-stage", pathway: section.court, stage: "guide", text: section.heading, sourceUrl, appearsIn: `Guides, ${guide.title}` }),
+      );
+      section.paragraphs.forEach((paragraph, paragraphIndex) => {
+        items.push(
+          item({
+            id: paragraphId(guide.id, sectionIndex, paragraphIndex),
+            type: "procedural-stage",
+            pathway: section.court,
+            stage: "guide",
+            text: paragraph,
+            sourceUrl,
+            appearsIn: `Guides, ${guide.title}, "${section.heading}"`,
+          }),
+        );
+      });
+    });
   }
 
   // ---- Glossary (2026-09-30): plain explanations of defined terms ----

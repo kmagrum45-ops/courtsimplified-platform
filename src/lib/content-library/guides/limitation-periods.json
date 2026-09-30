@@ -1,0 +1,120 @@
+{
+ "id": "limitation-periods",
+ "title": "Time limits for starting a court case",
+ "courts": [
+  "small-claims",
+  "civil",
+  "family"
+ ],
+ "intro": "This guide explains the time limits in Ontario's Limitations Act, 2002 for starting a court case, and the family law time limits the site has a source for. Other family law time limits (for example, under the Divorce Act or the Children's Law Reform Act) are not covered here because the site has not yet reviewed a source for them.",
+ "sections": [
+  {
+   "heading": "The basic limitation period",
+   "court": "all",
+   "paragraphs": [
+    "The Limitations Act, 2002 sets time limits for starting a court proceeding. It applies to “claims pursued in court proceedings”, with listed exceptions, such as proceedings to which the Provincial Offences Act applies and proceedings under the Judicial Review Procedure Act. The Act defines a “claim” as “a claim to remedy an injury, loss or damage that occurred as a result of an act or omission”. (Limitations Act, 2002, ss. 1, 2 (1))",
+    "The basic rule is in section 4: “Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered.” So the starting point for counting is the day the claim was “discovered”, which the Act defines in section 5. (Limitations Act, 2002, s. 4)",
+    "The Act also says: “This Act binds the Crown.” (Limitations Act, 2002, s. 3)"
+   ]
+  },
+  {
+   "heading": "When a claim is “discovered”",
+   "court": "all",
+   "paragraphs": [
+    "A claim is discovered on “the earlier of” two days. First, the day the person with the claim “first knew”: “that the injury, loss or damage had occurred”; that it “was caused by or contributed to by an act or omission”; “that the act or omission was that of the person against whom the claim is made”; and that, “having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it”. (Limitations Act, 2002, s. 5 (1) (a))",
+    "The second day is “the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known” of those same four things. Whichever of the two days comes first is the day the claim is discovered. (Limitations Act, 2002, s. 5 (1) (b))",
+    "The Act starts from a presumption. A person with a claim “shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved.” (Limitations Act, 2002, s. 5 (2))",
+    "Demand obligations have their own rule. For a demand obligation, the day the injury, loss or damage occurs “is the first day on which there is a failure to perform the obligation, once a demand for the performance is made.” This applies “in respect of every demand obligation created on or after January 1, 2004.” (Limitations Act, 2002, s. 5 (3), (4))",
+    "Where a person claims through a predecessor, the person is deemed to know the matters in clause 5 (1) (a) on the earlier of “The day the predecessor first knew or ought to have known of those matters” and “The day the person claiming first knew or ought to have known of them.” (Limitations Act, 2002, s. 12 (1))",
+    "A similar rule applies to a principal, where the agent had a duty to communicate knowledge of those matters to the principal. (Limitations Act, 2002, s. 12 (2))",
+    "A person against whom another person may have a claim “may serve a notice of possible claim on the other person.” A court may consider that notice “in determining when the limitation period in respect of the person's claim began to run.” (Limitations Act, 2002, s. 14 (1), (3))",
+    "A court may not consider the notice in that way for a person who, when served, is a minor or is incapable, and is not represented by a litigation guardian. The notice is not an acknowledgment under section 13, and “is not an admission of the validity of the claim.” (Limitations Act, 2002, s. 14 (4), (5), (6))"
+   ]
+  },
+  {
+   "heading": "Attempted resolution and acknowledgments",
+   "court": "all",
+   "paragraphs": [
+    "If the person with a claim and the person against whom it is made “have agreed to have an independent third party resolve the claim or assist them in resolving it”, the limitation periods in sections 4 and 15 do not run from the date of the agreement until the claim is resolved, the process is terminated, or a party terminates or withdraws from the agreement. (Limitations Act, 2002, s. 11 (1))",
+    "A person or entity that resolves or assists in resolving claims “on an impartial basis, is an independent third party no matter how it is funded.” (Limitations Act, 2002, s. 11 (2))",
+    "If a person acknowledges liability for a claim for “payment of a liquidated sum”, the recovery of personal property, or certain claims about a charge on personal property, the act or omission “shall be deemed to have taken place on the day on which the acknowledgment was made.” For a liquidated sum, this applies even if the person making the acknowledgment “refuses or does not promise to pay”. (Limitations Act, 2002, s. 13 (1), (8))",
+    "Limits apply. An acknowledgment counts only if made to the person with the claim, the person's agent, or a bankruptcy official or trustee “before the expiry of the limitation period applicable to the claim.” For the claims in subsection 13 (1), it must be “in writing and signed”. For a liquidated sum, “part payment” has the same effect as a written acknowledgment. (Limitations Act, 2002, s. 13 (9), (10), (11))"
+   ]
+  },
+  {
+   "heading": "Minors and people who are incapable",
+   "court": "all",
+   "paragraphs": [
+    "The basic limitation period “does not run during any time in which the person with the claim” is a minor and “is not represented by a litigation guardian in relation to the claim.” (Limitations Act, 2002, s. 6)",
+    "It also does not run while the person with the claim “is incapable of commencing a proceeding in respect of the claim because of his or her physical, mental or psychological condition” and is not represented by a litigation guardian. A person “shall be presumed to have been capable of commencing a proceeding in respect of a claim at all times unless the contrary is proved.” (Limitations Act, 2002, s. 7 (1), (2))",
+    "If the running of a limitation period is postponed or suspended under section 7 and “has less than six months to run when the postponement or suspension ends, the period is extended to include the day that is six months after the day on which the postponement or suspension ends.” (Limitations Act, 2002, s. 7 (3))",
+    "If a person is represented by a litigation guardian, section 5 (discovery) “applies as if the litigation guardian were the person with the claim.” A potential defendant may also “make an application or a motion to have a litigation guardian appointed for a potential plaintiff”, and the Act sets conditions for when such an appointment ends the suspension. (Limitations Act, 2002, ss. 8, 9 (2), (3))"
+   ]
+  },
+  {
+   "heading": "The ultimate limitation period",
+   "court": "all",
+   "paragraphs": [
+    "Separate from the basic limitation period, section 15 sets an ultimate limitation period. “No proceeding shall be commenced in respect of any claim after the 15th anniversary of the day on which the act or omission on which the claim is based took place.” This applies “Even if the limitation period established by any other section of this Act in respect of a claim has not expired”. (Limitations Act, 2002, s. 15 (1), (2))",
+    "The ultimate limitation period does not run while the person with the claim is incapable and not represented by a litigation guardian, is a minor not represented by a litigation guardian, or while the person against whom the claim is made “wilfully conceals” the injury, loss or damage or its cause, or “wilfully misleads the person with the claim” about whether a proceeding is appropriate. “The burden of proving that subsection (4) applies is on the person with the claim.” (Limitations Act, 2002, s. 15 (4), (5))",
+    "For the ultimate limitation period, the day an act or omission takes place is, for “a continuous act or omission, the day on which the act or omission ceases”; for “a series of acts or omissions in respect of the same obligation, the day on which the last act or omission in the series occurs”; and for a demand obligation, “the first day on which there is a failure to perform the obligation, once a demand for the performance is made.” (Limitations Act, 2002, s. 15 (6))",
+    "A shorter rule applies to one situation: “no proceeding against a purchaser of personal property for value acting in good faith shall be commenced in respect of conversion of the property after the second anniversary of the day on which the property was converted.” (Limitations Act, 2002, s. 15 (3))"
+   ]
+  },
+  {
+   "heading": "Claims with no limitation period",
+   "court": "all",
+   "paragraphs": [
+    "Section 16 lists proceedings for which “There is no limitation period”. They include “a proceeding for a declaration if no consequential relief is sought”; “a proceeding to enforce an order of a court, or any other order that may be enforced in the same way as an order of a court”; and “a proceeding to obtain support under the Family Law Act”. (Limitations Act, 2002, s. 16 (1) (a), (b), (c))",
+    "The list also includes “a proceeding based on a sexual assault”, and proceedings based on other misconduct of a sexual nature or on an assault where, at the time, the person with the claim was a minor or was in one of the relationships the section describes. (Limitations Act, 2002, s. 16 (1) (h), (h.1), (h.2))",
+    "Other listed proceedings include certain proceedings to recover money owing to the Crown for “fines, taxes and penalties”, and “a proceeding to recover money owing in respect of student loans, medical resident loans, awards or grants” made under the listed Acts. Section 16 and section 17 “prevail over anything in section 15.” (Limitations Act, 2002, s. 16 (1) (i), (k), (4))",
+    "Separately, “There is no limitation period in respect of an environmental claim that has not been discovered.” (Limitations Act, 2002, s. 17)"
+   ]
+  },
+  {
+   "heading": "Agreements to extend or change a limitation period",
+   "court": "all",
+   "paragraphs": [
+    "The general rule is that “A limitation period under this Act applies despite any agreement to vary or exclude it, subject only to the exceptions in subsections (2) to (6).” (Limitations Act, 2002, s. 22 (1))",
+    "A limitation period other than the ultimate limitation period in section 15 “may be suspended or extended by an agreement made on or after October 19, 2006.” The section 15 period may be suspended or extended by such an agreement “but only if the relevant claim has been discovered.” An agreement made before January 1, 2004 may vary or exclude a limitation period. (Limitations Act, 2002, s. 22 (2), (3), (4))",
+    "Wider exceptions apply “only in respect of business agreements”, meaning an agreement “made by parties none of whom is a consumer as defined in the Consumer Protection Act, 2002”. In those agreements, made on or after October 19, 2006, a limitation period other than the section 15 period “may be varied or excluded”, and the section 15 period may be varied but suspended or extended only as subsection (4) allows. The Act says “vary” includes “extend, shorten and suspend.” (Limitations Act, 2002, s. 22 (5), (6))"
+   ]
+  },
+  {
+   "heading": "Time limits in other laws, adding parties and older claims",
+   "court": "all",
+   "paragraphs": [
+    "A limitation period in another Act that applies to a claim under the Limitations Act, 2002 “is of no effect unless” the provision is listed in the Schedule to the Act, or meets a narrow condition about provisions in existence on January 1, 2004. If a listed provision conflicts with the Act, the listed provision “prevails”. (Limitations Act, 2002, s. 19 (1), (4))",
+    "The Act “does not affect the extension, suspension or other variation of a limitation period or other time limit by or under another Act.” (Limitations Act, 2002, s. 20)",
+    "“If a limitation period in respect of a claim against a person has expired, the claim shall not be pursued by adding the person as a party to any existing proceeding.” This “does not prevent the correction of a misnaming or misdescription of a party.” (Limitations Act, 2002, s. 21)",
+    "Section 24 sets transition rules for claims “based on acts or omissions that took place before January 1, 2004 and in respect of which no proceeding has been commenced before that date.” For example, if the former limitation period expired before January 1, 2004, “no proceeding shall be commenced in respect of the claim.” (Limitations Act, 2002, s. 24 (2), (3))"
+   ]
+  },
+  {
+   "heading": "Family law time limits",
+   "court": "family",
+   "paragraphs": [
+    "The Family Law Act sets its own time limit for applications to equalize net family property. An application based on subsection 5 (1) or (2) “shall not be brought after the earliest of” these: “two years after the day the marriage is terminated by divorce or judgment of nullity”; “six years after the day the spouses separate and there is no reasonable prospect that they will resume cohabitation”; and “six months after the first spouse’s death.” (Family Law Act, s. 7 (3))",
+    "Subsection 7 (3) of the Family Law Act is one of the provisions listed in the Schedule to the Limitations Act, 2002. Under section 19 of that Act, a listed provision keeps its effect, and it prevails over the Limitations Act, 2002 if the two conflict. (Limitations Act, 2002, s. 19 (1), (4), Schedule)",
+    "The Family Law Act lets a court, on motion, “extend a time prescribed by this Act” if it is satisfied that “there are apparent grounds for relief”, that “relief is unavailable because of delay that has been incurred in good faith”, and that “no person will suffer substantial prejudice by reason of the delay.” (Family Law Act, s. 2 (8))",
+    "There is no limitation period for “a proceeding to obtain support under the Family Law Act or to enforce a provision for support or maintenance contained in a contract or agreement that could be filed under section 35 of that Act”. The Limitations Act, 2002 applies to a support application by a dependant's parent or an agency “as if it were made by the dependant himself or herself.” (Limitations Act, 2002, s. 16 (1) (c); Family Law Act, s. 33 (2.1))"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "localText": "docs/sources/corpus/limitations-act-2002.txt",
+   "sourceName": "Limitations Act, 2002",
+   "pinpoints": "ss. 1, 2 (1), 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 24; Schedule",
+   "officialUrl": "https://www.ontario.ca/laws/statute/02l24",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/family-law-act.txt",
+   "sourceName": "Family Law Act",
+   "pinpoints": "ss. 2 (8), 7 (3), 33 (2.1)",
+   "officialUrl": "https://www.ontario.ca/laws/statute/90f03",
+   "retrievedAt": "2026-09-30"
+  }
+ ]
+}

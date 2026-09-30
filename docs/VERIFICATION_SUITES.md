@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-96 documented, 30 without a header.
+97 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -92,6 +92,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:status-triage` | **The family status triage records facts and concludes nothing.**<br>COSTS NOTHING. Pure function calls. |
 | `npm run test:storage-keys` | **A browser-storage key may only be named in the registry.**<br>COSTS NOTHING. Pure source scanning. |
 | `npm run test:story-answer-proposals` | **Verifies story answer proposals: the model may PROPOSE answers the opening**<br>story already gives, and nothing is applied until the user confirms. |
+| `npm run test:topic-guides` | **The in-depth guides quote their sources exactly, cite every paragraph, and**<br>never read as advice. |
 | `npm run test:typecheck-live` | **The project's typecheck can actually fail.**<br>WHAT THIS CATCHES: a typecheck that reports success while checking nothing. |
 | `npm run test:verifier` | **Does the verifier actually reject wrong content?**<br>The whole value of a drafter/verifier split rests on the verifier being willing to say no. A verifier that agrees with plausible text is not a check, it is a second opinion from the same kind of mind, and it would turn every block green while changing nothing. |
 | `npm run test:workspace-ai-flag` | **No document text and no file name can reach a model while document analysis is off —**<br>and it is off, and stays off. |
