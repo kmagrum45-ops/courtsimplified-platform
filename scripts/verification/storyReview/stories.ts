@@ -1018,4 +1018,20 @@ export const STORIES: ReviewStory[] = [
       matterKinds: ["defamation", "property-damage"],
     },
   },
+  {
+    id: "MX9-common-law-house",
+    area: "family",
+    side: "applicant",
+    note: "An unmarried couple, a house in one name, and contributions by the other.",
+    story:
+      "My boyfriend and I lived together for seven years but never married. The house is only in his name, but I " +
+      "paid for half the renovations and most of the groceries and bills the whole time. We split up in June and " +
+      "he says I have no right to anything.",
+    expect: {
+      courtPath: ["family", "civil", "small-claims"],
+      safety: ["clear"],
+      matterKinds: ["family"],
+      notes: ["cross-forum:unmarried-couple"],
+    },
+  },
 ];

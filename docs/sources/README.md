@@ -608,6 +608,7 @@ Downloaded 2026-09-30. Cited in `src/lib/content-library/crossForumNotes.ts`;
 | `decisions/brake-v-pj-m2r-restaurant-2017-ONCA-402.txt` | Brake v. PJ-M2R Restaurant Inc., 2017 ONCA 402 | https://coadecisions.ontariocourts.ca/coa/coa/en/15800/1/document.do |
 | `decisions/danyluk-v-ainsworth-2001-SCC-44.txt` | Danyluk v. Ainsworth Technologies Inc., 2001 SCC 44 | https://decisions.scc-csc.ca/scc-csc/scc-csc/en/1882/1/document.do |
 | `decisions/danyluk-v-ainsworth-2001-SCC-44.english.txt` | (derived: English column of the above) | -- |
+| `decisions/kerr-v-baranow-2011-SCC-10.english.txt` | (derived: English column of `kerr-v-baranow-2011-SCC-10.pdf`, above; Kerr v. Baranow, 2011 SCC 10) | derived 2026-09-30; cited to users as https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/7922/index.do (id confirmed by a search of that site the same day) |
 
 The case page cited to users is `.../en/item/{id}/index.do` with the same id.
 None of these has been noted up (see "Noting up" in docs/SOURCING_NOTES.md).

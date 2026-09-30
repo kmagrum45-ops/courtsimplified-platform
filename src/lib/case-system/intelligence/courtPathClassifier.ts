@@ -510,7 +510,7 @@ const SYSTEM_PROMPT =
   '"confidence":0-1,"reasoning":"one short sentence",' +
   '"issues":[{"kind":"employment-pay|employment-termination|discrimination|residential-tenancy|injury|' +
   'property-damage|debt-or-contract|family|defamation|other","quote":"exact words copied from the story"}],' +
-  '"severalOtherParties":true|false,"earlierDecision":true|false}. ' +
+  '"severalOtherParties":true|false,"earlierDecision":true|false,"unmarriedCouple":true|false}. ' +
   "CourtSimplified only handles Family, Small Claims, and Civil matters in the Ontario court system. The other " +
   "nine ids are different forums entirely: ltb (Landlord and Tenant Board -- residential tenancy), hrto (Human " +
   "Rights Tribunal of Ontario -- discrimination, protected grounds, accommodation), wsiat (workplace injury or " +
@@ -572,7 +572,8 @@ const SYSTEM_PROMPT =
   "never paraphrase, never add words. List only matters the story actually describes; never add one the person " +
   "might also have. severalOtherParties is true only when the story names more than one person or business the " +
   "person holds responsible. earlierDecision is true only when the story says a court or tribunal has already " +
-  "decided something between these people. " +
+  "decided something between these people. unmarriedCouple is true only when the story describes a couple who " +
+  "lived together without being married (common-law, living with a boyfriend or girlfriend). " +
   "Do not give legal advice, cite law, or add fields.";
 
 function buildUserPrompt(args: {
@@ -595,6 +596,7 @@ export type ModelPayload = {
   issues?: unknown;
   severalOtherParties?: unknown;
   earlierDecision?: unknown;
+  unmarriedCouple?: unknown;
 };
 
 /**
@@ -691,7 +693,12 @@ const MAX_ISSUES = 5;
  */
 export function coerceStoryMatters(payload: unknown, story: string): StoryMatters {
   if (!payload || typeof payload !== "object") return NO_MATTERS;
-  const raw = payload as { issues?: unknown; severalOtherParties?: unknown; earlierDecision?: unknown };
+  const raw = payload as {
+    issues?: unknown;
+    severalOtherParties?: unknown;
+    earlierDecision?: unknown;
+    unmarriedCouple?: unknown;
+  };
   const issues: StoryIssue[] = [];
   const seen = new Set<string>();
 
@@ -714,6 +721,7 @@ export function coerceStoryMatters(payload: unknown, story: string): StoryMatter
     issues,
     severalOtherParties: raw.severalOtherParties === true,
     earlierDecision: raw.earlierDecision === true,
+    unmarriedCouple: raw.unmarriedCouple === true,
   };
 }
 

@@ -1,0 +1,4935 @@
+English column of docs/sources/kerr-v-baranow-2011-SCC-10.pdf (pdftotext -layout), derived mechanically (each line cut at the first run of 3+ spaces; lines starting in the right column dropped). The bilingual PDF is the source; this copy exists so quotes can be checked against English text alone.
+
+[2011] 1 R.C.S.
+
+
+Margaret Patricia Kerr
+
+v.
+
+Nelson Dennis Baranow
+
+- and -
+
+
+
+
+Michele Vanasse
+
+v.
+
+David Seguin
+
+Indexed as: Kerr v. Baranow
+2011 SCC 10
+File Nos.: 33157, 33358.
+2010: April 21; 2011: February 18.
+Present: McLachlin C.J. and Binnie, LeBel, Abella,
+Charron, Rothstein and Cromwell JJ.
+
+ON APPEAL FROM THE COURTS OF APPEAL FOR
+BRITISH COLUMBIA AND ONTARIO
+Family law — Common law spouses — Property —
+Unjust enrichment — Monetary remedy — Whether
+monetary remedy restricted to quantum meruit award —
+Whether evidence of joint family venture should be con-
+sidered in conferring remedy — Whether mutual benefit
+conferral and reasonable expectations of parties should
+be considered in assessing award.
+Family law — Common law spouses — Property —
+Resulting trust — Whether evidence of common intention
+should be considered in context of resulting trust —
+Whether resulting trust principles apply to property or
+monetary award in resolution of domestic cases.
+Family law — Common law spouses — Support —
+Parties separating after living together for more than
+25 years — Female partner commencing proceedings
+for a share of property and support — Whether support
+should be payable from date of trial or date on which
+proceedings commenced.
+In the Kerr appeal, K and B, a couple in their late
+60s separated after a common law relationship of more
+270
+
+
+than 25 years. They both had worked through much of
+that time and each had contributed in various ways to
+their mutual welfare. K claimed support and a share of
+property in B’s name based on resulting trust and unjust
+enrichment principles. B counterclaimed that K had
+been unjustly enriched by his housekeeping and per-
+sonal assistance services provided after K suffered a
+debilitating stroke. The trial judge awarded K $315,000,
+
+
+
+
+a third of the value of the home in B’s name that they
+had shared, both by way of resulting trust and unjust
+enrichment, based on his conclusion that K had pro-
+vided $60,000 worth of equity and assets at the begin-
+ning of their relationship. He also awarded K $1,739 per
+month in spousal support effective the date she com-
+menced proceedings. The Court of Appeal concluded
+that K did not make a financial contribution to the
+acquisition or improvement of B’s property that was the
+basis for her award at trial, and dismissed her property
+claims. A new trial was ordered for B’s counterclaim.
+The Court of Appeal further held that the commence-
+ment date of the spousal support should be the date of
+trial.
+
+In the Vanasse appeal, it was agreed that S was
+unjustly enriched by the contributions of his partner,
+V, during their 12-year common law relationship. For
+the first four years of cohabitation, both parties pur-
+sued their respective careers. In 1997, V took a leave
+of absence from her employment and the couple moved
+to Halifax so that S could pursue a business opportu-
+nity. Over the next three and a half years, their chil-
+dren were born and V stayed at home to care for them
+and performed the domestic labour. S worked long
+hours and travelled extensively for business. In 1998,
+S stepped down as CEO of the business and the family
+returned to Ottawa where they bought a home in joint
+names. In 2000, S received approximately $11 mil-
+lion for his shares in the business and from that time,
+until their separation in 2005, he participated more
+with the domestic chores. The trial judge found no
+unjust enrichment for the first and last periods of their
+cohabitation, but held that S had been unjustly enriched
+at V’s expense during the period in which the chil-
+dren were born. V was entitled to half of the value of
+the wealth S accumulated during the period of unjust
+enrichment, less her interest in the home and RRSPs
+in her name. The court of appeal set aside this award
+and directed that the proper approach to valuation was
+a quantum meruit calculation in which the value each
+[2011] 1 R.C.S.
+
+
+party received from the other was assessed and set
+off.
+
+Held: In Kerr, the appeal on the spousal support
+issue should be allowed and the order of the trial judge
+should be restored. The appeal from the order dismiss-
+
+
+
+
+ing K’s unjust enrichment claim should also be allowed
+and a new trial ordered. The appeal from the order dis-
+missing K’s claim in resulting trust should be dismissed.
+The order for a new hearing of B’s counterclaim should
+be affirmed.
+
+Held: In Vanasse, the appeal should be allowed and
+the order of the trial judge restored.
+
+These appeals require the resolution of five main
+issues. The first concerns the role of the “common
+intention” resulting trust in claims by domestic part-
+ners. The second issue is whether the monetary remedy
+for a successful unjust enrichment claim must always
+be assessed on a quantum meruit basis. The third area
+relates to mutual benefit conferral in the context of an
+unjust enrichment claim and when this should be taken
+into account. The fourth concerns the role the parties’
+reasonable expectations play in the unjust enrichment
+analysis. Finally, in the Kerr appeal, this Court must
+also decide the effective date of the commencement of
+spousal support.
+
+For unmarried persons in domestic relationships in
+most common law provinces, judge-made law is the
+only option for addressing the property consequences
+of the breakdown of those relationships. The main legal
+mechanisms available have been the resulting trust
+and the action in unjust enrichment. Resulting trusts
+arise from gratuitous transfers in two types of situa-
+tions: the transfer of property from one partner to the
+other without consideration, and the joint contribution
+by two partners to the acquisition of property, title to
+which is in the name of only one of them. The underly-
+ing legal principle is that contributions to the acquisi-
+tion of a property, which were not reflected in the legal
+title, might nonetheless give rise to a property inter-
+est. In Canada, added to this underlying notion was
+the idea that a resulting trust could arise based solely
+on the “common intention” of the parties that the non-
+owner partner was intended to have an interest. This
+theory is doctrinally unsound, however, and should
+272
+
+
+have no continuing role in the resolution of domes-
+tic property disputes. While traditional resulting trust
+principles may well have a role to play in the resolu-
+tion of property disputes between unmarried domestic
+partners, parties have increasingly turned to the law of
+unjust enrichment and the remedial constructive trust.
+Since the decision in Pettkus v. Becker, the law of unjust
+enrichment has provided a much less artificial, more
+
+
+
+
+comprehensive and more principled basis to address
+claims for the distribution of assets on the breakdown
+of domestic relationships. It permits recovery whenever
+the plaintiff can establish three elements: an enrich-
+ment of the defendant by the plaintiff, a corresponding
+deprivation of the plaintiff, and the absence of a juris-
+tic reason for the enrichment. This Court has taken a
+straightforward economic approach to the elements of
+enrichment and corresponding deprivation. The plain-
+tiff must show that he or she has given a tangible ben-
+efit to the defendant that the defendant received and
+retained. Further, the enrichment must correspond to a
+deprivation that the plaintiff has suffered. Importantly,
+provision of domestic services may support a claim for
+unjust enrichment. The absence of a juristic reason for
+the enrichment means that there is no reason in law or
+justice for the defendant’s retention of the benefit con-
+ferred by the plaintiff. This third element also provides
+for due consideration of the autonomy of the parties,
+their legitimate expectations and the right to order their
+affairs by contract.
+There are two steps to the juristic reason analysis.
+First, the established categories of juristic reason must
+be considered, which could include benefits conferred
+by way of gift or pursuant to a legal obligation. In their
+absence, the second step permits consideration of the
+reasonable expectations of the parties and public policy
+considerations to assess whether particular enrichments
+are unjust.
+The object of the remedy for unjust enrichment is to
+require the defendant to reverse the unjustified enrich-
+ment and may attract either a “personal restitutionary
+award” or a “restitutionary proprietary award”. In most
+cases, a monetary award will be sufficient to remedy
+the unjust enrichment but two issues raise difficulties
+in determining appropriate compensation. Where there
+has been a mutual conferral of benefits, it is often dif-
+ficult for the court to retroactively value every service
+rendered by each party to the other. While the value of
+domestic services is not questioned, it would be unjust
+to only consider the contributions of one party. A second
+[2011] 1 R.C.S.
+
+
+difficulty is whether a monetary award must invariably
+be calculated on a quantum meruit, “value received”
+or “fee-for-services” basis or whether that monetary
+relief may be assessed more flexibly, on a “value sur-
+vived basis” by reference to the overall increase in
+the couple’s wealth during the relationship. In some
+cases, a proprietary remedy may be required. Where
+the plaintiff can demonstrate a link or causal connec-
+
+
+
+
+tion between his or her contributions and the acquisi-
+tion, preservation, maintenance or improvement of the
+disputed property, and that a monetary award would be
+insufficient, a share of the property proportionate to the
+claimant’s contribution can be impressed with a con-
+structive trust in his or her favour.
+
+Three areas in the law of unjust enrichment require
+clarification. Once the choice has been made to award
+a monetary remedy, the question is how to quantify it.
+If a monetary remedy must invariably be quantified on
+a quantum meruit basis, the remedial choice in unjust
+enrichment cases becomes whether to impose a con-
+structive trust or to order a monetary remedy calculated
+on a quantum meruit basis. This dichotomy of reme-
+dial choice should be rejected, however, as the value
+survived measure is a perfectly plausible alternative to
+the constructive trust. Restricting the money remedy to
+a fee-for-service calculation is inappropriate for four
+reasons. First, it fails to reflect the reality of the lives
+of many domestic partners. The basis of all domestic
+unjust enrichment claims do not fit into only two cat-
+egories — those where the enrichment consists of the
+provision of unpaid services, and those where it con-
+sists of an unrecognized contribution to the acquisition,
+improvement, maintenance or preservation of specific
+property. Where the contributions of both parties over
+time have resulted in an accumulation of wealth, the
+unjust enrichment occurs when one party retains a dis-
+proportionate share of the assets that are the product
+of their joint efforts following the breakdown of their
+relationship. The required link between the contribu-
+tions and a specific property may not exist but there
+may clearly be a link between the joint efforts of the
+parties and the accumulation of wealth. While the law
+of unjust enrichment does not mandate a presumption
+of equal sharing, nor does the mere fact of cohabita-
+tion entitle one party to share in the other’s property,
+the legal consequences of the breakdown of a domes-
+tic relationship should reflect realistically the way
+people live their lives. Second, the remedial dichotomy
+is inconsistent with the inherent flexibility of unjust
+enrichment and with the Court’s approach to equitable
+274
+
+
+remedies. Moreover, the Court has recognized that,
+given the wide variety of circumstances addressed by
+the traditional categories of unjust enrichment, as well
+as the flexibility of the broader, principled approach, its
+development requires recourse to a number of differ-
+ent sorts of remedies depending on the circumstances.
+There is no reason in principle why one of the tradi-
+tional categories of unjust enrichment should be used
+
+
+
+
+to force the monetary remedy for all present domestic
+unjust enrichment cases into a remedial strait-jacket.
+What is essential is that there must be a link between
+the contribution and the accumulation of wealth. Where
+that link exists, and a proprietary remedy is either inap-
+propriate or unnecessary, the monetary award should
+be fashioned to reflect the true nature of the enrichment
+and the corresponding deprivation. Third, the reme-
+dial dichotomy ignores the historical basis of quantum
+meruit claims. Finally, a remedial dichotomy is not
+mandated, as has been suggested, by the Court’s judg-
+ment in Peter v. Beblow.
+Where the unjust enrichment is best characterized
+as an unjust retention of a disproportionate share of
+assets accumulated during the course of a “joint family
+venture” to which both partners have contributed, the
+monetary remedy should be calculated according to the
+share of the accumulated wealth proportionate to the
+claimant’s contributions. Where the spouses are domes-
+tic and financial partners, there is no need for “duel-
+ling quantum meruits”. The law of unjust enrichment,
+including the remedial constructive trust, is the pref-
+erable method of responding to the inequities brought
+about by the breakdown of a common law relationship,
+since the remedies for unjust enrichment “are tailored
+to the parties’ specific situation and grievances”. To
+be entitled to a monetary remedy on a value-survived
+basis, the claimant must show both that there was a joint
+family venture and a link between his or her contribu-
+tions and the accumulation of wealth.
+To determine whether the parties have, in fact,
+been engaged in a joint family venture, the particular
+circumstances of each particular relationship must be
+taken into account. This is a question of fact and must
+[2011] 1 R.C.S.
+
+
+be assessed by having regard to all of the relevant cir-
+cumstances, including factors relating to mutual effort,
+economic integration, actual intent and priority of the
+family. The pooling of effort and team work, the deci-
+sion to have and raise children together, and the length
+of the relationship may all point towards the extent to
+which the parties have formed a true partnership and
+jointly worked towards important mutual goals. The use
+
+
+
+
+of parties’ funds entirely for family purposes or where
+one spouse takes on all, or a greater proportion, of the
+domestic labour, freeing the other spouse from those
+responsibilities and enabling him or her to pursue activ-
+ities in the paid workforce, may also indicate a pool-
+ing of resources. The more extensive the integration of
+the couple’s finances, economic interests and economic
+well-being, the more likely it is that they have engaged
+in a joint family venture. The actual intentions of the
+parties, either express or inferred from their conduct,
+must be given considerable weight. Their conduct may
+show that they intended the domestic and professional
+spheres of their lives to be part of a larger, common
+venture, but may also conversely negate the existence
+of a joint family venture, or support the conclusion
+that particular assets were to be held independently.
+Another consideration is whether and to what extent the
+parties have given priority to the family in their deci-
+sion making, and whether there has been detrimental
+reliance on the relationship, by one or both of the par-
+ties, for the sake of the family. This may occur where
+one party leaves the workforce for a period of time to
+raise children; relocates for the benefit of the other par-
+ty’s career; foregoes career or educational advancement
+for the benefit of the family or relationship; or accepts
+underemployment in order to balance the financial and
+domestic needs of the family unit.
+
+The unjust enrichment analysis in domestic situa-
+tions is often complicated by the fact that there has been
+a mutual conferral of benefits. When the appropriate
+remedy is a money award based on a fee-for-services
+provided approach, the fact that the defendant has
+also provided services to the claimant should mainly
+be considered at the defence and remedy stages of the
+analysis but may be considered at the juristic reason
+stage to the extent that the provision of reciprocal ben-
+efits constitutes relevant evidence of the existence (or
+non-existence) of a juristic reason for the enrichment.
+However, given that the purpose of the juristic reason
+276
+
+
+step in the analysis is to determine whether the enrich-
+ment was just, not its extent, mutual benefit conferral
+should only be considered at the juristic reason stage for
+that limited purpose. Otherwise, the mutual exchange
+of benefits should be taken into account only after the
+three elements of an unjust enrichment claim have been
+established.
+
+
+
+
+Claimants must show that there is no juristic reason
+falling within any of the established categories, such
+as whether the benefit was a gift or pursuant to a legal
+obligation. It is then open to the defendant to show that
+a different juristic reason for the enrichment should be
+recognized, having regard to the parties’ reasonable
+expectations and public policy considerations. Mutual
+benefit conferral and the parties’ reasonable expecta-
+tions have a very limited role to play at the first step
+of the juristic reason analysis. In some cases, the fact
+that mutual benefits were conferred or that the bene-
+fits were provided pursuant to the parties’ reasonable
+expectations may be relevant evidence of whether one
+of the existing categories of juristic reasons is present.
+The parties’ reasonable or legitimate expectations have
+a role to play at the second step of the juristic reason
+analysis, where the defendant bears the burden of estab-
+lishing that there is a juristic reason for retaining the
+benefit that does not fall within the existing categories.
+The question is whether the parties’ mutual expecta-
+tions show that retention of the benefits is just.
+In the Vanasse appeal, although not labelling it as
+such, the trial judge found that there was a joint family
+venture and that there was a link between V’s contri-
+bution to it and the substantial accumulation of wealth
+that the family achieved. She made a reasonable assess-
+ment of the monetary award appropriate to reverse this
+unjust enrichment, taking due account of S’s substan-
+tial contributions. Her findings of fact and analysis indi-
+cate that the unjust enrichment of S at the expense of
+V ought to be characterized as the retention by S of
+a disproportionate share of the wealth generated from
+a joint family venture. Several factors suggested that,
+throughout their relationship, the parties were work-
+ing collaboratively towards common goals. They made
+important decisions keeping the overall welfare of
+the family at the forefront. It was through their joint
+efforts that they were able to raise a young family and
+acquire wealth. S could not have made the efforts he did
+to build up the company but for V’s assumption of the
+domestic responsibilities. Notably, the period of unjust
+enrichment corresponds to the time during which the
+parties had two children together, a further indicator
+[2011] 1 R.C.S.
+
+
+that they were working together to achieve common
+goals. The length of the relationship is also relevant,
+and their 12-year cohabitation is a significant period of
+time. There was also evidence of economic integration
+as their house was registered jointly and they had a joint
+bank account. Their words and actions indicated that
+there was a joint family venture, to which the couple
+jointly contributed for their mutual benefit and the bene-
+
+
+
+
+fit of their children. There is a strong inference from the
+factual findings that, to S’s knowledge, V relied on the
+relationship to her detriment. She left her career, gave
+up her own income, and moved away from her family
+and friends. V then stayed home and cared for their two
+small children. During the period of the unjust enrich-
+ment, V was responsible for a disproportionate share
+of the domestic labour. There was a clear link between
+V’s contribution and the accumulation of wealth. The
+trial judge took a realistic and practical view of the evi-
+dence and took into account S’s non-financial contribu-
+tions and periods during which V’s contributions were
+not disproportionate to S and her judgment should be
+restored.
+
+The Court of Appeal was right to set aside the trial
+judge’s findings of resulting trust and unjust enrichment
+in Kerr and in ordering a new hearing on B’s counter-
+claim. On the basis of the unsatisfactory record at trial,
+which includes findings of fact tainted by clear error,
+K’s unjust enrichment claim should not have been dis-
+missed but a new trial ordered. The Court of Appeal
+erred in assessing B’s contributions as part of the juris-
+tic reason analysis and prematurely truncated K’s prima
+facie case of unjust enrichment. The family property
+approach is rejected, and for K to show an entitlement to
+a proportionate share of the wealth accumulated during
+the relationship, she must establish that B has been
+unjustly enriched at her expense, that their relationship
+constituted a joint family venture, and that her contribu-
+tions are linked to the generation of wealth during the
+relationship. She would then have to show what propor-
+tion of the jointly accumulated wealth reflects her con-
+tributions. With regard to B’s counterclaim, there was
+evidence that he made very significant contributions to
+K’s welfare such that his counterclaim cannot simply
+be dismissed. The trial judge also referred to various
+other monetary and non-monetary contributions which
+K made to the couple’s welfare and comfort, but he did
+not evaluate them, let alone compare them with the
+278
+
+
+contributions made by B. There are few findings of fact
+relevant to the key question of whether the parties’ rela-
+tionship constituted a joint family venture. Further, the
+Court of Appeal ought not to have set aside the trial
+judge’s order for spousal support in favour of K effec-
+tive on the date she had commenced proceedings. It is
+clear that K was in need of support from B at the date
+she started her proceedings and remained so at the time
+
+
+
+
+of trial. K should not have been faulted for not bringing
+an interim application in seeking support for the period
+in question. She suffered from a serious physical dis-
+ability, and her standard of living was markedly lower
+than it was while she lived with B. B had the means to
+provide support, had prompt notice of her claim, and
+there was no indication in the Court of Appeal’s reasons
+that it considered the judge’s award imposed on him a
+hardship so as to make that award inappropriate.
+Cases Cited
+Applied: Peel (Regional Municipality) v. Canada,
+[1992] 3 S.C.R. 762; Peter v. Beblow, [1993] 1 S.C.R.
+980, rev’g (1990), 50 B.C.L.R. (2d) 266, rev’g [1988]
+B.C.J. No. 887 (QL); Sorochan v. Sorochan, [1986] 2
+S.C.R. 38; Garland v. Consumers’ Gas Co., 2004 SCC
+25, [2004] 1 S.C.R. 629; considered: Pettkus v. Becker,
+[1980] 2 S.C.R. 834; Rathwell v. Rathwell, [1978] 2
+S.C.R. 436; Pecore v. Pecore, 2007 SCC 17, [2007] 1
+S.C.R. 795; D.B.S. v. S.R.G., 2006 SCC 37, [2006] 2
+S.C.R. 231; referred to: Dyer v. Dyer (1788), 2 Cox
+Eq. Cas. 92, 30 E.R. 42; Murdoch v. Murdoch, [1975]
+1 S.C.R. 423; Gissing v. Gissing, [1970] 2 All E.R. 780;
+Pettitt v. Pettitt, [1970] A.C. 777; Reference re Goods
+and Services Tax, [1992] 2 S.C.R. 445; Mack v. Canada
+(Attorney General) (2002), 60 O.R. (3d) 737; Nova
+Scotia (Attorney General) v. Walsh, 2002 SCC 83,
+[2002] 4 S.C.R. 325; Lac Minerals Ltd. v. International
+Corona Resources Ltd., [1989] 2 S.C.R. 574; Bell v.
+Bailey (2001), 203 D.L.R. (4th) 589; Wilson v. Fotsch,
+2010 BCCA 226, 319 D.L.R. (4th) 26; Pickelein v.
+Gillmore (1997), 30 B.C.L.R. (3d) 44; Harrison v.
+Kalinocha (1994), 90 B.C.L.R. (2d) 273; MacFarlane v.
+Smith, 2003 NBCA 6, 256 N.B.R. (2d) 108; Shannon v.
+Gidden, 1999 BCCA 539, 71 B.C.L.R. (3d) 40; Herman
+v. Smith (1984), 42 R.F.L. (2d) 154; Clarke v. Clarke,
+[1990] 2 S.C.R. 795; Cadbury Schweppes Inc. v. FBI
+[2011] 1 R.C.S.
+
+
+Foods Ltd., [1999] 1 S.C.R. 142; Soulos v. Korkontzilas,
+[1997] 2 S.C.R. 217; Pacific National Investments
+Ltd. v. Victoria (City), 2004 SCC 75, [2004] 3 S.C.R.
+575; Birmingham v. Ferguson, 2004 CanLII 4764;
+McDougall v. Gesell Estate, 2001 MBCA 3, 153 Man.
+R. (2d) 54; Nasser v. Mayer-Nasser (2000), 5 R.F.L.
+(5th) 100; Panara v. Di Ascenzo, 2005 ABCA 47, 361
+A.R. 382; Ford v. Werden (1996), 27 B.C.L.R. (3d) 169;
+
+
+
+
+Thomas v. Fenton, 2006 BCCA 299, 269 D.L.R. (4th)
+376; Giles v. McEwan (1896), 11 Man. R. 150; Garland
+v. Consumers’ Gas Co., [1998] 3 S.C.R. 112; Nance v.
+British Columbia Electric Railway Co., [1951] A.C.
+601; MacKinnon v. MacKinnon (2005), 75 O.R. (3d)
+175; S. (L.) v. P. (E.) (1999), 67 B.C.L.R. (3d) 254.
+Statutes and Regulations Cited
+Divorce Act, R.S.C. 1985, c. 3 (2nd Supp.).
+Family Relations Act, R.S.B.C. 1996, c. 128, ss. 1(1)
+“spouse”, 93(5)(d).
+Authors Cited
+Birks, Peter. An Introduction to the Law of Restitution.
+Oxford: Clarendon Press, 1985.
+Birks, Peter. Unjust Enrichment, 2nd ed. Oxford: Oxford
+University Press, 2005.
+Davies, J. D. “Duties of Confidence and Loyalty”, [1990]
+L.M.C.L.Q. 4.
+Fridman, G. H. L. Restitution, 2nd ed. Scarborough,
+Ont.: Carswell, 1992.
+Gordon, Marie L. “Blame Over: Retroactive Child and
+Spousal Support in the Post-Guideline Era” (2004-
+2005), 23 C.F.L.Q. 243.
+Lord Goff of Chieveley and Gareth Jones. The Law of
+Restitution, 7th ed. London: Sweet & Maxwell, 2007.
+Maddaugh, Peter D., and John D. McCamus. The Law of
+Restitution. Aurora, Ont.: Canada Law Book, 1990.
+Maddaugh, Peter D., and John D. McCamus. The Law of
+Restitution. Aurora, Ont.: Canada Law Book, 2004
+(loose-leaf updated August 2010, release 6).
+Matrimonial Property Law in Canada, vol. 1, by James
+G. McLeod and Alfred A. Mamo, eds. Toronto: Cars-
+well, 1993 (loose-leaf updated 2010, release 8).
+McCamus, John D. “Restitution on Dissolution of Marital
+and Other Intimate Relationships: Constructive Trust
+or Quantum Meruit?”, in Jason W. Neyers, Mitchell
+McInnes and Stephen G. A. Pitel, eds., Understand-
+ing Unjust Enrichment. Portland: Hart Publishing,
+2004, 359.
+Mee, John. The Property Rights of Cohabitees: An
+Analysis of Equity’s Response in Five Common Law
+Jurisdictions. Portland: Hart Publishing, 1999.
+280
+
+
+Oosterhoff on Trusts: Text, Commentary and Materials,
+7th ed. by A. H. Oosterhoff et al. Toronto: Carswell,
+2009.
+Parkinson, Patrick. “Beyond Pettkus v. Becker: Quan-
+tifying Relief for Unjust Enrichment” (1993), 43
+U.T.L.J. 217.
+Pettit, Philip H. Equity and the Law of Trusts, 11th ed.
+Oxford: Oxford University Press, 2009.
+
+
+
+
+Scane, Ralph E. “Relationships ‘Tantamount to Spousal’,
+Unjust Enrichment, and Constructive Trusts” (1991),
+70 Can. Bar Rev. 260.
+Waters, Donovan. Comment (1975), 53 Can. Bar Rev.
+366.
+Waters’ Law of Trusts in Canada, 3rd ed. by Donovan
+W. M. Waters, Mark R. Gillen and Lionel D. Smith,
+eds. Toronto: Thomson, 2005.
+Youdan, Timothy G. “Resulting and Constructive
+Trusts”, in Special Lectures of the Law Society of
+Upper Canada 1993 — Family Law: Roles, Fairness
+and Equality. Scarborough, Ont.: Carswell, 1994, 169.
+
+APPEAL from a judgment of the British
+Columbia Court of Appeal (Levine, Tysoe and
+Smith JJ.A.), 2009 BCCA 111, 93 B.C.L.R. (4th)
+201, 266 B.C.A.C. 298, [2009] 9 W.W.R. 285, 66
+R.F.L. (6th) 1, [2009] B.C.J. No. 474 (QL), 2009
+CarswellBC 642, reversing in part a decision of
+Romilly J., 2007 BCSC 1863, 47 R.F.L. (6th) 103,
+[2007] B.C.J. No. 2737 (QL), 2007 CarswellBC
+3047. Appeal allowed in part.
+
+APPEAL from a judgment of the Ontario Court
+of Appeal (Weiler, Juriansz and Epstein JJ.A.),
+2009 ONCA 595, 252 O.A.C. 218, 96 O.R. (3d)
+321, [2009] O.J. No. 3211 (QL), 2009 CarswellOnt
+4407, reversing a decision of Blishen J., 2008
+CanLII 35922, [2008] O.J. No. 2832 (QL), 2008
+CarswellOnt 4265. Appeal allowed.
+
+Armand A. Petronio and Geoffrey B. Gomery,
+for the appellant Margaret Kerr.
+
+Susan G. Label and Marie-France Major, for
+the respondent Nelson Baranow.
+
+John E. Johnson, for the appellant Michele
+Vanasse.
+
+H. Hunter Phillips, for the respondent David
+Seguin.
+[2011] 1 R.C.S.
+
+
+The judgment of the Court was delivered by
+
+Cromwell J. —
+
+I.
+
+
+
+
+[1] In a series of cases spanning 30 years, the
+Court has wrestled with the financial and prop-
+erty rights of parties on the breakdown of a mar-
+riage or domestic relationship. Now, for married
+spouses, comprehensive matrimonial property stat-
+utes enacted in the late 1970s and 1980s provide
+the applicable legal framework. But for unmarried
+persons in domestic relationships in most common
+law provinces, judge-made law was and remains
+the only option. The main legal mechanisms avail-
+able to parties and courts have been the resulting
+trust and the action in unjust enrichment.
+
+[2] In the early cases of the 1970s, the parties and
+the courts turned to the resulting trust. The under-
+lying legal principle was that contributions to the
+acquisition of a property, which were not reflected
+in the legal title, could nonetheless give rise to a
+property interest. Added to this underlying notion
+was the idea that a resulting trust could arise based
+on the “common intention” of the parties that the
+non-owner partner was intended to have an inter-
+est. The resulting trust soon proved to be an unsat-
+isfactory legal solution for many domestic property
+disputes, but claims continue to be advanced and
+decided on that basis.
+
+[3] As the doctrinal problems and practical limi-
+tations of the resulting trust became clearer, parties
+and courts turned increasingly to the emerging law
+of unjust enrichment. As the law developed, unjust
+enrichment carried with it the possibility of a reme-
+dial constructive trust. In order to successfully
+prove a claim for unjust enrichment, the claimant
+must show that the defendant has been enriched,
+the claimant suffered a corresponding detriment,
+and there is no “juristic reason” for the enrichment.
+282
+
+
+This claim has become the pre-eminent vehicle for
+addressing the financial consequences of the break-
+down of domestic relationships. However, various
+issues continue to create controversy, and these two
+appeals, argued consecutively, provide the Court
+with the opportunity to address them.
+
+
+
+
+[4] In the Kerr appeal, a couple in their late 60s
+separated after a common law relationship of more
+than 25 years. Both had worked through much of
+that time and each had contributed in various ways
+to their mutual welfare. Ms. Kerr claimed support
+and a share of property held in her partner’s name
+based on resulting trust and unjust enrichment
+principles. The trial judge awarded her one-third
+of the value of the couple’s residence, grounded in
+both resulting trust and unjust enrichment claims
+(2007 BCSC 1863, 47 R.F.L. (6th) 103). He did
+not address, other than in passing, Mr. Baranow’s
+counterclaim that Ms. Kerr had been unjustly
+enriched at his expense. The judge also ordered
+substantial monthly support for Ms. Kerr pursu-
+ant to statute, effective as of the date she applied
+to the court for relief. However, the resulting trust
+and unjust enrichment conclusions of the trial
+judge were set aside by the British Columbia Court
+of Appeal (2009 BCCA 111, 93 B.C.L.R. (4th)
+201). Both lower courts addressed the role of the
+parties’ common intention and reasonable expec-
+tations. The appeal to this Court raises the ques-
+tions of the role of resulting trust law in these types
+of disputes, as well as how an unjust enrichment
+analysis should take account of the mutual confer-
+ral of benefits and what role the parties’ intentions
+and expectations play in that analysis. This Court
+is also called upon to decide whether the award of
+spousal support should be effective as of the date
+of application, as found by the trial judge, the date
+the trial began, as ordered by the Court of Appeal,
+or some other date.
+[2011] 1 R.C.S.
+
+
+[5] In the Vanasse appeal, the central problem
+is how to quantify a monetary award for unjust
+enrichment. It is agreed that Mr. Seguin was
+unjustly enriched by the contributions of his part-
+ner, Ms. Vanasse; the two lived in a common law
+relationship for about 12 years and had two children
+together during this time. The trial judge valued the
+
+
+
+
+extent of the enrichment by determining what pro-
+portion of Mr. Seguin’s increased wealth was due to
+Ms. Vanasse’s efforts as an equal contributor to the
+family venture (2008 CanLII 35922). The Court of
+Appeal set aside this finding and, while ordering a
+new trial, directed that the proper approach to valu-
+ation was to place a monetary value on the services
+provided by Ms. Vanasse to the family, taking due
+account of Mr. Seguin’s own contributions by way
+of set-off (2009 ONCA 595, 252 O.A.C. 218). In
+short, the Court of Appeal held that Ms. Vanasse
+should be treated as an unpaid employee, not a co-
+venturer. The appeal to this Court challenges this
+conclusion.
+
+[6] These appeals require us to resolve five main
+issues. The first concerns the role of the “common
+intention” resulting trust in claims by domestic
+partners. In my view, it is time to recognize that
+the “common intention” approach to resulting trust
+has no further role to play in the resolution of prop-
+erty claims by domestic partners on the breakdown
+of their relationship.
+
+[7] The second issue concerns the nature of the
+money remedy for a successful unjust enrichment
+claim. Some courts take the view that if the claim-
+ant’s contribution cannot be linked to specific
+property, a money remedy must always be assessed
+on a fee-for-services basis. Other courts have taken
+a more flexible approach. In my view, where both
+parties have worked together for the common good,
+with each making extensive, but different, contri-
+butions to the welfare of the other and, as a result,
+284
+
+
+have accumulated assets, the money remedy for
+unjust enrichment should reflect that reality. The
+money remedy in those circumstances should not
+be based on a minute totting up of the give and take
+of daily domestic life, but rather should treat the
+claimant as a co-venturer, not as the hired help.
+
+
+
+
+
+[8] The third area requiring clarification relates
+to mutual benefit conferral. Many domestic rela-
+tionships involve the mutual conferral of benefits,
+in the sense that each contributes in various ways
+to the welfare of the other. The question is how
+and at what point in the unjust enrichment analysis
+should this mutual conferral of benefits be taken
+into account? For reasons I will develop below, this
+issue should, with a small exception, be addressed
+at the defence and remedy stage.
+
+[9] Fourth, there is the question of what role the
+parties’ reasonable or legitimate expectations play
+in the unjust enrichment analysis. My view is that
+they have a limited role, and must be considered in
+relation to whether there is a juristic reason for the
+enrichment.
+
+[10] Finally, there is the issue of the appropriate
+date for the commencement of spousal support. In
+my respectful view, the Court of Appeal erred in
+setting aside the trial judge’s selection of the date of
+application in the circumstances of the Kerr appeal.
+
+[11] I will first address the law of resulting trusts
+as it applies to the breakdown of a marriage-like
+relationship. Next, I will turn to the law of unjust
+enrichment in this context. Finally, I will address
+the specific issues raised in the two appeals.
+
+II. Resulting Trusts
+
+[12] The resulting trust played an important role
+in the early years of the Court’s jurisprudence relat-
+ing to property rights following the breakdown of
+[2011] 1 R.C.S.
+
+
+intimate personal relationships. This is not surpris-
+ing; it had been settled law since at least 1788 in
+England (and likely long before) that the trust of a
+legal estate, whether in the names of the purchaser
+or others, “results” to the person who advances the
+purchase money: Dyer v. Dyer (1788), 2 Cox Eq.
+Cas. 92, 30 E.R. 42, at p. 43. The resulting trust,
+
+
+
+
+therefore, seemed a promising vehicle to address
+claims that one party’s contribution to the acquisi-
+tion of property was not reflected in the legal title.
+
+[13] The resulting trust jurisprudence in domes-
+tic property cases developed into what has been
+called “a purely Canadian invention”, the “common
+intention” resulting trust: A. H. Oosterhoff, et al.,
+Oosterhoff on Trusts: Text, Commentary and
+Materials (7th ed. 2009), at p. 642. While this
+vehicle has largely been eclipsed by the law of
+unjust enrichment since the decision of the Court
+in Pettkus v. Becker, [1980] 2 S.C.R. 834, claims
+based on the “common intention” resulting trust
+continue to be advanced. In the Kerr appeal, for
+example, the trial judge justified the imposition of a
+resulting trust, in part, on the basis that the parties
+had a common intention that Mr. Baranow would
+hold title to the property by way of a resulting trust
+for Ms. Kerr. The Court of Appeal, while reversing
+the trial judge’s finding of fact on this point, implic-
+itly accepted the ongoing vitality of the common
+intention resulting trust.
+
+[14] However promising this common intention
+resulting trust approach looked at the beginning,
+doctrinal and practical problems soon became
+apparent and have been the subject of comment
+by the Court and scholars: see, e.g., Pettkus, at pp.
+842-43; Oosterhoff, at pp. 641-47; D. W. M. Waters,
+M. R. Gillen and L. D. Smith, eds., Waters’ Law of
+Trusts in Canada (3rd ed. 2005) (“Waters’”), at pp.
+430-35; J. Mee, The Property Rights of Cohabitees:
+An Analysis of Equity’s Response in Five Common
+Law Jurisdictions (1999), at pp. 39-43; T. G.
+Youdan, “Resulting and Constructive Trusts”,
+in Special Lectures of the Law Society of Upper
+286
+
+
+Canada 1993 — Family Law: Roles, Fairness and
+Equality (1994), 169, at pp. 172-74.
+
+[15] In this Court, since Pettkus, the common
+intention resulting trust remains intact but unused.
+While traditional resulting trust principles may
+
+
+
+
+well have a role to play in the resolution of property
+disputes between unmarried domestic partners,
+the time has come to acknowledge that there is no
+continuing role for the common intention resulting
+trust. To explain why, I must first put the question
+in the context of some basic principles about result-
+ing trusts.
+
+[16] That task is not as easy as it should be; there
+is not much one can say about resulting trusts with-
+out a well-grounded fear of contradiction. There is
+debate about how they should be classified and how
+they arise, let alone about many of the finer points:
+see, e.g., Rathwell v. Rathwell, [1978] 2 S.C.R. 436,
+at pp. 449-50; Waters’, at pp. 19-22; P. H. Pettit,
+Equity and the Law of Trusts (11th ed. 2009), at p.
+67. However, it is widely accepted that the underly-
+ing notion of the resulting trust is that it is imposed
+“to return property to the person who gave it and is
+entitled to it beneficially, from someone else who
+has title to it. Thus, the beneficial interest ‘results’
+(jumps back) to the true owner”: Oosterhoff, at p.
+25. There is also widespread agreement that, tradi-
+tionally, resulting trusts arose where there had been
+a gratuitous transfer or where the purposes set out
+by an express or implied trust failed to exhaust the
+trust property: Waters’, at p. 21.
+
+[17] Resulting trusts arising from gratuitous
+transfers are the ones relevant to domestic situa-
+tions. The traditional view was they arose in two
+types of situations: the gratuitous transfer of prop-
+erty from one partner to the other, and the joint
+contribution by two partners to the acquisition of
+property, title to which is in the name of only one
+of them. In either case, the transfer is gratuitous, in
+[2011] 1 R.C.S.
+
+
+the first case because there was no consideration
+for the transfer of the property, and in the second
+case because there was no consideration for the
+contribution to the acquisition of the property.
+
+[18] The Court’s most recent decision in relation
+
+
+
+
+to resulting trusts is consistent with the view that,
+in these gratuitous transfer situations, the actual
+intention of the grantor is the governing consid-
+eration: Pecore v. Pecore, 2007 SCC 17, [2007] 1
+S.C.R. 795, at paras. 43-44. As Rothstein J. noted
+at para. 44 of Pecore, where a gratuitous transfer is
+being challenged, “[t]he trial judge will commence
+his or her inquiry with the applicable presumption
+and will weigh all of the evidence in an attempt to
+ascertain, on a balance of probabilities, the trans-
+feror’s actual intention” (emphasis added).
+
+[19] As noted by Rothstein J. in this passage,
+presumptions may come into play when dealing
+with gratuitous transfers. The law generally pre-
+sumes that the grantor intended to create a trust,
+rather than to make a gift, and so the presumption
+of resulting trust will often operate. As Rothstein
+J. explained, a presumption of a resulting trust is
+the general rule that applies to gratuitous transfers.
+When such a transfer is made, the onus will be on
+the person receiving the transfer to demonstrate
+that a gift was intended. Otherwise, the transferee
+holds that property in trust for the transferor. This
+presumption rests on the principle that equity pre-
+sumes bargains and not gifts (Pecore, at para. 24).
+
+[20] The presumption of resulting trust, how-
+ever, is neither universal nor irrebuttable. So, for
+example, in the case of transfers between persons
+in certain relationships (such as from a parent to
+a minor child), a presumption of advancement —
+that is, a presumption that the grantor intended to
+make a gift — rather than a presumption of result-
+ing trust applies: see Pecore, at paras. 27-41. The
+presumption of advancement traditionally applied
+to grants from husband to wife, but the presump-
+tion of resulting trust traditionally applied to
+288
+
+
+grants from wife to husband. Whether the appli-
+cation of the presumption of advancement applies
+to unmarried couples may be more controversial:
+Oosterhoff, at pp. 681-82. Although the trial judge
+in Kerr touched on this issue, neither party relies
+on the presumption of advancement and I need say
+nothing further about it.
+
+
+
+
+
+[21] That brings me to the “common intention”
+resulting trust. It figured prominently in the major-
+ity judgment in Murdoch v. Murdoch, [1975] 1
+S.C.R. 423. Quoting from Lord Diplock’s speech in
+Gissing v. Gissing, [1970] 2 All E.R. 780 (H.L.), at
+pp. 789 and 793, Martland J. held for the majority
+that, absent a financial contribution to the acqui-
+sition of the contested property, a resulting trust
+could only arise “where the court is satisfied by
+the words or conduct of the parties that it was their
+common intention that the beneficial interest was
+not to belong solely to the spouse in whom the legal
+estate was vested but was to be shared between
+them in some proportion or other”: Murdoch, at
+p. 438.
+
+[22] This approach was repeated and followed by
+a majority of the Court three years later in Rathwell,
+at pp. 451-53, although the Court also unanimously
+found there had been a direct financial contribution
+by the claimant. In Rathwell, there is, as well, some
+blurring of the notions of contribution and common
+intention; there are references to the fact that a pre-
+sumption of resulting trust is sometimes explained
+by saying that the fact of contribution evidences the
+common intention to share ownership: see p. 452,
+per Dickson J. (as he then was); p. 474, per Ritchie
+J. This blurring is also evident in the reasons of
+the Court of Appeal in Kerr, where the court said,
+at para. 42, that “[a] resulting trust is an equitable
+doctrine that, by operation of law, imposes a trust
+on a party who holds legal title to property that was
+gratuitously transferred to that party by another
+and where there is evidence of a common intention
+that the property was to be shared by both parties”
+(emphasis added).
+[2011] 1 R.C.S.
+
+
+[23] The Court’s development of the common
+intention resulting trust ended with Pettkus, in
+which Dickson J. (as he then was) noted the “many
+difficulties, chronicled in the cases and in the
+legal literature” as well as the “artificiality of the
+common intention approach” to resulting trusts: at
+pp. 842-43. He also clearly rejected the notion that
+
+
+
+
+the requisite common intention could be attributed
+to the parties where such an intention was negated
+by the evidence: p. 847. The import of Pettkus was
+that the law of unjust enrichment, coupled with
+the remedial constructive trust, became the more
+flexible and appropriate lens through which to
+view property and financial disputes in domestic
+situations. As Ms. Kerr stated in her factum, the
+“approach enunciated in Pettkus v. Becker has
+become the dominant legal paradigm for the reso-
+lution of property disputes between common law
+spouses” (para. 100).
+
+[24] This, in my view, is as it should be, and the
+time has come to say that the common intention
+resulting trust has no further role to play in the res-
+olution of domestic cases. I say this for four rea-
+sons.
+
+[25] First, as the abundant scholarly criticism
+demonstrates, the common intention resulting trust
+is doctrinally unsound. It is inconsistent with the
+underlying principles of resulting trust law. Where
+the issue of intention is relevant to the finding of
+resulting trust, it is the intention of the grantor or
+contributor alone that counts. As Professor Waters
+puts it, “In imposing a resulting trust upon the
+recipient, Equity is never concerned with [common]
+intention” (Waters’, at p. 431). The underlying prin-
+ciples of resulting trust law also make it hard to
+accommodate situations in which the contribu-
+tion made by the claimant was not in the form of
+property or closely linked to its acquisition. The
+point of the resulting trust is that the claimant is
+asking for his or her own property back, or for
+the recognition of his or her proportionate inter-
+est in the asset which the other has acquired with
+290
+
+
+that property. This thinking extends artificially to
+claims that are based on contributions that are not
+clearly associated with the acquisition of an inter-
+est in property; in such cases there is not, in any
+meaningful sense, a “resulting” back of the trans-
+ferred property: Waters’, at p. 432. It follows that
+a resulting trust based solely on intention without
+
+
+
+
+a transfer of property is, as Oosterhoff puts it, a
+doctrinal impossibility: “. . . a resulting trust can
+arise only when one person has transferred assets
+to, or purchased assets for, another person and did
+not intend to make a gift of the property”: p. 642.
+The final doctrinal problem is that the relevant time
+for ascertaining intention is the time of acquisition
+of the property. As a result, it is hard to see how a
+resulting trust can arise from contributions made
+over time to the improvement of an existing asset,
+or contributions in kind over time for its mainte-
+nance. As Oosterhoff succinctly puts it at p. 652,
+a resulting trust is inappropriate in these circum-
+stances because its imposition, in effect, forces one
+party to give up beneficial ownership which he or
+she enjoyed before the improvement or mainte-
+nance occurred.
+
+[26] There are problems beyond these doctrinal
+issues. A second difficulty with the common inten-
+tion resulting trust is that the notion of common
+intention may be highly artificial, particularly in
+domestic cases. The search for common intention
+may easily become “a mere vehicle or formula”
+for giving a share of an asset, divorced from any
+realistic assessment of the actual intention of the
+parties. Dickson J. in Pettkus noted the artificial-
+ity and undue malleability of the common intention
+approach: at pp. 843-44.
+
+[27] Third, the “common intention” resulting
+trust in Canada evolved from a misreading of some
+imprecise language in early authorities from the
+House of Lords. While much has been written on
+this topic, it is sufficient for my purposes to note,
+as did Dickson J. in Pettkus, at p. 842, that the prin-
+ciples upon which the common intention resulting
+[2011] 1 R.C.S.
+
+
+trust jurisprudence developed are found in the
+House of Lords decisions in Pettitt v. Pettitt, [1970]
+A.C. 777, and Gissing. However, no clear majority
+opinion emerged in those cases and four of the five
+Law Lords in Gissing spoke of “resulting, implied
+or constructive trusts” without distinction. The pas-
+sages that have been most influential in Canada on
+
+
+
+
+this point, those authored by Lord Diplock, in fact
+relate to constructive rather than resulting trusts:
+see, e.g., Waters’, at pp. 430-35; Oosterhoff, at pp.
+642-43. I find persuasive Professor Waters’ com-
+ments, specifically approved by Dickson J. in
+Pettkus, that where the search for common inten-
+tion becomes simply a vehicle for reaching what
+the court perceives to be a just result, “[i]t is in
+fact a constructive trust approach masquerading as
+a resulting trust approach”: D. Waters, Comment
+(1975), 53 Can. Bar Rev. 366, at p. 368.
+
+[28] Finally, as the development of the law since
+Pettkus has shown, the principles of unjust enrich-
+ment, coupled with the possible remedy of a con-
+structive trust, provide a much less artificial, more
+comprehensive and more principled basis to address
+the wide variety of circumstances that lead to
+claims arising out of domestic partnerships. There
+is no need for any artificial inquiry into common
+intent. Claims for compensation as well as for
+property interests may be addressed. Contributions
+of all kinds and made at all times may be justly
+considered. The equities of the particular case are
+considered transparently and according to princi-
+ple, rather than masquerading behind often artifi-
+cial attempts to find common intent to support what
+the court thinks for unstated reasons is a just result.
+
+[29] I would hold that the resulting trust arising
+solely from the common intention of the parties, as
+described by the Court in Murdoch and Rathwell,
+292
+
+
+no longer has a useful role to play in resolving
+property and financial disputes in domestic cases.
+I emphasize that I am speaking here only of the
+common intention resulting trust. I am not address-
+ing other aspects of the law relating to resulting
+trusts, nor am I suggesting that a resulting trust that
+would otherwise validly arise is defeated by the
+
+
+
+
+existence in fact of common intention.
+III. Unjust Enrichment
+
+A. Introduction
+
+[30] The law of unjust enrichment has been the
+primary vehicle to address claims of inequitable
+distribution of assets on the breakdown of a domes-
+tic relationship. In a series of decisions, the Court
+has developed a sturdy framework within which to
+address these claims. However, a number of doc-
+trinal and practical issues require further attention.
+I will first briefly set out the existing framework,
+then articulate the issues that in my view require
+further attention, and finally propose the ways in
+which they should be addressed.
+B. The Legal Framework for Unjust Enrichment
+Claims
+
+[31] At the heart of the doctrine of unjust enrich-
+ment lies the notion of restoring a benefit which
+justice does not permit one to retain: Peel (Regional
+Municipality) v. Canada, [1992] 3 S.C.R. 762, at p.
+788. For recovery, something must have been given
+by the plaintiff and received and retained by the
+defendant without juristic reason. A series of cat-
+egories developed in which retention of a conferred
+benefit was considered unjust. These included, for
+example: benefits conferred under mistakes of fact
+or law; under compulsion; out of necessity; as a
+result of ineffective transactions; or at the defend-
+ant’s request: see Peel, at p. 789; see, generally,
+G. H. L. Fridman, Restitution (2nd ed. 1992), c.
+3-5, 7, 8 and 10; and Lord Goff of Chieveley and
+G. Jones, The Law of Restitution (7th ed. 2007), c.
+4-11, 17 and 19-26.
+[2011] 1 R.C.S.
+
+
+[32] Canadian law, however, does not limit unjust
+enrichment claims to these categories. It permits
+recovery whenever the plaintiff can establish three
+elements: an enrichment of or benefit to the defend-
+ant, a corresponding deprivation of the plaintiff,
+and the absence of a juristic reason for the enrich-
+ment: Pettkus; Peel, at p. 784. By retaining the
+
+
+
+
+existing categories, while recognizing other claims
+that fall within the principles underlying unjust
+enrichment, the law is able “to develop in a flexible
+way as required to meet changing perceptions of
+justice”: Peel, at p. 788.
+
+[33] The application of unjust enrichment prin-
+ciples to claims by domestic partners was resisted
+until the Court’s 1980 decision in Pettkus. In
+applying unjust enrichment principles to domes-
+tic claims, however, the Court has been clear that
+there is and should be no separate line of author-
+ity for “family” cases developed within the law of
+unjust enrichment. Rather, concern for clarity and
+doctrinal integrity mandate that “the basic princi-
+ples governing the rights and remedies for unjust
+enrichment remain the same for all cases” (Peter v.
+Beblow, [1993] 1 S.C.R. 980, at p. 997).
+
+[34] Although the legal principles remain con-
+stant across subject areas, they must be applied
+in the particular factual and social context out of
+which the claim arises. The Court in Peter was
+unanimously of the view that the courts “should
+exercise flexibility and common sense when apply-
+ing equitable principles to family law issues with
+due sensitivity to the special circumstances that
+can arise in such cases” (p. 997, per McLachlin J.
+(as she then was); see also p. 1023, per Cory J.).
+Thus, while the underlying legal principles of the
+law of unjust enrichment are the same for all cases,
+the courts must apply those common principles in
+ways that respond to the particular context in which
+they are to operate.
+294
+
+
+[35] It will be helpful to review, briefly, the cur-
+rent state of the law with respect to each of the ele-
+ments of an unjust enrichment claim and note the
+particular issues in relation to each that arise in
+claims by domestic partners.
+
+C. The Elements of an Unjust Enrichment Claim
+
+
+
+
+
+(1) Enrichment and Corresponding Depriva-
+tion
+
+[36] The first and second steps in the unjust
+enrichment analysis concern first, whether the
+defendant has been enriched by the plaintiff and
+second, whether the plaintiff has suffered a corre-
+sponding deprivation.
+
+[37] The Court has taken a straightforward eco-
+nomic approach to the first two elements — enrich-
+ment and corresponding deprivation. Accordingly,
+other considerations, such as moral and policy
+questions, are appropriately dealt with at the juris-
+tic reason stage of the analysis: see Peter, at p.
+990, referring to Pettkus, Sorochan v. Sorochan,
+[1986] 2 S.C.R. 38, and Peel, affirmed in Garland
+v. Consumers’ Gas Co., 2004 SCC 25, [2004] 1
+S.C.R. 629, at para. 31.
+
+[38] For the first requirement — enrichment —
+the plaintiff must show that he or she gave some-
+thing to the defendant which the defendant received
+and retained. The benefit need not be retained per-
+manently, but there must be a benefit which has
+enriched the defendant and which can be restored
+to the plaintiff in specie or by money. Moreover, the
+benefit must be tangible. It may be positive or nega-
+tive, the latter in the sense that the benefit conferred
+on the defendant spares him or her an expense he or
+she would have had to undertake (Peel, at pp. 788
+and 790; Garland, at paras. 31 and 37).
+
+[39] Turning to the second element — a corre-
+sponding deprivation — the plaintiff’s loss is mate-
+rial only if the defendant has gained a benefit or
+been enriched (Peel, at pp. 789-90). That is why
+the second requirement obligates the plaintiff to
+[2011] 1 R.C.S.
+
+
+establish not simply that the defendant has been
+enriched, but also that the enrichment corresponds
+to a deprivation which the plaintiff has suffered
+(Pettkus, at p. 852; Rathwell, at p. 455).
+
+(2) Absence of Juristic Reason
+
+
+
+
+[40] The third element of an unjust enrichment
+claim is that the benefit and corresponding detri-
+ment must have occurred without a juristic reason.
+To put it simply, this means that there is no reason
+in law or justice for the defendant’s retention of the
+benefit conferred by the plaintiff, making its reten-
+tion “unjust” in the circumstances of the case: see
+Pettkus, at p. 848; Rathwell, at p. 456; Sorochan,
+at p. 44; Peter, at p. 987; Peel, at pp. 784 and 788;
+Garland, at para. 30.
+
+[41] Juristic reasons to deny recovery may be the
+intention to make a gift (referred to as a “donative
+intent”), a contract, or a disposition of law (Peter,
+at pp. 990-91; Garland, at para. 44; Rathwell, at
+p. 455). The latter category generally includes cir-
+cumstances where the enrichment of the defend-
+ant at the plaintiff’s expense is required by law,
+such as where a valid statute denies recovery
+(P. D. Maddaugh and J. D. McCamus, The Law of
+Restitution (1990), at p. 46; Reference re Goods
+and Services Tax, [1992] 2 S.C.R. 445; Mack v.
+Canada (Attorney General) (2002), 60 O.R. (3d)
+737 (C.A.)). However, just as the Court has resisted
+a purely categorical approach to unjust enrichment
+claims, it has also refused to limit juristic reasons
+to a closed list. This third stage of the unjust enrich-
+ment analysis provides for due consideration of the
+autonomy of the parties, including factors such as
+“the legitimate expectation of the parties, the right
+of parties to order their affairs by contract” (Peel,
+at p. 803).
+
+[42] A critical early question in domestic claims
+was whether the provision of domestic services
+could support a claim for unjust enrichment. After
+296
+
+
+some doubts, the matter was conclusively resolved
+in Peter, where the Court held that they could. A
+spouse or domestic partner generally has no duty, at
+common law, equity, or by statute, to perform work
+or services for the other. It follows, on a straight-
+forward economic approach, that there is no reason
+to distinguish domestic services from other contri-
+
+
+
+
+butions (Peter, at pp. 991 and 993; Sorochan, at p.
+46). They constitute an enrichment because such
+services are of great value to the family and to the
+other spouse; any other conclusion devalues contri-
+butions, mostly by women, to the family economy
+(Peter, at p. 993). The unpaid provision of services
+(including domestic services) or labour may also
+constitute a deprivation because the full-time devo-
+tion of one’s labour and earnings without compen-
+sation may readily be viewed as such. The Court
+rejected the view that such services could not found
+an unjust enrichment claim because they are per-
+formed out of “natural love and affection” (Peter,
+at pp. 989-95, per McLachlin J., and pp. 1012-16,
+per Cory J.).
+[43] In Garland, the Court set out a two-step
+analysis for the absence of juristic reason. It is
+important to remember that what prompted this
+development was to ensure that the juristic reason
+analysis was not “purely subjective”, thereby build-
+ing into the unjust enrichment analysis an unac-
+ceptable “immeasurable judicial discretion” that
+would permit “case by case ‘palm tree’ justice”:
+Garland, at para. 40. The first step of the juristic
+reason analysis applies the established categories
+of juristic reasons; in their absence, the second step
+permits consideration of the reasonable expecta-
+tions of the parties and public policy considerations
+to assess whether recovery should be denied:
+First, the plaintiff must show that no juristic reason from
+an established category exists to deny recovery. . . . The
+established categories that can constitute juristic rea-
+sons include a contract (Pettkus, supra), a disposition
+of law (Pettkus, supra), a donative intent (Peter, supra),
+and other valid common law, equitable or statutory
+[2011] 1 R.C.S.
+
+
+obligations (Peter, supra). If there is no juristic reason
+from an established category, then the plaintiff has
+made out a prima facie case under the juristic reason
+component of the analysis.
+The prima facie case is rebuttable, however, where
+the defendant can show that there is another reason to
+
+
+
+
+deny recovery. As a result, there is a de facto burden of
+proof placed on the defendant to show the reason why
+the enrichment should be retained. This stage of the
+analysis thus provides for a category of residual defence
+in which courts can look to all of the circumstances of
+the transaction in order to determine whether there is
+another reason to deny recovery.
+As part of the defendant’s attempt to rebut, courts
+should have regard to two factors: the reasonable expec-
+tations of the parties, and public policy considerations.
+[paras. 44-46]
+
+[44] Thus, at the juristic reason stage of the
+analysis, if the case falls outside the existing cat-
+egories, the court may take into account the legit-
+imate expectations of the parties (Pettkus, at p.
+849) and moral and policy-based arguments about
+whether particular enrichments are unjust (Peter, at
+p. 990). For example, in Peter, it was at this stage
+that the Court considered and rejected the argu-
+ment that the provision of domestic and childcare
+services should not give rise to equitable claims
+against the other spouse in a marital or quasi-
+marital relationship (pp. 993-95). Overall, the test
+for juristic reason is flexible, and the relevant fac-
+tors to consider will depend on the situation before
+the court (Peter, at p. 990).
+
+[45] Policy arguments concerning individual
+autonomy may arise under the second branch of the
+juristic reason analysis. In the context of claims for
+unjust enrichment, this has led to questions regard-
+ing how (and when) factors relating to the manner
+in which the parties organized their relationship
+should be taken into account. It has been argued,
+for example, that the legislative decision to exclude
+unmarried couples from property division legisla-
+tion indicates the court should not use the equita-
+ble doctrine of unjust enrichment to address their
+property and asset disputes. However, the court in
+298
+
+
+Peter rejected this argument, noting that it misap-
+prehended the role of equity. As McLachlin J. put
+it at p. 994, “It is precisely where an injustice arises
+without a legal remedy that equity finds a role.”
+(See also Nova Scotia (Attorney General) v. Walsh,
+2002 SCC 83, [2002] 4 S.C.R. 325, at para. 61.)
+
+
+
+
+
+(3) Remedy
+
+[46] Remedies for unjust enrichment are restitu-
+tionary in nature; that is, the object of the remedy
+is to require the defendant to repay or reverse the
+unjustified enrichment. A successful claim for
+unjust enrichment may attract either a “personal
+restitutionary award” or a “restitutionary propri-
+etary award”. In other words, the plaintiff may be
+entitled to a monetary or a proprietary remedy (Lac
+Minerals Ltd. v. International Corona Resources
+Ltd., [1989] 2 S.C.R. 574, at p. 669, per La Forest J.).
+
+(a) Monetary Award
+
+[47] The first remedy to consider is always a
+monetary award (Peter, at pp. 987 and 999). In most
+cases, it will be sufficient to remedy the unjust
+enrichment. However, calculation of such an award
+is far from straightforward. Two issues have given
+rise to disagreement and difficulty in domestic
+unjust enrichment claims.
+
+[48] First, the fact that many domestic claims
+of unjust enrichment arise out of relationships in
+which there has been a mutual conferral of ben-
+efits gives rise to difficulties in determining what
+will constitute adequate compensation. While the
+value of domestic services is not questioned (Peter;
+Sorochan), it is unjust to pay attention only to the
+contributions of one party in assessing an appropri-
+ate remedy. This is not only an important issue of
+principle; in practice, it is enormously difficult for
+the parties and the court to “create, retroactively, a
+notional ledger to record and value every service
+rendered by each party to the other” (R. E. Scane,
+[2011] 1 R.C.S.
+
+
+“Relationships ‘Tantamount to Spousal’, Unjust
+Enrichment, and Constructive Trusts” (1991), 70
+Can. Bar Rev. 260, at p. 281). This gives rise to the
+practical problem that one scholar has aptly referred
+to as “duelling quantum meruits” (J. D. McCamus,
+“Restitution on Dissolution of Marital and Other
+Intimate Relationships: Constructive Trust or
+
+
+
+
+Quantum Meruit?”, in J. W. Neyers, M. McInnes
+and S. G. A. Pitel, eds., Understanding Unjust
+Enrichment (2004), 359, at p. 376). McLachlin J.
+also alluded to this practical problem in Peter, at
+p. 999.
+
+[49] A second difficulty arises from the fact that
+some courts and commentators have read Peter as
+holding that when a monetary award is appropri-
+ate, it must invariably be calculated on the basis of
+the monetary value of the unpaid services. This is
+often referred to as the quantum meruit, or “value
+received” or “fee-for-services” approach. This was
+followed in Bell v. Bailey (2001), 203 D.L.R. (4th)
+589 (Ont. C.A.). Other appellate courts have held
+that monetary relief may be assessed more flex-
+ibly — in effect, on a value survived basis — by
+reference, for example, to the overall increase in
+the couple’s wealth during the relationship: Wilson
+v. Fotsch, 2010 BCCA 226, 319 D.L.R. (4th) 26, at
+para. 50; Pickelein v. Gillmore (1997), 30 B.C.L.R.
+(3d) 44 (C.A.); Harrison v. Kalinocha (1994), 90
+B.C.L.R. (2d) 273 (C.A.); MacFarlane v. Smith,
+2003 NBCA 6, 256 N.B.R. (2d) 108, at paras.
+31-34 and 41-43; Shannon v. Gidden, 1999 BCCA
+539, 71 B.C.L.R. (3d) 40, at para. 37. With respect
+to inconsistencies in how in personam relief for
+unjust enrichment may be quantified, see also
+Matrimonial Property Law in Canada (loose-
+leaf), vol. 1, by J. G. McLeod and A. A. Mamo,
+eds., at pp. 40.78-40.79.
+
+(b) Proprietary Award
+
+[50] The Court has recognized that, in some
+cases, when a monetary award is inappropriate or
+insufficient, a proprietary remedy may be required.
+Pettkus is responsible for an important remedial
+300
+
+
+feature of the Canadian law of unjust enrichment:
+the development of the remedial constructive trust.
+Imposed without reference to intention to create a
+trust, the constructive trust is a broad and flexible
+equitable tool used to determine beneficial entitle-
+ment to property (Pettkus, at pp. 843-44 and 847-
+48). Where the plaintiff can demonstrate a link or
+
+
+
+
+causal connection between his or her contributions
+and the acquisition, preservation, maintenance or
+improvement of the disputed property, a share of
+the property proportionate to the unjust enrichment
+can be impressed with a constructive trust in his or
+her favour (Pettkus, at pp. 852-53; Sorochan, at p.
+50). Pettkus made clear that these principles apply
+equally to unmarried cohabitants, since “[t]he equi-
+table principle on which the remedy of construc-
+tive trust rests is broad and general; its purpose is
+to prevent unjust enrichment in whatever circum-
+stances it occurs” (pp. 850-51).
+
+[51] As to the nature of the link required between
+the contribution and the property, the Court has
+consistently held that the plaintiff must demon-
+strate a “sufficiently substantial and direct” link,
+a “causal connection” or a “nexus” between the
+plaintiff’s contributions and the property which is
+the subject matter of the trust (Peter, at pp. 988, 997
+and 999; Pettkus at p. 852; Sorochan, at pp. 47-50;
+Rathwell, at p. 454). A minor or indirect contribu-
+tion will not suffice (Peter, at p. 997). As Dickson
+C.J. put it in Sorochan, the primary focus is on
+whether the contributions have a “clear proprietary
+relationship” (p. 50, citing Professor McLeod’s
+annotation of Herman v. Smith (1984), 42 R.F.L.
+(2d) 154, at p. 156). Indirect contributions of money
+and direct contributions of labour may suffice, pro-
+vided that a connection is established between the
+plaintiff’s deprivation and the acquisition, preser-
+vation, maintenance, or improvement of the prop-
+erty (Sorochan, at p. 50; Pettkus, at p. 852).
+
+[52] The plaintiff must also establish that a mon-
+etary award would be insufficient in the circum-
+stances (Peter, at p. 999). In this regard, the court
+may take into account the probability of recovery,
+as well as whether there is a reason to grant the
+[2011] 1 R.C.S.
+
+
+plaintiff the additional rights that flow from recog-
+nition of property rights (Lac Minerals, at p. 678,
+per La Forest J.).
+
+[53] The extent of the constructive trust inter-
+est should be proportionate to the claimant’s con-
+
+
+
+
+tributions. Where the contributions are unequal,
+the shares will be unequal (Pettkus, at pp. 852-
+53; Rathwell, at p. 448; Peter, at pp. 998-99). As
+Dickson J. put it in Rathwell, “The court will assess
+the contributions made by each spouse and make
+a fair, equitable distribution having regard to the
+respective contributions” (p. 454).
+
+D. Areas Needing Clarification
+
+[54] While the law of unjust enrichment sets out
+a sturdy legal framework within which to address
+claims by domestic partners, three areas continue
+to generate controversy and require clarification.
+As mentioned earlier, these are as follows: the
+approach to the assessment of a monetary award
+for a successful unjust enrichment claim, how and
+where to address the mutual benefit problem, and
+the role of the parties’ reasonable or legitimate
+expectations. I will address these in turn.
+
+E. Is a Monetary Award Restricted to Quantum
+Meruit?
+
+(1) Introduction
+
+[55] As noted earlier, remedies for unjust enrich-
+ment may either be proprietary (normally a remedial
+constructive trust) or personal (normally a money
+remedy). Once the choice has been made to award
+a monetary rather than a proprietary remedy, the
+question of how to quantify that monetary remedy
+arises. Some courts have held that monetary relief
+must always be calculated based on a value received
+or quantum meruit basis (Bell), while others have
+held that monetary relief may also be based on a
+value survived (i.e. by reference to the value of
+property) approach (Wilson; Pickelein; Harrison;
+MacFarlane; Shannon). If, as some courts have
+302
+
+
+held, a monetary remedy must invariably be quan-
+tified on a quantum meruit basis, the remedial
+choice in unjust enrichment cases becomes whether
+to impose a constructive trust or order a monetary
+remedy calculated on a quantum meruit basis. One
+scholar has referred to this approach as the false
+dichotomy between constructive trust and quantum
+
+
+
+
+meruit (McCamus, at pp. 375-76). Scholars have
+also noted this area of uncertainty in the case law,
+and have suggested that an in personam remedy
+using the value survived measure is a plausible
+alternative to the constructive trust (McCamus,
+at p. 377; P. Birks, An Introduction to the Law of
+Restitution (1985), at pp. 394-95). As I will explain
+below, Peter is said to have established this dichot-
+omy of remedial choice. However, in my view, the
+focus in Peter was on the availability of the con-
+structive trust remedy, and that case should not be
+taken as limiting the calculation of monetary relief
+for unjust enrichment to a quantum meruit basis. In
+appropriate circumstances, monetary relief may be
+assessed on a value survived basis.
+
+[56] I will first briefly describe the genesis of
+the purported limitation on the monetary remedy.
+Then I will explain why, in my view, it should be
+rejected. Finally, I will set out my views on how
+money remedies for unjust enrichment claims in
+domestic situations should be approached.
+
+(2) The Remedial Dichotomy
+
+[57] As noted, there is a widespread, although not
+unanimous, view that there are only two choices of
+remedy for an unjust enrichment: a monetary award,
+assessed on a fee-for-services basis; or a proprie-
+tary one (generally taking the form of a remedial
+constructive trust), where the claimant can show
+[2011] 1 R.C.S.
+
+
+that the benefit conferred contributed to the acqui-
+sition, preservation, maintenance, or improvement
+of specific property. Some brief comments in Peter
+seem to have spawned this idea, which is reflected
+in a number of appellate authorities. For instance,
+in the Vanasse appeal, the Ontario Court of Appeal
+reasoned that since Ms. Vanasse could not show
+
+
+
+
+that her contributions were linked to specific prop-
+erty, her claim had to be quantified on a fee-for-
+services basis. I respectfully do not agree that mon-
+etary awards for unjust enrichment must always be
+calculated in this way.
+
+(3) Why the Remedial Dichotomy Should Be
+Rejected
+
+[58] In my view, restricting the money remedy to
+a fee-for-services calculation is inappropriate for
+four reasons. First, it fails to reflect the reality of
+the lives of many domestic partners. Second, it is
+inconsistent with the inherent flexibility of unjust
+enrichment. Third, it ignores the historical basis of
+quantum meruit claims. Finally, it is not mandated
+by the Court’s judgment in Peter. For those reasons,
+this remedial dichotomy should be rejected. The
+discussion which follows is concerned only with
+the quantification of a monetary remedy for unjust
+enrichment; the law relating to when a proprietary
+remedy should be granted is well established and
+remains unchanged.
+
+(a) Life Experience
+
+[59] The remedial dichotomy would be appro-
+priate if, in fact, the bases of all domestic unjust
+enrichment claims fit into only two categories —
+those where the enrichment consists of the provi-
+sion of unpaid services, and those where it consists
+304
+
+
+of an unrecognized contribution to the acquisi-
+tion, improvement, maintenance or preservation of
+specific property. To be sure, those two bases for
+unjust enrichment claims exist. However, all unjust
+enrichment cases cannot be neatly divided into
+these two categories.
+
+
+
+
+
+[60] At least one other basis for an unjust enrich-
+ment claim is easy to identify. It consists of cases
+in which the contributions of both parties over
+time have resulted in an accumulation of wealth.
+The unjust enrichment occurs following the break-
+down of their relationship when one party retains
+a disproportionate share of the assets which are
+the product of their joint efforts. The required link
+between the contributions and a specific property
+may not exist, making it inappropriate to confer
+a proprietary remedy. However, there may clearly
+be a link between the joint efforts of the parties
+and the accumulation of wealth; in other words, a
+link between the “value received” and the “value
+surviving”, as McLachlin J. put it in Peter, at pp.
+1000-1001. Thus, where there is a relationship
+that can be described as a “joint family venture”,
+and the joint efforts of the parties are linked to
+the accumulation of wealth, the unjust enrich-
+ment should be thought of as leaving one party
+with a disproportionate share of the jointly earned
+assets.
+
+[61] There is nothing new about the notion of a
+joint family venture in which both parties contrib-
+ute to their overall accumulation of wealth. It was
+recognition of this reality that contributed to com-
+prehensive matrimonial property legislative reform
+in the late 1970s and early 1980s. As the Court put
+it in Clarke v. Clarke, [1990] 2 S.C.R. 795, at p. 807
+(in relation to Nova Scotia’s Matrimonial Property
+Act), “. . . the Act supports the equality of both par-
+ties to a marriage and recognizes the joint contri-
+bution of the spouses, be it financial or otherwise,
+to that enterprise. . . . The Act is accordingly reme-
+dial in nature. It was designed to alleviate the ineq-
+uities of the past when the contribution made by
+[2011] 1 R.C.S.
+
+
+women to the economic survival and growth of the
+family was not recognized” (emphasis added).
+
+[62] Unlike much matrimonial property legisla-
+tion, the law of unjust enrichment does not man-
+
+
+
+
+date a presumption of equal sharing. However, the
+law of unjust enrichment can and should respond
+to the social reality identified by the legislature
+that many domestic relationships are more realisti-
+cally viewed as a joint venture to which the parties
+jointly contribute.
+
+[63] This reality has also been recognized many
+times and in many contexts by the Court. For
+instance, in Murdoch, Laskin J. (as he then was),
+in dissent, would have imposed constructive trust
+relief, on the basis that the facts were “consistent
+with a pooling of effort by the spouses” to establish
+themselves in a ranch operation (p. 457), and that
+the spouses had worked together for fifteen years
+to improve “their lot in life through progressively
+larger acquisitions of ranch property” (p. 446).
+Similarly, in Rathwell, a majority of the judges
+agreed that Mr. and Mrs. Rathwell had pooled their
+efforts to accumulate wealth as a team. Dickson J.
+emphasized that the parties had together “decided
+to make farming their way of life” (p. 444), and that
+the acquisition of property in Mr. Rathwell’s name
+was only made possible through their “joint effort”
+and “team work” (p. 461).
+
+[64] A similar recognition is evident in Pettkus
+and Peter.
+
+[65] In Pettkus, the parties developed a success-
+ful beekeeping business, the profits from which
+they used to acquire real property. Dickson J., writ-
+ing for the majority of the Court, emphasized facts
+suggestive of a domestic and financial partnership.
+He observed that “each started with nothing; each
+worked continuously, unremittingly and sedulously
+in the joint effort” (p. 853); that each contributed
+306
+
+
+to the “good fortune of the common enterprise” (p.
+838); that Wilson J.A. (as she then was) at the Court
+of Appeal had found the wealth they accumulated
+was through “joint effort” and “teamwork” (p.
+849); and finally, that “[t]heir lives and their eco-
+nomic well-being were fully integrated” (p. 850).
+
+
+
+
+
+[66] I agree with Professor McCamus that
+the Court in Pettkus was “satisfied that the par-
+ties were engaged in a common venture in which
+they expected to share the benefits flowing from
+the wealth that they jointly created” (p. 367). Put
+another way, Mr. Pettkus was not unjustly enriched
+because Ms. Becker had a precise expectation of
+obtaining a legal interest in certain properties, but
+rather because they were in reality partners in a
+common venture.
+
+[67] The significance of the fact that wealth had
+been acquired through joint effort was again at the
+forefront of the analysis in Peter where the parties
+lived together for 12 years in a common law rela-
+tionship. While Mr. Beblow generated most of the
+family income and also contributed to the main-
+tenance of the property, Ms. Peter did all of the
+domestic work (including raising the six children of
+their blended family), helped with property mainte-
+nance, and was solely responsible for the property
+when Mr. Beblow was away. The reality of their
+joint venture was acknowledged when McLachlin
+J. wrote that the “joint family venture, in effect,
+was no different from the farm which was the sub-
+ject of the trust in Pettkus v. Becker” (p. 1001).
+
+[68] The Court’s recognition of the joint family
+venture is evident in three other places in Peter.
+First, in reference to the appropriateness of the
+“value survived” measure of relief, McLachlin J.
+observed, “it is more likely that a couple expects
+to share in the wealth generated from their part-
+nership, rather than to receive compensation for
+the services performed during the relationship” (p.
+999). Second, and also related to valuing the extent
+of the unjust enrichment, McLachlin J. noted that,
+[2011] 1 R.C.S.
+
+
+in a case where both parties had contributed to the
+“family venture”, it was appropriate to look to all of
+the family assets, rather than simply one of them,
+to approximate the value of the claimant’s con-
+tributions to that family venture (p. 1001). Third,
+the Court’s justification for affirming the value of
+domestic services was, in part, based on reasoning
+
+
+
+
+that such services are often proffered in the context
+of a common venture (p. 993).
+
+[69] Relationships of this nature are common in
+our life experience. For many domestic relation-
+ships, the couple’s venture may only sensibly be
+viewed as a joint one, making it highly artificial
+in theory and extremely difficult in practice to do
+a detailed accounting of the contributions made
+and benefits received on a fee-for-services basis.
+Of course, this is a relationship-specific issue;
+there can be no presumption one way or the other.
+However, the legal consequences of the breakdown
+of a domestic relationship should reflect realisti-
+cally the way people live their lives. It should not
+impose on them the need to engage in an artificial
+balance sheet approach which does not reflect the
+true nature of their relationship.
+
+(b) Flexibility
+
+[70] Maintaining a strict remedial dichotomy is
+inconsistent with the Court’s approach to equitable
+remedies in general, and to its development of rem-
+edies for unjust enrichment in particular.
+
+[71] The Court has often emphasized the flex-
+ibility of equitable remedies and the need to fash-
+ion remedies that respond to various situations
+in principled and realistic ways. So, for exam-
+ple, when speaking of equitable compensation for
+breach of confidence, Binnie J. affirmed that “the
+Court has ample jurisdiction to fashion appropri-
+ate relief out of the full gamut of available rem-
+edies, including appropriate financial compensa-
+tion”: Cadbury Schweppes Inc. v. FBI Foods Ltd.,
+308
+
+
+[1999] 1 S.C.R. 142, at para. 61. At para. 24, he
+noted the broad approach to equitable remedies
+for breach of confidence taken by the Court in Lac
+Minerals. In doing so, he cited this statement with
+approval: “. . . the remedy that follows [once liabil-
+ity is established] should be the one that is most
+appropriate on the facts of the case rather than one
+
+
+
+
+derived from history or over-categorization” (from
+J. D. Davies, “Duties of Confidence and Loyalty”,
+[1990] L.M.C.L.Q. 4, at p. 5). Similarly, in the con-
+text of the constructive trust, McLachlin J. (as she
+then was) noted that “[e]quitable remedies are flex-
+ible; their award is based on what is just in all the
+circumstances of the case”: Soulos v. Korkontzilas,
+[1997] 2 S.C.R. 217, at para. 34.
+
+[72] Turning specifically to remedies for unjust
+enrichment, I refer to Binnie J.’s comments in
+Pacific National Investments Ltd. v. Victoria (City),
+2004 SCC 75, [2004] 3 S.C.R. 575, at para. 13. He
+noted that the doctrine of unjust enrichment, while
+predicated on clearly defined principles, “retains a
+large measure of remedial flexibility to deal with
+different circumstances according to principles
+rooted in fairness and good conscience”. Moreover,
+the Court has recognized that, given the wide vari-
+ety of circumstances addressed by the traditional
+categories of unjust enrichment, as well as the
+flexibility of the broader, principled approach, its
+development has been characterized by, and indeed
+requires, recourse to a number of different sorts
+of remedies depending on the circumstances: see
+Peter, at p. 987; Sorochan, at p. 47.
+
+[73] Thus, the remedy should mirror the flex-
+ibility inherent in the unjust enrichment principle
+itself, so as to allow the court to respond appropri-
+ately to the substance of the problem put before it.
+This means that a monetary remedy must match,
+as best it can, the extent of the enrichment unjustly
+retained by the defendant. There is no reason to
+think that the wide range of circumstances that
+may give rise to unjust enrichment claims will
+necessarily fall into one or the other of the two
+[2011] 1 R.C.S.
+
+
+remedial options into which some have tried to force
+them.
+(c) History
+[74] Imposing a strict remedial dichotomy is also
+inconsistent with the historical development of the
+
+
+
+
+unjust enrichment principle. Unjust enrichment
+developed through several particular categories of
+cases. Quantum meruit, the origin of the fee-for-
+services award, was only one of them. Quantum
+meruit originated as a common law claim for com-
+pensation for benefits conferred under an agreement
+which, while apparently binding, was rendered
+ineffective for a reason recognized at common law.
+The scope of the claim was expanded over time, and
+the measure of a quantum meruit award was flex-
+ible. It might be assessed, for example, by the cost
+to the plaintiff of providing the service, the market
+value of the benefit, or even the value placed on
+the benefit by the recipient: P. D. Maddaugh and
+J. D. McCamus, The Law of Restitution (loose-leaf
+ed.), vol. I, at §4:200.30. The important point, how-
+ever, is that quantum meruit is simply one of the
+established categories of unjust enrichment claims.
+There is no reason in principle why one of the tra-
+ditional categories of unjust enrichment should be
+used to force the monetary remedy for all present
+domestic unjust enrichment cases into a remedial
+straitjacket.
+(d) Peter v. Beblow
+[75] Peter does not mandate strict adherence to
+a quantum meruit approach to money remedies for
+unjust enrichment. One must remember that the
+focus of Peter was on whether the plaintiff’s con-
+tributions entitled her to a constructive trust over
+the former family home. While it was assumed by
+both McLachlin J. and Cory J., who wrote concur-
+ring reasons in the case, that a money award would
+be fashioned on the basis of quantum meruit, that
+was not an issue, let alone a holding, in the case.
+310
+
+
+[76] There are, in fact, only two sentences in the
+judgments that could be taken as supporting the
+view that this rule should always apply. At p. 995,
+McLachlin J. said, “Two remedies are possible: an
+award of money on the basis of the value of the
+services rendered, i.e. quantum meruit; and the one
+the trial judge awarded, title to the house based on
+
+
+
+
+a constructive trust”; at p. 999, she wrote that “[f]or
+a monetary award, the ‘value received’ approach is
+appropriate”. Given that the focus of the case was
+deciding whether a proprietary remedy was appro-
+priate, I would not read these two brief passages
+as laying down the sweeping rule that a monetary
+award must always be calculated on a fee-for-
+services basis.
+
+[77] Moreover, McLachlin J. noted that the doc-
+trine of unjust enrichment applies to a variety of
+situations, and that successful claims have been
+addressed through a number of remedies, depend-
+ing on the circumstances. Only one of these reme-
+dies is a payment for services rendered on the basis
+of quantum meruit: p. 987. There is nothing in this
+observation to suggest that the Court decided to
+opt for a one-size-fits-all monetary remedy, espe-
+cially when such an approach would be contrary
+to the very flexibility that the Court has repeatedly
+affirmed with regards to the law of unjust enrich-
+ment and corresponding remedies.
+
+[78] This restrictive reading of Peter is not con-
+sistent with the underlying nature of the claim
+founded on the principles set out in Pettkus. As
+Professor McCamus has suggested, cases like
+Pettkus rest on a claimant’s right to share surplus
+wealth created by joint effort and teamwork. It fol-
+lows that a remedy based on notional fees for ser-
+vices is not responsive to the underlying nature of
+that claim: McCamus, at pp. 376-77. In my view,
+this reasoning is persuasive whether the joint effort
+has led to the accumulation of specific property,
+in which case a remedial constructive trust may be
+appropriate according to the well-settled principles
+in that area of trust law, or where the joint effort has
+led to an accumulation of assets generally. In the
+[2011] 1 R.C.S.
+
+
+latter instance, when appropriate, there is no reason
+in principle why a monetary remedy cannot be
+fashioned to reflect this basis of the enrichment and
+corresponding deprivation. What is essential, in my
+view, is that, in either type of case, there must be a
+link between the contribution and the accumulation
+of wealth, or to use the words of McLachlin J. in
+
+
+
+
+Peter, between the “value received” and the “value
+surviving”. Where that link exists, and a proprie-
+tary remedy is either inappropriate or unnecessary,
+the monetary award should be fashioned to reflect
+the true nature of the enrichment and the corre-
+sponding deprivation.
+
+[79] Professor McCamus has suggested that the
+equitable remedy of an accounting of profits could
+be an appropriate remedial tool: p. 377. While I
+would not discount that as a possibility, I doubt
+that the complexity and technicality of that remedy
+would be well suited to domestic situations, which
+are more often than not rather straightforward.
+The unjust enrichment principle is inherently flex-
+ible and, in my view, the calculation of a monetary
+award for a successful unjust enrichment claim
+should be equally flexible. This is necessary to
+respond, to the extent money can, to the particular
+enrichment being addressed. To my way of think-
+ing, Professor Fridman was right to say that “where
+a claim for unjust enrichment has been made out
+by the plaintiff, the court may award whatever
+form of relief is most appropriate so as to ensure
+that the plaintiff obtains that to which he or she is
+entitled, regardless of whether the situation would
+have been governed by common law or equitable
+doctrines or whether the case would formerly have
+been considered one for a personal or a proprietary
+remedy” (p. 398).
+
+(4) The Approach to the Monetary Remedy
+
+[80] The next step in the legal development of
+this area should be to move away from the false
+remedial dichotomy between quantum meruit and
+312
+
+
+constructive trust, and to return to the underlying
+principles governing the law of unjust enrichment.
+These underlying principles focus on properly
+characterizing the nature of the unjust enrichment
+giving rise to the claim. As I have mentioned above,
+not all unjust enrichments arising between domes-
+tic partners fit comfortably into either a “fee-for-
+
+
+
+
+services” or “a share of specific property” mold.
+Where the unjust enrichment is best characterized
+as an unjust retention of a disproportionate share
+of assets accumulated during the course of what
+McLachlin J. referred to in Peter (at p. 1001) as a
+“joint family venture” to which both partners have
+contributed, the monetary remedy should reflect
+that fact.
+
+[81] In such cases, the basis of the unjust enrich-
+ment is the retention of an inappropriately dispro-
+portionate amount of wealth by one party when the
+parties have been engaged in a joint family ven-
+ture and there is a clear link between the claimant’s
+contributions to the joint venture and the accumu-
+lation of wealth. Irrespective of the status of legal
+title to particular assets, the parties in those cir-
+cumstances are realistically viewed as “creating
+wealth in a common enterprise that will assist in
+sustaining their relationship, their well-being and
+their family life” (McCamus, at p. 366). The wealth
+created during the period of cohabitation will be
+treated as the fruit of their domestic and financial
+relationship, though not necessarily by the parties
+in equal measure. Since the spouses are domestic
+and financial partners, there is no need for “duel-
+ling quantum meruits”. In such cases, the unjust
+enrichment is understood to arise because the party
+who leaves the relationship with a disproportion-
+ate share of the wealth is denying to the claimant
+a reasonable share of the wealth accumulated in
+the course of the relationship through their joint
+efforts. The monetary award for unjust enrichment
+should be assessed by determining the proportion-
+ate contribution of the claimant to the accumula-
+tion of the wealth.
+
+[82] This flexible approach to the money remedy
+in unjust enrichment cases is fully consistent with
+[2011] 1 R.C.S.
+
+
+Walsh. While that case was focused on constitu-
+tional issues that are not before us in this case, the
+majority judgment was clearly not intended to freeze
+the law of unjust enrichment in domestic cases; the
+judgment indicates that the law of unjust enrich-
+ment, including the remedial constructive trust, is
+the preferable method of responding to the inequi-
+
+
+
+
+ties brought about by the breakdown of a common
+law relationship, since the remedies for unjust
+enrichment “are tailored to the parties’ specific
+situation and grievances” (para. 61). In short, while
+emphasizing respect for autonomy as an important
+value, the Court at the same time approved of the
+continued development of the law of unjust enrich-
+ment in order to respond to the plethora of forms
+and functions of common law relationships.
+
+[83] A similar approach was taken in Peter. Mr.
+Beblow argued that the law of unjust enrichment
+should not provide a share of property to unmar-
+ried partners because the legislature had chosen
+to exclude them from the rights accorded to mar-
+ried spouses under matrimonial property legisla-
+tion. This argument was succinctly — and flatly —
+rejected with the remark that it is “precisely where
+an injustice arises without a legal remedy that
+equity finds a role”: p. 994.
+
+[84] It is not the purpose of the law of unjust
+enrichment to replicate for unmarried partners the
+legislative presumption that married partners are
+engaged in a joint family venture. However, there
+is no reason in principle why remedies for unjust
+enrichment should fail to reflect that reality in the
+lives and relationships of unmarried partners.
+
+[85] I conclude, therefore, that the common law
+of unjust enrichment should recognize and respond
+to the reality that there are unmarried domestic
+arrangements that are partnerships; the remedy
+in such cases should address the disproportionate
+retention of assets acquired through joint efforts
+314
+
+
+with another person. This sort of sharing, of
+course, should not be presumed, nor will it be pre-
+sumed that wealth acquired by mutual effort will
+be shared equally. Cohabitation does not, in itself,
+under the common law of unjust enrichment, entitle
+one party to a share of the other’s property or any
+other relief. However, where wealth is accumulated
+
+
+
+
+as a result of joint effort, as evidenced by the nature
+of the parties’ relationship and their dealings with
+each other, the law of unjust enrichment should
+reflect that reality.
+
+[86] Thus the rejection of the remedial dichotomy
+leads us to consider in what circumstances an unjust
+enrichment may be appropriately characterized as
+a failure to share equitably assets acquired through
+the parties’ joint efforts. While this approach will
+need further refinement in future cases, I offer the
+following as a broad outline of when this character-
+ization of an unjust enrichment will be appropriate.
+
+(5) Identifying Unjust Enrichment Arising
+From a Joint Family Venture
+
+[87] My view is that when the parties have been
+engaged in a joint family venture, and the claim-
+ant’s contributions to it are linked to the generation
+of wealth, a monetary award for unjust enrichment
+should be calculated according to the share of the
+accumulated wealth proportionate to the claimant’s
+contributions. In order to apply this approach, it is
+first necessary to identify whether the parties have,
+in fact, been engaged in a joint family venture. In
+the preceding section, I reviewed the many occa-
+sions on which the existence of a joint family ven-
+ture has been recognized. From this rich set of fac-
+tual circumstances, what emerge as the hallmarks
+of such a relationship?
+
+[88] It is critical to note that cohabiting cou-
+ples are not a homogeneous group. It follows that
+the analysis must take into account the particu-
+lar circumstances of each particular relationship.
+[2011] 1 R.C.S.
+
+
+Furthermore, as previously stated, there can be no
+presumption of a joint family venture. The goal is
+for the law of unjust enrichment to attach just con-
+sequences to the way the parties have lived their
+lives, not to treat them as if they ought to have
+lived some other way or conducted their relation-
+ship on some different basis. A joint family ven-
+
+
+
+
+ture can only be identified by the court when its
+existence, in fact, is well grounded in the evidence.
+The emphasis should be on how the parties actually
+lived their lives, not on their ex post facto asser-
+tions or the court’s view of how they ought to have
+done so.
+
+[89] In undertaking this analysis, it may be help-
+ful to consider the evidence under four main head-
+ings: mutual effort, economic integration, actual
+intent and priority of the family. There is, of
+course, overlap among factors that may be relevant
+under these headings and there is no closed list of
+relevant factors. What follows is not a checklist of
+conditions for finding (or not finding) that the par-
+ties were engaged in a joint family venture. These
+headings, and the factors grouped under them,
+simply provide a useful way to approach a global
+analysis of the evidence and some examples of the
+relevant factors that may be taken into account in
+deciding whether or not the parties were engaged
+in a joint family venture. The absence of the factors
+I have set out, and many other relevant considera-
+tions, may well negate that conclusion.
+
+(a) Mutual Effort
+
+[90] One set of factors concerns whether the
+parties worked collaboratively towards common
+goals. Indicators such as the pooling of effort and
+team work, the decision to have and raise children
+together, and the length of the relationship may all
+point towards the extent, if any, to which the parties
+have formed a true partnership and jointly worked
+towards important mutual goals.
+
+[91] Joint contributions, or contributions to a
+common pool, may provide evidence of joint effort.
+For instance, in Murdoch, central to Laskin J.’s
+316
+
+
+constructive trust analysis was that the parties had
+pooled their efforts to establish themselves in a
+ranch operation. Joint contributions were also an
+important aspect of the Court’s analyses in Peter,
+Sorochan, and Pettkus. Pooling of efforts and
+resources, whether capital or income, has also
+been noted in the appellate case law (see, e.g.,
+
+
+
+
+Birmingham v. Ferguson, 2004 CanLII 4764 (Ont.
+C.A.); McDougall v. Gesell Estate, 2001 MBCA
+3, 153 Man. R. (2d) 54, at para. 14). The use of
+parties’ funds entirely for family purposes may be
+indicative of the pooling of resources: McDougall.
+The parties may also be said to be pooling their
+resources where one spouse takes on all, or a
+greater proportion, of the domestic labour, freeing
+the other spouse from those responsibilities, and
+enabling him or her to pursue activities in the paid
+workforce (see Nasser v. Mayer-Nasser (2000), 5
+R.F.L. (5th) 100 (Ont. C.A.); Panara v. Di Ascenzo,
+2005 ABCA 47, 361 A.R. 382, at para. 27).
+
+(b) Economic Integration
+
+[92] Another group of factors, related to those in
+the first group, concerns the degree of economic
+interdependence and integration that characterized
+the parties’ relationship (Birmingham; Pettkus;
+Nasser). The more extensive the integration of
+the couple’s finances, economic interests and eco-
+nomic well-being, the more likely it is that they
+should be considered as having been engaged in a
+joint family venture. For example, the existence of
+a joint bank account that was used as a “common
+purse”, as well as the fact that the family farm was
+operated by the family unit, were key factors in
+Dickson J.’s analysis in Rathwell. The sharing of
+expenses and the amassing of a common pool of
+savings may also be relevant considerations (see
+Wilson; Panara).
+
+[93] The parties’ conduct may further indicate
+a sense of collectivity, mutuality, and prioritiza-
+tion of the overall welfare of the family unit over
+[2011] 1 R.C.S.
+
+
+the individual interests of the individual members
+(McCamus, at p. 366). These and other factors may
+indicate that the economic well-being and lives of
+the parties are largely integrated (see, e.g., Pettkus,
+at p. 850).
+
+(c) Actual Intent
+
+
+
+
+[94] Underpinning the law of unjust enrichment
+is an appropriate concern for the autonomy of the
+parties, and this is a particularly important consid-
+eration in relation to domestic partnerships. While
+domestic partners might not marry for a host of
+reasons, one of them may be the deliberate choice
+not to have their lives economically intertwined.
+Thus, in considering whether there is a joint family
+venture, the actual intentions of the parties must
+be given considerable weight. Those intentions
+may have been expressed by the parties or may be
+inferred from their conduct. The important point,
+however, is that the quest is for their actual intent
+as expressed or inferred, not for what in the court’s
+view “reasonable” parties ought to have intended
+in the same circumstances. Courts must be vigilant
+not to impose their own views, under the guise of
+inferred intent, in order to reach a certain result.
+
+[95] Courts may infer from the parties’ conduct
+that they intended to share in the wealth they jointly
+created (P. Parkinson, “Beyond Pettkus v. Becker:
+Quantifying Relief for Unjust Enrichment” (1993),
+43 U.T.L.J. 217, at p. 245). The conduct of the par-
+ties may show that they intended the domestic and
+professional spheres of their lives to be part of a
+larger, common venture (Pettkus; Peter; Sorochan).
+In some cases, courts have explicitly labelled the
+relationship as a “partnership” in the social and
+economic sense (Panara, at para. 71; McDougall,
+at para. 14). Similarly, the intention to engage in a
+joint family venture may be inferred where the par-
+ties accepted that their relationship was “equivalent
+to marriage” (Birmingham, at para. 1), or where the
+parties held themselves out to the public as married
+(Sorochan). The stability of the relationship may
+be a relevant factor as may the length of cohabita-
+tion (Nasser; Sorochan; Birmingham). When par-
+ties have lived together in a stable relationship for
+318
+
+
+a lengthy period, it may be nearly impossible to
+engage in a precise weighing of the benefits con-
+ferred within the relationship (McDougall; Nasser).
+
+
+
+
+[96] The title to property may also reflect an
+intent to share wealth, or some portion of it, equita-
+bly. This may be the case where the parties are joint
+tenants of property. Even where title is registered
+to one of the parties, acceptance of the view that
+wealth will be shared may be evident from other
+aspects of the parties’ conduct. For example, there
+may have been little concern with the details of
+title and accounting of monies spent for household
+expenses, renovations, taxes, insurance, and so on.
+Plans for property distribution on death, whether
+in a will or a verbal discussion, may also indicate
+that the parties saw one another as domestic and
+economic partners.
+
+[97] The parties’ actual intent may also negate
+the existence of a joint family venture, or support
+the conclusion that particular assets were to be held
+independently. Once again, it is the parties’ actual
+intent, express or inferred from the evidence, that is
+the relevant consideration.
+
+(d) Priority of the Family
+
+[98] A final category of factors to consider in
+determining whether the parties were in fact
+engaged in a joint family venture is whether and
+to what extent they have given priority to the
+family in their decision making. A relevant ques-
+tion is whether there has been in some sense det-
+rimental reliance on the relationship, by one or
+both of the parties, for the sake of the family. As
+Professor McCamus puts it, the question is whether
+the parties have been “[p]roceeding on the basis
+of understandings or assumptions about a shared
+future which may or may not be articulated” (p.
+365). The focus is on contributions to the domestic
+and financial partnership, and particularly finan-
+cial sacrifices made by the parties for the welfare
+[2011] 1 R.C.S.
+
+
+of the collective or family unit. Whether the roles
+of the parties fall into the traditional wage earner/
+homemaker division, or whether both parties are
+employed and share domestic responsibilities, it
+is frequently the case that one party relies on the
+success and stability of the relationship for future
+economic security, to his or her own economic det-
+
+
+
+
+riment (Parkinson, at p. 243). This may occur in a
+number of ways including: leaving the workforce
+for a period of time to raise children; relocating for
+the benefit of the other party’s career (and giving
+up employment and employment-related net-
+works as a result); foregoing career or educational
+advancement for the benefit of the family or rela-
+tionship; and accepting underemployment in order
+to balance the financial and domestic needs of the
+family unit.
+
+[99] As I see it, giving priority to the family is not
+associated exclusively with the actions of the more
+financially dependent spouse. The spouse with the
+higher income may also make financial sacrifices
+(for example, foregoing a promotion for the ben-
+efit of family life), which may be indicative that
+the parties saw the relationship as a domestic and
+financial partnership. As Professor Parkinson puts
+it, the joint family venture may be identified where
+
+[o]ne party has encouraged the other to rely to her
+detriment by leaving the workforce or forgoing other
+career opportunities for the sake of the relationship,
+and the breakdown of the relationship leaves her in a
+worse position than she would otherwise have been had
+she not acted in this way to her economic detriment.
+[p. 256]
+
+(6) Summary of Quantum Meruit Versus
+Constructive Trust
+
+[100]
+
+1.
+not restricted to an award based on a fee-for-
+services approach.
+320
+
+
+2. Where the unjust enrichment is most realisti-
+cally characterized as one party retaining a
+disproportionate share of assets resulting from
+a joint family venture, and a monetary award
+is appropriate, it should be calculated on the
+basis of the share of those assets proportionate
+to the claimant’s contributions.
+
+
+
+
+3. To be entitled to a monetary remedy of this
+nature, the claimant must show both (a) that
+there was, in fact, a joint family venture, and
+(b) that there is a link between his or her con-
+tributions to it and the accumulation of assets
+and/or wealth.
+4. Whether there was a joint family venture is a
+question of fact and may be assessed by having
+regard to all of the relevant circumstances,
+including factors relating to (a) mutual effort,
+(b) economic integration, (c) actual intent and
+(d) priority of the family.
+F. Mutual Benefit Conferral
+
+(1) Introduction
+
+[101] As discussed earlier, the unjust enrichment
+analysis in domestic situations is often complicated
+by the fact that there has been a mutual confer-
+ral of benefits; each party in almost all cases con-
+fers benefits on the other: Parkinson, at p. 222. Of
+course, a claimant cannot expect both to get back
+something given to the defendant and retain some-
+thing received from him or her: Birks, at p. 415.
+The unjust enrichment analysis must take account
+of this common sense proposition. How and where
+in the analysis should this be done?
+[102] The answer is fairly straightforward when
+the essence of the unjust enrichment claim is that
+one party has emerged from the relationship with
+a disproportionate share of assets accumulated
+through their joint efforts. These are the cases of
+a joint family venture in which the mutual efforts
+of the parties have resulted in an accumulation
+of wealth. The remedy is a share of that wealth
+[2011] 1 R.C.S.
+
+
+proportionate to the claimant’s contributions. Once
+the claimant has established his or her contribu-
+tion to a joint family venture, and a link between
+that contribution and the accumulation of wealth,
+the respective contributions of the parties are taken
+into account in determining the claimant’s propor-
+tionate share. While determining the proportionate
+
+
+
+
+contributions of the parties is not an exact science,
+it generally does not call for a minute examination
+of the give and take of daily life. It calls, rather, for
+the reasoned exercise of judgment in light of all of
+the evidence.
+
+[103] Mutual benefit conferral, however, gives
+rise to more practical problems in an unjust enrich-
+ment claim where the appropriate remedy is a
+money award based on a fee-for-services-provided
+approach. The fact that the defendant has also
+provided services to the claimant may be seen as
+a factor relevant at all stages of the unjust enrich-
+ment analysis. Some courts have considered ben-
+efits received by the claimant as part of the ben-
+efit/detriment analysis (for example, at the Court
+of Appeal in Peter v. Beblow (1990), 50 B.C.L.R.
+(2d) 266). Others have looked at mutual benefits as
+an aspect of the juristic reason inquiry (for exam-
+ple, Ford v. Werden (1996), 27 B.C.L.R. (3d) 169
+(C.A.), and the Court of Appeal judgment in Kerr).
+Still others have looked at mutual benefits in rela-
+tion to both juristic reason and at the remedy stage
+(for example, as proposed in Wilson). It is apparent
+that some clarity and consistency is necessary with
+respect to this issue.
+
+[104] In my view, there is much to be said about
+the approach to the mutual benefit analysis mapped
+out by Huddart J.A. in Wilson. Specifically, I would
+adopt her conclusions that mutual enrichments
+should mainly be considered at the defence and
+remedy stages, but that they may be considered at
+the juristic reason stage to the extent that the provi-
+sion of reciprocal benefits constitutes relevant evi-
+dence of the existence (or non-existence) of juristic
+reason for the enrichment (para. 9). This approach
+is consistent with the authorities from this Court,
+322
+
+
+and provides a straightforward and just method of
+ensuring that mutual benefit conferral is fully taken
+into account without short-circuiting the proper
+unjust enrichment analysis. I will briefly set out
+why, in my view, this approach is sound.
+
+
+
+
+[105] At the outset, however, I should say that this
+Court’s decision in Peter does not mandate con-
+sideration of mutual benefits at the juristic reason
+stage of the analysis: see, e.g., Ford, at para. 14;
+Thomas v. Fenton, 2006 BCCA 299, 269 D.L.R.
+(4th) 376, at para. 18. Rather, Peter made clear
+that mutual benefit conferral should generally not
+be considered at the benefit and detriment stages;
+the Court also approved the trial judge’s decision
+to take mutual benefits into account at the remedy
+stage of the unjust enrichment analysis.
+[106] In Peter, the trial judge found that all three
+elements of unjust enrichment had been established.
+Before Ms. Peter and Mr. Beblow started living
+together, he had a housekeeper whom he paid $350
+per month. When Ms. Peter moved in with her chil-
+dren and assumed the housekeeping and child-care
+responsibilities, the housekeeper was no longer
+required. The trial judge valued Ms. Peter’s con-
+tribution by starting with the amount Mr. Beblow
+had paid his housekeeper, but then discounting this
+figure by one half to reflect the benefits Ms. Peter
+received in return. The trial judge then used that
+discounted figure to value Ms. Peter’s services over
+the 12 years of the relationship: [1988] B.C.J. No.
+887 (QL).
+[107] The Court of Appeal, at (1990), 50 B.C.L.R.
+(2d) 266, set aside the judge’s finding on the basis
+that Ms. Peter had failed to establish that she had
+suffered a deprivation corresponding to the bene-
+fits she had conferred on Mr. Beblow. The court
+reasoned that, although she had performed the ser-
+vices of a housekeeper and homemaker, she had
+[2011] 1 R.C.S.
+
+
+received compensation because she and her chil-
+dren lived in Mr. Beblow’s home rent free and he
+contributed more for groceries than she had.
+
+[108] This Court reversed the Court of Appeal
+and restored the trial judge’s award. The Court
+
+
+
+
+was unanimous that Ms. Peter had established
+all of the elements of unjust enrichment, includ-
+ing deprivation. Cory J. (with whom McLachlin
+J. agreed on this point) made short work of Mr.
+Beblow’s submission that Ms. Peter had not shown
+deprivation. He observed, “As a general rule, if it
+is found that the defendant has been enriched by
+the efforts of the plaintiff there will, almost as a
+matter of course be deprivation suffered by the
+plaintiff”: at p. 1013. The Court also unanimously
+upheld the trial judge’s approach of taking account
+of the benefits Ms. Peter had received at the remedy
+stage of his decision. As noted, the trial judge had
+reduced the monthly amount used to calculate
+Ms. Peter’s award by 50 percent to reflect benefits
+she had received from Mr. Beblow. McLachlin J.
+did not disagree with this approach, holding at p.
+1003 that the figure arrived at by the judge fairly
+reflected the value of Ms. Peter’s contribution to
+the family assets. Cory J., at p. 1025, referred to
+the trial judge’s approach as “a fair means of calcu-
+lating the amount due to the appellant”. Thus, the
+Court approved the approach of taking the mutual
+benefit issue into account at the remedy stage of
+the analysis. Peter therefore does not support the
+view that mutual benefits should be considered at
+the benefit/detriment or juristic reason stages of the
+analysis.
+
+(2) The Correct Approach
+
+[109] As I noted earlier, my view is that mutual
+benefit conferral can be taken into account at the
+juristic reason stage of the analysis, but only to
+the extent that it provides relevant evidence of the
+existence of a juristic reason for the enrichment.
+Otherwise, the mutual exchange of benefits should
+324
+
+
+be taken into account at the defence and/or remedy
+stage. It is important to note that this can, and
+should, take place whether or not the defendant has
+made a formal counterclaim or pleaded set-off.
+
+[110] I turn first to why mutual benefits should
+not be addressed at the benefit/detriment stage of
+
+
+
+
+the analysis. In my view, refusing to address mutual
+benefits at that point is consistent with the quan-
+tum meruit origins of the fee-for-services approach
+and, as well, with the straightforward economic
+approach to the benefit/detriment analysis which
+has been consistently followed by this Court.
+
+[111] An unjust enrichment claim based on a fee-
+for-services approach is analogous to the traditional
+claim for quantum meruit. In quantum meruit
+claims, the fact that some benefit had flowed from
+the defendant to the claimant is taken into account
+by reducing the claimant’s recovery by the amount
+of the countervailing benefit provided. For exam-
+ple, in a quantum meruit claim where the plaintiff
+is seeking to recover money paid pursuant to an
+unenforceable contract, but received some benefit
+from the defendant already, the claim will succeed
+but the award will be reduced by an amount cor-
+responding to the value of that benefit: Maddaugh
+and McCamus (loose-leaf ed.), vol. II, at §13:200.
+The authors offer as an example Giles v. McEwan
+(1896), 11 Man. R. 150 (Q.B. en banc). In that case,
+two employees recovered in quantum meruit for
+services provided to the defendant under an unen-
+forceable agreement, but the amount of the award
+was reduced to reflect the value of benefits the
+defendant had provided to them. Thus, taking the
+benefits conferred by the defendant into account at
+the remedy stage is consistent with general prin-
+ciples of quantum meruit claims. Of course, if
+the defendant has pleaded a counterclaim or set-
+off, the mutual benefit issue must be resolved
+in the course of considering that defence or
+claim.
+[2011] 1 R.C.S.
+
+
+[112] Refusing to take mutual benefits into
+account at the benefit/detriment stage is also sup-
+ported by a straightforward economic approach to
+the benefit/detriment analysis which the Court has
+consistently followed. Garland is a good example.
+The class action plaintiffs claimed in unjust enrich-
+ment to seek restitution for late payment penalties
+
+
+
+
+that had been imposed but that this Court (in an
+earlier decision) found had been charged at a crimi-
+nal rate of interest: see Garland v. Consumers’ Gas
+Co., [1998] 3 S.C.R. 112. The company argued that
+it had not been enriched because its rates were set
+by a regulatory mechanism out of its control, and
+that the rates charged would have been even higher
+had the company not received the late payment
+penalties as part of its revenues. That argument was
+accepted by the Court of Appeal, but rejected on
+the further appeal to this Court. Iacobucci J., for
+the Court, held that the payment of money, under
+the “straightforward economic approach” adopted
+in Peter, was a benefit: para. 32. He stated at para.
+36: “There simply is no doubt that Consumers’ Gas
+received the monies represented by the [late pay-
+ment penalties] and had that money available for
+use in the carrying on of its business. . . . We are
+not, at this stage, concerned with what happened to
+this benefit in the ongoing operation of the regula-
+tory scheme.” The Court held that the company was
+in fact asserting the “change of position” defence
+(that is, the defence that is available when “an inno-
+cent defendant demonstrates that it has materially
+changed its position as a result of an enrichment
+such that it would be inequitable to require the ben-
+efit to be returned”: para. 63). This defence is con-
+sidered only after the three elements of an unjust
+enrichment claim have been established: para.
+37. Thus the Court declined to get into a detailed
+consideration at the benefit/detriment stage of the
+defendant’s submissions that it had not benefitted
+because of the regulatory scheme.
+[113] While Garland dealt with the payment of
+money, my view is that the same approach should
+be applied where the alleged enrichment consists
+326
+
+
+of services. Provided that they confer a tangible
+benefit on the defendant, the services will gener-
+ally constitute an enrichment and a corresponding
+deprivation. Whether the deprivation was counter-
+balanced by benefits flowing to the claimant from
+the defendant should not be addressed at the first
+two steps of the analysis. I turn now to the limited
+
+
+
+
+role that mutual benefit conferral may have at the
+juristic reason stage of the analysis.
+[114] As previously set out, juristic reason is
+the third of three parts to the unjust enrichment
+analysis. As McLachlin J. put it in Peter, at p. 990,
+“It is at this stage that the court must consider
+whether the enrichment and detriment, morally
+neutral in themselves, are ‘unjust’.” The juristic
+reason analysis is intended to reveal whether there
+is a reason for the defendant to retain the enrich-
+ment, not to determine its value or whether the
+enrichment should be set off against reciprocal
+benefits: Wilson, at para. 30. Garland established
+that claimants must show that there is no juristic
+reason falling within any of the established catego-
+ries, such as whether the benefit was a gift or pur-
+suant to a legal obligation. If that is established, it is
+open to the defendant to show that a different juris-
+tic reason for the enrichment should be recognized,
+having regard to the parties’ reasonable expecta-
+tions and public policy considerations.
+[115] The fact that the parties have conferred ben-
+efits on each other may provide relevant evidence
+of their reasonable expectations, a subject that may
+become germane when the defendant attempts to
+show that those expectations support the existence
+of a juristic reason outside the settled categories.
+However, given that the purpose of the juristic
+reason step in the analysis is to determine whether
+the enrichment was just, not its extent, mutual ben-
+efit conferral should only be considered at the juris-
+tic reason stage for that limited purpose.
+(3) Summary
+[116] I conclude that mutual benefits may be
+considered at the juristic reason stage, but only to
+[2011] 1 R.C.S.
+
+
+the extent that they provide evidence relevant to
+the parties’ reasonable expectations. Otherwise,
+mutual benefit conferrals are to be considered at
+the defence and/or remedy stage. I will have more
+to say in the next section about how mutual benefit
+conferral and the parties’ reasonable expectations
+may come into play in the juristic reason analysis.
+
+
+
+
+
+G. Reasonable or Legitimate Expectations
+
+[117] The final point that requires some clari-
+fication relates to the role of the parties’ reason-
+able expectations in the domestic context. My con-
+clusion is that, while in the early domestic unjust
+enrichment cases the parties’ reasonable expecta-
+tions played an important role in the juristic reason
+analysis, the development of the law, and particu-
+larly the Court’s judgment in Garland, has led to
+a more limited and clearly circumscribed role for
+those expectations.
+
+[118] In the early cases of domestic unjust enrich-
+ment claims, the reasonable expectations of the
+claimant and the defendant’s knowledge of those
+expectations were central to the juristic reason
+analysis. For example, in Pettkus, when Dickson
+J. came to the juristic reason step in the analysis,
+he said that “where one person in a relationship
+tantamount to spousal prejudices herself in the
+reasonable expectation of receiving an interest in
+property and the other person in the relationship
+freely accepts benefits conferred by the first person
+in circumstances where he knows or ought to have
+known of that reasonable expectation, it would be
+unjust to allow the recipient of the benefit to retain
+it” (p. 849). Similarly, in Sorochan, at p. 46, pre-
+cisely the same reasoning was invoked to show that
+there was no juristic reason for the enrichment.
+
+[119] In these cases, central to the Court’s con-
+cern was whether it was just to require the defend-
+ant to pay — in fact to surrender an interest in
+property — for services not expressly requested.
+The Court’s answer was that it would indeed be
+unjust for the defendant to retain the benefits, given
+328
+
+
+that he had continued to accept the services when
+he knew or ought to have known that the claimant
+was providing them with the reasonable expecta-
+tion of reward.
+
+[120] The Court’s resort to reasonable expecta-
+
+
+
+
+tions and the defendant’s knowledge of them in
+these cases is analogous to the “free acceptance”
+principle. The notion of free acceptance has been
+invoked to extend restitutionary recovery beyond
+the traditional sorts of quantum meruit claims in
+which services had either been requested or pro-
+vided under an unenforceable agreement. The
+law’s traditional reluctance to provide a remedy
+for claims where no request was made was based
+on the tenet that a person should generally not
+be required, in effect, to pay for services that he
+or she did not request, and perhaps did not want.
+However, this concern carries much less weight
+when the person receiving the services knew that
+they were being provided, had no reasonable belief
+that they were a gift, and yet continued to freely
+accept them: see P. Birks, Unjust Enrichment (2nd
+ed. 2005), at pp. 56-57.
+
+[121] The need to engage in this analysis of the
+claimant’s reasonable expectations and the defend-
+ant’s knowledge thereof with respect to domestic
+services has, in my view, now been overtaken by
+developments in the law. Garland, as noted, man-
+dated a two-step approach to the juristic reason
+analysis. The first step requires the claimant to
+show that the benefit was not conferred for any
+existing category of juristic reasons. Significantly,
+the fact that the defendant also provided services
+to the claimant is not one of the existing catego-
+ries. Nor is the fact that the services were pro-
+vided pursuant to the parties’ reasonable expecta-
+tions. However, the fact that the parties reasonably
+expected the services to be provided might afford
+relevant evidence in relation to whether the case
+falls within one of the traditional categories, for
+example a contract or gift. Other than in that way,
+mutual benefit conferral and the parties’ reasonable
+expectations have a very limited role to play at the
+[2011] 1 R.C.S.
+
+
+first step in the juristic reason analysis set out in
+Garland.
+
+[122] However, different considerations arise
+at the second step. Following Peter and Garland,
+
+
+
+
+the parties’ reasonable or legitimate expectations
+have a critical role to play when the defendant
+seeks to establish a new juristic reason, whether
+case-specific or categorical. As Iacobucci J. put it
+in Garland, this introduces a category of residual
+situations in which “courts can look to all of the
+circumstances of the transaction in order to deter-
+mine whether there is another reason to deny recov-
+ery” (para. 45). Specifically, it is here that the court
+should consider the parties’ reasonable expecta-
+tions and questions of policy.
+
+[123] It will be helpful in understanding how
+Peter and Garland fit together to apply the Garland
+approach to an issue touched on, but not resolved,
+in Peter. In Peter, an issue was whether a claim
+based on the provision of domestic services could
+be defeated on the basis that the services had been
+provided as part of the bargain between the par-
+ties in deciding to live together. While the Court
+concluded that the claim failed on the facts, it did
+not hold that such a claim would inevitably fail in
+all circumstances: p. 991. It seems to me that, in
+light of Garland, where a “bargain” which does not
+constitute a binding contract is alleged, the issue
+will be considered at the stage when the defend-
+ant seeks to show that there is a juristic reason for
+the enrichment that does not fall within any of the
+existing categories; the claim is that the “bargain”
+represents the parties’ reasonable expectations,
+and evidence about their reasonable expectations
+would be relevant evidence of the existence (or not)
+of such a bargain.
+
+[124]
+
+1.
+tions have little role to play in deciding whether
+330
+
+
+the services were provided for a juristic reason
+within the existing categories.
+
+2. In some cases, the fact that mutual benefits
+were conferred or that the benefits were
+provided pursuant to the parties’ reason-
+
+
+
+
+able expectations may be relevant evidence
+of whether one of the existing categories of
+juristic reasons is present. An example might
+be whether there was a contract for the provi-
+sion of the benefits. However, generally the
+existence of mutual benefits flowing from the
+defendant to the claimant will not be consid-
+ered at the juristic reason stage of the analysis.
+
+3. The parties’ reasonable or legitimate expecta-
+tions have a role to play at the second step of
+the juristic reason analysis, that is, where the
+defendant bears the burden of establishing that
+there is a juristic reason for retaining the benefit
+which does not fall within the existing catego-
+ries. It is the mutual or legitimate expectations
+of both parties that must be considered, and not
+simply the expectations of either the claimant
+or the defendant. The question is whether the
+parties’ expectations show that retention of the
+benefits is just.
+
+[125]
+
+IV. The Vanasse Appeal
+
+A. Introduction
+
+[126] In the Vanasse appeal, the main issue
+is how to quantify a monetary award for unjust
+enrichment. The trial judge awarded a share of
+the net increase in the family’s wealth during the
+period of unjust enrichment. The Court of Appeal
+held that this was the wrong approach, finding that
+the trial judge ought to have performed a quan-
+tum meruit calculation in which the value that each
+party received from the other was assessed and set
+off. This required an evaluation of the defendant
+[2011] 1 R.C.S.
+
+
+Mr. Seguin’s non-financial contributions to the rela-
+tionship which, in the view of the Court of Appeal,
+the trial judge failed to perform. As the record did
+not permit the court to apply the correct legal prin-
+ciples to the facts, it ordered a new hearing with
+respect to compensation and consequential changes
+to spousal support.
+
+
+
+
+
+[127] In this Court, the appellant Ms. Vanasse
+raises two issues:
+
+1.
+strict quantum meruit (i.e. “value received”)
+approach to quantify the monetary award for
+unjust enrichment?
+
+2. Did the Court of Appeal err in finding that
+the trial judge had failed to consider relevant
+evidence of Mr. Seguin’s contributions?
+
+[128] In my view, the appeal should be allowed
+and the trial judge’s order restored. For the reasons I
+have developed above, my view is that money com-
+pensation for unjust enrichment need not always,
+as a matter of principle, be calculated on a quan-
+tum meruit basis. The trial judge here, although
+not labelling it as such, found that there was a joint
+family venture and that there was a link between
+Ms. Vanasse’s contribution to it and the substantial
+accumulation of wealth which the family achieved.
+In my view, the trial judge made a reasonable
+assessment of the monetary award appropriate to
+reverse this unjust enrichment, taking due account
+of Mr. Seguin’s undoubted and substantial contri-
+butions.
+
+B. Brief Overview of the Facts and Proceedings
+
+[129] The background facts of this case are
+largely undisputed. The parties lived together in
+332
+
+
+a common law relationship for approximately 12
+years, from 1993 until March 2005. Together, they
+had two children who were aged 8 and 10 at the
+time of trial.
+
+[130] During approximately the first four years
+of their relationship (1993 to 1997), the parties
+
+
+
+
+diligently pursued their respective careers, Ms.
+Vanasse with the Canadian Security Intelligence
+Service (“CSIS”) and Mr. Seguin with Fastlane
+Technologies Inc., marketing a network operating
+system he had developed.
+
+[131] In March of 1997, Ms. Vanasse took a leave
+of absence to move with Mr. Seguin to Halifax,
+where Fastlane had relocated for important busi-
+ness reasons. During the next three and one-half
+years, the parties had two children; Ms. Vanasse
+took care of the domestic labour, while Mr. Seguin
+devoted himself to developing Fastlane. The family
+moved back to Ottawa in 1998, where Mr. Seguin
+purchased a home and registered it in the names of
+both parties as joint tenants. In September 2000,
+Fastlane was sold and Mr. Seguin netted approxi-
+mately $11 million. He placed the funds in a hold-
+ing company, with which he continued to develop
+business and investment opportunities.
+
+[132] After the sale of Fastlane, Ms. Vanasse con-
+tinued to assume most of the domestic responsibil-
+ities, although Mr. Seguin was more available to
+assist. He continued to manage the finances.
+
+[133] The parties separated on March 27, 2005.
+At that time, they were in starkly contrasting finan-
+cial positions: Ms. Vanasse’s net worth had gone
+from about $40,000 at the time she and Mr. Seguin
+started living together, to about $332,000 at the
+time of separation; Mr. Seguin had come into the
+relationship with about $94,000, and his net worth
+at the time of separation was about $8,450,000.
+
+[134] Ms. Vanasse brought proceedings in the
+Superior Court of Justice. In addition to seeking
+orders with respect to spousal support and child
+[2011] 1 R.C.S.
+
+
+custody, Ms. Vanasse claimed unjust enrichment.
+She argued that Mr. Seguin had been unjustly
+enriched because he retained virtually all of the
+funds from the sale of Fastlane, even though she
+had contributed to their acquisition through ben-
+efits she conferred in the form of domestic and
+childcare services. She alleged her contributions
+
+
+
+
+allowed Mr. Seguin to dedicate most of his time
+and energy to Fastlane. She sought relief by way
+of constructive trust in Mr. Seguin’s remaining
+one half interest in the family home, and a one-
+half interest in the investment assets held by Mr.
+Seguin’s holding company.
+
+[135] Mr. Seguin contested the unjust enrich-
+ment claim. While conceding he had been enriched
+during the roughly three-year period where he
+was working outside the home full time and Ms.
+Vanasse was working at home full time (May 1997
+to September 2000), he argued there was no cor-
+responding deprivation because he had given her a
+one-half interest in the family home and approxi-
+mately $44,000 in Registered Retirement Savings
+Plans (“RRSPs”). In the alternative, Mr. Seguin
+submitted that a constructive trust remedy was
+inappropriate because there was no link between
+Ms. Vanasse’s contributions and the property of
+Fastlane.
+
+[136] The trial judge, Blishen J., concluded that
+the relationship of the parties could be divided into
+three distinct periods: (1) From the commencement
+of cohabitation in 1993 until March 1997 when
+Ms. Vanasse left her job at CSIS; (2) From March
+1997 to September 2000, during which both chil-
+dren were born and Fastlane was sold; and (3) From
+September 2000 to the separation of the parties in
+March 2005. She concluded that neither party had
+been unjustly enriched in the first or third periods;
+she held that their contributions to the relationship
+during these periods had been proportionate. In the
+first period, there were no children of the relation-
+ship and both parties were focused on their careers;
+in the third period, both parents were home and
+their contributions had been proportionate.
+334
+
+
+[137] In the second period, however, the trial
+judge concluded that Mr. Seguin had been unjustly
+enriched by Ms. Vanasse. Ms. Vanasse had been
+in charge of the domestic side of the household,
+including caring for their two children. She had not
+been a “nanny/housekeeper” and, as the trial judge
+held, throughout the relationship she had been at
+
+
+
+
+least “an equal contributor to the family enterprise”.
+The trial judge concluded that Ms. Vanasse’s con-
+tributions during this second period “significantly
+benefited Mr. Seguin and were not proportional”
+(para. 139).
+
+[138] The trial judge found as a fact that Ms.
+Vanasse’s efforts during this second period were
+directly linked to Mr. Seguin’s business success.
+She stated, at para. 91, that
+
+Mr. Seguin was enriched by Ms. Vanasse’s running of
+the household, providing child care for two young chil-
+dren and looking after all the necessary appointments
+and needs of the children. Mr. Seguin could not have
+made the efforts he did to build up the company but
+for Ms. Vanasse’s assumption of these responsibilities.
+Mr. Seguin reaped the benefits of Ms. Vanasse’s efforts
+by being able to focus his time, energy and efforts on
+Fastlane. [Emphasis added.]
+
+Again at para. 137, the trial judge found that
+
+Mr. Seguin was unjustly enriched and Ms. Vanasse
+deprived for three and one-half years of their relation-
+ship, during which time Mr. Seguin often worked day
+and night and traveled frequently while in Halifax.
+Mr. Seguin could not have succeeded, as he did, and
+built up the company, as he did, without Ms. Vanasse
+assuming the vast majority of childcare and household
+responsibilities. Mr. Seguin could not have devoted his
+time to Fastlane but for Ms. Vanasse’s assumption of
+those responsibilities. . . . Mr. Seguin reaped the benefit
+of Ms. Vanasse’s efforts by being able to focus all of his
+considerable energies and talents on making Fastlane a
+success. [Emphasis added.]
+[2011] 1 R.C.S.
+
+
+[139] The trial judge concluded that a monetary
+award in this case was appropriate, given Mr.
+Seguin’s ability to pay, and lack of a sufficiently
+direct and substantial link between Ms. Vanasse’s
+contributions and Fastlane or Mr. Seguin’s holding
+company, as required to impose a remedial con-
+structive trust.
+
+
+
+
+
+[140] With respect to quantification, Blishen J.
+noted that Ms. Vanasse had received a one-half
+interest in the family home, but concluded that this
+was not adequate compensation for her contribu-
+tions. The trial judge compared the net worths of the
+parties and determined that Ms. Vanasse was enti-
+tled to a one-half interest in the prorated increase
+in Mr. Seguin’s net worth during the period of the
+unjust enrichment. She reasoned that his net worth
+had increased by about $8.4 million dollars over
+the 12 years of the relationship. Although she noted
+that the most significant increase took place when
+Fastlane was sold towards the end of the period
+of unjust enrichment, she nonetheless prorated
+the increase over the full 12 years of the relation-
+ship, yielding a figure of about $700,000 per year.
+Starting with the $2.45 million increase attributa-
+ble to the three and one-half years of unjust enrich-
+ment, the trial judge awarded Ms. Vanasse 50 per-
+cent of that amount, less the value of her interest in
+the family home and her RRSPs. This produced an
+award of just under $1 million.
+
+[141] Mr. Seguin did not appeal Blishen J.’s unjust
+enrichment finding, and conceded unjust enrich-
+ment between 1997 and 2000 on appeal. Therefore,
+the trial judge’s findings that there had been an
+unjust enrichment during that period and that there
+was no unjust enrichment during the other periods
+are not in issue. The sole issue for determination in
+this Court is the propriety of the trial judge’s mon-
+etary award for the unjust enrichment which she
+found to have occurred.
+336
+
+
+C. Analysis
+
+(1) Was the Trial Judge Required to Use a
+Quantum Meruit Approach to Calculate
+the Monetary Award?
+
+
+
+
+[142] I agree with the appellant that a monetary
+award for unjust enrichment need not, as a matter
+of principle, always be calculated on a fee-for-
+services basis. As I have set out earlier, an unjust
+enrichment is best characterized as one party leav-
+ing the relationship with a disproportionate share of
+wealth that accumulated as a result of the parties’
+joint efforts. This will be so when the parties were
+engaged in a joint family venture and where there
+is a link between the contributions of the claim-
+ant and the accumulation of wealth. When this is
+the case, the amount of the enrichment should be
+assessed by determining the claimant’s proportion-
+ate contribution to that accumulated wealth. As the
+trial judge saw it, this was exactly the situation of
+Ms. Vanasse and Mr. Seguin.
+
+(2) Existence of a Joint Family Venture
+
+[143] The trial judge, after a six-day trial, con-
+cluded that “Ms. Vanasse was not a nanny/house-
+keeper”. She found that Ms. Vanasse had been at
+least “an equal contributor to the family enterprise”
+throughout the relationship and that, during the
+period of unjust enrichment, her contributions “sig-
+nificantly benefited Mr. Seguin” (para. 139).
+
+[144] The trial judge, of course, did not review the
+evidence under the headings that I have suggested
+will be helpful in identifying a joint family ven-
+ture, namely “mutual effort”, “economic integra-
+tion”, “actual intent” and “priority of the family”.
+However, her findings of fact and analysis indicate
+that the unjust enrichment of Mr. Seguin at the
+expense of Ms. Vanasse ought to be characterized
+as the retention by Mr. Seguin of a disproportionate
+share of the wealth generated from a joint family
+[2011] 1 R.C.S.
+
+
+venture. The judge’s findings fit conveniently
+under the headings I have suggested.
+
+(a) Mutual Effort
+
+[145] There are several factors in this case which
+suggest that, throughout their relationship, the par-
+
+
+
+
+ties were working collaboratively towards common
+goals. First, as previously mentioned, the trial judge
+found that Ms. Vanasse’s role was not as a “nanny/
+housekeeper” but rather as at least an equal contrib-
+utor throughout the relationship. The parties made
+important decisions keeping the overall welfare of
+the family at the forefront: the decision to move to
+Halifax, the decision to move back to Ottawa, and
+the decision that Ms. Vanasse would not return to
+work after the sale of Fastlane are all clear exam-
+ples. The parties pooled their efforts for the benefit
+of their family unit. As the trial judge found, during
+the second stage of their relationship from March
+1997 to September 2000, the division of labour
+was such that Ms. Vanasse was almost entirely
+responsible for running the home and caring for
+the children, while Mr. Seguin worked long hours
+and managed the family finances. The trial judge
+found that it was through their joint efforts that
+they were able to raise a young family and acquire
+wealth. As she put it, “Mr. Seguin could not have
+made the efforts he did to build up the company but
+for Ms. Vanasse’s assumption of these responsibili-
+ties” (para. 91). While Mr. Seguin’s long hours and
+extensive travel reduced somewhat in September
+1998 when the parties returned to Ottawa, the basic
+division of labour remained the same.
+
+[146] Notably, the period of unjust enrichment
+corresponds to the time during which the parties
+had two children together (in 1997 and 1999), a fur-
+ther indicator that they were working together to
+achieve common goals. The length of the relation-
+ship is also relevant, and their 12-year cohabita-
+tion is a significant period of time. Finally, the trial
+338
+
+
+judge described the arrangement between the par-
+ties as a “family enterprise”, to which Ms. Vanasse
+was “at least, an equal contributor” (paras. 138-39).
+
+(b) Economic Integration
+
+
+
+
+[147] The trial judge found that “[t]his was not
+a situation of economic interdependence” (para.
+105). That said, there was a pooling of resources.
+Ms. Vanasse was not employed and did not contrib-
+ute financially to the family after the children were
+born, and thus was financially dependent on Mr.
+Seguin. The family home was registered jointly,
+and the parties had a joint chequing account. As the
+trial judge put it, “She was ‘the C.E.O. of the kids’
+and he was ‘the C.E.O. of the finances’” (para. 105).
+
+(c) Actual Intent
+
+[148] The actual intent of the parties in a domes-
+tic relationship, as expressed by the parties or
+inferred from their conduct, must be given consid-
+erable weight in determining whether there was a
+joint family venture. There are a number of find-
+ings of fact that indicate these parties considered
+their relationship to be a joint family venture.
+
+[149] While a promise to marry or the discus-
+sion of legal marriage is by no means a prerequi-
+site for the identification of a joint family venture,
+in this case the parties’ intentions with respect to
+marriage strongly suggest that they viewed them-
+selves as the equivalent of a married couple. Mr.
+Seguin proposed to Ms. Vanasse in July 1996 and
+they exchanged rings. While they were “devoted to
+one another and still in love”, a wedding date was
+never set (para. 14). Mr. Seguin raised the topic of
+marriage again when Ms. Vanasse found out she
+was pregnant with their first child. Although they
+never married, the trial judge found that there had
+been “mutual expectations [of marriage] during the
+first few years of their 12 year relationship” (para.
+64). Mr. Seguin continued to address Ms. Vanasse
+[2011] 1 R.C.S.
+
+
+as “my future wife”, and she was viewed by the out-
+side world as such (para. 33).
+
+[150] The trial judge also referred to statements
+
+
+
+
+made by Mr. Seguin that were strongly indicative
+of his view that there was a joint family venture.
+As the trial judge put it, at para. 28, upon the sale
+of Fastlane
+Mr. Seguin became a wealthy man. He told Ms. Vanasse
+that they would never have to worry about finances as
+their parents did; their children could go to the best
+schools and they could live a good life without finan-
+cial concerns.
+
+Again, at para. 98:
+After the sale of the company, Mr. Seguin indicated they
+could retire, the children could go to the best schools
+and the family would be well cared for. The family took
+travel vacations, enjoyed luxury cars, bought a large
+cabin cruiser which they used for summer vacations
+and purchased condominiums at Mont-Tremblant.
+
+[151] While the trial judge viewed Mr. Seguin’s
+promises and reassurances as contributing to a rea-
+sonable expectation on the part of Ms. Vanasse that
+she was to share in the increase of his net worth
+during the period of unjust enrichment, in my view
+these comments are more appropriately character-
+ized as a reflection of the reality that there was a
+joint family venture, to which the couple jointly
+contributed for their mutual benefit and the benefit
+of their children.
+
+(d) Priority of the Family
+
+[152] There is a strong inference from the fac-
+tual findings that, to Mr. Seguin’s knowledge, Ms.
+Vanasse relied on the relationship to her detriment.
+As the trial judge found, in 1997 Ms. Vanasse gave
+up a lucrative and exciting career with CSIS, where
+she was training to be an intelligence officer, to
+move to Halifax with Mr. Seguin. In many ways
+this was a sacrifice on her part; she left her career,
+340
+
+
+gave up her own income, and moved away from
+her family and friends. Mr. Seguin had moved to
+Halifax in order to relocate Fastlane for business
+reasons. Ms. Vanasse then stayed home and cared
+for their two small children. As I have already
+explained, during the period of the unjust enrich-
+ment, Ms. Vanasse was responsible for a dispropor-
+
+
+
+
+tionate share of the domestic labour. It was these
+domestic contributions that, in part, permitted Mr.
+Seguin to focus on his work with Fastlane. Later, in
+2003, the “family’s decision” was for Ms. Vanasse
+to remain home after her leave from CSIS had
+expired (para. 198). Ms. Vanasse’s financial posi-
+tion at the breakdown of the relationship indicates
+she relied on the relationship to her economic det-
+riment. This is all evidence supporting the conclu-
+sion that the parties were, in fact, operating as a
+joint family venture.
+
+[153] As a final point, I would refer to the argu-
+ments made by Mr. Seguin, which were accepted
+by the Court of Appeal, that the trial judge failed to
+give adequate weight to sacrifices Mr. Seguin made
+for the benefit of the relationship. Later in my rea-
+sons, I will address the question of whether the trial
+judge actually failed in this regard. However, the
+points raised by Mr. Seguin to support this argu-
+ment actually serve to reinforce the conclusion that
+there was a joint family venture. Mr. Seguin specifi-
+cally notes a number of factors, including: agree-
+ing to step down as CEO of Fastlane in September
+1997 to make himself more available to Ms.
+Vanasse, causing friction with his co-workers and
+partners, and reducing his remuneration; agree-
+ing to relocate to Ottawa at Ms. Vanasse’s request
+in 1998; and making increased efforts to work at
+home more and travel less after moving back to
+Ottawa. These facts are indicative of the sense of
+mutuality in the parties’ social and financial rela-
+tionship. In short, they support the identification of
+a joint family venture.
+[2011] 1 R.C.S.
+
+
+(e) Conclusion on Identification of the Joint
+Family Venture
+
+[154] In my view, the trial judge’s findings of
+fact clearly show that Ms. Vanasse and Mr. Seguin
+engaged in a joint family venture. The remaining
+question is whether there was a link between Ms.
+
+
+
+
+Vanasse’s contributions to it and the accumulation
+of wealth.
+
+(3) Link to Accumulation of Wealth
+
+[155] The trial judge made a clear finding that
+there was a link between Ms. Vanasse’s contribu-
+tions and the family’s accumulation of wealth.
+
+[156] I have referred earlier, in some detail, to
+the trial judge’s findings in this regard. However,
+to repeat, her conclusion is expressed particularly
+clearly at para. 91 of her reasons:
+Mr. Seguin could not have made the efforts he did to
+build up the company but for Ms. Vanasse’s assumption
+of these [household and child-rearing] responsibilities.
+Mr. Seguin reaped the benefits of Ms. Vanasse’s efforts
+by being able to focus his time, energy and efforts on
+Fastlane.
+
+[157] Given that and similar findings, I con-
+clude that not only were these parties engaged in
+a joint family venture, but that there was a clear
+link between Ms. Vanasse’s contribution to it and
+the accumulation of wealth. The unjust enrichment
+is thus best viewed as Mr. Seguin leaving the rela-
+tionship with a disproportionate share of the wealth
+accumulated as a result of their joint efforts.
+
+(4) Calculation of the Award
+
+[158] The main focus of the appeal was on
+whether the award ought to have been calculated
+on a quantum meruit basis. Very little was argued
+before this Court regarding the way the trial judge
+approached her calculation of a proportionate share
+of the parties’ accumulated wealth. I conclude that
+342
+
+
+the trial judge’s approach was reasonable in the
+circumstances, but I stress that I do not hold out
+her approach as necessarily being a template for
+future cases. Within the legal principles I have out-
+lined, there may be many ways in which an award
+may be quantified reasonably. I prefer not to make
+any more general statements about the quantifica-
+
+
+
+
+tion process in the context of this appeal, except
+this. Provided that the correct legal principles are
+applied, and the findings of fact are not tainted by
+clear and determinative error, a trial judge’s assess-
+ment of damages is treated with considerable defer-
+ence on appeal: see, e.g., Nance v. British Columbia
+Electric Railway Co., [1951] A.C. 601 (P.C.). A
+reasoned and careful exercise of judgment by the
+trial judge as to the appropriate monetary award
+to remedy an unjust enrichment should be treated
+with the same deference. There are two final spe-
+cific points that I must address.
+
+[159] Mr. Seguin submits, very briefly, that a
+proper application of the “value survived” approach
+in this case would require a careful determination
+of the contributions by third parties to the growth
+of Fastlane during the period his own contribu-
+tions were diminished, as a result of what counsel
+characterizes as Ms. Vanasse’s “demands” that he
+reduce his hours and move back to Ottawa. This
+argument is premised on the notion that the money
+he received from the sale was not justly his to
+share with Ms. Vanasse. I cannot accept this prem-
+ise. Unexplained is why he received more than his
+share when the company was sold or why, having
+received more than he was due, Ms. Vanasse is still
+not entitled to an equitable share of what he actu-
+ally received.
+
+[160] Second, there is the finding of the Court
+of Appeal that the trial judge failed to take into
+account evidence of Mr. Seguin’s numerous and sig-
+nificant non-financial contributions to the family.
+I respectfully cannot accept this view. The trial
+judge specifically alluded to these contributions in
+her reasons. Moreover, by confining the period of
+[2011] 1 R.C.S.
+
+
+unjust enrichment to the three and one-half year
+period, the trial judge took into account the periods
+during which Ms. Vanasse’s contributions were not
+disproportionate to Mr. Seguin’s. In my view, the
+trial judge took a realistic and practical view of the
+evidence before her and gave sufficient considera-
+tion to Mr. Seguin’s contributions.
+
+
+
+
+
+D. Disposition
+
+[161] I would allow the appeal, set aside the order
+of the Court of Appeal, and restore the order of
+the trial judge. The appellant should have her costs
+throughout.
+
+V. The Kerr Appeal
+
+A. Introduction
+
+[162] When their common law relationship
+of more than 25 years ended, Ms. Kerr sued her
+former partner, Mr. Baranow, advancing claims
+for unjust enrichment, resulting trust, and spousal
+support. Mr. Baranow counterclaimed that Ms.
+Kerr had been unjustly enriched by his housekeep-
+ing services provided between 1991 and 2006,
+and by his early retirement in order to provide her
+personal assistance. The trial judge awarded Ms.
+Kerr $315,000, holding that she was entitled to this
+amount both by way of resulting trust (to reflect her
+contribution to the acquisition of property) and by
+way of remedial constructive trust (as a remedy for
+her successful claim in unjust enrichment). He also
+awarded Ms. Kerr $1,739 per month in spousal sup-
+port effective the date she commenced proceedings.
+Although the trial judge rejected Mr. Baranow’s
+assertion that Ms. Kerr had been unjustly enriched
+at his expense, the reasons for judgment and the
+order after trial do not otherwise address Mr.
+Baranow’s counterclaim.
+344
+
+
+[163] Mr. Baranow appealed. The Court of Appeal
+allowed the appeal, concluding that Ms. Kerr’s
+claims for a resulting trust and in unjust enrichment
+should be dismissed, that Mr. Baranow’s claim for
+unjust enrichment should be remitted to the trial
+court for determination, and that the order for
+spousal support should be effective as of the first
+
+
+
+
+day of the trial, not as of the date proceedings were
+commenced.
+[164] Ms. Kerr appeals, submitting that the Court
+of Appeal erred by setting aside the trial judge’s
+findings that:
+(1) a resulting trust arose in her favour;
+(2) she had unjustly enriched Mr. Baranow; and
+(3) spousal support should begin as of the date she
+instituted proceedings.
+[165] In my view, the Court of Appeal was right to
+set aside the trial judge’s findings of resulting trust
+and unjust enrichment. It also did not err in direct-
+ing that Mr. Baranow’s counterclaim be returned to
+the Supreme Court of British Columbia for hearing.
+However, my view is that Ms. Kerr’s unjust enrich-
+ment claim should not have been dismissed, but
+rather a new trial ordered. While the trial judge’s
+errors certainly were not harmless, it is not pos-
+sible to say on this record, which includes findings
+of fact tainted by clear error, that her unjust enrich-
+ment claim would inevitably fail if analyzed using
+the clarified legal framework set out above. With
+respect to the commencement date of the spousal
+support order, I would set aside the order of the
+Court of Appeal and restore the trial judge’s order.
+B. Overview of the Facts
+[166] The trial judge’s disposition of both the
+resulting trust and unjust enrichment claims
+[2011] 1 R.C.S.
+
+
+turned on his conclusion that Ms. Kerr had pro-
+vided $60,000 worth of equity and assets at the
+beginning of the relationship. This fact, in the
+trial judge’s view, supported awarding her one-
+third of the value of the home she shared with Mr.
+Baranow at the time of separation. According to
+the trial judge, this $60,000 of equity and assets
+
+
+
+
+consisted of three elements: her $37,000 of equity
+in the Coleman Street home she had shared with
+her former husband; the value of an automobile;
+and the value of furniture which she brought into
+her relationship with Mr. Baranow. The trial judge
+did not make specific findings of fact about the
+value of either Ms. Kerr’s or Mr. Baranow’s non-
+monetary contributions to the relationship. As pre-
+viously noted, while the judge rejected in a single
+sentence Mr. Baranow’s contention that Ms. Kerr
+had been unjustly enriched at his expense, the
+judge did not explain the basis of that conclusion.
+Mr. Baranow’s counterclaim was not otherwise
+addressed.
+
+[167] The trial judge’s findings of fact, of course,
+must be accepted unless tainted with clear and
+determinative error. In this case, however, the
+Court of Appeal’s intervention on some of the
+judge’s key findings was justified, because those
+findings simply were not supported by the record.
+I will have to delve into the facts, more than might
+otherwise be required, to explain why.
+
+[168] The parties began to live together in Mr.
+Baranow’s home on Wall Street in Vancouver in
+May 1981. Shortly afterward, they moved into
+Ms. Kerr’s former matrimonial home on Coleman
+Street. They had met at their mutual place of work,
+the Port of Vancouver, where she worked as a sec-
+retary and he as a longshoreman. Ms. Kerr was in
+midst of a divorce. Through her separation agree-
+ment, Ms. Kerr received her husband’s interest in
+their former matrimonial home on Coleman Street
+in North Vancouver, all of the furniture in the
+house, and a 1979 Cadillac Eldorado. However,
+346
+
+
+Ms. Kerr’s ex-husband owed more than $400,000
+and Ms. Kerr was guarantor of some of that debt.
+
+[169] In the summer of 1981, the Coleman Street
+property was the subject of foreclosure proceed-
+ings and, according to the evidence, was about to
+
+
+
+
+be foreclosed on July 29, 1981. Ms. Kerr testified
+at trial that, at the time, she had two teenage chil-
+dren, was earning under $30,000 a year, and had no
+money to save the house.
+
+[170] Ms. Kerr instructed her lawyer to place the
+titles to the Coleman Street property and the vehi-
+cle into Mr. Baranow’s name. Mr. Baranow paid
+$33,000 in cash to secure the property against out-
+standing debts, and guaranteed a $100,000 mort-
+gage at a rate of 22 percent. He then began to make
+the mortgage payments and eventually refinanced
+the mortgage, together with that on his Wall Street
+property, and assumed that new mortgage himself.
+
+[171] The couple lived together for the next 25
+years, first in the Wall Street property, then at
+Coleman Street, then in a temporary apartment,
+and finally in their “dream home” which they con-
+structed on Mr. Baranow’s Wall Street property.
+
+[172] While the parties lived together in the
+Coleman Street property (from September 1981 to
+December 1985), Mr. Baranow retained the $450
+per month he received by renting out his Wall Street
+property. The trial judge found that, although the
+parties kept their financial affairs separate, there
+was an arrangement by which Mr. Baranow would
+pay the property taxes and mortgage payments on
+both the Coleman Street and the Wall Street prop-
+erties. The mortgage on both properties was paid
+off before July 1985. However, Mr. Baranow took
+out a $32,000 mortgage on the Wall Street prop-
+erty in July 1985, which was paid in full by August
+1988.
+
+[173] The Coleman Street property was sold in
+August 1985 for $138,000. This sale was at a con-
+siderable loss, taking into account the real estate
+[2011] 1 R.C.S.
+
+
+commission, the $33,000 in cash Mr. Baranow had
+contributed at the time of the transfer to him, and
+the mortgage payments he alone had made between
+the transfer in the summer of 1981 and the sale in
+the summer of 1985.
+
+[174] The parties moved into an apartment (from
+
+
+
+
+August 1985 until October 1986) while they con-
+structed their “dream home” at the Wall Street
+location. The existing dwelling was torn down and
+replaced. Mr. Baranow spent somewhere between
+$97,000 and $105,000 on its construction, with
+additional amounts spent for materials, labour
+and permits. Ms. Kerr, the trial judge found, was
+involved with the planning, interior decorating and
+cleaning. She also planted sod, tended the flower
+garden, and paid for some wood paneling in the
+downstairs bedroom. In addition, she made con-
+tributions towards the purchase of furniture, appli-
+ances, and other chattels for the Wall Street prop-
+erty. Her son paid $350 per month in rent, which
+Mr. Baranow retained. At one point in his reasons,
+the trial judge stated that Ms. Kerr paid “all of the
+household expenses and the insurance on the new
+house . . . even after the $32,000.00 mortgage was
+paid off by [Mr. Baranow] in August 1988” (para.
+24). However, at another point, the judge noted
+that Ms. Kerr paid the utilities and insurance and
+bought “some groceries” (para. 36). Mr. Baranow,
+he found, paid the property-related expenses, con-
+sisting of property taxes (less the disability benefit
+attributable to Ms. Kerr) and upkeep (which was
+minimal in the new house). The trial judge found
+that the current value of the Wall Street property
+was $942,500, compared with $205,000 in October
+of 1986. He then concluded that, given there were
+no mortgage payments after 1988, Ms. Kerr’s share
+of the expenses “was probably higher” than Mr.
+Baranow’s for approximately 18 years before they
+stopped living together.
+
+[175] In 1991, Ms. Kerr suffered a massive stroke
+and cardiac arrest, leaving her paralyzed on her left
+side and unable to return to work. Her health stead-
+ily deteriorated, and relations between the couple
+became increasingly strained. Mr. Baranow took an
+348
+
+
+early retirement in 2002. The trial judge acknowl-
+edged that Mr. Baranow claimed to have done this
+to care for Ms. Kerr, but noted that early retirement
+was also favourable to him. The trial judge found
+that Mr. Baranow started to experience “caregiver
+fatigue” and began exploring institutional care
+alternatives in June 2005. The next summer, in
+
+
+
+
+August 2006, Ms. Kerr had to undergo surgery on
+her knee. After the surgery, Mr. Baranow made it
+clear to the hospital staff that he was not prepared
+to have her return home. Ms. Kerr was transferred
+to an extended care facility where she remained at
+the time of trial. The trial judge found that, in the
+last 18 months Ms. Kerr resided at the Wall Street
+property, Mr. Baranow did most of the housework
+and helped her with her bodily functions.
+
+C. Analysis
+
+(1) The Resulting Trust Issue
+
+[176] The trial judge found that Mr. Baranow held
+a one-third interest in the Wall Street property by
+way of resulting trust for Ms. Kerr, on three bases.
+The Court of Appeal found that each of these hold-
+ings was erroneous. I respectfully agree.
+
+(a) Gratuitous Transfer
+
+[177] The trial judge found that the transfer of
+the Coleman Street property to Mr. Baranow was
+gratuitous, therefore raising the presumption of a
+resulting trust in Ms. Kerr’s favour. At the time
+of transfer to Mr. Baranow, roughly $133,000 was
+required to save the property (it was subject to a
+first mortgage of just under $80,000, a second mort-
+gage of just under $35,000, a judgment in favour of
+the Bank of Montreal of just under $12,000, and
+other miscellaneous debts and charges, adding up
+to roughly $133,000). There was also a $26,500
+judgment in favour of CIBC, which was of concern
+[2011] 1 R.C.S.
+
+
+to Ms. Kerr, although it is not listed in the payouts
+required to close the transfer. We know that Ms.
+Kerr had guaranteed some of her former husband’s
+debts, and that she declared bankruptcy in 1983 in
+relation to $15,000 of debt for which she had co-
+signed with her former husband.
+
+
+
+
+
+[178] The Court of Appeal reversed the trial
+judge’s resulting trust finding, holding that the
+transfer was not gratuitous. The court pointed to
+the contributions and liabilities undertaken by Mr.
+Baranow to make the transfer possible, and con-
+cluded that the trial judge’s finding in this regard
+constituted a palpable and overriding error.
+
+[179] On this point, I respectfully agree with
+the Court of Appeal. There is no dispute that Mr.
+Baranow injected roughly $33,000 in cash, and
+guaranteed a $100,000 mortgage, so that the prop-
+erty would not be lost to the bank in the foreclosure
+proceedings. This constituted consideration, and
+the transfer therefore cannot reasonably be labelled
+gratuitous. The respondent would have us hold oth-
+erwise on the basis of technical arguments about
+the lack of a precise coincidence between the time
+of the transfer and payments, and the lack of pay-
+ment directly to Ms. Kerr because Mr. Baranow’s
+payments were made to her creditors. These argu-
+ments have no merit. An important element of the
+trial judge’s finding of a resulting trust was his
+conclusion that there was “no evidence” that Mr.
+Baranow’s payment of $33,000 in cash and his
+guarantee of the $100,000 mortgage “were in con-
+nection with the transfer or part of an agreement
+between the parties so as to constitute considera-
+tion for the transfer” (para. 76). Putting to one side
+for the moment whether this finding reflects a cor-
+rect understanding of a gratuitous transfer, the
+judge clearly erred in making this statement; there
+was in fact much evidence to that precise effect.
+Mr. Baranow testified that Ms. Kerr had “tearfully
+asked” Mr. Baranow for help to save the property
+from the creditors. Ms. Kerr’s solicitor recorded in
+his reporting letter that Ms. Kerr felt she had little
+choice but to convey the property to Mr. Baranow
+350
+
+
+“faced with the large outstanding debts of [her]
+husband which include[d] a Judgment taken by
+C.I.B.C. for a debt outstanding in the amount of
+$26,500.00”. At trial, Ms. Kerr was asked whether
+she had requested Mr. Baranow to save the house;
+she responded, “I guess so.” Thus, contrary to the
+judge’s finding, there was in fact considerable evi-
+
+
+
+
+dence that Mr. Baranow’s paying off of the debts
+and guaranteeing the mortgage were in connec-
+tion with the transfer of the property to him. This
+evidence shows that he accepted the transfer and
+assumed the financial obligations at Ms. Kerr’s
+request, and in order to further her purpose of pre-
+venting the creditors from foreclosing on the prop-
+erty.
+
+[180] The Court of Appeal was correct to inter-
+vene on this point and conclude that the transfer
+was not gratuitous. The trial judge’s imposition of a
+resulting trust on one-third of the Wall Street prop-
+erty on this basis accordingly cannot be sustained.
+
+(b) Ms. Kerr’s Contributions
+
+[181] The trial judge also based his finding of
+resulting trust on Ms. Kerr’s financial and other
+contributions to the acquisition of the new home
+on the Wall Street property. He found Ms. Kerr had
+contributed a total of $60,000: $37,000 in equity
+from the transfer of the Coleman Street property to
+Mr. Baranow; $20,000 for the value of the Cadillac
+also transferred to Mr. Baranow; and $3,000 for
+the furniture in the Coleman Street property. In
+addition, the trial judge noted that, in obtaining
+the legal title of Coleman, Mr. Baranow was able
+to “re-mortgage both properties for $116,000.00
+and apply the $16,000.00 toward the acquisition of
+the Wall Street Property” (para. 82). Furthermore,
+Mr. Baranow would not have been able to pay off
+the mortgages with the same efficiency but for
+Ms. Kerr’s contributions to household expenses.
+However, the trial judge did not attach any value
+to these last two matters in his determination of the
+[2011] 1 R.C.S.
+
+
+extent of the resulting trust which he imposed on
+the Wall Street property.
+
+[182] The Court of Appeal reversed this finding
+
+
+
+
+as not being supported by the record. The court
+noted that Ms. Kerr did not have $37,000 in equity
+in the Coleman Street property when Mr. Baranow
+took title, Mr. Baranow did not receive any benefi-
+cial interest in the vehicle, and there was no evi-
+dence of the value of the furnishings.
+
+[183] I agree with the Court of Appeal’s disposi-
+tion of this issue. As it pointed out, the evidence
+showed that, in addition to Mr. Baranow paying
+cash and guaranteeing a mortgage, he paid the
+monthly mortgage payments, taxes and upkeep
+expenses on the Coleman property until it was sold
+in 1985 for $138,000 (less real estate commission).
+Mr. Baranow received no beneficial interest in the
+vehicle and the judge made no finding about the
+value of the furnishings. There was not, in any
+meaningful sense of the word, any equity in the
+Coleman property for Ms. Kerr to contribute to the
+acquisition or improvement of the Wall Street prop-
+erty. I would affirm the conclusion of the Court of
+Appeal on this point.
+
+(c) Common Intention Resulting Trust
+
+[184] The trial judge also appears to have based
+his conclusions about the resulting trust on his
+finding of a common intention on the part of Ms.
+Kerr and Mr. Baranow to share in the Wall Street
+property. For the reasons I have given earlier, the
+“common intention” resulting trust has no further
+role to play in the resolution of disputes such as this
+one. I would hold that a resulting trust should not
+have been imposed on the Wall Street property on
+the basis of a finding of common intention between
+these parties.
+352
+
+
+(d) Conclusion With Respect to Resulting
+Trust
+
+[185] In my view the Court of Appeal was cor-
+rect to set aside the trial judge’s conclusions with
+respect to the resulting trust issues.
+
+
+
+
+(2) Unjust Enrichment
+
+[186] The trial judge also found that Mr. Baranow
+had been unjustly enriched by Ms. Kerr to the
+extent of $315,000, the value of the one-third inter-
+est in the Wall Street property determined during
+the resulting trust analysis. The judge found that
+Ms. Kerr had provided the following benefits to
+Mr. Baranow:
+
+a.
+
+b. the automobile;
+
+c.
+
+d. $16,000 in refinancing permitted by the Cole-
+man transfer and applied to the Wall Street
+property;
+
+e.
+Street property;
+
+f.
+both properties;
+
+g. spousal services such as housework, entertain-
+ing guests and preparing meals until Ms. Kerr’s
+disability made it impossible to continue;
+
+h. assistance with planning and decoration of the
+Wall Street house;
+
+i.
+chattels for the new home;
+
+j.
+[2011] 1 R.C.S.
+
+
+k. approximately five years’ worth of rental
+income from Ms. Kerr’s son.
+
+[187] Turning to the element of correspond-
+ing deprivation, the trial judge noted that it was
+“unlikely” that Ms. Kerr had given up any career
+or educational opportunities over the course of the
+
+
+
+
+relationship. Furthermore, her income remained
+unchanged, even following her stroke, due to her
+receipt of disability pensions and other benefits.
+The judge found that she had lived rent-free for the
+entire relationship. He concluded, however, that
+she had suffered a deprivation because, had she not
+contributed her equity in the Coleman Street prop-
+erty, it was “reasonable to infer that she would have
+used it to purchase an asset in her own name, invest
+for her own benefit, use it for some personal inter-
+est, or otherwise avail herself of beneficial financial
+opportunity”: para. 92. He also concluded, without
+elaboration, that the benefits that she received from
+the relationship did not overtake her contributions.
+
+[188] The Court of Appeal set aside the trial
+judge’s finding of unjust enrichment. It found that
+Mr. Baranow’s direct and indirect contributions,
+by which Ms. Kerr was enriched and for which he
+was not compensated, constituted a juristic reason
+for any enrichment which he experienced at her
+expense. The court found that, for reasons men-
+tioned earlier, there was no $60,000 contribution by
+Ms. Kerr and therefore her claim rested on her indi-
+rect contributions. The court also concluded that
+the trial judge’s analysis failed to assess the extent
+of Mr. Baranow’s direct and indirect contributions
+to Ms. Kerr, including: his payment of accommo-
+dation expenses for the duration of the relation-
+ship; his contribution to the purchase price of the
+van which Ms. Kerr still possesses; her receipt of
+almost half of his lifetime amount of union medical
+benefits, used to pay for her health care expenses;
+his taking early retirement with a reduced monthly
+pension to care for Ms. Kerr; and his provision of
+extensive personal caregiver and domestic services
+without compensation. Moreover, in the Court of
+Appeal’s view, the trial judge had failed to note
+that Mr. Baranow’s payment of her living expenses
+354
+
+
+permitted her to save about $272,000 over the
+course of the relationship.
+[189] The appellant challenges the Court of
+
+
+
+
+Appeal’s decision on two bases. First, she argues
+that the court improperly interfered with the trial
+judge’s finding of fact with respect to Ms. Kerr’s
+$60,000 contribution to the relationship. Second,
+she submits that the court improperly considered
+the question of mutual benefits through the lens of
+juristic reason, and that this resulted in the court
+failing to consider globally who had been enriched
+and who deprived. Ms. Kerr’s submission on this
+latter point is that consideration of mutual benefit
+conferral should occur during the first two steps
+of the unjust enrichment analysis: enrichment and
+corresponding deprivation. Once that has been
+established, she argues that the legitimate expecta-
+tions of the parties may be considered as part of the
+analysis of whether there was a juristic reason for
+the enrichment. The main point is that, in the appel-
+lant’s submission, it was open to the trial judge to
+conclude that the parties’ legitimate expectation
+was that they would accumulate wealth in propor-
+tion to their respective incomes; without a share of
+the value of the real property acquired during the
+relationship, that reasonable expectation cannot be
+realized.
+[190] More fundamentally, the appellant urges
+the Court to adopt what she calls the “family prop-
+erty approach” to unjust enrichment. In essence,
+the appellant submits that her contributions gave
+rise to a reasonable expectation that she would have
+an equitable share of the assets acquired during the
+relationship.
+[191]
+(a) Findings of Fact Regarding the $60,000
+Contribution
+[192] As noted earlier, the Court of Appeal was
+right to set aside the trial judge’s conclusion that the
+[2011] 1 R.C.S.
+
+
+appellant had contributed $60,000 to the couple’s
+assets. There was, in no realistic sense of the word,
+any “equity” to contribute from the Coleman Street
+property to acquisition of the new Wall Street
+“dream home”. Furthermore, the appellant retained
+the beneficial use of the motor vehicle, and there
+was no satisfactory evidence of the value of the fur-
+
+
+
+
+niture. The judge’s findings on this point were the
+product of clear and determinative error.
+
+(b) Analysis of Offsetting Enrichments
+
+[193] On this issue, I cannot accept the conclu-
+sions of either the trial judge or the Court of Appeal.
+As noted, in his determination of the extent of Ms.
+Kerr’s unjust enrichment, the trial judge largely
+ignored Mr. Baranow’s contributions. However, for
+the reasons I have developed earlier, the Court of
+Appeal erred in assessing Mr. Baranow’s contri-
+butions as part of the juristic reason analysis; this
+analysis prematurely truncated Ms. Kerr’s prima
+facie case of unjust enrichment. I have set out the
+correct approach to this issue earlier in my rea-
+sons. As, in my view, there must be a new trial of
+both Ms. Kerr’s unjust enrichment claim and Mr.
+Baranow’s counterclaim, it is not necessary to say
+anything further. The principles set out above must
+accordingly be applied at the new trial of these
+issues.
+
+(c) The “Family Property Approach”
+
+[194] I turn finally to Ms. Kerr’s more general
+point that her claim should be assessed using a
+“family property approach”. As set out earlier in
+my reasons, for Ms. Kerr to show an entitlement
+to a proportionate share of the wealth accumulated
+during the relationship, she must establish that Mr.
+Baranow has been unjustly enriched at her expense,
+that their relationship constituted a joint family
+venture, and that her contributions are linked to
+the generation of wealth during the relationship.
+356
+
+
+She would then have to show what proportion of
+the jointly accumulated wealth reflects her con-
+tributions. Of course, this clarified template was
+not available to the trial judge or to the Court of
+Appeal. However, these requirements are quite dif-
+ferent than those advanced by the appellant and
+accordingly her “family property approach” must
+
+
+
+
+be rejected.
+
+(d) Disposition of the Unjust Enrichment
+Appeal
+
+[195] I conclude that the findings of the trial
+judge in relation to unjust enrichment cannot
+stand. The next question is whether, as the Court of
+Appeal decided, Ms. Kerr’s claim for unjust enrich-
+ment should be dismissed or whether it ought to
+be returned for a new trial. With reluctance, I have
+concluded the latter course is the more just one in
+all of the circumstances.
+
+[196] The first consideration in support of a new
+trial is that the Court of Appeal directed a hearing
+of Mr. Baranow’s counterclaim. Given that the trial
+judge unfortunately did not address that claim in
+any meaningful way, the Court of Appeal’s order
+that it be heard and decided is unimpeachable.
+There was evidence that Mr. Baranow made very
+significant contributions to Ms. Kerr’s welfare such
+that his counterclaim cannot simply be dismissed.
+As I noted earlier, the trial judge also referred to
+various other monetary and non-monetary contri-
+butions which Ms. Kerr made to the couple’s wel-
+fare and comfort, but he did not evaluate them, let
+alone compare them with the contributions made
+by Mr. Baranow. In these circumstances, trying
+the counterclaim separately from Ms. Kerr’s claim
+would be an artificial and potentially unfair way of
+proceeding.
+
+[197] More fundamentally, Ms. Kerr’s claim was
+not presented, defended or considered by the courts
+below pursuant to the joint family venture analysis
+that I have set out. Even assuming that Ms. Kerr
+[2011] 1 R.C.S.
+
+
+made out her claim in unjust enrichment, it is not
+possible to fairly apply the joint family venture
+approach to this case on appeal, using the record
+available to this Court. There are few findings of
+fact relevant to the key question of whether the par-
+ties’ relationship constituted a joint family venture.
+Moreover, even if one were persuaded that the evi-
+
+
+
+
+dence permitted resolution of the joint family ven-
+ture issue, the record is unsatisfactory for deciding
+whether Ms. Kerr’s contributions to a joint family
+venture were linked to the accumulation of wealth
+and, if so, in what proportion. The trial judge found
+that her payment of household expenses and insur-
+ance payments, along with the “proceeds” from the
+Coleman Street property, allowed Mr. Baranow
+to pay off the $116,000 mortgage on both proper-
+ties before July 1985. There is, thus, a finding that
+her contributions were linked to the accumulation
+of wealth, given that the Wall Street property was
+valued at $942,500 at the time of trial. However,
+as the judge’s findings with respect to Ms. Kerr’s
+equity in the Coleman Street property cannot
+stand, this conclusion is considerably undermined.
+For much the same reason, there is no possibil-
+ity on this record of evaluating the proportionate
+contributions to a joint family venture. In short,
+to attempt to resolve Ms. Kerr’s unjust enrich-
+ment claim on its merits, using the record before
+this Court, involves too much uncertainty and risks
+injustice.
+
+[198] In this respect, the Kerr appeal is in marked
+contrast to the Vanasse appeal. There, an unjust
+enrichment was conceded and the trial judge’s
+findings of fact closely correspond to the analytical
+approach I have proposed. In the present appeal,
+while the findings made do not appear to demon-
+strate a joint family venture or a concomitant link
+to accumulated wealth, it would be unfair to reach
+that conclusion without giving an opportunity to
+the parties to present their evidence and arguments
+in light of the approach set out in these reasons.
+358
+
+
+[199] Reluctantly, therefore, I would order a new
+trial of Ms. Kerr’s unjust enrichment claim, as well
+as affirm the Court of Appeal’s order for a hearing
+of Mr. Baranow’s counterclaim.
+
+
+
+
+(3) Effective Date of Spousal Support
+
+[200] The final issue is whether, as the Court of
+Appeal held, the trial judge erred in making his
+order for spousal support in favour of Ms. Kerr
+effective on the date she had commenced proceed-
+ings rather than on the first day of trial. In my
+respectful view, the Court of Appeal erred in its
+application of the relevant factors and ought not to
+have set aside the trial judge’s order.
+
+[201] The trial judge found that the appellant’s
+income in 2006 was $28,787 and the respond-
+ent’s income was $70,520, on the basis of their
+respective income tax returns. He then applied the
+Spousal Support Advisory Guidelines (“SSAG”) to
+arrive at a range of $1,304 to $1,739 per month. He
+settled on an amount at the higher end of that range
+in order to assist Ms. Kerr in pursuing a private
+bed while waiting for a subsidized bed in a suitable
+facility closer to her family.
+
+[202] The Court of Appeal agreed with the trial
+judge that Ms. Kerr was entitled to an award of
+spousal support given the length of the parties’
+relationship, her age, her fixed and limited income
+and her significant disability; she was entitled to a
+spousal support award that would permit her to live
+at a lifestyle that is closer to that which the parties
+enjoyed when they were together; and that the judge
+had properly determined the quantum of support.
+The Court of Appeal concluded, however, that the
+trial judge had erred in ordering support effective
+[2011] 1 R.C.S.
+
+
+the date Ms. Kerr had commenced proceedings. It
+faulted the judge in several respects: for apparently
+making the order as a matter of course rather than
+applying the relevant legal principles; for failing to
+consider that, during the interim period, Ms. Kerr
+had no financial needs beyond her means because
+she had been residing in a government-subsidized
+
+
+
+
+care facility and had not had to encroach on her
+capital; for failing to take account of the fact she
+had made no demand of Mr. Baranow to contribute
+to her interim support and had provided no expla-
+nation for not having done so; and for ordering ret-
+roactive support where, in light of the absence of
+an interim application, there was no blameworthy
+conduct on Mr. Baranow’s part.
+
+[203] The appellant submits that the decision
+to equate the principles pertaining to retroactive
+spousal support with those of retroactive child sup-
+port has been done without any discussion or legal
+analysis. Furthermore, she argues that the Court of
+Appeal’s reasoning places an untoward and inap-
+propriate burden on applicants, essentially mandat-
+ing that they apply for interim spousal support or
+lose their entitlement. Lastly, she argues that there
+is a legal distinction between retroactive support
+before and after the application is filed, and that in
+the latter circumstance there is less need for judi-
+cial restraint. I agree with the second and third of
+these submissions.
+
+[204] There is no doubt that the trial judge
+had the discretion to award support effective
+the date proceedings had been commenced.
+This is clear from the British Columbia Family
+360
+
+
+Relations Act, R.S.B.C. 1996, c. 128 (“FRA”),
+s. 93(5)(d):
+
+93 . . .
+
+
+
+
+(5) An order under this section may also provide
+for one or more of the following:
+
+.
+
+(d) payment of support in respect of any
+period before the order is made;
+
+[205] The appellant requested support effec-
+tive the date her writ of summons and statement
+of claim were issued and served. She was and is
+not seeking support for the period before she com-
+menced her proceedings, or for any period during
+which another court order for support was in effect.
+I note that she was obliged by statute to seek sup-
+port within a year of the end of cohabitation: defi-
+nition of “spouse”, s. 1(1)(b) of the FRA. Ms. Kerr
+made her application just over a month after the
+parties ceased living together.
+
+[206] I will not venture into the semantics of the
+word “retroactive”: see D.B.S. v. S.R.G., 2006 SCC
+37, [2006] 2 S.C.R. 231, at paras. 2 and 69-70; S. (L.)
+v. P. (E.) (1999), 67 B.C.L.R. (3d) 254 (C.A.), at
+paras. 55-57. Rather, I prefer to follow the example
+of Bastarache J. in D.B.S. and consider the relevant
+factors that come into play where support is sought
+in relation to a period predating the order.
+
+[207] While D.B.S. was concerned with child as
+opposed to spousal support, I agree with the Court
+of Appeal that similar considerations to those set
+out in the context of child support are also relevant
+to deciding the suitability of a “retroactive” award
+of spousal support. Specifically, these factors are
+the needs of the recipient, the conduct of the payor,
+[2011] 1 R.C.S.
+
+
+the reason for the delay in seeking support and any
+hardship the retroactive award may occasion on the
+payor spouse. However, in spousal support cases,
+these factors must be considered and weighed in
+light of the different legal principles and objec-
+tives that underpin spousal as compared with child
+support. I will mention some of those differences
+
+
+
+
+briefly, although certainly not exhaustively.
+
+[208] Spousal support has a different legal foun-
+dation than child support. A parent-child relation-
+ship is a fiduciary relationship of presumed depend-
+ency and the obligation of both parents to support
+the child arises at birth. In that sense, the entitlement
+to child support is “automatic” and both parents
+must put their child’s interests ahead of their own
+in negotiating and litigating child support. Child
+support is the right of the child, not of the parent
+seeking support on the child’s behalf, and the basic
+amount of child support under the Divorce Act,
+R.S.C. 1985, c. 3 (2nd Supp.), (as well as many pro-
+vincial child support statutes) now depends on the
+income of the payor and not on a highly discretion-
+ary balancing of means and needs. These aspects
+of child support reduce somewhat the strength of
+concerns about lack of notice and lack of diligence
+in seeking child support. With respect to notice, the
+payor parent is or should be aware of the obliga-
+tion to provide support commensurate with his or
+her income. As for delay, the right to support is the
+child’s and therefore it is the child’s, not the other
+parent’s position that is prejudiced by lack of dili-
+gence on the part of the parent seeking child sup-
+port: see D.B.S., at paras. 36-39, 47-48, 59, 80 and
+100-104. In contrast, there is no presumptive enti-
+tlement to spousal support and, unlike child sup-
+port, the spouse is in general not under any legal
+obligation to look out for the separated spouse’s
+legal interests. Thus, concerns about notice, delay
+and misconduct generally carry more weight in
+relation to claims for spousal support: see, e.g.,
+M. L. Gordon, “Blame Over: Retroactive Child
+and Spousal Support in the Post-Guideline Era”
+362
+
+
+(2004-2005), 23 C.F.L.Q. 243, at pp. 281 and 291-
+92.
+
+
+
+
+
+[209] Where, as here, the payor’s complaint is
+that support could have been sought earlier, but
+was not, there are two underlying interests at stake.
+The first relates to the certainty of the payor’s legal
+obligations; the possibility of an order that reaches
+back into the past makes it more difficult to plan
+one’s affairs and a sizeable “retroactive” award for
+which the payor did not plan may impose finan-
+cial hardship. The second concerns placing proper
+incentives on the applicant to proceed with his or
+her claims promptly (see D.B.S., at paras. 100-103).
+
+[210] Neither of these concerns carries much
+weight in this case. The order was made effective
+the date on which the proceedings seeking relief
+had been commenced, and there was no interim
+order for some different amount. Commencement
+of proceedings provided clear notice to the payor
+that support was being claimed and permitted some
+planning for the eventuality that it was ordered.
+There is thus little concern about certainty of the
+payor’s obligations. Ms. Kerr diligently pursued her
+claim to trial and that being the case, there is little
+need to provide further incentives for her or others
+in her position to proceed with more diligence.
+
+[211] In D.B.S., Bastarache J. referred to the date
+of effective notice as the “general rule” and “default
+option” for the choice of effective date of the order
+(paras. 118 and 121; see also para. 125). The date
+of the initiation of proceedings for spousal support
+has been described by the Ontario Court of Appeal
+as the “usual commencement date”, absent a reason
+not to make the order effective as of that date:
+MacKinnon v. MacKinnon (2005), 75 O.R. (3d)
+175, at para. 24. While in my view, the decision
+[2011] 1 R.C.S.
+
+
+to order support for a period before the date of the
+order should be the product of the exercise of judi-
+cial discretion in light of the particular circum-
+stances, the fact that the order is sought effective
+from the commencement of proceedings will often
+be a significant factor in how the relevant consid-
+erations are weighed. It is important to note that, in
+
+
+
+
+D.B.S., all four litigants were requesting that child
+support payments reach back to a period in time
+preceding their respective applications; such is not
+the case here.
+[212] Other relevant considerations noted in
+D.B.S. include the conduct of the payor, the cir-
+cumstances of the child (or in the case of spousal
+support, the spouse seeking support), and any hard-
+ship occasioned by the award. The focus of concern
+about conduct must be on conduct broadly relevant
+to the support obligation, for example, concealing
+assets or failing to make appropriate disclosure:
+D.B.S., at para. 106. Consideration of the circum-
+stances of the spouse seeking support, by anal-
+ogy to the D.B.S. analysis, will relate to the needs
+of the spouse both at the time the support should
+have been paid and at present. The comments of
+Bastarache J. at para. 113 of D.B.S. may be easily
+adapted to the situation of the spouse seeking sup-
+port: “A [spouse] who underwent hardship in the
+past may be compensated for this unfortunate cir-
+cumstance through a retroactive award. On the
+other hand, the argument for retroactive [spousal]
+support will be less convincing where the [spouse]
+already enjoyed all the advantages (s)he would
+have received [from that support]”. As for hardship,
+there is the risk that a retroactive award will not
+be fashioned having regard to what the payor can
+currently afford and may disrupt the payor’s ability
+to manage his or her finances. However, it is also
+critical to note that this Court in D.B.S. empha-
+sized the need for flexibility and a holistic view of
+each matter on its own merits; the same flexibil-
+ity is appropriate when dealing with “retroactive”
+spousal support.
+364
+
+
+[213] In light of these principles, my view is that
+the Court of Appeal made two main errors.
+[214] First, it erred by finding that the circum-
+stances of the appellant were such that there was no
+need prior to the trial. The trial judge found, and the
+Court of Appeal did not dispute, that the appellant
+was entitled to non-compensatory spousal support,
+
+
+
+
+at the high end of the range suggested by the SSAG,
+for an indefinite duration. Entitlement, quantum,
+and the indefinite duration of the order were not
+appealed before this Court. It is clear that Ms. Kerr
+was in need of support from the respondent at the
+date she started her proceedings and remained so at
+the time of trial. The Court of Appeal rightly noted
+the relevant factors, such as her age, disability, and
+fixed income. However, the Court of Appeal did
+not describe how Ms. Kerr’s circumstances had
+changed between the commencement of proceed-
+ings and the date of trial, nor is any such change
+apparent in the trial judge’s findings of fact. As I
+understand the record, one of the objectives of the
+support order was to permit Ms. Kerr to have access
+to a private pay bed while waiting for her name to
+come up for a subsidized bed in a suitable facil-
+ity closer to her son’s residence. From the date she
+commenced her proceedings until the date of trial,
+she resided in the Brock Fahrni Pavilion in a
+government-funded extended care bed in a room
+with three other people. In my respectful view, her
+need was constant throughout the period. If the
+Court of Appeal’s rationale was that Ms. Kerr’s
+need would only arise once she actually had secured
+the private pay bed, its decision to make the order
+effective the first day of trial seems inconsistent
+with that approach. The Court of Appeal did not
+suggest that her need was any different on that day
+than on the day she had commenced her proceed-
+ings. Nor did the court point to any financial hard-
+ship that the trial judge’s award would have on Mr.
+Baranow.
+[2011] 1 R.C.S.
+
+
+[215] Respectfully, the Court of Appeal erred in
+principle in setting aside the judge’s order effective
+as of the date of commencement of proceedings
+on the ground that Ms. Kerr had no need during
+that period, while upholding the judge’s findings of
+need in circumstances that were no different from
+those existing at the time proceedings were com-
+
+
+
+
+menced.
+
+[216] Second, the Court of Appeal in my respect-
+ful view was wrong to fault Ms. Kerr for not bring-
+ing an interim application, in effect attributing to
+her unreasonable delay in seeking support for the
+period in question. Ms. Kerr commenced her pro-
+ceedings promptly after separation and, in light
+of the fact that the trial occurred only about thir-
+teen months afterward, she apparently pursued
+those proceedings to trial with diligence. There
+was thus clear notice to Mr. Baranow that support
+was being sought and he could readily take advice
+on the likely extent of his liability. Given the high
+financial, physical, and emotional costs of inter-
+locutory applications, especially for a party with
+limited means and a significant disability such as
+Ms. Kerr, it was in my respectful view unreason-
+able for the Court of Appeal to attach such serious
+consequences to the fact that an interim application
+was not pursued. The position taken by the Court
+of Appeal to my way of thinking undermines the
+incentives which should exist on parties to seek
+financial disclosure, pursue their claims with due
+diligence, and keep interlocutory proceedings to
+a minimum. Requiring interim applications risks
+prolonging rather than expediting proceedings.
+The respondent’s argument based on the fact that
+a different legal test would have applied at the
+interim support stage is unconvincing. After a full
+trial on the merits, the trial judge made clear and
+now unchallenged findings of need on the basis of
+circumstances that had not changed between com-
+mencement of proceedings and trial.
+366
+
+
+[217] In short, there was virtually no delay in
+applying for maintenance, nor was there any inor-
+dinate delay between the date of application and
+the date of trial. Ms. Kerr was in need through-
+out the relevant period, she suffered from a serious
+physical disability, and her standard of living was
+markedly lower than it was while she lived with the
+
+
+
+
+respondent. Mr. Baranow had the means to provide
+support, had prompt notice of her claim, and there
+was no indication in the Court of Appeal’s reasons
+that it considered the judge’s award imposed on him
+a hardship so as to make that award inappropriate.
+[218] While it is regrettable that the judge did
+not elaborate on his reasons for making the order
+effective as of the date proceedings had been com-
+menced, the relevant legal principles applied to the
+facts as he found them support the making of that
+order and the Court of Appeal erred in holding oth-
+erwise.
+[219] In summary, I conclude that the Court of
+Appeal erred in setting aside the portion of the
+judge’s order for support between the commence-
+ment of proceedings and the beginning of trial. I
+would restore the order of the trial judge making
+spousal support effective September 14, 2006.
+D. Disposition
+[220] I would allow the appeal in part.
+Specifically, I would:
+a.
+and restore the order of the trial judge with
+respect to support;
+b. allow the appeal with respect to the Court of
+Appeal’s decision to dismiss Ms. Kerr’s unjust
+enrichment claim and order a new trial of that
+claim;
+c.
+claim of resulting trust and the ordering of a
+[2011] 1 R.C.S.
+
+
+new hearing of Mr. Baranow’s counterclaim
+and affirm the order of the Court of Appeal in
+relation to those issues.
+
+[221] As Ms. Kerr has been substantially success-
+ful, I would award her costs throughout.
+
+
+
+
+
+Appeal 33157 allowed in part with costs.
+
+Appeal 33358 allowed with costs.
+
+Solicitors for the appellant Margaret Kerr:
+Hawthorne, Piggott & Company, Burnaby.
+
+Solicitor for the respondent Nelson Baranow:
+Susan G. Label, Vancouver.
+
+Solicitors for the appellant Michele Vanasse:
+Nelligan O’Brien Payne, Ottawa.
+
+Solicitors for the respondent David Seguin:
+MacKinnon & Phillips, Ottawa.
