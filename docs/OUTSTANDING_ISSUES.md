@@ -3380,9 +3380,46 @@ them legitimately.
 
 ---
 
-## 14. The 146 undated ClaimType sources — the backfill plan
+## 14. The 146 undated ClaimType sources — ✅ DONE 2026-09-30 (144 of 146)
 
-**Not started. Recorded so it can be done in batches rather than as one block.**
+**Done as a content review, the way this entry said it had to be.** All 146
+entries were read against their sources on 2026-09-30:
+
+| Outcome | Count |
+|---|---|
+| Supported as written | 58 |
+| Said more than the source, corrected to what it says | 86 |
+| Source could not be retrieved (O. Reg. 333/08) | 2 |
+
+Every corrected entry was then re-read by an independent reviewer who had not
+written it (74 supported; 12 needed a further fix, then a third re-read of
+those found 4 more small gaps, fixed from the source text). Each of the 144
+dated entries has a record in `docs/sources/catalogue-verification.json` —
+the verbatim passages it rests on and a fingerprint of the verified text — and
+`npm run test:catalogue-verified` (in CI) fails if an entry is edited without
+re-verification, if a quoted passage is not in the vendored source, or if the
+link a user follows was not one read for that entry. The recurring patterns,
+so they are not written again:
+
+- **A general page cited for a specific proposition.** 13 elements cited the
+  Superior Court's burden-of-proof sentence for what a loan, sale or contract
+  claim must show. Now: the burden sentence, attributed, plus a navigation
+  label for the element.
+- **A procedure page cited for what a Defence may argue.** 17 considerations.
+  Now cited to rr. 9.01–9.02, which say what a Defence contains.
+- **"$50,000" cited to the Courts of Justice Act**, which says only "the
+  prescribed amount". Now the Small Claims guide, with O. Reg. 626/00 s. 1(1)
+  and CJA s. 23(1) in `alsoCites`.
+- **"Two years from when the incident was discovered"**; the Act says the
+  *claim*. Now Limitations Act ss. 4, 5(1) and the s. 5(2) presumption.
+
+**Still open:** the two O. Reg. 333/08 entries on the used-vehicle claim type
+(`dealer-failed-to-disclose`, `cancelled-within-90-days`) are undated and listed
+as unverifiable in the log. The regulation is not vendored; the e-Laws `.doc`
+route is refused to WebFetch and blocked to the shell; CanLII may not be
+scraped. Vendor it through `docs/sources/` (manual download) and verify both.
+
+*The original plan, kept for the record:*
 
 `verifyIntakeCoverage` prints the count every run: **146 of 146** ClaimType
 sub-entries carry a `sourceUrl` with no `verifiedAt` — 75 plaintiff elements,

@@ -1514,3 +1514,40 @@ failure direction: less said, nothing invented.
 
 Asserted by `test:grounded-analysis` (planted hallucinations, end to end;
 fails on a bypassed gate, naming each one).
+
+## The catalogue is verified, and the verification is checkable (2026-09-30)
+
+The grounded analysis is only as accurate as its pack, and for Small Claims the
+pack is mostly the claim-type catalogue (`intake/claimTypes.ts`). So the
+catalogue was read, entry by entry, against its sources: **146 entries, 58
+supported as written, 86 corrected, 2 unverifiable** (O. Reg. 333/08 could not be
+retrieved). Every correction was re-read by an independent reviewer who had not
+written it; the 12 that still fell short were fixed and re-read again.
+
+**What a date now means.** Each dated entry has a record in
+`docs/sources/catalogue-verification.json`: the verbatim passages it rests on,
+how each source was read, what was wrong before (for corrections), and a
+fingerprint of the exact text verified. `test:catalogue-verified` (in CI):
+
+- fails if an entry's text changes and its record does not -- editing verified
+  content means re-reading the source, and the message says so;
+- checks every quoted passage from a vendored corpus file really is in it
+  (" ... " marks skipped material, each run checked separately);
+- requires the entry's own `sourceUrl`, and every `alsoCites`, to be among the
+  sources actually read for it;
+- requires `consolidationPeriod` to be the start of the consolidation read.
+
+Helpers (entry list, fingerprint) are in `scripts/content/catalogueVerification.ts`.
+
+**New field: `alsoCites`.** An entry whose text rests on two instruments (the
+Small Claims guide AND O. Reg. 626/00 for $50,000; Clements AND Mustapha for
+causation) names the second inline and lists it in `alsoCites`, so a check can
+read it.
+
+**Four patterns caused most of the 86** -- they are the ones to watch for when
+adding claim types (civil and family next): a general page cited for a specific
+proposition (the burden-of-proof sentence cited for what a loan claim must
+show); a procedure page cited for what a Defence may argue; "$50,000" cited to
+the CJA, which says only "the prescribed amount"; and "two years from when the
+incident was discovered" where the Act says the claim. Details in
+`OUTSTANDING_ISSUES.md` §14 and `SOURCING_NOTES.md`.

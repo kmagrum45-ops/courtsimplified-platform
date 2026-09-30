@@ -128,6 +128,15 @@ jobs:
       - name: Intake coverage verification
         run: npm run test:intake-coverage
 
+      - name: Catalogue verification log holds against the catalogue
+        run: npm run test:catalogue-verified
+
+      - name: AI analysis cannot show an unsourced legal statement
+        run: npm run test:grounded-analysis
+
+      - name: Switch-off path shows no model-written text
+        run: npm run test:no-model-text-to-users
+
       - name: AI model configuration verification
         run: npm run test:ai-models
 

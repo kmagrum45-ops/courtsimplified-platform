@@ -609,6 +609,57 @@ is four sections. A minimum-length guard set at a round number will reject it.
 ~147 KB of entitlement worked examples and states no date rules. The statute
 (`00e41_e.doc`, the ordinary e-Laws `.doc` route) has the definition in s. 1 (1).
 `ontario.ca/page/ontario-public-holidays` is a **404**.
+
+### Findings from the 2026-09-30 catalogue verification (all 146 Small Claims entries)
+
+Recorded so the next pass does not rediscover them. The per-entry evidence is in
+`docs/sources/catalogue-verification.json`.
+
+- **Scanned SCC PDFs: OCR them locally.** `pdftotext` gives an empty file for
+  Waldick, Machtinger, Hill, Red Deer, Myers and Cognos. `pdftoppm -r 200 -gray`
+  then `tesseract` per page works in the workspace and takes a few minutes per
+  decision. Page numbers come out as bare four-digit lines ("1187"), which is
+  how to pinpoint a pre-2001 decision that has no paragraph numbers. Watch for
+  the headnote: Waldick's headnote paraphrases the "general community
+  compliance" sentence without the judgment's quotation marks, and a quote
+  taken from the headnote is not the Court's words.
+- **Text-layer SCC PDFs are two columns, English left.** A quote that runs over
+  a line break will not match a plain substring search of `pdftotext` output,
+  because the French column is interleaved. Read it by eye, or cut the left
+  column.
+- **`decisions.scc-csc.ca` returned 403 to WebFetch this session.** Earlier notes
+  say it was fetchable; treat it as intermittent and use the saved PDFs.
+- **O. Reg. 333/08 (Motor Vehicle Dealers Act general regulation) is
+  unreachable from here.** Not in the corpus (`motor-vehicle-dealers-act-2002.txt`
+  is the Act, not the regulation); `ontario.ca/laws/docs/080333_e.doc` is refused
+  to WebFetch (search never surfaces that URL) and blocked to the shell; the
+  viewer is a JS shell; search surfaces CanLII, which may not be scraped. The
+  two catalogue entries resting on it are undated. The route is a manual
+  download into `docs/sources/`.
+- **WebFetch only fetches a URL that search has surfaced** for many ontario.ca
+  addresses. Search for the page first, then fetch the exact URL search returned.
+- **The Superior Court's "Steps to a civil case" page still says Small Claims is
+  "$35,000 or less".** It is stale (O. Reg. 626/00 s. 1(1): $50,000 from
+  October 1, 2025). Cite it only for its burden-of-proof sentence, never for the
+  limit.
+- **Several ontario.ca pages say two years "after the claim was discovered"**,
+  and the catalogue had turned that into "after the incident was discovered".
+  They are not the same: Limitations Act s. 5(1) defines when a *claim* is
+  discovered, and s. 5(2) presumes knowledge on the day of the act or omission
+  unless the contrary is proved. Cite ss. 4, 5(1) and 5(2) directly.
+- **The Consumer Protection Act, 2002 is "repealed on a day to be named by
+  proclamation" (2023, c. 23, Sched. 1, s. 110).** Still in force at the
+  consolidation read, so the catalogue's CPA entries are dated, but every one
+  must be re-checked when the Consumer Protection Act, 2023 is proclaimed.
+- **The Libel and Slander Act's notice and three-month rules have two limits
+  besides s. 7:** s. 8(1) (a newspaper that does not print its proprietor,
+  publisher and address cannot rely on ss. 5–6) and s. 8(3) (a broadcaster that
+  does not answer a registered-letter request). The notice under s. 5(1) must be
+  *served* like a statement of claim or delivered at the chief office.
+- **Limitations Act s. 13(11): a part payment of a liquidated sum stands in for
+  the written, signed acknowledgment; it does not itself have to be written.**
+  An earlier draft got this backwards.
+
 ## Dead ends already ruled out
 
 ### Ontario Fault Determination Rules ≠ a route to sue the other driver
