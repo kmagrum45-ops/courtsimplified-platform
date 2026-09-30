@@ -13,6 +13,7 @@ import {
 import type { AnalysisResult, StoredCaseData } from "./builderTypes";
 import { formatRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 import { FAMILY_RESOURCE_TOPICS } from "../../../src/lib/case-system/intake/familySafetyResources";
+import { parseRecordedAmount } from "../../../src/lib/case-system/format/recordedAmount";
 import { JURISDICTION_ROUTES } from "../../../src/lib/case-system/intake/jurisdictionRoutes";
 import { routesForConfirmedClaimType } from "../../../src/lib/case-system/intake/jurisdictionRouteRelevance";
 import { splitLead } from "../../../src/lib/case-system/format/previewText";
@@ -86,6 +87,8 @@ function SourcedList({ items }: { items: SourcedListItem[] }) {
   );
 }
 
+const GENERIC_CONFIRM_QUESTION = "What important fact should be confirmed next?";
+
 export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
   const role = textField(intake, "yourRole");
   // Only selections that record an actual filing. The Small Claims intake
@@ -130,8 +133,9 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
       : null;
   const hasDefamationSignal = issueSignals.some((item) => /defamation|reputation/i.test(item));
   const hasAdoptionSignal = issueSignals.some((item) => /adoption/i.test(item));
+  // Files only (2026-09-30). The typed evidence answer was listed here too and
+  // read the user's own words straight back; it stays in "What you told us".
   const recordedEvidence = Array.from(new Set([
-    ...(intake?.evidence.trim() ? [intake.evidence] : []),
     // Reads `reference` ("Document 1"), not `name`. The name field no longer
     // exists -- see src/lib/case-system/evidence/evidenceReference.ts -- so
     // this read was silently returning nothing after that change. The user's
@@ -178,7 +182,7 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
   );
   const confirmQuestion = askDefenceQuestion
     ? defenceQuestion
-    : candidateQuestions[0] || "What important fact should be confirmed next?";
+    : candidateQuestions[0] || GENERIC_CONFIRM_QUESTION;
   const textItems = (values: readonly string[]): SourcedListItem[] =>
     Array.from(new Set(values)).map((text) => ({ text }));
   const evidenceToOrganize: SourcedListItem[] = hasAdoptionSignal
@@ -239,14 +243,13 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
    * own situation is also the posture CLAUDE.md section 2 requires — the
    * system states the rule, the user applies it.
    */
-  // 2026-09-28: narrowed by the claim type the USER confirmed, never by the
-  // story -- see jurisdictionRouteRelevance.ts. With no confirmed claim type
-  // every route is listed, as before.
+  // Only entries tied to what the USER confirmed: their claim type, or an
+  // amount over the $50,000 limit. Nothing is listed otherwise (2026-09-30,
+  // site owner). Never narrowed by the story -- see jurisdictionRouteRelevance.ts.
   const jurisdictionRoutes =
     analysis.courtPath === "small-claims"
-      ? routesForConfirmedClaimType(JURISDICTION_ROUTES, confirmedClaimTypeId)
+      ? routesForConfirmedClaimType(JURISDICTION_ROUTES, confirmedClaimTypeId, parseRecordedAmount(amount))
       : [];
-  const routesNarrowed = jurisdictionRoutes.length < JURISDICTION_ROUTES.length;
 
   // 2026-09-28. What the rules say about starting an action. Gated on the
   // user's own record: bringing a claim, nothing filed yet. General
@@ -319,14 +322,24 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
           <details className="mt-3">
             <summary className="cursor-pointer font-semibold text-[#2f7d67]">What you told us</summary>
             <p className="mt-2 whitespace-pre-wrap">{facts}</p>
+            {intake?.evidence?.trim() ? (
+              <>
+                <p className="mt-3 font-semibold text-[#10231f]">Evidence you described</p>
+                <p className="mt-1 whitespace-pre-wrap">{intake.evidence}</p>
+              </>
+            ) : null}
           </details>
         ) : null}
       </Card>
-      {(issueSignals.length > 0 || issueTypeUndetermined) && <Card title="Issues to review">{hasDefamationSignal ? <><p className="font-semibold">Possible defamation or reputational-harm issue to review</p><p className="mt-2">The saved story describes an allegation said to have been communicated to other people and described as false. The court will need the full facts, context, evidence, and procedure reviewed.</p></> : hasAdoptionSignal ? <><p className="font-semibold">Possible adult step-parent adoption process to review</p><p className="mt-2">The saved facts describe an adult who may wish to be adopted by a long-term step-parent. Ontario has an adoption application process, but the required documents, notice/consent issues, and court requirements must be confirmed for the specific circumstances.</p></> : issueTypeUndetermined ? <p>We couldn’t determine a specific issue type from what you’ve described yet. Adding more detail about what happened, and what you want the court to do, will help narrow it.</p> : <ul className="list-disc space-y-1 pl-5">{issueSignals.map((issue) => <li key={issue}>Possible issue to review: {issue}. The saved facts and supporting information should be reviewed.</li>)}</ul>}</Card>}
+      {/* 2026-09-30: the generic "Possible issue to review: property-damage. The saved facts and supporting information should be reviewed." list said nothing the user did not already know (owner's walk-through). The card now shows only when it has something specific to say. */}
+      {(hasDefamationSignal || hasAdoptionSignal || issueTypeUndetermined) && <Card title="Issues to review">{hasDefamationSignal ? <><p className="font-semibold">Possible defamation or reputational-harm issue to review</p><p className="mt-2">The saved story describes an allegation said to have been communicated to other people and described as false. The court will need the full facts, context, evidence, and procedure reviewed.</p></> : hasAdoptionSignal ? <><p className="font-semibold">Possible adult step-parent adoption process to review</p><p className="mt-2">The saved facts describe an adult who may wish to be adopted by a long-term step-parent. Ontario has an adoption application process, but the required documents, notice/consent issues, and court requirements must be confirmed for the specific circumstances.</p></> : issueTypeUndetermined ? <p>We couldn’t determine a specific issue type from what you’ve described yet. Adding more detail about what happened, and what you want the court to do, will help narrow it.</p> : <ul className="list-disc space-y-1 pl-5">{issueSignals.map((issue) => <li key={issue}>Possible issue to review: {issue}. The saved facts and supporting information should be reviewed.</li>)}</ul>}</Card>}
       <Card title="Where your case is now"><p>{hasClaimAndService ? "Claim already filed and served." : `Recorded stage: ${displayStage(analysis.caseStage)}.`}</p></Card>
-      <Card title="What to confirm next"><p className="font-semibold">{hasAdoptionSignal ? "Does the adult person freely agree to the proposed adoption?" : confirmQuestion}</p><p className="mt-2">{hasClaimAndService ? "This helps identify the next Small Claims step. Confirm it from the court record or documents you received." : hasAdoptionSignal ? "This helps organize the saved facts for review of the proposed adoption process." : "This helps keep the next review based on the facts already entered."}</p></Card>
-      <Card title="Documents already recorded">{documents.length ? <ul className="list-disc space-y-1 pl-5">{documents.map((document) => <li key={document}>{documentLabel(document)}</li>)}</ul> : <p>No filed or served documents were selected in this intake.</p>}</Card>
-      <Card title="Evidence and proof to organize">{recordedEvidence.length > 0 && <><h3 className="font-semibold">Evidence you have recorded</h3><ul className="mt-2 list-disc space-y-1 pl-5">{recordedEvidence.map((item) => <li key={item}>{item}</li>)}</ul></>}{evidenceToOrganize.length > 0 && <><h3 className={recordedEvidence.length ? "mt-5 font-semibold" : "font-semibold"}>Evidence to organize or confirm</h3><ul className="mt-2 list-disc space-y-1 pl-5">{evidenceToOrganize.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></>}</Card>
+      {/* 2026-09-30: hidden when the only candidate is the generic fallback "What important fact should be confirmed next?" -- a card with no actual question in it. */}
+      {(hasAdoptionSignal || confirmQuestion !== GENERIC_CONFIRM_QUESTION) && <Card title="What to confirm next"><p className="font-semibold">{hasAdoptionSignal ? "Does the adult person freely agree to the proposed adoption?" : confirmQuestion}</p><p className="mt-2">{hasClaimAndService ? "This helps identify the next Small Claims step. Confirm it from the court record or documents you received." : hasAdoptionSignal ? "This helps organize the saved facts for review of the proposed adoption process." : "This helps keep the next review based on the facts already entered."}</p></Card>}
+      {/* 2026-09-30: shown only when there are filed or served court documents to list. */}
+      {documents.length > 0 && <Card title="Documents already recorded"><ul className="list-disc space-y-1 pl-5">{documents.map((document) => <li key={document}>{documentLabel(document)}</li>)}</ul></Card>}
+      {/* 2026-09-30: "Evidence you have recorded" repeated the user's own answer back to them. Their words stay in "What you told us"; the upload card below is where the evidence itself goes. */}
+      {(recordedEvidence.length > 0 || evidenceToOrganize.length > 0) && <Card title="Evidence and proof to organize">{recordedEvidence.length > 0 && <><h3 className="font-semibold">Files you have added</h3><ul className="mt-2 list-disc space-y-1 pl-5">{recordedEvidence.map((item) => <li key={item}>{item}</li>)}</ul></>}{evidenceToOrganize.length > 0 && <><h3 className={recordedEvidence.length ? "mt-5 font-semibold" : "font-semibold"}>Evidence to organize or confirm</h3><ul className="mt-2 list-disc space-y-1 pl-5">{evidenceToOrganize.map((item) => <li key={item.text}>{item.text}{item.sourceUrl ? <> (<a className="font-semibold text-[#2f7d67] underline" href={item.sourceUrl} target="_blank" rel="noreferrer">Source</a>)</> : null}</li>)}</ul></>}</Card>}
       {showStartingSteps && (
         <Card title="What the rules say about starting a Small Claims action">
           <p className="mb-3 text-sm leading-6 text-[#4d675f]">
@@ -403,14 +416,10 @@ export default function IntelligenceOverviewPanel({ analysis, intake }: Props) {
         </Card>
       )}
       {jurisdictionRoutes.length > 0 && (
-        <Card title="Situations that usually belong somewhere other than Small Claims">
+        <Card title="A rule that can affect where this kind of claim goes">
           <p className="mb-3 text-sm leading-6 text-[#4d675f]">
-            General information about kinds of matters that generally go elsewhere, listed so you can
-            see whether any of them describes your situation. This is not a decision about your claim —
-            nothing here has been matched against your story.
-            {routesNarrowed
-              ? " Entries about kinds of claim other than the one you confirmed are left out."
-              : ""}
+            Shown because of the kind of claim you confirmed or the amount you recorded. It is general
+            information about the rule, not a decision about your claim.
           </p>
           <ul className="space-y-5">
             {jurisdictionRoutes.map((route) => (
