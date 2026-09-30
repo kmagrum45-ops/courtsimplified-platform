@@ -69,9 +69,12 @@ export const KNOWN_FACT_FIELDS = [
   "serviceMethodText",
   "counterclaimIntentText",
   "admissionAndPaymentText",
-  // 2026-09-28. Verbatim choice from sc-defendant-default-status, gating the
-  // two "learned of" date questions below.
-  "defaultStatusText",
+  // 2026-09-29. Set by the extractor only when the person's OWN words say it
+  // happened. They gate the two "learned of" date questions: a defendant who
+  // was just served is never asked about default or judgment unless they
+  // raise it (site owner's rule, 2026-09-29).
+  "notedInDefault",
+  "defaultJudgment",
 ] as const;
 
 export type KnownFactField = (typeof KNOWN_FACT_FIELDS)[number];
@@ -133,14 +136,6 @@ export type IntakeQuestion = {
   reviewedAt: string | null;
   status: "draft" | "reviewed";
 };
-
-/** Choices for sc-defendant-default-status; the date questions gate on them by index. */
-export const DEFAULT_STATUS_CHOICES = [
-  "No, neither has happened",
-  "I've been noted in default",
-  "A judgment was made against me",
-  "I'm not sure",
-];
 
 export const QUESTION_BANK: IntakeQuestion[] = [
   // ---------------------------------------------------------------- orientation
@@ -383,6 +378,30 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     sensitive: false,
     phase: "substance",
     reviewedAt: "2026-09-10",
+    status: "reviewed",
+  },
+  {
+    // 2026-09-29. For the person being sued, the next step after being served
+    // is responding, so that is what is asked -- never default or judgment
+    // unless they raise it (site owner's rule). sc-defence-filed asks the
+    // PLAINTIFF whether the other side has filed; this is the defendant's own.
+    // The `why` repeats r. 9.01 of the Rules of the Small Claims Court, read
+    // from docs/sources/corpus/oreg-258-98-small-claims-rules.txt (e-Laws
+    // 980258_e.doc, retrieved 2026-09-27), the same wording as
+    // smallClaimsStartingSteps.ts "defence-20-days".
+    id: "sc-defendant-defence-filed",
+    courtArea: "small-claims",
+    appliesWhen: { field: "role", op: "equals", value: "defendant" },
+    text: "Have you filed a Defence (Form 9A) with the court yet?",
+    why:
+      "A defendant who wants to dispute the claim has 20 days after being served to serve a Defence " +
+      "(Form 9A) on every other party and file it, with proof of service, with the clerk.",
+    sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+    answerType: "yes-no",
+    allowUnknown: true,
+    sensitive: false,
+    phase: "substance",
+    reviewedAt: "2026-09-29",
     status: "reviewed",
   },
   {
@@ -807,44 +826,13 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     status: "reviewed",
   },
   {
-    // 2026-09-28. The story review battery found every defendant asked "If you
-    // have been noted in default, what date did you find out?" and "If
-    // judgment was made at a hearing you did not attend..." -- including
-    // people served last week. This asks first, in plain facts, and those two
-    // date questions follow only on a yes or "not sure". Their question ids,
-    // and so the deadline engine's inputs, are unchanged.
-    id: "sc-defendant-default-status",
-    courtArea: "small-claims",
-    appliesWhen: {
-      all: [
-        { field: "role", op: "equals", value: "defendant" },
-        { field: "claimServed", op: "equals", value: true },
-      ],
-    },
-    text:
-      "As far as you know, since you were served, has the court noted you in default or made a " +
-      "judgment against you?",
-    answerType: "choice",
-    choices: DEFAULT_STATUS_CHOICES,
-    capturesField: "defaultStatusText",
-    allowUnknown: true,
-    sensitive: false,
-    phase: "substance",
-    reviewedAt: "2026-09-28",
-    status: "reviewed",
-  },
-  {
     id: "sc-date-learned-of-default",
     courtArea: "small-claims",
     appliesWhen: {
       all: [
         { field: "role", op: "equals", value: "defendant" },
         { field: "claimServed", op: "equals", value: true },
-        {
-          field: "defaultStatusText",
-          op: "in",
-          values: [DEFAULT_STATUS_CHOICES[1], DEFAULT_STATUS_CHOICES[2], DEFAULT_STATUS_CHOICES[3]],
-        },
+        { field: "notedInDefault", op: "equals", value: true },
       ],
     },
     text: "If you have been noted in default, what date did you find out?",
@@ -870,8 +858,8 @@ export const QUESTION_BANK: IntakeQuestion[] = [
      */
     id: "sc-date-learned-of-judgment",
     courtArea: "small-claims",
-    // 2026-09-28: unchanged for a plaintiff; a defendant is asked only after
-    // saying a judgment was made, or not being sure.
+    // Unchanged for a plaintiff. A defendant is asked only when their own
+    // words say a judgment was made (2026-09-29).
     appliesWhen: {
       any: [
         {
@@ -884,7 +872,7 @@ export const QUESTION_BANK: IntakeQuestion[] = [
           all: [
             { field: "role", op: "equals", value: "defendant" },
             { field: "claimFiled", op: "equals", value: true },
-            { field: "defaultStatusText", op: "in", values: [DEFAULT_STATUS_CHOICES[2], DEFAULT_STATUS_CHOICES[3]] },
+            { field: "defaultJudgment", op: "equals", value: true },
           ],
         },
       ],
