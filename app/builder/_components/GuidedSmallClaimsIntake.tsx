@@ -196,10 +196,20 @@ export type GuidedIntakeCompletionResult = {
 function QuestionHelp({ question }: { question: IntakeQuestion | null }) {
   const [showWhy, setShowWhy] = useState(false);
 
-  if (!question?.why) return null;
+  // 2026-09-30. `examples` is reviewed bank content the server already sends,
+  // but nothing rendered it: "What outcome are you asking the court to order?"
+  // showed no examples although four are written (site owner's walk-through).
+  const examples = question?.examples ?? [];
+  if (!question?.why && examples.length === 0) return null;
 
   return (
     <div className="mt-2 text-xs leading-5">
+      {examples.length > 0 ? (
+        <p data-testid="question-examples" className="mb-1 text-[#4d675f]">
+          For example: {examples.join(" · ")}
+        </p>
+      ) : null}
+      {question?.why ? (
       <button
         type="button"
         onClick={() => setShowWhy((current) => !current)}
@@ -207,8 +217,9 @@ function QuestionHelp({ question }: { question: IntakeQuestion | null }) {
       >
         Why does this matter?
       </button>
+      ) : null}
 
-      {showWhy ? (
+      {showWhy && question?.why ? (
         <p className="mt-1 text-[#4d675f]">
           {question.why}
           {question.sourceUrl ? (
