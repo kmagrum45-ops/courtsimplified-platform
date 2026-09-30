@@ -36,6 +36,8 @@ import propertyDivision from "./property-division.json";
 import matrimonialHome from "./matrimonial-home.json";
 import divorce from "./divorce.json";
 import restrainingOrders from "./restraining-orders.json";
+import courtFees from "./court-fees.json";
+import evidence from "./evidence.json";
 
 export type GuideCourt = "small-claims" | "civil" | "family" | "all";
 
@@ -58,7 +60,7 @@ export type TopicGuide = {
 
 /**
  * In reading order: starting out, during a case, after a decision, help;
- * then family law topics. 20 guides (10 added the same day, read against
+ * then family law topics. 22 guides (10 added the same day, read against
  * their sources the same way: 54 of about 300 paragraphs corrected).
  */
 export const TOPIC_GUIDES: TopicGuide[] = [
@@ -69,10 +71,12 @@ export const TOPIC_GUIDES: TopicGuide[] = [
   discovery,
   mediation,
   summaryJudgment,
+  evidence,
   trial,
   costs,
   enforcing,
   appeals,
+  courtFees,
   feeWaivers,
   gettingHelp,
   divorce,

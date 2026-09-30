@@ -1,0 +1,242 @@
+Civil court fees | ontario.ca
+
+ Skip to main content
+
+ Ontario.ca needs JavaScript to function properly and provide you with a fast, stable experience.
+
+ To have a better experience, you need to:
+
+ Go to your browser's settings
+ Enable JavaScript
+
+ Log in to continue
+
+ Please log in for full account access.
+
+ Civil court fees
+
+ Learn about fees for civil proceedings (including estates and appeals) in Ontario courts.
+
+ Changing how you access the courts in Toronto
+
+ The Justice Services Online platform will no longer accept electronic submissions for Toronto matters due to the transition to the new Ontario Courts Public Portal ( OCPP ). For urgent or time-sensitive filings, please file in-person at the court counter or contact the appropriate court location by email. Counter services will remain open for in-person filings, with extended hours of operations from 8:30 a.m. to 5:00 p.m.
+
+-->
+
+ On this page
+ Skip this page navigation
+
+ Note
+
+ The fee amounts on this page come into effect starting January 1, 2023. To see the fee amounts in effect before that date, view the regulation(s) on e-Laws .
+
+--> Overview
+ Civil court proceedings are mostly conducted in the following courts:
+ Superior Court of Justice
+ Divisional Court branch of the Superior Court of Justice
+ Court of Appeal for Ontario
+ For Small Claims Court, learn more here .
+ There are many types of civil court proceedings, including:
+ actions (“lawsuits”)
+ applications, including applications for judicial review
+ estate applications (including applications for “probate”)
+ bankruptcy proceedings
+ appeals
+ You must pay a fee for most steps in a civil court proceeding, including:
+ starting an action, application or appeal
+ defending an action or responding to an application or appeal
+ filing a motion
+ requesting a trial date
+ taking steps to enforce a court order or judgment
+ Court fees are primarily set out in regulations made under the Administration of Justice Act . To be sure that you have the current fee schedules, always refer to the legislation on the Ontario government’s e-Laws website .
+ Court and enforcement fees are payable in Canadian dollars, and may be paid by:
+ cash (at the court or Enforcement Office)
+ cheque or money order, payable to the Minister of Finance (either at the court, Enforcement Office or by mail)
+ debit card (in person and when filing civil court documents online )
+ credit card (in person, over the phone and when filing civil court documents online )
+ Find court address and contact information.
+ If you cannot afford to pay the fees
+ If you cannot afford to pay court fees in your court proceeding, you may request a fee waiver. If you are granted a fee waiver, it will apply to most fees in your court proceeding from that point forward.
+ Learn how to apply for a fee waiver .
+ Superior Court of Justice and Court of Appeal fees
+ This section provides an unofficial overview of the fees set by Ontario regulation, Superior Court of Justice and Court of Appeal – Fees . For an official version of this regulation, refer to Ontario Regulation 293/92 .
+ General civil proceeding fees
+ The following fees are payable in all civil court proceedings, including appeals, unless fees specifically for a certain type of proceeding are set out elsewhere. For the purposes of these fees, an appeal of a family court order is considered a civil appeal.
+ Types of payable fees	 Amount in dollars
+ 1. On the issue of
+ i. a statement of claim, notice of action or notice of application
+ $243.00
+ ii. a third or subsequent party claim
+ $243.00
+ iii. a statement of defence and counterclaim adding a party
+ $243.00
+ iv. a summons to witness
+ $33.00
+ v. a certificate, other than a certificate of a search by the registrar required on an application for a certificate of appointment of estate trustee
+ $33.00
+ vi. a commission
+ $60.00
+ vii. a writ of execution
+ $77.00
+ viii. a notice of garnishment/renewal of garnishment ( incl. filing of notice with the sheriff)
+ $155.00
+ 2. On the signing of
+ i. an order directing a reference, subject to paragraph ii
+ $315.00
+ ii. an order on requisition directing the assessment of a bill under the Solicitors Act
+ A. if obtained by a client
+ $105.00
+ B. if obtained by a solicitor
+ $194.00
+ iii. a notice of appointment for the assessment of costs under Rules of Civil Procedure
+ $138.00
+ 3. On the filing of
+ i. a notice of intent to defend
+ $194.00
+ ii. if no notice of intent to defend has been filed by the same party, a statement of defence, a defence to counterclaim, a defence to crossclaim or a third-party defence
+ $194.00
+ iii. a notice of appearance
+ $172.00
+ iv. a notice of motion served on another party, a notice of motion without notice, a notice of motion for a consent order or a notice of motion for leave to appeal, other than a notice of motion in a family law appeal
+ $339.00
+ v. a notice of return of motion, other than notice of return of motion in family law appeal
+ $339.00
+ vi. in a family law appeal, a notice of motion served on another party, a notice of motion without notice, a notice of motion for a consent order or a notice of return of motion
+ $134.00
+ vii. a notice of motion for leave to appeal in a family law case
+ $134.00
+ viii. a requisition for signing of default judgment by registrar
+ $177.00
+ ix. a trial record, for the first time only
+ $859.00
+ x. a notice of appeal or cross-appeal from an interlocutory order
+ $243.00
+ xi. a notice of appeal or cross-appeal to an appellate court of a final order of the Small Claims Court
+ $138.00
+ xii. a notice of appeal or cross-appeal to an appellate court of a final order of any court or tribunal, other than the Small Claims Court or the Consent and Capacity Board
+ $243.00
+ xiii. a request to redeem or request for sale
+ $138.00
+ xiv. a jury notice in a civil proceeding
+ $138.00
+ 4. Obtaining an appointment with a registrar for settlement of an order	 $138.00
+ 5. Perfecting an appeal or judicial review application	 $645.00
+ 6. Making up and forwarding of papers, documents and exhibits (plus any applicable transportation costs)	 $105.00
+ 7. Making copies of documents
+ i. not requiring certification (per page)
+ $1.00
+ ii. requiring certification (per page)
+ $4.00
+ 8. Inspection of a court file by
+ i. a person who has entered into an agreement with the Ministry of the Attorney General for the bulk inspection of court files (per file)
+ $4.00
+ ii. any other person, other than a solicitor or party in the proceeding (per file)
+ $11.00
+ 9. Retrieval from storage of a court file	 $83.00
+ 10. Taking of an affidavit or declaration by a commissioner for taking affidavits	 $22.00
+ 11. For a copy on compact disc (CD) of a digital recording of a court hearing in respect of a case, if such a recording exists and a copy is available
+ i. for a single day’s recording
+ $23.00
+ ii. for each additional day’s recording, if the request is made at the same time
+ $11.00
+ Court fees in estate matters
+ If you are applying to probate an estate , you may have to pay Estate Administration Tax. Estate Administration Tax is not a court fee. Learn more about Estate Administration Tax and how to calculate it.
+ Court fees are payable to file certain estate documents. The fees that apply to file estate litigation documents are set out under General civil proceeding fees in the first table. The fees that apply to file specific estate applications and related documents are set out below.
+ Types of payable fees	 Amount in dollars
+ 1. For a certificate of appointment of succeeding estate trustee or a certificate of appointment of estate trustee during litigation	 $138.00
+ 2. For an application of an estate trustee to pass accounts, including all services in connection with it	 $432.00
+ 3. For a notice of objection to accounts	 $93.00
+ 4. For an application other than an application to pass accounts, including an application for proof of lost or destroyed will, a revocation of a certificate of appointment, an application for directions or the filing of a claim and notice of contestation	 $232.00
+ 5. For a notice of objection other than a notice of objection to accounts, including the filing of a notice of appearance	 $94.00
+ 6. For a request for notice of commencement of proceedings	 $94.00
+ 7. For the deposit of a will or codicil for safekeeping	 $28.00
+ 8. For an assessment of costs, including the certificate	 $67.00
+ Construction Act court fees
+ The following fees are payable in an action under the Construction Act . The general civil court fees in the first table also apply, other than the fees to issue, sign or file documents that are listed in items 1, 2 and 3 in that table.
+ Types of payable fees	 Amount in dollars
+ 1. If the claim, crossclaim, counterclaim or third-party claim does not exceed $6,000, on the issuing of a statement of claim, crossclaim, counterclaim or third-party claim	 $105.00
+ 2. If the claim, crossclaim, counterclaim or third-party claim exceeds $6,000,
+ i. on the issue of a statement of claim, crossclaim, counterclaim or third-party claim
+ $243.00
+ ii. on the filing of a statement of defence
+ $172.00
+ iii. on the issue of a certificate of action
+ $138.00
+ iv. on the filing of a trial record
+ $859.00
+ Repair and Storage Liens Act court fees
+ The following fees are payable in respect of an application under the Repair and Storage Liens Act . The general civil court fees in the first table also apply, other than the fees to issue, sign or file documents that are listed in items 1, 2 and 3 in that table.
+ Types of payable fees	 Amount in dollars
+ 1. On the filing of an application	 $243.00
+ 2. On the filing of a notice of objection	 $172.00
+ 3. On the issue of an initial certificate or a final certificate	 $138.00
+ 4. On the issue of a writ of seizure	 $77.00
+ Fees for official examiners
+ If you hire an official examiner to conduct an out-of-court examination in your court case, you must pay them the following fees.
+ Types of payable fees	 Amount in dollars
+ 1. For the appointment, for each person examined	 $10.00
+ 2a. For the provision of facilities	 $34.00
+ 2b. For the provision of facilities if the examination is longer than two hours, for each additional hour (or part of an hour)	 $17.00
+ 3a. For a reporter’s attendance	 $42.00
+ 3b. For a reporter's attendance if the examination is longer than two hours, for each additional hour (or part of an hour)	 $21.00
+ 4. For the transcript of an examination, regardless of the party ordering
+ i. for one copy of the first transcript ordered (per page)
+ $4.00
+ ii. for one copy of each transcript ordered after the reporter has satisfied the order for a transcript described in subparagraph i (per page)
+ $4.00
+ iii. for each additional copy ordered before the reporter has satisfied the order for a transcript described in subparagraph i or ii
+ $1.00
+ If a party requires a transcript within five working days of placing the order for the transcript, in addition to the fee set out in item 4 (per page)	 $1.00
+ If a party requires a transcript within two working days of placing the order for the transcript, in addition to the fee set out in item 4 (per page)	 $2.00
+ 5. For handling costs, per invoice	 $6.00
+ 6. For cancellation of or failure to keep an appointment, with less than three working days’ notice,
+ i. for the cancellation or failure to attend
+ $12.00
+ ii. for the first two hours reserved for the appointment
+ $76.00
+ iii. for each additional hour (or part of an hour) reserved for the appointment
+ $38.00
+ Fees in bankruptcy proceedings
+ Court fees in bankruptcy proceedings are primarily prescribed by the federal regulation called Bankruptcy and Insolvency General Rules (Consolidated Regulations of Canada, chapter 368) made under the Bankruptcy and Insolvency Act.
+ Sheriff fees (Enforcement Office)
+ The sheriff is responsible for enforcing certain court orders and judgments, including tribunal orders. The duties of the sheriff are carried out by the Enforcement Office . Fees are paid to the Enforcement Office at the time an enforcement request is filed, either in person or by mail. The information in this section is an unofficial presentation of the fees prescribed by an Ontario regulation called Sheriff - Fees . For an official version of this regulation, refer to Ontario Regulation 294/92 .
+ Types of payable fees	 Amount in dollars
+ 1. For up to three attempts, whether or not successful, to serve a document	 $100 for each person to be served
+ 2. For filing or renewing a writ of execution or order that a sheriff is liable or required to enforce and for delivering a copy of the writ or order or a renewal of it to the land registrar of a land titles division	 $100
+ 3. For filing or renewing a writ of execution or order that a sheriff is liable or required to enforce and that is not required to be delivered to a land registrar of a land titles division	 $75
+ 4. For filing a writ of seizure or a direction to seize under the Repair and Storage Liens Act	 $115
+ 5. For each attempt, whether or not successful, to enforce a writ of delivery, a writ of sequestration, an order for interim recovery of personal property, an order for interim preservation of personal property, or a writ of seizure or direction to seize under the Repair and Storage Liens Act	 $400
+ 6. For each attempt, whether or not successful, to enforce a writ of seizure and sale or an order directing a sale	 $240
+ 7. For each attempt, whether or not successful, to enforce any other writ of execution or order	 $240
+ 8. For a search for writs	 $12.65 per name
+ 9. For each report showing the details of a writ, lien or order or for a copy of a writ, lien or order	 $6.90 for each report to a maximum of $69.00 for each name searched.
+ 10. For preparing a schedule of distribution under the Creditors’ Relief Act 	 $45 per writ or notice of garnishment listed on the schedule, up to a maximum fee of an amount equal to 20 per cent of the money received.
+ 11. For a calculation for satisfaction of writs and garnishments	 $45 per writ or notice of garnishment
+ 12. For any service or act ordered by a court for which no fee is provided	 $55 for each hour (or part of an hour) spent performing the service or doing the act
+ 13. For making copies of documents, other than writs of execution, orders and certificates of lien, not requiring certification	 $1 per page
+ 14. For making copies of documents, other than writs of execution, orders and certificates of lien, requiring certification	 $3.50 per page
+ In addition to the fees set out above, the person who requests the service shall also pay the sheriff a travel allowance as set out in R.R.O. 1990, Regulation 11 (Kilometre Allowances) , for the distance they travel, both ways, between the court house and the place where the sheriff:
+ enforces or attempts to enforce a writ or order
+ performs or attempts to perform any other service directed by a court
+ Other fees
+ There may be other fees which apply to your case depending on the steps you take. For example, if you wish to appeal the judge’s decision at trial, you will need to pay fees listed in the Fees for Court Transcripts regulation for the preparation of a transcript of your case. Remember, you should always refer to the actual regulations to determine the fees that you will need to pay.
+ Fees and allowances payable to witnesses
+ Witnesses are the people who provide evidence to the court if you go to trial. If you summons a witness to attend your trial, you must pay attendance money to the witness at the time you personally serve them. Attendance money includes a fee for the witness to attend court each day and travel expenses to get to court.
+ In civil court proceedings, the attendance money payable is set out in Tariff A of the Rules of Civil Procedure .
+ Fees for court transcripts
+ Authorized Court Transcriptionists are specifically trained and qualified to transcribe audio recordings of court hearings. Learn how to order a court transcript.
+ The fees payable to an Authorized Court Transcriptionist are prescribed in Ontario Regulation 94/14, Fees for Court Transcripts .
+ Kilometre allowances
+ Some regulations state that payment of a travel or kilometre allowance is required and shall be in accordance with, or as set out in, the Kilometre Allowances regulation .
+ Paying civil court fees online
+ Starting October 14, 2025, there are different online portals to file court documents online depending on the region you are filing in.
+ Use the Ontario Courts Public Portal for matters in the Toronto region.
+ Use the Justice Services Online portal for matters outside of Toronto.
+ Use the Ontario Court of Appeal Public Portal for matters at the Court of Appeal.
+ If there is a fee associated to your submission, you can use these portals to pay them or request a fee waiver .
+
+ Updated: April 09, 2026
+
+ Published: January 04, 2023
+
+ Top
