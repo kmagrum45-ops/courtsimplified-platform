@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-91 documented, 30 without a header.
+92 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -43,6 +43,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:fixtures:generated` | **Session 36 -- scales Session 35's fixture harness from 3 hand-written**<br>fixtures to a generated batch, checked against rules instead of one hand-written expectation per story. |
 | `npm run test:form-completion-paused` | **While official-form completion is paused, every door to it stays shut.**<br>FORM_COMPLETION_PAUSED (src/lib/content-library/phaseScope.ts) was set on 2026-09-27 for the LSO A2I application, which tells the Law Society that filling official court forms and drafting claim particulars are out of scope until it gives guidance. That statem |
 | `npm run test:generic-library` | **Stage-independent content rests on quoted sources, renders the same whatever stage**<br>the case is in, and renders NOTHING while nothing is verified. |
+| `npm run test:grounded-analysis` | **The analysis cannot show a user a legal statement no verified source makes.**<br>WHAT IT PROTECTS. The AI analysis is live, and it used to write law from the model's general knowledge with no sources and no check. Since 2026-09-29 it is given a per-case pack of verified material (the confirmed claim type's catalogue entries and the stage m |
 | `npm run test:guard-coverage` | **WHERE the output guard is actually applied — asserted, and stated honestly.**<br>COSTS NOTHING. Reads source off disk. |
 | `npm run test:guided-stage-by-role` | **Guided intake must not hand a user the OTHER side's next steps.**<br>mapGuidedIntakeToSmallClaimsInput() picks the case stage, and the stage picks a next-step block (src/lib/content-library/nextSteps.ts) that is written for one side. Until 2026-09-27 the stage was inferred from filed documents alone, and the case-review batch c |
 | `npm run test:harness-coverage` | **Which values of a branch-selecting harness parameter have actually been run.**<br>COSTS NOTHING. Reads the spec and harness sources off disk. No browser, no network. |
@@ -57,7 +58,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:mutations` | **Every family §3 / §2 check is proven able to fail.**<br>COSTS NOTHING. Local file edits plus suite runs. Slower than the suites themselves (it runs each one once per mutation), so it is not wired into the per-change loop — run it when a check is added or changed. |
 | `npm run test:no-filenames` | **No file name reaches a model. Asserted three ways, because one way is not**<br>enough for a property this easy to reintroduce. |
 | `npm run test:no-model-prose` | **No model-written prose reaches a document, an export, or a court form.**<br>COSTS NOTHING. Calls the real engine with a real input, with external cognition disabled, and inspects what comes out. No network, no AI. |
-| `npm run test:no-model-text-to-users` | **No sentence the model wrote reaches a user, unless the switch is on.**<br>WHAT IT PROTECTS. The LSO A2I AI policy forbids AI-generated legal content reaching a user without human review, and the A2I answers (2026-09-28) commit to it. Until 2026-09-29 the analysis carried the model's own wording into what users read: risk titles and  |
+| `npm run test:no-model-text-to-users` | **With the switch off, no sentence the model wrote reaches a user.**<br>WHAT IT PROTECTS. The LSO A2I AI policy forbids AI-generated legal content reaching a user without human review, and the A2I answers (2026-09-28) commit to it. Until 2026-09-29 the analysis carried the model's own wording into what users read: risk titles and  |
 | `npm run test:no-model-warnings` | **No model-written warning reaches a user.**<br>courtSimplifiedBrain's `systemWarnings` becomes AnalysisResult.userWarnings. It used to spread `gptCognition.systemWarnings` -- free text the model wrote -- into that list, filtered only by the case-strength blocklist. A procedural or legal sentence ("file you |
 | `npm run test:no-names-to-model` | **No name FIELD reaches a model.**<br>The user's name and the other party's name are entered in plain form fields and stored in the Canadian database. Until 2026-09-27 all three intake adapters (Small Claims, civil, family) copied them into the raw text the brain sends to OpenAI. The LSO A2I appli |
 | `npm run test:no-stale-intake` | **Nothing from an earlier session is shown before the user opens a case.**<br>2026-09-28: a signed-in user opened the Small Claims intake and found an old test story already filled in. Earlier fixes had scoped browser storage per user and cleared it for anonymous visitors, but the builder deliberately RESTORED the signed-in user's own l |

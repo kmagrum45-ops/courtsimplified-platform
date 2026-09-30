@@ -48,6 +48,13 @@ import { CLAIM_TYPES } from "../intake/claimTypes";
 import { isNoQuestionNeeded, questionsForElement } from "../intake/depth/elementQuestionRegistry";
 import { fillSlots } from "../intake/depth/slots";
 import { aiAnalysisTextToUsers } from "../../content-library/phaseScope";
+import {
+  buildSourcePack,
+  sourcePackForPrompt,
+  verifyGroundedCognition,
+  type GroundingReport,
+  type SourcePack,
+} from "./groundedCognition";
 import { buildBrainMigrationLayer } from "../orchestration/brainMigrationLayer";
 import { buildEvidenceIntelligenceAnalysis } from "../evidence/evidenceIntelligenceEngine";
 
@@ -100,6 +107,7 @@ type GptCognitionOutput = {
     requiredProof?: string;
     missingEvidence?: string[];
     explanation?: string;
+    sourceUrl?: string;
   }[];
   litigationRisks?: {
     title?: string;
@@ -108,6 +116,7 @@ type GptCognitionOutput = {
     source?: string;
     claimType?: string;
     suggestedFix?: string;
+    sourceUrl?: string;
   }[];
   formRecommendations?: {
     formNumber?: string;
@@ -118,6 +127,7 @@ type GptCognitionOutput = {
     confidence?: string;
     notRecommendedForms?: string[];
     warnings?: string[];
+    sourceUrl?: string;
   }[];
   // Session 48: the model no longer writes either summary as free text. It
   // supplies these two arrays and composeCaseFileSummary() assembles both.
@@ -1139,6 +1149,7 @@ function buildEvidenceIssueLinks(args: {
     explanation:
       clean(item.explanation) ||
       "Evidence must be reviewed, organized, and linked to proof points.",
+    ...(clean(item.sourceUrl) ? { sourceUrl: clean(item.sourceUrl) } : {}),
   }));
 }
 
@@ -1173,6 +1184,7 @@ function buildRisks(cognition: GptCognitionOutput | null): LitigationRisk[] {
     suggestedFix:
       clean(risk.suggestedFix) ||
       "Review and strengthen the facts, evidence, procedure, or remedy before final use.",
+    ...(clean(risk.sourceUrl) ? { sourceUrl: clean(risk.sourceUrl) } : {}),
   }));
 }
 
@@ -1194,6 +1206,7 @@ function buildForms(args: {
     confidence: asConfidence(form.confidence),
     notRecommendedForms: cleanList(form.notRecommendedForms || []),
     warnings: cleanList(form.warnings || []),
+    ...(clean(form.sourceUrl) ? { sourceUrl: clean(form.sourceUrl) } : {}),
   }));
 }
 
@@ -1831,6 +1844,7 @@ function chooseRoute(intelligence: LegalIntelligenceResult): string {
 function buildCognitionPrompt(
   input: CourtSimplifiedBrainInput,
   normalizedIntake: NormalizedIntake,
+  pack?: SourcePack,
 ): string {
   return `
 You are CourtSimplified's elite structured litigation cognition engine.
@@ -1841,9 +1855,18 @@ You are not a chatbot and you are not a basic legal intake tool. You are the cen
 
 You must think like a careful legal analyst preparing a matter for lawyer review, not like a generic assistant. Be practical, cautious, adversarial, and procedure-aware.
 
+GROUNDING -- THIS OVERRIDES EVERYTHING BELOW:
+You may state a legal or procedural point (what a claim requires, a rule, a deadline, a form, a risk, what evidence proves, what the court can or will do) ONLY by relying on the VERIFIED SOURCES listed below. For every such statement:
+  - set "sourceIds" to the id(s) in square brackets of the source(s) it relies on, and
+  - set "quote" to words copied EXACTLY from one of those sources (at least one full phrase, 15+ characters).
+Anything without a matching source and exact quote is deleted by code before the user sees it, so do not write it. If the sources below do not cover a point, do not state it: ask for the fact instead, or leave it out. Never cite anything that is not listed below. Statements that only restate what the user told you, or practical steps like gathering a document, need no source, but must not contain any law, rule, deadline or procedure.
+When a claim type is listed in the sources, use exactly its elements (the ids after "element:") as your elements, with elementKey set to that id, and relate the user's own facts to each one.
+
+${sourcePackForPrompt(pack || { items: [], byId: new Map(), elementIds: [] })}
+
 ABSOLUTE SAFETY AND RELIABILITY RULES:
 - Do not invent legal citations, case names, statutes, rule numbers, form numbers, deadlines, limitation periods, or official filing requirements.
-- You may identify likely legal/procedural issues, but you must label unverified law/forms/deadlines as needing verification.
+- Do not state any legal or procedural point that the VERIFIED SOURCES above do not support.
 - Do not create false certainty. Use missingInformation when facts are incomplete.
 - Do not recommend a Defence or Answer unless the user is responding to an existing claim/application.
 - Do not treat reputational harm as property damage unless physical property damage facts exist.
@@ -1949,7 +1972,9 @@ Return JSON with this exact shape and no extra keys:
           "status": "partially-documented",
           "explanation": "State which of the facts the person described relate to this element, and which are not in the file.",
           "missingFacts": ["Identify exactly what each actor did or failed to do."],
-          "risks": ["No documented proof yet connects this conduct to the alleged wrong."]
+          "risks": [],
+          "sourceIds": ["element:actionable-conduct"],
+          "quote": "exact words copied from that source"
         },
         {
           "elementKey": "causation",
@@ -1968,7 +1993,9 @@ Return JSON with this exact shape and no extra keys:
       "question": "What are the exact dates of the event, discovery, records obtained, service, filing, and any court deadlines?",
       "reason": "Needed to assess limitation, discoverability, procedure, and next steps.",
       "requiredFor": "procedure",
-      "severity": "high"
+      "severity": "high",
+      "sourceIds": ["deadline:example-id"],
+      "quote": "exact words copied from that source, only if the reason states law"
     }
   ],
   "evidenceIssueLinks": [
@@ -1977,7 +2004,9 @@ Return JSON with this exact shape and no extra keys:
       "claimType": "civil-institutional-liability",
       "requiredProof": "Evidence connecting the alleged conduct or process failure to the harm or increased risk.",
       "missingEvidence": ["Chronology", "records showing knowledge", "records showing conduct", "harm evidence"],
-      "explanation": "State what proof for this issue is in the file, and what is not. Do not characterize how good it is."
+      "explanation": "State what proof for this issue is in the file, and what is not. Do not characterize how good it is.",
+      "sourceIds": ["evidence:example-element:0"],
+      "quote": "exact words copied from that source"
     }
   ],
   "litigationRisks": [
@@ -1987,7 +2016,9 @@ Return JSON with this exact shape and no extra keys:
       "severity": "high",
       "source": "procedure",
       "claimType": "civil-institutional-liability",
-      "suggestedFix": "Explain what the user should gather or clarify."
+      "suggestedFix": "Explain what the user should gather or clarify.",
+      "sourceIds": ["rule:example-id"],
+      "quote": "exact words copied from that source"
     }
   ],
   "formRecommendations": [
@@ -1999,12 +2030,17 @@ Return JSON with this exact shape and no extra keys:
       "reason": "May be needed depending on verified procedure, forum, and claim type.",
       "confidence": "medium",
       "notRecommendedForms": [],
-      "warnings": ["Verify official forms, rules, deadlines, and procedural requirements before filing."]
+      "warnings": ["Verify official forms, rules, deadlines, and procedural requirements before filing."],
+      "sourceIds": ["rule:example-id"],
+      "quote": "exact words copied from that source"
     }
   ],
   "caseFileRecorded": ["Each thing the person has described or provided, stated as a fact about the file. No commentary."],
   "caseFileNotRecorded": ["Each thing that has nothing recorded against it yet, stated as a plain absence. No commentary."],
-  "nextBestActions": ["First action", "Second action", "Third action"],
+  "nextBestActions": [
+    { "text": "A practical step with no law in it, e.g. gather the invoice", "sourceIds": [], "quote": "" },
+    { "text": "A procedural step drawn from a source", "sourceIds": ["deadline:example-id"], "quote": "exact words copied from that source" }
+  ],
   "systemWarnings": ["Verify legal authorities, forms, deadlines, and filing requirements before relying on this output."]
 }
 
@@ -2020,6 +2056,7 @@ ${JSON.stringify(normalizedIntake, null, 2)}
 async function runStructuredGptCognition(
   input: CourtSimplifiedBrainInput,
   normalizedIntake: NormalizedIntake,
+  pack: SourcePack,
 ): Promise<GptCognitionOutput | null> {
   // LSO Step 7. The audit row is written by openaiClient.ts's wrapper; this
   // context is what tells it which call site the row belongs to. The body is a
@@ -2027,13 +2064,14 @@ async function runStructuredGptCognition(
   // plus four lines, reviewable at a glance, and the original body is untouched.
   const { withAiCallContext } = await import("../../audit/aiCallLog");
   return withAiCallContext({ callType: "small-claims-analysis" }, () =>
-    runStructuredGptCognitionInner(input, normalizedIntake),
+    runStructuredGptCognitionInner(input, normalizedIntake, pack),
   );
 }
 
 async function runStructuredGptCognitionInner(
   input: CourtSimplifiedBrainInput,
   normalizedIntake: NormalizedIntake,
+  pack: SourcePack,
 ): Promise<GptCognitionOutput | null> {
   if (input.allowExternalCognition === false) return null;
 
@@ -2068,11 +2106,11 @@ async function runStructuredGptCognitionInner(
         {
           role: "system",
           content:
-            "You are CourtSimplified's structured litigation cognition engine. Return only valid JSON matching the requested schema. Analyze deeply but do not invent legal authorities.",
+            "You are CourtSimplified's structured litigation cognition engine. Return only valid JSON matching the requested schema. Analyze the user's facts deeply, but state law only from the VERIFIED SOURCES in the request, citing their ids and quoting them exactly. Anything else is deleted before the user sees it.",
         },
         {
           role: "user",
-          content: buildCognitionPrompt(input, normalizedIntake),
+          content: buildCognitionPrompt(input, normalizedIntake, pack),
         },
       ],
     });
@@ -2494,17 +2532,47 @@ export async function runCourtSimplifiedBrain(
     factPatternAnalysis,
   });
 
+  // The verified material that applies to this case -- see groundedCognition.ts.
+  const packStage = String(input.stage || normalizedIntake.stage || "not-sure");
+  const packSide: "plaintiff" | "defendant" =
+    packStage === "responding" || /user role:\s*(defendant|responding)/i.test(input.rawUserText)
+      ? "defendant"
+      : "plaintiff";
+  const sourcePack = buildSourcePack({
+    stage: packStage,
+    side: packSide,
+    claimTypeId: input.catalogueClaim?.claimTypeId,
+  });
+
   const structuredCognition = await runStructuredGptCognition(
     input,
     normalizedIntake,
+    sourcePack,
   );
+
+  // Every legal statement the model made is checked against the pack before it
+  // can reach a user: a cited id must be in the pack and its quote must appear
+  // in that source. See verifyGroundedCognition.
+  const grounded =
+    structuredCognition && aiAnalysisTextToUsers()
+      ? verifyGroundedCognition(structuredCognition as unknown as Record<string, unknown>, sourcePack)
+      : null;
+  const groundingReport: GroundingReport | undefined = grounded?.report;
+  if (groundingReport && groundingReport.dropped.length) {
+    // Counts and reasons only: the dropped text is about the user's case and
+    // does not belong in hosting logs (it is kept on the analysis instead).
+    console.warn(
+      `[groundedCognition] ${groundingReport.dropped.length} unverified statement(s) removed:`,
+      groundingReport.dropped.map((item) => `${item.field} (${item.reason})`).join("; "),
+    );
+  }
   // Which wording a user reads -- see aiAnalysisTextToUsers in
   // content-library/phaseScope.ts. Off (always in production): the model's
   // structured choices over code-written text. On (staging/testing only): the
   // model's own wording, as before.
   const gptCognition =
-    structuredCognition && aiAnalysisTextToUsers()
-      ? structuredCognition
+    grounded
+      ? (grounded.cognition as unknown as GptCognitionOutput)
       : withStructuredChoices(
           buildCodeWrittenCognition({
             normalizedIntake,
@@ -2746,6 +2814,23 @@ export async function runCourtSimplifiedBrain(
 
     cognitionMode,
     confidence: asConfidence(gptCognition.confidence),
+    // Which next actions carry a verified source link (grounded mode only).
+    ...(Array.isArray((gptCognition as { nextBestActionSources?: unknown }).nextBestActionSources)
+      ? { nextBestActionSources: (gptCognition as { nextBestActionSources: { text: string; sourceUrl?: string }[] }).nextBestActionSources }
+      : {}),
+    // What the verifier removed: field and reason ONLY. The analysis travels to
+    // the user's browser and into the saved case, so the removed text -- which
+    // is by definition an unverified legal statement -- must not ride along in
+    // it, displayed or not.
+    ...(groundingReport
+      ? {
+          groundingReport: {
+            kept: groundingReport.kept,
+            replaced: groundingReport.replaced,
+            dropped: groundingReport.dropped.map((item) => ({ field: item.field, text: "", reason: item.reason })),
+          },
+        }
+      : {}),
   };
 
   const masterResultPatch = buildMasterResultPatch({

@@ -1476,3 +1476,41 @@ response without a network call. Ignored whenever `VERCEL_ENV` is set or
 site owner's instruction (no users yet; the site is built the way it will
 run). `AI_ANALYSIS_TEXT_TO_USERS=off` restores the code-written analysis above.
 The A2I answers describe that configuration for when users are admitted.
+
+## The analysis writes from verified sources, and a gate checks it (2026-09-29)
+
+**The root cause, stated plainly.** The analysis prompt asked for
+"lawyer-grade" reasoning -- risks, next steps, what a claim requires -- from
+the model's general knowledge. It was given none of the verified material in
+this file, attached no citations, and nothing checked its sentences. Every
+earlier fix blocked a phrase or closed a route; none addressed that.
+
+**Settled design** (`intelligence/groundedCognition.ts`):
+
+1. `buildSourcePack` -- per case, the verified items that apply: the confirmed
+   claim type's elements, evidence categories, defendant considerations and
+   procedural notes (catalogue, each with its `sourceUrl`), plus the rules and
+   deadlines of the stage-map positions for the case's stage and side
+   (verbatim quotes, official URLs). Stable ids.
+2. The prompt lists the pack and requires `sourceIds` + an exact `quote` on
+   every legal statement. It is told unsupported statements are deleted.
+3. `verifyGroundedCognition` is the safeguard, not the prompt: a cited id must
+   be in THIS pack and the quote must appear in that item's verified text;
+   anything presented as a plain fact is dropped if it contains legal content.
+   Catalogue elements keep the catalogue's name and link; missing ones are
+   restored. Survivors carry their `sourceUrl`.
+
+**Two traps it hit.** (a) A cited next step with no legal keywords was kept as
+a "fact" and lost its link -- a citation, when present, is now always checked
+and its link attached. (b) The report of removed statements was stored on the
+analysis, which travels to the browser and into the saved case: the removed
+text is by definition unverified law, so the report on the analysis keeps
+field and reason only.
+
+**Coverage limit.** The gate makes the analysis as accurate as the pack, and
+no wider. Small Claims has the stage map and catalogue; civil and family have
+less, so more is removed there until content is added. That is the honest
+failure direction: less said, nothing invented.
+
+Asserted by `test:grounded-analysis` (planted hallucinations, end to end;
+fails on a bypassed gate, naming each one).
