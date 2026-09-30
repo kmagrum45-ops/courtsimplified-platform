@@ -136,7 +136,36 @@ export type ScopeKey = keyof typeof A2I_SCOPE;
  * The references are written out literally so Next.js inlines the public
  * variables into client code; a dynamic lookup would read undefined there.
  */
+/**
+ * OWNER LIVE TESTING (2026-09-30, the site owner's decision).
+ *
+ * "Put everything on live. My goal is to build as intended through everything
+ * so it can go through live testing. If I want something switched off later
+ * for any reason, I will do it then." -- site owner, 2026-09-30.
+ *
+ * While this is enabled, every approval-tier capability is on EVERYWHERE,
+ * production included, exactly as the testing preview turns them on in
+ * staging -- and still reported as preview-only, so every screen that shows
+ * one carries the testing notice (ScopePreviewNotice). It is NOT an A2I
+ * approval and must never be recorded as one: `approval` stays empty until the
+ * Law Society approves a capability in writing.
+ *
+ * It is safe only while the whole site sits behind the password gate
+ * (middleware.ts, which fails closed), so nobody but invited testers reaches
+ * it. verifyA2iScope fails if the gate is removed while this is on. Before
+ * real users are admitted, set `enabled: false` -- one line.
+ */
+export const OWNER_LIVE_TESTING = {
+  enabled: true,
+  decidedOn: "2026-09-30",
+  decidedBy: "site owner",
+  reason:
+    "Live testing of the full intended product behind the site password, before any real users; " +
+    "the owner will switch features off individually as needed.",
+} as const;
+
 export function scopePreviewActive(): boolean {
+  if (OWNER_LIVE_TESTING.enabled) return true;
   if (process.env.NEXT_PUBLIC_CS_SCOPE_PREVIEW !== "on") return false;
   if (process.env.VERCEL_ENV === "production") return false;
   if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") return false;

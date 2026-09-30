@@ -22,10 +22,13 @@
  * Run: node --import tsx scripts/verification/verifyA2iScope.ts
  */
 
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 import {
   A2I_SCOPE,
+  OWNER_LIVE_TESTING,
   isInScope,
   listScope,
   scopeIsPreviewOnly,
@@ -53,6 +56,35 @@ function main(): void {
       c.enabled &&
       !(c.approval && c.approval.approvedOn && c.approval.reference && c.approval.conditions),
   );
+  // The owner's live-testing decision (2026-09-30) turns every capability on,
+  // behind the site password, without pretending to be an A2I approval. While
+  // it is on, what must hold is: it is recorded, the gate is in place, and
+  // every such capability is reported as preview-only so screens say so.
+  if (OWNER_LIVE_TESTING.enabled) {
+    const decisionRecorded = Boolean(OWNER_LIVE_TESTING.decidedOn && OWNER_LIVE_TESTING.decidedBy && OWNER_LIVE_TESTING.reason);
+    check("owner live testing: the decision is recorded (date, who, why)", decisionRecorded);
+    const middleware = readFileSync(path.join(path.resolve(import.meta.dirname, "..", ".."), "middleware.ts"), "utf8");
+    check(
+      "owner live testing: the whole site is behind the password gate, which fails closed",
+      middleware.includes("cs_site_access") && /SITE_ACCESS_PASSWORD/.test(middleware) && /[Ff]ails closed/.test(middleware),
+    );
+    const unapprovedOn = (Object.keys(A2I_SCOPE) as ScopeKey[]).filter((key) => {
+      const c = A2I_SCOPE[key] as { tier: string; approval?: unknown };
+      return c.tier === "needs-a2i-approval" && !c.approval;
+    });
+    check(
+      "owner live testing: every unapproved capability is on and flagged as testing, not approved",
+      unapprovedOn.every((key) => isInScope(key) && scopeIsPreviewOnly(key)),
+    );
+    check(
+      "owner live testing: no capability claims an A2I approval it does not have",
+      listScope().every((c) => !c.approval || Boolean(c.approval.approvedOn && c.approval.reference)),
+    );
+    check("court-document drafting follows the formCompletion switch", COURT_DOCUMENT_DRAFTING_ENABLED === isInScope("formCompletion"));
+    console.log(`\n${failures === 0 ? "All checks passed." : `${failures} check(s) FAILED.`}`);
+    if (failures) process.exitCode = 1;
+    return;
+  }
   check(
     "no approval-tier capability is switched on without a recorded A2I approval",
     unapproved.length === 0,

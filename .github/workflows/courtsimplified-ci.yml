@@ -152,6 +152,12 @@ jobs:
       - name: Every model call site is declared and structured
         run: npm run test:output-guard
 
+      - name: Open pathways have real content; closed ones say so
+        run: npm run test:phase-scope
+
+      - name: Unapproved capabilities are on only as flagged testing, behind the site password
+        run: npm run test:a2i-scope
+
       - name: AI model configuration verification
         run: npm run test:ai-models
 
