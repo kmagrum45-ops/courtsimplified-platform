@@ -33,6 +33,8 @@ type IntakeQuestion = {
   why?: string;
   /** Set whenever `why` states a legal/procedural fact. */
   sourceUrl?: string;
+  /** Reviewed example answers from the question bank, shown under the question. */
+  examples?: string[];
 };
 
 type EvidenceCategory = {
