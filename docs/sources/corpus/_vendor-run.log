@@ -1,0 +1,17 @@
+family-law-act                         ok    175798 chars  2a9b92ddd9d5
+                                       CONSOLIDATION PERIOD: FROM MAY 1, 2026 TO THE E-LAWS CURRENCY DATE.
+family-law-rules                       ok    475236 chars  26cf3da86307
+                                       CONSOLIDATION PERIOD: FROM SEPTEMBER 18, 2026 TO THE E-LAWS CURRENCY DATE.
+childrens-law-reform-act               ok    185135 chars  3d84f1049682
+                                       CONSOLIDATION PERIOD: FROM DECEMBER 11, 2025 TO THE E-LAWS CURRENCY DATE.
+ontario-child-support-guidelines-full  ok     65020 chars  f2b7e4bd11b3
+                                       CONSOLIDATION PERIOD: FROM JULY 26, 2024 TO THE E-LAWS CURRENCY DATE.
+family-responsibility-support-arrears-enforcement-act ok    152259 chars  588802ce0df8
+                                       CONSOLIDATION PERIOD: FROM MAY 1, 2026 TO THE E-LAWS CURRENCY DATE.
+divorce-act                            ok    261238 chars  d703c8af5fc3
+                                       (none stated)
+federal-child-support-guidelines-full  ok    409536 chars  d5b59219748b
+                                       (none stated)
+
+189 vendored, 0 failed.
+Manifest: docs/sources/corpus/manifest.json
