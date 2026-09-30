@@ -147,6 +147,8 @@ dumps or `count(*)`, never from `table-stats`.**
 | Suite, fixtures, eval against staging | **done** — see setup-report | — | — |
 | Catalogue seed on staging | **done** — 1371 rows, all 17 tables matching the snapshot | — | — |
 | The 5 pending migrations on production | **done** — 8 applied / 0 pending / 0 remote-only, row counts unchanged | — | — |
+| Workspace + story-proposal migrations (20260927×5, 20260928) | **done 2026-09-30** — staging then production via `npm run db:migrate`, after `npm run db:backup -- --env production`; 0 pending on either | — | — |
+| Migration fingerprints on Windows | **fixed 2026-09-30** — hashes were taken over CRLF text on Windows, so recorded migrations showed as pending; `migrationHash` now normalizes line endings before hashing, and the five ledger entries hashed over CRLF were rewritten to the normalized hash (same content, verified) | — | — |
 | Production's display name | **done** — `courtsimplified-prod` | — | — |
 | Production auth settings | **done** — min password 12, email confirmation required, TOTP MFA on | — | — |
 | Vercel Preview | **done** — the three staging Supabase variables | — | — |
