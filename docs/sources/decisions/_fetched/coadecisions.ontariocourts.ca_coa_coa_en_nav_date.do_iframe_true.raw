@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://coadecisions.ontariocourts.ca/coa/coa/en/nav_date.do" />
+    <title>    Navigation by Date: 2026 - Court of Appeal for Ontario
+</title>
+    <meta name="robots" content="noindex,follow,nosnippet,noarchive" />
+<link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/coa/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+}
+
+.decisia-content a {
+    color: #0645ad;
+    text-decoration: underline;
+}
+
+.decisia-content a:visited {
+    color: purple;
+}
+
+.decisia-content a:hover {
+    color: #222;
+    text-decoration: none;
+}
+
+#decisia-footer a.outlink:after {
+    content: normal;
+	margin: 0;
+}
+
+.breadcrumb-separator > span {
+    display: none;
+}
+
+.breadcrumb-separator:after {
+    content: " » ";
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link {
+    color: #0645ad;
+	text-decoration: underline;
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link:hover {
+    text-decoration: none;
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link:focus {
+    outline: 1px dashed #666;
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link:active {
+    outline: 0;
+}
+
+#solrHiBar {
+    line-height: normal;
+}
+
+.lexumSolrArrow {
+    line-height: 20px;
+}
+
+.wpml-ls-item-legacy-list-horizontal > span {
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+	line-height: 1;
+}
+
+#decisia-main-content .decisia-content .decisions.decisia-box > .search {
+    padding-bottom: 0;
+}
+
+#decisia-main-content .decisia-content .decisions.decisia-box > .search > .searchLinks {
+    padding-top: 0;
+}
+
+#decisia-main-content .decisia-content > #decisia-login-header {
+    padding-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager, #decisia-main-content > .decisions.decisia-box > .decisia-content > h2 {
+    margin-top: 0;
+}
+
+#decisia-main-content .decisia-content .resultControls ul.pager {
+    margin-bottom: 1.2em;
+}
+
+#document-content {
+    border-bottom: 2px solid black;
+}
+
+#decisia-footer {
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+#decisia-footer .decisia-lexum a {
+    top: 10px;
+}
+
+#decisia-footer img.decisia_logo {
+    width: 120px;
+    height: 42px;
+}
+</style>
+
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/coa/en/nav.do">Decisions of the Court</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/coa/coa/en/nav_date.do">Decisions of the Court of Appeal</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Date&#58;&nbsp;2026</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/coa/en/nav.do">Decisions of the Court</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+            <a class="breadcrumb-link" href="/coa/coa/en/nav_date.do">Decisions of the Court of Appeal</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Date&#58;&nbsp;2026</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/coa/coa/fr/nav_date.do?alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content"><div class="decisions decisia-box">
+    <div class="decisia-content">
+        
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/coa/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+        
+        <div class="decisions decisia-box">
+            <h1>
+                <a id="decisisa-decisions"></a>
+                    Decisions of the Court of Appeal
+            </h1>
+            
+<div class="search">
+    <form target="_parent" method="get" action="/coa/en/d/s/index.do">
+        <div class="simpleSearchLabel">
+            <label for="decisia-simple-search-input-decisions">
+                Search
+            </label>
+        <button type="button" class="decisia-help-icon">
+            <span class="decisia-icon icon-question-circle"></span>
+            <span class="accessibility-only">Help</span>
+        </button>
+        <div class="decisia-help-tooltip">                Syntax: "", OR, AND, EXACT(), /p, /s, /n
+</div>
+        </div>
+        <div class="simpleSearchContainer">
+            <div class="simpleSearchInput">
+                <input id="decisia-simple-search-input-decisions" type="text" name="cont" />
+            </div>
+            <div class="simpleSearchButton">
+                <input id='decisia-search-iframe-decisions' class="decisia-search-iframe" name='iframe' type='hidden' value='false' />
+                <button id="decisia-simple-search-submit" type="submit">
+                    <span class="icon-search"></span>
+                </button>
+            </div>
+        </div>
+
+                    <input id="decisia-collection" name="col" type="hidden" value="1"/>
+
+    </form>
+    <div class="searchLinks">
+        <a id="decisia-advanced-search-link" target="_parent" href="/coa/en/d/s/index.do">Advanced Search</a>
+    </div>
+</div>
+            
+            <div class="browse">
+                <div class="browse-section">
+            
+<ul class="decisia-tabs">
+            <li class="active">Date</li>
+
+        <li><a target="_parent" href="/coa/coa/en/nav_alpha.do">Case name</a></li>
+
+                <li><a target="_parent" href="/coa/coa/en/nav_neu.do">Neutral citation</a></li>
+</ul>
+                
+                    <div class="tab-panel browse-content">
+
+    <ul class="listing date">
+                <li class="">&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li class="">&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li class="">&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li class="">&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li class="selected "><span title="2026">2026</span></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2025/nav_date.do" title="2025">2025</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2024/nav_date.do" title="2024">2024</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2023/nav_date.do" title="2023">2023</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2022/nav_date.do" title="2022">2022</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2021/nav_date.do" title="2021">2021</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2020/nav_date.do" title="2020">2020</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2019/nav_date.do" title="2019">2019</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2018/nav_date.do" title="2018">2018</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2017/nav_date.do" title="2017">2017</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2016/nav_date.do" title="2016">2016</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2015/nav_date.do" title="2015">2015</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2014/nav_date.do" title="2014">2014</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2013/nav_date.do" title="2013">2013</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2012/nav_date.do" title="2012">2012</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2011/nav_date.do" title="2011">2011</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2010/nav_date.do" title="2010">2010</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2009/nav_date.do" title="2009">2009</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2008/nav_date.do" title="2008">2008</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2007/nav_date.do" title="2007">2007</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2006/nav_date.do" title="2006">2006</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2005/nav_date.do" title="2005">2005</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2004/nav_date.do" title="2004">2004</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2003/nav_date.do" title="2003">2003</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2002/nav_date.do" title="2002">2002</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2001/nav_date.do" title="2001">2001</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/2000/nav_date.do" title="2000">2000</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/1999/nav_date.do" title="1999">1999</a></li>
+                <li class=""><a target="_parent" href="/coa/coa/en/1998/nav_date.do" title="1998">1998</a></li>
+                <li class="">&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li class="">&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li class="">&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li class="">&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li class="">&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li class="">&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li class="">&nbsp;&nbsp;&nbsp;&nbsp;</li>
+    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="resultControls">
+    <ul class="pager">
+                <li class="active current">1</li>
+                <li class="active"><a target="_parent" href="/coa/coa/en/nav_date.do?page=2">2</a></li>
+                <li class="active"><a target="_parent" href="/coa/coa/en/nav_date.do?page=3">3</a></li>
+                <li class="active"><a target="_parent" href="/coa/coa/en/nav_date.do?page=4">4</a></li>
+                <li class="active"><a target="_parent" href="/coa/coa/en/nav_date.do?page=5">5</a></li>
+                <li class="active"><a target="_parent" href="/coa/coa/en/nav_date.do?page=6">6</a></li>
+                <li class="active"><a target="_parent" href="/coa/coa/en/nav_date.do?page=2">&gt;</a></li>
+                <li class="active"><a target="_parent" href="/coa/coa/en/nav_date.do?page=28">&gt;&gt;</a></li>
+    </ul>
+        </div>
+        
+        <h2>685&nbsp;result(s)</h2>
+<div class="documentList">
+    <ul class="collectionItemList list-expanded">
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">1.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24512/index.do">Gryn v. Gryn</a></span>
+                        - <span class="citation">2026 ONCA 691</span>
+                - <span class="publicationDate">2026-09-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24512/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">2.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24515/index.do">Hirji v. Rassos</a></span>
+                        - <span class="citation">2026 ONCA 695</span>
+                - <span class="publicationDate">2026-09-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24515/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">3.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24513/index.do">R. v. Brahimi</a></span>
+                        - <span class="citation">2026 ONCA 693</span>
+                - <span class="publicationDate">2026-09-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Criminal</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24513/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">4.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24511/index.do">R. v. Desir</a></span>
+                        - <span class="citation">2026 ONCA 690</span>
+                - <span class="publicationDate">2026-09-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Criminal</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24511/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">5.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24514/index.do">R. v. Gaskin</a></span>
+                        - <span class="citation">2026 ONCA 694</span>
+                - <span class="publicationDate">2026-09-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Criminal</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24514/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">6.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24510/index.do">R. v. Hudson</a></span>
+                        - <span class="citation">2026 ONCA 681</span>
+                - <span class="publicationDate">2026-09-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Criminal</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24510/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">7.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24509/index.do">R. v. T.U.</a></span>
+                        - <span class="citation">2026 ONCA 680</span>
+                - <span class="publicationDate">2026-09-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Criminal</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24509/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">8.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24507/index.do">Caruso v. Law Society of Ontario</a></span>
+                        - <span class="citation">2026 ONCA 677</span>
+                - <span class="publicationDate">2026-09-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24507/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">9.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24505/index.do">Country Wide Homes Upper Thornhill Estates Inc. v. Chen</a></span>
+                        - <span class="citation">2026 ONCA 664</span>
+                - <span class="publicationDate">2026-09-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24505/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">10.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24508/index.do">Sohal v. Bhatthal</a></span>
+                        - <span class="citation">2026 ONCA 688</span>
+                - <span class="publicationDate">2026-09-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24508/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">11.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24506/index.do">Soumare v. Diallo</a></span>
+                        - <span class="citation">2026 ONCA 679</span>
+                - <span class="publicationDate">2026-09-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24506/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">12.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24504/index.do">DiMartino v. Sediq</a></span>
+                        - <span class="citation">2026 ONCA 683</span>
+                - <span class="publicationDate">2026-09-25</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24504/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">13.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24502/index.do">R. v. P.B.</a></span>
+                        - <span class="citation">2026 ONCA 671</span>
+                - <span class="publicationDate">2026-09-25</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Criminal</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24502/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">14.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24503/index.do">R. v. Trowbridge</a></span>
+                        - <span class="citation">2026 ONCA 673</span>
+                - <span class="publicationDate">2026-09-25</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Criminal</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24503/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">15.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24501/index.do">R. v. W.W.</a></span>
+                        - <span class="citation">2026 ONCA 672</span>
+                - <span class="publicationDate">2026-09-25</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Criminal</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24501/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">16.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24497/index.do">2069586 Ontario Inc. v. Sovereign General Insurance Company</a></span>
+                        - <span class="citation">2026 ONCA 655</span>
+                - <span class="publicationDate">2026-09-24</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24497/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">17.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24499/index.do">Alnwick/Haldimand (Township) v. Jarvis</a></span>
+                        - <span class="citation">2026 ONCA 675</span>
+                - <span class="publicationDate">2026-09-24</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24499/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">18.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24495/index.do">Cycle Toronto v. Ontario (Attorney General)</a></span>
+                        - <span class="citation">2026 ONCA 676</span>
+                - <span class="publicationDate">2026-09-24</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24495/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">19.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/20904/index.do">R. v. Brown</a></span>
+                        - <span class="citation">2022 ONCA 695</span>
+                - <span class="publicationDate">2026-09-24</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Criminal</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/20904/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">20.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24498/index.do">R. v. E.C.</a></span>
+                        - <span class="citation">2026 ONCA 669</span>
+                - <span class="publicationDate">2026-09-24</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Criminal</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24498/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">21.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24496/index.do">R. v. Owusu</a></span>
+                        - <span class="citation">2026 ONCA 668</span>
+                - <span class="publicationDate">2026-09-24</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Criminal</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24496/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">22.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24500/index.do">Ramcharran v. Ramcharran</a></span>
+                        - <span class="citation">2026 ONCA 678</span>
+                - <span class="publicationDate">2026-09-24</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24500/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">23.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24493/index.do">Gutierrez v. Watchtower Bible and Tract Society of Canada</a></span>
+                        - <span class="citation">2026 ONCA 665</span>
+                - <span class="publicationDate">2026-09-23</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24493/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">24.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24494/index.do">Mazzeo v. Mazzeo</a></span>
+                        - <span class="citation">2026 ONCA 674</span>
+                - <span class="publicationDate">2026-09-23</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24494/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">25.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24488/index.do">Aldahleh v. Zayed</a></span>
+                        - <span class="citation">2026 ONCA 667</span>
+                - <span class="publicationDate">2026-09-22</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24488/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    </ul>
+    <hr/>
+</div>
+        
+        <div class="resultControls bottom">
+    <ul class="pager">
+                <li class="active current">1</li>
+                <li class="active"><a target="_parent" href="/coa/coa/en/nav_date.do?page=2">2</a></li>
+                <li class="active"><a target="_parent" href="/coa/coa/en/nav_date.do?page=3">3</a></li>
+                <li class="active"><a target="_parent" href="/coa/coa/en/nav_date.do?page=4">4</a></li>
+                <li class="active"><a target="_parent" href="/coa/coa/en/nav_date.do?page=5">5</a></li>
+                <li class="active"><a target="_parent" href="/coa/coa/en/nav_date.do?page=6">6</a></li>
+                <li class="active"><a target="_parent" href="/coa/coa/en/nav_date.do?page=2">&gt;</a></li>
+                <li class="active"><a target="_parent" href="/coa/coa/en/nav_date.do?page=28">&gt;&gt;</a></li>
+    </ul>
+        </div>
+        
+    </div>
+</div></div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "coa",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "114"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=114" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+
+</body>
+
+</html>

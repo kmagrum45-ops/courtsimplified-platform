@@ -1,0 +1,4 @@
+200 text/xml 60635 https://coadecisions.ontariocourts.ca/coa/coa/en/rss.do
+404 application/json 107 https://coadecisions.ontariocourts.ca/coa/coa/en/d/s/index.do?cont=%22Small+Claims+Court%22&ref=&d=&p=&col=1&or=&iframe=true
+200 text/html 41201 https://coadecisions.ontariocourts.ca/coa/coa/en/nav_date.do?iframe=true
+404 application/json 115 https://decisions.scc-csc.ca/scc-csc/scc-csc/en/d/s/index.do?cont=%22Small+Claims+Court%22&col=1&iframe=true

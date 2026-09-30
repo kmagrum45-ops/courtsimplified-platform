@@ -1,0 +1,361 @@
+ Navigation by Date: 2026 - Court of Appeal for Ontario
+.decisia-content {
+ font-family: Arial, sans-serif;
+ font-size: 1rem;
+}
+.decisia-content a {
+ color: #0645ad;
+ text-decoration: underline;
+}
+.decisia-content a:visited {
+ color: purple;
+}
+.decisia-content a:hover {
+ color: #222;
+ text-decoration: none;
+}
+#decisia-footer a.outlink:after {
+ content: normal;
+	margin: 0;
+}
+.breadcrumb-separator > span {
+ display: none;
+}
+.breadcrumb-separator:after {
+ content: " » ";
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link {
+ color: #0645ad;
+	text-decoration: underline;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:hover {
+ text-decoration: none;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:focus {
+ outline: 1px dashed #666;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:active {
+ outline: 0;
+}
+#solrHiBar {
+ line-height: normal;
+}
+.lexumSolrArrow {
+ line-height: 20px;
+}
+.wpml-ls-item-legacy-list-horizontal > span {
+ padding-top: 5px;
+ padding-right: 10px;
+ padding-bottom: 5px;
+ padding-left: 10px;
+	line-height: 1;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search {
+ padding-bottom: 0;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search > .searchLinks {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content > #decisia-login-header {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager, #decisia-main-content > .decisions.decisia-box > .decisia-content > h2 {
+ margin-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager {
+ margin-bottom: 1.2em;
+}
+#document-content {
+ border-bottom: 2px solid black;
+}
+#decisia-footer {
+ margin-top: 10px;
+ padding-top: 10px;
+}
+#decisia-footer .decisia-lexum a {
+ top: 10px;
+}
+#decisia-footer img.decisia_logo {
+ width: 120px;
+ height: 42px;
+}
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ [LINK /coa/coa/en/nav_date.do] Decisions of the Court of Appeal
+ &gt;
+ Date&#58; 2026
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ [LINK /coa/coa/en/nav_date.do] Decisions of the Court of Appeal
+ &gt;
+ Date&#58; 2026
+ /coa/coa/fr/nav_date.do?alternatelocale=fr
+ [LINK /coa/en/q.do] Help
+ Decisions of the Court of Appeal
+ Search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ [LINK /coa/en/d/s/index.do] Advanced Search
+ Date
+ [LINK /coa/coa/en/nav_alpha.do] Case name
+ [LINK /coa/coa/en/nav_neu.do] Neutral citation
+ 2026
+ [LINK /coa/coa/en/2025/nav_date.do] 2025
+ [LINK /coa/coa/en/2024/nav_date.do] 2024
+ [LINK /coa/coa/en/2023/nav_date.do] 2023
+ [LINK /coa/coa/en/2022/nav_date.do] 2022
+ [LINK /coa/coa/en/2021/nav_date.do] 2021
+ [LINK /coa/coa/en/2020/nav_date.do] 2020
+ [LINK /coa/coa/en/2019/nav_date.do] 2019
+ [LINK /coa/coa/en/2018/nav_date.do] 2018
+ [LINK /coa/coa/en/2017/nav_date.do] 2017
+ [LINK /coa/coa/en/2016/nav_date.do] 2016
+ [LINK /coa/coa/en/2015/nav_date.do] 2015
+ [LINK /coa/coa/en/2014/nav_date.do] 2014
+ [LINK /coa/coa/en/2013/nav_date.do] 2013
+ [LINK /coa/coa/en/2012/nav_date.do] 2012
+ [LINK /coa/coa/en/2011/nav_date.do] 2011
+ [LINK /coa/coa/en/2010/nav_date.do] 2010
+ [LINK /coa/coa/en/2009/nav_date.do] 2009
+ [LINK /coa/coa/en/2008/nav_date.do] 2008
+ [LINK /coa/coa/en/2007/nav_date.do] 2007
+ [LINK /coa/coa/en/2006/nav_date.do] 2006
+ [LINK /coa/coa/en/2005/nav_date.do] 2005
+ [LINK /coa/coa/en/2004/nav_date.do] 2004
+ [LINK /coa/coa/en/2003/nav_date.do] 2003
+ [LINK /coa/coa/en/2002/nav_date.do] 2002
+ [LINK /coa/coa/en/2001/nav_date.do] 2001
+ [LINK /coa/coa/en/2000/nav_date.do] 2000
+ [LINK /coa/coa/en/1999/nav_date.do] 1999
+ [LINK /coa/coa/en/1998/nav_date.do] 1998
+ 1
+ [LINK /coa/coa/en/nav_date.do?page=2] 2
+ [LINK /coa/coa/en/nav_date.do?page=3] 3
+ [LINK /coa/coa/en/nav_date.do?page=4] 4
+ [LINK /coa/coa/en/nav_date.do?page=5] 5
+ [LINK /coa/coa/en/nav_date.do?page=6] 6
+ [LINK /coa/coa/en/nav_date.do?page=2] &gt;
+ [LINK /coa/coa/en/nav_date.do?page=28] &gt;&gt;
+ 685 result(s)
+ 1.
+ [LINK /coa/coa/en/item/24512/index.do] Gryn v. Gryn
+ - 2026 ONCA 691
+ - 2026-09-29
+ Decisions of the Court of Appeal
+ - Family
+ [LINK /coa/coa/en/24512/1/document.do] 
+ 2.
+ [LINK /coa/coa/en/item/24515/index.do] Hirji v. Rassos
+ - 2026 ONCA 695
+ - 2026-09-29
+ Decisions of the Court of Appeal
+ - Civil
+ [LINK /coa/coa/en/24515/1/document.do] 
+ 3.
+ [LINK /coa/coa/en/item/24513/index.do] R. v. Brahimi
+ - 2026 ONCA 693
+ - 2026-09-29
+ Decisions of the Court of Appeal
+ - Criminal
+ [LINK /coa/coa/en/24513/1/document.do] 
+ 4.
+ [LINK /coa/coa/en/item/24511/index.do] R. v. Desir
+ - 2026 ONCA 690
+ - 2026-09-29
+ Decisions of the Court of Appeal
+ - Criminal
+ [LINK /coa/coa/en/24511/1/document.do] 
+ 5.
+ [LINK /coa/coa/en/item/24514/index.do] R. v. Gaskin
+ - 2026 ONCA 694
+ - 2026-09-29
+ Decisions of the Court of Appeal
+ - Criminal
+ [LINK /coa/coa/en/24514/1/document.do] 
+ 6.
+ [LINK /coa/coa/en/item/24510/index.do] R. v. Hudson
+ - 2026 ONCA 681
+ - 2026-09-29
+ Decisions of the Court of Appeal
+ - Criminal
+ [LINK /coa/coa/en/24510/1/document.do] 
+ 7.
+ [LINK /coa/coa/en/item/24509/index.do] R. v. T.U.
+ - 2026 ONCA 680
+ - 2026-09-29
+ Decisions of the Court of Appeal
+ - Criminal
+ [LINK /coa/coa/en/24509/1/document.do] 
+ 8.
+ [LINK /coa/coa/en/item/24507/index.do] Caruso v. Law Society of Ontario
+ - 2026 ONCA 677
+ - 2026-09-28
+ Decisions of the Court of Appeal
+ - Civil
+ [LINK /coa/coa/en/24507/1/document.do] 
+ 9.
+ [LINK /coa/coa/en/item/24505/index.do] Country Wide Homes Upper Thornhill Estates Inc. v. Chen
+ - 2026 ONCA 664
+ - 2026-09-28
+ Decisions of the Court of Appeal
+ - Civil
+ [LINK /coa/coa/en/24505/1/document.do] 
+ 10.
+ [LINK /coa/coa/en/item/24508/index.do] Sohal v. Bhatthal
+ - 2026 ONCA 688
+ - 2026-09-28
+ Decisions of the Court of Appeal
+ - Family
+ [LINK /coa/coa/en/24508/1/document.do] 
+ 11.
+ [LINK /coa/coa/en/item/24506/index.do] Soumare v. Diallo
+ - 2026 ONCA 679
+ - 2026-09-28
+ Decisions of the Court of Appeal
+ - Family
+ [LINK /coa/coa/en/24506/1/document.do] 
+ 12.
+ [LINK /coa/coa/en/item/24504/index.do] DiMartino v. Sediq
+ - 2026 ONCA 683
+ - 2026-09-25
+ Decisions of the Court of Appeal
+ - Civil
+ [LINK /coa/coa/en/24504/1/document.do] 
+ 13.
+ [LINK /coa/coa/en/item/24502/index.do] R. v. P.B.
+ - 2026 ONCA 671
+ - 2026-09-25
+ Decisions of the Court of Appeal
+ - Criminal
+ [LINK /coa/coa/en/24502/1/document.do] 
+ 14.
+ [LINK /coa/coa/en/item/24503/index.do] R. v. Trowbridge
+ - 2026 ONCA 673
+ - 2026-09-25
+ Decisions of the Court of Appeal
+ - Criminal
+ [LINK /coa/coa/en/24503/1/document.do] 
+ 15.
+ [LINK /coa/coa/en/item/24501/index.do] R. v. W.W.
+ - 2026 ONCA 672
+ - 2026-09-25
+ Decisions of the Court of Appeal
+ - Criminal
+ [LINK /coa/coa/en/24501/1/document.do] 
+ 16.
+ [LINK /coa/coa/en/item/24497/index.do] 2069586 Ontario Inc. v. Sovereign General Insurance Company
+ - 2026 ONCA 655
+ - 2026-09-24
+ Decisions of the Court of Appeal
+ - Civil
+ [LINK /coa/coa/en/24497/1/document.do] 
+ 17.
+ [LINK /coa/coa/en/item/24499/index.do] Alnwick/Haldimand (Township) v. Jarvis
+ - 2026 ONCA 675
+ - 2026-09-24
+ Decisions of the Court of Appeal
+ - Civil
+ [LINK /coa/coa/en/24499/1/document.do] 
+ 18.
+ [LINK /coa/coa/en/item/24495/index.do] Cycle Toronto v. Ontario (Attorney General)
+ - 2026 ONCA 676
+ - 2026-09-24
+ Decisions of the Court of Appeal
+ - Civil
+ [LINK /coa/coa/en/24495/1/document.do] 
+ 19.
+ [LINK /coa/coa/en/item/20904/index.do] R. v. Brown
+ - 2022 ONCA 695
+ - 2026-09-24
+ Decisions of the Court of Appeal
+ - Criminal
+ [LINK /coa/coa/en/20904/1/document.do] 
+ 20.
+ [LINK /coa/coa/en/item/24498/index.do] R. v. E.C.
+ - 2026 ONCA 669
+ - 2026-09-24
+ Decisions of the Court of Appeal
+ - Criminal
+ [LINK /coa/coa/en/24498/1/document.do] 
+ 21.
+ [LINK /coa/coa/en/item/24496/index.do] R. v. Owusu
+ - 2026 ONCA 668
+ - 2026-09-24
+ Decisions of the Court of Appeal
+ - Criminal
+ [LINK /coa/coa/en/24496/1/document.do] 
+ 22.
+ [LINK /coa/coa/en/item/24500/index.do] Ramcharran v. Ramcharran
+ - 2026 ONCA 678
+ - 2026-09-24
+ Decisions of the Court of Appeal
+ - Family
+ [LINK /coa/coa/en/24500/1/document.do] 
+ 23.
+ [LINK /coa/coa/en/item/24493/index.do] Gutierrez v. Watchtower Bible and Tract Society of Canada
+ - 2026 ONCA 665
+ - 2026-09-23
+ Decisions of the Court of Appeal
+ - Civil
+ [LINK /coa/coa/en/24493/1/document.do] 
+ 24.
+ [LINK /coa/coa/en/item/24494/index.do] Mazzeo v. Mazzeo
+ - 2026 ONCA 674
+ - 2026-09-23
+ Decisions of the Court of Appeal
+ - Family
+ [LINK /coa/coa/en/24494/1/document.do] 
+ 25.
+ [LINK /coa/coa/en/item/24488/index.do] Aldahleh v. Zayed
+ - 2026 ONCA 667
+ - 2026-09-22
+ Decisions of the Court of Appeal
+ - Family
+ [LINK /coa/coa/en/24488/1/document.do] 
+ 1
+ [LINK /coa/coa/en/nav_date.do?page=2] 2
+ [LINK /coa/coa/en/nav_date.do?page=3] 3
+ [LINK /coa/coa/en/nav_date.do?page=4] 4
+ [LINK /coa/coa/en/nav_date.do?page=5] 5
+ [LINK /coa/coa/en/nav_date.do?page=6] 6
+ [LINK /coa/coa/en/nav_date.do?page=2] &gt;
+ [LINK /coa/coa/en/nav_date.do?page=28] &gt;&gt;
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "coa",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "114"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();

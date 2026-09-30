@@ -1,0 +1,4 @@
+200	text/xml	60635	coadecisions.ontariocourts.ca_coa_coa_en_rss.do	https://coadecisions.ontariocourts.ca/coa/coa/en/rss.do
+404	application/json	107	coadecisions.ontariocourts.ca_coa_coa_en_d_s_index.do_cont_22Small_Claims_Court_22_ref_d_p_col_1_or_iframe_true	https://coadecisions.ontariocourts.ca/coa/coa/en/d/s/index.do?cont=%22Small+Claims+Court%22&ref=&d=&p=&col=1&or=&iframe=true
+200	text/html	41201	coadecisions.ontariocourts.ca_coa_coa_en_nav_date.do_iframe_true	https://coadecisions.ontariocourts.ca/coa/coa/en/nav_date.do?iframe=true
+404	application/json	115	decisions.scc-csc.ca_scc-csc_scc-csc_en_d_s_index.do_cont_22Small_Claims_Court_22_col_1_iframe_true	https://decisions.scc-csc.ca/scc-csc/scc-csc/en/d/s/index.do?cont=%22Small+Claims+Court%22&col=1&iframe=true
