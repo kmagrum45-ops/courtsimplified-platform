@@ -1,0 +1,110 @@
+{
+ "id": "divorce",
+ "title": "Getting a divorce",
+ "courts": [
+  "family"
+ ],
+ "intro": "This guide describes, in general terms, what the federal Divorce Act and rule 36 of Ontario's Family Law Rules say about getting a divorce: which court hears it, the ground for divorce, and how a divorce takes effect. It explains what the law and rules say; it does not say whether any particular person can get a divorce.",
+ "sections": [
+  {
+   "heading": "Which court and who can apply",
+   "court": "family",
+   "paragraphs": [
+    "Divorce is governed by the Divorce Act, a federal law. A “divorce proceeding” is a proceeding in a court in which either or both spouses seek a divorce, alone or together with a child support order, a spousal support order or a parenting order. (Divorce Act, s. 2 (1))",
+    "For Ontario, the Act names the court as “the Superior Court of Justice”. The definition also includes any other court in the province whose judges are appointed by the Governor General and that the province designates as a court for the purposes of the Act. (Divorce Act, s. 2 (1))",
+    "“A court in a province has jurisdiction to hear and determine a divorce proceeding if either spouse has been habitually resident in the province for at least one year immediately preceding the commencement of the proceeding.” If divorce proceedings between the same spouses are pending in two courts with jurisdiction, started on different days, and the first one “is not discontinued”, the court where the proceeding was started first has exclusive jurisdiction, and the second proceeding “is deemed to be discontinued.” (Divorce Act, s. 3 (1), (2))",
+    "“A court of competent jurisdiction may, on application by either or both spouses, grant a divorce to the spouse or spouses on the ground that there has been a breakdown of their marriage.” The power to grant a divorce “shall be exercised only by a judge of the court without a jury.” (Divorce Act, ss. 7, 8 (1))"
+   ]
+  },
+  {
+   "heading": "The ground: breakdown of the marriage",
+   "court": "family",
+   "paragraphs": [
+    "Under the Divorce Act, “Breakdown of a marriage is established only if” one of the situations in subsection 8 (2) applies. The first is that “the spouses have lived separate and apart for at least one year immediately preceding the determination of the divorce proceeding and were living separate and apart at the commencement of the proceeding”. (Divorce Act, s. 8 (2) (a))",
+    "The other situations are that the spouse against whom the proceeding is brought has, since the marriage, “committed adultery”, or “treated the other spouse with physical or mental cruelty of such a kind as to render intolerable the continued cohabitation of the spouses.” (Divorce Act, s. 8 (2) (b))",
+    "For the one-year separation in paragraph 8 (2) (a), spouses are deemed to have lived separate and apart “for any period during which they lived apart and either of them had the intention to live separate and apart from the other”. A period of separation is not interrupted or ended “by reason only that the spouses have resumed cohabitation during a period of, or periods totalling, not more than ninety days with reconciliation as its primary purpose.” (Divorce Act, s. 8 (3))",
+    "A period of separation is also not interrupted by reason only that a spouse has become incapable of forming or having an intention to continue to live separate and apart, or of doing so of their own volition, “if it appears to the court that the separation would probably have continued if the spouse had not become so incapable”. (Divorce Act, s. 8 (3) (b) (i))"
+   ]
+  },
+  {
+   "heading": "Reconciliation and the bars to divorce",
+   "court": "family",
+   "paragraphs": [
+    "In a divorce proceeding, the court has a duty, before considering the evidence, “to satisfy itself that there is no possibility of the reconciliation of the spouses, unless the circumstances of the case are of such a nature that it would clearly not be appropriate to do so.” If a possibility of reconciliation appears, the court shall adjourn the proceeding, and may nominate a person to assist the spouses. (Divorce Act, s. 10 (1), (2))",
+    "The court must also “satisfy itself that there has been no collusion in relation to the application for a divorce and to dismiss the application if it finds that there was collusion in presenting it”. (Divorce Act, s. 11 (1) (a))",
+    "Under section 11, collusion is an agreement or conspiracy, to which an applicant for a divorce is directly or indirectly a party, “for the purpose of subverting the administration of justice”, including to “fabricate or suppress evidence or to deceive the court”. It excludes an agreement to the extent it provides for separation, financial support, division of property or “the exercise of parenting time or decision-making responsibility.” (Divorce Act, s. 11 (4))",
+    "The court must “satisfy itself that reasonable arrangements have been made for the support of any children of the marriage, having regard to the applicable guidelines”. If such arrangements have not been made, the court is “to stay the granting of the divorce until such arrangements are made”. (Divorce Act, s. 11 (1) (b))",
+    "Where divorce is sought for adultery or cruelty, the court must satisfy itself that there has been no condonation or connivance by the spouse bringing the proceeding. It dismisses the application if there was, “unless, in the opinion of the court, the public interest would be better served by granting the divorce.” Continuing or resuming cohabitation for not more than ninety days with reconciliation as the primary purpose is not condonation. (Divorce Act, s. 11 (1) (c), (3))"
+   ]
+  },
+  {
+   "heading": "Duties of the parties and legal advisers",
+   "court": "family",
+   "paragraphs": [
+    "The Divorce Act sets out duties for parties. “A party to a proceeding under this Act shall, to the best of their ability, protect any child of the marriage from conflict arising from the proceeding.” “To the extent that it is appropriate to do so, the parties to a proceeding shall try to resolve the matters that may be the subject of an order under this Act through a family dispute resolution process.” (Divorce Act, ss. 7.2, 7.3)",
+    "A “family dispute resolution process” means “a process outside of court that is used by parties to a family law dispute to attempt to resolve any matters in dispute, including negotiation, mediation and collaborative law”. (Divorce Act, s. 2 (1))",
+    "A party or a person subject to an order “shall provide complete, accurate and up-to-date information if required to do so under this Act.” A person subject to an order “shall comply with the order until it is no longer in effect.” A person with parenting time or decision-making responsibility for a child of the marriage, or contact under a contact order, exercises it “in a manner that is consistent with the best interests of the child.” (Divorce Act, ss. 7.1, 7.4, 7.5)",
+    "Every document that formally starts or responds to a proceeding under the Act and is filed by a party “shall contain a statement by the party certifying that they are aware of their duties under sections 7.1 to 7.5.” (Divorce Act, s. 7.6)",
+    "A legal adviser acting for a spouse in a divorce proceeding has duties, unless it “would clearly not be appropriate”: to draw the spouse's attention to the Act's provisions aimed at reconciliation, to discuss the possibility of reconciliation, and to inform the spouse of known marriage counselling or guidance facilities that might help the spouses reconcile. (Divorce Act, s. 7.7 (1))",
+    "In any proceeding under the Act, a legal adviser must also encourage the person to use a family dispute resolution process unless that would clearly not be appropriate, inform the person of known family justice services, and inform them “of the parties’ duties under this Act.” (Divorce Act, s. 7.7 (2))",
+    "A document filed by a legal adviser that starts or responds to a proceeding “shall contain a statement by the legal adviser certifying that they have complied with this section.” (Divorce Act, s. 7.7 (3))"
+   ]
+  },
+  {
+   "heading": "Starting a divorce case in Ontario",
+   "court": "family",
+   "paragraphs": [
+    "Under the Family Law Rules, “Either spouse may start a divorce case by,” “filing an application naming the other spouse as a respondent” or “filing a joint application with no respondent.” In a joint application, “the divorce and any other order sought shall be made only with the consent of both spouses.” (Family Law Rules, r. 36 (1), (2))",
+    "To start a case, a person files an application in one of the forms listed in rule 8 (1). The rules' table of forms lists Form 8A as “APPLICATION (DIVORCE)”. (Family Law Rules, r. 8 (1); Table of Forms)",
+    "Special service of an application must be carried out “by a person other than the party required to serve the document”, unless an exception in subrule 6 (4.2) applies, such as where “the court orders otherwise.” (Family Law Rules, r. 6 (4.1), (4.2))",
+    "If an application claims that the other spouse committed adultery with another person, “that person does not need to be named, but if named, shall be served with the application and has all the rights of a respondent in the case.” (Family Law Rules, r. 36 (3))",
+    "“The court shall not grant a divorce until the following have been filed”: a marriage certificate or marriage registration certificate, “unless the application states that it is impractical to obtain a certificate and explains why”, and a report on earlier divorce cases started by either spouse, issued under the Central Registry of Divorce Proceedings Regulations (Canada). (Family Law Rules, r. 36 (4))",
+    "The mandatory information program in rule 8.1 applies to certain family cases. Its attendance requirements do not apply to “parties in cases in which the only claims made are for a divorce, costs or the incorporation of the terms of an agreement or prior court order”. (Family Law Rules, r. 8.1 (1), (2) (d))"
+   ]
+  },
+  {
+   "heading": "A divorce decided on affidavit evidence",
+   "court": "family",
+   "paragraphs": [
+    "An affidavit in Form 36 is filed by the applicant “if the respondent files no answer or files an answer and later withdraws it”, or by the applicants in a joint application. It confirms the information in the application, gives proof of the marriage if no certificate was filed, and includes the information about arrangements for support of any children required by paragraph 11 (1) (b) of the Divorce Act, among other things. (Family Law Rules, r. 36 (5), (5.1))",
+    "With the affidavit, the applicant files “three copies of a draft divorce order (Form 25A)”, “a stamped envelope addressed to each party”, and, if the divorce order is to contain a support order, an extra copy of the draft order and two copies of a draft support deduction order. (Family Law Rules, r. 36 (6))",
+    "Once these requirements are met, the clerk prepares a certificate (Form 36A) and presents the documents to a judge. The judge may grant the divorce as set out in the draft order, have the documents returned for corrections, or change or refuse the order “after giving the applicant a chance to file an additional affidavit or come to court to explain why the order should be made without change.” (Family Law Rules, r. 36 (7))"
+   ]
+  },
+  {
+   "heading": "When a divorce takes effect",
+   "court": "family",
+   "paragraphs": [
+    "“Subject to this section, a divorce takes effect on the thirty-first day after the day on which the judgment granting the divorce is rendered.” (Divorce Act, s. 12 (1))",
+    "The court may order that a divorce take effect earlier if it is of the opinion that “by reason of special circumstances the divorce should take effect earlier”, and “the spouses agree and undertake that no appeal from the judgment will be taken, or any appeal from the judgment that was taken has been abandoned”. (Divorce Act, s. 12 (2))",
+    "If an appeal is pending at the end of the period referred to in subsection 12 (1), the divorce, unless voided on appeal, takes effect when the time for appealing the appeal decision expires without a further appeal. If an appeal goes to the Supreme Court of Canada, the divorce, unless voided, “takes effect on the day on which the judgment on the appeal is rendered.” (Divorce Act, s. 12 (3), (6))",
+    "“On taking effect, a divorce granted under this Act dissolves the marriage of the spouses.” It “has legal effect throughout Canada.” (Divorce Act, ss. 13, 14)"
+   ]
+  },
+  {
+   "heading": "The divorce certificate",
+   "court": "family",
+   "paragraphs": [
+    "When a divorce takes effect, a judge or officer of the court “shall, on request, issue to any person a certificate that a divorce granted under this Act dissolved the marriage of the specified persons effective as of a specified date.” The certificate “is conclusive proof of the facts so certified”. (Divorce Act, s. 12 (7), (8))",
+    "Under the Family Law Rules, when a divorce takes effect, the clerk, “on either party’s request”, checks the record to verify that no appeal has been taken or any appeal has been disposed of, and that no order extended the time for an appeal or any extended time has expired without an appeal. (Family Law Rules, r. 36 (8) (a))",
+    "If satisfied, the clerk issues “a divorce certificate (Form 36B)” and, unless the court orders otherwise, mails it to the parties if stamped envelopes have been filed, or emails it to them. (Family Law Rules, r. 36 (8) (b))"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "localText": "docs/sources/corpus/divorce-act.txt",
+   "sourceName": "Divorce Act",
+   "pinpoints": "s. 2 (1) (court, divorce proceeding, family dispute resolution process); ss. 3 (1), (2); 7; 7.1-7.7; 8; 10 (1), (2); 11 (1), (3), (4); 12 (1)-(3), (6)-(8); 13; 14",
+   "officialUrl": "https://laws-lois.justice.gc.ca/eng/acts/D-3.4/FullText.html",
+   "retrievedAt": "2026-09-30"
+  },
+  {
+   "localText": "docs/sources/corpus/family-law-rules.txt",
+   "sourceName": "Family Law Rules",
+   "pinpoints": "r. 6 (4.1), (4.2); r. 8 (1); r. 8.1 (1), (2); r. 36 (1)-(8); Table of Forms (Forms 8A, 25A, 36, 36A, 36B)",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/990114",
+   "retrievedAt": "2026-09-30"
+  }
+ ]
+}

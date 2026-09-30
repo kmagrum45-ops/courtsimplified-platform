@@ -1,0 +1,113 @@
+{
+ "id": "starting-a-civil-action",
+ "title": "Starting a civil action",
+ "courts": [
+  "civil"
+ ],
+ "intro": "This guide explains what the Rules of Civil Procedure and the Courts of Justice Act say about starting a case in the Superior Court of Justice, serving it, the time to defend, and what pleadings contain. It also describes the ontario.ca information on filing civil documents online.",
+ "sections": [
+  {
+   "heading": "How a civil proceeding starts",
+   "court": "civil",
+   "paragraphs": [
+    "Under the rules, “A proceeding shall be commenced by the issuing of an originating process.” The rules also say “Every proceeding in the court shall be by action, except where a statute or these rules provide otherwise.” (Rules of Civil Procedure, r. 14.01 (1), 14.02)",
+    "For an action, the originating process is usually “a statement of claim (Form 14A (general) or 14B (mortgage actions))”. An originating process is issued “by the registrar's act of dating, signing and sealing it with the seal of the court and assigning to it a court file number.” (Rules of Civil Procedure, r. 14.03 (1), 14.07 (1))",
+    "The title of the proceeding in an action “shall name the party commencing the action as the plaintiff and the opposite party as the defendant.” (Rules of Civil Procedure, r. 14.06 (2))"
+   ]
+  },
+  {
+   "heading": "Notice of action and the time to serve a claim",
+   "court": "civil",
+   "paragraphs": [
+    "“Where there is insufficient time to prepare a statement of claim, an action may be commenced by the issuing of a notice of action (Form 14C) that contains a short statement of the nature of the claim.” (Rules of Civil Procedure, r. 14.03 (2))",
+    "Where a notice of action is used, the plaintiff “shall file a statement of claim (Form 14D) within thirty days after the notice of action is issued”. After that, a statement of claim may be filed only with the defendant's written consent or with leave of the court “obtained on notice to the defendant.” (Rules of Civil Procedure, r. 14.03 (3))",
+    "“The notice of action shall not be served separately from the statement of claim.” A statement of claim “shall be served within six months after it is issued.” Where the action started with a notice of action, the notice and the statement of claim “shall be served together within six months after the notice of action is issued.” (Rules of Civil Procedure, r. 14.03 (4), 14.08 (1), (2))"
+   ]
+  },
+  {
+   "heading": "When an application may be used",
+   "court": "civil",
+   "paragraphs": [
+    "Some proceedings start with a notice of application instead of a statement of claim. “A proceeding may be commenced by an application to the Superior Court of Justice or to a judge of that court, if a statute so authorizes.” (Rules of Civil Procedure, r. 14.05 (1), (2))",
+    "The rules also allow an application where the rules authorize it or where the relief claimed is one of a listed set. The list includes “the determination of rights that depend on the interpretation of a deed, will, contract or other instrument”, a remedy under the Canadian Charter of Rights and Freedoms, and any matter “where it is unlikely that there will be any material facts in dispute requiring a trial.” (Rules of Civil Procedure, r. 14.05 (3))",
+    "In an application, the title names the party starting it “as the applicant and the opposite party, if any, as the respondent and the notice of application shall state the statutory provision or rule, if any, under which the application is made.” (Rules of Civil Procedure, r. 14.06 (3))"
+   ]
+  },
+  {
+   "heading": "Claims within the Small Claims Court's limit",
+   "court": "civil",
+   "paragraphs": [
+    "The Courts of Justice Act says: “An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court.” This does not apply to a counterclaim, crossclaim or third or subsequent party claim where the main action was started in the Superior Court of Justice. (Courts of Justice Act, s. 23 (1.1), (1.2))",
+    "Under the rules, where leave to commence a proceeding is required, “it shall be obtained by motion except where a statute or these rules provide otherwise.” A motion for leave under subsection 23 (1.1) “may be made without notice, unless the court orders otherwise.” The court “may grant leave under subsection 23 (1.1) of the Courts of Justice Act only if it is in the interest of justice.” (Rules of Civil Procedure, r. 14.01.1 (1)-(3))"
+   ]
+  },
+  {
+   "heading": "Serving the claim",
+   "court": "civil",
+   "paragraphs": [
+    "“An originating process shall be served personally as provided in rule 16.02 or by an alternative to personal service as provided in rule 16.03.” Personal service on an individual, other than a person under disability, is made “by leaving a copy of the document with the individual”. (Rules of Civil Procedure, r. 16.01 (1), 16.02 (1) (a))",
+    "Personal service on a corporation other than a municipal corporation is made by leaving a copy with “an officer, director or agent of the corporation”, or with a person at any place of business of the corporation who appears to be in control or management of it. (Rules of Civil Procedure, r. 16.02 (1) (c))",
+    "Alternatives to personal service include mail with an acknowledgment of receipt card, which is “only effective as of the date the sender receives the card.” If personal service at a residence fails, a copy may be left in a sealed envelope with “anyone who appears to be an adult member of the same household”, with another copy mailed the same or next day. That service “is effective on the fifth day after the document is mailed.” (Rules of Civil Procedure, r. 16.03 (4), (5))",
+    "Where prompt service is impractical, “the court may make an order for substituted service or, where necessary in the interest of justice, may dispense with service.” The court may also validate service made in an unauthorized way if the document came to the person's notice, or would have except for the person's “own attempts to evade service.” Service may be proved “by an affidavit of the person who served it (Form 16B).” (Rules of Civil Procedure, r. 16.04 (1), 16.08, 16.09 (1))"
+   ]
+  },
+  {
+   "heading": "Time to defend",
+   "court": "civil",
+   "paragraphs": [
+    "Except as provided in rule 18.02 and certain other rules (late delivery of a defence, and a counterclaim against the plaintiff and a non-party), a statement of defence (Form 18A) is delivered “within twenty days after service of the statement of claim, where the defendant is served in Ontario”; within forty days if served elsewhere in Canada or in the United States of America; and within sixty days if served anywhere else. (Rules of Civil Procedure, r. 18.01)",
+    "A defendant who intends to defend “may deliver a notice of intent to defend (Form 18B) within the time prescribed for delivery of a statement of defence.” A defendant who does so “is entitled to ten days, in addition to the time prescribed by rule 18.01, within which to deliver a statement of defence.” (Rules of Civil Procedure, r. 18.02 (1), (2))"
+   ]
+  },
+  {
+   "heading": "What a pleading contains",
+   "court": "civil",
+   "paragraphs": [
+    "In an action, pleadings “shall consist of the statement of claim (Form 14A, 14B or 14D), statement of defence (Form 18A) and reply (Form 25A), if any.” Pleadings “shall be divided into paragraphs numbered consecutively”. (Rules of Civil Procedure, r. 25.01 (1), 25.02)",
+    "“Every pleading shall contain a concise statement of the material facts on which the party relies for the claim or defence, but not the evidence by which those facts are to be proved.” A party may raise a point of law, “but conclusions of law may be pleaded only if the material facts supporting them are pleaded.” Where damages are claimed, “the amount claimed for each claimant in respect of each claim shall be stated”. (Rules of Civil Procedure, r. 25.06 (1), (2), (9))",
+    "In a defence, a party “shall admit every allegation of fact in the opposite party's pleading that the party does not dispute.” Allegations of fact not denied “shall be deemed to be admitted unless the party pleads having no knowledge in respect of the fact.” But “In an action for damages, the amount of damages shall be deemed to be in issue unless specifically admitted.” (Rules of Civil Procedure, r. 25.07 (1), (2), (6))",
+    "Where a party intends to prove a version of the facts different from that pleaded by the opposite party, “a denial of the version so pleaded is not sufficient, but the party shall plead the party's own version of the facts in the defence.” (Rules of Civil Procedure, r. 25.07 (3))"
+   ]
+  },
+  {
+   "heading": "Reply and close of pleadings",
+   "court": "civil",
+   "paragraphs": [
+    "A party who intends to prove a different version of the facts from the defence “shall deliver a reply setting out the different version, unless it has already been pleaded in the claim.” But “A party shall not deliver a reply except where required to do so by subrule (1) or (2).” A party who does not deliver a reply within the prescribed time is “deemed to deny the allegations of fact made in the defence of the opposite party.” (Rules of Civil Procedure, r. 25.08 (1), (3), (4))",
+    "A reply “shall be delivered within ten days after service of the statement of defence”, or within twenty days where the defendant counterclaims. Pleadings are closed when the plaintiff has delivered a reply to every defence or the time for a reply has expired, and every defendant in default has been noted in default. (Rules of Civil Procedure, r. 25.04 (3), 25.05)"
+   ]
+  },
+  {
+   "heading": "Filing civil documents online",
+   "court": "civil",
+   "paragraphs": [
+    "Ontario.ca says that starting October 14, 2025, “all online filings for the Toronto region must be submitted using the Ontario Courts Public Portal.” Outside Toronto, the Civil Claims Online and Civil Submissions Online portals remain available. Documents cannot be submitted online “to request an urgent court hearing” or for a court date or deadline 3 business days or fewer away. (ontario.ca, File civil or Divisional Court documents online)",
+    "The page says a person filing online needs “an online Ontario.ca Login” and a payment card if filing fees apply. For filings outside Toronto, a person with a fee waiver, or applying for one, “must use the Civil Submissions Online portal”, because the Civil Claims Online portal “will not apply the relevant fee exemptions.” It also says “Once you file a document, online or at a courthouse, you cannot change it.” (ontario.ca, File civil or Divisional Court documents online)",
+    "Through Civil Claims Online, a document filed on a weekday between 8:30 a.m. and 5:00 p.m. (excluding holidays) “will be considered filed at that time”; outside those hours “it will be considered filed on the next business day.” Through Civil Submissions Online, “Court staff will review your documents within 3 business days to determine if they are accepted for filing or issuance.” (ontario.ca, File civil or Divisional Court documents online)"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "localText": "docs/sources/corpus/rules-of-civil-procedure.txt",
+   "sourceName": "Rules of Civil Procedure",
+   "pinpoints": "r. 14.01 (1), 14.01.1 (1)-(3), 14.02, 14.03 (1)-(4), 14.05 (1)-(3), 14.06 (2), (3), 14.07 (1), 14.08 (1), (2), 16.01 (1), 16.02 (1) (a), (c), 16.03 (4), (5), 16.04 (1), 16.08, 16.09 (1), 18.01, 18.02 (1), (2), 25.01 (1), 25.02, 25.04 (3), 25.05, 25.06 (1), (2), (9), 25.07 (1)-(3), (6), 25.08 (1), (3), (4)",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/900194",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/cja-courts-of-justice-act.txt",
+   "sourceName": "Courts of Justice Act",
+   "pinpoints": "s. 23 (1.1), (1.2)",
+   "officialUrl": "https://www.ontario.ca/laws/statute/90c43",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/ontario-file-civil-claim-online.txt",
+   "sourceName": "ontario.ca, File civil or Divisional Court documents online",
+   "pinpoints": "Important notice; Documents you can file online (Toronto region); Before you submit; Fee waiver notice; After you submit",
+   "officialUrl": "https://www.ontario.ca/page/file-civil-claim-online",
+   "retrievedAt": "2026-09-27"
+  }
+ ]
+}
