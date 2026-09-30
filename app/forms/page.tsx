@@ -19,6 +19,8 @@ import {
   UNLINKED_FORM_RECOMMENDATION_MESSAGE,
   type FormsCourtPath,
 } from "../../src/lib/case-system/formsSelectedCase";
+import { formSummaryFor } from "../../src/lib/content-library/forms/formSummaries";
+import { assertApprovedUserContent } from "../../src/lib/content-library/outputGuard";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -1214,10 +1216,28 @@ function FormsPageContent() {
                         {cleanSpaces(form.official_title)}
                       </h2>
 
+                      {/*
+                        2026-09-30. The catalogue's purpose column repeats the
+                        title for every form, so the explanation now comes
+                        from the forms guide (src/lib/content-library/forms),
+                        written from the rule that names the form. A form the
+                        guide does not know keeps the old line.
+                      */}
                       <p className="mt-3 max-w-4xl text-sm leading-7 text-[#4f685f]">
-                        {cleanSpaces(form.purpose) ||
-                          cleanSpaces(form.official_title)}
+                        {(() => {
+                          const guide = formSummaryFor(form.court_type, cleanSpaces(form.form_number));
+                          const explained = guide ? assertApprovedUserContent(guide.summary, "FormsPage:form-guide") : "";
+                          return explained || cleanSpaces(form.purpose) || cleanSpaces(form.official_title);
+                        })()}
                       </p>
+                      {formSummaryFor(form.court_type, cleanSpaces(form.form_number)) ? (
+                        <a
+                          href={`/forms/guide?court=${form.court_type}#form-${formSummaryFor(form.court_type, cleanSpaces(form.form_number))!.number}`}
+                          className="mt-1 inline-block text-sm font-semibold text-[#2f7d67] underline"
+                        >
+                          What the rules say about this form
+                        </a>
+                      ) : null}
 
                        <p className="mt-3 text-sm font-semibold text-[#557168]">
                          {[getPathLabel(form.court_type), form.procedure_stage, form.form_group]
