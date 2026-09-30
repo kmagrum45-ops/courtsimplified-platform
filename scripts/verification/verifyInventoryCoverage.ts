@@ -64,7 +64,12 @@ const texts = new Set(inventory.map((entry) => entry.text));
 // ---------------------------------------------------------------------------
 
 {
-  const indexed = inventory.filter((entry) => entry.type === "procedural-stage");
+  // Guides and other reference text share the "procedural-stage" type; the
+  // stage cards are the entries whose id starts "stage:". Counting the type
+  // alone broke when the guides were added (2026-09-30).
+  const indexed = inventory.filter(
+    (entry) => entry.type === "procedural-stage" && entry.id.startsWith("stage:"),
+  );
 
   if (indexed.length === PROCEDURAL_STAGES.length) {
     pass(

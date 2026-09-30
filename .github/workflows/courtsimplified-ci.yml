@@ -176,6 +176,9 @@ jobs:
       - name: Courthouse addresses and contacts match the court's pages
         run: npm run test:court-locations
 
+      - name: Every procedural card and guide is in the review packet
+        run: npm run test:inventory-coverage
+
       - name: AI model configuration verification
         run: npm run test:ai-models
 
