@@ -38,6 +38,7 @@ const navLinks = [
   { href: "/guides", label: "Guides" },
   // Every official form for each court, explained (2026-09-30, site owner:
   // "a forms button so each court type has full list of forms").
+  { href: "/claims", label: "Case types" },
   { href: "/forms/guide", label: "Forms" },
   { href: "/glossary", label: "Glossary" },
   { href: "/courthouses", label: "Courthouses" },

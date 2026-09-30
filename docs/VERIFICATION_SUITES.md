@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-98 documented, 30 without a header.
+99 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -27,6 +27,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:child-support-intake` | **The child support screen: the common case is small, the second income figure**<br>is absent rather than empty, and an out-of-scope situation is named. |
 | `npm run test:child-support-table-card` | **The table card explains the table and never works an example.**<br>COSTS NOTHING. Reads the component source and the vendored sources. No render, no network. |
 | `npm run test:cited-provisions` | **Every cited provision is vendored, and no not-in-force replacement is**<br>undeclared or stale. |
+| `npm run test:claim-library` | **Everything the public claims library shows is approved library content.**<br>COSTS NOTHING. Pure data; no model call. |
 | `npm run test:claim-surface` | **Verifies the Statement of Claim wiring: gate -> attestation -> draft.**<br>COSTS NOTHING. The gate is pure, the drafting engine is deterministic by hard constraint, and attestation is user input. No model is involved at any point in this surface, so all three constraints are checkable offline. |
 | `npm run test:claim-type-matcher` | **The claim-type matcher works on prose a person would actually write.**<br>COSTS NOTHING. Pure string matching, no AI, no network. |
 | `npm run test:claim-types` | **The claim-type catalogue is internally honest: ids are unique and stable,**<br>authored profiles carry their sources, declared profiles carry nothing, and the synthetic scenarios can never reach a user. |
