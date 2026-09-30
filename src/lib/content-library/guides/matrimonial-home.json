@@ -1,0 +1,98 @@
+{
+ "id": "matrimonial-home",
+ "title": "The matrimonial home",
+ "courts": [
+  "family"
+ ],
+ "intro": "This guide describes, in general terms, what Part II of Ontario's Family Law Act says about the matrimonial home: what it is, who may live in it, and the orders a court may make about it. It explains what the law says; it does not say how the law applies to any particular home or family.",
+ "sections": [
+  {
+   "heading": "What counts as a matrimonial home",
+   "court": "family",
+   "paragraphs": [
+    "Part II of the Family Law Act deals with the matrimonial home. It says: “Every property in which a person has an interest and that is or, if the spouses have separated, was at the time of separation ordinarily occupied by the person and his or her spouse as their family residence is their matrimonial home.” In Part II, “property” means “real or personal property.” (Family Law Act, ss. 17, 18 (1))",
+    "Part II does not give its own definition of “spouse”. The Act's general definition says “spouse” means either of two persons who “are married to each other”, or who “have together entered into a marriage that is voidable or void, in good faith on the part of a person relying on this clause to assert any right.” (Family Law Act, s. 1 (1))",
+    "Owning shares in a corporation that entitle the owner “to occupy a housing unit owned by the corporation” is treated as an interest in the unit. If property that includes a matrimonial home “is normally used for a purpose other than residential”, the matrimonial home is only the part “that may reasonably be regarded as necessary to the use and enjoyment of the residence.” (Family Law Act, s. 18 (2), (3))",
+    "Part II “applies to matrimonial homes that are situated in Ontario.” It applies whether the spouses were married before or after March 1, 1986, and whether the home was acquired before or after that day. (Family Law Act, s. 28)",
+    "The Act defines “court” as “the Ontario Court of Justice, the Family Court of the Superior Court of Justice or the Superior Court of Justice”. For Part II, “court” means a court as defined in subsection 1 (1) “but does not include the Ontario Court of Justice”. (Family Law Act, ss. 1 (1), 17)"
+   ]
+  },
+  {
+   "heading": "The right to live in the home",
+   "court": "family",
+   "paragraphs": [
+    "The Act says: “Both spouses have an equal right to possession of a matrimonial home.” (Family Law Act, s. 19 (1))",
+    "When only one spouse has an interest in the home, the other spouse's right of possession “is personal as against the first spouse” and “ends when they cease to be spouses, unless a separation agreement or court order provides otherwise.” (Family Law Act, s. 19 (2))",
+    "A spouse who has no interest in a matrimonial home but is occupying it when the other spouse dies, “whether under an order for exclusive possession or otherwise, is entitled to retain possession against the spouse’s estate, rent free, for sixty days after the spouse’s death.” (Family Law Act, s. 26 (2))",
+    "If a spouse dies owning an interest in a matrimonial home as a joint tenant with a third person, and not with the other spouse, “the joint tenancy shall be deemed to have been severed immediately before the time of death.” (Family Law Act, s. 26 (1))"
+   ]
+  },
+  {
+   "heading": "Designating a matrimonial home",
+   "court": "family",
+   "paragraphs": [
+    "“One or both spouses may designate property owned by one or both of them as a matrimonial home, in the form prescribed by the regulations.” The designation may include property described in it that is contiguous to the matrimonial home, and it “may be registered in the proper land registry office.” (Family Law Act, s. 20 (1)-(3))",
+    "When a designation made by both spouses is registered, any other property that is a matrimonial home under section 18 but is not designated by both spouses “ceases to be a matrimonial home.” When a designation made by one spouse only is registered, any other matrimonial home under section 18 “remains a matrimonial home.” (Family Law Act, s. 20 (4), (5))",
+    "A designation is cancelled, and the property stops being a matrimonial home, on the registration or deposit of a cancellation in the prescribed form signed by the person or persons who made it, “a decree absolute of divorce or judgment of nullity”, an order under clause 23 (e) cancelling it, or “proof of death of one of the spouses.” When a designation by both spouses is cancelled, section 18 applies again to other property that is a matrimonial home. (Family Law Act, s. 20 (6), (7))"
+   ]
+  },
+  {
+   "heading": "Disposing of or encumbering the home",
+   "court": "family",
+   "paragraphs": [
+    "“No spouse shall dispose of or encumber an interest in a matrimonial home unless,” “the other spouse joins in the instrument or consents to the transaction”; the other spouse “has released all rights under this Part by a separation agreement”; “a court order has authorized the transaction or has released the property from the application of this Part”; or the property is not designated by both spouses and a designation of another property by both spouses is registered and not cancelled. (Family Law Act, s. 21 (1))",
+    "A transaction made contrary to subsection 21 (1) “may be set aside on an application under section 23”. That does not apply if the person holding the interest or encumbrance at the time of the application “acquired it for value, in good faith and without notice”, when acquiring it or agreeing to acquire it, that the property was a matrimonial home. (Family Law Act, s. 21 (2))",
+    "A statement by the person making the disposition or encumbrance, verifying one of the matters listed in subsection 21 (3) (for example, that the person “is not, or was not, a spouse at the time of the disposition or encumbrance”), is deemed to be “sufficient proof that the property is not a matrimonial home”, unless the person receiving it “had notice to the contrary”. (Family Law Act, s. 21 (3))",
+    "On the application of a spouse or a person having an interest in property, the court may, among other things, “determine whether or not the property is a matrimonial home and, if so, its extent”, set aside a transaction made contrary to subsection 21 (1), or cancel a designation if the property is not a matrimonial home. (Family Law Act, s. 23 (a), (d), (e))",
+    "The court may also authorize a disposition or encumbrance of the home if it finds that the spouse whose consent is required “cannot be found or is not available”, “is not capable of giving or withholding consent”, or “is unreasonably withholding consent”, subject to any conditions the court considers appropriate, “including provision of other comparable accommodation or payment in place of it”. (Family Law Act, s. 23 (b))",
+    "When someone enforces a lien, encumbrance or execution, or exercises a forfeiture, against a matrimonial home, the spouse who has a right of possession under section 19 “has the same right of redemption or relief against forfeiture as the other spouse and is entitled to the same notice respecting the claim and its enforcement or realization.” For a power of sale, sections 33 and 34 of the Mortgages Act apply. (Family Law Act, s. 22 (1), (3))"
+   ]
+  },
+  {
+   "heading": "Orders about possession of the home",
+   "court": "family",
+   "paragraphs": [
+    "“Regardless of the ownership of a matrimonial home and its contents, and despite section 19 (spouse’s right of possession), the court may on application, by order,” among other things, “direct that one spouse be given exclusive possession of the matrimonial home or part of it for the period that the court directs”, and direct the spouse given exclusive possession “to make periodic payments to the other spouse”. (Family Law Act, s. 24 (1) (b), (c))",
+    "Other orders listed in subsection 24 (1) include providing for “the delivering up, safekeeping and preservation of the matrimonial home and its contents”, directing that contents stay in the home or be removed “for the use of a spouse or child”, ordering a spouse to pay for “all or part of the repair and maintenance of the matrimonial home”, and authorizing a disposition or encumbrance of a spouse’s interest “subject to the other spouse’s right of exclusive possession as ordered”. (Family Law Act, s. 24 (1) (a), (d), (e), (f))",
+    "“The court may, on motion, make a temporary or interim order under clause (1) (a), (b), (c), (d) or (e).” (Family Law Act, s. 24 (2))",
+    "In deciding whether to make an order for exclusive possession, “the court shall consider,” “the best interests of the children affected”; “any existing orders under Part I (Family Property) and any existing support orders or other enforceable support obligations”; “the financial position of both spouses”; “any written agreement between the parties”; “the availability of other suitable and affordable accommodation”; and “any violence committed by a spouse against the other spouse or the children.” (Family Law Act, s. 24 (3))",
+    "In determining the best interests of a child, the court shall consider “the possible disruptive effects on the child of a move to other accommodation” and “the child’s views and preferences, if they can reasonably be ascertained.” (Family Law Act, s. 24 (4))",
+    "In making any order under Part II, the court may also make an interim order prohibiting a party “from directly or indirectly contacting or communicating with another party”, if it determines that the order “is necessary to ensure that an application under this Part is dealt with justly.” (Family Law Act, s. 25.1)"
+   ]
+  },
+  {
+   "heading": "Contravening, changing and registering orders",
+   "court": "family",
+   "paragraphs": [
+    "“A person who contravenes an order for exclusive possession is guilty of an offence”. On conviction, for a first offence the Act sets a fine of not more than $5,000 or imprisonment of not more than three months, or both; for a second or subsequent offence, a fine of not more than $10,000 or imprisonment of not more than two years, or both. (Family Law Act, s. 24 (5))",
+    "“A police officer may arrest without warrant a person the police officer believes on reasonable and probable grounds to have contravened an order for exclusive possession.” (Family Law Act, s. 24 (6))",
+    "A person named in an order under clause 24 (1) (a), (b), (c), (d) or (e), or their personal representative, may apply, and “if the court is satisfied that there has been a material change in circumstances, the court may discharge, vary or suspend the order.” Conditions imposed under clause 23 (b) or (d) or 24 (1) (g) may be discharged, varied or suspended on motion if the court is satisfied they “are no longer appropriate”. (Family Law Act, s. 25 (1), (2))",
+    "Orders made under Part II “are registrable against land under the Registry Act and the Land Titles Act.” (Family Law Act, s. 27)"
+   ]
+  },
+  {
+   "heading": "The mandatory information program",
+   "court": "family",
+   "paragraphs": [
+    "Rule 8.1 of the Family Law Rules applies to cases started after August 31, 2011 that deal with, among other things, “A claim respecting a matrimonial home under Part II of the Family Law Act.” The program provides parties “with information about separation and the legal process”. (Family Law Rules, r. 8.1 (1), (3))",
+    "“Each party to a case shall attend the program no later than 45 days after the case is started.” Subrule 8.1 (2) lists exceptions, including “parties in cases that are proceeding on consent” and “parties who have already attended a mandatory information program.” (Family Law Rules, r. 8.1 (2), (4))"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "localText": "docs/sources/corpus/family-law-act.txt",
+   "sourceName": "Family Law Act",
+   "pinpoints": "s. 1 (1); Part II, ss. 17, 18, 19, 20, 21 (1)-(3), 22 (1), (3), 23, 24 (1)-(6), 25 (1), (2), 25.1, 26, 27, 28",
+   "officialUrl": "https://www.ontario.ca/laws/statute/90f03",
+   "retrievedAt": "2026-09-30"
+  },
+  {
+   "localText": "docs/sources/corpus/family-law-rules.txt",
+   "sourceName": "Family Law Rules",
+   "pinpoints": "r. 8.1 (1)-(4)",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/990114",
+   "retrievedAt": "2026-09-30"
+  }
+ ]
+}

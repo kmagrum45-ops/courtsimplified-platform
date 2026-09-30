@@ -26,6 +26,16 @@ import trial from "./getting-ready-for-trial.json";
 import limitations from "./limitation-periods.json";
 import motions from "./motions.json";
 import summaryJudgment from "./summary-judgment-and-simplified-procedure.json";
+import startingCivil from "./starting-a-civil-action.json";
+import discovery from "./discovery.json";
+import mediation from "./mandatory-mediation.json";
+import parenting from "./parenting.json";
+import childSupport from "./child-support.json";
+import spousalSupport from "./spousal-support.json";
+import propertyDivision from "./property-division.json";
+import matrimonialHome from "./matrimonial-home.json";
+import divorce from "./divorce.json";
+import restrainingOrders from "./restraining-orders.json";
 
 export type GuideCourt = "small-claims" | "civil" | "family" | "all";
 
@@ -46,11 +56,18 @@ export type TopicGuide = {
   sources: TopicGuideSource[];
 };
 
-/** In reading order: starting out, during a case, after a decision, help. */
+/**
+ * In reading order: starting out, during a case, after a decision, help;
+ * then family law topics. 20 guides (10 added the same day, read against
+ * their sources the same way: 54 of about 300 paragraphs corrected).
+ */
 export const TOPIC_GUIDES: TopicGuide[] = [
   limitations,
+  startingCivil,
   defaultProceedings,
   motions,
+  discovery,
+  mediation,
   summaryJudgment,
   trial,
   costs,
@@ -58,6 +75,13 @@ export const TOPIC_GUIDES: TopicGuide[] = [
   appeals,
   feeWaivers,
   gettingHelp,
+  divorce,
+  parenting,
+  childSupport,
+  spousalSupport,
+  propertyDivision,
+  matrimonialHome,
+  restrainingOrders,
 ] as TopicGuide[];
 
 export function topicGuide(id: string): TopicGuide | null {

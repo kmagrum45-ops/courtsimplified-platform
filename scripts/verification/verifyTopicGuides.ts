@@ -42,7 +42,8 @@ const normalize = (text: string) =>
     .replace(/\s+/g, " ")
     .trim();
 
-const ADVICE = /\b(you should|you must|we recommend|recommend|advisable|best|strong case|weak case|chance of|likely to win|likely to lose)\b/i;
+// "best interests" (of a child) is the statutes' own legal test, not advice.
+const ADVICE = /\b(you should|you must|we recommend|recommend|advisable|best(?![- ]interests?)|strong case|weak case|chance of|likely to win|likely to lose)\b/i;
 
 for (const guide of TOPIC_GUIDES) {
   const texts: string[] = [];

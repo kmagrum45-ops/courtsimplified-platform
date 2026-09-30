@@ -57,6 +57,20 @@ Source-format traps hit while writing them:
   represent you in Superior Court"); the guides state that date wherever they
   rely on one alone.
 
+Second batch (family and civil guides, same day): 54 corrections in about 300
+paragraphs, the same kind (dropped "unless the court orders otherwise", "in
+itself", "at the time the application is made", scope clauses like "under
+section 9 or 10"). Family-source traps:
+- FLA s. 46 and CLRA s. 35 print the NOT-in-force 2025, c. 6 replacement text
+  inline after a "Note: On a day to be named..." line, and para. 1 of s. 46 (3)
+  / s. 35 (2) appears twice (old wording, then new). Quote only the first.
+  Other not-in-force FLA provisions: ss. 10.1 (7), 56.1 (4), 59.4.1 (4).
+- The Divorce Act file repeats each defined term ("court court , in respect
+  of a province, means"); do not quote across the start of a definition.
+- Which child support guidelines apply in an Ontario divorce still turns on
+  the Divorce Act s. 2 (5) designation, which is not vendored; the Spousal
+  Support Advisory Guidelines are not vendored either. The guides say so.
+
 Not in the corpus, so the guides say so instead of covering it: duty counsel,
 Family Law Information Centres, Legal Aid Ontario's services, requesting a
 disability accommodation from a court, the Wages Act and Execution Act,
