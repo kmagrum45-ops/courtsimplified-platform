@@ -1,0 +1,43 @@
+Source: https://www.ontariocourts.ca/scj/locations/barrie/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Barrie Courthouse
+75 Mulcaster Street
+Barrie, Ontario L4M 3P2
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number | Calendly Link
+Short / Regular motions | Barrie.SCJ.TC@ontario.ca | 705-739-6153 | N/A
+Case Conferences | Barrie.SCJ.TC@ontario.ca | 705-739-6153 | N/A
+Pre-trials | Newmarket.Civilpretrial@ontario.ca | N/A | https://calendly.com/ce-civil-pretrials
+Construction Lien Pre-trials | Newmarket.Civilpretrial@ontario.ca | N/A | https://calendly.com/ce-civil-pretrials
+Long Motions (over 1 hour) | Barrie.SCJ.TC@ontario.ca | 705-739-6153 | N/A
+Summary Judgment Motions (over 1 hour) | Barrie.SCJ.TC@ontario.ca | 705-739-6153 | N/A
+CER Triage Court (Long Motions, Trials etc) | Barrie.SCJ.TC@ontario.ca | 705-739-6153 | https://calendly.com/ce-civil
+CER Triage Court (Administrative Dismissals) | Barrie.SCJ.TC@ontario.ca | 705-739-6153 | https://calendly.com/ce-civil
+Small Claims Court - Appeals (short) | Barrie.SCJ.TC@ontario.ca | 705-739-6136 | N/A
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | barrie.scj.tc@ontario.ca | 705-739-6121
+Judicial Pre-Trials | barrie.scj.tc@ontario.ca | 705-739-6121
+90-day Detention Review Hearings | barrie.scj.tc@ontario.ca | 705-739-6121
+Criminal Applications / Motions | barrie.scj.tc@ontario.ca | 705-739-6121
+Assignment Court | barrie.scj.tc@ontario.ca | 705-739-6121
+Summary Conviction Appeals | barrie.scj.tc@ontario.ca | 705-739-6121
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions | barrie.scj.tc@ontario.ca | 705-739-6442
+Long Motions | barrie.scj.tc@ontario.ca | 705-739-6442
+Case/Settlement Conferences | barrie.scj.tc@ontario.ca | 705-739-6442
+Trial Scheduling Conferences | barrie.scj.tc@ontario.ca | 705-739-6442
+Trial Management Conference | barrie.scj.tc@ontario.ca | 705-739-6442
+Trial | barrie.scj.tc@ontario.ca | 705-739-6442
+JDRs | barrie.scj.tc@ontario.ca | 705-739-6442
+DRO Conferences | barrie.scj.tc@ontario.ca | 705-739-6442
+Small Claims Court Contact Information
+75 Mulcaster Street
+Barrie, Ontario L4M 3P2
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Barrie.SCJ.courts@ontario.ca | 705-739-6111

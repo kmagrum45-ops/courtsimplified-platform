@@ -1,0 +1,40 @@
+Source: https://www.ontariocourts.ca/scj/locations/fort-frances/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Fort Frances Courthouse
+333 Church St.
+Fort Frances, Ontario P9A 1C9
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | FortFrances.SCJ@ontario.ca | 807-626-7067
+Pre-Trials | FortFrances.SCJ@ontario.ca | 807-626-7067
+Case Conference | FortFrances.SCJ@ontario.ca | 807-626-7067
+Trial Management Conferences | FortFrances.SCJ@ontario.ca | 807-626-7067
+Short Motions | FortFrances.SCJ@ontario.ca | 807-626-7067
+Long Motions | FortFrances.SCJ@ontario.ca | 807-626-7067
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | FortFrances.SCJ@ontario.ca | 807-626-7067
+Judicial Pre-trials | FortFrances.SCJ@ontario.ca | 807-626-7067
+Bail Hearings / Reviews | FortFrances.SCJ@ontario.ca | 807-626-7067
+90-day Detention Review Hearings | FortFrances.SCJ@ontario.ca | 807-626-7067
+Criminal Applications / Motions | FortFrances.SCJ@ontario.ca | 807-626-7067
+Assignment Court / Trial Scheduling Court | FortFrances.SCJ@ontario.ca | 807-626-7067
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions (anything over one hour) | FortFrances.SCJ@ontario.ca | 807-626-7067
+Long Motions | FortFrances.SCJ@ontario.ca | 807-626-7067
+Case Conference / Settlement Conference / Trial Management Conference | FortFrances.SCJ@ontario.ca | 807-626-7067
+DRO Conference | FortFrances.SCJ@ontario.ca | 807-626-7067
+Trials | FortFrances.SCJ@ontario.ca | 807-626-7067
+Binding JDR | FortFrances.SCJ@ontario.ca | 807-626-7067
+Summary Judgment | FortFrances.SCJ@ontario.ca | 807-626-7067
+Uncontested Hearing | FortFrances.SCJ@ontario.ca | 807-626-7067
+Small Claims Court Contact Information
+333 Church St.
+Fort Frances, Ontario P9A 1C9
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | nw.scc.trialcoordinator@ontario.ca | 807-626-6058

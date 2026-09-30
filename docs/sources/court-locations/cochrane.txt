@@ -1,0 +1,39 @@
+Source: https://www.ontariocourts.ca/scj/locations/cochrane/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Cochrane Courthouse
+149 Fourth Ave
+Cochrane, Ontario P0L 1C0
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number | Calendly Link
+Short/Regular motions | Cochranecourthouse@ontario.ca | (705) 272-4256 Ext. 221 | N/A
+Long Motions Protocol | Cochrane.SCJ.TC@ontario.ca | 705-272-4256 Ext. 203 | N/A
+Pre-trials | N/A | N/A | https://calendly.com/cochrane-scj
+Assignment Court | Cochrane.SCJ.TC@ontario.ca | 705-272-4256 Ext. 203 | N/A
+Trials | Cochrane.SCJ.TC@ontario.ca | 705-272-4256 Ext. 203 | N/A
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | Cochrane.SCJ.TC@ontario.ca | 705-272-4256 Ext. 203
+Judicial Pre-trials | Cochrane.SCJ.TC@ontario.ca | 705-272-4256 Ext. 203
+Bail Hearings/Reviews | Cochrane.SCJ.TC@ontario.ca | 705-272-4256 Ext. 203
+90-day Detention Review Hearings | Cochrane.SCJ.TC@ontario.ca | 705-272-4256 Ext. 203
+Criminal Applications / Motions | Cochrane.SCJ.TC@ontario.ca | 705-272-4256 Ext. 203
+Assignment Court / Trial Scheduling Court | Cochrane.SCJ.TC@ontario.ca | 705-272-4256 Ext. 203
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number | Calendly Link
+Case Conferences | N/A | N/A | https://calendly.com/cochrane-scj
+Settlement conferences | N/A | N/A | https://calendly.com/cochrane-scj
+Trial Management Conference | N/A | N/A | https://calendly.com/cochrane-scj
+Short Motions (1 hour or less) | cochranecourthouse@ontario.ca | (705) 272-4256 Ext. 240 | N/A
+Long Motions (follow Protocol) | Cochrane.SCJ.TC@ontario.ca | (705) 272-4256 Ext. 203 | N/A
+Summary Judgment Motion | Cochrane.SCJ.TC@ontario.ca | 705-272-4256 Ext. 203 | N/A
+Trial | Cochrane.SCJ.TC@ontario.ca | 705-272-4256 Ext. 203 | N/A
+Binding Judicial Dispute Resolution | Cochrane.SCJ.TC@ontario.ca | 705-272-4256 Ext. 203 | N/A
+Small Claims Court Contact Information
+149 Fourth Ave Box 638
+Cochrane, Ontario P0L 1C0
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | CochraneSCC@ontario.ca | 705-272-4256

@@ -1,0 +1,37 @@
+Source: https://www.ontariocourts.ca/scj/locations/guelph/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Guelph Courthouse
+74 Woolwich St.
+Guelph, Ontario N1H 3T9
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email
+Regular Motions | SCJtrialofficeguelph@ontario.ca
+Long Motions | SCJtrialofficeguelph@ontario.ca
+CVPTs | SCJtrialofficeguelph@ontario.ca
+Trials | SCJtrialofficeguelph@ontario.ca
+Assignment Court | SCJtrialofficeguelph@ontario.ca
+Case Conf / Case Management | SCJtrialofficeguelph@ontario.ca
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email
+Trials | SCJtrialofficeguelph@ontario.ca
+Judicial Pre-trials | SCJtrialofficeguelph@ontario.ca
+Bail Hearings / Reviews | SCJtrialofficeguelph@ontario.ca
+90-day Detention Review Hearings | SCJtrialofficeguelph@ontario.ca
+Criminal Applications / Motions | SCJtrialofficeguelph@ontario.ca
+Assignment Court / Trial Scheduling Court | SCJtrialofficeguelph@ontario.ca
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email
+Regular Motions | SCJtrialofficeguelph@ontario.ca
+Long Motions | SCJtrialofficeguelph@ontario.ca
+Family Conferences | SCJtrialofficeguelph@ontario.ca
+DRO conferences | SCJtrialofficeguelph@ontario.ca
+Trials | SCJtrialofficeguelph@ontario.ca
+Small Claims Court Contact Information
+74 Woolwich St.
+Guelph, Ontario N1H 3T9
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Guelph.SCJ.courts@ontario.ca | 519-824-4100

@@ -1,0 +1,35 @@
+Source: https://www.ontariocourts.ca/scj/locations/windsor/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Windsor Courthouse
+245 Windsor Ave.
+Windsor, Ontario N9A 1J2
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email
+Regular / Long Motions | windsor.scj@ontario.ca
+Pretrials | windsor.scj@ontario.ca
+Trials | windsor.scj@ontario.ca
+Assignment Court | windsor.scj@ontario.ca
+Case Conf / Case Management | windsor.scj@ontario.ca
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email
+Trials | Windsor.SCJ.Criminal@ontario.ca
+Judicial Pre-trials | Windsor.SCJ.Criminal@ontario.ca
+Bail Hearings / Reviews | Windsor.SCJ.Criminal@ontario.ca
+90-day Detention Review Hearings | Windsor.SCJ.Criminal@ontario.ca
+Criminal Applications / Motions | Windsor.SCJ.Criminal@ontario.ca
+Assignment Court / Trial Scheduling Court | Windsor.SCJ.Criminal@ontario.ca
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email
+Regular Motions | windsor.scj@ontario.ca
+Long Motions | windsor.scj@ontario.ca
+Family Conferences | windsor.scj@ontario.ca
+Trials | windsor.scj@ontario.ca
+Small Claims Court Contact Information
+245 Windsor Ave.
+Windsor, Ontario N9A 1J2
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Windsor.SCC@ontario.ca | 519-973-6620

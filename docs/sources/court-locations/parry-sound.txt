@@ -1,0 +1,39 @@
+Source: https://www.ontariocourts.ca/scj/locations/parry-sound/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Parry Sound Courthouse
+89 James St.
+Parry Sound, Ontario P2A 1T7
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Short/Regular motions | ParrySoundcourthouse@ontario.ca | (705) 746-4237
+Long Motions Protocol | ParrySound.scj.tc@ontario.ca | (705) 272-4256 Ext. 228
+Pre-trials | ParrySound.scj.tc@ontario.ca | (705) 272-4256 Ext. 228
+Assignment Court | ParrySound.scj.tc@ontario.ca | (705) 272-4256 Ext. 228
+Trials | ParrySound.scj.tc@ontario.ca | (705) 272-4256 Ext. 228
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | ParrySound.scj.tc@ontario.ca | (705) 272-4256 Ext. 228
+Judicial Pre-trials | ParrySound.scj.tc@ontario.ca | (705) 272-4256 Ext. 228
+Bail Hearings/Reviews | ParrySound.scj.tc@ontario.ca | (705) 272-4256 Ext. 228
+90-day Detention Review Hearings | ParrySound.scj.tc@ontario.ca | (705) 272-4256 Ext. 228
+Criminal Applications / Motions | ParrySound.scj.tc@ontario.ca | (705) 272-4256 Ext. 228
+Assignment Court / Trial Scheduling Court | ParrySound.scj.tc@ontario.ca | (705) 272-4256 Ext. 228
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Case Conferences | ParrySound.scj.tc@ontario.ca | (705) 272-4256 Ext. 228
+Settlement conferences | ParrySound.scj.tc@ontario.ca | (705) 272-4256 Ext. 228
+Trial Management Conference | ParrySound.scj.tc@ontario.ca | (705) 272-4256 Ext. 228
+Short Motions (1 hour or less) | parrysoundcourthouse@ontario.ca | (705) 746-4237
+Long Motions (follow Protocol) | ParrySound.scj.tc@ontario.ca | (705) 272-4256 Ext. 228
+Summary Judgment Motion | ParrySound.scj.tc@ontario.ca | (705) 272-4256 Ext. 228
+Trial | ParrySound.scj.tc@ontario.ca | (705) 272-4256 Ext. 228
+Binding Judicial Dispute Resolution | ParrySound.scj.tc@ontario.ca | (705) 272-4256 Ext. 228
+Small Claims Court Contact Information
+89 James St.
+Parry Sound, Ontario P2A 1T7
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | ParrySoundSCC@ontario.ca | 705-746-4237

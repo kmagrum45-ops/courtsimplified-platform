@@ -170,6 +170,9 @@ jobs:
       - name: In-depth guides quote their sources and cite every paragraph
         run: npm run test:topic-guides
 
+      - name: Courthouse addresses and contacts match the court's pages
+        run: npm run test:court-locations
+
       - name: AI model configuration verification
         run: npm run test:ai-models
 

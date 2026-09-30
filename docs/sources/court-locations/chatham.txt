@@ -1,0 +1,35 @@
+Source: https://www.ontariocourts.ca/scj/locations/chatham/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Chatham Courthouse
+425 Grand Ave W (Entire Bldg)
+Chatham, Ontario N7M 6M8
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email
+Regular / Long Motions | chatham.scj@ontario.ca
+Pretrials | chatham.scj@ontario.ca
+Trials | chatham.scj@ontario.ca
+Assignment Court | chatham.scj@ontario.ca
+Case Conf / Case Management | chatham.scj@ontario.ca
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email
+Trials | London.scj@ontario.ca
+Judicial Pre-trials | London.scj@ontario.ca
+Bail Hearings / Reviews | London.scj@ontario.ca
+90-day Detention Review Hearings | London.scj@ontario.ca
+Criminal Applications / Motions | London.scj@ontario.ca
+Assignment Court / Trial Scheduling Court | London.scj@ontario.ca
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email
+Regular Motions | chatham.scj@ontario.ca
+Long Motions | chatham.scj@ontario.ca
+Family Conferences | chatham.scj@ontario.ca
+Trials | chatham.scj@ontario.ca
+Small Claims Court Contact Information
+425 Grand Ave W (Entire Bldg)
+Chatham, Ontario N7M 6M8
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Chatham.Courthouse@ontario.ca | 519-355-2200

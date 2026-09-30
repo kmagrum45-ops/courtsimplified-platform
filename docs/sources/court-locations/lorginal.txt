@@ -1,0 +1,47 @@
+Source: https://www.ontariocourts.ca/scj/locations/lorginal/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+L’Orignal Courthouse
+59 Court St., 2nd Fl.
+L’Orignal, Ontario K0B 1K0
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email
+Short Motions | lorignalcivilsccdivision@ontario.ca
+Long Motions | lorignaltrialcoordination@ontario.ca
+CVPTs | lorignalcivilsccdivision@ontario.ca
+Trials | lorignaltrialcoordination@ontario.ca
+Assignment Court | lorignaltrialcoordination@ontario.ca
+Case Conf / Case Management | lorignalcivilsccdivision@ontario.ca
+Construction Lien | lorignalcivilsccdivision@ontario.ca
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email
+Trials | lorignaltrialcoordination@ontario.ca
+Judicial Pre-trials | lorignaltrialcoordination@ontario.ca
+Bail Hearings / Reviews | lorignaltrialcoordination@ontario.ca
+90-day Detention Review Hearings | lorignaltrialcoordination@ontario.ca
+Criminal Applications / Motions | lorignaltrialcoordination@ontario.ca
+Assignment Court / Trial Scheduling Court | lorignaltrialcoordination@ontario.ca
+Summary Conviction Appeals | lorignaltrialcoordination@ontario.ca
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email
+Case Conferences | lorignal.scj.courts@ontario.ca
+Settlement Conference & Trial Management Conference | lorignaltrialcoordination@ontario.ca
+Short Motions | lorignal.scj.courts@ontario.ca
+Long Motions 1 Day or Less | lorignal.scj.courts@ontario.ca
+Long Motions Over 1 Day | lorignaltrialcoordination@ontario.ca
+Summary Judgment Motion 1 Day or Less | lorignal.scj.courts@ontario.ca
+Summary Judgment Motion Over 1 Day | lorignaltrialcoordination@ontario.ca
+Trial Management Conference | lorignaltrialcoordination@ontario.ca
+Trial | lorignaltrialcoordination@ontario.ca
+CAS Matters | lorignal.scj.courts@ontario.ca
+FRO Matters | lorignal.scj.courts@ontario.ca
+JDRs | lorignal.scj.courts@ontario.ca
+ISO Matters | lorignal.scj.courts@ontario.ca
+Small Claims Court Contact Information
+59 Court St., P.O. Box 306
+L’Orignal, Ontario K0B 1K0
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | LOrignalCivilSCCDivision@ontario.ca | 613-675-4567

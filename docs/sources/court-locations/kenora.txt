@@ -1,0 +1,40 @@
+Source: https://www.ontariocourts.ca/scj/locations/kenora/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Kenora Courthouse
+216 Water Street
+Kenora, Ontario P9N 1S4
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | Kenora.scj@ontario.ca | 807-468-2842
+Pre-Trials | Kenora.scj@ontario.ca | 807-468-2842
+Case Conference | Kenora.scj@ontario.ca | 807-468-2842
+Trial Management Conferences | Kenora.scj@ontario.ca | 807-468-2842
+Short Motions | Kenora.scj@ontario.ca | 807-468-2842
+Long Motions | Kenora.scj@ontario.ca | 807-468-2842
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | Kenora.scj@ontario.ca | 807-468-2842
+Judicial Pre-trials | Kenora.scj@ontario.ca | 807-468-2842
+Bail Hearings / Reviews | Kenora.scj@ontario.ca | 807-468-2842
+90-day Detention Review Hearings | Kenora.scj@ontario.ca | 807-468-2842
+Criminal Applications / Motions | Kenora.scj@ontario.ca | 807-468-2842
+Assignment Court / Trial Scheduling Court | Kenora.scj@ontario.ca | 807-468-2842
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions (anything over one hour) | Kenora.scj@ontario.ca | 807-468-2842
+Long Motions | Kenora.scj@ontario.ca | 807-468-2842
+Case Conference / Settlement Conference / Trial Management Conference | Kenora.scj@ontario.ca | 807-468-2842
+DRO Conference | Kenora.scj@ontario.ca | 807-468-2842
+Trials | Kenora.scj@ontario.ca | 807-468-2842
+Binding JDR | Kenora.scj@ontario.ca | 807-468-2842
+Summary Judgment | Kenora.scj@ontario.ca | 807-468-2842
+Uncontested Hearing | Kenora.scj@ontario.ca | 807-468-2842
+Small Claims Court Contact Information
+216 Water Street
+Kenora, Ontario P9N 1S4
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | nw.scc.trialcoordinator@ontario.ca | 807-626-6058

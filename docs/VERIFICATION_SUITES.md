@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-97 documented, 30 without a header.
+98 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -31,6 +31,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:claim-type-matcher` | **The claim-type matcher works on prose a person would actually write.**<br>COSTS NOTHING. Pure string matching, no AI, no network. |
 | `npm run test:claim-types` | **The claim-type catalogue is internally honest: ids are unique and stable,**<br>authored profiles carry their sources, declared profiles carry nothing, and the synthetic scenarios can never reach a user. |
 | `npm run test:classifier-gating` | **Proves the AI claim-type classifier runs ONLY on the opening story, and**<br>replays story 4's real turn sequence to show what the retained claim type is at each turn, before and after the fix. |
+| `npm run test:court-locations` | **Every courthouse address and contact shown is on the court's own page.**<br>COSTS NOTHING. Reads src/lib/content-library/courts/courtLocations.json and the saved page text in docs/sources/court-locations/. |
 | `npm run test:cross-forum-notes` | **Connection notes quote their sources exactly, are selected by topic alone,**<br>and a story's issues can only carry the user's own words. |
 | `npm run test:db-environments` | **Nothing in this repository says "dev" when it means production, and no**<br>migration can reach production without passing staging. |
 | `npm run test:deadlines` | **Does the deadline engine count correctly?**<br>Every case here is one somebody could actually be in, and every one of them is a date a person would get wrong by reasoning casually. A deadline that is right in the ordinary case and wrong across a long weekend is not 95% correct; it is a trap that springs ex |

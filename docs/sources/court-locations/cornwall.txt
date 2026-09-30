@@ -1,0 +1,45 @@
+Source: https://www.ontariocourts.ca/scj/locations/cornwall/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Cornwall Courthouse
+29 Second St. W.
+Cornwall, Ontario K6J 1G3
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions | CornwallSCJTrialCoordination@ontario.ca | 613-930-4571
+Long Motions | CornwallSCJTrialCoordination@ontario.ca | 613-930-4571
+CVPTs | CornwallSCJTrialCoordination@ontario.ca | 613-930-4571
+Trials | CornwallSCJTrialCoordination@ontario.ca | 613-930-4571
+Assignment Court | CornwallSCJTrialCoordination@ontario.ca | 613-930-4571
+Case Conf / Case Management | CornwallSCJTrialCoordination@ontario.ca | 613-930-4571
+Contruciton Lien | CornwallSCJTrialCoordination@ontario.ca | 613-930-4571
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | CornwallSCJTrialCoordination@ontario.ca | 613-930-4571
+Judicial Pre-trials | CornwallSCJTrialCoordination@ontario.ca | 613-930-4571
+Bail Hearings / Reviews | CornwallSCJTrialCoordination@ontario.ca | 613-930-4571
+90-day Detention Review Hearings | CornwallSCJTrialCoordination@ontario.ca | 613-930-4571
+Criminal Applications / Motions | CornwallSCJTrialCoordination@ontario.ca | 613-930-4571
+Assignment Court / Trial Scheduling Court | CornwallSCJTrialCoordination@ontario.ca | 613-930-4571
+Summary Conviction Appeals | CornwallSCJTrialCoordination@ontario.ca | 613-930-4571
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Case / Settlement Conferences | CornwallSCJTrialCoordination@ontario.ca | 613-930-4539
+Short Motions | CornwallSCJTrialCoordination@ontario.ca | 613-930-4539
+Long Motions | CornwallSCJTrialCoordination@ontario.ca | 613-930-4539
+Summary Judgment Motion | CornwallSCJTrialCoordination@ontario.ca | 613-930-4539
+Trial Scheduling Conferences | CornwallSCJTrialCoordination@ontario.ca | 613-930-4539
+Trial Management Conference | CornwallSCJTrialCoordination@ontario.ca | 613-930-4539
+Trial | CornwallSCJTrialCoordination@ontario.ca | 613-930-4539
+CAS Matters | CornwallSCJTrialCoordination@ontario.ca | 613-930-4539
+FRO Matters | CornwallSCJTrialCoordination@ontario.ca | 613-930-4539
+JDRs | CornwallSCJTrialCoordination@ontario.ca | 613-930-4539
+ISO Matters | CornwallSCJTrialCoordination@ontario.ca | 613-930-4539
+Small Claims Court Contact Information
+29 Second St. W.
+Cornwall, Ontario K6J 1G3
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Civilscc.cornwall@ontario.ca | 613-933-7500

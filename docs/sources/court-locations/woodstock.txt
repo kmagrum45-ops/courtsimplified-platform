@@ -1,0 +1,36 @@
+Source: https://www.ontariocourts.ca/scj/locations/woodstock/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Woodstock Courthouse
+415 Hunter St.
+Woodstock, Ontario N4S 4G6
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email
+Regular / Long Motions | woodstock.scj@ontario.ca
+Pretrials | woodstock.scj@ontario.ca
+Trials | woodstock.scj@ontario.ca
+Assignment Court | woodstock.scj@ontario.ca
+Case Conf / Case Management | woodstock.scj@ontario.ca
+Enforcement | woostock.enforcement@ontario.ca
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email
+Trials | woodstock.scj.courts@ontario.ca
+Judicial Pre-trials | woodstock.scj.courts@ontario.ca
+Bail Hearings / Reviews | woodstock.scj.courts@ontario.ca
+90-day Detention Review Hearings | woodstock.scj.courts@ontario.ca
+Criminal Applications / Motions | woodstock.scj.courts@ontario.ca
+Assignment Court / Trial Scheduling Court | woodstock.scj.courts@ontario.ca
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email
+Regular Motions | woodstock.scj@ontario.ca
+Long Motions | woodstock.scj@ontario.ca
+Family Conferences | woodstock.scj@ontario.ca
+Trials | woodstock.scj@ontario.ca
+Small Claims Court Contact Information
+415 Hunter St.
+Woodstock, Ontario N4S 4G6
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Woodstock.Courthouse@ontario.ca | 519-539-6187

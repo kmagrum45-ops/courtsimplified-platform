@@ -1,0 +1,43 @@
+Source: https://www.ontariocourts.ca/scj/locations/pembroke/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Pembroke Courthouse
+297 Pembroke St E
+Pembroke, Ontario K8A 3K2
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions | Pembroke.SCJ.Courts@ontario.ca | 613-732-5490
+Long Motions | PembrokeSCJTrialScheduling@ontario.ca | N/A
+CVPTs | PembrokeSCJTrialScheduling@ontario.ca | N/A
+Trials | PembrokeSCJTrialScheduling@ontario.ca | N/A
+Case Conf / Case Management | PembrokeSCJTrialScheduling@ontario.ca | N/A
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email
+Trials | PembrokeSCJTrialScheduling@ontario.ca
+Judicial Pre-trials | PembrokeSCJTrialScheduling@ontario.ca
+Bail Hearings / Reviews | PembrokeSCJTrialScheduling@ontario.ca
+90-day Detention Review Hearings | PembrokeSCJTrialScheduling@ontario.ca
+Criminal Applications / Motions | PembrokeSCJTrialScheduling@ontario.ca
+Assignment Court / Trial Scheduling Court | PembrokeSCJTrialScheduling@ontario.ca
+Summary Conviction Appeals | PembrokeSCJTrialScheduling@ontario.ca
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email
+Case / Settlement Conferences | Pembroke.SCJ.Courts@ontario.ca
+Short Motions | Pembroke.SCJ.Courts@ontario.ca
+Long Motions | Pembrokescjtrialscheduling@ontario.ca
+Summary Judgment Motion | Pembroke.SCJ.Courts@ontario.ca
+Trial Scheduling Conferences | Pembrokescjtrialscheduling@ontario.ca
+Trial Management Conference | Pembrokescjtrialscheduling@ontario.ca
+Trial | Pembrokescjtrialscheduling@ontario.ca
+CAS Matters | Pembroke.SCJ.Courts@ontario.ca
+FRO Matters | Pembroke.SCJ.Courts@ontario.ca
+JDRs | Pembrokescjtrialscheduling@ontario.ca
+DRO Conferences | Pembrokescjtrialscheduling@ontario.ca
+Small Claims Court Contact Information
+297 Pembroke St E
+Pembroke, Ontario K8A 3K2
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Pembroke.SCC.courts@ontario.ca | 613-732-8581

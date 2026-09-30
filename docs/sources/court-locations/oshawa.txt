@@ -1,0 +1,47 @@
+Source: https://www.ontariocourts.ca/scj/locations/oshawa/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Oshawa Courthouse
+150 Bond Street East
+Oshawa, Ontario L1G 0A2
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number | Calendly Link
+Short / Regular Motions | Oshawa.scj.tc@ontario.ca | 905-743-2800 | N/A
+Case Conferences | Oshawa.scj.tc@ontario.ca | 905-743-2800 | N/A
+Pre-trials | Newmarket.Civilpretrial@ontario.ca | N/A | https://calendly.com/ce-civil-pretrials
+Construction Lien Pre-trials | Newmarket.Civilpretrial@ontario.ca | N/A | https://calendly.com/ce-civil-pretrials
+Long Motions (over 1 hour) | Oshawa.scj.tc@ontario.ca | 905-743-2800 | N/A
+Summary Judgment Motions (over 1 hour) | Oshawa.scj.tc@ontario.ca | 905-743-2800 | N/A
+CER Triage Court (Long Motions, Trials etc) | Oshawa.scj.tc@ontario.ca | 905-743-2800 | https://calendly.com/ce-civil-pretrials
+CER Triage Court (Administrative Dismissals) | Oshawa.scj.tc@ontario.ca | 905-743-2800 | https://calendly.com/ce-civil-pretrials
+Small Claims Court - Appeals (short) | Oshawa.scj.tc@ontario.ca | 905-743-2800 | N/A
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | Oshawa.scj.tc@ontario.ca | 905-743-2800
+Judicial Pre-trials | Oshawa.scj.tc@ontario.ca | 905-743-2800
+Bail Hearings / Reviews | Oshawa.scj.tc@ontario.ca | 905-743-2800
+90-day Detention Review Hearings | Oshawa.scj.tc@ontario.ca | 905-743-2800
+Criminal Applications / Motions | Oshawa.scj.tc@ontario.ca | 905-743-2800
+Assignment Court | Oshawa.scj.tc@ontario.ca | 905-743-2800
+Summary Conviction Appeals | Oshawa.scj.tc@ontario.ca | 905-743-2800
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions | oshawa.scj.tc@ontario.ca | 905-743-2800
+Long Motions | oshawa.scj.tc@ontario.ca | 905-743-2800
+Retrieving data. Wait a few seconds and try to cut or copy again. | oshawa.scj.tc@ontario.ca | 905-743-2800
+Trial Scheduling Conferences | oshawa.scj.tc@ontario.ca | 905-743-2800
+Exit Pre-Trials | oshawa.scj.tc@ontario.ca | 905-743-2800
+Trial Management Conference | oshawa.scj.tc@ontario.ca | 905-743-2800
+Trial | oshawa.scj.tc@ontario.ca | 905-743-2800
+JDRs | oshawa.scj.tc@ontario.ca | 905-743-2800
+DRO Conferences | oshawa.scj.tc@ontario.ca | 905-743-2800
+CAS Matters | oshawa.scj.tc@ontario.ca | 905-743-2800
+FRO Matters | oshawa.scj.tc@ontario.ca | 905-743-2800
+Small Claims Court Contact Information
+150 Bond Street East
+Oshawa, Ontario L1G 0A2
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | DurhamSCCcourts@ontario.ca | 905-743-2800

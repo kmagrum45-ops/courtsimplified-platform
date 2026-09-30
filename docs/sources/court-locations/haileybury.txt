@@ -1,0 +1,39 @@
+Source: https://www.ontariocourts.ca/scj/locations/haileybury/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Haileybury Courthouse
+393 Main St. Box 609
+Haileybury, Ontario P0J 1K0
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Short/Regular motions | Haileyburycourthouse@ontario.ca | (705)-672-1621
+Long Motions Protocol | Haileybury.scj.tc@ontario.ca | (705) 672-3870
+Pre-trials | Haileybury.scj.tc@ontario.ca | (705) 672-3870
+Assignment Court | Haileybury.scj.tc@ontario.ca | (705) 672-3870
+Trials | Haileybury.scj.tc@ontario.ca | (705) 672-3870
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | Haileybury.scj.tc@ontario.ca | (705) 672-3870
+Bail Hearings/Reviews | Haileybury.scj.tc@ontario.ca | (705) 672-3870
+Bail Hearings/Reviews | Haileybury.scj.tc@ontario.ca | (705) 672-3870
+90-day Detention Review Hearings | Haileybury.scj.tc@ontario.ca | (705) 672-3870
+Criminal Applications / Motions | Haileybury.scj.tc@ontario.ca | (705) 672-3870
+Assignment Court / Trial Scheduling Court | Haileybury.scj.tc@ontario.ca | (705) 672-3870
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Case Conferences | Haileybury.scj.tc@ontario.ca | (705) 672-3870
+Settlement conferences | Haileybury.scj.tc@ontario.ca | (705) 672-3870
+Trial Management Conference | Haileybury.scj.tc@ontario.ca | (705) 672-3870
+Short Motions (1 hour or less) | haileyburycourthouse@ontario.ca | 705-672-1621
+Long Motions (follow Protocol) | Haileybury.scj.tc@ontario.ca | (705) 672-3870
+Summary Judgment Motion | Haileybury.scj.tc@ontario.ca | (705) 672-3870
+Trial | Haileybury.scj.tc@ontario.ca | (705) 672-3870
+Binding Judicial Dispute Resolution | Haileybury.scj.tc@ontario.ca | (705) 672-3870
+Small Claims Court Contact Information
+393 Main St. Box 609
+Haileybury, Ontario P0J 1K0
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | HaileyburySCC@ontario.ca | 705-672-3321

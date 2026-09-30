@@ -1,0 +1,41 @@
+Source: https://www.ontariocourts.ca/scj/locations/brockville/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Brockville Courthouse
+41 Court House Square
+Brockville, Ontario K6V 7N3
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions | SCJBrockvilleTC@ontario.ca | 613-341-2821
+Long Motions | SCJBrockvilleTC@ontario.ca | 613-341-2821
+CVPTs | SCJBrockvilleTC@ontario.ca | 613-341-2821
+Trials | SCJBrockvilleTC@ontario.ca | 613-341-2821
+Case Conf / Case Management | SCJBrockvilleTC@ontario.ca | 613-341-2821
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | SCJBrockvilleTC@ontario.ca | 613-341-2821
+Judicial Pre-trials | SCJBrockvilleTC@ontario.ca | 613-341-2821
+Bail Hearings / Reviews | SCJBrockvilleTC@ontario.ca | 613-341-2821
+90-day Detention Review Hearings | SCJBrockvilleTC@ontario.ca | 613-341-2821
+Criminal Applications / Motions | SCJBrockvilleTC@ontario.ca | 613-341-2821
+Summary Conviction Appeals | SCJBrockvilleTC@ontario.ca | 613-341-2821
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Case / Settlement Conferences | SCJBrockvilleTC@ontario.ca | 613-341-2821
+Short Motions | SCJBrockvilleTC@ontario.ca | 613-341-2821
+Long Motions | SCJBrockvilleTC@ontario.ca | 613-341-2821
+Summary Judgment Motion | SCJBrockvilleTC@ontario.ca | 613-341-2821
+Trial Scheduling Conferences | SCJBrockvilleTC@ontario.ca | 613-341-2821
+Trial Management Conference | SCJBrockvilleTC@ontario.ca | 613-341-2821
+Trial | SCJBrockvilleTC@ontario.ca | 613-341-2821
+CAS Matters | SCJBrockvilleTC@ontario.ca | 613-341-2821
+FRO Matters | SCJBrockvilleTC@ontario.ca | 613-341-2821
+ISO Matters | SCJBrockvilleTC@ontario.ca | 613-341-2821
+Small Claims Court Contact Information
+41 Court House Square
+Brockville, Ontario K6V 7N3
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Brockville.SCJ.courts@ontario.ca | 613-341-2800

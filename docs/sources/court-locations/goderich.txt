@@ -1,0 +1,36 @@
+Source: https://www.ontariocourts.ca/scj/locations/goderich/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Goderich Courthouse
+1 Courthouse Sq.
+Goderich, Ontario N7A 1M2
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email
+Regular / Long Motions | goderich.scj@ontario.ca
+Pretrials | goderich.scj@ontario.ca
+Trials | goderich.scj@ontario.ca
+Assignment Court | goderich.scj@ontario.ca
+Case Conf / Case Management | goderich.scj@ontario.ca
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email
+Trials | goderich.scj@ontario.ca
+Judicial Pre-trials | goderich.scj@ontario.ca
+Bail Hearings / Reviews | goderich.scj@ontario.ca
+90-day Detention Review Hearings | goderich.scj@ontario.ca
+Criminal Applications / Motions | goderich.scj@ontario.ca
+Assignment Court / Trial Scheduling Court | goderich.scj@ontario.ca
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email
+Regular Motions | goderich.scj@ontario.ca
+Long Motions | goderich.scj@ontario.ca
+Family Conferences | goderich.scj@ontario.ca
+Family Conferences | goderich.scj@ontario.ca
+Small Claims Court Contact Information
+1 Courthouse Sq.
+Goderich, Ontario N7A 1M2
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Goderich.Courthouse@ontario.ca | 519-524-7322
+Scheduling | GODERICH.SCC.SCHEDULING@ontario.ca | N/A

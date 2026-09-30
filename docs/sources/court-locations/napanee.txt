@@ -1,0 +1,44 @@
+Source: https://www.ontariocourts.ca/scj/locations/napanee/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Napanee Courthouse
+41 Dundas St. W.
+Napanee, Ontario K7R 1Z5
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email
+Short Motions | napanee.scj.courts@ontario.ca
+Long Motions | NapaneeSCJtrialcoordination@ontario.ca
+CVPTs | napanee.scj.courts@ontario.ca
+Trials | NapaneeSCJtrialcoordination@ontario.ca
+Assignment Court | NapaneeSCJtrialcoordination@ontario.ca
+Case Conf / Case Management | NapaneeSCJtrialcoordination@ontario.ca
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email
+Trials | NapaneeSCJtrialcoordination@ontario.ca
+Judicial Pre-trials | napanee.scj.courts@ontario.ca
+Bail Hearings / Reviews | napanee.scj.courts@ontario.ca
+90-day Detention Review Hearings | napanee.scj.courts@ontario.ca
+Criminal Applications / Motions | napanee.scj.courts@ontario.ca
+Assignment Court / Trial Scheduling Court | NapaneeSCJtrialcoordination@ontario.ca
+Summary Conviction Appeals | napanee.scj.courts@ontario.ca
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Case / Settlement Conferences | NapaneeSCJtrialcoordination@ontario.ca | 613-548-6814
+Short Motions | Napanee.scj.courts@ontario.ca | 613-354-5450 ext 327
+Long Motion | NapaneeSCJtrialcoordination@ontario.ca | 613-548-6814
+Summary Judgment Motion | NapaneeSCJtrialcoordination@ontario.ca | 613-548-6814
+Trial Scheduling Conferences | NapaneeSCJtrialcoordination@ontario.ca | 613-548-6814
+Trial Management Conference | NapaneeSCJtrialcoordination@ontario.ca | 613-548-6814
+Trial | NapaneeSCJtrialcoordination@ontario.ca | 613-548-6814
+CAS Matters | Napanee.scj.courts@ontario.ca | 613-354-5450 ext 327
+FRO Matters | Napanee.scj.courts@ontario.ca | 613-354-5450 ext 327
+ISO Matters | Napanee.scj.courts@ontario.ca | 613-354-5450 ext 327
+DRO Conferences | NapaneeSCJtrialcoordination@ontario.ca | 613-548-6814
+Small Claims Court Contact Information
+41 Dundas St. W.
+Napanee, Ontario K7R 1Z5
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Napanee.SCJ.courts@ontario.ca | 613-354-3845

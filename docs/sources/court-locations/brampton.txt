@@ -1,0 +1,37 @@
+Source: https://www.ontariocourts.ca/scj/locations/brampton/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Brampton Courthouse
+7755 Hurontario Street
+Brampton, Ontario L6W 4T1
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email
+Regular Motions | scjtrialofficebrampton@ontario.ca
+Long Motions / Triage Court | scjtrialofficebrampton@ontario.ca
+CVPTs | scjtrialofficebrampton@ontario.ca
+Trials | scjtrialofficebrampton@ontario.ca
+Assignment Court | scjtrialofficebrampton@ontario.ca
+Case Conf / Case Management | scjtrialofficebrampton@ontario.ca
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email
+Trials | scjtrialofficebrampton@ontario.ca
+Judicial Pre-trials | scjtrialofficebrampton@ontario.ca
+Bail Hearings / Reviews | scjtrialofficebrampton@ontario.ca
+90-day Detention Review Hearings | scjtrialofficebrampton@ontario.ca
+Criminal Applications / Motions | scjtrialofficebrampton@ontario.ca
+Assignment Court / Trial Scheduling Court | scjtrialofficebrampton@ontario.ca
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email
+Regular Motions | scjtrialofficebrampton@ontario.ca
+Long Motions | scjtrialofficebrampton@ontario.ca
+Family Conferences | scjtrialofficebrampton@ontario.ca
+DRO conferences | scjtrialofficebrampton@ontario.ca
+Trials | scjtrialofficebrampton@ontario.ca
+Small Claims Court Contact Information
+7765 Hurontario Street
+Brampton, Ontario L6W 4T1
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | BramptonSCC@ontario.ca | 905-456-4701

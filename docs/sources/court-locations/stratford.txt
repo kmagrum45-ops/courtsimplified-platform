@@ -1,0 +1,37 @@
+Source: https://www.ontariocourts.ca/scj/locations/stratford/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Stratford Courthouse
+1 Huron St.
+Stratford, Ontario N5A 5S4
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email
+Regular / Long Motions | stratford.scj@ontario.ca
+Pretrials | stratford.scj@ontario.ca
+Trials | stratford.scj@ontario.ca
+Assignment Court | stratford.scj@ontario.ca
+Case Conf / Case Management | stratford.scj@ontario.ca
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email
+Trials | stratford.scj@ontario.ca
+Judicial Pre-trials | stratford.scj@ontario.ca
+Bail Hearings / Reviews | stratford.scj@ontario.ca
+90-day Detention Review Hearings | stratford.scj@ontario.ca
+Criminal Applications / Motions | stratford.scj@ontario.ca
+Assignment Court / Trial Scheduling Court | stratford.scj@ontario.ca
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email
+Regular Motions | stratford.scj@ontario.ca
+Long Motions | stratford.scj@ontario.ca
+Family Conferences | stratford.scj@ontario.ca
+Trials | stratford.scj@ontario.ca
+Small Claims Court Contact Information
+Filing Office and Hearings: 100 St. Patrick St.
+Stratford, Ontario N5A 7W1
+Hearings only: 1 Huron St.
+Stratford, Ontario N5A 5S4
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | stratford.scc.scheduling@ontario.ca | 519-271-9252

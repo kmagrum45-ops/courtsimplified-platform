@@ -1,0 +1,36 @@
+Source: https://www.ontariocourts.ca/scj/locations/welland/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Welland Courthouse
+102 East Main Street
+Welland, Ontario L3B 3W6
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Motions | Welland.superior.court@ontario.ca | 905-735-0010 x250
+Case Conference | Welland.superior.court@ontario.ca | 905-735-0010 x250
+CVPTs | Welland.superior.court@ontario.ca | 905-735-0010 x250
+Trials | Welland.superior.court@ontario.ca | 905-735-0010 x250
+Assignment Court | Welland.superior.court@ontario.ca | 905-735-0010 x250
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | Welland.superior.court@ontario.ca | 905-735-0010 x250
+Judicial Pre-trials | Welland.superior.court@ontario.ca | 905-735-0010 x250
+Bail Hearings / Reviews | Welland.superior.court@ontario.ca | 905-735-0010 x250
+90-day Detention Review Hearings | Welland.superior.court@ontario.ca | 905-735-0010 x250
+Criminal Applications / Motions | Welland.superior.court@ontario.ca | 905-735-0010 x250
+Assignment Court / Trial Scheduling Court | Welland.superior.court@ontario.ca | 905-735-0010 x250
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions | Welland.superior.court@ontario.ca | 905-735-0010 x250
+Long Motions | Welland.superior.court@ontario.ca | 905-735-0010 x250
+Family Conference | Welland.superior.court@ontario.ca | 905-735-0010 x250
+DRO Conference | Welland.superior.court@ontario.ca | 905-735-0010 x250
+Trials | Welland.superior.court@ontario.ca | 905-735-0010 x250
+Small Claims Court Contact Information
+102 East Main Street
+Welland, Ontario L3B 3W6
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | SCJWellandCourthouse@ontario.ca | 905-735-0010

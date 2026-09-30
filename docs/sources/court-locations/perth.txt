@@ -1,0 +1,42 @@
+Source: https://www.ontariocourts.ca/scj/locations/perth/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Perth Courthouse
+43 Drummond St E
+Perth, Ontario K7H 1G1
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions | Perth.SCJ.Courts@ontario.ca | N/A
+Long Motions | PerthTrialCoordinator@ontario.ca | 613-267-9068
+CVPTs | Perth.SCJ.Courts@ontario.ca | N/A
+Trials | PerthTrialCoordinator@ontario.ca | 613-267-9068
+Case Conf / Case Management | Perth.SCJ.Courts@ontario.ca | N/A
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | PerthTrialCoordinator@ontario.ca | 613-267-9068
+Judicial Pre-trials | PerthTrialCoordinator@ontario.ca | 613-267-9068
+Bail Hearings / Reviews | PerthTrialCoordinator@ontario.ca | 613-267-9068
+90-day Detention Review Hearings | PerthTrialCoordinator@ontario.ca | 613-267-9068
+Criminal Applications / Motions | Perth.SCJ.Courts@ontario.ca | 613-267-9070
+Summary Conviction Appeals | Perth.SCJ.Courts@ontario.ca | 613-267-9070
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Case / Settlement Conferences | Perth.SCJ.Courts@ontario.ca | 613-267-9067
+Short Motions | Perth.SCJ.Courts@ontario.ca | 613-267-9067
+Long Motions | PerthTrialCoordinator@ontario.ca | 613-267-9068
+Summary Judgment Motion | Perth.SCJ.Courts@ontario.ca | 613-267-9067
+Trial Scheduling Conferences | Perth.SCJ.Courts@ontario.ca | 613-267-9067
+Trial Management Conference | Perth.SCJ.Courts@ontario.ca | 613-267-9067
+Trial | PerthTrialCoordinator@ontario.ca | 613-267-9068
+CAS Matters | Perth.SCJ.Courts@ontario.ca | 613-267-9067
+FRO Matters | Perth.SCJ.Courts@ontario.ca | 613-267-9067
+JDRs | PerthTrialCoordinator@ontario.ca | 613-267-9068
+ISO Matters | Perth.SCJ.Courts@ontario.ca | 613-267-9067
+Small Claims Court Contact Information
+43 Drummond St E
+Perth, Ontario K7H 1G1
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Perth.SCJ.courts@ontario.ca | 613-267-2021

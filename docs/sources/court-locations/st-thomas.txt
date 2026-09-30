@@ -1,0 +1,35 @@
+Source: https://www.ontariocourts.ca/scj/locations/st-thomas/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+St. Thomas Courthouse
+4 Wellington Street
+St. Thomas, Ontario N5R 2P2
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email
+Regular / Long Motions | St.Thomas.SCJ@ontario.ca
+Pretrials | St.Thomas.SCJ@ontario.ca
+Trials | St.Thomas.SCJ@ontario.ca
+Assignment Court | St.Thomas.SCJ@ontario.ca
+Case Conf / Case Management | St.Thomas.SCJ@ontario.ca
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email
+Trials | St.Thomas.SCJ@ontario.ca
+Judicial Pre-trials | St.Thomas.SCJ@ontario.ca
+Bail Hearings / Reviews | St.Thomas.SCJ@ontario.ca
+90-day Detention Review Hearings | St.Thomas.SCJ@ontario.ca
+Criminal Applications / Motions | St.Thomas.SCJ@ontario.ca
+Assignment Court / Trial Scheduling Court | St.Thomas.SCJ@ontario.ca
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email
+Regular Motions | St.Thomas.SCJ@ontario.ca
+Long Motions | St.Thomas.SCJ@ontario.ca
+Family Conferences | St.Thomas.SCJ@ontario.ca
+Trials | St.Thomas.SCJ@ontario.ca
+Small Claims Court Contact Information
+4 Wellington Street
+St. Thomas, Ontario N5R 2P2
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | StThomas.Courthouse@ontario.ca | 519-633-1720

@@ -1,0 +1,23 @@
+Source: https://www.ontariocourts.ca/scj/locations/361-univ/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+361 University Ave – Criminal & Family Courthouse
+361 University Ave.
+Toronto, Ontario M5G 1T3
+Criminal Trial Office, 361 University Avenue, 4th Floor
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email
+Trials | CriminalTrialOffice-SCJ-Toronto@ontario.ca
+Judicial Pre-trials | CriminalTrialOffice-SCJ-Toronto@ontario.ca
+90-day Detention Review Hearings | CriminalTrialOffice-SCJ-Toronto@ontario.ca
+Criminal Applications / Motions | CriminalTrialOffice-SCJ-Toronto@ontario.ca
+Assignment Court / Trial Scheduling Court | CriminalTrialOffice-SCJ-Toronto@ontario.ca
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email
+Trials | FamilyTrialOffice-SCJ-Toronto@ontario.ca
+Long Motions | FamilyTrialOffice-SCJ-Toronto@ontario.ca
+Conferences | Toronto.family.caseconferences@ontario.ca
+Exit Pre-trials | FamilyTrialOffice-SCJ-Toronto@ontario.ca
+DRO Conferences | FamilyTrialOffice-SCJ-Toronto@ontario.ca
+CAS Matters | FamilyTrialOffice-SCJ-Toronto@ontario.ca

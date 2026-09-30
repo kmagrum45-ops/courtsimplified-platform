@@ -1,0 +1,48 @@
+Source: https://www.ontariocourts.ca/scj/locations/peterborough/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Peterborough Courthouse
+470 Water St.
+Peterborough, Ontario K9H 3M3
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number | Calendly Link
+Short / Regular Motions | Peterborough.SCJ.TC@ontario.ca | 705-876-3823 /705-876-9482 | N/A
+Case Conferences | Peterborough.SCJ.TC@ontario.ca | 705-876-3823 /705-876-9482 | N/A
+Pre-trials | Newmarket.Civilpretrial@ontario.ca | N/A | https://calendly.com/ce-civil-pretrials
+Construction Lien Pre-trials | Newmarket.Civilpretrial@ontario.ca | N/A | https://calendly.com/ce-civil-pretrials
+Long Motions (over 1 hour) | Peterborough.SCJ.TC@ontario.ca | 705-876-3823 /705-876-9482 | N/A
+Summary Judgment Motions (over 1 hour) | Peterborough.SCJ.TC@ontario.ca | 705-876-3823 /705-876-9482 | N/A
+CER Triage Court (Long Motions, Trials etc) | Peterborough.SCJ.TC@ontario.ca | 705-876-3823 /705-876-9482 | https://calendly.com/ce-civil-pretrials
+CER Triage Court (Administrative Dismissals) | Peterborough.SCJ.TC@ontario.ca | 705-876-3823 /705-876-9482 | https://calendly.com/ce-civil
+Small Claims Court - Appeals (short) | Peterborough.SCJ.TC@ontario.ca | 705-876-3823 /705-876-9482 | N/A
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | Peterborough.SCJ.TC@ontario.ca | 705-876-3823
+Judicial Pre-trials | Peterborough.SCJ.TC@ontario.ca | 705-876-3823
+Bail Hearings / Reviews | Peterborough.SCJ.TC@ontario.ca | 705-876-3823
+90-day Detention Review Hearings | Peterborough.SCJ.TC@ontario.ca | 705-876-3823
+Criminal Motions/Applications | Peterborough.SCJ.TC@ontario.ca | 705-876-3823
+Assignment Court | Peterborough.SCJ.TC@ontario.ca | 705-876-3823
+Summary Conviction Appeals | Peterborough.SCJ.TC@ontario.ca | 705-876-3823
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions | Peterborough.SCJ.TC@ontario.ca | 705-876-3837 / 705-876-3823
+Long Motions | Peterborough.SCJ.TC@ontario.ca | 705-876-3837 / 705-876-3823
+Case / Settlement Conferences | Peterborough.SCJ.TC@ontario.ca | 705-876-3837 / 705-876-3823
+Teleconferences | Peterborough.SCJ.TC@ontario.ca | 705-876-3837 / 705-876-3823
+Trial Scheduling Conferences | Peterborough.SCJ.TC@ontario.ca | 705-876-3837 / 705-876-3823
+Exit Pre-Trials | Peterborough.SCJ.TC@ontario.ca | 705-876-3837 / 705-876-3823
+Trial | Peterborough.SCJ.TC@ontario.ca | 705-876-3837 / 705-876-3823
+Summary Judgment Motion | Peterborough.SCJ.TC@ontario.ca | 705-876-3837 / 705-876-3823
+JDRs | Peterborough.SCJ.TC@ontario.ca | 705-876-3837 / 705-876-3823
+DRO Conferences | Peterborough.SCJ.TC@ontario.ca | 705-876-3837 / 705-876-3823
+CAS Matters | Peterborough.SCJ.TC@ontario.ca | 705-876-3837 / 705-876-3823
+FRO Matters | Peterborough.SCJ.TC@ontario.ca | 705-876-3837 / 705-876-3823
+Small Claims Court Contact Information
+470 Water St.
+Peterborough, Ontario K9H 3M3
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | PeterboroughSCourts@ontario.ca | 705-876-3846

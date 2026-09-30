@@ -1,0 +1,36 @@
+Source: https://www.ontariocourts.ca/scj/locations/st-catharines/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+St. Catharines Courthouse
+59 Church Street
+St. Catharines, Ontario L2R 7N8
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Motions | St.Catharines.Superior.Court@ontario.ca | 905-988-2834
+Case Conference | St.Catharines.Superior.Court@ontario.ca | 905-988-2834
+CVPTs | St.Catharines.Superior.Court@ontario.ca | 905-988-2834
+Trials | St.Catharines.Superior.Court@ontario.ca | 905-988-2834
+Assignment Court | St.Catharines.Superior.Court@ontario.ca | 905-988-2834
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | St.Catharines.Superior.Court@ontario.ca | 905-988-2834
+Judicial Pre-trials | St.Catharines.Superior.Court@ontario.ca | 905-988-2834
+Bail Hearings / Reviews | St.Catharines.Superior.Court@ontario.ca | 905-988-2834
+90-day Detention Review Hearings | St.Catharines.Superior.Court@ontario.ca | 905-988-2834
+Criminal Applications / Motions | St.Catharines.Superior.Court@ontario.ca | 905-988-2834
+Assignment Court / Trial Scheduling Court | St.Catharines.Superior.Court@ontario.ca | 905-988-2834
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions | St.Catharines.Superior.Court@ontario.ca | 905-988-2834
+Long Motions | St.Catharines.Superior.Court@ontario.ca | 905-988-2834
+Family Conference | St.Catharines.Superior.Court@ontario.ca | 905-988-2834
+DRO Conference | St.Catharines.Superior.Court@ontario.ca | 905-988-2834
+Trials | St.Catharines.Superior.Court@ontario.ca | 905-988-2834
+Small Claims Court Contact Information
+59 Church Street
+St. Catharines, Ontario L2R 7N8
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | SCJStCatharinesCourthouse@ontario.ca | 905-988-6200

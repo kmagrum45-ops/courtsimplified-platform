@@ -34,6 +34,19 @@ replacement for these):
 
 ## Techniques that work
 
+### Courthouse addresses: the Superior Court's own location pages (2026-09-30)
+
+`https://www.ontariocourts.ca/scj/court-locations/all-court-locations/` links
+65 location pages (`/scj/locations/<slug>/`); the Fetch Decisions workflow
+fetches them (ontariocourts.ca is an allowed host). Each page has the address
+under `<h2 class="red-font">`, then Bootstrap tabs (`#ex1-tabs-N`) per court
+type, each with a table of event / email / phone. Traps: nine small-claims-only
+locations have no address under the heading, only inside the Small Claims tab;
+the LAST tab pane on a page is followed by a `<script>`, not another pane, so
+a pattern that stops only at the next pane misses it. **The Ontario Court of
+Justice location list** (`/ocj/court-locations/`) did not expose its locations
+as links when fetched; OCJ courthouses (some family cases) are not covered.
+
 ### Writing the in-depth guides: what the independent read found (2026-09-30)
 
 Ten guides (`src/lib/content-library/guides/`) were written from the corpus

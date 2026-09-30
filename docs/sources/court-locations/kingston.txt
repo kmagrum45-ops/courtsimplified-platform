@@ -1,0 +1,30 @@
+Source: https://www.ontariocourts.ca/scj/locations/kingston/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Kingston Courthouse
+5 Court Street
+Kingston, Ontario K7L 2N4
+Civil Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email
+Short Motions | kingstonscjadmin@ontario.ca
+Long Motions | KingstonSCJtrialcoordination@ontario.ca
+CVPTs | kingstonscjadmin@ontario.ca
+Trials | KingstonSCJtrialcoordination@ontario.ca
+Assignment Court | KingstonSCJtrialcoordination@ontario.ca
+Case Conf / Case Management | KingstonSCJtrialcoordination@ontario.ca
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email
+Trials | KingstonSCJtrialcoordination@ontario.ca
+Judicial Pre-trials | kingstonSCJadmin@ontario.ca
+Bail Hearings / Reviews | kingstonSCJadmin@ontario.ca
+90-day Detention Review Hearings | kingstonSCJadmin@ontario.ca
+Criminal Applications / Motions | kingstonSCJadmin@ontario.ca
+Assignment Court / Trial Scheduling Court | KingstonSCJtrialcoordination@ontario.ca
+Summary Conviction Appeals | kingstonSCJadmin@ontario.ca
+Small Claims Court Contact Information
+5 Court Street
+Kingston, Ontario K7L 2N4
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Kingston.SCJ.courts@ontario.ca | 613-548-6811
