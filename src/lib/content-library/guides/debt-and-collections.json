@@ -1,0 +1,186 @@
+{
+ "id": "debt-and-collections",
+ "title": "Debt collection and being sued for a debt",
+ "courts": [
+  "all"
+ ],
+ "intro": "This guide describes, in general terms, the Ontario rules for collection agencies, the time limit for starting a court case, what happens when a creditor sues in Small Claims Court, and some basics about bankruptcy, consumer proposals and credit reports. It explains what the sources say; it does not say whether any particular debt is owed.",
+ "sections": [
+  {
+   "heading": "What a collection agency is",
+   "court": "all",
+   "paragraphs": [
+    "Under the Collection and Debt Settlement Services Act, a “collection agency” includes “a person, other than a collector, who obtains or arranges for payment of money owing to another person” and “a person who purchases debts that are in arrears and collects them”. (Collection and Debt Settlement Services Act, s. 1 (1))",
+    "“No person shall carry on the business of a collection agency unless the person is registered by the Registrar under this Act.” A creditor may deal with a debtor for payment only “under the name in which the debt is lawfully owing or through a registered collection agency.” (Collection and Debt Settlement Services Act, ss. 4 (1), 5)",
+    "The Act does not apply to some people, including (subject to the regulations) a lawyer in the regular practice of their profession, a bank, a credit union, and “an isolated collection made by a person whose usual business is not collecting debts for other persons”. The Act also says “Any waiver or release of any right, benefit or protection provided by this Act or the regulations is void.” (Collection and Debt Settlement Services Act, ss. 2 (1), 22.1)"
+   ]
+  },
+  {
+   "heading": "What collectors may not do",
+   "court": "all",
+   "paragraphs": [
+    "No collection agency or collector shall “collect or attempt to collect, on its own behalf or for a person for whom it acts, any money in addition to the amount owing by the debtor”, or “deal with a debtor in a name other than that authorized by the registration”, or “engage in any prohibited practice or employ any prohibited method in the collection of debts”. (Collection and Debt Settlement Services Act, s. 22)",
+    "The detailed rules are in a regulation that the site does not yet hold. Ontario's guide for collection agencies summarizes them. Before contacting a debtor to demand payment, an agency “must send a written notice to the debtor”, and must “wait six calendar days after sending a written notice” before contacting the debtor or demanding payment. (ontario.ca, A guide for collection agencies)",
+    "The guide says an agency cannot contact anyone about a debt “between 9 p.m. and 7 a.m. (debtor's local time) from Monday to Saturday”, “on a Sunday, except between 1 p.m. and 5 p.m. (debtor's local time)”, or “on a public holiday”. (ontario.ca, A guide for collection agencies)",
+    "It also says “you can contact a debtor up to three times within a seven-day period on behalf of the same creditor”, and not more often “unless additional contact was agreed to, requested or initiated by the debtor, or if contact is by mail.” It adds: “This rule does not apply until you have spoken to the debtor in person or by phone.” (ontario.ca, A guide for collection agencies)",
+    "When dealing with a debtor, the guide says an agency cannot “use threatening, profane, intimidating or coercive language”, “use excessive or unreasonable pressure”, “give false or misleading information”, or “threaten legal action without the creditor's written authority to commence legal proceedings”. (ontario.ca, A guide for collection agencies)"
+   ]
+  },
+  {
+   "heading": "Contacting other people, and disputed debts",
+   "court": "all",
+   "paragraphs": [
+    "The guide lists limited situations in which an agency can contact a debtor's employer, such as where “the debtor has given you written permission”, or once “to confirm that the debtor works there”. It can contact family, friends or neighbours only in listed situations, such as where that person “has guaranteed to pay the debt”. (ontario.ca, A guide for collection agencies)",
+    "The guide says an agency cannot contact someone if “you know or reasonably should know they are not responsible for the debt”. It also says “If the debtor sends you a notice suggesting that the matter be taken to court, you cannot contact or attempt to contact the debtor”, unless the debtor consents to or requests contact. (ontario.ca, A guide for collection agencies)",
+    "CLEO explains that when someone is contacted about a debt they do not think they owe, “Your creditor or the collection agency may have made a mistake.” It describes sending “a formal letter by registered mail to the collection agency” disputing the debt and asking that a court decide the problem, after which “the collection agency can only contact you if they plan to take you to court.” (CLEO, Steps to Justice: A collection agency called about a debt I do not owe)",
+    "CLEO also says that ignoring a collection agency can have consequences: “your credit rating could drop and you might get sued in court”. (CLEO, Steps to Justice: A collection agency called me. Do I have to talk to them?)"
+   ]
+  },
+  {
+   "heading": "Complaints about a collection agency",
+   "court": "all",
+   "paragraphs": [
+    "Ontario's guide says “Consumers can submit complaints about collection agencies to the Ministry of Public and Business Service Delivery and Procurement.” When the Registrar receives a complaint and asks in writing, the collection agency “shall furnish the Registrar with such information respecting the matter complained of as the Registrar requires.” (ontario.ca, A guide for collection agencies; Collection and Debt Settlement Services Act, s. 12 (1))",
+    "Ontario's consumer protection page for credit, loans and debt collection points to information on credit reports and on what to do “when a collection agency contacts you”. (ontario.ca, Consumer protection information for credit, loans and debt collection)"
+   ]
+  },
+  {
+   "heading": "Time limits for suing on a debt",
+   "court": "all",
+   "paragraphs": [
+    "The Limitations Act, 2002 sets the general rule: “Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered.” Section 15 also sets an ultimate limit: no proceeding “after the 15th anniversary of the day on which the act or omission on which the claim is based took place”, subject to the exceptions in that section. (Limitations Act, 2002, ss. 4, 15 (2), (4))",
+    "If a person “acknowledges liability in respect of a claim for payment of a liquidated sum”, the act or omission the claim is based on is treated as having taken place “on the day on which the acknowledgment was made.” The acknowledgment must be “in writing and signed”, and “part payment of the sum” by the person against whom the claim is made “has the same effect”. (Limitations Act, 2002, s. 13 (1), (10), (11))",
+    "An acknowledgment counts only if it is made to the person with the claim, their agent, or a bankruptcy trustee or official receiver “before the expiry of the limitation period applicable to the claim.” The CLEO debt pages in the site's sources do not set out a separate limitation rule for debts. (Limitations Act, 2002, s. 13 (9))"
+   ]
+  },
+  {
+   "heading": "Being sued for a debt in Small Claims Court",
+   "court": "small-claims",
+   "paragraphs": [
+    "The Small Claims Court “has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs”. A regulation says “The maximum amount of a claim in the Small Claims Court is $50,000.” (Courts of Justice Act, s. 23 (1); O. Reg. 626/00, s. 1 (1))",
+    "“An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court.” This does not apply to a counterclaim, crossclaim or third or subsequent party claim where the main action was commenced in the Superior Court of Justice. (Courts of Justice Act, s. 23 (1.1), (1.2))",
+    "“A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim,” serve a defence (Form 9A) on every other party, and file it with proof of service with the clerk. (Rules of the Small Claims Court, r. 9.01)",
+    "“A defendant who admits liability for all or part of the plaintiff's claim but wishes to arrange terms of payment may in the defence admit liability and propose terms of payment.” (Rules of the Small Claims Court, r. 9.03 (1))",
+    "If a defendant “fails to file a defence to all or part of the claim with the clerk within the prescribed time, the clerk may note the defendant in default” when a request to note the defendant in default and proof that the claim was served within the court's territorial division are filed. Other requirements apply if all defendants were served outside that division. (Rules of the Small Claims Court, r. 11.01 (1), (3))",
+    "The rules also say: “A person under disability may not be noted in default under subrule (1), except with leave of the court.” (Rules of the Small Claims Court, r. 11.01 (2))"
+   ]
+  },
+  {
+   "heading": "Bankruptcy and consumer proposals",
+   "court": "all",
+   "paragraphs": [
+    "CLEO describes options other than bankruptcy, including making “a repayment plan with your creditors” and filing “a consumer proposal with a Licensed Insolvency Trustee”. It says “Bankruptcy is a legal process that you can only start with a Licensed Insolvency Trustee”. (CLEO, Steps to Justice: Are there options other than bankruptcy if I'm in debt?, last reviewed November 30, 2021; How do I file for bankruptcy?, last reviewed November 10, 2023)",
+    "CLEO explains “A consumer proposal is a legal agreement between you and your creditors.” It says “A consumer proposal only helps you settle your unsecured debts” and that, for it to be accepted, “the creditors that you owe more than half of your debts to must agree to it.” (CLEO, Steps to Justice: Can a consumer proposal help me get out of debt?, last reviewed November 30, 2021)",
+    "CLEO lists debts that “survive your bankruptcy”, including “child and spousal support payments”, “fines and court penalties”, “debts that are the result of a crime”, and “government student loans, if you have been out of school for less than 7 years”. (CLEO, Steps to Justice: Can I still owe money after I have been discharged from bankruptcy?, last reviewed November 30, 2021)"
+   ]
+  },
+  {
+   "heading": "Credit reports",
+   "court": "all",
+   "paragraphs": [
+    "CLEO says the two main consumer reporting agencies in Canada are TransUnion and Equifax. A bankruptcy “will stay on your credit report for 6 or 7 years after you are discharged”, and a note about a consumer proposal stays “for 3 years after your consumer proposal is completed.” (CLEO, Steps to Justice: How do I file for bankruptcy?, last reviewed November 10, 2023; Can a consumer proposal help me get out of debt?, last reviewed November 30, 2021)",
+    "On mistakes, CLEO describes a letter to the consumer reporting agency asking it to “correct, remove, or explain any wrong information”. It says “The agency must put that letter in your file” and “the consumer reporting agency must answer your letter and tell you what they are doing about it.” If the agency does not fix the information, a complaint can be filed “with the Ministry of Public and Business Service Delivery”. (CLEO, Steps to Justice: There's a mistake in my credit report)"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "localText": "docs/sources/corpus/collection-and-debt-settlement-services-act.txt",
+   "sourceName": "Collection and Debt Settlement Services Act",
+   "pinpoints": "ss. 1 (1) “collection agency”, 2 (1), 4 (1), 5, 12 (1), 22, 22.1",
+   "officialUrl": "https://www.ontario.ca/laws/statute/90c14",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/cpo-guide-collection-agencies.txt",
+   "sourceName": "ontario.ca, A guide for collection agencies",
+   "pinpoints": "Prohibited practices and conduct; Complaints",
+   "officialUrl": "https://www.ontario.ca/page/guide-collection-agencies",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/cpo-credit-loans-and-debt-collection.txt",
+   "sourceName": "ontario.ca, Consumer protection information for credit, loans and debt collection",
+   "pinpoints": "Stop collection agency calls",
+   "officialUrl": "https://www.ontario.ca/page/consumer-protection-information-credit-loans-and-debt-collection",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/cleo-debt-and-consumer-rights-collection-agency-called-about-debt-i-do-not-owe-what-can-i-do.txt",
+   "sourceName": "CLEO, Steps to Justice: A collection agency called about a debt I do not owe",
+   "pinpoints": "whole page",
+   "officialUrl": "https://stepstojustice.ca/questions/debt-and-consumer-rights/collection-agency-called-about-debt-i-do-not-owe-what-can-i-do/",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/cleo-debt-and-consumer-rights-collection-agency-called-me-do-i-have-talk-them.txt",
+   "sourceName": "CLEO, Steps to Justice: A collection agency called me. Do I have to talk to them?",
+   "pinpoints": "whole page",
+   "officialUrl": "https://stepstojustice.ca/questions/debt-and-consumer-rights/collection-agency-called-me-do-i-have-talk-them/",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/cleo-debt-and-consumer-rights-are-there-options-other-bankruptcy-if-im-debt.txt",
+   "sourceName": "CLEO, Steps to Justice: Are there options other than bankruptcy if I'm in debt?",
+   "pinpoints": "whole page",
+   "officialUrl": "https://stepstojustice.ca/questions/debt-and-consumer-rights/are-there-options-other-bankruptcy-if-im-debt/",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/cleo-debt-and-consumer-rights-how-do-i-file-bankruptcy.txt",
+   "sourceName": "CLEO, Steps to Justice: How do I file for bankruptcy?",
+   "pinpoints": "whole page",
+   "officialUrl": "https://stepstojustice.ca/questions/debt-and-consumer-rights/how-do-i-file-bankruptcy/",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/cleo-debt-and-consumer-rights-can-consumer-proposal-help-me-get-out-debt.txt",
+   "sourceName": "CLEO, Steps to Justice: Can a consumer proposal help me get out of debt?",
+   "pinpoints": "whole page",
+   "officialUrl": "https://stepstojustice.ca/questions/debt-and-consumer-rights/can-consumer-proposal-help-me-get-out-debt/",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/cleo-debt-and-consumer-rights-can-i-still-owe-money-after-i-have-been-discharged-bankruptcy.txt",
+   "sourceName": "CLEO, Steps to Justice: Can I still owe money after I have been discharged from bankruptcy?",
+   "pinpoints": "whole page",
+   "officialUrl": "https://stepstojustice.ca/questions/debt-and-consumer-rights/can-i-still-owe-money-after-i-have-been-discharged-bankruptcy/",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/cleo-debt-and-consumer-rights-theres-mistake-my-credit-report-what-can-i-do.txt",
+   "sourceName": "CLEO, Steps to Justice: There's a mistake in my credit report",
+   "pinpoints": "whole page",
+   "officialUrl": "https://stepstojustice.ca/questions/debt-and-consumer-rights/theres-mistake-my-credit-report-what-can-i-do/",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/limitations-act-2002.txt",
+   "sourceName": "Limitations Act, 2002",
+   "pinpoints": "ss. 4, 13 (1), (9), (10), (11), 15 (2), (4)",
+   "officialUrl": "https://www.ontario.ca/laws/statute/02l24",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/cja-courts-of-justice-act.txt",
+   "sourceName": "Courts of Justice Act",
+   "pinpoints": "s. 23 (1), (1.1), (1.2)",
+   "officialUrl": "https://www.ontario.ca/laws/statute/90c43",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/oreg-626-00-monetary-jurisdiction.txt",
+   "sourceName": "O. Reg. 626/00",
+   "pinpoints": "s. 1 (1)",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/000626",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
+   "sourceName": "Rules of the Small Claims Court",
+   "pinpoints": "rr. 9.01, 9.03 (1), 11.01 (1)-(3)",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/980258",
+   "retrievedAt": "2026-09-27"
+  }
+ ]
+}
