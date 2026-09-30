@@ -4,7 +4,8 @@
       "story-review-reports": false,
       "ai-diag-*": false,
       "ai-model-diagnostics*": false,
-      "*-reports": false
+      "*-reports": false,
+      "sources-vendor-*": false
     }
   }
 }
