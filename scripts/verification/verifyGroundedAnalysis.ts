@@ -37,6 +37,7 @@ import {
   verifyGroundedCognition,
 } from "../../src/lib/case-system/intelligence/groundedCognition";
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
+import { renderableProfiles } from "../../src/lib/case-system/claim-types/catalogue";
 import { analyzeSmallClaimsWithBrain } from "../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
 import { mapGuidedIntakeToSmallClaimsInput } from "../../app/builder/_components/guidedIntakeToSmallClaimsInput";
 
@@ -59,6 +60,32 @@ check("pack: includes the stage's verbatim rules", Boolean(rule), "no rule item"
 check("pack: includes the stage's deadlines", Boolean(deadline), "no deadline item");
 check("pack: every item has an official https link", pack.items.every((item) => /^https:\/\//.test(item.sourceUrl)));
 check("pack: no stage items for a stage with no mapped positions", buildSourcePack({ stage: "not-sure", side: "plaintiff" }).items.length === 0);
+
+// Connected 2026-09-30: the claim type's defences, and the authored claim-type
+// profiles' notice deadlines, are in the pack. Asserted as properties of the
+// data, not by id, so adding a defence or a profile never breaks this.
+check(
+  "pack: every defence the claim type lists is in it",
+  claimType.applicableDefenceConceptIds.every((id) => pack.byId.has(`defence:${id}`)),
+);
+const fallPack = buildSourcePack({ stage: "starting-case", side: "plaintiff", claimTypeId: "sc-claim-slip-and-fall-occupier-liability" });
+const noticeProfiles = renderableProfiles().filter(
+  (profile) =>
+    (profile.notices ?? []).length > 0 &&
+    (profile.existingClaimTypeId === "sc-claim-slip-and-fall-occupier-liability" ||
+      (profile.alsoRelevantTo ?? []).includes("sc-claim-slip-and-fall-occupier-liability")),
+);
+check("pack: a slip and fall has claim-barring notice profiles to draw on", noticeProfiles.length > 0);
+check(
+  "pack: every such profile's notice rule is in the pack, verbatim",
+  noticeProfiles.every((profile) =>
+    (profile.notices ?? []).every((notice) => fallPack.items.some((item) => item.text === notice.because.quote)),
+  ),
+);
+check(
+  "pack: a claim type with no related profile gets no notice items",
+  !pack.items.some((item) => item.id.startsWith("notice:")),
+);
 
 const quoteOf = (text: string) => text.replace(/\s+/g, " ").trim().slice(0, 60);
 const good = deadline!;

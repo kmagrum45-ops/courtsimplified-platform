@@ -137,6 +137,21 @@ jobs:
       - name: Switch-off path shows no model-written text
         run: npm run test:no-model-text-to-users
 
+      - name: Claim-type catalogue and profiles agree
+        run: npm run test:claim-types
+
+      - name: Claim-type matcher still routes the reference stories
+        run: npm run test:claim-type-matcher
+
+      - name: Depth questions are well-formed and never grade a case
+        run: npm run test:depth-questions
+
+      - name: Every case-system module is reachable or declared dormant
+        run: npm run test:reachability
+
+      - name: Every model call site is declared and structured
+        run: npm run test:output-guard
+
       - name: AI model configuration verification
         run: npm run test:ai-models
 

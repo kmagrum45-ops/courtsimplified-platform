@@ -37,7 +37,8 @@
  * Asserted by `npm run test:grounded-analysis`.
  */
 
-import { CLAIM_TYPES } from "../intake/claimTypes";
+import { CLAIM_TYPES, DEFENCE_CONCEPTS } from "../intake/claimTypes";
+import { renderableProfiles } from "../claim-types/catalogue";
 import { CASE_STAGES, type CaseStage } from "../stage-map/stageMap";
 import { officialUrl, sourceName, type RuleCitation } from "../stage-map/citations";
 
@@ -172,6 +173,46 @@ export function buildSourcePack(args: {
         sourceUrl: note.sourceUrl,
       });
     });
+  }
+
+  if (claimType) {
+    // Defences the catalogue lists for this kind of claim. Each is sourced and
+    // verified (docs/sources/catalogue-verification.json), and a defendant --
+    // or a plaintiff reading what may be raised -- needs them in the pack.
+    for (const conceptId of claimType.applicableDefenceConceptIds) {
+      const concept = DEFENCE_CONCEPTS.find((item) => item.id === conceptId);
+      if (!concept) continue;
+      items.push({
+        id: `defence:${concept.id}`,
+        label: concept.name,
+        text: `${concept.name}. ${concept.plainExplanation}`,
+        sourceUrl: concept.sourceUrl,
+      });
+    }
+  }
+
+  // Authored claim-type profiles (claim-types/) that extend this claim type:
+  // the notice deadlines that can bar a claim before it is filed (a municipal
+  // sidewalk, snow and ice, a newspaper), and the limitation rule. These are
+  // the rules a person most needs and least expects, and before 2026-09-30 the
+  // analysis never saw them. Offered as material that MAY apply -- the model
+  // must still cite them, and nothing here says they apply to this user.
+  if (args.claimTypeId) {
+    for (const profile of renderableProfiles()) {
+      const related =
+        profile.id === args.claimTypeId ||
+        profile.existingClaimTypeId === args.claimTypeId ||
+        (profile.alsoRelevantTo ?? []).includes(args.claimTypeId);
+      if (!related) continue;
+      for (const notice of profile.notices ?? []) {
+        const stage = (CASE_STAGES as readonly CaseStage[]).find((item) => item.id === notice.stageId);
+        if (stage) items.push(...stageItems(stage));
+        items.push(ruleItem(`notice:${profile.id}`, notice.because, `${profile.name}: notice before suing`));
+      }
+      if (profile.limitationNote) {
+        items.push(ruleItem(`limitation:${profile.id}`, profile.limitationNote.because, `${profile.name}: time limit`));
+      }
+    }
   }
 
   const positionIds = STAGE_POSITIONS[args.stage]?.[args.side] || [];

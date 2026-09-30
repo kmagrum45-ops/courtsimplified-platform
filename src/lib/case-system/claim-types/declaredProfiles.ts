@@ -28,7 +28,7 @@
  * type to authored.
  *
  * Ids follow the existing `sc-claim-` convention, and where an entry matches one of
- * the 22 intake claim types the SAME id is used so nothing forks.
+ * the intake claim types the SAME id is used so nothing forks.
  */
 
 import type { ClaimFamily, ClaimTypeProfile } from "./claimTypeProfile";
@@ -90,6 +90,7 @@ export const DECLARED_PROFILES: ClaimTypeProfile[] = [
   d("goods-and-services", "sc-claim-real-estate-agent-conduct", "A real estate agent's commission or conduct"),
   d("goods-and-services", "sc-claim-moving-company-damage-or-loss", "A moving company that damaged or lost things"),
   d("goods-and-services", "sc-claim-storage-company-dispute", "A dispute with a storage company"),
+  d("goods-and-services", "sc-claim-repairer-or-storer-holding-property", "A garage, repair shop or storage business keeping your item for its bill"),
   d("goods-and-services", "sc-claim-wedding-or-event-vendor-failure", "A wedding or event supplier who let you down"),
   d("goods-and-services", "sc-claim-travel-agent-or-tour-operator", "A travel agent or tour operator"),
   d("goods-and-services", "sc-claim-airline-delay-or-cancellation", "A flight delayed, cancelled, or boarding denied"),
@@ -200,7 +201,8 @@ export const DECLARED_PROFILES: ClaimTypeProfile[] = [
   // WORK
   // ---------------------------------------------------------------------------
   d("work", "sc-claim-wrongful-dismissal", "Being let go without proper notice or pay"),
-  d("work", "sc-claim-unpaid-overtime-vacation-pay", "Unpaid wages, overtime or vacation pay"),
+  d("work", "sc-claim-unpaid-overtime-vacation-pay", "Unpaid overtime or vacation pay"),
+  d("work", "sc-claim-unpaid-wages", "Unpaid regular wages or final pay"),
   d("work", "sc-claim-unpaid-tips", "Unpaid tips"),
   d("work", "sc-claim-unpaid-severance", "Unpaid severance or termination pay"),
   d("work", "sc-claim-unpaid-bonus-after-termination", "A bonus or commission unpaid after leaving"),

@@ -135,8 +135,11 @@ export type VerificationSource = {
 export type VerificationRecord = {
   key: string;
   verifiedAt: string;
-  /** SUPPORTED as written, or CORRECTED to what the source says. */
-  outcome: "supported" | "corrected";
+  /**
+   * SUPPORTED as written, CORRECTED to what the source says, or AUTHORED new
+   * from the source (the entry did not exist before it was verified).
+   */
+  outcome: "supported" | "corrected" | "authored";
   fingerprint: string;
   sources: VerificationSource[];
   /** How the source was read: vendored corpus file, OCR of a saved PDF, live page. */

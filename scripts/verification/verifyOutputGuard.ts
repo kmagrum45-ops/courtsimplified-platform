@@ -182,6 +182,13 @@ function main(): void {
     "src/lib/case-system/intake/claimTypeAiClassifier.ts",
     "src/lib/case-system/intelligence/courtPathClassifier.ts",
     "src/lib/case-system/intelligence/courtSimplifiedBrain.ts",
+    // Added 2026-09-30. All four were live call sites the list had not caught
+    // up with; the per-file check above is what confirms each declares
+    // response_format.
+    "src/lib/case-system/caseReview/caseReviewModel.ts",
+    "src/lib/case-system/chat/libraryChat.ts",
+    "src/lib/case-system/intake/storyAnswerProposals.ts",
+    "src/lib/case-system/stage-map/resolveCasePosition.ts",
   ];
 
   for (const file of callSites) {
@@ -221,7 +228,9 @@ function main(): void {
       if (entry.isDirectory()) {
         if (!["node_modules", ".next"].includes(entry.name)) walk(full);
       } else if (/\.(ts|tsx)$/.test(entry.name)) {
-        const text = fs.readFileSync(full, "utf8");
+        // Comments stripped, as above: aiModels.ts shows a create() call in a
+        // usage comment and makes no call.
+        const text = withoutComments(fs.readFileSync(full, "utf8"));
         if (/chat\.completions\.create\(|responses\.create\(/.test(text)) {
           scanned.push(path.relative(REPO_ROOT, full).split(path.sep).join("/"));
         }
