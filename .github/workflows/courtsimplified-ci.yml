@@ -170,6 +170,9 @@ jobs:
       - name: In-depth guides quote their sources and cite every paragraph
         run: npm run test:topic-guides
 
+      - name: The public claims library shows only approved content
+        run: npm run test:claim-library
+
       - name: Courthouse addresses and contacts match the court's pages
         run: npm run test:court-locations
 

@@ -22,7 +22,11 @@ export default function GuidesIndexPage() {
         <Link href="/legal-principles" className="font-semibold underline">
           court procedure cards
         </Link>
-        ; for what a word means, see the{" "}
+        ;{" "}
+        <Link href="/claims" className="font-semibold underline">
+          types of claims
+        </Link>{" "}
+        explains what different kinds of cases involve; for what a word means, see the{" "}
         <Link href="/glossary" className="font-semibold underline">
           glossary
         </Link>

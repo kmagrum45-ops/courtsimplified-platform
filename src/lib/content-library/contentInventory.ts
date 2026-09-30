@@ -29,7 +29,9 @@
 
 import { QUESTION_BANK } from "../case-system/intake/questionBank";
 import { EDUCATION_TOPICS } from "../case-system/intake/educationTopics";
-import { CLAIM_TYPES } from "../case-system/intake/claimTypes";
+import { CLAIM_TYPES, DEFENCE_CONCEPTS } from "../case-system/intake/claimTypes";
+import { CIVIL_CLAIM_TYPES } from "../case-system/intake/civilClaimTypes";
+import { FAMILY_MATTER_TYPES } from "../case-system/intake/familyMatterTypes";
 import { DEPTH_QUESTIONS } from "../case-system/intake/depth/elementQuestionRegistry";
 import { FORM_KNOWLEDGE_BASE } from "../case-system/formKnowledgeBase";
 import { FAMILY_RESOURCE_TOPICS } from "../case-system/intake/familySafetyResources";
@@ -145,6 +147,34 @@ export function collectContentInventory(): ContentItem[] {
         }),
       );
     }
+  }
+
+  // ---- Claim library (2026-09-30): everything /claims shows ----
+  // The Small Claims elements are registered above; this adds the civil and
+  // family elements and, for all three catalogues, the parts a public page
+  // shows that the intake did not: who brings it, evidence examples, what a
+  // defendant should know, procedural notes, and the defence concepts.
+  for (const entry of [...CLAIM_TYPES, ...CIVIL_CLAIM_TYPES, ...FAMILY_MATTER_TYPES]) {
+    const isSmallClaims = CLAIM_TYPES.includes(entry);
+    const where = `Claim library, "${entry.name}"`;
+    items.push(item({ id: `${entry.id}:broughtBy`, type: "claim-type", pathway: entry.courtArea, stage: "library", text: `${entry.name}\n${entry.broughtBy}`, sourceUrl: entry.citations[0]?.officialUrl ?? "", appearsIn: where }));
+    for (const element of entry.plaintiffElements) {
+      if (!isSmallClaims) {
+        items.push(item({ id: `${entry.id}:${element.id}`, type: "claim-type", pathway: entry.courtArea, stage: "library", text: `${element.name}\n\n${element.plainExplanation}`, sourceUrl: element.sourceUrl || "", appearsIn: where }));
+      }
+      element.evidenceCategories.forEach((category, index) => {
+        items.push(item({ id: `${entry.id}:${element.id}:evidence:${index + 1}`, type: "claim-type", pathway: entry.courtArea, stage: "library", text: [category.name, category.why, ...category.examples].join("\n"), sourceUrl: element.sourceUrl || "", appearsIn: where }));
+      });
+    }
+    for (const consideration of entry.defendantConsiderations) {
+      items.push(item({ id: `${entry.id}:defendant:${consideration.id}`, type: "claim-type", pathway: entry.courtArea, stage: "library", text: [consideration.name, consideration.plainExplanation, consideration.whenThisComesUp].join("\n"), sourceUrl: consideration.sourceUrl || "", appearsIn: where }));
+    }
+    entry.proceduralNotes.forEach((note, index) => {
+      items.push(item({ id: `${entry.id}:note:${index + 1}`, type: "claim-type", pathway: entry.courtArea, stage: "library", text: note.note, sourceUrl: note.sourceUrl || "", appearsIn: where }));
+    });
+  }
+  for (const concept of DEFENCE_CONCEPTS) {
+    items.push(item({ id: concept.id, type: "claim-type", pathway: "all", stage: "library", text: `${concept.name}\n${concept.plainExplanation}`, sourceUrl: concept.sourceUrl, appearsIn: "Claim library, defences" }));
   }
 
   // ---- Depth questions ----
