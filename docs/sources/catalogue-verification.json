@@ -90,7 +90,7 @@
    "key": "sc-claim-unpaid-debt-services|defendantConsideration|dispute-quality-or-completion",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "c90c92b4c6f732b60a42f0636b3ed27a2dd3daf94c77b0bf8c0029d765021e46",
+   "fingerprint": "db9bb6d2bc2aaa2553ecfcfac3aed85eceabdec074ff400597c631b03639da91",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -106,10 +106,15 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "r. 9.02(1), para. 2",
      "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
-   "problemCorrected": "The page supports only that a defendant responds with a Defence (Form 9A). It says nothing about disputing completion or quality, nor that this 'becomes a fact the court has to weigh... not an automatic bar'.",
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) Re-read 2026-09-30 against the vendored source.",
+   "problemCorrected": "The page supports only that a defendant responds with a Defence (Form 9A). It says nothing about disputing completion or quality, nor that this 'becomes a fact the court has to weigh... not an automatic bar'. Random-sample audit 2026-09-30: Said a copy of any document the defence is based on \"is attached\" without r. 9.02(1) para. 2's exception for an unavailable document (found by the random-sample audit, 2026-09-30).",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
    ]
@@ -332,7 +337,7 @@
    "key": "sc-claim-slip-and-fall-occupier-liability|proceduralNote|sc-claim-slip-and-fall-occupier-liability#note0",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "ccd35217d82ec6d5cb5d53840e3d7fc91310d134750a9d8837ecafa6915bd63d",
+   "fingerprint": "668f5fa4e166bdec04b9dd5f47bdf7d4d715c91918a3e7414446837b27b6151a",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
@@ -353,10 +358,15 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
      "pinpoint": "Limitations Act, 2002, s. 5(2)",
      "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5(1)(a)(iv)",
+     "quote": "that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it"
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
-   "problemCorrected": "Source says the 2 years run from when the CLAIM was discovered, not from when the incident or injury was discovered -- not the same thing. The snow/ice notice point is not on this page (it is OLA s. 6.1).",
+   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) Re-read 2026-09-30 against the vendored source.",
+   "problemCorrected": "Source says the 2 years run from when the CLAIM was discovered, not from when the incident or injury was discovered -- not the same thing. The snow/ice notice point is not on this page (it is OLA s. 6.1). Random-sample audit 2026-09-30: Paraphrase of Limitations Act, 2002 s. 5(1)(a)(iv) dropped \"having regard to the nature of the injury, loss or damage\" and said \"way\" for \"means\".",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): partly -- Sections 4 and 5(1) are accurately stated, but the note omits s. 5(2), the presumption that the person knew of the s. 5(1)(a) matters on the day the act or omission took place unless the contrary is proved. Without it a reader may think the two years runs only from when they personally learned the facts, which changes how the rule operates in practice. Rewritten to the source wording.",
     "Third re-read of the rewritten text (2026-09-30): supported."
@@ -405,30 +415,51 @@
    "key": "sc-claim-improper-unauthorized-towing|plaintiffElement|towed-without-consent",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "4c60ee7023bab9a5ccaf49ebe6cc560251a258feb57d86b82d7a6bed825523d7",
+   "fingerprint": "3a5ab1a21160c128b8dd21b6ce1f8bf757349cbfb2931840ff4512fe1c75f873",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/page/know-your-rights-when-getting-tow",
      "pinpoint": "Know your rights when getting a tow (ontario.ca), consent section",
      "quote": "\"Unless initiated by the police or authorized official (for example, if you are parked illegally), your consent is required to tow your vehicle.\""
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/page/know-your-rights-when-getting-tow",
+     "pinpoint": "Consent to tow; Exemptions",
+     "quote": "Unless initiated by the police or authorized official (for example, if you are parked illegally), your consent is required to tow your vehicle."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/page/know-your-rights-when-getting-tow",
+     "pinpoint": "Consent to tow; Exemptions",
+     "quote": "If the tow truck driver or towing company did not get consent, they cannot charge you for towing services."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/page/know-your-rights-when-getting-tow",
+     "pinpoint": "Consent to tow; Exemptions",
+     "quote": "Consent to tow and invoice requirements do not apply to towing or vehicle storage services that are either free of charge or prepaid (for example, through an automobile club membership"
     }
    ],
-   "howRead": "https://www.ontario.ca/page/know-your-rights-when-getting-tow: web fetch 2026-09-30 second audit: Evidence label stated the legal conclusion; replaced with a description of what the records show (auditor's wording). Not a legal statement, no source needed.",
-   "problemCorrected": "Evidence label stated the legal conclusion; replaced with a description of what the records show (auditor's wording). Not a legal statement, no source needed."
+   "howRead": "https://www.ontario.ca/page/know-your-rights-when-getting-tow: web fetch 2026-09-30 second audit: Evidence label stated the legal conclusion; replaced with a description of what the records show (auditor's wording). Not a legal statement, no source needed. Re-read 2026-09-30 against the vendored source.",
+   "problemCorrected": "Evidence label stated the legal conclusion; replaced with a description of what the records show (auditor's wording). Not a legal statement, no source needed. Random-sample audit 2026-09-30: Said the \"vehicle owner's\" consent was required and dropped the free-or-prepaid tow exception and the page's stated consequence (no charge without consent)."
   },
   {
    "key": "sc-claim-improper-unauthorized-towing|plaintiffElement|no-rate-disclosure",
    "verifiedAt": "2026-09-30",
-   "outcome": "supported",
-   "fingerprint": "e30e56f32b2c1b788bb8a351aa999e8396a25ac3efd68e2bd462bdd89eab9506",
+   "outcome": "corrected",
+   "fingerprint": "ecaa63a2c0921fc9dfe40958bedaef8114babe9c1202f4cf986595b3f5495036",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/page/know-your-rights-when-getting-tow",
      "pinpoint": "Know your rights when getting a tow (ontario.ca)",
      "quote": "\"The rates for towing or vehicle storage services must be given to you before providing services.\" ... \"Tow truck drivers, towing companies and vehicle storage providers must abide by a code of conduct and be certified to offer services in Ontario.\""
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/page/know-your-rights-when-getting-tow",
+     "pinpoint": "Exemptions to holding a certificate",
+     "quote": "All tow or vehicle storage operators and tow truck drivers are required to hold a towing or vehicle storage certificate unless they are exempt."
     }
    ],
-   "howRead": "https://www.ontario.ca/page/know-your-rights-when-getting-tow: web fetch"
+   "howRead": "https://www.ontario.ca/page/know-your-rights-when-getting-tow: web fetch Re-read 2026-09-30 against the vendored source.",
+   "problemCorrected": "Random-sample audit 2026-09-30: Stated certification as absolute; the page says a certificate is required \"unless they are exempt\"."
   },
   {
    "key": "sc-claim-improper-unauthorized-towing|defendantConsideration|tow-authorized-by-police",
@@ -701,7 +732,7 @@
    "key": "sc-claim-non-payment-goods-sold|defendantConsideration|dispute-goods-matched-agreement",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "5fa9f24310c339ea9df9749e81c87b2293b5c508a6d0ac656f9c13b0c220acfc",
+   "fingerprint": "7557c493e3c8fbaf93293b81e8b35dd0807774fd66c1ba63ce2084b964f01fbf",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -717,10 +748,15 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "r. 9.02(1), para. 2",
      "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
-   "problemCorrected": "The page supports only that a defendant responds with a Defence (Form 9A). It says nothing about disputing whether goods matched the agreement or about the court weighing evidence.",
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) Re-read 2026-09-30 against the vendored source.",
+   "problemCorrected": "The page supports only that a defendant responds with a Defence (Form 9A). It says nothing about disputing whether goods matched the agreement or about the court weighing evidence. Random-sample audit 2026-09-30: Said a copy of any document the defence is based on \"is attached\" without r. 9.02(1) para. 2's exception for an unavailable document (found by the random-sample audit, 2026-09-30).",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
    ]
@@ -857,7 +893,7 @@
    "key": "sc-claim-consumer-protection-act-issue|defendantConsideration|dispute-representation-false",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "54fd1231efef07db6fd8d22d9a85bcd47909c8b269fb0a6c0fb37899c09a61ae",
+   "fingerprint": "58d3d8d13cdb6133da7cffac6d21ca9670869da8cd01e82d11475d379d10b3ff",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -873,10 +909,15 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "r. 9.02(1), para. 2",
      "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
-   "problemCorrected": "Source only says a sued defendant must complete a Defence (Form 9A), serve it, and file it within 20 calendar days; it says nothing about what a Defence may dispute or argue.",
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) Re-read 2026-09-30 against the vendored source.",
+   "problemCorrected": "Source only says a sued defendant must complete a Defence (Form 9A), serve it, and file it within 20 calendar days; it says nothing about what a Defence may dispute or argue. Random-sample audit 2026-09-30: Said a copy of any document the defence is based on \"is attached\" without r. 9.02(1) para. 2's exception for an unavailable document (found by the random-sample audit, 2026-09-30).",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
    ]
@@ -1016,7 +1057,7 @@
    "key": "sc-claim-contractor-damage|defendantConsideration|dispute-causation-contractor",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "9118f7d007e64157253222b78e74d88216d5de35cb7e8e020ad969b06aa6b993",
+   "fingerprint": "4595a44995e63afae8b13f438b0d4b7d7217b613ac41937286883b03d6e73f00",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -1032,10 +1073,15 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "r. 9.02(1), para. 2",
      "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
-   "problemCorrected": "Source supports only that a defendant completes, serves and files a Defence (Form 9A) within 20 calendar days of service; it says nothing about what a Defence may dispute (causation, separate cause).",
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) Re-read 2026-09-30 against the vendored source.",
+   "problemCorrected": "Source supports only that a defendant completes, serves and files a Defence (Form 9A) within 20 calendar days of service; it says nothing about what a Defence may dispute (causation, separate cause). Random-sample audit 2026-09-30: Said a copy of any document the defence is based on \"is attached\" without r. 9.02(1) para. 2's exception for an unavailable document (found by the random-sample audit, 2026-09-30).",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
    ]
@@ -1172,7 +1218,7 @@
    "key": "sc-claim-wrongful-dismissal|defendantConsideration|dispute-length-or-calculation",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "a95217aba8e378b2c1ceedb7a786e4ce23c87ac0b82b8f1eddb37cae26b9b1ac",
+   "fingerprint": "a2c3816b23d118bc4abf78b4aa3b508cf4c96b7e928585b9a346a16f4afd9f41",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -1188,10 +1234,15 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "r. 9.02(1), para. 2",
      "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
-   "problemCorrected": "The ESA guide termination page says nothing about a defendant filing a Defence or disputing length of employment/calculation; it covers entitlement and the notice table only. The general proposition that a defendant can file a Defence is supported by the SCJ 'How to respond to a case' page instead.",
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) Re-read 2026-09-30 against the vendored source.",
+   "problemCorrected": "The ESA guide termination page says nothing about a defendant filing a Defence or disputing length of employment/calculation; it covers entitlement and the notice table only. The general proposition that a defendant can file a Defence is supported by the SCJ 'How to respond to a case' page instead. Random-sample audit 2026-09-30: Said a copy of any document the defence is based on \"is attached\" without r. 9.02(1) para. 2's exception for an unavailable document (found by the random-sample audit, 2026-09-30).",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
    ]
@@ -1388,7 +1439,7 @@
    "key": "sc-claim-dog-bite-animal-injury|proceduralNote|sc-claim-dog-bite-animal-injury#note0",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "debdbcf9ec7552cac50f3d8a98cbae7bda95b9aebd28f72dcf9e287dfe748314",
+   "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
@@ -1409,10 +1460,15 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
      "pinpoint": "Limitations Act, 2002, s. 5(2)",
      "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5(1)(a)(iv)",
+     "quote": "that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it"
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
-   "problemCorrected": "The page says the two years run from when 'the claim was discovered', not when 'the incident (or the injury) was discovered'; 'discovery' of a claim is a defined concept, not discovery of the incident. The page qualifies with 'in most cases' (the 'generally' wording is fine).",
+   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) Re-read 2026-09-30 against the vendored source.",
+   "problemCorrected": "The page says the two years run from when 'the claim was discovered', not when 'the incident (or the injury) was discovered'; 'discovery' of a claim is a defined concept, not discovery of the incident. The page qualifies with 'in most cases' (the 'generally' wording is fine). Random-sample audit 2026-09-30: Paraphrase of Limitations Act, 2002 s. 5(1)(a)(iv) dropped \"having regard to the nature of the injury, loss or damage\" and said \"way\" for \"means\".",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported.",
     "Third re-read of the rewritten text (2026-09-30): supported."
@@ -1502,7 +1558,7 @@
    "key": "sc-claim-breach-of-contract-services|defendantConsideration|dispute-service-was-completed",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "2093c0861b24d0261d3e88f15f0bb3aa9fb57df8859fd14954ac9ee92632db3e",
+   "fingerprint": "98bd8f3467146e55d153ae77f5a6fbdc23f960c3ea61d6908b81adf2bd383cb5",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -1518,10 +1574,15 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "r. 9.02(1), para. 2",
      "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
-   "problemCorrected": "Source only says a sued defendant must complete a Defence (Form 9A), serve it, and file it within 20 calendar days; it says nothing about what a Defence may dispute or argue. 'This becomes a fact the court weighs alongside the plaintiff's evidence' is not in the source. Form 9A is correct.",
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) Re-read 2026-09-30 against the vendored source.",
+   "problemCorrected": "Source only says a sued defendant must complete a Defence (Form 9A), serve it, and file it within 20 calendar days; it says nothing about what a Defence may dispute or argue. 'This becomes a fact the court weighs alongside the plaintiff's evidence' is not in the source. Form 9A is correct. Random-sample audit 2026-09-30: Said a copy of any document the defence is based on \"is attached\" without r. 9.02(1) para. 2's exception for an unavailable document (found by the random-sample audit, 2026-09-30).",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
    ]
@@ -1604,7 +1665,7 @@
    "key": "sc-claim-recovery-of-personal-property|defendantConsideration|dispute-ownership-or-right",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "3fb9e8256b05b4292ad63dcbbc0cbc20d4160dfba4dbde2124cef699c6f033ff",
+   "fingerprint": "919f588ccf56a72c8f18071a883b41757b98866ac156bcfc7d57222566637d1c",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -1620,10 +1681,15 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "r. 9.02(1), para. 2",
      "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
-   "problemCorrected": "Source supports only that a defendant completes, serves and files a Defence (Form 9A); it says nothing about disputing ownership, a right to return, or gift vs. loan.",
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) Re-read 2026-09-30 against the vendored source.",
+   "problemCorrected": "Source supports only that a defendant completes, serves and files a Defence (Form 9A); it says nothing about disputing ownership, a right to return, or gift vs. loan. Random-sample audit 2026-09-30: Said a copy of any document the defence is based on \"is attached\" without r. 9.02(1) para. 2's exception for an unavailable document (found by the random-sample audit, 2026-09-30).",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
    ]
@@ -1631,16 +1697,22 @@
   {
    "key": "sc-claim-recovery-of-personal-property|proceduralNote|sc-claim-recovery-of-personal-property#note0",
    "verifiedAt": "2026-09-30",
-   "outcome": "supported",
-   "fingerprint": "6686dd414672ec03ac994722d890a8bf3093db8c1e180293eec8d15a61dbfa98",
+   "outcome": "corrected",
+   "fingerprint": "0402a9fca31116493c3034134c38f103dc3127923fecf976742465e8f150e86c",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
      "pinpoint": "Courts of Justice Act, s. 23(1)(a)-(b)",
      "quote": "(b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+     "pinpoint": "s. 23(1)",
+     "quote": "has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and ... has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/90c43_e.doc: local file"
+   "howRead": "https://www.ontario.ca/laws/docs/90c43_e.doc: local file Re-read 2026-09-30 against the vendored source.",
+   "problemCorrected": "Random-sample audit 2026-09-30: Applied the property-value test to money claims too; s. 23(1)(a) measures money claims by the amount claimed, exclusive of interest and costs."
   },
   {
    "key": "sc-claim-recovery-of-personal-property|proceduralNote|sc-claim-recovery-of-personal-property#note1",
@@ -2273,16 +2345,36 @@
    "key": "sc-claim-used-vehicle-nondisclosure|proceduralNote|sc-claim-used-vehicle-nondisclosure#note0",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "617253b2294da6a8e1fa13ea16c00cf4404e5c6f3776211a7e155d45891588cd",
+   "fingerprint": "2253d35ef75d625df0772e7063e9b5ae8fe59ee07f3c1ee57a4548f01ef5f80e",
    "sources": [
     {
-     "sourceUrl": "https://www.ontario.ca/page/buying-new-or-used-vehicle-your-rights",
-     "pinpoint": "Buying a new or used vehicle: your rights > File a claim for compensation",
-     "quote": "The Motor Vehicle Dealers Compensation Fund protects your deposits or payments up to $45,000, if a registered dealer fails to deliver on any part of the purchase or warranty. You can apply for compensation up to 2 years after the dealer refuses or is unable to return your payment."
+     "sourceUrl": "https://www.ontario.ca/laws/docs/080333_e.doc",
+     "pinpoint": "s. 79(1)",
+     "quote": "A customer of a registered motor vehicle dealer is entitled to compensation from the Fund in respect of a claim for a pecuniary loss if,"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/080333_e.doc",
+     "pinpoint": "s. 79(1)(d)-(e)",
+     "quote": "the customer was acting in the trade as a consumer within the meaning of the Consumer Protection Act, 2002; and"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/080333_e.doc",
+     "pinpoint": "s. 79(1)(e)",
+     "quote": "a written notice of demand for payment of the claim and the dealer has refused to pay the claim or is unable to do so."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/080333_e.doc",
+     "pinpoint": "s. 80(1)-(2)",
+     "quote": "shall give written notice of the claim to the registrar within two years after the claim first meets the requirements set out in the relevant paragraph of subsection 79 (3). ... If the Board considers it proper to do so, the Board may extend the time for making a claim for compensation."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/080333_e.doc",
+     "pinpoint": "s. 83(5)",
+     "quote": "pay compensation from the Fund to a customer in respect of a claim if the total compensation, including compensation under section 84, exceeds $45,000."
     }
    ],
-   "howRead": "https://www.ontario.ca/page/buying-new-or-used-vehicle-your-rights: live page read 2026-09-30 (WebFetch); not vendored",
-   "problemCorrected": "Fund amount, scope and 2-year window are supported. The final sentence ('a separate path from Small Claims Court, not a substitute step required before suing') is not on the page.",
+   "howRead": "https://www.ontario.ca/page/buying-new-or-used-vehicle-your-rights: live page read 2026-09-30 (WebFetch); not vendored Re-read 2026-09-30 against the vendored source.",
+   "problemCorrected": "Fund amount, scope and 2-year window are supported. The final sentence ('a separate path from Small Claims Court, not a substitute step required before suing') is not on the page. Random-sample audit 2026-09-30: Rested on an ontario.ca page with no local copy; restated from O. Reg. 333/08 ss. 79, 80 and 83(5), which also shows the two years run from when the claim meets s. 79(3) and can be extended.",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
    ]
@@ -2696,7 +2788,7 @@
    "key": "sc-claim-defamation-libel-slander|proceduralNote|sc-claim-defamation-libel-slander#note2",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "477155101dcbae88e93ecdd8e1fea0a562ddc6df5b6331aaf6a757949e8a8eff",
+   "fingerprint": "2b7136754d30233b1619181e6b68f77490ae44fc1a0fd5555d49e9ed75e75a17",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
@@ -2717,10 +2809,15 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
      "pinpoint": "Limitations Act, 2002, s. 5(2)",
      "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5(1)(a)(iv)",
+     "quote": "that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it"
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
-   "problemCorrected": "Only the general 'in most cases' two-year limit is on this page. It does not mention defamation, libel, slander, newspapers, broadcasts, the Libel and Slander Act or a 3-month period, so the comparison and 'which applies depends on how the statement was made' are unsupported by the cited source (the LSA s. 7 geographic condition also matters).",
+   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) Re-read 2026-09-30 against the vendored source.",
+   "problemCorrected": "Only the general 'in most cases' two-year limit is on this page. It does not mention defamation, libel, slander, newspapers, broadcasts, the Libel and Slander Act or a 3-month period, so the comparison and 'which applies depends on how the statement was made' are unsupported by the cited source (the LSA s. 7 geographic condition also matters). Random-sample audit 2026-09-30: Paraphrase of Limitations Act, 2002 s. 5(1)(a)(iv) dropped \"having regard to the nature of the injury, loss or damage\" and said \"way\" for \"means\".",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported.",
     "Third re-read of the rewritten text (2026-09-30): supported."
@@ -2954,7 +3051,7 @@
    "key": "sc-claim-vehicle-accident-uninsured-driver-property-damage|proceduralNote|sc-claim-vehicle-accident-uninsured-driver-property-damage#note1",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "debdbcf9ec7552cac50f3d8a98cbae7bda95b9aebd28f72dcf9e287dfe748314",
+   "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
@@ -2975,10 +3072,15 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
      "pinpoint": "Limitations Act, 2002, s. 5(2)",
      "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5(1)(a)(iv)",
+     "quote": "that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it"
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
-   "problemCorrected": "The source runs the 2 years from when 'the claim was discovered', not from when 'the incident (or the loss) was discovered'. Those are not the same thing.",
+   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) Re-read 2026-09-30 against the vendored source.",
+   "problemCorrected": "The source runs the 2 years from when 'the claim was discovered', not from when 'the incident (or the loss) was discovered'. Those are not the same thing. Random-sample audit 2026-09-30: Paraphrase of Limitations Act, 2002 s. 5(1)(a)(iv) dropped \"having regard to the nature of the injury, loss or damage\" and said \"way\" for \"means\".",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported.",
     "Third re-read of the rewritten text (2026-09-30): supported."
@@ -3389,7 +3491,7 @@
    "key": "sc-claim-property-damaged-lost-in-business-care|proceduralNote|sc-claim-property-damaged-lost-in-business-care#note0",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "debdbcf9ec7552cac50f3d8a98cbae7bda95b9aebd28f72dcf9e287dfe748314",
+   "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
@@ -3410,10 +3512,15 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
      "pinpoint": "Limitations Act, 2002, s. 5(2)",
      "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5(1)(a)(iv)",
+     "quote": "that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it"
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
-   "problemCorrected": "Source says the period runs from when the CLAIM was discovered, not when the loss or damage was discovered; 'in most cases' qualifier dropped to 'generally' (acceptable).",
+   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) Re-read 2026-09-30 against the vendored source.",
+   "problemCorrected": "Source says the period runs from when the CLAIM was discovered, not when the loss or damage was discovered; 'in most cases' qualifier dropped to 'generally' (acceptable). Random-sample audit 2026-09-30: Paraphrase of Limitations Act, 2002 s. 5(1)(a)(iv) dropped \"having regard to the nature of the injury, loss or damage\" and said \"way\" for \"means\".",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported.",
     "Third re-read of the rewritten text (2026-09-30): supported."
@@ -8170,8 +8277,8 @@
   {
    "key": "sc-claim-damage-caused-by-a-child|proceduralNote|sc-claim-damage-caused-by-a-child#note0",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "debdbcf9ec7552cac50f3d8a98cbae7bda95b9aebd28f72dcf9e287dfe748314",
+   "outcome": "corrected",
+   "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
@@ -8187,12 +8294,18 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
      "pinpoint": "s. 5(2)",
      "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5(1)(a)(iv)",
+     "quote": "that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it"
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json) Re-read 2026-09-30 against the vendored source.",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "Random-sample audit 2026-09-30: Paraphrase of Limitations Act, 2002 s. 5(1)(a)(iv) dropped \"having regard to the nature of the injury, loss or damage\" and said \"way\" for \"means\"."
   },
   {
    "key": "sc-claim-damage-caused-by-a-child|proceduralNote|sc-claim-damage-caused-by-a-child#note1",
@@ -8744,8 +8857,8 @@
   {
    "key": "sc-claim-online-purchase-not-delivered|proceduralNote|sc-claim-online-purchase-not-delivered#note2",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "debdbcf9ec7552cac50f3d8a98cbae7bda95b9aebd28f72dcf9e287dfe748314",
+   "outcome": "corrected",
+   "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
@@ -8761,12 +8874,18 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
      "pinpoint": "s. 5(2)",
      "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5(1)(a)(iv)",
+     "quote": "that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it"
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json) Re-read 2026-09-30 against the vendored source.",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "Random-sample audit 2026-09-30: Paraphrase of Limitations Act, 2002 s. 5(1)(a)(iv) dropped \"having regard to the nature of the injury, loss or damage\" and said \"way\" for \"means\"."
   },
   {
    "key": "sc-claim-repairer-or-storer-holding-property|plaintiffElement|business-holding-under-lien-repairlien",
@@ -9179,8 +9298,8 @@
   {
    "key": "sc-claim-repairer-or-storer-holding-property|proceduralNote|sc-claim-repairer-or-storer-holding-property#note3",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "debdbcf9ec7552cac50f3d8a98cbae7bda95b9aebd28f72dcf9e287dfe748314",
+   "outcome": "corrected",
+   "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
@@ -9196,12 +9315,18 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
      "pinpoint": "s. 5(2)",
      "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5(1)(a)(iv)",
+     "quote": "that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it"
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json) Re-read 2026-09-30 against the vendored source.",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "Random-sample audit 2026-09-30: Paraphrase of Limitations Act, 2002 s. 5(1)(a)(iv) dropped \"having regard to the nature of the injury, loss or damage\" and said \"way\" for \"means\"."
   },
   {
    "key": "sc-claim-unpaid-wages|plaintiffElement|worker-is-employee-unpaidwages",
@@ -9474,8 +9599,8 @@
   {
    "key": "sc-claim-unpaid-wages|proceduralNote|sc-claim-unpaid-wages#note2",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "debdbcf9ec7552cac50f3d8a98cbae7bda95b9aebd28f72dcf9e287dfe748314",
+   "outcome": "corrected",
+   "fingerprint": "45c60aa37a2dabee395844f5dac6903e27515b887998a1a8d10d7d5c005aa882",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
@@ -9491,12 +9616,18 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
      "pinpoint": "s. 5(2)",
      "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5(1)(a)(iv)",
+     "quote": "that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it"
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json) Re-read 2026-09-30 against the vendored source.",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "Random-sample audit 2026-09-30: Paraphrase of Limitations Act, 2002 s. 5(1)(a)(iv) dropped \"having regard to the nature of the injury, loss or damage\" and said \"way\" for \"means\"."
   },
   {
    "key": "sc-claim-defamation-libel-slander|plaintiffElement|words-defamatory-scdefam",

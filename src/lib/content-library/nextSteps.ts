@@ -93,7 +93,7 @@ export const NEXT_STEP_BLOCKS: NextStepBlock[] = [
     title: "Before the settlement conference",
     text:
       "Documents not already attached to the claim or defence must be served and filed at least 14 days before a settlement conference.\n\n" +
-      "A List of Proposed Witnesses (Form 13A) must be served at least 14 days before the settlement conference.",
+      "A List of Proposed Witnesses (Form 13A) must also be served on every other party and filed with the court at least 14 days before the settlement conference (r. 13.03 (2)).",
     sourceUrl:
       "https://www.ontario.ca/document/guide-procedures-small-claims-court/getting-ready-court",
   },

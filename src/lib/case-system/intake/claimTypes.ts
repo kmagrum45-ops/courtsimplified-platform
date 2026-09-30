@@ -666,7 +666,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
           "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
           "language with a reasonable amount of detail\", and a copy of any document the defence is " +
-          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "based on is attached (if it is unavailable, the Defence says why). Under rule 9.01, a defendant who wishes to dispute the claim serves " +
           "the Defence on every other party and files it, with proof of service, within 20 days of " +
           "being served with the claim. This topic is about a Defence whose reasons dispute that the " +
           "work was finished, or that it was done as agreed.",
@@ -878,8 +878,9 @@ export const CLAIM_TYPES: ClaimType[] = [
           "cannot be started after the second anniversary of the day the claim was discovered. Section " +
           "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
           "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
-          "omission, that the act or omission was that of the person the claim is against, and that a " +
-          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
+          "omission, that the act or omission was that of the person the claim is against, and that, " +
+          "having regard to the nature of the injury, loss or damage, a proceeding would be an " +
+          "appropriate means to seek to remedy it -- and the day a reasonable " +
           "person with their abilities and in their circumstances first ought to have known those " +
           "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
           "the day the act or omission the claim is based on took place, unless the contrary is proved. " +
@@ -986,9 +987,11 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "towed-without-consent",
         name: "The vehicle was towed without required consent",
         plainExplanation:
-          "Under Ontario's towing rules, a tow truck driver or towing company generally needs the " +
-          "vehicle owner's consent to tow a vehicle, unless the tow was initiated by police or " +
-          "another authorized official.",
+          "Ontario's page on towing rights says that, unless a tow is initiated by the police or an " +
+          "authorized official, consent is required to tow a vehicle, and that a tow operator who did " +
+          "not get consent cannot charge for towing services. Consent-to-tow requirements do not " +
+          "apply to towing that is free of charge or prepaid (for example, through an automobile " +
+          "club membership).",
         sourceUrl: "https://www.ontario.ca/page/know-your-rights-when-getting-tow",
         verifiedAt: "2026-09-30",
         evidenceCategories: [
@@ -1004,7 +1007,8 @@ export const CLAIM_TYPES: ClaimType[] = [
         name: "Required rate or cost disclosure was not given",
         plainExplanation:
           "Tow truck drivers, towing companies, and vehicle storage providers must give their rates " +
-          "before providing services, and must be certified to operate in Ontario.",
+          "before providing services, and must hold a towing or vehicle storage certificate unless " +
+          "they are exempt.",
         sourceUrl: "https://www.ontario.ca/page/know-your-rights-when-getting-tow",
         verifiedAt: "2026-09-30",
         evidenceCategories: [
@@ -1313,7 +1317,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
           "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
           "language with a reasonable amount of detail\", and a copy of any document the defence is " +
-          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "based on is attached (if it is unavailable, the Defence says why). Under rule 9.01, a defendant who wishes to dispute the claim serves " +
           "the Defence on every other party and files it, with proof of service, within 20 days of " +
           "being served with the claim. This topic is about a Defence whose reasons dispute that the " +
           "goods matched what was agreed.",
@@ -1500,7 +1504,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
           "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
           "language with a reasonable amount of detail\", and a copy of any document the defence is " +
-          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "based on is attached (if it is unavailable, the Defence says why). Under rule 9.01, a defendant who wishes to dispute the claim serves " +
           "the Defence on every other party and files it, with proof of service, within 20 days of " +
           "being served with the claim. This topic is about a Defence whose reasons deny making the " +
           "representation, or say it was accurate.",
@@ -1675,7 +1679,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
           "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
           "language with a reasonable amount of detail\", and a copy of any document the defence is " +
-          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "based on is attached (if it is unavailable, the Defence says why). Under rule 9.01, a defendant who wishes to dispute the claim serves " +
           "the Defence on every other party and files it, with proof of service, within 20 days of " +
           "being served with the claim. This topic is about a Defence whose reasons dispute that the " +
           "contractor's work caused the damage claimed.",
@@ -1832,7 +1836,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
           "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
           "language with a reasonable amount of detail\", and a copy of any document the defence is " +
-          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "based on is attached (if it is unavailable, the Defence says why). Under rule 9.01, a defendant who wishes to dispute the claim serves " +
           "the Defence on every other party and files it, with proof of service, within 20 days of " +
           "being served with the claim. This topic is about a Defence whose reasons dispute the length " +
           "of employment, or how notice or termination pay was calculated.",
@@ -2059,8 +2063,9 @@ export const CLAIM_TYPES: ClaimType[] = [
           "cannot be started after the second anniversary of the day the claim was discovered. Section " +
           "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
           "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
-          "omission, that the act or omission was that of the person the claim is against, and that a " +
-          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
+          "omission, that the act or omission was that of the person the claim is against, and that, " +
+          "having regard to the nature of the injury, loss or damage, a proceeding would be an " +
+          "appropriate means to seek to remedy it -- and the day a reasonable " +
           "person with their abilities and in their circumstances first ought to have known those " +
           "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
           "the day the act or omission the claim is based on took place, unless the contrary is proved.",
@@ -2168,7 +2173,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
           "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
           "language with a reasonable amount of detail\", and a copy of any document the defence is " +
-          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "based on is attached (if it is unavailable, the Defence says why). Under rule 9.01, a defendant who wishes to dispute the claim serves " +
           "the Defence on every other party and files it, with proof of service, within 20 days of " +
           "being served with the claim. This topic is about a Defence whose reasons dispute that the " +
           "service was left unfinished or below what was agreed.",
@@ -2284,7 +2289,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
           "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
           "language with a reasonable amount of detail\", and a copy of any document the defence is " +
-          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "based on is attached (if it is unavailable, the Defence says why). Under rule 9.01, a defendant who wishes to dispute the claim serves " +
           "the Defence on every other party and files it, with proof of service, within 20 days of " +
           "being served with the claim. This topic is about a Defence whose reasons dispute who owns " +
           "the property, or that it should be returned.",
@@ -2299,9 +2304,10 @@ export const CLAIM_TYPES: ClaimType[] = [
     proceduralNotes: [
       {
         note:
-          "Small Claims Court has jurisdiction over an action for the recovery of possession of " +
-          "personal property, as well as over actions for the payment of money, where the value of " +
-          "the property does not exceed the prescribed amount.",
+          "Under s. 23(1) of the Courts of Justice Act, Small Claims Court has jurisdiction in an action " +
+          "for the recovery of possession of personal property where the value of the property does " +
+          "not exceed the prescribed amount, and in an action for the payment of money where the " +
+          "amount claimed does not exceed the prescribed amount, exclusive of interest and costs.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
         verifiedAt: "2026-09-30",
         consolidationPeriod: "2025-12-11",
@@ -3122,12 +3128,17 @@ export const CLAIM_TYPES: ClaimType[] = [
     proceduralNotes: [
       {
         note:
-          "Ontario's page on buying a new or used vehicle says that if a registered dealer fails to " +
-          "deliver on any part of a purchase or warranty, the Motor Vehicle Dealers Compensation Fund " +
-          "protects deposits or payments up to $45,000, and that a claim can be made up to 2 years " +
-          "after the dealer refuses or is unable to return the payment.",
-        sourceUrl: "https://www.ontario.ca/page/buying-new-or-used-vehicle-your-rights",
+          "Under O. Reg. 333/08, a customer of a registered motor vehicle dealer may be entitled to " +
+          "compensation from the Motor Vehicle Dealers Compensation Fund for a pecuniary loss arising " +
+          "from a trade with the dealer, where the conditions in s. 79 are met -- including that the " +
+          "customer acted as a consumer, and gave the dealer a written demand for payment that the " +
+          "dealer refused or was unable to pay. Written notice of the claim goes to the registrar " +
+          "within two years after the claim first meets the requirements of s. 79(3), and the Board " +
+          "may extend that time (s. 80). Total compensation for a claim cannot exceed $45,000 " +
+          "(s. 83(5)).",
+        sourceUrl: "https://www.ontario.ca/laws/docs/080333_e.doc",
         verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-01-01",
       },
     ],
     signals: [
@@ -3584,8 +3595,9 @@ export const CLAIM_TYPES: ClaimType[] = [
           "cannot be started after the second anniversary of the day the claim was discovered. Section " +
           "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
           "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
-          "omission, that the act or omission was that of the person the claim is against, and that a " +
-          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
+          "omission, that the act or omission was that of the person the claim is against, and that, " +
+          "having regard to the nature of the injury, loss or damage, a proceeding would be an " +
+          "appropriate means to seek to remedy it -- and the day a reasonable " +
           "person with their abilities and in their circumstances first ought to have known those " +
           "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
           "the day the act or omission the claim is based on took place, unless the contrary is proved. " +
@@ -3863,8 +3875,9 @@ export const CLAIM_TYPES: ClaimType[] = [
           "cannot be started after the second anniversary of the day the claim was discovered. Section " +
           "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
           "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
-          "omission, that the act or omission was that of the person the claim is against, and that a " +
-          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
+          "omission, that the act or omission was that of the person the claim is against, and that, " +
+          "having regard to the nature of the injury, loss or damage, a proceeding would be an " +
+          "appropriate means to seek to remedy it -- and the day a reasonable " +
           "person with their abilities and in their circumstances first ought to have known those " +
           "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
           "the day the act or omission the claim is based on took place, unless the contrary is proved.",
@@ -4303,8 +4316,9 @@ export const CLAIM_TYPES: ClaimType[] = [
           "cannot be started after the second anniversary of the day the claim was discovered. Section " +
           "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
           "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
-          "omission, that the act or omission was that of the person the claim is against, and that a " +
-          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
+          "omission, that the act or omission was that of the person the claim is against, and that, " +
+          "having regard to the nature of the injury, loss or damage, a proceeding would be an " +
+          "appropriate means to seek to remedy it -- and the day a reasonable " +
           "person with their abilities and in their circumstances first ought to have known those " +
           "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
           "the day the act or omission the claim is based on took place, unless the contrary is proved.",
@@ -4638,8 +4652,9 @@ export const CLAIM_TYPES: ClaimType[] = [
           "cannot be started after the second anniversary of the day the claim was discovered. Section " +
           "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
           "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
-          "omission, that the act or omission was that of the person the claim is against, and that a " +
-          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
+          "omission, that the act or omission was that of the person the claim is against, and that, " +
+          "having regard to the nature of the injury, loss or damage, a proceeding would be an " +
+          "appropriate means to seek to remedy it -- and the day a reasonable " +
           "person with their abilities and in their circumstances first ought to have known those " +
           "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
           "the day the act or omission the claim is based on took place, unless the contrary is proved.",
@@ -5177,8 +5192,9 @@ export const CLAIM_TYPES: ClaimType[] = [
           "cannot be started after the second anniversary of the day the claim was discovered. Section " +
           "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
           "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
-          "omission, that the act or omission was that of the person the claim is against, and that a " +
-          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
+          "omission, that the act or omission was that of the person the claim is against, and that, " +
+          "having regard to the nature of the injury, loss or damage, a proceeding would be an " +
+          "appropriate means to seek to remedy it -- and the day a reasonable " +
           "person with their abilities and in their circumstances first ought to have known those " +
           "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
           "the day the act or omission the claim is based on took place, unless the contrary is proved.",
@@ -5642,8 +5658,9 @@ export const CLAIM_TYPES: ClaimType[] = [
           "cannot be started after the second anniversary of the day the claim was discovered. Section " +
           "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
           "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
-          "omission, that the act or omission was that of the person the claim is against, and that a " +
-          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
+          "omission, that the act or omission was that of the person the claim is against, and that, " +
+          "having regard to the nature of the injury, loss or damage, a proceeding would be an " +
+          "appropriate means to seek to remedy it -- and the day a reasonable " +
           "person with their abilities and in their circumstances first ought to have known those " +
           "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
           "the day the act or omission the claim is based on took place, unless the contrary is proved.",
@@ -5996,8 +6013,9 @@ export const CLAIM_TYPES: ClaimType[] = [
           "cannot be started after the second anniversary of the day the claim was discovered. Section " +
           "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
           "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
-          "omission, that the act or omission was that of the person the claim is against, and that a " +
-          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
+          "omission, that the act or omission was that of the person the claim is against, and that, " +
+          "having regard to the nature of the injury, loss or damage, a proceeding would be an " +
+          "appropriate means to seek to remedy it -- and the day a reasonable " +
           "person with their abilities and in their circumstances first ought to have known those " +
           "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
           "the day the act or omission the claim is based on took place, unless the contrary is proved.",
