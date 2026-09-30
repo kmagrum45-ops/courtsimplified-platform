@@ -179,6 +179,15 @@ jobs:
       - name: Every procedural card and guide is in the review packet
         run: npm run test:inventory-coverage
 
+      - name: Every Source link opens a public page
+        run: npm run test:source-links
+
+      - name: The published stage answers are the promoted, gated set
+        run: npm run test:published-library
+
+      - name: Stage-independent answers rest on quoted sources
+        run: npm run test:generic-library
+
       - name: AI model configuration verification
         run: npm run test:ai-models
 

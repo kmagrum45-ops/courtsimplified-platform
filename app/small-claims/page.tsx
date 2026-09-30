@@ -96,8 +96,9 @@ export default function SmallClaimsPage() {
               interest and costs.
             </p>
             <p className="mt-3 text-sm leading-6 text-[#557168]">
-              If the amount is higher, review the Civil Court path before
-              deciding where to proceed.
+              If the amount is higher, the claim goes to the Superior Court
+              of Justice unless the amount over the limit is given up; review
+              the Civil Court path before deciding where to proceed.
             </p>
           </div>
         </div>

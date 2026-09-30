@@ -24,7 +24,7 @@ const courtPaths = [
     title: "Civil",
     href: "/civil",
     description:
-      "Negligence, contracts, human rights, and other civil claims outside the Small Claims limit.",
+      "Negligence, contracts, defamation, and other civil claims outside the Small Claims limit.",
     Icon: ScalesIcon,
   },
 ];

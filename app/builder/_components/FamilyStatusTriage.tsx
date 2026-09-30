@@ -42,6 +42,7 @@ import {
   type FamilyStatusRecord,
   type TriageQuestion,
 } from "../../../src/lib/case-system/family/statusTriage";
+import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 
 export type FamilyTriageState = {
   record: FamilyStatusRecord;
@@ -80,7 +81,7 @@ function Citations({ items }: { items: { label: string; sourceUrl: string }[] })
         <li key={citation.sourceUrl + citation.label}>
           <a
             className="text-[#2f7d67] underline"
-            href={citation.sourceUrl}
+            href={publicSourceUrl(citation.sourceUrl)}
             target="_blank"
             rel="noreferrer"
           >

@@ -20,7 +20,7 @@ const civilAreas = [
   {
     title: "Human Rights and discrimination",
     description:
-      "Disability, race, sex, family status, accommodation, employment, housing, services, education, and tribunal-related issues.",
+      "Disability, race, sex, family status and other Code grounds. A court may address an infringement only within a civil claim based on something else; an application under the Code goes to the Human Rights Tribunal.",
   },
   {
     title: "Charter and government action",
@@ -78,7 +78,7 @@ export default function CivilPage() {
 
           <p className="mt-6 text-lg leading-8 text-[#4d675f]">
             Civil Court (the Superior Court of Justice) handles negligence,
-            contract, human-rights, defamation, and other civil claims that
+            contract, defamation, and other civil claims (and a Human Rights Code infringement only alongside another claim) that
             fall outside Small Claims Court&apos;s limit or scope.
           </p>
 
@@ -126,8 +126,10 @@ export default function CivilPage() {
               Claims Court cannot grant at all.
             </p>
             <p className="mt-3 text-sm leading-6 text-[#557168]">
-              If your claim is for money or property within the Small Claims
-              limit, review the Small Claims Court path before starting here.
+              A claim for money or property within the Small Claims limit
+              can be started here only with the Superior Court&apos;s leave
+              (Courts of Justice Act, s. 23 (1.1)); review the Small Claims
+              Court path first.
             </p>
           </div>
         </div>

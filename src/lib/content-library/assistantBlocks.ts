@@ -421,10 +421,9 @@ export const ASSISTANT_BLOCKS: AssistantBlock[] = [
         sourceName: "Courts of Justice Act, R.S.O. 1990, c. C.43",
         officialUrl: "https://www.ontario.ca/laws/statute/90c43",
         verifiedAt: "2026-09-08",
-        quote:
-          "The Act constitutes and governs the courts of Ontario; its rules of " +
-          "court, limitation periods and forms are Ontario's and do not apply " +
-          "to proceedings in another province.",
+        // s. 95(1), verbatim. The quote here was a paraphrase until the
+        // 2026-09-30 audit found it was not text from the Act.
+        quote: "This Part applies to civil proceedings in courts of Ontario.",
       },
     ],
     appearsIn: "Guided assistant, when the jurisdiction is unconfirmed",
@@ -433,7 +432,7 @@ export const ASSISTANT_BLOCKS: AssistantBlock[] = [
     id: "assistant:caution:over-limit",
     kind: "caution",
     template:
-      "The amount recorded for this case is {{amount}}, which is above the Ontario Small Claims Court limit of $50,000, excluding interest and costs. Small Claims Court may not be able to hear a claim for that amount.",
+      "The amount recorded for this case is {{amount}}, which is above the Ontario Small Claims Court limit of $50,000, excluding interest and costs. A claim for more than $50,000 can be filed in Small Claims Court only if the amount over $50,000 is waived.",
     slots: ["amount"],
     statesLaw: true,
     citations: [SMALL_CLAIMS_LIMIT_SOURCE],

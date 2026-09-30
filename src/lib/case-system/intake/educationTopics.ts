@@ -147,19 +147,19 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
     courtArea: "small-claims",
     title: "Small Claims Court's $50,000 limit",
     plainExplanation:
-      "Small Claims Court in Ontario can only order payment or return of property up to $50,000, " +
-      "not counting interest and court costs. This limit applies to the total amount claimed, not " +
-      "each individual issue in a case. If a claim is worth more than that, it generally has to go " +
-      "to a different court (the Superior Court of Justice) instead. " +
-      "THE LIMIT ALSO WORKS IN THE OTHER DIRECTION, which is less widely known. Since July 1, 2024, " +
-      "the Courts of Justice Act provides that an action WITHIN Small Claims Court's jurisdiction " +
+      "Small Claims Court in Ontario hears actions for the payment of money where the amount claimed is " +
+      "$50,000 or less, not counting interest and costs, and actions for the return of personal " +
+      "property worth $50,000 or less. A single cause of action cannot be divided into two or more " +
+      "actions to bring it within the limit. A claim worth more than that goes to the Superior Court of " +
+      "Justice, unless the person suing gives up the amount over $50,000 and files in Small Claims " +
+      "Court. THE LIMIT ALSO WORKS IN THE OTHER DIRECTION, which is less widely known. Since July 1, " +
+      "2024, the Courts of Justice Act provides that an action WITHIN Small Claims Court's jurisdiction " +
       "shall not be commenced in the Superior Court of Justice except with leave of that court, as " +
       "provided in the rules of court. So for a claim under the limit, Small Claims Court and the " +
       "Superior Court are not a free choice between two open doors -- starting in the Superior Court " +
-      "requires the court's permission first. " +
-      "There is an exception: that restriction does not apply to a counterclaim, crossclaim, or " +
-      "third or subsequent party claim where the main action was already commenced in the Superior " +
-      "Court of Justice.",
+      "requires the court's permission first. There is an exception: that restriction does not apply to " +
+      "a counterclaim, crossclaim, or third or subsequent party claim where the main action was already " +
+      "commenced in the Superior Court of Justice.",
     citations: [
       {
         sourceName: "Ontario.ca — Suing Someone in Small Claims Court",
@@ -190,11 +190,13 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
     courtArea: "small-claims",
     title: "Time limits on starting a claim",
     plainExplanation:
-      "In most cases, Ontario's Limitations Act, 2002 gives someone 2 years from when they " +
-      "discovered (or reasonably should have discovered) their claim to start a lawsuit. Waiting " +
-      "past that window can mean losing the right to sue at all, regardless of how strong the " +
-      "underlying facts are. There are exceptions and different rules for some claim types, so this " +
-      "is general information, not a determination of any specific deadline.",
+      "In most cases, Ontario's Limitations Act, 2002 gives someone 2 years from when they discovered " +
+      "their claim (or when a reasonable person in their circumstances ought to have discovered it) to " +
+      "start a lawsuit. A person is presumed to have known of the claim on the day the act or omission " +
+      "happened, unless the contrary is proved. Waiting past that window can mean losing the right to " +
+      "sue at all, regardless of how strong the underlying facts are. There are exceptions and " +
+      "different rules for some claim types, so this is general information, not a determination of any " +
+      "specific deadline.",
     citations: [
       {
         sourceName: "Ontario.ca — Civil Claims: Suing and Being Sued",
@@ -211,13 +213,11 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
     courtArea: "small-claims",
     title: "Who has to prove what, and how much proof is needed",
     plainExplanation:
-      "In a civil case like Small Claims Court, the person bringing the claim (the plaintiff) " +
-      "generally has to prove their allegations on a \"balance of probabilities\" -- meaning the " +
-      "evidence has to show it's more likely than not (more than a 50% chance) that their version " +
-      "is correct. This is a lower standard than the \"beyond a reasonable doubt\" standard used in " +
-      "criminal cases. What this generally means in practice is that having some documentation, " +
-      "records, or witnesses to back up a claim's key facts matters more than how strongly someone " +
-      "feels about what happened.",
+      "In a civil case like Small Claims Court, the person bringing the claim (the plaintiff) generally " +
+      "has to prove their allegations on a \"balance of probabilities\" -- meaning the evidence has to " +
+      "show it's more likely than not (more than a 50% chance) that their version is correct. This " +
+      "means the plaintiff must present evidence that will convince the judge that, more likely than " +
+      "not, it would be correct to rule in the plaintiff's favour.",
     citations: [
       {
         sourceName: "Ontario Superior Court of Justice — Steps to a Civil Case",
@@ -258,10 +258,11 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
     title: "What filing a claim involves (Form 7A)",
     surfacedWhen: { field: "claimFiled", op: "notExists" },
     plainExplanation:
-      "Starting a Small Claims Court case means filling out and filing a Plaintiff's Claim, which " +
-      "is Form 7A. It sets out who is suing whom, for how much, and why. Once it's filed, it " +
-      "generally has to be served on the other party (the defendant), and the person who served it " +
-      "has to file proof of that service with the court.",
+      "Starting a Small Claims Court case means filling out and filing a Plaintiff's Claim, which is " +
+      "Form 7A. It sets out who is suing whom, for how much, and why. Once it's filed, it generally has " +
+      "to be served on the other party (the defendant), and proof of that service is made with an " +
+      "Affidavit of Service (Form 8A). It is generally filed with the court at a later step, such as " +
+      "when asking the clerk to note the defendant in default.",
     citations: [
       {
         sourceName: "Ontario.ca — Guide to Procedures in Small Claims Court: Making a Claim",
@@ -287,21 +288,20 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
     title: "Serving a claim after it is issued — the six-month window",
     surfacedWhen: { field: "claimFiled", op: "equals", value: true },
     plainExplanation:
-      "Issuing a claim and serving it are two different steps, and the second one has its own " +
-      "deadline. Under the Rules of the Small Claims Court, a claim must be served within SIX " +
-      "MONTHS after the date it is issued. The court may extend the time for service, and it may " +
-      "do so either before or after the six months has run out -- but that is a request to the " +
-      "court, not something that happens automatically. " +
-      "The same six-month window applies to a Defendant's Claim, which the Rules require to be " +
-      "served in accordance with the same provision. " +
-      "A note on counting: the Rules set out a general method for counting a period of time -- " +
-      "exclude the first day, include the last, and if the last day falls on a holiday the period " +
-      "ends on the next day that is not a holiday, with \"holiday\" defined to include any Saturday " +
-      "or Sunday. That method is written in terms of days. The Rules do not state how a period " +
-      "expressed in MONTHS is computed, so this content does not say how the six months is " +
-      "calculated in a particular case -- the date a claim was issued is on the issued claim " +
-      "itself, and anyone unsure how the window applies to their own dates should confirm it with " +
-      "the court or a licensed paralegal or lawyer.",
+      "Issuing a claim and serving it are two different steps, and the second one has its own deadline. " +
+      "Under the Rules of the Small Claims Court, a claim must be served within SIX MONTHS after the " +
+      "date it is issued. The court may extend the time for service, and it may do so either before or " +
+      "after the six months has run out -- but that is a request to the court, not something that " +
+      "happens automatically. The same six-month window applies to a Defendant's Claim, which the Rules " +
+      "require to be served in accordance with the same provision. A note on counting: the Rules set " +
+      "out a general method for counting a period of time -- exclude the first day, include the last, " +
+      "and if the last day falls on a holiday the period ends on the next day that is not a holiday, " +
+      "with \"holiday\" defined to include any Saturday or Sunday. The Rules do not state how a period " +
+      "expressed in MONTHS is computed; the Legislation Act, 2006, which applies to regulations " +
+      "generally, has its own rule for periods in months. This content does not say how the six months " +
+      "is calculated in a particular case -- the date a claim was issued is on the issued claim itself, " +
+      "and anyone unsure how the window applies to their own dates should confirm it with the court or " +
+      "a licensed paralegal or lawyer.",
     citations: [
       {
         sourceName: "Rules of the Small Claims Court, O. Reg. 258/98",
@@ -355,51 +355,48 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
     courtArea: "small-claims",
     title: "The elements of a negligence claim",
     plainExplanation:
-      "A negligence claim generally requires proving four separate elements: (1) that the " +
-      "defendant owed the plaintiff a duty of care; (2) that the defendant's conduct breached the " +
-      "standard of care; (3) that the plaintiff sustained damage; and (4) that the damage was " +
-      "caused, in fact and in law, by the defendant's breach. " +
-      "Duty of care asks whether the relationship between the parties is close enough that one may " +
-      "reasonably be said to owe the other a duty not to cause injury -- a question of " +
-      "foreseeability moderated by policy considerations. Where the relationship falls into a type " +
-      "courts have already recognized as giving rise to a duty of care, precedent settles the " +
-      "question and a full duty-of-care analysis isn't needed -- for example, courts have long " +
-      "recognized that a manufacturer of a consumable good owes a duty of care to the ultimate " +
-      "consumer of that good. " +
-      "Standard of care asks whether the defendant's conduct breached the standard expected of it. " +
-      "Conduct is negligent if it creates an unreasonable risk of harm. " +
+      "A negligence claim generally requires proving four separate elements: (1) that the defendant " +
+      "owed the plaintiff a duty of care; (2) that the defendant's conduct breached the standard of " +
+      "care; (3) that the plaintiff sustained damage; and (4) that the damage was caused, in fact and " +
+      "in law, by the defendant's breach. Duty of care asks whether the relationship between the " +
+      "parties is close enough that one may reasonably be said to owe the other a duty not to cause " +
+      "injury -- a question of foreseeability moderated by policy considerations. Where the " +
+      "relationship falls into a type courts have already recognized as giving rise to a duty of care, " +
+      "precedent settles the question and a full duty-of-care analysis isn't needed -- for example, " +
+      "courts have long recognized that a manufacturer of a consumable good owes a duty of care to the " +
+      "ultimate consumer of that good. Standard of care asks whether the defendant's conduct breached " +
+      "the standard expected of it. Conduct is negligent if it creates an unreasonable risk of harm. " +
       "Damage for this purpose includes psychological injury, not only physical injury -- but " +
-      "psychological injury that counts as personal injury has to be distinguished from ordinary " +
-      "upset. The law does not recognize upset, disgust, anxiety, agitation, or other mental states " +
-      "that fall short of injury; to count, an injury generally has to be serious and prolonged, " +
-      "rising above the ordinary annoyances, anxieties, and fears that people living in society " +
-      "routinely accept. " +
-      "Causation has two parts: whether the breach caused the harm in fact, and whether it also " +
-      "caused the harm in law -- meaning the harm isn't too remote to fairly hold the defendant " +
-      "liable for it. " +
-      "The factual branch is generally tested using the \"but for\" test: the plaintiff must show, " +
-      "on a balance of probabilities, that the injury would not have occurred but for the " +
-      "defendant's negligent act. This is a factual inquiry, applied in a robust, common-sense way " +
-      "-- scientific precision about exactly how the defendant's conduct produced the injury is not " +
-      "required. Exceptionally, a plaintiff may instead succeed by showing the defendant's conduct " +
-      "materially contributed to the risk of the injury, but only where two conditions are both " +
-      "met: the plaintiff has shown that the loss would not have occurred but for the negligence of " +
-      "two or more possible wrongdoers, each possibly responsible for it, and the plaintiff, through " +
-      "no fault of their own, is unable to show which one of them actually caused the injury, " +
-      "because each can point to the others. Outside that narrow situation, the ordinary \"but for\" " +
-      "test still applies even where more than one party was negligent. " +
-      "That remoteness question turns on reasonable foreseeability: whether the " +
-      "harm was a real risk that would occur to a reasonable person in the defendant's position, " +
-      "not one they'd dismiss as far-fetched. For personal-injury claims, and especially mental-" +
-      "injury claims, foreseeability is judged against a person of \"ordinary fortitude,\" not the " +
-      "particular plaintiff's own sensitivities -- unusual or extreme reactions to a negligent act " +
-      "are imaginable but not reasonably foreseeable. That ordinary-fortitude threshold is a " +
-      "separate question from the \"thin skull\" rule: once it's shown that a person of ordinary " +
-      "fortitude would foreseeably suffer the injury, the defendant must then take the plaintiff as " +
-      "found for the purpose of assessing the resulting damages -- ordinary fortitude decides " +
-      "whether the damage is compensable at law at all, not how much compensation follows once it " +
-      "is. Where a defendant is shown to have had actual knowledge of a plaintiff's particular " +
-      "sensitivities, the ordinary-fortitude requirement doesn't have to be applied as strictly.",
+      "psychological injury that counts as personal injury has to be distinguished from ordinary upset. " +
+      "The law does not recognize upset, disgust, anxiety, agitation, or other mental states that fall " +
+      "short of injury; to count, an injury generally has to be serious and prolonged, rising above the " +
+      "ordinary annoyances, anxieties, and fears that people living in society routinely accept. " +
+      "Causation has two parts: whether the breach caused the harm in fact, and whether it also caused " +
+      "the harm in law -- meaning the harm isn't too remote to fairly hold the defendant liable for it. " +
+      "The factual branch is generally tested using the \"but for\" test: the plaintiff must show, on a " +
+      "balance of probabilities, that the injury would not have occurred but for the defendant's " +
+      "negligent act. This is a factual inquiry, applied in a robust, common-sense way -- scientific " +
+      "precision about exactly how the defendant's conduct produced the injury is not required. " +
+      "Exceptionally, liability may instead rest on showing the defendant's conduct materially " +
+      "contributed to the risk of the injury, -- which the Supreme Court of Canada described as not a " +
+      "test for proving factual causation, but a basis for finding legal causation -- and only where " +
+      "two conditions are both met: the plaintiff has shown that the loss would not have occurred but " +
+      "for the negligence of two or more possible wrongdoers, each possibly responsible for it, and the " +
+      "plaintiff, through no fault of their own, is unable to show which one of them actually caused " +
+      "the injury, because each can point to the others. Outside that narrow situation, the ordinary " +
+      "\"but for\" test still applies even where more than one party was negligent. The legal branch of " +
+      "causation -- remoteness -- turns on reasonable foreseeability: whether the harm was a real risk " +
+      "that would occur to a reasonable person in the defendant's position, not one they'd dismiss as " +
+      "far-fetched. For personal-injury claims, and especially mental-injury claims, foreseeability is " +
+      "judged against a person of \"ordinary fortitude,\" not the particular plaintiff's own " +
+      "sensitivities -- unusual or extreme reactions to a negligent act are imaginable but not " +
+      "reasonably foreseeable. That ordinary-fortitude threshold is a separate question from the \"thin " +
+      "skull\" rule: once it's shown that a person of ordinary fortitude would foreseeably suffer the " +
+      "injury, the defendant must then take the plaintiff as found for the purpose of assessing the " +
+      "resulting damages -- ordinary fortitude decides whether the damage is compensable at law at all, " +
+      "not how much compensation follows once it is. Where a defendant is shown to have had actual " +
+      "knowledge of a plaintiff's particular sensitivities, the ordinary-fortitude requirement doesn't " +
+      "have to be applied as strictly.",
     citations: [
       {
         sourceName: "Supreme Court of Canada — Mustapha v. Culligan of Canada Ltd., 2008 SCC 27",
@@ -506,23 +503,21 @@ export const EDUCATION_TOPICS: EducationTopic[] = [
     courtArea: "small-claims",
     title: "The elements of an unjust enrichment claim",
     plainExplanation:
-      "A claim in unjust enrichment generally requires showing three elements: (1) that the " +
-      "defendant was enriched; (2) that the plaintiff suffered a corresponding deprivation; and (3) " +
-      "that there is no juristic reason for the enrichment -- meaning no justification in law for the " +
-      "defendant keeping the benefit at the plaintiff's expense. " +
-      "The absence-of-juristic-reason element is assessed in two stages. First, the plaintiff must " +
-      "show that none of a fixed list of established categories applies to justify the enrichment -- " +
-      "those established categories are a contract, a disposition of law, a donative intent (a gift), " +
-      "and other valid common law, equitable, or statutory obligations. If none of those established " +
-      "categories applies, the plaintiff has made out a prima facie case. Second, that prima facie " +
-      "case can still be rebutted: the defendant may show some other reason the enrichment should be " +
-      "kept, and at this stage courts consider the reasonable expectations of the parties and public " +
-      "policy considerations. " +
-      "Separately, even where all three elements are made out, a defendant may have a change of " +
-      "position defence available -- where an innocent defendant shows they materially changed their " +
-      "position because of the enrichment, such that requiring them to return it would be inequitable. " +
-      "That defence is not available, however, to a defendant who obtained the enrichment through " +
-      "their own wrongdoing.",
+      "A claim in unjust enrichment generally requires showing three elements: (1) that the defendant " +
+      "was enriched; (2) that the plaintiff suffered a corresponding deprivation; and (3) that there is " +
+      "no juristic reason for the enrichment -- meaning no justification in law for the defendant " +
+      "keeping the benefit at the plaintiff's expense. The absence-of-juristic-reason element is " +
+      "assessed in two stages. First, the plaintiff must show that none of the established categories " +
+      "applies to justify the enrichment -- those established categories include a contract, a " +
+      "disposition of law, a donative intent (a gift), and other valid common law, equitable, or " +
+      "statutory obligations. If none of those established categories applies, the plaintiff has made " +
+      "out a prima facie case. Second, that prima facie case can still be rebutted: the defendant may " +
+      "show some other reason the enrichment should be kept, and at this stage courts consider the " +
+      "reasonable expectations of the parties and public policy considerations. Separately, even where " +
+      "all three elements are made out, a defendant may have a change of position defence available -- " +
+      "where an innocent defendant shows they materially changed their position because of the " +
+      "enrichment, such that requiring them to return it would be inequitable. That defence is not " +
+      "available, however, to a defendant who obtained the enrichment through their own wrongdoing.",
     citations: [
       {
         sourceName: "Supreme Court of Canada — Garland v. Consumers' Gas Co., 2004 SCC 25",

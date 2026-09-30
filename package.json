@@ -84,6 +84,7 @@
     "test:court-locations": "node --import tsx scripts/verification/verifyCourtLocations.ts",
     "test:claim-library": "node --import tsx scripts/verification/verifyClaimLibrary.ts",
     "test:cross-forum-notes": "node --import tsx scripts/verification/verifyCrossForumNotes.ts",
+    "test:source-links": "node --import tsx scripts/verification/verifySourceLinks.ts",
     "test:overview-relevance": "node --import tsx scripts/verification/verifyOverviewRelevance.ts",
     "test:a2i-scope": "node --import tsx scripts/verification/verifyA2iScope.ts",
     "test:case-review": "node --import tsx scripts/verification/verifyCaseReview.ts",

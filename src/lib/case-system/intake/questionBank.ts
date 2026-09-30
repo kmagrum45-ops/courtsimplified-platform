@@ -205,8 +205,9 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     appliesWhen: { field: "role", op: "equals", value: "plaintiff" },
     text: "What is the total dollar amount you are claiming?",
     why:
-      "Small Claims Court can only hear claims up to $50,000 (effective October 1, 2025), " +
-      "excluding interest and costs -- if your amount is higher, this may not be the right court.",
+      "Small Claims Court can only hear claims up to $50,000 (effective October 1, 2025), excluding " +
+      "interest and costs -- a claim for more goes to the Superior Court of Justice unless the amount " +
+      "over $50,000 is given up.",
     sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
     answerType: "amount",
     capturesField: "amountClaimedText",
@@ -349,7 +350,7 @@ export const QUESTION_BANK: IntakeQuestion[] = [
     },
     text:
       "If the defendant hasn't filed a Defence: what date were they served, and how was the claim " +
-      "served on them? And have you already asked the court to note them in default?",
+      "served on them? And have you already asked the clerk to note them in default?",
     why:
       "A defendant who wants to dispute a claim has 20 days from being served to serve and file a " +
       "Defence. How that period is counted is set by the Rules: the first day is excluded and the " +
@@ -470,19 +471,20 @@ export const QUESTION_BANK: IntakeQuestion[] = [
       "happen?",
     why:
       "A defendant who wants to dispute a claim has 20 days from being served to serve and file a " +
-      "Defence. When service counts as effective depends on how it was done: in person, it is the " +
-      "day it happened; where a claim is sent to an individual's home by registered mail or courier " +
-      "and a signature verifying receipt is obtained, the Rules make service effective on the date " +
-      "that signature shows receipt, not the date of mailing. (The separate five-day rule for " +
-      "documents sent by mail or courier expressly does NOT apply to a claim served that way.) " +
-      "The Rules also count a period by excluding the first day and including the last, and if the " +
-      "last day falls on a holiday the period ends on the next day that is not a holiday -- with " +
-      "\"holiday\" defined to include any Saturday or Sunday, so weekends in between are counted and " +
-      "extend nothing. " +
-      "What the Rules do NOT say is how those two things interact -- whether the effective day is " +
-      "the excluded first day, for instance. Because the regulation is silent on that, this site " +
-      "does not calculate the date for you. These are the facts to write down so you can work it " +
-      "out, and the court or a licensed paralegal or lawyer can confirm it.",
+      "Defence. When service counts as effective depends on how it was done: in person, it is the day " +
+      "it happened; where a copy is left with an adult member of the household and another copy is " +
+      "mailed or couriered, it is the fifth day after mailing or verified courier delivery; where a " +
+      "claim is sent to an individual's home by registered mail or courier and a signature verifying " +
+      "receipt is obtained, the Rules make service effective on the date that signature shows receipt, " +
+      "not the date of mailing. (The separate five-day rule for documents sent by mail or courier " +
+      "expressly does NOT apply to a claim served that way.) The Rules also count a period by excluding " +
+      "the first day and including the last, and if the last day falls on a holiday the period ends on " +
+      "the next day that is not a holiday -- with \"holiday\" defined to include any Saturday or " +
+      "Sunday, so weekends in between are counted and extend nothing. What the Rules do NOT say is how " +
+      "those two things interact -- whether the effective day is the excluded first day, for instance. " +
+      "Because the regulation is silent on that, this site does not calculate the date for you. These " +
+      "are the facts to write down so you can work it out, and the court or a licensed paralegal or " +
+      "lawyer can confirm it.",
     sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
     answerType: "short-text",
     capturesField: "serviceMethodText",
@@ -504,16 +506,16 @@ export const QUESTION_BANK: IntakeQuestion[] = [
       "Do you believe the plaintiff -- or someone else -- owes you money or is responsible for part " +
       "of what happened? And have you already started your own claim about it?",
     why:
-      "A defendant can bring their own claim against the plaintiff or someone else as part of the " +
-      "same case, called a Defendant's Claim (Form 10A). The Rules say it may be ISSUED within 20 " +
-      "days after the day the defence is filed -- issuing and filing are different steps, and the " +
-      "20 days runs from the day the defence was filed, not from when it was served or received. " +
-      "Missing that window does not end it: after those 20 days a Defendant's Claim may still be " +
-      "issued with leave of the court, at any point before trial or default judgment. After trial " +
-      "or default judgment that route is no longer available. Once issued it still has to be served " +
-      "on every person it is made against. " +
-      "Whether any of that fits your situation is yours to decide -- this question only records what " +
-      "you think happened and what you have done so far.",
+      "A defendant can bring their own claim against the plaintiff, or against someone else where it " +
+      "arises out of the same transaction or occurrence or relates to the plaintiff's claim, as part of " +
+      "the same case, called a Defendant's Claim (Form 10A). The Rules say it may be ISSUED within 20 " +
+      "days after the day the defence is filed -- issuing and filing are different steps, and the 20 " +
+      "days runs from the day the defence was filed, not from when it was served or received. Missing " +
+      "that window does not end it: after those 20 days a Defendant's Claim may still be issued with " +
+      "leave of the court, at any point before trial or default judgment. After trial or default " +
+      "judgment that route is no longer available. Once issued it still has to be served on every " +
+      "person it is made against. Whether any of that fits your situation is yours to decide -- this " +
+      "question only records what you think happened and what you have done so far.",
     sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
     answerType: "short-text",
     capturesField: "counterclaimIntentText",
@@ -540,17 +542,17 @@ export const QUESTION_BANK: IntakeQuestion[] = [
       "itself, or being able to pay it all at once?",
     why:
       "The Rules provide a route for this. A defendant who admits liability for all or part of the " +
-      "plaintiff's claim but wants to arrange terms of payment may, IN THE DEFENCE, admit liability " +
-      "and propose terms of payment. " +
-      "What happens next depends on the plaintiff. If the plaintiff does not dispute the proposal " +
-      "within 20 days after service of the defence, the defendant must then make payment in " +
-      "accordance with the proposal AS IF IT WERE A COURT ORDER -- and if they do not, the plaintiff " +
-      "can serve a notice of default of payment (Form 20L), and the clerk signs judgment for the " +
-      "unpaid balance once 15 days have passed since that notice was served. " +
-      "If the plaintiff does dispute it, they file and serve a request to clerk (Form 9B) for a terms " +
-      "of payment hearing, and the clerk fixes a time and serves notice of the hearing. " +
-      "Whether to admit any part of a claim is a significant decision and entirely yours. This " +
-      "question only records what you tell us.",
+      "plaintiff's claim but wants to arrange terms of payment may, IN THE DEFENCE, admit liability and " +
+      "propose terms of payment. What happens next depends on the plaintiff. If the plaintiff does not " +
+      "dispute the proposal within 20 days after service of the defence, the defendant must then make " +
+      "payment in accordance with the proposal AS IF IT WERE A COURT ORDER -- and if they do not, the " +
+      "plaintiff can serve a notice of default of payment (Form 20L), and the clerk signs judgment for " +
+      "the unpaid balance of the undisputed amount when the plaintiff files an affidavit of default of " +
+      "payment (Form 20M) swearing, among other things, that 15 days have passed since that notice was " +
+      "served. If the plaintiff does dispute it, they file and serve a request to clerk (Form 9B) for a " +
+      "terms of payment hearing, and the clerk fixes a time and serves notice of the hearing. Whether " +
+      "to admit any part of a claim is a significant decision and entirely yours. This question only " +
+      "records what you tell us.",
     sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
     answerType: "short-text",
     capturesField: "admissionAndPaymentText",

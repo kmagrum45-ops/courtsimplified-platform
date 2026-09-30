@@ -17,6 +17,7 @@ import type {
 
 import { supabase } from "../../../src/lib/supabase/client";
 import LegalAdviceDeflection from "../../_components/LegalAdviceDeflection";
+import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 
 type IntakeFacts = Record<string, string | number | boolean>;
 
@@ -227,7 +228,7 @@ function QuestionHelp({ question }: { question: IntakeQuestion | null }) {
           {question.sourceUrl ? (
             <>
               {" "}
-              <a href={question.sourceUrl} target="_blank" rel="noreferrer" className="font-semibold underline">
+              <a href={publicSourceUrl(question.sourceUrl)} target="_blank" rel="noreferrer" className="font-semibold underline">
                 Source
               </a>
             </>

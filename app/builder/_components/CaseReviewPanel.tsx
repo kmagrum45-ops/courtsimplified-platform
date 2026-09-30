@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { supabase } from "../../../src/lib/supabase/client";
 import type { CaseReviewFinding } from "../../../src/lib/case-system/caseReview/caseReview";
+import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 
 /**
  * Case review panel. Shows what the review found in the user's own record and
@@ -97,7 +98,7 @@ export default function CaseReviewPanel({ caseId }: { caseId: string | null }) {
                   <p>{finding.text}</p>
                   {finding.source ? (
                     <a
-                      href={finding.source.sourceUrl}
+                      href={publicSourceUrl(finding.source.sourceUrl)}
                       target="_blank"
                       rel="noreferrer"
                       className="mt-1 inline-block text-xs font-semibold text-[#2f7d67] underline"

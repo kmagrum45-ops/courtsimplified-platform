@@ -9,6 +9,7 @@ import {
   remediesFor,
 } from "../../../src/lib/content-library/claimLibrary";
 import { assertApprovedUserContent } from "../../../src/lib/content-library/outputGuard";
+import { publicSourceUrl } from "../../../src/lib/content-library/publicSourceUrl";
 
 /**
  * One claim or matter type. Every sentence is the catalogue's own sourced
@@ -25,9 +26,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 function Source({ url }: { url?: string }) {
-  if (!url) return null;
+  const href = publicSourceUrl(url);
+  if (!href) return null;
   return (
-    <a href={url} target="_blank" rel="noreferrer" className="mt-1 inline-block text-xs text-[#4d675f] underline">
+    <a href={href} target="_blank" rel="noreferrer" className="mt-1 inline-block text-xs text-[#4d675f] underline">
       Source
     </a>
   );

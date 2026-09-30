@@ -9799,7 +9799,7 @@
   {
    "id": "next:small-claims:enforcement",
    "verifiedAt": "2026-09-30",
-   "fingerprint": "c85b62dd7ef67b2b713bdd37b0ae1674e4e568c469688a7d81f59262814f86df",
+   "fingerprint": "e418618a95fda208ac332ae3f1e01573867958d6a50c77553ecea72bcae25876",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -9820,9 +9820,16 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "r. 20.02 (1)",
      "quote": "vary the times and proportions in which money payable under an order of the court shall be paid, if it is satisfied that the debtor's circumstances have changed."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 20.10 (2) (b)",
+     "quote": "a certificate of judgment (Form 20A), if the order was made in another territorial jurisdiction."
     }
    ],
-   "independentReviews": []
+   "independentReviews": [
+    "Third audit round (2026-09-30): added the step the block had left out, re-read against the rule quoted here."
+   ]
   },
   {
    "id": "next:small-claims:urgent",
@@ -10108,7 +10115,7 @@
   {
    "id": "next:family:motion",
    "verifiedAt": "2026-09-30",
-   "fingerprint": "59e9522a96ef3f05d08f2f035d6fc43b61ba25948caf6258446bff77f9c47c90",
+   "fingerprint": "5f9b37b94e096944994a41fd7c3df6e305d1155b8d1278a7b13ff15aa02d3426",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
@@ -10169,10 +10176,16 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
      "pinpoint": "r. 14 (4.2)",
      "quote": "Subrule (4) does not apply if the court is of the opinion that there is a situation of urgency or hardship or that a case conference is not required for some other reason in the interest of justice."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+     "pinpoint": "r. 14 (11) (c), (d)",
+     "quote": "confer or make best efforts to confer orally or in writing with every other party about the issues that are in dispute in the motion ... before giving the clerk confirmation of the motion in Form 14C under clause (e), give a copy of the confirmation of motion to every other party using mail, fax, email or any other method, subject to subrule (11.0.1); and"
     }
    ],
    "independentReviews": [
-    "Independent re-read against the sources (2026-09-30): partly -- (1) The sentence 'No notice of motion ... may be served, and no motion heard, before a conference...' leaves out the r. 14 (4.2) urgency/hardship exception. It is covered only in the separate 'urgent' block, so a reader of this block would be told the bar is absolute. (2) The list of what a party making a motion with notice 'must' do leaves out r. 14 (11) (c), the duty to confer or make best efforts to confer. Everything else checks out: r. 14 (1), (9), (10), (6), (11) (a), (b), (e), (11.1), (11.3) and (11.4). Rewritten to the source wording."
+    "Independent re-read against the sources (2026-09-30): partly -- (1) The sentence 'No notice of motion ... may be served, and no motion heard, before a conference...' leaves out the r. 14 (4.2) urgency/hardship exception. It is covered only in the separate 'urgent' block, so a reader of this block would be told the bar is absolute. (2) The list of what a party making a motion with notice 'must' do leaves out r. 14 (11) (c), the duty to confer or make best efforts to confer. Everything else checks out: r. 14 (1), (9), (10), (6), (11) (a), (b), (e), (11.1), (11.3) and (11.4). Rewritten to the source wording.",
+    "Third audit round (2026-09-30): added the step the block had left out, re-read against the rule quoted here."
    ]
   },
   {
