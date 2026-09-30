@@ -2340,6 +2340,102 @@
       "characters": 8823,
       "lines": 126,
       "file": "ontario-fees-family.txt"
+    },
+    {
+      "id": "oreg-333-08-motor-vehicle-dealers-general",
+      "title": "Motor Vehicle Dealers Act, 2002 - General",
+      "citation": "O. Reg. 333/08",
+      "url": "https://www.ontario.ca/laws/docs/080333_e.doc",
+      "retrievedAt": "2026-09-30T21:34:51.295Z",
+      "sha256": "b56b91974e3c3988d7fefc9c3fc2297ba01efd96ce170abeaac4878afff7823a",
+      "consolidation": "CONSOLIDATION PERIOD: FROM JANUARY 1, 2025 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 204612,
+      "lines": 3419,
+      "file": "oreg-333-08-motor-vehicle-dealers-general.txt"
+    },
+    {
+      "id": "scj-steps-to-a-civil-case",
+      "title": "Steps to a Civil Case",
+      "citation": "ontariocourts.ca",
+      "url": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+      "retrievedAt": "2026-09-30T21:34:51.851Z",
+      "sha256": "6abb589f20392686716d70c6fb2e3acfd3fc072444f0e94c80f87bf983f86478",
+      "consolidation": "(none stated)",
+      "characters": 99143,
+      "lines": 1106,
+      "file": "scj-steps-to-a-civil-case.txt"
+    },
+    {
+      "id": "ontario-renting-commercial-property",
+      "title": "Renting commercial property in Ontario",
+      "citation": "ontario.ca",
+      "url": "https://www.ontario.ca/page/renting-commercial-property-ontario",
+      "retrievedAt": "2026-09-30T21:34:51.964Z",
+      "sha256": "41d878daf1174aa1ff2e3f56e2169f78dfaa5ebb9c75c33293f044a0ebf4d75f",
+      "consolidation": "(none stated)",
+      "characters": 8864,
+      "lines": 106,
+      "file": "ontario-renting-commercial-property.txt"
+    },
+    {
+      "id": "ontario-towing-rights",
+      "title": "Know your rights when getting a tow",
+      "citation": "ontario.ca",
+      "url": "https://www.ontario.ca/page/know-your-rights-when-getting-tow",
+      "retrievedAt": "2026-09-30T21:34:52.045Z",
+      "sha256": "fcdee819db7e7a3d31fb82744a52fefb18653057f6f53401200d402849e69177",
+      "consolidation": "(none stated)",
+      "characters": 8784,
+      "lines": 137,
+      "file": "ontario-towing-rights.txt"
+    },
+    {
+      "id": "ontario-cpa-rights",
+      "title": "Your rights under the Consumer Protection Act",
+      "citation": "ontario.ca",
+      "url": "https://www.ontario.ca/page/your-rights-under-consumer-protection-act",
+      "retrievedAt": "2026-09-30T21:34:52.155Z",
+      "sha256": "d513a6c54e03414469d2c209d195785660f801e97eed629a79a7852a0c19103c",
+      "consolidation": "(none stated)",
+      "characters": 3432,
+      "lines": 57,
+      "file": "ontario-cpa-rights.txt"
+    },
+    {
+      "id": "esa-guide-overtime-pay",
+      "title": "Your guide to the Employment Standards Act: Overtime pay",
+      "citation": "ontario.ca",
+      "url": "https://www.ontario.ca/document/your-guide-employment-standards-act-0/overtime-pay",
+      "retrievedAt": "2026-09-30T21:34:52.237Z",
+      "sha256": "91d682e2f110b2f86d323e7b5805de5661caecbbe5d77e37590c7eefa55e9ced",
+      "consolidation": "(none stated)",
+      "characters": 19648,
+      "lines": 213,
+      "file": "esa-guide-overtime-pay.txt"
+    },
+    {
+      "id": "esa-guide-termination",
+      "title": "Your guide to the Employment Standards Act: Termination of employment",
+      "citation": "ontario.ca",
+      "url": "https://www.ontario.ca/document/your-guide-employment-standards-act-0/termination-employment",
+      "retrievedAt": "2026-09-30T21:34:52.329Z",
+      "sha256": "121fb95ddae0a03ff5ac738e8aba24b680883598430b37a04550452b6f5c3943",
+      "consolidation": "(none stated)",
+      "characters": 30574,
+      "lines": 243,
+      "file": "esa-guide-termination.txt"
+    },
+    {
+      "id": "esa-guide-vacation",
+      "title": "Your guide to the Employment Standards Act: Vacation",
+      "citation": "ontario.ca",
+      "url": "https://www.ontario.ca/document/your-guide-employment-standards-act-0/vacation",
+      "retrievedAt": "2026-09-30T21:34:52.414Z",
+      "sha256": "e51aa129cb35e10c5f3d14fdd65447c4b3824cb59e699b5c8d154a7ea69fa3aa",
+      "consolidation": "(none stated)",
+      "characters": 35407,
+      "lines": 219,
+      "file": "esa-guide-vacation.txt"
     }
   ],
   "failures": []
