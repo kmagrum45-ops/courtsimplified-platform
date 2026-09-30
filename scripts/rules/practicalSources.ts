@@ -182,4 +182,37 @@ export const PRACTICAL_SOURCES: CorpusSource[] = [
       "things-went-wrong blocks depend on it, and Part 0 found both positions " +
       "had nowhere to live in the old taxonomy.",
   },
+  // ------------------------------------------------ court fees (2026-09-30)
+  // The fee for each step, per court. Found by search on ontario.ca, not
+  // guessed (see "EVERY URL HERE WAS DISCOVERED" above).
+  {
+    id: "ontario-fees-small-claims",
+    title: "Fees: Small Claims Court",
+    citation: "ontario.ca",
+    url: "https://www.ontario.ca/page/fees-small-claims-court",
+    format: "html",
+    tier: "practical",
+    mustContain: ["fee"],
+    why: "What each Small Claims step costs. The site's only fee content was two figures on one card.",
+  },
+  {
+    id: "ontario-fees-civil",
+    title: "Civil court fees",
+    citation: "ontario.ca",
+    url: "https://www.ontario.ca/page/civil-court-fees",
+    format: "html",
+    tier: "practical",
+    mustContain: ["fee"],
+    why: "Superior Court civil fees; the site stated none.",
+  },
+  {
+    id: "ontario-fees-family",
+    title: "Family court fees",
+    citation: "ontario.ca",
+    url: "https://www.ontario.ca/page/family-court-fees",
+    format: "html",
+    tier: "practical",
+    mustContain: ["fee"],
+    why: "Family court fees; the site stated none.",
+  },
 ];

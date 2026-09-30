@@ -165,6 +165,35 @@ const LEGISLATION_SOURCES: CorpusSource[] = [
       "claims (s. 23(1.1)), appeals (s. 31) and the costs cap (s. 29).",
   },
   {
+    id: "evidence-act",
+    title: "Evidence Act",
+    citation: "R.S.O. 1990, c. E.23",
+    url: "https://www.ontario.ca/laws/docs/90e23_e.doc",
+    format: "elaws-doc",
+    mustContain: ["Evidence Act", "CONSOLIDATION PERIOD"],
+    why:
+      "Rules of evidence in Ontario civil and family proceedings (business records, " +
+      "notice of documents, witnesses). The site had one line on evidence (2026-09-30).",
+  },
+  {
+    id: "oreg-332-16-small-claims-fees",
+    title: "Small Claims Court - Fees and Allowances",
+    citation: "O. Reg. 332/16",
+    url: "https://www.ontario.ca/laws/docs/160332_e.doc",
+    format: "elaws-doc",
+    mustContain: ["CONSOLIDATION PERIOD"],
+    why: "The regulation that sets Small Claims Court fees, behind the ontario.ca fee page.",
+  },
+  {
+    id: "oreg-293-92-superior-court-fees",
+    title: "Superior Court of Justice and Court of Appeal - Fees",
+    citation: "O. Reg. 293/92",
+    url: "https://www.ontario.ca/laws/docs/920293_e.doc",
+    format: "elaws-doc",
+    mustContain: ["CONSOLIDATION PERIOD"],
+    why: "The regulation that sets Superior Court and Court of Appeal fees, behind the civil and family fee pages.",
+  },
+  {
     id: "oreg-626-00-monetary-jurisdiction",
     title: "Small Claims Court Jurisdiction and Appeal Limit",
     citation: "O. Reg. 626/00",
