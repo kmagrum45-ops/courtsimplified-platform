@@ -1,0 +1,1022 @@
+                   COURT OF APPEAL FOR ONTARIO
+
+      CITATION: Davis v. Amazon Canada Fulfillment Services, 2025 ONCA 421
+                                                            DATE: 20250610
+                                                DOCKET: COA-23-CV-1057
+
+                        Pepall, Paciocco and Sossin JJ.A.
+
+BETWEEN
+
+                                   Denver Davis
+
+                                                                 Plaintiff (Appellant)
+
+                                        and
+
+         Amazon Canada Fulfillment Services, ULC, Amazon.Com, Inc.
+                        and Amazon.com.ca, Inc.
+
+                                                        Defendants (Respondents)
+
+Jean-Marc Leclerc and Louis Sokolov, for the appellant
+
+David Di Paolo, Nadia Effendi, Laura M. Wagner, Graham Splawski and
+Haddon Murray, for the respondents
+
+Heard: February 12, 2025
+
+On appeal from the orders of Justice Paul M. Perell of the Superior Court of Justice,
+dated June 19, 2023, with reasons reported at 2023 ONSC 3665.
+
+Sossin J.A.:
+
+OVERVIEW
+
+[1]   This appeal involves two orders: one staying a proposed class proceeding
+
+against Amazon Canada Fulfillment Services, ULC, Amazon.com, Inc., and
+
+Amazon.com.ca, Inc. (“Amazon”) in favour of arbitration, and the other dismissing
+                                     Page: 2
+
+
+the motion for certification of the class action against Amazon. The class action
+
+claim involved approximately 73,000 class members and sought $200 million in
+
+general damages and $50 million in aggravated, exemplary, and punitive
+
+damages. Mr. Davis, the putative representative plaintiff for the class action,
+
+alleged that Amazon was liable to the class for breach of employment contracts,
+
+including the terms of Ontario’s Employment Standards Act, 2000, S.O. 2000, c. 41
+
+(“ESA”), and its regulations, and equivalent provincial statutes and regulations
+
+across the country; breach of duties of good faith; unjust enrichment; negligence;
+
+and a declaration that any agreement excluding the putative class members from
+
+the employment law statutes is void and unenforceable.
+
+[2]   The motion judge granted the motion to stay for the class members who had
+
+signed arbitration agreements and dismissed the motion to certify the class action
+
+for the class members who had not signed arbitration agreements.
+
+[3]   The appellant raises the issue of how the principles about unconscionability
+
+and public policy from Uber Technologies Inc. v. Heller, 2020 SCC 16, [2020]
+
+2 S.C.R. 118, apply to an arbitration clause, whose alleged defect involves a class
+
+waiver and waiver of collective arbitration. The appeal also raises several
+
+questions related to the certification of a class action, including how the common
+
+employer doctrine applies where multiple employers hire workers whose work
+
+activities are directed and monitored through a mobile phone application of the
+
+alleged common employer.
+                                      Page: 3
+
+
+[4]   For the reasons that follow, I conclude that the motion judge did not commit
+
+a reversible error in his analysis of certification under s. 5 of the Class Proceedings
+
+Act, 1992, S.O. 1992, c. 6 (“CPA”), which denied certification to the only group
+
+within the class whose appeal is before us. In light of this outcome, it is not
+
+necessary to consider whether the motion judge erred in granting a stay under s. 7
+
+of the Arbitration Act, 1991, S.O. 1991, c. 17, and I would expressly refrain from
+
+doing so. I will describe the motion judge’s reasoning in granting the stay, but I
+
+should not be taken as endorsing or disapproving of that reasoning or the
+
+imposition of a stay. The proper application of the doctrine of unconscionability to
+
+contracts of adhesion in the employment context remains for another day.
+
+BACKGROUND
+
+[5]   Amazon is an online retailer. The appellant alleges that the putative class
+
+members, who deliver goods for Amazon, are all its employees, although the way
+
+in which their work relationships are structured falls into various categories.
+
+[6]   The motion judge characterized the class action as proceeding with
+
+two branches, one involving a class of delivery partners (“DPs”), who were
+
+employed directly by Amazon, and one involving a class of driver associates
+
+(“DAs") employed by third-party delivery-service partner companies (“DSPs”). He
+
+explained the distinction between these two groups as follows, at paras. 3-4:
+
+             In the first branch of his action, Mr. Davis sues Amazon
+             as an “employer” of approximately 16,000 putative class
+                                      Page: 4
+
+
+             members. These workers have a direct contractual
+             worker relationship with Amazon, and they deliver its
+             parcels. These putative class members are known as
+             Delivery Partners (DPs). Mr. Davis is not and has never
+             been a DP. The first branch of the theory of Mr. Davis’s
+             proposed class action is that Amazon is an online product
+             retailer that has a part-time workforce of approximately
+             16,000 DPs with whom Amazon contracts. Mr. Davis’s
+             allegation is that these drivers from across the country
+             (actually just British Columbia, Alberta, and Ontario) are
+             employees who have been misclassified as independent
+             contractors, so that Amazon can avoid its statutory and
+             common law obligations as an employer.
+
+             In the second branch of his action, Mr. Davis sues
+             Amazon as a “common employer” of approximately
+             57,000 putative class members. These workers have an
+             indirect contractual relationship with Amazon. These
+             putative class members are known as Driver Associates
+             (DAs), and they are workers for Delivery Service Partners
+             (DSPs). The DSPs are logistics companies that are
+             contracted to provide delivery services for Amazon.
+             There were 126 DSPs. Mr. Davis is a former DA. The
+             second branch of the theory of Mr. Davis’s proposed
+             class action is that Amazon is an online retailer that has
+             outsourced the delivery of its goods to 126 logistics
+             companies, the DSPs. Mr. Davis alleges that Amazon did
+             this outsourcing to avoid having to comply with Amazon’s
+             statutory and common law obligations as a “common
+             employer” of these drivers. Mr. Davis submits that as a
+             common employer, Amazon is jointly and severally liable
+             for the failures of the 126 logistics companies to comply
+             with the employment law of British Columbia, Alberta,
+             Manitoba, Ontario, Québec, and Nova Scotia, which is
+             where the DSPs carry on their businesses.
+
+[7]   DSPs (and the DAs they hire) deliver Amazon packages through either
+
+Amazon’s DSP 1.0 program or its DSP 2.0 program. Depending on which program
+
+the DSP participates in, the DSP is required to include certain terms in its contracts
+                                     Page: 5
+
+
+with DAs. Under the DSP 2.0 program, Amazon uses a standard form contract that
+
+sets out the terms of employment to be followed by DSPs. All DAs who fall under
+
+DSP 2.0 have mutual arbitration agreements in their contracts.
+
+[8]    Under DSP 1.0, DSPs enter into Transportation Agreements (and work
+
+orders) with Amazon, which set out the terms and conditions under which the
+
+DSPs provide services to deliver Amazon packages. The terms and conditions
+
+under DSP 1.0 agreements vary. Some DAs under DSP 1.0 signed mutual
+
+arbitration agreements as part of their contracts, but an estimated 18,000 DAs did
+
+not sign mutual arbitration agreements. Any DAs who signed the April 2021 version
+
+of the mutual arbitration agreement have a waiver of s. 7(6) of the Arbitration Act.
+
+[9]    DPs are recruited by enrolling in Amazon’s Flex Program through the
+
+Amazon Flex App. Potential DPs download the App to their smartphone and apply
+
+to sign up for the Flex Program. When the DPs register, they are required to agree
+
+to the Flex Terms of Service, which include an arbitration agreement.
+
+[10]   Both DPs and DAs use Amazon’s technology, the Flex App, to deliver
+
+goods. The App allows them to sign up for or “accept” delivery blocks. After
+
+accepting a block, the driver would go to Amazon’s warehouse facilities to pick up
+
+the goods and follow a detailed route provided by Amazon to make deliveries to a
+
+predetermined list of purchasers. The Flex App records the deliveries by scans
+
+and photos, and tracks and times the performance of the delivery assignments.
+                                            Page: 6
+
+
+THE SCOPE OF THIS APPEAL IN LIGHT OF S.7(6) OF THE ARBITRATION
+
+ACT
+
+[11]   Section 7(6) of the Arbitration Act states that “[t]here is no appeal from the
+
+court’s decision.” It applies where a decision is made under s. 7: Toronto Standard
+
+Condominium Corp. No. 1628 v. Toronto Standard Condominium Corp. No. 1636,
+
+2020 ONCA 612, 454 D.L.R. (4th) 126, at para. 97.
+
+[12]   In this case, pursuant to s. 7 of the Arbitration Act, Perell J. permanently
+
+stayed the claims of (1) all DPs; (2) all DSP 2.0 DAs; and (3) the claims of DSP
+
+1.0 DAs who signed an arbitration agreement. Some DAs did not sign arbitration
+
+agreements and so their claims were not stayed.
+
+[13]   Those DAs whose claims were not stayed are not caught by s. 7(6) of the
+
+Arbitration Act.1
+
+[14]   DAs who entered into post-April 2021 arbitration agreements have the
+
+benefit of a s. 7(6) waiver, and so there is no appeal bar. The standard agreement
+
+provides:
+
+               This Agreement and any arbitration hereunder shall be
+               governed by the law of the Province of Ontario including
+               the common law and the Arbitration Act, 1991 S.O. 1991,
+               c.17, excluding s. 7(6) thereof, unless the Employee
+               resides in Quebec as of the time the Employee enters
+               into this Agreement, in which case the applicable
+
+
+1 The appeal from the certification decision comes to this court because it was transferred from the
+Divisional Court: 2023 ONCA 634.
+                                                  Page: 7
+
+
+                 provincial statutes apply, excluding any rule or provision
+                 that would preclude an appeal of a judicial decision on a
+                 motion to stay arbitration proceedings. [Emphasis
+                 added.]
+
+[15]    DPs did not have the benefit of a s. 7(6) waiver, and leave to appeal was
+
+sought from the SCC, but was denied.2 Therefore, there is no appeal from the
+
+motion judge’s imposition of a stay relating to the DP group within the class.
+
+Accordingly, the scope of this appeal relates only to the DA group within the class.
+
+[16]    As for the DA group, they fall into two categories that are relevant: first, the
+
+DAs who had an arbitration agreement and agreed to a waiver of s. 7(6), and
+
+second, the DAs who had no arbitration agreement. The first category of DAs
+
+engages the stay issue, and then, if successful, the certification issue. The second
+
+category of DAs engages only the certification issue. As a result, if the respondents
+
+prevail on the appeal of the certification issue, they will be successful on the whole
+
+appeal.
+
+DECISION BELOW
+
+[17]    The certification motion was heard May 9 to 11, 2023. On June 19, 2023,
+
+the motion judge released his reasons staying the action against Amazon as an
+
+
+
+
+2 In his factum, the appellant argues that this court has jurisdiction in relation to the claims of DPs who are
+
+British Columbia residents, on the basis that there is no s.7(6) equivalent in the British Columbia
+Arbitration Act. However, this national class action was commenced in Ontario and s.7(6) of the Ontario
+Arbitration Act precludes this court from taking jurisdiction, irrespective of where a particular group of class
+members reside.
+                                     Page: 8
+
+
+employer or as a co-employer for the DPs and DAs that have signed arbitration
+
+agreements.
+
+[18]   Notwithstanding the stay, however, the motion judge conducted a
+
+certification analysis, which was relevant both for those DAs who had not signed
+
+arbitration agreements, and could be relevant for other class members, in light of
+
+the contingency that the stay he had imposed could be challenged and set aside.
+
+The motion judge thus proceeded to consider certification as if the stays he had
+
+ordered were not in place.
+
+[19]   On this basis, the motion judge stated that he would have conditionally
+
+certified a class action on behalf of the DPs against Amazon (but not the DA class
+
+members). The conditions were the appointment of an appropriate representative
+
+plaintiff and the amendment of the definition of the class. With respect to the
+
+remaining DP action, the motion judge further stated that he would not have
+
+certified aggregate or punitive damages as a common issue, nor the claims by the
+
+DPs for breach of a duty of good faith, unjust enrichment, or negligence.
+
+(1)    The stay of proceedings under s. 7 of the Arbitration Act
+
+[20]   The motion judge noted that there was no question that the dispute arguably
+
+fell within the scope of the arbitration agreements, and that the “battleground” is
+
+over whether there are grounds pursuant to unconscionability or public policy to
+
+refuse a stay.
+                                      Page: 9
+
+
+[21]   On the unconscionability and public policy grounds, the motion judge
+
+reviewed the history of the Uber litigation, stating that none of the decisions
+
+derogated from the principle in TELUS Communications Inc. v. Wellman,
+
+2019 SCC 19, [2019] 2 S.C.R. 144; and Seidel v. TELUS Communications Inc.,
+
+2011 SCC 15, [2011] 1 S.C.R. 531, that courts must enforce arbitration
+
+agreements absent legislative language to the contrary. He distinguished the
+
+Supreme Court majority’s holding in Uber on unconscionability on the basis that
+
+the arbitration agreements in this case “do not have the features of time, place,
+
+cost, and procedure that were unacceptable in the [Uber] case”. He characterized
+
+the class action waivers included in the arbitration clauses as a “redundancy”
+
+because the clauses precluded drivers from taking their disputes to court, and a
+
+class action is simply another type of court proceeding subject to the arbitration
+
+agreements. The motion judge also rejected the appellant’s expert evidence to the
+
+effect that all arbitration provisions in the employment context are per se
+
+disadvantageous.
+
+[22]   More specifically, in rejecting the public policy ground to refuse a stay, the
+
+motion judge observed that the drivers subject to the arbitration clauses were not
+
+precluded from pursuing statutory remedies in statutory forums pursuant to the
+
+ESA.
+                                      Page: 10
+
+
+[23]   Finally, the motion judge also canvassed the “at will” references in some
+
+arbitration clauses. He held that those arbitral clauses, which included this
+
+language, were errors that should not be given any operative meaning.
+
+(2)    The certification issues
+
+[24]   As mentioned above, while the motion judge found that the class action
+
+should be stayed pursuant to the Arbitration Act, he considered the merits of the
+
+certification motion under s. 5 of the CPA, assuming the stay was not in place.
+
+[25]   The motion judge found that with modifications to the class definition, the
+
+identifiable class criterion had been satisfied.
+
+[26]   However, all causes of action advanced on behalf of the DAs failed because
+
+they depended on a common employer relationship, which could not be satisfied.
+
+He cited O’Reilly v. ClearMRI Solutions Ltd., 2021 ONCA 385, 460 D.L.R. (4th)
+
+487, leave to appeal refused, [2021] S.C.C.A. No. 316, as the leading case on the
+
+common employer doctrine. He noted that there was no corporate law relationship
+
+between Amazon and the 126 logistics companies, and as pleaded they “are not
+
+an integrated or seamless group of companies operating together as one
+
+business.” Further, the contracts between the DSPs and Amazon disavowed
+
+Amazon as the employer. Acknowledging that such written contracts are not
+
+determinative, the motion judge nevertheless stated that it is “plain and obvious”
+
+that there was no reasonable inference of any intention that Amazon was party to
+                                    Page: 11
+
+
+the employment agreements with the 126 DSPs; the DSPs in a non-homogeneous
+
+way were exclusively responsible in the employment relationship with the drivers.
+
+The motion judge emphasized that Amazon and the logistics companies are in
+
+different businesses, so that the drivers “would not naturally see themselves as
+
+being in the retail trade providing goods to consumers”.
+
+[27]   A second reason why the common employer doctrine was not available,
+
+according to the motion judge, was that the 126 logistics companies were not
+
+joined as co-defendants. He concluded that the DSPs were necessary parties
+
+notwithstanding that they are jointly and severally liable; they were alleged to
+
+breach their contracts with the drivers as well as with Amazon; and their payroll
+
+data was part of the proposed aggregate damages calculation. However, this
+
+second reason why the common employer doctrine was not available “would
+
+disappear if Mr. Davis successfully applied to have the DSPs joined as co-
+
+defendants or if Amazon joined the DSPs as third parties.”
+
+[28]   The motion judge confirmed that the action as a whole could not be certified
+
+for the DAs due to his conclusion with respect to the common employer doctrine.
+
+While not relevant for this appeal, the motion judge found that a modified class
+
+action conditionally could have been certified for the DPs who worked directly for
+
+Amazon.
+                                    Page: 12
+
+
+[29]   With respect to other findings which remain relevant for this appeal, the
+
+motion judge also concluded that there was no basis, in fact, that a common issue
+
+about a common employer relationship exists with respect to the DAs. The motion
+
+judge found that the DAs’ direct employers, the DSPs, did not use or manage the
+
+use of the Flex App uniformly; and if the common employer doctrine applies
+
+between Amazon and the 126 DSPs, there would be 126 discreet common-
+
+employer relationships and hence no commonality. In response to the appellant’s
+
+reliance on Fresco v. Canadian Imperial Bank of Commerce, 2012 ONCA 444,
+
+111 O.R. (3d) 501, leave to appeal refused, [2012] S.C.C.A. No. 379; and
+
+Fulawka v. Bank of Nova Scotia, 2012 ONCA 443, 111 O.R. (3d) 346, leave to
+
+appeal refused, [2012] S.C.C.A. No. 326, the motion judge pointed out that there
+
+was no issue in those cases about whether the bank branches were independent
+
+entities controlling their own employees. He asserted that the case at bar involves
+
+“a diverse forest of legal entities” and was more analogous to McCracken v.
+
+Canadian National Railway Co., 2012 ONCA 445, 111 O.R. (3d) 745.
+
+[30]   With respect to aggregate damages, the motion judge concluded that the
+
+prerequisites for an aggregate award have not been satisfied for the DAs because
+
+liability could not be established on a class-wide basis. Further, in his view, the
+
+appellant had not established a viable methodology for quantifying aggregate
+
+damages.
+                                      Page: 13
+
+
+[31]   Finally, the motion judge found that the proposed class action would not
+
+have been the preferable procedure for the DAs.
+
+ISSUES
+
+[32]   The appellant argues that the motion judge erred both in granting a stay and
+
+in his certification analysis.
+
+[33]   With respect to the stay, the appellant argues that precluding any form of
+
+collective action makes the arbitration agreement unconscionable.
+
+[34]   With respect to certification, the appellant first argues that the motion judge
+
+erred in his conclusion that it was “plain and obvious” that the common employer
+
+doctrine could not encompass this case.
+
+[35]   The appellant also argues that the motion judge erred in finding no common
+
+issues, by failing to apply the “some basis in fact standard” and by ignoring the
+
+evidence of common control that Amazon exercised over all class members.
+
+[36]   Finally, the appellant argues that the motion judge erred by failing to find a
+
+common issue with respect to aggregate damages.
+
+[37]   In light of the limited scope of the appeal addressed above, I will address
+
+only the grounds of appeal relevant to certification of the DAs below.
+                                      Page: 14
+
+
+ANALYSIS
+
+(1)    The standard of review
+
+[38]   The motion judge’s findings of fact and mixed fact and law in the certification
+
+analysis are entitled to deference, and are reviewable on a palpable and overriding
+
+error standard: Housen v. Nikolaisen, 2002 SCC 33, [2002] 2 S.C.R. 235, at
+
+paras. 10, 28. In particular, the findings of the motion judge as to whether
+
+a proposed class action satisfies the “some basis in fact” standard under
+
+ss. 5(1)(b)-(e) of the CPA is a contextual exercise entitled to significant deference.
+
+Appellate intervention in the class action context generally is limited to matters of
+
+general principle and legal errors: see Cassano v. The Toronto-Dominion Bank,
+
+2007 ONCA 781, 87 O.R. (3d) 401, at para. 23, leave to appeal refused, [2008]
+
+S.C.C.A. No. 15; and Cloud v. Canada (Attorney General) (2004), 73 O.R. (3d)
+
+401 (C.A.), at para. 39, leave to appeal refused, [2005] S.C.C.A. No. 50.
+
+(2)    The motion judge did not err in his certification analysis
+
+[39]   The motion judge framed his certification analysis in the alternative to his
+
+main finding that the class action should be stayed pursuant to the Arbitration Act.
+
+However, for the group of DAs who did not sign arbitration agreements, the motion
+
+judge’s conclusions on certification constituted a binding, first instance
+
+determination of their certification motion.
+                                      Page: 15
+
+
+[40]   The threshold for certification is not in dispute. Pursuant to s. 5(1) of the
+
+CPA:
+
+             (1) The court shall, subject to subsection (6) and to section 5.1, certify
+             a class proceeding on a motion under section 2, 3 or 4 if,
+
+                   (a)  the pleadings or the notice of application discloses a
+                   cause of action;
+
+                   (b)  there is an identifiable class of two or more persons that
+                   would be represented by the representative plaintiff or
+                   defendant;
+
+                   (c) the claims or defences of the class members raise
+                   common issues;
+
+                   (d)   a class proceeding would be the preferable procedure for
+                   the resolution of the common issues; and
+
+                   (e)    there is a representative plaintiff or defendant who,
+
+                          (i)    would fairly and adequately represent the interests
+                          of the class,
+
+                          (ii)  has produced a plan for the proceeding that sets
+                          out a workable method of advancing the proceeding on
+                          behalf of the class and of notifying class members of the
+                          proceeding, and
+
+                          (iii) does not have, on the common issues for the
+                          class, an interest in conflict with the interests of other
+                          class members.
+
+[41]   The motion judge recognized that the pleadings should be read in a
+
+generous and purposive manner so as to give effect to the goals of the Act,
+
+including promoting access to justice, encouraging behaviour modification and
+
+promoting the efficient use of judicial resources. He also instructed himself properly
+
+on the low evidentiary threshold applicable to the certification analysis and that the
+                                                Page: 16
+
+
+moving party must show “some basis in fact” for the certification requirements
+
+other than establishing a cause of action.
+
+[42]    With respect to establishing a cause of action, the motion judge noted that
+
+for this determination, the “plain and obvious” test for disclosing a cause of action
+
+from Hunt v. Carey Canada Inc., [1990] 2 S.C.R. 959, applies. Under this standard,
+
+a claim will show a reasonable cause of action unless it has a radical defect.
+
+[43]    As the motion judge explained, the appellant’s claim with respect to DAs
+
+was “doomed to failure” on the basis that the appellant could not establish that
+
+Amazon was the common employer for all members of the class action.
+
+[44]    For the reasons set out below, this finding disposes of the entire class action,
+
+and it is not necessary to consider other findings of the motion judge3, which either
+
+relate only to the DPs, or are not necessary to reach in light of the conclusion that
+
+Amazon was not a common employer.
+
+(3) The motion judge did not err in his common employer analysis
+
+[45]    In light of the fact that the appellant brought the class action against Amazon,
+
+and not the 126 DSP logistics companies who employ the DA group within the
+
+class, a key issue in the certification motion was whether Amazon was a “common
+
+employer”, together with the DSPs, who owed duties as an employer to the class.
+
+
+
+
+3 I will also briefly touch upon the motion judge’s finding on preferable procedure.
+                                    Page: 17
+
+
+[46]   The motion judge explained his common employer analysis at paras. 158-
+
+160 of his reasons:
+
+            The heart of the second branch of Mr. Davis’s proposed
+            class action is that Amazon is the “common employer” of
+            approximately 57,000 DAs that have contracted with 126
+            logistics companies that have contracts with the DAs as
+            employees, independent contractors, or workers from an
+            employment agency (temps). Paragraph 69 of the
+            Statement of Claim pleads: “Amazon and Amazon DSPs
+            should be treated as one employer for the purposes of
+            the ESA and Equivalent Legislation and the Plaintiff and
+            Class members’ entitlement to statutory minimum
+            payments under it and their entitlements at common law.”
+            As pleaded, Amazon and 126 separate logistics
+            companies are to be treated as one common employer.
+
+            In its argument about the common issues criterion for
+            certification, Amazon submits that there is no basis in fact
+            for a commonality that Amazon and 126 logistics
+            companies are a common employer; i.e., Mr. Davis’s
+            action fails the common issues criterion. As discussed
+            later in these Reasons for Decision, I agree with that
+            submission. Amazon also argues that the premise of a
+            one common employer for the approximately 73,000
+            putative class members fails the preferable procedure
+            criterion. As discussed later in these Reasons for
+            Decision, I agree with that submission.
+
+            Moreover, as I shall now explain, Amazon’s argument
+            against a common employer cause of action also
+            succeeds under the cause of action criterion. It succeeds
+            because accepting the facts as they have been pleaded
+            as proven, Mr. Davis’s common employer claim is
+            doomed to failure. Reading the Statement of Claim
+            generously, it is plain, obvious, and beyond a reasonable
+            doubt that the putative Class Members alleged to be
+            employed by a logistics company and simultaneously be
+            employed by Amazon cannot succeed. Thus, as I shall
+                                     Page: 18
+
+
+             explain below, the beating heart of this branch of
+             Mr. Davis’s proposed class action arrives thrice stillborn.
+
+[47]   The key to the motion judge’s conclusion was the rejection of the appellant’s
+
+argument that Amazon was a common employer for the class member drivers.
+
+[48]   Relying on this court’s decision in O'Reilly, the motion judge held that there
+
+were two prongs which the appellant had to establish for Amazon to be a common
+
+employer for the DAs. First, there must be a significant degree of interrelationship
+
+and/or common control between the alleged common employers; and second, the
+
+court must assess whether the employee held a reasonable expectation that each
+
+of the alleged common employers were parties to the employment arrangement
+
+governing the employee at the relevant times.
+
+[49]   The motion judge observed that there were 126 distinct DSPs, none of
+
+whom were part of the class action, but each of whom employed the putative class
+
+members. For some DSPs, Amazon was the only customer for delivery services,
+
+while for others, Amazon was one of many large customers.
+
+[50]   Applying the threshold for a common employer in O’Reilly, the motion judge
+
+concluded that Amazon was not a common employer for class members, at
+
+para. 173:
+
+             In the immediate case, it may be noted that as pleaded
+             (and as shown by the evidence on the certification motion
+             and the stay motion), Amazon and the 126 autonomous
+             DSP logistics companies are not an integrated or
+             seamless group of companies operating together as one
+                                     Page: 19
+
+
+             business. The 126 autonomous logistics companies are
+             not involved in owning or exercising control over
+             Amazon’s online consumer business, and Amazon is
+             only involved in the business of the logistics companies
+             to the extent that it sets performance standards for the
+             delivery of Amazon’s goods to consumers. Either way, it
+             cannot be said that Amazon and the 126 autonomous
+             logistics companies were carrying on a singular
+             enterprise. Amazon and each of the 126 autonomous
+             logistics companies were not carrying on business
+             together; they were doing their own respective
+             businesses. It is true that Amazon’s contracts with the
+             DSPs affect how the 126 autonomous logistics
+             companies carry out their role as employer, but
+             Amazon’s role is different, it is a client of the 126
+             autonomous logistics companies that demands a level of
+             performance to complete its own business as an online
+             retailer.
+
+[51]   The motion judge added that, while not determinative, the employment
+
+contracts between the DSPs and drivers expressly excluded Amazon as the
+
+employer.
+
+[52]   In these circumstances, the motion judge concluded that it was plain and
+
+obvious that the written agreements and the other material facts did not reasonably
+
+permit the inference that there was an intention that Amazon was a party to the
+
+employment agreements between the 126 DSPs and their drivers. Further, he held
+
+that it was plain and obvious that Amazon did not undertake, as a matter of contract
+
+formation, to fulfill any obligation as an employer to the workers of the 126 DSPs.
+
+[53]   The appellant argues that the motion judge erred in this conclusion on the
+
+common employer standard, emphasizing the various ways in which their
+                                     Page: 20
+
+
+pleadings asserted Amazon’s control (and reiterating that these pleadings are to
+
+be taken as true for the purposes of establishing a cause of action pursuant to
+
+certification). According to the appellant, this control was achieved by requiring the
+
+drivers to use the Amazon Flex App (which all Amazon DSPs and Class Members
+
+are required to use in the performance of their job duties).
+
+[54]   Rather than focusing on the pleadings, the appellant contends that the
+
+motion judge erred by instead considering the record of evidence produced by
+
+Amazon with respect to its relationship to the DSPs. As the appellant put it in his
+
+factum, “the motions judge’s reasons built and tore down a strawman of complexity
+
+and diversity involving 126 logistics companies and 57,000 DAs, rather than
+
+considering the case that was actually pleaded.”
+
+[55]   The respondents counter that it was open to the motion judge to consider
+
+the contracts incorporated by reference in the statement of claim – between the
+
+DAs and the DSPs, and between the DSPs and Amazon – in his analysis under
+
+s. 5(1)(a) of the CPA.
+
+[56]   The motion judge also concluded that the claim was not properly constituted
+
+because the appellant chose not to name the DSPs as defendants. He referred to
+
+this fact as a “second corroborating reason” for concluding that the common law
+
+employer doctrine is not available to the appellant. The motion judge characterized
+                                        Page: 21
+
+
+the 126 DSPs as “necessary” parties, whose absence is a separate basis to
+
+dismiss the claim.
+
+[57]   The appellant asserts that no relief was sought against the DSPs, and that
+
+the Rules of Civil Procedure would permit whatever documentary production may
+
+be required from the DSPs as part of the class action against Amazon.
+
+[58]   The respondents highlight that the outcome of any class action would
+
+necessarily affect the rights and liabilities of the DSPs. At a minimum, they argue,
+
+Amazon could only be liable if the DSPs failed to pay all ESA obligations.
+
+[59]   In my view, the motion judge’s conclusion on the common employer doctrine
+
+was rooted in the pleadings and was open to him to reach on the record. His finding
+
+that the pleaded facts could not satisfy the common employer test was a finding of
+
+mixed fact and law, which is entitled to deference on appeal: PMC York Properties
+
+Inc. v. Siudak, 2022 ONCA 635, 473 D.L.R. (4th) 136, at para. 29, leave to appeal
+
+refused, [2022] S.C.C.A. No. 407.
+
+[60]   The central question arising out of the O’Reilly analysis was framed by
+
+Zarnett J.A. as follows, at para. 65:
+
+             Whether the related corporations actually undertook to
+             perform those obligations is a question of contractual
+             formation – did the parties objectively act in a way that
+             shows they intended to be parties to an employment
+             contract with each other, on the terms alleged? Of central
+             relevance to that question is where effective control over
+             the employee resided.
+                                      Page: 22
+
+
+[61]   The appellant contends that while there may have been some variance
+
+among some of the DSPs in terms of size, structure, and even sophistication, the
+
+relationship that Amazon has with DAs, and the level of oversight and control that
+
+it exercises over them (largely through the common Flex App), did not materially
+
+vary. Even assuming these assertions as true, the motion judge found that the
+
+relationship between Amazon and the DSPs – with the former selling goods to its
+
+customers, and the latter delivering those goods to its customers – did not
+
+constitute an “integrated or seamless” group of companies operating together as
+
+one business. “They were not carrying on business together; they were doing their
+
+own respective businesses.” Again, these findings are entitled to deference.
+
+[62]   While the appellant seizes on the motion judge’s reference to “the evidence”
+
+before him in relation to his common employer findings as an indication that he
+
+failed to focus on the pleadings, the entirety of the impugned passage shows
+
+otherwise. The phrase the motion judge used was: “as pleaded (and as shown by
+
+the evidence on the certification motion and the stay motion)”. He had proper
+
+regard to the pleadings.
+
+[63]   While the motion judge could have been more precise in distinguishing the
+
+relevance of the record at the cause of action stage of the analysis (s. 5(1)(a)) and
+
+the common issues stage (s. 5(1)(c)), the motion judge properly instructed himself
+
+at the outset of his cause of action analysis under s. 5(1)(a), at para. 155, that:
+                                      Page: 23
+
+
+             In a proposed class proceeding, in determining whether
+             the pleading discloses a cause of action, no evidence is
+             admissible, and the material facts pleaded are accepted
+             as true, unless patently ridiculous or incapable of proof.
+             The pleading is read generously, and it will be
+             unsatisfactory only if it is plain, obvious, and beyond a
+             reasonable doubt that the plaintiff cannot succeed.
+
+[64]   As a corollary to the motion judge’s conclusion on the common employer
+
+issue, the motion judge also rejected the appellant’s argument that the use of the
+
+Flex App constituted a common issue. The motion judge concluded, at para. 240:
+
+             Indeed, Amazon has established that is no basis in fact
+             that the issue cannot be decided uniformly for the
+             putative Class members. The basis-in-fact evidence is
+             that while 57,000 putative Class members use the Flex
+             App, they can and do use it idiosyncratically and they are
+             directed to use it idiosyncratically by their particular DSP.
+             The basis-in-fact evidence is that some DAs behave
+             consistently and compliantly with the directives of the
+             Flex App, some DAs behave in ways that depart from the
+             directives of the Flex App, or in ways that may or may not
+             comply with their direct employer’s contractual
+             arrangement with Amazon. The basis-in-fact evidence is
+             the DSPs, who are the direct employers of the DAs
+             workers: (a) do not use the Flex App uniformly; (b) do not
+             manage the use of the Flex App uniformly; (c) do not
+             monitor the use of the Flex App uniformly, and (d) do not
+             administer the use of the Flex App uniformly. There is no
+             commonality.
+
+[65]   The motion judge reiterated that, at para. 243, “The case at bar is one in
+
+which there is no commonality as to whether Amazon is a common employer with
+
+126 logistics companies.”
+                                       Page: 24
+
+
+[66]   Again, I see no error with the motion judge’s analysis or conclusion on this
+
+question, and thus I would reject this ground of appeal.
+
+[67]   I would also add that the motion judge’s analysis on preferable procedure,
+
+the fourth criterion for certification, is unassailable. As he stated, at para. 280:
+
+             The ambitious action on behalf of the DAs is
+             unmanageable with or without the 126 logistics
+             companies being joined as co-defendants or as third
+             parties brought in by Amazon asserting claims for
+             contribution and indemnity. What Mr. Davis’s proposed
+             common employer cause of action attempts to hide is
+             that it is really 126 discrete proposed class actions that
+             have been joined together.
+
+[68]   Ultimately, the motion judge considered that whether the DA claims satisfied
+
+the preferable procedure criterion was moot because of the absence of a common
+
+issue. That said, the inability to satisfy this criterion is also fatal to the appellant’s
+
+position.
+
+DISPOSITION
+
+[69]   As a result of the motion judge’s finding that Amazon was not a common
+
+employer for the DA group within the class, and that the shared use of the Flex App
+
+could not constitute a common issue, the certification motion with respect to that
+
+group must fail. So too with the appellant's inability to satisfy the preferable
+
+procedure criterion. The fact that the motion judge stated that he would have
+
+conditionally certified a class action for the DPs is not relevant for this appeal.
+                                    Page: 25
+
+
+[70]   Accordingly, I would dismiss the appeal.
+
+[71]   The respondents are entitled to costs in the agreed upon amount of $50,000,
+
+all inclusive.
+
+Released: June 10, 2025 “S.E.P.”
+
+                                                                     “L. Sossin J.A.”
+                                                          “I agree. S.E. Pepall J.A.”
+                                                  “I agree. David M. Paciocco J.A.”
+

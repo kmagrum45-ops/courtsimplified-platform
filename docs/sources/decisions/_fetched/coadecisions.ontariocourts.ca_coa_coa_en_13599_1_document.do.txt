@@ -1,0 +1,2669 @@
+                    COURT OF APPEAL FOR ONTARIO
+
+                                   CITATION: Kempf v. Nguyen, 2015 ONCA 114
+                                                             DATE: 20150218
+                                                           DOCKET: C56989
+
+                        Laskin, Rouleau and Epstein JJ.A.
+
+BETWEEN
+
+      Rolf Kempf, Angela Kempf, Severin Kempf (a minor) and Raphael Kempf
+                (a minor) by their Litigation Guardian Angela Kempf
+
+
+                                                           Plaintiffs (Respondents)
+
+                                        and
+
+                                Thi Thanh Nguyen
+
+                                                              Defendant (Appellant)
+
+Tim Buckley and Douglas Smith, for the appellant
+
+Patrick J. Monaghan and Christine Matthews, for the respondents
+
+Heard: June 5, 2014
+
+On appeal from the judgment of Justice Darla A. Wilson of the Superior Court of
+Justice, dated April 5, 2013, with reasons reported at 2013 ONSC 1129 and 2013
+ONSC 1977.
+
+Epstein J.A.:
+
+INTRODUCTION
+
+[1]    On June 1, 2008, over 12,000 cyclists took to the Don Valley Parkway in
+
+Toronto for a charity bicycle ride to benefit the Heart and Stroke Foundation. As
+
+the ride progressed, two groups of cyclists formed at the front, with the first group
+                                     Page: 2
+
+
+slightly ahead of the second. The appellant, Thi Thanh Nguyen, was at the back
+
+of the first group. The respondent Rolf Kempf was at the front of the second
+
+group.
+
+[2]   Wanting to join the first group, Kempf approached Nguyen’s left side.
+
+Suddenly, Nguyen swerved to the left, clipping Kempf’s front wheel with his back
+
+wheel. Kempf fell and suffered serious injuries. Nguyen did not stop.
+
+[3]   In April 2009, Kempf sued Nguyen in negligence for damages arising from
+
+the accident. In his amended statement of defence, Nguyen pled, among other
+
+things, that Kempf had voluntarily assumed the risk of the ride (“volenti”) and that
+
+Kempf had himself been negligent.
+
+[4]   The trial commenced on February 4, 2013. The parties settled the issue of
+
+damages. The issue for trial was, therefore, the extent to which, if at all, Nguyen
+
+was liable for Kempf’s injuries.
+
+[5]   At the opening of trial, counsel for Kempf moved to strike the jury notice
+
+Nguyen had served in August 2009. The jury had already been selected. The
+
+trial judge struck the jury notice and discharged the jury.        The trial judge
+
+reasoned that the jury would be confused by the implications of a waiver Kempf
+
+had signed before entering the ride, particularly in the light of Nguyen’s plea that
+
+Kempf voluntarily assumed the risks of the ride.
+                                       Page: 3
+
+
+[6]   After a five-day trial, the trial judge found Nguyen responsible for Kempf’s
+
+injuries. In her reasons, the trial judge did not address Nguyen’s plea of
+
+contributory negligence. While she held, at para. 100 of her reasons for
+
+judgment, that Nguyen’s actions caused Kempf’s injuries, the trial judge at no
+
+point expressly indicated that she found Nguyen entirely at fault.
+
+[7]   On appeal, Nguyen does not contest the trial judge’s finding that he was
+
+negligent. He raises two substantive grounds. He submits that the trial judge
+
+erred in failing to apportion any liability against Kempf. Nguyen further submits
+
+that the trial judge erred in finding that the applicable standard of care was
+
+negligence as opposed to recklessness. Nguyen also raises a procedural
+
+ground. He argues that the trial judge erred in striking the jury notice.
+
+[8]   I would allow the appeal on the third ground. With respect, for the reasons
+
+that follow I am of the view that the trial judge based her decision to strike the
+
+jury upon a wrong or inapplicable principle of law. On this record and in the light
+
+of the issues raised by the parties, I would set aside the judgment and order a
+
+new trial on the issue of liability to be heard by a judge and a jury.
+
+BACKGROUND FACTS
+
+The Ride
+
+[9]   The ride was open to cyclists of all abilities. Participants could choose a
+
+25, 50 or 75 kilometer route. Nguyen and Kempf signed up for the 75 kilometer
+                                       Page: 4
+
+
+route. Much of the event took place on the Don Valley Parkway, a major arterial
+
+road in Toronto. The road was closed to motor vehicles for the event.
+
+[10] The ride was not a competitive event, at least formally. There were no
+
+prizes.   Nonetheless, many cyclists rode as fast as they could.         The entire
+
+roadway was open to the cyclists but due to the advantages of “drafting”,
+
+discussed in more detail below, the lead cyclists generally rode in packs. Inside
+
+the packs, riders roughly organized into lines, with one cyclist following
+
+immediately behind another. The front wheel of a cyclist would often be within a
+
+foot or less of the back wheel of the cyclist ahead. The packs were also tight
+
+lateral to the direction of travel such that a cyclist would be able to reach out and
+
+touch the rider on each side.
+
+[11] Nguyen and Kempf were fairly experienced cyclists. Each belonged to a
+
+cycling club and took part in cycling outings several times a week.       Both were
+
+familiar with the “rules” pertaining to cycling safely in a group, as communicated
+
+informally within their cycling groups. They did not know each other.
+
+[12] To participate in the ride, cyclists had to sign a document described as a
+
+waiver. Kempf and Nguyen signed the waiver. Because the waiver is central to
+
+this appeal, I set it out here in some detail:
+                        Page: 5
+
+
+THE BECEL HEART&STROKE RIDE FOR HEART
+WAIVER AGREEMENT, EVENT DAY JUNE 1, 2008
+
+Please Read Carefully Release Waiver and Indemnity:
+The Becel Ride for Heart I Agree:
+
+1)That all times during the Becel Heart&Stroke Ride for
+Heart my safety remains my sole responsibility and that
+I will observe all rules of the road; and
+
+                           ...
+
+4) That I am aware of the risks inherent in participating
+in the Becel Heart&Stroke Ride for Heart and assume
+all such risks.
+
+                           ...
+
+IN CONSIDERATION of the acceptance of my
+application and permission to participate as an entrant
+in the Becel Heart&Stroke Ride for Heart and post-event
+activities, I, for myself, my heirs, executors,
+administrators, successors and assigns, HEREBY
+RELEASE, WAIVE AND FOREVER DISCHARGE the
+Heart and Stroke Foundation of Ontario, Unilever
+Canada, PLH & Associates, The City of Toronto, The
+Toronto Police Services Board, The Toronto Police
+Service, The Members of the Toronto Police Service
+Auxiliary Program, the Chief of Police, the Toronto
+Transit Commission, Board of Governors of Exhibition
+Place, the Canadian National Exhibition Association,
+and all other associations, sanctioning bodies and
+sponsoring companies, and all their respective agents,
+officials, servants, claims, demands, damages, costs,
+expenses, actions and causes of action, whether in law
+or equity, in respect to death, injury, loss or damage to
+my person or property HOWSOEVER CAUSED, arising
+or to arise by reason of my participation in the said
+event, whether a spectator, participant, competitor or
+otherwise, whether prior to, during or subsequent to the
+event, AND NOTWITHSTANDING that any of the
+foregoing may have contributed to, or the injury or
+damage may have been occasioned by, the negligence
+                                     Page: 6
+
+
+            of any the foresaid. I FURTHER HEREBY
+            UNDERTAKE or HOLD AND SAVE HARMLESS and
+            AGREE TO INDEMNIFY all of the aforesaid from and
+            against any and all liability incurred by any or all of them
+            as a result of, or in any way connected with, my
+            participation in the said event.
+
+            BY SUBMITTING THIS ENTRY, I ACKNOWLEDGE
+            HAVING READ, UNDERSTOOD AND AGREED TO
+            THE ABOVE WAIVER, RELEASE AND INDEMNITY. I
+            WARRANT that I am physically fit to participate in this
+            event, and that my equipment is mechanically fit and
+            suitable for its intended use in the Becel Heart&Stroke
+            Ride for Heart.
+
+            Print Full Name of Participant:... [Emphasis in original.]
+
+[13] The facts recited thus far are not in dispute. But there were conflicting
+
+accounts about how the riders were organized, how fast they were travelling,
+
+and, most significantly, Nguyen’s and Kempf’s actions immediately before the
+
+accident and what motivated those actions. To determine liability, the trier of fact
+
+had to resolve these factual differences, consider the standard of care called for
+
+by the circumstances, and decide whether Nguyen, Kempf, or both, were
+
+negligent and to what extent.
+
+The Accident
+
+      Kempf’s Evidence
+
+[14] Just before the accident, Kempf was leading a group of about ten cyclists.
+
+He decided to join the group in front of him in order to take advantage of the draft
+
+provided by the lead cyclists. His plan was to move into a position to the left of a
+                                     Page: 7
+
+
+cyclist ahead of him. This cyclist was Nguyen. Kempf accelerated to close the
+
+gap between him and Nguyen. He got to a position where his front wheel was
+
+approximately 50 to 70 centimeters (about two feet) to the left of Nguyen’s rear
+
+wheel and overlapped Nguyen’s rear wheel. He was travelling approximately 20
+
+to 25 kilometers per hour (“kph”).
+
+[15] There was no evidence that Kempf shouted out to Nguyen of his intention
+
+to move in beside him or that Kempf indicated to Nguyen that he had moved into
+
+position beside him.
+
+[16] Nguyen suddenly moved roughly two feet to the left. Nguyen’s rear wheel
+
+struck Kempf’s front wheel. Kempf tried but was unable to avoid the contact: it
+
+happened in a “split second”.
+
+[17]   As a result of the collision, Kempf was thrown into the air and landed on
+
+the ground. Other cyclists rode over him and crashed as well.
+
+[18] Nguyen did not stop after the impact of the two bicycles.       Kempf later
+
+identified Nguyen as the rider who collided with him by looking through pictures
+
+of the ride posted online.
+
+       Nguyen’s Evidence
+
+[19] Just prior to the accident, Nguyen was travelling in the lead group of the
+
+ride at about 30 to 35 kph. He was drafting off of a line of four to five cyclists
+
+directly ahead. Nguyen’s front wheel was about one foot behind the back wheel
+                                      Page: 8
+
+
+of the cyclist in front of him. There was another cyclist to his left riding parallel
+
+with him; their shoulders were roughly one foot apart.
+
+[20] The rider two ahead of Nguyen suddenly slowed down. This caused the
+
+rider directly ahead of Nguyen to take the evasive measure of decelerating and
+
+swerving to the right. Nguyen was not forewarned of these actions and had no
+
+time to consider alternative courses of action. To avoid impact with the riders
+
+ahead he moved approximately half a foot, possibly two feet, to his left. Nguyen
+
+acknowledged that he could have veered to the right. He had no time to shout
+
+out a warning.
+
+[21] He was not aware there was someone moving up behind him on his left. He
+
+did not recall standing up in his pedals: he said it was unlikely that he did.
+
+[22] In cross-examination, Nguyen admitted that his sudden movement to the
+
+left was not one he would ordinarily make in a group ride.
+
+[23] Immediately after swerving to the left, Nguyen heard a crash behind him.
+
+Nguyen did not look back as he was concentrating on the rider in front of him.
+
+Unaware of his involvement in what had just happened, Nguyen carried on with
+
+the ride.
+
+      Eyewitness Evidence
+
+[24] Jason Walter was a friend of Kempf and belonged to the same cycling club
+
+as Nguyen. Just before the accident, Walter was behind and to the right of
+                                     Page: 9
+
+
+Kempf, approximately six to ten feet away, on a diagonal.           During cross-
+
+examination, however, Walter admitted that he may have been as many as three
+
+bicycles back from Kempf. He saw the accident take place and recognized that
+
+both Kempf and Nguyen were involved.
+
+[25] Walter testified that just before the accident Nguyen was directly ahead of
+
+Kempf. Walter saw Nguyen stand up on his pedals. Nguyen’s bicycle slowed
+
+when he stood up, Kempf’s front wheel came up to overlap with Nguyen’s back
+
+wheel and then Nguyen’s bike swung out to the left. The rear wheel of Nguyen’s
+
+bicycle clipped the front wheel of Kempf’s bicycle. Walter agreed that the wheel
+
+contact was so slight that Nguyen might not have noticed it.   Kempf went down.
+
+Walter had to take evasive action to avoid the pile-up of riders that resulted from
+
+the collision between Kempf and Nguyen. Walter stopped and saw Kempf was
+
+injured. Everything happened in a matter of seconds. Walter did not see what, if
+
+anything, had happened in front of Nguyen.
+
+[26] Craig Tyndall belonged to the same cycling club as Kempf. Just prior to the
+
+accident, Tyndall was riding immediately behind Kempf – travelling at
+
+approximately 38 kph. Nguyen was ahead of Kempf and to the right. Tyndall saw
+
+Nguyen swerve. Tyndall did not see anyone ahead of Nguyen swerve. Kempf
+
+tried to avoid Nguyen but went down. Tyndall crashed as he was directly behind
+
+Kempf.
+                                      Page: 10
+
+
+      Evidence of other Ride Participants
+
+[27] A number of other participants in the ride gave evidence relating to what, if
+
+anything, they witnessed in relation to the collision.
+
+[28] Gilles Uguen belonged to the same cycling club as Kempf. He was riding
+
+close to the front of the lead group of riders. The group was in a pack with
+
+several lines of riders drafting off of one another. In the moments before the
+
+accident, Uguen did not notice anything unusual in the pack. The pack was
+
+travelling at least 40 kph. Uguen heard a crash and turned to look behind him.
+
+He saw Kempf lying on the ground and stopped to check on him.
+
+[29] Herschel Fogelman also belonged to the same cycling club as Kempf. He
+
+was in the middle of the lead group and was travelling about 35 to 40 kph. He
+
+described the group as “[m]ore pack than pace-line”. Just prior to the accident,
+
+Fogelman did not observe any riders in the lead group slow down or bunch up.
+
+He did not see the accident, but heard the crash behind him. He did not stop.
+
+He said to the cyclist beside him that he hoped that he had not caused the crash,
+
+although he had no reason to think that he did.
+
+      Expert Evidence
+
+[30] Andrew Randell testified on behalf of Nguyen as an expert in the area of
+
+cycling and the proper conduct of cyclists participating in a group ride.
+                                     Page: 11
+
+
+[31] Randell defined the terms half-wheeling, drafting, and pace-line.          Half-
+
+wheeling occurs when the front wheel of a cyclist overlaps with the back wheel of
+
+the cyclist in front of him. Drafting, integral to group riding, involves the front
+
+rider’s blocking the wind for the riders directly behind him so they can keep pace
+
+while saving energy. By sharing the time spent at the front, a line of cyclists can
+
+go faster than a single cyclist. A pace-line is a highly organized group of cyclists
+
+in which two lines of cyclists rotate to maximize their speed and to shelter one
+
+another from the wind.
+
+[32] While Randell’s evidence was somewhat unclear as to whether overlapping
+
+wheels for a short period of time amounted to half-wheeling or whether the term
+
+applies only to overlapping for a more extended period of time, he did testify that
+
+overlapping wheels for any period of time is “bad” because of the increased risk
+
+that the wheels of the two bicycles will touch – a major cause of crashes in
+
+cycling events.
+
+[33] Randell testified that riders must keep a safe distance between themselves
+
+and all other riders: a safe distance is one foot behind the cyclist to the front and
+
+one foot and a half to two feet, as measured from the shoulders, from the cyclist
+
+to the side. There should be no sudden movements. Signalling potholes and
+
+turns is a normal part of group rides and is usually done vocally. A rider has a
+
+responsibility to the group to conduct himself or herself in a safe manner.
+                                      Page: 12
+
+
+[34] Randell expressed the view that if a rider were confronted with a situation
+
+where the cyclist directly in front swerved to the right in response to riders’ further
+
+ahead suddenly slowing down, it would not be improper for the rider to try to
+
+avoid a collision by turning to the left, without signaling. This would be true even
+
+if there were cyclists to the rider’s left. In such a case the rider would have to act
+
+very quickly, almost without thinking.
+
+[35] Randell was asked about Kempf’s testimony that just prior to the accident
+
+his front wheel was approximately two feet to the left of Nguyen’s back wheel.
+
+Randell responded by saying:
+
+             Looking at the scenario, I think perhaps “error” is a
+             better word than “unreasonable”. Mr. Kempf is looking
+             to come in – to move in beside Mr. Nguyen to take up
+             his position in the group. It’s perfectly reasonable. He
+             comes in very tightly. That distance at which he’s
+             coming in next to Mr. Nguyen is very tight.... [T]he
+             bicycles aren’t on rails at a consistent distance from one
+             another, there’s movement constantly in the group. So
+             that’s a very tight movement to be making next to Mr.
+             Nguyen at speed as you’re coming up fast next to him.
+             So that’s where I see, you know, an unreasonable
+             closeness that – I don’t see as being particularly
+             necessary.
+
+[36] In cross-examination, Randell agreed that it would be normal for Nguyen to
+
+anticipate that a rider might come in and fill the position to his left and that there
+
+would be some overlapping of wheels as a result. Randell also agreed that if
+
+Nguyen was travelling 30 to 35 kph and suddenly, without warning, and for no
+
+apparent reason, moved over two feet and collided with Kempf’s bicycle, such an
+                                     Page: 13
+
+
+action on Nguyen’s part would constitute a breach of the rules governing group
+
+rides, would be careless and would jeopardize the group’s safety.
+
+THE MOTION TO STRIKE THE JURY NOTICE
+
+[37] On consent, Nguyen amended his statement of defence prior to the
+
+opening of trial. Kempf then moved to strike the jury notice on the basis that
+
+these amendments - namely, pleading the defence of volenti - changed the
+
+nature of the case to one in which Nguyen was seeking a declaration,
+
+disqualifying the action from being tried by a jury under the Courts of Justice Act,
+
+R.S.O. 1990, c. C.43, s. 108(2). Kempf also argued that even if volenti was
+
+reserved to the trial judge, he would nonetheless be prejudiced if the jury was not
+
+struck as the jury would be unable to understand the limited use they could make
+
+of the waiver.
+
+[38] Nguyen argued that raising the defence of volenti did not amount to a claim
+
+for declaratory relief. He also argued that the waiver was relevant to the inherent
+
+risks of the ride and whether there was contributory negligence. An appropriate
+
+charge could provide the jury with the necessary tools to understand the manner
+
+in which the waiver could be used in their determination of liability. Nguyen also
+
+took the position that the motion to strike was premature and could be renewed if
+
+problems arose during the trial.
+                                     Page: 14
+
+
+The Trial Judge’s Reasons for Striking the Jury Notice
+
+[39] The trial judge’s analysis in support of her decision to strike the jury notice
+
+and discharge the jury are set out in paras. 18-23 of the motion reasons:
+
+            [18] The jury will be asked to determine fault for the
+            accident. The waiver will be an exhibit and witnesses
+            will necessarily be questioned and cross examined on
+            the document. In my view, there is a real danger that
+            the jury, in answering the liability questions, will be
+            confused by the contents of the waiver or perhaps use it
+            inappropriately in their deliberations. For example, after
+            reading the waiver, the jury could erroneously conclude
+            that because it states that [Kempf] releases others from
+            any liability associated with the Ride, that he has no
+            right to bring this lawsuit. To put it another way,
+            because the waiver states that [Kempf] will release all
+            others from “all liability” arising from his participation in
+            the Ride, there is a concern that the jury will misinterpret
+            that document and conclude on the basis of the wording
+            of the release that there could be no liability imposed on
+            anyone, regardless of the findings of fact.
+
+            [19] There is an additional concern. [Nguyen] has
+            pleaded the volenti defence, which, if successful,
+            precludes any recovery by [Kempf]. As Justice Wilson
+            stated in Crocker v. Sundance Northwest Resorts Ltd.,
+            [1988] 1 SCR 1186, “Since the volenti defence is a
+            complete bar to recovery and therefore anomalous in an
+            age of apportionment, the courts have tightly
+            circumscribed its scope. It only applies in situations
+            where the Plaintiff has assumed both the physical and
+            the legal risk involved in the activity.”
+
+            [20] To be successful, [Nguyen] must demonstrate that
+            [Kempf] willingly assumed a risk that was fully
+            understood and agreed to give up any cause of action.
+            Thus, counsel must of necessity ask [Kempf] questions
+            about what his understanding was when he signed the
+            waiver and what he was agreeing to, what rights he was
+                         Page: 15
+
+
+giving up. [Kempf] and other witnesses will be asked
+about the waiver, which will be an exhibit at the trial.
+
+[21] While I agree the determination of the application
+of volenti is a function for the Court, in my opinion, the
+evidence necessary to put that defence forward will be
+confusing to the jury whose duty it is to determine the
+question of liability. There must be evidence about the
+signing of the waiver and I agree with the submissions
+of the solicitor for [Kempf] that the jury will have to
+consider the effect of the waiver and this is an issue of
+law. In addition, it will be difficult, if not impossible, for
+the jury to only use the waiver for a narrow purpose, as
+suggested by the solicitor for [Nguyen].
+
+[22] The case before me can be distinguished from
+Harrison v. Antonopoulos, [2002] O.J. No. 4890 [(S.C.)]
+relied on by the solicitor for [Nguyen]. In that case, the
+jury was being asked to find as a fact whether the
+Plaintiff was continuously disabled within the meaning of
+an insurance policy. While the Plaintiff sought a
+declaration from the Court about entitlement to future
+benefits, I agree with the reasoning of Lang J. that the
+jury was not being asked to make a finding of
+declaratory relief in the sense that the term is used in
+section 108(2) of the Courts of Justice Act. Rather, they
+were being asked to make a finding of fact concerning
+disability based on the evidence.
+
+[23] In the case before me, the issue of the waiver must
+be thoroughly canvassed at trial in order to enable the
+defence of volenti to be argued.          The waiver is
+inextricably bound up in the liability issue and the jury
+would not be able to ignore it and the evidence
+surrounding it during their deliberations and this would
+be inappropriate, given the jury’s function. They are to
+determine the issue of liability, not to interpret the
+waiver and its effect. While I appreciate counsel would
+be careful in questions about the waiver, that does not
+change the fact that in my view, this case involves “in
+pith and substance” to borrow a phrase from Justice
+Howden in MacNeil (Litigation Guardian of) v. Bryan,
+                                               Page: 16
+
+
+                [2009] O.J. No. 2344 [(S.C.)] declaratory relief which is
+                not to be determined by a jury.
+
+[40] In addition, at para. 24 of the motion reasons, the trial judge rejected
+
+Nguyen’s suggestion that she adopt a wait-and-see approach.1 She accepted
+
+that if complexity was the problem, it may make sense to hear at least some of
+
+the evidence before deciding whether to strike the jury notice. However, the trial
+
+judge identified the basis of the motion as being “the concern that in order to
+
+determine the issue of liability, given the pleading of volenti, the jury will
+
+necessarily hear the evidence about the waiver.” She went on to find that “[e]ven
+
+with a strong charge that instructs the jury on the proper use to make of the
+
+waiver evidence”, it would be “impossible” for the jury to use it for the narrow
+
+purposes relevant to determining liability. She concluded, in the same paragraph,
+
+as follows:
+
+                I do not need to hear evidence to make the
+                determination as to whether or not it is proper for the
+                case to be heard by the jury given that the volenti
+                defence is being put forward. I am satisfied that in all of
+                the circumstances, justice is better served by dismissing
+                the jury at this juncture.
+
+
+
+
+1
+  Nguyen abandoned the volenti plea, and further amended his statement of defence, at the opening of
+the case for the defence. In fairness to the trial judge, as the volenti plea was not abandoned until after
+Kempf was cross-examined on the waiver, adopting a wait-and-see approach would not have eliminated
+all of her concerns about whether trial by jury was appropriate.
+                                      Page: 17
+
+
+Applicable Legal Principles
+
+[41] The right to a trial by jury in civil actions is set out in s. 108(1) of the Courts
+
+of Justice Act:
+
+             In an action in the Superior Court of Justice that is not in
+             the Small Claims Court, a party may require that the
+             issues of fact be tried or the damages assessed, or
+             both, by a jury, unless otherwise provided.
+
+[42] Section 108(2) contains a list of claims for relief that cannot be tried by a
+
+jury. Declaratory relief is one such claim.
+
+[43] In the majority reasons in Cowles v. Balac (2006), 83 O.R. (3d) 660 (C.A.),
+
+leave to appeal to S.C.C. refused, [2006] S.C.C.A. No. 496, O’Connor A.C.J.O.
+
+set out a comprehensive list of principles governing striking out a jury notice and
+
+appellate review of such a decision, as paraphrased here:
+
+     1.   The right to a trial by jury in a civil case is a substantive right and
+          should not be interfered with without just cause or cogent reasons
+          (at para. 36). See also King v. Colonial Homes Ltd., [1956] S.C.R.
+          528, at p. 533: “the right to trial by jury is a substantive right of
+          great importance of which a party ought not to be deprived except
+          for cogent reasons”.
+
+     2.   A party moving to strike the jury bears the onus of showing that
+          there are features in the legal or factual issues to be resolved, in
+          the evidence or in the conduct of the trial, that merit the discharge
+          of the jury. The overriding test is whether the moving party has
+          shown that justice to the parties will be better served by the
+          discharge of the jury (at para. 37).
+
+     3.   Appellate review of a trial court’s exercise of its discretion to
+          dispense with a jury is limited. The reviewing court can only
+          intervene if the appellant can show that the discretion was
+          exercised arbitrarily or capriciously or was based on a wrong or
+                                 Page: 18
+
+
+     inapplicable principle of law (at para. 40). See also Kostopoulos v.
+     Jesshope (1985), 50 O.R. (2d) 54 (C.A.), at p. 69, leave to appeal
+     to S.C.C. refused, [1985] S.C.C.A. No. 93. Put another way, the
+     appellate court should inquire into whether there was a
+     reasonable basis for the trial judge’s exercise of discretion. If not,
+     the trial judge will have made a reversible error (at para. 52).
+
+4.   The reviewing court should not interfere with the trial judge’s
+     exercise of discretion simply because it disagrees with the
+     conclusion reached. Put another way, an appeal court should not
+     merely pay lip service to the concept of deference and then
+     proceed to substitute its own view as to what the proper result
+     should be (at para. 42). In many situations, the trial judge’s
+     discretion may, with equal propriety, be exercised for or against
+     discharging the jury (at para. 91). See also Graham v. Rourke
+     (1990), 75 O.R. (2d) 622 (C.A.), at p. 625.
+
+5.   The complexity of a case is a proper consideration in determining
+     whether a jury notice should be struck. Complexity relates not only
+     to the facts and the evidence, but also to the legal principles that
+     apply to the case. Where one draws the line as to when a
+     particular case would be better heard by a judge sitting alone is far
+     from an exact science (at paras. 48-49).
+
+6.   While it is true that juries decide very long and complex criminal
+     matters, the comparison is not particularly helpful. Accused
+     persons in criminal trials have an absolute right to be tried by a
+     jury when charged with specified offences, even if a judge is of the
+     view that a jury trial is not the best way to achieve justice. The
+     same is not true for civil cases (at para. 58).
+
+7.   It is reversible error for a trial judge to strike a jury notice on the
+     basis that it would be difficult for her to explain the law to the jury.
+     Trial judges are presumed to know the law and to be able to
+     explain it to a jury (at para. 63). See also Hunt (Litigation Guardian
+     of) v. Sutton Group Incentive Realty Inc. (2002), 60 O.R. (3d) 665
+     (C.A.), at para. 70.
+
+8.   In some cases, it is preferable to take a “wait and see” approach
+     before deciding whether to discharge the jury. Experience has
+     shown that in many instances the anticipated complexities of a
+     case or other concerns do not materialize or at least not to the
+     extent originally asserted. By “waiting and seeing”, courts are
+                                        Page: 19
+
+
+              better able to protect the substantive right of the party who wants
+              a jury trial and to only dismiss the jury when it becomes necessary
+              (at para. 70).
+
+      9.      While in many cases the “wait and see” approach is the most
+              prudent course to follow, it is not a rule of law. The Courts of
+              Justice Act and the Rules of Civil Procedure, R.R.O. 1990, Reg.
+              194, contemplate that a judge may strike a jury notice even before
+              a trial has begun (at paras. 71-72).
+
+      10. If the reviewing court concludes that the trial judge erred in striking
+          the jury notice, the merits of the action must be considered (at
+          para. 92). As stated in King, at p. 533, a new trial is not warranted
+          “if the court were also satisfied that any jury acting reasonably
+          must inevitably have reached the same result as did the trial
+          judge.”
+
+[44] While several of these principles speak to the considerable discretion that is
+
+vested in the trial judge when deciding whether to strike a jury notice and the
+
+limited appellate review of the exercise of that discretion, cases such as Hunt
+
+and Brady v. Lamb (2005), 78 O.R. (3d) 680 (C.A.), illustrate that this court will
+
+order a new trial when it has found that a trial judge has exercised that discretion
+
+arbitrarily or based on improper principles so as to enforce the statutory right to a
+
+jury trial.
+
+ANALYSIS
+
+[45] The record indicates that Kempf advanced two independent arguments in
+
+support of his motion to strike the jury – one relating to the declaratory nature of
+
+volenti and the second relating to the complexity introduced by the waiver.
+                                      Page: 20
+
+
+[46] While I find the trial judge’s reasons for striking the jury somewhat unclear,
+
+my interpretation of them is that her primary concern was that, even with proper
+
+instructions, the jury would not be able to understand the limited use they could,
+
+in law, make of the waiver. She was also concerned that the plea of volenti
+
+involved a claim for declaratory relief, a matter precluded from being determined
+
+by a jury. She viewed the relevance of the waiver and the plea of volenti as
+
+being inextricably linked.
+
+[47] The trial judge’s motion reasons do not reflect an arbitrary or capricious
+
+exercise of judicial discretion. The issue is whether she erred by basing her
+
+decision to strike the jury notice upon wrong or inapplicable principles of law. For
+
+the following reasons, I am of the view that the trial judge did so err.
+
+The Volenti Issue
+
+[48] The trial judge’s concern about Nguyen’s plea of volenti is apparent in
+
+statements she made in her reasons when considering the volenti issue. At
+
+paras. 23-24, she commented, in reference to that issue, that “this case involves
+
+‘in pith and substance’ ... declaratory relief” and “I do not need to hear evidence
+
+to make the determination as to whether or not it is proper for the case to be
+
+heard by the jury given that the volenti defence is being put forward.”
+
+[49] Volenti, however, is not a claim for declaratory relief: it is a full defence to a
+
+finding of negligence. In Dube v. Labar, [1986] 1 S.C.R. 649, at p. 658, writing for
+                                       Page: 21
+
+
+the majority, Estey J. endorsed the following description of the volenti defence
+
+from the court’s earlier decision in Stein v. Lehnert, [1963] S.C.R. 38:
+
+             [W]here a driver of a motor vehicle invokes the maxim
+             volenti non fit injuria as a defence to an action for
+             damages for injuries caused by his negligence to a
+             passenger, the burden lies upon the defendant of
+             proving that the plaintiff, expressly or by necessary
+             implication, agreed to exempt the defendant from
+             liability for any damage suffered by the plaintiff
+             occasioned by that negligence...
+
+[50] In Allen M. Linden and Bruce Feldthusen, Canadian Tort Law, 9th ed.
+
+(Markham, Ontario: LexisNexis Canada, 2011), the authors state, at p. 520,
+
+“[V]olenti is a question of fact normally decided by the jury”.
+
+[51] On the basis of this analysis, to the extent that the trial judge’s decision to
+
+strike the jury was based on the plea of volenti, I am of the view that she erred.
+
+The Waiver Issue
+
+[52] It was the trial judge’s duty to determine the applicable legal principles,
+
+including the ways in which the waiver might be relevant to liability, and instruct
+
+the jury with respect to these principles: Hunt, at paras. 70-72.
+
+[53] According to Nguyen’s counsel, the waiver was relevant to the assumption
+
+of risk and contributory negligence.
+
+[54] As previously indicated, the trial judge struck the jury primarily on the basis
+
+of her apprehension that the jury would not be able to understand the limited use
+                                       Page: 22
+
+
+they could make of the waiver. The trial judge expressed her view that it would
+
+be “difficult, if not impossible, for the jury to only use the waiver for a narrow
+
+purpose, as suggested by the solicitor for [Nguyen].” She was concerned that
+
+the jury would misinterpret the document and conclude that it released everyone
+
+involved in the ride, including other cyclists, of any liability. Significantly, in para.
+
+24, the trial judge said that “[e]ven with a strong charge that instructs the jury on
+
+the proper use to make of the waiver evidence … it would be impossible for the
+
+jury to use the evidence … in only a very narrow fashion and to ignore the rest of
+
+the evidence about it.”
+
+[55] In R. v. Corbett, [1988] 1 S.C.R. 670, at p. 692, Dickson C.J. cautioned: “In
+
+my view, it would be quite wrong to make too much of the risk that the jury might
+
+use the evidence for an improper purpose” (emphasis in original). This principle
+
+extends to civil juries: Hamstra (Guardian ad litem of) v. British Columbia Rugby
+
+Union, [1997] 1 S.C.R. 1092, at para. 15. This court has made it clear that
+
+discharging the jury on the basis that it would be too difficult to explain the law is
+
+reversible error: Hunt, at paras. 70-72; Cowles, at para. 63.
+
+[56] In my view, the trial judge erred in taking this position. With respect, as
+
+discussed, it was the trial judge’s duty to determine the legal principles to be
+
+applied and instruct the jury in accordance with these principles.
+                                     Page: 23
+
+
+[57] While perhaps awkwardly worded, this particular contract is not a
+
+complicated or lengthy document. By signing the waiver, the participants agreed
+
+that they would follow the rules of the road, they were responsible for their own
+
+safety, they were riding at their own risk, they were physically fit and their
+
+bicycles were mechanically fit.     By signing the waiver, the participants also
+
+agreed to absolve the ride organizers and related organizations of liability for any
+
+injuries or damages suffered. I note that in interpreting the waiver, at para. 108 of
+
+her reasons for judgment, the trial judge did not find it necessary to resort to any
+
+principles of contractual interpretation or otherwise labour over its meaning. She
+
+did not identify any ambiguity. In one short paragraph of her judgment, the trial
+
+judge analyzes the waiver and finds that it “does not release other participants ...
+
+including damages occasioned by the negligence of a participant or other
+
+competitor” (para. 108). I view this interpretation, as the trial judge apparently
+
+did, as clear.
+
+[58] The limited application of the waiver is hardly beyond the ken of members
+
+of a jury. I cannot see how a properly instructed jury would have difficulty
+
+understanding that the document was not a bar to Kempf’s action. The waiver is
+
+a contract between the participants and the ride organizers. It is not a contract
+
+between Kempf and Nguyen, nor does it contain any terms that release other
+
+ride participants from liability for their negligence. In any event, civil juries in
+
+Ontario are able to decide issues involving contracts: see e.g., Wadhwani v.
+                                     Page: 24
+
+
+State Farm Mutual Automobile Insurance Co., 2013 ONCA 662, 2013
+
+CarswellOnt 15078, at para. 2; Barlow v. Citadel General Assurance Co., 2009
+
+ONCA 106, 94 O.R. (3d) 399, at para. 1.
+
+[59] This is, as counsel for Kempf described it in oral argument, a rather simple
+
+personal injury action. There was a collision between two cyclists. Sadly, one
+
+was seriously injured. To determine liability the jury would have to sift through the
+
+often conflicting evidence, make findings of fact and apply the law as explained
+
+to them by the trial judge. This is what juries do every day.
+
+[60] In addition to the wisdom of their collective life experience, a jury would
+
+bring to this action, as juries always do, a reflection of societal values. As Binnie
+
+J. wrote for the majority in Whiten v. Pilot Insurance Co., 2002 SCC 18, [2002] 1
+
+S.C.R. 595, at para. 136, “One of the strengths of the jury system is that it keeps
+
+the law in touch with evolving realities, including financial realities.” In my view,
+
+this is an appropriate proceeding for a jury to apply “a healthy measure of
+
+common sense”, as prescribed by Dickson C.J. in Corbett, at p. 692, in order to
+
+make findings of fact and determine liability for the accident.
+
+[61] In summary, this is not a case where the trial judge, in the exercise of her
+
+discretion, strikes the jury on the ground that the evidence was too technical or
+
+complex for the jury to make a proper assessment of liability. It was decided
+                                                  Page: 25
+
+
+primarily on the basis that the jury members would be incapable of understanding
+
+the legal effect of the waiver, even after careful instruction.
+
+[62] In my opinion, she erred in this regard.
+
+The Wait and See Issue
+
+[63]      The trial judge reasoned that a “wait and see” approach might have been
+
+appropriate if the problem was one of complexity. Here, however, because the
+
+issue was not complexity, but rather the waiver and volenti, the trial judge’s
+
+concerns would not be attenuated if a wait and see approach were taken.
+
+[64]      I disagree. In my view, it would have been preferable for the trial judge to
+
+have reserved her decision on the motion until after the evidence had been
+
+completed, as Nguyen’s counsel urged her to do, or, perhaps, until a discrete
+
+problem arose. As the cases emphasize, the “wait and see” approach is
+
+generally preferred. I say so for two reasons. From a practical perspective, often
+
+the anticipated complexities of a case or other concerns giving rise to the motion
+
+to dismiss a jury do not materialize.2 From a principled perspective, the right to a
+
+jury trial is a fundamental, substantive right that should not be interfered with
+
+except for very cogent reasons: Cowles, at para. 70.
+
+
+
+
+2
+    Here, arguably, it did not materialize given the withdrawal of the volenti defence.
+                                        Page: 26
+
+
+[65]   In my view, the “wait and see” approach would have been preferable, but
+
+taking such an approach is not a rule of law. For this reason, I would not deal
+
+further with this issue.
+
+The Conclusion
+
+[66] I do not doubt that the trial judge’s decision to strike the jury notice and
+
+discharge the jury was motivated by her interest in ensuring the parties received
+
+a fair trial.    However, I see nothing in this case – the issues, evidence or
+
+applicable law – that supports the conclusion that a jury, properly instructed,
+
+could not do justice to the parties. I am satisfied that the trial judge’s ruling
+
+reveals errors that require this court’s intervention.
+
+The Remedy
+
+[67] My conclusion that the trial judge erred in striking the jury notice and
+
+discharging the jury begs the question of whether a new trial should be ordered.
+
+The question calls for the application of the test articulated by the Supreme Court
+
+in King, at p. 533:
+
+                This Court has more than once affirmed that the right to
+                trial by jury is a substantive right of great importance of
+                which a party ought not to be deprived except for cogent
+                reasons; but I cannot think that a new trial should be
+                directed by reason of a trial judge deciding to discharge
+                the jury and complete the trial himself, even if the
+                appellate court was satisfied that the course followed by
+                the trial judge was wrong in law, if the court were also
+                satisfied that any jury acting reasonably must inevitably
+                                     Page: 27
+
+
+             have reached the same result as did the trial judge.
+             [Emphasis added.]
+
+[68] I am not satisfied that, in this action, any jury acting reasonably would
+
+inevitably reach the same result as the trial judge. In my view, there are at least
+
+three ways in which a jury acting reasonably could part ways with the trial judge.
+
+[69] First, the trial judge, in her reasons for judgment, makes no reference to
+
+contributory negligence – a defence that Nguyen pleaded and that was argued
+
+by both counsel in their closing submissions.
+
+[70] The trial judge should have addressed this issue. There was evidence
+
+capable of supporting a finding of contributory negligence, including Kempf’s
+
+evidence that he failed to warn Nguyen that he was approaching from behind;
+
+Randell’s evidence that Kempf came unnecessarily close to Nguyen; and the
+
+evidence that, at the time of the collision, Kempf was half-wheeling. The last
+
+point is of particular significance given the undisputed evidence concerning the
+
+inherent danger associated with half-wheeling, even if just briefly.
+
+[71] Second, despite the trial judge’s reasons for preferring Kempf’s evidence
+
+over Nguyen’s, it would be open to a jury to assess credibility differently.
+
+Nguyen, Kempf and Walter, gave differing versions of what took place at the time
+
+of the accident. This is understandable in the light of the circumstances; namely,
+
+cyclists, in a pack, travelling at high speeds, focusing on the rapidly changing
+
+dynamics around them.
+                                     Page: 28
+
+
+[72] Third, in deciding negligence and possibly apportioning it, a jury acting
+
+reasonably could take a different approach to the standard of care than the trial
+
+judge. The trial judgment focuses on whether Nguyen broke the “rules” of a
+
+group ride, but it would be open to a jury acting reasonably to reject the “rules” as
+
+a de facto standard of care. The evidence was that the ride was a charity event
+
+open to all participants. It was not a professional cycling event or one restricted
+
+to members of a cycling club. It would not necessarily be reasonable for Kempf
+
+or Nguyen to expect that the “rules” would be known to other participants and to
+
+rely on their adherence by other riders. In addition, Kempf and Nguyen were part
+
+of a group of predominantly recreational cyclists, separated by inches, hurtling
+
+along a public roadway at speeds of up to 40 kph. Whether either party’s acts or
+
+omissions breached the standard of care in these circumstances was an open
+
+question.
+
+[73] I am satisfied that there is evidence upon which a jury properly instructed
+
+and acting reasonably could come to a different conclusion than that reached by
+
+the trial judge. While ordering a new trial is to be avoided where possible, I am of
+
+the view that, in these circumstances, a new trial is necessary.
+
+OTHER ISSUES RAISED IN THIS APPEAL
+
+[74] Nguyen raises the following additional issues on appeal:
+
+     (1) Did the trial judge err in failing to consider contributory
+         negligence?
+                                       Page: 29
+
+
+     (2) Did the trial judge err in finding that the applicable standard of
+         care is simple negligence, rather than recklessness?
+
+[75] In my view, it is not appropriate to deal with these issues.
+
+[76] First, a new trial is a complete response to the argument that the trial judge
+
+erred by failing to address contributory negligence in her reasons.
+
+[77] Second, the applicable standard of care issue is best left to be considered
+
+in the context of the new trial, informed, as it should be, by the particular facts of
+
+the case.
+
+DISPOSITION
+
+[78] Given I have concluded that the trial judge’s decision to strike the jury
+
+notice was based on errors in principle and that a jury would not necessarily have
+
+arrived at the same result as the trial judge, I would allow the appeal, set aside
+
+the decision below and direct a new trial, limited to the issue of liability, before a
+
+judge and jury.
+
+[79] Pursuant to the agreement of counsel, I would award costs of the appeal in
+
+favour of Nguyen fixed in the amount of $17,500, all inclusive. I would also abide
+
+by the position taken by counsel that they will attempt to agree upon the trial
+
+costs, failing which they will return to the trial judge for resolution of that issue.
+
+
+
+                                         “Gloria Epstein J.A.”
+                                         “I agree Paul Rouleau J.A.”
+Laskin J.A. (dissenting):
+
+
+[80]   I have read the reasons of my colleague Epstein J.A. I do not agree with
+
+her conclusion that the trial judge erred by striking the jury notice and discharging
+
+the jury, and I do not agree with her proposed order of a new trial.
+
+[81]   In my opinion, the trial judge did not err in exercising her discretion to
+
+discharge the jury. And even if she did, a new trial is not called for because any
+
+jury acting reasonably would have reached the same result as she did: they
+
+would have found Nguyen liable for Kempf’s injuries. Also, I do not agree with
+
+Nguyen’s other two grounds of appeal, on the standard of care and contributory
+
+negligence. I would therefore dismiss his appeal.
+
+A.     OVERVIEW
+
+     (a) What this case is about
+
+[82]   Epstein J.A. has reviewed the evidence in detail. Here, I summarize the
+
+important facts.
+
+[83]   Both Kempf and Nguyen were experienced cyclists. Each was a member
+
+of a cycling club and each had participated in many group rides. On June 1,
+
+2008, Kempf and Nguyen participated in a 75 km charity bike ride to raise money
+
+for the Heart and Stroke Foundation. The ride took place mostly on Toronto’s
+
+Don Valley Parkway, which was closed to vehicular traffic for the event.
+                                              Page: 31
+
+
+
+
+[84]    There are three basic rules of the road for cyclists on a group ride: keep
+
+your line; keep your pace; do not make an unannounced sudden movement. All
+
+cyclists understand these rules. Indeed, they are a matter of common sense.3
+
+Nguyen broke all three rules, and his doing so caused the collision that resulted
+
+in Kempf’s injuries.
+
+[85]    Just before the collision, Nguyen was the last cyclist in a group of cyclists
+
+slightly ahead of another group led by Kempf. Kempf decided to join Nguyen’s
+
+group to gain the benefit of the “draft” – a well-known and well-accepted practice
+
+in which the lead cyclist in a group breaks the wind so that the cyclists close
+
+behind do not have to expend as much energy.
+
+[86]    Kempf moved up to the left of Nguyen, their bikes about 50 to 70 cm (or
+
+about two feet) apart. As Kempf’s front wheel pulled even with Nguyen’s rear
+
+wheel, Nguyen slowed slightly, stood up on his pedals and suddenly, without
+
+giving any signal and for no discernible reason, swung his bike sharply to the left,
+
+striking the front wheel of Kempf’s bike. Kempf was thrown to the ground, and
+
+other cyclists ran over him. Nguyen never bothered to stop. Though he had
+
+caused the collision, he just kept riding.
+
+
+
+
+3
+  The defendant’s expert, Andrew Randell, acknowledged that these rules are “pretty standard”, “derived
+from common sense” and have “evolved over a long period of time.”
+                                     Page: 32
+
+
+
+
+   (b) The litigation
+
+[87]   Kempf sued Nguyen for damages for negligence. In his pleading, Nguyen
+
+alleged Kempf had voluntarily assumed the risk of injury, relying on the defence
+
+of volenti non fit injuria – literally, “to one who is willing, no harm is done”.
+
+Nguyen also relied on a “waiver agreement”, which each cyclist on the ride had
+
+been obliged to sign. And he also alleged that an emergency situation, created
+
+when several riders in front of him had slowed down, had forced him to veer
+
+sharply to his left. Finally, Nguyen claimed that Kempf was contributorily
+
+negligent for his injuries.
+
+[88]   Nguyen served a jury notice. At the beginning of the trial, Kempf brought a
+
+motion to strike the jury notice. After lengthy argument, the trial judge granted the
+
+motion. In a written ruling, she concluded “somewhat reluctantly” that justice to
+
+the parties would be better served by discharging the jury.
+
+[89]   The trial lasted six days. The trial judge heard evidence from Kempf,
+
+Nguyen, five other cyclists on the ride and an expert cyclist called by the
+
+defence. She delivered lengthy and thoughtful reasons in which she found
+
+Nguyen liable. The parties had agreed on damages.
+
+   (c) The grounds of appeal
+
+[90]   Nguyen raises three issues on appeal:
+                                          Page: 33
+
+
+
+
+             1.     The trial judge erred in finding that the standard of care was
+
+             ordinary negligence. To impose liability on a participant in a sporting
+
+             event, the appropriate standard of care is intentional or reckless
+
+             conduct.
+
+             2.     The trial judge erred by failing to consider whether Kempf was
+
+             contributorily negligent.
+
+             3.     The trial judge erred by striking the jury notice and discharging
+
+             the jury.
+
+My colleague addresses only the third ground of appeal.
+
+   (d) My position, summarized
+
+[91]   1.    The trial judge was correct in holding that the appropriate standard
+
+of care was ordinary negligence. Neither logic, nor policy, nor case law supports
+
+a recklessness standard.
+
+[92]   2.    Although Nguyen had pleaded contributory negligence, he did not
+
+press the issue strongly at trial. Still, the trial judge considered the
+
+reasonableness of Kempf’s conduct. If she erred in failing to make a specific
+
+finding on contributory negligence, her error was harmless. It is evident from her
+
+reasons and the record that Kempf was not negligent and that Nguyen was
+
+entirely at fault for Kempf’s injuries.
+                                       Page: 34
+
+
+
+
+[93]   3.(i)   An appeal court’s right to interfere with a trial judge’s discretionary
+
+decision to discharge a jury is very limited. An appellant must show the trial judge
+
+exercised this discretion arbitrarily or capriciously, or based on a wrong principle
+
+of law. Nguyen has not met this burden.
+
+[94]   As Epstein J.A. acknowledges, the trial judge did not act arbitrarily or
+
+capriciously. Quite the opposite. She heard submissions on the motion to
+
+discharge the jury for almost three hours; she actively questioned counsel on
+
+their positions; and she gave a four-and-a-half page, single-spaced ruling in
+
+which she expressly considered the parties’ submissions for and against
+
+retaining the jury and the applicable case law, and explained why she somewhat
+
+reluctantly discharged the jury.
+
+[95]   The trial judge also set out the correct test: will justice to the parties be
+
+better served by dismissing or retaining the jury? Thus, Nguyen and my
+
+colleague are left with the argument that though the trial judge stated the test
+
+correctly, she applied it unreasonably. Respectfully, I do not find this argument at
+
+all persuasive.
+
+[96]   A trial judge is always in the best position to decide whether to retain a
+
+jury, a decision our court has acknowledged may often “with equal propriety, be
+                                                Page: 35
+
+
+
+
+exercised for or against discharging the jury.”4 And this trial judge is one of our
+
+province’s most experienced judges in personal injuries litigation, having tried
+
+many cases both with and without a jury. For reasons I will expand on, she was
+
+concerned that, in combination with the volenti defence, the waiver agreement –
+
+which was poorly drafted and hard to read, yet on which defence counsel
+
+intended to question the witnesses – would confuse the jury and would be used
+
+by them improperly despite a strong charge. This was a reasonable exercise of
+
+her discretion. This court has no right to intervene.
+
+[97]      (ii) Even if the trial judge should have retained the jury, a new trial is not
+
+called for because any jury acting reasonably would have reached the same
+
+result. Kempf’s account of the collision was credible and was supported by the
+
+evidence of other cyclists, who had observed what had happened. Nguyen, on
+
+the other hand, gave an explanation for his cycling that defied common sense
+
+and that was not supported by a single other witness. Even his own expert
+
+acknowledged Nguyen had breached the rules of the road and had cycled
+
+carelessly, even recklessly. On this record, no jury acting reasonably could have
+
+reached a decision different from that of the trial judge.
+
+
+
+
+4
+    Graham v. Rourke (1990), 75 O.R. (2d) 622, at p. 625.
+                                      Page: 36
+
+
+
+
+[98]   This collision occurred on June 1, 2008. The new trial proposed by my
+
+colleague would take place, if at all, at the earliest in mid-2015. Holding a new
+
+trial seven years after this accident happened does not serve the administration
+
+of justice well. This appeal should be dismissed.
+
+B.     THE ISSUES ON APPEAL
+
+(1) Standard of care
+
+[99]   The trial judge found the following:
+
+
+                  Nguyen owed Kempf a duty of care.
+
+                  The standard of care was the ordinary negligence
+                   standard.
+
+                  Nguyen had breached the standard of care, and
+                   was therefore negligent.
+
+                  Nguyen’s     negligence     had    caused     Kempf’s
+                   injuries.
+
+                  The waiver agreement did not release one
+                   cyclist’s negligence claim against another.
+
+[100] The trial judge set out her finding of negligence at para. 98 of her reasons:
+
+             [98] I find that Nguyen was negligent, that his
+             negligence consisted of making a sudden movement
+             while riding in a group, failing to maintain a straight line,
+             failing to signal his intention to move and moving
+             directly into the path of the Plaintiff when he could have
+             moved out to the right. Given that I reject Nguyen’s
+             evidence about the existence of a situation of
+             emergency, there is no need for me to consider the
+                                     Page: 37
+
+
+
+
+             doctrine of agony of collision as submitted by the
+             solicitor for the Defendant.
+
+[101] Nguyen accepts the trial judge’s findings that he owed Kempf a duty of
+
+care and that the waiver did not release Kempf’s claim against him. He
+
+challenges the trial judge’s finding that the appropriate standard of care was
+
+ordinary negligence. He contends the appropriate standard of care to impose
+
+liability on a participant in a sporting event is intention to cause harm, or, at the
+
+very least, recklessness. Nguyen maintains that though he may have been
+
+negligent, he did not intend to harm Kempf and he was not reckless.
+
+[102] I see no justification for departing from the ordinary negligence standard,
+
+which has served the common law so well, in so many different contexts and
+
+activities, for so many years.
+
+[103] Negligence law uses the fictional reasonable person. The standard of care
+
+in negligence is that of the reasonable person in similar circumstances: see Hill v.
+
+Hamilton Wentworth Regional Police Services Board, 2007 SCC 41, [2007] 3
+
+S.C.R. 129, at para. 69. A defendant’s conduct is negligent or breaches the
+
+standard of care if it creates an unreasonable risk of harm: see Mustapha v.
+
+Culligan of Canada Ltd., 2008 SCC 27, [2008] 2 S.C.R. 114, at para. 7.
+
+[104] As is evident from these formulations, the negligence standard is flexible.
+
+Its application depends on who the actors are and what activities they are
+                                     Page: 38
+
+
+
+
+engaged in. Unreasonableness means different things for children, for
+
+professionals, for persons with mental disabilities, for motorists and so on.
+
+[105] The risks parties assume depend on the nature of the activity in which they
+
+participate. The risks one assumes playing a sport differ from the risks one
+
+assumes when going for a morning run or walking to work. In sports, the risks
+
+one assumes vary depending on the sport. The risks assumed in a sport where
+
+physical contact is part of the game, such as hockey or basketball, differ from the
+
+risks assumed in a sport where there is no physical contact, such as tennis or
+
+road cycling.
+
+[106] In hockey or basketball, for example, players have to assume some risk of
+
+injury from bodily contact, even contact intentionally inflicted or in breach of the
+
+rules of the game. A body check – even one that calls for a penalty – or contact
+
+fighting for a rebound in which the opposing player is called for a foul is part of
+
+the ordinary risk of each game. Conduct in these contact sports becomes
+
+unacceptable only when it is malicious, out of the ordinary or beyond the bounds
+
+of fair play. See e.g. John Barnes, Sports and the Law in Canada, 3d ed.
+
+(Toronto: Butterworths, 1996), at p. 279.
+
+[107] In other words, the ordinary negligence standard is sufficiently flexible to
+
+accommodate the different risks inherent in different sports and sporting
+                                    Page: 39
+
+
+
+
+activities. There is no need to exempt sports participants from the application of
+
+ordinary negligence law. This was the conclusion the trial judge reached after a
+
+thorough analysis of the standard of care in sporting activities and the risks
+
+inherent in cycling on a group ride. I agree with her analysis. The most important
+
+passages are at paras. 86 and 90 of her reasons:
+
+            [86] It seems to me that by engaging in a particular
+            sport, the player understands that there are certain risks
+            that are part of a sport. I agree that the standard of care
+            that is owed to other participants in a sport is different
+            than that which is owed to a person in the activities of
+            normal life. Further, what constitutes conduct of a
+            reasonable person will vary from sport to sport. I concur
+            with the comments of my colleague Justice Milanetti in
+            Nichols v. Sibbick where she stated, “The principal
+            questions to be determined by the judge are the nature
+            of the risks assumed and what a reasonable competitor
+            would do in the circumstances of each case...”
+
+                                        …
+
+            [90] The case before me involves injuries occasioned
+            not in the usual activities of daily life, but rather in the
+            context of an organized cycling event for charity. I agree
+            that when the Plaintiff decided to participate in this ride,
+            he assumed the usual risks associated with the sport.
+            He agreed with the risks including the actions of
+            reasonable cyclists who he could expect to follow the
+            known rules governing group rides. He did not,
+            however, agree to accept the risks associated with
+            conduct that did not accord with the usual rules. In my
+            opinion, the correct standard of care that must be met in
+            this case is that of negligence. It is sufficient if the
+            Plaintiff proves that the conduct of the Defendant fell
+            short of what a reasonable cyclist participating in a
+            group ride for charity would do or refrain from doing.
+                                     Page: 40
+
+
+
+
+             While I agree that what constitutes reasonable care
+             depends on what the participant agreed to reasonably
+             expect given the nature of the sporting event, in a case
+             involving cycling, there is no reason to impose a higher
+             onus on the Plaintiff, to prove that the Defendant
+             conducted himself in a reckless fashion. By its nature
+             cycling is not a contact sport or one that involves
+             physical encounters with opponents such as football or
+             rugby. [Citations omitted.]
+
+[108] As the trial judge recognized, a couple of trial judgments in Ontario have
+
+used the word “reckless” when imposing liability on a defendant’s conduct in a
+
+sporting event. See Fink v. Greeniaus (1973), 2 O.R. (2d) 541 (H. Ct. J.), at pp.
+
+549 and 551; and Gilsenan v. Gunning (1982), 137 D.L.R. (3d) 252 (Ont. H. Ct.
+
+J.), at p. 259. The use of that word is unfortunate. In both cases, the trial judge
+
+applied an ordinary negligence standard in finding the defendant liable. That
+
+standard, not a recklessness standard, is the correct standard of care. I would
+
+not give effect to this ground of appeal.
+
+(2) No contributory negligence
+
+[109] In his pleading, Nguyen alleged that Kempf was contributorily negligent
+
+because Kempf did not take reasonable care for his own safety. In her reasons,
+
+the trial judge did not expressly deal with contributory negligence. Nguyen
+
+submits that her failure to do so was a reversible error, warranting a new trial. I
+
+do not agree with this submission. If the trial judge erred by failing to expressly
+                                               Page: 41
+
+
+
+
+address the contributory negligence claim, her error was harmless because
+
+Nguyen’s allegation of contributory negligence had no air of reality.
+
+[110] Although Nguyen pleaded contributory negligence and raised it briefly in
+
+closing argument, he did not press the issue during the evidence. He did not
+
+cross-examine either Kempf or Kempf’s witnesses on whether Kempf failed to
+
+take reasonable care for his own safety. Nguyen’s defence essentially rested on
+
+the waiver agreement and his allegedly justifiable reaction to an emergency
+
+situation he claimed had occurred.5
+
+[111] In this court, Nguyen suggests two ways in which Kempf may have been
+
+contributorily negligent: Kempf was “half-wheeling” and he brought his bicycle up
+
+too close to Nguyen’s bicycle. In her reasons for ordering a new trial, my
+
+colleague also suggests there was evidence Kempf was half-wheeling and was
+
+cycling too close to Nguyen. I disagree with both Nguyen and Epstein J.A. On my
+
+review of the record, neither suggestion is supportable.
+
+[112] Half-wheeling is a manoeuvre frowned on in cycling. Andrew Randell, the
+
+expert called by the defendant, gave evidence about what it means. Randell was
+
+a member of Canada’s national cycling team for five years and in 2002 was the
+
+Canadian national road race champion. He said:
+
+
+
+5
+    Although Nguyen had pleaded volenti, he abandoned it at the opening of the defence’s case.
+                                     Page: 42
+
+
+
+
+            Q.    So let’s start with the term half-wheel; what does
+            that mean?
+
+            A.     Half-wheeling is an overlapping between two
+            riders of their wheels. So the front rider and the back
+            rider – the back rider’s wheel, front wheel, will be
+            overlapped with the back rider’s [sic] rear wheel, but it is
+            a consistent overlapping all the time, it’s not a
+            momentary overlap, although even that is bad, but it’s
+            more of a consistent doing it over and over again over
+            consistent periods of time. [Emphasis added.]
+
+And:
+
+            Q.    Okay. And you said that half-wheeling is a
+            condition where you overlap wheels, I guess,
+            persistently
+
+            A.     Yes.
+
+[113] The trial judge addressed Kempf’s cycling and found he had not been half-
+
+wheeling. Kempf had brought his front wheel alongside Nguyen’s rear wheel only
+
+temporarily to take advantage of the draft. As important, Randell was of the same
+
+view. He said: “I wouldn’t classify what he [Kempf] was doing as half-wheeling.”
+
+Rather, Randell agreed with plaintiff’s counsel during cross-examination that
+
+what Kempf did – a momentary overlapping of wheels to take advantage of the
+
+draft – is “perfectly acceptable in group riding” and “perfectly normal and ordinary
+
+in this situation”. He also agreed that “inevitably, there’s going to be at least
+
+some overlapping of the front wheel to the back wheel.”
+                                        Page: 43
+
+
+
+
+[114] The evidence on distance was that when Kempf brought his bicycle
+
+alongside Nguyen’s bicycle, the two bikes were about 50 to 70 cm, or two feet,
+
+apart. Again, Nguyen’s expert, Randell, acknowledged that this was a reasonable
+
+distance apart – “[t]hat’s acceptable riding”. It was especially so on the Don
+
+Valley Parkway – “about as good as a paved surface can get in terms of
+
+smoothness of surface”. Finally, but importantly, Nguyen led no evidence to show
+
+the collision would have been avoided if the bicycles had been farther apart.
+
+[115] The trial judge concluded that Nguyen was entirely at fault for Kempf’s
+
+injuries. The trial record supported her conclusion. Her failure to advert expressly
+
+to the defendant’s claim of contributory negligence does not justify this court’s
+
+intervention.
+
+[116] In Housen v. Nikolaisen, 2002 SCC 33, [2002] 2 S.C.R. 235, at para. 39,
+
+the Supreme Court emphasized that an omission in trial reasons justifies an
+
+appellate court’s intervention only if the omission is a material error or taints the
+
+trial judge’s conclusion.
+
+                As a starting point to the discussion of the ordinary or
+                reasonable motorist, we emphasize that the failure to
+                discuss a relevant factor in depth, or even at all, is not
+                itself a sufficient basis for an appellate court to
+                reconsider the evidence. This was made clear by the
+                recent decision of Van de Perre, supra, where
+                Bastarache J. says, at para. 15:
+                                      Page: 44
+
+
+
+
+                    …omissions in the reasons will not
+                    necessarily mean that the appellate court
+                    has jurisdiction to review the evidence
+                    heard at trial. As stated in Van Mol
+                    (Guardian ad litem of) v. Ashmore (1999),
+                    168 D.L.R. (4th) 637 (B.C.C.A.), leave to
+                    appeal ref’d [2000] 1 S.C.R. vi, an omission
+                    is only a material error if it gives rise to the
+                    reasoned belief that the trial judge must
+                    have forgotten, ignored or misconceived
+                    the evidence in a way that affected his
+                    conclusion. Without this reasoned belief,
+                    the appellate court cannot reconsider the
+                    evidence.
+[117] Here, if the trial judge erred in failing to advert expressly to Nguyen’s
+
+defence of contributory negligence, the error was hardly material. She
+
+considered Kempf’s cycling. He testified that at all times he followed the rules of
+
+a group ride, and she accepted his evidence. I would not give effect to this
+
+ground of appeal.
+
+(3) Discharge of the jury
+
+   (i) A reasonable exercise of the trial judge’s discretion
+
+[118] Significant deference is owed to a trial judge’s discretionary decision to
+
+retain or discharge a jury. This deferential standard of appellate review is well
+
+established. An appeal court may intervene only if “the discretion was exercised
+
+arbitrarily or capriciously or was based upon a wrong or inapplicable principle of
+
+law”: Kostopoulos v. Jesshope (1985), 50 O.R. (2d) 54 (C.A.), leave to appeal to
+                                        Page: 45
+
+
+
+
+S.C.C. refused, [1985] S.C.C.A. No. 93, at p. 69. See also Cowles v. Balac
+
+(2006), 83 O.R. (3d) 660 (C.A.), leave to appeal to S.C.C. refused, [2006]
+
+S.C.C.A. No. 496, at para. 40. Put simply, and in keeping with the usual standard
+
+of review of discretionary decisions, appellate intervention is justified only if the
+
+trial judge exercised this discretion unreasonably or erred in principle. See
+
+Cowles, at para. 52.
+
+[119] In assessing the reasonableness standard of review, context matters.
+
+Although the right to a trial by jury in a civil case is an important right, it is far from
+
+absolute. The trial judge’s discretion to retain or dismiss a jury is very broad:
+
+Cowles, at para. 38. Under Rule 47.02 of the Rules of Civil Procedure, R.R.O.
+
+1990, Reg. 194 – the rule invoked in this case – a trial judge may strike out a jury
+
+notice where a jury trial is inappropriate. The question for the trial judge is simply
+
+this: will justice to the parties be better served by dismissing or retaining the jury?
+
+See Cowles, at para. 37. And, as this court and the Supreme Court of Canada
+
+have emphasized, the person in the best position to decide this question is the
+
+trial judge. See Hunt (Litigation guardian of) v. Sutton Group Incentive Realty Inc.
+
+(2002), 60 O.R. (3d) 665 (C.A.), at para. 52; and Hamstra (Guardian ad litem of)
+
+v. British Columbia Rugby Union, [1997] 1 S.C.R. 1092, at para. 26.
+
+[120] Where a trial judge draws the line between discharging or retaining a jury
+
+is not an exact science. There is no bright-line test for the exercise of the trial
+                                        Page: 46
+
+
+
+
+judge’s discretion. And so, in Graham v. Rourke (1990), 75 O.R. (2d) 622 (C.A.),
+
+at p. 625, Doherty J.A. noted, “In many situations that discretion may, with equal
+
+propriety, be exercised for or against discharging the jury.”
+
+[121] It is against this wide leeway given to a trial judge that we must assess the
+
+decision in this case to discharge the jury. Some judges faced with Kempf’s
+
+motion may have retained the jury. But unless the trial judge had no reasonable
+
+basis for discharging the jury, we have no right to intervene. As I said in my
+
+overview, in my opinion, the trial judge exercised her discretion reasonably.
+
+[122] Epstein J.A. accepts that the trial judge did not act arbitrarily or
+
+capriciously. Indeed she did not, for the reasons set out in my overview. And she
+
+did not act on a wrong principle. The trial judge correctly stated the test she had
+
+to apply. At para. 12 of her reasons for striking the jury notice, she said:
+
+             [12] It is trite law to state that the right to a jury trial is an
+             important one which should not be taken away lightly:
+             Hunt v. Sutton Group Incentive Realty Inc. (2002), 60
+             O.R. (3d) 665 (C.A.). When entertaining a motion to
+             dismiss the jury, the presiding judge must decide
+             whether on the particular facts of the case, justice to the
+             parties will be better served by dismissing or retaining
+             the jury. The decision to discharge a jury is a matter of
+             judicial discretion which must be reasonable in the
+             circumstances.
+
+And then, at para. 15, she repeated the correct test:
+                                      Page: 47
+
+
+
+
+             [15] However, I am required to consider the case as
+             framed by the pleadings and the anticipated evidence
+             and decide whether justice is best served by retaining
+             the jury or discharging it. I have come to the conclusion,
+             somewhat reluctantly, that this action cannot proceed
+             with a jury.
+
+[123] Nonetheless, Epstein J.A. says that in applying the test, the trial judge
+
+erred by relying on the plea of volenti and the waiver as bases to discharge the
+
+jury. And my colleague says that, though not an error, it would have been
+
+preferable had the trial judge adopted a “wait and see” approach to the decision
+
+to discharge the jury. I disagree with my colleague on each of her three points. I
+
+will list her points (in italics) and my response to each one.
+
+(1) The trial judge erred in law by relying on Nguyen’s volenti defence as a basis
+
+to discharge the jury.
+
+[124] Epstein J.A. says the trial judge should not have relied on Nguyen’s plea of
+
+volenti to strike the jury because volenti is a defence to a finding of negligence,
+
+not a claim for declaratory relief. I agree that if the trial judge had characterized
+
+Nguyen’s plea of volenti as a claim for declaratory relief, she would have erred.
+
+But she did not do so.
+
+[125] As the trial judge wrote at para. 13 of her reasons, had she characterized
+
+the defence as a claim for declaratory relief, she would have been required to
+                                      Page: 48
+
+
+
+
+discharge the jury because under s. 108(2) of the Courts of Justice Act, R.S.O.
+
+1990, c. C.43, a claim for declaratory relief cannot be tried with a jury:
+
+             [13] While section 108(2) … makes it clear that a claim
+             for declaratory relief cannot be tried with a jury and
+             [plaintiff’s counsel] argues that the case being
+             presented by the Defendant is akin to a request for
+             declaratory relief, in my view, I do not need to make that
+             finding to deal with this motion.
+
+[126] Instead, the trial judge carefully analyzed the competing positions of the
+
+parties and exercised her discretion “somewhat reluctantly” to strike the jury
+
+notice. Her analysis would have been unnecessary had she accepted Kempf’s
+
+argument that Nguyen was asking for declaratory relief.
+
+[127] Although, at para. 23 of her reasons, the trial judge states that “the case
+
+involves ‘in pith and substance’ … declaratory relief which is not to be
+
+determined by a jury” (citation omitted), she nonetheless determined the case
+
+was not one in which she was required by statute to discharge the jury.
+
+(2)The trial judge erred by holding that the “jury would be incapable of
+
+understanding the legal effect of the waiver even after careful instruction.”
+
+[128] This appears to be the main reason why my colleague would allow the
+
+appeal. She says that the case was a simple personal injury action and that the
+
+waiver was not a complicated document – its limited application was “hardly
+
+beyond the ken of members of a jury.”
+                                     Page: 49
+
+
+
+
+[129] I do not agree with my colleague. The trial judge’s concern was not the
+
+waiver alone, but the waiver in combination with the volenti defence. Because of
+
+that combination, this case was not a simple personal injury action. The trial
+
+judge was concerned that the jury would have been confused by the waiver and,
+
+because of its connection to the volenti defence, would have used it
+
+inappropriately in their deliberations despite a correct and strong charge. That
+
+was a reasonable concern.
+
+[130] After the argument on the motion to strike the jury notice, three things were
+
+evident. First, for Nguyen, the volenti defence and the waiver were inextricably
+
+connected. He intended to argue that by signing the waiver, Kempf had assumed
+
+all risks of injury to himself. Second, although Nguyen conceded that the trial
+
+judge should decide the volenti defence after the jury had deliberated on liability,
+
+he refused to make the same concession for the waiver. That document, he
+
+contended, could be properly considered by the jury. Third, Nguyen’s counsel
+
+intended to question Kempf and the other witnesses on what they understood by
+
+signing the waiver, what risks they understood they were agreeing to and what
+
+rights they understood they were giving up. In short, he wanted to use the waiver
+
+to support Nguyen’s defences of volenti – that Kempf had voluntarily assumed
+
+the risks of participating in the charity bike ride – and on the appropriate standard
+
+of care.
+                                   Page: 50
+
+
+
+
+[131] And the waiver itself was not a straightforward document. It was hard to
+
+read and understand. The trial judge found it “confusing” and so it was. The full
+
+waiver is attached as Appendix A. The pertinent portions provided:
+
+            THE BECEL HEART&STROKE RIDE FOR HEART
+            WAIVER AGREEMENT,
+                     EVENT DAY JUNE 1, 2008
+
+            Please Read Carefully Release Waiver and Indemnity:
+            The Becel Ride for Heart I Agree:
+
+            1) That all times during the Becel Heart&Stroke Ride for
+            Heart my safety remains my sole responsibility and that
+            I will observe all rules of the road; and
+
+                                       …
+
+            4) That I am aware of the risks inherent in participating
+            in the Becel Heart&Stroke Ride for Heart and assume
+            all such risks.
+
+                                       …
+
+            IN CONSIDERATION of the acceptance of my
+            application and permission to participate as an entrant
+            in the Becel Heart&Stroke Ride for Heart and post-event
+            activities, I, for myself, my heirs, executors,
+            administrators, successors and assigns, HEREBY
+            RELEASE, WAIVE AND FOREVER DISCHARGE the
+            Heart and Stroke Foundation of Ontario, Unilever
+            Canada, PLH & Associates, the City of Toronto, The
+            Toronto Police Services Board, The Toronto Police
+            Service, The Members of the Toronto Police Service
+            Auxiliary Program, the Chief of Police, the Toronto
+            Transit Commission, Board of Governors of Exhibition
+            Place, the Canadian National Exhibition Association,
+            and all other associations, sanctioning bodies and
+            sponsoring companies, and all their respective agents,
+                                      Page: 51
+
+
+
+
+             officials, servants, claims, demands, damages, costs,
+             expenses, actions and causes of action, whether in law
+             or equity, in respect to death, injury, loss or damage to
+             my person or property HOWSOEVER CAUSED, arising
+             or to arise by reason of my participation in the said
+             event, whether a spectator, participant, competitor or
+             otherwise, whether prior to, during or subsequent to the
+             event, AND NOTWITHSTANDING that any of the
+             foregoing may have contributed to, or the injury or
+             damage may have been occasioned by, the negligence
+             of any the foresaid. I FURTHER HEREBY
+             UNDERTAKE or HOLD AND SAVE HARMLESS and
+             AGREE TO INDEMNIFY all of the aforesaid from and
+             against any and all liability incurred by any or all of them
+             as a result of, or in any way connected with, my
+             participation in the said event.
+
+             BY SUBMITTING THIS ENTRY, I ACKNOWLEDGE
+             HAVING READ, UNDERSTOOD AND AGREED TO
+             THE ABOVE WAIVER, RELEASE AND INDEMNITY. I
+             WARRANT that I am physically fit to participate in this
+             event, and that my equipment is mechanically fit and
+             suitable for its intended use in the Becel Heart&Stroke
+             Ride for Heart.
+
+                                          …
+
+[132] By signing the waiver, each cyclist releases the ride sponsor, Becel, and
+
+the charity, the Heart and Stroke Foundation. But some of the language in the
+
+waiver might suggest that each cyclist also releases other cyclists from liability.
+
+For example, each cyclist agrees that “my safety remains my sole responsibility”
+
+and “that I am aware of the risks inherent in participating in the Becel
+
+Heart&Stroke Ride for Heart and assume all such risks.” And the consideration
+
+clause is similarly open to being interpreted as a broad release of liability.
+                                      Page: 52
+
+
+
+
+[133] Thus, in discharging the jury, the trial judge wrote, at paras. 18, 21 and 24:
+
+             [18] The jury will be asked to determine fault for the
+             accident. The waiver will be an exhibit and witnesses
+             will necessarily be questioned and cross examined on
+             the document. In my view, there is a real danger that
+             the jury, in answering the liability questions, will be
+             confused by the contents of the waiver or perhaps use it
+             inappropriately in their deliberations. For example, …
+             because the waiver states that the Plaintiff will release
+             all others from “all liability” arising from his participation
+             in the Ride, there is a concern that the jury will
+             misinterpret that document and conclude on the basis of
+             the wording of the release that there could be no liability
+             imposed on anyone, regardless of the findings of fact.
+
+                                          …
+
+             [21] While I agree the determination of the application of
+             volenti is a function for the Court, in my opinion, the
+             evidence necessary to put that defence forward will be
+             confusing to the jury whose duty it is to determine the
+             question of liability.
+
+                                          …
+
+             [24] [I]n order to determine the issue of liability, given
+             the pleading of volenti, the jury will necessarily hear the
+             evidence about the waiver. In my opinion, the
+             inescapable reality of this is that the jury will be
+             considering issues of contract which they cannot do.
+             Even with a strong charge that instructs the jury on the
+             proper use to make of the waiver evidence, in my mind,
+             it would be impossible for the jury to use the evidence
+             concerning the waiver in only a very narrow fashion and
+             to ignore the rest of the evidence about it.
+
+[134] The trial judge’s reasoning is similar to that of the experienced trial judge in
+
+Cowles. In that case too, the trial judge had exercised her discretion to discharge
+                                    Page: 53
+
+
+
+
+the jury, in part because of the legal complexity of the case. She had concluded
+
+that the jury would find it difficult to keep separate various legal concepts,
+
+including strict liability, negligence and any applicable defences. On appeal, the
+
+defence argued she had erred in discharging the jury. One of the defence’s
+
+arguments parallels my colleague’s argument: any difficulty the jury would have
+
+had in applying the relevant legal concepts was not a proper basis to strike the
+
+jury notice. This court did not accept that argument. O’Connor A.C.J.O. wrote, at
+
+paras. 61 and 67:
+
+            [61] … While the trial judge expressed a concern about
+            the complexity of the legal issues in her reasons, I read
+            her comments in this regard as suggesting that the jury
+            may have difficulty in applying the legal concepts as
+            instructed by her, not in deciding what those concepts
+            were. This, it seems to me, is apparent from her last
+            comment -- "It may be difficult for a lay jury to keep the
+            concepts separate."
+
+                                        …
+
+            [67] In exercising her discretion to strike the jury notice
+            in these cases, the trial judge considered the legal
+            complexity of the cases as one of those complexities
+            that would affect the task of the jury. She was entitled to
+            do so.
+
+[135] I accept that other trial judges may have taken a different view of the
+
+complexity in this case, as they may have of the complexity in Cowles. But as
+
+O’Connor A.C.J.O. said, at para. 42:
+                                     Page: 54
+
+
+
+
+             [42] An appeal court should not interfere with the
+             exercise of a trial court's discretion simply because it
+             disagrees with the conclusion reached. That means an
+             appeal court should not merely pay lip service to the
+             concept of deference and then proceed to substitute its
+             own view as to what the proper result should be for that
+             of the lower court.
+
+[136] Thus in Cowles, this court upheld the trial judge’s discretion to discharge
+
+the jury, even though it determined, at para. 57, that the case fell “at the low end
+
+of the complexity scale that would permit a judge to dispense with a jury” and that
+
+it was “likely that some judges confronted with the same factors would exercise
+
+their discretion differently.” I would do the same here.
+
+(3)The trial judge should have adopted a “wait and see” approach.
+
+[137] My colleague says that it would have been preferable had the trial judge
+
+reserved her decision on the motion to strike the jury notice until the evidence
+
+had been completed. Perhaps, perhaps not. The trial judge considered whether
+
+she should “wait and see” and recognized that doing so is preferable in some
+
+cases, particularly those in which the evidence is expected to be complex. She
+
+decided not to do so in this case.
+
+[138] “Wait and see” is not a rule of law; it is very much a matter of discretion.
+
+See Cowles, at para. 72. Were it a rule of law, trial judges would never discharge
+
+a jury before the evidence was completed. But as O’Connor A.C.J.O. said in
+
+Cowles, at para. 76, trial judges have the authority by statute, the rules and case
+                                     Page: 55
+
+
+
+
+law to dispense with a jury before a trial begins. Here, the trial judge determined
+
+not to “wait and see”. That was her call to make. And it was a reasonable call. At
+
+least Epstein J.A. accepts that the trial judge’s decision not to “wait and see”
+
+does not justify appellate intervention.
+
+[139] The trial judge had a reasonable basis to discharge the jury. This court
+
+therefore has no basis to interfere with her decision. I would not give effect to this
+
+ground of appeal.
+
+   (ii) No new trial
+
+[140] Epstein J.A. would order a new trial, which would take place, if at all, at
+
+least seven years after the accident. I do not think an order for a new trial is
+
+appropriate. Under s. 134(6) of the Courts of Justice Act, this court “shall not
+
+direct a new trial unless some substantial wrong or miscarriage of justice has
+
+occurred.” One application of this statutory direction is the principle my colleague
+
+refers to, at para. 70 of her reasons, and which comes from the judgment of
+
+Cartwright J. in King v. Colonial Homes Ltd., [1956] S.C.R. 528, at p. 533: a new
+
+trial should not be ordered in a case where the trial judge erred in discharging the
+
+jury “if the court were … satisfied that any jury acting reasonably must inevitably
+
+have reached the same result as did the trial judge.” See also Khan v. College of
+
+Physicians and Surgeons of Ontario (1992), 9 O.R. (3d) 641, at pp. 675-76.
+                                      Page: 56
+
+
+
+
+[141] I would apply that principle here. Although I do not think the trial judge
+
+erred in discharging the jury, even if she did, a jury properly instructed and acting
+
+reasonably would also inevitably have found Nguyen liable for Kempf’s injuries.
+
+Epstein J.A., however, says that such a jury could differ from the trial judge’s
+
+assessment in three ways. I do not agree with any of her three points.
+
+[142] First, my colleague says there was evidence supporting a finding of
+
+contributory negligence. She points in particular to what she says is evidence
+
+Kempf came unnecessarily close to Nguyen and evidence Kempf was half-
+
+wheeling when the collision occurred. I have dealt with the issue of contributory
+
+negligence earlier in these reasons. On my review of the record, there was
+
+simply no evidence to support a finding that Kempf was contributorily negligent.
+
+To repeat what I said earlier, the defence’s own expert admitted Kempf was an
+
+acceptable distance apart from Nguyen and was not half-wheeling.
+
+[143] Second, Epstein J.A. says a jury could assess the credibility of Kempf and
+
+Nguyen differently. Of course, in theory that is true. But even on a printed record,
+
+which is all an appellate court has, it is difficult to conceive that a reasonable jury
+
+could have reached a different result. In this court, Nguyen admitted the evidence
+
+supported a finding that he was negligent. The evidence at trial showed that he
+
+broke the rules of a group ride, made a manoeuvre at the critical time that defied
+
+common sense and, in the words of his own expert, was “reckless”. By contrast,
+                                     Page: 57
+
+
+
+
+nothing in Kempf’s evidence suggested he cycled carelessly, and his account
+
+was supported by the evidence of the other cyclists who testified.
+
+[144] Third, Epstein J.A. says a jury could take a different approach to the
+
+standard of care. I do not see how they could if one accepts, as I do and as the
+
+trial judge did, that the ordinary negligence standard applies. Nguyen was an
+
+experienced cyclist. He broke rules of a group ride so basic and so grounded in
+
+common sense that even inexperienced cyclists would know them. He had to be
+
+aware that by breaking the basic rules of a group ride, he created an
+
+unreasonable risk of harm. That is what the trial judge found, and that is what
+
+Randell accepted. No reasonable jury could have concluded otherwise.
+
+[145] Indeed, my view is that no reasonable jury could have reached a result
+
+different from the one the trial judge reached. In addition to what I have already
+
+said in response to my colleague, I rely on the following three points.
+
+[146] First, the evidence of Kempf, whom the trial judge found to be a credible
+
+witness, was supported by the evidence of several other cyclists, who had seen
+
+the accident or its aftermath. In contrast, the evidence of Nguyen, whom the trial
+
+judge found to be an unimpressive witness, was not supported by a single other
+
+witness, and was contradicted by several of the witnesses.
+                                    Page: 58
+
+
+
+
+[147] Second, Nguyen’s explanation for his cycling defied common sense. He
+
+claimed that several riders ahead of him had slowed down, which had caused
+
+him to veer sharply to his left to avoid them. No witness had seen any cyclist
+
+ahead of Nguyen slowing down. And as the trial judge noted, veering to the left
+
+into a group of riders, including Kempf, instead of to the right, where there was
+
+plenty of open space, made no sense. The trial judge put it this way, at para. 67
+
+of her reasons:
+
+            [67] The other perplexing element of the actions of the
+            Defendant relates to the evasive action that he
+            described as being necessary due to the alleged
+            slowing down of riders directly in front of him. According
+            to his version of events, as a result of the slowing of at
+            least a couple of riders, the large fellow right in front of
+            Nguyen moved off to the right, presumably to avoid
+            striking the rider in front of him. One wonders why the
+            Defendant did not make the same maneuver. He stated
+            he knew there were riders to his left, yet he decided to
+            move in that direction instead of off to the right as the
+            rider in front of him did, apparently without incident.
+            Again, this action does not make sense, given the
+            situation as described by the Defendant.
+
+[148] Third, Nguyen’s own expert, Randell, acknowledged that Nguyen’s cycling,
+
+as described by the other witnesses, including Kempf, had been “careless”,
+
+“dangerous”, and “reckless”. Nguyen called Randell to testify about the conduct
+
+of cyclists on a group ride. On cross-examination by Kempf’s counsel, Randell
+                                      Page: 59
+
+
+
+
+admitted that Nguyen had breached the rules of the road and had cycled
+
+recklessly:
+
+              Q.     And at the moment in time when his front wheel is
+              about even with the axle of the Nguyen vehicle – for
+              clarity in the record, when the Kempf front wheel is
+              about even with the axle of the rear wheel of the
+              Nguyen vehicle – suddenly Mr. Nguyen, for no reason,
+              no apparent reason, moves over two feet striking the
+              Kempf vehicle. Can you make those assumptions?
+
+              A.    Yes.
+
+              Q.    He moves over two feet striking the Kempf
+              vehicle.
+
+              Now, would it be fair to say that in this situation that the
+              rider in the position of Mr. Nguyen, in this hypothetical,
+              has breached the rule to maintain his line?
+
+              A.    Yes, yeah.
+
+              Q.    Inevitably, though, it breached the rule to maintain
+              his pace?
+
+              A.    Yeah, it probably would have slowed it, yeah.
+
+              Q.     And he has failed to ride a smooth, predictable
+              path, correct?
+
+              A.    Yes, mm-hmm.
+
+              Q.    And in terms of riding in a pack, the conduct I
+              described, if you saw it, you’d agree with me, that was a
+              major foul?
+
+              A.    Yeah, I would say so, yes.
+                       Page: 60
+
+
+
+
+Q.     And that kind of riding would put the safety, not
+only of the individuals involved, but of the whole rear
+part of the group in peril, correct?
+
+A.    Yeah.
+
+Q.     To make a sideways sudden movement of two
+feet without a very good reason would be a careless
+act, you’d agree?
+
+A.    Yeah.
+
+Q.    And if made without concern for those who might
+be approaching, it’s fair to say that a movement of two
+feet or thereabouts to the left by a cyclist on the right
+edge of a pack would be an act that goes against all the
+rules we’ve spoken about governing good riding,
+correct?
+
+A.    Yes, yeah.
+
+Q.    It would go against the obligation to promote
+safety, to act responsibly, correct?
+
+A.    Yeah.
+
+Q.    And you mentioned it would be a careless act. Do
+you agree with me that it would also be an act that
+would be dangerous, correct?
+
+A.    It would be dangerous, yeah.
+
+Q.    An act that would be reckless?
+
+A.   Reckless, sure. I don’t understand the definition,
+but… Can you define “reckless”?
+
+Q.      An act taken without due regard for the danger
+that it might expose others to.
+
+A.    Yeah.
+                                     Page: 61
+
+
+
+
+             Q.     So it would be reckless?
+
+             A.     Yeah.
+
+[149] In the light of these considerations, it is hard to conceive that a reasonable
+
+jury could have come to a different result. It is thus not in the interests of justice
+
+to order a new trial.
+
+C.    CONCLUSION
+
+[150] I would dismiss this appeal with costs fixed in the agreed-on amount of
+
+$17,500, inclusive of disbursements and applicable taxes.
+
+
+
+
+Released: February 18, 2015 (“J.L.”)
+
+                                               “John Laskin J.A.”
+                       Page: 62
+
+
+
+
+           Appendix A: Waiver Agreement
+
+THE BECEL HEART&STROKE RIDE FOR HEART
+WAIVER AGREEMENT,
+         EVENT DAY JUNE 1, 2008
+
+Please Read Carefully Release Waiver and Indemnity:
+The Becel Ride for Heart I Agree:
+
+1) That all times during the Becel Heart&Stroke Ride for
+Heart my safety remains my sole responsibility and that
+I will observe all rules of the road; and
+
+2) That I will make best efforts to wear an approved
+helmet while riding in the Becel Heart&Stroke Ride for
+Heart; and if I am under the age of 18 I must wear an
+approved helmet; and
+
+3) That I will discontinue riding in the Becel
+Heart&Stroke Ride for Heart if it is determined by
+medical personnel at any time that I am physically unfit
+to continue; and
+
+4) That I am aware of the risks inherent in participating
+in the Becel Heart&Stroke Ride for Heart and assume
+all such risks.
+
+5) By participating in the Becel Heart&Stroke Ride for
+Heart, I consent the use of my photograph, without
+compensation, in any future publicity carried out by the
+Heart and Stroke Foundation.
+
+IN CONSIDERATION of the acceptance of my
+application and permission to participate as an entrant
+in the Becel Heart&Stroke Ride for Heart and post-event
+activities, I, for myself, my heirs, executors,
+administrators, successors and assigns, HEREBY
+RELEASE, WAIVE AND FOREVER DISCHARGE the
+Heart and Stroke Foundation of Ontario, Unilever
+Canada, PLH & Associates, the City of Toronto, The
+Toronto Police Services Board, The Toronto Police
+                        Page: 63
+
+
+
+
+Service, The Members of the Toronto Police Service
+Auxiliary Program, the Chief of Police, the Toronto
+Transit Commission, Board of Governors of Exhibition
+Place, the Canadian National Exhibition Association,
+and all other associations, sanctioning bodies and
+sponsoring companies, and all their respective agents,
+officials, servants, claims, demands, damages, costs,
+expenses, actions and causes of action, whether in law
+or equity, in respect to death, injury, loss or damage to
+my person or property HOWSOEVER CAUSED, arising
+or to arise by reason of my participation in the said
+event, whether a spectator, participant, competitor or
+otherwise, whether prior to, during or subsequent to the
+event, AND NOTWITHSTANDING that any of the
+foregoing may have contributed to, or the injury or
+damage may have been occasioned by, the negligence
+of any the foresaid. I FURTHER HEREBY
+UNDERTAKE or HOLD AND SAVE HARMLESS and
+AGREE TO INDEMNIFY all of the aforesaid from and
+against any and all liability incurred by any or all of them
+as a result of, or in any way connected with, my
+participation in the said event.
+
+BY SUBMITTING THIS ENTRY, I ACKNOWLEDGE
+HAVING READ, UNDERSTOOD AND AGREED TO
+THE ABOVE WAIVER, RELEASE AND INDEMNITY. I
+WARRANT that I am physically fit to participate in this
+event, and that my equipment is mechanically fit and
+suitable for its intended use in the Becel Heart&Stroke
+Ride for Heart.
+
+Print Full Name of Participant:
+
+Date:
+
+(Parent/Guardian Name required if participant is under
+18 years)
+

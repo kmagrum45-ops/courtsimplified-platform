@@ -1,0 +1,1184 @@
+                    COURT OF APPEAL FOR ONTARIO
+
+                        CITATION: Holland v. Hostopia.com Inc., 2015 ONCA 762
+                                                               DATE: 20151110
+                                                             DOCKET: C56448
+
+                    Strathy C.J.O., LaForme and Tulloch JJ.A.
+
+BETWEEN
+
+                                   Sean Holland
+
+                                                                Plaintiff/Appellant
+
+                                        and
+
+                                Hostopia.Com Inc.
+
+                                                          Defendant/Respondent
+
+Craig Colraine and Chris Kalantzis, for the appellant
+
+George Avraam and Jeremy Hann, for the respondent
+
+Heard: May 14, 2015
+
+On appeal from the judgment of Justice John MacDonald of the Superior Court of
+Justice, dated December 7, 2012.
+
+Strathy C.J.O.:
+
+A.    INTRODUCTION
+
+
+[1]   The appellant accepted a written offer of employment, which contained a
+
+statement that he would be required to sign an employment agreement. He
+
+started work.     Nine months later, he was presented with an employment
+                                     Page: 2
+
+
+agreement, which he signed. That agreement provided for termination by notice
+
+under the Employment Standards Act, 2000, S.O. 2000, c. 41 (“ESA”).
+
+
+[2]   His employment was terminated without cause seven years later. The
+
+employer paid him an amount that was at least equal to his ESA entitlement. The
+
+trial judge dismissed his action for wrongful dismissal, holding that his damages
+
+were limited to the minimum amounts set out in the ESA.
+
+
+[3]   These reasons explain why, in my view, his damages were not confined to
+
+the ESA amounts and he was entitled to common law reasonable notice or
+
+damages in lieu. While I would allow the appeal in part on this basis, I do not
+
+accept the appellant’s submissions that the trial judge erred in rejecting some of
+
+his claims for commissions.
+
+B.    THE FACTS
+
+
+[4]   The appellant was hired by the respondent as a National Account
+
+Manager, a sales position, pursuant to an offer of employment contained in a
+
+two-page letter dated May 13, 2003 (the “Offer Letter”).
+
+
+[5]   The Offer Letter described the essential terms of employment, including
+
+salary ($75,000 per year), commissions, benefits and vacation. The offer could
+
+be accepted by returning a signed copy of the letter and “the subsequent signing
+
+of an employment agreement.”
+                                      Page: 3
+
+
+[6]    The letter said nothing about the appellant’s entitlement to notice of
+
+termination. Nor did it contain details of his commissions.
+
+
+[7]    The appellant signed the letter, indicating his acceptance of the offer, on
+
+June 9, 2003.
+
+
+[8]    On the same date, the appellant signed a Code of Business Conduct and a
+
+Proprietary Rights Agreement. The latter contained a 6-month non-competition
+
+provision and a 12-month non-solicitation provision. Neither document dealt with
+
+termination or notice periods.
+
+
+[9]    Some nine months later, the appellant was presented with a six-page
+
+Employment Agreement, dated February 18, 2004, which he signed on March 8,
+
+2004 (the “Employment Agreement”).
+
+
+[10]   The Employment Agreement recited that the respondent had agreed to
+
+employ the appellant subject to the terms and conditions set out therein. The
+
+operative provisions were preceded by a recital that the agreement was made “in
+
+consideration of the Employee’s employment by Hostopia and the compensation
+
+paid to the Employee from time to time while so employed”.
+
+
+[11]   Much of the Employment Agreement was boilerplate. The contentious
+
+provision is clause 4.3, which allowed the respondent to terminate the appellant
+                                       Page: 4
+
+
+without cause or notice, provided it paid him in lieu of notice in accordance with
+
+the ESA.
+
+
+[12]   The Employment Agreement had two express terms that varied the terms
+
+of the two documents signed along with the Offer Letter. Those new terms
+
+doubled the non-competition period to one year and the non-solicitation period to
+
+two years.
+
+
+[13]   In the Employment Agreement, the appellant acknowledged that he had
+
+read the agreement, understood its terms, was under no duress and knew he
+
+had the right to obtain independent legal advice and had either obtained such
+
+advice or waived it.
+
+
+[14]   In addition to the Offer Letter and the Employment Agreement, the
+
+appellant signed a series of annual commission plans. The validity of these
+
+agreements is acknowledged, but their interpretation is at issue. At the time of
+
+the termination of his employment, the appellant’s commission entitlement was
+
+governed     by   a    Non-Salary   Compensation   Memorandum.    It   set   out   the
+
+commissions to which he was entitled if he attained certain sales figures.
+
+
+[15]   The appellant was entitled to a “Strategic Account Bonus” if one of his new
+
+accounts generated more than a defined revenue threshold for more than three
+
+consecutive months. This bonus was payable only if the appellant was an
+                                        Page: 5
+
+
+“employee in good standing” at the time he claimed it. As well, he was entitled to
+
+commissions on revenue that was “booked” by the respondent on his accounts.
+
+Details of these commissions are set out below.
+
+
+[16]   The   appellant’s   employment    was   terminated   by   the   respondent on
+
+February 28, 2010, nearly seven years after he was hired. At the time of
+
+termination, he had been working on finalizing an agreement with a potential new
+
+customer, “EarthLink”. The customer had not been signed up as a new account
+
+at the time of his termination. Subsequently, the customer signed a non-binding
+
+letter of intent in July 2010 and a formal contract on October 15, 2010, effective
+
+October 1, 2010.
+
+
+[17]   On termination, the appellant was paid accrued vacation pay, commissions
+
+for the months of January through March 2010, and the sum of $40,756.81 for
+
+“payments in lieu of notice.” The calculation of the latter amount is not entirely
+
+clear on the evidence. It was agreed at trial that it was at least the amount of his
+
+ESA entitlement to severance and termination pay.
+
+
+[18]   About three months after his termination, the appellant found a new
+
+position, with similar terms of employment, including the same salary and a
+
+commission program. He did not receive commissions until some time after he
+
+began the new job.
+                                      Page: 6
+
+
+[19]   He sued the respondent,       claiming damages for       wrongful dismissal,
+
+including the loss of the commissions he said he was owed on the EarthLink
+
+contract. The trial judge dismissed his action in its entirety. I turn to his reasons
+
+for doing so.
+
+C.     THE TRIAL JUDGE’S REASONS
+
+
+[20]   There were two key issues at trial. The first was whether the appellant was
+
+bound by the term of the Employment Agreement regarding notice of termination.
+
+Was he limited to his rights under the ESA or was he entitled to reasonable
+
+notice at common law or damages in lieu? The resolution of this issue would
+
+impact his entitlement to commissions earned during the notice period.
+
+
+[21]   The second key issue was his entitlement to commissions on sales he was
+
+working on at the time of his termination, including in particular the EarthLink
+
+deal. There was conflicting evidence about the appellant’s contribution to
+
+securing the EarthLink account.
+
+
+[22]   The key witnesses at trial were the appellant and his former supervisor
+
+(who had since left the respondent’s employ) on the one hand, and the
+
+respondent’s former CEO on the other hand. The trial judge preferred the
+
+evidence of the latter. He described him as the most credible and persuasive
+
+witness, who had no interest in the outcome of the case and whose evidence,
+
+unlike the appellant’s, was generally consistent with the documentary evidence.
+                                       Page: 7
+
+
+[23]   The trial judge rejected the appellant’s argument that the Employment
+
+Agreement was void for lack of fresh consideration because he was already
+
+bound by the employment agreement contained in the Offer Letter. He found that
+
+the two agreements were interrelated and together constituted a single contract
+
+of employment. There was consideration for the contract as a whole, which had
+
+contemplated the acceptance process to which the plaintiff had agreed. The two
+
+agreements were consistent and one did not negate the other. The appellant
+
+admitted he had signed the second agreement after quickly reading it. The trial
+
+judge inferred that he did so because he knew that the Employment Agreement
+
+was the second part of his acceptance of the offer of employment, a process to
+
+which he had agreed when he signed and returned the Offer Letter. He made no
+
+attempt to clarify anything in the document, did not object to any part of it, and
+
+simply signed it.
+
+
+[24]   The trial judge distinguished this court’s decision in Hobbs v. TDI Canada
+
+Ltd. (2004), 246 DLR (4th) 43. There, this court found there was no consideration
+
+for an agreement entered into after the commencement of employment, when the
+
+employee had already accepted employment based on an offer letter. Unlike this
+
+case, the trial judge said, in Hobbs the offer had not been presented to the
+
+employee as “the introductory part of the more extensive contract of employment
+
+that was to follow at a later date.” Nor was there anything in the offer letter in that
+                                     Page: 8
+
+
+case suggesting that the employee would be required to sign another document
+
+that would form part of the agreement.
+
+
+[25]   The trial judge found the facts of this case were different from Hobbs.
+
+Here, the Offer Letter was presented to the appellant as the introductory part of
+
+the more extensive contract of employment, with another part to be signed
+
+subsequently. Further, he held, both documents are consistent. One does not
+
+negate the other.
+
+
+[26]   He concluded:
+
+             The result is, I find, that there was valid consideration
+             for both parts of the one contract of employment. Stated
+             differently, consideration for the contract as a whole is
+             proven by reason of the communicated and agreed
+             acceptance process, which led to two closely
+             interrelated documents comprising one contract of
+             employment.
+
+[27]   The trial judge accepted the respondent’s evidence that the appellant was
+
+terminated for poor sales performance and for no other reason. He rejected the
+
+appellant’s assertion that the respondent terminated him to avoid paying the
+
+EarthLink commission. He found that there was no deal with EarthLink at the
+
+time of the appellant’s termination and it would be many months before a deal
+
+was finalized.
+
+
+[28]   Much of the evidence at trial centred on the issue of whether the appellant
+
+had secured the EarthLink contract before the termination of his employment and
+                                          Page: 9
+
+
+how much he had been responsible for securing the deal. The trial judge found
+
+against the appellant on this critical issue. Not only was there no documentary
+
+evidence of an agreement being in place at the time of his termination, the
+
+evidence was inconsistent with that claim.            Following his termination,        the
+
+appellant attempted to negotiate an agreement with the respondent to permit him
+
+to continue to work on the EarthLink deal. As he said in an email to the
+
+respondent after his termination, he would “hate to lose this deal knowing [he
+
+could] get it back on track.” This conduct was inconsistent with his assertion that
+
+there was a “done deal” at the time.
+
+
+[29]     The trial judge found that the appellant’s contribution to the EarthLink deal
+
+was limited. He did not find the opportunity, he worked together with a large team
+
+on the deal, and much of the critical work to secure the account was done after
+
+he was terminated. The appellant’s work probably contributed no more than 15
+
+percent to the outcome and this occurred during the preliminary stages of a
+
+protracted process.
+
+
+[30]     Having found that the Offer Letter and the Employment Agreement were
+
+part of one contract, the trial judge found that the termination provision of the
+
+latter   was   sufficiently   clear.   Employers    may   referentially   incorporate   the
+
+provisions of the ESA into an employment contract: Machtinger v. HOJ Industries
+
+Ltd., [1992] 1 SCR 986.
+                                         Page: 10
+
+
+[31]    The parties agreed that if the ESA was applicable, the appellant was
+
+entitled to 12.67 weeks of base salary and commissions. The trial judge found
+
+that the amount paid by the respondent on termination was at least as much as
+
+he     was   entitled   to.   Accordingly,   having   found   the   termination   provision
+
+enforceable, and the appellant having been paid at least as much as he was
+
+entitled to, he dismissed the action.
+
+
+[32]    For the sake of completeness, the trial judge stated his conclusions on the
+
+other issues. I will discuss those conclusions later in these reasons. For now, the
+
+following summary will suffice.
+
+
+[33]    First, but for the termination provisions of the Employment Agreement, the
+
+appellant would have been entitled to damages for the period of reasonable
+
+notice, based on all aspects of his compensation package, including the loss of
+
+commission entitlement. He found that reasonable notice was eight months,
+
+bearing in mind the factors from Bardal v. Globe and Mail, [1960] O.W.N. 253
+
+(H.C.), the speed with which the appellant obtained equivalent employment, and
+
+that there was a gap in respect of commission earnings at the new employer.
+
+
+[34]    Second,    the terms of the commission plan precluded a claim for
+
+commissions on the EarthLink account because the contract was signed after the
+
+termination of the appellant’s employment, the revenues from the account were
+                                     Page: 11
+
+
+not “booked” until after the expiry of the notice period and the appellant was not
+
+an “employee in good standing” when he claimed the commissions.
+
+
+[35]   Third, although the appellant would not be entitled to commissions for
+
+EarthLink, he would have been entitled to all aspects of his compensation
+
+package, including commissions booked in respect of other transactions during
+
+that period, but for the termination provision in the Employment Agreement.
+
+
+[36]   Fourth, the appellant was not entitled to damages based on unjust
+
+enrichment. The appellant suffered no deprivation because he received salary for
+
+the work he did on the EarthLink account. In any event, the combination of the
+
+termination provision in the Employment Agreement and the Commission Plan
+
+were juristic reasons for the enrichment.
+
+
+[37]   Fifth, and finally, if the termination provision did not apply, damages based
+
+on eight months’ notice would be calculated as the salary, commissions and
+
+bonuses he would have received in that time, less the amounts paid by the
+
+respondent on termination and the earnings from his new employer during that
+
+period.
+
+D. THE ISSUES
+
+
+[38]   The issues necessary to the determination of this appeal, and as framed
+
+by the appellant, are as follows:
+                                     Page: 12
+
+
+                 1) the enforceability of the termination provision in the
+                       Employment Agreement;
+                 2) reasonable notice;
+                 3) the appellant’s entitlement to commissions;
+                 4) the appellant’s entitlement to compensation based on unjust
+                       enrichment; and
+                 5) damages.
+
+[39]   Before addressing those issues, it is appropriate to consider the applicable
+
+standards of review.
+
+E.     THE STANDARDS OF REVIEW
+
+
+[40]   The standard of review is particularly important because of the trial judge’s
+
+significant findings of fact and his interpretation of the contract. There are, in my
+
+view, three applicable standards of review.
+
+
+[41]   First, the issue of the enforceability of the Employment Agreement – an
+
+issue of contract formation – is reviewable on a standard of correctness as to
+
+questions of law and “palpable and overriding error” for questions of fact: Sattva
+
+Capital Corp. v. Creston Moly Corp., 2014 SCC 53, [2014] 2 S.C.R. 633; Housen
+
+v. Nikolaisen, 2002 SCC 33, [2002] 2 S.C.R. 235.
+
+
+[42]   Second, the appellant’s entitlement to commissions is a question of
+
+contract interpretation. In Sattva, at para. 50, the Supreme Court established that
+
+contractual interpretation is reviewed by appellate courts as a mixed question of
+                                      Page: 13
+
+
+fact and law: see also Housen. Absent an extricable error of law, a trial judge’s
+
+interpretation of the contract attracts deference, as it requires a court to apply the
+
+principles of contractual interpretation to the words of the contract, in the context
+
+of the factual matrix.
+
+
+[43]   The appellant’s entitlement to commissions involved issues of mixed fact
+
+and law and is subject to review for palpable and overriding error, unless the trial
+
+judge made an extricable error in law, in which case the standard of review is
+
+correctness: Sattva; Housen. An extricable legal error in this context includes
+
+“the application of an incorrect principle, the failure to consider a required
+
+element of a legal test, or the failure to consider a relevant factor”: Sattva, at
+
+para. 53, referring to King v. Operating Engineers Training Institute of Manitoba
+
+Inc., 2011 MBCA 80, 270 Man. R. (2d) 63, at para. 20. As the Supreme Court
+
+cautioned in Sattva, at para. 54, an appellate court should not strive to find
+
+extricable legal errors in what are essentially factual disputes over the objective
+
+intention of the parties.
+
+
+[44]   Third, a trial judge’s determination of reasonable notice in a wrongful
+
+dismissal case is entitled to deference. As this court observed in Minott v. Tam
+
+O’Shanter Development Co. (1999), 42 O.R. (3d) 321 at pp. 343-344:
+
+             Determining the period of reasonable notice is an art not
+             a science. In each case trial judges must weigh and
+             balance a catalogue of relevant factors. No two cases
+             are identical; and, ordinarily there is no one “right” figure
+                                       Page: 14
+
+
+             for reasonable notice. Instead, most cases yield a range
+             of     reasonableness.   Therefore,    a    trial   judge’s
+             determination of the period of reasonable notice is
+             entitled to deference from an appellate court. An appeal
+             court is not justified in interfering unless the figure
+             arrived at by the trial judge is outside an acceptable
+             range or unless, in arriving at the figure, the trial judge
+             erred in principle or made an unreasonable finding of
+             fact. If the trial judge erred in principle, an appellate
+             court may substitute its own figure. But it should do so
+             sparingly if the trial judge’s award is within an
+             acceptable range, despite the error in principle.
+
+[45]   The rule that the court should interfere sparingly on the issue of
+
+reasonable notice, even in the presence of an error in principle, has been applied
+
+by this court in McNevan v. AmeriCredit Corp., 2008 ONCA 846, 94 O.R. (3d)
+
+458.
+
+
+[46]   Against that background, I turn to the issues raised by the appellant.
+
+F.     ANALYSIS
+
+(1) The enforceability of the Employment Agreement
+
+
+[47]   I turn first to the issue whether the termination provision in the Employment
+
+Agreement was enforceable, given that it was signed nine months after the
+
+appellant commenced employment pursuant to the Offer Letter, which said
+
+nothing about notice of termination.
+                                     Page: 15
+
+
+[48]   As I have noted, the trial judge considered this court’s decision in Hobbs,
+
+but found it distinguishable because here there was consideration for a single
+
+contract made up from two closely related and consistent documents.
+
+
+[49]   With respect, the two documents were not consistent. They differed in at
+
+least one very material respect. Once accepted, the Offer Letter constituted a
+
+complete contract of employment. The appellant was employed pursuant to the
+
+Offer Letter for some nine months before he signed the Employment Agreement.
+
+It was an implied term of the Offer Letter that he was entitled to reasonable
+
+notice prior to the termination of his employment: Francis v. Canadian Imperial
+
+Bank of Commerce (1994), 21 O.R. (3d) 75 (C.A.). As the Supreme Court of
+
+Canada observed in BG Checo International Ltd. v. British Columbia Hydro &
+
+Power Authority, [1993] 1 S.C.R. 12, at p. 31, “[t]he law has always treated
+
+express and implied terms as being equivalent in effect.”
+
+
+[50]   The Employment Agreement contained an inconsistent term. Instead of
+
+providing for reasonable notice, it limited the appellant’s entitlement to notice of
+
+termination to the statutory minimum set out in the ESA. There was no evidence
+
+of any discussion of the subject prior to the appellant’s acceptance of the Offer
+
+Letter, no evidence that he was told that the Employment Agreement would
+
+contain terms inconsistent with the Offer Letter and no evidence that he agreed
+
+to waive his right to reasonable notice of termination when he signed the Offer
+                                      Page: 16
+
+
+Letter. Accordingly, the Employment Agreement introduced a new, very material
+
+term, into the existing contract of employment – a term to which the appellant
+
+had not previously consented and for which he received no consideration.
+
+
+[51]   The common law entitlement to reasonable notice of termination has been
+
+described by     the Supreme Court as a “necessary consideration” of an
+
+employment relationship: Machtinger, at p. 1024. This court has described an
+
+express   term contradicting     an   implied   term of    reasonable notice as a
+
+“tremendously significant modification”: Francis, at p. 84; see also Braiden v. La-
+
+Z-Boy Canada Ltd., 2008 ONCA 464, 294, D.L.R. (4th) 172, at paras. 48, 57.
+
+
+[52]   It is well-settled that a promise to perform an existing contract is not
+
+consideration: see e.g. K.M.A. Caterers Ltd. v. Howie, [1969] 1 O.R. 131 (C.A.);
+
+Hobbs; Braiden. Fresh consideration was required: Francis.
+
+
+[53]   In my view, the law in this respect is a matter of simple fairness. It is also a
+
+matter of sound employment practice. As Juriansz J.A. noted in Hobbs, at para.
+
+1:
+
+             Accepting an offer of employment and committing the
+             next stage of one’s career to a new employer is an
+             important life decision that most people make carefully.
+             Instability in an individual’s life, and in the workforce
+             generally, is minimized when the decision is made on
+             the basis of complete and accurate information about
+             the new position.
+                                      Page: 17
+
+
+[54]   Juriansz J.A. noted the importance of fresh consideration where an
+
+employer seeks to amend the employment agreement. He stated, at para. 42:
+
+             The requirement of consideration to support an
+             amended agreement is especially important in the
+             employment context where, generally, there is inequality
+             in    bargaining    power    between   employees    and
+             employers. Some employees may enjoy a measure of
+             bargaining power when negotiating the terms of
+             prospective employment, but once they have been hired
+             and are dependent on the remuneration of the new job,
+             they become more vulnerable. The law recognizes this
+             vulnerability, and the courts should be careful to apply
+             Maguire [v. Northland Drug. Co, [1935] S.C.R. 32] and
+             Techniform Products [v. Wolder (2001), 56 O.R. (3d) 1
+             (C.A.)] only when, on the facts of the case, the
+             employee gains increased security of employment, or
+             other consideration, for agreeing to the new terms of
+             employment.
+
+[55]   Without   fresh   consideration,   the   Employment   Agreement   could   not
+
+displace the implied term of reasonable notice contained in the Offer Letter. The
+
+result is that the appellant was entitled to reasonable notice of termination at
+
+common law. This impacts, potentially, his damages in lieu of notice and his
+
+entitlement to commissions that became payable after his termination.
+
+(2) Reasonable Notice
+
+
+[56]   The trial judge found that, had the Employment Agreement not applied, the
+
+appellant would have been entitled to eight months’ notice, having regard to the
+
+Bardal factors, the speed with which he found comparable employment and the
+
+delay before he was able to generate commissions at his new job.
+                                      Page: 18
+
+
+[57]   This issue is significant, not to the damages for loss of salary, which were
+
+addressed through the ESA payments and the appellant’s own mitigation efforts,
+
+but for lost commission earnings, which took time for the appellant to generate at
+
+his new job.
+
+
+[58]   The appellant argues that the trial judge erred in principle by failing to give
+
+consideration to the non-competition and non-solicitation provisions of his
+
+employment contract. He says that, on a proper analysis, reasonable notice
+
+should have been 12 months. He relies on Prozak v. Bell Telephone Co. of
+
+Canada, (1984), 46 O.R. (2d) 385 (C.A.); Kaufman v. Weston (1996), 18
+
+C.C.E.L. (2d) 198 (Ont. S.C.); and Sharpe v. Computer Innovations Distribution
+
+(1994), 146 N.B.R. (3d) 254 (C.A.).
+
+
+[59]   The appellant refers to John R. Sproat, Wrongful Dismissal Handbook, 5th
+
+ed. (Toronto: Carswell, 2009), at pp. 6.34.8-6.34.9, to support the submission
+
+that a restrictive covenant may increase the reasonable notice period. The
+
+learned author cites two cases of this court in which non-competition covenants
+
+increased the notice period: Murrell v. Burns International Security Services Ltd.
+
+(1997), 33 C.C.E.L. (2d) 1 and Ryan v. Laidlaw Transportation Ltd. (1995), 26
+
+O.R. (3d) 97, per McKinlay J.A. (dissenting, but not on this point).
+
+
+[60]   In both of those cases though, the non-competition provisions made it
+
+more difficult for the employee to find comparable employment. There was no
+                                     Page: 19
+
+
+evidence in this case that the non-competition provisions were likely to make it
+
+more difficult for the appellant to find comparable employment. I see no error in
+
+principle in the trial judge’s failure to consider the impact of the non-competition
+
+covenants.
+
+
+[61]   There is, however, merit to the appellant’s submission that the trial judge
+
+should not have considered the speed with which he found new employment in
+
+determining the period of reasonable notice. Notice is to be determined by the
+
+circumstances existing at the time of termination and not by the amount of time
+
+that it takes the employee to find employment: see Panimondo v. Shorewood
+
+Packaging Corp. (2009), 73 C.C.E.L. (3d) 99 (S.C.), citing Harper v. Bank of
+
+Montreal (1989), 27 C.C.E.L. 54 (Ont. Div. Ct.). If two employees in identical
+
+circumstances are terminated at the same time, they are entitled to the same
+
+notice, regardless how long it takes each of them to find a new job. One may
+
+mitigate her damages by finding a comparable job shortly after being dismissed.
+
+The other may be unable to find work for years. They are entitled to the same
+
+notice, regardless of the outcome. The time it takes to find a new job goes to
+
+mitigation of damages, not to the length of notice.
+
+
+[62]   I am unable to find, however, that the trial judge’s consideration of this
+
+factor had a significant impact on his conclusion concerning the proper notice
+
+period.   Having regard to the authorities cited by counsel for the appellant, the
+                                      Page: 20
+
+
+appropriate range in this case was between eight and twelve months. While the
+
+eight months awarded by the trial judge was at the very low end of the range, I
+
+would not interfere with the exercise of his discretion, notwithstanding the error in
+
+referring to the time it took the appellant to find new work: See McNevan v.
+
+AmeriCredit Corp., at paras. 34-35.
+
+(3) Entitlement to commissions
+
+
+[63]   The respondent’s Commission Plan, which appears to have been re-
+
+issued and amended annually, was three pages long and covered six different
+
+commissions or bonuses. It was not disputed that the plan itself was valid and
+
+there was consideration for it.
+
+
+[64]   The plan had “General Terms”, apparently applicable to all forms of
+
+commission remuneration as well as specific terms applicable to each particular
+
+form. Some terms were defined and some were not. Its language could only be
+
+fully understood by someone who was familiar with the respondent’s business. It
+
+is clear from his reasons that the trial judge found the language challenging.
+
+
+[65]   That said, as the trial judge observed, the Commission Plan was “written in
+
+the language of the defendant’s business for use between an employer and its
+
+employee”. The trial judge had the benefit of hearing evidence about how the
+
+Commission Plan worked in practice. His detailed analysis and interpretation of
+
+the Commission Plan was informed by the factual matrix developed by the
+                                    Page: 21
+
+
+witnesses on both sides and the historical application of the plan in the course of
+
+the appellant’s employment.
+
+
+[66]   There are three commissions relevant to the EarthLink account. I will begin
+
+by describing each commission and will summarize the trial judge’s reasons for
+
+dismissing the appellant’s claims for these commissions. Under the heading
+
+“Analysis”, I will explain why the trial judge’s interpretation of the Commission
+
+Plan contains no extricable error of law and why I would defer to that
+
+interpretation.
+
+Strategic Account Bonus
+
+[67]   The first commission is the Strategic Account Bonus. This was a bonus
+
+payable on billings for new accounts that were identified as “strategic accounts”.
+
+EarthLink was a strategic account. The 2010 Commission Plan provided that,
+
+among other things, the appellant was entitled to a bonus, of up to $14,000, for
+
+new accounts with billings of no less than $10,000 per month for at least three
+
+consecutive months. In order to be paid a bonus, the respondent had to collect
+
+the revenue, as opposed to simply invoicing it. The commissions could be
+
+claimed by an employee up to 18 months from the time of signing the account,
+
+provided the employee was in “good standing” at the time.
+
+
+[68]   The trial judge found that the appellant was not entitled to the Strategic
+
+Account Bonus for EarthLink. This was because he was not an employee in good
+                                       Page: 22
+
+
+standing when EarthLink billings commenced in March 2011 and had not proved
+
+that he had claimed the bonus within 18 months of the account being signed.
+
+Variable Compensation Commission
+
+[69]      The second commission, the “Variable Compensation (Commission)”, was
+
+payable based on an employee’s attainment of a revenue quota. If the appellant
+
+reached 100 percent of his quota ($600,000 in 2010) he was entitled to 16
+
+percent of that revenue. The provisions applicable to this form of commission
+
+stated,     “Commissions are paid on a booked basis, with adjustments as
+
+necessary for credits, charge-backs and other net amounts.”
+
+
+[70]      The trial judge found he was not entitled to this commission for EarthLink
+
+because the EarthLink revenues were not booked and adjusted until March 2011,
+
+over a year after his termination and outside the reasonable notice period.
+
+Minimum Monthly Revenue Bonus
+
+[71]      The third commission was described as a “Minimum Monthly Revenue
+
+Bonus”. The Commission Plan described the entitlement to this “bonus” as
+
+follows: “Effective for 2012, any contract with a minimum monthly recurring
+
+revenue fee shall earn the sales representative a front-end commission payment
+
+equivalent to 100 percent of the 3rd month’s consecutive billing – to a maximum
+
+of $20,000.” This commission, like all commissions, was subject to the “General
+
+Terms” of the Commission Plan, which provided, among other things, that the
+                                      Page: 23
+
+
+“Employee must be employed in good standing by Hostopia to collect any trailing
+
+bonus     amounts,   which   means    that   no   trailing   bonus   survive   employee
+
+termination for any cause.” It also provided, “Any bonus amounts earned up to
+
+termination of employment must be paid within 30 days of termination date.”
+
+
+[72]    The trial judge found that there was no Minimum Monthly Revenue Bonus
+
+payable to the appellant because there was no minimum monthly recurring
+
+revenue payable on the EarthLink contract. In any event, although he did not
+
+expressly say so, he would have found that the bonus was not payable because
+
+of the term requiring the employee to be in good standing to collect it.
+
+Analysis
+
+[73]    The trial judge made important findings of fact in relation to the appellant’s
+
+claims for commissions. These findings were based on his assessment of all the
+
+evidence, including conflicting testimony that required him to make findings of
+
+credibility, which he resolved in favour of the respondent.
+
+
+[74]    First, he found that the appellant was assigned the position of lead person
+
+on the EarthLink account. He did not find the EarthLink opportunity. He worked
+
+with a large team of the respondent’s employees.
+
+
+[75]    Second, he rejected the appellant’s evidence that he was responsible for
+
+obtaining a “deal in principle” with EarthLink prior to the termination of his
+
+employment. This assertion was not confirmed by the documentary evidence and
+                                    Page: 24
+
+
+it was inconsistent with the appellant’s own words and conduct. He found that it
+
+was “very improbable that EarthLink decided in late February 2010 to finalize a
+
+deal with [the respondent]” and that the appellant was aware of this.
+
+
+[76]   Third, he found that the appellant’s contribution to getting the EarthLink
+
+deal to a finalized contract and converting it into revenue, was no more than 15
+
+percent. He said, “I find that the plaintiff’s work, in a team context, probably
+
+contributed no more than 15 percent to that outcome, and that that 15 percent
+
+was in the preliminary stages of a protracted process.” In coming to this
+
+conclusion, the trial judge accepted the respondent’s evidence that after the
+
+appellant’s departure the respondent put much detailed and important work into
+
+persuading EarthLink to deal with it. The appellant was only one of many of the
+
+respondent’s employees who brought the deal to fruition. The work done after his
+
+termination was much more of a contribution.
+
+
+[77]   Fourth, the trial judge found that the appellant’s employment was not
+
+terminated for the purpose of avoiding the payment of commissions on the
+
+EarthLink deal. He was terminated due to poor sales performance.
+
+
+[78]   These findings are grounded in the evidence and in the trial judge’s
+
+assessment of the credibility of witnesses and we cannot interfere in the absence
+
+of palpable and overriding error. No such error has been demonstrated.
+                                      Page: 25
+
+
+[79]   The trial judge’s findings of fact support the conclusion that the appellant
+
+was not the “effective” or “substantial” cause of the EarthLink contract: see
+
+Howard A. Levitt, The Law of Dismissal in Canada, loose-leaf, 3rd ed., (Aurora,
+
+Ont.: Canada Law Book, 2003), at pp. 9-39 to 9-40. Had he been, there might
+
+have been an argument that he had done all that was necessary to earn the
+
+commissions and the commission plan only addressed the timing of payment.
+
+
+[80]   But that argument is not available to the appellant. Not only was there no
+
+contract signed with EarthLink at the time of his termination, the contract was not
+
+signed until after the expiry of the reasonable notice period. Moreover, the
+
+language of the commission plan precluded his recovery of commissions. The
+
+appellant was not entitled to compensation for the commission because the
+
+revenue from the EarthLink contract was not “booked” until more than a year
+
+after the termination of his employment and he was not an “employee in good
+
+standing” when he claimed the commission.
+
+
+[81]   The appellant has failed to demonstrate any extricable legal error in the
+
+trial judge’s interpretation of the challenging language of the Commission Plan.
+
+That interpretation was informed by the evidence of the way in which the
+
+respondent conducted its business and by the practical meaning given by the
+
+parties to the termination of the contract.
+                                       Page: 26
+
+
+(4) Unjust Enrichment
+
+
+[82]   The appellant submits that the respondent has been unjustly enriched. He
+
+“harpooned the whale” – brought the lucrative EarthLink contract to the
+
+respondent – but received no compensation for his efforts.
+
+
+[83]   To    establish   a   claim   for   unjust   enrichment,   the   appellant   must
+
+demonstrate: (1) an enrichment of the defendant; (2) a corresponding deprivation
+
+of the plaintiff; and (3) an absence of juristic reason for the enrichment: Garland
+
+v. Consumers' Gas Co., 2004 SCC 25, [2004] 1 SCR 629, at para. 30.
+
+
+[84]   The appellant’s submissions on this issue impugn the trial judge’s findings
+
+of fact concerning his contribution to the ultimate securing of the EarthLink
+
+contract. The appellant asks us to re-evaluate the evidence, and the credibility of
+
+the witnesses and to substitute our opinion for the trial judge’s. He has
+
+demonstrated no palpable or overriding error in the trial judge’s assessment of
+
+the evidence on this issue. In my view, there is simply no basis on which we can
+
+interfere.
+
+
+[85]   On the trial judge’s findings of fact, the appellant did not throw the first
+
+harpoon, the whale was not firmly on the line when his employment was
+
+terminated, and there was much work still to be done to bring it to shore. This
+                                     Page: 27
+
+
+work   was    not   accomplished   during   the   appellant’s   employment   and his
+
+entitlement to commission did not arise during the reasonable notice period.
+
+
+[86]   As I have noted, the trial judge found that the appellant was compensated
+
+for his work on the EarthLink account through his base salary and he had
+
+contractually agreed that he would not receive further compensation for his work
+
+until revenues had been booked. Thus, the appellant suffered no deprivation and
+
+there was a juristic reason for the enrichment of the respondent.
+
+
+[87]   In my view, the trial judge made no error in finding there was no right to
+
+equitable compensation on unjust enrichment principles.
+
+(5) Damages
+
+
+[88]   The respondent does not dispute that, if the appellant was entitled to
+
+reasonable notice, he is entitled to be compensated for the commissions he
+
+would have been paid in the ordinary course during the reasonable notice period.
+
+G.     DISPOSITION
+
+
+[89]   For these reasons, the appeal is allowed in part, and the judgment below is
+
+varied by awarding damages assessed in the manner identified by the trial judge,
+
+as set out in paragraph 37 of these reasons. Counsel indicated that they would
+
+likely be able to resolve quantum. If they are unable to do so they may make
+
+submissions in writing within 30 days of the release of these reasons.
+                                    Page: 28
+
+
+[90]   Success on this appeal is divided. If counsel are unable to resolve costs,
+
+they may make written submissions, limited to five pages, excluding the costs
+
+outline, also within 30 days.
+
+                                                             “G.R. Strathy C.J.O.”
+                                                     “I agree H.S. LaForme J.A.”
+                                                       “I agree M.H. Tulloch J.A.”
+Released: November 10, 2015
+

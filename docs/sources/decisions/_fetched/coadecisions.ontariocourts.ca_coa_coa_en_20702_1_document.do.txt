@@ -1,0 +1,288 @@
+                    COURT OF APPEAL FOR ONTARIO
+
+                                   CITATION: Kiselman v. Klerer, 2022 ONCA 489
+                                                                DATE: 20220622
+                                                              DOCKET: C68608
+
+                        Brown, Roberts and Paciocco JJ.A.
+
+BETWEEN
+
+                                    Uri Kiselman
+
+                                                                 Plaintiff (Appellant)
+
+                                         and
+
+               Joel Klerer, aka (Owner of I.O.F. Business Furniture
+      Manufacturing Inc.), Pamela Klerer and I.O.F. Intelligent Office Furniture
+
+                                                         Defendants (Respondents)
+
+J. Richard Forget, for the appellant
+
+Daria Krysik, for the respondent Pamela Klerer
+
+Eli Fellman, for the intervener Landlord and Tenant Board
+
+No one appearing for the respondents Joel Klerer and I.O.F. Intelligent Office
+Furniture
+
+Heard: June 17, 2022
+
+On appeal from the order of Justice Gregory M. Mulligan of the Divisional Court,
+dated November 19, 2019, with reasons reported at 2019 ONSC 6668.
+
+                            REASONS FOR DECISION
+
+OVERVIEW
+
+[1]    The appellant, Uri Kiselman, commenced a Small Claims Court claim
+
+against the respondents, his former residential tenants. The claim was for
+                                      Page: 2
+
+
+$17,166.55 in total damages for the non-payment of rent, and for costs incurred to
+
+repair undue damage that the appellant alleges the respondents caused to the
+
+rental unit. A deputy Small Claims Court judge dismissed the claim for want of
+
+jurisdiction. That decision was upheld on appeal to the Divisional Court. Leave to
+
+appeal the Divisional Court decision was granted. At the end of the oral hearing,
+
+we allowed the appeal with reasons to follow. These are our reasons.
+
+THE MATERIAL FACTS
+
+[2]   The relevant provisions of the Residential Tenancies Act, 2006, S.O. 2006
+
+c. 17 [the “Residential Tenancies Act”] in force at the time the appellant initiated
+
+his action confirmed that the Landlord and Tenant Board [“LTB”] had jurisdiction to
+
+adjudicate claims for damages for rent arrears and for undue damage to a rental
+
+unit if the claim was brought while the tenant was in possession of the rental unit.
+
+It is not contested that the respondents were not in possession when the appellant
+
+initiated his damages action in the Small Claims Court.
+
+[3]   The respondents nonetheless brought a motion to dismiss the Small Claims
+
+Court action for want of jurisdiction, arguing that the LTB retains jurisdiction over
+
+undue damage actions even where a tenant is no longer in possession of a rental
+
+unit if the landlord could, with due diligence, have discovered and initiated the
+
+action while the tenant was still in possession. The respondents argued that the
+
+appellant failed to exercise due diligence because he did not utilize his right of
+                                      Page: 3
+
+
+inspection while the respondents were in possession. Had he done so, he could
+
+have discovered the damage and initiated the action before the LTB. In essence,
+
+the respondents argued that landlords cannot rely on their failure to exercise due
+
+diligence in order to evade the exclusive jurisdiction of the LTB.
+
+[4]    The appellant opposed the dismissal motion, relying on the plain wording of
+
+the material provisions of the Residential Tenancies Act then in force. He also
+
+argued that the notion that actionable undue damage can be discovered with due
+
+diligence while a tenant is still in possession of the rental unit makes no sense.
+
+He argued that if a tenant repairs such damage before quitting the tenancy, there
+
+is no basis to sue. Therefore, it is only after a tenant has left a rental unit without
+
+repairing undue damage that such a claim can be discovered.
+
+[5]    On September 5, 2017, a deputy Small Claims Court judge accepted the
+
+respondents’ submissions and granted their motion to dismiss the appellant’s claim
+
+for lack of jurisdiction.
+
+[6]    The Divisional Court appeal judge upheld the decision of the deputy Small
+
+Claims Court judge, but he applied different reasoning. He held that s. 168(2) of
+
+the Residential Tenancies Act gives the LTB “exclusive jurisdiction to determine
+
+claims of this type” because “nothing turns on the fact that the action was started
+
+after the tenant was no longer in possession”.
+                                             Page: 4
+
+
+ANALYSIS
+
+[7]    In order to have exclusive jurisdiction, a tribunal must first have jurisdiction.
+
+The LTB did not have jurisdiction to adjudicate the claims that the appellant was
+
+seeking to advance. The Divisional Court therefore erred in holding that the LTB
+
+had exclusive jurisdiction and in dismissing the appeal.
+
+[8]    At the relevant time, s. 87(1) of the Residential Tenancies Act, now repealed
+
+and replaced,1 provided:
+
+               87(1) A landlord may apply to the Board for an order for the payment
+               of arrears of rent if,
+
+                        (a) the tenant has not paid rent lawfully required under the
+                       tenancy agreement; and
+
+                        (b) the tenant is in possession of the rental unit. [Emphasis
+                       added.]
+
+[9]    Section 89(1), also now repealed and replaced,2 provided:
+
+               89(1) A landlord may apply to the Board for an order requiring a tenant
+               to pay reasonable costs that the landlord has incurred or will incur for
+               the repair of or, where repairing is not reasonable, the replacement of
+               damaged property, if the tenant, another occupant of the rental unit or
+               a person whom the tenant permits in the residential complex wilfully
+               or negligently causes undue damage to the rental unit or the
+               residential complex and the tenant is in possession of the rental unit.
+               [Emphasis added.]
+
+
+
+
+1 Protecting Tenants and Strengthening Community Housing Act, 2020, S.O. 2020, c. 16, Sched 4,
+
+s. 18(1), effective September 1, 2021.
+2 Protecting Tenants and Strengthening Community Housing Act, 2020, S.O. 2020, c. 16, Sched 4,
+
+s. 21(1), effective September 1, 2021.
+                                      Page: 5
+
+
+[10]   On a plain reading of these sections, the LTB only has jurisdiction over a
+
+claim for the payment of rent, or for the recovery of the costs of repairing damage,
+
+when the tenant is in possession of the rental unit.
+
+[11]   Not surprisingly, in 1162994 Ontario Inc. v. Bakker, 2004 CanLII 59995
+
+(Ont. C.A.), at para. 18, Doherty J.A. held with respect to the identically worded
+
+predecessor provisions to s. 87(1) that the LTB does not have jurisdiction over
+
+claims for arrears of rent where the connection between the tenant and the rental
+
+unit has been severed. He explained that this is in keeping with the purpose of the
+
+Residential Tenancies Act of encouraging “speedy, fair and efficient access to
+
+justice in residential tenancy matters”: at paras. 17-18. He noted that once the
+
+connection between the tenant and the rental unit has been severed, such claims
+
+“are best resolved through more formal court processes”: at para. 18. Although
+
+Doherty J.A. did not say so expressly, this follows from the fact that once the tenant
+
+is no longer connected to the unit, the need for speedy access to justice will have
+
+abated, removing the need to direct exclusive jurisdiction to the LTB.
+
+[12]   Bakker has not been overturned and has been repeatedly followed,
+
+including by the Divisional Court: see Capreit Limited Partnership v. Griffin, 2016
+
+ONSC 5150 (Div. Ct.), at paras. 10-12; Kissell v. Milosevic, 2008 CanLII 27475
+
+(Ont. Div. Ct.), at para. 3. This line of authority does not appear to have been cited
+
+in the courts below.
+                                      Page: 6
+
+
+[13]   The respondents argue before us that this line of authority does not apply.
+
+They rely instead on a line of Small Claims Court decisions, including Finney v.
+
+Cepovski, 2015 CanLII 48918 (Ont. S.C.), at paras. 25-27 and Fong v. Lemieux,
+
+2016 CanLII 30092 (Ont. S.C.), which hold that if a landlord has not exercised due
+
+diligence in discovering damage to the rental unit while the tenant is still in
+
+possession, the LTB retains jurisdiction even if the action was commenced after
+
+the tenant is no longer in possession. The respondents maintain that Bakker is not
+
+inconsistent with this line of authority because Bakker is a rent arrears case that
+
+did not address jurisdiction over damage claims arising from undue damage to
+
+rental units.
+
+[14]   We disagree. The line of authority the respondents rely upon is inconsistent
+
+with the clear language of former ss. 87(1) and 89(1) and should not be followed.
+
+It is also inconsistent with the clear language of s. 23 of the Courts of Justice Act,
+
+R.S.O. 1990, c. C.43, which describes the jurisdiction of the Small Claims Court
+
+based not on the exercise of due diligence but on the monetary amount of a claim.
+
+Moreover, although Bakker dealt only with claims for rent arrears, its reasoning
+
+applies to the former s. 89(1) relating to damage claims for undue damage to the
+
+rental unit.
+
+[15]   Given that the respondents had moved out and severed their connection to
+
+the rental unit, the LTB does not have jurisdiction, let alone exclusive jurisdiction,
+                                               Page: 7
+
+
+over this litigation.3 Instead, the claims fall within the monetary jurisdiction of the
+
+Small Claims Court. The Divisional Court appeal judge therefore erred in denying
+
+the appeal from the decision of the deputy Small Claims Court judge, who also
+
+erred in dismissing the landlord’s claim for want of jurisdiction.
+
+CONCLUSION
+
+[16]    The appeal is allowed, the decision setting aside the claim is set aside, and
+
+this matter is to be restored to the trial list in Newmarket, to be heard on its merits.
+
+[17]    As agreed between the parties, costs are payable to the appellant in the
+
+amount of $3,500 inclusive of HST and disbursements.
+
+                                                                               “David Brown J.A.”
+                                                                               “L.B. Roberts J.A.”
+                                                                         “David M. Paciocco J.A.”
+
+
+
+
+3 We need not decide whether the LTB would have had jurisdiction over an identical claim had it
+
+originated after September 1, 2021. We would be remiss, however, in failing to caution that the
+amendments and transitional provisions in the Protecting Tenants and Strengthening Community Housing
+Act, 2020 may have supported a different outcome in such circumstances.
+

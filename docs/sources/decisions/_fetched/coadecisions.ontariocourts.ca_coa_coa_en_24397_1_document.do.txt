@@ -1,0 +1,2256 @@
+                   COURT OF APPEAL FOR ONTARIO
+
+                  CITATION: Wigdor v. Facebook Canada Ltd., 2026 ONCA 572
+                                                           DATE: 20260807
+                                                DOCKET: COA-25-CV-1031
+
+                        George, Copeland and Gomery JJ.A.
+
+BETWEEN
+
+                                  Daniel Wigdor
+
+                                                           Applicant (Appellant/
+                                             Respondent by way of cross-appeal)
+
+                                       and
+
+                 Facebook Canada Ltd. and Meta Platforms, Inc.
+
+                                                    Respondents (Respondents/
+                                              Appellants by way of cross-appeal)
+
+
+Alysha Shore and Daniel Rosenbluth, for the appellant/respondent by way of
+cross-appeal
+
+George Avraam and Jennifer Bernardo, for the respondents/appellants by way of
+cross-appeal
+
+Tim Lawson, Brandon Kain, Marco Fimiani and John Gray, for the intervener,
+Canadian Association of Counsel to Employers
+
+Heard: April 23, 2026
+
+On appeal from the order of Justice Janet Leiper of the Superior Court of Justice,
+dated July 8, 2025, with reasons reported at 2025 ONSC 4861.
+
+
+
+Copeland J.A.:
+                                     Page: 2
+
+
+[1]   This appeal arises from a wrongful dismissal application seeking damages
+
+in lieu of common law reasonable notice.
+
+[2]   The appellant, Daniel Wigdor (“Dr. Wigdor”), appeals from the application
+
+judge’s order dismissing his claim for the value of Restricted Stock Units (“RSUs”)
+
+that would have vested during the common law notice period. He also appeals the
+
+application judge’s denial of punitive damages.
+
+[3]   The respondents, Facebook Canada Ltd. and Meta Platforms, Inc.
+
+(“Facebook Canada” and “Meta”, and collectively, “the Respondents”), cross-
+
+appeal from the application judge’s determination that the termination provisions
+
+of the employment agreement were void for contravening minimum standards in
+
+the Employment Standards Act 2000, S.O. 2000, c. 41 (the “ESA”), and ordering
+
+the Respondents to pay damages for 10-months reasonable common law notice.
+
+[4]   For the reasons that follow, I would allow Dr. Wigdor’s appeal, except in
+
+relation to punitive damages, and dismiss the Respondents’ cross-appeal.
+
+[5]   The application judge did not err in finding that the termination provisions of
+
+the employment agreement contravened the ESA’s minimum standards, and thus,
+
+did not validly contract out of Dr. Wigdor’s common law right to reasonable notice.
+
+[6]   However, the application judge erred in her interpretation of ss. 60 and 61
+
+of the ESA and their application to Dr. Wigdor’s entitlement to the RSUs. Section
+
+60(1)(a) of the ESA provides, inter alia, that an employer shall not alter any “term
+                                               Page: 3
+
+
+or condition of employment” during the period of notice of termination under the
+
+Act. Section 61(1) of the ESA, which governs pay in lieu of notice on termination,
+
+provides in (a) that an employer must, as a condition of termination without notice
+
+or with less notice than required under the ESA, pay the employee “a lump sum
+
+equal to what the employee would have been entitled to receive under section 60
+
+had notice been given in accordance with that section.” The RSU Agreements,
+
+which were incorporated by reference into the employment agreement, purported
+
+to disentitle Dr. Wigdor to further vesting of RSUs immediately on termination. This
+
+is contrary to the obligation on employers in s. 60(1)(a) not to alter any “term or
+
+condition of employment” during the notice period. As a result, the termination
+
+provisions of the RSU Agreements, incorporated into the employment agreement,
+
+contravene the ESA and are unenforceable. Dr. Wigdor is entitled to damages for
+
+the value of the RSUs that would have vested during the 10-month common law
+
+reasonable notice period.
+
+
+A.      FACTUAL BACKGROUND
+
+[7]     Dr. Wigdor is a tenured professor in the Department of Computer Science
+
+at the University of Toronto. His area of study is human-computer interaction. Meta
+
+is a public company, formerly known as Facebook, Inc.1 Facebook Canada is
+
+Meta’s Canadian subsidiary.
+
+
+
+1 In 2021, Facebook, Inc. changed its corporate identity to Meta. Following the convention of the parties
+
+and the application judge, I refer to the Canadian subsidiary’s parent company as Meta throughout these
+                                          Page: 4
+
+
+[8]    In 2011, Dr. Wigdor founded Chatham Inc. (“Chatham”) to provide
+
+technology consulting services for financial, legal, and technological firms. In
+
+August of 2016, he began providing services to one of Meta’s subsidiaries. By
+
+2018, he was engaged in project management and overseeing a staff team of 20
+
+within Chatham and 150 members of the Meta “Reality Labs” team.
+
+[9]    In 2020, Meta and Dr. Wigdor negotiated a share-purchase agreement to
+
+sell Chatham to Meta. Meta’s motivation for purchasing Chatham was to integrate
+
+Dr. Wigdor and his team into Meta’s workforce. The share-purchase agreement
+
+contemplated that Chatham’s employees, including Dr. Wigdor, would be
+
+terminated by Chatham and begin employment with Facebook Canada.
+
+Chatham’s consulting division was spun out into a standalone company. Meta then
+
+purchased the shares of this company via its wholly-owned subsidiaries.
+
+[10]   The share purchase agreement for Chatham contained several features
+
+designed to ensure that Dr. Wigdor and other key personnel accepted and
+
+maintained employment with the Respondents. For example,
+
+       (a)    Meta held back 50 percent of the purchase price and required that
+
+              Dr. Wigdor and at least three key employees from Chatham remain
+
+              employed by Meta or its subsidiaries for at least three years to receive
+
+              the funds; and
+
+
+reasons, although agreements entered into before the name change identify Facebook, Inc. as the
+contracting party.
+                                       Page: 5
+
+
+       (b)   As part of the purchase, Meta agreed to grant Dr. Wigdor 43,380
+
+             RSUs in Meta that were valued at US$7.5 million. The RSUs are a
+
+             form of equity compensation given to Meta employees that, once
+
+             vested under a four-year schedule, become common shares in the
+
+             corporation.
+
+[11]   Dr. Wigdor began employment with Facebook Canada on September 12,
+
+2020. His title was Director, Research Science. Dr. Wigdor’s employment was
+
+governed by an employment agreement signed on August 27, 2020 (the
+
+“employment agreement”).
+
+[12]   As an employee of Facebook Canada, Dr. Wigdor continued work on the
+
+project he had begun in his consulting role via Chatham. He managed a team of
+
+approximately 150 people. He enjoyed an employment arrangement which
+
+permitted him to work at 80 percent of a full-time equivalent position with Facebook
+
+Canada, approximately 32 hours per week, while retaining his position at the
+
+University of Toronto on a part-time basis. His initial base salary was $232,000
+
+(later raised to $253,100.37), with additional benefits. In addition, a letter that was
+
+incorporated as part of the employment agreement provided:
+
+
+             This letter is to confirm that your employer intends to
+             recommend to the Board of Directors of Facebook, Inc.
+             that you be granted restricted stock units (“RSUs”) by
+             Facebook, Inc. under the terms of the 2012 Equity
+             Incentive Plan (as amended and restated on June 20,
+             2016) (the “Plan”). Subject to the approval of Facebook,
+                                    Page: 6
+
+
+             Inc. Board of Directors or committee thereof (the
+             “Board”), you will be granted 43,380 RSUs under the
+             Plan. [Emphasis in original.]
+
+[13]   The RSUs were governed by Meta’s 2012 Equity Incentive Plan (referenced
+
+in the letter included as part of the employment agreement) with additional terms
+
+set out in the RSU Agreements. There are four RSU Agreements, one for each
+
+grant in 2020, 2021, 2022, and 2023 (collectively, the “RSU Agreements”).
+
+The language contained in the 2020 RSU Agreement regarding forfeiture of
+
+unvested RSUs upon termination changed in 2021 and is the same in each of the
+
+2021-2023 RSU Agreements. I discuss the provisions in the employment
+
+agreement and the RSU Agreements in more detail in the analysis section of these
+
+reasons.
+
+[14]   Facebook Canada terminated Dr. Wigdor’s employment by letter on
+
+December 4, 2023, effective December 8, 2023.
+
+[15]   The termination letter stated that Dr. Wigdor would be given his minimum
+
+entitlements under the ESA, amounting to 8-weeks pay in lieu of notice and
+
+12.5-weeks of statutory severance pay under the ESA. It further provided that he
+
+would receive certain supplemental entitlements contemplated by the employment
+
+agreement if he signed a release.
+                                      Page: 7
+
+
+[16]   Dr. Wigdor did not sign the release appended to the termination letter
+
+because it included a term that precluded him from disputing the forfeiture of
+
+unvested RSUs.
+
+[17]   The Respondents did not deliver payment to Dr. Wigdor of the ESA
+
+entitlements referred to in the termination letter until 10 months after he was
+
+terminated, and only after the application that forms the basis of this appeal was
+
+commenced. At trial, Dr. Wigdor contended that the late payment of the ESA
+
+entitlements was intentionally designed to pressure him to sign the release or was
+
+a reprisal for his failure to do so. The Respondents took the position that the delay
+
+in paying the ESA entitlements was the result of an administrative oversight. This
+
+issue was the basis for Dr. Wigdor’s claim of punitive damages.
+
+
+B.     THE APPLICATION JUDGE’S DECISION
+
+[18]   The application judge found that the termination provisions in the
+
+employment agreement were contrary to the ESA because they purported to
+
+contract out of Dr. Wigdor’s right under s. 9 of the ESA to have his years of service
+
+with his prior employer (Chatham) recognized for the purpose of calculating his
+
+termination entitlements after the sale. As a result of that finding, the termination
+
+provisions in the employment agreement were unenforceable, and Dr. Wigdor was
+
+entitled to damages under common law principles. The application judge found
+
+that he should receive 10-months notice, less working notice, statutory pay in lieu
+
+of notice, and severance pay, as well as any mitigation income he earned during
+                                      Page: 8
+
+
+the statutory period (that being income over and above what he was earning while
+
+employed).
+
+[19]   With respect to the RSUs, Dr. Wigdor argued that Meta’s RSU Agreements,
+
+which were incorporated by reference into the employment agreement, breached
+
+ss. 60 and 61 of the ESA.
+
+[20]   The portions of ss. 60 and 61 relevant to this appeal are as follows:
+
+             Requirements during notice period
+
+             60 (1) During a notice period under section 57 or 58, the employer,
+
+                   (a) shall not reduce the employee’s wage rate or alter any other
+                   term or condition of employment;
+
+                   (b) shall in each week pay the employee the wages the
+                   employee is entitled to receive, which in no case shall be less
+                   than his or her regular wages for a regular work week; and
+
+                   (c) shall continue to make whatever benefit plan contributions
+                   would be required to be made in order to maintain the
+                   employee’s benefits under the plan until the end of the notice
+                   period.
+
+                                                ...
+
+             Pay instead of notice
+
+             61 (1) An employer may terminate the employment of an employee
+             without notice or with less notice than is required under section 57 or
+             58 if the employer,
+
+                   (a) pays to the employee termination pay in a lump sum equal
+                   to the amount the employee would have been entitled to receive
+                   under section 60 had notice been given in accordance with that
+                   section; and
+                                       Page: 9
+
+
+                    (b) continues to make whatever benefit plan contributions would
+                    be required to be made in order to maintain the benefits to
+                    which the employee would have been entitled had he or she
+                    continued to be employed during the period of notice that he or
+                    she would otherwise have been entitled to receive.
+
+[21]   Section 60(1)(a) requires that during the notice period, an employer “shall
+
+not reduce the employee’s wage rate or alter any other term or condition of
+
+employment”. Dr. Wigdor argued that the requirement in s. 60(1)(a) not to alter a
+
+term or condition of employment during the notice period is incorporated into the
+
+calculation of pay in lieu of notice under s. 61(1)(a) of the ESA because s. 61(1)(a)
+
+refers to payment of a lump sum “equal to the amount” the employee would have
+
+been entitled to receive if given working notice under s. 60.
+
+[22]   The application judge found that Dr. Wigdor was not entitled to damages for
+
+the RSUs that would have vested during the common law notice period. She held
+
+that s. 60 of the ESA only applied to working notice, while s. 61 only applied to pay
+
+in lieu of notice. Based on this interpretation of ss. 60 and 61, the application judge
+
+considered Dr. Wigdor’s entitlement to damages for the RSUs only under s. 61.
+
+She found that the RSUs did not fall within the scope of Dr. Wigdor’s entitlements
+
+under s. 61 because, in her view, unlike s. 60, s. 61 did not prohibit an employer
+
+from altering any “term or condition of employment” during the notice period. As a
+
+result, she found that the 2020 RSU Agreement did not contravene the ESA and
+
+was enforceable. The application judge also found that the 2021-2023 RSU
+                                      Page: 10
+
+
+Agreements were enforceable and did not permit ongoing vesting during the notice
+
+period.
+
+[23]   The application judge dismissed Dr. Wigdor’s claim for punitive damages.
+
+[24]   I discuss the reasoning of the application judge on each of these issues in
+
+more detail in the analysis below.
+
+
+C.     THE GROUNDS OF APPEAL AND CROSS-APPEAL
+
+[25]   Dr. Wigdor argues that the application judge erred in refusing to award
+
+damages for the RSUs that would have vested during the common law reasonable
+
+notice period. He argues that the provisions of the RSU Agreements that purported
+
+to terminate vesting of RSUs at the time of termination were invalid because they
+
+did not meet ESA minimum standards. The application judge erred in finding that
+
+the RSU Agreements complied with ESA minimum standards by (1) assessing
+
+compliance with the ESA only based on s. 61 of the Act; and (2) by committing
+
+errors in her statutory interpretation of s. 61 of the ESA.
+
+[26]   Dr. Wigdor also argues that the application judge erred in declining to award
+
+him punitive damages.
+
+[27]   In the cross-appeal, the Respondents argue that the application judge erred
+
+in her interpretation of the employment agreement, and in particular, in finding that
+
+the termination clause contravened the ESA, was void, and thus could not validly
+                                     Page: 11
+
+
+contract out of Dr. Wigdor’s common law entitlement to reasonable notice of
+
+termination.
+
+
+D.     ANALYSIS
+
+1.     The legal framework for termination clauses and ESA compliance
+
+[28]   I begin with the legal framework in relation to termination clauses and
+
+compliance with ESA minimum standards because it is relevant to both the appeal
+
+and the cross-appeal.
+
+[29]   At common law, an employee hired for an indefinite period can be dismissed
+
+without cause, but the employer must give reasonable notice or pay in lieu of
+
+notice. The common law presumption of termination with reasonable notice can be
+
+rebutted if the employment contract clearly specifies some other period of
+
+notice: Wood v. Fred Deeley Imports Ltd., 2017 ONCA 158, 134 O.R. (3d) 481,
+
+at paras. 15-16; Machtinger v. HOJ Industries Ltd., [1992] 1 S.C.R. 986, at
+
+pp. 997-98.
+
+[30]   However, in Ontario, the ESA sets minimum standards for terms of
+
+employment. Pursuant to s. 5 of the ESA, employers and employees cannot
+
+contract out of the minimum standards in the Act. Any purported contracting out is
+
+void. As a result, terms of employment contracts that provide for notice periods will
+
+only be enforceable if they comply with ESA minimum standards. Among the
+                                      Page: 12
+
+
+minimum standards set by the ESA are minimum notice periods upon termination:
+
+ss. 54-61.
+
+[31]   In the context of termination clauses, these principles have the following
+
+effect: if a termination clause does not comply with ESA minimum standards, it will
+
+be unenforceable, the common law presumption of reasonable notice for
+
+termination will not be rebutted, and the employee will be entitled to common law
+
+reasonable notice of termination: Wood, at para. 16; Machtinger, at p. 1000.
+
+[32]   The basic principles for the assessment of whether a termination clause in
+
+an employment contract complies with ESA minimum standards are well
+
+established: see Wood, at paras. 28, 43-51; Machtinger, at pp. 1002-05. Four
+
+points are of particular importance to this appeal.
+
+[33]   First, the ESA is remedial legislation, intended to protect the interests of
+
+employees. As a result, courts should favour an interpretation of the ESA that
+
+encourages employers to comply with its minimum standards over an
+
+interpretation that does not do so.
+
+[34]   Second, termination clauses should be interpreted in a way that encourages
+
+employers to draft agreements that comply with the ESA. If the only consequence
+
+for an employer of drafting a termination clause that does not comply with ESA
+
+minimum standards is an order that they comply, employers will have little
+                                      Page: 13
+
+
+incentive to draft a lawful termination clause at the start of the employment
+
+relationship.
+
+[35]    Third, a termination clause will rebut the presumption of reasonable notice
+
+only if its wording is clear. Employees are entitled to know at the beginning of their
+
+employment what their entitlement will be at the end of their employment.
+
+[36]    Fourth, the interpretation of a termination clause and whether it meets the
+
+minimum standards set out in the ESA is based on the wording of the clause. Thus,
+
+even if the employer complies with the ESA minimum standards at the time of
+
+termination, that compliance does not have the effect of remedying a termination
+
+provision that does not comply with the ESA minimum standards in a contract
+
+entered into at the beginning of the employment.
+
+
+2.      The Cross-appeal
+
+       a.   Did the application judge err in finding that the termination clause
+            in the employment agreement violated the ESA by purporting to
+            contract out of its minimum standards?
+
+[37]    I address the cross-appeal first because the parties agree that, if the cross-
+
+appeal is allowed and the termination clause in the employment agreement is
+
+found to be compliant with the ESA, then there would be no issue about damages
+
+in lieu of common law notice because the employment agreement would validly
+
+contract out of the common law presumption of reasonable notice. This would be
+                                               Page: 14
+
+
+fatal to Dr. Wigdor’s claim that he is entitled to damages for the RSUs that would
+
+have vested during the common law notice period.
+
+
+           i.      Positions of the parties
+
+[38]    The Respondents argue that the application judge: (1) failed to read the
+
+employment agreement as a whole, and (2) failed to consider the factual matrix as
+
+context for interpreting the employment agreement. On the first point, the
+
+Respondents argue that the application judge failed to give effect to all terms in
+
+the employment agreement. Specifically, they refer to s. 1 of the employment
+
+agreement, which provides that the employer would recognize Dr. Wigdor’s
+
+employment with Chatham when calculating his minimum entitlements under the
+
+ESA, and the reference in s. 12.a of the employment agreement to “including any
+
+prior service with Chatham Labs Inc.”, which the Respondents argue recognized
+
+his prior service with Chatham. On the second point, the Respondents argue that
+
+the application judge failed to consider that Dr. Wigdor used counsel to negotiate
+
+the sale of Chatham, including the employment agreement.2
+
+[39]    The Respondents argue that both of these errors attract the correctness
+
+standard of review, but in the alternative argue that they constitute palpable and
+
+overriding errors.
+
+
+
+2 Although the Respondents argue that the application judge erred in finding that the termination provisions
+
+of the employment agreement contravened ESA minimum standards, they do not challenge her finding that
+the quantum of common law notice Dr. Wigdor was entitled to in light of that finding was 10 months.
+                                     Page: 15
+
+
+[40]   Dr. Wigdor argues that the application judge made no error in interpreting
+
+the employment agreement. The application judge properly considered the terms
+
+in the employment agreement as a whole. Contrary to s. 9 of the ESA, the
+
+termination provisions in the agreement contemplated that Dr. Wigdor could be
+
+terminated on two-weeks notice during the first three months of his employment
+
+with the Respondents. These provisions were unlawful because from the day
+
+Dr. Wigdor began work for the Respondents, he was entitled to be treated as
+
+having nine years’ service for the purposes of notice under the ESA.
+
+[41]   Dr. Wigdor argues that on this issue of contractual interpretation, the
+
+applicable standard of review is palpable and overriding error, and the application
+
+judge made no such error.
+
+
+         ii.    Standard of review
+
+[42]   In the absence of an extricable error of law, the standard of review is
+
+palpable and overriding error: Wood, at para. 43; Sattva Capital Corp. v.
+
+Creston Moly Corp., 2014 SCC 53, [2014] 2 S.C.R. 633, at paras. 50-55.
+
+
+         iii.   The application judge made no palpable and overriding error
+                in her interpretation of the employment agreement
+
+[43]   As I explain below, I am not persuaded that the application judge made any
+
+palpable and overriding error in her interpretation of the termination provisions in
+
+the employment agreement.
+                                    Page: 16
+
+
+[44]   Sections 1 and 12 are the termination provisions of the employment
+
+agreement. They provide as follows:
+
+
+            1. Commencement of Employment. Subject to the
+            closing of the Acquisition and your satisfying the pre-
+            employment condition in Section 4 of this Agreement, the
+            “Start Date” of your indefinite employment with the
+            Company shall be a date to be determined by the
+            Company, subsequent to the closing of the Acquisition.
+            … No employment with a previous employer counts
+            towards your period of continuous employment with the
+            Company [Facebook], except that the Company will
+            recognize your service with Chatham Labs Inc. and its
+            predecessors, beginning on July 1, 2011, only for the
+            purpose of determining any minimum required
+            entitlements under the Ontario Employment Standards
+            Act, 2000, as amended from time to time (“Employment
+            Standards Legislation”) which will govern your
+            employment.
+
+            12. Termination. Your employment with the Company is
+            on an indefinite basis. You understand and agree that
+            this Section 12 will apply throughout your employment
+            with the Company, even if your role, duties and
+            responsibilities or compensation change significantly
+            over time. Although you will not be entitled to any
+            reasonable notice or entitlements except as set out
+            below, whether at common law or otherwise, in no event
+            will your entitlements upon termination be less than those
+            minimum entitlements set out in Employment Standards
+            Legislation.
+
+            a. Termination without Cause During the first three (3)
+            months of your employment, including any prior service
+            with Chatham Labs Inc. or its predecessors, the
+            Company may terminate your employment at any time by
+            providing you with two (2) weeks of advance notice or
+            base pay in lieu of notice.
+                                     Page: 17
+
+
+             After the first three (3) months of your employment, the
+             Company may terminate your employment without cause
+             by providing you with all of your minimum entitlements
+             under Employment Standards Legislation, including
+             notice of termination, or payment in lieu of notice,
+             benefits continuation (if required), and severance pay (if
+             applicable). In addition to your minimum statutory
+             entitlements and in exchange for a full and final release
+             in favour of the Company, the Company will also provide
+             you with an additional 4 weeks of base pay for every year
+             of completed service, up to a maximum of 12 months’
+             base pay (inclusive of any Employment Standards
+             Legislation notice and, if applicable, severance amount).
+             [Emphasis in italics added.]
+
+[45]   The application judge began by outlining the applicable law in relation to
+
+termination clauses and the ESA, referencing cases including Wood and
+
+Machtinger. The Respondents take no issue with her summary of the applicable
+
+law.
+
+[46]   The application judge found that the first paragraph of s. 12.a of the
+
+employment agreement contravened the minimum standards in the ESA. It
+
+provided that Dr. Wigdor could be terminated on two-weeks notice in the first three
+
+months of his employment, in circumstances where s. 9 of the ESA mandated that
+
+his nine years of previous employment at Chatham, before the Respondents
+
+acquired it, be included in calculating his entitlement to notice and severance under
+
+the ESA. The application judge found that, based on his nine years of employment
+
+with Chatham, had Dr. Wigdor been terminated within three months of
+
+commencing to work for the Respondents, under the ESA he would have been
+                                      Page: 18
+
+
+entitled to receive (i) eight weeks of notice based on all wages and benefits,
+
+(ii) continued vacation pay accrual and benefits during the eight week notice
+
+period, and (iii) nine weeks of severance pay. Section 12.a contravened the ESA
+
+by providing for only two weeks of base pay on termination in the first three months
+
+of employment. She found that the general provisions in s. 12 promising
+
+compliance with the ESA could not cure the provisions in s. 12.a which were
+
+contrary to the ESA, referencing this court’s decision in Rossman v. Canadian
+
+Solar, 2019 ONCA 992, 444 D.L.R. (4th) 131, at para. 40.
+
+[47]   I see no palpable and overriding error in the application judge’s interpretation
+
+of the termination provisions of the employment agreement.
+
+[48]   The clear intent of s. 12.a was to purport to give the Respondents the ability
+
+to terminate Dr. Wigdor on two-weeks notice during the first three months of his
+
+employment.
+
+[49]   This contravenes ss. 9, 54, 57, and 59-61 of the ESA. Pursuant to s. 9 of the
+
+ESA, where a business is sold and an employee continues to be employed by the
+
+purchaser, the employee’s prior employment with the seller must be included for
+
+the purpose of any subsequent calculation of the employee’s length of
+
+employment. Thus, Dr. Wigdor’s rights on termination under the ESA had to be
+
+calculated from the start of his employment with Chatham in 2011. The application
+
+judge correctly found that, pursuant to ss. 54, 57, and 59-61, from the outset of
+                                     Page: 19
+
+
+Dr. Wigdor’s employment with the Respondents in 2020, he was statutorily entitled
+
+to eight-weeks termination pay under ss. 54 and 57 of the ESA, as well as
+
+continued vacation pay accrual and benefits during the eight-week notice period,
+
+and severance pay of nine weeks, pursuant to ss. 64 and 65 of the ESA.
+
+[50]   The Respondents’ argument that the application judge did not consider the
+
+employment contract as a whole, and in particular, did not consider s. 1 and the
+
+“including” portion of s. 12.a is without merit. In her summary of the relevant
+
+provisions of the employment agreement, the application judge underlined the
+
+portions of the agreement that the Respondents relied on, and in her analysis, she
+
+specifically referred to and considered the Respondents’ arguments that portions
+
+of s. 1 and s. 12 made the termination provisions compliant with the ESA when
+
+read in the context of the agreement as a whole.
+
+[51]   I would add that I agree with Dr. Wigdor that the Respondents’ proposed
+
+interpretation of s. 12.a of the agreement is strained in the context of the agreement
+
+as a whole, for three reasons. First, s. 12.a clearly refers to two-weeks notice or
+
+pay in lieu if termination occurs in the first three months of employment. The
+
+Respondents seek to rely on the language in s. 12.a of “including any prior service
+
+with Chatham Labs Inc. or its predecessors” to avoid the clear language of “two
+
+(2) weeks of advance notice or base pay in lieu of notice”. But in order to read
+
+s. 12.a as the Respondents propose, the three-month probationary period would
+
+have to have run from the outset of Dr. Wigdor’s employment with Chatham in
+                                      Page: 20
+
+
+2011, and not from the start of his employment with the Respondents in 2020. If
+
+the Respondents’ interpretation were correct, there would be no need for s. 12.a
+
+because the three-month probationary period would have expired in 2011.
+
+[52]   Second, s. 12.a refers to the right of the “Company” to terminate Dr. Wigdor
+
+on two-weeks notice in the first three months of his employment. The employment
+
+contract makes clear in the first sentence that the “Company” is Facebook Canada.
+
+Again, on the Respondents’ interpretation, s. 12.a would make no sense because
+
+Facebook Canada was not Dr. Wigdor’s employer in 2011 and had no ability to
+
+terminate him in 2011.
+
+[53]   Third, as Dr. Wigdor points out, the Respondents’ proposed interpretation of
+
+the first paragraph of s. 12.a is inconsistent with the entire scheme of s. 12.a of the
+
+employment agreement. The second paragraph of s. 12.a provides that after the
+
+first three months of employment, the Respondents may terminate employment
+
+without cause by providing all of the minimum ESA entitlements, and:
+
+
+             In addition to your minimum statutory entitlements and in
+             exchange for a full and final release in favour of the
+             Company, the Company will also provide you with an
+             additional 4 weeks of base pay for every year of
+             completed service, up to a maximum of 12 months’ base
+             pay (inclusive of any Employment Standards Legislation
+             notice and, if applicable, severance amount).
+
+[54]   On the Respondents’ interpretation of s. 12.a, the formula of an additional
+
+“4 weeks of base pay for every year of completed service” is meaningless and
+                                       Page: 21
+
+
+does no work. On the Respondents’ interpretation, Dr. Wigdor would have qualified
+
+for the full 12-months additional pay on the first day of his employment with the
+
+Respondents. By recognizing his full 9 years of service with Chatham, Dr. Wigdor
+
+would have qualified immediately for 8 weeks of statutory notice, 9 weeks of
+
+severance, and 36 (9 years x 4 weeks per year) additional weeks pay on signing
+
+a release, for a total of 53 weeks pay (higher than the 12-month cap in the second
+
+paragraph of s. 12.a).
+
+[55]   The Respondents argue that a finding of ambiguity in a termination clause
+
+requires more than the existence of competing interpretations, relying on this
+
+court’s decision in Bertsch v. Datastealth Inc., 2025 ONCA 379, at para. 9. This
+
+general legal principle is, of course, correct. But as I will explain, it does not assist
+
+the Respondents in this case.
+
+[56]   If a termination clause is ambiguous, it must be interpreted in favour of the
+
+employee: Wood, at para. 28; Rossman, at para. 24 and 37. However, for genuine
+
+ambiguity to exist, there must be more than competing interpretations of the
+
+clause. The question of ambiguity is determined by an objective assessment of
+
+whether there are two or more reasonable interpretations of the clause: Bertsch,
+
+at para. 9; Amberber v. IBM Canada Ltd., 2018 ONCA 571, 424 D.L.R. (4th) 169,
+
+at para. 45; Rossman, at para. 24.
+                                     Page: 22
+
+
+[57]   These principles do not assist the Respondents in this appeal because the
+
+application judge did not find that the termination provision was ambiguous. She
+
+found that it provided for termination on two-weeks notice or pay in lieu if
+
+termination occurred during the first three months of Dr. Wigdor’s employment with
+
+the Respondents. I see no error in that conclusion. I have explained above why
+
+the Respondents’ interpretation of the termination provisions is not a reasonable
+
+interpretation of the termination provisions.
+
+[58]   I turn then to the Respondents’ argument that Dr. Wigdor had counsel at the
+
+time the sale and the employment agreement were negotiated. The Respondents
+
+did not make this argument before the application judge. The Respondents’ factum
+
+before the application judge was filed in the appeal record. Although the
+
+Respondents’ referred in passing, once, to the fact that Dr. Wigdor was
+
+represented by counsel when he negotiated the sale of Chatham and his
+
+employment agreement, their submissions about the validity of the employment
+
+agreement before the application judge did not rely on the fact that Dr. Wigdor was
+
+represented by counsel as a material surrounding circumstance to interpreting the
+
+employment agreement. Indeed, before the application judge, the Respondents
+
+did not make any arguments based on surrounding circumstances. Rather, they
+
+argued that read as a whole and in context, the termination provisions of the
+
+employment agreement were clear and were compliant with the ESA.
+                                     Page: 23
+
+
+[59]   Further, the Respondents have provided no authority for the proposition that
+
+the fact that a party was represented by counsel is a relevant factual circumstance
+
+to be considered when interpreting an employment agreement. To the contrary,
+
+this court has cautioned against allowing considerations of an employee’s
+
+sophistication and access to independent advice to override the plain language
+
+in termination provisions: Rahman v. Cannon Design Architecture Inc.,
+
+2022 ONCA 451, at para. 24; see also Livshin v. The Clinic Network Canada Inc.,
+
+2021 ONSC 6796, 159 O.R. (3d) 430, at paras. 57 and 68.
+
+[60]   In Sattva, at para. 57, Rothstein J. cautioned against allowing the
+
+circumstances surrounding the formation of a contract to overwhelm the words of
+
+the agreement. At para. 58, he described the limits of surrounding circumstances
+
+relevant to interpretation of a contract as consisting “only of objective evidence of
+
+the background facts at the time of the execution of the contract, that is, knowledge
+
+that was or reasonably ought to have been within the knowledge of both parties at
+
+or before the date of contracting” (citations omitted). The fact that a party is
+
+represented by counsel does not fall within these limits.
+
+[61]   The Respondents’ argument seeks to rely on Dr. Wigdor’s receipt of legal
+
+advice when he entered into the contract to suggest that he is not entitled to the
+
+same clarity in an employment contract as an employee not represented by
+
+counsel at the time the contract is formed. I reject that proposition.
+                                         Page: 24
+
+
+[62]    For these reasons, I see no error in the application judge’s conclusion that
+
+the termination provisions of the employment agreement contravened the ESA,
+
+were thus unenforceable, and Dr. Wigdor was entitled to common law reasonable
+
+notice.
+
+
+3.      The Appeal
+
+       a.        Did the application judge err in denying Dr. Wigdor damages for
+                 the RSUs what would have vested during the notice period?
+
+            i.      Structure of the issue
+
+[63]    I begin by outlining the structure of the legal issue in relation to the RSUs.
+
+Under the Supreme Court’s decision in Matthews v. Ocean Nutrition,
+
+2020 SCC 26, [2020] 3 S.C.R. 64, at paras. 52-55, where there is an issue about
+
+whether a terminated employee is entitled to damages for a bonus or similar
+
+entitlement that would have been payable during the common law reasonable
+
+notice period, a court should ask two questions:
+
+        (1)       But for the termination, would the employee have been entitled to the
+
+                  bonus during the reasonable notice period?
+
+        (2)       If so, does the wording of the bonus plan unambiguously alter or
+
+                  remove the employee’s common law right to reasonable notice?
+                                    Page: 25
+
+
+See also: Paquette v. TeraGo Networks Inc., 2016 ONCA 618, 352 O.A.C. 1, at
+
+paras. 30-31; Taggart v. Canada Life Assurance Company (2006), 146 A.C.W.S.
+
+(3d) 674 (Ont. C.A.), at paras. 12-16.
+
+[64]   This approach is in accordance with the basic principles of damages on
+
+termination based on the employer’s obligation to provide reasonable notice of
+
+termination as set out in Machtinger and Wood. If the employee would have been
+
+entitled to the bonus had they continued to be employed during the reasonable
+
+notice period, and if the terms of the bonus plan (i.e., part of the employment
+
+contract) do not remove the common law right to reasonable notice, or do so
+
+unlawfully such that they are void, then the damages for the failure to provide
+
+reasonable notice must include the bonus entitlement: Matthews, at paras. 53 and
+
+76.
+
+[65]   In this appeal, there is no dispute that had Dr. Wigdor remained employed
+
+by the Respondents during the 10-month notice period, he would have been
+
+entitled to approximately US$4.7 million in RSUs that would have vested during
+
+the 10-month common law notice period. The chart below, produced by the
+
+Appellant and unchallenged by the Respondents, outlines the details of the vesting
+
+dates and values of the RSUs during the 10-month common law notice period:
+                                       Page: 26
+
+
+ Vest date          Value per 2020     2021     2022      2023    Value (US$)
+                    share on   Grant   Grant    Grant     Grant
+                    close of
+                    business
+                    on vesting
+                    date (US$)
+
+ February 15,       $484.03    2711    49       167       208     $1,517,434.05
+ 2024
+ (2.5 months
+ after notice of
+ termination)
+
+ May 15, 2024       $481.54    2711    48       167       208     $1,509,146.36
+ (5.5 months
+ after notice of
+ termination)
+
+ August 15,         $537.33    2712    49       168       208     $1,685,066.88
+ 2024
+ (8.5 months
+ after notice of
+ termination)
+
+ Subtotal                      8,134   146      502       623
+
+ Total (all years                            9,405                US$ 4,711,647.29
+ combined)
+
+
+
+[66]   The dispute in this appeal engages the second question asked in Matthews:
+
+whether the terms of RSU Agreements that formed part of the employment
+
+contract were contrary to ss. 60 and 61 of the ESA, such that they did not validly
+
+alter/contract out of vesting entitlements during the common law reasonable notice
+
+period. Answering this question requires interpreting ss. 60 and 61 of the ESA.
+
+[67]   The statutory interpretation of provisions of the ESA is a question of law, and
+
+thus reviewable on the correctness standard.
+                                      Page: 27
+
+
+         ii.   Positions of the parties
+
+[68]   Dr. Wigdor argues that the application judge erred in law in finding that the
+
+RSU Agreements did not contravene the ESA. He relies primarily on two
+
+arguments.
+
+[69]   First, he argues that the application judge erred because she assessed the
+
+question of whether the RSU Agreements contravened the ESA from the
+
+perspective of events at termination, rather than at the time the contract was
+
+formed, contrary to Wood and Machtinger.
+
+[70]   Second, he argues that the application judge erred in her interpretation of
+
+s. 61 of the ESA. Her errors in interpreting s. 61 of the ESA were twofold: (i) in
+
+finding that s. 60 of the ESA only applies to working notice, and that s. 61 alone –
+
+without reference to s. 60 – governs pay in lieu of notice; and (ii) that s. 61 does
+
+not contain a prohibition on altering “terms or conditions of employment”. As a
+
+result of this error, the application judge incorrectly held that the obligation on an
+
+employer in s. 60(1)(a) not to alter a term or condition of employment during the
+
+statutory notice period had no application to the calculation of the “amount” of pay
+
+an employee is entitled to in lieu of notice under s. 61(1)(a).
+
+[71]   Dr. Wigdor argues that ss. 60 and 61 of the ESA must be read together.
+
+Properly interpreted, the obligation on an employer in s. 61(1)(a) to pay in lieu of
+
+notice “a lump sum equal to the amount the employee would have been entitled to
+
+receive under section 60” had notice been given, means payment of a lump sum
+                                     Page: 28
+
+
+based on no alteration to a term or condition of employment during the notice
+
+period.
+
+[72]   Dr. Wigdor argues that the RSU Agreements contravene s. 60 of the ESA
+
+because they purport to alter a term or condition of employment during the
+
+statutory notice period by depriving employees of ongoing vesting of RSUs during
+
+the notice period. As a result, the termination provisions of the RSU Agreements
+
+are void, and Dr. Wigdor is entitled to damages for the RSUs that would have
+
+vested during the common law reasonable notice period.
+
+[73]   The Respondents argue that the application judge made no errors in her
+
+interpretation of ss. 60 and 61 of the ESA. They argue that the application judge
+
+was correct in holding that s. 61 of the ESA only required the payment of wages
+
+and benefits as pay in lieu of statutory notice, and not other entitlements. They
+
+argue that the application judge was correct not to “incorporate” s. 60 into s. 61.
+
+They argue that unlike s. 60, s. 61 does not restrict an employer from altering
+
+employment terms other than wages and benefits.
+
+[74]   The Respondents argue that on a plain reading of the RSU Agreements,
+
+vesting stopped when Dr. Wigdor’s employment was terminated (i.e., 4 days after
+
+the notice of termination). This is not contrary to the ESA because only s. 61 is
+
+applicable and it only provides for payment of wages and benefits in lieu of notice.
+                                      Page: 29
+
+
+[75]   I address these issues by first considering the statutory interpretation of
+
+ss. 60 and 61 of the ESA. I then consider Dr. Wigdor’s arguments about two errors
+
+made by the application judge in considering whether the obligation on an
+
+employer in the ESA not to alter terms or conditions of employment during the
+
+notice period applied to the RSU entitlements. Finally, I address why the RSU
+
+Agreements contravened the requirement in the ESA not to alter terms or
+
+conditions of employment during the statutory notice period, are thus void pursuant
+
+to s. 5 of the ESA, and do not validly contract out of Dr. Wigdor’s common law
+
+notice entitlements.
+
+
+          iii.   Interpretation of ss. 60 and 61 of the ESA
+
+[76]   I agree with Dr. Wigdor that, properly interpreted, s. 61(1)(a) of the ESA
+
+requires that the lump sum payment to which an employee is entitled where pay is
+
+provided in lieu of working notice must be calculated on the basis that there are no
+
+alterations to the terms or conditions of employment during the statutory notice
+
+period.
+
+[77]   It is well-established that the words of a statutory provision must be read “in
+
+their entire context and in their grammatical and ordinary sense harmoniously with
+
+the scheme of the Act, the object of the Act, and the intention of Parliament”:
+
+Rizzo & Rizzo Shoes Ltd. (Re), [1998] 1 S.C.R. 27, at para. 21, quoting Professor
+
+Driedger. In the more recent formulation, the court must consider the text, context,
+
+and purpose of a legislative provision in interpreting it: Canada (Minister of
+                                      Page: 30
+
+
+Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R. 653, at
+
+paras. 117-18.
+
+[78]   As I will explain, in my view, the application judge fell into error by reading
+
+ss. 60 and 61 of the ESA disjunctively, rather than reading them together, which is
+
+required both by the text of both sections and by the general requirement that a
+
+judge engaging in statutory interpretation must consider the context of the other
+
+provisions in legislation in interpreting individual provisions.
+
+[79]   I begin with the text. For ease of reference, I reproduce the portions of ss. 60
+
+and 61 of the ESA relevant to this appeal:
+
+             Requirements during notice period
+
+             60 (1) During a notice period under section 57 or 58, the employer,
+
+                    (a) shall not reduce the employee’s wage rate or alter any other
+                    term or condition of employment;
+
+                    (b) shall in each week pay the employee the wages the
+                    employee is entitled to receive, which in no case shall be less
+                    than his or her regular wages for a regular work week; and
+
+                    (c) shall continue to make whatever benefit plan contributions
+                    would be required to be made in order to maintain the
+                    employee’s benefits under the plan until the end of the notice
+                    period.
+
+                                                 ...
+
+             Pay instead of notice
+
+             61 (1) An employer may terminate the employment of an employee
+             without notice or with less notice than is required under section 57 or
+             58 if the employer,
+                                                Page: 31
+
+
+                           (a) pays to the employee termination pay in a lump sum equal
+                           to the amount the employee would have been entitled to receive
+                           under section 60 had notice been given in accordance with that
+                           section; and
+
+                           (b) continues to make whatever benefit plan contributions would
+                           be required to be made in order to maintain the benefits to
+                           which the employee would have been entitled had he or she
+                           continued to be employed during the period of notice that he or
+                           she would otherwise have been entitled to receive. [Emphasis
+                           added.]
+
+[80]    Section 61(1)(a) defines the lump sum payment to which an employee is
+
+entitled if termination is without notice or is with less notice than required under
+
+ss. 57 or 58 of the ESA.3 Section 61(1)(a) clearly defines the amount of the
+
+payment in lieu of notice as: “a lump sum equal to the amount the employee would
+
+have been entitled to receive under section 60 had notice been given in
+
+accordance with that section” (emphasis added). The text of s. 61(1)(a) is clear
+
+that the lump sum must be “equal to” the amount the employee would have been
+
+entitled to had they been given working notice under s. 60.
+
+[81]    Three things are apparent from the text. First, it incorporates by reference
+
+the content of s. 60. This includes the obligation in s. 60(1)(a) that an employer
+
+shall not “alter any term or condition of employment” during the statutory notice
+
+period. In other words, the calculation of the amount payable under s. 61(1)(a)
+
+when pay in lieu of notice is given, must be done on the basis that there are no
+
+
+
+3 An employee is also entitled to continuation of benefit plan contributions under s. 61(1)(b), but that is not
+
+at issue in this appeal.
+                                     Page: 32
+
+
+alterations in the terms or conditions of employment during the statutory notice
+
+period.
+
+[82]   Second, the language in s. 61(1)(a) of a lump sum “equal to” the amount
+
+that the employee would have been entitled to had they been given working notice
+
+under s. 60 signals that the ss. 60 and 61 are to be read together. Taken together,
+
+ss. 60 and 61 are intended to place the employee in the same financial position
+
+whether they are given working notice or pay in lieu of notice. I return to this issue
+
+in examining the purpose of the ESA, and of ss. 60 and 61, in particular.
+
+[83]   Third, the use of the general word “amount” in s. 61(1)(a) – “a lump sum
+
+equal to the amount” the employee would have been entitled to had working notice
+
+been given – supports the conclusion that the entitlement to a lump sum is not
+
+limited to regular wages, but includes any compensation the employee would have
+
+been entitled to if they had been given working notice rather than pay in lieu of
+
+notice.
+
+[84]   Turning to context – and this flows from the text – ss. 60 and 61 of the ESA
+
+must be read together. Section 61(1)(a) specifically incorporates the entitlements
+
+for working notice under s. 60(1)(a) into the determination of the amount of pay in
+
+lieu of notice. Quite apart from the clarity of the text of s. 61(1)(a) expressly
+
+incorporating the entitlements under s. 60, the principles of statutory interpretation
+
+require that ss. 60 and 61 be read together because they both address employee
+                                      Page: 33
+
+
+entitlements on termination: Ruth Sullivan, The Construction of Statutes, 7th ed.
+
+(Toronto: LexisNexis, 2022) (online), at § 13.02. The context of reading ss. 60 and
+
+61 together supports that the entitlement to pay in lieu of notice in s. 61(1)(a)
+
+incorporates the obligation in s. 60(1)(a) that an employer may not alter terms or
+
+conditions of employment during the statutory notice period.
+
+[85]   Finally, the purpose of the ESA in general, and of ss. 60 and 61 in particular,
+
+supports interpreting the language in s. 61(1)(a) of “a lump sum equal to the
+
+amount the employee would have been entitled to receive under section 60 had
+
+notice been given in accordance with that section” as meaning the amount the
+
+employee would have been entitled to during the notice period in the absence of
+
+alterations to terms or conditions of employment.
+
+[86]   As already mentioned, the ESA is remedial legislation intended to protect
+
+the interests of employees by requiring employers to comply with certain minimum
+
+employment standards: Wood, at para. 28; Machtinger, at pp. 1002-03.
+
+[87]   Read together – including the specific incorporation in s. 61(1)(a) of the
+
+amount the employee would have been entitled to under s. 60 had working notice
+
+been given – ss. 60 and 61 are intended to create a harmonious scheme to ensure
+
+that employees are entitled to the same financial compensation whether their
+
+employment is terminated with working notice or with pay in lieu of notice. In other
+
+words, one of the purposes of the provisions is to ensure that employees are not
+                                               Page: 34
+
+
+worse off under either mode of termination. This conclusion is supported by
+
+decisions of the Superior Court, which, in my view, correctly interpret the interplay
+
+between ss. 60 and 61 of the ESA: Wilds v. 195612 Ontario Inc., 2024 ONSC 3452,
+
+at para. 63(a); Groves v. UTS Consultants Inc., 2019 ONSC 5605, at
+
+paras. 56-57; aff’d 2020 ONCA 630; Sandhu v. Solutions 2 go Inc.,
+
+2012 ONSC 2073, at para. 35.4
+
+[88]    In summary, an employee’s entitlement under s. 61(1)(a) where pay is given
+
+in lieu of notice to “a lump sum equal to the amount the employee would have been
+
+entitled to receive under section 60 had notice been given in accordance with that
+
+section” means that the lump sum payment must be based on terms and conditions
+
+of employment not being altered during the statutory notice period.
+
+
+           iv.     The application judge erred in finding that the obligation on
+                   employers not to alter terms or conditions of employment
+                   during the statutory notice period in the ESA did not apply to
+                   Dr. Wigdor’s RSU entitlements
+
+[89]    As outlined above, Dr. Wigdor argues that the application judge made two
+
+errors in finding that the obligation in the ESA on an employer not to alter terms or
+
+
+
+
+4 The application judge considered Sandhu and found that it was inconsistent with this court’s decision in
+
+North v. Metaswitch Networks Corporation, 2017 ONCA 790, 417 D.L.R. (4th) 429. Respectfully, the
+application judge misread North. In a parenthetical comment at para. 11 of North, Feldman J.A. summarized
+the entitlement under s. 60 as “(i.e., based on regular wages)”. The court in North was not considering the
+obligation in s. 60 on an employer not to “alter any term or condition of employment”. The parenthetical
+comment at para. 11 of North is summary and not intended to be an exhaustive interpretation of entitlements
+under s. 60 of the ESA.
+                                      Page: 35
+
+
+conditions of employment during the statutory notice period did not apply to his
+
+RSU entitlements. I agree with Dr. Wigdor and address each argument in turn.
+
+[90]   First, the application judge erred by approaching her consideration of
+
+whether the RSU Agreements complied with the ESA from the perspective of
+
+events at the time of termination, rather than at the time the contract was entered
+
+into. She approached the consideration of whether the RSU Agreements
+
+contravened ESA minimum standards by considering the issue only from the
+
+perspective of a termination with pay in lieu of notice – i.e., the manner in which
+
+Dr. Wigdor was actually terminated.
+
+[91]   This was an error. The legality and enforceability of terms in an employment
+
+contract must be assessed at the time the contract is entered into, not at the time
+
+of termination. The wording of the termination clause alone must be considered in
+
+deciding whether it complies with ESA minimum standards. What the employer
+
+actually did at the time of termination is irrelevant to whether the termination clause
+
+complies with the ESA: Wood, at paras. 28, 43-51; Waksdale v. Swegon North
+
+America Inc., 2020 ONCA 391, at para. 8.
+
+[92]   The application judge only considered whether the RSU termination
+
+provisions complied with the ESA through the lens of a termination where pay in
+
+lieu of notice is given because, apart from four days of working notice, Dr. Wigdor
+
+was given pay in lieu. By focusing only on circumstances where pay in lieu is given,
+                                      Page: 36
+
+
+the application judge failed to consider the effect of the terms of the contract at the
+
+time the contract was entered into. In other words, in this case, if the terms of the
+
+RSU Agreements purporting to deprive terminated employees of vesting of RSUs
+
+during the notice period for a termination contravene the ESA because they alter
+
+a term or condition of employment, they do so at the time the employment contract
+
+is entered into whether for a particular employee a later termination is with working
+
+notice or pay in lieu.
+
+[93]   The second error made by the application judge is that she misinterpreted
+
+ss. 60 and 61 of the ESA. The interpretation of ss. 60 and 61 applied by the
+
+application judge is contrary to the statutory interpretation of the provisions I have
+
+outlined above.
+
+[94]   The application judge found that s. 60 of the ESA governs working notice
+
+and that s. 61 governs pay in lieu of notice. She found that s. 60 requires that in
+
+addition to paying wages and benefits during working notice, an employer may not
+
+“alter any term or condition of employment.” However, reading s. 61 disjunctively
+
+from s. 60, she found that s. 61 did not place an obligation on employers not to
+
+alter any term or condition of employment during the statutory notice period. Thus,
+
+the calculation of the lump sum for pay in lieu of notice under s. 61 was not required
+
+to be done on the basis that there could be no alteration of any term or condition
+
+of employment. She then went on to consider whether the RSU entitlements were
+
+“benefits” under s. 61(1)(b), which requires an employer to continue “benefit plan
+                                     Page: 37
+
+
+contributions” during the statutory notice period. She found that the RSU
+
+entitlements were not benefits within the meaning of s. 61(1)(b). She further found
+
+that s. 61(1.1), which provides for the calculation of the lump sum of pay in lieu of
+
+notice in circumstances where an employee does not have a regular work week.
+
+She found that s. 61(1.1) was not applicable to the RSU entitlements because they
+
+were not “wages”.
+
+[95]   The application judge erred by reading ss. 60 and 61 disjunctively and
+
+holding that the entitlement to a lump sum of pay in lieu of working notice was to
+
+be calculated without reference to the obligation on an employer in s. 60(1)(a) not
+
+to alter terms and conditions of employment during the statutory notice period.
+
+[96]   The application judge failed entirely to consider Dr. Wigdor’s argument that
+
+the language in s. 61(1)(a) that requires an employer to pay a lump sum “equal to
+
+the amount” the employee would have been entitled to receive “under section 60”
+
+had working notice been given incorporates the requirement from s. 60(1)(a) that
+
+the employer may not “alter any term or condition of employment”. Rather, she
+
+erroneously focussed on s. 61(1.1), which specifies the calculation of the lump sum
+
+where an employee does not have a regular work week, and whether the RSUs
+
+were somehow benefit plan contributions under s. 61(1)(b). Dr. Wigdor did not
+
+base his entitlement to damages for the RSU entitlements on either of these
+
+provisions.
+                                              Page: 38
+
+
+[97]    Because the application judge erred in her interpretation of ss. 60 and 61 of
+
+the ESA, she failed to consider whether the terms of the RSU Agreements
+
+incorporated as part of Dr. Wigdor’s employment contract contravened the ESA by
+
+purporting to alter a term or condition of employment during the statutory notice
+
+period. I turn to that issue in the next section of these reasons.
+
+[98]    Before concluding on this issue, I address the arguments made by the
+
+intervener, Canadian Association of Counsel to Employers. The intervener urges
+
+the court to hold that any form of equity-based compensation can never constitute
+
+“wages” within the definition in s. 1(1) of the ESA.
+
+[99]    It is not necessary to address this issue to decide this appeal, and I decline
+
+to do so. Dr. Wigdor’s argument is that the entitlement to RSUs constitutes a “term
+
+or condition of employment” within the meaning of s. 60(1)(a) of the ESA.5 As
+
+outlined above, I would decide the appeal on this basis. Whether the RSU
+
+entitlement also constitutes “wages” need not be decided. The question of whether
+
+equity-based compensation falls within the definition of “wages” in the ESA is
+
+better left to an appeal where its resolution is determinative. I would add that,
+
+depending on the evidentiary record, it may be the case that the answer is more
+
+
+
+
+5 Dr. Wigdor made submissions, in the alternative and in response to the intervener’s submissions, on the
+
+“wages” issue. However, his primary position was that it is not necessary to decide if equity-based
+compensation is “wages” to decide this appeal.
+                                    Page: 39
+
+
+nuanced than a blanket determination that all forms of equity-based compensation
+
+are or are not “wages” under the ESA.
+
+
+        v.     The RSU Agreements contravene the ESA and as a result are
+               void and do not remove Dr. Wigdor’s common law right to
+               reasonable notice
+
+[100] Applying the interpretation of ss. 60 and 61 of the ESA set out above, the
+
+RSU Agreements contravene the ESA because they purport to alter a “term or
+
+condition of employment” during the notice period under the ESA by depriving
+
+employees of ongoing vesting during that period. As a result, the provisions of the
+
+RSU Agreements relating to termination are void and do not remove Dr. Wigdor’s
+
+common law rights. Dr. Wigdor is entitled to damages for the RSUs that would
+
+have vested during the common law reasonable notice period.
+
+[101] Dr. Wigdor’s entitlement to the RSUs was governed by the employment
+
+agreement and by the Respondents’ RSU Agreements for 2020 and 2021-2023.
+
+These are incorporated by reference into the employment agreement. In addition
+
+to providing for a base salary and entitlement to a discretionary bonus, the
+
+employment agreement provided that Dr. Wigdor would receive an initial grant of
+
+43,380 RSUs and refresher grants (as outlined in the chart at para. 65 above). This
+
+was set out in a letter enclosed with the employment agreement as follows:
+
+
+             This letter is to confirm that your employer intends to
+             recommend to the Board of Directors of Facebook, Inc.
+             that you be granted restricted stock units (“RSUs”) by
+                                      Page: 40
+
+
+             Facebook, Inc. under the terms of the 2012 Equity
+             Incentive Plan (as amended and restated on June 20,
+             2016) (the “Plan”). Subject to the approval of Facebook,
+             Inc. Board of Directors or committee thereof (the
+             “Board”), you will be granted 43,380 RSUs under the
+             Plan. [Emphasis in original.]
+
+The letter went on to state that that Dr. Wigdor’s entitlement to RSUs was “subject
+
+to and conditional upon”, inter alia, his “having previously entered into a contract
+
+with [his] local employer”. It further provided: “Unlike traditional stock options, you
+
+need not pay any exercise price for the Shares subject to the RSUs. They are
+
+simply delivered to you following vesting (assuming the vesting conditions are
+
+met).”
+
+[102] This letter formed part of the employment agreement. Section 9 of the
+
+employment agreements provides that “the Agreement and its enclosures contain
+
+our entire understanding regarding your employment with the Company.”
+
+[103] RSUs are governed by the 2012 Equity Incentive Plan (referenced in the
+
+letter included as part of the employment agreement) with additional terms set out
+
+in the RSU Agreements. As noted above, there are four RSU Agreements for
+
+different time periods in this appeal: the 2020 RSU Agreement and the agreements
+
+for each of 2021, 2022, and 2023.
+
+[104] All RSUs vest in quarterly increments over a four-year span. RSUs have no
+
+value until they vest. When they vest, the employee automatically receives the
+
+corresponding number of common shares of Meta without having to pay for them
+                                     Page: 41
+
+
+(thus, as noted in the chart above at para. 65, the value of the RSUs on the vesting
+
+date is based on the value of Meta common shares on that date).
+
+[105] RSU grants are an element of employee compensation, according to one of
+
+the Respondents’ affiants. They are intended to compensate employees for
+
+continued service and to aid in employee retention over time. Meta’s 2023 Annual
+
+Report describes the 2012 Equity Incentive Plan, which is the foundation for the
+
+RSU entitlements, as a “share-based employee compensation plan”.
+
+[106] Dr. Wigdor’s RSUs were taxed as employment income. His pay stubs listed
+
+his income from vested RSUs as “RSU Taxable Benefit”.
+
+[107] There can be no real doubt that Dr. Wigdor’s RSU entitlements were a “term
+
+or condition” of his employment within the meaning of s. 60(1)(a) of the ESA.
+
+Dr. Wigdor’s entitlement to the RSUs was outlined in the letter incorporated into
+
+his employment agreement. The Respondents’ affiant agreed that RSU
+
+entitlements were part of employee compensation. Meta’s 2023 Annual Report
+
+describes the 2012 Equity Incentive Plan, which is the foundation for the RSU
+
+entitlements, as a “share-based employee compensation plan”. During
+
+Dr. Wigdor’s employment with the Respondents, his RSU entitlements vested
+
+quarterly, in accordance with the RSU Agreements. The vested RSUs were treated
+
+as taxable benefits in the Respondents’ records of payment to Dr. Wigdor.
+                                      Page: 42
+
+
+[108] Both the 2020 RSU Agreement and the 2021-2023 RSU Agreements
+
+purport to alter an employee’s entitlement to RSUs in a manner that constitutes an
+
+alteration of a term or condition of employment during the statutory notice period,
+
+contrary to s. 60(1)(a) of the ESA.
+
+[109] Both the 2020 RSU Agreement and the 2021-2023 RSU Agreements
+
+provide that if an employee was terminated for any reason, “all unvested RSUs
+
+shall be forfeited to the Company forthwith”, and all rights of the employee to RSUs
+
+“shall immediately terminate.” In addition, each agreement has more specific
+
+language that references notice periods. The 2020 RSU Agreement specifically
+
+provides that:
+
+
+            [N]o vesting shall continue during any notice period in
+            relation to his/her Termination, whether specified under
+            contract or statutorily, regulatory or common law.
+
+The 2021-2023 RSU Agreements specifically provide:
+
+
+            For the avoidance of doubt, unless explicitly required by
+            applicable legislation, the date on which a Termination of
+            Employment occurs and all unvested RSUs are forfeited
+            will not be extended by any period during which notice,
+            pay in lieu of notice or related payments or damages are
+            provided or required to be provided under local law
+            (including, without limitation, statute, contract, regulatory
+            law, and/or common or civil law). [Emphasis added.]
+
+[110] Returning to the analysis in Matthews, there is no dispute that, but for
+
+Dr. Wigdor’s termination, 9,405 RSUs would have vested during the common law
+                                    Page: 43
+
+
+notice period, with a value of approximately US$4.7 million (calculated by the Meta
+
+share price on vesting dates). The issue is whether under the second branch of
+
+the Matthews test, the RSU Agreements, part of the employment agreement,
+
+lawfully removed these rights or were contrary to the ESA and thus, could not
+
+validly contract out of common law rights.
+
+[111] The 2020 RSU Agreement unequivocally states that no vesting shall
+
+continue during, inter alia, the statutory notice period. This is contrary to the
+
+obligation on an employer in s. 60(1)(a) of the ESA not to alter “any term or
+
+condition of employment” during the statutory notice period. It is thus void,
+
+pursuant to s. 5(1) of the ESA, and cannot validly contract out of Dr. Wigdor’s
+
+common law rights.
+
+[112] The 2021-2023 RSU Agreements also purport to end vesting immediately
+
+upon termination. Although the 2021-2023 RSU Agreements appear to attempt to
+
+include a saving provision with the language “unless explicitly required by
+
+applicable legislation”, there is nothing “explicit” in the ESA about continued
+
+vesting of RSUs during the statutory notice period. The saving language is not
+
+engaged.
+
+[113] But even assuming, taken at its highest, the provision is ambiguous about
+
+how explicit saving language in employment standards legislation needs to be, that
+
+ambiguity must be resolved in favour of the employee. Thus, the 2021-2023
+                                     Page: 44
+
+
+RSU Agreements are also contrary to s. 60(1)(a) of the ESA because they purport
+
+to alter a “term or condition of employment” during the statutory notice period. The
+
+clauses are thus void, pursuant to s. 5(1) of the ESA, and do not contract out of
+
+Dr. Wigdor’s common law rights.
+
+[114] Because the RSU Agreements purport to alter a term or condition of
+
+employment by denying terminated employees continued vesting of RSUs during
+
+the statutory notice period, they are contrary to the ESA, void, and incapable of
+
+contracting out of common law notice entitlements: Matthews at para. 76;
+
+Machtinger, at pp. 1004.
+
+[115] For these reasons, Dr. Wigdor was entitled to have the value of RSUs that
+
+would have vested during the 10-month common law notice period included in his
+
+damages for the common law right to reasonable notice. The damages award
+
+should be increased by US$4,711,647.29.
+
+
+    b.     The application judge erred in finding that the ESA did not apply
+           at all to the RSU entitlements
+
+[116] After holding that Dr. Wigdor was not entitled to damages for the RSUs that
+
+would have vested during the common law notice period because only s. 61 of the
+
+ESA applied and its provisions for pay in lieu of notice did not include a protection
+
+against alteration of terms or conditions of employment during the notice period,
+
+the application judge went on to find that Dr. Wigdor’s RSU entitlements were
+
+governed by separate agreements, and thus, not subject to the ESA at all:
+                                     Page: 45
+
+
+             The Applicant’s RSU rights were governed by separate
+             agreements that are not treated the same way as his
+             rights under his employment contract: Mikelsteins v.
+             Morrison Hershfield Limited, 2019 ONCA 515 at para 16.
+             I agree with the Respondents that the Applicant’s
+             contractual entitlements were independent of any relief
+             he may have been entitled to receive under his
+             employment agreement, the ESA, or the common law.
+
+[117] Dr. Wigdor argues this was an error. Dr. Wigdor argues that this conclusion
+
+is inconsistent with the balance of the application judge’s reasons, rests on a
+
+misapprehension of the Respondents’ position below in relation to the 2021-2023
+
+RSU entitlements, is contrary to the application provisions of the ESA and binding
+
+authority of this court, and rests on a misreading of Mikelsteins.
+
+[118] The Respondents concede that the application judge erred in reaching the
+
+conclusion that the ESA did not apply to the 2021-2023 RSU entitlements. The
+
+Respondents had argued before the application judge, and maintain on appeal,
+
+that the 2020 RSU entitlements were part of the deal to purchase Chatham, and
+
+thus not employment related. But the Respondents accepted, both in this court
+
+and below, that the 2021-2023 RSU entitlements were employment compensation.
+
+Thus, the Respondents accept that the application judge misapprehended their
+
+argument, to the extent that she applied it to the 2021-2023 RSU entitlements.
+
+However, the Respondents argue that the application judge’s misapprehension of
+
+their position is not material because the 2021-2023 RSU Agreements are
+
+compliant with the ESA. The Respondents maintain their position that the RSUs
+                                     Page: 46
+
+
+subject to the 2020 RSU Agreement were part of the purchase transaction of
+
+Chatham and were not employment compensation, and thus not subject to the
+
+ESA.
+
+[119] I agree with Dr. Wigdor that the application judge erred in finding that his
+
+RSU entitlements were not subject to the ESA. I begin by noting that the application
+
+judge’s conclusion that Dr. Wigdor’s RSU entitlements were not subject to the ESA
+
+appears inconsistent with her earlier finding that s. 61 of the ESA applied to the
+
+RSU entitlements but that the terms of the RSU Agreements were not contrary to
+
+s. 61 (based on her erroneous interpretation of ss. 60 and 61).
+
+[120] Further, the application judge made three errors in reaching the conclusion
+
+that the ESA did not apply to the RSU entitlements.
+
+[121] First, as the Respondents concede, the application judge misapprehended
+
+their argument by holding that the 2021-2023 RSU entitlements were not
+
+employment compensation and not subject to the ESA. While the Respondents
+
+argued before the application judge (and again on appeal) that the RSUs subject
+
+to the 2020 RSU Agreement were not employment compensation, but rather were
+
+part of the deal to purchase Chatham, they conceded that the RSUs subject to the
+
+2021-2023 RSU Agreements were employment compensation subject to the ESA.
+
+Instead, they took the position that the 2021-2023 RSU Agreements were
+
+compliant with the ESA, a position I have considered and rejected above.
+                                      Page: 47
+
+
+[122] I address the 2020 RSU entitlements below. But as it relates to the 2021-
+
+2023 RSU entitlements, I reject the Respondents’ position that the application
+
+judge’s misapprehension of their position was not material. I have explained above
+
+that the 2021-2023 RSU Agreements contravene ESA minimum standards. As
+
+such, they are void and incapable of validly contracting out of Dr. Wigdor’s right to
+
+common law reasonable notice, which includes damages for RSUs that would
+
+have vested during the common law notice period.
+
+[123] Second, the application judge’s conclusion that the ESA did not apply to
+
+Dr. Wigdor’s RSU entitlements is contrary to the application provision of the ESA,
+
+the record in this case, and authority of this court.
+
+[124] Section 3 of the ESA provides (with certain exceptions that are not
+
+applicable in this case) that:
+
+             … the employment standards set out in this Act apply with respect to
+             an employee and his employer if
+
+                    (a) The employee’s work is to be performed in Ontario; or
+
+                    (b) The employee’s work is to be performed in Ontario and
+                    outside Ontario but the work performed outside Ontario is a
+                    continuation of work performed in Ontario.
+
+[125] This language speaks to the broad application of the ESA to employees who
+
+perform work in Ontario. This is consistent with the ESA’s purpose as remedial
+
+legislation, designed to extend its protections to “as many employees as possible”:
+
+Machtinger, at p. 1003; Wood at para. 28.
+                                    Page: 48
+
+
+[126] The only reasonable conclusion on the record in this appeal is that
+
+Dr. Wigdor’s RSU entitlements were part of his employment compensation. As I
+
+have outlined above at paras. 107, 118-19, the employment agreement and the
+
+RSU Agreements structure Dr. Wigdor’s RSU entitlements as employment
+
+compensation. Further, the RSUs that vested during the time Dr. Wigdor was
+
+employed by the Respondents were treated as employment income. Thus, the
+
+ESA applies to the RSU entitlements.
+
+[127] The Respondents’ submission that the ESA does not apply to the RSU
+
+entitlements that were subject to the 2020 RSU Agreement amounts to an
+
+argument that because the 2020 RSU entitlements are connected to the purchase
+
+of Chatham, the ESA does not apply, despite the fact that the documents in relation
+
+to Dr. Wigdor’s employment and RSU entitlements structure the RSUs as
+
+employment compensation.
+
+[128] This court rejected that argument in Groves. Groves involved circumstances
+
+where a shareholder, officer, and director of a corporation sold his shares to
+
+another corporation, resigned as an officer and director, and then became an
+
+employee of the purchaser corporation. His employment was subsequently
+
+terminated without cause. In the appeal in wrongful dismissal action, one of the
+
+arguments made by the employer was that the summary judgment motion judge
+
+erred by failing to interpret the employment contract in the context of the
+
+commercial sale of the shares and that the principles from Wood – and the ESA –
+                                      Page: 49
+
+
+were not applicable because the circumstances involved a commercial
+
+transaction. This court rejected the argument that the motion judge failed to
+
+consider the full factual context. The court also rejected the argument that the ESA
+
+did not apply, stating at para. 13:
+
+
+             To the extent that UTS is advancing an argument that in
+             the context of a commercial contract, the ESA provisions
+             do not apply, we disagree. There is nothing in the ESA
+             that indicates that it is inapplicable in employment
+             relationships connected to commercial transactions.
+
+[129] In this case, the parties chose to make the purchase of Chatham contingent
+
+on Dr. Wigdor becoming an employee of the Respondents, and chose to structure
+
+the purchase deal and the employment agreement with the RSU entitlements as
+
+employment compensation for Dr. Wigdor. The choice to structure the RSU
+
+entitlements as employment compensation, including the 2020 entitlements,
+
+means the ESA applies. The Respondents must live with that choice.
+
+[130] Third, the application judge’s reliance on Mikelsteins was misplaced.
+
+[131] Mikelsteins is distinguishable from the circumstances of this appeal.
+
+Mikelsteins concerned an “employee-owned engineering firm” that allowed certain
+
+employees to purchase shares in the parent corporation using their own funds.
+
+When an employee decided to purchase shares, their rights regarding the shares
+
+were determined by the terms of the shareholders agreement. This court held that
+
+receipt of shares was not employment compensation subject to the ESA for two
+                                     Page: 50
+
+
+reasons: (1) because the employee had to purchase the shares using their own
+
+funds; and (2) because the employee’s rights as a shareholder in relation to the
+
+shares, once the employee made the choice to purchase the shares, were
+
+determined under the shareholders agreement, not the employment contract:
+
+Mikelsteins v. Morrison Hershfield Limited, 2019 ONCA 515, at paras. 2-6, 12-19;
+
+Mikelsteins v. Morrison Hershfield Limited, 2021 ONCA 155, at paras. 11-13, leave
+
+to appeal refused, [2019] S.C.C.A. No. 363.
+
+[132] By contrast, as I have outlined above, in this case the RSU entitlements
+
+were a form of employment compensation that automatically vested in
+
+consideration of ongoing employment.
+
+[133] For these reasons, I conclude that the application judge erred in finding that
+
+the ESA did not apply to the RSU entitlements. I have explained earlier in these
+
+reasons why the RSU Agreements do not meet ESA minimum standards and are
+
+not capable of validly contracting out of Dr. Wigdor’s common law right to
+
+reasonable notice.
+
+
+    c.    Did the application judge err in declining to award Dr. Wigdor
+          punitive damages
+
+[134] Dr. Wigdor argues that the application judge erred in declining to award
+
+punitive damages. He argues that her findings amounted to a finding of a
+
+deliberate breach of the ESA by the Respondents, seemingly in an effort to
+
+pressure him into signing a release and/or as a reprisal for his refusal to do so.
+                                       Page: 51
+
+
+Dr. Wigdor further argues that punitive damages were particularly appropriate
+
+given the size and sophistication of the Respondents, who, he argues, should be
+
+expected to model compliance with employment standards.
+
+[135] The Respondents argue that the application judge made no error in declining
+
+to award punitive damages. The application judge found that the Respondents’
+
+conduct “[fell] short of reprehensible conduct” and did not “rise to the level of ‘harsh’
+
+or ‘malicious’.” She was entitled to exercise her discretion to make this finding,
+
+which was rationally supported by the record and the case law.
+
+[136] The application judge made the following findings in declining to award
+
+punitive damages:
+
+
+             I find that the circumstances suggest more than an
+             unintentional administrative error but falling short of
+             reprehensible conduct. The hearsay evidence filed by the
+             Respondents with the “explanation” for the 10 month
+             delay is inadequate and vague. The timing of the
+             payment, coming after legal proceedings were
+             commenced, leads me to infer that at the very least, the
+             Respondents were prepared to let the Applicant’s
+             entitlements languish. Clearly, they were interested in
+             negotiating a release with him and to that extent he had
+             their attention. Yet, they were curiously passive about
+             seeing to his other statutory entitlements.
+
+             Overall, I find that while dilatory, the conduct here does
+             not rise to the level of “harsh” or “malicious”. I conclude
+             that the Applicant has not established that he is entitled
+             to punitive damages.
+                                     Page: 52
+
+
+[137] Punitive damages are restricted to “advertent wrongful acts that are so
+
+malicious and outrageous that they are deserving of punishment on their own”:
+
+Honda Canada Inc. v. Keays, 2008 SCC 39, [2008] 2 S.C.R. 362, at paras. 62 and
+
+68.
+
+[138] The application judge properly adverted to the high standard to award
+
+punitive damages set out in Keays. While the application judge’s finding in relation
+
+to the Respondents’ conduct in not paying the pay in lieu of notice for 10 months
+
+– and not until the application was commenced – approaches a finding of
+
+intentional misconduct, it is not such a finding. I am not persuaded that she made
+
+any palpable and overriding error in her fact-finding on this issue.
+
+[139] In light of the discretionary nature of the assessment of whether punitive
+
+damages are appropriate, and given the nature of the application judge’s factual
+
+findings on this issue, I see no reviewable error and no basis to intervene in her
+
+decision not to award punitive damages.
+
+
+E.    DISPOSITION
+
+[140] I would allow the appeal, except with respect to punitive damages. I would
+
+strike out paragraph 2 of the Amended Order of the application judge and vary the
+
+order to increase Dr. Wigdor’s damages by US$4,711,647.29 to account for the
+
+lost value of the RSUs that would have vested during the 10-month common law
+
+reasonable notice period.
+                                     Page: 53
+
+
+[141] I would dismiss the cross-appeal.
+
+[142] At the close of the hearing, the parties advised that they had an agreement
+
+on costs of the appeal. However, the agreement was premised on one party being
+
+successful on all issues. Because we did not allow the appeal with respect to the
+
+denial of punitive damages, the agreement does not apply. Counsel were
+
+optimistic that, if the result was mixed, they could reach another agreement on
+
+costs of the appeal. We leave it to the parties to have that discussion, both in
+
+relation to costs of the appeal and whether the result of the appeal has any impact
+
+on the costs of the application.
+
+[143] If the parties are unable to reach agreement on costs, they may file written
+
+submissions limited to three pages, plus a costs outline. Dr. Wigdor’s submissions
+
+shall be filed within 10 days of the release of these reasons. The Respondents’
+
+submissions shall be filed within 10 days of the filing of Dr. Wigdor’s submissions.
+
+There is no right of reply.
+
+Released: August 7, 2026 “J.G.”
+
+                                                                  “J. Copeland J.A.”
+                                                           “I agree. J. George J.A.”
+                                                          “I agree. S. Gomery J.A.”
+

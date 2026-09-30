@@ -1,0 +1,463 @@
+                   COURT OF APPEAL FOR ONTARIO
+
+                                CITATION: Kelava v. Spadacini, 2021 ONCA 428
+                                                              DATE: 20210617
+                                                            DOCKET: C68394
+
+                         Benotto, Miller and Trotter JJ.A.
+
+BETWEEN
+
+           David Kelava and The United Brotherhood of Retail, Food,
+               Industrial and Service Trades International Union
+
+                                                             Defendants/Applicants
+                                                                      (Appellants)
+
+                                       and
+
+                                 Dante Spadacini
+
+                                                               Plaintiff/Respondent
+                                                                       (Respondent)
+
+
+Melvyn L. Solmon and Laney J. Paddock, for the appellants
+
+Dante Spadacini, acting in person
+
+Heard: April 21, 2021 by video conference
+
+On appeal from the judgment of the Divisional Court (Justices Lynne Leitch, Harriet
+E. Sachs and David L. Corbett), dated October 30, 2019, with reasons reported at
+2019 ONSC 6314, affirming the order of Deputy Judge Thomas H. Clemenhagen,
+dated June 21, 2018.
+
+Benotto J.A.:
+
+[1]   This appeal involves the jurisdiction of the Small Claims Court to appoint a
+
+representative defendant for an unincorporated association.
+                                      Page: 2
+
+
+A.    FACTS
+
+[2]   The respondent, Dante Spadacini, brought a wrongful termination claim in
+
+Small Claims Court against the appellants David Kelava and The United
+
+Brotherhood of Retail, Food, Industrial and Service Trades International Union
+
+(“the Union”). The monetary amount of the claim is within the jurisdiction of the
+
+Small Claims Court.
+
+[3]   The Deputy Judge made an order amending the style of the action “to
+
+change the wording of the defendant’s name slightly” by adding the named
+
+defendant David Kelava as a representative of the Union. Although the Rules of
+
+the Small Claims Court, O. Reg. 258/98 do not explicitly deal with representation
+
+orders, the Deputy Judge applied r. 1.03(2) which gives the court discretion to refer
+
+to the Rules of Civil Procedure, R.R.O. 1990, Reg. 194, if a matter is not
+
+adequately covered by the Small Claims Court Rules. The deputy judge then
+
+referred to r. 12.07 of the Rules of Civil Procedure. This rule (typically used when
+
+a union is sued) provides that one or more persons may be authorized by the court
+
+to defend an action when numerous persons have the same interest.
+
+[4]   The Union applied for judicial review to the Divisional Court on the basis that
+
+the deputy judge lacked jurisdiction to make the order because there is a clear
+
+omission in the Small Claim Court Rules preventing reference to the Rules of Civil
+
+Procedure.
+                                               Page: 3
+
+
+[5]     The Divisional Court upheld the deputy judge’s order, unanimously ruling
+
+that he did not err.
+
+[6]     The Union now appeals to this court. 1
+
+B.      POSITIONS OF THE PARTIES
+
+(1)     Appellants
+
+[7]     The appellants submit that the Divisional Court erroneously expanded the
+
+jurisdiction of the Small Claims Court. They say that there is a precondition to the
+
+application of r. 1.03(2) and it was not met here. They submit that r. 1.03(2) can
+
+only be applied in order to refer to the Rules of Civil Procedure if there is a “gap”
+
+as opposed to an “omission” in the Small Claims Court Rules.
+
+[8]     The appellants argue that there is an omission, not a gap, in the Small
+
+Claims Court Rules and rely on this court’s decisions in Van de Vrande v.
+
+Butkowski, 2010 ONCA 230, 99 O.R. (3d) 648, and Riddel v. Apple Canada Inc.,
+
+2017 ONCA 590, 139 O.R. 595. They argue that a gap is something that is covered
+
+inadequately by the Rules, whereas an omission is not addressed in the Rules at
+
+all and consequently, there is no ability for the Small Claims Court to make
+
+reference to r. 1.03(2) or to the Rules of Civil Procedure.
+
+
+
+
+1 No submissions were made as to the standard of review. In any event, as I explain, the decision under
+
+review is correct.
+                                       Page: 4
+
+
+[9]    The appellants further argue that the Small Claims Court does not have the
+
+jurisdiction to hear actions by or against unincorporated associations. They rely on
+
+the absence of reference to unincorporated associations in the Small Claims Court
+
+Rules.
+
+(2)    Respondent
+
+[10]   The respondent submits that the Small Claims Court Rules are clear and
+
+unambiguous in that the court may give directions and make orders when the rules
+
+do not cover a matter adequately. This is exactly what the deputy judge did. He
+
+identified an area where the rules did not adequately cover a matter – the ability to
+
+make representation orders – and made reference to the Rules of Civil Procedure.
+
+There are also Ontario regulations premised on unincorporated associations falling
+
+under the jurisdiction of Small Claims Court. Specifically, Ontario Regulation
+
+332/16 Small Claims Court – Fees and Allowance includes unincorporated
+
+organizations in the definition of “claimant”.
+
+[11]   The respondent points to several Small Claims Court actions commenced
+
+by and against unincorporated associations, including unions: see Ryan v. PACI
+
+Band Parents Association, [2003] O.J. No. 3732 (Sup. Ct. (Sm. Cl. Div.)); De
+
+Yound v. Van Bart, [2006] O.J. No. 4491 (Sup. Ct. (Sm. Cl. Div.));
+
+Communications, Energy and Paperworks Union of Canada, Local 593 v.
+
+Matthews, [2006] O.J. No. 872 (Sup. Ct. (Sm. Cl. Div.)); Communications, Energy
+
+and Paperworks Union of Canada, Local 593 v. Dennis Garratt (unreported); and
+                                       Page: 5
+
+
+Arnett v. Rail Canada Traffic Controllers, [1991] O.J. No. 2656 (Prov. Ct. Civ. Div.
+
+Sm. Cl. Ct.)).
+
+C.     ANALYSIS
+
+[12]   Is the Small Claims Court prevented from naming a representative
+
+defendant in an action against an unincorporated association?
+
+[13]   I conclude that the answer is no.
+
+[14]   I say this for these reasons: (i) the deputy judge had the authority under the
+
+Small Claims Court Rules to make the order without reference to the Rules of Civil
+
+Procedure; (ii) the deputy judge did not err by referring to the Rules of Civil
+
+Procedure; and (iii) the legislature did not deliberately omit unincorporated
+
+associations from the jurisdiction of the Small Claims Court.
+
+The authority to make the order is in the Small Claims Court Rules
+
+[15]   The Small Claims Court is a branch of the Superior Court of Justice. It
+
+handles nearly half of the civil disputes in the province. The court is meant to
+
+provide an efficient, cost-effective forum for the resolution of civil disputes involving
+
+less than $35,000. It hears cases in a summary way and “may make such order
+
+as is considered just and agreeable to good conscience”: The Courts of Justice
+
+Act, R.S.O. 1990, c. C.43, s. 25.
+
+[16]   In short, the court embodies the foundations of access to justice: informality,
+
+affordability, timely resolution, accessibility for self-represented people and active
+                                       Page: 6
+
+
+judicial engagement. By providing access to justice, the court has an important role
+
+in the administration of justice for the province.
+
+[17]   The authority to make a representation order is found in the Small Claims
+
+Court Rules.
+
+[18]   The rules are to be read in their entire context having regard to their nature,
+
+purpose, scheme, and object. The Small Claims Court Rules, read in their entirety,
+
+emphasize facilitating access to justice. They begin with guidance as to their
+
+interpretation. Rule 1.03(1) provides:
+
+             These rules shall be liberally construed to secure the just, most
+             expeditious and least expensive determination of every proceeding
+             on its merits in accordance with section 25 of the Courts of Justice
+             Act. O. Reg. 258/98, r. 1.03 (1). [Emphasis added.]
+
+[19]   To further provide for the achievement of their objectives, the rules give
+
+broad discretion to the court. If the rules do not directly address a matter, the court
+
+may give directions and make “any order that is just”. In order to implement the
+
+order, the practice is to be decided by analogy to the Small Claims Court Rules.
+
+Then, “if the court considers it appropriate” the court may refer to the Rules of Civil
+
+Procedure. Rule 1.03(2) provides:
+
+             If these rules do not cover a matter adequately, the court may give
+             directions and make any order that is just, and the practice shall be
+             decided by analogy to these rules, by reference to the Courts of
+             Justice Act and the Act governing the action and, if the court
+             considers it appropriate, by reference to the Rules of Civil
+             Procedure. O. Reg. 78/06, s. 3. [Emphasis added.]
+                                      Page: 7
+
+
+[20]   The Small Claims Court Rules provided the authority to make the order even
+
+without reference to the Rules of Civil Procedure. I say this for several reasons.
+
+[21]   First, pursuant to a plain reading of r. 1.03(2) the court may give directions
+
+and make any order that is just. This provides the court with authority to manage
+
+its own process.
+
+[22]   Second, with respect to the pleadings, it has long been the case that a
+
+liberal, non-technical approach should be taken to the pleadings in Small Claims
+
+Court (Brighton Heating & Air Conditioning v. Savoia (2006), 79 O.R. (3d) 386 (Div.
+
+Ct.), at para. 40). The court has the power to grant necessary amendments to
+
+secure the just determination of the real matters in dispute. Rule 2 provides:
+
+             2.01 A failure to comply with these rules is an irregularity and does
+             not render a proceeding or a step, document or order in a proceeding
+             a nullity, and the court may grant all necessary amendments or other
+             relief, on such terms as are just, to secure the just determination of
+             the real matters in dispute.
+
+             2.02 If necessary in the interest of justice, the court may dispense with
+             compliance with any rule at any time.
+
+[23]   Third, if a matter is not adequately covered, the court is to decide the matter
+
+“by analogy” to other Small Claims Court rules – the very rules that emphasize the
+
+just, most expeditious and least expensive process. It is inconsistent with this
+
+objective to require a litigant to endure the time, expense and delay of an
+
+application to the Superior Court only to obtain a representation order when the
+
+matter is within the monetary jurisdiction of the Small Claims Court.
+                                      Page: 8
+
+
+Reference to the Rules of Civil Procedure was not an error
+
+[24]   The appellants submit that the Deputy Judge had no authority to apply r.
+
+1.03(2) in order to refer to the Rules of Civil Procedure.
+
+[25]   I disagree.
+
+[26]   The Deputy Judge was not required to have reference to the procedure in r.
+
+12 of the Rules of Civil Procedure at all. Reference to the Rules of Civil Procedure
+
+is discretionary and was not necessary in this case.
+
+[27]   Recall the wording of s. 1.03(2). If the matter is not adequately covered, the
+
+court may give directions and, “if the court considers it appropriate,” do so with
+
+reference to the Rules of Civil Procedure.
+
+[28]   For these reasons, I conclude that the Small Claims Court Rules provide the
+
+authority to make the order appealed from. That said, I turn to the appellants’
+
+submissions with respect to the court’s jurisdiction.
+
+Jurisdiction regarding unincorporated associations
+
+[29]   The appellants say that nonetheless, the deputy judge could not make the
+
+order at all, because the Small Claims Court has no jurisdiction with respect to
+
+unincorporated associations. They submit that the legislative intent is evident from
+
+the fact that the rules do not refer to unincorporated associations. This prevents
+
+reference to the Rules of Civil Procedure which can only be used where there is a
+
+gap as opposed to an omission in the Small Claims Court Rules.
+                                     Page: 9
+
+
+[30]   The appellants rely on this court’s decisions in Van de Vrande and Riddel
+
+which, they submit, have developed the test to apply when the Small Claims Court
+
+decides a practice following the Rules of Civil Procedure. That test is to determine
+
+whether there is a “gap” or an “omission” in the Small Claims Court Rules. If the
+
+former, the court can have reference to the Rules of Civil Procedure. If the latter,
+
+then the legislature must have intended there to be no jurisdiction.
+
+[31]   The appellants misconstrue both Van de Vrande and Riddel.
+
+[32]   In Van de Vrande, this court held that motions for summary judgment based
+
+on principles emanating from r. 20 of the Rules of Civil Procedure are not available
+
+under the Small Claims Court Rules, in part because the Small Claims Court Rules
+
+allow a process whereby a claim could be struck. Consequently, the omission of
+
+the summary judgment rule was an omission not a gap. Importantly, this court read
+
+the Small Claims Court Rules liberally and upheld the deputy judge’s order
+
+dismissing the claim. Van de Vrande actually confirms my view that it was not
+
+necessary to invoke the Rules of Civil Procedure at all because the court had the
+
+authority to give directions.
+
+[33]   Nor does Riddell assist the appellants.
+
+[34]   Riddel, at para. 7, clarifies that when there is a “marker in the Rules of a
+
+deliberate legislative decision to omit” a procedure, then the Small Claims Court
+
+Rules should not be supplemented. Riddel found no such marker when the court
+
+ordered an inspection of property. Rather the court concluded that the Small
+                                               Page: 10
+
+
+Claims Court Rules authorized the impugned order without reference to the Rules
+
+of Civil Procedure.
+
+[35]    An example of a marker limiting jurisdiction is shown in Bruyea v. Canada
+
+(Veteran Affairs), 2019 ONCA 599, 147 O.R. (3d) 84. There, the issue was whether
+
+the Small Claims Court had the authority to dismiss an action under s. 137.1 of the
+
+Courts of Justice Act. This is the so-called anti-SLAPP2 law. It is meant to address
+
+concerns arising from the use of litigation to interfere with freedom of expression
+
+and quickly dismiss unmeritorious claims that unduly encroach on an individual’s
+
+right to freedom of expression on matters of public interest: Bruyea, at para. 11.
+
+The process permits the summary dismissal of an action. In Bruyea, this court
+
+determined that, by drafting the Act to refer exclusively to “judge”, not “deputy
+
+judge” or “court”, the legislature put down a “marker” of an intent to omit the
+
+jurisdiction from the Small Claims Court. Interestingly, the court commented on
+
+access to justice, at para. 27, by noting that:
+
+                …ironically, s. 137.1 is not a provision providing access.
+                To the contrary, at least viewed from the perspective of
+                the plaintiff, it is the very opposite. It is a provision that is
+                intended, in proper circumstances, to prohibit access to
+                the courts.
+
+[36]    Here, there is no such marker. There is no language in a statute that marks
+
+a clear intent to exclude representative defendants from the court’s jurisdiction. On
+
+
+
+
+2 Strategic Lawsuits Against Public Participation
+                                       Page: 11
+
+
+the contrary, there is extensive language regarding the ability of the court to
+
+manage its process in a cost-effective way.
+
+[37]   Finally, I note the appellant appears to have conflated the right to sue with
+
+the representation order. The appellant submits that unincorporated associations
+
+do not have legal personality. This is incorrect for trade unions. A trade union is a
+
+legal entity with legal personality: see Berry v. Pulley, 2002 SCC 40, [2002] 2
+
+S.C.R. 493, at para. 39. However, because of the statutory requirements in the
+
+Rights of Labour Act, R.S.O. 1990, c. R.33, the only way to sue a union in Ontario
+
+is to obtain a representation order: Lawrence v. IBEW, Local 773, 2017 ONCA
+
+321, 138 O.R. (3d) 129, at para. 16.
+
+D.     CONCLUSION
+
+[38]   I would dismiss the appeal with costs payable to the respondent fixed in the
+
+amount of $5,000 for the appeal, plus $2,000 for the motion for leave to appeal for
+
+a total of $7,000 inclusive of tax and disbursements.
+
+Released: June 17, 2021 “M.L.B.”
+                                                                 “M.L. Benotto J.A.”
+                                                           “I agree B.W. Miller J.A.”
+                                                         “I agree Gary Trotter J.A.”
+

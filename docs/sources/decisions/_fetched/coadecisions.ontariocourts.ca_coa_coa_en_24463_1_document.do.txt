@@ -1,0 +1,1117 @@
+                       COURT OF APPEAL FOR ONTARIO
+
+ CITATION: Kondaj v. Crossbridge Condominium Services Ltd., 2026 ONCA 636
+                                                           DATE: 20260910
+                                               DOCKET: COA-25-CV-0972
+
+                       Paciocco, Thorburn and Dawe JJ.A.
+
+BETWEEN
+                               Gazmend Kondaj
+                                                                      Plaintiff
+                                                                 (Respondent)
+                                     and
+
+          Crossbridge Condominium Services Ltd. and Duka Property
+                              Management Inc.
+                                                                 Defendants
+                                  (Duka Property Management Inc., Appellant)
+                        (Crossbridge Condominium Services Ltd., Respondent)
+
+
+Alisha Kassam and Greg McGinnis, for the appellant/respondent by way of cross-
+appeal Duka Property Management Inc.
+
+Ian D. Hurley, for the respondent/respondent by way of cross-appeal Gazmend
+Kondaj
+
+Matthew R. Vella and Caroline DeBruin, for the respondent/appellant by way of
+cross-appeal Crossbridge Condominium Services Ltd.
+
+Heard: April 7, 2026
+
+On appeal from the order of Justice Markus Koehnen of the Superior Court of
+Justice, dated June 30, 2025, with reasons reported at 2025 ONSC 3905, and from
+the costs order, dated October 31, 2025.
+
+
+Thorburn J.A.
+OVERVIEW
+
+[1]   Gazmend      Kondaj      (“Mr.   Kondaj”)   was   employed    by   Crossbridge
+
+Condominium Services Ltd. (“Crossbridge”) as a building manager for the SoHo
+
+Hotel & Residences Shared Facilities (“SoHo”). As is common in the industry,
+
+SoHo later retendered its property management contract. After retendering the
+
+contract, SoHo replaced Crossbridge with Duka Property Management Inc.
+
+(“Duka”).
+
+[2]   Upon taking over management of SoHo, Duka chose not to continue
+
+Mr. Kondaj’s employment. Upon losing the SoHo contract, Crossbridge made the
+
+same choice.
+
+[3]   Duka paid Mr. Kondaj his statutory termination entitlements, enrolled him in
+
+its benefits program, and provided him with a T4 pursuant to ss. 57 and 75 of the
+
+Employment Standards Act, 2000, S.O. 2000, c. 41 (“the Act”).
+
+[4]   However, neither Duka nor Crossbridge paid Mr. Kondaj any common law
+
+notice entitlements. Each of Duka and Crossbridge took the position that the other
+
+was responsible for paying Mr. Kondaj’s common law notice entitlements.
+
+[5]   The question on this appeal is: when a new building services provider
+
+decides not to continue the employment of an old services provider’s employee,
+
+who is responsible for paying the employee’s common law notice entitlements? Is
+
+it the old building services provider or the new one? This involves the interpretation
+
+of ss. 56 and 75 of the Act.
+[6]    As noted by the motion judge, it appears that no court has addressed this
+
+question before. The motion judge held that, as the incoming building services
+
+provider, Duka was legally obligated to pay Mr. Kondaj’s common law reasonable
+
+notice entitlements when Duka decided not to continue his employment. As such
+
+he granted summary judgment.
+
+[7]    The appellant Duka claims that the motion judge erred in his interpretation
+
+of ss. 56 and 75 of the Act and misapplied the modern principles of statutory
+
+interpretation. These principles are set out in the seminal decision in Rizzo & Rizzo
+
+Shoes Ltd. (Re), [1998] 1 S.C.R. 27, which held at para. 21 that:
+
+
+             [T]he words of an Act are to be read in their entire context
+             and in their grammatical and ordinary sense
+             harmoniously with the scheme of the Act, the object of
+             the Act, and the intention of Parliament.
+
+[8]    Duka claims that the motion judge placed undue emphasis on one aspect of
+
+inferred legislative intent and failed to give effect to both the scheme of the Act and
+
+the ordinary grammatical meaning of the words in ss. 56 and 75.
+
+[9]    Duka also appeals the substantial indemnity costs award against it.
+
+Crossbridge cross-appeals on the basis that it was not found liable to pay
+
+Mr. Kondaj’s common law entitlements and therefore should have been awarded
+
+its costs of the motion.
+
+[10]   I will briefly summarize the facts that are not in dispute, the relevant statutory
+
+provisions, and then provide my analysis of the motion judge’s reasons and my
+conclusion regarding the interpretation of ss. 56 and 75 of the Act. I will finally
+
+address the issues regarding costs.
+
+
+THE EVIDENCE
+
+[11]   Duka and Crossbridge both provide management services to condominium
+
+corporations across the Greater Toronto Area.
+
+[12]   On or about June 18, 2020, Mr. Kondaj signed a contract of employment
+
+and began providing building management services for Crossbridge. In January of
+
+2023, Crossbridge assigned Mr. Kondaj to the SoHo in Toronto.
+
+[13]   After SoHo retendered the contract to manage the property, SoHo awarded
+
+the property management contract to Duka.
+
+[14]   On November 2, 2023, Duka advised Crossbridge that it would be taking
+
+over property management at the SoHo, effective December 1, 2023. Duka
+
+requested information about the employees working at the SoHo and discovered
+
+that Mr. Kondaj was the only Crossbridge employee at the SoHo site.
+
+[15]   On November 21, 2023, Crossbridge told Mr. Kondaj that Crossbridge’s
+
+contract with SoHo would end on November 30, 2023 and that, on December 1,
+
+Duka would take over management of the SoHo property.
+
+[16]   On November 29, 2023, Mr. Kondaj met with Duka and told them that he
+
+hoped to obtain employment with Duka in a more senior role (and with a salary
+
+increase). Duka told Mr. Kondaj that Duka could not offer him such a role.
+[17]   On November 30, Duka told Crossbridge that Duka would not be continuing
+
+Mr. Kondaj’s employment. Also on November 30, Mr. Kondaj emailed Crossbridge
+
+to ask for “an update regarding [his] employment status and next assignment” with
+
+Crossbridge as of December 1, 2023. Crossbridge told Mr. Kondaj they would not
+
+be assigning him to another Crossbridge property. Later that day, Duka formally
+
+advised Mr. Kondaj that Duka would not continue his employment in any capacity.
+
+[18]   On December 1, 2023, Crossbridge provided Mr. Kondaj with his Record of
+
+Employment, confirming that his employment ended on November 30, 2023, due
+
+to “a shortage of work/end of contract or season”. Crossbridge did not provide any
+
+compensation to Mr. Kondaj.
+
+[19]   Pursuant to ss. 75(2) and 57 of the Act, Duka paid Mr. Kondaj $4,967.31,
+
+the three weeks’ termination pay to which he was entitled. On December 21, 2023,
+
+Duka enrolled Mr. Kondaj in Duka’s benefit plan for three weeks as required by the
+
+Act. Duka also issued a T4 Statement of Remuneration to Kondaj, designating
+
+Duka as his employer, and prepared a Record of Employment, indicating dismissal
+
+as the reason for issuance.
+
+[20]   In March 2024, Mr. Kondaj issued a Statement of Claim against both
+
+Crossbridge and Duka, claiming wrongful dismissal. He then brought a summary
+
+judgment motion, seeking damages in lieu of common law reasonable notice.
+[21]   On November 26, 2024, Mr. Kondaj issued settlement offers to both Duka
+
+and Crossbridge. Neither offer was conditional on acceptance by the other
+
+defendant. Both Duka and Crossbridge rejected Mr. Kondaj’s settlement offers.
+
+
+THE MOTION FOR SUMMARY JUDGMENT
+
+[22]   Mr. Kondaj brought a motion for summary judgment. There was no dispute
+
+that Mr. Kondaj was owed common law entitlements: the only issue was which of
+
+the two building services providers was required to pay them.
+
+[23]   Duka claimed that Crossbridge was liable to pay Mr. Kondaj’s common law
+
+notice entitlements, because s. 75 of the Act only required Duka to pay
+
+Mr. Kondaj’s termination and severance pay. Crossbridge claimed that Duka was
+
+liable to pay Mr. Kondaj’s common law notice entitlements, because read together,
+
+ss. 75 and 56 of the Act attributed liability for both statutory and common law
+
+termination entitlements to Duka.
+
+[24]   The motion judge held that as the new building services provider, Duka was
+
+required to pay Mr. Kondaj’s common law notice entitlements. The motion judge
+
+therefore granted summary judgment against Duka in the amount of $78,925, the
+
+equivalent of 10 months’ common law notice, as well as damages in lieu of lost
+
+benefits. The motion judge also granted Mr. Kondaj partial indemnity costs up to
+
+the time he served his settlement offers and substantial indemnity costs thereafter.
+
+The motion judge declined to award Crossbridge its costs as against Duka.
+THE LEGISLATIVE PROVISIONS
+
+[25]   Part XV of the Act governs the termination and severance of employment in
+
+Ontario. Section 56, which is part of Part XV, provides that an employee is
+
+terminated if “the employer dismisses the employee or otherwise refuses or is
+
+unable to continue employing him or her” (emphasis added). Part XV of the Act
+
+also includes s. 54, which requires employers to give employees notice before
+
+termination, and s. 61, which governs payments in lieu of notice.
+
+[26]   Part XIX of the Act establishes distinct rules for building services providers
+
+like Duka and Crossbridge. Part XIX includes s. 75 of the Act, which governs
+
+termination when a building services provider is replaced. If a new provider
+
+chooses not to continue the employment of the old provider’s employee, s. 75
+
+deems the new provider to have employed them for the purposes of their
+
+termination and severance pay under Part XV of the Act. Section 75 reads as
+
+follows:
+
+
+             New provider
+
+             75. (1) This Part applies if a building services provider for a building is
+             replaced by a new provider.
+
+             Termination and severance pay
+
+             (2) The new provider shall comply with Part XV (Termination and
+             Severance of Employment) with respect to every employee of the
+             replaced provider who is engaged in providing services at the
+             premises and whom the new provider does not employ as if the new
+             provider had terminated and severed the employee's employment.
+
+             Same
+              (3) The new provider shall be deemed to have been the employee's
+              employer for the purpose of subsection (2). [Emphasis added.]
+
+[27]    Although s. 75(2) refers expressly to statutory “termination and severance
+
+pay”, it makes no reference to the payment of common law entitlements.
+
+
+ANALYSIS OF THE MOTION JUDGE’S DECISION
+
+[28]    The interpretation of a statute is a question of law: Mazur v. Elias Estate
+
+(2005), 75 O.R. (3d) 299 (C.A.), at para 9. The standard of review on a question
+
+of law is correctness: Housen v. Nikolaisen, 2002 SCC 33, [2002] 2 S.C.R. 235, at
+
+para 8.
+
+[29]    The motion judge noted, and the parties agree that, as set out in Rizzo
+
+Shoes, a court must read the words of a statute in a manner consistent with (i) the
+
+intention of the legislature, (ii) the object and scheme of the Act, and (iii) the
+
+meaning of the words in context and read in their grammatical and ordinary sense.
+
+
+1.      Whether the motion judge’s interpretation is consistent with the
+        intention of the legislature
+
+[30]    The first issue is whether the motion judge’s decision is consistent with the
+
+intention of the legislature.
+
+
+       a.   The motion judge’s decision
+
+[31]    There is no dispute that in enacting s. 75 of the Act and its forerunners, the
+
+legislature generally intended to promote continuous employment for building
+services employees given that contracts for building services providers change
+
+hands frequently.
+
+[32]   The motion judge held that imposing common law notice obligations on the
+
+new provider would be more consistent with the legislative intention for three
+
+reasons.
+
+[33]   First, placing the burden on the former provider “may incentivize the new
+
+provider to terminate existing employees”, contrary to the intention of the
+
+legislature, because as the motion judge noted at para. 34 of these reasons:
+
+
+             If the new provider takes on existing employees and
+             terminates them at some later point, there is no doubt
+             that the new provider would be liable for common law
+             notice. Subsection 10(2) of the Act requires notice be
+             calculated in a way which includes the employee’s
+             service with the old provider. If Duka were correct, the
+             new provider could avoid that risk by simply paying
+             statutory termination and severance, amounts that are
+             typically much lower than common law notice, thereby
+             avoiding the risk of common law notice if it had to
+             terminate those employees at a later point in time.
+
+[34]   Second, he held at para. 35 that:
+
+
+             [S]uch an arrangement could be exploited to harm
+             competitors: a new provider could force the former
+             provider to bear the cost of common law notice, even
+             when the contract was lost through no fault of the old
+             provider. This would undermine employment stability in
+             the building services sector, an outcome clearly at odds
+             with the legislator’s intention.
+
+[35]   Third, the motion judge held that requiring an employee to seek statutory
+
+termination and severance pay from the new provider and common law notice from
+the old provider would create a confusing and complex regime at odds with the
+
+statute’s purpose of protecting those employees.
+
+
+       b.   Duka’s argument about the intention of the legislature
+
+[36]    The parties disagree as to the effect of the 1995 amendments to the Act,
+
+which instituted s. 75’s immediate predecessor, s. 13.1. Duka submits that these
+
+1995 amendments signaled a change in legislative intent.
+
+[37]    Duka submits that “when the legislature removed the obligation on the new
+
+provider to offer employment to the predecessor’s employees (or risk assuming
+
+liability for all their employment losses), implicitly it also intended that the new
+
+provider should not be liable for these losses – under the Act or otherwise.”
+
+[38]    Duka points to the statements of then-Minister of Labour, Elizabeth Witmer,
+
+that the amendments were intended to “provide greater flexibility to employers”:
+
+Bill 7, An Act to restore balance and stability to labour relations and to promote
+
+economic prosperity and to make consequential changes concerning labour
+
+relations”, 2nd reading, Legislative Assembly of Ontario, Official Report of Debates
+
+(Hansard), 36-1 (October 18 1995) at 16:30. Duka claims that the motion judge’s
+
+decision to attribute common law notice obligations to new building services
+
+providers amounted to “legislating from the bench”, contrary to the purpose of the
+
+1995 amendments.
+[39]    Duka also submits that its interpretation is consistent with the intention of
+
+the legislature as there is no question that a departing employee will receive
+
+additional benefits. The only issue is: from whom?
+
+
+       c.   The motion judge’s conclusion is consistent with the intention of
+            the legislature
+
+[40]    As noted above, the parties agree that Part XIX of the Act is employee
+
+protection legislation. However, the motion judge correctly held that Duka’s
+
+interpretation would provide an incentive to new providers to terminate the old
+
+provider’s employees. Termination of the old provider’s employees would minimize
+
+the new provider’s costs as the new provider would not have to pay common law
+
+entitlements. At the same time, it would maximize the costs of the old provider as
+
+they would have to pay the common law entitlements.
+
+[41]    Duka’s interpretation would also, through immediate termination, allow new
+
+providers to avoid the risk of ever paying significant common law entitlements to
+
+employees largely unknown to them. Incentivizing employee termination in this
+
+manner would be contrary to legislative intent.
+
+[42]    In addition, assigning common law notice liability to the new provider does
+
+not defeat the legislature’s intention in the 1995 amendments to offer employers
+
+more flexibility.
+
+[43]    A brief review of the legislative history is instructive. In 1992, the Ontario
+
+Legislature amended the Act to require successive building services providers to
+offer employment to past employees who provided services on-site. If the provider
+
+did not, they were required both to comply with Part XIV of the Act (now Part XV)
+
+and to pay the employee’s wages and benefits lost as a result of their not receiving
+
+the required offer (as determined by an employment standards officer): Labour
+
+Relations and Employment Statute Law Amendment Act, 1992, SO 1992, c 21,
+
+ss. 58-59.
+
+[44]   The pertinent 1995 amendments (s. 13.1, largely carried forward into the
+
+modern s. 75) were twofold. First, the new provider is no longer required to offer
+
+to continue the employment of an old provider’s employee. Second, if they elect
+
+not to, they are no longer obligated to pay the employee’s resulting lost wages and
+
+benefits at the discretion of an employment standards officer: Labour Relations
+
+and Employment Statute Law Amendment Act, 1995, SO 1995, c 1, ss. 71-73.
+
+These amendments therefore give building services providers more flexibility.
+
+[45]   This flexibility exists regardless of who must pay common law reasonable
+
+notice entitlements. Making the new provider liable for common law notice
+
+entitlements if they do not hire the employee simply adds a variable to the
+
+employer’s re-hiring decision, albeit one that weighs in favour of rehiring the
+
+employee (by deferring payment of common law notice obligations until a possible
+
+later termination). It would not, however, require new providers to offer to continue
+
+past employees’ employment, nor would it make them responsible for lost wages
+
+and benefits if they do not extend an offer.
+[46]    Contrary to Duka’s submission, the intention of the legislature in enacting
+
+these provisions was not to decide who is responsible for paying common law
+
+entitlements but, rather, to create limited flexibility within a system that minimizes
+
+the chances of vulnerable employees’ termination.
+
+[47]    For these reasons, I see no error in the motion judge’s analysis or conclusion
+
+that holding Duka responsible for the payment of common law entitlements is
+
+consistent with the intention of the legislature.
+
+
+2.      Whether the motion judge’s order is consistent with the scheme of the
+        Act
+
+[48]    The second issue is whether the motion judge’s decision to impose liability
+
+for common law notice on the new building services provider is consistent with the
+
+scheme of the Act.
+
+
+       a.     The motion judge’s decision
+
+[49]    The motion judge held that assigning liability to the new provider is
+
+consistent with the scheme of the Act because:
+
+        (a)    Employees’ statutory and common law entitlements are intertwined;
+
+               they are not two independent regimes. The Act simply provides a floor
+
+               from which common law protections operate. To suggest otherwise
+
+               would contravene Elsegood v. Cambridge Spring Service 2001 Ltd.,
+
+               2011 ONCA 831, 109 O.R. 3d 143, and Machtinger v. HOJ Industries
+
+               Ltd., [1992] 1 S.C.R. 986; and
+        (b)     Under s. 77 of the Act, a party seeking to become a building services
+
+                provider may obtain information about the terms and conditions of
+
+                employment contracts from the existing provider before bidding on the
+
+                project. This enables new providers to assess the common law notice
+
+                they might be responsible for with respect to existing employees.
+
+
+       b.     Duka’s arguments about the scheme of the Act
+
+[50]    Duka claims that the motion judge’s decision that Duka is responsible for
+
+additional common law payments is contrary to the legislative scheme for three
+
+reasons.
+
+[51]    First, Duka claims that the impact of the Act’s statutory protections on the
+
+common law is limited. Relying on s. 8 of the Act, which provides that “no civil
+
+remedy of an employee against his or her employer is affected by this Act”,1 Duka
+
+argues that while the Act sets a floor of statutory and contractual rights, it does not
+
+affect common law obligations absent specific language doing so (as in s.
+
+141(1)(14), which modifies the doctrine of frustration).
+
+[52]    Second, Duka claims that the party responsible for paying common law
+
+benefits should be the party that entered into the contract with the employee.
+
+Absent a clear provision to the contrary, the legislature is presumed not to have
+
+
+1 “Common law” is used only in s. 141 of the Act and “wrongful dismissal” is used only in ss. 97 and 98,
+
+which provide that an employee cannot pursue both a complaint under the Act and a claim for wrongful
+dismissal in relation to “the same termination or severance of employment”. Indeed, since this decision
+clarifies that there is only one termination for the purposes of both the Act and the common law when a
+building services provider is replaced, in the future, ss. 97 and 98 will require employees in Mr. Kondaj’s
+situation to choose between making a wrongful dismissal claim and a complaint under the Act.
+intended to alter the rules of common law: Parry Sound (District) Welfare
+
+Administration Board v. O.P.S.E.U., Local 324, 2003 SCC 42, [2003] S.C.R. 157
+
+at para. 39. Duka claims that assigning it responsibility for common law notice
+
+would unduly override common law rules of privity of contract.
+
+[53]    Third, Duka claims that s. 77 of the Act gives a new provider insufficient
+
+information to determine its common law obligations.
+
+
+       c.   The motion judge’s interpretation is consistent with the scheme of
+            the Act
+
+[54]    I agree with the motion judge that the common law does not operate
+
+independently of the Act.
+
+[55]    First, employees’ statutory and common law entitlements are intertwined:
+
+Elsegood, at para. 5. Statutory and common law entitlements both arise from the
+
+same act of termination (or, in this case, Duka’s refusal to continue Mr. Kondaj’s
+
+employment) and address the obligations that arise from it. Common law
+
+obligations can be shaped by statutory provisions even absent explicit language
+
+tying the two together: Elsegood at paras. 6-12.
+
+[56]    Where the common law continues to apply, it provides entitlements in
+
+addition to statutory notice or pay in lieu entitlements: Elsegood at para. 11,
+Machtinger at pp. 999-1000.2 As such, the employer may have to pay more than
+
+the minimum payments for employees provided for in the Act, depending on the
+
+common law notice requirements for the particular employee.
+
+[57]    Second, holding Duka responsible for paying common law benefits would
+
+not modify common law concepts of privity of contract beyond what is already
+
+contemplated by the Act.
+
+[58]    Section 75(3) of the Act deems Duka to have been Mr. Kondaj’s employer
+
+from the commencement of his employment for the purposes of termination. Even
+
+if, as Duka submits, s. 5(2) of the Act requires a statute or contract to import a
+
+common law benefit, I am satisfied that s. 75(3) deems a contract to exist to ensure
+
+that vulnerable employees are protected.
+
+[59]    Moreover, s. 10(2) of the Act provides that:
+
+
+                The employment of the employee shall be deemed not to have been
+                terminated or severed for the purposes of this Act and his or her
+                employment with the replaced provider shall be deemed to have been
+                employment with the new provider for the purpose of any subsequent
+                calculation of the employee’s length or period of employment.
+                [Emphasis added.]
+
+[60]    Interpreting s. 75 of the Act to hold a successor provider responsible for
+
+common law notice entitlements harmonizes the consequences under the Act
+
+
+
+
+2
+ For example, s. 57 provides that notice of termination shall be provided “at least” for minimum periods set
+out in the Act, depending on the length of service. This means that an employee whose employment has
+been terminated, may be entitled to common law or contractual notice in addition to statutory benefits.
+when an employee is both hired (under s. 10) and not hired (under s. 75) by a
+
+successor provider.
+
+[61]   Third, s. 77(1) of the Act provides sufficient information to enable potential
+
+new providers to assess their common law obligations. It provides that:
+
+
+             Where a person is seeking to become the new provider at a premises,
+             the owner or manager of the premises shall upon request give to that
+             person the prescribed information about the employees who on the
+             date of the request are engaged in providing services at the premises.
+
+[62]   Section 77 enables prospective providers like Duka to obtain employment
+
+details before they take on a building services provider contract so that they can
+
+assess and plan for liability. As noted in Supreme General Services v. Klean
+
+U Services Inc., 2015 CanLII 58346 (ON LRB), at para. 19, s. 77 “mandates the
+
+three-way sharing of employee information – name, status, length of service, terms
+
+and conditions of work, etc.”, enabling the new building services provider to “make
+
+a rational business decision” regarding employee retention.
+
+[63]   For these reasons, I see no error in the motion judge’s conclusion that
+
+holding Duka responsible for Mr. Kondaj’s common law entitlements is consistent
+
+with the scheme of the Act.
+
+
+3.     Whether the motion judge’s decision is consistent with the wording of
+       the provision
+
+[64]   The third issue is whether holding Duka liable for the payment of common
+
+law entitlements is consistent with the wording in ss. 56 and 75 of the Act.
+       a.      The motion judge’s decision
+
+[65]    The motion judge held that the ordinary meaning of the words in ss. 56 and
+
+75, when read in the context of the Act as a whole, is consistent with holding Duka
+
+liable for the payment of common law entitlements.
+
+[66]        Section 56 of the Act provides that “an employer terminates an employee”
+
+if, among other things, “the employer dismisses the employee or otherwise refuses
+
+or is unable to continue employing him or her”. This court held in Elsegood, at para.
+
+5, that “s. 56(1) of the ESA operates to terminate an employee's employment in
+
+law so that the employee may claim for        common     law   wrongful    dismissal
+
+damages” (emphasis added).
+
+[67]    Section 75(2) requires the new provider to comply with Part XV, which
+
+includes s. 56(1), “as if the new provider had terminated and severed the
+
+employee’s employment”.
+
+[68]    The motion judge therefore found that in this case, as part of Part XV, s. 56
+
+operates to ensure that Mr. Kondaj can obtain common law damages in lieu of
+
+notice from Duka.
+
+
+       b.      Duka’s arguments about the wording of the Act
+
+[69]    Duka claims that s. 75(3) only deems the new provider to have been the
+
+employee’s employer for the purpose of subsection (2). As such, the deeming
+
+provision only operates for the purpose of statutory termination and severance, not
+
+the payment of common law entitlements.
+       c.   The motion judge’s decision is consistent with the wording in the
+            Act
+
+[70]    First, while s. 56 of the Act describes the ways in which an employee can be
+
+terminated “for purposes of section 54” of the Act, the definitions of termination in
+
+s. 56 also apply at common law, “because [s. 56] applies generally in all cases to
+
+require the employer to give notice whenever an employee is terminated”:
+
+Elsegood at para 8. Likewise, the statute deeming a new provider to have been
+
+the employee’s employer under s. 75(3) “for the purposes of subsection (2)” does
+
+not preclude a similar deeming for the purposes of the common law.
+
+[71]    Second, by incorporating s. 56, s. 75(2) imposes common law reasonable
+
+notice provisions on new providers. The chain of reasoning is as follows: (i)
+
+Mr. Kondaj’s employment was “terminated” for the purpose of s. 56 when Duka
+
+refused to continue to employ him; (ii) s. 75 deems Duka, as the new provider, to
+
+have been Mr. Kondaj’s employer for the purpose of termination as if Duka had
+
+terminated and severed Mr. Kondaj’s employment; (iii) s. 75 requires the new
+
+provider to comply with s. 56(1); and (iv) as in Elsegood, s. 56(1) allows an
+
+employee who has been terminated to claim common law damages.
+
+[72]    As such, reading the words in ss. 56 and 75 of the Act together, Duka is
+
+responsible for paying Mr. Kondaj’s common law entitlements.
+
+[73]    Nor, as submitted by Duka, is Elsegood distinguishable on the grounds that
+
+in this case there was no employment relationship. Section 75 provides the
+
+necessary employment relationship. By refusing to continue Mr. Kondaj’s
+employment, Duka was deemed to have dismissed Mr. Kondaj from employment,
+
+thereby triggering the termination obligations that include common law
+
+entitlements.
+
+[74]   For these reasons, I see no error in the motion judge’s decision that holding
+
+Duka liable for the payment of common law entitlements is consistent with the
+
+wording of the Act.
+
+
+CONCLUSION ON THE INTERPRETATION OF THE ACT
+
+[75]   For the above reasons, I see no error in the motion judge’s interpretation of
+
+the Act and I would dismiss the appeal.
+
+
+COSTS
+
+1.     The Positions of the Parties
+
+[76]   Duka also appeals the costs award against it. Duka argues that even if its
+
+appeal on the merits is dismissed, Duka should not have to pay substantial
+
+indemnity costs, because Mr. Kondaj’s settlement offers to Duka and Crossbridge
+
+were not conditional on acceptance by both defendants, and thus did not meet the
+
+requirements of rr. 49.10 and 49.11 of the Rules of Civil Procedure, R.R.O. 1990,
+
+Reg. 194. Duka argues (and Crossbridge agrees) that because of this non-
+
+compliance, only partial indemnity costs should have been awarded.
+
+[77]   Mr. Kondaj, by contrast, argues that the costs award is “sound, reflects a
+
+principled exercise of discretion, and should not be disturbed.”
+[78]   Crossbridge also cross-appeals the motion judge’s decision not to order
+
+Duka to pay costs to Crossbridge. Crossbridge claims that it is entitled to payment
+
+of its partial indemnity costs from Duka, because Crossbridge was successful
+
+against Duka with respect to the payment of Mr. Kondaj’s common law
+
+entitlements.
+
+
+2.     The Test for Appealing a Costs Order
+
+[79]   The court has discretion to determine the costs awarded: s. 131 of the
+
+Courts of Justice Act, R.S.O. 1990, c. C.43. The usual rule is to award costs to the
+
+successful party: Northwood Mortgage Ltd. v. Gensol Solutions Inc. (2005), 3
+
+B.L.R. (4th) 322 (Ont. C.A.), at para. 6.
+
+[80]   Leave to appeal costs is granted sparingly and only where there are strong
+
+grounds to conclude that the judge erred in exercising their discretion: Canadian
+
+Tire Corporation, Limited v. Eaton Equipment Ltd., 2024 ONCA 25, 95 C.C.L.T.
+
+(4th) 175, at para. 13. Where an appeal is brought before this court, leave to appeal
+
+shall be sought as of right from the panel of the Court of Appeal hearing the appeal:
+
+s. 133(b) of the Courts of Justice Act, R.S.O. 1990, c. C.43 and r. 61.03.1(17) of
+
+the Rules of Civil Procedure, R.R.O. 1990, Reg. 194.
+
+[81]   An appellate court will intervene on a costs award only where the judge
+
+made an error in principle or where the award is plainly wrong: Greta Energy v.
+
+Pembina Pipeline Corporation, 2023 ONCA 9, 37 B.L.R. (6th) 41, at para. 4;
+Hamilton v. Open Window Bakery Ltd., 2004 SCC 9, [2004] 1 S.C.R. 303, at
+
+para. 27.
+
+[82]   I will address the costs award against Duka, followed by Crossbridge’s claim
+
+that it should have been awarded costs.
+
+
+3.     The Duka Costs Award
+
+       a.   The test for awarding costs where an offer to settle has been
+       served
+
+[83]   Rule 49.10(1) provides that where a plaintiff’s offer to settle is made at least
+
+seven days before the proceeding begins, is not withdrawn, does not expire, and
+
+is not accepted by the defendant, and the judgment awarded is at least as
+
+favourable as the terms of the offer to settle, the plaintiff is entitled to partial
+
+indemnity costs to the date the offer was served and substantial indemnity costs
+
+from that date forward, unless the court orders otherwise.
+
+[84]   However, r. 49.11 provides that in certain circumstances, a plaintiff making
+
+a settlement offer to multiple defendants is not entitled to the benefit of r. 49.10
+
+unless their offer to settle would resolve the claim against all defendants.
+
+[85]   In addition, this court’s decision in Davies v. Clarington, 2009 ONCA 722,
+
+100 O.R. (3d) 66, at para. 28, provides the following limitation on substantial
+
+indemnity costs: “elevated costs are warranted in only two circumstances. The first
+
+involves the operation of an offer to settle under rule 49.10, where substantial
+indemnity costs are explicitly authorized. The second is where the losing party has
+
+engaged in behaviour worthy of sanction.”
+
+[86]   Finally, under r. 49.13, the court has the discretion to consider settlement
+
+offers which are not compliant with r. 49.10, although this discretion does not
+
+extend to the awarding of substantial indemnity costs: Davies, at para. 40. Rule
+
+49.13 is not concerned with technical compliance with the requirements of rr. 49.10
+
+or 49.11. It calls on the judge to take a “holistic approach” to costs awards: Konig
+
+v. Hobza, 2015 ONCA 885, 129 O.R. (3d) 57, at paras. 42-43.
+
+
+       b.    The motion judge’s costs order against Duka
+
+[87]   The motion judge awarded Mr. Kondaj, as the successful party, costs in the
+
+amount of $56,321.46, payable by Duka. These costs were comprised of
+
+$6,874.92 in partial indemnity costs, $49,446.54 in substantial indemnity costs,
+
+and $902.29 in disbursements. The motion judge awarded Mr. Kondaj substantial
+
+indemnity costs pursuant to r. 49 because Crossbridge and Duka each rejected
+
+Mr. Kondaj’s offers to settle the dispute for $27,600, a much smaller amount than
+
+the $78,925 Mr. Kondaj subsequently obtained on summary judgment.
+
+[88]   The motion judge held that, “Although the settlement offers were not
+
+conditional on both defendants accepting the settlement, the favourable cost
+
+consequences of rule 49.10 should, in my view, nevertheless apply in this case.”
+
+He held that Mr. Kondaj was entitled to substantial indemnity costs because it was
+
+“absolutely clear-cut” that Mr. Kondaj was entitled to damages, yet he was “held
+hostage” to a dispute between the defendants. Moreover, Mr. Kondaj’s settlement
+
+offers were reasonable and Duka’s costs outline demonstrated that the costs
+
+ultimately awarded were within its reasonable contemplation.
+
+[89]   The motion judge rejected Duka’s argument that no costs should be
+
+awarded against it because the issues on the motion were novel. He held that,
+
+although a novel issue arose between the defendants, for Mr. Kondaj, this was a
+
+“garden-variety” wrongful dismissal action. Mr. Kondaj’s ultimate entitlement to
+
+damages was clear. The novel issue that arose between the defendants did not
+
+justify Mr. Kondaj being deprived of costs which approached the quantum of his
+
+ultimate liability award, especially when a protracted lawsuit should not have been
+
+necessary to collect damages in the first place.
+
+[90]   Crossbridge and Duka each took the position that if any common law notice
+
+was owed, it was owed by the other. The motion judge noted that Duka could have
+
+ensured that Mr. Kondaj was paid what he was owed without incurring any legal
+
+costs to him before determining the allocation of that payment between itself and
+
+Crossbridge.
+
+
+       c.    The motion judge made no error in principle nor is his decision
+       plainly wrong
+
+[91]   Rule 49.11 applies to cases where i) “defendants are alleged to be jointly or
+
+jointly and severally liable to the plaintiff in respect of a claim” and ii) “rights of
+
+contribution or indemnity may exist between the defendants”. Here, no rights of
+contribution or indemnity exist between the defendants. Only one of Duka or
+
+Crossbridge could be liable for Mr. Kondaj’s common law entitlements. The
+
+successful party never had any prospect of responsibility, indemnification, or
+
+contribution.
+
+[92]    Since this condition precedent to the application of r. 49.11 is not met, the
+
+condition in r. 49.11(a) – that the offer be made to all defendants and be capable
+
+of settling the claim against all of them – is not triggered.
+
+[93]    Having met the conditions of r. 49.10(1), Mr. Kondaj was entitled to the
+
+favourable cost consequences it prescribes.3 Davies did not bar the award of
+
+substantial indemnity costs in this case.
+
+[94]    As such, the motion judge properly exercised his discretion pursuant to
+
+r. 49.13 in the holistic approach that has been endorsed by this court: Lawson v.
+
+Viersen, 2012 ONCA 25, 108 O.R. (3d) 771, at para. 46, and König, at paras. 41-
+
+43.
+
+[95]    I therefore see no error in principle in the motion judge’s analysis or award,
+
+and, for these reasons, I would dismiss Duka’s costs appeal.
+
+
+
+3 I note that r. 49.11 is titled “Cost Consequences if Multiple Defendants” and r. 49.10 refers to an offer
+
+which “is not accepted by the defendant” (singular). However, the Rules are silent regarding offers to
+multiple defendants where r. 49.11’s two conditions precedent (joint and several liability, and rights of
+contribution or indemnity between defendants) are not triggered. The aims of r. 49 – encouraging
+reasonable settlement between parties and efficient resolution of disputes – are better met if those offers
+can attract r. 49.10 cost consequences (where they meet its requirements), subject to the judicial discretion
+in r. 49.13. Moreover, a plain reading of the text of r. 49.11 is more consistent with r. 49.11 adding additional
+conditions for the application of r. 49.10 consequences to certain kinds of multiple-defendant offers, but not
+all, rather than setting out a narrow class of multiple-defendant offers where r. 49.10 consequences can
+ever apply.
+4.     The Crossbridge Cross-Appeal for Costs from Duka
+
+[96]   The motion judge held that Crossbridge was not entitled to costs against
+
+Duka on the grounds that Duka made no crossclaim against Crossbridge.
+
+[97]   Crossbridge claims that Duka’s failure to advance a crossclaim is not
+
+dispositive of costs, relying on Firth v. O’Brien, 2013 CanLII 7009 (Ont. S.C.), at
+
+para. 33. Rather, Crossbridge claims that it was entitled to costs from Duka
+
+because it was a successful party on all three motions advanced in this litigation.
+
+[98]   While Crossbridge acknowledges that it did not request a Sanderson order
+
+by name, it argues that one is nonetheless justified to share costs between the co-
+
+defendants in the circumstances.
+
+[99]   Crossbridge argues that to satisfy the Sanderson threshold requirement, it
+
+was reasonable for Mr. Kondaj to proceed against both Crossbridge and Duka as
+
+no court had previously determined which building services provider was
+
+responsible for an employee’s entitlement to common law reasonable notice.
+
+[100] Further, Crossbridge claims that it is just and fair that Duka pay
+
+Crossbridge’s costs as the successful party because all four Moore factors which
+
+govern judicial discretion in granting Sanderson orders are present in this case: (i)
+
+the defendants tried to blame each other; (ii) the unsuccessful defendant caused
+
+the successful defendant to be added as a party; (iii) the causes of action were not
+
+independent; and (iv) Duka is able to pay Crossbridge’s costs: Moore v. Wienecke,
+
+2008 ONCA 162, 90 O.R. (3d) 463, at paras. 45-50.
+[101] Duka claims that Crossbridge’s failure to explicitly request a Sanderson
+
+order should bar its subsequent request for one on appeal. In the alternative, Duka
+
+claims that such an order is not justified because Crossbridge was not a passive
+
+litigant, as Crossbridge (i) advanced a crossclaim against Duka, (ii) adopted an
+
+adversarial position in litigation, and (iii) expanded the issues before the Court.
+
+[102] Duka, by contrast, did not file a crossclaim against Crossbridge and its
+
+participation was limited to defending and seeking the dismissal of the claim
+
+against it. Moreover, Duka argues that Crossbridge’s participation in Mr. Kondaj’s
+
+summary judgment motion would have been required irrespective of Duka’s
+
+conduct in the litigation.
+
+[103] I agree with Crossbridge that Duka’s decision not to file a crossclaim against
+
+Crossbridge is not dispositive: Universal Stainless Steel & Alloys Inc. v. J.P.
+
+Morgan Chase Bank, 2009 ONCA 801, 65 B.L.R. (4th) 163, at para. 67. However,
+
+given the novelty of this issue as between Duka and Crossbridge, Crossbridge’s
+
+failure to request a Sanderson order at first instance, and Crossbridge’s
+
+importance to the underlying litigation irrespective of Duka’s conduct, I see no error
+
+of law or serious injustice in the motion judge’s exercise of discretion not to order
+
+Duka to pay Crossbridge’s costs.
+CONCLUSION
+
+[104] For the reasons set out above, I would dismiss Duka’s appeal, Duka’s costs
+
+appeal, and Crossbridge’s cross-appeal on costs. In short, in my view, the motion
+
+judge’s reasons were sound, thoughtful and correct.
+
+[105] Mr. Kondaj is entitled to his partial indemnity costs of this appeal. If the
+
+parties are unable to agree on the amounts, they may provide written submissions
+
+to this court.
+
+Released: September 10, 2026 “D.M.P.”
+
+                                                                   “Thorburn J.A.”
+                                                “I agree. David M. Paciocco J.A.”
+                                                           “I agree. J. Dawe J.A.”
+

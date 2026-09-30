@@ -1,0 +1,265 @@
+                  COURT OF APPEAL FOR ONTARIO
+
+       CITATION: Letestu Estate v. Ritlyn Investments Limited, 2017 ONCA 442
+                                                              DATE: 20170601
+                                                            DOCKET: C62806
+
+                  LaForme, van Rensburg and Huscroft JJ.A.
+
+BETWEEN
+
+
+                   The Estate of Armand Letestu, deceased,
+                 by its Litigation Guardian, Christopher Letestu
+                                                              Plaintiff (Appellant)
+
+
+
+                                      and
+
+
+
+
+                           Ritlyn Investments Limited
+
+                                                        Defendant (Respondent)
+
+
+
+Barry A. Percival Q.C., Daniel Zacks and Joel P. McCoy, for the appellant
+
+Kenneth J. Raddatz and Kieran C. Dickson, for the respondent
+
+Heard: May 18, 2017
+
+On appeal from the judgment of Justice James W. Sloan of the Superior Court of
+Justice, dated October 19, 2016, with reasons reported at 2016 ONSC 6540.
+                                      Page: 2
+
+
+By the Court:
+
+OVERVIEW
+
+[1]     In December 2011 the appellant estate commenced an action for
+
+damages for injuries the deceased suffered when he allegedly slipped and fell
+
+over a damaged carpet in his residential rental unit. The action claims $500,000
+
+in damages from the respondent, the owner and manager of the apartment
+
+building. It was commenced 23 months after the alleged slip and fall.
+
+[2]     The respondent, on the eve of trial, moved under rule 21 of the Rules of
+
+Civil Procedure to strike the claim on the basis the Superior Court had no
+
+jurisdiction to hear it.
+
+[3]     The motion judge dismissed the estate’s action, after concluding the claim
+
+fell within the exclusive jurisdiction of the Landlord and Tenant Board (the
+
+“Board”) over the subject matter, and was outside the one-year limitation period
+
+prescribed under s. 29(2) of the Residential Tenancies Act, 2006, S.O. 2006, c.
+
+17 (the “Act”). The estate appeals.
+
+[4]     For the reasons that follow, we conclude the motion judge erred in law in
+
+his determination that the Superior Court lacks jurisdiction over the claim
+
+because it was commenced after the one-year limitation period under the Act had
+
+expired. As we explain, a plain reading of the relevant statutory provisions leads
+
+to the contrary conclusion.
+                                                 Page: 3
+
+
+ANALYSIS
+
+(1)         The Superior Court Has Jurisdiction over the Claim
+
+[5]         A plain reading of the four relevant provisions of the Act demonstrates the
+
+Act does not grant the Board exclusive jurisdiction over all claims of non-repair
+
+against a landlord. In this case, the Superior Court has jurisdiction.
+
+[6]         Section 29(1) of the Act provides for a tenant or former tenant of a rental
+
+unit to apply to the Board for a variety of orders, including that the landlord
+
+breached an obligation under s. 20(1) (the landlord’s duty to repair).
+
+[7]         Section 168(2) provides that the Board “has exclusive jurisdiction to
+
+determine all applications under the Act and with respect to all matters in which
+
+jurisdiction is conferred on it by this Act.”
+
+[8]         Section 207(1) provides that the Board may, “where it otherwise has the
+
+jurisdiction, order the payment to any given person of an amount of money up to
+
+the greater of $10,000 and the monetary jurisdiction of the Small Claims Court.”1
+
+[9]         Section 207(2) of the Act, provides that “a person entitled to apply under
+
+the Act but whose claim exceeds the Board’s monetary jurisdiction may
+
+commence a proceeding in [court] for an order requiring payment of that sum
+
+
+
+
+1
+    The monetary jurisdiction of the Small Claims Court is $25,000
+                                      Page: 4
+
+
+and…the court may exercise any power that the Board could have exercised if
+
+the proceeding had been before the Board and within its monetary jurisdiction”.
+
+[10]   Thus, the Act does not grant the Board exclusive jurisdiction over all
+
+claims of non-repair against a landlord. Rather, the Board has jurisdiction over a
+
+tenant’s or former tenant’s claim for damages (as well as other claims within the
+
+Board’s authority) where the “essential character of the claim” is for non-repair
+
+and within its monetary jurisdiction: Mackie v. Toronto (City) and Toronto
+
+Community Housing Corporation, 2010 ONSC 3801, [2010] O.J. No. 2852. The
+
+Board’s jurisdiction, however, is not exclusive by virtue of s. 207(2): Kaiman v.
+
+Graham, 2009 ONCA 77, 245 O.A.C. 130, at para. 15.
+
+[11]   Because the estate claimed damages exceeding the monetary jurisdiction
+
+of the Small Claims Court, and therefore exceeded the jurisdiction of the Board,
+
+there was no question that the appellants were entitled to commence their
+
+proceeding in the Superior Court. And, through the operation of s. 207(2), the
+
+court would be able to make any order the Board could have made in addition to
+
+any relief it could grant in a court proceeding.
+
+[12]   It is unnecessary for the purpose of this appeal to decide whether other
+
+factors would have taken the claim outside the jurisdiction of the Board had the
+
+damages claimed been less than the monetary limit for the Small Claims Court –
+
+including (i) the fact that the action asserted claims under the Occupiers’ Liability
+                                                Page: 5
+
+
+Act, R.S.O. 1990, c. O.2 and (ii) the status of the appellant as the estate of a
+
+deceased tenant. See, for example, the discussion in Mackie at paras. 43-44, as
+
+to the effect of claims under other legislation on the “essential character” of the
+
+claim, which in each case is determined based on the factual context.
+
+(2)      The Limitation Period for Applications to the Board Does Not Apply
+
+[13]     The motion judge concluded that, although the estate’s claim exceeded
+
+the monetary jurisdiction of the Board, the action had to be commenced within
+
+the one-year limitation period for applications to the Board under the Act (s.
+
+29(2)) before the court could assume jurisdiction.
+
+[14]     In arriving at this conclusion, the motion judge followed Efrach v.
+
+Cherishome Living, 2015 ONSC 472, [2015] O.J. No. 293 (Div. Ct.), a decision of
+
+a single judge of the Divisional Court upholding an appeal from the Small Claims
+
+Court. The appeal judge in Efrach agreed with the Deputy Judge’s
+
+characterization of the claim as one of non-repair2 and held that the Board had
+
+exclusive jurisdiction. In the part of her decision that is relevant here, she refused
+
+leave to amend the claim to permit damages exceeding the monetary jurisdiction
+
+of the Board, and to transfer the action to the Superior Court. She reasoned that,
+
+after the expiry of the one year limitation period for making a claim to the Board,
+
+
+
+2
+  The claim was for damages resulting from a break-in of the appellant’s rental unit, allegedly by entry
+through an unoccupied and unlocked neighbouring unit.
+                                       Page: 6
+
+
+the claim could not be transferred to the Superior Court since that court “can only
+
+exercise powers that the Board could have exercised if the proceeding had been
+
+before the Board”: at para. 21.
+
+[15]    While we express no opinion on the result in Efrach, we disagree with the
+
+conclusion that the one year limitation period for applications to the Board applies
+
+to actions before the Superior Court for non-repair. The motion judge here erred
+
+in following the reasoning in Efrach and concluding that the court lacked
+
+jurisdiction over the action.
+
+[16]    There is simply no basis for importing the limitation period prescribed by
+
+the Act for applications to the Board into an action of this kind. The limitation of
+
+actions is governed by the Limitations Act, 2002, S.O. 2002, c. 24, Sch. B. and,
+
+pursuant to s. 19, the limitation periods listed in the schedule to that Act
+
+(including s. 38(3) of the Trustee Act, R.S.O. 1990, c. T.23 which requires a tort
+
+action by an estate to be commenced within two years of the deceased’s death).
+
+As the action was commenced within two years of the deceased’s death (and
+
+indeed within two years of the alleged slip and fall), there is no question of the
+
+expiry of any limitation period to bar the action.
+
+[17]    Accordingly, the Superior Court has jurisdiction over the action and the
+
+claims are not statute-barred.
+                                   Page: 7
+
+
+CONCLUSION
+
+[18]   The appeal is allowed. Costs of the appeal to the appellant fixed at
+
+$10,000, inclusive of HST, plus disbursements in the amount of $3,987.76. Given
+
+the result, the appellant is awarded its costs of the motion below in the all-
+
+inclusive amount of $7,500.
+
+Released: “HSL” JUN 1 2017
+
+                                                           “H.S. LaForme J.A.”
+                                                        “K. van Rensburg J.A.”
+                                                          “Grant Huscroft J.A.”
+

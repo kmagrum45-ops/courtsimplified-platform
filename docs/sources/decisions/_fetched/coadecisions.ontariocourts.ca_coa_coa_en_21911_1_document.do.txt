@@ -1,0 +1,1224 @@
+                          COURT OF APPEAL FOR ONTARIO
+
+                                          CITATION: Elkins v. Van Wissen, 2023 ONCA 789
+                                                                         DATE: 20231128
+                                                               DOCKET: COA-23-CV-0098
+
+                               Gillese, Benotto and Copeland JJ.A.
+
+BETWEEN
+
+                                 Marilyn Elkins and Joseph Fraser
+
+                                                                   Tenants/Appellants (Appellants)
+
+                                                     and
+
+      Grace Van Wissen, John Van Wissen, Margaret Van Wissen, Embleton
+      Homes Inc., Paramjit Singh Chahal, Surinderpal Singh Kohli, Malwinder
+                 Saini, Embleton Homes1 and Sukhwinder Singh
+
+                                                         Landlords/Respondents (Respondents)
+
+Ryan Hardy, for the appellant Marilyn Elkins
+
+No one appearing for the appellant Joseph Fraser
+
+Alexander Dos Reis, for the respondent John Van Wissen (via videoconference)
+
+No one appearing for the respondent Grace Van Wissen
+
+No one appearing for the respondent Margaret Van Wissen
+
+Derrick M. Fulton, for the respondents Embleton Homes Inc., Paramjit Singh
+Chahal, Surinderpal Singh Kohli, Malwinder Saini, Embleton Homes and
+Sukhwinder Singh (via videoconference)
+
+Eli Fellman, for the Landlord and Tenant Board
+
+
+
+1 It is unclear who Embleton Homes, as opposed to Embleton Homes Inc., is. However, both names appear
+
+in the style of cause of the Divisional Court order in this matter. In accordance with standard practice in this
+court, we have followed suit.
+                                      Page: 2
+
+
+Heard: September 6, 2023
+
+On appeal from the order of the Divisional Court (Justices F. Bruce Fitzpatrick,
+Stephen T. Bale, and Freya Kristjanson), dated April 13, 2022, with reasons
+reported at 2022 ONSC 2060, dismissing an appeal from an order of the Landlord
+and Tenant Board, dated March 19, 2020.
+
+Gillese J.A.:
+
+ I.   INTRODUCTION
+
+[1]   In Ontario, the law permits landlords to evict tenants to allow the landlord, or
+
+certain members of the landlord’s family, to move in. The law extends such “own
+
+use” eviction power to purchasers, but the eviction must be made in good faith.
+
+[2]   Section 49(1) of the Residential Tenancies Act, 2006, S.O. 2006, c. 17 (the
+
+“RTA”), empowers a landlord who has entered into an agreement of purchase and
+
+sale to, in certain circumstances, give a tenant a notice terminating the tenancy on
+
+behalf of the purchaser, if the purchaser “in good faith” requires personal
+
+possession of the residential rental unit. And, pursuant to s. 57(1)(b), the Landlord
+
+and Tenant Board (the “Board”) may make certain orders if it determines, among
+
+other things, that the landlord gave a s. 49 termination notice “in bad faith”.
+
+[3]   This appeal addresses the following questions. Where a landlord terminates
+
+a tenancy pursuant to s. 49(1) of the RTA: (1) how is the Board to determine
+
+whether the landlord acted in bad faith within the meaning of s. 57(1)(b); and
+
+(2) must the Board assess the purchaser’s good faith requirement in s. 49(1) when
+
+making that determination?
+                                                Page: 3
+
+
+ II.    BACKGROUND
+
+[4]     Beginning in 2012, Marilyn Elkins and her adult son Joseph Fraser (the
+
+“Tenants”) rented and occupied a single-family residence in Brampton, Ontario
+
+(the “Residence”). The Tenants say that they enjoyed a comfortable and affordable
+
+home in the Residence.
+
+[5]     The Residence was on a property comprised of a commercial retail garden
+
+centre/nursery        and     two     detached       residential      houses       (the     “Property”).
+
+The landlords were Grace Van Wissen, John Van Wissen, and Margaret Van
+
+Wissen (the “Vendor Landlords”).2
+
+[6]     On March 5, 2018, Paramjit Singh Chahal and Surinderpal Singh Kohli (the
+
+“Original Purchasers”) signed and dated an Agreement of Purchase and Sale (the
+
+“APS”) for the Property. Mr. Chahal also completed a Form 160 that same day.
+
+A Form 160 is entitled “Registrant’s Disclosure of Interest Acquisition of Property”.3
+
+[7]     On the Form 160, Mr. Chahal declared he was a registered real estate
+
+salesperson representing Homelife/Miracle Realty Ltd. in connection with a
+
+proposed offer to purchase the Property. Immediately below that, in preprinted
+
+words, the Form 160 provided: “Please be advised that, if the proposed Offer is
+
+
+
+
+2 A fourth person – Hendricka Van Wissen – was originally named on the Tenants’ Board applications but
+
+her name was removed because she died before the hearing.
+3 Form 160 is a Ontario Real Estate Association form for use by a registrant to disclose an interest in the
+
+acquisition of a property.
+                                        Page: 4
+
+
+accepted, I will be either directly or indirectly acquiring an interest in your Property”.
+
+Below that statement, a preprinted note called for an explanation if the registrant’s
+
+interest was indirect. Mr. Chahal handwrote the following explanation: “Being a
+
+partner, we are buying this property as a future development”.
+
+[8]    There were two signature lines on the Form 160: one for the registrant who
+
+was making the declaration and the other for the Broker of Record/Manager of
+
+Brokerage. Mr. Chahal signed as the registrant. It is unclear who signed for the
+
+Broker of Record/Manager of Brokerage.
+
+[9]    On March 6, 2018, the Vendor Landlords signed the Acknowledgement
+
+section of the Form 160. The preprinted words of acknowledgement read as
+
+follows: “I/We, the undersigned, as Seller(s) in this transaction have read and
+
+clearly understand this statement and acknowledge this date having received a
+
+copy of same, PRIOR TO BEING PRESENTED WITH AN OFFER TO
+
+PURCHASE, LEASE, EXHANGE, OR OPTION” (emphasis in the Form 160).
+
+The Vendor Landlords also signed and dated the APS on March 6, 2018.
+
+[10]   The APS had a scheduled closing date of June 1, 2018. A term of Schedule
+
+A to the APS required the Vendor Landlords to give vacant possession of the
+
+Property. Schedule A to the APS also included a substitute purchasers’ clause.
+
+[11]   On March 7, 2018, pursuant to s. 49(1) of the RTA, the Vendor Landlords
+
+served the Tenants with a Form N12. Form N12 is entitled “Notice to End your
+                                                  Page: 5
+
+
+Tenancy Because the Landlord, a Purchaser or a Family Member Requires the
+
+Rental Unit”. I will refer to the Form N12 as the “s. 49 Termination Notice”.
+
+[12]    The s. 49 Termination Notice gave the Tenants a move-out day of May 31,
+
+2018. On that notice, Reason 2 is ticked off to show “The purchaser” intends to
+
+move into the rental unit.
+
+[13]    On May 22, 2018, it appears that the lawyer for the Original Purchasers
+
+notified the lawyer for the Vendor Landlords that title to the Property would be
+
+taken by a corporation, Embleton Homes Inc. (the “Purchaser”).4 The directors of
+
+the Purchaser are the Original Purchasers plus two others, Malwinder Saini and
+
+Sukhwinder Singh. I will refer to the Original Purchasers and the Purchaser
+
+together as the “Purchasers”.
+
+[14]    On June 8, 2018, the Tenants moved out of the Residence. They testified
+
+that they moved out as a result of having received the s. 49 Termination Notice.
+
+[15]    Over the following months, the Residence remained vacant. Toward the end
+
+of 2018, the son of Mr. Kohli, one of the Original Purchasers, moved into the
+
+Residence but stayed for only approximately 25 days. The Residence was
+
+
+
+
+4 In their materials before the Divisional Court, the parties state that notification of the change of purchaser
+
+to Embleton Homes Inc. was sent from the lawyer for the Original Purchasers to the lawyer for the Vendor
+Landlords. However, at para. 7 of its reasons, the Divisional Court said that the Vendor Landlords were
+notified by the Original Purchasers’ lawyer that title would be taken by a corporation, Embleton Homes Inc..
+                                                Page: 6
+
+
+subsequently rented out for a higher amount than what the Tenants had been
+
+paying.
+
+[16]    On March 8, 2019, the Tenants filed three applications with the Board: T1,
+
+T2, and T5 applications. In their T5 application, the Tenants alleged that the s. 49
+
+Termination Notice was given in bad faith and the Original Purchasers did not want
+
+the Residence for their own use (the “T5 Application” or the “s. 57(1)(b)
+
+application”). Because only the T5 Application is relevant to this appeal, I will say
+
+nothing more about the other two applications.
+
+[17]    The Board dismissed the Tenants’ T5 Application.
+
+[18]    The Tenants appealed the Board decision to the Divisional Court pursuant
+
+to s. 210(1) of the RTA.5 The Divisional Court dismissed their appeal.
+
+[19]    The Tenants then sought leave to appeal to this court. Pursuant to s. 6(1)(a)
+
+of the Courts of Justice Act, R.S.O. 1990, c. C.43 (the “CJA”), this court granted
+
+leave on two issues: “the test for bad faith under s. 57 of the Residential Tenancies
+
+Act; and the failure of the Divisional Court to address the potential liability of the
+
+respondent purchasers of the property”.
+
+
+
+
+5 Section 210(1): Any person affected by an order of the Board may appeal the order to the Divisional Court
+
+within 30 days after being given the order, but only on a question of law.
+                                      Page: 7
+
+
+[20]   The Tenants were self-represented at the Board and before the Divisional
+
+Court. However, on this appeal, the tenant Marilyn Elkins was represented by the
+
+Advocacy Centre for Tenants Ontario.
+
+[21]   Counsel for the Board participated in this appeal to provide the court with
+
+the relevant statutory context, make submissions on the standard of review, and
+
+address the impact of the issues on the Board’s jurisdiction and case law.
+
+The Board did not take a position on the merits of the appeal.
+
+[22]   The respondent, John Van Wissen, was represented by counsel on this
+
+appeal but took no position, filed no materials, and made no submissions.
+
+The respondents Grace Van Wissen and Margaret Van Wissen were not
+
+represented by counsel, filed no materials, and made no submissions. Separate
+
+counsel represented the other respondents jointly on the appeal, namely, the
+
+Original Purchasers, the Purchaser, and the other two directors of the Purchaser.
+
+While the other respondents filed no materials, their counsel made brief oral
+
+submissions, primarily on the question of the potential liability of purchasers.
+
+III.   THE RELEVANT STATUTORY PROVISIONS
+
+[23]   As noted, the Vendor Landlords gave the Tenants a notice terminating their
+
+tenancy pursuant to s. 49(1) of the RTA.
+                                      Page: 8
+
+
+[24]   Section 49(1) stipulates that a landlord may, “on behalf of the purchaser”,
+
+give notice terminating the tenancy, “if the purchaser in good faith requires
+
+possession” of the rental unit for residential occupation. It reads as follows:
+
+             49(1) A landlord of a residential complex that contains no more than
+             three residential units who has entered into an agreement of purchase
+             and sale of the residential complex may, on behalf of the purchaser,
+             give the tenant of a unit in the residential complex a notice terminating
+             the tenancy, if the purchaser in good faith requires possession of the
+             residential complex or the unit for the purpose of residential
+             occupation by,
+
+                   (a) the purchaser;
+
+                   (b) the purchaser’s spouse;
+
+                   (c) a child or parent of the purchaser or the purchaser’s spouse;
+                   or
+
+                   (d) a person who provides or will provide care services to the
+                   purchaser, the purchaser’s spouse, or a child or parent of the
+                   purchaser or the purchaser’s spouse, if the person receiving the
+                   care services resides or will reside in the building, related group
+                   of buildings, mobile home park or land lease community in
+                   which the rental unit is located. [Emphasis added.]
+
+[25]   The Tenants’ T5 Application was made pursuant to s. 57(1)(b) of the RTA,
+
+the relevant parts of which read as follows:
+
+             57(1) The Board may make an order described in subsection (3) if, on
+             application by a former tenant of a rental unit, the Board determines
+             that,
+
+             …
+
+             (b) the landlord gave a notice of termination under section 49 in bad
+             faith, the former tenant vacated the rental unit as a result of the notice
+             or as a result of an application to or order made by the Board based
+             on the notice, and no person referred to in clause 49 (1) (a), (b), (c) or
+                                       Page: 9
+
+
+             (d) or 49 (2) (a), (b), (c) or (d) occupied the rental unit within a
+             reasonable time after the former tenant vacated the rental unit;
+
+             … [Emphasis added.]
+
+[26]   Under s. 57(3), the Board may make orders that include requiring the
+
+landlord to pay the tenant certain sums, abate rent, and pay administrative fines to
+
+the Board. Section 57(3) also empowers the Board to make any other order it
+
+“considers appropriate”. It reads:
+
+             (3) The orders referred to in subsection (1) are the following:
+
+             1. An order that the landlord pay a specified sum to the former tenant
+             for all or any portion of any increased rent that the former tenant has
+             incurred or will incur for a one-year period after vacating the rental
+             unit.
+
+             1.1 An order that the landlord pay a specified sum to the former tenant
+             as general compensation in an amount not exceeding the equivalent
+             of 12 months of the last rent charged to the former tenant. An order
+             under this paragraph may be made regardless of whether the former
+             tenant has incurred any actual expenses or whether an order is made
+             under paragraph 2.
+
+             1.2 An order that the landlord pay a specified sum to the former tenant
+             for reasonable out-of-pocket moving, storage and other like expenses
+             that the former tenant has incurred or will incur.
+
+             2. An order for an abatement of rent.
+
+             3. An order that the landlord pay to the Board an administrative fine
+             not exceeding the greater of $10,000 and the monetary jurisdiction of
+             the Small Claims Court.
+
+             4. Any other order that the Board considers appropriate.
+
+[27]   Section 202(1) of the RTA directs the Board, when making findings on an
+
+application, to ascertain the real substance of all transactions and activities relating
+                                       Page: 10
+
+
+to a rental unit and the good faith of the participants. Section 202(1) reads as
+
+follows:
+
+               202 (1) In making findings on an application, the Board shall ascertain
+               the real substance of all transactions and activities relating to a
+               residential complex or a rental unit and the good faith of the
+               participants and in doing so,
+
+               (a) may disregard the outward form of a transaction or the separate
+               corporate existence of participants; and
+
+               (b) may have regard to the pattern of activities relating to the
+               residential complex or the rental unit.
+
+IV.    THE DECISIONS BELOW
+
+A. The Board Decision
+
+[28]   The Board gave extremely brief reasons for dismissing the Tenants’ T5
+
+Application.
+
+[29]   In the Background section of its reasons, at para. 9, the Board recited that,
+
+on March 7, 2018, the Landlord served the Tenants with the s. 49 Termination
+
+Notice. In paras. 10-12, it added the following:
+
+               10. The evidence for the Landlord is that, at the time the
+               (N12) was served, it was given to the Tenant(s) by the
+               Landlord because the Agreement of Purchase and Sale
+               stipulated that vacant possession was required and a
+               notice was to be given because the Purchaser required
+               residential occupation of the rental premises for a family
+               member of the Purchaser to live in the unit.
+
+               11. The fact that the Purchaser’s son did not immediately
+               take possession and continue to live in the rental unit,
+               does not, to my mind, mean that the (N12), at the time it
+                                      Page: 11
+
+
+             was served, was given by the former Landlords in bad
+             faith.
+
+             12. The Landlord’s further affirmed that at the time the
+             Landlord(s) served the (N12) notice there was no reason
+             not to believe it was the Purchasers’ intention for a family
+             member to move into the unit.
+
+[30]   At para. 13, the Board set out s. 57(1)(b) of the RTA. At para. 14, the Board
+
+observed that, to be successful, the tenants had to establish, on a balance of
+
+probabilities, that: (1) the landlord gave the N12 notice under s. 49 of the RTA in
+
+bad faith; (2) the tenants vacated the rental unit as a result of the N12 notice or a
+
+Board order based on the N12 notice; and (3) the purchaser did not move into the
+
+rental unit within a reasonable time after the Tenants vacated.
+
+[31]   The Board’s analysis on the applicability of s. 57(1)(b) is contained in paras.
+
+15-17 of its decision. Those paragraphs read as follows:
+
+             15. The first part of the test requires me to look at the
+             intention of the Landlords at the time the (N12) notice
+             was given. At the time of the (N12), did the Landlords
+             serve the (N12) in good faith, i.e. to provide vacant
+             possession for the purchasers’ residential occupation?
+
+             16. Based upon the totality of the evidence provided, I am
+             satisfied that the Landlord’s served the (N12) in good
+             faith.
+
+             17. I find that the Landlord did not give the Tenant(s) a
+             notice in bad faith, and therefore the Tenants’ did not, on
+             a balance of probabilities, prove all three parts of the test,
+             as such the T5 portion of the application is to be
+             dismissed and no remedies will be granted. [Emphasis in
+             original.]
+                                               Page: 12
+
+
+B. The Divisional Court Decision
+
+[32]    As previously noted, the Divisional Court dismissed the Tenants’ appeal,
+
+and this court granted the Tenants leave to appeal on two issues: (1) the test for
+
+bad faith under s. 57(1) of the RTA; and (2) the failure of the Divisional Court to
+
+address the potential liability of the purchasers of the Property. Because the
+
+Divisional Court said nothing on the second issue, the summary below is of only
+
+the Divisional Court’s reasons on the first issue.
+
+[33]    As the Divisional Court noted, appeals of a Board order under s. 210(1) of
+
+the RTA are limited to questions of law and such questions are reviewed on a
+
+correctness standard.6
+
+[34]    The Divisional Court dismissed the appeal after concluding that the Board
+
+made no error on a question of law in determining the Vendor Landlords did not
+
+act in bad faith in issuing the s. 49 Termination Notice. It gave the following reasons
+
+for so concluding.
+
+     The Board articulated and applied the three-part test set out in s. 57(1)(b) of
+
+        the RTA, the first part of which requires the tenant to establish that the
+
+        landlord gave the s. 49 termination notice in bad faith.
+
+
+
+
+6 Section 210(1) of the RTA is set out at footnote 5 above.
+                                     Page: 13
+
+
+ The Board held that the first part of the test required a consideration of the
+
+   Vendor Landlords’ intention at the time the s. 49 Termination Notice was
+
+   given, and the change of purchasers and title direction took place after that
+
+   notice was given.
+
+ It rejected the Tenants’ argument that the Board’s failure to infer bad faith
+
+   was an error of law, saying that an appellate court is prohibited from
+
+   reviewing a tribunal’s findings and inferences of fact, “if there was some
+
+   evidence upon which the decision-maker could have relied to reach that
+
+   conclusion” (citation omitted).
+
+ It also rejected the Tenants’ argument that the Board erred in law by
+
+   restricting its consideration of bad faith to the Vendor Landlords’ intention at
+
+   the time the s. 49 Termination Notice was given. In support of this argument,
+
+   the Tenants had referred the Divisional Court to TST-94914-18 (Re), 2019
+
+   CanLII 134579 (Ont. L.T.B.). In TST-94914-18 (Re), the Board held that a
+
+   landlord’s duty of good faith extends beyond the time the termination notice
+
+   is served and found bad faith on the part of the landlords. The Divisional
+
+   Court distinguished TST-94914-18 (Re) from this case and said the former
+
+   should be restricted to its facts. It noted that in TST-94914-18 (Re), the
+
+   Board found the landlords acted in bad faith when, knowing that there was
+
+   no prospect of the sale closing, the landlords asked the sheriff to enforce the
+
+   Board’s eviction order. However, in this case, the sale of the Property “was
+                                      Page: 14
+
+
+       alive” when the Tenants moved out and the Vendor Landlords “could not
+
+       have been expected to refuse to close or to get into a dispute with the
+
+       Purchasers with the potential of litigation”.
+
+ V.    THE ISSUES
+
+[35]   These reasons address the two issues for which leave was granted:
+
+   1. What is the test for bad faith under s. 57(1)(b) of the RTA?
+
+   2. Did the Divisional Court err by failing to address the potential liability of the
+
+       Purchasers of the Property?
+
+Issue 1       The Test for Bad Faith under s. 57(1)(b) of the RTA
+
+A. The Standard of Review
+
+[36]   The Tenants appealed the Board decision to the Divisional Court pursuant
+
+to s. 210(1) of the RTA. As noted, s. 210(1) limits such an appeal to questions of
+
+law.
+
+[37]   When a court hears an appeal from an administrative decision, in
+
+considering questions of law, the standard of review is correctness: Canada
+
+(Minister of Citizenship and Immigration) v. Vavilov, 2019 SCC 65, [2019] 4 S.C.R.
+
+653, at para. 37. Therefore, the Divisional Court had to apply a correctness
+
+standard when reviewing the Board decision.
+                                      Page: 15
+
+
+[38]     In this case, the Divisional Court properly identified correctness as the
+
+standard it was to apply in reviewing the Board decision. However, in determining
+
+that the Board committed no errors of law, the Divisional Court incorrectly applied
+
+that standard.
+
+B. The Board Errors
+
+[39]     In my view, the Board made the following three errors on questions of law:
+
+(1) it erred in its approach to determining whether, pursuant to s. 57(1)(b) of the
+
+RTA, the Vendor Landlords acted in bad faith in giving the s. 49 Termination
+
+Notice; (2) it erred by failing to consider the Purchasers’ good faith, as required by
+
+s. 49(1); and (3) it failed to grapple with the evidence and the issues necessary for
+
+resolution of the T5 Application.
+
+   (1)      Incorrect approach for determining bad faith under s. 57(1)(b)
+
+[40]     The Tenants’ T5 Application was brought pursuant to s. 57(1)(b) of the RTA.
+
+Section 57(1)(b) required the Board to determine whether the Vendor Landlords
+
+gave the s. 49 Termination Notice “in bad faith”. The Board decided that matter
+
+based on a single consideration: at the time the Vendor Landlords served the s. 49
+
+Termination Notice, the Vendor Landlords said they had “no reason not to believe
+
+it was the [Original] Purchasers’ intention for a family member to move into the
+
+unit”. This is an unduly narrow approach for determining bad faith under s. 57(1)(b)
+
+and, in my view, amounts to an error of law. My view rests on a contextual
+                                      Page: 16
+
+
+interpretation of ss. 49(1) and 57(1)(b). It is buttressed by a consideration of Board
+
+jurisprudence on this matter.
+
+(a)    A contextual interpretation of ss. 49(1) and 57(1)(b)
+
+[41]   The modern approach to statutory interpretation requires that the words of
+
+ss. 49(1) and 57(1)(b) “be read in their entire context and in their grammatical and
+
+ordinary sense harmoniously with the scheme of the Act, the object of the Act, and
+
+the intention of Parliament”: Rizzo & Rizzo Shoes Ltd. (Re), [1998] 1 S.C.R. 27, at
+
+para. 21, quoting Elmer Driedger, Construction of Statutes, 2nd ed. (Toronto:
+
+Butterworths, 1983), at p. 87.
+
+[42]   The RTA and its predecessor are remedial legislation with a tenant
+
+protection focus: Honsberger v. Grant Lake Forest Resources Ltd., 2019 ONCA
+
+44, 431 D.L.R. (4th), at para. 19; Price v. Turnbull’s Grove Inc., 2007 ONCA 408,
+
+85 O.R. (3d) 641, at para. 26. The purposes of the RTA are set out in s. 1. The first
+
+purpose listed is “to provide protection for residential tenants from…unlawful
+
+evictions”. To ignore events after a landlord gives a tenant a s. 49 termination
+
+notice limits the Board from fulfilling its responsibility to determine bad faith under
+
+s. 57(1)(b) and undermines the RTA’s stated purpose of providing tenants with
+
+protection from unlawful evictions.
+
+[43]   On a plain reading of ss. 49(1) and 57(1)(b), the landlord’s conduct is linked
+
+to the purchaser’s good faith. Section 49(1) permits the landlord to, on behalf of
+                                        Page: 17
+
+
+the purchaser, give the tenant a termination notice so long as the purchaser, in
+
+good faith, requires possession of the rental unit for the purpose of residential
+
+occupation. Section 57(1)(b) requires the Board to determine, among other things,
+
+whether the landlord gave the s. 49 termination notice in bad faith. When ss. 49(1)
+
+and 57(1)(b) are read together, it is clear that the object of those provisions is to
+
+prevent the sale of a property from being used to unlawfully evict a tenant.
+
+Accordingly, the Board must consider all the evidence before it that is relevant to
+
+the landlord’s bad faith under s. 57(1)(b). It is an error of law for the Board to restrict
+
+its consideration to the evidence at the point in time when the landlord gives the
+
+tenant a s. 49 termination notice. This case makes that point.
+
+[44]   As a result of artificially narrowing the assessment of bad faith to when the
+
+s. 49 Termination Notice was given, the Board failed to consider that, after the
+
+notice was given but before the sale of the Property closed, the Vendor Landlords
+
+and/or their lawyer knew that title to the Property would be taken in the name of
+
+Embleton Homes Inc., a corporation. A corporation cannot personally occupy a
+
+residence for residential purposes. This information must surely be relevant to the
+
+Board’s determination of the Vendor Landlords’ bad faith under s. 57(1)(b).
+
+[45]   It could be argued that s. 57(1)(b) implicitly limits Board scrutiny to the
+
+landlord’s knowledge when it gives the s. 49 termination notice. However, such an
+
+interpretation runs afoul of s. 202(1) of the RTA. Under s. 202(1), the Board is
+
+required, when making findings on an application, to ascertain the “real substance
+                                     Page: 18
+
+
+of all transactions and activities relating to…a rental unit and the good faith of the
+
+participants”. Limiting the assessment of a landlord’s bad faith to that single point
+
+in time when the s. 49 termination notice is given precludes the Board from both
+
+ascertaining the true substance of the transaction between the landlord and the
+
+purchaser and conducting a fair assessment of their good faith.
+
+[46]   As Board member Lynn Mitchell stated in CET-67272-17 (Re), 2017 CanLII
+
+70040 (Ont. L.T.B.), at para. 20:
+
+             20. [L]imiting the question of good faith to an exploration
+             of the mind of the Landlord at the instant of serving the
+             N12 notice, and to ignore all the surrounding
+             circumstances, would lead to results inconsistent with the
+             objects of the Act. To require the Tenant to establish what
+             was in the mind of the Landlord at the instant of the N12
+             notice service, without regard to the surrounding
+             circumstances and to the behaviour of the Landlord
+             between the service of the N12 notice and the
+             termination date, would upset the balance of interests
+             which the Act aims to achieve. The good faith obligation
+             attaching to an N12 notice must surely survive the instant
+             of its service.
+
+(b)    Board jurisprudence
+
+[47]   Other Board decisions similarly demonstrate a broader approach to the bad
+
+faith inquiry under s. 57(1)(b), one that considers the parties’ conduct prior to, at
+
+the time of, and subsequent to the giving of the s. 49 termination notice. As I have
+
+explained, this broader approach results in a fairer, more meaningful assessment
+
+of bad faith in s. 57(1)(b) and accords with the purpose of the RTA to prevent
+
+unlawful evictions.
+                                      Page: 19
+
+
+[48]   One such case is TST-94914-18 (Re). There the Board found bad faith on
+
+the part of the landlords on facts arising after the s. 49 termination notice had been
+
+given. The tenants contested their eviction, and the Divisional Court issued a stay
+
+of eviction. The purchaser then advised that she could not complete the sale.
+
+Despite this, the landlords had the sheriff enforce the eviction when the stay was
+
+lifted. The landlords ultimately sold the property to a different buyer. The Board
+
+found that, while the landlords had not acted in bad faith when they served the
+
+s. 49 termination notice, they did act in bad faith in enforcing the eviction order with
+
+knowledge that the sale to the original purchaser had no prospect of closing.
+
+[49]   Below, the Divisional Court considered TST-94914-18 (Re) but declined to
+
+apply its reasoning on the basis that it could be distinguished from this case.
+
+I agree that the two cases differ factually. However, those factual differences do
+
+not account for the different legal approaches taken in determining bad faith under
+
+s. 57(1)(b). For the reasons given above, in my view, the approach taken by the
+
+Board in TST-94914-18 (Re) in determining bad faith is correct in law whereas the
+
+approach taken in this case is not.
+
+[50]   At para. 22 of Duarte v. 2132338 Ontario Ltd., 2021 CanLII 146522 (Ont.
+
+L.T.B.), a Board decision issued after the decision was rendered in this case, the
+
+Board stated:
+
+             22. [I]n relaying the Purchaser’s intentions to terminate
+             the tenancy, the Landlord does not serve as a mere
+                                       Page: 20
+
+
+               messenger with no duties or obligations to the Tenants.
+               By conveying the Purchaser’s stated intention to occupy
+               the rental unit, the Landlord initiated events that had the
+               serious consequence of ending the tenancy and
+               compelling them to relocate their family…As a result, I
+               find that the Landlord had a duty to the Tenants to
+               exercise some due diligence to confirm the good faith
+               intentions of the Purchaser before putting the eviction in
+               motion. Otherwise, an unscrupulous purchaser would be
+               free to use a landlord as a straw man to divest tenants of
+               their housing and thereby evade the statutory protections
+               afforded to them under the Act.
+
+[51]     I agree.
+
+   (2)      Failure to consider the Purchasers’ good faith
+
+[52]     Section 49(1) stipulates that a landlord may give a tenant a termination
+
+notice, on behalf of a purchaser, if the purchaser, “in good faith”, requires
+
+possession of the unit for residential occupation. When deciding the Tenants’ T5
+
+Application, the Board did not consider whether the Purchasers “in good faith”
+
+required the Residence for residential occupation. In my view, that failure
+
+constitutes an error in law. When deciding applications brought under s. 57(1)(b),
+
+it is insufficient for the Board to assess only whether the landlord acted in bad faith
+
+in giving a s. 49 termination notice. The Board must also assess the purchaser’s
+
+good faith, which s. 49(1) requires. After making both those determinations, the
+
+Board must then consider what orders to make in respect of each of the landlord
+
+and the purchaser.
+                                     Page: 21
+
+
+[53]   My view is informed by a consideration of: (1) the relevant provisions in the
+
+RTA; (2) Board Interpretation Guideline 12: Eviction for Personal Use, Demolition,
+
+Repairs and Conversion; and (3) Board jurisprudence.
+
+(a)    The relevant RTA provisions
+
+[54]   The modern approach to statutory construction is set out above and need
+
+not be repeated. I use that approach in the following analysis.
+
+[55]   Section 49(1) empowers the landlord to give the tenant a termination notice
+
+“on behalf of the purchaser…if the purchaser in good faith requires possession” of
+
+the rental unit “for the purposes of residential occupation”. Accordingly, an unlawful
+
+eviction under s. 49(1) can occur in one of three ways: (1) the landlord gives the
+
+s. 49 termination notice in bad faith but the purchaser genuinely requires personal
+
+possession of the rental unit; (2) the landlord gives the s. 49 termination notice in
+
+good faith but the purchaser does not genuinely require personal possession; or
+
+(3) the landlord and purchaser each independently act in bad faith or collude, in
+
+bad faith, to evict the tenant by means of a s. 49 termination notice. If the Board
+
+considers only the landlord’s bad faith, and it was the purchaser who was not acting
+
+in good faith, the purchaser is shielded from any consequence under the RTA and
+
+the tenant loses an opportunity for redress as against the purchaser. Such a result
+
+undermines the RTA’s stated purpose, in s. 1, to protect tenants from unlawful
+
+evictions.
+                                      Page: 22
+
+
+[56]   Furthermore, the conduct of the landlord and the purchaser are expressly
+
+linked in ss. 49(1) and 57(1)(b). Section 49(1) permits the landlord to, “on behalf
+
+of the purchaser”, give the tenant a termination notice so long as the purchaser, in
+
+good faith, requires possession of the rental unit for residential occupation and
+
+s. 57(1)(b) requires the Board to determine whether the landlord gave the s. 49
+
+termination notice in bad faith. How can the Board assess, under s. 57(1)(b),
+
+whether the landlord gave the s. 49 termination notice in bad faith without also
+
+assessing the purchaser’s good faith intentions under the latter provision? If it were
+
+otherwise, all that would be required to evict a tenant pursuant to s. 49(1) is for the
+
+purchaser to tell the landlord it, or one of the other individuals listed in s. 49,
+
+intended to use the rental unit for residential occupation.
+
+[57]   Section 202(1) of the RTA reinforces my interpretation of the legislation.
+
+It requires the Board, when making findings on an application, to ascertain the “real
+
+substance of all transactions” relating to a rental unit and “the good faith of the
+
+participants”. The transaction in s. 49(1) is an agreement of purchase and sale.
+
+There are two participants to such a sale transaction: the vendor landlord and the
+
+purchaser. A consideration of both participants is necessary to ascertain the “real
+
+substance” of the transaction between them and the “good faith” of each in evicting
+
+the tenant.
+
+[58]   This interpretation finds further support in s. 57(3) of the RTA. While s. 57(3)
+
+sets out specific orders that can be made against a landlord who acts in bad faith
+                                      Page: 23
+
+
+in giving a s. 49 termination notice, it also empowers the Board to make any order
+
+it “considers appropriate”. Thus, if the Board finds that a landlord did not act in bad
+
+faith but the purchaser did, s. 57(3) gives the Board the power to make appropriate
+
+orders against the purchaser. This “gives teeth” to the good faith requirement on
+
+the part of purchasers in s. 49(1).
+
+(b)    Board Interpretation Guideline 12
+
+[59]   Board Interpretation Guideline 12 is also consistent with requiring the Board,
+
+on a T5 application, to consider the good faith of both the landlord and the
+
+purchaser.
+
+[60]   Interpretation Guideline 12 is entitled: Eviction for Personal Use, Demolition,
+
+Repairs and Conversion. It offers tenants the following guidance, under the
+
+heading “Who should be named as the respondent”:
+
+             If the tenancy was terminated as a result of a notice of
+             termination for personal use by a purchaser and the
+             former tenant is alleging that the purchaser has failed to
+             move into the rental unit within a reasonable time after
+             the tenant vacated the rental unit, the purchaser should
+             be named as a respondent in addition to the landlord who
+             served the notice of termination. See: TST-42753-13-RV
+             (Re), 2014 CanLII 28557 (ON LTB), upheld by the
+             Divisional Court, Wojcik v Pinpoint Properties Ltd., 2016
+             ONSC 3116.
+
+[61]   Advising tenants to name both the landlord and the purchaser as
+
+respondents is consistent with the Board having to assess the good faith of both
+                                     Page: 24
+
+
+when determining whether a tenant has been unlawfully evicted pursuant to
+
+s. 49(1).
+
+[62]   In this case, the Tenants followed the guidance in Interpretation Guideline
+
+12 in drafting their T5 Application. They named the Vendor Landlords, the Original
+
+Purchasers, and the Purchaser, Embleton Homes Inc. (as well as the other
+
+directors of Embleton Homes Inc.). In their pleadings, the Tenants discuss the
+
+intentions of the Original Purchasers at length.
+
+(c)    Board jurisprudence
+
+[63]   As counsel for the Board advised in his submissions to this court, the Board
+
+jurisprudence on this matter is not consistent. There are cases which, like the
+
+current one, ignore the potential liability of purchasers. However, there are other
+
+Board decisions in which the Board considered both whether the purchaser acted
+
+in good faith under s. 49(1), and whether the landlord acted in bad faith under
+
+s. 57(1)(b).
+
+[64]   For example, in TST-10645-19 (Re), 2020 CanLII 31285 (Ont. L.T.B.), the
+
+landlord gave the tenant a s. 49 termination notice at the request of the purchaser,
+
+but the Board traced the bad faith back solely to the purchaser. It ordered only the
+
+purchaser to compensate the tenant for his losses.
+
+[65]   Additionally, in TST-42753-13-RV (Re), 2014 CanLII 28557 (Ont. L.T.B.),
+
+aff’d 2016 ONSC 3116, the Board found that the purchasers, through their agent,
+                                     Page: 25
+
+
+caused the landlord to give the tenant a s. 49 termination notice. However,
+
+because the Board found that only the purchaser had acted in bad faith, it made
+
+orders only in respect of the purchaser.
+
+[66]     These decisions reinforce my view that the Board must consider the good
+
+faith of the purchaser as well as the bad faith of the landlord when deciding
+
+applications under s. 57(1)(b).
+
+   (3)      Failure to grapple with the issues and the evidence
+
+[67]     An administrative decision maker’s reasons must “meaningfully account for
+
+the central issues and concerns raised by the parties” and be responsive to the
+
+parties’ submissions: Vavilov, at para. 127. The Board reasons do neither.
+
+Consequently, they prevent meaningful appellate review and constitute an error of
+
+law: R. v. Sheppard, 2002 SCC 26, [2002] 1 S.C.R. 869, at para. 28; Hanna &
+
+Hamilton Construction Co. Ltd. v. Robertson, 2021 ONCA 660, at para. 6.
+
+[68]     In this case, among other things, the T5 Application presented the Board
+
+with two issues for resolution: (1) did the Vendor Landlords give the s. 49
+
+Termination Notice in bad faith? and (2) did the Purchasers, in good faith, require
+
+possession of the Residence for residential occupation? The Board reasons make
+
+no mention of the second issue nor the evidence relating to it. Clearly, appellate
+
+review was prevented on that issue and, for that reason alone, the Board erred in
+
+law.
+                                     Page: 26
+
+
+[69]   In addition, however, the Board reasons on the first issue are so deficient as
+
+to constitute legal error. The Board made no attempt to grapple with the body of
+
+evidence adduced, or the Tenants’ submissions on whether the Vendor Landlords
+
+gave the s. 49 Termination Notice in bad faith. Instead, the Board simply recited
+
+the Vendor Landlords’ assertion that when they gave the Tenants the s. 49
+
+Termination Notice, there was no reason to believe it was not the purchasers’
+
+intention to have a family member reside in the Residence.
+
+[70]   Even on the improperly narrow view of the test for bad faith used by the
+
+Board, it failed to address the evidence adduced on this issue. That evidence
+
+includes: (1) the Vendor Landlords’ receipt of the Form 160, in which one of the
+
+Original Purchasers stated that he was a real estate salesperson as well as one of
+
+the Original Purchasers, and stated, “Being a partner, we are buying this property
+
+as a future development”; and, (2) the Original Purchasers’ bald assertion that they
+
+intended the Residence for personal use.
+
+[71]   Had the Board approached the first issue correctly, it would have considered
+
+the relevant circumstances both before and after serving the s. 49 Termination
+
+Notice. In addition to the two evidentiary considerations noted above, the Board
+
+would have had to consider that: prior to closing, the Vendor Landlords and/or their
+
+lawyer knew title to the Property was to be taken in the name of a corporation and
+
+a corporation cannot personally occupy residential premises; the Residence
+
+remained vacant for five months after closing; it was then occupied for only about
+                                      Page: 27
+
+
+25 days by one of the Original Purchasers’ sons; and, thereafter, the Residence
+
+was rented out for a higher price than that which the Tenants had paid.
+
+[72]   The failure of the Board to address the evidence on the central issue of the
+
+Vendor Landlords’ bad faith prevents appellate review and constitutes an error of
+
+law.
+
+C. Result
+
+[73]   Because the Board failed to make the factual findings necessary to fairly
+
+resolve the Tenants’ T5 Application, this court is not in a position to decide it.
+
+Accordingly, I would remit it to the Board for a redetermination in accordance with
+
+these reasons.
+
+Issue #2     The Divisional Court erred by failing to address the Purchasers’
+
+potential liability
+
+A. The Standard of Review
+
+[74]   To determine what standard of review this court is to apply when deciding
+
+Issue 2, we must consider the statutory provision which led to that issue coming
+
+before this court: Vavilov, at para. 33. In this case, s. 6(1)(a) of the CJA is the
+
+relevant provision, as the Tenants obtained leave to appeal the Divisional Court
+
+order pursuant to it.
+
+[75]   Section 6(1)(a) provides that an appeal lies to this court from an order of the
+
+Divisional Court, with leave, “on a question that is not a question of fact alone”.
+                                      Page: 28
+
+
+Thus, when an appeal comes before this court pursuant to s. 6(1)(a) of the CJA,
+
+the appeal can be on a question of law and/or on a question of mixed law and fact.
+
+The only limitation is that the question cannot be one of fact alone. Because the
+
+legislation does not indicate what standard of review this court is to apply on
+
+appeals heard pursuant to s. 6(1)(a), it is necessary to characterize the nature of
+
+Issue 2 to determine what standard of review applies. Thus, the question becomes,
+
+does Issue 2 raise a question of law or a question of mixed law and fact? If the
+
+former, the correctness standard of review applies. If the latter, absent an
+
+extricable error in principle, deference is owed to the Divisional Court decision.
+
+[76]   As I explain below, Issue 2 raises a question of law. Therefore, this court
+
+must review the Divisional Court decision on the Purchasers’ potential liability on
+
+a correctness standard.
+
+B. Analysis
+
+[77]   The Tenants’ appeal to the Divisional Court required that court to determine
+
+whether the Board committed errors on questions of law. The Divisional Court
+
+dismissed the appeal on the basis that the Board made no such errors. However,
+
+as I have explained, the Board did err on questions of law by, among other things,
+
+failing to address the Purchasers’ potential liability. It was an error of law for the
+
+Divisional Court to fail to identify and address that Board error of law.
+                                     Page: 29
+
+
+[78]   I would add that, in the circumstances of this case, the Divisional Court’s
+
+error is perhaps understandable. There is nothing in the Board reasons to alert the
+
+Divisional Court to the issue of the Purchasers’ potential liability. Furthermore, the
+
+parties did not squarely address this issue before the Divisional Court.
+
+Nonetheless, on a fair reading of the Tenants’ documents and submissions before
+
+the Board, it is apparent that the Purchasers’ potential liability was a live issue
+
+which the Board was required to address.
+
+VI.    DISPOSITION
+
+[79]   Accordingly, I would grant the appeal and remit the matter to the Board for
+
+redetermination, in accordance with these reasons.
+
+[80]   Neither the Tenants nor the Board seek costs of the appeal and I would
+
+award none. In light of the result, however, I would set aside the costs orders made
+
+against the Tenants by the Divisional Court.
+
+Released: November 28, 2023 “E.E.G.”
+
+                                                                   “E.E. Gillese J.A.”
+                                                         “I agree. M.L. Benotto J.A.”
+                                                          “I agree. J. Copeland J.A.”
+

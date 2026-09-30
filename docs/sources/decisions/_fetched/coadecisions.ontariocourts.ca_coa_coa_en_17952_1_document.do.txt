@@ -1,0 +1,1297 @@
+                   COURT OF APPEAL FOR ONTARIO
+
+      CITATION: Dawe v. The Equitable Life Insurance Company of Canada, 2019
+                                                                  ONCA 512
+                                                            DATE: 20190619
+                                                           DOCKET: C65540
+
+                    Pepall, Trotter and Harvison Young JJ.A.
+
+BETWEEN
+
+                                 Michael Dawe
+
+                                                                        Plaintiff
+                                                                  (Respondent)
+
+                                      and
+
+                The Equitable Life Insurance Company of Canada
+
+                                                                     Defendant
+                                                                     (Appellant)
+
+Michael A. Hines and Amanda J. Hunter, for the appellant
+
+Andrew F. Camman, Susan A. Toth and Sarah Bauer, for the respondent
+
+Heard: February 4, 2019
+
+On appeal from the judgment of Justice Donald J. Gordon of the Superior Court of
+Justice dated May 23, 2018, with reasons reported at 2018 ONSC 3130.
+
+Trotter J.A.:
+
+A.     OVERVIEW
+
+[1]    Michael Dawe was employed as a Senior Vice President with The Equitable
+
+Life Insurance Company of Canada (“Equitable Life”). After 37 years of
+                                       Page: 2
+
+
+employment, he was terminated without cause, following a minor dispute about the
+
+purchase and use of promotional sporting event tickets.
+
+[2]   Mr. Dawe sued for wrongful dismissal. Both parties moved for partial
+
+summary judgment on two issues relating to the calculation of damages: (1) the
+
+proper notice period; and (2) Mr. Dawe’s entitlement under Equitable Life’s bonus
+
+plans. Mr. Dawe’s other claims, including claims for punitive and moral damages,
+
+were left to be determined at trial.
+
+[3]   The motion judge held that 30 months was the appropriate notice period and
+
+that Mr. Dawe was entitled to bonus payments over this period.
+
+[4]    Equitable Life appeals against both holdings. It submits that the motion
+
+judge’s determination of reasonable notice was excessive. It also contends that
+
+the motion judge erred by failing to find that Mr. Dawe’s bonus entitlement was
+
+limited by a termination provision contained in Equitable Life’s bonus plans.
+
+[5]   I would allow the appeal on the issue of notice, reducing it to 24 months.
+
+There were no exceptional circumstances that warranted a longer notice period. I
+
+would dismiss the appeal as it relates to bonus entitlement. Mr. Dawe’s receipt of
+
+bonus payments was an integral part of his compensation package. Although I
+
+disagree with the motion judge’s conclusion, at para. 62, that the termination
+
+provision contained in each of the two bonus plans was “unclear and confusing”, I
+
+agree with his finding that the termination provision was unenforceable because it
+                                      Page: 3
+
+
+was imposed unilaterally and was not brought to Mr. Dawe’s attention by Equitable
+
+Life at any time before his termination.
+
+B.    BACKGROUND FACTS
+
+(1)   Introduction
+
+[6]   Mr. Dawe enjoyed a successful career in insurance sales. He started his
+
+career in 1978 at Allstate Life Insurance Company of Canada (“Allstate”), when he
+
+was 25 years old.
+
+[7]   Equitable Life acquired Allstate in 1995. Following the acquisition, Mr. Dawe
+
+continued his employment at Equitable Life as an Assistant Vice President of Sales
+
+& Marketing. Over the years, Mr. Dawe received several promotions. When he was
+
+terminated without cause, he was a Senior Vice President.
+
+(2)   The Compensation Scheme
+
+[8]   Mr. Dawe’s compensation package was comprised of a base salary and a
+
+cash bonus, along with various other benefits. The bonus scheme changed over
+
+the years. According to the affidavit of Chris Brown, Senior Vice President of
+
+Human Resources of Equitable Life, all changes to the compensation plan were
+
+imposed unilaterally by Equitable Life. That is, the changes were not negotiated,
+
+nor was any “sign off” required from those affected by the changes. Mr. Dawe and
+
+other executives were advised of the changes and it was up to them to decide
+                                       Page: 4
+
+
+whether to continue to work under them, or to leave. Mr. Dawe always continued
+
+to work.
+
+[9]    In 1998, Equitable Life implemented a new compensation package. It was
+
+designed to ensure that Equitable Life’s base salary was at the 50th percentile in
+
+the industry, and that its overall compensation scheme would be at the 75th
+
+percentile. The goal of this program was to retain good employees and make the
+
+company more competitive.
+
+[10]   On December 10, 1998, Ronald D. Beaubien, who was President and CEO
+
+of Equitable Life at the time, sent a letter to Mr. Dawe in which he said, “I am
+
+pleased to advise you of some positive changes to your total compensation
+
+package.” Mr. Beaubien outlined some of the positive features of the plan. He also
+
+warned of the restrictive term that provided that, in order to participate in the plan,
+
+an employee “must be in the employ of the company at the time” the pay is
+
+processed.
+
+[11]   In 2006, Equitable Life introduced two new bonus plans – the Long Term
+
+Incentive Plan (“LTIP”) and the Short Term Incentive Plan (“STIP”). On March 29,
+
+2006, Ron Beettam, President and CEO of Equitable Life, sent a memo to Mr.
+
+Dawe, advising him of the new plans. The memo enclosed “[p]lan details with
+
+respect to the Long Term Incentive Program”. The memo provided a brief
+
+explanation of how bonuses would be calculated. The STIP was introduced shortly
+                                       Page: 5
+
+
+after the LTIP. As discussed below, the plans introduced new provisions that
+
+substantially limit employees’ bonus entitlements in circumstances of resignation,
+
+termination for cause, retirement, death, and termination without cause. In cases
+
+of termination without cause, the plans provide for a “Terminal Award” pro-rated to
+
+the last day of active employment, and require that the employee sign a “Full and
+
+Final Release” in order to receive the Terminal Award.
+
+[12]   Mr. Dawe said that he had no recollection of receiving copies of the two new
+
+plans. Mr. Beettam claimed that he delivered copies of the plans by hand to Mr.
+
+Dawe, and continued to do so each year a change was made to the LTIP. Mr.
+
+Beettam and Mr. Brown provided evidence that the STIP was available on the
+
+company intranet. The motion judge observed, at para. 44, that there is no record,
+
+electronic or otherwise, confirming delivery of the plans. Nevertheless, he
+
+concluded that it was “more likely than not that the plan documents were delivered
+
+to Mr. Dawe”: at para. 45.
+
+[13]   One thing is not in dispute – there was nothing in the documentation
+
+accompanying these plans that highlighted the introduction of the termination
+
+provision that is in dispute in this case.
+
+[14]   Mr. Brown swore that a meeting of senior executives was held on March 30,
+
+2006 to review the terms of the LTIP and STIP. Mr. Brown said that those in
+
+attendance were permitted to ask questions about the plans. However, supporting
+                                             Page: 6
+
+
+documentation that a meeting ever took place was slim, and there was no
+
+confirmation that the termination provision was discussed.
+
+[15]   In an attempt to prove that Mr. Dawe was aware of the termination provision,
+
+Equitable Life produced a number of memoranda from Mr. Beettam to Mr. Dawe
+
+concerning his yearly bonus. In each of these memos,1 Mr. Beettam advised Mr.
+
+Dawe of his bonus payment and how it was calculated, as well as his revised base
+
+salary. None of these memos referenced the consequences of termination.
+
+However, the memos indicated that “details” of the STIP plan could be found on
+
+the company’s intranet, and one of the memos referenced that the LTIP document
+
+was attached.
+
+[16]   The motion judge found that Mr. Dawe had received bonus payments under
+
+both plans since 2006, except for 2011 or 2012, when Equitable Life experienced
+
+unexpected losses resulting from a fraudulent scheme undertaken by some
+
+brokers. In that year, both Mr. Dawe and Mr. Beettam did not receive an STIP
+
+payment and their LTIP entitlements were reduced. In 2015, the last year that Mr.
+
+Dawe was employed at Equitable Life, his base salary was $249,000. In February
+
+of 2015, he received his bonus for 2014 in the amount of $379,585.
+
+
+
+
+1 There were memos dated as follows announcing bonus entitlements: February 15, 2008 ($179,756.15);
+
+February 17, 2010 ($236,726); February 15, 2011 ($183,509.37); and February 12, 2013 ($165,691.61).
+                                     Page: 7
+
+
+(3)    The Termination of Mr. Dawe’s Employment
+
+[17]   Mr. Dawe’s employment with Equitable Life was terminated in October 2015.
+
+In his affidavit, Mr. Dawe described an increasingly strained relationship with Mr.
+
+Beettam. Mr. Dawe made notes of some of his negative experiences. For his part,
+
+Mr. Beettam reported a friendly relationship with Mr. Dawe, describing many
+
+occasions when he and his wife would socialize with Mr. Dawe and his wife.
+
+[18]   Things came to a head in September 2015. A dispute arose over the
+
+purchase of hockey and basketball tickets by Mr. Dawe for promotional and
+
+personal use. For the purposes of determining the issues on appeal, it is not
+
+necessary to review the various accounts of this conflict. Suffice to say, during a
+
+meeting between the two men, Mr. Beettam verbally reprimanded Mr. Dawe for
+
+purchasing tickets without proper authorization. Mr. Dawe became very agitated
+
+during the meeting and requested that Mr. Brown and an in-house lawyer join the
+
+meeting. Mr. Beettam could only locate Mr. Brown, who joined the meeting.
+
+[19]   Mr. Beettam and Mr. Brown said that Mr. Dawe requested an exit strategy
+
+or plan. Mr. Brown said that Mr. Dawe wanted the company to offer him a
+
+severance package. Mr. Dawe said in his affidavit, “I did suggest we look at ways
+
+to disengage my employment from Equitable. I was upset that my integrity was
+
+being questioned and precipitously felt that I might have no choice but to leave.”
+                                     Page: 8
+
+
+[20]   Mr. Dawe took a few days off. He consulted a lawyer. Negotiations over a
+
+severance package ensued. At this time, Mr. Dawe alleged that he had been
+
+harassed and bullied by Mr. Beettam. When asked for further details, Mr. Dawe
+
+provided handwritten notes concerning two incidents beyond the hockey ticket
+
+incident. One note referenced a heated discussion between the two men in 2010,
+
+and the other note referenced a meeting in 2013 in which Mr. Beettam was
+
+allegedly acting aggressively toward Mr. Dawe, and raised his voice. Mr. Dawe’s
+
+lawyer refused to provide further details at the time. No agreement was reached
+
+on Mr. Dawe’s terms of departure.
+
+[21]   Equitable Life ultimately determined that Mr. Dawe’s future employment with
+
+the company was untenable. His employment was terminated on October 8, 2015,
+
+effective the following day. Mr. Dawe rejected an offer of 24 months’ notice and
+
+the Terminal Awards under the LTIP and STIP. His combined Terminal Award
+
+payments under both plans amounted to a little over $400,000. The termination
+
+letter included a requirement to sign a release of claims. Mr. Dawe refused to sign
+
+the release and payment of the Terminal Awards was withheld. However, despite
+
+his refusal to sign the release, Mr. Dawe was paid eight weeks of termination pay
+
+in lieu of notice, as well as twenty-six weeks of severance pay in accordance with
+
+the provisions of the Employment Standards Act, 2000, S.O. 2000, c. 41 (“ESA”).
+
+[22]   Mr. Dawe was 62 years old when he was terminated. He had worked with
+
+Allstate/Equitable Life for 37 years – his entire career. As Mr. Dawe said in his
+                                      Page: 9
+
+
+affidavit, he planned to work until he turned 65 years old, roughly 30 months after
+
+his termination date.
+
+C.     ISSUES ON APPEAL
+
+[23]   The appellant raises the following grounds of appeal: (1) the motion judge
+
+improperly dealt with contested facts that were irrelevant to the issues before him;
+
+(2) the motion judge erred in finding that the appropriate notice period was 30
+
+months; and (3) the motion judge erred in finding that Mr. Dawe was entitled to his
+
+full LTIP and STIP bonus payments during the notice period, instead of the
+
+Terminal Awards.
+
+D.     ANALYSIS
+
+(1)    Consideration of Facts Irrelevant to the Issues
+
+[24]   As noted above, both parties moved for partial summary judgment,
+
+restricted to the issues of the notice period and Mr. Dawe’s bonus entitlement. Mr.
+
+Dawe’s other claims, including claims for punitive and moral damages were left by
+
+the parties for another day.
+
+[25]   In his reasons, the motion judge referred to facts that were arguably relevant
+
+to these other claims, but were irrelevant to reasonable notice and bonus
+
+entitlement. For example, in his description of the events that led to Mr. Dawe’s
+
+dismissal, the motion judge was critical of Equitable Life. Referring to the cost to
+
+Equitable Life as a result of what he considered to be “such a minor dispute”, the
+                                     Page: 10
+
+
+motion judge said, at para. 25: “The shareholders would not be impressed,
+
+assuming they were made aware of this case. The triggering event did not warrant
+
+a verbal reprimand. Management could have done better.”
+
+[26]   At another point in his reasons, at para. 28, he referred to “serious issues
+
+regarding management’s conduct” and questioned whether the “termination was a
+
+planned event over a period of time.” However, he said, at para. 29: “This evidence
+
+will be relevant only to the remaining claims to be determined at trial. The events
+
+referred to have no part in this motion and are not considered in this decision.”
+
+[27]   Equitable Life submits that these findings were unrelated to the issues at
+
+hand and “give the appearance of having influenced the decisions regarding notice
+
+and the STIP and LTIP incentive plans that followed.”
+
+[28]   I agree that the motion judge’s comments were not necessary to the issues
+
+he was tasked with deciding. Nevertheless, while these comments were better left
+
+unsaid, I am not persuaded that they had any influence on the motion judge’s
+
+findings on the substantive issues before him.
+
+[29]   I would dismiss this ground of appeal.
+
+(2)    The Notice Period
+
+[30]   Equitable Life argues that the motion judge erred in determining that 30
+
+months was the proper notice period and that, based on this court’s authorities,
+
+the notice period should have been 24 months. I agree.
+                                        Page: 11
+
+
+[31]   The motion judge was aware of this court’s jurisprudence on damages for
+
+wrongful dismissal. At para. 30, he referred to the leading decision of Lowndes v.
+
+Summit Ford Sales Ltd. (2006), 206 O.A.C. 55 (C.A.). Writing for the court, Cronk
+
+J.A. observed in Lowndes, at para. 11, that the determination of what constitutes
+
+reasonable notice is “case-specific” and, while there is “no absolute upper limit or
+
+‘cap’ on what constitutes reasonable notice, generally only exceptional
+
+circumstances will support a base notice period in excess of 24 months”. Cronk
+
+J.A. found, at paras. 13-16, that Mr. Lowndes had not established that his
+
+circumstances were exceptional, warranting a notice period exceeding 24 months.
+
+[32]   This court has followed the Lowndes approach over the years. The Lowndes
+
+approach was endorsed in Keenan v. Canac Kitchens Ltd., 2016 ONCA 79, 29
+
+C.C.E.L. (4th) 33, at para. 30. In Keenan, the court declined to set aside an award
+
+of 26 months’ notice, finding that the plaintiffs, who were husband and wife, had
+
+established exceptional circumstances, based on their ages at the time of
+
+termination (63 and 61 years old), their lengthy service (32 and 25 years), and the
+
+character of the positions they held.
+
+[33]   In Strudwick v. Applied Consumer & Clinical Evaluations Inc., 2016 ONCA
+
+520, 349 O.A.C. 360, at para. 42, the court cited Lowndes and Keenan in affirming
+
+that reasonable notice is determined on “a case-specific basis”, and while there is
+
+no cap, “generally only exceptional circumstances will support a base notice period
+                                     Page: 12
+
+
+in excess of 24 months.” The court refused to increase a base notice period of 20
+
+months.
+
+[34]   In this case, the motion judge took a different approach. His conclusion that
+
+a notice period of 30 months was appropriate did not rest on the presence of
+
+exceptional circumstances; instead, it was based on his perception of broader
+
+social factors that led him to conclude that the “presumptive standards” discussed
+
+in Lowndes were inapplicable. The motion judge said the following, at para. 31:
+
+             Whether it is exceptional circumstances or recognizing a
+             change in society's attitude regarding retirement, the
+             particular circumstances of the former employee must be
+             considered. For many years, the usual retirement age
+             was considered to be 65. Pension plans improved as a
+             result of the labour movement, introducing, for example,
+             an 80 factor for most employees in the public sector and
+             many in large companies in the private sector. That lead
+             [sic] to some individuals retiring between the age of 50
+             and 60. But many were not ready to fully retire. They
+             sought out additional employment or simply continued to
+             work in their existing position. Further, mandatory
+             retirement was abolished in 2006 in Ontario to protect
+             against age discrimination. Many employees have
+             continued past 65. In result, it is important to recognize
+             that each case is unique. Presumptive standards no
+             longer apply. See, for example: Filiatrault v. Tri-County
+             Welding Supplies Ltd., 2013 ONSC 3091, at paras. 54
+             and 59. [Emphasis added.]
+
+[35]   The motion judge considered that Mr. Dawe was 62 years old when he was
+
+terminated from a very senior position, at a company he had served for 37 years.
+
+He said that Mr. Dawe “had made no decision as to when retirement would occur”,
+
+adding that he was committed to working at Equitable Life until “at least age 65”
+                                              Page: 13
+
+
+and “it was more likely he would have worked there to a later age than an earlier
+
+one”: at para. 35. The motion judge placed Mr. Dawe at “the extreme high end” of
+
+each of the factors set out in Bardal v. Globe and Mail Ltd., [1960] O.W.N. 253
+
+(H.C.), and said, at para. 36, “I would have felt this case warranted a minimum 36
+
+month notice period”. In finding that Mr. Dawe was entitled to 30 months’ notice,
+
+the motion judge ensured that Mr. Dawe would be fully compensated just beyond
+
+his 65th birthday.2
+
+[36]    The motion judge’s approach to reasonable notice was in error. First, he
+
+should have applied the Lowndes line of authority instead of relying on his own
+
+perceptions of the “change in society’s attitude regarding retirement”: at para. 31.
+
+There was no basis in the record for making such sweeping statements.
+
+[37]    As the motion judge observed, mandatory retirement was abolished in
+
+Ontario in 2006: see Ending Mandatory Retirement Statute Law Amendment Act,
+
+2005, S.O. 2005, c. 29 (previously known as Bill 211). But this legislative initiative
+
+would have been known at the time of the Lowndes appeal, which was decided
+
+after Bill 211 was enacted, but before most of its provisions came into force.3
+
+
+
+
+2 Being terminated on October 8, 2015, 30 months’ notice took Mr. Dawe to April 8, 2018, a few weeks
+
+after his 65th birthday.
+3 Lowndes was decided on January 6, 2006. The Ending Mandatory Retirement Statute Law Amendment
+
+Act, 2005 was assented to on December 12, 2005, but by virtue of s. 8 of the Act, most of its provisions
+did not come into force until December 12, 2006.
+                                      Page: 14
+
+
+[38]   Further, more recent authorities from this court have not altered the
+
+approach in Lowndes. Keenan and Strudwick were decided a decade after
+
+Lowndes. Neither decision suggests that the end of mandatory retirement in
+
+Ontario ought to alter the traditional approach to determining reasonable notice. It
+
+was not open to the motion judge to chart his own course in light of these
+
+authorities.
+
+[39]   It is unclear why the motion judge chose to rest his reasonable notice
+
+determination on mandatory retirement considerations. It was irrelevant to Mr.
+
+Dawe’s situation. In his affidavit, Mr. Dawe swore that he planned to retire at age
+
+65. There was no basis in the evidence to find that he would have worked later.
+
+[40]   In any event, Mr. Dawe’s plans regarding retirement are not determinative
+
+in ascertaining Equitable Life’s obligations towards him. In Strudwick, this court
+
+rejected Ms. Strudwick’s submission that in the circumstances, she was entitled to
+
+pay and benefits up to the age of 65, when she would retire. Epstein J.A. noted
+
+that absent a fixed term contract, “an employer does not guarantee employment
+
+to retirement”: at para. 45. She further held that in entering the employment
+
+relationship, an employer cannot reasonably be seen as having accepted the risk
+
+that in dismissing an employee, it would be obligated to pay that employee until
+
+their retirement: see paras. 46-48.
+                                    Page: 15
+
+
+[41]   The motion judge’s reasons suggest that he viewed this case as being
+
+“tantamount to forced retirement”: see paras. 34, 36. However, the record is clear
+
+that, in the throes of a conflict with his senior executive colleagues, Mr. Dawe
+
+initiated the process of his own departure from Equitable Life. He requested an
+
+“exit strategy”. While Mr. Dawe may have soon come to regret his decision, this
+
+factor ought to have weighed against a finding that this case involved “exceptional
+
+circumstances” justifying a notice period in excess of 24 months.
+
+[42]   I agree with the motion judge that Mr. Dawe’s circumstances – including his
+
+senior position, career-long years of service at the same company, age at the time
+
+of termination, and his difficulty in finding new employment – warranted a
+
+substantial notice period. However, there was no basis to award Mr. Dawe more
+
+than 24 months’ notice.
+
+[43]   Mr. Dawe’s circumstances are similar to those of the employee in Lowndes.
+
+Mr. Lowndes was 59 years old at the time his employment was terminated. He had
+
+worked for the appellant employer for approximately 28 years, and held a
+
+management and director position at the time of termination. In concluding that
+
+exceptional circumstances had not been established, Cronk J.A. recognized Mr.
+
+Lowndes’ status as a long-term employee who had exhibited loyalty and dedication
+
+to the employer’s business over most of his working career. However, she noted
+
+that the base notice period of 24 months “recognizes” and “rewards” these factors,
+                                    Page: 16
+
+
+and constitutes the “high end of the appropriate range of reasonable notice for
+
+long-term employees in [Mr. Lowndes’] position”: at para. 15.
+
+[44]   I would allow this ground of appeal and reduce the notice period to 24
+
+months.
+
+(3)    Damages for Bonus Entitlement
+
+[45]   Equitable Life appeals the motion judge’s finding that Mr. Dawe was entitled
+
+to damages as compensation for the loss of his bonus entitlements during the
+
+notice period. The motion judge determined that the bonus payments under the
+
+LTIP and STIP were an integral component of Mr. Dawe’s compensation, giving
+
+rise to a common law right of payment during the notice period. The motion judge
+
+found that this common law right was not displaced by the terms of the plans for
+
+three reasons. First, he found that the terms of the plans that purported to limit
+
+entitlement to the payment of the bonuses were ambiguous and unenforceable.
+
+Second, he found that these terms were not brought to Mr. Dawe’s attention and
+
+Equitable Life did not meet its obligation to communicate these terms of
+
+employment to Mr. Dawe. Finally, the motion judge was of the view that Equitable
+
+Life’s requirement that Mr. Dawe sign a release contravened the ESA.
+
+[46]   In my view, when read in context, the terms of the bonus plans are
+
+unambiguous, and the termination provision would have been enforceable against
+
+Mr. Dawe had it been brought to his attention. However, as explained below, there
+                                     Page: 17
+
+
+was an evidentiary basis which entitled the motion judge to conclude that the
+
+termination provision had not been brought to Mr. Dawe’s attention and was
+
+unenforceable for this reason.
+
+(a)    Common Law Entitlement to the Bonus Payments
+
+[47]   Before the motion judge, Equitable Life argued that its bonus plans were
+
+completely discretionary. This was offered as a reason for not paying Mr. Dawe
+
+what he would otherwise have been entitled to under the STIP and LTIP during the
+
+applicable notice period. The motion judge ultimately rejected this position, at para.
+
+52 of his reasons. This finding was not specifically challenged by Equitable Life on
+
+appeal; nor was Mr. Dawe’s common law entitlement expressly acknowledged.
+
+[48]   Damages for wrongful dismissal generally include all compensation and
+
+benefits that the employee would have earned during the notice period: Paquette
+
+v. TeraGo Networks Inc., 2016 ONCA 618, 352 O.A.C. 1, at para. 16. This amount
+
+may include bonus payments that the employee would have been entitled to had
+
+they continued to be employed during the notice period: at para. 17. In Paquette,
+
+at paras. 30-31, this court articulated a two-part test for determining whether a
+
+wrongfully dismissed employee is entitled to damages for the loss of bonus
+
+entitlement: (1) was the bonus an integral part of the employee’s compensation
+
+package, triggering a common law entitlement to damages in lieu of bonus?; and
+
+(2) if so, is there any language in the bonus plan that would specifically remove the
+                                             Page: 18
+
+
+employee’s common law entitlement? See also: Lin v. Ontario Teachers’ Pension
+
+Plan, 2016 ONCA 619, 352 O.A.C. 10, at paras. 84-86; Singer v. Nordstrong
+
+Equipment Limited, 2018 ONCA 364, 47 C.C.E.L. (4th) 218, at paras. 21-22; Bain
+
+v. UBS Securities Canada Inc., 2018 ONCA 190, 46 C.C.E.L. (4th) 50, at para. 9.
+
+[49]    The motion judge correctly applied the first part of the Paquette test in finding
+
+that Equitable Life’s bonus plans were an integral part of Mr. Dawe’s compensation
+
+package. The motion judge identified the relevant factors involved in making this
+
+determination, including Mr. Brown’s evidence concerning the competitive
+
+objectives of the compensation scheme as a whole, and the integral nature of the
+
+LTIP and STIP to the compensation scheme. The motion judge was aware of Mr.
+
+Dawe’s history of having received a bonus every year he was employed (except
+
+once in 2011 or 2012, the same year that Mr. Beettam did not receive a bonus).
+
+Moreover, as the motion judge observed, the purpose of the LTIP was described
+
+in the plan document as “…an integral component of Equitable’s executive cash
+
+compensation strategy consisting of a base salary program, short term (annual)
+
+incentives and long term incentives.” Similar language is also found in the STIP.4
+
+[50]    On this record, the motion judge was entitled to conclude that the payment
+
+of bonuses was an integral component of Mr. Dawe’s compensation, giving rise to
+
+
+
+
+4 The STIP plan document provides that the STIP is “…an integral component of Equitable’s cash
+
+compensation strategy consisting of a base salary program and annual variable incentives.”
+                                    Page: 19
+
+
+a common law entitlement to damages in lieu of bonus. This conclusion leads to
+
+the second part of the Paquette test – whether the common law entitlement was
+
+altered or removed by the language of the bonus plans.
+
+(b)    The Termination Provision
+
+[51]   Equitable Life argued that, at the time of his termination, Mr. Dawe’s
+
+entitlement to bonus payments was specifically limited by the terms of the LTIP
+
+and STIP. The motion judge considered the terms of the plans and found that “the
+
+language used in the LTIP and STIP does not meet the requirement of an
+
+unambiguous alteration of Mr. Dawe’s common law entitlement. Simply put, the
+
+wording is unclear and confusing”: at para. 62. As explained below, I disagree with
+
+the motion judge’s conclusion on this issue. I agree with the appellant that, in
+
+reaching this conclusion, the motion judge failed to read the plan documents as a
+
+whole, and instead applied a piecemeal approach by considering each relevant
+
+provision sequentially without regard to their combined effect: see Sattva Capital
+
+Corp. v. Creston Moly Corp., 2014 SCC 53, [2014] 2 S.C.R. 633, at para. 47;
+
+Amberber v. IBM Canada Ltd., 2018 ONCA 571, 424 D.L.R. (4th) 169, at paras.
+
+47-50.
+
+[52]   In order to determine whether the plans limited Mr. Dawe’s common law
+
+entitlement, it is necessary to take a closer look at the terms of the plans
+
+individually and in combination. During their submissions, counsel focused on the
+                                      Page: 20
+
+
+wording of the LTIP provisions which are substantially similar to the parallel STIP
+
+provisions. I will do the same.
+
+[53]   The plan is eight pages long. It employs highly technical language in
+
+explaining how the bonus scheme works.
+
+[54]   The key part of the document for the purposes of this appeal is “IX.
+
+Administrative Processes”. In this part, an “Eligible Participant” is defined as
+
+someone “employed by the Corporation on the date an award is paid in order to
+
+receive an award”. Eligible Participants who resign or who are terminated with
+
+cause “forfeit all rights under the Plan including any awards earned but not yet paid
+
+… and no award or pro-rated awards shall be paid.”
+
+[55]   The plan provides for “Terminal Awards” in circumstances of retirement,
+
+death, and termination for cause. Terminal Awards are essentially pro-rated
+
+awards, determined by a complicated calculation set out in term IX.C.(a)(iv).
+
+[56]   The provision at the heart of this appeal is IX.C.(a)(iii) (i.e. the “termination
+
+provision”), which provides for Terminal Awards in circumstances of termination
+
+without cause, as follows:
+
+             Termination without Cause: An Eligible Participant
+             terminated without cause will be entitled to receive only
+             Terminal Awards calculated in sub-paragraph (a)(iv)
+             (below), pro-rated to the last day of active employment,
+             regardless of whether notice of termination is given or not
+             given and regardless of whether the termination is lawful
+             or unlawful, and only if the Eligible Participant provides
+             the Corporation with a Full and Final Release in the
+                                              Page: 21
+
+
+                manner required in the Eligible Participant’s termination
+                letter. [Emphasis added.]
+
+For greater certainty, term IX.D, titled “Restrictions”, provides:
+
+                a) Awards earned and awards actually paid shall not be
+                   considered in determining any entitlement to
+                   termination, severance or common law notice or
+                   payments in lieu of notice. Upon termination without
+                   cause and with or without notice, the Eligible
+                   Participant’s only entitlements under this Plan shall be
+                   the Terminal Awards set out in section IX C.(a)(iv)
+                   (above).
+
+[57]    In analyzing the combined effect of these provisions, I start with this court’s
+
+decision in Paquette. Similar to this case, the issue in Paquette was whether the
+
+employee was entitled to claim wrongful dismissal damages for bonus payments
+
+he would have earned during the notice period following his termination without
+
+cause. In Paquette, the motion judge found that a term of the bonus plan that
+
+required that a person must be an “active employee” was clear and unambiguous
+
+and, therefore, disentitled the employee to any bonus entitlement upon being
+
+terminated without cause. I note that the “active employee” term in the bonus plan
+
+at issue in Paquette is similar to the definition of “Eligible Participant” in this case
+
+quoted in para. 54 above.5
+
+[58]    This court allowed the appeal. Writing for the court, van Rensburg J.A.
+
+determined that the motion judge had taken the wrong approach. She held, at para.
+
+
+
+5 The “active employee” term required that the employee be “actively employed” by the employer at the
+
+time the bonus was paid: see Paquette, at para. 10.
+                                    Page: 22
+
+
+21, that the issue was not whether the employee was entitled to access bonus
+
+entitlements in accordance with the terms of the plan upon termination; instead,
+
+the question was whether he was entitled to damages comprised of the
+
+compensation and benefits that he would have been entitled to had he not been
+
+wrongfully dismissed: see also Taggart v. The Canada Life Assurance Company
+
+(2006), 39 C.C.E.L. (3d) 48 (Ont. C.A.), at paras. 11, 16.
+
+[59]   Moreover, van Rensburg J.A. stated that, had the employee been permitted
+
+to work through the reasonable notice period, he would have been “actively
+
+employed” and, under the terms of the plan, entitled to bonus payments: Paquette,
+
+at para. 21. An employee who receives payment in lieu of reasonable notice stands
+
+in the same position: Paquette, at para. 26; Taggart, at para. 16. Accordingly, the
+
+employer was not permitted to exploit the “actively employed” term by not
+
+permitting the employee to work through the reasonable notice period.
+
+[60]   Mr. Dawe stands in the same position in this case. Kimberly Oliver, Senior
+
+Consultant, Executive Compensation at Willis Towers Watson, provided evidence
+
+on the summary judgment motion. Willis Towers Watson is regularly retained by
+
+Equitable Life to design competitive executive compensation packages. Ms. Oliver
+
+acknowledged that, had Mr. Dawe worked through his notice period, he would
+
+have been entitled to normal (i.e., non-Terminal Award) payments under the LTIP
+
+and STIP.
+                                     Page: 23
+
+
+[61]   Citing Paquette, the motion judge held, at para. 61, that the first provision
+
+reproduced above requiring that an “Eligible Participant” “must be employed by the
+
+Corporation on the date an award is paid in order to receive an award”, was
+
+“unenforceable”. The motion judge found the remainder of the provisions
+
+reproduced above (terms IX.C.(a)(iii) and IX.D) to be too imprecise to oust Mr.
+
+Dawe’s bonus entitlements. I disagree.
+
+[62]   As van Rensburg J.A. said in Paquette, at para. 31, “[t]he question is not
+
+whether the contract or plan is ambiguous, but whether the wording of the plan
+
+unambiguously alters or removes the appellant’s common law rights”. See also
+
+Taggart, at paras. 12, 19-20. In my view the LTIP and STIP do so limit Mr. Dawe’s
+
+entitlement.
+
+[63]   This case is similar to Kieran v. Ingram Micro Inc. (2004), 189 O.A.C. 58
+
+(C.A.), a case dealing with an employee’s entitlement to stock options upon
+
+termination. Mr. Kieran had been dismissed without cause. The stock option plans
+
+provided that he had 60 days from the termination date to exercise any option
+
+rights then vested. The plan defined “termination of employment” as the date the
+
+employee “ceases to perform services for” the employer “without regard to whether
+
+the employee continues thereafter to receive any compensatory payments
+
+therefrom or is paid salary thereby in lieu of notice of termination.” Among other
+
+things, the motion judge determined that the language of the plans prevented Mr.
+
+Kieran from exercising his stock options.
+                                    Page: 24
+
+
+[64]   This court dismissed Mr. Kieran’s appeal. Lang J.A. wrote, at para. 58 of
+
+Kieran, that there were no ambiguities in the terms of the plans. Recognizing that
+
+prior cases had found that general language such as “cessation of employment”
+
+may create ambiguity, Lang J.A. was satisfied that the wording of the plans in
+
+question did not. In Paquette, van Rensburg J.A. referred to Kieran and observed,
+
+at para. 43, that there was no ambiguity because the plans in Kieran did not speak
+
+only of termination or cessation of employment generally, “[r]ather, the plans
+
+anticipated the very event that occurred – the termination of employment without
+
+just cause or notice.”
+
+[65]   In this case, the LTIP and the STIP went well beyond stipulating “active
+
+employment” as a precondition for bonus entitlement. The terms reproduced above
+
+address, with great precision, what happens to an eligible participant’s bonus
+
+entitlement upon termination without cause. To repeat the words of van Rensburg
+
+J.A. in Paquette, the LTIP and STIP “anticipated the very event that occurred” –
+
+Mr. Dawe’s dismissal without cause. This language unequivocally restricted his
+
+common law rights upon termination. The motion judge erred in finding otherwise.
+
+However, this does not end the inquiry. It is necessary to determine whether Mr.
+
+Dawe was properly informed of the termination provision unilaterally imposed by
+
+Equitable Life.
+                                    Page: 25
+
+
+(c)    Was the Termination Provision Properly Communicated?
+
+[66]   Equitable Life acknowledges that it unilaterally imposed changes to its
+
+compensation plan over the years, leaving its employees with the choice of
+
+accepting any new terms, or deciding to leave the company. This is consistent with
+
+the legal implications of unilateral changes to employment contracts.
+
+[67]   The motion judge referred, at para. 56, to Wronko v. Western Inventory
+
+Service Ltd., 2008 ONCA 327, 90 O.R. (3d) 547, at paras. 33-36, leave to appeal
+
+refused, [2008] S.C.C.A. No. 294, in which Winkler C.J.O. spoke of the three
+
+options available to employees in these circumstances: (1) accept the change
+
+either expressly or implicitly through acquiescence, thereby continuing
+
+employment under the newly imposed terms; (2) reject the changes and sue for
+
+damages if the employer insists on enforcing the new terms; or (3) notify the
+
+employer that the new term is rejected, leaving the employer the option of
+
+terminating the employee with proper notice and offering the employee re-
+
+employment on the new terms. See also Lin, at paras. 72, 75.
+
+[68]   Equitable Life contends that, over the years, Mr. Dawe always acquiesced
+
+to the changes to the bonus plans. He readily accepted the bonuses that he
+
+received. As noted above, he received memos each year, explaining how his
+
+bonus had been calculated. Moreover, he always had access to the details of the
+
+plans, and the STIP plan was available on the company’s intranet. Mr. Dawe
+                                     Page: 26
+
+
+denied ever having the termination terms of the LTIP and STIP brought to his
+
+attention. Importantly, Mr. Dawe’s position was accepted by the motion judge.
+
+[69]   In Paquette, van Rensburg J.A. alluded to providing employees notice of
+
+adverse provisions in bonus plans. At para. 18, she said: “To the extent that there
+
+are limitations [on the payment of the bonus], the question may arise as to whether
+
+they were brought to the attention of the affected employees and formed part of
+
+their contract of employment.” However, notice was not a live issue in Paquette.
+
+[70]   The issue of proper notice was squarely addressed in Poole v. Whirlpool
+
+Corporation, 2011 ONSC 4100, 92 C.C.E.L. (3d) 350, aff’d 2011 ONCA 808, 97
+
+C.C.E.L. (3d) 20. Poole involved an “actively employed” condition that the
+
+employer attempted to rely upon to limit entitlement to bonus payments. On a
+
+motion for summary judgment, Hoy J. (now A.C.J.O.) held, at para. 33: “There is
+
+no evidence that Mr. Poole at any time assented to or agreed to this limitation. Nor
+
+is there evidence that Mr. Poole was given a copy of the 2005 Bonus Plan, or
+
+advised of this limitation. Simply posting the Plan on Whirlpool's Intranet, without
+
+more, is insufficient.” This finding was upheld on appeal. This court affirmed that
+
+the failure to establish that the limiting condition was drawn to the employee’s
+
+attention at any time, either orally or in writing, precluded any “reliance by the
+
+[employer] on the precondition to defeat the [employee’s] bonus claim”: Poole, CA,
+
+at paras. 5-6.
+                                     Page: 27
+
+
+[71]   In this case, the motion judge relied upon Poole to find that Equitable Life
+
+failed to bring the limiting terms of the LTIP and STIP to Mr. Dawe’s attention. He
+
+observed that there was no documentation to support Mr. Beettam’s claim that he
+
+delivered copies of both documents to Mr. Dawe. Nevertheless, the motion judge
+
+found that “it was more likely than not” that the documents were delivered to Mr.
+
+Dawe: at para. 45. But this was not the end of the matter. At paras. 46-47, the
+
+motion judge found:
+
+             However, the uncontradicted evidence is that Mr.
+             Beettam, and others at Equitable made no effort to bring
+             the forfeiture provisions to Mr. Dawe’s attention. The
+             various memorandums referred to only identify the
+             positive aspects of the bonus plan, in particular the
+             calculation that would result in payment in that particular
+             year.
+
+             … [T]he requirement is communication of the term the
+             employer seeks to rely on. I am not persuaded simply
+             providing a copy of the plan document meets this
+             standard. In essence, providing only a copy of the
+             document transfers the onus to the employee of finding
+             any negative terms of employment. These are complex
+             documents, drafted by lawyers, and most difficult to read
+             and understand. In my view, an employer has a duty to
+             inform the employee of all expected terms of
+             employment. That is particularly the case here as
+             Equitable Life had changed the method of establishing
+             bonus plans and was attempting to introduce a forfeiture
+             clause that was not part of the prior system. [Emphasis
+             added.]
+
+[72]   The motion judge’s conclusions are consistent with this court’s decision in
+
+Wronko. Where changes are imposed unilaterally by the employer, the essence of
+
+the problem is whether the employee accepted the newly imposed terms of
+                                     Page: 28
+
+
+employment. In order to rely upon the limits created by the termination provisions,
+
+Equitable Life was required to prove that Mr. Dawe accepted these adverse,
+
+unilateral changes to an integral part of his compensation package. A pre-condition
+
+to acceptance is knowledge of the changes. On the record before the motion judge,
+
+he was entitled to find that Equitable Life failed to prove that Mr. Dawe knew about
+
+these changes, or that these changes were effectively communicated by Equitable
+
+Life to Mr. Dawe. Given the appellant’s obligation to put its best foot forward on
+
+this motion for summary judgment, the motion judge was entitled to assume that
+
+there would be no further evidence at trial that would have assisted Equitable Life
+
+on this issue: see Bergen v. Fast Estate, 2018 ONCA 484, 30 M.V.R. (7th) 49, at
+
+para. 11.
+
+[73]   I acknowledge that there was some evidence that may have supported a
+
+finding that Mr. Dawe might have been aware of the unfavourable terms in the
+
+bonus plans. After all, he was a Senior Vice President and was involved in the
+
+termination of other employees, signing termination letters that adverted to some
+
+of the same provisions at issue on this appeal. The motion judge found that he
+
+received copies of the plans. The STIP was available on the company’s intranet.
+
+All of this evidence was before the motion judge.
+
+[74]   Notably absent from the record was any direct evidence that the terms in
+
+question were brought to Mr. Dawe’s attention. As counsel for Mr. Dawe argued
+
+on appeal, had Mr. Beettam’s memo of March 29, 2006 contained one further
+                                     Page: 29
+
+
+sentence that referred to the termination provisions, it is quite possible that this
+
+litigation would never have been commenced. Alternatively, Mr. Dawe may have
+
+objected to the inclusions of these limitations, leading to scenarios (2) or (3),
+
+discussed in Wronko (at para. 67, above). Given how the transition of the bonus
+
+plans was implemented by Equitable Life, we will never know how things would
+
+have played out had Mr. Dawe been informed that he would be forfeiting large
+
+sums of money even if his employment were to be terminated without cause.
+
+[75]   The motion judge’s ultimate conclusion on this issue hinges on
+
+considerations that are largely factual in nature. The discipline of deference
+
+requires us to respect his conclusion.
+
+[76]   Accordingly, I would dismiss this ground of appeal. However, I would adjust
+
+the motion judge’s award to the extent that Mr. Dawe’s bonus entitlement is aligned
+
+with the notice period of 24 months, instead of 30 months, as explained above.
+
+(d)    The Employment Standards Act, 2000
+
+[77]   In addition to his conclusions about the ambiguity of the language in the
+
+plans and lack of notice, the motion judge also found that Equitable Life was
+
+precluded from relying on the termination provision because it violated the
+
+provisions of the ESA by insisting that Mr. Dawe sign a release as a precondition
+
+to receiving the severance package that he was offered. Given my conclusion that
+
+the termination provision is unenforceable due to the lack of notice, it is
+                                     Page: 30
+
+
+unnecessary to address this issue to dispose of the appeal. However, I make the
+
+following brief comments.
+
+[78]   In reaching his conclusion that Equitable Life breached the ESA, the motion
+
+judge acknowledged this court’s judgment in McNevan v. AmeriCredit Corp., 2008
+
+ONCA 846, 94 O.R. (3d) 458, in which Epstein J.A. stated, at para. 57: “an offer of
+
+severance conditional on the execution of a release is not only standard but also
+
+wise corporate practice.” Nevertheless, the motion judge found that the release in
+
+this case “went too far” because it required “Mr. Dawe to give up his common law
+
+rights to receive his statutory rights”: at para. 67. He also held that the release
+
+infringed ss. 60 and 62 of the ESA because Equitable Life refused to pay the bonus
+
+during the notice period: at para. 67.
+
+[79]   The motion judge provided very brief reasons for reaching these
+
+determinations that were largely conclusory. Assessing the correctness of both
+
+determinations would require reading in or assuming certain findings that were not
+
+explicitly made by the motion judge in his reasons. Given my conclusion on the
+
+notice issue, it is unnecessary to engage in such an analysis to dispose of the
+
+appeal. Accordingly, these reasons should not be taken as an endorsement of the
+
+motion judge’s conclusions regarding whether the release requirement
+
+contravened the ESA.
+                                       Page: 31
+
+
+E.       CONCLUSION
+
+[80]     I would allow the appeal to the extent that the notice period is reduced from
+
+30 months to 24 months. Mr. Dawe’s bonus entitlement is adjusted accordingly.
+
+[81]     If the parties cannot agree on the costs of the appeal, or adjustments to
+
+costs awarded on the motion, if any, they may make written submissions no more
+
+than five pages in length. The appellant shall serve and file its submissions within
+
+10 days of this decision. The respondent shall serve and file its submissions within
+
+7 days of receiving the appellant’s submissions. No reply submissions are to be
+
+filed.
+
+Released: “AHY” JUN 19 2019
+
+                                                                    “G.T. Trotter J.A.”
+                                                            “I agree. S.E. Pepall J.A.”
+                                                    “I agree. A. Harvison Young J.A.”
+

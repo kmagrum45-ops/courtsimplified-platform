@@ -1,0 +1,633 @@
+                                           CITATION: Kovach v. Linn, 2010 ONCA 126
+                                                                    DATE: 20100218
+                                                                  DOCKET: C50398
+
+                      COURT OF APPEAL FOR ONTARIO
+
+                          Goudge, MacPherson and Blair JJ.A.
+
+BETWEEN:
+
+Andrew Kovach and Sarah Kovach, minors by their Litigation Guardian, Wayne Kovach
+                         and Wayne Kovach, personally
+
+                                                                                 Plaintiffs
+                                                                            (Respondents)
+                                           and
+
+               Pauline M. Kovach, Mackenzie E. Linn and Barry H. Linn
+
+                                                                               Defendants
+                                                                              (Appellants)
+
+Alan L. Rachlin, for the appellants
+
+Kirk F. Stevens, for the respondents
+
+Heard: November 9, 2009
+
+On appeal from the Order of Justices James D. Carnwath, Katherine E. Swinton and
+Denise E. Bellamy of the Divisional Court dated January 15, 2009, with reasons reported
+at (2009), 95 O.R. (3d) 34.
+
+R.A. Blair J.A.:
+
+Introduction
+
+[1]    Does the Superior Court of Justice have jurisdiction to bifurcate the trial of
+
+liability and damages issues where there is a valid jury notice in place and the parties do
+
+not consent? That is the fundamental question raised on this appeal.
+                                          Page: 2
+
+
+[2]    For quite some time now, it has been accepted that the answer in Ontario was
+
+“no.” We are now asked to reconsider, or to re-affirm, that understanding, at least for the
+
+period prior to January 1, 2010 – the effective date of new rule 6.1.01, which states:
+
+              With the consent of the parties, the court may order a separate
+              hearing on one or more issues in a proceeding, including
+              separate hearings on the issues of liability and damages.
+
+Background
+
+       The Accident
+
+[3]    The Kovach plaintiffs and the Linn defendants are parties to an action arising out
+
+of a motor vehicle accident that occurred on Halloween in 1999. The action is scheduled
+
+to be heard by a jury.
+
+[4]    Pauline Kovach was out “trick or treating” that evening with her two children,
+
+Andrew and Sarah, and two of her nephews. She reversed her van out of a private
+
+driveway onto a public road where her van collided with a pickup truck operated by
+
+Mackenzie Linn and owned by Barry Linn.
+
+[5]    Although there were other injuries, Andrew – eight years old at the time – suffered
+
+a serious brain injury and pelvic fractures in the crash.       The parties agree that his
+
+impairments are “catastrophic”.
+
+[6]    As it happens, Aviva Canada Inc. insured both the Kovach and Linn vehicles
+
+under separate and unrelated policies. Each policy has third party liability limits of $1
+
+million. It is quite likely that Andrew’s damages, if the plaintiffs are successful, will
+                                           Page: 3
+
+
+exceed the limits of both policies. His claim is for $11.5 million. If the Linn defendants
+
+are found to be even 1% liable, he will have access to coverage under both policies.
+
+[7]    Both the Kovach plaintiffs and the Linn defendants have served jury notices. The
+
+Linn defendants seek to have the trial of the liability and damages issues bifurcated,
+
+however. They propose that the trials of these issues be dealt with by different juries.
+
+       The Proceedings
+
+[8]    On November 26, 2007, Master Egan dismissed the Linns’ motion to bifurcate the
+
+action. She held that she was bound by the decisions of the Divisional Court in Duffy v.
+
+Gillespie (1997), 36 O.R. (3d) 443, and Carreiro (Litigation Guardian) v. Flynn (2005),
+
+195 O.A.C. 315, and had no jurisdiction to make such an order absent the consent of the
+
+parties. Those decisions, in turn, relied upon the authority of this Court in Elcano
+
+Acceptance Ltd. v. Richmond, Richmond, Stambler & Mills (1986), 55 O.R. (2d) 56 and
+
+on another decision of the Divisional Court in Shepley v. Libby McNeil & Libby of
+
+Canada Ltd. (1979), 23 O.R. (2d) 354.
+
+[9]    I will return to a discussion of these authorities later in these reasons.
+
+[10]   Master Egan did not consider whether, if there were jurisdiction, bifurcation
+
+would have been appropriate in the circumstances of this case.
+
+[11]   On May 2, 2008, Justice Chapnik set aside the Order of Master Egan. She
+
+concluded that, on a close reading, Shepley did not stand for the proposition that the court
+
+lacks jurisdiction to bifurcate a trial where one party has served a jury notice, absent
+                                                 Page: 4
+
+
+consent, and that the reference to Shepley in Elcano was obiter. Relying on the court’s
+
+inherent jurisdiction to control its own process and the purposive direction in case
+
+management rule 77.02 encouraging expeditious and less costly proceedings, she was
+
+satisfied that the Master had jurisdiction to make such an order.1
+
+[12]    Chapnik J. was also satisfied that bifurcation was appropriate on the facts of this
+
+case because the liability issue was completely distinct from the damages issues, which
+
+were more complex. As well, a finding in the Linns’ favour would render the damages
+
+trial unnecessary. She therefore concluded that the moving parties had met the onus of
+
+establishing a “clear benefit in terms of time and expense”, shifting the onus of showing a
+
+“real prejudice” outweighing the expediency of bifurcation to the Kovachs, which they
+
+had not done: see General Refractories Co. of Canada v. Venturedyne Ltd., 6 C.P.C. (5th)
+
+329 (Ont. S.C.) and Bourne v. Saunby, 23 C.P.C. (3d) 333 (Ont. Ct. J.).
+
+[13]    Lax J. granted leave to appeal and, on January 15, 2009, the Divisional Court
+
+(Carnwath, Swinton and Bellamy JJ.) allowed the appeal, set aside the Order of
+
+Chapnik J. and restored the Order of Master Egan. The Court held that the Master was
+
+correct in concluding that she was bound by the decisions in Duffy and Carreiro and that
+
+there was no good reason to depart from the decision of other panels of the Divisional
+
+Court: the law in Ontario is that a jury trial cannot be bifurcated if one party objects.
+
+The Court also concluded that Chapnik J. had applied an incorrect test in evaluating the
+
+
+1
+  Rule 77.02 was amended on January 1, 2010. References to the rule throughout these reasons refer to the old
+rule 77.02 which was in effect during all of the proceedings under appeal.
+                                            Page: 5
+
+
+appropriateness of bifurcation on the facts.      The power to bifurcate is a “narrowly
+
+circumscribed power” to be exercised only in the “clearest cases”. This was not one of
+
+those exceptional cases.
+
+[14]   On April 23, 2009, this Court granted leave to appeal from the decision of the
+
+Divisional Court.
+
+Analysis
+
+       Jurisdiction to Bifurcate an Action Where a Jury Notice Has Been Served
+
+[15]   Prior to January 1, 2010, neither the Courts of Justice Act, R.S.O. 1990, c. C.43,
+
+nor the Rules of Civil Procedure expressly conferred the power to bifurcate a civil trial.
+
+As Justice Morden noted at p. 59 in Elcano, however, this fact “does not … mean that
+
+[the power to bifurcate] may not be part of the inherent jurisdiction of the court”. Indeed,
+
+as he said, the jurisprudence accepts that the power exists on this basis, to be exercised
+
+with caution, but in the interests of justice. But he added a clarification – the statement
+
+that underlies the debate on this appeal:
+
+              It has been held that the power may not be exercised where
+              one of the parties has served a jury notice: Shepley v. Libby
+              McNeil & Libby of Canada Ltd; Clifford McKenzie et al.,
+              Third Parties (1979), 23 O.R. (2d) 354, 9 C.P.C. 201.
+
+[16]   Rightly or wrongly, jury cases have long been considered to provide an exception
+
+to the court’s power to split a trial based on its inherent jurisdiction. The power was not
+
+to be exercised in such cases. On behalf of the appellants, Mr. Rachlin argues that the
+
+jurisprudence on which this principle is based has been misunderstood and misapplied,
+                                            Page: 6
+
+
+and that it does not support the jury exception proposition. Moreover, he submits, Justice
+
+Morden’s exclusion of jury trials from the reach of inherent jurisdiction in Elcano –
+
+based on Shepley – was obiter dicta, and is therefore not binding.
+
+[17]   I do not accept these submissions.
+
+[18]   First, Justice Morden’s comment in Elcano is not obiter dicta, in my view. An
+
+expert in procedural matters, Justice Morden was not given to discursive comments. It is
+
+true that Elcano was not a jury case.          Having concluded that the court’s inherent
+
+jurisdiction empowered it to bifurcate a trial in appropriate circumstances, however, it
+
+was necessary for him to state the exception in order to make the proposition he was
+
+enunciating accurate. This does not make the caveat he expressed obiter; it was essential
+
+to his reasoning process, and therefore part of the ratio decidendi of the decision.
+
+[19]   Secondly, the Shepley decision does stand for the proposition for which it was
+
+cited. At p. 355, the Divisional Court said:
+
+
+              Assuming, without deciding, that a Judge sitting in Motions
+              Court has the authority under the Rules or the inherent
+              jurisdiction of the Court to direct the trial of this issue at this
+              stage of the proceedings, in our opinion he does not have
+              jurisdiction to sever an issue of fact or mixed fact and law …
+              for determination before trial where there is a valid jury
+              notice subsisting. The plaintiff, having properly served the
+              jury notice, has a right which is conferred by s. 62(1) of the
+              Judicature Act, R.S.O. 1970, c. 228 [the old equivalent of
+              what is now s. 108(1) of the Courts of Justice Act] to have all
+              the issues of fact tried by a jury subject only to the jury notice
+              being struck out by a Judge, or subject to the discretion of the
+              Judge at trial (s. 62(3)).
+                                             Page: 7
+
+
+[20]      In Shepley, the motion judge relied on the inherent jurisdiction of the court to
+
+sever a limitation issue for determination prior to the pending jury trial. For the reasons
+
+outlined above, the Divisional Court held that he could not. Mr. Rachlin contends that
+
+Shepley does not stand for the proposition that a jury matter may never be severed, but
+
+rather for the proposition that bifurcation is inappropriate where the result will deprive a
+
+party of the right to have all issues raised determined by a jury (the plaintiff in Shepley
+
+had been deprived of his right to have the limitation issue decided by a jury). Here, the
+
+appellants argue, they do not seek to deny the respondents of the right to trial by jury; at
+
+most, the order sought would require separate trials of liability and damages by different
+
+juries.
+
+[21]      Shepley may indeed stand for the proposition that it is inappropriate to split a trial
+
+where a party will be deprived of the right to have factual issues determined by a jury.
+
+However, the ratio of the case is that the court lacks jurisdiction to do so in a jury case.
+
+The plaintiff in Shepley argued in the alternative that, if it had the jurisdiction to do so,
+
+“the Court ought not to have made the order because it thereby deprive[d] the plaintiff of
+
+his right to have that issue tried by a jury...” (emphasis added). Thus, the argument only
+
+arose in that case if the court decided there was jurisdiction to make the bifurcation order
+
+in the first place.
+
+[22]      Shepley is the lynch-pin in the appellants’ analysis because the attempt to
+
+undermine the authority of Elcano – and of Duffy and Carreiro in the Divisional Court,
+
+which are both founded on Elcano and Shepley – depends upon the conclusion that
+                                           Page: 8
+
+
+Shepley has been misunderstood and misapplied. But it has not been misunderstood and
+
+misapplied, in my view.       Given the foregoing analysis, the appellants’ attempts to
+
+distinguish the line of jurisprudence upholding the proposition that jury trials may not be
+
+split, in the absence of consent, fall away.
+
+[23]   There is a further basis upon which the appellants’ position founders.
+
+[24]   It is a well-entrenched principle in Ontario that a litigant has the inherent right to
+
+have the issues of fact or of mixed fact and law decided by a jury (except in cases where
+
+the right has been taken away by statute). This principle is embodied in subsection
+
+108(1) of the Courts of Justice Act, which states:
+
+              In an action in the Superior Court of Justice that is not in the
+              Small Claims Court, a party may require that the issues of
+              fact be tried or the damages assessed, or both, by a jury,
+              unless otherwise provided.
+
+
+
+[25]   The language of s. 108(1) provides legislative support for the notion that a party
+
+may require the issues to be tried by a single jury, i.e., “by a jury.” Subsection 108(3)
+
+provides an exception to this principle by stipulating that the court may order issues of
+
+fact to be tried, or damages assessed, or both, by a judge alone. But – contrary to the
+
+appellants’ argument – s. 108(1) leaves no legislative “gap” to be filled by the exercise of
+
+the court’s inherent jurisdiction: see Re Stelco Inc. (2005), 75 O.R. (3d) 5 (C.A.), at para.
+
+35. This conclusion is reinforced by the decision in Shepley where, on the basis of the
+                                                        Page: 9
+
+
+substantially identical predecessor of s. 108(1),2 the Divisional Court held that there is
+
+“[no] jurisdiction to sever an issue of fact, or mixed fact and law … for determination
+
+before trial where there is a valid jury notice subsisting.”
+
+[26]       Moreover, I do not accept the appellants’ submission that the word “a” jury in
+
+s. 108(1) should be interpreted as “any” jury. Had the legislature intended such a marked
+
+departure from the normal and long-standing practice of trials by “a” judge or “a” jury, it
+
+would have said so by using the words “trial by any jury” or, simply, “trial by jury.” It
+
+did not do so.
+
+[27]       To interpret s. 108(1) in a fashion that permits the trial of different issues by
+
+different juries – absent consent – would also be inconsistent with the well-entrenched
+
+principle that once a trier of fact is seized of an action, it remains seized of it until
+
+judgment is pronounced. The following passage from the decision of Martin J.P.C. in
+
+The “Leonor”, [1917] 3 W.W.R. 861, at p. 871 – cited with approval in Re Regina and
+
+Breckner (1983), 6 C.C.C. (3d) 42 (B.C.C.A.), at p. 52 – captures this principle well:
+
+                    Once a Judge is so seized of a cause or motion he is the sole
+                    and only tribunal which can exercise jurisdiction over it
+                    (unless prohibited by a Higher Court) and from the time he
+                    takes his seat upon the bench at the beginning of the hearing
+                    till he leaves it after judgment is pronounced, no other Judge
+                    of co-ordinate jurisdiction can either by physical force or by
+                    writing under his hand usurp his functions or eject him from
+                    his seat, or constitute another forum to which the parties may
+                    lawfully resort, which is simply usurpation and ejection in
+                    another form.
+
+
+2
+    Judicature Act, R.S.O. 1970, c. 228, s. 62(1); Judicature Act, R.S.O. 1980, c. 223, s. 60(1).
+                                            Page: 10
+
+
+[28]   Juries are judges of the facts, and the same principle applies once a matter has
+
+been submitted to the jury for determination.
+
+[29]   Mr. Rachlin asks why in principle, if there is inherent jurisdiction to bifurcate in
+
+judge alone cases, or as between a judge and jury, it should be different for jury cases
+
+(acknowledging that there may be differences in the factors to be considered in
+
+determining whether to bifurcate or not in the different types of cases). He submits that
+
+to permit bifurcation of issues into different jury trials – even with different juries – does
+
+not deprive a litigant of the right to have all issues of fact or of mixed fact and law
+
+determined by a jury – the impediment identified in Shepley. Furthermore, it is consistent
+
+with modern principles of case management, as expressed in former rule 77.02, and
+
+various judicial pronouncements about the need for courts to control their own processes
+
+and the need to conserve scarce public resources: see, for example, Ashmore v. Corp. of
+
+Lloyd’s, [1992] 2 All E.R. 486 (H.L.); General Refractories at paras. 12-13; Woodglen &
+
+Co. v. Owens, [1995] O.J. No. 1360, at paras. 10-13.
+
+[30]   There are a number of answers to this hypothetical question. For one, when issues
+
+are separated in a judge alone trial, it is the same judge – absent consent to the contrary –
+
+who deals with all the issues. He or she simply does so at different times. This is
+
+because of the principle of seizure discussed above. For another, s. 108(3) of the Courts
+
+of Justice Act provides specific statutory authority in a jury case for issues to be removed
+
+from the jury to be tried by judge alone. No such authority exists for the splitting of
+
+issues to be tried by two or more juries.
+                                         Page: 11
+
+
+[31]   In addition, neither the provisions of former rule 77.02 nor the Ashmore line of
+
+jurisprudence assists the appellants in these circumstances.
+
+[32]   Rule 77.02 stated:
+
+              The purpose of this Rule is to establish a case management
+              system throughout Ontario that reduces unnecessary cost and
+              delay in civil litigation, facilitates early and fair settlements
+              and brings proceedings expeditiously to a just determination
+              while allowing sufficient time for the conduct of the
+              proceeding.
+
+[33]   This rule accurately reflects an important philosophy underpinning the
+
+introduction of case management in Ontario: the expeditious, but just and less costly,
+
+determination of case managed civil proceedings. However, bifurcation is broader than
+
+case management, and there is nothing in former Rule 77 – the case management rule –
+
+that touches on the severance of issues in an action for separate trials. Indeed, when the
+
+Rules Committee enacted the new rule governing separate hearings, it placed it in a part
+
+of the rules far removed from case management. Rule 6.1.01 – effective January 1, 2010
+
+– is the first time a rule speaking to bifurcation has been promulgated. It signals that, in
+
+the opinion of the Rules Committee at least, the bifurcation of a trial, jury or non-jury, is
+
+not generally a good idea unless the parties consent. To repeat, rule 6.1.01 states:
+
+              With the consent of the parties, the court may order a separate
+              hearing on one or more issues in a proceeding, including
+              separate hearings on the issues of liability and damages.
+
+[34]   This new rule may well permit the bifurcation of issues of fact or of mixed fact
+
+and law even where a jury notice has been filed, where the parties consent, thus
+                                         Page: 12
+
+
+surmounting the jurisdictional impediments previously in place. But the new rule does
+
+not apply to the case at bar.
+
+[35]   In Ashmore, Lord Roskill made the following oft-cited remark, at p. 488:
+
+              The Court of Appeal appear to have taken the view that the
+              plaintiffs were entitled as of right to have their case tried to
+              conclusion in such manner as they thought fit and if necessary
+              after all the evidence on both sides had been adduced. With
+              great respect, like my noble and learned friend, I emphatically
+              disagree. In the Commercial Court and indeed in any trial
+              court it is the trial judge who has control of the proceedings.
+              It is part of his duty to identify the crucial issues and to see
+              they are tried as expeditiously and as inexpensively as
+              possible. It is the duty of the advisers of the parties to assist
+              the trial judge in carrying out his duty. Litigants are not
+              entitled to the uncontrolled use of a trial judge’s time. Other
+              litigants await their turn. Litigants are only entitled to so
+              much of the trial judge’s time as is necessary for the proper
+              determination of the relevant issues.
+
+[36]   Without in any way detracting from the force of Lord Roskill’s reflections,
+
+however, I make the following observations. First, Ashmore was a commercial case and
+
+did not involve the question of severing issues in a proceeding (jury or non-jury).
+
+Secondly, I agree with the statement of E. Macdonald J. in Woodglen, at para. 11,
+
+concerning the Ashmore comment:
+
+              Opposite this objective, I am mindful of the very persuasive
+              argument … that this objective should not compromise or
+              prejudice either party to the litigation by the making of orders
+              such as the one sought today by the plaintiffs. I agree that, as
+              a general proposition, convenience, the saving of time and the
+              saving of costs for the litigants, as well as for the State, are
+              secondary to the overriding concern that no party should be
+              prejudiced as the result of an order such as the one sought
+              today by the plaintiffs.
+                                           Page: 13
+
+
+[37]   The key is prejudice to the rights of a party in the litigation. In the absence of
+
+statutory or rules-based authority to do so, there are sound reasons in principle for
+
+adopting the view that a court does not have jurisdiction to bifurcate issues in a jury trial
+
+– or, to put it in the words of Justice Morden in Elcano – “that the power may not be
+
+exercised where one of the parties has served a jury notice.”
+
+[38]   First, there is the familiar injunction in s. 138 of the Courts of Justice Act that, as
+
+far as possible, multiplicity of proceedings is to be avoided. Since they do not want to
+
+transgress the right to have one’s issues tried by a jury, the appellants assert that the
+
+issues in a bifurcated jury trial can be tried by two (or more) juries. Mr. Rachlin was not
+
+able to refer us to a single case where that had ever been done, however, and the
+
+implications inherent in such an order are disquieting. Multiple appeals in the same
+
+action, with the delays and substantial costs accompanying them? Multiple juries, with
+
+the possibility of inconsistent findings between them? Questions about two triers of fact
+
+being “seized” of the same action? As a practical matter, the ability of a judge at the
+
+motion stage to determine whether there will be no overlap on the evidence relating to
+
+both liability and damages at trial, is something that is almost impossible to predict
+
+accurately. The safer approach – for which the Rules Committee has now opted – is not
+
+to permit bifurcation in jury cases unless there is consent. Where there is consent, one
+
+party freely gives up its right to have the issues tried by a single jury.
+                                           Page: 14
+
+
+[39]   Related to these concerns is the long-ago expressed judicial admonition of
+
+Meredith C.J. in Waller v. Independent Order of Foresters (1905), 5 O.W.R. 421
+
+(Div. Ct.), at p. 422, that bears repeating:
+
+              Experience has shewn that seldom, if ever, is any advantage
+              gained by trying some of the issues before the trial of the
+              others is entered upon...
+
+[40]   This statement was cited with approval in Elcano, at p. 59, and more recently, it
+
+has been reiterated at the trial level by Shaughnessy J – a former Regional Senior Justice
+
+familiar with the challenges of allocating judicial resources – in Blanchette v. Jody
+
+Squires, 76 C.C.L.I. (4th) 304 (Ont. S.C.), at paras. 23-24.
+
+[41]   A number of the considerations I have touched on may not go directly to
+
+jurisdiction. They are more clearly tied to the appropriateness of granting a bifurcation
+
+order in particular circumstances – which this Court has said in Elcano, at p. 59, is only
+
+to be done “in the clearest cases.” Nonetheless, they underscore the rationale behind the
+
+interpretation I have given to s. 108(1) above.
+
+[42]   The practice in Ontario has long been understood to preclude the bifurcation of
+
+trials where a jury notice has been served, in the absence of consent. To reverse that
+
+practice, as the appellants seek, would be a major change in the law. In Ontario, it is
+
+primarily the role of the Rules Committee to develop new rules respecting the practice
+
+and procedure in civil matters. In doing so, it takes into account the needs of the system
+
+viewed through the experience of judges and practitioners across the province.         Much
+
+better that a stark change in practice, such as that proposed by the appellants – reversing a
+                                          Page: 15
+
+
+long-standing and fundamental right to trial by a single jury – be left to the legislature or
+
+the Rules Committee – a responsibility that the Rules Committee has now fulfilled.
+
+[43]   I would not give effect to this ground of appeal.
+
+       The Appropriate Test for Bifurcation
+
+[44]   In view of my conclusion that the court did not have jurisdiction to order the
+
+bifurcated trial of issues sought by the appellants in this case, it is unnecessary to
+
+consider whether Chapnik J. erred in applying a “clear benefit of time and expense” test,
+
+as opposed to a “clearest of cases” test, and I decline to do so.
+
+Disposition
+
+[45]   For the foregoing reasons, I would dismiss the appeal.
+
+[46]   The respondent is entitled to its costs, fixed in the amount of $8,000.00, inclusive
+
+of disbursements and GST.
+
+                                                                            “R.A. Blair J.A.”
+                                                                  “I agree S.T. Goudge J.A.”
+                                                             “I agree J.C. MacPherson J.A.”
+RELEASED: February 18, 2010
+
