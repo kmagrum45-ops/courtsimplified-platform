@@ -53,7 +53,12 @@
  * shows FORM_COMPLETION_PAUSED_MESSAGE, and the builder does not render the
  * Statement of Claim surface. Asserted by `npm run test:form-completion-paused`.
  */
-export const FORM_COMPLETION_PAUSED = true;
+/*
+ * UNPAUSED 2026-09-30 by the site owner for live testing ("Put everything on
+ * live"). Set back to true to pause again; verifyFormCompletionPaused asserts
+ * the paused behaviour whenever it is true.
+ */
+export const FORM_COMPLETION_PAUSED = false;
 
 export const FORM_COMPLETION_PAUSED_MESSAGE =
   "Filling in official court forms is not available right now. You can find every Ontario court form, " +
@@ -85,7 +90,12 @@ export function aiAnalysisTextToUsers(
 }
 
 /** Pathways a user can actually complete today. */
-export const AVAILABLE_PATHWAYS = ["small-claims"] as const;
+/*
+ * All three since 2026-09-30 (site owner: "Put everything on live"), now that
+ * the civil and family libraries and next steps are written and verified. To
+ * close a pathway again, remove it here; every gate reads this list.
+ */
+export const AVAILABLE_PATHWAYS = ["small-claims", "family", "civil"] as const;
 
 export type AvailablePathway = (typeof AVAILABLE_PATHWAYS)[number];
 

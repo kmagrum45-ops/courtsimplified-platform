@@ -1587,8 +1587,13 @@ handed Small Claims procedure as its verified material.
 Rules, recorded in the log's `nextSteps`, and held by the same suite
 (fingerprint, vendored quotes, link read, no grading language).
 
-**Still gated.** `AVAILABLE_PATHWAYS` is still `["small-claims"]`
-(phaseScope.ts): the LSO A2I application describes phase 1 as Small Claims
-only, so opening Family and Civil is the site owner's decision, not a code
-change made here. Note that `/api/civil/analyze` and `/api/family/analyze` do
-not check the gate themselves.
+**Opened 2026-09-30 by the site owner** ("Put everything on live ... so it can
+go through live testing"): `AVAILABLE_PATHWAYS` is all three,
+`FORM_COMPLETION_PAUSED` is false, and `OWNER_LIVE_TESTING` in
+`policy/a2iScope.ts` turns every approval-tier capability on in production.
+Those capabilities are still reported as preview-only, so each screen shows the
+testing notice, and none is recorded as A2I-approved. This is safe only behind
+the site password (middleware.ts); `test:a2i-scope` fails if the gate goes
+while live testing is on. **Before real users are admitted**, set
+`OWNER_LIVE_TESTING.enabled` to false and decide each pathway and capability
+again -- the A2I application describes phase 1 as Small Claims only.

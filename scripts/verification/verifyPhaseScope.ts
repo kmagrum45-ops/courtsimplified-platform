@@ -1,5 +1,11 @@
 /**
- * Phase 1 is Small Claims only, and no user reaches an empty screen.
+ * No user reaches an empty screen: a pathway is open only when it has real
+ * content, and a closed one says so at every door.
+ *
+ * (Until 2026-09-30 this asserted "phase 1 is Small Claims only". The site
+ * owner opened Family and Civil that day, once their libraries and next steps
+ * were written and verified, so the checks now assert the property the gate
+ * existed for, whichever pathways are open.)
  *
  * COSTS NOTHING. Reads source off disk and calls pure functions.
  *
@@ -18,7 +24,7 @@
  * *** WHY THE PLACEHOLDERS ARE STILL REQUIRED TO EXIST ***
  *
  * Check 4 asserts the eighteen Family and Civil blocks are still in the
- * catalogue. Deleting them would make this suite greener and the work smaller:
+ * catalogue (all authored since 2026-09-30). Deleting them would make this suite greener and the work smaller:
  * they are the record of which stages phase 2 must author, and they are what
  * the licensee review packet lists. A gate that was implemented by deletion
  * would pass every other check here.
@@ -56,24 +62,27 @@ const read = (rel: string) => readFileSync(path.join(ROOT, rel), "utf8");
 // ---------------------------------------------------------------------------
 
 {
-  if (AVAILABLE_PATHWAYS.length === 1 && AVAILABLE_PATHWAYS[0] === "small-claims") {
-    pass("phase 1 covers exactly one pathway: small-claims");
-  } else {
-    fail(`AVAILABLE_PATHWAYS is ${JSON.stringify(AVAILABLE_PATHWAYS)}`);
-  }
-
-  const unavailable: KnownPathway[] = ["family", "civil"];
-  const wrong = unavailable.filter((pathway) => isPathwayAvailable(pathway));
-  if (wrong.length === 0) {
-    pass("family and civil are not available");
-  } else {
-    fail(`these should be unavailable: ${wrong.join(", ")}`);
-  }
-
+  const known: KnownPathway[] = ["small-claims", "family", "civil"];
   if (isPathwayAvailable("small-claims")) {
     pass("small-claims IS available — the gate is not blocking everything");
   } else {
-    fail("small-claims is not available; phase 1 covers nothing");
+    fail("small-claims is not available; the product covers nothing");
+  }
+  if (AVAILABLE_PATHWAYS.every((pathway) => known.includes(pathway))) {
+    pass(`open pathways: ${AVAILABLE_PATHWAYS.join(", ")}`);
+  } else {
+    fail(`AVAILABLE_PATHWAYS names an unknown pathway: ${JSON.stringify(AVAILABLE_PATHWAYS)}`);
+  }
+
+  // THE PROPERTY: an open pathway has real next steps at every stage. This is
+  // what fails if someone opens a pathway before its content exists.
+  const empty = NEXT_STEP_BLOCKS.filter((block) => isPathwayAvailable(block.pathway) && isPlaceholder(block)).map(
+    (block) => block.id,
+  );
+  if (empty.length === 0) {
+    pass("every open pathway has authored next steps at every stage");
+  } else {
+    fail("an open pathway would show a user an empty screen", empty.join("\n"));
   }
 }
 
@@ -97,9 +106,13 @@ const DOORS: Array<{ file: string; why: string }> = [
    * — because the import line still contained the word. A check satisfied by
    * an import is a check satisfied by nothing.
    */
-  const ungated = DOORS.filter(({ file }) => !/<PathwayUnavailable[\s/>]/.test(read(file)));
+  // Rendered AND conditional on the pathway being closed.
+  const ungated = DOORS.filter(({ file }) => {
+    const text = read(file);
+    return !/<PathwayUnavailable[\s/>]/.test(text) || !/isPathwayAvailable\(/.test(text);
+  });
   if (ungated.length === 0) {
-    pass(`all ${DOORS.length} entry points render the unavailable notice`);
+    pass(`all ${DOORS.length} entry points render the closed-pathway notice when the pathway is closed`);
   } else {
     fail(
       "an entry point into an unavailable pathway has no gate",
@@ -115,13 +128,20 @@ const DOORS: Array<{ file: string; why: string }> = [
     ["app/family/page.tsx", "family"],
     ["app/civil/page.tsx", "civil"],
   ]) {
-    if (read(file).includes(`/builder?path=${pathway}`)) {
-      offenders.push(`${file} still links to /builder?path=${pathway}`);
+    // Every link into the intake must sit inside an availability check.
+    const text = read(file);
+    let at = text.indexOf(`/builder?path=${pathway}`);
+    while (at !== -1) {
+      const before = text.slice(Math.max(0, at - 250), at);
+      if (!before.includes(`isPathwayAvailable("${pathway}")`)) {
+        offenders.push(`${file} links to /builder?path=${pathway} without checking the pathway is open`);
+      }
+      at = text.indexOf(`/builder?path=${pathway}`, at + 1);
     }
   }
 
   if (offenders.length === 0) {
-    pass("no landing page still offers to start a gated intake");
+    pass("a landing page offers to start an intake only while that pathway is open");
   } else {
     fail("a landing page links into a gated intake", offenders.join("\n"));
   }
