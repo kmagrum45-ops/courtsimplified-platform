@@ -1,5 +1,5 @@
 
-Fran�ais
+Français
                             Limitations Act, 2002
 
                             S.O. 2002, chapter 24
@@ -61,24 +61,24 @@ Sched. 2; CTS 18 AU 10 - 1; 2017, c. 2, Sched. 3, s. 6; 2017, c.  2,  Sched.
 
 DEFINITIONS
 1 In this Act,
-"adverse effect" has the same meaning as  in  the  Environmental  Protection
- Act; ("cons�quence pr�judiciable")
-"assault" includes a battery; ("voies de fait")
-"claim" means a claim to remedy an injury, loss or damage that  occurred  as
- a result of an act or omission;  ("r�clamation")
-"contaminant" has the same meaning as in the Environmental  Protection  Act;
- ("contaminant")
-"discharge" has the same meaning as in  the  Environmental  Protection  Act;
- ("rejet", "rejeter")
-"environmental claim" means a  claim  based  on  an  act  or  omission  that
+“adverse effect” has the same meaning as  in  the  Environmental  Protection
+ Act; (“conséquence préjudiciable”)
+“assault” includes a battery; (“voies de fait”)
+“claim” means a claim to remedy an injury, loss or damage that  occurred  as
+ a result of an act or omission;  (“réclamation”)
+“contaminant” has the same meaning as in the Environmental  Protection  Act;
+ (“contaminant”)
+“discharge” has the same meaning as in  the  Environmental  Protection  Act;
+ (“rejet”, “rejeter”)
+“environmental claim” means a  claim  based  on  an  act  or  omission  that
  caused, contributed to, or permitted the discharge of a  contaminant  into
  the natural environment that has caused or is likely to cause  an  adverse
- effect; ("r�clamation relative � l'environnement")
-"natural  environment"  has  the  same  meaning  as  in  the   Environmental
- Protection Act. ("environnement naturel")  2002, c. 24, Sched. B, s. 1.
+ effect; (“réclamation relative à l’environnement”)
+“natural  environment”  has  the  same  meaning  as  in  the   Environmental
+ Protection Act. (“environnement naturel”)  2002, c. 24, Sched. B, s. 1.
 
 Application
-2 (1)  This Act applies to claims pursued in court proceedings other than,
+2 (1)  This Act applies to claims pursued in court proceedings other than,
       (a)   proceedings to which the Real Property Limitations Act applies;
       (b)   proceedings in  the  nature  of  an  appeal,  if  the  time  for
     commencing them is governed by an Act or rule of court;
@@ -91,28 +91,28 @@ Application
     against the Crown; and
       (g)   proceedings to which the Limitation Convention  or  the  Amended
     Limitation  Convention,  as  defined   in   the   International   Sales
-    Conventions Act, applies. 2002, c. 24, Sched. B, s. 2 (1); 2017, c. 2,
+    Conventions Act, applies. 2002, c. 24, Sched. B, s. 2 (1); 2017, c.  2,
     Sched. 8, s. 5.
 
 Exception, aboriginal rights
-(2)  Proceedings referred to in clause (1) (e) and (f) are governed by  the
+(2)  Proceedings referred to in clause (1) (e) and (f) are governed  by  the
 law that would have been in force with respect to limitation of  actions  if
-this Act had not been passed.  2002, c. 24, Sched. B, s. 2 (2).
+this Act had not been passed.  2002, c. 24, Sched. B, s. 2 (2).
 Section Amendments with date in force (d/m/y)
 2017, c. 2, Sched. 8, s. 5 - 22/03/2017
 
 Crown
-3 This Act binds the Crown.  2002, c. 24, Sched. B, s. 3.
+3 This Act binds the Crown.  2002, c. 24, Sched. B, s. 3.
 
                            Basic Limitation Period
 
 BASIC LIMITATION PERIOD
 4 Unless this Act provides otherwise, a proceeding shall  not  be  commenced
 in respect of a claim after the second anniversary of the day on  which  the
-claim was discovered.  2002, c. 24, Sched. B, s. 4.
+claim was discovered.  2002, c. 24, Sched. B, s. 4.
 
 Discovery
-5 (1)  A claim is discovered on the earlier of,
+5 (1)  A claim is discovered on the earlier of,
       (a)   the day on which the person with the claim first knew,
       (i)   that the injury, loss or damage had occurred,
       (ii)  that the injury, loss or damage was caused by or contributed  to
@@ -124,24 +124,24 @@ Discovery
        it; and
       (b)   the day on which a reasonable person with the abilities  and  in
     the circumstances of the person with the  claim  first  ought  to  have
-    known of the matters referred to in clause (a).  2002, c. 24, Sched. B,
-    s. 5 (1).
+    known of the matters referred to in clause (a).  2002, c. 24, Sched. B,
+    s. 5 (1).
 
 Presumption
-(2)  A person with a claim shall be presumed to have known of  the  matters
+(2)  A person with a claim shall be presumed to have known  of  the  matters
 referred to in clause (1) (a) on the day the act or omission  on  which  the
-claim is based took place, unless the contrary  is  proved.   2002,  c. 24,
-Sched. B, s. 5 (2).
+claim is based took place, unless the  contrary  is  proved.   2002,  c. 24,
+Sched. B, s. 5 (2).
 
 Demand obligations
-(3)  For the purposes of subclause (1) (a) (i), the day  on  which  injury,
+(3)  For the purposes of subclause (1) (a) (i), the  day  on  which  injury,
 loss or damage occurs in relation to a demand obligation is  the  first  day
 on which there is a failure to perform the obligation,  once  a  demand  for
-the performance is made.  2008, c. 19, Sched. L, s. 1.
+the performance is made.  2008, c. 19, Sched. L, s. 1.
 
 Same
-(4)  Subsection (3) applies in respect of every demand  obligation  created
-on or after January 1, 2004.  2008, c. 19, Sched. L, s. 1.
+(4)  Subsection (3) applies in respect of every  demand  obligation  created
+on or after January 1, 2004.  2008, c. 19, Sched. L, s. 1.
 Section Amendments with date in force (d/m/y)
 2008, c. 19, Sched. L, s. 1 - 27/11/2008
 
@@ -150,57 +150,57 @@ Minors
 time in which the person with the claim,
       (a)   is a minor; and
       (b)   is not represented by a litigation guardian in relation  to  the
-    claim.  2002, c. 24, Sched. B, s. 6.
+    claim.  2002, c. 24, Sched. B, s. 6.
 
 Incapable persons
-7 (1)  The limitation period established by section 4 does not  run  during
+7 (1)  The limitation period established by section 4 does  not  run  during
 any time in which the person with the claim,
       (a)   is incapable of commencing a proceeding in respect of the  claim
     because of his or her physical, mental or psychological condition; and
       (b)   is not represented by a litigation guardian in relation  to  the
-    claim.  2002, c. 24, Sched. B, s. 7 (1).
+    claim.  2002, c. 24, Sched. B, s. 7 (1).
 
 Presumption
-(2)  A person shall be presumed  to  have  been  capable  of  commencing  a
+(2)  A person shall be  presumed  to  have  been  capable  of  commencing  a
 proceeding in respect of a  claim  at  all  times  unless  the  contrary  is
-proved.  2002, c. 24, Sched. B, s. 7 (2).
+proved.  2002, c. 24, Sched. B, s. 7 (2).
 
 Extension
-(3)  If the running of a limitation period is postponed or suspended  under
+(3)  If the running of a limitation period is postponed or  suspended  under
 this section and the period has  less  than  six  months  to  run  when  the
 postponement or suspension ends, the period is extended to include  the  day
 that is six months after the day on which  the  postponement  or  suspension
-ends.  2002, c. 24, Sched. B, s. 7 (3).
-(4)  Repealed: 2016, c. 2, Sched. 2, s. 1.
+ends.  2002, c. 24, Sched. B, s. 7 (3).
+(4)  Repealed: 2016, c. 2, Sched. 2, s. 1.
 Section Amendments with date in force (d/m/y)
 2016, c. 2, Sched. 2, s. 1 - 08/03/2016
 
 Litigation guardians
 8 If a person is represented by a litigation guardian  in  relation  to  the
 claim, section 5 applies as if the litigation guardian were the person  with
-the claim.  2002, c. 24, Sched. B, s. 8.
+the claim.  2002, c. 24, Sched. B, s. 8.
 
 Appointment of litigation guardian on application or motion by potential
 defendant
 
 Definitions
-9 (1)  In this section,
-"potential defendant" means a person against whom another person may have  a
+9 (1)  In this section,
+“potential defendant” means a person against whom another person may have  a
  claim but against whom the other person has not commenced a proceeding  in
- respect of the claim;  ("d�fendeur �ventuel")
-"potential plaintiff" means a person who may have a  claim  against  another
+ respect of the claim;  (“défendeur éventuel”)
+“potential plaintiff” means a person who may have a  claim  against  another
  person but has not commenced a proceeding against that person  in  respect
- of the claim.  ("demandeur �ventuel")  2002, c. 24, Sched. B, s. 9 (1).
+ of the claim.  (“demandeur éventuel”)  2002, c. 24, Sched. B, s. 9 (1).
 
 Appointment of litigation guardian on application or motion by potential
 defendant
-(2)  If the running of a limitation  period  in  relation  to  a  claim  is
+(2)  If the running of a  limitation  period  in  relation  to  a  claim  is
 postponed or suspended under section 6 or 7, a potential defendant may  make
 an application or a motion to have a litigation  guardian  appointed  for  a
-potential plaintiff.  2002, c. 24, Sched. B, s. 9 (2).
+potential plaintiff.  2002, c. 24, Sched. B, s. 9 (2).
 
 Effect of appointment
-(3)  Subject to subsection (4), the appointment of  a  litigation  guardian
+(3)  Subject to subsection (4), the appointment  of  a  litigation  guardian
 ends the postponement or suspension of the running of the limitation  period
 if the following conditions are met:
       1.    The appointment is made by a judge on the application or  motion
@@ -213,13 +213,13 @@ if the following conditions are met:
        in clause 5 (1) (a),
       iv.   does not have an interest  adverse  to  that  of  the  potential
        plaintiff, and
-       v.     agrees  to  attend  to  the  potential  plaintiff's  interests
+       v.     agrees  to  attend  to  the  potential  plaintiff’s  interests
        diligently and to take all necessary  steps  for  their  protection,
-       including the commencement of a claim if appropriate.  2002, c. 24,
-       Sched. B, s. 9 (3).
+       including the commencement of a claim if appropriate.  2002,  c. 24,
+       Sched. B, s. 9 (3).
 
 Non-expiry
-(4)  The limitation period shall  be  deemed  not  to  expire  against  the
+(4)  The limitation period  shall  be  deemed  not  to  expire  against  the
 potential plaintiff until the later of,
       (a)   the date that  is  six  months  after  the  potential  defendant
     files, with proof of service on the litigation guardian,
@@ -228,51 +228,51 @@ potential plaintiff until the later of,
        is not aware of any proceeding by the  litigation  guardian  against
        the potential defendant in respect of the claim; and
       (b)   the date on which the limitation period would  otherwise  expire
-    after it resumes running under subsection (3).  2002, c. 24, Sched. B,
-    s. 9 (4).
+    after it resumes running under subsection (3).  2002, c. 24,  Sched. B,
+    s. 9 (4).
 
 Notice
-(5)  The notice,
+(5)  The notice,
       (a)   shall  not  be  served  before  the  first  anniversary  of  the
     appointment;
       (b)   shall identify the potential plaintiff, the potential  defendant
     and the claim; and
       (c)   shall indicate  that  the  claim  could  be  extinguished  if  a
-    proceeding is not promptly commenced.  2002, c. 24, Sched. B, s. 9 (5).
+    proceeding is not promptly commenced.  2002, c. 24, Sched. B, s. 9 (5).
 10 Repealed: 2016, c. 2, Sched. 2, s. 2.
 Section Amendments with date in force (d/m/y)
 2016, c. 2, Sched. 2, s. 2 - 08/03/2016
 
 Attempted resolution
-11 (1)  If a person with a claim and a person against  whom  the  claim  is
+11 (1)  If a person with a claim and a person  against  whom  the  claim  is
 made have agreed to have an independent third party  resolve  the  claim  or
 assist them in resolving it, the limitation periods established by  sections
 4 and 15 do not run from the date the agreement is made until,
       (a)   the date the claim is resolved;
       (b)   the date the attempted resolution process is terminated; or
       (c)   the date a party terminates or  withdraws  from  the  agreement.
-    2002, c. 24, Sched. B, s. 11.
+    2002, c. 24, Sched. B, s. 11.
 
 Same
-(2)  For greater certainty, a person or entity that provides resolution  of
+(2)  For greater certainty, a person or entity that provides  resolution  of
 claims or assistance in resolving claims,  on  an  impartial  basis,  is  an
-independent third party no matter how it is funded.  2006, c. 21, Sched. D,
-s. 1.
+independent third party no matter how it is funded.  2006, c. 21,  Sched. D,
+s. 1.
 Section Amendments with date in force (d/m/y)
 2006, c. 21, Sched. D, s. 1 - 19/10/2006
 
 Successors
-12 (1)  For the purpose of clause 5 (1) (a), in the case  of  a  proceeding
+12 (1)  For the purpose of clause 5 (1) (a), in the  case  of  a  proceeding
 commenced by a person claiming through a  predecessor  in  right,  title  or
 interest, the person shall be  deemed  to  have  knowledge  of  the  matters
 referred to in that clause on the earlier of the following:
       1.    The day the predecessor first knew or ought  to  have  known  of
     those matters.
       2.    The day the person claiming first knew or ought  to  have  known
-    of them.  2002, c. 24, Sched. B, s. 12 (1).
+    of them.  2002, c. 24, Sched. B, s. 12 (1).
 
 Principals and agents
-(2)  For the purpose of clause 5 (1) (a),  in  the  case  of  a  proceeding
+(2)  For the purpose of clause 5 (1)  (a),  in  the  case  of  a  proceeding
 commenced by a principal, if the agent had a duty to  communicate  knowledge
 of the matters referred to in that clause to the  principal,  the  principal
 shall be deemed to have knowledge of the matters referred to in that  clause
@@ -280,92 +280,92 @@ on the earlier of the following:
       1.    The day the agent first knew or ought to  have  known  of  those
     matters.
       2.    The day the principal first knew  or  ought  to  have  known  of
-    them.  2002, c. 24, Sched. B, s. 12 (2).
+    them.  2002, c. 24, Sched. B, s. 12 (2).
 
 Same
-(3)  The day on which a predecessor or agent first ought to have  known  of
+(3)  The day on which a predecessor or agent first ought to  have  known  of
 the matters referred to  in  clause  5  (1)  (a)  is  the  day  on  which  a
-reasonable person in the predecessor's or  agent's  circumstances  and  with
-the predecessor's or agent's abilities first ought to have  known  of  them.
-2002, c. 24, Sched. B, s. 12 (3).
+reasonable person in the predecessor’s or  agent’s  circumstances  and  with
+the predecessor’s or agent’s abilities first ought to have  known  of  them.
+2002, c. 24, Sched. B, s. 12 (3).
 
 Acknowledgments
-13 (1)  If a person acknowledges  liability  in  respect  of  a  claim  for
+13 (1)  If a person  acknowledges  liability  in  respect  of  a  claim  for
 payment of  a  liquidated  sum,  the  recovery  of  personal  property,  the
 enforcement of a charge on personal property or relief from  enforcement  of
 a charge on personal property, the act or omission on  which  the  claim  is
 based shall be  deemed  to  have  taken  place  on  the  day  on  which  the
-acknowledgment was made.  2002, c. 24, Sched. B, s. 13 (1).
+acknowledgment was made.  2002, c. 24, Sched. B, s. 13 (1).
 
 Interest
-(2)  An acknowledgment of liability in respect of a claim for  interest  is
+(2)  An acknowledgment of liability in respect of a claim  for  interest  is
 an acknowledgment of liability in respect of a claim for the  principal  and
-for interest falling due after the acknowledgment is  made.   2002,  c. 24,
-Sched. B, s. 13 (2).
+for interest falling due after the acknowledgment  is  made.   2002,  c. 24,
+Sched. B, s. 13 (2).
 
 Collateral
-(3)  An acknowledgment of liability in respect of a claim to realize on  or
+(3)  An acknowledgment of liability in respect of a claim to realize  on  or
 redeem collateral under a security agreement or to recover money in  respect
 of the collateral is an acknowledgment by any other person who  later  comes
-into possession of it.  2002, c. 24, Sched. B, s. 13 (3).
+into possession of it.  2002, c. 24, Sched. B, s. 13 (3).
 
 Realization
-(4)  A debtor's performance of an obligation  under  or  in  respect  of  a
+(4)  A debtor’s performance of an  obligation  under  or  in  respect  of  a
 security agreement is an  acknowledgment  by  the  debtor  of  liability  in
 respect of a claim by the creditor for realization on the  collateral  under
-the agreement.  2002, c. 24, Sched. B, s. 13 (4).
+the agreement.  2002, c. 24, Sched. B, s. 13 (4).
 
 Redemption
-(5)  A creditor's acceptance of a debtor's payment  or  performance  of  an
+(5)  A creditor’s acceptance of a debtor’s  payment  or  performance  of  an
 obligation under or in respect of a security agreement is an  acknowledgment
 by the creditor of liability in  respect  of  a  claim  by  the  debtor  for
-redemption of the collateral under the agreement.  2002, c. 24,  Sched. B,
-s. 13 (5).
+redemption of the collateral under the agreement.   2002,  c. 24,  Sched. B,
+s. 13 (5).
 
 Trustees
-(6)  An acknowledgment by a trustee  is  an  acknowledgment  by  any  other
+(6)  An acknowledgment by a  trustee  is  an  acknowledgment  by  any  other
 person who is or who later becomes a  trustee  of  the  same  trust.   2002,
-c. 24, Sched. B, s. 13 (6).
+c. 24, Sched. B, s. 13 (6).
 
 Personal property
-(7)  An acknowledgment of liability in respect of a  claim  to  recover  or
+(7)  An acknowledgment of liability in respect of  a  claim  to  recover  or
 enforce  an  equitable  interest  in  personal  property  by  a  person   in
 possession of it is an acknowledgment by any other person  who  later  comes
-into possession of it.  2002, c. 24, Sched. B, s. 13 (7).
+into possession of it.  2002, c. 24, Sched. B, s. 13 (7).
 
 Liquidated sum
-(8)  Subject to subsections (9)  and  (10),  this  section  applies  to  an
+(8)  Subject to subsections  (9)  and  (10),  this  section  applies  to  an
 acknowledgment of  liability  in  respect  of  a  claim  for  payment  of  a
 liquidated sum even though the person making the acknowledgment  refuses  or
 does not promise to pay the sum or the  balance  of  the  sum  still  owing.
-2002, c. 24, Sched. B, s. 13 (8).
+2002, c. 24, Sched. B, s. 13 (8).
 
 Restricted application
-(9)  This section does not apply unless the acknowledgment is made  to  the
-person with the claim,  the  person's  agent  or  an  official  receiver  or
+(9)  This section does not apply unless the acknowledgment is  made  to  the
+person with the claim,  the  person’s  agent  or  an  official  receiver  or
 trustee acting under the Bankruptcy and Insolvency Act (Canada)  before  the
-expiry of the limitation period applicable  to  the  claim.   2002,  c. 24,
-Sched. B, s. 13 (9).
+expiry of the limitation period  applicable  to  the  claim.   2002,  c. 24,
+Sched. B, s. 13 (9).
 
 Same
-(10)  Subsections (1), (2), (3), (6)  and  (7)  do  not  apply  unless  the
+(10)  Subsections (1), (2), (3),  (6)  and  (7)  do  not  apply  unless  the
 acknowledgment is in writing and signed by  the  person  making  it  or  the
-person's agent.  2002, c. 24, Sched. B, s. 13 (10).
+person’s agent.  2002, c. 24, Sched. B, s. 13 (10).
 
 Same
-(11)  In the case of a claim for payment of a liquidated sum, part  payment
-of the sum by the person against whom the claim is made or by  the  person's
+(11)  In the case of a claim for payment of a liquidated sum,  part  payment
+of the sum by the person against whom the claim is made or by  the  person’s
 agent has the same effect as the acknowledgment referred  to  in  subsection
-(10).  2002, c. 24, Sched. B, s. 13 (11).
+(10).  2002, c. 24, Sched. B, s. 13 (11).
 
 Notice of possible claim
-14 (1)  A person against whom another person may have a claim may  serve  a
-notice of possible claim on the other person.  2002, c. 24, Sched. B, s. 14
+14 (1)  A person against whom another person may have a claim  may  serve  a
+notice of possible claim on the other person.  2002, c. 24, Sched. B,  s. 14
 (1).
 
 Contents
-(2)  A notice of possible claim shall be  in  writing  and  signed  by  the
-person issuing it or that person's lawyer, and shall,
+(2)  A notice of possible claim shall  be  in  writing  and  signed  by  the
+person issuing it or that person’s lawyer, and shall,
       (a)   describe the injury, loss or  damage  that  the  issuing  person
     suspects may have occurred;
       (b)   identify the act or omission giving rise to the injury, loss  or
@@ -374,53 +374,53 @@ person issuing it or that person's lawyer, and shall,
     the injury, loss or damage may have been caused by the issuing person;
       (d)   state that  any  claim  that  the  other  person  has  could  be
     extinguished because of the expiry of a limitation period; and
-      (e)   state the issuing person's name and address for service.   2002,
-    c. 24, Sched. B, s. 14 (2).
+      (e)   state the issuing person’s name and address for service.   2002,
+    c. 24, Sched. B, s. 14 (2).
 
 Effect
-(3)  The fact that a notice of possible claim has been served on  a  person
+(3)  The fact that a notice of possible claim has been served  on  a  person
 may be considered by a court in determining when the  limitation  period  in
-respect of the person's claim began to run.  2002, c. 24, Sched. B, s. 14
+respect of the person’s claim began to run.  2002,  c. 24,  Sched. B,  s. 14
 (3).
 
 Exception
-(4)  Subsection (3) does not apply to a person who is not represented by  a
+(4)  Subsection (3) does not apply to a person who is not represented  by  a
 litigation guardian in relation to the claim and who, when served  with  the
 notice,
       (a)   is a minor; or
       (b)   is incapable of commencing a proceeding because of  his  or  her
-    physical, mental or psychological condition.  2002, c. 24,  Sched. B,
-    s. 14 (4).
+    physical, mental or psychological condition.   2002,  c. 24,  Sched. B,
+    s. 14 (4).
 
 Acknowledgment
-(5)  A notice of possible claim is not an acknowledgment for the purpose of
-section 13.  2002, c. 24, Sched. B, s. 14 (5).
+(5)  A notice of possible claim is not an acknowledgment for the purpose  of
+section 13.  2002, c. 24, Sched. B, s. 14 (5).
 
 Admission
-(6)  A notice of possible claim is not an admission of the validity of  the
-claim.  2002, c. 24, Sched. B, s. 14 (6).
+(6)  A notice of possible claim is not an admission of the validity  of  the
+claim.  2002, c. 24, Sched. B, s. 14 (6).
 
                          Ultimate Limitation Periods
 
 ULTIMATE LIMITATION PERIODS
-15 (1)  Even if the limitation period established by any other  section  of
+15 (1)  Even if the limitation period established by any  other  section  of
 this Act in respect of a claim has  not  expired,  no  proceeding  shall  be
 commenced in respect of the claim after the expiry of  a  limitation  period
-established by this section.  2002, c. 24, Sched. B, s. 15 (1).
+established by this section.  2002, c. 24, Sched. B, s. 15 (1).
 
 General
-(2)  No proceeding shall be commenced in respect of  any  claim  after  the
+(2)  No proceeding shall be commenced in respect  of  any  claim  after  the
 15th anniversary of the day on which the act or omission on which the  claim
-is based took place.  2002, c. 24, Sched. B, s. 15 (2).
+is based took place.  2002, c. 24, Sched. B, s. 15 (2).
 
 Exception, purchasers for value
-(3)  Despite subsection (2), no proceeding against a purchaser of  personal
+(3)  Despite subsection (2), no proceeding against a purchaser  of  personal
 property for value acting in good faith shall be  commenced  in  respect  of
 conversion of the property after the second anniversary of the day on  which
-the property was converted.  2002, c. 24, Sched. B, s. 15 (3).
+the property was converted.  2002, c. 24, Sched. B, s. 15 (3).
 
 Period not to run
-(4)  The limitation period established  by  subsection  (2)  does  not  run
+(4)  The limitation period  established  by  subsection  (2)  does  not  run
 during any time in which,
       (a)   the person with the claim,
       (i)   is incapable of commencing a proceeding in respect of the  claim
@@ -437,15 +437,15 @@ during any time in which,
        that of the person against whom the claim is made, or
        (ii)   wilfully  misleads  the  person  with  the  claim  as  to  the
        appropriateness of a proceeding as a means of remedying the  injury,
-       loss or damage.  2002, c. 24, Sched. B, s. 15 (4).
+       loss or damage.  2002, c. 24, Sched. B, s. 15 (4).
 
 Burden
-(5)  The burden of proving that subsection (4) applies  is  on  the  person
-with the claim.  2002, c. 24, Sched. B, s. 15 (5); 2016, c. 2, Sched. 2, s.
+(5)  The burden of proving that subsection (4)  applies  is  on  the  person
+with the claim.  2002, c. 24, Sched. B, s. 15 (5); 2016, c. 2, Sched. 2,  s.
 3.
 
 Day of occurrence
-(6)  For the purposes of this section, the day an act or omission on  which
+(6)  For the purposes of this section, the day an act or omission  on  which
 a claim is based takes place is,
       (a)   in the case of a continuous act or omission, the  day  on  which
     the act or omission ceases;
@@ -454,12 +454,12 @@ a claim is based takes place is,
     series occurs;
       (c)   in the case of an  act  or  omission  in  respect  of  a  demand
     obligation, the first day on which there is a failure  to  perform  the
-    obligation, once a demand for the performance is made.   2002,  c. 24,
-    Sched. B, s. 15 (6); 2008, c. 19, Sched. L, s. 2 (1).
+    obligation, once a demand for the performance is  made.   2002,  c. 24,
+    Sched. B, s. 15 (6); 2008, c. 19, Sched. L, s. 2 (1).
 
 Application, demand obligations
-(7)  Clause (6) (c) applies in respect of every demand  obligation  created
-on or after January 1, 2004.  2008, c. 19, Sched. L, s. 2 (2).
+(7)  Clause (6) (c) applies in respect of every  demand  obligation  created
+on or after January 1, 2004.  2008, c. 19, Sched. L, s. 2 (2).
 Section Amendments with date in force (d/m/y)
 2008, c. 19, Sched. L, s. 2 (1, 2) - 27/11/2008
 2016, c. 2, Sched. 2, s. 3 - 08/03/2016
@@ -467,7 +467,7 @@ Section Amendments with date in force (d/m/y)
                             No Limitation Period
 
 NO LIMITATION PERIOD
-16 (1)  There is no limitation period in respect of,
+16 (1)  There is no limitation period in respect of,
       (a)   a proceeding for a declaration if  no  consequential  relief  is
     sought;
       (b)   a proceeding to enforce an order of a court, or any other  order
@@ -512,52 +512,52 @@ NO LIMITATION PERIOD
     of  Training,  Colleges  and  Universities  Act,  the  Canada   Student
     Financial Assistance Act or the Canada Student Loans Act; or
       (l)   a proceeding under subsection 4 (1) of the Justice  for  Victims
-    of Terrorism Act (Canada). 2002, c. 24, Sched. B, s. 16 (1);  2007,
-    c. 13, s. 44 (1); 2010, c. 1, Sched. 14, s. 1; 2016, c. 2, Sched. 2, s.
+    of Terrorism Act (Canada).  2002,  c. 24,  Sched. B,  s. 16 (1);  2007,
+    c. 13, s. 44 (1); 2010, c. 1, Sched. 14, s. 1; 2016, c. 2, Sched. 2, s.
     4 (1); 2017, c. 2, Sched. 5, s. 14 (1); 2024, c. 27,  Sched.  9,  s.  1
     (1).
 
 Same
-(1.1)  Clauses (1) (h), (h.1), (h.2) and (l) apply to a proceeding whenever
+(1.1)  Clauses (1) (h), (h.1), (h.2) and (l) apply to a proceeding  whenever
 the act on  which  the  claim  is  based  occurred  or  the  proceeding  was
 commenced, and  regardless  of  the  expiry  of  any  previously  applicable
 limitation period. 2024, c. 27, Sched. 9, s. 1 (2).
 
 Same
-(1.2)  Subsection (1.1) does not apply in the case of a proceeding that,
+(1.2)  Subsection (1.1) does not apply in the case of a proceeding that,
       (a)   has  been  dismissed  by  a  court  and  no  further  appeal  is
     available; or
       (b)   has been settled by the parties and the  settlement  is  legally
     binding. 2024, c. 27, Sched. 9, s. 1 (2).
 
 Same
-(1.3)  For greater certainty, clauses (1) (h),  (h.1)  and  (h.2)  are  not
+(1.3)  For greater certainty, clauses (1)  (h),  (h.1)  and  (h.2)  are  not
 limited in any way with respect to the  claims  that  may  be  made  in  the
 proceeding in relation to the applicable act, which may include  claims  for
 negligence, for breach of fiduciary or  any  other  duty  or  for  vicarious
 liability. 2016, c. 2, Sched. 2, s. 4 (2).
 
 Same
-(2)  Clause (1) (j) applies to proceedings in respect  of  claims  relating
+(2)  Clause (1) (j) applies to proceedings in  respect  of  claims  relating
 to,
       (a)   the administration of social, health or economic programs; or
       (b)   the provision of direct or indirect support to  members  of  the
     public in connection with social, health  or  economic  policy.   2002,
-    c. 24, Sched. B, s. 16 (2).
+    c. 24, Sched. B, s. 16 (2).
 
 Same
-(3)  Without limiting the generality of  subsection  (2),  clause  (1)  (j)
+(3)  Without limiting the generality  of  subsection  (2),  clause  (1)  (j)
 applies to proceedings in respect of claims for,
       (a)   the recovery  of  social  assistance  payments,  student  loans,
     awards, grants, contributions and economic development loans; and
       (b)   the reimbursement of  money  paid  in  connection  with  social,
     health  or  economic  programs  or  policies  as  a  result  of  fraud,
-    misrepresentation, error or inadvertence.  2002, c. 24, Sched. B, s. 16
+    misrepresentation, error or inadvertence.  2002, c. 24, Sched. B, s. 16
     (3).
 
 Conflict with s. 15
-(4)  This section and section 17  prevail  over  anything  in  section  15.
-2002, c. 24, Sched. B, s. 16 (4).
+(4)  This section and section  17  prevail  over  anything  in  section  15.
+2002, c. 24, Sched. B, s. 16 (4).
 Section Amendments with date in force (d/m/y)
 2007, c. 13, s. 44 (1) - 04/06/2007
 2010, c. 1, Sched. 14, s. 1 - 18/05/2010
@@ -568,113 +568,113 @@ Section Amendments with date in force (d/m/y)
 
 Undiscovered environmental claims
 17 There is no limitation period in respect of an environmental  claim  that
-has not been discovered.  2002, c. 24, Sched. B, s. 17.
+has not been discovered.  2002, c. 24, Sched. B, s. 17.
 
                                 General Rules
 
 CONTRIBUTION AND INDEMNITY
-18 (1)  For the purposes of subsection 5 (2) and section 15, in the case of
+18 (1)  For the purposes of subsection 5 (2) and section 15, in the case  of
 a claim by one  alleged  wrongdoer  against  another  for  contribution  and
 indemnity, the day on which the first alleged wrongdoer was served with  the
 claim in respect of which contribution and  indemnity  is  sought  shall  be
-deemed to be the day the act or omission on which that  alleged  wrongdoer's
-claim is based took place.  2002, c. 24, Sched. B, s. 18 (1).
+deemed to be the day the act or omission on which that  alleged  wrongdoer’s
+claim is based took place.  2002, c. 24, Sched. B, s. 18 (1).
 
 Application
-(2)  Subsection (1) applies whether the right to contribution and indemnity
-arises in respect of a tort or otherwise.  2002, c. 24,  Sched. B,  s. 18
+(2)  Subsection (1) applies whether the right to contribution and  indemnity
+arises in respect of a tort or  otherwise.   2002,  c. 24,  Sched. B,  s. 18
 (2).
 
 Other Acts, etc.
-19 (1)  A limitation period set out in or under another Act that applies to
+19 (1)  A limitation period set out in or under another Act that applies  to
 a claim to which this Act applies is of no effect unless,
       (a)   the provision establishing it is listed in the Schedule to  this
     Act; or
       (b)   the provision establishing it,
       (i)   is in existence on January 1, 2004, and
       (ii)  incorporates by reference a provision listed in the Schedule  to
-       this Act.  2002, c. 24, Sched. B, s. 19 (1); 2008, c. 19, Sched. L,
-       s. 3.
+       this Act.  2002, c. 24, Sched. B, s. 19 (1); 2008, c. 19,  Sched. L,
+       s. 3.
 
 Act prevails
-(2)  Subsection (1) applies despite any other Act.  2002, c. 24, Sched. B,
-s. 19 (2).
+(2)  Subsection (1) applies despite any other Act.  2002,  c. 24,  Sched. B,
+s. 19 (2).
 
 Interpretation
-(3)  The fact that a provision is listed  in  the  Schedule  shall  not  be
+(3)  The fact that a provision is  listed  in  the  Schedule  shall  not  be
 construed as a statement that  the  limitation  period  established  by  the
 provision would otherwise apply to a claim as defined in  this  Act.   2002,
-c. 24, Sched. B, s. 19 (3).
+c. 24, Sched. B, s. 19 (3).
 
 Same
-(4)  If there is a conflict between a limitation period  established  by  a
+(4)  If there is a conflict between a limitation  period  established  by  a
 provision referred to in subsection (1) and one  established  by  any  other
 provision of this Act, the limitation period established  by  the  provision
-referred to in subsection (1) prevails.  2002, c. 24, Sched. B, s. 19 (4).
+referred to in subsection (1) prevails.  2002, c. 24, Sched. B, s. 19 (4).
 
 Period not to run
-(5)  Sections 6, 7  and  11  apply,  with  necessary  modifications,  to  a
+(5)  Sections 6,  7  and  11  apply,  with  necessary  modifications,  to  a
 limitation period established by a provision referred to in subsection  (1).
- 2002, c. 24, Sched. B, s. 19 (5).
+ 2002, c. 24, Sched. B, s. 19 (5).
 Section Amendments with date in force (d/m/y)
 2008, c. 19, Sched. L, s. 3 - 27/11/2008
 
 Statutory variation of time limits
 20 This Act does not affect the extension, suspension or other variation  of
 a limitation period or other time limit by  or  under  another  Act.   2002,
-c. 24, Sched. B, s. 20.
+c. 24, Sched. B, s. 20.
 
 Adding party
-21 (1)  If a limitation period in respect of a claim against a  person  has
+21 (1)  If a limitation period in respect of a claim against  a  person  has
 expired, the claim shall not be pursued by adding the person as a  party  to
-any existing proceeding.  2002, c. 24, Sched. B, s. 21 (1).
+any existing proceeding.  2002, c. 24, Sched. B, s. 21 (1).
 
 Misdescription
-(2)  Subsection (1) does not prevent  the  correction  of  a  misnaming  or
-misdescription of a party.  2002, c. 24, Sched. B, s. 21 (2).
+(2)  Subsection (1) does not  prevent  the  correction  of  a  misnaming  or
+misdescription of a party.  2002, c. 24, Sched. B, s. 21 (2).
 
 Limitation periods apply despite agreements
-22 (1)  A limitation period under this Act applies despite any agreement to
+22 (1)  A limitation period under this Act applies despite any agreement  to
 vary or exclude it, subject only to the exceptions  in  subsections  (2)  to
-(6).  2006, c. 21, Sched. D, s. 2.
+(6).  2006, c. 21, Sched. D, s. 2.
 
 Exception
-(2)  A limitation period under this Act may be varied  or  excluded  by  an
-agreement made before January 1, 2004.  2006, c. 21, Sched. D, s. 2.
+(2)  A limitation period under this Act may be  varied  or  excluded  by  an
+agreement made before January 1, 2004.  2006, c. 21, Sched. D, s. 2.
 
 Same
-(3)  A limitation period under this Act,  other  than  one  established  by
+(3)  A limitation period under this  Act,  other  than  one  established  by
 section 15, may be suspended or extended by an agreement made  on  or  after
-October 19, 2006.  2006, c. 21, Sched. D, s. 2; 2008, c. 19,  Sched. L,
-s. 4 (1).
+October 19, 2006.  2006,  c. 21,  Sched. D,  s. 2;  2008,  c. 19,  Sched. L,
+s. 4 (1).
 
 Same
-(4)  A limitation period established by section  15  may  be  suspended  or
+(4)  A limitation period established by  section  15  may  be  suspended  or
 extended by an agreement made on or after October 19, 2006, but only if  the
-relevant claim has been discovered.  2006, c. 21, Sched. D,  s. 2;  2008,
-c. 19, Sched. L, s. 4 (1).
+relevant claim has been discovered.   2006,  c. 21,  Sched. D,  s. 2;  2008,
+c. 19, Sched. L, s. 4 (1).
 
 Same
-(5)  The following exceptions apply only in respect of business agreements:
+(5)  The following exceptions apply only in respect of business agreements:
       1.    A limitation period under this Act, other than  one  established
     by section 15, may be varied or excluded by an  agreement  made  on  or
     after October 19, 2006.
       2.    A limitation period established by section 15 may be  varied  by
     an agreement made on or after October 19, 2006, except that it  may  be
     suspended or extended only in accordance with  subsection  (4).   2006,
-    c. 21, Sched. D, s. 2; 2008, c. 19, Sched. L, s. 4 (1).
+    c. 21, Sched. D, s. 2; 2008, c. 19, Sched. L, s. 4 (1).
 
 Definitions
-(6)  In this section,
-"business agreement" means an agreement made by parties none of  whom  is  a
- consumer as  defined  in  the  Consumer  Protection  Act,  2002;  ("accord
- commercial")
+(6)  In this section,
+“business agreement” means an agreement made by parties none of  whom  is  a
+ consumer as  defined  in  the  Consumer  Protection  Act,  2002;  (“accord
+ commercial”)
 Note: On a day to be named by proclamation of the Lieutenant  Governor,  the
-definition of "business agreement" in  subsection  22  (6)  of  the  Act  is
-amended by striking out "Consumer Protection  Act,  2002"  and  substituting
-"Consumer Protection Act, 2023". (See: 2023, c. 23, Sched. 1, s. 115)
-"vary" includes extend, shorten and  suspend.  ("modifier")   2006,  c. 21,
- Sched. D, s. 2; 2008, c. 19, Sched. L, s. 4 (2).
+definition of “business agreement” in  subsection  22  (6)  of  the  Act  is
+amended by striking out “Consumer Protection  Act,  2002”  and  substituting
+“Consumer Protection Act, 2023”. (See: 2023, c. 23, Sched. 1, s. 115)
+“vary” includes extend, shorten  and  suspend.  (“modifier”)   2006,  c. 21,
+ Sched. D, s. 2; 2008, c. 19, Sched. L, s. 4 (2).
 Section Amendments with date in force (d/m/y)
 2006, c. 21, Sched. D, s. 2 - 19/10/2006
 2008, c. 19, Sched. L, s. 4 (1, 2) - 27/11/2008
@@ -683,83 +683,83 @@ Section Amendments with date in force (d/m/y)
 Conflict of laws
 23 For the purpose of applying the rules regarding  conflict  of  laws,  the
 limitations law of Ontario or any other  jurisdiction  is  substantive  law.
-2002, c. 24, Sched. B, s. 23.
+2002, c. 24, Sched. B, s. 23.
 
 Transition
 
 Definition
-24 (1)  In this section,
-"former limitation period" means  the  limitation  period  that  applied  in
- respect of the claim before January 1, 2004.  2002, c. 24, Sched. B, s. 24
- (1); 2008, c. 19, Sched. L, s. 5 (1, 2).
+24 (1)  In this section,
+“former limitation period” means  the  limitation  period  that  applied  in
+ respect of the claim before January 1, 2004.  2002, c. 24, Sched. B, s. 24
+ (1); 2008, c. 19, Sched. L, s. 5 (1, 2).
 
 Application
-(2)  Subject to subsection (2.1), this section applies to claims  based  on
+(2)  Subject to subsection (2.1), this section applies to  claims  based  on
 acts or omissions that took place before January 1, 2004 and in  respect  of
-which no proceeding has been commenced  before  that  date.   2002,  c. 24,
-Sched. B, s. 24 (2); 2008, c. 19, Sched. L, s. 5 (4); 2016, c. 2, Sched. 2,
+which no proceeding has been  commenced  before  that  date.   2002,  c. 24,
+Sched. B, s. 24 (2); 2008, c. 19, Sched. L, s. 5 (4); 2016, c. 2, Sched.  2,
 s. 5 (1).
 
 Exception
-(2.1)  This section does not apply to a claim in respect of which clause 16
+(2.1)  This section does not apply to a claim in respect of which clause  16
 (1) (h), (h.1) or (h.2) applies. 2016, c. 2, Sched. 2, s. 5 (2).
 
 Former limitation period expired
-(3)  If the former limitation period expired before  January  1,  2004,  no
-proceeding shall be commenced  in  respect  of  the  claim.   2002,  c. 24,
-Sched. B, s. 24 (3); 2008, c. 19, Sched. L, s. 5 (3).
+(3)  If the former limitation period expired  before  January  1,  2004,  no
+proceeding shall be  commenced  in  respect  of  the  claim.   2002,  c. 24,
+Sched. B, s. 24 (3); 2008, c. 19, Sched. L, s. 5 (3).
 
 Former limitation period unexpired
-(4)  If the former limitation period did not expire before January 1,  2004
+(4)  If the former limitation period did not expire before January  1,  2004
 and if no limitation period under this Act would apply were the claim  based
 on an act or omission that took place on or after that  date,  there  is  no
-limitation period.  2002,  c. 24,  Sched. B,  s. 24  (4);  2008,  c. 19,
-Sched. L, s. 5 (5).
+limitation  period.   2002,  c. 24,  Sched. B,  s. 24  (4);   2008,   c. 19,
+Sched. L, s. 5 (5).
 
 Same
-(5)  If the former limitation period did not expire before January 1,  2004
+(5)  If the former limitation period did not expire before January  1,  2004
 and if a limitation period under this Act would apply were the  claim  based
 on an act or omission that took place on or after that date,  the  following
 rules apply:
       1.    If the claim was not discovered before  January  1,  2004,  this
     Act applies as if the act or omission had taken place on that date.
       2.    If the claim was discovered before January 1, 2004,  the  former
-    limitation period applies.  2002, c. 24, Sched. B, s. 24 (5);  2008,
-    c. 19, Sched. L, s. 5 (3, 6, 7).
+    limitation period applies.  2002, c. 24,  Sched. B,  s. 24  (5);  2008,
+    c. 19, Sched. L, s. 5 (3, 6, 7).
 
 No former limitation period
-(6)  If there was no former limitation period and if  a  limitation  period
+(6)  If there was no former limitation period and  if  a  limitation  period
 under this Act would apply were the claim based on an act or  omission  that
 took place on or after January 1, 2004, the following rules apply:
       1.    If the claim was not discovered before  January  1,  2004,  this
     Act applies as if the act or omission had taken place on that date.
       2.    If the claim was discovered before January 1, 2004, there is  no
-    limitation period.  2002, c. 24, Sched. B, s. 24 (6); 2008,  c. 19,
-    Sched. L, s. 5 (3, 8).
-(7)  Repealed: 2016, c. 2, Sched. 2, s. 5 (3).
+    limitation period.  2002, c. 24,  Sched. B,  s. 24  (6);  2008,  c. 19,
+    Sched. L, s. 5 (3, 8).
+(7)  Repealed: 2016, c. 2, Sched. 2, s. 5 (3).
 
 Claims re payments alleged to be ultra vires
-(7.1)  For the  purposes  of  this  section,  clause  45  (1)  (g)  of  the
+(7.1)  For  the  purposes  of  this  section,  clause  45  (1)  (g)  of  the
 Limitations Act, as it read immediately before  its  repeal,  applies  to  a
 claim respecting amounts paid to the Crown or to  another  public  authority
 for which it is alleged that no valid legal authority existed  at  the  time
-of payment.  2008, c. 19, Sched. L, s. 5 (9).
+of payment.  2008, c. 19, Sched. L, s. 5 (9).
 
 Agreements
-(8)  This section is  subject  to  any  agreement  to  vary  or  exclude  a
-limitation period that was made  before  January  1,  2004.   2002,  c. 24,
-Sched. B, s. 24 (8); 2008, c. 19, Sched. L, s. 5 (10).
+(8)  This section  is  subject  to  any  agreement  to  vary  or  exclude  a
+limitation period that was  made  before  January  1,  2004.   2002,  c. 24,
+Sched. B, s. 24 (8); 2008, c. 19, Sched. L, s. 5 (10).
 Section Amendments with date in force (d/m/y)
 2008, c. 19, Sched. L, s. 5 (1-8, 10) - 27/11/2008; 2008, c. 19,  Sched.  L,
 s. 5 (9) - 22/10/2008
 2016, c. 2, Sched. 2, s. 5 (1-3) - 08/03/2016
-25-49 Omitted (amends or repeals  other  Acts).   2002,  c. 24,  Sched. B,
-ss. 25-49.
-50 Omitted (amends the schedule to  this  Act).   2002,  c. 24,  Sched. B,
-s. 50.
+25-49 Omitted (amends  or  repeals  other  Acts).   2002,  c. 24,  Sched. B,
+ss. 25-49.
+50 Omitted (amends the  schedule  to  this  Act).   2002,  c. 24,  Sched. B,
+s. 50.
 51 Omitted (provides for coming into  force  of  provisions  of  this  Act).
-2002, c. 24, Sched. B, s. 51.
-52 Omitted (enacts short title of this Act).  2002, c. 24, Sched. B, s. 52.
+2002, c. 24, Sched. B, s. 51.
+52 Omitted (enacts short title of this Act).  2002, c. 24, Sched. B, s. 52.
 
                                   Schedule
                                 (Section 19)
@@ -776,7 +776,7 @@ s. 50.
 |CONSTRUCTION ACT                          |SUBSECTIONS 13.18 (2) AND 13.20 (2)|
 |                                          |AND SECTIONS 31 AND 36             |
 |CORPORATIONS ACT                          |SUBSECTION 37 (2)                  |
-|CREDITORS' RELIEF ACT, 2010               |SUBSECTION 12 (1)                  |
+|CREDITORS’ RELIEF ACT, 2010               |SUBSECTION 12 (1)                  |
 |DRAINAGE ACT                              |SECTION 111                        |
 |EDUCATION ACT                             |SUBSECTION 218 (2) AND SUBSECTION  |
 |                                          |11 (3) OF SCHEDULE 1               |
@@ -828,11 +828,11 @@ s. 50.
 |TRUSTEE ACT                               |SUBSECTION 38 (3)                  |
 
 
-   2002, C. 24, SCHED. B, SCHED.; 2002, C. 24, SCHED. B, S. 50; 2004, C. 16,
-       SCHED. D, TABLE; 2004, C. 31, SCHED. 22, S. 1; 2006, C. 32, SCHED. C,
-    S. 29; 2007, C. 13, S. 44 (2); 2008, C. 19, SCHED. V, S. 4; 2009, C. 13,
- S. 12; 2009, C. 33, SCHED. 21, S. 5; 2010, C. 16, SCHED. 4, S. 27; 2015, C.
-   20, SCHED. 39, S. 5; 2017, C. 2, SCHED. 3, S. 6; 2017, C. 2, SCHED. 5, S.
+   2002, C. 24, SCHED. B, SCHED.; 2002, C. 24, SCHED. B, S. 50; 2004, C. 16,
+       SCHED. D, TABLE; 2004, C. 31, SCHED. 22, S. 1; 2006, C. 32, SCHED. C,
+    S. 29; 2007, C. 13, S. 44 (2); 2008, C. 19, SCHED. V, S. 4; 2009, C. 13,
+ S. 12; 2009, C. 33, SCHED. 21, S. 5; 2010, C. 16, SCHED. 4, S. 27; 2015, C.
+   20, SCHED. 39, S. 5; 2017, C. 2, SCHED. 3, S. 6; 2017, C. 2, SCHED. 5, S.
        14 (2); 2017, C. 10, SCHED. 4, S. 7; 2017, C. 24, S. 77; 2017, C. 34,
    SCHED. 12, S. 11; 2019, C. 15, SCHED. 22, S. 98; 2019, C. 17, SCHED. 2, S
     15; 2020, C. 11, SCHED. 16, S. 2; 2020, C. 36, SCHED. 25, S. 1; 2021, C.
@@ -847,7 +847,7 @@ Section Amendments with date in force (d/m/y)
 2009, c. 13, s. 12 - 14/05/2009; 2009, c. 33, Sched. 21, s. 5 - 25/01/2010
 2010, c. 16, Sched. 4, s. 27 - 25/10/2010
 CTS 18 AU 10 - 1
-2015, c. 20, Sched. 39, s. 5 - 04/06/2015
+2015, c. 20, Sched. 39, s. 5 - 04/06/2015
 2017, c. 2, Sched. 3, s. 6 - 22/03/2017; 2017, c. 2, Sched. 5, s. 14  (2)  -
 22/03/2017; 2017, c. 10, Sched. 4, s. 7 - 01/03/2019; 2017,  c.  24,  s.  77
 (1) - 01/07/2018; 2017, c. 24, s. 77 (2) - 01/10/2019; 2017, c.  34,  Sched.
@@ -860,6 +860,6 @@ CTS 18 AU 10 - 1
 2023, c. 21, Sched. 9, s. 14 - 04/12/2023
                                ______________
 
-Fran�ais
+Français
 
 Back to top

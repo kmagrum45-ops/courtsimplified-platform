@@ -2,78 +2,6 @@
   "generatedAt": "2026-09-27T00:45:24.224Z",
   "entries": [
     {
-      "id": "oreg-258-98-small-claims-rules",
-      "title": "Rules of the Small Claims Court",
-      "citation": "O. Reg. 258/98",
-      "url": "https://www.ontario.ca/laws/docs/980258_e.doc",
-      "retrievedAt": "2026-09-27T00:44:46.449Z",
-      "sha256": "eb9cd2bb1290c6c194b8bffacb244f1567c4ccd864d947da762e44872d4c9d5a",
-      "consolidation": "CONSOLIDATION PERIOD: FROM OCTOBER 14, 2025 TO THE E-LAWS CURRENCY DATE.",
-      "characters": 185208,
-      "lines": 3469,
-      "file": "oreg-258-98-small-claims-rules.txt"
-    },
-    {
-      "id": "cja-courts-of-justice-act",
-      "title": "Courts of Justice Act",
-      "citation": "R.S.O. 1990, c. C.43",
-      "url": "https://www.ontario.ca/laws/docs/90c43_e.doc",
-      "retrievedAt": "2026-09-27T00:44:46.978Z",
-      "sha256": "38091590010873332d16dacb0fe9fb5f6fbafbb2d488a91fa87bfe515d8c81cb",
-      "consolidation": "CONSOLIDATION PERIOD: FROM DECEMBER 11, 2025 TO THE E-LAWS CURRENCY DATE.",
-      "characters": 361741,
-      "lines": 7149,
-      "file": "cja-courts-of-justice-act.txt"
-    },
-    {
-      "id": "oreg-626-00-monetary-jurisdiction",
-      "title": "Small Claims Court Jurisdiction and Appeal Limit",
-      "citation": "O. Reg. 626/00",
-      "url": "https://www.ontario.ca/laws/docs/000626_e.doc",
-      "retrievedAt": "2026-09-27T00:44:47.161Z",
-      "sha256": "b0749a3995514db7cde3b51d473a5564b4ae1953c1924ea51c0a779aaaf750d6",
-      "consolidation": "CONSOLIDATION PERIOD: FROM OCTOBER 1, 2025 TO THE E-LAWS CURRENCY DATE.",
-      "characters": 1294,
-      "lines": 38,
-      "file": "oreg-626-00-monetary-jurisdiction.txt"
-    },
-    {
-      "id": "limitations-act-2002",
-      "title": "Limitations Act, 2002",
-      "citation": "S.O. 2002, c. 24, Sched. B",
-      "url": "https://www.ontario.ca/laws/docs/02l24_e.doc",
-      "retrievedAt": "2026-09-27T00:44:47.355Z",
-      "sha256": "8964cf1ab3676f763a5e308482e764f0cf5a16459695b3cdac35cc1bee9b0bd1",
-      "consolidation": "CONSOLIDATION PERIOD: FROM DECEMBER 4, 2024 TO THE E-LAWS CURRENCY DATE.",
-      "characters": 45451,
-      "lines": 866,
-      "file": "limitations-act-2002.txt"
-    },
-    {
-      "id": "legislation-act-2006",
-      "title": "Legislation Act, 2006",
-      "citation": "S.O. 2006, c. 21, Sched. F",
-      "url": "https://www.ontario.ca/laws/docs/06l21_e.doc",
-      "retrievedAt": "2026-09-27T00:44:47.543Z",
-      "sha256": "91e8251fbf72c46ee5cb02e641c56576eea2e0a9e4117e448a0929cb7b949762",
-      "consolidation": "CONSOLIDATION PERIOD: FROM DECEMBER 11, 2025 TO THE E-LAWS CURRENCY DATE.",
-      "characters": 94881,
-      "lines": 1892,
-      "file": "legislation-act-2006.txt"
-    },
-    {
-      "id": "small-claims-forms-table",
-      "title": "Rules of the Small Claims Court Forms",
-      "citation": "ontariocourtforms.on.ca",
-      "url": "https://ontariocourtforms.on.ca/en/rules-of-the-small-claims-court-forms/",
-      "retrievedAt": "2026-09-27T00:44:48.803Z",
-      "sha256": "6aad1128072d380da92c162b00e94f2b60120c52f0f39394a0f263ac6a07b9b3",
-      "consolidation": "(none stated)",
-      "characters": 9037,
-      "lines": 392,
-      "file": "small-claims-forms-table.txt"
-    },
-    {
       "id": "negligence-act",
       "title": "Negligence Act",
       "citation": "R.S.O. 1990, c. N.1",
@@ -2436,6 +2364,78 @@
       "characters": 35407,
       "lines": 219,
       "file": "esa-guide-vacation.txt"
+    },
+    {
+      "id": "oreg-258-98-small-claims-rules",
+      "title": "Rules of the Small Claims Court",
+      "citation": "O. Reg. 258/98",
+      "url": "https://www.ontario.ca/laws/docs/980258_e.doc",
+      "retrievedAt": "2026-09-30T23:44:08.806Z",
+      "sha256": "b501b3921bc90748afd3b2fdf6501a5c2d54c1368e3a7f6b26227187749d7b5f",
+      "consolidation": "CONSOLIDATION PERIOD: FROM OCTOBER 14, 2025 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 182415,
+      "lines": 3469,
+      "file": "oreg-258-98-small-claims-rules.txt"
+    },
+    {
+      "id": "cja-courts-of-justice-act",
+      "title": "Courts of Justice Act",
+      "citation": "R.S.O. 1990, c. C.43",
+      "url": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+      "retrievedAt": "2026-09-30T23:44:09.144Z",
+      "sha256": "b78c8333b51a5277af58294e8c6e188dd660d1890b5fc726346056023becb193",
+      "consolidation": "CONSOLIDATION PERIOD: FROM DECEMBER 11, 2025 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 355721,
+      "lines": 7149,
+      "file": "cja-courts-of-justice-act.txt"
+    },
+    {
+      "id": "oreg-626-00-monetary-jurisdiction",
+      "title": "Small Claims Court Jurisdiction and Appeal Limit",
+      "citation": "O. Reg. 626/00",
+      "url": "https://www.ontario.ca/laws/docs/000626_e.doc",
+      "retrievedAt": "2026-09-30T23:44:09.255Z",
+      "sha256": "9deaa52aa05e6b47cbbfe2330c7516814937f7768d167aedc0c6aa2167c87f16",
+      "consolidation": "CONSOLIDATION PERIOD: FROM OCTOBER 1, 2025 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 1273,
+      "lines": 38,
+      "file": "oreg-626-00-monetary-jurisdiction.txt"
+    },
+    {
+      "id": "limitations-act-2002",
+      "title": "Limitations Act, 2002",
+      "citation": "S.O. 2002, c. 24, Sched. B",
+      "url": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+      "retrievedAt": "2026-09-30T23:44:09.354Z",
+      "sha256": "8ff8a1b0e0501748d9b2754201bde4c04d59305c6c9540e463c295e05e2aa355",
+      "consolidation": "CONSOLIDATION PERIOD: FROM DECEMBER 4, 2024 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 44705,
+      "lines": 866,
+      "file": "limitations-act-2002.txt"
+    },
+    {
+      "id": "legislation-act-2006",
+      "title": "Legislation Act, 2006",
+      "citation": "S.O. 2006, c. 21, Sched. F",
+      "url": "https://www.ontario.ca/laws/docs/06l21_e.doc",
+      "retrievedAt": "2026-09-30T23:44:09.462Z",
+      "sha256": "dd54eb1acec1a03244041582ddc741a3b8c53b3173c29779a30dbc39d64b2b6a",
+      "consolidation": "CONSOLIDATION PERIOD: FROM DECEMBER 11, 2025 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 93291,
+      "lines": 1892,
+      "file": "legislation-act-2006.txt"
+    },
+    {
+      "id": "small-claims-forms-table",
+      "title": "Rules of the Small Claims Court Forms",
+      "citation": "ontariocourtforms.on.ca",
+      "url": "https://ontariocourtforms.on.ca/en/rules-of-the-small-claims-court-forms/",
+      "retrievedAt": "2026-09-30T23:44:12.640Z",
+      "sha256": "6aad1128072d380da92c162b00e94f2b60120c52f0f39394a0f263ac6a07b9b3",
+      "consolidation": "(none stated)",
+      "characters": 9037,
+      "lines": 392,
+      "file": "small-claims-forms-table.txt"
     }
   ],
   "failures": []
