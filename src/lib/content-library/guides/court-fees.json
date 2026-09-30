@@ -1,0 +1,158 @@
+{
+ "id": "court-fees",
+ "title": "What court steps cost",
+ "courts": [
+  "small-claims",
+  "civil",
+  "family"
+ ],
+ "intro": "This guide lists the fees the Ontario government charges for the main steps in Small Claims Court, civil proceedings in the Superior Court of Justice, and family proceedings. Fees as published on ontario.ca and in the regulations on e-Laws, read 2026-09-30 (the fee waiver page was read 2026-09-27).",
+ "sections": [
+  {
+   "heading": "How court fees are set and paid",
+   "court": "all",
+   "paragraphs": [
+    "The ontario.ca pages say “You must pay a fee for most steps in a Small Claims Court proceeding” and “You must pay a fee for most steps in a civil court proceeding”. “Court fees are set out in regulations made under the Administration of Justice Act”. The page tables are described as “an unofficial presentation of the fees prescribed by an Ontario regulation.” (ontario.ca, Fees: Small Claims Court; ontario.ca, Civil court fees)",
+    "In Small Claims Court, fees are payable in Canadian funds by cash at the court or enforcement office counter, by “cheque or money order, payable to the Minister of Finance”, or by debit or credit card “in certain locations, and when filing Small Claims Court documents online”. (ontario.ca, Fees: Small Claims Court)",
+    "For civil and family proceedings, the pages list cash, cheque or money order payable to the Minister of Finance, debit card in person and when filing online, and credit card “in person, over the phone and when filing civil court documents online” (the family page says the same for family court documents). (ontario.ca, Civil court fees; ontario.ca, Family court fees)",
+    "“Starting October 14, 2025, there are different online portals to file court documents online depending on the region you are filing in.” “Use the Ontario Courts Public Portal for matters in the Toronto region.” “Use the Justice Services Online portal for matters outside of Toronto.” For the Court of Appeal, the civil page says “Use the Ontario Court of Appeal Public Portal for matters at the Court of Appeal.” (ontario.ca, Fees: Small Claims Court; ontario.ca, Civil court fees)",
+    "The Small Claims Court page says “If there is a fee associated with your submission, you can pay online through these portals or request a fee waiver”. (ontario.ca, Fees: Small Claims Court)",
+    "Both regulations say: “If the applicable filing fee is paid on the filing of a document electronically in accordance with the rules of court, the fee is not payable again on the subsequent filing of a paper copy of the document.” (O. Reg. 332/16, s. 1 (4); O. Reg. 293/92, s. 7)",
+    "The amounts can change. Both regulations say that “Beginning on January 1, 2027, and on every third January 1 that follows, the fees payable under this Regulation shall be adjusted” using the Ontario Consumer Price Index. If the change “results in a negative amount, the fees shall not be increased.” (O. Reg. 332/16, s. 4 (1); O. Reg. 293/92, s. 6 (1))",
+    "A fee is not adjusted if, before the adjustment would take effect, the Minister determines that the adjusted fee “would exceed full cost recovery” and publishes notice confirming the amount of the fee on a Government of Ontario website. (O. Reg. 332/16, s. 4 (3); O. Reg. 293/92, s. 6 (3))",
+    "A fee waiver exists for people who cannot afford the fees: “If you are granted a fee waiver, it will apply to most fees in your court proceeding from that point forward.” “There is no cost to apply for a fee waiver.” Some fees “cannot be waived”, including fees paid “to someone who is not part of the court”. The site’s fee waiver guide covers this in full. (ontario.ca, Civil court fees; ontario.ca, Have your court fees waived)"
+   ]
+  },
+  {
+   "heading": "Small Claims Court: starting and answering a claim",
+   "court": "small-claims",
+   "paragraphs": [
+    "Some Small Claims Court fees depend on whether the person filing is a frequent or infrequent claimant. A “frequent claimant” “means a claimant who files a claim in a Small Claims Court office on or after January 1 in any calendar year and who has already filed 10 or more claims in the same office in that calendar year”. An “infrequent claimant” “means a claimant who is not a frequent claimant.” (O. Reg. 332/16, s. 1 (1))",
+    "A “claimant” “includes an individual, a sole proprietorship, a partnership, an unincorporated organization and a corporation”. For these fees, a claim does not include a defendant’s claim. (O. Reg. 332/16, s. 1 (1))",
+    "The fees to start a claim are: “On the filing of a claim by an infrequent claimant, $108.” “On the filing of a claim by a frequent claimant, $228.” “On the filing of a defendant’s claim, $108.” (O. Reg. 332/16, s. 1 (2), paras. 1-3)",
+    "The fee to answer a claim is: “On the filing of a defence, $77.” (O. Reg. 332/16, s. 1 (2), para. 5)"
+   ]
+  },
+  {
+   "heading": "Small Claims Court: motions, default judgment and trial",
+   "court": "small-claims",
+   "paragraphs": [
+    "For a motion: “On the filing of a notice of motion served on another party, a notice of motion without notice or a notice of motion for a consent order (except a notice of motion under the Wages Act), $127.” (O. Reg. 332/16, s. 1 (2), para. 4)",
+    "For default judgment: “For the filing of a request for default judgment by an infrequent claimant, $94.” “For the filing of a request for default judgment by a frequent claimant, $128.” (O. Reg. 332/16, s. 1 (2), paras. 8-9)",
+    "For a trial date: “For the fixing of a date for a trial or an assessment hearing by an infrequent claimant, $308.” “For the fixing of a date for a trial or an assessment hearing by a frequent claimant, $403.” (O. Reg. 332/16, s. 1 (2), paras. 6-7)",
+    "For a witness: “On the issue of a summons to a witness, $33.” (O. Reg. 332/16, s. 1 (2), para. 10)",
+    "The page says “If you summons a witness to attend your trial, you must pay attendance money to the witness at the time you personally serve them.” (ontario.ca, Fees: Small Claims Court)",
+    "Witnesses are paid “For attendance in court, $11 per day, subject to paragraph 2.” A professional who is not a party and gives evidence of a professional service or a professional opinion is paid “$27 per day.” Travel is paid as “those reasonable travelling expenses actually incurred, but not exceeding the kilometre allowance set out in Regulation 11”. (O. Reg. 332/16, s. 3)"
+   ]
+  },
+  {
+   "heading": "Small Claims Court: after judgment and appeals",
+   "court": "small-claims",
+   "paragraphs": [
+    "Clerk fees after judgment include: “On the issue of a certificate of judgment, $30.” “On the issue of a writ of delivery, a writ of seizure and sale or a notice of examination, $68.” “On the issue or renewal of a notice of garnishment, $144.” “For preparing and filing a consolidation order, $127.” (O. Reg. 332/16, s. 1 (2), paras. 12-15)",
+    "Bailiff fees include: “For each attempt to enforce a writ of delivery, $38.” For each attempt to enforce a writ of seizure and sale of personal property, “where no sale is necessary, $38, or” “where a sale is necessary, $64.” “A fee under subsection (1) for attempted enforcement by a bailiff is payable whether or not the attempt was successful.” (O. Reg. 332/16, s. 2)",
+    "The page says that to enforce a judgment, a party “may need to pay some of the fees listed in the Sheriffs – Fees regulation.” Those sheriff fees are listed in the civil section of this guide. (ontario.ca, Fees: Small Claims Court)",
+    "For an appeal, the Small Claims Court clerk charges “For forwarding a court file to Divisional Court for appeal, $105.” The appeal itself is filed under the Superior Court fee regulation: “A notice of appeal or cross-appeal to an appellate court of a final order of the Small Claims Court, $138.” (O. Reg. 332/16, s. 1 (2), para. 16; O. Reg. 293/92, s. 1 (1), para. 3 xi)",
+    "The page also says a person who appeals “will need to pay fees listed in the Fees for Court Transcripts regulation for the preparation of a transcript of your case, as well as a fee for filing your appeal.” These transcript fees are paid to an Authorized Court Transcriptionist. For a certified transcript in electronic format, with no faster delivery time, the page lists “$6.30 per page or $25.00, whichever is greater”. (ontario.ca, Fees: Small Claims Court)"
+   ]
+  },
+  {
+   "heading": "Superior Court (civil): starting and defending",
+   "court": "civil",
+   "paragraphs": [
+    "The civil page says civil proceedings are mostly conducted in the Superior Court of Justice, the Divisional Court branch of the Superior Court of Justice, and the Court of Appeal for Ontario. Their fees are set by O. Reg. 293/92, “Superior Court of Justice and Court of Appeal – Fees”. (ontario.ca, Civil court fees)",
+    "To start a proceeding: “A statement of claim, notice of action or notice of application, $243.” “A third or subsequent party claim, $243.” “A statement of defence and counterclaim adding a party, $243.” (O. Reg. 293/92, s. 1 (1), para. 1 i-iii)",
+    "To defend: “A notice of intent to defend, $194.” “If no notice of intent to defend has been filed by the same party, a statement of defence, a defence to counterclaim, a defence to crossclaim or a third party defence, $194.” “A notice of appearance, $172.” (O. Reg. 293/92, s. 1 (1), para. 3 i-iii)",
+    "Separate fees are set for estate matters, actions under the Construction Act, and applications under the Repair and Storage Liens Act. The civil page notes that “Estate Administration Tax is not a court fee.” (O. Reg. 293/92, ss. 2-4; ontario.ca, Civil court fees)"
+   ]
+  },
+  {
+   "heading": "Superior Court (civil): motions, trial and appeals",
+   "court": "civil",
+   "paragraphs": [
+    "For motions: “A notice of motion served on another party, a notice of motion without notice, a notice of motion for a consent order or a notice of motion for leave to appeal, other than a notice of motion in a family law appeal, $339.” “A notice of return of motion, other than a notice of return of motion in a family law appeal, $339.” (O. Reg. 293/92, s. 1 (1), para. 3 iv-v)",
+    "Other steps: “A requisition for signing of default judgment by registrar, $177.” “A trial record, $859, for the first time only.” “A jury notice in a civil proceeding, $138.” “A summons to a witness, $33.” (O. Reg. 293/92, s. 1 (1), paras. 1 iv, 3 viii, ix, xiv)",
+    "For appeals: “A notice of appeal or cross-appeal from an interlocutory order, $243.” “A notice of appeal or cross-appeal to an appellate court of a final order of any court or tribunal, other than the Small Claims Court or the Consent and Capacity Board, $243.” “For perfecting an appeal or judicial review application, $645.” (O. Reg. 293/92, s. 1 (1), paras. 3 x, xii, 5)",
+    "Other listed fees include “For the taking of an affidavit or declaration by a commissioner for taking affidavits, $22.” Copies cost “$1 per page” not requiring certification and “$4 per page” requiring certification. (O. Reg. 293/92, s. 1 (1), paras. 7, 10)",
+    "For witnesses, “In civil court proceedings, the attendance money payable is set out in Tariff A of the Rules of Civil Procedure”. (ontario.ca, Civil court fees)"
+   ]
+  },
+  {
+   "heading": "Superior Court (civil): enforcing an order",
+   "court": "civil",
+   "paragraphs": [
+    "Court fees to enforce include: “A writ of execution, $77.” “A notice of garnishment or notice of renewal of garnishment (including the filing of the notice with the sheriff), $155.” (O. Reg. 293/92, s. 1 (1), para. 1 vii-viii)",
+    "The sheriff’s duties “are carried out by the Enforcement Office.” “Fees are paid to the Enforcement Office at the time an enforcement request is filed, either in person or by mail.” The page describes its table as “an unofficial presentation of the fees prescribed by an Ontario regulation called Sheriff - Fees”. (ontario.ca, Civil court fees)",
+    "Sheriff fees listed on the page include “$100 for each person to be served” for up to three attempts to serve a document; $100 to file or renew a writ of execution or order that is delivered to a land registrar, and $75 where it is not; and $240 “For each attempt, whether or not successful, to enforce a writ of seizure and sale or an order directing a sale”. (ontario.ca, Civil court fees)",
+    "The page also lists $400 “For each attempt, whether or not successful, to enforce a writ of delivery, a writ of sequestration, an order for interim recovery of personal property, an order for interim preservation of personal property, or a writ of seizure or direction to seize under the Repair and Storage Liens Act” and “$12.65 per name” for a search for writs. (ontario.ca, Civil court fees)"
+   ]
+  },
+  {
+   "heading": "Family: Superior Court and Family Court branch",
+   "court": "family",
+   "paragraphs": [
+    "Family proceedings are conducted in “the Superior Court of Justice”, “the Family Court branch of the Superior Court of Justice (sometimes called the Unified Family Court)” and “the Ontario Court of Justice”. The family page says the fees below “are for family proceedings in the Superior Court of Justice. In some cases, they also apply to the Family Court branch”. The regulation sets them for proceedings governed by the Family Law Rules, except appeals under rule 38. (ontario.ca, Family court fees; O. Reg. 293/92, s. 1.2 (1))",
+    "The fees are: “On the filing of an application, $214.” “On the filing of an answer, other than an answer referred to in paragraph 3, $171.” “On the filing of an answer that includes a request for a divorce by a respondent, $214.” “On the placing of an application on the list for hearing, $445.” (O. Reg. 293/92, s. 1.2 (1), paras. 1-4)",
+    "Also: “On the issue of a summons to a witness, $33.” “On the issue of a certificate, $25.” The family page describes the $25 item as a certificate “with not more than five pages of copies of the Court document annexed”. (O. Reg. 293/92, s. 1.2 (1), paras. 5-6; ontario.ca, Family court fees)",
+    "In addition, “anyone filing an application or an answer with a divorce claim must include the federal government’s $10 fee.” (ontario.ca, Family court fees)",
+    "The regulation says “no fees are payable for the filing of an application, the filing of an answer or the placing of an application on the list for hearing” in proceedings under the Children’s Law Reform Act, the Family Law Act (except Parts I and II), the Family Responsibility and Support Arrears Enforcement Act, 1996, the Marriage Act or the Interjurisdictional Support Orders Act, 2002, or proceedings to enforce parenting, contact or support orders made under them. (O. Reg. 293/92, s. 1.2 (2))",
+    "The family page states this exemption for “proceedings in the Family Court branch” and also lists the Child, Youth and Family Services Act, 2017. The page relies in part on O. Reg. 417/95, which the site does not yet have as a source. (ontario.ca, Family court fees)"
+   ]
+  },
+  {
+   "heading": "Family: Ontario Court of Justice, appeals and child support service",
+   "court": "family",
+   "paragraphs": [
+    "“There are no filing or listing fees in family proceedings in the Ontario Court of Justice. There are only fees for copies of documents and copies of recordings.” The page lists $1.00 per page for copies not requiring certification and $3.50 per page for copies requiring certification. (ontario.ca, Family court fees)",
+    "“For the purposes of court fees, family appeals are treated like civil court proceedings.” Appeals under rule 38 of the Family Law Rules fall under section 1 of the regulation, which sets “In a family law appeal, a notice of motion served on another party, a notice of motion without notice, a notice of motion for a consent order or a notice of return of motion, $134.” (ontario.ca, Family court fees; O. Reg. 293/92, ss. 1 (1), para. 3 vi, 1.2 (1))",
+    "Also under section 1: “A notice of motion for leave to appeal in a family law case, $134.” The notice of appeal and perfecting fees are the civil appeal fees listed above. (O. Reg. 293/92, s. 1 (1), para. 3 vii, x, xii, 5)",
+    "The Online Child Support Service “is an alternative to going to court.” “There is a non-refundable $80 fee each time you use the service, whether you’re setting up or updating child support.” “A fee waiver may be available if you cannot afford to pay the $80 fee.” (ontario.ca, Family court fees)",
+    "For witnesses, “In family proceedings, the attendance money payable is set out in Rule 23 of the Family Law Rules”. (ontario.ca, Family court fees)"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "localText": "docs/sources/corpus/ontario-fees-small-claims.txt",
+   "sourceName": "ontario.ca, Fees: Small Claims Court",
+   "pinpoints": "Overview; payment methods; fees payable to the clerk, bailiff and witnesses; other fees; fees payable to the sheriff; fees for court transcripts; paying fees online",
+   "officialUrl": "https://www.ontario.ca/page/fees-small-claims-court",
+   "retrievedAt": "2026-09-30"
+  },
+  {
+   "localText": "docs/sources/corpus/ontario-fees-civil.txt",
+   "sourceName": "ontario.ca, Civil court fees",
+   "pinpoints": "Overview; payment methods; fee waiver; estate matters; sheriff fees; witnesses; paying civil court fees online",
+   "officialUrl": "https://www.ontario.ca/page/civil-court-fees",
+   "retrievedAt": "2026-09-30"
+  },
+  {
+   "localText": "docs/sources/corpus/ontario-fees-family.txt",
+   "sourceName": "ontario.ca, Family court fees",
+   "pinpoints": "Overview; payment methods; family appeal fees; Superior Court and Family Court branch fees and footnote; Ontario Court of Justice fees; Online Child Support Service fee; witnesses",
+   "officialUrl": "https://www.ontario.ca/page/family-court-fees",
+   "retrievedAt": "2026-09-30"
+  },
+  {
+   "localText": "docs/sources/corpus/oreg-332-16-small-claims-fees.txt",
+   "sourceName": "O. Reg. 332/16",
+   "pinpoints": "s. 1 (1), (2) paras. 1-16, (4); s. 2; s. 3; s. 4 (1), (3)",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/160332",
+   "retrievedAt": "2026-09-30"
+  },
+  {
+   "localText": "docs/sources/corpus/oreg-293-92-superior-court-fees.txt",
+   "sourceName": "O. Reg. 293/92",
+   "pinpoints": "s. 1 (1) paras. 1, 3, 5, 7, 10; s. 1.2 (1), (2); ss. 2-4; s. 6 (1), (3); s. 7",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/920293",
+   "retrievedAt": "2026-09-30"
+  },
+  {
+   "localText": "docs/sources/corpus/ontario-fee-waiver.txt",
+   "sourceName": "ontario.ca, Have your court fees waived",
+   "pinpoints": "Overview; Fees that cannot be waived",
+   "officialUrl": "https://www.ontario.ca/page/have-your-court-fees-waived",
+   "retrievedAt": "2026-09-27"
+  }
+ ]
+}

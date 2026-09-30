@@ -2268,6 +2268,78 @@
       "characters": 409536,
       "lines": 11469,
       "file": "federal-child-support-guidelines-full.txt"
+    },
+    {
+      "id": "evidence-act",
+      "title": "Evidence Act",
+      "citation": "R.S.O. 1990, c. E.23",
+      "url": "https://www.ontario.ca/laws/docs/90e23_e.doc",
+      "retrievedAt": "2026-09-30T20:03:07.338Z",
+      "sha256": "6511a2ea04906e5be6647d2360b2d425321406829a0cdc1d749d3cebe52289c4",
+      "consolidation": "CONSOLIDATION PERIOD: FROM MARCH 6, 2024 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 83301,
+      "lines": 1510,
+      "file": "evidence-act.txt"
+    },
+    {
+      "id": "oreg-332-16-small-claims-fees",
+      "title": "Small Claims Court - Fees and Allowances",
+      "citation": "O. Reg. 332/16",
+      "url": "https://www.ontario.ca/laws/docs/160332_e.doc",
+      "retrievedAt": "2026-09-30T20:03:07.794Z",
+      "sha256": "8c94525077febd3c66b160168d791dbc4a0f3913390dc1eb3608e3c6d300ee4d",
+      "consolidation": "CONSOLIDATION PERIOD: FROM DECEMBER 19, 2025 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 8397,
+      "lines": 157,
+      "file": "oreg-332-16-small-claims-fees.txt"
+    },
+    {
+      "id": "oreg-293-92-superior-court-fees",
+      "title": "Superior Court of Justice and Court of Appeal - Fees",
+      "citation": "O. Reg. 293/92",
+      "url": "https://www.ontario.ca/laws/docs/920293_e.doc",
+      "retrievedAt": "2026-09-30T20:03:07.984Z",
+      "sha256": "3dcbdb151f4be5d76c1fde3738c54292735913715aeede9824fe43589ec5d731",
+      "consolidation": "CONSOLIDATION PERIOD: FROM DECEMBER 19, 2025 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 15810,
+      "lines": 271,
+      "file": "oreg-293-92-superior-court-fees.txt"
+    },
+    {
+      "id": "ontario-fees-small-claims",
+      "title": "Fees: Small Claims Court",
+      "citation": "ontario.ca",
+      "url": "https://www.ontario.ca/page/fees-small-claims-court",
+      "retrievedAt": "2026-09-30T20:03:08.072Z",
+      "sha256": "be5fe42e4ec9ac55c139f18475dc392fc06711ea910369ea841175c53afafdbd",
+      "consolidation": "(none stated)",
+      "characters": 16257,
+      "lines": 168,
+      "file": "ontario-fees-small-claims.txt"
+    },
+    {
+      "id": "ontario-fees-civil",
+      "title": "Civil court fees",
+      "citation": "ontario.ca",
+      "url": "https://www.ontario.ca/page/civil-court-fees",
+      "retrievedAt": "2026-09-30T20:03:08.155Z",
+      "sha256": "cba47c62dd27777737d3484b170af3b836a2eb6b1ac35db8ad05419689a1183c",
+      "consolidation": "(none stated)",
+      "characters": 16848,
+      "lines": 242,
+      "file": "ontario-fees-civil.txt"
+    },
+    {
+      "id": "ontario-fees-family",
+      "title": "Family court fees",
+      "citation": "ontario.ca",
+      "url": "https://www.ontario.ca/page/family-court-fees",
+      "retrievedAt": "2026-09-30T20:03:08.234Z",
+      "sha256": "ad3a0004a77279daf23d7f2b56f1eb52b799145b658ae8c8364b453ac0d03821",
+      "consolidation": "(none stated)",
+      "characters": 8823,
+      "lines": 126,
+      "file": "ontario-fees-family.txt"
     }
   ],
   "failures": []

@@ -1,0 +1,162 @@
+{
+ "id": "evidence",
+ "title": "Evidence: witnesses, documents and affidavits",
+ "courts": [
+  "small-claims",
+  "civil",
+  "family"
+ ],
+ "intro": "This guide sets out what Ontario's Evidence Act and the court rules say about witnesses, documents, records and affidavits in Small Claims Court, in civil cases in the Superior Court of Justice, and in family cases. Each statement is taken from the Act or rule cited after it.",
+ "sections": [
+  {
+   "heading": "Who can be a witness, and oaths and affirmations",
+   "court": "all",
+   "paragraphs": [
+    "The Evidence Act is an Ontario statute about evidence. It says “This Act applies to all actions and other matters whatsoever respecting which the Legislature has jurisdiction.” In the Act, “court” “includes a judge, arbitrator, umpire, commissioner, justice of the peace or other officer or person having by law or by consent of parties authority to hear, receive and examine evidence”. (Evidence Act, ss. 1, 2)",
+    "The Act says “A person of any age is presumed to be competent to give evidence.” It also says every person offered as a witness “shall be admitted to give evidence although he or she has an interest in the matter in question or in the event of the action and although he or she has been previously convicted of a crime or offence.” (Evidence Act, ss. 7, 18 (1))",
+    "The parties to an action are, except as the Act otherwise provides, “competent and compellable to give evidence on behalf of themselves or of any of the parties”. The Act says the same of the parties' spouses, who are “competent and compellable to give evidence on behalf of any of the parties.” For this Act, “spouse” means a spouse as defined in section 1 of the Family Law Act. (Evidence Act, ss. 1, 8 (1))",
+    "One limit concerns what a spouse said: “A person is not compellable to disclose any communication made to the person by his or her spouse during the marriage.” (Evidence Act, s. 11)",
+    "“Every court has power to administer or cause to be administered an oath or affirmation to every witness who is called to give evidence before the court.” The Act also says “A person may, instead of taking an oath, make an affirmation or declaration that is of the same force and effect as if the person had taken an oath in the usual form.” (Evidence Act, ss. 3 (2), 17 (1))",
+    "“A witness shall not be excused from answering any question upon the ground that the answer may tend to criminate the witness”, or may tend to establish liability to a civil proceeding or to a prosecution under an Act of the Legislature. (Evidence Act, s. 9 (1))",
+    "If the witness objects on those grounds, would have been excused but for this section or a federal Act, and is made to answer, “the answer so given shall not be used or receivable in evidence against him or her in any civil proceeding or in any proceeding under any Act of the Legislature.” (Evidence Act, s. 9 (2))"
+   ]
+  },
+  {
+   "heading": "Business records, electronic records and copies of documents",
+   "court": "all",
+   "paragraphs": [
+    "Section 35 of the Evidence Act deals with business records. There, “business” includes “every kind of business, profession, occupation, calling, operation or activity, whether carried on for profit or otherwise”. A “record” “includes any information that is recorded or stored by means of any device.” (Evidence Act, s. 35 (1))",
+    "Under section 35, “Any writing or record made of any act, transaction, occurrence or event is admissible as evidence of such act, transaction, occurrence or event if made in the usual and ordinary course of any business”, and if it was in the usual and ordinary course of that business to make it at the time, “or within a reasonable time thereafter.” (Evidence Act, s. 35 (2))",
+    "This rule applies only if “the party tendering the writing or record has given at least seven days notice of the party’s intention to all other parties in the action”. Any party can get the record produced for inspection “within five days after giving notice to produce the same.” The circumstances of making the record, “including lack of personal knowledge by the maker, may be shown to affect its weight, but such circumstances do not affect its admissibility.” (Evidence Act, s. 35 (3), (4))",
+    "An “electronic record” is data recorded or stored in or by a computer system or similar device, and it “includes a display, printout or other output of that data”. “The person seeking to introduce an electronic record has the burden of proving its authenticity by evidence capable of supporting a finding that the electronic record is what the person claims it to be.” (Evidence Act, s. 34.1 (1), (4))",
+    "Where the best evidence rule applies to an electronic record, “it is satisfied on proof of the integrity of the electronic record.” That integrity may be proved by evidence of the integrity of the electronic records system that recorded or stored the data, “or by evidence that reliable encryption techniques were used to support the integrity of the electronic record.” (Evidence Act, s. 34.1 (5), (5.1))",
+    "The Act sets out when the integrity of an electronic records system is presumed, and says those matters “may be established by an affidavit given to the best of the deponent’s knowledge and belief.” (Evidence Act, s. 34.1 (7), (9))",
+    "Section 34 is about photographic copies of items such as a cheque, receipt, agreement, document or record kept or held by a person. It covers an item photographed “in the course of an established practice” of that person of photographing similar items “in order to keep a permanent record thereof”, and then destroyed by or in the presence of that person or their employees, delivered to another person in the ordinary course of business, or lost. (Evidence Act, s. 34 (2))",
+    "For such an item, “a print from the photographic film is admissible in evidence in all cases and for all purposes for which the object photographed would have been admissible.” (Evidence Act, s. 34 (2))",
+    "Section 55 covers “a telegram, letter, shipping bill, bill of lading, delivery order, receipt, account or other written instrument used in business or other transactions”. A party may give the opposite party notice, “ten days at least before the trial”, that it intends to use a copy as proof of the contents, naming a time and place to inspect it. (Evidence Act, s. 55 (1))",
+    "The copy is then enough evidence of the original's contents unless the party who got the notice, “within four days after the time mentioned for such inspection gives notice that the party intends to dispute the correctness or genuineness of the copy at the trial or proceeding, and to require proof of the original”. (Evidence Act, s. 55 (2))"
+   ]
+  },
+  {
+   "heading": "Health reports, expert witnesses, earlier statements and affidavits",
+   "court": "all",
+   "paragraphs": [
+    "A “practitioner” includes “a member of a College as defined in subsection 1 (1) of the Regulated Health Professions Act, 1991”. A report signed by a practitioner and obtained by or prepared for a party is admissible “with leave of the court and after at least ten days notice has been given to all other parties”. “Leave” means the court's permission. Unless the court orders otherwise, a party is entitled to a copy of the report when notice is given. (Evidence Act, s. 52 (1)-(3))",
+    "“Except by leave of the judge presiding at the trial, a practitioner who signs a report with respect to a party shall not give evidence at the trial unless the report is given to all other parties” as the Act requires. If the court finds the practitioner's evidence “could have been produced as effectively by way of a report”, it may order the party who required the practitioner to attend to pay costs. (Evidence Act, s. 52 (4), (5))",
+    "For witnesses who give opinion evidence, the Act says “not more than three of such witnesses may be called upon either side without the leave of the judge or other person presiding.” (Evidence Act, s. 12)",
+    "“A witness may be cross-examined as to previous statements made by him or her in writing, or reduced into writing, relative to the matter in question, without the writing being shown to the witness”. If the writing is to be used to contradict the witness, the witness's attention must first be called to the parts to be used. (Evidence Act, s. 20)",
+    "If a witness does not clearly admit making an earlier statement that differs from their testimony, proof may be given that they made it. First, “the circumstances of the supposed statement sufficient to designate the particular occasion shall be mentioned to the witness, and the witness shall be asked whether or not he or she did make such statement.” (Evidence Act, s. 21)",
+    "No informality in the heading or other formal parts of an affidavit made before a person authorized to take affidavits “is any objection to its reception in evidence if the court or judge before whom it is tendered thinks proper to receive it.” When evidence is in an affidavit and the person affirms, the person taking it “shall certify that the deponent satisfied him or her that the deponent was a person entitled to affirm.” (Evidence Act, ss. 17 (2), 46)"
+   ]
+  },
+  {
+   "heading": "Small Claims Court: what evidence the court may receive",
+   "court": "small-claims",
+   "paragraphs": [
+    "The Courts of Justice Act says the Small Claims Court “may admit as evidence at a hearing and act upon any oral testimony and any document or other thing so long as the evidence is relevant to the” subject-matter of the proceeding, “but the court may exclude anything unduly repetitious.” This “applies whether or not the evidence is given or proven under oath or affirmation or admissible as evidence in any other court.” (Courts of Justice Act, s. 27 (1), (2))",
+    "There are limits. Nothing is admissible “that would be inadmissible by reason of any privilege under the law of evidence” or “that is inadmissible by any Act.” The court's power also does not override any Act “expressly limiting the extent to or purposes for which any oral testimony, documents or things may be admitted or used in evidence in any proceeding.” (Courts of Justice Act, s. 27 (3), (4))",
+    "On copies, “A copy of a document or any other thing may be admitted as evidence at a hearing if the presiding judge is satisfied as to its authenticity.” (Courts of Justice Act, s. 27 (5))",
+    "Under the Small Claims Court rules, “At the trial of an undefended action, the plaintiff's case may be proved by affidavit, unless the trial judge orders otherwise.” (Rules of the Small Claims Court, r. 18.01)",
+    "“A document or written statement or an audio or visual record that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise.” (Rules of the Small Claims Court, r. 18.02 (1))",
+    "This covers “The signed written statement of any witness, including the written report of an expert”, to the extent it relates to things the witness could testify to in person. It also covers any other document, “including but not limited to a hospital record or medical report made in the course of care and treatment, a financial record, a receipt, a bill, documentary evidence of loss of income or property damage, and a repair estimate.” (Rules of the Small Claims Court, r. 18.02 (2))",
+    "A party serving such a statement or document must include “the name, telephone number and address for service of the witness or author”, and, for an expert, “a summary of his or her qualifications.” A party who was served and wishes to cross-examine the witness or author “may summon him or her as a witness under subrule 18.03 (1).” (Rules of the Small Claims Court, r. 18.02 (3), (4))"
+   ]
+  },
+  {
+   "heading": "Small Claims Court: summoning a witness",
+   "court": "small-claims",
+   "paragraphs": [
+    "“A party who requires the attendance of a person in Ontario as a witness at a trial may serve the person with a summons to witness (Form 18A)”. The summons may also require the witness to bring to the trial documents or other things in their possession, control or power “relating to the matters in question in the action that are specified in the summons.” (Rules of the Small Claims Court, r. 18.03 (1), (2))",
+    "A summons to witness “shall be served personally by the party who requires the presence of the witness, or by the party's representative, at least 10 days before the trial date”. At the time of service, attendance money calculated under the regulations under the Administration of Justice Act “shall be paid or tendered to the witness.” (Rules of the Small Claims Court, r. 8.01 (7), 18.03 (3))",
+    "A party who serves a summons on a witness or author of a served statement or document must, at the same time, “serve a copy of the summons on every other party.” A party not served with that copy “may request an adjournment of the trial, with costs.” (Rules of the Small Claims Court, r. 18.02 (5), (7))",
+    "If a party summons a witness who needs an interpreter, “the party shall arrange for a qualified interpreter to attend at the trial”, unless the interpretation is between English and French and the Ministry of the Attorney General provides the interpreter. (Rules of the Small Claims Court, r. 18.03 (5.1))",
+    "If a witness “whose evidence is material to the conduct of an action” does not attend or remain as the summons requires, the trial judge may issue a warrant (Form 18B) to have the witness brought before the court. If a party has “abused the power to summon a witness”, the court may order that party to pay the witness compensation. (Rules of the Small Claims Court, r. 18.03 (6), (8))"
+   ]
+  },
+  {
+   "heading": "Civil cases: witnesses and evidence at trial",
+   "court": "civil",
+   "paragraphs": [
+    "“Unless these rules provide otherwise, witnesses at the trial of an action shall be examined orally in court and the examination may consist of direct examination, cross-examination and re-examination.” The trial judge “may disallow a question put to a witness that is vexatious or irrelevant”. (Rules of Civil Procedure, r. 53.01 (1), (2))",
+    "Where a witness does not understand the language of the examination, or is deaf or mute, a competent and independent interpreter must take an oath or affirmation before the witness is called. The party calling the witness “shall provide the interpreter”, unless the interpretation is between English and French and the Ministry of the Attorney General provides one. (Rules of Civil Procedure, r. 53.01 (5), (6))",
+    "The court may allow “the evidence of a witness or proof of a particular fact or document to be given by affidavit, unless an adverse party reasonably requires the attendance of the deponent at trial for cross-examination.” (Rules of Civil Procedure, r. 53.02 (1))",
+    "A party who intends to call an expert witness at trial must, “not less than 90 days before the pre-trial conference”, serve on every other party a report signed by the expert with the listed information. A responding expert's report is due “not less than 60 days before the pre-trial conference”. (Rules of Civil Procedure, r. 53.03 (1), (2))",
+    "Without leave of the trial judge, an expert may not testify on an issue unless the substance of that testimony is set out in a served report, a supplementary report served “not less than 45 days before the commencement of the trial”, or a responding supplementary report served “not less than 15 days before” it. (Rules of Civil Procedure, r. 53.03 (3))",
+    "These times for serving reports may be extended or abridged by a judge or associate judge at a pre-trial or Rule 77 conference, by the court on motion, or on the parties' written consent, except that the parties may not consent to an extension that would affect the scheduled trial date. (Rules of Civil Procedure, r. 53.03 (4))",
+    "A party may serve a person in Ontario with a summons to witness (Form 53A). It “shall be served on the witness personally”, and at the same time “attendance money calculated in accordance with Tariff A shall be paid or tendered to the witness.” (Rules of Civil Procedure, r. 53.04 (1), (4))",
+    "If a witness whose evidence is material was served and paid or tendered proper attendance money, but does not attend or remain as the summons requires, the presiding judge may issue a warrant for arrest (Form 53B) to have the witness apprehended and brought before the court. (Rules of Civil Procedure, r. 53.04 (7))",
+    "A party may call an adverse party as a witness by serving a summons, or by serving on the adverse party or their lawyer, “at least 10 days before the commencement of the trial, a notice of intention to call the person as a witness”, and paying or tendering attendance money. (Rules of Civil Procedure, r. 53.07 (1), (2))"
+   ]
+  },
+  {
+   "heading": "Civil cases: affidavits and requests to admit",
+   "court": "civil",
+   "paragraphs": [
+    "An affidavit used in a civil proceeding must “be in Form 4D”, “be expressed in the first person”, state the full name of the deponent (the person making it), be divided into numbered paragraphs, and “be signed by the deponent and sworn or affirmed in accordance with the Commissioners for Taking Affidavits Act.” (Rules of Civil Procedure, r. 4.06 (1))",
+    "“An affidavit shall be confined to the statement of facts within the personal knowledge of the deponent or to other evidence that the deponent could give if testifying as a witness in court, except where these rules provide otherwise.” An exhibit referred to in an affidavit is marked by the person taking the affidavit. If it is a document, “a copy shall be served with the affidavit, unless it is impractical to do so.” (Rules of Civil Procedure, r. 4.06 (2), (3))",
+    "“A party may at any time, by serving a request to admit (Form 51A), request any other party to admit, for the purposes of the proceeding only, the truth of a fact or the authenticity of a document.” For a copy of a letter or email, “authenticity” includes that “the original was sent as it purports to have been sent and received by the person to whom it is addressed.” (Rules of Civil Procedure, r. 51.01, 51.02 (1))",
+    "The party served must respond “within twenty days after it is served” with a response to request to admit (Form 51B). A party who does not respond is deemed, “for the purposes of the proceeding only”, to admit the facts or documents. A party is also deemed to admit them unless the response specifically denies them, or refuses to admit and “sets out the reason for the refusal.” (Rules of Civil Procedure, r. 51.03)",
+    "If a party denies or refuses to admit a fact or document that is later proved at the hearing, “the court may take the denial or refusal into account in exercising its discretion respecting costs.” An admission “may be withdrawn on consent or with leave of the court.” (Rules of Civil Procedure, r. 51.04, 51.05)"
+   ]
+  },
+  {
+   "heading": "Family cases: evidence on motions",
+   "court": "family",
+   "paragraphs": [
+    "Under the Family Law Rules, evidence on a motion may be given by “An affidavit or other admissible evidence in writing”, by “A transcript of the questions and answers on a questioning under rule 20”, or, “With the court’s permission, oral evidence.” (Family Law Rules, r. 14 (17))",
+    "“An affidavit for use on a motion shall, as much as possible, contain only information within the personal knowledge of the person signing the affidavit.” It may also contain information the person learned from someone else, but only if “the source of the information is identified by name and the affidavit states that the person signing it believes the information is true”, and, on a contempt motion under rule 31, only if “the information is not likely to be disputed.” (Family Law Rules, r. 14 (18), (19))",
+    "Unless the court orders otherwise, the party making the motion “shall serve all the evidence in support of the motion with the notice of motion.” The responding party then serves all its evidence in response. The moving party may then serve evidence replying to new matters. “No other evidence may be used.” (Family Law Rules, r. 14 (20))"
+   ]
+  },
+  {
+   "heading": "Family cases: evidence at trial",
+   "court": "family",
+   "paragraphs": [
+    "At least 20 days before the earlier of the start of the trial and the trial sitting, “the applicant shall serve and file a trial record”, containing a table of contents and the listed documents. “Not later than seven days before the start of the trial”, a respondent may add listed documents not already in it. (Family Law Rules, r. 23 (1), (2))",
+    "“A party who wants a witness to give evidence in court or to be questioned and to bring documents or other things shall serve on the witness a summons to witness (Form 23)” by special service, with the witness fee. The summons and fee must be served “at least seven days before the person is required to be present in court or at a questioning”, or, if clause 20 (14) (b) applies, “within the time specified by the court under that clause.” (Family Law Rules, r. 23 (3), (3.2))",
+    "The witness fee, for each day the person is needed, includes “$50 for coming to court or to be questioned” and travel money. For a person living in the city or town where they give evidence, the travel amount is “$5”. Other amounts apply to people who live elsewhere or need to stay overnight. (Family Law Rules, r. 23 (4))",
+    "A party “may call the opposing party as a witness” and may cross-examine the opposing party. The opposing party may be made to attend by a summons, or by serving on the opposing party's lawyer, “at least 10 days before the start of the trial, a notice of intention to call the opposing party as a witness.” (Family Law Rules, r. 23 (11), (11.1))",
+    "Questioning under rule 20 “shall take place orally under oath or affirmation.” “An answer or information given under rule 20 (questioning) by an opposing party may be read into evidence at trial if it is otherwise proper evidence, even if the opposing party has already testified at trial.” (Family Law Rules, r. 20 (1), 23 (13))",
+    "This is subject to conditions. For example, if the answer is read in to show that a witness’s trial testimony is not to be believed, earlier answers “must be put to the witness as sections 20 and 21 of the Evidence Act require”, and a special party’s or child party’s answers may be read in “only with the trial judge’s permission.” (Family Law Rules, r. 23 (15))",
+    "Evidence at trial by affidavit, or by another method not requiring a party or witness to attend in person, may be used only if a court order allows it, “the evidence is served at least 30 days before the start of the trial”, and “the evidence would have been admissible if given by the party or witness in court.” At an uncontested trial, affidavit evidence in the listed forms may be used without such an order, unless the court directs oral evidence. (Family Law Rules, r. 23 (20), (21), (22))"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "localText": "docs/sources/corpus/evidence-act.txt",
+   "sourceName": "Evidence Act",
+   "pinpoints": "ss. 1, 2, 3 (2), 7, 8 (1), 9, 11, 12, 17, 18 (1), 20, 21, 34 (2), 34.1 (1), (4), (5), (5.1), (7), (9), 35 (1)-(4), 46, 52 (1)-(5), 55",
+   "officialUrl": "https://www.ontario.ca/laws/statute/90e23",
+   "retrievedAt": "2026-09-30"
+  },
+  {
+   "localText": "docs/sources/corpus/cja-courts-of-justice-act.txt",
+   "sourceName": "Courts of Justice Act",
+   "pinpoints": "s. 27 (1)-(5)",
+   "officialUrl": "https://www.ontario.ca/laws/statute/90c43",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
+   "sourceName": "Rules of the Small Claims Court",
+   "pinpoints": "r. 8.01 (7), 18.01, 18.02, 18.03 (1)-(3), (5.1), (6), (8)",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/980258",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/rules-of-civil-procedure.txt",
+   "sourceName": "Rules of Civil Procedure",
+   "pinpoints": "r. 4.06 (1)-(3), 51.01-51.05, 53.01 (1), (2), (5), (6), 53.02 (1), 53.03 (1)-(4), 53.04 (1), (4), (7), 53.07 (1), (2)",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/900194",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/family-law-rules.txt",
+   "sourceName": "Family Law Rules",
+   "pinpoints": "r. 14 (17)-(20), 20 (1), 23 (1)-(4), (11), (11.1), (13), (15), (20)-(22)",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/990114",
+   "retrievedAt": "2026-09-30"
+  }
+ ]
+}
