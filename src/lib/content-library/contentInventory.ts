@@ -37,6 +37,7 @@ import { REMEDY_TYPES } from "../case-system/intake/remedyTypes";
 import { OUT_OF_SCOPE_FORUMS } from "../case-system/intelligence/outOfScopeForums";
 import { NEXT_STEP_BLOCKS } from "./nextSteps";
 import { PATHWAY_DESCRIPTIONS } from "./pathwayDescriptions";
+import { FORM_REGULATION_URLS, FORM_SUMMARIES } from "./forms/formSummaries";
 import {
   CROSS_FORUM_NOTES,
   ISSUE_KIND_LABELS,
@@ -238,6 +239,26 @@ export function collectContentInventory(): ContentItem[] {
         appearsIn: "Home, a note about how two matters connect",
       }),
     );
+  }
+
+  // ---- The guide to every official form (2026-09-30) ----
+  // One plain sentence per form, written from the rule that names it; the rule
+  // quotes are shown beside it. test:form-explanations checks the sources.
+  for (const [court, byNumber] of Object.entries(FORM_SUMMARIES) as [keyof typeof FORM_SUMMARIES, Record<string, string>][]) {
+    for (const [number, summary] of Object.entries(byNumber)) {
+      if (!summary) continue;
+      items.push(
+        item({
+          id: `form-guide:${court}:${number}`,
+          type: "form-guidance",
+          pathway: court,
+          stage: "forms",
+          text: summary,
+          sourceUrl: FORM_REGULATION_URLS[court],
+          appearsIn: `Forms guide, Form ${number}; the case forms page card for the same form`,
+        }),
+      );
+    }
   }
 
   // ---- Form guidance ----

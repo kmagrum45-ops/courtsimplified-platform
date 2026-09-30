@@ -161,6 +161,9 @@ jobs:
       - name: Connection notes quote their sources exactly
         run: npm run test:cross-forum-notes
 
+      - name: Every official form is explained from the rules that name it
+        run: npm run test:form-explanations
+
       - name: AI model configuration verification
         run: npm run test:ai-models
 

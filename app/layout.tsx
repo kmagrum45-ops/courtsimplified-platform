@@ -35,6 +35,9 @@ export const metadata: Metadata = {
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/legal-principles", label: "Guides" },
+  // Every official form for each court, explained (2026-09-30, site owner:
+  // "a forms button so each court type has full list of forms").
+  { href: "/forms/guide", label: "Forms" },
   { href: "/about", label: "About" },
 ];
 

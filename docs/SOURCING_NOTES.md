@@ -34,6 +34,39 @@ replacement for these):
 
 ## Techniques that work
 
+### Every form explained from the rule that names it (2026-09-30)
+
+The explanation of a court form is in the regulation itself: the rule that
+calls for "a defence (Form 9A)" says what Form 9A is for. `npm run forms:index`
+(`scripts/forms/buildFormRuleIndex.ts`) reads each regulation's own TABLE OF
+FORMS (the LAST "table of forms" heading in the file -- the first one is the
+contents page) and quotes up to three provisions naming each form.
+
+- **Coverage:** Small Claims 46/46 forms named in a rule, Family 144/144,
+  Civil 236/240. The four civil forms no rule names by number are 4B, 59C,
+  74B.1 and 74H; they are explained from their titles and say so.
+- **Forms are named in lists**, not one at a time: "application (Form 8, 8A,
+  8B, 8B.1 ...)", and **"Forms 64B to 64D" is a range** (64C included). A
+  search for `Form 8A` alone finds only 118 of 144 family forms.
+- **Rule numbers only go forward.** A numbered paragraph inside a rule ("1.1
+  The notice of motion shall be in Form 37A." inside r. 68.01) looks exactly
+  like a rule heading; the generator rejects a "rule number" that jumps
+  backwards or more than six rules ahead.
+- **Cutting a long sentence can cut the form number off** ("... immediate
+  foreclosure (Form"). The quote window must contain the whole mention; the
+  first version lost it in 14 quotes, and only the "names its form" check
+  noticed.
+- **Summaries** (`src/lib/content-library/forms/formSummaries.json`) were
+  written from the title and quotes alone, then re-read independently against
+  them: 32 of 430 corrected for detail the quote did not support ("bailiff",
+  "sworn statement" for a statutory declaration, who signs). The suite can
+  check numbers and advice words mechanically; it cannot check meaning, so a
+  change to a summary needs the same re-read.
+- **Not used as explanations:** the database's `purpose` column (the title
+  again for every form), `court_forms`/`forms` (placeholder descriptions, no
+  readers), `formKnowledgeBase.ts` (12 forms, unsourced). `src/lib/content-library/forms/formGuide.ts` is now
+  the one place a form is explained.
+
 ### Court of Appeal for Ontario and SCC decisions: the Fetch Decisions workflow (2026-09-30)
 
 **This closes the "no Ontario appellate law at all" gap recorded under Noting up.**
