@@ -287,6 +287,19 @@ export type EvidenceCategory = {
   examples: string[];
 };
 
+/**
+ * A further source for part of an entry's text, beside its main sourceUrl.
+ * Added 2026-09-30 for entries whose wording rests on two instruments -- the
+ * Small Claims guide for the $50,000 limit AND O. Reg. 626/00 that prescribes
+ * it, or Clements for factual causation AND Mustapha for remoteness. The
+ * pinpoint is also named inline in the text, so a user sees it wherever the
+ * text is shown; this field is what a check can read.
+ */
+export type SourceRef = {
+  sourceUrl: string;
+  pinpoint: string;
+};
+
 export type PlaintiffElement = {
   id: string;
   name: string;
@@ -294,24 +307,24 @@ export type PlaintiffElement = {
   sourceUrl: string;
   evidenceCategories: EvidenceCategory[];
   /**
-   * OPTIONAL, and the optionality is the point.
-   *
-   * 146 sub-entries across this file carry a sourceUrl and no date, so nothing
-   * tracks whether any of them has gone stale. Making these required would
-   * force 146 dates to be invented in one commit; a verifiedAt that was not
+   * OPTIONAL, and the optionality is the point: a verifiedAt that was not
    * verified is worse than none, because it converts an unknown into a false
    * assurance.
    *
-   * Optional means NEW entries carry them and old ones are VISIBLY absent.
-   * verifyIntakeCoverage reports the count the way it reports noting-up --
-   * the gap stays in the data instead of being invisible by omission. The
-   * backfill plan is in OUTSTANDING_ISSUES.md.
+   * Since 2026-09-30 a date means something checkable. All 146 entries were
+   * read against their sources that day (86 corrected); each dated entry has a
+   * record in docs/sources/catalogue-verification.json with the passages it
+   * rests on and a fingerprint of the verified text, and
+   * `npm run test:catalogue-verified` fails if the text changes without being
+   * re-verified. The two entries that could not be checked are undated and
+   * listed there as unverifiable. See scripts/content/catalogueVerification.ts.
    *
    * consolidationPeriod is what the SOURCE says about itself, not when we
    * looked. See docs/SOURCED_FACT_CONVENTIONS.md.
    */
   verifiedAt?: string;
   consolidationPeriod?: string;
+  alsoCites?: SourceRef[];
 };
 
 export type DefendantConsideration = {
@@ -322,6 +335,7 @@ export type DefendantConsideration = {
   sourceUrl: string;
   verifiedAt?: string;
   consolidationPeriod?: string;
+  alsoCites?: SourceRef[];
 };
 
 export type ProceduralNote = {
@@ -329,6 +343,7 @@ export type ProceduralNote = {
   sourceUrl: string;
   verifiedAt?: string;
   consolidationPeriod?: string;
+  alsoCites?: SourceRef[];
 };
 
 /**
@@ -359,6 +374,7 @@ export type DefenceConcept = {
   status: "draft" | "reviewed";
   verifiedAt?: string;
   consolidationPeriod?: string;
+  alsoCites?: SourceRef[];
 };
 
 export const DEFENCE_CONCEPTS: DefenceConcept[] = [
@@ -366,11 +382,18 @@ export const DEFENCE_CONCEPTS: DefenceConcept[] = [
     id: "defence-limitation-period-expired",
     name: "Limitation period expired",
     plainExplanation:
-      "In most cases, a claim generally cannot be started more than 2 years after it was " +
-      "discovered (or reasonably should have been discovered). If that window has passed, this is " +
-      "often raised as a reason the claim can't proceed at all, separate from whether the " +
-      "underlying facts are true.",
-    sourceUrl: "https://www.ontario.ca/page/civil-claims-suing-and-being-sued",
+      "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding " +
+      "cannot be started after the second anniversary of the day the claim was discovered. Section " +
+      "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
+      "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
+      "omission, that the act or omission was that of the person the claim is against, and that a " +
+      "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
+      "person with their abilities and in their circumstances first ought to have known those " +
+      "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
+      "the day the act or omission the claim is based on took place, unless the contrary is proved.",
+    sourceUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
+    verifiedAt: "2026-09-30",
+    consolidationPeriod: "2024-12-04",
     reviewedAt: null,
     status: "draft",
   },
@@ -384,6 +407,7 @@ export const DEFENCE_CONCEPTS: DefenceConcept[] = [
       "establish with evidence, not something assumed true by default.",
     sourceUrl:
       "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+    verifiedAt: "2026-09-30",
     reviewedAt: null,
     status: "draft",
   },
@@ -407,6 +431,8 @@ export const DEFENCE_CONCEPTS: DefenceConcept[] = [
       "holiday. \"Holiday\" is defined to include any Saturday or Sunday, so intervening weekends are " +
       "counted and do not extend the period -- only the last day moves.",
     sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+    verifiedAt: "2026-09-30",
+    consolidationPeriod: "2025-10-14",
     reviewedAt: null,
     status: "draft",
   },
@@ -414,11 +440,19 @@ export const DEFENCE_CONCEPTS: DefenceConcept[] = [
     id: "defence-waiver-release-assumption-of-risk",
     name: "Waiver, release, or assumption of risk",
     plainExplanation:
-      "Under the Occupiers' Liability Act, an occupier's general duty to keep premises reasonably " +
-      "safe does not apply to risks a person willingly assumed by entering -- though even then, the " +
-      "occupier still can't deliberately create a danger or act with reckless disregard for that " +
-      "person's safety. A signed waiver or release is often raised in connection with this.",
+      "Under the Occupiers' Liability Act, an occupier's duty to take reasonable care to see that " +
+      "people entering the premises, and property they bring, are reasonably safe (s. 3(1)) does " +
+      "not apply to risks willingly assumed by the person who enters on the premises (s. 4(1)) -- " +
+      "but in that case the occupier still owes a duty not to create a danger with the deliberate " +
+      "intent of doing harm or damage to the person or their property, and not to act with reckless " +
+      "disregard of the presence of the person or their property. Separately, under s. 3(3) the " +
+      "duty applies except so far as the occupier is free to and does restrict, modify or exclude " +
+      "it, and under s. 5(3) an occupier who is free to do so must take reasonable steps to bring " +
+      "the restriction, modification or exclusion to the person's attention. These provisions " +
+      "concern occupiers of premises.",
     sourceUrl: "https://www.ontario.ca/laws/docs/90o02_e.doc",
+    verifiedAt: "2026-09-30",
+    consolidationPeriod: "2021-01-29",
     reviewedAt: null,
     status: "draft",
   },
@@ -431,6 +465,8 @@ export const DEFENCE_CONCEPTS: DefenceConcept[] = [
       "the parties in proportion to their respective degree of fault, rather than an all-or-nothing " +
       "result.",
     sourceUrl: "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
+    verifiedAt: "2026-09-30",
+    consolidationPeriod: "2004-01-01",
     reviewedAt: null,
     status: "draft",
   },
@@ -472,6 +508,7 @@ export const DEFENCE_CONCEPTS: DefenceConcept[] = [
       "damaged property, for instance, or to reputation) is not something that case decides, and is " +
       "not stated here.",
     sourceUrl: "https://www.canlii.org/en/ca/scc/doc/1975/1975canlii15/1975canlii15.html",
+    verifiedAt: "2026-09-30",
     reviewedAt: null,
     status: "draft",
   },
@@ -518,11 +555,13 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "existed-agreement-or-understanding",
         name: "An agreement or understanding for payment existed",
         plainExplanation:
-          "The person bringing the claim generally has to show, on a balance of probabilities, " +
-          "that there was an agreement or understanding involving payment -- whether written, " +
-          "verbal, or based on the parties' conduct.",
-        sourceUrl:
-          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "The Superior Court of Justice's guide to the steps in a civil case says that in every civil " +
+          "case the plaintiff has the burden of proof to establish, on a balance of probabilities, the " +
+          "allegations in their claim -- evidence showing that, more likely than not, it would be " +
+          "correct to rule in their favour. This part of the checklist is about what was agreed about " +
+          "payment, and the records that show it.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Written agreement or contract",
@@ -540,10 +579,14 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "services-or-money-provided",
         name: "Services were provided, or money was loaned or is owed",
         plainExplanation:
-          "Small Claims Court's jurisdiction covers claims for payment of money -- this element is " +
-          "about showing the underlying service was actually performed, or the money was actually " +
-          "advanced or is owed.",
+          "Ontario's Small Claims Court guide says the court \"can handle any action for the payment of " +
+          "money or the recovery of personal property where the amount claimed does not exceed $50,000, " +
+          "excluding interest and costs such as court fees\", and that the reasons for a claim should " +
+          "\"give a full explanation of what happened, including the dates and places and nature of the " +
+          "occurrences involved.\" This part of the checklist is about the work or service that was " +
+          "done, or the money that was advanced, and the records that show it.",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Proof the work or service happened",
@@ -577,10 +620,14 @@ export const CLAIM_TYPES: ClaimType[] = [
         // Reworded to what the source actually says. The legal proposition is
         // unchanged; only the predictive framing is removed.
         plainExplanation:
-          "The claimed amount, and the fact that it hasn't been paid, are part of what a claim " +
-          "sets out -- interest and costs are handled separately from, and in addition to, the " +
-          "amount claimed itself.",
+          "Ontario's Small Claims Court guide says to \"fill in the amount that you are claiming\" and, " +
+          "in the reasons, to \"calculate and explain the amount of money and any interest you are " +
+          "claiming.\" Interest is asked for in the claim itself: the claim form has a place for the " +
+          "pre-judgment interest rate claimed and the amount due up to the date the claim is filed. The " +
+          "$50,000 limit does not count interest and costs such as court fees. This part of the " +
+          "checklist is about the amount owed, how it is calculated, and what has not been paid.",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Invoice or statement of account",
@@ -595,11 +642,17 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "dispute-quality-or-completion",
         name: "The defendant disputes the work was completed or done properly",
         plainExplanation:
-          "A defendant can file a Defence disputing that the work was finished, or that it met what " +
-          "was agreed -- this becomes a fact the court has to weigh alongside the plaintiff's " +
-          "evidence, not an automatic bar to the claim.",
+          "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
+          "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
+          "language with a reasonable amount of detail\", and a copy of any document the defence is " +
+          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "the Defence on every other party and files it, with proof of service, within 20 days of " +
+          "being served with the claim. This topic is about a Defence whose reasons dispute that the " +
+          "work was finished, or that it was done as agreed.",
         whenThisComesUp: "When the defendant has filed a Defence (Form 9A) raising quality or completion issues.",
-        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+        sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-10-14",
       },
     ],
     applicableDefenceConceptIds: [
@@ -612,6 +665,7 @@ export const CLAIM_TYPES: ClaimType[] = [
       {
         note: "This kind of claim is started with a Plaintiff's Claim (Form 7A).",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
       },
     ],
     signals: [
@@ -658,10 +712,14 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "defendant-was-occupier",
         name: "The defendant was the occupier of the premises",
         plainExplanation:
-          "The Occupiers' Liability Act's duty of care applies to whoever occupies (is in " +
-          "possession or control of) the premises where the incident happened -- often, but not " +
-          "always, a business.",
+          "Under the Occupiers' Liability Act, the duty of care is owed by the \"occupier\" of the " +
+          "premises. Section 1 says an occupier includes a person in physical possession of the " +
+          "premises, or a person who has responsibility for and control over the condition of the " +
+          "premises or the activities carried on there, or control over the persons allowed to enter -- " +
+          "even where there is more than one occupier of the same premises.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90o02_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2021-01-29",
         evidenceCategories: [
           {
             name: "Proof of who controls the property",
@@ -674,21 +732,26 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "premises-not-reasonably-safe",
         name: "The premises were not kept reasonably safe",
         plainExplanation:
-          "An occupier owes a duty to take reasonable care to see that people entering the premises " +
-          "are reasonably safe. This applies whether the danger came from the condition of the " +
-          "property itself or from an activity carried on there. " +
-          "The statute states the duty in the abstract; the Supreme Court of Canada has considered " +
-          "what it concretely requires for snow and ice. In a case about a fall on an icy, unsalted " +
-          "parking area, the Court agreed that doing nothing at all to make a treacherous area less " +
-          "slippery fell short of reasonable care, in circumstances where sand and salt were " +
-          "inexpensive and readily available -- while noting the duty did not extend to salting or " +
-          "sanding every square inch, only the part visitors were known to use. The Court also held " +
-          "that a local custom of not salting or sanding does not displace the duty: \"no amount of " +
+          "Under s. 3(1) of the Occupiers' Liability Act, an occupier owes a duty to take such care as " +
+          "in all the circumstances is reasonable to see that people entering the premises, and their " +
+          "property, are reasonably safe. Under s. 3(2), this applies whether the danger is caused by " +
+          "the condition of the premises or by an activity carried on there. The statute states the " +
+          "duty in the abstract; the Supreme Court of Canada, in Waldick v. Malcolm, [1991] 2 S.C.R. " +
+          "456, considered what it required in one case about snow and ice. There, a visitor fell on an " +
+          "icy, unsanded parking area. The Court agreed with the lower courts that the occupiers " +
+          "breached s. 3(1) by doing nothing to make the parking area entrance less slippery. The lower " +
+          "courts had said the Act did not require salting or sanding \"every square inch\" of the " +
+          "parking area, only the part next to the entrance that the occupiers knew visitors would use, " +
+          "and had stressed that sand and salt are not expensive and are readily available. The Court " +
+          "said local custom is one circumstance that can inform what is reasonable, but that a " +
+          "customary practice which is unreasonable in itself does not oust the duty: \"no amount of " +
           "general community compliance will render negligent conduct 'reasonable ... in all the " +
           "circumstances'.\" What reasonable care required there is not a rule about what it requires " +
           "everywhere -- the statutory test is what is reasonable in all the circumstances of the " +
           "particular case.",
         sourceUrl: "docs/sources/waldick-v-malcolm-1991-2-SCR-456.pdf",
+        verifiedAt: "2026-09-30",
+        alsoCites: [{"sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc", "pinpoint": "Occupiers' Liability Act, s. 3(1)-(2)"}],
         evidenceCategories: [
           {
             name: "Photos or video of the condition",
@@ -706,17 +769,24 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "injury-and-connection",
         name: "The unsafe condition caused an injury or loss",
         plainExplanation:
-          "There generally needs to be a connection shown between the unsafe condition and the harm " +
-          "that resulted -- not just that a condition existed and separately that an injury occurred. " +
-          "The Occupiers' Liability Act sets the duty of care but says nothing about causation; that " +
-          "comes from the general law of negligence. The factual part is generally tested with the " +
-          "\"but for\" test -- the plaintiff must show, on a balance of probabilities, that the injury " +
-          "would not have occurred but for the defendant's negligent act. That is a factual inquiry, " +
-          "applied in a robust, common-sense way: scientific evidence of precisely how much the " +
-          "defendant's negligence contributed is not required. Separately, the damage must not be too " +
-          "remote -- it must have been reasonably foreseeable. See \"The elements of a negligence " +
-          "claim\" for the fuller general framework this draws from.",
+          "In negligence cases generally, the Supreme Court of Canada has said a plaintiff must show " +
+          "that the damage was caused, in fact and in law, by the defendant's breach (Mustapha v. " +
+          "Culligan of Canada Ltd., 2008 SCC 27, para. 3). The Occupiers' Liability Act sets out the " +
+          "occupier's duty of care (s. 3(1)) but does not itself set out a test for causation, and " +
+          "neither decision described here was an occupiers' liability case. In Clements v. Clements, " +
+          "2012 SCC 32 (paras. 8-9), the Court said the factual part is generally tested with the \"but " +
+          "for\" test -- the plaintiff must show, on a balance of probabilities, that the injury would " +
+          "not have occurred but for the defendant's negligent act. That is a factual inquiry, applied " +
+          "in a robust, common-sense way: scientific evidence of precisely how much the defendant's " +
+          "negligence contributed is not required. The legal part -- remoteness -- asks, in the words " +
+          "of Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, whether \"the harm [is] too unrelated to " +
+          "the wrongful conduct to hold the defendant fairly liable\"; a harm is reasonably foreseeable " +
+          "if it is a \"real risk\" -- one that would occur to the mind of a reasonable person in the " +
+          "defendant's position and that they would not \"brush aside as far-fetched\" (paras. 12-13). " +
+          "See \"The elements of a negligence claim\" for the fuller general framework this draws from.",
         sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
+        verifiedAt: "2026-09-30",
+        alsoCites: [{"sourceUrl": "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html", "pinpoint": "Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, paras. 11-13"}, {"sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc", "pinpoint": "Occupiers' Liability Act, s. 3(1)"}],
         evidenceCategories: [
           {
             name: "Medical records",
@@ -736,11 +806,15 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "duty-restricted-by-contract",
         name: "The occupier's duty was restricted or excluded by contract",
         plainExplanation:
-          "An occupier's duty of care applies except to the extent the occupier is free to, and " +
-          "does, restrict, modify, or exclude that duty -- for example, through a signed waiver in " +
-          "some contexts.",
+          "Under s. 3(3) of the Occupiers' Liability Act, the occupier's duty of care applies except so " +
+          "far as the occupier is free to, and does, restrict, modify or exclude it. The Act adds two " +
+          "limits: under s. 5(1), the duty cannot be restricted or excluded by a contract the injured " +
+          "person was not a party to, and under s. 5(3), an occupier who is free to restrict the duty " +
+          "must take reasonable steps to bring that restriction to the person's attention.",
         whenThisComesUp: "When the plaintiff signed a waiver, release, or contract with the occupier before the incident.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90o02_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2021-01-29",
       },
       {
         id: "risk-willingly-assumed",
@@ -754,6 +828,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "and walking on anyway is not, on its own, willing assumption of risk under this section.",
         whenThisComesUp: "When the Defence says the person could see the hazard and chose to proceed anyway.",
         sourceUrl: "docs/sources/waldick-v-malcolm-1991-2-SCR-456.pdf",
+        verifiedAt: "2026-09-30",
       },
     ],
     applicableDefenceConceptIds: [
@@ -766,25 +841,37 @@ export const CLAIM_TYPES: ClaimType[] = [
     proceduralNotes: [
       {
         note:
-          "Claims like this are generally subject to Ontario's standard 2-year limitation period, " +
-          "running from when the incident (or the injury) was discovered -- but for an injury caused " +
-          "by snow or ice specifically, a much shorter notice deadline can apply on top of it. See " +
-          "the next note.",
-        sourceUrl: "https://www.ontario.ca/page/civil-claims-suing-and-being-sued",
+          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding " +
+          "cannot be started after the second anniversary of the day the claim was discovered. Section " +
+          "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
+          "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
+          "omission, that the act or omission was that of the person the claim is against, and that a " +
+          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
+          "person with their abilities and in their circumstances first ought to have known those " +
+          "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
+          "the day the act or omission the claim is based on took place, unless the contrary is proved. " +
+          "For an injury caused by snow or ice, the Occupiers' Liability Act adds a much shorter " +
+          "written-notice requirement -- see the next note.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2024-12-04",
       },
       {
         note:
-          "Where the personal injury was caused by SNOW OR ICE, the Occupiers' Liability Act requires " +
-          "written notice of the claim -- including the date, time, and location -- to be personally " +
-          "served on, or sent by registered mail to, an occupier of the premises or an independent " +
-          "contractor employed to remove snow or ice there, within 60 days of the injury. No action " +
-          "may be brought without that notice. The Act sets out two exceptions: notice is not required " +
-          "where the injured person died as a result of the injury, and a judge may excuse missing or " +
-          "insufficient notice where there is a reasonable excuse and the defendant is not prejudiced " +
-          "in its defence. Notice to any one of the people the Act lists is enough, even if the action " +
-          "is later brought against someone who didn't originally receive it. This 60-day requirement " +
-          "is separate from, and much shorter than, the ordinary 2-year limitation period.",
+          "Under s. 6.1 of the Occupiers' Liability Act, where personal injury was caused by snow or " +
+          "ice, no action for damages may be brought against an occupier, or an independent contractor " +
+          "the occupier employed to remove snow or ice on the premises during the relevant period, " +
+          "unless written notice of the claim -- including the date, time and location -- was " +
+          "personally served on, or sent by registered mail to, at least one of them within 60 days " +
+          "after the injury. Notice is not required if the injured person died as a result of the " +
+          "injury, and a judge may excuse missing or insufficient notice if there is a reasonable " +
+          "excuse and the defendant is not prejudiced in its defence. Notice to any one of those " +
+          "persons is enough, even if the action is later brought against someone who did not " +
+          "originally receive it. This notice is separate from the Limitations Act, 2002's two-year " +
+          "period in the note above.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90o02_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2021-01-29",
       },
     ],
     signals: [
@@ -869,6 +956,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "vehicle owner's consent to tow a vehicle, unless the tow was initiated by police or " +
           "another authorized official.",
         sourceUrl: "https://www.ontario.ca/page/know-your-rights-when-getting-tow",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Records showing no consent was given",
@@ -884,6 +972,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "Tow truck drivers, towing companies, and vehicle storage providers must give their rates " +
           "before providing services, and must be certified to operate in Ontario.",
         sourceUrl: "https://www.ontario.ca/page/know-your-rights-when-getting-tow",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Invoice or receipt",
@@ -903,6 +992,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "requirement.",
         whenThisComesUp: "When the towing company says the tow was requested by police or a similar authority, not by choice.",
         sourceUrl: "https://www.ontario.ca/page/know-your-rights-when-getting-tow",
+        verifiedAt: "2026-09-30",
       },
     ],
     applicableDefenceConceptIds: ["defence-set-off-or-counterclaim", "defence-limitation-period-expired", "defence-failure-to-mitigate"],
@@ -915,11 +1005,13 @@ export const CLAIM_TYPES: ClaimType[] = [
           "Transportation online -- this is a regulatory complaint path, not a substitute for " +
           "recovering money through the court.",
         sourceUrl: "https://www.ontario.ca/page/know-your-rights-when-getting-tow",
+        verifiedAt: "2026-09-30",
       },
       {
         note:
           "The Ministry's oversight under this Act only covers events on or after January 1, 2024.",
         sourceUrl: "https://www.ontario.ca/page/know-your-rights-when-getting-tow",
+        verifiedAt: "2026-09-30",
       },
     ],
     signals: [
@@ -958,21 +1050,23 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "goods-not-as-agreed",
         name: "The goods delivered were defective, not as described, or never arrived",
         plainExplanation:
-          "Ontario's Sale of Goods Act addresses each of these three situations separately. " +
-          "NOT AS DESCRIBED: where goods are sold by description, there is an implied condition that " +
-          "the goods will correspond with the description. " +
-          "DEFECTIVE: the Act starts from the position that there is NO implied condition as to " +
-          "quality or fitness, subject to listed exceptions -- two of which are that goods bought by " +
-          "description from a seller who deals in goods of that description carry an implied condition " +
-          "of merchantable quality (though not as to defects an examination the buyer actually made " +
-          "ought to have revealed), and that goods are reasonably fit for a particular purpose the " +
-          "buyer made known to the seller so as to show reliance on the seller's skill or judgment " +
-          "(though not where a specified article is bought under its patent or other trade name). " +
-          "NEVER ARRIVED: separately from any question of quality, it is the duty of the seller to " +
-          "deliver the goods, and of the buyer to accept and pay for them, in accordance with the " +
-          "terms of the contract. " +
-          "Which of these applies depends on what was agreed and what happened.",
+          "Ontario's Sale of Goods Act addresses each of these three situations separately. NOT AS " +
+          "DESCRIBED: where goods are sold by description, there is an implied condition that the goods " +
+          "will correspond with the description. DEFECTIVE: subject to the Act and any statute in that " +
+          "behalf, the Act starts from the position that there is NO implied condition as to quality or " +
+          "fitness, subject to listed exceptions -- two of which are that goods bought by description " +
+          "from a seller who deals in goods of that description carry an implied condition of " +
+          "merchantable quality (though not as to defects an examination the buyer actually made ought " +
+          "to have revealed), and that goods are reasonably fit for a particular purpose the buyer made " +
+          "known to the seller so as to show reliance on the seller's skill or judgment, where the " +
+          "goods are of a description that it is in the course of the seller's business to supply " +
+          "(though not where a specified article is bought under its patent or other trade name). NEVER " +
+          "ARRIVED: separately from any question of quality, it is the duty of the seller to deliver " +
+          "the goods, and of the buyer to accept and pay for them, in accordance with the terms of the " +
+          "contract. Which of these applies depends on what was agreed and what happened.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90s01_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "1994-12-09",
         evidenceCategories: [
           {
             name: "Description of what was ordered vs. what arrived",
@@ -989,6 +1083,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "purchase existed on the terms claimed.",
         sourceUrl:
           "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Purchase records",
@@ -1001,10 +1096,17 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "loss-amount-goods",
         name: "The amount claimed reflects the actual loss",
         plainExplanation:
-          "Small Claims Court's money jurisdiction covers this kind of claim (up to $50,000, not " +
-          "counting interest and costs) -- the claimed amount should reflect the refund, replacement " +
-          "cost, or difference in value involved.",
+          "Ontario's Small Claims Court guide says the court \"can handle any action for the payment of " +
+          "money or the recovery of personal property where the amount claimed does not exceed $50,000, " +
+          "excluding interest and costs such as court fees.\" The $50,000 figure is the amount " +
+          "prescribed by O. Reg. 626/00, s. 1(1), for the court's jurisdiction under s. 23(1) of the " +
+          "Courts of Justice Act. Ontario's Small Claims Court guide says the reasons for a claim " +
+          "should \"calculate and explain the amount of money and any interest you are claiming\", with " +
+          "copies of supporting documents attached to the claim. This part of the checklist is about " +
+          "the amount claimed and how it is calculated.",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
+        alsoCites: [{"sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc", "pinpoint": "O. Reg. 626/00, s. 1(1)"}, {"sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc", "pinpoint": "Courts of Justice Act, s. 23(1)"}],
         evidenceCategories: [
           {
             name: "Cost documentation",
@@ -1023,6 +1125,8 @@ export const CLAIM_TYPES: ClaimType[] = [
           "extend to defects that examination ought to have revealed.",
         whenThisComesUp: "When the defendant says the defect was visible and the buyer inspected the goods before buying.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90s01_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "1994-12-09",
       },
     ],
     applicableDefenceConceptIds: [
@@ -1036,6 +1140,7 @@ export const CLAIM_TYPES: ClaimType[] = [
       {
         note: "This kind of claim is started with a Plaintiff's Claim (Form 7A).",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
       },
     ],
     signals: [
@@ -1087,10 +1192,13 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "existed-agreement-sale",
         name: "An agreement existed for the sale of goods",
         plainExplanation:
-          "The seller generally has to show, on a balance of probabilities, that an agreement for the " +
-          "sale existed on the terms claimed.",
-        sourceUrl:
-          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "The Superior Court of Justice's guide to the steps in a civil case says that in every civil " +
+          "case the plaintiff has the burden of proof to establish, on a balance of probabilities, the " +
+          "allegations in their claim -- evidence showing that, more likely than not, it would be " +
+          "correct to rule in their favour. This part of the checklist is about the agreement for the " +
+          "sale -- what was being sold, and on what terms.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Sale records",
@@ -1103,11 +1211,13 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "goods-delivered",
         name: "The goods were delivered or made available as agreed",
         plainExplanation:
-          "The person bringing the claim generally has to show, on a balance of probabilities, that " +
-          "the goods were actually delivered to the buyer, or otherwise made available to them in the " +
-          "way the agreement provided for.",
-        sourceUrl:
-          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "The Superior Court of Justice's guide to the steps in a civil case says that in every civil " +
+          "case the plaintiff has the burden of proof to establish, on a balance of probabilities, the " +
+          "allegations in their claim -- evidence showing that, more likely than not, it would be " +
+          "correct to rule in their favour. This part of the checklist is about delivery -- when and " +
+          "how the goods were delivered or made available, and the records that show it.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Proof of delivery",
@@ -1120,11 +1230,12 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "amount-unpaid-goods",
         name: "The amount claimed is accurate and remains unpaid",
         plainExplanation:
-          "The person bringing the claim generally has to show, on a balance of probabilities, what " +
-          "price was agreed for the goods, what -- if anything -- the buyer has already paid, and what " +
-          "remains outstanding.",
-        sourceUrl:
-          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "Ontario's Small Claims Court guide says the reasons for a claim should \"calculate and " +
+          "explain the amount of money and any interest you are claiming\", with copies of supporting " +
+          "documents attached to the claim. This part of the checklist is about the price agreed, " +
+          "anything already paid, and what remains outstanding.",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Invoice or statement of account",
@@ -1137,10 +1248,14 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "amount-within-jurisdiction-goods-sold",
         name: "The amount claimed falls within Small Claims Court's jurisdiction",
         plainExplanation:
-          "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
-          "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
-          "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "Ontario's Small Claims Court guide says the court \"can handle any action for the payment of " +
+          "money or the recovery of personal property where the amount claimed does not exceed $50,000, " +
+          "excluding interest and costs such as court fees.\" The $50,000 figure is the amount " +
+          "prescribed by O. Reg. 626/00, s. 1(1), for the court's jurisdiction under s. 23(1) of the " +
+          "Courts of Justice Act.",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
+        alsoCites: [{"sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc", "pinpoint": "O. Reg. 626/00, s. 1(1)"}, {"sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc", "pinpoint": "Courts of Justice Act, s. 23(1)"}],
         evidenceCategories: [
           {
             name: "Cost documentation",
@@ -1155,10 +1270,17 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "dispute-goods-matched-agreement",
         name: "The buyer disputes the goods matched what was agreed",
         plainExplanation:
-          "A defendant can file a Defence disputing that the goods matched the agreed description or " +
-          "quality -- this becomes a fact the court weighs alongside the seller's evidence.",
+          "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
+          "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
+          "language with a reasonable amount of detail\", and a copy of any document the defence is " +
+          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "the Defence on every other party and files it, with proof of service, within 20 days of " +
+          "being served with the claim. This topic is about a Defence whose reasons dispute that the " +
+          "goods matched what was agreed.",
         whenThisComesUp: "When the defendant has filed a Defence (Form 9A) disputing the goods themselves, not just non-payment.",
-        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+        sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-10-14",
       },
     ],
     applicableDefenceConceptIds: [
@@ -1171,6 +1293,7 @@ export const CLAIM_TYPES: ClaimType[] = [
       {
         note: "This kind of claim is started with a Plaintiff's Claim (Form 7A).",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
       },
     ],
     // Original 4 signals were exact-substring specific enough that a
@@ -1247,6 +1370,8 @@ export const CLAIM_TYPES: ClaimType[] = [
           "publishes, distributes or broadcasts a representation accepted in good faith in the " +
           "ordinary course of business.",
         sourceUrl: "https://www.ontario.ca/laws/docs/02c30_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-12-11",
         evidenceCategories: [
           {
             name: "The representation itself",
@@ -1257,19 +1382,26 @@ export const CLAIM_TYPES: ClaimType[] = [
       },
       {
         id: "withdrawal-notice-timely",
-        name: "Notice of withdrawal (if relied on) was given within the required time",
+        name:
+          "Notice to rescind for an unfair practice (if relied on) was given within the required time",
         plainExplanation:
-          "An agreement entered into by a consumer after or while a person has engaged in an unfair " +
-          "practice may be rescinded by the consumer, who is entitled to any remedy available in law, " +
-          "including damages. Where rescission is no longer possible -- because the goods or services " +
-          "can no longer be returned, or because rescission would deprive a good-faith third party of " +
-          "a right acquired for value -- the consumer may instead recover the amount by which their " +
-          "payment exceeds the value the goods or services have to them, or damages, or both. " +
-          "Either way the consumer must give notice within ONE YEAR after entering into the agreement. " +
-          "The notice may be expressed in any way that indicates the intention to rescind or to seek " +
-          "recovery and the reasons for it, may be delivered by any means, and (except by personal " +
-          "service) is deemed given when sent.",
+          "Under s. 18(1) of the Consumer Protection Act, 2002, an agreement entered into by a consumer " +
+          "after or while a person has engaged in an unfair practice may be rescinded by the consumer, " +
+          "who is entitled to any remedy available in law, including damages. Where rescission is no " +
+          "longer possible -- because the goods or services can no longer be returned, or because " +
+          "rescission would deprive a good-faith third party of a right acquired for value -- the " +
+          "consumer may instead recover the amount by which their payment exceeds the value the goods " +
+          "or services have to them, or damages, or both (s. 18(2)). Either way, under s. 18(3), the " +
+          "consumer must give notice within ONE YEAR after entering into the agreement -- although " +
+          "under s. 18(15) a court may disregard the notice requirement if it is in the interest of " +
+          "justice to do so. The notice may be expressed in any way that indicates the intention to " +
+          "rescind or to seek recovery and the reasons for it (and meets any prescribed requirements), " +
+          "may be delivered by any means, and (except by personal service) is deemed given when sent. " +
+          "This is the notice for an unfair practice; the cooling-off cancellation rights for " +
+          "particular kinds of contracts are separate and have their own time limits.",
         sourceUrl: "https://www.ontario.ca/laws/docs/02c30_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-12-11",
         evidenceCategories: [
           {
             name: "Notice of withdrawal",
@@ -1282,11 +1414,12 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "loss-amount-cpa",
         name: "A specific loss resulted",
         plainExplanation:
-          "The person bringing the claim generally has to show, on a balance of probabilities, that " +
-          "they actually suffered a loss, and what that loss was -- put in specific terms, not left " +
-          "as a general sense of having been treated unfairly.",
-        sourceUrl:
-          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "Ontario's Small Claims Court guide says the reasons for a claim should \"calculate and " +
+          "explain the amount of money and any interest you are claiming\", with copies of supporting " +
+          "documents attached to the claim. This part of the checklist is about the loss claimed and " +
+          "how it is calculated.",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Payment and cost records",
@@ -1299,10 +1432,14 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "amount-within-jurisdiction-cpa",
         name: "The amount claimed falls within Small Claims Court's jurisdiction",
         plainExplanation:
-          "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
-          "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
-          "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "Ontario's Small Claims Court guide says the court \"can handle any action for the payment of " +
+          "money or the recovery of personal property where the amount claimed does not exceed $50,000, " +
+          "excluding interest and costs such as court fees.\" The $50,000 figure is the amount " +
+          "prescribed by O. Reg. 626/00, s. 1(1), for the court's jurisdiction under s. 23(1) of the " +
+          "Courts of Justice Act.",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
+        alsoCites: [{"sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc", "pinpoint": "O. Reg. 626/00, s. 1(1)"}, {"sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc", "pinpoint": "Courts of Justice Act, s. 23(1)"}],
         evidenceCategories: [
           {
             name: "Cost documentation",
@@ -1317,10 +1454,17 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "dispute-representation-false",
         name: "The business disputes that any representation was false or misleading",
         plainExplanation:
-          "A defendant can file a Defence disputing that a Consumer Protection Act violation " +
-          "occurred at all.",
+          "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
+          "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
+          "language with a reasonable amount of detail\", and a copy of any document the defence is " +
+          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "the Defence on every other party and files it, with proof of service, within 20 days of " +
+          "being served with the claim. This topic is about a Defence whose reasons deny making the " +
+          "representation, or say it was accurate.",
         whenThisComesUp: "When the defendant's Defence denies making the representation, or says it was accurate.",
-        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+        sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-10-14",
       },
     ],
     applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim", "defence-failure-to-mitigate"],
@@ -1328,11 +1472,14 @@ export const CLAIM_TYPES: ClaimType[] = [
     proceduralNotes: [
       {
         note:
-          "Notice to rescind (or to seek recovery where rescission is not possible) under the " +
-          "Consumer Protection Act, 2002 must be given within 1 year after entering into the " +
-          "agreement. That 1-year notice period is separate from, and shorter than, Ontario's " +
-          "ordinary 2-year limitation period for starting a court action.",
+          "Under s. 18 of the Consumer Protection Act, 2002, notice to rescind (or to seek recovery " +
+          "where rescission is not possible) must be given within one year after entering into the " +
+          "agreement, although under s. 18(15) a court may disregard the notice requirement if it is in " +
+          "the interest of justice to do so. This notice is separate from the time limit for starting a " +
+          "court action under the Limitations Act, 2002.",
         sourceUrl: "https://www.ontario.ca/laws/docs/02c30_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-12-11",
       },
     ],
     signals: [
@@ -1397,10 +1544,13 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "existed-agreement-contractor",
         name: "An agreement existed describing the work to be done",
         plainExplanation:
-          "The person bringing the claim generally has to show, on a balance of probabilities, what " +
-          "the contractor was actually engaged to do.",
-        sourceUrl:
-          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "The Superior Court of Justice's guide to the steps in a civil case says that in every civil " +
+          "case the plaintiff has the burden of proof to establish, on a balance of probabilities, the " +
+          "allegations in their claim -- evidence showing that, more likely than not, it would be " +
+          "correct to rule in their favour. This part of the checklist is about what the contractor was " +
+          "engaged to do, and the records that show it.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Agreement or scope of work",
@@ -1417,6 +1567,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "probabilities, like any other element of the claim.",
         sourceUrl:
           "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Photos or video of the damage",
@@ -1434,12 +1585,12 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "loss-amount-contractor",
         name: "The amount claimed reflects the cost of repair or loss",
         plainExplanation:
-          "The person bringing the claim generally has to show, on a balance of probabilities, what " +
-          "it actually costs to repair or replace what was damaged -- the amount claimed should " +
-          "reflect that documented cost, not an estimate of how much the damage felt like it was " +
-          "worth.",
-        sourceUrl:
-          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "Ontario's Small Claims Court guide says the reasons for a claim should \"calculate and " +
+          "explain the amount of money and any interest you are claiming\", with copies of supporting " +
+          "documents attached to the claim. This part of the checklist is about the cost of repair or " +
+          "replacement claimed, and the quotes, invoices or receipts it comes from.",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Repair cost documentation",
@@ -1452,10 +1603,14 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "amount-within-jurisdiction-contractor",
         name: "The amount claimed falls within Small Claims Court's jurisdiction",
         plainExplanation:
-          "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
-          "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
-          "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "Ontario's Small Claims Court guide says the court \"can handle any action for the payment of " +
+          "money or the recovery of personal property where the amount claimed does not exceed $50,000, " +
+          "excluding interest and costs such as court fees.\" The $50,000 figure is the amount " +
+          "prescribed by O. Reg. 626/00, s. 1(1), for the court's jurisdiction under s. 23(1) of the " +
+          "Courts of Justice Act.",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
+        alsoCites: [{"sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc", "pinpoint": "O. Reg. 626/00, s. 1(1)"}, {"sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc", "pinpoint": "Courts of Justice Act, s. 23(1)"}],
         evidenceCategories: [
           {
             name: "Cost documentation",
@@ -1470,10 +1625,17 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "dispute-causation-contractor",
         name: "The contractor disputes causing the damage",
         plainExplanation:
-          "A defendant can file a Defence disputing that their work caused the damage, or pointing to " +
-          "a separate cause.",
+          "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
+          "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
+          "language with a reasonable amount of detail\", and a copy of any document the defence is " +
+          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "the Defence on every other party and files it, with proof of service, within 20 days of " +
+          "being served with the claim. This topic is about a Defence whose reasons dispute that the " +
+          "contractor's work caused the damage claimed.",
         whenThisComesUp: "When the defendant's Defence denies responsibility for the specific damage claimed.",
-        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+        sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-10-14",
       },
     ],
     applicableDefenceConceptIds: [
@@ -1488,6 +1650,7 @@ export const CLAIM_TYPES: ClaimType[] = [
       {
         note: "This kind of claim is started with a Plaintiff's Claim (Form 7A).",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
       },
     ],
     signals: [
@@ -1541,6 +1704,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "In most cases, an employee is entitled to notice of termination (or termination pay " +
           "instead of notice) once they've been continuously employed for at least 3 months.",
         sourceUrl: "https://www.ontario.ca/document/your-guide-employment-standards-act-0/termination-employment",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Employment start date records",
@@ -1553,22 +1717,32 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "notice-or-pay-not-given",
         name: "Termination notice or termination pay was not given as required",
         plainExplanation:
-          "An employer must provide written notice of termination, termination pay, or a combination " +
-          "equal to the required notice period, which ranges from 1 week (under 1 year of employment) " +
-          "up to 8 weeks (8 years or more), based on length of service. " +
-          "IMPORTANT: that Employment Standards Act scale is a statutory FLOOR, not the whole picture. " +
-          "\"Wrongful dismissal\" is a common-law action, and the Supreme Court of Canada has " +
-          "described it as based on an implied obligation in the employment contract to give " +
+          "Under ss. 54, 57 and 61 of the Employment Standards Act, 2000, an employer may not end the " +
+          "employment of an employee continuously employed for three months or more without giving " +
+          "written notice of termination, or termination pay instead. Section 57 sets the notice by " +
+          "length of employment, from at least one week (less than one year) up to at least eight weeks " +
+          "(eight years or more). Under s. 58, a different, prescribed notice applies where the " +
+          "employer terminates 50 or more employees at an establishment in the same four-week period. " +
+          "Under s. 55, prescribed employees are not entitled to notice of termination or termination " +
+          "pay under this Part. IMPORTANT: that Employment Standards Act scale is a minimum, not the " +
+          "whole picture: under s. 5(2), where a provision in an employment contract that directly " +
+          "relates to the same subject matter as an employment standard gives a greater benefit, the " +
+          "contract provision applies instead, and under s. 8(1), subject to section 97, the Act does " +
+          "not affect an employee's civil remedies against their employer. \"Wrongful dismissal\" is a " +
+          "common-law action, and the Supreme Court of Canada, in Honda Canada Inc. v. Keays, 2008 SCC " +
+          "39, has described it as based on an implied obligation in the employment contract to give " +
           "REASONABLE notice of an intention to end the relationship where there is no just cause. " +
-          "Reasonable notice at common law is frequently longer than the ESA minimum, and is assessed " +
-          "case by case. The Court has applied four factors from the Bardal case: the character of " +
-          "the employment, the length of service, the employee's age, and the availability of similar " +
-          "employment having regard to the employee's experience, training and qualifications. The " +
-          "Court has been explicit there can be \"no catalogue laid down\" of what is reasonable for " +
-          "particular classes of case -- it depends on the individual's particular circumstances. " +
-          "Working out what notice period a given situation calls for is exactly the kind of " +
-          "assessment this platform does not do; it is a question for a licensed paralegal or lawyer.",
+          "Reasonable notice at common law is assessed case by case. The Court has applied four factors " +
+          "from the Bardal case: the character of the employment, the length of service, the employee's " +
+          "age, and the availability of similar employment having regard to the employee's experience, " +
+          "training and qualifications. The Court has been explicit there can be \"no catalogue laid " +
+          "down\" of what is reasonable for particular classes of case -- it depends on the individual's " +
+          "particular circumstances. Working out what notice period a given situation calls for is " +
+          "exactly the kind of assessment this platform does not do; it is a question for a licensed " +
+          "paralegal or lawyer.",
         sourceUrl: "docs/sources/honda-canada-v-keays-2008-SCC-39.pdf",
+        verifiedAt: "2026-09-30",
+        alsoCites: [{"sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc", "pinpoint": "Employment Standards Act, 2000, ss. 5(2), 8(1), 54, 55, 57, 58, 61"}],
         evidenceCategories: [
           {
             name: "Termination correspondence",
@@ -1583,6 +1757,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         plainExplanation:
           "Small Claims Court can only hear claims up to $50,000, excluding interest and costs.",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Wage and pay records",
@@ -1597,10 +1772,17 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "dispute-length-or-calculation",
         name: "The employer disputes the length of employment or the notice calculation",
         plainExplanation:
-          "A defendant can file a Defence disputing the length of continuous employment used to " +
-          "calculate notice, or the notice/termination pay calculation itself.",
+          "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
+          "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
+          "language with a reasonable amount of detail\", and a copy of any document the defence is " +
+          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "the Defence on every other party and files it, with proof of service, within 20 days of " +
+          "being served with the claim. This topic is about a Defence whose reasons dispute the length " +
+          "of employment, or how notice or termination pay was calculated.",
         whenThisComesUp: "When the employer's Defence disputes the employment dates or how notice was calculated, not just whether any is owed.",
-        sourceUrl: "https://www.ontario.ca/document/your-guide-employment-standards-act-0/termination-employment",
+        sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-10-14",
       },
       {
         id: "employer-relies-on-termination-clause",
@@ -1608,15 +1790,18 @@ export const CLAIM_TYPES: ClaimType[] = [
         plainExplanation:
           "The common-law presumption of reasonable notice can be rebutted, but only by an agreement " +
           "that clearly specifies some other notice period. Where an employer points to a termination " +
-          "clause, the Supreme Court of Canada has held that a clause providing LESS than the " +
-          "statutory minimum is null and void -- the Employment Standards Act, 2000 makes any " +
-          "contracting out of or waiver of an employment standard void -- and that such a clause " +
-          "cannot then be used even as evidence of what the parties intended. The result is that the " +
-          "presumption of reasonable notice is not rebutted and the common-law entitlement applies. " +
-          "Whether a particular clause is valid is a legal question about that specific wording, and " +
-          "is not something this content can answer.",
+          "clause, the Supreme Court of Canada, in Machtinger v. HOJ Industries Ltd., [1992] 1 S.C.R. " +
+          "986, has held that a clause providing LESS than the statutory minimum is null and void -- " +
+          "the Employment Standards Act then in force made any contracting out of or waiver of an " +
+          "employment standard void (s. 5(1) of the current Employment Standards Act, 2000 says the " +
+          "same) -- and that such a clause cannot then be used even as evidence of what the parties " +
+          "intended. The result is that the presumption of reasonable notice is not rebutted and the " +
+          "common-law entitlement applies. Whether a particular clause is valid is a legal question " +
+          "about that specific wording, and is not something this content can answer.",
         whenThisComesUp: "When the Defence says the contract already set out what was owed on termination and that amount was paid.",
         sourceUrl: "docs/sources/machtinger-v-hoj-industries-1992-1-SCR-986.pdf",
+        verifiedAt: "2026-09-30",
+        alsoCites: [{"sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc", "pinpoint": "Employment Standards Act, 2000, s. 5(1)"}],
       },
     ],
     applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim", "defence-failure-to-mitigate"],
@@ -1624,24 +1809,33 @@ export const CLAIM_TYPES: ClaimType[] = [
     proceduralNotes: [
       {
         note:
-          "Small Claims Court can only hear this kind of claim if the amount owing is within its " +
-          "$50,000 monetary jurisdiction; larger wrongful dismissal claims generally go to a " +
-          "different court.",
+          "Ontario's page on suing someone in Small Claims Court says the court hears claims of $50,000 " +
+          "or less; for anything over $50,000 a claim goes to the Superior Court of Justice, or can " +
+          "still be filed in Small Claims Court by someone willing to waive the amount over $50,000.",
         sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        verifiedAt: "2026-09-30",
       },
       {
         note:
-          "CHOOSING BETWEEN THE TWO ROUTES MATTERS, AND THE CHOICE CAN BE FINAL. An employee who " +
-          "files a complaint under the Employment Standards Act, 2000 alleging an entitlement to " +
-          "termination pay or severance pay MAY NOT commence a civil proceeding for wrongful " +
-          "dismissal if the complaint and the proceeding would relate to the same termination or " +
-          "severance of employment. There is one way back: an employee who withdraws the complaint " +
-          "within two weeks after filing it may then commence a civil proceeding. Otherwise, apart " +
-          "from that bar, the Act does not affect an employee's civil remedies against their " +
-          "employer. Because the ESA route is capped at the statutory minimum while a civil " +
-          "wrongful-dismissal action is for common-law reasonable notice, which route to take is a " +
-          "consequential decision worth getting advice on before filing anything.",
+          "CHOOSING BETWEEN THE TWO ROUTES MATTERS, AND THE CHOICE CAN BE FINAL. Under s. 97(2) of the " +
+          "Employment Standards Act, 2000, an employee who files a complaint under the Act alleging an " +
+          "entitlement to termination pay or severance pay MAY NOT commence a civil proceeding for " +
+          "wrongful dismissal if the complaint and the proceeding would relate to the same termination " +
+          "or severance of employment. There is one way back: under s. 97(4), an employee who withdraws " +
+          "the complaint within two weeks after it is filed may then commence a civil proceeding (this " +
+          "also applies to the wages bar below). The reverse also applies: under s. 98(2), an employee " +
+          "who starts a civil proceeding for wrongful dismissal may not file a complaint alleging an " +
+          "entitlement to termination pay or severance pay about the same termination or severance. The " +
+          "same pattern applies to wages: under s. 97(1), an employee who files a complaint about an " +
+          "alleged failure to pay wages or to comply with Part XIII (Benefit Plans) may not commence a " +
+          "civil proceeding about the same matter, and under s. 98(1) an employee who starts a civil " +
+          "proceeding about that may not file a complaint about the same matter. Under s. 8(1), subject " +
+          "to section 97, no civil remedy of an employee against their employer is affected by the Act. " +
+          "Because the choice can be final, which route to take is a decision worth taking to a " +
+          "licensed paralegal or lawyer before filing anything.",
         sourceUrl: "https://www.ontario.ca/laws/docs/00e41_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2026-01-01",
       },
       {
         note:
@@ -1651,6 +1845,8 @@ export const CLAIM_TYPES: ClaimType[] = [
           "standard does not. The statutory scale is a floor that a contract can improve on, not a " +
           "ceiling.",
         sourceUrl: "https://www.ontario.ca/laws/docs/00e41_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2026-01-01",
       },
     ],
     signals: [
@@ -1719,6 +1915,8 @@ export const CLAIM_TYPES: ClaimType[] = [
           "The owner of a dog is liable for damages resulting from a bite or attack by the dog on " +
           "another person or domestic animal.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90d16_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2024-06-06",
         evidenceCategories: [
           {
             name: "Medical or veterinary records",
@@ -1739,6 +1937,8 @@ export const CLAIM_TYPES: ClaimType[] = [
           "\"Owner\", for this Act, includes a person who possesses or harbours the dog, and, where " +
           "the owner is a minor, the person responsible for the minor's custody.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90d16_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2024-06-06",
         evidenceCategories: [
           {
             name: "Proof of who owns or keeps the dog",
@@ -1754,6 +1954,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "Small Claims Court's jurisdiction covers claims for money, up to $50,000, not counting " +
           "interest and costs.",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Cost documentation",
@@ -1773,17 +1974,23 @@ export const CLAIM_TYPES: ClaimType[] = [
           "which the injured person's own fault or negligence caused or contributed to the damages.",
         whenThisComesUp: "When the defendant says the injured person provoked the dog or otherwise contributed to the incident.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90d16_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2024-06-06",
       },
       {
         id: "criminal-act-on-premises-exception",
         name: "The incident happened on the owner's premises during a criminal act by the injured person",
         plainExplanation:
-          "When a bite or attack happens on the owner's own premises, this Act (not the Occupiers' " +
-          "Liability Act) applies, and the Act sets out a narrow exception where the owner is not " +
-          "liable if the injured person was committing a criminal act there, unless the dog was kept " +
-          "unreasonably for the purpose of protecting persons or property.",
+          "Under s. 3(1) of the Dog Owners' Liability Act, where damage is caused by being bitten or " +
+          "attacked by a dog on the owner's premises, the owner's liability is decided under that Act " +
+          "and not under the Occupiers' Liability Act. Under s. 3(2), where a person is on premises " +
+          "intending to commit, or committing, a criminal act on the premises and is bitten or attacked " +
+          "by a dog, the owner is not liable under section 2 unless keeping the dog on the premises was " +
+          "unreasonable for the purpose of protecting persons or property.",
         whenThisComesUp: "When the incident happened at the owner's home or business and the owner says the injured person was committing a crime there at the time.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90d16_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2024-06-06",
       },
     ],
     applicableDefenceConceptIds: ["defence-contributory-negligence", "defence-limitation-period-expired", "defence-failure-to-mitigate"],
@@ -1791,9 +1998,18 @@ export const CLAIM_TYPES: ClaimType[] = [
     proceduralNotes: [
       {
         note:
-          "Claims like this are generally subject to Ontario's standard 2-year limitation period, " +
-          "running from when the incident (or the injury) was discovered.",
-        sourceUrl: "https://www.ontario.ca/page/civil-claims-suing-and-being-sued",
+          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding " +
+          "cannot be started after the second anniversary of the day the claim was discovered. Section " +
+          "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
+          "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
+          "omission, that the act or omission was that of the person the claim is against, and that a " +
+          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
+          "person with their abilities and in their circumstances first ought to have known those " +
+          "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
+          "the day the act or omission the claim is based on took place, unless the contrary is proved.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2024-12-04",
       },
     ],
     signals: [
@@ -1831,10 +2047,13 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "existed-agreement-services",
         name: "An agreement existed for the service to be performed",
         plainExplanation:
-          "The person bringing the claim generally has to show, on a balance of probabilities, what " +
-          "the other party was actually engaged to do.",
-        sourceUrl:
-          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "The Superior Court of Justice's guide to the steps in a civil case says that in every civil " +
+          "case the plaintiff has the burden of proof to establish, on a balance of probabilities, the " +
+          "allegations in their claim -- evidence showing that, more likely than not, it would be " +
+          "correct to rule in their favour. This part of the checklist is about what the other party " +
+          "was engaged to do, and the records that show it.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Agreement or scope of work",
@@ -1851,6 +2070,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "probabilities, like any other element of the claim.",
         sourceUrl:
           "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Records of what was and wasn't done",
@@ -1863,10 +2083,17 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "loss-amount-services",
         name: "The amount claimed reflects the loss",
         plainExplanation:
-          "Small Claims Court's jurisdiction covers claims for money, up to $50,000, not counting " +
-          "interest and costs -- the claimed amount should reflect the refund, or the cost to complete " +
-          "or redo the work.",
+          "Ontario's Small Claims Court guide says the court \"can handle any action for the payment of " +
+          "money or the recovery of personal property where the amount claimed does not exceed $50,000, " +
+          "excluding interest and costs such as court fees.\" The $50,000 figure is the amount " +
+          "prescribed by O. Reg. 626/00, s. 1(1), for the court's jurisdiction under s. 23(1) of the " +
+          "Courts of Justice Act. Ontario's Small Claims Court guide says the reasons for a claim " +
+          "should \"calculate and explain the amount of money and any interest you are claiming\", with " +
+          "copies of supporting documents attached to the claim. This part of the checklist is about " +
+          "the amount claimed and how it is calculated.",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
+        alsoCites: [{"sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc", "pinpoint": "O. Reg. 626/00, s. 1(1)"}, {"sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc", "pinpoint": "Courts of Justice Act, s. 23(1)"}],
         evidenceCategories: [
           {
             name: "Cost documentation",
@@ -1881,10 +2108,17 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "dispute-service-was-completed",
         name: "The provider disputes that the service was left unfinished or substandard",
         plainExplanation:
-          "A defendant can file a Defence disputing that the service was incomplete or below what was " +
-          "agreed -- this becomes a fact the court weighs alongside the plaintiff's evidence.",
+          "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
+          "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
+          "language with a reasonable amount of detail\", and a copy of any document the defence is " +
+          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "the Defence on every other party and files it, with proof of service, within 20 days of " +
+          "being served with the claim. This topic is about a Defence whose reasons dispute that the " +
+          "service was left unfinished or below what was agreed.",
         whenThisComesUp: "When the defendant has filed a Defence (Form 9A) disputing the quality or completion of the service.",
-        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+        sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-10-14",
       },
     ],
     applicableDefenceConceptIds: [
@@ -1898,6 +2132,7 @@ export const CLAIM_TYPES: ClaimType[] = [
       {
         note: "This kind of claim is started with a Plaintiff's Claim (Form 7A).",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
       },
     ],
     signals: [
@@ -1934,10 +2169,13 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "plaintiff-owns-or-has-right-to-property",
         name: "The plaintiff owns the property or has a right to its possession",
         plainExplanation:
-          "The person bringing the claim generally has to show, on a balance of probabilities, that " +
-          "they own the property or otherwise have a right to have it back.",
-        sourceUrl:
-          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "The Superior Court of Justice's guide to the steps in a civil case says that in every civil " +
+          "case the plaintiff has the burden of proof to establish, on a balance of probabilities, the " +
+          "allegations in their claim -- evidence showing that, more likely than not, it would be " +
+          "correct to rule in their favour. This part of the checklist is about who owns the property, " +
+          "or why it should be returned, and the records that show it.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Proof of ownership or right to possession",
@@ -1950,10 +2188,12 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "defendant-possesses-and-wont-return",
         name: "The defendant has the property and has not returned it",
         plainExplanation:
-          "Small Claims Court hears claims for money or the return of personal property -- this " +
-          "element is about showing the other party currently has the property and hasn't given it " +
-          "back.",
+          "Ontario's page on suing someone in Small Claims Court says you can sue in Small Claims Court " +
+          "for the return of personal property, for $50,000 or less. This part of the checklist is " +
+          "about where the property is now, and the requests to return it that went unanswered or were " +
+          "refused.",
         sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Requests for return",
@@ -1969,6 +2209,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "Small Claims Court can decide claims for money or the return of personal property up to " +
           "$50,000, excluding interest and costs.",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Value documentation",
@@ -1983,10 +2224,17 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "dispute-ownership-or-right",
         name: "The defendant disputes that the plaintiff owns or has a right to the property",
         plainExplanation:
-          "A defendant can file a Defence disputing who actually owns the property, or that the " +
-          "plaintiff has any right to its return.",
+          "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
+          "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
+          "language with a reasonable amount of detail\", and a copy of any document the defence is " +
+          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "the Defence on every other party and files it, with proof of service, within 20 days of " +
+          "being served with the claim. This topic is about a Defence whose reasons dispute who owns " +
+          "the property, or that it should be returned.",
         whenThisComesUp: "When the defendant's Defence claims the property is theirs, or that it was a gift rather than something lent.",
-        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+        sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-10-14",
       },
     ],
     applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
@@ -1998,16 +2246,22 @@ export const CLAIM_TYPES: ClaimType[] = [
           "personal property, as well as over actions for the payment of money, where the value of " +
           "the property does not exceed the prescribed amount.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-12-11",
       },
       {
         note:
-          "An order for the delivery of personal property is enforced by a writ of delivery issued to " +
-          "a bailiff. If the bailiff cannot find or take the property named in that writ, the person " +
-          "who obtained the order can bring a motion asking the court to direct the bailiff to seize " +
-          "other personal property belonging to the person the order was made against instead. That " +
-          "person has to pay the bailiff's storage costs in advance as the process goes on -- if they " +
-          "don't, the seizure is treated as abandoned.",
+          "Under rule 20.05 of the Rules of the Small Claims Court, an order for the delivery of " +
+          "personal property may be enforced by a writ of delivery (Form 20B), which the clerk issues " +
+          "to a bailiff when the person who obtained the order asks, with an affidavit that the " +
+          "property has not been delivered. If the bailiff cannot find or take the property, the person " +
+          "who obtained the order can bring a motion for an order directing the bailiff to seize any " +
+          "other personal property of the person the order was made against. The person who obtained " +
+          "the order must pay the bailiff's storage expenses in advance and from time to time; if they " +
+          "do not, the seizure is treated as abandoned.",
         sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-10-14",
       },
     ],
     signals: [
@@ -2065,18 +2319,13 @@ export const CLAIM_TYPES: ClaimType[] = [
         plainExplanation:
           "Ontario law gives a cooling-off period -- a specific number of days to cancel an agreement " +
           "without reason or penalty -- for certain contracts: a product or service bought from a " +
-          "door-to-door salesperson (a direct agreement), paying in advance to join a fitness club or " +
-          "gym (a personal development contract), buying a newly-built condo, getting a payday loan, " +
-          "or purchasing a time share. " +
-          "Two of those five are NOT governed by the Consumer Protection Act at all: the cooling-off " +
-          "right for a newly-built condo comes from the Condominium Act, and the one for a payday " +
-          "loan from the Payday Loans Act. Each of those statutes has its own mechanics, which may " +
-          "differ from the Consumer Protection Act's -- the source relied on here already shows one " +
-          "such difference, in that a payday lender has 2 days to refund where for most contracts a " +
-          "business has 15. This entry is written around the Consumer Protection Act; for a new-build " +
-          "condo or a payday loan, the governing statute is a different one and would need to be " +
-          "checked on its own terms.",
+          "door-to-door salesperson, paying in advance to join a fitness club or gym, buying a " +
+          "newly-built condo, getting a payday loan, or purchasing a time share. The same page shows " +
+          "the rules are not identical across these contracts: a payday lender has 2 days to refund, " +
+          "where for most contracts a business has 15. For a new-build condo or a payday loan, the " +
+          "specific rules that apply are worth checking on their own terms.",
         sourceUrl: "https://www.ontario.ca/page/your-rights-under-consumer-protection-act",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "The original agreement",
@@ -2089,9 +2338,11 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "cancellation-given",
         name: "Notice of cancellation was given",
         plainExplanation:
-          "The cooling-off right generally has to be exercised by giving the seller notice of " +
-          "cancellation within the applicable period for that type of contract.",
+          "Ontario's page on your rights under the Consumer Protection Act says the cooling-off right " +
+          "is used by writing a cancellation letter to the business within the cooling-off period, and " +
+          "that no reason needs to be given.",
         sourceUrl: "https://www.ontario.ca/page/your-rights-under-consumer-protection-act",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Proof of cancellation",
@@ -2107,6 +2358,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "After a valid cancellation, the company generally has 15 days to return the money paid, or " +
           "2 days in the specific case of a payday loan.",
         sourceUrl: "https://www.ontario.ca/page/your-rights-under-consumer-protection-act",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Payment records",
@@ -2125,6 +2377,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "cooling-off right, or that cancellation notice was given within the required period.",
         whenThisComesUp: "When the business's Defence says the contract type isn't covered, or the cancellation was late.",
         sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+        verifiedAt: "2026-09-30",
       },
     ],
     applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
@@ -2135,6 +2388,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "For most contracts covered by this cancellation right, the business has 15 days to refund " +
           "what was paid; for a payday loan specifically, the refund must be given within 2 days.",
         sourceUrl: "https://www.ontario.ca/page/your-rights-under-consumer-protection-act",
+        verifiedAt: "2026-09-30",
       },
     ],
     signals: [
@@ -2182,10 +2436,11 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "tenancy-is-commercial-not-residential",
         name: "The tenancy is a commercial/business tenancy, not a residential one",
         plainExplanation:
-          "Ontario's Commercial Tenancies Act outlines the relationship, rights, and obligations " +
-          "between commercial landlords and tenants -- a different framework from the Residential " +
-          "Tenancies Act, which covers residential rental units.",
+          "Ontario's page on renting commercial property says the Commercial Tenancies Act outlines the " +
+          "relationship, rights and obligations between commercial landlords and tenants. Residential " +
+          "tenancies are covered separately, on Ontario's residential tenancy pages.",
         sourceUrl: "https://www.ontario.ca/page/renting-commercial-property-ontario",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Proof the space was used for business",
@@ -2198,10 +2453,12 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "existed-agreement-commercial-lease",
         name: "A lease or tenancy agreement existed on the terms claimed",
         plainExplanation:
-          "The person bringing the claim generally has to show, on a balance of probabilities, that " +
-          "an agreement existed on the terms alleged -- and a signed commercial lease's own terms may " +
-          "take precedence over the Commercial Tenancies Act's default rules.",
+          "Ontario's page on renting commercial property says a signed commercial lease agreement " +
+          "between the landlord and tenant may take precedence over the Commercial Tenancies Act. This " +
+          "part of the checklist is about the lease or tenancy agreement and its terms, and the records " +
+          "that show them.",
         sourceUrl: "https://www.ontario.ca/page/renting-commercial-property-ontario",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "The lease itself",
@@ -2214,9 +2471,12 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "amount-owing-commercial",
         name: "The amount owing falls within Small Claims Court's jurisdiction",
         plainExplanation:
-          "Small Claims Court can hear claims for money -- including unpaid rent -- up to $50,000, " +
-          "excluding interest and costs.",
+          "Ontario's Small Claims Court guide says the court \"can handle any action for the payment of " +
+          "money or the recovery of personal property where the amount claimed does not exceed $50,000, " +
+          "excluding interest and costs such as court fees.\"",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
+        alsoCites: [{"sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc", "pinpoint": "O. Reg. 626/00, s. 1(1)"}, {"sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc", "pinpoint": "Courts of Justice Act, s. 23(1)"}],
         evidenceCategories: [
           {
             name: "Rent and account records",
@@ -2236,15 +2496,17 @@ export const CLAIM_TYPES: ClaimType[] = [
           "Residential Tenancies Act applies.",
         whenThisComesUp: "When there's a real dispute about whether the space was used mainly for residential or business purposes.",
         sourceUrl: "https://www.ontario.ca/page/renting-commercial-property-ontario",
+        verifiedAt: "2026-09-30",
       },
       {
         id: "lease-terms-govern",
         name: "The signed lease's own terms may override the default rules",
         plainExplanation:
-          "A signed commercial lease agreement between the landlord and tenant may take precedence " +
-          "over the Commercial Tenancies Act's default provisions.",
+          "Ontario's page on renting commercial property says a signed commercial lease agreement " +
+          "between the landlord and tenant may take precedence over the Commercial Tenancies Act.",
         whenThisComesUp: "When the dispute is about which rule applies -- the Act's default rule or a specific term the lease itself sets out.",
         sourceUrl: "https://www.ontario.ca/page/renting-commercial-property-ontario",
+        verifiedAt: "2026-09-30",
       },
     ],
     applicableDefenceConceptIds: [
@@ -2257,10 +2519,11 @@ export const CLAIM_TYPES: ClaimType[] = [
     proceduralNotes: [
       {
         note:
-          "If there's a genuine dispute about whether a tenancy is residential or commercial, either " +
-          "party can ask the Landlord and Tenant Board to determine whether the Residential Tenancies " +
-          "Act applies -- a residential tenancy generally belongs at the LTB, not Small Claims Court.",
+          "Ontario's page on renting commercial property says that if there is a question about whether " +
+          "a tenancy is residential or commercial, a landlord or tenant can apply to the Landlord and " +
+          "Tenant Board for a determination of whether the Residential Tenancies Act applies.",
         sourceUrl: "https://www.ontario.ca/page/renting-commercial-property-ontario",
+        verifiedAt: "2026-09-30",
       },
     ],
     signals: [
@@ -2302,6 +2565,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "Small Claims Court's overview of what it hears explicitly lists NSF (non-sufficient funds) " +
           "cheques as an example of a claim it can decide.",
         sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "The cheque and related records",
@@ -2314,9 +2578,11 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "cheque-returned-nsf",
         name: "The cheque was returned for non-sufficient funds (or otherwise dishonoured)",
         plainExplanation:
-          "This element is about showing the cheque itself failed to clear -- the bank's own record of " +
-          "the returned item is typically the most direct proof.",
+          "Ontario's page on suing someone in Small Claims Court lists NSF (non-sufficient funds) " +
+          "cheques among the kinds of claims that can be brought there. This part of the checklist is " +
+          "about the returned cheque itself, and the bank's record that it did not clear.",
         sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Bank notice of dishonour",
@@ -2332,6 +2598,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "Interest and costs are handled separately from, and in addition to, the amount claimed " +
           "itself.",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Statement of account",
@@ -2346,10 +2613,17 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "dispute-nsf-underlying-debt",
         name: "The defendant disputes owing the underlying amount",
         plainExplanation:
-          "A defendant can file a Defence disputing the debt the cheque was meant to pay, not just the " +
-          "fact that the cheque itself didn't clear.",
+          "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
+          "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
+          "language with a reasonable amount of detail\", and a copy of any document the defence is " +
+          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "the Defence on every other party and files it, with proof of service, within 20 days of " +
+          "being served with the claim. This topic is about a Defence whose reasons dispute the debt " +
+          "the cheque was meant to pay, not only the cheque.",
         whenThisComesUp: "When the defendant's Defence disputes the underlying agreement or amount, not just the payment method.",
-        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+        sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-10-14",
       },
     ],
     applicableDefenceConceptIds: [
@@ -2362,6 +2636,7 @@ export const CLAIM_TYPES: ClaimType[] = [
       {
         note: "This kind of claim is started with a Plaintiff's Claim (Form 7A).",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
       },
     ],
     signals: [
@@ -2402,6 +2677,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "For most employees, overtime begins after 44 hours worked in a work week, paid at 1½ " +
           "times the employee's regular rate of pay.",
         sourceUrl: "https://www.ontario.ca/document/your-guide-employment-standards-act-0/overtime-pay",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Hours and pay records",
@@ -2414,17 +2690,16 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "vacation-pay-not-paid",
         name: "Vacation pay owed was not paid",
         plainExplanation:
-          "For most employees, vacation pay must be at least 4% of the gross wages earned in the " +
-          "12-month vacation entitlement year (at least 6% for employees with five or more years of " +
-          "employment). Some jobs are exempt from the ESA's vacation-with-pay provisions entirely -- " +
-          "Ontario publishes a special rule tool listing the industries and job categories with ESA " +
-          "exemptions or special rules, and whether a particular job is one of them is a fact to " +
-          "confirm, not something this content assumes. An employment contract or collective " +
-          "agreement may also provide a greater right or benefit than the ESA minimum. " +
-          "When employment ends, vacation pay already earned but not yet paid is due within 7 days of " +
-          "the employment ending or on what would have been the employee's next pay day, whichever is " +
-          "later.",
+          "Ontario's guide to the Employment Standards Act says vacation pay must be at least 4% of the " +
+          "gross wages (not counting vacation pay) earned in the 12-month vacation entitlement year or " +
+          "stub period, or at least 6% for employees with five or more years of employment at the end " +
+          "of that year or stub period. Some jobs are exempt from the ESA's vacation with pay " +
+          "provisions; Ontario's special rule tool lists them. An employment contract or collective " +
+          "agreement may give a greater right or benefit. When employment ends, vacation pay that has " +
+          "not been paid must be paid within seven days of the employment ending or on what would have " +
+          "been the employee's next pay day, whichever is later.",
         sourceUrl: "https://www.ontario.ca/document/your-guide-employment-standards-act-0/vacation",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Pay and employment records",
@@ -2439,6 +2714,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         plainExplanation:
           "Small Claims Court can only hear claims up to $50,000, excluding interest and costs.",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Wage calculation",
@@ -2453,10 +2729,17 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "dispute-hours-or-entitlement",
         name: "The employer disputes the hours worked or the vacation pay entitlement calculation",
         plainExplanation:
-          "A defendant can file a Defence disputing the hours claimed, the employee's length of " +
-          "service, or how the vacation pay entitlement was calculated.",
+          "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
+          "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
+          "language with a reasonable amount of detail\", and a copy of any document the defence is " +
+          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "the Defence on every other party and files it, with proof of service, within 20 days of " +
+          "being served with the claim. This topic is about a Defence whose reasons dispute the hours " +
+          "worked, the length of employment, or how vacation pay was calculated.",
         whenThisComesUp: "When the employer's Defence disputes the underlying hours or calculation, not just whether anything is owed at all.",
-        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+        sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-10-14",
       },
     ],
     applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
@@ -2464,9 +2747,11 @@ export const CLAIM_TYPES: ClaimType[] = [
     proceduralNotes: [
       {
         note:
-          "Small Claims Court can only hear this kind of claim if the amount owing is within its " +
-          "$50,000 monetary jurisdiction.",
+          "Ontario's page on suing someone in Small Claims Court says the court hears claims of $50,000 " +
+          "or less; for anything over $50,000 a claim goes to the Superior Court of Justice, or can " +
+          "still be filed in Small Claims Court by someone willing to waive the amount over $50,000.",
         sourceUrl: "https://www.ontario.ca/page/suing-someone-small-claims-court",
+        verifiedAt: "2026-09-30",
       },
     ],
     signals: [
@@ -2514,6 +2799,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "unless the customer declined one and instead agreed on a maximum amount they were willing " +
           "to pay for the repair.",
         sourceUrl: "https://www.ontario.ca/page/car-repair-shops-your-rights",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "The estimate or agreement on cost",
@@ -2529,6 +2815,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "The final cost charged cannot be more than 10% above the estimate, or, if an estimate was " +
           "declined, more than the agreed maximum amount.",
         sourceUrl: "https://www.ontario.ca/page/car-repair-shops-your-rights",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Final invoice",
@@ -2544,6 +2831,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "Small Claims Court's jurisdiction covers claims for money, up to $50,000, not counting " +
           "interest and costs.",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Cost documentation",
@@ -2563,6 +2851,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "authorized.",
         whenThisComesUp: "When the shop's Defence says the extra charges were separately authorized, or that the original estimate covered the final amount.",
         sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+        verifiedAt: "2026-09-30",
       },
     ],
     applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim", "defence-failure-to-mitigate"],
@@ -2571,6 +2860,7 @@ export const CLAIM_TYPES: ClaimType[] = [
       {
         note: "Parts and labour generally carry a minimum warranty of 90 days or 5,000 km, whichever comes first.",
         sourceUrl: "https://www.ontario.ca/page/car-repair-shops-your-rights",
+        verifiedAt: "2026-09-30",
       },
     ],
     signals: [
@@ -2664,11 +2954,12 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "amount-claimed-vehicle",
         name: "The amount claimed reflects the loss",
         plainExplanation:
-          "The person bringing the claim generally has to show, on a balance of probabilities, that " +
-          "they actually suffered a loss, and what that loss was -- put in specific terms, not left " +
-          "as a general sense of having overpaid.",
-        sourceUrl:
-          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "Ontario's Small Claims Court guide says the reasons for a claim should \"calculate and " +
+          "explain the amount of money and any interest you are claiming\", with copies of supporting " +
+          "documents attached to the claim. This part of the checklist is about the loss claimed and " +
+          "how it is calculated.",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Cost documentation",
@@ -2681,10 +2972,14 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "amount-within-jurisdiction-vehicle",
         name: "The amount claimed falls within Small Claims Court's jurisdiction",
         plainExplanation:
-          "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
-          "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
-          "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "Ontario's Small Claims Court guide says the court \"can handle any action for the payment of " +
+          "money or the recovery of personal property where the amount claimed does not exceed $50,000, " +
+          "excluding interest and costs such as court fees.\" The $50,000 figure is the amount " +
+          "prescribed by O. Reg. 626/00, s. 1(1), for the court's jurisdiction under s. 23(1) of the " +
+          "Courts of Justice Act.",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
+        alsoCites: [{"sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc", "pinpoint": "O. Reg. 626/00, s. 1(1)"}, {"sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc", "pinpoint": "Courts of Justice Act, s. 23(1)"}],
         evidenceCategories: [
           {
             name: "Cost documentation",
@@ -2699,10 +2994,17 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "dispute-nondisclosure",
         name: "The dealer disputes that required information was withheld or inaccurate",
         plainExplanation:
-          "A defendant can file a Defence disputing that any required disclosure was missing or " +
-          "inaccurate at the time of sale.",
+          "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
+          "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
+          "language with a reasonable amount of detail\", and a copy of any document the defence is " +
+          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "the Defence on every other party and files it, with proof of service, within 20 days of " +
+          "being served with the claim. This topic is about a Defence whose reasons dispute that " +
+          "required information was missing or inaccurate.",
         whenThisComesUp: "When the dealer's Defence says the information provided was accurate and complete.",
-        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+        sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-10-14",
       },
     ],
     applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim", "defence-failure-to-mitigate"],
@@ -2710,12 +3012,12 @@ export const CLAIM_TYPES: ClaimType[] = [
     proceduralNotes: [
       {
         note:
-          "For a registered dealer, the Motor Vehicle Dealers Compensation Fund protects deposits and " +
-          "payments up to $45,000 if the dealer fails to deliver on a purchase or warranty obligation; " +
-          "claims must generally be filed within 2 years of the dealer's refusal or inability to " +
-          "return payment. This is a separate path from Small Claims Court, not a substitute step " +
-          "required before suing.",
+          "Ontario's page on buying a new or used vehicle says that if a registered dealer fails to " +
+          "deliver on any part of a purchase or warranty, the Motor Vehicle Dealers Compensation Fund " +
+          "protects deposits or payments up to $45,000, and that a claim can be made up to 2 years " +
+          "after the dealer refuses or is unable to return the payment.",
         sourceUrl: "https://www.ontario.ca/page/buying-new-or-used-vehicle-your-rights",
+        verifiedAt: "2026-09-30",
       },
     ],
     signals: [
@@ -2798,6 +3100,8 @@ export const CLAIM_TYPES: ClaimType[] = [
           "The Condominium Act, 1998 governs the relationship between a condominium corporation and " +
           "its unit owners, including the corporation's right to collect common expenses.",
         sourceUrl: "https://www.ontario.ca/laws/docs/98c19_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-12-31",
         evidenceCategories: [
           {
             name: "Condominium records",
@@ -2814,6 +3118,8 @@ export const CLAIM_TYPES: ClaimType[] = [
           "that owner's unit for the unpaid amount, including interest and the corporation's " +
           "reasonable costs of collecting it.",
         sourceUrl: "https://www.ontario.ca/laws/docs/98c19_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-12-31",
         evidenceCategories: [
           {
             name: "Common-expense records",
@@ -2828,6 +3134,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         plainExplanation:
           "Small Claims Court can only hear claims up to $50,000, excluding interest and costs.",
         sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Arrears calculation",
@@ -2842,9 +3149,17 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "dispute-amount-assessed",
         name: "The owner disputes that the common-expense amount was properly assessed or owing",
         plainExplanation:
-          "A defendant can file a Defence disputing the amount assessed, billed, or claimed as owing.",
+          "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
+          "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
+          "language with a reasonable amount of detail\", and a copy of any document the defence is " +
+          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "the Defence on every other party and files it, with proof of service, within 20 days of " +
+          "being served with the claim. This topic is about a Defence whose reasons dispute how the " +
+          "common-expense amount was assessed or calculated.",
         whenThisComesUp: "When the owner's Defence disputes the calculation or validity of the amount claimed, not just an inability to pay.",
-        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+        sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-10-14",
       },
     ],
     applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
@@ -2859,6 +3174,8 @@ export const CLAIM_TYPES: ClaimType[] = [
           "assessments under the Municipal Act, 2001, the City of Toronto Act, 2006, the Education Act " +
           "or the Local Roads Boards Act, or over a prescribed lien or claim.",
         sourceUrl: "https://www.ontario.ca/laws/docs/98c19_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-12-31",
       },
       {
         note:
@@ -2871,16 +3188,19 @@ export const CLAIM_TYPES: ClaimType[] = [
           "notice was given and continue to accrue after, plus interest and reasonable legal costs " +
           "and expenses on those arrears.",
         sourceUrl: "https://www.ontario.ca/laws/docs/98c19_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-12-31",
       },
       {
         note:
-          "The lien itself is also time-limited: it expires three months after the default that gave " +
-          "rise to it, unless the corporation registers a certificate of lien within that time. At " +
-          "least 10 days before registering the certificate, the corporation must give written notice " +
-          "of the lien to the affected owner. A registered certificate may be enforced in the same " +
-          "manner as a mortgage -- which is a separate path from a Small Claims Court action for the " +
-          "money, not a step required before suing.",
+          "Under s. 85 of the Condominium Act, 1998, the lien expires three months after the default " +
+          "that gave rise to it unless the corporation registers a certificate of lien within that " +
+          "time. At least 10 days before registering the certificate, the corporation must give the " +
+          "affected owner written notice of the lien. Under s. 85(6), the lien may be enforced in the " +
+          "same manner as a mortgage.",
         sourceUrl: "https://www.ontario.ca/laws/docs/98c19_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-12-31",
       },
     ],
     signals: [
@@ -2932,10 +3252,13 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "statement-made-and-communicated",
         name: "A statement was made and communicated to someone other than the plaintiff",
         plainExplanation:
-          "The person bringing the claim generally has to show, on a balance of probabilities, what " +
-          "was said or written and that it reached someone other than the plaintiff.",
-        sourceUrl:
-          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "The Superior Court of Justice's guide to the steps in a civil case says that in every civil " +
+          "case the plaintiff has the burden of proof to establish, on a balance of probabilities, the " +
+          "allegations in their claim -- evidence showing that, more likely than not, it would be " +
+          "correct to rule in their favour. This part of the checklist is about what was said or " +
+          "written, and who it reached besides the person it was about.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "The statement itself",
@@ -2953,11 +3276,14 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "amount-within-jurisdiction-defamation",
         name: "The amount claimed falls within Small Claims Court's jurisdiction",
         plainExplanation:
-          "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
-          "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
-          "costs) -- this is a monetary jurisdiction, not a subject-matter one, so a claim for money " +
-          "arising from a defamatory statement is within it the same as any other money claim.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "Ontario's Small Claims Court guide says the court \"can handle any action for the payment of " +
+          "money or the recovery of personal property where the amount claimed does not exceed $50,000, " +
+          "excluding interest and costs such as court fees.\" The $50,000 figure is the amount " +
+          "prescribed by O. Reg. 626/00, s. 1(1), for the court's jurisdiction under s. 23(1) of the " +
+          "Courts of Justice Act.",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
+        alsoCites: [{"sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc", "pinpoint": "O. Reg. 626/00, s. 1(1)"}, {"sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc", "pinpoint": "Courts of Justice Act, s. 23(1)"}],
         evidenceCategories: [
           {
             name: "Cost/harm documentation",
@@ -2970,23 +3296,22 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "notice-if-newspaper-or-broadcast",
         name: "If this involved a newspaper or broadcast specifically, written notice was given within 6 weeks",
         plainExplanation:
-          "Under the Libel and Slander Act, no action for libel in a newspaper or in a broadcast may " +
-          "proceed unless the plaintiff gave the defendant written notice, specifying the matter " +
-          "complained of, within 6 weeks after the alleged libel came to the plaintiff's knowledge. " +
-          "\"Newspaper\" means a paper containing public news or advertisements, printed for " +
-          "distribution to the public and published periodically at least 12 times a year. " +
-          "\"Broadcasting\" means dissemination of writing, signs, pictures, or sounds intended for " +
-          "the public by wireless radio communication or by cables, wires, fibre-optic linkages, or " +
-          "laser beams. This notice requirement applies only when the statement fits one of those two " +
-          "specific definitions -- not to defamation generally (for example, something said directly " +
-          "to someone, a private message, or an ordinary social media post). " +
-          "It is narrower still: section 7 of the Act says subsection 5(1) and section 6 apply ONLY to " +
-          "newspapers printed and published in Ontario and to broadcasts from a station in Ontario. A " +
-          "newspaper printed and published outside Ontario, or a broadcast from a station outside " +
-          "Ontario, falls outside this notice requirement even though it is still a newspaper or a " +
-          "broadcast. Whether a particular publisher or broadcaster meets that geographic test is a " +
-          "fact to confirm, not something this content assumes.",
+          "Under s. 5(1) of the Libel and Slander Act, no action for libel in a newspaper or in a " +
+          "broadcast lies unless the plaintiff gave the defendant written notice, specifying the matter " +
+          "complained of, within six weeks after the alleged libel came to the plaintiff's knowledge. " +
+          "The notice must be served in the same manner as a statement of claim, or by delivering it to " +
+          "a grown-up person at the defendant's chief office. Section 1(1) defines \"newspaper\" and " +
+          "\"broadcasting\", and s. 7 says this applies only to newspapers printed and published in " +
+          "Ontario and to broadcasts from a station in Ontario. Section 8 also limits who can rely on " +
+          "ss. 5 and 6: a newspaper defendant is not entitled to their benefit unless the names of the " +
+          "proprietor and publisher and the address of publication are stated at the head of the " +
+          "editorials or on the front page (s. 8(1)), and for a broadcast they do not apply if, after a " +
+          "registered-letter request, the station's owner or operator does not supply the requested " +
+          "names and addresses within the time s. 8(3) allows. Whether a particular publication fits " +
+          "those definitions is a question to check, not something this content assumes.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90l12_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2015-11-03",
         evidenceCategories: [
           {
             name: "Copy of the written notice sent",
@@ -2999,17 +3324,21 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "limitation-if-newspaper-or-broadcast",
         name: "If this involved a newspaper or broadcast specifically, the action was started within 3 months",
         plainExplanation:
-          "Under the Libel and Slander Act, an action for libel in a newspaper or in a broadcast must " +
-          "be commenced within 3 months after the libel came to the knowledge of the person defamed -- " +
-          "shorter than the ordinary 2-year limitation period that applies to defamation generally. " +
-          "Section 7 limits this the same way it limits the notice requirement: section 6 applies ONLY " +
-          "to newspapers printed and published in Ontario and to broadcasts from a station in Ontario. " +
-          "Where a national or out-of-province publisher or broadcaster is involved, whether the " +
-          "shortened 3-month period applies at all turns on that geographic question. " +
-          "Where an action is brought within the 3-month period, it may also include a claim for any " +
-          "other libel by the same defendant in the same newspaper or from the same broadcasting " +
-          "station within the year before the action started.",
+          "Under s. 6 of the Libel and Slander Act, an action for a libel in a newspaper or in a " +
+          "broadcast must be started within three months after the libel came to the knowledge of the " +
+          "person defamed. Section 7 says this applies only to newspapers printed and published in " +
+          "Ontario and to broadcasts from a station in Ontario. If the action is started within the " +
+          "three months, it may also include a claim for any other libel against the plaintiff by the " +
+          "same defendant in the same newspaper or from the same broadcasting station within the year " +
+          "before the action started. Section 8 also limits who can rely on ss. 5 and 6: a newspaper " +
+          "defendant is not entitled to their benefit unless the names of the proprietor and publisher " +
+          "and the address of publication are stated at the head of the editorials or on the front page " +
+          "(s. 8(1)), and for a broadcast they do not apply if, after a registered-letter request, the " +
+          "station's owner or operator does not supply the requested names and addresses within the " +
+          "time s. 8(3) allows.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90l12_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2015-11-03",
         evidenceCategories: [
           {
             name: "Records establishing when the statement was discovered",
@@ -3024,28 +3353,36 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "dispute-statement-made-or-false",
         name: "The defendant disputes making the statement, or disputes that it was false or defamatory",
         plainExplanation:
-          "A defendant can file a Defence disputing that they made the statement, that it was false, " +
-          "or that it was defamatory at all -- this becomes a fact the court weighs alongside the " +
-          "plaintiff's evidence.",
+          "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
+          "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
+          "language with a reasonable amount of detail\", and a copy of any document the defence is " +
+          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "the Defence on every other party and files it, with proof of service, within 20 days of " +
+          "being served with the claim. This topic is about a Defence whose reasons dispute that the " +
+          "statement was made, or that it was false or defamatory.",
         whenThisComesUp: "When the defendant has filed a Defence (Form 9A) disputing the statement itself, not just the amount claimed.",
-        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+        sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-10-14",
       },
       {
         id: "responsible-communication-public-interest",
         name: "The defendant argues the statement was responsible communication on a matter of public interest",
         plainExplanation:
-          "The Supreme Court of Canada recognized a defence of responsible communication on matters of " +
-          "public interest. It has two elements: the publication was on a matter of public interest, " +
-          "and the publisher was diligent in trying to verify the allegation, having regard to factors " +
-          "including how serious the allegation was, how important and how urgent the matter was, the " +
-          "status and reliability of the source, whether the plaintiff's side of the story was sought " +
-          "and accurately reported, whether including the defamatory statement was justifiable, and " +
-          "whether the public interest lay in the fact that the statement was made rather than in its " +
-          "truth. The Court was explicit that this defence is not limited to journalists -- it is " +
-          "available to anyone who publishes material of public interest in any medium, expressly " +
-          "including blog postings and other online media.",
+          "In Grant v. Torstar Corp., 2009 SCC 61, the Supreme Court of Canada recognized a defence of " +
+          "responsible communication on matters of public interest. It applies where the publication is " +
+          "on a matter of public interest and the publisher was diligent in trying to verify the " +
+          "allegation, having regard to factors including the seriousness of the allegation, the public " +
+          "importance of the matter, its urgency, the status and reliability of the source, whether the " +
+          "plaintiff's side was sought and accurately reported, whether including the defamatory " +
+          "statement was justifiable, whether its public interest lay in the fact that it was made " +
+          "rather than in its truth, and any other relevant circumstances (para. 126). The Court said " +
+          "the defence is available to anyone who publishes material of public interest in any medium " +
+          "(para. 96), noting that many defamation actions now concern blog postings and other online " +
+          "media (para. 97).",
         whenThisComesUp: "When the statement was published rather than said privately -- an online review, a post, a blog, or any other publication -- and the defendant says it concerned a matter the public had a genuine stake in.",
         sourceUrl: "docs/sources/grant-v-torstar-2009-SCC-61.pdf",
+        verifiedAt: "2026-09-30",
       },
     ],
     applicableDefenceConceptIds: ["defence-limitation-period-expired", "defence-set-off-or-counterclaim", "defence-failure-to-mitigate"],
@@ -3060,25 +3397,35 @@ export const CLAIM_TYPES: ClaimType[] = [
           "front page. Where that information is absent, the shortened deadlines do not protect the " +
           "defendant.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90l12_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2015-11-03",
       },
       {
         note:
-          "In Canadian defamation law, general damages are presumed from the very publication of the " +
-          "false statement and are awarded at large -- a plaintiff is not required to document a " +
-          "specific financial loss in order to recover them. The Supreme Court of Canada also declined " +
-          "to adopt the United States \"actual malice\" standard from New York Times v. Sullivan in " +
-          "actions between private litigants. (Separately, in Small Claims Court any amount actually " +
-          "awarded is still subject to that court's $50,000 monetary limit.)",
+          "In Hill v. Church of Scientology of Toronto, [1995] 2 S.C.R. 1130, the Supreme Court of " +
+          "Canada said that general damages in defamation cases are presumed from the very publication " +
+          "of the false statement and are awarded at large (at p. 1196). The Court also saw no reason " +
+          "to adopt the United States \"actual malice\" rule from New York Times v. Sullivan in Canada in " +
+          "an action between private litigants (at p. 1187).",
         sourceUrl: "docs/sources/hill-v-church-of-scientology-1995-2-SCR-1130.pdf",
+        verifiedAt: "2026-09-30",
       },
       {
         note:
-          "Defamation not involving a newspaper or broadcast (for example, something said directly, a " +
-          "private message, or an ordinary social media post) is generally subject to Ontario's " +
-          "standard 2-year limitation period instead of the Libel and Slander Act's shortened 3-month " +
-          "one -- which of the two applies depends on how the statement was made, not on the amount " +
-          "claimed or which court hears it.",
-        sourceUrl: "https://www.ontario.ca/page/civil-claims-suing-and-being-sued",
+          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding " +
+          "cannot be started after the second anniversary of the day the claim was discovered. Section " +
+          "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
+          "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
+          "omission, that the act or omission was that of the person the claim is against, and that a " +
+          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
+          "person with their abilities and in their circumstances first ought to have known those " +
+          "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
+          "the day the act or omission the claim is based on took place, unless the contrary is proved. " +
+          "The Libel and Slander Act sets a shorter three-month period for libel in an Ontario " +
+          "newspaper or broadcast -- see that entry.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2024-12-04",
       },
     ],
     signals: [
@@ -3166,18 +3513,23 @@ export const CLAIM_TYPES: ClaimType[] = [
         plainExplanation:
           "Under section 263 of the Insurance Act, when a vehicle is damaged by one or more other " +
           "vehicles and BOTH the damaged vehicle and at least one other vehicle involved are insured " +
-          "under a motor vehicle liability policy from an insurer bound by this section, the owner " +
-          "generally has no right of action against the other driver for damage to their vehicle or " +
-          "its contents -- they must instead claim from their own insurer, with recovery based on " +
-          "fault as determined under the Fault Determination Rules. That bar does not apply, and an " +
-          "ordinary right to sue the at-fault driver directly is preserved, in situations including " +
-          "where the at-fault driver's vehicle was not insured under such a policy -- section 263 " +
-          "never applies in the first place. Since January 1, 2024, an insured may also elect not to " +
-          "claim from their own insurer under this section, but that election on its own does not " +
-          "restore a right to sue the other driver directly if section 263 otherwise applies (both " +
-          "vehicles insured). Confirming which situation applies here is essential and not something " +
-          "this content assumes.",
+          "under a motor vehicle liability policy issued by an insurer licensed to undertake automobile " +
+          "insurance in Ontario (or one that has filed an undertaking to be bound by this section), the " +
+          "owner generally has no right of action against the other driver for damage to their vehicle " +
+          "or its contents -- they must instead claim from their own insurer, with recovery based on " +
+          "fault as determined under the Fault Determination Rules. Section 263 applies only if the " +
+          "damaged vehicle AND at least one other vehicle involved in the accident are insured under " +
+          "such a policy (s. 263(1)(b)-(c)), or, under s. 263(1.1), where a vehicle is exempt from " +
+          "compulsory insurance and the organization financially responsible for it has filed an " +
+          "undertaking to be bound. In a multi-vehicle accident, the section can apply even if the " +
+          "at-fault vehicle itself was uninsured, as long as another vehicle involved was insured. " +
+          "Since January 1, 2024, an insured may also elect not to claim from their own insurer under " +
+          "this section, but that election on its own does not restore a right to sue the other driver " +
+          "directly if section 263 otherwise applies (both vehicles insured). Confirming which " +
+          "situation applies here is essential and not something this content assumes.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90i08_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2026-01-01",
         evidenceCategories: [
           {
             name: "Proof the other driver's vehicle was not insured",
@@ -3196,6 +3548,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "foreseeability moderated by policy considerations. See \"The elements of a negligence " +
           "claim\" for the fuller general framework this draws from.",
         sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Records identifying both drivers and vehicles",
@@ -3213,6 +3566,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "this general standard doesn't itself resolve -- it isn't a statement of particular traffic " +
           "rules.",
         sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Evidence of how the accident happened",
@@ -3226,6 +3580,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         name: "The plaintiff sustained damage",
         plainExplanation: "A negligence claim generally requires that the plaintiff sustained damage -- here, damage to the vehicle or its contents.",
         sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Proof of the damage and its cost",
@@ -3238,19 +3593,23 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "causation-vehicle-accident",
         name: "The damage was caused, in fact and in law, by the other driver's breach",
         plainExplanation:
-          "Causation has two parts: whether the breach caused the harm in fact, and whether it also " +
-          "caused the harm in law. " +
-          "The factual part is generally tested with the \"but for\" test -- the plaintiff must show, " +
-          "on a balance of probabilities, that the injury would not have occurred but for the " +
-          "defendant's negligent act. That is a factual inquiry, applied in a robust, common-sense " +
-          "way: scientific evidence of precisely how much the defendant's negligence contributed is " +
-          "not required. (There is a narrow exception where multiple possible wrongdoers are involved " +
-          "-- see \"The elements of a negligence claim\" for the fuller general framework, including " +
-          "when that exception applies.) " +
-          "The legal part asks whether the harm is too remote to fairly hold the defendant liable for " +
-          "it, judged by whether it was a real, reasonably foreseeable risk rather than one a " +
-          "reasonable person would dismiss as far-fetched.",
+          "Causation has two parts (Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, para. 11): " +
+          "whether the breach caused the harm in fact, and whether it also caused the harm in law. The " +
+          "Supreme Court of Canada, in Clements v. Clements, 2012 SCC 32, said the factual part is " +
+          "generally tested with the \"but for\" test -- the plaintiff must show, on a balance of " +
+          "probabilities, that the injury would not have occurred but for the defendant's negligent " +
+          "act. That is a factual inquiry, applied in a robust, common-sense way: scientific evidence " +
+          "of precisely how much the defendant's negligence contributed is not required. (There is a " +
+          "narrow exception where multiple possible wrongdoers are involved -- see \"The elements of a " +
+          "negligence claim\" for the fuller general framework, including when that exception applies.) " +
+          "The legal part -- remoteness -- asks, in the words of Mustapha v. Culligan of Canada Ltd., " +
+          "2008 SCC 27, whether \"the harm [is] too unrelated to the wrongful conduct to hold the " +
+          "defendant fairly liable\"; a harm is reasonably foreseeable if it is a \"real risk\" that a " +
+          "reasonable person in the defendant's position would not \"brush aside as far-fetched\" (paras. " +
+          "12-13).",
         sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
+        verifiedAt: "2026-09-30",
+        alsoCites: [{"sourceUrl": "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html", "pinpoint": "Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, paras. 11-13"}],
         evidenceCategories: [
           {
             name: "Evidence connecting the damage to this specific incident",
@@ -3263,10 +3622,14 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "amount-within-jurisdiction-vehicle-accident",
         name: "The amount claimed falls within Small Claims Court's jurisdiction",
         plainExplanation:
-          "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
-          "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
-          "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "Ontario's Small Claims Court guide says the court \"can handle any action for the payment of " +
+          "money or the recovery of personal property where the amount claimed does not exceed $50,000, " +
+          "excluding interest and costs such as court fees.\" The $50,000 figure is the amount " +
+          "prescribed by O. Reg. 626/00, s. 1(1), for the court's jurisdiction under s. 23(1) of the " +
+          "Courts of Justice Act.",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
+        alsoCites: [{"sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc", "pinpoint": "O. Reg. 626/00, s. 1(1)"}, {"sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc", "pinpoint": "Courts of Justice Act, s. 23(1)"}],
         evidenceCategories: [
           {
             name: "Cost documentation",
@@ -3287,16 +3650,24 @@ export const CLAIM_TYPES: ClaimType[] = [
           "insurer, not a direct action against this defendant.",
         whenThisComesUp: "When the defendant's Defence disputes the premise that they were uninsured, or that another exclusion to section 263 applied.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90i08_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2026-01-01",
       },
       {
         id: "dispute-fault-or-causation-vehicle-accident",
         name: "The defendant disputes being at fault, or that their vehicle caused the damage",
         plainExplanation:
-          "A defendant can file a Defence disputing that they were at fault, or that their vehicle's " +
-          "conduct caused the damage claimed -- this becomes a fact the court weighs alongside the " +
-          "plaintiff's evidence.",
+          "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
+          "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
+          "language with a reasonable amount of detail\", and a copy of any document the defence is " +
+          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "the Defence on every other party and files it, with proof of service, within 20 days of " +
+          "being served with the claim. This topic is about a Defence whose reasons dispute fault, or " +
+          "that the defendant's vehicle caused the damage.",
         whenThisComesUp: "When the defendant has filed a Defence (Form 9A) disputing fault or causation, not just the amount claimed.",
-        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+        sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-10-14",
       },
     ],
     applicableDefenceConceptIds: ["defence-contributory-negligence", "defence-limitation-period-expired", "defence-set-off-or-counterclaim", "defence-failure-to-mitigate"],
@@ -3309,10 +3680,23 @@ export const CLAIM_TYPES: ClaimType[] = [
           "does, the ordinary route is a claim against your own insurer under that section, generally " +
           "not a Small Claims action against the other driver.",
         sourceUrl: "https://www.ontario.ca/laws/docs/90i08_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2026-01-01",
       },
       {
-        note: "Claims like this are generally subject to Ontario's standard 2-year limitation period, running from when the incident (or the loss) was discovered.",
-        sourceUrl: "https://www.ontario.ca/page/civil-claims-suing-and-being-sued",
+        note:
+          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding " +
+          "cannot be started after the second anniversary of the day the claim was discovered. Section " +
+          "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
+          "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
+          "omission, that the act or omission was that of the person the claim is against, and that a " +
+          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
+          "person with their abilities and in their circumstances first ought to have known those " +
+          "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
+          "the day the act or omission the claim is based on took place, unless the contrary is proved.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2024-12-04",
       },
     ],
     signals: [
@@ -3403,12 +3787,13 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "loan-agreement-existed",
         name: "An agreement to lend money existed",
         plainExplanation:
-          "The person bringing a claim generally has the burden of proving their allegations on a " +
-          "balance of probabilities -- including that an agreement to lend money actually existed, " +
-          "whether written or oral, and what its terms were (the amount lent, and when or how it was " +
-          "to be repaid).",
-        sourceUrl:
-          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "The Superior Court of Justice's guide to the steps in a civil case says that in every civil " +
+          "case the plaintiff has the burden of proof to establish, on a balance of probabilities, the " +
+          "allegations in their claim -- evidence showing that, more likely than not, it would be " +
+          "correct to rule in their favour. This part of the checklist is about the loan itself -- the " +
+          "amount lent, what was said or written about repayment, and the records that show it.",
+        sourceUrl: "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Proof the money was actually transferred",
@@ -3426,10 +3811,12 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "amount-remains-unpaid-personal-loan",
         name: "The amount lent (or part of it) remains unpaid",
         plainExplanation:
-          "The person bringing the claim generally has to show, on a balance of probabilities, what " +
-          "amount was lent, what -- if anything -- has been repaid, and what remains outstanding.",
-        sourceUrl:
-          "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
+          "Ontario's Small Claims Court guide says the reasons for a claim should \"calculate and " +
+          "explain the amount of money and any interest you are claiming\", with copies of supporting " +
+          "documents attached to the claim. This part of the checklist is about the amount lent, " +
+          "anything repaid, and what remains outstanding.",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Records of any repayment",
@@ -3447,10 +3834,14 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "amount-within-jurisdiction-personal-loan",
         name: "The amount claimed falls within Small Claims Court's jurisdiction",
         plainExplanation:
-          "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
-          "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
-          "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "Ontario's Small Claims Court guide says the court \"can handle any action for the payment of " +
+          "money or the recovery of personal property where the amount claimed does not exceed $50,000, " +
+          "excluding interest and costs such as court fees.\" The $50,000 figure is the amount " +
+          "prescribed by O. Reg. 626/00, s. 1(1), for the court's jurisdiction under s. 23(1) of the " +
+          "Courts of Justice Act.",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
+        alsoCites: [{"sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc", "pinpoint": "O. Reg. 626/00, s. 1(1)"}, {"sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc", "pinpoint": "Courts of Justice Act, s. 23(1)"}],
         evidenceCategories: [
           {
             name: "Cost documentation",
@@ -3465,21 +3856,33 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "argues-it-was-a-gift",
         name: "The defendant argues the money was a gift, not a loan",
         plainExplanation:
-          "A defendant can dispute that there was ever an obligation to repay the money at all -- for " +
-          "example, by arguing it was a gift rather than a loan. Since a gift creates no debt to repay, " +
-          "this becomes a fact the plaintiff has to prove on a balance of probabilities, the same as any " +
-          "other disputed element of the claim.",
+          "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
+          "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
+          "language with a reasonable amount of detail\", and a copy of any document the defence is " +
+          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "the Defence on every other party and files it, with proof of service, within 20 days of " +
+          "being served with the claim. This topic is about a Defence whose reasons say the money was a " +
+          "gift and was never meant to be repaid.",
         whenThisComesUp: "When the defendant's Defence disputes that the money was ever meant to be repaid, not just the amount or the timing.",
-        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+        sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-10-14",
       },
       {
         id: "dispute-amount-still-owed-personal-loan",
         name: "The defendant disputes the amount still owed",
         plainExplanation:
-          "A defendant can file a Defence disputing how much of the loan remains unpaid -- for example, " +
-          "if they say they already repaid some or all of it.",
+          "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
+          "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
+          "language with a reasonable amount of detail\", and a copy of any document the defence is " +
+          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "the Defence on every other party and files it, with proof of service, within 20 days of " +
+          "being served with the claim. This topic is about a Defence whose reasons dispute how much is " +
+          "still owed -- for example, saying some or all of it was repaid.",
         whenThisComesUp: "When the defendant's Defence disputes the outstanding balance, not whether a loan existed at all.",
-        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+        sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-10-14",
       },
     ],
     applicableDefenceConceptIds: ["defence-no-agreement-existed", "defence-limitation-period-expired", "defence-set-off-or-counterclaim"],
@@ -3488,21 +3891,33 @@ export const CLAIM_TYPES: ClaimType[] = [
       {
         note: "Claims like this are generally subject to Ontario's standard 2-year limitation period, running from when the claim was discovered.",
         sourceUrl: "https://www.ontario.ca/page/civil-claims-suing-and-being-sued",
+        verifiedAt: "2026-09-30",
       },
       {
         note:
-          "Where the loan has no fixed repayment date -- one repayable \"on demand\" -- the Limitations " +
-          "Act, 2002 treats the claim as discovered on the first day the borrower fails to repay AFTER a " +
-          "demand for repayment is made, not on the day the money was originally lent. This demand-" +
-          "obligation rule applies to demand obligations created on or after January 1, 2004.",
+          "Under s. 5(3) of the Limitations Act, 2002, for a demand obligation -- such as a loan " +
+          "repayable on demand -- the day the loss occurs is the first day there is a failure to repay " +
+          "once a demand for repayment is made, not the day the money was lent. The two-year period in " +
+          "s. 4 runs from the day the claim is discovered, which depends on that and on the other " +
+          "matters in s. 5(1). Under s. 5(4), this applies to every demand obligation created on or " +
+          "after January 1, 2004.",
         sourceUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2024-12-04",
       },
       {
         note:
-          "A written, signed acknowledgment of the debt, or a partial payment toward it, is treated as " +
-          "having restarted the limitation clock as of the date of that acknowledgment or payment -- an " +
-          "oral acknowledgment alone, without a signed writing or a payment, does not have this effect.",
+          "Under s. 13 of the Limitations Act, 2002, if a person acknowledges liability for a claim for " +
+          "payment of a liquidated (set) sum, the act or omission the claim is based on is treated as " +
+          "having taken place on the day of the acknowledgment (s. 13(1)). The acknowledgment must be " +
+          "in writing and signed by the person making it or their agent (s. 13(10)); for a liquidated " +
+          "sum, a part payment of the sum by the debtor or the debtor's agent has the same effect as " +
+          "that written, signed acknowledgment (s. 13(11)). Either way, it must be made to the person " +
+          "with the claim or their agent (or an official receiver or trustee in bankruptcy) before the " +
+          "limitation period expires (s. 13(9)).",
         sourceUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2024-12-04",
       },
     ],
     signals: [
@@ -3581,6 +3996,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "foreseeability moderated by policy considerations. See \"The elements of a negligence " +
           "claim\" for the fuller general framework this draws from.",
         sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Proof the business had possession of the property",
@@ -3597,6 +4013,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "as unreasonable handling or safekeeping in a given situation is a further, fact-specific " +
           "question this general standard doesn't itself resolve.",
         sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Evidence of how the loss or damage happened, if known",
@@ -3610,6 +4027,7 @@ export const CLAIM_TYPES: ClaimType[] = [
         name: "The plaintiff sustained damage",
         plainExplanation: "A negligence claim generally requires that the plaintiff sustained damage -- here, damage to, or loss of, the property left with the business.",
         sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-30",
         evidenceCategories: [
           {
             name: "Proof of the property's condition and value",
@@ -3622,18 +4040,23 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "causation-property-in-care",
         name: "The damage or loss was caused, in fact and in law, by the business's breach",
         plainExplanation:
-          "Causation has two parts: whether the breach caused the harm in fact, and whether it also " +
-          "caused the harm in law. " +
-          "The factual part is generally tested with the \"but for\" test -- the plaintiff must show, " +
-          "on a balance of probabilities, that the damage or loss would not have occurred but for the " +
-          "defendant's negligent act. That is a factual inquiry, applied in a robust, common-sense " +
-          "way: scientific evidence of precisely how much the defendant's negligence contributed is " +
-          "not required. (There is a narrow exception where multiple possible wrongdoers are involved " +
-          "-- see \"The elements of a negligence claim\" for the fuller general framework, including " +
-          "when that exception applies.) " +
-          "The legal part asks whether the harm is too remote to fairly hold the defendant liable for " +
-          "it, judged by whether it was a real, reasonably foreseeable risk.",
+          "Causation has two parts (Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, para. 11): " +
+          "whether the breach caused the harm in fact, and whether it also caused the harm in law. The " +
+          "Supreme Court of Canada, in Clements v. Clements, 2012 SCC 32, said the factual part is " +
+          "generally tested with the \"but for\" test -- the plaintiff must show, on a balance of " +
+          "probabilities, that the damage or loss would not have occurred but for the defendant's " +
+          "negligent act. That is a factual inquiry, applied in a robust, common-sense way: scientific " +
+          "evidence of precisely how much the defendant's negligence contributed is not required. " +
+          "(There is a narrow exception where multiple possible wrongdoers are involved -- see \"The " +
+          "elements of a negligence claim\" for the fuller general framework, including when that " +
+          "exception applies.) The legal part -- remoteness -- asks, in the words of Mustapha v. " +
+          "Culligan of Canada Ltd., 2008 SCC 27, whether \"the harm [is] too unrelated to the wrongful " +
+          "conduct to hold the defendant fairly liable\"; a harm is reasonably foreseeable if it is a " +
+          "\"real risk\" that a reasonable person in the defendant's position would not \"brush aside as " +
+          "far-fetched\" (paras. 12-13).",
         sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
+        verifiedAt: "2026-09-30",
+        alsoCites: [{"sourceUrl": "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html", "pinpoint": "Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, paras. 11-13"}],
         evidenceCategories: [
           {
             name: "Evidence connecting the damage or loss to the time the property was with the business",
@@ -3646,10 +4069,14 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "amount-within-jurisdiction-property-in-care",
         name: "The amount claimed falls within Small Claims Court's jurisdiction",
         plainExplanation:
-          "The Small Claims Court has jurisdiction in any action for the payment of money where the " +
-          "amount claimed does not exceed the prescribed amount ($50,000, excluding interest and " +
-          "costs) -- this is a monetary jurisdiction, not a subject-matter one.",
-        sourceUrl: "https://www.ontario.ca/laws/docs/90c43_e.doc",
+          "Ontario's Small Claims Court guide says the court \"can handle any action for the payment of " +
+          "money or the recovery of personal property where the amount claimed does not exceed $50,000, " +
+          "excluding interest and costs such as court fees.\" The $50,000 figure is the amount " +
+          "prescribed by O. Reg. 626/00, s. 1(1), for the court's jurisdiction under s. 23(1) of the " +
+          "Courts of Justice Act.",
+        sourceUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+        verifiedAt: "2026-09-30",
+        alsoCites: [{"sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc", "pinpoint": "O. Reg. 626/00, s. 1(1)"}, {"sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc", "pinpoint": "Courts of Justice Act, s. 23(1)"}],
         evidenceCategories: [
           {
             name: "Cost documentation",
@@ -3664,41 +4091,61 @@ export const CLAIM_TYPES: ClaimType[] = [
         id: "disputes-possession-or-timing",
         name: "The business disputes having possession of the property, or that anything happened to it while in their care",
         plainExplanation:
-          "A defendant can file a Defence disputing that the property was ever left with them, or " +
-          "that the damage or loss happened while it was in their possession rather than before drop-" +
-          "off or after pick-up.",
+          "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
+          "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
+          "language with a reasonable amount of detail\", and a copy of any document the defence is " +
+          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "the Defence on every other party and files it, with proof of service, within 20 days of " +
+          "being served with the claim. This topic is about a Defence whose reasons dispute that the " +
+          "property was left with the business, or that anything happened to it while it was there.",
         whenThisComesUp: "When the defendant's Defence disputes possession or timing, not just the amount claimed.",
-        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+        sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-10-14",
       },
       {
         id: "dispute-cause-of-damage-property-in-care",
         name: "The business disputes that its own conduct caused the damage or loss",
         plainExplanation:
-          "A defendant can argue the damage or loss resulted from something other than their own " +
-          "conduct -- for example, a pre-existing condition of the item, or something the owner " +
-          "themselves did or failed to disclose.",
+          "Under rule 9.02 of the Rules of the Small Claims Court, a Defence (Form 9A) sets out \"the " +
+          "reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical " +
+          "language with a reasonable amount of detail\", and a copy of any document the defence is " +
+          "based on is attached. Under rule 9.01, a defendant who wishes to dispute the claim serves " +
+          "the Defence on every other party and files it, with proof of service, within 20 days of " +
+          "being served with the claim. This topic is about a Defence whose reasons dispute that the " +
+          "business's own conduct caused the damage or loss.",
         whenThisComesUp: "When the defendant's Defence disputes causation rather than possession or amount.",
-        sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
+        sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2025-10-14",
       },
     ],
     applicableDefenceConceptIds: ["defence-contributory-negligence", "defence-limitation-period-expired", "defence-set-off-or-counterclaim", "defence-failure-to-mitigate"],
     remedies: ["sc-remedy-monetary-judgment", "sc-remedy-interest-and-costs"],
     proceduralNotes: [
       {
-        note: "Claims like this are generally subject to Ontario's standard 2-year limitation period, running from when the loss or damage was discovered.",
-        sourceUrl: "https://www.ontario.ca/page/civil-claims-suing-and-being-sued",
+        note:
+          "Under s. 4 of the Limitations Act, 2002, unless the Act provides otherwise, a proceeding " +
+          "cannot be started after the second anniversary of the day the claim was discovered. Section " +
+          "5(1) says when a claim is discovered: the earlier of the day the person first knew that the " +
+          "injury, loss or damage had occurred, that it was caused or contributed to by an act or " +
+          "omission, that the act or omission was that of the person the claim is against, and that a " +
+          "proceeding would be an appropriate way to seek to remedy it -- and the day a reasonable " +
+          "person with their abilities and in their circumstances first ought to have known those " +
+          "things. Under s. 5(2), a person with a claim is presumed to have known of those matters on " +
+          "the day the act or omission the claim is based on took place, unless the contrary is proved.",
+        sourceUrl: "https://www.ontario.ca/laws/docs/02l24_e.doc",
+        verifiedAt: "2026-09-30",
+        consolidationPeriod: "2024-12-04",
       },
       {
         note:
-          "This content states an ordinary negligence framework only -- it deliberately does NOT " +
-          "assert anything about bailment, a distinct body of law covering property left in someone " +
-          "else's care that in some circumstances may shift the burden onto the business to explain " +
-          "what happened, rather than requiring the owner to prove exactly how the loss occurred. That " +
-          "doctrine has not been independently sourced for this content (it develops mainly through " +
-          "case law, not a self-help government page), so it is not claimed here one way or the other " +
-          "-- worth asking a paralegal or lawyer specifically about it if the property was left with a " +
-          "business for service, storage, or safekeeping.",
+          "This content covers the general negligence framework only (Mustapha v. Culligan of Canada " +
+          "Ltd., 2008 SCC 27, para. 3). It does not cover bailment, which has not been sourced here. If " +
+          "property was left with a business for service, storage or safekeeping, that is a question " +
+          "worth taking to a licensed paralegal or lawyer.",
         sourceUrl: "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+        verifiedAt: "2026-09-30",
       },
     ],
     signals: [

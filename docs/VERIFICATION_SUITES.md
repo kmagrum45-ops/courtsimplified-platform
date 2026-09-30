@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-92 documented, 30 without a header.
+93 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -21,6 +21,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:case-load-restore` | **A loaded case restores what it recorded, and invents nothing when it did not.**<br>COSTS NOTHING. Reads `app/builder/page.tsx` and the engine that writes the keys it reads. No browser, no network, no database. |
 | `npm run test:case-review` | **The case review points at gaps in the user's own record, grounded in their**<br>own words, and never grades, advises or invents. |
 | `npm run test:case-reviews` | **Runs the 10 fabricated fixtures in fixtures/caseReviews/ through the**<br>SAME real pipeline runFixtures.ts uses (pipelineRunner.ts -- no second, independently-maintained copy of the turn loop), and writes one full, human-readable "case review" markdown file per case, plus an index that itemizes all 10 with a one-line description of |
+| `npm run test:catalogue-verified` | **A catalogue entry's verifiedAt vouches for the text that was verified, and**<br>for nothing else. |
 | `npm run test:check-oracles` | **No check can be satisfied by a comment. A check's oracle must be independent of the**<br>implementation's description of itself. |
 | `npm run test:child-support-draft` | **The child support draft carries recorded figures and cited rules, and**<br>calculates nothing. |
 | `npm run test:child-support-intake` | **The child support screen: the common case is small, the second income figure**<br>is absent rather than empty, and an out-of-scope situation is named. |
