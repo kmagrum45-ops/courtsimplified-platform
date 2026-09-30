@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://coadecisions.ontariocourts.ca/coa/en/d/s/index.do" />
+    <title>    Advanced Search - Court of Appeal for Ontario
+</title>
+    <meta name="robots" content="noindex,nofollow,nosnippet,noodp,noarchive,noimageindex"/>
+<link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/coa/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+}
+
+.decisia-content a {
+    color: #0645ad;
+    text-decoration: underline;
+}
+
+.decisia-content a:visited {
+    color: purple;
+}
+
+.decisia-content a:hover {
+    color: #222;
+    text-decoration: none;
+}
+
+#decisia-footer a.outlink:after {
+    content: normal;
+	margin: 0;
+}
+
+.breadcrumb-separator > span {
+    display: none;
+}
+
+.breadcrumb-separator:after {
+    content: " » ";
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link {
+    color: #0645ad;
+	text-decoration: underline;
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link:hover {
+    text-decoration: none;
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link:focus {
+    outline: 1px dashed #666;
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link:active {
+    outline: 0;
+}
+
+#solrHiBar {
+    line-height: normal;
+}
+
+.lexumSolrArrow {
+    line-height: 20px;
+}
+
+.wpml-ls-item-legacy-list-horizontal > span {
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+	line-height: 1;
+}
+
+#decisia-main-content .decisia-content .decisions.decisia-box > .search {
+    padding-bottom: 0;
+}
+
+#decisia-main-content .decisia-content .decisions.decisia-box > .search > .searchLinks {
+    padding-top: 0;
+}
+
+#decisia-main-content .decisia-content > #decisia-login-header {
+    padding-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager, #decisia-main-content > .decisions.decisia-box > .decisia-content > h2 {
+    margin-top: 0;
+}
+
+#decisia-main-content .decisia-content .resultControls ul.pager {
+    margin-bottom: 1.2em;
+}
+
+#document-content {
+    border-bottom: 2px solid black;
+}
+
+#decisia-footer {
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+#decisia-footer .decisia-lexum a {
+    top: 10px;
+}
+
+#decisia-footer img.decisia_logo {
+    width: 120px;
+    height: 42px;
+}
+</style>
+
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/coa/en/nav.do">Decisions of the Court</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/coa/en/nav.do">Decisions of the Court</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/coa/fr/d/s/index.do?cont=%22unjust+enrichment%22+%22joint+family+venture%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content"><div class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/coa/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisions decisia-box">
+    <h1>
+        <a id="decisia-decisions"></a>
+        Advanced Search
+    </h1>
+
+    <div class="browse">
+        <div class="browse-section">
+
+
+            <div class="advanced-search decisia-form">
+                <form target="_parent">
+                        <div class="pull-right">
+                            <label id="decisia-advanced-search-show-fields" for="chkShowAdvanced" data-toggle="collapse" data-target="#decisia-advanced-search-additional-fields">
+                                Show more fields&nbsp;<span class="decisia-icon icon-chevron-down"></span>
+                            </label>
+                        </div>
+
+                        <input id="chkShowAdvanced" name="chkShowAdvanced" type="checkbox" />
+
+                        <div class="clear-right"></div>
+    <div class="decisia-content-row">
+        <div class="label">
+            <label for="decisia-content">Full text search</label>
+        <button type="button" class="decisia-help-icon">
+            <span class="decisia-icon icon-question-circle"></span>
+            <span class="accessibility-only">Help</span>
+        </button>
+        <div class="decisia-help-tooltip">                Syntax: "", OR, AND, EXACT(), /p, /s, /n
+</div>
+        </div>
+        <div class="input">
+<input id="decisia-content" class="decisia-text" type="text" name="cont" value="&quot;unjust enrichment&quot; &quot;joint family venture&quot;" />
+        </div>
+    </div>
+    <div class="decisia-reference-row">
+        <div class="label">
+            <label for="decisia-reference-decisions">Case name, Neutral citation, Docket numbers</label>
+        </div>
+        <div class="input">
+<input id="decisia-reference-decisions" class="decisia-text" type="text" name="ref" value=""/>
+        </div>
+    </div>
+    <div class="decisia-date-from-row">
+        <div class="label">
+            <label for="decisia-date-from">Date&nbsp;between</label>
+        </div>
+        <div class="input">
+<div class="date-range-inputs">
+    <input id="decisia-date-from" class="date" type="date" name="d1" value="" />
+    <label for="decisia-date-to">and</label>
+    <input id="decisia-date-to" class="date" type="date" name="d2" value="" />
+</div>
+        </div>
+        <div id="decisia-date-from-error" class="decisia-date-from-error" role="status" aria-live="polite"></div>
+    </div>
+    <div class="advanced-field decisia-adjudicator-row">
+        <div class="label select">
+            <label for="decisia-adjudicator">Judges</label>
+        </div>
+        <div class="input">
+    <select id="decisia-adjudicator" name="j" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+        <option value="Abella, Rosalie Silberman"
+         >Abella, Rosalie Silberman</option>
+        <option value="Aitken, Catherine D."
+         >Aitken, Catherine D.</option>
+        <option value="Armstrong, Robert Patrick"
+         >Armstrong, Robert Patrick</option>
+        <option value="Austin, Allan McNiece"
+         >Austin, Allan McNiece</option>
+        <option value="Baltman, Deena"
+         >Baltman, Deena</option>
+        <option value="Benotto, Mary Lou"
+         >Benotto, Mary Lou</option>
+        <option value="Blair, Robert Ashley"
+         >Blair, Robert Ashley</option>
+        <option value="Borins, Stephen"
+         >Borins, Stephen</option>
+        <option value="Brooke, John Watson"
+         >Brooke, John Watson</option>
+        <option value="Brown, David M."
+         >Brown, David M.</option>
+        <option value="Brown, Michael F."
+         >Brown, Michael F.</option>
+        <option value="Brownstone, Lisa"
+         >Brownstone, Lisa</option>
+        <option value="Carthy, James Joseph"
+         >Carthy, James Joseph</option>
+        <option value="Catzman, Marvin Adrian"
+         >Catzman, Marvin Adrian</option>
+        <option value="Cavarzan, John Joseph"
+         >Cavarzan, John Joseph</option>
+        <option value="Chapnik, Sandra"
+         >Chapnik, Sandra</option>
+        <option value="Charron, Louise Vivianne"
+         >Charron, Louise Vivianne</option>
+        <option value="Code, Michael A."
+         >Code, Michael A.</option>
+        <option value="Copeland, Jill M."
+         >Copeland, Jill M.</option>
+        <option value="Coroza, Steve A."
+         >Coroza, Steve A.</option>
+        <option value="Cronk, Eleanore Ann"
+         >Cronk, Eleanore Ann</option>
+        <option value="Cumming, Peter Allan"
+         >Cumming, Peter Allan</option>
+        <option value="Cunningham, John Douglas"
+         >Cunningham, John Douglas</option>
+        <option value="Daley, Peter A."
+         >Daley, Peter A.</option>
+        <option value="Dambrot, Michael R."
+         >Dambrot, Michael R.</option>
+        <option value="Dawe, Jonathan"
+         >Dawe, Jonathan</option>
+        <option value="Doherty, David H."
+         >Doherty, David H.</option>
+        <option value="Ducharme, Edward W."
+         >Ducharme, Edward W.</option>
+        <option value="Dunnet, Tamarin M."
+         >Dunnet, Tamarin M.</option>
+        <option value="Durno, Bruce"
+         >Durno, Bruce</option>
+        <option value="Epstein, Gloria Jean"
+         >Epstein, Gloria Jean</option>
+        <option value="Fairburn, J. Michal"
+         >Fairburn, J. Michal</option>
+        <option value="Farley, James Montague"
+         >Farley, James Montague</option>
+        <option value="Favreau, Lise G."
+         >Favreau, Lise G.</option>
+        <option value="Feldman, Kathryn N."
+         >Feldman, Kathryn N.</option>
+        <option value="Ferrier, Lee Kenneth"
+         >Ferrier, Lee Kenneth</option>
+        <option value="Finlayson, George Duncan"
+         >Finlayson, George Duncan</option>
+        <option value="Fragomeni, Joseph M."
+         >Fragomeni, Joseph M.</option>
+        <option value="Gans, Arthur M."
+         >Gans, Arthur M.</option>
+        <option value="George, Jonathon C."
+         >George, Jonathon C.</option>
+        <option value="Gillese, Eileen E."
+         >Gillese, Eileen E.</option>
+        <option value="Glithero, C. Stephen"
+         >Glithero, C. Stephen</option>
+        <option value="Gomery, Sally A."
+         >Gomery, Sally A.</option>
+        <option value="Goudge, Stephen Thomas"
+         >Goudge, Stephen Thomas</option>
+        <option value="Gray, Douglas K."
+         >Gray, Douglas K.</option>
+        <option value="Hackland, Charles T."
+         >Hackland, Charles T.</option>
+        <option value="Harvison Young, Alison"
+         >Harvison Young, Alison</option>
+        <option value="Hennessy, Patricia C."
+         >Hennessy, Patricia C.</option>
+        <option value="Himel, Susan G."
+         >Himel, Susan G.</option>
+        <option value="Hourigan, C. William"
+         >Hourigan, C. William</option>
+        <option value="Hoy, Alexandra"
+         >Hoy, Alexandra</option>
+        <option value="Huscroft, Grant"
+         >Huscroft, Grant</option>
+        <option value="Jamal, Mahmud"
+         >Jamal, Mahmud</option>
+        <option value="Juriansz, Russell G."
+         >Juriansz, Russell G.</option>
+        <option value="Karakatsanis, Andromache Rhea"
+         >Karakatsanis, Andromache Rhea</option>
+        <option value="Kent, James C."
+         >Kent, James C.</option>
+        <option value="Killeen, Gordon Patrick"
+         >Killeen, Gordon Patrick</option>
+        <option value="Kozak, Lawrence Cyril"
+         >Kozak, Lawrence Cyril</option>
+        <option value="Krever, Horace"
+         >Krever, Horace</option>
+        <option value="LaForme, Harry Smith"
+         >LaForme, Harry Smith</option>
+        <option value="Labrosse, Jean-Marc"
+         >Labrosse, Jean-Marc</option>
+        <option value="Lane, George Dennis"
+         >Lane, George Dennis</option>
+        <option value="Lang, Susan Elizabeth"
+         >Lang, Susan Elizabeth</option>
+        <option value="Langdon, Kenneth Aylsworth"
+         >Langdon, Kenneth Aylsworth</option>
+        <option value="Laskin, John Ivan"
+         >Laskin, John Ivan</option>
+        <option value="Lauwers, Peter D."
+         >Lauwers, Peter D.</option>
+        <option value="Lax, Joan L."
+         >Lax, Joan L.</option>
+        <option value="Lederman, Sidney N."
+         >Lederman, Sidney N.</option>
+        <option value="MacDonald, Cindy A.M."
+         >MacDonald, Cindy A.M.</option>
+        <option value="MacFarland, Jean Louise"
+         >MacFarland, Jean Louise</option>
+        <option value="MacKinnon, Jennifer"
+         >MacKinnon, Jennifer</option>
+        <option value="MacPherson, James C."
+         >MacPherson, James C.</option>
+        <option value="Madsen, Lene"
+         >Madsen, Lene</option>
+        <option value="Maranger, Robert L."
+         >Maranger, Robert L.</option>
+        <option value="Marrocco, Frank N."
+         >Marrocco, Frank N.</option>
+        <option value="McCombs, John David"
+         >McCombs, John David</option>
+        <option value="McKinlay, Hilda Margaret"
+         >McKinlay, Hilda Margaret</option>
+        <option value="McKinnon, Colin"
+         >McKinnon, Colin</option>
+        <option value="McMurtry, Roy"
+         >McMurtry, Roy</option>
+        <option value="Melle, Francine Van"
+         >Melle, Francine Van</option>
+        <option value="Miller, Bradley"
+         >Miller, Bradley</option>
+        <option value="Moldaver, Michael James"
+         >Moldaver, Michael James</option>
+        <option value="Monahan, Patrick J."
+         >Monahan, Patrick J.</option>
+        <option value="Morden, John Wilson"
+         >Morden, John Wilson</option>
+        <option value="Métivier, Monique"
+         >Métivier, Monique</option>
+        <option value="Newbould, Frank"
+         >Newbould, Frank</option>
+        <option value="Nordheimer, Ian V.B."
+         >Nordheimer, Ian V.B.</option>
+        <option value="O&#39;Driscoll, John Gerald Joseph"
+         >O&#39;Driscoll, John Gerald Joseph</option>
+        <option value="O&#39;Marra, Alfred J."
+         >O&#39;Marra, Alfred J.</option>
+        <option value="O&#39;Marra, Brian"
+         >O&#39;Marra, Brian</option>
+        <option value="Osborne, Coulter Arthur Anthony"
+         >Osborne, Coulter Arthur Anthony</option>
+        <option value="Osborne, Peter J."
+         >Osborne, Peter J.</option>
+        <option value="O’Connor, Dennis"
+         >O’Connor, Dennis</option>
+        <option value="Paciocco, David M."
+         >Paciocco, David M.</option>
+        <option value="Pardu, Gladys I."
+         >Pardu, Gladys I.</option>
+        <option value="Pattillo, Laurence A."
+         >Pattillo, Laurence A.</option>
+        <option value="Pepall, Sarah E."
+         >Pepall, Sarah E.</option>
+        <option value="Perell, Paul M."
+         >Perell, Paul M.</option>
+        <option value="Pitt, Romain William Michael"
+         >Pitt, Romain William Michael</option>
+        <option value="Pomerance, Renee M."
+         >Pomerance, Renee M.</option>
+        <option value="Rahman, Moiz"
+         >Rahman, Moiz</option>
+        <option value="Ray, Timothy D."
+         >Ray, Timothy D.</option>
+        <option value="Rivard, Paul U."
+         >Rivard, Paul U.</option>
+        <option value="Roberts, Lois B."
+         >Roberts, Lois B.</option>
+        <option value="Robins, Sydney Lewis"
+         >Robins, Sydney Lewis</option>
+        <option value="Rosenberg, Marc"
+         >Rosenberg, Marc</option>
+        <option value="Rouleau, Paul S."
+         >Rouleau, Paul S.</option>
+        <option value="Sachs, Harriet E."
+         >Sachs, Harriet E.</option>
+        <option value="Sharpe, Robert J."
+         >Sharpe, Robert J.</option>
+        <option value="Simmons, Janet M."
+         >Simmons, Janet M.</option>
+        <option value="Smith, G. Patrick"
+         >Smith, G. Patrick</option>
+        <option value="Sossin, Lorne"
+         >Sossin, Lorne</option>
+        <option value="Southey, James Bonham Strange"
+         >Southey, James Bonham Strange</option>
+        <option value="Spence, James M."
+         >Spence, James M.</option>
+        <option value="Speyer, Christopher M."
+         >Speyer, Christopher M.</option>
+        <option value="Steep, R. Paul"
+         >Steep, R. Paul</option>
+        <option value="Strathy, George R."
+         >Strathy, George R.</option>
+        <option value="Swinton, Katherine E."
+         >Swinton, Katherine E.</option>
+        <option value="Then, Edward F."
+         >Then, Edward F.</option>
+        <option value="Theroulde, Sandra"
+         >Theroulde, Sandra</option>
+        <option value="Thorburn, Julie"
+         >Thorburn, Julie</option>
+        <option value="Trotter, Gary T."
+         >Trotter, Gary T.</option>
+        <option value="Tulloch, Michael H."
+         >Tulloch, Michael H.</option>
+        <option value="Turnbull, James R.H."
+         >Turnbull, James R.H.</option>
+        <option value="Tzimas, E. Ria"
+         >Tzimas, E. Ria</option>
+        <option value="Watt, David"
+         >Watt, David</option>
+        <option value="Weiler, Karen Merle Magnuson"
+         >Weiler, Karen Merle Magnuson</option>
+        <option value="Whalen, Lawrence"
+         >Whalen, Lawrence</option>
+        <option value="Wilson, Darla A."
+         >Wilson, Darla A.</option>
+        <option value="Wilton-Siegel, Herman J."
+         >Wilton-Siegel, Herman J.</option>
+        <option value="Winkler, Warren Keith"
+         >Winkler, Warren Keith</option>
+        <option value="Zarnett, Benjamin"
+         >Zarnett, Benjamin</option>
+        <option value="van Rensburg, Katherine"
+         >van Rensburg, Katherine</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-decision-type-row">
+        <div class="label select">
+            <label for="decisia-decision-type">Subject</label>
+        </div>
+        <div class="input">
+        <select id="decisia-decision-type" name="typ" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                <option value="1"
+                >Civil</option>
+                <option value="2"
+                >Criminal</option>
+                <option value="3"
+                >Family</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+
+
+
+
+
+
+                    <input name="or" type="hidden" value="" />
+
+                    <div class="decisia-submit-line">
+                        <button type="submit" id="decisia-search-submit" class="raised">
+                            Search&nbsp;<span class="icon-search"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="lexboxHook"></div>
+
+    <div class="resultControls" id="decisia-advanced-search-result-controls">
+    <ul class="pager">
+                <li class="active current">1</li>
+                <li class="active"><a target="_parent" href="/coa/en/d/s/index.do?cont=%22unjust+enrichment%22+%22joint+family+venture%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=2">2</a></li>
+                <li class="active"><a target="_parent" href="/coa/en/d/s/index.do?cont=%22unjust+enrichment%22+%22joint+family+venture%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=2">&gt;</a></li>
+    </ul>
+<div class="ordering">
+    Sort by:
+        <span class="active current">Relevance</span>
+        <a target="_parent" class="active" href="/coa/en/d/s/index.do?cont=%22unjust+enrichment%22+%22joint+family+venture%22&ref=&p=&col=1&or=date">Date</a>
+</div>
+        <div class="decisia-btn-expand-collapse-parent">
+                <a href='javascript:void(0)' title='Expand all results' id="decisia-btn-expand-all" class='decisia-btn-expand-collapse selected'><span class="icon-eq"></span></a><a href='javascript:void(0)' title='Collapse all results' id="decisia-btn-collapse-all" class='decisia-btn-expand-collapse'><span class="icon-bars"></span></a>
+        </div>
+    </div>
+    <h2>30 result(s)</h2>
+    <div id="decisia-results">
+<div class="documentList">
+    <ul class="collectionItemList list-expanded">
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">1.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/15574/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Reiter v. Hollub</a></span>
+                        - <span class="citation">2017 ONCA 186</span>
+                - <span class="publicationDate">2017-03-03</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [7] The application judge first considered whether the parties’ relationship amounted to a <b>joint family venture</b> as defined in Kerr v. Baranow. The Supreme Court, in examining remedies available when <b>unjust enrichment</b> is found in the context of a domestic relationship, identified the new concept of <b>joint family venture</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;[14] The application judge therefore concluded that Ms. Reiter had no claim against Mr. Hollub in <b>unjust enrichment</b>. D. ISSUES [15] On appeal, Ms. Reiter argues that the application judge erred in finding no <b>unjust enrichment</b> and in concluding that her relationship with Mr. Hollub did not amount to a <b>joint family venture</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;[26] That said, in my view, it would have been preferable to first establish whether there was any <b>unjust enrichment</b> before considering the possibility of a <b>joint family venture</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/15574/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">2.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/23440/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Mullin v. Sherlock</a></span>
+                        - <span class="citation">2025 ONCA 510</span>
+                - <span class="publicationDate">2025-07-15</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [11] The trial judge went on to find that Mr. Sherlock was <b>unjustly enriched</b> at the expense of Ms. Mullin in the context of a <b>joint family venture</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;Further, he submits that “[w]ithout <b>unjust enrichment</b>, there cannot be a <b>joint family venture</b>”. With respect, Mr. Sherlock’s argument is flawed. &nbsp;&nbsp;[...]&nbsp;&nbsp;The concept of <b>joint family venture</b> helps courts to quantify the monetary remedy where a claim of <b>unjust enrichment</b> has been made out. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/23440/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">3.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24395/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Stacey v. Vey</a></span>
+                        - <span class="citation">2026 ONCA 564</span>
+                - <span class="publicationDate">2026-08-06</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    The trial judge held that William was <b>unjustly enriched</b> at Shelley’s expense, as there was a <b>joint family venture</b>, and Shelley was entitled to 41% of the proceeds of sale. &nbsp;&nbsp;[...]&nbsp;&nbsp;The trial judge therefore concluded that William was <b>unjustly enriched</b> at Shelley’s expense. [25] The trial judge supported his finding of <b>unjust enrichment</b> by finding that William and Shelley were engaged in a <b>joint family venture</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;For these reasons, I would allow the appeal and find that there was no <b>unjust enrichment</b>. 2. There was no <b>joint family venture</b> [36] Moreover, I find the trial judge erred in holding that there was a <b>joint family venture</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24395/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">4.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/18179/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Derakhshan v. Narula</a></span>
+                        - <span class="citation">2019 ONCA 742</span>
+                - <span class="publicationDate">2019-09-23</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    <b>Joint Family Venture</b> [14] The question of whether there is a <b>joint family venture</b> is a question of fact and must be assessed by having regard to the relevant circumstances including: &nbsp;&nbsp;[...]&nbsp;&nbsp;[16] While a <b>joint family venture</b> claim logically becomes stronger when the relationship begins to resemble that of spouses, a spousal relationship is not required for there to be a <b>joint family venture</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;At most, there was some financial overlap but no economic integration of the sort that indicates a <b>joint family venture</b>. For these reasons, we find that the application judge’s reasons provide ample basis to conclude that there was no <b>joint family venture</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/18179/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">5.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/14476/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Farkas v. Bedic</a></span>
+                        - <span class="citation">2016 ONCA 82</span>
+                - <span class="publicationDate">2016-01-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [32] After referring to Kerr v. Baranow, 2011 SCC 10, [2011] 1 S.C.R. 269, the Supreme Court’s seminal judgment on <b>joint family ventures</b> and <b>unjust enrichment</b>, the trial judge summarized his finding, at para. 177: &nbsp;&nbsp;[...]&nbsp;&nbsp;The trial judge’s finding of a <b>joint family venture</b> and his award of a half interest in the motel as a remedy for Farkas’ claim of <b>unjust enrichment</b> are reasonably supported by the evidence. &nbsp;&nbsp;[...]&nbsp;&nbsp;[35] To obtain an award for <b>unjust enrichment</b> arising from a <b>joint family venture</b>, a claimant must show two things: first, a <b>joint family venture</b>; and second, a link between the claimant’s contribution to the venture and the accumulation of assets or wealth: see Kerr v. Baranow, at para. 87. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/14476/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">6.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/16570/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Peters v. Swayze</a></span>
+                        - <span class="citation">2018 ONCA 189</span>
+                - <span class="publicationDate">2018-02-26</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    These facts, Peters submits, establish <b>unjust enrichment</b> entitling her to half the increase in the equity of the home as a <b>joint family venture</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;[8] If an <b>unjust enrichment</b> has been established, the concept of <b>joint family venture</b> comes into play when considering remedy. &nbsp;&nbsp;[...]&nbsp;&nbsp;[11] Having not found <b>unjust enrichment</b>, the trial judge was not required to consider whether a <b>joint family venture</b> existed. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/16570/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">7.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/20288/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Tsai v. Dugal</a></span>
+                        - <span class="citation">2022 ONCA 81</span>
+                - <span class="publicationDate">2022-01-31</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    In essence, the claim is that she erred in finding no <b>unjust enrichment</b> and in failing to find that there was a <b>joint family venture</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;She went on to say that once an <b>unjust enrichment</b> has been established, the concept of <b>joint family venture</b> comes into play when considering a remedy. &nbsp;&nbsp;[...]&nbsp;&nbsp;She also correctly noted that the appellant bears the onus of proving both <b>unjust enrichment</b> and the existence of a <b>joint family venture</b>. [8] We see no palpable and overriding error in the application judge’s conclusion that the appellant failed to show <b>unjust enrichment</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/20288/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">8.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/19666/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Lesko v. Lesko</a></span>
+                        - <span class="citation">2021 ONCA 369</span>
+                - <span class="publicationDate">2021-06-02</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    David submits the trial judge erred in awarding Kelly an interest in Taplow as there was no <b>unjust enrichment</b> in this case. The trial judge never considered or applied the elements of <b>unjust enrichment</b> in his reasons and, without this clear finding, it was inappropriate to consider whether there was a <b>joint family venture</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;[16] The concept of <b>joint family venture</b> helps courts to quantify the monetary remedy where a claim of <b>unjust enrichment</b> has been made out. &nbsp;&nbsp;[...]&nbsp;&nbsp;[26] David’s second argument was that even if there was <b>unjust enrichment</b>, the trial judge should have considered whether the FLA’s equalization scheme remedied the <b>unjust enrichment</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/19666/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">9.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/23211/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Chapman v. Ing</a></span>
+                        - <span class="citation">2025 ONCA 292</span>
+                - <span class="publicationDate">2025-04-16</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    He argued that the parties were involved in a <b>joint family venture</b> and that he owned the properties on a “50/50 basis”, regardless of title. &nbsp;&nbsp;[...]&nbsp;&nbsp;(b) the parties were not involved in a <b>joint family venture</b> with respect to the various business and property interests; &nbsp;&nbsp;[...]&nbsp;&nbsp;(2) <b>Unjust Enrichment</b> [20] The first step in the <b>unjust enrichment</b> analysis asks whether the defendant has been enriched by the plaintiff. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/23211/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">10.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/12610/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Martin v. Sansome</a></span>
+                        - <span class="citation">2014 ONCA 14</span>
+                - <span class="publicationDate">2014-01-10</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    VI. <b>unjust enrichment</b> and constructive trust (1) A Framework (a) Relevance to married spouses &nbsp;&nbsp;[...]&nbsp;&nbsp;My view is that when the parties have been engaged in a <b>joint family venture</b>, and the claimant’s contributions to it are linked to the generation of wealth, a monetary award for <b>unjust enrichment</b> should be calculated according to the share of the accumulated wealth proportionate to the claimant’s contributions. &nbsp;&nbsp;[...]&nbsp;&nbsp;2. Where the <b>unjust enrichment</b> is most realistically characterized as one party retaining a disproportionate share of assets resulting from a <b>joint family venture</b>, and a monetary award is appropriate, it should be calculated on the basis of the share of those assets proportionate to the claimant’s contributions. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/12610/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">11.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/15996/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Gonsalves v. Scrymgeour</a></span>
+                        - <span class="citation">2017 ONCA 630</span>
+                - <span class="publicationDate">2017-08-02</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    (i) that there was a <b>joint family venture</b> and that the respondent was entitled to $595,530 as her share of the value of the family home; &nbsp;&nbsp;[...]&nbsp;&nbsp; was a <b>joint family venture</b>. However, he submits that the trial judge misapplied the test for <b>unjust enrichment</b> under a <b>joint family venture</b> and therefore erred in awarding anything on account of the respondent’s property claims because she did not contribute to the generation of wealth in the <b>joint family venture</b>; &nbsp;&nbsp;[...]&nbsp;&nbsp;As the trial judge noted, Cromwell J., writing for the unanimous court in Kerr, at para. 81, stated that a claim for <b>unjust enrichment</b> arises “when the parties have been engaged in a <b>joint family venture</b> and there is a clear link between the claimant’s contributions to the joint venture and the accumulation of wealth”. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/15996/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">12.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/14471/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Junker v. Hughes</a></span>
+                        - <span class="citation">2016 ONCA 81</span>
+                - <span class="publicationDate">2016-01-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    In our view, the conclusions she reached in her <b>unjust enrichment</b> analysis and in finding a <b>joint family venture</b> were supported by the evidence. &nbsp;&nbsp;[...]&nbsp;&nbsp;[19] On the question of <b>joint family venture</b>, the trial judge considered how the parties had conducted themselves during their cohabitation. &nbsp;&nbsp;[...]&nbsp;&nbsp;[21] Finally, the appellant contends that the finding of <b>joint family venture</b> did not remove or lessen the burden on the respondent to quantify and prove his contributions. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/14471/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">13.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/23193/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Iredale v. Dougall</a></span>
+                        - <span class="citation">2025 ONCA 266</span>
+                - <span class="publicationDate">2025-04-09</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    (1) <b>Unjust Enrichment</b> [18] Relying on Kerr v. Baranow, 2011 SCC 10, [2011] 1 S.C.R. 269, the trial judge found that Kirk had made out a claim for <b>unjust enrichment</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;[39] Kirk argues that the trial judge would have found that the parties were engaged in a <b>joint family venture</b>, such that the monetary award pertaining to Carol’s <b>unjust enrichment</b> should be calculated on a value survived basis. &nbsp;&nbsp;[...]&nbsp;&nbsp;[42] The trial judge determined that the equalization payment was sufficient to address the <b>unjust enrichment</b>. The trial judge did not need to explicitly determine whether a value is attributed by way of a <b>joint family venture</b> or whether it was calculated through value survived or value received. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/23193/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">14.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/11684/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Symmons v. Symmons</a></span>
+                        - <span class="citation">2012 ONCA 747</span>
+                - <span class="publicationDate">2012-11-06</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [19] Mrs. Symmons puts forward her claim for <b>unjust enrichment</b> on two related grounds. First, she says that she and her husband were engaged in a “<b>joint family venture</b>” during the period of cohabitation, as primarily evidenced by their mutual effort and decision-making: Kerr v. Baranow, 2011 SCC 10, [2011] 1 S.C.R. 269, at &nbsp;&nbsp;[...]&nbsp;&nbsp;[21] The trial judge’s finding that there was no <b>unjust enrichment</b> is reasonable. We are not persuaded that we should interfere with it. &nbsp;&nbsp;[...]&nbsp;&nbsp;While Mrs. Symmons’ claim to <b>unjust enrichment</b> is based on the cohabitation period, this court has held that a judge may consider the relative status of the parties at the end of a marriage in ascertaining the merits of an <b>unjust enrichment</b> claim relating to the pre-marital period: Roseneck v. Gowling (2002), 62 O.R. (3d) 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/11684/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">15.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/17053/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Derakhshan v. Narula</a></span>
+                        - <span class="citation">2018 ONCA 658</span>
+                - <span class="publicationDate">2018-07-25</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    He claimed retroactive spousal support, and asserted a constructive trust interest in the respondent’s assets on the basis of <b>unjust enrichment</b> or a <b>joint family venture</b>. Further, he sought the return of 49 of his shares in Turtle Island Staffing Inc. (formerly 2093030 Ontario Inc.) or payment for the shares, which he &nbsp;&nbsp;[...]&nbsp;&nbsp;Consequently, the applicant’s claims for spousal support and a constructive trust interest in the respondent’s property on the basis of a <b>joint family venture</b> failed. As to his <b>unjust enrichment</b> claim, the trial judge found that the applicant had been compensated for his services in relation to the respondent’s properties. &nbsp;&nbsp;[...]&nbsp;&nbsp;[32] As to his <b>unjust enrichment</b> claim, the trial judge considered and applied Kerr v. Baranow, 2011 SCC 10, [2011] 1 S.C.R. 269 and concluded that the applicant was “well compensated” for any services provided to the respondent. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/17053/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">16.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/15325/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Wharry v. Wharry</a></span>
+                        - <span class="citation">2016 ONCA 930</span>
+                - <span class="publicationDate">2016-12-13</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    In Kerr v. Baranow, the court examined the concept of a claim where one spouse has been <b>unjustly enriched</b> at the expense of the claiming spouse on the application of the original three-part test, or by way of a <b>joint family venture</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;A <b>joint family venture</b> was identified by Justice Cromwell to give life to cases developed for <b>unjust enrichment</b> where both parties contribute to the overall accumulation of wealth but title or ownership is held only by one of them. &nbsp;&nbsp;[...]&nbsp;&nbsp;The Court held in Kerr v. Baranow that the <b>joint family venture</b> is a concept that should be introduced at the remedy stage of the <b>unjust enrichment</b> analysis. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/15325/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">17.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/20852/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Tsitsos v. Poka</a></span>
+                        - <span class="citation">2022 ONCA 647</span>
+                - <span class="publicationDate">2022-09-13</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    The appellant did not succeed in her counterclaim for <b>unjust enrichment</b> based on a <b>joint family venture</b> largely based on her claim that she was a one-third partner in the family pizza business. &nbsp;&nbsp;[...]&nbsp;&nbsp;The respondents then reinvested funds from the pizzeria to purchase another business, which the appellant also claimed to form part of the <b>joint family venture</b>. Over the years, the appellant frequently cared for the respondents’ young son who was musically talented. &nbsp;&nbsp;[...]&nbsp;&nbsp;[5] The trial judge, applying the Kerr v. Baranow framework: 2011 SCC 10, [2011] 1 SCR 269, rejected the claim that there was a <b>joint family venture</b>, making a number of key findings. First, she did not accept the appellant’s claim to have transferred $150,000 to the respondents’ business. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/20852/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">18.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/15749/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Halliwell v. Halliwell</a></span>
+                        - <span class="citation">2017 ONCA 349</span>
+                - <span class="publicationDate">2017-05-02</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    The trial judge found that the businesses were not <b>joint family ventures</b>. He found that the respondent did some administrative and bookkeeping work for the companies for which she was compensated. &nbsp;&nbsp;[...]&nbsp;&nbsp;1. <b>Joint Family Venture</b> [63] The trial judge ultimately resolved the financial issues that divided the parties based on the provisions of the FLA. In my view, he was correct in so doing. &nbsp;&nbsp;[...]&nbsp;&nbsp;In Kerr v. Baranow, the Supreme Court used the concept of <b>joint family venture</b> to quantify a monetary award to remedy <b>unjust enrichment</b> arising from the separation of non-married couples who do not enjoy the protective provisions of Part 1 of the FLA. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/15749/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">19.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/15360/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Granger v. Granger</a></span>
+                        - <span class="citation">2016 ONCA 945</span>
+                - <span class="publicationDate">2016-12-15</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    ISSUE 2: <b>UNJUST ENRICHMENT</b> (1) Allocation of burden of proof in the trial judge’s reasons &nbsp;&nbsp;[...]&nbsp;&nbsp;At paras. 80-100, Cromwell J. outlines the proper approach to a claim for monetary relief based on <b>unjust enrichment</b> in a <b>joint family venture</b>. Where a <b>joint family venture</b> has led to wealth generation, the remedy should be calculated based on the share of those assets proportionate to the claimant’s contributions. &nbsp;&nbsp;[...]&nbsp;&nbsp;(7) Conclusions on <b>Unjust Enrichment</b> [88] For those reasons, John’s claim for <b>unjust enrichment</b> is made out. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/15360/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">20.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/21312/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Auciello v. Yao</a></span>
+                        - <span class="citation">2023 ONCA 199</span>
+                - <span class="publicationDate">2023-03-20</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    She claimed Mr. Auciello had been <b>unjustly enriched</b> and that the property was part of a joint family investment venture. &nbsp;&nbsp;[...]&nbsp;&nbsp;Accordingly, the trial judge held there was no <b>unjust enrichment</b>. [11] She further found there would have been no <b>joint family venture</b> as there was no mutual effort regarding the investment properties, no economic integration, and the structure of their relationship did not indicate they had a <b>joint family venture</b>. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/21312/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">21.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/17545/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Christopher v. Freitas</a></span>
+                        - <span class="citation">2019 ONCA 84</span>
+                - <span class="publicationDate">2019-02-06</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    Further, as the respondent was not enriched, there was no <b>unjust enrichment</b>. [5] We see no basis to interfere with the trial judge’s finding that the appellant did not meet her onus of rebutting the presumption of a resulting trust. &nbsp;&nbsp;[...]&nbsp;&nbsp;[6] With respect to the claim for <b>unjust enrichment</b>, the trial judge found that for the period prior to July 2014 the appellant was contributing to the household expenses but that the benefits she received outweighed her contributions. &nbsp;&nbsp;[...]&nbsp;&nbsp;The trial judge held that the parties were engaged in a <b>joint family venture</b> during this period. However, he concluded, rightly in our view, that the only enrichment in issue was the increase in the parties’ equity in the home. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/17545/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">22.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/13509/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Djekic v. Zai</a></span>
+                        - <span class="citation">2015 ONCA 25</span>
+                - <span class="publicationDate">2015-01-20</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [12] The trial judge found that Ms. Djekic had met the test for a finding of constructive trust based on <b>unjust enrichment</b>: Mr. Zia had benefitted from an enrichment, to Ms. Djekic’s determinant, and there was no juridical reason for the enrichment: Peter v. Beblow, [1993] 1 S.C.R. 980. &nbsp;&nbsp;[...]&nbsp;&nbsp;[13] Ms. Djekic submits that the trial judge erred by failing to hold that the parties were engaged in a “<b>joint family venture</b>”, and therefore that her interest should have been determined on the “value survived” approach, i.e., on the basis of one-half of the value of the equity in the Drumoak property at the time of &nbsp;&nbsp;[...]&nbsp;&nbsp;She says that the finding of a <b>joint family venture</b> is justified by the existence of the four requisite factors: (i) mutual effort; (ii) economic integration; (iii) actual interest; and (iv) priority of the family. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/13509/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">23.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/23241/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Hill v. Green</a></span>
+                        - <span class="citation">2025 ONCA 312</span>
+                - <span class="publicationDate">2025-04-25</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    He found further that there was no <b>unjust enrichment</b>. The trial judge ordered the respondent to make an equalization payment to the appellant in the amount of $33,674.49, but ordered the appellant to pay the respondent $60,270.00 for funds taken from their joint bank account, as well as $1.075 million, half of the 2015 &nbsp;&nbsp;[...]&nbsp;&nbsp;[4] The appellant appeals this order on the basis that the trial judge 1) erred by disregarding the parties’ concession of a <b>joint family venture</b> (“JFV”) and ordering standard equalization; 2) erred in his valuation of the parties’ assets by i) using the assets’ fair market value rather than their fair value, and ii) &nbsp;&nbsp;[...]&nbsp;&nbsp;With respect to his argument about JFV we note that both parties claimed that the other had been <b>unjustly enriched</b> and that, after considering all of the evidence before him, the trial judge rejected each of their claims. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/23241/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">24.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/18448/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Mullings v. Robertson</a></span>
+                        - <span class="citation">2019 ONCA 979</span>
+                - <span class="publicationDate">2019-12-13</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                     was no <b>joint family venture</b>; (3) the trial judge’s decision to order the appellant to pay retroactive child support and make payments under the Child Support Guidelines, O-Reg. 391/97, s. 7, relating to his daughter’s education expenses; and (4) the trial judge’s failure to allow the appellant’s <b>unjust enrichment</b> claim. &nbsp;&nbsp;[...]&nbsp;&nbsp;[6] Those factual findings also explain why the trial judge did not address or grant the <b>unjust enrichment</b> claim. This did not prejudice the appellant because that claim could not succeed on the facts the trial judge found. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/18448/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">25.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/20798/index.do?q=%22unjust+enrichment%22+%22joint+family+venture%22">Kahsai v. Hagos</a></span>
+                        - <span class="citation">2022 ONCA 576</span>
+                - <span class="publicationDate">2022-08-05</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Family</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    He submits that the trial judge misapprehended the evidence and issues, erred in law in her analysis of the issues of spousal support, <b>unjust enrichment</b>, <b>joint family venture</b>, child support and whether a restraining order should be issued against the appellant. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/20798/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    </ul>
+    <hr/>
+</div>
+    </div>
+
+</div>
+</div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "coa",
+            yearRangeString: "1998:2026",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "114"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=114" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.decisiaMessages["reflexd-citing"] = "Citing:";
+</script>
+
+</body>
+
+</html>
