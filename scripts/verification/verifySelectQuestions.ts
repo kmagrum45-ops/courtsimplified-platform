@@ -237,6 +237,12 @@ const saysJudgment = selectQuestions(
   QUESTION_BANK,
 );
 assert.ok(saysJudgment.includes("sc-date-learned-of-judgment"), "a defendant who says a judgment was made is asked when they found out");
+// 2026-09-30: the same rule for a plaintiff. Filing and serving a claim says
+// nothing about a judgment.
+const plaintiffServed = selectQuestions({ role: "plaintiff", claimFiled: true, claimServed: true, defenceFiled: false }, [], QUESTION_BANK);
+assert.ok(!plaintiffServed.includes("sc-date-learned-of-judgment"), "a plaintiff who has only filed and served is not asked about a judgment");
+const plaintiffSaysJudgment = selectQuestions({ role: "plaintiff", claimFiled: true, defaultJudgment: true }, [], QUESTION_BANK);
+assert.ok(plaintiffSaysJudgment.includes("sc-date-learned-of-judgment"), "a plaintiff who says a judgment was made is asked when they found out");
 
 console.log(
   `selectQuestions: determinism, phase ordering, sensitive-last, appliesWhen filtering, ` +

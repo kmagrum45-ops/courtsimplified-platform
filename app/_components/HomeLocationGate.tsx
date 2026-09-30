@@ -61,6 +61,13 @@ type CourtPathSuggestion =
       notes: CrossForumNote[];
       /** A different in-scope path the classifier suggested, if any. */
       suggestedPath: BuilderDraftCourtPath | null;
+      /**
+       * A tribunal one of the matters may belong to. Shown INSIDE this card:
+       * before 2026-09-30 the "we don't cover this" message came first, so a
+       * person fired over their religion AND owed wages was turned away,
+       * although the wages and the firing are court matters.
+       */
+      outOfScope: { forumName: string; message: string } | null;
     };
 
 function asIssues(value: unknown): { kind: IssueKind; quote: string }[] {
@@ -200,6 +207,7 @@ export default function HomeLocationGate() {
 
         const confidence = typeof result.confidence === "number" ? result.confidence : 0;
 
+        let outOfScope: { forumName: string; message: string } | null = null;
         if (
           result.primaryPath === "out-of-scope" &&
           result.outOfScopeForum &&
@@ -207,21 +215,18 @@ export default function HomeLocationGate() {
         ) {
           const forumName = String(result.outOfScopeForum.name || "").trim();
           const message = String(result.outOfScopeForum.redirectMessage || "").trim();
-
           // Both must be present -- a partial out-of-scope result has nothing
           // useful to show, so it falls through to the normal in-scope intake
           // below rather than showing an empty or half-written message.
-          if (forumName && message) {
-            setSuggestion({ kind: "out-of-scope", forumName, message });
-            setChecking(false);
-            return;
-          }
+          if (forumName && message) outOfScope = { forumName, message };
         }
 
         const suggested = asCourtPath(result.primaryPath);
         const differentPath =
           suggested && suggested !== path && confidence >= SUGGESTION_CONFIDENCE_FLOOR ? suggested : null;
 
+        // Several matters come first: one of them belonging to a tribunal
+        // must not hide the ones that belong in court.
         if (result.showSeveralMatters === true) {
           const noteIds = Array.isArray(result.crossForumNoteIds) ? result.crossForumNoteIds : [];
           setSuggestion({
@@ -229,7 +234,14 @@ export default function HomeLocationGate() {
             issues: asIssues(result.matters),
             notes: CROSS_FORUM_NOTES.filter((note) => noteIds.includes(note.id)),
             suggestedPath: differentPath,
+            outOfScope,
           });
+          setChecking(false);
+          return;
+        }
+
+        if (outOfScope) {
+          setSuggestion({ kind: "out-of-scope", ...outOfScope });
           setChecking(false);
           return;
         }
@@ -396,6 +408,17 @@ export default function HomeLocationGate() {
                     </li>
                   ))}
                 </ul>
+              )}
+              {suggestion.outOfScope && (
+                <div className="mt-4 rounded-2xl border border-[#ead9a7] bg-[#fffaf0] p-4" data-testid="several-matters-out-of-scope">
+                  <h3 className="font-bold text-[#10231f]">Part of this may belong to the {suggestion.outOfScope.forumName}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#6e5726]">
+                    {assertApprovedUserContent(suggestion.outOfScope.message, "HomeLocationGate:several-matters-out-of-scope")}
+                  </p>
+                  <div className="mt-3">
+                    <LegalAdviceDeflection reason="out-of-scope" />
+                  </div>
+                </div>
               )}
               {suggestion.notes.map((note) => (
                 <div key={note.id} className="mt-4 rounded-2xl border border-[#d8e6df] bg-white p-4" data-testid="cross-forum-note">
