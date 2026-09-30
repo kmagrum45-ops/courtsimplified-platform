@@ -38,6 +38,13 @@ import divorce from "./divorce.json";
 import restrainingOrders from "./restraining-orders.json";
 import courtFees from "./court-fees.json";
 import evidence from "./evidence.json";
+import tenantLandlord from "./tenant-and-landlord.json";
+import humanRights from "./human-rights.json";
+import employmentStandards from "./employment-standards.json";
+import debtCollections from "./debt-and-collections.json";
+import carAccidents from "./car-accidents-and-insurance.json";
+import condoDisputes from "./condo-disputes.json";
+import constructionLiens from "./construction-liens.json";
 
 export type GuideCourt = "small-claims" | "civil" | "family" | "all";
 
@@ -60,7 +67,7 @@ export type TopicGuide = {
 
 /**
  * In reading order: starting out, during a case, after a decision, help;
- * then family law topics. 22 guides (10 added the same day, read against
+ * then family law topics, then other kinds of disputes. 29 guides (10 added the same day, read against
  * their sources the same way: 54 of about 300 paragraphs corrected).
  */
 export const TOPIC_GUIDES: TopicGuide[] = [
@@ -86,6 +93,15 @@ export const TOPIC_GUIDES: TopicGuide[] = [
   propertyDivision,
   matrimonialHome,
   restrainingOrders,
+  // Matters decided mostly outside the three courts, or with their own
+  // statute (courts: ["all"]). Added 2026-09-30.
+  tenantLandlord,
+  humanRights,
+  employmentStandards,
+  debtCollections,
+  carAccidents,
+  condoDisputes,
+  constructionLiens,
 ] as TopicGuide[];
 
 export function topicGuide(id: string): TopicGuide | null {

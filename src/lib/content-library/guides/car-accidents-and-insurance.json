@@ -1,0 +1,97 @@
+{
+ "id": "car-accidents-and-insurance",
+ "title": "Car accidents and insurance",
+ "courts": [
+  "all"
+ ],
+ "intro": "This guide explains what Ontario's Insurance Act says about accident benefits, disputes about those benefits, limits on suing for injuries from a car accident, property damage claims, uninsured vehicles, and the notice and time limits the Act sets. It covers only what the Act itself says; the regulations it refers to are not covered because the site does not yet have a source for them.",
+ "sections": [
+  {
+   "heading": "Statutory accident benefits",
+   "court": "all",
+   "paragraphs": [
+    "Every automobile insurance contract carries accident benefits set out in a separate schedule. The Act says every contract evidenced by a motor vehicle liability policy “shall be deemed to provide for the statutory accident benefits set out in the Schedule and any amendments to the Schedule”. Those benefits are “subject to the terms, conditions, provisions, exclusions and limits set out in that Schedule”. (Insurance Act, s. 268 (1))",
+    "There is an exception for public transit. The Act says “no statutory accident benefits are payable in respect of an occupant of a public transit vehicle” for an incident on or after that rule came into force “if the public transit vehicle did not collide with another automobile or any other object in the incident”. (Insurance Act, s. 268 (1.1))",
+    "The Statutory Accident Benefits Schedule itself sets out what the benefits are and who qualifies. The site does not yet have a source for the Schedule, so this guide does not describe the benefits in detail. (Insurance Act, s. 268 (1))"
+   ]
+  },
+  {
+   "heading": "Disputes about accident benefits go to the Licence Appeal Tribunal",
+   "court": "all",
+   "paragraphs": [
+    "Section 280 deals with disputes “in respect of an insured person's entitlement to statutory accident benefits or in respect of the amount of statutory accident benefits to which an insured person is entitled”. For those disputes, “The insured person or the insurer may apply to the Licence Appeal Tribunal to resolve a dispute described in subsection (1).” (Insurance Act, s. 280 (1), (2))",
+    "These disputes do not start in a court. The Act says: “No person may bring a proceeding in any court with respect to a dispute described in subsection (1), other than an appeal from a decision of the Licence Appeal Tribunal or an application for judicial review.” It also says “The dispute shall be resolved in accordance with the Statutory Accident Benefits Schedule.” (Insurance Act, s. 280 (3), (4))",
+    "After the Tribunal decides, “the insurer shall not reduce benefits to the insured person on the basis of an alleged change of circumstances, alleged new evidence or an alleged error except as provided under this section.” The insurer may reduce benefits if “the insured person agrees”, after “a successful appeal of the Licence Appeal Tribunal's decision”, or if it is “authorized to do so by the Licence Appeal Tribunal”. (Insurance Act, s. 281)",
+    "The Act leaves the Tribunal's orders and powers to the regulations. The site does not yet have a source for the Tribunal's own rules or for any time limit to apply to it, so those are not covered here. (Insurance Act, s. 280 (5), (6))"
+   ]
+  },
+  {
+   "heading": "Telling your insurer about an accident",
+   "court": "all",
+   "paragraphs": [
+    "If an insured automobile is involved in an incident “that is required to be reported to the police under the Highway Traffic Act or in respect of which the insured intends to make a claim under the contract”, the insured “shall give the insurer written notice of the incident, with all available particulars.” (Insurance Act, s. 258.1 (1))",
+    "The notice “shall be given to the insurer within seven days of the incident.” If the insured cannot do this “because of incapacity”, the insured “shall comply as soon as possible thereafter.” (Insurance Act, s. 258.1 (2), (3))"
+   ]
+  },
+  {
+   "heading": "Steps before suing for injuries",
+   "court": "all",
+   "paragraphs": [
+    "Sections 258.3 to 258.6 apply “only in respect of a claim for loss or damage from bodily injury or death arising from the use or operation” of an automobile “in Canada, the United States of America or a jurisdiction designated in the Statutory Accident Benefits Schedule”, after section 29 of the Automobile Insurance Rate Stability Act, 1996 came into force. Under section 258.3, such an action “shall not be commenced unless” certain steps have happened. (Insurance Act, ss. 258.2, 258.3 (1))",
+    "First, “the plaintiff has applied for statutory accident benefits”. Second, the plaintiff “served written notice of the intention to commence the action on the defendant within 120 days after the incident”, or within a longer period a court may authorize “on motion made before or after the expiry of the 120-day period”. Third, the plaintiff provided the defendant with “the information prescribed by the regulations within the time period prescribed by the regulations”. (Insurance Act, s. 258.3 (1) (a)-(c))",
+    "If the defendant requests them “within 90 days after receiving the notice”, the plaintiff undergoes examinations, at the defendant's expense, “by one or more persons selected by the defendant who are members of Colleges as defined in the Regulated Health Professions Act, 1991”. If the defendant requests them, the plaintiff also provides “a statutory declaration describing the circumstances surrounding the incident and the nature of the claim being made” and “evidence of the plaintiff's identity”. (Insurance Act, s. 258.3 (1) (d)-(f))",
+    "These steps have consequences but are not an absolute bar. The Act says “a person may commence an action without complying with subsection (1)”, but the court shall consider the non-compliance in awarding costs. Also, “no prejudgment interest shall be awarded under section 128 of the Courts of Justice Act for any period of time before the plaintiff served the notice under clause (1) (b).” (Insurance Act, s. 258.3 (8), (9))",
+    "An insured who receives the notice “shall give a copy of the notice to the insurer within seven days of receiving the notice”, or, if unable “because of incapacity”, “as soon as possible thereafter.” An insurer that receives the notice “shall promptly inform the plaintiff whether there is a motor vehicle liability policy issued by the insurer to the defendant” and, if so, “the liability limits under the policy” and “whether the insurer will respond under the policy to the claim.” (Insurance Act, ss. 258.3 (2), (3), 258.4)"
+   ]
+  },
+  {
+   "heading": "Limits on suing for injuries",
+   "court": "all",
+   "paragraphs": [
+    "Section 267.5 protects “the owner of an automobile, the occupants of an automobile and any person present at the incident” from some kinds of damages. They “are not liable in an action in Ontario” for “Damages for income loss suffered in the seven days after the incident.” (Insurance Act, s. 267.5 (1), para. 1)",
+    "For income loss after the first seven days and before trial, they are not liable for damages “in excess of 70 per cent of the amount of gross income that is lost during that period, as determined in accordance with the regulations.” The same 70 per cent limit applies to “loss of earning capacity” before trial. (Insurance Act, s. 267.5 (1), paras. 2, 3)",
+    "For health care expenses and for “non-pecuniary loss”, those persons are not liable “unless as a result of the use or operation of the automobile the injured person has died or has sustained”, (a) “permanent serious disfigurement”; or (b) “permanent serious impairment of an important physical, mental or psychological function”. (Insurance Act, s. 267.5 (3), (5))",
+    "Where damages for non-pecuniary loss can be awarded against a “protected defendant”, the court first determines the amount “without regard to this Part”, then reduces it. For damages other than under clause 61 (2) (e) of the Family Law Act, the reduction is “the greater of, A. $15,000, and B. the amount prescribed by the regulations”. For damages under that clause, it is the greater of “$7,500” and the amount prescribed by the regulations. (Insurance Act, s. 267.5 (7))",
+    "These reductions do not apply if the damages would exceed an amount set under subsections (8.3) and (8.4), which is revised every January 1 by the published indexation percentage. They also do not apply to damages for non-pecuniary loss “awarded in respect of a person who dies as a direct or indirect result of an incident that occurs after August 31, 2010.” (Insurance Act, s. 267.5 (8), (8.1), (8.1.1), (8.3), (8.4))",
+    "These protections have exceptions. They do not protect a person defended “by an insurer that is not licensed to undertake automobile insurance in Ontario unless the insurer has filed an undertaking under section 226.1.” They also do not protect “the owner or driver of a public transit vehicle if it did not collide with another automobile or any other object in the incident.” (Insurance Act, s. 267.5 (6), (6.1))"
+   ]
+  },
+  {
+   "heading": "Damage to a car: direct compensation",
+   "court": "all",
+   "paragraphs": [
+    "Section 263 applies when a car or its contents is damaged “arising directly or indirectly from the use or operation in Ontario of one or more other automobiles”, the damaged car is insured by an insurer licensed in Ontario (or one that has filed an undertaking), and “at least one other automobile involved in the accident” is insured the same way. (Insurance Act, s. 263 (1))",
+    "When it applies, “an insured is entitled to recover for the damages to the insured's automobile and its contents and for loss of use from the insured's insurer under the coverage described in subsection 239 (1) as though the insured were a third party.” Recovery “shall be based on the degree of fault of the insurer's insured as determined under the fault determination rules.” (Insurance Act, s. 263 (2), (3))",
+    "When section 263 applies, an insured cannot sue the other people involved for this damage. The Act says “an insured has no right of action against any person involved in the incident other than the insured's insurer for damages to the insured's automobile or its contents or for loss of use”. (Insurance Act, s. 263 (5) (a))",
+    "An insured may sue their own insurer “if the insured is not satisfied that the degree of fault established under the fault determination rules accurately reflects the actual degree of fault or the insured is not satisfied with a proposed settlement”. Then “the matters in issue shall be determined in accordance with the ordinary rules of law.” (Insurance Act, s. 263 (4))",
+    "Section 263 does not apply in some situations, including “if both automobiles are owned by the same person”, to contents “being carried for reward”, and to damage to an automobile owned by the insured, or its contents, “if the damage is caused by the insured while driving another automobile.” (Insurance Act, s. 263 (7), (9), (10))",
+    "An insured may elect, under the regulations, “not to recover damages from the insured's insurer under subsection (2).” If the insured makes that election, then, in addition to the restrictions in subsection (5), the insured “has no right of action under subsection (2) against the insured's insurer” for this damage or loss of use, and the insurer “shall not issue or offer collision or upset coverage” to the insured. (Insurance Act, s. 263 (2.2), (2.3))",
+    "A proceeding against an insurer about damage to a car or its contents has its own time limit: it “shall be commenced within one year after the happening of the loss or damage.” (Insurance Act, s. 259.1)"
+   ]
+  },
+  {
+   "heading": "Uninsured and unidentified automobiles",
+   "court": "all",
+   "paragraphs": [
+    "Every motor vehicle liability policy “shall provide for payment of all sums that” a person insured under the contract “is legally entitled to recover from the owner or driver of an uninsured automobile or unidentified automobile as damages for bodily injuries resulting from an accident involving an automobile”. (Insurance Act, s. 265 (1) (a))",
+    "It also covers sums a person insured under the contract can recover “from the identified owner or driver of an uninsured automobile as damages for accidental damage to the insured automobile or its contents”. All of this is “subject to the terms, conditions, provisions, exclusions and limits as are prescribed by the regulations.” The site does not yet have a source for those regulations. (Insurance Act, s. 265 (1) (c))"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "localText": "docs/sources/corpus/insurance-act.txt",
+   "sourceName": "Insurance Act",
+   "pinpoints": "ss. 258.1, 258.2, 258.3 (1)-(3), (8), (9), 258.4, 259.1, 263 (1)-(5), (7), (9), (10), 265 (1), 267.5 (1), (3), (5)-(8.1.1), (8.3), (8.4), 268 (1), (1.1), 280, 281",
+   "officialUrl": "https://www.ontario.ca/laws/statute/90i08",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/insurance-act-s263.txt",
+   "sourceName": "Insurance Act",
+   "pinpoints": "s. 263",
+   "officialUrl": "https://www.ontario.ca/laws/statute/90i08",
+   "retrievedAt": null
+  }
+ ]
+}
