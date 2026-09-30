@@ -27,7 +27,7 @@
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import path from "node:path";
 
-import { productionBlockers, pendingFor } from "../db/applyMigrations";
+import { normalizedMigrationBytes, productionBlockers, pendingFor } from "../db/applyMigrations";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 
@@ -341,6 +341,23 @@ const QUOTED_MARKER = "[dev-wording-quoted]";
     pass("the runner links by ref, never by project name");
   } else {
     fail("the runner references a project by name — names are the hazard");
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 6. A migration's fingerprint does not depend on the machine that reads it
+// ---------------------------------------------------------------------------
+// 2026-09-30: Windows checked the .sql files out with CRLF, so hashes computed
+// there never matched the ledger and recorded migrations showed as pending.
+// Property: the same text with LF or CRLF endings hashes identically.
+
+{
+  const lf = "create table t (id int);\nalter table t add column x int;\n";
+  const crlf = lf.replace(/\n/g, "\r\n");
+  if (normalizedMigrationBytes(Buffer.from(crlf)) === normalizedMigrationBytes(Buffer.from(lf))) {
+    pass("a migration hashes the same with Windows or Unix line endings");
+  } else {
+    fail("a migration's hash depends on line endings", "Windows and Linux would disagree about what is applied.");
   }
 }
 

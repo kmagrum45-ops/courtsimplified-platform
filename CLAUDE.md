@@ -130,7 +130,7 @@ resolves by ref.
 | Ref | Name | Region | What it is |
 |---|---|---|---|
 | `fddlpnibovkkkgboabqb` | `courtsimplified-prod` | `ca-central-1` | **PRODUCTION. THE LIVE DATABASE.** The Vercel production environment points here |
-| `icpvzwxyjsdgyqfkwycw` | `courtsimplified-staging` | `ca-central-1` | **STAGING.** Created 2026-09-26, clean, all 8 repo migrations plus the seeded catalogue. Vercel **Preview** points here. Holds no user data and must never hold any |
+| `icpvzwxyjsdgyqfkwycw` | `courtsimplified-staging` | `ca-central-1` | **STAGING.** Created 2026-09-26, clean, every repo migration (all applied to both projects as of 2026-09-30) plus the seeded catalogue. Vercel **Preview** points here. Holds no user data and must never hold any |
 
 **⚠️ ANYTHING WRITTEN BEFORE 2026-09-26 THAT SAYS "dev" MAY MEAN PRODUCTION.**
 Production was called `courtsimplified-dev` for five months. That name still

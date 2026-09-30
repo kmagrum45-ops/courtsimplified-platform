@@ -25,7 +25,7 @@
   },
   {
     "migration": "20260915090000_revoke_anon_write_and_scope_policies.sql",
-    "sha256": "f3cace7981a84640a7cc4a2c9640b6caca176d11f81234dffe0e9a0d099064ad",
+    "sha256": "1b23e3681e53566f8813a9c299c0eb133fa6c2c022d63a69ae0a2e27fd0b7747",
     "environment": "staging",
     "ref": "icpvzwxyjsdgyqfkwycw",
     "appliedAt": "2026-09-26T20:00:57.023Z",
@@ -41,7 +41,7 @@
   },
   {
     "migration": "20260922120000_add_ai_call_log.sql",
-    "sha256": "598cc5999f84d3a3022bf644cd1352fe320ea28d8d88247840e0964323ce1628",
+    "sha256": "37615aa191f801247d41eee4019eae8a16ee161c684a794d60a6069dc354985d",
     "environment": "staging",
     "ref": "icpvzwxyjsdgyqfkwycw",
     "appliedAt": "2026-09-26T20:00:57.023Z",
@@ -89,7 +89,7 @@
   },
   {
     "migration": "20260915090000_revoke_anon_write_and_scope_policies.sql",
-    "sha256": "f3cace7981a84640a7cc4a2c9640b6caca176d11f81234dffe0e9a0d099064ad",
+    "sha256": "1b23e3681e53566f8813a9c299c0eb133fa6c2c022d63a69ae0a2e27fd0b7747",
     "environment": "production",
     "ref": "fddlpnibovkkkgboabqb",
     "appliedAt": "2026-09-26T20:03:24.708Z",
@@ -105,7 +105,7 @@
   },
   {
     "migration": "20260922120000_add_ai_call_log.sql",
-    "sha256": "598cc5999f84d3a3022bf644cd1352fe320ea28d8d88247840e0964323ce1628",
+    "sha256": "37615aa191f801247d41eee4019eae8a16ee161c684a794d60a6069dc354985d",
     "environment": "production",
     "ref": "fddlpnibovkkkgboabqb",
     "appliedAt": "2026-09-26T20:03:24.708Z",
@@ -137,7 +137,7 @@
   },
   {
     "migration": "20260927090000_case_workspace_documents.sql",
-    "sha256": "06ce5672a4f1d771ce35784a93a57d91d0b931fb083554ac2039ec9198eb6b41",
+    "sha256": "186e915b19c5f7d2cc259b60689d837b6ee84bdd39ece3a9cef970252f7c7840",
     "environment": "staging",
     "ref": "icpvzwxyjsdgyqfkwycw",
     "appliedAt": "2026-09-27T02:22:07.809Z",
@@ -173,6 +173,62 @@
     "environment": "staging",
     "ref": "icpvzwxyjsdgyqfkwycw",
     "appliedAt": "2026-09-27T16:15:33.978Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260928120000_ai_call_log_story_proposals.sql",
+    "sha256": "c02aa88e64abb7f2e7c4515ae5bbad4d401794ec90a5b8d96b5fef353466b60d",
+    "environment": "staging",
+    "ref": "icpvzwxyjsdgyqfkwycw",
+    "appliedAt": "2026-09-30T17:13:00.000Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260927090000_case_workspace_documents.sql",
+    "sha256": "186e915b19c5f7d2cc259b60689d837b6ee84bdd39ece3a9cef970252f7c7840",
+    "environment": "production",
+    "ref": "fddlpnibovkkkgboabqb",
+    "appliedAt": "2026-09-30T17:15:30.000Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260927100000_case_evidence_bucket_limits.sql",
+    "sha256": "d33a613e550fdb531f668664c0cbb282023e49afef7da9699e78f98c61ca0194",
+    "environment": "production",
+    "ref": "fddlpnibovkkkgboabqb",
+    "appliedAt": "2026-09-30T17:15:30.000Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260927110000_workspace_extraction_progress.sql",
+    "sha256": "a72ccf44ee35c0190d7ab78dbbe5c4b61b1ed36f62eba636a72b17dd9bdee8c3",
+    "environment": "production",
+    "ref": "fddlpnibovkkkgboabqb",
+    "appliedAt": "2026-09-30T17:15:30.000Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260927120000_workspace_ocr_and_needs_details.sql",
+    "sha256": "80badc5d9b21c9c38c70aba97f0b7d336d7ddcc81ba69b927c68403056e59322",
+    "environment": "production",
+    "ref": "fddlpnibovkkkgboabqb",
+    "appliedAt": "2026-09-30T17:15:30.000Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260927130000_workspace_analysis_audit.sql",
+    "sha256": "f286fe03a2533741a5265085c8932a7f500d299eb5e5f1f593d5fc2d9b04a052",
+    "environment": "production",
+    "ref": "fddlpnibovkkkgboabqb",
+    "appliedAt": "2026-09-30T17:15:30.000Z",
+    "appliedBy": "kmagr"
+  },
+  {
+    "migration": "20260928120000_ai_call_log_story_proposals.sql",
+    "sha256": "c02aa88e64abb7f2e7c4515ae5bbad4d401794ec90a5b8d96b5fef353466b60d",
+    "environment": "production",
+    "ref": "fddlpnibovkkkgboabqb",
+    "appliedAt": "2026-09-30T17:15:30.000Z",
     "appliedBy": "kmagr"
   }
 ]

@@ -108,9 +108,22 @@ export function migrationFiles(): string[] {
  * after applying it to staging does not let the edited version through to
  * production on the strength of the old one's record.
  */
+/**
+ * Line endings are normalized to LF before hashing. THIS CAUGHT US on
+ * 2026-09-30: git on the site owner's Windows machine checks the .sql files out
+ * with CRLF, so every hash computed there differed from the one computed on
+ * Linux, and the tool listed migrations as "NOT RECORDED" that the ledger
+ * already recorded -- 7 on staging and 8 on production, where 1 and 6 were
+ * really new. The content of a migration is the same whichever machine reads
+ * it; its fingerprint must be too.
+ */
+export function normalizedMigrationBytes(raw: Buffer | string): string {
+  return raw.toString().replace(/\r\n/g, "\n");
+}
+
 export function migrationHash(fileName: string): string {
   return createHash("sha256")
-    .update(readFileSync(path.join(MIGRATIONS_DIR, fileName)))
+    .update(normalizedMigrationBytes(readFileSync(path.join(MIGRATIONS_DIR, fileName))))
     .digest("hex");
 }
 
