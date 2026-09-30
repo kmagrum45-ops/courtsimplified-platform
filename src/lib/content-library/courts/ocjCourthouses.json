@@ -1,0 +1,415 @@
+{
+ "retrievedAt": "2026-09-30",
+ "source": "https://www.ontariocourts.ca/ocj/courthouse-email-addresses/",
+ "courthouses": [
+  {
+   "region": "Northeast",
+   "city": "Sudbury",
+   "emails": [
+    "sudburycourthouse@ontario.ca"
+   ]
+  },
+  {
+   "region": "Northeast",
+   "city": "Gore Bay",
+   "emails": [
+    "gorebaycourthouse@ontario.ca"
+   ]
+  },
+  {
+   "region": "Northeast",
+   "city": "North Bay",
+   "emails": [
+    "northbaycourthouse@ontario.ca"
+   ]
+  },
+  {
+   "region": "Northeast",
+   "city": "Parry Sound",
+   "emails": [
+    "parrysoundcourthouse@ontario.ca"
+   ]
+  },
+  {
+   "region": "Northeast",
+   "city": "Elliot Lake",
+   "emails": [
+    "ElliotLakeCourthouse@ontario.ca"
+   ]
+  },
+  {
+   "region": "Northeast",
+   "city": "Sault Ste. Marie",
+   "emails": [
+    "saultstemariecourthouse@ontario.ca"
+   ]
+  },
+  {
+   "region": "Northeast",
+   "city": "Timmins",
+   "emails": [
+    "timminscourthouse@ontario.ca"
+   ]
+  },
+  {
+   "region": "Northeast",
+   "city": "Cochrane",
+   "emails": [
+    "cochranecourthouse@ontario.ca"
+   ]
+  },
+  {
+   "region": "Northeast",
+   "city": "Haileybury (and Kirkland Lake)",
+   "emails": [
+    "haileyburycourthouse@ontario.ca"
+   ]
+  },
+  {
+   "region": "Central East",
+   "city": "Barrie",
+   "emails": [
+    "Barrie.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Central East",
+   "city": "Bracebridge",
+   "emails": [
+    "Bracebridge.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Central East",
+   "city": "Orillia",
+   "emails": [
+    "Orillia.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Central East",
+   "city": "Cobourg",
+   "emails": [
+    "Cobourg.ocj.court@ontario.ca"
+   ]
+  },
+  {
+   "region": "Central East",
+   "city": "Durham (Oshawa)",
+   "emails": [
+    "Durham.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Central East",
+   "city": "Lindsay",
+   "emails": [
+    "Lindsay.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Central East",
+   "city": "Newmarket",
+   "emails": [
+    "yorkcrim@ontario.ca"
+   ]
+  },
+  {
+   "region": "Central East",
+   "city": "Peterborough",
+   "emails": [
+    "Peterborough.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Central West",
+   "city": "Brampton",
+   "emails": [
+    "Brampton.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Central West",
+   "city": "Brantford",
+   "emails": [
+    "Brantford.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Central West",
+   "city": "Cayuga",
+   "emails": [
+    "Cayuga.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Central West",
+   "city": "Hamilton",
+   "emails": [
+    "Hamilton.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Central West",
+   "city": "Milton",
+   "emails": [
+    "MiltonOCJCriminal@ontario.ca – Criminal",
+    "Milton.OCJ.courts@ontario.ca – Family"
+   ]
+  },
+  {
+   "region": "Central West",
+   "city": "Orangeville",
+   "emails": [
+    "Orangeville.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Central West",
+   "city": "Simcoe",
+   "emails": [
+    "Simcoe.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Central West",
+   "city": "St. Catharines",
+   "emails": [
+    "St.Catharines.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Central West",
+   "city": "Welland",
+   "emails": [
+    "Welland.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Northwest",
+   "city": "Dryden",
+   "emails": [
+    "Dryden.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Northwest",
+   "city": "Kenora",
+   "emails": [
+    "Kenora.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Northwest",
+   "city": "Fort Frances",
+   "emails": [
+    "FortFrances.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Northwest",
+   "city": "Red Lake",
+   "emails": [
+    "RedLake.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Northwest",
+   "city": "Sioux Lookout",
+   "emails": [
+    "SiouxLookout.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Northwest",
+   "city": "Thunder Bay",
+   "emails": [
+    "Criminal – csdtbaycriminal@ontario.ca",
+    "Bail – CSD.ThunderBayBail@ontario.ca",
+    "Family – thunderbay.ocj.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "East",
+   "city": "Cornwall",
+   "emails": [
+    "criminalcourt.cornwall@ontario.ca"
+   ]
+  },
+  {
+   "region": "East",
+   "city": "Ottawa",
+   "emails": [
+    "Ottawa.criminal@ontario.ca"
+   ]
+  },
+  {
+   "region": "East",
+   "city": "Belleville",
+   "emails": [
+    "Belleville.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "East",
+   "city": "Picton",
+   "emails": [
+    "Picton.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "East",
+   "city": "Brockville",
+   "emails": [
+    "Brockville.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "East",
+   "city": "Perth",
+   "emails": [
+    "Perth.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "East",
+   "city": "Pembroke",
+   "emails": [
+    "Pembroke.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "East",
+   "city": "L’Orignal",
+   "emails": [
+    "Lorignal.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "East",
+   "city": "Kingston",
+   "emails": [
+    "Kingston.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "East",
+   "city": "Napanee",
+   "emails": [
+    "Napanee.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Toronto",
+   "city": "311 Jarvis Family",
+   "emails": [
+    "311Jarvis.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Toronto",
+   "city": "47 Sheppard Family",
+   "emails": [
+    "47Sheppard.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Toronto",
+   "city": "OCJ-T 10 Armoury Street",
+   "emails": [
+    "10Armoury.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "Toronto",
+   "city": "Toronto Regional Bail Centre (TRBC) – 2201 Finch",
+   "emails": [
+    "2201Finch.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "West",
+   "city": "Chatham",
+   "emails": [
+    "Chatham.Courthouse@ontario.ca"
+   ]
+  },
+  {
+   "region": "West",
+   "city": "Goderich",
+   "emails": [
+    "Goderich.Courthouse@ontario.ca"
+   ]
+  },
+  {
+   "region": "West",
+   "city": "Guelph",
+   "emails": [
+    "Guelph.Courthouse@ontario.ca"
+   ]
+  },
+  {
+   "region": "West",
+   "city": "Kitchener",
+   "emails": [
+    "Kitchener.Courthouse@ontario.ca"
+   ]
+  },
+  {
+   "region": "West",
+   "city": "London",
+   "emails": [
+    "London.OCJ.Courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "West",
+   "city": "Owen Sound",
+   "emails": [
+    "OwenSound.Courthouse@ontario.ca"
+   ]
+  },
+  {
+   "region": "West",
+   "city": "Sarnia",
+   "emails": [
+    "Sarnia.Courthouse@ontario.ca"
+   ]
+  },
+  {
+   "region": "West",
+   "city": "St. Thomas",
+   "emails": [
+    "StThomas.OCJ.courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "West",
+   "city": "Stratford",
+   "emails": [
+    "Stratford.Courthouse@ontario.ca"
+   ]
+  },
+  {
+   "region": "West",
+   "city": "Walkerton",
+   "emails": [
+    "Walkerton.OCJ.Courts@ontario.ca"
+   ]
+  },
+  {
+   "region": "West",
+   "city": "Windsor",
+   "emails": [
+    "Windsor.Courthouse@ontario.ca"
+   ]
+  },
+  {
+   "region": "West",
+   "city": "Woodstock",
+   "emails": [
+    "Woodstock.OCJ.courts@ontario.ca"
+   ]
+  }
+ ]
+}

@@ -9,10 +9,15 @@
  * name, address line, email and phone number here is on its page. Criminal
  * scheduling contacts are left out: the site does not cover criminal matters.
  *
- * Not covered: Ontario Court of Justice locations (some family cases are heard
- * there). Its location list did not load as links when fetched.
+ * Ontario Court of Justice courthouses (where many family cases are heard) come
+ * from a different page: the court's list of courthouse email addresses, by
+ * region (ocjCourthouses.json; saved text in
+ * docs/sources/court-locations/ocj-courthouse-email-addresses.txt). Their
+ * addresses are not included: the OCJ location pages carry the address inside
+ * an HTML comment, so it is not reliably what the page shows.
  */
 import data from "./courtLocations.json";
+import ocj from "./ocjCourthouses.json";
 
 export type LocationCourt = "small-claims" | "civil" | "family" | "divisional";
 
@@ -38,3 +43,8 @@ export const LOCATION_COURT_LABELS: Record<LocationCourt, string> = {
   family: "Family",
   divisional: "Divisional Court",
 };
+
+export type OcjCourthouse = { region: string; city: string; emails: string[] };
+
+export const OCJ_COURTHOUSES = ocj.courthouses as OcjCourthouse[];
+export const OCJ_SOURCE: string = ocj.source;

@@ -1,0 +1,140 @@
+Source: https://www.ontariocourts.ca/ocj/courthouse-email-addresses/ (Ontario Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36772144591. Page text from the heading onward, tags, scripts and HTML comments removed.
+
+Ontario Court of Justice – Courthouse Email Addresses
+The locations of all Ontario Court of Justice courthouses are posted on the Ministry of the Attorney General website.
+Region
+City
+Email address
+Northeast
+Sudbury
+sudburycourthouse@ontario.ca
+Gore Bay
+gorebaycourthouse@ontario.ca
+North Bay
+northbaycourthouse@ontario.ca
+Parry Sound
+parrysoundcourthouse@ontario.ca
+Elliot Lake
+ElliotLakeCourthouse@ontario.ca
+Sault Ste. Marie
+saultstemariecourthouse@ontario.ca
+Timmins
+timminscourthouse@ontario.ca
+Cochrane
+cochranecourthouse@ontario.ca
+Haileybury (and Kirkland Lake)
+haileyburycourthouse@ontario.ca
+Central East
+Barrie
+Barrie.OCJ.courts@ontario.ca
+Bracebridge
+Bracebridge.courts@ontario.ca
+Orillia
+Orillia.OCJ.courts@ontario.ca
+Cobourg
+Cobourg.ocj.court@ontario.ca
+Durham (Oshawa)
+Durham.OCJ.courts@ontario.ca
+Lindsay
+Lindsay.OCJ.courts@ontario.ca
+Newmarket
+yorkcrim@ontario.ca
+Peterborough
+Peterborough.OCJ.courts@ontario.ca
+Central West
+Brampton
+Brampton.OCJ.courts@ontario.ca
+Brantford
+Brantford.OCJ.courts@ontario.ca
+Cayuga
+Cayuga.OCJ.courts@ontario.ca
+Hamilton
+Hamilton.OCJ.courts@ontario.ca
+Milton
+MiltonOCJCriminal@ontario.ca – Criminal
+Milton.OCJ.courts@ontario.ca – Family
+Orangeville
+Orangeville.OCJ.courts@ontario.ca
+Simcoe
+Simcoe.OCJ.courts@ontario.ca
+St. Catharines
+St.Catharines.OCJ.courts@ontario.ca
+Welland
+Welland.OCJ.courts@ontario.ca
+Northwest
+Dryden
+Dryden.OCJ.courts@ontario.ca
+Kenora
+Kenora.OCJ.courts@ontario.ca
+Fort Frances
+FortFrances.OCJ.courts@ontario.ca
+Red Lake
+RedLake.OCJ.courts@ontario.ca
+Sioux Lookout
+SiouxLookout.OCJ.courts@ontario.ca
+Thunder Bay
+Criminal – csdtbaycriminal@ontario.ca
+Bail – CSD.ThunderBayBail@ontario.ca
+Family – thunderbay.ocj.courts@ontario.ca
+East
+Cornwall
+criminalcourt.cornwall@ontario.ca
+Ottawa
+Ottawa.criminal@ontario.ca
+Belleville
+Belleville.OCJ.courts@ontario.ca
+Picton
+Picton.OCJ.courts@ontario.ca
+Brockville
+Brockville.OCJ.courts@ontario.ca
+Perth
+Perth.OCJ.courts@ontario.ca
+Pembroke
+Pembroke.OCJ.courts@ontario.ca
+L’Orignal
+Lorignal.OCJ.courts@ontario.ca
+Kingston
+Kingston.OCJ.courts@ontario.ca
+Napanee
+Napanee.OCJ.courts@ontario.ca
+Toronto
+311 Jarvis Family
+311Jarvis.OCJ.courts@ontario.ca
+47 Sheppard Family
+47Sheppard.OCJ.courts@ontario.ca
+OCJ-T 10 Armoury Street
+10Armoury.OCJ.courts@ontario.ca
+Toronto Regional Bail Centre (TRBC) – 2201 Finch
+2201Finch.OCJ.courts@ontario.ca
+West
+Chatham
+Chatham.Courthouse@ontario.ca
+Goderich
+Goderich.Courthouse@ontario.ca
+Guelph
+Guelph.Courthouse@ontario.ca
+Kitchener
+Kitchener.Courthouse@ontario.ca
+London
+London.OCJ.Courts@ontario.ca
+Owen Sound
+OwenSound.Courthouse@ontario.ca
+Sarnia
+Sarnia.Courthouse@ontario.ca
+St. Thomas
+StThomas.OCJ.courts@ontario.ca
+Stratford
+Stratford.Courthouse@ontario.ca
+Walkerton
+Walkerton.OCJ.Courts@ontario.ca
+Windsor
+Windsor.Courthouse@ontario.ca
+Woodstock
+Woodstock.OCJ.courts@ontario.ca
+Ontario Court of Justice
+This website is maintained by the Office of the Chief Justice.
+Accessibility
+Ontario Courts
+Website Policies
+Sitemap
+RSS
