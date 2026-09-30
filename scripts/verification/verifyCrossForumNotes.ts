@@ -151,6 +151,13 @@ check(
   ids(selectCrossForumNotes(matters([], { earlierDecision: true }))).includes("cross-forum:earlier-decision"),
 );
 check(
+  "an unmarried couple selects its note only with a family matter",
+  ids(selectCrossForumNotes(matters(["family"], { unmarriedCouple: true }))).includes("cross-forum:unmarried-couple") &&
+    !ids(selectCrossForumNotes(matters(["debt-or-contract"], { unmarriedCouple: true }))).includes(
+      "cross-forum:unmarried-couple",
+    ),
+);
+check(
   "only an amount above $50,000 selects the limit note",
   ids(selectCrossForumNotes(NO_MATTERS, [50_001])).includes("cross-forum:over-small-claims-limit") &&
     !ids(selectCrossForumNotes(NO_MATTERS, [50_000])).includes("cross-forum:over-small-claims-limit"),
@@ -196,6 +203,7 @@ check(
 check("an unknown kind is dropped", coerced.issues.length === 2, JSON.stringify(coerced.issues));
 check("a non-boolean flag is false", coerced.severalOtherParties === false);
 check("a boolean flag is kept", coerced.earlierDecision === true);
+check("a missing flag is false", coerced.unmarriedCouple === false);
 check(
   "a malformed payload yields no matters rather than throwing",
   coerceStoryMatters(undefined, story).issues.length === 0 &&

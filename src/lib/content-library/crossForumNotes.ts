@@ -218,6 +218,28 @@ export const CROSS_FORUM_NOTES: CrossForumNote[] = [
     ],
   },
   {
+    id: "cross-forum:unmarried-couple",
+    title: "Living together without marriage",
+    text:
+      "The Family Law Act defines a “spouse” as either of two persons who “are married to each other” (or who entered a void or voidable marriage in good faith) (s. 1(1)). For the support part of the Act, the definition also “includes either of two persons who are not married to each other and have cohabited” continuously for at least three years, or in a relationship of some permanence if they are the parents of a child (s. 29). The Supreme Court of Canada has said that the property statutes provide the framework “for married spouses”, but “for unmarried persons in domestic relationships in most common law provinces, judge-made law was and remains the only option” (Kerr v. Baranow, 2011 SCC 10, para. 1).",
+    sources: [
+      {
+        sourceName: "Family Law Act, R.S.O. 1990, c. F.3",
+        officialUrl: "https://www.ontario.ca/laws/statute/90f03",
+        localText: "docs/sources/corpus/family-law-act.txt",
+        pinpoint: "ss. 1(1), 29",
+        verifiedAt: VERIFIED,
+      },
+      {
+        sourceName: "Kerr v. Baranow, 2011 SCC 10",
+        officialUrl: "https://decisions.scc-csc.ca/scc-csc/scc-csc/en/item/7922/index.do",
+        localText: "docs/sources/decisions/kerr-v-baranow-2011-SCC-10.english.txt",
+        pinpoint: "para. 1",
+        verifiedAt: VERIFIED,
+      },
+    ],
+  },
+  {
     id: "cross-forum:over-small-claims-limit",
     title: "Amounts above the Small Claims Court limit",
     text:
@@ -252,9 +274,16 @@ export type StoryMatters = {
   severalOtherParties: boolean;
   /** The story says a court or tribunal already decided something between the parties. */
   earlierDecision: boolean;
+  /** The story describes a couple who lived together without marrying. */
+  unmarriedCouple: boolean;
 };
 
-export const NO_MATTERS: StoryMatters = { issues: [], severalOtherParties: false, earlierDecision: false };
+export const NO_MATTERS: StoryMatters = {
+  issues: [],
+  severalOtherParties: false,
+  earlierDecision: false,
+  unmarriedCouple: false,
+};
 
 const EMPLOYMENT: IssueKind[] = ["employment-pay", "employment-termination"];
 const COURT_CLAIMS: IssueKind[] = [
@@ -289,6 +318,7 @@ export function selectCrossForumNotes(
     chosen.add("cross-forum:several-people-at-fault");
   }
   if (matters.earlierDecision) chosen.add("cross-forum:earlier-decision");
+  if (matters.unmarriedCouple && has("family")) chosen.add("cross-forum:unmarried-couple");
   if (statedAmounts.some((amount) => amount > SMALL_CLAIMS_LIMIT)) chosen.add("cross-forum:over-small-claims-limit");
 
   return CROSS_FORUM_NOTES.filter((note) => chosen.has(note.id));

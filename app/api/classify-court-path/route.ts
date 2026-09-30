@@ -76,7 +76,7 @@ export async function POST(request: Request) {
         reasoning: "Classification unavailable.",
         source: "ai-error",
         aiCalled: false,
-        matters: { issues: [], severalOtherParties: false, earlierDecision: false },
+        matters: { issues: [], severalOtherParties: false, earlierDecision: false, unmarriedCouple: false },
         crossForumNoteIds: [],
         showSeveralMatters: false,
       },
