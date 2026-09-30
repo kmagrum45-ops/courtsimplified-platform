@@ -113,7 +113,7 @@ export const NEXT_STEP_BLOCKS: NextStepBlock[] = [
     stage: "trial",
     title: "Preparing for trial",
     text:
-      "Documents not already attached to the claim or defence must be served and filed at least 30 days before the trial date.\n\n" +
+      "A document, written statement or audio or visual record served on all parties who were served with the notice of trial, at least 30 days before the trial date, will be received in evidence unless the trial judge orders otherwise (r. 18.02 (1)).\n\n" +
       "Service of a summons to witness, and the payment or tender of attendance money, may be proved by an Affidavit of Service (Form 8A) or a lawyer or paralegal's Certificate of Service (Form 8B) (r. 18.03 (4)).",
     sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
   },

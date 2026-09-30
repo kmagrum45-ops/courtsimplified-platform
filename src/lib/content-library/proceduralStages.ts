@@ -22,10 +22,18 @@
  * *** 2026-09-30: AUDITED CLAIM BY CLAIM ***
  *
  * Every statement was checked against the vendored rules and pages. 28 were
- * corrected: two were wrong outright (a "1 day's notice" for family motions
- * and a "30 days after the settlement conference" trial request, neither in
- * any rule), the rest dropped a condition, cited only a guide for a rule's
- * requirement, or asked the platform to "assess" something. Statements of
+ * corrected: one was wrong outright (a "1 day's notice" for family motions,
+ * in no rule), the rest dropped a condition, cited only a guide for a rule's
+ * requirement, or asked the platform to "assess" something.
+ *
+ * CORRECTION TO THAT AUDIT, same day: the Small Claims line "a Request to
+ * Clerk for a trial date must generally be filed within 30 days after the
+ * settlement conference" was first logged here as being in no rule and was
+ * replaced. That was wrong: r. 13.07 has the clerk give a notice that a party
+ * must request a trial date if the action is not disposed of within 30 days
+ * after the settlement conference. The old line was a loose paraphrase, not
+ * an invention. The card now states r. 13.07 as written. Found by the
+ * cross-site consistency check, which read the rule the auditor missed. Statements of
  * what a rule requires now carry the rule's pinpoint and cite the rule.
  *
  * *** WHAT IT IS, AND WHAT IT IS NOT ***
@@ -223,7 +231,7 @@ export const PRINCIPLES: PrincipleCard[] = [
     keyFacts: [
       "The claim limit is $50,000, excluding interest and costs.",
       "This limit increased from $35,000 effective October 1, 2025.",
-      "The minimum amount that can be appealed also rose, from $3,500 to $5,000.",
+      "The appeal threshold also rose, from $3,500 to $5,000: an appeal to the Divisional Court lies from a final order for the payment of money in excess of that amount, excluding costs (Courts of Justice Act, s. 31).",
       // Was "within two years of the incident". Limitations Act, 2002 s. 4 runs
       // from the day the claim was DISCOVERED (2026-09-30 audit).
       "Under the Limitations Act, 2002, a claim generally cannot be started more than two years after the day it was discovered (s. 4).",
@@ -366,10 +374,9 @@ export const PRINCIPLES: PrincipleCard[] = [
     summary: "A Small Claims case moves through a defined sequence of stages, each with its own deadlines.",
     keyFacts: [
       "The stages run: Claim, Default Proceedings (if applicable), Settlement Conference, Motions (if needed), Trial, and Enforcement.",
-      // Was "within 30 days after the settlement conference", which no rule
-      // says (2026-09-30 audit). r. 16.01(1) sets no window; r. 11.1.01 is the
-      // time consequence.
-      "After a settlement conference has been held, the clerk fixes a trial date when a party files a Request to Clerk (Form 9B) to fix a date for trial and pays the fee (r. 16.01(1)).",
+      // r. 13.07 (the clerk's 30-day notice) and r. 16.01(1) (how the date is
+      // fixed), stated as written; r. 11.1.01 is the two-year consequence.
+      "At or after the settlement conference, the clerk gives the parties a notice that one of them must request a trial date if the action is not disposed of within 30 days after the settlement conference, and pay the fee (r. 13.07). The clerk fixes a trial date when a party files a Request to Clerk (Form 9B) to fix a date for trial and pays the fee (r. 16.01(1)).",
       "Unless the court orders otherwise, the clerk dismisses an action for delay if, by the second anniversary of its start, it has not been disposed of by order and the plaintiff has neither taken a step under r. 11.03 to obtain judgment nor requested a trial date, subject to the exceptions in r. 11.1.01(2).",
       "A notice of motion and supporting affidavit (Form 15A) must be served at least 7 days before the hearing and filed, with proof of service, at least 3 days before it.",
     ],
@@ -472,8 +479,8 @@ export const PRINCIPLES: PrincipleCard[] = [
     title: "Mandatory Mediation",
     summary: "In some regions, mediation is a required step before trial, on a fixed timeline.",
     keyFacts: [
-      "Mandatory mediation applies to actions started in the City of Toronto, the City of Ottawa or the County of Essex on or after January 1, 2010, and to actions transferred there, with listed exceptions (r. 24.1.04). The court may also exempt an action on a party's motion (r. 24.1.05).",
-      "A mediation session must take place within 180 days after the first defence is filed, unless the court orders otherwise (r. 24.1.09(1)). The session may be postponed to a later date if the parties consent to the date in writing and the consent is filed with the mediation co-ordinator (r. 24.1.09(3)).",
+      "Mandatory mediation applies to actions started in the City of Toronto, the City of Ottawa or the County of Essex on or after January 1, 2010, and to actions transferred there on or after January 1, 2014 unless the court orders otherwise, with listed exceptions (r. 24.1.04). The court may also exempt an action on a party's motion (r. 24.1.05).",
+      "A mediation session must take place within 180 days after the first defence is filed, unless the court orders otherwise; for a transferred action, the court may instead set the date (r. 24.1.09(1), (2.1)). The session may be postponed to a later date if the parties consent to the date in writing and the consent is filed with the mediation co-ordinator (r. 24.1.09(3)).",
     ],
     workflowUse: [
       "Use Settlement Conference preparation tools if the case is in a mandatory mediation region.",
