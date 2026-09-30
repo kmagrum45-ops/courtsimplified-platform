@@ -78,6 +78,16 @@ const cases: Expectation[] = [
     expectKeywordPrimary: "mixed",
   },
 
+  // 2026-09-30. "defamation" and "reputation" are civil keywords, but Small
+  // Claims hears defamation up to $50,000: with no amount stated, the
+  // keyword answer must not be final.
+  {
+    id: "civil-keywords-no-amount",
+    story: "My neighbour's posts about me are defamation and are ruining my reputation.",
+    expectEscalation: true,
+    expectKeywordPrimary: "civil",
+  },
+
   // ---- Unambiguous controls: must stay free --------------------------------
   // Phrasings the existing keyword stage classifies confidently. See the
   // coverage observations at the end for phrasings it does not.

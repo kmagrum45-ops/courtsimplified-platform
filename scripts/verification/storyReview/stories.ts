@@ -932,6 +932,7 @@ export const STORIES: ReviewStory[] = [
       "I was riding my bike downtown when a delivery van driver opened his door right in front of me, and a car " +
       "behind me swerved and ran over my bike. I broke my wrist and the bike, worth $2,000, is destroyed. The van " +
       "driver says it was the car's fault and the car driver blames the van.",
+    answers: { "sc-date-injury": "August 14.", "sc-amount-claimed": "$2,000 for the bike plus my injury." },
     expect: {
       courtPath: ["small-claims", "civil"],
       safety: ["clear"],

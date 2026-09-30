@@ -865,23 +865,14 @@ export const QUESTION_BANK: IntakeQuestion[] = [
      */
     id: "sc-date-learned-of-judgment",
     courtArea: "small-claims",
-    // Unchanged for a plaintiff. A defendant is asked only when their own
-    // words say a judgment was made (2026-09-29).
+    // Asked only when the person's own words say a judgment was made: a
+    // defendant from 2026-09-29, and a plaintiff too from 2026-09-30, after
+    // the story battery asked a plaintiff who had just served their claim
+    // (no defence yet, no hearing) when they learned of a judgment.
     appliesWhen: {
-      any: [
-        {
-          all: [
-            { field: "role", op: "equals", value: "plaintiff" },
-            { field: "claimFiled", op: "equals", value: true },
-          ],
-        },
-        {
-          all: [
-            { field: "role", op: "equals", value: "defendant" },
-            { field: "claimFiled", op: "equals", value: true },
-            { field: "defaultJudgment", op: "equals", value: true },
-          ],
-        },
+      all: [
+        { field: "claimFiled", op: "equals", value: true },
+        { field: "defaultJudgment", op: "equals", value: true },
       ],
     },
     text: "If judgment was made at a hearing you did not attend, what date did you find out?",

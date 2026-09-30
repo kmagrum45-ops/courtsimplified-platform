@@ -202,8 +202,16 @@ async function runOne(story: ReviewStory, apiKey: string, offline: boolean): Pro
   });
 
   // 1b. Several matters (2026-09-30). The model lists the separate matters a
-  // story contains; the notes follow from those topics. Only checked when the
-  // model ran -- offline, the list is empty by design.
+  // story contains; the notes follow from those topics. A story that expects
+  // matters but never reached the model FAILS: the first real run skipped four
+  // such stories silently, which read as passes while testing nothing.
+  if (!offline && !court.aiCalled && (story.expect.matterKinds || story.expect.notes)) {
+    run.checks.push({
+      check: "matters-read",
+      pass: false,
+      detail: `the story has several matters but the classifier never asked the model (${court.source}: ${court.reasoning})`,
+    });
+  }
   if (court.aiCalled && (story.expect.matterKinds || story.expect.notes)) {
     const kinds = court.matters.issues.map((issue) => issue.kind);
     const noteIds = selectCrossForumNotes(court.matters, statedDollarAmounts(story.story)).map((note) => note.id);

@@ -385,6 +385,23 @@ function amountContradicts(area: CasePartnerCourtArea, story: string): string | 
   return null;
 }
 
+/**
+ * The keyword pass calls a story "civil" on words like "defamation",
+ * "damages" and "reputation", which are subjects, not amounts. Small Claims
+ * hears those subjects up to $50,000, and the model is told to route by
+ * amount -- so a civil keyword answer with no stated amount is a guess the
+ * model should make instead. (2026-09-30: a Facebook defamation story with no
+ * figure in it was sent to Superior Court by keyword; the story battery
+ * caught it as SC5.) A story that names the Superior Court itself keeps the
+ * keyword answer and stays free.
+ */
+function civilWithoutAmount(area: CasePartnerCourtArea, story: string): string | null {
+  if (area !== "civil") return null;
+  if (statedDollarAmounts(story).length > 0) return null;
+  if (/superior court/i.test(story)) return null;
+  return "keyword pass said civil on subject words alone, with no amount stated";
+}
+
 type EscalationDecision = {
   escalate: boolean;
   reason: string;
@@ -431,6 +448,11 @@ function decideEscalation(args: {
     return { escalate: true, reason: amountConflict };
   }
 
+  const civilGuess = civilWithoutAmount(args.keywordArea, args.story);
+  if (civilGuess) {
+    return { escalate: true, reason: civilGuess };
+  }
+
   if (args.story.length > SHORT_STORY_CHARACTERS) {
     return {
       escalate: true,
@@ -463,7 +485,14 @@ const ISSUE_FAMILY_SIGNALS: Record<string, RegExp> = {
   discrimination: /\b(discriminat\w*|harass\w*|racis\w*|because of my (race|religion|disability|age|pregnancy|gender|sex|colou?r))\b/i,
   tenancy: /\b(landlord|tenant|evict\w*|my rent|the rent|lease)\b/i,
   family: /\b(custody|child support|spousal support|separat(ed|ion)|divorce|parenting time|my ex)\b/i,
-  injury: /\b(injur\w*|hurt|broke my|concussion|fractured?)\b/i,
+  // 2026-09-30, widened after the first real run: "stitches", "broke my wrist"
+  // and "ruined", "threw out", "lent him" were missed, so four two-matter
+  // stories never reached the model. "damages" (a claim for money) is
+  // deliberately NOT property damage.
+  injury: /\b(injur\w*|hurt|concussion|fractured?|stitches|hospital|broke (my|his|her) (wrist|arm|leg|ankle|nose|rib|tooth|hand|foot)|broken (wrist|arm|leg|ankle|nose|rib|bone))\b/i,
+  property: /\b(damaged|destroyed|ruined|smashed|wrecked|dented|threw out|thrown out|kicked in|ran over my)\b/i,
+  money: /\b(owes?|owed|lent|loan(ed)?|pay (me )?back|refund|unpaid|invoice|debt)\b/i,
+  defamation: /\b(lies|lying about|falsely|defam\w*|slander\w*|libel\w*|posted that|posting that)\b/i,
 };
 
 function issueFamiliesMentioned(story: string): string[] {
