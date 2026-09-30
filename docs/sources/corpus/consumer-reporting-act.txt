@@ -1,5 +1,5 @@
 
-Fran�ais
+Français
                            Consumer Reporting Act
 
                           R.S.O. 1990, CHAPTER C.33
@@ -13,7 +13,7 @@ s. 210; 1998, c. 18, Sched. E, s. 56-58; 1999, c. 6, s.  12;  1999,  c.  12,
 Sched. G, s. 20; 2000, c. 26, Sched. B, s. 8; 2001, c. 9, Sched. D,  s.  13,
 14; 2002, c. 24, Sched. B, s. 29; 2002, c. 30, Sched. E, s. 5; 2004, c.  19,
 s. 9; 2005, c. 5, s. 12; 2006, c. 34, s. 9; 2007, c. 4,  s.  27,  28;  2009,
-c. 33, Sched. 10, s. 4; 2018, c. 7, s. 1-11; 2019, c. 7, Sched. 14; 2019,
+c. 33, Sched. 10, s. 4; 2018, c. 7, s. 1-11; 2019, c. 7,  Sched.  14;  2019,
 c. 14, Sched. 10, s. 5; 2023, c. 16, s. 1; 2023, c. 23, Sched.  1,  s.  112;
 2023, c. 23, Sched. 2; 2025, c. 24, Sched. 6.
 
@@ -66,68 +66,68 @@ c. 14, Sched. 10, s. 5; 2023, c. 16, s. 1; 2023, c. 23, Sched.  1,  s.  112;
                       Interpretation and Administration
 
 DEFINITIONS AND INTERPRETATION
-1 (1)  In this Act,
-"consumer" means a natural person but does not include a person engaging  in
+1 (1)  In this Act,
+“consumer” means a natural person but does not include a person engaging  in
  a transaction, other  than  relating  to  employment,  in  the  course  of
- carrying on a business, trade or profession; ("consommateur")
-"consumer report"  means  a  written,  oral  or  other  communication  by  a
+ carrying on a business, trade or profession; (“consommateur”)
+“consumer report”  means  a  written,  oral  or  other  communication  by  a
  consumer reporting agency of credit information or  personal  information,
  or both, pertaining to a consumer for consideration in connection  with  a
- purpose set out in clause 8 (1) (d); ("rapport sur le consommateur")
-"consumer reporting agency" means a person who for gain or profit  or  on  a
- regular co-operative non-profit basis furnishes consumer reports; ("agence
- de renseignements sur le consommateur")
-"consumer score" means a score, grade or value assigned to a  consumer  that
+ purpose set out in clause 8 (1) (d); (“rapport sur le consommateur”)
+“consumer reporting agency” means a person who for gain or profit  or  on  a
+ regular co-operative non-profit basis furnishes consumer reports; (“agence
+ de renseignements sur le consommateur”)
+“consumer score” means a score, grade or value assigned to a  consumer  that
  is generated from information about the consumer maintained by a  consumer
- reporting agency; ("pointage du consommateur")
-"credit information" means information about a consumer  as  to  name,  age,
+ reporting agency; (“pointage du consommateur”)
+“credit information” means information about a consumer  as  to  name,  age,
  occupation, place of residence,  previous  places  of  residence,  marital
- status, spouse's name  and  age,  number  of  dependants,  particulars  of
+ status, spouse’s name  and  age,  number  of  dependants,  particulars  of
  education or professional qualifications, places of  employment,  previous
  places of employment, estimated income, paying  habits,  outstanding  debt
- obligations, cost of living obligations and assets;  ("renseignements  sur
- la solvabilit�")
-"Director" means the Director under the Ministry of  Consumer  and  Business
- Services Act; ("directeur")
-"employment  purposes"  means  the  purposes  of  taking  into   employment,
+ obligations, cost of living obligations and assets;  (“renseignements  sur
+ la solvabilité”)
+“Director” means the Director under the Ministry of  Consumer  and  Business
+ Services Act; (“directeur”)
+“employment  purposes”  means  the  purposes  of  taking  into   employment,
  granting promotion, reassigning  employment  duties  or  retaining  as  an
- employee; ("fins d'emploi")
-"file", when used as a noun, means all of the information  pertaining  to  a
+ employee; (“fins d’emploi”)
+“file”, when used as a noun, means all of the information  pertaining  to  a
  consumer that is recorded and retained by  a  consumer  reporting  agency,
  regardless of the manner or form  in  which  the  information  is  stored;
- ("dossier")
-"investigator" means an investigator  appointed  under  subsection  17  (1);
- ("enqu�teur")
-"Minister"  means  the  member  of  the  Executive  Council  to   whom   the
+ (“dossier”)
+“investigator” means an investigator  appointed  under  subsection  17  (1);
+ (“enquêteur”)
+“Minister”  means  the  member  of  the  Executive  Council  to   whom   the
  administration of this Act or part of this Act is assigned or  transferred
- under the Executive Council Act; ("ministre")
-"person" means a natural  person,  an  association  of  natural  persons,  a
- partnership or a corporation; ("personne")
-"personal information"  means  information  other  than  credit  information
- about a consumer's character, reputation,  health,  physical  or  personal
+ under the Executive Council Act; (“ministre”)
+“person” means a natural  person,  an  association  of  natural  persons,  a
+ partnership or a corporation; (“personne”)
+“personal information”  means  information  other  than  credit  information
+ about a consumer’s character, reputation,  health,  physical  or  personal
  characteristics or mode of living or about any other matter concerning the
- consumer; ("renseignements personnels")
-"personal information investigator" means a person who  obtains  or  reports
+ consumer; (“renseignements personnels”)
+“personal information investigator” means a person who  obtains  or  reports
  personal information to a consumer reporting agency for  hire  or  reward;
- ("enqu�teur sur les renseignements personnels")
-"prescribed" means prescribed  by  the  regulations  made  under  this  Act;
- ("prescrit")
-"Registrar"  means   the   Registrar   of   Consumer   Reporting   Agencies;
- ("registrateur")
-"regulations" means the regulations made under this Act; ("r�glements")
-"spouse" means,
+ (“enquêteur sur les renseignements personnels”)
+“prescribed” means prescribed  by  the  regulations  made  under  this  Act;
+ (“prescrit”)
+“Registrar”  means   the   Registrar   of   Consumer   Reporting   Agencies;
+ (“registrateur”)
+“regulations” means the regulations made under this Act; (“règlements”)
+“spouse” means,
       (a)   a spouse as defined in section 1 of the Family Law Act, or
        (b)    either  of  two  persons  who  live  together  in  a  conjugal
-    relationship outside marriage; ("conjoint")
-"Tribunal" means the Licence Appeal  Tribunal.  ("Tribunal")   R.S.O.  1990,
- c. C.33, s. 1 (1); 1999, c. 6, s. 12; 1999, c. 12, Sched. G, s. 20 (1);
- 2000, c. 26, Sched. B, s. 8 (1); 2001, c. 9, Sched. D, s. 13; 2002, c. 30,
- Sched. E, s. 5 (1); 2005, c. 5, s. 12; 2006, c. 34, s. 9 (2); 2018, c. 7,
+    relationship outside marriage; (“conjoint”)
+“Tribunal” means the Licence Appeal  Tribunal.  (“Tribunal”)   R.S.O.  1990,
+ c. C.33, s. 1 (1); 1999, c. 6, s. 12; 1999,  c. 12,  Sched. G,  s. 20 (1);
+ 2000, c. 26, Sched. B, s. 8 (1); 2001, c. 9, Sched. D, s. 13; 2002, c. 30,
+ Sched. E, s. 5 (1); 2005, c. 5, s. 12; 2006, c. 34, s. 9 (2); 2018, c.  7,
  s. 2; 2023, c. 23, Sched. 2, s. 1.
 
 Agreements to waive
-(2)  This Act applies despite any agreement  or  waiver  to  the  contrary.
-R.S.O. 1990, c. C.33, s. 1 (2).
+(2)  This Act applies despite any  agreement  or  waiver  to  the  contrary.
+R.S.O. 1990, c. C.33, s. 1 (2).
 Section Amendments with date in force (d/m/y)
 1999, c. 6, s. 12 (1, 2) - 01/03/2000; 1999, c. 12, Sched. G, s.  20  (1)  -
 01/04/2000
@@ -141,17 +141,17 @@ Section Amendments with date in force (d/m/y)
 (2) - 06/12/2023
 
 Registrar
-2 (1)  The Deputy Minister shall appoint  a  person  as  the  Registrar  of
-Consumer Reporting Agencies.  1998, c. 18, Sched. E, s. 56.
+2 (1)  The Deputy Minister shall  appoint  a  person  as  the  Registrar  of
+Consumer Reporting Agencies.  1998, c. 18, Sched. E, s. 56.
 
 Duties
-(2)  The Registrar may exercise the powers and  shall  perform  the  duties
+(2)  The Registrar may exercise the powers  and  shall  perform  the  duties
 conferred or imposed upon the Registrar by or under this Act.  R.S.O.  1990,
-c. C.33, s. 2 (2); 2009, c. 33, Sched. 10, s. 4 (1); 2023, c. 23, Sched. 2,
+c. C.33, s. 2 (2); 2009, c. 33, Sched. 10, s. 4 (1); 2023, c. 23, Sched.  2,
 s. 2 (1).
 
 Policies
-(3)  The  Registrar  may  establish   written   policies   regarding   the
+(3)  The  Registrar   may   establish   written   policies   regarding   the
 interpretation, administration and enforcement of  the  Act.  2023,  c.  23,
 Sched. 2, s. 2 (2).
 Section Amendments with date in force (d/m/y)
@@ -164,14 +164,14 @@ Section Amendments with date in force (d/m/y)
 REGISTRATION REQUIRED
 3 No person shall conduct or act as a consumer reporting agency or act as  a
 personal information investigator unless registered by the  Registrar  under
-this Act.  R.S.O. 1990, c. C.33, s. 3.
+this Act.  R.S.O. 1990, c. C.33, s. 3.
 Section Amendments with date in force (d/m/y)
 2006, c. 34, s. 9 (3) - 01/04/2007
 
 Registration
-4 (1)  An applicant is entitled to registration or renewal of  registration
+4 (1)  An applicant is entitled to registration or renewal  of  registration
 as a consumer reporting agency by the Registrar except where,
-      (a)    having  regard  to  the  applicant's  financial  position,  the
+      (a)    having  regard  to  the  applicant’s  financial  position,  the
     applicant cannot reasonably be expected to be  financially  responsible
     in the conduct of business; or
       (b)   the past conduct of the  applicant  affords  reasonable  grounds
@@ -186,86 +186,86 @@ as a consumer reporting agency by the Registrar except where,
        on in accordance with law and with integrity and honesty; or
       (d)   the applicant is carrying on activities that are,  or  will  be,
     if the applicant is registered, in contravention of  this  Act  or  the
-    regulations.  R.S.O. 1990, c. C.33, s. 4 (1).
+    regulations.  R.S.O. 1990, c. C.33, s. 4 (1).
 
 Registration of investigators
-(2)  An applicant is entitled to registration or renewal of registration as
+(2)  An applicant is entitled to registration or renewal of registration  as
 a personal information investigator by the Registrar except where  the  past
 conduct of the applicant affords reasonable  grounds  for  belief  that  the
-applicant will not carry out the applicant's duties in accordance  with  law
-and with integrity and honesty.  R.S.O. 1990, c. C.33, s. 4 (2).
+applicant will not carry out the applicant’s duties in accordance  with  law
+and with integrity and honesty.  R.S.O. 1990, c. C.33, s. 4 (2).
 
 Conditions of registration
-(3)  A registration is subject to such terms and conditions to give  effect
+(3)  A registration is subject to such terms and conditions to  give  effect
 to the purposes of this Act as are imposed by the Tribunal or prescribed  by
-the regulations.  R.S.O. 1990, c. C.33, s. 4 (3); 2018, c. 7, s. 1.
+the regulations.  R.S.O. 1990, c. C.33, s. 4 (3); 2018, c. 7, s. 1.
 
 Registration not transferable
-(4)  A registration is not transferable.  R.S.O. 1990, c. C.33, s. 4 (4).
+(4)  A registration is not transferable.  R.S.O. 1990, c. C.33, s. 4 (4).
 Section Amendments with date in force (d/m/y)
 2018, c. 7, s. 1 - 07/05/2018
 
 Refusal to register
-5 (1)  Subject to section 6,  the  Registrar  may  refuse  to  register  an
-applicant where in the Registrar's opinion the applicant is  disentitled  to
-registration under section 4.  R.S.O. 1990, c. C.33, s. 5 (1).
+5 (1)  Subject to section  6,  the  Registrar  may  refuse  to  register  an
+applicant where in the Registrar’s opinion the applicant is  disentitled  to
+registration under section 4.  R.S.O. 1990, c. C.33, s. 5 (1).
 
 Revocation and refusal to renew
-(2)  Subject to section 6, the Registrar may refuse to renew or may suspend
+(2)  Subject to section 6, the Registrar may refuse to renew or may  suspend
 or  revoke  a  registration  for  any  reason  that  would  disentitle   the
 registrant to registration  under  section  4  if  the  registrant  were  an
 applicant, or where the registrant is in breach of a term  or  condition  of
-the registration.  R.S.O. 1990, c. C.33, s. 5 (2).
+the registration.  R.S.O. 1990, c. C.33, s. 5 (2).
 
 Notice of proposal to refuse or revoke
-6 (1)  Where  the  Registrar  proposes  to  refuse  to  grant  or  renew  a
+6  (1)  Where  the  Registrar  proposes  to  refuse  to  grant  or  renew  a
 registration or proposes to suspend or revoke a registration, the  Registrar
 shall serve notice of the proposal, together with written reasons  therefor,
-on the applicant or registrant.  R.S.O. 1990, c. C.33, s. 6 (1).
+on the applicant or registrant.  R.S.O. 1990, c. C.33, s. 6 (1).
 
 Notice requiring hearing
-(2)  A notice under subsection  (1)  shall  state  that  the  applicant  or
+(2)  A notice under  subsection  (1)  shall  state  that  the  applicant  or
 registrant is entitled to a hearing by the  Tribunal  if  the  applicant  or
 registrant mails or delivers, within  fifteen  days  after  service  of  the
 notice under subsection (1), notice in writing requiring a  hearing  to  the
 Registrar and the Tribunal, and the applicant or registrant may  so  require
-such a hearing.  R.S.O. 1990, c. C.33, s. 6 (2); 2018, c. 7, s. 1.
+such a hearing.  R.S.O. 1990, c. C.33, s. 6 (2); 2018, c. 7, s. 1.
 
 Powers of Registrar where no hearing
-(3)  Where an applicant or registrant does not require  a  hearing  by  the
+(3)  Where an applicant or registrant does not  require  a  hearing  by  the
 Tribunal in accordance with subsection (2), the Registrar may carry out  the
-proposal stated in the notice under subsection (1).  R.S.O. 1990,  c. C.33,
-s. 6 (3); 2018, c. 7, s. 1.
+proposal stated in the notice under subsection (1).  R.S.O.  1990,  c. C.33,
+s. 6 (3); 2018, c. 7, s. 1.
 
 Powers of Tribunal
-(4)  Where an applicant or registrant requires a hearing by the Tribunal in
+(4)  Where an applicant or registrant requires a hearing by the Tribunal  in
 accordance with subsection (2), the Tribunal shall appoint a  time  for  and
 hold the hearing and, on the application of the Registrar  at  the  hearing,
-may by order direct the Registrar to carry out the Registrar's  proposal  or
+may by order direct the Registrar to carry out the Registrar’s  proposal  or
 refrain from carrying it out  and  to  take  such  action  as  the  Tribunal
 considers the Registrar ought to take in accordance with this  Act  and  the
 regulations, and for such purposes the Tribunal may substitute  its  opinion
-for that of the Registrar.  R.S.O. 1990, c. C.33, s. 6 (4); 2018, c. 7, s.
+for that of the Registrar.  R.S.O. 1990, c. C.33, s. 6 (4); 2018, c.  7,  s.
 3.
 
 Conditions of order
-(5)  The Tribunal may attach such terms and conditions to its order  or  to
+(5)  The Tribunal may attach such terms and conditions to its  order  or  to
 the registration as it considers proper to give effect to  the  purposes  of
-this Act.  R.S.O. 1990, c. C.33, s. 6 (5); 2018, c. 7, s. 3.
+this Act.  R.S.O. 1990, c. C.33, s. 6 (5); 2018, c. 7, s. 3.
 
 Parties
-(6)  The Registrar, the  applicant  or  registrant  who  has  required  the
+(6)  The Registrar,  the  applicant  or  registrant  who  has  required  the
 hearing and such other persons as the Tribunal may specify  are  parties  to
-proceedings before the Tribunal under this section.  R.S.O. 1990,  c. C.33,
-s. 6 (6); 2018, c. 7, s. 1.
+proceedings before the Tribunal under this section.  R.S.O.  1990,  c. C.33,
+s. 6 (6); 2018, c. 7, s. 1.
 
 Voluntary cancellation
-(7)  The Registrar may cancel a registration upon the request in writing of
+(7)  The Registrar may cancel a registration upon the request in writing  of
 the registrant and this section does not apply to the  cancellation.   2009,
-c. 33, Sched. 10, s. 4 (2).
+c. 33, Sched. 10, s. 4 (2).
 
 Continuance pending renewal
-(8)  Where,  within  the  time  prescribed  therefor  or,  if  no  time  is
+(8)  Where,  within  the  time  prescribed  therefor  or,  if  no  time   is
 prescribed, before expiry of the registration, a registrant has applied  for
 renewal of a registration and paid  the  prescribed  fee,  the  registration
 shall be deemed to continue,
@@ -273,14 +273,14 @@ shall be deemed to continue,
       (b)   where the registrant is served with notice  that  the  Registrar
     proposes to refuse to grant the renewal,  until  the  time  for  giving
     notice requiring  a  hearing  has  expired  and,  where  a  hearing  is
-    required, until the Tribunal has made its order.  R.S.O. 1990, c. C.33,
-    s. 6 (8); 2018, c. 7, s. 1.
+    required, until the Tribunal has made its order.  R.S.O. 1990, c. C.33,
+    s. 6 (8); 2018, c. 7, s. 1.
 
 Appeal
-(9)  Even if a registrant appeals an order of the Tribunal under section 11
+(9)  Even if a registrant appeals an order of the Tribunal under section  11
 of  the  Licence  Appeal  Tribunal  Act,  1999,  the  order   takes   effect
 immediately but the Tribunal may grant a stay until the disposition  of  the
-appeal.  1999, c. 12, Sched. G, s. 20 (2).
+appeal.  1999, c. 12, Sched. G, s. 20 (2).
 Section Amendments with date in force (d/m/y)
 1999, c. 12, Sched. G, s. 20 (2) - 01/04/2000
 2009, c. 33, Sched. 10, s. 4 (2) - 15/12/2009
@@ -289,12 +289,12 @@ Section Amendments with date in force (d/m/y)
 Further applications
 7 A further application for registration may  be  made  upon  new  or  other
 evidence or where it is clear  that  material  circumstances  have  changed.
-R.S.O. 1990, c. C.33, s. 7.
+R.S.O. 1990, c. C.33, s. 7.
 
                           Duties and Investigations
 
 TO WHOM REPORTS MAY BE GIVEN
-8 (1)  No consumer reporting agency and  no  officer  or  employee  thereof
+8 (1)  No consumer reporting agency  and  no  officer  or  employee  thereof
 shall knowingly furnish any information  from  the  files  of  the  consumer
 reporting agency except,
       (a)   in response to the order  of  a  court  having  jurisdiction  to
@@ -312,7 +312,7 @@ reporting agency except,
       (iii) intends to use the information for employment purposes,
        (iv)   intends  to  use  the  information  in  connection  with   the
        underwriting of insurance involving the consumer,
-      (v)   intends to use  the  information  to  determine  the  consumer's
+      (v)   intends to use  the  information  to  determine  the  consumer’s
        eligibility for any matter under a statute or regulation  where  the
        information is relevant to the requirement prescribed by law,
       (vi)  otherwise has a direct business  need  for  the  information  in
@@ -321,15 +321,15 @@ reporting agency except,
       (vii) intends to use the information for the purpose of up-dating  the
        information in a consumer report previously given to the person  for
        one of the reasons referred to in subclauses (i)  to  (vi).   R.S.O.
-       1990, c. C.33, s. 8 (1); 1997, c. 24, s. 210.
+       1990, c. C.33, s. 8 (1); 1997, c. 24, s. 210.
 
 Idem
-(2)  No person shall knowingly obtain any information from the files  of  a
+(2)  No person shall knowingly obtain any information from the  files  of  a
 consumer reporting agency respecting a  consumer  except  for  the  purposes
-referred to in subsection (1).  R.S.O. 1990, c. C.33, s. 8 (2).
+referred to in subsection (1).  R.S.O. 1990, c. C.33, s. 8 (2).
 
 Information as to identities
-(3)  Despite subsections (1) and  (2),  a  consumer  reporting  agency  may
+(3)  Despite subsections (1)  and  (2),  a  consumer  reporting  agency  may
 furnish identifying information respecting any consumer, limited to  his  or
 her name, address, former addresses, places of employment, or former  places
 of employment, to the Government of Ontario or of  Canada  or  any  province
@@ -337,36 +337,36 @@ thereof or of any agency  of  such  government  or  the  government  of  any
 municipality in Canada or any  agency  thereof  or  to  any  police  officer
 acting in the course of his or her duties, even though such  information  is
 not to be used for a purpose mentioned  in  subsection  (1).   R.S.O.  1990,
-c. C.33, s. 8 (3).
+c. C.33, s. 8 (3).
 
 Sale of files
-(4)  No person who is or has been registered as a consumer reporting agency
+(4)  No person who is or has been registered as a consumer reporting  agency
 shall sell, lease or transfer title to its files or any of them except to  a
-consumer reporting agency registered under this Act.  R.S.O. 1990, c. C.33,
-s. 8 (4).
+consumer reporting agency registered under this Act.  R.S.O. 1990,  c. C.33,
+s. 8 (4).
 Section Amendments with date in force (d/m/y)
 1997, c. 24, s. 210 - 17/06/1998
 2006, c. 34, s. 9 (4) - 01/04/2007
 
 Procedures of agencies
-9  (1)  Every  consumer  reporting  agency  shall  adopt  all   procedures
+9  (1)  Every  consumer  reporting  agency  shall   adopt   all   procedures
 reasonable for ensuring  accuracy  and  fairness  in  the  contents  of  its
-consumer reports.  R.S.O. 1990, c. C.33, s. 9 (1).
+consumer reports.  R.S.O. 1990, c. C.33, s. 9 (1).
 
 Information included in consumer report
-(2)  A consumer reporting agency shall not report,
+(2)  A consumer reporting agency shall not report,
       (a)   any information that is not stored in a form  capable  of  being
-    produced under section 12;
+    produced under section 12;
        (b)    any  information  that  is  not  extracted  from   information
     appearing in files stored or  collected  in  a  repository  located  in
     Canada regardless of whether or not the information was obtained from a
     source outside Canada, except where the consumer report is  in  writing
     and contains the substance of any  prior  information  orally  acquired
-    that conforms to the requirements of this Act.  R.S.O. 1990,  c. C.33,
-    s. 9 (2).
+    that conforms to the requirements of this Act.  R.S.O.  1990,  c. C.33,
+    s. 9 (2).
 
 Idem
-(3)  A consumer reporting agency shall not include in a consumer report,
+(3)  A consumer reporting agency shall not include in a consumer report,
       (a)   any credit information based on evidence that is  not  the  best
     evidence reasonably available;
       (b)    any  unfavourable  personal  information  unless  it  has  made
@@ -380,12 +380,12 @@ subsection 9 (3) of the Act is  amended  by  adding  the  following  clause:
     section 18 of the Prevention of, Remedies for and Measures  to  Support
     Recovery from Human Trafficking Act, 2017;
       (c)    information  as  to  judgments  after  seven  years  after  the
-    judgment was  given,  unless  the  creditor  or  the  creditor's  agent
+    judgment was  given,  unless  the  creditor  or  the  creditor’s  agent
     confirms that  it  remains  unpaid  in  whole  or  in  part,  and  such
     confirmation appears in the file;
       (d)   information as to  any  judgment  against  the  consumer  unless
     mention is made of the name and, where available, the  address  of  the
-    judgment creditor or the creditor's agent as given at the date of entry
+    judgment creditor or the creditor’s agent as given at the date of entry
     of the judgment and the amount;
       (e)   information as to the bankruptcy of  the  consumer  after  seven
     years from the date of the discharge except where the consumer has been
@@ -396,7 +396,7 @@ subsection 9 (3) of the Act is  amended  by  adding  the  following  clause:
       (ii)  where no payment has been  made,  more  than  seven  years  have
        elapsed since the date on which the default in payment or the matter
        giving rise to the collection occurred,
-unless the creditor or the  creditor's  agent  confirms  that  the  debt  or
+unless the creditor or the  creditor’s  agent  confirms  that  the  debt  or
     collection is not barred by statute and the confirmation appears in the
     file;
       (g)   information as  to  the  payment  or  non-payment  of  taxes  or
@@ -421,16 +421,16 @@ unless the creditor or the  creditor's  agent  confirms  that  the  debt  or
     origin, or political affiliation; or
       (m)   any information given orally in the consumer report  unless  the
     content of the oral report is  recorded  in  the  file.   R.S.O.  1990,
-    c. C.33, s. 9 (3); 2002, c. 24, Sched. B, s. 29; 2004, c. 19, s. 9 (1).
+    c. C.33, s. 9 (3); 2002, c. 24, Sched. B, s. 29; 2004, c. 19, s. 9 (1).
 Note: On a day to be named  by  proclamation  of  the  Lieutenant  Governor,
 clause 9 (3) (m) of the Act  is  repealed  and  the  following  substituted:
 (See: 2018, c. 7, s. 4)
       (m)   any other information that may be prescribed.
 
 Maintenance of files
-(4)  Every consumer reporting agency shall maintain in its file  respecting
+(4)  Every consumer reporting agency shall maintain in its  file  respecting
 a person all the material and information of which the  person  is  entitled
-to disclosure under section 12.  R.S.O. 1990, c. C.33, s. 9 (4).
+to disclosure under section 12.  R.S.O. 1990, c. C.33, s. 9 (4).
 Section Amendments with date in force (d/m/y)
 2002, c. 24, Sched. B, s. 29 - 01/01/2004
 2004, c. 19, s. 9 (1) - 31/03/2007
@@ -438,15 +438,15 @@ Section Amendments with date in force (d/m/y)
 2023, c. 16, s. 1 - not in force
 
 Disclosure of report on request
-10 (1)  Every person shall, where requested by a  consumer  in  writing  or
+10 (1)  Every person shall, where requested by  a  consumer  in  writing  or
 personally, inform the consumer whether or not a consumer report  respecting
 him or her has been  or  is  to  be  referred  to  in  connection  with  any
 specified transaction or matter in which such person  is  engaged,  and,  if
 so, of the name and address of the consumer reporting agency  supplying  the
-report.  R.S.O. 1990, c. C.33, s. 10 (1).
+report.  R.S.O. 1990, c. C.33, s. 10 (1).
 
 Notice of intention to get consumer report
-(2)  No person shall request or obtain a consumer report,
+(2)  No person shall request or obtain a consumer report,
       (a)   containing personal information about a consumer; or
       (b)   on the basis that the person is considering extending credit  to
     a consumer who has not, at the time of the  request,  made  application
@@ -454,41 +454,41 @@ Notice of intention to get consumer report
 unless that person first gives written notice of the fact  to  the  consumer
 and, where the consumer so requests, informs the consumer of  the  name  and
 address of the consumer  reporting  agency  supplying  the  report.   R.S.O.
-1990, c. C.33, s. 10 (2).
+1990, c. C.33, s. 10 (2).
 
 Idem
-(3)  Where a person proposes to extend credit to a consumer and a  consumer
+(3)  Where a person proposes to extend credit to a consumer and  a  consumer
 report containing credit information only is being or may be referred to  in
 connection with the transaction, the person shall give notice  of  the  fact
 to the consumer in writing at the time of the application for credit, or  if
 the application is made orally, orally at the time of  the  application  for
-credit.  R.S.O. 1990, c. C.33, s. 10 (3).
+credit.  R.S.O. 1990, c. C.33, s. 10 (3).
 
 Assignee as creditor
-(4)  Where, before extending credit,  the  proposed  creditor  obtains  the
+(4)  Where, before extending  credit,  the  proposed  creditor  obtains  the
 acceptance or refusal of an assignment or proposed assignment of the  credit
-transaction by an assignee or proposed assignee, subsection (3) applies  to
+transaction by an assignee or proposed assignee, subsection (3)  applies  to
 the assignee or proposed assignee in  the  same  manner  as  to  the  person
-proposing to extend credit, but the giving of a notice under subsection (3)
+proposing to extend credit, but the giving of a notice under  subsection (3)
 by a person proposing to extend credit  or  under  this  subsection  by  the
-person's assignee or proposed assignee shall  be  deemed  to  be  sufficient
-notice by both.  R.S.O. 1990, c. C.33, s. 10 (4).
+person’s assignee or proposed assignee shall  be  deemed  to  be  sufficient
+notice by both.  R.S.O. 1990, c. C.33, s. 10 (4).
 
 Limitation on divulgence of information
-(5)  No person extending credit to a consumer shall divulge to other credit
+(5)  No person extending credit to a consumer shall divulge to other  credit
 grantors  or  to  a  consumer  reporting  agency  any  personal  information
 respecting the consumer except with the consent of the consumer  or  on  the
-consumer's referral unless the person notifies the consumer  in  writing  at
+consumer’s referral unless the person notifies the consumer  in  writing  at
 the time of the application for credit that the person  intends  to  do  so.
-R.S.O. 1990, c. C.33, s. 10 (5).
+R.S.O. 1990, c. C.33, s. 10 (5).
 
 Form of notice
-(6)  Any notice referred to in this section shall be clearly set  forth  in
+(6)  Any notice referred to in this section shall be clearly  set  forth  in
 bold type or underlined and in letters not less  than  ten  point  in  size.
-R.S.O. 1990, c. C.33, s. 10 (6).
+R.S.O. 1990, c. C.33, s. 10 (6).
 
 Adverse action
-(7)  Where a benefit is denied to a consumer or a charge to a  consumer  is
+(7)  Where a benefit is denied to a consumer or a charge to  a  consumer  is
 increased either wholly or partly because of  information  received  from  a
 consumer reporting agency or  a  person  other  than  a  consumer  reporting
 agency, the user of such information shall deliver to the  consumer  at  the
@@ -501,12 +501,12 @@ shall inform the consumer,
       (b)   of the name and address of the consumer reporting agency,  where
     the information is furnished by a consumer reporting agency,
 and the notice required to be given by the user under this subsection  shall
-contain notice of the consumer's right to request the  information  referred
+contain notice of the consumer’s right to request the  information  referred
 to in clauses (a) and (b) and  the  time  limited  therefor.   R.S.O.  1990,
-c. C.33, s. 10 (7).
+c. C.33, s. 10 (7).
 
 Supplying list of names
-11 (1)  No person shall,
+11 (1)  No person shall,
       (a)   supply a list of names and  criteria  to  a  consumer  reporting
     agency in order to obtain an indication of the  names  of  the  persons
     named in the list who meet the criteria; or
@@ -516,54 +516,54 @@ without first notifying in writing each person named on the  list  or  about
 whom information is being obtained that such a list is  being  submitted  or
 that information is being  requested  and,  where  any  person  affected  so
 requests, informing that person of  the  name  and  address  of  the  agency
-involved.  R.S.O. 1990, c. C.33, s. 11 (1).
+involved.  R.S.O. 1990, c. C.33, s. 11 (1).
 
-Exception where compliance with subs. 10 (3)
-(2)  Clause (1) (b) does not apply to a person obtaining information about
-a consumer under subsection 10 (3)  where  the  person  has  complied  with
-subsection 10 (3).  R.S.O. 1990, c. C.33, s. 11 (2).
+Exception where compliance with subs. 10 (3)
+(2)  Clause (1) (b) does not apply to a person obtaining  information  about
+a consumer under subsection  10 (3)  where  the  person  has  complied  with
+subsection 10 (3).  R.S.O. 1990, c. C.33, s. 11 (2).
 
 Restriction on consumer reporting agency
-(3)  No consumer reporting  agency  shall  provide  information  about  any
-person entitled to be notified under subsection (1) or  subsection  10 (2)
+(3)  No consumer  reporting  agency  shall  provide  information  about  any
+person entitled to be notified under  subsection (1)  or  subsection  10 (2)
 unless the  agency  has  reasonable  grounds  to  believe  that  the  person
 requesting the information is not in  contravention  of  subsection  (1)  or
-10 (2), as the case may be.  R.S.O. 1990, c. C.33, s. 11 (3).
+10 (2), as the case may be.  R.S.O. 1990, c. C.33, s. 11 (3).
 
 Supplying list of criteria
-(4)  No consumer reporting agency that receives,
+(4)  No consumer reporting agency that receives,
       (a)   a list of criteria  and  a  request  to  provide  the  names  of
     persons who meet the criteria; or
       (b)   a request for names  of  persons  so  that  information  may  be
     inferred about those persons,
 shall provide the name of any person without first notifying that person  in
 writing of the request and the name and address of  the  person  making  the
-request.  R.S.O. 1990, c. C.33, s. 11 (4).
+request.  R.S.O. 1990, c. C.33, s. 11 (4).
 
 Non-application
-(5)  This section does not apply where information is requested or provided
-for the purposes referred to in clause 8 (1) (a), (b) or  (c)  or  in  the
-circumstances  set  out  in  subsection  8 (3).   R.S.O.  1990,  c. C.33,
-s. 11 (5).
+(5)  This section does not apply where information is requested or  provided
+for the purposes referred to in clause 8 (1) (a),  (b)  or  (c)  or  in  the
+circumstances  set  out  in  subsection  8 (3).    R.S.O.   1990,   c. C.33,
+s. 11 (5).
 
 Right of consumer to request disclosure
-12 (1)  A consumer may, in writing, request a consumer reporting agency  to
+12 (1)  A consumer may, in writing, request a consumer reporting  agency  to
 provide,
-      (a)   the consumer's consumer report; or
-      (b)   the consumer's  current  consumer  score  and  consumer  report.
+      (a)   the consumer’s consumer report; or
+      (b)   the consumer’s  current  consumer  score  and  consumer  report.
     2018, c. 7, s. 5.
 
 Electronic requests
-(2)  A consumer may make a request  under  subsection  (1)  electronically.
+(2)  A consumer may make a  request  under  subsection  (1)  electronically.
 2018, c. 7, s. 5.
 
 Content of disclosure under cl. (1) (a)
-(3)  If a consumer makes a request  under  clause  (1)  (a),  the  consumer
+(3)  If a consumer makes a  request  under  clause  (1)  (a),  the  consumer
 reporting agency shall, in accordance with this section, section 12.0.1  and
 any  prescribed  requirements,  disclose  to  the  consumer  the   following
 information:
       1.    The nature and substance of  all  information  in  the  consumer
-    reporting agency's files pertaining to the consumer at the time of  the
+    reporting agency’s files pertaining to the consumer at the time of  the
     request.
       2.    The sources of credit information.
       3.    The name and telephone number of every person  on  whose  behalf
@@ -582,9 +582,9 @@ information:
     s. 1.
 
 Content of disclosure under cl. (1) (b)
-(4)  If a consumer makes a request  under  clause  (1)  (b),  the  consumer
+(4)  If a consumer makes a  request  under  clause  (1)  (b),  the  consumer
 reporting agency shall, in accordance with this section, section 12.0.1  and
-any prescribed requirements, generate the consumer's current consumer  score
+any prescribed requirements, generate the consumer’s current consumer  score
 and disclose the following information to the consumer:
       1.    The consumer score.
       2.    The date on which the consumer score was generated.
@@ -595,7 +595,7 @@ and disclose the following information to the consumer:
       6.    Any other information that may be prescribed. 2018, c. 7, s. 5.
 
 Same, exemption
-(4.1)  A consumer reporting agency is exempt from the requirements set  out
+(4.1)  A consumer reporting agency is exempt from the requirements  set  out
 in subsection (4) unless,
       (a)   the agency has been prescribed by the regulations; or
       (b)   the agency is part of a class  of  consumer  reporting  agencies
@@ -603,18 +603,18 @@ in subsection (4) unless,
     3 (2).
 
 Disclosure of right to dispute
-(5)  When a consumer reporting  agency  discloses  information  under  this
-section, the agency shall inform the consumer of  the  consumer's  right  to
+(5)  When a consumer  reporting  agency  discloses  information  under  this
+section, the agency shall inform the consumer of  the  consumer’s  right  to
 dispute any information contained in the  file  under  section  13  and  the
 manner in which a dispute may be made. 2018,  c.  7,  s.  5;  2023,  c.  23,
 Sched. 2, s. 3 (3).
 
 Request for disclosure
-(6)  When making a request for disclosure under this  section,  a  consumer
+(6)  When making a request for disclosure under  this  section,  a  consumer
 shall,
       (a)   provide the  consumer  reporting  agency  with  a  copy  of  any
     prescribed identification and a copy of any  other  identification  the
-    agency may reasonably require to verify the consumer's identity;
+    agency may reasonably require to verify the consumer’s identity;
       (b)   indicate to the  consumer  reporting  agency  by  which  of  the
     methods referred to in subsection (7) the consumer chooses  to  receive
     the disclosure; and
@@ -622,8 +622,8 @@ shall,
     information. 2018, c. 7, s. 5.
 
 Method of disclosure
-(7)  A consumer reporting agency shall disclose information in whichever of
-the following methods the consumer chooses in the consumer's request:
+(7)  A consumer reporting agency shall disclose information in whichever  of
+the following methods the consumer chooses in the consumer’s request:
       1.    By telephone or other means of telecommunication.
       2.    By mail.
       3.    Electronically.
@@ -631,7 +631,7 @@ the following methods the consumer chooses in the consumer's request:
     3 (4).
 
 Timing of disclosure
-(8)  The consumer reporting agency shall make  disclosures  required  under
+(8)  The consumer reporting agency shall  make  disclosures  required  under
 this section in accordance with the following rules respecting timing:
       1.    If a consumer chooses to receive the disclosure by telephone  or
     other means of telecommunication or by  mail,  the  consumer  reporting
@@ -653,31 +653,31 @@ this section in accordance with the following rules respecting timing:
     2023, c. 23, Sched. 2, s. 3 (5).
 
 Plain language
-(9)  A disclosure  made  under  this  section  must  be  in  understandable
+(9)  A  disclosure  made  under  this  section  must  be  in  understandable
 language and if it is made in writing it must be easily readable.  2018,  c.
 7, s. 5.
-(10)  Repealed: 2023, c. 23, Sched. 2, s. 3 (6).
+(10)  Repealed: 2023, c. 23, Sched. 2, s. 3 (6).
 
 Trained personnel
-(11)  Every consumer reporting agency shall provide  trained  personnel  to
+(11)  Every consumer reporting agency shall  provide  trained  personnel  to
 explain to the consumer any information  disclosed  to  the  consumer  under
 this section. 2018, c. 7, s. 5; 2023, c. 23, Sched. 2, s. 3 (7).
 
 Explanation of consumer score
-(12)  If a consumer who received a disclosure of  information  set  out  in
+(12)  If a consumer who received a disclosure  of  information  set  out  in
 subsection  (4)  makes  a  request  in  accordance   with   any   prescribed
 requirements to the consumer reporting agency that made the disclosure,  the
-agency shall explain to the consumer how the consumer's credit  or  personal
-information has affected the consumer's consumer score. 2018, c.  7,  s.  5;
+agency shall explain to the consumer how the consumer’s credit  or  personal
+information has affected the consumer’s consumer score. 2018, c.  7,  s.  5;
 2023, c. 23, Sched. 2, s. 3 (8).
 
 Fees
-(13)  A consumer reporting agency shall not  charge  a  fee  for  making  a
+(13)  A consumer reporting agency shall  not  charge  a  fee  for  making  a
 disclosure under this section unless the agency is permitted  to  do  so  by
 the regulations. 2018, c. 7, s. 5.
 
 Same, exception for electronic disclosure
-(14)  Despite subsection (13), if  the  consumer  requests  the  electronic
+(14)  Despite subsection (13),  if  the  consumer  requests  the  electronic
 disclosure of a consumer report or a consumer score and consumer report  and
 the consumer reporting agency has already made an electronic  disclosure  to
 the consumer one or more times during the same month of  the  same  calendar
@@ -686,7 +686,7 @@ disclosure, subject to any prescribed limitations. 2023, c.  23,  Sched.  2,
 s. 3 (9).
 
 Same, exception for disclosure under cl. (1) (b)
-(15)  Despite subsection (13), if the consumer requests the disclosure,  by
+(15)  Despite subsection (13), if the consumer requests the  disclosure,  by
 any method other than electronically,  of  a  consumer  score  and  consumer
 report under clause (1) (b) and the consumer reporting  agency  has  already
 made a disclosure, by any method other than electronically,  of  information
@@ -696,16 +696,16 @@ the disclosure, subject to any prescribed limitations. 2023, c.  23,  Sched.
 2, s. 3 (9).
 
 No conditions
-(16)  A consumer reporting agency shall not require a consumer to give  any
+(16)  A consumer reporting agency shall not require a consumer to  give  any
 undertaking or waive or release any right as  a  condition  of  receiving  a
 disclosure under this section. 2018, c. 7, s. 5.
 
 Exception for certain medical information
-(17)  A consumer reporting  agency  shall  withhold  from  the  disclosures
+(17)  A consumer  reporting  agency  shall  withhold  from  the  disclosures
 required under this  section  any  medical  information  obtained  with  the
-written consent of the consumer  which  the  consumer's  own  physician  has
+written consent of the consumer  which  the  consumer’s  own  physician  has
 specifically requested in writing be  withheld  from  the  consumer  in  the
-consumer's own best interest. 2018, c. 7, s. 5; 2023, c. 23, Sched. 2, s.  3
+consumer’s own best interest. 2018, c. 7, s. 5; 2023, c. 23, Sched. 2, s.  3
 (10).
 Section Amendments with date in force (d/m/y)
 1993, c. 27, Sched. - 31/12/1991; 1994, c. 27, s. 77 - 09/12/1994
@@ -715,27 +715,27 @@ Section Amendments with date in force (d/m/y)
 2025, c. 24, Sched. 6, s. 1 (1, 2) - 01/07/2026
 
 Consumer scores
-12.0.1  (1)  Subject to subsection (2), the  method  used  to  generate  a
+12.0.1  (1)  Subject to subsection  (2),  the  method  used  to  generate  a
 consumer score in response to a request from a consumer shall  be  a  method
 that is similar to the method that the consumer reporting agency would  most
 commonly use if a creditor  had  requested  the  score  in  respect  of  the
 consumer. 2023, c. 23, Sched. 2, s. 4.
 
 Prescribed method of generating consumer score
-(2)  If the regulations prescribe a method of generating a  consumer  score
+(2)  If the regulations prescribe a method of generating  a  consumer  score
 to be used for a prescribed purpose or in  a  prescribed  circumstance,  the
 consumer reporting agency shall use that method when generating  a  consumer
 score for the purpose or in the circumstances, as the case may be. 2018,  c.
 7, s. 5.
 
 Previous requests not a factor
-(3)  The consumer reporting agency  shall  ensure  that  the  fact  that  a
+(3)  The consumer reporting  agency  shall  ensure  that  the  fact  that  a
 consumer has made a request for disclosure under section  12,  or  exercised
 any other right under this Act, is not used in the generation of a  consumer
 score with respect to that consumer. 2018, c. 7, s. 5.
 
 Publication of information about consumer scores
-(4)  The consumer reporting agency shall, in accordance with any prescribed
+(4)  The consumer reporting agency shall, in accordance with any  prescribed
 requirements, publish any prescribed information about consumer scores on  a
 website maintained by the agency. 2018, c. 7, s. 5.
 Section Amendments with date in force (d/m/y)
@@ -743,111 +743,111 @@ Section Amendments with date in force (d/m/y)
 2023, c. 23, Sched. 2, s. 4 - 01/07/2026
 
 Alert to verify identity of consumer
-12.1  (1)  A consumer may require a consumer reporting agency to  include,
-in the consumer's file, an alert warning persons to verify the  identity  of
-any person purporting to be the consumer.  2006, c. 34, s. 9 (5).
+12.1  (1)  A consumer may require a consumer reporting  agency  to  include,
+in the consumer’s file, an alert warning persons to verify the  identity  of
+any person purporting to be the consumer.  2006, c. 34, s. 9 (5).
 
 Consumer must provide contact information
-(2)  A consumer who requires a consumer  reporting  agency  to  include  an
-alert in the consumer's file shall provide, for inclusion in  the  alert,  a
+(2)  A consumer who requires a  consumer  reporting  agency  to  include  an
+alert in the consumer’s file shall provide, for inclusion in  the  alert,  a
 telephone  number  or  other  method,  prescribed  by  the  regulations,  of
 contacting the consumer to verify the identity of any person  purporting  to
-be the consumer.  2006, c. 34, s. 9 (5).
+be the consumer.  2006, c. 34, s. 9 (5).
 
 Time limit for including alert in file
-(3)  The  consumer  reporting  agency  shall  include  the  alert  in  the
-consumer's file as soon as practicable after being required to do  so  under
-subsection (1).  2006, c. 34, s. 9 (5).
+(3)  The  consumer  reporting  agency  shall  include  the  alert   in   the
+consumer’s file as soon as practicable after being required to do  so  under
+subsection (1).  2006, c. 34, s. 9 (5).
 
 No obligation if contact information not provided
-(4)  The consumer reporting agency is not required to include an  alert  if
-the consumer has not complied with subsection (2).  2006, c. 34, s. 9 (5).
+(4)  The consumer reporting agency is not required to include  an  alert  if
+the consumer has not complied with subsection (2).  2006, c. 34, s. 9 (5).
 
 Amendment or removal
-(5)  The consumer may require the consumer reporting agency  to  amend  the
-alert or remove it from the consumer's file.  2006, c. 34, s. 9 (5).
+(5)  The consumer may require the consumer reporting  agency  to  amend  the
+alert or remove it from the consumer’s file.  2006, c. 34, s. 9 (5).
 
 Time limit for amendment or removal
-(6)  The consumer reporting agency shall amend the alert or remove it  from
-the consumer's file as soon as practicable after being  required  to  do  so
-under subsection (5).  2006, c. 34, s. 9 (5).
+(6)  The consumer reporting agency shall amend the alert or remove  it  from
+the consumer’s file as soon as practicable after being  required  to  do  so
+under subsection (5).  2006, c. 34, s. 9 (5).
 
 Verification of identity by agency
-(7)  Before including an alert in a consumer's file or amending or removing
+(7)  Before including an alert in a consumer’s file or amending or  removing
 such an alert, the consumer reporting agency shall take reasonable steps  to
 verify that the person requiring the inclusion, amendment or removal is  the
-consumer.  2006, c. 34, s. 9 (5).
+consumer.  2006, c. 34, s. 9 (5).
 
 Expiry
-(8)  An alert expires at the end of the prescribed period, if  any.   2006,
-c. 34, s. 9 (5).
+(8)  An alert expires at the end of the prescribed period,  if  any.   2006,
+c. 34, s. 9 (5).
 
 Information about expiry
-(9)  When a consumer reporting agency includes an  alert  in  a  consumer's
+(9)  When a consumer reporting agency includes  an  alert  in  a  consumer’s
 file, the agency shall inform the consumer of the date,  if  any,  that  the
-alert will expire under subsection (8).  2006, c. 34, s. 9 (5).
+alert will expire under subsection (8).  2006, c. 34, s. 9 (5).
 
 Fees
-(10)  Subject to the regulations, a consumer reporting agency may require a
-fee to be paid before including an alert in a consumer's file,  or  amending
-or removing an alert.  2006, c. 34, s. 9 (5).
+(10)  Subject to the regulations, a consumer reporting agency may require  a
+fee to be paid before including an alert in a consumer’s file,  or  amending
+or removing an alert.  2006, c. 34, s. 9 (5).
 Section Amendments with date in force (d/m/y)
 2006, c. 34, s. 9 (5) - 01/01/2008
 
 When alert to be given
-12.2  If a consumer's file includes an alert under section  12.1  that  has
+12.2  If a consumer’s file includes an alert under  section  12.1  that  has
 not expired, the consumer reporting agency shall give  the  alert  to  every
-person to whom any information from the file is  disclosed.   2006,  c. 34,
-s. 9 (6).
+person to whom any information from the file  is  disclosed.   2006,  c. 34,
+s. 9 (6).
 Section Amendments with date in force (d/m/y)
 2006, c. 34, s. 9 (6) - 01/01/2008
 
 If person receives an alert
-12.3  (1)  This section applies if a  person  receives  an  alert  from  a
-consumer's file  under  section  12.2  in  connection  with  a  transaction,
+12.3  (1)  This section applies  if  a  person  receives  an  alert  from  a
+consumer’s file  under  section  12.2  in  connection  with  a  transaction,
 described in subsection  (3),  involving  a  person  purporting  to  be  the
-consumer.  2006, c. 34, s. 9 (7).
+consumer.  2006, c. 34, s. 9 (7).
 
 Duty to verify identity
-(2)  The  person  who  received  the  alert  shall  not  proceed  with  the
+(2)  The  person  who  received  the  alert  shall  not  proceed  with   the
 transaction without taking  reasonable  steps  to  verify  that  the  person
-involved in the transaction is the consumer.  2006, c. 34, s. 9 (7).
+involved in the transaction is the consumer.  2006, c. 34, s. 9 (7).
 
 Transactions covered
-(3)  A transaction referred to in subsection (1) is,
+(3)  A transaction referred to in subsection (1) is,
       (a)   the extension of credit or the loaning of money, as  defined  in
     the regulations; or
       (b)   any other transaction  prescribed  by  the  regulations.   2006,
-    c. 34, s. 9 (7).
+    c. 34, s. 9 (7).
 
 Exception for transactions covered
-(4)  Clause (3) (a) does not include an advance under  a  credit  agreement
+(4)  Clause (3) (a) does not include an advance  under  a  credit  agreement
 for open credit unless the credit agreement is amended to  provide  for  the
-advance.  2006, c. 34, s. 9 (7).
+advance.  2006, c. 34, s. 9 (7).
 
 Definitions
-(5)  In subsection (4),
-"credit agreement" means a credit agreement as defined in section 66 of  the
- Consumer Protection Act, 2002; ("convention de cr�dit")
+(5)  In subsection (4),
+“credit agreement” means a credit agreement as defined in section 66 of  the
+ Consumer Protection Act, 2002; (“convention de crédit”)
 Note: On a day to be named by proclamation of the Lieutenant  Governor,  the
-definition of "credit agreement" in  subsection  12.3  (5)  of  the  Act  is
-amended by striking out "a credit agreement as defined in section 66 of  the
-Consumer Protection Act, 2002"  and  substituting  "a  credit  agreement  as
-defined in subsection 1 (1) of the Consumer  Protection  Act,  2023".  (See:
+definition of “credit agreement” in  subsection  12.3  (5)  of  the  Act  is
+amended by striking out “a credit agreement as defined in section 66 of  the
+Consumer Protection Act, 2002”  and  substituting  “a  credit  agreement  as
+defined in subsection 1 (1) of the Consumer  Protection  Act,  2023”.  (See:
 2023, c. 23, Sched. 1, s. 112 (1))
-"open credit" means open credit as defined in  section  1  of  the  Consumer
- Protection Act, 2002. ("cr�dit en blanc")  2006, c. 34, s. 9 (7).
+“open credit” means open credit as defined in  section  1  of  the  Consumer
+ Protection Act, 2002. (“crédit en blanc”)  2006, c. 34, s. 9 (7).
 Note: On a day to be named by proclamation of the Lieutenant  Governor,  the
-definition of "open credit" in subsection 12.3 (5) of the Act is amended  by
-striking out "as defined in section 1 of the Consumer Protection Act,  2002"
-and substituting "as defined in subsection 1 (1) of the Consumer  Protection
-Act, 2023". (See: 2023, c. 23, Sched. 1, s. 112 (2))
+definition of “open credit” in subsection 12.3 (5) of the Act is amended  by
+striking out “as defined in section 1 of the Consumer Protection Act,  2002”
+and substituting “as defined in subsection 1 (1) of the Consumer  Protection
+Act, 2023”. (See: 2023, c. 23, Sched. 1, s. 112 (2))
 Section Amendments with date in force (d/m/y)
 2006, c. 34, s. 9 (7) - 01/01/2008
 2023, c. 23, Sched. 1, s. 112 (1, 2) - not in force
 
 Security freeze
-12.4  (1)  A prescribed consumer reporting agency shall place  a  security
+12.4  (1)  A prescribed consumer reporting agency  shall  place  a  security
 freeze on the file of a consumer on or before the prescribed deadline if,
       (a)   the consumer has,  in  accordance  with  this  section  and  any
     prescribed requirements, required the agency to place a security freeze
@@ -856,7 +856,7 @@ freeze on the file of a consumer on or before the prescribed deadline if,
     prescribed requirements. 2018, c. 7, s. 6.
 
 Effect of security freeze
-(2)  During the period that a security freeze on a consumer's  file  is  in
+(2)  During the period that a security freeze on a  consumer’s  file  is  in
 effect, the consumer reporting agency  shall  not  disclose  any  credit  or
 personal information about the consumer maintained by the agency,  including
 any consumer scores, to any person, for any of the following purposes:
@@ -868,7 +868,7 @@ any consumer scores, to any person, for any of the following purposes:
     type. 2023, c. 23, Sched. 2, s. 5 (1).
 
 Suspending a security freeze
-(3)  The consumer reporting agency shall suspend a security  freeze  on  or
+(3)  The consumer reporting agency shall suspend a  security  freeze  on  or
 before the prescribed deadline if,
       (a)   the consumer whose  file  is  subject  to  the  security  freeze
     requires the  suspension  in  accordance  with  this  section  and  any
@@ -878,38 +878,38 @@ before the prescribed deadline if,
     duration of a suspension. 2018, c. 7, s. 6.
 
 Same, duration
-(4)  If the consumer reporting agency is required  to  suspend  a  security
+(4)  If the consumer reporting agency is  required  to  suspend  a  security
 freeze under subsection (3),  the  suspension  shall  be  for  the  duration
 specified by the consumer. 2018, c. 7, s. 6.
 
 Same, effect
-(5)  A security freeze that is suspended is not in effect. 2018, c.  7,  s.
+(5)  A security freeze that is suspended is not in effect. 2018,  c.  7,  s.
 6.
 
 Terminating a security freeze
-(6)  The consumer reporting agency shall terminate a security freeze if,
+(6)  The consumer reporting agency shall terminate a security freeze if,
       (a)   the consumer whose  file  is  subject  to  the  security  freeze
     requires the termination  in  accordance  with  this  section  and  any
     prescribed requirements; and
        (b)    the  consumer  has  complied  with  subsection  (9)  and   any
     prescribed requirements. 2018, c. 7, s. 6; 2023, c. 23, Sched. 2, s.  5
     (2).
-(7), (8)  Repealed: 2023, c. 23, Sched. 2, s. 5 (3).
+(7), (8)  Repealed: 2023, c. 23, Sched. 2, s. 5 (3).
 
 Identification
-(9)  A consumer who requires a consumer reporting agency to place,  suspend
+(9)  A consumer who requires a consumer reporting agency to  place,  suspend
 or terminate a security freeze shall provide the agency with a copy  of  any
 prescribed identification and a copy of any other identification the  agency
-may reasonably require to verify the consumer's identity. 2018, c. 7, s. 6.
+may reasonably require to verify the consumer’s identity. 2018, c. 7, s. 6.
 
 Fees
-(10)  A consumer reporting agency shall not charge the consumer a  fee  for
+(10)  A consumer reporting agency shall not charge the consumer  a  fee  for
 placing, suspending or terminating a security freeze unless  the  agency  is
 permitted to do so by regulations. 2018, c. 7, s. 6.
 
 Information
-(11)  When a consumer requires that a security  freeze  be  placed  on  the
-consumer's file, the consumer reporting agency shall  provide  the  consumer
+(11)  When a consumer requires that a  security  freeze  be  placed  on  the
+consumer’s file, the consumer reporting agency shall  provide  the  consumer
 with the information referred to in section 12.5 and the name and  telephone
 number or email address  of  a  person  the  consumer  can  contact  for  an
 explanation of the information. 2018, c. 7, s. 6; 2023, c. 23, Sched. 2,  s.
@@ -919,7 +919,7 @@ Section Amendments with date in force (d/m/y)
 2023, c. 23, Sched. 2, s. 5 (1-4) - 01/07/2026
 
 Publication of information re alerts and freezes
-12.5  Every prescribed consumer reporting agency shall, in accordance  with
+12.5  Every prescribed consumer reporting agency shall, in  accordance  with
 any prescribed requirements, publish the following information on a  website
 maintained by the agency:
       1.    A description of alerts and their implications.
@@ -936,41 +936,41 @@ Section Amendments with date in force (d/m/y)
 2023, c. 23, Sched. 2, s. 6 - 06/12/2023
 
 Explanatory statements
-12.6  (1)  A consumer may deliver to a consumer reporting agency a written
+12.6  (1)  A consumer may deliver to a consumer reporting agency  a  written
 explanatory  statement  of  no  more  than  200  words  pertaining  to   any
-information in the consumer's file. 2023, c. 23, Sched. 2, s. 7.
+information in the consumer’s file. 2023, c. 23, Sched. 2, s. 7.
 
 Time period
-(2)  A consumer reporting agency in receipt  of  an  explanatory  statement
-referred to in subsection (1) shall include the statement in the  consumer's
+(2)  A consumer reporting agency in  receipt  of  an  explanatory  statement
+referred to in subsection (1) shall include the statement in the  consumer’s
 file within the prescribed time period  or,  if  no  such  period  has  been
 prescribed, within a reasonable time period. 2023, c. 23, Sched. 2, s. 7.
 
 Explanatory statements in reports
-(3)  If an explanatory statement has been included in  a  consumer's  file,
+(3)  If an explanatory statement has been included  in  a  consumer’s  file,
 the consumer reporting agency  shall  incorporate  the  statement  in  every
 report furnished by the agency in respect of the consumer  so  long  as  the
 report contains information  pertaining  to  the  statement.  2023,  c.  23,
 Sched. 2, s. 7.
 
 Amendments or removals of explanatory statements
-(4)  A consumer may request the consumer  reporting  agency  to  amend  the
-explanatory statement or remove the  statement  from  the  consumer's  file.
+(4)  A consumer may request the  consumer  reporting  agency  to  amend  the
+explanatory statement or remove the  statement  from  the  consumer’s  file.
 2023, c. 23, Sched. 2, s. 7.
 
 Time limit for amendments or removals
-(5)  Upon receiving a request  made  under  subsection  (4),  the  consumer
+(5)  Upon receiving a  request  made  under  subsection  (4),  the  consumer
 reporting agency  shall  amend  the  explanatory  statement  or  remove  the
-statement from the consumer's file within the prescribed time period or,  if
+statement from the consumer’s file within the prescribed time period or,  if
 no such period has been prescribed, within a reasonable  time  period  after
 receiving the request. 2023, c. 23, Sched. 2, s. 7.
 
 Removal of explanatory statements
-(6)  If no request  has  been  made  under  subsection  (4)  to  remove  an
-explanatory statement from a consumer's file, the consumer reporting  agency
-shall remove the statement from the consumer's file,
+(6)  If no  request  has  been  made  under  subsection  (4)  to  remove  an
+explanatory statement from a consumer’s file, the consumer reporting  agency
+shall remove the statement from the consumer’s file,
       (a)   on the day that  is  six  years  after  the  day  on  which  the
-    statement was included in the consumer's file; or
+    statement was included in the consumer’s file; or
       (b)   if a request has been made under subsection  (4)  to  amend  the
     statement, on the day that is six years after  the  day  on  which  the
     statement was last amended. 2023, c. 23, Sched. 2, s. 7.
@@ -978,7 +978,7 @@ Section Amendments with date in force (d/m/y)
 2023, c. 23, Sched. 2, s. 7 - 01/07/2026
 
 Correction of errors
-13  (1)  Subject  to  any  prescribed  limitations,  a  consumer  may,  in
+13  (1)  Subject  to  any  prescribed  limitations,  a  consumer   may,   in
 accordance  with  any  prescribed  requirements,  dispute  the  accuracy  or
 completeness of any item of information contained in his  or  her  file  and
 the consumer reporting  agency  shall,  within  a  reasonable  time  and  in
@@ -987,8 +987,8 @@ confirm or complete the information and shall correct, supplement or  delete
 the information in accordance with good practice. 2018, c. 7, s. 7.
 
 Idem
-(2)  Where a consumer reporting agency  corrects,  supplements  or  deletes
-information under  subsection (1),  the  consumer  reporting  agency  shall
+(2)  Where a consumer reporting  agency  corrects,  supplements  or  deletes
+information  under  subsection (1),  the  consumer  reporting  agency  shall
 furnish notification of the correction, supplement or deletion to,
       (a)   all persons who have been supplied with a consumer report  based
     on  the  unamended  file  within  sixty  days  before  the  correction,
@@ -1000,16 +1000,16 @@ furnish notification of the correction, supplement or deletion to,
        year period preceding the correction, supplement or deletion, and
       (ii)  where the report contains credit information,  within  the  six-
        month period  preceding  the  correction,  supplement  or  deletion.
-       R.S.O. 1990, c. C.33, s. 13 (2).
+       R.S.O. 1990, c. C.33, s. 13 (2).
 Section Amendments with date in force (d/m/y)
 2018, c. 7, s. 7 - 01/07/2026
-13.1-13.8  Repealed:  2002, c. 30, Sched. E, s. 5 (2).
+13.1-13.8  Repealed:  2002, c. 30, Sched. E, s. 5 (2).
 Section Amendments with date in force (d/m/y)
 2000, c. 26, Sched. B, s. 8 (3) - 06/12/2000
 2002, c. 30, Sched. E, s. 5 (2) - 30/07/2005
 
 Order by Registrar re proof and documentation
-14 (1)  In connection with a complaint made to the Registrar in respect  of
+14 (1)  In connection with a complaint made to the Registrar in  respect  of
 a  consumer  reporting  agency  or  in  connection  with  an  inspection  or
 investigation of a consumer reporting agency undertaken under this Act,  the
 Registrar may order a consumer reporting agency to,
@@ -1022,23 +1022,23 @@ Registrar may order a consumer reporting agency to,
     (1).
 
 Order by Registrar re information
-(1.1)  The Registrar may order a consumer  reporting  agency  to  amend  or
+(1.1)  The Registrar may order a  consumer  reporting  agency  to  amend  or
 delete credit and personal information or restrict or prohibit  the  use  of
 credit and personal information if,
       (a)   the agency failed to comply with an order under  subsection  (1)
     with respect to the information; or
-      (b)   in the Registrar's opinion the  information  maintained  by  the
+      (b)   in the Registrar’s opinion the  information  maintained  by  the
     agency is inaccurate, incomplete or does not comply with the provisions
     of this Act or the regulations. 2018, c. 7, s. 8 (1).
 
 Enforcement of order
-(2)  The Registrar  may  order  a  consumer  reporting  agency  to  furnish
+(2)  The  Registrar  may  order  a  consumer  reporting  agency  to  furnish
 notification to any person  who  has  received  a  consumer  report  of  any
 amendments,  deletions,  restrictions  or  prohibitions   imposed   by   the
-Registrar.  R.S.O. 1990, c. C.33, s. 14 (2).
+Registrar.  R.S.O. 1990, c. C.33, s. 14 (2).
 
 Hearing by Tribunal
-(3)  Where the consumer or consumer  reporting  agency  considers  themself
+(3)  Where the consumer or  consumer  reporting  agency  considers  themself
 aggrieved by a decision of the Registrar under this  section,  the  consumer
 or consumer reporting agency may apply to the Tribunal  for  a  hearing  and
 section 6 applies with necessary modifications to the decision in  the  same
@@ -1046,14 +1046,14 @@ manner as to a proposal by the Registrar under  section  6  and  as  if  the
 consumer and the  consumer  reporting  agency  each  were  an  applicant  or
 registrant, except that an order of the Registrar may  be  issued  and  take
 effect immediately, but the Tribunal  may  grant  a  stay  until  the  order
-becomes final.  R.S.O. 1990, c. C.33, s. 14 (3); 1993, c. 27, Sched; 2018,
+becomes final.  R.S.O. 1990, c. C.33, s. 14 (3); 1993, c. 27,  Sched;  2018,
 c. 7, s. 8 (2).
 
 Disclosure of sources
-(4)  At a hearing before the Tribunal for the purposes of  subsection  (3),
+(4)  At a hearing before the Tribunal for the purposes  of  subsection  (3),
 the Tribunal may require the  consumer  reporting  agency  to  disclose  the
-source of any information contained in its files.   R.S.O.  1990,  c. C.33,
-s. 14 (4); 2018, c. 7, s. 1.
+source of any information contained in its  files.   R.S.O.  1990,  c. C.33,
+s. 14 (4); 2018, c. 7, s. 1.
 Section Amendments with date in force (d/m/y)
 1993, c. 27, Sched. - 31/12/1991
 2018, c. 7, s. 8 (1) - 01/07/2026; 2018, c. 7, s. 1, 8 (2) - 07/05/2018
@@ -1065,50 +1065,50 @@ notify the Registrar in writing of,
       (b)   any change in the officers in the case of a  corporation  or  of
     the members in the case of a partnership; and
       (c)   any commencement or termination  of  employment  of  a  personal
-    information investigator.  R.S.O. 1990, c. C.33, s. 15.
+    information investigator.  R.S.O. 1990, c. C.33, s. 15.
 
 Complaints
-16 (1)  Where the Registrar receives a written complaint in  respect  of  a
+16 (1)  Where the Registrar receives a written complaint  in  respect  of  a
 consumer reporting agency and so directs in writing, the consumer  reporting
 agency shall furnish the Registrar  with  such  information  respecting  the
-matter complained of as the  Registrar  requires.   R.S.O.  1990,  c. C.33,
-s. 16 (1).
+matter complained of as  the  Registrar  requires.   R.S.O.  1990,  c. C.33,
+s. 16 (1).
 
 Idem
-(2)  The direction under subsection (1) shall indicate the  nature  of  the
-inquiry involved.  R.S.O. 1990, c. C.33, s. 16 (2).
+(2)  The direction under subsection (1) shall indicate  the  nature  of  the
+inquiry involved.  R.S.O. 1990, c. C.33, s. 16 (2).
 
 Idem
-(3)  Repealed: 2023, c. 23, Sched. 2, s. 8.
+(3)  Repealed: 2023, c. 23, Sched. 2, s. 8.
 Section Amendments with date in force (d/m/y)
 2023, c. 23, Sched. 2, s. 8 - 06/12/2023
 
 Inquiry by Registrar
-16.1  (1)  For the purposes of ensuring compliance with this Act  and  the
+16.1  (1)  For the purposes of ensuring compliance with  this  Act  and  the
 regulations, the Registrar, or a  person  designated  by  the  Registrar  in
 writing, may inquire  into,  and  direct  a  consumer  reporting  agency  to
 provide, within  such  time  as  the  Registrar  or  designated  person  may
-specify,  information about the agency's practices in  connection  with  any
+specify,  information about the agency’s practices in  connection  with  any
 of the requirements in this Act and the regulations. 2018, c. 7, s. 9.
 
 Duty to provide information
-(2)  If the Registrar or a designated person  requires  the  production  of
+(2)  If the Registrar or a designated  person  requires  the  production  of
 information from a consumer  reporting  agency  under  subsection  (1),  the
 consumer reporting agency shall provide that information  to  the  Registrar
 or designated person within the specified time. 2018, c. 7, s. 9.
 
 Orders
-(3)  If, after giving the consumer reporting agency an  opportunity  to  be
+(3)  If, after giving the consumer reporting agency  an  opportunity  to  be
 heard, the Registrar determines that a practice of  the  agency  contravenes
 this Act or the regulations, the Registrar may order the agency to amend  or
 discontinue the practice. 2018, c. 7, s. 9.
 
 Limits on orders
-(4)  The Registrar may order no more than what is reasonably  necessary  to
+(4)  The Registrar may order no more than what is  reasonably  necessary  to
 achieve compliance with this Act or the regulations. 2018, c. 7, s. 9.
 
 Appeal
-(5)  If a consumer reporting agency considers itself aggrieved by an  order
+(5)  If a consumer reporting agency considers itself aggrieved by  an  order
 of the Registrar under this section, the agency may apply  to  the  Tribunal
 for a hearing in accordance with the prescribed  procedures  and  section  6
 applies with necessary modifications except as otherwise  specified  by  the
@@ -1117,12 +1117,12 @@ Section Amendments with date in force (d/m/y)
 2018, c. 7, s. 9 - 01/07/2026
 
 Inspection powers
-16.2  (1)  The Registrar or  any  person  designated  in  writing  by  the
+16.2  (1)  The  Registrar  or  any  person  designated  in  writing  by  the
 Registrar may conduct an inspection and may,  as  part  of  the  inspection,
 enter and inspect  at  any  reasonable  time  the  business  premises  of  a
 registrant, other than any part of the premises used as a dwelling, for  the
 purpose of,
-      (a)   ensuring the registrant's  compliance  with  this  Act  and  the
+      (a)   ensuring the registrant’s  compliance  with  this  Act  and  the
     regulations;
       (b)   responding to a complaint  made  against  the  registrant  under
     section 16; or
@@ -1130,15 +1130,15 @@ purpose of,
     2023, c. 23, Sched. 2, s. 9.
 
 Use of force
-(2)  An inspector is not entitled to use force to  enter  and  inspect  the
+(2)  An inspector is not entitled to use force  to  enter  and  inspect  the
 business premises of a registrant. 2023, c. 23, Sched. 2, s. 9.
 
 Identification
-(3)  An inspector shall, upon request, produce evidence of the  inspector's
+(3)  An inspector shall, upon request, produce evidence of  the  inspector’s
 authority to carry out an inspection. 2023, c. 23, Sched. 2, s. 9.
 
 Powers of inspector
-(4)  An inspector conducting an inspection may,
+(4)  An inspector conducting an inspection may,
       (a)   examine a record or other thing that the  inspector  thinks  may
     be relevant to the inspection;
       (b)   require the production of a  record  or  other  thing  that  the
@@ -1152,25 +1152,25 @@ Powers of inspector
     relevant to the inspection. 2023, c. 23, Sched. 2, s. 9.
 
 Obligation to produce and assist
-(5)  If an inspector demands that a record or other thing be produced,  the
+(5)  If an inspector demands that a record or other thing be  produced,  the
 person who has custody of the record or thing shall produce it and,  in  the
 case  of  a  record,  shall  on  request  provide  any  assistance  that  is
 reasonably necessary to interpret the record or to produce it in a  readable
 form. 2023, c. 23, Sched. 2, s. 9.
 
 Records and things removed from premises
-(6)  An inspector who removes a record or other thing under clause (4)  (c)
+(6)  An inspector who removes a record or other thing under clause  (4)  (c)
 shall provide a receipt and return the record or thing to the person  within
 a reasonable time. 2023, c. 23, Sched. 2, s. 9.
 
 Copy admissible in evidence
-(7)  A copy of a record that purports to be certified by  an  inspector  as
+(7)  A copy of a record that purports to be certified  by  an  inspector  as
 being a true copy of the original is admissible  in  evidence  to  the  same
 extent as the original, and has the same evidentiary  value.  2023,  c.  23,
 Sched. 2, s. 9.
 
 Additional contact
-(8)  In addition  to  the  power  to  enter  the  business  premises  of  a
+(8)  In  addition  to  the  power  to  enter  the  business  premises  of  a
 registrant under this section, an inspector may, by any means,  contact  any
 person who manages the operations of  a  registrant  and  may  exercise  the
 powers that the inspector has to conduct an inspection  under  this  section
@@ -1181,13 +1181,13 @@ the inspector establishes that,
     23, Sched. 2, s. 9.
 
 Identification
-(9)  An inspector who establishes contact with a  person  under  subsection
-(8) shall provide a written confirmation to the person  of  the  inspector's
+(9)  An inspector who establishes contact with  a  person  under  subsection
+(8) shall provide a written confirmation to the person  of  the  inspector’s
 authority to conduct the inspection, whether  or  not  there  is  a  request
 under subsection (3). 2023, c. 23, Sched. 2, s. 9.
 
 Time for production
-(10)  If an inspector establishes contact with a  person  under  subsection
+(10)  If an inspector establishes contact with  a  person  under  subsection
 (8) and requires the person to produce a record or other thing under  clause
 (4) (b), the  person  shall  provide  the  record  or  other  thing  to  the
 inspector in the manner specified by  the  inspector  and  within  the  time
@@ -1195,12 +1195,12 @@ specified by the inspector, which shall not be less than 15  days  from  the
 day of the demand to produce. 2023, c. 23, Sched. 2, s. 9.
 
 Duty to assist
-(11)  A person who is contacted by an inspector under subsection (8)  shall
+(11)  A person who is contacted by an inspector under subsection  (8)  shall
 assist the inspector in accordance with subsection (5), subject to the  time
 period mentioned in subsection (10). 2023, c. 23, Sched. 2, s. 9.
 
 Obstruction
-(12)  No person shall,
+(12)  No person shall,
       (a)   hinder,  obstruct  or  interfere  with  or  attempt  to  hinder,
     obstruct or interfere with an inspector conducting an inspection;
       (b)   refuse to answer questions on matters that an  inspector  thinks
@@ -1213,7 +1213,7 @@ Obstruction
     clause (4) (e). 2023, c. 23, Sched. 2, s. 9.
 
 Inspection of non-registrants
-16.3  (1)  If the Registrar has reasonable  grounds  to  believe  that  an
+16.3  (1)  If the Registrar  has  reasonable  grounds  to  believe  that  an
 activity for which registration is required is occurring, the  Registrar  or
 a person designated in writing by the Registrar may  conduct  an  inspection
 and may, as part of the inspection, enter  and  inspect  at  any  reasonable
@@ -1222,7 +1222,7 @@ the premises used as a dwelling, for the purpose of determining whether  the
 person or entity is carrying on the activity. 2023, c. 23, Sched. 2, s. 9.
 
 Application of s. 16.2
-(2)  Subsections 16.2 (2) to (12) apply  to  the  inspection  described  in
+(2)  Subsections 16.2 (2) to (12)  apply  to  the  inspection  described  in
 subsection (1) of this  section,  reading  references  to  a  registrant  as
 references to the person or entity whose business premises  are  subject  to
 the inspection. 2023, c. 23, Sched. 2, s. 9.
@@ -1230,42 +1230,42 @@ Section Amendments with date in force (d/m/y)
 2023, c. 23, Sched. 2, s. 9 - 06/12/2023
 
 Appointment of investigators
-17 (1)  The Director may  appoint  persons  to  be  investigators  for  the
-purposes of conducting investigations.  2006, c. 34, s. 9 (8).
+17 (1)  The Director  may  appoint  persons  to  be  investigators  for  the
+purposes of conducting investigations.  2006, c. 34, s. 9 (8).
 
 Certificate of appointment
-(2)  The Director shall  issue  to  every  investigator  a  certificate  of
+(2)  The Director  shall  issue  to  every  investigator  a  certificate  of
 appointment bearing his or her signature or a facsimile  of  the  signature.
-2006, c. 34, s. 9 (8).
+2006, c. 34, s. 9 (8).
 
 Production of certificate of appointment
-(3)  Every investigator who is conducting an investigation, including under
+(3)  Every investigator who is conducting an investigation, including  under
 section 18, shall, upon request, produce the certificate of  appointment  as
-an investigator.  2006, c. 34, s. 9 (8).
+an investigator.  2006, c. 34, s. 9 (8).
 Section Amendments with date in force (d/m/y)
 2002, c. 30, Sched. E, s. 5 (3) - 30/07/2005
 2006, c. 34, s. 9 (8) - 01/04/2007
 
 Search warrant
-18 (1)  Upon application made without notice by an investigator, a  justice
+18 (1)  Upon application made without notice by an investigator,  a  justice
 of the peace may issue a warrant, if he or she is satisfied  on  information
 under oath that there is reasonable ground for believing that,
       (a)   a person has contravened or is  contravening  this  Act  or  the
     regulations  or  has  committed  an  offence  under  the  law  of   any
-    jurisdiction that is relevant to the person's fitness for  registration
+    jurisdiction that is relevant to the person’s fitness for  registration
     under this Act; and
       (b)   there is,
        (i)    in  any  building,  dwelling,  receptacle  or  place  anything
        relating to the contravention of this Act or the regulations  or  to
-       the person's fitness for registration, or
+       the person’s fitness for registration, or
       (ii)  information or evidence relating to the  contravention  of  this
-       Act or the regulations or the person's fitness for registration that
+       Act or the regulations or the person’s fitness for registration that
        may be obtained through the use of  an  investigative  technique  or
        procedure or the doing of anything described in the warrant.   2006,
-       c. 34, s. 9 (9); 2019, c. 14, Sched. 10, s. 5 (1).
+       c. 34, s. 9 (9); 2019, c. 14, Sched. 10, s. 5 (1).
 
 Powers under warrant
-(2)  Subject to any conditions contained in it, a  warrant  obtained  under
+(2)  Subject to any conditions contained in it,  a  warrant  obtained  under
 subsection (1) authorizes an investigator,
       (a)   to enter or access the building, dwelling, receptacle  or  place
     specified in the warrant and examine and seize  anything  described  in
@@ -1281,109 +1281,109 @@ subsection (1) authorizes an investigator,
     system used in carrying on business in order to produce information  or
     evidence described in the warrant, in any form; and
       (e)   to use any investigative technique or procedure or  do  anything
-    described in the warrant.  2006, c. 34, s. 9 (9); 2019, c. 14, Sched.
+    described in the warrant.  2006, c. 34, s. 9 (9); 2019,  c. 14,  Sched.
     10, s. 5 (1, 2).
 
 Entry of dwelling
-(3)  Despite subsection (2), an investigator shall not exercise  the  power
+(3)  Despite subsection (2), an investigator shall not  exercise  the  power
 under a warrant to enter a place, or part of a place, used  as  a  dwelling,
 unless,
       (a)   the justice of the peace is informed that the warrant  is  being
     sought to authorize entry into a dwelling; and
       (b)    the  justice  of  the  peace  authorizes  the  entry  into  the
-    dwelling.  2006, c. 34, s. 9 (9).
+    dwelling.  2006, c. 34, s. 9 (9).
 
 Conditions on warrant
-(4)  A warrant obtained under subsection (1) shall contain such  conditions
+(4)  A warrant obtained under subsection (1) shall contain  such  conditions
 as the justice of the peace considers advisable to ensure  that  any  search
-authorized by the warrant is reasonable in the circumstances.  2006, c. 34,
-s. 9 (9).
+authorized by the warrant is reasonable in the circumstances.  2006,  c. 34,
+s. 9 (9).
 
 Expert help
-(5)  The  warrant  may  authorize  persons  who  have  special,  expert  or
+(5)  The  warrant  may  authorize  persons  who  have  special,  expert   or
 professional knowledge and other  persons  as  necessary  to  accompany  and
 assist the investigator in respect of the execution of the  warrant.   2006,
-c. 34, s. 9 (9).
+c. 34, s. 9 (9).
 
 Time of execution
-(6)  An entry or access under a warrant issued under this section shall  be
+(6)  An entry or access under a warrant issued under this section  shall  be
 made between 6 a.m. and 9 p.m.,  unless  the  warrant  specifies  otherwise.
-2006, c. 34, s. 9 (9).
+2006, c. 34, s. 9 (9).
 
 Expiry of warrant
-(7)  A warrant issued under this section shall name a date of expiry, which
+(7)  A warrant issued under this section shall name a date of expiry,  which
 shall be no later than 30 days after the warrant is issued,  but  a  justice
 of the peace may extend the date of expiry for an additional  period  of  no
 more than 30 days, upon  application  without  notice  by  an  investigator.
-2006, c. 34, s. 9 (9).
+2006, c. 34, s. 9 (9).
 
 Use of force
-(8)  An investigator may  call  upon  police  officers  for  assistance  in
+(8)  An investigator  may  call  upon  police  officers  for  assistance  in
 executing the warrant  and  the  investigator  may  use  whatever  force  is
-reasonably necessary to execute the warrant.  2006, c. 34, s. 9 (9).
+reasonably necessary to execute the warrant.  2006, c. 34, s. 9 (9).
 
 No obstruction
-(9)  No person shall obstruct an investigator  executing  a  warrant  under
+(9)  No person shall obstruct an  investigator  executing  a  warrant  under
 this section or withhold from him  or  her  or  conceal,  alter  or  destroy
 anything relevant to the  investigation  being  conducted  pursuant  to  the
-warrant.  2006, c. 34, s. 9 (9).
+warrant.  2006, c. 34, s. 9 (9).
 
 Compliance
-(10)  If an investigator under clause (2) (c) requires a person to  produce
+(10)  If an investigator under clause (2) (c) requires a person  to  produce
 evidence or information or to provide assistance, the person  shall  produce
 the evidence or information or provide the assistance, as the case  may  be.
 2019, c. 14, Sched. 10, s. 5 (3).
 
 Copies of seized items
-(11)  An investigator who seizes any thing under this  section  or  section
+(11)  An investigator who seizes any thing under  this  section  or  section
 18.1 may make a copy of it. 2019, c. 14, Sched. 10, s. 5 (3).
 
 Admissibility
-(12)  A copy of a document or record certified by an investigator as  being
+(12)  A copy of a document or record certified by an investigator  as  being
 a true copy of the original is admissible in evidence to the same extent  as
-the original and has the same evidentiary value.  2006, c. 34, s. 9 (9).
+the original and has the same evidentiary value.  2006, c. 34, s. 9 (9).
 Section Amendments with date in force (d/m/y)
 2006, c. 34, s. 9 (9) - 01/04/2007
 2019, c. 14, Sched. 10, s. 5 (1-3) - 10/12/2019
 
 Seizure of things not specified
-18.1  An investigator who is lawfully present in  a  place  pursuant  to  a
+18.1  An investigator who is lawfully present  in  a  place  pursuant  to  a
 warrant or otherwise in the execution of his or her duties  may,  without  a
 warrant, seize anything in plain view  that  the  investigator  believes  on
 reasonable grounds will afford evidence relating to a contravention of  this
-Act or the regulations.  2006, c. 34, s. 9 (9).
+Act or the regulations.  2006, c. 34, s. 9 (9).
 Section Amendments with date in force (d/m/y)
 2006, c. 34, s. 9 (9) - 01/04/2007
 
 Searches in exigent circumstances
-18.2  (1)  An investigator may exercise any of  the  powers  described  in
+18.2  (1)  An investigator may exercise  any  of  the  powers  described  in
 subsection 18 (2) without a warrant if  the  conditions  for  obtaining  the
 warrant  exist  but  by  reason  of  exigent  circumstances  it   would   be
-impracticable to obtain the warrant.  2006, c. 34, s. 9 (9).
+impracticable to obtain the warrant.  2006, c. 34, s. 9 (9).
 
 Dwellings
-(2)  Subsection (1) does not apply to a building or part of a building that
-is being used as a dwelling.  2006, c. 34, s. 9 (9).
+(2)  Subsection (1) does not apply to a building or part of a building  that
+is being used as a dwelling.  2006, c. 34, s. 9 (9).
 
 Use of force
-(3)  The investigator  may,  in  executing  any  authority  given  by  this
+(3)  The  investigator  may,  in  executing  any  authority  given  by  this
 section, call upon police officers for assistance and use whatever force  is
-reasonably necessary.  2006, c. 34, s. 9 (9).
+reasonably necessary.  2006, c. 34, s. 9 (9).
 
 Applicability of s. 18
-(4)  Subsections 18 (5), (9), (10), (11)  and  (12)  apply  with  necessary
-modifications to a search under this section.  2006, c. 34, s. 9 (9).
+(4)  Subsections 18 (5), (9), (10),  (11)  and  (12)  apply  with  necessary
+modifications to a search under this section.  2006, c. 34, s. 9 (9).
 Section Amendments with date in force (d/m/y)
 2006, c. 34, s. 9 (9) - 01/04/2007
 
 Report when things seized
-18.3  (1)  An investigator who seizes any thing  under  the  authority  of
+18.3  (1)  An investigator who seizes  any  thing  under  the  authority  of
 section 18, 18.1 or 18.2 shall bring it before a justice of  the  peace  or,
 if that is not reasonably possible, shall report the seizure  to  a  justice
 of the peace. 2019, c. 14, Sched. 10, s. 5 (4).
 
 Procedure
-(2)  Sections 159 and  160  of  the  Provincial  Offences  Act  apply  with
+(2)  Sections 159  and  160  of  the  Provincial  Offences  Act  apply  with
 necessary modifications in respect of a thing seized under the authority  of
 section 18, 18.1 or 18.2 of this Act, reading the  reference  in  subsection
 160 (1) of that Act to a document that a  person  is  about  to  examine  or
@@ -1396,7 +1396,7 @@ Section Amendments with date in force (d/m/y)
                                    General
 
 CONFIDENTIALITY
-19 (1)  A person who obtains information in  the  course  of  exercising  a
+19 (1)  A person who obtains information  in  the  course  of  exercising  a
 power or carrying out a duty related to the administration of  this  Act  or
 the regulations shall preserve secrecy with respect to the  information  and
 shall not communicate the information to any person except,
@@ -1415,66 +1415,66 @@ shall not communicate the information to any person except,
       (d)   to a law enforcement agency;
       (e)   to his, her or its counsel; or
       (f)   with the consent of the person to whom the information  relates.
-     2004, c. 19, s. 9 (2); 2007, c. 4, s. 28.
+     2004, c. 19, s. 9 (2); 2007, c. 4, s. 28.
 
 Testimony
-(2)  Except in a proceeding under this Act, no person shall be required  to
+(2)  Except in a proceeding under this Act, no person shall be  required  to
 give testimony in a civil proceeding with regard to information obtained  in
 the course of exercising a power or carrying  out  a  duty  related  to  the
-administration of this Act or the regulations.  2004, c. 19, s. 9 (2).
+administration of this Act or the regulations.  2004, c. 19, s. 9 (2).
 Section Amendments with date in force (d/m/y)
 2004, c. 19, s. 9 (2) - 31/03/2007
 2006, c. 34, s. 9 (10, 11) - 01/04/2007
 2007, c. 4, s. 28 - 17/01/2008
 
 Service
-20 (1)  Any notice or order required to be given, delivered or served under
+20 (1)  Any notice or order required to be given, delivered or served  under
 this Act or the regulations is sufficiently given, delivered  or  served  if
 it is,
       (a)   delivered personally;
       (b)   sent  by  registered  mail  addressed  to  the  person  to  whom
-    delivery or service is required to be made at the person's  last  known
+    delivery or service is required to be made at the person’s  last  known
     address;
       (c)   sent by ordinary mail addressed to the person to  whom  delivery
-    or service is required to be made at the person's last  known  address,
+    or service is required to be made at the person’s last  known  address,
     in the case of a notice that is required  to  be  given,  delivered  or
     served under section 10, 13 or 15; or
       (d)   sent by another manner if the sender can prove  receipt  of  the
     notice or order. 2019, c. 7, Sched. 14, s. 1.
 
 Idem
-(2)  Where service is made by mail, the service shall be deemed to be  made
+(2)  Where service is made by mail, the service shall be deemed to  be  made
 on the third day after the day of mailing unless the person on whom  service
 is being made establishes that the person did not,  acting  in  good  faith,
-through absence, accident,  illness  or  other  cause  beyond  the  person's
+through absence, accident,  illness  or  other  cause  beyond  the  person’s
 control receive the notice or  order  until  a  later  date.   R.S.O.  1990,
-c. C.33, s. 20 (2).
+c. C.33, s. 20 (2).
 Section Amendments with date in force (d/m/y)
 2019, c. 7, Sched. 14, s. 1 - 29/05/2019
 
 Restraining order
-21 (1)  Where it appears to the Director that any person  does  not  comply
+21 (1)  Where it appears to the Director that any  person  does  not  comply
 with any provision of this Act, the regulations or an order made under  this
 Act, despite  the  imposition  of  any  penalty  in  respect  of  such  non-
 compliance and in addition to any other rights  he  or  she  may  have,  the
 Director may apply to the Superior Court of Justice for an  order  directing
 such person to comply with such provision, and  upon  the  application,  the
 court may make such order or such other  order  as  the  court  thinks  fit.
-R.S.O. 1990, c. C.33, s. 21 (1); 2001, c. 9, Sched. D, s. 14.
+R.S.O. 1990, c. C.33, s. 21 (1); 2001, c. 9, Sched. D, s. 14.
 
 Appeal
-(2)  An appeal lies to the  Divisional  Court  from  an  order  made  under
-subsection (1).  R.S.O. 1990, c. C.33, s. 21 (2).
+(2)  An appeal lies to  the  Divisional  Court  from  an  order  made  under
+subsection (1).  R.S.O. 1990, c. C.33, s. 21 (2).
 Section Amendments with date in force (d/m/y)
 2001, c. 9, Sched. D, s. 14 - 29/06/2001
 
 False information
 22 No person shall knowingly  supply  false  or  misleading  information  to
-another who is engaged in making a consumer report.  R.S.O. 1990,  c. C.33,
-s. 22.
+another who is engaged in making a consumer report.  R.S.O.  1990,  c. C.33,
+s. 22.
 
 Offences
-23 (1)  Every person who,
+23 (1)  Every person who,
       (a)   knowingly, furnishes false information in any application  under
     this Act or in any statement or return required to be  furnished  under
     this Act or the regulations;
@@ -1484,45 +1484,45 @@ Offences
 and every director or officer of a  corporation  who  knowingly  concurs  in
 such furnishing, failure or contravention is guilty of  an  offence  and  on
 conviction is liable to a fine of not more than $50,000 or  to  imprisonment
-for a term of not more than one year, or to both.   R.S.O.  1990,  c. C.33,
-s. 23 (1); 2023, c. 23, Sched. 2, s. 10 (1).
+for a term of not more than one year, or to  both.   R.S.O.  1990,  c. C.33,
+s. 23 (1); 2023, c. 23, Sched. 2, s. 10 (1).
 
 Corporations
-(2)  Where a corporation is convicted of an offence under  subsection (1),
+(2)  Where a corporation is convicted of an  offence  under  subsection (1),
 the maximum penalty that may be imposed upon  the  corporation  is  $250,000
-and not as provided therein.  R.S.O. 1990, c. C.33, s. 23 (2); 2023, c. 23,
+and not as provided therein.  R.S.O. 1990, c. C.33, s. 23 (2); 2023, c.  23,
 Sched. 2, s. 10 (2).
 
 Limitation
-(3)  No proceeding under clause (1) (a) shall be commenced more  than  one
+(3)  No proceeding under clause (1) (a) shall be  commenced  more  than  one
 year after the facts upon which the proceeding is based first  came  to  the
-knowledge of the Director.  R.S.O. 1990, c. C.33, s. 23 (3).
+knowledge of the Director.  R.S.O. 1990, c. C.33, s. 23 (3).
 
 Idem
-(4)  No proceeding under clause (1) (b) or (c) shall be commenced more than
+(4)  No proceeding under clause (1) (b) or (c) shall be commenced more  than
 two years after the time when the subject-matter of  the  proceeding  arose.
-R.S.O. 1990, c. C.33, s. 23 (4).
+R.S.O. 1990, c. C.33, s. 23 (4).
 Section Amendments with date in force (d/m/y)
 2023, c. 23, Sched. 2, s. 10 (1, 2) - 06/12/2023
 
 Liability for contravention of Act or regulations
-23.1 (1)  A person who contravenes this Act or the regulations is liable to
+23.1 (1)  A person who contravenes this Act or the regulations is liable  to
 a consumer for any damages sustained by the consumer  as  a  result  of  the
 contravention. 2023, c. 23, Sched. 2, s. 11.
 
 Consumer right of action in Superior Court of Justice
-(2)  A consumer has a right to commence an action for the damages  referred
+(2)  A consumer has a right to commence an action for the  damages  referred
 to in subsection (1) and  the  consumer  may  commence  the  action  in  the
 Superior Court of Justice. 2023, c. 23, Sched. 2, s. 11.
 
 Same
-(3)  This section applies in addition to any other remedy available by  law
+(3)  This section applies in addition to any other remedy available  by  law
 to the consumer. 2023, c. 23, Sched. 2, s. 11.
 Section Amendments with date in force (d/m/y)
 2023, c. 23, Sched. 2, s. 11 - 06/12/2023
 
 Certificate as evidence
-24 (1)  A statement as to,
+24 (1)  A statement as to,
       (a)   the registration or non-registration of any person;
       (b)   the filing or non-filing of any document  or  material  required
     or permitted to be filed with the Registrar;
@@ -1533,15 +1533,15 @@ Certificate as evidence
 purporting to be certified by the Director is, without proof of  the  office
 or signature of the Director,  admissible  in  evidence  as  proof,  in  the
 absence of evidence to the contrary, of the facts  stated  therein.   R.S.O.
-1990, c. C.33, s. 24 (1).
+1990, c. C.33, s. 24 (1).
 
-Proof of Minister's signature
-(2)  Any document under this Act purporting to be signed by  the  Minister,
+Proof of Minister’s signature
+(2)  Any document under this Act purporting to be signed  by  the  Minister,
 or any certified copy thereof, is admissible  in  evidence  in  any  action,
 prosecution or other proceeding as proof, in the absence of evidence to  the
 contrary, that the document is signed by the Minister without proof  of  the
-office or signature of the Minister.  R.S.O. 1990, c. C.33, s. 24 (2).
-24.1  Repealed: 2018, c. 7, s. 10.
+office or signature of the Minister.  R.S.O. 1990, c. C.33, s. 24 (2).
+24.1  Repealed: 2018, c. 7, s. 10.
 Section Amendments with date in force (d/m/y)
 1998, c. 18, Sched. E, s. 57 - 18/12/1998
 2018, c. 7, s. 10 - 01/07/2026
@@ -1556,7 +1556,7 @@ Regulations
       (a.1) Repealed: 2023, c. 23, Sched. 2, s. 12 (2).
        (b)    governing  applications  for  registration   or   renewal   of
     registration and prescribing terms and conditions of registration;
-      (c)   Repealed:  1998, c. 18, Sched. E, s. 58 (1).
+      (c)   Repealed:  1998, c. 18, Sched. E, s. 58 (1).
       (d)   requiring registered consumer reporting agencies  to  be  bonded
     in such form and  terms  and  with  such  collateral  security  as  are
     prescribed,  and  providing  for  the  forfeiture  of  bonds  and   the
@@ -1601,7 +1601,7 @@ Regulations
       (iv)  governing the fees a consumer reporting agency  may  require  to
        be  paid  under  subsection  12.1  (10),  including  providing   for
        circumstances in which fees may not be charged,
-      (v)   defining "extension of credit" or "loaning  of  money"  for  the
+      (v)   defining “extension of credit” or “loaning  of  money”  for  the
        purposes of clause 12.3 (3) (a) and prescribing  other  transactions
        for the purposes of clause 12.3 (3) (b),
       (vi)  providing for  exemptions  from  section  12.1,  12.2  or  12.3,
@@ -1634,21 +1634,21 @@ Regulations
     programs;
        (r)    governing  the  payment  of  fees  for  an   application   for
     registration  or  a  renewal  of  registration  under  this   Act   and
-    prescribing the amount of those fees. R.S.O.  1990,  c. C.33,  s. 25;
-    1998, c. 18, Sched. E, s. 58 (1); 2000, c. 26, Sched. B, s. 8 (4);
-    2004, c. 19, s. 9 (3); 2006, c. 34, s. 9 (13); 2009, c. 33, Sched. 10,
-    s. 4 (3); 2018, c. 7, s. 1, 11; 2023, c. 23, Sched. 2, s. 12.
+    prescribing the amount of those  fees.  R.S.O.  1990,  c. C.33,  s. 25;
+    1998, c. 18, Sched. E, s. 58 (1);  2000,  c. 26,  Sched.  B,  s. 8 (4);
+    2004, c. 19, s. 9 (3); 2006, c. 34, s. 9 (13); 2009, c. 33,  Sched. 10,
+    s. 4 (3); 2018, c. 7, s. 1, 11; 2023, c. 23, Sched. 2, s. 12.
 Note:   Regulations  made  under  clause  25  (c),  as  that   clause   read
 immediately before December 18, 1998, continue in force until  the  Minister
 makes an order under section 24.1, as enacted by the  Statutes  of  Ontario,
 1998, chapter 18, Schedule E, section 57,  that  is  inconsistent  with  the
-regulations.  See:  1998, c. 18, Sched. E, s. 58 (2).
+regulations.  See:  1998, c. 18, Sched. E, s. 58 (2).
 Note:   The  Lieutenant  Governor  in  Council  may  by  regulation   revoke
 regulations made under clause  25  (c),  as  that  clause  read  immediately
 before December 18, 1998, if the  Minister  makes  an  order  under  section
 24.1, as enacted by the Statutes of Ontario, 1998, chapter 18,  Schedule  E,
 section 57, that  is  inconsistent  with  those  regulations.   See:   1998,
-c. 18, Sched. E, s. 58 (3).
+c. 18, Sched. E, s. 58 (3).
 Section Amendments with date in force (d/m/y)
 1998, c. 18, Sched. E, s. 58 (1-3) - 18/12/1998
 2000, c. 26, Sched. B, s. 8 (4) - 06/12/2000
@@ -1660,6 +1660,6 @@ Section Amendments with date in force (d/m/y)
 (2-5) - 01/07/2026
                                ______________
 
-Fran�ais
+Français
 
 Back to top

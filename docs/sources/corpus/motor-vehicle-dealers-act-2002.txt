@@ -1,5 +1,5 @@
 
-Fran�ais
+Français
                        Motor Vehicle Dealers Act, 2002
 
                             S.O. 2002, chapter 30
@@ -81,7 +81,7 @@ Sched. 10.
 |42.         |COMPENSATION FUND                                                 |
 |PART IX                                                                        |
 |REGULATIONS                                                                    |
-|43.         |MINISTER'S REGULATIONS                                            |
+|43.         |MINISTER’S REGULATIONS                                            |
 |44.         |LIEUTENANT GOVERNOR IN COUNCIL REGULATIONS                        |
 
 
@@ -91,62 +91,62 @@ Sched. 10.
                                interpretation
 
 INTERPRETATION
-1 (1)  In this Act,
-"administrative authority" means the administrative authority as  designated
+1 (1)  In this Act,
+“administrative authority” means the administrative authority as  designated
  under section 3 of the Safety and Consumer  Statutes  Administration  Act,
- 1996  for   the   purpose   of   administering   this   Act;   ("organisme
- d'application")
-"employ" means to employ, appoint, authorize or otherwise  arrange  to  have
- another  person  act  on  one's  behalf,  including  as   an   independent
- contractor; ("employer")
-"equity share" means, in respect of a corporation, a share  of  a  class  or
+ 1996  for   the   purpose   of   administering   this   Act;   (“organisme
+ d’application”)
+“employ” means to employ, appoint, authorize or otherwise  arrange  to  have
+ another  person  act  on  one’s  behalf,  including  as   an   independent
+ contractor; (“employer”)
+“equity share” means, in respect of a corporation, a share  of  a  class  or
  series of shares of a corporation that carries a voting right either under
  all circumstances or  under  circumstances  that  have  occurred  and  are
- continuing; ("action participante")
-"Fund" means the Motor Vehicle Dealers  Compensation  Fund  continued  under
- section 42; ("Fonds")
-"investigator" means an investigator  appointed  under  subsection  18  (1);
- ("enqu�teur")
-"Minister" means the Minister of Consumer  and  Business  Services  or  such
+ continuing; (“action participante”)
+“Fund” means the Motor Vehicle Dealers  Compensation  Fund  continued  under
+ section 42; (“Fonds”)
+“investigator” means an investigator  appointed  under  subsection  18  (1);
+ (“enquêteur”)
+“Minister” means the Minister of Consumer  and  Business  Services  or  such
  other member of the Executive Council to whom the administration  of  this
- Act is assigned under the Executive Council Act; ("ministre")
-"motor vehicle" means an automobile, truck or  other  vehicle  propelled  or
+ Act is assigned under the Executive Council Act; (“ministre”)
+“motor vehicle” means an automobile, truck or  other  vehicle  propelled  or
  driven otherwise than by muscular power, including a motorcycle,  but  not
  including a motorized snow vehicle  or  a  farm  tractor  or  other  self-
  propelled  machinery  primarily  intended  for  farming  or   construction
- purposes; ("v�hicule automobile")
-"motor vehicle dealer" means a person who trades in motor vehicles,  whether
- for the person's own account or the account of any other  person,  or  who
+ purposes; (“véhicule automobile”)
+“motor vehicle dealer” means a person who trades in motor vehicles,  whether
+ for the person’s own account or the account of any other  person,  or  who
  holds himself, herself  or  itself  out  as  trading  in  motor  vehicles;
- ("commer�ant de v�hicules automobiles")
-"officer" includes the chair and any vice-chair of the board  of  directors,
+ (“commerçant de véhicules automobiles”)
+“officer” includes the chair and any vice-chair of the board  of  directors,
  the  president  and  any  vice-president,  the  secretary  and   assistant
  secretary, the treasurer and assistant treasurer and the  general  manager
  and the assistant general manager of  the  corporation  or  a  partner  or
  general manager and assistant general manager of a partnership, any  other
  individual designated as an officer by by-law or resolution or  any  other
  individual who performs functions  normally  performed  by  an  individual
- occupying such office; ("dirigeant")
-"prescribed"  means  prescribed  by  regulations  made   under   this   Act;
- ("prescrit")
-"registrant" means a motor vehicle dealer or salesperson that is  registered
- under this Act; ("personne inscrite")
-"regulations" means regulations made under this Act; ("r�glements")
-"salesperson" means an individual who is employed by a motor vehicle  dealer
+ occupying such office; (“dirigeant”)
+“prescribed”  means  prescribed  by  regulations  made   under   this   Act;
+ (“prescrit”)
+“registrant” means a motor vehicle dealer or salesperson that is  registered
+ under this Act; (“personne inscrite”)
+“regulations” means regulations made under this Act; (“règlements”)
+“salesperson” means an individual who is employed by a motor vehicle  dealer
  to trade in  motor  vehicles  on  behalf  of  the  motor  vehicle  dealer;
- ("vendeur")
-"trade" includes buying, selling,  leasing,  advertising  or  exchanging  an
+ (“vendeur”)
+“trade” includes buying, selling,  leasing,  advertising  or  exchanging  an
  interest in a motor vehicle or negotiating or inducing  or  attempting  to
  induce the buying, selling, leasing or exchanging  of  an  interest  in  a
- motor vehicle, and "trade"  when  used  as  a  noun  has  a  corresponding
- meaning; ("faire le commerce", "op�ration", "commerce")
-"Tribunal" means the Licence Appeal Tribunal established under  the  Licence
+ motor vehicle, and “trade”  when  used  as  a  noun  has  a  corresponding
+ meaning; (“faire le commerce”, “opération”, “commerce”)
+“Tribunal” means the Licence Appeal Tribunal established under  the  Licence
  Appeal Tribunal Act, 1999 or such other tribunal  as  may  be  prescribed.
- ("Tribunal")  2002, c. 30, Sched. B, s. 1 (1); 2004, c. 19, s. 16 (1);
- 2006, c. 34, s. 17 (1).
+ (“Tribunal”)  2002, c. 30, Sched. B,  s. 1 (1);  2004,  c. 19,  s. 16 (1);
+ 2006, c. 34, s. 17 (1).
 
 Associated persons
-(2)  For purposes of this Act, one person is associated with another person
+(2)  For purposes of this Act, one person is associated with another  person
 in any of the following circumstances:
       1.    One person is a corporation of which  the  other  person  is  an
     officer or director.
@@ -161,7 +161,7 @@ in any of the following circumstances:
       6.    Both persons are members of the same voting  trust  relating  to
     shares of a corporation.
       7.    Both persons are associated within the meaning of  paragraphs  1
-    to 6 with the same person.  2004, c. 19, s. 16 (2).
+    to 6 with the same person.  2004, c. 19, s. 16 (2).
 Section Amendments with date in force (d/m/y)
 2004, c. 19, s. 16 (1, 2) - 01/01/2010
 2006, c. 34, s. 17 (1) - 01/01/2010
@@ -172,54 +172,54 @@ s. 21 - 14/07/2020
                                   Officers
 
 DIRECTOR
-2 (1)  Subject to subsection (2), a director shall  be  appointed  for  the
+2 (1)  Subject to subsection (2), a director  shall  be  appointed  for  the
 purposes of  this  Act  and  a  maximum  of  two  deputy  directors  may  be
 appointed,
       (a)   by the board of the administrative authority; or
       (b)   by  the  Minister  if  there  is  no  designated  administrative
-    authority.  2002, c. 30, Sched. B, s. 2 (1).
+    authority.  2002, c. 30, Sched. B, s. 2 (1).
 
 Director cannot be registrar
-(2)  A person appointed as  the  registrar  or  a  deputy  registrar  under
+(2)  A person appointed  as  the  registrar  or  a  deputy  registrar  under
 subsection 3 (1) shall  not  be  appointed  as  the  director  or  a  deputy
-director under subsection (1).  2002, c. 30, Sched. B, s. 2 (2).
+director under subsection (1).  2002, c. 30, Sched. B, s. 2 (2).
 
 Deputy director, duties
-(3)  A deputy director shall perform such duties as  are  assigned  by  the
-director and shall act as director in his or  her  absence.   2002,  c. 30,
-Sched. B, s. 2 (3).
+(3)  A deputy director shall perform such duties  as  are  assigned  by  the
+director and shall act as director in his  or  her  absence.   2002,  c. 30,
+Sched. B, s. 2 (3).
 
 Deputy director
-(4)  If more than  one  deputy  director  is  appointed,  only  one  deputy
+(4)  If more  than  one  deputy  director  is  appointed,  only  one  deputy
 director may act as the director under  subsection  (3)  at  any  one  time.
-2002, c. 30, Sched. B, s. 2 (4).
+2002, c. 30, Sched. B, s. 2 (4).
 Section Amendments with date in force (d/m/y)
 2012, c. 8, Sched. 11, s. 49 (5) - no effect - see 2020, c. 14, Sched. 8,
 s. 21 - 14/07/2020
 
 Registrar
-3 (1)  Subject to subsection (2), a registrar  shall  be  appointed  and  a
+3 (1)  Subject to subsection (2), a  registrar  shall  be  appointed  and  a
 maximum of two deputy registrars may be appointed,
       (a)   by the board of the designated administrative authority; or
       (b)    by  the  deputy  minister  to  the  Minister  if  there  is  no
-    designated administrative authority.  2002, c. 30, Sched. B, s. 3 (1).
+    designated administrative authority.  2002, c. 30, Sched. B, s. 3 (1).
 
 Registrar cannot be director
-(2)  A person appointed as the director or deputy director under subsection
+(2)  A person appointed as the director or deputy director under  subsection
 2 (1) shall not be appointed as the registrar or a  deputy  registrar  under
-subsection (1).  2002, c. 30, Sched. B, s. 3 (2).
+subsection (1).  2002, c. 30, Sched. B, s. 3 (2).
 
 Powers and duties
-(3)  The registrar shall exercise the powers and perform the duties imposed
+(3)  The registrar shall exercise the powers and perform the duties  imposed
 on him or her under this Act and  a  deputy  registrar  shall  perform  such
 duties as are assigned by the registrar and shall act as  the  registrar  in
-the registrar's absence.  2002, c. 30, Sched. B, s. 3 (3); 2009, c. 33,
-Sched. 10, s. 10 (1).
+the registrar’s absence.  2002,  c. 30,  Sched. B,  s. 3 (3);  2009,  c. 33,
+Sched. 10, s. 10 (1).
 
 Deputy registrar
-(4)  If more than one deputy registrar has been appointed, only one  deputy
+(4)  If more than one deputy registrar has been appointed, only  one  deputy
 registrar may act as the registrar under subsection (3)  at  any  one  time.
-2002, c. 30, Sched. B, s. 3 (4).
+2002, c. 30, Sched. B, s. 3 (4).
 Section Amendments with date in force (d/m/y)
 2009, c. 33, Sched. 10, s. 10 (1) - 01/01/2010
 2012, c. 8, Sched. 11, s. 49 (5) - no effect - see 2020, c.  14,  Sched.  8,
@@ -229,67 +229,67 @@ s. 21 - 14/07/2020
                           Prohibitions re: Practice
 
 PROHIBITION
-4 (1)  No person shall,
+4 (1)  No person shall,
       (a)   act as a motor vehicle dealer unless the  person  is  registered
     as a motor vehicle dealer under this Act; or
       (b)   act as a salesperson  unless  he  or  she  is  registered  as  a
-    salesperson.  2002, c. 30, Sched. B, s. 4 (1).
+    salesperson.  2002, c. 30, Sched. B, s. 4 (1).
 
 Name and place of business
-(2)  A motor vehicle dealer shall not,
+(2)  A motor vehicle dealer shall not,
       (a)   carry on business in a name other than the  name  in  which  the
     motor vehicle dealer is registered; or
       (b)   invite the public to deal in a place other than the  place  that
     is authorized in the registration of the motor vehicle  dealer.   2002,
-    c. 30, Sched. B, s. 4 (2).
+    c. 30, Sched. B, s. 4 (2).
 
 Unregistered salesperson
-(3)  A motor vehicle dealer shall not retain the services of a  salesperson
-unless the salesperson  is  registered  in  that  capacity.   2002,  c. 30,
-Sched. B, s. 4 (3).
+(3)  A motor vehicle dealer shall not retain the services of  a  salesperson
+unless the  salesperson  is  registered  in  that  capacity.   2002,  c. 30,
+Sched. B, s. 4 (3).
 
 Supply to unregistered person
-(4)  A motor vehicle dealer shall not  supply  motor  vehicles  to  another
+(4)  A motor vehicle dealer shall  not  supply  motor  vehicles  to  another
 motor vehicle dealer for the purpose of trading  in  motor  vehicles  unless
 the other motor vehicle  dealer  is  registered  in  that  capacity.   2002,
-c. 30, Sched. B, s. 4 (4).
+c. 30, Sched. B, s. 4 (4).
 
 Salespersons
-(5)  A salesperson shall not trade a motor vehicle on  behalf  of  a  motor
+(5)  A salesperson shall not trade a motor vehicle  on  behalf  of  a  motor
 vehicle dealer unless the salesperson is registered to that  dealer.   2002,
-c. 30, Sched. B, s. 4 (5).
+c. 30, Sched. B, s. 4 (5).
 
 Exemption
 5 An individual who trades in a motor vehicle on his or her own  account  or
-on the account of a member of the individual's family  is  exempt  from  the
+on the account of a member of the individual’s family  is  exempt  from  the
 registration requirements under section 4, if  the  motor  vehicle  is  used
 primarily for the personal use of the individual or a member of his  or  her
-family.  2002, c. 30, Sched. B, s. 5.
+family.  2002, c. 30, Sched. B, s. 5.
 
                                    Part IV
                                 Registration
 
 REGISTRATION PROHIBITED
-5.1 (1)  If an applicant for registration or renewal of  registration  does
+5.1 (1)  If an applicant for registration or renewal  of  registration  does
 not meet the prescribed requirements, the registrar shall  refuse  to  grant
-or renew the registration.  2004, c. 19, s. 16 (3).
+or renew the registration.  2004, c. 19, s. 16 (3).
 
 Non-application
-(2)  Section 9 does not apply to a refusal under subsection (1) to grant or
-renew a registration.  2004, c. 19, s. 16 (3).
+(2)  Section 9 does not apply to a refusal under subsection (1) to grant  or
+renew a registration.  2004, c. 19, s. 16 (3).
 
 Notice of refusal
-(3)  The registrar shall give the applicant written  notice  of  a  refusal
+(3)  The registrar shall give the applicant  written  notice  of  a  refusal
 under  subsection  (1),  setting  out  the  reasons  for  the  refusal   and
-subsection 37 (3) does not apply to the notice.  2004, c. 19, s. 16 (3).
+subsection 37 (3) does not apply to the notice.  2004, c. 19, s. 16 (3).
 Section Amendments with date in force (d/m/y)
 2004, c. 19, s. 16 (3) - 01/01/2010
 
 Registration
-6 (1)  An applicant that meets the prescribed requirements is  entitled  to
+6 (1)  An applicant that meets the prescribed requirements  is  entitled  to
 registration or renewal of registration by the registrar unless,
       (a)   the applicant is not a corporation and,
-      (i)   having regard to  the  applicant's  financial  position  or  the
+      (i)   having regard to  the  applicant’s  financial  position  or  the
        financial position  of  an  interested  person  in  respect  of  the
        applicant,  the  applicant  cannot  reasonably  be  expected  to  be
        financially responsible in the conduct of business,
@@ -300,7 +300,7 @@ registration or renewal of registration by the registrar unless,
       (iii) the applicant or an employee or agent of the applicant  makes  a
        false statement or provides a false statement in an application  for
        registration or for renewal of registration;
-      (b), (c)   Repealed:  2004, c. 19, s. 16 (5).
+      (b), (c)   Repealed:  2004, c. 19, s. 16 (5).
       (d)   the applicant is a corporation and,
       (i)   having  regard  to  its  financial  position  or  the  financial
        position of an interested person in respect of the corporation,  the
@@ -326,11 +326,11 @@ registration or renewal of registration by the registrar unless,
       (f)   the applicant is in breach of a condition of  the  registration;
     or
       (g)   the applicant fails  to  comply  with  a  request  made  by  the
-    registrar under subsection (1.1).  2002, c. 30, Sched. B, s. 6 (1);
-    2004, c. 19, s. 16 (4-6).
+    registrar under subsection (1.1).   2002,  c. 30,  Sched. B,  s. 6 (1);
+    2004, c. 19, s. 16 (4-6).
 
 Request for information
-(1.1)  The registrar may request an applicant for registration  or  renewal
+(1.1)  The registrar may request an applicant for  registration  or  renewal
 of registration to provide to the registrar, in  the  form  and  within  the
 time period specified by the registrar,
       (a)   information specified by the registrar that is relevant  to  the
@@ -338,33 +338,33 @@ time period specified by the registrar,
     registration or renewal;
       (b)   verification, by affidavit  or  otherwise,  of  any  information
     described in clause (a) that the applicant is providing or has provided
-    to the registrar.  2004, c. 19, s. 16 (7).
+    to the registrar.  2004, c. 19, s. 16 (7).
 
 Conditions
-(2)  A registration is subject to such conditions as are  consented  to  by
+(2)  A registration is subject to such conditions as  are  consented  to  by
 the applicant or registrant, as are applied by the registrar  under  section
-9, as are ordered by the Tribunal  or  as  are  prescribed.   2002,  c. 30,
-Sched. B, s. 6 (2).
+9, as are ordered by the  Tribunal  or  as  are  prescribed.   2002,  c. 30,
+Sched. B, s. 6 (2).
 
 Registration not transferable
-(3)  A registration is not transferable.  2002, c. 30, Sched. B, s. 6 (3).
+(3)  A registration is not transferable.  2002, c. 30, Sched. B, s. 6 (3).
 
 Interested person
-(4)  For the purposes of this section, a person shall be deemed  to  be  an
+(4)  For the purposes of this section, a person shall be  deemed  to  be  an
 interested person in respect of another person if the person  is  associated
 with the other person or if, in the opinion of the registrar,
       (a)   the person has or may have a beneficial interest  in  the  other
-    person's business;
+    person’s business;
       (b)   the person exercises or may exercise control either directly  or
     indirectly over the other person; or
       (c)   the person has provided or may have  provided  financing  either
-    directly or indirectly to the other person's business.   2002,  c. 30,
-    Sched. B, s. 6 (4); 2004, c. 19, s. 16 (8).
+    directly or indirectly to the other person’s  business.   2002,  c. 30,
+    Sched. B, s. 6 (4); 2004, c. 19, s. 16 (8).
 Section Amendments with date in force (d/m/y)
 2004, c. 19, s. 16 (4-8) - 01/01/2010
 
 Registration of corporation
-7 (1)  When it registers and on each renewal of its registration,  a  motor
+7 (1)  When it registers and on each renewal of its  registration,  a  motor
 vehicle dealer that is a corporation shall disclose  to  the  registrar  the
 identity of,
       (a)   each person that beneficially owns or controls 10  per  cent  or
@@ -373,135 +373,135 @@ identity of,
       (b)   persons that are associated with each other  and  that  together
     beneficially own or control 10 per cent or more of  the  equity  shares
     issued and outstanding at the time of the registration or  the  renewal
-    of registration, as the case may be.  2004, c. 19, s. 16 (9).
+    of registration, as the case may be.  2004, c. 19, s. 16 (9).
 
 Calculating number of shares
-(2)  In calculating the total number of equity shares  of  the  corporation
+(2)  In calculating the total number of equity  shares  of  the  corporation
 beneficially owned or controlled for  the  purposes  of  this  section,  the
 total number  shall  be  calculated  as  the  total  number  of  all  shares
 beneficially owned or controlled, but each share that carries the  right  to
 more than one vote shall be calculated as the  number  of  shares  equalling
-the total number of votes carried.  2002, c. 30, Sched. B, s. 7 (2).
+the total number of votes carried.  2002, c. 30, Sched. B, s. 7 (2).
 Section Amendments with date in force (d/m/y)
 2004, c. 19, s. 16 (9) - 01/01/2010
 
 Refusal to register, etc.
-8 (1)  Subject to section 9,  the  registrar  may  refuse  to  register  an
+8 (1)  Subject to section  9,  the  registrar  may  refuse  to  register  an
 applicant or may suspend or revoke a  registration  or  refuse  to  renew  a
 registration if, in his or her opinion, the applicant or registrant  is  not
-entitled to registration under section 6.  2004, c. 19, s. 16 (10).
+entitled to registration under section 6.  2004, c. 19, s. 16 (10).
 
 Conditions
-(2)  Subject to section 9, the registrar may,
+(2)  Subject to section 9, the registrar may,
       (a)   approve the registration or renewal of a  registration  on  such
     conditions as he or she considers appropriate; and
       (b)   at any time apply to a registration such  conditions  as  he  or
-    she considers appropriate.  2002, c. 30, Sched. B, s. 8 (2).
+    she considers appropriate.  2002, c. 30, Sched. B, s. 8 (2).
 Section Amendments with date in force (d/m/y)
 2004, c. 19, s. 16 (10) - 01/01/2010
 
 Notice re: refusal, suspension, etc.
-9 (1)  The registrar shall notify an applicant or registrant in writing  if
+9 (1)  The registrar shall notify an applicant or registrant in  writing  if
 he or she proposes to,
       (a)   refuse under subsection 8 (1) to grant or renew a registration;
       (b)   suspend or revoke a registration; or
       (c)   apply conditions to a  registration  or  renewal  to  which  the
-    applicant or registrant has not consented.   2002,  c. 30,  Sched. B,
-    s. 9 (1); 2004, c. 19, s. 16 (11).
+    applicant or registrant has  not  consented.   2002,  c. 30,  Sched. B,
+    s. 9 (1); 2004, c. 19, s. 16 (11).
 
 Content of notice
-(2)  The notice of proposal shall set out  the  reasons  for  the  proposed
+(2)  The notice of proposal shall set  out  the  reasons  for  the  proposed
 action and shall state that the applicant or registrant  is  entitled  to  a
 hearing by the Tribunal if the applicant or registrant  mails  or  delivers,
 within 15 days after service of the notice, a written request for a  hearing
-to the registrar and to the Tribunal.  2002, c. 30, Sched. B, s. 9 (2).
+to the registrar and to the Tribunal.  2002, c. 30, Sched. B, s. 9 (2).
 
 Service
-(3)  The notice of proposal shall be served on the applicant or  registrant
-in accordance with section 37.  2002, c. 30, Sched. B, s. 9 (3).
+(3)  The notice of proposal shall be served on the applicant  or  registrant
+in accordance with section 37.  2002, c. 30, Sched. B, s. 9 (3).
 
 Where no request for hearing
-(4)  If an applicant or registrant does not request a hearing in accordance
+(4)  If an applicant or registrant does not request a hearing in  accordance
 with subsection (2), the  registrar  may  carry  out  the  proposal.   2002,
-c. 30, Sched. B, s. 9 (4).
+c. 30, Sched. B, s. 9 (4).
 
 Hearing
-(5)  If a hearing is requested, the Tribunal shall hold the hearing and may
-by order direct the registrar to  carry  out  the  registrar's  proposal  or
+(5)  If a hearing is requested, the Tribunal shall hold the hearing and  may
+by order direct the registrar to  carry  out  the  registrar’s  proposal  or
 substitute its opinion for that  of  the  registrar  and  the  Tribunal  may
-attach conditions  to  its  order  or  to  a  registration.   2002,  c. 30,
-Sched. B, s. 9 (5).
+attach  conditions  to  its  order  or  to  a  registration.   2002,  c. 30,
+Sched. B, s. 9 (5).
 
 Parties
-(6)  The registrar, the applicant or registrant and such other  persons  as
+(6)  The registrar, the applicant or registrant and such  other  persons  as
 the Tribunal may specify are parties to the proceedings under this  section.
- 2002, c. 30, Sched. B, s. 9 (6).
+ 2002, c. 30, Sched. B, s. 9 (6).
 
 Voluntary cancellation
-(7)  The registrar may cancel a registration upon the request in writing of
+(7)  The registrar may cancel a registration upon the request in writing  of
 the registrant and this section does not apply to the  cancellation.   2002,
-c. 30, Sched. B, s. 9 (7).
+c. 30, Sched. B, s. 9 (7).
 
 Continuation pending renewal
-(8)  If, within the time prescribed or, if no time  is  prescribed,  before
-the expiry of the registrant's registration, the registrant has applied  for
+(8)  If, within the time prescribed or, if no  time  is  prescribed,  before
+the expiry of the registrant’s registration, the registrant has applied  for
 renewal of a registration and paid the required fee, the registration  shall
 be deemed to continue,
       (a)   until the renewal is granted;
       (b)   until the registrar gives the registrant written notice  of  the
-    registrar's refusal under section 5.1 to grant the renewal; or
+    registrar’s refusal under section 5.1 to grant the renewal; or
       (c)   if the registrant is served notice that the  registrar  proposes
     to refuse under subsection 8 (1) to grant the renewal, until  the  time
     for requesting a hearing has expired or, if  a  hearing  is  requested,
-    until the Tribunal makes its order.  2004, c. 19, s. 16 (12).
+    until the Tribunal makes its order.  2004, c. 19, s. 16 (12).
 
 Immediate effect
-(9)  Even if a registrant appeals an order of the Tribunal under section 11
+(9)  Even if a registrant appeals an order of the Tribunal under section  11
 of  the  Licence  Appeal  Tribunal  Act,  1999,  the  order   takes   effect
 immediately but the Tribunal may grant a stay until the disposition  of  the
-appeal.  2002, c. 30, Sched. B, s. 9 (9).
+appeal.  2002, c. 30, Sched. B, s. 9 (9).
 Section Amendments with date in force (d/m/y)
 2004, c. 19, s. 16 (11, 12) - 01/01/2010
 
 Temporary suspension
-10 (1)  If the registrar proposes to suspend or revoke a registration under
+10 (1)  If the registrar proposes to suspend or revoke a registration  under
 section 9 and if the registrar considers it in the  public  interest  to  do
 so, the registrar may by order temporarily suspend the registration.   2002,
-c. 30, Sched. B, s. 10 (1).
+c. 30, Sched. B, s. 10 (1).
 
 Immediate effect
-(2)  An order under subsection (1) takes effect immediately.  2002, c. 30,
-Sched. B, s. 10 (2).
+(2)  An order under subsection (1) takes effect immediately.   2002,  c. 30,
+Sched. B, s. 10 (2).
 
 Expiry of order
-(3)  If a hearing is requested under section 9,
+(3)  If a hearing is requested under section 9,
       (a)   the order expires 15  days  after  the  written  request  for  a
     hearing is received by the Tribunal; or
       (b)   the Tribunal  may  extend  the  time  of  expiration  until  the
     hearing is concluded, if a  hearing  is  commenced  within  the  15-day
-    period referred to in clause (a).  2002, c. 30, Sched. B, s. 10 (3).
+    period referred to in clause (a).  2002, c. 30, Sched. B, s. 10 (3).
 
 Same
-(4)  Despite subsection (3), if it is satisfied that  the  conduct  of  the
+(4)  Despite subsection (3), if it is satisfied  that  the  conduct  of  the
 registrant has delayed the commencement of the  hearing,  the  Tribunal  may
 extend the time of the expiration for the order,
       (a)   until the hearing commences; and
       (b)   once the hearing commences,  until  the  hearing  is  concluded.
-    2002, c. 30, Sched. B, s. 10 (4).
+    2002, c. 30, Sched. B, s. 10 (4).
 
 Requirements for hearing request
-11 (1)  A request for a hearing under section 9 is sufficiently  served  if
+11 (1)  A request for a hearing under section 9 is  sufficiently  served  if
 delivered personally or sent by registered mail to the registrar and to  the
-Tribunal.  2002, c. 30, Sched. B, s. 11 (1).
+Tribunal.  2002, c. 30, Sched. B, s. 11 (1).
 
 Same
-(2)  If service is made by registered mail, it shall be deemed to  be  made
-on the third day  after  the  day  of  mailing.   2002,  c. 30,  Sched. B,
-s. 11 (2).
+(2)  If service is made by registered mail, it shall be deemed  to  be  made
+on the  third  day  after  the  day  of  mailing.   2002,  c. 30,  Sched. B,
+s. 11 (2).
 
 Other methods
-(3)  Despite subsection (1), the Tribunal may order  any  other  method  of
-service.  2002, c. 30, Sched. B, s. 11 (3).
+(3)  Despite subsection (1), the Tribunal may  order  any  other  method  of
+service.  2002, c. 30, Sched. B, s. 11 (3).
 
 Further application
 12 A person whose registration is refused, revoked or  refused  renewal  may
@@ -509,10 +509,10 @@ reapply for registration only if,
       (a)   the time prescribed to reapply has  passed  since  the  refusal,
     revocation or refusal to renew; and
       (b)   new or other evidence is available or it is clear that  material
-    circumstances have changed.  2002, c. 30, Sched. B, s. 12.
+    circumstances have changed.  2002, c. 30, Sched. B, s. 12.
 
 Notice of issue or transfer of shares
-13 (1)  In addition to the disclosure required under section 7, every motor
+13 (1)  In addition to the disclosure required under section 7, every  motor
 vehicle dealer that is a corporation shall notify the registrar  in  writing
 within 30 days after the issue or transfer  of  any  equity  shares  of  the
 corporation, if the issue or transfer results in,
@@ -526,22 +526,22 @@ corporation, if the issue or transfer results in,
     person  or  the  associated  persons  already  beneficially  owned   or
     controlled 10 per cent or more of the total number of  all  issued  and
     outstanding equity shares  of  the  corporation  before  the  issue  or
-    transfer.  2004, c. 19, s. 16 (13).
+    transfer.  2004, c. 19, s. 16 (13).
 
 Same
-(2)  Despite subsection (1), if a registrant that is a corporation  becomes
+(2)  Despite subsection (1), if a registrant that is a  corporation  becomes
 aware of a transfer that otherwise  falls  into  subsection  (1)  after  the
 transfer has taken place, it shall notify the registrar  in  writing  within
 30 days after knowledge of the  transfer  comes  to  the  attention  of  its
-officers or directors.  2002, c. 30, Sched. B, s. 13 (2).
+officers or directors.  2002, c. 30, Sched. B, s. 13 (2).
 
 Calculation of total number of equity shares
-(3)  In calculating the total number of equity shares  of  the  corporation
+(3)  In calculating the total number of equity  shares  of  the  corporation
 beneficially owned or controlled for the purpose of this section, the  total
 number shall be calculated as the  total  of  all  the  shares  beneficially
 owned or controlled, but each share that carries the right to more than  one
 vote shall be calculated as the number of shares equalling the total  number
-of votes it carries.  2002, c. 30, Sched. B, s. 13 (3).
+of votes it carries.  2002, c. 30, Sched. B, s. 13 (3).
 Section Amendments with date in force (d/m/y)
 2004, c. 19, s. 16 (13) - 01/01/2010
 
@@ -549,21 +549,21 @@ Section Amendments with date in force (d/m/y)
                     Complaints, Inspection and Discipline
 
 COMPLAINTS
-14 (1)  If the registrar receives  a  complaint  about  a  registrant,  the
+14 (1)  If the registrar  receives  a  complaint  about  a  registrant,  the
 registrar may request information in relation  to  the  complaint  from  any
-registrant.  2002, c. 30, Sched. B, s. 14 (1).
+registrant.  2002, c. 30, Sched. B, s. 14 (1).
 
 Request for information
-(2)  A request for information under  subsection  (1)  shall  indicate  the
-nature of the complaint.  2002, c. 30, Sched. B, s. 14 (2).
+(2)  A request for information  under  subsection  (1)  shall  indicate  the
+nature of the complaint.  2002, c. 30, Sched. B, s. 14 (2).
 
 Duty to comply with request
-(3)  A registrant who receives a  written  request  for  information  shall
-provide the information as soon as practicable.   2002,  c. 30,  Sched. B,
-s. 14 (3).
+(3)  A registrant who receives  a  written  request  for  information  shall
+provide the information as soon  as  practicable.   2002,  c. 30,  Sched. B,
+s. 14 (3).
 
 Procedures
-(4)  In handling complaints, the registrar may do any of the following,  as
+(4)  In handling complaints, the registrar may do any of the  following,  as
 appropriate:
       1.    Attempt to mediate or resolve the complaint.
       2.    Give the registrant a written warning  that  if  the  registrant
@@ -575,20 +575,20 @@ appropriate:
     committee.
       5.    Take an action under section 8, subject to section 9.
       6.    Take further action  as  he  or  she  considers  appropriate  in
-    accordance with this Act.  2002, c. 30, Sched. B, s. 14 (4).
+    accordance with this Act.  2002, c. 30, Sched. B, s. 14 (4).
 
 Inspection
-15 (1)  The registrar or a person designated in writing  by  the  registrar
+15 (1)  The registrar or a person designated in  writing  by  the  registrar
 may conduct an inspection and may, as part of  that  inspection,  enter  and
 inspect at any reasonable time the business premises of a registrant,  other
 than any part of the premises used as a dwelling, for the purpose of,
       (a)   ensuring compliance with this Act and the regulations;
       (b)   dealing with a complaint under section 14; or
       (c)    ensuring  the  registrant  remains  entitled  to  registration.
-    2002, c. 30, Sched. B, s. 15 (1).
+    2002, c. 30, Sched. B, s. 15 (1).
 
 Powers on inspection
-(2)  While carrying out an inspection, an inspector,
+(2)  While carrying out an inspection, an inspector,
       (a)   is entitled to free access to all money,  valuables,  documents,
     records, motor vehicles and motor vehicle parts  of  the  person  being
     inspected that are relevant to the inspection;
@@ -599,73 +599,73 @@ Powers on inspection
     may copy anything relevant to the inspection including any data storage
     disk or other retrieval device in order  to  produce  information,  but
     shall promptly return the thing to the person being  inspected.   2002,
-    c. 30, Sched. B, s. 15 (2); 2006, c. 34, s. 17 (2).
+    c. 30, Sched. B, s. 15 (2); 2006, c. 34, s. 17 (2).
 
 Identification
-(3)  An inspector shall  produce,  on  request,  evidence  of  his  or  her
-authority to carry out an inspection.  2002, c. 30, Sched. B, s. 15 (3).
+(3)  An inspector  shall  produce,  on  request,  evidence  of  his  or  her
+authority to carry out an inspection.  2002, c. 30, Sched. B, s. 15 (3).
 
 Assistance to be given
-(4)  An inspector may, in the course of an inspection, require a person  to
+(4)  An inspector may, in the course of an inspection, require a  person  to
 produce  a  document  or  record  and  to  provide  whatever  assistance  is
 reasonably necessary,  including  using  any  data  storage,  processing  or
 retrieval device or system to produce information that is  relevant  to  the
 inspection and that is in  any  form,  and  the  person  shall  produce  the
-document or record or provide  the  assistance.   2002,  c. 30,  Sched. B,
-s. 15 (4); 2006, c. 34, s. 17 (2).
+document or record  or  provide  the  assistance.   2002,  c. 30,  Sched. B,
+s. 15 (4); 2006, c. 34, s. 17 (2).
 
 Obstruction prohibited
-(5)  No person shall obstruct an  inspector  conducting  an  inspection  or
+(5)  No person shall obstruct  an  inspector  conducting  an  inspection  or
 withhold from him or her or conceal, alter or destroy any money,  valuables,
 documents, records, motor vehicles or motor vehicle parts that are  relevant
-to the inspection.  2002, c. 30, Sched. B, s. 15 (5).
+to the inspection.  2002, c. 30, Sched. B, s. 15 (5).
 
 Use of force prohibited
-(6)  An inspector shall not use force to enter and inspect  premises  under
-this section.  2002, c. 30, Sched. B, s. 15 (6).
+(6)  An inspector shall not use force to enter and  inspect  premises  under
+this section.  2002, c. 30, Sched. B, s. 15 (6).
 
 Admissibility of copies
-(7)  A copy of a document or record certified by an inspector to be a  true
+(7)  A copy of a document or record certified by an inspector to be  a  true
 copy of the original is admissible in evidence to the  same  extent  as  the
-original and has the  same  evidentiary  value.   2002,  c. 30,  Sched. B,
-s. 15 (7).
+original and  has  the  same  evidentiary  value.   2002,  c. 30,  Sched. B,
+s. 15 (7).
 Section Amendments with date in force (d/m/y)
 2006, c. 34, s. 17 (2) - 01/01/2010
 
 Inspection of applicant
-16 (1)  The registrar or a person designated in writing  by  the  registrar
+16 (1)  The registrar or a person designated in  writing  by  the  registrar
 may at any reasonable time conduct an inspection of  the  business  premises
 of an applicant for registration, other than any part of the  premises  used
 as a dwelling, for the purpose of ensuring  the  applicant  is  entitled  to
-registration under this Act.  2002, c. 30, Sched. B, s. 16 (1).
+registration under this Act.  2002, c. 30, Sched. B, s. 16 (1).
 
 Same
-(2)  Subsections 15 (2) to (7) apply with  necessary  modifications  to  an
-inspection under this section.  2002, c. 30, Sched. B, s. 16 (2).
+(2)  Subsections 15 (2) to (7) apply  with  necessary  modifications  to  an
+inspection under this section.  2002, c. 30, Sched. B, s. 16 (2).
 
 Discipline proceedings
-17 (1)  The board of the  administrative  authority  or,  if  there  is  no
+17 (1)  The board of  the  administrative  authority  or,  if  there  is  no
 designated  administrative  authority,  the   Minister   may   establish   a
 discipline  committee  to  hear  and  determine,  in  accordance  with   the
 prescribed procedures, issues concerning whether registrants have failed  to
-comply with the code of ethics established by the Minister.   2002,  c. 30,
-Sched. B, s. 17 (1).
+comply with the code of ethics established by the  Minister.   2002,  c. 30,
+Sched. B, s. 17 (1).
 
 Appeals committee
-(2)  If a discipline committee is established, an appeals  committee  shall
+(2)  If a discipline committee is established, an  appeals  committee  shall
 be established to consider, in accordance with  the  prescribed  procedures,
-appeals from the discipline committee.  2002, c. 30, Sched. B, s. 17 (2).
+appeals from the discipline committee.  2002, c. 30, Sched. B, s. 17 (2).
 
 Appointment of members
-(3)  If  a  discipline  committee  is  established,  the  board   of   the
+(3)  If  a  discipline  committee  is  established,   the   board   of   the
 administrative authority  or,  if  there  is  no  designated  administrative
 authority,  the  Minister  shall  appoint  the  members  of  the  discipline
 committee and the members of  the  appeals  committee  and,  in  making  the
 appointments,  shall  ensure  that  the  prescribed  requirements  for   the
-composition of each committee are met.  2004, c. 19, s. 16 (14).
+composition of each committee are met.  2004, c. 19, s. 16 (14).
 
 Result of a determination
-(4)  If the discipline committee makes a determination under subsection (1)
+(4)  If the discipline committee makes a determination under subsection  (1)
 that a registrant has failed to comply with  the  code  of  ethics,  it  may
 order any of the following, as appropriate:
       1.    Require the registrant to take further educational courses.
@@ -685,101 +685,101 @@ order any of the following, as appropriate:
     committee designates.
       5.    Fix and impose costs  to  be  paid  by  the  registrant  to  the
     administrative authority or to the Minister of Finance if there  is  no
-    designated administrative authority.  2002, c. 30, Sched. B, s. 17 (4).
+    designated administrative authority.  2002, c. 30, Sched. B, s. 17 (4).
 
 Appeal
-(5)  A party to the discipline proceeding may appeal the final order of the
-discipline committee to the appeals  committee.   2002,  c. 30,  Sched. B,
-s. 17 (5).
+(5)  A party to the discipline proceeding may appeal the final order of  the
+discipline committee to  the  appeals  committee.   2002,  c. 30,  Sched. B,
+s. 17 (5).
 
 Power of the appeals committee
-(6)  The appeals committee may by order  overturn,  affirm  or  modify  the
+(6)  The appeals committee may by  order  overturn,  affirm  or  modify  the
 order of the discipline committee and may make  an  order  under  subsection
-(4).  2002, c. 30, Sched. B, s. 17 (6).
+(4).  2002, c. 30, Sched. B, s. 17 (6).
 
 Payment of fine
-(7)  The registrant shall pay any fine imposed under subsection (4),
+(7)  The registrant shall pay any fine imposed under subsection (4),
       (a)   on or before the day specified in the order  of  the  discipline
     committee or, if the fine is the subject of an appeal, on or before the
     day specified in the order of the appeals committee; or
       (b)   on or before the 60th day after the date of the last order  made
     in respect of the fine, if no day is specified in  that  order.   2002,
-    c. 30, Sched. B, s. 17 (7).
+    c. 30, Sched. B, s. 17 (7).
 
 Taking of educational course
-(8)  The registrant  shall  take  the  educational  course  required  under
+(8)  The  registrant  shall  take  the  educational  course  required  under
 subsection (4),
       (a)   within the time period specified in the order of the  discipline
     committee or, if the requirement is the subject of  an  appeal,  within
     the time period specified in the order of the appeals committee; or
       (b)   at the first reasonable opportunity after the  last  order  made
     in respect of the educational course, if no time period is specified in
-    that order.  2002, c. 30, Sched. B, s. 17 (8).
+    that order.  2002, c. 30, Sched. B, s. 17 (8).
 
 Arranging and funding educational courses
-(9)  The motor vehicle  dealer  shall  arrange  and  fund  the  educational
+(9)  The motor  vehicle  dealer  shall  arrange  and  fund  the  educational
 courses  for  salespersons  employed  by  the  dealer  as   required   under
 subsection (4) within  the  time  period  specified  in  the  order  of  the
 discipline committee or, if the requirement is the  subject  of  an  appeal,
 within the time period specified in the  order  of  the  appeals  committee.
-2002, c. 30, Sched. B, s. 17 (9).
+2002, c. 30, Sched. B, s. 17 (9).
 
 Funding educational courses
-(10)  The motor vehicle  dealer  shall  fund  the  educational  course  for
+(10)  The motor  vehicle  dealer  shall  fund  the  educational  course  for
 salespersons employed by the dealer as required under subsection (4),
       (a)   within the time period specified in the order of the  discipline
     committee or, if the requirement is the subject of  an  appeal,  within
     the time period specified in the order of the appeals committee; or
       (b)   at the first reasonable opportunity after the  last  order  made
     in respect of the educational course, if no time period is specified in
-    that order.  2002, c. 30, Sched. B, s. 17 (10).
+    that order.  2002, c. 30, Sched. B, s. 17 (10).
 
 Public access
-(11)  Decisions of the discipline committee and the appeals committee shall
+(11)  Decisions of the discipline committee and the appeals committee  shall
 be made available to the public in such manner as may be prescribed.   2002,
-c. 30, Sched. B, s. 17 (11).
+c. 30, Sched. B, s. 17 (11).
 Section Amendments with date in force (d/m/y)
 2004, c. 19, s. 16 (14) - 01/01/2010
 2012, c. 8, Sched. 11, s. 49 (2, 3, 5) -  no  effect  -  see  2020,  c.  14,
 Sched. 8, s. 21 - 14/07/2020
 
 Appointment of investigators
-18 (1)  The director may  appoint  persons  to  be  investigators  for  the
-purposes of conducting investigations.  2002, c. 30, Sched. B, s. 18 (1).
+18 (1)  The director  may  appoint  persons  to  be  investigators  for  the
+purposes of conducting investigations.  2002, c. 30, Sched. B, s. 18 (1).
 
 Certificate of appointment
-(2)  The director shall  issue  to  every  investigator  a  certificate  of
+(2)  The director  shall  issue  to  every  investigator  a  certificate  of
 appointment bearing his or her signature or a facsimile  of  the  signature.
-2002, c. 30, Sched. B, s. 18 (2).
+2002, c. 30, Sched. B, s. 18 (2).
 
 Production of certificate of appointment
-(3)  Every investigator who is conducting an investigation, including under
+(3)  Every investigator who is conducting an investigation, including  under
 section 19, shall, upon request, produce the certificate of  appointment  as
-an investigator.  2006, c. 34, s. 17 (3).
+an investigator.  2006, c. 34, s. 17 (3).
 Section Amendments with date in force (d/m/y)
 2006, c. 34, s. 17 (3) - 01/01/2010
 
 Search warrant
-19 (1)  Upon application made without notice by an investigator, a  justice
+19 (1)  Upon application made without notice by an investigator,  a  justice
 of the peace may issue a warrant, if he or she is satisfied  on  information
 under oath that there is reasonable ground for believing that,
       (a)   a person has contravened or is  contravening  this  Act  or  the
     regulations  or  has  committed  an  offence  under  the  law  of   any
-    jurisdiction that is relevant to the person's fitness for  registration
+    jurisdiction that is relevant to the person’s fitness for  registration
     under this Act; and
       (b)   there is,
        (i)    in  any  building,  dwelling,  receptacle  or  place  anything
        relating to the contravention of this Act or the regulations  or  to
-       the person's fitness for registration, or
+       the person’s fitness for registration, or
       (ii)  information or evidence relating to the  contravention  of  this
-       Act or the regulations or the person's fitness for registration that
+       Act or the regulations or the person’s fitness for registration that
        may be obtained through the use of  an  investigative  technique  or
        procedure or the doing of anything described in the warrant.   2004,
-       c. 19, s. 16 (15); 2006, c. 34, s. 17 (4); 2019, c. 14, Sched. 10,
+       c. 19, s. 16 (15); 2006, c. 34, s. 17 (4); 2019, c. 14,  Sched.  10,
        s. 10 (1).
 
 Powers under warrant
-(2)  Subject to any conditions contained in it, a  warrant  obtained  under
+(2)  Subject to any conditions contained in it,  a  warrant  obtained  under
 subsection (1) authorizes an investigator,
       (a)   to enter or access the building, dwelling, receptacle  or  place
     specified in the warrant and examine and seize  anything  described  in
@@ -795,67 +795,67 @@ subsection (1) authorizes an investigator,
     system used in carrying on business in order to produce information  or
     evidence described in the warrant, in any form; and
       (e)   to use any investigative technique or procedure or  do  anything
-    described in the warrant. 2004,  c. 19,  s. 16 (15);  2006,  c. 34,
-    s. 17 (5, 6); 2019, c. 14, Sched. 10, s. 10 (1, 2).
+    described  in  the  warrant.  2004,  c. 19,  s. 16 (15);  2006,  c. 34,
+    s. 17 (5, 6); 2019, c. 14, Sched. 10, s. 10 (1, 2).
 
 Entry of dwelling
-(3)  Despite subsection (2), an investigator shall not exercise  the  power
+(3)  Despite subsection (2), an investigator shall not  exercise  the  power
 under a warrant to enter a place, or part of a place, used  as  a  dwelling,
 unless,
       (a)   the justice of the peace is informed that the warrant  is  being
     sought to authorize entry into a dwelling; and
       (b)    the  justice  of  the  peace  authorizes  the  entry  into  the
-    dwelling.  2004, c. 19, s. 16 (15).
+    dwelling.  2004, c. 19, s. 16 (15).
 
 Conditions on warrant
-(4)  A warrant obtained under subsection (1) shall contain such  conditions
+(4)  A warrant obtained under subsection (1) shall contain  such  conditions
 as the justice of the peace considers advisable to ensure  that  any  search
-authorized by the warrant is reasonable in the circumstances.  2004, c. 19,
-s. 16 (15).
+authorized by the warrant is reasonable in the circumstances.  2004,  c. 19,
+s. 16 (15).
 
 Expert help
-(5)  The  warrant  may  authorize  persons  who  have  special,  expert  or
+(5)  The  warrant  may  authorize  persons  who  have  special,  expert   or
 professional knowledge and other  persons  as  necessary  to  accompany  and
 assist the investigator in respect of the execution of the  warrant.   2004,
-c. 19, s. 16 (15); 2006, c. 34, s. 17 (7).
+c. 19, s. 16 (15); 2006, c. 34, s. 17 (7).
 
 Time of execution
-(6)  An entry or access under a warrant issued under this section shall  be
+(6)  An entry or access under a warrant issued under this section  shall  be
 made between 6 a.m. and 9 p.m.,  unless  the  warrant  specifies  otherwise.
-2004, c. 19, s. 16 (15).
+2004, c. 19, s. 16 (15).
 
 Expiry of warrant
-(7)  A warrant issued under this section shall name a date of expiry, which
+(7)  A warrant issued under this section shall name a date of expiry,  which
 shall be no later than 30 days after the warrant is issued,  but  a  justice
 of the peace may extend the date of expiry for an additional  period  of  no
 more than 30 days, upon  application  without  notice  by  an  investigator.
-2004, c. 19, s. 16 (15).
+2004, c. 19, s. 16 (15).
 
 Use of force
-(8)  An investigator may  call  upon  police  officers  for  assistance  in
+(8)  An investigator  may  call  upon  police  officers  for  assistance  in
 executing the warrant  and  the  investigator  may  use  whatever  force  is
-reasonably necessary to execute the warrant.  2004, c. 19, s. 16 (15).
+reasonably necessary to execute the warrant.  2004, c. 19, s. 16 (15).
 
 No obstruction
-(9)  No person shall obstruct an investigator  executing  a  warrant  under
+(9)  No person shall obstruct an  investigator  executing  a  warrant  under
 this section or withhold from him  or  her  or  conceal,  alter  or  destroy
 anything relevant to the  investigation  being  conducted  pursuant  to  the
-warrant.  2004, c. 19, s. 16 (15).
+warrant.  2004, c. 19, s. 16 (15).
 
 Compliance
-(10)  If an investigator under clause (2) (c) requires a person to  produce
+(10)  If an investigator under clause (2) (c) requires a person  to  produce
 evidence or information or to provide assistance, the person  shall  produce
 the evidence or information or provide the assistance, as the case  may  be.
 2019, c. 14, Sched. 10, s. 10 (3).
 
 Copies of seized items
-(11)  An investigator who seizes any thing under this  section  or  section
+(11)  An investigator who seizes any thing under  this  section  or  section
 19.1 may make a copy of it. 2019, c. 14, Sched. 10, s. 10 (3).
 
 Admissibility
-(12)  A copy of a document or record certified by an investigator as  being
+(12)  A copy of a document or record certified by an investigator  as  being
 a true copy of the original is admissible in evidence to the same extent  as
-the original and has the same evidentiary value.  2004, c. 19, s. 16 (15).
+the original and has the same evidentiary value.  2004, c. 19, s. 16 (15).
 Section Amendments with date in force (d/m/y)
 2004, c. 19, s. 16 (15) - 01/01/2010
 2006, c. 34, s. 17 (4-8) - 01/01/2010
@@ -866,40 +866,40 @@ Seizure of things not specified
 warrant or otherwise in the execution of his or her duties  may,  without  a
 warrant, seize anything in plain view  that  the  investigator  believes  on
 reasonable grounds will afford evidence relating to a contravention of  this
-Act or the regulations.  2006, c. 34, s. 17 (10).
+Act or the regulations.  2006, c. 34, s. 17 (10).
 Section Amendments with date in force (d/m/y)
 2004, c. 19, s. 16 (15) - 01/01/2010
 2006, c. 34, s. 17 (10) - 01/01/2010
 
 Searches in exigent circumstances
-20 (1)  An investigator  may  exercise  any  of  the  powers  described  in
+20 (1)  An  investigator  may  exercise  any  of  the  powers  described  in
 subsection 19 (2) without a warrant if  the  conditions  for  obtaining  the
 warrant  exist  but  by  reason  of  exigent  circumstances  it   would   be
-impracticable to obtain the warrant.  2004, c. 19, s. 16 (16).
+impracticable to obtain the warrant.  2004, c. 19, s. 16 (16).
 
 Dwellings
-(2)  Subsection (1) does not apply to a building or part of a building that
-is being used as a dwelling.  2004, c. 19, s. 16 (16).
+(2)  Subsection (1) does not apply to a building or part of a building  that
+is being used as a dwelling.  2004, c. 19, s. 16 (16).
 
 Use of force
-(3)  The investigator  may,  in  executing  any  authority  given  by  this
+(3)  The  investigator  may,  in  executing  any  authority  given  by  this
 section, call upon police officers for assistance and use whatever force  is
-reasonably necessary.  2004, c. 19, s. 16 (16).
+reasonably necessary.  2004, c. 19, s. 16 (16).
 
 Applicability of s. 19
-(4)  Subsections 19 (5), (9), (10), (11)  and  (12)  apply  with  necessary
-modifications to a search under this section.  2004, c. 19, s. 16 (16).
+(4)  Subsections 19 (5), (9), (10),  (11)  and  (12)  apply  with  necessary
+modifications to a search under this section.  2004, c. 19, s. 16 (16).
 Section Amendments with date in force (d/m/y)
 2004, c. 19, s. 16 (16) - 01/01/2010
 
 Report when things seized
-20.1  (1)  An investigator who seizes any thing  under  the  authority  of
+20.1  (1)  An investigator who seizes  any  thing  under  the  authority  of
 section 19, 19.1 or 20 shall bring it before a justice of the peace  or,  if
 that is not reasonably possible, shall report the seizure to  a  justice  of
 the peace. 2019, c. 14, Sched. 10, s. 10 (4).
 
 Procedure
-(2)  Sections 159 and  160  of  the  Provincial  Offences  Act  apply  with
+(2)  Sections 159  and  160  of  the  Provincial  Offences  Act  apply  with
 necessary modifications in respect of a thing seized under the authority  of
 section 19, 19.1 or 20 of this Act, reading the reference in subsection  160
 (1) of that Act to a document that a person is about  to  examine  or  seize
@@ -910,7 +910,7 @@ Section Amendments with date in force (d/m/y)
 2019, c. 14, Sched. 10, s. 10 (4) - 10/12/2019
 
 Appointment of receiver and manager
-21 (1)  The director may apply to the Superior Court  of  Justice  for  the
+21 (1)  The director may apply to the Superior  Court  of  Justice  for  the
 appointment of a receiver and manager to take possession and control of  the
 business of a registrant if,
       (a)   an investigation of the registrant  has  been  undertaken  under
@@ -925,58 +925,58 @@ business of a registrant if,
     suspend a registration under section 10; or
       (e)   the director is advised that an investigation under section  5.1
     of the Ministry of Consumer and Business Services Act has been ordered.
-     2002, c. 30, Sched. B, s. 21 (1).
+     2002, c. 30, Sched. B, s. 21 (1).
 
 Order to appoint
-(2)  The court may make an order for the  appointment  of  a  receiver  and
+(2)  The court may make an order for  the  appointment  of  a  receiver  and
 manager, if it is satisfied that it is in the  public  interest  to  have  a
 receiver and manager take control of the business of  a  registrant.   2002,
-c. 30, Sched. B, s. 21 (2).
+c. 30, Sched. B, s. 21 (2).
 
 Notice
-(3)  The court may make an order under subsection (2) without notice, or if
+(3)  The court may make an order under subsection (2) without notice, or  if
 it considers that notice should be given, upon  such  notice  as  the  court
-stipulates.  2002, c. 30, Sched. B, s. 21 (3).
+stipulates.  2002, c. 30, Sched. B, s. 21 (3).
 
 Appointment not longer than 60 days
-(4)  The order of the court shall provide for the term of the receiver  and
-manager but the term shall not  be  longer  than  60  days.   2002,  c. 30,
-Sched. B, s. 21 (4).
+(4)  The order of the court shall provide for the term of the  receiver  and
+manager but the term shall  not  be  longer  than  60  days.   2002,  c. 30,
+Sched. B, s. 21 (4).
 
 60-day extensions
-(5)  Despite subsection (4), the director may, without notice, apply to the
-court to extend the receiver and manager's term for  further  terms  of  not
-more than 60 days each.  2002, c. 30, Sched. B, s. 21 (5).
+(5)  Despite subsection (4), the director may, without notice, apply to  the
+court to extend the receiver and manager’s term for  further  terms  of  not
+more than 60 days each.  2002, c. 30, Sched. B, s. 21 (5).
 
 Duties of receiver and manager
-(6)  The receiver and manager shall,
-      (a)   take possession and control of the assets  of  the  registrant's
+(6)  The receiver and manager shall,
+      (a)   take possession and control of the assets  of  the  registrant’s
     business;
       (b)   conduct the business of the registrant; and
       (c)   take such steps that are, in the opinion  of  the  receiver  and
     manager, necessary for  the  rehabilitation  of  the  business.   2002,
-    c. 30, Sched. B, s. 21 (6).
+    c. 30, Sched. B, s. 21 (6).
 
 Powers of receiver and manager
-(7)  The receiver and manager has all the powers of the board of  directors
+(7)  The receiver and manager has all the powers of the board  of  directors
 of the corporation, if the  registrant  is  a  corporation,  or  of  a  sole
 proprietor or all partners if the registrant is not  a  corporation.   2002,
-c. 30, Sched. B, s. 21 (7).
+c. 30, Sched. B, s. 21 (7).
 
 May exclude directors, etc.
-(8)  Without limiting the generality of subsection (7),  the  receiver  and
+(8)  Without limiting the generality of subsection  (7),  the  receiver  and
 manager may exclude the directors, officers, employees  and  agents  of  the
 business, interested persons in  respect  of  the  business  and  any  other
 persons connected with the business from the premises and  property  of  the
-business.  2002, c. 30, Sched. B, s. 21 (8).
+business.  2002, c. 30, Sched. B, s. 21 (8).
 
 Interested persons
-(9)  Subsection 6 (4) applies to this section except that the opinion as to
+(9)  Subsection 6 (4) applies to this section except that the opinion as  to
 whether a person is deemed to be interested in respect of another person  is
-that of the receiver and manager.  2002, c. 30, Sched. B, s. 21 (9).
+that of the receiver and manager.  2002, c. 30, Sched. B, s. 21 (9).
 
 Freeze order
-22 (1)  If the conditions in subsection (2) are met, the  director  may  in
+22 (1)  If the conditions in subsection (2) are met,  the  director  may  in
 writing,
       (a)   order any person having on deposit or controlling any assets  or
     trust funds of a registrant or former registrant to hold those funds or
@@ -986,10 +986,10 @@ writing,
     or controlling it; or
       (c)   order a registrant or former registrant to  hold  any  asset  or
     trust fund of a customer or  other  person  in  trust  for  the  person
-    entitled to it.  2002, c. 30, Sched. B, s. 22 (1).
+    entitled to it.  2002, c. 30, Sched. B, s. 22 (1).
 
 Conditions
-(2)  The director may make an order under  subsection  (1)  if  he  or  she
+(2)  The director may make an order  under  subsection  (1)  if  he  or  she
 believes that it is advisable for the  protection  of  the  customers  of  a
 registrant or former registrant and,
       (a)   a search warrant has been issued under this Act; or
@@ -997,88 +997,88 @@ registrant or former registrant and,
     contravention under this Act or under any other Act are about to be  or
     have been instituted against the registrant  or  former  registrant  in
     connection with or arising out of the business in respect of which  the
-    registrant or former registrant is or was  registered.   2002,  c. 30,
-    Sched. B, s. 22 (2).
+    registrant or former registrant is or  was  registered.   2002,  c. 30,
+    Sched. B, s. 22 (2).
 
 Limitation
-(3)  In the case of a bank or authorized foreign bank within the meaning of
+(3)  In the case of a bank or authorized foreign bank within the meaning  of
 section 2 of the Bank Act (Canada), a credit union  within  the  meaning  of
 the Credit Unions and Caisses Populaires  Act,  2020  or  a  loan  or  trust
 corporation, the order under subsection (1) applies only to the offices  and
-branches named in the order.  2002, c. 30, Sched. B, s. 22 (3); 2020, c.
+branches named in the order.  2002, c. 30,  Sched. B,  s. 22 (3);  2020,  c.
 36, Sched. 7, s. 322 (1).
 
 Release of assets
-(4)  The director may consent to the release of  any  particular  asset  or
-trust fund from the order or may wholly revoke  the  order.   2002,  c. 30,
-Sched. B, s. 22 (4).
+(4)  The director may consent to the release  of  any  particular  asset  or
+trust fund from the order or may wholly  revoke  the  order.   2002,  c. 30,
+Sched. B, s. 22 (4).
 
 Exception
-(5)  Subsection (1) does not apply if the registrant or  former  registrant
+(5)  Subsection (1) does not apply if the registrant  or  former  registrant
 files with  the  director,  in  such  manner  and  amount  as  the  director
 determines,
       (a)   a personal bond accompanied by collateral security;
       (b)   a bond of an insurer licensed under the Insurance Act  to  write
     surety and fidelity insurance;
       (c)   a bond of a guarantor accompanied by collateral security; or
-      (d)   another prescribed form of security.  2002,  c. 30,  Sched. B,
-    s. 22 (5).
+      (d)   another prescribed form of  security.   2002,  c. 30,  Sched. B,
+    s. 22 (5).
 
 Application to court
-(6)  An application may be made to the Superior  Court  of  Justice  for  a
+(6)  An application may be made to the  Superior  Court  of  Justice  for  a
 determination in respect of the disposition of an asset or trust fund,
       (a)   by a person in receipt of an  order  under  subsection  (1),  if
     that person is in doubt as to whether the order applies to the asset or
     trust fund; or
       (b)   by a person who claims an interest in the asset  or  trust  fund
-    that is subject to the order.  2002, c. 30, Sched. B, s. 22 (6).
+    that is subject to the order.  2002, c. 30, Sched. B, s. 22 (6).
 
 Notice
-(7)  If an order is made under this section, the director may  register  in
+(7)  If an order is made under this section, the director  may  register  in
 the  appropriate  land  registry  office  a  notice  that  an  order   under
 subsection (1) has been issued and that the order may affect land  belonging
 to the person referred to in the notice, and the notice has the same  effect
 as the registration of a certificate of pending litigation, except that  the
-director may  in  writing  revoke  or  modify  the  notice.   2002,  c. 30,
-Sched. B, s. 22 (7).
+director  may  in  writing  revoke  or  modify  the  notice.   2002,  c. 30,
+Sched. B, s. 22 (7).
 
 Cancellation or discharge application
-(8)  A registrant or former registrant in respect of which an order is made
+(8)  A registrant or former registrant in respect of which an order is  made
 under subsection (1) or any person having an interest in land in respect  of
 which a notice is registered under subsection (7) may apply to the  Tribunal
 for cancellation in whole or in part of the order or for discharge in  whole
-or in part of the registration.  2002, c. 30, Sched. B, s. 22 (8).
+or in part of the registration.  2002, c. 30, Sched. B, s. 22 (8).
 
 Disposition by Tribunal
-(9)  The Tribunal shall dispose of the application after a hearing and  may
+(9)  The Tribunal shall dispose of the application after a hearing  and  may
 cancel the order or discharge the registration in whole or in  part  if  the
 Tribunal finds,
       (a)   that the order or registration is not required in  whole  or  in
     part for the protection of customers  of  the  applicant  or  of  other
     persons having an interest in the land; or
       (b)   that the interests of other persons  are  unduly  prejudiced  by
-    the order or registration.  2002, c. 30, Sched. B, s. 22 (9).
+    the order or registration.  2002, c. 30, Sched. B, s. 22 (9).
 
 Parties
-(10)  The applicant, the director and such other persons  as  the  Tribunal
+(10)  The applicant, the director and such other  persons  as  the  Tribunal
 may specify are parties to  the  proceedings  before  the  Tribunal.   2002,
-c. 30, Sched. B, s. 22 (10).
+c. 30, Sched. B, s. 22 (10).
 
 Court application
-(11)  If the director has made an order under subsection (1) or  registered
+(11)  If the director has made an order under subsection (1)  or  registered
 a notice under subsection (7), he or she may apply to the Superior Court  of
 Justice for directions or an order relating to the  disposition  of  assets,
-trust funds or  land  affected  by  the  order  or  notice.   2002,  c. 30,
-Sched. B, s. 22 (11).
+trust funds  or  land  affected  by  the  order  or  notice.   2002,  c. 30,
+Sched. B, s. 22 (11).
 
 Notice not required
-(12)  An application by the director under this section may be made without
-notice to any other person.  2002, c. 30, Sched. B, s. 22 (12).
+(12)  An application by the director under this section may be made  without
+notice to any other person.  2002, c. 30, Sched. B, s. 22 (12).
 Section Amendments with date in force (d/m/y)
 2020, c. 36, Sched. 7, s. 322 (1) - 01/03/2022
 
 Freeze orders, non-registrants
-22.1 (1)  The director may make an order described  in  subsection  (2)  in
+22.1 (1)  The director may make an order  described  in  subsection  (2)  in
 respect of the money or assets of a person who is not registered under  this
 Act and who is alleged to have conducted business for which registration  is
 required under this Act at a time when the person was not registered  to  do
@@ -1101,10 +1101,10 @@ so if,
        allegation referred to in clause (a) has received  money  or  assets
        from customers, and
       (ii)  the interests of  those  customers  require  protection.   2004,
-       c. 19, s. 16 (17); 2019, c. 14, Sched. 10, s. 10 (1).
+       c. 19, s. 16 (17); 2019, c. 14, Sched. 10, s. 10 (1).
 
 Order
-(2)  In the circumstances described in subsection (1), the director may, in
+(2)  In the circumstances described in subsection (1), the director may,  in
 writing,
       (a)   order any person having on deposit or controlling any  money  or
     asset of the person who is the subject of the allegation referred to in
@@ -1114,12 +1114,12 @@ writing,
       (i)   to refrain from withdrawing any money or  asset  from  a  person
        having it on deposit or controlling it, or
       (ii)  to hold any money or asset of a  customer  or  other  person  in
-       trust  for  the  person  who  is  entitled  to  it.   2004,  c. 19,
-       s. 16 (17).
+       trust  for  the  person  who  is  entitled  to  it.   2004,   c. 19,
+       s. 16 (17).
 
 Application
-(3)  Subsections 22 (3) to (12) apply with necessary  modifications  to  an
-order made under this section.  2004, c. 19, s. 16 (17).
+(3)  Subsections 22 (3) to (12) apply with  necessary  modifications  to  an
+order made under this section.  2004, c. 19, s. 16 (17).
 Section Amendments with date in force (d/m/y)
 2004, c. 19, s. 16 (17) - 01/01/2010
 2019, c. 14, Sched. 10, s. 10 (1) - 10/12/2019
@@ -1130,47 +1130,47 @@ Section Amendments with date in force (d/m/y)
 DUTY OF MOTOR VEHICLE DEALERS
 23 A motor vehicle dealer shall  ensure  that  every  salesperson  that  the
 motor  vehicle  dealer  employs  is  carrying  out  his  or  her  duties  in
-compliance with this Act and  the  regulations.   2002,  c. 30,  Sched. B,
-s. 23.
+compliance with this  Act  and  the  regulations.   2002,  c. 30,  Sched. B,
+s. 23.
 
 Notice of changes to registrar
-24 (1)  Every motor vehicle dealer shall, within five days after the event,
+24 (1)  Every motor vehicle dealer shall, within five days after the  event,
 notify the registrar in writing of,
       (a)   any change in address for service;
       (b)   in the case of a corporation or partnership, any change  in  the
     officers or directors; and
       (c)   the date of commencement or termination  of  the  employment  of
     every salesperson and, in the case of termination of  employment  of  a
-    salesperson, the reason for the termination.  2002, c. 30,  Sched. B,
-    s. 24 (1); 2004, c. 19, s. 16 (18).
+    salesperson, the reason for the termination.   2002,  c. 30,  Sched. B,
+    s. 24 (1); 2004, c. 19, s. 16 (18).
 
 Same
-(2)  Every salesperson shall, within five days after the event, notify  the
+(2)  Every salesperson shall, within five days after the event,  notify  the
 registrar in writing of,
       (a)   any change in address for service; and
       (b)   the commencement or termination of his or her  employment  by  a
     motor vehicle dealer and the date of the commencement  or  termination.
-    2002, c. 30, Sched. B, s. 24 (2); 2004, c. 19, s. 16 (19).
+    2002, c. 30, Sched. B, s. 24 (2); 2004, c. 19, s. 16 (19).
 
 Timing
-(3)  The registrar shall be deemed to have been  notified  on  the  day  on
+(3)  The registrar shall be deemed to have  been  notified  on  the  day  on
 which he or she is actually notified or, where the notification is by  mail,
-on the day of mailing.  2002, c. 30, Sched. B, s. 24 (3).
+on the day of mailing.  2002, c. 30, Sched. B, s. 24 (3).
 
 Financial statements
-(4)  Every motor vehicle dealer shall, when required by the registrar, file
+(4)  Every motor vehicle dealer shall, when required by the registrar,  file
 a financial statement, certified by  a  person  licensed  under  the  Public
 Accounting Act, 2004, showing the matters specified  by  the  registrar  and
 signed by the motor vehicle dealer in the case of a sole  proprietorship  or
 by an officer of the motor vehicle dealer where the motor vehicle dealer  is
-a partnership or corporation.  2002, c. 30, Sched. B,  s. 24 (4);  2004,
-c. 8, s. 46; 2011, c. 1, Sched. 2, s. 5.
+a partnership or  corporation.   2002,  c. 30,  Sched. B,  s. 24 (4);  2004,
+c. 8, s. 46; 2011, c. 1, Sched. 2, s. 5.
 
 Confidential
-(5)  The  information  contained  in  a  financial  statement  filed  under
+(5)  The  information  contained  in  a  financial  statement  filed   under
 subsection (4) is confidential and no person shall  otherwise  than  in  the
-ordinary course of the person's duties communicate any such  information  or
-allow access to the financial statement.  2002, c. 30, Sched. B, s. 24 (5).
+ordinary course of the person’s duties communicate any such  information  or
+allow access to the financial statement.  2002, c. 30, Sched. B, s. 24 (5).
 Section Amendments with date in force (d/m/y)
 2004, c. 8, s. 46, Table -  1/11/2005;  2004,  c.  19,  s.  16  (18,  19)  -
 01/01/2010
@@ -1190,7 +1190,7 @@ Trust account
       (c)   at all times keep  the  money  separate  and  apart  from  money
     belonging to the motor vehicle dealer; and
        (d)    disburse  the  money  in  accordance   with   the   prescribed
-    conditions, if any.  2004, c. 19, s. 16 (20); 2020, c. 36, Sched. 7, s.
+    conditions, if any.  2004, c. 19, s. 16 (20); 2020, c. 36, Sched. 7, s.
     322 (2).
 Section Amendments with date in force (d/m/y)
 2004, c. 19, s. 16 (20) - 01/01/2010
@@ -1199,156 +1199,156 @@ Section Amendments with date in force (d/m/y)
 Falsifying information
 26 No registrant shall falsify, assist in falsifying or  induce  or  counsel
 another person to  falsify  or  assist  in  falsifying  any  information  or
-document relating to a trade in motor vehicles.   2002,  c. 30,  Sched. B,
-s. 26.
+document relating to a trade in  motor  vehicles.   2002,  c. 30,  Sched. B,
+s. 26.
 
 Furnishing false information
 27 No registrant shall furnish, assist in furnishing or  induce  or  counsel
 another person to furnish or assist in furnishing  any  false  or  deceptive
 information or documents relating to a trade  in  a  motor  vehicle.   2002,
-c. 30, Sched. B, s. 27.
+c. 30, Sched. B, s. 27.
 
 False advertising
 28 No registrant shall make false, misleading  or  deceptive  statements  in
 any advertisement, circular, pamphlet or material  published  by  any  means
-relating to trading in motor vehicles.  2002, c. 30, Sched. B, s. 28.
+relating to trading in motor vehicles.  2002, c. 30, Sched. B, s. 28.
 
 Order of registrar re: false advertising
-29 (1)  If the registrar believes on reasonable grounds that  a  registrant
+29 (1)  If the registrar believes on reasonable grounds  that  a  registrant
 is making a false, misleading or deceptive statement in  any  advertisement,
 circular, pamphlet or material published by any means, the registrar may,
       (a)   order the cessation of the use of such material;
       (b)   order the registrant to  retract  the  statement  or  publish  a
     correction of equal prominence to the original publication; or
       (c)   order both a cessation described in clause (a) and a  retraction
-    or correction  described  in  clause  (b).   2002,  c. 30,  Sched. B,
-    s. 29 (1).
+    or  correction  described  in  clause  (b).   2002,  c. 30,   Sched. B,
+    s. 29 (1).
 
 Procedures
-(2)  Section 9 applies with necessary modifications to an order under  this
+(2)  Section 9 applies with necessary modifications to an order  under  this
 section in the same manner as to a proposal by the  registrar  to  refuse  a
-registration.  2002, c. 30, Sched. B, s. 29 (2).
+registration.  2002, c. 30, Sched. B, s. 29 (2).
 
 Effect
-(3)  The order of the registrar shall  take  effect  immediately,  but  the
-Tribunal may grant a stay until the registrar's order becomes final.   2002,
-c. 30, Sched. B, s. 29 (3).
+(3)  The order of the registrar  shall  take  effect  immediately,  but  the
+Tribunal may grant a stay until the registrar’s order becomes final.   2002,
+c. 30, Sched. B, s. 29 (3).
 
 Pre-approval
-(4)  If the registrant does not appeal an order under this  section  or  if
+(4)  If the registrant does not appeal an order under  this  section  or  if
 the order or a variation of it is upheld by  the  Tribunal,  the  registrant
 shall, upon the request of the  registrar,  submit  all  statements  in  any
 advertisement, circular, pamphlet or material to be published by  any  means
 to the registrar for approval before publication  for  such  period  as  the
-registrar specifies.  2002, c. 30, Sched. B,  s. 29 (4);  2004,  c. 19,
-s. 16 (21).
+registrar  specifies.   2002,  c. 30,  Sched. B,  s. 29 (4);  2004,   c. 19,
+s. 16 (21).
 
 Specified period
-(5)  The registrar shall not specify under subsection (4) a period,
+(5)  The registrar shall not specify under subsection (4) a period,
       (a)   that exceeds such period as may be prescribed; or
       (b)    any  part  of  which  falls  outside  such  period  as  may  be
-    prescribed.  2004, c. 19, s. 16 (22).
+    prescribed.  2004, c. 19, s. 16 (22).
 Section Amendments with date in force (d/m/y)
 2004, c. 19, s. 16 (21, 22) - 01/01/2010
 
 Disclosure by motor vehicle dealers
-30 (1)  Motor vehicle dealers shall disclose in writing to customers and to
+30 (1)  Motor vehicle dealers shall disclose in writing to customers and  to
 motor vehicle dealers such information as may be prescribed and  shall  make
-the disclosure at such time as may be prescribed.  2002, c. 30,  Sched. B,
-s. 30 (1).
+the disclosure at such time as may be prescribed.   2002,  c. 30,  Sched. B,
+s. 30 (1).
 
 Remedies
-(2)  If a motor vehicle dealer fails to make a disclosure as required under
+(2)  If a motor vehicle dealer fails to make a disclosure as required  under
 subsection (1) or fails to do so in a timely way, in addition to  any  other
 remedies that may be available, the person to whom  disclosure  should  have
 been made is entitled to such other remedies as may  be  prescribed.   2002,
-c. 30, Sched. B, s. 30 (2).
+c. 30, Sched. B, s. 30 (2).
 
 Restraining orders
-31 (1)  If it appears to the director that a person is not  complying  with
+31 (1)  If it appears to the director that a person is  not  complying  with
 this Act or the regulations or an order made under this  Act,  the  director
 may apply to the Superior Court of  Justice  for  an  order  directing  that
 person to comply, and, upon the application, the court may make  such  order
-as the court thinks fit.  2002, c. 30, Sched. B, s. 31 (1).
+as the court thinks fit.  2002, c. 30, Sched. B, s. 31 (1).
 
 Same
-(2)  Subsection (1) applies in addition to any other procedures that may be
+(2)  Subsection (1) applies in addition to any other procedures that may  be
 available to the director, whether or not the director has exercised his  or
-her rights under such procedures.  2002, c. 30, Sched. B, s. 31 (2).
+her rights under such procedures.  2002, c. 30, Sched. B, s. 31 (2).
 
 Appeal
-(3)  An appeal lies to the  Divisional  Court  from  an  order  made  under
-subsection (1).  2002, c. 30, Sched. B, s. 31 (3).
+(3)  An appeal lies to  the  Divisional  Court  from  an  order  made  under
+subsection (1).  2002, c. 30, Sched. B, s. 31 (3).
 
 Offence
-32 (1)  A person is guilty of an offence if the person,
+32 (1)  A person is guilty of an offence if the person,
       (a)   furnishes false information in any application  under  this  Act
     or in any statement or return required under this Act;
       (b)   fails to comply with any order, other than an order  made  under
     section 17, direction or other requirement under this Act; or
       (c)   contravenes or fails to comply with any section of this  Act  or
     the regulations made under  this  Act  other  than  a  code  of  ethics
-    established under section 43.  2002, c. 30, Sched. B, s. 32 (1).
+    established under section 43.  2002, c. 30, Sched. B, s. 32 (1).
 
 Corporations
-(2)  An officer or director of a motor  vehicle  dealer  is  guilty  of  an
+(2)  An officer or director of a  motor  vehicle  dealer  is  guilty  of  an
 offence who fails to take reasonable care to prevent  the  corporation  from
-committing an offence mentioned in subsection (1).  2002, c. 30, Sched. B,
-s. 32 (2).
+committing an offence mentioned in subsection (1).  2002,  c. 30,  Sched. B,
+s. 32 (2).
 
 Penalties
-(3)  An individual who is convicted of an offence under this Act is  liable
+(3)  An individual who is convicted of an offence under this Act  is  liable
 to a fine of not more than $50,000 or to imprisonment  for  a  term  of  not
 more than two years  less  a  day,  or  both,  and  a  corporation  that  is
 convicted of an offence under this Act is liable to a fine of not more  than
-$250,000.  2002, c. 30, Sched. B, s. 32 (3).
+$250,000.  2002, c. 30, Sched. B, s. 32 (3).
 
 Minimum penalty
-(4)  The minimum fine upon conviction for an offence under subsection 4 (1)
-is $5,000. 2002, c. 30, Sched. B, s. 32 (4); 2023, c. 20, Sched. 10, s. 1.
+(4)  The minimum fine upon conviction for an offence under subsection 4  (1)
+is $5,000. 2002, c. 30, Sched. B, s. 32 (4); 2023, c. 20, Sched. 10, s. 1.
 
 Limitation
-(5)  No proceeding under this section shall  be  commenced  more  than  two
+(5)  No proceeding under this section  shall  be  commenced  more  than  two
 years after the facts upon which the proceeding is based first came  to  the
-knowledge of the director.  2002, c. 30, Sched. B, s. 32 (5).
+knowledge of the director.  2002, c. 30, Sched. B, s. 32 (5).
 Section Amendments with date in force (d/m/y)
 2023, c. 20, Sched. 10, s. 1 - 04/12/2023
 
 Orders for compensation, restitution
-33 (1)  If a person is convicted of an offence under this  Act,  the  court
+33 (1)  If a person is convicted of an offence under  this  Act,  the  court
 making the conviction may, in addition  to  any  other  penalty,  order  the
-person convicted to pay compensation or  make  restitution.   2002,  c. 30,
-Sched. B, s. 33 (1).
+person convicted to pay compensation  or  make  restitution.   2002,  c. 30,
+Sched. B, s. 33 (1).
 
 If insurance has paid
-(2)  If an order is made in a person's favour under subsection (1) and that
+(2)  If an order is made in a person’s favour under subsection (1) and  that
 person has already received compensation or restitution from an  insurer  or
 the Fund, the person ordered to pay the  compensation  or  make  restitution
 shall deliver the amount to the insurer or the Fund, as  the  case  may  be.
-2002, c. 30, Sched. B, s. 33 (2).
+2002, c. 30, Sched. B, s. 33 (2).
 
 Default in payment of fines
-34 (1)  If a fine payable as a result of a conviction for an offence  under
+34 (1)  If a fine payable as a result of a conviction for an  offence  under
 this Act is in default for at least 60 days, the director may disclose to  a
 consumer reporting agency the name of the defaulter, the amount of the  fine
-and the date the fine went into default.  2002, c. 30, Sched. B, s. 34 (1).
+and the date the fine went into default.  2002, c. 30, Sched. B, s. 34 (1).
 
 If payment made
-(2)  Within 10 days after the director has notice that the  fine  has  been
+(2)  Within 10 days after the director has notice that  the  fine  has  been
 paid in full, the director shall inform the  consumer  reporting  agency  of
-the payment.  2002, c. 30, Sched. B, s. 34 (2).
-(3)  Repealed: 2023, c. 20, Sched. 10, s. 2.
+the payment.  2002, c. 30, Sched. B, s. 34 (2).
+(3)  Repealed: 2023, c. 20, Sched. 10, s. 2.
 Section Amendments with date in force (d/m/y)
 2023, c. 20, Sched. 10, s. 2 - 04/12/2023
 
 Liens and charges
-35 (1)  If a fine payable as a result of a conviction for an offence  under
+35 (1)  If a fine payable as a result of a conviction for an  offence  under
 this Act is in default for at least 60  days,  the  director  may  by  order
 create a lien against the property of the person who is liable  to  pay  the
-fine.  2002, c. 30, Sched. B, s. 35 (1).
+fine.  2002, c. 30, Sched. B, s. 35 (1).
 
 Liens on personal property
-(2)  If the lien created by the director under subsection  (1)  relates  to
+(2)  If the lien created by the director under  subsection  (1)  relates  to
 personal property,
       (a)   the Personal Property Security Act, except Part V, applies  with
     necessary modifications to the lien, despite clause 4 (1) (a)  of  that
@@ -1357,41 +1357,41 @@ personal property,
     attached for the purposes of the Personal Property Security Act; and
       (c)   the director may perfect the security interest  referred  to  in
     clause (b) for the purposes of the Personal Property  Security  Act  by
-    the registration of a financing statement under that Act.  2002, c. 30,
-    Sched. B, s. 35 (2).
+    the registration of a financing statement under that Act.  2002, c. 30,
+    Sched. B, s. 35 (2).
 
 Liens and charges on real property
-(3)  If the lien created by the director under subsection  (1)  relates  to
+(3)  If the lien created by the director under  subsection  (1)  relates  to
 real property, the director may register the lien against  the  property  of
 the person liable to pay the fine in the proper land registry office and  on
 registration, the  obligation  under  the  lien  becomes  a  charge  on  the
-property.  2002, c. 30, Sched. B, s. 35 (3).
+property.  2002, c. 30, Sched. B, s. 35 (3).
 
 Initiation of sale proceedings prohibited
-(4)  The director shall not initiate sale proceedings  in  respect  of  any
+(4)  The director shall not initiate sale  proceedings  in  respect  of  any
 real  property  against  which  he  or  she  has  registered  a  lien  under
-subsection (3).  2002, c. 30, Sched. B, s. 35 (4).
+subsection (3).  2002, c. 30, Sched. B, s. 35 (4).
 
 Proceeds of sale
-(5)  If a lien is perfected by registration  under  subsection  (2)  or  is
+(5)  If a lien is perfected by  registration  under  subsection  (2)  or  is
 registered against real property under subsection (3) and the  related  real
 or personal property is sold, the director shall ensure that  the  funds  he
 or she receives as a result of the sale are used to  pay  the  fine.   2002,
-c. 30, Sched. B, s. 35 (5).
+c. 30, Sched. B, s. 35 (5).
 
 Discharge of lien
-(6)  Within 10 days after the director has knowledge of the payment in full
+(6)  Within 10 days after the director has knowledge of the payment in  full
 of the fine, the director shall,
        (a)    discharge  the  registration  of   any   financing   statement
     registered under clause (2) (c); and
       (b)   register a discharge of a charge created on  registration  of  a
-    lien under subsection (3).  2002, c. 30, Sched. B, s. 35 (6).
+    lien under subsection (3).  2002, c. 30, Sched. B, s. 35 (6).
 
                                   part vii
                                    General
 
 CONFIDENTIALITY
-36 (1)  A person who obtains information in  the  course  of  exercising  a
+36 (1)  A person who obtains information  in  the  course  of  exercising  a
 power or carrying out a duty related to the administration of  this  Act  or
 the regulations shall preserve secrecy with respect to the  information  and
 shall not communicate the information to any person except,
@@ -1409,59 +1409,59 @@ shall not communicate the information to any person except,
       (d)   to a law enforcement agency;
       (e)   to his, her or its counsel; or
       (f)   with the consent of the person to whom the information  relates.
-     2004, c. 19, s. 16 (23); 2007, c. 4, s. 36.
+     2004, c. 19, s. 16 (23); 2007, c. 4, s. 36.
 
 Testimony
-(2)  Except in a proceeding under this Act, no person shall be required  to
+(2)  Except in a proceeding under this Act, no person shall be  required  to
 give testimony in a civil proceeding with regard to information obtained  in
 the course of exercising a power or carrying  out  a  duty  related  to  the
-administration of this Act or the regulations.  2004, c. 19, s. 16 (23).
+administration of this Act or the regulations.  2004, c. 19, s. 16 (23).
 Section Amendments with date in force (d/m/y)
 2004, c. 19, s. 16 (23) - 01/01/2010
 2007, c. 4, s. 35 (1) -  no  effect  -  see  2004,  c.  19,  s.  16  (23)  -
 01/01/2010; 2007, c. 4, s. 36 - 01/01/2010
 
 Service
-37 (1)  Any notice, order or request is sufficiently given or served if  it
+37 (1)  Any notice, order or request is sufficiently given or served  if  it
 is,
       (a)   delivered personally;
       (b)   sent by registered mail; or
       (c)   sent by another manner if the sender can prove  receipt  of  the
-    notice, order or request.  2002, c. 30, Sched. B, s. 37 (1).
+    notice, order or request.  2002, c. 30, Sched. B, s. 37 (1).
 
 Deemed service
-(2)  If service is made by registered mail, the service shall be deemed  to
+(2)  If service is made by registered mail, the service shall be  deemed  to
 be made on the third day after the day of mailing unless the person on  whom
 service is being made establishes that the person did not,  acting  in  good
 faith,  through  absence,  accident,  illness  or  other  cause  beyond  the
-person's control, receive the notice or order until  a  later  date.   2002,
-c. 30, Sched. B, s. 37 (2).
+person’s control, receive the notice or order until  a  later  date.   2002,
+c. 30, Sched. B, s. 37 (2).
 
 Exception
-(3)  Despite subsections (1) and (2), the  Tribunal  may  order  any  other
+(3)  Despite subsections (1) and (2),  the  Tribunal  may  order  any  other
 method of service it considers  appropriate  in  the  circumstances.   2002,
-c. 30, Sched. B, s. 37 (3).
+c. 30, Sched. B, s. 37 (3).
 
 Fees
-38 (1)  The Minister may by order establish fees  that  are  payable  under
+38 (1)  The Minister may by order establish  fees  that  are  payable  under
 this Act in respect of registration, renewal of registration,  late  filings
-and other administrative matters.  2002, c. 30, Sched. B, s. 38 (1).
+and other administrative matters.  2002, c. 30, Sched. B, s. 38 (1).
 
 Exception
-(2)  Subsection (1) does not apply if there is a designated  administrative
-authority.  2002, c. 30, Sched. B, s. 38 (2).
+(2)  Subsection (1) does not apply if there is a  designated  administrative
+authority.  2002, c. 30, Sched. B, s. 38 (2).
 
 Order is not a regulation
-(3)  An order made under this section is not a regulation for the  purposes
-of Part III (Regulations) of  the  Legislation  Act,  2006.   2002,  c. 30,
-Sched. B, s. 38 (3); 2006, c. 21, Sched. F, s. 119.
+(3)  An order made under this section is not a regulation for  the  purposes
+of Part III (Regulations)  of  the  Legislation  Act,  2006.   2002,  c. 30,
+Sched. B, s. 38 (3); 2006, c. 21, Sched. F, s. 119.
 Section Amendments with date in force (d/m/y)
 2006, c. 21, Sched. F, s. 119 - 01/01/2010
 2012, c. 8, Sched. 11, s. 49 (5) - no effect - see 2020, c.  14,  Sched.  8,
 s. 21 - 14/07/2020
 
 Certificate as evidence
-39 (1)  For all purposes in any proceeding, a statement  purporting  to  be
+39 (1)  For all purposes in any proceeding, a  statement  purporting  to  be
 certified by the director is, without proof of the office  or  signature  of
 the director, admissible in evidence as proof in the absence of evidence  to
 the contrary, of the facts stated in it in relation to,
@@ -1471,25 +1471,25 @@ the contrary, of the facts stated in it in relation to,
       (c)   the time when the facts upon which  the  proceedings  are  based
     first came to the knowledge of the director; or
       (d)   any other matter pertaining to registration or  non-registration
-    of persons or to filing or non-filing of  information.   2002,  c. 30,
-    Sched. B, s. 39 (1).
+    of persons or to filing or non-filing  of  information.   2002,  c. 30,
+    Sched. B, s. 39 (1).
 
 Proof of document
-(2)  Any document made under this Act that purports to  be  signed  by  the
+(2)  Any document made under this Act that purports  to  be  signed  by  the
 director or a certified copy of the document is admissible  in  evidence  in
 any proceeding as proof, in the absence of evidence to  the  contrary,  that
 the document is signed by the  director  without  proof  of  the  office  or
-signature of the director.  2002, c. 30, Sched. B, s. 39 (2).
+signature of the director.  2002, c. 30, Sched. B, s. 39 (2).
 
 Names of and information concerning registrants
-40 (1)  As required by regulation, the registrar shall  make  available  to
+40 (1)  As required by regulation, the registrar  shall  make  available  to
 the public the names of registrants and other  information,  as  prescribed,
-in respect of registrants.  2002, c. 30, Sched. B, s. 40 (1).
+in respect of registrants.  2002, c. 30, Sched. B, s. 40 (1).
 
 Same
-(2)  The names of registrants shall be made  available  in  the  prescribed
-form and manner and with such information as is prescribed.   2002,  c. 30,
-Sched. B, s. 40 (2).
+(2)  The names of registrants shall be  made  available  in  the  prescribed
+form and manner and with such information as is  prescribed.   2002,  c. 30,
+Sched. B, s. 40 (2).
 41 Repealed: 2023, c. 20, Sched. 10, s. 3.
 Section Amendments with date in force (d/m/y)
 2023, c. 20, Sched. 10, s. 3 - 04/12/2023
@@ -1498,110 +1498,110 @@ Section Amendments with date in force (d/m/y)
                    Motor Vehicle Dealers compensation Fund
 
 COMPENSATION FUND
-42 (1)  The Motor Vehicle Dealers Compensation Fund established  under  the
-Motor Vehicle Dealers Act is continued.  2002, c. 30, Sched. B, s. 42 (1).
+42 (1)  The Motor Vehicle Dealers Compensation Fund  established  under  the
+Motor Vehicle Dealers Act is continued.  2002, c. 30, Sched. B, s. 42 (1).
 
 Board of trustees
-(2)  A board of trustees for the Fund shall be appointed in accordance with
+(2)  A board of trustees for the Fund shall be appointed in accordance  with
 the prescribed procedures and  the  board  shall  manage  the  Fund  in  the
-prescribed manner.  2002, c. 30, Sched. B, s. 42 (2).
+prescribed manner.  2002, c. 30, Sched. B, s. 42 (2).
 
 Fund supported by registrants and held in trust
-(3)  The Fund shall be supported by such levies  and  payments  imposed  on
+(3)  The Fund shall be supported by such  levies  and  payments  imposed  on
 registrants as may be prescribed and the Fund shall  be  held  in  trust  in
 accordance with the prescribed  requirements  for  the  benefit  of  persons
-entitled to the payment of claims.  2002, c. 30, Sched. B, s. 42 (3).
+entitled to the payment of claims.  2002, c. 30, Sched. B, s. 42 (3).
 
 Claims against Fund
-(4)  A customer of a registrant may make a claim for compensation from  the
-Fund in the prescribed manner.  2002, c. 30, Sched. B, s. 42 (4).
+(4)  A customer of a registrant may make a claim for compensation  from  the
+Fund in the prescribed manner.  2002, c. 30, Sched. B, s. 42 (4).
 
 Entitlement to compensation
-(5)  If a customer makes a claim for compensation under subsection (4), the
-customer's  entitlement  to  compensation  shall  be  determined  using  the
+(5)  If a customer makes a claim for compensation under subsection (4),  the
+customer’s  entitlement  to  compensation  shall  be  determined  using  the
 prescribed criteria in accordance with  the  prescribed  procedures.   2002,
-c. 30, Sched. B, s. 42 (5).
+c. 30, Sched. B, s. 42 (5).
 
 Payments by motor vehicle dealers
-(6)  In the circumstances as prescribed, a motor vehicle dealer  or  former
+(6)  In the circumstances as prescribed, a motor vehicle  dealer  or  former
 motor vehicle dealer shall be required to reimburse the Fund for money  paid
 out to customers as a result of claims against the motor vehicle  dealer  or
-former motor vehicle dealer.  2002, c. 30, Sched. B, s. 42 (6).
+former motor vehicle dealer.  2002, c. 30, Sched. B, s. 42 (6).
 
 Publishing decisions
-(7)  Decisions in respect of claims to the Fund may be  made  available  to
+(7)  Decisions in respect of claims to the Fund may  be  made  available  to
 the public in such manner as may be prescribed, but in  no  case  shall  the
 publication of such decisions disclose the identity of an individual  making
-a claim without the individual's prior approval.  2002,  c. 30,  Sched. B,
-s. 42 (7).
+a claim without the individual’s prior  approval.   2002,  c. 30,  Sched. B,
+s. 42 (7).
 
 Payment of money owed to Fund
-(8)  The registrar may make such arrangements with  registrants  or  former
+(8)  The registrar may make such arrangements  with  registrants  or  former
 registrants as may be prescribed for the payment of money owed to  the  Fund
 and may impose such penalties and interest, as may  be  prescribed  for  the
 failure to pay money owed to the Fund or the failure to do so  in  a  timely
-fashion.  2002, c. 30, Sched. B, s. 42 (8).
+fashion.  2002, c. 30, Sched. B, s. 42 (8).
 
 Refusal to renew registration
-(9)  If a registrant is in default of such levies or payments to  the  Fund
+(9)  If a registrant is in default of such levies or payments  to  the  Fund
 as have been  prescribed  or  has  failed  to  reimburse  the  Fund  in  the
 prescribed circumstances and has failed to  make  arrangements  for  payment
 under subsection (8) or  has  failed  to  comply  with  those  arrangements,
-subject to section 9, the registrar may refuse  to  renew  the  registrant's
-registration.  2002, c. 30, Sched. B, s. 42 (9).
+subject to section 9, the registrar may refuse  to  renew  the  registrant’s
+registration.  2002, c. 30, Sched. B, s. 42 (9).
 
                                    part ix
                                  regulations
 
-MINISTER'S REGULATIONS
-43 (1)  The Minister may make regulations,
+MINISTER’S REGULATIONS
+43 (1)  The Minister may make regulations,
       (a)   establishing a code of ethics for the purposes of subsection  17
     (1);
       (b)   governing the  jurisdiction  and  procedures  of  any  committee
     established under this Act;
       (c)   respecting any  matter  that  is  delegated  by  the  Lieutenant
     Governor in Council to the Minister under paragraph 40 of subsection 44
-    (1).  2002, c. 30, Sched. B, s. 43 (1); 2004, c. 19, s. 16 (24).
+    (1).  2002, c. 30, Sched. B, s. 43 (1); 2004, c. 19, s. 16 (24).
 
 Code of ethics
-(1.1)  A regulation under clause (1) (c) may be made as part of the code of
-ethics established under clause (1) (a).  2004, c. 19, s. 16 (25).
+(1.1)  A regulation under clause (1) (c) may be made as part of the code  of
+ethics established under clause (1) (a).  2004, c. 19, s. 16 (25).
 
 Delegation
-(2)  Despite  subsection  3  (4)  of  the  Safety  and  Consumer  Statutes
+(2)  Despite  subsection  3  (4)  of  the  Safety  and   Consumer   Statutes
 Administration Act, 1996, the Minister may, by regulation, delegate  to  the
 board of the administrative authority the power to make some or all  of  the
 regulations under subsection (1), subject to the approval of  the  Minister.
-2004, c. 19, s. 16 (26).
+2004, c. 19, s. 16 (26).
 
 Approval
-(3)  The Minister may approve or refuse  to  approve  the  regulations  but
+(3)  The Minister may approve or  refuse  to  approve  the  regulations  but
 approval shall not be given unless, in his or her opinion,  they  have  been
 made in accordance with the consultation criteria and  process  set  out  in
 the administrative agreement described in subsection 4  (1)  of  the  Safety
-and Consumer Statutes Administration Act, 1996.   2002,  c. 30,  Sched. B,
-s. 43 (3).
+and Consumer Statutes Administration  Act,  1996.   2002,  c. 30,  Sched. B,
+s. 43 (3).
 
 Revocation, transition
-(4)  The Minister may, by regulation, revoke a delegation to the  board  of
+(4)  The Minister may, by regulation, revoke a delegation to  the  board  of
 the administrative authority under subsection (2), but the revocation  of  a
 delegation does not result in the revocation of any regulation made  by  the
 board of the administrative authority under the delegated power  before  the
-revocation of the delegation, and  the  board's  regulation  remains  valid.
-2004, c. 19, s. 16 (26).
+revocation of the delegation, and  the  board’s  regulation  remains  valid.
+2004, c. 19, s. 16 (26).
 
 Residual authority to act
-(4.1)  Despite any delegation under  this  section  to  the  board  of  the
+(4.1)  Despite any delegation  under  this  section  to  the  board  of  the
 administrative authority and without having to revoke  the  delegation,  the
 Minister continues to have authority to make regulations in respect  of  the
-matter that is the subject of the  delegation.   2009,  c. 33,  Sched. 10,
-s. 10 (2).
+matter that is the subject  of  the  delegation.   2009,  c. 33,  Sched. 10,
+s. 10 (2).
 
 Conflicts
-(5)  If there is a conflict between a regulation made  under  this  section
+(5)  If there is a conflict between a regulation  made  under  this  section
 and a regulation made by the Lieutenant Governor in  Council  under  section
-44, the latter prevails.  2002, c. 30, Sched. B, s. 43 (5).
-(6)  Repealed: 2017, c. 33, Sched. 5, s. 4.
+44, the latter prevails.  2002, c. 30, Sched. B, s. 43 (5).
+(6)  Repealed: 2017, c. 33, Sched. 5, s. 4.
 Section Amendments with date in force (d/m/y)
 2004, c. 19, s. 16 (24-26) - 01/01/2010
 2009, c. 33, Sched. 10, s. 10 (2) - 01/01/2010
@@ -1610,7 +1610,7 @@ s. 21 - 14/07/2020
 2017, c. 33, Sched. 5, s. 4 - 14/12/2017
 
 Lieutenant Governor in Council regulations
-44 (1)  The Lieutenant Governor in Council may make regulations,
+44 (1)  The Lieutenant Governor in Council may make regulations,
       1.    exempting any person or class of  persons  or  class  of  trades
     from any provision  of  this  Act  or  the  regulations  and  attaching
     conditions to an exemption;
@@ -1678,7 +1678,7 @@ Lieutenant Governor in Council regulations
     disclose to a customer concerning a trade in a motor  vehicle  and  the
     time or times when  disclosures must be made and remedies available  to
     the person to whom such disclosure should have been made;
-      20.   Repealed:  2004, c. 19, s. 16 (31).
+      20.   Repealed:  2004, c. 19, s. 16 (31).
       21.   prohibiting specified alterations of  a  motor  vehicle  or  any
     part of a motor vehicle and requiring disclosure of certain alterations
     or types of alterations;
@@ -1742,41 +1742,41 @@ Lieutenant Governor in Council regulations
     authority to conduct quality assurance  programs  in  relation  to  the
     administration of this Act or the regulations and  to  use  information
     collected under this Act for the purposes  of  those  programs.   2002,
-    c. 30, Sched. B, s. 44 (1); 2004, c. 19, s. 16 (27-32); 2017, c. 33,
+    c. 30, Sched. B, s. 44 (1); 2004, c. 19, s. 16 (27-32);  2017,  c.  33,
     Sched. 5, s. 5 (1).
 
 Residual authority to act
-(2)  Despite  any  delegation  to  the  Minister  under  paragraph  40  of
+(2)  Despite  any  delegation  to  the  Minister  under  paragraph   40   of
 subsection (1) and without having to revoke the delegation,  the  Lieutenant
 Governor in Council continues to  have  authority  to  make  regulations  in
-respect of the matter that is the subject of the delegation.  2002,  c. 30,
-Sched. B, s. 44 (2).
+respect of the matter that is the subject of the delegation.   2002,  c. 30,
+Sched. B, s. 44 (2).
 
 Revocation, transition
-(3)  The Lieutenant Governor  in  Council  may,  by  regulation,  revoke  a
+(3)  The Lieutenant  Governor  in  Council  may,  by  regulation,  revoke  a
 delegation to the Minister under paragraph 40 of  subsection  (1),  but  the
 revocation of a  delegation  does  not  result  in  the  revocation  of  any
 regulation that was made, before the revocation of the delegation,
       (a)   by the Minister under the delegated power; or
       (b)   by the board of  the  administrative  authority  pursuant  to  a
     delegation by the Minister under subsection 43 (2),
-and the Minister's or  board's  regulation  remains  valid.   2004,  c. 19,
-s. 16 (33).
+and the Minister’s  or  board’s  regulation  remains  valid.   2004,  c. 19,
+s. 16 (33).
 
 Making regulation not revocation
-(4)  The making of a regulation to which  subsection  (2)  applies  by  the
+(4)  The making of a regulation to  which  subsection  (2)  applies  by  the
 Lieutenant Governor in Council shall not  constitute  the  revocation  of  a
 delegation under this section unless the  regulation  so  specifies.   2002,
-c. 30, Sched. B, s. 44 (4).
-(5)  Repealed: 2017, c. 33, Sched. 5, s. 5 (2).
+c. 30, Sched. B, s. 44 (4).
+(5)  Repealed: 2017, c. 33, Sched. 5, s. 5 (2).
 Section Amendments with date in force (d/m/y)
 2004, c. 19, s. 16 (27-33) - 01/01/2010
 2017, c. 33, Sched. 5, s. 5 (1, 2) - 14/12/2017
 45 Omitted (provides for coming into  force  of  provisions  of  this  Act).
-2002, c. 30, Sched. B, s. 45.
-46 Omitted (enacts short title of this Act).  2002, c. 30, Sched. B, s. 46.
+2002, c. 30, Sched. B, s. 45.
+46 Omitted (enacts short title of this Act).  2002, c. 30, Sched. B, s. 46.
                                ______________
 
-Fran�ais
+Français
 
 Back to top

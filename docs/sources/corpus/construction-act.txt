@@ -1,5 +1,5 @@
 
-Fran�ais
+Français
                               Construction Act
 
                           R.S.O. 1990, Chapter C.30
@@ -30,7 +30,7 @@ c. 14, Sched. 2.
 |6.             |MINOR ERRORS, IRREGULARITIES                                  |
 |PART I.1                                                                       |
 |PROMPT PAYMENT                                                                 |
-|6.1            |DEFINITION, "PROPER INVOICE"                                  |
+|6.1            |DEFINITION, “PROPER INVOICE”                                  |
 |6.2            |SUBJECT TO HOLDBACK REQUIREMENTS                              |
 |6.3            |GIVING OF PROPER INVOICES                                     |
 |6.4            |PAYMENT DEADLINE, OWNER TO CONTRACTOR                         |
@@ -41,10 +41,10 @@ c. 14, Sched. 2.
 |6.9            |INTEREST ON LATE PAYMENTS                                     |
 |PART II                                                                        |
 |TRUST PROVISIONS                                                               |
-|7.             |OWNER'S TRUST                                                 |
-|8.             |CONTRACTOR'S AND SUBCONTRACTOR'S TRUST                        |
-|8.1            |CONTRACTOR'S, SUBCONTRACTOR'S DUTIES RE TRUST FUNDS           |
-|9.             |VENDOR'S TRUST                                                |
+|7.             |OWNER’S TRUST                                                 |
+|8.             |CONTRACTOR’S AND SUBCONTRACTOR’S TRUST                        |
+|8.1            |CONTRACTOR’S, SUBCONTRACTOR’S DUTIES RE TRUST FUNDS           |
+|9.             |VENDOR’S TRUST                                                |
 |10.            |PAYMENT DISCHARGING TRUST                                     |
 |11.            |WHERE TRUST FUNDS MAY BE REDUCED                              |
 |12.            |SET-OFF BY TRUSTEE                                            |
@@ -154,7 +154,7 @@ c. 14, Sched. 2.
 |78.            |PRIORITY OVER MORTGAGES, ETC.                                 |
 |79.            |PERSONS WHO COMPRISE CLASS                                    |
 |80.            |PRIORITY BETWEEN AND WITHIN CLASS                             |
-|81.            |WORKER'S PRIORITY                                             |
+|81.            |WORKER’S PRIORITY                                             |
 |82.            |SUBORDINATION OF GENERAL LIEN CLAIMS                          |
 |83.            |APPLICATION OF INSURANCE PROCEEDS                             |
 |84.            |DISTRIBUTION OF PROCEEDS OF SALE                              |
@@ -180,24 +180,24 @@ c. 14, Sched. 2.
 Interpretation
 
 Definitions
-1 (1)  In this Act,
-"action" means an action under Part VIII; ("action")
-"broader public sector organization" has the same meaning as in the  Broader
- Public  Sector  Accountability   Act,   2010;   ("organisme   du   secteur
- parapublic")
-"contract" means the contract between the  owner  and  the  contractor,  and
- includes any amendment to that contract; ("contrat")
-"contractor" means a person contracting with or  employed  directly  by  the
+1 (1)  In this Act,
+“action” means an action under Part VIII; (“action”)
+“broader public sector organization” has the same meaning as in the  Broader
+ Public  Sector  Accountability   Act,   2010;   (“organisme   du   secteur
+ parapublic”)
+“contract” means the contract between the  owner  and  the  contractor,  and
+ includes any amendment to that contract; (“contrat”)
+“contractor” means a person contracting with or  employed  directly  by  the
  owner or an agent of the owner to  supply  services  or  materials  to  an
  improvement and includes a joint venture entered into for the purposes  of
- an improvement or improvements; ("entrepreneur")
-"court" means the Superior Court of Justice; ("tribunal")
-"Crown" includes a Crown agency to  which  the  Crown  Agency  Act  applies;
- ("Couronne")
-"holdback" means the 10 per cent of the value of the services  or  materials
+ an improvement or improvements; (“entrepreneur”)
+“court” means the Superior Court of Justice; (“tribunal”)
+“Crown” includes a Crown agency to  which  the  Crown  Agency  Act  applies;
+ (“Couronne”)
+“holdback” means the 10 per cent of the value of the services  or  materials
  supplied under a contract or subcontract  required  to  be  withheld  from
- payment by Part IV; ("retenue")
-"home" means,
+ payment by Part IV; (“retenue”)
+“home” means,
       (a)   a self-contained one-family dwelling, detached  or  attached  to
     one or more others by a common wall,
       (b)   a building composed of two self-contained, one-family  dwellings
@@ -205,8 +205,8 @@ Definitions
       (c)   a condominium one-family dwelling  unit,  including  the  common
     interests appurtenant thereto,
       and includes any structure or works  used  in  conjunction  therewith;
- ("logement")
-"home buyer" means a person who buys the interest of an owner in a  premises
+ (“logement”)
+“home buyer” means a person who buys the interest of an owner in a  premises
  that is a home, whether built or not at the time the agreement of purchase
  and sale in respect thereof is entered into, provided,
       (a)   not more than 30 per  cent  of  the  purchase  price,  excluding
@@ -216,15 +216,15 @@ Definitions
     evidenced in the case of a new home by  the  issuance  of  a  municipal
     permit authorizing occupancy or the issuance under the Ontario New Home
     Warranties Plan Act of a  certificate  of  completion  and  possession;
-    ("acqu�reur d'un logement")
+    (“acquéreur d’un logement”)
 Note: On a day to be named  by  proclamation  of  the  Lieutenant  Governor,
-clause (b) of the definition of "home buyer" in subsection 1 (1) of the  Act
-is amended by  striking  out  "the  issuance  under  the  Ontario  New  Home
-Warranties Plan Act of a  certificate  of  completion  and  possession"  and
-substituting "the issuance of material prescribed for the  purpose  of  this
+clause (b) of the definition of “home buyer” in subsection 1 (1) of the  Act
+is amended by  striking  out  “the  issuance  under  the  Ontario  New  Home
+Warranties Plan Act of a  certificate  of  completion  and  possession”  and
+substituting “the issuance of material prescribed for the  purpose  of  this
 clause  by  the  regulations  made  under  the  Protection  for  Owners  and
-Purchasers of New Homes Act, 2017". (See: 2017, c. 33, Sched. 2, s. 76 (1))
-"improvement" means, in respect of any land,
+Purchasers of New Homes Act, 2017”. (See: 2017, c. 33, Sched. 2, s. 76 (1))
+“improvement” means, in respect of any land,
       (a)   any alteration, addition or capital repair to the land,
        (b)    any  construction,  erection  or  installation  on  the  land,
     including the installation of  industrial,  mechanical,  electrical  or
@@ -232,60 +232,60 @@ Purchasers of New Homes Act, 2017". (See: 2017, c. 33, Sched. 2, s. 76 (1))
     the land that is essential to the normal or intended use of  the  land,
     building, structure or works, or
       (c)   the complete or partial demolition or removal of  any  building,
-    structure or works on the land; ("am�liorations")
-"interest in the premises" means an estate or interest of  any  nature,  and
+    structure or works on the land; (“améliorations”)
+“interest in the premises” means an estate or interest of  any  nature,  and
  includes a statutory right given or reserved to the  Crown  to  enter  any
  lands or premises belonging to any person  or  public  authority  for  the
  purpose of doing any work, construction, repair or maintenance  in,  upon,
- through, over or under any lands or premises; ("int�r�t sur les lieux")
-"land" includes any building, structure or works affixed to the land, or  an
- appurtenance to any of them, but does not include the improvement; ("bien-
- fonds")
-"lien claimant" means  a  person  having  a  preserved  or  perfected  lien;
- ("cr�ancier privil�gi�")
-"materials" means every kind of movable property,
+ through, over or under any lands or premises; (“intérêt sur les lieux”)
+“land” includes any building, structure or works affixed to the land, or  an
+ appurtenance to any of them, but does not include the improvement; (“bien-
+ fonds”)
+“lien claimant” means  a  person  having  a  preserved  or  perfected  lien;
+ (“créancier privilégié”)
+“materials” means every kind of movable property,
        (a)    that  becomes,  or  is  intended  to  become,  part   of   the
     improvement, or that is used directly in the making of the improvement,
     or that is used to facilitate directly the making of the improvement,
       (b)   that is equipment rented without an  operator  for  use  in  the
-    making of the improvement; ("mat�riaux")
-"Minister" means the Attorney General or such other member of the  Executive
+    making of the improvement; (“matériaux”)
+“Minister” means the Attorney General or such other member of the  Executive
  Council to whom responsibility for the administration of this Act  may  be
- assigned or transferred under the Executive Council Act; ("ministre")
-"monetary supplementary  benefit"  includes  any  contribution,  remittance,
+ assigned or transferred under the Executive Council Act; (“ministre”)
+“monetary supplementary  benefit”  includes  any  contribution,  remittance,
  union dues, deduction, payment or other  additional  compensation  of  any
- kind; ("avantage p�cuniaire suppl�mentaire")
-"mortgage"  includes  a  charge  and   "mortgagee"   includes   a   chargee;
- ("hypoth�que", "cr�ancier hypoth�caire")
-"municipality" means,
+ kind; (“avantage pécuniaire supplémentaire”)
+“mortgage”  includes  a  charge  and   “mortgagee”   includes   a   chargee;
+ (“hypothèque”, “créancier hypothécaire”)
+“municipality” means,
       (a)   a municipality within the meaning of the  Municipal  Act,  2001,
     and
       (b)   a local board within the meaning of the Municipal Act,  2001  or
-    the City of Toronto Act, 2006; ("municipalit�")
-"owner" means any person, including the  Crown,  having  an  interest  in  a
+    the City of Toronto Act, 2006; (“municipalité”)
+“owner” means any person, including the  Crown,  having  an  interest  in  a
  premises at whose request and,
       (a)   upon whose credit, or
       (b)   on whose behalf, or
       (c)   with whose privity or consent, or
       (d)   for whose direct benefit,
       an improvement is made to the premises but does  not  include  a  home
- buyer; ("propri�taire")
-"payer" means the owner, contractor or subcontractor who is  liable  to  pay
+ buyer; (“propriétaire”)
+“payer” means the owner, contractor or subcontractor who is  liable  to  pay
  for the services or materials supplied to an improvement under a  contract
- or subcontract; ("responsable du paiement")
-"payment certifier" means an architect, engineer or any  other  person  upon
+ or subcontract; (“responsable du paiement”)
+“payment certifier” means an architect, engineer or any  other  person  upon
  whose certificate payments are  made  under  a  contract  or  subcontract;
- ("personne qui autorise le paiement")
-"person having a lien" includes both a lien claimant and a  person  with  an
- unpreserved lien; ("titulaire d'un privil�ge")
-"premises" includes,
+ (“personne qui autorise le paiement”)
+“person having a lien” includes both a lien claimant and a  person  with  an
+ unpreserved lien; (“titulaire d’un privilège”)
+“premises” includes,
       (a)   the improvement,
       (b)   all materials supplied to the improvement, and
       (c)   the land occupied by the improvement, or enjoyed  therewith,  or
     the land upon or in respect of which the improvement was done or  made;
-    ("lieux")
-"prescribed" means prescribed by the regulations; ("prescrit")
-"price" means,
+    (“lieux”)
+“prescribed” means prescribed by the regulations; (“prescrit”)
+“price” means,
       (a)   the contract or subcontract price,
       (i)   agreed on between the parties, or
       (ii)  if no specific price  has  been  agreed  on  between  them,  the
@@ -295,51 +295,51 @@ Purchasers of New Homes Act, 2017". (See: 2017, c. 33, Sched. 2, s. 76 (1))
       (b)   any direct costs incurred as a result of  an  extension  of  the
     duration of the supply of services or materials to the improvement  for
     which the contractor or subcontractor, as  the  case  may  be,  is  not
-    responsible; ("prix")
-"regulations" means the regulations made under this Act; ("r�glements")
-"services or materials" includes both services and materials; ("services  ou
- mat�riaux")
-"subcontract"  means  any   agreement   between   the   contractor   and   a
+    responsible; (“prix”)
+“regulations” means the regulations made under this Act; (“règlements”)
+“services or materials” includes both services and materials; (“services  ou
+ matériaux”)
+“subcontract”  means  any   agreement   between   the   contractor   and   a
  subcontractor, or between two or  more  subcontractors,  relating  to  the
  supply of services or  materials  to  the  improvement  and  includes  any
- amendment to that agreement; ("contrat de sous-traitance")
-"subcontractor" means a person not contracting with or employed directly  by
+ amendment to that agreement; (“contrat de sous-traitance”)
+“subcontractor” means a person not contracting with or employed directly  by
  the owner or an agent of the owner but who supplies services or  materials
  to the improvement under an agreement with the  contractor  or  under  the
  contractor with another subcontractor and includes a joint venture entered
- into for the purposes of an improvement or improvements; ("sous-traitant")
-"suffers  damages  as  a  result"  means  suffers  damages  that  could   be
- reasonably foreseen to result; ("subir des dommages en cons�quence")
-"supply of services" means any work done or service  performed  upon  or  in
+ into for the purposes of an improvement or improvements; (“sous-traitant”)
+“suffers  damages  as  a  result”  means  suffers  damages  that  could   be
+ reasonably foreseen to result; (“subir des dommages en conséquence”)
+“supply of services” means any work done or service  performed  upon  or  in
  respect of an improvement, and includes,
       (a)   the rental of equipment with an operator, and
       (b)   where the making of the planned improvement  is  not  commenced,
     the supply of a design, plan, drawing or specification that  in  itself
-    enhances the value of the owner's interest in the land,
+    enhances the value of the owner’s interest in the land,
        and  a  corresponding  expression  has   a   corresponding   meaning;
- ("prestation de services")
-"wages" means the money earned by a worker for  work  done  by  time  or  as
+ (“prestation de services”)
+“wages” means the money earned by a worker for  work  done  by  time  or  as
  piece work, and includes  all  monetary  supplementary  benefits,  whether
  provided for by statute,  contract  or  collective  bargaining  agreement;
- ("salaire")
-"worker"  means  a  person  employed  for  wages  in  any  kind  of  labour;
- ("ouvrier")
-"workers' trust fund" means any trust fund maintained in whole  or  in  part
+ (“salaire”)
+“worker”  means  a  person  employed  for  wages  in  any  kind  of  labour;
+ (“ouvrier”)
+“workers’ trust fund” means any trust fund maintained in whole  or  in  part
  on behalf of any worker on an improvement  and  into  which  any  monetary
  supplementary benefit is payable as wages for work done by the  worker  in
- respect of the improvement; ("fonds en fiducie des ouvriers")
-"written notice of a lien" means,
+ respect of the improvement; (“fonds en fiducie des ouvriers”)
+“written notice of a lien” means,
       (a)   a written notice of a lien in the prescribed form,  given  by  a
     person having a lien, or
       (b)   a copy of a claim for lien registered under clause  34  (1)  (a)
-    or given under clause 34 (1) (b). ("avis �crit d'un privil�ge")  R.S.O.
-    1990, c. C.30, s. 1 (1); 2002, c. 17, Sched. F, Table; 2006, c. 19,
-    Sched. C, s. 1 (1); 2010, c. 16, Sched. 2, s. 2 (1, 2); 2017, c. 24, s.
+    or given under clause 34 (1) (b). (“avis écrit d’un privilège”)  R.S.O.
+    1990, c. C.30, s. 1 (1); 2002, c. 17,  Sched. F,  Table;  2006,  c. 19,
+    Sched. C, s. 1 (1); 2010, c. 16, Sched. 2, s. 2 (1, 2); 2017, c. 24, s.
     2 (1-16), 66, 70, 71; 2024, c. 20, Sched. 4, s. 1 (1, 2); 2025, c.  14,
     Sched. 2, s. 1.
 
 Capital repair
-(1.1) For the purposes of clause (a) of the definition of  "improvement"  in
+(1.1) For the purposes of clause (a) of the definition of  “improvement”  in
 subsection (1), a capital repair to land is any repair  intended  to  extend
 the normal economic life of the land or of any building, structure or  works
 on the land, or to improve the value or productivity of the land,  building,
@@ -349,7 +349,7 @@ or works or to maintain the land, building, structure or works in a  normal,
 functional state. 2017, c. 24, s. 2 (17).
 
 Direct costs
-(1.2) For the purposes of  clause  (b)  of  the  definition  of  "price"  in
+(1.2) For the purposes of  clause  (b)  of  the  definition  of  “price”  in
 subsection (1), the direct  costs  incurred  are  the  reasonable  costs  of
 performing the contract or subcontract during the extended period  of  time,
 including costs related to the additional supply of  services  or  materials
@@ -360,7 +360,7 @@ as a result, such as loss of profit, productivity  or  opportunity,  or  any
 head office overhead costs. 2017, c. 24, s. 2 (17).
 
 When materials supplied
-(2)  For the purposes of this Act, materials are supplied to an improvement
+(2)  For the purposes of this Act, materials are supplied to an  improvement
 when they are,
       (a)   placed on the land on which the improvement is being made;
       (b)   placed upon land designated by the owner  or  an  agent  of  the
@@ -369,16 +369,16 @@ when they are,
     subject to a lien; or
        (c)    in  any  event,  incorporated  into  or  used  in  making   or
     facilitating directly the making  of  the  improvement.   R.S.O.  1990,
-    c. C.30, s. 1 (2); 2017, c. 24, s. 71.
+    c. C.30, s. 1 (2); 2017, c. 24, s. 71.
 
 Same
-(3)  A contractor or subcontractor to whom materials are supplied  and  who
-designates land under clause (2) (b) is deemed to be the owner's  agent  for
+(3)  A contractor or subcontractor to whom materials are  supplied  and  who
+designates land under clause (2) (b) is deemed to be the owner’s  agent  for
 that purpose, unless the person supplying the materials  has  actual  notice
-to the contrary.  R.S.O. 1990, c. C.30, s. 1 (3).
+to the contrary.  R.S.O. 1990, c. C.30, s. 1 (3).
 
 Commencement of a procurement process
-(4)  For the purposes of this Act, a procurement process  is  commenced  on
+(4)  For the purposes of this Act, a procurement  process  is  commenced  on
 the earliest of the making of,
       (a)   a request for qualifications;
       (b)   a request for quotation;
@@ -386,14 +386,14 @@ the earliest of the making of,
       (d)   a call for tenders. 2018, c. 17, Sched. 8, s. 1.
 
 Multiple improvements under a contract
-(5)  For the purposes of this Act, if more than one improvement  is  to  be
+(5)  For the purposes of this Act, if more than one  improvement  is  to  be
 made under a contract and each of the improvements is to lands that are  not
 contiguous, then, if the contract so provides, each  improvement  is  deemed
 to be under a separate contract. 2024, c. 20, Sched. 4, s. 1 (3).
 Section Amendments with date in force (d/m/y)
-2002, c. 17, Sched. F, Table - 01/01/2003
-2006, c. 19, Sched. C, s. 1 (1) - 22/06/2006
-2010, c. 16, Sched. 2, s. 2 (1, 2) - 25/10/2010
+2002, c. 17, Sched. F, Table - 01/01/2003
+2006, c. 19, Sched. C, s. 1 (1) - 22/06/2006
+2010, c. 16, Sched. 2, s. 2 (1, 2) - 25/10/2010
 2017, c. 24, s. 2 (1-3, 5, 7, 8, 12, 14, 16, 17) - 01/07/2018; 2017, c. 24,
 s. 2 (4, 6, 9-11, 13, 15), 66, 70, 71 - 12/12/2017; 2017, c. 33, Sched. 2,
 s. 76 (1) - not in force
@@ -402,7 +402,7 @@ s. 76 (1) - not in force
 2025, c. 14, Sched. 2, s. 1 - 27/11/2025
 
 Alternative financing and procurement arrangements
-1.1  (1)  This section applies if the Crown, a municipality or  a  broader
+1.1  (1)  This section applies if the Crown, a  municipality  or  a  broader
 public sector organization, as the  owner  of  a  premises,  enters  into  a
 project agreement with a special purpose entity that requires the entity  to
 finance and undertake an improvement on behalf of  the  Crown,  municipality
@@ -411,7 +411,7 @@ purpose, to enter into an agreement with a  contractor  in  respect  of  the
 improvement. 2017, c. 24, s. 3 (1).
 
 Application of Act, regulations
-(2)  Except as provided by this  section,  this  Act  and  the  regulations
+(2)  Except as provided by  this  section,  this  Act  and  the  regulations
 apply, with the  modifications  set  out  in  this  section  and  any  other
 necessary modifications,
       (a)   to a project agreement between the Crown, a  municipality  or  a
@@ -423,7 +423,7 @@ necessary modifications,
     contract. 2017, c. 24, s. 3 (1).
 
 Specified modifications, Part I.1
-(2.1)  Part I.1 applies with the following modifications:
+(2.1)  Part I.1 applies with the following modifications:
       1.    The Part does not  apply  with  respect  to  any  portion  of  a
     project agreement that provides for the operation or maintenance of the
     improvement by the special purpose entity, or  to  any  portion  of  an
@@ -438,7 +438,7 @@ Specified modifications, Part I.1
     proper invoice. 2017, c. 24, s. 3 (2).
 
 Specified modifications, Part II.1
-(2.2)  Part II.1 applies with the following modifications:
+(2.2)  Part II.1 applies with the following modifications:
       1.    The following matters may not be the subject of an  adjudication
     under the Part:
       i.    A determination of when,
@@ -458,12 +458,12 @@ Specified modifications, Part II.1
     20, Sched. 4, s. 2.
 
 Specified modifications, Part IV
-(3)  For the purposes of section 22, holdback amounts shall  be  determined
+(3)  For the purposes of section 22, holdback amounts  shall  be  determined
 in reference to the agreement between the special  purpose  entity  and  the
 contractor. 2017, c. 24, s. 3 (1).
 
 Specified modifications, Part XI.1
-(4)  Section 85.1 applies with the following modifications:
+(4)  Section 85.1 applies with the following modifications:
       1.    The  agreement  between  the  special  purpose  entity  and  the
     contractor is deemed, for the purposes of the section, to be  a  public
     contract between the  Crown,  municipality  or  broader  public  sector
@@ -483,7 +483,7 @@ Specified modifications, Part XI.1
     2023, c. 21, Sched. 2, s. 1.
 
 Where entity deemed to be owner
-(5)  The special purpose entity is deemed to be the owner of  the  premises
+(5)  The special purpose entity is deemed to be the owner  of  the  premises
 in place of the Crown, municipality or broader public  sector  organization,
 and the agreement between the special purpose entity and the  contractor  is
 deemed to be the contract, for the purposes of the  following  portions  and
@@ -500,7 +500,7 @@ modifications:
     24, s. 3 (1).
 
 Interpretation, substantial performance of a contract
-(6)  For the purposes of subsection (5), a reference in  this  Act  or  the
+(6)  For the purposes of subsection (5), a reference  in  this  Act  or  the
 regulations to the substantial performance of a contract, as it  applies  in
 relation to a project agreement,  shall  be  read  as  a  reference  to  the
 substantial performance of the agreement between the special purpose  entity
@@ -508,13 +508,13 @@ and the contractor, subject to any exceptions that may be prescribed.  2017,
 c. 24, s. 3 (1).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 3 (1) - 01/07/2018; 2017, c. 24, s. 3 (2) - 01/10/2019
-2023, c. 21, Sched. 2, s. 1 - 01/07/2024
+2023, c. 21, Sched. 2, s. 1 – 01/07/2024
 2024, c. 20, Sched. 4, s. 2 - 01/01/2026
 
 Contracts, substantial performance and completion
 
 When contract substantially performed
-2 (1)  For the purposes of this Act, a contract is substantially performed,
+2 (1)  For the purposes of this Act, a contract is substantially performed,
       (a)   when the improvement  to  be  made  under  that  contract  or  a
     substantial part thereof is ready for use or  is  being  used  for  the
     purposes intended; and
@@ -524,19 +524,19 @@ When contract substantially performed
       (i)   3 per cent of the first $1,000,000 of the contract price,
       (ii)  2 per cent of the next $1,000,000 of the contract price, and
       (iii) 1 per cent of the balance of the contract price.   R.S.O.  1990,
-       c. C.30, s. 2 (1); 2017, c. 24, s. 4 (1, 2).
+       c. C.30, s. 2 (1); 2017, c. 24, s. 4 (1, 2).
 
 Same
-(2)  For the purposes of this Act, where the improvement or  a  substantial
+(2)  For the purposes of this Act, where the improvement  or  a  substantial
 part thereof is ready for use or is being used  for  the  purposes  intended
 and the owner and the contractor  agree  not  to  complete  the  improvement
 expeditiously, the price of  the  services  or  materials  remaining  to  be
 supplied and required to complete the improvement  shall  be  deducted  from
 the contract price in determining  substantial  performance.   R.S.O.  1990,
-c. C.30, s. 2 (2); 2017, c. 24, s. 4 (3), 66.
+c. C.30, s. 2 (2); 2017, c. 24, s. 4 (3), 66.
 
 Adjudication amounts
-(2.1)  For  the  purposes  of  this  Act,  if  an  adjudicator   makes   a
+(2.1)  For  the  purposes  of  this  Act,  if   an   adjudicator   makes   a
 determination  under  Part  II.1  in  relation  to  a  contract  before  the
 certification or declaration of the substantial performance of the  contract
 under section 32,
@@ -548,19 +548,19 @@ under section 32,
     determining substantial performance. 2017, c. 24, s. 4 (4).
 
 Same
-(2.2)  Subsection (2.1) ceases to apply if,
-      (a)   the adjudicator's determination ceases  to  be  binding  on  the
+(2.2)  Subsection (2.1) ceases to apply if,
+      (a)   the adjudicator’s determination ceases  to  be  binding  on  the
     parties to the adjudication under section 13.15; or
       (b)   the determination of the adjudicator is set  aside  on  judicial
     review. 2017, c. 24, s. 4 (4).
 
 When contract deemed completed
-(3)  For the purposes of this  Act,  a  contract  shall  be  deemed  to  be
+(3)  For the purposes of  this  Act,  a  contract  shall  be  deemed  to  be
 completed and services or materials shall be deemed to be last  supplied  to
 the improvement when the price of completion, correction of a  known  defect
 or last supply is not more than the lesser of,
       (a)   1 per cent of the contract price; and
-      (b)   $5,000.  R.S.O. 1990, c. C.30, s. 2 (3); 2017, c. 24, s. 4 (5,
+      (b)   $5,000.  R.S.O. 1990, c. C.30, s. 2 (3); 2017, c. 24, s.  4  (5,
     6).
 (4) Repealed: 2024, c. 20, Sched. 4, s. 3.
 Section Amendments with date in force (d/m/y)
@@ -572,18 +572,18 @@ Section Amendments with date in force (d/m/y)
                                    GENERAL
 
 ACT BINDS CROWN
-3 (1)  Subject to section 16 (where lien does not attach to the  premises),
-this Act binds the Crown.  R.S.O. 1990, c. C.30, s. 3 (1); 2017, c. 24, s.
+3 (1)  Subject to section 16 (where lien does not attach to  the  premises),
+this Act binds the Crown.  R.S.O. 1990, c. C.30, s. 3 (1); 2017, c.  24,  s.
 70.
-(2)  Repealed: 2017, c. 24, s. 5.
+(2)  Repealed: 2017, c. 24, s. 5.
 
 Exception re notice of claim
-(3)  Section 18 of the Crown Liability and Proceedings Act, 2019  does  not
+(3)  Section 18 of the Crown Liability and Proceedings Act,  2019  does  not
 apply in respect of an action against the  Crown  under  this  Act.   R.S.O.
-1990, c. C.30, s. 3 (3); 2019, c. 7, Sched. 17, s. 56.
-(4)  Repealed:  1997, c. 23, s. 4 (1).
+1990, c. C.30, s. 3 (3); 2019, c. 7, Sched. 17, s. 56.
+(4)  Repealed:  1997, c. 23, s. 4 (1).
 Section Amendments with date in force (d/m/y)
-1997, c. 23, s. 4 (1) - 28/11/1997
+1997, c. 23, s. 4 (1) - 28/11/1997
 2017, c. 24, s. 5, 70 - 12/12/2017
 2019, c. 7, Sched. 17, s. 56 - 01/07/2019
 
@@ -591,39 +591,39 @@ No waiver of rights
 4 An agreement by any person  who  supplies  services  or  materials  to  an
 improvement that this Act does not apply to the person or that the  remedies
 provided by it are not available for the benefit  of  the  person  is  void.
-R.S.O. 1990, c. C.30, s. 4; 2017, c. 24, s. 69.
+R.S.O. 1990, c. C.30, s. 4; 2017, c. 24, s. 69.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 69 - 12/12/2017
 
 Contracts to conform
-5 (1)  Every contract or subcontract related to an improvement is deemed to
+5 (1)  Every contract or subcontract related to an improvement is deemed  to
 be amended in so far as is necessary to be  in  conformity  with  this  Act.
-R.S.O. 1990, c. C.30, s. 5 (1).
+R.S.O. 1990, c. C.30, s. 5 (1).
 
 Retention of holdbacks authorized
-(2)  Without restricting  the  generality  of  subsection  (1),  where  the
+(2)  Without  restricting  the  generality  of  subsection  (1),  where  the
 purchaser is an owner, an agreement of purchase and sale that  provides  for
 the making or completion of an improvement shall be deemed  to  provide  for
 the retention of holdbacks by the purchaser, and tender by the purchaser  on
 closing is not defective by reason only that the purchaser does  not  tender
-the amount of the holdbacks.  R.S.O. 1990, c. C.30, s. 5 (2).
+the amount of the holdbacks.  R.S.O. 1990, c. C.30, s. 5 (2).
 
 Minor errors, irregularities
-6 (1)  No certificate, declaration or claim  for  lien  is  invalidated  by
+6 (1)  No certificate, declaration or  claim  for  lien  is  invalidated  by
 reason only of a failure to comply strictly with subsection 32 (2),  33  (1)
 or 34 (5) unless, in the opinion of the court, a person has been  prejudiced
 as a result, and then only to the extent of the  prejudice  suffered.  2017,
 c. 24, s. 6 (2); 2018, c. 17, Sched. 8, s. 2.
 
 Same
-(2)  Minor  errors  or  irregularities  to  which  subsection  (1)  applies
+(2)  Minor  errors  or  irregularities  to  which  subsection  (1)   applies
 include,
       (a)   a minor error or irregularity in,
       (i)   the name of an owner, a person for whom  services  or  materials
        were supplied or a payment certifier,
       (ii)  the legal description of a premises, or
       (iii) the address for service; and
-      (b)   the placement of an owner's name  in  the  wrong  portion  of  a
+      (b)   the placement of an owner’s name  in  the  wrong  portion  of  a
     claim for lien. 2017, c. 24, s. 6 (2); 2024, c. 20, Sched. 4, s. 4.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 6 (1) - 12/12/2017; 2017, c. 24, s. 6 (2) - 01/07/2018
@@ -633,13 +633,13 @@ Section Amendments with date in force (d/m/y)
                                   Part i.1
                                prompt payment
 
-DEFINITION, "PROPER INVOICE"
-6.1 (1)  In this Part,
-"proper invoice" means a written bill  or  other  request  for  payment  for
+DEFINITION, “PROPER INVOICE”
+6.1 (1)  In this Part,
+“proper invoice” means a written bill  or  other  request  for  payment  for
  services or materials in respect of an improvement under a contract, if it
  contains the following information and, subject  to  subsection  6.3  (2),
  meets any other requirements that the contract specifies:
-      1.    The contractor's name and address.
+      1.    The contractor’s name and address.
       2.    The date of the invoice  and  the  period,  milestone  or  other
     contractual payment entitlement to which the invoice relates.
       3.    Information identifying  the  contract  or  other  authorization
@@ -653,14 +653,14 @@ DEFINITION, "PROPER INVOICE"
     person to whom payment is to be sent or, if payment is to be sent to an
     office or department, its name, mailing address and telephone number.
        6.1    Any  other  information  that  is  necessary  for  the  proper
-    functioning of the owner's  accounts  payable  system  that  the  owner
+    functioning of the owner’s  accounts  payable  system  that  the  owner
     reasonably requests.
       7.    Any other information that may be prescribed. 2017,  c.  24,  s.
     7; 2024, c. 20, Sched. 4, s. 5 (1).
 
 Deemed to be a proper invoice
-(2)  An invoice that does not meet the  requirements  referred  to  in  the
-definition of "proper invoice" in subsection (1) is deemed to  be  a  proper
+(2)  An invoice that does not meet  the  requirements  referred  to  in  the
+definition of “proper invoice” in subsection (1) is deemed to  be  a  proper
 invoice for the purposes of this Part  unless,  no  later  than  seven  days
 after receiving the invoice, the owner notifies the  contractor  in  writing
 of the deficiency and of what is  required  to  address  it.  2024,  c.  20,
@@ -670,7 +670,7 @@ Section Amendments with date in force (d/m/y)
 2024, c. 20, Sched. 4, s. 5 (1, 2) - 01/01/2026
 
 Subject to holdback requirements
-6.2  A requirement to pay an amount in accordance with this Part is subject
+6.2  A requirement to pay an amount in accordance with this Part is  subject
 to any requirement to retain a holdback in accordance with  Part  IV.  2017,
 c. 24, s. 7.
 Section Amendments with date in force (d/m/y)
@@ -683,29 +683,29 @@ unless the contract provides otherwise. 2017, c. 24, s. 7.
 Restriction on conditions
 (2) A provision in a contract that makes the  giving  of  a  proper  invoice
 conditional on the prior certification of a  payment  certifier  or  on  the
-owner's prior approval is of no force or effect. 2017, c. 24, s. 7.
+owner’s prior approval is of no force or effect. 2017, c. 24, s. 7.
 
 Same
 (3) For greater certainty, subsection (2) has no application to a  provision
 in a contract that provides for the certification of a payment certifier  or
-the owner's approval after a proper invoice is given. 2017, c. 24, s. 7.
+the owner’s approval after a proper invoice is given. 2017, c. 24, s. 7.
 
 Exception
-(4)  Subsection (2) does not apply  to  a  provision  in  a  contract  that
+(4)  Subsection (2) does not  apply  to  a  provision  in  a  contract  that
 provides for  the  testing  and  commissioning  of  the  improvement  or  of
 services or materials supplied under the contract. 2017, c. 24, s. 7.
 
 Revisions
-(5)  A proper invoice may be revised by the contractor after the contractor
+(5)  A proper invoice may be revised by the contractor after the  contractor
 has given it to the owner, if,
       (a)   the owner agrees in advance to the revision;
       (b)   the date of the proper invoice is not changed; and
       (c)   the proper invoice, as  revised,  would  meet  the  requirements
-    referred to in the definition of "proper  invoice"  in  subsection  6.1
+    referred to in the definition of “proper  invoice”  in  subsection  6.1
     (1). 2017, c. 24, s. 7; 2024, c. 20, Sched. 4, s. 6 (1).
 
 Deeming
-(6)  For the purposes of clause (5) (c), subsection 6.1  (2)  applies  with
+(6)  For the purposes of clause (5) (c), subsection  6.1  (2)  applies  with
 necessary modifications with respect to a  revised  invoice.  2024,  c.  20,
 Sched. 4, s. 6 (2).
 Section Amendments with date in force (d/m/y)
@@ -923,7 +923,7 @@ Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 7 - 01/10/2019
 
 Reasons for non-payment
-6.7  Reasons for non-payment in accordance with this Part may  include  the
+6.7  Reasons for non-payment in accordance with this Part  may  include  the
 retention of  amounts  under  section  12  (set-off  by  trustee)  or  under
 subsection 17 (3) (lien set-off). 2017, c. 24, s. 7.
 Section Amendments with date in force (d/m/y)
@@ -937,7 +937,7 @@ Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 7 - 01/10/2019
 
 Interest on late payments
-6.9  Interest begins to accrue on an amount that is not paid when it is due
+6.9  Interest begins to accrue on an amount that is not paid when it is  due
 to be paid under this Part, at  the  prejudgment  interest  rate  determined
 under subsection 127 (2) of the Courts of Justice Act or,  if  the  contract
 or subcontract specifies a different interest  rate  for  the  purpose,  the
@@ -949,46 +949,46 @@ Section Amendments with date in force (d/m/y)
                                    Part II
                               TRUST PROVISIONS
 
-OWNER'S TRUST
+OWNER’S TRUST
 
 Amounts received for financing a trust
-7 (1)  All amounts received  by  an  owner,  other  than  the  Crown  or  a
+7 (1)  All amounts  received  by  an  owner,  other  than  the  Crown  or  a
 municipality, that are to be used  in  the  financing  of  the  improvement,
 including any amount that is to be used  in  the  payment  of  the  purchase
 price of the land and the payment of prior encumbrances and any amount  that
 is required to be retained by the owner as a holdback,  constitute,  subject
 to the payment of the purchase price of the land and prior  encumbrances,  a
-trust fund for the  benefit  of  the  contractor.   R.S.O.  1990,  c. C.30,
-s. 7 (1); 2024, c. 20, Sched. 4, s. 7.
+trust fund for  the  benefit  of  the  contractor.   R.S.O.  1990,  c. C.30,
+s. 7 (1); 2024, c. 20, Sched. 4, s. 7.
 
 Amounts certified as payable
-(2)  Where amounts become payable under a contract to a contractor  by  the
+(2)  Where amounts become payable under a contract to a  contractor  by  the
 owner on a certificate of a payment certifier, an amount that  is  equal  to
-an amount so certified that is in the  owner's  hands  or  received  by  the
+an amount so certified that is in the  owner’s  hands  or  received  by  the
 owner at any time thereafter constitutes a trust fund  for  the  benefit  of
-the contractor.  R.S.O. 1990, c. C.30, s. 7 (2).
+the contractor.  R.S.O. 1990, c. C.30, s. 7 (2).
 
 Where substantial performance certified
-(3)  Where the substantial performance of a contract has been certified, or
+(3)  Where the substantial performance of a contract has been certified,  or
 has been declared by the court, an amount that is equal to the unpaid  price
 of the substantially performed portion  of  the  contract  that  is  in  the
-owner's  hands  or  is  received  by  the  owner  at  any  time   thereafter
+owner’s  hands  or  is  received  by  the  owner  at  any  time   thereafter
 constitutes a trust fund for the benefit of the  contractor.   R.S.O.  1990,
-c. C.30, s. 7 (3).
+c. C.30, s. 7 (3).
 
 Obligations as trustee
-(4)  The owner is the trustee of the trust fund created by subsection  (1),
+(4)  The owner is the trustee of the trust fund created by  subsection  (1),
 (2) or (3), and the owner shall not appropriate or convert  any  part  of  a
-fund to the owner's own use or to any use inconsistent with the trust  until
+fund to the owner’s own use or to any use inconsistent with the trust  until
 the contractor is paid all amounts related to the improvement  owed  to  the
-contractor by the owner.  R.S.O. 1990, c. C.30, s. 7 (4).
+contractor by the owner.  R.S.O. 1990, c. C.30, s. 7 (4).
 Section Amendments with date in force (d/m/y)
 2024, c. 20, Sched. 4, s. 7 - 01/01/2026
 
-Contractor's and subcontractor's trust
+Contractor’s and subcontractor’s trust
 
 Amounts received a trust
-8 (1)  All amounts,
+8 (1)  All amounts,
       (a)   owing to a contractor or subcontractor, whether or  not  due  or
     payable; or
       (b)   received by a contractor or subcontractor,
@@ -997,30 +997,30 @@ including any holdback amount that is owed to or received by the  contractor
 or  subcontractor,  constitute  a  trust  fund  for  the  benefit   of   the
 subcontractors and other persons who have supplied services or materials  to
 the improvement, who are owed amounts by the  contractor  or  subcontractor.
-R.S.O. 1990, c. C.30, s. 8 (1); 2017, c. 24, s. 66; 2024, c. 20, Sched. 4,
+R.S.O. 1990, c. C.30, s. 8 (1); 2017, c. 24, s. 66; 2024, c. 20,  Sched.  4,
 s. 8.
 
 Obligations as trustee
-(2)  The contractor or subcontractor is  the  trustee  of  the  trust  fund
+(2)  The contractor or subcontractor  is  the  trustee  of  the  trust  fund
 created by subsection (1) and the  contractor  or  subcontractor  shall  not
-appropriate or  convert  any  part  of  the  fund  to  the  contractor's  or
-subcontractor's own use or to any use inconsistent with the trust until  all
+appropriate or  convert  any  part  of  the  fund  to  the  contractor’s  or
+subcontractor’s own use or to any use inconsistent with the trust until  all
 subcontractors and other persons who supply services  or  materials  to  the
 improvement are paid all amounts related to the improvement owed to them  by
-the contractor or subcontractor.  R.S.O. 1990, c. C.30, s. 8 (2); 2017, c.
+the contractor or subcontractor.  R.S.O. 1990, c. C.30, s. 8 (2);  2017,  c.
 24, s. 66.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 66 - 12/12/2017
 2024, c. 20, Sched. 4, s. 8 - 01/01/2026
 
-Contractor's, subcontractor's duties re trust funds
+Contractor’s, subcontractor’s duties re trust funds
 8.1 (1) Every person who is a trustee under section 8 shall comply with  the
 following requirements respecting the trust funds of  which  he  or  she  is
 trustee:
       1.    The trust funds shall be deposited into a bank  account  in  the
-    trustee's name. If there is more than one trustee of the  trust  funds,
+    trustee’s name. If there is more than one trustee of the  trust  funds,
     the funds shall be  deposited  into  a  bank  account  in  all  of  the
-    trustees' names.
+    trustees’ names.
       2.    The trustee shall maintain written records respecting the  trust
     funds, detailing the amounts that are received into and paid out of the
     funds, any transfers made for the purposes of the trust, and any  other
@@ -1038,10 +1038,10 @@ subsection does not constitute a breach of trust. 2017, c. 24, s. 8.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 8 - 01/07/2018
 
-Vendor's trust
+Vendor’s trust
 
 Amounts received a trust
-9 (1)  Where the owner's interest in a premises is sold by  the  owner,  an
+9 (1)  Where the owner’s interest in a premises is sold  by  the  owner,  an
 amount equal to,
       (a)   the value of the  consideration  received  by  the  owner  as  a
     result of the sale,
@@ -1050,46 +1050,46 @@ less,
     if  any,  paid  by  the  vendor  to  discharge  any  existing  mortgage
     indebtedness on the premises,
 constitutes a trust fund for the benefit of the  contractor.   R.S.O.  1990,
-c. C.30, s. 9 (1); 2017, c. 24, s. 9, 70.
+c. C.30, s. 9 (1); 2017, c. 24, s. 9, 70.
 
 Obligations as trustee
-(2)  The former owner is the trustee of the  trust  created  by  subsection
+(2)  The former owner is the trustee of  the  trust  created  by  subsection
 (1), and shall not appropriate or convert any part of the trust property  to
-the former owner's own use or to any use inconsistent with the  trust  until
+the former owner’s own use or to any use inconsistent with the  trust  until
 the contractor is paid all amounts owed to the  contractor  that  relate  to
-the improvement.  R.S.O. 1990, c. C.30, s. 9 (2).
+the improvement.  R.S.O. 1990, c. C.30, s. 9 (2).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 9, 70 - 12/12/2017
 
 Payment discharging trust
-10 (1)  Subject to Part IV (holdbacks), every payment by  a  trustee  to  a
+10 (1)  Subject to Part IV (holdbacks), every payment  by  a  trustee  to  a
 person the trustee is liable to pay for services or  materials  supplied  to
 the improvement discharges the trust of the trustee making the  payment  and
-the trustee's obligations and liability as trustee to all  beneficiaries  of
+the trustee’s obligations and liability as trustee to all  beneficiaries  of
 the trust to the extent of the payment made by the  trustee.   R.S.O.  1990,
-c. C.30, s. 10.
+c. C.30, s. 10.
 
 Same
-(2)  For greater certainty, subsection (1)  applies  with  respect  to  the
+(2)  For greater certainty, subsection  (1)  applies  with  respect  to  the
 payment of holdback in accordance with  section  26  or  27.  2024,  c.  20,
 Sched. 4, s. 9.
 Section Amendments with date in force (d/m/y)
 2024, c. 20, Sched. 4, s. 9 - 01/01/2026
 
 Where trust funds may be reduced
-11 (1)  Subject to Part IV, a trustee who pays in whole or in part for  the
+11 (1)  Subject to Part IV, a trustee who pays in whole or in part  for  the
 supply of services or materials to an improvement out of money that  is  not
 subject to a trust under this Part may retain from  trust  funds  an  amount
 equal to that paid by the trustee without being  in  breach  of  the  trust.
-R.S.O. 1990, c. C.30, s. 11 (1); 2017, c. 24, s. 66.
+R.S.O. 1990, c. C.30, s. 11 (1); 2017, c. 24, s. 66.
 
 Application of trust funds to discharge loan
-(2)  Subject to Part IV, where a trustee pays in whole or in part  for  the
+(2)  Subject to Part IV, where a trustee pays in whole or in  part  for  the
 supply of services or materials to an  improvement  out  of  money  that  is
 loaned to the trustee, trust funds may be applied to discharge the  loan  to
-the extent that the lender's money was so  used  by  the  trustee,  and  the
+the extent that the lender’s money was so  used  by  the  trustee,  and  the
 application of trust money does  not  constitute  a  breach  of  the  trust.
-R.S.O. 1990, c. C.30, s. 11 (2).
+R.S.O. 1990, c. C.30, s. 11 (2).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 66 - 12/12/2017
 
@@ -1097,71 +1097,71 @@ Set-off by trustee
 12 Subject to Part IV, a trustee may, without  being  in  breach  of  trust,
 retain from trust funds an amount that,  as  between  the  trustee  and  the
 person the trustee is liable to pay under a contract or subcontract  related
-to the improvement, is equal to the balance in the trustee's favour  of  all
+to the improvement, is equal to the balance in the trustee’s favour  of  all
 outstanding debts, claims or damages related to the improvement or,  if  the
 contractor or subcontractor, as the case  may  be,  becomes  insolvent,  all
 outstanding  debts,  claims  or  damages  whether  or  not  related  to  the
-improvement.  R.S.O. 1990, c. C.30, s. 12; 2017, c. 24, s. 10.
+improvement.  R.S.O. 1990, c. C.30, s. 12; 2017, c. 24, s. 10.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 10 (1) - 12/12/2017; 2017, c. 24, s. 10 (2) - 01/07/2018
 
 Liability for breach of trust
 
 By corporation
-13 (1)  In addition to the persons who are otherwise liable  in  an  action
+13 (1)  In addition to the persons who are otherwise  liable  in  an  action
 for breach of trust under this Part,
       (a)   every director or officer of a corporation; and
       (b)   any person, including an employee or agent of  the  corporation,
     who has effective control of a corporation or its relevant activities,
 who assents  to,  or  acquiesces  in,  conduct  that  he  or  she  knows  or
 reasonably ought to know amounts to breach of trust by  the  corporation  is
-liable for the breach of trust.  R.S.O. 1990, c. C.30, s. 13 (1).
+liable for the breach of trust.  R.S.O. 1990, c. C.30, s. 13 (1).
 
 Effective control of corporation
-(2)  The  question  of  whether  a  person  has  effective  control  of  a
+(2)  The  question  of  whether  a  person  has  effective  control   of   a
 corporation or its relevant activities is one of  fact  and  in  determining
 this the court may disregard the form of any transaction  and  the  separate
-corporate existence of any participant.  R.S.O. 1990, c. C.30, s. 13 (2).
+corporate existence of any participant.  R.S.O. 1990, c. C.30, s. 13 (2).
 
 Joint and several liability
-(3)  Where more than one person is found liable or has  admitted  liability
+(3)  Where more than one person is found liable or  has  admitted  liability
 for a particular breach of trust under this Part, those persons are  jointly
-and severally liable.  R.S.O. 1990, c. C.30, s. 13 (3).
+and severally liable.  R.S.O. 1990, c. C.30, s. 13 (3).
 
 Contribution
-(4)  A person who is found liable, or who has  admitted  liability,  for  a
+(4)  A person who is found liable, or who  has  admitted  liability,  for  a
 particular breach of  a  trust  under  this  Part  is  entitled  to  recover
 contribution from any other person  also  liable  for  the  breach  in  such
 amount as will result in equal contribution by all parties  liable  for  the
 breach unless the court considers such apportionment would not be fair  and,
 in that case, the court may direct such contribution  or  indemnity  as  the
-court considers appropriate in the circumstances.   R.S.O.  1990,  c. C.30,
-s. 13 (4).
+court considers appropriate in the  circumstances.   R.S.O.  1990,  c. C.30,
+s. 13 (4).
 
                                   part ii.1
                   construction dispute interim adjudication
 
 DEFINITIONS
 13.1 In this Part,
-"adjudication" means construction dispute interim  adjudication  under  this
- Part; ("arbitrage int�rimaire")
-"adjudicator"  means  a  registry  adjudicator  or  a  private  adjudicator;
- ("arbitre int�rimaire")
-"Authority" means  the  Authorized  Nominating  Authority  designated  under
- section 13.2; ("Autorit�")
-"notice of adjudication" means a  notice  that  meets  the  requirements  of
- section 13.7. ("avis d'arbitrage int�rimaire")
-"private adjudicator" means a person who is qualified by the Authority as  a
- private adjudicator; ("arbitre int�rimaire priv�")
-"registry adjudicator" means a person who is qualified by the  Authority  as
- a registry adjudicator. ("arbitre int�rimaire du registre") 2017,  c.  24,
+“adjudication” means construction dispute interim  adjudication  under  this
+ Part; (“arbitrage intérimaire”)
+“adjudicator”  means  a  registry  adjudicator  or  a  private  adjudicator;
+ (“arbitre intérimaire”)
+“Authority” means  the  Authorized  Nominating  Authority  designated  under
+ section 13.2; (“Autorité”)
+“notice of adjudication” means a  notice  that  meets  the  requirements  of
+ section 13.7. (“avis d’arbitrage intérimaire”)
+“private adjudicator” means a person who is qualified by the Authority as  a
+ private adjudicator; (“arbitre intérimaire privé”)
+“registry adjudicator” means a person who is qualified by the  Authority  as
+ a registry adjudicator. (“arbitre intérimaire du registre”) 2017,  c.  24,
  s. 11 (1); 2024, c. 20, Sched. 4, s. 10.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 11 (1) - 01/10/2019
 2024, c. 20, Sched. 4, s. 10 (1-3) - 01/01/2026
 
 Authorized Nominating Authority
-13.2 (1)  The Minister  may  designate  an  entity  to  act  as  Authorized
+13.2 (1)  The  Minister  may  designate  an  entity  to  act  as  Authorized
 Nominating Authority for the purposes of this Part. 2017, c. 24, s. 11  (1);
 2025, c. 14, Sched. 2, s. 2.
 
@@ -1203,12 +1203,12 @@ Powers
     11 (2).
 
 Setting fees
-(3)  In setting the fees, costs and charges referred to in clause (2)  (a),
+(3)  In setting the fees, costs and charges referred to in clause  (2)  (a),
 the Authority may, subject to the regulations, specify their amounts or  the
 method for determining the amounts. 2018, c. 17, Sched. 8, s. 3 (2).
 
 Fee retention
-(4)  Money collected by the Authority under clause (2) (a),
+(4)  Money collected by the Authority under clause (2) (a),
       (a)   is revenue belonging to  the  Authority  and  not  public  money
     within the meaning of the Financial Administration Act; and
       (b)   may be retained and used by the Authority for its  own  account.
@@ -1244,25 +1244,25 @@ Section Amendments with date in force (d/m/y)
 Availability of adjudication
 
 Contract
-13.5 (1)  Subject to subsection (3), a party to  a  contract  may  refer  a
+13.5 (1)  Subject to subsection (3), a party  to  a  contract  may  refer  a
 dispute with the other party  to  the  contract  respecting  any  prescribed
 matter or any matter agreed to by the parties to adjudication. 2024, c.  20,
 Sched. 4, s. 12 (1).
 
 Subcontract
-(2)  Subject to subsection (3.1), a party to  a  subcontract  may  refer  a
+(2)  Subject to subsection (3.1), a party  to  a  subcontract  may  refer  a
 dispute with the other party to the subcontract  respecting  any  prescribed
 matter or any matter agreed to by the parties to adjudication. 2024, c.  20,
 Sched. 4, s. 12 (1).
 
 Expiry of adjudication period, contract
-(3)  An adjudication in respect of a contract may not be commenced  if  the
+(3)  An adjudication in respect of a contract may not be  commenced  if  the
 notice of adjudication is given more than 90 days after the  date  on  which
 the contract is completed, abandoned or terminated, unless  the  parties  to
 the adjudication agree otherwise. 2024, c. 20, Sched. 4, s. 12 (1).
 
 Expiry of adjudication period, subcontract
-(3.1)  An adjudication in respect of a subcontract may not be commenced  if
+(3.1)  An adjudication in respect of a subcontract may not be  commenced  if
 the notice of adjudication is given more than 90  days  after  the  earliest
 of,
       (a)   the date referred to in subsection (3);
@@ -1272,7 +1272,7 @@ of,
     materials to the improvement. 2024, c. 20, Sched. 4, s. 12 (1).
 
 Other disputes
-(3.2)  If the regulations so provide, a party to a contract or  subcontract
+(3.2)  If the regulations so provide, a party to a contract  or  subcontract
 may, subject to any conditions or restrictions that may be specified by  the
 regulations,  refer  a  dispute  with  a  party  to  another   contract   or
 subcontract for the same improvement respecting  any  prescribed  matter  to
@@ -1294,16 +1294,16 @@ Section Amendments with date in force (d/m/y)
 2024, c. 20, Sched. 4, s. 12 (1-3) - 01/01/2026
 
 Adjudication procedures
-13.6  (1)  An adjudication shall  be  conducted  in  accordance  with  the
+13.6  (1)  An  adjudication  shall  be  conducted  in  accordance  with  the
 adjudication procedures set out in this Part, the regulations, and,  subject
 to subsection (2), any additional adjudication procedures that  may  be  set
 out in the contract or subcontract. 2018, c. 17, Sched. 8, s. 4.
 
 Same
-(2)  Adjudication procedures set out in a  contract  or  subcontract  apply
+(2)  Adjudication procedures set out in  a  contract  or  subcontract  apply
 only to the extent that  they  do  not  conflict  with  this  Part  and  the
 regulations, and their  application  is  subject  to  the  exercise  of  the
-adjudicator's powers under section 13.12. 2018, c. 17, Sched. 8, s. 4.
+adjudicator’s powers under section 13.12. 2018, c. 17, Sched. 8, s. 4.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 11 (1) - 01/10/2019
 2018, c. 17, Sched. 8, s. 4 - 01/10/2019
@@ -1332,7 +1332,7 @@ Section Amendments with date in force (d/m/y)
 2024, c. 20, Sched. 4, s. 13 (1, 2) - 01/01/2026
 
 Consolidated adjudications
-13.8  (1)  If the  same  matter  or  related  matters  in  respect  of  an
+13.8  (1)  If  the  same  matter  or  related  matters  in  respect  of   an
 improvement are the subject  of  disputes  to  be  adjudicated  in  separate
 adjudications under subsections 13.5 (1) and (2), the  parties  to  each  of
 the adjudications may agree to the adjudication of the disputes together  by
@@ -1340,13 +1340,13 @@ a single adjudicator as a consolidated adjudication.  2017,  c.  24,  s.  11
 (1).
 
 May be required
-(2)  If the parties do not agree to a consolidated adjudication, any of the
+(2)  If the parties do not agree to a consolidated adjudication, any of  the
 parties may,  with  the  agreement  of  the  adjudicators  of  the  separate
 adjudications and in accordance with the regulations,  nevertheless  require
 the consolidation of the adjudications. 2024, c. 20, Sched. 4, s. 14.
 
 Application
-(3)  This  Part  applies  with  the  following  and  any  other  necessary
+(3)  This  Part  applies  with  the  following  and  any   other   necessary
 modifications to a consolidated adjudication:
       1.    Subsection 13.10 (3) does not apply,  and  the  adjudicator  may
     determine how the adjudication fee is to  be  apportioned  between  the
@@ -1362,7 +1362,7 @@ modifications to a consolidated adjudication:
     8, s. 5.
 
 Multiple disputes permitted
-(4)  This section applies despite subsection 13.5 (4). 2017, c. 24,  s.  11
+(4)  This section applies despite subsection 13.5 (4). 2017, c.  24,  s.  11
 (1).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 11 (1) - 01/10/2019
@@ -1374,12 +1374,12 @@ Adjudicator
 24, s. 11 (1); 2024, c. 20, Sched. 4, s. 15 (1).
 
 Registry adjudicator
-(2)  The parties to the adjudication may agree to a registry adjudicator or
+(2)  The parties to the adjudication may agree to a registry adjudicator  or
 may request that the Authority appoint one. 2024, c. 20,  Sched.  4,  s.  15
 (2).
 
 Private adjudicator
-(2.1)  The parties to the adjudication may agree to a  private  adjudicator
+(2.1)  The parties to the adjudication may agree to  a  private  adjudicator
 if the prescribed conditions are met. 2024, c. 20, Sched. 4, s. 15 (2).
 
 Contract, subcontract may not name adjudicator
@@ -1388,7 +1388,7 @@ to act as an adjudicator in the event of an adjudication is of no  force  or
 effect. 2017, c. 24, s. 11 (1).
 
 Requirement to request appointment
-(4)  If a registry adjudicator to which the parties have  agreed  does  not
+(4)  If a registry adjudicator to which the parties  have  agreed  does  not
 consent to conduct the adjudication within four days  after  the  notice  of
 adjudication is given, the party who gave the notice shall request that  the
 Authority appoint a registry adjudicator. 2024, c. 20, Sched. 4, s. 15 (3).
@@ -1408,7 +1408,7 @@ Section Amendments with date in force (d/m/y)
 2024, c. 20, Sched. 4, s. 15 (1-4) - 01/01/2026
 
 Adjudicator fee
-13.10  (1)  The  adjudicator  shall  be  paid  the  fee  determined  under
+13.10  (1)  The  adjudicator  shall  be  paid  the  fee   determined   under
 subsection (2)  or  (2.1),  in  accordance  with  the  regulations  and  any
 direction given by the Authority. 2024, c. 20, Sched. 4, s. 16 (1).
 
@@ -1418,11 +1418,11 @@ Fee amount
     registry adjudicator; or
       (b)   if the parties and the registry adjudicator do not  agree  to  a
     fee amount, the amount determined by the Authority, in accordance  with
-    the regulations, if any, on the registry adjudicator's  request.  2017,
+    the regulations, if any, on the registry adjudicator’s  request.  2017,
     c. 24, s. 11 (1); 2024, c. 20, Sched. 4, s. 16 (2).
 
 Same
-(2.1)  The fee payable to a private adjudicator is the fee agreed to by the
+(2.1)  The fee payable to a private adjudicator is the fee agreed to by  the
 adjudicator and the parties to the adjudication. 2024, c. 20, Sched.  4,  s.
 16 (3).
 
@@ -1435,7 +1435,7 @@ Section Amendments with date in force (d/m/y)
 2024, c. 20, Sched. 4, s. 16 (1-3) - 01/01/2026
 
 Documents to adjudicator, party
-13.11  No later than five days after an adjudicator agrees or is  appointed
+13.11  No later than five days after an adjudicator agrees or  is  appointed
 to conduct the adjudication, the party who gave the notice  of  adjudication
 shall,
       (a)   provide to the adjudicator a copy of the notice; and
@@ -1447,7 +1447,7 @@ Section Amendments with date in force (d/m/y)
 2018, c. 17, Sched. 8, s. 6 - 01/10/2019
 
 Response to notice
-13.11.1  A party who receives a notice of adjudication may,  in  accordance
+13.11.1  A party who receives a notice of adjudication  may,  in  accordance
 with the regulations, respond in writing. 2018, c. 17, Sched. 8, s. 6.
 Section Amendments with date in force (d/m/y)
 2018, c. 17, Sched. 8, s. 6 - 01/10/2019
@@ -1510,24 +1510,24 @@ Section Amendments with date in force (d/m/y)
 2024, c. 20, Sched. 4, s. 17 - 01/01/2026
 
 Objection on jurisdictional grounds
-13.12.1  (1)  A party may object  to  the  adjudicator's  jurisdiction  to
+13.12.1  (1)  A party  may  object  to  the  adjudicator’s  jurisdiction  to
 conduct the adjudication, or on the basis that the adjudicator has  exceeded
 their jurisdiction in the conduct of the adjudication. 2024, c.  20,  Sched.
 4, s. 18.
 
 Timing
-(2)  An objection shall be made,
+(2)  An objection shall be made,
       (a)   in the case of an objection as to whether a matter  may  be  the
-    subject of an adjudication  or  to  an  adjudicator's  jurisdiction  to
+    subject of an adjudication  or  to  an  adjudicator’s  jurisdiction  to
     conduct the adjudication, when the party first makes submissions in the
     adjudication; and
       (b)   in the case of an objection that  an  adjudicator  has  exceeded
     their  jurisdiction,  as  soon  as  the  matter  allegedly  beyond  the
-    adjudicator's jurisdiction is raised in the adjudication. 2024, c.  20,
+    adjudicator’s jurisdiction is raised in the adjudication. 2024, c.  20,
     Sched. 4, s. 18.
 
 Extension
-(3)  The adjudicator may extend the time for making an  objection,  if  the
+(3)  The adjudicator may extend the time for making  an  objection,  if  the
 adjudicator considers the delay justified. 2024, c. 20, Sched. 4, s. 18.
 Section Amendments with date in force (d/m/y)
 2024, c. 20, Sched. 4, s. 18 - 01/01/2026
@@ -1539,24 +1539,24 @@ than 30 days after receiving the documents required by section 13.11.  2017,
 c. 24, s. 11 (1).
 
 Extension
-(2) The deadline for an adjudicator's determination may be extended, at  any
+(2) The deadline for an adjudicator’s determination may be extended, at  any
 time before  its  expiry  and  after  the  provision  of  documents  to  the
 adjudicator under section 13.11,
-      (a)   on the adjudicator's request, with the written  consent  of  the
+      (a)   on the adjudicator’s request, with the written  consent  of  the
     parties to the adjudication, for a period of no more than 14 days; or
       (b)   on the written agreement of the  parties  to  the  adjudication,
-    subject to the adjudicator's consent, for the period specified  in  the
+    subject to the adjudicator’s consent, for the period specified  in  the
     agreement. 2017, c. 24, s. 11 (1).
 
 Notice of extension
-(3)  If the party who gave the notice of adjudication also gave a notice of
+(3)  If the party who gave the notice of adjudication also gave a notice  of
 non-payment under Part I.1 in relation to the matter that is the subject  of
 the adjudication, the party shall give notice of an extension  under  clause
 (2) (b), specifying the period of the extension, to the person  to  whom  he
 or she gave the notice of non-payment. 2017, c. 24, s. 11 (1).
 
 Same
-(4)  A person who receives notice of an extension under subsection  (3)  or
+(4)  A person who receives notice of an extension under  subsection  (3)  or
 under this subsection shall give notice of  the  extension,  specifying  the
 period of the extension, to any person to whom he or she gave notice of non-
 payment under Part I.1 in relation to the matter that is the subject of  the
@@ -1567,11 +1567,11 @@ Delayed determination
 subsection (1) or (2) is of no force or effect. 2017, c. 24, s. 11 (1).
 
 Written reasons
-(6) The adjudicator's determination shall be in writing  and  shall  include
+(6) The adjudicator’s determination shall be in writing  and  shall  include
 reasons for the determination. 2017, c. 24, s. 11 (1).
 
 Admissibility
-(7)  The determination and reasons of  an  adjudicator  are  admissible  as
+(7)  The determination and reasons  of  an  adjudicator  are  admissible  as
 evidence in court. 2017, c. 24, s. 11 (1).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 11 (1) - 01/10/2019
@@ -1580,7 +1580,7 @@ Termination of adjudication
 13.14 At any time after the notice of adjudication is given and  before  the
 adjudicator makes his or her determination, the parties to the  adjudication
 may agree to terminate the adjudication, on notice to  the  adjudicator  and
-subject to the payment of any outstanding adjudicator's  fee  in  accordance
+subject to the payment of any outstanding adjudicator’s  fee  in  accordance
 with the regulations made for the purposes of subsection  13.10  (1).  2017,
 c. 24, s. 11 (1); 2024, c. 20, Sched. 4, s. 19.
 Section Amendments with date in force (d/m/y)
@@ -1588,14 +1588,14 @@ Section Amendments with date in force (d/m/y)
 2024, c. 20, Sched. 4, s. 19 - 01/01/2026
 
 Effect of determination
-13.15 (1)  The determination of a matter by an adjudicator  is  binding  on
+13.15 (1)  The determination of a matter by an  adjudicator  is  binding  on
 the parties to the adjudication until a determination of  the  matter  by  a
 court, a determination of the matter by  way  of  an  arbitration  conducted
 under the Arbitration Act, 1991, or a written agreement between the  parties
 respecting the matter. 2017, c. 24, s. 11 (1).
 
 Authority of court, arbitrator
-(2)  Subject to section 13.18, nothing in this Part restricts the authority
+(2)  Subject to section 13.18, nothing in this Part restricts the  authority
 of a court or of an arbitrator acting under the  Arbitration  Act,  1991  to
 consider the merits of a matter determined by an adjudicator. 2017,  c.  24,
 s. 11 (1).
@@ -1613,7 +1613,7 @@ Frivolous, vexatious, etc.
 acted in respect of the improvement or of the adjudication in a manner  that
 is frivolous, vexatious, an abuse of process or other than  in  good  faith,
 the adjudicator may provide, as part of his  or  her  determination  of  the
-matter, that the party be required to pay some or all of the  other  party's
+matter, that the party be required to pay some or all of the  other  party’s
 costs, any part of the fee amount determined under section 13.10 that  would
 otherwise be payable by the other party, or both. 2017, c. 24,  s.  11  (1);
 2024, c. 20, Sched. 4, s. 20.
@@ -1622,16 +1622,16 @@ Section Amendments with date in force (d/m/y)
 2024, c. 20, Sched. 4, s. 20 - 01/01/2026
 
 Corrections
-13.17.1  (1)  No later than five  days  after  a  determination  has  been
+13.17.1  (1)  No later  than  five  days  after  a  determination  has  been
 communicated to the parties to the  adjudication,  an  adjudicator  may,  on
-their own initiative or at a party's written request,
+their own initiative or at a party’s written request,
       (a)   correct typographical errors, errors of calculation and  similar
     errors in the determination; or
       (b)   amend the determination to correct an  injustice  caused  by  an
-    oversight on the adjudicator's part. 2024, c. 20, Sched. 4, s. 21.
+    oversight on the adjudicator’s part. 2024, c. 20, Sched. 4, s. 21.
 
 Hearing not required
-(2)  An adjudicator may make a determination under subsection  (1)  without
+(2)  An adjudicator may make a determination under  subsection  (1)  without
 holding a hearing. 2024, c. 20, Sched. 4, s. 21.
 Section Amendments with date in force (d/m/y)
 2024, c. 20, Sched. 4, s. 21 - 01/01/2026
@@ -1639,28 +1639,28 @@ Section Amendments with date in force (d/m/y)
 Setting aside on judicial review
 
 Leave required
-13.18  (1)  An application for judicial review of a  determination  of  an
+13.18  (1)  An application for judicial review  of  a  determination  of  an
 adjudicator may  only  be  made  with  leave  of  the  Divisional  Court  in
 accordance with this section and the rules of court.  2017,  c.  24,  s.  11
 (1).
 
 Timing
-(2)  A motion for leave to bring an application for judicial  review  of  a
+(2)  A motion for leave to bring an application for  judicial  review  of  a
 determination of an adjudicator shall be filed, with proof  of  service,  in
 accordance with the  rules  of  court  no  later  than  35  days  after  the
 determination is communicated to the parties. 2017, c. 24, s. 11 (1);  2024,
 c. 20, Sched. 4, s. 22 (1).
 
 Dismissal without reasons
-(3)  A motion for leave to bring an application for judicial review may  be
+(3)  A motion for leave to bring an application for judicial review  may  be
 dismissed without reasons. 2017, c. 24, s. 11 (1).
 
 No appeal
-(4)  No appeal lies from an order  on  a  motion  for  leave  to  bring  an
+(4)  No appeal lies from an  order  on  a  motion  for  leave  to  bring  an
 application for judicial review. 2017, c. 24, s. 11 (1).
 
 Setting aside only for specified reasons
-(5)  The determination of an adjudicator  may  only  be  set  aside  on  an
+(5)  The determination of an  adjudicator  may  only  be  set  aside  on  an
 application for judicial review if the applicant establishes one or more  of
 the following grounds:
       1.    The applicant participated in the  adjudication  while  under  a
@@ -1673,7 +1673,7 @@ the following grounds:
     adjudicator.
       5.    The procedures followed in the adjudication did not accord  with
     the procedures to which the adjudication was subject under  this  Part,
-    and the failure to accord prejudiced the applicant's right  to  a  fair
+    and the failure to accord prejudiced the applicant’s right  to  a  fair
     adjudication.
       6.    There is a reasonable apprehension of bias on the  part  of  the
     adjudicator.
@@ -1682,19 +1682,19 @@ the following grounds:
     (2).
 
 Exception
-(5.1)  If the ground alleged under subsection (5)  for  setting  aside  the
+(5.1)  If the ground alleged under subsection  (5)  for  setting  aside  the
 determination could have been raised as an objection under section  13.12.1,
 the court may set  the  determination  aside  on  that  ground  only  if  it
-considers the applicant's failure to make the objection justified. 2024,  c.
+considers the applicant’s failure to make the objection justified. 2024,  c.
 20, Sched. 4, s. 22 (3).
 
 Amounts paid
-(6)  If the Divisional Court sets aside the decision of an adjudicator, the
+(6)  If the Divisional Court sets aside the decision of an adjudicator,  the
 Court may require that any or  all  amounts  paid  in  compliance  with  the
 determination be returned. 2017, c. 24, s. 11 (1).
 
 No stay
-(7)  An application for judicial review of a  decision  of  an  adjudicator
+(7)  An application for judicial review of  a  decision  of  an  adjudicator
 does not operate as a stay of the operation of the determination unless  the
 Divisional Court orders otherwise. 2017, c. 24, s. 11 (1).
 Section Amendments with date in force (d/m/y)
@@ -1705,7 +1705,7 @@ Section Amendments with date in force (d/m/y)
 Amounts payable
 
 Subject to holdback
-13.19 (1)  A requirement to pay an amount in accordance with  this  section
+13.19 (1)  A requirement to pay an amount in accordance  with  this  section
 is subject to any requirement to retain a holdback in accordance  with  Part
 IV. 2017, c. 24, s. 11 (1).
 
@@ -1716,7 +1716,7 @@ after the  determination  has  been  communicated  to  the  parties  to  the
 adjudication. 2017, c. 24, s. 11 (1); 2024, c. 20, Sched. 4, s. 23 (1).
 
 Interest on late payments
-(3)  Interest begins to accrue on an amount that is not paid when it is due
+(3)  Interest begins to accrue on an amount that is not paid when it is  due
 to be paid under this Part, at  the  prejudgment  interest  rate  determined
 under subsection 127 (2) of the Courts of Justice Act or, if a  contract  or
 subcontract between the parties specifies a different interest rate for  the
@@ -1750,13 +1750,13 @@ Section Amendments with date in force (d/m/y)
 2024, c. 20, Sched. 4, s. 23 (1-3) - 01/01/2026
 
 Enforcement by court
-13.20  (1)  A party to an adjudication may, no later than the date referred
+13.20  (1)  A party to an adjudication may, no later than the date  referred
 to in subsection (2), file a certified  copy  of  the  determination  of  an
 adjudicator with the court and, on filing, the determination is  enforceable
 as if it were an order of the court. 2017, c. 24, s. 11 (1).
 
 Deadline
-(2)  The filing of a determination under subsection (1)  may  not  be  made
+(2)  The filing of a determination under subsection  (1)  may  not  be  made
 after the later of,
        (a)    the  second  anniversary   of   the   communication   of   the
     determination to the parties; and
@@ -1764,16 +1764,16 @@ after the later of,
     bring an application for judicial  review  of  a  determination  of  an
     adjudicator, the second anniversary of the dismissal of the motion  or,
     if the motion  was  not  dismissed,  the  final  determination  of  the
-    application, if it did not result in  the  adjudicator's  determination
+    application, if it did not result in  the  adjudicator’s  determination
     being set aside. 2017, c. 24, s. 11 (1).
 
 Notice of filing
-(3)  A party shall, no later than 10  days  after  filing  a  determination
+(3)  A party shall, no later than  10  days  after  filing  a  determination
 under subsection (1), notify the other party of the filing. 2017, c. 24,  s.
 11 (1).
 
 Effect on requirement to make payments
-(4)  If a determination requiring that an amount be paid to a contractor or
+(4)  If a determination requiring that an amount be paid to a contractor  or
 subcontractor is filed under subsection (1), any related requirement of  the
 contractor or subcontractor, as the case  may  be,  to  make  payment  to  a
 subcontractor is deferred pending the outcome of the enforcement.  2017,  c.
@@ -1809,17 +1809,17 @@ Section Amendments with date in force (d/m/y)
                                   THE LIEN
 
 CREATION OF LIEN
-14 (1)  A person who supplies services or materials to an  improvement  for
+14 (1)  A person who supplies services or materials to  an  improvement  for
 an owner, contractor or subcontractor, has a lien upon the interest  of  the
 owner  in  the  premises  improved  for  the  price  of  those  services  or
-materials.  R.S.O. 1990, c. C.30, s. 14 (1); 2017, c. 24, s. 12 (1), 66.
+materials.  R.S.O. 1990, c. C.30, s. 14 (1); 2017, c. 24, s. 12 (1), 66.
 
 No lien for interest
-(2)  No person is entitled to a lien for any interest on the amount owed to
+(2)  No person is entitled to a lien for any interest on the amount owed  to
 the person in respect of the services or materials that have  been  supplied
 by the person, but nothing in this subsection affects  any  right  that  the
-person may otherwise have to recover that interest.  R.S.O. 1990,  c. C.30,
-s. 14 (2).
+person may otherwise have to recover that interest.  R.S.O.  1990,  c. C.30,
+s. 14 (2).
 
 Architects
 (3) For greater certainty, subsection (1) applies to services  or  materials
@@ -1827,19 +1827,19 @@ supplied by an architect as defined in the Architects Act and any  employees
 of the architect. 2017, c. 24, s. 12 (2).
 
 Supply of design, etc.
-(4)  If an owner retains a holdback in respect of the supply of  a  design,
+(4)  If an owner retains a holdback in respect of the supply  of  a  design,
 plan, drawing or specification for the making of a planned improvement  that
 is not commenced, subsection (1) is deemed to  apply  with  respect  to  the
 supply of the design, plan,  drawing  or  specification,  unless  the  owner
-proves that the  value  of  the  owner's  interest  in  land  has  not  been
+proves that the  value  of  the  owner’s  interest  in  land  has  not  been
 enhanced. 2024, c. 20, Sched. 4, s. 24.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 12 (1, 2), 66 - 12/12/2017
 2024, c. 20, Sched. 4, s. 24 - 01/01/2026
 
 When lien arises
-15 A person's lien arises and takes effect when the  person  first  supplies
-services or materials to the improvement.  R.S.O. 1990, c. C.30, s. 15.
+15 A person’s lien arises and takes effect when the  person  first  supplies
+services or materials to the improvement.  R.S.O. 1990, c. C.30, s. 15.
 
 Crown, municipal interest in premises
 16 (1) A lien does not attach to the interest in a premises of,
@@ -1861,34 +1861,34 @@ Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 13 (1-3) - 12/12/2017; 2017, c. 24, s. 13 (4) - 01/10/2019
 
 Limitation on value of lien
-17 (1)  The lien of a person is limited to the amount owing to  the  person
+17 (1)  The lien of a person is limited to the amount owing  to  the  person
 in relation to the improvement and, subject to Part IV  (holdbacks),  it  is
 further limited to the least amount owed in relation to the  improvement  by
 a payer to  the  contractor  or  to  any  subcontractor  whose  contract  or
 subcontract was in whole or in part performed by the supply of  services  or
-materials giving rise to the lien.  R.S.O. 1990, c. C.30, s. 17 (1); 2017,
+materials giving rise to the lien.  R.S.O. 1990, c. C.30,  s. 17 (1);  2017,
 c. 24, s. 67.
 
 Same
-(2)  Subject to Part IV, the total value of the liens of all members  of  a
+(2)  Subject to Part IV, the total value of the liens of all  members  of  a
 class, as defined in section 79, is limited to  the  least  amount  owed  in
 relation to the  improvement  by  a  payer  to  the  contractor  or  to  any
 subcontractor whose  contract  or  subcontract  was  in  whole  or  in  part
 performed by the supply of services or materials made by the members of  the
-class.  R.S.O. 1990, c. C.30, s. 17 (2).
+class.  R.S.O. 1990, c. C.30, s. 17 (2).
 
 Set-off
-(3)  Subject to Part  IV,  in  determining  the  amount  of  a  lien  under
+(3)  Subject to  Part  IV,  in  determining  the  amount  of  a  lien  under
 subsection (1) or (2), there may be taken into account the amount  that  is,
 as between a payer and the person the payer is liable to pay, equal  to  the
-balance in the payer's favour of all outstanding debts,  claims  or  damages
+balance in the payer’s favour of all outstanding debts,  claims  or  damages
 related to the improvement or, if the contractor or  subcontractor,  as  the
 case may be, becomes insolvent, all outstanding  debts,  claims  or  damages
-whether  or  not  related  to  the  improvement.   R.S.O.  1990,  c. C.30,
-s. 17 (3); 2017, c. 24, s. 14 (1, 2).
+whether  or  not  related  to  the  improvement.   R.S.O.   1990,   c. C.30,
+s. 17 (3); 2017, c. 24, s. 14 (1, 2).
 
 Liability of municipality
-(4)  Despite subsection (1), where land is dedicated to a municipality as a
+(4)  Despite subsection (1), where land is dedicated to a municipality as  a
 public street or highway and an improvement is  made  to  the  land  at  the
 written request of, or under an agreement with, the  municipality,  but  not
 at its expense, the municipality shall nevertheless, on default  of  payment
@@ -1896,7 +1896,7 @@ by the proper payer, be liable to the value of the holdbacks under  Part  IV
 that would have been required were the improvement made at  the  expense  of
 the  municipality,  and  the  procedure  for  making  a  claim  under   this
 subsection shall be the same as for enforcing a claim  for  lien  against  a
-municipality.  R.S.O. 1990, c. C.30, s. 17 (4); 2017, c. 24, s.  14  (3);
+municipality.  R.S.O. 1990, c. C.30, s. 17 (4); 2017,  c.  24,  s.  14  (3);
 2017, c. 24, s. 14 (4).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 14 (1, 3), 67 - 12/12/2017; 2017, c. 24, s. 14 (2) -
@@ -1910,7 +1910,7 @@ of that person is also subject to the lien unless  the  contractor  receives
 actual  notice,  before  the  supply  of  services  or  materials   to   the
 improvement is commenced,  that  the  person  having  the  joint  or  common
 interest assumes no responsibility for the improvement to be  made.   R.S.O.
-1990, c. C.30, s. 18; 2017, c. 24, s. 15.
+1990, c. C.30, s. 18; 2017, c. 24, s. 15.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 15 - 12/12/2017
 
@@ -1919,52 +1919,52 @@ Leasehold interest
 and if payment for all or part of the improvement  is  accounted  for  under
 the terms of the lease or any renewal of  it,  or  under  any  agreement  to
 which the  landlord  is  a  party  that  is  connected  to  the  lease,  the
-landlord's interest is also subject  to  the  lien,  to  the  extent  of  10
+landlord’s interest is also subject  to  the  lien,  to  the  extent  of  10
 percent of the amount of such payment. 2017, c. 24, s. 16 (1).
 
 Forfeiture or termination of lease, effect of
-(2)  No forfeiture of a lease to, or termination of a lease by, a landlord,
+(2)  No forfeiture of a lease to, or termination of a lease by, a  landlord,
 except for non-payment of rent, deprives any person having  a  lien  against
-the leasehold of the benefit of the person's lien.  R.S.O.  1990,  c. C.30,
-s. 19 (2).
+the leasehold of the benefit of the person’s lien.   R.S.O.  1990,  c. C.30,
+s. 19 (2).
 
 Notice to lien claimants
-(3)  Where a landlord intends to enforce forfeiture or terminate a lease of
+(3)  Where a landlord intends to enforce forfeiture or terminate a lease  of
 the premises because of non-payment of rent, and there is a claim  for  lien
 registered against the premises in the  proper  land  registry  office,  the
 landlord  shall  give  notice  in  writing  of  the  intention  to   enforce
 forfeiture or terminate the lease and of the amount of the  unpaid  rent  to
 each person who has registered  a  claim  for  lien  against  the  premises.
-R.S.O. 1990, c. C.30, s. 19 (3); 2017, c. 24, s. 16 (2), 71.
+R.S.O. 1990, c. C.30, s. 19 (3); 2017, c. 24, s. 16 (2), 71.
 
 Payment of unpaid rent
-(4)  A person receiving notice under subsection (3) may,  within  ten  days
+(4)  A person receiving notice under subsection (3)  may,  within  ten  days
 thereafter, pay to the landlord the amount  of  the  unpaid  rent,  and  the
-amount so paid may be added by that person to the person's claim  for  lien.
-R.S.O. 1990, c. C.30, s. 19 (4); 2017, c. 24, s. 63.
+amount so paid may be added by that person to the person’s claim  for  lien.
+R.S.O. 1990, c. C.30, s. 19 (4); 2017, c. 24, s. 63.
 
 Landlord as owner
 (5) Nothing in this  section  prevents  a  determination  in  respect  of  a
 premises that the landlord is instead its owner, if  he  or  she  meets  the
-criteria set out in the definition of "owner" in subsection 1 (1). 2017,  c.
+criteria set out in the definition of “owner” in subsection 1 (1). 2017,  c.
 24, s. 16 (3).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 16 (1, 3) - 01/07/2018; 2017, c. 24, s. 16 (2), 63, 71 -
 12/12/2017
 
 General lien, more than one premises
-20 (1)  Where an owner enters into a single contract  for  improvements  on
+20 (1)  Where an owner enters into a single  contract  for  improvements  on
 more than one premises of  the  owner,  any  person  supplying  services  or
 materials under that contract, or under a subcontract under  that  contract,
-may choose to have the person's lien follow the form of the contract and  be
+may choose to have the person’s lien follow the form of the contract and  be
 a general lien against each of those premises for the price of all  services
 and materials the  person  supplied  to  all  the  premises.   R.S.O.  1990,
-c. C.30, s. 20 (1); 2017, c. 24, s. 72.
+c. C.30, s. 20 (1); 2017, c. 24, s. 72.
 
 Where subs. (1) does not apply
-(2)  Subsection (1) does not apply and no general lien arises under  or  in
+(2)  Subsection (1) does not apply and no general lien arises  under  or  in
 respect of a contract that provides in writing that liens  shall  arise  and
-expire on a lot-by-lot basis.  R.S.O. 1990, c. C.30, s. 20 (2).
+expire on a lot-by-lot basis.  R.S.O. 1990, c. C.30, s. 20 (2).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 72 - 12/12/2017
 
@@ -1974,7 +1974,7 @@ retained by Part IV, and  subject  to  subsection  17  (3),  any  additional
 amount owed in relation to the improvement by a payer to the  contractor  or
 to any subcontractor whose contract or subcontract was in whole or  in  part
 performed by the supply of services or materials giving rise  to  the  lien.
-R.S.O. 1990, c. C.30, s. 21;  2017, c. 24, s. 67.
+R.S.O. 1990, c. C.30, s. 21;  2017, c. 24, s. 67.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 67 - 12/12/2017
 
@@ -1984,17 +1984,17 @@ Section Amendments with date in force (d/m/y)
 HOLDBACKS
 
 Basic holdback
-22 (1)  Each payer upon a contract or subcontract under which  a  lien  may
+22 (1)  Each payer upon a contract or subcontract under  which  a  lien  may
 arise shall retain a holdback equal to 10 per  cent  of  the  price  of  the
 services or materials as they are actually supplied under  the  contract  or
 subcontract until all liens that may be  claimed  against  the  holdback  in
 respect  of  the  supplied  services  or  materials  have  expired  or  been
 satisfied, discharged or otherwise provided  for  under  this  Act.   R.S.O.
-1990, c. C.30, s. 22 (1); 2017, c. 24, s. 17 (1), 66; 2024, c. 20, Sched.
+1990, c. C.30, s. 22 (1); 2017, c. 24, s. 17 (1), 66; 2024,  c.  20,  Sched.
 4, s. 25.
 
 Separate holdback for finishing work
-(2)  Where the contract has been certified or declared to be  substantially
+(2)  Where the contract has been certified or declared to  be  substantially
 performed but services or materials remain to be supplied  to  complete  the
 contract, the payer upon the contract, or a subcontract, under which a  lien
 may arise shall retain, from the date certified or declared to be  the  date
@@ -2002,14 +2002,14 @@ of substantial performance of the contract, a separate holdback equal to  10
 per cent of the price of the remaining services or  materials  as  they  are
 actually supplied under the contract or subcontract, until  all  liens  that
 may be  claimed  against  the  holdback  have  expired  or  been  satisfied,
-discharged or otherwise provided for under this Act.  R.S.O. 1990, c. C.30,
-s. 22 (2); 2017, c. 24, s. 17 (2), 66.
+discharged or otherwise provided for under this Act.  R.S.O. 1990,  c. C.30,
+s. 22 (2); 2017, c. 24, s. 17 (2), 66.
 
 When obligation to retain applies
-(3)  The obligation to retain the holdbacks under subsections (1)  and  (2)
+(3)  The obligation to retain the holdbacks under subsections  (1)  and  (2)
 applies irrespective of whether the contract  or  subcontract  provides  for
-partial  payments  or  payment  on  completion.   R.S.O.  1990,   c. C.30,
-s. 22 (3).
+partial  payments  or  payment  on  completion.    R.S.O.   1990,   c. C.30,
+s. 22 (3).
 
 Permissible forms of holdback
 (4) Some or all of any holdbacks may, instead of being retained in the  form
@@ -2023,47 +2023,47 @@ Section Amendments with date in force (d/m/y)
 2024, c. 20, Sched. 4, s. 25 - 01/01/2026
 
 Personal liability
-23 (1)  Subject to subsections (2), (3) and (4),  an  owner  is  personally
+23 (1)  Subject to subsections (2), (3) and  (4),  an  owner  is  personally
 liable for holdbacks that the owner is required to retain  under  this  Part
-to those lien claimants who have valid liens against  the  owner's  interest
-in the premises.  R.S.O. 1990, c. C.30, s. 23 (1); 2017, c. 24, s. 70.
+to those lien claimants who have valid liens against  the  owner’s  interest
+in the premises.  R.S.O. 1990, c. C.30, s. 23 (1); 2017, c. 24, s. 70.
 
 Limitation
-(2)  Where the defaulting payer is the  contractor,  the  owner's  personal
+(2)  Where the defaulting payer is  the  contractor,  the  owner’s  personal
 liability to a lien claimant or to a class of lien claimants as  defined  by
 section 79 does not exceed the holdbacks the owner is  required  to  retain.
-R.S.O. 1990, c. C.30, s. 23 (2).
+R.S.O. 1990, c. C.30, s. 23 (2).
 
 Same
-(3)  Where the defaulting payer is a subcontractor,  the  owner's  personal
+(3)  Where the defaulting payer is a  subcontractor,  the  owner’s  personal
 liability to a lien claimant or to a class of lien claimants as  defined  by
 section 79 does not exceed the lesser of,
       (a)   the holdbacks the owner is required to retain; and
       (b)   the holdbacks required to be retained by  the  contractor  or  a
-    subcontractor from the lien claimant's defaulting payer.  R.S.O.  1990,
-    c. C.30, s. 23 (3).
+    subcontractor from the lien claimant’s defaulting payer.  R.S.O.  1990,
+    c. C.30, s. 23 (3).
 
 How determined
-(4)  The personal liability of an owner under  this  section  may  only  be
-determined by an action under this Act.  R.S.O. 1990, c. C.30, s. 23 (4).
-(5)  Repealed: 2017, c. 24, s. 18.
+(4)  The personal liability of an owner  under  this  section  may  only  be
+determined by an action under this Act.  R.S.O. 1990, c. C.30, s. 23 (4).
+(5)  Repealed: 2017, c. 24, s. 18.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 18, 70 - 12/12/2017
 
 Payments that may be made
-24 (1)  A payer may, without jeopardy,  make  payments  on  a  contract  or
+24 (1)  A payer may, without  jeopardy,  make  payments  on  a  contract  or
 subcontract up to 90 per cent of the price  of  the  services  or  materials
 that have been supplied under that contract or subcontract unless, prior  to
 making payment, the payer has received written notice  of  a  lien.   R.S.O.
-1990, c. C.30, s. 24 (1); 2017, c. 24, s. 19 (1), 66.
+1990, c. C.30, s. 24 (1); 2017, c. 24, s. 19 (1), 66.
 
 Same
-(2)  Where a payer has received written notice of a lien and has  retained,
+(2)  Where a payer has received written notice of a lien and  has  retained,
 in addition to the holdbacks required by this Part, an amount sufficient  to
 satisfy the lien, the  payer  may,  without  jeopardy,  make  payment  on  a
 contract or subcontract up to 90 per cent of the price of  the  services  or
 materials that have been supplied under that contract or  subcontract,  less
-the amount retained.  R.S.O. 1990, c. C.30, s. 24 (2); 2017, c. 24, s. 19
+the amount retained.  R.S.O. 1990, c. C.30, s. 24 (2); 2017, c.  24,  s.  19
 (2, 3).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 19 (1-3), 66 - 12/12/2017
@@ -2075,30 +2075,30 @@ payment reducing the holdbacks required by this Part to the  extent  of  the
 amount of holdback the payer  has  retained  in  respect  of  the  completed
 subcontract, where all liens in respect of the  completed  subcontract  have
 expired or been satisfied, discharged or otherwise provided for  under  this
-Act.  R.S.O. 1990, c. C.30, s. 25; 2017, c. 24, s. 20 (1, 2).
+Act.  R.S.O. 1990, c. C.30, s. 25; 2017, c. 24, s. 20 (1, 2).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 20 (1, 2) - 12/12/2017
 
 Payment of basic holdback
-26 (1)  A payer who is required by subsection 22 (1) to retain  a  holdback
+26 (1)  A payer who is required by subsection 22 (1) to  retain  a  holdback
 shall make payment of the holdback in accordance with  this  section.  2024,
 c. 20, Sched. 4, s. 26.
 
 Mandatory annual payment
-(2)  Following each anniversary of the  date  on  which  the  contract  was
+(2)  Following each anniversary of  the  date  on  which  the  contract  was
 entered into, the owner shall,
       (a)   give notice in accordance with subsection (3); and
       (b)   make payment of accrued holdback  under  subsection  22  (1)  in
     accordance with subsection (4). 2024, c. 20, Sched. 4, s. 26.
 
 Notice
-(3)  Not later than 14 days after the anniversary, the owner shall  publish
+(3)  Not later than 14 days after the anniversary, the owner  shall  publish
 a notice of annual release of holdback in  the  prescribed  form  specifying
 the amount of holdback that the owner intends to pay  under  subsection  (4)
 and the intended payment date. 2024, c. 20, Sched. 4, s. 26.
 
 Payment by owner
-(4)  At least 60 days but not later than 74 days after the  date  on  which
+(4)  At least 60 days but not later than 74 days after  the  date  on  which
 the notice of annual release of holdback is published, the owner shall  make
 payment to the contractor of all of  the  accrued  holdback  in  respect  of
 services  or  materials  supplied  by  the  contractor   during   the   year
@@ -2117,7 +2117,7 @@ perfected in respect of the contract, and,
        Sched. 2, s. 4 (1).
 
 Payment by contractor
-(5)  Not later than 14 days after receiving  payment  of  the  holdback  as
+(5)  Not later than 14 days after  receiving  payment  of  the  holdback  as
 required under subsection (4),  the  contractor  shall  make  payment  to  a
 subcontractor of all of the accrued holdback in respect of the  services  or
 materials supplied by the subcontractor during the year  described  in  that
@@ -2127,17 +2127,17 @@ respect of the lien. 2024, c. 20, Sched. 4, s. 26; 2025, c.  14,  Sched.  2,
 s. 4 (2).
 
 Payment by subcontractor
-(6)  Subsection (5) applies, with necessary modifications, with respect  to
+(6)  Subsection (5) applies, with necessary modifications, with  respect  to
 a holdback retained by a subcontractor in  respect  of  a  subcontract  with
 another subcontractor. 2024, c. 20, Sched. 4, s. 26.
 
 Payment once circumstances cease to apply
-(7)  A payer shall make payment of a holdback that was  not  payable  under
+(7)  A payer shall make payment of a holdback that  was  not  payable  under
 subsection (4), (5) or (6) not later than 14 days  after  the  circumstances
 preventing payment cease to apply. 2024, c. 20, Sched. 4, s. 26.
 
 Payment of holdback not otherwise paid
-(8)  A payer shall make payment of all holdback that is not paid or payable
+(8)  A payer shall make payment of all holdback that is not paid or  payable
 under subsections (4) to (7) after all liens that  may  be  claimed  against
 the holdback required to be retained under subsection 22  (1)  have  expired
 or been satisfied, discharged or otherwise provided for under this  Act,  in
@@ -2154,7 +2154,7 @@ accordance with the following rules:
     may be. 2024, c. 20, Sched. 4, s. 26.
 
 Effect on holdback requirement
-(9)  A payment made in accordance with  this  section  reduces  the  amount
+(9)  A payment made in accordance  with  this  section  reduces  the  amount
 required to be retained by the payer under subsection 22 (1) to  the  extent
 of the amount paid. 2024, c. 20, Sched. 4, s. 26.
 Section Amendments with date in force (d/m/y)
@@ -2177,7 +2177,7 @@ Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 23 (1, 4) - 12/12/2017; 2017, c. 24, s. 23 (2, 3) -
 01/07/2018
 2024, c. 20, Sched. 4, s. 26 - 01/01/2026
-27.1  Repealed: 2024, c. 20, Sched. 4, s. 26.
+27.1  Repealed: 2024, c. 20, Sched. 4, s. 26.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 24 (1) - 01/07/2018; 2017, c. 24, s. 24 (2) - no effect -
 2018, c. 17, Sched. 8, s. 8 (1) - 06/12/2018
@@ -2195,11 +2195,11 @@ payment by the owner, contractor or subcontractor to  the  proper  payer  of
 that person, but  no  such  payment  reduces  the  amount  of  the  holdback
 required to be retained under this Part or reduces the amount that  must  be
 retained in response to a written notice of lien given  by  a  person  other
-than the person to whom payment is made.  R.S.O. 1990, c. C.30, s. 28.
+than the person to whom payment is made.  R.S.O. 1990, c. C.30, s. 28.
 
 Discharge of lien
 29 Payments made in accordance with this Part operate as a discharge of  the
-lien to the extent of the amount paid.  R.S.O. 1990, c. C.30, s. 29.
+lien to the extent of the amount paid.  R.S.O. 1990, c. C.30, s. 29.
 
 How holdback not to be applied
 30 If a contract or subcontract  is  abandoned  or  terminated,  a  holdback
@@ -2217,12 +2217,12 @@ Section Amendments with date in force (d/m/y)
                 EXPIRY, PRESERVATION AND PERFECTION OF LIENS
 
 EXPIRY OF LIENS
-31 (1)  Unless preserved under section  34,  the  liens  arising  from  the
+31 (1)  Unless preserved under  section  34,  the  liens  arising  from  the
 supply of services or materials to an  improvement  expire  as  provided  in
-this section.  R.S.O. 1990, c. C.30, s. 31 (1); 2017, c. 24, s. 67.
+this section.  R.S.O. 1990, c. C.30, s. 31 (1); 2017, c. 24, s. 67.
 
-Contractor's liens
-(2)  Subject to subsection (4), the lien of a contractor,
+Contractor’s liens
+(2)  Subject to subsection (4), the lien of a contractor,
       (a)   for services or materials  supplied  to  an  improvement  on  or
     before the date certified or declared to be the date of the substantial
     performance of the contract, expires at the conclusion  of  the  60-day
@@ -2240,10 +2240,10 @@ Contractor's liens
     next following the occurrence of the earlier of,
       (i)   the date the contract is completed, and
       (ii)  the date the contract is abandoned or terminated.  R.S.O.  1990,
-       c. C.30, s. 31 (2); 2017, c. 24, s. 26 (1-5), 66.
+       c. C.30, s. 31 (2); 2017, c. 24, s. 26 (1-5), 66.
 
-Workers' trust fund lien
-(2.1) Subject to subsection (4), the lien  of  the  trustee  of  a  workers'
+Workers’ trust fund lien
+(2.1) Subject to subsection (4), the lien  of  the  trustee  of  a  workers’
 trust fund on behalf of a worker or workers,
       (a)   for services or materials  supplied  to  an  improvement  on  or
     before the date certified or declared to be the date of the substantial
@@ -2253,7 +2253,7 @@ trust fund on behalf of a worker or workers,
        the  substantial  performance  of  the  contract  is  published,  as
        provided in section 32,
       (ii)  the date on which the final worker who is a beneficiary  of  the
-       workers' trust fund last  supplies  services  or  materials  to  the
+       workers’ trust fund last  supplies  services  or  materials  to  the
        improvement,
       (iii) the date the contract is  completed,  abandoned  or  terminated,
        and
@@ -2267,7 +2267,7 @@ trust fund on behalf of a worker or workers,
     substantial performance of the contract, expires at the  conclusion  of
     the 60-day period next following the occurrence of the earlier of,
       (i)   the date on which the final worker who is a beneficiary  of  the
-       workers' trust fund last  supplied  services  or  materials  to  the
+       workers’ trust fund last  supplied  services  or  materials  to  the
        improvement,
       (ii)  the date the contract is  completed,  abandoned  or  terminated,
        and
@@ -2276,7 +2276,7 @@ trust fund on behalf of a worker or workers,
        in respect of that subcontract. 2017, c. 24, s. 26 (6).
 
 Liens of other persons
-(3)  Subject to subsection (4), the lien of any other person,
+(3)  Subject to subsection (4), the lien of any other person,
       (a)   for services or materials  supplied  to  an  improvement  on  or
     before the date certified or declared to be the date of the substantial
     performance of the contract, expires at the conclusion  of  the  60-day
@@ -2303,38 +2303,38 @@ Liens of other persons
        and
       (ii)  the date a  subcontract  is  certified  to  be  completed  under
        section 33, where the services or materials were supplied  under  or
-       in respect of that subcontract.  R.S.O. 1990, c. C.30, s. 31 (3);
+       in respect of that subcontract.  R.S.O.  1990,  c. C.30,  s. 31 (3);
        2017, c. 24, s. 26 (7-10).
 
 Separate liens when ongoing supply
-(4)  Where a person has supplied services or materials to an improvement on
+(4)  Where a person has supplied services or materials to an improvement  on
 or before the date certified or declared to be the date of  the  substantial
 performance of the  contract  and  has  also  supplied,  or  is  to  supply,
-services or materials after that date, the person's lien in respect  of  the
+services or materials after that date, the person’s lien in respect  of  the
 services or  materials  supplied  on  or  before  the  date  of  substantial
 performance expires without affecting any lien that the person may have  for
-the supply of services or materials after that date.  R.S.O. 1990, c. C.30,
-s. 31 (4); 2017, c. 24, s. 67.
+the supply of services or materials after that date.  R.S.O. 1990,  c. C.30,
+s. 31 (4); 2017, c. 24, s. 67.
 
 Declaration of last supply
-(5)  Where a person who has supplied services or materials under a contract
+(5)  Where a person who has supplied services or materials under a  contract
 or subcontract makes a declaration in the prescribed form declaring,
       (a)    the  date  on  which  the  person  last  supplied  services  or
     materials under that contract or subcontract; and
       (b)   that  the  person  will  not  supply  any  further  services  or
     materials under that contract or subcontract,
 then the facts so stated shall be deemed  to  be  true  against  the  person
-making the declaration.  R.S.O. 1990, c. C.30, s. 31 (5); 2017, c. 24, s.
+making the declaration.  R.S.O. 1990, c. C.30, s. 31 (5); 2017,  c.  24,  s.
 65, 66.
 
 Notice of termination
-(6)  No later than seven days after a contract is  terminated,  either  the
+(6)  No later than seven days after a contract  is  terminated,  either  the
 owner or the contractor or other person whose  lien  is  subject  to  expiry
 shall publish a notice  of  the  termination  in  the  prescribed  form  and
 manner. 2025, c. 14, Sched. 2, s. 6.
 
 Effect of notice
-(7)  If a notice of termination is published in accordance with  subsection
+(7)  If a notice of termination is published in accordance  with  subsection
 (6) in respect of a contract, the date on which the contract was  terminated
 is, for the purposes of this section, the  date  on  which  the  notice  was
 published or, if more than one notice is published in accordance  with  that
@@ -2342,7 +2342,7 @@ subsection, the date on which the first of the notices was published.  2025,
 c. 14, Sched. 2, s. 6.
 
 Validity of termination
-(8)  Subsection (7) does not prevent a person from contesting the  validity
+(8)  Subsection (7) does not prevent a person from contesting  the  validity
 of a termination. 2025, c. 14, Sched. 2, s. 6.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 26 (1-3, 5-11) - 01/07/2018; 2017, c. 24, s. 26 (4), 65-67
@@ -2352,7 +2352,7 @@ Section Amendments with date in force (d/m/y)
 2025, c. 14, Sched. 2, s. 6 - 01/01/2026
 
 Rules governing certification or declaration of substantial performance
-32 (1)  The following rules govern the certification and declaration of the
+32 (1)  The following rules govern the certification and declaration of  the
 substantial performance of a contract:
       1.    On the application of  the  contractor,  the  payment  certifier
     shall determine whether the contract has been  substantially  performed
@@ -2392,11 +2392,11 @@ substantial performance of a contract:
     regulations.
       10.   For the purposes of this Part, a certificate or  declaration  of
     the substantial performance of a contract has no effect until a copy of
-    the certificate or declaration is published.   R.S.O.  1990,  c. C.30,
-    s. 32 (1); 2017, c. 24, s. 27 (1), 65.
+    the certificate or declaration is  published.   R.S.O.  1990,  c. C.30,
+    s. 32 (1); 2017, c. 24, s. 27 (1), 65.
 
 Contents of certificate
-(2)  Every certificate or declaration made  or  given  under  this  section
+(2)  Every certificate or declaration  made  or  given  under  this  section
 shall include,
       (a)   the name and address  for  service  of  the  owner  and  of  the
     contractor;
@@ -2410,57 +2410,57 @@ shall include,
       (f)   if  the  lien  does  not  attach  to  the  premises,  a  concise
     description of the premises, including  addresses,  and  the  name  and
     address of the person or body to whom a copy of the claim for lien must
-    be given under section 34. R.S.O. 1990,  c. C.30,  s. 32 (2);  2010,
-    c. 16, Sched. 2, s. 2 (3); 2017, c. 24, s. 27 (2), 70, 71; 2018, c. 17,
+    be given under section  34.  R.S.O.  1990,  c. C.30,  s. 32 (2);  2010,
+    c. 16, Sched. 2, s. 2 (3); 2017, c. 24, s. 27 (2), 70, 71; 2018, c. 17,
     Sched. 8, s. 9.
 
 Liability for refusal to certify
-(3)  Any person who is required by this section to make a determination  of
+(3)  Any person who is required by this section to make a  determination  of
 the substantial performance of  a  contract,  and  who  after  receiving  an
 application fails or  refuses  within  a  reasonable  time  to  certify  the
 substantial performance of the contract, even though there is no  reasonable
 doubt that the contract has,  in  fact,  been  substantially  performed,  is
-liable to anyone who suffers damages as a result.   R.S.O.  1990,  c. C.30,
-s. 32 (3).
+liable to anyone who suffers damages as a  result.   R.S.O.  1990,  c. C.30,
+s. 32 (3).
 
 Liability for failure to furnish copy of certificate
-(4)  A payment certifier who fails to comply with paragraph 4 of subsection
+(4)  A payment certifier who fails to comply with paragraph 4 of  subsection
 (1) is liable to anyone who suffers  damages  as  a  result.   R.S.O.  1990,
-c. C.30, s. 32 (4).
-(5)  Repealed: 2017, c. 24, s. 27 (3).
+c. C.30, s. 32 (4).
+(5)  Repealed: 2017, c. 24, s. 27 (3).
 Section Amendments with date in force (d/m/y)
-2010, c. 16, Sched. 2, s. 2 (3) - 25/10/2010
+2010, c. 16, Sched. 2, s. 2 (3) - 25/10/2010
 2017, c. 24, s. 27 (1-3) - 01/07/2018; 2017, c. 24, s. 65, 70, 71 -
 12/12/2017
 2018, c. 17, Sched. 8, s. 9 - 06/12/2018
 
 Certificate re subcontract
-33 (1)  Upon the request of the contractor, the payment  certifier  on  the
+33 (1)  Upon the request of the contractor, the  payment  certifier  on  the
 contract may determine whether a subcontract has  been  completed,  and,  if
 the payment certifier so determines, shall certify  the  completion  of  the
 subcontract in  the  prescribed  form;  alternatively,  the  owner  and  the
 contractor may jointly make the declaration and certify  completion  in  the
-prescribed form.  R.S.O. 1990, c. C.30, s. 33 (1); 2017, c. 24, s. 65.
+prescribed form.  R.S.O. 1990, c. C.30, s. 33 (1); 2017, c. 24, s. 65.
 
 Date subcontract deemed completed
-(2)  Where a subcontract is certified  to  be  completed,  the  subcontract
+(2)  Where a subcontract is  certified  to  be  completed,  the  subcontract
 shall be deemed to  have  been  completed  on  the  date  of  certification.
-R.S.O. 1990, c. C.30, s. 33 (2).
+R.S.O. 1990, c. C.30, s. 33 (2).
 
 Services or materials supplied after subcontract certified completed
-(3)  If services or materials are supplied to the improvement under  or  in
+(3)  If services or materials are supplied to the improvement  under  or  in
 respect of a subcontract after the date the subcontract is certified  to  be
 completed, those services or materials shall be deemed  to  have  been  last
-supplied on the date of certification.  R.S.O. 1990, c. C.30, s. 33 (3).
+supplied on the date of certification.  R.S.O. 1990, c. C.30, s. 33 (3).
 
 Copy of certificate
-(4)  Within seven days of the date  the  subcontract  is  certified  to  be
+(4)  Within seven days of the  date  the  subcontract  is  certified  to  be
 completed, the payment certifier or the owner and  the  contractor,  as  the
 case may be, shall give a copy of the certificate,
       (a)   to the subcontractor whose subcontract  has  been  certified  as
     complete; and
       (b)   to the owner and the contractor, where certification is  by  the
-    payment certifier.  R.S.O. 1990, c. C.30, s. 33 (4).
+    payment certifier.  R.S.O. 1990, c. C.30, s. 33 (4).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 65 - 12/12/2017
 
@@ -2468,60 +2468,60 @@ Notice of intention to register in accordance with the Condominium Act,
 1998
 
 Definitions
-33.1 (1)  In this section,
-"declaration" means a declaration as defined in the Condominium  Act,  1998;
- ("d�claration")
-"description" means a description as defined in the Condominium  Act,  1998;
- ("description")
-"registered" means registered as  defined  in  the  Condominium  Act,  1998.
- ("enregistr�")  2010, c. 16, Sched. 2, s. 2 (4).
+33.1 (1)  In this section,
+“declaration” means a declaration as defined in the Condominium  Act,  1998;
+ (“déclaration”)
+“description” means a description as defined in the Condominium  Act,  1998;
+ (“description”)
+“registered” means registered as  defined  in  the  Condominium  Act,  1998.
+ (“enregistré”)  2010, c. 16, Sched. 2, s. 2 (4).
 
 Notice required
-(2)  An owner of land described in a description that  is  intended  to  be
+(2)  An owner of land described in a description  that  is  intended  to  be
 registered together with a declaration in accordance  with  the  Condominium
 Act, 1998 shall publish notice of the intended registration  in  the  manner
-set out in the regulations.  2010, c. 16, Sched. 2, s. 2 (4); 2017, c. 24,
+set out in the regulations.  2010, c. 16, Sched. 2, s. 2 (4); 2017,  c.  24,
 s. 28.
 
 Contents
-(3)  The notice shall be in the prescribed form and shall include,
-      (a)   the owner's name and address for service;
+(3)  The notice shall be in the prescribed form and shall include,
+      (a)   the owner’s name and address for service;
       (b)   a concise overview of the land  described  in  the  description,
     including reference to the lot and plan number and the parcel number or
     numbers of the land; and
-      (c)   if, to the  best  of  the  owner's  knowledge,  information  and
+      (c)   if, to the  best  of  the  owner’s  knowledge,  information  and
     belief, a contractor supplied services or materials to  an  improvement
     in respect of the land during the 90-day period preceding  the  day  on
     which the description is to be submitted for approval under  subsection
-    9 (3) of the Condominium Act, 1998, the contractor's name, address and,
-    if known, address for service.  2010, c. 16, Sched. 2, s. 2 (4); 2017,
+    9 (3) of the Condominium Act, 1998, the contractor’s name, address and,
+    if known, address for service.  2010, c. 16, Sched. 2, s. 2 (4);  2017,
     c. 24, s. 65.
 
 Liability for failure to comply
-(4)  An owner who fails to comply with this section is liable to any person
-entitled to a lien who suffers damages as a result.  2010, c. 16, Sched. 2,
-s. 2 (4).
+(4)  An owner who fails to comply with this section is liable to any  person
+entitled to a lien who suffers damages as a result.  2010, c. 16,  Sched. 2,
+s. 2 (4).
 Section Amendments with date in force (d/m/y)
-2010, c. 16, Sched. 2, s. 2 (4) - 01/07/2011
+2010, c. 16, Sched. 2, s. 2 (4) - 01/07/2011
 2017, c. 24, s. 28 - 01/07/2018; 2017, c. 24, s. 65 - 12/12/2017
 
 How lien preserved
-34 (1)  A lien may  be  preserved  during  the  supplying  of  services  or
+34 (1)  A lien  may  be  preserved  during  the  supplying  of  services  or
 materials or at any time before it expires,
       (a)   where the lien attaches to the premises, by the registration  in
     the proper land registry office of a claim for lien on the title of the
     premises in accordance with this Part; and
       (b)   where the lien does not attach to the  premises,  by  giving  to
-    the owner a copy  of  the  claim  for  lien.   R.S.O.  1990,  c. C.30,
-    s. 34 (1); 2010, c. 16, Sched. 2, s. 2 (5); 2017, c. 24, s. 63, 64, 68,
+    the owner a  copy  of  the  claim  for  lien.   R.S.O.  1990,  c. C.30,
+    s. 34 (1); 2010, c. 16, Sched. 2, s. 2 (5); 2017, c. 24, s. 63, 64, 68,
     70, 71.
-(2)  Repealed: 2017, c. 24, s. 29 (2).
+(2)  Repealed: 2017, c. 24, s. 29 (2).
 
 Premises owned by Crown
-(3)  Where the owner of the premises is the Crown, the copy  of  the  claim
+(3)  Where the owner of the premises is the Crown, the  copy  of  the  claim
 for lien shall be given to the prescribed office, or, where  no  office  has
 been prescribed, to the ministry or Crown agency for  whom  the  improvement
-is made.  R.S.O. 1990, c. C.30, s. 34 (3); 2010, c. 16, Sched. 2, s. 2 (7);
+is made.  R.S.O. 1990, c. C.30, s. 34 (3); 2010, c. 16, Sched. 2,  s. 2 (7);
 2017, c. 24, s. 29 (3), 63, 71.
 
 Premises owned by municipality
@@ -2530,15 +2530,15 @@ claim for lien shall be given to the clerk of  the  municipality.  2017,  c.
 24, s. 29 (4).
 
 Railway right-of-way
-(4)  Where the premises is a railway right-of-way, the copy  of  the  claim
+(4)  Where the premises is a railway right-of-way, the  copy  of  the  claim
 for lien shall be given to the manager or any person  apparently  in  charge
-of any office of the railway in Ontario.  R.S.O. 1990, c. C.30, s. 34 (4);
-2010, c. 16, Sched. 2, s. 2 (7); 2017, c. 24, s. 29 (5), 63.
+of any office of the railway in Ontario.  R.S.O. 1990,  c. C.30,  s. 34 (4);
+2010, c. 16, Sched. 2, s. 2 (7); 2017, c. 24, s. 29 (5), 63.
 
 Contents of claim for lien
-(5)  Every claim for lien shall set out,
+(5)  Every claim for lien shall set out,
       (a)   the name and address for service  of  the  person  claiming  the
-    lien or, in the case of a claim on behalf of a  worker  by  a  workers'
+    lien or, in the case of a claim on behalf of a  worker  by  a  workers’
     trust fund, the name and address of the trustee;
       (a.1) the name and address of the owner of the  premises  and  of  the
     person for whom the services or materials were supplied;
@@ -2554,27 +2554,27 @@ Contents of claim for lien
        case may be, or
       (ii)  where the lien does  not  attach  to  the  premises,  being  the
        address or other identification of the  location  of  the  premises.
-       R.S.O. 1990, c. C.30, s. 34 (5); 2010, c. 16, Sched. 2, s. 2 (8);
+       R.S.O. 1990, c. C.30, s. 34 (5); 2010,  c. 16,  Sched. 2,  s. 2 (8);
        2017, c. 24, s. 29 (6, 7), 63, 70, 71.
-(6)  Repealed:  2010, c. 16, Sched. 2, s. 2 (9).
+(6)  Repealed:  2010, c. 16, Sched. 2, s. 2 (9).
 
 Preservation of general lien
-(7)  Subject to subsection 44 (4) (apportionment), a general lien shall  be
+(7)  Subject to subsection 44 (4) (apportionment), a general lien  shall  be
 preserved against each of the premises  that  the  person  having  the  lien
 desires the lien to continue to apply against, and the  claim  against  each
 premises may be for the price of the services or materials  that  have  been
-supplied to all the premises.  R.S.O. 1990, c. C.30, s. 34 (7); 2017,  c.
+supplied to all the premises.  R.S.O. 1990,  c. C.30,  s. 34 (7);  2017,  c.
 24, s. 29 (8), 66, 72.
 
 Who may join in claim
-(8)  Any number of persons having liens upon the same premises may unite in
-a claim for lien.  R.S.O. 1990, c. C.30, s. 34 (8); 2010, c. 16, Sched. 2,
-s. 2 (10); 2017, c. 24, s. 29 (9).
+(8)  Any number of persons having liens upon the same premises may unite  in
+a claim for lien.  R.S.O. 1990, c. C.30, s. 34 (8); 2010,  c. 16,  Sched. 2,
+s. 2 (10); 2017, c. 24, s. 29 (9).
 
 Notice of preservation of lien re common elements of condominium
 (9) A person who preserves a lien under this section that relates, in  whole
 or in part, to an improvement to the common elements of a corporation  under
-the Condominium Act, 1998 shall give notice of the lien's  preservation,  in
+the Condominium Act, 1998 shall give notice of the lien’s  preservation,  in
 the prescribed form, to the corporation and to each person who is,
       (a)   in the case of a corporation  that  is  not  a  common  elements
     condominium corporation, as defined in that Act, an owner of a unit  in
@@ -2583,10 +2583,10 @@ the prescribed form, to the corporation and to each person who is,
     owner of a parcel of land mentioned in subsection 139 (1) of  that  Act
     to which a common interest is attached and which is  described  in  the
     declaration of the corporation. 2017, c. 24, s. 29 (10).
-(10)  Repealed: 2024, c. 20, Sched. 4, s. 28.
+(10)  Repealed: 2024, c. 20, Sched. 4, s. 28.
 Section Amendments with date in force (d/m/y)
-2010, c. 16, Sched. 2, s. 2 (5-7, 9, 10) - 01/07/2011; 2010, c. 16,
-Sched. 2, s. 2 (8) - 25/10/2010
+2010, c. 16, Sched. 2, s. 2 (5-7, 9, 10) - 01/07/2011; 2010, c. 16,
+Sched. 2, s. 2 (8) - 25/10/2010
 2017, c. 24, s. 29 (1, 3, 5, 7-9), 63, 64, 66, 68, 70-72 - 12/12/2017;
 2017, c. 24, s. 29 (2, 4, 11) - 01/10/2019; 2017, c. 24, s. 29 (6, 10) -
 01/07/2018
@@ -2613,17 +2613,17 @@ Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 30 (1) - 12/12/2017; 2017, c. 24, s. 30 (2) - 01/07/2018
 
 What liens may be perfected
-36 (1)  A lien may not be perfected unless it is preserved.   R.S.O.  1990,
-c. C.30, s. 36 (1).
+36 (1)  A lien may not be perfected unless it is  preserved.   R.S.O.  1990,
+c. C.30, s. 36 (1).
 
 Expiry of preserved lien
-(2)  A lien that has been preserved expires unless it is perfected prior to
+(2)  A lien that has been preserved expires unless it is perfected prior  to
 the end of the 90-day period next following the last day, under section  31,
-on which the  lien  could  have  been  preserved.   R.S.O.  1990,  c. C.30,
-s. 36 (2); 2017, c. 24, s. 31 (1).
+on which  the  lien  could  have  been  preserved.   R.S.O.  1990,  c. C.30,
+s. 36 (2); 2017, c. 24, s. 31 (1).
 
 How lien perfected
-(3)  A lien claimant perfects the lien claimant's preserved lien,
+(3)  A lien claimant perfects the lien claimant’s preserved lien,
       (a)   where the lien attaches to the premises, when the lien  claimant
     commences an action to enforce the lien and, except where an  order  to
     vacate the  registration  of  the  lien  is  made,  the  lien  claimant
@@ -2631,11 +2631,11 @@ How lien perfected
     of the premises; or
       (b)   where the lien does not attach to the premises,  when  the  lien
     claimant commences  an  action  to  enforce  the  lien.   R.S.O.  1990,
-    c. C.30, s. 36 (3); 2017, c. 24, s. 65, 70, 71; 2018, c. 17, Sched. 8,
+    c. C.30, s. 36 (3); 2017, c. 24, s. 65, 70, 71; 2018, c. 17, Sched.  8,
     s. 10.
 
 Rules re sheltering
-(4)  A  preserved  lien  becomes  perfected  by  sheltering  under  a  lien
+(4)  A  preserved  lien  becomes  perfected  by  sheltering  under  a   lien
 perfected by another lien claimant in respect of  the  same  improvement  in
 accordance with the following rules:
        1.     The  preserved  lien  of  a  lien  claimant  is  perfected  by
@@ -2658,50 +2658,50 @@ accordance with the following rules:
     any lien claimant whose lien is sheltered under that statement of claim
     shall provide the defendant with further particulars of the  claim  for
     lien or of any fact alleged  in  the  claim  for  lien.   R.S.O.  1990,
-    c. C.30, s. 36 (4); 2017, c. 24, s. 31 (2-4).
+    c. C.30, s. 36 (4); 2017, c. 24, s. 31 (2-4).
 
 General lien
-(5)  Subject to subsection 44 (4) (apportionment), a preserved general lien
+(5)  Subject to subsection 44 (4) (apportionment), a preserved general  lien
 that attaches to the premises shall be perfected against  each  premises  to
 which the person having the lien desires the  lien  to  continue  to  apply.
-R.S.O. 1990, c. C.30, s. 36 (5); 2017, c. 24, s. 72.
+R.S.O. 1990, c. C.30, s. 36 (5); 2017, c. 24, s. 72.
 
 Where period of credit extended
-(6)  A person who has preserved a lien, but who has extended  a  period  of
+(6)  A person who has preserved a lien, but who has  extended  a  period  of
 credit for the payment  of  the  amount  to  which  the  lien  relates,  may
 commence an action for the purpose of perfecting the lien  even  though  the
-period of credit has not  at  the  time  expired.   R.S.O.  1990,  c. C.30,
-s. 36 (6).
+period of credit has  not  at  the  time  expired.   R.S.O.  1990,  c. C.30,
+s. 36 (6).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 31 (1) - 01/07/2018; 2017, c. 24, s. 31 (2-4), 65, 70-72 -
 12/12/2017
 2018, c. 17, Sched. 8, s. 10 - 06/12/2018
 
 Expiry of perfected lien
-37 (1)  A perfected lien expires immediately after the  second  anniversary
+37 (1)  A perfected lien expires immediately after  the  second  anniversary
 of the commencement of the action that perfected the  lien,  unless  one  of
 the following occurs on or before that anniversary:
       1.    An order is made for the trial of an action in  which  the  lien
     may be enforced.
       2.    An action in which the lien may be  enforced  is  set  down  for
-    trial.  1994, c. 27, s. 42 (1).
+    trial.  1994, c. 27, s. 42 (1).
 
 Motion under s. 46
-(2)  Where a lien has expired under subsection (1), a motion  may  be  made
-under section 46.  R.S.O. 1990, c. C.30, s. 37 (2).
+(2)  Where a lien has expired under subsection (1), a  motion  may  be  made
+under section 46.  R.S.O. 1990, c. C.30, s. 37 (2).
 Section Amendments with date in force (d/m/y)
-1994, c. 27, s. 42 (1) - 02/04/1983
+1994, c. 27, s. 42 (1) - 02/04/1983
 
 Saving other rights
 38 The expiration of a lien under this Act shall not affect any other  legal
 or equitable right or remedy otherwise available to the  person  whose  lien
-has expired.  R.S.O. 1990, c. C.30, s. 38.
+has expired.  R.S.O. 1990, c. C.30, s. 38.
 
                                    PART VI
                             RIGHT TO INFORMATION
 
 RIGHT TO INFORMATION;
-39 (1)  Any person having a lien or who is the beneficiary of a trust under
+39 (1)  Any person having a lien or who is the beneficiary of a trust  under
 Part II or who is a mortgagee may, at any time, by written request,  require
 information to be provided within a reasonable time, not to  exceed  twenty-
 one days, as follows:
@@ -2742,7 +2742,7 @@ from contractor or subcontractor
        subcontractor.
 
 from owner
-      3.    By an owner who is selling the owner's interest  in  a  premises
+      3.    By an owner who is selling the owner’s interest  in  a  premises
     that is a home, with,
       i.    the name and address of  the  purchaser,  the  sale  price,  the
        amount of the purchase price  paid  or  to  be  paid  prior  to  the
@@ -2765,11 +2765,11 @@ from landlord
       ii.   the amount of the payment referred to in subsection 19 (1), and
       iii.  the state of  accounts  between  the  landlord  and  the  tenant
        containing the information listed in subsection (4.1).  R.S.O. 1990,
-       c. C.30, s. 39 (1); 2017, c. 24, s. 32 (1-7), 71;  2018,  c.  17,
+       c. C.30, s. 39 (1); 2017, c. 24, s.  32  (1-7),  71;  2018,  c.  17,
        Sched. 8, s. 11; 2024, c. 20, Sched. 4, s. 29.
 
 from mortgagee or unpaid vendor
-(2)  Any person having a lien or any beneficiary of a trust under  Part  II
+(2)  Any person having a lien or any beneficiary of a trust  under  Part  II
 may, at any time, by written request, require a mortgagee or  unpaid  vendor
 to provide the person within a reasonable time,  not  to  exceed  twenty-one
 days, with,
@@ -2782,20 +2782,20 @@ days, with,
     arrears in the payment of interest; or
       (c)   a statement showing the amount secured under  the  agreement  of
     purchase and sale and any arrears in payment including any  arrears  in
-    the payment of interest.  R.S.O. 1990, c. C.30, s. 39 (2); 2017, c. 24,
+    the payment of interest.  R.S.O. 1990, c. C.30, s. 39 (2); 2017, c. 24,
     s. 70.
 
-by trustee or workers' trust fund
-(3)  The trustee of a workers' trust  fund  may  at  any  time  by  written
+by trustee or workers’ trust fund
+(3)  The trustee of a workers’  trust  fund  may  at  any  time  by  written
 request require any contractor  or  subcontractor  to  permit  the  trustee,
 within a reasonable time after making the request, not to exceed  twenty-one
 days, to inspect the payroll records of all workers  who  are  beneficiaries
 of the fund, and who have supplied labour to the making of the  improvement,
 and who are employed by the contractor or the subcontractor.   R.S.O.  1990,
-c. C.30, s. 39 (3).
+c. C.30, s. 39 (3).
 
 respecting publication of certificate of substantial performance
-(4)  A contractor shall, on the written request of a person, provide to the
+(4)  A contractor shall, on the written request of a person, provide to  the
 person  within  a  reasonable  time  after  the  request  is  made   written
 confirmation of the date and location of the publication of the copy of  the
 certificate of substantial performance under subsection  32  (1).  2017,  c.
@@ -2826,61 +2826,61 @@ amount advanced under the mortgage for each of those purposes. 2017, c.  24,
 s. 32 (9).
 
 Liability for failure to provide information
-(5)  Where a person, who is required under subsection (1), (2), (3) or  (4)
+(5)  Where a person, who is required under subsection (1), (2), (3)  or  (4)
 to provide information or  access  to  information,  does  not  provide  the
 information  or  access  to  information  as  required   or   knowingly   or
 negligently mis-states that information, the person is liable to the  person
 who made the request for any damages suffered as  a  result.   R.S.O.  1990,
-c. C.30, s. 39 (5); 2017, c. 24, s. 32 (10).
+c. C.30, s. 39 (5); 2017, c. 24, s. 32 (10).
 
 Order by court to comply with request
-(6)  Upon motion, the court may at any time, whether or not an  action  has
+(6)  Upon motion, the court may at any time, whether or not  an  action  has
 been commenced, order a person to comply with a request that has  been  made
 to the person under this section and, when making the order, the  court  may
 make  any  order  as  to  costs  as  it   considers   appropriate   in   the
 circumstances, including an order for the payment of costs on a  substantial
-indemnity basis.  R.S.O. 1990, c. C.30, s. 39 (6); 2006, c. 21, Sched. C,
-s. 102 (1).
+indemnity basis.  R.S.O. 1990, c. C.30, s. 39 (6);  2006,  c. 21,  Sched. C,
+s. 102 (1).
 Section Amendments with date in force (d/m/y)
-2006, c. 21, Sched. C, s. 102 (1) - 01/05/2007
+2006, c. 21, Sched. C, s. 102 (1) - 01/05/2007
 2017, c. 24, s. 32 (1-4, 6-9) - 01/07/2018; 2017, c. 24, s. 32 (5, 10), 70,
 71 - 12/12/2017; 2017, c. 33, Sched. 2, s. 76 (2) - not in force
 2018, c. 17, Sched. 8, s. 11 (1, 2) - 06/12/2018
 2024, c. 20, Sched. 4, s. 29 - 01/01/2026
 
 Cross-examination on claim for lien
-40 (1)  Any of the following persons is liable to be cross-examined without
+40 (1)  Any of the following persons is liable to be cross-examined  without
 an order on a claim for lien at any time, regardless of  whether  an  action
 has been commenced:
       1.    The lien claimant.
       2.    An agent or assignee of the lien claimant.
-      3.    A trustee of the workers' trust fund, where  subsection  81  (2)
-    applies.  2010, c. 16, Sched. 2, s. 2 (11); 2017, c. 24, s. 63.
+      3.    A trustee of the workers’ trust fund, where  subsection  81  (2)
+    applies.  2010, c. 16, Sched. 2, s. 2 (11); 2017, c. 24, s. 63.
 
 Who may participate
-(2)  There shall be only one examination  under  subsection  (1),  but  the
+(2)  There shall be only one  examination  under  subsection  (1),  but  the
 contractor, the payer of the lien claimant, and every person  named  in  the
 claim for lien  who  has  an  interest  in  the  premises  are  entitled  to
-participate therein.  R.S.O. 1990, c. C.30, s. 40 (2); 2017, c. 24, s. 63,
+participate therein.  R.S.O. 1990, c. C.30, s. 40 (2); 2017, c. 24,  s.  63,
 70.
 
 Notice
-(3)  Any person intending to examine a person under  subsection  (1)  shall
+(3)  Any person intending to examine a person  under  subsection  (1)  shall
 give at least seven days notice of the examination specifying the  time  and
 place for the examination to,
-      (a)   the person to be examined or the person's solicitor;
+      (a)   the person to be examined or the person’s solicitor;
       (b)   every other person named in the claim  for  lien  as  having  an
     interest in the premises;
       (c)   the contractor; and
-      (d)    the  payer  of  the  lien  claimant.   R.S.O.  1990,  c. C.30,
-    s. 40 (3); 2017, c. 24, s. 63, 70.
+       (d)    the  payer  of  the  lien  claimant.   R.S.O.  1990,  c. C.30,
+    s. 40 (3); 2017, c. 24, s. 63, 70.
 
 Application of rules of court
-(4)  The rules of court pertaining to examinations  apply,  with  necessary
+(4)  The rules of court pertaining to  examinations  apply,  with  necessary
 modifications, to  cross-examinations  under  this  section.   R.S.O.  1990,
-c. C.30, s. 40 (4).
+c. C.30, s. 40 (4).
 Section Amendments with date in force (d/m/y)
-2010, c. 16, Sched. 2, s. 2 (11) - 01/07/2011
+2010, c. 16, Sched. 2, s. 2 (11) - 01/07/2011
 2017, c. 24, s. 63, 70 - 12/12/2017
 
                                   PART VII
@@ -2889,7 +2889,7 @@ Section Amendments with date in force (d/m/y)
 DISCHARGE OF LIEN AND WITHDRAWAL OF WRITTEN NOTICE OF LIEN
 
 Discharge of lien
-41 (1)  A preserved or perfected lien may be discharged,
+41 (1)  A preserved or perfected lien may be discharged,
       (a)   where the lien attaches to the premises, by the registration  of
     a discharge of lien in the prescribed form on the title to the premises
     and  the  discharge  shall,  except  where  the  lien  claimant  is   a
@@ -2897,14 +2897,14 @@ Discharge of lien
       (b)   where the lien does not attach to  the  premises,  by  giving  a
     discharge of lien in the prescribed form to the owner,  in  the  manner
     set out in section 34 for the giving of copies of the claim  for  lien.
-    R.S.O. 1990, c. C.30, s. 41 (1); 2017, c. 24, s. 33 (1, 2), 63, 65, 70.
+    R.S.O. 1990, c. C.30, s. 41 (1); 2017, c. 24, s. 33 (1, 2), 63, 65, 70.
 
 Withdrawal of written notice of lien
-(2)  A written notice of a lien may be withdrawn by giving a withdrawal  in
+(2)  A written notice of a lien may be withdrawn by giving a  withdrawal  in
 the prescribed form to the person to whom the written notice of a  lien  was
 given, and a payer given the withdrawal shall, in respect of  the  operation
 of subsection 24 (2), be in the same position as if the written notice of  a
-lien had never been given.  R.S.O. 1990, c. C.30, s. 41 (2); 2017, c. 24,
+lien had never been given.  R.S.O. 1990, c. C.30, s. 41 (2);  2017,  c.  24,
 s. 33 (3).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 33 (1-3) - 01/07/2018; 2017, c. 24, s. 63, 65, 70 -
@@ -2915,7 +2915,7 @@ Discharge of general lien
 or more of the premises that  are  subject  to  it,  without  affecting  its
 application to any other premises to which it applies, by  the  registration
 of a discharge  of  lien  in  the  prescribed  form  on  the  title  to  the
-applicable premises.  R.S.O. 1990, c. C.30, s. 42; 2017, c. 24, s. 34, 65,
+applicable premises.  R.S.O. 1990, c. C.30, s. 42; 2017, c. 24, s.  34,  65,
 72.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 34 (1), 65, 72 - 12/12/2017; 2017, c. 24, s. 34 (2) -
@@ -2926,14 +2926,14 @@ Postponement of lien claim
 of another person in the premises by the registration on the  title  to  the
 premises of a notice of postponement in the prescribed form,  and,  in  that
 case, subsection 78 (8)  applies  (priorities  in  event  of  postponement).
-R.S.O. 1990, c. C.30, s. 43; 2017, c. 24, s. 35, 65.
+R.S.O. 1990, c. C.30, s. 43; 2017, c. 24, s. 35, 65.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 35, 65 - 12/12/2017
 
 Vacating lien by payment into court
 
 Without notice
-44 (1)  Upon the motion of any person, without notice to any other  person,
+44 (1)  Upon the motion of any person, without notice to any  other  person,
 the court shall make an order vacating,
       (a)   where the lien attaches to the premises, the registration  of  a
     claim for lien and any certificate of action in respect of  that  lien;
@@ -2944,24 +2944,24 @@ where the person bringing the motion pays into court, or posts  security  in
 an amount equal to, the total of,
       (c)   the full amount claimed as owing in the claim for lien; and
       (d)   the lesser of $250,000 or 25 per cent of  the  amount  described
-    in clause (c), as security for costs.  R.S.O. 1990, c. C.30, s. 44 (1);
+    in clause (c), as security for costs.  R.S.O. 1990, c. C.30, s. 44 (1);
     2017, c. 24, s. 36 (1), 63, 64, 70; 2018, c. 17, Sched. 8, s. 12 (1).
 
 On payment in of reasonable amount
-(2)  Upon the motion of any person, the court may make  an  order  vacating
+(2)  Upon the motion of any person, the court may  make  an  order  vacating
 the registration of a claim for lien,  and  any  certificate  of  action  in
 respect of that lien,  upon  the  payment  into  court  or  the  posting  of
 security of an amount that the court determines  to  be  reasonable  in  the
-circumstances to satisfy the lien.  R.S.O. 1990, c. C.30, s. 44 (2); 2017,
+circumstances to satisfy the lien.  R.S.O. 1990, c. C.30,  s. 44 (2);  2017,
 c. 24, s. 63; 2018, c. 17, Sched. 8, s. 12 (2).
 
 Condominium
 (2.1) The owner of a condominium unit under the Condominium  Act,  1998  may
 make a motion under clause (1)  (a)  or  subsection  (2)  regarding  a  lien
 respecting an  improvement  to  common  elements  that  include  the  common
-interest appurtenant to the owner's unit, and, for  the  purpose,  the  full
+interest appurtenant to the owner’s unit, and, for  the  purpose,  the  full
 amount claimed as owing in the claim for lien is deemed to be  that  portion
-of the lien amount that is attributable to the owner's  common  interest  as
+of the lien amount that is attributable to the owner’s  common  interest  as
 specified in the applicable declaration registered under that Act. 2017,  c.
 24, s. 36 (2).
 
@@ -2971,17 +2971,17 @@ Condominium Act, 1998 to which a common interest is attached,  in  the  case
 of a common elements  condominium  corporation,  may  make  a  motion  under
 clause (1) (a) or subsection (2) regarding a lien respecting an  improvement
 to common elements that include  the  common  interest  appurtenant  to  the
-owner's parcel of land, and, for the purpose, the  full  amount  claimed  as
+owner’s parcel of land, and, for the purpose, the  full  amount  claimed  as
 owing in the claim for lien is deemed to be that portion of the lien  amount
-that is attributable to the owner's common  interest  as  specified  in  the
+that is attributable to the owner’s common  interest  as  specified  in  the
 applicable declaration registered under that Act. 2017, c. 24, s. 36 (2).
 
 Where lien does not attach to premises
-(3)  Where the lien does not attach to the premises, the court may make  an
+(3)  Where the lien does not attach to the premises, the court may  make  an
 order, upon the motion of any person, vacating a claim  for  lien  given  to
 the owner, upon the payment into court or the  posting  of  security  of  an
 amount that the court determines to be reasonable in  the  circumstances  to
-satisfy the lien.  R.S.O. 1990, c. C.30, s. 44 (3); 2017, c. 24, s. 36 (3),
+satisfy the lien.  R.S.O. 1990, c. C.30, s. 44 (3); 2017, c. 24, s. 36  (3),
 70; 2018, c. 17, Sched. 8, s. 12 (2).
 
 Vacating written notice of lien
@@ -2990,15 +2990,15 @@ of the circumstances in subsection (1), (2) or (3) apply. 2017,  c.  24,  s.
 36 (4); 2018, c. 17, Sched. 8, s. 12 (3).
 
 Where general lien
-(4)  Where a motion is made to vacate the registration of  a  general  lien
+(4)  Where a motion is made to vacate the registration  of  a  general  lien
 against one or more of the premises subject to  that  lien,  the  court  may
 apportion the general lien between the premises  in  respect  of  which  the
 motion is made and all other premises that are subject to the lien.   R.S.O.
-1990, c. C.30, s. 44 (4); 2017, c. 24, s. 72; 2018, c. 17, Sched. 8, s. 12
+1990, c. C.30, s. 44 (4); 2017, c. 24, s. 72; 2018, c. 17, Sched. 8,  s.  12
 (4).
 
 Reduction of amount paid into court
-(5)  Where an amount has been paid into court or security has  been  posted
+(5)  Where an amount has been paid into court or security  has  been  posted
 with the court under this section, the court, upon notice  to  such  persons
 as it may require, may order where it is appropriate to do so,
       (a)   the reduction of the amount paid into court, and the payment  of
@@ -3006,7 +3006,7 @@ as it may require, may order where it is appropriate to do so,
       (b)   the reduction of the amount of security posted with  the  court,
     and the  delivery  up  of  the  security  posted  with  the  court  for
     cancellation or  substitution,  as  the  case  may  be.   R.S.O.  1990,
-    c. C.30, s. 44 (5).
+    c. C.30, s. 44 (5).
 
 Letters of credit
 (5.1)  A  letter  of  credit  containing  reference  to   an   international
@@ -3017,36 +3017,36 @@ listed in Schedule I to the Bank Act (Canada) that is operating in  Ontario.
 2017, c. 24, s. 36 (5).
 
 Lien a charge upon amount paid into court
-(6)  Where an order is made under clause (1) (a)  or  subsection  (2),  the
+(6)  Where an order is made under clause (1)  (a)  or  subsection  (2),  the
 lien ceases to attach to the premises and ceases to attach to the  holdbacks
 and other amounts subject to a charge under section 21, and becomes  instead
 a charge upon the amount paid into court or security posted, and  the  owner
 or payer shall, in respect of the operation of sections 21, 23  and  24,  be
 in the same position as if the  lien  had  not  been  preserved  or  written
-notice of the lien had not been given.  R.S.O. 1990, c. C.30,  s. 44 (6);
+notice of the lien had not been given.   R.S.O.  1990,  c. C.30,  s. 44 (6);
 2017, c. 24, s. 70.
 
 Same
-(7)  Where an order is made under clause (1) (b)  or  subsection  (3),  the
+(7)  Where an order is made under clause (1)  (b)  or  subsection  (3),  the
 lien ceases to attach to the  holdbacks  and  other  amounts  subject  to  a
 charge under section 21 and becomes instead a charge upon  the  amount  paid
 into court or security posted and the owner or payer shall,  in  respect  of
 the operation of sections 21, 23 and 24, be in the same position as  if  the
 lien had not been preserved or written notice  of  the  lien  had  not  been
-given.  R.S.O. 1990, c. C.30, s. 44 (7).
+given.  R.S.O. 1990, c. C.30, s. 44 (7).
 
 Consolidation of motions
-(8)  Where more than one motion is made under subsection (1),  (2)  or  (3)
+(8)  Where more than one motion is made under subsection  (1),  (2)  or  (3)
 for the payment into court  or  posting  of  security  to  obtain  an  order
 vacating the registration of  one  or  more  preserved  or  perfected  liens
 arising from the same improvement, the court  may  consolidate  the  motions
 and require that the amount paid into court or security posted  be  adequate
 to satisfy all the liens that are the subject of each  of  the  motions,  or
-make any other order that it considers appropriate.  R.S.O. 1990,  c. C.30,
-s. 44 (8); 2018, c. 17, Sched. 8, s. 12 (5).
+make any other order that it considers appropriate.  R.S.O.  1990,  c. C.30,
+s. 44 (8); 2018, c. 17, Sched. 8, s. 12 (5).
 
 Rules
-(9)  Where an order is made under subsection (1), (2) or (3), the following
+(9)  Where an order is made under subsection (1), (2) or (3), the  following
 rules apply:
       1.    The lien claimant whose lien was the subject of  the  order  may
     proceed with an action to enforce the claim  against  the  amount  paid
@@ -3067,16 +3067,16 @@ rules apply:
       4.    A lien claimant whose lien  is  sheltered,  in  accordance  with
     subsection 36 (4), under the lien that was the subject of the order may
     proceed with an action to enforce the sheltered lien as  if  the  order
-    had not been made.  R.S.O. 1990, c. C.30, s. 44 (9);  2010,  c. 16,
-    Sched. 2, s. 2 (12); 2017, c. 24, s. 36 (6), 71.
+    had not been made.   R.S.O.  1990,  c. C.30,  s. 44 (9);  2010,  c. 16,
+    Sched. 2, s. 2 (12); 2017, c. 24, s. 36 (6), 71.
 Section Amendments with date in force (d/m/y)
-2010, c. 16, Sched. 2, s. 2 (12) - 01/07/2011
+2010, c. 16, Sched. 2, s. 2 (12) - 01/07/2011
 2017, c. 24, s. 36 (1, 2, 4-6) - 01/07/2018; 2017, c. 24, s. 36 (3), 63,
 64, 70-72 - 12/12/2017
 2018, c. 17, Sched. 8, s. 12 (1-5) - 06/12/2018
 
 Declaration by court that preserved lien has expired
-45 (1)  Where a lien that attaches to the premises is not preserved  or  is
+45 (1)  Where a lien that attaches to the premises is not  preserved  or  is
 not perfected within the time allowed for doing so under section 31  or  36,
 the court upon,
       (a)   the motion of any person without notice to any other person;
@@ -3084,60 +3084,60 @@ the court upon,
     the time allowed; and
       (c)   production of,
       (i)   a certificate of search under the Land Titles Act, or
-      (ii)  a registrar's abstract under the Registry Act,
+      (ii)  a registrar’s abstract under the Registry Act,
             together with a certified copy of the claim for lien,
 shall declare that the lien has expired and order that the  registration  of
-the claim for lien be vacated.  R.S.O. 1990, c. C.30, s. 45 (1); 2017, c.
+the claim for lien be vacated.  R.S.O. 1990, c. C.30,  s. 45 (1);  2017,  c.
 24, s. 63, 70; 2018, c. 17, Sched. 8, s. 13.
 
 Same
-(2)  Where the court is satisfied that a lien that does not attach  to  the
+(2)  Where the court is satisfied that a lien that does not  attach  to  the
 premises has not been preserved or perfected within  the  time  allowed  for
 doing so under section 31 or 36, the court upon the  motion  of  any  person
 without notice to any other person shall declare that the lien has  expired.
- R.S.O. 1990, c. C.30, s. 45 (2); 2017, c. 24, s. 70.
+ R.S.O. 1990, c. C.30, s. 45 (2); 2017, c. 24, s. 70.
 
 Order returning amount paid into court or cancelling security
-(3)  Where a declaration is made under subsection (1)  or  (2),  the  court
+(3)  Where a declaration is made under subsection  (1)  or  (2),  the  court
 shall order that,
       (a)   any amount that has been paid into court  under  section  44  in
     respect of that lien be returned to the person who paid the amount into
     court; and
       (b)   any security that has been posted under section  44  in  respect
-    of that lien be cancelled.  R.S.O. 1990, c. C.30, s. 45 (3).
+    of that lien be cancelled.  R.S.O. 1990, c. C.30, s. 45 (3).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 63, 70 - 12/12/2017
 2018, c. 17, Sched. 8, s. 13 - 06/12/2018
 
 Order dismissing action, etc.
-46 (1)  Where a perfected lien that attaches to the  premises  has  expired
+46 (1)  Where a perfected lien that attaches to  the  premises  has  expired
 under section 37, the court, upon the motion of any  person,  shall  declare
 that the lien has expired and shall make an order dismissing the  action  to
 enforce that lien and vacating the registration of a claim for lien and  the
-certificate of action in respect of  that  action.  R.S.O.  1990,  c. C.30,
-s. 46 (1); 2017, c. 24, s. 63, 70; 2018, c. 17, Sched. 8, s. 14.
+certificate of action in respect  of  that  action.  R.S.O.  1990,  c. C.30,
+s. 46 (1); 2017, c. 24, s. 63, 70; 2018, c. 17, Sched. 8, s. 14.
 
 Same
-(2)  Where a perfected lien that  does  not  attach  to  the  premises  has
+(2)  Where a perfected lien  that  does  not  attach  to  the  premises  has
 expired under section 37, the court, upon the motion of  any  person,  shall
 declare that the lien has expired and shall make  an  order  dismissing  the
-action to realize upon that lien. R.S.O. 1990, c. C.30, s. 46 (2); 2017, c.
+action to realize upon that lien. R.S.O. 1990, c. C.30, s. 46 (2); 2017,  c.
 24, s. 70.
 
 Costs
-(3)  A motion under subsection (1) or (2) may be  brought  without  notice,
+(3)  A motion under subsection (1) or (2) may  be  brought  without  notice,
 but no order as to costs in the action may be made upon  the  motion  unless
 notice of that motion was given to the person against  whom  the  order  for
-costs is sought. R.S.O. 1990, c. C.30, s. 46 (3).
+costs is sought. R.S.O. 1990, c. C.30, s. 46 (3).
 
 Order returning money paid into court or cancelling security
-(4)  Where an action is dismissed under subsection (1) or  (2),  the  court
+(4)  Where an action is dismissed under subsection (1)  or  (2),  the  court
 shall order that,
       (a)   any amount that has been paid into court  under  section  44  in
     respect of that action be returned to the person who  paid  the  amount
     into court; and
       (b)   any security that has been posted under section  44  in  respect
-    of that action be cancelled.  R.S.O. 1990, c. C.30, s. 46 (4).
+    of that action be cancelled.  R.S.O. 1990, c. C.30, s. 46 (4).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 63, 70 - 12/12/2017
 2018, c. 17, Sched. 8, s. 14 - 06/12/2018
@@ -3167,15 +3167,15 @@ conditions that the court considers appropriate in the circumstances.  2017,
 c. 24, s. 37 (1).
 
 Direction by court
-(2)  Where a  certificate  of  action  is  vacated  under  paragraph  1  of
+(2)  Where  a  certificate  of  action  is  vacated  under  paragraph  1  of
 subsection (1.1), and there remain  liens  which  may  be  enforced  in  the
 action  to  which  that  certificate  relates,  the  court  shall  give  any
 directions that are  necessary  in  the  circumstances  in  respect  of  the
 continuation of that action subject to paragraph 4  of  subsection  44  (9).
-R.S.O. 1990, c. C.30, s. 47 (2); 2010, c. 16, Sched. 2, s. 2 (13); 2017, c.
+R.S.O. 1990, c. C.30, s. 47 (2); 2010, c. 16, Sched. 2, s. 2 (13); 2017,  c.
 24, s. 37 (2); 2018, c. 17, Sched. 8, s. 15 (2).
 Section Amendments with date in force (d/m/y)
-2010, c. 16, Sched. 2, s. 2 (13) - 01/07/2011
+2010, c. 16, Sched. 2, s. 2 (13) - 01/07/2011
 2017, c. 24, s. 37 (1, 2) - 01/07/2018; 2017, c. 24, s. 63 - 12/12/2017
 2018, c. 17, Sched. 8, s. 15 (1, 2) - 06/12/2018
 
@@ -3184,7 +3184,7 @@ Discharge irrevocable
 lien cannot be revived, but no discharge affects the  right  of  the  person
 whose lien was discharged  to  claim  a  lien  in  respect  of  services  or
 materials supplied by the person  subsequent  to  the  preservation  of  the
-discharged lien.  R.S.O. 1990, c. C.30, s. 48; 2017, c. 24, s. 68.
+discharged lien.  R.S.O. 1990, c. C.30, s. 48; 2017, c. 24, s. 68.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 68 - 12/12/2017
 
@@ -3196,7 +3196,7 @@ the title to the premises a certified copy of  the  order  that  includes  a
 description of the premises sufficient for registration under  the  Registry
 Act or the Land Titles Act, as the case may  be,  and  a  reference  to  the
 registration number of every preserved  or  perfected  claim  for  lien  and
-certificate of action thereby affected.  R.S.O. 1990, c. C.30, s. 49; 2017,
+certificate of action thereby affected.  R.S.O. 1990, c. C.30, s. 49;  2017,
 c. 24, s. 38, 70, 71; 2018, c. 17, Sched. 8, s. 16.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 38, 70, 71 - 12/12/2017
@@ -3221,12 +3221,12 @@ character, having regard to the amount and nature of the liens in  question.
 2017, c. 24, s. 39 (2).
 
 Joinder
-(4)  For greater certainty, the procedures prescribed for the  purposes  of
+(4)  For greater certainty, the procedures prescribed for  the  purposes  of
 this Part may provide for the joinder of a lien claim with another claim  in
 an action, in which case this Part applies with respect to the  other  claim
 as it does to the lien claim. 2024, c. 20, Sched. 4, s. 30.
 Section Amendments with date in force (d/m/y)
-2006, c. 19, Sched. C, s. 1 (1) - 22/06/2006
+2006, c. 19, Sched. C, s. 1 (1) - 22/06/2006
 2017, c. 24, s. 39 (1) - 12/12/2017; 2017, c. 24, s. 39 (2) - 01/07/2018
 2024, c. 20, Sched. 4, s. 30 - 01/01/2026
 
@@ -3243,20 +3243,20 @@ reference under section 58,
     directions and do all things necessary to dispose finally of the action
     and all matters, questions and accounts arising therein or at the trial
     and to adjust the rights and liabilities of,  and  give  all  necessary
-    relief to, all parties to the action.  R.S.O. 1990,  c. C.30,  s. 51;
-    1994, c. 27, s. 42 (4); 1996, c. 25, s. 4 (1); 2017, c. 24, s. 40.
+    relief to, all parties to the action.   R.S.O.  1990,  c. C.30,  s. 51;
+    1994, c. 27, s. 42 (4); 1996, c. 25, s. 4 (1); 2017, c. 24, s. 40.
 Section Amendments with date in force (d/m/y)
-1994, c. 27, s. 42 (4) - 09/12/1994; 1996, c. 25, s. 4 (1) - 31/10/1996.
+1994, c. 27, s. 42 (4) - 09/12/1994; 1996, c. 25, s. 4 (1) - 31/10/1996.
 2017, c. 24, s. 40 (1, 2) - 01/07/2018
 
 Where exclusive jurisdiction not acquired
 52 A judge or associate judge does not acquire exclusive  jurisdiction  over
 the trial of an action or reference by reason only of  appointing  the  time
-and place for the trial of the action or reference.  R.S.O. 1990,  c. C.30,
-s. 52; 1996, c. 25, s. 4 (2); 2017, c. 24, s. 41; 2020, c. 11, Sched. 5, s.
+and place for the trial of the action or reference.  R.S.O.  1990,  c. C.30,
+s. 52; 1996, c. 25, s. 4 (2); 2017, c. 24, s. 41; 2020, c. 11, Sched. 5,  s.
 14 (1); 2021, c. 4, Sched. 3, s. 20 (1).
 Section Amendments with date in force (d/m/y)
-1996, c. 25, s. 4 (2) - 31/10/1996
+1996, c. 25, s. 4 (2) - 31/10/1996
 2017, c. 24, s. 41 - 01/07/2018
 2020, c. 11, Sched. 5, s. 14 (1) - 08/01/2021
 2021, c. 4, Sched. 3, s. 20 (1) - 01/09/2021
@@ -3274,7 +3274,7 @@ Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 42 (2) - 01/07/2018
 
 Referral of reference
-58 (1)  On motion made after the delivery of all statements of defence,  or
+58 (1)  On motion made after the delivery of all statements of  defence,  or
 the statement of defence to all crossclaims, counterclaims  or  third  party
 claims, if any, or after the time for their delivery has  expired,  a  judge
 may refer the whole action or any part of it for trial,
@@ -3287,27 +3287,27 @@ may refer the whole action or any part of it for trial,
     (2); 2021, c. 4, Sched. 3, s. 20 (2).
 
 Notice
-(1.1)  Notice of a motion for a reference under clause (1) (b) or (c) shall
+(1.1)  Notice of a motion for a reference under clause (1) (b) or (c)  shall
 be given to every person specified by  the  procedures  prescribed  for  the
 purposes of this Part. 2017, c. 24, s. 43 (2).
 
 Requirement for consent
-(1.2)  A reference under clause (1)  (b)  shall  not  be  made  unless  the
+(1.2)  A reference under clause  (1)  (b)  shall  not  be  made  unless  the
 persons entitled to notice under subsection (1.1) consent to the  reference.
- 1994, c. 27, s. 42 (5).
+ 1994, c. 27, s. 42 (5).
 
 Deemed consent
-(1.3)  A person given notice under subsection (1.1) who does not oppose the
+(1.3)  A person given notice under subsection (1.1) who does not oppose  the
 motion or does not appear at the hearing of the motion shall  be  deemed  to
-consent to the reference under clause (1) (b).  1994, c. 27, s. 42 (5).
+consent to the reference under clause (1) (b).  1994, c. 27, s. 42 (5).
 
 Associate judge not to hear motion to refer
-(2)  An associate judge shall not hear or dispose of a  motion  made  under
+(2)  An associate judge shall not hear or dispose of  a  motion  made  under
 subsection (1). 2020, c. 11, Sched. 5, s. 14 (3); 2021, c. 4, Sched.  3,  s.
 20 (2).
 
 Reference directed
-(3)  At the trial, a judge may direct a reference to an associate judge, to
+(3)  At the trial, a judge may direct a reference to an associate judge,  to
 a person agreed on by the parties or, if the action is for  an  amount  that
 is within the monetary jurisdiction of the Small Claims Court,  as  set  out
 under section 23 of the Courts of Justice Act, to a  deputy  judge  of  that
@@ -3315,7 +3315,7 @@ Court or to the Small  Claims  Court  Administrative  Judge.  2020,  c.  11,
 Sched. 5, s. 14 (3); 2021, c. 4, Sched. 3, s. 20 (2).
 
 Powers on reference
-(4)  An associate judge to whom a reference has been directed has  all  the
+(4)  An associate judge to whom a reference has been directed  has  all  the
 jurisdiction, powers and authority  of  the  court  to  try  and  completely
 dispose of the action and all matters and questions  arising  in  connection
 with the action, including the giving of leave to  amend  any  pleading  and
@@ -3323,8 +3323,8 @@ the giving of directions to a receiver or trustee appointed  by  the  court.
 2020, c. 11, Sched. 5, s. 14 (3); 2021, c. 4, Sched. 3, s. 20 (2).
 
 Powers of person agreed on by parties
-(4.1)  Subsection (4) also applies to a person who  is  agreed  on  by  the
-parties and to whom a reference has been directed.  1994, c. 27, s. 42 (7);
+(4.1)  Subsection (4) also applies to a person  who  is  agreed  on  by  the
+parties and to whom a reference has been directed.  1994, c. 27,  s. 42 (7);
 2018, c. 17, Sched. 8, s. 17 (1).
 
 Powers of Small Claims Court judge
@@ -3334,20 +3334,20 @@ directed to him or her. 2017, c. 24, s. 43 (4); 2018, c. 17,  Sched.  8,  s.
 17 (2).
 
 Application to set aside order of reference
-(5)  If all or part of an action is referred  for  trial  under  subsection
+(5)  If all or part of an action is  referred  for  trial  under  subsection
 (1), any person who subsequently becomes a party to the action  may,  within
 seven days after becoming a party to the action, make a motion  to  a  judge
 of the  court  that  directed  the  reference  to  set  aside  the  judgment
-directing the reference.  1996, c. 25, s. 4 (7); 2017, c. 24, s. 43 (5).
+directing the reference.  1996, c. 25, s. 4 (7); 2017, c. 24, s. 43 (5).
 
 Effect on subsequent party to action
-(6)  Where no motion is made under subsection (5), or where the  motion  is
+(6)  Where no motion is made under subsection (5), or where  the  motion  is
 refused, the person who subsequently became a party to the action  is  bound
 by the judgment directing the reference as if the person had  been  a  party
 to the action  at  the  time  the  reference  was  directed.   R.S.O.  1990,
-c. C.30, s. 58 (6).
+c. C.30, s. 58 (6).
 Section Amendments with date in force (d/m/y)
-1994, c. 27, s. 42 (5, 7) - 09/12/1994; 1996, c. 25, s. 4 (3-7) -
+1994, c. 27, s. 42 (5, 7) - 09/12/1994; 1996, c. 25, s. 4 (3-7) -
 31/10/1996
 2017, c. 24, s. 43 (1-5) - 01/07/2018; 2017, c. 24, s. 73 - 12/12/2017
 2018, c. 17, Sched. 8, s. 17 (1, 2) - 06/12/2018
@@ -3365,46 +3365,46 @@ Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 44 (2) - 12/12/2017; 2017, c. 24, s. 44 (3) - 01/07/2018
 
 Judgment or report
-62 (1)  The results of the trial shall be embodied,
+62 (1)  The results of the trial shall be embodied,
       (a)   in a judgment  in  the  prescribed  form,  where  the  trial  is
     conducted by a judge of the court; or
       (b)   in  a  report  in  the  prescribed  form,  where  the  trial  is
-    conducted on a reference under  section  58.   R.S.O.  1990,  c. C.30,
-    s. 62 (1); 1994, c. 27, s. 42 (9); 1996, c. 25, s. 4 (8); 2017, c. 24,
+    conducted on a reference  under  section  58.   R.S.O.  1990,  c. C.30,
+    s. 62 (1); 1994, c. 27, s. 42 (9); 1996, c. 25, s. 4 (8); 2017, c.  24,
     s. 45 (1), 65.
 
 Varying form
-(2)  The prescribed form of judgment or report may be varied by  the  court
+(2)  The prescribed form of judgment or report may be varied  by  the  court
 in order to meet the circumstances of the case so as to afford to any  party
 to the action any right or remedy in the judgment or  report  to  which  the
-party is entitled.  R.S.O. 1990, c. C.30, s. 62 (2); 2017, c. 24, s. 65.
-(3)  Repealed:  1999, c. 12, Sched. B, s. 3.
+party is entitled.  R.S.O. 1990, c. C.30, s. 62 (2); 2017, c. 24, s. 65.
+(3)  Repealed:  1999, c. 12, Sched. B, s. 3.
 
 Issue of execution
-(4)  The judgment or report may direct any party found  liable  to  make  a
+(4)  The judgment or report may direct any party  found  liable  to  make  a
 payment, to make such payment forthwith, and execution may be issued,
       (a)   immediately, in the case of a judgment; or
       (b)   after confirmation, in the  case  of  a  report.   R.S.O.  1990,
-    c. C.30, s. 62 (4).
+    c. C.30, s. 62 (4).
 
 Order for sale
-(5)  The court may order that the interest in the premises be sold and  may
+(5)  The court may order that the interest in the premises be sold  and  may
 direct  the  sale  to  take  place  at  any  time  after  the  judgment   or
 confirmation of the report, allowing a reasonable time for  advertising  the
-sale.  R.S.O. 1990, c. C.30, s. 62 (5); 2017, c. 24, s. 70.
+sale.  R.S.O. 1990, c. C.30, s. 62 (5); 2017, c. 24, s. 70.
 
 Persons who may be let in
-(6)  The court may allow any person with a perfected lien,
+(6)  The court may allow any person with a perfected lien,
       (a)   who was not served with a notice of trial; or
       (b)   whose action  was  stayed  by  reason  of  an  order  under  the
     Arbitration Act, 1991,
 to be let in to prove the claim at any time before the  amount  realized  in
 the action for the satisfaction of the lien has been distributed, and  where
 the claim is allowed, the judgment or report shall  be  amended  to  include
-the claim.  R.S.O. 1990, c. C.30, s. 62 (6); 2017, c. 24, s. 45 (2).
+the claim.  R.S.O. 1990, c. C.30, s. 62 (6); 2017, c. 24, s. 45 (2).
 Section Amendments with date in force (d/m/y)
-1994, c. 27, s. 42 (9) - 09/12/1994; 1996, c. 25, s. 4 (8) - 31/10/1996;
-1999, c. 12, Sched. B, s. 3 - 22/12/1999
+1994, c. 27, s. 42 (9) - 09/12/1994; 1996, c. 25, s. 4 (8) - 31/10/1996;
+1999, c. 12, Sched. B, s. 3 - 22/12/1999
 2017, c. 24, 45 (1) - 01/07/2018; 2017, c. 24, s. 45 (2), 65, 70 -
 12/12/2017
 
@@ -3414,7 +3414,7 @@ award any lien claimant a personal judgment,  whether  the  claimant  proves
 the lien or not, upon any ground relating to the claim that is disclosed  by
 the evidence against any party to the action for any amount that may be  due
 to the claimant and that the claimant might have recovered in  a  proceeding
-against that party.  R.S.O. 1990, c. C.30, s. 63.
+against that party.  R.S.O. 1990, c. C.30, s. 63.
 
 Right to share in proceeds
 64 Where an interest in the premises is sold under  court  order,  or  by  a
@@ -3422,37 +3422,37 @@ trustee appointed under Part IX, a person with a perfected lien is  entitled
 to share in the proceeds of sale in respect  of  the  amount  owing  to  the
 person, although that amount or part thereof was not payable at the time  of
 the commencement of the action or at the time of  the  distribution  of  the
-proceeds.  R.S.O. 1990, c. C.30, s. 64; 2017, c. 24, s. 70.
+proceeds.  R.S.O. 1990, c. C.30, s. 64; 2017, c. 24, s. 70.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 70 - 12/12/2017
 
 Orders for completion of sale
-65 (1)  The court may make all orders necessary for  the  completion  of  a
+65 (1)  The court may make all orders necessary  for  the  completion  of  a
 sale and for vesting an interest in the premises in the  purchaser.   R.S.O.
-1990, c. C.30, s. 65 (1); 2017, c. 24, s. 70.
+1990, c. C.30, s. 65 (1); 2017, c. 24, s. 70.
 
 Payment into court of proceeds
-(2)  Where an interest in the premises is sold under court order, or  by  a
+(2)  Where an interest in the premises is sold under court order,  or  by  a
 trustee appointed under Part IX, the proceeds of  the  sale  shall  be  paid
-into court to the credit of the action.  R.S.O. 1990, c. C.30, s. 65 (2);
+into court to the credit of the action.  R.S.O.  1990,  c. C.30,  s. 65 (2);
 2017, c. 24, s. 70.
 
 Fees and disbursements
-(3)  The court may add to the claim of the party  having  carriage  of  the
+(3)  The court may add to the claim of the  party  having  carriage  of  the
 action the fees and actual disbursements of the  party  in  connection  with
-the sale.  R.S.O. 1990, c. C.30, s. 65 (3).
+the sale.  R.S.O. 1990, c. C.30, s. 65 (3).
 
 To whom proceeds paid
-(4)  The court  shall  direct  to  whom  the  proceeds  shall  be  paid  in
+(4)  The  court  shall  direct  to  whom  the  proceeds  shall  be  paid  in
 accordance with the  priorities  established  by  this  Act.   R.S.O.  1990,
-c. C.30, s. 65 (4).
+c. C.30, s. 65 (4).
 
 Where proceeds insufficient to satisfy judgment
-(5)  Where the proceeds of the sale  are  not  sufficient  to  satisfy  the
+(5)  Where the proceeds of the  sale  are  not  sufficient  to  satisfy  the
 judgment and costs, the court shall certify the  amount  of  the  deficiency
 and give personal judgment in the appropriate amount  to  each  party  whose
 judgment is not satisfied out of the proceeds against each  person  who  has
-been found liable to the party.  R.S.O. 1990, c. C.30, s. 65 (5).
+been found liable to the party.  R.S.O. 1990, c. C.30, s. 65 (5).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 70 - 12/12/2017
 66 Repealed: 2017, c. 24, s. 46.
@@ -3460,21 +3460,21 @@ Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 46 - 01/07/2018
 67 Repealed: 2017, c. 24, s. 46.
 Section Amendments with date in force (d/m/y)
-2006, c. 21, Sched. C, s. 102 (2) - 01/05/2007
+2006, c. 21, Sched. C, s. 102 (2) - 01/05/2007
 2017, c. 24, s. 46 - 01/07/2018
 
                                    part ix
                            appointment of trustee
 
 APPLICATION FOR APPOINTMENT OF TRUSTEE
-68 (1)  Any person having a lien, or any other person having an interest in
+68 (1)  Any person having a lien, or any other person having an interest  in
 the premises, may apply to the court for the appointment of  a  trustee  and
 the court may appoint a  trustee  upon  such  terms  as  to  the  giving  of
 security or otherwise as the  court  considers  appropriate.   R.S.O.  1990,
-c. C.30, s. 68 (1); 2017, c. 24, s. 70.
+c. C.30, s. 68 (1); 2017, c. 24, s. 70.
 
 Powers of trustee
-(2)  Subject to the supervision and  direction  of  the  court,  a  trustee
+(2)  Subject to the supervision  and  direction  of  the  court,  a  trustee
 appointed under subsection (1) may,
       (a)   act as a receiver and manager and, subject to the  Planning  Act
     and the approval of the court, mortgage, sell or lease the premises  or
@@ -3483,24 +3483,24 @@ appointed under subsection (1) may,
       (c)   take appropriate steps for the  preservation  of  the  premises;
     and
       (d)   subject to the approval of the court, take such other  steps  as
-    are appropriate in the circumstances.  R.S.O. 1990, c. C.30, s. 68 (2);
+    are appropriate in the circumstances.  R.S.O. 1990, c. C.30, s. 68 (2);
     2017, c. 24, s. 70, 71.
 
 Liens a charge on amounts recovered
-(3)  Subject to subsection 78 (7), all liens shall be  a  charge  upon  any
+(3)  Subject to subsection 78 (7), all liens shall  be  a  charge  upon  any
 amount recovered by the trustee after payment  of  the  reasonable  business
 expenses and management costs incurred by the trustee  in  the  exercise  of
-any power under subsection (2).  R.S.O. 1990, c. C.30, s. 68 (3).
+any power under subsection (2).  R.S.O. 1990, c. C.30, s. 68 (3).
 
 Sale subject to encumbrances
-(4)  Any interest in the premises that is to be sold  may  be  offered  for
+(4)  Any interest in the premises that is to be  sold  may  be  offered  for
 sale subject to any mortgage, interest or other encumbrance that  the  court
-directs.  R.S.O. 1990, c. C.30, s. 68 (4); 2017, c. 24, s. 47 (2), 70.
+directs.  R.S.O. 1990, c. C.30, s. 68 (4); 2017, c. 24, s. 47 (2), 70.
 
 Orders for completion of sale, etc.
-(5)  The court may make all orders necessary  for  the  completion  of  any
+(5)  The court may make all orders  necessary  for  the  completion  of  any
 mortgage, lease or sale by a  trustee  under  this  section.   R.S.O.  1990,
-c. C.30, s. 68 (5).
+c. C.30, s. 68 (5).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 47 (2), 70, 71 - 12/12/2017
 69 Repealed: 2017, c. 24, s. 48.
@@ -3511,30 +3511,30 @@ Section Amendments with date in force (d/m/y)
                                    APPEALS
 
 STATED CASE
-70 (1)  Where in the course of an action a  question  of  law  arises,  the
+70 (1)  Where in the course of an action  a  question  of  law  arises,  the
 court may state the question in the form of a stated case  for  the  opinion
 of the Divisional Court, and the stated case shall thereupon be set down  to
 be heard before the Divisional Court and notice of hearing shall  be  served
 by the party setting down the matter upon  all  parties  concerned.   R.S.O.
-1990, c. C.30, s. 70 (1).
+1990, c. C.30, s. 70 (1).
 
 Facts to be set out
-(2)  The  stated  case  shall  set  forth  those  facts  material  to  the
-determination of the question raised.  R.S.O. 1990, c. C.30, s. 70 (2).
+(2)  The  stated  case  shall  set  forth  those  facts  material   to   the
+determination of the question raised.  R.S.O. 1990, c. C.30, s. 70 (2).
 
 Appeal to Divisional Court
-71 (1)  Except as otherwise provided in this section, an appeal lies to the
+71 (1)  Except as otherwise provided in this section, an appeal lies to  the
 Divisional Court from  a  judgment  or  an  order  on  a  motion  to  oppose
-confirmation of a report under this Act.  R.S.O. 1990, c. C.30, s. 71 (1);
+confirmation of a report under this Act.  R.S.O. 1990,  c. C.30,  s. 71 (1);
 2017, c. 24, s. 49 (1).
 
 Notice of appeal
-(2)  A party wishing to appeal shall file and  serve  a  notice  of  appeal
+(2)  A party wishing to appeal shall file  and  serve  a  notice  of  appeal
 within fifteen days of the date of the judgment or order, but the  time  for
 filing or serving the notice of  appeal  may  be  extended  by  the  written
 consent of all parties, or by a single judge of the Divisional  Court  where
-an appropriate case is made  out  for  doing  so.   R.S.O.  1990,  c. C.30,
-s. 71 (2).
+an appropriate case is  made  out  for  doing  so.   R.S.O.  1990,  c. C.30,
+s. 71 (2).
 
 No appeal without leave
 (3) No appeal lies from an interlocutory order made  by  the  court,  except
@@ -3554,51 +3554,51 @@ ENFORCEMENT OF LIEN DESPITE DEFAULT
 72 A person who  has  supplied  services  or  materials  in  respect  of  an
 improvement may enforce a lien despite the  non-completion,  abandonment  or
 termination of the contract or a subcontract by any  other  person.   R.S.O.
-1990, c. C.30, s. 72; 2017, c. 24, s. 50, 66.
+1990, c. C.30, s. 72; 2017, c. 24, s. 50, 66.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 50 - 01/07/2018; 2017, c. 24, s. 66 - 12/12/2017
 
 Assignment of lien rights
 73 The rights of a person having a lien may be assigned by an instrument  in
 writing and, if not assigned, upon the death  of  the  person  pass  to  the
-person's personal representative.  R.S.O. 1990, c. C.30, s. 73.
+person’s personal representative.  R.S.O. 1990, c. C.30, s. 73.
 
 Continuation of general lien
-74 (1)  Subject to section 82, where one or more premises that are  subject
+74 (1)  Subject to section 82, where one or more premises that  are  subject
 to an unpreserved general lien are sold, the general lien continues for  the
 full amount of the lien against those  premises  that  are  subject  to  the
-lien, that were not sold.  R.S.O. 1990, c. C.30, s. 74 (1); 2017, c. 24, s.
+lien, that were not sold.  R.S.O. 1990, c. C.30, s. 74 (1); 2017, c. 24,  s.
 72.
 
 Same
-(2)  Where a person having a preserved or perfected general lien discharges
+(2)  Where a person having a preserved or perfected general lien  discharges
 the lien against one or more of the premises subject to the lien,  the  lien
 continues for the full amount of the lien against those premises  that  were
-not discharged.  R.S.O. 1990, c. C.30, s. 74 (2); 2017, c. 24, s. 72; 2018,
+not discharged.  R.S.O. 1990, c. C.30, s. 74 (2); 2017, c. 24, s. 72;  2018,
 c. 17, Sched. 8, s. 18.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 72 - 12/12/2017
 2018, c. 17, Sched. 8, s. 18 - 06/12/2018
 
 Effect of taking security
-75 (1)  The taking of any security for, or the acceptance of any promissory
+75 (1)  The taking of any security for, or the acceptance of any  promissory
 note or bill of exchange for, or the taking of  any  acknowledgment  of,  or
 the giving of time for the payment of, or the taking of proceedings for  the
 recovery of, or the obtaining of a personal judgment for,  the  claim,  does
 not in itself merge, waive, pay,  satisfy,  prejudice  or  destroy  a  lien.
-R.S.O. 1990, c. C.30, s. 75 (1).
+R.S.O. 1990, c. C.30, s. 75 (1).
 
 Where note or bill negotiated
-(2)  Where any promissory note or bill of exchange has been negotiated, the
+(2)  Where any promissory note or bill of exchange has been negotiated,  the
 person having the lien may still enforce the  lien  if  the  person  is  the
 holder of the promissory note or bill of  exchange  at  the  time  when  the
-person proves the claim for lien.  R.S.O. 1990, c. C.30, s. 75 (2); 2017,
+person proves the claim for lien.  R.S.O. 1990,  c. C.30,  s. 75 (2);  2017,
 c. 24, s. 51.
 
 Time not extended
-(3)  Nothing in this section extends the time for, or  dispenses  with  the
+(3)  Nothing in this section extends the time for,  or  dispenses  with  the
 requirement for, the preservation or perfection of  a  lien.   R.S.O.  1990,
-c. C.30, s. 75 (3).
+c. C.30, s. 75 (3).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 51 - 12/12/2017
 
@@ -3607,7 +3607,7 @@ Lien claimant deemed purchaser
 claimant shall be deemed to be a purchaser to the extent of his lien  within
 the provisions of the Registry Act  and  Land  Titles  Act,  but  except  as
 otherwise provided in this Act, those Acts do not apply to any lien  arising
-under this Act.  R.S.O. 1990, c. C.30, s. 76; 2017, c. 24, s. 52.
+under this Act.  R.S.O. 1990, c. C.30, s. 76; 2017, c. 24, s. 52.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 52 - 12/12/2017
 
@@ -3615,27 +3615,27 @@ Priority of liens over executions, etc.
 77 The liens arising from an improvement have priority over  all  judgments,
 executions, assignments,  attachments,  garnishments  and  receiving  orders
 except those executed or recovered upon before the time when the first  lien
-arose in respect of the improvement.  R.S.O. 1990, c. C.30, s. 77.
+arose in respect of the improvement.  R.S.O. 1990, c. C.30, s. 77.
 
 Priority over mortgages, etc.
-78 (1)  Except as provided in this  section,  the  liens  arising  from  an
+78 (1)  Except as provided in  this  section,  the  liens  arising  from  an
 improvement  have  priority  over  all  conveyances,  mortgages   or   other
-agreements affecting the owner's interest in  the  premises.   R.S.O.  1990,
-c. C.30, s. 78 (1); 2017, c. 24, s. 70.
+agreements affecting the owner’s interest in  the  premises.   R.S.O.  1990,
+c. C.30, s. 78 (1); 2017, c. 24, s. 70.
 
 Building mortgage
-(2)  Where a mortgagee takes a mortgage with the intention  to  secure  the
+(2)  Where a mortgagee takes a mortgage with the  intention  to  secure  the
 financing of an improvement, the liens arising  from  the  improvement  have
 priority over that mortgage, and  any  mortgage  taken  out  to  repay  that
 mortgage, to the extent of any deficiency in the holdbacks  required  to  be
 retained by the owner under Part IV, irrespective of when that mortgage,  or
-the mortgage taken out to repay it, is registered.  R.S.O.  1990,  c. C.30,
-s. 78 (2).
+the mortgage taken out to repay it, is registered.   R.S.O.  1990,  c. C.30,
+s. 78 (2).
 
 Prior mortgages, prior advances
-(3)  Subject  to  subsection  (2),  and  without  limiting  the  effect  of
+(3)  Subject  to  subsection  (2),  and  without  limiting  the  effect   of
 subsection (4), all conveyances, mortgages  or  other  agreements  affecting
-the owner's interest in the premises that were registered prior to the  time
+the owner’s interest in the premises that were registered prior to the  time
 when the first lien arose in respect of an improvement  have  priority  over
 the liens arising from the improvement to the extent of the lesser of,
       (a)   the actual value of the premises at  the  time  when  the  first
@@ -3643,11 +3643,11 @@ the liens arising from the improvement to the extent of the lesser of,
       (b)   the total of all amounts that prior to that time were,
       (i)   advanced in the case of a mortgage, and
       (ii)  advanced or secured  in  the  case  of  a  conveyance  or  other
-       agreement.  R.S.O. 1990, c. C.30, s. 78 (3); 2017, c. 24, s. 70, 71.
+       agreement.  R.S.O. 1990, c. C.30, s. 78 (3); 2017, c. 24, s. 70, 71.
 
 Prior mortgages, subsequent advances
-(4)  Subject to subsection (2), a conveyance, mortgage or  other  agreement
-affecting the owner's interest in the premises that was registered prior  to
+(4)  Subject to subsection (2), a conveyance, mortgage  or  other  agreement
+affecting the owner’s interest in the premises that was registered prior  to
 the time when the first  lien  arose  in  respect  of  an  improvement,  has
 priority, in addition  to  the  priority  to  which  it  is  entitled  under
 subsection (3), over the liens arising from the improvement, to  the  extent
@@ -3657,19 +3657,19 @@ agreement after the time when the first lien arose, unless,
     perfected lien against the premises; or
       (b)   prior to the time when the advance was made, the  person  making
     the advance had received  written  notice  of  a  lien.   R.S.O.  1990,
-    c. C.30, s. 78 (4); 2017, c. 24, s. 53 (1), 70.
+    c. C.30, s. 78 (4); 2017, c. 24, s. 53 (1), 70.
 
 Special priority against subsequent mortgages
-(5)  Where a mortgage affecting the owner's interest  in  the  premises  is
+(5)  Where a mortgage affecting the owner’s  interest  in  the  premises  is
 registered after the time when  the  first  lien  arose  in  respect  of  an
 improvement, the liens arising from the improvement have priority  over  the
 mortgage to the extent of any deficiency in the  holdbacks  required  to  be
-retained by the owner under Part IV.  R.S.O.  1990,  c. C.30,  s. 78 (5);
+retained by the owner under  Part  IV.   R.S.O.  1990,  c. C.30,  s. 78 (5);
 2017, c. 24, s. 70.
 
 General priority against subsequent mortgages
-(6)  Subject to subsections (2) and (5), a conveyance,  mortgage  or  other
-agreement affecting the owner's interest in the premises that is  registered
+(6)  Subject to subsections (2) and (5), a  conveyance,  mortgage  or  other
+agreement affecting the owner’s interest in the premises that is  registered
 after the time when the first lien arose in respect to the improvement,  has
 priority over the liens arising from the improvement to the  extent  of  any
 advance made in respect of that conveyance,  mortgage  or  other  agreement,
@@ -3678,21 +3678,21 @@ unless,
     perfected lien against the premises; or
       (b)   prior to the time when the advance was made, the  person  making
     the advance had received  written  notice  of  a  lien.   R.S.O.  1990,
-    c. C.30, s. 78 (6); 2017, c. 24, s. 53 (1), 70.
+    c. C.30, s. 78 (6); 2017, c. 24, s. 53 (1), 70.
 
 Advances to trustee under Part IX
-(7)  Despite anything in this Act, where an amount is advanced to a trustee
+(7)  Despite anything in this Act, where an amount is advanced to a  trustee
 appointed under Part IX as a result of the exercise of any powers  conferred
 upon the trustee under that Part,
       (a)   the interest in the premises acquired by the person  making  the
     advance takes priority, to the extent of the advance, over  every  lien
-    existing at the date of the trustee's appointment; and
+    existing at the date of the trustee’s appointment; and
       (b)   the amount received is not subject to any lien existing  at  the
-    date of the trustee's appointment.  R.S.O. 1990, c. C.30, s. 78 (7);
+    date of the trustee’s appointment.  R.S.O.  1990,  c. C.30,  s. 78 (7);
     2017, c. 24, s. 70.
 
 Where postponement
-(8)  Despite subsections (4) and (6), where a preserved or  perfected  lien
+(8)  Despite subsections (4) and (6), where a preserved  or  perfected  lien
 is postponed in  favour  of  the  interest  of  some  other  person  in  the
 premises,  that  person  shall  enjoy  priority  in  accordance   with   the
 postponement over,
@@ -3701,16 +3701,16 @@ postponement over,
     which no written notice has been received by the person in whose favour
     the postponement is made at the time of the advance,
 but nothing in this subsection affects  the  priority  of  the  liens  under
-subsections (2) and (5).  R.S.O. 1990, c. C.30, s. 78 (8); 2017, c. 24, s.
+subsections (2) and (5).  R.S.O. 1990, c. C.30, s. 78 (8); 2017, c.  24,  s.
 70.
 
 Saving
-(9)  Subsections (2) and (5) do not apply in respect of a mortgage that was
-registered prior to the 2nd day of  April,  1983.   R.S.O.  1990,  c. C.30,
-s. 78 (9).
+(9)  Subsections (2) and (5) do not apply in respect of a mortgage that  was
+registered prior to the 2nd day  of  April,  1983.   R.S.O.  1990,  c. C.30,
+s. 78 (9).
 
 Financial guarantee bond
-(10)  A purchaser who takes title from  a  mortgagee  takes  title  to  the
+(10)  A purchaser who takes title  from  a  mortgagee  takes  title  to  the
 premises free of the priority of the liens created by  subsections  (2)  and
 (5) where,
       (a)   a bond of an insurer licensed under the Insurance Act  to  write
@@ -3722,55 +3722,55 @@ upon registration, the security  of  the  bond,  letter  of  credit  or  the
 guarantee takes the place of the priority created by those subsections,  and
 persons who have proved liens have a right of action against the  surety  on
 the bond or guarantee or the issuer of the letter of credit.   R.S.O.  1990,
-c. C.30, s. 78 (10); 1997, c. 19, s. 30; 2017, c. 24, s. 53 (2), 70.
+c. C.30, s. 78 (10); 1997, c. 19, s. 30; 2017, c. 24, s. 53 (2), 70.
 
-Home buyer's mortgage
-(11)  Subsections (2) and (5) do not apply to a mortgage given  or  assumed
-by a home buyer.  R.S.O. 1990, c. C.30, s. 78 (11).
+Home buyer’s mortgage
+(11)  Subsections (2) and (5) do not apply to a mortgage  given  or  assumed
+by a home buyer.  R.S.O. 1990, c. C.30, s. 78 (11).
 Section Amendments with date in force (d/m/y)
-1997, c. 19, s. 30 - 10/10/1997
+1997, c. 19, s. 30 - 10/10/1997
 2017, c. 24, s. 53 (1, 2), 70, 71 - 12/12/2017
 
 Persons who comprise class
 79 All persons having a lien who have supplied services or materials to  the
 same payer comprise a class, and a  person  who  has  supplied  services  or
 materials to more than one payer is a member of every class  to  the  extent
-to which the person's lien relates to that class.   R.S.O.  1990,  c. C.30,
-s. 79.
+to which the person’s lien relates to that  class.   R.S.O.  1990,  c. C.30,
+s. 79.
 
 Priority between and within class
-80 (1)  Except where it is otherwise provided by this Act,
+80 (1)  Except where it is otherwise provided by this Act,
       (a)   no person having  a  lien  is  entitled  to  any  priority  over
     another member of the same class;
       (b)   all amounts available to satisfy the  liens  in  respect  of  an
     improvement shall be distributed rateably among  the  members  of  each
     class according to their respective rights; and
       (c)   the lien of every member of a class has priority over  the  lien
-    of the payer of that class.  R.S.O. 1990, c. C.30, s. 80 (1).
+    of the payer of that class.  R.S.O. 1990, c. C.30, s. 80 (1).
 
 Where conveyance or mortgage void
-(2)  Any conveyance or mortgage in respect of the premises  to  any  person
+(2)  Any conveyance or mortgage in respect of the  premises  to  any  person
 entitled to a lien on the premises, in payment of or as  security  for  that
 claim, whether given before or after that lien arises, is void  against  all
-other persons entitled to a lien on the premises.   R.S.O.  1990,  c. C.30,
-s. 80 (2); 2017, c. 24, s. 70, 71.
+other persons entitled to a lien on the  premises.   R.S.O.  1990,  c. C.30,
+s. 80 (2); 2017, c. 24, s. 70, 71.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 70, 71 - 12/12/2017
 
-Worker's priority
-81 (1)  The lien of a worker has priority over the lien of any other person
+Worker’s priority
+81 (1)  The lien of a worker has priority over the lien of any other  person
 belonging to the same class to the extent of the amount  of  forty  regular-
-time working days' wages.  R.S.O. 1990, c. C.30, s. 81 (1).
+time working days’ wages.  R.S.O. 1990, c. C.30, s. 81 (1).
 
-Workers' trust fund
-(2)  Where monetary supplementary benefits are payable to a workers'  trust
-fund instead of to a worker, the trustee  of  the  workers'  trust  fund  is
+Workers’ trust fund
+(2)  Where monetary supplementary benefits are payable to a  workers’  trust
+fund instead of to a worker, the trustee  of  the  workers’  trust  fund  is
 subrogated to the rights of the worker under this Act with respect to  those
-benefits.  R.S.O. 1990, c. C.30, s. 81 (2).
+benefits.  R.S.O. 1990, c. C.30, s. 81 (2).
 
-Device to defeat workers' priority void
-(3)  Every device to defeat the priority given to workers by  this  section
-is void.  R.S.O. 1990, c. C.30, s. 81 (3).
+Device to defeat workers’ priority void
+(3)  Every device to defeat the priority given to workers  by  this  section
+is void.  R.S.O. 1990, c. C.30, s. 81 (3).
 
 Subordination of general lien claims
 82 Where a general lien is realized against  a  premises  in  an  action  in
@@ -3784,7 +3784,7 @@ divided by,
        subcontract; and
       (b)   in respect of the balance of the general  lien,  it  shall  rank
     next in priority to all other liens against the  premises,  whether  or
-    not of the same class.  R.S.O. 1990, c. C.30, s. 82; 2017, c. 24,  s.
+    not of the same class.  R.S.O. 1990, c. C.30, s. 82; 2017,  c.  24,  s.
     54, 69, 71, 72.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 54, 69, 71, 72 - 12/12/2017
@@ -3794,7 +3794,7 @@ Application of insurance proceeds
 part, any amount received by the owner or  a  mortgagee  by  reason  of  any
 insurance on the premises shall take the place of the premises so  destroyed
 and shall be distributed in accordance with the priorities set out  in  this
-Part.  R.S.O. 1990, c. C.30, s. 83; 2017, c. 24, s. 55.
+Part.  R.S.O. 1990, c. C.30, s. 83; 2017, c. 24, s. 55.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 55 - 12/12/2017
 
@@ -3803,30 +3803,30 @@ Distribution of proceeds of sale
 the court or by a trustee appointed under Part IX, the proceeds received  as
 a result of that disposition, together  with  any  amount  paid  into  court
 under subsection 65  (2),  shall  be  distributed  in  accordance  with  the
-priorities set out in this Part.  R.S.O. 1990, c. C.30, s. 84; 2017, c. 24,
+priorities set out in this Part.  R.S.O. 1990, c. C.30, s. 84; 2017, c.  24,
 s. 70.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 70 - 12/12/2017
 
 Priorities on insolvency
-85 (1)  Where a payer becomes insolvent, the trust fund of which that payer
+85 (1)  Where a payer becomes insolvent, the trust fund of which that  payer
 is trustee shall be distributed so that priority over all  others  is  given
 to a beneficiary of that trust who has proved a lien and a beneficiary of  a
 trust created by section 8 that is derived from that trust, who  has  proved
-a lien.  R.S.O. 1990, c. C.30, s. 85 (1).
+a lien.  R.S.O. 1990, c. C.30, s. 85 (1).
 
 Same
-(2)  Priority in the distribution of  trust  funds  among  those  who  have
+(2)  Priority in the distribution  of  trust  funds  among  those  who  have
 proved liens shall be in accordance with the respective priorities of  their
-liens as set out in this Part.  R.S.O. 1990, c. C.30, s. 85 (2).
+liens as set out in this Part.  R.S.O. 1990, c. C.30, s. 85 (2).
 
 Same
-(3)  The remaining trust funds shall be distributed among the beneficiaries
+(3)  The remaining trust funds shall be distributed among the  beneficiaries
 of that trust and the beneficiaries of trusts created by section 8 that  are
 derived from that trust, whose liens have not  been  proved,  in  accordance
 with the  respective  priorities  to  which  those  liens  would  have  been
 entitled as set out in this Part,  had  those  liens  been  proved.   R.S.O.
-1990, c. C.30, s. 85 (3).
+1990, c. C.30, s. 85 (3).
 
                                   part xi.1
                                 surety bonds
@@ -3835,7 +3835,7 @@ BONDS AND PUBLIC CONTRACTS
 
 Definition
 85.1 (1) In this section,
-"public contract" means  a  contract  between  an  owner  and  a  contractor
+“public contract” means  a  contract  between  an  owner  and  a  contractor
  respecting an improvement, if the owner is the Crown, a municipality or  a
  broader public sector organization. 2017, c. 24, s. 56.
 
@@ -3845,7 +3845,7 @@ if the contract price exceeds  the  amount  prescribed  for  the  applicable
 owner. 2017, c. 24, s. 56.
 
 Exception
-(3)  This section does not apply in the case of  a  contractor  who  is  an
+(3)  This section does not apply in the case  of  a  contractor  who  is  an
 architect or an engineer. 2017, c. 24, s. 56.
 
 Requirement for labour and material payment bond
@@ -3880,7 +3880,7 @@ owner to  require  the  contractor  to  provide  other  types  of  bonds  or
 security. 2017, c. 24, s. 56.
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 56 - 01/07/2018
-2023, c. 21, Sched. 2, s. 2 (1, 2) - 01/07/2024
+2023, c. 21, Sched. 2, s. 2 (1, 2) – 01/07/2024
 
 Rights of action
 
@@ -3888,7 +3888,7 @@ Default, labour and material payment bond
 85.2 (1) If a labour and material payment bond is in effect  in  respect  of
 an improvement and the principal on the bond defaults in  making  a  payment
 guaranteed by the bond, any person to whom the payment is guaranteed  has  a
-right of action to recover the amount of the person's claim,  in  accordance
+right of action to recover the amount of the person’s claim,  in  accordance
 with the terms and conditions of  the  bond,  against  the  surety  and  the
 principal. 2017, c. 24, s. 56.
 
@@ -3902,7 +3902,7 @@ s. 56.
 Saving
 (3) Nothing in this section makes the surety liable for an amount in  excess
 of the amount that the surety undertakes  to  pay  under  a  bond,  and  the
-surety's liability under the bond shall be reduced by and to the  extent  of
+surety’s liability under the bond shall be reduced by and to the  extent  of
 any payment made in  good  faith  by  the  surety  either  before  or  after
 judgment is obtained against the surety. 2017, c. 24, s. 56.
 
@@ -3921,7 +3921,7 @@ Section Amendments with date in force (d/m/y)
                              MISCELLANEOUS RULES
 
 COSTS
-86 (1)  Subject to subsection (2), any order as to the costs in an  action,
+86 (1)  Subject to subsection (2), any order as to the costs in  an  action,
 application, motion or any other step in a proceeding under this Act  is  in
 the discretion of the court, and an order as to costs may be made against,
       (a)   a party to the action or motion; or
@@ -3935,51 +3935,51 @@ the discretion of the court, and an order as to costs may be made against,
       (ii)  prejudiced or delayed the conduct of the action,
 and the order may be made on a substantial indemnity basis, including  where
 the motion is heard by a person other than a judge or the  action  has  been
-referred under section 58.  2006, c. 21, Sched. C, s. 102 (3); 2017, c. 24,
+referred under section 58.  2006, c. 21, Sched. C, s. 102 (3); 2017, c.  24,
 s. 57, 63.
 
 Where least expensive course not taken
-(2)  Where the least expensive course is not taken by a  party,  the  costs
+(2)  Where the least expensive course is not taken by  a  party,  the  costs
 allowed to the party shall not exceed what would have been incurred had  the
-least expensive course been taken.  R.S.O. 1990, c. C.30, s. 86 (2).
+least expensive course been taken.  R.S.O. 1990, c. C.30, s. 86 (2).
 Section Amendments with date in force (d/m/y)
 1996, c. 25, s. 4 (10) - 31/10/1996
-2006, c. 21, Sched. C, s. 102 (3) - 01/05/2007
+2006, c. 21, Sched. C, s. 102 (3) - 01/05/2007
 2017, c. 24, s. 57 (1-3) - 01/07/2018; 2017, c. 24, s. 63 - 12/12/2017
 
 How documents may be given
-87 (1)  Except where otherwise ordered by  the  court,  all  documents  and
+87 (1)  Except where otherwise ordered  by  the  court,  all  documents  and
 notices required to be given or that may be given under  this  Act,  may  be
 served in any  manner  permitted  under  the  rules  of  court  or,  in  the
 alternative, may be sent by certified or registered mail  addressed  to  the
-intended recipient at the recipient's last known mailing address,
+intended recipient at the recipient’s last known mailing address,
       (a)   according to the records of the person sending the document; or
        (b)    as  stated  on  the  most   recently   registered   instrument
     identifying the recipient  as  a  person  having  an  interest  in  the
-    premises.  R.S.O. 1990, c. C.30, s. 87 (1); 2017, c. 24, s. 70.
+    premises.  R.S.O. 1990, c. C.30, s. 87 (1); 2017, c. 24, s. 70.
 
 Exception, written notice of lien
-(1.1)  Despite subsection (1), a written notice of lien shall be served  in
+(1.1)  Despite subsection (1), a written notice of lien shall be  served  in
 a manner permitted under the rules of court for service  of  an  originating
 process. 2017, c. 24, s. 58.
 
 Claim for lien to municipality
-(1.2)  If the regulations so provide, a copy of a  claim  for  lien  shall,
+(1.2)  If the regulations so provide, a copy of  a  claim  for  lien  shall,
 despite subsection (1), be given  to  the  clerk  of  a  municipality  under
 subsection 34 (3.1)  electronically  in  accordance  with  the  regulations.
 2017, c. 24, s. 58.
 
 When document deemed received
-(2)  In the absence of evidence to the contrary, a document or notice  sent
+(2)  In the absence of evidence to the contrary, a document or  notice  sent
 to a person by certified or registered mail shall be  deemed  to  have  been
 received by the person on the fifth day following the date on which  it  was
-mailed,  exclusive  of  Saturdays  and  holidays.   R.S.O.  1990,  c. C.30,
-s. 87 (2).
+mailed,  exclusive  of  Saturdays  and  holidays.   R.S.O.  1990,   c. C.30,
+s. 87 (2).
 
 Date of mailing
-(3)  Where a document or notice  is  sent  by  registered  mail,  the  date
+(3)  Where a document or  notice  is  sent  by  registered  mail,  the  date
 appearing on the postal registration receipt shall  be  deemed  conclusively
-to be the date of mailing.  R.S.O. 1990, c. C.30, s. 87 (3).
+to be the date of mailing.  R.S.O. 1990, c. C.30, s. 87 (3).
 Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 58 - 01/07/2018; 2017, c. 24, s. 70 - 12/12/2017
 
@@ -3998,7 +3998,7 @@ Section Amendments with date in force (d/m/y)
 2017, c. 24, s. 60 - 01/07/2018
 
 Transition, Construction Lien Amendment Act, 2017
-87.3  (1)  This Act and the regulations, as they read on  June  29,  2018,
+87.3  (1)  This Act and the regulations, as they  read  on  June  29,  2018,
 continue to apply with respect to an improvement if,
       (a)   a contract for the improvement was entered into before  July  1,
     2018;
@@ -4013,12 +4013,12 @@ continue to apply with respect to an improvement if,
     19 (1).
 
 Same
-(2)  For greater certainty, clauses (1) (a) and  (c)  apply  regardless  of
+(2)  For greater certainty, clauses (1) (a)  and  (c)  apply  regardless  of
 when any subcontract under the contract  was  entered  into.  2018,  c.  17,
 Sched. 8, s. 19 (1).
 
 Exception, municipal interest in premises
-(3)  Despite subsection (1), the amendments made to this Act by subsections
+(3)  Despite subsection (1), the amendments made to this Act by  subsections
 13 (4), 14 (4) and 29 (2) and (4) of the Construction  Lien  Amendment  Act,
 2017 apply with  respect  to  an  improvement  to  a  premises  in  which  a
 municipality has an interest, even if a contract  for  the  improvement  was
@@ -4026,7 +4026,7 @@ entered into or a procurement process  for  the  improvement  was  commenced
 before July 1, 2018. 2018, c. 17, Sched. 8, s. 19 (2).
 
 Non-application of Parts I.1 and II.1
-(4)  Parts I.1 and  II.1  do  not  apply  with  respect  to  the  following
+(4)  Parts I.1  and  II.1  do  not  apply  with  respect  to  the  following
 contracts and subcontracts:
       1.    A contract entered into before the day subsection 11 (1) of  the
     Construction Lien Amendment Act, 2017 came into force.
@@ -4044,26 +4044,26 @@ see 2018, c. 17, Sched. 8, s. 19 (1) - 06/12/2018
 
 Transition, Building Ontario For You Act (Budget Measures), 2024 and
 related amendments
-87.4  (1)  This section,
+87.4  (1)  This section,
       (a)    does  not  apply  with  respect  to  an  improvement  to  which
     subsection 87.3 (1) applies; and
       (b)   does not affect the operation of subsection 87.3 (4).  2024,  c.
     20, Sched. 4, s. 31.
 
 Immediate application
-(2)  An amendment made to this Act by Schedule 4 to  the  Building  Ontario
+(2)  An amendment made to this Act by Schedule 4  to  the  Building  Ontario
 For You Act (Budget Measures), 2024 applies with respect to  an  improvement
 on and after the day the amending provision  comes  into  force,  except  as
 otherwise provided by this section. 2024, c. 20, Sched. 4, s. 31.
 
 Exception, s. 14 (4)
-(3)  Subsection 14 (4) does not apply if the owner retained the holdback in
+(3)  Subsection 14 (4) does not apply if the owner retained the holdback  in
 respect of the supply of a design, plan,  drawing  or  specification  before
 the day section 24 of Schedule  4  to  the  Building  Ontario  For  You  Act
 (Budget Measures), 2024 came into force. 2024, c. 20, Sched. 4, s. 31.
 
 Exception, s. 26
-(4)  If a contract for an improvement  was  entered  into  before  the  day
+(4)  If a contract for an  improvement  was  entered  into  before  the  day
 section 26 of Schedule 4  to  the  Building  Ontario  For  You  Act  (Budget
 Measures), 2024 comes into force, section 26 of this Act, as  re-enacted  by
 that section, applies with the following modifications:
@@ -4081,7 +4081,7 @@ that section, applies with the following modifications:
     comes into force. 2024, c. 20, Sched. 4, s. 31.
 
 Same
-(5)  Despite subsections (4) and 1.1 (2), if a project  agreement  referred
+(5)  Despite subsections (4) and 1.1 (2), if a  project  agreement  referred
 to in subsection 1.1 (1) that was entered into before the day section 26  of
 Schedule 4 to the Building Ontario For You Act (Budget Measures), 2024  came
 into force is prescribed for the purposes of this subsection, section 26  of
@@ -4090,14 +4090,14 @@ the project agreement and  the  applicable  agreement  between  the  special
 purpose entity and the contractor. 2025, c. 14, Sched. 2, s. 7 (1).
 
 Exception, s. 31 (6) and (7)
-(6)  Subsections 31 (6) and (7), as they read before the day section  6  of
+(6)  Subsections 31 (6) and (7), as they read before the day  section  6  of
 Schedule 2 to the Fighting Delays,  Building  Faster  Act,  2025  came  into
 force, continue to apply with respect to a notice of  termination  that  was
 published in accordance with subsection 31 (6) before  that  day.  2024,  c.
 20, Sched. 4, s. 31; 2025, c. 14, Sched. 2, s. 7 (2).
 
 Exception, s. 34 (10)
-(7)  Subsection 34 (10), as it read before the day section 28 of Schedule 4
+(7)  Subsection 34 (10), as it read before the day section 28 of Schedule  4
 to the Building Ontario For  You  Act  (Budget  Measures),  2024  came  into
 force,  continues  to  apply  with  respect  to  a  lien  if  a  notice   of
 adjudication respecting a matter that is the subject of the lien  was  given
@@ -4115,7 +4115,7 @@ purpose of this Act, including regulations,
     to which the Minister may make regulations under subsection (2);
       (b)   prescribing forms and providing for their use;
       (b.1) for the purposes of subclause (a)  (ii)  of  the  definition  of
-    "price"  in  subsection  1  (1),  prescribing  amounts  or  methods  of
+    “price”  in  subsection  1  (1),  prescribing  amounts  or  methods  of
     determining amounts that apply instead of the actual  market  value  of
     the services or materials that have been supplied  to  the  improvement
     under the contract or subcontract;
@@ -4160,8 +4160,8 @@ purpose of this Act, including regulations,
     purpose;
       (k)   providing that Parts I.1 and II.1 do not apply with  respect  to
     the classes of contracts and subcontracts for improvements to land used
-    in connection with a facility referred to in the definition of "nuclear
-    facility" in the Nuclear Safety  and  Control  Act  (Canada)  that  are
+    in connection with a facility referred to in the definition of “nuclear
+    facility” in the Nuclear Safety  and  Control  Act  (Canada)  that  are
     specified by the regulations.
       (l)   for the purposes of Part VIII, governing procedures  that  apply
     to actions;
@@ -4174,8 +4174,8 @@ Conflict
 (1) (l) and the Courts of Justice Act or the rules of court, the  regulation
 prevails to the extent of the conflict. 2017, c. 24, s. 62 (5).
 
-Minister's regulations
-(2)  The Minister may make regulations,
+Minister’s regulations
+(2)  The Minister may make regulations,
       (a)   prescribing project agreements for the  purposes  of  subsection
     87.4 (5);
        (b)    providing  for  such  transitional  matters  as  the  Minister
@@ -4190,6 +4190,6 @@ Section Amendments with date in force (d/m/y)
 2025, c. 14, Sched. 2, s. 8 (1, 2) - 27/11/2025
                                _______________
 
-Fran�ais
+Français
 
 Back to top

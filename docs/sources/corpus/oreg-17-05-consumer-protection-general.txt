@@ -1,5 +1,5 @@
 
-Fran�ais
+Français
                         Consumer Protection Act, 2002
 
                           ONTARIO REGULATION 17/05
@@ -20,10 +20,10 @@ This is the English version of a bilingual regulation.
 
 |PART I                                                                         |
 |EXEMPTIONS FROM APPLICATION OF THE ACT                                         |
-|EXEMPTION FOR PROFESSIONAL SERVICES REGULATED BY STATUTE - CLAUSE 2 (2) (E) OF |
+|EXEMPTION FOR PROFESSIONAL SERVICES REGULATED BY STATUTE — CLAUSE 2 (2) (E) OF |
 |THE ACT                                                                        |
 |1.         |PROFESSIONAL SERVICES REGULATED BY STATUTE                         |
-|OTHER EXEMPTIONS - CLAUSE 123 (1) (C) OF THE ACT                               |
+|OTHER EXEMPTIONS — CLAUSE 123 (1) (C) OF THE ACT                               |
 |2.         |PROFESSIONAL SERVICES AT FACILITIES                                |
 |3.         |SERVICES AT AN INTEGRATED COMMUNITY HEALTH SERVICES CENTRE         |
 |4.         |ACCOMMODATION                                                      |
@@ -32,7 +32,7 @@ This is the English version of a bilingual regulation.
 |7.         |PERISHABLE FOOD                                                    |
 |8.         |LOTTERY SCHEME                                                     |
 |9.         |AGREEMENTS SUBJECT TO OTHER ACTS                                   |
-|PROVISIONS NOT APPLYING WHEN AGREEMENT IS OF MORE THAN ONE TYPE - SECTION 4 OF |
+|PROVISIONS NOT APPLYING WHEN AGREEMENT IS OF MORE THAN ONE TYPE — SECTION 4 OF |
 |THE ACT                                                                        |
 |10.        |EXCEPTIONS TO RULE IN S. 4 OF THE ACT                              |
 |11.        |CREDIT AGREEMENT                                                   |
@@ -45,14 +45,14 @@ This is the English version of a bilingual regulation.
 |18.        |INTERNET AGREEMENT                                                 |
 |19.        |REMOTE AGREEMENT                                                   |
 |PART II                                                                        |
-|UNSOLICITED GOODS OR SERVICES - SECTION 13 OF THE ACT                          |
+|UNSOLICITED GOODS OR SERVICES — SECTION 13 OF THE ACT                          |
 |20.        |MATERIAL CHANGE                                                    |
 |21.        |TIME FOR REFUND                                                    |
 |PART III                                                                       |
-|UNFAIR PRACTICES - SECTION 18 OF THE ACT                                       |
+|UNFAIR PRACTICES — SECTION 18 OF THE ACT                                       |
 |22.        |PERIOD FOR RESPONDING TO CONSUMER NOTICE                           |
 |PART IV                                                                        |
-|SPECIFIC CONSUMER AGREEMENTS - PART IV OF THE ACT                              |
+|SPECIFIC CONSUMER AGREEMENTS — PART IV OF THE ACT                              |
 |FUTURE PERFORMANCE AGREEMENTS                                                  |
 |23.        |DEFINITIONS                                                        |
 |23.1       |PRESCRIBED AMOUNT                                                  |
@@ -79,8 +79,8 @@ This is the English version of a bilingual regulation.
 |34.        |PRESCRIBED AMOUNT                                                  |
 |35.        |REQUIREMENTS FOR DIRECT AGREEMENTS                                 |
 |35.1       |DIRECT AGREEMENTS SUBJECT TO S. 43.1 OF ACT                        |
-|35.2       |DIRECT AGREEMENTS SUBJECT TO S. 43.1 OF ACT - RECORDS              |
-|35.3       |DIRECT AGREEMENTS SUBJECT TO S. 43.1 OF ACT - MISREPRESENTATIVE    |
+|35.2       |DIRECT AGREEMENTS SUBJECT TO S. 43.1 OF ACT — RECORDS              |
+|35.3       |DIRECT AGREEMENTS SUBJECT TO S. 43.1 OF ACT — MISREPRESENTATIVE    |
 |           |MARKETING                                                          |
 |REMOTE AGREEMENTS                                                              |
 |36.        |PRESCRIBED AMOUNT                                                  |
@@ -105,20 +105,20 @@ This is the English version of a bilingual regulation.
 |43.8       |CREDIT BACK OF REWARDS POINTS                                      |
 |43.9       |REINSTATED OR RECREATED CONSUMER AGREEMENT                         |
 |PART V                                                                         |
-|LOAN BROKERING AND CREDIT REPAIR - PART V OF THE ACT                           |
+|LOAN BROKERING AND CREDIT REPAIR — PART V OF THE ACT                           |
 |44.        |REQUIREMENTS FOR LOAN BROKERING AGREEMENTS                         |
 |45.        |PROHIBITED REPRESENTATIONS, LOAN BROKER                            |
 |46.        |REQUIREMENTS FOR CREDIT REPAIR AGREEMENTS                          |
 |47.        |PROHIBITED REPRESENTATIONS, CREDIT REPAIRER                        |
 |PART VI                                                                        |
-|REPAIRS TO MOTOR VEHICLES - PART VI OF THE ACT                                 |
+|REPAIRS TO MOTOR VEHICLES — PART VI OF THE ACT                                 |
 |48.        |ESTIMATES                                                          |
 |49.        |AUTHORIZATION NOT IN WRITING                                       |
 |50.        |POSTING SIGNS                                                      |
 |51.        |INVOICES                                                           |
 |52.        |EXEMPTION FROM VEHICLE WARRANTY                                    |
 |PART VII                                                                       |
-|CREDIT AGREEMENTS - PART VII OF THE ACT                                        |
+|CREDIT AGREEMENTS — PART VII OF THE ACT                                        |
 |53.        |DEFINITIONS                                                        |
 |54.        |ADVANCE                                                            |
 |55.        |ANNUAL PERCENTAGE RATE FOR CREDIT AGREEMENT                        |
@@ -139,11 +139,11 @@ This is the English version of a bilingual regulation.
 |70.        |DISCLOSURES UNDER PART VII OF THE ACT, GENERAL                     |
 |71.        |EXEMPTIONS FROM PART VII                                           |
 |PART VII.1                                                                     |
-|AGREEMENTS FOR CASHING GOVERNMENT CHEQUES - PART VII.1 OF THE ACT              |
+|AGREEMENTS FOR CASHING GOVERNMENT CHEQUES — PART VII.1 OF THE ACT              |
 |71.1       |LIMIT ON FEE FOR CASHING GOVERNMENT CHEQUES                        |
 |71.2       |STATEMENT WHEN CASHING GOVERNMENT CHEQUES                          |
 |PART VIII                                                                      |
-|LEASING - PART VIII OF THE ACT                                                 |
+|LEASING — PART VIII OF THE ACT                                                 |
 |72.        |INTERPRETATION                                                     |
 |73.        |ADVERTISING                                                        |
 |74.        |DISCLOSURE STATEMENT FOR A LEASE                                   |
@@ -151,7 +151,7 @@ This is the English version of a bilingual regulation.
 |76.        |MAXIMUM LIABILITY UNDER RESIDUAL OBLIGATION LEASE                  |
 |77.        |EXEMPTION FROM PART VIII                                           |
 |PART IX                                                                        |
-|PROCEDURES FOR CONSUMER REMEDIES - PART IX OF THE ACT                          |
+|PROCEDURES FOR CONSUMER REMEDIES — PART IX OF THE ACT                          |
 |78.        |DEFINITIONS                                                        |
 |79.        |SUPPLIER OBLIGATIONS ON CANCELLATION                               |
 |80.        |CONSUMER OBLIGATIONS ON CANCELLATION OF CERTAIN AGREEMENTS         |
@@ -161,7 +161,7 @@ This is the English version of a bilingual regulation.
 |84.        |TIME FOR REFUND OF ILLEGAL PAYMENT                                 |
 |85.        |CANCELLATION OR REVERSAL OF CREDIT CARD CHARGES, ETC.              |
 |PART X                                                                         |
-|PUBLIC RECORD - SUBSECTION 103 (2) OF THE ACT                                  |
+|PUBLIC RECORD — SUBSECTION 103 (2) OF THE ACT                                  |
 |86.        |REQUIREMENTS FOR MAINTENANCE OF PUBLIC RECORD                      |
 |87.        |ORDERS MADE                                                        |
 |87.1       |ORDERS, ETC., UNDER THE TICKET SALES ACT, 2017                     |
@@ -170,7 +170,7 @@ This is the English version of a bilingual regulation.
 |90.        |COMPLAINTS RECEIVED                                                |
 |91.        |NOTICE OF CONTRAVENTION ISSUED BY INSPECTOR                        |
 |PART XI                                                                        |
-|PRESCRIBED JURISDICTIONS - PART XI OF THE ACT                                  |
+|PRESCRIBED JURISDICTIONS — PART XI OF THE ACT                                  |
 |92.        |PRESCRIBED JURISDICTIONS                                           |
 
 
@@ -179,11 +179,11 @@ This is the English version of a bilingual regulation.
                                    Part I
                    EXEMPTIONS FROM Application of the Act
 
- EXEMPTION FOR PROFESSIONAL SERVICES REGULATED BY STATUTE - CLAUSE 2 (2) (E)
+ EXEMPTION FOR PROFESSIONAL SERVICES REGULATED BY STATUTE — CLAUSE 2 (2) (E)
                                  OF THE ACT
 
 PROFESSIONAL SERVICES REGULATED BY STATUTE
-      1.  A professional service provided  by  a  person  governed  by,  or
+      1.  A professional service  provided  by  a  person  governed  by,  or
 subject to, any of the following Acts is exempt from the application of  the
 Consumer Protection Act, 2002:
       1.    The Architects Act.
@@ -201,69 +201,69 @@ Consumer Protection Act, 2002:
       12.   The Social Work and Social Service Work Act, 1998.
       13.   The Society of Management Accountants of Ontario Act, 1941.
       14.   The Surveyors Act.
-      15.   The Veterinarians Act.  O. Reg. 17/05, s. 1; O. Reg. 426/15, s.
+      15.   The Veterinarians Act.  O. Reg. 17/05, s. 1; O. Reg. 426/15,  s.
     1.
 
-              Other Exemptions - Clause 123 (1) (c) of the Act
+              Other Exemptions — Clause 123 (1) (c) of the Act
 
 PROFESSIONAL SERVICES AT FACILITIES
-       2.  A  professional  service  provided  at  any  of  the  following
+       2.  A  professional  service  provided  at  any  of   the   following
 facilities is exempt from the application of the  Consumer  Protection  Act,
 2002:
       1.    An institution under the Mental Hospitals Act.
       2.    A hospital under the Public Hospitals Act.
       3.    A pharmacy under Part VI of the Drug and  Pharmacies  Regulation
-    Act.  O. Reg. 17/05, s. 2.
+    Act.  O. Reg. 17/05, s. 2.
 
 Services at an integrated community health services centre
-      3.  A service provided at an  integrated  community  health  services
+      3.  A service provided at  an  integrated  community  health  services
 centre pursuant to a licence issued under the  Integrated  Community  Health
 Services Centres Act, 2023 is exempt from the application  of  the  Consumer
 Protection Act, 2002. O. Reg. 221/23, s. 1.
 
 Accommodation
-      4.  The supply of accommodation, other than time share accommodation,
+      4.  The supply of accommodation, other than time share  accommodation,
 is exempt from the application of sections 21 to 26, 37 to 40 and 44  to  47
-of the Act.  O. Reg. 17/05, s. 4.
+of the Act.  O. Reg. 17/05, s. 4.
 
 Public auction
-      5.  (1)  The supply by public auction of goods  or  services,  other
+      5.  (1)  The supply by public auction  of  goods  or  services,  other
 than personal development services and other than  time  shares,  is  exempt
-from the application of sections 21 to 26 and 37 to 47 of the Act.  O. Reg.
-17/05, s. 5 (1).
-      (2)  Subsection (1)  applies  regardless  of  whether  the  goods  or
+from the application of sections 21 to 26 and 37 to 47 of the Act.   O. Reg.
+17/05, s. 5 (1).
+      (2)  Subsection  (1)  applies  regardless  of  whether  the  goods  or
 services being auctioned are owned by the person operating  the  auction  or
-by another supplier.  O. Reg. 17/05, s. 5 (2).
+by another supplier.  O. Reg. 17/05, s. 5 (2).
 
 Supply to one person at the request of another
-      6.  (1)  The supply of goods or services to one person at the request
+      6.  (1)  The supply of goods or services to one person at the  request
 of another is exempt from the application of sections 22, 23, 26, 37  to  40
 and 44 to 47 of the Act, if,
       (a)   the goods or services are to be supplied on  a  single  occasion
     and not on an ongoing basis; and
       (b)   the person requesting the supply of the goods or  services  pays
-    the price in full at the time of the request.  O. Reg. 17/05, s. 6 (1).
-      (2)  The exemption from the application of sections 22, 23 and 26  of
+    the price in full at the time of the request.  O. Reg. 17/05, s. 6 (1).
+      (2)  The exemption from the application of sections 22, 23 and  26  of
 the Act is effective even if section 21 of the Act states that  sections  22
-to 26 of the Act do apply in the circumstances.  O. Reg. 17/05, s. 6 (2).
+to 26 of the Act do apply in the circumstances.  O. Reg. 17/05, s. 6 (2).
 
 Perishable food
-      7.  The supply of perishable food or a  perishable  food  product  is
+      7.  The supply of perishable food or  a  perishable  food  product  is
 exempt from the application of sections 21 to 26 and 37 to 47  of  the  Act,
 if the food or food product is to be delivered to  the  consumer  within  24
-hours after it is ordered from the supplier.  O. Reg. 17/05, s. 7.
+hours after it is ordered from the supplier.  O. Reg. 17/05, s. 7.
 
 Lottery scheme
-      8.  The supply of a lottery ticket or a good or service in the nature
+      8.  The supply of a lottery ticket or a good or service in the  nature
 of a lottery ticket is exempt from the application of sections 21 to 26  and
 41 to 47  of  the  Act,  if  the  supplier  is  a  charitable  or  religious
 organization licensed under the authority of paragraph 207 (1)  (b)  of  the
 Criminal Code (Canada) to conduct or  manage  the  lottery  scheme  and  the
 proceeds from the lottery  scheme  are  to  be  used  for  a  charitable  or
-religious object or purpose.  O. Reg. 17/05, s. 8.
+religious object or purpose.  O. Reg. 17/05, s. 8.
 
 Agreements subject to other Acts
-      9.  (1)  The supply of goods or services pursuant  to  an  agreement
+      9.  (1)  The supply of goods or  services  pursuant  to  an  agreement
 that is subject to any of the following Acts is exempt from the  application
 of sections 22, 23, 26 and 37 to 47 of the Act:
       1.    The Motor Vehicle Dealers Act, 2002.
@@ -272,37 +272,37 @@ of sections 22, 23, 26 and 37 to 47 of the Act:
       4.    The Funeral, Burial and Cremation Services Act, 2002.
       5.    The Towing and Storage Safety  and  Enforcement  Act,  2021.  O.
     Reg. 359/22, s. 1; O. Reg. 165/23, s. 1.
-      (2)  The exemption from the application of sections 22, 23 and 26  of
+      (2)  The exemption from the application of sections 22, 23 and  26  of
 the Act is effective even if section 21 of the Act states that  sections  22
-to 26 of the Act do apply in the circumstances.  O. Reg. 17/05, s. 9 (2).
-      (3)  Sections 21 to 47 of the Act do  not  apply  to  a  payday  loan
+to 26 of the Act do apply in the circumstances.  O. Reg. 17/05, s. 9 (2).
+      (3)  Sections 21 to 47 of the Act  do  not  apply  to  a  payday  loan
 agreement as defined in subsection 1 (1) of  the  Payday  Loans  Act,  2008.
-O. Reg. 96/09, s. 1.
+O. Reg. 96/09, s. 1.
 
- Provisions not Applying when Agreement is of More Than One Type - Section 4
+ Provisions not Applying when Agreement is of More Than One Type — Section 4
                                  of the Act
 
 EXCEPTIONS TO RULE IN S. 4 OF THE ACT
-      10.  (1)  Sections 11 to 19 of this Regulation set out the exceptions
+      10.  (1)  Sections 11 to 19 of this Regulation set out the  exceptions
 to the rule in section 4 of the Act that a  consumer  agreement  that  meets
 the criteria of more than one type of agreement to  which  the  Act  applies
 shall comply with the provisions of the Act  and  of  the  regulations  that
-apply to each type of agreement for which it meets the  criteria.   O. Reg.
-17/05, s. 10 (1).
-      (2)  If any of sections 11 to  19  of  this  Regulation  exclude  the
+apply to each type of agreement for which it meets  the  criteria.   O. Reg.
+17/05, s. 10 (1).
+      (2)  If any of sections 11  to  19  of  this  Regulation  exclude  the
 application of section 22, 23, 25  or  26  of  the  Act,  the  exclusion  is
 effective even if section 21 of the Act states that sections  22  to  26  of
-the Act do apply in the circumstances.  O. Reg. 17/05, s. 10 (2).
-      (3)  A word or expression that is used in sections 11 to 19  of  this
+the Act do apply in the circumstances.  O. Reg. 17/05, s. 10 (2).
+      (3)  A word or expression that is used in sections 11 to  19  of  this
 Regulation has the same meaning as in the part of the Act that  defines  it.
-O. Reg. 17/05, s. 10 (3).
+O. Reg. 17/05, s. 10 (3).
 
 Credit agreement
-      11.  (1)  If a  credit  agreement,  other  than  a  supplier  credit
+       11.  (1)  If  a  credit  agreement,  other  than  a  supplier  credit
 agreement, is also a future performance agreement, a  direct  agreement,  an
 internet agreement or a remote agreement, Part IV of the Act does not  apply
-to the agreement.  O. Reg. 17/05, s. 11 (1).
-      (2)  If a supplier credit agreement  is  also  a  future  performance
+to the agreement.  O. Reg. 17/05, s. 11 (1).
+      (2)  If a supplier credit  agreement  is  also  a  future  performance
 agreement,  a  time  share  agreement,  a  personal   development   services
 agreement, a direct agreement, an internet agreement or a remote agreement,
       (a)   Part IV of the Act does not apply to the part of  the  agreement
@@ -311,120 +311,120 @@ agreement, a direct agreement, an internet agreement or a remote agreement,
     services, other than credit or a loan of money, from the supplier;
       (b)   Part IV of the Act applies to the part of  the  agreement  under
     which the supplier supplies the goods or services, other than credit or
-    a loan of money, to the consumer.  O. Reg. 17/05, s. 11 (2).
+    a loan of money, to the consumer.  O. Reg. 17/05, s. 11 (2).
 
 Lease
-      12.  Sections 22, 23, 25, 26, 29 to 40 and 44 to 47 of the Act do not
+      12.  Sections 22, 23, 25, 26, 29 to 40 and 44 to 47 of the Act do  not
 apply to a lease that is also a future  performance  agreement,  a  personal
 development  services  agreement,  an  internet  agreement   or   a   remote
-agreement, if Part VIII of the Act applies to the  lease.   O. Reg.  17/05,
-s. 12; O. Reg. 4/15, s. 1.
+agreement, if Part VIII of the Act applies to  the  lease.   O. Reg.  17/05,
+s. 12; O. Reg. 4/15, s. 1.
 
 Agreement for work on or repairs to vehicle
-      13.  Sections 22, 23 and 27 to 47 of  the  Act  do  not  apply  to  a
+      13.  Sections 22, 23 and 27 to 47  of  the  Act  do  not  apply  to  a
 consumer agreement for work to be done  on  or  repairs  to  be  made  to  a
 vehicle, if the agreement is also a future  performance  agreement,  a  time
 share  agreement,  a  personal  development  services  agreement,  a  direct
-agreement, an internet agreement or a  remote  agreement.   O. Reg.  17/05,
-s. 13.
-      13.1  Revoked: O. Reg. 165/23, s. 2.
+agreement, an internet agreement or  a  remote  agreement.   O. Reg.  17/05,
+s. 13.
+      13.1  Revoked: O. Reg. 165/23, s. 2.
 
 Agreement for loan brokering or credit repair
-      14.  Sections 22, 23 and 27 to 47 of  the  Act  do  not  apply  to  a
+      14.  Sections 22, 23 and 27 to 47  of  the  Act  do  not  apply  to  a
 consumer agreement for loan brokering  or  credit  repair  that  is  also  a
 future  performance  agreement,  a  time   share   agreement,   a   personal
 development services agreement, a direct agreement,  an  internet  agreement
-or a remote agreement.  O. Reg. 17/05, s. 14.
+or a remote agreement.  O. Reg. 17/05, s. 14.
 
 Time share agreement
-      15.  Sections 22, 23 and 29 to 47 of the Act do not apply to  a  time
+      15.  Sections 22, 23 and 29 to 47 of the Act do not apply  to  a  time
 share agreement that is also a  future  performance  agreement,  a  personal
 development services agreement, a direct agreement,  an  internet  agreement
-or a remote agreement.  O. Reg. 17/05, s. 15.
+or a remote agreement.  O. Reg. 17/05, s. 15.
 
 Personal development services agreement
-      16.  Sections 22, 23 and 37 to 47 of  the  Act  do  not  apply  to  a
+      16.  Sections 22, 23 and 37 to 47  of  the  Act  do  not  apply  to  a
 personal development services agreement that is also  a  future  performance
 agreement, a direct agreement, an internet agreement or a  remote  agreement
-but is not a time share agreement.  O. Reg. 17/05, s. 16.
+but is not a time share agreement.  O. Reg. 17/05, s. 16.
 
 Direct agreement
-      17.  Sections 22, 23, 37 to 40 and 44 to 47 of the Act do  not  apply
+      17.  Sections 22, 23, 37 to 40 and 44 to 47 of the Act  do  not  apply
 to a direct agreement that  is  also  a  future  performance  agreement,  an
 internet agreement or a remote agreement but is not a time  share  agreement
-or a personal development services agreement.  O. Reg. 17/05, s. 17.
+or a personal development services agreement.  O. Reg. 17/05, s. 17.
 
 Internet agreement
-      18.  Sections 22, 23 and 44 to 47 of the  Act  do  not  apply  to  an
+      18.  Sections 22, 23 and 44 to 47 of  the  Act  do  not  apply  to  an
 internet agreement that is also a future performance agreement or  a  remote
 agreement but  is  not  a  time  share  agreement,  a  personal  development
-services agreement or a direct agreement.  O. Reg. 17/05, s. 18.
+services agreement or a direct agreement.  O. Reg. 17/05, s. 18.
 
 Remote agreement
-      19.  Sections 22 and 23 of the Act do not apply to a remote agreement
+      19.  Sections 22 and 23 of the Act do not apply to a remote  agreement
 that is also a  future  performance  agreement  but  is  not  a  time  share
 agreement, a personal development services agreement, a direct agreement  or
-an internet agreement.  O. Reg. 17/05, s. 19.
+an internet agreement.  O. Reg. 17/05, s. 19.
 
                                    Part II
-            unsolicited goods or services - section 13 of the Act
+            unsolicited goods or services — section 13 of the Act
 
 MATERIAL CHANGE
-      20.  For the purpose of subsection 13 (4) of the Act, a change  or  a
+      20.  For the purpose of subsection 13 (4) of the Act, a  change  or  a
 series of changes is a material change if it is of such  nature  or  quality
-that it could reasonably be expected  to  influence  a  reasonable  person's
+that it could reasonably be expected  to  influence  a  reasonable  person’s
 decision as to whether to enter into the agreement for  the  supply  of  the
-goods or services.  O. Reg. 17/05, s. 20.
+goods or services.  O. Reg. 17/05, s. 20.
 
 Time for refund
-      21.  For the purpose of subsection 13 (7)  of  the  Act,  a  supplier
+      21.  For the purpose of subsection 13  (7)  of  the  Act,  a  supplier
 shall refund a payment received from a consumer in  respect  of  unsolicited
 goods or services within 15 days after the  day  the  consumer  demands  the
-refund under subsection 13 (6) of the Act.  O. Reg. 17/05, s. 21.
+refund under subsection 13 (6) of the Act.  O. Reg. 17/05, s. 21.
 
                                   Part III
-                  Unfair Practices - Section 18 of the Act
+                  Unfair Practices — Section 18 of the Act
 
 PERIOD FOR RESPONDING TO CONSUMER NOTICE
-      22.  For the purpose of subsection 18 (8) of the Act, a consumer  may
+      22.  For the purpose of subsection 18 (8) of the Act, a  consumer  may
 commence an action if the consumer does not receive a satisfactory  response
 within 30 days after the day the consumer gives notice under section  18  of
-the Act.  O. Reg. 17/05, s. 22.
+the Act.  O. Reg. 17/05, s. 22.
 
                                    Part IV
-              Specific Consumer Agreements - Part IV of the Act
+              Specific Consumer Agreements — Part IV of the Act
 
                         FUTURE PERFORMANCE AGREEMENTS
 
 DEFINITIONS
-      23.  In the Act and this Part,
-"gift card" means a voucher in any form, including an electronic  credit  or
+      23.  In the Act and this Part,
+“gift card” means a voucher in any form, including an electronic  credit  or
  written certificate, that is issued  by  a  supplier  under  a  gift  card
  agreement and that the holder is  entitled  to  apply  towards  purchasing
- goods or services covered by the voucher; ("carte-cadeau")
-"gift card agreement" means a future performance agreement under  which  the
+ goods or services covered by the voucher; (“carte-cadeau”)
+“gift card agreement” means a future performance agreement under  which  the
  supplier issues a gift card to the consumer and under which,
       (a)   if the card is not reloadable, the  consumer  makes  payment  in
     full when entering into the agreement, or
       (b)   if the card is reloadable, the  consumer  makes  payment  in  an
     amount equal to the initial value of the card when  entering  into  the
-    agreement; ("convention de carte-cadeau")
-"open loop gift card agreement" means a gift card  agreement  that  entitles
+    agreement; (“convention de carte-cadeau”)
+“open loop gift card agreement” means a gift card  agreement  that  entitles
  the holder of a gift card to apply it towards purchasing goods or services
- from  multiple  unaffiliated   sellers.   ("convention   de   carte-cadeau
- universelle")
-"reloadable gift card" means a gift card to which the holder can  add  value
- after the initial purchase  of  the  card.  ("carte-cadeau  rechargeable")
- O. Reg. 187/07, s. 1; O. Reg. 202/08, s. 1; O. Reg. 212/18, s. 1.
+ from  multiple  unaffiliated   sellers.   (“convention   de   carte-cadeau
+ universelle”)
+“reloadable gift card” means a gift card to which the holder can  add  value
+ after the initial purchase  of  the  card.  (“carte-cadeau  rechargeable”)
+ O. Reg. 187/07, s. 1; O. Reg. 202/08, s. 1; O. Reg. 212/18, s. 1.
 
 Prescribed amount
-      23.1  The prescribed amount for the purpose of subsection 21  (1)  of
+      23.1  The prescribed amount for the purpose of subsection  21  (1)  of
 the Act is $50  if  the  future  performance  agreement  mentioned  in  that
 subsection is not a gift card agreement  to  which  sections  25.2  to  25.5
-apply.  O. Reg. 187/07, s. 1.
+apply.  O. Reg. 187/07, s. 1.
 
 Requirements for future performance agreements
-      24.  For the purpose of section 22 of the Act, a  future  performance
+      24.  For the purpose of section 22 of the Act,  a  future  performance
 agreement that is not a gift card agreement to which sections 25.2  to  25.5
 apply shall set out the following information:
       1.    The name of the consumer.
@@ -461,9 +461,9 @@ apply shall set out the following information:
        if any, and including the method of transportation to be used.
       11.   For services that are to be performed, the place where they  are
     to be performed, the person for whom they  are  to  be  performed,  the
-    supplier's method of performing them and, if  the  supplier  holds  out
+    supplier’s method of performing them and, if  the  supplier  holds  out
     that a specific person other than the supplier will perform any of  the
-    services on the supplier's behalf, the name of that person.
+    services on the supplier’s behalf, the name of that person.
       12.   The rights, if any, that the supplier agrees the  consumer  will
     have in addition to the rights under the Act and  the  obligations,  if
     any, by which the supplier agrees  to  be  bound  in  addition  to  the
@@ -475,29 +475,29 @@ apply shall set out the following information:
     Canadian currency.
       15.   Any other restrictions,  limitations  and  conditions  that  are
     imposed by the supplier.
-      16.   The date on which  the  agreement  is  entered  into.   O. Reg.
-    17/05, s. 24; O. Reg. 187/07, s. 2.
+      16.   The date on  which  the  agreement  is  entered  into.   O. Reg.
+    17/05, s. 24; O. Reg. 187/07, s. 2.
 
 Express opportunity to accept or decline agreement
-      25.  In the case of a future performance agreement to which  sections
+      25.  In the case of a future performance agreement to  which  sections
 22 to 26 of the Act apply, the supplier shall provide the consumer  with  an
 express opportunity to accept  or  decline  the  agreement  and  to  correct
-errors immediately before entering into it.  O. Reg. 17/05, s. 25.
+errors immediately before entering into it.  O. Reg. 17/05, s. 25.
 
                             Gift Card Agreements
 
 APPLICATION OF SECTIONS
-      25.1  (1)  Sections 25.2 to 25.5 apply to every gift card  agreement
+      25.1  (1)  Sections 25.2 to 25.5 apply to every  gift  card  agreement
 entered into on or after the day this section comes into force and to  every
 gift card issued under that agreement, but do not apply to,
       (a)   a gift card that a supplier issues for a charitable purpose;
       (b)   a gift card that covers only one specific good or service;
       (c)   a gift card issued by a financial institution; or
       (d)   the gift card agreement under which a  gift  card  described  in
-    clause (a), (b) or (c) is issued. O. Reg. 187/07, s. 3; O. Reg. 202/18,
+    clause (a), (b) or (c) is issued. O. Reg. 187/07, s. 3; O. Reg. 202/18,
     s. 2 (1).
-      (2)  In subsection (1),
-"financial institution" means,
+      (2)  In subsection (1),
+“financial institution” means,
       (a)   a bank, authorized foreign  bank  or  federal  credit  union  as
     defined in section 2 of the Bank Act (Canada),
       (b)   a credit union or central  within  the  meaning  of  the  Credit
@@ -505,25 +505,25 @@ gift card issued under that agreement, but do not apply to,
       (c)   a trust corporation or loan  corporation  registered  under  the
     Loan and Trust Corporations Act. O. Reg. 202/18,  s.  2  (2);  O.  Reg.
     129/22, s. 1.
-      (3)  For greater certainty, subject to subsection (1), sections  25.2
+      (3)  For greater certainty, subject to subsection (1),  sections  25.2
 to 25.5 apply to a gift card agreement and a gift card issued  under  it  if
 the holder of the card purchased it  for  themselves  or  received  it  from
 another person. O. Reg. 202/18, s. 2 (2).
 
 Exemption
-      25.2  A gift card agreement is exempt from subsection 21 (1), section
-26 and subsection 96 (2) of the Act.  O. Reg. 187/07, s. 3.
+      25.2  A gift card agreement is exempt from subsection 21 (1),  section
+26 and subsection 96 (2) of the Act.  O. Reg. 187/07, s. 3.
 
 No expiry dates
-      25.3  (1)  No supplier shall enter into a gift card  agreement  that
-has an expiry date on the future performance  of  the  agreement.   O. Reg.
-187/07, s. 3.
-      (2)  A gift  card  agreement  with  an  expiry  date  on  its  future
+      25.3  (1)  No supplier shall enter into a  gift  card  agreement  that
+has an expiry date on the future  performance  of  the  agreement.   O. Reg.
+187/07, s. 3.
+      (2)  A  gift  card  agreement  with  an  expiry  date  on  its  future
 performance shall be effective as if it had no expiry date if the  agreement
-is otherwise valid.  O. Reg. 187/07, s. 3.
+is otherwise valid.  O. Reg. 187/07, s. 3.
 
 Limit on fees
-      25.4  (1)  No supplier under a gift card agreement that  is  not  an
+      25.4  (1)  No supplier under a gift card  agreement  that  is  not  an
 open loop gift card agreement shall,
       (a)   issue a gift card for less than the value of  the  payment  made
     by the consumer when entering into the agreement or hold out  that  the
@@ -533,9 +533,9 @@ open loop gift card agreement shall,
     the card; or
       (b)   charge a fee to the holder  of  a  gift  card  for  anything  in
     relation to the card, other than a fee for replacing a lost  or  stolen
-    gift card or a fee to customize a gift card.  O. Reg. 202/08, s. 2 (2);
+    gift card or a fee to customize a gift card.  O. Reg. 202/08, s. 2 (2);
     O. Reg. 202/18, s. 3 (1, 2).
-      (2)  No supplier under an open loop gift card agreement shall,
+      (2)  No supplier under an open loop gift card agreement shall,
       (a)   issue a gift card for less than the value of  the  payment  made
     by the consumer when entering into the agreement less $1.50 or hold out
     that the supplier can provide such a gift card;
@@ -545,9 +545,9 @@ open loop gift card agreement shall,
       (b)   charge a fee to the holder  of  a  gift  card  for  anything  in
     relation to the card, other than a fee for replacing a lost  or  stolen
     gift card, a fee to  customize  a  gift  card  or  a  dormancy  fee  in
-    accordance with subsection (2.1).  O. Reg. 202/08, s. 2 (2); O. Reg.
+    accordance with subsection (2.1).  O. Reg. 202/08,  s. 2 (2);  O.  Reg.
     202/18, s. 3 (3, 4).
-      (2.1)  The supplier under an open loop gift card agreement may charge
+      (2.1)  The supplier under an open loop gift card agreement may  charge
 a dormancy fee to the holder of the gift card if,
       (a)   the fee is charged no earlier than,
       (i)   15 months after the end of the month that the  consumer  entered
@@ -565,29 +565,29 @@ a dormancy fee to the holder of the gift card if,
     (b); and
       (e)   the supplier discloses the information mentioned in clauses  (a)
     and (b) to the consumer at the time that the consumer enters  into  the
-    agreement.  O. Reg. 202/08, s. 2 (2).
-      (3)  If a supplier or a seller has charged a  fee  or  an  amount  in
+    agreement.  O. Reg. 202/08, s. 2 (2).
+      (3)  If a supplier or a seller has charged  a  fee  or  an  amount  in
 contravention of subsection (2), the consumer or the holder of a  gift  card
 who paid the fee or the amount may demand a refund by giving notice  to  the
 supplier in accordance with section 92 of the  Act  within  one  year  after
-making the payment.  O. Reg. 187/07, s. 3.
-      (4)  A supplier who  receives  a  notice  demanding  a  refund  under
+making the payment.  O. Reg. 187/07, s. 3.
+      (4)  A supplier  who  receives  a  notice  demanding  a  refund  under
 subsection (3) shall provide the refund within  15  days  of  receiving  the
-notice.  O. Reg. 187/07, s. 3.
+notice.  O. Reg. 187/07, s. 3.
 
 Requirements for agreements
-      25.5  For the purpose of section 22 of the Act, a future  performance
+      25.5  For the purpose of section 22 of the Act, a  future  performance
 agreement that is  a  gift  card  agreement  shall  set  out  the  following
 information:
       1.    The fees that the supplier may  charge  under  clause  25.4  (2)
     (b).
       2.    All restrictions, limitations and conditions that  the  supplier
-    imposes on the use of the gift card.  O. Reg. 187/07, s. 3.
+    imposes on the use of the gift card.  O. Reg. 187/07, s. 3.
 
                             Time Share Agreements
 
 REQUIREMENTS FOR TIME SHARE AGREEMENTS
-      26.  (1)  For the purpose of section 27 of the  Act,  a  time  share
+      26.  (1)  For the purpose of section 27  of  the  Act,  a  time  share
 agreement shall be signed by the consumer and the  supplier  and  shall  set
 out the following information:
       1.    The name of the consumer.
@@ -622,7 +622,7 @@ out the following information:
        there is a notice on the first page of the agreement in at least  12
        point bold type indicating where  in  the  agreement  the  statement
        appears.
-      9.    A fair and accurate description  of  the  consumer's  rights  in
+      9.    A fair and accurate description  of  the  consumer’s  rights  in
     respect of the  use  of  the  property  that  is  the  subject  of  the
     agreement, including,
       i.    the precise location of the property,
@@ -636,9 +636,9 @@ out the following information:
        limitations on, the use of or access to these  goods  and  services,
        and
        v.     any  conditions  attached  to,  and   any   restrictions   and
-       limitations on, the consumer's right to dispose of  the  time  share
+       limitations on, the consumer’s right to dispose of  the  time  share
        the consumer is acquiring under the agreement.
-      10.   The details respecting the consumer's right, if any,  to  use  a
+      10.   The details respecting the consumer’s right, if any,  to  use  a
     different property in substitution for the property that is the subject
     of the agreement, including,
       i.    the times at which the right may be exercised,
@@ -650,7 +650,7 @@ out the following information:
        ways in which the individual or  entity  can  be  contacted  by  the
        consumer, such as  the  telephone  number,  fax  number  and  e-mail
        address of the individual or entity.
-      11.    The  details  respecting  the  consumer's  right,  if  any,  to
+      11.    The  details  respecting  the  consumer’s  right,  if  any,  to
     exchange his or her right to occupy a precise suite or a type of  suite
     for a right to occupy a different suite or type of suite, including,
       i.    the times at which the right may be exercised,
@@ -699,8 +699,8 @@ out the following information:
     consumer, as referred to in paragraphs 10, 11, 13, 14 and 15, the terms
     and methods of payment.
       19.   The consequences of non-payment of any amount  that  is  payable
-    by the consumer.  O. Reg. 17/05, s. 26 (1).
-      (2)  The statement mentioned in paragraph 8 of subsection  (1)  shall
+    by the consumer.  O. Reg. 17/05, s. 26 (1).
+      (2)  The statement mentioned in paragraph 8 of  subsection  (1)  shall
 set out the following:
 
              Your Rights under the Consumer Protection Act, 2002
@@ -733,13 +733,13 @@ the Government of Ontario or the Government of Canada or is known by you.
 If you cancel this agreement, the supplier has fifteen (15) days  to  refund
 any payment you have made and return to you  all  goods  delivered  under  a
 trade-in arrangement (or refund an amount equal to the trade-in allowance).
-                                                   O. Reg. 17/05, s. 26 (2).
-      (3)  If the consumer is to receive goods  under  the  agreement,  the
+                                                   O. Reg. 17/05, s. 26 (2).
+      (3)  If the consumer is to receive  goods  under  the  agreement,  the
 statement mentioned in paragraph 8 of subsection (1) shall also set out  the
 following:
 If the supplier requests in writing repossession  of  any  goods  that  came
 into your possession under the agreement, you must return the goods  to  the
-supplier's address or allow one of the following persons  to  repossess  the
+supplier’s address or allow one of the following persons  to  repossess  the
 goods at your address:
   The supplier.
   A person designated in writing by the supplier.
@@ -752,23 +752,23 @@ following happens:
   cancelled.
   You return the goods.
   The supplier directs you in writing to destroy the goods and you do so in
-  accordance with the supplier's instructions.
-                                                   O. Reg. 17/05, s. 26 (3).
+  accordance with the supplier’s instructions.
+                                                   O. Reg. 17/05, s. 26 (3).
 
                         Personal Development Services
 
 PRESCRIBED AMOUNT
-      27.  The prescribed amount for the purpose of clause 29  (1)  (b)  of
-the Act is $50.  O. Reg. 17/05, s. 27.
+      27.  The prescribed amount for the purpose of clause  29  (1)  (b)  of
+the Act is $50.  O. Reg. 17/05, s. 27.
 
 Requirements for agreement where no alternate facility
-      28.  (1)  This section applies to a  personal  development  services
+      28.  (1)  This section applies  to  a  personal  development  services
 agreement,
       (a)   for a facility that is available; or
       (b)   for a facility that is not available, if the agreement does  not
     provide for the consumer to use an alternate facility until the primary
-    facility becomes available.  O. Reg. 17/05, s. 28 (1).
-      (2)  For the purpose of subsection 30 (1)  of  the  Act,  a  personal
+    facility becomes available.  O. Reg. 17/05, s. 28 (1).
+      (2)  For the purpose of subsection 30  (1)  of  the  Act,  a  personal
 development services agreement described in subsection (1) shall  be  signed
 by  the  consumer  and  the  supplier  and  shall  set  out  the   following
 information:
@@ -840,8 +840,8 @@ information:
       iii.  that the  agreement  shall  be  deemed  not  to  be  renewed  or
        extended if the consumer notifies the supplier, before the time  for
        renewal or extension, that the consumer does not want  to  renew  or
-       extend.  O. Reg. 17/05, s. 28 (2).
-      (3)  The statement mentioned in paragraph 10 of subsection (2)  shall
+       extend.  O. Reg. 17/05, s. 28 (2).
+      (3)  The statement mentioned in paragraph 10 of subsection  (2)  shall
 set out the following:
 
              Your Rights under the Consumer Protection Act, 2002
@@ -861,13 +861,13 @@ the Government of Ontario or the Government of Canada or is known by you.
 If you cancel this agreement, the supplier has fifteen (15) days  to  refund
 any payment you have made and return to you  all  goods  delivered  under  a
 trade-in arrangement (or refund an amount equal to the trade-in allowance).
-                                                   O. Reg. 17/05, s. 28 (3).
-      (4)  If the consumer is to receive goods  under  the  agreement,  the
+                                                   O. Reg. 17/05, s. 28 (3).
+      (4)  If the consumer is to receive  goods  under  the  agreement,  the
 statement mentioned in paragraph 10 of subsection (2)  shall  also  set  out
 the following:
 If the supplier requests in writing repossession  of  any  goods  that  came
 into your possession under the agreement, you must return the goods  to  the
-supplier's address or allow one of the following persons  to  repossess  the
+supplier’s address or allow one of the following persons  to  repossess  the
 goods at your address:
   The supplier.
   A person designated in writing by the supplier.
@@ -880,15 +880,15 @@ following happens:
   cancelled.
   You return the goods.
   The supplier directs you in writing to destroy the goods and you do so in
-  accordance with the supplier's instructions.
-                                                   O. Reg. 17/05, s. 28 (4).
+  accordance with the supplier’s instructions.
+                                                   O. Reg. 17/05, s. 28 (4).
 
 Requirements for agreement where alternate facility to be used
-      29.  (1)  This section applies to a  personal  development  services
+      29.  (1)  This section applies  to  a  personal  development  services
 agreement for a facility that is not available, if the  consumer  agrees  in
 writing to use an alternate facility  until  the  primary  facility  becomes
-available.  O. Reg. 17/05, s. 29 (1).
-      (2)  For the purpose of subsection 30 (1)  of  the  Act,  a  personal
+available.  O. Reg. 17/05, s. 29 (1).
+      (2)  For the purpose of subsection 30  (1)  of  the  Act,  a  personal
 development services agreement described in subsection (1) shall  be  signed
 by the consumer and the supplier, shall set out the information referred  to
 in paragraphs 1, 2, 3, 4, 10, 11, 12, 13, 14, 15 and  16  of  subsection  28
@@ -910,14 +910,14 @@ in paragraphs 1, 2, 3, 4, 10, 11, 12, 13, 14, 15 and  16  of  subsection  28
       5.    The reduction, if any, in the price payable by the  consumer  if
     a personal development service is not  available  at  the  facility  at
     which it is supposed to be  available  on  the  date  on  which  it  is
-    supposed to be available at that facility.  O. Reg. 17/05, s. 29 (2).
+    supposed to be available at that facility.  O. Reg. 17/05, s. 29 (2).
 
 Supplier obligations for renewal or extension
-      30.  (1)  For the purpose of subsection 31 (3) of the Act, a personal
+      30.  (1)  For the purpose of subsection 31 (3) of the Act, a  personal
 development services agreement that provides for the  renewal  or  extension
 of the agreement  is  not  valid  unless  the  supplier  complies  with  the
-requirements of subsection (2).  O. Reg. 17/05, s. 30 (1).
-      (2)  At least 30 days but not more than 90 days before the  agreement
+requirements of subsection (2).  O. Reg. 17/05, s. 30 (1).
+      (2)  At least 30 days but not more than 90 days before  the  agreement
 expires,  the  supplier  shall  deliver  to  the  consumer,  in  the  manner
 specified in the agreement pursuant to subparagraph 16 ii of  subsection  28
 (2),
@@ -939,19 +939,19 @@ specified in the agreement pursuant to subparagraph 16 ii of  subsection  28
        subclause, that the consumer does not want to renew  or  extend  the
        agreement; and
       (b)   a copy of the agreement that clearly notes all changes that  the
-    supplier has made to the agreement.  O. Reg. 17/05, s. 30 (2).
-      (3)  A notice under clause (2) (a) that is sent to  the  consumer  by
+    supplier has made to the agreement.  O. Reg. 17/05, s. 30 (2).
+      (3)  A notice under clause (2) (a) that is sent  to  the  consumer  by
 registered mail shall be deemed to be delivered on the third day  after  the
-day of mailing.  O. Reg. 17/05, s. 30 (3).
+day of mailing.  O. Reg. 17/05, s. 30 (3).
 
                              Internet Agreements
 
 PRESCRIBED AMOUNT
-      31.  The prescribed amount for the purpose of section 37 of  the  Act
-is $50.  O. Reg. 17/05, s. 31.
+      31.  The prescribed amount for the purpose of section 37  of  the  Act
+is $50.  O. Reg. 17/05, s. 31.
 
 Disclosure of information
-      32.  For the purpose of subsection 38 (1) of the Act, the information
+      32.  For the purpose of subsection 38 (1) of the Act, the  information
 that the supplier shall disclose to the consumer before the consumer  enters
 into an internet agreement is:
       1.    The name of the supplier  and,  if  different,  the  name  under
@@ -988,9 +988,9 @@ into an internet agreement is:
        would be used.
       10.   For services that would  be  performed,  the  place  where  they
     would be performed, the person for whom they would  be  performed,  the
-    supplier's method of performing them and, if  the  supplier  holds  out
+    supplier’s method of performing them and, if  the  supplier  holds  out
     that a specific person other than the supplier would perform any of the
-    services on the supplier's behalf, the name of that person.
+    services on the supplier’s behalf, the name of that person.
       11.   The rights, if any, that the supplier agrees the  consumer  will
     have in addition to the rights under the Act and  the  obligations,  if
     any, by which the supplier agrees  to  be  bound  in  addition  to  the
@@ -1002,20 +1002,20 @@ into an internet agreement is:
       13.   The currency in which  amounts  are  expressed,  if  it  is  not
     Canadian currency.
       14.   Any other restrictions, limitations and  conditions  that  would
-    be imposed by the supplier.  O. Reg. 17/05, s. 32.
+    be imposed by the supplier.  O. Reg. 17/05, s. 32.
 
 Copy of internet agreement
-      33.  (1)  For the purpose of subsection  39  (1)  of  the  Act,  the
+      33.  (1)  For the purpose  of  subsection  39  (1)  of  the  Act,  the
 supplier shall deliver a copy of the internet agreement in  writing  to  the
 consumer within 15 days  after  the  consumer  enters  into  the  agreement.
-O. Reg. 17/05, s. 33 (1).
-      (2)  For the purpose of subsection 39 (2) of the Act,  the  following
+O. Reg. 17/05, s. 33 (1).
+      (2)  For the purpose of subsection 39 (2) of the  Act,  the  following
 information shall be included in the copy of the internet agreement:
       1.    The information listed in section 32 of this Regulation.
       2.    The name of the consumer.
-      3.    The date on which  the  agreement  is  entered  into.   O. Reg.
-    17/05, s. 33 (2).
-      (3)  For the purpose of subsection 39 (3) of the Act, the  manner  in
+      3.    The date on  which  the  agreement  is  entered  into.   O. Reg.
+    17/05, s. 33 (2).
+      (3)  For the purpose of subsection 39 (3) of the Act,  the  manner  in
 which the copy of the internet agreement shall be delivered is  any  one  of
 the following:
       1.    Transmitting it in a manner that ensures that  the  consumer  is
@@ -1027,17 +1027,17 @@ the following:
       3.    Mailing or delivering it to an address  that  the  consumer  has
     given the supplier for providing information related to the agreement.
       4.    Providing it to the consumer in any  other  manner  that  allows
-    the supplier to prove that the  consumer  has  received  it.   O. Reg.
-    17/05, s. 33 (3).
+    the supplier to prove that  the  consumer  has  received  it.   O. Reg.
+    17/05, s. 33 (3).
 
                               Direct Agreements
 
 PRESCRIBED AMOUNT
-      34.  The prescribed amount for the purpose of subsection  41  (1)  of
-the Act is $50.  O. Reg. 17/05, s. 34.
+      34.  The prescribed amount for the purpose of  subsection  41  (1)  of
+the Act is $50.  O. Reg. 17/05, s. 34.
 
 Requirements for direct agreements
-      35.  (1)  For the purpose of subsection 42 (1) of the Act, a  direct
+      35.  (1)  For the purpose of subsection 42 (1) of the  Act,  a  direct
 agreement that is not for a good or service prescribed  by  subsection  35.1
 (1) shall be signed by the consumer and the supplier and shall set  out  the
 following information:
@@ -1088,9 +1088,9 @@ following information:
       14.   The currency in which  amounts  are  expressed,  if  it  is  not
     Canadian currency.
       15.   Any other restrictions,  limitations  and  conditions  that  are
-    imposed by the supplier.  O. Reg. 17/05, s. 35 (1); O. Reg. 4/15, s. 2;
+    imposed by the supplier.  O. Reg. 17/05, s. 35 (1); O. Reg. 4/15, s. 2;
     O. Reg. 487/17, s. 1.
-      (2)  The statement mentioned in paragraph 11 of subsection (1)  shall
+      (2)  The statement mentioned in paragraph 11 of subsection  (1)  shall
 set out the following:
 
              Your Rights under the Consumer Protection Act, 2002
@@ -1131,13 +1131,13 @@ the goods and services that you received before the earlier of the 11th  day
 after the date this agreement was entered into and the  date  on  which  you
 gave notice of cancellation to  the  supplier,  except  goods  that  can  be
 repossessed by or returned to the supplier.
-                                                   O. Reg. 17/05, s. 35 (2).
-      (3)  If the consumer is to receive goods  under  the  agreement,  the
+                                                   O. Reg. 17/05, s. 35 (2).
+      (3)  If the consumer is to receive  goods  under  the  agreement,  the
 statement mentioned in paragraph 11 of subsection (1)  shall  also  set  out
 the following:
 If the supplier requests in writing repossession  of  any  goods  that  came
 into your possession under the agreement, you must return the goods  to  the
-supplier's address, or allow one of the following persons to  repossess  the
+supplier’s address, or allow one of the following persons to  repossess  the
 goods at your address:
   The supplier.
   A person designated in writing by the supplier.
@@ -1150,19 +1150,19 @@ following happens:
   cancelled.
   You return the goods.
   The supplier directs you in writing to destroy the goods and you do so in
-  accordance with the supplier's instructions.
-                                                   O. Reg. 17/05, s. 35 (3).
-      (4)  The supplier may  meet  the  requirements  of  paragraph  11  of
+  accordance with the supplier’s instructions.
+                                                   O. Reg. 17/05, s. 35 (3).
+      (4)  The supplier  may  meet  the  requirements  of  paragraph  11  of
 subsection (1) by providing a statement that is required  under  legislation
 of another  province  or  territory  of  Canada  that  is  enacted  for  the
 protection of consumers, if,
       (a)   the statement is required in  connection  with  agreements  that
     are substantially equivalent to direct agreements; and
       (b)   the statement  is  substantially  equivalent  to  the  statement
-    requirement by paragraph 11.  O. Reg. 17/05, s. 35 (4).
+    requirement by paragraph 11.  O. Reg. 17/05, s. 35 (4).
 
 Direct agreements subject to s. 43.1 of Act
-      35.1  (1)  For the purpose of subsection 43.1 (1) of  the  Act,  the
+      35.1  (1)  For the purpose of subsection 43.1  (1)  of  the  Act,  the
 following goods and services are prescribed:
       1.    Furnaces.
       2.    Air conditioners.
@@ -1177,86 +1177,86 @@ following goods and services are prescribed:
       11.   Any goods or services that are a combination of or that  perform
     the functions of the goods or services listed in any of paragraphs 1 to
     10. O. Reg. 487/17, s. 2.
-      (2)  For the purpose of subsection 43.1 (1) of the  Act,  a  consumer
+      (2)  For the purpose of subsection 43.1 (1) of  the  Act,  a  consumer
 has initiated contact with a supplier and has  specifically  requested  that
-the supplier attend at the consumer's dwelling for the purpose  of  entering
+the supplier attend at the consumer’s dwelling for the purpose  of  entering
 into a direct agreement for the supply of prescribed goods or services if,
       (a)   the consumer has initiated communications with  a  supplier  and
-    has specifically requested that the supplier attend at  the  consumer's
+    has specifically requested that the supplier attend at  the  consumer’s
     dwelling for the purpose of entering into a direct  agreement  for  the
     supply of prescribed goods or services,
       (i)   by mail, fax, phone or electronic communication, or
-      (ii)  in person at the supplier's place of business  or  at  a  market
+      (ii)  in person at the supplier’s place of business  or  at  a  market
        place, auction, trade fair, agricultural fair or exhibition;
       (b)   the consumer has,
       (i)   responded to a communication initiated by  the  supplier,  other
        than,
-      (A)   a communication made in person at the consumer's dwelling, or
+      (A)   a communication made in person at the consumer’s dwelling, or
       (B)   a communication made during  a  supplier-initiated  phone  call,
            and
        (ii)   specifically  requested  that  the  supplier  attend  at   the
-       consumer's dwelling for  the  purpose  of  entering  into  a  direct
+       consumer’s dwelling for  the  purpose  of  entering  into  a  direct
        agreement for the supply of prescribed goods or services; or
       (c)   the following conditions are met:
       (i)   a written  consumer  agreement  between  the  consumer  and  the
        supplier for a prescribed good or service is in effect,
       (ii)  the consumer has initiated contact with  the  supplier  for  any
        purpose by any means of communication and has invited  the  supplier
-       to attend at the consumer's dwelling, and
+       to attend at the consumer’s dwelling, and
       (iii) during the communication referred to  in  subsection  (ii),  the
        supplier asked the consumer if the  supplier  could,  while  at  the
-       consumer's dwelling, solicit the consumer to  enter  into  a  direct
+       consumer’s dwelling, solicit the consumer to  enter  into  a  direct
        agreement for the supply of prescribed goods  or  services  and  the
        consumer agreed. O. Reg. 487/17, s. 2.
-      (3)  For the purpose of subsection 43.1 (1) of the  Act,  a  consumer
+      (3)  For the purpose of subsection 43.1 (1) of  the  Act,  a  consumer
 has  not  initiated  contact  with  a  supplier  and  has  not  specifically
-requested that the supplier  attend  at  the  consumer's  dwelling  for  the
+requested that the supplier  attend  at  the  consumer’s  dwelling  for  the
 purpose of entering into a direct agreement for  the  supply  of  prescribed
 goods or services if the supplier has received  data,  whether  directly  or
-indirectly,  from  measuring  or  monitoring  devices  in   the   consumer's
+indirectly,  from  measuring  or  monitoring  devices  in   the   consumer’s
 dwelling, unless subsection (2) or (4) applies. O. Reg. 487/17, s. 2.
-      (4)  A supplier is exempt from subsection 43.1 (1) of the Act if,
+      (4)  A supplier is exempt from subsection 43.1 (1) of the Act if,
       (a)   a written  consumer  agreement  between  the  consumer  and  the
     supplier for a prescribed good or service is in effect;
       (b)   the supplier has initiated contact with  the  consumer  for  any
     purpose by any means of  communication,  other  than  communication  in
-    person at the consumer's dwelling, and the  consumer  has  invited  the
-    supplier to attend at the consumer's dwelling; and
+    person at the consumer’s dwelling, and the  consumer  has  invited  the
+    supplier to attend at the consumer’s dwelling; and
       (c)    during  the  communication  referred  to  in  clause  (b),  the
     supplier asked the  consumer  if  the  supplier  could,  while  at  the
-    consumer's dwelling, solicit  the  consumer  to  enter  into  a  direct
+    consumer’s dwelling, solicit  the  consumer  to  enter  into  a  direct
     agreement for the supply  of  prescribed  goods  or  services  and  the
     consumer agreed. O. Reg. 487/17, s. 2.
 
-Direct agreements subject to s. 43.1 of Act - records
-      35.2  (1)  A supplier who enters into  a  direct  agreement  with  a
+Direct agreements subject to s. 43.1 of Act — records
+      35.2  (1)  A supplier who  enters  into  a  direct  agreement  with  a
 consumer for the supply of prescribed goods or services after  the  consumer
 has initiated contact with the supplier as described in subsection 35.1  (2)
 shall maintain records of that contact for three  years  from  the  date  of
 entering into the agreement. O. Reg. 487/17, s. 2.
-      (2)  A supplier to whom subsection 35.1 (4) applies  and  who  enters
+      (2)  A supplier to whom subsection 35.1 (4)  applies  and  who  enters
 into a direct agreement with a consumer for the supply of  prescribed  goods
 or services after  initiating  contact  with  the  consumer  shall  maintain
 records of that contact for three years from the date of entering  into  the
 agreement. O. Reg. 487/17, s. 2.
 
-Direct agreements subject to s. 43.1 of Act - misrepresentative marketing
-      35.3  Despite paragraph 1 of subsection 43.1 (2) of the Act,  leaving
-marketing materials at a consumer's dwelling without attempting  to  contact
+Direct agreements subject to s. 43.1 of Act — misrepresentative marketing
+      35.3  Despite paragraph 1 of subsection 43.1 (2) of the  Act,  leaving
+marketing materials at a consumer’s dwelling without attempting  to  contact
 the consumer with respect to any  prescribed  direct  agreement  constitutes
 solicitation if the materials contain  a  false,  misleading,  deceptive  or
 unconscionable representation for the purposes of sections 14 and 15 of  the
 Act. O. Reg. 487/17, s. 2.
-      35.4  Revoked: O. Reg. 487/17, s. 2.
+      35.4  Revoked: O. Reg. 487/17, s. 2.
 
                               Remote Agreements
 
 PRESCRIBED AMOUNT
-      36.  The prescribed amount for the purpose of section 44 of  the  Act
-is $50.  O. Reg. 17/05, s. 36.
+      36.  The prescribed amount for the purpose of section 44  of  the  Act
+is $50.  O. Reg. 17/05, s. 36.
 
 Disclosure of information
-      37.  (1)  For the purpose of section 45 of the Act, the  information
+      37.  (1)  For the purpose of section 45 of the  Act,  the  information
 that the supplier shall disclose to the consumer before the consumer  enters
 into a remote agreement is:
       1.    The name of the supplier  and,  if  different,  the  name  under
@@ -1292,9 +1292,9 @@ into a remote agreement is:
        would be used.
       10.   For services that would  be  performed,  the  place  where  they
     would be performed, the person for whom they would  be  performed,  the
-    supplier's method of performing them and, if  the  supplier  holds  out
+    supplier’s method of performing them and, if  the  supplier  holds  out
     that a specific person other than the supplier would perform any of the
-    services on the supplier's behalf, the name of that person.
+    services on the supplier’s behalf, the name of that person.
       11.   The rights, if any, that the supplier agrees the  consumer  will
     have in addition to the rights under the Act and  the  obligations,  if
     any, by which the supplier agrees  to  be  bound  in  addition  to  the
@@ -1306,28 +1306,28 @@ into a remote agreement is:
       13.   The currency in which  amounts  are  expressed,  if  it  is  not
     Canadian currency.
       14.   Any other restrictions, limitations and  conditions  that  would
-    be imposed by the supplier.  O. Reg. 17/05, s. 37 (1).
-      (2)  The  disclosure  required  under  section  45  of  the  Act  and
+    be imposed by the supplier.  O. Reg. 17/05, s. 37 (1).
+       (2)  The  disclosure  required  under  section  45  of  the  Act  and
 subsection (1) of this section may be made orally or in writing, and may  be
 made by referring the consumer to a  pre-existing  publication  setting  out
-the information required to be disclosed.  O. Reg. 17/05, s. 37 (2).
+the information required to be disclosed.  O. Reg. 17/05, s. 37 (2).
 
 Express opportunity to accept or decline agreement
-      38.  For the purpose of section 45 of  the  Act,  before  a  consumer
+      38.  For the purpose of section 45  of  the  Act,  before  a  consumer
 enters into a remote agreement, the  supplier  shall  provide  the  consumer
 with an express opportunity to  accept  or  decline  the  agreement  and  to
-correct errors.  O. Reg. 17/05, s. 38.
+correct errors.  O. Reg. 17/05, s. 38.
 
 Copy of remote agreement
-      39.  (1)  For the purpose of subsection 46 (1) of the Act, the period
+      39.  (1)  For the purpose of subsection 46 (1) of the Act, the  period
 within which the supplier shall deliver a copy of the  remote  agreement  in
 writing to the consumer is the period that begins on the  day  the  consumer
 enters into the agreement and ends on the earlier of,
       (a)   the day that is 30 days after the supplier  bills  the  consumer
     for the goods or services; and
       (b)   the day that is 60 days after the day the consumer  enters  into
-    the agreement.  O. Reg. 17/05, s. 39 (1).
-      (2)  For the purpose of subsection 46 (2) of the Act,  the  following
+    the agreement.  O. Reg. 17/05, s. 39 (1).
+      (2)  For the purpose of subsection 46 (2) of the  Act,  the  following
 information shall be included in the copy of the remote agreement:
       1.     The  information  listed  in  paragraphs  1  and  3  to  14  of
     subsection 37 (1) of this Regulation.
@@ -1337,9 +1337,9 @@ information shall be included in the copy of the remote agreement:
     by the consumer, such as the fax  number  and  e-mail  address  of  the
     supplier.
       3.    The name of the consumer.
-      4.    The date on which  the  agreement  is  entered  into.   O. Reg.
-    17/05, s. 39 (2).
-      (3)  For the purpose of subsection 46 (3) of the Act, the  manner  in
+      4.    The date on  which  the  agreement  is  entered  into.   O. Reg.
+    17/05, s. 39 (2).
+      (3)  For the purpose of subsection 46 (3) of the Act,  the  manner  in
 which the copy of the remote agreement shall be delivered is any one of  the
 following:
       1.    Transmitting it in a manner that ensures that  the  consumer  is
@@ -1351,22 +1351,22 @@ following:
       3.    Mailing or delivering it to an address  that  the  consumer  has
     given the supplier for providing information related to the agreement.
       4.    Providing it to the consumer in any  other  manner  that  allows
-    the supplier to prove that the  consumer  has  received  it.   O. Reg.
-    17/05, s. 39 (3).
+    the supplier to prove that  the  consumer  has  received  it.   O. Reg.
+    17/05, s. 39 (3).
 
              Leases to which Part VIII of the Act does not Apply
 
 REQUIREMENTS FOR CERTAIN LEASES
-      40.  (1)  Subject to subsection (1.1), this  section  applies  to  a
+      40.  (1)  Subject to subsection  (1.1),  this  section  applies  to  a
 lease, as defined in Part VIII of the Act, if,
       (a)   Part IV of the Act applies to it; and
       (b)   Part VIII of the Act does not apply to it by virtue  of  section
-    87 of the Act or section 77 of this Regulation.  O. Reg. 17/05, s. 40
+    87 of the Act or section 77 of this Regulation.  O. Reg.  17/05,  s. 40
     (1); O. Reg. 4/15, s. 4 (1).
-      (1.1)  This section does not apply to a lease if the lease is  for  a
+      (1.1)  This section does not apply to a lease if the lease  is  for  a
 good or service prescribed by subsection 35.1 (1). O. Reg. 4/15, s.  4  (2);
 O. Reg. 487/17, s. 3.
-      (2)  In addition to any other requirements that  apply  to  it  under
+      (2)  In addition to any other requirements  that  apply  to  it  under
 Part IV of the Act, a lease described in subsection (1) shall  set  out  the
 following:
       1.    That the lease does not transfer title to the  leased  goods  to
@@ -1393,15 +1393,15 @@ following:
        leased goods from the possession of the lessee.
       iii.  The penalties, if any, imposed on the lessee in accordance  with
        the lease for unreasonable or excessive wear or use  of  the  leased
-       goods.  O. Reg. 17/05, s. 40 (2).
-      (3)  In this section,
-"lease term" has the same meaning as in section 86  of  the  Act.   O. Reg.
- 17/05, s. 40 (3).
+       goods.  O. Reg. 17/05, s. 40 (2).
+      (3)  In this section,
+“lease term” has the same meaning as in section  86  of  the  Act.   O. Reg.
+ 17/05, s. 40 (3).
 
        Amendment, Renewal and Extension of Certain Consumer Agreements
 
 AMENDMENT, RENEWAL OR EXTENSION BY EXPLICIT AGREEMENT TO PROPOSAL
-      41.  (1)  This  section  applies  only  to  the  following  consumer
+       41.  (1)  This  section  applies  only  to  the  following   consumer
 agreements:
       1.    Future performance agreements to which sections 22 to 26 of  the
     Act apply.
@@ -1411,8 +1411,8 @@ agreements:
     apply.
       4.    Direct agreements to which sections 42 and 43 of the Act apply.
       5.    Remote agreements to which sections 45 to 47 of the  Act  apply.
-    O. Reg. 17/05, s. 41 (1).
-      (2)  A consumer agreement mentioned in  subsection  (1),  whether  it
+    O. Reg. 17/05, s. 41 (1).
+      (2)  A consumer agreement mentioned  in  subsection  (1),  whether  it
 provides for amendment,  renewal  or  extension  or  not,  may  be  amended,
 renewed or extended if,
       (a)   the supplier or the consumer makes  a  proposal  for  amendment,
@@ -1422,34 +1422,34 @@ renewed or extended if,
     out in the agreement when it was first  entered  into  and  the  update
     reflects the effect of the proposal to amend, renew or extend; and
       (c)   the party who receives the proposal agrees, explicitly  and  not
-    merely by implication, to the proposal.  O. Reg. 17/05, s. 41 (2).
-      (3)  For the purpose of clause (2) (c), an acknowledgement  that  the
+    merely by implication, to the proposal.  O. Reg. 17/05, s. 41 (2).
+      (3)  For the purpose of clause (2) (c), an  acknowledgement  that  the
 proposal has been received does not in itself constitute  agreement  to  the
-proposal.  O. Reg. 17/05, s. 41 (3).
-      (4)  If the events described in clauses (2) (a), (b) and  (c)  occur,
+proposal.  O. Reg. 17/05, s. 41 (3).
+      (4)  If the events described in clauses (2) (a), (b)  and  (c)  occur,
 the amendment, renewal or extension is effective on the  date  specified  in
 the proposal, but only if  the  supplier  provides  a  written  copy  of  an
 updated version of the agreement to the consumer within 45  days  after  the
-party who receives the proposal agrees to it.  O. Reg. 17/05, s. 41 (4).
-      (5)  The amendment,  renewal  or  extension  does  not  retroactively
+party who receives the proposal agrees to it.  O. Reg. 17/05, s. 41 (4).
+      (5)  The  amendment,  renewal  or  extension  does  not  retroactively
 affect rights and obligations acquired by the consumer before the  effective
-date of the amendment, renewal or extension.  O. Reg. 17/05, s. 41 (5).
-      (6)  On the day on which an amendment, renewal or extension of a time
+date of the amendment, renewal or extension.  O. Reg. 17/05, s. 41 (5).
+      (6)  On the day on which an amendment, renewal or extension of a  time
 share agreement or a direct agreement is effective under this  section,  the
 supplier and the consumer shall be deemed to have entered into  the  updated
 version of the agreement for the purposes of subsections 28 (1) and  43  (1)
-of the Act.  O. Reg. 17/05, s. 41 (6).
+of the Act.  O. Reg. 17/05, s. 41 (6).
 
 Amendment, renewal or extension in accordance with consumer agreement
-      42.  (1)  This  section  applies  only  to  the  following  consumer
+       42.  (1)  This  section  applies  only  to  the  following   consumer
 agreements:
       1.    Future performance agreements to which sections 22 to 26 of  the
     Act apply.
       2.    Internet agreements to which  sections  38  to  40  of  the  Act
     apply.
       3.    Remote agreements to which sections 45 to 47 of the  Act  apply.
-    O. Reg. 17/05, s. 42 (1).
-      (2)  A consumer agreement mentioned in subsection (1)  that  provides
+    O. Reg. 17/05, s. 42 (1).
+      (2)  A consumer agreement mentioned in subsection  (1)  that  provides
 for amendment, renewal or extension may, in  addition  to  being  amendable,
 renewable or extendable under section 41, be amended,  renewed  or  extended
 if the following conditions are satisfied:
@@ -1457,22 +1457,22 @@ if the following conditions are satisfied:
     supplier may propose to amend, renew or extend and  at  what  intervals
     the supplier may propose an amendment, renewal or extension.
       2.    The agreement gives the consumer at least one of  the  following
-    alternatives to accepting the supplier's proposal to  amend,  renew  or
+    alternatives to accepting the supplier’s proposal to  amend,  renew  or
     extend:
       i.    terminating the agreement, or
       ii.   retaining the existing agreement unchanged.
       3.    The  agreement  requires  the  supplier  to  give  the  consumer
-    advance notice of a proposal to amend, renew or extend.  O. Reg. 17/05,
-    s. 42 (2).
-      (3)  The amendment, renewal or extension takes effect  on  the  later
+    advance notice of a proposal to amend, renew or extend.  O. Reg. 17/05,
+    s. 42 (2).
+      (3)  The amendment, renewal or extension takes  effect  on  the  later
 of,
       (a)   the date specified in the notice; and
       (b)   the date that is 30 days after the day  on  which  the  consumer
-    receives the notice.  O. Reg. 17/05, s. 42 (3).
-      (4)  The amendment,  renewal  or  extension  does  not  retroactively
+    receives the notice.  O. Reg. 17/05, s. 42 (3).
+      (4)  The  amendment,  renewal  or  extension  does  not  retroactively
 affect rights and obligations acquired by the consumer before the  effective
-date of the amendment, renewal or extension.  O. Reg. 17/05, s. 42 (4).
-      (5)  The supplier's notice of a proposal to amend,  renew  or  extend
+date of the amendment, renewal or extension.  O. Reg. 17/05, s. 42 (4).
+      (5)  The supplier’s notice of a proposal to  amend,  renew  or  extend
 shall,
       (a)   provide an update of all of the information  that  was  required
     by the Act or this Regulation to be set out in the  agreement  when  it
@@ -1493,41 +1493,41 @@ shall,
     come to his or her attention; and
       (h)   be provided to the consumer at least 30 days but not  more  than
     90 days before the date on which it is  proposed  that  the  amendment,
-    renewal or extension would take effect.  O. Reg. 17/05, s. 42 (5).
-      (6)  The means for the  consumer  to  respond  to  the  notice  shall
+    renewal or extension would take effect.  O. Reg. 17/05, s. 42 (5).
+      (6)  The means for  the  consumer  to  respond  to  the  notice  shall
 involve no cost to the consumer and shall be easy for the consumer  to  use.
-O. Reg. 17/05, s. 42 (6).
-      (7)  A purported amendment, renewal or extension under  this  section
+O. Reg. 17/05, s. 42 (6).
+      (7)  A purported amendment, renewal or extension  under  this  section
 that does not  comply  with  subsections  (5)  and  (6)  is  not  effective.
-O. Reg. 17/05, s. 42 (7).
+O. Reg. 17/05, s. 42 (7).
 
 Agreement type continues
-       43.  A  time  share  agreement,  an  internet  agreement,  a  direct
+       43.  A  time  share  agreement,  an  internet  agreement,  a   direct
 agreement or a remote agreement that has been amended, renewed  or  extended
 under section 41 or  42  shall  continue  to  be  considered  a  time  share
 agreement, an internet agreement, a direct agreement or a remote  agreement,
 as the case may be, even if the method by which the  amendment,  renewal  or
 extension occurred would result in the agreement no longer being within  the
-definition  of  "time  share  agreement",  "internet   agreement",   "direct
-agreement" or "remote agreement", as the case may be,  under  subsection  20
-(1) of the Act.  O. Reg. 17/05, s. 43.
+definition  of  “time  share  agreement”,  “internet   agreement”,   “direct
+agreement” or “remote agreement”, as the case may be,  under  subsection  20
+(1) of the Act.  O. Reg. 17/05, s. 43.
 
                    Consumer Agreements For Rewards Points
 
 DEFINITION OF REWARDS POINTS
-      43.1  (1)  For the purpose of the definition of  rewards  points  in
+      43.1  (1)  For the purpose of the  definition  of  rewards  points  in
 section 1 of the Act, the consumer must  earn  the  points  across  multiple
 transactions and accumulate them before being  able  to  exchange  them  for
 money, goods or services and the points may be described as points,  dollars
 spent or any other unit or similar term. O. Reg. 388/17, s. 1.
-      (2)  Rewards points do not include rewards  offers  that  propose  to
+      (2)  Rewards points do not include  rewards  offers  that  propose  to
 provide a consumer with one specific good or service or one specific set  of
 goods or services after the consumer achieves a certain amount  of  progress
 if the goods or services are identified at the outset of the offer and  they
 are not a gift card, voucher or similar item. O. Reg. 388/17, s. 1.
 
 Non-application of Part IV of Act
-      43.2  In respect of a consumer agreement under which  rewards  points
+      43.2  In respect of a consumer agreement under  which  rewards  points
 are provided, Part IV of the Act, except for section 47.1 of  the  Act,  and
 the regulations made for the purpose of those provisions,
       (a)   do not apply to the  portion  of  the  consumer  agreement  that
@@ -1536,12 +1536,12 @@ the regulations made for the purpose of those provisions,
     relate to the provision of rewards points. O. Reg. 388/17, s. 1.
 
 Non-application of s. 47.1 of the Act, low value of reward
-      43.3  (1)  Section 47.1 of  the  Act  does  not  apply  to  consumer
+      43.3  (1)  Section  47.1  of  the  Act  does  not  apply  to  consumer
 agreements under which rewards points are  provided  if  no  one  good,  one
 service or single set of goods or services that the consumer may receive  in
 exchange for redeeming the points has a value of  more  than  $50.  O.  Reg.
 388/17, s. 1.
-      (2)  The $50 limit on  value  described  in  subsection  (1)  is  not
+      (2)  The $50 limit  on  value  described  in  subsection  (1)  is  not
 exceeded if,
       (a)   the consumer can redeem points  for  more  than  one  good,  one
     service or a single set of goods or services; and
@@ -1550,7 +1550,7 @@ exceeded if,
     combined value of the goods, services  and  single  sets  of  goods  or
     services that the consumer may  receive  is  more  than  $50.  O.  Reg.
     388/17, s. 1.
-      (3)  The $50 limit on value described in subsection (1)  is  exceeded
+      (3)  The $50 limit on value described in subsection  (1)  is  exceeded
 if,
       (a)   a good or service that the consumer may receive in exchange  for
     redeeming points is a gift card, voucher or similar item  that  can  be
@@ -1559,18 +1559,18 @@ if,
     vouchers and similar items described in clause (a) to pay in  whole  or
     in part for a single good, service or set of goods or services  with  a
     value of more than $50. O. Reg. 388/17, s. 1.
-      (4)  Nothing in this section prevents sections 23 and 25.1 to 25.5 of
+      (4)  Nothing in this section prevents sections 23 and 25.1 to 25.5  of
 this Regulation from applying to a consumer agreement to which section  47.1
 of the Act applies. O. Reg. 388/17, s. 1.
 
 Non-application of s. 47.1 of the Act, no purchase required
-      43.4  (1)  Section 47.1 of the Act does  not  apply  to  a  consumer
+      43.4  (1)  Section 47.1 of the  Act  does  not  apply  to  a  consumer
 agreement under which the consumer is not  required  to  purchase  goods  or
 services from the supplier with whom  the  consumer  has  entered  into  the
 agreement or from a third party, either upon entering into the agreement  or
 during the entire term of the agreement, including to earn  rewards  points.
 O. Reg. 388/17, s. 1.
-      (2)  Despite subsection (1), section 47.1 of the  Act  applies  to  a
+      (2)  Despite subsection (1), section 47.1 of  the  Act  applies  to  a
 consumer agreement if,
        (a)    rewards  points  are  provided  to  the  consumer  under   the
     agreement, either directly by the supplier with whom the  consumer  has
@@ -1581,26 +1581,26 @@ consumer agreement if,
     points. O. Reg. 388/17, s. 1.
 
 Non-application of s. 47.1 of the Act, no control of rewards points
-      43.5  (1)  Section 47.1 of the Act does  not  apply  to  a  consumer
+      43.5  (1)  Section 47.1 of the  Act  does  not  apply  to  a  consumer
 agreement under which rewards points are provided if the supplier under  the
 agreement does not direct or control the expiry of the  rewards  points.  O.
 Reg. 388/17, s. 1.
-      (2)  Despite subsection (1), section 47.1 of the  Act  applies  to  a
+      (2)  Despite subsection (1), section 47.1 of  the  Act  applies  to  a
 consumer agreement under which rewards points are provided if  the  supplier
 under the agreement has entered into an agreement with  another  person  who
 directs or controls the expiry of the rewards points for  the  supplier.  O.
 Reg. 388/17, s. 1.
 
 Expiry of rewards points due to the passage of time alone
-      43.6  (1)  For the purposes of subsection 47.1 (1) of the  Act,  the
+      43.6  (1)  For the purposes of subsection 47.1 (1)  of  the  Act,  the
 expiry of rewards points due to the passage of time  alone  means  that  the
 points expire based solely on when a certain point in  time  is  reached  or
 when a certain amount of time has elapsed. O. Reg. 388/17, s. 1.
-      (2)  Despite subsection 47.1 (1) of the  Act,  a  consumer  agreement
+      (2)  Despite subsection 47.1 (1) of  the  Act,  a  consumer  agreement
 under which rewards points are provided may provide that the  points  expire
 in accordance with the agreement if the consumer has not earned or  redeemed
 points during a specified period of time. O. Reg. 388/17, s. 1.
-      (3)  Despite subsection 47.1 (1) of the Act, if the consumer under  a
+      (3)  Despite subsection 47.1 (1) of the Act, if the consumer  under  a
 consumer agreement under which rewards points are provided  is  required  to
 purchase goods or services from either the supplier with whom  the  consumer
 has entered into the agreement or from  a  third  party  in  order  to  earn
@@ -1614,14 +1614,14 @@ of time alone if,
     to the passage of time alone; and
       (b)   the expiry occurs no later than 30 days after the date on  which
     the points were issued or offered. O. Reg. 388/17, s. 1.
-      (4)  Subject to  this  section,  a  consumer  agreement  under  which
+      (4)  Subject  to  this  section,  a  consumer  agreement  under  which
 rewards points are provided contravenes subsection 47.1 (1) of  the  Act  if
 it provides that points expire due to the passage of time alone  unless  the
 consumer actively requests that the  points  not  expire  or  that  they  be
 reinstated. O. Reg. 388/17, s. 1.
 
 Termination of consumer agreement
-      43.7  For the purposes of section 47.1 of the Act,  if  the  supplier
+      43.7  For the purposes of section 47.1 of the  Act,  if  the  supplier
 under  a  consumer  agreement  under  which  rewards  points  are   provided
 terminates the portions of the agreement that relate to rewards points,  but
 not the portions of the agreement that do  not  relate  to  rewards  points,
@@ -1629,11 +1629,11 @@ such a  termination  constitutes  a  termination  for  the  purpose  of  the
 section. O. Reg. 388/17, s. 1.
 
 Credit back of rewards points
-      43.8  (1)  The credit back obligation in subsection 47.1 (5) of  the
+      43.8  (1)  The credit back obligation in subsection 47.1  (5)  of  the
 Act applies  only  to  rewards  points  that  expired  in  the  time  period
 described in that subsection due to the  passage  of  time  alone.  O.  Reg.
 388/17, s. 1.
-      (2)  Subsection 47.1 (6) of the Act does  not  apply  to  a  consumer
+      (2)  Subsection 47.1 (6) of the Act  does  not  apply  to  a  consumer
 agreement described in that subsection if,
       (a)    the  consumer  under  the  agreement  has  requested  that  the
     supplier terminate the agreement and the supplier has done so;
@@ -1643,31 +1643,31 @@ agreement described in that subsection if,
       (c)   the agreement has been terminated in accordance with  its  terms
     and the terms relating to rewards points have not  been  amended  after
     October 1, 2016. O. Reg. 388/17, s. 1.
-      (3)  For greater certainty, subsection  47.1  (6)  of  the  Act  only
+      (3)  For greater certainty,  subsection  47.1  (6)  of  the  Act  only
 applies to those provisions of a  consumer  agreement  relating  to  rewards
 points. O. Reg. 388/17, s. 1.
-      (4)  Subsections 47.1 (5) and (6) of  the  Act  do  not  apply  to  a
+      (4)  Subsections 47.1 (5) and (6)  of  the  Act  do  not  apply  to  a
 consumer agreement under which rewards points are provided if  the  supplier
 providing points gave notice, before December  8,  2016,  to  the  consumers
 that the entire program for providing  rewards  points  that  is  associated
 with the consumer agreement was being wound up. O. Reg. 388/17, s. 1.
 
 Reinstated or recreated consumer agreement
-      43.9  (1)  Subsection (2) applies if a supplier terminates a consumer
+      43.9  (1)  Subsection (2) applies if a supplier terminates a  consumer
 agreement under which rewards points are provided and, within 12 months,
       (a)   the supplier purports to reinstate the agreement or  enter  into
     a new consumer  agreement  with  the  consumer  that  is  substantially
     similar to any previously terminated consumer  agreement  between  them
     under which rewards points were provided; and
       (b)   the supplier purports  to  enter  into  the  reinstated  or  new
-    agreement described in  clause  (a)  without  the  consumer's  explicit
+    agreement described in  clause  (a)  without  the  consumer’s  explicit
     consent at the time the supplier purports to enter into the  reinstated
     or new agreement. O. Reg. 388/17, s. 1.
-      (2)  The supplier shall credit back the consumer with  at  least  the
+      (2)  The supplier shall credit back the consumer  with  at  least  the
 same number of rewards points the consumer had upon the termination  of  the
 consumer agreement that the supplier terminated  under  subsection  (1).  O.
 Reg. 388/17, s. 1.
-      (3)  For greater certainty, if the supplier receives  the  consumer's
+      (3)  For greater certainty, if the supplier  receives  the  consumer’s
 explicit consent to enter into the reinstated or new agreement described  in
 clause (1) (a) at the time described in clause (1) (b), the supplier is  not
 required to comply with subsection (2)  and  the  rewards  points  that  the
@@ -1675,10 +1675,10 @@ consumer had upon the termination of the consumer agreement  expire  if  the
 terminated agreement so provided. O. Reg. 388/17, s. 1.
 
                                    Part V
-            Loan Brokering and Credit Repair - Part V of the Act
+            Loan Brokering and Credit Repair — Part V of the Act
 
 REQUIREMENTS FOR LOAN BROKERING AGREEMENTS
-      44.  (1)  For the purpose of section  49  of  the  Act,  a  consumer
+      44.  (1)  For the purpose  of  section  49  of  the  Act,  a  consumer
 agreement for loan brokering shall be signed by the consumer  and  the  loan
 broker and shall set out the following information:
       1.    The name of the consumer.
@@ -1726,8 +1726,8 @@ broker and shall set out the following information:
       13.   The currency in which  amounts  are  expressed,  if  it  is  not
     Canadian currency.
       14.   Any other restrictions,  limitations  and  conditions  that  are
-    imposed by the loan broker.  O. Reg. 17/05, s. 44 (1).
-      (2)  The statement mentioned in paragraph 10 of subsection (1) is  as
+    imposed by the loan broker.  O. Reg. 17/05, s. 44 (1).
+      (2)  The statement mentioned in paragraph 10 of subsection (1)  is  as
 follows:
 
              Your Rights under the Consumer Protection Act, 2002
@@ -1755,10 +1755,10 @@ If you cancel this agreement, the loan  broker  has  fifteen  (15)  days  to
 refund any payment you have made and  return  to  you  all  goods  delivered
 under a trade-in arrangement (or refund an  amount  equal  to  the  trade-in
 allowance).
-                                                   O. Reg. 17/05, s. 44 (2).
+                                                   O. Reg. 17/05, s. 44 (2).
 
 Prohibited representations, loan broker
-      45.  For the purpose of section 53 of  the  Act,  the  following  are
+      45.  For the purpose of section 53  of  the  Act,  the  following  are
 prohibited representations in the case of a loan broker:
       1.    An express or implied representation that  the  loan  broker  is
     approved, licensed or registered  by  the  Government  of  Canada,  the
@@ -1767,10 +1767,10 @@ prohibited representations in the case of a loan broker:
       2.    An express or implied representation that the operations of  the
     loan broker are regulated by the Government of Canada,  the  Government
     of Ontario or the government of any  other  province  or  territory  of
-    Canada.  O. Reg. 17/05, s. 45.
+    Canada.  O. Reg. 17/05, s. 45.
 
 Requirements for credit repair agreements
-      46.  (1)  For the purpose of section  49  of  the  Act,  a  consumer
+      46.  (1)  For the purpose  of  section  49  of  the  Act,  a  consumer
 agreement for credit repair shall be signed by the consumer and  the  credit
 repairer and shall set out the following information:
       1.    The name of the consumer.
@@ -1819,8 +1819,8 @@ repairer and shall set out the following information:
       14.   The currency in which  amounts  are  expressed,  if  it  is  not
     Canadian currency.
       15.   Any other restrictions,  limitations  and  conditions  that  are
-    imposed by the credit repairer.  O. Reg. 17/05, s. 46 (1).
-      (2)  The statement mentioned in paragraph 10 of subsection (1) is  as
+    imposed by the credit repairer.  O. Reg. 17/05, s. 46 (1).
+      (2)  The statement mentioned in paragraph 10 of subsection (1)  is  as
 follows:
 
                 Your Rights under the Consumer Reporting Act
@@ -1836,8 +1836,8 @@ generally removes negative information after seven (7) years.
 You may also file a complaint with the Ministry  of  Consumer  and  Business
 Services regarding the information about you in a credit file maintained  by
 a consumer reporting agency.
-                                                   O. Reg. 17/05, s. 46 (2).
-      (3)  The statement mentioned in paragraph 11 of subsection (1) is  as
+                                                   O. Reg. 17/05, s. 46 (2).
+      (3)  The statement mentioned in paragraph 11 of subsection (1)  is  as
 follows:
 
              Your Rights under the Consumer Protection Act, 2002
@@ -1865,10 +1865,10 @@ If you cancel this agreement, the credit repairer has fifteen (15)  days  to
 refund any payment you have made and  return  to  you  all  goods  delivered
 under a trade-in arrangement (or refund an  amount  equal  to  the  trade-in
 allowance).
-                                                   O. Reg. 17/05, s. 46 (3).
+                                                   O. Reg. 17/05, s. 46 (3).
 
 Prohibited representations, credit repairer
-      47.  (1)  For the purpose of section 53 of the Act, the following are
+      47.  (1)  For the purpose of section 53 of the Act, the following  are
 prohibited representations in the case of a credit repairer:
       1.    An express or implied representation that  the  credit  repairer
     is approved, licensed or registered by the Government  of  Canada,  the
@@ -1881,27 +1881,27 @@ prohibited representations in the case of a credit repairer:
       3.    Subject to subsection (2), an express or implied  representation
     that the credit repairer will be able to cause a  material  improvement
     to the consumer report, credit information, file, personal information,
-    credit record, credit history or credit rating of a consumer.  O. Reg.
-    17/05, s. 47 (1); O. Reg. 426/15, s. 3.
-      (2)  The representation described in paragraph 3 of subsection (1) is
+    credit record, credit history or credit rating of a consumer.   O. Reg.
+    17/05, s. 47 (1); O. Reg. 426/15, s. 3.
+      (2)  The representation described in paragraph 3 of subsection (1)  is
 not  a  prohibited  representation  if  the  credit   repairer   makes   the
 representation after,
-      (a)   examining the consumer's consumer  report,  credit  information,
+      (a)   examining the consumer’s consumer  report,  credit  information,
     file, personal information, credit record,  credit  history  or  credit
     rating; and
-      (b)   reasonably  concluding  that  the  consumer's  consumer  report,
+      (b)   reasonably  concluding  that  the  consumer’s  consumer  report,
     credit information, file, personal information, credit  record,  credit
     history or credit rating is inaccurate or  incomplete  and  correcting,
     supplementing or  deleting  any  item  of  information  would  cause  a
-    material  improvement  to  the  consumer's  consumer   report,   credit
+    material  improvement  to  the  consumer’s  consumer   report,   credit
     information, file, personal information, credit record, credit  history
-    or credit rating.  O. Reg. 17/05, s. 47 (2).
+    or credit rating.  O. Reg. 17/05, s. 47 (2).
 
                                    Part VI
-               Repairs to Motor Vehicles - Part VI of the Act
+               Repairs to Motor Vehicles — Part VI of the Act
 
 ESTIMATES
-      48.  For the purpose of subsection 56 (1) of the Act, an estimate  of
+      48.  For the purpose of subsection 56 (1) of the Act, an  estimate  of
 the total cost of work on and repairs to a vehicle shall be in  writing  and
 shall set out the following information:
       1.    The name of the consumer.
@@ -1945,11 +1945,11 @@ shall set out the following information:
       14.   The date by which the work and repairs will be completed.
       15.   That the repairer will not charge the consumer  an  amount  that
     exceeds the amount estimated under paragraph 12 by  more  than  10  per
-    cent.  O. Reg. 17/05, s. 48; O. Reg. 426/15, s. 4; O. Reg. 165/23, s.
+    cent.  O. Reg. 17/05, s. 48; O. Reg. 426/15, s. 4; O. Reg.  165/23,  s.
     3.
 
 Authorization not in writing
-      49.  For the purpose of section 59 of the Act,  if  an  authorization
+      49.  For the purpose of section 59 of the  Act,  if  an  authorization
 that is not in writing is given to  a  repairer  who  works  on  or  repairs
 vehicles, the following  is  required  to  be  recorded  in  order  for  the
 authorization to be effective:
@@ -1959,10 +1959,10 @@ authorization to be effective:
     telephone number of the person giving the authorization, and if the non-
     written authorization is  given  by  a  method  other  than  telephone,
     information regarding how the person giving the  authorization  can  be
-    contacted using the other method.  O. Reg. 17/05, s. 49.
+    contacted using the other method.  O. Reg. 17/05, s. 49.
 
 Posting signs
-      50.  For the purpose of section 60 of the Act, a repairer  who  works
+      50.  For the purpose of section 60 of the Act, a  repairer  who  works
 on or repairs vehicles shall post the following information on one  or  more
 signs, in such a manner that the disclosure of  the  information  is  clear,
 comprehensible and prominent:
@@ -1991,7 +1991,7 @@ comprehensible and prominent:
       iii.  whether there will be a charge for diagnostic time and,  if  so,
        the manner of determining the amount that will be charged.
       4.    Whether the repairer or any of the persons  doing  the  work  or
-    making the repairs on the repairer's behalf receive any commissions for
+    making the repairs on the repairer’s behalf receive any commissions for
     parts sold and, if so, the manner of determining the commission and the
     parts to which it applies.
       5.    An itemized list of all goods and services,  other  than  parts,
@@ -2010,11 +2010,11 @@ comprehensible and prominent:
       ii.   the part is replaced under a warranty that requires  the  return
        of the part to the manufacturer or distributor, or
       iii.  the consumer is not charged for  the  replacement  part  or  for
-       work on or repair to the part.   O. Reg.  17/05,  s. 50;  O.  Reg.
+       work on or repair to  the  part.   O. Reg.  17/05,  s. 50;  O.  Reg.
        426/15, s. 5; O. Reg. 165/23, s. 4.
 
 Invoices
-      51.  For the purpose of section  62  of  the  Act,  an  invoice  with
+      51.  For the purpose of  section  62  of  the  Act,  an  invoice  with
 respect to work on or repairs to a vehicle shall be  in  writing  and  shall
 set out the following information:
       1.    The name of the consumer.
@@ -2075,7 +2075,7 @@ set out the following information:
     part provided by the original equipment manufacturer, each new part not
     provided by the original equipment manufacturer and each  reconditioned
     part, and for the labour required to install each  such  part,  if  the
-    repairer's warranty provides, in terms of time and  distance,  coverage
+    repairer’s warranty provides, in terms of time and  distance,  coverage
     equal to or greater than the coverage provided by  the  warranty  under
     section 63 of the Act, which is subject to clauses 52 (a)  and  (b)  of
     this Regulation.
@@ -2107,32 +2107,32 @@ set out the following information:
     repairer or about your rights or duties under the  Consumer  Protection
     Act, 2002, you should contact the Ministry  of  Consumer  and  Business
     Services.
-           O. Reg. 17/05, s. 51; O. Reg. 426/15, s. 6; O. Reg. 165/23, s. 5.
+           O. Reg. 17/05, s. 51; O. Reg. 426/15, s. 6; O. Reg. 165/23, s. 5.
 
 Exemption from vehicle warranty
-      52.  Section 63 of the Act does not apply to,
+      52.  Section 63 of the Act does not apply to,
       (a)   fluids, filters, lights, tires or batteries;
       (b)   a part that  was  not  warranted  by  the  manufacturer  of  the
     vehicle when the vehicle was sold as new;
       (c)   a part installed or the labour required to install  it  under  a
     warranty that provides, in terms of time and distance,  coverage  equal
     to or greater than the coverage provided by the warranty under  section
-    63 of the Act.  O. Reg. 17/05, s. 52.
+    63 of the Act.  O. Reg. 17/05, s. 52.
 
                   Part VI.1 Revoked: O. Reg. 165/23, s. 6.
 
                                   Part VII
-                   Credit agreements - Part VII of the Act
+                   Credit agreements — Part VII of the Act
 
 DEFINITIONS
-      53.  In this Part,
-"grace period" means a period for which  charges  specified  in  the  credit
+      53.  In this Part,
+“grace period” means a period for which  charges  specified  in  the  credit
  agreement that accrue during the period will be forgiven if  the  borrower
- satisfies conditions specified in the credit agreement.   O. Reg.  17/05,
- s. 53; O. Reg. 168/07, s. 1; O. Reg. 96/09, s. 2.
+ satisfies conditions specified in the credit  agreement.   O. Reg.  17/05,
+ s. 53; O. Reg. 168/07, s. 1; O. Reg. 96/09, s. 2.
 
 Advance
-      54.  (1)  For the purpose of the definition of "advance" in  section
+      54.  (1)  For the purpose of the definition of  “advance”  in  section
 66 of the Act, each  of  the  following  constitutes  value  received  by  a
 borrower under a credit agreement:
       1.    Money transferred  to  or  to  the  order  of  the  borrower  in
@@ -2163,7 +2163,7 @@ borrower under a credit agreement:
       ii.   The cost of obtaining a statement, or  a  certified  copy  of  a
        statement, containing information from the vehicle records.
       6.    If the borrower gives a security interest in  personal  property
-    to secure the borrower's indebtedness under the credit  agreement,  the
+    to secure the borrower’s indebtedness under the credit  agreement,  the
     expense incurred by the lender  in  paying  all  or  any  part  of  the
     following, if the borrower is required to repay the expense:
       i.    The cost of professional services obtained for  the  purpose  of
@@ -2186,19 +2186,19 @@ borrower under a credit agreement:
        of that Act or a certificate to discharge or partially  discharge  a
        notice of security interest under subsection 54 (4) of that Act, and
        the cost of searching or obtaining information from the  system,  in
-       relation to the security interest given by the  borrower.   O. Reg.
-       17/05, s. 54 (1); O. Reg. 168/07, s. 2; O. Reg. 96/09, s. 3.
-      (2)  "Cost" means,
+       relation to the security interest given by  the  borrower.   O. Reg.
+       17/05, s. 54 (1); O. Reg. 168/07, s. 2; O. Reg. 96/09, s. 3.
+      (2)  “Cost” means,
       (a)   in subparagraphs 5 i and ii of subsection  (1),  the  fees  paid
     for the search or statement and the service fees paid to an  agent,  if
     any; and
       (b)   in subparagraphs 6 iii and iv of subsection (1), the  fees  paid
     for the registration, search or information and the service  fees  paid
-    to an agent, if any.  O. Reg. 17/05, s. 54 (2).
+    to an agent, if any.  O. Reg. 17/05, s. 54 (2).
 
 Annual percentage rate for credit agreement
-      55.  (1)  For the purpose of the definition  of  "annual  percentage
-rate" in section 66 of the Act,
+      55.  (1)  For the purpose of  the  definition  of  “annual  percentage
+rate” in section 66 of the Act,
       (a)   the annual percentage rate for a credit agreement is the  annual
     interest rate set out in the credit agreement, if,
       (i)   the credit  agreement  does  not  provide  for  interest  to  be
@@ -2208,18 +2208,18 @@ rate" in section 66 of the Act,
        connection with the credit agreement; and
       (b)   the annual percentage rate for any  other  credit  agreement  is
     the amount determined using the formula,
-                             [C � (T � A)] � 100
+                             [C ÷ (T × A)] × 100
     in which,
-      "C"   is the cost of borrowing,
-      "T"   is the length of the term of the  credit  agreement,  in  years,
+      “C”   is the cost of borrowing,
+      “T”   is the length of the term of the  credit  agreement,  in  years,
        and
-      "A"   is the average of the principal balances outstanding at the  end
+      “A”   is the average of the principal balances outstanding at the  end
        of each interest calculation period during the term  of  the  credit
        agreement before applying any payment due by the borrower, with  all
        interest calculation periods under the  credit  agreement  being  of
        equal length.
-                                                   O. Reg. 17/05, s. 55 (1).
-      (2)  In calculating "A" in clause (1) (b),
+                                                   O. Reg. 17/05, s. 55 (1).
+      (2)  In calculating “A” in clause (1) (b),
       (a)   the principal outstanding at the beginning of the  term  of  the
     credit agreement is the result obtained by subtracting the total of all
     payments made by the borrower at or before the beginning  of  the  term
@@ -2236,48 +2236,48 @@ rate" in section 66 of the Act,
       (d)   applying the following  formula  in  respect  of  each  interest
     calculation period shall yield a result that is equal to  the  cost  of
     borrowing for that period,
-                               APR/100 � L � P
+                               APR/100 × L × P
     in which,
-      "APR" is the annual percentage rate,
-      "L"   is the length of the interest calculation period as  a  fraction
+      “APR” is the annual percentage rate,
+      “L”   is the length of the interest calculation period as  a  fraction
        of a year, and
-      "P"   is the principal balance outstanding at the end of the  interest
+      “P”   is the principal balance outstanding at the end of the  interest
        calculation period before applying any payment due by the borrower.
-                                                   O. Reg. 17/05, s. 55 (2).
-       (3)  In  calculating  the  annual  percentage  rate  for  a  credit
-agreement, a year shall be considered to have  365  days.   O. Reg.  96/09,
-s. 4.
-      (4)  If a credit agreement  provides  for  payments  to  be  made  at
+                                                   O. Reg. 17/05, s. 55 (2).
+       (3)  In  calculating  the  annual  percentage  rate  for   a   credit
+agreement, a year shall be considered to  have  365  days.   O. Reg.  96/09,
+s. 4.
+      (4)  If a credit  agreement  provides  for  payments  to  be  made  at
 intervals measured by reference to weeks or months,  the  annual  percentage
 rate for the credit agreement may be calculated on the assumption that  each
-week is 1/52 of a year long and each month is 1/12 of a year long.  O. Reg.
-17/05, s. 55 (4).
-      (5)  If the annual percentage rate for a credit agreement is required
+week is 1/52 of a year long and each month is 1/12 of a year long.   O. Reg.
+17/05, s. 55 (4).
+      (5)  If the annual percentage rate for a credit agreement is  required
 to be calculated when the interest rate for any period during  the  term  of
 the credit agreement is unknown, the annual percentage rate for  the  credit
 agreement shall be calculated as if the interest rate for  that  period  was
 to be determined on the basis of circumstances existing at the time  of  the
-calculation.  O. Reg. 17/05, s. 55 (5).
-      (6)  The annual percentage rate for  a  credit  agreement  for  fixed
+calculation.  O. Reg. 17/05, s. 55 (5).
+      (6)  The annual percentage rate  for  a  credit  agreement  for  fixed
 credit that does not provide for scheduled payments by  the  borrower  shall
 be calculated on the assumption that the outstanding balance will be  repaid
 in full in a single payment at the end of the term of the credit  agreement.
- O. Reg. 17/05, s. 55 (6).
-      (7)  The annual percentage rate for a renewed credit agreement  shall
+ O. Reg. 17/05, s. 55 (6).
+      (7)  The annual percentage rate for a renewed credit  agreement  shall
 be calculated on the assumption that the borrower receives, on  the  renewal
 date, an advance equal to the outstanding balance at the end of the term  of
-the credit agreement being renewed.  O. Reg. 17/05, s. 55 (7).
-      (8)  In subsections (3) to (7), the references to the calculation  of
+the credit agreement being renewed.  O. Reg. 17/05, s. 55 (7).
+      (8)  In subsections (3) to (7), the references to the  calculation  of
 the annual percentage rate include the calculation of  any  amount  that  is
 required to be calculated in order to calculate the annual percentage  rate.
- O. Reg. 17/05, s. 55 (8).
-      (9)  A disclosure of an annual percentage rate for a credit agreement
+ O. Reg. 17/05, s. 55 (8).
+      (9)  A disclosure of an annual percentage rate for a credit  agreement
 shall be considered to be accurate if it is within  one-eighth  of  one  per
 cent of the annual  percentage  rate  calculated  in  accordance  with  this
-section.  O. Reg. 17/05, s. 55 (9).
+section.  O. Reg. 17/05, s. 55 (9).
 
 Cost of borrowing
-      56.  (0.1)  For the purpose of the definition of "cost of borrowing"
+      56.  (0.1)  For the purpose of the definition of “cost  of  borrowing”
 in section 66 of the Act, the following amounts are prescribed  as  included
 in the cost of borrowing with respect to a credit agreement  as  defined  in
 that section:
@@ -2285,16 +2285,16 @@ that section:
     agreement, to process a payment provided  by  the  borrower  under  the
     agreement.
       2.    Any other amount payable by the  borrower,  upon  entering  into
-    the agreement, in connection with the agreement.  O. Reg. 96/09, s. 5.
-      (1)  For the purpose of clause (a) of  the  definition  of  "cost  of
-borrowing" in section 66 of the Act, the cost of borrowing does not  include
+    the agreement, in connection with the agreement.  O. Reg. 96/09, s. 5.
+      (1)  For the purpose of clause (a)  of  the  definition  of  “cost  of
+borrowing” in section 66 of the Act, the cost of borrowing does not  include
 a payment or repayment by the borrower of any portion of the  total  of  the
-advances received by the borrower.  O. Reg. 17/05, s. 56 (1).
-      (2)  For the purpose of clause (b) of  the  definition  of  "cost  of
-borrowing" in section 66  of  the  Act,  the  following  are  prescribed  as
+advances received by the borrower.  O. Reg. 17/05, s. 56 (1).
+      (2)  For the purpose of clause (b)  of  the  definition  of  “cost  of
+borrowing” in section 66  of  the  Act,  the  following  are  prescribed  as
 charges that are not included in the cost of borrowing:
       1.    If the borrower gives a security interest in  personal  property
-    to secure the borrower's indebtedness under the credit agreement,
+    to secure the borrower’s indebtedness under the credit agreement,
       i.    the cost of professional services obtained for  the  purpose  of
        confirming the value, condition, location or conformity  to  law  of
        the property that is  subject  to  the  security  interest,  if  the
@@ -2323,27 +2323,27 @@ charges that are not included in the cost of borrowing:
       3.    Default charges.
       4.    Prepayment charges and penalties.
        5.     Charges  for  optional  services  accepted  by  the  borrower.
-    O. Reg. 17/05, s. 56 (2).
-      (3)  "Cost" means,
+    O. Reg. 17/05, s. 56 (2).
+      (3)  “Cost” means,
       (a)   in subparagraphs 1 iii and iv of subsection (2), the  fees  paid
     for the registration, search or information and the service  fees  paid
     to an agent, if any; and
       (b)   in paragraph 2 of subsection (2), the fees paid for  the  search
-    or statement and the service fees paid to an agent, if  any.   O. Reg.
-    17/05, s. 56 (3).
+    or statement and the service fees paid to an agent,  if  any.   O. Reg.
+    17/05, s. 56 (3).
 
 Floating rate
-      57.  In order for an index to qualify  as  a  public  index  for  the
-purpose of the definition of "floating rate" in section 66 of the  Act,  the
+      57.  In order for an index to  qualify  as  a  public  index  for  the
+purpose of the definition of “floating rate” in section 66 of the  Act,  the
 index shall be one that is made public at  least  weekly  in  a  publication
-that has general circulation in Ontario.  O. Reg. 17/05, s. 57.
+that has general circulation in Ontario.  O. Reg. 17/05, s. 57.
 
 Maximum liability for unauthorized charges
-      58.  (1)  This section applies to charges that are incurred  without
+      58.  (1)  This section applies to charges that  are  incurred  without
 the authorization of the borrower under a  credit  agreement  for  a  credit
 card when the credit  card  is  used  after  having  been  lost  or  stolen.
-O. Reg. 17/05, s. 58 (1).
-      (2)  For the purpose of section 69 of the Act,
+O. Reg. 17/05, s. 58 (1).
+      (2)  For the purpose of section 69 of the Act,
       (a)   the borrower is not liable for charges that are  incurred  after
     the borrower gives the lender oral or written notice  of  the  loss  or
     theft of the credit card; and
@@ -2352,54 +2352,54 @@ O. Reg. 17/05, s. 58 (1).
     the loss or theft of the credit card is the lesser of,
       (i)   $50, and
       (ii)  the amount fixed or agreed to  by  the  lender  as  the  maximum
-       amount for which the borrower will be liable in such cases.  O. Reg.
-       17/05, s. 58 (2).
+       amount for which the borrower will be liable in such cases.  O. Reg.
+       17/05, s. 58 (2).
 
 Transition, liability for cost of borrowing
-      59.  In applying section 70 of the Consumer Protection Act, 2002 to a
+      59.  In applying section 70 of the Consumer Protection Act, 2002 to  a
 credit agreement that was entered  into  before  the  day  the  section  was
 proclaimed in force, a statement that was required to be  furnished  to  the
 borrower in respect of the credit agreement under section 24 or  25  of  the
 Consumer Protection  Act  before  its  repeal  by  the  Consumer  Protection
 Statute Law Amendment Act, 2002 shall be deemed to be a  statement  required
 to be delivered to the borrower by Part VII of the Consumer Protection  Act,
-2002.  O. Reg. 17/05, s. 59.
+2002.  O. Reg. 17/05, s. 59.
 
 Refund or credit to borrower on prepayment
-      60.  (1)  For the purpose of subsection 76 (2)  of  the  Act,  if  a
+      60.  (1)  For the purpose of subsection  76  (2)  of  the  Act,  if  a
 borrower prepays the full outstanding balance under a credit  agreement  for
 fixed credit, the  lender  shall  refund  to  the  borrower  or  credit  the
 borrower with the portion, determined under subsection (2), of  each  charge
 that was paid by the borrower under the agreement or added  to  the  balance
 under the agreement and that forms part of  the  cost  of  borrowing,  other
-than a charge for interest.  O. Reg. 17/05, s. 60 (1).
-      (2)  For each charge, other than  interest,  that  was  paid  by  the
+than a charge for interest.  O. Reg. 17/05, s. 60 (1).
+      (2)  For each charge, other  than  interest,  that  was  paid  by  the
 borrower under the agreement or added to the  balance  under  the  agreement
 and that forms part of the cost of borrowing,  the  portion  of  the  charge
 that is to be refunded or credited to the borrower is the amount  determined
 using the formula,
-                              C � [(N - M) � N]
+                              C × [(N – M) ÷ N]
 in which,
-      "C"   is the amount of the charge,
-      "N"   is the length of the period between  the  time  the  charge  was
+      “C”   is the amount of the charge,
+      “N”   is the length of the period between  the  time  the  charge  was
     imposed and the scheduled end of the term of the credit agreement, and
-      "M"   is the length of the period between  the  time  the  charge  was
+      “M”   is the length of the period between  the  time  the  charge  was
     imposed and the time of the prepayment.
-                                                   O. Reg. 17/05, s. 60 (2).
-      (3)  If a loan broker assists a consumer to obtain credit or  a  loan
+                                                   O. Reg. 17/05, s. 60 (2).
+      (3)  If a loan broker assists a consumer to obtain credit  or  a  loan
 of money and the creditor is not in the  business  of  extending  credit  or
 lending money, the obligation that  subsection  76  (2)  of  the  Act  would
 impose on a lender shall, for the purpose of subsection 67 (2) of  the  Act,
 be deemed to be an obligation of the  creditor  and  not  the  loan  broker.
-O. Reg. 17/05, s. 60 (3).
+O. Reg. 17/05, s. 60 (3).
 
 Advertising
-      61.  (1)  Any person who makes representations in respect of a credit
+      61.  (1)  Any person who makes representations in respect of a  credit
 agreement, or causes representations to be  made  in  respect  of  a  credit
 agreement, in an advertisement shall do so in accordance with this  section,
 regardless of whether the representations are made orally, in writing or  in
-any other form.  O. Reg. 17/05, s. 61 (1).
-      (2)  An advertisement that offers  fixed  credit  and  discloses  the
+any other form.  O. Reg. 17/05, s. 61 (1).
+      (2)  An advertisement that  offers  fixed  credit  and  discloses  the
 interest rate payable by the borrower under  the  credit  agreement  or  the
 amount of a payment to be made by the borrower to the lender  in  connection
 with the credit agreement shall also disclose the following information:
@@ -2416,26 +2416,26 @@ with the credit agreement shall also disclose the following information:
       4.    If  the  advertisement  is  for  a  supplier  credit  agreement,
     applies to a range of goods  or  services  and  uses  a  representative
     credit agreement, the cash price of the good or service represented  in
-    the representative credit agreement.  O. Reg. 17/05, s. 61 (2).
-      (3)  Subsection (2) applies even if the advertisement discloses  that
+    the representative credit agreement.  O. Reg. 17/05, s. 61 (2).
+      (3)  Subsection (2) applies even if the advertisement  discloses  that
 the interest rate payable by the borrower or the amount of a payment  to  be
-made by the borrower to the lender is zero.  O. Reg. 17/05, s. 61 (3).
-      (4)  The annual  percentage  rate  referred  to  in  paragraph  1  of
+made by the borrower to the lender is zero.  O. Reg. 17/05, s. 61 (3).
+      (4)  The  annual  percentage  rate  referred  to  in  paragraph  1  of
 subsection (2) shall be disclosed as prominently  as  the  most  prominently
 disclosed of,
       (a)   the interest rate payable  by  the  borrower  under  the  credit
     agreement; and
       (b)   the amount of a payment to  be  made  by  the  borrower  to  the
-    lender in connection with the credit agreement.  O. Reg. 17/05, s. 61
+    lender in connection with the credit agreement.  O. Reg.  17/05,  s. 61
     (4).
-      (5)  If the advertisement applies to a range of credit agreements for
+      (5)  If the advertisement applies to a range of credit agreements  for
 fixed credit and the information required to be disclosed under paragraph  1
 or 2 of subsection (2) would not be the same for all  credit  agreements  to
 which the advertisement  applies,  the  advertisement  shall  disclose  that
 information for a representative credit agreement and shall state  that  the
-information is for a representative credit agreement.  O. Reg. 17/05, s. 61
+information is for a representative credit agreement.  O. Reg. 17/05,  s. 61
 (5).
-      (6)  An advertisement that offers open credit and that discloses  the
+      (6)  An advertisement that offers open credit and that  discloses  the
 amount of any element of the cost  of  borrowing  shall  also  disclose  the
 following information:
       1.    The annual interest rate payable under the credit  agreement  at
@@ -2444,11 +2444,11 @@ following information:
     of the disclosure, the  manner  of  determining  the  amount,  of  each
     element of the cost of borrowing, other than interest, that a  borrower
     is required to pay at the time the borrower enters into  the  agreement
-    or on a periodic basis.  O. Reg. 17/05, s. 61 (6).
-      (7)  All disclosures with respect  to  an  element  of  the  cost  of
+    or on a periodic basis.  O. Reg. 17/05, s. 61 (6).
+      (7)  All disclosures with  respect  to  an  element  of  the  cost  of
 borrowing in an advertisement referred to in  subsection  (6)  shall  be  of
-equal prominence.  O. Reg. 17/05, s. 61 (7).
-      (8)  In addition to any other information  that  it  is  required  to
+equal prominence.  O. Reg. 17/05, s. 61 (7).
+      (8)  In addition to any other  information  that  it  is  required  to
 disclose under this section, an advertisement stating or  implying  that  no
 interest is payable for a definite  or  indefinite  period  under  a  credit
 agreement shall disclose the following information:
@@ -2467,16 +2467,16 @@ agreement shall disclose the following information:
        annual interest rate for the period would be if the  conditions  for
        forgiveness of the interest were not met, assuming that  the  annual
        interest rate payable under the credit agreement at the time of  the
-       advertisement applied to the period.  O. Reg. 17/05, s. 61 (8).
-      (9)  In this section,
-"representative credit agreement", in relation to  an  advertisement,  means
+       advertisement applied to the period.  O. Reg. 17/05, s. 61 (8).
+      (9)  In this section,
+“representative credit agreement”, in relation to  an  advertisement,  means
  an example of a credit agreement that fairly depicts the credit agreements
  to which the advertisement applies and is identified as  a  representative
- of those credit agreements.  O. Reg. 17/05, s. 61 (9).
-      61.1  Revoked:  O. Reg. 96/09, s. 6.
+ of those credit agreements.  O. Reg. 17/05, s. 61 (9).
+      61.1  Revoked:  O. Reg. 96/09, s. 6.
 
 Disclosure, credit card applications
-      62.  (1)  A credit card issuer shall disclose, in  the  credit  card
+      62.  (1)  A credit card issuer shall  disclose,  in  the  credit  card
 application form that the issuer requires borrowers  to  complete  or  in  a
 document accompanying the credit card application form,
       (a)   the following information:
@@ -2499,12 +2499,12 @@ document accompanying the credit card application form,
       (b)   a  telephone  number  at  which  the  borrower  can  obtain  the
     information described in subclauses (a) (i)  to  (iv)  during  ordinary
     business hours without incurring any charges for  the  telephone  call.
-    O. Reg. 17/05, s. 62 (1).
-      (2)  If a borrower applies for a credit card by telephone, the credit
+    O. Reg. 17/05, s. 62 (1).
+      (2)  If a borrower applies for a credit card by telephone, the  credit
 card issuer shall disclose the information described in subclauses  (1)  (a)
-(i) to (iv) when the borrower makes the application.  O. Reg. 17/05, s. 62
+(i) to (iv) when the borrower makes the application.  O. Reg.  17/05,  s. 62
 (2).
-      (3)  A credit card issuer who solicits a borrower directly  to  apply
+      (3)  A credit card issuer who solicits a borrower  directly  to  apply
 for a credit card shall disclose the following information at  the  time  of
 the solicitation, regardless of whether the solicitation is made in  person,
 by mail, by telephone or by other means, including electronic means:
@@ -2521,11 +2521,11 @@ by mail, by telephone or by other means, including electronic means:
        the time of the solicitation, the manner of determining  the  amount
        payable by the borrower.
       4.    The details with respect  to  grace  periods  under  the  credit
-    agreement.  O. Reg. 17/05, s. 62 (3).
-      62.1  Revoked:  O. Reg. 96/09, s. 7.
+    agreement.  O. Reg. 17/05, s. 62 (3).
+      62.1  Revoked:  O. Reg. 96/09, s. 7.
 
 Initial disclosure statement, fixed credit agreement
-      63.  (1)  The initial disclosure statement for a credit agreement for
+      63.  (1)  The initial disclosure statement for a credit agreement  for
 fixed credit shall be in writing and, for the purpose of subsection  79  (2)
 of the Act, shall disclose the following information,  in  addition  to  the
 information required under subsection 78 (1) of the Act:
@@ -2563,7 +2563,7 @@ information required under subsection 78 (1) of the Act:
     agreement.
       12.   The annual percentage rate for the credit agreement.
       13.   Subject to subsection (2), the  optional  services  accepted  by
-    the borrower, the charge for  each  optional  service,  the  borrower's
+    the borrower, the charge for  each  optional  service,  the  borrower’s
     right to terminate any optional service of a continuing nature and  the
     manner of exercising that right.
       14.   The total of all payments the borrower is required  to  make  in
@@ -2587,7 +2587,7 @@ information required under subsection 78 (1) of the Act:
     full outstanding balance under the credit agreement.
       19.   The default charges under the credit agreement.
       20.   If the borrower  is  giving  a  security  interest  in  personal
-    property  to  secure  the  borrower's  indebtedness  under  the  credit
+    property  to  secure  the  borrower’s  indebtedness  under  the  credit
     agreement, a description of the property that will be  subject  to  the
     security interest.
       21.   If the  credit  agreement  requires  the  borrower  to  purchase
@@ -2595,23 +2595,23 @@ information required under subsection 78 (1) of the Act:
       i.    that the borrower may purchase the insurance  from  any  insurer
        who may lawfully provide that type of insurance and may purchase the
        insurance directly from the insurer  or  through  an  agent  of  the
-       borrower's choice, and
+       borrower’s choice, and
       ii.   if the credit agreement gives the lender  the  following  right,
        that despite subparagraph i, the lender has the right to disapprove,
-       on reasonable grounds, an insurer selected by the borrower.  O. Reg.
-       17/05, s. 63 (1); O. Reg. 200/05, s. 1.
-      (2)  The information referred to in paragraph 13  of  subsection  (1)
+       on reasonable grounds, an insurer selected by the borrower.  O. Reg.
+       17/05, s. 63 (1); O. Reg. 200/05, s. 1.
+      (2)  The information referred to in paragraph  13  of  subsection  (1)
 need not  be  disclosed  in  the  initial  disclosure  statement  if  it  is
 disclosed in a separate statement  delivered  to  the  borrower  before  the
-optional services are provided to the borrower.  O. Reg. 17/05, s. 63 (2).
-      (3)  If the interest rate payable by the borrower  under  the  credit
+optional services are provided to the borrower.  O. Reg. 17/05, s. 63 (2).
+      (3)  If the interest rate payable by the  borrower  under  the  credit
 agreement  may  change  during  the  term  of  the  credit  agreement,   the
 information required under paragraphs 4 and 14 of subsection  (1)  shall  be
 based on the initial interest rate  disclosed  under  subparagraph  7  i  of
-subsection (1).  O. Reg. 17/05, s. 63 (3).
+subsection (1).  O. Reg. 17/05, s. 63 (3).
 
 Initial disclosure statement, open credit agreement
-      64.  (1)  The initial disclosure statement for a credit agreement for
+      64.  (1)  The initial disclosure statement for a credit agreement  for
 open credit shall be in writing and, for the purpose of  subsection  79  (3)
 of the Act, shall disclose the following information,  in  addition  to  the
 information required under subsection 78 (1) of the Act:
@@ -2638,7 +2638,7 @@ information required under subsection 78 (1) of the Act:
       7.    The details with respect  to  grace  periods  under  the  credit
     agreement.
       8.    Subject to subsection (3), the  optional  services  accepted  by
-    the borrower, the charge for  each  optional  service,  the  borrower's
+    the borrower, the charge for  each  optional  service,  the  borrower’s
     right to terminate any optional service of a continuing nature and  the
     manner of exercising that right.
       9.    Each period for which a statement of account will  be  delivered
@@ -2661,10 +2661,10 @@ information required under subsection 78 (1) of the Act:
     the authorization of the borrower when the credit card  is  used  after
     having been lost or stolen.
       14.   A telephone number at which  the  borrower  can  make  inquiries
-    about the borrower's account during  ordinary  business  hours  without
+    about the borrower’s account during  ordinary  business  hours  without
     incurring any charges for the telephone call.
       15.   If the borrower  is  giving  a  security  interest  in  personal
-    property  to  secure  the  borrower's  indebtedness  under  the  credit
+    property  to  secure  the  borrower’s  indebtedness  under  the  credit
     agreement,
       i.    a description of the  property  that  will  be  subject  to  the
        security interest, and
@@ -2700,36 +2700,36 @@ information required under subsection 78 (1) of the Act:
       i.    that the borrower may purchase the insurance  from  any  insurer
        who may lawfully provide that type of insurance and may purchase the
        insurance directly from the insurer  or  through  an  agent  of  the
-       borrower's choice, and
+       borrower’s choice, and
       ii.   if the credit agreement gives the lender  the  following  right,
        that despite subparagraph i, the lender has the right to disapprove,
-       on reasonable grounds, an insurer selected by the borrower.  O. Reg.
-       17/05, s. 64 (1).
-       (2)  The  initial  credit  limit  referred  to  in  paragraph  1  of
+       on reasonable grounds, an insurer selected by the borrower.  O. Reg.
+       17/05, s. 64 (1).
+       (2)  The  initial  credit  limit  referred  to  in  paragraph  1   of
 subsection (1) need not be disclosed in the initial disclosure statement  if
 it is disclosed in the first statement of account  delivered  under  section
 81 of the Act or in a separate statement delivered to  the  borrower  on  or
 before the day the first statement of account is delivered to the  borrower.
- O. Reg. 17/05, s. 64 (2).
-      (3)  The information referred to in paragraph  8  of  subsection  (1)
+ O. Reg. 17/05, s. 64 (2).
+      (3)  The information referred to in  paragraph  8  of  subsection  (1)
 need not  be  disclosed  in  the  initial  disclosure  statement  if  it  is
 disclosed in a separate statement  delivered  to  the  borrower  before  the
-optional services are provided to the borrower.  O. Reg. 17/05, s. 64 (3).
-      (4)  Any information referred to in  subsection  (1)  that  would  be
+optional services are provided to the borrower.  O. Reg. 17/05, s. 64 (3).
+      (4)  Any information referred to  in  subsection  (1)  that  would  be
 relevant to the borrower only if a particular consumer transaction  occurred
 need not  be  disclosed  in  the  initial  disclosure  statement  if  it  is
 disclosed in a separate statement  delivered  to  the  borrower  before  the
-particular consumer transaction occurs.  O. Reg. 17/05, s. 64 (4).
-      (5)  "Cost" means,
+particular consumer transaction occurs.  O. Reg. 17/05, s. 64 (4).
+      (5)  “Cost” means,
       (a)   in sub-subparagraphs 15 ii C and D of subsection (1),  the  fees
     paid for the registration, search or information and the  service  fees
     paid to an agent, if any; and
       (b)   in subparagraphs 16 i and ii of subsection (1),  the  fees  paid
     for the search or statement and the service fees paid to an  agent,  if
-    any.  O. Reg. 17/05, s. 64 (5).
+    any.  O. Reg. 17/05, s. 64 (5).
 
 Subsequent disclosure, fixed credit agreement with floating rate
-      65.  A disclosure statement required to be delivered under subsection
+      65.  A disclosure statement required to be delivered under  subsection
 80 (1) of the Act shall be in  writing  and  shall  disclose  the  following
 information:
       1.    The period covered by the disclosure statement.
@@ -2747,26 +2747,26 @@ information:
     disclosure statement than it was at the beginning of that  period,  the
     adjusted amount of the remaining payments based on the annual  interest
     rate at the end of the period  covered  by  the  disclosure  statement.
-    O. Reg. 17/05, s. 65.
+    O. Reg. 17/05, s. 65.
 
 Subsequent disclosure, fixed credit agreement with changeable rate
-      66.  A disclosure statement required to be delivered under subsection
+      66.  A disclosure statement required to be delivered under  subsection
 80 (2) of the Act shall be in  writing  and  shall  disclose  the  following
 information:
       1.    The new annual interest rate.
       2.    The date the new annual interest rate takes effect.
       3.    How the change in the annual interest rate  affects  the  timing
     or amount of any payment the borrower is required  to  make  under  the
-    credit agreement.  O. Reg. 17/05, s. 66.
+    credit agreement.  O. Reg. 17/05, s. 66.
 
 Transition, open credit subsequent disclosure
-      67.  In applying subsection 81 (1) of the Act to a  credit  agreement
+      67.  In applying subsection 81 (1) of the Act to  a  credit  agreement
 for open credit that was entered into before  the  day  the  subsection  was
 proclaimed in force, the monthly  period  begins  to  run  on  the  day  the
-subsection was proclaimed in force.  O. Reg. 17/05, s. 67.
+subsection was proclaimed in force.  O. Reg. 17/05, s. 67.
 
 Statement of account, open credit agreement
-      68.  (1)  A statement of account for a  credit  agreement  for  open
+      68.  (1)  A statement of account  for  a  credit  agreement  for  open
 credit shall be in writing and, for the purpose of subsection 81 (4) of  the
 Act, shall disclose the following information:
       1.    The period covered by the statement of account.
@@ -2801,18 +2801,18 @@ Act, shall disclose the following information:
       14.   The rights and obligations of the borrower with respect  to  the
     correction of billing errors.
       15.   A telephone number at which  the  borrower  can  make  inquiries
-    about the borrower's account during  ordinary  business  hours  without
-    incurring any charges for the telephone call.  O. Reg.  17/05,  s. 68
+    about the borrower’s account during  ordinary  business  hours  without
+    incurring any charges for the telephone  call.   O. Reg.  17/05,  s. 68
     (1).
-      (2)  For the purpose  of  subparagraph  3  i  of  subsection  (1),  a
+      (2)  For the  purpose  of  subparagraph  3  i  of  subsection  (1),  a
 description of a consumer transaction shall be considered to  be  sufficient
 if the description, along with the  transaction  record  included  with  the
 statement of account or made available to the borrower at the  time  of  the
 transaction, can reasonably be expected to enable  the  borrower  to  verify
-the transaction.  O. Reg. 17/05, s. 68 (2).
+the transaction.  O. Reg. 17/05, s. 68 (2).
 
 Material and non-material changes
-      69.  (1)  For the purpose of clause 81  (7)  (a)  of  the  Act,  the
+      69.  (1)  For the purpose of  clause  81  (7)  (a)  of  the  Act,  the
 following are not material changes:
       1.    A change in the credit limit.
       2.    A decrease in the annual interest rate payable by the borrower.
@@ -2827,124 +2827,124 @@ following are not material changes:
     the borrower.
       6.    A decrease in any other charge payable by the borrower  that  is
     referred to in subsection 64 (1).
-      7.    An increase in the length of a grace  period.   O. Reg.  17/05,
-    s. 69 (1).
-      (2)  For the purpose of clause 81 (7) (b) of the Act, a change in any
+      7.    An increase in the length of a  grace  period.   O. Reg.  17/05,
+    s. 69 (1).
+      (2)  For the purpose of clause 81 (7) (b) of the Act, a change in  any
 of the matters prescribed under subsection 79 (3) of the Act, other  than  a
 change mentioned in subsection (1) of this section, is  a  material  change.
-O. Reg. 17/05, s. 69 (2).
+O. Reg. 17/05, s. 69 (2).
 
 Disclosures under Part VII of the Act, general
-      70.  (1)  A disclosure statement under Part VII of the Act may be  a
-separate document or part of another document.  O. Reg. 17/05, s. 70 (1).
-      (2)  Subject to subsections 55 (3) to (8), a  disclosure  made  under
+      70.  (1)  A disclosure statement under Part VII of the Act  may  be  a
+separate document or part of another document.  O. Reg. 17/05, s. 70 (1).
+      (2)  Subject to subsections 55 (3) to (8),  a  disclosure  made  under
 Part VII of the Act may be based on an estimate or assumption if,
       (a)   the information is not ascertainable at the time the  disclosure
     is made;
       (b)   the estimate or assumption is reasonable; and
       (c)   the estimate or assumption is clearly identified as an  estimate
-    or assumption.  O. Reg. 17/05, s. 70 (2).
-      (3)  If a disclosure made under Part  VII  of  the  Act  discloses  a
+    or assumption.  O. Reg. 17/05, s. 70 (2).
+      (3)  If a disclosure made under  Part  VII  of  the  Act  discloses  a
 monetary amount that is not in Canadian  currency,  it  shall  disclose  the
-currency in which the amount is expressed.  O. Reg. 17/05, s. 70 (3).
+currency in which the amount is expressed.  O. Reg. 17/05, s. 70 (3).
 
 Exemptions from Part VII
-      71.  (1)  Subsection 67 (2) of the Act does not apply if all of  the
+      71.  (1)  Subsection 67 (2) of the Act does not apply if  all  of  the
 assistance by the loan broker occurred before the  day  the  subsection  was
-proclaimed in force.  O. Reg. 17/05, s. 71 (1).
-      (2)  Section 68 of the Act does not apply  if  the  credit  card  was
-first used before the day the section was  proclaimed  in  force.   O. Reg.
-17/05, s. 71 (2).
-      (3)  Although section 69 of the Act applies regardless of whether the
+proclaimed in force.  O. Reg. 17/05, s. 71 (1).
+      (2)  Section 68 of the Act does not  apply  if  the  credit  card  was
+first used before the day the section  was  proclaimed  in  force.   O. Reg.
+17/05, s. 71 (2).
+      (3)  Although section 69 of the Act applies regardless of whether  the
 credit agreement for the credit card has been  entered  into  before  or  is
 entered into after the section is proclaimed in force, the section does  not
 apply to unauthorized charges that were  incurred  before  the  section  was
-proclaimed in force.  O. Reg. 17/05, s. 71 (3).
-      (4)  Section 75 of the Act does not apply to,
+proclaimed in force.  O. Reg. 17/05, s. 71 (3).
+      (4)  Section 75 of the Act does not apply to,
       (a)   a credit agreement for open credit that was entered into  before
     the day the section was proclaimed in force;
       (b)   a credit agreement  for  fixed  credit  that  was  entered  into
     before the day the section was proclaimed in force, unless  the  credit
     agreement is amended, extended or renewed on or after that day;
       (c)   default charges that were imposed before  the  day  the  section
-    was proclaimed in force.  O. Reg. 17/05, s. 71 (4).
-      (5)  If a credit agreement was entered into before the day section 76
+    was proclaimed in force.  O. Reg. 17/05, s. 71 (4).
+      (5)  If a credit agreement was entered into before the day section  76
 of the Act was proclaimed in force, section 76 of the Act does not apply  to
 the credit agreement and section 28 of the Consumer Protection  Act,  as  it
 read immediately before its repeal by the Consumer  Protection  Statute  Law
-Amendment Act, 2002, continues to apply to the credit  agreement.   O. Reg.
-17/05, s. 71 (5).
-      (6)  Subsection 78 (2) of the Act does not apply if the  loan  broker
+Amendment Act, 2002, continues to apply to the  credit  agreement.   O. Reg.
+17/05, s. 71 (5).
+      (6)  Subsection 78 (2) of the Act does not apply if  the  loan  broker
 took the application from the borrower and sent it to a  lender  before  the
-day the subsection was proclaimed in force.  O. Reg. 17/05, s. 71 (6).
-      (7)  Subsection 80 (1)  of  the  Act  does  not  apply  to  a  credit
+day the subsection was proclaimed in force.  O. Reg. 17/05, s. 71 (6).
+      (7)  Subsection 80  (1)  of  the  Act  does  not  apply  to  a  credit
 agreement for fixed  credit  that  was  entered  into  before  the  day  the
 subsection was proclaimed in force, unless the credit agreement is  amended,
 extended or renewed on or after that day and, in  that  case,  the  12-month
 period begins to run on the  day  the  agreement  is  amended,  extended  or
-renewed.  O. Reg. 17/05, s. 71 (7).
-      (8)  Subsection 80 (2)  of  the  Act  does  not  apply  to  a  credit
+renewed.  O. Reg. 17/05, s. 71 (7).
+      (8)  Subsection 80  (2)  of  the  Act  does  not  apply  to  a  credit
 agreement for fixed  credit  that  was  entered  into  before  the  day  the
 subsection was proclaimed in force, unless,
       (a)   the credit agreement is  amended,  extended  or  renewed  on  or
     after that day; and
-      (b)   the lender's increase of the annual interest rate occurs  on  or
-    after that day.  O. Reg. 17/05, s. 71 (8).
-      (9)  Subsections 80 (3) and (4) of the Act do not apply to  a  credit
+      (b)   the lender’s increase of the annual interest rate occurs  on  or
+    after that day.  O. Reg. 17/05, s. 71 (8).
+      (9)  Subsections 80 (3) and (4) of the Act do not apply  to  a  credit
 agreement for fixed credit that was entered into before the  day  subsection
 80 (3) of the Act was proclaimed in force, unless,
       (a)   the credit agreement is  amended,  extended  or  renewed  on  or
     after that day; and
-      (b)   the point when the amount of the borrower's  scheduled  payments
+      (b)   the point when the amount of the borrower’s  scheduled  payments
     required by the agreement is no longer sufficient to cover the interest
-    accrued under the agreement occurs on  or  after  that  day.   O. Reg.
-    17/05, s. 71 (9).
-      (10)  Subsection 80 (5) of  the  Act  does  not  apply  to  a  credit
+    accrued under the agreement occurs  on  or  after  that  day.   O. Reg.
+    17/05, s. 71 (9).
+      (10)  Subsection 80 (5)  of  the  Act  does  not  apply  to  a  credit
 agreement for fixed  credit  that  was  entered  into  before  the  day  the
 subsection was proclaimed in force, unless the amendment referred to in  the
-subsection is made on or after that day.  O. Reg. 17/05, s. 71 (10).
-      (11)  Subsection 81 (5) of  the  Act  does  not  apply  to  a  credit
+subsection is made on or after that day.  O. Reg. 17/05, s. 71 (10).
+      (11)  Subsection 81 (5)  of  the  Act  does  not  apply  to  a  credit
 agreement for  open  credit  that  was  entered  into  before  the  day  the
 subsection was proclaimed in force, unless the change  referred  to  in  the
-subsection occurs on or after that day.  O. Reg. 17/05, s. 71 (11).
-      (12)  In the case of a credit agreement for a credit card  where  the
+subsection occurs on or after that day.  O. Reg. 17/05, s. 71 (11).
+      (12)  In the case of a credit agreement for a credit  card  where  the
 interest rate is not a floating rate, if the lender decreases  the  interest
 rate under the agreement pursuant to the agreement, the lender,
       (a)   is exempt from the requirement in subsection 81 (5) of  the  Act
     to deliver a  disclosure  statement  disclosing  the  decrease  to  the
     borrower at least 30 days before the decrease; and
       (b)   shall deliver a disclosure statement disclosing the decrease  to
-    the borrower in the next statement of account.  O. Reg. 17/05,  s. 71
+    the borrower in the next statement of account.   O. Reg.  17/05,  s. 71
     (12).
-      (13)  Subsection 81 (6) of  the  Act  does  not  apply  to  a  credit
+      (13)  Subsection 81 (6)  of  the  Act  does  not  apply  to  a  credit
 agreement for  open  credit  that  was  entered  into  before  the  day  the
 subsection was proclaimed in force, unless the amendment referred to in  the
-subsection is made on or after that day.  O. Reg. 17/05, s. 71 (13).
-      (14)  Subsection 81 (7) of  the  Act  does  not  apply  to  a  credit
+subsection is made on or after that day.  O. Reg. 17/05, s. 71 (13).
+      (14)  Subsection 81 (7)  of  the  Act  does  not  apply  to  a  credit
 agreement for a credit card  that  was  entered  into  before  the  day  the
 subsection was proclaimed in force, unless the amendment referred to in  the
-subsection is made on or after that day.  O. Reg. 17/05, s. 71 (14).
+subsection is made on or after that day.  O. Reg. 17/05, s. 71 (14).
 
                                  Part VII.1
-      Agreements for cashing Government Cheques - Part VII.1 of the Act
+      Agreements for cashing Government Cheques — Part VII.1 of the Act
 
 LIMIT ON FEE FOR CASHING GOVERNMENT CHEQUES
-      71.1  (1)  The prescribed amount for the purposes of subsection 85.4
+      71.1  (1)  The prescribed amount for the purposes of  subsection  85.4
 (1) of the Act is the lesser of,
       (a)   the sum of $2 plus 1 per cent of the face value of  the  cheque;
     and
       (b)   $10. O. Reg. 488/17, s. 1.
-      (2)  A supplier who requires a consumer to purchase goods or services
+      (2)  A supplier who requires a consumer to purchase goods or  services
 as a condition for the supplier cashing a government cheque is  required  to
 include the purchase price of the goods or services  in  the  fee  that  the
 supplier charges the consumer for cashing the cheque. O. Reg. 488/17, s. 1.
 
 Statement when cashing government cheques
-      71.2  (1)  A supplier under a consumer agreement to which Part VII.1
+      71.2  (1)  A supplier under a consumer agreement to which  Part  VII.1
 of the Act applies who cashes a government cheque  for  the  consumer  under
 the agreement shall provide the consumer with  a  receipt  for  cashing  the
 cheque. O. Reg. 488/17, s. 1.
-      (2)  The receipt shall set out,
+      (2)  The receipt shall set out,
       (a)   a statement that the cheque was a government cheque;
       (b)   the face value of the cheque;
       (c)   the amount of the fee that the  supplier  charged  the  consumer
@@ -2956,17 +2956,17 @@ cheque. O. Reg. 488/17, s. 1.
       (f)   the date on which the supplier cashed the cheque;
       (g)   the name, address and  telephone  number  of  the  supplier  and
     information respecting other ways, if any, in which  the  consumer  can
-    contact the supplier, such as the  supplier's  fax  number  and  e-mail
+    contact the supplier, such as the  supplier’s  fax  number  and  e-mail
     address; and
       (h)    information  for  contacting  the  Ministry,  as  the  Ministry
     specifies. O. Reg. 488/17, s. 1.
 
                                   Part VIII
-                       Leasing - Part VIII of the Act
+                       Leasing — Part VIII of the Act
 
 INTERPRETATION
-      72.  (1)  In this Part,
-"advance", to a lessee in connection with a lease, includes,
+      72.  (1)  In this Part,
+“advance”, to a lessee in connection with a lease, includes,
       (a)   the amount of a pre-existing monetary obligation of  the  lessee
     that the lessor pays, discharges or consolidates in connection with the
     lease, whether or not the pre-existing monetary  obligation  is  itself
@@ -2992,15 +2992,15 @@ INTERPRETATION
        of that Act or a certificate to discharge or partially  discharge  a
        notice of security interest under subsection 54 (4) of that Act, and
        the cost of searching or obtaining information from the  system,  in
-       relation to the leased goods; ("avance")
-"annual  percentage  rate",  in  relation  to  a  lease,  means  the  amount
+       relation to the leased goods; (“avance”)
+“annual  percentage  rate”,  in  relation  to  a  lease,  means  the  amount
  determined using the formula,
-                                (M � I) � 100
+                                (M × I) × 100
  in which,
-      "M"   is the number of payment periods in a year under the lease, and
-      "I"    is  the  periodic  interest  rate,  as  determined  under  this
-       section; ("taux de cr�dit")
-"assumed residual payment" means,
+      “M”   is the number of payment periods in a year under the lease, and
+      “I”    is  the  periodic  interest  rate,  as  determined  under  this
+       section; (“taux de crédit”)
+“assumed residual payment” means,
       (a)   in the case of a lease that is neither an  option  lease  nor  a
     residual obligation lease, the sum of the estimated residual  value  of
     the leased goods and the payment, if any, that the lessee  is  required
@@ -3016,9 +3016,9 @@ INTERPRETATION
        the end of the lease term if the  realizable  value  of  the  leased
        goods at the end of the lease term  equals  the  estimated  residual
        value of the lease goods, and
-      (ii)  the estimated residual value of the  leased  goods;  ("versement
-       r�siduel pr�sum�")
-"capitalized amount" means the amount determined by,
+      (ii)  the estimated residual value of the  leased  goods;  (“versement
+       résiduel présumé”)
+“capitalized amount” means the amount determined by,
       (a)   adding,
       (i)   the lease value of the leased goods, and
       (ii)  the sum of the advances to be made to the lessee  in  connection
@@ -3029,11 +3029,11 @@ INTERPRETATION
       (i)   payments that the lease expressly requires the  lessor  to  hold
        as security for any of the obligations of the lessee to the  lessor,
        and
-      (ii)  periodic payments under the lease; ("somme capitalis�e")
-"estimated residual value", in relation to leased goods, means the  lessor's
+      (ii)  periodic payments under the lease; (“somme capitalisée”)
+“estimated residual value”, in relation to leased goods, means the  lessor’s
  reasonable estimate of the wholesale value of the leased goods at the  end
- of the lease term; ("valeur r�siduelle estimative")
-"implicit finance  charge",  in  relation  to  a  lease,  means  the  amount
+ of the lease term; (“valeur résiduelle estimative”)
+“implicit finance  charge”,  in  relation  to  a  lease,  means  the  amount
  determined by,
       (a)   adding,
       (i)   the sum of all non-refundable payments to be made by the  lessee
@@ -3043,21 +3043,21 @@ INTERPRETATION
       (1)   the optional service is to be made available before  or  at  the
               beginning of the lease term and the  value  of  the  optional
               service is an advance that is added under subclause (a)  (ii)
-              of the definition of "capitalized amount" in this subsection,
+              of the definition of “capitalized amount” in this subsection,
               and
       (2)   the payments to be made by the lessee for the  optional  service
               are not payments that are required  to  be  subtracted  under
-              clause (b) of the definition of "capitalized amount" in  this
+              clause (b) of the definition of “capitalized amount” in  this
               subsection,
       (B)   excluding termination charges and penalties,
       (C)   excluding taxes in connection with the lease, and
       (D)   excluding payments that are  required  to  be  subtracted  under
-           clause (b) of the definition of  "capitalized  amount"  in  this
+           clause (b) of the definition of  “capitalized  amount”  in  this
            subsection, and
       (ii)  the assumed residual payment, and
       (b)   subtracting the capitalized amount from  the  amount  determined
-    under clause (a); ("frais financiers implicites")
-"lease value of the leased goods" means,
+    under clause (a); (“frais financiers implicites”)
+“lease value of the leased goods” means,
       (a)   for the purposes of a disclosure statement for a lease,
       (i)   if the  lessor  sells  such  goods  to  cash  consumers  in  the
        ordinary course of business, the lesser of,
@@ -3076,86 +3076,86 @@ INTERPRETATION
        ordinary course of business, or
       (ii)  if the lessor does not sell such goods to cash consumers in  the
        ordinary course of business, a reasonable  estimate  of  the  retail
-       price of the goods; ("valeur de location des marchandises lou�es")
-"option lease" means a lease that gives the lessee the option  of  acquiring
+       price of the goods; (“valeur de location des marchandises louées”)
+“option lease” means a lease that gives the lessee the option  of  acquiring
  title to the leased goods by making a payment in addition to the  periodic
- payments required under the lease; ("bail avec option")
-"periodic interest rate" means the value of "I" in the equation,
-        PMT  =  (PV - FV(1 + I)-N) � [((1 - (1 + I)-(N-A)) � I) + A]
+ payments required under the lease; (“bail avec option”)
+“periodic interest rate” means the value of “I” in the equation,
+        PMT  =  (PV – FV(1 + I)-N) ÷ [((1 – (1 + I)-(N-A)) ÷ I) + A]
  in which,
-      "PMT" is the amount of each periodic payment under the lease,
-      "A"   is the number of periodic payments to be made  under  the  lease
+      “PMT” is the amount of each periodic payment under the lease,
+      “A”   is the number of periodic payments to be made  under  the  lease
        before or at the beginning of the lease term,
-      "PV"  is the capitalized amount,
-      "FV"  is the assumed residual payment, and
-      "N"   is the  number  of  payment  periods  under  the  lease;  ("taux
-       d'int�r�t p�riodique")
-"total lease cost" means the total of the payments that are required  to  be
+      “PV”  is the capitalized amount,
+      “FV”  is the assumed residual payment, and
+      “N”   is the  number  of  payment  periods  under  the  lease;  (“taux
+       d’intérêt périodique”)
+“total lease cost” means the total of the payments that are required  to  be
  made by the lessee in connection with the lease in the ordinary course  of
  events, excluding payments that the lease expressly requires the lessor to
  hold as security for any of the obligations of the lessee to  the  lessor.
- ("co�t total du bail")  O. Reg. 17/05, s. 72 (1); O. Reg. 200/05, s. 2.
-      (2)  In calculating the annual percentage rate for a  lease,  a  year
-shall be considered to have 365 days.  O. Reg. 96/09, s. 8.
-      (3)  If a lease  provides  for  payments  to  be  made  at  intervals
+ (“coût total du bail”)  O. Reg. 17/05, s. 72 (1); O. Reg. 200/05, s. 2.
+      (2)  In calculating the annual percentage rate for  a  lease,  a  year
+shall be considered to have 365 days.  O. Reg. 96/09, s. 8.
+      (3)  If a  lease  provides  for  payments  to  be  made  at  intervals
 measured by reference to weeks or months, the  annual  percentage  rate  for
 the lease may be calculated on the assumption that each week is  1/52  of  a
-year long and each month is 1/12 of a year long.  O. Reg. 17/05, s. 72 (3).
-      (4)  In subsections (2) and (3), the references to the calculation of
+year long and each month is 1/12 of a year long.  O. Reg. 17/05, s. 72 (3).
+      (4)  In subsections (2) and (3), the references to the calculation  of
 the annual percentage rate include the calculation of  any  amount  that  is
 required to be calculated in order to calculate the annual percentage  rate.
- O. Reg. 17/05, s. 72 (4).
-      (5)  "Cost" in the definition of "advance" in subsection (1) means,
+ O. Reg. 17/05, s. 72 (4).
+      (5)  “Cost” in the definition of “advance” in subsection (1) means,
       (a)   in subclause (b) (ii) of the definition, the fees paid  for  the
     search or statement and the service fees paid to an agent, if any; and
       (b)   in subclauses (b) (iii) and (iv) of  the  definition,  the  fees
     paid for the registration, search or information and the  service  fees
-    paid to an agent, if any.  O. Reg. 17/05, s. 72 (5).
-      (6)  In subsection (1),  for  the  purposes  of  the  definitions  of
-"assumed residual payment", "estimated  residual  value"  and  "total  lease
-cost" and for the purposes  of  subclause  (a)  (i)  of  the  definition  of
-"implicit finance charge" and "N" in the definition  of  "periodic  interest
-rate",
+    paid to an agent, if any.  O. Reg. 17/05, s. 72 (5).
+      (6)  In subsection  (1),  for  the  purposes  of  the  definitions  of
+“assumed residual payment”, “estimated  residual  value”  and  “total  lease
+cost” and for the purposes  of  subclause  (a)  (i)  of  the  definition  of
+“implicit finance charge” and “N” in the definition  of  “periodic  interest
+rate”,
       (a)   if the lease  term  is  indefinite,  the  lease  term  shall  be
     considered to be one year long; and
       (b)   if the lease term is the  length  of  the  useful  life  of  the
     leased goods, the lease term shall be considered  to  be  a  reasonable
     estimate of the length of the useful life of the leased goods, and  the
     same estimated length shall be used for the purpose  of  all  of  those
-    definitions with respect to the same lease.  O. Reg. 17/05, s. 72 (6).
-      (7)  An amount payable by the lessee, before or at the  beginning  of
+    definitions with respect to the same lease.  O. Reg. 17/05, s. 72 (6).
+      (7)  An amount payable by the lessee, before or at  the  beginning  of
 the lease term, in respect of a tax in connection with the  lease  shall  be
 excluded from the sum of the payments to be made by the  lessee,  calculated
-under clause (b) of the definition of  "capitalized  amount"  in  subsection
+under clause (b) of the definition of  “capitalized  amount”  in  subsection
 (1), if it was not included in the sum of the advances to  be  made  to  the
-lessee, calculated under subclause (a) (ii) of  that  definition.   O. Reg.
-17/05, s. 72 (7).
-      (8)  If a lease provides for the servicing of the  leased  goods  and
+lessee, calculated under subclause (a) (ii)  of  that  definition.   O. Reg.
+17/05, s. 72 (7).
+      (8)  If a lease provides for the servicing of  the  leased  goods  and
 the lessee did not have the option of  excluding  the  servicing  provisions
 from the lease,  a  reference  to  the  goods  shall  be  interpreted  as  a
 reference to the goods and the servicing of the goods in,
-      (a)   the expressions "estimated residual value of the leased  goods",
-    "lease value of the leased goods" and "realizable value of  the  leased
-    goods" in this Part; and
-      (b)   the definitions of "estimated residual value" and  "lease  value
-    of the leased goods" in subsection (1).  O. Reg. 17/05, s. 72 (8).
-      (9)  If there is any irregularity in the amount or timing of payments
-required during the lease term, the equation in the definition of  "periodic
-interest  rate"  in  subsection  (1)  shall  be  modified  as  necessary  to
-calculate  the  value  of  "I"  in  accordance  with  actuarial  principles.
-O. Reg. 17/05, s. 72 (9).
-      (10)  A disclosure of an annual percentage rate for a lease shall  be
+      (a)   the expressions “estimated residual value of the leased  goods”,
+    “lease value of the leased goods” and “realizable value of  the  leased
+    goods” in this Part; and
+      (b)   the definitions of “estimated residual value” and  “lease  value
+    of the leased goods” in subsection (1).  O. Reg. 17/05, s. 72 (8).
+      (9)  If there is any irregularity in the amount or timing of  payments
+required during the lease term, the equation in the definition of  “periodic
+interest  rate”  in  subsection  (1)  shall  be  modified  as  necessary  to
+calculate  the  value  of  “I”  in  accordance  with  actuarial  principles.
+O. Reg. 17/05, s. 72 (9).
+      (10)  A disclosure of an annual percentage rate for a lease  shall  be
 considered to be accurate if it is within one-eighth of one per cent of  the
-annual percentage rate calculated in accordance with this section.  O. Reg.
-17/05, s. 72 (10).
+annual percentage rate calculated in accordance with this section.   O. Reg.
+17/05, s. 72 (10).
 
 Advertising
-      73.  (1)  This section prescribes, for the purpose of section 88  of
+      73.  (1)  This section prescribes, for the purpose of  section  88  of
 the Act, the requirements  with  which  a  person  shall  comply  in  making
 representations about the cost of a lease, or causing representations to  be
-made about the cost of a lease, in an advertisement.  O. Reg. 17/05, s. 73
+made about the cost of a lease, in an advertisement.  O. Reg.  17/05,  s. 73
 (1).
-      (2)  An advertisement described in  subsection  (1),  other  than  an
+      (2)  An advertisement described  in  subsection  (1),  other  than  an
 advertisement to which subsection (3) applies, shall disclose the  following
 information:
       1.    That the consumer agreement is a lease.
@@ -3176,8 +3176,8 @@ information:
     the lessee will be charged for exceeding the kilometre allowance.
       7.    The annual percentage rate for the lease.
       8.    The currency in which  amounts  are  expressed,  if  it  is  not
-    Canadian currency.  O. Reg. 17/05, s. 73 (2).
-      (3)  An advertisement described in subsection (1) that  is  broadcast
+    Canadian currency.  O. Reg. 17/05, s. 73 (2).
+      (3)  An advertisement described in subsection (1)  that  is  broadcast
 on radio or television, displayed on  a  billboard  or  bus  board  or  made
 through any other medium  with  similar  time  or  space  limitations  shall
 disclose the information referred  to  in  paragraphs  1,  3,  4  and  8  of
@@ -3192,28 +3192,28 @@ subsection (2) and shall,
     published in a publication having general circulation in  the  area  of
     the radio or television broadcast, the area of  the  billboard  or  bus
     board display or the area covered by the other medium, as the case  may
-    be.  O. Reg. 17/05, s. 73 (3).
-      (4)  When the annual percentage rate for a lease is  disclosed  under
+    be.  O. Reg. 17/05, s. 73 (3).
+      (4)  When the annual percentage rate for a lease  is  disclosed  under
 subsection (2) or (3), it shall be disclosed  as  prominently  as  the  most
 prominently disclosed amount of a payment  that  forms  part  of  the  total
-lease cost.  O. Reg. 17/05, s. 73 (4).
-      (5)  If the advertisement applies to a range of leases and any of the
+lease cost.  O. Reg. 17/05, s. 73 (4).
+      (5)  If the advertisement applies to a range of leases and any of  the
 information required to be disclosed under this section  would  not  be  the
 same for all leases to which the advertisement  applies,  the  advertisement
 shall disclose that information for a representative lease and  shall  state
-that the information is for a representative lease.  O. Reg. 17/05,  s. 73
+that the information is for a representative lease.   O. Reg.  17/05,  s. 73
 (5).
-      (6)  In this section,
-"representative lease", in relation to an advertisement,  means  an  example
+      (6)  In this section,
+“representative lease”, in relation to an advertisement,  means  an  example
  of a lease that fairly depicts  the  leases  to  which  the  advertisement
- applies and is identified as a representative of those  leases.   O. Reg.
- 17/05, s. 73 (6).
+ applies and is identified as a representative of  those  leases.   O. Reg.
+ 17/05, s. 73 (6).
 
 Disclosure statement for a lease
-      74.  (1)  A disclosure statement for a lease shall be in writing and
-may be a separate document or part of  another  document.   O. Reg.  17/05,
-s. 74 (1).
-      (2)  For the purpose of subsection 89 (2) of the  Act,  a  disclosure
+      74.  (1)  A disclosure statement for a lease shall be in  writing  and
+may be a separate document or part  of  another  document.   O. Reg.  17/05,
+s. 74 (1).
+      (2)  For the purpose of subsection 89 (2) of  the  Act,  a  disclosure
 statement for a lease shall disclose the following information:
       1.    That the consumer agreement is a lease.
       2.    The length  of  the  lease  term  or  that  the  lease  term  is
@@ -3246,7 +3246,7 @@ statement for a lease shall disclose the following information:
        under the lease at the end of the lease term if the realizable value
        of the leased goods  at  the  end  of  the  lease  term  equals  the
        estimated residual value of the lease goods, and
-      ii.   a statement that the lessee's maximum liability at  the  end  of
+      ii.   a statement that the lessee’s maximum liability at  the  end  of
        the lease term is the sum of,
       A.    the amount that the lessee is required  to  pay  to  the  lessor
            under the lease at the end of the lease term if  the  realizable
@@ -3272,36 +3272,36 @@ statement for a lease shall disclose the following information:
       17.   The annual percentage rate for the lease.
       18.   The total lease cost.
       19.   The currency in which  amounts  are  expressed,  if  it  is  not
-    Canadian currency.  O. Reg. 17/05, s. 74 (2).
-      (3)  The circumstances referred to in paragraph 15 of subsection  (2)
+    Canadian currency.  O. Reg. 17/05, s. 74 (2).
+      (3)  The circumstances referred to in paragraph 15 of  subsection  (2)
 include,  without  limitation,  unreasonable  or  excessive  wear  or   use.
-O. Reg. 17/05, s. 74 (3).
+O. Reg. 17/05, s. 74 (3).
 
 Consequence of non-disclosure
-      75.  A lessee is not liable to pay the lessor,
+      75.  A lessee is not liable to pay the lessor,
       (a)   the implicit finance charge for the lease, if  the  lessee  does
     not receive a disclosure statement for  the  lease  as  required  under
     subsection 89 (1) of the Act; or
       (b)   any amount in excess of the amount  specified  as  the  implicit
     finance charge for the lease in the disclosure  statement  received  by
-    the lessee.  O. Reg. 17/05, s. 75.
+    the lessee.  O. Reg. 17/05, s. 75.
 
 Maximum liability under residual obligation lease
-      76.  (1)  For the purpose of subsection  90  (2)  of  the  Act,  the
+      76.  (1)  For the purpose  of  subsection  90  (2)  of  the  Act,  the
 maximum liability of the lessee at the end of the lease term of  a  residual
 obligation lease, after returning the leased goods to  the  lessor,  is  the
 amount determined using the formula,
-                                 P + (V - R)
+                                 P + (V – R)
 in which,
-      "P"   is the amount that the lessee is required to pay to  the  lessor
+      “P”   is the amount that the lessee is required to pay to  the  lessor
     under the lease at the end of the lease term if the realizable value of
     the leased goods at the end of the  lease  term  equals  the  estimated
     residual value of the lease goods,
-      "V"   is the estimated residual value of the leased goods, and
-      "R"   is the realizable value of the leased goods at the  end  of  the
+      “V”   is the estimated residual value of the leased goods, and
+      “R”   is the realizable value of the leased goods at the  end  of  the
     lease term, as determined under subsections (2), (3) and (4).
-                                                   O. Reg. 17/05, s. 76 (1).
-      (2)  Subject to subsections (3) and  (4),  the  realizable  value  of
+                                                   O. Reg. 17/05, s. 76 (1).
+      (2)  Subject to subsections (3)  and  (4),  the  realizable  value  of
 leased goods at the end of the lease term is the greatest of,
       (a)   the price, exclusive of taxes, at which the lessor  disposes  of
     the leased goods;
@@ -3309,30 +3309,30 @@ leased goods at the end of the lease term is the greatest of,
     goods; and
       (c)    the  amount  determined  by  subtracting,  from  the  estimated
     residual value of the leased goods, the product obtained by multiplying
-    the average monthly payment under the lease by three.  O. Reg.  17/05,
-    s. 76 (2).
-      (3)  If the amount determined under clause (2) (b) is the greatest of
+    the average monthly payment under the lease by three.   O. Reg.  17/05,
+    s. 76 (2).
+      (3)  If the amount determined under clause (2) (b) is the greatest  of
 the three amounts, the realizable value of leased goods at the  end  of  the
 lease  term  is  the  amount  obtained  by  subtracting,  from  the   amount
 determined under clause (2) (b), that part of  the  difference  between  the
 amount determined under clause (2)  (b)  and  the  amount  determined  under
 clause (2) (a) that is attributable to unreasonable  or  excessive  wear  or
 use of the leased goods or to damage to  the  leased  goods  for  which  the
-lessee is responsible under the lease.  O. Reg. 17/05, s. 76 (3).
-      (4)  If the amount determined under clause (2) (c) is the greatest of
+lessee is responsible under the lease.  O. Reg. 17/05, s. 76 (3).
+      (4)  If the amount determined under clause (2) (c) is the greatest  of
 the three amounts, the realizable value of leased goods at the  end  of  the
 lease  term  is  the  amount  obtained  by  subtracting,  from  the   amount
 determined under clause (2) (c), that part of  the  difference  between  the
 amount determined under clause (2)  (c)  and  the  amount  determined  under
 clause (2) (a) that is attributable to unreasonable  or  excessive  wear  or
 use of the leased goods or to damage to  the  leased  goods  for  which  the
-lessee is responsible under the lease.  O. Reg. 17/05, s. 76 (4).
-      (5)  Subsection 90 (2) of the Act does not apply to a lease that  was
+lessee is responsible under the lease.  O. Reg. 17/05, s. 76 (4).
+      (5)  Subsection 90 (2) of the Act does not apply to a lease  that  was
 entered into  before  the  day  the  subsection  was  proclaimed  in  force.
-O. Reg. 17/05, s. 76 (5).
+O. Reg. 17/05, s. 76 (5).
 
 Exemption from Part VIII
-      77.  A lease is exempt from the application of Part VIII of the Act,
+      77.  A lease is exempt from the application of Part VIII of the Act,
       (a)   if the leased goods are required in  order  for  the  lessor  to
     provide a service to the lessee; or
       (b)   if the periodic payments required under  the  lease  may  change
@@ -3341,42 +3341,42 @@ Exemption from Part VIII
     every periodic payment required under the lease or if,  for  any  other
     reason, it is not possible to determine, at the time the lessee  enters
     into the lease, the amount of every periodic payment required under the
-    lease.  O. Reg. 17/05, s. 77.
+    lease.  O. Reg. 17/05, s. 77.
 
                                    Part IX
-            Procedures for Consumer Remedies - Part IX of the Act
+            Procedures for Consumer Remedies — Part IX of the Act
 
 DEFINITIONS
-      78.  In this Part,
-"consumer's address" means,
+      78.  In this Part,
+“consumer’s address” means,
       (a)   subject to clause (b), the address of the consumer that  is  set
     out in the consumer agreement or, if the address of the consumer is not
     set out in the consumer agreement, the place where the consumer resided
     at the time the consumer agreement was entered into,
       (b)   if the supplier knows that the  address  of  the  consumer  that
-    would be required under clause (a) has changed and knows the consumer's
-    current  address,  the  consumer's  current   address;   ("adresse   du
-    consommateur")
-"supplier's address" means the address of the supplier that is  set  out  in
+    would be required under clause (a) has changed and knows the consumer’s
+    current  address,  the  consumer’s  current   address;   (“adresse   du
+    consommateur”)
+“supplier’s address” means the address of the supplier that is  set  out  in
  the consumer agreement or, if the address of the supplier is not  set  out
  in the consumer agreement or the consumer did not receive a  written  copy
  of the consumer agreement,
       (a)   any address of the supplier on record  with  the  Government  of
     Ontario or the Government of Canada, or
-      (b)   an address of the supplier known by the consumer.  ("adresse  du
-    fournisseur")  O. Reg. 17/05, s. 78.
+      (b)   an address of the supplier known by the consumer.  (“adresse  du
+    fournisseur”)  O. Reg. 17/05, s. 78.
 
 Supplier obligations on cancellation
-      79.  (1)  A supplier who is required to comply with subsection 96 (1)
+      79.  (1)  A supplier who is required to comply with subsection 96  (1)
 of the Act shall do so within 15 days  after  the  day  the  consumer  gives
 notice to the supplier in accordance with section 92 of  the  Act  that  the
-consumer is cancelling the consumer agreement.  O. Reg. 17/05, s. 79 (1).
-      (2)  A supplier who is required to return goods to a  consumer  under
-clause 96 (1) (b) of the Act  shall  return  the  goods  to  the  consumer's
-address.  O. Reg. 17/05, s. 79 (2).
+consumer is cancelling the consumer agreement.  O. Reg. 17/05, s. 79 (1).
+      (2)  A supplier who is required to return goods to  a  consumer  under
+clause 96 (1) (b) of the Act  shall  return  the  goods  to  the  consumer’s
+address.  O. Reg. 17/05, s. 79 (2).
 
 Consumer obligations on cancellation of certain agreements
-      80.  (1)  This section applies with respect to subsection 96 (2)  of
+      80.  (1)  This section applies with respect to subsection  96  (2)  of
 the Act, if the consumer agreement that has been cancelled  is  one  of  the
 following:
       1.    A direct agreement to which  sections  42  and  43  of  the  Act
@@ -3385,22 +3385,22 @@ following:
       3.    A personal development services agreement to which  sections  30
     to 36 of the Act apply.
       4.    A consumer agreement to which section 49  of  the  Act  applies.
-    O. Reg. 17/05, s. 80 (1).
-      (2)  A consumer who receives from the supplier a written request  for
+    O. Reg. 17/05, s. 80 (1).
+      (2)  A consumer who receives from the supplier a written  request  for
 repossession of the goods shall,
       (a)   give the supplier, or a person designated  by  the  supplier  in
     writing, a  reasonable  opportunity  to  repossess  the  goods  at  the
-    consumer's address; or
-      (b)   return the goods to the  supplier's  address.   O. Reg.  17/05,
-    s. 80 (2).
-      (3)  In the case of goods that are created, recorded, transmitted  or
+    consumer’s address; or
+      (b)   return the goods to  the  supplier’s  address.   O. Reg.  17/05,
+    s. 80 (2).
+      (3)  In the case of goods that are created, recorded,  transmitted  or
 stored in digital form or in other intangible form by  electronic,  magnetic
 or optical means or by any other means that has capabilities  for  creation,
 recording, transmission or storage similar to those means,  a  consumer  who
 receives from the supplier a written direction to destroy  the  goods  shall
 destroy the goods in accordance with such instructions as may be set out  in
-the direction.  O. Reg. 17/05, s. 80 (3).
-      (4)  The consumer shall comply with subsection (2)  or  (3),  as  the
+the direction.  O. Reg. 17/05, s. 80 (3).
+      (4)  The consumer shall comply with subsection  (2)  or  (3),  as  the
 case may be,
       (a)   forthwith after the supplier complies with subsection 96 (1)  of
     the Act; or
@@ -3410,49 +3410,49 @@ case may be,
     subsection 96 (1) of the Act does not apply because  the  consumer  has
     not made any payment under the agreement or a related agreement and has
     not delivered any goods to the supplier under a  trade-in  arrangement.
-    O. Reg. 17/05, s. 80 (4).
-       (5)  A  consumer  who  has  not  received  a  written  request  for
+    O. Reg. 17/05, s. 80 (4).
+       (5)  A  consumer  who  has  not  received  a  written   request   for
 repossession of the goods under subsection (2) or  a  written  direction  to
 destroy the  goods  under  subsection  (3)  may  return  the  goods  to  the
-supplier's address.  O. Reg. 17/05, s. 80 (5).
-      (6)  The supplier shall be deemed to consent to  a  return  of  goods
+supplier’s address.  O. Reg. 17/05, s. 80 (5).
+      (6)  The supplier shall be deemed to consent  to  a  return  of  goods
 under  clause  (2)  (b)  or  subsection  (5)  and  is  responsible  for  the
-reasonable cost of returning the goods.  O. Reg. 17/05, s. 80 (6).
+reasonable cost of returning the goods.  O. Reg. 17/05, s. 80 (6).
 
 Consumer obligations on cancellation of other agreements
-      81.  (1)  This section applies with respect to subsection 96 (2)  of
+      81.  (1)  This section applies with respect to subsection  96  (2)  of
 the Act, if the consumer agreement that has been cancelled  is  one  of  the
 following:
       1.    An internet agreement to which sections 38  to  40  of  the  Act
     apply.
       2.    A remote agreement to which sections 45 to 47 of the Act apply.
       3.    A future performance agreement to which sections  22  to  26  of
-    the Act apply.  O. Reg. 17/05, s. 81 (1).
-      (2)  A consumer who has not received a written direction  to  destroy
-the goods under subsection (5) shall return  the  goods  to  the  supplier's
+    the Act apply.  O. Reg. 17/05, s. 81 (1).
+      (2)  A consumer who has not received a written  direction  to  destroy
+the goods under subsection (5) shall return  the  goods  to  the  supplier’s
 address, by any method that  provides  the  consumer  with  confirmation  of
 delivery, and shall do so within 15 days after the later of,
       (a)   the day the consumer gives notice to the supplier in  accordance
     with section 92 of the Act that the consumer is cancelling the consumer
     agreement; and
-      (b)   the day the goods come into the consumer's possession.  O. Reg.
-    17/05, s. 81 (2).
-      (3)  Goods that are returned  under  subsection  (2)  other  than  by
+      (b)   the day the goods come into the consumer’s possession.   O. Reg.
+    17/05, s. 81 (2).
+      (3)  Goods that are  returned  under  subsection  (2)  other  than  by
 personal delivery shall be deemed to have been returned  when  sent  by  the
-consumer to the supplier.  O. Reg. 17/05, s. 81 (3).
-      (4)  The supplier shall be deemed to consent to  a  return  of  goods
+consumer to the supplier.  O. Reg. 17/05, s. 81 (3).
+      (4)  The supplier shall be deemed to consent  to  a  return  of  goods
 under  subsection  (2)  and  is  responsible  for  the  reasonable  cost  of
-returning the goods.  O. Reg. 17/05, s. 81 (4).
-      (5)  In the case of goods that are created, recorded, transmitted  or
+returning the goods.  O. Reg. 17/05, s. 81 (4).
+      (5)  In the case of goods that are created, recorded,  transmitted  or
 stored in digital form or in other intangible form by  electronic,  magnetic
 or optical means or by any other means that has capabilities  for  creation,
 recording, transmission or storage similar to those means,  a  consumer  who
 receives from the supplier a written direction to destroy  the  goods  shall
 destroy the goods forthwith in accordance with such instructions as  may  be
-set out in the direction.  O. Reg. 17/05, s. 81 (5).
+set out in the direction.  O. Reg. 17/05, s. 81 (5).
 
 Period of reasonable care
-      82.  For the purpose of subsection 96 (3) of the Act, the period  for
+      82.  For the purpose of subsection 96 (3) of the Act, the  period  for
 which a consumer who cancels a  consumer  agreement  shall  take  reasonable
 care of the goods that came into the possession of the  consumer  under  the
 agreement or a related agreement begins when the consumer  gives  notice  to
@@ -3474,16 +3474,16 @@ following:
        opportunity to repossess required by clause  80  (2)  (a),  and  the
        goods have not been repossessed, or
       ii.   the consumer has  not  received  from  the  supplier  a  written
-       request for repossession of the goods.  O. Reg. 17/05, s. 82.
+       request for repossession of the goods.  O. Reg. 17/05, s. 82.
 
 Limitations on cancellation of direct agreement
-      83.  (1)  This section applies upon the cancellation by a consumer of
+      83.  (1)  This section applies upon the cancellation by a consumer  of
 a direct agreement under section 43 of the Act, if the consumer,
       (a)   solicited the goods or services from the supplier; and
       (b)   requested  that,  within  10  days  after  the  day  the  direct
     agreement is entered into,  the  supplier  make  delivery  or  commence
-    performance under the direct agreement.  O. Reg. 17/05, s. 83 (1).
-      (2)  In the circumstances described in subsection (1),  the  supplier
+    performance under the direct agreement.  O. Reg. 17/05, s. 83 (1).
+      (2)  In the circumstances described in subsection  (1),  the  supplier
 is entitled to reasonable compensation for,
       (a)   goods,
       (i)   that were received by the consumer under  the  direct  agreement
@@ -3505,14 +3505,14 @@ is entitled to reasonable compensation for,
        into, and
        (ii)   the  time  the  consumer  gives  notice  to  the  supplier  in
        accordance  with  section  92  of  the  Act  that  the  consumer  is
-       cancelling the direct agreement.  O. Reg. 17/05, s. 83 (2).
-      (3)  If a supplier is entitled to reasonable compensation under  this
+       cancelling the direct agreement.  O. Reg. 17/05, s. 83 (2).
+      (3)  If a supplier is entitled to reasonable compensation  under  this
 section with respect to goods described in sub-subclause (2)  (a)  (ii)  (C)
 or with respect to services, the obligations owed to  the  consumer  by  any
 person with respect to those goods or services, under the direct  agreement,
 under a related agreement or at law, continue despite  the  cancellation  of
-the direct agreement and the related agreement.  O. Reg. 17/05, s. 83 (3).
-      (4)  A supplier who is entitled to reasonable compensation under this
+the direct agreement and the related agreement.  O. Reg. 17/05, s. 83 (3).
+      (4)  A supplier who is entitled to reasonable compensation under  this
 section may,
       (a)   deduct the amount of the reasonable compensation  to  which  the
     supplier is entitled from the refund, if  any,  that  the  supplier  is
@@ -3522,32 +3522,32 @@ section may,
       (c)   deduct part of the amount  of  the  reasonable  compensation  to
     which the supplier is entitled  from  the  refund,  if  any,  that  the
     supplier is required to give the consumer under clause 96  (1)  (a)  of
-    the Act and recover the balance from  the  consumer.   O. Reg.  17/05,
-    s. 83 (4).
-      (5)  This section applies pursuant to subsection 20 (2) of  the  Act.
-O. Reg. 17/05, s. 83 (5).
+    the Act and recover the balance  from  the  consumer.   O. Reg.  17/05,
+    s. 83 (4).
+      (5)  This section applies pursuant to subsection 20 (2)  of  the  Act.
+O. Reg. 17/05, s. 83 (5).
 
 Time for refund of illegal payment
-      84.  For the purposes of subsections 98 (2) and (4) of the  Act,  the
+      84.  For the purposes of subsections 98 (2) and (4) of  the  Act,  the
 refund shall be provided within 15 days after the day the  consumer  demands
-it under subsection 98 (1) of the Act.  O. Reg. 17/05, s. 84.
+it under subsection 98 (1) of the Act.  O. Reg. 17/05, s. 84.
 
 Cancellation or reversal of credit card charges, etc.
-      85.  (1)  For the purpose of subsection 99 (4) of the Act, a request
+      85.  (1)  For the purpose of subsection 99 (4) of the Act,  a  request
 by a consumer under subsection 99 (1) of the  Act  shall  be  given  to  the
 credit card issuer within 60 days after the end of the period  within  which
-the supplier was required under the Act to  refund  the  payment.   O. Reg.
-17/05, s. 85 (1).
-      (2)  For the purpose of subsection 92 (2) of the Act, a request by  a
+the supplier was required under the Act  to  refund  the  payment.   O. Reg.
+17/05, s. 85 (1).
+      (2)  For the purpose of subsection 92 (2) of the Act, a request  by  a
 consumer to a credit card issuer under subsection 99 (1) of  the  Act  shall
 be signed by the consumer and shall set out the following information:
       1.    The name of the consumer.
-      2.    The number of the consumer's credit card account.
-      3.    The expiry date set out on the consumer's credit card.
+      2.    The number of the consumer’s credit card account.
+      3.    The expiry date set out on the consumer’s credit card.
       4.    The name of the supplier who was required to make the refund.
       5.    If known, the date of the consumer agreement,  if  any,  between
     the consumer and the supplier.
-      6.    Each charge to the  consumer's  credit  card  account  that  the
+      6.    Each charge to the  consumer’s  credit  card  account  that  the
     consumer is requesting the credit card issuer  to  cancel  or  reverse,
     including,
       i.    the amount of the charge,
@@ -3573,23 +3573,23 @@ be signed by the consumer and shall set out the following information:
       i.    a statement to that effect,
       ii.   the date the consumer demanded the refund, and
       iii.  the method used by the consumer  to  give  the  supplier  notice
-       demanding the refund.  O. Reg. 17/05, s. 85 (2).
-      (3)  For the purpose of clause 99 (5) (a) of the Act, the credit card
-issuer shall acknowledge the consumer's request within  30  days  after  the
-day the consumer's request is given to the credit card issuer in  accordance
-with section 92 of the Act.  O. Reg. 17/05, s. 85 (3).
-      (4)  For the purpose of clause 99 (5) (b) of the Act, the  prescribed
-period begins when the consumer's  request  is  given  to  the  credit  card
+       demanding the refund.  O. Reg. 17/05, s. 85 (2).
+      (3)  For the purpose of clause 99 (5) (a) of the Act, the credit  card
+issuer shall acknowledge the consumer’s request within  30  days  after  the
+day the consumer’s request is given to the credit card issuer in  accordance
+with section 92 of the Act.  O. Reg. 17/05, s. 85 (3).
+      (4)  For the purpose of clause 99 (5) (b) of the Act,  the  prescribed
+period begins when the consumer’s  request  is  given  to  the  credit  card
 issuer in accordance with section 92 of the Act and ends on the date of  the
 second statement of account that the credit  card  issuer  delivers  to  the
-consumer after the consumer's request was given to the credit  card  issuer.
-O. Reg. 17/05, s. 85 (4).
+consumer after the consumer’s request was given to the credit  card  issuer.
+O. Reg. 17/05, s. 85 (4).
 
                                    Part X
-                Public Record - subsection 103 (2) of the Act
+                Public Record — subsection 103 (2) of the Act
 
 REQUIREMENTS FOR MAINTENANCE OF PUBLIC RECORD
-      86.  The following requirements for the  maintenance  of  the  public
+      86.  The following requirements for  the  maintenance  of  the  public
 record are prescribed for the purpose of subsection 103 (2) of the Act:
       1.    The Director shall make the material described in  paragraphs  1
     to 4 of subsection 103 (2) of the Act available  to  the  public,  from
@@ -3608,20 +3608,20 @@ record are prescribed for the purpose of subsection 103 (2) of the Act:
     Director shall immediately cease to make the material available.
       4.     Despite  paragraph  2,  the  Director  may  make  the  policies
     established under subsection 103 (2.1) of  the  Act  available  to  the
-    public indefinitely.  O. Reg. 17/05, s. 86; O. Reg. 96/09, s. 9; O.
+    public indefinitely.  O. Reg. 17/05, s. 86;  O. Reg.  96/09,  s. 9;  O.
     Reg. 488/17, s. 2.
 
 Orders made
-      87.  Orders made under sections 110, 111, 112, 115 and 119 of the Act
+      87.  Orders made under sections 110, 111, 112, 115 and 119 of the  Act
 are prescribed for the purpose of paragraph 4 of subsection 103 (2)  of  the
-Act.  O. Reg. 17/05, s. 87.
+Act.  O. Reg. 17/05, s. 87.
 
 Orders, etc., under the Ticket Sales Act, 2017
-      87.1  The following information is prescribed  for  the  purposes  of
+      87.1  The following information is  prescribed  for  the  purposes  of
 paragraph 4 of subsection 103 (2) of the Act:
       1.    For each order made under any of sections 20, 21, 22 and  23  of
     the Ticket Sales Act, 2017 on or after April  24,  2026,  its  date,  a
-    description of the order, a  summary  of  the  Director's  grounds  for
+    description of the order, a  summary  of  the  Director’s  grounds  for
     making the order  and  a  description  of  the  final  outcome  of  any
     subsequent proceeding with respect to the order.
       2.    For each undertaking of voluntary compliance entered into  under
@@ -3630,28 +3630,28 @@ paragraph 4 of subsection 103 (2) of the Act:
     the terms of the undertaking.
       3.    For each order of the  Superior  Court  of  Justice  made  under
     section 26 of the Ticket Sales Act, 2017 on or after  April  24,  2026,
-    its date, a summary  of  the  grounds  in  support  of  the  Director's
+    its date, a summary  of  the  grounds  in  support  of  the  Director’s
     application for the order, a description of the order as well as of the
     final outcome of any subsequent proceeding with respect to the order.
       4.    For each order under section 30 of the Ticket  Sales  Act,  2017
     made on or after April 24,  2026  imposing  an  administrative  penalty
     against a ticket business, its date, a  description  of  the  order,  a
-    summary  of  the  Director's  grounds  for  making  the  order  and   a
+    summary  of  the  Director’s  grounds  for  making  the  order  and   a
     description of the final outcome  of  any  subsequent  proceeding  with
     respect to the order.
       5.    The following information about  each  person  against  whom  an
     order referred to in this section is made and each person  who  entered
     into an  undertaking  of  voluntary  compliance  referred  to  in  this
     section:
-      i.    The person's name, as known to the Ministry.
-      ii.    The  person's  business  address,  business  telephone  number,
+      i.    The person’s name, as known to the Ministry.
+      ii.    The  person’s  business  address,  business  telephone  number,
        business fax number and business email  address,  if  known  to  the
        Ministry.
       iii.  Any  business  names  used  by  the  person,  as  known  to  the
        Ministry. O. Reg. 173/26, s. 1.
 
 Charges laid
-      88.  For the purpose of paragraph 4 of subsection 103 (2) of the Act,
+      88.  For the purpose of paragraph 4 of subsection 103 (2) of the  Act,
 the following information is prescribed in respect of  each  person  who  is
 currently charged with a charge that has been laid,  on  or  after  the  day
 this section comes into force, under section 116 of the  Act  or  under  the
@@ -3663,7 +3663,7 @@ has been found guilty of any such charge:
     known to the Ministry.
       2.    Any  business  names  used  by  the  person,  as  known  to  the
     Ministry.
-      3.     The  person's  business  address,  business  telephone  number,
+      3.     The  person’s  business  address,  business  telephone  number,
     business fax number and  business  e-mail  address,  if  known  to  the
     Ministry.
       4.    With respect to each charge laid against the person,
@@ -3673,12 +3673,12 @@ has been found guilty of any such charge:
       iii.  if the person is found guilty of the charge,  a  description  of
        the disposition of the  charge,  including  any  sentence  that  was
        imposed and any order to pay compensation or make  restitution  that
-       was made.  O. Reg. 17/05, s. 88; O. Reg. 96/09, s. 10;  O.  Reg.
+       was made.  O. Reg. 17/05,  s. 88;  O. Reg.  96/09,  s. 10;  O.  Reg.
        56/14, s. 1; O. Reg. 488/17, s. 3; O. Reg. 129/22,  s.  2;  O.  Reg.
        173/26, s. 2.
 
 Actions taken
-      89.  For the purpose of paragraph 4 of subsection 103 (2) of the Act,
+      89.  For the purpose of paragraph 4 of subsection 103 (2) of the  Act,
 the following information is prescribed in respect of  each  person  who  is
 required to hold a permit or to be appointed, licensed or  registered  under
 the Bailiffs Act, the Collection  and  Debt  Settlement  Services  Act,  the
@@ -3689,7 +3689,7 @@ after the day this section comes into force:
     known to the Ministry.
       2.    Any  business  names  used  by  the  person,  as  known  to  the
     Ministry.
-      3.     The  person's  business  address,  business  telephone  number,
+      3.     The  person’s  business  address,  business  telephone  number,
     business fax number and  business  e-mail  address,  if  known  to  the
     Ministry.
       4.    With respect to each action taken against the person,
@@ -3699,11 +3699,11 @@ after the day this section comes into force:
       iii.  the date on which the action was taken, and
       iv.   the final result of the  action,  including  the  revocation  or
        suspension of an appointment, a licence or a registration,  if  any.
-       O. Reg. 17/05, s. 89; O. Reg. 96/09, s. 11; O. Reg. 56/14, s. 2; O.
+       O. Reg. 17/05, s. 89; O. Reg. 96/09, s. 11; O. Reg. 56/14, s. 2;  O.
        Reg. 488/17, s. 3; O. Reg. 129/22, s. 3.
 
 Complaints received
-      90.  (1)  If all of the conditions set out in subsection (2) are met,
+      90.  (1)  If all of the conditions set out in subsection (2) are  met,
 the following information is prescribed for the purpose of  paragraph  4  of
 subsection 103 (2) of the Act, in respect of  each  person  about  whom  the
 Director receives, on or after the day this  section  comes  into  force,  a
@@ -3715,7 +3715,7 @@ whether the conduct constitutes an offence or not:
     to the Ministry.
       2.    Any  business  names  used  by  the  person,  as  known  to  the
     Ministry.
-      3.     The  person's  business  address,  business  telephone  number,
+      3.     The  person’s  business  address,  business  telephone  number,
     business fax number and  business  e-mail  address,  if  known  to  the
     Ministry.
       4.    The number of complaints received  by  the  Director  about  the
@@ -3727,9 +3727,9 @@ whether the conduct constitutes an offence or not:
       i.    if a charge was laid, the information required  by  paragraph  4
        of section 88, and
       ii.   if action was taken, the information required by paragraph 4  of
-       section 89.  O. Reg. 17/05, s. 90 (1); O. Reg. 96/09, s. 12 (1); O.
+       section 89.  O. Reg. 17/05, s. 90 (1); O. Reg. 96/09, s. 12 (1);  O.
        Reg. 56/14, s. 3; O. Reg. 488/17, s. 4 (1); O. Reg. 129/22, s. 4.
-      (2)  The information described in subsection (1)  is  prescribed  for
+      (2)  The information described in subsection  (1)  is  prescribed  for
 the purpose of paragraph 4 of subsection 103 (2) of the Act, only if all  of
 the following conditions are met:
        1.     The  complaint  received  by  the  Director  is  in   writing,
@@ -3741,7 +3741,7 @@ the following conditions are met:
        Settlement Services Act or the Consumer Reporting Act,
       0.ii  the complaint is  about  a  consumer  transaction  respecting  a
        ticket within the meaning of the Ticket Sales Act, 2017,
-      i.    the complainant's total potential payment obligation  under  the
+      i.    the complainant’s total potential payment obligation  under  the
        consumer transaction to which the complaint relates,  excluding  the
        cost of borrowing, exceeds $100 if the transaction is  not  governed
        by the Payday Loans Act, 2008, or
@@ -3768,10 +3768,10 @@ the following conditions are met:
        was made by any combination of mail, telephone, fax or  e-mail,  but
        the mail was returned or  Ministry  staff  were  unable  to  have  a
        telephone discussion with the person,  leave  a  telephone  message,
-       send a fax or send an e-mail.  O. Reg. 17/05, s. 90 (2);  O. Reg.
-       96/09, s. 12 (2); O. Reg. 488/17, s. 4 (2, 3); O. Reg. 173/26, s. 3
+       send a fax or send an e-mail.  O. Reg.  17/05,  s. 90  (2);  O. Reg.
+       96/09, s. 12 (2); O. Reg. 488/17, s. 4 (2, 3); O. Reg. 173/26, s.  3
        (1).
-      (2.1)  The following information is prescribed for  the  purposes  of
+      (2.1)  The following information is prescribed  for  the  purposes  of
 paragraph 4 of subsection 103  (2)  of  the  Act  in  respect  of  a  ticket
 business within the meaning of the Ticket Sales Act,  2017  about  whom  the
 Director receives a complaint that meets all of the conditions  set  out  in
@@ -3787,7 +3787,7 @@ subsection (2.2):
        of section 87.1, as applicable, and
       ii.   if a charge was laid, the information required  by  paragraph  4
        of section 88. O. Reg. 173/26, s. 3 (2).
-       (2.2)  The  conditions  mentioned  in  subsection  (2.1)  are   the
+       (2.2)  The  conditions  mentioned  in  subsection   (2.1)   are   the
 following:
       1.    The complaint deals with conduct of  the  ticket  business  that
     occurs on or after April 24, 2026 and that may be in  contravention  of
@@ -3795,17 +3795,17 @@ following:
     or not.
       2.    The complaint meets the conditions set out in paragraphs  1  and
     3 of subsection (2). O. Reg. 173/26, s. 3 (2).
-      (3)  Information that is prescribed under this section ceases  to  be
+      (3)  Information that is prescribed under this section  ceases  to  be
 so prescribed if the person about whom the complaint  was  made  proves,  to
 the satisfaction of the Director, that,
       (a)   the  person  did  not  receive  notice  of  the  complaint  from
     Ministry staff; and
       (b)   the person has remedied the situation  to  the  satisfaction  of
     the  complainant  or  otherwise  responded  to  the  substance  of  the
-    complaint.  O. Reg. 17/05, s. 90 (3).
+    complaint.  O. Reg. 17/05, s. 90 (3).
 
 Notice of contravention issued by inspector
-      91.  (1)  Subsection (2) applies only if,
+      91.  (1)  Subsection (2) applies only if,
       (a)   an inspector has conducted an  inspection  under  the  Act,  the
     Collection and Debt Settlement Services Act, the Payday Loans Act, 2008
     or the Ticket Sales Act, 2017 with respect to a person;
@@ -3820,7 +3820,7 @@ Notice of contravention issued by inspector
     Director by the date that the Ministry  determines  and  of  which  the
     person has been advised. O. Reg. 488/17, s. 5; O. Reg. 173/26, s. 4 (1,
     2).
-      (2)  The following information  is  prescribed  for  the  purpose  of
+      (2)  The following  information  is  prescribed  for  the  purpose  of
 paragraph 4 of subsection 103 (2) of the Act in respect of  each  person  to
 whom  an  inspector,  in  conducting  an  inspection  under  the  Act,   the
 Collection and Debt Settlement Services Act, the Payday Loans Act,  2008  or
@@ -3828,7 +3828,7 @@ the Ticket Sales Act, 2017 has issued a notice described in subsection (1):
       1.    The name of the person, as known to the Ministry.
       2.    Any  business  names  used  by  the  person,  as  known  to  the
     Ministry.
-      3.     The  person's  business  address,  business  telephone  number,
+      3.     The  person’s  business  address,  business  telephone  number,
     business fax number and  business  e-mail  address,  if  known  to  the
     Ministry.
       4.    The number of such notices that an inspector has issued  to  the
@@ -3837,17 +3837,17 @@ the Ticket Sales Act, 2017 has issued a notice described in subsection (1):
     Reg. 173/26, s. 4 (3).
 
                                    Part XI
-                PRESCRIBED JURISDICTIONS - PART XI OF THE ACT
+                PRESCRIBED JURISDICTIONS — PART XI OF THE ACT
 
 PRESCRIBED JURISDICTIONS
-      92.  The following jurisdictions are prescribed for  the  purpose  of
+      92.  The following jurisdictions are prescribed  for  the  purpose  of
 subsection 122 (2) of the Act:
       1.    Canada.
       2.    Every province and  territory  of  Canada  other  than  Ontario.
-    O. Reg. 17/05, s. 92.
-      93.  Omitted (provides for coming into force of  provisions  of  this
-Regulation).  O. Reg. 17/05, s. 93.
+    O. Reg. 17/05, s. 92.
+      93.  Omitted (provides for coming into force  of  provisions  of  this
+Regulation).  O. Reg. 17/05, s. 93.
 
-Fran�ais
+Français
 
 Back to top
