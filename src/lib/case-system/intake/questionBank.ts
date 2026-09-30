@@ -281,11 +281,18 @@ export const QUESTION_BANK: IntakeQuestion[] = [
       ],
     },
     text: "Has the other party filed a Defence with the court?",
+    // 2026-09-29: "ask the court" corrected to "ask the clerk". O. Reg. 258/98
+    // r. 11.01 (1): "the clerk may note the defendant in default on the filing
+    // of, (a) a request to note the defendant in default, which may be made in
+    // Form 9B; and (b) proof that the claim was served" -- read from
+    // docs/sources/corpus/oreg-258-98-small-claims-rules.txt (e-Laws
+    // 980258_e.doc, retrieved 2026-09-27). Same correction the 2026-09-22 LSO
+    // audit made to the Legal Principles page; this copy was missed.
     why:
       "A defendant generally has 20 calendar days to serve and file a defence. If that time has " +
-      "passed with no defence filed, the plaintiff may be able to ask the court to note the " +
-      "defendant in default.",
-    sourceUrl: "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/default-proceedings/",
+      "passed with no defence filed, the plaintiff may be able to ask the clerk to note the " +
+      "defendant in default (a request in Form 9B, with proof the claim was served).",
+    sourceUrl: "https://www.ontario.ca/laws/docs/980258_e.doc",
     answerType: "yes-no",
     allowUnknown: true,
     sensitive: false,
