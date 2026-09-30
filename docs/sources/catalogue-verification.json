@@ -1,15 +1,6 @@
 {
  "description": "Verification log for the Small Claims catalogue (src/lib/case-system/intake/claimTypes.ts). One record per dated entry: the verbatim passages it rests on and a fingerprint of the text that was verified. Held to the catalogue by npm run test:catalogue-verified; see scripts/content/catalogueVerification.ts.",
- "unverifiable": [
-  {
-   "key": "sc-claim-used-vehicle-nondisclosure|plaintiffElement|dealer-failed-to-disclose",
-   "reason": "O. Reg. 333/08 could not be retrieved on 2026-09-30: not in the vendored corpus, the e-Laws .doc route was refused to WebFetch and blocked to the shell, the e-Laws viewer returns a JS shell, and CanLII may not be scraped. Nothing in this entry has been re-verified."
-  },
-  {
-   "key": "sc-claim-used-vehicle-nondisclosure|plaintiffElement|cancelled-within-90-days",
-   "reason": "O. Reg. 333/08 could not be retrieved on 2026-09-30: not in the vendored corpus, the e-Laws .doc route was refused to WebFetch and blocked to the shell, the e-Laws viewer returns a JS shell, and CanLII may not be scraped. Nothing in this entry has been re-verified."
-  }
- ],
+ "unverifiable": [],
  "records": [
   {
    "key": "sc-claim-unpaid-debt-services|plaintiffElement|existed-agreement-or-understanding",
@@ -305,16 +296,37 @@
   {
    "key": "sc-claim-slip-and-fall-occupier-liability|defendantConsideration|risk-willingly-assumed",
    "verifiedAt": "2026-09-30",
-   "outcome": "supported",
-   "fingerprint": "3d98bc519efe637c4fe44f06db16c0a1786f0ddc2bcefead0b5f4f8a11e466fe",
+   "outcome": "corrected",
+   "fingerprint": "e91fe8ce3fd274ec76926617f8282764cf4c9588bcd12f3b343e62c4de8075cd",
    "sources": [
     {
      "sourceUrl": "docs/sources/waldick-v-malcolm-1991-2-SCR-456.pdf",
      "pinpoint": "Waldick v. Malcolm, [1991] 2 S.C.R. 456, Analysis, issue 2; OLA s. 4(1)",
      "quote": "\"the first involves merely knowing of the risk that one is running, whereas the second involves not only knowledge of the risk, but also a consent to the legal risk, or in other words, a waiver of legal rights that may arise from the harm or loss\" ... \"the legislature's intention in enacting s. 4(1) of the Act was to carve out a very narrow exception\""
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+     "pinpoint": "Occupiers' Liability Act, s. 4(1)",
+     "quote": "The duty of care provided for in subsection 3 (1) does not apply in respect of risks willingly assumed by the person who enters on the premises, but in that case the occupier owes a duty to the person to not create a danger with the deliberate intent of doing harm or damage to the person or his or her property and to not act with reckless disregard of the presence of the person or his or her property."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+     "pinpoint": "Occupiers' Liability Act, s. 4(2)",
+     "quote": "A person who is on premises with the intention of committing, or in the commission of, a criminal act shall be deemed to have willingly assumed all risks and is subject to the duty of care set out in subsection (1)."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+     "pinpoint": "Occupiers' Liability Act, s. 4(3)",
+     "quote": "A person who enters premises described in subsection (4) shall be deemed to have willingly assumed all risks and is subject to the duty of care set out in subsection (1), (a) where the entry is prohibited under the Trespass to Property Act; (b) where the occupier has posted no notice in respect of entry and has not otherwise expressly permitted entry; or (c) where the entry is for the purpose of a recreational activity and, (i) no fee is paid for the entry or activity of the person, other than a benefit or payment received from a government or government agency or a non-profit recreation club or association, and (ii) the person is not being provided with living accommodation by the occupier."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+     "pinpoint": "Occupiers' Liability Act, s. 4(4)",
+     "quote": "The premises referred to in subsection (3) are, (a) a rural premises that is, (i) used for agricultural purposes, including land under cultivation, orchards, pastures, woodlots and farm ponds, (ii) vacant or undeveloped premises, (iii) forested or wilderness premises; (b) golf courses when not open for playing; (c) utility rights-of-way and corridors, excluding structures located thereon; (d) unopened road allowances; (e) private roads reasonably marked by notice as such; (f) recreational trails reasonably marked by notice as such; and (g) portage routes."
     }
    ],
-   "howRead": "docs/sources/waldick-v-malcolm-1991-2-SCR-456.pdf: local file"
+   "howRead": "docs/sources/waldick-v-malcolm-1991-2-SCR-456.pdf: local file 2026-09-30 second audit: Added the s. 4(2)-(4) deemed willing assumption of all risks, read from the current OLA consolidation (from 2021-01-29). Corrected the auditor's shorthand: s. 4(3)-(4) is not just 'rural, recreational-trail, vacant or similar premises' -- the deeming applies only to the s. 4(4) listed premises AND only where one of the three s. 4(3) conditions is met (entry prohibited under the Trespass to Propert",
+   "problemCorrected": "Added the s. 4(2)-(4) deemed willing assumption of all risks, read from the current OLA consolidation (from 2021-01-29). Corrected the auditor's shorthand: s. 4(3)-(4) is not just 'rural, recreational-trail, vacant or similar premises' -- the deeming applies only to the s. 4(4) listed premises AND only where one of the three s. 4(3) conditions is met (entry prohibited under the Trespass to Property Act; no posted notice and no express permission; or free recreational entry with no living accommodation). Also stated the reduced duty that still applies (s. 4(1)), extended whenThisComesUp to the deemed cases, and added alsoCites to the OLA .doc. The Waldick passage is unchanged. The s. 3.1 fee clarifications (parking fees etc.) are left out for length."
   },
   {
    "key": "sc-claim-slip-and-fall-occupier-liability|proceduralNote|sc-claim-slip-and-fall-occupier-liability#note0",
@@ -392,7 +404,7 @@
   {
    "key": "sc-claim-improper-unauthorized-towing|plaintiffElement|towed-without-consent",
    "verifiedAt": "2026-09-30",
-   "outcome": "supported",
+   "outcome": "corrected",
    "fingerprint": "4c60ee7023bab9a5ccaf49ebe6cc560251a258feb57d86b82d7a6bed825523d7",
    "sources": [
     {
@@ -401,7 +413,8 @@
      "quote": "\"Unless initiated by the police or authorized official (for example, if you are parked illegally), your consent is required to tow your vehicle.\""
     }
    ],
-   "howRead": "https://www.ontario.ca/page/know-your-rights-when-getting-tow: web fetch"
+   "howRead": "https://www.ontario.ca/page/know-your-rights-when-getting-tow: web fetch 2026-09-30 second audit: Evidence label stated the legal conclusion; replaced with a description of what the records show (auditor's wording). Not a legal statement, no source needed.",
+   "problemCorrected": "Evidence label stated the legal conclusion; replaced with a description of what the records show (auditor's wording). Not a legal statement, no source needed."
   },
   {
    "key": "sc-claim-improper-unauthorized-towing|plaintiffElement|no-rate-disclosure",
@@ -440,7 +453,7 @@
     {
      "sourceUrl": "https://www.ontario.ca/page/know-your-rights-when-getting-tow",
      "pinpoint": "Know your rights when getting a tow (ontario.ca), complaints section",
-     "quote": "\"You can report a concern or file a complaint with the Ministry of Transportation online if you have an issue with the towing or vehicle storage services you receive.\""
+     "quote": "You can report a concern or file a complaint with the Ministry of Transportation online if you have an issue with the: ... towing or vehicle storage services you receive"
     }
    ],
    "howRead": "https://www.ontario.ca/page/know-your-rights-when-getting-tow: web fetch"
@@ -463,7 +476,7 @@
    "key": "sc-claim-breach-of-contract-goods|plaintiffElement|goods-not-as-agreed",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "a4634b0a9a1a91d93d61679717a5a421543161a0f90de55b57d9840d45bee933",
+   "fingerprint": "f211f3c223c7c5d94a1492c5004ac6a7641e9a99ed26bb077482269b500669a2",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/90s01_e.doc",
@@ -474,9 +487,24 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/90s01_e.doc",
      "pinpoint": "s. 15",
      "quote": "Subject to this Act and any statute in that behalf, there is no implied warranty or condition as to the quality or fitness for any particular purpose of goods supplied under a contract of sale, except as follows:"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90s01_e.doc",
+     "pinpoint": "s. 53",
+     "quote": "Where any right, duty or liability would arise under a contract of sale by implication of law, it may be negatived or varied by express agreement or by the course of dealing between the parties, or by usage, if the usage is such as to bind both parties to the contract."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "Consumer Protection Act, 2002, s. 9(2)",
+     "quote": "The implied conditions and warranties applying to the sale of goods by virtue of the Sale of Goods Act are deemed to apply with necessary modifications to goods that are leased or traded or otherwise supplied under a consumer agreement."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "Consumer Protection Act, 2002, s. 9(3)",
+     "quote": "Any term or acknowledgement, whether part of the consumer agreement or not, that purports to negate or vary any implied condition or warranty under the Sale of Goods Act or any deemed condition or warranty under this Act is void."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/90s01_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/90s01_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) 2026-09-30 second audit: Auditor right on the omission, but the suggested wording was incomplete: s. 53 allows implied terms to be negatived or varied not only by express agreement but also by course of dealing or binding usage -- all three now stated. Framed CPA s. 9(3) by its actual scope (goods supplied under a consumer agreement) rather than 'outside consumer sales'. alsoCites CPA added. Note: the existing record only",
    "problemCorrected": "The fitness-for-purpose exception omits a condition in s.15 para 1: it applies only where 'the goods are of a description that it is in the course of the seller's business to supply'. Also s.15 is 'Subject to this Act and any statute in that behalf', and s.15 lists two further exceptions (usage of trade; express warranty does not negative implied one) not mentioned. Rest (s.14, s.15 para 2, s.26) is accurate.",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
@@ -612,7 +640,7 @@
      "quote": "This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
     }
    ],
-   "howRead": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/: live page read 2026-09-30 (WebFetch); not vendored",
+   "howRead": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/: live page read 2026-09-30 (WebFetch); not vendored 2026-09-30 second audit: Evidence label stated a conclusion; replaced with auditor's descriptive wording (matches the element's own text). No source needed.",
    "problemCorrected": "Source states only the general burden; it says nothing about proving delivery of goods or making them available (checked: page does not address delivery). Also note: this page is the Superior Court of Justice civil guide (refers to a 'Statement of Claim'), not the Small Claims Court guide, and it still describes Small Claims Court as handling claims of '$35,000 or less' (stale; current limit is $50,000 under O. Reg. 626/00 s.1(1)).",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
@@ -729,7 +757,7 @@
    "key": "sc-claim-consumer-protection-act-issue|plaintiffElement|withdrawal-notice-timely",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "e4b53b5dda4e62d6ef302aad091c1f42c747d7b96d35f114a7811b85b553430a",
+   "fingerprint": "1e242b4d1ff78faa577a5659d6fda7534537d9803dbd805b59458ae9d368324c",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
@@ -755,9 +783,19 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
      "pinpoint": "s. 18(4)",
      "quote": "notice meets any requirements that may be prescribed."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 18(8)",
+     "quote": "If a consumer has delivered notice and has not received a satisfactory response within the prescribed period, the consumer may commence an action."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+     "pinpoint": "O. Reg. 17/05, s. 22",
+     "quote": "For the purpose of subsection 18 (8) of the Act, a consumer may commence an action if the consumer does not receive a satisfactory response within 30 days after the day the consumer gives notice under section 18 of the Act."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/02c30_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/02c30_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) 2026-09-30 second audit: Auditor right. Added s. 18(8) and O. Reg. 17/05, s. 22 (30 days), with alsoCites for the regulation. Kept the statute's framing ('may start an action' if no satisfactory response) rather than implying an action must wait in every case. 2026-09-30 second audit: Auditor right: s. 18 speaks of notice to rescind or to seek recovery, not 'withdrawal'. Changed the why (auditor's wording) and also the evidence category name 'Notice of withdrawal', which had the same mismatch. Descriptive label, no new source.",
    "problemCorrected": "Omits s. 18(15): a court may disregard the notice requirement (or any requirement relating to it) if it is in the interest of justice -- so 'must give notice within ONE YEAR' overstates it. Also omits that the notice must meet any prescribed requirements (s. 18(4)). The element name says 'withdrawal'; the Act's term here is rescission (withdrawal is cooling-off terminology). Note: the file header states 'This Act is repealed on a day to be named by proclamation of the Lieutenant Governor. (See: 2023, c. 23, Sched. 1, s. 110)' -- still in force at this consolidation, but the provision will need re-checking when the Consumer Protection Act, 2023 is proclaimed.",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): partly -- The text accurately states s. 18(1)-(6) and (15). The problem is the element name shown to users: \"Notice of withdrawal (if relied on) was given within the required time\". The text concerns rescission for an unfair practice under s. 18, not withdrawal/cancellation; the CPA's cancellation rights (e.g. cooling-off periods under ss. 28, 35, 43, 51) have different time limits, so a reader relying on a cancellation right could take the one-year period as theirs. Minor: the text cites \"s. 18(3)\" without naming the Act. Rewritten to the source wording.",
@@ -847,7 +885,7 @@
    "key": "sc-claim-consumer-protection-act-issue|proceduralNote|sc-claim-consumer-protection-act-issue#note0",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "070886492aad28edb21ea2d693374f7c31b848733c76fda71ae9bd2b2af60b73",
+   "fingerprint": "ae8dbe731a9fa8b52c4c959a8a01bc124032734d9e8a878ef5c9d9af1aed9248",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
@@ -858,9 +896,24 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
      "pinpoint": "s. 18(15)",
      "quote": "in the interest of justice"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 18(8)",
+     "quote": "If a consumer has delivered notice and has not received a satisfactory response within the prescribed period, the consumer may commence an action."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+     "pinpoint": "O. Reg. 17/05, s. 22",
+     "quote": "For the purpose of subsection 18 (8) of the Act, a consumer may commence an action if the consumer does not receive a satisfactory response within 30 days after the day the consumer gives notice under section 18 of the Act."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "Limitations Act, 2002, s. 4",
+     "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/02c30_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/02c30_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) 2026-09-30 second audit: Auditor right. Added the 30-day response period (s. 18(8); O. Reg. 17/05, s. 22) and sourced the Limitations Act sentence to s. 4 (vendored), with alsoCites for both. The finding's id '#pn0' corresponds to record key '#note0'.",
    "problemCorrected": "1-year notice is supported, but omits s. 18(15) (court may disregard the notice requirement in the interest of justice). The comparison to the ordinary 2-year limitation period is not in the CPA; needs its own cite (ontario.ca / Limitations Act, 2002). Note: the file header states 'This Act is repealed on a day to be named by proclamation of the Lieutenant Governor. (See: 2023, c. 23, Sched. 1, s. 110)' -- still in force at this consolidation, but the provision will need re-checking when the Consumer Protection Act, 2023 is proclaimed.",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
@@ -903,7 +956,7 @@
     {
      "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
      "pinpoint": "Steps to a Civil Case (ontariocourts.ca), burden of proof passage",
-     "quote": "\"In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim.\" \"This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff.\""
+     "quote": "In every civil case, the plaintiff has the burden of proof to establish on a balance of probabilities the allegations contained in the Statement of Claim. ... This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
     }
    ],
    "howRead": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/: web fetch"
@@ -1004,16 +1057,32 @@
   {
    "key": "sc-claim-wrongful-dismissal|plaintiffElement|minimum-employment-length",
    "verifiedAt": "2026-09-30",
-   "outcome": "supported",
-   "fingerprint": "f08e816b54dff5dbc48150fa828e3f776c0fb3cf245a21abbb944b35a1b8d1f2",
+   "outcome": "corrected",
+   "fingerprint": "b0d762e190b825438c307dbea8eef79b448914285013a493c13f8db6275e7ec9",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/document/your-guide-employment-standards-act-0/termination-employment",
      "pinpoint": "Your guide to the ESA — Termination of employment",
      "quote": "In most cases, when an employer ends the employment of an employee who has been continuously employed for three months, the employer must provide the employee with either written notice of termination, termination pay or a combination"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "Employment Standards Act, 2000, s. 54",
+     "quote": "No employer shall terminate the employment of an employee who has been continuously employed for three months or more unless the employer, (a) has given to the employee written notice of termination in accordance with section 57 or 58 and the notice has expired; or (b) has complied with section 61."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "Employment Standards Act, 2000, s. 55",
+     "quote": "Prescribed employees are not entitled to notice of termination or termination pay under this Part."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "Employment Standards Act, 2000, s. 8(1)",
+     "quote": "Subject to section 97, no civil remedy of an employee against his or her employer is affected by this Act."
     }
    ],
-   "howRead": "https://www.ontario.ca/document/your-guide-employment-standards-act-0/termination-employment: web fetch"
+   "howRead": "https://www.ontario.ca/document/your-guide-employment-standards-act-0/termination-employment: web fetch 2026-09-30 second audit: The element name presented the ESA three-month threshold as an element of a wrongful-dismissal claim. Renamed to a neutral heading and rewrote the explanation from ESA ss. 54, 55 and 8(1) (vendored current consolidation), replacing the unvendored ESA-guide page as sourceUrl. Agreed with the auditor in substance; departed from the suggested wording in one respect: the suggested 'the separate common",
+   "problemCorrected": "The element name presented the ESA three-month threshold as an element of a wrongful-dismissal claim. Renamed to a neutral heading and rewrote the explanation from ESA ss. 54, 55 and 8(1) (vendored current consolidation), replacing the unvendored ESA-guide page as sourceUrl. Agreed with the auditor in substance; departed from the suggested wording in one respect: the suggested 'the separate common-law claim ... is not tied to it' is stated here only as far as the statute goes (s. 8(1) preserves civil remedies; s. 54 is the Act's minimum), rather than as a free-standing statement about common-law entitlement, which would need Honda/Machtinger text read on disk (both are PDFs only). The plainExplanation stays within ESA text. Consider also a consistency pass on the element's evidence 'why' (unchanged: 'Establishes the length of continuous employment')."
   },
   {
    "key": "sc-claim-wrongful-dismissal|plaintiffElement|notice-or-pay-not-given",
@@ -1082,16 +1151,22 @@
   {
    "key": "sc-claim-wrongful-dismissal|plaintiffElement|amount-within-jurisdiction",
    "verifiedAt": "2026-09-30",
-   "outcome": "supported",
-   "fingerprint": "3d1141c92679cd395280a7af2af04c1ae3ce219ba1e73696b5ab9e3205f5f949",
+   "outcome": "corrected",
+   "fingerprint": "fb6d8a40674b3cde6e1e7951d5d04a3b9c4b626b5717971aeeba0c434d98acab",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
      "pinpoint": "Making a claim — jurisdiction",
      "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
+     "pinpoint": "Suing someone in Small Claims Court -- Overview",
+     "quote": "For anything over $50,000, you need to go to the Superior Court of Justice . If what you are owed is more than $50,000, you can still file in Small Claims Court if you are willing to waive the amount over $50,000."
     }
    ],
-   "howRead": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim: local file"
+   "howRead": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim: local file 2026-09-30 second audit: 'Can only hear claims up to $50,000' omitted that a larger claim can still be filed in Small Claims Court by waiving the excess. Reworded to the guide's 'amount claimed does not exceed' phrasing and added the waiver, citing the ontario.ca suing page (vendored). Agreed with the auditor.",
+   "problemCorrected": "'Can only hear claims up to $50,000' omitted that a larger claim can still be filed in Small Claims Court by waiving the excess. Reworded to the guide's 'amount claimed does not exceed' phrasing and added the waiver, citing the ontario.ca suing page (vendored). Agreed with the auditor."
   },
   {
    "key": "sc-claim-wrongful-dismissal|defendantConsideration|dispute-length-or-calculation",
@@ -1290,7 +1365,7 @@
    "key": "sc-claim-dog-bite-animal-injury|defendantConsideration|criminal-act-on-premises-exception",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "be780a734b4a0cbada75ef4188cd6967b3711582961c40c0f3fd1207cf510d4e",
+   "fingerprint": "4bb62548498ca8c01765a9d54b3cdee090cb9b7504b22d6e28940ae01c274c46",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
@@ -1303,7 +1378,7 @@
      "quote": "the owner is not liable under section 2 unless the keeping of the dog on the premises was unreasonable for the purpose of the protection of persons or property."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/90d16_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/90d16_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) 2026-09-30 second audit: Auditor right: s. 3(2) refers to 'premises', not the owner's premises (s. 3(1) is the separate owner's-premises rule). Adjusted auditor's wording to track s. 3(2) ('with the intention of committing, or in the commission of, a criminal act on the premises'). Existing s. 3(2) record source covers it. 2026-09-30 second audit: Same over-narrowing as the name; removed 'owner's home or business'. Used 'criminal act' (the statute's term) rather than the auditor's 'crime'. Existing s. 3(2) record source covers it.",
    "problemCorrected": "Omits that s.3(2) also covers a person on premises 'with the intention of committing' a criminal act, not only one committing it. s.3(2) refers to 'premises' generally, not only the owner's premises (s.3(1) is the owner's-premises rule). 'Narrow' is a characterization not in the Act. The 'unless' clause should track the Act: the keeping of the dog on the premises was unreasonable for the purpose of protecting persons or property.",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
@@ -1604,7 +1679,7 @@
     {
      "sourceUrl": "https://www.ontario.ca/page/your-rights-under-consumer-protection-act",
      "pinpoint": "Your rights under the Consumer Protection Act — cooling-off period",
-     "quote": "You have a cooling-off period (a specific number of days during which you can cancel an agreement without reason or penalty) when you sign contracts: for a product or service you buy from a door-to-door salesperson; to pay in advance to join a fitness club or gym; to buy a newly-built condo; to get a payday loan; to purchase a time share."
+     "quote": "You have a cooling-off period (a specific number of days during which you can cancel an agreement without reason or penalty) when you sign contracts: ... for a product or service you buy from a door-to-door salesperson ... to pay in advance to join a fitness club or gym ... to buy a newly-built condo ... to get a payday loan ... to purchase a time share"
     }
    ],
    "howRead": "https://www.ontario.ca/page/your-rights-under-consumer-protection-act: live page read 2026-09-30 (WebFetch); not vendored",
@@ -1622,7 +1697,7 @@
     {
      "sourceUrl": "https://www.ontario.ca/page/your-rights-under-consumer-protection-act",
      "pinpoint": "Your rights under the Consumer Protection Act — cancelling",
-     "quote": "You can cancel the contract anytime within the cooling-off period by writing a cancellation letter to the business. You don't need to give the business a reason for cancelling."
+     "quote": "You can cancel the contract anytime within the cooling-off period by writing a cancellation letter to the business ... You don’t need to give the business a reason for cancelling."
     }
    ],
    "howRead": "https://www.ontario.ca/page/your-rights-under-consumer-protection-act: live page read 2026-09-30 (WebFetch); not vendored",
@@ -1700,7 +1775,7 @@
     {
      "sourceUrl": "https://www.ontario.ca/page/renting-commercial-property-ontario",
      "pinpoint": "Renting commercial property in Ontario > Background",
-     "quote": "A signed commercial lease agreement with your landlord or tenant may take precedence over the CTA (Commercial Tenancies Act)."
+     "quote": "a signed commercial lease agreement with your landlord or tenant may take precedence over the CTA"
     },
     {
      "sourceUrl": "https://www.ontario.ca/page/renting-commercial-property-ontario",
@@ -1745,8 +1820,8 @@
   {
    "key": "sc-claim-commercial-tenancy-dispute|defendantConsideration|dispute-commercial-classification",
    "verifiedAt": "2026-09-30",
-   "outcome": "supported",
-   "fingerprint": "397f9410be41f4e02c29bdbf5a832fc41ab87ee57f43b433dce3bef2bdbc6dd0",
+   "outcome": "corrected",
+   "fingerprint": "f2fc03a5258dbbe925e48969b2aec57239b736ed6b365608201b8de4ee832485",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/page/renting-commercial-property-ontario",
@@ -1754,7 +1829,8 @@
      "quote": "If there is a question about whether the tenancy is residential or commercial, a landlord or tenant can apply to the Landlord and Tenant Board (LTB) for a determination about whether the Residential Tenancies Act applies to their situation."
     }
    ],
-   "howRead": "https://www.ontario.ca/page/renting-commercial-property-ontario: web fetch"
+   "howRead": "https://www.ontario.ca/page/renting-commercial-property-ontario: web fetch 2026-09-30 second audit: Auditor right: the 'used mainly for' primary-use test is not in the recorded source quote. Adopted auditor's wording, which tracks the recorded ontario.ca quote ('whether the tenancy is residential or commercial'). That page is not vendored; the existing record quote was relied on, not re-read today.",
+   "problemCorrected": "Auditor right: the 'used mainly for' primary-use test is not in the recorded source quote. Adopted auditor's wording, which tracks the recorded ontario.ca quote ('whether the tenancy is residential or commercial'). That page is not vendored; the existing record quote was relied on, not re-read today."
   },
   {
    "key": "sc-claim-commercial-tenancy-dispute|defendantConsideration|lease-terms-govern",
@@ -1765,7 +1841,7 @@
     {
      "sourceUrl": "https://www.ontario.ca/page/renting-commercial-property-ontario",
      "pinpoint": "Renting commercial property in Ontario > Background",
-     "quote": "A signed commercial lease agreement with your landlord or tenant may take precedence over the CTA (Commercial Tenancies Act)."
+     "quote": "a signed commercial lease agreement with your landlord or tenant may take precedence over the CTA"
     },
     {
      "sourceUrl": "https://www.ontario.ca/page/renting-commercial-property-ontario",
@@ -1805,16 +1881,22 @@
   {
    "key": "sc-claim-dishonoured-nsf-cheque|plaintiffElement|payment-made-by-cheque",
    "verifiedAt": "2026-09-30",
-   "outcome": "supported",
-   "fingerprint": "af28839313ad26f2338dd1851f57ee841e77668904893e7fcd124a60344ee330",
+   "outcome": "corrected",
+   "fingerprint": "ff05d6ad7fc89e8bffdab05b5e8177ee73e89ec6a652a2850994ce2450c526fb",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
      "pinpoint": "'What you can sue for'",
      "quote": "You can sue for claims for money owed under an agreement, such as: goods or services sold and delivered that weren't paid for"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/page/suing-someone-small-claims-court",
+     "pinpoint": "'What you can sue for'",
+     "quote": "You can sue for claims for money owed under an agreement, such as: ... NSF (non-sufficient funds) cheques"
     }
    ],
-   "howRead": "https://www.ontario.ca/page/suing-someone-small-claims-court: local file"
+   "howRead": "https://www.ontario.ca/page/suing-someone-small-claims-court: local file 2026-09-30 second audit: Auditor right: the page is ontario.ca's (Ministry), not a court publication. Reworded; also dropped 'explicitly' and 'a claim it can decide'. Added the NSF line as a quote because the existing record quote does not contain it.",
+   "problemCorrected": "Auditor right: the page is ontario.ca's (Ministry), not a court publication. Reworded; also dropped 'explicitly' and 'a claim it can decide'. Added the NSF line as a quote because the existing record quote does not contain it."
   },
   {
    "key": "sc-claim-dishonoured-nsf-cheque|plaintiffElement|cheque-returned-nsf",
@@ -1852,7 +1934,7 @@
    "key": "sc-claim-dishonoured-nsf-cheque|defendantConsideration|dispute-nsf-underlying-debt",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "6a8e466966a164c8f6b8bc449c2c57f90f25737da188302a4b1c34673ccfbbaa",
+   "fingerprint": "07cabcbeb44c0b2581268111f3515414459c45aa157efebc755b8d3b5f79aef6",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -1868,9 +1950,14 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "r. 9.02(1), para. 2",
      "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) 2026-09-30 second audit: Auditor right. Inserted the r. 9.02(1)2 exception using the catalogue's existing wording. Quote extended to include the exception.",
    "problemCorrected": "Source only says a sued defendant must complete a Defence (Form 9A), serve it, and file it within 20 calendar days; it says nothing about what a Defence may dispute or argue.",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
@@ -1899,7 +1986,7 @@
     {
      "sourceUrl": "https://www.ontario.ca/document/your-guide-employment-standards-act-0/overtime-pay",
      "pinpoint": "Your guide to the ESA: Overtime pay (ontario.ca)",
-     "quote": "\"For most employees, whether they work full-time, part-time, are students, temporary help agency assignment employees, or casual workers, overtime begins after they have worked 44 hours in a work week.\" \"Overtime pay is 1½ times the employee's regular rate of pay.\""
+     "quote": "For most employees, whether they work full-time, part-time, are students, temporary help agency assignment employees, or casual workers, overtime begins after they have worked 44 hours in a work week. ... Overtime pay is 1½ times the employee's regular rate of pay."
     }
    ],
    "howRead": "https://www.ontario.ca/document/your-guide-employment-standards-act-0/overtime-pay: web fetch"
@@ -1913,7 +2000,7 @@
     {
      "sourceUrl": "https://www.ontario.ca/document/your-guide-employment-standards-act-0/vacation",
      "pinpoint": "Your guide to the ESA: Vacation (ontario.ca)",
-     "quote": "\"Vacation pay must be at least four per cent of the gross wages (excluding any vacation pay) earned in the 12-month vacation entitlement year or stub period (where that applies)...\" \"Some employees have jobs that are exempt from the vacation with pay provisions of the ESA\" \"The unpaid vacation pay must be paid within seven days of the employment ending or on what would have been the employee's next pay day, whichever is later.\""
+     "quote": "Vacation pay must be at least four per cent of the gross wages (excluding any vacation pay) earned in the 12-month vacation entitlement year or stub period (where that applies) ... Some employees have jobs that are exempt from the vacation with pay provisions of the ESA ... The unpaid vacation pay must be paid within seven days of the employment ending or on what would have been the employee's next pay day, whichever is later."
     }
    ],
    "howRead": "https://www.ontario.ca/document/your-guide-employment-standards-act-0/vacation: live page read 2026-09-30 (WebFetch); not vendored",
@@ -1940,7 +2027,7 @@
    "key": "sc-claim-unpaid-overtime-vacation-pay|defendantConsideration|dispute-hours-or-entitlement",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "047404ff1d5ef49ba9f5c4e07923ba72d2c4a7868c4c8d0544a1bbc7f4fec383",
+   "fingerprint": "c5ad160203dfb3f18d89ce66bcd61cc400ee693f83e877fde34e3cbef9b57619",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -1956,9 +2043,14 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "r. 9.02(1), para. 2",
      "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) 2026-09-30 second audit: The r. 9.02 paraphrase said a copy of any document the defence is based on 'is attached' and dropped the rule's exception (unless it is unavailable, in which case the defence states why). Inserted the exception, matching the wording already used in sc-claim-damage-caused-by-a-child and three other entries. The record's existing r. 9.02(1) para. 2 quote stops before the exception, so the full parag",
    "problemCorrected": "Source supports only that a defendant completes, serves and files a Defence (Form 9A); nothing about disputing hours, length of service or vacation calculations.",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
@@ -2032,16 +2124,52 @@
   {
    "key": "sc-claim-vehicle-repair-dispute|defendantConsideration|dispute-overcharge",
    "verifiedAt": "2026-09-30",
-   "outcome": "supported",
-   "fingerprint": "ee88167058d08fd0e481f5016a096fbfbd1e2fbd5b2dbaac0bddaf65d5f97171",
+   "outcome": "corrected",
+   "fingerprint": "5012ac6d2eb31c466827dce11575f267ced0f693264eeb04f947b0aa7ca838f3",
    "sources": [
     {
      "sourceUrl": "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/",
      "pinpoint": "How to respond to a case",
      "quote": "If you have been sued, then you are a defendant ... You must complete the Defence (Form 9A) ... You must file the Defence with proof with the Court within 20 calendar days from the date you were served with the Claim."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.01",
+     "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 1.i",
+     "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "Consumer Protection Act, 2002, s. 58(1)",
+     "quote": "No repairer shall charge for any work or repairs unless the consumer authorizes the work or repairs."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "Consumer Protection Act, 2002, s. 58(2)",
+     "quote": "No repairer shall charge, for work or repairs for which an estimate was given, an amount that exceeds the estimate by more than 10 per cent."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "Consumer Protection Act, 2002, s. 56(2)",
+     "quote": "Despite subsection (1), a repairer may charge for work or repairs without giving an estimate if, (a) the repairer offers to give the consumer an estimate and the consumer declines the offer of an estimate; (b) the consumer specifically authorizes the maximum amount that he or she will pay the repairer to make the repairs or do the work; and (c) the cost charged for the work or repairs does not exceed the maximum amount authorized by the consumer."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "Consumer Protection Act, 2002, s. 59",
+     "quote": "If an authorization required by section 56, 57 or 58 is not given in writing, the authorization is not effective unless it is recorded in a manner that meets the prescribed requirements."
     }
    ],
-   "howRead": "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/: local file"
+   "howRead": "https://www.ontariocourts.ca/scj/areas-of-law/small-claims-court/how-to-respond-to-a-case/: local file 2026-09-30 second audit: The existing text was sourced to the SCJ 'how to respond' page, which supports only the mechanics of a Defence, not 'additional work the customer separately authorized' or 'more than what's allowed'. Rewrote to the catalogue's standard r. 9.01/9.02 Defence wording (with the r. 9.02 unavailable-document exception) plus a topic sentence, and added the CPA provisions the dispute turns on (ss. 56(2), ",
+   "problemCorrected": "The existing text was sourced to the SCJ 'how to respond' page, which supports only the mechanics of a Defence, not 'additional work the customer separately authorized' or 'more than what's allowed'. Rewrote to the catalogue's standard r. 9.01/9.02 Defence wording (with the r. 9.02 unavailable-document exception) plus a topic sentence, and added the CPA provisions the dispute turns on (ss. 56(2), 58(1), 58(2), 59), read from the vendored current consolidation. sourceUrl moved to O. Reg. 258/98; CPA added as alsoCites. Combined both of the auditor's options. Note: the CPA does not say that separately authorized extra work lifts the s. 58(2) 10% cap, so the text does not say so either -- it states s. 58(1) (authorization) and s. 58(2) (10% over estimate) side by side. The new text is longer than the original; that is the cost of making it sourced."
   },
   {
    "key": "sc-claim-vehicle-repair-dispute|proceduralNote|sc-claim-vehicle-repair-dispute#note0",
@@ -2112,7 +2240,7 @@
    "key": "sc-claim-used-vehicle-nondisclosure|defendantConsideration|dispute-nondisclosure",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "f68575bf23334f88d3cb71fe7ed6c9b7b2ccd41f3b3d54659d67b452fa783fb5",
+   "fingerprint": "9f98d6b694673ed89ae48b8223603e18090778b3c8738290e08e4b82cfb386bd",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -2128,9 +2256,14 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "r. 9.02(1), para. 2",
      "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) 2026-09-30 second audit: The r. 9.02 paraphrase said a copy of any document the defence is based on 'is attached' and dropped the rule's exception (unless it is unavailable, in which case the defence states why). Inserted the exception, matching the wording already used in sc-claim-damage-caused-by-a-child and three other entries. The record's existing r. 9.02(1) para. 2 quote stops before the exception, so the full parag",
    "problemCorrected": "The page supports only that a defendant responds with a Defence (Form 9A); it says nothing about disputing disclosure.",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
@@ -2200,7 +2333,7 @@
    "key": "sc-claim-unpaid-condo-common-expenses|defendantConsideration|dispute-amount-assessed",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "c6eb1d5cfa8b34189043e255d861e452b70eeda49c32c4b295716da100780601",
+   "fingerprint": "56c13adc6a45344c4a9b169bcb17a3a667492cb730f3e0e37a28742c790cd4b6",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -2216,9 +2349,14 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "r. 9.02(1), para. 2",
      "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) 2026-09-30 second audit: The r. 9.02 paraphrase said a copy of any document the defence is based on 'is attached' and dropped the rule's exception (unless it is unavailable, in which case the defence states why). Inserted the exception, matching the wording already used in sc-claim-damage-caused-by-a-child and three other entries. The record's existing r. 9.02(1) para. 2 quote stops before the exception, so the full parag",
    "problemCorrected": "Source only says a sued defendant must complete a Defence (Form 9A), serve it, and file it within 20 calendar days; it says nothing about what a Defence may dispute or argue.",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
@@ -2227,16 +2365,27 @@
   {
    "key": "sc-claim-unpaid-condo-common-expenses|proceduralNote|sc-claim-unpaid-condo-common-expenses#note0",
    "verifiedAt": "2026-09-30",
-   "outcome": "supported",
-   "fingerprint": "0f2bb6945d0b76b4d9cdced8b266bcee7d4c7d0fade0e18dcf539ac415d51b33",
+   "outcome": "corrected",
+   "fingerprint": "29d78e4c9a36e58877be8c075172f204bf3cbd0d0e9ffdda525b3a25e84d8ce9",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
      "pinpoint": "s. 86(1)",
      "quote": "86 (1) Subject to subsection (2), a lien mentioned in subsection 85 (1) has priority over every registered and unregistered encumbrance even though the encumbrance existed before the lien arose but does not have priority over, (a) a claim of the Crown other than by way of a mortgage; (b) a claim for taxes ... (c) a lien or claim that is prescribed."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+     "pinpoint": "Condominium Act, 1998, s. 86(1)",
+     "quote": "Subject to subsection (2), a lien mentioned in subsection 85 (1) has priority over every registered and unregistered encumbrance even though the encumbrance existed before the lien arose"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
+     "pinpoint": "Condominium Act, 1998, s. 86(2)",
+     "quote": "A lien in respect of a unit for non-residential purposes does not have priority under this section in respect of the amount by which the owner of the unit has defaulted in the obligation to contribute to the common expenses payable for the owner's unit before the coming into force of this section."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/98c19_e.doc: local file"
+   "howRead": "https://www.ontario.ca/laws/docs/98c19_e.doc: local file 2026-09-30 second audit: s. 86(1) is expressly 'Subject to subsection (2)'; the note omitted the non-residential exception. Added it, worded from the current consolidation, and named s. 86(1) (the note previously named no section). The notice condition (s. 86(3)-(6)) is already in note1, so it is not repeated. Agreed with the auditor.",
+   "problemCorrected": "s. 86(1) is expressly 'Subject to subsection (2)'; the note omitted the non-residential exception. Added it, worded from the current consolidation, and named s. 86(1) (the note previously named no section). The notice condition (s. 86(3)-(6)) is already in note1, so it is not repeated. Agreed with the auditor."
   },
   {
    "key": "sc-claim-unpaid-condo-common-expenses|proceduralNote|sc-claim-unpaid-condo-common-expenses#note1",
@@ -2256,7 +2405,7 @@
    "key": "sc-claim-unpaid-condo-common-expenses|proceduralNote|sc-claim-unpaid-condo-common-expenses#note2",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "d728e473e7655583542229028dc66ad9e83aec021bb4c880a6714e1c84823ede",
+   "fingerprint": "4b54c0e814a4005275d8ac48d9b8bcfef381cfd496cc58722ca57242b46ed1bf",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
@@ -2272,9 +2421,14 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/98c19_e.doc",
      "pinpoint": "s. 85(6)",
      "quote": "The lien may be enforced in the same manner as a mortgage."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+     "pinpoint": "Courts of Justice Act, s. 23(1)",
+     "quote": "The Small Claims Court, (a) has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs; and (b) has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/98c19_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/98c19_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) 2026-09-30 second audit: Added that s. 85(6) mortgage-style enforcement of the lien against the unit is outside Small Claims Court's s. 23(1) jurisdiction (money, and recovery of personal property). Worded as a description of what s. 23(1) covers rather than the auditor's 'not a Small Claims Court remedy ... can order payment of money or return of personal property', which paraphrased s. 23(1)(b) loosely ('return' vs 'rec",
    "problemCorrected": "First three sentences supported. 'which is a separate path from a Small Claims Court action for the money, not a step required before suing' is not in the Act.",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
@@ -2284,7 +2438,7 @@
    "key": "sc-claim-defamation-libel-slander|plaintiffElement|statement-made-and-communicated",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "72b0938e29a7e8557ddf57533e59aa4e1076f1c02bc45ab30b27e3e9d830b16c",
+   "fingerprint": "bd5bfae777117b85f4b038f6a10a8476cf4fcb0663559bd5c7333bae0518b0c8",
    "sources": [
     {
      "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
@@ -2300,9 +2454,19 @@
      "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
      "pinpoint": "Steps to a civil case -- The trial (burden of proof)",
      "quote": "This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
+    },
+    {
+     "sourceUrl": "docs/sources/grant-v-torstar-2009-SCC-61.pdf",
+     "pinpoint": "para. 28",
+     "quote": "(3) that the words were published, meaning that they were communicated to at least one person other than the plaintiff. If these elements are established on a balance of probabilities, falsity and damage are presumed"
+    },
+    {
+     "sourceUrl": "docs/sources/grant-v-torstar-2009-SCC-61.pdf",
+     "pinpoint": "para. 28",
+     "quote": "(The only exception is that slander requires proof of special damages, unless the impugned words were slanderous per se"
     }
    ],
-   "howRead": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/: live page read 2026-09-30 (WebFetch); not vendored",
+   "howRead": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/: live page read 2026-09-30 (WebFetch); not vendored 2026-09-30 second audit: Auditor right (high). This patch re-sources the existing element to Grant para 28 as the PUBLICATION element (name, explanation, sourceUrl changed from the SCJ steps page to the vendored Grant PDF; the SCJ burden-of-proof sentence is dropped, so that page is no longer relied on) and adds the slander special-damages exception. Evidence categories unchanged. The two missing elements are added by the",
    "problemCorrected": "Source states only the general burden of proof; it does not mention proving what was said or that it reached a third person (publication). Superior Court page.",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
@@ -2413,7 +2577,7 @@
    "key": "sc-claim-defamation-libel-slander|defendantConsideration|dispute-statement-made-or-false",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "47004ff43666f0c6cbac5d5748d897b71b24487542e36f55e3ab4e0b89d3d508",
+   "fingerprint": "f8ae4fa99c8e81f1ecd651bb8f824f7a667a8ca02ddbcb6cb52e38c9d242bda5",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -2429,9 +2593,24 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "r. 9.02(1), para. 2",
      "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "docs/sources/grant-v-torstar-2009-SCC-61.pdf",
+     "pinpoint": "paras. 28-29",
+     "quote": "If these elements are established on a balance of probabilities, falsity and damage are presumed ... If the plaintiff proves the required elements, the onus then shifts to the defendant to advance a defence in order to escape liability."
+    },
+    {
+     "sourceUrl": "docs/sources/grant-v-torstar-2009-SCC-61.pdf",
+     "pinpoint": "para. 33",
+     "quote": "To succeed on the defence of justification, a defendant must adduce evidence showing that the statement was substantially true."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) 2026-09-30 second audit: Auditor right: falsity is presumed (Grant para 28); truth is the defendant's defence of justification (para 33, 'substantially true'). Adopted auditor's name. Adds alsoCites Grant. Companion to the plainExplanation patch for the same key (non-overlapping edits). 2026-09-30 second audit: Auditor right on the r. 9.02(1)2 exception (inserted with the catalogue's standard wording). Also rewrote the closing sentence to match the renamed topic -- the old 'false or defamatory' had the same falsity-as-element problem as finding 18 -- and sourced the burden shift and justification to Grant paras. 28-29, 33 (alsoCites added by the name patch).",
    "problemCorrected": "Source supports only that a defendant completes, serves and files a Defence (Form 9A); it says nothing about disputing that the statement was made, false or defamatory, or about how the court weighs it.",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
@@ -2446,7 +2625,7 @@
     {
      "sourceUrl": "docs/sources/grant-v-torstar-2009-SCC-61.pdf",
      "pinpoint": "Grant v. Torstar Corp., 2009 SCC 61, [2009] 3 S.C.R. 640, paras. 96-97, 126",
-     "quote": "\"[126] ... It will apply where: A. The publication is on a matter of public interest, and B. The publisher was diligent in trying to verify the allegation, having regard to: (a) the seriousness of the allegation; (b) the public importance of the matter; (c) the urgency of the matter; (d) the status and reliability of the source; ... (h) any other relevant circumstances.\" \"[96] ... the new defence is 'available to anyone who publishes material of public interest in any medium'\""
+     "quote": "[126] ... It will apply where: A. The publication is on a matter of public interest, and B. The publisher was diligent in trying to verify the allegation, having regard to: (a) the seriousness of the allegation; (b) the public importance of the matter; (c) the urgency of the matter; (d) the status and reliability of the source; ... (h) any other relevant circumstances. ... [96] ... the new defence is 'available to anyone who publishes material of public interest in any medium'"
     },
     {
      "sourceUrl": "docs/sources/grant-v-torstar-2009-SCC-61.pdf",
@@ -2562,9 +2741,14 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
      "pinpoint": "s. 263(1.1)",
      "quote": "This section applies, with necessary modifications, in respect of an automobile the owner, operator or lessee of which is exempt from the requirement to be insured under the Compulsory Automobile Insurance Act,"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+     "pinpoint": "Insurance Act, s. 263(5)(a)",
+     "quote": "If this section applies, (a) an insured has no right of action against any person involved in the incident other than the insured's insurer for damages to the insured's automobile or its contents or for loss of use;"
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/90i08_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/90i08_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) 2026-09-30 second audit: 'so a direct claim against the driver is available' stated a conclusion about the user's claim; evidence that s. 263 does not apply only removes the s. 263(5)(a) bar. Reworded to that. The record cites s. 263(1)(c) and (1.1) but not (5)(a), so (5)(a) is added. Agreed with the auditor. (The evidence category's name 'Proof the other driver's vehicle was not insured' is already vehicle-based and unch",
    "problemCorrected": "The core is accurate (s.263(1)-(3), (5)(a); election in s.263(2.2)-(2.3), in force 01/01/2024 per the amendment table). But 'where the at-fault driver's vehicle was not insured ... section 263 never applies in the first place' is too broad: s.263(1)(c) is met if ANY other automobile involved is insured, so in a multi-vehicle accident s.263 can apply even if the at-fault vehicle is uninsured; and s.263(1.1) applies the section to an automobile exempt from compulsory insurance if the responsible organization has filed an undertaking. The source also does not itself say an 'ordinary right to sue ... is preserved'; it only restricts actions where s.263 applies. 'Insurer bound by this section' simplifies 'licensed to undertake automobile insurance in Ontario or that has filed ... an undertaking to be bound by this section'. Other listed non-application cases (ss.263(7)-(10)) are not mentioned (the 'situations including' wording covers this).",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
@@ -2686,8 +2870,8 @@
   {
    "key": "sc-claim-vehicle-accident-uninsured-driver-property-damage|defendantConsideration|defendant-was-actually-insured",
    "verifiedAt": "2026-09-30",
-   "outcome": "supported",
-   "fingerprint": "38111b8da59761111fec8ce4cbf23d35d81e5bae5149589a4bb5c726b4317970",
+   "outcome": "corrected",
+   "fingerprint": "46d89d81ac41d225c37b8caa0df9bac809f1a2df2afa064a11f5bc246ef9aa55",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
@@ -2695,13 +2879,14 @@
      "quote": "at least one other automobile involved in the accident is insured under a contract evidenced by a motor vehicle liability policy ... an insured has no right of action against any person involved in the incident other than the insured's insurer"
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/90i08_e.doc: local file"
+   "howRead": "https://www.ontario.ca/laws/docs/90i08_e.doc: local file 2026-09-30 second audit: Same driver-vs-vehicle issue as broughtBy. Renamed to the vehicle's insurance status. Departed from the auditor's 'The defendant shows their vehicle was insured, so section 263 applies after all' on two points: 'shows' presents the defence as established, and the vehicle being insured does not on its own make s. 263 apply -- s. 263(1)(b) also requires the damaged automobile to be insured. 'says ..",
+   "problemCorrected": "Same driver-vs-vehicle issue as broughtBy. Renamed to the vehicle's insurance status. Departed from the auditor's 'The defendant shows their vehicle was insured, so section 263 applies after all' on two points: 'shows' presents the defence as established, and the vehicle being insured does not on its own make s. 263 apply -- s. 263(1)(b) also requires the damaged automobile to be insured. 'says ... or that section 263 applies after all' keeps both limbs without asserting outcome. Also fixed whenThisComesUp ('they were uninsured' -> 'their vehicle was uninsured'; 'another exclusion to section 263' was inaccurate, since s. 263 is the bar, not something with exclusions). The plainExplanation already speaks of 'their vehicle' and 'may apply' and is unchanged. Existing record sources (s. 263(1), (2), (5)(a)) cover this; no addSources."
   },
   {
    "key": "sc-claim-vehicle-accident-uninsured-driver-property-damage|defendantConsideration|dispute-fault-or-causation-vehicle-accident",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "f235f92a46da1f02474e76e0e77612ff943e5d0103559425dd2ff3b6f7df8bf9",
+   "fingerprint": "c27384832406a95092ef5974d4d24619b86c2bcf5ce05464cc35f4632c970017",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -2717,9 +2902,14 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "r. 9.02(1), para. 2",
      "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) 2026-09-30 second audit: The r. 9.02 paraphrase said a copy of any document the defence is based on 'is attached' and dropped the rule's exception (unless it is unavailable, in which case the defence states why). Inserted the exception, matching the wording already used in sc-claim-damage-caused-by-a-child and three other entries. The record's existing r. 9.02(1) para. 2 quote stops before the exception, so the full parag",
    "problemCorrected": "The source supports that a defendant files a Defence (Form 9A). 'This becomes a fact the court weighs alongside the plaintiff's evidence' is not in the source.",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
@@ -2728,16 +2918,37 @@
   {
    "key": "sc-claim-vehicle-accident-uninsured-driver-property-damage|proceduralNote|sc-claim-vehicle-accident-uninsured-driver-property-damage#note0",
    "verifiedAt": "2026-09-30",
-   "outcome": "supported",
-   "fingerprint": "98a5e8008529227b6729f259faf4783134dbdef8adfae23ff5c88482943a3561",
+   "outcome": "corrected",
+   "fingerprint": "52cf06f52043c33c4a3c347df96eedd178108318902d1fbeb57efbafc76fb9c9",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
      "pinpoint": "Insurance Act, s. 263(2), (5)(a)",
      "quote": "If this section applies, an insured is entitled to recover for the damages to the insured's automobile and its contents and for loss of use from the insured's insurer ... an insured has no right of action against any person involved in the incident other than the insured's insurer"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+     "pinpoint": "Insurance Act, s. 263(2.2)",
+     "quote": "An insured may elect, in accordance with the regulations, not to recover damages from the insured's insurer under subsection (2)."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+     "pinpoint": "Insurance Act, s. 263(2.3)(a)",
+     "quote": "Despite subsection (6), if an insured makes an election under subsection (2.2), (a) in addition to the restrictions set out in subsection (5), the insured has no right of action under subsection (2) against the insured's insurer for damages to the insured's automobile or its contents, or for loss of use; and"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+     "pinpoint": "Insurance Act, s. 263(2)",
+     "quote": "If this section applies, an insured is entitled to recover for the damages to the insured's automobile and its contents and for loss of use from the insured's insurer under the coverage described in subsection 239 (1) as though the insured were a third party."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90i08_e.doc",
+     "pinpoint": "Insurance Act, s. 263(5)(a)",
+     "quote": "If this section applies, (a) an insured has no right of action against any person involved in the incident other than the insured's insurer for damages to the insured's automobile or its contents or for loss of use;"
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/90i08_e.doc: local file"
+   "howRead": "https://www.ontario.ca/laws/docs/90i08_e.doc: local file 2026-09-30 second audit: Added the s. 263(2.2)/(2.3)(a) election exception. Did not use the auditor's wording, which was in 'you' form ('unless you elected ...') and applied the rule to the user; the patch states the rule generally. Also replaced 'your own insurer ... generally not a Small Claims action' with what s. 263(2) and (5)(a) actually say, since 'generally' understated a statutory bar. The record already cites s.",
+   "problemCorrected": "Added the s. 263(2.2)/(2.3)(a) election exception. Did not use the auditor's wording, which was in 'you' form ('unless you elected ...') and applied the rule to the user; the patch states the rule generally. Also replaced 'your own insurer ... generally not a Small Claims action' with what s. 263(2) and (5)(a) actually say, since 'generally' understated a statutory bar. The record already cites s. 263(2) and (5)(a); (2.2) and (2.3)(a) are new."
   },
   {
    "key": "sc-claim-vehicle-accident-uninsured-driver-property-damage|proceduralNote|sc-claim-vehicle-accident-uninsured-driver-property-damage#note1",
@@ -2856,7 +3067,7 @@
    "key": "sc-claim-personal-loan-between-individuals|defendantConsideration|argues-it-was-a-gift",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "a6840a650e7fb5df8013eff7e83be7851e8377547c11c41863f9eee165822d4b",
+   "fingerprint": "ddc0f1fd289ab6cbc013410d2b6ca86e4e3d662df6013aa352be17d8a72fab4e",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -2872,9 +3083,14 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "r. 9.02(1), para. 2",
      "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) 2026-09-30 second audit: The r. 9.02 paraphrase said a copy of any document the defence is based on 'is attached' and dropped the rule's exception (unless it is unavailable, in which case the defence states why). Inserted the exception, matching the wording already used in sc-claim-damage-caused-by-a-child and three other entries. The record's existing r. 9.02(1) para. 2 quote stops before the exception, so the full parag",
    "problemCorrected": "The cited page contains nothing about gifts, obligations to repay, or who must prove what; it only says a defendant must complete, serve and file a Defence (Form 9A). The legal propositions ('a gift creates no debt'; the plaintiff must prove it was a loan) are unsourced and must not ship without a primary source.",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
@@ -2884,7 +3100,7 @@
    "key": "sc-claim-personal-loan-between-individuals|defendantConsideration|dispute-amount-still-owed-personal-loan",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "b78f2f66f87947299bbed88451bc243d7f73aaee1a492988b6fcded5077c96bc",
+   "fingerprint": "844880b43fc1f1e2a78b4de41356fa3a5ff503c19681c96775e5050bf97e09d2",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -2900,9 +3116,14 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "r. 9.02(1), para. 2",
      "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) 2026-09-30 second audit: The r. 9.02 paraphrase said a copy of any document the defence is based on 'is attached' and dropped the rule's exception (unless it is unavailable, in which case the defence states why). Inserted the exception, matching the wording already used in sc-claim-damage-caused-by-a-child and three other entries. The record's existing r. 9.02(1) para. 2 quote stops before the exception, so the full parag",
    "problemCorrected": "The page supports only that a defendant responds with a Defence (Form 9A); it says nothing about disputing the outstanding balance or repayments.",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
@@ -2987,8 +3208,8 @@
   {
    "key": "sc-claim-property-damaged-lost-in-business-care|plaintiffElement|duty-of-care-property-in-business-care",
    "verifiedAt": "2026-09-30",
-   "outcome": "supported",
-   "fingerprint": "355af3388f8c7faaf5f9e54ad3c7935fd74997e738304efc68076b8f923c30b2",
+   "outcome": "corrected",
+   "fingerprint": "7338866b61327466aa379cf5b99080c61aa5b8138dce7036659503e039169ca6",
    "sources": [
     {
      "sourceUrl": "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
@@ -2996,7 +3217,8 @@
      "quote": "[3] A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care ... [4] ... It asks whether this relationship is so close that the one may reasonably be said to owe the other a duty to take care not to injure the other ... Whether such a relationship exists depends on foreseeability, moderated by policy concerns"
     }
    ],
-   "howRead": "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html: local file"
+   "howRead": "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html: local file 2026-09-30 second audit: The name was in 'you' form and implied a possession-specific (bailment-type) duty that nothing sourced establishes -- the entry's own note1 says bailment is not covered. Renamed to match the sibling element pattern ('The other driver owed a duty of care') with the scope marker '(general negligence framework)'. Kept the element-statement form used across the catalogue rather than the auditor's 'Whe",
+   "problemCorrected": "The name was in 'you' form and implied a possession-specific (bailment-type) duty that nothing sourced establishes -- the entry's own note1 says bailment is not covered. Renamed to match the sibling element pattern ('The other driver owed a duty of care') with the scope marker '(general negligence framework)'. Kept the element-statement form used across the catalogue rather than the auditor's 'Whether the business owed ...', since every plaintiffElement name is phrased as the thing to be shown; either works. The plainExplanation (Mustapha, general duty framework) is unchanged, so no new sources."
   },
   {
    "key": "sc-claim-property-damaged-lost-in-business-care|plaintiffElement|breach-of-standard-of-care-property-in-care",
@@ -3101,7 +3323,7 @@
    "key": "sc-claim-property-damaged-lost-in-business-care|defendantConsideration|disputes-possession-or-timing",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "42c129e07ecf91a4204bfb8c066b26383edb4215d0dfd57e186337da98507720",
+   "fingerprint": "8e8783b7e77cd3597804e0dc5fe84a07079743c677e3281e69fe5cdd6d72d208",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -3117,9 +3339,14 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "r. 9.02(1), para. 2",
      "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) 2026-09-30 second audit: The r. 9.02 paraphrase said a copy of any document the defence is based on 'is attached' and dropped the rule's exception (unless it is unavailable, in which case the defence states why). Inserted the exception, matching the wording already used in sc-claim-damage-caused-by-a-child and three other entries. The record's existing r. 9.02(1) para. 2 quote stops before the exception, so the full parag",
    "problemCorrected": "Source only says a sued defendant must complete a Defence (Form 9A), serve it, and file it within 20 calendar days; it says nothing about what a Defence may dispute or argue.",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
@@ -3129,7 +3356,7 @@
    "key": "sc-claim-property-damaged-lost-in-business-care|defendantConsideration|dispute-cause-of-damage-property-in-care",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "07abd5af4fd47fc4c9360924c46a7c943cc9d3adbb37baf4d0116fd628dc6a72",
+   "fingerprint": "ef7f477a336209014787ffe865444e4e318e0f7bc97a0d151c1352e3570f9f4c",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
@@ -3145,9 +3372,14 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "r. 9.02(1), para. 2",
      "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence, unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) 2026-09-30 second audit: The r. 9.02 paraphrase said a copy of any document the defence is based on 'is attached' and dropped the rule's exception (unless it is unavailable, in which case the defence states why). Inserted the exception, matching the wording already used in sc-claim-damage-caused-by-a-child and three other entries. The record's existing r. 9.02(1) para. 2 quote stops before the exception, so the full parag",
    "problemCorrected": "The source says nothing about what a defendant may argue; the examples (pre-existing condition, owner's own acts or non-disclosure) are entirely unsourced.",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): supported."
@@ -3262,22 +3494,43 @@
   {
    "key": "DEFENCE_CONCEPTS|defenceConcept|defence-set-off-or-counterclaim",
    "verifiedAt": "2026-09-30",
-   "outcome": "supported",
-   "fingerprint": "0bee72f5bdab4cddebc51501251e9890f3c821984aaf3a70757e44026e6fc171",
+   "outcome": "corrected",
+   "fingerprint": "c28d1bedcf7ebf6fb02200b14fc3ede8a4f5768288bc50f88eb76c6dcb7193bd",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
      "pinpoint": "O. Reg. 258/98, rr. 1.02 ('holiday'), 3.01, 8.01(2), 10.01(1)-(2), (6), 10.02",
      "quote": "The defendant's claim shall be in Form 10A and may be issued, (a) within 20 days after the day on which the defence is filed; or (b) after the time described in clause (a) but before trial or default judgment, with leave of the ... if the last day ... falls on a holiday, the period ends on the next day that is not a holiday."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+     "pinpoint": "Courts of Justice Act, s. 111(1)-(3)",
+     "quote": "111 (1) In an action for payment of a debt, the defendant may, by way of defence, claim the right to set off against the plaintiff's claim a debt owed by the plaintiff to the defendant. ... (2) Mutual debts may be set off against each other even if they are of a different nature. ... (3) Where, on a defence of set off, a larger sum is found to be due from the plaintiff to the defendant than is found to be due from the defendant to the plaintiff, the defendant is entitled to judgment for the balance."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "O. Reg. 258/98, r. 10.01(1)",
+     "quote": "10.01 (1) A defendant may make a claim, (a) against the plaintiff; (b) against any other person, (i) arising out of the transaction or occurrence relied upon by the plaintiff, or (ii) related to the plaintiff's claim; or (c) against the plaintiff and against another person in accordance with clause (b)."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "O. Reg. 258/98, r. 8.01(2)",
+     "quote": "A claim shall be served within six months after the date it is issued, but the court may extend the time for service, before or after the six months has elapsed."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "O. Reg. 258/98, r. 10.02",
+     "quote": "A defendant's claim shall be served by the defendant on every person against whom it is made, in accordance with subrules 8.01 (1) and (2)."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: local file"
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: local file 2026-09-30 second audit: Auditor right on all three points. (a) Rather than rename, added a sourced SET-OFF paragraph from Courts of Justice Act s. 111 (vendored in corpus), which states set-off as a defence 'in an action for payment of a debt' -- that condition is kept; alsoCites CJA s. 111 added. (b) Replaced 'or that someone else should be responsible' with r. 10.01(1)(b)'s condition (transaction or occurrence relied o",
+   "problemCorrected": "Auditor right on all three points. (a) Rather than rename, added a sourced SET-OFF paragraph from Courts of Justice Act s. 111 (vendored in corpus), which states set-off as a defence 'in an action for payment of a debt' -- that condition is kept; alsoCites CJA s. 111 added. (b) Replaced 'or that someone else should be responsible' with r. 10.01(1)(b)'s condition (transaction or occurrence relied on by the plaintiff, or related to the plaintiff's claim). (c) Added r. 8.01(2) power to extend time for service. The 20-day/leave/computation text is unchanged."
   },
   {
    "key": "DEFENCE_CONCEPTS|defenceConcept|defence-waiver-release-assumption-of-risk",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "f47ce34b0449aad145289d009d7d6fda52dc4991c7b1f02b6dfab154b64e65a3",
+   "fingerprint": "56671d6ae9db9a268c6374c1c1ca3e7ed29598fb1bfd998deabfbae0e6240a94",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
@@ -3298,9 +3551,24 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
      "pinpoint": "s. 5(3)",
      "quote": "the occupier shall take reasonable steps to bring such restriction, modification or exclusion to the attention of the person to whom the duty is owed."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+     "pinpoint": "s. 4(2)",
+     "quote": "A person who is on premises with the intention of committing, or in the commission of, a criminal act shall be deemed to have willingly assumed all risks and is subject to the duty of care set out in subsection (1)."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+     "pinpoint": "s. 4(3)",
+     "quote": "A person who enters premises described in subsection (4) shall be deemed to have willingly assumed all risks and is subject to the duty of care set out in subsection (1), (a) where the entry is prohibited under the Trespass to Property Act; (b) where the occupier has posted no notice in respect of entry and has not otherwise expressly permitted entry; or (c) where the entry is for the purpose of a recreational activity and, (i) no fee is paid for the entry or activity of the person, other than a benefit or payment received from a government or government agency or a non-profit recreation club or association, and (ii) the person is not being provided with living accommodation by the occupier."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+     "pinpoint": "s. 4(4)",
+     "quote": "The premises referred to in subsection (3) are, (a) a rural premises that is, (i) used for agricultural purposes, including land under cultivation, orchards, pastures, woodlots and farm ponds, (ii) vacant or undeveloped premises, (iii) forested or wilderness premises; (b) golf courses when not open for playing; (c) utility rights-of-way and corridors, excluding structures located thereon; (d) unopened road allowances; (e) private roads reasonably marked by notice as such; (f) recreational trails reasonably marked by notice as such; and (g) portage routes."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/90o02_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/90o02_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json) 2026-09-30 second audit: Auditor right. Added s. 4(2) (criminal act) and s. 4(3)-(4) deemed assumption of risk. Tightened the auditor's 'for free recreation' shorthand: s. 4(3)(c) also requires that the occupier is not providing living accommodation, and s. 4(3)(b) requires both no posted notice AND no other express permission. Listed all s. 4(4) premises rather than 'for example', since the list is closed.",
    "problemCorrected": "The s.4(1) part is supported (the Act says risks 'willingly assumed by the person who enters', not risks assumed 'by entering'). 'A signed waiver or release is often raised in connection with this' is not in s.4. The Act deals with restricting/excluding the duty separately: s.3(3) (duty applies except so far as the occupier is free to and does restrict, modify or exclude it) and s.5(3) (occupier must take reasonable steps to bring the restriction to the person's attention); s.5(1) says a contract the person is not a party to cannot restrict the duty.",
    "independentReviews": [
     "Second, independent re-read against the sources (2026-09-30): partly -- The residual duty in s. 4(1) is paraphrased in a way that changes its meaning. The statute keeps a duty \"to not create a danger with the deliberate intent of doing harm or damage to the person or his or her property and to not act with reckless disregard of the presence of the person or his or her property\"; the entry says the occupier \"can't deliberately create a danger or act with reckless disregard for that person's safety\". \"Deliberately create a danger\" drops the required intent to do harm (much broader), and \"reckless disregard for ... safety\" replaces \"reckless disregard of the presence of the person or property\". Also, s. 3(1) duty is to take reasonable care to see that persons and their property are reasonably safe, not a duty \"to keep premises reasonably safe\". Separately (scope, not a misstatement): the concept is titled generally (\"Waiver, release, or assumption of risk\") but the content is confined to the Occupiers' Liability Act; it should say it applies to occupiers of premises so it is not read as a general defence. Rewritten to the source wording.",
@@ -3310,16 +3578,22 @@
   {
    "key": "DEFENCE_CONCEPTS|defenceConcept|defence-contributory-negligence",
    "verifiedAt": "2026-09-30",
-   "outcome": "supported",
-   "fingerprint": "224e74094a98fede2bc09b170089ca2878f722ad5452ce1a5a4e70d51454935f",
+   "outcome": "corrected",
+   "fingerprint": "5a6e49c5d247b71fc19a5f6fac9b510ce0015da09828f4d9580eaa98393792ea",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc",
      "pinpoint": "Negligence Act, R.S.O. 1990, c. N.1, s. 3",
      "quote": "In any action for damages that is founded upon the fault or negligence of the defendant if fault or negligence is found on the part of the plaintiff that contributed to the damages, the court shall apportion the damages in proportion to the degree of fault or negligence found against the parties respectively."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90d16_e.doc",
+     "pinpoint": "Dog Owners' Liability Act, s. 2(3)",
+     "quote": "The liability of the owner does not depend upon knowledge of the propensity of the dog or fault or negligence on the part of the owner, but the court shall reduce the damages awarded in proportion to the degree, if any, to which the fault or negligence of the plaintiff caused or contributed to the damages."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc: local file"
+   "howRead": "https://www.ontario.ca/laws/docs/elaws_statutes_90n01_e.doc: local file 2026-09-30 second audit: Auditor right. Restored s. 3's threshold ('action for damages that is founded upon the fault or negligence of the defendant'), dropped the unsourced 'rather than an all-or-nothing result', and added the DOLA s. 2(3) reduction rule (the concept is attached to the dog-bite claim type), with alsoCites. Existing Negligence Act s. 3 quote in the record already covers the first sentence.",
+   "problemCorrected": "Auditor right. Restored s. 3's threshold ('action for damages that is founded upon the fault or negligence of the defendant'), dropped the unsourced 'rather than an all-or-nothing result', and added the DOLA s. 2(3) reduction rule (the concept is attached to the dog-bite claim type), with alsoCites. Existing Negligence Act s. 3 quote in the record already covers the first sentence."
   },
   {
    "key": "DEFENCE_CONCEPTS|defenceConcept|defence-failure-to-mitigate",
@@ -4419,8 +4693,8 @@
   {
    "key": "civil-claim-negligence|plaintiffElement|duty-of-care-civneg",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "4f88a55935ff62316db680dd5bca52d9d6b487a1ecdbec4bc4097e8200be44ad",
+   "outcome": "corrected",
+   "fingerprint": "0c2f3151fb7a612ebc0f90a35aa6b9ed69a9d72f0a9d093f8be23cd484d987f4",
    "sources": [
     {
      "sourceUrl": "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
@@ -4446,13 +4720,19 @@
      "sourceUrl": "docs/sources/cooper-v-hobart-2001-SCC-79.pdf",
      "pinpoint": "para. 39",
      "quote": "The second step of Anns generally arises only in cases where the duty of care asserted does not fall within a recognized category of recovery."
+    },
+    {
+     "sourceUrl": "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+     "pinpoint": "para. 3",
+     "quote": "A successful action in negligence requires that the plaintiff demonstrate (1) that the defendant owed him a duty of care"
     }
    ],
-   "howRead": "docs/sources/cooper-v-hobart-2001-SCC-79.pdf: read 2026-09-30; https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html: read 2026-09-30",
+   "howRead": "docs/sources/cooper-v-hobart-2001-SCC-79.pdf: read 2026-09-30; https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html: read 2026-09-30 2026-09-30 second audit: Heading was second-person ('owed you'), which reads as the system finding the reader's facts meet the element. Rewrote as a neutral statement of the element in Mustapha para. 3's own terms. Chose the auditor's second option; 'Whether ...' would clash with the sibling headings ('The defendant did not take the care...'). Mustapha para. 3 is already among the record's sources; addSources repeats it o",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): partly -- Mustapha para. 3 (judgment of the Court) and Cooper paras. 36 and 39 are accurate, and Cooper is a judgment of the Court. But the paraphrase of Cooper para. 30 misstates the \"two questions\": the Court's second question is \"are there reasons, notwithstanding the proximity between the parties established in the first part of this test, that tort liability should not be recognized here?\", not \"was the relationship between the parties close enough\". The entry's own support quote shows the mismatch. That the first stage also requires proximity is supported elsewhere in para. 30 (\"If foreseeability and proximity are established at the first stage\"; \"reasonable foreseeability of the harm must be supplemented by proximity\"; proximity is \"used ... to characterize the type of relationship in which a duty of care may arise\"), so the fix is to use those words, not to put them into the \"two questions\" sentence. Rewritten to the source wording.",
     "Re-read of the rewritten text (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "Heading was second-person ('owed you'), which reads as the system finding the reader's facts meet the element. Rewrote as a neutral statement of the element in Mustapha para. 3's own terms. Chose the auditor's second option; 'Whether ...' would clash with the sibling headings ('The defendant did not take the care...'). Mustapha para. 3 is already among the record's sources; addSources repeats it only to show where the wording comes from."
   },
   {
    "key": "civil-claim-negligence|plaintiffElement|standard-of-care-civneg",
@@ -4479,8 +4759,8 @@
   {
    "key": "civil-claim-negligence|plaintiffElement|damage-sustained-civneg",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "be70b0d7865a4d8589468d7f49fcd1db9951f54004b7278d4dbef915642310c8",
+   "outcome": "corrected",
+   "fingerprint": "c165ffe0f2dd5b0599fb765371d20b05cc9ccd17a09017d96dab46b1dd5bfba9",
    "sources": [
     {
      "sourceUrl": "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
@@ -4491,18 +4771,29 @@
      "sourceUrl": "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
      "pinpoint": "para. 9",
      "quote": "psychological disturbance that rises to the level of personal injury must be distinguished from psychological upset. ... The law does not recognize upset, disgust, anxiety, agitation or other mental states that fall short of injury. I would not purport to define compensable injury exhaustively, except to say that it must be serious and prolonged and rise above the ordinary annoyances, anxieties and fears that people living in society routinely, if sometimes reluctantly, accept."
+    },
+    {
+     "sourceUrl": "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+     "pinpoint": "para. 3",
+     "quote": "(3) that the plaintiff sustained damage"
+    },
+    {
+     "sourceUrl": "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
+     "pinpoint": "para. 9",
+     "quote": "psychological disturbance that rises to the level of personal injury must be distinguished from psychological upset"
     }
    ],
-   "howRead": "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html: read 2026-09-30",
+   "howRead": "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html: read 2026-09-30 2026-09-30 second audit: Heading 'You suffered damage' asserted the reader meets the damage element, which the explanation itself says is contestable (Mustapha para. 9). Changed it to a third-person statement of the element in Mustapha para. 3's wording ('the plaintiff sustained damage'), plus 'the law recognizes' to signal the para. 8-9 threshold without applying it. I did not use the auditor's parenthetical form. Para. ",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "Heading 'You suffered damage' asserted the reader meets the damage element, which the explanation itself says is contestable (Mustapha para. 9). Changed it to a third-person statement of the element in Mustapha para. 3's wording ('the plaintiff sustained damage'), plus 'the law recognizes' to signal the para. 8-9 threshold without applying it. I did not use the auditor's parenthetical form. Para. 3 is not in this entry's record (which has paras. 8-9), so it is in addSources."
   },
   {
    "key": "civil-claim-negligence|plaintiffElement|causation-and-remoteness-civneg",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "e19dfd6304c6e8f5543419dfd7f1991c6990cbed3c1fc37c952da737917d5518",
+   "outcome": "corrected",
+   "fingerprint": "f36b056ab863db92d6efdc23e44b65eddd7bee4fe7a6505e13a227960810b04a",
    "sources": [
     {
      "sourceUrl": "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
@@ -4523,18 +4814,29 @@
      "sourceUrl": "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html",
      "pinpoint": "para. 13",
      "quote": "The degree of probability that would satisfy the reasonable foreseeability requirement was described in The Wagon Mound (No. 2) as a “real risk”, i.e. “one which would occur to the mind of a reasonable man in the position of the defendan[t] . . . and which he would not brush aside as far-fetched”"
+    },
+    {
+     "sourceUrl": "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
+     "pinpoint": "para. 46(1)",
+     "quote": "As a general rule, a plaintiff cannot succeed unless she shows as a matter of fact that she would not have suffered the loss “but for” the negligent act or acts of the defendant."
+    },
+    {
+     "sourceUrl": "https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html",
+     "pinpoint": "para. 46(2)",
+     "quote": "Exceptionally, a plaintiff may succeed by showing that the defendant’s conduct materially contributed to risk of the plaintiff’s injury, where (a) the plaintiff has established that her loss would not have occurred “but for” the negligence of two or more tortfeasors, each possibly in fact responsible for the loss; and (b) the plaintiff, through no fault of her own, is unable to show that any one of the possible tortfeasors in fact was the necessary or “but for” cause of her injury, because each can point to one another as the possible “but for” cause ... of the injury, defeating a finding of causation on a balance of probabilities against anyone."
     }
    ],
-   "howRead": "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html: read 2026-09-30; https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html: read 2026-09-30",
+   "howRead": "https://www.canlii.org/en/ca/scc/doc/2008/2008scc27/2008scc27.html: read 2026-09-30; https://www.canlii.org/en/ca/scc/doc/2012/2012scc32/2012scc32.html: read 2026-09-30 2026-09-30 second audit: Added the dropped exception (Clements para. 46(2), read in docs/sources/clements-v-clements-2012-SCC-32.pdf). Both conditions (a) and (b) are kept, including 'through no fault of her own' and 'each can point to one another', which the auditor's wording left out; 'tortfeasors' is rendered 'wrongdoers'. The existing para. 8 sentence stays: it is the Court's own wording, and the new sentence qualifie",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "Added the dropped exception (Clements para. 46(2), read in docs/sources/clements-v-clements-2012-SCC-32.pdf). Both conditions (a) and (b) are kept, including 'through no fault of her own' and 'each can point to one another', which the auditor's wording left out; 'tortfeasors' is rendered 'wrongdoers'. The existing para. 8 sentence stays: it is the Court's own wording, and the new sentence qualifies it. I did NOT repoint sourceUrl/alsoCites to the local PDFs as the auditor suggested. The CanLII URLs are the public citations already used for Clements (4x) and Mustapha (10x) across the file and in the record, so repointing is cosmetic, not a correction. addSources use the CanLII URL, with quotes read from the local PDF."
   },
   {
    "key": "civil-claim-negligence|plaintiffElement|burden-of-proof-civneg",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "b68b68cc9b305661f0810784f3ba566ca5b18fc9350165b534332a0533326072",
+   "outcome": "corrected",
+   "fingerprint": "b58ceabec666f2cb2a42297d4ba2e1bd1518030018b2874bf10417a3bbcd1cd8",
    "sources": [
     {
      "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
@@ -4547,11 +4849,12 @@
      "quote": "This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
     }
    ],
-   "howRead": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/: read 2026-09-30",
+   "howRead": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/: read 2026-09-30 2026-09-30 second audit: Heading changed from second person to a neutral statement, as the auditor suggested. The heading only; the plainExplanation is already third-person. Caveat: the explanation's only source is the SCJ 'Steps to a civil case' page, which is still not vendored on disk. The wording change adds no legal content, so no new source is needed, but the entry stays UNVERIFIABLE-LOCALLY until that page is vendo",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): partly -- The gloss \"-- evidence showing that, more likely than not, it would be correct to rule in their favour\" is not in the accepted SCJ sentence and no other source is cited for it. The support quote is verbatim; the added explanation of \"balance of probabilities\" is unsourced. Rewritten to the source wording.",
     "Re-read of the rewritten text (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "Heading changed from second person to a neutral statement, as the auditor suggested. The heading only; the plainExplanation is already third-person. Caveat: the explanation's only source is the SCJ 'Steps to a civil case' page, which is still not vendored on disk. The wording change adds no legal content, so no new source is needed, but the entry stays UNVERIFIABLE-LOCALLY until that page is vendored."
   },
   {
    "key": "civil-claim-negligence|defendantConsideration|contributory-negligence-apportionment-civneg",
@@ -4588,8 +4891,8 @@
   {
    "key": "civil-claim-negligence|defendantConsideration|occupiers-liability-premises-civneg",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "f862d8ae3699364df312194a380cda08623786142a2f49d90721347ddd80e9db",
+   "outcome": "corrected",
+   "fingerprint": "c8c7aa1ddbe9811da681054aadb624c41eba7c87c6a5def5151352c5fb9e3a91",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
@@ -4645,13 +4948,24 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
      "pinpoint": "s. 9(3)",
      "quote": "The Negligence Act applies with respect to causes of action to which this Act applies."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+     "pinpoint": "s. 5(1)",
+     "quote": "The duty of an occupier under this Act, or the occupier's liability for breach thereof, shall not be restricted or excluded by any contract to which the person to whom the duty is owed is not a party, whether or not the occupier is bound by the contract to permit such person to enter or use the premises."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
+     "pinpoint": "s. 5(3)",
+     "quote": "Where an occupier is free to restrict, modify or exclude the occupier's duty of care or the occupier's liability for breach thereof, the occupier shall take reasonable steps to bring such restriction, modification or exclusion to the attention of the person to whom the duty is owed."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/90o02_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/90o02_e.doc: vendored text in docs/sources/corpus (see manifest.json) 2026-09-30 second audit: Added s. 5(1) and s. 5(3), read in docs/sources/corpus/occupiers-liability-act.txt (consolidation from 2021-01-29, matching the entry's consolidationPeriod), directly after the s. 3(3) sentence they qualify. The auditor's gloss is accurate. The new text keeps 'or the liability for breaching it' and the statute's 'shall', where the auditor had 'must'. The auditor's other point, that the pinpoint om",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): partly -- Each statement is accurate (ss. 1, 2, 3(1)-(2), 6.1(1), (2), (5), (6), 9(3)), but the s. 3(1) duty is presented without the qualifications in the same Act that change who it is owed to and when: s. 3(3) (the duty applies except in so far as the occupier is free to and does restrict, modify or exclude it) and s. 4(1) (the s. 3(1) duty does not apply to risks willingly assumed; a lesser duty applies instead), with s. 4(2)-(4) deeming certain entrants (criminal acts; entry onto listed rural and recreational premises in listed circumstances) to have willingly assumed all risks. The drafting notes say these were left out deliberately, but as written the entry overstates the reach of s. 3(1). Rewritten to the source wording.",
     "Re-read of the rewritten text (2026-09-30): partly -- The s. 3(3) and s. 4(1)-(4) qualifications are now included and accurate, but the s. 4(4) list drops a condition. It says 'rural premises used for agricultural purposes, vacant or undeveloped premises, forested or wilderness premises', which reads as if any vacant, undeveloped, forested or wilderness premises qualify. In s. 4(4)(a), all three are sub-types of 'a rural premises that is' (i) used for agricultural purposes, (ii) vacant or undeveloped premises, (iii) forested or wilderness premises. Everything else matches. Rewritten to the source wording."
-   ]
+   ],
+   "problemCorrected": "Added s. 5(1) and s. 5(3), read in docs/sources/corpus/occupiers-liability-act.txt (consolidation from 2021-01-29, matching the entry's consolidationPeriod), directly after the s. 3(3) sentence they qualify. The auditor's gloss is accurate. The new text keeps 'or the liability for breaching it' and the statute's 'shall', where the auditor had 'must'. The auditor's other point, that the pinpoint omits ss. 4 and 5, does not apply to this entry: it has no pinpoint field, only sourceUrl and consolidationPeriod, and the record already carries s. 4(1)-(4) quotes. s. 5 is added via addSources."
   },
   {
    "key": "civil-claim-negligence|defendantConsideration|school-supervision-standard-civneg",
@@ -4862,8 +5176,8 @@
   {
    "key": "civil-claim-negligent-misrepresentation|plaintiffElement|reasonable-reliance-and-loss-civmisrep",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "5ea5322c7f8cd8b3a6fe412be06a21ecdada284fb55cd4d48113d2b4557e0684",
+   "outcome": "corrected",
+   "fingerprint": "fbbad1d1705d3330b9c403bd7bb08c4a74d13acc5d150961827345f3799ba0da",
    "sources": [
     {
      "sourceUrl": "docs/sources/queen-v-cognos-inc-1993-1-SCR-87.pdf",
@@ -4871,16 +5185,17 @@
      "quote": "(4) the representee must have relied, in a reasonable manner, on said negligent misrepresentation; and (5) the reliance must have been detrimental to the representee in the sense that damages resulted."
     }
    ],
-   "howRead": "docs/sources/queen-v-cognos-inc-1993-1-SCR-87.pdf: read 2026-09-30",
+   "howRead": "docs/sources/queen-v-cognos-inc-1993-1-SCR-87.pdf: read 2026-09-30 2026-09-30 second audit: The heading asserted that the reader meets Cognos requirements (4) and (5). Rewrote it in the third person to track Cognos p. 110 ('the representee must have relied, in a reasonable manner ... the reliance must have been detrimental to the representee in the sense that damages resulted'). That passage is already the record's sole source, so no addSources. The source PDF is a scan: I checked the wo",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "The heading asserted that the reader meets Cognos requirements (4) and (5). Rewrote it in the third person to track Cognos p. 110 ('the representee must have relied, in a reasonable manner ... the reliance must have been detrimental to the representee in the sense that damages resulted'). That passage is already the record's sole source, so no addSources. The source PDF is a scan: I checked the wording against the audit's OCR text (claims3-scratch/txt/queen-v-cognos-inc-1993-1-SCR-87.raw.txt), not a text layer. The auditor's proposed 'the reliance caused loss' is close but moves away from the source's wording."
   },
   {
    "key": "civil-claim-negligent-misrepresentation|plaintiffElement|burden-of-proof-civmisrep",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "b68b68cc9b305661f0810784f3ba566ca5b18fc9350165b534332a0533326072",
+   "outcome": "corrected",
+   "fingerprint": "b58ceabec666f2cb2a42297d4ba2e1bd1518030018b2874bf10417a3bbcd1cd8",
    "sources": [
     {
      "sourceUrl": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/",
@@ -4893,11 +5208,12 @@
      "quote": "This means that the plaintiff must present evidence that will convince the judge that, more likely than not (i.e., greater than a 50% chance), it would be correct to rule in favour of the plaintiff."
     }
    ],
-   "howRead": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/: read 2026-09-30",
+   "howRead": "https://www.ontariocourts.ca/scj/guides-and-service-resources/guide-to-representing-yourself/civil-resources-to-help-self-represented-litigants/steps-to-civil-case/: read 2026-09-30 2026-09-30 second audit: Heading changed from second person to a neutral statement, as the auditor suggested. The heading only; the plainExplanation is already third-person. Caveat: the explanation's only source is the SCJ 'Steps to a civil case' page, which is still not vendored on disk. The wording change adds no legal content, so no new source is needed, but the entry stays UNVERIFIABLE-LOCALLY until that page is vendo",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): partly -- The gloss \"-- evidence showing that, more likely than not, it would be correct to rule in their favour\" is not in the accepted SCJ sentence and no other source is cited for it. The support quote is verbatim; the added explanation of \"balance of probabilities\" is unsourced. Rewritten to the source wording.",
     "Re-read of the rewritten text (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "Heading changed from second person to a neutral statement, as the auditor suggested. The heading only; the plainExplanation is already third-person. Caveat: the explanation's only source is the SCJ 'Steps to a civil case' page, which is still not vendored on disk. The wording change adds no legal content, so no new source is needed, but the entry stays UNVERIFIABLE-LOCALLY until that page is vendored."
   },
   {
    "key": "civil-claim-negligent-misrepresentation|defendantConsideration|implied-representation-civmisrep",
@@ -6016,8 +6332,8 @@
   {
    "key": "family-matter-child-support|proceduralNote|family-matter-child-support#note2",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "2dbe54df91bb52ba42deb14286a410a48dca30b0cbfec4434c48baf2cd116b50",
+   "outcome": "corrected",
+   "fingerprint": "e6a6852260bcb8709cf392e48449c1d423468924eabe9b50854dae22d12284f3",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
@@ -6043,12 +6359,18 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
      "pinpoint": "r. 8(5)",
      "quote": "The application shall be served immediately on every other party, and special service shall be used unless the party is listed in subrule (6)."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/990114_e.doc",
+     "pinpoint": "r. 8(2)",
+     "quote": "Subject to subrule 25 (19) (changing order — fraud, mistake, lack of notice), a party who wants to ask the court to change a final order or an agreement for support filed under section 35 of the Family Law Act, or a family arbitration award filed under section 59.9 of that Act, may do so only by a motion under rule 15 (if permitted to do so by that rule). O. Reg. 151/08, s. 1; O. Reg. 150/25, s. 2."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/990114_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/990114_e.doc: vendored text in docs/sources/corpus (see manifest.json) 2026-09-30 second audit: The auditor is correct: the current r. 8(2) in docs/sources/corpus/family-law-rules.txt (consolidation from 2026-09-18, which matches the entry's consolidationPeriod) adds 'or a family arbitration award filed under section 59.9 of that Act' (O. Reg. 150/25). Added it. The record's existing r. 8(2) quote is the older wording, so the full current text is in addSources. The r. 8(2.1) exception mentio",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "The auditor is correct: the current r. 8(2) in docs/sources/corpus/family-law-rules.txt (consolidation from 2026-09-18, which matches the entry's consolidationPeriod) adds 'or a family arbitration award filed under section 59.9 of that Act' (O. Reg. 150/25). Added it. The record's existing r. 8(2) quote is the older wording, so the full current text is in addSources. The r. 8(2.1) exception mentioned in the note is unchanged. Its text still speaks only of 'a final order or agreement'; I did not extend it."
   },
   {
    "key": "family-matter-divorce|plaintiffElement|habitual-residence-one-year-divorce",
@@ -8374,8 +8696,8 @@
   {
    "key": "sc-claim-online-purchase-not-delivered|proceduralNote|sc-claim-online-purchase-not-delivered#note1",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "ead442a8c94091a7a0cad4d948abad9203909347156b2cddef8932e4ba3aa6c1",
+   "outcome": "corrected",
+   "fingerprint": "0895b73d7873fa29e4e9c14ba0fb2f79ea5dd546c4d36a100432dcfb97c521a1",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
@@ -8396,12 +8718,28 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
      "pinpoint": "s. 101",
      "quote": "If a consumer is required to give notice under this Act in order to obtain a remedy, a court may disregard the requirement to give the notice or any requirement relating to the notice if it is in the interest of justice to do so."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+     "pinpoint": "Courts of Justice Act, s. 23(1.1)",
+     "quote": "An action that is within the Small Claims Court's jurisdiction shall not, despite subsection 11 (2), be commenced in the Superior Court of Justice except with leave of the Superior Court of Justice as provided in the rules of court."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+     "pinpoint": "Courts of Justice Act, s. 23(1)(a)",
+     "quote": "has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs;"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+     "pinpoint": "O. Reg. 626/00, s. 1(1)",
+     "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/02c30_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/90c43_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/02c30_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/90c43_e.doc: vendored text in docs/sources/corpus (see manifest.json) 2026-09-30 second audit: Auditor right (high); matches the SOURCING_NOTES CJA s.23(1.1) entry. Added s. 23(1.1) using the statute's words, with the jurisdiction threshold from s. 23(1)(a) and O. Reg. 626/00, s. 1(1). Dropped the auditor's closing 'so a claim of that size is normally brought in Small Claims Court' -- editorial and edging toward telling the user where to file; the statute already says it. alsoCites extended",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "Auditor right (high); matches the SOURCING_NOTES CJA s.23(1.1) entry. Added s. 23(1.1) using the statute's words, with the jurisdiction threshold from s. 23(1)(a) and O. Reg. 626/00, s. 1(1). Dropped the auditor's closing 'so a claim of that size is normally brought in Small Claims Court' -- editorial and edging toward telling the user where to file; the statute already says it. alsoCites extended. (s. 23(1.2)'s counterclaim/crossclaim exception not added -- not relevant to a consumer starting an action.)"
   },
   {
    "key": "sc-claim-online-purchase-not-delivered|proceduralNote|sc-claim-online-purchase-not-delivered#note2",
@@ -8798,8 +9136,8 @@
   {
    "key": "sc-claim-repairer-or-storer-holding-property|proceduralNote|sc-claim-repairer-or-storer-holding-property#note2",
    "verifiedAt": "2026-09-30",
-   "outcome": "authored",
-   "fingerprint": "94cc28c93a713f10cbd3a498aabd83951eac90973d6b6b2a8d033b0d1fe962a8",
+   "outcome": "corrected",
+   "fingerprint": "98433422cc46bfbbd81456a9979baf15d12e9b97ec2a7babdb659a737752dd98",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
@@ -8820,12 +9158,23 @@
      "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
      "pinpoint": "s. 28(6)",
      "quote": "Where the lien claimant uses or deals with an article in a manner not authorized by this Act, the lien claimant is liable for any loss or damage caused by that use or dealing and may be restrained by an injunction."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+     "pinpoint": "Courts of Justice Act, s. 96(3)",
+     "quote": "Only the Court of Appeal and the Superior Court of Justice, exclusive of the Small Claims Court, may grant equitable relief, unless otherwise provided."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+     "pinpoint": "Courts of Justice Act, s. 101(1)",
+     "quote": "In the Superior Court of Justice, an interlocutory injunction or mandatory order may be granted or a receiver or receiver and manager may be appointed by an interlocutory order, where it appears to a judge of the court to be just or convenient to do so."
     }
    ],
-   "howRead": "https://www.ontario.ca/laws/docs/90r25_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "howRead": "https://www.ontario.ca/laws/docs/90r25_e.doc: vendored text in docs/sources/corpus (see manifest.json) 2026-09-30 second audit: PARTLY DISAGREE with the auditor. The concern is right (on a Small Claims page, 'may be restrained by an injunction' reads as an available remedy), but the suggested flat statement 'an injunction is not a remedy Small Claims Court can grant; see CJA s. 96(3)' goes beyond the text on disk: s. 96(3) speaks of 'equitable relief' and carries 'unless otherwise provided', nothing vendored says in terms ",
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
-   ]
+   ],
+   "problemCorrected": "PARTLY DISAGREE with the auditor. The concern is right (on a Small Claims page, 'may be restrained by an injunction' reads as an available remedy), but the suggested flat statement 'an injunction is not a remedy Small Claims Court can grant; see CJA s. 96(3)' goes beyond the text on disk: s. 96(3) speaks of 'equitable relief' and carries 'unless otherwise provided', nothing vendored says in terms that an injunction is equitable relief, and RSLA s. 23(1) lets 'a court' (including Small Claims, per s. 23(3)) 'make such order as it considers necessary' -- whether that is 'otherwise provided' is not answered by any source read. So the patch states what the sources say (s. 28(6) names no court; CJA s. 96(3); CJA s. 101(1)) and leaves the conclusion to the reader. If a flat statement is wanted, it needs a source that says it (e.g. a reported decision on Small Claims Court and injunctions) save"
   },
   {
    "key": "sc-claim-repairer-or-storer-holding-property|proceduralNote|sc-claim-repairer-or-storer-holding-property#note3",
@@ -9148,6 +9497,171 @@
    "independentReviews": [
     "Independent re-read against the sources (2026-09-30): supported."
    ]
+  },
+  {
+   "key": "sc-claim-defamation-libel-slander|plaintiffElement|words-defamatory-scdefam",
+   "verifiedAt": "2026-09-30",
+   "outcome": "corrected",
+   "fingerprint": "f9a013fa0c838f68345687e82ffdd246c3407327bde64e1bc401f9ddef4dcecc",
+   "sources": [
+    {
+     "sourceUrl": "docs/sources/grant-v-torstar-2009-SCC-61.pdf",
+     "pinpoint": "para. 28",
+     "quote": "A plaintiff in a defamation action is required to prove three things to obtain judgment and an award of damages: (1) that the impugned words were defamatory, in the sense that they would tend to lower the plaintiff’s reputation in the eyes of a reasonable person;"
+    },
+    {
+     "sourceUrl": "docs/sources/grant-v-torstar-2009-SCC-61.pdf",
+     "pinpoint": "para. 29",
+     "quote": "If the plaintiff proves the required elements, the onus then shifts to the defendant to advance a defence in order to escape liability."
+    }
+   ],
+   "howRead": "2026-09-30 second audit: NEW element (companion to the statement-made-and-communicated patch). Inserts before 'statement-made-and-communicated'. Needs a new catalogue-verification record. Apply BEFORE the words-refer-to-plaintiff-scdefam patch so the order is defamatory / refers / published (both use the same anchor; each inserts immediately before it).",
+   "problemCorrected": "NEW element (companion to the statement-made-and-communicated patch). Inserts before 'statement-made-and-communicated'. Needs a new catalogue-verification record. Apply BEFORE the words-refer-to-plaintiff-scdefam patch so the order is defamatory / refers / published (both use the same anchor; each inserts immediately before it)."
+  },
+  {
+   "key": "sc-claim-defamation-libel-slander|plaintiffElement|words-refer-to-plaintiff-scdefam",
+   "verifiedAt": "2026-09-30",
+   "outcome": "corrected",
+   "fingerprint": "8f933570c604ac09ea97ef026360bb7c9088a2003eba0d641bdc08b5cf854da1",
+   "sources": [
+    {
+     "sourceUrl": "docs/sources/grant-v-torstar-2009-SCC-61.pdf",
+     "pinpoint": "para. 28",
+     "quote": "(2) that the words in fact referred to the plaintiff;"
+    }
+   ],
+   "howRead": "2026-09-30 second audit: NEW element (companion). Inserts immediately before 'statement-made-and-communicated'; apply after the words-defamatory-scdefam patch. Needs a new catalogue-verification record.",
+   "problemCorrected": "NEW element (companion). Inserts immediately before 'statement-made-and-communicated'; apply after the words-defamatory-scdefam patch. Needs a new catalogue-verification record."
+  },
+  {
+   "key": "sc-claim-unpaid-overtime-vacation-pay|proceduralNote|sc-claim-unpaid-overtime-vacation-pay#note1",
+   "verifiedAt": "2026-09-30",
+   "outcome": "corrected",
+   "fingerprint": "2649d3c93e52383b3c8403295ece22e6e3ae41285e31fab160b193d56bf03b14",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "Employment Standards Act, 2000, s. 1(1) \"wages\" (b)",
+     "quote": "\"wages\" means, (a) monetary remuneration payable by an employer to an employee under the terms of an employment contract, oral or written, express or implied, (b) any payment required to be made by an employer to an employee under this Act, and"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "Employment Standards Act, 2000, s. 97(1)",
+     "quote": "An employee who files a complaint under this Act with respect to an alleged failure to pay wages or comply with Part XIII (Benefit Plans) may not commence a civil proceeding with respect to the same matter."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "Employment Standards Act, 2000, s. 97(4)",
+     "quote": "Despite subsections (1) and (2), an employee who has filed a complaint may commence a civil proceeding with respect to a matter described in those subsections if he or she withdraws the complaint within two weeks after it is filed."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "Employment Standards Act, 2000, s. 98(1)",
+     "quote": "An employee who commences a civil proceeding with respect to an alleged failure to pay wages or to comply with Part XIII (Benefit Plans) may not file a complaint with respect to the same matter or have such a complaint investigated."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "Employment Standards Act, 2000, s. 8(1)",
+     "quote": "Subject to section 97, no civil remedy of an employee against his or her employer is affected by this Act."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "Employment Standards Act, 2000, s. 96(3)",
+     "quote": "A complaint regarding a contravention that occurred more than two years before the day on which the complaint was filed shall be deemed not to have been filed."
+    }
+   ],
+   "howRead": "2026-09-30 second audit: read in docs/sources/corpus/esa-2000-ontario.txt (consolidation from 2026-01-01).",
+   "problemCorrected": "The entry omitted the Employment Standards Act, 2000 complaint-or-court election (ss. 97-98) and the s. 8(2) notice to the Director; added as a new note, matching the unpaid-wages entry."
+  },
+  {
+   "key": "sc-claim-unpaid-overtime-vacation-pay|proceduralNote|sc-claim-unpaid-overtime-vacation-pay#note2",
+   "verifiedAt": "2026-09-30",
+   "outcome": "corrected",
+   "fingerprint": "f77f8ee417463d0749975e08ea73e180f6a623cff0a4a937da80437b2eba4026",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "Employment Standards Act, 2000, s. 8(2)",
+     "quote": "Where an employee commences a civil proceeding against his or her employer under this Act, notice of the proceeding shall be served on the Director on a form approved by the Director on or before the date the civil proceeding is set down for trial."
+    }
+   ],
+   "howRead": "2026-09-30 second audit: read in docs/sources/corpus/esa-2000-ontario.txt (consolidation from 2026-01-01).",
+   "problemCorrected": "The entry omitted the Employment Standards Act, 2000 complaint-or-court election (ss. 97-98) and the s. 8(2) notice to the Director; added as a new note, matching the unpaid-wages entry."
+  },
+  {
+   "key": "sc-claim-used-vehicle-nondisclosure|plaintiffElement|dealer-failed-to-disclose",
+   "verifiedAt": "2026-09-30",
+   "outcome": "corrected",
+   "fingerprint": "4af62c1d81b8f49806ffef8241488b94d6c1e7acaed355193752a4d8d3bc5c1d",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/080333_e.doc",
+     "pinpoint": "O. Reg. 333/08, s. 41(1) para. 11 (used vehicle sale contracts)",
+     "quote": "A registered motor vehicle dealer shall ensure that any contract that the dealer enters into to sell a used motor vehicle to a purchaser who is not another registered motor vehicle dealer includes"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/080333_e.doc",
+     "pinpoint": "s. 41(1) para. 11",
+     "quote": "11. The information required to be included under section 42."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/080333_e.doc",
+     "pinpoint": "s. 42 paras. 3-4",
+     "quote": "If the motor vehicle is a used motor vehicle, the total distance that it has been driven if the registered motor vehicle dealer can determine the distance. ... If the motor vehicle is a used motor vehicle and the registered motor vehicle dealer cannot determine the total distance that the vehicle has been driven but can determine the distance that the vehicle has been driven as of some past date, a statement of that distance and date"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/080333_e.doc",
+     "pinpoint": "s. 42 para. 7",
+     "quote": "leased on a daily basis, unless the vehicle was subsequently owned by a person who was not registered as a motor vehicle dealer ... used as a police cruiser or used to provide emergency services, or ... used as a taxi or limousine."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/080333_e.doc",
+     "pinpoint": "s. 42 paras. 17, 23",
+     "quote": "The make, model and model year of the motor vehicle. ... If the motor vehicle has been classified, under section 199.1 of the Highway Traffic Act, as irreparable, salvage or rebuilt, a statement as to how it was last classified."
+    }
+   ],
+   "howRead": "Read in docs/sources/corpus/oreg-333-08-motor-vehicle-dealers-general.txt (consolidation from 2025-01-01), vendored 2026-09-30.",
+   "problemCorrected": "Previously unverifiable (regulation not retrieved). On reading: \"disclosed accurately\" overstated s. 42, which lists what the contract must include; past uses were incomplete (taxi or limousine omitted, daily-lease exception not mentioned); the classification item is how the vehicle was last classified."
+  },
+  {
+   "key": "sc-claim-used-vehicle-nondisclosure|plaintiffElement|cancelled-within-90-days",
+   "verifiedAt": "2026-09-30",
+   "outcome": "corrected",
+   "fingerprint": "4f7d73da47ee56fa76dc477579700d705d470106242128438a8aed12f8e42413",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/080333_e.doc",
+     "pinpoint": "s. 50(1)",
+     "quote": "the dealer has not accurately disclosed, in the contract, the information required under any of paragraphs 3, 7, 17 and 23 of section 42"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/080333_e.doc",
+     "pinpoint": "s. 50(2)",
+     "quote": "A person may cancel a contract under subsection (1) even if the registered motor vehicle dealer did not know the information that the dealer was required to disclose under that subsection or honestly believed it to be accurate"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/080333_e.doc",
+     "pinpoint": "s. 50(3)",
+     "quote": "enters into a contract with the dealer to purchase the vehicle is not entitled to cancel the contract of purchase under subsection (1)."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/080333_e.doc",
+     "pinpoint": "s. 50(4)",
+     "quote": "shall be deemed to be accurate if it is within the lesser of 5 per cent or 1,000 kilometres of the correct distance required to be disclosed."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/080333_e.doc",
+     "pinpoint": "s. 50(5)",
+     "quote": "A person may not cancel a contract under subsection (1) more than 90 days after actually receiving the motor vehicle."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/080333_e.doc",
+     "pinpoint": "s. 50(6) paras. 1-2",
+     "quote": "The notice must be in writing. ... The notice may be expressed in any way, as long as it indicates the intention of the person to cancel the contract."
+    }
+   ],
+   "howRead": "Read in docs/sources/corpus/oreg-333-08-motor-vehicle-dealers-general.txt (consolidation from 2025-01-01), vendored 2026-09-30.",
+   "problemCorrected": "Previously unverifiable (regulation not retrieved). On reading, everything stated was supported; the s. 50(3) exclusion for a lessee who buys the leased vehicle was missing and has been added."
   }
  ],
  "nextSteps": [

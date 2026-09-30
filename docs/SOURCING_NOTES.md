@@ -1289,3 +1289,35 @@ earlier is fine.
 
 No existing published block cites a serve-and-file duty, so adding this changed nothing
 for the 16.
+
+## Vendored ontario.ca / SCJ pages and recorded quotes (2026-09-30)
+
+Eight pages that the catalogue cited but that had no local copy were vendored
+through the Vendor Sources workflow (ids in `scripts/rules/practicalSources.ts`
+and `corpusSources.ts`): `scj-steps-to-a-civil-case`,
+`ontario-renting-commercial-property`, `ontario-towing-rights`,
+`ontario-cpa-rights`, `esa-guide-overtime-pay`, `esa-guide-termination`,
+`esa-guide-vacation`, and **O. Reg. 333/08** (`oreg-333-08-motor-vehicle-dealers-general`,
+`https://www.ontario.ca/laws/docs/080333_e.doc`). O. Reg. 333/08 was the last
+regulation the catalogue could not check; the workflow route works for it, so
+it is no longer a dead end. With it, **all 325 catalogue entries are verified,
+0 unverifiable.**
+
+What broke the moment those pages became checkable, so it is not rediscovered:
+
+- **HTML-derived text keeps markup artefacts.** Link text is padded with spaces
+  (`( CTA )`, `business .`) and a few entities survive (`&#8217;`). A quote
+  copied from the rendered page has neither. `normalizeForQuote` in
+  `scripts/content/catalogueVerification.ts` now decodes those entities and
+  removes the space after `(`/`[` and before `)`/`]`/`,`/`;` -- **but not before
+  `.`**, because `" ... "` is the skipped-material marker and stripping that
+  space silently turned 40 multi-part quotes into single runs that could not
+  match.
+- **Recorded quotes had been flattened.** Several records joined separate
+  sentences as `"A." "B."` or turned a bulleted list into one sentence with
+  semicolons. Those are rewritten with `" ... "` between verbatim runs. A
+  record's own wrapping quotation marks are stripped by `stripWrappingQuotes`.
+- **The live page had drifted from the recorded quote** in two places (the CPA
+  rights page now splits the cooling-off sentence across a list; the
+  commercial-renting sentence begins "You should be aware that a signed...").
+  The meaning was unchanged; the quotes were re-taken from the vendored text.

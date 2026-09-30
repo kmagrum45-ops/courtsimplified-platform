@@ -1,0 +1,213 @@
+Overtime pay | Your guide to the Employment Standards Act | ontario.ca
+
+ Skip to main content
+
+ Ontario.ca needs JavaScript to function properly and provide you with a fast, stable experience.
+
+ To have a better experience, you need to:
+
+ Go to your browser's settings
+ Enable JavaScript
+
+ Log in to continue
+
+ Please log in for full account access.
+
+ Print all
+
+ Overtime pay
+
+ On this page
+ Skip this page navigation
+
+ Tell us what you think about the information on this page and how you’re using it. Take our survey .
+ Interactive tools are available online; please use the Employment Standards Self-Service Tool to check compliance with overtime rules and employment standards entitlements.
+ For most employees, whether they work full-time, part-time, are students, temporary help agency assignment employees, or casual workers, overtime begins after they have worked 44 hours in a work week. Their hours after 44 must be paid at the overtime pay rate.
+ Overtime pay
+ Overtime pay is 1½ times the employee’s regular rate of pay. (This is often called "time and a half.")
+ For example, an employee who has a regular rate of $25.00 an hour will have an overtime rate of $37.50 an hour (25 × 1.5 = 37.50). The employee must therefore be paid at a rate of $37.50 an hour for every hour worked in excess of 44 in a week.
+ No overtime on a daily basis
+ Unless a contract of employment or a collective agreement states otherwise, an employee does not earn overtime pay on a daily basis by working more than a set number of hours a day. Overtime is calculated only:
+ on a weekly basis or
+ over a longer period under an averaging agreement
+ Exceptions
+ Many employees have jobs that are exempt from the overtime provisions of the Employment Standards Act, 2000 ( ESA ). Others work in jobs where the overtime threshold is more than 44 hours in a work week. For more information, please see the special rule tool .
+ Managers and supervisors
+ Managers and supervisors do not qualify for overtime if the work they do is managerial or supervisory. Even if they perform other kinds of tasks that are not managerial or supervisory, they are not entitled to get overtime pay if these tasks are performed only on an irregular or exceptional basis.
+ Different kinds of work ("50 per cent rule")
+ Some employees have jobs where they are required to do more than one kind of work. Some of the work might be specifically exempt from overtime pay, while other parts might be covered. If at least 50 per cent of the hours the employee works is in a job category that is covered, the employee qualifies for overtime pay.
+ When an employee does two kinds of work
+ Gerard works for a taxi company both as a cab driver and as a dispatcher in the office. Working as a cab driver he is exempt from overtime pay but working in the office as a dispatcher he is not.
+ During a work week, Gerard worked 26 hours in the office and 24 hours driving a cab, for a total of 50 hours. This is six hours over the overtime threshold of 44 hours.
+ Because Gerard spent at least 50 per cent of his working hours that week as a dispatcher (a job category that is covered), he qualifies for six hours of overtime pay.
+ If the employee has more than one regular pay rate for overtime work performed
+ An employee who is paid on an hourly basis may perform, in one work week, two types of work, each of which attracts a different hourly rate. In that case, the employee has two regular rates and, as a result, the overtime rate for each hour of overtime is based on the regular rate that applies to the work performed in that hour. See example below.
+ An employee works as a punch press operator earning $20.00/hour and also as a shipping logistics coordinator earning $25.00/hour for the same employer. The employee’s overtime threshold is 44 hours and the overtime rate is 1.5 times the regular rate.
+ In one work week, the employee worked four hours of overtime. The 45 th and 46 th hours were worked as punch press operator and the 47 th and 48 th hours were worked as a shipping logistics coordinator. This employee’s overtime pay entitlement would be calculated as follows:
+ 45 th hour overtime rate is $20.00 x 1.5 = $30.00 per hour
+ 46 th hour overtime rate is $20.00 x 1.5 = $30.00 per hour
+ 47 th hour overtime rate is $25.00 x 1.5 = $37.50 per hour
+ 48 th hour overtime rate is $25.00 x 1.5 = $37.50 per hour
+ The total overtime pay due to the employee is $135.00 [$30.00 + $30.00 + $37.50 + $37.50]
+ Agreements for paid time off instead of overtime pay
+ An employee and an employer can agree electronically or in writing that the employee will receive paid time off work instead of overtime pay. This is sometimes called “banked” time or “time off in lieu.”
+ If an employee has agreed to bank overtime hours, they must be given 1½ hours of paid time off work, at the applicable regular rate, for each hour of overtime worked.
+ Paid time off must be taken within three months of the week in which the overtime was earned or, if the employee agrees electronically or in writing, it can be taken within 12 months.
+ If an employee’s job ends before they have taken the paid time off, the employee must receive overtime pay for the overtime hours that were worked. This must be paid not later than the later of:
+ seven days after the date the employment ended and
+ on what would have been the employee’s next pay day
+ Calculating overtime pay
+ The manner in which overtime pay is calculated varies depending on whether the employee is paid on an hourly basis, on a fixed salary, or has a fluctuating salary. Overtime pay calculations may also be affected by public holidays. The following are several examples of how overtime pay is calculated in different cases.
+ Hourly paid employees
+ Example
+ Ravi’s regular pay is $25.00 an hour. His overtime rate (1½ X regular hourly pay) is $37.50 an hour. This week Ravi worked the following hours:
+ Sunday: 0 hours
+ Monday: 8 hours
+ Tuesday: 12 hours
+ Wednesday: 9 hours
+ Thursday: 8 hours
+ Friday: 8 hours
+ Saturday: 8 hours
+ Total: 53 hours
+ Any hours worked over 44 in a week are overtime hours. Ravi worked nine hours of overtime (53 − 44 = 9).
+ Ravi’s pay for the week is calculated as follows:
+ Regular pay: 44 X $25.00 = $1,100.00
+ Overtime pay: 9 X $37.50 = $337.50
+ Total pay: $1,100.00 + $337.50 = $1,437.50
+ Result: Ravi is entitled to total pay of $1,437.50.
+ Employees on a fixed salary
+ If an employee’s hours of work change from day to day but their weekly pay stays the same, the employee is paid a fixed salary.
+ A fixed salary compensates an employee for all non-overtime hours up to and including 44 hours a week. After 44 hours, the employee is entitled to overtime pay.
+ Example
+ Sharon’s salary is $950.00 a week. She worked 50 hours this work week.
+ First, Sharon’s regular (non-overtime) hourly rate of pay is calculated: $950.00 / 44 = $21.59 Sharon was paid a regular rate of $21.59 for each hour she worked up to and including 44 hours.
+ Next, her overtime rate is calculated: $21.59 regular rate X 1½ = $32.39. Her overtime rate is $32.39.
+ Then the amount of overtime she worked is calculated: 50 hours - 44 hours = 6 hours of overtime
+ Her overtime pay is calculated: 6 hours X $32.39 an hour = $194.34 Sharon is entitled to $194.34 in overtime pay.
+ Finally, Sharon’s regular salary and overtime pay are added together: Regular salary: $950.00 Overtime pay: $194.34 Total pay: $950.00 + $194.34 = $1,144.34
+ Result: Sharon is entitled to total pay of $1,144.34.
+ Employees on a fluctuating salary
+ If an employee has set hours and a salary that is adjusted for variations in the set hours, the employee’s salary fluctuates.
+ Example
+ Suppose Ben is hired on the understanding that he will be paid $750.00 a week for a regular work week of 40 hours. His salary is adjusted for weeks in which he works either more hours or fewer hours. In this case, Ben is actually receiving a wage based on the number of hours he works.
+ Ben’s salary is $750.00 in a regular work week of 40 hours (where the salary is not adjusted). This week, he worked 50 hours.
+ First Ben’s regular (non-overtime) hourly rate of pay is calculated: $750.00 ÷ 40 = $18.75 Ben’s regular rate of pay is $18.75 an hour.
+ Next his regular (non-overtime) earnings are calculated. He is entitled to $18.75 an hour for all hours up to and including 44 hours a week: $18.75 regular rate X 44 hours = $825.00 Ben’s regular earnings for the week are $825.00.
+ Then his hourly overtime rate is calculated: $18.75 regular rate X 1½ = $28.13 His overtime rate is $28.13.
+ The amount of overtime Ben worked is calculated: 50 hours - 44 hours = 6 hours of overtime.
+ His overtime pay is calculated: 6 hours X $28.13 an hour = $168.78 Ben is entitled to $168.78 in overtime pay.
+ Finally, Ben’s regular pay and overtime pay are added together: Regular pay: $825.00 Overtime pay: $168.78 Total pay: $825.00 + $168.78 = $993.78
+ Result: Ben is entitled to total pay of $993.78
+ Calculating overtime when there is a public holiday
+ Example: When an employee’s work week includes a public holiday
+ Antonio’s regular pay is $20.00 an hour. Antonio worked overtime in a week with a public holiday, but he did not work on the holiday. Antonio’s public holiday pay for the Monday is $160.00 (See “ Public holiday pay ” for information on how to calculate public holiday pay). This week Antonio worked the following hours:
+ Sunday: 0 hours
+ Monday (public holiday): 0 hours
+ Tuesday: 12 hours
+ Wednesday: 9 hours
+ Thursday: 8 hours
+ Friday: 8 hours
+ Saturday: 8 hours
+ Total: 45 hours
+ Antonio worked one hour of overtime (45 − 44 = 1).
+ Antonio’s pay for the week is calculated as follows:
+ Regular pay: 44 X $20.00 = $880.00
+ Overtime pay: 1 X $30.00 = $30.00
+ Public holiday pay: $160.00
+ Total pay: $880.00 + $30.00 + $160.00 = $1,070.00
+ Result: Antonio is entitled to total pay of $1,070.00.
+ Example: When an employee works on a public holiday and gets premium pay
+ Etsuko’s regular hourly pay is $25.00/hour. Etsuko and her employer agreed in writing that she would work on the public holiday and she would be paid premium pay for the hours she worked on the holiday plus public holiday pay.
+ During the week of the public holiday, Etsuko worked the following hours:
+ Sunday: 0 hours
+ Monday (public holiday): 9 hours
+ Tuesday: 9 hours
+ Wednesday: 9 hours
+ Thursday: 9 hours
+ Friday: 9 hours
+ Saturday: 9 hours
+ Total: 54 hours
+ Since Etsuko received premium pay for working nine hours on the public holiday, these hours are not included when the overtime pay is calculated:
+ 54 hours − 9 hours at premium pay = 45 hours = 1 hour of overtime pay
+ Etsuko’s pay for the week is calculated as follows:
+ Regular pay: 44 X $25.00 = $1,100
+ Overtime pay: 1 X $37.50 = $37.50
+ Premium pay: $337.50
+ Public holiday pay: $225.00
+ Total pay: $1,100.00 + $37.50 + $337.50 + $225.00 = $1,700.00
+ Result: Etsuko is entitled to total pay of $1,700.00.
+ Example: When an employee works on a public holiday and gets a substitute day off
+ Kathleen’s regular hourly pay is $22.00. Kathleen and her employer agreed electronically that she would work on the public holiday and she would receive a substitute day off work with public holiday pay plus her regular rate for hours worked on the public holiday (rather than be paid public holiday pay plus premium pay for the hours she worked on the holiday).
+ During the week of the public holiday, Kathleen worked the following hours:
+ Sunday: 0 hours
+ Monday: 9 hours
+ Tuesday: 9 hours
+ Wednesday: 8 hours
+ Thursday: 9 hours
+ Friday: 9 hours
+ Saturday: 6 hours
+ Total: 50 hours
+ Since Kathleen agreed not to receive premium pay for the nine hours she worked on the public holiday, these hours are counted when the overtime pay is calculated:
+ 50 hours − 44 hours = 6 hours of overtime
+ Kathleen’s pay for the week is calculated as follows:
+ Regular pay: 44 X $22.00 = $968.00
+ Overtime pay: 6 X $33.00 = $198.00
+ Total pay: $968.00 + $198.00 = $1,166.00
+ Result: Kathleen is entitled to total pay of $1,166.00 and a substitute day off work.
+ Kathleen will also get a substitute day off work with public holiday pay within three months of the public holiday or, if Kathleen and her employer agree electronically or in writing, within twelve months of the public holiday.
+ Employees who are paid wages that are not based on the hours worked
+ Some employees’ wages are not based on the number of hours they work in a week but instead are based on the number of pieces they complete and/or by commission. These employees must be paid at least the minimum wage for all the hours they work. They are also usually entitled to overtime if they work more than 44 hours a week.
+ Example: Calculating the overtime for piecework or straight commission employees
+ Becka is paid on a piecework basis. Rhian earns straight commissions. They both worked 48 hours this work week and each received a total of $900.00.
+ First the regular (non-overtime) hourly rate of pay is calculated: $900.00 ÷ 44 hours = $20.45 Their regular hourly rate of pay is $20.45.
+ Then the hourly overtime rate is calculated: $20.45 regular rate X 1½ = $30.68 Their overtime rate is $30.68.
+ Next, the amount of overtime worked is calculated: 48 hours - 44 hours = 4 hours of overtime.
+ The overtime pay is calculated: 4 hours X $30.68 an hour = $122.72 They are each entitled to $122.72 in overtime pay.
+ Finally, the regular pay and overtime pay are added together: Regular pay: $900.00
+ Overtime pay: $122.72
+ Total pay: $900.00 + $122.72 = $1,022.72
+
+ Result: Becka and Rhian are each entitled to total pay of $1,022.72.
+ Example: Calculating the overtime for commission only employees when the employer’s records specify when commission was earned on a daily basis
+ Sidney is paid entirely by commission, calculated on a daily basis. Sidney worked 49 hours in one work week and earned a total of $1,900. In the first 44 (non-overtime) hours of the work week, $1,677.77 was earned.
+ First the regular (non-overtime) hourly rate is calculated: $1,677.77 ÷ 44 hours = $38.13 Sidney’s regular hourly rate of pay is $38.13.
+ Then the hourly overtime rate is calculated: $38.13 regular rate X 1½ = $57.20 Sidney’s overtime rate is $57.20.
+ Next, the amount of overtime worked is calculated: 49 hours – 44 hours = 5 hours of overtime.
+ The overtime pay is calculated: 5 hours X $57.20 an hour = $286.00
+ Because Sidney was paid $1,900 for all hours worked, including 5 hours of overtime hours, the overtime entitlement is calculated by adding together the non-overtime pay and overtime pay, and then subtracting the total earnings paid: Non-overtime pay: $1,677.77
+ Overtime pay: $286.00
+ Total earnings already paid: $1,900
+ Overtime entitlement: ($1,677.77 + $286.00) - $1,900 = $63.77
+
+ Result: Sidney is entitled to an overtime entitlement of $63.77.
+ Example: Calculating the overtime for hourly rate plus commission employees
+ Justine is paid $25.00 an hour plus commissions. In one work week, she worked 50 hours and was paid $1,250.00 in hourly wages plus $200.00 in commissions.
+ First Justine’s regular rate is calculated: $1,250.00 + $200.00 = $1450.00 total wages paid $1,450 / 44 hours = $32.95 an hour Justine’s regular rate is $32.95 an hour.
+ Then her overtime rate is calculated: $32.95 regular rate X 1½ = $49.43 Her overtime rate is $49.43.
+ Next her overtime entitlement is calculated: 6 hours X $49.43 an hour = $296.58 She earned $296.58 in overtime wages.
+ Because Justine was paid $25.00 per hour for all hours she worked, including her 6 overtime hours, she has already received $150.00 in respect of her overtime entitlement.
+ Result: Justine was entitled to $296.58 for overtime pay and was paid $150.00. Her employer therefore owes her an additional $146.58.
+ Note: Some commission employees are exempt from the overtime provisions. For more information, please see the special rule tool .
+ Averaging agreements
+ Sometimes employees need to work variable hours to meet family responsibilities. For example, perhaps an employee needs to take a child once a month for a day of special medical treatment but cannot afford to lose a day’s pay. Instead the employee would like to work extra hours in the preceding weeks, to make up the time.
+ Likewise, employers may need employees to work extra hours during a peak period, in order to fill customer orders.
+ An employer and an employee can agree electronically or in writing to average the employee’s hours of work over a specified period of two or more weeks, up to a maximum of four weeks, for the purposes of calculating overtime pay. Under such an agreement, an employee would only qualify for overtime pay if the average hours worked per week during the averaging period exceeds 44 hours.
+ For example, if the agreed period for averaging an employee’s hours of work is four weeks, the employee is entitled to overtime only after working 176 hours during the four work weeks (44 hours × 4 weeks = 176 hours). Note that averaging periods cannot overlap one another and must follow one after the other without gaps or breaks.
+ Where a union does not represent employees, averaging agreements must contain an expiry date that cannot be more than two years from the date the averaging agreement takes effect. Where the agreement applies to unionized employees, the expiry date cannot be later than the day the next collective agreement takes effect.
+ An averaging agreement cannot be revoked by either the employer or employee(s) before its expiry date, unless both the employer and employee(s) agree electronically or in writing to revoke it.
+ Example: Calculating overtime pay when hours of work are being averaged over two weeks
+ Myron and his employer agree in writing to average his hours for overtime purposes over a period of two weeks. Myron works 54 hours the first week and 36 hours the second week. He earns $25.00 an hour and his overtime rate is $37.50 per hour (1½ × $25.00).
+ Myron’s overtime entitlement is calculated as follows:
+ The total number of hours worked in the averaging period are added together and then divided by the number of weeks in the averaging period to get the average number of hours worked in each week of the averaging period. 54 + 36 = 90 hours 90 hours ÷ 2 weeks = 45 hours per week
+ The average number of hours worked per week minus 44 hours equals the average number of overtime hours in each week of the averaging period. 45 hours per week - 44 hours per week = 1 overtime hour per week
+ The overtime entitlement in week one and two of the averaging period is calculated by multiplying the average overtime hours per week by his overtime rate for that week. Week 1: 1 hour × $37.50 per hour = $37.50 Week 2: 1 hour × $37.50 per hour = $37.50
+ Result: Myron is entitled to $75.00 of overtime pay in addition to his regular earnings.
+ What cannot be done
+ An employer and an employee cannot agree that the employee will give up their right to overtime pay under the ESA . Agreements such as these are not allowed and would be deemed void. However, an employee can make an agreement to take paid time off in lieu of overtime pay or to average hours of work for overtime pay purposes.
+ An employer cannot lower an employee’s regular wage to avoid paying time and a half after 44 hours (or another overtime threshold that applies) in a work week. For example, if Josée’s regular pay is $25.00 an hour, her employer cannot drop her regular rate in a week when overtime was worked to $20.00 an hour and then pay her $22.50 (1½ × $15.00) for overtime hours worked instead of $37.50 (1 ½ × $25.00).
+
+ Updated: February 05, 2026
+
+ Published: November 22, 2017
+
+ Top

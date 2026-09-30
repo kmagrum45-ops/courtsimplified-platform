@@ -979,6 +979,31 @@ export const DEPTH_QUESTIONS: DepthQuestion[] = [
   },
 
   // --- defamation ---
+  // 2026-09-30: the catalogue gained the other two elements Grant v. Torstar,
+  // 2009 SCC 61, para. 28 lists (defamatory words; words that refer to the
+  // plaintiff). Both questions ask for facts only and state no legal
+  // proposition, so, like depth-defamation-communicated, they carry no
+  // citation; the element's plainExplanation holds the sourced framing.
+  {
+    id: "depth-defamation-words",
+    elementId: "words-defamatory-scdefam",
+    text: "What were the exact words, images or posts in {subjectLabel}?",
+    slots: ["subjectLabel"],
+    examples: ["a screenshot of the post", "the words as written", "what was said, as closely as remembered"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-30",
+  },
+  {
+    id: "depth-defamation-refers-to",
+    elementId: "words-refer-to-plaintiff-scdefam",
+    text: "Did {subjectLabel} use your name, a photo, or other details that identify you?",
+    slots: ["subjectLabel"],
+    examples: ["used my full name", "a photo of me", "described my job and street"],
+    allowUnknown: true,
+    status: "reviewed",
+    reviewedAt: "2026-09-30",
+  },
   {
     id: "depth-defamation-communicated",
     elementId: "statement-made-and-communicated",

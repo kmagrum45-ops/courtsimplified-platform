@@ -50,6 +50,7 @@ import {
   catalogueEntries,
   entryFingerprint,
   normalizeForQuote,
+  stripWrappingQuotes,
   nextStepFingerprint,
   type CatalogueEntry,
   type VerificationLog,
@@ -104,7 +105,7 @@ function problems(entry: CatalogueEntry, record: VerificationRecord): string[] {
     const text = vendored(source.sourceUrl);
     // As in stage-map/citations.ts: " ... " marks skipped material, and each
     // run on either side must be in the source on its own.
-    const runs = normalizeForQuote(source.quote).split(" ... ");
+    const runs = normalizeForQuote(source.quote).split(" ... ").map(stripWrappingQuotes);
     if (text !== null && !runs.every((run) => text.includes(run))) {
       out.push(`quote not found in the vendored source (${source.pinpoint}): "${source.quote.slice(0, 80)}"`);
     }
@@ -203,7 +204,7 @@ for (const block of NEXT_STEP_BLOCKS) {
   }
   for (const source of record.sources) {
     const text = vendored(source.sourceUrl);
-    const runs = normalizeForQuote(source.quote).split(" ... ");
+    const runs = normalizeForQuote(source.quote).split(" ... ").map(stripWrappingQuotes);
     if (text !== null && !runs.every((run) => text.includes(run))) {
       nextStepProblems.push(`${block.id}: quote not in the vendored source (${source.pinpoint})`);
     }
