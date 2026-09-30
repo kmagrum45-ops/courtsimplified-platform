@@ -106,7 +106,15 @@ live site ran none of it.
   CI run (it runs on PRs into `main`, with the real OpenAI key), fix what fails,
   merge. Do not end a session with work only on a side branch, and do not tell
   the user something is fixed until it is merged and Vercel has deployed it.
-- **Never push directly to `main`.** The PR is what makes CI run.
+- **Everything goes into `main` right away (site owner, 2026-09-29).** Open the
+  PR and merge it immediately; do not leave it waiting on CI. CI also runs on
+  every push to `main`, so a failure there is fixed straight away in the next
+  PR. No work waits on a side branch, not even for a review.
+- **Never push directly to `main`.** Merge through a PR so the history shows it.
+- **A branch that is not the site must never be built by Vercel.** Anything that
+  publishes reports or data to its own branch puts a `vercel.json` with
+  `{"git": {"deploymentEnabled": false}}` in that branch (see
+  `courtsimplified-story-review.yml`). Each failed preview emails the site owner.
 - **`case-workspace` follows `main`:** after a merge, fast-forward it to `main`.
 - If a PR cannot be merged yet (it needs a decision), say so plainly and list it,
   so the user always knows what is not live.
