@@ -129,7 +129,7 @@ export const CROSS_FORUM_NOTES: CrossForumNote[] = [
     id: "cross-forum:employment-standards-or-court",
     title: "Pay owed by an employer: a complaint or a court case",
     text:
-      "The Employment Standards Act, 2000 makes an employee choose between its complaint process and a court case. An employee who files a complaint under the Act about unpaid wages “may not commence a civil proceeding with respect to the same matter” (s. 97(1)), and a complaint claiming termination or severance pay rules out a court case for wrongful dismissal about the same termination (s. 97(2)). Starting the court case first rules out the complaint (s. 98). An employee who withdraws a complaint “within two weeks after it is filed” may still go to court (s. 97(4)). The Court of Appeal for Ontario has said an employee who sues “may claim both those benefits and common law damages in a single civil action, so long as there is no double recovery” (Brake v. PJ-M2R Restaurant Inc., 2017 ONCA 402, para. 150).",
+      "The Employment Standards Act, 2000 makes an employee choose between its complaint process and a court case. An employee who files a complaint under the Act about unpaid wages “may not commence a civil proceeding with respect to the same matter” (s. 97(1)), and a complaint claiming termination or severance pay rules out a court case for wrongful dismissal about the same termination (s. 97(2)). Starting a court case first rules out a complaint about the same matter or the same termination (s. 98). An employee who withdraws a complaint “within two weeks after it is filed” may still go to court (s. 97(4)). The Court of Appeal for Ontario has said that where an employer dismisses an employee without giving the benefits the Act requires, the employee “may claim both those benefits and common law damages in a single civil action, so long as there is no double recovery” (Brake v. PJ-M2R Restaurant Inc., 2017 ONCA 402, para. 150).",
     sources: [
       { ...ESA, pinpoint: "ss. 97(1), 97(2), 97(4), 98" },
       {
@@ -145,9 +145,9 @@ export const CROSS_FORUM_NOTES: CrossForumNote[] = [
     id: "cross-forum:human-rights-with-another-claim",
     title: "Discrimination alongside another claim",
     text:
-      "The Human Rights Code lets a court order compensation when it finds, in a civil case, that a party infringed a right under Part I of the Code (s. 46.1(1)). The Code “does not permit a person to commence an action based solely on an infringement of a right under Part I” (s. 46.1(2)). The Court of Appeal for Ontario has said that a claim founded directly on a breach of the Code is “subject to the comprehensive enforcement scheme of the Code”, but that a breach of the Code “may be properly raised in an action if the claim is otherwise properly before the court” (Jaffer v. York University, 2010 ONCA 654, paras. 37 and 44).",
+      "The Human Rights Code lets a court order compensation or restitution when it finds, in a civil case, that a party infringed a right under Part I of the Code (s. 46.1(1)). The Code “does not permit a person to commence an action based solely on an infringement of a right under Part I” (s. 46.1(2)). The Court of Appeal for Ontario has said that a claim founded directly on a breach of the Code is “subject to the comprehensive enforcement scheme of the Code”, but that a breach of the Code “may be properly raised in an action if the claim is otherwise properly before the court” (Jaffer v. York University, 2010 ONCA 654, paras. 37 and 44). The Code also says a person may not apply to the Human Rights Tribunal about a right while a court case seeking an order under s. 46.1 for the same alleged infringement has been started and not finally decided or withdrawn, or after a court has finally decided whether the right was infringed or the matter was settled (s. 34(11)).",
     sources: [
-      { ...CODE, pinpoint: "s. 46.1" },
+      { ...CODE, pinpoint: "ss. 34(11), 46.1" },
       {
         sourceName: "Jaffer v. York University, 2010 ONCA 654",
         officialUrl: "https://coadecisions.ontariocourts.ca/coa/coa/en/item/9970/index.do",
@@ -161,7 +161,7 @@ export const CROSS_FORUM_NOTES: CrossForumNote[] = [
     id: "cross-forum:tenancy-and-court",
     title: "A rental home and another claim",
     text:
-      "The Landlord and Tenant Board “has exclusive jurisdiction to determine all applications under this Act and with respect to all matters in which jurisdiction is conferred on it by this Act” (Residential Tenancies Act, 2006, s. 168(2)). The Board can order payment of up to the greater of $10,000 and the Small Claims Court limit (s. 207(1)). A person whose claim is larger may go to court, and the court can then use the Board's powers (s. 207(2)). When a claim of that amount or less is made to the Board, “all rights of the party in excess of the Board's monetary jurisdiction are extinguished once the Board issues its order” (s. 207(3)). The Court of Appeal for Ontario has said the Board does not have exclusive jurisdiction over every claim against a landlord, and has jurisdiction over a tenant's or former tenant's damages claim where the “essential character of the claim” is for non-repair and within its monetary limit (Letestu Estate v. Ritlyn Investments Limited, 2017 ONCA 442, para. 10). In another case the court heard a claim that asked for “equitable relief and a certificate of pending litigation, which the Landlord and Tenant Board would have had no jurisdiction to order” (Kaiman v. Graham, 2009 ONCA 77, para. 13). And where a court was deciding other issues about a rental home, the court held that the parties “must have their possessory rights determined before that Board” (Jesan Real Estate Ltd. v. Doyle, 2020 ONCA 714, para. 60).",
+      "The Landlord and Tenant Board “has exclusive jurisdiction to determine all applications under this Act and with respect to all matters in which jurisdiction is conferred on it by this Act” (Residential Tenancies Act, 2006, s. 168(2)). Where it otherwise has jurisdiction, the Board can order payment of up to the greater of $10,000 and the Small Claims Court limit (s. 207(1)). A person whose claim is larger may go to court, and the court can then use the Board's powers (s. 207(2)). When a claim of that amount or less is made to the Board, “all rights of the party in excess of the Board's monetary jurisdiction are extinguished once the Board issues its order” (s. 207(3)). The Court of Appeal for Ontario has said the Board does not have exclusive jurisdiction over all claims of non-repair against a landlord: it has jurisdiction over a tenant's or former tenant's damages claim where the “essential character of the claim” is for non-repair and within its monetary limit, and that jurisdiction is not exclusive because of s. 207(2) (Letestu Estate v. Ritlyn Investments Limited, 2017 ONCA 442, para. 10). In another case the court heard a claim that asked for “equitable relief and a certificate of pending litigation, which the Landlord and Tenant Board would have had no jurisdiction to order” (Kaiman v. Graham, 2009 ONCA 77, para. 13). And where a court was deciding other issues about a rental home, the court held that the parties “must have their possessory rights determined before that Board” (Jesan Real Estate Ltd. v. Doyle, 2020 ONCA 714, para. 60).",
     sources: [
       { ...RTA, pinpoint: "ss. 168(2), 207(1)-(3)" },
       {
@@ -175,7 +175,7 @@ export const CROSS_FORUM_NOTES: CrossForumNote[] = [
         sourceName: "Kaiman v. Graham, 2009 ONCA 77",
         officialUrl: "https://coadecisions.ontariocourts.ca/coa/coa/en/item/8644/index.do",
         localText: "docs/sources/decisions/kaiman-v-graham-2009-ONCA-77.txt",
-        pinpoint: "paras. 13, 15",
+        pinpoint: "para. 13",
         verifiedAt: VERIFIED,
       },
       {
@@ -206,7 +206,7 @@ export const CROSS_FORUM_NOTES: CrossForumNote[] = [
     id: "cross-forum:earlier-decision",
     title: "When something has already been decided",
     text:
-      "When a court or tribunal has already decided a question between the same people, a later case can be bound by that answer. The Supreme Court of Canada set out three conditions: “(1) that the same question has been decided; (2) that the judicial decision which is said to create the estoppel was final; and, (3) that the parties to the judicial decision or their privies were the same persons as the parties to the proceedings in which the estoppel is raised or their privies” (Danyluk v. Ainsworth Technologies Inc., 2001 SCC 44, para. 25). It also said these rules “should not be mechanically applied” (para. 33).",
+      "When a court or tribunal has already decided a question between the same people, a later case can be bound by that answer. The Supreme Court of Canada restated three conditions: “(1) that the same question has been decided; (2) that the judicial decision which is said to create the estoppel was final; and, (3) that the parties to the judicial decision or their privies were the same persons as the parties to the proceedings in which the estoppel is raised or their privies” (Danyluk v. Ainsworth Technologies Inc., 2001 SCC 44, para. 25). It also said these rules “should not be mechanically applied”, and that even when the conditions are met a court “must still determine whether, as a matter of discretion, issue estoppel ought to be applied” (para. 33).",
     sources: [
       {
         sourceName: "Danyluk v. Ainsworth Technologies Inc., 2001 SCC 44",
@@ -243,7 +243,7 @@ export const CROSS_FORUM_NOTES: CrossForumNote[] = [
     id: "cross-forum:over-small-claims-limit",
     title: "Amounts above the Small Claims Court limit",
     text:
-      "The Rules of the Small Claims Court provide that “A cause of action shall not be divided into two or more actions for the purpose of bringing it within the court's jurisdiction” (r. 6.02). In the Superior Court, “If a plaintiff recovers an amount within the monetary jurisdiction of the Small Claims Court, the court may order that the plaintiff shall not recover any costs” (Rules of Civil Procedure, r. 57.05(1)).",
+      "The Rules of the Small Claims Court provide that “A cause of action shall not be divided into two or more actions for the purpose of bringing it within the court's jurisdiction” (r. 6.02). In the Superior Court, “If a plaintiff recovers an amount within the monetary jurisdiction of the Small Claims Court, the court may order that the plaintiff shall not recover any costs” (Rules of Civil Procedure, r. 57.05(1)). That subrule “does not apply to an action transferred to the Superior Court of Justice under section 107 of the Courts of Justice Act” (r. 57.05(2)).",
     sources: [
       {
         sourceName: "Rules of the Small Claims Court, O. Reg. 258/98",
@@ -256,7 +256,7 @@ export const CROSS_FORUM_NOTES: CrossForumNote[] = [
         sourceName: "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
         officialUrl: "https://www.ontario.ca/laws/regulation/900194",
         localText: "docs/sources/corpus/rules-of-civil-procedure.txt",
-        pinpoint: "r. 57.05(1)",
+        pinpoint: "r. 57.05(1)-(2)",
         verifiedAt: VERIFIED,
       },
     ],
@@ -310,7 +310,7 @@ export function selectCrossForumNotes(
   const chosen = new Set<string>();
 
   if (any(EMPLOYMENT)) chosen.add("cross-forum:employment-standards-or-court");
-  if (has("discrimination") && any(COURT_CLAIMS)) chosen.add("cross-forum:human-rights-with-another-claim");
+  if (has("discrimination") && (any(COURT_CLAIMS) || has("residential-tenancy"))) chosen.add("cross-forum:human-rights-with-another-claim");
   if (has("residential-tenancy") && (any(COURT_CLAIMS) || has("discrimination"))) {
     chosen.add("cross-forum:tenancy-and-court");
   }
@@ -319,7 +319,9 @@ export function selectCrossForumNotes(
   }
   if (matters.earlierDecision) chosen.add("cross-forum:earlier-decision");
   if (matters.unmarriedCouple && has("family")) chosen.add("cross-forum:unmarried-couple");
-  if (statedAmounts.some((amount) => amount > SMALL_CLAIMS_LIMIT)) chosen.add("cross-forum:over-small-claims-limit");
+  // The Small Claims limit only matters for a court claim for money; a family
+  // matter or a Board claim above it is not "over the Small Claims limit".
+  if (any(COURT_CLAIMS) && statedAmounts.some((amount) => amount > SMALL_CLAIMS_LIMIT)) chosen.add("cross-forum:over-small-claims-limit");
 
   return CROSS_FORUM_NOTES.filter((note) => chosen.has(note.id));
 }

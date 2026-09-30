@@ -91,13 +91,27 @@ function tableOfForms(text: string): { body: string; rows: Omit<IndexedForm, "co
  * ("r. 9.01", "r. 10 (1)", "r. 14.01 (2)"). A provision runs from one rule or
  * subrule marker to the next.
  */
-function provisions(body: string): { rule: string; text: string }[] {
+function provisions(body: string, court: Court): { rule: string; text: string }[] {
   const out: { rule: string; text: string }[] = [];
   let rule = "";
   let current: { rule: string; lines: string[] } | null = null;
-  const ruleWithSub = /^\s+(\d+(?:\.\d+)*)\.?\s+\((\d+(?:\.\d+)?)\)\s/;
-  const ruleOnly = /^\s+(\d+\.\d+(?:\.\d+)?)\s{2,}\S/;
-  const subOnly = /^\s+\((\d+(?:\.\d+)?)\)\s/;
+  // Rule numbers differ by regulation. The Small Claims and civil rules
+  // number every rule with a two-digit part ("9.01", "14.03", "4.05.1",
+  // "2.1.01", "24.1.09"); a number without one ("5.1 (7)") is a numbered
+  // paragraph inside a rule and produced 12 wrong civil labels (audit
+  // 2026-09-30). The family rules number rules as integers or "1.2", often
+  // with a full stop ("13.  (1)").
+  const ruleNumber = court === "family" ? String.raw`\d+(?:\.\d+)?\.?` : String.raw`\d+(?:\.\d)?\.\d{2}(?:\.\d+)*`;
+  // Real rule and subrule headings in these e-Laws texts are indented six
+  // spaces (seven for some, e.g. "(3.1)"); the look-alikes that mislabelled
+  // quotes sit at 0 or 4 (a cross-reference such as "    15.01 (2) granting
+  // it leave..." at the start of a wrapped line).
+  const ruleWithSub = new RegExp(String.raw`^ {6,7}(${ruleNumber})\s+\((\d+(?:\.\d+)*)\)\s`);
+  // A rule heading with no subrule ("9.01  A defendant ..."). The family
+  // rules keep the pattern that worked before: a bare "1." there is a list item.
+  const ruleOnly = new RegExp(String.raw`^ {6,7}(${court === "family" ? String.raw`\d+\.\d+(?:\.\d+)?` : String.raw`\d+(?:\.\d)?\.\d{2}(?:\.\d+)*`})\s{2,}\S`);
+  // Subrules can be "(5.0.2)" (family r. 13); "(5.1)"-only matching mislabelled them.
+  const subOnly = /^ {6,7}\((\d+(?:\.\d+)*)\)\s/;
   const flush = () => {
     if (current) out.push({ rule: current.rule, text: current.lines.join(" ").replace(/\s+/g, " ").trim() });
   };
@@ -114,11 +128,11 @@ function provisions(body: string): { rule: string; text: string }[] {
     let label: string | null = null;
     let m = line.match(ruleWithSub);
     if (m && plausible(m[1])) {
-      rule = m[1];
+      rule = m[1].replace(/\.$/, "");
       major = Number.parseInt(rule, 10);
       label = `r. ${rule} (${m[2]})`;
     } else if ((m = line.match(ruleOnly)) && plausible(m[1])) {
-      rule = m[1];
+      rule = m[1].replace(/\.$/, "");
       major = Number.parseInt(rule, 10);
       label = `r. ${rule}`;
     } else if (rule && (m = line.match(subOnly))) {
@@ -187,10 +201,14 @@ export function buildIndex(root = process.cwd()): Record<Court, IndexedForm[]> {
   for (const court of Object.keys(SOURCES) as Court[]) {
     const text = readFileSync(path.join(root, SOURCES[court].file), "utf8");
     const { body, rows } = tableOfForms(text);
-    const provs = provisions(body);
+    const provs = provisions(body, court);
     const mentions = new Map<string, FormMention[]>();
     for (const prov of provs) {
       for (const match of prov.text.matchAll(MENTION)) {
+        // "Form 4 in Ontario Regulation 167/97" is another regulation's form,
+        // not this one's Form 4 (audit 2026-09-30, family r. 13 (5.1)).
+        const after = prov.text.slice(match.index! + match[0].length, match.index! + match[0].length + 40);
+        if (/^\s*(?:in|of|under|to)\s+(?:Ontario\s+)?Regulation\b/i.test(after)) continue;
         const numbers = formsInList(match[1]);
         for (const number of numbers) {
           const list = mentions.get(number) || [];
