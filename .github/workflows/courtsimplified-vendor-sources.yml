@@ -1,0 +1,63 @@
+name: CourtSimplified Vendor Sources
+
+# Vendors named corpus sources (scripts/rules/corpusSources.ts) and publishes the
+# result to a `sources-vendor-<run>` branch for a session to review and bring
+# into main through a PR.
+#
+# WHY THIS EXISTS: the cloud workspaces that build content cannot reach
+# ontario.ca or laws-lois.justice.gc.ca; GitHub's runners can. Nothing here is
+# merged automatically, and only the named ids are fetched (`rules:fetch --only`
+# merges them into the manifest and leaves every other vendored file alone).
+#
+# Run on demand only: Actions tab -> CourtSimplified Vendor Sources -> Run
+# workflow, with a comma-separated list of source ids.
+
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Comma-separated corpus source ids to fetch"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  vendor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install the .doc and PDF text extractors
+        run: sudo apt-get update -q && sudo apt-get install -y -q antiword poppler-utils
+
+      - name: Fetch the named sources
+        id: fetch
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npx tsx scripts/rules/fetchCorpus.ts --only "${{ inputs.only }}" 2>&1 | tee vendor-run.log
+
+      - name: Publish to a sources-vendor branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          branch="sources-vendor-${GITHUB_RUN_ID}"
+          git config user.name "vendor-sources-bot"
+          git config user.email "vendor-sources-bot@users.noreply.github.com"
+          git checkout -q -b "$branch"
+          cp vendor-run.log docs/sources/corpus/_vendor-run.log
+          git add docs/sources/corpus
+          git commit -q -m "Vendor sources: ${{ inputs.only }} (run ${GITHUB_RUN_ID}, outcome ${{ steps.fetch.outcome }})" || echo "nothing changed"
+          git push -q "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/$branch"
+          echo "Published to $branch (fetch outcome: ${{ steps.fetch.outcome }})." >> "$GITHUB_STEP_SUMMARY"
+          tail -30 vendor-run.log >> "$GITHUB_STEP_SUMMARY"

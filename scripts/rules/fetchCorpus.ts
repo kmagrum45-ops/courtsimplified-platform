@@ -220,13 +220,38 @@ export function readManifest(): CorpusManifest | null {
   return JSON.parse(readFileSync(MANIFEST, "utf8")) as CorpusManifest;
 }
 
+/**
+ * `--only id1,id2` fetches just those sources and MERGES them into the existing
+ * manifest, leaving every other vendored file and entry untouched. Added
+ * 2026-09-30 for adding new sources (the vendor-sources workflow): a full
+ * re-fetch overwrites every vendored copy, which is exactly the evidence
+ * `rules:check` needs to see what changed -- SOURCING_NOTES.md, "run rules:check
+ * BEFORE rules:fetch". Adding a source should not re-vendor the other 180.
+ */
+function onlyIds(): string[] | null {
+  const index = process.argv.indexOf("--only");
+  if (index === -1) return null;
+  return (process.argv[index + 1] || "").split(",").map((id) => id.trim()).filter(Boolean);
+}
+
 async function main(): Promise<void> {
   mkdirSync(CORPUS_DIR, { recursive: true });
 
-  const entries: CorpusEntry[] = [];
-  const failures: CorpusManifest["failures"] = [];
+  const only = onlyIds();
+  const previous = only ? readManifest() : null;
+  const entries: CorpusEntry[] = previous ? previous.entries.filter((entry) => !only!.includes(entry.id)) : [];
+  const failures: CorpusManifest["failures"] = previous
+    ? previous.failures.filter((failure) => !only!.includes(failure.id))
+    : [];
 
-  for (const source of CORPUS_SOURCES) {
+  const unknown = (only ?? []).filter((id) => !CORPUS_SOURCES.some((source) => source.id === id));
+  if (unknown.length > 0) {
+    console.log(`Unknown source id(s): ${unknown.join(", ")}`);
+    process.exitCode = 1;
+    return;
+  }
+
+  for (const source of CORPUS_SOURCES.filter((item) => !only || only.includes(item.id))) {
     process.stdout.write(`${source.id.padEnd(38)} `);
     const { entry, failure } = await fetchOne(source);
 
@@ -241,7 +266,7 @@ async function main(): Promise<void> {
   }
 
   const manifest: CorpusManifest = {
-    generatedAt: new Date().toISOString(),
+    generatedAt: previous ? previous.generatedAt : new Date().toISOString(),
     entries,
     failures,
   };
