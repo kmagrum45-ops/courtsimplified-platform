@@ -75,7 +75,8 @@
    "court": "family",
    "paragraphs": [
     "Rule 8.1 of the Family Law Rules applies to cases started after August 31, 2011 that deal with, among other things, “A claim respecting a matrimonial home under Part II of the Family Law Act.” The program provides parties “with information about separation and the legal process”. (Family Law Rules, r. 8.1 (1), (3))",
-    "“Each party to a case shall attend the program no later than 45 days after the case is started.” Subrule 8.1 (2) lists exceptions, including “parties in cases that are proceeding on consent” and “parties who have already attended a mandatory information program.” (Family Law Rules, r. 8.1 (2), (4))"
+    "“Each party to a case shall attend the program no later than 45 days after the case is started.” Subrule 8.1 (2) lists exceptions, including “parties in cases that are proceeding on consent” and “parties who have already attended a mandatory information program.” (Family Law Rules, r. 8.1 (2), (4))",
+    "The court may also, on motion, order that the attendance requirement and related subrules do not apply to a party “because of urgency or hardship or for some other reason in the interest of justice.” (Family Law Rules, r. 8.1 (8))"
    ]
   }
  ],
@@ -90,7 +91,7 @@
   {
    "localText": "docs/sources/corpus/family-law-rules.txt",
    "sourceName": "Family Law Rules",
-   "pinpoints": "r. 8.1 (1)-(4)",
+   "pinpoints": "r. 8.1 (1)-(4), (8)",
    "officialUrl": "https://www.ontario.ca/laws/regulation/990114",
    "retrievedAt": "2026-09-30"
   }

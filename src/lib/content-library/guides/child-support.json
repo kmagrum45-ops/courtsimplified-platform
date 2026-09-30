@@ -32,7 +32,7 @@
    "heading": "Which guidelines and which table",
    "court": "family",
    "paragraphs": [
-    "The Divorce Act defines “applicable guidelines”. If both spouses habitually reside in the same province at the time the application is made and that province has been designated by an order under subsection 2 (5), they are “the laws of the province specified in the order”. “In any other case,” they are the Federal Child Support Guidelines. (Divorce Act, s. 2 (1), (5))",
+    "The Divorce Act defines “applicable guidelines”. If both spouses habitually reside in the same province at the time the application is made and that province has been designated by an order under subsection 2 (5), they are “the laws of the province specified in the order”. Otherwise (“in any other case”), they are the Federal Child Support Guidelines. (Divorce Act, s. 2 (1), (5))",
     "This site does not yet have a source on disk that says whether Ontario has been designated under that subsection. (Divorce Act, s. 2 (5))",
     "Ontario’s regulation covers both kinds of case. In it, “child” means a dependant under the Family Law Act or, “in cases where the Divorce Act (Canada) applies, a child of the marriage under that Act”. In a Divorce Act case, “spouse” means “either of two persons who are married to each other and includes a former spouse”. (Child Support Guidelines, O. Reg. 391/97, s. 2 (1))",
     "Under the Ontario regulation, the “table” is a table in the Federal Child Support Guidelines. If the parent or spouse against whom the order is sought ordinarily resides in Ontario at the time of the application, it is “the table set out in the Federal Child Support Guidelines for Ontario”; if elsewhere in Canada, the table for that province or territory. (Child Support Guidelines, O. Reg. 391/97, s. 2 (1), (1.1))",
@@ -85,11 +85,11 @@
    "heading": "How income is determined",
    "court": "family",
    "paragraphs": [
-    "Income is determined “using the sources of income set out under the heading “Total income” in the T1 General form issued by the Canada Revenue Agency” and adjusted under Schedule III, subject to sections 17 to 20. If both agree in writing on a person’s income, the court may use that amount if it is reasonable given the income information provided. (Child Support Guidelines, O. Reg. 391/97, ss. 15, 16; Federal Child Support Guidelines, ss. 15, 16)",
+    "Income is determined using the sources of income under the heading “Total income” in the T1 General form issued by the Canada Revenue Agency, adjusted under Schedule III, subject to sections 17 to 20. If both agree in writing on a person’s income, the court may use that amount if it is reasonable given the income information provided. (Child Support Guidelines, O. Reg. 391/97, ss. 15, 16; Federal Child Support Guidelines, ss. 15, 16)",
     "If the section 16 figure “would not be the fairest determination of that income”, the court may look at income over the last three years. Special rules apply to a shareholder, director or officer of a corporation. (Child Support Guidelines, O. Reg. 391/97, ss. 17 (1), 18 (1))",
     "“The court may impute such amount of income to a parent or spouse as it considers appropriate in the circumstances”. Listed circumstances include being intentionally under-employed or unemployed (with exceptions for a child’s needs or the person’s reasonable educational or health needs), income diverted, and having “failed to provide income information when under a legal obligation to do so”. (Child Support Guidelines, O. Reg. 391/97, s. 19 (1))",
     "An applicant whose income information is necessary to determine the amount includes with the application income tax returns and notices of assessment and reassessment “for each of the three most recent taxation years”, and other listed documents. (Child Support Guidelines, O. Reg. 391/97, s. 21 (1); Federal Child Support Guidelines, s. 21 (1))",
-    "A person served with the application whose income information is necessary provides those documents within 30 days if they reside in Canada or the United States, or within 60 days if they reside elsewhere, or another time the court specifies. (Child Support Guidelines, O. Reg. 391/97, s. 21 (2); Federal Child Support Guidelines, s. 21 (2))"
+    "A person served with the application whose income information is necessary must provide those documents to the court and the other party “within 30 days after the application is served” if they reside in Canada or the United States, or within 60 days if they reside elsewhere, or another time the court specifies. (Child Support Guidelines, O. Reg. 391/97, s. 21 (2); Federal Child Support Guidelines, s. 21 (2))"
    ]
   },
   {
@@ -119,14 +119,14 @@
   {
    "localText": "docs/sources/corpus/ontario-child-support-guidelines-full.txt",
    "sourceName": "Child Support Guidelines, O. Reg. 391/97",
-   "pinpoints": "ss. 2 (1), (1.1); 3; 4; 6; 7 (1)-(3); 8; 9; 10 (1)-(4), (6); 13; 14; 15; 16; 17 (1); 18 (1); 19 (1); 21 (1), (2)",
+   "pinpoints": "ss. 2 (1), (1.1); 3; 4; 6; 7 (1)-(4); 8; 9; 10 (1)-(4), (6); 13; 14; 15; 16; 17 (1); 18 (1); 19 (1); 21 (1), (2)",
    "officialUrl": "https://www.ontario.ca/laws/regulation/970391",
    "retrievedAt": "2026-09-30"
   },
   {
    "localText": "docs/sources/corpus/federal-child-support-guidelines-full.txt",
    "sourceName": "Federal Child Support Guidelines",
-   "pinpoints": "ss. 2 (4); 3 (1), (3); 4; 6; 7 (1), (1.1); 8; 9; 10 (1), (3), (4), (6); 13; 14; 15; 16; 21 (1), (2)",
+   "pinpoints": "ss. 2 (4); 3 (1), (3); 4; 6; 7 (1)-(4); 8; 9; 10 (1), (3), (4), (6); 13; 14; 15; 16; 21 (1), (2)",
    "officialUrl": "https://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/FullText.html",
    "retrievedAt": "2026-09-30"
   }
