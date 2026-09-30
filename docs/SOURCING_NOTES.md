@@ -34,6 +34,20 @@ replacement for these):
 
 ## Techniques that work
 
+### The glossary comes from the definitions provisions (2026-09-30)
+
+`npm run glossary:index` (`scripts/glossary/buildGlossary.ts`) reads only the
+definitions provisions: Small Claims r. 1.02 (1), civil r. 1.03 (1), family
+r. 2 (1), CJA s. 1 (1), Limitations Act s. 1, FLA ss. 1 (1), 4 (1), 17 and 29.
+96 terms. Each provision starts at a line matched exactly ("1.02  (1)  In these
+rules,") and ends at the next subsection marker or blank line; the French
+equivalent in brackets after each definition is dropped. The same word is
+often defined differently by different instruments ("court", "spouse",
+"document", "property"), so a term keeps every definition with its pinpoint.
+Words the site uses constantly but no instrument defines ("service", "noted
+in default", "affidavit") are NOT in it: they would need a source that
+defines them, and none of these provisions do.
+
 ### Every form explained from the rule that names it (2026-09-30)
 
 The explanation of a court form is in the regulation itself: the rule that

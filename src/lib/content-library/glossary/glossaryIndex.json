@@ -1,0 +1,1360 @@
+{
+ "generatedAt": "2026-09-30",
+ "terms": [
+  {
+   "term": "action",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"action\" means a proceeding that is not an application and includes a proceeding commenced by, (a) statement of claim, (b) notice of action, (c) counterclaim, (d) crossclaim, or (e) third or subsequent party claim"
+    },
+    {
+     "source": "courts-of-justice-act",
+     "citation": "Courts of Justice Act, R.S.O. 1990, c. C.43",
+     "pinpoint": "s. 1 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90c43",
+     "definition": "\"action\" means a civil proceeding that is not an application and includes a proceeding commenced by, (a) claim, (b) statement of claim, (c) notice of action, (d) counterclaim, (e) crossclaim, (f) third or subsequent party claim, or (g) divorce petition or counterpetition"
+    }
+   ]
+  },
+  {
+   "term": "address",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“address” means a person’s street or municipal address, mailing address, telephone number, fax number and email address"
+    }
+   ]
+  },
+  {
+   "term": "adverse effect",
+   "definitions": [
+    {
+     "source": "limitations-act",
+     "citation": "Limitations Act, 2002, S.O. 2002, c. 24, Sched. B",
+     "pinpoint": "s. 1",
+     "url": "https://www.ontario.ca/laws/statute/02l24",
+     "definition": "\"adverse effect\" has the same meaning as in the Environmental Protection Act"
+    }
+   ]
+  },
+  {
+   "term": "appellant",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"appellant\" means a person who brings an appeal"
+    },
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“appellant” means a person who starts an appeal"
+    }
+   ]
+  },
+  {
+   "term": "appellate court",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"appellate court\" means the Court of Appeal or the Divisional Court, as the circumstances require"
+    }
+   ]
+  },
+  {
+   "term": "applicant",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"applicant\" means a person who makes an application"
+    },
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“applicant” means a person who starts an application"
+    }
+   ]
+  },
+  {
+   "term": "application",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"application\" means a proceeding commenced by notice of application"
+    },
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“application” means, as the context requires, the document that starts a case or the procedure by which new cases are brought to the court for a final order or provisional order"
+    },
+    {
+     "source": "courts-of-justice-act",
+     "citation": "Courts of Justice Act, R.S.O. 1990, c. C.43",
+     "pinpoint": "s. 1 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90c43",
+     "definition": "\"application\" means a civil proceeding that is commenced by notice of application or by application"
+    }
+   ]
+  },
+  {
+   "term": "arbitration agreement",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“arbitration agreement” means an agreement by which two or more persons agree to submit to arbitration a dispute that has arisen or may arise between them"
+    }
+   ]
+  },
+  {
+   "term": "assault",
+   "definitions": [
+    {
+     "source": "limitations-act",
+     "citation": "Limitations Act, 2002, S.O. 2002, c. 24, Sched. B",
+     "pinpoint": "s. 1",
+     "url": "https://www.ontario.ca/laws/statute/02l24",
+     "definition": "\"assault\" includes a battery"
+    }
+   ]
+  },
+  {
+   "term": "bond",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“bond” includes a recognizance, and expressions that refer to the posting of a bond include the act of entering into a recognizance"
+    }
+   ]
+  },
+  {
+   "term": "case",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“case” means an application or any other method allowed in law for bringing a matter to the court for a final order or provisional order, and includes all motions, enforcements and appeals"
+    }
+   ]
+  },
+  {
+   "term": "certificate of appointment of estate trustee",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"certificate of appointment of estate trustee\" means letters probate, letters of administration or letters of administration with the will annexed, and includes a small estate certificate or amended small estate certificate (74C, 74.1C or 74.1F)"
+    }
+   ]
+  },
+  {
+   "term": "child",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“child” means a child as defined in the Act governing the case or, if not defined in that Act, a person under the age of 18 years, and in a case under the Divorce Act (Canada) includes a “child of the marriage” within the meaning of that Act"
+    },
+    {
+     "source": "family-law-act",
+     "citation": "Family Law Act, R.S.O. 1990, c. F.3",
+     "pinpoint": "s. 1 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90f03",
+     "definition": "“child” includes a person in respect of whom a parent has demonstrated a settled intention to treat as a child of his or her family, except under an arrangement where the child is placed for valuable consideration in a foster home by a person having lawful custody"
+    }
+   ]
+  },
+  {
+   "term": "child protection case",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“child protection case” means a case under Part V of the Child, Youth and Family Services Act, 2017"
+    }
+   ]
+  },
+  {
+   "term": "child support guidelines",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“child support guidelines” means Ontario Regulation 391/97 (Child Support Guidelines) made under the Family Law Act, or the Federal Child Support Guidelines, as the case may be"
+    },
+    {
+     "source": "family-law-act",
+     "citation": "Family Law Act, R.S.O. 1990, c. F.3",
+     "pinpoint": "s. 1 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90f03",
+     "definition": "“child support guidelines” means the guidelines established by the regulations made under subsections 69 (2) and (3)"
+    }
+   ]
+  },
+  {
+   "term": "claim",
+   "definitions": [
+    {
+     "source": "limitations-act",
+     "citation": "Limitations Act, 2002, S.O. 2002, c. 24, Sched. B",
+     "pinpoint": "s. 1",
+     "url": "https://www.ontario.ca/laws/statute/02l24",
+     "definition": "\"claim\" means a claim to remedy an injury, loss or damage that occurred as a result of an act or omission"
+    }
+   ]
+  },
+  {
+   "term": "clerk",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“clerk” means a person who has the authority of a clerk or a registrar of the court"
+    }
+   ]
+  },
+  {
+   "term": "cohabit",
+   "definitions": [
+    {
+     "source": "family-law-act",
+     "citation": "Family Law Act, R.S.O. 1990, c. F.3",
+     "pinpoint": "s. 1 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90f03",
+     "definition": "“cohabit” means to live together in a conjugal relationship, whether within or outside marriage"
+    }
+   ]
+  },
+  {
+   "term": "contaminant",
+   "definitions": [
+    {
+     "source": "limitations-act",
+     "citation": "Limitations Act, 2002, S.O. 2002, c. 24, Sched. B",
+     "pinpoint": "s. 1",
+     "url": "https://www.ontario.ca/laws/statute/02l24",
+     "definition": "\"contaminant\" has the same meaning as in the Environmental Protection Act"
+    }
+   ]
+  },
+  {
+   "term": "contempt motion",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“contempt motion” means a motion for a contempt order"
+    }
+   ]
+  },
+  {
+   "term": "contempt order",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“contempt order” means an order finding a person in contempt of court"
+    }
+   ]
+  },
+  {
+   "term": "continuing record",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“continuing record” means the record made under rule 9 containing, in accordance with these rules, written documents in a case that are filed with the court"
+    }
+   ]
+  },
+  {
+   "term": "county",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"county\" includes a district, a regional or district municipality, and the City of Toronto"
+    }
+   ]
+  },
+  {
+   "term": "court",
+   "definitions": [
+    {
+     "source": "small-claims-rules",
+     "citation": "Rules of the Small Claims Court, O. Reg. 258/98",
+     "pinpoint": "r. 1.02 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/980258",
+     "definition": "\"court\" means the Small Claims Court"
+    },
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"court\" means the court in which a proceeding is pending and, in the case of a proceeding in the Superior Court of Justice, includes an associate judge"
+    },
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“court” means the court in which a case is being heard"
+    },
+    {
+     "source": "family-law-act",
+     "citation": "Family Law Act, R.S.O. 1990, c. F.3",
+     "pinpoint": "s. 1 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90f03",
+     "definition": "“court” means the Ontario Court of Justice, the Family Court of the Superior Court of Justice or the Superior Court of Justice"
+    },
+    {
+     "source": "family-law-act-property",
+     "citation": "Family Law Act, R.S.O. 1990, c. F.3 (Part I, Family Property)",
+     "pinpoint": "s. 4 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90f03",
+     "definition": "“court” means a court as defined in subsection 1 (1), but does not include the Ontario Court of Justice"
+    },
+    {
+     "source": "family-law-act-home",
+     "citation": "Family Law Act, R.S.O. 1990, c. F.3 (Part II, Matrimonial Home)",
+     "pinpoint": "s. 17",
+     "url": "https://www.ontario.ca/laws/statute/90f03",
+     "definition": "“court” means a court as defined in subsection 1 (1) but does not include the Ontario Court of Justice"
+    }
+   ]
+  },
+  {
+   "term": "default hearing",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“default hearing” means a hearing under section 41 of the Family Responsibility and Support Arrears Enforcement Act, 1996 in which a payor is required to come to court to explain why payment has not been made as required by a support order"
+    }
+   ]
+  },
+  {
+   "term": "defendant",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"defendant\" means a person against whom an action is commenced"
+    },
+    {
+     "source": "courts-of-justice-act",
+     "citation": "Courts of Justice Act, R.S.O. 1990, c. C.43",
+     "pinpoint": "s. 1 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90c43",
+     "definition": "\"defendant\" means a person against whom an action is commenced"
+    }
+   ]
+  },
+  {
+   "term": "deliver",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"deliver\" means serve and file with proof of service, and \"delivery\" has a corresponding meaning"
+    }
+   ]
+  },
+  {
+   "term": "dependant",
+   "definitions": [
+    {
+     "source": "family-law-act-support",
+     "citation": "Family Law Act, R.S.O. 1990, c. F.3 (Part III, Support Obligations)",
+     "pinpoint": "s. 29",
+     "url": "https://www.ontario.ca/laws/statute/90f03",
+     "definition": "“dependant” means a person to whom another has an obligation to provide support under this Part"
+    }
+   ]
+  },
+  {
+   "term": "Director of the Family Responsibility Office",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“Director of the Family Responsibility Office” means the Director of the Family Responsibility Office under the Family Responsibility and Support Arrears Enforcement Act, 1996, and “Director” has the same meaning, unless the context requires otherwise"
+    }
+   ]
+  },
+  {
+   "term": "disability",
+   "definitions": [
+    {
+     "source": "small-claims-rules",
+     "citation": "Rules of the Small Claims Court, O. Reg. 258/98",
+     "pinpoint": "r. 1.02 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/980258",
+     "definition": "\"disability\", where used in respect of a person or party, means that the person or party is, (a) a minor, (b) mentally incapable within the meaning of section 6 or 45 of the Substitute Decisions Act, 1992 in respect of an issue in the proceeding, whether the person or party has a guardian or not, or (c) an absentee within the meaning of the Absentees Act"
+    },
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"disability\", where used in respect of a person, means that the person is, (a) a minor, (b) mentally incapable within the meaning of section 6 or 45 of the Substitute Decisions Act, 1992 in respect of an issue in the proceeding, whether the person has a guardian or not, or (c) an absentee within the meaning of the Absentees Act"
+    }
+   ]
+  },
+  {
+   "term": "discharge",
+   "definitions": [
+    {
+     "source": "limitations-act",
+     "citation": "Limitations Act, 2002, S.O. 2002, c. 24, Sched. B",
+     "pinpoint": "s. 1",
+     "url": "https://www.ontario.ca/laws/statute/02l24",
+     "definition": "\"discharge\" has the same meaning as in the Environmental Protection Act"
+    }
+   ]
+  },
+  {
+   "term": "discovery",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"discovery\" means discovery of documents, examination for discovery, inspection of property and medical examination of a party as provided under Rules 30 to 33"
+    }
+   ]
+  },
+  {
+   "term": "document",
+   "definitions": [
+    {
+     "source": "small-claims-rules",
+     "citation": "Rules of the Small Claims Court, O. Reg. 258/98",
+     "pinpoint": "r. 1.02 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/980258",
+     "definition": "\"document\" includes data and information in electronic form"
+    },
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"document\" includes data and information in electronic form"
+    },
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“document” means information, sound or images recorded by any method"
+    }
+   ]
+  },
+  {
+   "term": "domestic contract",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“domestic contract” has the same meaning as in Part IV of the Family Law Act"
+    },
+    {
+     "source": "family-law-act",
+     "citation": "Family Law Act, R.S.O. 1990, c. F.3",
+     "pinpoint": "s. 1 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90f03",
+     "definition": "“domestic contract” means a domestic contract as defined in Part IV (Domestic Contracts)"
+    }
+   ]
+  },
+  {
+   "term": "electronic",
+   "definitions": [
+    {
+     "source": "small-claims-rules",
+     "citation": "Rules of the Small Claims Court, O. Reg. 258/98",
+     "pinpoint": "r. 1.02 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/980258",
+     "definition": "\"electronic\" includes created, recorded, transmitted or stored in digital form or in other intangible form by electronic, magnetic or optical means or by any other means that has capabilities for creation, recording, transmission or storage similar to those means, and \"electronically\" has a corresponding meaning"
+    },
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"electronic\" includes created, recorded, transmitted or stored in digital form or in other intangible form by electronic, magnetic or optical means or by any other means that has capabilities for creation, recording, transmission or storage similar to those means, and \"electronically\" has a corresponding meaning"
+    }
+   ]
+  },
+  {
+   "term": "enforcement",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“enforcement” means the use of one or more remedies mentioned in rule 26 (enforcement of orders) to enforce an order"
+    }
+   ]
+  },
+  {
+   "term": "environmental claim",
+   "definitions": [
+    {
+     "source": "limitations-act",
+     "citation": "Limitations Act, 2002, S.O. 2002, c. 24, Sched. B",
+     "pinpoint": "s. 1",
+     "url": "https://www.ontario.ca/laws/statute/02l24",
+     "definition": "\"environmental claim\" means a claim based on an act or omission that caused, contributed to, or permitted the discharge of a contaminant into the natural environment that has caused or is likely to cause an adverse effect"
+    }
+   ]
+  },
+  {
+   "term": "factum",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"factum\" includes a book of authorities, if one is required by rule 4.06.1"
+    }
+   ]
+  },
+  {
+   "term": "family arbitration",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“family arbitration” means an arbitration that, (a) deals with matters that could be dealt with in a marriage contract, separation agreement, cohabitation agreement or paternity agreement under Part IV of the Family Law Act, and (b) is conducted exclusively in accordance with the law of Ontario or of another Canadian jurisdiction"
+    }
+   ]
+  },
+  {
+   "term": "family legal services provider",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“family legal services provider” means a paralegal authorized under the Law Society Act to provide specific family legal services"
+    }
+   ]
+  },
+  {
+   "term": "file",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“file” means to file, with proof of service where service is required, (a) in the court office in the municipality where the case or enforcement is started or to which the case or enforcement is transferred, or (b) electronically in accordance with these rules"
+    }
+   ]
+  },
+  {
+   "term": "final order",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“final order” means an order, other than a temporary order, that decides a claim in an application, including, (a) an order made on motion that changes a final order, (b) a judgment, and (c) an order that decides a party’s rights, in an issue between the parties or between a party and a non-party"
+    }
+   ]
+  },
+  {
+   "term": "government agency",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“government agency” means the Crown, a Crown agency, a municipal government or agency, a children’s aid society or any other public body"
+    }
+   ]
+  },
+  {
+   "term": "hearing",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"hearing\" means the hearing of an application, motion, reference, appeal or assessment of costs, or a trial"
+    },
+    {
+     "source": "courts-of-justice-act",
+     "citation": "Courts of Justice Act, R.S.O. 1990, c. C.43",
+     "pinpoint": "s. 1 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90c43",
+     "definition": "\"hearing\" includes a trial"
+    }
+   ]
+  },
+  {
+   "term": "holiday",
+   "definitions": [
+    {
+     "source": "small-claims-rules",
+     "citation": "Rules of the Small Claims Court, O. Reg. 258/98",
+     "pinpoint": "r. 1.02 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/980258",
+     "definition": "\"holiday\" means, (a) any Saturday or Sunday, (b) New Year's Day, (b.1) Family Day, (c) Good Friday, (d) Easter Monday, (e) Victoria Day, (f) Canada Day, (g) Civic Holiday, (h) Labour Day, (i) Thanksgiving Day, (j) Remembrance Day, (k) Christmas Day, (l) Boxing Day, and (m) any special holiday proclaimed by the Governor General or the Lieutenant Governor, and if New Year's Day, Canada Day or Remembrance Day falls on a Saturday or Sunday, the following Monday is a holiday, and if Christmas Day falls on a Saturday or Sunday, the following Monday and Tuesday are holidays, and if Christmas Day falls on a Friday, the following Monday is a holiday"
+    },
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"holiday\" means, (a) any Saturday or Sunday, (b) New Year's Day, (b.1) Family Day, (c) Good Friday, (d) Easter Monday, (e) Victoria Day, (f) Canada Day, (g) Civic Holiday, (h) Labour Day, (i) Thanksgiving Day, (j) Remembrance Day, (k) Christmas Day, (l) Boxing Day, and (m) any special holiday proclaimed by the Governor General or the Lieutenant Governor, and where New Year's Day, Canada Day or Remembrance Day falls on a Saturday or Sunday, the following Monday is a holiday, and where Christmas Day falls on a Saturday or Sunday, the following Monday and Tuesday are holidays, and where Christmas Day falls on a Friday, the following Monday is a holiday"
+    }
+   ]
+  },
+  {
+   "term": "income source",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“income source” has the same meaning as in the Family Responsibility and Support Arrears Enforcement Act, 1996"
+    }
+   ]
+  },
+  {
+   "term": "international child abduction case",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“international child abduction case” means an application involving the alleged wrongful removal to or retention of a child in Ontario that is made under section 40 of the Children’s Law Reform Act or under the Convention on the Civil Aspects of International Child Abduction, set out in the Schedule to section 46 of that Act, if the removal or retention involves a jurisdiction outside Canada"
+    }
+   ]
+  },
+  {
+   "term": "judge",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"judge\" means a judge of the court but does not include an associate judge"
+    }
+   ]
+  },
+  {
+   "term": "judgment",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"judgment\" means a decision that finally disposes of an application or action on its merits and includes a judgment entered in consequence of the default of a party"
+    }
+   ]
+  },
+  {
+   "term": "lawyer",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"lawyer\" means a person authorized under the Law Society Act to practise law in Ontario"
+    },
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“lawyer” means a person authorized under the Law Society Act to practise law in Ontario"
+    }
+   ]
+  },
+  {
+   "term": "lawyer's office",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"lawyer's office\" means the office of the lawyer of record as set out in the last document filed by him or her"
+    }
+   ]
+  },
+  {
+   "term": "legal aid rate",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“legal aid rate” means the rate payable by Legal Aid Ontario on an account submitted to it by a service provider for copying in the service provider’s office"
+    }
+   ]
+  },
+  {
+   "term": "licensed representative",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“licensed representative” means a lawyer or family legal services provider"
+    }
+   ]
+  },
+  {
+   "term": "limited scope retainer",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"limited scope retainer\" means the provision of legal services by a lawyer for part, but not all, of a client's legal matter by agreement between the lawyer and the client"
+    }
+   ]
+  },
+  {
+   "term": "matrimonial home",
+   "definitions": [
+    {
+     "source": "family-law-act-property",
+     "citation": "Family Law Act, R.S.O. 1990, c. F.3 (Part I, Family Property)",
+     "pinpoint": "s. 4 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90f03",
+     "definition": "“matrimonial home” means a matrimonial home under section 18 and includes property that is a matrimonial home under that section at the valuation date"
+    }
+   ]
+  },
+  {
+   "term": "motion",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"motion\" means a motion in a proceeding or an intended proceeding"
+    },
+    {
+     "source": "courts-of-justice-act",
+     "citation": "Courts of Justice Act, R.S.O. 1990, c. C.43",
+     "pinpoint": "s. 1 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90c43",
+     "definition": "\"motion\" means a motion in a proceeding or an intended proceeding"
+    }
+   ]
+  },
+  {
+   "term": "moving party",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"moving party\" means a person who makes a motion"
+    }
+   ]
+  },
+  {
+   "term": "municipality",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“municipality” means a county, district, district municipality, regional municipality, the City of Toronto or a municipal corporation formed from the amalgamation of all the municipalities of a county, district, district municipality or regional municipality, and includes, (a) an Indian reserve within the territorial area of a municipality, and (b) the part of The Regional Municipality of Niagara that was the County of Lincoln as it existed on December 31, 1969"
+    }
+   ]
+  },
+  {
+   "term": "net family property",
+   "definitions": [
+    {
+     "source": "family-law-act-property",
+     "citation": "Family Law Act, R.S.O. 1990, c. F.3 (Part I, Family Property)",
+     "pinpoint": "s. 4 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90f03",
+     "definition": "“net family property” means the value of all the property, except property described in subsection (2), that a spouse owns on the valuation date, after deducting, (a) the spouse’s debts and other liabilities, and (b) the value of property, other than a matrimonial home, that the spouse owned on the date of the marriage, after deducting the spouse’s debts and other liabilities, other than debts or liabilities related directly to the acquisition or significant improvement of a matrimonial home, calculated as of the date of the marriage"
+    }
+   ]
+  },
+  {
+   "term": "on motion",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“on motion” means on motion of a party or a person having an interest in the case"
+    }
+   ]
+  },
+  {
+   "term": "order",
+   "definitions": [
+    {
+     "source": "small-claims-rules",
+     "citation": "Rules of the Small Claims Court, O. Reg. 258/98",
+     "pinpoint": "r. 1.02 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/980258",
+     "definition": "\"order\" includes a judgment"
+    },
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"order\" includes a judgment"
+    },
+    {
+     "source": "courts-of-justice-act",
+     "citation": "Courts of Justice Act, R.S.O. 1990, c. C.43",
+     "pinpoint": "s. 1 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90c43",
+     "definition": "\"order\" includes a judgment or decree"
+    }
+   ]
+  },
+  {
+   "term": "originating process",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"originating process\" means a document that commences a proceeding under these rules, and includes, (a) a statement of claim, (b) a notice of action, (c) a notice of application, (d) an application for a certificate of appointment of estate trustee, a small estate certificate or an amended small estate certificate, (e) a counterclaim against a person who is not already a party to the main action, and (f) a third or subsequent party claim, but does not include a counterclaim that is only against persons who are parties to the main action, a crossclaim or a notice of motion"
+    }
+   ]
+  },
+  {
+   "term": "paralegal",
+   "definitions": [
+    {
+     "source": "small-claims-rules",
+     "citation": "Rules of the Small Claims Court, O. Reg. 258/98",
+     "pinpoint": "r. 1.02 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/980258",
+     "definition": "\"paralegal\" means a person licensed under the Law Society Act to provide legal services in Ontario"
+    },
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“paralegal” means a person authorized under the Law Society Act to provide legal services in Ontario"
+    }
+   ]
+  },
+  {
+   "term": "parent",
+   "definitions": [
+    {
+     "source": "family-law-act",
+     "citation": "Family Law Act, R.S.O. 1990, c. F.3",
+     "pinpoint": "s. 1 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90f03",
+     "definition": "“parent” includes a person who has demonstrated a settled intention to treat a child as a child of his or her family, except under an arrangement where the child is placed for valuable consideration in a foster home by a person having lawful custody"
+    }
+   ]
+  },
+  {
+   "term": "payment order",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“payment order” means a temporary or final order, but not a provisional order, requiring a person to pay money to another person, including, (a) an order to pay an amount under Part I or II of the Family Law Act or the corresponding provisions of a predecessor Act, (b) a support order, (c) a support deduction order, (d) an order under section 108 or subsection 213 (2) of the Child, Youth and Family Services Act, 2017, or under the corresponding provision of a predecessor Act, (e) a payment order made under rules 26 to 32 (enforcement measures) or under section 41 of the Family Responsibility and Support Arrears Enforcement Act, 1996, (f) a fine for contempt of court, (g) an order of forfeiture of a bond or recognizance, (h) an order requiring a party to pay the fees and expenses of, (i) an assessor, mediator or other expert named by the court, or (ii) a person conducting a blood test to help determine a child’s parentage, and (i) the costs and disbursements in a case"
+    }
+   ]
+  },
+  {
+   "term": "payor",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“payor” means a person required to pay money under an order or agreement, and includes the estate trustee of a payor who died"
+    }
+   ]
+  },
+  {
+   "term": "periodic payment",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“periodic payment” means an amount payable at regular intervals and includes an amount payable in instalments"
+    }
+   ]
+  },
+  {
+   "term": "person",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"person\" includes a party to a proceeding"
+    }
+   ]
+  },
+  {
+   "term": "plaintiff",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"plaintiff\" means a person who commences an action"
+    },
+    {
+     "source": "courts-of-justice-act",
+     "citation": "Courts of Justice Act, R.S.O. 1990, c. C.43",
+     "pinpoint": "s. 1 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90c43",
+     "definition": "\"plaintiff\" means a person who commences an action"
+    }
+   ]
+  },
+  {
+   "term": "proceeding",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"proceeding\" means an action or application"
+    }
+   ]
+  },
+  {
+   "term": "proof of service",
+   "definitions": [
+    {
+     "source": "small-claims-rules",
+     "citation": "Rules of the Small Claims Court, O. Reg. 258/98",
+     "pinpoint": "r. 1.02 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/980258",
+     "definition": "\"proof of service\" means, with respect to a document, proof of service of the document in accordance with rule 8.09.1"
+    }
+   ]
+  },
+  {
+   "term": "property",
+   "definitions": [
+    {
+     "source": "family-law-act-property",
+     "citation": "Family Law Act, R.S.O. 1990, c. F.3 (Part I, Family Property)",
+     "pinpoint": "s. 4 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90f03",
+     "definition": "“property” means any interest, present or future, vested or contingent, in real or personal property and includes, (a) property over which a spouse has, alone or in conjunction with another person, a power of appointment exercisable in favour of himself or herself, (b) property disposed of by a spouse but over which the spouse has, alone or in conjunction with another person, a power to revoke the disposition or a power to consume or dispose of the property, and (c) in the case of a spouse’s rights under a pension plan, the imputed value, for family law purposes, of the spouse’s interest in the plan, as determined in accordance with section 10.1, for the period beginning with the date of the marriage and ending on the valuation date"
+    },
+    {
+     "source": "family-law-act-home",
+     "citation": "Family Law Act, R.S.O. 1990, c. F.3 (Part II, Matrimonial Home)",
+     "pinpoint": "s. 17",
+     "url": "https://www.ontario.ca/laws/statute/90f03",
+     "definition": "“property” means real or personal property."
+    }
+   ]
+  },
+  {
+   "term": "property claim",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“property claim” means a claim, (a) under Part I of the Family Law Act, (b) for a constructive or resulting trust, or (c) for a monetary award as compensation for unjust enrichment"
+    }
+   ]
+  },
+  {
+   "term": "provisional order",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“provisional order” means an order that is not effective until confirmed by a court"
+    }
+   ]
+  },
+  {
+   "term": "recipient",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“recipient” means a person entitled to receive money or costs under a payment order or agreement, including, (a) a person who is entitled to money for the benefit of a child under a support order, (b) in the case of a support order made under the Family Law Act, an agency referred to in subsection 33 (3) of that Act, (c) in the case of a support order made under the Divorce Act (Canada), an agency referred to in subsection 20.1 (1) of that Act, (d) a children’s aid society entitled to money under an order made under section 108 or subsection 213 (2) of the Child, Youth and Family Services Act, 2017, or the corresponding provision in a predecessor Act, (e) an assessor, mediator or other expert entitled to fees and expenses from the party named in the order, and (f) the estate trustee of a person who was entitled to money under an order at the time of his or her death"
+    }
+   ]
+  },
+  {
+   "term": "referee",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"referee\" means the person to whom a reference in a proceeding is directed"
+    }
+   ]
+  },
+  {
+   "term": "region",
+   "definitions": [
+    {
+     "source": "courts-of-justice-act",
+     "citation": "Courts of Justice Act, R.S.O. 1990, c. C.43",
+     "pinpoint": "s. 1 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90c43",
+     "definition": "\"region\" means a region prescribed under section 79.1."
+    }
+   ]
+  },
+  {
+   "term": "registrar",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"registrar\" means the Registrar of the Divisional Court or Court of Appeal, or a local registrar of the Superior Court of Justice, as the circumstances require"
+    }
+   ]
+  },
+  {
+   "term": "Registrar General",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“Registrar General” means the Registrar General under the Vital Statistics Act"
+    }
+   ]
+  },
+  {
+   "term": "regulations",
+   "definitions": [
+    {
+     "source": "family-law-act",
+     "citation": "Family Law Act, R.S.O. 1990, c. F.3",
+     "pinpoint": "s. 1 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90f03",
+     "definition": "“regulations” means the regulations made under this Act"
+    }
+   ]
+  },
+  {
+   "term": "representative",
+   "definitions": [
+    {
+     "source": "small-claims-rules",
+     "citation": "Rules of the Small Claims Court, O. Reg. 258/98",
+     "pinpoint": "r. 1.02 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/980258",
+     "definition": "\"representative\" means the lawyer, paralegal or other person representing a person in a proceeding under these rules"
+    }
+   ]
+  },
+  {
+   "term": "respondent",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"respondent\" means a person against whom an application is made or an appeal is brought, as the circumstances require"
+    },
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“respondent” means a person against whom a claim is made in an application, answer or appeal"
+    }
+   ]
+  },
+  {
+   "term": "responding party",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"responding party\" means a person against whom a motion is made"
+    }
+   ]
+  },
+  {
+   "term": "special party",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“special party” means a party, other than a child party, who is or appears to be mentally incapable for the purposes of the Substitute Decisions Act, 1992 in respect of an issue in the case and who, as a result, requires legal representation"
+    }
+   ]
+  },
+  {
+   "term": "spouse",
+   "definitions": [
+    {
+     "source": "family-law-act",
+     "citation": "Family Law Act, R.S.O. 1990, c. F.3",
+     "pinpoint": "s. 1 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90f03",
+     "definition": "“spouse” means either of two persons who, (a) are married to each other, or (b) have together entered into a marriage that is voidable or void, in good faith on the part of a person relying on this clause to assert any right."
+    },
+    {
+     "source": "family-law-act-support",
+     "citation": "Family Law Act, R.S.O. 1990, c. F.3 (Part III, Support Obligations)",
+     "pinpoint": "s. 29",
+     "url": "https://www.ontario.ca/laws/statute/90f03",
+     "definition": "“spouse” means a spouse as defined in subsection 1 (1), and in addition includes either of two persons who are not married to each other and have cohabited, (a) continuously for a period of not less than three years, or (b) in a relationship of some permanence, if they are the parents of a child as set out in section 4 of the Children’s Law Reform Act."
+    }
+   ]
+  },
+  {
+   "term": "statute",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"statute\" includes a statute passed by the Parliament of Canada"
+    }
+   ]
+  },
+  {
+   "term": "support deduction order",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“support deduction order” means a support deduction order as defined in section 1 of the Family Responsibility and Support Arrears Enforcement Act, 1996"
+    }
+   ]
+  },
+  {
+   "term": "support order",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“support order” means an order described in subsection 34 (1) of the Family Law Act or a support order as defined in subsection 2 (1) of the Divorce Act (Canada) or in section 1 of the Family Responsibility and Support Arrears Enforcement Act, 1996"
+    }
+   ]
+  },
+  {
+   "term": "temporary order",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“temporary order” means an order that says it is effective only for a limited time, and includes an interim order"
+    }
+   ]
+  },
+  {
+   "term": "territorial division",
+   "definitions": [
+    {
+     "source": "small-claims-rules",
+     "citation": "Rules of the Small Claims Court, O. Reg. 258/98",
+     "pinpoint": "r. 1.02 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/980258",
+     "definition": "\"territorial division\" means, (a) a county, a district or a regional municipality, and (b) each of the following, as they existed on December 31, 2002: (i) The combined area of County of Brant and City of Brantford. (ii) Municipality of Chatham-Kent. (iii) Haldimand County. (iv) City of Hamilton. (v) City of Kawartha Lakes. (vi) Norfolk County. (vii) City of Ottawa. (viii) County of Prince Edward. (ix) City of Toronto."
+    }
+   ]
+  },
+  {
+   "term": "timetable",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"timetable\" means a schedule for the completion of one or more steps required to advance the proceeding (including delivery of affidavits of documents, examinations under oath, where available, or motions), established by order of the court or by written agreement of the parties that is not contrary to an order"
+    }
+   ]
+  },
+  {
+   "term": "trial",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“trial” includes a hearing"
+    }
+   ]
+  },
+  {
+   "term": "trial sitting",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“trial sitting” means the period of time set by the court in which a trial will be scheduled to be held"
+    }
+   ]
+  },
+  {
+   "term": "uncontested trial",
+   "definitions": [
+    {
+     "source": "family-rules",
+     "citation": "Family Law Rules, O. Reg. 114/99",
+     "pinpoint": "r. 2 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/990114",
+     "definition": "“uncontested trial” means a trial at which only the party making the claim provides evidence and submissions."
+    }
+   ]
+  },
+  {
+   "term": "valuation date",
+   "definitions": [
+    {
+     "source": "family-law-act-property",
+     "citation": "Family Law Act, R.S.O. 1990, c. F.3 (Part I, Family Property)",
+     "pinpoint": "s. 4 (1)",
+     "url": "https://www.ontario.ca/laws/statute/90f03",
+     "definition": "“valuation date” means the earliest of the following dates: 1. The date the spouses separate and there is no reasonable prospect that they will resume cohabitation. 2. The date a divorce is granted. 3. The date the marriage is declared a nullity. 4. The date one of the spouses commences an application based on subsection 5 (3) (improvident depletion) that is subsequently granted. 5. The date before the date on which one of the spouses dies leaving the other spouse surviving."
+    }
+   ]
+  },
+  {
+   "term": "will",
+   "definitions": [
+    {
+     "source": "civil-rules",
+     "citation": "Rules of Civil Procedure, R.R.O. 1990, Reg. 194",
+     "pinpoint": "r. 1.03 (1)",
+     "url": "https://www.ontario.ca/laws/regulation/900194",
+     "definition": "\"will\" includes any testamentary instrument of which probate or administration may be granted."
+    }
+   ]
+  }
+ ]
+}

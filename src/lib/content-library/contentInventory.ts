@@ -38,6 +38,7 @@ import { OUT_OF_SCOPE_FORUMS } from "../case-system/intelligence/outOfScopeForum
 import { NEXT_STEP_BLOCKS } from "./nextSteps";
 import { PATHWAY_DESCRIPTIONS } from "./pathwayDescriptions";
 import { FORM_REGULATION_URLS, FORM_SUMMARIES } from "./forms/formSummaries";
+import { GLOSSARY } from "./glossary/glossary";
 import {
   CROSS_FORUM_NOTES,
   ISSUE_KIND_LABELS,
@@ -259,6 +260,22 @@ export function collectContentInventory(): ContentItem[] {
         }),
       );
     }
+  }
+
+  // ---- Glossary (2026-09-30): plain explanations of defined terms ----
+  for (const entry of GLOSSARY) {
+    if (!entry.explanation) continue;
+    items.push(
+      item({
+        id: entry.id,
+        type: "education-topic",
+        pathway: "all",
+        stage: "glossary",
+        text: entry.explanation,
+        sourceUrl: entry.definitions[0]?.url ?? "",
+        appearsIn: `Glossary, "${entry.term}"`,
+      }),
+    );
   }
 
   // ---- Form guidance ----
