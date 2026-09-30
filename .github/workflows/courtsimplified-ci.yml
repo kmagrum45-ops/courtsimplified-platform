@@ -164,6 +164,9 @@ jobs:
       - name: Every official form is explained from the rules that name it
         run: npm run test:form-explanations
 
+      - name: Glossary definitions are the law's own words
+        run: npm run test:glossary
+
       - name: AI model configuration verification
         run: npm run test:ai-models
 
