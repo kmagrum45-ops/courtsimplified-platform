@@ -1428,3 +1428,46 @@ review battery and the three fixtures, same stories, same day:
 - **Court-path "mixed"/"civil" misses (SC1, SC5, SC7) and the unscripted
   date questions (SC7, SC8) happen on BOTH models** — they are existing
   issues, not upgrade regressions.
+
+## Model wording is gated; users read the sourced catalogue (2026-09-29)
+
+**What was found.** A planted-marker test (`test:no-model-text-to-users`) run
+against the analysis as it stood showed **19 model-written fields** reaching
+what the analysis hands back: risk titles, explanations and fixes; next
+actions; follow-up questions and their reasons; every claim "element" (label,
+explanation, missing facts, risks); evidence-to-issue explanations; form
+suggestions; and the model's case `score`, which became a "proof strength"
+rating (CLAUDE.md section 3). Earlier fixes had each closed one route
+(warnings, document prose) and left the rest. The A2I answers of 2026-09-28
+commit to no AI-written legal content reaching a user without review.
+
+**What is settled.** The model is not removed; it is gated by
+`aiAnalysisTextToUsers()` in `content-library/phaseScope.ts`:
+
+- **Off** (default; always in production, which ignores the variable): the
+  model makes structured choices only (court path, stage, claim type,
+  confidence, and the recorded/not-recorded case-file items). Every sentence is
+  written by `buildCodeWrittenCognition` in `courtSimplifiedBrain.ts`.
+- **On**: Vercel preview (staging) automatically, or a local run with
+  `AI_ANALYSIS_TEXT_TO_USERS=on`. The model's own wording, for testing.
+  Turning it on for real users is a code change to that function, made for
+  what the Law Society approves.
+
+**What users get instead is not a placeholder.** When the user confirmed a
+catalogue claim type in the guided intake, the analyze route now receives
+`confirmedClaimTypeId` and per-element `elementStates` (states only, validated
+against `intake/claimTypes.ts`). The elements shown are the catalogue's, each
+with its `plainExplanation` and official `sourceUrl`; follow-up questions are
+the reviewed depth questions for elements still `not-yet`; an element the user
+already answered is not asked again. The fact-specific engines (fact pattern,
+evidence, element proof, contradictions, limitations) supply the rest as
+before.
+
+**Trap.** `buildFallbackCognition` (the no-model path) says "detailed analysis
+is not available". Do not reuse its text when the model DID run; the
+code-written builder keeps its "not available" risk only when `modelRan` is
+false.
+
+**Test seam.** `COURTSIMPLIFIED_TEST_PLANTED_COGNITION` returns a planted model
+response without a network call. Ignored whenever `VERCEL_ENV` is set or
+`NODE_ENV=production`.

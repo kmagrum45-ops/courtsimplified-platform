@@ -515,6 +515,12 @@ export type ClaimElementAssessment = {
   missingFacts: string[];
   risks: string[];
   confidence: IntelligenceConfidence;
+  /**
+   * The official source for `explanation`, when explanation states law. Set
+   * when the element comes from the sourced claim-type catalogue
+   * (intake/claimTypes.ts); absent for code placeholders that state no law.
+   */
+  sourceUrl?: string;
 };
 
 export type ClaimClassification = {
@@ -578,6 +584,8 @@ export type MissingInformationFinding = {
   reason: string;
   requiredFor: LegalDomain | "procedure" | "evidence" | "forms" | "export";
   alreadyAnsweredButUnclear?: boolean;
+  /** Official source for `reason` when it states law (claim-type catalogue). */
+  sourceUrl?: string;
 };
 
 export type LitigationRisk = {
@@ -630,6 +638,7 @@ export type LegalKnowledgePacket = {
   precedentMatches: PrecedentMatchAssessment[];
   sourceWarnings: string[];
 };
+
 
 /**
  * Session 48 — FIX 3. Was:
@@ -808,6 +817,20 @@ export type CourtSimplifiedBrainInput = {
    * is visible, rather than silently reverting to unconfirmed inferences.
    */
   confirmedEvents?: ProceduralEvent[];
+  /**
+   * The catalogue claim type the USER confirmed (intake/claimTypes.ts id) and,
+   * per element, what the depth phase recorded. States only, never the user's
+   * answers: the answers are already in rawUserText.
+   *
+   * Drives the code-written analysis (see aiAnalysisTextToUsers in
+   * content-library/phaseScope.ts): the elements, follow-up questions and
+   * next actions a user reads are built from this sourced catalogue rather
+   * than from model prose. Absent when no claim type was confirmed.
+   */
+  catalogueClaim?: {
+    claimTypeId: string;
+    elementStates?: Record<string, "provided" | "cannot-provide" | "not-yet">;
+  };
 };
 
 export type CourtSimplifiedBrainOutput = {

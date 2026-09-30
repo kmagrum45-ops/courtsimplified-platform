@@ -216,5 +216,32 @@ export function mapGuidedIntakeToSmallClaimsInput(
       .join("\n\n"),
     goal: textField(result.facts.remedySoughtText), // real -- verbatim answer to sc-remedy-sought
     urgent: "", // not collected
+    // The claim type the user confirmed and, per element, what the depth phase
+    // recorded -- STATES ONLY (the answers are already in the story fields).
+    // Lets the analysis show the sourced catalogue's elements and questions
+    // instead of model prose. Omitted entirely when nothing was confirmed.
+    ...(result.matchedClaimType?.claimTypeId
+      ? {
+          confirmedClaimTypeId: result.matchedClaimType.claimTypeId,
+          ...(elementStatesOf(result.elementStateMap) ? { elementStates: elementStatesOf(result.elementStateMap) } : {}),
+        }
+      : {}),
   };
+}
+
+const RECORD_STATES = new Set(["provided", "cannot-provide", "not-yet"]);
+
+/** { elementId: state } from the depth phase's map, dropping anything malformed. */
+function elementStatesOf(
+  map: Record<string, unknown> | undefined,
+): Record<string, "provided" | "cannot-provide" | "not-yet"> | undefined {
+  if (!map) return undefined;
+  const out: Record<string, "provided" | "cannot-provide" | "not-yet"> = {};
+  for (const [elementId, record] of Object.entries(map)) {
+    const state = (record as { state?: unknown } | null)?.state;
+    if (typeof state === "string" && RECORD_STATES.has(state)) {
+      out[elementId] = state as "provided" | "cannot-provide" | "not-yet";
+    }
+  }
+  return Object.keys(out).length ? out : undefined;
 }
