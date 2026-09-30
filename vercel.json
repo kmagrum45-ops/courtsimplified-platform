@@ -1,0 +1,10 @@
+{
+  "git": {
+    "deploymentEnabled": {
+      "story-review-reports": false,
+      "ai-diag-*": false,
+      "ai-model-diagnostics*": false,
+      "*-reports": false
+    }
+  }
+}
