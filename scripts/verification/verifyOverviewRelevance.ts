@@ -50,13 +50,20 @@ const VEHICLE = "sc-route-vehicle-property-damage-dcpd";
 const TENANCY = "sc-route-residential-tenancy-ltb";
 
 function main(): void {
-  check("no confirmed claim type (undefined) lists every route", ids(routesForConfirmedClaimType(JURISDICTION_ROUTES, undefined)) === ALL);
-  check("no confirmed claim type (null) lists every route", ids(routesForConfirmedClaimType(JURISDICTION_ROUTES, null)) === ALL);
-
-  const everyTypeKeepsLimit = CLAIM_TYPES.every((claimType) =>
-    routesForConfirmedClaimType(JURISDICTION_ROUTES, claimType.id).some((route) => route.id === LIMIT),
+  // 2026-09-30, site owner: the summary is about the user's own case. With
+  // nothing confirmed, nothing is listed; the limit route appears on the
+  // amount, not on the claim type.
+  check("no confirmed claim type and no amount lists nothing", routesForConfirmedClaimType(JURISDICTION_ROUTES, undefined).length === 0);
+  check("null claim type and a small amount lists nothing", routesForConfirmedClaimType(JURISDICTION_ROUTES, null, 1500).length === 0);
+  check(
+    "an amount over \$50,000 lists the monetary-limit route, whatever the claim type",
+    ids(routesForConfirmedClaimType(JURISDICTION_ROUTES, null, 68500)) === LIMIT,
   );
-  check("the monetary-limit route is listed for every claim type", everyTypeKeepsLimit);
+  check(
+    "an amount of exactly \$50,000 does not list it",
+    !routesForConfirmedClaimType(JURISDICTION_ROUTES, "sc-claim-unpaid-debt-services", 50000).some((r) => r.id === LIMIT),
+  );
+  void ALL;
 
   const contractor = routesForConfirmedClaimType(JURISDICTION_ROUTES, "sc-claim-breach-of-contract-services").map((r) => r.id);
   check("a contractor claim does not list the auto-insurance or residential-tenancy routes", !contractor.includes(VEHICLE) && !contractor.includes(TENANCY), contractor.join(","));

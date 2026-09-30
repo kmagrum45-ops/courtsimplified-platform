@@ -34,14 +34,30 @@ const ROUTE_CLAIM_TYPES: Record<string, readonly string[]> = {
   "sc-route-residential-tenancy-ltb": ["sc-claim-commercial-tenancy-dispute"],
 };
 
+/** The one route decided by the amount rather than the claim type. */
+export const MONETARY_LIMIT_ROUTE_ID = "sc-route-exceeds-jurisdiction-superior-court";
+const SMALL_CLAIMS_LIMIT = 50_000; // O. Reg. 626/00 s. 1 (1), docs/sources/corpus
+
+/**
+ * 2026-09-30, site owner's rule: the summary is about THIS person's case, so a
+ * "this usually goes somewhere else" entry appears only when something the user
+ * confirmed ties it to them:
+ *   - a claim-type route, only for the claim type they confirmed;
+ *   - the monetary-limit route, only when the amount they recorded is over
+ *     $50,000.
+ * No confirmed claim type and no over-limit amount means no entries. It used to
+ * list every route when nothing was confirmed, and a stained-suit story was
+ * shown the auto-insurance direct-compensation rule.
+ */
 export function routesForConfirmedClaimType<T extends RouteLike>(
   routes: readonly T[],
   confirmedClaimTypeId: string | null | undefined,
+  recordedAmount: number | null = null,
 ): T[] {
-  if (!confirmedClaimTypeId) return [...routes];
   return routes.filter((route) => {
+    if (route.id === MONETARY_LIMIT_ROUTE_ID) return recordedAmount !== null && recordedAmount > SMALL_CLAIMS_LIMIT;
     const onlyFor = ROUTE_CLAIM_TYPES[route.id];
-    return !onlyFor || onlyFor.includes(confirmedClaimTypeId);
+    return Boolean(confirmedClaimTypeId && onlyFor && onlyFor.includes(confirmedClaimTypeId));
   });
 }
 

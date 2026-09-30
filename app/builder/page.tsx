@@ -27,6 +27,7 @@ import FamilyStatusTriage, {
 import CourtAssistantChat from "./_components/CourtAssistantChat";
 import IntelligenceOverviewPanel from "./_components/IntelligenceOverviewPanel";
 import CaseReviewPanel from "./_components/CaseReviewPanel";
+import EvidenceUploadCard from "./_components/EvidenceUploadCard";
 import ScopePreviewNotice from "./_components/ScopePreviewNotice";
 import ProcedureAuthorityDisplay from "./_components/ProcedureAuthorityDisplay";
 import EventCandidateSurface from "./_components/EventCandidateSurface";
@@ -1634,6 +1635,7 @@ function BuilderPageContent() {
             {confirmedStage && (
               <IntelligenceOverviewPanel analysis={analysis} intake={caseData} />
             )}
+            {confirmedStage ? <EvidenceUploadCard caseId={getActiveCaseId() || null} /> : null}
             {confirmedStage ? <CaseReviewPanel caseId={getActiveCaseId() || null} /> : null}
             {/*
               The Statement of Claim stays gated, and not by oversight — see
@@ -1803,7 +1805,8 @@ function BuilderPageContent() {
                 <IntelligenceOverviewPanel analysis={analysis} intake={caseData} />
               </div>
 
-              <div className="mt-8">
+              <div className="mt-8 space-y-8">
+                <EvidenceUploadCard caseId={getActiveCaseId() || null} />
                 <CaseReviewPanel caseId={getActiveCaseId() || null} />
               </div>
 
