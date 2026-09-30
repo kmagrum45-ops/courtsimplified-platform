@@ -1,5 +1,5 @@
 /**
- * No sentence the model wrote reaches a user, unless the switch is on.
+ * With the switch off, no sentence the model wrote reaches a user.
  *
  * WHAT IT PROTECTS. The LSO A2I AI policy forbids AI-generated legal content
  * reaching a user without human review, and the A2I answers (2026-09-28)
@@ -14,7 +14,8 @@
  * plant a marker in EVERY free-text field the model can return, run the
  * analysis, and search everything it hands back (the analysis, the saved
  * payload, the master-result and dashboard patches). With
- * aiAnalysisTextToUsers() off, no marker may appear anywhere. A new model
+ * aiAnalysisTextToUsers() off (AI_ANALYSIS_TEXT_TO_USERS=off; the switch is
+ * ON by default since 2026-09-29), no marker may appear anywhere. A new model
  * field that some future builder copies into the output fails this, with no
  * list to keep up to date.
  *
@@ -116,18 +117,16 @@ function input() {
 async function run(switchOn: boolean) {
   process.env.COURTSIMPLIFIED_TEST_PLANTED_COGNITION = JSON.stringify(planted);
   delete process.env.VERCEL_ENV;
-  if (switchOn) process.env.AI_ANALYSIS_TEXT_TO_USERS = "on";
-  else delete process.env.AI_ANALYSIS_TEXT_TO_USERS;
+  if (switchOn) delete process.env.AI_ANALYSIS_TEXT_TO_USERS;
+  else process.env.AI_ANALYSIS_TEXT_TO_USERS = "off";
   const out = await analyzeSmallClaimsWithBrain(input(), { allowExternalCognition: true });
   return JSON.stringify(out);
 }
 
 (async () => {
   // --- The switch
-  check("switch: off by default", aiAnalysisTextToUsers({}) === false);
-  check("switch: production is off even with the variable set", aiAnalysisTextToUsers({ VERCEL_ENV: "production", AI_ANALYSIS_TEXT_TO_USERS: "on" }) === false);
-  check("switch: on for Vercel preview (staging) only", aiAnalysisTextToUsers({ VERCEL_ENV: "preview" }) === true);
-  check("switch: a local run can turn it on explicitly", aiAnalysisTextToUsers({ AI_ANALYSIS_TEXT_TO_USERS: "on" }) === true);
+  check("switch: on by default, including production", aiAnalysisTextToUsers({}) === true && aiAnalysisTextToUsers({ VERCEL_ENV: "production" }) === true);
+  check("switch: AI_ANALYSIS_TEXT_TO_USERS=off turns it off", aiAnalysisTextToUsers({ AI_ANALYSIS_TEXT_TO_USERS: "off" }) === false);
 
   // --- Off: no model sentence anywhere in what comes back
   const off = await run(false);

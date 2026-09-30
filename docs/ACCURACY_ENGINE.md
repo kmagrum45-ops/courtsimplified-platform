@@ -1471,3 +1471,8 @@ false.
 **Test seam.** `COURTSIMPLIFIED_TEST_PLANTED_COGNITION` returns a planted model
 response without a network call. Ignored whenever `VERCEL_ENV` is set or
 `NODE_ENV=production`.
+
+**Update, same day: the switch is ON everywhere, production included**, at the
+site owner's instruction (no users yet; the site is built the way it will
+run). `AI_ANALYSIS_TEXT_TO_USERS=off` restores the code-written analysis above.
+The A2I answers describe that configuration for when users are admitted.

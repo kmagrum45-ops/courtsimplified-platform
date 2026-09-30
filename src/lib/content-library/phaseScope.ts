@@ -62,37 +62,26 @@ export const FORM_COMPLETION_PAUSED_MESSAGE =
 export const OFFICIAL_COURT_FORMS_URL = "https://ontariocourtforms.on.ca/en/";
 
 /**
- * Whether sentences the AI wrote about a user's case may be shown to them.
+ * Whether sentences the AI wrote about a user's case are shown to them.
  *
- * WHY THIS IS A SWITCH AND NOT A DELETION (2026-09-29). The LSO A2I AI policy
- * forbids AI-generated legal content reaching a user without human review, and
- * the A2I answers commit to that before any user is admitted. The site owner's
- * plan is to build the fuller analysis now, test it, and turn it on for real
- * users only for what the Law Society approves. So the AI analysis is kept
- * working and gated here rather than removed.
+ * ON, everywhere including production (site owner, 2026-09-29): the site has
+ * no users yet and is being built the way it will run -- the full AI analysis
+ * (risks, next actions, follow-up questions, element explanations) is live.
  *
- * OFF (the default, and always in production): the AI makes structured
- * choices only -- court path, stage, claim type, confidence, and the
- * recorded/not-recorded case-file items -- and every sentence a user reads is
- * built by code from the sourced claim-type catalogue and the fact-specific
- * engines. See buildCodeWrittenCognition in courtSimplifiedBrain.ts.
- *
- * ON: the AI's own wording (risks, next actions, follow-up questions, element
- * explanations) is shown, as before. Only on a Vercel PREVIEW deployment
- * (staging, password-gated, no real users), or when AI_ANALYSIS_TEXT_TO_USERS
- * is set to "on" outside production for a local test run. Production ignores
- * the variable entirely, so it cannot be switched on there by mistake. Turning
- * it on for real users is a code change to this function, made when the Law
- * Society approves it.
+ * The code-written alternative is kept, not deleted: set
+ * AI_ANALYSIS_TEXT_TO_USERS=off (in Vercel or .env.local) and every sentence
+ * comes from buildCodeWrittenCognition in courtSimplifiedBrain.ts instead --
+ * the sourced claim-type catalogue and the fact-specific engines, with the
+ * model making structured choices only. That is the configuration the LSO A2I
+ * answers (2026-09-28) describe for when real users are admitted, for any part
+ * the Law Society has not approved.
  *
  * Asserted by `npm run test:no-model-text-to-users`.
  */
 export function aiAnalysisTextToUsers(
   env: Record<string, string | undefined> = typeof process !== "undefined" ? process.env : {},
 ): boolean {
-  if (env.VERCEL_ENV === "production") return false;
-  if (env.VERCEL_ENV === "preview") return true;
-  return env.AI_ANALYSIS_TEXT_TO_USERS === "on";
+  return env.AI_ANALYSIS_TEXT_TO_USERS !== "off";
 }
 
 /** Pathways a user can actually complete today. */
