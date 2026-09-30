@@ -5,7 +5,7 @@
 Each entry is the suite's own header comment. There is one description, in
 the file, so this index cannot drift away from what the suites actually do.
 
-82 documented, 30 without a header.
+91 documented, 30 without a header.
 
 | Command | What it checks |
 |---|---|
@@ -14,11 +14,13 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:ai-call-logging` | **Every model call is attributable in the audit log.**<br>COSTS NOTHING. Reads source off disk. No network, no AI, no database. |
 | `npm run test:ai-models` | **Every model call in the app takes its model from aiModels.ts, and the**<br>parameters sent match what that kind of model accepts. |
 | `npm run test:amendment-trails` | **Every vendored source's recent amendments, and whether anyone traced them.**<br>COSTS NOTHING. Reads docs/sources/ off disk. No network. |
+| `npm run test:amount-consistency` | **The amount claimed and the amount asked for must agree, or the user is told.**<br>Found 2026-09-27: a case-review story claimed $6,200 and asked the court to order $5,000, and the output never said so. amountConsistency.ts now warns. |
 | `npm run test:anon-grants` | **No migration grants anon write access, and no policy applies to PUBLIC.**<br>COSTS NOTHING. Reads supabase/migrations/*.sql off disk. No database connection, no network. |
 | `npm run test:assistant-blocks` | **The guided assistant can only say catalogued things.**<br>COSTS NOTHING. Reads source off disk and calls pure functions. |
 | `npm run test:case-events` | **The case-event vocabulary stays sourced, and the untyped option stays**<br>first-class. |
 | `npm run test:case-load-restore` | **A loaded case restores what it recorded, and invents nothing when it did not.**<br>COSTS NOTHING. Reads `app/builder/page.tsx` and the engine that writes the keys it reads. No browser, no network, no database. |
 | `npm run test:case-review` | **The case review points at gaps in the user's own record, grounded in their**<br>own words, and never grades, advises or invents. |
+| `npm run test:case-reviews` | **Runs the 10 fabricated fixtures in fixtures/caseReviews/ through the**<br>SAME real pipeline runFixtures.ts uses (pipelineRunner.ts -- no second, independently-maintained copy of the turn loop), and writes one full, human-readable "case review" markdown file per case, plus an index that itemizes all 10 with a one-line description of |
 | `npm run test:check-oracles` | **No check can be satisfied by a comment. A check's oracle must be independent of the**<br>implementation's description of itself. |
 | `npm run test:child-support-draft` | **The child support draft carries recorded figures and cited rules, and**<br>calculates nothing. |
 | `npm run test:child-support-intake` | **The child support screen: the common case is small, the second income figure**<br>is absent rather than empty, and an out-of-scope situation is named. |
@@ -31,6 +33,7 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:db-environments` | **Nothing in this repository says "dev" when it means production, and no**<br>migration can reach production without passing staging. |
 | `npm run test:deadlines` | **Does the deadline engine count correctly?**<br>Every case here is one somebody could actually be in, and every one of them is a date a person would get wrong by reasoning casually. A deadline that is right in the ordinary case and wrong across a long weekend is not 95% correct; it is a trap that springs ex |
 | `npm run test:depth-questions` | **Verifies the intake depth layer, offline.**<br>COSTS NOTHING. Every decision the depth layer makes about WHICH questions are asked is pure, so all four load-bearing properties are checkable without a single API call. The only model involvement is the voice lead-in, which is exercised by the paraphrase harn |
+| `npm run test:described-evidence` | **"No evidence identified" must only be said when it is true.**<br>evidenceIntelligenceEngine raises a high-severity "No evidence identified" gap when the normalized intake holds no evidence items. The keyword extractor that fills that list knows seven categories, so a user who listed invoices, contracts, photos, a bill of sa |
 | `npm run test:evidence-guidance` | **Pins the removal of the false "already mentioned" claim.**<br>COSTS NOTHING. Pure functions and a source-order check. |
 | `npm run test:exported-document` | **The document a user carries out of the building asserts nothing about their**<br>case. |
 | `npm run test:family-forms` | **Every family form number shown to a user cites the rule requiring it.**<br>COSTS NOTHING. A source check plus pure-function calls. |
@@ -38,8 +41,10 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:fixture-guards` | **Asserts that runFixtures.ts cannot write a .actual.md from a run that**<br>threw, timed out, or silently degraded. |
 | `npm run test:fixtures` | **Session 35 -- runs the three whole-case fixtures in fixtures/ through the**<br>REAL pipeline the app uses, end to end, and writes what actually happened to fixtures/<id>.actual.md. |
 | `npm run test:fixtures:generated` | **Session 36 -- scales Session 35's fixture harness from 3 hand-written**<br>fixtures to a generated batch, checked against rules instead of one hand-written expectation per story. |
+| `npm run test:form-completion-paused` | **While official-form completion is paused, every door to it stays shut.**<br>FORM_COMPLETION_PAUSED (src/lib/content-library/phaseScope.ts) was set on 2026-09-27 for the LSO A2I application, which tells the Law Society that filling official court forms and drafting claim particulars are out of scope until it gives guidance. That statem |
 | `npm run test:generic-library` | **Stage-independent content rests on quoted sources, renders the same whatever stage**<br>the case is in, and renders NOTHING while nothing is verified. |
 | `npm run test:guard-coverage` | **WHERE the output guard is actually applied — asserted, and stated honestly.**<br>COSTS NOTHING. Reads source off disk. |
+| `npm run test:guided-stage-by-role` | **Guided intake must not hand a user the OTHER side's next steps.**<br>mapGuidedIntakeToSmallClaimsInput() picks the case stage, and the stage picks a next-step block (src/lib/content-library/nextSteps.ts) that is written for one side. Until 2026-09-27 the stage was inferred from filed documents alone, and the case-review batch c |
 | `npm run test:harness-coverage` | **Which values of a branch-selecting harness parameter have actually been run.**<br>COSTS NOTHING. Reads the spec and harness sources off disk. No browser, no network. |
 | `npm run test:intake-sequencing` | **Asserts that during intake nothing renders between the question and the**<br>answer box. |
 | `npm run test:inventory-coverage` | **Every body of live, user-facing legal content is in the review packet.**<br>COSTS NOTHING. Calls the inventory and reads source off disk. |
@@ -52,6 +57,10 @@ the file, so this index cannot drift away from what the suites actually do.
 | `npm run test:mutations` | **Every family §3 / §2 check is proven able to fail.**<br>COSTS NOTHING. Local file edits plus suite runs. Slower than the suites themselves (it runs each one once per mutation), so it is not wired into the per-change loop — run it when a check is added or changed. |
 | `npm run test:no-filenames` | **No file name reaches a model. Asserted three ways, because one way is not**<br>enough for a property this easy to reintroduce. |
 | `npm run test:no-model-prose` | **No model-written prose reaches a document, an export, or a court form.**<br>COSTS NOTHING. Calls the real engine with a real input, with external cognition disabled, and inspects what comes out. No network, no AI. |
+| `npm run test:no-model-text-to-users` | **No sentence the model wrote reaches a user, unless the switch is on.**<br>WHAT IT PROTECTS. The LSO A2I AI policy forbids AI-generated legal content reaching a user without human review, and the A2I answers (2026-09-28) commit to it. Until 2026-09-29 the analysis carried the model's own wording into what users read: risk titles and  |
+| `npm run test:no-model-warnings` | **No model-written warning reaches a user.**<br>courtSimplifiedBrain's `systemWarnings` becomes AnalysisResult.userWarnings. It used to spread `gptCognition.systemWarnings` -- free text the model wrote -- into that list, filtered only by the case-strength blocklist. A procedural or legal sentence ("file you |
+| `npm run test:no-names-to-model` | **No name FIELD reaches a model.**<br>The user's name and the other party's name are entered in plain form fields and stored in the Canadian database. Until 2026-09-27 all three intake adapters (Small Claims, civil, family) copied them into the raw text the brain sends to OpenAI. The LSO A2I appli |
+| `npm run test:no-stale-intake` | **Nothing from an earlier session is shown before the user opens a case.**<br>2026-09-28: a signed-in user opened the Small Claims intake and found an old test story already filled in. Earlier fixes had scoped browser storage per user and cleared it for anonymous visitors, but the builder deliberately RESTORED the signed-in user's own l |
 | `npm run test:no-store` | **Every OpenAI request carries `store: false`, and no call site can bypass it.**<br>COSTS NOTHING. Reads source off disk and calls the factory with a fake key. No network, no model call. |
 | `npm run test:output-guard` | **Arbitrary model text cannot reach a user, and every user-facing model call**<br>returns structured output. |
 | `npm run test:overview-labels` | **Guards the two leaks the browser scenario harness found on 2026-08-22, across**<br>16 and 8 scenarios respectively: |

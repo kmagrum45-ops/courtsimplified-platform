@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { CLAIM_TYPES } from "@/src/lib/case-system/intake/claimTypes";
 import { withAiCallIdentity } from "../../../../src/lib/audit/aiCallLog";
 
 import {
@@ -142,8 +143,33 @@ const allowedInputFields = new Set<keyof SmallClaimsIntelligenceInput>([
   "issues",
   "filedDocuments",
   "uploadedEvidenceFiles",
+  "confirmedClaimTypeId",
+  "elementStates",
   ...requiredStringFields,
 ]);
+
+const ELEMENT_RECORD_STATES = new Set(["provided", "cannot-provide", "not-yet"]);
+
+/**
+ * The two optional catalogue fields (2026-09-29). Both absent is valid. When
+ * present, the claim type must be a real catalogue id, and every element state
+ * must name one of THAT claim type's elements with one of the three states --
+ * never free text, so nothing new reaches the model or the case file this way.
+ */
+function isValidCatalogueClaim(value: Record<string, unknown>): boolean {
+  const id = value.confirmedClaimTypeId;
+  const states = value.elementStates;
+  if (id === undefined) return states === undefined;
+  if (typeof id !== "string") return false;
+  const claimType = CLAIM_TYPES.find((item) => item.id === id);
+  if (!claimType) return false;
+  if (states === undefined) return true;
+  if (!isRecord(states)) return false;
+  const elementIds = new Set(claimType.plaintiffElements.map((element) => element.id));
+  return Object.entries(states).every(
+    ([elementId, state]) => elementIds.has(elementId) && typeof state === "string" && ELEMENT_RECORD_STATES.has(state),
+  );
+}
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value && typeof value === "object" && !Array.isArray(value));
@@ -200,6 +226,7 @@ export function isSmallClaimsInput(
     return false;
   }
 
+  if (!isValidCatalogueClaim(value)) return false;
   if (!isStringArray(value.issues, 20)) return false;
   if (!isStringArray(value.filedDocuments, 20)) return false;
   if (!allowedStages.has(String(value.caseStage))) return false;

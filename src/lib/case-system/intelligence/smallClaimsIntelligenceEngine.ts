@@ -113,6 +113,14 @@ export type SmallClaimsIntelligenceInput = {
   defenceResponse: string;
   goal: string;
   urgent: string;
+  /**
+   * The catalogue claim type the user CONFIRMED in the guided intake, and what
+   * the depth phase recorded for each of its elements (states only). Optional:
+   * absent when no claim type was confirmed. Validated by the analyze route
+   * against intake/claimTypes.ts. See CourtSimplifiedBrainInput.catalogueClaim.
+   */
+  confirmedClaimTypeId?: string;
+  elementStates?: Record<string, "provided" | "cannot-provide" | "not-yet">;
 };
 
 export type SmallClaimsIntelligenceOutput = {
@@ -592,6 +600,14 @@ export async function analyzeSmallClaimsWithBrain(
     sourceType: "user-intake",
     allowExternalCognition: options.allowExternalCognition,
     confirmedEvents: options.confirmedEvents,
+    ...(input.confirmedClaimTypeId
+      ? {
+          catalogueClaim: {
+            claimTypeId: input.confirmedClaimTypeId,
+            elementStates: input.elementStates,
+          },
+        }
+      : {}),
   });
 
   const intelligence = brain.intelligence;

@@ -44,6 +44,10 @@ import {
 import { normalizeIntake } from "./intakeNormalizationEngine";
 import { modelParams } from "../aiModels";
 import { buildElementProofAnalysis } from "./elementProofEngine";
+import { CLAIM_TYPES } from "../intake/claimTypes";
+import { isNoQuestionNeeded, questionsForElement } from "../intake/depth/elementQuestionRegistry";
+import { fillSlots } from "../intake/depth/slots";
+import { aiAnalysisTextToUsers } from "../../content-library/phaseScope";
 import { buildBrainMigrationLayer } from "../orchestration/brainMigrationLayer";
 import { buildEvidenceIntelligenceAnalysis } from "../evidence/evidenceIntelligenceEngine";
 
@@ -69,6 +73,8 @@ type GptCognitionClaim = {
     explanation?: string;
     missingFacts?: string[];
     risks?: string[];
+    /** Set only by buildCodeWrittenCognition, from the sourced catalogue. */
+    sourceUrl?: string;
   }[];
 };
 
@@ -86,6 +92,7 @@ type GptCognitionOutput = {
     reason?: string;
     requiredFor?: string;
     severity?: string;
+    sourceUrl?: string;
   }[];
   evidenceIssueLinks?: {
     issueLabel?: string;
@@ -987,6 +994,7 @@ function buildClaimElements(args: {
         missingFacts: cleanList(element.missingFacts || []),
         risks: cleanList(element.risks || []),
         confidence: asConfidence(args.claim.confidence),
+        ...(clean(element.sourceUrl) ? { sourceUrl: clean(element.sourceUrl) } : {}),
       };
     });
   }
@@ -1108,6 +1116,7 @@ function buildMissingInformation(
       item.requiredFor === "export"
         ? item.requiredFor
         : asDomain(item.requiredFor),
+    ...(clean(item.sourceUrl) ? { sourceUrl: clean(item.sourceUrl) } : {}),
   }));
 }
 
@@ -2027,6 +2036,16 @@ async function runStructuredGptCognitionInner(
   normalizedIntake: NormalizedIntake,
 ): Promise<GptCognitionOutput | null> {
   if (input.allowExternalCognition === false) return null;
+
+  // TEST SEAM for test:no-model-text-to-users: a planted model response, so
+  // the suite can prove no model-written sentence reaches a user WITHOUT a
+  // network call. Honoured only in a plain local/CI process: never on Vercel
+  // (any VERCEL_ENV) and never under NODE_ENV=production.
+  const planted = process.env.COURTSIMPLIFIED_TEST_PLANTED_COGNITION;
+  if (planted && !process.env.VERCEL_ENV && process.env.NODE_ENV !== "production") {
+    return sanitizeCognitionOutput(JSON.parse(planted) as GptCognitionOutput);
+  }
+
   if (!process.env.OPENAI_API_KEY) return null;
 
   try {
@@ -2159,6 +2178,168 @@ function buildFallbackCognition(normalizedIntake: NormalizedIntake): GptCognitio
     systemWarnings: [
       "Detailed analysis is not available right now, so these results are preliminary and need review.",
     ],
+  };
+}
+
+/**
+ * The analysis a user reads, written by code instead of by the model.
+ *
+ * Used whenever aiAnalysisTextToUsers() is off -- always, in production. The
+ * model still runs and still makes the structured CHOICES (court path, stage,
+ * claim type, confidence, and the recorded/not-recorded case-file items);
+ * withStructuredChoices() below takes exactly those from it. Every SENTENCE
+ * comes from here, so no model-written legal content reaches a user without
+ * review (LSO A2I AI policy; the A2I answers of 2026-09-28).
+ *
+ * NOT the old fallback's "detailed analysis is not available" placeholders.
+ * Where the user confirmed a catalogue claim type, the elements, their
+ * explanations and the follow-up questions come from the SOURCED catalogue
+ * (intake/claimTypes.ts, every element with its official sourceUrl) and the
+ * reviewed depth-question registry, with each element's status taken from
+ * what the user actually recorded in the depth phase. The fact-specific
+ * engines (fact pattern, evidence, element proof, contradictions,
+ * limitations) keep supplying their own findings on top, as before.
+ */
+function buildCodeWrittenCognition(args: {
+  normalizedIntake: NormalizedIntake;
+  catalogueClaim?: CourtSimplifiedBrainInput["catalogueClaim"];
+  modelRan: boolean;
+}): GptCognitionOutput {
+  const base = buildFallbackCognition(args.normalizedIntake);
+  const claimType = args.catalogueClaim
+    ? CLAIM_TYPES.find((item) => item.id === args.catalogueClaim?.claimTypeId)
+    : undefined;
+  const states = args.catalogueClaim?.elementStates || {};
+  const stateOf = (elementId: string) => states[elementId] || "not-yet";
+
+  const firstClaim = safeArray(base.claimClassifications)[0] || {};
+
+  const catalogueElements = claimType
+    ? claimType.plaintiffElements.map((element) => {
+        const state = stateOf(element.id);
+        return {
+          elementKey: element.id,
+          label: element.name,
+          // What the user SUPPLIED, never whether the element is made out
+          // (CLAUDE.md section 3). "provided" means they answered with facts;
+          // nothing here says those facts are enough.
+          status: state === "provided" ? "partially-documented" : "not-documented",
+          explanation: element.plainExplanation,
+          missingFacts:
+            state === "provided" ? [] : element.evidenceCategories.map((category) => category.name),
+          risks: [],
+          sourceUrl: element.sourceUrl,
+        };
+      })
+    : undefined;
+
+  const catalogueQuestions = claimType
+    ? claimType.plaintiffElements
+        .filter((element) => stateOf(element.id) === "not-yet" && !isNoQuestionNeeded(element.id))
+        .map((element) => {
+          const authored = questionsForElement(element.id)[0];
+          return {
+            field: element.id,
+            question: authored
+              ? fillSlots(authored.text, {}).text
+              : `Do you have anything that shows this: ${element.name.charAt(0).toLowerCase()}${element.name.slice(1)}?`,
+            reason: element.plainExplanation,
+            requiredFor: "evidence",
+            severity: "medium",
+            sourceUrl: element.sourceUrl,
+          };
+        })
+    : [
+        {
+          field: "claim-type",
+          question:
+            "Which kind of claim does this match? Confirming it in the intake lists what someone bringing that kind of claim generally has to show.",
+          reason: "The claim type is not confirmed yet.",
+          requiredFor: "evidence",
+          severity: "medium",
+        },
+      ];
+
+  return {
+    ...base,
+    claimClassifications: [
+      {
+        ...firstClaim,
+        explanation: claimType
+          ? `You confirmed this matches "${claimType.name}". Each part below is what someone bringing this kind of claim generally has to show, with the official source for it.`
+          : "The type of claim is not confirmed yet. Confirming it in the intake shows what someone bringing that kind of claim generally has to show.",
+        ...(catalogueElements ? { elements: catalogueElements } : {}),
+      },
+    ],
+    missingInformation: catalogueQuestions,
+    evidenceIssueLinks: args.normalizedIntake.evidence.map((item) => ({
+      issueLabel: item.title,
+      claimType: safeArray(base.primaryClaimTypes)[0] || "unknown",
+      requiredProof: claimType
+        ? `Compare it with the parts of "${claimType.name}" listed with the claim.`
+        : "Compare it with the parts of the claim once the claim type is confirmed.",
+      missingEvidence: item.gaps,
+      explanation: "Evidence you recorded in the intake.",
+    })),
+    // The model's risks and the old placeholder risks are both dropped. The
+    // code-found items (contradictions, limitation timing, public authority)
+    // are still added by buildSupplementalRisks from the user's own facts.
+    litigationRisks: args.modelRan ? [] : safeArray(base.litigationRisks).slice(0, 1),
+    formRecommendations: [],
+    // Code-written actions are added by buildSupplementalNextActions and the
+    // fact-pattern, evidence and element engines; none are needed here.
+    nextBestActions: [],
+    systemWarnings: [],
+  };
+}
+
+/**
+ * The model's structured choices laid over the code-written analysis. Only
+ * enums, labels drawn from our own lists, and the case-file items (which are
+ * composed, filtered and disclosed as the one place model wording reaches a
+ * user -- see composeCaseFileSummary). Free text the model wrote is dropped.
+ */
+function withStructuredChoices(
+  code: GptCognitionOutput,
+  model: GptCognitionOutput | null,
+): GptCognitionOutput {
+  if (!model) return code;
+  const codeClaim = safeArray(code.claimClassifications)[0] || {};
+  const modelClaims = safeArray(model.claimClassifications);
+  const choiceOnly = (claim: GptCognitionClaim) => ({
+    claimType: claim.claimType,
+    status: claim.status,
+    confidence: claim.confidence,
+  });
+
+  return {
+    ...code,
+    courtPath: model.courtPath ?? code.courtPath,
+    province: model.province ?? code.province,
+    stage: model.stage ?? code.stage,
+    confidence: model.confidence ?? code.confidence,
+    primaryClaimTypes: safeArray(model.primaryClaimTypes).length
+      ? model.primaryClaimTypes
+      : code.primaryClaimTypes,
+    claimClassifications: modelClaims.length
+      ? modelClaims.map((claim, index) => ({
+          ...choiceOnly(claim),
+          // The catalogue elements and explanation belong to the claim the
+          // user confirmed, which is the model's primary claim.
+          ...(index === 0
+            ? { elements: codeClaim.elements, explanation: codeClaim.explanation }
+            : {}),
+        }))
+      : code.claimClassifications,
+    // Without an explanation of its own, a rejected type would fall through to
+    // buildClaimClassifications' "The facts may involve ..." -- the opposite of
+    // what happened. Fixed text instead.
+    rejectedFalsePositives: safeArray(model.rejectedFalsePositives).map((claim) => ({
+      ...choiceOnly(claim),
+      explanation: "Considered and not matched to this case.",
+    })),
+    caseFileRecorded: model.caseFileRecorded,
+    caseFileNotRecorded: model.caseFileNotRecorded,
   };
 }
 
@@ -2317,7 +2498,21 @@ export async function runCourtSimplifiedBrain(
     input,
     normalizedIntake,
   );
-  const gptCognition = structuredCognition || buildFallbackCognition(normalizedIntake);
+  // Which wording a user reads -- see aiAnalysisTextToUsers in
+  // content-library/phaseScope.ts. Off (always in production): the model's
+  // structured choices over code-written text. On (staging/testing only): the
+  // model's own wording, as before.
+  const gptCognition =
+    structuredCognition && aiAnalysisTextToUsers()
+      ? structuredCognition
+      : withStructuredChoices(
+          buildCodeWrittenCognition({
+            normalizedIntake,
+            catalogueClaim: input.catalogueClaim,
+            modelRan: Boolean(structuredCognition),
+          }),
+          structuredCognition,
+        );
   const cognitionMode: "structured" | "fallback" = structuredCognition
     ? "structured"
     : "fallback";
