@@ -1,0 +1,19 @@
+Source: https://www.ontariocourts.ca/scj/locations/330-univ/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+330 University Ave – Civil Courthouse
+330 University Ave.
+Toronto, Ontario M5G 1R7
+Civil Trial Office – 7th Floor
+Bankruptcy, Commercial, Estates – 9th Floor
+Civil Scheduling Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email
+Motions (Short) | Civiljudgesmotions@ontario.ca
+Case Conferences | TorontoCaseConferenceAppointments@Ontario.ca
+Pre-Trials | Toronto.civil.pretrials@ontario.ca
+Trials | Mag.CSD.Trials@Ontario.ca
+Motions (Long/CPC) | CivilPracticeCourt@ontario.ca
+Motions (Urgent) | CivilUrgentMatters-SCJ-Toronto@ontario.ca
+Commercial (Motions / Case Conferences / Pre-Trials / Trials) | MAG.CSD.To.SCJCom@ontario.ca
+Estates (Motions / Case Conferences / Pre-Trials / Trials) | toronto.estateslist@ontario.ca
+Class Action | Toronto.ClassAction@ontario.ca

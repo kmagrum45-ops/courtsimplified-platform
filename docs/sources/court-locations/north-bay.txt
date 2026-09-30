@@ -1,0 +1,39 @@
+Source: https://www.ontariocourts.ca/scj/locations/north-bay/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+North Bay Courthouse
+360 Plouffe Street
+North Bay, Ontario P1B 9L5
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number | Calendly Link
+Short/Regular motions | NorthBaycourthouse@ontario.ca | (705) 495-8309 | N/A
+Long Motions Protocol | NorthBay.scj.tc@ontario.ca | 705-495-8330 | N/A
+Pre-trials | N/A | N/A | https://calendly.com/northbay-scj
+Assignment Court | NorthBay.scj.tc@ontario.ca | 705-495-8330 | N/A
+Trials | NorthBay.scj.tc@ontario.ca | 705-495-8330 | N/A
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | NorthBay.scj.tc@ontario.ca | 705-495-8330
+Judicial Pre-trials | NorthBay.scj.tc@ontario.ca | 705-495-8330
+Bail Hearings/Reviews | NorthBay.scj.tc@ontario.ca | 705-495-8330
+90-day Detention Review Hearings | NorthBay.scj.tc@ontario.ca | 705-495-8330
+Criminal Applications / Motions | NorthBay.scj.tc@ontario.ca | 705-495-8330
+Assignment Court / Trial Scheduling Court | NorthBay.scj.tc@ontario.ca | 705-495-8330
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number | Calendly Link
+Case Conferences | N/A | N/A | https://calendly.com/northbay-scj
+Settlement Conferences | N/A | N/A | https://calendly.com/northbay-scj
+Trial Management Conference | N/A | N/A | https://calendly.com/northbay-scj
+Short Motions (1 hour or less) | northbaycourthouse@ontario.ca | (705) 495-8309 | N/A
+Long Motions (follow Protocol) | NorthBay.scj.tc@ontario.ca | 705-495-8330 | N/A
+Summary Judgment Motion | NorthBay.scj.tc@ontario.ca | 705-495-8330 | N/A
+Trial | NorthBay.scj.tc@ontario.ca | 705-495-8330 | N/A
+Binding Judicial Dispute Resolution | NorthBay.scj.tc@ontario.ca | 705-495-8330 | N/A
+Small Claims Court Contact Information
+360 Plouffe Street
+North Bay, Ontario P1B 9L5
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | NorthBaySCC@ontario.ca | 705-495-8309

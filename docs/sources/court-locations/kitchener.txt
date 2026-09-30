@@ -1,0 +1,37 @@
+Source: https://www.ontariocourts.ca/scj/locations/kitchener/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Kitchener Courthouse
+85 Frederick Street
+Kitchener, Ontario N2H 0A7
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Motions | Kitchener.Superior.Court@ontario.ca | 519-741-3200 x3240
+Case Conference | Kitchener.Superior.Court@ontario.ca | 519-741-3200 x3240
+CVPTs | Kitchener.Superior.Court@ontario.ca | 519-741-3200 x3240
+Trials | Kitchener.Superior.Court@ontario.ca | 519-741-3200 x3240
+Assignment Court | Kitchener.Superior.Court@ontario.ca | 519-741-3200 x3240
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | Kitchener.Superior.Court@ontario.ca | 519-741-3200 x3240
+Judicial Pre-trials | Kitchener.Superior.Court@ontario.ca | 519-741-3200 x3240
+Bail Hearings / Reviews | Kitchener.Superior.Court@ontario.ca | 519-741-3200 x3240
+90-day Detention Review Hearings | Kitchener.Superior.Court@ontario.ca | 519-741-3200 x3240
+Criminal Applications / Motions | Kitchener.Superior.Court@ontario.ca | 519-741-3200 x3240
+Assignment Court / Trial Scheduling Court | Kitchener.Superior.Court@ontario.ca | 519-741-3200 x3240
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions | Kitchener.Superior.Court@ontario.ca | 519-741-3200 x3240
+Long Motions | Kitchener.Superior.Court@ontario.ca | 519-741-3200 x3240
+Family Conference | Kitchener.Superior.Court@ontario.ca | 519-741-3200 x3240
+DRO Conference | Kitchener.Superior.Court@ontario.ca | 519-741-3200 x3240
+Trials | Kitchener.Superior.Court@ontario.ca | 519-741-3200 x3240
+Binding JDR | Kitchener.Superior.Court@ontario.ca | 519-741-3200 x3240
+Small Claims Court Contact Information
+85 Frederick Street
+Kitchener, Ontario N2H 0A7
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Kitchener.SCJ.courts@ontario.ca | 519-741-3270

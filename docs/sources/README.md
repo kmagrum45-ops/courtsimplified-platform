@@ -612,3 +612,14 @@ Downloaded 2026-09-30. Cited in `src/lib/content-library/crossForumNotes.ts`;
 
 The case page cited to users is `.../en/item/{id}/index.do` with the same id.
 None of these has been noted up (see "Noting up" in docs/SOURCING_NOTES.md).
+
+## Courthouse location pages (2026-09-30)
+
+`docs/sources/court-locations/<slug>.txt`: the text of each of the 65
+Ontario Superior Court of Justice location pages
+(`https://www.ontariocourts.ca/scj/locations/<slug>/`, listed at
+https://www.ontariocourts.ca/scj/court-locations/all-court-locations/),
+fetched 2026-09-30 by the Fetch Decisions workflow (run 36769153083), from the
+location heading onward with tags and scripts removed. The directory in
+`src/lib/content-library/courts/courtLocations.json` is extracted from the same
+pages; `npm run test:court-locations` checks every value against these files.

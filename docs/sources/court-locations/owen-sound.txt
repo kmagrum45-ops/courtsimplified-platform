@@ -1,0 +1,37 @@
+Source: https://www.ontariocourts.ca/scj/locations/owen-sound/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Owen Sound Courthouse
+611 – 9th Ave. East
+Owen Sound, Ontario N4K 6Z4
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email
+Regular Motions | SCJGreyBruce@ontario.ca
+Long Motions | SCJGreyBruce@ontario.ca
+CVPTs | SCJGreyBruce@ontario.ca
+Trials | SCJGreyBruce@ontario.ca
+Assignment Court | SCJGreyBruce@ontario.ca
+Case Conf / Case Management | SCJGreyBruce@ontario.ca
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email
+Trials | SCJGreyBruce@ontario.ca
+Judicial Pre-trials | SCJGreyBruce@ontario.ca
+Bail Hearings / Reviews | SCJGreyBruce@ontario.ca
+90-day Detention Review Hearings | SCJGreyBruce@ontario.ca
+Criminal Applications / Motions | SCJGreyBruce@ontario.ca
+Assignment Court / Trial Scheduling Court | SCJGreyBruce@ontario.ca
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email
+Regular Motions | SCJGreyBruce@ontario.ca
+Long Motions | SCJGreyBruce@ontario.ca
+Family Conferences | SCJGreyBruce@ontario.ca
+DRO conferences | SCJGreyBruce@ontario.ca
+Trials | SCJGreyBruce@ontario.ca
+Small Claims Court Contact Information
+611 – 9th Ave. East
+Owen Sound, Ontario N4K 6Z4
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | OwenSound.SCC.courts@ontario.ca | 519-370-2430

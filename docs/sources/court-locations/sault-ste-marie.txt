@@ -1,0 +1,39 @@
+Source: https://www.ontariocourts.ca/scj/locations/sault-ste-marie/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Sault Ste. Marie Courthouse
+426 Queen St. E.
+Sault Ste. Marie, Ontario P6A 6W2
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number | Calendly Link
+Short/Regular motions | SaultSteMariecourthouse@ontario.ca | (705) 945-8000 Ext. 521 | N/A
+Long Motions Protocol | SaultSteMarie.scj.tc@ontario.ca | 705-945-8000 Ext. 479 | N/A
+Pre-trials | N/A | N/A | https://calendly.com/saultstemarie-scj
+Assignment Court | SaultSteMarie.scj.tc@ontario.ca | 705-945-8000 Ext. 479 | N/A
+Trials | SaultSteMarie.scj.tc@ontario.ca | 705-945-8000 Ext. 479 | N/A
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | SaultSteMarie.scj.tc@ontario.ca | 705-945-8000 Ext. 479
+Judicial Pre-trials | SaultSteMarie.scj.tc@ontario.ca | 705-945-8000 Ext. 479
+Bail Hearings/Reviews | SaultSteMarie.scj.tc@ontario.ca | 705-945-8000 Ext. 479
+90-day Detention Review Hearings | SaultSteMarie.scj.tc@ontario.ca | 705-945-8000 Ext. 479
+Criminal Applications / Motions | SaultSteMarie.scj.tc@ontario.ca | 705-945-8000 Ext. 479
+Assignment Court / Trial Scheduling Court | SaultSteMarie.scj.tc@ontario.ca | 705-945-8000 Ext. 479
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number | Calendly Link
+Case Conferences | N/A | N/A | https://calendly.com/saultstemarie-scj
+Settlement Conferences | N/A | N/A | https://calendly.com/saultstemarie-scj
+Trial Management Conference | N/A | N/A | https://calendly.com/saultstemarie-scj
+Short Motions (1 hour or less) | saultstemariecourthouse@ontario.ca | (705) 945-8000 Ext. 521 | N/A
+Long Motions (follow Protocol) | SaultSteMarie.scj.tc@ontario.ca | 705-945-8000 Ext. 479 | N/A
+Summary Judgment Motion | SaultSteMarie.scj.tc@ontario.ca | 705-945-8000 Ext. 479 | N/A
+Trial | SaultSteMarie.scj.tc@ontario.ca | 705-945-8000 Ext. 479 | N/A
+Binding Judicial Dispute Resolution | SaultSteMarie.scj.tc@ontario.ca | 705-945-8000 Ext. 479 | N/A
+Small Claims Court Contact Information
+426 Queen St. E.
+Sault Ste. Marie, Ontario P6A 6W2
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | SSMSCC@ontario.ca | 705-945-8000 Ext. 530

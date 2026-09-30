@@ -1,0 +1,35 @@
+Source: https://www.ontariocourts.ca/scj/locations/cayuga/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Cayuga Courthouse
+55 Munsee St. N.
+Cayuga, Ontario N0A 1E0
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Motions | Cayuga.Superior.Court@ontario.ca | 905-772-3361
+Case Conference | Cayuga.Superior.Court@ontario.ca | 905-772-3361
+CVPTs | Cayuga.Superior.Court@ontario.ca | 905-772-3361
+Trials | Cayuga.Superior.Court@ontario.ca | 905-772-3361
+Assignment Court | Cayuga.Superior.Court@ontario.ca | 905-772-3361
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | Cayuga.Superior.Court@ontario.ca | 905-772-3361
+Judicial Pre-trials | Cayuga.Superior.Court@ontario.ca | 905-772-3361
+Bail Hearings / Reviews | Cayuga.Superior.Court@ontario.ca | 905-772-3361
+90-day Detention Review Hearings | Cayuga.Superior.Court@ontario.ca | 905-772-3361
+Criminal Applications / Motions | Cayuga.Superior.Court@ontario.ca | 905-772-3361
+Assignment Court / Trial Scheduling Court | Cayuga.Superior.Court@ontario.ca | 905-772-3361
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions | Cayuga.Superior.Court@ontario.ca | 905-772-3361
+Long Motions | Cayuga.Superior.Court@ontario.ca | 905-772-3361
+Family Conference | Cayuga.Superior.Court@ontario.ca | 905-772-3361
+Trials | Cayuga.Superior.Court@ontario.ca | 905-772-3361
+Small Claims Court Contact Information
+55 Munsee St. N.
+Cayuga, Ontario N0A 1E0
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | HaldimandCountyCourt@ontario.ca | 905-772-3335

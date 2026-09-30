@@ -1,0 +1,37 @@
+Source: https://www.ontariocourts.ca/scj/locations/orangeville/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Orangeville Courthouse
+10 Louisa St.
+Orangeville, Ontario L9W 3P9
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email
+Regular Motions | OrangevilleSCJTrialOffice@ontario.ca
+Long Motions | OrangevilleSCJTrialOffice@ontario.ca
+CVPTs | OrangevilleSCJTrialOffice@ontario.ca
+Trials | OrangevilleSCJTrialOffice@ontario.ca
+Assignment Court | OrangevilleSCJTrialOffice@ontario.ca
+Case Conf / Case Management | OrangevilleSCJTrialOffice@ontario.ca
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email
+Trials | OrangevilleSCJTrialOffice@ontario.ca
+Judicial Pre-trials | OrangevilleSCJTrialOffice@ontario.ca
+Bail Hearings / Reviews | OrangevilleSCJTrialOffice@ontario.ca
+90-day Detention Review Hearings | OrangevilleSCJTrialOffice@ontario.ca
+Criminal Applications / Motions | OrangevilleSCJTrialOffice@ontario.ca
+Assignment Court / Trial Scheduling Court | OrangevilleSCJTrialOffice@ontario.ca
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email
+Regular Motions | OrangevilleSCJTrialOffice@ontario.ca
+Long Motions | OrangevilleSCJTrialOffice@ontario.ca
+Family Conferences | OrangevilleSCJTrialOffice@ontario.ca
+DRO conferences | OrangevilleSCJTrialOffice@ontario.ca
+Trials | OrangevilleSCJTrialOffice@ontario.ca
+Small Claims Court Contact Information
+10 Louisa St.
+Orangeville, Ontario L9W 3P9
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | OrangevilleSCJCourt@ontario.ca | 519-941-5802

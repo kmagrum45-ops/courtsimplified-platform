@@ -1,0 +1,35 @@
+Source: https://www.ontariocourts.ca/scj/locations/simcoe/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Simcoe Courthouse
+Suite 301 – 50 Frederick Hobson VC Drive
+Simcoe, Ontario N3Y 0E4
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Motions | Simcoe.Superior.Court@ontario.ca | 519-426-4406
+Case Conference | Simcoe.Superior.Court@ontario.ca | 519-426-4406
+CVPTs | Simcoe.Superior.Court@ontario.ca | 519-426-4406
+Trials | Simcoe.Superior.Court@ontario.ca | 519-426-4406
+Assignment Court | Simcoe.Superior.Court@ontario.ca | 519-426-4406
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | Simcoe.Superior.Court@ontario.ca | 519-426-4406
+Judicial Pre-trials | Simcoe.Superior.Court@ontario.ca | 519-426-4406
+Bail Hearings / Reviews | Simcoe.Superior.Court@ontario.ca | 519-426-4406
+90-day Detention Review Hearings | Simcoe.Superior.Court@ontario.ca | 519-426-4406
+Criminal Applications / Motions | Simcoe.Superior.Court@ontario.ca | 519-426-4406
+Assignment Court / Trial Scheduling Court | Simcoe.Superior.Court@ontario.ca | 519-426-4406
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions | Simcoe.Superior.Court@ontario.ca | 519-426-4406
+Long Motions | Simcoe.Superior.Court@ontario.ca | 519-426-4406
+Family Conference | Simcoe.Superior.Court@ontario.ca | 519-426-4406
+Trials | Simcoe.Superior.Court@ontario.ca | 519-426-4406
+Small Claims Court Contact Information
+Suite 301 – 50 Frederick Hobson VC Drive
+Simcoe, Ontario N3Y 0E4
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Simcoe.SCJ.Courts@ontario.ca | 519-426-6550

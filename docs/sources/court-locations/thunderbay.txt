@@ -1,0 +1,40 @@
+Source: https://www.ontariocourts.ca/scj/locations/thunderbay/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Thunder Bay Courthouse
+125 Brodie Street North
+Thunder Bay, Ontario P7C 0A3
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | Thunderbay.scj@ontario.ca | 807-626-7000
+Pre-Trials | Thunderbay.scj@ontario.ca | 807-626-7000
+Case Conference | Thunderbay.scj@ontario.ca | 807-626-7000
+Trial Management Conferences | Thunderbay.scj@ontario.ca | 807-626-7000
+Short Motions | Thunderbay.scj@ontario.ca | 807-626-7000
+Long Motions | Thunderbay.scj@ontario.ca | 807-626-7000
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | Thunderbay.scj@ontario.ca | 807-626-7000
+Judicial Pre-trials | Thunderbay.scj@ontario.ca | 807-626-7000
+Bail Hearings / Reviews | Thunderbay.scj@ontario.ca | 807-626-7000
+90-day Detention Review Hearings | Thunderbay.scj@ontario.ca | 807-626-7000
+Criminal Applications / Motions | Thunderbay.scj@ontario.ca | 807-626-7000
+Assignment Court / Trial Scheduling Court | Thunderbay.scj@ontario.ca | 807-626-7000
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions (anything over one hour) | Thunderbay.scj@ontario.ca | 807-626-7000
+Long Motions | Thunderbay.scj@ontario.ca | 807-626-7000
+Case Conference / Settlement Conference / Trial Management Conference | Thunderbay.scj@ontario.ca | 807-626-7000
+Dispute Resolution Conference | Thunderbay.scj@ontario.ca | 807-626-7000
+Trials | Thunderbay.scj@ontario.ca | 807-626-7000
+Binding JDR | Thunderbay.scj@ontario.ca | 807-626-7000
+Summary Judgment | Thunderbay.scj@ontario.ca | 807-626-7000
+Uncontested Hearing | Thunderbay.scj@ontario.ca | 807-626-7000
+Small Claims Court Contact Information
+125 Brodie Street North
+Thunder Bay, Ontario P7C 0A3
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | CSD.ThunderBay.SCJ@ontario.ca | 807-626-7100

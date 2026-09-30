@@ -1,0 +1,42 @@
+Source: https://www.ontariocourts.ca/scj/locations/picton/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Picton Courthouse
+44 Union St.
+Picton, Ontario K0K 2T0
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions | picton.scj.courts@ontario.ca | 613-476-6236
+Long Motions | picton.scj.courts@ontario.ca | 613-476-6236
+CVPTs | bellevillescj.tc.office@ontario.ca | 613-476-6236
+Trials | bellevillescj.tc.office@ontario.ca | 613-476-6236
+Assignment Court | bellevillescj.tc.office@ontario.ca | 613-476-6236
+Case Conf / Case Management | bellevillescj.tc.office@ontario.ca | 613-476-6236
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | bellevillescj.tc.office@ontario.ca | 613-476-6236
+Judicial Pre-trials | bellevillescj.tc.office@ontario.ca | 613-476-6236
+Bail Hearings / Reviews | picton.scj.courts@ontario.ca | 613-476-6236
+90-day Detention Review Hearings | bellevillescj.tc.office@ontario.ca | 613-476-6236
+Criminal Applications / Motions | picton.scj.courts@ontario.ca | 613-476-6236
+Assignment Court / Trial Scheduling Court | bellevillescj.tc.office@ontario.ca | 613-476-6236
+Summary Conviction Appeals | picton.scj.courts@ontario.ca | 613-476-6236
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email
+Case / Settlement Conferences | Bellevillescj.tc.office@ontario.ca
+Short Motions | Bellevillescj.tc.office@ontario.ca
+Long Motions | Bellevillescj.tc.office@ontario.ca
+Summary Judgment Motion | Bellevillescj.tc.office@ontario.ca
+Trial Scheduling Conferences | Bellevillescj.tc.office@ontario.ca
+Trial Management Conference | Bellevillescj.tc.office@ontario.ca
+Trial | Bellevillescj.tc.office@ontario.ca
+CAS Matters | Bellevillescj.tc.office@ontario.ca
+FRO Matters | Belleville.scj.courts@ontario.ca
+Small Claims Court Contact Information
+44 Union St.
+Picton, Ontario K0K 2T0
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Picton.SCJ.courts@ontario.ca | 613-476-6236

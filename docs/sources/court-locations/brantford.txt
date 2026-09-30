@@ -1,0 +1,35 @@
+Source: https://www.ontariocourts.ca/scj/locations/brantford/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Brantford Courthouse
+70 Wellington St.
+Brantford, Ontario N3T 2L9
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Motions | BrantfS@ontario.ca | 519-752-7753
+Case Conference | BrantfS@ontario.ca | 519-752-7753
+CVPTs | BrantfS@ontario.ca | 519-752-7753
+Trials | BrantfS@ontario.ca | 519-752-7753
+Assignment Court | BrantfS@ontario.ca | 519-752-7753
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | BrantfS@ontario.ca | 519-752-7753
+Judicial Pre-trials | BrantfS@ontario.ca | 519-752-7753
+Bail Hearings / Reviews | BrantfS@ontario.ca | 519-752-7753
+90-day Detention Review Hearings | BrantfS@ontario.ca | 519-752-7753
+Criminal Applications / Motions | BrantfS@ontario.ca | 519-752-7753
+Assignment Court / Trial Scheduling Court | BrantfS@ontario.ca | 519-752-7753
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions | BrantfS@ontario.ca | 519-752-7753
+Long Motions | BrantfS@ontario.ca | 519-752-7753
+Family Conference | BrantfS@ontario.ca | 519-752-7753
+Trials | BrantfS@ontario.ca | 519-752-7753
+Small Claims Court Contact Information
+70 Wellington St.
+Brantford, Ontario N3T 2L9
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | BrantfordSCJCourt@ontario.ca | 519-752-7828

@@ -1,0 +1,28 @@
+Source: https://www.ontariocourts.ca/scj/locations/hamilton-sopinka/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Hamilton (John Sopinka) Courthouse
+45 Main St. E.
+Hamilton, Ontario L8N 2B7
+Civil Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Motions | Hamilton.superior.court@ontario.ca | 905-645-5252 ext. 3628
+Case Conference | Hamilton.superior.court@ontario.ca | 905-645-5252 ext. 3628
+CVPTs | Hamilton.superior.court@ontario.ca | 905-645-5252 ext. 3628
+Trials | Hamilton.superior.court@ontario.ca | 905-645-5252 ext. 3628
+Assignment Court | Hamilton.superior.court@ontario.ca | 905-645-5252 ext. 3628
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | Hamilton.superior.court@ontario.ca | 905-645-5252 ext. 3629
+Judicial Pre-trials | Hamilton.superior.court@ontario.ca | 905-645-5252 ext. 3629
+Bail Hearings / Reviews | Hamilton.superior.court@ontario.ca | 905-645-5252 ext. 3629
+90-day Detention Review Hearings | Hamilton.superior.court@ontario.ca | 905-645-5252 ext. 3629
+Criminal Applications / Motions | Hamilton.superior.court@ontario.ca | 905-645-5252 ext. 3629
+Assignment Court / Trial Scheduling Court | Hamilton.superior.court@ontario.ca | 905-645-5252 ext. 3629
+Small Claims Court Contact Information
+45 Main St. E.
+Hamilton, Ontario L8N 2B7
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Hamilton.SmallClaims@ontario.ca | 905-645-5252

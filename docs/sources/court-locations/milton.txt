@@ -1,0 +1,37 @@
+Source: https://www.ontariocourts.ca/scj/locations/milton/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Milton Courthouse
+491 Steeles Ave E.
+Milton, Ontario L9T 1Y7
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email
+Regular Motions | SCJHaltontrialoffice@ontario.ca
+Long Motions / Triage court | SCJHaltontrialoffice@ontario.ca
+CVPTs | SCJHaltontrialoffice@ontario.ca
+Trials | SCJHaltontrialoffice@ontario.ca
+Assignment Court | SCJHaltontrialoffice@ontario.ca
+Case Conf / Case Management | SCJHaltontrialoffice@ontario.ca
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email
+Trials | SCJHaltontrialoffice@ontario.ca
+Judicial Pre-trials | SCJHaltontrialoffice@ontario.ca
+Bail Hearings / Reviews | SCJHaltontrialoffice@ontario.ca
+90-day Detention Review Hearings | SCJHaltontrialoffice@ontario.ca
+Criminal Applications / Motions | SCJHaltontrialoffice@ontario.ca
+Assignment Court / Trial Scheduling Court | SCJHaltontrialoffice@ontario.ca
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email
+Regular Motions | SCJHaltontrialoffice@ontario.ca
+Long Motions | SCJHaltontrialoffice@ontario.ca
+Family Conferences | SCJHaltontrialoffice@ontario.ca
+DRO conferences | SCJHaltontrialoffice@ontario.ca
+Trials | SCJHaltontrialoffice@ontario.ca
+Small Claims Court Contact Information
+491 Steeles Ave E.
+Milton, Ontario L9T 1Y7
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | MiltonSCC@ontario.ca | 905-878-7285

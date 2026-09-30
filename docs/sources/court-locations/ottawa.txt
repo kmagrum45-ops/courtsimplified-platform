@@ -1,0 +1,50 @@
+Source: https://www.ontariocourts.ca/scj/locations/ottawa/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Ottawa Courthouse
+161 Elgin St., 2nd Fl.
+Ottawa, Ontario K2P 2K1
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions 2hrs and under (Calendly) | ottawa.scj.courts@ontario.ca | 613-293-1054
+Long Motions (over 2 hrs) | mastersofficeottawa@ontario.ca | 613-239-1047
+CVPTs | mastersofficeottawa@ontario.ca | 613-239-1047
+Trials | mastersofficeottawa@ontario.ca | 613-239-1047
+Trial Management Court | mastersofficeottawa@ontario.ca | 613-239-1047
+Case Conf / Case Management | mastersofficeottawa@ontario.ca | 613-239-1047
+Construction Lien | mastersofficeottawa@ontario.ca | 613-239-1047
+Class Action Proceedings | mastersofficeottawa@ontario.ca | 613-239-1047
+"Associate Judges a) Short Motions b) civil pre-trials c) case conferences d) construction lien " | mastersofficeottawa@ontario.ca | 613-239-1047
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | ottawascj.tc.office@ontario.ca | 613- 239-1321
+Judicial Pre-trials | ottawascj.tc.office@ontario.ca | 613- 239-1321
+Bail Hearings / Reviews | ottawascj.tc.office@ontario.ca | 613- 239-1321
+90-day Detention Review Hearings | ottawascj.tc.office@ontario.ca | 613- 239-1321
+Criminal Applications / Motions | ottawascj.tc.office@ontario.ca | 613- 239-1321
+Assignment Court / Trial Scheduling Court | ottawascj.tc.office@ontario.ca | 613- 239-1321
+Summary Conviction Appeals | ottawascj.tc.office@ontario.ca | 613- 239-1321
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email
+Case Conferences | ottawafamilycourt@ontario.ca
+Settlement Conferences | OttawaSCJ.TC.Office@ontario.ca
+Short Motions | ottawafamilycourt@ontario.ca
+Long Motions / Focus Hearings (under 1 day) | ottawafamilycourt@ontario.ca
+Long Motions / Focus Hearings (over1 day) | OttawaSCJ.TC.Office@ontario.ca
+Summary Judgment Motion (under 1 day) | ottawafamilycourt@ontario.ca
+Summary Judgment Motion (over 1 day) | OttawaSCJ.TC.Office@ontario.ca
+Trial Management Conference | OttawaSCJ.TC.Office@ontario.ca
+Trial - Filing | JSO/ottawafamilycourt@ontario.ca
+Trial - Inquiries | OttawaSCJ.TC.Office@ontario.ca
+CAS Matters | OttawaCYFSA@ontario.ca
+FRO Matters | ottawafamilycourt@ontario.ca
+JDRs | OttawaSCJ.TC.Office@ontario.ca
+ISO Matters | ottawafamilycourt@ontario.ca
+Small Claims Court Contact Information
+161 Elgin St., 2nd Fl.
+Ottawa, Ontario K2P 2K1
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Ottawa.smallclaims@ontario.ca | 613-239-1079

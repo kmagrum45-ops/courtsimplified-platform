@@ -1,0 +1,39 @@
+Source: https://www.ontariocourts.ca/scj/locations/gore-bay/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Gore Bay Courthouse
+27 Phipps Street
+Gore Bay, Ontario P0P 1H0
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Short/Regular motions | GoreBaycourthouse@ontario.ca | (705) 282-2461
+Long Motions Protocol | GoreBay.SCJ.TC@ontario.ca | 705-360-2048
+Pre-trials | GoreBay.SCJ.TC@ontario.ca | 705-360-2048
+Assignment Court | GoreBay.SCJ.TC@ontario.ca | 705-360-2048
+Trials | GoreBay.SCJ.TC@ontario.ca | 705-360-2048
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | GoreBay.SCJ.TC@ontario.ca | 705-360-2048
+Judicial Pre-trials | GoreBay.SCJ.TC@ontario.ca | 705-360-2048
+Bail Hearings/Reviews | GoreBay.SCJ.TC@ontario.ca | 705-360-2048
+90-day Detention Review Hearings | GoreBay.SCJ.TC@ontario.ca | 705-360-2048
+Criminal Applications / Motions | GoreBay.SCJ.TC@ontario.ca | 705-360-2048
+Assignment Court / Trial Scheduling Court | GoreBay.SCJ.TC@ontario.ca | 705-360-2048
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Case Conferences | GoreBay.SCJ.TC@ontario.ca | 705-360-2048
+Settlement conferences | GoreBay.SCJ.TC@ontario.ca | 705-360-2048
+Trial Management Conference | GoreBay.SCJ.TC@ontario.ca | 705-360-2048
+Short Motions (1 hour or less) | gorebaycourthouse@ontario.ca | (705) 282-2461
+Long Motions (follow Protocol) | GoreBay.SCJ.TC@ontario.ca | (705) 360-2048
+Summary Judgment Motion | GoreBay.SCJ.TC@ontario.ca | 705-360-2048
+Trial | GoreBay.SCJ.TC@ontario.ca | 705-360-2048
+Binding Judicial Dispute Resolution | GoreBay.SCJ.TC@ontario.ca | 705-360-2048
+Small Claims Court Contact Information
+27 Phipps Street
+Gore Bay, Ontario P0P 1H0
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | GoreBaySCC@ontario.ca | 705-282-2461

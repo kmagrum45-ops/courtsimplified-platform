@@ -1,0 +1,43 @@
+Source: https://www.ontariocourts.ca/scj/locations/belleville/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Belleville Courthouse
+15 Bridge Street West
+Belleville, Ontario K8P 0C7
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions | belleville.scj.courts@ontario.ca | 613-962-9106 ext # 2067
+Long Motions | belleville.scj.courts@ontario.ca | 613-962-9106 ext # 2067
+CVPTs | belleville.scj.courts@ontario.ca | 613-962-9106 ext # 2067
+Trials | belleville.scj.courts@ontario.ca | 613-962-9106 ext # 2067
+Assignment Court | belleville.scj.courts@ontario.ca | 613-962-9106 ext # 2067
+Case Conf / Case Management | belleville.scj.courts@ontario.ca | 613-962-9106 ext # 2067
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | bellevillescj.tc.office@ontario.ca | 613-962-9106 ext # 2067
+Judicial Pre-trials | bellevillescj.tc.office@ontario.ca | 613-962-9106 ext # 2067
+Bail Hearings / Reviews | bellevillescj.tc.office@ontario.ca | 613-962-9106 ext # 2067
+90-day Detention Review Hearings | bellevillescj.tc.office@ontario.ca | 613-962-9106 ext # 2067
+Criminal Applications / Motions | bellevillescj.tc.office@ontario.ca | 613-962-9106 ext # 2067
+Assignment Court / Trial Scheduling Court | bellevillescj.tc.office@ontario.ca | 613-962-9106 ext # 2067
+Summary Conviction Appeals | bellevillescj.tc.office@ontario.ca | 613-962-9106 ext # 2067
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email
+Case / Settlement Conferences | Bellevillescj.tc.office@ontario.ca
+Short Motions | Bellevillescj.tc.office@ontario.ca
+Long Motions | Bellevillescj.tc.office@ontario.ca
+Summary Judgment Motion | Bellevillescj.tc.office@ontario.ca
+Trial Scheduling Conferences | Bellevillescj.tc.office@ontario.ca
+Trial Management Conference | Bellevillescj.tc.office@ontario.ca
+Trial | Bellevillescj.tc.office@ontario.ca
+CAS Matters | Bellevillescj.tc.office@ontario.ca
+FRO Matters | Bellevillescj.tc.office@ontario.ca
+JDR's | Belleville.scj.courts@ontario.ca
+Small Claims Court Contact Information
+15 Bridge Street West
+Belleville, Ontario K8P 0C7
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Belleville.SCJ.courts@ontario.ca | 519-881-1772

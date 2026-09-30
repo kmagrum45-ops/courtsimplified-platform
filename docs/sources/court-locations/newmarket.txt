@@ -1,0 +1,46 @@
+Source: https://www.ontariocourts.ca/scj/locations/newmarket/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Newmarket Courthouse
+50 Eagle St. W.
+Newmarket, Ontario L3Y 6B1
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email | Phone Number | Calendly Link
+Short / Regular Motions | Newmarket.SCJ.TC@ontario.ca | 905-853-4823 | N/A
+Case Conferences | Newmarket.SCJ.TC@ontario.ca | 905-853-4823 | N/A
+Pre-trials | Newmarket.Civilpretrial@ontario.ca | 905-853-4823 | https://calendly.com/ce-civil-pretrials
+Construction Lien Pre-trials | Newmarket.Civilpretrial@ontario.ca | 905-853-4823 | https://calendly.com/ce-civil-pretrials
+Long Motions (over 1 hour) | Newmarket.SCJ.TC@ontario.ca | 905-853-4823 | N/A
+Summary Judgment Motions (over 1 hour) | Newmarket.SCJ.TC@ontario.ca | 905-853-4823 | N/A
+CER Triage Court (Long Motions, Applications Trials etc) | Newmarket.SCJ.TC@ontario.ca | 905-853-4823 | https://calendly.com/ce-civil
+CER Triage Court (Administrative Dismissals) | Newmarket.SCJ.TC@ontario.ca | 905-853-4823 | https://calendly.com/ce-civil
+Small Claims Court - Appeals (short) | Newmarket.SCJ.TC@ontario.ca | 905-853-4823 | N/A
+Associate Judges a) short motions | Newmarket.SCJ.TC@ontario.ca | 905-853-4823 | N/A
+Associate Judges b) civil pre-trials | Newmarket.Civilpretrial@ontario.ca | 905-853-4823 | https://calendly.com/ce-civil-pretrials
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email | Phone Number
+Trials | Newmarket.SCJ.TC@ontario.ca | 905-853-4823 x6
+Judicial Pre-trials | Newmarket.SCJ.TC@ontario.ca | 905-853-4823 x6
+Bail Hearings / Reviews | Newmarket.SCJ.TC@ontario.ca | 905-853-4823 x6
+90-day Detention Review Hearings | Newmarket.SCJ.TC@ontario.ca | 905-853-4823 x6
+Criminal Applications / Motions | Newmarket.SCJ.TC@ontario.ca | 905-853-4823 x6
+Assignment Court | Newmarket.SCJ.TC@ontario.ca | 905-853-4823 x6
+Summary Conviction Appeals | Newmarket.SCJ.TC@ontario.ca | 905-853-4823 x6
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email | Phone Number
+Short Motions | Newmarket.SCJ.TC@ontario.ca | 905-853-4823
+Long Motions | Newmarket.SCJ.TC@ontario.ca | 905-853-4823
+Case/Settlement Conferences | Newmarket.SCJ.TC@ontario.ca | 905-853-4823
+Trial Scheduling Conferences | Newmarket.SCJ.TC@ontario.ca | 905-853-4823
+Exit Pre-Trials | Newmarket.SCJ.TC@ontario.ca | 905-853-4823
+Trial | Newmarket.SCJ.TC@ontario.ca | 905-853-4823
+JDRs | Newmarket.SCJ.TC@ontario.ca | 905-853-4823
+DRO Conferences | Newmarket.SCJ.TC@ontario.ca | 905-853-4823
+Small Claims Court Contact Information
+50 Eagle St. W.
+Newmarket, Ontario L3Y 6B1
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | NewmarketSCCourts@ontario.ca | 905-853-4809

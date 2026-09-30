@@ -40,6 +40,7 @@ const navLinks = [
   // "a forms button so each court type has full list of forms").
   { href: "/forms/guide", label: "Forms" },
   { href: "/glossary", label: "Glossary" },
+  { href: "/courthouses", label: "Courthouses" },
   { href: "/about", label: "About" },
 ];
 

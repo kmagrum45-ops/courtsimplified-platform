@@ -1,0 +1,5516 @@
+{
+ "retrievedAt": "2026-09-30",
+ "source": "https://www.ontariocourts.ca/scj/court-locations/all-court-locations/",
+ "locations": [
+  {
+   "slug": "130-queen",
+   "name": "130 Queen – Divisional Court Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/130-queen/",
+   "address": [
+    "130 Queen St. West",
+    "Toronto, Ontario M5H 2N5",
+    "1st Floor"
+   ],
+   "services": [
+    {
+     "court": "divisional",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Divisional Court Scheduling",
+       "email": "DivCourtSchedule@ontario.ca",
+       "phone": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "330-univ",
+   "name": "330 University Ave – Civil Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/330-univ/",
+   "address": [
+    "330 University Ave.",
+    "Toronto, Ontario M5G 1R7",
+    "Civil Trial Office – 7th Floor",
+    "Bankruptcy, Commercial, Estates – 9th Floor"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Motions (Short)",
+       "email": "Civiljudgesmotions@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conferences",
+       "email": "TorontoCaseConferenceAppointments@Ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Pre-Trials",
+       "email": "Toronto.civil.pretrials@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "Mag.CSD.Trials@Ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Motions (Long/CPC)",
+       "email": "CivilPracticeCourt@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Motions (Urgent)",
+       "email": "CivilUrgentMatters-SCJ-Toronto@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Commercial (Motions / Case Conferences / Pre-Trials / Trials)",
+       "email": "MAG.CSD.To.SCJCom@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Estates (Motions / Case Conferences / Pre-Trials / Trials)",
+       "email": "toronto.estateslist@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Class Action",
+       "email": "Toronto.ClassAction@ontario.ca",
+       "phone": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "361-univ",
+   "name": "361 University Ave – Criminal & Family Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/361-univ/",
+   "address": [
+    "361 University Ave.",
+    "Toronto, Ontario M5G 1T3",
+    "Criminal Trial Office, 361 University Avenue, 4th Floor"
+   ],
+   "services": [
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Trials",
+       "email": "FamilyTrialOffice-SCJ-Toronto@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "FamilyTrialOffice-SCJ-Toronto@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Conferences",
+       "email": "Toronto.family.caseconferences@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Exit Pre-trials",
+       "email": "FamilyTrialOffice-SCJ-Toronto@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "DRO Conferences",
+       "email": "FamilyTrialOffice-SCJ-Toronto@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "CAS Matters",
+       "email": "FamilyTrialOffice-SCJ-Toronto@ontario.ca",
+       "phone": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "393-univ",
+   "name": "393 University – Civil Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/393-univ/",
+   "address": [
+    "Associate Judges Office, 393 University Ave, 6th Floor",
+    "Toronto, Ontario M5G 1E6"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Construction Lien",
+       "email": "Toronto.AssociateJudges.Constructionlienmatters@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conferences",
+       "email": "TorontoCaseConferenceAppointments@Ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Pre-Trials",
+       "email": "Toronto.civil.pretrials@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "Associatejudges.longmotions@ontario.ca",
+       "phone": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "47-sheppard",
+   "name": "47 Sheppard – Small Claims Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/47-sheppard/",
+   "address": [
+    "47 Sheppard Ave. East",
+    "Toronto, Ontario M2N 5N1"
+   ],
+   "services": [
+    {
+     "court": "small-claims",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Scheduling Inquiries (All Events)",
+       "email": "Toronto.SmallClaimsTC@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "General Inquiries",
+       "email": "TorontoSCCFilings@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Request for Alternate Method of Hearing and Adjournment Requests",
+       "email": "SmallClaimsFilings@ontario.ca",
+       "phone": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "alexandria",
+   "name": "Alexandria – Small Claims Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/alexandria/",
+   "address": [
+    "110 Main St. North, PO Box 699",
+    "Alexandria, Ontario K0C 1A0"
+   ],
+   "services": [
+    {
+     "court": "small-claims",
+     "address": [
+      "110 Main St. North, PO Box 699",
+      "Alexandria, Ontario K0C 1A0"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Alexandriacourt@ontario.ca",
+       "phone": "613-525-4330"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "barrie",
+   "name": "Barrie Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/barrie/",
+   "address": [
+    "75 Mulcaster Street",
+    "Barrie, Ontario L4M 3P2"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short / Regular motions",
+       "email": "Barrie.SCJ.TC@ontario.ca",
+       "phone": "705-739-6153"
+      },
+      {
+       "event": "Case Conferences",
+       "email": "Barrie.SCJ.TC@ontario.ca",
+       "phone": "705-739-6153"
+      },
+      {
+       "event": "Pre-trials",
+       "email": "Newmarket.Civilpretrial@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Construction Lien Pre-trials",
+       "email": "Newmarket.Civilpretrial@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions (over 1 hour)",
+       "email": "Barrie.SCJ.TC@ontario.ca",
+       "phone": "705-739-6153"
+      },
+      {
+       "event": "Summary Judgment Motions (over 1 hour)",
+       "email": "Barrie.SCJ.TC@ontario.ca",
+       "phone": "705-739-6153"
+      },
+      {
+       "event": "CER Triage Court (Long Motions, Trials etc)",
+       "email": "Barrie.SCJ.TC@ontario.ca",
+       "phone": "705-739-6153"
+      },
+      {
+       "event": "CER Triage Court (Administrative Dismissals)",
+       "email": "Barrie.SCJ.TC@ontario.ca",
+       "phone": "705-739-6153"
+      },
+      {
+       "event": "Small Claims Court - Appeals (short)",
+       "email": "Barrie.SCJ.TC@ontario.ca",
+       "phone": "705-739-6136"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "barrie.scj.tc@ontario.ca",
+       "phone": "705-739-6442"
+      },
+      {
+       "event": "Long Motions",
+       "email": "barrie.scj.tc@ontario.ca",
+       "phone": "705-739-6442"
+      },
+      {
+       "event": "Case/Settlement Conferences",
+       "email": "barrie.scj.tc@ontario.ca",
+       "phone": "705-739-6442"
+      },
+      {
+       "event": "Trial Scheduling Conferences",
+       "email": "barrie.scj.tc@ontario.ca",
+       "phone": "705-739-6442"
+      },
+      {
+       "event": "Trial Management Conference",
+       "email": "barrie.scj.tc@ontario.ca",
+       "phone": "705-739-6442"
+      },
+      {
+       "event": "Trial",
+       "email": "barrie.scj.tc@ontario.ca",
+       "phone": "705-739-6442"
+      },
+      {
+       "event": "JDRs",
+       "email": "barrie.scj.tc@ontario.ca",
+       "phone": "705-739-6442"
+      },
+      {
+       "event": "DRO Conferences",
+       "email": "barrie.scj.tc@ontario.ca",
+       "phone": "705-739-6442"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "75 Mulcaster Street",
+      "Barrie, Ontario L4M 3P2"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Barrie.SCJ.courts@ontario.ca",
+       "phone": "705-739-6111"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "belleville",
+   "name": "Belleville Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/belleville/",
+   "address": [
+    "15 Bridge Street West",
+    "Belleville, Ontario K8P 0C7"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "belleville.scj.courts@ontario.ca",
+       "phone": "613-962-9106 ext # 2067"
+      },
+      {
+       "event": "Long Motions",
+       "email": "belleville.scj.courts@ontario.ca",
+       "phone": "613-962-9106 ext # 2067"
+      },
+      {
+       "event": "CVPTs",
+       "email": "belleville.scj.courts@ontario.ca",
+       "phone": "613-962-9106 ext # 2067"
+      },
+      {
+       "event": "Trials",
+       "email": "belleville.scj.courts@ontario.ca",
+       "phone": "613-962-9106 ext # 2067"
+      },
+      {
+       "event": "Assignment Court",
+       "email": "belleville.scj.courts@ontario.ca",
+       "phone": "613-962-9106 ext # 2067"
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "belleville.scj.courts@ontario.ca",
+       "phone": "613-962-9106 ext # 2067"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Case / Settlement Conferences",
+       "email": "Bellevillescj.tc.office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Short Motions",
+       "email": "Bellevillescj.tc.office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "Bellevillescj.tc.office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "Bellevillescj.tc.office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trial Scheduling Conferences",
+       "email": "Bellevillescj.tc.office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trial Management Conference",
+       "email": "Bellevillescj.tc.office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trial",
+       "email": "Bellevillescj.tc.office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "CAS Matters",
+       "email": "Bellevillescj.tc.office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "FRO Matters",
+       "email": "Bellevillescj.tc.office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "JDR's",
+       "email": "Belleville.scj.courts@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "15 Bridge Street West",
+      "Belleville, Ontario K8P 0C7"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Belleville.SCJ.courts@ontario.ca",
+       "phone": "519-881-1772"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "bracebridge",
+   "name": "Bracebridge Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/bracebridge/",
+   "address": [
+    "3A Dominion St.",
+    "Bracebridge, Ontario P1L 2E6"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short / Regular Motions",
+       "email": "Barrie.SCJ.TC@ontario.ca",
+       "phone": "705-739-6153"
+      },
+      {
+       "event": "Case Conferences",
+       "email": "Barrie.SCJ.TC@ontario.ca",
+       "phone": "705-739-6153"
+      },
+      {
+       "event": "Pre-trials",
+       "email": "Newmarket.Civilpretrial@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Construction Lien Pre-trials",
+       "email": "Newmarket.Civilpretrial@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions (over 1 hour)",
+       "email": "Barrie.SCJ.TC@ontario.ca",
+       "phone": "705-739-6153"
+      },
+      {
+       "event": "Summary Judgment Motions (over 1 hour)",
+       "email": "Barrie.SCJ.TC@ontario.ca",
+       "phone": "705-739-6153"
+      },
+      {
+       "event": "CER Triage Court (Long Motions, Trials etc)",
+       "email": "Barrie.SCJ.TC@ontario.ca",
+       "phone": "705-739-6153"
+      },
+      {
+       "event": "CER Triage Court (Administrative Dismissals)",
+       "email": "Barrie.SCJ.TC@ontario.ca",
+       "phone": "705-739-6153"
+      },
+      {
+       "event": "Small Claims Court - Appeals (short)",
+       "email": "Barrie.SCJ.TC@ontario.ca",
+       "phone": "705-739-6136"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "barrie.scj.tc@ontario.ca",
+       "phone": "705-739-6442"
+      },
+      {
+       "event": "Long Motions",
+       "email": "barrie.scj.tc@ontario.ca",
+       "phone": "705-739-6442"
+      },
+      {
+       "event": "Case/Settlement Conferences",
+       "email": "barrie.scj.tc@ontario.ca",
+       "phone": "705-739-6442"
+      },
+      {
+       "event": "Trial Scheduling Conferences",
+       "email": "barrie.scj.tc@ontario.ca",
+       "phone": "705-739-6442"
+      },
+      {
+       "event": "Trial Management Conference",
+       "email": "barrie.scj.tc@ontario.ca",
+       "phone": "705-739-6442"
+      },
+      {
+       "event": "Trial",
+       "email": "barrie.scj.tc@ontario.ca",
+       "phone": "705-739-6442"
+      },
+      {
+       "event": "JDRs",
+       "email": "barrie.scj.tc@ontario.ca",
+       "phone": "705-739-6442"
+      },
+      {
+       "event": "DRO Conferences",
+       "email": "barrie.scj.tc@ontario.ca",
+       "phone": "705-739-6442"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "3A Dominion St.",
+      "Bracebridge, Ontario P1L 2E6"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "BracebridgeSCCcourts@ontario.ca",
+       "phone": "705-645-8793"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "brampton",
+   "name": "Brampton Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/brampton/",
+   "address": [
+    "7755 Hurontario Street",
+    "Brampton, Ontario L6W 4T1"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "scjtrialofficebrampton@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions / Triage Court",
+       "email": "scjtrialofficebrampton@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "CVPTs",
+       "email": "scjtrialofficebrampton@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "scjtrialofficebrampton@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Assignment Court",
+       "email": "scjtrialofficebrampton@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "scjtrialofficebrampton@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "scjtrialofficebrampton@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "scjtrialofficebrampton@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Family Conferences",
+       "email": "scjtrialofficebrampton@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "DRO conferences",
+       "email": "scjtrialofficebrampton@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "scjtrialofficebrampton@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "7765 Hurontario Street",
+      "Brampton, Ontario L6W 4T1"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "BramptonSCC@ontario.ca",
+       "phone": "905-456-4701"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "brantford",
+   "name": "Brantford Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/brantford/",
+   "address": [
+    "70 Wellington St.",
+    "Brantford, Ontario N3T 2L9"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Motions",
+       "email": "BrantfS@ontario.ca",
+       "phone": "519-752-7753"
+      },
+      {
+       "event": "Case Conference",
+       "email": "BrantfS@ontario.ca",
+       "phone": "519-752-7753"
+      },
+      {
+       "event": "CVPTs",
+       "email": "BrantfS@ontario.ca",
+       "phone": "519-752-7753"
+      },
+      {
+       "event": "Trials",
+       "email": "BrantfS@ontario.ca",
+       "phone": "519-752-7753"
+      },
+      {
+       "event": "Assignment Court",
+       "email": "BrantfS@ontario.ca",
+       "phone": "519-752-7753"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "BrantfS@ontario.ca",
+       "phone": "519-752-7753"
+      },
+      {
+       "event": "Long Motions",
+       "email": "BrantfS@ontario.ca",
+       "phone": "519-752-7753"
+      },
+      {
+       "event": "Family Conference",
+       "email": "BrantfS@ontario.ca",
+       "phone": "519-752-7753"
+      },
+      {
+       "event": "Trials",
+       "email": "BrantfS@ontario.ca",
+       "phone": "519-752-7753"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "70 Wellington St.",
+      "Brantford, Ontario N3T 2L9"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "BrantfordSCJCourt@ontario.ca",
+       "phone": "519-752-7828"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "brockville",
+   "name": "Brockville Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/brockville/",
+   "address": [
+    "41 Court House Square",
+    "Brockville, Ontario K6V 7N3"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "SCJBrockvilleTC@ontario.ca",
+       "phone": "613-341-2821"
+      },
+      {
+       "event": "Long Motions",
+       "email": "SCJBrockvilleTC@ontario.ca",
+       "phone": "613-341-2821"
+      },
+      {
+       "event": "CVPTs",
+       "email": "SCJBrockvilleTC@ontario.ca",
+       "phone": "613-341-2821"
+      },
+      {
+       "event": "Trials",
+       "email": "SCJBrockvilleTC@ontario.ca",
+       "phone": "613-341-2821"
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "SCJBrockvilleTC@ontario.ca",
+       "phone": "613-341-2821"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Case / Settlement Conferences",
+       "email": "SCJBrockvilleTC@ontario.ca",
+       "phone": "613-341-2821"
+      },
+      {
+       "event": "Short Motions",
+       "email": "SCJBrockvilleTC@ontario.ca",
+       "phone": "613-341-2821"
+      },
+      {
+       "event": "Long Motions",
+       "email": "SCJBrockvilleTC@ontario.ca",
+       "phone": "613-341-2821"
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "SCJBrockvilleTC@ontario.ca",
+       "phone": "613-341-2821"
+      },
+      {
+       "event": "Trial Scheduling Conferences",
+       "email": "SCJBrockvilleTC@ontario.ca",
+       "phone": "613-341-2821"
+      },
+      {
+       "event": "Trial Management Conference",
+       "email": "SCJBrockvilleTC@ontario.ca",
+       "phone": "613-341-2821"
+      },
+      {
+       "event": "Trial",
+       "email": "SCJBrockvilleTC@ontario.ca",
+       "phone": "613-341-2821"
+      },
+      {
+       "event": "CAS Matters",
+       "email": "SCJBrockvilleTC@ontario.ca",
+       "phone": "613-341-2821"
+      },
+      {
+       "event": "FRO Matters",
+       "email": "SCJBrockvilleTC@ontario.ca",
+       "phone": "613-341-2821"
+      },
+      {
+       "event": "ISO Matters",
+       "email": "SCJBrockvilleTC@ontario.ca",
+       "phone": "613-341-2821"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "41 Court House Square",
+      "Brockville, Ontario K6V 7N3"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Brockville.SCJ.courts@ontario.ca",
+       "phone": "613-341-2800"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "burlington",
+   "name": "Burlington – Small Claims Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/burlington/",
+   "address": [
+    "2021 Plains Rd. E.",
+    "Burlington, Ontario L7R 4M3"
+   ],
+   "services": [
+    {
+     "court": "small-claims",
+     "address": [
+      "2021 Plains Rd. E.",
+      "Burlington, Ontario L7R 4M3"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "BurlingtonCourthouse@ontario.ca",
+       "phone": "905-637-4125"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "cayuga",
+   "name": "Cayuga Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/cayuga/",
+   "address": [
+    "55 Munsee St. N.",
+    "Cayuga, Ontario N0A 1E0"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Motions",
+       "email": "Cayuga.Superior.Court@ontario.ca",
+       "phone": "905-772-3361"
+      },
+      {
+       "event": "Case Conference",
+       "email": "Cayuga.Superior.Court@ontario.ca",
+       "phone": "905-772-3361"
+      },
+      {
+       "event": "CVPTs",
+       "email": "Cayuga.Superior.Court@ontario.ca",
+       "phone": "905-772-3361"
+      },
+      {
+       "event": "Trials",
+       "email": "Cayuga.Superior.Court@ontario.ca",
+       "phone": "905-772-3361"
+      },
+      {
+       "event": "Assignment Court",
+       "email": "Cayuga.Superior.Court@ontario.ca",
+       "phone": "905-772-3361"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "Cayuga.Superior.Court@ontario.ca",
+       "phone": "905-772-3361"
+      },
+      {
+       "event": "Long Motions",
+       "email": "Cayuga.Superior.Court@ontario.ca",
+       "phone": "905-772-3361"
+      },
+      {
+       "event": "Family Conference",
+       "email": "Cayuga.Superior.Court@ontario.ca",
+       "phone": "905-772-3361"
+      },
+      {
+       "event": "Trials",
+       "email": "Cayuga.Superior.Court@ontario.ca",
+       "phone": "905-772-3361"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "55 Munsee St. N.",
+      "Cayuga, Ontario N0A 1E0"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "HaldimandCountyCourt@ontario.ca",
+       "phone": "905-772-3335"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "chatham",
+   "name": "Chatham Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/chatham/",
+   "address": [
+    "425 Grand Ave W (Entire Bldg)",
+    "Chatham, Ontario N7M 6M8"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular / Long Motions",
+       "email": "chatham.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Pretrials",
+       "email": "chatham.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "chatham.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Assignment Court",
+       "email": "chatham.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "chatham.scj@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "chatham.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "chatham.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Family Conferences",
+       "email": "chatham.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "chatham.scj@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "425 Grand Ave W (Entire Bldg)",
+      "Chatham, Ontario N7M 6M8"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Chatham.Courthouse@ontario.ca",
+       "phone": "519-355-2200"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "cobourg",
+   "name": "Cobourg Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/cobourg/",
+   "address": [
+    "860 William St.",
+    "Cobourg, Ontario K9A 3A9"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short / Regular Motions",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823 / 705-876-9482"
+      },
+      {
+       "event": "Case Conferences",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823 / 705-876-9482"
+      },
+      {
+       "event": "Pre-trials",
+       "email": "Newmarket.Civilpretrial@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Construction Lien Pre-trials",
+       "email": "Newmarket.Civilpretrial@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions (Over 1 Hour)",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823 / 705-876-9482"
+      },
+      {
+       "event": "Summary Judgment Motions (Over 1 Hour)",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823 / 705-876-9482"
+      },
+      {
+       "event": "CER Triage Court (Long Motions, Trials etc)",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823 / 705-876-9482"
+      },
+      {
+       "event": "CER Triage Court (Administrative Dismissals)",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823 / 705-876-9482"
+      },
+      {
+       "event": "Small Claims Court - Appeals (Short)",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823 / 705-876-9482"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Long Motions",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Case / Settlement Conferences",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Teleconferences",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Trial Scheduling Conferences",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Exit Pre-Trials",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Trial",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "JDRs",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "DRO Conferences",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "CAS Matters",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "FRO Matters",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "860 William St.",
+      "Cobourg, Ontario K9A 3A9"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Cobourg.court@ontario.ca",
+       "phone": "905-372-3751"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "cochrane",
+   "name": "Cochrane Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/cochrane/",
+   "address": [
+    "149 Fourth Ave",
+    "Cochrane, Ontario P0L 1C0"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short/Regular motions",
+       "email": "Cochranecourthouse@ontario.ca",
+       "phone": "(705) 272-4256 Ext. 221"
+      },
+      {
+       "event": "Long Motions Protocol",
+       "email": "Cochrane.SCJ.TC@ontario.ca",
+       "phone": "705-272-4256 Ext. 203"
+      },
+      {
+       "event": "Assignment Court",
+       "email": "Cochrane.SCJ.TC@ontario.ca",
+       "phone": "705-272-4256 Ext. 203"
+      },
+      {
+       "event": "Trials",
+       "email": "Cochrane.SCJ.TC@ontario.ca",
+       "phone": "705-272-4256 Ext. 203"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions (1 hour or less)",
+       "email": "cochranecourthouse@ontario.ca",
+       "phone": "(705) 272-4256 Ext. 240"
+      },
+      {
+       "event": "Long Motions (follow Protocol)",
+       "email": "Cochrane.SCJ.TC@ontario.ca",
+       "phone": "(705) 272-4256 Ext. 203"
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "Cochrane.SCJ.TC@ontario.ca",
+       "phone": "705-272-4256 Ext. 203"
+      },
+      {
+       "event": "Trial",
+       "email": "Cochrane.SCJ.TC@ontario.ca",
+       "phone": "705-272-4256 Ext. 203"
+      },
+      {
+       "event": "Binding Judicial Dispute Resolution",
+       "email": "Cochrane.SCJ.TC@ontario.ca",
+       "phone": "705-272-4256 Ext. 203"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "149 Fourth Ave Box 638",
+      "Cochrane, Ontario P0L 1C0"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "CochraneSCC@ontario.ca",
+       "phone": "705-272-4256"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "cornwall",
+   "name": "Cornwall Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/cornwall/",
+   "address": [
+    "29 Second St. W.",
+    "Cornwall, Ontario K6J 1G3"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "CornwallSCJTrialCoordination@ontario.ca",
+       "phone": "613-930-4571"
+      },
+      {
+       "event": "Long Motions",
+       "email": "CornwallSCJTrialCoordination@ontario.ca",
+       "phone": "613-930-4571"
+      },
+      {
+       "event": "CVPTs",
+       "email": "CornwallSCJTrialCoordination@ontario.ca",
+       "phone": "613-930-4571"
+      },
+      {
+       "event": "Trials",
+       "email": "CornwallSCJTrialCoordination@ontario.ca",
+       "phone": "613-930-4571"
+      },
+      {
+       "event": "Assignment Court",
+       "email": "CornwallSCJTrialCoordination@ontario.ca",
+       "phone": "613-930-4571"
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "CornwallSCJTrialCoordination@ontario.ca",
+       "phone": "613-930-4571"
+      },
+      {
+       "event": "Contruciton Lien",
+       "email": "CornwallSCJTrialCoordination@ontario.ca",
+       "phone": "613-930-4571"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Case / Settlement Conferences",
+       "email": "CornwallSCJTrialCoordination@ontario.ca",
+       "phone": "613-930-4539"
+      },
+      {
+       "event": "Short Motions",
+       "email": "CornwallSCJTrialCoordination@ontario.ca",
+       "phone": "613-930-4539"
+      },
+      {
+       "event": "Long Motions",
+       "email": "CornwallSCJTrialCoordination@ontario.ca",
+       "phone": "613-930-4539"
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "CornwallSCJTrialCoordination@ontario.ca",
+       "phone": "613-930-4539"
+      },
+      {
+       "event": "Trial Scheduling Conferences",
+       "email": "CornwallSCJTrialCoordination@ontario.ca",
+       "phone": "613-930-4539"
+      },
+      {
+       "event": "Trial Management Conference",
+       "email": "CornwallSCJTrialCoordination@ontario.ca",
+       "phone": "613-930-4539"
+      },
+      {
+       "event": "Trial",
+       "email": "CornwallSCJTrialCoordination@ontario.ca",
+       "phone": "613-930-4539"
+      },
+      {
+       "event": "CAS Matters",
+       "email": "CornwallSCJTrialCoordination@ontario.ca",
+       "phone": "613-930-4539"
+      },
+      {
+       "event": "FRO Matters",
+       "email": "CornwallSCJTrialCoordination@ontario.ca",
+       "phone": "613-930-4539"
+      },
+      {
+       "event": "JDRs",
+       "email": "CornwallSCJTrialCoordination@ontario.ca",
+       "phone": "613-930-4539"
+      },
+      {
+       "event": "ISO Matters",
+       "email": "CornwallSCJTrialCoordination@ontario.ca",
+       "phone": "613-930-4539"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "29 Second St. W.",
+      "Cornwall, Ontario K6J 1G3"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Civilscc.cornwall@ontario.ca",
+       "phone": "613-933-7500"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "dryden",
+   "name": "Dryden – Small Claims Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/dryden/",
+   "address": [
+    "479 Government St. Box 1",
+    "Dryden, Ontario P8N 3K9"
+   ],
+   "services": [
+    {
+     "court": "small-claims",
+     "address": [
+      "479 Government St. Box 1",
+      "Dryden, Ontario P8N 3K9"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "CSD.Dryden@ontario.ca",
+       "phone": "807-223-2348"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "elliot-lake",
+   "name": "Elliot Lake – Small Claims Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/elliot-lake/",
+   "address": [
+    "200 Ontario Ave",
+    "Elliot Lake, Ontario P5A 1Y5"
+   ],
+   "services": [
+    {
+     "court": "small-claims",
+     "address": [
+      "200 Ontario Ave",
+      "Elliot Lake, Ontario P5A 1Y5"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "ElliotLakeSCC@ontario.ca",
+       "phone": "705-848-2383"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "fort-frances",
+   "name": "Fort Frances Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/fort-frances/",
+   "address": [
+    "333 Church St.",
+    "Fort Frances, Ontario P9A 1C9"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Trials",
+       "email": "FortFrances.SCJ@ontario.ca",
+       "phone": "807-626-7067"
+      },
+      {
+       "event": "Pre-Trials",
+       "email": "FortFrances.SCJ@ontario.ca",
+       "phone": "807-626-7067"
+      },
+      {
+       "event": "Case Conference",
+       "email": "FortFrances.SCJ@ontario.ca",
+       "phone": "807-626-7067"
+      },
+      {
+       "event": "Trial Management Conferences",
+       "email": "FortFrances.SCJ@ontario.ca",
+       "phone": "807-626-7067"
+      },
+      {
+       "event": "Short Motions",
+       "email": "FortFrances.SCJ@ontario.ca",
+       "phone": "807-626-7067"
+      },
+      {
+       "event": "Long Motions",
+       "email": "FortFrances.SCJ@ontario.ca",
+       "phone": "807-626-7067"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions (anything over one hour)",
+       "email": "FortFrances.SCJ@ontario.ca",
+       "phone": "807-626-7067"
+      },
+      {
+       "event": "Long Motions",
+       "email": "FortFrances.SCJ@ontario.ca",
+       "phone": "807-626-7067"
+      },
+      {
+       "event": "Case Conference / Settlement Conference / Trial Management Conference",
+       "email": "FortFrances.SCJ@ontario.ca",
+       "phone": "807-626-7067"
+      },
+      {
+       "event": "DRO Conference",
+       "email": "FortFrances.SCJ@ontario.ca",
+       "phone": "807-626-7067"
+      },
+      {
+       "event": "Trials",
+       "email": "FortFrances.SCJ@ontario.ca",
+       "phone": "807-626-7067"
+      },
+      {
+       "event": "Binding JDR",
+       "email": "FortFrances.SCJ@ontario.ca",
+       "phone": "807-626-7067"
+      },
+      {
+       "event": "Summary Judgment",
+       "email": "FortFrances.SCJ@ontario.ca",
+       "phone": "807-626-7067"
+      },
+      {
+       "event": "Uncontested Hearing",
+       "email": "FortFrances.SCJ@ontario.ca",
+       "phone": "807-626-7067"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "333 Church St.",
+      "Fort Frances, Ontario P9A 1C9"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "nw.scc.trialcoordinator@ontario.ca",
+       "phone": "807-626-6058"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "goderich",
+   "name": "Goderich Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/goderich/",
+   "address": [
+    "1 Courthouse Sq.",
+    "Goderich, Ontario N7A 1M2"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular / Long Motions",
+       "email": "goderich.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Pretrials",
+       "email": "goderich.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "goderich.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Assignment Court",
+       "email": "goderich.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "goderich.scj@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "goderich.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "goderich.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Family Conferences",
+       "email": "goderich.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Family Conferences",
+       "email": "goderich.scj@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "1 Courthouse Sq.",
+      "Goderich, Ontario N7A 1M2"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Goderich.Courthouse@ontario.ca",
+       "phone": "519-524-7322"
+      },
+      {
+       "event": "Scheduling",
+       "email": "GODERICH.SCC.SCHEDULING@ontario.ca",
+       "phone": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "gore-bay",
+   "name": "Gore Bay Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/gore-bay/",
+   "address": [
+    "27 Phipps Street",
+    "Gore Bay, Ontario P0P 1H0"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short/Regular motions",
+       "email": "GoreBaycourthouse@ontario.ca",
+       "phone": "(705) 282-2461"
+      },
+      {
+       "event": "Long Motions Protocol",
+       "email": "GoreBay.SCJ.TC@ontario.ca",
+       "phone": "705-360-2048"
+      },
+      {
+       "event": "Pre-trials",
+       "email": "GoreBay.SCJ.TC@ontario.ca",
+       "phone": "705-360-2048"
+      },
+      {
+       "event": "Assignment Court",
+       "email": "GoreBay.SCJ.TC@ontario.ca",
+       "phone": "705-360-2048"
+      },
+      {
+       "event": "Trials",
+       "email": "GoreBay.SCJ.TC@ontario.ca",
+       "phone": "705-360-2048"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Case Conferences",
+       "email": "GoreBay.SCJ.TC@ontario.ca",
+       "phone": "705-360-2048"
+      },
+      {
+       "event": "Settlement conferences",
+       "email": "GoreBay.SCJ.TC@ontario.ca",
+       "phone": "705-360-2048"
+      },
+      {
+       "event": "Trial Management Conference",
+       "email": "GoreBay.SCJ.TC@ontario.ca",
+       "phone": "705-360-2048"
+      },
+      {
+       "event": "Short Motions (1 hour or less)",
+       "email": "gorebaycourthouse@ontario.ca",
+       "phone": "(705) 282-2461"
+      },
+      {
+       "event": "Long Motions (follow Protocol)",
+       "email": "GoreBay.SCJ.TC@ontario.ca",
+       "phone": "(705) 360-2048"
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "GoreBay.SCJ.TC@ontario.ca",
+       "phone": "705-360-2048"
+      },
+      {
+       "event": "Trial",
+       "email": "GoreBay.SCJ.TC@ontario.ca",
+       "phone": "705-360-2048"
+      },
+      {
+       "event": "Binding Judicial Dispute Resolution",
+       "email": "GoreBay.SCJ.TC@ontario.ca",
+       "phone": "705-360-2048"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "27 Phipps Street",
+      "Gore Bay, Ontario P0P 1H0"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "GoreBaySCC@ontario.ca",
+       "phone": "705-282-2461"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "guelph",
+   "name": "Guelph Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/guelph/",
+   "address": [
+    "74 Woolwich St.",
+    "Guelph, Ontario N1H 3T9"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "SCJtrialofficeguelph@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "SCJtrialofficeguelph@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "CVPTs",
+       "email": "SCJtrialofficeguelph@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "SCJtrialofficeguelph@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Assignment Court",
+       "email": "SCJtrialofficeguelph@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "SCJtrialofficeguelph@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "SCJtrialofficeguelph@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "SCJtrialofficeguelph@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Family Conferences",
+       "email": "SCJtrialofficeguelph@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "DRO conferences",
+       "email": "SCJtrialofficeguelph@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "SCJtrialofficeguelph@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "74 Woolwich St.",
+      "Guelph, Ontario N1H 3T9"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Guelph.SCJ.courts@ontario.ca",
+       "phone": "519-824-4100"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "haileybury",
+   "name": "Haileybury Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/haileybury/",
+   "address": [
+    "393 Main St. Box 609",
+    "Haileybury, Ontario P0J 1K0"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short/Regular motions",
+       "email": "Haileyburycourthouse@ontario.ca",
+       "phone": "(705)-672-1621"
+      },
+      {
+       "event": "Long Motions Protocol",
+       "email": "Haileybury.scj.tc@ontario.ca",
+       "phone": "(705) 672-3870"
+      },
+      {
+       "event": "Pre-trials",
+       "email": "Haileybury.scj.tc@ontario.ca",
+       "phone": "(705) 672-3870"
+      },
+      {
+       "event": "Assignment Court",
+       "email": "Haileybury.scj.tc@ontario.ca",
+       "phone": "(705) 672-3870"
+      },
+      {
+       "event": "Trials",
+       "email": "Haileybury.scj.tc@ontario.ca",
+       "phone": "(705) 672-3870"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Case Conferences",
+       "email": "Haileybury.scj.tc@ontario.ca",
+       "phone": "(705) 672-3870"
+      },
+      {
+       "event": "Settlement conferences",
+       "email": "Haileybury.scj.tc@ontario.ca",
+       "phone": "(705) 672-3870"
+      },
+      {
+       "event": "Trial Management Conference",
+       "email": "Haileybury.scj.tc@ontario.ca",
+       "phone": "(705) 672-3870"
+      },
+      {
+       "event": "Short Motions (1 hour or less)",
+       "email": "haileyburycourthouse@ontario.ca",
+       "phone": "705-672-1621"
+      },
+      {
+       "event": "Long Motions (follow Protocol)",
+       "email": "Haileybury.scj.tc@ontario.ca",
+       "phone": "(705) 672-3870"
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "Haileybury.scj.tc@ontario.ca",
+       "phone": "(705) 672-3870"
+      },
+      {
+       "event": "Trial",
+       "email": "Haileybury.scj.tc@ontario.ca",
+       "phone": "(705) 672-3870"
+      },
+      {
+       "event": "Binding Judicial Dispute Resolution",
+       "email": "Haileybury.scj.tc@ontario.ca",
+       "phone": "(705) 672-3870"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "393 Main St. Box 609",
+      "Haileybury, Ontario P0J 1K0"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "HaileyburySCC@ontario.ca",
+       "phone": "705-672-3321"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "hamilton-sopinka",
+   "name": "Hamilton (John Sopinka) Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/hamilton-sopinka/",
+   "address": [
+    "45 Main St. E.",
+    "Hamilton, Ontario L8N 2B7"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Motions",
+       "email": "Hamilton.superior.court@ontario.ca",
+       "phone": "905-645-5252 ext. 3628"
+      },
+      {
+       "event": "Case Conference",
+       "email": "Hamilton.superior.court@ontario.ca",
+       "phone": "905-645-5252 ext. 3628"
+      },
+      {
+       "event": "CVPTs",
+       "email": "Hamilton.superior.court@ontario.ca",
+       "phone": "905-645-5252 ext. 3628"
+      },
+      {
+       "event": "Trials",
+       "email": "Hamilton.superior.court@ontario.ca",
+       "phone": "905-645-5252 ext. 3628"
+      },
+      {
+       "event": "Assignment Court",
+       "email": "Hamilton.superior.court@ontario.ca",
+       "phone": "905-645-5252 ext. 3628"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "45 Main St. E.",
+      "Hamilton, Ontario L8N 2B7"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Hamilton.SmallClaims@ontario.ca",
+       "phone": "905-645-5252"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "hamilton",
+   "name": "Hamilton – Family Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/hamilton/",
+   "address": [
+    "55 Main St. W.",
+    "Hamilton, Ontario L8P 1H4"
+   ],
+   "services": [
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "Hamilton.Family.Superior.Court@ontario.ca",
+       "phone": "905-645-5252 x 2532"
+      },
+      {
+       "event": "Long Motions",
+       "email": "Hamilton.Family.Superior.Court@ontario.ca",
+       "phone": "905-645-5252 x 2532"
+      },
+      {
+       "event": "Family Conference",
+       "email": "Hamilton.Family.Superior.Court@ontario.ca",
+       "phone": "905-645-5252 x 2532"
+      },
+      {
+       "event": "DRO Conference",
+       "email": "Hamilton.Family.Superior.Court@ontario.ca",
+       "phone": "905-645-5252 x 2532"
+      },
+      {
+       "event": "Trials",
+       "email": "Hamilton.Family.Superior.Court@ontario.ca",
+       "phone": "905-645-5252 x 2532"
+      },
+      {
+       "event": "Binding JDR",
+       "email": "Hamilton.Family.Superior.Court@ontario.ca",
+       "phone": "905-645-5252 x 2532"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "kenora",
+   "name": "Kenora Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/kenora/",
+   "address": [
+    "216 Water Street",
+    "Kenora, Ontario P9N 1S4"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Trials",
+       "email": "Kenora.scj@ontario.ca",
+       "phone": "807-468-2842"
+      },
+      {
+       "event": "Pre-Trials",
+       "email": "Kenora.scj@ontario.ca",
+       "phone": "807-468-2842"
+      },
+      {
+       "event": "Case Conference",
+       "email": "Kenora.scj@ontario.ca",
+       "phone": "807-468-2842"
+      },
+      {
+       "event": "Trial Management Conferences",
+       "email": "Kenora.scj@ontario.ca",
+       "phone": "807-468-2842"
+      },
+      {
+       "event": "Short Motions",
+       "email": "Kenora.scj@ontario.ca",
+       "phone": "807-468-2842"
+      },
+      {
+       "event": "Long Motions",
+       "email": "Kenora.scj@ontario.ca",
+       "phone": "807-468-2842"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions (anything over one hour)",
+       "email": "Kenora.scj@ontario.ca",
+       "phone": "807-468-2842"
+      },
+      {
+       "event": "Long Motions",
+       "email": "Kenora.scj@ontario.ca",
+       "phone": "807-468-2842"
+      },
+      {
+       "event": "Case Conference / Settlement Conference / Trial Management Conference",
+       "email": "Kenora.scj@ontario.ca",
+       "phone": "807-468-2842"
+      },
+      {
+       "event": "DRO Conference",
+       "email": "Kenora.scj@ontario.ca",
+       "phone": "807-468-2842"
+      },
+      {
+       "event": "Trials",
+       "email": "Kenora.scj@ontario.ca",
+       "phone": "807-468-2842"
+      },
+      {
+       "event": "Binding JDR",
+       "email": "Kenora.scj@ontario.ca",
+       "phone": "807-468-2842"
+      },
+      {
+       "event": "Summary Judgment",
+       "email": "Kenora.scj@ontario.ca",
+       "phone": "807-468-2842"
+      },
+      {
+       "event": "Uncontested Hearing",
+       "email": "Kenora.scj@ontario.ca",
+       "phone": "807-468-2842"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "216 Water Street",
+      "Kenora, Ontario P9N 1S4"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "nw.scc.trialcoordinator@ontario.ca",
+       "phone": "807-626-6058"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "kingston-family",
+   "name": "Kingston – Family Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/kingston-family/",
+   "address": [
+    "469 Montreal St.",
+    "Kingston, Ontario K7K 3H9"
+   ],
+   "services": [
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Case / Settlement Conferences",
+       "email": "KingstonSCJtrialcoordination@ontario.ca",
+       "phone": "613-548-6814"
+      },
+      {
+       "event": "Short Motions",
+       "email": "KingstonFamilyCourt@ontario.ca",
+       "phone": "613-548-6789"
+      },
+      {
+       "event": "Long Motions",
+       "email": "KingstonSCJtrialcoordination@ontario.ca",
+       "phone": "613-548-6814"
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "KingstonSCJtrialcoordination@ontario.ca",
+       "phone": "613-548-6814"
+      },
+      {
+       "event": "Trial Scheduling Conferences",
+       "email": "KingstonSCJtrialcoordination@ontario.ca",
+       "phone": "613-548-6814"
+      },
+      {
+       "event": "Trial Management Conference",
+       "email": "KingstonSCJtrialcoordination@ontario.ca",
+       "phone": "613-548-6814"
+      },
+      {
+       "event": "Trial",
+       "email": "KingstonSCJtrialcoordination@ontario.ca",
+       "phone": "613-548-6814"
+      },
+      {
+       "event": "CAS Matters",
+       "email": "KingstonFamilyCourt@ontario.ca",
+       "phone": "613-548-6789"
+      },
+      {
+       "event": "FRO Matters",
+       "email": "KingstonFamilyCourt@ontario.ca",
+       "phone": "613-548-6789"
+      },
+      {
+       "event": "ISO Matters",
+       "email": "Aimee.McCurdy@ontario.ca",
+       "phone": "613-548-5924"
+      },
+      {
+       "event": "DRO Conferences",
+       "email": "KingstonSCJtrialcoordination@ontario.ca",
+       "phone": "613-548-6814"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "kingston",
+   "name": "Kingston Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/kingston/",
+   "address": [
+    "5 Court Street",
+    "Kingston, Ontario K7L 2N4"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "kingstonscjadmin@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "KingstonSCJtrialcoordination@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "CVPTs",
+       "email": "kingstonscjadmin@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "KingstonSCJtrialcoordination@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Assignment Court",
+       "email": "KingstonSCJtrialcoordination@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "KingstonSCJtrialcoordination@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "5 Court Street",
+      "Kingston, Ontario K7L 2N4"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Kingston.SCJ.courts@ontario.ca",
+       "phone": "613-548-6811"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "kirkland-lake",
+   "name": "Kirkland Lake – Small Claims Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/kirkland-lake/",
+   "address": [
+    "140 Government Rd, E. PO Box 730",
+    "Kirkland Lake, Ontario P2N 3K1"
+   ],
+   "services": [
+    {
+     "court": "small-claims",
+     "address": [
+      "140 Government Rd, E. PO Box 730",
+      "Kirkland Lake, Ontario P2N 3K1"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "KirklandLakeSCC@ontario.ca",
+       "phone": "705-567-9381"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "kitchener",
+   "name": "Kitchener Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/kitchener/",
+   "address": [
+    "85 Frederick Street",
+    "Kitchener, Ontario N2H 0A7"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Motions",
+       "email": "Kitchener.Superior.Court@ontario.ca",
+       "phone": "519-741-3200 x3240"
+      },
+      {
+       "event": "Case Conference",
+       "email": "Kitchener.Superior.Court@ontario.ca",
+       "phone": "519-741-3200 x3240"
+      },
+      {
+       "event": "CVPTs",
+       "email": "Kitchener.Superior.Court@ontario.ca",
+       "phone": "519-741-3200 x3240"
+      },
+      {
+       "event": "Trials",
+       "email": "Kitchener.Superior.Court@ontario.ca",
+       "phone": "519-741-3200 x3240"
+      },
+      {
+       "event": "Assignment Court",
+       "email": "Kitchener.Superior.Court@ontario.ca",
+       "phone": "519-741-3200 x3240"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "Kitchener.Superior.Court@ontario.ca",
+       "phone": "519-741-3200 x3240"
+      },
+      {
+       "event": "Long Motions",
+       "email": "Kitchener.Superior.Court@ontario.ca",
+       "phone": "519-741-3200 x3240"
+      },
+      {
+       "event": "Family Conference",
+       "email": "Kitchener.Superior.Court@ontario.ca",
+       "phone": "519-741-3200 x3240"
+      },
+      {
+       "event": "DRO Conference",
+       "email": "Kitchener.Superior.Court@ontario.ca",
+       "phone": "519-741-3200 x3240"
+      },
+      {
+       "event": "Trials",
+       "email": "Kitchener.Superior.Court@ontario.ca",
+       "phone": "519-741-3200 x3240"
+      },
+      {
+       "event": "Binding JDR",
+       "email": "Kitchener.Superior.Court@ontario.ca",
+       "phone": "519-741-3200 x3240"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "85 Frederick Street",
+      "Kitchener, Ontario N2H 0A7"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Kitchener.SCJ.courts@ontario.ca",
+       "phone": "519-741-3270"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "lindsay",
+   "name": "Lindsay Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/lindsay/",
+   "address": [
+    "440 Kent St. W.",
+    "Lindsay, Ontario K9V 6K2"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short / Regular Motions",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823/705-876-9482"
+      },
+      {
+       "event": "Case Conferences",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823/705-876-9482"
+      },
+      {
+       "event": "Pre-trials",
+       "email": "Newmarket.Civilpretrial@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Construction Lien Pre-trials",
+       "email": "Newmarket.Civilpretrial@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions (over 1 hour)",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823/705-876-9482"
+      },
+      {
+       "event": "Summary Judgment Motions (over 1 hour)",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823/705-876-9482"
+      },
+      {
+       "event": "CER Triage Court (Long Motions, Trials etc)",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823/705-876-9482"
+      },
+      {
+       "event": "CER Triage Court (Administrative Dismissals)",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823/705-876-9482"
+      },
+      {
+       "event": "Small Claims Court - Appeals (short)",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823/705-876-9482"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Long Motions",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Case / Settlement Conferences",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Teleconferences",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Trial Scheduling Conferences",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Exit Pre-Trials",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Trial",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "JDRs",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "DRO Conferences",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "CAS Matters",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "FRO Matters",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "440 Kent St. W.",
+      "Lindsay, Ontario K9V 6K2"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Lindsay.courts@ontario.ca",
+       "phone": "705-324-1400"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "london",
+   "name": "London Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/london/",
+   "address": [
+    "80 Dundas St.",
+    "London, Ontario N6A 6A3"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular / Long Motions",
+       "email": "London.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Pretrials",
+       "email": "London.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "London.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Assignment Court",
+       "email": "London.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "London.scj@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "London.Family.SCJ@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "London.Family.SCJ@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Family Conferences",
+       "email": "London.Family.SCJ@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "London.Family.SCJ@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "DRO Information",
+       "email": "London.Courthouse@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Binding JDR",
+       "email": "London.Family.SCJ@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "80 Dundas St.",
+      "London, Ontario N6A 6A3"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "London.scc@ontario.ca",
+       "phone": "519-660-3000"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "lorginal",
+   "name": "L’Orignal Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/lorginal/",
+   "address": [
+    "59 Court St., 2nd Fl.",
+    "L’Orignal, Ontario K0B 1K0"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "lorignalcivilsccdivision@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "lorignaltrialcoordination@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "CVPTs",
+       "email": "lorignalcivilsccdivision@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "lorignaltrialcoordination@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Assignment Court",
+       "email": "lorignaltrialcoordination@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "lorignalcivilsccdivision@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Construction Lien",
+       "email": "lorignalcivilsccdivision@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Case Conferences",
+       "email": "lorignal.scj.courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Settlement Conference & Trial Management Conference",
+       "email": "lorignaltrialcoordination@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Short Motions",
+       "email": "lorignal.scj.courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions 1 Day or Less",
+       "email": "lorignal.scj.courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions Over 1 Day",
+       "email": "lorignaltrialcoordination@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Summary Judgment Motion 1 Day or Less",
+       "email": "lorignal.scj.courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Summary Judgment Motion Over 1 Day",
+       "email": "lorignaltrialcoordination@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trial Management Conference",
+       "email": "lorignaltrialcoordination@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trial",
+       "email": "lorignaltrialcoordination@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "CAS Matters",
+       "email": "lorignal.scj.courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "FRO Matters",
+       "email": "lorignal.scj.courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "JDRs",
+       "email": "lorignal.scj.courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "ISO Matters",
+       "email": "lorignal.scj.courts@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "59 Court St., P.O. Box 306",
+      "L’Orignal, Ontario K0B 1K0"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "LOrignalCivilSCCDivision@ontario.ca",
+       "phone": "613-675-4567"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "milton",
+   "name": "Milton Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/milton/",
+   "address": [
+    "491 Steeles Ave E.",
+    "Milton, Ontario L9T 1Y7"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "SCJHaltontrialoffice@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions / Triage court",
+       "email": "SCJHaltontrialoffice@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "CVPTs",
+       "email": "SCJHaltontrialoffice@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "SCJHaltontrialoffice@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Assignment Court",
+       "email": "SCJHaltontrialoffice@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "SCJHaltontrialoffice@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "SCJHaltontrialoffice@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "SCJHaltontrialoffice@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Family Conferences",
+       "email": "SCJHaltontrialoffice@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "DRO conferences",
+       "email": "SCJHaltontrialoffice@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "SCJHaltontrialoffice@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "491 Steeles Ave E.",
+      "Milton, Ontario L9T 1Y7"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "MiltonSCC@ontario.ca",
+       "phone": "905-878-7285"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "morrisburg",
+   "name": "Morrisburg – Small Claims Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/morrisburg/",
+   "address": [
+    "6 – 5th Street W. Box 858",
+    "Morrisburg, Ontario K0C 1X0"
+   ],
+   "services": [
+    {
+     "court": "small-claims",
+     "address": [
+      "6 – 5th Street W. Box 858",
+      "Morrisburg, Ontario K0C 1X0"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "morrisburgcourt@ontario.ca",
+       "phone": "613-543-2193"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "napanee",
+   "name": "Napanee Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/napanee/",
+   "address": [
+    "41 Dundas St. W.",
+    "Napanee, Ontario K7R 1Z5"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "napanee.scj.courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "NapaneeSCJtrialcoordination@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "CVPTs",
+       "email": "napanee.scj.courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "NapaneeSCJtrialcoordination@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Assignment Court",
+       "email": "NapaneeSCJtrialcoordination@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "NapaneeSCJtrialcoordination@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Case / Settlement Conferences",
+       "email": "NapaneeSCJtrialcoordination@ontario.ca",
+       "phone": "613-548-6814"
+      },
+      {
+       "event": "Short Motions",
+       "email": "Napanee.scj.courts@ontario.ca",
+       "phone": "613-354-5450 ext 327"
+      },
+      {
+       "event": "Long Motion",
+       "email": "NapaneeSCJtrialcoordination@ontario.ca",
+       "phone": "613-548-6814"
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "NapaneeSCJtrialcoordination@ontario.ca",
+       "phone": "613-548-6814"
+      },
+      {
+       "event": "Trial Scheduling Conferences",
+       "email": "NapaneeSCJtrialcoordination@ontario.ca",
+       "phone": "613-548-6814"
+      },
+      {
+       "event": "Trial Management Conference",
+       "email": "NapaneeSCJtrialcoordination@ontario.ca",
+       "phone": "613-548-6814"
+      },
+      {
+       "event": "Trial",
+       "email": "NapaneeSCJtrialcoordination@ontario.ca",
+       "phone": "613-548-6814"
+      },
+      {
+       "event": "CAS Matters",
+       "email": "Napanee.scj.courts@ontario.ca",
+       "phone": "613-354-5450 ext 327"
+      },
+      {
+       "event": "FRO Matters",
+       "email": "Napanee.scj.courts@ontario.ca",
+       "phone": "613-354-5450 ext 327"
+      },
+      {
+       "event": "ISO Matters",
+       "email": "Napanee.scj.courts@ontario.ca",
+       "phone": "613-354-5450 ext 327"
+      },
+      {
+       "event": "DRO Conferences",
+       "email": "NapaneeSCJtrialcoordination@ontario.ca",
+       "phone": "613-548-6814"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "41 Dundas St. W.",
+      "Napanee, Ontario K7R 1Z5"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Napanee.SCJ.courts@ontario.ca",
+       "phone": "613-354-3845"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "newmarket",
+   "name": "Newmarket Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/newmarket/",
+   "address": [
+    "50 Eagle St. W.",
+    "Newmarket, Ontario L3Y 6B1"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short / Regular Motions",
+       "email": "Newmarket.SCJ.TC@ontario.ca",
+       "phone": "905-853-4823"
+      },
+      {
+       "event": "Case Conferences",
+       "email": "Newmarket.SCJ.TC@ontario.ca",
+       "phone": "905-853-4823"
+      },
+      {
+       "event": "Pre-trials",
+       "email": "Newmarket.Civilpretrial@ontario.ca",
+       "phone": "905-853-4823"
+      },
+      {
+       "event": "Construction Lien Pre-trials",
+       "email": "Newmarket.Civilpretrial@ontario.ca",
+       "phone": "905-853-4823"
+      },
+      {
+       "event": "Long Motions (over 1 hour)",
+       "email": "Newmarket.SCJ.TC@ontario.ca",
+       "phone": "905-853-4823"
+      },
+      {
+       "event": "Summary Judgment Motions (over 1 hour)",
+       "email": "Newmarket.SCJ.TC@ontario.ca",
+       "phone": "905-853-4823"
+      },
+      {
+       "event": "CER Triage Court (Long Motions, Applications Trials etc)",
+       "email": "Newmarket.SCJ.TC@ontario.ca",
+       "phone": "905-853-4823"
+      },
+      {
+       "event": "CER Triage Court (Administrative Dismissals)",
+       "email": "Newmarket.SCJ.TC@ontario.ca",
+       "phone": "905-853-4823"
+      },
+      {
+       "event": "Small Claims Court - Appeals (short)",
+       "email": "Newmarket.SCJ.TC@ontario.ca",
+       "phone": "905-853-4823"
+      },
+      {
+       "event": "Associate Judges a) short motions",
+       "email": "Newmarket.SCJ.TC@ontario.ca",
+       "phone": "905-853-4823"
+      },
+      {
+       "event": "Associate Judges b) civil pre-trials",
+       "email": "Newmarket.Civilpretrial@ontario.ca",
+       "phone": "905-853-4823"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "Newmarket.SCJ.TC@ontario.ca",
+       "phone": "905-853-4823"
+      },
+      {
+       "event": "Long Motions",
+       "email": "Newmarket.SCJ.TC@ontario.ca",
+       "phone": "905-853-4823"
+      },
+      {
+       "event": "Case/Settlement Conferences",
+       "email": "Newmarket.SCJ.TC@ontario.ca",
+       "phone": "905-853-4823"
+      },
+      {
+       "event": "Trial Scheduling Conferences",
+       "email": "Newmarket.SCJ.TC@ontario.ca",
+       "phone": "905-853-4823"
+      },
+      {
+       "event": "Exit Pre-Trials",
+       "email": "Newmarket.SCJ.TC@ontario.ca",
+       "phone": "905-853-4823"
+      },
+      {
+       "event": "Trial",
+       "email": "Newmarket.SCJ.TC@ontario.ca",
+       "phone": "905-853-4823"
+      },
+      {
+       "event": "JDRs",
+       "email": "Newmarket.SCJ.TC@ontario.ca",
+       "phone": "905-853-4823"
+      },
+      {
+       "event": "DRO Conferences",
+       "email": "Newmarket.SCJ.TC@ontario.ca",
+       "phone": "905-853-4823"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "50 Eagle St. W.",
+      "Newmarket, Ontario L3Y 6B1"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "NewmarketSCCourts@ontario.ca",
+       "phone": "905-853-4809"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "north-bay",
+   "name": "North Bay Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/north-bay/",
+   "address": [
+    "360 Plouffe Street",
+    "North Bay, Ontario P1B 9L5"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short/Regular motions",
+       "email": "NorthBaycourthouse@ontario.ca",
+       "phone": "(705) 495-8309"
+      },
+      {
+       "event": "Long Motions Protocol",
+       "email": "NorthBay.scj.tc@ontario.ca",
+       "phone": "705-495-8330"
+      },
+      {
+       "event": "Assignment Court",
+       "email": "NorthBay.scj.tc@ontario.ca",
+       "phone": "705-495-8330"
+      },
+      {
+       "event": "Trials",
+       "email": "NorthBay.scj.tc@ontario.ca",
+       "phone": "705-495-8330"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions (1 hour or less)",
+       "email": "northbaycourthouse@ontario.ca",
+       "phone": "(705) 495-8309"
+      },
+      {
+       "event": "Long Motions (follow Protocol)",
+       "email": "NorthBay.scj.tc@ontario.ca",
+       "phone": "705-495-8330"
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "NorthBay.scj.tc@ontario.ca",
+       "phone": "705-495-8330"
+      },
+      {
+       "event": "Trial",
+       "email": "NorthBay.scj.tc@ontario.ca",
+       "phone": "705-495-8330"
+      },
+      {
+       "event": "Binding Judicial Dispute Resolution",
+       "email": "NorthBay.scj.tc@ontario.ca",
+       "phone": "705-495-8330"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "360 Plouffe Street",
+      "North Bay, Ontario P1B 9L5"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "NorthBaySCC@ontario.ca",
+       "phone": "705-495-8309"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "orangeville",
+   "name": "Orangeville Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/orangeville/",
+   "address": [
+    "10 Louisa St.",
+    "Orangeville, Ontario L9W 3P9"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "OrangevilleSCJTrialOffice@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "OrangevilleSCJTrialOffice@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "CVPTs",
+       "email": "OrangevilleSCJTrialOffice@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "OrangevilleSCJTrialOffice@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Assignment Court",
+       "email": "OrangevilleSCJTrialOffice@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "OrangevilleSCJTrialOffice@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "OrangevilleSCJTrialOffice@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "OrangevilleSCJTrialOffice@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Family Conferences",
+       "email": "OrangevilleSCJTrialOffice@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "DRO conferences",
+       "email": "OrangevilleSCJTrialOffice@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "OrangevilleSCJTrialOffice@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "10 Louisa St.",
+      "Orangeville, Ontario L9W 3P9"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "OrangevilleSCJCourt@ontario.ca",
+       "phone": "519-941-5802"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "orillia",
+   "name": "Orillia – Small Claims Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/orillia/",
+   "address": [
+    "700 Memorial Ave. Cottage C, P.O. Box #218",
+    "Orillia, Ontario L3V 6J3"
+   ],
+   "services": [
+    {
+     "court": "small-claims",
+     "address": [
+      "700 Memorial Ave. Cottage C, P.O. Box #218",
+      "Orillia, Ontario L3V 6J3"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "OrilliaSCCourts@ontario.ca",
+       "phone": "705-326-2671"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "oshawa",
+   "name": "Oshawa Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/oshawa/",
+   "address": [
+    "150 Bond Street East",
+    "Oshawa, Ontario L1G 0A2"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short / Regular Motions",
+       "email": "Oshawa.scj.tc@ontario.ca",
+       "phone": "905-743-2800"
+      },
+      {
+       "event": "Case Conferences",
+       "email": "Oshawa.scj.tc@ontario.ca",
+       "phone": "905-743-2800"
+      },
+      {
+       "event": "Pre-trials",
+       "email": "Newmarket.Civilpretrial@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Construction Lien Pre-trials",
+       "email": "Newmarket.Civilpretrial@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions (over 1 hour)",
+       "email": "Oshawa.scj.tc@ontario.ca",
+       "phone": "905-743-2800"
+      },
+      {
+       "event": "Summary Judgment Motions (over 1 hour)",
+       "email": "Oshawa.scj.tc@ontario.ca",
+       "phone": "905-743-2800"
+      },
+      {
+       "event": "CER Triage Court (Long Motions, Trials etc)",
+       "email": "Oshawa.scj.tc@ontario.ca",
+       "phone": "905-743-2800"
+      },
+      {
+       "event": "CER Triage Court (Administrative Dismissals)",
+       "email": "Oshawa.scj.tc@ontario.ca",
+       "phone": "905-743-2800"
+      },
+      {
+       "event": "Small Claims Court - Appeals (short)",
+       "email": "Oshawa.scj.tc@ontario.ca",
+       "phone": "905-743-2800"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "oshawa.scj.tc@ontario.ca",
+       "phone": "905-743-2800"
+      },
+      {
+       "event": "Long Motions",
+       "email": "oshawa.scj.tc@ontario.ca",
+       "phone": "905-743-2800"
+      },
+      {
+       "event": "Retrieving data. Wait a few seconds and try to cut or copy again.",
+       "email": "oshawa.scj.tc@ontario.ca",
+       "phone": "905-743-2800"
+      },
+      {
+       "event": "Trial Scheduling Conferences",
+       "email": "oshawa.scj.tc@ontario.ca",
+       "phone": "905-743-2800"
+      },
+      {
+       "event": "Exit Pre-Trials",
+       "email": "oshawa.scj.tc@ontario.ca",
+       "phone": "905-743-2800"
+      },
+      {
+       "event": "Trial Management Conference",
+       "email": "oshawa.scj.tc@ontario.ca",
+       "phone": "905-743-2800"
+      },
+      {
+       "event": "Trial",
+       "email": "oshawa.scj.tc@ontario.ca",
+       "phone": "905-743-2800"
+      },
+      {
+       "event": "JDRs",
+       "email": "oshawa.scj.tc@ontario.ca",
+       "phone": "905-743-2800"
+      },
+      {
+       "event": "DRO Conferences",
+       "email": "oshawa.scj.tc@ontario.ca",
+       "phone": "905-743-2800"
+      },
+      {
+       "event": "CAS Matters",
+       "email": "oshawa.scj.tc@ontario.ca",
+       "phone": "905-743-2800"
+      },
+      {
+       "event": "FRO Matters",
+       "email": "oshawa.scj.tc@ontario.ca",
+       "phone": "905-743-2800"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "150 Bond Street East",
+      "Oshawa, Ontario L1G 0A2"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "DurhamSCCcourts@ontario.ca",
+       "phone": "905-743-2800"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "ottawa",
+   "name": "Ottawa Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/ottawa/",
+   "address": [
+    "161 Elgin St., 2nd Fl.",
+    "Ottawa, Ontario K2P 2K1"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions 2hrs and under (Calendly)",
+       "email": "ottawa.scj.courts@ontario.ca",
+       "phone": "613-293-1054"
+      },
+      {
+       "event": "Long Motions (over 2 hrs)",
+       "email": "mastersofficeottawa@ontario.ca",
+       "phone": "613-239-1047"
+      },
+      {
+       "event": "CVPTs",
+       "email": "mastersofficeottawa@ontario.ca",
+       "phone": "613-239-1047"
+      },
+      {
+       "event": "Trials",
+       "email": "mastersofficeottawa@ontario.ca",
+       "phone": "613-239-1047"
+      },
+      {
+       "event": "Trial Management Court",
+       "email": "mastersofficeottawa@ontario.ca",
+       "phone": "613-239-1047"
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "mastersofficeottawa@ontario.ca",
+       "phone": "613-239-1047"
+      },
+      {
+       "event": "Construction Lien",
+       "email": "mastersofficeottawa@ontario.ca",
+       "phone": "613-239-1047"
+      },
+      {
+       "event": "Class Action Proceedings",
+       "email": "mastersofficeottawa@ontario.ca",
+       "phone": "613-239-1047"
+      },
+      {
+       "event": "\"Associate Judges a) Short Motions b) civil pre-trials c) case conferences d) construction lien \"",
+       "email": "mastersofficeottawa@ontario.ca",
+       "phone": "613-239-1047"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Case Conferences",
+       "email": "ottawafamilycourt@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Settlement Conferences",
+       "email": "OttawaSCJ.TC.Office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Short Motions",
+       "email": "ottawafamilycourt@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions / Focus Hearings (under 1 day)",
+       "email": "ottawafamilycourt@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions / Focus Hearings (over1 day)",
+       "email": "OttawaSCJ.TC.Office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Summary Judgment Motion (under 1 day)",
+       "email": "ottawafamilycourt@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Summary Judgment Motion (over 1 day)",
+       "email": "OttawaSCJ.TC.Office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trial Management Conference",
+       "email": "OttawaSCJ.TC.Office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trial - Filing",
+       "email": "JSO/ottawafamilycourt@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trial - Inquiries",
+       "email": "OttawaSCJ.TC.Office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "CAS Matters",
+       "email": "OttawaCYFSA@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "FRO Matters",
+       "email": "ottawafamilycourt@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "JDRs",
+       "email": "OttawaSCJ.TC.Office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "ISO Matters",
+       "email": "ottawafamilycourt@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "161 Elgin St., 2nd Fl.",
+      "Ottawa, Ontario K2P 2K1"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Ottawa.smallclaims@ontario.ca",
+       "phone": "613-239-1079"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "owen-sound",
+   "name": "Owen Sound Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/owen-sound/",
+   "address": [
+    "611 – 9th Ave. East",
+    "Owen Sound, Ontario N4K 6Z4"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "CVPTs",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Assignment Court",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Family Conferences",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "DRO conferences",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "611 – 9th Ave. East",
+      "Owen Sound, Ontario N4K 6Z4"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "OwenSound.SCC.courts@ontario.ca",
+       "phone": "519-370-2430"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "parry-sound",
+   "name": "Parry Sound Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/parry-sound/",
+   "address": [
+    "89 James St.",
+    "Parry Sound, Ontario P2A 1T7"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short/Regular motions",
+       "email": "ParrySoundcourthouse@ontario.ca",
+       "phone": "(705) 746-4237"
+      },
+      {
+       "event": "Long Motions Protocol",
+       "email": "ParrySound.scj.tc@ontario.ca",
+       "phone": "(705) 272-4256 Ext. 228"
+      },
+      {
+       "event": "Pre-trials",
+       "email": "ParrySound.scj.tc@ontario.ca",
+       "phone": "(705) 272-4256 Ext. 228"
+      },
+      {
+       "event": "Assignment Court",
+       "email": "ParrySound.scj.tc@ontario.ca",
+       "phone": "(705) 272-4256 Ext. 228"
+      },
+      {
+       "event": "Trials",
+       "email": "ParrySound.scj.tc@ontario.ca",
+       "phone": "(705) 272-4256 Ext. 228"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Case Conferences",
+       "email": "ParrySound.scj.tc@ontario.ca",
+       "phone": "(705) 272-4256 Ext. 228"
+      },
+      {
+       "event": "Settlement conferences",
+       "email": "ParrySound.scj.tc@ontario.ca",
+       "phone": "(705) 272-4256 Ext. 228"
+      },
+      {
+       "event": "Trial Management Conference",
+       "email": "ParrySound.scj.tc@ontario.ca",
+       "phone": "(705) 272-4256 Ext. 228"
+      },
+      {
+       "event": "Short Motions (1 hour or less)",
+       "email": "parrysoundcourthouse@ontario.ca",
+       "phone": "(705) 746-4237"
+      },
+      {
+       "event": "Long Motions (follow Protocol)",
+       "email": "ParrySound.scj.tc@ontario.ca",
+       "phone": "(705) 272-4256 Ext. 228"
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "ParrySound.scj.tc@ontario.ca",
+       "phone": "(705) 272-4256 Ext. 228"
+      },
+      {
+       "event": "Trial",
+       "email": "ParrySound.scj.tc@ontario.ca",
+       "phone": "(705) 272-4256 Ext. 228"
+      },
+      {
+       "event": "Binding Judicial Dispute Resolution",
+       "email": "ParrySound.scj.tc@ontario.ca",
+       "phone": "(705) 272-4256 Ext. 228"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "89 James St.",
+      "Parry Sound, Ontario P2A 1T7"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "ParrySoundSCC@ontario.ca",
+       "phone": "705-746-4237"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "pembroke",
+   "name": "Pembroke Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/pembroke/",
+   "address": [
+    "297 Pembroke St E",
+    "Pembroke, Ontario K8A 3K2"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "Pembroke.SCJ.Courts@ontario.ca",
+       "phone": "613-732-5490"
+      },
+      {
+       "event": "Long Motions",
+       "email": "PembrokeSCJTrialScheduling@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "CVPTs",
+       "email": "PembrokeSCJTrialScheduling@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "PembrokeSCJTrialScheduling@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "PembrokeSCJTrialScheduling@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Case / Settlement Conferences",
+       "email": "Pembroke.SCJ.Courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Short Motions",
+       "email": "Pembroke.SCJ.Courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "Pembrokescjtrialscheduling@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "Pembroke.SCJ.Courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trial Scheduling Conferences",
+       "email": "Pembrokescjtrialscheduling@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trial Management Conference",
+       "email": "Pembrokescjtrialscheduling@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trial",
+       "email": "Pembrokescjtrialscheduling@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "CAS Matters",
+       "email": "Pembroke.SCJ.Courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "FRO Matters",
+       "email": "Pembroke.SCJ.Courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "JDRs",
+       "email": "Pembrokescjtrialscheduling@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "DRO Conferences",
+       "email": "Pembrokescjtrialscheduling@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "297 Pembroke St E",
+      "Pembroke, Ontario K8A 3K2"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Pembroke.SCC.courts@ontario.ca",
+       "phone": "613-732-8581"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "perth",
+   "name": "Perth Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/perth/",
+   "address": [
+    "43 Drummond St E",
+    "Perth, Ontario K7H 1G1"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "Perth.SCJ.Courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "PerthTrialCoordinator@ontario.ca",
+       "phone": "613-267-9068"
+      },
+      {
+       "event": "CVPTs",
+       "email": "Perth.SCJ.Courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "PerthTrialCoordinator@ontario.ca",
+       "phone": "613-267-9068"
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "Perth.SCJ.Courts@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Case / Settlement Conferences",
+       "email": "Perth.SCJ.Courts@ontario.ca",
+       "phone": "613-267-9067"
+      },
+      {
+       "event": "Short Motions",
+       "email": "Perth.SCJ.Courts@ontario.ca",
+       "phone": "613-267-9067"
+      },
+      {
+       "event": "Long Motions",
+       "email": "PerthTrialCoordinator@ontario.ca",
+       "phone": "613-267-9068"
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "Perth.SCJ.Courts@ontario.ca",
+       "phone": "613-267-9067"
+      },
+      {
+       "event": "Trial Scheduling Conferences",
+       "email": "Perth.SCJ.Courts@ontario.ca",
+       "phone": "613-267-9067"
+      },
+      {
+       "event": "Trial Management Conference",
+       "email": "Perth.SCJ.Courts@ontario.ca",
+       "phone": "613-267-9067"
+      },
+      {
+       "event": "Trial",
+       "email": "PerthTrialCoordinator@ontario.ca",
+       "phone": "613-267-9068"
+      },
+      {
+       "event": "CAS Matters",
+       "email": "Perth.SCJ.Courts@ontario.ca",
+       "phone": "613-267-9067"
+      },
+      {
+       "event": "FRO Matters",
+       "email": "Perth.SCJ.Courts@ontario.ca",
+       "phone": "613-267-9067"
+      },
+      {
+       "event": "JDRs",
+       "email": "PerthTrialCoordinator@ontario.ca",
+       "phone": "613-267-9068"
+      },
+      {
+       "event": "ISO Matters",
+       "email": "Perth.SCJ.Courts@ontario.ca",
+       "phone": "613-267-9067"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "43 Drummond St E",
+      "Perth, Ontario K7H 1G1"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Perth.SCJ.courts@ontario.ca",
+       "phone": "613-267-2021"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "peterborough",
+   "name": "Peterborough Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/peterborough/",
+   "address": [
+    "470 Water St.",
+    "Peterborough, Ontario K9H 3M3"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short / Regular Motions",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823 /705-876-9482"
+      },
+      {
+       "event": "Case Conferences",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823 /705-876-9482"
+      },
+      {
+       "event": "Pre-trials",
+       "email": "Newmarket.Civilpretrial@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Construction Lien Pre-trials",
+       "email": "Newmarket.Civilpretrial@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions (over 1 hour)",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823 /705-876-9482"
+      },
+      {
+       "event": "Summary Judgment Motions (over 1 hour)",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823 /705-876-9482"
+      },
+      {
+       "event": "CER Triage Court (Long Motions, Trials etc)",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823 /705-876-9482"
+      },
+      {
+       "event": "CER Triage Court (Administrative Dismissals)",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823 /705-876-9482"
+      },
+      {
+       "event": "Small Claims Court - Appeals (short)",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3823 /705-876-9482"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Long Motions",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Case / Settlement Conferences",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Teleconferences",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Trial Scheduling Conferences",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Exit Pre-Trials",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Trial",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "JDRs",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "DRO Conferences",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "CAS Matters",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      },
+      {
+       "event": "FRO Matters",
+       "email": "Peterborough.SCJ.TC@ontario.ca",
+       "phone": "705-876-3837 / 705-876-3823"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "470 Water St.",
+      "Peterborough, Ontario K9H 3M3"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "PeterboroughSCourts@ontario.ca",
+       "phone": "705-876-3846"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "picton",
+   "name": "Picton Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/picton/",
+   "address": [
+    "44 Union St.",
+    "Picton, Ontario K0K 2T0"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "picton.scj.courts@ontario.ca",
+       "phone": "613-476-6236"
+      },
+      {
+       "event": "Long Motions",
+       "email": "picton.scj.courts@ontario.ca",
+       "phone": "613-476-6236"
+      },
+      {
+       "event": "CVPTs",
+       "email": "bellevillescj.tc.office@ontario.ca",
+       "phone": "613-476-6236"
+      },
+      {
+       "event": "Trials",
+       "email": "bellevillescj.tc.office@ontario.ca",
+       "phone": "613-476-6236"
+      },
+      {
+       "event": "Assignment Court",
+       "email": "bellevillescj.tc.office@ontario.ca",
+       "phone": "613-476-6236"
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "bellevillescj.tc.office@ontario.ca",
+       "phone": "613-476-6236"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Case / Settlement Conferences",
+       "email": "Bellevillescj.tc.office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Short Motions",
+       "email": "Bellevillescj.tc.office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "Bellevillescj.tc.office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "Bellevillescj.tc.office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trial Scheduling Conferences",
+       "email": "Bellevillescj.tc.office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trial Management Conference",
+       "email": "Bellevillescj.tc.office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trial",
+       "email": "Bellevillescj.tc.office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "CAS Matters",
+       "email": "Bellevillescj.tc.office@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "FRO Matters",
+       "email": "Belleville.scj.courts@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "44 Union St.",
+      "Picton, Ontario K0K 2T0"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Picton.SCJ.courts@ontario.ca",
+       "phone": "613-476-6236"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "red-lake",
+   "name": "Red Lake – Small Claims Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/red-lake/",
+   "address": [
+    "115 Howey Street, Box 1070",
+    "Red Lake, Ontario P0V 2M0"
+   ],
+   "services": [
+    {
+     "court": "small-claims",
+     "address": [
+      "115 Howey Street, Box 1070",
+      "Red Lake, Ontario P0V 2M0"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "CSD.Dryden@ontario.ca",
+       "phone": "807-727-2376"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "richmond-hill",
+   "name": "Richmond Hill – Small Claims Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/richmond-hill/",
+   "address": [
+    "855 Major Mackenzie Drive East",
+    "Richmond Hill, Ontario L4B 4X7",
+    "Notice",
+    "This location is not open for filings. To issue or file Small Claims Court documents, contact, mail or attend the Small Claims Court Administration Office – Le Parc Office Tower at 8500 Leslie Street, Suite 395 ."
+   ],
+   "services": [
+    {
+     "court": "small-claims",
+     "address": [
+      "855 Major Mackenzie Drive East",
+      "Richmond Hill, Ontario L4B 4X7",
+      "Notice",
+      "This location is not open for filings. To issue or file Small Claims Court documents, contact, mail or attend the Small Claims Court Administration Office – Le Parc Office Tower at 8500 Leslie Street, Suite 395 ."
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Richmondhill.courts@ontario.ca",
+       "phone": "905-731-2664"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "sarnia",
+   "name": "Sarnia Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/sarnia/",
+   "address": [
+    "700 N. Christina Street",
+    "Sarnia, Ontario N7V 3C2"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular / Long Motions",
+       "email": "Sarnia.SCJ.Courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Pretrials",
+       "email": "Sarnia.SCJ.Courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "Sarnia.SCJ.Courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Assignment Court",
+       "email": "Sarnia.SCJ.Courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "Sarnia.SCJ.Courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Enforcement",
+       "email": "Sarnia.SCJ.Courts@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "Sarnia.SCJ.Courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "Sarnia.SCJ.Courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Family Conferences",
+       "email": "Sarnia.SCJ.Courts@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "Sarnia.SCJ.Courts@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "700 N. Christina Street",
+      "Sarnia, Ontario N7V 3C2"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Sarnia.SCJ.Courts@ontario.ca",
+       "phone": "519-333-2950"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "sault-ste-marie",
+   "name": "Sault Ste. Marie Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/sault-ste-marie/",
+   "address": [
+    "426 Queen St. E.",
+    "Sault Ste. Marie, Ontario P6A 6W2"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short/Regular motions",
+       "email": "SaultSteMariecourthouse@ontario.ca",
+       "phone": "(705) 945-8000 Ext. 521"
+      },
+      {
+       "event": "Long Motions Protocol",
+       "email": "SaultSteMarie.scj.tc@ontario.ca",
+       "phone": "705-945-8000 Ext. 479"
+      },
+      {
+       "event": "Assignment Court",
+       "email": "SaultSteMarie.scj.tc@ontario.ca",
+       "phone": "705-945-8000 Ext. 479"
+      },
+      {
+       "event": "Trials",
+       "email": "SaultSteMarie.scj.tc@ontario.ca",
+       "phone": "705-945-8000 Ext. 479"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions (1 hour or less)",
+       "email": "saultstemariecourthouse@ontario.ca",
+       "phone": "(705) 945-8000 Ext. 521"
+      },
+      {
+       "event": "Long Motions (follow Protocol)",
+       "email": "SaultSteMarie.scj.tc@ontario.ca",
+       "phone": "705-945-8000 Ext. 479"
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "SaultSteMarie.scj.tc@ontario.ca",
+       "phone": "705-945-8000 Ext. 479"
+      },
+      {
+       "event": "Trial",
+       "email": "SaultSteMarie.scj.tc@ontario.ca",
+       "phone": "705-945-8000 Ext. 479"
+      },
+      {
+       "event": "Binding Judicial Dispute Resolution",
+       "email": "SaultSteMarie.scj.tc@ontario.ca",
+       "phone": "705-945-8000 Ext. 479"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "426 Queen St. E.",
+      "Sault Ste. Marie, Ontario P6A 6W2"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "SSMSCC@ontario.ca",
+       "phone": "705-945-8000 Ext. 530"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "simcoe",
+   "name": "Simcoe Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/simcoe/",
+   "address": [
+    "Suite 301 – 50 Frederick Hobson VC Drive",
+    "Simcoe, Ontario N3Y 0E4"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Motions",
+       "email": "Simcoe.Superior.Court@ontario.ca",
+       "phone": "519-426-4406"
+      },
+      {
+       "event": "Case Conference",
+       "email": "Simcoe.Superior.Court@ontario.ca",
+       "phone": "519-426-4406"
+      },
+      {
+       "event": "CVPTs",
+       "email": "Simcoe.Superior.Court@ontario.ca",
+       "phone": "519-426-4406"
+      },
+      {
+       "event": "Trials",
+       "email": "Simcoe.Superior.Court@ontario.ca",
+       "phone": "519-426-4406"
+      },
+      {
+       "event": "Assignment Court",
+       "email": "Simcoe.Superior.Court@ontario.ca",
+       "phone": "519-426-4406"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "Simcoe.Superior.Court@ontario.ca",
+       "phone": "519-426-4406"
+      },
+      {
+       "event": "Long Motions",
+       "email": "Simcoe.Superior.Court@ontario.ca",
+       "phone": "519-426-4406"
+      },
+      {
+       "event": "Family Conference",
+       "email": "Simcoe.Superior.Court@ontario.ca",
+       "phone": "519-426-4406"
+      },
+      {
+       "event": "Trials",
+       "email": "Simcoe.Superior.Court@ontario.ca",
+       "phone": "519-426-4406"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "Suite 301 – 50 Frederick Hobson VC Drive",
+      "Simcoe, Ontario N3Y 0E4"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Simcoe.SCJ.Courts@ontario.ca",
+       "phone": "519-426-6550"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "st-catharines",
+   "name": "St. Catharines Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/st-catharines/",
+   "address": [
+    "59 Church Street",
+    "St. Catharines, Ontario L2R 7N8"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Motions",
+       "email": "St.Catharines.Superior.Court@ontario.ca",
+       "phone": "905-988-2834"
+      },
+      {
+       "event": "Case Conference",
+       "email": "St.Catharines.Superior.Court@ontario.ca",
+       "phone": "905-988-2834"
+      },
+      {
+       "event": "CVPTs",
+       "email": "St.Catharines.Superior.Court@ontario.ca",
+       "phone": "905-988-2834"
+      },
+      {
+       "event": "Trials",
+       "email": "St.Catharines.Superior.Court@ontario.ca",
+       "phone": "905-988-2834"
+      },
+      {
+       "event": "Assignment Court",
+       "email": "St.Catharines.Superior.Court@ontario.ca",
+       "phone": "905-988-2834"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "St.Catharines.Superior.Court@ontario.ca",
+       "phone": "905-988-2834"
+      },
+      {
+       "event": "Long Motions",
+       "email": "St.Catharines.Superior.Court@ontario.ca",
+       "phone": "905-988-2834"
+      },
+      {
+       "event": "Family Conference",
+       "email": "St.Catharines.Superior.Court@ontario.ca",
+       "phone": "905-988-2834"
+      },
+      {
+       "event": "DRO Conference",
+       "email": "St.Catharines.Superior.Court@ontario.ca",
+       "phone": "905-988-2834"
+      },
+      {
+       "event": "Trials",
+       "email": "St.Catharines.Superior.Court@ontario.ca",
+       "phone": "905-988-2834"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "59 Church Street",
+      "St. Catharines, Ontario L2R 7N8"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "SCJStCatharinesCourthouse@ontario.ca",
+       "phone": "905-988-6200"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "st-thomas",
+   "name": "St. Thomas Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/st-thomas/",
+   "address": [
+    "4 Wellington Street",
+    "St. Thomas, Ontario N5R 2P2"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular / Long Motions",
+       "email": "St.Thomas.SCJ@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Pretrials",
+       "email": "St.Thomas.SCJ@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "St.Thomas.SCJ@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Assignment Court",
+       "email": "St.Thomas.SCJ@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "St.Thomas.SCJ@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "St.Thomas.SCJ@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "St.Thomas.SCJ@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Family Conferences",
+       "email": "St.Thomas.SCJ@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "St.Thomas.SCJ@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "4 Wellington Street",
+      "St. Thomas, Ontario N5R 2P2"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "StThomas.Courthouse@ontario.ca",
+       "phone": "519-633-1720"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "stratford",
+   "name": "Stratford Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/stratford/",
+   "address": [
+    "1 Huron St.",
+    "Stratford, Ontario N5A 5S4"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular / Long Motions",
+       "email": "stratford.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Pretrials",
+       "email": "stratford.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "stratford.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Assignment Court",
+       "email": "stratford.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "stratford.scj@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "stratford.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "stratford.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Family Conferences",
+       "email": "stratford.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "stratford.scj@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "Filing Office and Hearings: 100 St. Patrick St.",
+      "Stratford, Ontario N5A 7W1",
+      "Hearings only: 1 Huron St.",
+      "Stratford, Ontario N5A 5S4"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "stratford.scc.scheduling@ontario.ca",
+       "phone": "519-271-9252"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "sudbury",
+   "name": "Sudbury Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/sudbury/",
+   "address": [
+    "155 Elm St",
+    "Sudbury, Ontario P3C 1T9"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short/Regular motions",
+       "email": "Sudburycourthouse@ontario.ca",
+       "phone": "(705) 564-7757"
+      },
+      {
+       "event": "Long Motions Protocol",
+       "email": "Sudbury.SCJ.TC@ontario.ca",
+       "phone": "705-564-7812"
+      },
+      {
+       "event": "Assignment Court",
+       "email": "Sudbury.SCJ.TC@ontario.ca",
+       "phone": "705-564-7812"
+      },
+      {
+       "event": "Trials",
+       "email": "Sudbury.SCJ.TC@ontario.ca",
+       "phone": "705-564-7812"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Case Conferences",
+       "email": "sudburycourthouse@ontario.ca",
+       "phone": "(705) 564-7757"
+      },
+      {
+       "event": "Short Motions (1 hour or less)",
+       "email": "sudburycourthouse@ontario.ca",
+       "phone": "(705) 564-7757"
+      },
+      {
+       "event": "Long Motions (follow Protocol)",
+       "email": "Sudbury.SCJ.TC@ontario.ca",
+       "phone": "705-564-7812"
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "Sudbury.SCJ.TC@ontario.ca",
+       "phone": "705-564-7812"
+      },
+      {
+       "event": "Trial",
+       "email": "Sudbury.SCJ.TC@ontario.ca",
+       "phone": "705-564-7812"
+      },
+      {
+       "event": "Binding Judicial Dispute Resolution",
+       "email": "Sudbury.SCJ.TC@ontario.ca",
+       "phone": "705-564-7812"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "201-159 Cedar Street",
+      "Sudbury, Ontario P3E 6A5"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "SudburySCC@ontario.ca",
+       "phone": "705-564-7600"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "thunderbay",
+   "name": "Thunder Bay Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/thunderbay/",
+   "address": [
+    "125 Brodie Street North",
+    "Thunder Bay, Ontario P7C 0A3"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Trials",
+       "email": "Thunderbay.scj@ontario.ca",
+       "phone": "807-626-7000"
+      },
+      {
+       "event": "Pre-Trials",
+       "email": "Thunderbay.scj@ontario.ca",
+       "phone": "807-626-7000"
+      },
+      {
+       "event": "Case Conference",
+       "email": "Thunderbay.scj@ontario.ca",
+       "phone": "807-626-7000"
+      },
+      {
+       "event": "Trial Management Conferences",
+       "email": "Thunderbay.scj@ontario.ca",
+       "phone": "807-626-7000"
+      },
+      {
+       "event": "Short Motions",
+       "email": "Thunderbay.scj@ontario.ca",
+       "phone": "807-626-7000"
+      },
+      {
+       "event": "Long Motions",
+       "email": "Thunderbay.scj@ontario.ca",
+       "phone": "807-626-7000"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions (anything over one hour)",
+       "email": "Thunderbay.scj@ontario.ca",
+       "phone": "807-626-7000"
+      },
+      {
+       "event": "Long Motions",
+       "email": "Thunderbay.scj@ontario.ca",
+       "phone": "807-626-7000"
+      },
+      {
+       "event": "Case Conference / Settlement Conference / Trial Management Conference",
+       "email": "Thunderbay.scj@ontario.ca",
+       "phone": "807-626-7000"
+      },
+      {
+       "event": "Dispute Resolution Conference",
+       "email": "Thunderbay.scj@ontario.ca",
+       "phone": "807-626-7000"
+      },
+      {
+       "event": "Trials",
+       "email": "Thunderbay.scj@ontario.ca",
+       "phone": "807-626-7000"
+      },
+      {
+       "event": "Binding JDR",
+       "email": "Thunderbay.scj@ontario.ca",
+       "phone": "807-626-7000"
+      },
+      {
+       "event": "Summary Judgment",
+       "email": "Thunderbay.scj@ontario.ca",
+       "phone": "807-626-7000"
+      },
+      {
+       "event": "Uncontested Hearing",
+       "email": "Thunderbay.scj@ontario.ca",
+       "phone": "807-626-7000"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "125 Brodie Street North",
+      "Thunder Bay, Ontario P7C 0A3"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "CSD.ThunderBay.SCJ@ontario.ca",
+       "phone": "807-626-7100"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "timmins",
+   "name": "Timmins Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/timmins/",
+   "address": [
+    "48 Spruce St. N.",
+    "Timmins, Ontario P4N 6M7"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short/Regular motions",
+       "email": "Cochranecourthouse@ontario.ca",
+       "phone": "(705) 272-4256 Ext. 221"
+      },
+      {
+       "event": "Long Motions Protocol",
+       "email": "Cochrane.SCJ.TC@ontario.ca",
+       "phone": "705-272-4256 Ext. 203"
+      },
+      {
+       "event": "Assignment Court",
+       "email": "Cochrane.SCJ.TC@ontario.ca",
+       "phone": "705-272-4256 Ext. 203"
+      },
+      {
+       "event": "Trials",
+       "email": "Cochrane.SCJ.TC@ontario.ca",
+       "phone": "705-272-4256 Ext. 203"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions (1 hour or less)",
+       "email": "cochranecourthouse@ontario.ca",
+       "phone": "(705) 272-4256 Ext. 240"
+      },
+      {
+       "event": "Long Motions (follow Protocol)",
+       "email": "Cochrane.SCJ.TC@ontario.ca",
+       "phone": "705-272-4256 Ext. 203"
+      },
+      {
+       "event": "Summary Judgment Motion",
+       "email": "Cochrane.SCJ.TC@ontario.ca",
+       "phone": "705-272-4256 Ext. 203"
+      },
+      {
+       "event": "Trial",
+       "email": "Cochrane.SCJ.TC@ontario.ca",
+       "phone": "705-272-4256 Ext. 203"
+      },
+      {
+       "event": "Binding Judicial Dispute Resolution",
+       "email": "Cochrane.SCJ.TC@ontario.ca",
+       "phone": "705-272-4256 Ext. 203"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "38 Pine Street N.",
+      "Timmins, Ontario P4N 6K6"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "TimminsSCC@ontario.ca",
+       "phone": "705-267-7799"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "walkerton",
+   "name": "Walkerton Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/walkerton/",
+   "address": [
+    "207 Cayley St. PO Box 39",
+    "Walkerton, Ontario N0G 2VO"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "CVPTs",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Assignment Court",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Family Conferences",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "DRO conferences",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "SCJGreyBruce@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "207 Cayley St. PO Box 39",
+      "Walkerton, Ontario N0G 2VO"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Walkerton.SCJ.courts@ontario.ca",
+       "phone": "519-881-1772"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "welland",
+   "name": "Welland Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/welland/",
+   "address": [
+    "102 East Main Street",
+    "Welland, Ontario L3B 3W6"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Motions",
+       "email": "Welland.superior.court@ontario.ca",
+       "phone": "905-735-0010 x250"
+      },
+      {
+       "event": "Case Conference",
+       "email": "Welland.superior.court@ontario.ca",
+       "phone": "905-735-0010 x250"
+      },
+      {
+       "event": "CVPTs",
+       "email": "Welland.superior.court@ontario.ca",
+       "phone": "905-735-0010 x250"
+      },
+      {
+       "event": "Trials",
+       "email": "Welland.superior.court@ontario.ca",
+       "phone": "905-735-0010 x250"
+      },
+      {
+       "event": "Assignment Court",
+       "email": "Welland.superior.court@ontario.ca",
+       "phone": "905-735-0010 x250"
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Short Motions",
+       "email": "Welland.superior.court@ontario.ca",
+       "phone": "905-735-0010 x250"
+      },
+      {
+       "event": "Long Motions",
+       "email": "Welland.superior.court@ontario.ca",
+       "phone": "905-735-0010 x250"
+      },
+      {
+       "event": "Family Conference",
+       "email": "Welland.superior.court@ontario.ca",
+       "phone": "905-735-0010 x250"
+      },
+      {
+       "event": "DRO Conference",
+       "email": "Welland.superior.court@ontario.ca",
+       "phone": "905-735-0010 x250"
+      },
+      {
+       "event": "Trials",
+       "email": "Welland.superior.court@ontario.ca",
+       "phone": "905-735-0010 x250"
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "102 East Main Street",
+      "Welland, Ontario L3B 3W6"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "SCJWellandCourthouse@ontario.ca",
+       "phone": "905-735-0010"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "windsor",
+   "name": "Windsor Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/windsor/",
+   "address": [
+    "245 Windsor Ave.",
+    "Windsor, Ontario N9A 1J2"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular / Long Motions",
+       "email": "windsor.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Pretrials",
+       "email": "windsor.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "windsor.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Assignment Court",
+       "email": "windsor.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "windsor.scj@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "windsor.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "windsor.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Family Conferences",
+       "email": "windsor.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "windsor.scj@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "245 Windsor Ave.",
+      "Windsor, Ontario N9A 1J2"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Windsor.SCC@ontario.ca",
+       "phone": "519-973-6620"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "woodstock",
+   "name": "Woodstock Courthouse",
+   "url": "https://www.ontariocourts.ca/scj/locations/woodstock/",
+   "address": [
+    "415 Hunter St.",
+    "Woodstock, Ontario N4S 4G6"
+   ],
+   "services": [
+    {
+     "court": "civil",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular / Long Motions",
+       "email": "woodstock.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Pretrials",
+       "email": "woodstock.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "woodstock.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Assignment Court",
+       "email": "woodstock.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Case Conf / Case Management",
+       "email": "woodstock.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Enforcement",
+       "email": "woostock.enforcement@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "family",
+     "address": [],
+     "contacts": [
+      {
+       "event": "Regular Motions",
+       "email": "woodstock.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Long Motions",
+       "email": "woodstock.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Family Conferences",
+       "email": "woodstock.scj@ontario.ca",
+       "phone": null
+      },
+      {
+       "event": "Trials",
+       "email": "woodstock.scj@ontario.ca",
+       "phone": null
+      }
+     ]
+    },
+    {
+     "court": "small-claims",
+     "address": [
+      "415 Hunter St.",
+      "Woodstock, Ontario N4S 4G6"
+     ],
+     "contacts": [
+      {
+       "event": "General Inquiries",
+       "email": "Woodstock.Courthouse@ontario.ca",
+       "phone": "519-539-6187"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

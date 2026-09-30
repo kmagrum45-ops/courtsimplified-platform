@@ -1,0 +1,36 @@
+Source: https://www.ontariocourts.ca/scj/locations/sarnia/ (Ontario Superior Court of Justice), fetched 2026-09-30 by the Fetch Decisions workflow, run 36769153083. Page text from the location heading onward, tags and scripts removed.
+
+Sarnia Courthouse
+700 N. Christina Street
+Sarnia, Ontario N7V 3C2
+Civil Scheduling Contact Information
+Family Scheduling Contact Information
+Criminal Scheduling Contact Information
+Small Claims Court Contact Information
+Civil Scheduling Contact Information
+Civil Scheduling Events | | Court Event | Contact Email
+Regular / Long Motions | Sarnia.SCJ.Courts@ontario.ca
+Pretrials | Sarnia.SCJ.Courts@ontario.ca
+Trials | Sarnia.SCJ.Courts@ontario.ca
+Assignment Court | Sarnia.SCJ.Courts@ontario.ca
+Case Conf / Case Management | Sarnia.SCJ.Courts@ontario.ca
+Enforcement | Sarnia.SCJ.Courts@ontario.ca
+Criminal Scheduling Contact Information
+Criminal Scheduling Events | | Court Event | Contact Email
+Trials | Sarnia.SCJ@ontario.ca
+Judicial Pre-trials | Sarnia.SCJ@ontario.ca
+Bail Hearings / Reviews | Sarnia.SCJ@ontario.ca
+90-day Detention Review Hearings | Sarnia.SCJ@ontario.ca
+Criminal Applications / Motions | Sarnia.SCJ@ontario.ca
+Assignment Court / Trial Scheduling Court | Sarnia.SCJ@ontario.ca
+Family Scheduling Contact Information
+Family Scheduling Events | | Court Event | Contact Email
+Regular Motions | Sarnia.SCJ.Courts@ontario.ca
+Long Motions | Sarnia.SCJ.Courts@ontario.ca
+Family Conferences | Sarnia.SCJ.Courts@ontario.ca
+Trials | Sarnia.SCJ.Courts@ontario.ca
+Small Claims Court Contact Information
+700 N. Christina Street
+Sarnia, Ontario N7V 3C2
+Small Claims Court Events | | Court Event | Contact Email | Phone Number
+General Inquiries | Sarnia.SCJ.Courts@ontario.ca | 519-333-2950
