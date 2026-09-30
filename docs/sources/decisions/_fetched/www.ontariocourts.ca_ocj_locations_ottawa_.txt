@@ -1,0 +1,692 @@
+	Ottawa - Ontario Court of Justice
+	{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://www.ontariocourts.ca/ocj/locations/ottawa/","url":"https://www.ontariocourts.ca/ocj/locations/ottawa/","name":"Ottawa - Ontario Court of Justice","isPartOf":{"@id":"https://www.ontariocourts.ca/ocj/#website"},"datePublished":"2022-09-23T17:51:28+00:00","dateModified":"2026-07-30T19:03:33+00:00","breadcrumb":{"@id":"https://www.ontariocourts.ca/ocj/locations/ottawa/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://www.ontariocourts.ca/ocj/locations/ottawa/"]}]},{"@type":"BreadcrumbList","@id":"https://www.ontariocourts.ca/ocj/locations/ottawa/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.ontariocourts.ca/ocj/"},{"@type":"ListItem","position":2,"name":"Ottawa"}]},{"@type":"WebSite","@id":"https://www.ontariocourts.ca/ocj/#website","url":"https://www.ontariocourts.ca/ocj/","name":"Ontario Court of Justice","description":"OCJ","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.ontariocourts.ca/ocj/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"}]}
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+div#toc_container ul li {font-size: 100%;}
+var wpml_cookies = {"wp-wpml_current_language":{"value":"en","expires":1,"path":"\/"}};
+var wpml_cookies = {"wp-wpml_current_language":{"value":"en","expires":1,"path":"\/"}};
+#mysticky-nav { width:100%; position: static; }#mysticky-nav.wrapfixed { position:fixed; left: 0px; margin-top:0px; z-index: 99990; -webkit-transition: 0.3s; -moz-transition: 0.3s; -o-transition: 0.3s; transition: 0.3s; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)"; filter: alpha(opacity=90); opacity:0.9; background-color: #f7f5e7;}#mysticky-nav.wrapfixed .myfixed{ background-color: #f7f5e7; position: relative;top: auto;left: auto;right: auto;}#mysticky-nav .myfixed { margin:0 auto; float:none; border:0px; background:none; max-width:100%; }	
+ -->
+ -->
+ -->
+ -->
+	#canlii header {
+ margin-bottom: 135px
+}
+ul.toc_list {
+ margin-left: 0 !important
+}
+li.back_to {
+ border-bottom: 1px solid #222
+}
+.wpml-ls-legacy-list-horizontal {
+ border: 0;
+ padding: 0;
+}
+.wpml-ls-link {
+ color: #BBBFD3 !important;
+ font-weight: 600 !important;
+ text-transform: none !important;
+ font-size: 1.125rem !important;
+ line-height: 1.5rem;
+ padding: 0.5rem 0.5rem !important;
+}
+a.wpml-ls-link span:hover {
+ color: #fff
+}
+body:not(.home) #theme-main ul,
+#theme-main ol {
+ margin-left: 2.4em
+}
+body:not(.home) #theme-main ul ul #theme-main ol ol {
+ margin-left: 2.4em
+}
+.toc_list {
+ display: none;
+ position: absolute;
+ min-width: 600px;
+ overflow: auto;
+ z-index: 1;
+ border: 1px solid #ccc;
+ border-radius: 5px;
+}
+ul.toc_list {
+ background-color: #fff !important;
+}
+.toc_list a {
+ color: black;
+ padding: 12px 16px;
+ text-decoration: none;
+ display: block;
+}
+.toc_list a:hover {
+ background-color: #e9ecef;
+}
+.show+.toc_list {
+ display: block;
+}
+.toc_list li {
+ list-style: none
+}
+ul.toc_list {
+ padding-left: 0;
+ margin-left: 0
+}
+#toc_container {
+ background: none !important;
+ border: none !important;
+ font-size: 100% !important;
+ padding: 0;
+ margin: 0 auto 1em;
+ text-align: left !important;
+}
+#toc_container a:hover {
+ background: #eee !important;
+}
+.toc_sitemap ul.children {
+ margin-left: 2em;
+}
+#search_form:before {
+ position: absolute;
+ z-index: 20;
+ font: normal 30px/1 dashicons !important;
+ content: "\f179";
+ margin-left: 2px;
+ padding-top: 6px;
+ color: #BBBFD3;
+}
+input#searchForm {
+ width: 46px;
+ cursor: pointer;
+ height: 40px;
+ background: transparent;
+ border: 0;
+ border-radius: 4px;
+ position: relative;
+ z-index: 30;
+}
+label[for="searchForm"],
+label[for="search_form_page"],
+label[for="SearchOCJ"] {
+ display: none !important;
+}
+input#searchForm:focus {
+ width: 240px;
+ padding-left: 34px;
+ cursor: text;
+ z-index: 10;
+ background: #fff;
+}
+input#search_form_page {
+ background: #eee;
+ border: 0;
+ border-radius: 4px 4px 0 0;
+ height: 52px;
+ width: 80%;
+ border-bottom: 2px solid #62689A;
+ margin-right: 4px;
+ padding-left: 4px;
+}
+.menu_container ul {
+ margin: 0 !important;
+}
+.menu_container ul li {
+ list-style: none;
+ font-size: 1.1em;
+ display: block;
+ padding: 10px 0 0 0;
+}
+.menu_container ul li a {
+ margin-bottom: 10px;
+ font-weight: 600;
+ font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+ font-weight: 600;
+ color: #666666;
+ line-height: 1.4rem;
+ width: 100% !important;
+ display: flex;
+ align-items: flex-start;
+}
+.menu_container ul li:hover {
+ background-color: #e3e3e3;
+}
+#SearchOCJ {
+ float: left;
+ width: 79%;
+ border-radius: 5px 0 0 5px;
+ height: 30px;
+}
+#SearchOCJButton {
+ border-radius: 0 5px 5px 0;
+}
+a.fa-file-pdf:before {
+ font-family: "Font Awesome 6 Pro";
+ content: "\f1c1";
+ display: inline-block;
+ padding-right: 5px;
+ vertical-align: baseline;
+ font-weight: 900;
+ font-size: 1.2rem;
+}
+a.fa-file-word:before {
+ font-family: "Font Awesome 6 Pro";
+ content: "\f1c2";
+ display: inline-block;
+ padding-right: 4px;
+ vertical-align: baseline;
+ font-weight: 900;
+ font-size: 1.2rem;
+}
+a.external:after {
+ font-family: "Font Awesome 6 Pro";
+ content: "";
+ display: inline-block;
+ padding-left: 5px;
+ vertical-align: baseline;
+ font-weight: 400;
+ font-size: 1rem;
+}
+.page-id-4329 .OCJ-cards-link a.fa-file-pdf:before {display:none}
+.OCJ-main-meesage {font-size: 1.7rem !important}
+body:not(.home) #theme-main ul, #theme-main ol
+{margin-bottom: 1.5rem}
+#backToTop {bottom:90px !important}	
+	[LINK #intro] Skip to main content
+	 [LINK /ocj/find-my-case/] Find My Case
+[LINK https://www.ontariocourts.ca/ocj/court-locations/] Court Locations
+[LINK /ocj/media/] Media
+	[LINK /ocj/conduct/] Judicial Conduct
+	[LINK https://www.ontariocourts.ca/ocj/appointments/] Appointments Process
+	[LINK https://www.ontariocourts.ca/ocj/] 
+	[LINK https://www.ontariocourts.ca/ocj/] Ontario Court of Justice
+	[LINK #] 
+	About the Court
+	[LINK /ocj/general-information/] 
+	 The Court - Overview 
+	Overview of the Ontario Court of Justice, including the principles of judicial office and structure of the Court
+	[LINK /ocj/general-information/] 
+	[LINK /ocj/judges-and-justices-of-the-peace/] 
+	Judges and Justices of the Peace 
+	Who are judges and justices of the peace, and what do they do? 
+	[LINK /ocj/canadas-court-system/] 
+	Canada’s Court System 
+	Outline of Canada's Court system
+	[LINK /ocj/resources/] 
+	Resources 
+	Decisions, reports, statistics, speeches, related links
+	[LINK /ocj/memorandum-of-understanding/] 
+	Memorandum of understanding 
+	[LINK https://www.ontariocourts.ca/ocjhistory/] Ontario Court of Justice: A History 
+	[LINK /ocj/archives/] Archives
+	[LINK #] 
+	Criminal
+	[LINK /ocj/criminal-court/] 
+	Criminal Court Overview 
+	Information about criminal cases in the Ontario Court of Justice
+	[LINK /ocj/criminal-court/] 
+	[LINK /ocj/criminal-court/going-to-court/] 
+	Going to Criminal Court
+	Information about the criminal court process
+	[LINK /ocj/criminal-court/virtual-court-information/] 
+	Information on How to Attend Court
+	Information on criminal court appearances, including scheduling and connection information
+	[LINK /ocj/criminal-court/practice-directions-and-policies/] 
+	Practice Directions, Notices and Guidelines
+	Documents that provide direction for criminal court practices and procedures in the Ontario Court of Justice
+	[LINK /ocj/criminal-court/criminal-rules/] 
+	Criminal Rules
+	The Criminal Rules of the Ontario Court of Justice set out procedural rules that apply to criminal proceedings
+	[LINK /ocj/criminal-court/criminal-court-forms/] 
+	Criminal Court Forms
+	Criminal court forms that can be completed during your criminal proceeding should you need them 
+	[LINK /ocj/criminal-court/specialized-courts-of-the-ontario-courts-of-justice/] 
+	Specialized Courts
+	[LINK /ocj/criminal-court/definitions-and-glossary/] 
+	Definitions and Glossary
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+	[LINK #] 
+	Family
+	[LINK /ocj/family-court/] 
+	Family Court Overview 
+	Information about family law cases at the Ontario Court of Justice
+	[LINK /ocj/family-court/] 
+	[LINK /ocj/family-court/before-going-to-court/] 
+	Before Going to Court 
+	To start a family law case, you need to gather the information needed by the court and then fill out various forms
+	[LINK /ocj/family-court/going-to-court/] 
+	Going to Court 
+	What you need to know when your case is scheduled to be heard
+	[LINK /ocj/family-court/family-case-step-by-step/] 
+	Starting and Responding to a Family Law Case 
+	Steps to starting and responding to a family law case
+	[LINK /ocj/family-court/child-protection/] 
+	Child Protection 
+	Information for parents and caregivers 
+	[LINK /ocj/family-court/family-law-trial/] 
+	Family Law Trial
+	A guide to help you with your family law trial 
+	[LINK /ocj/family-court/integrated-domestic-violence-court/] 
+	Specialized Courts
+	[LINK /ocj/family-court/practice-directions/] 
+	Practice Directions, Notices and Guidelines
+	[LINK /ocj/guides/support-enforcement/] 
+	Support Enforcement
+	[LINK /ocj/family-court/definitions-and-glossary/] 
+	Definitions and Glossary
+	[LINK #] 
+	Provincial Offences
+	[LINK /ocj/provincial-offences/] 
+	 Provincial Offences Overview 
+	All charges laid under provincial legislation, including traffic offences, by-law offences and offences against environmental, health and safety, and employment standards legislation
+	[LINK /ocj/provincial-offences/] 
+	[LINK /ocj/notices/guide-for-defendants-in-provincial-offences-cases/] 
+	Guide for Defendants 
+	General information about the court process for provincial offences cases
+	[LINK /ocj/notices/guide-to-appeals-in-provincial-offences-cases/] 
+	Guide to Appeals
+	General information about the court process for appeals under the Provincial Offences Act
+	[LINK /ocj/provincial-offences/practice-directions-notices-and-guidelines/] 
+	Practice Directions, Notices and Guidelines 
+	Province wide directions and policies 
+	[LINK /ocj/provincial-offences/set-fines/] 
+	Set fines
+	[LINK /ocj/faqs/] 
+	[LINK https://www.ontariocourts.ca/ocj/fr/locations/ottawa/] 
+ Fr
+	[LINK /ocj/feedback/] 
+	[LINK /ocj/search/] 
+	Search
+	MENU
+	 [LINK /ocj/find-my-case/] Find My Case
+[LINK https://www.ontariocourts.ca/ocj/court-locations/] Court Locations
+[LINK /ocj/media/] Media
+	[LINK /ocj/conduct/] Judicial Conduct
+	[LINK /ocj/appointments/] Appointments Process
+	[LINK /ocj/faqs/] FAQs
+	[LINK /ocj/fr/] Français
+	[LINK /ocj/feedback/] Contact us
+	About the Court
+	[LINK /ocj/general-information/] 
+	The Court Overview
+	[LINK /ocj/judges-and-justices-of-the-peace/] 
+	Judges and Justices of the Peace
+	Who are judges and justices of the peace, and what do they do? 
+	[LINK /ocj/memorandum-of-understanding/] 
+	Memorandum of understanding
+	[LINK /ocj/canadas-court-system/] 
+	Canada’s Court System
+	Outline of Canada's Court system
+	[LINK https://www.ontariocourts.ca/ocjhistory/] 
+	Ontario Court of Justice: A History
+	[LINK /ocj/resources/] 
+	Resources
+	Decisions, reports, statistics, speeches, related links
+	[LINK /ocj/archives/] 
+	Archives
+	Criminal
+	[LINK /ocj/criminal-court/] 
+	Criminal Court Overview
+	[LINK /ocj/criminal-court/going-to-court/] 
+	Going to Criminal Court
+	Information about the criminal court process
+	[LINK /ocj/criminal-court/virtual-court-information/] 
+	Information on How to Attend Court
+	Information on criminal court appearances, including scheduling and connection information
+	[LINK /ocj/criminal-court/practice-directions-and-policies/] 
+	Practice Directions, Notices and Guidelines
+	Documents that provide direction for criminal court practices and procedures
+	[LINK /ocj/criminal-court/criminal-rules/] 
+	Criminal Rules
+	The Criminal Rules of the Ontario Court of Justice set out procedural rules that apply to criminal proceedings
+	[LINK /ocj/criminal-court/criminal-court-forms/] 
+	Criminal Court Forms
+	Criminal court forms that can be completed during your criminal proceeding should you need them
+	[LINK /ocj/criminal-court/specialized-courts-of-the-ontario-courts-of-justice/] 
+	Specialized Courts
+	[LINK /ocj/criminal-court/definitions-and-glossary/] 
+	Definitions and Glossary
+	Family
+	[LINK /ocj/family-court/] 
+	Family Court Overview
+	[LINK /ocj/family-court/before-going-to-court/] 
+	Before Going to Court
+	To start a family law case, you need to gather the information needed by the court and then fill out various forms
+	[LINK /ocj/family-court/going-to-court/] 
+	Going to Court 
+	What you need to know when your case is scheduled to be heard
+	[LINK /ocj/family-court/family-case-step-by-step/] 
+	Starting and Responding to a Family Law Case
+	Steps to starting and responding to a family law case
+	[LINK /ocj/family-court/child-protection/] 
+	Child Protection 
+	Information for parents and caregivers 
+	[LINK /ocj/family-court/family-law-trial/] 
+	Family Law Trial
+	A guide to help you with your family law trial
+	[LINK /ocj/family-court/integrated-domestic-violence-court/] 
+	Specialized Courts
+	[LINK /ocj/family-court/practice-directions/] 
+	Practice Directions, Notices and Guidelines
+	[LINK /ocj/guides/support-enforcement/] 
+	Support Enforcement
+	[LINK /ocj/family-court/definitions-and-glossary/] 
+	Definitions and Glossary
+	Provincial Offences
+	[LINK /ocj/provincial-offences/] 
+	Provincial Offences Overview 
+	[LINK /ocj/notices/guide-for-defendants-in-provincial-offences-cases/] 
+	Guide for Defendants
+	General information about the court process for provincial offences cases
+	[LINK /ocj/notices/guide-to-appeals-in-provincial-offences-cases/] 
+	Guide to Appeals 
+	General information about the court process for appeals under the Provincial Offences Act
+	[LINK /ocj/provincial-offences/practice-directions-notices-and-guidelines/] 
+	Practice Directions, Notices and Guidelines 
+	Province wide directions and policies
+	[LINK /ocj/provincial-offences/set-fines/] 
+	Set Fines 
+ Ottawa
+	Ottawa Courthouse
+	161 Elgin St., 2nd Fl.
+Ottawa, Ontario  K2P 2K1
+	-->
+	New search	
+	function autocomplete(inp, arr) {
+	/*the autocomplete function takes two arguments,
+	the text field element and an array of possible autocompleted values:*/
+	var currentFocus;
+	/*execute a function when someone writes in the text field:*/
+	inp.addEventListener("input", function(e) {
+	var a, b, i, val = this.value;
+	/*close any already open lists of autocompleted values*/
+	closeAllLists();
+	if (!val) { return false;}
+	currentFocus = -1;
+	/*create a DIV element that will contain the items (values):*/
+	a = document.createElement("DIV");
+	a.setAttribute("id", this.id + "autocomplete-list");
+	a.setAttribute("class", "autocomplete-items");
+	/*append the DIV element as a child of the autocomplete container:*/
+	this.parentNode.appendChild(a);
+	/*for each item in the array...*/
+	for (i = 0; i < arr.length; i++) {
+	/*check if the item starts with the same letters as the text field value:*/
+	if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+	/*create a DIV element for each matching element:*/
+	b = document.createElement("DIV");
+	/*make the matching letters bold:*/
+	b.innerHTML = "" + arr[i].substr(0, val.length) + "";
+	b.innerHTML += arr[i].substr(val.length);
+	/*insert a input field that will hold the current array item's value:*/
+	b.innerHTML += "";
+	/*execute a function when someone clicks on the item value (DIV element):*/
+	b.addEventListener("click", function(e) {
+ /*insert the value for the autocomplete text field:*/
+ inp.value = this.getElementsByTagName("input")[0].value;
+ /*close the list of autocompleted values,
+ (or any other open lists of autocompleted values:*/
+ closeAllLists();
+});
+	a.appendChild(b);
+	}
+	}
+	});
+	/*execute a function presses a key on the keyboard:*/
+	inp.addEventListener("keydown", function(e) {
+	var x = document.getElementById(this.id + "autocomplete-list");
+	if (x) x = x.getElementsByTagName("div");
+	if (e.keyCode == 40) {
+	/*If the arrow DOWN key is pressed,
+	increase the currentFocus variable:*/
+	currentFocus++;
+	/*and and make the current item more visible:*/
+	addActive(x);
+	} else if (e.keyCode == 38) { //up
+	/*If the arrow UP key is pressed,
+	decrease the currentFocus variable:*/
+	currentFocus--;
+	/*and and make the current item more visible:*/
+	addActive(x);
+	} else if (e.keyCode == 13) {
+	/*If the ENTER key is pressed, prevent the form from being submitted,*/
+	e.preventDefault();
+	if (currentFocus > -1) {
+	/*and simulate a click on the "active" item:*/
+	if (x) x[currentFocus].click();
+	}
+	}
+	});
+	function addActive(x) {
+	/*a function to classify an item as "active":*/
+	if (!x) return false;
+	/*start by removing the "active" class on all items:*/
+	removeActive(x);
+	if (currentFocus >= x.length) currentFocus = 0;
+	if (currentFocus < 0) currentFocus = (x.length - 1);
+	/*add class "autocomplete-active":*/
+	x[currentFocus].classList.add("autocomplete-active");
+	}
+	function removeActive(x) {
+	/*a function to remove the "active" class from all autocomplete items:*/
+	for (var i = 0; i < x.length; i++) {
+	x[i].classList.remove("autocomplete-active");
+	}
+	}
+	function closeAllLists(elmnt) {
+	/*close all autocomplete lists in the document,
+	except the one passed as an argument:*/
+	var x = document.getElementsByClassName("autocomplete-items");
+	for (var i = 0; i < x.length; i++) {
+	if (elmnt != x[i] && elmnt != inp) {
+	x[i].parentNode.removeChild(x[i]);
+	}
+	}
+	}
+	/*execute a function when someone clicks in the document:*/
+	document.addEventListener("click", function (e) {
+	closeAllLists(e.target);
+	});
+	}
+	/*An array containing all the court location names in the Ontario:*/
+	var ontariocourtlocationsmodal = ["Alexandria","Atikokan (Fort Frances)","Bancroft","Blind River","Brantford","Barrie","Bracebridge","Brighton","Bearskin Lake (Kenora)","Bradford (Barrie)","Brockville","Belleville","Brampton","Big Trout Lake (Dryden)","Cat Lake (Kenora)","Chatham","Collingwood (Barrie)","Cayuga","Cobourg","Cornwall","Chapleau (Timmins)","Cochrane","Deer Lake (Kenora)","Dryden","Elliot Lake","Espanola (Sudbury)","Fort Albany (Timmins)","Fort Frances","Fort Severn (Kenora)","Fort Erie (Welland)","Gogama (Timmins)","Guelph","Goderich","Gore Bay","Haileybury","Hearst (Cochrane)","Huntsville (Bracebridge)","Hamilton &#8211; John Sopinka","Hornepayne (Cochrane)","Ignace (Dryden)","Kapuskasing (Cochrane)","Kemptville","Kingston","Kasabonika (Dryden)","Kenora","Killaloe (County of Renfrew)","Kirkland Lake","Kashechewan (Cochrane)","Kingfisher (Kenora)","Kitchener","Keewaywin (Kenora)","L&#8217;Orignal","London","Lac Seul (Dryden)","Leamington (Windsor)","Lindsay","Midland (Barrie)","Morrisburg (Cornwall)","Milton (Halton)","Muskrat Dam (Kenora)","Minden (Lindsay)","Mattawa (North Bay)","Moosonee (Timmins)","Napanee","North Spirit Lake (Kenora)","Newmarket","North Bay","Orillia","Ottawa","Orangeville","Oshawa &#8211; Durham","Owen Sound","Parry Sound","Perth","Picton","Peawanuck (Cochrane)","Peterborough","Pikangikum (Kenora)","Pembroke","Mishkeegogamang (Dryden)","Poplar Hill (Kenora)","Rainy River (Fort Frances)","Renfrew (County of Renfrew)","Red Lake (Dryden)","Sachigo Lake (Kenora)","Simcoe","Stratford","Sandy Lake (Kenora)","Sioux Lookout (Dryden)","Sturgeon Falls (North Bay)","Sarnia","Sudbury","Sault Ste. Marie","Smooth Rock Falls (Cochrane)","St. Catharines","Sundridge (Parry Sound)","Sharbot Lake (Kingston)","St. Thomas","Thunder Bay","Timmins","Walkerton","Weagamow Lake (Dryden)","Windsor","Woodstock","Wapekeka (Dryden)","Welland","Wunnumin Lake (Kenora)","Wawa","Wikwemikong (Gore Bay)","Attawapiskat (Cochrane)","Toronto 10 Armoury St.","Toronto – Regional Bail Centre","Hamilton"]
+	/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+	autocomplete(document.getElementById("searchontariocourtlocationsinmodal"), ontariocourtlocationsmodal);
+ $(document).ready(function() {
+ $("input[name$='Ottawacourts']").click(function() {
+ var option_num = $(this).val();
+ $("div.desc").hide();
+ $("span.desc").hide();
+ $("#OttawaCourts" + option_num).show(); // courtroom number 
+ $("#tblOttawaCourt" + option_num).show(); // schedule
+ $("#zoomOttawaCourts" + option_num).show(); // zoom
+ $("#zoommeetingidOttawaCourts" + option_num).show(); // meeting id
+ $("#zoompasscodeOttawaCourts" + option_num).show(); // meeting id
+ $("#phoneOttawaCourts" + option_num).show(); // phone
+ $("#phonemeetingidOttawaCourts" + option_num).show(); // meeting id
+ $("#phonepasscodeOttawaCourts" + option_num).show(); // meeting id
+ });
+ // Add the same functionality for plea courts
+ $("input[name$='Ottawapleacourts']").click(function() {
+ var option_num = $(this).val();
+ $("div.plea_desc").hide();
+ $("span.plea_desc").hide();
+ $("#OttawaPleaCourts" + option_num).show(); // courtroom number 
+ $("#tblOttawaPleaCourt" + option_num).show(); // schedule
+ $("#zoomOttawaPleaCourts" + option_num).show(); // zoom
+ $("#zoommeetingidOttawaPleaCourts" + option_num).show(); // meeting id
+ $("#zoompasscodeOttawaPleaCourts" + option_num).show(); // meeting id
+ $("#phoneOttawaPleaCourts" + option_num).show(); // phone
+ $("#phonemeetingidOttawaPleaCourts" + option_num).show(); // meeting id
+ $("#phonepasscodeOttawaPleaCourts" + option_num).show(); // meeting id
+ });
+ });
+	Hours	
+	For courthouse office and service hours, please visit the [LINK https://www.ontario.ca/locations/courts/] Ministry of Attorney General court locations website.
+	Contacts	
+	Ottawa Duty Counsel office 613-238-7931 ext 7001 &#8211;
+Provincial Crown: [LINK mailto:VirtualCrownOttawa@ontario.ca] VirtualCrownOttawa@ontario.ca or 613-239-1200
+Public Prosecution Service of Canada: [LINK mailto:161.disclosure@ppsc-sppc.gc.ca] 161.disclosure@ppsc-sppc.gc.ca or 613-957-7000
+Ottawa courthouse [LINK mailto:Ottawa.criminal@ontario.ca] Ottawa.criminal@ontario.ca or 613-239-1153
+	Accessibility	
+	For accessibility accommodations and accessibility coordinator information, please visit the [LINK https://www.ontario.ca/locations/courts/] Ministry of Attorney General court locations website.
+	French-language Services	
+	For French-language services, please visit the [LINK https://www.ontario.ca/locations/courts] Ministry of Attorney General court locations website.
+	Virtual Appearance Information	
+	 Provincial Offences Court and Case Information
+	Provincial Offences Court information, including information about Zoom coordinates for virtual appearances, can be found in the Provincial Offences [LINK https://www.ontariocourts.ca/ocj/provincial-offences/] Court and case information section of this website.	
+	 Criminal Case Management Court
+	For details about virtual criminal case management court appearances, see [LINK https://www.ontariocourts.ca/ocj/notices/criminal-case-management-appearances/] Criminal Case Management Appearances
+	Courtroom matter
+ (Courtroom 14) Monday: Youth Court (all matters addressed in courtroom 14) 
+ (Courtroom 14) Tuesday to Friday – Adult Criminal Case Management
+ (Courtroom 8) Tuesday: Federal Matters Case Management Court
+	Courtroom number: 14148	
+	 Joining by video:
+[LINK https://ca01web.zoom.us/j/64812203132?pwd=LzhvU3JUUHcvRmRzQlBzUWR0NTZoQT09] Zoom URL
+Meeting ID: 648 1220 3132
+Passcode: 606263
+ Joining by video:
+[LINK https://ca01web.zoom.us/j/64812203132?pwd=LzhvU3JUUHcvRmRzQlBzUWR0NTZoQT09] Zoom URL
+Meeting ID: 648 1220 3132
+Passcode: 606263
+ Joining by video:
+[LINK https://ca01web.zoom.us/j/64628108539?pwd=aFJCd0pVaGlZQzhhUU1KbDdiYU5LZz09] Zoom URL
+Meeting ID: 646 2810 8539
+Passcode: 514752
+	 Joining by phone:
+1-855-703-8985
+Meeting ID: 648 1220 3132
+Passcode: 606263
+ Joining by phone:
+1-855-703-8985
+Meeting ID: 648 1220 3132
+Passcode: 606263
+ Joining by phone:
+1-855-703-8985
+Meeting ID: 646 2810 8539
+Passcode: 514752
+	Schedule
+Virtual Courtroom 14 (all days)
+Time
+Tier
+8:30 a.m. &#8211; 10:45 a.m.
+Counsel matters
+10:45 a.m. &#8211; 11:00 a.m.
+Morning Break
+11:00a.m. &#8211; 12:30 p.m.
+Duty Counsel matters
+12:30 p.m &#8211; 1:30 p.m.
+Lunch
+1:30 p.m &#8211; 2 p.m.
+Video remands (in-custody accused)
+2:00 p.m.
+Duty counsel matters (cont’d) and Self Represented Accused
+Virtual Courtroom 14 (all days)
+Time
+Tier
+8:30 a.m. &#8211; 10:45 a.m.
+Counsel matters
+10:45 a.m. &#8211; 11:00 a.m.
+Morning Break
+11:00a.m. &#8211; 12:30 p.m.
+Duty Counsel matters
+12:30 p.m &#8211; 1:30 p.m.
+Lunch
+1:30 p.m &#8211; 2 p.m.
+Video remands (in-custody accused)
+2:00 p.m.
+Duty counsel matters (cont’d) and Self Represented Accused
+Time
+Tier
+9:00 a.m to 11:00 a.m.
+Counsel matters and Self-represented accused
+11:00 a.m to 11:15 a.m.
+Morning Break
+11:15 a.m. to 12:30 p.m.
+Duty Counsel matters
+12:30 p.m to 1:30 p.m.
+Lunch
+1:30 p.m to 2:00 p.m.
+Duty counsel matters (cont’d)
+	 Judge-led Intensive Case Management Court (JICMC)
+	N/A
+	Plea Courts
+ Courtroom 5 (In and Out of Custody Pleas) Tuesday and Friday Joining by video:[LINK https://ca01web.zoom.us/j/63367665462?pwd=QkhCcEhQVGJiWFF0Zjd2b0xrM3JRZz09] https://ca01web.zoom.us/j/63367665462?pwd=QkhCcEhQVGJiWFF0Zjd2b0xrM3JRZz09Meeting ID: 633 6766 5462Passcode: 357107 Joining by phone:1-855-703-8985 toll freMeeting ID: 633 6766 5462Passcode: 357107	
+	Trial Readiness
+	Court date:  Monday of the week before
+Schedule: Tiered list based on date of trial / preliminary inquiry
+9 am All cases with self-represented accused
+10 am Monday
+10:30 am Tuesday
+11 am Wednesday
+11:30 am Thursday
+12 noon Friday
+	Court date: 
+	Court time: 
+	 Joining by video:
+	[LINK https://ca01web.zoom.us/j/63367665462?pwd=QkhCcEhQVGJiWFF0Zjd2b0xrM3JRZz09] https://ca01web.zoom.us/j/63367665462?pwd=QkhCcEhQVGJiWFF0Zjd2b0xrM3JRZz09
+	Meeting ID: 633 6766 5462
+	Passcode: 357107
+	 Joining by phone:
+	1-855-703-8985 toll free
+	Meeting ID: 633 6766 5462
+	Passcode: 357107
+	Ontario Court of Justice
+	 This website is maintained by the Office of the Chief Justice.
+	 [LINK https://www.ontario.ca/page/going-court-accessibility] Accessibility
+[LINK https://www.ontariocourts.ca/] Ontario Courts
+[LINK https://www.ontariocourts.ca/en/policy.htm] Website Policies
+[LINK https://www.ontariocourts.ca/ocj/sitemap/] Sitemap
+	[LINK /ocj/rss-feed-for-recent-decisions/] 
+	 RSS
+	 -->
+	window.addEventListener('scroll', function(){
+	if(window.pageYOffset >= 1000) document.getElementById('backToTop').style.visibility="visible"; else document.getElementById('backToTop').style.visibility="hidden";
+	}, { capture: false, passive: true});
+var wpcf7 = {"api":{"root":"https:\/\/www.ontariocourts.ca\/ocj\/wp-json\/","namespace":"contact-form-7\/v1"},"cached":"1"};
+var welcomebar_frontjs = {"ajaxurl":"https:\/\/www.ontariocourts.ca\/ocj\/wp-admin\/admin-ajax.php","days":"Days","hours":"Hours","minutes":"Minutes","seconds":"Seconds","ajax_nonce":"662feeb3e5"};
+var wpcf7_recaptcha = {"sitekey":"6LdVF60ZAAAAADEQKgJ4VMw5ajpbykEPzWJfWltS","actions":{"homepage":"homepage","contactform":"contactform"}};
+	//picostrap gLightbox integration
+	window.onload = function() { //after all page els are loaded 
+	//find elements that need to be 'lightboxed'
+	var matches = document.querySelectorAll('main#theme-main a:not(.nolightbox) img');
+	//iterate and add the class
+	for (i=0; i<matches.length; i++) {
+	matches[i].parentElement.classList.add("glightbox");
+	}
+	//run the lightbox
+	const lightbox = GLightbox({});
+	}
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */ 
+function expandList() { 
+ document.getElementById("PDNGDropdown").classList.toggle("show"); 
+} 
+// Close the dropdown if the user clicks outside of it 
+window.onclick = function(event) {
+ if (!event.target.matches('.dropdown-toggle')) {
+ var dropdowns = document.getElementById("PDNGDropdown");
+ if (dropdowns.classList.contains('show')) {
+ dropdowns.classList.remove('show');
+ }
+ }
+}
+// fix table of content anchor link
+$(document).scroll(function() {
+	if($(window).scrollTop() > 20){
+	$(".justify-content-md-center").css("margin-top","20px");
+ }else if($(window).scrollTop() < 20){
+	$(".justify-content-md-center").css("margin-top","0");
+ }
+});
+<!--
+Performance optimized by W3 Total Cache. Learn more: https://www.boldgrid.com/w3-total-cache/
+Object Caching 79/949 objects using Disk
+Page Caching using Disk: Enhanced 
+Served from: www.ontariocourts.ca @ 2026-09-21 19:15:43 by W3 Total Cache
+-->
