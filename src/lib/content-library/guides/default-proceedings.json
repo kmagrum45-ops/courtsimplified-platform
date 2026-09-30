@@ -6,7 +6,7 @@
   "civil",
   "family"
  ],
- "intro": "This guide explains what the court rules say happens when a person who is sued, or who is named as a respondent, does not file a defence or answer in time, and how the rules deal with setting that aside. It covers Small Claims Court briefly and the Superior Court's civil and family rules in more detail.",
+ "intro": "This guide explains what the court rules say happens when a person who is sued, or who is named as a respondent, does not file a defence or answer in time, and how the rules deal with setting that aside. It covers Small Claims Court briefly and the Rules of Civil Procedure (Superior Court civil actions) and the Family Law Rules in more detail.",
  "sections": [
   {
    "heading": "Small Claims Court: a short summary",
@@ -14,8 +14,9 @@
    "paragraphs": [
     "“A defendant generally has 20 calendar days to serve and file a defence to a claim.” “If a defendant does not file a defence in time, then the plaintiff may ask the Court to note the defendant in default.” The request to note a defendant in default “may be made in Form 9B”. (ontariocourts.ca, Small Claims Court — Default Proceedings; Rules of the Small Claims Court, r. 11.01 (1))",
     "A defendant who has been noted in default “shall not file a defence or take any other step in the proceeding, except making a motion under rule 11.06, without leave of the court or the plaintiff's consent.” (Rules of the Small Claims Court, r. 11.05 (1))",
-    "For a claim that is “for a debt or liquidated demand in money, including interest if claimed”, the clerk may sign default judgment (Form 11B). (Rules of the Small Claims Court, r. 11.02 (1))",
-    "If all defendants are noted in default, the plaintiff may seek judgment on the rest of the claim by a motion in writing for an assessment of damages or at an assessment hearing, where the plaintiff “is not required to prove liability against a defendant noted in default, but is required to prove the amount of the claim.” If a defendant has filed a defence, the assessment goes to a settlement conference and, if necessary, a trial. (Rules of the Small Claims Court, r. 11.03 (1), (2), (5), (7))",
+    "If a defendant has been noted in default, the clerk may sign default judgment (Form 11B) for the claim, or any part of the claim to which the default applies, that is “for a debt or liquidated demand in money, including interest if claimed”. (Rules of the Small Claims Court, r. 11.02 (1))",
+    "If all defendants are noted in default, the plaintiff may seek judgment on the rest of the claim by a motion in writing for an assessment of damages or at an assessment hearing, where the plaintiff “is not required to prove liability against a defendant noted in default, but is required to prove the amount of the claim.” (Rules of the Small Claims Court, r. 11.03 (1), (2), (5))",
+    "If one or more defendants have filed a defence, a plaintiff requiring an assessment of damages against a defendant noted in default “shall proceed to a settlement conference under rule 13 and, if necessary, a trial”. (Rules of the Small Claims Court, r. 11.03 (7))",
     "The court may set aside the noting in default or default judgment “on such terms as are just” if it is satisfied that “the party has a meritorious defence and a reasonable explanation for the default” and that “the motion is made as soon as is reasonably possible in all the circumstances.” (Rules of the Small Claims Court, r. 11.06)",
     "The court's Small Claims page adds that a defendant noted in default may also seek the plaintiff's consent to set these things aside, “except for any enforcement steps that have been completed.” The court's page links to more information on asking to have a defendant noted in default and asking to set aside default proceedings. (ontariocourts.ca, Small Claims Court — Default Proceedings)"
    ]
@@ -25,7 +26,7 @@
    "court": "civil",
    "paragraphs": [
     "In a Superior Court civil action, a statement of defence is delivered “within twenty days after service of the statement of claim, where the defendant is served in Ontario”. The time is forty days if the defendant is served elsewhere in Canada or in the United States, and sixty days if served anywhere else. These times are subject to listed exceptions, including rule 18.02 (notice of intent to defend). (Rules of Civil Procedure, r. 18.01)",
-    "If a defendant does not deliver a statement of defence in time, the plaintiff may, on filing proof of service of the statement of claim, “require the registrar to note the defendant in default.” The same applies where a defence has been struck out and no new one may be, or has been, delivered. (Rules of Civil Procedure, r. 19.01 (1), (2))",
+    "If a defendant does not deliver a statement of defence in time, the plaintiff may, on filing proof of service of the statement of claim, “require the registrar to note the defendant in default.” The plaintiff may also, on filing a copy of the order, have the defendant noted in default where the defence was struck out without leave to deliver another, or with leave and no other was delivered within the time allowed. (Rules of Civil Procedure, r. 19.01 (1), (2))",
     "“A defendant may deliver a statement of defence at any time before being noted in default under this rule.” A party under disability “may be noted in default only with leave of a judge”. (Rules of Civil Procedure, r. 19.01 (4), (5))"
    ]
   },
@@ -44,7 +45,7 @@
    "paragraphs": [
     "Once a defendant is noted in default, the plaintiff may require the registrar to sign judgment for certain claims, including “a debt or liquidated demand in money, including interest if claimed in the statement of claim (Form 19A)”, recovery of possession of land, and recovery of possession of personal property. The plaintiff first files a requisition for default judgment (Form 19D). (Rules of Civil Procedure, r. 19.04 (1), (2))",
     "The registrar may decline to sign default judgment if uncertain whether the claim fits the class of cases allowed, or about the interest properly recoverable. The plaintiff may then move before a judge for judgment under rule 19.05 or, for a claim listed in subrule 19.04 (1), make a motion to the court for default judgment. (Rules of Civil Procedure, r. 19.04 (3), (3.1))",
-    "For other claims, the plaintiff may move before a judge for judgment on the statement of claim. The motion “shall be supported by evidence given by affidavit if the claim is for unliquidated damages.” The judge “may grant judgment, dismiss the action or order that the action proceed to trial”. (Rules of Civil Procedure, r. 19.05 (1), (2), (3))",
+    "Where a defendant has been noted in default, the plaintiff may move before a judge for judgment on the statement of claim for any claim for which default judgment has not been signed. The motion “shall be supported by evidence given by affidavit if the claim is for unliquidated damages.” The judge “may grant judgment, dismiss the action or order that the action proceed to trial”. (Rules of Civil Procedure, r. 19.05 (1), (2), (3))",
     "“A plaintiff is not entitled to judgment on a motion for judgment or at trial merely because the facts alleged in the statement of claim are deemed to be admitted, unless the facts entitle the plaintiff to judgment.” (Rules of Civil Procedure, r. 19.06)"
    ]
   },
@@ -63,7 +64,7 @@
    "paragraphs": [
     "In a family case, “A person against whom an application is made shall serve an answer (Form 10, 33B, 33B.1, 33B.2 or 33D.3) on every other party and file it within 30 days after being served with the application.” (Family Law Rules, r. 10 (1))",
     "“If an application is served outside Canada or the United States of America, the time for serving and filing an answer is 60 days.” A respondent added through a claim in an answer has 14 days, or 30 days if served outside Canada or the United States. Different times apply to an application to dispense with a parent's consent before adoption placement. (Family Law Rules, r. 10 (2), (2.1), (4))",
-    "“The court may make an order to lengthen or shorten any time set out in these rules or in an order, subject to any limitations provided for by these rules.” Parties may also change most times by consent in writing, with listed exceptions. (Family Law Rules, r. 3 (5), (6))"
+    "“The court may make an order to lengthen or shorten any time set out in these rules or in an order, subject to any limitations provided for by these rules.” Parties may also, by consent in writing, change any time set out in the rules, except the times listed in subrule 3 (6). (Family Law Rules, r. 3 (5), (6))"
    ]
   },
   {
@@ -73,7 +74,7 @@
     "The Family Law Rules do not use the phrase noted in default for this step. Instead, the consequences in paragraphs 1 to 4 of subrule 1 (8.4) “apply, with necessary changes, if a respondent does not serve and file an answer.” (Family Law Rules, r. 10 (5))",
     "Those consequences are: “The party is not entitled to any further notice of steps in the case, except as provided by subrule 25 (13) (service of order).” “The party is not entitled to participate in the case in any way.” “The court may deal with the case in the party’s absence.” “A date may be set for an uncontested trial of the case.” (Family Law Rules, r. 1 (8.4))",
     "An “uncontested trial” means “a trial at which only the party making the claim provides evidence and submissions.” If no answer is filed, the clerk “shall, on request, schedule a case conference or set a date for an uncontested trial or, in an uncontested divorce case, prepare the documents for a judge”. (Family Law Rules, r. 2 (1), r. 17 (2))",
-    "At an uncontested trial, evidence by affidavit in Form 14A or Form 23C and, if applicable, Forms 35.1 and 35.1A may be used “unless the court directs that oral evidence must be given.” The person who prepared an order serves it on every other party, including a party to whom the no-notice consequence applies. (Family Law Rules, r. 23 (22), r. 25 (13))"
+    "At an uncontested trial, evidence by affidavit in Form 14A or Form 23C and, if applicable, Forms 35.1 and 35.1A may be used “unless the court directs that oral evidence must be given.” Unless the court orders otherwise, the person who prepared an order serves it on every other party, including a party to whom the no-notice consequence applies. (Family Law Rules, r. 23 (22), r. 25 (13))"
    ]
   },
   {

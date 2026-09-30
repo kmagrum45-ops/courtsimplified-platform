@@ -41,7 +41,7 @@
     "A party that claims privilege for a document and does not abandon the claim, by giving notice in writing and providing a copy of the document or producing it for inspection, “at least 90 days before the commencement of the trial”, “may not use the document at the trial, except to impeach the testimony of a witness or with leave of the trial judge.” (Rules of Civil Procedure, r. 30.09)",
     "If a party fails to disclose a document in an affidavit of documents or supplementary affidavit, or fails to produce it as required by the rules, a court order or an undertaking, then if the document is favourable to the party's case, “the party may not use the document at the trial, except with leave of the trial judge”. If it is not favourable, “the court may make such order as is just.” (Rules of Civil Procedure, r. 30.08 (1))",
     "If a party fails to serve an affidavit of documents, fails to produce a document for inspection as the rules require, or fails to comply with an order under rules 30.02 to 30.11, the court may, among other things, “dismiss the action, if the party is a plaintiff, or strike out the statement of defence, if the party is a defendant”. (Rules of Civil Procedure, r. 30.08 (2))",
-    "The court may order a non-party to produce a non-privileged document where it is satisfied that “the document is relevant to a material issue in the action” and “it would be unfair to require the moving party to proceed to trial without having discovery of the document.” (Rules of Civil Procedure, r. 30.10 (1))"
+    "On a motion by a party, the court may order a non-party to produce a non-privileged document for inspection where it is satisfied that “the document is relevant to a material issue in the action” and “it would be unfair to require the moving party to proceed to trial without having discovery of the document.” (Rules of Civil Procedure, r. 30.10 (1))"
    ]
   },
   {
@@ -52,7 +52,8 @@
     "A party “may examine for discovery any other party adverse in interest, once”, and more than once only with leave of the court. (Rules of Civil Procedure, r. 31.03 (1))",
     "A party may examine more than one person only as subrules 31.03 (2) to (8) permit. For example, where a corporation may be examined, the examining party may examine any officer, director or employee on its behalf, but more than one “only with the consent of the parties or the leave of the court.” (Rules of Civil Procedure, r. 31.03 (1), (2))",
     "A party who seeks to examine a plaintiff may serve a notice of examination or written questions “only after delivering a statement of defence and, unless the parties agree otherwise, serving an affidavit of documents.” A defendant may be examined after delivering a defence (with the examining party's affidavit of documents served, unless agreed otherwise) or after being noted in default. (Rules of Civil Procedure, r. 31.04 (1), (2))",
-    "“No party shall, in conducting oral examinations for discovery, exceed a total of seven hours of examination, regardless of the number of parties or other persons to be examined, except with the consent of the parties or with leave of the court.” (Rules of Civil Procedure, r. 31.05.1 (1))"
+    "“No party shall, in conducting oral examinations for discovery, exceed a total of seven hours of examination, regardless of the number of parties or other persons to be examined, except with the consent of the parties or with leave of the court.” (Rules of Civil Procedure, r. 31.05.1 (1))",
+    "In an action under the simplified procedure (Rule 76), “no party shall, in conducting oral examinations for discovery in relation to an action proceeding under this Rule, exceed a total of three hours of examination, regardless of the number of parties or other persons to be examined.” (Rules of Civil Procedure, r. 76.04 (2))"
    ]
   },
   {
@@ -60,7 +61,7 @@
    "court": "civil",
    "paragraphs": [
     "A person examined “shall answer, to the best of his or her knowledge, information and belief, any proper question relevant to any matter in issue in the action”. A question may not be objected to on the ground that “the information sought is evidence”. A party may also obtain “the names and addresses of persons who might reasonably be expected to have knowledge of transactions or occurrences in issue in the action, unless the court orders otherwise.” (Rules of Civil Procedure, r. 31.06 (1), (2))",
-    "A person fails to answer if they refuse, or if a question taken under advisement or an undertaking is not answered “within 60 days after the response.” The party then “may not introduce at the trial the information that was not provided, except with leave of the trial judge.” (Rules of Civil Procedure, r. 31.07 (1), (2))",
+    "A party, or a person examined on behalf of or in place of a party, fails to answer if they refuse, or if a question taken under advisement or an undertaking is not answered “within 60 days after the response.” The party then “may not introduce at the trial the information that was not provided, except with leave of the trial judge.” (Rules of Civil Procedure, r. 31.07 (1), (2))",
     "If a party later finds an answer “was incorrect or incomplete when made” or “is no longer correct and complete”, “the party shall forthwith provide the information in writing to every other party.” (Rules of Civil Procedure, r. 31.09 (1))",
     "The court may grant leave to examine for discovery a person “who there is reason to believe has information relevant to a material issue in the action”, other than an expert engaged by or for a party in preparation for contemplated or pending litigation. (Rules of Civil Procedure, r. 31.10 (1))",
     "Leave is granted only if the court is satisfied that the moving party could not obtain the information from persons it is entitled to examine or from that person, that it would be unfair to proceed to trial without examining the person, and that the examination will not unduly delay the trial, entail unreasonable expense for other parties or be unfair to the person. (Rules of Civil Procedure, r. 31.10 (2))"
@@ -82,7 +83,8 @@
    "court": "civil",
    "paragraphs": [
     "A written examination is conducted “by serving a list of the questions to be answered (Form 35A) on the person to be examined and every other party.” The questions are answered by affidavit (Form 35B), served on the examining party “within fifteen days after service of the list of questions.” An objection is made in the affidavit “with a brief statement of the reason for the objection.” (Rules of Civil Procedure, r. 35.01, 35.02 (1), 35.03)",
-    "If the examining party is not satisfied with an answer, it may, “within ten days after receiving the answer, serve a further list of written questions which shall be answered within fifteen days after service.” If answers are “evasive, unresponsive or otherwise unsatisfactory”, the court may order an oral examination. (Rules of Civil Procedure, r. 35.04 (1), (3))"
+    "If the examining party is not satisfied with an answer, it may, “within ten days after receiving the answer, serve a further list of written questions which shall be answered within fifteen days after service.” If answers are “evasive, unresponsive or otherwise unsatisfactory”, the court may order an oral examination. (Rules of Civil Procedure, r. 35.04 (1), (3))",
+    "“Examination for discovery by written questions and answers under Rule 35” is “not permitted in an action under this Rule”, meaning an action under the simplified procedure. (Rules of Civil Procedure, r. 76.04 (1))"
    ]
   }
  ],
@@ -90,7 +92,7 @@
   {
    "localText": "docs/sources/corpus/rules-of-civil-procedure.txt",
    "sourceName": "Rules of Civil Procedure",
-   "pinpoints": "r. 29.1.03 (1)-(3), 29.1.04, 29.1.05 (1), (2), 29.2.03 (1), (2), 30.01 (1) (a), 30.02 (1), (2), 30.03 (1), (2), (5), 30.04 (1), (3), (6), 30.05, 30.07, 30.08 (1), (2), 30.09, 30.10 (1), 31.02 (1), (2), 31.03 (1), (2), 31.04 (1), (2), 31.05.1 (1), 31.06 (1), (2), 31.07 (1), (2), 31.09 (1), 31.10 (1), (2), 34.04 (1), 34.05 (1), (2), 34.08 (1), 34.10 (2), 34.12 (1), (3), 34.14 (1), 34.15 (1), 34.16, 34.17 (1), 35.01, 35.02 (1), 35.03, 35.04 (1), (3)",
+   "pinpoints": "r. 29.1.03 (1)-(3), 29.1.04, 29.1.05 (1), (2), 29.2.03 (1), (2), 30.01 (1) (a), 30.02 (1), (2), 30.03 (1), (2), (5), 30.04 (1), (3), (6), 30.05, 30.07, 30.08 (1), (2), 30.09, 30.10 (1), 31.02 (1), (2), 31.03 (1), (2), 31.04 (1), (2), 31.05.1 (1), 31.06 (1), (2), 31.07 (1), (2), 31.09 (1), 31.10 (1), (2), 34.04 (1), 34.05 (1), (2), 34.08 (1), 34.10 (2), 34.12 (1), (3), 34.14 (1), 34.15 (1), 34.16, 34.17 (1), 35.01, 35.02 (1), 35.03, 35.04 (1), (3), 76.04 (1), (2)",
    "officialUrl": "https://www.ontario.ca/laws/regulation/900194",
    "retrievedAt": "2026-09-27"
   }

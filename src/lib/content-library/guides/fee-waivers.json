@@ -13,7 +13,7 @@
    "court": "all",
    "paragraphs": [
     "“You might need to pay fees if you go to court in Ontario. If you cannot afford to pay the fees, you can ask the court to waive them.” The court “will consider your financial situation and decide whether you meet the requirements to qualify.” (ontario.ca, Have your court fees waived)",
-    "If the court agrees, the person gets “a certificate called a fee waiver.” The page says to “Show this certificate to court staff if they ask you to pay a fee.” (ontario.ca, Have your court fees waived)",
+    "If the person meets the requirements “and the court agrees to waive the fees”, they get “a certificate called a fee waiver.” The page says to “Show this certificate to court staff if they ask you to pay a fee.” (ontario.ca, Have your court fees waived)",
     "“There is no cost to apply for a fee waiver.” “You need to apply for a separate fee waiver for each case or proceeding you are involved in. A fee waiver will not apply to any fees you have already paid.” (ontario.ca, Have your court fees waived)",
     "“Each request is reviewed based on the form and documents you submit. The decision of staff or a judge is final. If your financial situation changes, you can request a fee waiver again.” (ontario.ca, Have your court fees waived)"
    ]
@@ -71,8 +71,8 @@
    "heading": "Small Claims Court",
    "court": "small-claims",
    "paragraphs": [
-    "“If you are granted a fee waiver, it will apply to most fees in your court proceeding from that point forward.” When filing online, “you must indicate if you have a fee waiver or want to apply for a fee waiver.” (ontario.ca, File Small Claims Court documents online)",
-    "For a document that would normally have a fee, the page describes two choices: “Fee waiver request” when applying for a certificate at the same time, or “Document is being submitted by a person with a fee waiver certificate” when a certificate is already held. (ontario.ca, File Small Claims Court documents online)",
+    "“If you are granted a fee waiver, it will apply to most fees in your court proceeding from that point forward.” In the part of the page on filing in the Toronto region through the Ontario Courts Public Portal, it says “you must indicate if you have a fee waiver or want to apply for a fee waiver”, and to select “Request fee waiver” when applying for a certificate at the same time. (ontario.ca, File Small Claims Court documents online)",
+    "In the part of the page on filing outside the Toronto region through the Small Claims Court Submissions Online portal, it describes two choices for a document that would normally have a fee: “Fee waiver request” when applying for a certificate at the same time, or “Document is being submitted by a person with a fee waiver certificate” when a certificate is already held. (ontario.ca, File Small Claims Court documents online)",
     "In its section on a summonsed witness who needs an interpreter, the Ministry’s trial guide says the court provides English-French and visual language interpretation, that the party summonsing the witness arranges interpretation for other languages, and that “The court will provide an interpreter for other languages to parties who have qualified for a fee waiver.” (ontario.ca, Guide to Procedures in Small Claims Court: Getting ready for court)"
    ]
   },
@@ -81,8 +81,8 @@
    "court": "civil",
    "paragraphs": [
     "“If you are granted a fee waiver, it will apply to most fees in your court proceeding from that point forward.” (ontario.ca, File civil claim documents online)",
-    "“If you have a fee waiver or want to apply for one, you must use the Civil Submissions Online portal below to submit your documents.” The page says “The Civil Claims Online portal will not apply the relevant fee exemptions. You will not receive a fee refund if you file a document using Civil Claims Online.” (ontario.ca, File civil claim documents online)",
-    "To apply together with a document, the filer selects “Fee waiver request” for any document that usually requires a fee. A filer who already has a certificate chooses “Document is being submitted by a person with a fee waiver certificate”. (ontario.ca, File civil claim documents online)"
+    "For filing outside the Toronto region, the page says: “If you have a fee waiver or want to apply for one, you must use the Civil Submissions Online portal below to submit your documents.” It adds that “The Civil Claims Online portal will not apply the relevant fee exemptions. You will not receive a fee refund if you file a document using Civil Claims Online.” (ontario.ca, File civil claim documents online)",
+    "In the Civil Submissions Online portal (outside the Toronto region), to apply together with a document, the filer selects “Fee waiver request” for any document that usually requires a fee. A filer who already has a certificate chooses “Document is being submitted by a person with a fee waiver certificate”. (ontario.ca, File civil claim documents online)"
    ]
   },
   {

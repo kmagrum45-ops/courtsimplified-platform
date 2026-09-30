@@ -157,10 +157,24 @@ check(
       "cross-forum:unmarried-couple",
     ),
 );
+const LIMIT_NOTE = "cross-forum:over-small-claims-limit";
 check(
-  "only an amount above $50,000 selects the limit note",
-  ids(selectCrossForumNotes(NO_MATTERS, [50_001])).includes("cross-forum:over-small-claims-limit") &&
-    !ids(selectCrossForumNotes(NO_MATTERS, [50_000])).includes("cross-forum:over-small-claims-limit"),
+  "only an amount above $50,000 in a court claim selects the limit note",
+  ids(selectCrossForumNotes(matters(["debt-or-contract"]), [50_001])).includes(LIMIT_NOTE) &&
+    !ids(selectCrossForumNotes(matters(["debt-or-contract"]), [50_000])).includes(LIMIT_NOTE),
+);
+// 2026-09-30 audit: a family property or support figure above $50,000 is not
+// "over the Small Claims limit" -- no Small Claims claim was ever in view.
+check(
+  "an amount above $50,000 with no court claim (a family matter) does not select the limit note",
+  !ids(selectCrossForumNotes(matters(["family"]), [80_000])).includes(LIMIT_NOTE) &&
+    !ids(selectCrossForumNotes(NO_MATTERS, [80_000])).includes(LIMIT_NOTE),
+);
+check(
+  "a rental home with discrimination selects both the tenancy note and the Code note",
+  ["cross-forum:tenancy-and-court", "cross-forum:human-rights-with-another-claim"].every((id) =>
+    ids(selectCrossForumNotes(matters(["residential-tenancy", "discrimination"]))).includes(id),
+  ),
 );
 check(
   "two different matters show the card even with no note",

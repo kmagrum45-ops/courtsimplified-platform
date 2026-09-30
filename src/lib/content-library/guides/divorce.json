@@ -4,13 +4,13 @@
  "courts": [
   "family"
  ],
- "intro": "This guide describes, in general terms, what the federal Divorce Act and rule 36 of Ontario's Family Law Rules say about getting a divorce: which court hears it, the ground for divorce, and how a divorce takes effect. It explains what the law and rules say; it does not say whether any particular person can get a divorce.",
+ "intro": "This guide describes, in general terms, what the Divorce Act and rule 36 of Ontario's Family Law Rules say about getting a divorce: which court hears it, the ground for divorce, and how a divorce takes effect. It explains what the law and rules say; it does not say whether any particular person can get a divorce.",
  "sections": [
   {
    "heading": "Which court and who can apply",
    "court": "family",
    "paragraphs": [
-    "Divorce is governed by the Divorce Act, a federal law. A “divorce proceeding” is a proceeding in a court in which either or both spouses seek a divorce, alone or together with a child support order, a spousal support order or a parenting order. (Divorce Act, s. 2 (1))",
+    "The Divorce Act defines a “divorce proceeding” as “a proceeding in a court in which either or both spouses seek a divorce alone or together with a child support order, a spousal support order or a parenting order”. (Divorce Act, s. 2 (1))",
     "For Ontario, the Act names the court as “the Superior Court of Justice”. The definition also includes any other court in the province whose judges are appointed by the Governor General and that the province designates as a court for the purposes of the Act. (Divorce Act, s. 2 (1))",
     "“A court in a province has jurisdiction to hear and determine a divorce proceeding if either spouse has been habitually resident in the province for at least one year immediately preceding the commencement of the proceeding.” If divorce proceedings between the same spouses are pending in two courts with jurisdiction, started on different days, and the first one “is not discontinued”, the court where the proceeding was started first has exclusive jurisdiction, and the second proceeding “is deemed to be discontinued.” (Divorce Act, s. 3 (1), (2))",
     "“A court of competent jurisdiction may, on application by either or both spouses, grant a divorce to the spouse or spouses on the ground that there has been a breakdown of their marriage.” The power to grant a divorce “shall be exercised only by a judge of the court without a jury.” (Divorce Act, ss. 7, 8 (1))"
@@ -30,11 +30,12 @@
    "heading": "Reconciliation and the bars to divorce",
    "court": "family",
    "paragraphs": [
-    "In a divorce proceeding, the court has a duty, before considering the evidence, “to satisfy itself that there is no possibility of the reconciliation of the spouses, unless the circumstances of the case are of such a nature that it would clearly not be appropriate to do so.” If a possibility of reconciliation appears, the court shall adjourn the proceeding, and may nominate a person to assist the spouses. (Divorce Act, s. 10 (1), (2))",
+    "In a divorce proceeding, the court has a duty, before considering the evidence, “to satisfy itself that there is no possibility of the reconciliation of the spouses, unless the circumstances of the case are of such a nature that it would clearly not be appropriate to do so.” (Divorce Act, s. 10 (1))",
+    "If it appears to the court at any stage that reconciliation is possible, the court shall adjourn the proceeding “to afford the spouses an opportunity to achieve a reconciliation” and, “with the consent of the spouses or in the discretion of the court”, nominate a person with experience or training in marriage counselling or guidance (or, in special circumstances, some other suitable person) to assist. Once fourteen days have passed, the court shall resume the proceeding on the application of either or both spouses. (Divorce Act, s. 10 (2), (3))",
     "The court must also “satisfy itself that there has been no collusion in relation to the application for a divorce and to dismiss the application if it finds that there was collusion in presenting it”. (Divorce Act, s. 11 (1) (a))",
     "Under section 11, collusion is an agreement or conspiracy, to which an applicant for a divorce is directly or indirectly a party, “for the purpose of subverting the administration of justice”, including to “fabricate or suppress evidence or to deceive the court”. It excludes an agreement to the extent it provides for separation, financial support, division of property or “the exercise of parenting time or decision-making responsibility.” (Divorce Act, s. 11 (4))",
     "The court must “satisfy itself that reasonable arrangements have been made for the support of any children of the marriage, having regard to the applicable guidelines”. If such arrangements have not been made, the court is “to stay the granting of the divorce until such arrangements are made”. (Divorce Act, s. 11 (1) (b))",
-    "Where divorce is sought for adultery or cruelty, the court must satisfy itself that there has been no condonation or connivance by the spouse bringing the proceeding. It dismisses the application if there was, “unless, in the opinion of the court, the public interest would be better served by granting the divorce.” Continuing or resuming cohabitation for not more than ninety days with reconciliation as the primary purpose is not condonation. (Divorce Act, s. 11 (1) (c), (3))"
+    "Where divorce is sought for adultery or cruelty, the court must satisfy itself that there has been no condonation or connivance by the spouse bringing the proceeding. It dismisses the application if there was, “unless, in the opinion of the court, the public interest would be better served by granting the divorce.” Continuing or resuming cohabitation “during a period of, or periods totalling, not more than ninety days with reconciliation as its primary purpose” is not condonation. (Divorce Act, s. 11 (1) (c), (3))"
    ]
   },
   {
@@ -95,7 +96,7 @@
   {
    "localText": "docs/sources/corpus/divorce-act.txt",
    "sourceName": "Divorce Act",
-   "pinpoints": "s. 2 (1) (court, divorce proceeding, family dispute resolution process); ss. 3 (1), (2); 7; 7.1-7.7; 8; 10 (1), (2); 11 (1), (3), (4); 12 (1)-(3), (6)-(8); 13; 14",
+   "pinpoints": "s. 2 (1) (court, divorce proceeding, family dispute resolution process); ss. 3 (1), (2); 7; 7.1-7.7; 8; 10 (1)-(3); 11 (1), (3), (4); 12 (1)-(3), (6)-(8); 13; 14",
    "officialUrl": "https://laws-lois.justice.gc.ca/eng/acts/D-3.4/FullText.html",
    "retrievedAt": "2026-09-30"
   },

@@ -24,8 +24,8 @@
    "paragraphs": [
     "Under the Rules of Civil Procedure, “A party to a proceeding who is under disability or acts in a representative capacity shall be represented by a lawyer.” A party that is a corporation “shall be represented by a lawyer, except with leave of the court.” (Rules of Civil Procedure, r. 15.01 (1), (2))",
     "Every other party has a choice: “Any other party to a proceeding may act in person or be represented by a lawyer.” This includes a lawyer “acting under a limited scope retainer”, but such a retainer “does not, in itself, make a lawyer the lawyer of record for the party.” (Rules of Civil Procedure, r. 15.01 (3), (4))",
-    "When a party acts in person, “anything these rules require or permit a lawyer to do shall be done by the party.” A party acting in person may appoint a lawyer of record by serving and filing a notice of appointment of lawyer (Form 15B) (Rules of Civil Procedure, r. 15.01.1 (1), 15.03 (2), (3))",
-    "Subject to the rules that require some parties to have a lawyer, a party with a lawyer of record may elect to act in person by serving and filing a notice of intention to act in person (Form 15C). (Rules of Civil Procedure, r. 15.01.1 (1), 15.03 (2), (3))"
+    "When a party acts in person, “anything these rules require or permit a lawyer to do shall be done by the party.” A party acting in person may appoint a lawyer of record by serving and filing a notice of appointment of lawyer (Form 15B) (Rules of Civil Procedure, r. 15.01.1 (1), 15.03 (2))",
+    "Subject to the rules that require some parties to have a lawyer, a party with a lawyer of record may elect to act in person by serving and filing a notice of intention to act in person (Form 15C). (Rules of Civil Procedure, r. 15.01 (1), (2), 15.03 (3))"
    ]
   },
   {
@@ -33,11 +33,11 @@
    "court": "family",
    "paragraphs": [
     "Under the Family Law Rules, a party may “act in person”, “be represented by a lawyer”, or, “if the court gives permission in advance, be represented by any other person, on terms set out by the court.” (Family Law Rules, r. 4 (1))",
-    "A party may also be represented by a “family legal services provider” in a limited list of cases and matters “as authorized under the Law Society Act”. The list includes an uncontested divorce or one started by a joint application where the only claim is for divorce, filing a domestic contract, a change of name application, some child support motions, and some enforcement of support. Each item has its own conditions, set out in the rule. (Family Law Rules, r. 4 (1) (c))",
-    "This does not apply “if the court determines that representation by a family legal services provider is inappropriate in the circumstances” (Family Law Rules, r. 4 (0.1), (1.2), (1.4), (1.5))",
+    "A party may also be represented by a “family legal services provider” in a limited list of cases and matters “as authorized under the Law Society Act”. The list includes an uncontested divorce or one started by a joint application where the only claim is for divorce, filing a domestic contract, a change of name application, some motions under rule 15 to change child support, and some enforcement of support. Each item has its own conditions, set out in the rule. (Family Law Rules, r. 4 (1) (c))",
+    "This does not apply “if the court determines that representation by a family legal services provider is inappropriate in the circumstances” (Family Law Rules, r. 4 (1.2))",
     "A lawyer or family legal services provider may act under a limited scope retainer, which the rules define, for a lawyer, as legal services for “part, but not all, of a party’s case, by agreement” and, for a family legal services provider, as “some, but not all, of the services that a family legal services provider is authorized to provide in a party’s case or matter”. (Family Law Rules, r. 4 (0.1), (1.2), (1.4), (1.5))",
-    "A party acting in person may choose a licensed representative “by serving on every other party and filing a notice of change in representation (Form 4) containing the consent of the licensed representative to act.” This is not needed for a limited scope representative who is not the representative of record (Family Law Rules, r. 4 (9), (9.1), (10), (10.1))",
-    "A represented party may use Form 4 to change representatives or act in person, but in a child protection case scheduled for trial or on a trial list, acting in person needs the court’s permission in advance. (Family Law Rules, r. 4 (9), (9.1), (10), (10.1))"
+    "A party acting in person may choose a licensed representative “by serving on every other party and filing a notice of change in representation (Form 4) containing the consent of the licensed representative to act.” This is not needed for a limited scope representative who is not the representative of record (Family Law Rules, r. 4 (9), (9.1))",
+    "A represented party may use Form 4 to change representatives or act in person, but in a child protection case scheduled for trial or on a trial list, acting in person needs the court’s permission in advance. (Family Law Rules, r. 4 (10), (10.1))"
    ]
   },
   {
@@ -87,7 +87,7 @@
    "paragraphs": [
     "Small Claims Court: “If a party serves a summons on a witness who requires an interpreter, the party shall arrange for a qualified interpreter to attend at the trial unless the interpretation is from English to French or French to English and an interpreter is provided by the Ministry of the Attorney General.” If not, every other party may request an adjournment of the trial, with costs. (Rules of the Small Claims Court, r. 18.03 (5.1), (5.2))",
     "The Ministry’s guide adds that for a summonsed witness “the court will provide an interpreter from English to French or French to English or visual language interpretation.” It also says “The court will provide an interpreter for other languages to parties who have qualified for a fee waiver.” (ontario.ca, Guide to Procedures in Small Claims Court: Getting ready for court)",
-    "Superior Court: where a witness does not understand the language of the examination or is deaf or mute, “the party calling the witness shall provide the interpreter, unless the interpretation is to be from English to French or from French to English and an interpreter is provided by the Ministry of the Attorney General.” A similar rule applies at oral examinations. (Rules of Civil Procedure, r. 53.01 (5), (6), 34.09)",
+    "Superior Court: where a witness at the trial of an action does not understand the language of the examination or is deaf or mute, “the party calling the witness shall provide the interpreter, unless the interpretation is to be from English to French or from French to English and an interpreter is provided by the Ministry of the Attorney General.” A similar rule applies at oral examinations. (Rules of Civil Procedure, r. 53.01 (1), (5), (6), 34.09)",
     "Family court, divorce proceedings: under the Divorce Act, a proceeding “may be conducted in English or French, or in both official languages of Canada.” The court “shall, at the request of any person, provide simultaneous interpretation from one official language into the other”. The site does not yet have a source on the Family Law Rules for interpreters in other languages. (Divorce Act, s. 23.2)"
    ]
   },
@@ -110,7 +110,7 @@
   {
    "localText": "docs/sources/corpus/rules-of-civil-procedure.txt",
    "sourceName": "Rules of Civil Procedure",
-   "pinpoints": "rr. 15.01, 15.01.1 (1), 15.03 (2), (3), 34.09, 53.01 (5), (6)",
+   "pinpoints": "rr. 15.01, 15.01.1 (1), 15.03 (2), (3), 34.09, 53.01 (1), (5), (6)",
    "officialUrl": "https://www.ontario.ca/laws/regulation/900194",
    "retrievedAt": "2026-09-27"
   },

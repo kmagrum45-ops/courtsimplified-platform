@@ -194,6 +194,15 @@ const LEGISLATION_SOURCES: CorpusSource[] = [
     why: "The regulation that sets Superior Court and Court of Appeal fees, behind the civil and family fee pages.",
   },
   {
+    id: "oreg-333-08-motor-vehicle-dealers-general",
+    title: "Motor Vehicle Dealers Act, 2002 - General",
+    citation: "O. Reg. 333/08",
+    url: "https://www.ontario.ca/laws/docs/080333_e.doc",
+    format: "elaws-doc",
+    mustContain: ["CONSOLIDATION PERIOD"],
+    why: "The used-vehicle non-disclosure claim type cites it; earlier sessions could not fetch it, so two published elements were unverifiable (audit 2026-09-30).",
+  },
+  {
     id: "oreg-626-00-monetary-jurisdiction",
     title: "Small Claims Court Jurisdiction and Appeal Limit",
     citation: "O. Reg. 626/00",

@@ -998,8 +998,8 @@
     "revoked": false,
     "mentions": [
      {
-      "rule": "r. 5.1 (11)",
-      "quote": "Affidavits Format 4.06 (1) An affidavit used in a proceeding shall, (a) be in Form 4D; (b) be expressed in the first person; (c) state the full name of the deponent and, if the deponent is a party or a lawyer, officer, director, member or employee of a party, shall state that fact; (d) be divided into paragraphs, numbered consecutively, with each paragraph being confined as far as possible to a particular statement"
+      "rule": "r. 4.06 (1)",
+      "quote": "4.06 (1) An affidavit used in a proceeding shall, (a) be in Form 4D; (b) be expressed in the first person; (c) state the full name of the deponent and, if the deponent is a party or a lawyer, officer, director, member or employee of a party, shall state that fact; (d) be divided into paragraphs, numbered consecutively, with each paragraph being confined as far as possible to a particular statement of fact; and (e)"
      },
      {
       "rule": "r. 74.11 (6)",
@@ -1023,8 +1023,8 @@
       "quote": "4.03 (1) The registrar shall provide a certified copy of a document that is in the court file to a person who is entitled to see the document under section 137 of the Courts of Justice Act, if the person files a requisition (Form 4E) and pays the prescribed fee, if any."
      },
      {
-      "rule": "r. 5.1 (7)",
-      "quote": "Requisition 4.08 Where a party is entitled to require the registrar to carry out a duty under these rules, the party may do so by filing a requisition (Form 4E) and paying the prescribed fee, if any."
+      "rule": "r. 4.08",
+      "quote": "4.08 Where a party is entitled to require the registrar to carry out a duty under these rules, the party may do so by filing a requisition (Form 4E) and paying the prescribed fee, if any."
      }
     ]
    },
@@ -1036,8 +1036,8 @@
     "revoked": false,
     "mentions": [
      {
-      "rule": "r. 5.1 (2)",
-      "quote": "Notice of Constitutional Question 4.11 The notice of constitutional question referred to in section 109 of the Courts of Justice Act shall be in Form 4F."
+      "rule": "r. 4.11",
+      "quote": "4.11 The notice of constitutional question referred to in section 109 of the Courts of Justice Act shall be in Form 4F."
      }
     ]
    },
@@ -1122,7 +1122,7 @@
       "quote": "A statement of claim (Form 14A, 14B or 14D)."
      },
      {
-      "rule": "r. 5.1 (7)",
+      "rule": "r. 4.05.1 (7)",
       "quote": "A statement of claim in Form 14A or 14B."
      },
      {
@@ -1143,7 +1143,7 @@
       "quote": "A statement of claim (Form 14A, 14B or 14D)."
      },
      {
-      "rule": "r. 5.1 (7)",
+      "rule": "r. 4.05.1 (7)",
       "quote": "A statement of claim in Form 14A or 14B."
      },
      {
@@ -1164,7 +1164,7 @@
       "quote": "A notice of action (Form 14C)."
      },
      {
-      "rule": "r. 5.1 (7)",
+      "rule": "r. 4.05.1 (7)",
       "quote": "A notice of action (Form 14C)."
      },
      {
@@ -1279,10 +1279,10 @@
      },
      {
       "rule": "r. 15.04 (12)",
-      "quote": "(12) If an order is made removing from the record a lawyer acting for a corporation, the corporation shall, within 30 days after being served with the order, (a) appoint a new lawyer of record by serving a notice in Form 15B under subrule 15.03 (2); or (b) obtain and serve on every other party an order under subrule"
+      "quote": "(12) If an order is made removing from the record a lawyer acting for a corporation, the corporation shall, within 30 days after being served with the order, (a) appoint a new lawyer of record by serving a notice in Form 15B under subrule 15.03 (2); or (b) obtain and serve on every other party an order under subrule 15.01 (2) granting it leave to be represented by a person other than a lawyer."
      },
      {
-      "rule": "r. 15.01 (14)",
+      "rule": "r. 15.04 (14)",
       "quote": "(14) If an order is made removing from the record a lawyer acting for a party who acts in a representative capacity or who is under disability, the party acting in a representative capacity or the litigation guardian of the party under disability shall, within 30 days after being served with the order, appoint a new lawyer of record by serving a notice in Form 15B under subrule 15.03 (2)."
      }
     ]
@@ -1299,7 +1299,7 @@
       "quote": "(3) Subject to subrule 15.01 (1) or (2), a party who has a lawyer of record may elect to act in person by serving on the lawyer and every other party and filing, with proof of service, a notice of intention to act in person (Form 15C) that sets out the party's address for service and telephone number."
      },
      {
-      "rule": "r. 15.01 (16)",
+      "rule": "r. 15.04 (16)",
       "quote": "(16) If an order is made removing from the record a lawyer for a client to whom subrules (12) and (14) do not apply, the client shall, within 30 days after being served with the order, (a) appoint a new lawyer of record by serving a notice in Form 15B under subrule 15.03 (2); or (b) serve a notice of intention to act in person (Form 15C) under subrule 15.03 (3)."
      }
     ]
@@ -1372,7 +1372,7 @@
     "revoked": false,
     "mentions": [
      {
-      "rule": "r. 5.1",
+      "rule": "r. 4.05.1 (2)",
       "quote": "Proof of service under rule 16.09 or in Form 17A, 17B or 17C of a document that is filed electronically under this subrule."
      },
      {
@@ -1389,7 +1389,7 @@
     "revoked": false,
     "mentions": [
      {
-      "rule": "r. 5.1",
+      "rule": "r. 4.05.1 (2)",
       "quote": "Proof of service under rule 16.09 or in Form 17A, 17B or 17C of a document that is filed electronically under this subrule."
      },
      {
@@ -1406,7 +1406,7 @@
     "revoked": false,
     "mentions": [
      {
-      "rule": "r. 5.1",
+      "rule": "r. 4.05.1 (2)",
       "quote": "Proof of service under rule 16.09 or in Form 17A, 17B or 17C of a document that is filed electronically under this subrule."
      },
      {
@@ -1781,7 +1781,7 @@
       "quote": "2.6 Form 29A (third party claim), including with respect to a fourth or subsequent party claim or claim by a defendant to a counterclaim or crossclaim."
      },
      {
-      "rule": "r. 5.1 (7)",
+      "rule": "r. 4.05.1 (7)",
       "quote": "A third, fourth or subsequent party claim (Form 29A)."
      },
      {
@@ -2007,7 +2007,7 @@
     "revoked": false,
     "mentions": [
      {
-      "rule": "r. 5.1 (4)",
+      "rule": "r. 4.05.3 (4)",
       "quote": "In the case of the hearing of a motion or application where the party is required to give the registrar a confirmation of motion (Form 37B) or confirmation of application (Form 38B), the deadline is 2 p.m."
      },
      {
@@ -2054,7 +2054,7 @@
     "revoked": false,
     "mentions": [
      {
-      "rule": "r. 5.1 (4)",
+      "rule": "r. 4.05.3 (4)",
       "quote": "In the case of the hearing of a motion or application where the party is required to give the registrar a confirmation of motion (Form 37B) or confirmation of application (Form 38B), the deadline is 2 p.m."
      },
      {
@@ -4516,10 +4516,6 @@
      {
       "rule": "r. 4 (10)",
       "quote": "(10) Except as subrule (10.1) provides, a party represented by a licensed representative may, by serving on every other party and filing a notice of change in representation (Form 4), (a) change licensed representatives; or (b) act in person."
-     },
-     {
-      "rule": "r. 13 (5.1)",
-      "quote": "Arrears Enforcement Act, 1996, serve and file with the notice of motion, (a) a financial statement (Form 13 or 13.1) or a financial statement incorporated as Form 4 in Ontario Regulation 167/97 (General) made under that Act; and (b) the proof of income specified in section 15 of the regulation referred to in clause (a)."
      }
     ]
    },
@@ -4887,7 +4883,7 @@
     "revoked": false,
     "mentions": [
      {
-      "rule": "r. 13 (5)",
+      "rule": "r. 13 (5.0.2)",
       "quote": "who is required to serve documents under subrule (3.1), (3.3), (3.4) or (5.0.1) shall confirm service by, (a) serving a certificate of financial disclosure (Form 13A) together with the documents; and (b) filing the certificate no later than, (i) six days before a case conference, in the case of the applicant or the party making the motion, as the case may be, and (ii) four days before the case conference, in the"
      },
      {
@@ -5175,7 +5171,7 @@
     "mentions": [
      {
       "rule": "r. 17 (7.2)",
-      "quote": "(7.2) If a judge makes an order under subrule (7.1), (a) for the purposes of subrule (13), each party shall serve and file a settlement conference brief in Form 17C; (b) subrule (9) does not apply to the combined conference; and (c) the steps required to be taken by the clerk under subrule 39"
+      "quote": "(7.2) If a judge makes an order under subrule (7.1), (a) for the purposes of subrule (13), each party shall serve and file a settlement conference brief in Form 17C; (b) subrule (9) does not apply to the combined conference; and (c) the steps required to be taken by the clerk under subrule 39 (5) or 40 (4), as the case may be, are not required to be taken on or before the date of the combined conference."
      },
      {
       "rule": "r. 17 (13)",
@@ -5221,7 +5217,7 @@
       "quote": "(b) before giving the clerk confirmation of the conference in Form 17F under clause (c), give a copy of the confirmation of conference to every other party using mail, fax, email or any other method, except in a child protection case; and (c) not later than 2 p.m."
      },
      {
-      "rule": "r. 17 (14.1)",
+      "rule": "r. 17 (14.1.1)",
       "quote": "is held that the confirmation is no longer correct, the party shall, if possible, immediately, (a) give a copy of the corrected confirmation of conference in Form 17F to every other party using a method listed in clause (14) (b) and subsequently give the clerk the corrected confirmation of conference by a method listed in clause (14) (c); or (b) in a child protection case, give the clerk a corrected confirmation"
      }
     ]
@@ -6265,7 +6261,7 @@
     "mentions": [
      {
       "rule": "r. 34 (4)",
-      "quote": "If required by the Act or by an order, a Director’s or local director’s statement on adoption (Form 34C) under subsection 202 (1) or"
+      "quote": "If required by the Act or by an order, a Director’s or local director’s statement on adoption (Form 34C) under subsection 202 (1) or (7) of the Act."
      }
     ]
    },
@@ -6277,7 +6273,7 @@
     "revoked": false,
     "mentions": [
      {
-      "rule": "r. 34 (7)",
+      "rule": "r. 34 (4)",
       "quote": "An affidavit signed by the applicant (Form 34D) that includes details about the applicant’s education, employment, health, background and ability to support and care for the child, a history of the relationship between the applicant and the child and any other evidence relating to the best interests of the child, and states whether the child is a First Nations, Inuk or Métis person."
      }
     ]
