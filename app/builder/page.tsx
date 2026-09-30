@@ -559,12 +559,41 @@ function BuilderPageContent() {
     setChatSessionId(createChatSessionId(courtPath));
   }, [initialPath, queryCaseId]);
 
+  /*
+   * LEAVING A CASE CLEARS ITS STORY (2026-09-30).
+   *
+   * The site owner finished an intake, pressed Back, chose "AI questions", and
+   * his story from two days earlier was sitting in the box. The builder is one
+   * mounted page: /builder?caseId=A and /builder?path=small-claims are the same
+   * component, so React state survives the navigation. The reset effect above
+   * cleared the case, the analysis and the stage when caseId went away, but
+   * not `homeStory` or the location loaded FROM that case -- and homeStory is
+   * what prefills both Small Claims intakes. Whatever case the page last
+   * opened came back as "your" story on a fresh intake.
+   *
+   * This runs only on a change of caseId, never on first mount, so the home
+   * page's read-once hand-off (which sets homeStory on mount) is untouched.
+   */
+  const previousCaseIdRef = useRef<string | null>(queryCaseId);
+  useEffect(() => {
+    const previous = previousCaseIdRef.current;
+    previousCaseIdRef.current = queryCaseId;
+    if (previous === queryCaseId) return;
+    if (previous && !queryCaseId) {
+      setHomeStory("");
+      setConfirmedLocation(null);
+      setLocationRestoredFromCase(false);
+    }
+  }, [queryCaseId]);
+
   useEffect(() => {
     let active = true;
 
     async function loadExistingCase() {
       if (!queryCaseId) return;
 
+      // A case opens with ITS story or none -- never the previous case's.
+      setHomeStory("");
       setCaseLoadError("");
       setLoadingExistingCase(true);
 
@@ -1180,6 +1209,8 @@ function BuilderPageContent() {
     setLastSavedAt("");
     setCanonicalIntakeSaved(false);
     setChatSessionId(createChatSessionId(courtPath));
+    // A new case starts with no story: the previous case's must not prefill it.
+    setHomeStory("");
 
     router.replace(`/builder?path=${courtPath}`);
   }

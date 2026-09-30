@@ -19,6 +19,8 @@
  *      (expiry, another tab), via a guard mounted on every page.
  *   5. The clear actually removes every case-content key in the registry,
  *      including the old per-user draft keys an earlier build left behind.
+ *   6. Leaving, switching or starting a case in the builder clears the story
+ *      React state still holds from the previous case (2026-09-30).
  *
  * The browser-level version (planted draft, pages checked on screen) is in
  * tests/browser/intake-reset.spec.ts.
@@ -126,6 +128,24 @@ check("the registry has case-content keys to plant (sanity)", local.map.size + s
 resetIntake({ local, session: sess });
 const left = [...local.map.keys(), ...sess.map.keys()];
 check("a full clear leaves no case content in the browser", left.length === 0, left.join(", "));
+
+// 6. (2026-09-30) The builder is one mounted page across ?caseId=A and
+//    ?path=...: leaving a case must clear the story loaded FROM it, and opening
+//    a case must start from no story. The site owner pressed Back after an
+//    intake and found an earlier case's story prefilled in a fresh one.
+const builder = strip(read("app/builder/page.tsx"));
+const leaveEffect = builder.match(/previousCaseIdRef\.current = queryCaseId;[\s\S]{0,400}?\}, \[queryCaseId\]\);/);
+check(
+  "leaving a case clears the story loaded from it",
+  Boolean(leaveEffect && /if \(previous && !queryCaseId\)[\s\S]*setHomeStory\(""\)/.test(leaveEffect[0])),
+);
+const loadStart = builder.match(/async function loadExistingCase\(\) \{[\s\S]{0,300}?from\("cases"\)/);
+check(
+  "opening a case clears the previous story before loading its own",
+  Boolean(loadStart && /setHomeStory\(""\)/.test(loadStart[0])),
+);
+const newCase = builder.match(/setChatSessionId\(createChatSessionId\(courtPath\)\);[\s\S]{0,200}?router\.replace\(`\/builder\?path=/);
+check("starting a new case clears the story", Boolean(newCase && /setHomeStory\(""\)/.test(newCase[0])));
 
 console.log(failures ? `\n${failures} failure(s).` : "\nAll checks passed.");
 if (failures) process.exitCode = 1;
