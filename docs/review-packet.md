@@ -31,11 +31,11 @@ edited afterwards the approval no longer applies, and the item returns to draft.
 
 | Measure | Count |
 |---|---|
-| Total items | 440 |
+| Total items | 460 |
 | Approved (current version) | 0 |
-| Draft / unreviewed | 440 |
+| Draft / unreviewed | 460 |
 | Approvals voided by later edits | 0 |
-| Items that are unwritten placeholders | 49 |
+| Items that are unwritten placeholders | 46 |
 
 ## Placeholders — text that does not exist yet
 
@@ -64,9 +64,6 @@ which is the thing this work exists to prevent.
 - **explain:sc-date-learned-of-default** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-learned-of-default", which has no "why" text to derive one from]
 - **explain:sc-date-learned-of-judgment** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-date-learned-of-judgment", which has no "why" text to derive one from]
 - **explain:sc-safety-check** (small-claims / intake) — [NEEDS LICENSEE REVIEW: plain-language explanation for intake question "sc-safety-check", which has no "why" text to derive one from]
-- **next:small-claims:enforcement** (small-claims / enforcement) — [NEEDS LICENSEE REVIEW: Small Claims enforcement steps. O. Reg. 258/98 r. 20 is vendored in docs/sources/oreg-258-98-cited-rules.txt and names the forms (20A certificate of judgment, 20C and 20D writs of seizure and sale, 20P affidavit for enforcement request), but no reviewed user-facing next-step wording exists yet]
-- **next:small-claims:urgent** (small-claims / urgent) — [NEEDS LICENSEE REVIEW: what a self-represented person should do when a Small Claims matter is urgent. This is not a procedural stage in the Rules and has no provision to cite]
-- **next:small-claims:not-sure** (small-claims / not-sure) — [NEEDS LICENSEE REVIEW: guidance for a user who cannot identify their stage. Should direct to the referral resources rather than guess at a procedural step]
 - **next:family:starting-case** (family / starting-case) — [NEEDS LICENSEE REVIEW: Family next steps for the "starting-case" stage. O. Reg. 114/99 rr. 2, 6, 8, 10, 14 and 17 are vendored in docs/sources/flr-stage-rules.txt, but no reviewed user-facing next-step wording exists for this pathway]
 - **next:family:responding** (family / responding) — [NEEDS LICENSEE REVIEW: Family next steps for the "responding" stage. O. Reg. 114/99 rr. 2, 6, 8, 10, 14 and 17 are vendored in docs/sources/flr-stage-rules.txt, but no reviewed user-facing next-step wording exists for this pathway]
 - **next:family:already-started** (family / already-started) — [NEEDS LICENSEE REVIEW: Family next steps for the "already-started" stage. O. Reg. 114/99 rr. 2, 6, 8, 10, 14 and 17 are vendored in docs/sources/flr-stage-rules.txt, but no reviewed user-facing next-step wording exists for this pathway]
@@ -449,7 +446,7 @@ I recorded that update. What happened next, and what document or message support
 CourtSimplified could not respond right now. Please try again in a moment.
 ```
 
-## claim-type (75)
+## claim-type (95)
 
 ### `sc-claim-unpaid-debt-services:existed-agreement-or-understanding`
 
@@ -1418,6 +1415,266 @@ Causation has two parts (Mustapha v. Culligan of Canada Ltd., 2008 SCC 27, para.
 - **Status:** draft
 - **Pathway / stage:** small-claims / intake
 - **Appears in:** Claim type "Property damaged, lost, or not returned while left in a business's care" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim
+
+```
+The amount claimed falls within Small Claims Court's jurisdiction
+
+Ontario's Small Claims Court guide says the court "can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees." The $50,000 figure is the amount prescribed by O. Reg. 626/00, s. 1(1), for the court's jurisdiction under s. 23(1) of the Courts of Justice Act.
+```
+
+### `sc-claim-damage-caused-by-a-child:property-taken-damaged-destroyed-parental`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "A child took, damaged or destroyed my property (suing the parent)" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/laws/docs/00p04_e.doc
+
+```
+A child took, damaged or destroyed property that you own or are entitled to possess
+
+Under s. 2(1) of the Parental Responsibility Act, 2000, where a child takes, damages or destroys property, an owner or a person entitled to possession of the property may bring an action in the Small Claims Court against a parent of the child to recover damages. Ontario's Small Claims Court guide also says a claim can be brought in Small Claims Court under this Act against a parent of a child (under 18 years of age) "in certain circumstances where a child takes, damages or destroys your property."
+```
+
+### `sc-claim-damage-caused-by-a-child:defendant-is-parent-of-child-parental`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "A child took, damaged or destroyed my property (suing the parent)" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/laws/docs/00p04_e.doc
+
+```
+The person sued is a "parent" of a "child" as the Act defines those words
+
+Under s. 1 of the Parental Responsibility Act, 2000, "child" means a person who is under the age of 18 years. "Parent", when used in reference to a child, includes any individual who has lawful custody of, or a lawful right of access to, the child. (Section 1 says these definitions apply except as otherwise provided in section 10, which covers actions brought outside this Act.)
+```
+
+### `sc-claim-damage-caused-by-a-child:property-loss-and-economic-loss-parental`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "A child took, damaged or destroyed my property (suing the parent)" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/laws/docs/00p04_e.doc
+
+```
+The loss: the property itself, and money lost because of it
+
+Under s. 2(1) of the Parental Responsibility Act, 2000, the damages that can be recovered are (a) for loss of or damage to the property suffered as a result of the activity of the child, and (b) for economic loss suffered as a consequence of that loss of or damage to property.
+```
+
+### `sc-claim-damage-caused-by-a-child:amount-claimed-parental`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "A child took, damaged or destroyed my property (suing the parent)" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim
+
+```
+The amount claimed, calculated and explained
+
+Ontario's Small Claims Court guide says the reasons for a claim should "calculate and explain the amount of money and any interest you are claiming", with copies of supporting documents attached to the claim. This part of the checklist is about adding up the property loss and any economic loss, and showing how each figure was reached.
+```
+
+### `sc-claim-damage-caused-by-a-child:amount-within-jurisdiction-parental`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "A child took, damaged or destroyed my property (suing the parent)" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim
+
+```
+The amount claimed falls within Small Claims Court's jurisdiction
+
+Section 2(1) of the Parental Responsibility Act, 2000 sets its own limit: the damages recovered in an action under the Act are "not in excess of the monetary jurisdiction of the Small Claims Court". Ontario's Small Claims Court guide says the court "can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees." The $50,000 figure is the amount prescribed by O. Reg. 626/00, s. 1(1), for the court's jurisdiction under s. 23(1) of the Courts of Justice Act.
+```
+
+### `sc-claim-online-purchase-not-delivered:consumer-internet-or-remote-agreement-remote`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "Something bought online, by phone or by mail never arrived, or the seller won't refund" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/laws/docs/02c30_e.doc
+
+```
+The purchase was an internet or remote agreement between a consumer and a business
+
+Under s. 1 of the Consumer Protection Act, 2002, a "consumer" is an individual acting for personal, family or household purposes, and does not include a person acting for business purposes. A "supplier" is a person in the business of selling, leasing or trading in goods or services, or otherwise in the business of supplying them. Under s. 20(1), an "internet agreement" is a consumer agreement formed by text-based internet communications, and a "remote agreement" is a consumer agreement entered into when the consumer and supplier are not present together. The Act's special rules for these agreements apply only if the consumer's total potential payment obligation, excluding the cost of borrowing, exceeds a prescribed amount (ss. 37 and 44). O. Reg. 17/05 sets that amount at $50 for both (ss. 31 and 36). Under s. 2(1), the Act applies to consumer transactions if the consumer or the person dealing with the consumer is located in Ontario when the transaction takes place; s. 2(2) lists exceptions, such as consumer transactions regulated under the Securities Act. O. Reg. 17/05 also turns these rules off for some agreements -- for example, sections 27 to 47 of the Act do not apply to a consumer agreement for work on or repairs to a vehicle that is also an internet or remote agreement (s. 13). Steps to Justice (CLEO) explains that "online" means the order was placed using the internet -- for example on a website, by email, or in an app -- and that when you buy something, the law says you have made an agreement with the seller, even if you never see anything called an agreement.
+```
+
+### `sc-claim-online-purchase-not-delivered:late-delivery-remote`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "Something bought online, by phone or by mail never arrived, or the seller won't refund" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/laws/docs/02c30_e.doc
+
+```
+The goods were not delivered, or the services not started, within 30 days after the date in the agreement (or, if no date was given, within 30 days after the agreement was made)
+
+Under s. 1 of the Consumer Protection Act, 2002, a "future performance agreement" is a consumer agreement where delivery, performance or payment in full is not made when the parties enter the agreement. Under s. 26(1), a consumer may cancel a future performance agreement at any time before delivery or the start of performance if the supplier does not make delivery within 30 days after the delivery date specified in the agreement (or an amended delivery date the consumer agreed to in writing), or does not begin performance within 30 days after the commencement date specified in the agreement (or an amended date the consumer agreed to in writing). Under s. 26(2), if no delivery or commencement date is specified, the consumer may cancel at any time before delivery or commencement if the supplier does not deliver or begin within 30 days after the date the agreement is entered into. Under s. 26(3), if the consumer agrees to accept delivery or authorize commencement after that period has expired, the consumer may not cancel under this section. Under s. 21(1), these rules apply when the total potential payment obligation, excluding the cost of borrowing, exceeds a prescribed amount; O. Reg. 17/05, s. 23.1, sets that at $50 for a future performance agreement that is not a gift card agreement to which ss. 25.2 to 25.5 of the regulation apply. O. Reg. 17/05, ss. 18 and 19, say that when an internet agreement or a remote agreement is also a future performance agreement (and is not a time share, personal development services or direct agreement), sections 22 and 23 of the Act do not apply to it -- and, for an internet agreement, neither do sections 44 to 47. Steps to Justice's pages on buying online, by telephone and by mail order each say the seller must deliver the goods or start the services no more than 30 days late.
+```
+
+### `sc-claim-online-purchase-not-delivered:cancellation-right-and-notice-remote`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "Something bought online, by phone or by mail never arrived, or the seller won't refund" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/laws/docs/02c30_e.doc
+
+```
+A right to cancel applied, and notice of cancellation was given
+
+The Consumer Protection Act, 2002 gives a right to cancel an internet or remote agreement when the seller does not follow certain rules. For an internet agreement: under s. 38(1) and O. Reg. 17/05, s. 32, before the agreement the supplier shall disclose prescribed information, including the supplier's name, telephone number and business address, a fair and accurate description of the goods or services, an itemized list of prices including taxes and shipping charges, the total amount payable, the delivery dates, and any cancellation, return, exchange or refund rights the supplier agrees to. Under s. 38(2), the supplier shall provide an express opportunity to accept or decline the agreement and to correct errors immediately before entering into it. Under s. 39(1) and O. Reg. 17/05, s. 33(1), the supplier shall deliver a copy of the agreement in writing within 15 days after the consumer enters into it. Under s. 40(1), the consumer may cancel from the date of the agreement until seven days after receiving a copy of it if the required information was not disclosed or the express opportunity was not given; under s. 40(2), the consumer may cancel within 30 days after the date of the agreement if the supplier does not comply with a requirement under s. 39. For a remote agreement (for example, by telephone or mail order): under s. 45 and O. Reg. 17/05, ss. 37 and 38, the supplier shall disclose similar prescribed information (which may be done orally or in writing) and give an express opportunity to accept or decline the agreement and to correct errors. Under s. 46(1) and O. Reg. 17/05, s. 39(1), a written copy must be delivered within a period ending on the earlier of 30 days after the supplier bills the consumer and 60 days after the agreement is entered into. Under s. 47(1), the consumer may cancel until seven days after receiving a copy if the supplier fails to comply with s. 45; under s. 47(2), the consumer may cancel within one year after the date of the agreement if the supplier does not comply with a requirement under s. 46. Late delivery under s. 26 is a separate right to cancel, described in the part of this checklist before this one. How to cancel: under s. 94, a consumer who has a right to cancel does so by giving notice under s. 92, and the cancellation takes effect when the notice is given. Under s. 92, the notice may be expressed in any way, as long as it indicates the intention to seek the remedy; unless the regulations require otherwise it may be oral or in writing and given by any means; written notice not given by personal service is deemed given when sent; and it may be sent to the address in the agreement or, if there is no written copy or no address in it, to any address of the supplier on record with the Government of Ontario or of Canada, or known to the consumer.
+```
+
+### `sc-claim-online-purchase-not-delivered:refund-not-made-remote`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "Something bought online, by phone or by mail never arrived, or the seller won't refund" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/laws/docs/02c30_e.doc
+
+```
+After the cancellation, the seller did not refund the payment
+
+Under s. 96(1) of the Consumer Protection Act, 2002, if a consumer cancels a consumer agreement, the supplier shall, in accordance with the prescribed requirements, refund to the consumer any payment made under the agreement or any related agreement (and return goods delivered under a trade-in arrangement, or refund an amount equal to the trade-in allowance). O. Reg. 17/05, s. 79(1), says the supplier shall do so within 15 days after the day the consumer gives notice of cancellation under s. 92. Under s. 95, a cancellation under the Act cancels, as if they never existed, the consumer agreement, all related agreements, and credit agreements and other payment instruments arranged by the supplier or otherwise related to the agreement. Under s. 96(6), if a consumer has cancelled a consumer agreement and the supplier has not met the supplier's obligations under s. 96(1), the consumer may commence an action. Ontario's Small Claims Court guide says the reasons for a claim should "calculate and explain the amount of money and any interest you are claiming", with copies of supporting documents attached to the claim. This part of the checklist is about the payment that was not refunded and how the amount claimed is calculated.
+```
+
+### `sc-claim-online-purchase-not-delivered:amount-within-jurisdiction-remote`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "Something bought online, by phone or by mail never arrived, or the seller won't refund" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim
+
+```
+The amount claimed falls within Small Claims Court's jurisdiction
+
+Ontario's Small Claims Court guide says the court "can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees." The $50,000 figure is the amount prescribed by O. Reg. 626/00, s. 1(1), for the court's jurisdiction under s. 23(1) of the Courts of Justice Act.
+```
+
+### `sc-claim-repairer-or-storer-holding-property:business-holding-under-lien-repairlien`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "A repair shop, garage or storage business is holding my car or other item for its bill (lien dispute)" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/laws/docs/90r25_e.doc
+
+```
+The business is holding the item and claiming a lien for repair or storage charges
+
+Under s. 3(1) of the Repair and Storage Liens Act, in the absence of a written agreement to the contrary, a repairer has a lien against an article it has repaired, and may retain possession of the article until the amount is paid. The amount is what the person who requested the repair agreed to pay; where no amount was agreed, the fair value of the repair; and where only part of a repair was completed, the fair value of the part completed (fair value being determined in accordance with any applicable regulations). Under s. 4(1), subject to s. 4(2), a storer has a lien against an article it has stored, or stored and repaired, for the amount agreed for the storage or storage and repair; where no amount was agreed, the fair value of the storage or storage and repair; and where only part of a repair is completed, the fair value of the storage and the part of the repair completed -- and may retain possession until the amount is paid. Section 1(1) defines an "article" as an item of tangible personal property other than a fixture, and says "repair" includes the towing of an article. Under s. 28(2), unless otherwise agreed, a lien claimant is entitled to recover the commercially reasonable expenses of the custody, preservation and preparation for sale of the article, including insurance, and may include them in the amount required to satisfy the lien. Under s. 28(3), except as provided in any applicable regulations, a lien claimant is not entitled to a lien for interest on the amount owing, but this does not affect any right the lien claimant may otherwise have to recover such interest. This part of the checklist is about what the business is holding and what it says it is owed.
+```
+
+### `sc-claim-repairer-or-storer-holding-property:limits-on-lien-repairlien`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "A repair shop, garage or storage business is holding my car or other item for its bill (lien dispute)" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/laws/docs/90r25_e.doc
+
+```
+Limits the Act puts on when a lien arises and how much it covers
+
+Under s. 3(2) of the Repair and Storage Liens Act, a repairer's lien arises when the repair is commenced, except that no repairer's lien arises if the repairer was required to comply with sections 56 and 57, subsection 58(1) and section 59 of the Consumer Protection Act, 2002, if applicable, and has not done so. Section 4(3) says the same for a storer's lien with respect to repair. Under s. 3(2.1), where Part VI of the Consumer Protection Act, 2002 applies, the amount of a repairer's lien shall not exceed the amount the repairer is authorized to charge under s. 58(2) and s. 64 of that Act, if those provisions apply to the repairer, and the maximum amount authorized by the person who requested the repair, if s. 56 of that Act applies to the person. Under s. 3(2.0.1) and s. 4(3.0.1), except as otherwise provided in the regulations, no lien arises for towing or vehicle storage services regulated under the Towing and Storage Safety and Enforcement Act, 2021 if the business fails to comply with the prescribed provisions of that Act, if any. Under s. 4(4), where a storer knows or has reason to believe the article was received from someone other than its owner or a person having the owner's authority, the storer, within 60 days after receiving it, shall give written notice of the lien to every person it knows or has reason to believe is the owner or has an interest in the article, including every person who has a security interest in the article that is perfected by registration under the Personal Property Security Act. Under s. 4(6), if it does not, its lien against a person who should have been given notice is limited to the unpaid amount owing for the 60 days from the day the article was received, and it shall surrender the article to that person where the person proves a right to possession and pays that unpaid amount. Under s. 4(4.1) and (6.1), for an article of a prescribed class, a prescribed period (set by regulation) replaces the 60 days, and notice also goes to any other prescribed classes of persons. This part of the checklist is about whether any of these limits is in play.
+```
+
+### `sc-claim-repairer-or-storer-holding-property:dispute-of-listed-kind-repairlien`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "A repair shop, garage or storage business is holding my car or other item for its bill (lien dispute)" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/laws/docs/90r25_e.doc
+
+```
+The owner, or another person entitled to the item, disputes the lien in a way the Act lists
+
+Under s. 24(1) of the Repair and Storage Liens Act, where a claimant claims a possessory lien against an article and refuses to surrender it to its owner or any other person entitled to it, and one of the circumstances in s. 24(1.2) exists, the owner or other person lawfully entitled to the article may apply to the court, using the procedure in s. 24, to have the dispute resolved and the article returned. Section 24(1.1) gives the same right where a non-possessory lien is claimed and the person who has the article refuses to surrender it. Under s. 24(1.2), the circumstances are: (a) a dispute about the amount of the lien, including any question about the quality of the repair, storage or storage and repair; (b) for a repair, a dispute about the amount of work that was authorized; or (c) a dispute about the lien claimant's right to retain possession of the article. Under s. 24(2), the application names the lien claimant as a respondent and, for a non-possessory lien, also the person who has possession of the article. This part of the checklist is about exactly what is disputed and who the application is against.
+```
+
+### `sc-claim-repairer-or-storer-holding-property:payment-into-court-repairlien`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "A repair shop, garage or storage business is holding my car or other item for its bill (lien dispute)" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/laws/docs/90r25_e.doc
+
+```
+Paying the amount claimed into court so the item is released
+
+Under s. 24(3) of the Repair and Storage Liens Act, the application is in the prescribed form and may include an offer of settlement. Under s. 24(4), the applicant shall pay into court, or deposit security with the court in the amount of, the full amount claimed by the respondent; where the application includes an offer of settlement, the applicant pays the amount offered into court and pays into court, or deposits security for, the balance of the full amount claimed. Under s. 24(5), the clerk or registrar of the court then issues an initial certificate stating what has been paid in or deposited. Under s. 24(6), the applicant gives the initial certificate to the respondent, who, within three days of receiving it, shall release the article unless, within that three-day period, the respondent files a notice of objection with the court. Under s. 24(9) and (10), where the respondent does not release the article as required, the applicant may file an affidavit confirming that and obtain from the clerk or registrar, without notice to the respondent, a writ of seizure directing the sheriff or bailiff to seize the article and return it to the applicant. This part of the checklist is about the amount paid in and the certificates.
+```
+
+### `sc-claim-repairer-or-storer-holding-property:amount-within-jurisdiction-repairlien`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "A repair shop, garage or storage business is holding my car or other item for its bill (lien dispute)" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/laws/docs/90r25_e.doc
+
+```
+The amount involved is within the Small Claims Court limit and is explained
+
+Under s. 25 of the Repair and Storage Liens Act, an application under Part IV may be brought in any court of appropriate monetary jurisdiction, and under s. 24(3) the application is in the prescribed form (it is not an ordinary Plaintiff's Claim). Under s. 23(1) of the Courts of Justice Act, the Small Claims Court has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs, and in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount; O. Reg. 626/00, s. 1(1), sets that amount at $50,000. This part of the checklist is about the amount the business claims, the value of the item, and the records that show them.
+```
+
+### `sc-claim-unpaid-wages:worker-is-employee-unpaidwages`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "Unpaid wages (regular pay or final pay not paid by an employer)" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/laws/docs/00e41_e.doc
+
+```
+The person was an employee of the employer, doing work in Ontario
+
+Under s. 1(1) of the Employment Standards Act, 2000, "employee" includes a person, including an officer of a corporation, who performs work for an employer for wages, a person who supplies services to an employer for wages, certain trainees, and homeworkers -- and includes a person who was an employee. "Employer" includes an owner, proprietor, manager, superintendent, overseer, receiver or trustee of a business or undertaking who has control or direction of, or is directly or indirectly responsible for, the employment of a person in it, and includes a person who was an employer. Under s. 3(1), subject to s. 3(2) to (5), the employment standards apply if the employee's work is to be performed in Ontario, or in and outside Ontario where the work outside Ontario is a continuation of work performed in Ontario. Under s. 3(2), the Act does not apply where the employment relationship is within the legislative jurisdiction of the Parliament of Canada.
+```
+
+### `sc-claim-unpaid-wages:wages-earned-not-paid-unpaidwages`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "Unpaid wages (regular pay or final pay not paid by an employer)" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/laws/docs/00e41_e.doc
+
+```
+Wages were earned and were not paid by the pay day
+
+Under s. 1(1) of the Employment Standards Act, 2000, "wages" means money payable by an employer to an employee under the terms of an employment contract, oral or written, express or implied; any payment the Act requires an employer to make to an employee; and allowances for room or board under an employment contract or prescribed allowances. Wages do not include tips or other gratuities, gifts or bonuses that depend on the employer's discretion and are not related to hours, production or efficiency, expenses and travelling allowances, or (subject to ss. 60(3) and 62(2)) employer contributions to and payments from a benefit plan. Under s. 11(1), an employer shall establish a recurring pay period and a recurring pay day and shall pay all wages earned during each pay period, other than accruing vacation pay, no later than the pay day for that period. Under s. 23(1), an employer shall pay employees at least the minimum wage, and under s. 5(1), no employer or employee may contract out of or waive an employment standard -- any such contracting out or waiver is void. Under s. 12(1), on or before each pay day the employer shall give the employee a written statement setting out the pay period, the wage rate (if there is one), the gross amount of wages and, unless provided in some other manner, how it was calculated, the amount and purpose of each deduction, and the net amount being paid. Under s. 15(1), an employer shall record, among other things, the dates and times the employee worked and the number of hours worked in each day and each week.
+```
+
+### `sc-claim-unpaid-wages:final-pay-not-paid-unpaidwages`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "Unpaid wages (regular pay or final pay not paid by an employer)" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/laws/docs/00e41_e.doc
+
+```
+When the job ended, the final wages were not paid on time
+
+Under s. 11(5) of the Employment Standards Act, 2000, if an employee's employment ends, the employer shall pay any wages the employee is entitled to no later than the later of seven days after the employment ends and the day that would have been the employee's next pay day. Under s. 12.1, on or before that day, the employer shall give the employee a written statement setting out, among other things, the pay period and gross amount of any wages being paid and how that amount was calculated (unless the information is provided in some other manner), the amount and purpose of each deduction, and the net amount being paid.
+```
+
+### `sc-claim-unpaid-wages:unauthorized-deduction-unpaidwages`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "Unpaid wages (regular pay or final pay not paid by an employer)" — readiness and Statement of Claim
+- **Source:** https://www.ontario.ca/laws/docs/00e41_e.doc
+
+```
+Money was withheld or deducted from wages without the authority the Act requires
+
+Under s. 13(1) of the Employment Standards Act, 2000, an employer shall not withhold wages payable to an employee, make a deduction from an employee's wages, or cause the employee to return wages to the employer, unless authorized to do so under that section. Under s. 13(2) and (3), it is authorized if a statute of Ontario or Canada or a court order authorizes it, or with the employee's written authorization. Under s. 13(4), neither applies if the statute, order or authorization requires the employer to send the money to a third person and the employer fails to do so. Under s. 13(5), a written authorization does not apply if it does not refer to a specific amount or give a formula from which a specific amount may be calculated; if the wages were withheld, deducted or required to be returned because of faulty work, or because the employer had a cash shortage, lost property or had property stolen and a person other than the employee had access to the cash or property (or under prescribed conditions); or if the wages required to be returned were the subject of an order under the Act. Section 13(6) says the cash-shortage circumstances include a customer of a restaurant, gas station or other establishment leaving without paying. This part of the checklist only applies where money was taken off or held back from pay.
+```
+
+### `sc-claim-unpaid-wages:amount-within-jurisdiction-unpaidwages`
+
+- **Status:** draft
+- **Pathway / stage:** small-claims / intake
+- **Appears in:** Claim type "Unpaid wages (regular pay or final pay not paid by an employer)" — readiness and Statement of Claim
 - **Source:** https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim
 
 ```
@@ -3193,7 +3450,7 @@ Is there anything about your safety, or the other party's behaviour toward you, 
 - **Status:** draft
 - **Pathway / stage:** small-claims / starting-case
 - **Appears in:** Case summary and generated documents
-- **Source:** https://www.ontario.ca/laws/regulation/980258
+- **Source:** https://www.ontario.ca/laws/docs/980258_e.doc
 
 ```
 An action is started by filing a Plaintiff's Claim (Form 7A) with the clerk, together with a copy for each defendant. A copy for each defendant is not required if the claim is filed electronically (r. 7.01 (1), (1.1)).
@@ -3208,7 +3465,7 @@ Service is proved by an Affidavit of Service (Form 8A), or by a lawyer or parale
 - **Status:** draft
 - **Pathway / stage:** small-claims / responding
 - **Appears in:** Case summary and generated documents
-- **Source:** https://www.ontario.ca/laws/regulation/980258
+- **Source:** https://www.ontario.ca/laws/docs/980258_e.doc
 
 ```
 A defendant who wishes to dispute a claim must, within 20 days of being served, serve a Defence (Form 9A) on every other party and file it with the clerk, with proof of service (r. 9.01).
@@ -3221,7 +3478,7 @@ Proof of service is an Affidavit of Service (Form 8A) or a lawyer or paralegal's
 - **Status:** draft
 - **Pathway / stage:** small-claims / already-started
 - **Appears in:** Case summary and generated documents
-- **Source:** https://www.ontario.ca/laws/regulation/980258
+- **Source:** https://www.ontario.ca/laws/docs/980258_e.doc
 
 ```
 If no defence has been filed in time, the plaintiff may ask the clerk to note the defendant in default. The clerk requires a request to note in default (which may be made in Form 9B) and proof that the claim was served within the court's territorial division (r. 11.01 (1)).
@@ -3247,7 +3504,7 @@ A List of Proposed Witnesses (Form 13A) must be served at least 14 days before t
 - **Status:** draft
 - **Pathway / stage:** small-claims / motion
 - **Appears in:** Case summary and generated documents
-- **Source:** https://www.ontario.ca/laws/regulation/980258
+- **Source:** https://www.ontario.ca/laws/docs/980258_e.doc
 
 ```
 A motion is made by a notice of motion and supporting affidavit (Form 15A).
@@ -3260,7 +3517,7 @@ It must be served on every party who has filed a claim, and any defendant not no
 - **Status:** draft
 - **Pathway / stage:** small-claims / trial
 - **Appears in:** Case summary and generated documents
-- **Source:** https://www.ontario.ca/laws/regulation/980258
+- **Source:** https://www.ontario.ca/laws/docs/980258_e.doc
 
 ```
 Documents not already attached to the claim or defence must be served and filed at least 30 days before the trial date.
@@ -3273,10 +3530,16 @@ Service of a summons to witness, and the payment or tender of attendance money, 
 - **Status:** draft
 - **Pathway / stage:** small-claims / enforcement
 - **Appears in:** Case summary and generated documents
-- **Source:** https://www.ontario.ca/laws/regulation/980258
+- **Source:** https://www.ontario.ca/laws/docs/980258_e.doc
 
 ```
-[NEEDS LICENSEE REVIEW: Small Claims enforcement steps. O. Reg. 258/98 r. 20 is vendored in docs/sources/oreg-258-98-cited-rules.txt and names the forms (20A certificate of judgment, 20C and 20D writs of seizure and sale, 20P affidavit for enforcement request), but no reviewed user-facing next-step wording exists yet]
+An order for the payment or recovery of money may be enforced by a writ of seizure and sale of personal property (Form 20C) under rule 20.06, a writ of seizure and sale of land (Form 20D) under rule 20.07, and garnishment under rule 20.08, and a further order as to payment may be made after an examination (r. 20.03).
+
+If there is default under the order, the clerk of a court in the territorial division where the debtor lives or carries on business will, at the creditor's request, issue a notice of examination (Form 20H), supported by an affidavit for enforcement request (Form 20P) (r. 20.10 (1), (2)).
+
+To enforce at another court location, the clerk will, at the creditor's request supported by Form 20P stating the amount still owing, issue a certificate of judgment (Form 20A) to the clerk at that location (r. 20.04 (1)).
+
+The court may stay enforcement, and may vary the times and proportions in which money is to be paid if it is satisfied that the debtor's circumstances have changed (r. 20.02 (1)).
 ```
 
 ### `next:small-claims:urgent`
@@ -3284,10 +3547,14 @@ Service of a summons to witness, and the payment or tender of attendance money, 
 - **Status:** draft
 - **Pathway / stage:** small-claims / urgent
 - **Appears in:** Case summary and generated documents
-- **Source:** _none recorded_
+- **Source:** https://www.ontario.ca/laws/docs/980258_e.doc
 
 ```
-[NEEDS LICENSEE REVIEW: what a self-represented person should do when a Small Claims matter is urgent. This is not a procedural stage in the Rules and has no provision to cite]
+The court may lengthen or shorten any time set by the rules or by an order, on such terms as are just (r. 3.02 (1)). A time for serving or filing a document can also be lengthened or shortened by filing the consent of the parties (r. 3.02 (2)).
+
+A party who has been noted in default, or has a default judgment against them, can make a motion to set it aside. The court may do so if it is satisfied that the party has a meritorious defence and a reasonable explanation for the default, and that the motion is made as soon as is reasonably possible (r. 11.06).
+
+A motion is made by a notice of motion and supporting affidavit (Form 15A), with a hearing date obtained from the clerk before it is served (r. 15.01 (1), (2)).
 ```
 
 ### `next:small-claims:not-sure`
@@ -3295,10 +3562,12 @@ Service of a summons to witness, and the payment or tender of attendance money, 
 - **Status:** draft
 - **Pathway / stage:** small-claims / not-sure
 - **Appears in:** Case summary and generated documents
-- **Source:** _none recorded_
+- **Source:** https://www.ontario.ca/document/guide-procedures-small-claims-court/after-judgment
 
 ```
-[NEEDS LICENSEE REVIEW: guidance for a user who cannot identify their stage. Should direct to the referral resources rather than guess at a procedural step]
+If you are not sure what stage your case is at, that is a question a lawyer or paralegal can help with. Ontario's Small Claims Court guide says that if you wish to consult an Ontario lawyer or paralegal, you may contact the Law Society Referral Service, operated by the Law Society of Ontario. It can give you the name of a lawyer or paralegal in your area, who will provide a free initial consultation of up to 30 minutes to help determine your rights and options.
+
+You can ask for a referral by completing the online request form at www.lawsocietyreferralservice.ca.
 ```
 
 ### `next:family:starting-case`

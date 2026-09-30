@@ -660,6 +660,29 @@ Recorded so the next pass does not rediscover them. The per-entry evidence is in
   the written, signed acknowledgment; it does not itself have to be written.**
   An earlier draft got this backwards.
 
+### Two neighbour claim types that the statutes do not support (2026-09-30)
+
+Drafted and deliberately NOT shipped, so nobody re-derives them:
+
+- **Trespass to Property Act, R.S.O. 1990, c. T.21 (`90t21_e.doc`): no Small
+  Claims money claim.** Damages appear only in s. 12, and every part depends on a
+  conviction under s. 2: the convicting court awards them on the prosecutor's
+  request with the victim's consent (s. 12(1)); that judgment extinguishes a civil
+  action on the same facts (s. 12(4)); not asking does not (s. 12(5)); Small Claims
+  appears only as the place to file the award for enforcement (s. 12(6)). The Act
+  does not say what a civil trespass claim must show. Needs case law.
+- **Forestry Act s. 10: a boundary tree is common property (s. 10(2)) and injuring
+  it without consent is an offence (s. 10(3), s. 19(1)).** No civil right to money
+  is created, and nothing in the corpus says a co-owner can recover damages. A
+  claim type built on it would imply a right the source does not give. The Line
+  Fences Act routes fence and fallen-tree-on-fence disputes to fence-viewers
+  (ss. 4, 22(5)); Small Claims appears only for filing a fence-viewers' certificate
+  (s. 12(9)). Needs a reported decision on boundary trees saved to docs/sources/.
+- **Repair and Storage Liens Act s. 24: the owner's route IS in Small Claims**
+  (s. 25 "any court of appropriate monetary jurisdiction"; s. 23(3) names it), but it
+  is an application "in the prescribed form", not a Plaintiff's Claim, and that
+  form's regulation is not in the corpus.
+
 ## Dead ends already ruled out
 
 ### Ontario Fault Determination Rules ≠ a route to sue the other driver

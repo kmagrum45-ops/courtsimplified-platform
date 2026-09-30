@@ -125,6 +125,16 @@ export type ClaimTypeProfile = {
   /** The existing intake catalogue entry this extends, where there is one. */
   existingClaimTypeId?: string;
 
+  /**
+   * Intake claim types this profile is a possible variant of, without being an
+   * extension of it. A fall on a city sidewalk is not an occupiers' liability
+   * claim, but a person whose story was classified as a slip and fall needs to
+   * know a ten-day municipal notice may exist. groundedCognition's source pack
+   * offers the profile's notice rules for these claim types as material that
+   * MAY apply -- it never says they do.
+   */
+  alsoRelevantTo?: string[];
+
   /** Who is typically on each side. Descriptive, never an assumption about a user. */
   sides?: { bringing: string; defending: string };
 

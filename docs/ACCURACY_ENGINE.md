@@ -1551,3 +1551,16 @@ show); a procedure page cited for what a Defence may argue; "$50,000" cited to
 the CJA, which says only "the prescribed amount"; and "two years from when the
 incident was discovered" where the Act says the claim. Details in
 `OUTSTANDING_ISSUES.md` §14 and `SOURCING_NOTES.md`.
+
+**Connected 2026-09-30.** The source pack now also carries the confirmed claim
+type's defence concepts, and the authored claim-type profiles in
+`claim-types/` that extend it (`existingClaimTypeId`) or are a possible
+variant of it (`alsoRelevantTo`, e.g. a municipal-sidewalk fall for a slip and
+fall): their claim-barring notice rules and limitation rule, verbatim. Before
+this the analysis never saw the ten-day municipal notice or the sixty-day snow
+and ice notice, and `claim-types/` was unreachable from any page. Four claim
+types were added from the corpus (child damage under the Parental
+Responsibility Act, a repairer's or storer's lien, an online or remote purchase,
+unpaid wages); two drafted types were not shipped because the statute gives no
+money claim (SOURCING_NOTES.md). `test:catalogue-verified` now also rejects
+case-grading or judge-prediction language in any entry.

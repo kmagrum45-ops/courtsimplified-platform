@@ -39,6 +39,7 @@ export const CLAIM_BARRING_PROFILES: ClaimTypeProfile[] = [
     family: "injury",
     name: "A fall on a city sidewalk, road or bridge",
     contentStatus: "authored",
+    alsoRelevantTo: ["sc-claim-slip-and-fall-occupier-liability"],
     sides: {
       bringing: "the person who fell",
       defending: "a municipality, and sometimes an adjacent owner as well",
@@ -92,6 +93,7 @@ export const CLAIM_BARRING_PROFILES: ClaimTypeProfile[] = [
     family: "injury",
     name: "A fall on a Toronto sidewalk, road or bridge",
     contentStatus: "authored",
+    alsoRelevantTo: ["sc-claim-slip-and-fall-occupier-liability"],
     sides: {
       bringing: "the person who fell",
       defending: "the City of Toronto",

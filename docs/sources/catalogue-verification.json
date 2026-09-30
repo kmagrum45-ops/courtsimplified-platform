@@ -354,7 +354,7 @@
    "key": "sc-claim-slip-and-fall-occupier-liability|proceduralNote|sc-claim-slip-and-fall-occupier-liability#note1",
    "verifiedAt": "2026-09-30",
    "outcome": "corrected",
-   "fingerprint": "aacadc56930d4b738720c1ae6343b04111e104fb32ad3e61f0d14b189d33104c",
+   "fingerprint": "f770002a17347da697ebeaa78d02d35b79f1d9143ed474f83a574e73b6323e27",
    "sources": [
     {
      "sourceUrl": "https://www.ontario.ca/laws/docs/90o02_e.doc",
@@ -385,7 +385,8 @@
    "howRead": "https://www.ontario.ca/laws/docs/90o02_e.doc: vendored text in docs/sources/corpus (retrieved 2026-09-27; see manifest.json)",
    "problemCorrected": "Accurate to s. 6.1, with two small issues: (1) the bar applies to actions against an occupier or its snow-removal contractor (the listed persons), and the contractor must be one employed by the occupier during the relevant period; (2) the comparison to the 'ordinary 2-year limitation period' is not in the OLA -- it needs its own cite (ontario.ca civil-claims page / Limitations Act, 2002).",
    "independentReviews": [
-    "Second, independent re-read against the sources (2026-09-30): supported."
+    "Second, independent re-read against the sources (2026-09-30): supported.",
+    "2026-09-30: the s. 6.1(6) sentence reworded to the Act's own form ('is not a bar to the action if a judge finds that there is reasonable excuse ... and that the defendant is not prejudiced in its defence'), so it no longer reads as a prediction; re-read against the vendored s. 6.1(6)."
    ]
   },
   {
@@ -3333,6 +3334,1526 @@
     }
    ],
    "howRead": "https://www.canlii.org/en/ca/scc/doc/1975/1975canlii15/1975canlii15.html: local file"
+  },
+  {
+   "key": "sc-claim-damage-caused-by-a-child|plaintiffElement|property-taken-damaged-destroyed-parental",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "96e7e42dbf95d8e81e85114882606940f617e532fe20cac51df119efc3135a57",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 2(1)",
+     "quote": "Where a child takes, damages or destroys property, an owner or a person entitled to possession of the property may bring an action in the Small Claims Court against a parent of the child to recover damages"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+     "pinpoint": "Types of claims that are dealt with in Small Claims Court",
+     "quote": "A claim can also be brought in Small Claims Court under the Parental Responsibility Act, 2000 against a parent of a child (under 18 years of age) in certain circumstances where a child takes, damages or destroys your property."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/00p04_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-damage-caused-by-a-child|plaintiffElement|defendant-is-parent-of-child-parental",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "85870a0370d8f5f09f1fb346f31e604b92c262fac3ac66b505a51e533150b450",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 1",
+     "quote": "In this Act, except as otherwise provided in section 10, \"child\" means a person who is under the age of 18 years; (\"enfant\") \"parent\", when used in reference to a child, includes any individual who has lawful custody of, or a lawful right of access to, the child."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/00p04_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-damage-caused-by-a-child|plaintiffElement|property-loss-and-economic-loss-parental",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "7e33c1ba18f76d665dd93f70318723d6696e32ea1d7ac34f33ad3c346d494dd9",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 2(1)(a)-(b)",
+     "quote": "(a) for loss of or damage to the property suffered as a result of the activity of the child; and (b) for economic loss suffered as a consequence of that loss of or damage to property."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/00p04_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-damage-caused-by-a-child|plaintiffElement|amount-claimed-parental",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "44557737d0aba08b190de783965cf9ebeea8ba3b033f0fbaf63db3e2111a1803",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+     "pinpoint": "How to fill out the claim form",
+     "quote": "Calculate and explain the amount of money and any interest you are claiming."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+     "pinpoint": "How to fill out the claim form",
+     "quote": "Attach a copy of supporting documents to the claim."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-damage-caused-by-a-child|plaintiffElement|amount-within-jurisdiction-parental",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "6db8361ee604ac26a5b3d8e3dfa6d89db6a0e5f27a4b7628bd086e11dcc86c49",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 2(1)",
+     "quote": "to recover damages, not in excess of the monetary jurisdiction of the Small Claims Court"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+     "pinpoint": "Types of claims that are dealt with in Small Claims Court",
+     "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+     "pinpoint": "O. Reg. 626/00, s. 1(1)",
+     "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+     "pinpoint": "Courts of Justice Act, s. 23(1)(a)",
+     "quote": "has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs"
+    }
+   ],
+   "howRead": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/000626_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/00p04_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/90c43_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-damage-caused-by-a-child|defendantConsideration|reasonable-supervision-and-efforts-parental",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "b12f6ac6790973c74149cac6b63a674915944048dc5ca348d47b54d8c2155e72",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 2(2)(a)",
+     "quote": "The parent is liable for the damages unless the parent satisfies the court that, (a) he or she was exercising reasonable supervision over the child at the time the child engaged in the activity that caused the loss or damage and made reasonable efforts to prevent or discourage the child from engaging in the kind of activity that resulted in the loss or damage; or"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 2(3)",
+     "quote": "For the purposes of clause (2) (a), in determining whether a parent exercised reasonable supervision over a child or made reasonable efforts to prevent or discourage the child from engaging in the kind of activity that resulted in the loss or damage, the court may consider, (a) the age of the child; (b) the prior conduct of the child; (c) the potential danger of the activity; (d) the physical or mental capacity of the child; (e) any psychological or other medical disorders of the child; (f) whether the child was under the direct supervision of the parent at the time when the child was engaged in the activity; (g) if the child was not under the direct supervision of the parent when the child engaged in the activity, whether the parent acted unreasonably in failing to make reasonable arrangements for the supervision of the child; (h) whether the parent has sought to improve his or her parenting skills by attending parenting courses or otherwise; (i) whether the parent has sought professional assistance for the child designed to discourage activity of the kind that resulted in the loss or damage; and (j) any other matter that the court considers relevant."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/00p04_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-damage-caused-by-a-child|defendantConsideration|activity-not-intentional-parental",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "5a80f6b1d52eea92e7479b4dff78c43b5efca4eb8ea563846e3524c7b76d7aae",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 2(2)(b)",
+     "quote": "The parent is liable for the damages unless the parent satisfies the court that,"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 2(2)(b)",
+     "quote": "(b) the activity that caused the loss or damage was not intentional."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/00p04_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-damage-caused-by-a-child|defendantConsideration|disputes-child-or-parent-parental",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "a88266e7c94cc1388a4b4154cc373fe0308e5f35cbaed944e37b8d1449074443",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.01",
+     "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1)",
+     "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1)",
+     "quote": "If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): partly -- r. 9.02(1) para. 2 paraphrase drops the exception: the document must be attached 'unless it is unavailable, in which case the defence shall state the reason why the document is not attached'. Also whenThisComesUp says 'parent or guardian' - 'guardian' is not a term the Act uses; s. 1 defines 'parent' as including anyone with lawful custody of, or a lawful right of access to, the child. Rewritten to the source wording."
+   ]
+  },
+  {
+   "key": "sc-claim-damage-caused-by-a-child|proceduralNote|sc-claim-damage-caused-by-a-child#note0",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "debdbcf9ec7552cac50f3d8a98cbae7bda95b9aebd28f72dcf9e287dfe748314",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 4",
+     "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5(1)",
+     "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5(2)",
+     "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-damage-caused-by-a-child|proceduralNote|sc-claim-damage-caused-by-a-child#note1",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "d34003e9653677f98d8ef7d1225f191aaa237993b89f1fb080b3f9766b54a2ea",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 3(2)",
+     "quote": "In an action brought under this Act, proof that a child has been found guilty under the Young Offenders Act (Canada) or the Youth Criminal Justice Act (Canada) of an offence is proof, in the absence of evidence to the contrary, that the offence was committed by the child, if, (a) no appeal of the finding of guilt was taken and the time for an appeal has expired; or (b) an appeal of the finding of guilt was taken but was dismissed or abandoned and no further appeal is available."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 3(4)",
+     "quote": "A person who presents evidence obtained under the Youth Criminal Justice Act (Canada) in an action brought under this Act shall first give the court notice, in the prescribed form."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 3(5)",
+     "quote": "(a) the court file shall not be disclosed to any person except, (i) the court and authorized court employees, (ii) the claimant and the claimant's representative, and (iii) the child, his or her parents and their representatives; and (b) once the action has been finally disposed of, the court file shall be sealed up and shall not be disclosed to any person, except one mentioned in clause (a)."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 4",
+     "quote": "nothing in this Act affects any provision of the Youth Criminal Justice Act limiting disclosure or publication of the information."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/00p04_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-damage-caused-by-a-child|proceduralNote|sc-claim-damage-caused-by-a-child#note2",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "87449b17400ca812a3426cd56824e9a729abb301836fed67ad2353220cefad44",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 5",
+     "quote": "In determining the amount of damages in an action brought under this Act, the court may take into account any amount ordered by a court as restitution or paid voluntarily as restitution."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 6",
+     "quote": "Where more than one parent is liable in an action brought under this Act for a child's activity, their liability is joint and several."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 7(1)",
+     "quote": "the court may order payment of the damages, (a) to be made in full on or before a fixed date; or (b) to be made in instalments on or before fixed dates, if the court considers that a lump sum payment is beyond the financial resources of the parent or will otherwise impose an unreasonable financial burden on the parent."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 7(2)",
+     "quote": "The court may order security to be provided by the parent in any form that the court considers appropriate."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 8",
+     "quote": "An insurer who has paid an amount as compensation to a person in connection with the loss or damage is subrogated to the rights of the person under this Act to the extent of the amount."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/00p04_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-damage-caused-by-a-child|proceduralNote|sc-claim-damage-caused-by-a-child#note3",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "c163e9077ace3de2ccdf3bfe8e7af8b1bd71bcafece4ca60b37b0014728fe9de",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 9",
+     "quote": "Nothing in this Act shall be interpreted to limit remedies otherwise available under existing law or to preclude the development of remedies under the law."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 10(1)",
+     "quote": "This section applies to any action brought otherwise than under this Act."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 10(2)",
+     "quote": "In an action against a parent for damage to property or for personal injury or death caused by the fault or neglect of a child who is a minor, the onus of establishing that the parent exercised reasonable supervision and control over the child rests with the parent."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00p04_e.doc",
+     "pinpoint": "s. 10(3)",
+     "quote": "\"child\" and \"parent\" have the same meaning as in the Family Law Act."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/00p04_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-online-purchase-not-delivered|plaintiffElement|consumer-internet-or-remote-agreement-remote",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "1a9715e9db994fe089839c4d8b891f4e9b3f870d0c5f764b40d3f2a15bf609ed",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 1 (\"consumer\")",
+     "quote": "\"consumer\" means an individual acting for personal, family or household purposes and does not include a person who is acting for business purposes"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 1 (\"supplier\")",
+     "quote": "\"supplier\" means a person who is in the business of selling, leasing or trading in goods or services or is otherwise in the business of supplying goods or services"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 20(1) (\"internet agreement\")",
+     "quote": "\"internet agreement\" means a consumer agreement formed by text-based internet communications"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 20(1) (\"remote agreement\")",
+     "quote": "\"remote agreement\" means a consumer agreement entered into when the consumer and supplier are not present together"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 37",
+     "quote": "Sections 38 to 40 apply to an internet agreement if the consumer's total potential payment obligation under the agreement, excluding the cost of borrowing, exceeds a prescribed amount."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 44",
+     "quote": "Sections 45 to 47 apply to remote agreements if the consumer's total potential payment obligation under the agreement, excluding the cost of borrowing, exceeds a prescribed amount."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 2(1)",
+     "quote": "Subject to this section, this Act applies in respect of all consumer transactions if the consumer or the person engaging in the transaction with the consumer is located in Ontario when the transaction takes place."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 2(2)(a)",
+     "quote": "This Act does not apply in respect of, (a) consumer transactions regulated under the Securities Act;"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+     "pinpoint": "O. Reg. 17/05, s. 31",
+     "quote": "The prescribed amount for the purpose of section 37 of the Act is $50."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+     "pinpoint": "O. Reg. 17/05, s. 36",
+     "quote": "The prescribed amount for the purpose of section 44 of the Act is $50."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+     "pinpoint": "O. Reg. 17/05, s. 13",
+     "quote": "Sections 22, 23 and 27 to 47 of the Act do not apply to a consumer agreement for work to be done on or repairs to be made to a vehicle, if the agreement is also a future performance agreement, a time share agreement, a personal development services agreement, a direct agreement, an internet agreement or a remote agreement."
+    },
+    {
+     "sourceUrl": "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-online-can-i-cancel-my-order-or-return-it/",
+     "pinpoint": "Question and answer",
+     "quote": "“Online” means that you placed your order or made the agreement using the internet. For example, on a website, by email, or in an app on a mobile phone or tablet."
+    },
+    {
+     "sourceUrl": "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-online-can-i-cancel-my-order-or-return-it/",
+     "pinpoint": "Question and answer",
+     "quote": "You might not see anything called an agreement when you place your order. But when you buy something, the law says you have made an agreement or contract with the seller."
+    }
+   ],
+   "howRead": "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-online-can-i-cancel-my-order-or-return-it/: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/02c30_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/050017_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-online-purchase-not-delivered|plaintiffElement|late-delivery-remote",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "bac42d480c2c383ab3b32f143d0e1cf63826215d27f4b5d384982d0d50337682",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 1 (\"future performance agreement\")",
+     "quote": "\"future performance agreement\" means a consumer agreement in respect of which delivery, performance or payment in full is not made when the parties enter the agreement"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 26(1)",
+     "quote": "A consumer may cancel a future performance agreement at any time before delivery under the agreement or the commencement of performance under the agreement if the supplier, (a) does not make delivery within 30 days after the delivery date specified in the agreement or an amended delivery date agreed to by the consumer in writing; or (b) does not begin performance of his, her or its obligations within 30 days after the commencement date specified in the agreement or an amended commencement date agreed to by the consumer in writing."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 26(2)",
+     "quote": "If the delivery date or commencement date is not specified in the future performance agreement, a consumer may cancel the agreement at any time before delivery or commencement if the supplier does not deliver or commence performance within 30 days after the date the agreement is entered into."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 26(3)",
+     "quote": "If, after the period in subsection (1) or (2) has expired, the consumer agrees to accept delivery or authorize commencement, the consumer may not cancel the agreement under this section."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 21(1)",
+     "quote": "Sections 22 to 26 apply to future performance agreements if the consumer's total potential payment obligation under the agreement, excluding the cost of borrowing, exceeds a prescribed amount."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+     "pinpoint": "O. Reg. 17/05, s. 23.1",
+     "quote": "The prescribed amount for the purpose of subsection 21 (1) of the Act is $50 if the future performance agreement mentioned in that subsection is not a gift card agreement to which sections 25.2 to 25.5 apply."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+     "pinpoint": "O. Reg. 17/05, s. 18",
+     "quote": "Sections 22, 23 and 44 to 47 of the Act do not apply to an internet agreement that is also a future performance agreement or a remote agreement but is not a time share agreement, a personal development services agreement or a direct agreement."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+     "pinpoint": "O. Reg. 17/05, s. 19",
+     "quote": "Sections 22 and 23 of the Act do not apply to a remote agreement that is also a future performance agreement but is not a time share agreement, a personal development services agreement, a direct agreement or an internet agreement."
+    },
+    {
+     "sourceUrl": "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-online-can-i-cancel-my-order-or-return-it/",
+     "pinpoint": "Rules for online sellers",
+     "quote": "The seller must deliver the goods or start the services no more than 30 days late."
+    },
+    {
+     "sourceUrl": "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-telephone-can-i-cancel-order-or-return-it/",
+     "pinpoint": "Rules for telephone sellers",
+     "quote": "The seller must deliver the goods or start the services no more than 30 days late."
+    },
+    {
+     "sourceUrl": "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-mail-order-can-i-cancel-order-or-return-it/",
+     "pinpoint": "Rules for mail order sellers",
+     "quote": "The seller must deliver the goods or start the services no more than 30 days late."
+    }
+   ],
+   "howRead": "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-mail-order-can-i-cancel-order-or-return-it/: vendored text in docs/sources/corpus (see manifest.json); https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-online-can-i-cancel-my-order-or-return-it/: vendored text in docs/sources/corpus (see manifest.json); https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-telephone-can-i-cancel-order-or-return-it/: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/02c30_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/050017_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): partly -- Element name says 'within 30 days of the promised date'. s. 26(1) runs the 30 days AFTER the delivery/commencement date specified in the agreement (or an amended date agreed to in writing), and s. 26(2) runs it after the date the agreement was entered into when no date is specified. 'Within 30 days of' can be read as before/around the date and the name omits the no-date case. Body text is accurate. (Minor: s. 21(2) - ss. 22-26 do not apply to agreements that are future performance agreements solely because of an open credit arrangement - is not mentioned.) Rewritten to the source wording."
+   ]
+  },
+  {
+   "key": "sc-claim-online-purchase-not-delivered|plaintiffElement|cancellation-right-and-notice-remote",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "a9df7f1b845cbaca88e61c8f03f35479805b667b769e485db9cb75c5ae5c6104",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 38(1)-(2)",
+     "quote": "Before a consumer enters into an internet agreement, the supplier shall disclose the prescribed information to the consumer. ... The supplier shall provide the consumer with an express opportunity to accept or decline the agreement and to correct errors immediately before entering into it."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+     "pinpoint": "O. Reg. 17/05, s. 32, paras. 1-4, 6, 8, 11",
+     "quote": "The name of the supplier and, if different, the name under which the supplier carries on business. ... The telephone number of the supplier, the address of the premises from which the supplier conducts business ... A fair and accurate description of the goods and services proposed to be supplied to the consumer ... An itemized list of the prices at which the goods and services are proposed to be supplied to the consumer, including taxes and shipping charges. ... The total amount that the supplier knows would be payable by the consumer under the agreement ... As applicable, the date or dates on which delivery, commencement of performance, ongoing performance and completion of performance would occur. ... The rights, if any, that the supplier agrees the consumer will have in addition to the rights under the Act and the obligations, if any, by which the supplier agrees to be bound in addition to the obligations under the Act, in relation to cancellations, returns, exchanges and refunds."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 39(1)",
+     "quote": "A supplier shall deliver to a consumer who enters into an internet agreement a copy of the agreement in writing within the prescribed period after the consumer enters into the agreement."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+     "pinpoint": "O. Reg. 17/05, s. 33(1)",
+     "quote": "For the purpose of subsection 39 (1) of the Act, the supplier shall deliver a copy of the internet agreement in writing to the consumer within 15 days after the consumer enters into the agreement."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 40(1)",
+     "quote": "A consumer may cancel an internet agreement at any time from the date the agreement is entered into until seven days after the consumer receives a copy of the agreement if, (a) the supplier did not disclose to the consumer the information required under subsection 38 (1); or (b) the supplier did not provide to the consumer an express opportunity to accept or decline the agreement or to correct errors immediately before entering into it."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 40(2)",
+     "quote": "A consumer may cancel an internet agreement within 30 days after the date the agreement is entered into, if the supplier does not comply with a requirement under section 39."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 45",
+     "quote": "Before a consumer enters into a remote agreement, the supplier shall disclose the prescribed information to the consumer and shall satisfy the prescribed requirements."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+     "pinpoint": "O. Reg. 17/05, ss. 37(2), 38",
+     "quote": "The disclosure required under section 45 of the Act and subsection (1) of this section may be made orally or in writing ... before a consumer enters into a remote agreement, the supplier shall provide the consumer with an express opportunity to accept or decline the agreement and to correct errors."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 46(1)",
+     "quote": "A supplier shall deliver to a consumer who enters into a remote agreement a copy of the agreement in writing within the prescribed period after the consumer enters into the agreement."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+     "pinpoint": "O. Reg. 17/05, s. 39(1)",
+     "quote": "the period within which the supplier shall deliver a copy of the remote agreement in writing to the consumer is the period that begins on the day the consumer enters into the agreement and ends on the earlier of, (a) the day that is 30 days after the supplier bills the consumer for the goods or services; and (b) the day that is 60 days after the day the consumer enters into the agreement."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 47(1)-(2)",
+     "quote": "A consumer may cancel a remote agreement at any time from the date the agreement is entered into until seven days after the consumer receives a copy of the agreement if the supplier fails to comply with section 45. ... A consumer may cancel a remote agreement within one year after the date the agreement is entered into, if the supplier does not comply with a requirement under section 46."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 94(1)-(2)",
+     "quote": "If a consumer has a right to cancel a consumer agreement under this Act, the consumer may cancel the agreement by giving notice in accordance with section 92. ... The cancellation takes effect when the consumer gives notice."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 92(2)-(5)",
+     "quote": "The notice may be expressed in any way, as long as it indicates the intention of the consumer to seek the remedy being requested and complies with any requirements that may be prescribed. ... Unless the regulations require otherwise, the notice may be oral or in writing and may be given by any means. ... If notice in writing is given other than by personal service, the notice shall be deemed to be given when sent. ... The consumer may send or deliver the notice to the address set out in a consumer agreement or, if the consumer did not receive a written copy of a consumer agreement or the address was not set out in the written agreement, the consumer may send or deliver the notice, (a) to any address of the supplier on record with the Government of Ontario or the Government of Canada; or (b) to an address of the supplier known by the consumer."
+    },
+    {
+     "sourceUrl": "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-telephone-can-i-cancel-order-or-return-it/",
+     "pinpoint": "Rules for telephone sellers",
+     "quote": "The seller must give you a copy of the agreement , containing all the required information, within 30 days after they bill you, or within 60 days after you made the agreement, whichever is sooner."
+    }
+   ],
+   "howRead": "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-telephone-can-i-cancel-order-or-return-it/: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/02c30_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/050017_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-online-purchase-not-delivered|plaintiffElement|refund-not-made-remote",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "4e76de4807c843a73004115f8a45553f533c3e7efd7ed5bf690facde33e13722",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 96(1)",
+     "quote": "If a consumer cancels a consumer agreement, the supplier shall, in accordance with the prescribed requirements, (a) refund to the consumer any payment made under the agreement or any related agreement; and (b) return to the consumer in a condition substantially similar to when they were delivered all goods delivered under a trade-in arrangement or refund to the consumer an amount equal to the trade-in allowance."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+     "pinpoint": "O. Reg. 17/05, s. 79(1)",
+     "quote": "A supplier who is required to comply with subsection 96 (1) of the Act shall do so within 15 days after the day the consumer gives notice to the supplier in accordance with section 92 of the Act that the consumer is cancelling the consumer agreement."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 95",
+     "quote": "The cancellation of a consumer agreement in accordance with this Act operates to cancel, as if they never existed, (a) the consumer agreement; (b) all related agreements; ... (e) all credit agreements, as defined in Part VII, and other payment instruments, including promissory notes, (i) extended, arranged or facilitated by the person with whom the consumer reached the consumer agreement, or (ii) otherwise related to the consumer agreement."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 96(6)",
+     "quote": "If a consumer has cancelled a consumer agreement and the supplier has not met the supplier's obligations under subsection (1), the consumer may commence an action."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+     "pinpoint": "Making a claim -- How to fill out the claim form",
+     "quote": "Calculate and explain the amount of money and any interest you are claiming. ... Attach a copy of supporting documents to the claim."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/02c30_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/050017_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): partly -- Legal text is accurate. Pinpoint defect only: the support entry for the Guide cites the heading 'Completing the Plaintiff's Claim (Form 7A)', which does not exist in the Guide; the quoted sentences are under 'How to fill out the claim form'. (Minor omission: s. 96(1)(b) trade-in goods are to be returned 'in a condition substantially similar to when they were delivered'.) Rewritten to the source wording."
+   ]
+  },
+  {
+   "key": "sc-claim-online-purchase-not-delivered|plaintiffElement|amount-within-jurisdiction-remote",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "895f9b76a1bfc5c0a41fb1160d6424ed8620c297e9b281a884a4294e8ff8bf20",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+     "pinpoint": "Making a claim -- Types of claims that are dealt with in Small Claims Court",
+     "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+     "pinpoint": "O. Reg. 626/00, s. 1(1)",
+     "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+     "pinpoint": "Courts of Justice Act, s. 23(1)(a)",
+     "quote": "has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs"
+    }
+   ],
+   "howRead": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/000626_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/90c43_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): partly -- Legal text is accurate. Pinpoint defect only: the Guide support entry cites a heading 'Jurisdiction of the Small Claims Court' that does not exist in the Guide; the sentence is under 'Types of claims that are dealt with in Small Claims Court' (the child file cites it correctly). Rewritten to the source wording."
+   ]
+  },
+  {
+   "key": "sc-claim-online-purchase-not-delivered|defendantConsideration|seller-says-delivered-or-accepted-remote",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "0c057b98a27df5e9ba82162af0c75f0c0c1fb98a1693cd337e974c0bfdaf46f7",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 26(4)",
+     "quote": "For the purposes of subsections (1) and (2), a supplier is considered to have delivered or commenced performance under a future performance agreement if, (a) delivery was attempted but was refused by the consumer at the time that delivery was attempted or delivery was attempted but not made because no person was available to accept delivery for the consumer on the day for which reasonable notice was given to the consumer that there was to be delivery; or (b) commencement was attempted but was refused by the consumer at the time that commencement was attempted or commencement was attempted but did not occur because no person was available to enable commencement on the day for which reasonable notice was given to the consumer that commencement was to occur."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 26(3)",
+     "quote": "If, after the period in subsection (1) or (2) has expired, the consumer agrees to accept delivery or authorize commencement, the consumer may not cancel the agreement under this section."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/02c30_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-online-purchase-not-delivered|defendantConsideration|consumer-return-of-goods-remote",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "53c3150aa073b1fc879713293d9e40d6841d25236df56b506df7d8b21a13dd22",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 96(2)",
+     "quote": "Upon cancelling a consumer agreement, the consumer, in accordance with the prescribed requirements and in the prescribed manner, shall permit the goods that came into the consumer's possession under the agreement or a related agreement to be repossessed, shall return the goods or shall deal with them in such manner as may be prescribed."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+     "pinpoint": "O. Reg. 17/05, s. 81(1)-(4)",
+     "quote": "An internet agreement to which sections 38 to 40 of the Act apply. ... A remote agreement to which sections 45 to 47 of the Act apply. ... A future performance agreement to which sections 22 to 26 of the Act apply. ... A consumer who has not received a written direction to destroy the goods under subsection (5) shall return the goods to the supplier's address, by any method that provides the consumer with confirmation of delivery, and shall do so within 15 days after the later of, (a) the day the consumer gives notice to the supplier in accordance with section 92 of the Act that the consumer is cancelling the consumer agreement; and (b) the day the goods come into the consumer's possession. ... Goods that are returned under subsection (2) other than by personal delivery shall be deemed to have been returned when sent by the consumer to the supplier. ... The supplier shall be deemed to consent to a return of goods under subsection (2) and is responsible for the reasonable cost of returning the goods."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 96(3)",
+     "quote": "If a consumer cancels a consumer agreement, the consumer shall take reasonable care of the goods that came into the possession of the consumer under the agreement or a related agreement for the prescribed period."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+     "pinpoint": "O. Reg. 17/05, s. 82",
+     "quote": "the period for which a consumer who cancels a consumer agreement shall take reasonable care of the goods that came into the possession of the consumer under the agreement or a related agreement begins when the consumer gives notice to the supplier in accordance with section 92 of the Act that the consumer is cancelling the consumer agreement and ends at the earliest of the following: 1. The time the goods are destroyed under subsection 80 (3) or 81 (5). 2. The time the goods are returned under clause 80 (2) (b) or subsection 80 (5) or 81 (2)."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 96(7)",
+     "quote": "If a consumer has cancelled a consumer agreement and has not met the consumer's obligations under this section, the supplier or the person to whom the obligation is owed may commence an action."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/02c30_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/050017_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-online-purchase-not-delivered|defendantConsideration|dispute-coverage-or-notice-remote",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "98ac5d8be731fbc6e890c72b9f961e4848cb4715a99524f5e2f6e20fdaf18eb3",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.01",
+     "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1)",
+     "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): partly -- (1) Same r. 9.02(1) para. 2 omission as the child file: drops 'unless it is unavailable, in which case the defence shall state the reason why the document is not attached'. (2) whenThisComesUp says the purchase was not covered because 'it was under $50'. The rules apply only if the total potential payment obligation EXCEEDS $50 (ss. 21(1), 37, 44; O. Reg. 17/05 ss. 23.1, 31, 36), so a $50 purchase is also outside them; 'under $50' misstates the threshold. Rewritten to the source wording."
+   ]
+  },
+  {
+   "key": "sc-claim-online-purchase-not-delivered|proceduralNote|sc-claim-online-purchase-not-delivered#note0",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "6916612bb53dabd8afee89b3fde2bd5a5fa8bc20276245680828257748c2c028",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 99(1)",
+     "quote": "A consumer who has charged to a credit card account all or any part of a payment described in subsection (2) may request the credit card issuer to cancel or reverse the credit card charge and any associated interest or other charges."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 99(2)(a), (3)",
+     "quote": "a payment in respect of a consumer agreement that has been cancelled under this Act or in respect of any related agreement; ... A consumer may make a request under subsection (1) if the consumer has cancelled a consumer agreement or demanded a refund in accordance with this Act, and the supplier has not refunded all of the payment within the required period."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 99(4)",
+     "quote": "A request under subsection (1) shall be in writing, shall comply with the requirements, if any, that are prescribed under subsection 92 (2), and shall be given to the credit card issuer, in the prescribed period, in accordance with section 92."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+     "pinpoint": "O. Reg. 17/05, s. 85(1)",
+     "quote": "For the purpose of subsection 99 (4) of the Act, a request by a consumer under subsection 99 (1) of the Act shall be given to the credit card issuer within 60 days after the end of the period within which the supplier was required under the Act to refund the payment."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 99(5)",
+     "quote": "The credit card issuer, (a) shall, within the prescribed period, acknowledge the consumer's request; and (b) if the request meets the requirements of subsection (4), shall, within the prescribed period, (i) cancel or reverse the credit card charge and any associated interest or other charges, or (ii) after having conducted an investigation, send a written notice to the consumer explaining the reasons why the credit card issuer is of the opinion that the consumer is not entitled to cancel the consumer agreement or to demand a refund under this Act."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/050017_e.doc",
+     "pinpoint": "O. Reg. 17/05, s. 85(3)-(4)",
+     "quote": "the credit card issuer shall acknowledge the consumer's request within 30 days after the day the consumer's request is given to the credit card issuer in accordance with section 92 of the Act. ... the prescribed period begins when the consumer's request is given to the credit card issuer in accordance with section 92 of the Act and ends on the date of the second statement of account that the credit card issuer delivers to the consumer after the consumer's request was given to the credit card issuer."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 99(6)-(7)",
+     "quote": "A consumer may commence an action against a credit card issuer to recover a payment and associated interest and other charges to which the consumer is entitled under this section. ... If a consumer charges all or part of a payment described in subsection (2) to a prescribed payment system, the consumer may request that the charge be cancelled or reversed and this section applies with necessary modifications to the cancellation or reversal of such a charge."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 99(5)",
+     "quote": "if the request meets the requirements of subsection (4)"
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/02c30_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/050017_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): partly -- s. 99(5)(b) imposes the issuer's cancel-or-explain duty only 'if the request meets the requirements of subsection (4)'; the note drops that condition and states the duty unconditionally. Rewritten to the source wording."
+   ]
+  },
+  {
+   "key": "sc-claim-online-purchase-not-delivered|proceduralNote|sc-claim-online-purchase-not-delivered#note1",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "ead442a8c94091a7a0cad4d948abad9203909347156b2cddef8932e4ba3aa6c1",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 100(1)",
+     "quote": "If a consumer has a right to commence an action under this Act, the consumer may commence the action in the Superior Court of Justice."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+     "pinpoint": "Courts of Justice Act, s. 22(1)",
+     "quote": "The Small Claims Court is continued as a branch of the Superior Court of Justice under the name Small Claims Court in English"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 100(2)-(3)",
+     "quote": "If a consumer is successful in an action, unless in the circumstances it would be inequitable to do so, the court shall order that the consumer recover, (a) the full payment to which he or she is entitled under this Act; and (b) all goods delivered under a trade-in arrangement or an amount equal to the trade-in allowance. ... In addition to an order under subsection (2), the court may order exemplary or punitive damages or such other relief as the court considers proper."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02c30_e.doc",
+     "pinpoint": "s. 101",
+     "quote": "If a consumer is required to give notice under this Act in order to obtain a remedy, a court may disregard the requirement to give the notice or any requirement relating to the notice if it is in the interest of justice to do so."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/02c30_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/90c43_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-online-purchase-not-delivered|proceduralNote|sc-claim-online-purchase-not-delivered#note2",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "debdbcf9ec7552cac50f3d8a98cbae7bda95b9aebd28f72dcf9e287dfe748314",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 4",
+     "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5(1)",
+     "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5(2)",
+     "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-repairer-or-storer-holding-property|plaintiffElement|business-holding-under-lien-repairlien",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "2db107e0a94da6869b84e4377ed6cb2fdff6e897f1208d01e95a315729d36cc0",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 3(1)",
+     "quote": "In the absence of a written agreement to the contrary, a repairer has a lien against an article that the repairer has repaired for an amount equal to one of the following, and the repairer may retain possession of the article until the amount is paid: 1. The amount that the person who requested the repair agreed to pay. 2. Where no such amount has been agreed upon, the fair value of the repair, determined in accordance with any applicable regulations. 3. Where only part of a repair is completed, the fair value of the part completed, determined in accordance with any applicable regulations."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 4(1)",
+     "quote": "Subject to subsection (2), a storer has a lien against an article that the storer has stored or stored and repaired for an amount equal to one of the following, and the storer may retain possession of the article until the amount is paid: 1. The amount agreed upon for the storage or storage and repair of the article. 2. Where no such amount has been agreed upon, the fair value of the storage or storage and repair, determined in accordance with any applicable regulations."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 1(1) \"article\", \"repair\"",
+     "quote": "\"article\" means an item of tangible personal property other than a fixture; ... (b) the towing of an article,"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 28(2), (3)",
+     "quote": "Unless otherwise agreed, a lien claimant is entitled to recover the commercially reasonable expenses incurred in the custody, preservation and preparation for sale of an article that is subject to a lien, including the cost of insurance and the payment of taxes or other charges incurred therefor, and the expenses are chargeable to and secured by the article and may be included by the lien claimant in determining the amount required to satisfy the lien. ... Except as provided in any applicable regulations made under clause 32 (1) (a), a lien claimant is not entitled to a lien for interest on the amount owing with respect to an article"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 4(1), para. 3",
+     "quote": "Where only part of a repair is completed, the fair value of the"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 28(3)",
+     "quote": "but this subsection does not affect any right that the lien claimant may otherwise have to recover such interest."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/90r25_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): partly -- Two omissions. (1) s. 28(3) is cut before its qualifier: the subsection 'does not affect any right that the lien claimant may otherwise have to recover such interest' -- as written a reader may think interest is not recoverable at all. (2) s. 4(1) lists a third amount for storers (partial repair) which is dropped while the paraphrase presents the storer amounts as exhaustive. Pinpoints otherwise correct; s. 1(1) 'repair' does include towing (para (b)). Rewritten to the source wording."
+   ]
+  },
+  {
+   "key": "sc-claim-repairer-or-storer-holding-property|plaintiffElement|limits-on-lien-repairlien",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "b12e5eb61a8a20b21afa5a5e7d926e9ce2d541bedcac6ccd088244ef78de2e28",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 3(2)",
+     "quote": "A repairer's lien arises and takes effect when the repair is commenced, except that no repairer's lien arises if the repairer was required to comply with sections 56 and 57, subsection 58 (1) and section 59 of the Consumer Protection Act, 2002, if applicable, and the repairer has not done so."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 4(3)",
+     "quote": "except that no storer's lien arises with respect to repair if the storer was required to comply with sections 56 and 57, subsection 58 (1) and section 59 of the Consumer Protection Act, 2002, if applicable, and the storer has not done so."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 3(2.1)",
+     "quote": "In cases where Part VI of Consumer Protection Act, 2002 applies, the amount of a repairer's lien under subsection (2) shall not exceed, (a) the amount that the repairer is authorized to charge for the repair under subsection 58 (2) and section 64 of the Consumer Protection Act, 2002, if those provisions apply to the repairer; and (b) the maximum amount authorized by the person who requested the repair, if section 56 of the Consumer Protection Act, 2002 applies to the person."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 3(2.0.1)",
+     "quote": "Except as otherwise provided for in the regulations, if the repair includes one or more towing services or vehicle storage services regulated under the Towing and Storage Safety and Enforcement Act, 2021, no lien arises with respect to those services if the repairer fails to comply with the prescribed provisions of that Act, if any."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 4(3.0.1)",
+     "quote": "no lien arises with respect to those services if the storer fails to comply with the prescribed provisions of that Act, if any."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 4(4)",
+     "quote": "Where the storer knows or has reason to believe that possession of an article that is subject to a lien was received from a person other than its owner or a person having its owner's authority, the storer, within 60 days after the day of receiving the article, shall give written notice of the lien to every person whom the storer knows or has reason to believe is the owner or has an interest in the article"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 4(6)",
+     "quote": "Where a storer fails to give the notice required by subsection (4), (a) the storer's lien as against the person who should have been given the notice is limited to the unpaid amount owing in respect of the period of 60 days from the day that the article was received; and (b) the storer shall surrender possession of the article to that person where the person proves a right to possession and pays that unpaid amount."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 4(4)",
+     "quote": "security interest in the article that is perfected by registration under the Personal Property Security Act"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 4(4.1)",
+     "quote": "believe that possession of an article of a prescribed class that is subject to a lien was received from a person other than its owner"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 4(6.1)",
+     "quote": "the storer's lien as against the person who should have been given the notice is limited to the unpaid amount owing in respect of the period prescribed"
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/90r25_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): partly -- The 60-day storer notice rule is stated flatly, but s. 4(4.1) and (6.1) displace it 'despite subsection (4)' for articles of a prescribed class, where a prescribed period and additional prescribed recipients apply (the regulation is not in the corpus, so which articles are prescribed -- possibly motor vehicles -- cannot be stated). A time limit's exception is omitted. Minor: s. 4(4) also names PPSA-registered secured parties among those to be notified; the storer's CPA cap in s. 4(3.1) and the towing amount rules in ss. 3(2.2)/4(3.2) are not mentioned (not wrong, just incomplete). The quoted s. 3(2), 3(2.1), 3(2.0.1), 4(3), 4(3.0.1), 4(6) wording is accurate for the current consolidation (CPA 2023 substitutions not in force). Rewritten to the source wording."
+   ]
+  },
+  {
+   "key": "sc-claim-repairer-or-storer-holding-property|plaintiffElement|dispute-of-listed-kind-repairlien",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "a675740f528b5852cb0dbe11f435c3acff331822e0aebf512c15ded3a70b85d3",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 24(1)",
+     "quote": "Where a claimant claims a lien against an article under Part I (Possessory Liens) and refuses to surrender possession of the article to its owner or any other person entitled to it and where one of the circumstances described in subsection (1.2) exists, the owner or other person lawfully entitled to the article may apply to the court in accordance with the procedure set out in this section to have the dispute resolved and the article returned."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 24(1.1)",
+     "quote": "where the person who has possession of the article refuses to surrender it to its owner or any other person entitled to it"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 24(1.2)",
+     "quote": "Subsection (1) or (1.1) applies if there is, (a) a dispute concerning the amount of the lien of the lien claimant including any question relating to the quality of the repair, storage or storage and repair; (b) in the case of a repair, a dispute concerning the amount of work that was authorized to be made to the article; or (c) a dispute concerning the right of the lien claimant to retain possession of the article."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 24(2)",
+     "quote": "The application shall name, as the respondents, the lien claimant and, in the case of a non-possessory lien, the person who has possession of the article."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/90r25_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-repairer-or-storer-holding-property|plaintiffElement|payment-into-court-repairlien",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "76c72c36d21d886580b81ee15194642fcb4f96367a9e0ac5ad60ab0031111a88",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 24(3)",
+     "quote": "The application shall be in the prescribed form and may include an offer of settlement."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 24(4)",
+     "quote": "The applicant shall pay into court, or deposit security with the court in the amount of, the full amount claimed by the respondent but where the applicant includes an offer of settlement in the application, the applicant shall pay into court the amount offered in settlement and shall pay into court, or deposit security with the court for, the balance of the full amount claimed by the respondent"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 24(5)",
+     "quote": "the clerk or registrar of the court shall issue an initial certificate in the prescribed form and under the seal of the court stating that the amount indicated in the initial certificate, or security for that amount, has been paid into or deposited with the court to the credit of the application"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 24(6)",
+     "quote": "The applicant shall give the initial certificate to the respondent who, within three days of receiving the initial certificate, shall release the article described therein to the applicant unless, within the three day period, the respondent files with the court a notice of objection in the prescribed form."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 24(9), (10)",
+     "quote": "Where the respondent does not release the article as required, the applicant may obtain from the clerk or registrar of the court, without notice to the respondent, a writ of seizure in the prescribed form directing the sheriff or bailiff to seize the article and, upon receipt of the writ, the sheriff or bailiff shall seize the article and return it to the applicant. ... Before obtaining a writ of seizure, the applicant shall file an affidavit with the clerk or registrar of the court confirming that the respondent has not released the article as required."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/90r25_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-repairer-or-storer-holding-property|plaintiffElement|amount-within-jurisdiction-repairlien",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "9e5bee37066612932956803ca2529e5b60c5f8abbcecfb8969235f60cbf72686",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 25",
+     "quote": "An application under this Part may be brought in any court of appropriate monetary jurisdiction."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 24(3)",
+     "quote": "The application shall be in the prescribed form and may include an offer of settlement."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+     "pinpoint": "s. 23(1)(a)",
+     "quote": "has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+     "pinpoint": "s. 23(1)(b)",
+     "quote": "has jurisdiction in any action for the recovery of possession of personal property where the value of the property does not exceed the prescribed amount."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+     "pinpoint": "s. 1(1)",
+     "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/000626_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/90c43_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/90r25_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): partly -- Route mismatch. The guide passages quoted ('reasons for claim', 'calculate and explain the amount', attach supporting documents) are instructions for filling out a Plaintiff's Claim (Form 7A) / Defendant's Claim. The owner's route in this claim type is a RSLA s. 24 application 'in the prescribed form', which is not a Plaintiff's Claim; nothing in the corpus says those instructions apply to it. The monetary figure is correctly sourced ($50,000, O. Reg. 626/00 s. 1(1); CJA s. 23(1)), but for recovery of property CJA s. 23(1)(b) measures 'the value of the property', and RSLA s. 25 speaks only of 'appropriate monetary jurisdiction' without saying what is measured. The evidence example 'costs caused by not having the item, such as a rental car' points to a damages claim that the s. 24 procedure does not provide for. Rewritten to the source wording."
+   ]
+  },
+  {
+   "key": "sc-claim-repairer-or-storer-holding-property|defendantConsideration|notice-of-objection-repairlien",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "f5e94acfab477d3757f6653a4ccdce48d98ee320ce721f9df97359240ad8f4bc",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 24(7)",
+     "quote": "Where an objection has been filed with the court, the applicant may pay the additional amount claimed as owing in the objection into court to the credit of the application or deposit security for that amount with the court to the credit of the application and, where the additional amount has been paid into court or the additional security has been deposited with the court, the clerk or registrar shall issue a final certificate in the prescribed form and under the seal of the court."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 24(8)",
+     "quote": "The applicant shall give the final certificate to the respondent who, upon receiving the final certificate, shall release immediately the article described therein."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/90r25_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-repairer-or-storer-holding-property|defendantConsideration|business-sues-for-full-amount-repairlien",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "ff4c20c385bcaf85dbaba448bbda0d5a47becfb021d983c9ffb4f612f86a3819",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 24(13)",
+     "quote": "Where the article is released to the applicant by the respondent or is seized by the sheriff or bailiff under subsection (9), the lien is discharged as a right against the article and becomes instead a charge upon the amount paid into court or the security deposited with the court, and where the respondent seeks to recover the full amount claimed by the respondent to be owing, the respondent may commence an action to recover that amount."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 24(14)",
+     "quote": "The charge upon the money paid into court or the security deposited with the court is discharged ninety days after the article was returned to the applicant or seized unless, before the end of the ninety days, the respondent has accepted the applicant's offer of settlement or has commenced an action to recover the amount claimed."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 24(15)",
+     "quote": "the clerk or registrar of the court may return to the applicant the money paid into court and deliver up for cancellation any security deposited with the court if the applicant files with the clerk or registrar an affidavit confirming that the respondent has neither accepted an offer of settlement nor commenced an action to recover the money claimed."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 24(16)",
+     "quote": "The respondent is liable for the costs of enforcing a writ of seizure and these costs shall be set off against the amount paid into court under this section."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/90r25_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-repairer-or-storer-holding-property|defendantConsideration|business-accepts-settlement-offer-repairlien",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "980eecc973273a53befb084d27320d9b53f9bd1f6cb3c1f939c6c3cd913e7cae",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 24(11)",
+     "quote": "upon presentation of the receipt to the clerk or registrar of the court and signing a waiver of further claim in the prescribed form, the respondent shall be paid the portion of the amount paid into court that was offered in settlement of the dispute."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 24(12)",
+     "quote": "Where the respondent accepts the amount offered in settlement of the dispute, the clerk or registrar of the court shall notify the applicant and upon request shall return to the applicant the balance of the amount deposited into court and deliver up any security deposited by the applicant for cancellation."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/90r25_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-repairer-or-storer-holding-property|proceduralNote|sc-claim-repairer-or-storer-holding-property#note0",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "36902aea4da88ab444079174097b9bc3edbcfe3575cfb1e3dfec86591e611bd9",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 25",
+     "quote": "An application under this Part may be brought in any court of appropriate monetary jurisdiction."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 23(3)",
+     "quote": "An application under subsection (1) to the Small Claims Court shall be in the prescribed form."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 23(1)",
+     "quote": "Any person may apply to a court for a determination of the rights of the parties where a question arises with respect to, ... (b) the sale of an article under Part III (Redemption, Sale or Other Disposition); ... (d) the amount of a lien or the right of any person to a lien; and (e) any other matter arising out of the application of this Act,"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 23(2)",
+     "quote": "An application shall not be made under clause (1) (d) where an application has been made under section 24."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 13",
+     "quote": "Upon application to the Superior Court of Justice, the court may order the registrar to amend the information recorded in the central file of the registration system to indicate that the registration of a claim for lien has been discharged or has been partially discharged"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 17(3)",
+     "quote": "Upon application to the Superior Court of Justice and upon notice to every person who has given a written objection to the proposal, the court may order that the objection is ineffective"
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/90r25_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-repairer-or-storer-holding-property|proceduralNote|sc-claim-repairer-or-storer-holding-property#note1",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "0ace926f162fb2b00954e96a58dbd8369880952630d751034958eac364e96c88",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 3(3)",
+     "quote": "A repairer has the right to sell an article that is subject to a lien in accordance with Part III (Redemption, Sale or Other Disposition) upon the expiration of the sixty-day period following the day, (a) on which the amount required to pay for the repair comes due; or (b) on which the repair is completed, if no date is stated for when the amount required to pay for the repair comes due."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 4(7)",
+     "quote": "The storer has the right to sell an article that is subject to a lien in accordance with Part III (Redemption, Sale or Other Disposition) upon the expiration of the sixty-day period following the day on which the amount required to pay for the storage or storage and repair becomes due."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 15(1), (2)",
+     "quote": "A lien claimant who has a right, under this Act, to sell an article shall not exercise that right unless the lien claimant has given notice of intention to sell the article. ... A notice of intention to sell an article shall be in writing and shall be given at least fifteen days before the sale to, (a) the person from whom the article was received for repair, storage or storage and repair;"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 17(1), (2)",
+     "quote": "A lien claimant who has a right to sell an article may propose, in lieu of selling it, to retain the article in satisfaction of the amount of the lien claimed by giving written notice of the proposal to the persons entitled to notice under subsection 15 (2). ... Where a person entitled to notice under subsection (1) gives the lien claimant a written objection to the proposal within thirty days of the receipt of the proposal, the lien claimant, subject to subsections (3) and (4), shall sell the article in accordance with section 15."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 22",
+     "quote": "At any time before the lien claimant, (a) has sold the article under section 15 or contracted for such sale; (b) is deemed to have irrevocably elected to retain the article under section 17; or (c) has given the article to a charity under section 19, the owner and any person referred to in subsection 15 (2) may redeem the article by paying the amount required to satisfy the lien."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/90r25_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-repairer-or-storer-holding-property|proceduralNote|sc-claim-repairer-or-storer-holding-property#note2",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "94cc28c93a713f10cbd3a498aabd83951eac90973d6b6b2a8d033b0d1fe962a8",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 21",
+     "quote": "A lien claimant who fails to comply with the requirements of this Part is liable to any person who suffers damages as a result and shall pay the person an amount equal to the greater of $200 or the actual damages."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 28(1)(a)",
+     "quote": "shall use reasonable care in the custody and preservation of the article, unless a higher standard of care is imposed by law; and"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 28(4)",
+     "quote": "A lien claimant is liable for any loss or damage caused by a failure to meet any obligation imposed by this section but does not lose the lien against the article by reason only of that failure."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90r25_e.doc",
+     "pinpoint": "s. 28(6)",
+     "quote": "Where the lien claimant uses or deals with an article in a manner not authorized by this Act, the lien claimant is liable for any loss or damage caused by that use or dealing and may be restrained by an injunction."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/90r25_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-repairer-or-storer-holding-property|proceduralNote|sc-claim-repairer-or-storer-holding-property#note3",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "debdbcf9ec7552cac50f3d8a98cbae7bda95b9aebd28f72dcf9e287dfe748314",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 4",
+     "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5(1)",
+     "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5(2)",
+     "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-unpaid-wages|plaintiffElement|worker-is-employee-unpaidwages",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "d2be8ada4d1c6d27dff0e006c7c0a4c8ba1842d183fe58f46d78433227b8dbcf",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 1(1) (\"employee\")",
+     "quote": "\"employee\" includes, (a) a person, including an officer of a corporation, who performs work for an employer for wages, (b) a person who supplies services to an employer for wages, (c) a person who receives training from a person who is an employer, if the skill in which the person is being trained is a skill used by the employer's employees, or (d) a person who is a homeworker, and includes a person who was an employee;"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 1(1) (\"employer\")",
+     "quote": "\"employer\" includes, (a) an owner, proprietor, manager, superintendent, overseer, receiver or trustee of an activity, business, work, trade, occupation, profession, project or undertaking who has control or direction of, or is directly or indirectly responsible for, the employment of a person in it, and (b) any persons treated as one employer under section 4, and includes a person who was an employer;"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 3(1)",
+     "quote": "Subject to subsections (2) to (5), the employment standards set out in this Act apply with respect to an employee and his or her employer if, (a) the employee's work is to be performed in Ontario; or (b) the employee's work is to be performed in Ontario and outside Ontario but the work performed outside Ontario is a continuation of work performed in Ontario."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 3(2)",
+     "quote": "This Act does not apply with respect to an employee and his or her employer if their employment relationship is within the legislative jurisdiction of the Parliament of Canada."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/00e41_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-unpaid-wages|plaintiffElement|wages-earned-not-paid-unpaidwages",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "4f13642cfe5729599e77b194d39f4122c41e8abd1377ffbd4eb4756afda20452",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 1(1) (\"wages\")",
+     "quote": "\"wages\" means, (a) monetary remuneration payable by an employer to an employee under the terms of an employment contract, oral or written, express or implied, (b) any payment required to be made by an employer to an employee under this Act, and (c) any allowances for room or board under an employment contract or prescribed allowances, but does not include, (d) tips or other gratuities, (e) any sums paid as gifts or bonuses that are dependent on the discretion of the employer and that are not related to hours, production or efficiency, (f) expenses and travelling allowances, or (g) subject to subsections 60 (3) or 62 (2), employer contributions to a benefit plan and payments to which an employee is entitled from a benefit plan;"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 11(1)",
+     "quote": "An employer shall establish a recurring pay period and a recurring pay day and shall pay all wages earned during each pay period, other than accruing vacation pay, no later than the pay day for that period."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 23(1)",
+     "quote": "An employer shall pay employees at least the minimum wage."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 5(1)",
+     "quote": "Subject to subsection (2), no employer or agent of an employer and no employee or agent of an employee shall contract out of or waive an employment standard and any such contracting out or waiver is void."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 12(1)",
+     "quote": "On or before an employee's pay day, the employer shall give to the employee a written statement setting out, (a) the pay period for which the wages are being paid; (b) the wage rate, if there is one; (c) the gross amount of wages and, unless the information is provided to the employee in some other manner, how that amount was calculated; ... (e) the amount and purpose of each deduction from wages; ... (g) the net amount of wages being paid to the employee."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 15(1), paras. 3.1, 4",
+     "quote": "An employer shall record the following information with respect to each employee ... The dates and times that the employee worked. ... The number of hours the employee worked in each day and each week."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/00e41_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-unpaid-wages|plaintiffElement|final-pay-not-paid-unpaidwages",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "f3c776df0b53f299a023c6d020ef8eeda38c84355450bc69c499241ce90823cd",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 11(5)",
+     "quote": "If an employee's employment ends, the employer shall pay any wages to which the employee is entitled to the employee not later than the later of, (a) seven days after the employment ends; and (b) the day that would have been the employee's next pay day."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 12.1",
+     "quote": "On or before the day on which the employer is required to pay wages under subsection 11 (5), the employer shall provide the employee with a written statement setting out, ... (d) the pay period for which any wages other than wages described in clauses (a) or (b) are being paid; (e) the wage rate, if there is one; (f) the gross amount of any wages referred to in clause (d) and, unless the information is provided to the employee in some other manner, how that amount was calculated; (g) the amount and purpose of each deduction from wages; ... (i) the net amount of wages being paid to the employee."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/00e41_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-unpaid-wages|plaintiffElement|unauthorized-deduction-unpaidwages",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "db3b7334200af8b6efd32aa77b0b50ff2b7e9c9b5768ed94e9e8f363b532b244",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 13(1)",
+     "quote": "An employer shall not withhold wages payable to an employee, make a deduction from an employee's wages or cause the employee to return his or her wages to the employer unless authorized to do so under this section."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 13(2)-(4)",
+     "quote": "An employer may withhold or make a deduction from an employee's wages or cause the employee to return them if a statute of Ontario or Canada or a court order authorizes it. ... An employer may withhold or make a deduction from an employee's wages or cause the employee to return them with the employee's written authorization. ... Subsections (2) and (3) do not apply if the statute, order or written authorization from the employee requires the employer to remit the withheld or deducted wages to a third person and the employer fails to do so."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 13(5)",
+     "quote": "Subsection (3) does not apply if, (a) the employee's authorization does not refer to a specific amount or provide a formula from which a specific amount may be calculated; (b) the employee's wages were withheld, deducted or required to be returned, (i) because of faulty work, (ii) because the employer had a cash shortage, lost property or had property stolen and a person other than the employee had access to the cash or property, or (iii) under any prescribed conditions; or (c) the employee's wages were required to be returned and those wages were the subject of an order under this Act."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 13(6)",
+     "quote": "For greater certainty, the circumstances set out in subclause (5) (b) (ii) include where a customer of a restaurant, gas station or other establishment leaves the establishment without paying for the goods or services taken from, consumed at or received at the establishment."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/00e41_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-unpaid-wages|plaintiffElement|amount-within-jurisdiction-unpaidwages",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "895f9b76a1bfc5c0a41fb1160d6424ed8620c297e9b281a884a4294e8ff8bf20",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
+     "pinpoint": "Jurisdiction of the Small Claims Court",
+     "quote": "The Small Claims Court can handle any action for the payment of money or the recovery of personal property where the amount claimed does not exceed $50,000, excluding interest and costs such as court fees."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/000626_e.doc",
+     "pinpoint": "O. Reg. 626/00, s. 1(1)",
+     "quote": "The maximum amount of a claim in the Small Claims Court is $50,000."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/90c43_e.doc",
+     "pinpoint": "Courts of Justice Act, s. 23(1)(a)",
+     "quote": "has jurisdiction in any action for the payment of money where the amount claimed does not exceed the prescribed amount exclusive of interest and costs"
+    }
+   ],
+   "howRead": "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/000626_e.doc: vendored text in docs/sources/corpus (see manifest.json); https://www.ontario.ca/laws/docs/90c43_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-unpaid-wages|defendantConsideration|dispute-hours-rate-amount-unpaidwages",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "c1c3a63e633121808fb4cdf06b80077d0d1b20cb3eb5b6c489e16fad8f693469",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.01",
+     "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1)",
+     "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-unpaid-wages|defendantConsideration|dispute-employee-status-unpaidwages",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "781c61c287ecc87f3827be556f82ca6a0d67ae263913d631557ee2ded7ba463e",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.01",
+     "quote": "A defendant who wishes to dispute a plaintiff's claim shall, within 20 days of being served with the claim, (a) serve on every other party a defence (Form 9A); and (b) file the defence, with proof of service, with the clerk."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1)",
+     "quote": "The reasons why the defendant disputes the plaintiff's claim, expressed in concise non-technical language with a reasonable amount of detail. ... If the defence is based in whole or in part on a document, a copy of the document shall be attached to each copy of the defence"
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/980258_e.doc",
+     "pinpoint": "r. 9.02(1), para. 2",
+     "quote": "unless it is unavailable, in which case the defence shall state the reason why the document is not attached."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/980258_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-unpaid-wages|proceduralNote|sc-claim-unpaid-wages#note0",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "ebcf3220fdfd731f9b183f4865f124e2f5c5e38ab13fb5746cb4d36fa78fafa4",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 97(1)",
+     "quote": "An employee who files a complaint under this Act with respect to an alleged failure to pay wages or comply with Part XIII (Benefit Plans) may not commence a civil proceeding with respect to the same matter."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 97(4)",
+     "quote": "Despite subsections (1) and (2), an employee who has filed a complaint may commence a civil proceeding with respect to a matter described in those subsections if he or she withdraws the complaint within two weeks after it is filed."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 98(1)",
+     "quote": "An employee who commences a civil proceeding with respect to an alleged failure to pay wages or to comply with Part XIII (Benefit Plans) may not file a complaint with respect to the same matter or have such a complaint investigated."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 8(1)",
+     "quote": "Subject to section 97, no civil remedy of an employee against his or her employer is affected by this Act."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 96(3)",
+     "quote": "A complaint regarding a contravention that occurred more than two years before the day on which the complaint was filed shall be deemed not to have been filed."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/00e41_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-unpaid-wages|proceduralNote|sc-claim-unpaid-wages#note1",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "f77f8ee417463d0749975e08ea73e180f6a623cff0a4a937da80437b2eba4026",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 8(2)",
+     "quote": "Where an employee commences a civil proceeding against his or her employer under this Act, notice of the proceeding shall be served on the Director on a form approved by the Director on or before the date the civil proceeding is set down for trial."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/00e41_e.doc",
+     "pinpoint": "s. 1(1) (\"Director\")",
+     "quote": "\"Director\" means the Director of Employment Standards;"
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/00e41_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
+  },
+  {
+   "key": "sc-claim-unpaid-wages|proceduralNote|sc-claim-unpaid-wages#note2",
+   "verifiedAt": "2026-09-30",
+   "outcome": "authored",
+   "fingerprint": "debdbcf9ec7552cac50f3d8a98cbae7bda95b9aebd28f72dcf9e287dfe748314",
+   "sources": [
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 4",
+     "quote": "Unless this Act provides otherwise, a proceeding shall not be commenced in respect of a claim after the second anniversary of the day on which the claim was discovered."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5(1)",
+     "quote": "A claim is discovered on the earlier of, (a) the day on which the person with the claim first knew, (i) that the injury, loss or damage had occurred, (ii) that the injury, loss or damage was caused by or contributed to by an act or omission, (iii) that the act or omission was that of the person against whom the claim is made, and (iv) that, having regard to the nature of the injury, loss or damage, a proceeding would be an appropriate means to seek to remedy it; and (b) the day on which a reasonable person with the abilities and in the circumstances of the person with the claim first ought to have known of the matters referred to in clause (a)."
+    },
+    {
+     "sourceUrl": "https://www.ontario.ca/laws/docs/02l24_e.doc",
+     "pinpoint": "s. 5(2)",
+     "quote": "A person with a claim shall be presumed to have known of the matters referred to in clause (1) (a) on the day the act or omission on which the claim is based took place, unless the contrary is proved."
+    }
+   ],
+   "howRead": "https://www.ontario.ca/laws/docs/02l24_e.doc: vendored text in docs/sources/corpus (see manifest.json)",
+   "independentReviews": [
+    "Independent re-read against the sources (2026-09-30): supported."
+   ]
   }
  ]
 }

@@ -28,6 +28,8 @@
  *      was actually read for this entry.
  *   5. For a statute or regulation in the corpus, consolidationPeriod is the
  *      start of the consolidation that was read.
+ *   6. No entry uses case-grading or judge-prediction language (CLAUDE.md s. 3),
+ *      checked on the joined runtime string of every entry.
  *
  * NEGATIVE CONTROLS: a tampered quote and a tampered text are run through the
  * same checks and must fail, so a check that stopped matching cannot pass
@@ -47,6 +49,7 @@ import {
   type VerificationLog,
   type VerificationRecord,
 } from "../content/catalogueVerification";
+import { validateCaseStrengthLanguage } from "../../src/lib/case-system/intelligence/caseStrengthLanguageValidator";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const CORPUS = path.join(ROOT, "docs/sources/corpus");
@@ -141,6 +144,20 @@ for (const entry of entries) {
 }
 check(`all ${byKey.size} records hold against the live catalogue`, broken.length === 0, broken.join("\n      "));
 
+// ---- 6. No catalogue entry grades a case or predicts a judge (CLAUDE.md s. 3).
+// The validator was only ever run over two claim types' elements; "court will
+// expect" once shipped because it was split across two concatenated lines,
+// which is why this checks the joined runtime string, for every entry.
+const grading = entries
+  .map((entry) => ({ entry, result: validateCaseStrengthLanguage([entry.name ?? "", entry.text, entry.whenThisComesUp ?? ""].join(" ")) }))
+  .filter(({ result }) => !result.valid)
+  .map(({ entry, result }) => `${entry.key}: "${result.matchedTerm}"`);
+check("no catalogue entry uses case-grading or judge-prediction language", grading.length === 0, grading.join("\n      "));
+check(
+  "control: the grading check catches a planted phrase",
+  !validateCaseStrengthLanguage("The judge will likely find this a strong case.").valid,
+);
+
 const corrected = log.records.filter((record) => record.outcome === "corrected");
 check(
   "every corrected entry records what was wrong before",
@@ -168,9 +185,10 @@ check(
   ),
 );
 
-const supported = log.records.length - corrected.length;
+const authored = log.records.filter((record) => record.outcome === "authored").length;
+const supported = log.records.length - corrected.length - authored;
 console.log(
-  `\n${log.records.length} verified (${supported} as written, ${corrected.length} corrected), ` +
+  `\n${log.records.length} verified (${supported} as written, ${corrected.length} corrected, ${authored} authored from source), ` +
     `${log.unverifiable.length} unverifiable, of ${entries.length} catalogue entries.`,
 );
 console.log(failures ? `\n${failures} failure(s).` : "\nAll checks passed.");
