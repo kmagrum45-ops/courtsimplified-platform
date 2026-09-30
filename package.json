@@ -80,6 +80,7 @@
     "forms:index": "node --import tsx scripts/forms/buildFormRuleIndex.ts",
     "test:glossary": "node --import tsx scripts/verification/verifyGlossary.ts",
     "glossary:index": "node --import tsx scripts/glossary/buildGlossary.ts",
+    "test:topic-guides": "node --import tsx scripts/verification/verifyTopicGuides.ts",
     "test:cross-forum-notes": "node --import tsx scripts/verification/verifyCrossForumNotes.ts",
     "test:overview-relevance": "node --import tsx scripts/verification/verifyOverviewRelevance.ts",
     "test:a2i-scope": "node --import tsx scripts/verification/verifyA2iScope.ts",

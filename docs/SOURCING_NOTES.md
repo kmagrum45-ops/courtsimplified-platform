@@ -34,6 +34,34 @@ replacement for these):
 
 ## Techniques that work
 
+### Writing the in-depth guides: what the independent read found (2026-09-30)
+
+Ten guides (`src/lib/content-library/guides/`) were written from the corpus
+only, then each paragraph was read against its cited provision by a second
+reader. **84 of 322 paragraphs needed a fix, and almost none were misquotes**
+(quotes are machine-checked). The errors were paraphrase that dropped a
+condition or exception the source states: r. 61.04 (1.1) service exceptions,
+r. 24 (5) child protection costs, r. 76.12.1 (2) applying only to actions
+started on or after January 1, 2020, s. 5 (1) (a) (iv) "having regard to the
+nature of the injury", "must be below" an income limit. Lesson: a verbatim-
+quote check is necessary and nowhere near sufficient. Every paraphrase needs a
+read against the provision, and the reader has to look for what is MISSING.
+
+Source-format traps hit while writing them:
+- e-Laws rule files use straight apostrophes; ontario.ca guide pages use
+  curly ones. A quote of "party's" must match the file it came from.
+- A line break inside a hyphenated word ("cross-\nexamine") collapses to
+  "cross- examine"; reword rather than quote across it.
+- Three Steps to Justice pages in the corpus were last reviewed on February
+  23, 2017 (including the 20% wage-garnishment figure and "only a lawyer can
+  represent you in Superior Court"); the guides state that date wherever they
+  rely on one alone.
+
+Not in the corpus, so the guides say so instead of covering it: duty counsel,
+Family Law Information Centres, Legal Aid Ontario's services, requesting a
+disability accommodation from a court, the Wages Act and Execution Act,
+Family Law Rules 28-31 in detail, a civil test for setting aside default.
+
 ### The glossary comes from the definitions provisions (2026-09-30)
 
 `npm run glossary:index` (`scripts/glossary/buildGlossary.ts`) reads only the

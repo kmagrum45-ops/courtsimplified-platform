@@ -1,0 +1,133 @@
+{
+ "id": "motions",
+ "title": "Motions: asking the court for an order during a case",
+ "courts": [
+  "small-claims",
+  "civil",
+  "family"
+ ],
+ "intro": "A motion is how a party asks a judge to make an order while a case is under way. This guide sets out what the rules say about motions in Small Claims Court, in civil cases in the Superior Court of Justice, and in family cases, with each rule cited.",
+ "sections": [
+  {
+   "heading": "What a motion is in Small Claims Court",
+   "court": "small-claims",
+   "paragraphs": [
+    "The ontario.ca guide describes a motion as “a process for requesting that a judge make an order.” It says a party generally makes a motion “to have a matter addressed before judgment, or in some circumstances after judgment or to support an enforcement process.” The guide adds that, usually, a motion is a hearing in court before a judge. There is a fee to file a motion. (ontario.ca, Guide to Procedures in Small Claims Court: Motions and clerk's orders)",
+    "The guide says anyone who is a party in the case can make a motion. The person who makes it is called the “moving party.” The person who responds is called the “responding party.” In special circumstances, a judge may allow a person who is not a party to make a motion, because the outcome would affect that person. (ontario.ca, Guide to Procedures in Small Claims Court: Motions and clerk's orders)",
+    "Under the Small Claims Court rules, “A motion shall be made by a notice of motion and supporting affidavit (Form 15A).” The supporting affidavit is where the moving party states the order asked for and the facts behind the request. The guide explains that the statements must be sworn or affirmed as true and signed in front of a commissioner for taking affidavits. (Rules of the Small Claims Court, r. 15.01 (1); ontario.ca, Guide to Procedures in Small Claims Court: Motions and clerk's orders)"
+   ]
+  },
+  {
+   "heading": "Small Claims Court: dates, service and responding",
+   "court": "small-claims",
+   "paragraphs": [
+    "The moving party “shall obtain a hearing date from the clerk before serving the notice of motion and supporting affidavit”. The notice of motion and supporting affidavit “shall be served on every party who has filed a claim and any defendant who has not been noted in default, at least seven days before the hearing date”. They must be filed, with proof of service, “at least three days before the hearing date”. (Rules of the Small Claims Court, r. 15.01 (2), (3))",
+    "A party who prepares an affidavit (Form 15B) in response must serve it on every party who has filed a claim or defence and file it, with proof of service, “at least two days before the hearing date.” The moving party may serve and file a supplementary affidavit, also at least two days before the hearing date. A motion made after judgment has been signed must be served on all parties, including those noted in default. (Rules of the Small Claims Court, r. 15.01 (4), (5), (6))",
+    "A motion may be conducted with the parties attending by a method determined under rule 1.07. It may instead be in writing if the rules provide for that, or “if the judge determines that it is fair and reasonable for the motion to be in writing.” (Rules of the Small Claims Court, r. 15.02)",
+    "A motion “shall not be adjourned at a party's request before the hearing date unless the written consent of all parties is filed when the request is made, unless the court orders otherwise.” A motion cannot be withdrawn without the written consent of all the parties or leave of the court. The costs of a motion, other than disbursements, “shall not exceed $100 unless the court orders otherwise because there are special circumstances.” (Rules of the Small Claims Court, r. 15.05, 15.06, 15.07)"
+   ]
+  },
+  {
+   "heading": "Small Claims Court: motions without notice, motions in writing and clerk's orders",
+   "court": "small-claims",
+   "paragraphs": [
+    "A motion may be made without notice “if the nature or circumstances of the motion make notice unnecessary or not reasonably possible.” A party who gets an order this way must serve it on every affected party, with the notice of motion and supporting affidavit, “within five days after the order is signed.” An affected party may move to set aside or vary the order “within 30 days after being served with the order.” (Rules of the Small Claims Court, r. 15.03)",
+    "The guide describes a “motion in writing for assessment of damages”. A plaintiff can make it when the claim is an “unliquidated” claim and all defendants have been served with the claim, none has filed a defence, and all have been noted in default. For this motion, “the plaintiff does not have to attend court for a hearing.” The judge reviews the papers and may grant judgment, ask for another affidavit, or order an assessment hearing. (ontario.ca, Guide to Procedures in Small Claims Court: Motions and clerk's orders)",
+    "The guide also explains clerk’s orders. The clerk can make certain orders listed in Rule 11.2. The guide says “These orders can only be made if the written consent of all parties has been provided to the clerk.” The request uses Form 11.2A, and “No hearing is required.” If a party does not consent, a motion to a judge is the route the guide describes. (ontario.ca, Guide to Procedures in Small Claims Court: Motions and clerk's orders)",
+    "If the court is satisfied that a party has tried to delay the action, add to its costs or otherwise abuse the court’s process “by making numerous motions without merit”, the court may, on motion, order that the party make no further motions in the action without leave of the court. (Rules of the Small Claims Court, r. 15.04)"
+   ]
+  },
+  {
+   "heading": "Civil cases: bringing a motion under Rule 37",
+   "court": "civil",
+   "paragraphs": [
+    "In the Superior Court of Justice, a motion is made by a notice of motion in Form 37A “unless the nature of the motion or the circumstances make a notice of motion unnecessary or these rules provide otherwise.” Every notice of motion must “state the precise relief sought”, state the grounds to be argued, and “list the documentary evidence to be used at the hearing of the motion.” (Rules of Civil Procedure, r. 37.01, 37.06)",
+    "“A judge has jurisdiction to hear any motion in a proceeding.” An associate judge can hear most motions, except those listed in the rule. On a motion for an order on consent, the registrar makes the order if all parties consent, the consent states no affected party is under disability, and the order is one of the kinds listed, such as setting aside the noting of a party in default. (Rules of Civil Procedure, r. 37.02)",
+    "The notice of motion is served on any party or other person affected by the order sought. Where a motion is made on notice, it “shall be served at least seven days before the date on which the motion is to be heard.” It must also be filed with proof of service at least seven days before the hearing date, in the court office where the motion is to be heard. (Rules of Civil Procedure, r. 37.07 (1), (6), 37.08 (1))",
+    "Where a motion is made on notice, the moving party serves and files a motion record at least seven days before the hearing, unless the court orders otherwise. It contains a table of contents, the notice of motion, the affidavits and other material served, and other listed items. A responding party who considers it incomplete may serve and file a responding party’s motion record at least four days before the hearing. A factum, a written argument, is optional. (Rules of Civil Procedure, r. 37.10)",
+    "A party who makes a motion on notice must confer or attempt to confer with the other party, and give the registrar a confirmation of motion (Form 37B) “not later than 2 p.m. five days before the hearing date”. If no confirmation is given, “the motion shall not be heard and is deemed to have been abandoned, unless the court orders otherwise.” (Rules of Civil Procedure, r. 37.10.1 (1), (4))",
+    "On the hearing, the judge or officer “may grant the relief sought or dismiss or adjourn the motion, in whole or in part and with or without terms”. A judge or associate judge may also prohibit a party from making further motions without leave where that party is attempting to delay or add to costs “by a multiplicity of frivolous or vexatious motions.” (Rules of Civil Procedure, r. 37.13 (1), 37.16)"
+   ]
+  },
+  {
+   "heading": "Civil cases: urgent motions, motions without notice and motions in writing",
+   "court": "civil",
+   "paragraphs": [
+    "Where serving the notice is impracticable or unnecessary, the court may make an order without notice. “Where the delay necessary to effect service might entail serious consequences, the court may make an interim order without notice.” On a motion without notice, the moving party must “make full and fair disclosure of all material facts”, and failing to do so is itself enough to set the order aside. (Rules of Civil Procedure, r. 37.07 (2), (3), 39.01 (6))",
+    "A person affected by an order made without notice, or who missed a motion “through accident, mistake or insufficient notice”, may move to set aside or vary it. That notice of motion is served right after the order comes to the person’s attention. It names the first available hearing date at least three days after service. (Rules of Civil Procedure, r. 37.14 (1))",
+    "An urgent motion may be set down on any day a judge or associate judge is scheduled to hear motions, even if it is expected to take more than two hours. “In an urgent case, a motion may be made before the commencement of a proceeding on the moving party's undertaking to commence the proceeding forthwith.” (Rules of Civil Procedure, r. 37.05 (3), 37.17)",
+    "A motion on consent, unopposed, or made without notice “may be heard in writing without the attendance of the parties, unless the court orders otherwise.” An opposed motion can also be proposed for a hearing in writing. In that case, it “shall be made on at least fourteen days notice” and the moving party files a motion record, a draft order and a factum. (Rules of Civil Procedure, r. 37.12.1)"
+   ]
+  },
+  {
+   "heading": "Civil cases: evidence on a motion (Rule 39)",
+   "court": "civil",
+   "paragraphs": [
+    "“Evidence on a motion or application may be given by affidavit unless a statute or these rules provide otherwise.” Where a motion is made on notice, the moving party’s affidavits are served with the notice of motion and filed at least seven days before the hearing. Affidavits in opposition or in reply are served and filed “at least four days before the hearing.” (Rules of Civil Procedure, r. 39.01 (1), (2), (3))",
+    "An affidavit for a motion may include what the person signing it was told and believes, “if the source of the information and the fact of the belief are specified in the affidavit.” (Rules of Civil Procedure, r. 39.01 (4))",
+    "A party who has served every affidavit it relies on and completed all examinations under rule 39.03 may cross-examine anyone who swore an affidavit for an adverse party (Rules of Civil Procedure, r. 39.02 (1), (4), 39.03 (4))",
+    "On a motion other than for summary judgment or a contempt order, the cross-examining party is liable for the adverse party’s partial indemnity costs of the cross-examination, “regardless of the outcome of the proceeding, unless the court orders otherwise.” With leave, a person may be examined at the hearing “in the same manner as at a trial.” (Rules of Civil Procedure, r. 39.02 (1), (4), 39.03 (4))"
+   ]
+  },
+  {
+   "heading": "Family cases: motions for temporary orders (rule 14)",
+   "court": "family",
+   "paragraphs": [
+    "Under the Family Law Rules, a person may make a motion for “A temporary order for a claim made in an application”, for “Directions on how to carry on the case”, or for “A change in a temporary order.” A motion may be made “by a party to the case or by a person with an interest in the case.” (Family Law Rules, r. 14 (1), (2))",
+    "A motion “requires a notice of motion (Form 14) and an affidavit (Form 14A)” and may be supported by more evidence. If a motion is limited to “procedural, uncomplicated or unopposed matters”, the party may use a motion form (Form 14B) instead. (Family Law Rules, r. 14 (9), (10))",
+    "As a general rule, “No notice of motion or supporting evidence may be served and no motion may be heard before a conference dealing with the substantive issues in the case has been completed.” This does not apply “if the court is of the opinion that there is a situation of urgency or hardship or that a case conference is not required for some other reason in the interest of justice.” (Family Law Rules, r. 14 (4), (4.2))",
+    "The rule also lists motions that may go ahead before that conference. They include a motion for summary judgment under rule 16, a motion in a child protection case, and a motion “made without notice, made on consent, that is unopposed or that is limited to procedural, uncomplicated or unopposed matters (Form 14B)”. (Family Law Rules, r. 14 (6))"
+   ]
+  },
+  {
+   "heading": "Family cases: service, confirmation and responding",
+   "court": "family",
+   "paragraphs": [
+    "A party making a motion with notice serves the documents on all other parties “not later than six days before the motion date”. The party files them as soon as possible after service, “but not later than four days before the motion date”. The party must also “confer or make best efforts to confer orally or in writing with every other party” about the issues in dispute, subject to the exceptions the rule lists. (Family Law Rules, r. 14 (11) (a)-(c))",
+    "The party gives the clerk a confirmation of motion (Form 14C) “not later than 2 p.m. three days before the motion date”, after giving a copy to every other party (the rule excepts most child protection cases from giving that copy). Unless the court orders otherwise, “a motion shall not be heard if confirmation of the motion is not given to the clerk” as required. (Family Law Rules, r. 14 (11) (d), (e), (11.0.1), (11.1))",
+    "A response to a notice of motion (Form 14) is served and filed “not later than four days before the motion date.” A response to a motion form (Form 14B) is served and filed not later than seven days after the motion form is served. The party who used Form 14 may reply “not later than 2 p.m. three days before the motion date.” No reply is allowed to a response to Form 14B. (Family Law Rules, r. 14 (11.3)-(11.6))"
+   ]
+  },
+  {
+   "heading": "Family cases: urgent motions without notice, and evidence",
+   "court": "family",
+   "paragraphs": [
+    "A motion may be made without notice if notice is unnecessary or not reasonably possible, if service “would probably have serious consequences”, or where there is an immediate danger of a child being removed from Ontario, or to the health or safety of a child or of the party making the motion, and the delay of serving notice would probably have serious consequences. (Family Law Rules, r. 14 (12))",
+    "An order made without notice (Form 14D) “shall require the matter to come back to the court and, if possible, to the same judge, within 14 days or on a date chosen by the court.” It must be served immediately on all parties affected, together with all documents used on the motion, unless the court orders otherwise. (Family Law Rules, r. 14 (14), (15))",
+    "Evidence on a motion may be given by affidavit or other admissible evidence in writing, by a transcript of questioning under rule 20, or, with the court’s permission, orally (Family Law Rules, r. 14 (17), (18), (19))",
+    "An affidavit “shall, as much as possible, contain only information within the personal knowledge of the person signing the affidavit.” Information from someone else is allowed only if the source is named and the affidavit states the person believes it is true; on a contempt motion under rule 31, it must also be unlikely to be disputed. (Family Law Rules, r. 14 (17), (18), (19))",
+    "Unless the court orders otherwise, the moving party serves all supporting evidence with the notice of motion, the responding party then serves its evidence, and the moving party may reply only to new matters. “No other evidence may be used.” A party who makes “numerous motions without merit” to delay the case or add to its costs may be ordered not to make other motions without the court’s permission. (Family Law Rules, r. 14 (20), (21))"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "localText": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
+   "sourceName": "Rules of the Small Claims Court",
+   "pinpoints": "r. 15.01-15.07",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/980258",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/guide-motions-and-clerks-orders.txt",
+   "sourceName": "ontario.ca, Guide to Procedures in Small Claims Court: Motions and clerk's orders",
+   "pinpoints": "Overview; Motions; Who can make a motion; How to make a motion; A motion in writing for an assessment of damages; Clerk's orders on consent",
+   "officialUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/motions-and-clerks-orders",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/rules-of-civil-procedure.txt",
+   "sourceName": "Rules of Civil Procedure",
+   "pinpoints": "r. 37.01, 37.02, 37.05 (3), 37.06, 37.07, 37.08 (1), 37.10, 37.10.1, 37.12.1, 37.13 (1), 37.14 (1), 37.16, 37.17, 39.01, 39.02, 39.03 (4)",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/900194",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/family-law-rules.txt",
+   "sourceName": "Family Law Rules",
+   "pinpoints": "r. 14 (1), (2), (4), (4.2), (6), (9)-(12), (14), (15), (17)-(21)",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/990114",
+   "retrievedAt": "2026-09-30"
+  }
+ ]
+}

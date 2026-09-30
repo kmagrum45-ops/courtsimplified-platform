@@ -1,0 +1,123 @@
+{
+ "id": "costs",
+ "title": "Legal costs",
+ "courts": [
+  "small-claims",
+  "civil",
+  "family"
+ ],
+ "intro": "This guide describes what Ontario's laws and court rules say about legal costs in Small Claims Court, in civil cases in the Superior Court of Justice, and in family cases. It explains the rules in general terms; it does not predict any costs award.",
+ "sections": [
+  {
+   "heading": "What costs are and who decides",
+   "court": "all",
+   "paragraphs": [
+    "The Courts of Justice Act says “the costs of and incidental to a proceeding or a step in a proceeding are in the discretion of the court, and the court may determine by whom and to what extent the costs shall be paid.” This is “Subject to the provisions of an Act or rules of court”. (Courts of Justice Act, s. 131 (1))",
+    "The Act also limits appeals about costs. “No appeal lies without leave of the court to which the appeal is to be taken,” where “the appeal is only as to costs that are in the discretion of the court that made the order for costs.” (Courts of Justice Act, s. 133)"
+   ]
+  },
+  {
+   "heading": "Small Claims Court: the limit on costs",
+   "court": "small-claims",
+   "paragraphs": [
+    "In Small Claims Court, “An award of costs in the Small Claims Court, other than disbursements, shall not exceed 15 per cent of the amount claimed or the value of the property sought to be recovered”. The exception is where “the court considers it necessary in the interests of justice to penalize a party or a party's representative for unreasonable behaviour in the proceeding.” (Courts of Justice Act, s. 29)",
+    "The Small Claims Court rules repeat this: “Any power under this rule to award costs is subject to section 29 of the Courts of Justice Act, which limits the amount of costs that may be awarded.” (Rules of the Small Claims Court, r. 19.07)"
+   ]
+  },
+  {
+   "heading": "Small Claims Court: what can be awarded",
+   "court": "small-claims",
+   "paragraphs": [
+    "Under the rules, a successful party “is entitled to have the party's reasonable disbursements” paid by the unsuccessful party, “unless the court orders otherwise”. These include “any amounts paid for effecting service or preparing a plaintiff's or defendant's claim or a defence and expenses for travel, accommodation, photocopying and experts' reports”, and fees associated with the electronic filing or issuance of documents. (Rules of the Small Claims Court, r. 19.01 (1), (1.1))",
+    "The clerk assesses disbursements, and the court can review that assessment. Disbursements for service “shall not exceed $60 for each person served” unless the court finds special circumstances. Disbursements for preparing a claim or a defence “shall not exceed $200.” (Rules of the Small Claims Court, r. 19.01 (2), (3), (4))",
+    "If a successful party is represented by a lawyer, student-at-law or paralegal, the court “may award the party a reasonable representation fee at trial or at an assessment hearing.” (Rules of the Small Claims Court, r. 19.04)",
+    "For a successful party who is self-represented, the court may order the unsuccessful party to pay “an amount not exceeding $500 as compensation for inconvenience and expense.” (Rules of the Small Claims Court, r. 19.05)",
+    "If a party or a party's representative “has unduly complicated or prolonged an action or has otherwise acted unreasonably”, the court may order the party or the representative to pay an amount to another party “as a penalty, as provided by section 29 of the Courts of Justice Act.” (Rules of the Small Claims Court, r. 19.06)"
+   ]
+  },
+  {
+   "heading": "Small Claims Court: offers to settle and costs",
+   "court": "small-claims",
+   "paragraphs": [
+    "If a plaintiff's offer to settle is not accepted, the court may award the plaintiff “an amount not exceeding twice the costs of the action, other than disbursements”. The conditions are that the plaintiff “obtains a judgment as favourable as or more favourable than the terms of the offer”, the offer was made at least seven days before the trial, and it was not withdrawn and did not expire before the trial. (Rules of the Small Claims Court, r. 14.07 (1))",
+    "If a defendant's offer is not accepted, the court may award the defendant “an amount not exceeding twice the costs awardable to a successful party, other than disbursements, from the date the offer was served”. This applies if the plaintiff “obtains a judgment as favourable as or less favourable than the terms of the offer”, and the same timing conditions are met. (Rules of the Small Claims Court, r. 14.07 (2))",
+    "If an amount is awarded under these rules to a self-represented party, the court may also award “an amount not exceeding $1,500 as compensation for inconvenience and expense.” (Rules of the Small Claims Court, r. 14.07 (3))",
+    "These costs consequences “apply only if the offer to settle is served on the party to whom it is made at least seven days before the trial commences.” An offer that is not accepted is not mentioned to the trial judge “until all questions of liability and the relief to be granted, other than costs, have been determined.” (Rules of the Small Claims Court, r. 14.02 (2), r. 14.04)",
+    "If an accepted offer does not deal with costs, the plaintiff is entitled to the plaintiff's disbursements assessed to the date the plaintiff was served with the offer (for a defendant's offer), or to the date the notice of acceptance was served (for a plaintiff's offer). (Rules of the Small Claims Court, r. 14.05 (4))"
+   ]
+  },
+  {
+   "heading": "Civil cases: how the court decides costs",
+   "court": "civil",
+   "paragraphs": [
+    "In the Superior Court of Justice, the court may consider, “in addition to the result in the proceeding and any offer to settle or to contribute made in writing”, factors including “the amount claimed and the amount recovered in the proceeding”, “the complexity of the proceeding”, “the importance of the issues”, and conduct “that tended to shorten or to lengthen unnecessarily the duration of the proceeding”. (Rules of Civil Procedure, r. 57.01 (1))",
+    "“The fact that a party is successful in a proceeding or a step in a proceeding does not prevent the court from awarding costs against the party in a proper case.” When the court awards costs, “it shall fix them in accordance with subrule (1) and the Tariffs.” (Rules of Civil Procedure, r. 57.01 (2), (3))",
+    "The rules define “partial indemnity costs” mean “costs awarded in accordance with Part I of Tariff A”. “substantial indemnity costs” mean “costs awarded in an amount that is 1.5 times what would otherwise be awarded in accordance with Part I of Tariff A”. The court also keeps authority to award costs in an amount that represents full indemnity, and “to award costs to a party acting in person.” (Rules of Civil Procedure, r. 1.03 (1), r. 57.01 (4))",
+    "A party who intends to seek costs for a step gives the other parties, and brings to the hearing, a costs outline (Form 57B) “not exceeding three pages in length”, unless the parties agreed on costs. On a contested motion, unless the court is satisfied that a different order would be more just, the court fixes the costs and orders them “to be paid within 30 days”, or in an exceptional case refers them for assessment. (Rules of Civil Procedure, r. 57.01 (6), r. 57.03 (1))",
+    "If a plaintiff recovers an amount within the monetary jurisdiction of the Small Claims Court, “the court may order that the plaintiff shall not recover any costs.” This does not apply to an action transferred to the Superior Court of Justice under section 107 of the Courts of Justice Act. (Rules of Civil Procedure, r. 57.05 (1), (2))"
+   ]
+  },
+  {
+   "heading": "Civil cases: offers to settle and costs",
+   "court": "civil",
+   "paragraphs": [
+    "A party may serve an offer to settle (Form 49A) on any other party. An offer can be made at any time, but if it is made “less than seven days before the hearing of the proceeding commences, the costs consequences referred to in rule 49.10 do not apply.” (Rules of Civil Procedure, r. 49.02 (1), r. 49.03)",
+    "If a plaintiff's offer meets the conditions in the rule and is not accepted, and the plaintiff “obtains a judgment as favourable as or more favourable than the terms of the offer to settle, the plaintiff is entitled to partial indemnity costs to the date the offer to settle was served and substantial indemnity costs from that date, unless the court orders otherwise.” (Rules of Civil Procedure, r. 49.10 (1))",
+    "If a defendant's offer meets the conditions and is not accepted, and the plaintiff “obtains a judgment as favourable as or less favourable than the terms of the offer to settle, the plaintiff is entitled to partial indemnity costs to the date the offer was served and the defendant is entitled to partial indemnity costs from that date, unless the court orders otherwise.” (Rules of Civil Procedure, r. 49.10 (2))",
+    "The burden of proving the result compared with the offer “is on the party who claims the benefit of subrule (1) or (2).” The court may also “take into account any offer to settle made in writing, the date the offer was made and the terms of the offer.” (Rules of Civil Procedure, r. 49.10 (3), r. 49.13)",
+    "If an accepted offer does not deal with costs, the plaintiff is entitled to the plaintiff's costs assessed to the date the plaintiff was served with the offer (for a defendant's offer), or to the date the notice of acceptance was served (for a plaintiff's offer). (Rules of Civil Procedure, r. 49.07 (5))"
+   ]
+  },
+  {
+   "heading": "Family cases: how the court decides costs",
+   "court": "family",
+   "paragraphs": [
+    "Promptly after dealing with a step in a case, the court decides “who, if anyone, is entitled to costs in relation to that step” and sets the amount, or expressly reserves the decision for later. “Except as otherwise provided in this rule, there is a presumption that a successful party is entitled to the costs of a step in a case.” If success is divided, the court may apportion costs. The presumption does not apply in a child protection case. (Family Law Rules, r. 24 (1), (3), (4), (5))",
+    "A successful party who behaved unreasonably during a step may lose all or part of their own costs, or be ordered to pay all or part of the unsuccessful party's costs. If a party “has acted in bad faith, the court shall decide costs on a full recovery basis and shall order the party to pay them immediately.” (Family Law Rules, r. 24 (7), (10))",
+    "If a party does not appear at a step, is not properly prepared, or “otherwise contributes to the step being unproductive”, the court “shall award costs against the party unless the court orders otherwise in the interests of justice.” (Family Law Rules, r. 24 (9))",
+    "In setting the amount, the court may consider the reasonableness and proportionality of factors such as each party's behaviour, the time spent, written offers to settle, legal fees and expert fees, as they relate to “the importance and complexity of the issues in the step”. A claim for fees or expenses “shall be supported by documentation satisfactory to the court.” (Family Law Rules, r. 24 (14), (15))",
+    "Before each step, each party is to “confer or make best efforts to confer orally or in writing with every other party with a view to settling costs”, subject to listed exceptions. Each party is to be ready to “make an oral submission as to costs in relation to that step”. Written costs submissions, if required, are “no longer than three pages or, if it relates to costs of a trial, five pages”, not counting documentation. (Family Law Rules, r. 24 (17), (18), (19))"
+   ]
+  },
+  {
+   "heading": "Family cases: offers to settle and costs",
+   "court": "family",
+   "paragraphs": [
+    "A party may serve an offer on any other party, even before the case is started. An offer “must be signed personally by the party making it and by their licensed representative.” An offer cannot be accepted “after the court begins to give a decision that disposes of a claim dealt with in the offer.” (Family Law Rules, r. 18 (2), (3), (4), (7))",
+    "Offers “are subject to the costs consequences provided for under rule 24.” Under rule 24, a party who makes an offer is, unless the court orders otherwise, “entitled to costs to the date the offer was served and full recovery of costs from that date to the conclusion of the step”, if the listed conditions are met. (Family Law Rules, r. 18 (12.1), r. 24 (12))",
+    "The conditions include: an offer about a motion is made “at least one day before the motion date”; an offer about a trial or other hearing is made “at least seven days before the trial or hearing date”; the offer does not expire and is not withdrawn before the hearing starts; it is not accepted; and the party who made it “obtains an order that is as good as or better than the offer.” (Family Law Rules, r. 24 (12))",
+    "“If an accepted offer does not deal with costs, either party is entitled to ask the court for costs.” The terms of an offer are not mentioned to the judge hearing the claim “until the judge has dealt with all the issues in dispute except costs.” (Family Law Rules, r. 18 (8), (11))"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "localText": "docs/sources/corpus/cja-courts-of-justice-act.txt",
+   "sourceName": "Courts of Justice Act",
+   "pinpoints": "ss. 29, 131 (1), 133",
+   "officialUrl": "https://www.ontario.ca/laws/statute/90c43",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
+   "sourceName": "Rules of the Small Claims Court",
+   "pinpoints": "rr. 14.02 (2), 14.04, 14.05 (4), 14.07; 19.01, 19.04, 19.05, 19.06, 19.07",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/980258",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/rules-of-civil-procedure.txt",
+   "sourceName": "Rules of Civil Procedure",
+   "pinpoints": "r. 1.03 (1); rr. 49.02, 49.03, 49.07 (5), 49.10, 49.13; 57.01, 57.03 (1), 57.05 (1), (2)",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/900194",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/family-law-rules.txt",
+   "sourceName": "Family Law Rules",
+   "pinpoints": "r. 18 (2)-(4), (7), (8), (11), (12.1); r. 24 (1), (3)-(5), (7), (9), (10), (12), (14), (15), (17)-(19)",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/990114",
+   "retrievedAt": "2026-09-30"
+  }
+ ]
+}

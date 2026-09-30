@@ -1,0 +1,140 @@
+{
+ "id": "getting-ready-for-trial",
+ "title": "Getting ready for trial",
+ "courts": [
+  "small-claims",
+  "civil",
+  "family"
+ ],
+ "intro": "This guide sets out the steps the court rules describe between the end of the written pleadings and the trial itself: conferences, exchanging evidence, bringing witnesses, and what happens on the trial day. It covers Small Claims Court, civil cases in the Superior Court of Justice, and family cases, with each rule cited.",
+ "sections": [
+  {
+   "heading": "Small Claims Court: the settlement conference",
+   "court": "small-claims",
+   "paragraphs": [
+    "“A settlement conference shall be held in every defended action.” The clerk sets the time and place and serves a notice of settlement conference with a list of proposed witnesses (Form 13A) (Rules of the Small Claims Court, r. 13.01 (1)-(4), 13.02 (1))",
+    "These requirements do not apply if the defence admits liability for all of the plaintiff's claim and proposes terms of payment. The conference “shall be held within 90 days after the first defence is filed.” A party and the party’s representative, if any, must participate unless the court orders otherwise. (Rules of the Small Claims Court, r. 13.01 (1)-(4), 13.02 (1))",
+    "The rule lists the purposes of a settlement conference: “to resolve or narrow the issues in the action”, to expedite the action, to encourage settlement, “to assist the parties in effective preparation for trial”, and “to provide full disclosure between the parties of the relevant facts and evidence.” (Rules of the Small Claims Court, r. 13.03 (1))",
+    "“At least 14 days before the date of the settlement conference”, each party serves on every other party and files with the court a copy of any document to be relied on at trial that was not attached to the claim or defence, including an expert report, and a list of proposed witnesses (Form 13A) and other people with knowledge of the matters in dispute. (Rules of the Small Claims Court, r. 13.03 (2))",
+    "The court may award costs against a person who is “so inadequately prepared as to frustrate the purposes of the conference”, or who does not file the required material. If a defendant misses a first settlement conference and then an additional one, the court may strike out the defence, dismiss the defendant's claim, if any, and allow the plaintiff to prove the claim, or make another just order. (Rules of the Small Claims Court, r. 13.02 (6), (7))",
+    "What is discussed at the conference is not disclosed to others until the action is disposed of, unless the parties consent (Form 13B). At the end, the court prepares a memorandum of the issues still in dispute and matters agreed on, and gives it to the trial judge. “A judge who conducts a settlement conference in an action shall not preside at the trial of the action.” (Rules of the Small Claims Court, r. 13.03 (4), 13.06, 13.08)",
+    "At or after the conference, the clerk gives the parties a notice that one of them “must request a trial date if the action is not disposed of within 30 days after the settlement conference”, and pay the fee for setting the action down. The clerk fixes a trial date once a settlement conference has been held and a party has filed a request (Form 9B) and paid the fee. (Rules of the Small Claims Court, r. 13.07, 16.01 (1))"
+   ]
+  },
+  {
+   "heading": "Small Claims Court: evidence, documents and witnesses",
+   "court": "small-claims",
+   "paragraphs": [
+    "A document, written statement, or audio or visual record “that has been served, at least 30 days before the trial date, on all parties who were served with the notice of trial, shall be received in evidence, unless the trial judge orders otherwise.” This includes a signed witness statement or expert report, to the extent it relates to facts and opinions the witness would be permitted to testify to in person, and receipts, bills, financial records and repair estimates. (Rules of the Small Claims Court, r. 18.02 (1), (2))",
+    "A party serving such a statement or document must include the name, telephone number and address for service of the witness or author and, for expert evidence, a summary of qualifications. A party served with it who wants to cross-examine the witness or author may summon that person as a witness. (Rules of the Small Claims Court, r. 18.02 (3), (4))",
+    "A party who requires a person in Ontario to attend as a witness may serve a summons to witness (Form 18A). The summons may also require the witness to bring documents or things listed in it. The ontario.ca guide says the summons “must be served personally on the witness at least 10 days before the trial date together with attendance money.” (Rules of the Small Claims Court, r. 18.03 (1), (2); ontario.ca, Guide to Procedures in Small Claims Court: Getting ready for court)",
+    "If a summoned witness needs an interpreter, the party who served the summons arranges a qualified interpreter, unless the interpretation is between English and French and the Ministry of the Attorney General provides one. If a summoned witness whose evidence is material fails to attend, the trial judge may issue a warrant (Form 18B) to have the witness brought before the court. (Rules of the Small Claims Court, r. 18.03 (5.1), (6))",
+    "The guide says to bring “the original documents and at least three copies of each document to the trial.” It explains that the original may be entered as an exhibit, and the copies are for the judge, the other party and the party presenting them. (ontario.ca, Guide to Procedures in Small Claims Court: Getting ready for court)"
+   ]
+  },
+  {
+   "heading": "Small Claims Court: the trial",
+   "court": "small-claims",
+   "paragraphs": [
+    "Steps to Justice explains that, to prove a claim at trial, a party must present evidence. “Evidence includes documents and witnesses.” It adds that the evidence must relate to the facts that need to be proved. The judge decides using the evidence both sides give and what the law says, and that decision is called a judgment. (CLEO Steps to Justice, What happens at my Small Claims Court trial?)",
+    "Small Claims Court usually holds trials in person, according to Steps to Justice. A party may ask the court in writing to hold the trial a different way, for example by video. The ontario.ca guide describes a trial as “a public process where each party tells their own side of the case to a judge who makes a decision about the issues in the case.” (CLEO Steps to Justice, What happens at my Small Claims Court trial?; ontario.ca, Guide to Procedures in Small Claims Court: Getting ready for court)",
+    "If a party fails to attend, the trial judge may proceed without that party, strike out the defence or dismiss the action as the rule describes, or make another just order. If the defence is struck or the action dismissed, the party with the claim need not prove liability but must prove the amount (Rules of the Small Claims Court, r. 17.01 (2), (2.1), (4), (5))",
+    "A judgment against a party who did not attend may be set aside or varied only if that party moves within 30 days after learning of it, or gets an extension for special circumstances. (Rules of the Small Claims Court, r. 17.01 (2), (2.1), (4), (5))",
+    "“A trial may be adjourned only by order of the court.” The court may adjourn on just terms, including payment by one party to another for inconvenience and expense. A party may move for a new trial within 30 days after a final order (Rules of the Small Claims Court, r. 17.02, 17.04)",
+    "The court may grant a new trial, or give the judgment that ought to have been given, only if the party shows a purely arithmetical error in damages, or relevant evidence that was not available at trial and could not reasonably have been expected to be. (Rules of the Small Claims Court, r. 17.02, 17.04)"
+   ]
+  },
+  {
+   "heading": "Civil cases: setting the action down for trial (Rule 48)",
+   "court": "civil",
+   "paragraphs": [
+    "After the close of pleadings, a party who is not in default “and who is ready for trial may set the action down for trial”. In a defended action, this is done by serving a trial record on every party and promptly filing it with proof of service. The trial record contains the pleadings, any jury notice, any order respecting the trial, and the other items the rule lists. (Rules of Civil Procedure, r. 48.01, 48.02 (1), 48.03 (1))",
+    "Once a party has set an action down, that party “shall not initiate or continue any motion or form of discovery without leave of the court”, subject to exceptions in the rule. When the action is placed on a trial list, “all parties shall be deemed to be ready for trial”. Every party must promptly tell the registrar of any settlement and confirm it in writing. (Rules of Civil Procedure, r. 48.04 (1), 48.07, 48.12)",
+    "Unless the court orders otherwise, the registrar dismisses an action for delay if it “has not been set down for trial or terminated by any means by the fifth anniversary of the commencement of the action.” This does not happen if a timetable signed by all parties, with a draft order, is filed at least 30 days before that date (Rules of Civil Procedure, r. 48.14 (1), (4), (5), (7))",
+    "Without agreement on a timetable, any party may move for a status hearing, where the plaintiff must show cause why the action should not be dismissed. (Rules of Civil Procedure, r. 48.14 (1), (4), (5), (7))"
+   ]
+  },
+  {
+   "heading": "Civil cases: the pre-trial conference (Rule 50)",
+   "court": "civil",
+   "paragraphs": [
+    "The purpose of Rule 50 is to give a chance for issues “to be settled without a hearing” and, for issues not settled, to get orders or directions for the just, most expeditious and least expensive disposition. Within 180 days after an action is set down, the parties schedule a pre-trial conference with the registrar. If they do not, the registrar schedules it. (Rules of Civil Procedure, r. 50.01, 50.02 (1), (2))",
+    "Unless an order or practice direction says otherwise, the pre-trial conference is scheduled for a date “not more than 120 days and not less than 30 days before” the first trial day or the first day of the trial sitting, whichever is later. At least 30 days before it, each party delivers a certificate of readiness (Form 50A) about any expert evidence. (Rules of Civil Procedure, r. 50.02 (2.1), 50.03.1 (1))",
+    "“At least five days before a pre-trial conference”, each party files a pre-trial conference brief. It gives concise statements of the nature of the proceeding, the issues and the party’s position, likely witnesses and how long each will take, and the steps still needed before trial. The parties participate unless the judge or associate judge orders otherwise. (Rules of Civil Procedure, r. 50.04, 50.05 (1))",
+    "Matters considered include settlement, simplifying the issues, admissions, liability, damages, and the estimated length of trial. If the case does not settle, the judge or associate judge may set a timetable and make orders about the conduct of the proceeding. After the conference, the judge or associate judge completes a pre-trial conference report. Statements made at the conference are not communicated to the trial judge, except as disclosed in an order or the report. (Rules of Civil Procedure, r. 50.06, 50.07 (1), 50.08, 50.09)"
+   ]
+  },
+  {
+   "heading": "Civil cases: evidence and procedure at trial (Rules 52 and 53)",
+   "court": "civil",
+   "paragraphs": [
+    "“Unless these rules provide otherwise, witnesses at the trial of an action shall be examined orally in court and the examination may consist of direct examination, cross-examination and re-examination.” Before or at trial, the court may allow evidence by affidavit, “unless an adverse party reasonably requires the attendance of the deponent at trial for cross-examination.” (Rules of Civil Procedure, r. 53.01 (1), 53.02 (1))",
+    "A party who intends to call an expert witness serves a signed report on every other party “not less than 90 days before the pre-trial conference”. A responding expert report is due not less than 60 days before it. The report must include the information listed in the rule, such as the expert’s qualifications, instructions, opinion and reasons. (Rules of Civil Procedure, r. 53.03 (1), (2), (2.1))",
+    "A party may serve a summons to witness (Form 53A) on a person in Ontario. The summons “shall be served on the witness personally” and attendance money under Tariff A is paid or tendered at the same time. An adverse party may instead be called by serving a notice of intention to call the person “at least 10 days before the commencement of the trial”, with attendance money. (Rules of Civil Procedure, r. 53.04 (1), (4), 53.07 (2))",
+    "If a party fails to attend when the action is called for trial, the judge may proceed in that party’s absence or make another order the rule lists (Rules of Civil Procedure, r. 52.01 (2), 52.02, 52.06 (1), (2))",
+    "“A judge may postpone or adjourn a trial to such time and place, and on such terms, as are just.” At a party’s request, the judge may order a witness excluded from the courtroom until called, but not a party to the action or a witness whose presence is essential to instruct the lawyer for the party calling the witness. (Rules of Civil Procedure, r. 52.01 (2), 52.02, 52.06 (1), (2))"
+   ]
+  },
+  {
+   "heading": "Family cases: conferences before trial (rule 17)",
+   "court": "family",
+   "paragraphs": [
+    "In each case in which an answer is filed, “a judge shall conduct at least one conference”, subject to exceptions for child protection and international child abduction cases. The rule describes three kinds: a case conference, a settlement conference and a trial management conference. A judge may combine them. (Family Law Rules, r. 17 (1), (1.1), (1.2), (4)-(7))",
+    "Before a conference, each party must “confer or make best efforts to confer orally or in writing with every other party” about financial disclosure requests and a temporary resolution of the issues, and, for a settlement or trial management conference, a final resolution. This does not apply where a court order prohibits it or there is a risk of domestic violence as the rule describes. (Family Law Rules, r. 17 (3.1), (3.2))",
+    "The purposes of a settlement conference include “exploring the chances of settling the case”, “settling or narrowing the issues in dispute”, and, if the case is not settled, “identifying the witnesses and other evidence to be presented at trial, estimating the time needed for trial and scheduling the case for trial”. A case is not scheduled for trial unless a settlement conference has been held or a judge has ordered it. (Family Law Rules, r. 17 (5), (10))",
+    "A trial management conference is for matters such as “deciding how the trial will proceed”, “estimating the time needed for trial”, and making sure the parties know what witnesses and other evidence will be presented. In the Superior Court of Justice and its Family Court, the trial scheduling endorsement form must generally be completed and endorsed before the case is scheduled for trial. (Family Law Rules, r. 17 (6), (11))",
+    "Each party serves and files the conference documents the rule lists, such as a case conference or settlement conference brief (Family Law Rules, r. 17 (13), (13.1), (14), (14.1))",
+    "The party who asked for the conference (or otherwise the applicant or moving party) does so “not later than six days before the date scheduled for the conference” and the other party “not later than four days before that date.” Each party gives the clerk a confirmation of conference (Form 17F) by 2 p.m. three days before; without it, the conference is not held unless the court orders otherwise. (Family Law Rules, r. 17 (13), (13.1), (14), (14.1))",
+    "No brief, evidence or statement from a settlement conference is disclosed to any other judge, except in an agreement reached there or an order. A judge who conducts a settlement conference about an issue “shall not hear the issue”, except in the child protection situation the rule describes. An agreement at a conference is not effective until signed by the parties, witnessed and, in a case involving a special party or a child party, approved by the court. (Family Law Rules, r. 17 (19), (23), (24), (25))"
+   ]
+  },
+  {
+   "heading": "Family cases: trial record, witnesses and evidence (rule 23)",
+   "court": "family",
+   "paragraphs": [
+    "At least 20 days before the start of the trial or trial sitting, whichever is earlier, the applicant serves and files a trial record. It has a table of contents and documents such as the application, answer and reply, any agreed statement of facts, any temporary order on a matter still in dispute, and any order relating to the trial. The respondent may add documents “Not later than seven days before the start of the trial”. (Family Law Rules, r. 23 (1), (2))",
+    "A party who wants a witness to give evidence in court or to be questioned serves a summons to witness (Form 23) by special service, with the witness fee. It must be served “at least seven days before the person is required to be present in court”, subject to an exception in the rule (Family Law Rules, r. 23 (3), (3.2), (4))",
+    "The fee includes $50 for each day the person is needed, plus travel money and, where the person needs to stay overnight, money for meals and lodging, as set out in the rule. (Family Law Rules, r. 23 (3), (3.2), (4))",
+    "If a witness served as required does not obey the summons and needs to be present, the court may issue a warrant for arrest (Form 32B). “A party may call the opposing party as a witness” and may cross-examine the opposing party. The opposing party can be brought by summons, or by serving a notice on the opposing party’s lawyer at least 10 days before trial. (Family Law Rules, r. 23 (7), (11), (11.1))",
+    "A party may ask the court for an order allowing evidence by affidavit or another method that does not require attending in person. That evidence may be used only if it follows the order, is “served at least 30 days before the start of the trial”, and would have been admissible if given in court. (Family Law Rules, r. 23 (20), (21))"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "localText": "docs/sources/corpus/oreg-258-98-small-claims-rules.txt",
+   "sourceName": "Rules of the Small Claims Court",
+   "pinpoints": "r. 13.01-13.03, 13.06-13.08, 16.01, 17.01, 17.02, 17.04, 18.02, 18.03",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/980258",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/guide-getting-ready-for-court.txt",
+   "sourceName": "ontario.ca, Guide to Procedures in Small Claims Court: Getting ready for court",
+   "pinpoints": "Trial: The difference between a settlement conference and a trial; Evidence you can present at trial; Ensuring witnesses come to court",
+   "officialUrl": "https://www.ontario.ca/document/guide-procedures-small-claims-court/getting-ready-court",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/cleo-tribunals-and-courts-what-happens-my-small-claims-court-trial.txt",
+   "sourceName": "CLEO Steps to Justice, What happens at my Small Claims Court trial?",
+   "pinpoints": "Question and answer",
+   "officialUrl": "https://stepstojustice.ca/questions/tribunals-and-courts/what-happens-my-small-claims-court-trial/",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/rules-of-civil-procedure.txt",
+   "sourceName": "Rules of Civil Procedure",
+   "pinpoints": "r. 48.01-48.04, 48.07, 48.12, 48.14, 50.01-50.09, 52.01, 52.02, 52.06, 53.01-53.04, 53.07",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/900194",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "localText": "docs/sources/corpus/family-law-rules.txt",
+   "sourceName": "Family Law Rules",
+   "pinpoints": "r. 17 (1), (1.1), (1.2), (3.1)-(7), (10)-(14.1), (19), (23)-(25); r. 23 (1)-(4), (7), (11), (11.1), (20), (21)",
+   "officialUrl": "https://www.ontario.ca/laws/regulation/990114",
+   "retrievedAt": "2026-09-30"
+  }
+ ]
+}
