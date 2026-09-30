@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://coadecisions.ontariocourts.ca/coa/en/d/s/index.do" />
+    <title>    Advanced Search - Court of Appeal for Ontario
+</title>
+    <meta name="robots" content="noindex,nofollow,nosnippet,noodp,noarchive,noimageindex"/>
+<link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/coa/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+}
+
+.decisia-content a {
+    color: #0645ad;
+    text-decoration: underline;
+}
+
+.decisia-content a:visited {
+    color: purple;
+}
+
+.decisia-content a:hover {
+    color: #222;
+    text-decoration: none;
+}
+
+#decisia-footer a.outlink:after {
+    content: normal;
+	margin: 0;
+}
+
+.breadcrumb-separator > span {
+    display: none;
+}
+
+.breadcrumb-separator:after {
+    content: " » ";
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link {
+    color: #0645ad;
+	text-decoration: underline;
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link:hover {
+    text-decoration: none;
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link:focus {
+    outline: 1px dashed #666;
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link:active {
+    outline: 0;
+}
+
+#solrHiBar {
+    line-height: normal;
+}
+
+.lexumSolrArrow {
+    line-height: 20px;
+}
+
+.wpml-ls-item-legacy-list-horizontal > span {
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+	line-height: 1;
+}
+
+#decisia-main-content .decisia-content .decisions.decisia-box > .search {
+    padding-bottom: 0;
+}
+
+#decisia-main-content .decisia-content .decisions.decisia-box > .search > .searchLinks {
+    padding-top: 0;
+}
+
+#decisia-main-content .decisia-content > #decisia-login-header {
+    padding-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager, #decisia-main-content > .decisions.decisia-box > .decisia-content > h2 {
+    margin-top: 0;
+}
+
+#decisia-main-content .decisia-content .resultControls ul.pager {
+    margin-bottom: 1.2em;
+}
+
+#document-content {
+    border-bottom: 2px solid black;
+}
+
+#decisia-footer {
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+#decisia-footer .decisia-lexum a {
+    top: 10px;
+}
+
+#decisia-footer img.decisia_logo {
+    width: 120px;
+    height: 42px;
+}
+</style>
+
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/coa/en/nav.do">Decisions of the Court</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/coa/en/nav.do">Decisions of the Court</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/coa/fr/d/s/index.do?cont=%22Human+Rights+Code%22+%2246.1%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content"><div class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/coa/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisions decisia-box">
+    <h1>
+        <a id="decisia-decisions"></a>
+        Advanced Search
+    </h1>
+
+    <div class="browse">
+        <div class="browse-section">
+
+
+            <div class="advanced-search decisia-form">
+                <form target="_parent">
+                        <div class="pull-right">
+                            <label id="decisia-advanced-search-show-fields" for="chkShowAdvanced" data-toggle="collapse" data-target="#decisia-advanced-search-additional-fields">
+                                Show more fields&nbsp;<span class="decisia-icon icon-chevron-down"></span>
+                            </label>
+                        </div>
+
+                        <input id="chkShowAdvanced" name="chkShowAdvanced" type="checkbox" />
+
+                        <div class="clear-right"></div>
+    <div class="decisia-content-row">
+        <div class="label">
+            <label for="decisia-content">Full text search</label>
+        <button type="button" class="decisia-help-icon">
+            <span class="decisia-icon icon-question-circle"></span>
+            <span class="accessibility-only">Help</span>
+        </button>
+        <div class="decisia-help-tooltip">                Syntax: "", OR, AND, EXACT(), /p, /s, /n
+</div>
+        </div>
+        <div class="input">
+<input id="decisia-content" class="decisia-text" type="text" name="cont" value="&quot;Human Rights Code&quot; &quot;46.1&quot;" />
+        </div>
+    </div>
+    <div class="decisia-reference-row">
+        <div class="label">
+            <label for="decisia-reference-decisions">Case name, Neutral citation, Docket numbers</label>
+        </div>
+        <div class="input">
+<input id="decisia-reference-decisions" class="decisia-text" type="text" name="ref" value=""/>
+        </div>
+    </div>
+    <div class="decisia-date-from-row">
+        <div class="label">
+            <label for="decisia-date-from">Date&nbsp;between</label>
+        </div>
+        <div class="input">
+<div class="date-range-inputs">
+    <input id="decisia-date-from" class="date" type="date" name="d1" value="" />
+    <label for="decisia-date-to">and</label>
+    <input id="decisia-date-to" class="date" type="date" name="d2" value="" />
+</div>
+        </div>
+        <div id="decisia-date-from-error" class="decisia-date-from-error" role="status" aria-live="polite"></div>
+    </div>
+    <div class="advanced-field decisia-adjudicator-row">
+        <div class="label select">
+            <label for="decisia-adjudicator">Judges</label>
+        </div>
+        <div class="input">
+    <select id="decisia-adjudicator" name="j" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+        <option value="Abella, Rosalie Silberman"
+         >Abella, Rosalie Silberman</option>
+        <option value="Aitken, Catherine D."
+         >Aitken, Catherine D.</option>
+        <option value="Armstrong, Robert Patrick"
+         >Armstrong, Robert Patrick</option>
+        <option value="Austin, Allan McNiece"
+         >Austin, Allan McNiece</option>
+        <option value="Baltman, Deena"
+         >Baltman, Deena</option>
+        <option value="Benotto, Mary Lou"
+         >Benotto, Mary Lou</option>
+        <option value="Blair, Robert Ashley"
+         >Blair, Robert Ashley</option>
+        <option value="Borins, Stephen"
+         >Borins, Stephen</option>
+        <option value="Brooke, John Watson"
+         >Brooke, John Watson</option>
+        <option value="Brown, David M."
+         >Brown, David M.</option>
+        <option value="Brown, Michael F."
+         >Brown, Michael F.</option>
+        <option value="Brownstone, Lisa"
+         >Brownstone, Lisa</option>
+        <option value="Carthy, James Joseph"
+         >Carthy, James Joseph</option>
+        <option value="Catzman, Marvin Adrian"
+         >Catzman, Marvin Adrian</option>
+        <option value="Cavarzan, John Joseph"
+         >Cavarzan, John Joseph</option>
+        <option value="Chapnik, Sandra"
+         >Chapnik, Sandra</option>
+        <option value="Charron, Louise Vivianne"
+         >Charron, Louise Vivianne</option>
+        <option value="Code, Michael A."
+         >Code, Michael A.</option>
+        <option value="Copeland, Jill M."
+         >Copeland, Jill M.</option>
+        <option value="Coroza, Steve A."
+         >Coroza, Steve A.</option>
+        <option value="Cronk, Eleanore Ann"
+         >Cronk, Eleanore Ann</option>
+        <option value="Cumming, Peter Allan"
+         >Cumming, Peter Allan</option>
+        <option value="Cunningham, John Douglas"
+         >Cunningham, John Douglas</option>
+        <option value="Daley, Peter A."
+         >Daley, Peter A.</option>
+        <option value="Dambrot, Michael R."
+         >Dambrot, Michael R.</option>
+        <option value="Dawe, Jonathan"
+         >Dawe, Jonathan</option>
+        <option value="Doherty, David H."
+         >Doherty, David H.</option>
+        <option value="Ducharme, Edward W."
+         >Ducharme, Edward W.</option>
+        <option value="Dunnet, Tamarin M."
+         >Dunnet, Tamarin M.</option>
+        <option value="Durno, Bruce"
+         >Durno, Bruce</option>
+        <option value="Epstein, Gloria Jean"
+         >Epstein, Gloria Jean</option>
+        <option value="Fairburn, J. Michal"
+         >Fairburn, J. Michal</option>
+        <option value="Farley, James Montague"
+         >Farley, James Montague</option>
+        <option value="Favreau, Lise G."
+         >Favreau, Lise G.</option>
+        <option value="Feldman, Kathryn N."
+         >Feldman, Kathryn N.</option>
+        <option value="Ferrier, Lee Kenneth"
+         >Ferrier, Lee Kenneth</option>
+        <option value="Finlayson, George Duncan"
+         >Finlayson, George Duncan</option>
+        <option value="Fragomeni, Joseph M."
+         >Fragomeni, Joseph M.</option>
+        <option value="Gans, Arthur M."
+         >Gans, Arthur M.</option>
+        <option value="George, Jonathon C."
+         >George, Jonathon C.</option>
+        <option value="Gillese, Eileen E."
+         >Gillese, Eileen E.</option>
+        <option value="Glithero, C. Stephen"
+         >Glithero, C. Stephen</option>
+        <option value="Gomery, Sally A."
+         >Gomery, Sally A.</option>
+        <option value="Goudge, Stephen Thomas"
+         >Goudge, Stephen Thomas</option>
+        <option value="Gray, Douglas K."
+         >Gray, Douglas K.</option>
+        <option value="Hackland, Charles T."
+         >Hackland, Charles T.</option>
+        <option value="Harvison Young, Alison"
+         >Harvison Young, Alison</option>
+        <option value="Hennessy, Patricia C."
+         >Hennessy, Patricia C.</option>
+        <option value="Himel, Susan G."
+         >Himel, Susan G.</option>
+        <option value="Hourigan, C. William"
+         >Hourigan, C. William</option>
+        <option value="Hoy, Alexandra"
+         >Hoy, Alexandra</option>
+        <option value="Huscroft, Grant"
+         >Huscroft, Grant</option>
+        <option value="Jamal, Mahmud"
+         >Jamal, Mahmud</option>
+        <option value="Juriansz, Russell G."
+         >Juriansz, Russell G.</option>
+        <option value="Karakatsanis, Andromache Rhea"
+         >Karakatsanis, Andromache Rhea</option>
+        <option value="Kent, James C."
+         >Kent, James C.</option>
+        <option value="Killeen, Gordon Patrick"
+         >Killeen, Gordon Patrick</option>
+        <option value="Kozak, Lawrence Cyril"
+         >Kozak, Lawrence Cyril</option>
+        <option value="Krever, Horace"
+         >Krever, Horace</option>
+        <option value="LaForme, Harry Smith"
+         >LaForme, Harry Smith</option>
+        <option value="Labrosse, Jean-Marc"
+         >Labrosse, Jean-Marc</option>
+        <option value="Lane, George Dennis"
+         >Lane, George Dennis</option>
+        <option value="Lang, Susan Elizabeth"
+         >Lang, Susan Elizabeth</option>
+        <option value="Langdon, Kenneth Aylsworth"
+         >Langdon, Kenneth Aylsworth</option>
+        <option value="Laskin, John Ivan"
+         >Laskin, John Ivan</option>
+        <option value="Lauwers, Peter D."
+         >Lauwers, Peter D.</option>
+        <option value="Lax, Joan L."
+         >Lax, Joan L.</option>
+        <option value="Lederman, Sidney N."
+         >Lederman, Sidney N.</option>
+        <option value="MacDonald, Cindy A.M."
+         >MacDonald, Cindy A.M.</option>
+        <option value="MacFarland, Jean Louise"
+         >MacFarland, Jean Louise</option>
+        <option value="MacKinnon, Jennifer"
+         >MacKinnon, Jennifer</option>
+        <option value="MacPherson, James C."
+         >MacPherson, James C.</option>
+        <option value="Madsen, Lene"
+         >Madsen, Lene</option>
+        <option value="Maranger, Robert L."
+         >Maranger, Robert L.</option>
+        <option value="Marrocco, Frank N."
+         >Marrocco, Frank N.</option>
+        <option value="McCombs, John David"
+         >McCombs, John David</option>
+        <option value="McKinlay, Hilda Margaret"
+         >McKinlay, Hilda Margaret</option>
+        <option value="McKinnon, Colin"
+         >McKinnon, Colin</option>
+        <option value="McMurtry, Roy"
+         >McMurtry, Roy</option>
+        <option value="Melle, Francine Van"
+         >Melle, Francine Van</option>
+        <option value="Miller, Bradley"
+         >Miller, Bradley</option>
+        <option value="Moldaver, Michael James"
+         >Moldaver, Michael James</option>
+        <option value="Monahan, Patrick J."
+         >Monahan, Patrick J.</option>
+        <option value="Morden, John Wilson"
+         >Morden, John Wilson</option>
+        <option value="Métivier, Monique"
+         >Métivier, Monique</option>
+        <option value="Newbould, Frank"
+         >Newbould, Frank</option>
+        <option value="Nordheimer, Ian V.B."
+         >Nordheimer, Ian V.B.</option>
+        <option value="O&#39;Driscoll, John Gerald Joseph"
+         >O&#39;Driscoll, John Gerald Joseph</option>
+        <option value="O&#39;Marra, Alfred J."
+         >O&#39;Marra, Alfred J.</option>
+        <option value="O&#39;Marra, Brian"
+         >O&#39;Marra, Brian</option>
+        <option value="Osborne, Coulter Arthur Anthony"
+         >Osborne, Coulter Arthur Anthony</option>
+        <option value="Osborne, Peter J."
+         >Osborne, Peter J.</option>
+        <option value="O’Connor, Dennis"
+         >O’Connor, Dennis</option>
+        <option value="Paciocco, David M."
+         >Paciocco, David M.</option>
+        <option value="Pardu, Gladys I."
+         >Pardu, Gladys I.</option>
+        <option value="Pattillo, Laurence A."
+         >Pattillo, Laurence A.</option>
+        <option value="Pepall, Sarah E."
+         >Pepall, Sarah E.</option>
+        <option value="Perell, Paul M."
+         >Perell, Paul M.</option>
+        <option value="Pitt, Romain William Michael"
+         >Pitt, Romain William Michael</option>
+        <option value="Pomerance, Renee M."
+         >Pomerance, Renee M.</option>
+        <option value="Rahman, Moiz"
+         >Rahman, Moiz</option>
+        <option value="Ray, Timothy D."
+         >Ray, Timothy D.</option>
+        <option value="Rivard, Paul U."
+         >Rivard, Paul U.</option>
+        <option value="Roberts, Lois B."
+         >Roberts, Lois B.</option>
+        <option value="Robins, Sydney Lewis"
+         >Robins, Sydney Lewis</option>
+        <option value="Rosenberg, Marc"
+         >Rosenberg, Marc</option>
+        <option value="Rouleau, Paul S."
+         >Rouleau, Paul S.</option>
+        <option value="Sachs, Harriet E."
+         >Sachs, Harriet E.</option>
+        <option value="Sharpe, Robert J."
+         >Sharpe, Robert J.</option>
+        <option value="Simmons, Janet M."
+         >Simmons, Janet M.</option>
+        <option value="Smith, G. Patrick"
+         >Smith, G. Patrick</option>
+        <option value="Sossin, Lorne"
+         >Sossin, Lorne</option>
+        <option value="Southey, James Bonham Strange"
+         >Southey, James Bonham Strange</option>
+        <option value="Spence, James M."
+         >Spence, James M.</option>
+        <option value="Speyer, Christopher M."
+         >Speyer, Christopher M.</option>
+        <option value="Steep, R. Paul"
+         >Steep, R. Paul</option>
+        <option value="Strathy, George R."
+         >Strathy, George R.</option>
+        <option value="Swinton, Katherine E."
+         >Swinton, Katherine E.</option>
+        <option value="Then, Edward F."
+         >Then, Edward F.</option>
+        <option value="Theroulde, Sandra"
+         >Theroulde, Sandra</option>
+        <option value="Thorburn, Julie"
+         >Thorburn, Julie</option>
+        <option value="Trotter, Gary T."
+         >Trotter, Gary T.</option>
+        <option value="Tulloch, Michael H."
+         >Tulloch, Michael H.</option>
+        <option value="Turnbull, James R.H."
+         >Turnbull, James R.H.</option>
+        <option value="Tzimas, E. Ria"
+         >Tzimas, E. Ria</option>
+        <option value="Watt, David"
+         >Watt, David</option>
+        <option value="Weiler, Karen Merle Magnuson"
+         >Weiler, Karen Merle Magnuson</option>
+        <option value="Whalen, Lawrence"
+         >Whalen, Lawrence</option>
+        <option value="Wilson, Darla A."
+         >Wilson, Darla A.</option>
+        <option value="Wilton-Siegel, Herman J."
+         >Wilton-Siegel, Herman J.</option>
+        <option value="Winkler, Warren Keith"
+         >Winkler, Warren Keith</option>
+        <option value="Zarnett, Benjamin"
+         >Zarnett, Benjamin</option>
+        <option value="van Rensburg, Katherine"
+         >van Rensburg, Katherine</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-decision-type-row">
+        <div class="label select">
+            <label for="decisia-decision-type">Subject</label>
+        </div>
+        <div class="input">
+        <select id="decisia-decision-type" name="typ" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                <option value="1"
+                >Civil</option>
+                <option value="2"
+                >Criminal</option>
+                <option value="3"
+                >Family</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+
+
+
+
+
+
+                    <input name="or" type="hidden" value="" />
+
+                    <div class="decisia-submit-line">
+                        <button type="submit" id="decisia-search-submit" class="raised">
+                            Search&nbsp;<span class="icon-search"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="lexboxHook"></div>
+
+    <div class="resultControls" id="decisia-advanced-search-result-controls">
+<div class="ordering">
+    Sort by:
+        <span class="active current">Relevance</span>
+        <a target="_parent" class="active" href="/coa/en/d/s/index.do?cont=%22Human+Rights+Code%22+%2246.1%22&ref=&p=&col=1&or=date">Date</a>
+</div>
+        <div class="decisia-btn-expand-collapse-parent">
+                <a href='javascript:void(0)' title='Expand all results' id="decisia-btn-expand-all" class='decisia-btn-expand-collapse selected'><span class="icon-eq"></span></a><a href='javascript:void(0)' title='Collapse all results' id="decisia-btn-collapse-all" class='decisia-btn-expand-collapse'><span class="icon-bars"></span></a>
+        </div>
+    </div>
+    <h2>10 result(s)</h2>
+    <div id="decisia-results">
+<div class="documentList">
+    <ul class="collectionItemList list-expanded">
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">1.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/19215/index.do?q=%22Human+Rights+Code%22+%2246.1%22">Nelson v. Ontario</a></span>
+                        - <span class="citation">2020 ONCA 751</span>
+                - <span class="publicationDate">2020-11-30</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    Rather, s. <b>46.1</b>(2) must be read together with the principles in Weber, as it was in Rivers. &nbsp;&nbsp;[...]&nbsp;&nbsp;She says s. <b>46.1</b> of the Code was enacted after and should be interpreted without reference to Weber. &nbsp;&nbsp;[...]&nbsp;&nbsp;In interpreting s. <b>46.1</b>, the motion judge applied the approach in Rivers, which was upheld on appeal to this court. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/19215/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">2.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/16499/index.do?q=%22Human+Rights+Code%22+%2246.1%22">Lee v. McGhee</a></span>
+                        - <span class="citation">2018 ONCA 128</span>
+                - <span class="publicationDate">2018-02-09</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [2] Under s. <b>46.1</b>(2) of the <b>Human Rights Code</b>, R.S.O. 1990, c. H.19, a person cannot bring a civil court action “based solely on an infringement of a right under part 1” of the Code. &nbsp;&nbsp;[...]&nbsp;&nbsp;The statement of claim as currently drafted bases the claim against Mr. Simmons solely on a breach of the <b>Human Rights Code</b>. [3] The motion judge discussed the possibility of an amendment to the statement of claim but stated that the appellant did not request an opportunity to amend. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/16499/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">3.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/19991/index.do?q=%22Human+Rights+Code%22+%2246.1%22">Wakeling v. Desjardins General Insurance</a></span>
+                        - <span class="citation">2021 ONCA 672</span>
+                - <span class="publicationDate">2021-09-29</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    <b>Human Rights Code</b> Claims [33] Ms. Evison also advanced a claim for breach of the <b>Human Rights Code</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;[34] Section <b>46.1</b>(2) of the <b>Human Rights Code</b> provides that a claim for breach of the Code may be advanced in a court proceeding when ancillary to another valid claim. &nbsp;&nbsp;[...]&nbsp;&nbsp;[36] There is no other valid claim pleaded by Ms. Evison against Desjardins or Ms. Constantino; that is sufficient to dismiss her claim based on the <b>Human Rights Code</b>. [37] Further, s. 1 of the <b>Human Rights Code</b> provides that “every person has a right to equal treatment with respect to services, goods and facilities, 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/19991/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">4.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/8579/index.do?q=%22Human+Rights+Code%22+%2246.1%22">Dobreff v. Davenport</a></span>
+                        - <span class="citation">2009 ONCA 8</span>
+                - <span class="publicationDate">2009-01-07</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [2] We are also satisfied that s. <b>46.1</b> of the <b>Human Rights Code</b> creates a new substantive jurisdiction and that it should be read prospectively only. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/8579/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">5.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/16387/index.do?q=%22Human+Rights+Code%22+%2246.1%22">Lee v. McGhee</a></span>
+                        - <span class="citation">2017 ONCA 997</span>
+                - <span class="publicationDate">2017-12-19</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [3] The respondent Simmons brought a motion to dismiss under rule 21.01(1)(b) as disclosing no cause of action which was granted by Labrosse J. He held that the sole claim against Simmons was alleging discrimination and that the effect of s. <b>46.1</b>(2) of the Ontario <b>Human Rights Code</b> was to prohibit an action solely on an 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/16387/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">6.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/21211/index.do?q=%22Human+Rights+Code%22+%2246.1%22">Shaulov v. Law Society of Ontario</a></span>
+                        - <span class="citation">2023 ONCA 95</span>
+                - <span class="publicationDate">2023-02-10</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [5] The appellant commenced an action against the respondents seeking various remedies, including: declaratory relief that the LSO’s structure, process, and method of evaluation are discriminatory and violate the appellant’s rights under the Canadian Charter of Rights and Freedoms (“the Charter”) and the <b>Human Rights Code</b>, &nbsp;&nbsp;[...]&nbsp;&nbsp;[21] The motion judge correctly determined that s. <b>46.1</b>(2) of the Code applies to the appellant’s claims against the non-LSO respondents. &nbsp;&nbsp;[...]&nbsp;&nbsp;Section <b>46.1</b>(2) prohibits “an action based solely on an infringement of a right” under the Code. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/21211/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">7.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/9970/index.do?q=%22Human+Rights+Code%22+%2246.1%22">Jaffer v. York University</a></span>
+                        - <span class="citation">2010 ONCA 654</span>
+                - <span class="publicationDate">2010-10-07</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    The appeal also raises the issue of whether this matter should be properly dealt with under the enforcement scheme of the <b>Human Rights Code</b>, R.S.O. 1990, c. H.19 (the “Code”). Specifically, this appeal raises the following questions: &nbsp;&nbsp;[...]&nbsp;&nbsp;[43] Section <b>46.1</b> of the Code provides: (1) If, in a civil proceeding in a court, the court finds that a party to the proceeding has infringed a right under Part I of another party to the proceeding, the court may make either of the following orders, or both: &nbsp;&nbsp;[...]&nbsp;&nbsp;[1] Although the motion judge and the parties refer to the OHRC, subsequent to the <b>Human Rights Code</b> Amendment Act, 2006, S.O. 2006, c. 30, the proper body to which to apply is the Human Rights Tribunal of Ontario: <b>Human Rights Code</b>, R.S.O. 1990, c. H.19, s. 34, as amended by S.O. 2006, c. 30, s. 5. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/9970/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">8.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/14311/index.do?q=%22Human+Rights+Code%22+%2246.1%22">Partridge v. Botony Dental Corporation</a></span>
+                        - <span class="citation">2015 ONCA 836</span>
+                - <span class="publicationDate">2015-12-03</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [19] I also see no error in the trial judge’s award to the respondent of $20,000 as compensatory damages under s. <b>46.1</b>(1) of the Ontario <b>Human Rights Code</b>, R.S.O. 1990, c. H.19. While on the high end, this award is clearly within the range supported by the case law and by the trial judge’s findings of the appellant’s wilful
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/14311/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">9.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/17945/index.do?q=%22Human+Rights+Code%22+%2246.1%22">Asghar v. Toronto Police Services Board</a></span>
+                        - <span class="citation">2019 ONCA 479</span>
+                - <span class="publicationDate">2019-06-11</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    There are also possible claims pursuant to s. 24(1) of the Charter and s. <b>46.1</b> of the <b>Human Rights Code</b>, R.S.O. 1990, c. H.19, although they have not been properly pleaded. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/17945/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">10.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/14946/index.do?q=%22Human+Rights+Code%22+%2246.1%22">Strudwick v. Applied Consumer &amp; Clinical Evaluations Inc.</a></span>
+                        - <span class="citation">2016 ONCA 520</span>
+                - <span class="publicationDate">2016-06-30</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    In her pleading she claimed specific amounts under various categories: damages for wrongful dismissal; restitution under s. <b>46.1</b> of the Ontario <b>Human Rights Code</b>, R.S.O. 1990, c. H.19; general damages for breach of good faith; punitive damages; and exemplary damages. &nbsp;&nbsp;[...]&nbsp;&nbsp;[54] Section <b>46.1</b>(1) of the Code states: <b>46.1</b> (1) If, in a civil proceeding in a court, the court finds that a party to the proceeding has infringed a right under Part I of another party to the proceeding, the court may make either of the following orders, or both: &nbsp;&nbsp;[...]&nbsp;&nbsp;[60] Although Lane does not deal specifically with s. <b>46.1</b>, in my view the similarity between the remedial authority granted under the two provisions supports its application in the s. <b>46.1</b> context. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/14946/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    </ul>
+    <hr/>
+</div>
+    </div>
+
+</div>
+</div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "coa",
+            yearRangeString: "1998:2026",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "114"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=114" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.decisiaMessages["reflexd-citing"] = "Citing:";
+</script>
+
+</body>
+
+</html>

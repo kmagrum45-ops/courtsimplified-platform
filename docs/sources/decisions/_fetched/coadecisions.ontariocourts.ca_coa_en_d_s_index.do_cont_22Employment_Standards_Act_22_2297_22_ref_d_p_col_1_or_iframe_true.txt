@@ -1,0 +1,588 @@
+ Advanced Search - Court of Appeal for Ontario
+.decisia-content {
+ font-family: Arial, sans-serif;
+ font-size: 1rem;
+}
+.decisia-content a {
+ color: #0645ad;
+ text-decoration: underline;
+}
+.decisia-content a:visited {
+ color: purple;
+}
+.decisia-content a:hover {
+ color: #222;
+ text-decoration: none;
+}
+#decisia-footer a.outlink:after {
+ content: normal;
+	margin: 0;
+}
+.breadcrumb-separator > span {
+ display: none;
+}
+.breadcrumb-separator:after {
+ content: " » ";
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link {
+ color: #0645ad;
+	text-decoration: underline;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:hover {
+ text-decoration: none;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:focus {
+ outline: 1px dashed #666;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:active {
+ outline: 0;
+}
+#solrHiBar {
+ line-height: normal;
+}
+.lexumSolrArrow {
+ line-height: 20px;
+}
+.wpml-ls-item-legacy-list-horizontal > span {
+ padding-top: 5px;
+ padding-right: 10px;
+ padding-bottom: 5px;
+ padding-left: 10px;
+	line-height: 1;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search {
+ padding-bottom: 0;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search > .searchLinks {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content > #decisia-login-header {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager, #decisia-main-content > .decisions.decisia-box > .decisia-content > h2 {
+ margin-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager {
+ margin-bottom: 1.2em;
+}
+#document-content {
+ border-bottom: 2px solid black;
+}
+#decisia-footer {
+ margin-top: 10px;
+ padding-top: 10px;
+}
+#decisia-footer .decisia-lexum a {
+ top: 10px;
+}
+#decisia-footer img.decisia_logo {
+ width: 120px;
+ height: 42px;
+}
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ Advanced Search
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ Advanced Search
+ /coa/fr/d/s/index.do?cont=%22Employment+Standards+Act%22+%2297%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /coa/en/q.do] Help
+ Advanced Search
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Docket numbers
+ Date between
+ and
+ Judges
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Aitken, Catherine D."
+ >Aitken, Catherine D.
+ <option value="Armstrong, Robert Patrick"
+ >Armstrong, Robert Patrick
+ <option value="Austin, Allan McNiece"
+ >Austin, Allan McNiece
+ <option value="Baltman, Deena"
+ >Baltman, Deena
+ <option value="Benotto, Mary Lou"
+ >Benotto, Mary Lou
+ <option value="Blair, Robert Ashley"
+ >Blair, Robert Ashley
+ <option value="Borins, Stephen"
+ >Borins, Stephen
+ <option value="Brooke, John Watson"
+ >Brooke, John Watson
+ <option value="Brown, David M."
+ >Brown, David M.
+ <option value="Brown, Michael F."
+ >Brown, Michael F.
+ <option value="Brownstone, Lisa"
+ >Brownstone, Lisa
+ <option value="Carthy, James Joseph"
+ >Carthy, James Joseph
+ <option value="Catzman, Marvin Adrian"
+ >Catzman, Marvin Adrian
+ <option value="Cavarzan, John Joseph"
+ >Cavarzan, John Joseph
+ <option value="Chapnik, Sandra"
+ >Chapnik, Sandra
+ <option value="Charron, Louise Vivianne"
+ >Charron, Louise Vivianne
+ <option value="Code, Michael A."
+ >Code, Michael A.
+ <option value="Copeland, Jill M."
+ >Copeland, Jill M.
+ <option value="Coroza, Steve A."
+ >Coroza, Steve A.
+ <option value="Cronk, Eleanore Ann"
+ >Cronk, Eleanore Ann
+ <option value="Cumming, Peter Allan"
+ >Cumming, Peter Allan
+ <option value="Cunningham, John Douglas"
+ >Cunningham, John Douglas
+ <option value="Daley, Peter A."
+ >Daley, Peter A.
+ <option value="Dambrot, Michael R."
+ >Dambrot, Michael R.
+ <option value="Dawe, Jonathan"
+ >Dawe, Jonathan
+ <option value="Doherty, David H."
+ >Doherty, David H.
+ <option value="Ducharme, Edward W."
+ >Ducharme, Edward W.
+ <option value="Dunnet, Tamarin M."
+ >Dunnet, Tamarin M.
+ <option value="Durno, Bruce"
+ >Durno, Bruce
+ <option value="Epstein, Gloria Jean"
+ >Epstein, Gloria Jean
+ <option value="Fairburn, J. Michal"
+ >Fairburn, J. Michal
+ <option value="Farley, James Montague"
+ >Farley, James Montague
+ <option value="Favreau, Lise G."
+ >Favreau, Lise G.
+ <option value="Feldman, Kathryn N."
+ >Feldman, Kathryn N.
+ <option value="Ferrier, Lee Kenneth"
+ >Ferrier, Lee Kenneth
+ <option value="Finlayson, George Duncan"
+ >Finlayson, George Duncan
+ <option value="Fragomeni, Joseph M."
+ >Fragomeni, Joseph M.
+ <option value="Gans, Arthur M."
+ >Gans, Arthur M.
+ <option value="George, Jonathon C."
+ >George, Jonathon C.
+ <option value="Gillese, Eileen E."
+ >Gillese, Eileen E.
+ <option value="Glithero, C. Stephen"
+ >Glithero, C. Stephen
+ <option value="Gomery, Sally A."
+ >Gomery, Sally A.
+ <option value="Goudge, Stephen Thomas"
+ >Goudge, Stephen Thomas
+ <option value="Gray, Douglas K."
+ >Gray, Douglas K.
+ <option value="Hackland, Charles T."
+ >Hackland, Charles T.
+ <option value="Harvison Young, Alison"
+ >Harvison Young, Alison
+ <option value="Hennessy, Patricia C."
+ >Hennessy, Patricia C.
+ <option value="Himel, Susan G."
+ >Himel, Susan G.
+ <option value="Hourigan, C. William"
+ >Hourigan, C. William
+ <option value="Hoy, Alexandra"
+ >Hoy, Alexandra
+ <option value="Huscroft, Grant"
+ >Huscroft, Grant
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Juriansz, Russell G."
+ >Juriansz, Russell G.
+ <option value="Karakatsanis, Andromache Rhea"
+ >Karakatsanis, Andromache Rhea
+ <option value="Kent, James C."
+ >Kent, James C.
+ <option value="Killeen, Gordon Patrick"
+ >Killeen, Gordon Patrick
+ <option value="Kozak, Lawrence Cyril"
+ >Kozak, Lawrence Cyril
+ <option value="Krever, Horace"
+ >Krever, Horace
+ <option value="LaForme, Harry Smith"
+ >LaForme, Harry Smith
+ <option value="Labrosse, Jean-Marc"
+ >Labrosse, Jean-Marc
+ <option value="Lane, George Dennis"
+ >Lane, George Dennis
+ <option value="Lang, Susan Elizabeth"
+ >Lang, Susan Elizabeth
+ <option value="Langdon, Kenneth Aylsworth"
+ >Langdon, Kenneth Aylsworth
+ <option value="Laskin, John Ivan"
+ >Laskin, John Ivan
+ <option value="Lauwers, Peter D."
+ >Lauwers, Peter D.
+ <option value="Lax, Joan L."
+ >Lax, Joan L.
+ <option value="Lederman, Sidney N."
+ >Lederman, Sidney N.
+ <option value="MacDonald, Cindy A.M."
+ >MacDonald, Cindy A.M.
+ <option value="MacFarland, Jean Louise"
+ >MacFarland, Jean Louise
+ <option value="MacKinnon, Jennifer"
+ >MacKinnon, Jennifer
+ <option value="MacPherson, James C."
+ >MacPherson, James C.
+ <option value="Madsen, Lene"
+ >Madsen, Lene
+ <option value="Maranger, Robert L."
+ >Maranger, Robert L.
+ <option value="Marrocco, Frank N."
+ >Marrocco, Frank N.
+ <option value="McCombs, John David"
+ >McCombs, John David
+ <option value="McKinlay, Hilda Margaret"
+ >McKinlay, Hilda Margaret
+ <option value="McKinnon, Colin"
+ >McKinnon, Colin
+ <option value="McMurtry, Roy"
+ >McMurtry, Roy
+ <option value="Melle, Francine Van"
+ >Melle, Francine Van
+ <option value="Miller, Bradley"
+ >Miller, Bradley
+ <option value="Moldaver, Michael James"
+ >Moldaver, Michael James
+ <option value="Monahan, Patrick J."
+ >Monahan, Patrick J.
+ <option value="Morden, John Wilson"
+ >Morden, John Wilson
+ <option value="Métivier, Monique"
+ >Métivier, Monique
+ <option value="Newbould, Frank"
+ >Newbould, Frank
+ <option value="Nordheimer, Ian V.B."
+ >Nordheimer, Ian V.B.
+ <option value="O'Driscoll, John Gerald Joseph"
+ >O'Driscoll, John Gerald Joseph
+ <option value="O'Marra, Alfred J."
+ >O'Marra, Alfred J.
+ <option value="O'Marra, Brian"
+ >O'Marra, Brian
+ <option value="Osborne, Coulter Arthur Anthony"
+ >Osborne, Coulter Arthur Anthony
+ <option value="Osborne, Peter J."
+ >Osborne, Peter J.
+ <option value="O’Connor, Dennis"
+ >O’Connor, Dennis
+ <option value="Paciocco, David M."
+ >Paciocco, David M.
+ <option value="Pardu, Gladys I."
+ >Pardu, Gladys I.
+ <option value="Pattillo, Laurence A."
+ >Pattillo, Laurence A.
+ <option value="Pepall, Sarah E."
+ >Pepall, Sarah E.
+ <option value="Perell, Paul M."
+ >Perell, Paul M.
+ <option value="Pitt, Romain William Michael"
+ >Pitt, Romain William Michael
+ <option value="Pomerance, Renee M."
+ >Pomerance, Renee M.
+ <option value="Rahman, Moiz"
+ >Rahman, Moiz
+ <option value="Ray, Timothy D."
+ >Ray, Timothy D.
+ <option value="Rivard, Paul U."
+ >Rivard, Paul U.
+ <option value="Roberts, Lois B."
+ >Roberts, Lois B.
+ <option value="Robins, Sydney Lewis"
+ >Robins, Sydney Lewis
+ <option value="Rosenberg, Marc"
+ >Rosenberg, Marc
+ <option value="Rouleau, Paul S."
+ >Rouleau, Paul S.
+ <option value="Sachs, Harriet E."
+ >Sachs, Harriet E.
+ <option value="Sharpe, Robert J."
+ >Sharpe, Robert J.
+ <option value="Simmons, Janet M."
+ >Simmons, Janet M.
+ <option value="Smith, G. Patrick"
+ >Smith, G. Patrick
+ <option value="Sossin, Lorne"
+ >Sossin, Lorne
+ <option value="Southey, James Bonham Strange"
+ >Southey, James Bonham Strange
+ <option value="Spence, James M."
+ >Spence, James M.
+ <option value="Speyer, Christopher M."
+ >Speyer, Christopher M.
+ <option value="Steep, R. Paul"
+ >Steep, R. Paul
+ <option value="Strathy, George R."
+ >Strathy, George R.
+ <option value="Swinton, Katherine E."
+ >Swinton, Katherine E.
+ <option value="Then, Edward F."
+ >Then, Edward F.
+ <option value="Theroulde, Sandra"
+ >Theroulde, Sandra
+ <option value="Thorburn, Julie"
+ >Thorburn, Julie
+ <option value="Trotter, Gary T."
+ >Trotter, Gary T.
+ <option value="Tulloch, Michael H."
+ >Tulloch, Michael H.
+ <option value="Turnbull, James R.H."
+ >Turnbull, James R.H.
+ <option value="Tzimas, E. Ria"
+ >Tzimas, E. Ria
+ <option value="Watt, David"
+ >Watt, David
+ <option value="Weiler, Karen Merle Magnuson"
+ >Weiler, Karen Merle Magnuson
+ <option value="Whalen, Lawrence"
+ >Whalen, Lawrence
+ <option value="Wilson, Darla A."
+ >Wilson, Darla A.
+ <option value="Wilton-Siegel, Herman J."
+ >Wilton-Siegel, Herman J.
+ <option value="Winkler, Warren Keith"
+ >Winkler, Warren Keith
+ <option value="Zarnett, Benjamin"
+ >Zarnett, Benjamin
+ <option value="van Rensburg, Katherine"
+ >van Rensburg, Katherine
+ Subject
+ <option value="1"
+ >Civil
+ <option value="2"
+ >Criminal
+ <option value="3"
+ >Family
+ Search 
+ Sort by:
+ Relevance
+ [LINK /coa/en/d/s/index.do?cont=%22Employment+Standards+Act%22+%2297%22&ref=&p=&col=1&or=date] Date
+ 22 result(s)
+ 1.
+ [LINK /coa/coa/en/item/6147/index.do?q=%22Employment+Standards+Act%22+%2297%22] National Automobile, Aerospace Transportation and General Workers Union of Canada (C.A.W. Canada) v. London Machinery Inc.
+ - 2006-03-23
+ Decisions of the Court of Appeal
+ - Civil
+ In September 2001, the Employment Standards Act, R.S.O. 1990, c. E.14 (the “ESA”) was replaced by the Employment Standards Act, 2000, S.O. 2000 c. 41 (the “Act”). [...] That was the law under the “old” Employment Standards Act, and there is no reason to believe that this has changed. [...] [2] Ontario’s Employment Standards Branch, Employment Standards Act 2000: Policy and Interpretation Manual (Scarborough: Carswell, 2001) (“Manual”) 
+ [LINK /coa/coa/en/6147/1/document.do] 
+ 2.
+ [LINK /coa/coa/en/item/19698/index.do?q=%22Employment+Standards+Act%22+%2297%22] O'Reilly v. ClearMRI Solutions Ltd.
+ - 2021 ONCA 385
+ - 2021-06-07
+ Decisions of the Court of Appeal
+ - Civil
+ [40] Tornado also argues that the common employer doctrine only applies to wrongful dismissal claims, and that claims for unpaid salary against a corporation related to the employer must be made under s. 4 of the Employment Standards Act, which was not invoked by Mr. O’Reilly. Further, it challenges how the motion judge [...] [97] Mr. O’Reilly obtained judgment against ClearMRI Canada sometime before he brought a motion for summary judgment against Dr. Kim. Dr. Kim argues that Mr. O’Reilly could have included evidence in the summary judgment motion that execution had been returned unsatisfied against ClearMRI Canada if that were the case. [...] Section 4 of the Employment Standards Act, 2000, S.O. 2000, c. 41 provides for circumstances in which separate persons are treated as one employer. 
+ [LINK /coa/coa/en/19698/1/document.do] 
+ 3.
+ [LINK /coa/coa/en/item/17128/index.do?q=%22Employment+Standards+Act%22+%2297%22] Wood v. CTS of Canada Co.
+ - 2018 ONCA 758
+ - 2018-09-19
+ Decisions of the Court of Appeal
+ - Civil
+ [97] In Taylor, an employer first gave an employee notice of termination, providing her with 18 months’ working notice. [...] Employment Standards Act, 2000, S.O. 2000, c. 41 Definitions 1 (1) In this Act, [...] [2] Ministry of Labour Employment Practices Branch, Employment Standards Act, 2000 Policy and Interpretation Manual, 2d ed. (Scarborough: Carswell, 2001) (the “Manual”). 
+ [LINK /coa/coa/en/17128/1/document.do] 
+ 4.
+ [LINK /coa/coa/en/item/19387/index.do?q=%22Employment+Standards+Act%22+%2297%22] Abbasbayli v. Fiera Foods Company
+ - 2021 ONCA 95
+ - 2021-02-16
+ Decisions of the Court of Appeal
+ - Civil
+ In addition to claiming wrongful dismissal damages and punitive damages, the appellant claims against the individual respondents unpaid vacation pay under s. 81 of the Employment Standards Act, 2000, S.O. 2000, c. 41 (“ESA”) and s. 131 of Ontario’s Business Corporations Act, R.S.O. 1990, c. B.16 (“OBCA”), and relief from [...] [28] Section 97(1) provides that a person who files a complaint under the ESA with respect to an alleged failure to pay wages may not commence a civil proceeding with respect to the same matter. [...] six months’ wages that become payable while they are directors for services performed for the corporation and for the vacation pay accrued while they are directors for not more than twelve months under the Employment Standards Act, and the regulations thereunder, or under any collective agreement made by the corporation. 
+ [LINK /coa/coa/en/19387/1/document.do] 
+ 5.
+ [LINK /coa/coa/en/item/17952/index.do?q=%22Employment+Standards+Act%22+%2297%22] Dawe v. The Equitable Life Insurance Company of Canada
+ - 2019 ONCA 512
+ - 2019-06-19
+ Decisions of the Court of Appeal
+ - Civil
+ However, despite his refusal to sign the release, Mr. Dawe was paid eight weeks of termination pay in lieu of notice, as well as twenty-six weeks of severance pay in accordance with the provisions of the Employment Standards Act, 2000, S.O. 2000, c. 41 (“ESA”). [22] Mr. Dawe was 62 years old when he was terminated. [...] [70] The issue of proper notice was squarely addressed in Poole v. Whirlpool Corporation, 2011 ONSC 4100, 92 C.C.E.L. (3d) 350, aff’d 2011 ONCA 808, 97 C.C.E.L. (3d) 20. Poole involved an “actively employed” condition that the employer attempted to rely upon to limit entitlement to bonus payments. [...] (d) The Employment Standards Act, 2000 [77] In addition to his conclusions about the ambiguity of the language in the plans and lack of notice, the motion judge also found that Equitable Life was precluded from relying on the termination provision because it violated the provisions of the ESA by insisting that Mr. Dawe sign
+ [LINK /coa/coa/en/17952/1/document.do] 
+ 6.
+ [LINK /coa/coa/en/item/3798/index.do?q=%22Employment+Standards+Act%22+%2297%22] TCT Logistics (Re)
+ - 2004-04-02
+ Decisions of the Court of Appeal
+ - Civil
+ In particular, the Receiver shall not be liable to any of the employees of any of the Debtors for any wages (as "wages" are defined in the Employment Standards Act (Ontario)), including severance pay, termination pay and vacation pay, except for such wages as the Receiver may specifically agree to pay. [...] In particular, the Receiver shall not be liable to any of the employees of any of the Debtors for any wages (as "wages" are defined in Employment Standards Act (Ontario)), including severance pay, termination pay and vacation pay, except for such wages as the Receiver may specifically agree to pay. [...] [97] For several reasons, I disagree with KPMG's and GMAC's submissions on this point. 
+ [LINK /coa/coa/en/3798/1/document.do] 
+ 7.
+ [LINK /coa/coa/en/item/24377/index.do?q=%22Employment+Standards+Act%22+%2297%22] Pringle v. Zenova Group PLC
+ - 2026 ONCA 549
+ - 2026-07-29
+ Decisions of the Court of Appeal
+ - Civil
+ On a motion under r. 21.01(3)(a) of the Rules of Civil Procedure, R.R.O. 1990, Reg. 194, the motion judge concluded that the appellant was an independent contractor – not an employee – for the purposes of the Employment Standards Act, 2000, S.O. 2000, c. 41 (“ESA”). As the ESA had no application, the forum selection clause [...] i. The Employment Standards Act context [27] Section 1 of the ESA defines an “employee” to include “a person, including an officer of a corporation, who performs work for an employer for wages” and “a person who supplies services to an employer for wages”. [...] [97] For these reasons, I would allow the appeal, declare the forum selection clause in the Agreement void as contrary to the ESA, and permit the appellant’s action to proceed in Ontario. 
+ [LINK /coa/coa/en/24377/1/document.do] 
+ 8.
+ [LINK /coa/coa/en/item/17488/index.do?q=%22Employment+Standards+Act%22+%2297%22] Zeppa v. Woodbridge Heating & Air-Conditioning Ltd.
+ - 2019 ONCA 47
+ - 2019-01-25
+ Decisions of the Court of Appeal
+ - Civil
+ Act, R.S.O. 1990, c. L.15: Anderson v. McWatt, 2015 ONSC 3784, at para. 77, appeal dismissed 2016 ONCA 553; and the limitation period created by s. 82(2) of the former Employment Standards Act, R.S.O. 1990, c. E.14: Halloran v. Ontario (Employment Standards Act Referee) (2002), 217 D.L.R. (4th) 327 (C.A.), at para. 35. [...] [97] However, Woodbridge knew that maintenance would never fix the HVAC system. 
+ [LINK /coa/coa/en/17488/1/document.do] 
+ 9.
+ [LINK /coa/coa/en/item/24463/index.do?q=%22Employment+Standards+Act%22+%2297%22] Kondaj v. Crossbridge Condominium Services Ltd.
+ - 2026 ONCA 636
+ - 2026-09-10
+ Decisions of the Court of Appeal
+ - Civil
+ [3] Duka paid Mr. Kondaj his statutory termination entitlements, enrolled him in its benefits program, and provided him with a T4 pursuant to ss. 57 and 75 of the Employment Standards Act, 2000, S.O. 2000, c. 41 (“the Act”). [4] However, neither Duka nor Crossbridge paid Mr. Kondaj any common law notice entitlements. [...] [97] Crossbridge claims that Duka’s failure to advance a crossclaim is not dispositive of costs, relying on Firth v. O’Brien, 2013 CanLII 7009 (Ont. S.C.), at para. 33. [...] [1] “Common law” is used only in s. 141 of the Act and “wrongful dismissal” is used only in ss. 97 and 98, which provide that an employee cannot pursue both a complaint under the Act and a claim for wrongful dismissal in relation to “the same termination or severance of employment”. 
+ [LINK /coa/coa/en/24463/1/document.do] 
+ 10.
+ [LINK /coa/coa/en/item/1697/index.do?q=%22Employment+Standards+Act%22+%2297%22] R. v. Branton
+ - 2001-04-20
+ Decisions of the Court of Appeal
+ - Criminal
+ In the criminal context, ambiguity must be resolved by choosing the interpretation that is most favourable to the accused: See Marcotte v. Canada (Deputy A.G.) (1974), 19 C.C.C. (2d) 257 at 261-62 (S.C.C.); R. v. Paré (1987), 38 C.C.C. (3d) 97 at 106 (S.C.C.); and R. v. McIntosh (1995), 95 C.C.C. (3d) 481 at 495 (S.C.C.). [...] An application for the review of the warrant may, nevertheless, be made to either the judge who granted the warrant or another judge of the court: R. v. Wilson (1983), 9 C.C.C. (3d) 97 (S.C.C.) at 123. In a proper case the judge may set aside the warrant. [...] [1] See 65302 British Columbia Ltd. v. Canada: Interpretation of the Income Tax Act, R.S.C., 1985, c. 1 (5th Supp.), s. 18(1)(a), (b), regarding whether levies, fines and penalties may be deducted as business expenses from a taxpayer's income; Rizzo & Rizzo Shoes Ltd. (Re): Interpretation of the Employment Standards Act
+ [LINK /coa/coa/en/1697/1/document.do] 
+ 11.
+ [LINK /coa/coa/en/item/24397/index.do?q=%22Employment+Standards+Act%22+%2297%22] Wigdor v. Facebook Canada Ltd.
+ - 2026 ONCA 572
+ - 2026-08-07
+ Decisions of the Court of Appeal
+ - Civil
+ cross-appeal from the application judge’s determination that the termination provisions of the employment agreement were void for contravening minimum standards in the Employment Standards Act 2000, S.O. 2000, c. 41 (the “ESA”), and ordering the Respondents to pay damages for 10-months reasonable common law notice. [...] will recognize your service with Chatham Labs Inc. and its predecessors, beginning on July 1, 2011, only for the purpose of determining any minimum required entitlements under the Ontario Employment Standards Act, 2000, as amended from time to time (“Employment Standards Legislation”) which will govern your employment. [...] [97] Because the application judge erred in her interpretation of ss. 60 and 61 of the ESA, she failed to consider whether the terms of the RSU Agreements incorporated as part of Dr. Wigdor’s employment contract contravened the ESA by purporting to alter a term or condition of employment during the statutory notice period. 
+ [LINK /coa/coa/en/24397/1/document.do] 
+ 12.
+ [LINK /coa/coa/en/item/23348/index.do?q=%22Employment+Standards+Act%22+%2297%22] Davis v. Amazon Canada Fulfillment Services
+ - 2025 ONCA 421
+ - 2025-06-10
+ Decisions of the Court of Appeal
+ - Civil
+ Mr. Davis, the putative representative plaintiff for the class action, alleged that Amazon was liable to the class for breach of employment contracts, including the terms of Ontario’s Employment Standards Act, 2000, S.O. 2000, c. 41 (“ESA”), and its regulations, and equivalent provincial statutes and regulations across the [...] No. 1636, 2020 ONCA 612, 454 D.L.R. (4th) 126, at para. 97. [12] In this case, pursuant to s. 7 of the Arbitration Act, Perell J. permanently stayed the claims of (1) all DPs; (2) all DSP 2.0 DAs; and (3) the claims of DSP 1.0 DAs who signed an arbitration agreement. 
+ [LINK /coa/coa/en/23348/1/document.do] 
+ 13.
+ [LINK /coa/coa/en/item/14255/index.do?q=%22Employment+Standards+Act%22+%2297%22] Holland v. Hostopia.com Inc.
+ - 2015 ONCA 762
+ - 2015-11-10
+ Decisions of the Court of Appeal
+ - Civil
+ That agreement provided for termination by notice under the Employment Standards Act, 2000, S.O. 2000, c. 41 (“ESA”). [2] His employment was terminated without cause seven years later. [...] The learned author cites two cases of this court in which non-competition covenants increased the notice period: Murrell v. Burns International Security Services Ltd. (1997), 33 C.C.E.L. (2d) 1 and Ryan v. Laidlaw Transportation Ltd. (1995), 26 O.R. (3d) 97, per McKinlay J.A. (dissenting, but not on this point). [60] In 
+ [LINK /coa/coa/en/14255/1/document.do] 
+ 14.
+ [LINK /coa/coa/en/item/6315/index.do?q=%22Employment+Standards+Act%22+%2297%22] Rosenberg v. College of Physicians and Surgeons of Ontario
+ - 2006-11-02
+ Decisions of the Court of Appeal
+ - Civil
+ Workplace Safety and Insurance Act, 1997, O. Reg. 455/97 Yes[7] Pension Benefits Act, R.S.O. 1990, c. P.8 Yes[8] Change of Name Act, R.S.O. 1990, c. C.7 [...] Employment Standards Act, 2000, S.O. 2000, c. 41 Yes[12] Yes Human Rights Code, R.S.O. 1990, c. H.19 
+ [LINK /coa/coa/en/6315/1/document.do] 
+ 15.
+ [LINK /coa/coa/en/item/15800/index.do?q=%22Employment+Standards+Act%22+%2297%22] Brake v. PJ-M2R Restaurant Inc.
+ - 2017 ONCA 402
+ - 2017-05-23
+ Decisions of the Court of Appeal
+ - Civil
+ [1] A long-serving McDonald’s restaurant manager was dismissed from her position without notice or payment of her statutory entitlements under the Employment Standards Act, 2000, S.O. 2000, c. 41 (the “Act”). [2] She successfully sued for wrongful dismissal. [...] Her evaluation included the following comments: “Congratulations on your outstanding Crew Commitment Survey result of 97%. That was the best score ever achieved for my company. I believe it’s a direct result of your influence on the management team and some of the key crew people.” [...] [97] While this general statement of principle governs, I would not reduce the damages award by the amounts that Ms. Brake received during the notice period because, in my view, they are not “amounts received in mitigation of loss”. 
+ [LINK /coa/coa/en/15800/1/document.do] 
+ 16.
+ [LINK /coa/coa/en/item/14075/index.do?q=%22Employment+Standards+Act%22+%2297%22] Grant Forest Products Inc. v. The Toronto-Dominion Bank
+ - 2015 ONCA 570
+ - 2015-08-07
+ Decisions of the Court of Appeal
+ - Civil
+ 30 (7) A security interest in an account or inventory and its proceeds is subordinate to the interest of a person who is the beneficiary of a deemed trust arising under the Employment Standards Act or under the Pension Benefits Act. [8] The Superintendent contends that the decision below is wrong because, among other [...] [97] First, in articulating this standard of review, Resurgence purported to follow UTI Energy Corp. v. Fracmaster Ltd., 1999 ABCA 178, 244 A.R. 93. 
+ [LINK /coa/coa/en/14075/1/document.do] 
+ 17.
+ [LINK /coa/coa/en/item/9496/index.do?q=%22Employment+Standards+Act%22+%2297%22] Hydro One Inc. v. Ontario (Financial Services Commission)
+ - 2010 ONCA 6
+ - 2010-01-11
+ Decisions of the Court of Appeal
+ - Civil
+ See also Nolan, at para. 28; Buschau v. Rogers Communications Inc., [2006] 1 S.C.R. 973, per Bastarache J., at paras. 96-97; Firestone Canada Inc. v. Ontario (Pension Commission) (1990), 1 O.R. (3d) 122 (C.A.), at p. 127; Huus v. Ontario (Superintendent of Pensions) (2002), 58 O.R. (3d) 380 (C.A.), at paras. 26-27. [...] also Machtinger v. HOJ Industries Ltd. (1992), 91 D.L.R. (4th) 491 (S.C.C.), at p. 507, for an analogous interpretive approach in the context of the Employment Standards Act, R.S.O. 1990, c. E. 14. (b) Section 69(1) [70] Section 69(1) of the Act authorizes the Superintendent to intervene in respect of a private pension [...] [97] In Huus, this court emphasized that pension plans are created for the benefit of employees, not the companies that sponsor them. 
+ [LINK /coa/coa/en/9496/1/document.do] 
+ 18.
+ [LINK /coa/coa/en/item/11751/index.do?q=%22Employment+Standards+Act%22+%2297%22] Metropolitan Toronto Condominium Corporation No. 1352 v. Newport Beach Development Inc.
+ - 2012 ONCA 850
+ - 2012-12-04
+ Decisions of the Court of Appeal
+ - Civil
+ [51] Counsel for Tarion pointed out, quite correctly in my view, that the administrative regime for decision making under which Tarion operates is more formal than the administrative regime under which Ontario Employment Standards Act, R.S.O. 1990, c. E.14 (“ESA”) officers operate. ESA officers make decisions in a very [...] [97] I agree with this paragraph. I, therefore, would not give effect to this last prong in Newport’s argument. 
+ [LINK /coa/coa/en/11751/1/document.do] 
+ 19.
+ [LINK /coa/coa/en/item/9750/index.do?q=%22Employment+Standards+Act%22+%2297%22] Lomas v. Rio Algom Limited
+ - 2010 ONCA 175
+ - 2010-03-10
+ Decisions of the Court of Appeal
+ - Civil
+ [97] I would allow the appeal, grant the motion and strike out subparagraphs 1(h), 1(i)(i) and 2(y) of the Amended Notice of Application, with costs to the appellant fixed at $35,000, all inclusive. [...] (5) Membership in a pension plan that is wound up in whole or in part includes the period of notice of termination of employment required under Part XV of the Employment Standards Act, 2000. R.S.O. 1990, c. P.8, s. 74 (5); 2004, c. 31, Sched. 31, s. 3. 
+ [LINK /coa/coa/en/9750/1/document.do] 
+ 20.
+ [LINK /coa/coa/en/item/248/index.do?q=%22Employment+Standards+Act%22+%2297%22] Maple Leaf Foods Inc. v. Schneider Corporation
+ - 1998-10-20
+ Decisions of the Court of Appeal
+ - Civil
+ (This decision holds that although the literal reading of the words in the Employment Standards Act entitling an employee to severance, termination or vacation pay upon termination by the employer would not include the employer's bankruptcy, when the words are examined in their entire context they must be interpreted to [...] [97] Article 16 of Schneider simply states that the certificate is to be delivered to "the transfer agent". 
+ [LINK /coa/coa/en/248/1/document.do] 
+ 21.
+ [LINK /coa/coa/en/item/18282/index.do?q=%22Employment+Standards+Act%22+%2297%22] Oakville (Town) v. Clublink Corporation ULC
+ - 2019 ONCA 826
+ - 2019-10-23
+ Decisions of the Court of Appeal
+ - Civil
+ In that case, the issue was whether an employer petitioned into bankruptcy was required to pay employees termination pay and severance pay under ss. 40 and 40a of the Employment Standards Act, R.S.O. 1980, c. 137, respectively. The Court of Appeal held that the plain meaning of those provisions indicated that termination [...] [97] The application judge placed considerable reliance on the different routes of appeal in terms of his conclusion as to whether s. 34 applied to Clublink and its plans for Glen Abbey. 
+ [LINK /coa/coa/en/18282/1/document.do] 
+ 22.
+ [LINK /coa/coa/en/item/10357/index.do?q=%22Employment+Standards+Act%22+%2297%22] Indalex Limited (Re)
+ - 2011 ONCA 265
+ - 2011-04-07
+ Decisions of the Court of Appeal
+ - Civil
+ [97] It will be recalled that when a pension plan is wound up, an actuarial calculation is made of the assets and liabilities, as of the wind up date. [...] 30. (7) A security interest in an account or inventory and its proceeds is subordinate to the interest of a person who is the beneficiary of a deemed trust arising under the Employment Standards Act or under the Pension Benefits Act. [emphasis added] [173] The USW contends that as s. 30(7) gives priority to the PBA deemed 
+ [LINK /coa/coa/en/10357/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "coa",
+ yearRangeString: "1998:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "114"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

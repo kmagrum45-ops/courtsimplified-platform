@@ -1,0 +1,457 @@
+ Advanced Search - Court of Appeal for Ontario
+.decisia-content {
+ font-family: Arial, sans-serif;
+ font-size: 1rem;
+}
+.decisia-content a {
+ color: #0645ad;
+ text-decoration: underline;
+}
+.decisia-content a:visited {
+ color: purple;
+}
+.decisia-content a:hover {
+ color: #222;
+ text-decoration: none;
+}
+#decisia-footer a.outlink:after {
+ content: normal;
+	margin: 0;
+}
+.breadcrumb-separator > span {
+ display: none;
+}
+.breadcrumb-separator:after {
+ content: " » ";
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link {
+ color: #0645ad;
+	text-decoration: underline;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:hover {
+ text-decoration: none;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:focus {
+ outline: 1px dashed #666;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:active {
+ outline: 0;
+}
+#solrHiBar {
+ line-height: normal;
+}
+.lexumSolrArrow {
+ line-height: 20px;
+}
+.wpml-ls-item-legacy-list-horizontal > span {
+ padding-top: 5px;
+ padding-right: 10px;
+ padding-bottom: 5px;
+ padding-left: 10px;
+	line-height: 1;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search {
+ padding-bottom: 0;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search > .searchLinks {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content > #decisia-login-header {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager, #decisia-main-content > .decisions.decisia-box > .decisia-content > h2 {
+ margin-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager {
+ margin-bottom: 1.2em;
+}
+#document-content {
+ border-bottom: 2px solid black;
+}
+#decisia-footer {
+ margin-top: 10px;
+ padding-top: 10px;
+}
+#decisia-footer .decisia-lexum a {
+ top: 10px;
+}
+#decisia-footer img.decisia_logo {
+ width: 120px;
+ height: 42px;
+}
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ Advanced Search
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ Advanced Search
+ /coa/fr/d/s/index.do?cont=%22Small+Claims+Court%22+%22split%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /coa/en/q.do] Help
+ Advanced Search
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Docket numbers
+ Date between
+ and
+ Judges
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Aitken, Catherine D."
+ >Aitken, Catherine D.
+ <option value="Armstrong, Robert Patrick"
+ >Armstrong, Robert Patrick
+ <option value="Austin, Allan McNiece"
+ >Austin, Allan McNiece
+ <option value="Baltman, Deena"
+ >Baltman, Deena
+ <option value="Benotto, Mary Lou"
+ >Benotto, Mary Lou
+ <option value="Blair, Robert Ashley"
+ >Blair, Robert Ashley
+ <option value="Borins, Stephen"
+ >Borins, Stephen
+ <option value="Brooke, John Watson"
+ >Brooke, John Watson
+ <option value="Brown, David M."
+ >Brown, David M.
+ <option value="Brown, Michael F."
+ >Brown, Michael F.
+ <option value="Brownstone, Lisa"
+ >Brownstone, Lisa
+ <option value="Carthy, James Joseph"
+ >Carthy, James Joseph
+ <option value="Catzman, Marvin Adrian"
+ >Catzman, Marvin Adrian
+ <option value="Cavarzan, John Joseph"
+ >Cavarzan, John Joseph
+ <option value="Chapnik, Sandra"
+ >Chapnik, Sandra
+ <option value="Charron, Louise Vivianne"
+ >Charron, Louise Vivianne
+ <option value="Code, Michael A."
+ >Code, Michael A.
+ <option value="Copeland, Jill M."
+ >Copeland, Jill M.
+ <option value="Coroza, Steve A."
+ >Coroza, Steve A.
+ <option value="Cronk, Eleanore Ann"
+ >Cronk, Eleanore Ann
+ <option value="Cumming, Peter Allan"
+ >Cumming, Peter Allan
+ <option value="Cunningham, John Douglas"
+ >Cunningham, John Douglas
+ <option value="Daley, Peter A."
+ >Daley, Peter A.
+ <option value="Dambrot, Michael R."
+ >Dambrot, Michael R.
+ <option value="Dawe, Jonathan"
+ >Dawe, Jonathan
+ <option value="Doherty, David H."
+ >Doherty, David H.
+ <option value="Ducharme, Edward W."
+ >Ducharme, Edward W.
+ <option value="Dunnet, Tamarin M."
+ >Dunnet, Tamarin M.
+ <option value="Durno, Bruce"
+ >Durno, Bruce
+ <option value="Epstein, Gloria Jean"
+ >Epstein, Gloria Jean
+ <option value="Fairburn, J. Michal"
+ >Fairburn, J. Michal
+ <option value="Farley, James Montague"
+ >Farley, James Montague
+ <option value="Favreau, Lise G."
+ >Favreau, Lise G.
+ <option value="Feldman, Kathryn N."
+ >Feldman, Kathryn N.
+ <option value="Ferrier, Lee Kenneth"
+ >Ferrier, Lee Kenneth
+ <option value="Finlayson, George Duncan"
+ >Finlayson, George Duncan
+ <option value="Fragomeni, Joseph M."
+ >Fragomeni, Joseph M.
+ <option value="Gans, Arthur M."
+ >Gans, Arthur M.
+ <option value="George, Jonathon C."
+ >George, Jonathon C.
+ <option value="Gillese, Eileen E."
+ >Gillese, Eileen E.
+ <option value="Glithero, C. Stephen"
+ >Glithero, C. Stephen
+ <option value="Gomery, Sally A."
+ >Gomery, Sally A.
+ <option value="Goudge, Stephen Thomas"
+ >Goudge, Stephen Thomas
+ <option value="Gray, Douglas K."
+ >Gray, Douglas K.
+ <option value="Hackland, Charles T."
+ >Hackland, Charles T.
+ <option value="Harvison Young, Alison"
+ >Harvison Young, Alison
+ <option value="Hennessy, Patricia C."
+ >Hennessy, Patricia C.
+ <option value="Himel, Susan G."
+ >Himel, Susan G.
+ <option value="Hourigan, C. William"
+ >Hourigan, C. William
+ <option value="Hoy, Alexandra"
+ >Hoy, Alexandra
+ <option value="Huscroft, Grant"
+ >Huscroft, Grant
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Juriansz, Russell G."
+ >Juriansz, Russell G.
+ <option value="Karakatsanis, Andromache Rhea"
+ >Karakatsanis, Andromache Rhea
+ <option value="Kent, James C."
+ >Kent, James C.
+ <option value="Killeen, Gordon Patrick"
+ >Killeen, Gordon Patrick
+ <option value="Kozak, Lawrence Cyril"
+ >Kozak, Lawrence Cyril
+ <option value="Krever, Horace"
+ >Krever, Horace
+ <option value="LaForme, Harry Smith"
+ >LaForme, Harry Smith
+ <option value="Labrosse, Jean-Marc"
+ >Labrosse, Jean-Marc
+ <option value="Lane, George Dennis"
+ >Lane, George Dennis
+ <option value="Lang, Susan Elizabeth"
+ >Lang, Susan Elizabeth
+ <option value="Langdon, Kenneth Aylsworth"
+ >Langdon, Kenneth Aylsworth
+ <option value="Laskin, John Ivan"
+ >Laskin, John Ivan
+ <option value="Lauwers, Peter D."
+ >Lauwers, Peter D.
+ <option value="Lax, Joan L."
+ >Lax, Joan L.
+ <option value="Lederman, Sidney N."
+ >Lederman, Sidney N.
+ <option value="MacDonald, Cindy A.M."
+ >MacDonald, Cindy A.M.
+ <option value="MacFarland, Jean Louise"
+ >MacFarland, Jean Louise
+ <option value="MacKinnon, Jennifer"
+ >MacKinnon, Jennifer
+ <option value="MacPherson, James C."
+ >MacPherson, James C.
+ <option value="Madsen, Lene"
+ >Madsen, Lene
+ <option value="Maranger, Robert L."
+ >Maranger, Robert L.
+ <option value="Marrocco, Frank N."
+ >Marrocco, Frank N.
+ <option value="McCombs, John David"
+ >McCombs, John David
+ <option value="McKinlay, Hilda Margaret"
+ >McKinlay, Hilda Margaret
+ <option value="McKinnon, Colin"
+ >McKinnon, Colin
+ <option value="McMurtry, Roy"
+ >McMurtry, Roy
+ <option value="Melle, Francine Van"
+ >Melle, Francine Van
+ <option value="Miller, Bradley"
+ >Miller, Bradley
+ <option value="Moldaver, Michael James"
+ >Moldaver, Michael James
+ <option value="Monahan, Patrick J."
+ >Monahan, Patrick J.
+ <option value="Morden, John Wilson"
+ >Morden, John Wilson
+ <option value="Métivier, Monique"
+ >Métivier, Monique
+ <option value="Newbould, Frank"
+ >Newbould, Frank
+ <option value="Nordheimer, Ian V.B."
+ >Nordheimer, Ian V.B.
+ <option value="O'Driscoll, John Gerald Joseph"
+ >O'Driscoll, John Gerald Joseph
+ <option value="O'Marra, Alfred J."
+ >O'Marra, Alfred J.
+ <option value="O'Marra, Brian"
+ >O'Marra, Brian
+ <option value="Osborne, Coulter Arthur Anthony"
+ >Osborne, Coulter Arthur Anthony
+ <option value="Osborne, Peter J."
+ >Osborne, Peter J.
+ <option value="O’Connor, Dennis"
+ >O’Connor, Dennis
+ <option value="Paciocco, David M."
+ >Paciocco, David M.
+ <option value="Pardu, Gladys I."
+ >Pardu, Gladys I.
+ <option value="Pattillo, Laurence A."
+ >Pattillo, Laurence A.
+ <option value="Pepall, Sarah E."
+ >Pepall, Sarah E.
+ <option value="Perell, Paul M."
+ >Perell, Paul M.
+ <option value="Pitt, Romain William Michael"
+ >Pitt, Romain William Michael
+ <option value="Pomerance, Renee M."
+ >Pomerance, Renee M.
+ <option value="Rahman, Moiz"
+ >Rahman, Moiz
+ <option value="Ray, Timothy D."
+ >Ray, Timothy D.
+ <option value="Rivard, Paul U."
+ >Rivard, Paul U.
+ <option value="Roberts, Lois B."
+ >Roberts, Lois B.
+ <option value="Robins, Sydney Lewis"
+ >Robins, Sydney Lewis
+ <option value="Rosenberg, Marc"
+ >Rosenberg, Marc
+ <option value="Rouleau, Paul S."
+ >Rouleau, Paul S.
+ <option value="Sachs, Harriet E."
+ >Sachs, Harriet E.
+ <option value="Sharpe, Robert J."
+ >Sharpe, Robert J.
+ <option value="Simmons, Janet M."
+ >Simmons, Janet M.
+ <option value="Smith, G. Patrick"
+ >Smith, G. Patrick
+ <option value="Sossin, Lorne"
+ >Sossin, Lorne
+ <option value="Southey, James Bonham Strange"
+ >Southey, James Bonham Strange
+ <option value="Spence, James M."
+ >Spence, James M.
+ <option value="Speyer, Christopher M."
+ >Speyer, Christopher M.
+ <option value="Steep, R. Paul"
+ >Steep, R. Paul
+ <option value="Strathy, George R."
+ >Strathy, George R.
+ <option value="Swinton, Katherine E."
+ >Swinton, Katherine E.
+ <option value="Then, Edward F."
+ >Then, Edward F.
+ <option value="Theroulde, Sandra"
+ >Theroulde, Sandra
+ <option value="Thorburn, Julie"
+ >Thorburn, Julie
+ <option value="Trotter, Gary T."
+ >Trotter, Gary T.
+ <option value="Tulloch, Michael H."
+ >Tulloch, Michael H.
+ <option value="Turnbull, James R.H."
+ >Turnbull, James R.H.
+ <option value="Tzimas, E. Ria"
+ >Tzimas, E. Ria
+ <option value="Watt, David"
+ >Watt, David
+ <option value="Weiler, Karen Merle Magnuson"
+ >Weiler, Karen Merle Magnuson
+ <option value="Whalen, Lawrence"
+ >Whalen, Lawrence
+ <option value="Wilson, Darla A."
+ >Wilson, Darla A.
+ <option value="Wilton-Siegel, Herman J."
+ >Wilton-Siegel, Herman J.
+ <option value="Winkler, Warren Keith"
+ >Winkler, Warren Keith
+ <option value="Zarnett, Benjamin"
+ >Zarnett, Benjamin
+ <option value="van Rensburg, Katherine"
+ >van Rensburg, Katherine
+ Subject
+ <option value="1"
+ >Civil
+ <option value="2"
+ >Criminal
+ <option value="3"
+ >Family
+ Search 
+ Sort by:
+ Relevance
+ [LINK /coa/en/d/s/index.do?cont=%22Small+Claims+Court%22+%22split%22&ref=&p=&col=1&or=date] Date
+ 5 result(s)
+ 1.
+ [LINK /coa/coa/en/item/9469/index.do?q=%22Small+Claims+Court%22+%22split%22] Kovach v. Linn
+ - 2010 ONCA 126
+ - 2010-02-18
+ Decisions of the Court of Appeal
+ - Civil
+ [16] Rightly or wrongly, jury cases have long been considered to provide an exception to the court’s power to split a trial based on its inherent jurisdiction. The power was not to be exercised in such cases. [...] [21] Shepley may indeed stand for the proposition that it is inappropriate to split a trial where a party will be deprived of the right to have factual issues determined by a jury. [...] In an action in the Superior Court of Justice that is not in the Small Claims Court, a party may require that the issues of fact be tried or the damages assessed, or both, by a jury, unless otherwise provided. 
+ [LINK /coa/coa/en/9469/1/document.do] 
+ 2.
+ [LINK /coa/coa/en/item/15336/index.do?q=%22Small+Claims+Court%22+%22split%22] Lehtiniemi v. Mattawan (Municipality)
+ - 2016 ONCA 940
+ - 2016-12-15
+ Decisions of the Court of Appeal
+ - Civil
+ The note inscribed on the survey links back to much older surveys and states: “Corner set at split of fences on C/L of travelled road at position or survey post by Bell O.L.S. and found and used by L.V. Rorke O.L.S.” [...] [21] Given this conclusion on the merits, there is no need to address the Municipality’s other argument, which was accepted by the application judge, that the appellant was bound by the decision of a Small Claims Court judge issued in 1993. [22] I would dismiss the appeal with costs payable by the appellant to the 
+ [LINK /coa/coa/en/15336/1/document.do] 
+ 3.
+ [LINK /coa/coa/en/item/9572/index.do?q=%22Small+Claims+Court%22+%22split%22] Gratton-Masuy Environmental Technologies Inc. v. Ontario
+ - 2010 ONCA 501
+ - 2010-07-12
+ Decisions of the Court of Appeal
+ - Civil
+ In Craig J.’s opinion, in these circumstances, it was inappropriate to allow the judicial review applicants to “split their cases and dispose of the issues piecemeal” (at p. 532). [70] An appeal to this court was allowed, essentially for the reasons of Craig J.: (1983), 41 O.R. (2d) 532. [...] .... s. 97 The Court of Appeal and the Superior Court of Justice, exclusive of the Small Claims Court, may make binding declarations of right, whether or not any consequential relief is or could be claimed. 
+ [LINK /coa/coa/en/9572/1/document.do] 
+ 4.
+ [LINK /coa/coa/en/item/13599/index.do?q=%22Small+Claims+Court%22+%22split%22] Kempf v. Nguyen
+ - 2015 ONCA 114
+ - 2015-02-18
+ Decisions of the Court of Appeal
+ - Civil
+ Kempf tried but was unable to avoid the contact: it happened in a “split second”. [17] As a result of the collision, Kempf was thrown into the air and landed on the ground. [...] In an action in the Superior Court of Justice that is not in the Small Claims Court, a party may require that the issues of fact be tried or the damages assessed, or both, by a jury, unless otherwise provided. 
+ [LINK /coa/coa/en/13599/1/document.do] 
+ 5.
+ [LINK /coa/coa/en/item/11378/index.do?q=%22Small+Claims+Court%22+%22split%22] Fulawka v. Bank of Nova Scotia
+ - 2012 ONCA 443
+ - 2012-06-26
+ Decisions of the Court of Appeal
+ - Civil
+ The Divisional Court, in a split decision, upheld the order refusing to certify the proceeding: see 2010 ONSC 4724, 103 O.R. (3d) 659. [...] Scotiabank pointed to other available procedures, such as its Revised Policy, or the investigative and adjudicative regime available under the Code, or the Small Claims Court, as more cost-effective procedures for dealing with the class members’ claims. 
+ [LINK /coa/coa/en/11378/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "coa",
+ yearRangeString: "1998:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "114"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

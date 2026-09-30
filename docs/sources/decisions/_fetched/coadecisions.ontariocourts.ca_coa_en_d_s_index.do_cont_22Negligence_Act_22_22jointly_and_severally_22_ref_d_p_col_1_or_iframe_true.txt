@@ -1,0 +1,610 @@
+ Advanced Search - Court of Appeal for Ontario
+.decisia-content {
+ font-family: Arial, sans-serif;
+ font-size: 1rem;
+}
+.decisia-content a {
+ color: #0645ad;
+ text-decoration: underline;
+}
+.decisia-content a:visited {
+ color: purple;
+}
+.decisia-content a:hover {
+ color: #222;
+ text-decoration: none;
+}
+#decisia-footer a.outlink:after {
+ content: normal;
+	margin: 0;
+}
+.breadcrumb-separator > span {
+ display: none;
+}
+.breadcrumb-separator:after {
+ content: " » ";
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link {
+ color: #0645ad;
+	text-decoration: underline;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:hover {
+ text-decoration: none;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:focus {
+ outline: 1px dashed #666;
+}
+.decisia-navigation-breadcrumbs .breadcrumb-link:active {
+ outline: 0;
+}
+#solrHiBar {
+ line-height: normal;
+}
+.lexumSolrArrow {
+ line-height: 20px;
+}
+.wpml-ls-item-legacy-list-horizontal > span {
+ padding-top: 5px;
+ padding-right: 10px;
+ padding-bottom: 5px;
+ padding-left: 10px;
+	line-height: 1;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search {
+ padding-bottom: 0;
+}
+#decisia-main-content .decisia-content .decisions.decisia-box > .search > .searchLinks {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content > #decisia-login-header {
+ padding-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager, #decisia-main-content > .decisions.decisia-box > .decisia-content > h2 {
+ margin-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager {
+ margin-bottom: 1.2em;
+}
+#document-content {
+ border-bottom: 2px solid black;
+}
+#decisia-footer {
+ margin-top: 10px;
+ padding-top: 10px;
+}
+#decisia-footer .decisia-lexum a {
+ top: 10px;
+}
+#decisia-footer img.decisia_logo {
+ width: 120px;
+ height: 42px;
+}
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ Advanced Search
+ [LINK /coa/en/nav.do] Decisions of the Court
+ &gt;
+ Advanced Search
+ /coa/fr/d/s/index.do?cont=%22Negligence+Act%22+%22jointly+and+severally%22&ref=&d=&p=&col=1&or=&alternatelocale=fr
+ [LINK /coa/en/q.do] Help
+ Advanced Search
+ Show more fields 
+ Full text search
+ Help
+ Syntax: "", OR, AND, EXACT(), /p, /s, /n
+ Case name, Neutral citation, Docket numbers
+ Date between
+ and
+ Judges
+ <option value="Abella, Rosalie Silberman"
+ >Abella, Rosalie Silberman
+ <option value="Aitken, Catherine D."
+ >Aitken, Catherine D.
+ <option value="Armstrong, Robert Patrick"
+ >Armstrong, Robert Patrick
+ <option value="Austin, Allan McNiece"
+ >Austin, Allan McNiece
+ <option value="Baltman, Deena"
+ >Baltman, Deena
+ <option value="Benotto, Mary Lou"
+ >Benotto, Mary Lou
+ <option value="Blair, Robert Ashley"
+ >Blair, Robert Ashley
+ <option value="Borins, Stephen"
+ >Borins, Stephen
+ <option value="Brooke, John Watson"
+ >Brooke, John Watson
+ <option value="Brown, David M."
+ >Brown, David M.
+ <option value="Brown, Michael F."
+ >Brown, Michael F.
+ <option value="Brownstone, Lisa"
+ >Brownstone, Lisa
+ <option value="Carthy, James Joseph"
+ >Carthy, James Joseph
+ <option value="Catzman, Marvin Adrian"
+ >Catzman, Marvin Adrian
+ <option value="Cavarzan, John Joseph"
+ >Cavarzan, John Joseph
+ <option value="Chapnik, Sandra"
+ >Chapnik, Sandra
+ <option value="Charron, Louise Vivianne"
+ >Charron, Louise Vivianne
+ <option value="Code, Michael A."
+ >Code, Michael A.
+ <option value="Copeland, Jill M."
+ >Copeland, Jill M.
+ <option value="Coroza, Steve A."
+ >Coroza, Steve A.
+ <option value="Cronk, Eleanore Ann"
+ >Cronk, Eleanore Ann
+ <option value="Cumming, Peter Allan"
+ >Cumming, Peter Allan
+ <option value="Cunningham, John Douglas"
+ >Cunningham, John Douglas
+ <option value="Daley, Peter A."
+ >Daley, Peter A.
+ <option value="Dambrot, Michael R."
+ >Dambrot, Michael R.
+ <option value="Dawe, Jonathan"
+ >Dawe, Jonathan
+ <option value="Doherty, David H."
+ >Doherty, David H.
+ <option value="Ducharme, Edward W."
+ >Ducharme, Edward W.
+ <option value="Dunnet, Tamarin M."
+ >Dunnet, Tamarin M.
+ <option value="Durno, Bruce"
+ >Durno, Bruce
+ <option value="Epstein, Gloria Jean"
+ >Epstein, Gloria Jean
+ <option value="Fairburn, J. Michal"
+ >Fairburn, J. Michal
+ <option value="Farley, James Montague"
+ >Farley, James Montague
+ <option value="Favreau, Lise G."
+ >Favreau, Lise G.
+ <option value="Feldman, Kathryn N."
+ >Feldman, Kathryn N.
+ <option value="Ferrier, Lee Kenneth"
+ >Ferrier, Lee Kenneth
+ <option value="Finlayson, George Duncan"
+ >Finlayson, George Duncan
+ <option value="Fragomeni, Joseph M."
+ >Fragomeni, Joseph M.
+ <option value="Gans, Arthur M."
+ >Gans, Arthur M.
+ <option value="George, Jonathon C."
+ >George, Jonathon C.
+ <option value="Gillese, Eileen E."
+ >Gillese, Eileen E.
+ <option value="Glithero, C. Stephen"
+ >Glithero, C. Stephen
+ <option value="Gomery, Sally A."
+ >Gomery, Sally A.
+ <option value="Goudge, Stephen Thomas"
+ >Goudge, Stephen Thomas
+ <option value="Gray, Douglas K."
+ >Gray, Douglas K.
+ <option value="Hackland, Charles T."
+ >Hackland, Charles T.
+ <option value="Harvison Young, Alison"
+ >Harvison Young, Alison
+ <option value="Hennessy, Patricia C."
+ >Hennessy, Patricia C.
+ <option value="Himel, Susan G."
+ >Himel, Susan G.
+ <option value="Hourigan, C. William"
+ >Hourigan, C. William
+ <option value="Hoy, Alexandra"
+ >Hoy, Alexandra
+ <option value="Huscroft, Grant"
+ >Huscroft, Grant
+ <option value="Jamal, Mahmud"
+ >Jamal, Mahmud
+ <option value="Juriansz, Russell G."
+ >Juriansz, Russell G.
+ <option value="Karakatsanis, Andromache Rhea"
+ >Karakatsanis, Andromache Rhea
+ <option value="Kent, James C."
+ >Kent, James C.
+ <option value="Killeen, Gordon Patrick"
+ >Killeen, Gordon Patrick
+ <option value="Kozak, Lawrence Cyril"
+ >Kozak, Lawrence Cyril
+ <option value="Krever, Horace"
+ >Krever, Horace
+ <option value="LaForme, Harry Smith"
+ >LaForme, Harry Smith
+ <option value="Labrosse, Jean-Marc"
+ >Labrosse, Jean-Marc
+ <option value="Lane, George Dennis"
+ >Lane, George Dennis
+ <option value="Lang, Susan Elizabeth"
+ >Lang, Susan Elizabeth
+ <option value="Langdon, Kenneth Aylsworth"
+ >Langdon, Kenneth Aylsworth
+ <option value="Laskin, John Ivan"
+ >Laskin, John Ivan
+ <option value="Lauwers, Peter D."
+ >Lauwers, Peter D.
+ <option value="Lax, Joan L."
+ >Lax, Joan L.
+ <option value="Lederman, Sidney N."
+ >Lederman, Sidney N.
+ <option value="MacDonald, Cindy A.M."
+ >MacDonald, Cindy A.M.
+ <option value="MacFarland, Jean Louise"
+ >MacFarland, Jean Louise
+ <option value="MacKinnon, Jennifer"
+ >MacKinnon, Jennifer
+ <option value="MacPherson, James C."
+ >MacPherson, James C.
+ <option value="Madsen, Lene"
+ >Madsen, Lene
+ <option value="Maranger, Robert L."
+ >Maranger, Robert L.
+ <option value="Marrocco, Frank N."
+ >Marrocco, Frank N.
+ <option value="McCombs, John David"
+ >McCombs, John David
+ <option value="McKinlay, Hilda Margaret"
+ >McKinlay, Hilda Margaret
+ <option value="McKinnon, Colin"
+ >McKinnon, Colin
+ <option value="McMurtry, Roy"
+ >McMurtry, Roy
+ <option value="Melle, Francine Van"
+ >Melle, Francine Van
+ <option value="Miller, Bradley"
+ >Miller, Bradley
+ <option value="Moldaver, Michael James"
+ >Moldaver, Michael James
+ <option value="Monahan, Patrick J."
+ >Monahan, Patrick J.
+ <option value="Morden, John Wilson"
+ >Morden, John Wilson
+ <option value="Métivier, Monique"
+ >Métivier, Monique
+ <option value="Newbould, Frank"
+ >Newbould, Frank
+ <option value="Nordheimer, Ian V.B."
+ >Nordheimer, Ian V.B.
+ <option value="O'Driscoll, John Gerald Joseph"
+ >O'Driscoll, John Gerald Joseph
+ <option value="O'Marra, Alfred J."
+ >O'Marra, Alfred J.
+ <option value="O'Marra, Brian"
+ >O'Marra, Brian
+ <option value="Osborne, Coulter Arthur Anthony"
+ >Osborne, Coulter Arthur Anthony
+ <option value="Osborne, Peter J."
+ >Osborne, Peter J.
+ <option value="O’Connor, Dennis"
+ >O’Connor, Dennis
+ <option value="Paciocco, David M."
+ >Paciocco, David M.
+ <option value="Pardu, Gladys I."
+ >Pardu, Gladys I.
+ <option value="Pattillo, Laurence A."
+ >Pattillo, Laurence A.
+ <option value="Pepall, Sarah E."
+ >Pepall, Sarah E.
+ <option value="Perell, Paul M."
+ >Perell, Paul M.
+ <option value="Pitt, Romain William Michael"
+ >Pitt, Romain William Michael
+ <option value="Pomerance, Renee M."
+ >Pomerance, Renee M.
+ <option value="Rahman, Moiz"
+ >Rahman, Moiz
+ <option value="Ray, Timothy D."
+ >Ray, Timothy D.
+ <option value="Rivard, Paul U."
+ >Rivard, Paul U.
+ <option value="Roberts, Lois B."
+ >Roberts, Lois B.
+ <option value="Robins, Sydney Lewis"
+ >Robins, Sydney Lewis
+ <option value="Rosenberg, Marc"
+ >Rosenberg, Marc
+ <option value="Rouleau, Paul S."
+ >Rouleau, Paul S.
+ <option value="Sachs, Harriet E."
+ >Sachs, Harriet E.
+ <option value="Sharpe, Robert J."
+ >Sharpe, Robert J.
+ <option value="Simmons, Janet M."
+ >Simmons, Janet M.
+ <option value="Smith, G. Patrick"
+ >Smith, G. Patrick
+ <option value="Sossin, Lorne"
+ >Sossin, Lorne
+ <option value="Southey, James Bonham Strange"
+ >Southey, James Bonham Strange
+ <option value="Spence, James M."
+ >Spence, James M.
+ <option value="Speyer, Christopher M."
+ >Speyer, Christopher M.
+ <option value="Steep, R. Paul"
+ >Steep, R. Paul
+ <option value="Strathy, George R."
+ >Strathy, George R.
+ <option value="Swinton, Katherine E."
+ >Swinton, Katherine E.
+ <option value="Then, Edward F."
+ >Then, Edward F.
+ <option value="Theroulde, Sandra"
+ >Theroulde, Sandra
+ <option value="Thorburn, Julie"
+ >Thorburn, Julie
+ <option value="Trotter, Gary T."
+ >Trotter, Gary T.
+ <option value="Tulloch, Michael H."
+ >Tulloch, Michael H.
+ <option value="Turnbull, James R.H."
+ >Turnbull, James R.H.
+ <option value="Tzimas, E. Ria"
+ >Tzimas, E. Ria
+ <option value="Watt, David"
+ >Watt, David
+ <option value="Weiler, Karen Merle Magnuson"
+ >Weiler, Karen Merle Magnuson
+ <option value="Whalen, Lawrence"
+ >Whalen, Lawrence
+ <option value="Wilson, Darla A."
+ >Wilson, Darla A.
+ <option value="Wilton-Siegel, Herman J."
+ >Wilton-Siegel, Herman J.
+ <option value="Winkler, Warren Keith"
+ >Winkler, Warren Keith
+ <option value="Zarnett, Benjamin"
+ >Zarnett, Benjamin
+ <option value="van Rensburg, Katherine"
+ >van Rensburg, Katherine
+ Subject
+ <option value="1"
+ >Civil
+ <option value="2"
+ >Criminal
+ <option value="3"
+ >Family
+ Search 
+ 1
+ [LINK /coa/en/d/s/index.do?cont=%22Negligence+Act%22+%22jointly+and+severally%22&ref=&d=&p=&col=1&or=&page=2] 2
+ [LINK /coa/en/d/s/index.do?cont=%22Negligence+Act%22+%22jointly+and+severally%22&ref=&d=&p=&col=1&or=&page=2] &gt;
+ Sort by:
+ Relevance
+ [LINK /coa/en/d/s/index.do?cont=%22Negligence+Act%22+%22jointly+and+severally%22&ref=&p=&col=1&or=date] Date
+ 44 result(s)
+ 1.
+ [LINK /coa/coa/en/item/1778/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Sullivan (Estate of) v. Bond
+ - 2001-08-02
+ Decisions of the Court of Appeal
+ - Civil
+ Thus, in subsection (a)(i) of s. 267.7(1), the use of the words "having regard to s. 267.5" is a clear indication that s. 1 of the Negligence Act is not to be applied in determining the amount for which protected and unprotected defendants are to be held jointly and severally liable to plaintiffs. [...] section 1 of the Negligence Act. If section 267.5 did not exist, protected defendants would be liable for the plaintiff's entire losses, and the Negligence Act would govern the joint and several liability of all defendants and the liability of the defendants to make contribution and indemnification as amongst themselves. [...] otherwise be liable under s. 1 of the Negligence Act. Accordingly, I do not share Dyson J.'s view that the extent of an unprotected defendant's liability is governed, without exception, by s. 1 of the Negligence Act, such that unprotected defendants remain liable on a joint and several basis "to pay any shortfall 
+ [LINK /coa/coa/en/1778/1/document.do] 
+ 2.
+ [LINK /coa/coa/en/item/23334/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Cadieux v. Cadieux
+ - 2025 ONCA 405
+ - 2025-06-04
+ Decisions of the Court of Appeal
+ - Civil
+ [25] The appellants rely on Sharpe J.A.’s comment at para. 52 that “[t]he situation as among wrongdoers who are all sued and all found to be jointly and severally liable ... may be different”. This, however, does not apply here as the settling defendant in this case, Ottawa, will not be jointly and severally liable with the [...] [26] Acknowledging that Ontario’s Negligence Act does not explicitly provide for a proportionate reduction, the appellants argue that it is available as a form of restitution rooted in equity. [...] [3] Saskatchewan’s Contributory Negligence Act, RSS 1978, c C-31, as an example, expressly provides for the kind of proportionate reduction that the appellants seek here: see s. 3.1(2). 
+ [LINK /coa/coa/en/23334/1/document.do] 
+ 3.
+ [LINK /coa/coa/en/item/10970/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Lawson v. Viersen
+ - 2012 ONCA 25
+ - 2012-01-16
+ Decisions of the Court of Appeal
+ - Civil
+ Determining Joint and Several Liability and Rights of Contribution and Indemnity [29] Section 1 of the Negligence Act provides for a right of contribution and indemnity between concurrent tortfeasors. [...] [35] In summary, the Negligence Act makes concurrent tortfeasors, that is persons whose conduct causes a single loss to another, jointly and severally liable. [...] The claim of joint and several liability that made the Viersens offer non-compliant with rule 49.11 was not made out at trial. 
+ [LINK /coa/coa/en/10970/1/document.do] 
+ 4.
+ [LINK /coa/coa/en/item/1577/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Martin v. Listowel Memorial Hospital
+ - 2000-11-01
+ Decisions of the Court of Appeal
+ - Civil
+ [34] The effect of section 1 of the Negligence Act is to make all persons sued, who caused or contributed to the damage suffered by the plaintiff jointly and severally liable to the plaintiff for the damage. [...] The Negligence Act, R.S.B.C. 1979, c. 298, now R.S.B.C. 1996, c. 333, has been interpreted to provide for joint and several liability of defendants where the plaintiff is blameless, but for only several liability where the plaintiff is contributorily negligent. [...] [51] Because of joint and several liability and the consequent ability of a plaintiff to collect the entire loss from any one defendant found liable, no matter how limited is that defendant’s fault or negligence, these two risks are very significant when there are concurrent tortfeasors and the Negligence Act applies. 
+ [LINK /coa/coa/en/1577/1/document.do] 
+ 5.
+ [LINK /coa/coa/en/item/9001/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Davy Estate v. CIBC World Markets Inc.
+ - 2009 ONCA 763
+ - 2009-11-04
+ Decisions of the Court of Appeal
+ - Civil
+ [13] The relevant provisions of the Negligence Act are as follows: Extent of liability, remedy over 1. Where damages have been caused or contributed to by the fault or neglect of two or more persons, the Court shall determine the degree in which each of such persons is at fault or negligent, and, where two or more persons [...] [19] The plaintiff’s solicitor owes the defendant no common law duty of care; if the defendant has a claim, it could only arise under the Negligence Act. A claim for contribution or indemnity under s. 1 arises “where damages have been caused or contributed to by the fault or neglect of two or more persons”. [...] As the fault of the proposed third party related to the reduction of the impact of the loss after it was suffered, and not to causing or failing to avoid the loss when it did occur, the proposed third party is not, in the words of s. 1 of the Negligence Act, “jointly and severally liable to the person suffering loss or 
+ [LINK /coa/coa/en/9001/1/document.do] 
+ 6.
+ [LINK /coa/coa/en/item/8759/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Taylor v. Canada (Health)
+ - 2009 ONCA 487
+ - 2009-06-17
+ Decisions of the Court of Appeal
+ - Civil
+ If the Attorney General cannot bring a third party claim, Health Canada may unfairly be held liable for the negligent acts of the doctor and the hospital. 2. A court cannot apportion fault under the Negligence Act, R.S.O. 1990, c. N.1, against a person who is not a party to the action. [...] 1) May Health Canada potentially be liable for the negligent acts of the doctor and hospital if the third party claim is struck? [...] [28] Interpreting s. 1 of the Negligence Act to permit a court to apportion fault against a non-party makes good sense. 
+ [LINK /coa/coa/en/8759/1/document.do] 
+ 7.
+ [LINK /coa/coa/en/item/24407/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Lower William Properties Ltd. v. Santaguida
+ - 2026 ONCA 581
+ - 2026-08-13
+ Decisions of the Court of Appeal
+ - Civil
+ [36] Typically, the cause of action in respect of the former type of claim for contribution and indemnity is a statutory claim under the Negligence Act, which provides for the joint and several liability of joint or concurrent tortfeasors to a plaintiff. [...] [84] Again, the foundation of the claim for contribution and indemnity under the Negligence Act is the exposure of joint and concurrent wrongdoers to joint and several liability to the plaintiff. [...] In the Negligence Act, the reference is to claims for “contribution or indemnity”, while s. 18 of the Limitations Act, 2002 refers to “contribution and indemnity”. 
+ [LINK /coa/coa/en/24407/1/document.do] 
+ 8.
+ [LINK /coa/coa/en/item/7386/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Misko v. John Doe
+ - 2007 ONCA 660
+ - 2007-09-25
+ Decisions of the Court of Appeal
+ - Civil
+ [10] The position of the appellant, Liberty Mutual, is based primarily on the Negligence Act, R.S.O. 1990, c. N.1. Section 1 of that Act provides that where damages [...] [18] Section 1 of the Negligence Act changed the common law and allows for contribution and indemnity among tortfeasors. [...] Therefore, when applying the section to any specific action, it is understood that joint and several liability to the plaintiff can and will attach only to a party defendant, although others who may also have been at fault could potentially have been found jointly and severally liable had they been sued by the plaintiff. 
+ [LINK /coa/coa/en/7386/1/document.do] 
+ 9.
+ [LINK /coa/coa/en/item/3802/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Renaissance Leisure Group Inc. v. Frazer
+ - 2004-08-27
+ Decisions of the Court of Appeal
+ - Civil
+ The joint and several liability of Renaissance and Frank Chapple amounted to $521,043.25 (65 per cent of the damages). [...] [47] Second, and importantly, the comments in Martin that triggered the trial judge’s reconsideration of his initial apportionment ruling were made in the context of an action commenced under s. 1 of the Negligence Act, which is concerned with joint and several liability among party defendants for damages sustained by a [...] As Frazer is not jointly and severally liable to Mellanby, the reasoning in Martin has no application. 
+ [LINK /coa/coa/en/3802/1/document.do] 
+ 10.
+ [LINK /coa/coa/en/item/18806/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Tuffnail v. Meekes
+ - 2020 ONCA 340
+ - 2020-06-01
+ Decisions of the Court of Appeal
+ - Civil
+ In Tuffnail’s submission, this was because Coulthard defended the main action and because of s. 1 of the Negligence Act. The trial judge did not elaborate upon Tuffnail’s submission relying on s. 1 of the Negligence Act. [...] [80] Coulthard conceded that he would have been jointly and severally liable to Tuffnail had he been named as a defendant, but argued that he was not jointly and severally liable to Tuffnail because Tuffnail did not sue him. [...] It held, at para. 48, that under s. 1 of the Negligence Act, joint and several liability only attaches to party defendants. 
+ [LINK /coa/coa/en/18806/1/document.do] 
+ 11.
+ [LINK /coa/coa/en/item/2304/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] O., A. v. V., J.
+ - 2002-04-25
+ Decisions of the Court of Appeal
+ - Civil
+ The effect is to change the common law, and impose on concurrent wrongdoers joint and several liability to the plaintiff. [7] See also Cheifetz, Apportionment of Fault in Tort Cases Aurora (1981) at pp. 11-12. [...] This effectively jumps over s. 1 of the Negligence Act and the question of whether there is justification for joining the parties at the outset. [...] [11] That is why the wrongdoers must be acting concurrently to attract the application of s. 1 of the Negligence Act. And that is why s. 1 has no application to this case and why the third party notices should not issue. 
+ [LINK /coa/coa/en/2304/1/document.do] 
+ 12.
+ [LINK /coa/coa/en/item/9352/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Waterloo Region District School Board v. Truax Engineering Ltd.
+ - 2010 ONCA 838
+ - 2010-12-09
+ Decisions of the Court of Appeal
+ - Civil
+ [7] Section 1 of the Negligence Act, enacted in 1930, creates the statutory obligation of joint and several liability of concurrent tortfeasors to a plaintiff, as well as the statutory right of contribution and indemnity among concurrent tortfeasors. [...] [8] Section 5 of the Negligence Act is procedural and allows parties to make claims for contribution and indemnity against persons who were not made party to the action by the plaintiff. [...] [11] Section 8 of the Negligence Act was added in 1948, following the decisions in two cases, Cohen v. McCord, [1944] O.R. 568 (C.A.) and Magee v. Canada Coach Lines Ltd., [1946] O.W.N. 73 (Ont. H.C.). 
+ [LINK /coa/coa/en/9352/1/document.do] 
+ 13.
+ [LINK /coa/coa/en/item/21925/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Algra v. Comrie Estate
+ - 2023 ONCA 811
+ - 2023-12-05
+ Decisions of the Court of Appeal
+ - Civil
+ • The Comrie Estate and the Monteiro Estate shall jointly and severally pay Feltham her costs of $306,849.23 (all inclusive) on the summary judgment motions; [...] • The Comrie Estate and the Monteiro Estate shall jointly and severally pay Canada its costs of $266,247.02 (all inclusive) on the summary judgment motions; [...] • On the Liability Appeal: Costs of the Liability Appeal are payable jointly and severally by the Liability Appellants to the Government Respondents. 
+ [LINK /coa/coa/en/21925/1/document.do] 
+ 14.
+ [LINK /coa/coa/en/item/4209/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] M., J., et al. v. Bradley, et al.
+ - 2004-06-03
+ Decisions of the Court of Appeal
+ - Civil
+ Furthermore, although s. 1 refers to "persons", in any particular action its effect is to impose joint and several liability to the plaintiff only on defendants found at fault or negligent, and not on any other person. [...] In the same paragraph of its reasons, the court also said that, to accomplish this primary objective: "The effect of s. 1 of the Negligence Act is to make all persons sued who caused or contributed to the damage suffered by the plaintiff jointly and severally liable to the plaintiff for the damage [emphasis added]." [...] Therefore, when applying the section to any specific action, it is understood that joint and several liability to the plaintiff can and will attach only to a party defendant, although others who may also have been at fault could potentially have been found jointly and severally liable had they been sued by the plaintiff. 
+ [LINK /coa/coa/en/4209/1/document.do] 
+ 15.
+ [LINK /coa/coa/en/item/469/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Creasy, et al. v. Sudbury (Municipality)
+ - 1999-12-17
+ Decisions of the Court of Appeal
+ - Civil
+ Under s. 1 of the Negligence Act,2 each is required to indemnify the other in respect of its 50% share in the event that the plaintiffs elect to recover the entire amount from one of them. [...] 3) IS INCO ENTITLED TO CONTRIBUTION OR INDEMNITY FROM SUDBURY PURSUANT TO THE PROVISIONS OF THE NEGLIGENCE ACT? IS INCO LIABLE TO INDEMNIFY SUDBURY? [41] Each of the defendants cross-claimed against the other in the actions for contribution and indemnity and pleaded the Negligence Act. Section 1 of that Act provides: [...] The parties made their own bargain as contemplated by s. 1 of the Negligence Act. The first half of paragraph 4 provides that Inco makes no representations or warranties as to the quality of service to be supplied. 
+ [LINK /coa/coa/en/469/1/document.do] 
+ 16.
+ [LINK /coa/coa/en/item/17955/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Hengeveld v. The Personal Insurance Company
+ - 2019 ONCA 497
+ - 2019-06-17
+ Decisions of the Court of Appeal
+ - Civil
+ It relies on the contribution and indemnity provisions of the Negligence Act (ss. 1, 2 and 5) to claim that the lawyers should be liable to Personal Insurance for all or part of the Hengevelds’ claim. [...] [21] A third party claim based on the contribution and indemnity provisions of the Negligence Act does not require that the third party owe a duty of care to the defendant. [...] Under the Negligence Act’s contribution and indemnity provisions, a defendant may raise a third party’s fault or negligence that caused or contributed to the plaintiff’s damages as a third party claim. 
+ [LINK /coa/coa/en/17955/1/document.do] 
+ 17.
+ [LINK /coa/coa/en/item/1838/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Colonial Furniture Company (Ottawa) Limited v. Saul Tanner Realty Limited
+ - 2001-02-02
+ Decisions of the Court of Appeal
+ - Civil
+ Bond’s, Tanner and Multi were held jointly and severally liable for the damages suffered by the plaintiffs. They were also entitled to indemnity as amongst them in equal proportions. [...] The two were jointly and severally liable to the third and entitled to indemnity between them in equal proportions. [...] Bond’s, Tanner and Multi remained jointly and severally liable, but the proportions of their entitlement to indemnity were adjusted accordingly. 
+ [LINK /coa/coa/en/1838/1/document.do] 
+ 18.
+ [LINK /coa/coa/en/item/15851/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Levesque v. Crampton Estate
+ - 2017 ONCA 455
+ - 2017-06-05
+ Decisions of the Court of Appeal
+ - Civil
+ [12] This appeal involves the intersection of three statutes – the Negligence Act, R.S.O. 1990, c. N.1, the Limitations Act, 2002 and the Trustee Act. A more detailed examination of the statutory provisions and their purposes is a necessary starting place for what follows. [...] (1) The Negligence Act [13] Section 1 of the Negligence Act creates joint and several liability and a right of contribution and indemnity between joint tortfeasors. [...] Contribution and indemnity, it says, is a right conferred by the Negligence Act, with its own limitation period under s. 18(1) of the Limitations Act, 2002. 
+ [LINK /coa/coa/en/15851/1/document.do] 
+ 19.
+ [LINK /coa/coa/en/item/1859/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] PDC 3 Limited Partnership v. Bregman + Hamann Architects
+ - 2001-02-07
+ Decisions of the Court of Appeal
+ - Civil
+ It involves the interpretation and application of s. 1 of the Negligence Act, R.S.O. 1990, c. N-1. The case involves the construction and maintenance of the roof of Terminal 3 at the Pearson International Airport. [...] 2) Is the owner prevented by its contract with Bregman + Hamann and the operation of s. 1 of the Negligence Act from recovering from the other tortfeasors any amount in excess of $250,000 attributable to the negligence of Bregman + Hamann? [...] This is particularly so where both legal conclusions involve important pronouncements of the law interpreting s. 1 of the Negligence Act and in circumstances which will have precedential value. [13] In the result, the appeal is allowed and the order of the motions judge is set aside. 
+ [LINK /coa/coa/en/1859/1/document.do] 
+ 20.
+ [LINK /coa/coa/en/item/5026/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] HSBC Securities (Canada) Inc. v. Davies, Ward & Beck
+ - 2005-01-31
+ Decisions of the Court of Appeal
+ - Civil
+ 2. Interpretation of s. 5 and s. 8 of the Negligence Act, 1990 [50] In support of its submission that s. 8 of the Negligence Act, 1990 sets out a procedure for bringing a third party claim for contribution that is independent of s. 5, Davies refers to the legislative history of the Negligence Act, 1990 and to certain case [...] I do not take Wells, C.J.H.C. to have laid down the proposition that s. 9 [now s.8] of the Negligence Act has no application to third party proceedings framed in negligence, and commenced under s. 6 [now s. 5] of the Negligence Act. [...] [...] [16] Negligence Act, 1930, S.O. 1930, c. 27, s. 3. [17] Statute Law Amendment Act,1939, c. 47, s. 23. 
+ [LINK /coa/coa/en/5026/1/document.do] 
+ 21.
+ [LINK /coa/coa/en/item/21144/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Moran v. Fabrizi
+ - 2023 ONCA 21
+ - 2023-01-16
+ Decisions of the Court of Appeal
+ - Civil
+ Fabrizi sued Dennis G. K. Chu in the third party action seeking contribution and indemnity for the settlement under s. 5 of the Negligence Act, R.S.O. 1990 c. N. 1. [2] The trial judge found in favour of Fabrizi. [...] [6] Chu argues that the trial judge erred in his understanding and application of the test for causation that applies in determining whether Chu “caused or contributed to” the accident in which Moran was injured, within the meaning of ss. 1 and 5 of the Negligence Act. Analysis [7] Sections 1 and 5 of the Negligence Act are [...] To trigger third party indemnity under s. 5 of the Negligence Act there need not be negligence on the part of both parties. One party’s tort can be negligence and the other party’s tort intentional. 
+ [LINK /coa/coa/en/21144/1/document.do] 
+ 22.
+ [LINK /coa/coa/en/item/18152/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Donleavy v. Ultramar Ltd.
+ - 2019 ONCA 687
+ - 2019-09-04
+ Decisions of the Court of Appeal
+ - Civil
+ Exceptional cases include where there are negligent acts by multiple actors and it is established that one or more of them in fact caused the injuries or losses, but the plaintiff is unable to determine which of a number of negligent acts caused the injuries or losses. [...] The respondents argue that the trial judge ought to have found Kilpatrick and Ultramar jointly and severally liable, and that she erred in finding contributory negligence. [...] It would have been more appropriate for the trial judge to have found the appellants jointly and severally liable. [106] The end result however would have been the same, because of the circumstances of this case. 
+ [LINK /coa/coa/en/18152/1/document.do] 
+ 23.
+ [LINK /coa/coa/en/item/1112/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Harroun (Litigation Guardian of) v. Turriff
+ - 2000-08-21
+ Decisions of the Court of Appeal
+ - Civil
+ (7) If, in the absence of subsection (1), the owner of an automobile, an occupant of an automobile or a person present at the incident would have been jointly and severally liable for damages for pecuniary loss with one or more other persons who are not relieved of liability by subsection (1), the other persons are liable [...] In the first place, as a matter of statutory construction, subsection 267.1(7) was intended to apply to those situations contemplated by Section 1 of the Negligence Act - viz - cases where fault or negligence is apportioned between two or more defendants. [...] I can see nothing in the wording of s.267.1(7) which supports the interpretation that s. 267.1(7) was only intended to cover situations contemplated by the Negligence Act,. In fact, when the words of s. 267.1 are given their ordinary meaning in harmony with the object and scheme of the Insurance Act, it seems clear that the
+ [LINK /coa/coa/en/1112/1/document.do] 
+ 24.
+ [LINK /coa/coa/en/item/8671/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Placzek v. Green
+ - 2009 ONCA 83
+ - 2009-01-28
+ Decisions of the Court of Appeal
+ - Civil
+ [14] The proposed counterclaims request contribution and indemnity under the Negligence Act, R.S.O. 1990, c. N.1, in relation to any judgment Mrs. Placzek may obtain against Mr. Green. [...] a single concurrent tortfeasor, leaving that tortfeasor to claim contribution and indemnity from other concurrent tortfeasors, by way of a claim advanced in the injured party’s action under s. 5 of the Negligence Act (or, formerly, by way of a freestanding action under s. 8 of the Negligence Act, where s. 8 applied[9]). [...] [9] Section 8 of the Negligence Act was repealed by the new Act. [10] See the cases referred to in footnote 7. 
+ [LINK /coa/coa/en/8671/1/document.do] 
+ 25.
+ [LINK /coa/coa/en/item/9961/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22] Dilkas v. Red Seal Tours Inc. (Sunwing Vacations)
+ - 2010 ONCA 634
+ - 2010-10-04
+ Decisions of the Court of Appeal
+ - Civil
+ [5] Three days after the accident, Best Day and Sunwing entered into an agreement with AutoTur wherein, inter alia, AutoTur released both Best Day and Sunwing for claims under “The Negligence Act of Ontario”, and Best Day acknowledged that it would retain and pay the Toronto law firm Berkow, Cohen LLP to defend Best Day and [...] In any event, if liability is established at trial on a joint and several basis, as is pleaded in the statements of claim, the plaintiffs will be able to enforce their judgments against Sunwing in Ontario.[3] As discussed above, the involvement of Sunwing as a necessary party in the Ontario actions is a critical connecting [...] [3] The appellant submits that, based on the case of Craven v. Strand Holidays (Canada) Ltd., [1982] O.J. No. 3599 (C.A.), Best Day cannot be found jointly and severally liable with Sunwing. In that case the court found that there was no implied agreement by the tour operator with the tourists for safe transportation and 
+ [LINK /coa/coa/en/9961/1/document.do] 
+ var jQueryDecisia = jQuery;
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+ DecisiaMain.decisiaPageInit({
+ clientIdentifier: "coa",
+ yearRangeString: "1998:2026",
+ });
+});
+var decisiaMessages = {
+ "date-validator-invalid-date": "The format of the date entered is invalid.",
+ "date-validator-unsupported-date": "The date entered is not supported.",
+ "date-validator-invalid-range": "The date range selected is invalid. The start date must precede the end date.",
+ "search-tag": "Search",
+ "no-results-found": "No result match",
+ "retrieved-on": "retrieved on",
+ "search.collapse": "Collapse all results",
+ "search.collapse.one": "Collapse result",
+ "search.expand": "Expand all results",
+ "search.expand.one": "Expand result",
+ "searchForm.reset": "Reset",
+ "searchForm.show-more-fields": "Show more fields",
+ "searchForm.show-less-fields": "Show fewer fields",
+ "reflex2-continue": "Continue",
+ "reflex2-cancel": "No",
+ "reflex2-warning": "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+ "search-server-error": "Error while loading search results. Please try again later.",
+ "search-server-maximum": "The maximum number of displayed search results is reached.",
+ "print": "Print",
+ "print-tooltip": "Print the content of this web page",
+ "title.epub": "Download the ePub version"
+};
+/* ]]> */
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "114"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+window.decisiaMessages["reflexd-citing"] = "Citing:";

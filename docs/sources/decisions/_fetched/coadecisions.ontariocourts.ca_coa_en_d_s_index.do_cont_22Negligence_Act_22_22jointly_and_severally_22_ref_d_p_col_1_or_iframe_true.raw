@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://coadecisions.ontariocourts.ca/coa/en/d/s/index.do" />
+    <title>    Advanced Search - Court of Appeal for Ontario
+</title>
+    <meta name="robots" content="noindex,nofollow,nosnippet,noodp,noarchive,noimageindex"/>
+<link type="text/css" rel="stylesheet" href="/js/thirdparty/chosen/chosen.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/jquery-ui-1.10.4.custom.css"/>
+<link type="text/css" rel="stylesheet" href="/css/smoothness/tipped.css"/>
+<link type="text/css" rel="stylesheet" href="/fonts/fontello-decisia/css/fontello.css"/>
+
+<link type="text/css" rel="stylesheet" href="/css/decisia.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-inner.css"/>
+<link type="text/css" rel="stylesheet" href="/css/decisia-print.css" media="print"/>
+
+<link type="text/css" rel="stylesheet" href="/clients/coa/decisia_colors.css"/>
+
+<noscript>
+    <link type="text/css" rel="stylesheet" href="/css/decisia-inner-noscript.css" />
+</noscript>
+
+<style type="text/css">
+.decisia-content {
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+}
+
+.decisia-content a {
+    color: #0645ad;
+    text-decoration: underline;
+}
+
+.decisia-content a:visited {
+    color: purple;
+}
+
+.decisia-content a:hover {
+    color: #222;
+    text-decoration: none;
+}
+
+#decisia-footer a.outlink:after {
+    content: normal;
+	margin: 0;
+}
+
+.breadcrumb-separator > span {
+    display: none;
+}
+
+.breadcrumb-separator:after {
+    content: " » ";
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link {
+    color: #0645ad;
+	text-decoration: underline;
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link:hover {
+    text-decoration: none;
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link:focus {
+    outline: 1px dashed #666;
+}
+
+.decisia-navigation-breadcrumbs .breadcrumb-link:active {
+    outline: 0;
+}
+
+#solrHiBar {
+    line-height: normal;
+}
+
+.lexumSolrArrow {
+    line-height: 20px;
+}
+
+.wpml-ls-item-legacy-list-horizontal > span {
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+	line-height: 1;
+}
+
+#decisia-main-content .decisia-content .decisions.decisia-box > .search {
+    padding-bottom: 0;
+}
+
+#decisia-main-content .decisia-content .decisions.decisia-box > .search > .searchLinks {
+    padding-top: 0;
+}
+
+#decisia-main-content .decisia-content > #decisia-login-header {
+    padding-top: 0;
+}
+#decisia-main-content .decisia-content .resultControls ul.pager, #decisia-main-content > .decisions.decisia-box > .decisia-content > h2 {
+    margin-top: 0;
+}
+
+#decisia-main-content .decisia-content .resultControls ul.pager {
+    margin-bottom: 1.2em;
+}
+
+#document-content {
+    border-bottom: 2px solid black;
+}
+
+#decisia-footer {
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+#decisia-footer .decisia-lexum a {
+    top: 10px;
+}
+
+#decisia-footer img.decisia_logo {
+    width: 120px;
+    height: 42px;
+}
+</style>
+
+</head>
+
+<body>
+    <div id="decisia-breadcrumbs-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/coa/en/nav.do">Decisions of the Court</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-breadcrumbs-no-home-data" style="display: none">    <span class="decisia-navigation-breadcrumbs">
+            <a class="breadcrumb-link" href="/coa/en/nav.do">Decisions of the Court</a>
+            <span class="breadcrumb-separator"><span>&gt;</span></span>
+                <span class="last-breadcrumb">Advanced Search</span>
+    </span>
+</div>
+    <div id="decisia-alternate-urls" style="display: none">
+                <div id="decisia-alternate-url-value-fr">/coa/fr/d/s/index.do?cont=%22Negligence+Act%22+%22jointly+and+severally%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;alternatelocale=fr</div>
+    </div>
+    <div id="decisia-main-content"><div class="decisia-content">
+
+
+<div id="decisia-login-header" class="searchLinks">
+
+    <div id="decisia-login-menu">
+        </div>
+    <a target="_parent" href="/coa/en/q.do" id="decisia-simple-search-help">Help</a>
+</div>
+
+<div class="decisions decisia-box">
+    <h1>
+        <a id="decisia-decisions"></a>
+        Advanced Search
+    </h1>
+
+    <div class="browse">
+        <div class="browse-section">
+
+
+            <div class="advanced-search decisia-form">
+                <form target="_parent">
+                        <div class="pull-right">
+                            <label id="decisia-advanced-search-show-fields" for="chkShowAdvanced" data-toggle="collapse" data-target="#decisia-advanced-search-additional-fields">
+                                Show more fields&nbsp;<span class="decisia-icon icon-chevron-down"></span>
+                            </label>
+                        </div>
+
+                        <input id="chkShowAdvanced" name="chkShowAdvanced" type="checkbox" />
+
+                        <div class="clear-right"></div>
+    <div class="decisia-content-row">
+        <div class="label">
+            <label for="decisia-content">Full text search</label>
+        <button type="button" class="decisia-help-icon">
+            <span class="decisia-icon icon-question-circle"></span>
+            <span class="accessibility-only">Help</span>
+        </button>
+        <div class="decisia-help-tooltip">                Syntax: "", OR, AND, EXACT(), /p, /s, /n
+</div>
+        </div>
+        <div class="input">
+<input id="decisia-content" class="decisia-text" type="text" name="cont" value="&quot;Negligence Act&quot; &quot;jointly and severally&quot;" />
+        </div>
+    </div>
+    <div class="decisia-reference-row">
+        <div class="label">
+            <label for="decisia-reference-decisions">Case name, Neutral citation, Docket numbers</label>
+        </div>
+        <div class="input">
+<input id="decisia-reference-decisions" class="decisia-text" type="text" name="ref" value=""/>
+        </div>
+    </div>
+    <div class="decisia-date-from-row">
+        <div class="label">
+            <label for="decisia-date-from">Date&nbsp;between</label>
+        </div>
+        <div class="input">
+<div class="date-range-inputs">
+    <input id="decisia-date-from" class="date" type="date" name="d1" value="" />
+    <label for="decisia-date-to">and</label>
+    <input id="decisia-date-to" class="date" type="date" name="d2" value="" />
+</div>
+        </div>
+        <div id="decisia-date-from-error" class="decisia-date-from-error" role="status" aria-live="polite"></div>
+    </div>
+    <div class="advanced-field decisia-adjudicator-row">
+        <div class="label select">
+            <label for="decisia-adjudicator">Judges</label>
+        </div>
+        <div class="input">
+    <select id="decisia-adjudicator" name="j" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+        <option value="Abella, Rosalie Silberman"
+         >Abella, Rosalie Silberman</option>
+        <option value="Aitken, Catherine D."
+         >Aitken, Catherine D.</option>
+        <option value="Armstrong, Robert Patrick"
+         >Armstrong, Robert Patrick</option>
+        <option value="Austin, Allan McNiece"
+         >Austin, Allan McNiece</option>
+        <option value="Baltman, Deena"
+         >Baltman, Deena</option>
+        <option value="Benotto, Mary Lou"
+         >Benotto, Mary Lou</option>
+        <option value="Blair, Robert Ashley"
+         >Blair, Robert Ashley</option>
+        <option value="Borins, Stephen"
+         >Borins, Stephen</option>
+        <option value="Brooke, John Watson"
+         >Brooke, John Watson</option>
+        <option value="Brown, David M."
+         >Brown, David M.</option>
+        <option value="Brown, Michael F."
+         >Brown, Michael F.</option>
+        <option value="Brownstone, Lisa"
+         >Brownstone, Lisa</option>
+        <option value="Carthy, James Joseph"
+         >Carthy, James Joseph</option>
+        <option value="Catzman, Marvin Adrian"
+         >Catzman, Marvin Adrian</option>
+        <option value="Cavarzan, John Joseph"
+         >Cavarzan, John Joseph</option>
+        <option value="Chapnik, Sandra"
+         >Chapnik, Sandra</option>
+        <option value="Charron, Louise Vivianne"
+         >Charron, Louise Vivianne</option>
+        <option value="Code, Michael A."
+         >Code, Michael A.</option>
+        <option value="Copeland, Jill M."
+         >Copeland, Jill M.</option>
+        <option value="Coroza, Steve A."
+         >Coroza, Steve A.</option>
+        <option value="Cronk, Eleanore Ann"
+         >Cronk, Eleanore Ann</option>
+        <option value="Cumming, Peter Allan"
+         >Cumming, Peter Allan</option>
+        <option value="Cunningham, John Douglas"
+         >Cunningham, John Douglas</option>
+        <option value="Daley, Peter A."
+         >Daley, Peter A.</option>
+        <option value="Dambrot, Michael R."
+         >Dambrot, Michael R.</option>
+        <option value="Dawe, Jonathan"
+         >Dawe, Jonathan</option>
+        <option value="Doherty, David H."
+         >Doherty, David H.</option>
+        <option value="Ducharme, Edward W."
+         >Ducharme, Edward W.</option>
+        <option value="Dunnet, Tamarin M."
+         >Dunnet, Tamarin M.</option>
+        <option value="Durno, Bruce"
+         >Durno, Bruce</option>
+        <option value="Epstein, Gloria Jean"
+         >Epstein, Gloria Jean</option>
+        <option value="Fairburn, J. Michal"
+         >Fairburn, J. Michal</option>
+        <option value="Farley, James Montague"
+         >Farley, James Montague</option>
+        <option value="Favreau, Lise G."
+         >Favreau, Lise G.</option>
+        <option value="Feldman, Kathryn N."
+         >Feldman, Kathryn N.</option>
+        <option value="Ferrier, Lee Kenneth"
+         >Ferrier, Lee Kenneth</option>
+        <option value="Finlayson, George Duncan"
+         >Finlayson, George Duncan</option>
+        <option value="Fragomeni, Joseph M."
+         >Fragomeni, Joseph M.</option>
+        <option value="Gans, Arthur M."
+         >Gans, Arthur M.</option>
+        <option value="George, Jonathon C."
+         >George, Jonathon C.</option>
+        <option value="Gillese, Eileen E."
+         >Gillese, Eileen E.</option>
+        <option value="Glithero, C. Stephen"
+         >Glithero, C. Stephen</option>
+        <option value="Gomery, Sally A."
+         >Gomery, Sally A.</option>
+        <option value="Goudge, Stephen Thomas"
+         >Goudge, Stephen Thomas</option>
+        <option value="Gray, Douglas K."
+         >Gray, Douglas K.</option>
+        <option value="Hackland, Charles T."
+         >Hackland, Charles T.</option>
+        <option value="Harvison Young, Alison"
+         >Harvison Young, Alison</option>
+        <option value="Hennessy, Patricia C."
+         >Hennessy, Patricia C.</option>
+        <option value="Himel, Susan G."
+         >Himel, Susan G.</option>
+        <option value="Hourigan, C. William"
+         >Hourigan, C. William</option>
+        <option value="Hoy, Alexandra"
+         >Hoy, Alexandra</option>
+        <option value="Huscroft, Grant"
+         >Huscroft, Grant</option>
+        <option value="Jamal, Mahmud"
+         >Jamal, Mahmud</option>
+        <option value="Juriansz, Russell G."
+         >Juriansz, Russell G.</option>
+        <option value="Karakatsanis, Andromache Rhea"
+         >Karakatsanis, Andromache Rhea</option>
+        <option value="Kent, James C."
+         >Kent, James C.</option>
+        <option value="Killeen, Gordon Patrick"
+         >Killeen, Gordon Patrick</option>
+        <option value="Kozak, Lawrence Cyril"
+         >Kozak, Lawrence Cyril</option>
+        <option value="Krever, Horace"
+         >Krever, Horace</option>
+        <option value="LaForme, Harry Smith"
+         >LaForme, Harry Smith</option>
+        <option value="Labrosse, Jean-Marc"
+         >Labrosse, Jean-Marc</option>
+        <option value="Lane, George Dennis"
+         >Lane, George Dennis</option>
+        <option value="Lang, Susan Elizabeth"
+         >Lang, Susan Elizabeth</option>
+        <option value="Langdon, Kenneth Aylsworth"
+         >Langdon, Kenneth Aylsworth</option>
+        <option value="Laskin, John Ivan"
+         >Laskin, John Ivan</option>
+        <option value="Lauwers, Peter D."
+         >Lauwers, Peter D.</option>
+        <option value="Lax, Joan L."
+         >Lax, Joan L.</option>
+        <option value="Lederman, Sidney N."
+         >Lederman, Sidney N.</option>
+        <option value="MacDonald, Cindy A.M."
+         >MacDonald, Cindy A.M.</option>
+        <option value="MacFarland, Jean Louise"
+         >MacFarland, Jean Louise</option>
+        <option value="MacKinnon, Jennifer"
+         >MacKinnon, Jennifer</option>
+        <option value="MacPherson, James C."
+         >MacPherson, James C.</option>
+        <option value="Madsen, Lene"
+         >Madsen, Lene</option>
+        <option value="Maranger, Robert L."
+         >Maranger, Robert L.</option>
+        <option value="Marrocco, Frank N."
+         >Marrocco, Frank N.</option>
+        <option value="McCombs, John David"
+         >McCombs, John David</option>
+        <option value="McKinlay, Hilda Margaret"
+         >McKinlay, Hilda Margaret</option>
+        <option value="McKinnon, Colin"
+         >McKinnon, Colin</option>
+        <option value="McMurtry, Roy"
+         >McMurtry, Roy</option>
+        <option value="Melle, Francine Van"
+         >Melle, Francine Van</option>
+        <option value="Miller, Bradley"
+         >Miller, Bradley</option>
+        <option value="Moldaver, Michael James"
+         >Moldaver, Michael James</option>
+        <option value="Monahan, Patrick J."
+         >Monahan, Patrick J.</option>
+        <option value="Morden, John Wilson"
+         >Morden, John Wilson</option>
+        <option value="Métivier, Monique"
+         >Métivier, Monique</option>
+        <option value="Newbould, Frank"
+         >Newbould, Frank</option>
+        <option value="Nordheimer, Ian V.B."
+         >Nordheimer, Ian V.B.</option>
+        <option value="O&#39;Driscoll, John Gerald Joseph"
+         >O&#39;Driscoll, John Gerald Joseph</option>
+        <option value="O&#39;Marra, Alfred J."
+         >O&#39;Marra, Alfred J.</option>
+        <option value="O&#39;Marra, Brian"
+         >O&#39;Marra, Brian</option>
+        <option value="Osborne, Coulter Arthur Anthony"
+         >Osborne, Coulter Arthur Anthony</option>
+        <option value="Osborne, Peter J."
+         >Osborne, Peter J.</option>
+        <option value="O’Connor, Dennis"
+         >O’Connor, Dennis</option>
+        <option value="Paciocco, David M."
+         >Paciocco, David M.</option>
+        <option value="Pardu, Gladys I."
+         >Pardu, Gladys I.</option>
+        <option value="Pattillo, Laurence A."
+         >Pattillo, Laurence A.</option>
+        <option value="Pepall, Sarah E."
+         >Pepall, Sarah E.</option>
+        <option value="Perell, Paul M."
+         >Perell, Paul M.</option>
+        <option value="Pitt, Romain William Michael"
+         >Pitt, Romain William Michael</option>
+        <option value="Pomerance, Renee M."
+         >Pomerance, Renee M.</option>
+        <option value="Rahman, Moiz"
+         >Rahman, Moiz</option>
+        <option value="Ray, Timothy D."
+         >Ray, Timothy D.</option>
+        <option value="Rivard, Paul U."
+         >Rivard, Paul U.</option>
+        <option value="Roberts, Lois B."
+         >Roberts, Lois B.</option>
+        <option value="Robins, Sydney Lewis"
+         >Robins, Sydney Lewis</option>
+        <option value="Rosenberg, Marc"
+         >Rosenberg, Marc</option>
+        <option value="Rouleau, Paul S."
+         >Rouleau, Paul S.</option>
+        <option value="Sachs, Harriet E."
+         >Sachs, Harriet E.</option>
+        <option value="Sharpe, Robert J."
+         >Sharpe, Robert J.</option>
+        <option value="Simmons, Janet M."
+         >Simmons, Janet M.</option>
+        <option value="Smith, G. Patrick"
+         >Smith, G. Patrick</option>
+        <option value="Sossin, Lorne"
+         >Sossin, Lorne</option>
+        <option value="Southey, James Bonham Strange"
+         >Southey, James Bonham Strange</option>
+        <option value="Spence, James M."
+         >Spence, James M.</option>
+        <option value="Speyer, Christopher M."
+         >Speyer, Christopher M.</option>
+        <option value="Steep, R. Paul"
+         >Steep, R. Paul</option>
+        <option value="Strathy, George R."
+         >Strathy, George R.</option>
+        <option value="Swinton, Katherine E."
+         >Swinton, Katherine E.</option>
+        <option value="Then, Edward F."
+         >Then, Edward F.</option>
+        <option value="Theroulde, Sandra"
+         >Theroulde, Sandra</option>
+        <option value="Thorburn, Julie"
+         >Thorburn, Julie</option>
+        <option value="Trotter, Gary T."
+         >Trotter, Gary T.</option>
+        <option value="Tulloch, Michael H."
+         >Tulloch, Michael H.</option>
+        <option value="Turnbull, James R.H."
+         >Turnbull, James R.H.</option>
+        <option value="Tzimas, E. Ria"
+         >Tzimas, E. Ria</option>
+        <option value="Watt, David"
+         >Watt, David</option>
+        <option value="Weiler, Karen Merle Magnuson"
+         >Weiler, Karen Merle Magnuson</option>
+        <option value="Whalen, Lawrence"
+         >Whalen, Lawrence</option>
+        <option value="Wilson, Darla A."
+         >Wilson, Darla A.</option>
+        <option value="Wilton-Siegel, Herman J."
+         >Wilton-Siegel, Herman J.</option>
+        <option value="Winkler, Warren Keith"
+         >Winkler, Warren Keith</option>
+        <option value="Zarnett, Benjamin"
+         >Zarnett, Benjamin</option>
+        <option value="van Rensburg, Katherine"
+         >van Rensburg, Katherine</option>
+    </select>
+    <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="advanced-field decisia-decision-type-row">
+        <div class="label select">
+            <label for="decisia-decision-type">Subject</label>
+        </div>
+        <div class="input">
+        <select id="decisia-decision-type" name="typ" data-placeHolder=" " class="toBeChosen" multiple="multiple">
+                <option value="1"
+                >Civil</option>
+                <option value="2"
+                >Criminal</option>
+                <option value="3"
+                >Family</option>
+        </select>
+        <div class="arrow"></div>
+        </div>
+    </div>
+
+
+
+
+
+
+                    <input name="or" type="hidden" value="" />
+
+                    <div class="decisia-submit-line">
+                        <button type="submit" id="decisia-search-submit" class="raised">
+                            Search&nbsp;<span class="icon-search"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="lexboxHook"></div>
+
+    <div class="resultControls" id="decisia-advanced-search-result-controls">
+    <ul class="pager">
+                <li class="active current">1</li>
+                <li class="active"><a target="_parent" href="/coa/en/d/s/index.do?cont=%22Negligence+Act%22+%22jointly+and+severally%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=2">2</a></li>
+                <li class="active"><a target="_parent" href="/coa/en/d/s/index.do?cont=%22Negligence+Act%22+%22jointly+and+severally%22&amp;ref=&amp;d=&amp;p=&amp;col=1&amp;or=&amp;page=2">&gt;</a></li>
+    </ul>
+<div class="ordering">
+    Sort by:
+        <span class="active current">Relevance</span>
+        <a target="_parent" class="active" href="/coa/en/d/s/index.do?cont=%22Negligence+Act%22+%22jointly+and+severally%22&ref=&p=&col=1&or=date">Date</a>
+</div>
+        <div class="decisia-btn-expand-collapse-parent">
+                <a href='javascript:void(0)' title='Expand all results' id="decisia-btn-expand-all" class='decisia-btn-expand-collapse selected'><span class="icon-eq"></span></a><a href='javascript:void(0)' title='Collapse all results' id="decisia-btn-collapse-all" class='decisia-btn-expand-collapse'><span class="icon-bars"></span></a>
+        </div>
+    </div>
+    <h2>44 result(s)</h2>
+    <div id="decisia-results">
+<div class="documentList">
+    <ul class="collectionItemList list-expanded">
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">1.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/1778/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Sullivan (Estate of) v. Bond</a></span>
+                - <span class="publicationDate">2001-08-02</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    Thus, in subsection (a)(i) of s. 267.7(1), the use of the words "having regard to s. 267.5" is a clear indication that s. 1 of the <b>Negligence Act</b> is not to be applied in determining the amount for which protected and unprotected defendants are to be held <b>jointly and severally</b> liable to plaintiffs. &nbsp;&nbsp;[...]&nbsp;&nbsp; section 1 of the <b>Negligence Act</b>. If section 267.5 did not exist, protected defendants would be liable for the plaintiff's entire losses, and the <b>Negligence Act</b> would govern the <b>joint and several</b> liability of all defendants and the liability of the defendants to make contribution and indemnification as amongst themselves. &nbsp;&nbsp;[...]&nbsp;&nbsp; otherwise be liable under s. 1 of the <b>Negligence Act</b>. Accordingly, I do not share Dyson J.'s view that the extent of an unprotected defendant's liability is governed, without exception, by s. 1 of the <b>Negligence Act</b>, such that unprotected defendants remain liable on a <b>joint and several</b> basis "to pay any shortfall 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/1778/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">2.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/23334/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Cadieux v. Cadieux</a></span>
+                        - <span class="citation">2025 ONCA 405</span>
+                - <span class="publicationDate">2025-06-04</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [25] The appellants rely on Sharpe J.A.’s comment at para. 52 that “[t]he situation as among wrongdoers who are all sued and all found to be <b>jointly and severally</b> liable ... may be different”. This, however, does not apply here as the settling defendant in this case, Ottawa, will not be <b>jointly and severally</b> liable with the&nbsp;&nbsp;[...]&nbsp;&nbsp;[26] Acknowledging that Ontario’s <b>Negligence Act</b> does not explicitly provide for a proportionate reduction, the appellants argue that it is available as a form of restitution rooted in equity. &nbsp;&nbsp;[...]&nbsp;&nbsp;[3] Saskatchewan’s Contributory <b>Negligence Act</b>, RSS 1978, c C-31, as an example, expressly provides for the kind of proportionate reduction that the appellants seek here: see s. 3.1(2). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/23334/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">3.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/10970/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Lawson v. Viersen</a></span>
+                        - <span class="citation">2012 ONCA 25</span>
+                - <span class="publicationDate">2012-01-16</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    Determining <b>Joint and Several</b> Liability and Rights of Contribution and Indemnity [29] Section 1 of the <b>Negligence Act</b> provides for a right of contribution and indemnity between concurrent tortfeasors. &nbsp;&nbsp;[...]&nbsp;&nbsp;[35] In summary, the <b>Negligence Act</b> makes concurrent tortfeasors, that is persons whose conduct causes a single loss to another, <b>jointly and severally</b> liable. &nbsp;&nbsp;[...]&nbsp;&nbsp;The claim of <b>joint and several</b> liability that made the Viersens offer non-compliant with rule 49.11 was not made out at trial. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/10970/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">4.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/1577/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Martin v. Listowel Memorial Hospital</a></span>
+                - <span class="publicationDate">2000-11-01</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [34] The effect of section 1 of the <b>Negligence Act</b> is to make all persons sued, who caused or contributed to the damage suffered by the plaintiff <b>jointly and severally</b> liable to the plaintiff for the damage. &nbsp;&nbsp;[...]&nbsp;&nbsp;The <b>Negligence Act</b>, R.S.B.C. 1979, c. 298, now R.S.B.C. 1996, c. 333, has been interpreted to provide for <b>joint and several</b> liability of defendants where the plaintiff is blameless, but for only several liability where the plaintiff is contributorily negligent. &nbsp;&nbsp;[...]&nbsp;&nbsp;[51] Because of <b>joint and several</b> liability and the consequent ability of a plaintiff to collect the entire loss from any one defendant found liable, no matter how limited is that defendant’s fault or negligence, these two risks are very significant when there are concurrent tortfeasors and the <b>Negligence Act</b> applies. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/1577/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">5.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/9001/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Davy Estate v. CIBC World Markets Inc.</a></span>
+                        - <span class="citation">2009 ONCA 763</span>
+                - <span class="publicationDate">2009-11-04</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [13] The relevant provisions of the <b>Negligence Act</b> are as follows: Extent of liability, remedy over 1. Where damages have been caused or contributed to by the fault or neglect of two or more persons, the Court shall determine the degree in which each of such persons is at fault or negligent, and, where two or more persons &nbsp;&nbsp;[...]&nbsp;&nbsp;[19] The plaintiff’s solicitor owes the defendant no common law duty of care; if the defendant has a claim, it could only arise under the <b>Negligence Act</b>. A claim for contribution or indemnity under s. 1 arises “where damages have been caused or contributed to by the fault or neglect of two or more persons”. &nbsp;&nbsp;[...]&nbsp;&nbsp;As the fault of the proposed third party related to the reduction of the impact of the loss after it was suffered, and not to causing or failing to avoid the loss when it did occur, the proposed third party is not, in the words of s. 1 of the <b>Negligence Act</b>, “<b>jointly and severally</b> liable to the person suffering loss or 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/9001/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">6.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/8759/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Taylor v. Canada (Health)</a></span>
+                        - <span class="citation">2009 ONCA 487</span>
+                - <span class="publicationDate">2009-06-17</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    If the Attorney General cannot bring a third party claim, Health Canada may unfairly be held liable for the <b>negligent acts</b> of the doctor and the hospital. 2. A court cannot apportion fault under the <b>Negligence Act</b>, R.S.O. 1990, c. N.1, against a person who is not a party to the action. &nbsp;&nbsp;[...]&nbsp;&nbsp;1) May Health Canada potentially be liable for the <b>negligent acts</b> of the doctor and hospital if the third party claim is struck? &nbsp;&nbsp;[...]&nbsp;&nbsp;[28] Interpreting s. 1 of the <b>Negligence Act</b> to permit a court to apportion fault against a non-party makes good sense. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/8759/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">7.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/24407/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Lower William Properties Ltd. v. Santaguida</a></span>
+                        - <span class="citation">2026 ONCA 581</span>
+                - <span class="publicationDate">2026-08-13</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [36] Typically, the cause of action in respect of the former type of claim for contribution and indemnity is a statutory claim under the <b>Negligence Act</b>, which provides for the <b>joint and several</b> liability of joint or concurrent tortfeasors to a plaintiff. &nbsp;&nbsp;[...]&nbsp;&nbsp;[84] Again, the foundation of the claim for contribution and indemnity under the <b>Negligence Act</b> is the exposure of joint and concurrent wrongdoers to <b>joint and several</b> liability to the plaintiff. &nbsp;&nbsp;[...]&nbsp;&nbsp;In the <b>Negligence Act</b>, the reference is to claims for “contribution or indemnity”, while s. 18 of the Limitations Act, 2002 refers to “contribution and indemnity”. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/24407/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">8.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/7386/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Misko v. John Doe</a></span>
+                        - <span class="citation">2007 ONCA 660</span>
+                - <span class="publicationDate">2007-09-25</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [10] The position of the appellant, Liberty Mutual, is based primarily on the <b>Negligence Act</b>, R.S.O. 1990, c. N.1. Section 1 of that Act provides that where damages &nbsp;&nbsp;[...]&nbsp;&nbsp;[18] Section 1 of the <b>Negligence Act</b> changed the common law and allows for contribution and indemnity among tortfeasors. &nbsp;&nbsp;[...]&nbsp;&nbsp;Therefore, when applying the section to any specific action, it is understood that <b>joint and several</b> liability to the plaintiff can and will attach only to a party defendant, although others who may also have been at fault could potentially have been found <b>jointly and severally</b> liable had they been sued by the plaintiff. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/7386/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">9.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/3802/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Renaissance Leisure Group Inc. v. Frazer</a></span>
+                - <span class="publicationDate">2004-08-27</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    The <b>joint and several</b> liability of Renaissance and Frank Chapple amounted to $521,043.25 (65 per cent of the damages). &nbsp;&nbsp;[...]&nbsp;&nbsp;[47] Second, and importantly, the comments in Martin that triggered the trial judge’s reconsideration of his initial apportionment ruling were made in the context of an action commenced under s. 1 of the <b>Negligence Act</b>, which is concerned with <b>joint and several</b> liability among party defendants for damages sustained by a &nbsp;&nbsp;[...]&nbsp;&nbsp;As Frazer is not <b>jointly and severally</b> liable to Mellanby, the reasoning in Martin has no application. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/3802/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">10.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/18806/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Tuffnail v. Meekes</a></span>
+                        - <span class="citation">2020 ONCA 340</span>
+                - <span class="publicationDate">2020-06-01</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    In Tuffnail’s submission, this was because Coulthard defended the main action and because of s. 1 of the <b>Negligence Act</b>. The trial judge did not elaborate upon Tuffnail’s submission relying on s. 1 of the <b>Negligence Act</b>. &nbsp;&nbsp;[...]&nbsp;&nbsp;[80] Coulthard conceded that he would have been <b>jointly and severally</b> liable to Tuffnail had he been named as a defendant, but argued that he was not <b>jointly and severally</b> liable to Tuffnail because Tuffnail did not sue him. &nbsp;&nbsp;[...]&nbsp;&nbsp;It held, at para. 48, that under s. 1 of the <b>Negligence Act</b>, <b>joint and several</b> liability only attaches to party defendants. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/18806/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">11.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/2304/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">O., A. v. V., J.</a></span>
+                - <span class="publicationDate">2002-04-25</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    The effect is to change the common law, and impose on concurrent wrongdoers <b>joint and several</b> liability to the plaintiff. [7] See also Cheifetz, Apportionment of Fault in Tort Cases Aurora (1981) at pp. 11-12. &nbsp;&nbsp;[...]&nbsp;&nbsp;This effectively jumps over s. 1 of the <b>Negligence Act</b> and the question of whether there is justification for joining the parties at the outset. &nbsp;&nbsp;[...]&nbsp;&nbsp;[11] That is why the wrongdoers must be acting concurrently to attract the application of s. 1 of the <b>Negligence Act</b>. And that is why s. 1 has no application to this case and why the third party notices should not issue. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/2304/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">12.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/9352/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Waterloo Region District School Board v. Truax Engineering Ltd.</a></span>
+                        - <span class="citation">2010 ONCA 838</span>
+                - <span class="publicationDate">2010-12-09</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [7] Section 1 of the <b>Negligence Act</b>, enacted in 1930, creates the statutory obligation of <b>joint and several</b> liability of concurrent tortfeasors to a plaintiff, as well as the statutory right of contribution and indemnity among concurrent tortfeasors. &nbsp;&nbsp;[...]&nbsp;&nbsp;[8] Section 5 of the <b>Negligence Act</b> is procedural and allows parties to make claims for contribution and indemnity against persons who were not made party to the action by the plaintiff. &nbsp;&nbsp;[...]&nbsp;&nbsp;[11] Section 8 of the <b>Negligence Act</b> was added in 1948, following the decisions in two cases, Cohen v. McCord, [1944] O.R. 568 (C.A.) and Magee v. Canada Coach Lines Ltd., [1946] O.W.N. 73 (Ont. H.C.). 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/9352/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">13.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/21925/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Algra v. Comrie Estate</a></span>
+                        - <span class="citation">2023 ONCA 811</span>
+                - <span class="publicationDate">2023-12-05</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    • The Comrie Estate and the Monteiro Estate shall <b>jointly and severally</b> pay Feltham her costs of $306,849.23 (all inclusive) on the summary judgment motions; &nbsp;&nbsp;[...]&nbsp;&nbsp;• The Comrie Estate and the Monteiro Estate shall <b>jointly and severally</b> pay Canada its costs of $266,247.02 (all inclusive) on the summary judgment motions; &nbsp;&nbsp;[...]&nbsp;&nbsp;• On the Liability Appeal: Costs of the Liability Appeal are payable <b>jointly and severally</b> by the Liability Appellants to the Government Respondents. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/21925/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">14.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/4209/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">M., J., et al. v. Bradley, et al.</a></span>
+                - <span class="publicationDate">2004-06-03</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    Furthermore, although s. 1 refers to "persons", in any particular action its effect is to impose <b>joint and several</b> liability to the plaintiff only on defendants found at fault or negligent, and not on any other person. &nbsp;&nbsp;[...]&nbsp;&nbsp;In the same paragraph of its reasons, the court also said that, to accomplish this primary objective: "The effect of s. 1 of the <b>Negligence Act</b> is to make all persons sued who caused or contributed to the damage suffered by the plaintiff <b>jointly and severally</b> liable to the plaintiff for the damage [emphasis added]." &nbsp;&nbsp;[...]&nbsp;&nbsp;Therefore, when applying the section to any specific action, it is understood that <b>joint and several</b> liability to the plaintiff can and will attach only to a party defendant, although others who may also have been at fault could potentially have been found <b>jointly and severally</b> liable had they been sued by the plaintiff. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/4209/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">15.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/469/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Creasy, et al. v. Sudbury (Municipality)</a></span>
+                - <span class="publicationDate">1999-12-17</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    Under s. 1 of the <b>Negligence Act</b>,2 each is required to indemnify the other in respect of its 50% share in the event that the plaintiffs elect to recover the entire amount from one of them. &nbsp;&nbsp;[...]&nbsp;&nbsp;3) IS INCO ENTITLED TO CONTRIBUTION OR INDEMNITY FROM SUDBURY PURSUANT TO THE PROVISIONS OF THE <b>NEGLIGENCE ACT</b>? IS INCO LIABLE TO INDEMNIFY SUDBURY? [41] Each of the defendants cross-claimed against the other in the actions for contribution and indemnity and pleaded the <b>Negligence Act</b>. Section 1 of that Act provides: &nbsp;&nbsp;[...]&nbsp;&nbsp;The parties made their own bargain as contemplated by s. 1 of the <b>Negligence Act</b>. The first half of paragraph 4 provides that Inco makes no representations or warranties as to the quality of service to be supplied. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/469/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">16.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/17955/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Hengeveld v. The Personal Insurance Company</a></span>
+                        - <span class="citation">2019 ONCA 497</span>
+                - <span class="publicationDate">2019-06-17</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    It relies on the contribution and indemnity provisions of the <b>Negligence Act</b> (ss. 1, 2 and 5) to claim that the lawyers should be liable to Personal Insurance for all or part of the Hengevelds’ claim. &nbsp;&nbsp;[...]&nbsp;&nbsp;[21] A third party claim based on the contribution and indemnity provisions of the <b>Negligence Act</b> does not require that the third party owe a duty of care to the defendant. &nbsp;&nbsp;[...]&nbsp;&nbsp;Under the <b>Negligence Act</b>’s contribution and indemnity provisions, a defendant may raise a third party’s fault or negligence that caused or contributed to the plaintiff’s damages as a third party claim. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/17955/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">17.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/1838/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Colonial Furniture Company (Ottawa) Limited v. Saul Tanner Realty Limited</a></span>
+                - <span class="publicationDate">2001-02-02</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    Bond’s, Tanner and Multi were held <b>jointly and severally</b> liable for the damages suffered by the plaintiffs. They were also entitled to indemnity as amongst them in equal proportions. &nbsp;&nbsp;[...]&nbsp;&nbsp;The two were <b>jointly and severally</b> liable to the third and entitled to indemnity between them in equal proportions. &nbsp;&nbsp;[...]&nbsp;&nbsp;Bond’s, Tanner and Multi remained <b>jointly and severally</b> liable, but the proportions of their entitlement to indemnity were adjusted accordingly. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/1838/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">18.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/15851/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Levesque v. Crampton Estate</a></span>
+                        - <span class="citation">2017 ONCA 455</span>
+                - <span class="publicationDate">2017-06-05</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [12] This appeal involves the intersection of three statutes – the <b>Negligence Act</b>, R.S.O. 1990, c. N.1, the Limitations Act, 2002 and the Trustee Act. A more detailed examination of the statutory provisions and their purposes is a necessary starting place for what follows. &nbsp;&nbsp;[...]&nbsp;&nbsp;(1) The <b>Negligence Act</b> [13] Section 1 of the <b>Negligence Act</b> creates <b>joint and several</b> liability and a right of contribution and indemnity between joint tortfeasors. &nbsp;&nbsp;[...]&nbsp;&nbsp;Contribution and indemnity, it says, is a right conferred by the <b>Negligence Act</b>, with its own limitation period under s. 18(1) of the Limitations Act, 2002. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/15851/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">19.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/1859/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">PDC 3 Limited Partnership v. Bregman + Hamann Architects</a></span>
+                - <span class="publicationDate">2001-02-07</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    It involves the interpretation and application of s. 1 of the <b>Negligence Act</b>, R.S.O. 1990, c. N-1. The case involves the construction and maintenance of the roof of Terminal 3 at the Pearson International Airport. &nbsp;&nbsp;[...]&nbsp;&nbsp;2) Is the owner prevented by its contract with Bregman + Hamann and the operation of s. 1 of the <b>Negligence Act</b> from recovering from the other tortfeasors any amount in excess of $250,000 attributable to the negligence of Bregman + Hamann? &nbsp;&nbsp;[...]&nbsp;&nbsp;This is particularly so where both legal conclusions involve important pronouncements of the law interpreting s. 1 of the <b>Negligence Act</b> and in circumstances which will have precedential value. [13] In the result, the appeal is allowed and the order of the motions judge is set aside. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/1859/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">20.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/5026/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">HSBC Securities (Canada) Inc. v. Davies, Ward &amp; Beck</a></span>
+                - <span class="publicationDate">2005-01-31</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    2. Interpretation of s. 5 and s. 8 of the <b>Negligence Act</b>, 1990 [50] In support of its submission that s. 8 of the <b>Negligence Act</b>, 1990 sets out a procedure for bringing a third party claim for contribution that is independent of s. 5, Davies refers to the legislative history of the <b>Negligence Act</b>, 1990 and to certain case &nbsp;&nbsp;[...]&nbsp;&nbsp;I do not take Wells, C.J.H.C. to have laid down the proposition that s. 9 [now s.8] of the <b>Negligence Act</b> has no application to third party proceedings framed in negligence, and commenced under s. 6 [now s. 5] of the <b>Negligence Act</b>. [...] &nbsp;&nbsp;[...]&nbsp;&nbsp;[16] <b>Negligence Act</b>, 1930, S.O. 1930, c. 27, s. 3. [17] Statute Law Amendment Act,1939, c. 47, s. 23. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/5026/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">21.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/21144/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Moran v. Fabrizi</a></span>
+                        - <span class="citation">2023 ONCA 21</span>
+                - <span class="publicationDate">2023-01-16</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    Fabrizi sued Dennis G. K. Chu in the third party action seeking contribution and indemnity for the settlement under s. 5 of the <b>Negligence Act</b>, R.S.O. 1990 c. N. 1. [2] The trial judge found in favour of Fabrizi. &nbsp;&nbsp;[...]&nbsp;&nbsp;[6] Chu argues that the trial judge erred in his understanding and application of the test for causation that applies in determining whether Chu “caused or contributed to” the accident in which Moran was injured, within the meaning of ss. 1 and 5 of the <b>Negligence Act</b>. Analysis [7] Sections 1 and 5 of the <b>Negligence Act</b> are&nbsp;&nbsp;[...]&nbsp;&nbsp;To trigger third party indemnity under s. 5 of the <b>Negligence Act</b> there need not be negligence on the part of both parties. One party’s tort can be negligence and the other party’s tort intentional. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/21144/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">22.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/18152/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Donleavy v. Ultramar Ltd.</a></span>
+                        - <span class="citation">2019 ONCA 687</span>
+                - <span class="publicationDate">2019-09-04</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    Exceptional cases include where there are <b>negligent acts</b> by multiple actors and it is established that one or more of them in fact caused the injuries or losses, but the plaintiff is unable to determine which of a number of <b>negligent acts</b> caused the injuries or losses. &nbsp;&nbsp;[...]&nbsp;&nbsp;The respondents argue that the trial judge ought to have found Kilpatrick and Ultramar <b>jointly and severally</b> liable, and that she erred in finding contributory negligence. &nbsp;&nbsp;[...]&nbsp;&nbsp;It would have been more appropriate for the trial judge to have found the appellants <b>jointly and severally</b> liable. [106] The end result however would have been the same, because of the circumstances of this case. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/18152/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">23.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/1112/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Harroun (Litigation Guardian of) v. Turriff</a></span>
+                - <span class="publicationDate">2000-08-21</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    (7) If, in the absence of subsection (1), the owner of an automobile, an occupant of an automobile or a person present at the incident would have been <b>jointly and severally</b> liable for damages for pecuniary loss with one or more other persons who are not relieved of liability by subsection (1), the other persons are liable &nbsp;&nbsp;[...]&nbsp;&nbsp;In the first place, as a matter of statutory construction, subsection 267.1(7) was intended to apply to those situations contemplated by Section 1 of the <b>Negligence Act</b> - viz - cases where fault or negligence is apportioned between two or more defendants. &nbsp;&nbsp;[...]&nbsp;&nbsp;I can see nothing in the wording of s.267.1(7) which supports the interpretation that s. 267.1(7) was only intended to cover situations contemplated by the <b>Negligence Act</b>,. In fact, when the words of s. 267.1 are given their ordinary meaning in harmony with the object and scheme of the Insurance Act, it seems clear that the
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/1112/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="even list-item-expanded">
+<div class="number">
+    <span class="digits">24.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/8671/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Placzek v. Green</a></span>
+                        - <span class="citation">2009 ONCA 83</span>
+                - <span class="publicationDate">2009-01-28</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [14] The proposed counterclaims request contribution and indemnity under the <b>Negligence Act</b>, R.S.O. 1990, c. N.1, in relation to any judgment Mrs. Placzek may obtain against Mr. Green. &nbsp;&nbsp;[...]&nbsp;&nbsp; a single concurrent tortfeasor, leaving that tortfeasor to claim contribution and indemnity from other concurrent tortfeasors, by way of a claim advanced in the injured party’s action under s. 5 of the <b>Negligence Act</b> (or, formerly, by way of a freestanding action under s. 8 of the <b>Negligence Act</b>, where s. 8 applied[9]). &nbsp;&nbsp;[...]&nbsp;&nbsp;[9] Section 8 of the <b>Negligence Act</b> was repealed by the new Act. [10] See the cases referred to in footnote 7. 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/8671/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    <li class="odd list-item-expanded">
+<div class="number">
+    <span class="digits">25.</span>
+</div>
+<div class="metadata">
+    <div class="info" >
+        <div class="subinfo">
+            <h3>
+                <span class="title"><a target="_parent" href="/coa/coa/en/item/9961/index.do?q=%22Negligence+Act%22+%22jointly+and+severally%22">Dilkas v. Red Seal Tours Inc. (Sunwing Vacations)</a></span>
+                        - <span class="citation">2010 ONCA 634</span>
+                - <span class="publicationDate">2010-10-04</span>
+            </h3>
+            <div class="subMetadata">
+                <span>Decisions of the Court of Appeal</span>
+                    - <span>Civil</span>
+            </div> 
+            <div class="subject">
+            </div> 
+                <p class="snippet" >
+                    [5] Three days after the accident, Best Day and Sunwing entered into an agreement with AutoTur wherein, inter alia, AutoTur released both Best Day and Sunwing for claims under “The <b>Negligence Act</b> of Ontario”, and Best Day acknowledged that it would retain and pay the Toronto law firm Berkow, Cohen LLP to defend Best Day and&nbsp;&nbsp;[...]&nbsp;&nbsp;In any event, if liability is established at trial on a <b>joint and several</b> basis, as is pleaded in the statements of claim, the plaintiffs will be able to enforce their judgments against Sunwing in Ontario.[3] As discussed above, the involvement of Sunwing as a necessary party in the Ontario actions is a critical connecting &nbsp;&nbsp;[...]&nbsp;&nbsp;[3] The appellant submits that, based on the case of Craven v. Strand Holidays (Canada) Ltd., [1982] O.J. No. 3599 (C.A.), Best Day cannot be found <b>jointly and severally</b> liable with Sunwing. In that case the court found that there was no implied agreement by the tour operator with the tourists for safe transportation and 
+                </p>
+                <div class="spacer">
+                        <span class="decisia-icon"></span>
+                        <span class="decisia-icon"></span>
+                </div>
+        </div> 
+        <div class="documents">
+                <a target="_blank" href="/coa/coa/en/9961/1/document.do" title="Download the PDF version" class="matomo_download"><span class="decisia-icon icon-decisia-file-pdf"></span></a>
+                <a href='javascript:void(0)' class='expand-result' title='Collapse result'></a>
+        </div> 
+    </div> 
+    </div> 
+</li>
+    </ul>
+    <hr/>
+</div>
+    </div>
+
+</div>
+</div>
+    <script type="text/javascript" src="/js/thirdparty/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/tipped.min.js"></script>
+<script type="text/javascript" src="/js/thirdparty/chosen/chosen.jquery.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryDecisia = jQuery;
+</script>
+
+<script type="text/javascript" src="/js/decisia/auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/date-range.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-storage.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-iframe.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia-visited-links.js"></script>
+<script type="text/javascript" src="/js/decisia/plugins.js"></script>
+<script type="text/javascript" src="/js/decisia/reflex2.js"></script>
+<script type="text/javascript" src="/js/decisia/reflexd-noteup-auto-complete.js"></script>
+<script type="text/javascript" src="/js/decisia/search-advanced-fields.js"></script>
+<script type="text/javascript" src="/js/decisia/search-expand-collapse-results.js"></script>
+<script type="text/javascript" src="/js/decisia/search-infinite-scroll.js"></script>
+<script type="text/javascript" src="/js/decisia/utils.js"></script>
+<script type="text/javascript" src="/js/decisia/login.js"></script>
+<script type="text/javascript" src="/js/decisia/decisia.js"></script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQueryDecisia(document).ready(function() {
+    DecisiaMain.decisiaPageInit({
+        clientIdentifier: "coa",
+            yearRangeString: "1998:2026",
+    });
+});
+
+var decisiaMessages = {
+    "date-validator-invalid-date":     "The format of the date entered is invalid.",
+    "date-validator-unsupported-date": "The date entered is not supported.",
+    "date-validator-invalid-range":    "The date range selected is invalid. The start date must precede the end date.",
+    "search-tag":                      "Search",
+    "no-results-found":                "No result match",
+    "retrieved-on":                    "retrieved on",
+    "search.collapse":                 "Collapse all results",
+    "search.collapse.one":             "Collapse result",
+    "search.expand":                   "Expand all results",
+    "search.expand.one":               "Expand result",
+    "searchForm.reset":                "Reset",
+    "searchForm.show-more-fields":     "Show more fields",
+    "searchForm.show-less-fields":     "Show fewer fields",
+    "reflex2-continue":                "Continue",
+    "reflex2-cancel":                  "No",
+    "reflex2-warning":                 "You are being directed to the most recent version of the statute which may not be the version considered at the time of the judgment.",
+    "search-server-error":             "Error while loading search results. Please try again later.",
+    "search-server-maximum":           "The maximum number of displayed search results is reached.",
+    "print":                           "Print",
+    "print-tooltip":                   "Print the content of this web page",
+    "title.epub":                      "Download the ePub version"
+};
+/* ]]> */
+
+</script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(["trackPageView"]);
+_paq.push(["enableLinkTracking"]);
+_paq.push(['setSecureCookie', true]);
+_paq.push(['setDownloadClasses', "matomo_download"]);
+(function()
+{ var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.lexum.com/"; _paq.push(["setTrackerUrl", u+"piwik.php"]); _paq.push(["setSiteId", "114"]); var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript"; g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s); }
+)();
+</script>
+    <noscript>
+        <p><img src="https://piwik.lexum.com/piwik.php?idsite=114" style="border:0" alt="" /></p>
+    </noscript>
+<!-- End Piwik Tracking Code -->
+<script type="text/javascript">
+window.decisiaMessages["reflexd-citing"] = "Citing:";
+</script>
+
+</body>
+
+</html>
