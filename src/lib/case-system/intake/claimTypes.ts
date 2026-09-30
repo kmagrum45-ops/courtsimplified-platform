@@ -4606,10 +4606,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "2(2) lists exceptions, such as consumer transactions regulated under the Securities Act. O. " +
           "Reg. 17/05 also turns these rules off for some agreements -- for example, sections 27 to 47 " +
           "of the Act do not apply to a consumer agreement for work on or repairs to a vehicle that is " +
-          "also an internet or remote agreement (s. 13). Steps to Justice (CLEO) explains that \"online\" " +
-          "means the order was placed using the internet -- for example on a website, by email, or in " +
-          "an app -- and that when you buy something, the law says you have made an agreement with the " +
-          "seller, even if you never see anything called an agreement.",
+          "also an internet or remote agreement (s. 13).",
         sourceUrl: "https://www.ontario.ca/laws/docs/02c30_e.doc",
         verifiedAt: "2026-09-30",
         consolidationPeriod: "2025-12-11",
@@ -4617,10 +4614,6 @@ export const CLAIM_TYPES: ClaimType[] = [
           {
             sourceUrl: "https://www.ontario.ca/laws/docs/050017_e.doc",
             pinpoint: "O. Reg. 17/05, ss. 13, 31, 36",
-          },
-          {
-            sourceUrl: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-online-can-i-cancel-my-order-or-return-it/",
-            pinpoint: "Steps to Justice: I bought something online",
           },
         ],
         evidenceCategories: [
@@ -4668,9 +4661,7 @@ export const CLAIM_TYPES: ClaimType[] = [
           "the regulation apply. O. Reg. 17/05, ss. 18 and 19, say that when an internet agreement or a " +
           "remote agreement is also a future performance agreement (and is not a time share, personal " +
           "development services or direct agreement), sections 22 and 23 of the Act do not apply to it " +
-          "-- and, for an internet agreement, neither do sections 44 to 47. Steps to Justice's pages on " +
-          "buying online, by telephone and by mail order each say the seller must deliver the goods or " +
-          "start the services no more than 30 days late.",
+          "-- and, for an internet agreement, neither do sections 44 to 47.",
         sourceUrl: "https://www.ontario.ca/laws/docs/02c30_e.doc",
         verifiedAt: "2026-09-30",
         consolidationPeriod: "2025-12-11",
@@ -4678,14 +4669,6 @@ export const CLAIM_TYPES: ClaimType[] = [
           {
             sourceUrl: "https://www.ontario.ca/laws/docs/050017_e.doc",
             pinpoint: "O. Reg. 17/05, ss. 18, 19, 23.1",
-          },
-          {
-            sourceUrl: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-telephone-can-i-cancel-order-or-return-it/",
-            pinpoint: "Steps to Justice: I bought something by telephone",
-          },
-          {
-            sourceUrl: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-mail-order-can-i-cancel-order-or-return-it/",
-            pinpoint: "Steps to Justice: I bought something by mail order",
           },
         ],
         evidenceCategories: [
@@ -4752,10 +4735,6 @@ export const CLAIM_TYPES: ClaimType[] = [
           {
             sourceUrl: "https://www.ontario.ca/laws/docs/050017_e.doc",
             pinpoint: "O. Reg. 17/05, ss. 32, 33, 37, 38, 39",
-          },
-          {
-            sourceUrl: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-telephone-can-i-cancel-order-or-return-it/",
-            pinpoint: "Steps to Justice: I bought something by telephone",
           },
         ],
         evidenceCategories: [
@@ -5086,29 +5065,6 @@ export const CLAIM_TYPES: ClaimType[] = [
         officialUrl: "https://www.ontario.ca/document/guide-procedures-small-claims-court/making-claim",
         verifiedAt: "2026-09-30",
         pinpoint: "jurisdiction; reasons for claim and supporting documents",
-      },
-      {
-        sourceName:
-          "Steps to Justice (CLEO) -- I bought something online. Can I cancel my order or return it?",
-        officialUrl: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-online-can-i-cancel-my-order-or-return-it/",
-        verifiedAt: "2026-09-30",
-        pinpoint: "Question and answer (reviewed October 1, 2025)",
-      },
-      {
-        sourceName:
-          "Steps to Justice (CLEO) -- I bought something by telephone. Can I cancel the order or return " +
-          "it?",
-        officialUrl: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-telephone-can-i-cancel-order-or-return-it/",
-        verifiedAt: "2026-09-30",
-        pinpoint: "Question and answer (reviewed October 1, 2025)",
-      },
-      {
-        sourceName:
-          "Steps to Justice (CLEO) -- I bought something by mail order. Can I cancel the order or " +
-          "return it?",
-        officialUrl: "https://stepstojustice.ca/questions/debt-and-consumer-rights/i-bought-something-mail-order-can-i-cancel-order-or-return-it/",
-        verifiedAt: "2026-09-30",
-        pinpoint: "Question and answer (reviewed October 1, 2025)",
       },
     ],
     reviewedAt: "2026-09-30",

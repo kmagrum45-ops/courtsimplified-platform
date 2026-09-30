@@ -841,6 +841,12 @@ export type CourtSimplifiedBrainInput = {
    * next actions a user reads are built from this sourced catalogue rather
    * than from model prose. Absent when no claim type was confirmed.
    */
+  /**
+   * Civil or family library entries (civilClaimTypes.ts, familyMatterTypes.ts)
+   * the user's picked issues point to. Their verified entries join the source
+   * pack as material that may apply. Added 2026-09-30.
+   */
+  libraryMatterIds?: string[];
   catalogueClaim?: {
     claimTypeId: string;
     elementStates?: Record<string, "provided" | "cannot-provide" | "not-yet">;

@@ -30,6 +30,11 @@
  *      start of the consolidation that was read.
  *   6. No entry uses case-grading or judge-prediction language (CLAUDE.md s. 3),
  *      checked on the joined runtime string of every entry.
+ *   7. Every link is an official https page (not the e-Laws viewer, which is
+ *      an empty shell) or a decision saved under docs/sources/.
+ *
+ * Covers the Small Claims catalogue and, since 2026-09-30, the civil and
+ * family libraries (civilClaimTypes.ts, familyMatterTypes.ts).
  *
  * NEGATIVE CONTROLS: a tampered quote and a tampered text are run through the
  * same checks and must fail, so a check that stopped matching cannot pass
@@ -38,17 +43,19 @@
  * No network, no model, no database. Run: npm run test:catalogue-verified
  */
 
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 import {
   catalogueEntries,
   entryFingerprint,
   normalizeForQuote,
+  nextStepFingerprint,
   type CatalogueEntry,
   type VerificationLog,
   type VerificationRecord,
 } from "../content/catalogueVerification";
+import { NEXT_STEP_BLOCKS, isPlaceholder } from "../../src/lib/content-library/nextSteps";
 import { validateCaseStrengthLanguage } from "../../src/lib/case-system/intelligence/caseStrengthLanguageValidator";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
@@ -156,6 +163,61 @@ check("no catalogue entry uses case-grading or judge-prediction language", gradi
 check(
   "control: the grading check catches a planted phrase",
   !validateCaseStrengthLanguage("The judge will likely find this a strong case.").valid,
+);
+
+// ---- 7. Every link resolves to a place a reader can check: an https page on
+// an official domain, or a decision saved under docs/sources/.
+const OFFICIAL = [
+  "https://www.ontario.ca/", "https://ontario.ca/", "https://www.ontariocourts.ca/", "https://ontariocourts.ca/",
+  "https://www.ontariocourtforms.on.ca/", "https://www.canlii.org/", "https://www.lso.ca/",
+  // The federal Justice Laws site: the official consolidation of the Divorce
+  // Act and the Federal Child Support Guidelines.
+  "https://laws-lois.justice.gc.ca/",
+];
+const VIEWER = ["https://www.ontario.ca/laws/statute/", "https://www.ontario.ca/laws/regulation/"];
+const resolvable = (url: string) =>
+  url.startsWith("docs/sources/")
+    ? existsSync(path.join(ROOT, url))
+    : OFFICIAL.some((prefix) => url.startsWith(prefix)) && !VIEWER.some((prefix) => url.startsWith(prefix));
+const badLinks = entries.flatMap((entry) =>
+  [entry.sourceUrl, ...(entry.alsoCites ?? []).map((also) => also.sourceUrl)]
+    .filter((url) => !resolvable(url))
+    .map((url) => `${entry.key}: ${url}`),
+);
+check("every entry's links resolve to an official page or a saved decision", badLinks.length === 0, badLinks.join("\n      "));
+
+// ---- 8. Next steps. Every Civil and Family block, and every block with a
+// record, holds against its record the same way: text unchanged since it was
+// verified, and every vendored passage really in the source.
+const nextStepRecords = new Map((log.nextSteps ?? []).map((record) => [record.id, record]));
+const nextStepProblems: string[] = [];
+for (const block of NEXT_STEP_BLOCKS) {
+  if (isPlaceholder(block)) continue;
+  const record = nextStepRecords.get(block.id);
+  if (!record) {
+    if (block.pathway !== "small-claims") nextStepProblems.push(`${block.id}: no verification record`);
+    continue;
+  }
+  if (record.fingerprint !== nextStepFingerprint(block)) {
+    nextStepProblems.push(`${block.id}: the text changed after it was verified -- re-read the rules and update the record`);
+  }
+  for (const source of record.sources) {
+    const text = vendored(source.sourceUrl);
+    const runs = normalizeForQuote(source.quote).split(" ... ");
+    if (text !== null && !runs.every((run) => text.includes(run))) {
+      nextStepProblems.push(`${block.id}: quote not in the vendored source (${source.pinpoint})`);
+    }
+  }
+  if (!record.sources.some((source) => source.sourceUrl === block.sourceUrl)) {
+    nextStepProblems.push(`${block.id}: its link was not among the sources read`);
+  }
+  const grading = validateCaseStrengthLanguage(`${block.title} ${block.text}`);
+  if (!grading.valid) nextStepProblems.push(`${block.id}: case-grading language "${grading.matchedTerm}"`);
+}
+check(
+  `every verified next-step block holds against its record (${nextStepRecords.size} recorded)`,
+  nextStepProblems.length === 0,
+  nextStepProblems.join("\n      "),
 );
 
 const corrected = log.records.filter((record) => record.outcome === "corrected");

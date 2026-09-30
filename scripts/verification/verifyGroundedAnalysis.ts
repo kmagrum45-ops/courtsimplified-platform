@@ -34,8 +34,11 @@ import path from "node:path";
 import {
   buildSourcePack,
   hasLegalContent,
+  libraryTypeById,
   verifyGroundedCognition,
 } from "../../src/lib/case-system/intelligence/groundedCognition";
+import { civilLibraryIdsForIssues } from "../../src/lib/case-system/orchestration/civilIntakeCanonicalAdapter";
+import { familyLibraryIdsForIssues } from "../../src/lib/case-system/orchestration/familyIntakeCanonicalAdapter";
 import { CLAIM_TYPES } from "../../src/lib/case-system/intake/claimTypes";
 import { renderableProfiles } from "../../src/lib/case-system/claim-types/catalogue";
 import { analyzeSmallClaimsWithBrain } from "../../src/lib/case-system/intelligence/smallClaimsIntelligenceEngine";
@@ -82,6 +85,20 @@ check(
     (profile.notices ?? []).every((notice) => fallPack.items.some((item) => item.text === notice.because.quote)),
   ),
 );
+// Civil and family (2026-09-30): the library entries a user's issues point to
+// join the pack, and Small Claims procedure does not.
+const civilIds = civilLibraryIdsForIssues(["contract", "negligence", "charter"]);
+const familyIds = familyLibraryIdsForIssues(["child-support", "parenting-time", "safety-concerns"], "we are getting a divorce");
+check("civil: every mapped issue names a real library entry", civilIds.length > 0 && civilIds.every((id) => libraryTypeById(id)?.courtArea === "civil"));
+check("family: every mapped issue names a real library entry", familyIds.length > 0 && familyIds.every((id) => libraryTypeById(id)?.courtArea === "family"));
+check("family: the person's own mention of divorce offers the divorce entry", familyIds.includes("family-matter-divorce"));
+const civilPack = buildSourcePack({ stage: "starting-case", side: "plaintiff", courtPath: "civil", extraClaimTypeIds: civilIds });
+check("civil pack: carries the civil library's verified entries", civilIds.every((id) => libraryTypeById(id)!.plaintiffElements.every((el) => civilPack.byId.has(`element:${el.id}`))));
+check("civil pack: carries no Small Claims procedure", !civilPack.items.some((item) => item.id.startsWith("rule:") || item.id.startsWith("deadline:")));
+const familyPack = buildSourcePack({ stage: "starting-case", side: "plaintiff", courtPath: "family", extraClaimTypeIds: familyIds });
+check("family pack: carries no Small Claims procedure", !familyPack.items.some((item) => item.id.startsWith("rule:") || item.id.startsWith("deadline:")));
+check("family pack: every item has a checkable link", familyPack.items.length > 0 && familyPack.items.every((item) => /^https:\/\/|^docs\/sources\//.test(item.sourceUrl)));
+
 check(
   "pack: a claim type with no related profile gets no notice items",
   !pack.items.some((item) => item.id.startsWith("notice:")),

@@ -660,6 +660,51 @@ Recorded so the next pass does not rediscover them. The per-entry evidence is in
   the written, signed acknowledgment; it does not itself have to be written.**
   An earlier draft got this backwards.
 
+### Vendoring a new source from here: the Vendor Sources workflow (2026-09-30)
+
+The cloud workspace's shell cannot reach ontario.ca or laws-lois.justice.gc.ca
+(the egress proxy refuses the CONNECT), and WebFetch returns a summary, not
+text. GitHub's runners can reach both. So: declare the source in
+`scripts/rules/*Sources.ts`, merge, then dispatch **CourtSimplified Vendor
+Sources** with the ids (`POST .../actions/workflows/courtsimplified-vendor-sources.yml/dispatches`
+with `{"ref":"main","inputs":{"only":"id1,id2"}}` works from the workspace). It
+runs `rules:fetch --only`, which merges just those ids into the manifest, and
+pushes a `sources-vendor-<run>` branch (Vercel-excluded). Fetch that branch
+and check out `docs/sources/corpus/` from it. First used for the Family Law
+Act, Family Law Rules, CLRA, both Child Support Guidelines, FRSAEA and the
+Divorce Act -- all seven fetched first time. Justice Laws pages carry no
+e-Laws "CONSOLIDATION PERIOD" line, so the manifest shows "(none stated)" for
+them.
+
+### Reading SCC decisions for the civil library (2026-09-30)
+
+- **Say who said it.** Tercon paras. 121-123 (the exclusion-clause framework) are
+  Binnie J.'s reasons, which dissented in the result; the majority's agreement is
+  Cromwell J. at para. 62. Queen v. Cognos is Iacobucci J. for two judges, so
+  "the Court said" is wrong for it. Clements is a majority (LeBel and Rothstein
+  JJ. dissented). Check the reasons' authorship before writing "the Court".
+- **Cognos needs OCR and parallel pages** (59 pages; run tesseract with
+  `xargs -P 8`). Its printed page = PDF page + 86; Myers = PDF page + 20.
+- **A text-layer PDF can drop paragraph numbers at page tops.** Fidler 44/47 and
+  Whiten 78 were placed by counting, then confirmed from margin numbers.
+
+### Family-law gaps recorded, not guessed (2026-09-30)
+
+- **Which child support guidelines apply in an Ontario divorce** turns on the
+  federal designation order under Divorce Act s. 2(5), which is not vendored. The
+  library quotes the "applicable guidelines" definition and says no more.
+- **Breach of an FLA s. 46 / CLRA s. 35 restraining order:** the in-force text
+  carries no offence provision, and FLA s. 49(1) / CLRA s. 38(1) exclude these
+  orders from the Ontario Court of Justice's contempt power. The consequence is
+  not in the corpus, so nothing is said about it. Both sections print 2025, c. 6
+  replacement text that is NOT in force -- quote only the current wording.
+- **Not vendored:** the Age of Majority and Accountability Act, the Spousal
+  Support Advisory Guidelines, the Real Property Limitations Act, O. Reg. 285/01
+  (minimum wage).
+- **Paralegals in the Superior Court and family cases:** whether a paralegal may
+  act there depends on Law Society rules not in the corpus. The civil and family
+  "not sure" next steps quote only the Small Claims guide's own sentence.
+
 ### Two neighbour claim types that the statutes do not support (2026-09-30)
 
 Drafted and deliberately NOT shipped, so nobody re-derives them:

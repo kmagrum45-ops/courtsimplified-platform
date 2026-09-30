@@ -158,6 +158,31 @@ function buildCanonicalNarrative(input: FamilyMasterCaseInput): string {
     .join("\n");
 }
 
+/**
+ * The family library entries (familyMatterTypes.ts) a picked issue points to.
+ * Navigation only -- they join the AI's source pack as material that MAY
+ * apply. Divorce has no issue checkbox, so it is offered when the person's own
+ * words mention divorce.
+ */
+const FAMILY_ISSUE_LIBRARY: Record<string, string[]> = {
+  "decision-making-responsibility": ["family-matter-parenting"],
+  "parenting-time": ["family-matter-parenting"],
+  relocation: ["family-matter-parenting"],
+  "child-support": ["family-matter-child-support"],
+  "spousal-support": ["family-matter-spousal-support"],
+  "property-division": ["family-matter-property-division"],
+  "matrimonial-home": ["family-matter-property-division"],
+  "safety-concerns": ["family-matter-restraining-order"],
+  enforcement: ["family-matter-child-support", "family-matter-spousal-support"],
+  disclosure: ["family-matter-child-support", "family-matter-property-division"],
+};
+
+export function familyLibraryIdsForIssues(issues: readonly string[] | undefined, narrative = ""): string[] {
+  const ids = (issues ?? []).flatMap((issue) => FAMILY_ISSUE_LIBRARY[issue] ?? []);
+  if (/\bdivorc/i.test(narrative)) ids.push("family-matter-divorce");
+  return [...new Set(ids)];
+}
+
 export async function runFamilyIntakeCanonicalIntegration(
   input: FamilyMasterCaseInput,
   options: FamilyCanonicalIntakeOptions = {},
@@ -171,6 +196,7 @@ export async function runFamilyIntakeCanonicalIntegration(
   const brain = await runCourtSimplifiedBrain({
     caseId: options.caseId,
     courtPath: "family",
+    libraryMatterIds: familyLibraryIdsForIssues(input.issues, buildCanonicalNarrative(input)),
     province: "Ontario",
     stage,
     rawUserText: buildCanonicalNarrative(input),

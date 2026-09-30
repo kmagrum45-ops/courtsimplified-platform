@@ -2184,6 +2184,90 @@
       "characters": 1055635,
       "lines": 19053,
       "file": "rules-of-civil-procedure.txt"
+    },
+    {
+      "id": "family-law-act",
+      "title": "Family Law Act",
+      "citation": "R.S.O. 1990, c. F.3",
+      "url": "https://www.ontario.ca/laws/docs/90f03_e.doc",
+      "retrievedAt": "2026-09-30T12:23:51.921Z",
+      "sha256": "2a9b92ddd9d559fd5cf969566b8fd1a5baa4fedb92b04559bd4979e966207324",
+      "consolidation": "CONSOLIDATION PERIOD: FROM MAY 1, 2026 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 175798,
+      "lines": 3399,
+      "file": "family-law-act.txt"
+    },
+    {
+      "id": "family-law-rules",
+      "title": "Family Law Rules",
+      "citation": "O. Reg. 114/99",
+      "url": "https://www.ontario.ca/laws/docs/990114_e.doc",
+      "retrievedAt": "2026-09-30T12:23:52.668Z",
+      "sha256": "26cf3da863077bd4f0a8db2a0b872fa6f2012a8f0644eef5ce6b8fcedf8fd754",
+      "consolidation": "CONSOLIDATION PERIOD: FROM SEPTEMBER 18, 2026 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 475236,
+      "lines": 9098,
+      "file": "family-law-rules.txt"
+    },
+    {
+      "id": "childrens-law-reform-act",
+      "title": "Children's Law Reform Act",
+      "citation": "R.S.O. 1990, c. C.12",
+      "url": "https://www.ontario.ca/laws/docs/90c12_e.doc",
+      "retrievedAt": "2026-09-30T12:23:53.078Z",
+      "sha256": "3d84f1049682654d7d6b17b7651632d9de81dd0ab234bc22336fcaa2997a754b",
+      "consolidation": "CONSOLIDATION PERIOD: FROM DECEMBER 11, 2025 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 185135,
+      "lines": 3565,
+      "file": "childrens-law-reform-act.txt"
+    },
+    {
+      "id": "ontario-child-support-guidelines-full",
+      "title": "Child Support Guidelines (Ontario)",
+      "citation": "O. Reg. 391/97",
+      "url": "https://www.ontario.ca/laws/docs/970391_e.doc",
+      "retrievedAt": "2026-09-30T12:23:53.340Z",
+      "sha256": "f2b7e4bd11b3659f6b336d7e8ba667db359fd72e98551d759f327e2c5b338b13",
+      "consolidation": "CONSOLIDATION PERIOD: FROM JULY 26, 2024 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 65020,
+      "lines": 1143,
+      "file": "ontario-child-support-guidelines-full.txt"
+    },
+    {
+      "id": "family-responsibility-support-arrears-enforcement-act",
+      "title": "Family Responsibility and Support Arrears Enforcement Act, 1996",
+      "citation": "S.O. 1996, c. 31",
+      "url": "https://www.ontario.ca/laws/docs/96f31_e.doc",
+      "retrievedAt": "2026-09-30T12:23:53.525Z",
+      "sha256": "588802ce0df86a43d4491a187f89c084c91ea9d6731dbf07aa83ee9a82a3327a",
+      "consolidation": "CONSOLIDATION PERIOD: FROM MAY 1, 2026 TO THE E-LAWS CURRENCY DATE.",
+      "characters": 152259,
+      "lines": 2943,
+      "file": "family-responsibility-support-arrears-enforcement-act.txt"
+    },
+    {
+      "id": "divorce-act",
+      "title": "Divorce Act",
+      "citation": "R.S.C. 1985, c. 3 (2nd Supp.)",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/D-3.4/FullText.html",
+      "retrievedAt": "2026-09-30T12:23:54.505Z",
+      "sha256": "d703c8af5fc30c8dc8ea9083ee6f077a7306c5b344b251def1fb480497bbbff3",
+      "consolidation": "(none stated)",
+      "characters": 261238,
+      "lines": 3105,
+      "file": "divorce-act.txt"
+    },
+    {
+      "id": "federal-child-support-guidelines-full",
+      "title": "Federal Child Support Guidelines",
+      "citation": "SOR/97-175",
+      "url": "https://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/FullText.html",
+      "retrievedAt": "2026-09-30T12:23:57.465Z",
+      "sha256": "d5b59219748b356f5fef5ce1fa84f6447ee841abb5ded5a8d4f7155660171920",
+      "consolidation": "(none stated)",
+      "characters": 409536,
+      "lines": 11469,
+      "file": "federal-child-support-guidelines-full.txt"
     }
   ],
   "failures": []
