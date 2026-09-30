@@ -25,6 +25,8 @@ import {
   DEFENCE_CONCEPTS,
   type SourceRef,
 } from "../../src/lib/case-system/intake/claimTypes";
+import { CIVIL_CLAIM_TYPES } from "../../src/lib/case-system/intake/civilClaimTypes";
+import { FAMILY_MATTER_TYPES } from "../../src/lib/case-system/intake/familyMatterTypes";
 
 export type CatalogueEntryKind =
   | "plaintiffElement"
@@ -52,7 +54,9 @@ export function catalogueEntries(): CatalogueEntry[] {
   const push = (entry: Omit<CatalogueEntry, "key">) =>
     out.push({ key: `${entry.claimTypeId}|${entry.kind}|${entry.id}`, ...entry });
 
-  for (const claimType of CLAIM_TYPES) {
+  // Small Claims, then the civil and family libraries (2026-09-30): one log,
+  // one set of checks, whichever court the entry is for.
+  for (const claimType of [...CLAIM_TYPES, ...CIVIL_CLAIM_TYPES, ...FAMILY_MATTER_TYPES]) {
     for (const element of claimType.plaintiffElements) {
       push({
         claimTypeId: claimType.id,
@@ -150,8 +154,24 @@ export type VerificationRecord = {
   independentReviews?: string[];
 };
 
+/** A next-step block (content-library/nextSteps.ts) and the passages it rests on. */
+export type NextStepRecord = {
+  id: string;
+  verifiedAt: string;
+  fingerprint: string;
+  sources: VerificationSource[];
+  independentReviews: string[];
+};
+
+/** What a user reads in a next-step block, plus its link. */
+export function nextStepFingerprint(block: { title: string; text: string; sourceUrl: string }): string {
+  return createHash("sha256").update(JSON.stringify([block.title, block.text, block.sourceUrl]), "utf8").digest("hex");
+}
+
 export type VerificationLog = {
   description: string;
+  /** Next-step blocks written from vendored rules (2026-09-30 onward). */
+  nextSteps?: NextStepRecord[];
   /** Entries that could not be verified, with why. They carry no verifiedAt. */
   unverifiable: { key: string; reason: string }[];
   records: VerificationRecord[];

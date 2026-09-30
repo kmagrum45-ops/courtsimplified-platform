@@ -2542,6 +2542,8 @@ export async function runCourtSimplifiedBrain(
     stage: packStage,
     side: packSide,
     claimTypeId: input.catalogueClaim?.claimTypeId,
+    courtPath: input.courtPath === "civil" || input.courtPath === "family" ? input.courtPath : "small-claims",
+    extraClaimTypeIds: input.libraryMatterIds,
   });
 
   const structuredCognition = await runStructuredGptCognition(

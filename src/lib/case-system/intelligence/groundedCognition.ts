@@ -37,7 +37,9 @@
  * Asserted by `npm run test:grounded-analysis`.
  */
 
-import { CLAIM_TYPES, DEFENCE_CONCEPTS } from "../intake/claimTypes";
+import { CLAIM_TYPES, DEFENCE_CONCEPTS, type ClaimType } from "../intake/claimTypes";
+import { CIVIL_CLAIM_TYPES } from "../intake/civilClaimTypes";
+import { FAMILY_MATTER_TYPES } from "../intake/familyMatterTypes";
 import { renderableProfiles } from "../claim-types/catalogue";
 import { CASE_STAGES, type CaseStage } from "../stage-map/stageMap";
 import { officialUrl, sourceName, type RuleCitation } from "../stage-map/citations";
@@ -132,13 +134,69 @@ function stageItems(stage: CaseStage): SourceItem[] {
   return items;
 }
 
+/** Every library the pack can draw on: Small Claims, civil, family. */
+const ALL_LIBRARY_TYPES: readonly ClaimType[] = [...CLAIM_TYPES, ...CIVIL_CLAIM_TYPES, ...FAMILY_MATTER_TYPES];
+
+export function libraryTypeById(id: string | undefined): ClaimType | undefined {
+  return id ? ALL_LIBRARY_TYPES.find((item) => item.id === id) : undefined;
+}
+
+function libraryItems(claimType: ClaimType): SourceItem[] {
+  const items: SourceItem[] = [];
+  for (const element of claimType.plaintiffElements) {
+    items.push({
+      id: `element:${element.id}`,
+      label: element.name,
+      text: `${element.name}. ${element.plainExplanation}`,
+      sourceUrl: element.sourceUrl,
+    });
+  }
+  for (const consideration of claimType.defendantConsiderations) {
+    items.push({
+      id: `consideration:${consideration.id}`,
+      label: consideration.name,
+      text: `${consideration.name}. ${consideration.plainExplanation} ${consideration.whenThisComesUp}`,
+      sourceUrl: consideration.sourceUrl,
+    });
+  }
+  claimType.proceduralNotes.forEach((note, index) => {
+    items.push({ id: `procedure:${claimType.id}:${index}`, label: "Procedure", text: note.note, sourceUrl: note.sourceUrl });
+  });
+  return items;
+}
+
 export function buildSourcePack(args: {
   stage: UniversalStageLike;
   side: "plaintiff" | "defendant";
   claimTypeId?: string;
+  /**
+   * Which court's procedure applies. The stage map's rules are the Small
+   * Claims Rules, so they join the pack only on the Small Claims path; until
+   * 2026-09-30 a civil or family case was handed Small Claims procedure.
+   * Defaults to small-claims, the path every caller used before.
+   */
+  courtPath?: "small-claims" | "civil" | "family";
+  /**
+   * Further library entries that may apply -- the civil issues or family
+   * matters a user picked. Their elements, considerations and notes are added
+   * as citable material; element restoration still keys on claimTypeId only.
+   */
+  extraClaimTypeIds?: string[];
 }): SourcePack {
   const items: SourceItem[] = [];
-  const claimType = args.claimTypeId ? CLAIM_TYPES.find((item) => item.id === args.claimTypeId) : undefined;
+  const courtPath = args.courtPath ?? "small-claims";
+  const claimType = libraryTypeById(args.claimTypeId);
+  for (const extraId of args.extraClaimTypeIds ?? []) {
+    const extra = libraryTypeById(extraId);
+    if (!extra || extra.id === claimType?.id) continue;
+    items.push(...libraryItems(extra));
+    for (const conceptId of extra.applicableDefenceConceptIds) {
+      const concept = DEFENCE_CONCEPTS.find((item) => item.id === conceptId);
+      if (concept) {
+        items.push({ id: `defence:${concept.id}`, label: concept.name, text: `${concept.name}. ${concept.plainExplanation}`, sourceUrl: concept.sourceUrl });
+      }
+    }
+  }
 
   if (claimType) {
     for (const element of claimType.plaintiffElements) {
@@ -215,7 +273,7 @@ export function buildSourcePack(args: {
     }
   }
 
-  const positionIds = STAGE_POSITIONS[args.stage]?.[args.side] || [];
+  const positionIds = courtPath === "small-claims" ? STAGE_POSITIONS[args.stage]?.[args.side] || [] : [];
   for (const id of positionIds) {
     const stage = (CASE_STAGES as readonly CaseStage[]).find((item) => item.id === id);
     if (stage) items.push(...stageItems(stage));

@@ -1564,3 +1564,31 @@ Responsibility Act, a repairer's or storer's lien, an online or remote purchase,
 unpaid wages); two drafted types were not shipped because the statute gives no
 money claim (SOURCING_NOTES.md). `test:catalogue-verified` now also rejects
 case-grading or judge-prediction language in any entry.
+
+## The civil and family libraries (2026-09-30)
+
+`intake/civilClaimTypes.ts` (7 Superior Court claim types) and
+`intake/familyMatterTypes.ts` (6 family matters) use the Small Claims
+`ClaimType` shape, so one set of machinery reads all three: the source pack,
+the verification log and `test:catalogue-verified` (321 entries, 319 verified,
+2 unverifiable). Written from the Rules of Civil Procedure, the family statutes
+(vendored whole through the Vendor Sources workflow) and the saved SCC
+decisions; every entry re-read by an independent reviewer and every rewrite
+re-read again.
+
+**Connected.** The civil and family adapters map the issues a user picks to
+library ids (`civilLibraryIdsForIssues`, `familyLibraryIdsForIssues`), passed
+to the brain as `libraryMatterIds`; `buildSourcePack` adds those entries and
+their defences. `buildSourcePack({ courtPath })` now adds the stage map's rules
+only on the Small Claims path -- before this a civil or family analysis was
+handed Small Claims procedure as its verified material.
+
+**Next steps.** All 18 Family and Civil next-step blocks are authored from the
+Rules, recorded in the log's `nextSteps`, and held by the same suite
+(fingerprint, vendored quotes, link read, no grading language).
+
+**Still gated.** `AVAILABLE_PATHWAYS` is still `["small-claims"]`
+(phaseScope.ts): the LSO A2I application describes phase 1 as Small Claims
+only, so opening Family and Civil is the site owner's decision, not a code
+change made here. Note that `/api/civil/analyze` and `/api/family/analyze` do
+not check the gate themselves.

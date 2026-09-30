@@ -257,6 +257,27 @@ function buildEvidenceItems(input: CivilCanonicalIntakeInput): EvidenceItem[] {
   ];
 }
 
+/**
+ * The civil library entries (civilClaimTypes.ts) a picked issue points to.
+ * Navigation only: the entries join the AI's source pack as material that MAY
+ * apply, and nothing here says the user's facts meet any test. Issues with no
+ * sourced library entry yet map to nothing, which is the honest answer.
+ */
+const CIVIL_ISSUE_LIBRARY: Record<string, string[]> = {
+  contract: ["civil-claim-breach-of-contract"],
+  debt: ["civil-claim-debt-or-liquidated-demand"],
+  negligence: ["civil-claim-negligence"],
+  "institutional-negligence": ["civil-claim-negligence"],
+  "professional-negligence": ["civil-claim-negligence"],
+  "fraud-misrepresentation": ["civil-claim-negligent-misrepresentation"],
+  defamation: ["civil-claim-defamation"],
+  employment: ["civil-claim-wrongful-dismissal"],
+};
+
+export function civilLibraryIdsForIssues(issues: readonly string[] | undefined): string[] {
+  return [...new Set((issues ?? []).flatMap((issue) => CIVIL_ISSUE_LIBRARY[issue] ?? []))];
+}
+
 export async function runCivilIntakeCanonicalIntegration(
   input: CivilCanonicalIntakeInput,
   options: {
@@ -284,6 +305,7 @@ export async function runCivilIntakeCanonicalIntegration(
   const brain = await runCourtSimplifiedBrain({
     caseId: input.caseId,
     courtPath: "civil",
+    libraryMatterIds: civilLibraryIdsForIssues(input.issues),
     province: "Ontario",
     stage: input.caseStage,
     rawUserText: modelNarrative,
