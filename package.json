@@ -104,6 +104,7 @@
     "test:db-environments": "node --import tsx scripts/verification/verifyDatabaseEnvironments.ts",
     "test:guard-coverage": "node --import tsx scripts/verification/verifyOutputGuardCoverage.ts",
     "test:no-stale-intake": "node --import tsx scripts/verification/verifyNoStaleIntake.ts",
+    "test:grounded-analysis": "node --import tsx scripts/verification/verifyGroundedAnalysis.ts",
     "test:no-model-text-to-users": "node --import tsx scripts/verification/verifyNoModelTextToUsers.ts",
     "test:no-model-warnings": "node --import tsx scripts/verification/verifyNoModelWarnings.ts",
     "test:no-model-prose": "node --import tsx scripts/verification/verifyNoModelProseInDocuments.ts",

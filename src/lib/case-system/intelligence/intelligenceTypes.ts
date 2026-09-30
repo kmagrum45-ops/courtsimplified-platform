@@ -565,6 +565,8 @@ export type EvidenceIssueLink = {
   // current proof is weak, developing, or stronger". `missingEvidence` already
   // states, factually, what is not in the file.
   explanation: string;
+  /** Official source for this statement, when verified (groundedCognition.ts). */
+  sourceUrl?: string;
 };
 
 export type ContradictionFinding = {
@@ -604,6 +606,8 @@ export type LitigationRisk = {
     | "limitations"
     | "remedy-fit";
   suggestedFix: string;
+  /** Official source for this statement, when verified (groundedCognition.ts). */
+  sourceUrl?: string;
 };
 
 export type FormRecommendation = {
@@ -616,6 +620,8 @@ export type FormRecommendation = {
   confidence: IntelligenceConfidence;
   notRecommendedForms: string[];
   warnings: string[];
+  /** Official source for this statement, when verified (groundedCognition.ts). */
+  sourceUrl?: string;
 };
 
 export type PrecedentMatchAssessment = {
@@ -790,6 +796,14 @@ export type LegalIntelligenceResult = {
 
   systemWarnings: string[];
   confidence: IntelligenceConfidence;
+  /** Next actions with their verified source link, when grounded. */
+  nextBestActionSources?: { text: string; sourceUrl?: string }[];
+  /** Statements the grounding gate removed, and why (groundedCognition.ts). */
+  groundingReport?: {
+    kept: number;
+    replaced: number;
+    dropped: { field: string; text: string; reason: string }[];
+  };
 };
 
 export type CourtSimplifiedBrainInput = {
